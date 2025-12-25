@@ -2,11 +2,11 @@
 <resources>
   <string name="preferences">Преференсе</string>
   <string name="pieceAnimation">Aнимација фигура</string>
-  <string name="materialDifference">Разлика у материјалу</string>
-  <string name="boardHighlights">Осветли последњи потез и шах</string>
-  <string name="pieceDestinations">Bажећи потези (важећи помаци и претпотези)</string>
-  <string name="boardCoordinates">Прикажи координате табле (A-H, 1-8)</string>
-  <string name="moveListWhilePlaying">Листа потеза током партије</string>
+  <string name="materialDifference">Материјална разлика</string>
+  <string name="boardHighlights">Истицања на табли (последњи потез и шах)</string>
+  <string name="pieceDestinations">Дестинације фигура (важећи потези и предпотези)</string>
+  <string name="boardCoordinates">Координате табле (A-H, 1-8)</string>
+  <string name="moveListWhilePlaying">Листа потеза док играш</string>
   <string name="pgnPieceNotation">Нотација</string>
   <string name="chessPieceSymbol">симболи фигура</string>
   <string name="pgnLetter">Cлова (К, Q, R, B, N)</string>
