@@ -14,7 +14,7 @@
   <string name="newPatrons">Új támogatók</string>
   <string name="freeChess">Ingyen sakk mindig, mindenkinek!</string>
   <string name="noAdsNoSubs">Se reklám, se fizetős részek; csak nyílt forrás és elhivatottság.</string>
-  <string name="thankYou">Köszönjük, hogy támogatsz minket!</string>
+  <string name="thankYou" comment="&quot;you&quot; is in singular here.">Köszönjük, hogy támogatsz minket!</string>
   <string name="youHaveLifetime">Életre szóló támogató fiókod van. Ez azért elég vagány!</string>
   <string name="patronUntil">Támogató fiókod van eddig a napig: %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Megújítás nélkül a fiókod majd visszaváltozik hagyományos fiókká.</string>

@@ -90,7 +90,7 @@ Voici le lien pour accéder à la classe.</string>
   <string name="timePlaying">Temps passé à jouer</string>
   <string name="variantXOverLastY">%1$s sur les derniers %2$s</string>
   <string name="winrate">Taux de victoire</string>
-  <string name="na">Indisponible</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Indisponible</string>
   <string name="overview">Vue d\'ensemble</string>
   <string name="news">Actualités</string>
   <string name="classNews">Actualités de la classe</string>
@@ -121,6 +121,7 @@ Voici le lien pour accéder à la classe.</string>
   <string name="allowMessagingBetweenStudentsDesc">Cette option ne s\'applique qu\'aux comptes créés pour vos élèves.</string>
   <string name="quickLoginCode">Code de connexion rapide</string>
   <string name="quickLoginCodes">Codes de connexion rapide</string>
-  <string name="quickLoginCodesDesc1" comment="String is a URL">Utilisez ces codes sur %s pour connecter vos élèves à Lichess.</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Utilisez ces codes sur %s pour connecter vos élèves à Lichess.</string>
   <string name="quickLoginCodesDesc2">Lorsque les codes expirent, vos élèves restent connecté-es jusqu\'à leur déconnexion manuelle.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Expire dans %s</string>
 </resources>
