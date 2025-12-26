@@ -64,7 +64,7 @@
   <string name="loadingEngine">Memuat komputer...</string>
   <string name="calculatingMoves">Menghitung langkah...</string>
   <string name="engineFailed">Gagal memuat komputer</string>
-  <string name="cloudAnalysis">Analisis Cloud</string>
+  <string name="cloudAnalysis">Analisis cloud</string>
   <string name="goDeeper">Lihat lebih detail</string>
   <string name="showThreat">Tunjukkan ancaman</string>
   <string name="inLocalBrowser">di browser lokal</string>
