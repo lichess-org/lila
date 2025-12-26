@@ -13,10 +13,18 @@ import lila.common.Json.given
 import lila.core.config.BaseUrl
 import lila.core.game.{ Game, Pov }
 import lila.game.GameExt.*
+import lila.tree.Analysis
 
 object GifExport:
   case class UpstreamStatus(code: Int) extends lila.core.lilaism.LilaException:
     val message = s"gif service status: $code"
+
+  case class Options(
+      showPlayers: Boolean = true,
+      showRatings: Boolean = true,
+      showClocks: Boolean = true,
+      showGlyphs: Boolean = true
+  )
 
 final class GifExport(
     ws: StandaloneWSClient,
@@ -31,27 +39,41 @@ final class GifExport(
       pov: Pov,
       initialFen: Option[Fen.Full],
       theme: String,
-      piece: String
+      piece: String,
+      analysis: Option[Analysis] = None,
+      options: GifExport.Options = GifExport.Options()
   ): Fu[Source[ByteString, ?]] =
     (lightUserApi.preloadMany(pov.game.userIds) >>
       ws.url(s"$url/game.gif")
         .withMethod("POST")
         .addHttpHeaders("Content-Type" -> "application/json")
         .withBody(
-          Json.obj(
-            "white" -> Namer.playerTextBlocking(pov.game.whitePlayer, withRating = true)(using
-              lightUserApi.sync
-            ),
-            "black" -> Namer.playerTextBlocking(pov.game.blackPlayer, withRating = true)(using
-              lightUserApi.sync
-            ),
-            "comment" -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/lichess-org/lila-gif",
-            "orientation" -> pov.color.name,
-            "delay" -> targetMedianTime.centis, // default delay for frames
-            "frames" -> frames(pov.game, initialFen),
-            "theme" -> theme,
-            "piece" -> piece
-          )
+          Json
+            .obj(
+              "comment" -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/lichess-org/lila-gif",
+              "orientation" -> pov.color.name,
+              "delay" -> targetMedianTime.centis, // default delay for frames
+              "frames" -> frames(pov.game, initialFen, analysis, options),
+              "theme" -> theme,
+              "piece" -> piece
+            )
+            .add(
+              "white",
+              options.showPlayers.option(
+                Namer.playerTextBlocking(pov.game.whitePlayer, withRating = options.showRatings)(using
+                  lightUserApi.sync
+                )
+              )
+            )
+            .add(
+              "black",
+              options.showPlayers.option(
+                Namer.playerTextBlocking(pov.game.blackPlayer, withRating = options.showRatings)(using
+                  lightUserApi.sync
+                )
+              )
+            )
+            .add("clocks", clocksJson(pov.game, options))
         )
         .stream()).pipe(upstreamResponse(s"pov ${pov.game.id}"))
 
@@ -118,24 +140,50 @@ final class GifExport(
         }
       case None => moveTimes.map(_.atMost(targetMaxTime))
 
-  private def frames(game: Game, initialFen: Option[Fen.Full]): JsArray =
+  private def clocksJson(game: Game, options: GifExport.Options): Option[JsObject] =
+    options.showClocks.so:
+      game.clockHistory.map: history =>
+        Json.obj(
+          "white" -> history.white.map(_.centis),
+          "black" -> history.black.map(_.centis)
+        )
+
+  private def glyphsMap(analysis: Option[Analysis], options: GifExport.Options): Map[Int, String] =
+    options.showGlyphs.so:
+      analysis.fold(Map.empty[Int, String]): a =>
+        a.advices.map(adv => adv.ply.value -> adv.judgment.glyph.symbol).toMap
+
+  private def frames(
+      game: Game,
+      initialFen: Option[Fen.Full],
+      analysis: Option[Analysis],
+      options: GifExport.Options
+  ): JsArray =
     val positions = Position(game.variant, initialFen).playPositions(game.sans).getOrElse(List(game.position))
+    val glyphs = glyphsMap(analysis, options)
     framesRec(
       positions.zip(scaleMoveTimes(~game.moveTimes).map(some).padTo(positions.length, None)),
+      glyphs,
+      0,
       Json.arr()
     )
 
   @annotation.tailrec
-  private def framesRec(games: List[(Position, Option[Centis])], arr: JsArray): JsArray =
+  private def framesRec(
+      games: List[(Position, Option[Centis])],
+      glyphs: Map[Int, String],
+      ply: Int,
+      arr: JsArray
+  ): JsArray =
     games match
-      case Nil =>
-        arr
+      case Nil => arr
       case (position, scaledMoveTime) :: tail =>
         // longer delay for last frame
         val delay = if tail.isEmpty then Centis(500).some else scaledMoveTime
-        framesRec(tail, arr :+ frame(position, position.history.lastMove, delay))
+        val glyph = glyphs.get(ply)
+        framesRec(tail, glyphs, ply + 1, arr :+ frame(position, position.history.lastMove, delay, glyph))
 
-  private def frame(position: Position, uci: Option[Uci], delay: Option[Centis]) =
+  private def frame(position: Position, uci: Option[Uci], delay: Option[Centis], glyph: Option[String]) =
     Json
       .obj(
         "fen" -> (Fen.write(position)),
@@ -143,3 +191,4 @@ final class GifExport(
       )
       .add("check", position.checkSquare.map(_.key))
       .add("delay", delay.map(_.centis))
+      .add("glyph", glyph)

@@ -244,7 +244,7 @@ POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
 GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: StudyId)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.chapterPgn(id: StudyId, chapterId: StudyChapterId)
-GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String])
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String], showGlyphs: Boolean ?= true)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: StudyId)
 GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id: StudyId)
 POST  /study/$id<\w{8}>/cloneApply     controllers.Study.cloneApply(id: StudyId)
@@ -503,8 +503,8 @@ GET   /game/export/$gameId<\w{8}>                             controllers.Game.e
 GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: GameId)
 GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.legacyGameThumbnail(gameId: GameId, theme: Option[String], piece: Option[String])
 GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: GameId, theme: Option[String], piece: Option[String])
-GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: GameId, color: Color = Color.white, theme: Option[String], piece: Option[String])
-GET   /game/export/gif/:color/$gameId<\w{8}>.gif controllers.Export.gif(gameId: GameId, color: Color, theme: Option[String], piece: Option[String])
+GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: GameId, color: Color = Color.white, theme: Option[String], piece: Option[String], showClocks: Boolean ?= false, showGlyphs: Boolean ?= false, showPlayers: Boolean ?= true, showRatings: Boolean ?= true)
+GET   /game/export/gif/:color/$gameId<\w{8}>.gif controllers.Export.gif(gameId: GameId, color: Color, theme: Option[String], piece: Option[String], showClocks: Boolean ?= false, showGlyphs: Boolean ?= false, showPlayers: Boolean ?= true, showRatings: Boolean ?= true)
 GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen, color: Option[Color], lastMove: Option[Uci], variant: Option[chess.variant.Variant.LilaKey], theme: Option[String], piece: Option[String])
 
 # Fishnet

@@ -16,12 +16,35 @@ final class Export(env: Env) extends LilaController(env):
     Found(fetch): res =>
       limit.exportImage(((), req.ipAddress), rateLimited)(convert(res))
 
-  def gif(id: GameId, color: Color, theme: Option[String], piece: Option[String]) = Anon:
+  def gif(
+      id: GameId,
+      color: Color,
+      theme: Option[String],
+      piece: Option[String],
+      showClocks: Boolean,
+      showGlyphs: Boolean,
+      showPlayers: Boolean,
+      showRatings: Boolean
+  ) = Anon:
     NoCrawlersUnlessPreview:
       exportImageOf(env.game.gameRepo.gameWithInitialFen(id)): g =>
-        env.game.gifExport
-          .fromPov(Pov(g.game, color), g.fen, Theme(theme).name, PieceSet.get(piece).name)
-          .pipe(stream(cacheSeconds = if g.game.finishedOrAborted then 3600 * 24 else 10))
+        (if showGlyphs then env.analyse.analysisRepo.byGame(g.game) else fuccess(None)).flatMap: analysis =>
+          val options = lila.game.GifExport.Options(
+            showPlayers = showPlayers,
+            showRatings = showRatings && showPlayers, // ratings hidden if players hidden
+            showClocks = showClocks,
+            showGlyphs = showGlyphs
+          )
+          env.game.gifExport
+            .fromPov(
+              Pov(g.game, color),
+              g.fen,
+              Theme(theme).name,
+              PieceSet.get(piece).name,
+              analysis,
+              options
+            )
+            .pipe(stream(cacheSeconds = if g.game.finishedOrAborted then 3600 * 24 else 10))
 
   def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
     MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url)
