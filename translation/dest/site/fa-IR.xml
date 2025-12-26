@@ -764,7 +764,7 @@
   <string name="downloadImported">بارگیری درونبُرد</string>
   <string name="downloadAllGames">بارگیری تمام بازی ها</string>
   <string name="crosstable">رودررو</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">برای حرکت، روی صفحه بازی بِنَوَردید.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">برای حرکت، روی تختهٔ بازی بِنَوَردید.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمایش آن‌ها، روی وَرتِش‌های رایانه‌ای بِغَرالید.</string>
   <string name="analysisShapesHowTo">برای رسم دایره و پیکان روی تخته، shift+click یا راست-تِلیک را بفشارید.</string>
   <string name="primaryColorArrowsHowTo">Ctrl یا shift = قرمز؛ command، alt یا meta = آبی؛ یک کلید از هر کدام = زرد.</string>
@@ -807,7 +807,7 @@
   <string name="transparent">شفاف</string>
   <string name="deviceTheme">پوستهٔ اَفزاره</string>
   <string name="backgroundImageUrl">وب‌نشانی تصویر پس‌زمینه:</string>
-  <string name="board">صفحه شطرنج</string>
+  <string name="board">میز</string>
   <string name="size">اندازه</string>
   <string name="opacity">کدری</string>
   <string name="brightness">درخشندگی</string>
@@ -1014,7 +1014,7 @@
   <string name="accessibility">دسترسی</string>
   <string name="enableBlindMode">فعال‌سازی حالت نابینایی</string>
   <string name="disableBlindMode">غیرفعال سازی حالت نابینایی</string>
-  <string name="copyToClipboard">کپی در کلیپ‌بورد</string>
+  <string name="copyToClipboard">رونوشت در بُریده‌دان</string>
   <string name="online" comment="status of a user">بَرخط</string>
   <string name="offline" comment="status of a user">بُرون‌خط</string>
   <string name="search">جستجو</string>
