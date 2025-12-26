@@ -2,10 +2,12 @@ package lila.relay
 
 import chess.format.pgn.*
 import chess.{ FideId, PlayerName }
+import chess.Outcome.Points
 
 import lila.core.fide.{ PlayerToken, Tokenize }
 import lila.study.ChapterPreview
 import lila.study.StudyPlayer
+import scala.collection.immutable.SeqMap
 
 type TeamName = String
 
@@ -63,53 +65,72 @@ final class RelayTeamTable(
     chapterPreviewApi: lila.study.ChapterPreviewApi,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
-
+  import chess.{ Color, ByColor }
   import play.api.libs.json.*
 
-  def tableJson(relay: RelayRound): Fu[JsonStr] = cache.get(relay.studyId)
+  def tableJson(relay: RelayRound): Fu[JsObject] = jsonCache.get(relay.studyId)
 
-  private val cache = cacheApi[StudyId, JsonStr](8, "relay.teamTable"):
+  def table(relay: RelayRound): Fu[List[TeamMatch]] =
+    cache.get(relay.studyId)
+
+  private val cache = cacheApi[StudyId, List[TeamMatch]](64, "relay.teamTable"):
+    _.expireAfterWrite(3.seconds).buildAsyncFuture(impl.compute)
+
+  private val jsonCache = cacheApi[StudyId, JsObject](8, "relay.teamTable.json"):
     _.expireAfterWrite(3.seconds).buildAsyncFuture(impl.makeJson)
 
+  case class TeamWithGames(name: TeamName, games: List[RelayPlayer.Game]):
+    def add(game: RelayPlayer.Game) =
+      copy(games = games :+ game)
+    def points = games.foldMap(_.playerScore)
+  case class Pair[A](a: A, b: A):
+    def is(p: Pair[A]) = (a == p.a && b == p.b) || (a == p.b && b == p.a)
+    def map[B](f: A => B) = Pair(f(a), f(b))
+    def bimap[B](f: A => B, g: A => B) = Pair(f(a), g(b))
+    def forall(f: A => Boolean) = f(a) && f(b)
+    def foreach(f: A => Unit): Unit =
+      f(a)
+      f(b)
+    def reverse = Pair(b, a)
+
+  case class TeamGame(id: StudyChapterId, pov: Color):
+    def swap = copy(pov = !pov)
+
+  case class TeamMatch(teams: Pair[TeamWithGames], games: List[TeamGame]):
+    def is(teamNames: Pair[TeamName]) = teams.map(_.name).is(teamNames)
+    def add(
+        chap: ChapterPreview,
+        playerAndTeam: Pair[(StudyPlayer, TeamName)],
+        game: ByColor[RelayPlayer.Game]
+    ): TeamMatch =
+      val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
+      copy(
+        games = TeamGame(chap.id, t0Color) :: games,
+        teams = teams.bimap(_.add(game(t0Color)), _.add(game(!t0Color)))
+      )
+    def swap = copy(teams = teams.reverse, games = games.map(_.swap))
+    def outcome: Option[Pair[Points]] =
+      teams
+        .forall(t => t.games.nonEmpty)
+        .so:
+          (teams.a.points, teams.b.points).mapN: (aPoints, bPoints) =>
+            if aPoints == bPoints then Pair(Points.Half, Points.Half)
+            else if aPoints > bPoints then Pair(Points.One, Points.Zero)
+            else Pair(Points.Zero, Points.One)
   private object impl:
 
-    import chess.{ Color, ByColor, Outcome }
-
-    def makeJson(studyId: StudyId): Fu[JsonStr] =
+    def makeJson(studyId: StudyId): Fu[JsObject] =
       import json.given
+      for matches <- cache.get(studyId)
+      yield Json.obj("table" -> matches)
+
+    def compute(studyId: StudyId): Fu[List[TeamMatch]] =
       for
         round <- roundRepo.byId(studyId.into(RelayRoundId)).orFail(s"Missing relay round $studyId")
         chapters <- chapterPreviewApi.dataList(studyId)
         table = makeTable(chapters, round)
         ordered = ensureFirstPlayerHasWhite(table)
-      yield JsonStr(Json.stringify(Json.obj("table" -> ordered)))
-
-    case class TeamWithPoints(name: String, points: Float = 0):
-      def add(result: Option[Outcome.GamePoints], customPoints: Option[ByColor[Float]], as: Color) =
-        copy(points = points + customPoints.map(_(as)).orElse(result.map(_(as).value)).orZero)
-    case class Pair[A](a: A, b: A):
-      def is(p: Pair[A]) = (a == p.a && b == p.b) || (a == p.b && b == p.a)
-      def map[B](f: A => B) = Pair(f(a), f(b))
-      def bimap[B](f: A => B, g: A => B) = Pair(f(a), g(b))
-      def reverse = Pair(b, a)
-
-    case class TeamGame(id: StudyChapterId, pov: Color):
-      def swap = copy(pov = !pov)
-
-    case class TeamMatch(teams: Pair[TeamWithPoints], games: List[TeamGame]):
-      def is(teamNames: Pair[TeamName]) = teams.map(_.name).is(teamNames)
-      def add(
-          chap: ChapterPreview,
-          playerAndTeam: Pair[(StudyPlayer, TeamName)],
-          points: Option[Outcome.GamePoints],
-          customPoints: Option[ByColor[Float]]
-      ): TeamMatch =
-        val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
-        copy(
-          games = TeamGame(chap.id, t0Color) :: games,
-          teams = teams.bimap(_.add(points, customPoints, t0Color), _.add(points, customPoints, !t0Color))
-        )
-      def swap = copy(teams = teams.reverse, games = games.map(_.swap))
+      yield ordered
 
     def makeTable(chapters: List[ChapterPreview], round: RelayRound): List[TeamMatch] =
       chapters.reverse.foldLeft(List.empty[TeamMatch]): (table, chap) =>
@@ -119,12 +140,11 @@ final class RelayTeamTable(
           teams <- players.traverse(_.team).map(_.toPair).map(Pair.apply)
           game = players.mapWithColor: (c, p) =>
             RelayPlayer.Game(round.id, chap.id, p, c, points, round.rated, round.customScoring, false)
-          m0 = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
+          m0 = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithGames(_, Nil)), Nil)
           m1 = m0.add(
             chap,
             Pair(players.white.player -> teams.a, players.black.player -> teams.b),
-            points,
-            game.map(_.playerScore.orZero).some
+            game
           )
           newTable = m1 :: table.filterNot(_.is(teams))
         yield newTable) | table
@@ -136,8 +156,43 @@ final class RelayTeamTable(
 
     object json:
       import lila.common.Json.given
+      import RelayPlayer.json.given
       given [A: Writes]: Writes[Pair[A]] = Writes: p =>
         Json.arr(p.a, p.b)
-      given Writes[TeamWithPoints] = Json.writes[TeamWithPoints]
       given Writes[TeamGame] = Json.writes[TeamGame]
       given Writes[TeamMatch] = Json.writes[TeamMatch]
+      given Writes[TeamWithGames] = t =>
+        Json
+          .obj(
+            "name" -> t.name,
+            "games" -> t.games
+          )
+          .add("points" -> t.points)
+
+final class TeamLeaderboard(
+    tourRepo: RelayTourRepo,
+    relayGroupApi: RelayGroupApi,
+    roundRepo: RelayRoundRepo,
+    teamTable: RelayTeamTable,
+    cacheApi: lila.memo.CacheApi
+)(using Executor):
+  import play.api.libs.json.*
+
+  type TeamLeaderboard = SeqMap[TeamName, List[RelayPlayer.Game]]
+
+  def leaderboardJson(tour: RelayTourId): Fu[TeamLeaderboard] = cache.get(tour)
+
+  private val cache = cacheApi[RelayTourId, TeamLeaderboard](12, "relay.teamLeaderboard"):
+    _.expireAfterWrite(1.minute).buildAsyncFuture(aggregate)
+
+  private def aggregate(tourId: RelayTourId) =
+    for
+      scoreGroup <- relayGroupApi.scoreGroupOf(tourId)
+      tours <- scoreGroup.traverse(tourRepo.byId(_))
+      rounds <- tours.map(_.traverse(t => roundRepo.byTourOrdered(t.id)))
+      table <- rounds.flatTraverse(teamTable.table)
+    yield table.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, teamMatch) =>
+      teamMatch.teams.foreach(team =>
+        acc.updated(team.name, acc.get(team.name).fold(team.games)(_ :+ team.games))
+      )
+      acc
