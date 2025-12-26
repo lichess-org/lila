@@ -201,10 +201,11 @@ private final class RelayPlayerApi(
   def jsonList(tourId: RelayTourId): Fu[JsonStr] =
     scoreGroupCache.get(tourId).flatMap(jsonCache.get)
 
-  private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](32, "relay.players.photos.json"):
-    _.expireAfterWrite(10.seconds).buildAsyncFuture: tourId =>
+  private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](64, "relay.players.photos.json"):
+    _.expireAfterWrite(15.seconds).buildAsyncFuture: tourId =>
       for
-        studyIds <- roundRepo.studyIdsOf(tourId)
+        sg <- scoreGroupCache.get(tourId)
+        studyIds <- sg.toList.flatTraverse(roundRepo.studyIdsOf)
         fideIds <- chapterRepo.fideIdsOf(studyIds)
         photos <- photosJson(fideIds)
       yield photos
