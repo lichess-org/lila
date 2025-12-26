@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard" comment="As in standard chess (not a variant)">ปกติ</string>
+  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">กฎกติกาหมากรุกมาตรฐาน (สหพันธ์หมากรุกโลก)</string>
+  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">หมาก 960 ตำแหน่ง</string>
+  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">ในตอนเริ่มเกม หมากแถวหลังจะถูกสุ่มตำแหน่ง</string>
+  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">ราชาแห่งเนินเขา</string>
+  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">นำคิงของคุณไปกลางกระดานเพื่อชนะ</string>
+  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">รุกสามที</string>
+  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">รุกคิงฝ่ายตรงข้ามให้ได้ 3 ครั้งเพื่อชนะ</string>
+</resources>
