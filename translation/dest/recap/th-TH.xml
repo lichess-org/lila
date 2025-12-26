@@ -1,2 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">หวัดดี %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">ปีนี้คุณทำอะไรมาบ้าง?</string>
+	<string name="initTitle">เป็นปีแห่งหมากรุกที่ยอดเยี่ยมสำหรับคุณเลย!</string>
+	<string name="noGamesText">คุณไม่ได้เล่นเกมเลยในปีนี้</string>
+	<string name="noGamesCta">อยากเล่นไม๊ล่ะ?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">และคุณชนะ %s เกม!</string>
+	<string name="gamesNextQuestion">กว่าจะมาถึงจุดนี้ได้ต้องใช้ความพยายามอะไรบ้าง?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s คือเวลาที่คุณใช้เล่น</string>
+	<string name="timeTooMuch">เล่นหมากรุกเยอะเกิ๋น</string>
+	<string name="timeALot">เล่นหมากรุกมากเลยนะ</string>
+	<string name="timeReasonable">ถือว่าใช้เวลาเล่นได้อย่างเหมาะสมเลย</string>
+	<string name="timeHowManyMoves">คุณเดินไปกี่ตาแล้วในช่วงที่ผ่านมานี้</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="other">เดินไป %s ตา</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">นั้นคือไม้ถูกเคลื่อนไป %s</string>
+	<string name="movesStandardPiecesWeight">ตัวหมากปกติหนักประมาณ 40 กรัม</string>
+	<plurals name="nbMoves">
+		<item quantity="other">%s ตาเดิน</item>
+	</plurals>
+	<string name="chessFoes">คู่ต่อสู้หมากรุกที่ดีที่สุดของคุณ</string>
+	<plurals name="nbGrams">
+		<item quantity="other">%s กรัม</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="other">%s กิโลกรัม</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">เป็นตาที่คุณเดินใน %s เกมที่คุณเล่นเป็นสีขาว</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="other">คือการเปิดหมากที่คุณเล่นมากที่สุดใน %s เกมที่คุณเป็นสีขาว</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="other">คือการเปิดหมากที่คุณเล่นมากที่สุดใน %s เกมที่คุณเป็นสีดำ</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="other">ขอบคุณที่ทายปริศนาหมากรุก %s กระดาน</item>
+	</plurals>
+</resources>
