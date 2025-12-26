@@ -80,6 +80,13 @@ export const renderRatingChart = (
       },
       parsing: false,
       normalized: true,
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (ctx: chart.TooltipItem<'line'>) => String(ctx.parsed.y),
+          },
+        },
+      },
     },
   });
 };
