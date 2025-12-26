@@ -7,11 +7,11 @@
   <string name="pieceDestinations">Дестинације фигура (важећи потези и предпотези)</string>
   <string name="boardCoordinates">Координате табле (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Листа потеза док играш</string>
-  <string name="pgnPieceNotation">Нотација</string>
-  <string name="chessPieceSymbol">симболи фигура</string>
-  <string name="pgnLetter">Cлова (К, Q, R, B, N)</string>
-  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">зен стање</string>
-  <string name="displayBoardResizeHandle">Прикажи ручицу за мењање величине табле</string>
+  <string name="pgnPieceNotation">Нотација потеза</string>
+  <string name="chessPieceSymbol">Шаховски симбол фигуре</string>
+  <string name="pgnLetter">Cлово (К, Q, R, B, N)</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Зен режим</string>
+  <string name="displayBoardResizeHandle">Прикажи ручицу за промену величине табле</string>
   <string name="onlyOnInitialPosition">Само на почетку партије</string>
   <string name="chessClock">Шаховски сат</string>
   <string name="tenthsOfSeconds">Десетинке</string>
