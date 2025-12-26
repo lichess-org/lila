@@ -37,4 +37,33 @@
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="other">ขอบคุณที่ทายปริศนาหมากรุก %s กระดาน</item>
 	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">คุณยังช่วยติดแท็กจำนวน %s กระดานด้วย</string>
+	<string name="puzzlesNone">คุณไม่ได้แก้ปริศนาหมากรุกเลยในปีนี้</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">ลองแก้ดูไม๊ล่ะ?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">คุณแก้ปริศนา %s กระดานถูกในรอบแรก!</string>
+	<string name="sourcesTitle">คุณเจอเกมของคุณจากที่ไหน</string>
+	<string name="perfsTitle">คุณเล่นเกมรูปแบบเวลาใดและตัวแปรกติกากี่กระดาน?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s คือจำนวนโฆษณาและตัวติดตามที่ถูกโหลด</string>
+	<string name="malwareNoSell">เราไม่ขายข้อมูลส่วนตัวคุณ</string>
+	<string name="malwareNoAbuse">เราไม่ได้ใช้อุปกรณ์ของคุณทำร้ายคุณ</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">แต่เว็บไซต์อื่นทำ ดังนั้นโปรด %s ด้วย</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">ระวัง</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s คือจำนวนเกมที่เล่นบน Lichess ในปี %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s ของทั้งหมดคือเกมคุณ</string>
+	<string name="thanksTitle">ขอบคุณที่เล่นบน Lichess!</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">เราดีใจที่คุณอยู่ ขอให้มีความสุขมากๆ ในปี %s น้า!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">%1$s ของ Lichess ปีนี้คือ %2$s</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">ค่าใช้จ่าย</string>
+	<string name="patronCharity">เราเป็นองค์กรการกุศลที่ดำเนินงานโดยอาศัยเงินบริจาคเพียงอย่างเดียว</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">หากเราได้ช่วยสร้างความบันเทิงให้คุณในปีนี้ หรือคุณเชื่อมั่นในผลงานของเรา โปรดพิจารณา %s!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">บริจาคเพื่อสนับสนุนเรา</string>
+	<string name="shareableTitle" comment="%s is the current year">สรุปปี %s ของฉัน</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">คือเวลาที่ใช้เล่น</string>
+	<string name="shareableMostPlayedOpponent">คือคู่แข่งที่เล่นด้วยมากสุด</string>
+	<string name="shareableFavouriteVariant">ตัวแปรกติกาที่ชอบ</string>
+	<string name="shareableFavouriteTimeControl">รูปแบบเวลาที่ชอบ</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="other">%s คือจำนวนปริศนาที่คุณไข</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">สรุปปี %s ของคุณพร้อมแล้ว</string>
 </resources>
