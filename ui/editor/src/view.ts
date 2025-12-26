@@ -54,14 +54,14 @@ function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
 }
 
 const allVariants: Array<[Rules, string]> = [
-  ['chess', i18n.variant.standard],
-  ['antichess', i18n.variant.antichess],
-  ['atomic', i18n.variant.atomic],
-  ['crazyhouse', i18n.variant.crazyhouse],
-  ['horde', i18n.variant.horde],
-  ['kingofthehill', i18n.variant.kingOfTheHill],
-  ['racingkings', i18n.variant.racingKings],
-  ['3check', i18n.variant.threeCheck],
+  ['chess', 'Standard'],
+  ['antichess', 'Antichess'],
+  ['atomic', 'Atomic'],
+  ['crazyhouse', 'Crazyhouse'],
+  ['horde', 'Horde'],
+  ['kingofthehill', 'King of the Hill'],
+  ['racingkings', 'Racing Kings'],
+  ['3check', 'Three-check'],
 ];
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
