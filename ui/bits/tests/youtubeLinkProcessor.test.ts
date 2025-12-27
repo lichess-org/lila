@@ -1,6 +1,6 @@
 import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseYoutubeUrl } from '../src/youtubeLinkProcessor.ts';
+import { embedYoutubeUrl, parseYoutubeUrl } from '../src/youtubeLinkProcessor.ts';
 
 describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
   // Standard watch URL
@@ -169,5 +169,29 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
       videoId: 'dQw4w9WgXcQ',
       startTime: 30,
     });
+  });
+});
+
+describe('embedYoutubeUrl', () => {
+  test('generates correct embed URL with start time', () => {
+    assert.equal(
+      embedYoutubeUrl({
+        videoType: 'watch',
+        videoId: 'dQw4w9WgXcQ',
+        startTime: 90,
+      }),
+      'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=90',
+    );
+  });
+
+  test('omits start parameter when startTime is 0', () => {
+    assert.equal(
+      embedYoutubeUrl({
+        videoType: 'watch',
+        videoId: 'dQw4w9WgXcQ',
+        startTime: 0,
+      }),
+      'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?modestbranding=1&rel=0&controls=2&iv_load_policy=3',
+    );
   });
 });

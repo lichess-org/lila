@@ -26,6 +26,19 @@ export function parseYoutubeUrl(url: string): YoutubeMatch | undefined {
   }
 }
 
+export function embedYoutubeUrl(match: YoutubeMatch): string {
+  const params = new URLSearchParams({
+    modestbranding: '1',
+    rel: '0',
+    controls: '2',
+    iv_load_policy: '3',
+  });
+  if (match.startTime > 0) {
+    params.append('start', match.startTime.toString());
+  }
+  return `https://www.youtube-nocookie.com/embed/${match.videoId}?${params.toString()}`;
+}
+
 function getDomainType(hostname: string): DomainType | undefined {
   if (['www.youtube.com', 'm.youtube.com', 'youtube.com'].includes(hostname)) {
     return 'youtube.com';

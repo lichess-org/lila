@@ -1,4 +1,4 @@
-import { parseYoutubeUrl } from './youtubeLinkProcessor';
+import { embedYoutubeUrl, parseYoutubeUrl } from './youtubeLinkProcessor';
 
 type LinkType = 'youtube';
 
@@ -16,11 +16,9 @@ interface Candidate {
 
 function toYoutubeEmbedUrl(url: string): string | undefined {
   const result = parseYoutubeUrl(url);
-  if (!result) {
-    return;
+  if (result) {
+    return embedYoutubeUrl(result);
   }
-  const params = `modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=${result.startTime}`;
-  return `https://www.youtube-nocookie.com/embed/${result.videoId}?${params}`;
 }
 
 site.load.then(() => {
