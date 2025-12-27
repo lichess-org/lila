@@ -75,6 +75,30 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     });
   });
 
+  // youtube.com/@ChanelName URL
+  test('Youtube short channel URL ignored', () => {
+    const url = 'https://www.youtube.com/@ChannelName';
+    const result = parseYoutubeUrl(url);
+
+    assert.equal(result, undefined);
+  });
+
+  // youtube.com/channel/ID URL
+  test('Youtube long channel URL ignored', () => {
+    const url = 'https://www.youtube.com/channel/H39AHPSBcGc';
+    const result = parseYoutubeUrl(url);
+
+    assert.equal(result, undefined);
+  });
+
+  // Test without 'https://' in the beginning
+  test('youtube link without protocol', () => {
+    const url = 'www.youtube.com/watch/?v=dQw4w9WgXcQ';
+    const result = parseYoutubeUrl(url);
+
+    assert.equal(result, undefined);
+  });
+
   // youtu.be short URL
   test('youtu.be URL', () => {
     const url = 'https://youtu.be/dQw4w9WgXcQ';

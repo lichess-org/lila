@@ -141,9 +141,8 @@ function extractStartTime(value: string): number {
 }
 
 function toURL(url: string): URL | undefined {
-  const protocolEnsured = url.replace(/^https?:\/\//i, 'https://');
   try {
-    return new URL(protocolEnsured);
+    return new URL(url);
   } catch {
     return;
   }
