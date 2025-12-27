@@ -21,6 +21,10 @@ final class EmailAddressValidator(
     if email.isSendable then Valid
     else Invalid(ValidationError("error.email_acceptable"))
 
+  val plusConstraint = Constraint[EmailAddress]("constraint.email_acceptable"): email =>
+    if email.username.contains("++") then Invalid(ValidationError("error.email_acceptable"))
+    else Valid
+
   def uniqueConstraint(forUser: Option[User]) =
     Constraint[EmailAddress]("constraint.email_unique"): email =>
       val (taken, reused) =
