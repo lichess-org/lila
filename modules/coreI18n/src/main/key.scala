@@ -1111,6 +1111,7 @@ object I18nKey:
     val `paymentDetails`: I18nKey = "patron:paymentDetails"
     val `updatePaymentMethod`: I18nKey = "patron:updatePaymentMethod"
     val `stripeManageSub`: I18nKey = "patron:stripeManageSub"
+    val `coverFees`: I18nKey = "patron:coverFees"
     val `xIsPatronForNbMonths`: I18nKey = "patron:xIsPatronForNbMonths"
     val `patronForMonths`: I18nKey = "patron:patronForMonths"
 
