@@ -479,11 +479,15 @@ object Node:
   opaque type Comments = List[Comment]
   object Comments extends TotalWrapper[Comments, List[Comment]]:
     extension (a: Comments)
+      def findById(id: Comment.Id) = a.value.find(_.id == id)
       def findBy(author: Comment.Author) = a.value.find(_.by.is(author))
+      def findByIdAndAuthor(id: Comment.Id, author: Comment.Author) =
+        a.value.find(c => c.id == id && c.by.is(author))
       def set(comment: Comment): Comments =
-        if a.value.exists(_.by.is(comment.by)) then
+        if a.value.exists(c => c.by.is(comment.by) && c.id == comment.id) then
           a.value.map:
-            case c if c.by.is(comment.by) => c.copy(text = comment.text, by = comment.by)
+            case c if c.by.is(comment.by) && c.id == comment.id =>
+              c.copy(text = comment.text, by = comment.by)
             case c => c
         else a.value :+ comment
       def delete(commentId: Comment.Id): Comments = a.value.filterNot(_.id == commentId)
