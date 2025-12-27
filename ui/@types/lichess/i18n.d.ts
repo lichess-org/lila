@@ -2035,7 +2035,7 @@ interface I18n {
     contactSupport: string;
     /** See the detailed cost breakdown */
     costBreakdown: string;
-    /** Add %s to help cover the cost of processing this transaction */
+    /** I'll add %s to help cover the cost of processing this transaction */
     coverFees: I18nFormat;
     /** Current status */
     currentStatus: string;
