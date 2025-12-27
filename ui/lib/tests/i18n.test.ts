@@ -7,7 +7,7 @@ describe('roundToCurrency', () => {
     const { roundToCurrency } = await import('../../lib/src/i18n');
     const currency = 'USD';
     assert.equal(roundToCurrency(1.0, currency), 1);
-    assert.equal(roundToCurrency(1.005, currency), 1);
+    assert.equal(roundToCurrency(1.005, currency), 1.01);
     assert.equal(roundToCurrency(1.01, currency), 1.01);
     assert.equal(roundToCurrency(9.99, currency), 9.99);
   });
@@ -17,7 +17,7 @@ describe('roundToCurrency', () => {
     const { roundToCurrency } = await import('../../lib/src/i18n');
     const currency = 'EUR';
     assert.equal(roundToCurrency(1.0, currency), 1);
-    assert.equal(roundToCurrency(1.005, currency), 1);
+    assert.equal(roundToCurrency(1.005, currency), 1.01);
     assert.equal(roundToCurrency(1.01, currency), 1.01);
     assert.equal(roundToCurrency(9.99, currency), 9.99);
   });

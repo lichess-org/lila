@@ -87,7 +87,7 @@ const getCurrencyDigits = (currency: string): number => {
 export const roundToCurrency = (n: number, currency: string): number => {
   const digits = getCurrencyDigits(currency);
   const factor = Math.pow(10, digits);
-  return Math.round(n * factor) / factor;
+  return Math.round((n + Number.EPSILON) * factor) / factor;
 };
 
 export const percentFormat = (n: number, precision: number): string =>
