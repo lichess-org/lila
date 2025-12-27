@@ -5,16 +5,18 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.given
-import lila.tree.{ Analysis, Info }
+import lila.tree.{ Analysis, Info, Engine }
 
 object AnalyseBsonHandlers:
 
   given BSONWriter[Analysis.Id] = BSONWriter(id => BSONString(id.value))
+  given BSONDocumentHandler[Engine] = Macros.handler
 
   given BSON[Analysis] with
     def reads(r: BSON.Reader) =
       val startPly = Ply(r.intD("ply"))
       val raw = r.str("data")
+      val nodesPerMove = r.intO("npm")
       def id =
         def getId[Id: BSONReader]: Id = r.get[Id]("_id")
         r.getO[StudyId]("studyId") match
@@ -26,7 +28,7 @@ object AnalyseBsonHandlers:
         startPly = startPly,
         date = r.date("date"),
         fk = r.strO("fk"),
-        nodesPerMove = r.intO("npm")
+        engine = r.getO[Engine]("engine").getOrElse(Engine(nodesPerMove.getOrElse(1_000_000)))
       )
     def writes(w: BSON.Writer, a: Analysis) =
       BSONDocument(
@@ -36,7 +38,7 @@ object AnalyseBsonHandlers:
         "ply" -> w.intO(a.startPly.value),
         "date" -> w.date(a.date),
         "fk" -> a.fk,
-        "npm" -> a.nodesPerMove
+        "engine" -> a.engine
       )
 
   given engineHandler: BSONDocumentHandler[ExternalEngine] = Macros.handler

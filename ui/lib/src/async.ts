@@ -173,3 +173,36 @@ export function defer<A>(): Deferred<A> {
   });
   return deferred as Deferred<A>;
 }
+
+export function throttleWithFlush<T extends (...args: any[]) => void>(
+  interval: number,
+  wrapped: T,
+): ((...args: Parameters<T>) => void) & { flush: (...args: Parameters<T>) => void } {
+  let timerId: ReturnType<typeof setTimeout> | undefined;
+  let queued: { thisArg: any; args: Parameters<T> } | undefined;
+
+  const runNext = () => {
+    if (!queued) return (timerId = undefined);
+    const { thisArg, args } = queued;
+    queued = undefined;
+    wrapped.apply(thisArg, args);
+    timerId = setTimeout(runNext, interval);
+  };
+
+  const throttled = function (this: any, ...args: Parameters<T>) {
+    if (timerId) queued = { thisArg: this, args };
+    else {
+      wrapped.apply(this, args);
+      timerId = setTimeout(runNext, interval);
+    }
+  };
+
+  throttled.flush = function (this: any, ...args: Parameters<T>) {
+    clearTimeout(timerId);
+    timerId = undefined;
+    queued = undefined;
+    wrapped.apply(this, args);
+  };
+
+  return throttled;
+}

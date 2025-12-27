@@ -1,5 +1,5 @@
 import type { CevalHandler } from '../types';
-import type CevalCtrl from '../ctrl';
+import type { CevalCtrl } from '../ctrl';
 import { fewerCores } from '../util';
 import { isChrome } from '@/device';
 import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm } from '@/view';
@@ -11,10 +11,10 @@ const allSearchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30, Number.POSITIV
 
 export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
   const ceval = ctrl.ceval,
-    minThreads = ceval.engines.active?.minThreads ?? 1,
+    minThreads = ceval.engines.current()?.minThreads ?? 1,
     maxThreads = ceval.maxThreads,
     engCtrl = ctrl.ceval.engines,
-    searchTicks = allSearchTicks.filter(x => x * 1000 <= ceval.engines.maxMovetime);
+    searchTicks = allSearchTicks.filter(x => x * 1000 <= ceval.engines.maxMovetime());
 
   let observer: ResizeObserver;
 
@@ -104,7 +104,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                   {
                     attrs: {
                       title:
-                        fewerCores() && !ceval.engines.external
+                        fewerCores() && !ceval.engines.external()
                           ? 'More threads will use more battery for better analysis'
                           : "Set this below your CPU's thread count\nThe ticks mark a good safe choice",
                     },
@@ -138,7 +138,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                             destroy: () => observer?.disconnect(),
                           },
                         },
-                        !ceval.engines.external && [threadsTick('up'), threadsTick('down')],
+                        !ceval.engines.external() && [threadsTick('up'), threadsTick('down')],
                       ),
                     ]),
                     hl('div.range_value', `${ceval.threads} / ${maxThreads}`),
@@ -152,7 +152,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                   attrs: {
                     type: 'range',
                     min: 4,
-                    max: Math.floor(Math.log2(engCtrl.active?.maxHash ?? 4)),
+                    max: Math.floor(Math.log2(engCtrl.current()?.maxHash ?? 4)),
                     step: 1,
                     disabled: ceval.maxHash <= 16,
                     'aria-valuetext': `${ceval.hashSize} megabytes`,
@@ -181,7 +181,7 @@ function formatHashSize(v: number) {
 function setupTick(v: VNode, ceval: CevalCtrl) {
   const tick = v.elm as HTMLElement;
   const parentSpan = tick.parentElement!;
-  const minThreads = ceval.engines.active?.minThreads ?? 1;
+  const minThreads = ceval.engines.current()?.minThreads ?? 1;
   const thumbWidth = isChrome() ? 17 : 19; // it is what it is
   const trackWidth = parentSpan.querySelector('input')!.offsetWidth - thumbWidth;
   const tickRatio = (ceval.recommendedThreads - minThreads) / (ceval.maxThreads - minThreads);
@@ -193,9 +193,9 @@ function setupTick(v: VNode, ceval: CevalCtrl) {
 
 function engineSelection(ctrl: CevalHandler) {
   const ceval = ctrl.ceval,
-    active = ceval.engines.active,
+    active = ceval.engines.current(),
     engines = ceval.engines.supporting(ceval.opts.variant.key),
-    external = ceval.engines.external;
+    external = ceval.engines.external();
   return [
     hl('div.setting', [
       hl('label', { attrs: { for: 'select-engine' } }, 'Engine:'),

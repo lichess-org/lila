@@ -122,6 +122,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
   }
   if (!data.analysis) {
+    document
+      .querySelector<HTMLElement>('button.local-analysis')
+      ?.addEventListener('click', () => site.asset.loadEsm('analyse.local', { init: ctrl }));
     $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {
         confirm(i18n.site.youNeedAnAccountToDoThat, i18n.site.signIn, i18n.site.cancel).then(yes => {
@@ -130,7 +133,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         return false;
       }
       // ensure the analysis tab remains visible, if it was only displayed to render the request button
-      ctrl.showFishnetAnalysis(true);
+      ctrl.showStaticAnalysis(true);
       ctrl.redraw();
       xhrTextRaw(this.action, { method: this.method }).then(res => {
         if (res.ok) startAdvantageChart();
