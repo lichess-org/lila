@@ -21,8 +21,6 @@ export function parseYoutubeUrl(url: string): YoutubeMatch | undefined {
       return handleYoutuBe(urlWithProto);
     case 'youtube.com':
       return handleYoutubeCom(urlWithProto);
-    case undefined:
-      return undefined;
   }
 }
 
@@ -47,8 +45,6 @@ function getDomainType(hostname: string): DomainType | undefined {
   if ('youtu.be' === hostname) {
     return 'youtu.be';
   }
-
-  return;
 }
 
 function handleYoutubeCom(url: URL): YoutubeMatch | undefined {

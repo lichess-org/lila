@@ -3,8 +3,7 @@ import assert from 'node:assert/strict';
 import { embedYoutubeUrl, parseYoutubeUrl } from '../src/youtubeLinkProcessor.ts';
 
 describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
-  // Standard watch URL
-  test('youtube.com watch URL with video ID', () => {
+  test('youtube.com standard watch URL with video ID', () => {
     const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
     const result = parseYoutubeUrl(url);
 
@@ -15,7 +14,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     });
   });
 
-  // Watch URL with start time in seconds
   test('youtube.com watch URL with t=90 seconds', () => {
     const url = 'https://youtube.com/watch?v=dQw4w9WgXcQ&t=90';
     const result = parseYoutubeUrl(url);
@@ -27,8 +25,7 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     });
   });
 
-  // Watch URL with start time in h/m/s format
-  test('youtube.com watch URL with t=1h2m3s', () => {
+  test('youtube.com watch URL with t=1h2m3s format', () => {
     const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=1h2m3s';
     const result = parseYoutubeUrl(url);
 
@@ -39,7 +36,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     });
   });
 
-  // Shorts URL
   test('youtube.com shorts URL', () => {
     const url = 'https://www.youtube.com/shorts/dQw4w9WgXcQ';
     const result = parseYoutubeUrl(url);
@@ -51,7 +47,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     });
   });
 
-  // Embed URL with start parameter
   test('youtube.com embed URL', () => {
     const url = 'https://www.youtube.com/embed/dQw4w9WgXcQ?start=60';
     const result = parseYoutubeUrl(url);
@@ -63,7 +58,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     });
   });
 
-  // Live URL
   test('youtube.com live URL', () => {
     const url = 'https://www.youtube.com/live/dQw4w9WgXcQ';
     const result = parseYoutubeUrl(url);
@@ -75,7 +69,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     });
   });
 
-  // youtube.com/@ChanelName URL
   test('Youtube short channel URL ignored', () => {
     const url = 'https://www.youtube.com/@ChannelName';
     const result = parseYoutubeUrl(url);
@@ -83,7 +76,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     assert.equal(result, undefined);
   });
 
-  // youtube.com/channel/ID URL
   test('Youtube long channel URL ignored', () => {
     const url = 'https://www.youtube.com/channel/H39AHPSBcGc';
     const result = parseYoutubeUrl(url);
@@ -91,7 +83,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     assert.equal(result, undefined);
   });
 
-  // Test without 'https://' in the beginning
   test('youtube link without protocol', () => {
     const url = 'www.youtube.com/watch/?v=dQw4w9WgXcQ';
     const result = parseYoutubeUrl(url);
@@ -99,7 +90,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     assert.equal(result, undefined);
   });
 
-  // youtu.be short URL
   test('youtu.be URL', () => {
     const url = 'https://youtu.be/dQw4w9WgXcQ';
     const result = parseYoutubeUrl(url);
@@ -111,7 +101,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     });
   });
 
-  // youtu.be URL with start time
   test('youtu.be URL with t=1m30s', () => {
     const url = 'https://youtu.be/dQw4w9WgXcQ?t=1m30s';
     const result = parseYoutubeUrl(url);
@@ -123,7 +112,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     });
   });
 
-  // Invalid video ID (too short)
   test('invalid video ID too short', () => {
     const url = 'https://www.youtube.com/watch?v=short';
     const result = parseYoutubeUrl(url);
@@ -131,7 +119,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     assert.equal(result, undefined);
   });
 
-  // Invalid domain
   test('unsupported domain', () => {
     const url = 'https://vimeo.com/123456';
     const result = parseYoutubeUrl(url);
@@ -139,7 +126,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     assert.equal(result, undefined);
   });
 
-  // Malformed URL
   test('malformed URL', () => {
     const url = 'not a url';
     const result = parseYoutubeUrl(url);
@@ -147,7 +133,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     assert.equal(result, undefined);
   });
 
-  // Trailing slashes in path
   test('youtube.com watch URL with trailing slash', () => {
     const url = 'https://www.youtube.com/watch/?v=dQw4w9WgXcQ';
     const result = parseYoutubeUrl(url);
@@ -159,7 +144,6 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
     });
   });
 
-  // URL with extra query params
   test('youtube.com watch URL with extra params', () => {
     const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PL123&t=30';
     const result = parseYoutubeUrl(url);
