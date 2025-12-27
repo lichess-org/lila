@@ -810,7 +810,7 @@
   <string name="invalidPgn">Ongëlteg PGN</string>
   <string name="invalidFen">Ongëlteg FEN</string>
   <string name="custom">Personaliséiert</string>
-  <string name="notifications">Notificatiounen</string>
+  <string name="notifications">Notifikatiounen</string>
   <string name="notificationsX">Notifikatiounen: %1$s</string>
   <string name="perfRatingX">Wäertung: %s</string>
   <string name="yourRatingIsX">Deng Wäertung ass %s</string>
