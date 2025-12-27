@@ -121,7 +121,7 @@
   <string name="deleteThisImportedGame">آیا این بازیِ فراخوانده شده پاک شود؟</string>
   <string name="replayMode">حالت بازپخش</string>
   <string name="realtimeReplay">مشابه بازی</string>
-  <string name="byCPL">درنگ هنگام اشتباه</string>
+  <string name="byCPL">مَکث حینِ اشتباه</string>
   <string name="enable">فعال سازی</string>
   <string name="bestMoveArrow">پیکانِ بهترین حرکت</string>
   <string name="showVariationArrows">نمایش پیکان‌های وَرتِش</string>
