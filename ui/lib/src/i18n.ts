@@ -67,7 +67,7 @@ export const currencyFormat = (n: number, currency: string, options?: Intl.Numbe
 
 const currencyDigitsCache = new Map<string, number>();
 
-export const getCurrencyDigits = (currency: string): number => {
+const getCurrencyDigits = (currency: string): number => {
   const cached = currencyDigitsCache.get(currency);
   if (cached !== undefined) return cached;
 
