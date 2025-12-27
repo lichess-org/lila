@@ -14,5 +14,5 @@
   <string name="twoFactorToDisable">您需要提供密码以及来自认证器应用的身份验证码，才能禁用双重认证。</string>
   <string name="openTwoFactorApp">请在您的设备上打开双重认证应用，查看您的身份验证码以验证身份。</string>
   <string name="setupReminder">为了保护您的账户安全，请访问 https://lichess.org/account/twofactor 启用双重认证。
-您收到此信息是因为您的账户拥有特殊职责，例如拥有称号的棋手、团队领袖、教练、教师或主播。</string>
+您收到此信息是因为您的账户拥有特殊职责，例如拥有头衔的棋手、团队领袖、教练、教师或主播。</string>
 </resources>

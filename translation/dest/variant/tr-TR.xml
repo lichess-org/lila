@@ -7,4 +7,5 @@
   <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Oyunu kazanmak içim şahını ortaya getir.</string>
   <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Sürü</string>
   <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Çılgın Satranç</string>
+  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Hamle yapmak yerine yediğiniz taşları tahtaya koyabilirsiniz.</string>
 </resources>

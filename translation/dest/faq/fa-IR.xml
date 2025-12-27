@@ -16,7 +16,7 @@
   <string name="otherWaysToHelp">راه دیگر برای کمک</string>
   <string name="areThereWebsitesBasedOnLichess">آیا وبگاه‌هایی بر اساس Lichess وجود دارد؟</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">بله. Lichess در واقع الهام‌بخش دیگر وبگاه‌های متن‌باز است که از %1$s، %2$s، یا %3$s ما می‌بَهرند.</string>
-  <string name="keyboardShortcuts">چه میانبرهای صفحه کلیدی وجود دارند؟</string>
+  <string name="keyboardShortcuts">چه میانبرهای صفحه‌کلیدی وجود دارند؟</string>
   <string name="keyboardShortcutsExplanation">برخی از صفحاتِ Lichess دارای کلید‌های میانبرَند که می‌توانید از آنها بَهرایید. برای دیدن فهرست کلید‌های میانبر، در صفحاتِ مطالعه، تحلیل، معما یا بازی، کلید «؟» را بفشارید.</string>
   <string name="fairPlay">بازی منصفانه</string>
   <string name="whenAmIEligibleRatinRefund">چه زمانی برای پس‌گیری خودکار درجه‌بندی‌ام از تقلب‌کارها، واجد شرایط‌ هستم؟</string>
