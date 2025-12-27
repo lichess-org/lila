@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Spillastellungen</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">E Kolleeg erausfuerderen</string>
   <string name="playAgainstComputer">Géint de Computer spillen</string>
   <string name="gameMode">Spillmodus</string>
+  <string name="createLobbyGame">Nei Lobby-Partie ufänken</string>
   <string name="youPlayAs">Du spills mat</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
   <string name="gameOver">Game Over</string>
@@ -343,6 +345,7 @@
     <item quantity="other">%s lafend</item>
   </plurals>
   <string name="exportGames">Partien exportéieren</string>
+  <string name="ratingFilter">Ratingfilter</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dem Géigner %s Sekonn bäiginn</item>
     <item quantity="other">Dem Géigner %s Sekonne bäiginn</item>
@@ -802,7 +805,7 @@
   <string name="usernameCharsInvalid">De Benotzernumm däerf just Buschtawen, Zuelen, Ënner- an Bindestricher enthalen. Konsekutiv Ënner- an Bindestricher sinn net erlaabt.</string>
   <string name="usernameUnacceptable">Dësen Benotzernumm ass net akzeptabel.</string>
   <string name="playChessInStyle">Mat Style Schach spillen</string>
-  <string name="chessBasics">Schach Grondlagen</string>
+  <string name="chessBasics">Schachgrondlagen</string>
   <string name="coaches">Trainer</string>
   <string name="invalidPgn">Ongëlteg PGN</string>
   <string name="invalidFen">Ongëlteg FEN</string>
@@ -930,7 +933,7 @@
   <string name="timeAlmostUp">Deng Zäit ass baal ofgelaf!</string>
   <string name="clickToRevealEmailAddress">[Klick fir d\'E-Mail-Adress ze weisen]</string>
   <string name="download">Download</string>
-  <string name="coachManager">Coach Manager</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Coach Manager</string>
   <string name="streamerManager">Streamer-Manager</string>
   <string name="cancelTournament">Turnéier annuléieren</string>
   <string name="tournDescription">Turnéier Beschreiwung</string>
