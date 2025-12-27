@@ -13,7 +13,7 @@
   <string name="doPasswordReset">请完成密码重置以移除您的双重认证</string>
   <string name="accountSupport">我需要账户支持</string>
   <string name="wantTitle">我希望在 Lichess 上显示我的头衔</string>
-  <string name="visitTitleConfirmation">若要在您的 Lichess 个人资料上显示头衔并参加国际象棋称号专用竞技场，请访问头衔认证页面</string>
+  <string name="visitTitleConfirmation">若要在 Lichess 个人资料中展示您的头衔，并参与头衔棋手专属竞技场，请前往头衔验证页面</string>
   <string name="wantCloseAccount">我想要关闭我的账户</string>
   <string name="closeYourAccount">您可以在此页面关闭您的账户</string>
   <string name="doNotAskByEmail">请不要通过邮件要求我们关闭账户，我们不会受理。</string>

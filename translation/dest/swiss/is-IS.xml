@@ -36,16 +36,16 @@
   <string name="numberOfRounds">Fjöldi umferða</string>
   <string name="numberOfRoundsHelp">Heppilegast er að nota oddatölu fyrir fjölda umferða til að ná fram besta jafnvægi í litum.</string>
   <string name="roundInterval">Tímabil á milli umferða</string>
-  <string name="forbiddenPairings">Forboðnar mætingar</string>
+  <string name="forbiddenPairings">Forboðnar viðureignir</string>
   <string name="forbiddenPairingsHelp">Notendanöfn skákmanna sem mega ekki tefla saman (t.d. systkini). Tvö notendanöfn á línu, aðskilin með bili.</string>
-  <string name="manualPairings">Handvirkar mætingar í næstu umferð</string>
-  <string name="manualPairingsHelp">Tilgreindu allar mætingar næstu umferðar handvirkt. Eitt par á línu. Dæmi:
-ÞegnA ÞegnB
-ÞegnC ÞegnD
+  <string name="manualPairings">Handvirkar viðureignir í næstu umferð</string>
+  <string name="manualPairingsHelp">Tilgreindu allar viðureignir næstu umferðar handvirkt. Eitt leikmannapar á línu. Dæmi:
+LeikmaðurA LeikmaðurB
+LeikmaðurC LeikmaðurD
 Til þess að láta skákmann vera stakan (1 point) í stað þess að þurfa mæta öðrum skákmanni, bættu við svona línu:
-ÞegnE 1
+LeikmaðurE 1
 Skákmenn sem vantar teljast fjarverandi og fá núll stig.
-Skildu þennan reit eftir auðan til þess að lofa Lichess að ákvarða mætingar sjálfkrafa.</string>
+Skildu þennan reit eftir auðan til þess að lofa Lichess að ákvarða viðureignir sjálfkrafa.</string>
   <string name="mustHavePlayedTheirLastSwissGame">Verður að hafa teflt síðasta Swiss-skákina sína</string>
   <string name="mustHavePlayedTheirLastSwissGameHelp">Leyfa eingöngu skákmönnum að taka þátt ef þeir hafa teflt síðasta Swiss-skák sína. Ef þeir skrópuðu í nýlegum Swiss-viðburði geta þeir ekki tekið þátt í þínum. Þetta tryggir betri upplifun á Swiss-mótum fyrir þá skákmenn sem virkilega mæta.</string>
   <string name="newSwiss">Nýtt Swiss-mót</string>
@@ -59,12 +59,12 @@ Ef skákmaður fær ekki andstæðing í umferð fær hann frí (verður stakur)
   <string name="sonnebornBergerScore">stigakerfi Sonneborn–Berger</string>
   <string name="tiebreaksCalculationA">Notast er við %s.
 Leggur saman stig hvers andstæðings sem skákmaður sigrar og helming af stigi hvers andstæðings sem skákmaður gerir jafntefli við.</string>
-  <string name="pairingsQ">Hvernig eru mætingar ákvarðaðar?</string>
+  <string name="pairingsQ">Hvernig eru viðureignir ákvarðaðar?</string>
   <string name="dutchSystem">Hollenska kerfið</string>
   <string name="FIDEHandbook">Leikreglubók Alþjóðaskáksambandsins</string>
   <string name="pairingsA">Notast er við %1$s, sem %2$s innleiddi, í samræmi við %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Hvað gerist ef mótið hefur fleiri umferðir en skákmenn?</string>
-  <string name="moreRoundsThanPlayersA">Þegar allar mögulegar mætingar hafa verið tefldar er mótinu lokið og sigurvegari útnefndur.</string>
+  <string name="moreRoundsThanPlayersA">Þegar allar mögulegar viðureignir hafa verið tefldar er mótinu lokið og sigurvegari útnefndur.</string>
   <string name="restrictedToTeamsQ">Hvers vegna er þetta bara fyrir lið?</string>
   <string name="restrictedToTeamsA">Swiss-mót voru ekki hönnuð fyrir netskák. Þau krefjast stundvísi, hollustu og þolinmæði frá skákmönnum.
 Við teljum að þessi skilyrði séu líklegri til að vera uppfyllt innan liðs en á alþjóðlegum mótum.</string>
@@ -88,10 +88,10 @@ Skipuleggjandi Swiss-viðburðar getur ákveðið að leyfa þeim að taka þát
   <string name="willSwissReplaceArenasA">Nei. Þeir sérleikar eru til uppbótar.</string>
   <string name="roundRobinQ">Hvað með hringhana (e. Round Robin)?</string>
   <string name="roundRobinA">Við viljum gjarnan bæta slíku við, en því miður virkar hringhani ekki á netinu. Ástæðan er sú að það er engin sanngjörn leið til þess að takast á við þegar fólk hættir í mótinu snemma. Við getum ekki vænst þess að allir notendur leiki allar sínar skákir í netviðburði. Það mun einfaldlega ekki gerast, og þar af leiðandi myndu flest hringekjumót vera ófullkomin og ósanngjörn, sem eyðileggur tilgang þeirra. 
-Það sem líkist hringhana á netinu best er að tefla Swiss-mót með mjög háum fjölda umferða. Þá verða allar mögulegar mætingar tefldar áður en mótinu lýkur.</string>
+Það sem líkist hringhana á netinu best er að tefla Swiss-mót með mjög háum fjölda umferða. Þá verða allar mögulegar viðureignir tefldar áður en mótinu lýkur.</string>
   <string name="otherSystemsQ">Hvað með önnur mótkerfi?</string>
   <string name="otherSystemsA">Við ætlum ekki að bæta við fleiri mótkerfum í Lichess eins og sakir standa.</string>
-  <string name="swissDescription">Á Swiss-móti %1$s þurfa keppendur ekki endilega að tefla við alla aðra keppendur. Keppendur mætast einn á móti einum í hverri umferð og eru mætingar ákvarðaðar samkvæmt reglum sem tryggja að hver keppandi mætir andstæðingum í svipaðri stöðu en aldrei sama andstæðing oftar en einu sinni. Sigurvegarinn er sá keppandi sem hefur flest samanlögð stig í öllum umferðum. Allir keppendur tefla í hverri umferð nema ef fjöldi skákmanna er ójafn.</string>
+  <string name="swissDescription">Á Swiss-móti %1$s þurfa keppendur ekki endilega að tefla við alla aðra keppendur. Keppendur mætast einn á móti einum í hverri umferð og eru viðureignir ákvarðaðar samkvæmt reglum sem tryggja að hver keppandi mætir andstæðingum í svipaðri stöðu en aldrei sama andstæðing oftar en einu sinni. Sigurvegarinn er sá keppandi sem hefur flest samanlögð stig í öllum umferðum. Allir keppendur tefla í hverri umferð nema ef fjöldi skákmanna er ójafn.</string>
   <string name="teamOnly">Swiss-mót geta einungis verið stofnuð af liðsstjórum og eingöngu liðsmenn geta tekið þátt í þeim.
 %1$s til þess að taka þátt í Swiss-mótum.</string>
   <string name="joinOrCreateTeam">Gerast meðlimur eða búa til lið</string>
@@ -106,11 +106,11 @@ Skipuleggjandi Swiss-viðburðar getur ákveðið að leyfa þeim að taka þát
   <string name="numberOfGamesPreDefined">Ákveðið fyrirfram, sama gildir um alla skákmenn</string>
   <string name="pairingSystem">Mætingakerfi</string>
   <string name="pairingSystemArena">Allir tiltækir andstæðingar í svipuðu sæti</string>
-  <string name="pairingSystemSwiss">Mætingar best ákvarðaðar miðað við stigafjölda og bráðabana</string>
+  <string name="pairingSystemSwiss">Ákjósanlegustu viðureignir ákvarðaðar miðað við stigafjölda og bráðabana</string>
   <string name="pairingWaitTime">Biðtími á mætingum</string>
   <string name="pairingWaitTimeArena">Hraðfara: bíður ekki eftir öllum skákmönnum</string>
   <string name="pairingWaitTimeSwiss">Hægfara: bíður eftir öllum skákmönnum</string>
-  <string name="identicalPairing">Nákvæmlega eins mætingar</string>
+  <string name="identicalPairing">Nákvæmlega eins viðureignir</string>
   <string name="possibleButNotConsecutive">Mögulegt, en ekki samfellt</string>
   <string name="identicalForbidden">Bannað</string>
   <string name="lateJoin">Seinlegar þátttökur</string>

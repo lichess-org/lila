@@ -83,4 +83,6 @@
   <string name="liveboard">Taflborð í beinni</string>
   <string name="communityBroadcast">Útsendingar samfélagsins</string>
   <string name="createdAndManagedBy">Stofnuð og skipulögð af %s.</string>
+  <string name="roundX">Umferð %s</string>
+  <string name="defaultRoundNameHelp">Ef sjálfgefnu nafni er haldið verður það sjálfkrafa þýtt yfir á öll önnur tungumál.</string>
 </resources>

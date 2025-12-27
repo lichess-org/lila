@@ -503,6 +503,11 @@ $hover-bg: $m-primary_bg--mix-30;
         color: $c-primary;
       }
     }
+    &__photo {
+      @extend %box-neat;
+      aspect-ratio: 1;
+      max-width: 300px;
+    }
     &__header {
       @extend %tour-margin-horiz;
     }

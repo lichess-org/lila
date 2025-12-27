@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">بازیکن فیده پیدا نشد</string>
   <string name="fideProfile">رُخ‌نمای فیده</string>
   <string name="federation">کشورگان</string>
-  <string name="age" comment="Label for the age of a player. Appears on players' FIDE profiles.">سن</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">سن</string>
   <string name="unrated">بی‌درجه‌بندی</string>
   <string name="recentTournaments">مسابقاتِ اخیر</string>
   <string name="openLichess">آزاد در Lichess</string>
@@ -80,7 +80,7 @@
   <string name="allBroadcastsByMonth">دیدن پخش‌های هر ماه</string>
   <string name="backToLiveMove">بازگشت به حرکت زنده</string>
   <string name="sinceHideResults">چون شما پنهان کردن نتایج را انتخاب کردید، تمام صفحه‌های پیش‌نمایش برای جلوگیری از لو رفتن نتیجه، خالی هستند.</string>
-  <string name="liveboard">صفحه زنده</string>
+  <string name="liveboard">میزِ زنده</string>
   <string name="communityBroadcast">پخشِ همدارگان</string>
   <string name="createdAndManagedBy">ایجاد و مدیریت‌شده توسط %s.</string>
   <string name="roundX">دورِ %s</string>

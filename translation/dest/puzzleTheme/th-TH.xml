@@ -14,6 +14,10 @@
   <string name="attractionDescription">การเสียสละแบบแลกเปลี่ยน ผลักดันให้หมากฝ่ายตรงข้ามไปบนช่องที่สามารถทำให้เกิดกลยุทธ์ที่ตามมาได้</string>
   <string name="backRankMate">รุกจนที่แถวสุดท้าย</string>
   <string name="backRankMateDescription">รุกจนคิงในแถวเริ่มต้นของคิง เมื่อคิงโดนขังโดยหมากฝ่ายตนเอง</string>
+  <string name="balestraMate">รุกจนแบบบาเลสตรา</string>
+  <string name="balestraMateDescription">การเอาบิชอปไปรุกจน โดยมีควีนกันช่องที่เหลือไว้ไม่ให้คิงหนีได้</string>
+  <string name="blindSwineMate">รุกจนแบบหมูตาบอด</string>
+  <string name="blindSwineMateDescription">เรือสองตัวร่วมมือกันรุกจนคิงในพื้นที่ขนาด 2x2 ช่อง</string>
   <string name="bishopEndgame">ท้ายเกมที่มีบิชอป</string>
   <string name="bishopEndgameDescription">ท้ายเกมที่มีแต่บิชอปกับเบี้ย</string>
   <string name="bodenMate">การรุกจนแบบ Boden</string>
@@ -22,8 +26,12 @@
   <string name="castlingDescription">นำคิงของคุณไปที่ปลอดภัย และเคลื่อนเรือของคุณเพื่อการโจมตี</string>
   <string name="capturingDefender">กินผู้ป้องกัน</string>
   <string name="capturingDefenderDescription">กีกกันหมากที่สำคัญออกไปจากการป้องหมากตัวอื่น ทำให้หมากที่สูญเสียการป้องกันสามารถถูกกินในตาต่อไปได้</string>
+  <string name="cornerMate">รุกจนที่มุม</string>
+  <string name="cornerMateDescription">ต้อนคิงไปที่มุมใดมุมหนึ่งของกระดาน โดยใช้เรือหรือควีน และม้า เพื่อทำการรุกจนต่อไป</string>
   <string name="crushing">บดขยี้</string>
   <string name="crushingDescription">มองหาตาพลาดมหันต์ของฝ่ายตรงข้ามเพื่อทำให้เป็นต่อ (eval ≥ 600 cp)</string>
+  <string name="discoveredCheck">เปิดรุก</string>
+  <string name="discoveredCheckDescription">เดินหมากตัวหนึ่งออกไปเพื่อเปิดให้หมากที่อยู่ข้างหลังมาโจมตีหมากฝ่ายข้าม ซึ่งทำให้เป็นต่ออย่างมาก</string>
   <string name="doubleBishopMate">รุกจนโดยบิชอปสองตัว</string>
   <string name="doubleBishopMateDescription">บิชอปที่ใช้โจมตี 2 ที่อยู่ในแนวทแยงเคียงข้างกัน ทำให้คิงที่ถูกหมากผ่ายตนเองขวางให้ถูกรุกจน</string>
   <string name="dovetailMate">รุกจนแบบ Dovetail</string>
@@ -59,6 +67,12 @@
   <string name="intermezzoDescription">แทนที่เราจะเดินตาเหมือนที่ผ่ายตรงข้ามคิดไว้ เราก็เดินตาที่ทำให้ฝ่ายข้ามไม่คาดคิดและเป็นตาที่ฝ่ายตรงข้ามต้องตอบโต้ทันที ซึ่งรู้จักในอีกชื่อหนึ่งว่า \"ตาเดินระหว่างกัน\"</string>
   <string name="killBoxMate">รุกจนแบบปิดกล่องตาย</string>
   <string name="killBoxMateDescription">เป็นการรุกจนโดยที่เรือฝ่ายของเราถูกป้องกันโดยควีนซึ่งก็เป็นตัวขัดขวางไม่ให้คิงฝ่ายตรงข้ามหนีได้ และช่วยกันจนรุกจนคิงฝ่ายตรงข้ามภายในพื้นที่ช่อง 3 x 3 หรือ \"ปิดกล่องตาย\"</string>
+  <string name="pillsburysMate">รุกจนแบบพิลส์เบอรี่ส์</string>
+  <string name="pillsburysMateDescription">การนำเรือไปรุกจน โดยมีบิชอปช่วยกันไม่ให้คิงหนี</string>
+  <string name="morphysMate">รุกจนของมอร์ฟีย์</string>
+  <string name="morphysMateDescription">เอาบิชอปคุณไปรุกคิง โดยที่มีเรือคอยช่วยกันไม่ให้คิงหนี</string>
+  <string name="triangleMate">รุกจนแบบสามเหลี่ยม</string>
+  <string name="triangleMateDescription">รุกจนโดยควีนและเรือที่อยู่ห่างจากคิงของฝ่ายตรงข้ามหนึ่งช่องในทางแนวทแยง โดยเว้นระยะห่างกันหนึ่งช่อง ทำให้เกิดเป็นรูปสามเหลี่ยม</string>
   <string name="vukovicMate">การรุกจนแบบ Vukovic</string>
   <string name="vukovicMateDescription">เป็นการที่เรือกับม้าร่มมือกันเพื่อรุกจนคิงฝ่ายตรงข้าม โดยเรือจะเป็นตัวรุกจนโดยมีหมากตัวที่สามในการป้องกัน ส่วนม้าก็เป็นตัวช่วยบล็อกคิงฝ่ายตรงข้ามไม่ให้หนีได้</string>
   <string name="knightEndgame">ท้ายเกมม้า</string>
@@ -87,6 +101,8 @@
   <string name="oneMoveDescription">ปริศนาที่มีแค่ 1 ตาเดิน</string>
   <string name="opening">การเปิดเกม</string>
   <string name="openingDescription">กลยุทธ์ที่ใช้ในช่วงแรกของเกมหรือช่วงเปิดเกม</string>
+  <string name="operaMate">การรุกจนแบบโอเปร่า</string>
+  <string name="operaMateDescription">รุกจนคิงโดยเรือที่มีบิชอปคอยกันเอาไว้</string>
   <string name="pawnEndgame">เบี้ยในท้ายเกม</string>
   <string name="pawnEndgameDescription">ท้ายเกมที่มีแต่เบี้ย</string>
   <string name="pin">การกด</string>

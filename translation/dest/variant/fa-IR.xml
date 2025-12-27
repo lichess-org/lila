@@ -17,5 +17,5 @@
   <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">دویِ شاهان</string>
   <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">برای پیروزی، شاه‌تان را به طرفِ دیگر بَرید.</string>
   <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">دیوانه‌خانه</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">می‌توان جای حرکت یک مهره، مهره‌های گرفته را روی صفحه گذاشت.</string>
+  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">می‌توان جای حرکتِ یک مهره، مهره‌های گرفته را روی تخته گذاشت.</string>
 </resources>

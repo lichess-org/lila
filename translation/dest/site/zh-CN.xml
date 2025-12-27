@@ -559,7 +559,7 @@
   <string name="newPasswordStrength">密码强度</string>
   <string name="clockInitialTime">起始时限</string>
   <string name="clockIncrement">加秒</string>
-  <string name="privacy">隐私</string>
+  <string name="privacy">隐私政策</string>
   <string name="privacyPolicy">隐私政策</string>
   <string name="letOtherPlayersFollowYou">允许其他棋手关注您</string>
   <string name="letOtherPlayersChallengeYou">允许其他棋手向您发起挑战</string>
@@ -634,8 +634,8 @@
   <string name="webmasters">网站管理员</string>
   <string name="about">关于</string>
   <string name="aboutX">关于 %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个免费（%2$s）、自由、无广告、开源的国际象棋平台。</string>
-  <string name="really">千真万确</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个%2$s免费、开源共享、绝无广告的国际象棋平台。</string>
+  <string name="really">完全</string>
   <string name="contribute">协助我们</string>
   <string name="termsOfService">服务条款</string>
   <string name="titleVerification">头衔认证</string>
@@ -906,7 +906,7 @@
   <string name="timeAlmostUp">时间快到了！</string>
   <string name="clickToRevealEmailAddress">[点击显示邮箱地址]</string>
   <string name="download">下载</string>
-  <string name="coachManager">教练管理</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">教练管理</string>
   <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消锦标赛</string>
   <string name="tournDescription">锦标赛描述</string>
