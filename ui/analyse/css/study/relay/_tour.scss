@@ -443,9 +443,10 @@ $hover-bg: $m-primary_bg--mix-30;
     thead {
       background: none;
       th {
+        white-space: nowrap;
         border: none;
         text-align: end;
-        padding: 0.5rem 1rem 0.5rem 2rem;
+        padding: 0.5rem 1rem 0.5rem 1.5rem;
       }
     }
     th,
