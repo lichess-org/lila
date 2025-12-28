@@ -401,6 +401,7 @@
     <item quantity="other">Du muss nach %s gewäert Partien spillen</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Deng %s Wäertung ass provisoresch</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Ratingfiltere si gespaart, well däi Rating net stabill ass. Duerch d\'Spille vu gewäerte Partië geet d\'Stabilitéit an d\'Luucht.</string>
   <string name="yourPerfRatingIsTooHigh">Deng %1$s Wäertung (%2$s) ass ze héich</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Deng bescht wéchentlech %1$s-Wäertung (%2$s) ass ze héich</string>
   <string name="yourPerfRatingIsTooLow">Deng %1$s Wäertung (%2$s) ass ze niddreg</string>
