@@ -9,8 +9,8 @@
   <string name="boosterMarkedInfo">आम्ही याला जाणूनबुजून खेळ गमावून किंवा जाणूनबुजून खेळ गमावणाऱ्या दुसऱ्या खात्याविरुद्ध खेळून रेटिंगमध्ये हेतुपुरस्सर फेरफार करणे अशी व्याख्या करतो. </string>
   <string name="accountMuted">तुमचे खाते ईतरांशी संपर्क साधण्यास प्रतिबंधित आहे.</string>
   <string name="accountMutedInfo">आमचे %s वाचा. संवाद मार्गदर्शक तत्त्वांचे पालन न केल्यास खाती मौन केले जाऊ शकतात.</string>
-  <string name="excludedFromLeaderboards">तुमच्या खात्याला पुढ्फळीमधून काढले गेले आहे.</string>
-  <string name="excludedFromLeaderboardsInfo">आम्ही याला पुढ्फळीवर येण्यासाठी कोणत्याही अन्याय्य मार्गाचा वापर करणे असे परिभाषित करतो.</string>
+  <string name="excludedFromLeaderboards">तुमच्या खात्याला अग्रस्थानातून वगळले आहे.</string>
+  <string name="excludedFromLeaderboardsInfo">आम्ही याची व्याख्या अग्रस्थानी येण्यासाठी कोणत्याही अन्याय्य मार्गाचा वापर करणे अशी करतो.</string>
   <string name="closedByModerators">तुमचे खाते नियंत्रकांने बंद गेले.</string>
   <string name="hiddenBlog">तुमची अनुदिनी नियंत्रकांने लपवली आहे.</string>
   <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">आमचे %s परत वाचण्याची खात्री करा</string>
