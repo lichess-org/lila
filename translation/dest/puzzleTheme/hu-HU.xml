@@ -88,6 +88,7 @@
   <string name="oneMoveDescription">Csupán egy lépésből álló feladvány.</string>
   <string name="opening">Megnyitás</string>
   <string name="openingDescription">Taktikák a játszma kezdeti fázisában.</string>
+  <string name="operaMate">Opera matt</string>
   <string name="pawnEndgame">Gyalogvégjáték</string>
   <string name="pawnEndgameDescription">Végjáték csak gyalogokkal.</string>
   <string name="pin">Kötés</string>
