@@ -89,7 +89,17 @@ function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
  * but lacks the check/checkmate flag,
  * and probably has incomplete disambiguation.
  * But it's quick. */
-export function almostSanOf(board: Board, uci: string): AlmostSan {
+const FILES = 'abcdefgh';
+const SQUARE_TO_UCI: string[] = Array.from(
+  { length: 64 },
+  (_, sq: number) => FILES[sq & 7] + ((sq >> 3) + 1),
+);
+
+export function almostSanOf(
+  board: Board,
+  uci: string,
+  legalUcis: Set<string> | undefined = undefined,
+): AlmostSan {
   if (uci.includes('@')) return fixCrazySan(uci);
 
   const move = decomposeUci(uci);
@@ -128,6 +138,7 @@ export function almostSanOf(board: Board, uci: string): AlmostSan {
     file = false;
   for (let i = 0; i < candidates.length; i++) {
     if (candidates[i] === from || board.pieces[candidates[i]] !== p) continue;
+    if (legalUcis && !legalUcis.has(SQUARE_TO_UCI[candidates[i]] + move[1])) continue;
     if (from >> 3 === candidates[i] >> 3) file = true;
     if ((from & 7) === (candidates[i] & 7)) rank = true;
     else file = true;
@@ -144,8 +155,9 @@ export function almostSanOf(board: Board, uci: string): AlmostSan {
 export function sanWriter(fen: string, ucis: string[]): SanToUci {
   const board = readFen(fen);
   const sans: SanToUci = {};
+  const legalUcis = new Set(ucis);
   ucis.forEach(function (uci) {
-    const san = almostSanOf(board, uci);
+    const san = almostSanOf(board, uci, legalUcis);
     sans[san] = uci;
     if (san.includes('x')) sans[san.replace('x', '')] = uci;
   });
