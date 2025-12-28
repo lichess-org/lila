@@ -90,7 +90,7 @@ A csoportot az alábbi linken éred el.</string>
   <string name="timePlaying">Játékidő</string>
   <string name="variantXOverLastY">%1$s az elmúlt %2$s alatt</string>
   <string name="winrate">Győzelmi arány</string>
-  <string name="na">N/A</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
   <string name="overview">Áttekintő</string>
   <string name="news">Hírek</string>
   <string name="classNews">Tanulócsoport hírei</string>
@@ -120,4 +120,5 @@ Itt egy vízszintes vonal fog megjelenni.</string>
   <string name="moveToAnotherClass">Áthelyezés másik osztályba</string>
   <string name="allowMessagingBetweenStudents">Tanulók közötti üzenetek engedélyezése</string>
   <string name="allowMessagingBetweenStudentsDesc">Ez csak azokra a fiókokra vonatkozik, amiket tanulóid számára hoztál létre.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Lejárat %s múlva</string>
 </resources>
