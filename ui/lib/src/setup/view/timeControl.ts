@@ -174,10 +174,11 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal:
             failure: !tc.realTimeValid(minimumTimeRequiredIfReal),
           }),
         ]),
+        hl('div.slider-separator', '+'),
         hl('div.slider-container', [
           hl('div.label-row', [
-            hl('label', i18n.site.incrementInSeconds),
             hl('span.val-box', tc.increment().toString()),
+            hl('label', i18n.site.incrementInSeconds),
           ]),
           inputRange(0, 30, tc.incrementV, { failure: !tc.realTimeValid(minimumTimeRequiredIfReal) }),
         ]),

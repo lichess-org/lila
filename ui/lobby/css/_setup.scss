@@ -193,8 +193,7 @@ $c-slider: $c-setup;
 
       .sliders-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
+        grid-template-columns: 1fr 3ch 1fr;
       }
 
       .slider-container {
@@ -217,6 +216,9 @@ $c-slider: $c-setup;
           width: 100%;
           padding: 0;
         }
+      }
+      .slider-separator {
+        line-height: 1.7;
       }
     }
   }
