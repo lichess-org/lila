@@ -30,9 +30,9 @@ main.is-relay {
     }
   }
   &:not(.has-relay-tour) {
+    // room for extra player heights
+    margin-top: $player-height;
     @include mq-at-least-col2 {
-      // room for extra player heights
-      margin-top: $player-height;
       .relay-tour__side {
         margin-top: #{-$player-height};
       }
