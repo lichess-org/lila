@@ -35,8 +35,8 @@ $c-slider: $c-setup;
   .setup-content {
     @extend %flex-column;
     border-block: $border;
-    padding: 1.5rem 1rem;
-    gap: 1.2rem;
+    padding: 1.8rem 1.2rem;
+    gap: 1.8rem;
     background: $c-bg-zebra;
   }
 
@@ -174,19 +174,22 @@ $c-slider: $c-setup;
     }
 
     .time-panel {
+      @extend %flex-column;
+      gap: 1.2rem;
+
       .presets {
         @extend %flex-wrap;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
+        margin-top: -0.5rem;
 
         .preset-btn {
-          padding: 0.35rem 0.6rem;
-          font-size: 0.8rem;
-          @extend %metal;
-          border-radius: $box-radius-size / 2;
-          border: $border;
+          @extend %button-none;
+          color: $c-font-dim;
+          padding: 0.4rem 0.7rem;
+          font-size: 0.9rem;
+          border-radius: $box-radius-size;
           &:hover {
-            @extend %metal-hover;
+            background: $c-bg-zebra2;
+            color: $c-font-clear;
           }
         }
       }
@@ -201,6 +204,7 @@ $c-slider: $c-setup;
         justify-content: space-between;
         .label-row {
           @extend %flex-between-nowrap;
+          align-items: flex-start;
           margin-bottom: 0.5rem;
 
           .val-box {

@@ -147,23 +147,6 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal:
 
   if (activeMode === 'realTime') {
     panelContent = hl('div.time-panel', [
-      hl(
-        'div.presets',
-        PRESETS.map(p =>
-          hl(
-            'button.preset-btn',
-            {
-              on: {
-                click: () => {
-                  tc.timeV(sliderInitVal(p.lim, timeVToTime, 100, 9));
-                  tc.incrementV(sliderInitVal(p.inc, incrementVToIncrement, 100, 0));
-                },
-              },
-            },
-            `${showTime(p.lim)}+${p.inc}`,
-          ),
-        ),
-      ),
       hl('div.sliders-grid', [
         hl('div.slider-container', [
           hl('div.label-row', [
@@ -183,6 +166,23 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal:
           inputRange(0, 30, tc.incrementV, { failure: !tc.realTimeValid(minimumTimeRequiredIfReal) }),
         ]),
       ]),
+      hl(
+        'div.presets',
+        PRESETS.map(p =>
+          hl(
+            'button.preset-btn',
+            {
+              on: {
+                click: () => {
+                  tc.timeV(sliderInitVal(p.lim, timeVToTime, 100, 9));
+                  tc.incrementV(sliderInitVal(p.inc, incrementVToIncrement, 100, 0));
+                },
+              },
+            },
+            `${showTime(p.lim)}+${p.inc}`,
+          ),
+        ),
+      ),
     ]);
   } else if (activeMode === 'correspondence') {
     panelContent = hl('div.time-panel', [
