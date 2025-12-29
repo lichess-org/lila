@@ -3,7 +3,7 @@
   <string name="donate">દાન </string>
   <string name="donateAsX">%s તરીકે દાન કરો</string>
   <string name="lichessPatron">Lichess પેટ્રોન</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">%s થી આશ્રયદાતા</string>
+  <string name="patronSince" comment="string is a date">%s થી આશ્રયદાતા</string>
   <string name="freeAccount">મફત ખાતું</string>
   <string name="becomePatron">Lichess પેટ્રોન બનો</string>
   <string name="xBecamePatron">%s Lichess પેટ્રોન બન્યો</string>
@@ -14,7 +14,7 @@
   <string name="newPatrons">નવા પેટ્રોનર્સ</string>
   <string name="freeChess">બધા માટે મફત ચેસ, કાયમ માટે!</string>
   <string name="noAdsNoSubs">કોઈ જાહેરાતો નહીં, કોઈ સબ્સ્ક્રિપ્શન નહીં; પરંતુ ઓપન-સોર્સ અને જુસ્સો.</string>
-  <string name="thankYou" comment="&quot;you&quot; is in singular here.">તમારા દાન બદલ આભાર!</string>
+  <string name="thankYou">તમારા દાન બદલ આભાર!</string>
   <string name="youHaveLifetime">તમારી પાસે લાઇફટાઇમ પેટ્રોન એકાઉન્ટ છે. તે ખૂબ જ સરસ છે!</string>
   <string name="patronUntil">તમારી પાસે %s સુધી પેટ્રન એકાઉન્ટ છે.</string>
   <string name="ifNotRenewedThenAccountWillRevert">જો તમારું ખાતું રિન્યુ ન થાય, તો તે પછી તે નિયમિત ખાતામાં પાછું આવશે.</string>
