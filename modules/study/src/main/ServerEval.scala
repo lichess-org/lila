@@ -177,7 +177,7 @@ object ServerEval:
       else
         lila.common.Bus
           .ask[Int, GetCrowd](GetCrowd(studyId, _))
-          .map(_ < 5000)
+          .map(_ < 1000)
 
     def divisionOf(chapter: Chapter) =
       divider(
