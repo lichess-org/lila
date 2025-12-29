@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Play against computer</string>
   <string name="gameMode">Game mode</string>
   <string name="createLobbyGame">Create lobby game</string>
-  <string name="youPlayAs">You play as</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Waiting for opponent</string>

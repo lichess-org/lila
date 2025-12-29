@@ -1537,7 +1537,6 @@ object I18nKey:
     val `playAgainstComputer`: I18nKey = "playAgainstComputer"
     val `gameMode`: I18nKey = "gameMode"
     val `createLobbyGame`: I18nKey = "createLobbyGame"
-    val `youPlayAs`: I18nKey = "youPlayAs"
     val `toInviteSomeoneToPlayGiveThisUrl`: I18nKey = "toInviteSomeoneToPlayGiveThisUrl"
     val `gameOver`: I18nKey = "gameOver"
     val `waitingForOpponent`: I18nKey = "waitingForOpponent"

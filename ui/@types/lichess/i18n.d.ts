@@ -8,6 +8,8 @@ interface I18nPlural {
   asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural / plural
 }
 interface I18n {
+  /** fetch i18n dynamically */
+  load(catalog: string): Promise<void>;
   /** global noarg key lookup */
   (key: string): string;
   quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
@@ -4713,8 +4715,6 @@ interface I18n {
     youHaveJoinedTeamX: I18nFormat;
     /** You need an account to do that */
     youNeedAnAccountToDoThat: string;
-    /** You play as */
-    youPlayAs: string;
     /** You play the black pieces */
     youPlayTheBlackPieces: string;
     /** You play the white pieces */
