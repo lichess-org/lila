@@ -7,7 +7,7 @@
   <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">टेकडीचा राजा</string>
   <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">खेळ जिंकण्यासाठी तुमच्या राजाला मध्यभागी आणा.</string>
   <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">तीन-चेक</string>
-  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">खेळ जिंकण्यासाठी तुमच्या विरोधक ला ३ वेळा चेक द्या.</string>
+  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">खेळ जिंकण्यासाठी तुमच्या विरोधकाला ३ वेळा शह द्या.</string>
   <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">द्रोहीबुद्धिबळ</string>
   <string name="antichessTitle" comment="Description for the Antichess variant">खेळ जिंकण्यासाठी तुमच्या सर्व सोंगट्यांना त्याग करा (किंवा अर्धमात व्हा)</string>
   <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">अणु</string>
