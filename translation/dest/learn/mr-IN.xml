@@ -104,7 +104,7 @@
 हा घोडा तुम्हाला शह देत आहे!</string>
   <string name="escapeOrBlock">राजा सोबत पळून जा
 किंवा हल्ला अवरोधित करा!</string>
-  <string name="outOfCheckComplete">अभिनंदन! आपला राजा कधीही घेतला जाऊ शकत नाही, आपण शहापासून बचाव करू शकता याची खात्री करा!</string>
+  <string name="outOfCheckComplete">अभिनंदन! राजाला शहापासून वाचवण्याची काळजी घ्या, म्हणजे आपला राजा कधीही पकडला जाणार नाही!</string>
   <string name="mateInOne">एका चालीत मात</string>
   <string name="defeatTheOpponentsKing">प्रतिस्पर्ध्याच्या राजाचा पराभव करा</string>
   <string name="mateInOneIntro">जेव्हा आपला विरोधक शहाविरूद्ध बचाव करू शकत नाही तेव्हा आपण जिंकता.</string>
