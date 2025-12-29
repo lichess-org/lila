@@ -201,7 +201,7 @@ final private class RelaySync(
   private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit =
     for _ <- chapterRepo.setRelayPath(chapter.id, UciPath.root)
     yield
-      if tour.official && chapter.root.mainline.sizeIs > 4 then
+      if tour.official && !study.isMember(UserId("no-analysis")) && chapter.root.mainline.sizeIs > 4 then
         scheduler.scheduleOnce(15.seconds):
           studyApi.analysisRequest(study.id, chapter.id, study.ownerId, official = true)
 
