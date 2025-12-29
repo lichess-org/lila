@@ -195,15 +195,11 @@ $c-slider: $c-setup;
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
-
-        @include mq-is-col1 {
-          & {
-            grid-template-columns: 1fr;
-          }
-        }
       }
 
       .slider-container {
+        @extend %flex-column;
+        justify-content: space-between;
         .label-row {
           @extend %flex-between-nowrap;
           margin-bottom: 0.5rem;
