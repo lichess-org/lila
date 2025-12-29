@@ -22,11 +22,11 @@
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Понашање игре</string>
   <string name="howDoYouMovePieces">Како помераш фигуре?</string>
   <string name="clickTwoSquares">Кликни два поља</string>
-  <string name="dragPiece">вуци фигуру</string>
-  <string name="bothClicksAndDrag">на оба начина</string>
-  <string name="premovesPlayingDuringOpponentTurn">Претпотез (игра се током противниковог потеза)</string>
-  <string name="takebacksWithOpponentApproval">Враћања потеза (са пристанком противника)</string>
-  <string name="inCasualGamesOnly">Само у неформалним партијама</string>
+  <string name="dragPiece">Превуци фигуру</string>
+  <string name="bothClicksAndDrag">Било како</string>
+  <string name="premovesPlayingDuringOpponentTurn">Претпотези (играње током противничког потеза)</string>
+  <string name="takebacksWithOpponentApproval">Враћања потеза (са одобрењем противника)</string>
+  <string name="inCasualGamesOnly">Само у нерангираним партијама</string>
   <string name="promoteToQueenAutomatically">Промовишите у Даму аутоматски</string>
   <string name="whenPremoving">Током претпотеза</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">аутоматски реми после три понављања позиције</string>
