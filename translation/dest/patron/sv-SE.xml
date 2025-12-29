@@ -3,7 +3,7 @@
   <string name="donate">Donera</string>
   <string name="donateAsX">Donera som %s</string>
   <string name="lichessPatron">Lichess-donator</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Beskyddare sedan %s</string>
+  <string name="patronSince" comment="string is a date">Beskyddare sedan %s</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bli en Lichess Patron</string>
   <string name="xBecamePatron">%s blev en Lichess Patron</string>
