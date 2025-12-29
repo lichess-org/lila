@@ -216,16 +216,15 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                         )
                       )
                     ),
+                    ctx.isAuth.option(
+                      div(cls := "cover-fees")(
+                        input(tpe := "checkbox", id := "cover-fees", cls := "cover-fees-checkbox"),
+                        label(`for` := "cover-fees"):
+                          val rawFee = pricing.feeFixed.amount.max(pricing.default.amount * pricing.feeRate)
+                          trp.coverFees.txt(Money(rawFee, pricing.currency).display)
+                      )
+                    ),
                     div(cls := "service")(
-                      ctx.isAuth.option(
-                        div(cls := "cover-fees")(
-                          input(tpe := "checkbox", id := "cover_fees", cls := "cover-fees-checkbox"),
-                          label(`for` := "cover_fees"):
-                            val rawFee =
-                              pricing.feeFixed.amount max (pricing.default.amount * pricing.feeRate)
-                            trp.coverFees.txt(Money(rawFee, pricing.currency).display)
-                        )
-                      ),
                       div(cls := "buttons")(
                         if ctx.isAuth then
                           frag(

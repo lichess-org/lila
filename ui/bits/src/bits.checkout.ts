@@ -37,8 +37,8 @@ export function initModule({
   contactEmail();
 
   const hasLifetime = $('#freq_lifetime').prop('disabled');
-  const $coverFees = $('#cover_fees');
-  const $coverFeesLabel = $('label[for="cover_fees"]');
+  const $coverFees = $('#cover-fees');
+  const $coverFeesLabel = $('label[for="cover-fees"]');
 
   const toggleInput = ($input: Cash, enable: boolean) =>
     $input.prop('disabled', !enable).toggleClass('disabled', !enable);
@@ -208,6 +208,7 @@ const xhrFormData = ($checkout: Cash, amount: number) =>
     amount,
     freq: getFreq(),
     gift: $checkout.find('.gift input').val(),
+    coverFees: $checkout.find('#cover-fees').prop('checked'),
   });
 
 const payPalStyle = {
