@@ -3,7 +3,7 @@
   <string name="donate">Дарете</string>
   <string name="donateAsX">Дарете като %s</string>
   <string name="lichessPatron">Lichess Дарител</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Спонсор от %s</string>
+  <string name="patronSince" comment="string is a date">Спонсор от %s</string>
   <string name="freeAccount">Безплатна регистрация</string>
   <string name="becomePatron">Станете дарител на Lichess</string>
   <string name="xBecamePatron">%s стана дарител на Lichess</string>
@@ -14,7 +14,7 @@
   <string name="newPatrons">Нови Дарители</string>
   <string name="freeChess">Безплатен шахмат за всеки, за винаги!</string>
   <string name="noAdsNoSubs">Без реклами, без абонаменти; просто отворен код и страст.</string>
-  <string name="thankYou" comment="&quot;you&quot; is in singular here.">Благодарим Ви за дарението!</string>
+  <string name="thankYou">Благодарим Ви за дарението!</string>
   <string name="youHaveLifetime">Имате доживотен дарителски акаунт. Това е просто невероятно!</string>
   <string name="patronUntil">Имате дарителски акаунт до %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Ако не бъде подновена, Вашата регистрация ще стане пак обикновена.</string>
