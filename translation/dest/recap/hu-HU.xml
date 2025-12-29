@@ -16,7 +16,7 @@
 		<item quantity="one">%s lépés</item>
 		<item quantity="other">%s lépés</item>
 	</plurals>
-	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Az %s fa eltolva!</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Ez %s fa mozgatása!</string>
 	<string name="movesStandardPiecesWeight">Az átlagos bábuk körülbelül 40g-ot nyomnak</string>
 	<plurals name="nbMoves">
 		<item quantity="one">%s lépés</item>

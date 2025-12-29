@@ -24,6 +24,7 @@
   <string name="capturingDefenderDescription">Egy másik védelméhez elengedhetetlen figura leütése, így a védtelen figura a következő lépésben szabadon levehető.</string>
   <string name="crushing">Megsemmisítés</string>
   <string name="crushingDescription">Az ellenfél sakkvakságának kihasználása elsöprő előnnyé fordítható. (&gt; 600cp)</string>
+  <string name="discoveredCheck">Felfedett sakk</string>
   <string name="doubleBishopMate">Futópár matt</string>
   <string name="doubleBishopMateDescription">A két futó szomszédos átlókon ad mattot a saját figurája által akadályozott királynak.</string>
   <string name="dovetailMate">Fecskefark matt</string>
@@ -87,6 +88,7 @@
   <string name="oneMoveDescription">Csupán egy lépésből álló feladvány.</string>
   <string name="opening">Megnyitás</string>
   <string name="openingDescription">Taktikák a játszma kezdeti fázisában.</string>
+  <string name="operaMate">Opera matt</string>
   <string name="pawnEndgame">Gyalogvégjáték</string>
   <string name="pawnEndgameDescription">Végjáték csak gyalogokkal.</string>
   <string name="pin">Kötés</string>

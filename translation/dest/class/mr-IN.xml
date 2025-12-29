@@ -99,8 +99,8 @@
   <string name="nothingHere">अजून येथे काही नाही.</string>
   <string name="newsEdit1">एकाच क्षेत्रात सर्व वर्गंनच्या बातम्या.</string>
   <string name="newsEdit2">शीर्षस्थानी अलीकडील बातम्या जोडा. पूर्वीच्या बातम्या काढू नका.</string>
-  <string name="newsEdit3">यासह बातमी वेगळी करा ---
-ते क्षैतिज रेषा दर्शवेल.</string>
+  <string name="newsEdit3">--- वापरून बातम्या अलिप्त करा 
+त्यामूळे आडवी रेषा दिेसेल.</string>
   <string name="invite">आमंत्रित करा</string>
   <string name="youHaveBeenInvitedByX">%s ने तुम्हाला आमंत्रित केले आहे.</string>
   <string name="youAcceptedThisInvitation">तुम्ही हे आमंत्रण स्वीकारले.</string>

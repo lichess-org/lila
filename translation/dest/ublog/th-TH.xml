@@ -9,7 +9,7 @@
   <string name="myBlog">บล็อกของฉัน</string>
   <string name="likedBlogs">ชอบบล็อกโพสต์</string>
   <plurals name="blogPosts">
-    <item quantity="other">%sบล็อกที่ถูกโพสต์</item>
+    <item quantity="other">%sบล็อกที่โพสต์</item>
   </plurals>
   <string name="continueReadingPost">อ่านโพสต์นี้ต่อ</string>
   <string name="lichessBlogPostsFromXYear">บล็อกโพสต์ของ Lichessใน %s</string>
