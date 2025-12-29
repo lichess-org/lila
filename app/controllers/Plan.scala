@@ -194,6 +194,7 @@ final class Plan(env: Env) extends LilaController(env):
             ,
             data =>
               val checkout = data.fixFreq
+              lila.mon.plan.intent("stripe", data.money.currency, data.coverFees).increment()
               for
                 gifted <- checkout.giftTo.filterNot(ctx.is).so(env.user.repo.enabledById)
                 customer <- env.plan.api.stripe.userCustomer(me)
@@ -253,6 +254,7 @@ final class Plan(env: Env) extends LilaController(env):
           ,
           data =>
             val checkout = data.fixFreq
+            lila.mon.plan.intent("paypal", data.money.currency, data.coverFees).increment()
             if checkout.freq.renew then
               env.plan.api.payPal
                 .createSubscription(checkout, me)

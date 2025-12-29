@@ -154,6 +154,22 @@
       }
     }
 
+    .cover-fees {
+      @extend %flex-center-nowrap;
+      margin-bottom: 1.5em;
+      font-size: 0.95em;
+
+      input {
+        margin-inline-end: 0.5em;
+        transform: scale(1.2);
+      }
+      label {
+        cursor: pointer;
+        color: $c-font-dim;
+        user-select: none;
+      }
+    }
+
     .service {
       .buttons {
         @extend %flex-between;

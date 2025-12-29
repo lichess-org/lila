@@ -464,6 +464,9 @@ object mon:
     val percent = gauge("plan.percent").withoutTags()
     def webhook(service: String, tpe: String) =
       counter("plan.webhook").withTags(tags("service" -> service, "tpe" -> tpe))
+    def intent(service: String, currency: java.util.Currency, coverFees: Boolean) =
+      counter("plan.intent").withTags:
+        tags("service" -> service, "currency" -> currency.getCurrencyCode, "coverFees" -> coverFees)
     object charge:
       def first(service: String) = counter("plan.charge.first").withTag("service", service)
       def countryCents(country: String, currency: java.util.Currency, service: String, gift: Boolean) =
