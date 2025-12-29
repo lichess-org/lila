@@ -266,7 +266,7 @@ object MarkdownRender:
 
     private def addProtocolIfNecessary(url: String): String =
       if url.matches("(?i)^https?://.*") then url
-      else s"http://$url"
+      else s"https://$url"
 
     private def renderLpvEmbed(
         node: LinkNode,

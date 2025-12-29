@@ -11,16 +11,16 @@ const videoIdValidLength = 11;
 const videoIdRegex: RegExp = /^[a-zA-Z0-9_-]{11}$/;
 
 export function parseYoutubeUrl(url: string): YoutubeMatch | undefined {
-  const urlWithProto = toURL(url);
-  if (!urlWithProto) {
+  const youtubeUrl = toURL(url);
+  if (!youtubeUrl) {
     return;
   }
 
-  switch (getDomainType(urlWithProto.hostname)) {
+  switch (getDomainType(youtubeUrl.hostname)) {
     case 'youtu.be':
-      return handleYoutuBe(urlWithProto);
+      return handleYoutuBe(youtubeUrl);
     case 'youtube.com':
-      return handleYoutubeCom(urlWithProto);
+      return handleYoutubeCom(youtubeUrl);
   }
 }
 
