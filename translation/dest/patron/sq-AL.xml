@@ -84,4 +84,5 @@ Sidoqoftë, Bamirësit mund të mburren me një ikonë të re të lezetshme prof
   <string name="paymentDetails">Hollësi pagese</string>
   <string name="updatePaymentMethod">Përditësoni metodë pagesash</string>
   <string name="stripeManageSub">Administroni pajtimin tuaj dhe shkarkoni faturat dhe dëftesat tuaja</string>
+  <string name="coverFees">Do të shtoj %s, që të ndihmoj të mbulohet kostoja e përpunimit të këtij transaksioni</string>
 </resources>
