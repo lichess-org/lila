@@ -3,7 +3,7 @@
   <string name="donate">Ủng hộ</string>
   <string name="donateAsX">Ủng hộ bằng tài khoản %s</string>
   <string name="lichessPatron">Người bảo trợ Lichess</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Người bảo trợ từ khi %s</string>
+  <string name="patronSince" comment="string is a date">Người bảo trợ từ khi %s</string>
   <string name="freeAccount">Tài khoản miễn phí</string>
   <string name="becomePatron">Trở thành một Người bảo trợ Lichess</string>
   <string name="xBecamePatron">%s đã trở thành một Người bảo trợ Lichess</string>
@@ -13,7 +13,7 @@
   <string name="newPatrons">Những Người bảo trợ mới</string>
   <string name="freeChess">Cờ Vua Miễn Phí Cho Mọi Người! Mãi Mãi!</string>
   <string name="noAdsNoSubs">Không có quảng cáo, không tốn tiền; nhưng có mã nguồn mở và sự đam mê.</string>
-  <string name="thankYou" comment="&quot;you&quot; is in singular here.">Cảm ơn sự ủng hộ của bạn!</string>
+  <string name="thankYou">Cảm ơn sự ủng hộ của bạn!</string>
   <string name="youHaveLifetime">Bạn có một tài khoản Người bảo trợ trọn đời. Khá tuyệt vời đấy!</string>
   <string name="patronUntil">Bạn có tài khoản người Bảo Trợ cho đến %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Nếu không gia hạn, tài khoản của bạn sẽ trở về tài khoản bình thường.</string>
