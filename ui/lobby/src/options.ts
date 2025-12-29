@@ -11,13 +11,6 @@ export const variants: Variant[] = [
     description: i18n.variant.standardTitle,
   },
   {
-    id: 10,
-    icon: licon.Crazyhouse,
-    key: 'crazyhouse',
-    name: i18n.variant.crazyhouse,
-    description: i18n.variant.crazyhouseTitle,
-  },
-  {
     id: 2,
     icon: licon.DieSix,
     key: 'chess960',
@@ -37,6 +30,13 @@ export const variants: Variant[] = [
     key: 'threeCheck',
     name: i18n.variant.threeCheck,
     description: i18n.variant.threeCheckTitle,
+  },
+  {
+    id: 10,
+    icon: licon.Crazyhouse,
+    key: 'crazyhouse',
+    name: i18n.variant.crazyhouse,
+    description: i18n.variant.crazyhouseTitle,
   },
   {
     id: 6,
