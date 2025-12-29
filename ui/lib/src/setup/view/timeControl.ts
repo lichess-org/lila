@@ -146,13 +146,11 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal:
   let panelContent: VNode | null = null;
 
   if (activeMode === 'realTime') {
+    const [tcTime, tcIncrement] = [tc.time(), tc.increment()];
     panelContent = hl('div.time-panel', [
       hl('div.sliders-grid', [
         hl('div.slider-container', [
-          hl('div.label-row', [
-            hl('label', i18n.site.minutesPerSide),
-            hl('span.val-box', showTime(tc.time())),
-          ]),
+          hl('div.label-row', [hl('label', i18n.site.minutesPerSide), hl('span.val-box', showTime(tcTime))]),
           inputRange(0, 38, tc.timeV, {
             failure: !tc.realTimeValid(minimumTimeRequiredIfReal),
           }),
@@ -160,7 +158,7 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal:
         hl('div.slider-separator', '+'),
         hl('div.slider-container', [
           hl('div.label-row', [
-            hl('span.val-box', tc.increment().toString()),
+            hl('span.val-box', tcIncrement.toString()),
             hl('label', i18n.site.incrementInSeconds),
           ]),
           inputRange(0, 30, tc.incrementV, { failure: !tc.realTimeValid(minimumTimeRequiredIfReal) }),
@@ -172,6 +170,9 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal:
           hl(
             'button.preset-btn',
             {
+              class: {
+                active: tcTime === p.lim && tcIncrement === p.inc,
+              },
               on: {
                 click: () => {
                   tc.timeV(sliderInitVal(p.lim, timeVToTime, 100, 9));

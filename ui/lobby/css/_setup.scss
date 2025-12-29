@@ -191,6 +191,10 @@ $c-slider: $c-setup;
             background: $c-bg-zebra2;
             color: $c-font-clear;
           }
+          &.active {
+            background: $c-setup;
+            color: $c-over;
+          }
         }
       }
 
