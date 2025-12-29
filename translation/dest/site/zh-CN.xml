@@ -6,10 +6,10 @@
   <string name="gameMode">对局模式</string>
   <string name="createLobbyGame">创建对局</string>
   <string name="youPlayAs">执棋</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">请分享此链接以邀请好友对弈</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">请分享此链接以邀请好友对弈：</string>
   <string name="gameOver">对局结束</string>
   <string name="waitingForOpponent">正在等待对手</string>
-  <string name="orLetYourOpponentScanQrCode">或邀请你的对手扫描此二维码</string>
+  <string name="orLetYourOpponentScanQrCode">或让对方扫描此二维码</string>
   <string name="waiting">等待中</string>
   <string name="yourTurn">轮到您走棋</string>
   <string name="aiNameLevelAiLevel">%1$s 级别 %2$s</string>
