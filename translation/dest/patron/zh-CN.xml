@@ -82,4 +82,5 @@
   <string name="paymentDetails">付款详情</string>
   <string name="updatePaymentMethod">更新付款方式</string>
   <string name="stripeManageSub">管理您的订阅并下载发票和收据</string>
+  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">我会额外支付%s以承担这笔转账的费用</string>
 </resources>
