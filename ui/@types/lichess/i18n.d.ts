@@ -3371,6 +3371,14 @@ interface I18n {
     disableKidMode: string;
     /** Conversations */
     discussions: string;
+    /** Display clocks */
+    displayClocks: string;
+    /** Display move annotations */
+    displayMoveAnnotations: string;
+    /** Display player names */
+    displayPlayerNames: string;
+    /** Display ratings */
+    displayRatings: string;
     /** Do it again */
     doItAgain: string;
     /** Done reviewing black mistakes */

@@ -137,3 +137,35 @@ $col2-panel-height: 240px;
   pointer-events: none;
   font-family: Roboto, sans-serif;
 }
+
+.gif-export-dialog {
+  @extend %flex-column;
+
+  gap: 1.5em;
+
+  .gif-options {
+    @extend %flex-column;
+
+    gap: 0.8em;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .setting {
+    @extend %flex-center-nowrap;
+
+    gap: 1em;
+
+    label {
+      cursor: pointer;
+    }
+  }
+
+  .gif-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+  }
+}

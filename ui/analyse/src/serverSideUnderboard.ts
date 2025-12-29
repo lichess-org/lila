@@ -4,9 +4,9 @@ import * as licon from 'lib/licon';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'lib/xhr';
 import type { AnalyseData } from './interfaces';
 import type { ChartGame, AcplChart } from 'chart';
-import { spinnerHtml, domDialog, alert, confirm } from 'lib/view';
+import { spinnerHtml, domDialog, alert, confirm, type Dialog } from 'lib/view';
 import { escapeHtml } from 'lib';
-import { storage } from 'lib/storage';
+import { storage, storedBooleanProp } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
 
 export const stockfishName = 'Stockfish 17.1';
@@ -173,4 +173,116 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         `<a class="text" data-icon="${licon.InfoCircle}" href="/developers#embed-game">Read more about embedding games</a></div>`,
     });
   });
+
+  // GIF export dialog
+  if (gameGifLink) {
+    const gifPrefs = {
+      showPlayers: storedBooleanProp('analyse.gif.players', true),
+      showRatings: storedBooleanProp('analyse.gif.ratings', true),
+      showClocks: storedBooleanProp('analyse.gif.clocks', false),
+      showGlyphs: storedBooleanProp('analyse.gif.glyphs', false),
+    };
+    let gifOrientation: Color = ctrl.bottomColor();
+
+    const buildGifUrl = () => {
+      const ds = document.body.dataset;
+      return xhrUrl(`${ds.assetUrl}/game/export/gif/${gifOrientation}/${data.game.id}.gif`, {
+        theme: ds.board,
+        piece: ds.pieceSet,
+        showClocks: gifPrefs.showClocks(),
+        showGlyphs: gifPrefs.showGlyphs(),
+        showPlayers: gifPrefs.showPlayers(),
+        showRatings: gifPrefs.showRatings(),
+      });
+    };
+
+    const makeToggle = (id: string, label: string, checked: boolean) => `
+      <div class="setting">
+        <div class="switch">
+          <input id="gif-${id}" class="cmn-toggle" type="checkbox" ${checked ? 'checked' : ''}>
+          <label for="gif-${id}"></label>
+        </div>
+        <label for="gif-${id}">${label}</label>
+      </div>`;
+
+    const gameGifParent = gameGifLink.parentElement;
+    gameGifParent?.addEventListener('click', e => {
+      e.preventDefault();
+
+      const updateUrl = (dlg: Dialog) =>
+        ((dlg.view.querySelector('.gif-download') as HTMLAnchorElement).href = buildGifUrl());
+
+      const toggleAction = (id: string, prop: { (): boolean; (v: boolean): boolean }) => ({
+        selector: `#gif-${id}`,
+        event: 'change',
+        listener: (ev: Event, dlg: Dialog) => {
+          prop((ev.target as HTMLInputElement).checked);
+          updateUrl(dlg);
+        },
+      });
+
+      domDialog({
+        class: 'gif-export',
+        modal: true,
+        show: true,
+        noClickAway: true,
+        htmlText: `
+          <div class="gif-export-dialog">
+            <strong style="font-size:1.5em">${i18n.site.gameAsGIF}</strong>
+            <div class="gif-options">
+              <div class="gif-orientation">
+                <button class="button button-empty text gif-flip" data-icon="${licon.ChasingArrows}">
+                  ${i18n.site[gifOrientation]}
+                </button>
+              </div>
+              ${makeToggle('players', i18n.site.displayPlayerNames, gifPrefs.showPlayers())}
+              ${makeToggle('ratings', i18n.site.displayRatings, gifPrefs.showRatings())}
+              ${makeToggle('clocks', i18n.site.displayClocks, gifPrefs.showClocks())}
+              ${makeToggle('glyphs', i18n.site.displayMoveAnnotations, gifPrefs.showGlyphs())}
+            </div>
+            <div class="gif-actions">
+              <button class="button button-metal text gif-copy" data-icon="${licon.Clipboard}">
+                ${i18n.site.copyToClipboard}
+              </button>
+              <a class="button button-green text gif-download" data-icon="${licon.Download}" href="${buildGifUrl()}" target="_blank">
+                ${i18n.site.download}
+              </a>
+            </div>
+          </div>`,
+        actions: [
+          {
+            selector: '.gif-flip',
+            listener: (_, dlg) => {
+              gifOrientation = gifOrientation === ctrl.bottomColor() ? ctrl.topColor() : ctrl.bottomColor();
+              dlg.view.querySelector('.gif-flip')!.textContent = i18n.site[gifOrientation];
+              updateUrl(dlg);
+            },
+          },
+          {
+            selector: '.gif-copy',
+            listener: (_, dlg) => {
+              const url = (dlg.view.querySelector('.gif-download') as HTMLAnchorElement).href;
+              navigator.clipboard.writeText(url).then(() => {
+                const btn = dlg.view.querySelector('.gif-copy') as HTMLButtonElement;
+                btn.dataset.icon = licon.Checkmark;
+                btn.classList.remove('button-metal');
+                setTimeout(() => {
+                  btn.dataset.icon = licon.Clipboard;
+                  btn.classList.add('button-metal');
+                }, 1000);
+              });
+            },
+          },
+          {
+            selector: '.gif-download',
+            listener: (_, dlg) => dlg.close(),
+          },
+          toggleAction('players', gifPrefs.showPlayers),
+          toggleAction('ratings', gifPrefs.showRatings),
+          toggleAction('clocks', gifPrefs.showClocks),
+          toggleAction('glyphs', gifPrefs.showGlyphs),
+        ],
+      });
+    });
+  }
 }
