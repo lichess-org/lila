@@ -3,10 +3,10 @@ export interface YoutubeMatch {
   videoId: string;
   startTime: number;
 }
-type VideoType = 'watch' | 'embed' | 'shorts' | 'live';
+type VideoType = 'watch' | 'embed' | 'shorts' | 'live' | 'playlist';
 type DomainType = 'youtube.com' | 'youtu.be';
 
-const supportedVideoTypes: string[] = ['watch', 'embed', 'shorts', 'live'] as const;
+const supportedVideoTypes: string[] = ['watch', 'embed', 'shorts', 'live', 'playlist'] as const;
 const videoIdValidLength = 11;
 const videoIdRegex: RegExp = /^[a-zA-Z0-9_-]{11}$/;
 
@@ -31,6 +31,12 @@ export function embedYoutubeUrl(match: YoutubeMatch): string {
     controls: '2',
     iv_load_policy: '3',
   });
+
+  if (match.videoType === 'playlist') {
+    params.append('list', match.videoId);
+    return `https://www.youtube-nocookie.com/embed/videoseries?${params.toString()}`;
+  }
+
   if (match.startTime > 0) {
     params.append('start', match.startTime.toString());
   }
@@ -72,6 +78,17 @@ function handleYoutubeCom(url: URL): YoutubeMatch | undefined {
       // videoId already handled in parseVideoPath
       startTimeParamName = 'start';
       break;
+    case 'playlist':
+      const playlistId = searchParams.get('list');
+      if (!playlistId || !isPlaylistIdValid(playlistId)) {
+        return;
+      }
+
+      return {
+        videoType,
+        videoId: playlistId,
+        startTime: 0,
+      };
   }
 
   if (!isVideoIdValid(videoId) || !videoId) {
@@ -126,6 +143,8 @@ function parseVideoPath(path: string): {
 
 const isVideoIdValid = (id?: string | null) =>
   !!id && id.length === videoIdValidLength && videoIdRegex.test(id);
+
+const isPlaylistIdValid = (id?: string | null) => !!id && id.length >= 18 && id.length <= 34;
 
 function extractStartTime(value: string): number {
   let start = 0;

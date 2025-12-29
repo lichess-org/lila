@@ -154,6 +154,17 @@ describe('parseYoutubeUrl - realistic URLs & edge cases', () => {
       startTime: 30,
     });
   });
+
+  test('youtube.com playlist url', () => {
+    const url = 'https://www.youtube.com/playlist?list=PLe5ZNOR8Ttm1HHLAo64Hv4XGa_XU5-a7t';
+    const result = parseYoutubeUrl(url);
+
+    assert.deepEqual(result, {
+      videoType: 'playlist',
+      videoId: 'PLe5ZNOR8Ttm1HHLAo64Hv4XGa_XU5-a7t',
+      startTime: 0,
+    });
+  });
 });
 
 describe('embedYoutubeUrl', () => {
@@ -176,6 +187,17 @@ describe('embedYoutubeUrl', () => {
         startTime: 0,
       }),
       'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?modestbranding=1&rel=0&controls=2&iv_load_policy=3',
+    );
+  });
+
+  test('embedYoutubeUrl with playlist', () => {
+    assert.equal(
+      embedYoutubeUrl({
+        videoType: 'playlist',
+        videoId: 'PLe5ZNOR8Ttm1HHLAo64Hv4XGa_XU5-a7t',
+        startTime: 0,
+      }),
+      'https://www.youtube-nocookie.com/embed/videoseries?modestbranding=1&rel=0&controls=2&iv_load_policy=3&list=PLe5ZNOR8Ttm1HHLAo64Hv4XGa_XU5-a7t',
     );
   });
 });
