@@ -44,7 +44,7 @@
   <string name="fideFederations">ФИДЕ федерации</string>
   <string name="top10Rating">Топ 10 по рейтинг</string>
   <string name="fidePlayers">ФИДЕ играчи</string>
-  <string name="fidePlayerNotFound">Играчът на ФИДЕ не е намерен</string>
+  <string name="fidePlayerNotFound">Не е намерен ФИДЕ играч</string>
   <string name="fideProfile">ФИДЕ профил</string>
   <string name="federation">Федерация</string>
   <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Възраст</string>
@@ -54,9 +54,9 @@
   <string name="teams">Отбори</string>
   <string name="boards">Дъски</string>
   <string name="overview">Общ преглед</string>
-  <string name="subscribeTitle">Абонирайте се, за да бъдете уведомявани при започване на всеки кръг. Можете да превключите известията тип „камбанка“ или push съобщенията за излъчванията в настройките на профила си.</string>
+  <string name="subscribeTitle">Абонирайте се за известия при началото на всеки кръг. Можете да превключите звуковите и насочените известията за излъчванията в настройките на профила си.</string>
   <string name="uploadImage">Качване на изображение за турнира</string>
-  <string name="noBoardsYet">Все още няма добавени дъски. Те ще се появят веднага щом бъдат качени партии.</string>
+  <string name="noBoardsYet">Няма добавени дъски. Те ще се появят веднага щом бъдат качени партии.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Дъските могат да бъдат заредени чрез източник или чрез %s</string>
   <string name="startsAfter">Започва след %s</string>
   <string name="startVerySoon">Излъчването ще започне съвсем скоро.</string>
@@ -70,8 +70,8 @@
   <string name="gamesThisTournament">Партии в този турнир</string>
   <string name="score">Резултат</string>
   <string name="allTeams">Всички отбори</string>
-  <string name="tournamentFormat">Формат на състезанието</string>
-  <string name="tournamentLocation">Място на състезанието</string>
+  <string name="tournamentFormat">Формат на турнира</string>
+  <string name="tournamentLocation">Място на турнира</string>
   <string name="topPlayers">Най-добрите играчи</string>
   <string name="timezone">Часова зона</string>
   <string name="fideRatingCategory">Рейтингова категория на ФИДЕ</string>
