@@ -84,4 +84,5 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="paymentDetails">Detalhes de pagamento</string>
   <string name="updatePaymentMethod">Atualizar forma de pagamento</string>
   <string name="stripeManageSub">Gerencie sua assinatura e faça o download de suas faturas e recibos</string>
+  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">Vou adicionar %s para ajudar a cobrir o custo do processamento desta transação</string>
 </resources>
