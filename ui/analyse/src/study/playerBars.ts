@@ -6,7 +6,7 @@ import { renderMaterialDiffs } from '../view/components';
 import type { StudyPlayers, Federation, TagArray, StudyPlayer, StatusStr } from './interfaces';
 import { findTag, looksLikeLichessGame, resultOf } from './studyChapters';
 import { userTitle } from 'lib/view/userLink';
-import RelayPlayers, { fidePageLinkAttrs, playerId } from './relay/relayPlayers';
+import RelayPlayers, { fidePageLinkAttrs, playerId, playerPhotoOrFallback } from './relay/relayPlayers';
 import { StudyCtrl } from './studyDeps';
 import { intersection } from 'lib/tree/path';
 import { defined } from 'lib';
@@ -80,7 +80,7 @@ function renderPlayer(
       rating: showRatings && eloTag ? parseInt(eloTag) : undefined,
       fideId,
     },
-    photo = fideId && relayPlayers?.fidePhoto(fideId);
+    photo = fideId ? relayPlayers?.fidePhoto(fideId) : undefined;
   const coloredResult = status && status !== '*' && playerColoredResult(status, color, round);
   const resultNode = coloredResult
     ? hl(`${coloredResult.tag}.result`, coloredResult.points)
@@ -88,13 +88,7 @@ function renderPlayer(
   return relayPlayers
     ? hl(`div.relay-board-player.relay-board-player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
         hl('div.left', [
-          player.title === 'BOT'
-            ? hl('span', '')
-            : photo
-              ? hl('img.relay-board-player__photo', { attrs: { src: photo.small } })
-              : hl('img.relay-board-player__photo.relay-board-player__photo--fallback', {
-                  attrs: { src: site.asset.url('images/anon-face.webp') },
-                }),
+          playerPhotoOrFallback(player, photo, 'small', 'relay-board-player__photo'),
           hl('div.info-split', [
             hl('div', [
               !!player.title && userTitle(player),

@@ -540,12 +540,6 @@
   <string name="player">Hráč</string>
   <string name="list">Seznam</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Méně než %s minuta</item>
-    <item quantity="few">Méně než %s minuty</item>
-    <item quantity="many">Méně než %s minut</item>
-    <item quantity="other">Méně než %s minut</item>
-  </plurals>
   <string name="required">Vyžadováno.</string>
   <string name="openTournaments">Otevřené turnaje</string>
   <string name="duration">Trvání</string>

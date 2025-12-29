@@ -21,7 +21,7 @@
   <string name="lowestRating">सर्वात कमी गुणांकन: %s</string>
   <string name="fromXToY">%1$s पासून %2$s पर्यंत</string>
   <string name="winningStreak">विजयाची मालिका</string>
-  <string name="losingStreak">पराभवांची मािलका</string>
+  <string name="losingStreak">पराभवांची मालिका</string>
   <string name="longestStreak">सर्वात लांब मालिका: %s</string>
   <string name="currentStreak">सद्य मालिका: %s</string>
   <string name="bestRated">गुणांनुसार सर्वोच्च विजय</string>

@@ -489,6 +489,8 @@ interface I18n {
     declined: string;
     /** Edit news */
     editNews: string;
+    /** Expiration %s */
+    expirationInMomentFromNow: I18nFormat;
     /** Features */
     features: string;
     /** 100% free for all, forever, with no ads or trackers */
@@ -581,6 +583,14 @@ interface I18n {
     privateWillNeverBeShown: string;
     /** Progress */
     progress: string;
+    /** Quick login code */
+    quickLoginCode: string;
+    /** Quick login codes */
+    quickLoginCodes: string;
+    /** Use these codes on %s to log your students into Lichess. */
+    quickLoginCodesDesc1: I18nFormat;
+    /** When the codes expire, your students will remain logged in, until they manually log out. */
+    quickLoginCodesDesc2: string;
     /** Quickly generate safe usernames and passwords for students */
     quicklyGenerateSafeUsernames: string;
     /** Real name */
@@ -2027,6 +2037,8 @@ interface I18n {
     contactSupport: string;
     /** See the detailed cost breakdown */
     costBreakdown: string;
+    /** I'll add %s to help cover the cost of processing this transaction */
+    coverFees: I18nFormat;
     /** Current status */
     currentStatus: string;
     /** Date */
@@ -2689,6 +2701,10 @@ interface I18n {
     mix: string;
     /** A bit of everything. You don't know what to expect, so you remain ready for anything! Just like in real games. */
     mixDescription: string;
+    /** Morphy's mate */
+    morphysMate: string;
+    /** Use the bishop to check the king, while your rook helps to confine it. */
+    morphysMateDescription: string;
     /** One-move puzzle */
     oneMove: string;
     /** A puzzle that is only one move long. */
@@ -2697,10 +2713,18 @@ interface I18n {
     opening: string;
     /** A tactic during the first phase of the game. */
     openingDescription: string;
+    /** Opera mate */
+    operaMate: string;
+    /** Check the king with a rook and use a bishop to defend the rook. */
+    operaMateDescription: string;
     /** Pawn endgame */
     pawnEndgame: string;
     /** An endgame with only pawns. */
     pawnEndgameDescription: string;
+    /** Pillsbury's mate */
+    pillsburysMate: string;
+    /** The rook delivers checkmate, while the bishop helps to confine it. */
+    pillsburysMateDescription: string;
     /** Pin */
     pin: string;
     /** A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece. */

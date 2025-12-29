@@ -119,4 +119,9 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="moveToAnotherClass">Flytt til ei anna klasse</string>
   <string name="allowMessagingBetweenStudents">Tillat meldingar mellom elevar</string>
   <string name="allowMessagingBetweenStudentsDesc">Dette gjeld berre for kontoane du har oppretta for elevane dine.</string>
+  <string name="quickLoginCode">Kode for hurtig innlogging</string>
+  <string name="quickLoginCodes">Kodar for hurtig innlogging</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Bruk desse kodane på %s for å logge elevane inn på Lichess.</string>
+  <string name="quickLoginCodesDesc2">Elevene dine er logga inn heilt til dei loggar ut manuelt, sjølv om kodane er utløpt.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Utløper %s</string>
 </resources>

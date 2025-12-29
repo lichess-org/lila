@@ -474,10 +474,6 @@
   <string name="player">Spiller</string>
   <string name="list">Liste</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Mindre end %s minut</item>
-    <item quantity="other">Mindre end %s minutter</item>
-  </plurals>
   <string name="required">Påkrævet</string>
   <string name="openTournaments">Åben turnering</string>
   <string name="duration">Varighed</string>

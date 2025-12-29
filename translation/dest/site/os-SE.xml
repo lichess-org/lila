@@ -379,10 +379,6 @@
   <string name="player">Хъазæг</string>
   <string name="list">Номхыгъд</string>
   <string name="graph">Диаграмма</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s минутæйы къаддæр</item>
-    <item quantity="other">%s минуттыты къаддæр</item>
-  </plurals>
   <string name="required">Æнæмæнг рæнхъ.</string>
   <string name="openTournaments">Гом турниртæ</string>
   <string name="duration">Даргъад</string>

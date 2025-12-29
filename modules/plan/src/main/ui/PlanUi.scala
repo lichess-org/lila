@@ -30,6 +30,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so { l => s"&locale=$l" }
     Page(trans.patron.becomePatron.txt())
       .css("bits.plan")
+      .i18n(_.patron)
       .append:
         ctx.isAuth.so:
           frag(
@@ -132,83 +133,95 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                         )
                       )
                     },
-                    div(cls := "gift complete-parent none")(
-                      st.input(
-                        name := "giftUsername",
-                        value := "",
-                        cls := "user-autocomplete",
-                        placeholder := trans.clas.lichessUsername.txt(),
-                        autocomplete := "off",
-                        spellcheck := false,
-                        dataTag := "span",
-                        autofocus
-                      )
-                    ),
-                    st.group(cls := "radio buttons freq")(
-                      div(
-                        st.title := trp.singleDonation.txt(),
-                        input(
-                          tpe := "radio",
-                          name := "freq",
-                          id := "freq_onetime",
-                          value := "onetime"
-                        ),
-                        label(`for` := "freq_onetime")(trp.onetime())
-                      ),
-                      div(
-                        st.title := trp.recurringBilling.txt(),
-                        input(
-                          tpe := "radio",
-                          name := "freq",
-                          id := "freq_monthly",
-                          checked,
-                          value := "monthly"
-                        ),
-                        label(`for` := "freq_monthly")(trp.monthly())
-                      ),
-                      div(
-                        st.title := trp.payLifetimeOnce.txt(pricing.lifetime.display),
-                        input(
-                          tpe := "radio",
-                          name := "freq",
-                          id := "freq_lifetime",
-                          ctx.me.exists(_.plan.lifetime).option(disabled),
-                          value := "lifetime",
-                          cls := List("lifetime-check" -> ctx.me.exists(_.plan.lifetime))
-                        ),
-                        label(`for` := "freq_lifetime")(trp.lifetime())
-                      )
-                    ),
-                    div(cls := "amount_choice")(
-                      st.group(cls := "radio buttons amount")(
-                        pricing.suggestions.map { money =>
-                          val id = s"plan_${money.code}"
-                          div(
-                            input(
-                              cls := (money == pricing.default).option("default"),
-                              tpe := "radio",
-                              name := "plan",
-                              st.id := id,
-                              (money == pricing.default).option(checked),
-                              value := money.amount,
-                              attr("data-amount") := money.amount
-                            ),
-                            label(`for` := id)(money.display)
+                    ctx.isAuth.option(
+                      frag(
+                        div(cls := "gift complete-parent none")(
+                          st.input(
+                            name := "giftUsername",
+                            value := "",
+                            cls := "user-autocomplete",
+                            placeholder := trans.clas.lichessUsername.txt(),
+                            autocomplete := "off",
+                            spellcheck := false,
+                            dataTag := "span",
+                            autofocus
                           )
-                        },
-                        div(cls := "other")(
-                          input(tpe := "radio", name := "plan", id := "plan_other", value := "other"),
-                          label(
-                            `for` := "plan_other",
-                            title := trp.pleaseEnterAmountInX.txt(pricing.currencyCode),
-                            attr("data-trans-other") := trp.otherAmount.txt()
-                          )(trp.otherAmount())
+                        ),
+                        st.group(cls := "radio buttons freq")(
+                          div(
+                            st.title := trp.singleDonation.txt(),
+                            input(
+                              tpe := "radio",
+                              name := "freq",
+                              id := "freq_onetime",
+                              value := "onetime"
+                            ),
+                            label(`for` := "freq_onetime")(trp.onetime())
+                          ),
+                          div(
+                            st.title := trp.recurringBilling.txt(),
+                            input(
+                              tpe := "radio",
+                              name := "freq",
+                              id := "freq_monthly",
+                              checked,
+                              value := "monthly"
+                            ),
+                            label(`for` := "freq_monthly")(trp.monthly())
+                          ),
+                          div(
+                            st.title := trp.payLifetimeOnce.txt(pricing.lifetime.display),
+                            input(
+                              tpe := "radio",
+                              name := "freq",
+                              id := "freq_lifetime",
+                              ctx.me.exists(_.plan.lifetime).option(disabled),
+                              value := "lifetime",
+                              cls := List("lifetime-check" -> ctx.me.exists(_.plan.lifetime))
+                            ),
+                            label(`for` := "freq_lifetime")(trp.lifetime())
+                          )
+                        ),
+                        div(cls := "amount_choice")(
+                          st.group(cls := "radio buttons amount")(
+                            pricing.suggestions.map { money =>
+                              val id = s"plan_${money.code}"
+                              div(
+                                input(
+                                  cls := (money == pricing.default).option("default"),
+                                  tpe := "radio",
+                                  name := "plan",
+                                  st.id := id,
+                                  (money == pricing.default).option(checked),
+                                  value := money.amount,
+                                  attr("data-amount") := money.amount
+                                ),
+                                label(`for` := id)(money.display)
+                              )
+                            },
+                            div(cls := "other")(
+                              input(tpe := "radio", name := "plan", id := "plan_other", value := "other"),
+                              label(
+                                `for` := "plan_other",
+                                title := trp.pleaseEnterAmountInX.txt(pricing.currencyCode),
+                                attr("data-trans-other") := trp.otherAmount.txt()
+                              )(trp.otherAmount())
+                            )
+                          )
+                        ),
+                        div(cls := "amount_fixed none")(
+                          st.group(cls := "radio buttons amount")(
+                            div(label(`for` := s"plan_${pricing.lifetime.code}")(pricing.lifetime.display))
+                          )
                         )
                       )
                     ),
-                    div(cls := "amount_fixed none")(
-                      st.group(cls := "radio buttons amount")(
-                        div(label(`for` := s"plan_${pricing.lifetime.code}")(pricing.lifetime.display))
+                    ctx.isAuth.option(
+                      div(cls := "cover-fees")(
+                        input(tpe := "checkbox", id := "cover-fees", cls := "cover-fees-checkbox"),
+                        label(`for` := "cover-fees"):
+                          val rawFee = pricing.feeFixed.amount.max(pricing.default.amount * pricing.feeRate)
+                          trp.coverFees.txt(Money(rawFee, pricing.currency).display)
                       )
                     ),
                     div(cls := "service")(

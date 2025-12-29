@@ -4,9 +4,6 @@ body {
   @include mq-at-least-col3 {
     ---allow-video: true;
   }
-  &.header-margin-more {
-    ---site-header-margin: #{$player-height};
-  }
 }
 
 @mixin resizable-side {
@@ -33,6 +30,8 @@ main.is-relay {
     }
   }
   &:not(.has-relay-tour) {
+    // room for extra player heights
+    margin-top: $player-height;
     @include mq-at-least-col2 {
       .relay-tour__side {
         margin-top: #{-$player-height};

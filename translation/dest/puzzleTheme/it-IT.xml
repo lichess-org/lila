@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Restringi il re nell\'angolo usando una torre o una regina, e usa un cavallo per dare scacco matto.</string>
   <string name="crushing">Posizione schiacciante</string>
   <string name="crushingDescription">Trova l\'errore grave del tuo avversario per ottenere un vantaggio schiacciante. (valutazione ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Scacco di scoperta</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Sposta un pezzo per rivelare uno scacco di un pezzo nascosto, che spesso porta a un vantaggio decisivo.</string>
+  <string name="discoveredCheck">Scacco di scoperta</string>
+  <string name="discoveredCheckDescription">Sposta un pezzo per rivelare uno scacco di un pezzo nascosto, che spesso porta a un vantaggio decisivo.</string>
   <string name="doubleBishopMate">Matto dei due alfieri</string>
   <string name="doubleBishopMateDescription">Due alfieri danno matto lungo diagonali adiacenti ad un re ostruito dai suoi stessi pezzi.</string>
   <string name="dovetailMate">Matto a coda di rondine</string>

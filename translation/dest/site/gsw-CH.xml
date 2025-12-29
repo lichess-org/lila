@@ -476,10 +476,6 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="player">Schpiller</string>
   <string name="list">Lischtä</string>
   <string name="graph">Grafik</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Weniger als %s Minute</item>
-    <item quantity="other">Weniger als %s Minute</item>
-  </plurals>
   <string name="required">Pflichtfäld.</string>
   <string name="openTournaments">Offeni Turnier</string>
   <string name="duration">Duur</string>

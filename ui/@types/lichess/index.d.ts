@@ -28,6 +28,7 @@ interface Site {
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T>(key: string, opts?: EsmModuleOpts): Promise<T>;
     loadPieces: Promise<void>;
+    loadI18n(catalog: string): Promise<void>;
   };
   unload: { expected: boolean };
   redirect(o: RedirectTo, beep?: boolean): void;
@@ -41,8 +42,15 @@ interface Site {
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
   // file://./../../.build/src/manifest.ts
-  manifest: { css: Record<string, string>; js: Record<string, string>; hashed: Record<string, string> };
+  manifest: {
+    css: Manifest;
+    js: Manifest;
+    hashed: Manifest;
+    i18n?: Manifest;
+  };
 }
+
+type Manifest = Record<string, string>;
 
 interface EsmModuleOpts extends AssetUrlOpts {
   init?: any;

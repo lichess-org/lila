@@ -449,10 +449,6 @@
   <string name="player">Oyunçu</string>
   <string name="list">List</string>
   <string name="graph">Qrafik</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s dəqiqədən daha az</item>
-    <item quantity="other">%s dəqiqədən daha az</item>
-  </plurals>
   <string name="required">Tələb olunur.</string>
   <string name="openTournaments">Mövcud turnirlər</string>
   <string name="duration">Vaxt</string>

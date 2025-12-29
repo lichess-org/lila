@@ -29,6 +29,7 @@ final class RelayUi(helpers: Helpers)(
     val imageUrl = rt.tour.image.map(thumbnail.url(_, _.Size.Large))
     Page(rt.transName)
       .css("analyse.relay")
+      .css(ctx.blind.option("round.nvui"))
       .i18n(_.study, _.broadcast)
       .i18nOpt(ctx.speechSynthesis, _.nvui)
       .i18nOpt(ctx.blind, _.keyboardMove)
@@ -38,7 +39,7 @@ final class RelayUi(helpers: Helpers)(
       .graph:
         OpenGraph(
           title = rt.transName,
-          url = pathUrl(rt.path),
+          url = routeUrl(rt.call),
           description = shorten(rt.tour.info.toString, 152),
           image = imageUrl
         )

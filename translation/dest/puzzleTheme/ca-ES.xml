@@ -29,8 +29,8 @@
   <string name="cornerMateDescription">Confina el rei a una cantonada utilitzant una torre o una dama i donar li mat amb un cavall.</string>
   <string name="crushing">Fort avantatge</string>
   <string name="crushingDescription">Veure l\'error de l\'adversari per a obtenir un gran avantatge (aval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Escac a la descoberta</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Mou una peça per revelar un escac d\'una peça atacant amagada que normalment porta a un avantatge decisiu.</string>
+  <string name="discoveredCheck">Escac a la descoberta</string>
+  <string name="discoveredCheckDescription">Mou una peça per revelar un escac d\'una peça atacant amagada que normalment porta a un avantatge decisiu.</string>
   <string name="doubleBishopMate">Mat dels dos alfils</string>
   <string name="doubleBishopMateDescription">Dos alfils atacant en diagonals adjacents fan mat a un rei que queda obstruït per peces amigues.</string>
   <string name="dovetailMate">Mat de la coça</string>
@@ -66,6 +66,10 @@
   <string name="intermezzoDescription">En lloc de jugar la jugada esperada, interposar un moviment previ que genera un perill imminent al que l\'oponent ha de respondre. També és conegut com \"Zwischenzug\" o \"Jugada intermèdia\".</string>
   <string name="killBoxMate">Mat de la caixa de matar</string>
   <string name="killBoxMateDescription">Una torre està al costat del rei enemic sostinguda per una dama que també bloqueja les caselles d\'escapament. La torre i la dama cacen el rei enemic amb una \"caixa de matar\" de 3 per 3.</string>
+  <string name="pillsburysMate">Mat de Pillsbury</string>
+  <string name="pillsburysMateDescription">La torre fa escac i mat mentre l\'alfil ajuda a confinar el rei.</string>
+  <string name="morphysMate">Mat de Morphy</string>
+  <string name="morphysMateDescription">Utilitza l\'alfil per fer escac al rei mentre la torre ajuda a confinar-lo.</string>
   <string name="triangleMate">Mat del triangle</string>
   <string name="triangleMateDescription">La dama i la torre, a una distància del rei enemic, estan a la mateixa fila o columna separats per una casella formant un triangle.</string>
   <string name="vukovicMate">Mat de Vukovic</string>
@@ -96,6 +100,8 @@
   <string name="oneMoveDescription">Un problema que és només d\'un moviment.</string>
   <string name="opening">Obertura</string>
   <string name="openingDescription">Una tàctica durant la primera fase del joc.</string>
+  <string name="operaMate">Mat de l\'òpera</string>
+  <string name="operaMateDescription">Fes escac al rei amb la torre i utilitza l\'alfil per defensar la torre.</string>
   <string name="pawnEndgame">Final de peons</string>
   <string name="pawnEndgameDescription">Final amb només peons.</string>
   <string name="pin">Clavada</string>

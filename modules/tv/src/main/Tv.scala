@@ -34,7 +34,7 @@ final class Tv(
       .flatMap:
         case GameIdAndHistory(gameId, historyIds) =>
           for
-            game <- gameId.so(gameProxy.game)
+            game <- gameId.so(gameProxy.game).orElse(gameRepo.random)
             games <-
               historyIds
                 .traverse: id =>
@@ -75,7 +75,9 @@ object Tv:
       val name: String,
       val icon: Icon,
       val secondsSinceLastMove: Int,
-      filters: Seq[Candidate => Boolean]
+      filters: Seq[Candidate => Boolean],
+      val speed: Option[S] = None,
+      val variant: Option[V.Variant] = None
   ):
     def isFresh(g: Game): Boolean = fresh(secondsSinceLastMove, g)
     def filter(c: Candidate): Boolean = filters.forall { _(c) } && isFresh(c.game)
@@ -92,91 +94,104 @@ object Tv:
           name = S.Bullet.name,
           icon = P.Bullet.icon,
           secondsSinceLastMove = 35,
-          filters = Seq(speed(S.Bullet), rated(2000), standard, noBot)
+          filters = Seq(speed(S.Bullet), rated(2000), standard, noBot),
+          speed = Some(S.Bullet)
         )
     case Blitz
         extends Channel(
           name = S.Blitz.name,
           icon = P.Blitz.icon,
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(speed(S.Blitz), rated(2000), standard, noBot)
+          filters = Seq(speed(S.Blitz), rated(2000), standard, noBot),
+          speed = Some(S.Blitz)
         )
     case Rapid
         extends Channel(
           name = S.Rapid.name,
           icon = P.Rapid.icon,
           secondsSinceLastMove = 60 * 5,
-          filters = Seq(speed(S.Rapid), rated(1800), standard, noBot)
+          filters = Seq(speed(S.Rapid), rated(1800), standard, noBot),
+          speed = Some(S.Rapid)
         )
     case Classical
         extends Channel(
           name = S.Classical.name,
           icon = P.Classical.icon,
           secondsSinceLastMove = 60 * 8,
-          filters = Seq(speed(S.Classical), rated(1650), standard, noBot)
+          filters = Seq(speed(S.Classical), rated(1650), standard, noBot),
+          speed = Some(S.Classical)
         )
     case Chess960
         extends Channel(
           name = V.Chess960.name,
           icon = P.Chess960.icon,
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(variant(V.Chess960), noBot)
+          filters = Seq(variant(V.Chess960), noBot),
+          variant = Some(V.Chess960)
         )
     case KingOfTheHill
         extends Channel(
           name = V.KingOfTheHill.name,
           icon = P.KingOfTheHill.icon,
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(variant(V.KingOfTheHill), noBot)
+          filters = Seq(variant(V.KingOfTheHill), noBot),
+          variant = Some(V.KingOfTheHill)
         )
     case ThreeCheck
         extends Channel(
           name = V.ThreeCheck.name,
           icon = P.ThreeCheck.icon,
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(variant(V.ThreeCheck), noBot)
+          filters = Seq(variant(V.ThreeCheck), noBot),
+          variant = Some(V.ThreeCheck)
         )
     case Antichess
         extends Channel(
           name = V.Antichess.name,
           icon = P.Antichess.icon,
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(variant(V.Antichess), noBot)
+          filters = Seq(variant(V.Antichess), noBot),
+          variant = Some(V.Antichess)
         )
     case Atomic
         extends Channel(
           name = V.Atomic.name,
           icon = P.Atomic.icon,
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(variant(V.Atomic), noBot)
+          filters = Seq(variant(V.Atomic), noBot),
+          variant = Some(V.Atomic)
         )
     case Horde
         extends Channel(
           name = V.Horde.name,
           icon = P.Horde.icon,
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(variant(V.Horde), noBot)
+          filters = Seq(variant(V.Horde), noBot),
+          variant = Some(V.Horde)
         )
     case RacingKings
         extends Channel(
           name = V.RacingKings.name,
           icon = P.RacingKings.icon,
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(variant(V.RacingKings), noBot)
+          filters = Seq(variant(V.RacingKings), noBot),
+          variant = Some(V.RacingKings)
         )
     case Crazyhouse
         extends Channel(
           name = V.Crazyhouse.name,
           icon = P.Crazyhouse.icon,
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(variant(V.Crazyhouse), noBot)
+          filters = Seq(variant(V.Crazyhouse), noBot),
+          variant = Some(V.Crazyhouse)
         )
     case UltraBullet
         extends Channel(
           name = S.UltraBullet.name,
           icon = P.UltraBullet.icon,
           secondsSinceLastMove = 20,
-          filters = Seq(speed(S.UltraBullet), rated(1600), standard, noBot)
+          filters = Seq(speed(S.UltraBullet), rated(1600), standard, noBot),
+          speed = Some(S.UltraBullet)
         )
     case Bot
         extends Channel(

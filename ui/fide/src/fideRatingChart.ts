@@ -63,6 +63,11 @@ export const renderRatingChart = (
           display: false,
           min: minRating,
           max: maxRating,
+          ticks: {
+            format: {
+              useGrouping: false,
+            },
+          },
         },
       },
       elements: {

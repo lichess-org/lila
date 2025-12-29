@@ -474,10 +474,6 @@
   <string name="player">Player</string>
   <string name="list">List</string>
   <string name="graph">Graph</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Less than %s minute</item>
-    <item quantity="other">Less than %s minutes</item>
-  </plurals>
   <string name="required">Required.</string>
   <string name="openTournaments">Open tournaments</string>
   <string name="duration">Duration</string>

@@ -19,7 +19,6 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
     ai: i18n.site.playAgainstComputer,
   }[setupCtrl.gameType];
   const disabled = !setupCtrl.valid() || setupCtrl.loading;
-
   return [
     snabDialog({
       attrs: { dialog: { 'aria-labelledBy': 'lobby-setup-modal-title', 'aria-modal': 'true' } },

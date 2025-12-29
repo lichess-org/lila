@@ -456,10 +456,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="player">Speler</string>
   <string name="list">Lys</string>
   <string name="graph">Grafiek</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Minder as %s minuut</item>
-    <item quantity="other">Minder as %s minute</item>
-  </plurals>
   <string name="required">Vereiste.</string>
   <string name="openTournaments">Oop toernooie</string>
   <string name="duration">Duur</string>

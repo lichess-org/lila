@@ -90,7 +90,7 @@
   <string name="timePlaying">Играно време</string>
   <string name="variantXOverLastY">%1$s за последните %2$s</string>
   <string name="winrate">Процент на победи</string>
-  <string name="na">Неналично</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Неналично</string>
   <string name="overview">Преглед</string>
   <string name="news">Новини</string>
   <string name="classNews">Новини за класа</string>
@@ -120,4 +120,9 @@
   <string name="moveToAnotherClass">Преместване в друг клас</string>
   <string name="allowMessagingBetweenStudents">Разрешаване на съобщения между ученици</string>
   <string name="allowMessagingBetweenStudentsDesc">Това важи само за профилите, които сте създали за вашите ученици.</string>
+  <string name="quickLoginCode">Код за бърз вход</string>
+  <string name="quickLoginCodes">Кодове за бърз вход</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Използвайте тези кодове на %s, за да впишете учениците си в Lichess.</string>
+  <string name="quickLoginCodesDesc2">След изтичане на кодовете учениците ще останат вписани, докато не излязат ръчно.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Изтича след %s</string>
 </resources>

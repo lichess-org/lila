@@ -433,9 +433,6 @@
   <string name="player">棋手</string>
   <string name="list">列表</string>
   <string name="graph">圖表</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">小於%s分鐘</item>
-  </plurals>
   <string name="required">必填項目。</string>
   <string name="openTournaments">公開錦標賽</string>
   <string name="duration">持續時間</string>

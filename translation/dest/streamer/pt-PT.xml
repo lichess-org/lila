@@ -31,12 +31,16 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Quando estiveres pronto para ser listado como um streamer do Lichess, %s</string>
   <string name="submitForReview">Submeter para revisão</string>
   <string name="streamerLanguageSettings">A página do streamer Lichess visa o seu público com o idioma fornecido pela sua plataforma de streaming. Defina o idioma padrão correto para os seus streams de xadrez no aplicativo ou serviço usado para transmitir.</string>
+  <string name="pleaseAllow">Aguarde até 72 horas para que o seu emblema e anúncio de streamer sejam aprovados.</string>
+  <string name="chooseYoutubeChannel">Escolha o canal de YouTube que usará no Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Conectar</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Desconectar</string>
   <string name="streamerName">O teu nome de streamer no Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Mantem-no curto: %s carácter no máximo</item>
     <item quantity="other">Mantem-no curto: %s carácteres no máximo</item>
   </plurals>
-  <string name="visibility">Visível na página de streamers</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Visível na página de streamers</string>
   <string name="whenApproved">Quando aprovado pelos moderadores</string>
   <string name="headline">Título</string>
   <string name="tellUsAboutTheStream">Conta-nos sobre a tua stream numa frase</string>

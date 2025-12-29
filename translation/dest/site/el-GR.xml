@@ -76,7 +76,7 @@
   <string name="makeMainLine">Ορισμός ως κύρια βαριάντα</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
   <string name="collapseVariations">Σύμπτυξη βαριάντων</string>
-  <string name="expandVariations">Ανάπτυξη βαριάντων</string>
+  <string name="expandVariations">Επέκταση βαριάντων</string>
   <string name="forceVariation">Θέσε σε βαριάντα</string>
   <string name="copyVariationPgn">Αντιγραφή βαριάντας ως PGN</string>
   <string name="copyMainLinePgn">Αντιγραφή κύριας βαριάντας ως PGN</string>
@@ -454,8 +454,8 @@
   <string name="follow">Ακολουθήστε</string>
   <string name="following">Ακολουθείτε</string>
   <string name="unfollow">Κατάργηση παρακολούθησης</string>
-  <string name="followX">Ακολουθήστε τον χρήστη %s</string>
-  <string name="unfollowX">Κατάργηση ακολούθησης του χρήστη %s</string>
+  <string name="followX">Ακολουθήστε %s</string>
+  <string name="unfollowX">Να μην ακολουθείτε %s</string>
   <string name="block">Αποκλείστε</string>
   <string name="blocked">Αποκλεισμένος</string>
   <string name="unblock">Κατάργηση απόκλεισης</string>
@@ -474,10 +474,6 @@
   <string name="player">Παίκτης</string>
   <string name="list">Κατάλογος</string>
   <string name="graph">Διάγραμμα</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Λιγότερο από %s λεπτό</item>
-    <item quantity="other">Λιγότερο από %s λεπτά</item>
-  </plurals>
   <string name="required">Απαιτείται.</string>
   <string name="openTournaments">Ανοικτά τουρνουά</string>
   <string name="duration">Διάρκεια</string>
@@ -576,7 +572,7 @@
   <string name="cheat">Απάτη</string>
   <string name="troll">Εμπαιγμός</string>
   <string name="other">Άλλη</string>
-  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τις παρτίδες και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"they cheat\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα.</string>
+  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τις παρτίδες και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"Αυτοί έκλεβαν\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα.</string>
   <string name="reportUsernameHelp">Εξηγήστε μας γιατί είναι προσβλητικό το όνομα αυτού του χρήστη. Μη λέτε απλώς ότι \"είναι προσβλητικό/ακατάλληλο\" (\"it\'s offensive/inappropriate\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα, ειδικά αν πρόκειται για προσβολή η οποία δεν είναι ιδιαίτερα εμφανής: για παράδειγμα αν δεν είναι στα αγγλικά, είναι σε κάποια αργκό ή κάνει κάποια προσβλητική ιστορική/πολιτιστική αναφορά.</string>
   <string name="reportProcessedFasterInEnglish">Η αναφορά σας θα εξεταστεί γρηγορότερα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Παρακαλούμε συμπεριλάβετε τουλάχιστον έναν σύνδεσμο παρτίδας στην οποία υποψιάζεστε πως υπήρξε χρήση εξωτερικής βοήθειας.</string>

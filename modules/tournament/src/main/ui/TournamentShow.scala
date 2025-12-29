@@ -56,7 +56,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
               s"${titleNameOrId(winnerId)} takes the prize home!"
       )
       .csp(_.withLilaHttp):
-        main(cls := s"tour$extraCls")(
+        main(cls := s"tour variant-${tour.variant.key}$extraCls")(
           st.aside(cls := "tour__side"):
             side(tour, verdicts, shieldOwner, chat._1F, streamers)
           ,

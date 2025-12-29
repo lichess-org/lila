@@ -15,7 +15,7 @@ final class PracticeUi(helpers: Helpers)(
   def show(us: UserStudy, data: JsonView.JsData)(using ctx: Context) =
     Page(us.practiceStudy.name.value)
       .css("analyse.practice")
-      .i18n(_.puzzle, _.study)
+      .i18n(_.study)
       .i18nOpt(ctx.speechSynthesis, _.nvui)
       .i18nOpt(ctx.blind, _.keyboardMove)
       .js(analyseNvuiTag)

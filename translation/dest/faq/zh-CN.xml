@@ -80,7 +80,7 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess 承认所有通过线下对局（OTB）获得的国际棋联（FIDE）头衔，以及 %1$s。以下是国际棋联头衔列表：</string>
   <string name="showYourTitle">如果您拥有国际象棋头衔，您可以填写 %1$s 来申请在您的账户上显示该头衔，申请需包括一份清晰的身份证件/卡片图片以及您手持该证件/卡片的自拍。
 
-在 Lichess 上验证为头衔棋手后，将获得参加“国际象棋称号专用竞技场”赛事的资格。
+在 Lichess 上验证为头衔棋手后，将获得参加“头衔棋手专属竞技场”赛事的资格。
 
 此外，还有一个荣誉性的 %2$s 头衔。</string>
   <string name="asWellAsManyNMtitles">众多国家大师（NM）头衔</string>

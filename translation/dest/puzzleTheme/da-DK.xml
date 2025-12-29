@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Træng kongen op i hjørnet ved hjælp af et tårn eller dronning og en springer til at udføre skakmat.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Afdækkertræk</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Flyt en brik for at afsløre en skak fra en skjult angribende brik, hvilket ofte fører til en afgørende fordel.</string>
+  <string name="discoveredCheck">Afdækkertræk</string>
+  <string name="discoveredCheckDescription">Flyt en brik for at afsløre en skak fra en skjult angribende brik, hvilket ofte fører til en afgørende fordel.</string>
   <string name="doubleBishopMate">Dobbelt løbermat</string>
   <string name="doubleBishopMateDescription">To angribende løbere på tilstødende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
   <string name="dovetailMate">Duehale-mat</string>
@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">I stedet for at spille det forventede træk foretages først et andet træk, som udgør en umiddelbar trussel, som modstanderen må besvare. Også kendt som \"Zwischenzug\" eller \"In between\".</string>
   <string name="killBoxMate">Kill box-mat</string>
   <string name="killBoxMateDescription">Et tårn står ved siden af fjendens konge og støttes af en dronning, som også blokerer kongens flugtfelter. Tårnet og dronningen fanger fjendens konge i en 3 x 3 \"kill box\".</string>
+  <string name="pillsburysMate">Pillsbury\'s mat</string>
+  <string name="pillsburysMateDescription">Tårnet sætter skakmat, mens løberen hjælper med at spærre af.</string>
+  <string name="morphysMate">Morphy\'s mat</string>
+  <string name="morphysMateDescription">Brug løberen til at sætte kongen skak, mens tårnet hjælper med at spærre den inde.</string>
   <string name="triangleMate">Trekantmat</string>
   <string name="triangleMateDescription">Dronningen og tårnet, der er ét felt fra fjendens konge, befinder sig på samme række eller kolonne, adskilt af ét felt, og danner en trekant.</string>
   <string name="vukovicMate">Vukovics mat</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">En taktikopgave der kun er ét træk lang.</string>
   <string name="opening">Åbning</string>
   <string name="openingDescription">En taktik i den første fase af spillet.</string>
+  <string name="operaMate">Opera-mat</string>
+  <string name="operaMateDescription">Sæt kongen skak med eT tårn og brug en løber til at forsvare tårnet.</string>
   <string name="pawnEndgame">Bondeslutspil</string>
   <string name="pawnEndgameDescription">Et slutspil kun med bønder.</string>
   <string name="pin">Binding</string>

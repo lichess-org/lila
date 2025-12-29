@@ -109,14 +109,14 @@ Nie proś nas o przyznanie tytułu LM.</string>
   <string name="goldenZeeExplanation">ZugAddict przez 2 godziny próbował bez powodzenia pokonać 8 poziom A.I. w grze 1+0, streamując swoje zmagania. Thibault powiedział mu, że jeśli uda mu się to zrobić podczas streamu, dostanie wyjątkowe trofeum. Godzinę później Stockfish został pokonany, a obietnica została dotrzymana.</string>
   <string name="lichessRatings">Rankingi Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Jakiego systemu rankingowego używa Lichess?</string>
-  <string name="ratingSystemUsedByLichess">Rating obliczamy używając metody Glicko-2 stworzonej przez Marka Glickmana. Jest to bardzo popularna metoda ratingu, i jest używana przez znaczną większość organizacji szachowych (godnym uwagi kontrprzykładem jest FIDE, którzy nadal używają przestarzałego metody ratingu Elo).
+  <string name="ratingSystemUsedByLichess">Ranking szachowy obliczamy używając metody Glicko-2 stworzonej przez Marka Glickmana. To bardzo popularny sposób liczenia rankingu, który używany jest przez większość organizacji szachowych (warto odnotować, że FIDE nadal używa przestarzałej metody Elo).
 
-Fundamentalnie, Ratingi Glicko używają \"przedział ufności\" kiedy kalkulatują i reprezentują twój rating.
-Kiedy po raz pierwszy zaczniesz korzystać z witryny, twój rating zaczyna sie od 1500 + 700. 1500 reprezentuje twój rating, a 700 reprezentuje przedział ufności.
+Kluczowym elementem rankingu Glicko jest współczynnik odchylenia rankingu, który mierzy pewność systemu co do oceny gracza.
+Kiedy dopiero zaczynasz grać, Twój ranking to 1500 ± 1000. 1500 to podstawowa ocena gracza, a 1000 reprezentuje niepewność tej oceny (im większa wartość, tym większa niepewność oceny podstawowej).
 
-W zasadzie, system ma 90 procentową pewność że twój rating jest gdzieś pomiędzy 800 i 2200. To jest ekstremalnie niepewne. Z tego powodu, kiedy gracz dopiero zaczyna korzystanie z witryny, jego rating sie drastycznie zmieni, potencjalnie kilkaset punktów na czas. Ale po kilku grach przeciwko uznanych graczą, przedział ufności zwęzi sie i ilość punktów zdobytych/straconych po grze zmniejszy sie.
+System daje 95% pewności, że Twój ranking jest gdzieś pomiędzy 500 i 2500. To bardzo niedokładna wartość. Z tego powodu, kiedy gracz dopiero zaczyna grać w szachy na Lichess, jego ranking drastycznie zmienia się, nawet o kilkaset punktów po każdej partii. Ale po pewnej liczbie partii rozegranych z graczami ze stabilnym rankingiem, współczynnik odchylenia zacznie się zmniejszać, oraz liczba punktów zdobytych/straconych po partii będzie coraz mniejsza.
 
-Inną rzeczą do zanotowania jest to że w miarę upływu czasu, twój przedział ufności sie powiększa. To pozwala ci zdobyć/stracić punkty szybciej aby dopasować wszelkie zmiany w twoim poziomem umiejętności.</string>
+Inną ważną rzeczą jest to, że system uwzględnia Twoją aktywność. Jeśli grasz rzadziej, Twój współczynnik odchylenia zwiększa się.</string>
   <string name="whatIsProvisionalRating">Dlaczego obok rankingu wyświetlany jest znak zapytania?</string>
   <string name="provisionalRatingExplanation">Znak zapytania oznacza, że ranking ma charakter tymczasowy. Powodem może być:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Gracz nie ukończył jeszcze wystarczająco dużo rankingowych partii przeciwko %1$s.</string>

@@ -465,10 +465,6 @@
   <string name="player">Spelare</string>
   <string name="list">Lista</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Mindre än %s minut</item>
-    <item quantity="other">Mindre än %s minuter</item>
-  </plurals>
   <string name="required">Obligatoriskt.</string>
   <string name="openTournaments">Öppna turneringar</string>
   <string name="duration">Varaktighet</string>

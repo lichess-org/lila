@@ -509,11 +509,6 @@
   <string name="player">Jucător</string>
   <string name="list">Listă</string>
   <string name="graph">Grafic</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Mai puțin de un minut</item>
-    <item quantity="few">Mai puțin de %s minute</item>
-    <item quantity="other">Mai puțin de %s de minute</item>
-  </plurals>
   <string name="required">Obligatoriu.</string>
   <string name="openTournaments">Turnee deschise</string>
   <string name="duration">Durată</string>
@@ -956,6 +951,7 @@
   <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor Lichess.</string>
   <string name="searchOrStartNewDiscussion">Caută sau începe o nouă conversație</string>
   <string name="edit">Modifică</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>

@@ -440,9 +440,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="player">Người chơi</string>
   <string name="list">Danh sách</string>
   <string name="graph">Biểu đồ</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">Ít hơn %s phút</item>
-  </plurals>
   <string name="required">Bắt buộc.</string>
   <string name="openTournaments">Các giải đấu mở</string>
   <string name="duration">Thời lượng</string>

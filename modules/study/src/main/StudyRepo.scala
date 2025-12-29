@@ -3,7 +3,6 @@ package lila.study
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
-import reactivemongo.api.bson.BSONDocument
 
 import lila.core.study as hub
 import lila.core.study.Visibility
@@ -85,7 +84,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   private[study] val selectPublic = $doc("visibility" -> Visibility.public)
   private[study] val selectPrivateOrUnlisted = "visibility".$ne(Visibility.public)
   private[study] def selectLiker(userId: UserId) = $doc(F.likers -> userId)
-  private[study] def selectContributorId(userId: UserId): BSONDocument =
+  private[study] def selectContributorId(userId: UserId): Bdoc =
     selectMemberId(userId) ++ // use the index
       $doc("ownerId".$ne(userId)) ++
       $doc(s"members.$userId.role" -> "w")
@@ -233,7 +232,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   )(userId: UserId, nb: Int): Fu[List[(hub.IdName, Int)]] =
     findRecentStudyWithChapterCount(selectContributorId)(chapterColl)(userId, nb)
 
-  private def findRecentStudyWithChapterCount(query: UserId => BSONDocument)(
+  private def findRecentStudyWithChapterCount(query: UserId => Bdoc)(
       chapterColl: AsyncColl
   )(userId: UserId, nb: Int): Future[List[(hub.IdName, Int)]] =
     coll:

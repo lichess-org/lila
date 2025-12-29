@@ -121,7 +121,7 @@ final private class TwitchApi(
           fuccess(none)
         case _ => fuccess(none)
 
-  private[streamer] def subscribeAll: Funit = cfg.clientId.nonEmpty.so:
+  private[streamer] def subscribeAll: Funit =
     for
       latestSeenApprovedIds <- repo.approvedTwitchIds()
       _ = logger.info(s"${latestSeenApprovedIds.size} approved twitch ids")
@@ -142,7 +142,7 @@ final private class TwitchApi(
       _ <- subscribeMany(wanted)
     yield ()
 
-  private[streamer] def syncAll: Funit = cfg.clientId.nonEmpty.so:
+  private[streamer] def syncAll: Funit =
     for
       latestSeenApprovedIds <- repo.approvedTwitchIds()
       allOngoingStreams <- latestSeenApprovedIds
@@ -154,6 +154,15 @@ final private class TwitchApi(
     yield
       (lives.keySet.toSet -- newLives.keySet).foreach(lives.remove)
       newLives.foreach(lives.update)
+
+  private[streamer] def checkThatLiveStreamersReallyAreLive: Funit =
+    fetchStreams(lives.keys.toSeq).map { helixes =>
+      val liveIds = helixes.map(_.user_id).toSet
+      lives.foreach: (id, stream) =>
+        if !liveIds(id) then
+          logger.info(s"Stream ${id}/${stream.user_login} seems offline, removing from lives")
+          lives.remove(id)
+    }
 
   private[streamer] def forceCheck(s: Streamer.Twitch): Funit =
     fetchStream(s.id).map(helix => lives.updateWith(s.id)(_ => helix))
