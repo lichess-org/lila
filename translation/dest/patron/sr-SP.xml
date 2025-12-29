@@ -8,7 +8,7 @@
   <string name="newPatrons">Нови Покровитељи</string>
   <string name="freeChess">Бесплатан шах за све, заувек!</string>
   <string name="noAdsNoSubs">Нема реклама, нема претплата; само отворен изворни код и страст.</string>
-  <string name="thankYou" comment="&quot;you&quot; is in singular here.">Хвала ти на твојој донацији!</string>
+  <string name="thankYou">Хвала ти на твојој донацији!</string>
   <string name="youHaveLifetime">Имаш Доживотни Покровитељ налог. То је поприлично сјајно!</string>
   <string name="patronUntil">Имаш Покровитељ налог до %s.</string>
   <string name="weAreNonProfit">Ми смо непрофитно удружење јер верујемо да сви требају имати приступ бесплатној шаховској платформи светске класе.</string>
