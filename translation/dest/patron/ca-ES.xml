@@ -84,4 +84,5 @@ Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.
   <string name="paymentDetails">Detalls del pagament</string>
   <string name="updatePaymentMethod">Actualitza el mètode de pagament</string>
   <string name="stripeManageSub">Gestiona la teva subscripció i descarrega les factures i rebuts</string>
+  <string name="coverFees">Afegir %s per ajudar a cobrir el cost de processar aquesta transacció</string>
 </resources>
