@@ -84,4 +84,5 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="paymentDetails">Zahlungsdetails</string>
   <string name="updatePaymentMethod">Zahlungsmethode aktualisieren</string>
   <string name="stripeManageSub">Verwalte dein Abonnement und lade deine Rechnungen und Belege herunter</string>
+  <string name="coverFees">Ich spende weitere %s, um die Kosten für die Verarbeitung dieser Transaktion zu decken</string>
 </resources>
