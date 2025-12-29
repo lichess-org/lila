@@ -1,3 +1,4 @@
+import type { ClockConfig } from 'lib/setup/interfaces';
 import type { TimeMode } from 'lib/setup/timeControl';
 
 export type Sort = 'rating' | 'time';
@@ -45,10 +46,8 @@ export interface Seek {
   action: 'joinSeek' | 'cancelSeek';
 }
 
-export interface Pool {
+export interface Pool extends ClockConfig {
   id: PoolId;
-  lim: number;
-  inc: number;
   perf: string;
 }
 

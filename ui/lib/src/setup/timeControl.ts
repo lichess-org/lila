@@ -1,5 +1,5 @@
 import { propWithEffect, type Prop } from '@/index';
-import type { InputValue, RealValue } from './interfaces';
+import type { ClockConfig, InputValue, RealValue } from './interfaces';
 import { clockToSpeed } from '@/game';
 
 export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
@@ -14,6 +14,7 @@ export class TimeControl {
     readonly timeV: Prop<InputValue>,
     readonly incrementV: Prop<InputValue>,
     readonly daysV: Prop<InputValue>,
+    readonly presets: ClockConfig[],
   ) {}
 
   time: () => RealValue = () => timeVToTime(this.timeV());
@@ -50,6 +51,7 @@ export const timeControlFromStoredValues = (
   inc: RealValue,
   days: RealValue,
   onChange: () => void,
+  presets: ClockConfig[],
 ): TimeControl =>
   new TimeControl(
     mode,
@@ -57,6 +59,7 @@ export const timeControlFromStoredValues = (
     propWithEffect(sliderInitVal(time, timeVToTime, 100, 14), onChange),
     propWithEffect(sliderInitVal(inc, incrementVToIncrement, 100, 5), onChange),
     propWithEffect(sliderInitVal(days, daysVToDays, 20, 7), onChange),
+    presets,
   );
 
 export const timeModes: { id: number; key: TimeMode; name: string }[] = [

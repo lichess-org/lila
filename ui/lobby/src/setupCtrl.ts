@@ -81,6 +81,7 @@ export default class SetupController {
       forceOptions?.increment ?? storeProps.increment,
       storeProps.days,
       this.onPropChange,
+      this.root.pools,
     );
     this.gameMode = this.propWithApply(storeProps.gameMode);
     this.ratingMin = this.propWithApply(storeProps.ratingMin);

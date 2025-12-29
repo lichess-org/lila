@@ -20,21 +20,6 @@ const showTime = (v: number) => {
   return v.toString();
 };
 
-const PRESETS = [
-  // mirrors modules/pool/src/main/PoolList.scala
-  { lim: 1, inc: 0 },
-  { lim: 2, inc: 1 },
-  { lim: 3, inc: 0 },
-  { lim: 3, inc: 2 },
-  { lim: 5, inc: 0 },
-  { lim: 5, inc: 3 },
-  { lim: 10, inc: 0 },
-  { lim: 10, inc: 5 },
-  { lim: 15, inc: 10 },
-  { lim: 30, inc: 0 },
-  { lim: 30, inc: 20 },
-];
-
 const blindModeTimePickers = (tc: TimeControl) => {
   return [
     renderTimeModePicker(tc),
@@ -166,7 +151,7 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal:
       ]),
       hl(
         'div.presets',
-        PRESETS.map(p =>
+        tc.presets.map(p =>
           hl(
             'button.preset-btn',
             {
