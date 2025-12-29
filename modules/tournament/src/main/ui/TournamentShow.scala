@@ -167,7 +167,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     private def sideBotsWarning(tour: Tournament) =
       tour.conditions.allowsBots.option:
         div(cls := "tour__bots-warning")(
-          img(src := staticAssetUrl("images/icons/bot.png")),
+          img(src := staticAssetUrl("images/icons/bot.webp")),
           div(
             h2("Bot tournament"),
             p(
