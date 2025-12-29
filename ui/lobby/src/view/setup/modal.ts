@@ -58,7 +58,7 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
 const views = {
   hook: (ctrl: LobbyController): LooseVNodes => [
     variantPicker(ctrl),
-    timePickerAndSliders(ctrl.setupCtrl.timeControl, 0, ctrl.setupCtrl.variant(), 'hook'),
+    timePickerAndSliders(ctrl.setupCtrl.timeControl, 0),
     gameModeButtons(ctrl),
     ratingView(ctrl),
     ratingDifferenceSliders(ctrl),
@@ -67,19 +67,14 @@ const views = {
   friend: (ctrl: LobbyController): LooseVNodes => [
     variantPicker(ctrl),
     fenInput(ctrl),
-    timePickerAndSliders(ctrl.setupCtrl.timeControl, 0, ctrl.setupCtrl.variant(), 'friend'),
+    timePickerAndSliders(ctrl.setupCtrl.timeControl, 0),
     gameModeButtons(ctrl),
     colorButtons(ctrl),
   ],
   ai: (ctrl: LobbyController): LooseVNodes => [
     variantPicker(ctrl),
     fenInput(ctrl),
-    timePickerAndSliders(
-      ctrl.setupCtrl.timeControl,
-      ctrl.setupCtrl.minimumTimeIfReal(),
-      ctrl.setupCtrl.variant(),
-      'ai',
-    ),
+    timePickerAndSliders(ctrl.setupCtrl.timeControl, ctrl.setupCtrl.minimumTimeIfReal()),
     levelButtons(ctrl),
     colorButtons(ctrl),
   ],

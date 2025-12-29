@@ -20,34 +20,20 @@ const showTime = (v: number) => {
   return v.toString();
 };
 
-const PRESETS = {
-  standard: [
-    // Common non-default time controls.
-    { lim: 0.25, inc: 0 },
-    { lim: 0.5, inc: 0 },
-    { lim: 0, inc: 1 },
-    { lim: 1, inc: 1 },
-    { lim: 2, inc: 0 },
-    { lim: 8, inc: 0 },
-    { lim: 5, inc: 5 },
-    { lim: 10, inc: 3 },
-    { lim: 15, inc: 0 },
-  ],
-  nonStandard: [
-    // mirrors modules/pool/src/main/PoolList.scala
-    { lim: 1, inc: 0 },
-    { lim: 2, inc: 1 },
-    { lim: 3, inc: 0 },
-    { lim: 3, inc: 2 },
-    { lim: 5, inc: 0 },
-    { lim: 5, inc: 3 },
-    { lim: 10, inc: 0 },
-    { lim: 10, inc: 5 },
-    { lim: 15, inc: 10 },
-    { lim: 30, inc: 0 },
-    { lim: 30, inc: 20 },
-  ],
-};
+const PRESETS = [
+  // mirrors modules/pool/src/main/PoolList.scala
+  { lim: 1, inc: 0 },
+  { lim: 2, inc: 1 },
+  { lim: 3, inc: 0 },
+  { lim: 3, inc: 2 },
+  { lim: 5, inc: 0 },
+  { lim: 5, inc: 3 },
+  { lim: 10, inc: 0 },
+  { lim: 10, inc: 5 },
+  { lim: 15, inc: 10 },
+  { lim: 30, inc: 0 },
+  { lim: 30, inc: 20 },
+];
 
 const blindModeTimePickers = (tc: TimeControl) => {
   return [
@@ -135,12 +121,7 @@ const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: 
     on: { input: (e: Event) => prop(parseFloat((e.target as HTMLInputElement).value)) },
   });
 
-export const timePickerAndSliders = (
-  tc: TimeControl,
-  minimumTimeRequiredIfReal: number = 0,
-  variant?: string,
-  gameType?: 'hook' | 'friend' | 'ai',
-): VNode => {
+export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal: number = 0): VNode => {
   if (site.blindMode) return hl('div.config-group', blindModeTimePickers(tc));
 
   const activeMode = tc.mode();
@@ -165,13 +146,10 @@ export const timePickerAndSliders = (
   let panelContent: VNode | null = null;
 
   if (activeMode === 'realTime') {
-    const isStandard = !variant || variant === 'standard' || variant === 'fromPosition';
-    const currentPresets = gameType === 'hook' && isStandard ? PRESETS.standard : PRESETS.nonStandard;
-
     panelContent = hl('div.time-panel', [
       hl(
         'div.presets',
-        currentPresets.map(p =>
+        PRESETS.map(p =>
           hl(
             'button.preset-btn',
             {
