@@ -28,7 +28,7 @@ public/font/lichess.chess.{sfd,woff,woff2} | the [pgn4web](http://pgn4web.casasc
 Noto Sans in public/font | [Google](https://fonts.google.com/specimen/Noto+Sans) | [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 Roboto in public/font | [Christian Robertson](https://fonts.google.com/specimen/Roboto) | [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 Segment7 in public/font | [Cedders](https://www.fontspace.com/cedders) | [SIL Open Font License](https://www.fontspace.com/help#license-17)
-public/piece/horsey, public/images/emoji/horsey.png | cham, michael1241 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/horsey, public/images/emoji/horsey.webp | cham, michael1241 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/images/staunton | [James Clarke](https://github.com/clarkerubber/Staunton-Pieces) | [MIT](https://github.com/clarkerubber/Staunton-Pieces/blob/master/LICENSE)
 public/images/staunton/piece/CubesAndPi | CubesAndPi | AGPLv3+
 public/images/trophy | [James Clarke](https://github.com/clarkerubber/Staunton-Pieces/tree/master/Trophies) | [MIT](https://github.com/clarkerubber/Staunton-Pieces/blob/master/LICENSE)
