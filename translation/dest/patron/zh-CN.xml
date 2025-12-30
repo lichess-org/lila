@@ -60,7 +60,7 @@
   <string name="youWillBeChargedXOnY">我们将在 %2$s 向您收取 %1$s。</string>
   <string name="makeAdditionalDonation">进行额外赞助</string>
   <string name="giftPatronWingsShort">赠送赞助者之翼</string>
-  <string name="giftPatronWings">向一位玩家赠送赞助者之翼</string>
+  <string name="giftPatronWings">向其他棋手赠送赞助者之翼</string>
   <string name="update">更新</string>
   <string name="changeMonthlyAmount">更改月度金额（%s）</string>
   <string name="cancelSupport">取消您的赞助</string>
