@@ -439,7 +439,9 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__players {
-    overflow-x: auto;
+    overflow: auto;
+  }
+  &__players__table {
     thead {
       background: none;
       th {
