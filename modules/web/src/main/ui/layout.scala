@@ -81,7 +81,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )
 
   def botImage = img(
-    src := staticAssetUrl("images/icons/bot.png"),
+    src := staticAssetUrl("images/icons/bot.webp"),
     title := "Robot chess",
     style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )
