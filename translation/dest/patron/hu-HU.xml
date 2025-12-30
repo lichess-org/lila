@@ -3,7 +3,7 @@
   <string name="donate">Támogatás</string>
   <string name="donateAsX">Adakozás mint %s</string>
   <string name="lichessPatron">Lichess Patron</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Támogató: %s óta</string>
+  <string name="patronSince" comment="string is a date">Támogató: %s óta</string>
   <string name="freeAccount">Ingyenes fiók</string>
   <string name="becomePatron">Támogasd a Lichesst</string>
   <string name="xBecamePatron">%s már Lichess támogató</string>
@@ -14,7 +14,7 @@
   <string name="newPatrons">Új támogatók</string>
   <string name="freeChess">Ingyen sakk mindig, mindenkinek!</string>
   <string name="noAdsNoSubs">Se reklám, se fizetős részek; csak nyílt forrás és elhivatottság.</string>
-  <string name="thankYou" comment="&quot;you&quot; is in singular here.">Köszönjük, hogy támogatsz minket!</string>
+  <string name="thankYou">Köszönjük, hogy támogatsz minket!</string>
   <string name="youHaveLifetime">Életre szóló támogató fiókod van. Ez azért elég vagány!</string>
   <string name="patronUntil">Támogató fiókod van eddig a napig: %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Megújítás nélkül a fiókod majd visszaváltozik hagyományos fiókká.</string>

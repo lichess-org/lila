@@ -3,7 +3,7 @@
   <string name="preferences">Astellungen</string>
   <string name="display">Usiicht</string>
   <string name="privacy">Privatsphär</string>
-  <string name="notifications">Benoriichtegungen</string>
+  <string name="notifications">Notifikatiounen</string>
   <string name="pieceAnimation">Figurenanimatioun</string>
   <string name="materialDifference">Materialënnerscheed</string>
   <string name="boardHighlights">Felder um Briet ervirhiewen (leschten Zuch a Schach)</string>
@@ -18,12 +18,12 @@
   <string name="explainShowPlayerRatings">Verstopp all Wäertungen op der Websäit, fir dass du dech voll op de Schach konzentréieren kanns. Partien können ëmmer nach gewäert sinn, et geet just drëm, wat du gesäis.</string>
   <string name="displayBoardResizeHandle">Regeler fir Brietgréisst ze änneren weisen</string>
   <string name="onlyOnInitialPosition">Just an Startpositioun</string>
-  <string name="inGameOnly">Nëmmen während enger Partie</string>
+  <string name="inGameOnly">Nëmme wärend der Partie</string>
   <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Ausser an der Partie</string>
   <string name="chessClock">Schachauer</string>
   <string name="tenthsOfSeconds">Zéngtelsekonnen</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wann verbleiwend Zäit &lt; 10 Sekonnen</string>
-  <string name="horizontalGreenProgressBars">Horizontalen gréngen Fortschrëttsbalken</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wa &lt; 10 Sekonnen iwwreg bleiwen</string>
+  <string name="horizontalGreenProgressBars">Horizontale grénge Fortschrëttsbalken</string>
   <string name="soundWhenTimeGetsCritical">Toun wann Zäit kritesch gëtt</string>
   <string name="giveMoreTime">Zäit bäiginn</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Spillverhalen</string>
@@ -35,12 +35,12 @@
   <string name="takebacksWithOpponentApproval">Zuch zeréckhuelen (mat Zoustemmung vum Géigner)</string>
   <string name="inCasualGamesOnly">Just an ongewäerten Partien</string>
   <string name="promoteToQueenAutomatically">Automatesch an eng Damm ëmwandelen</string>
-  <string name="explainPromoteToQueenAutomatically">Dréck ob deng &lt;ctrl&gt; Tasten während der Emwandlung fir temporär déi automatesch Emwandlung ze desaktivéieren</string>
+  <string name="explainPromoteToQueenAutomatically">Hal wärend der Ëmwandlung d\'&lt;ctrl&gt;-Tast gedréckt fir déi automatesch Ëmwandlung temporär ze desaktivéieren</string>
   <string name="whenPremoving">Wann Virauszuch</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Remis duerch dräifach Stellungswidderhuelung reklaméieren</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wann verbleiwend Zäit &lt; 30 Sekonnen</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wa &lt; 30 Sekonnen iwwereg bleiwen</string>
   <string name="moveConfirmation">Zich confirméieren</string>
-  <string name="explainCanThenBeTemporarilyDisabled">Kann während der Partie desaktivéiert ginn iwwert den Brietmenü</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Ka wärend der Partie iwwert de Brietmenü desaktivéiert ginn</string>
   <string name="inCorrespondenceGames">Fernschachpartien</string>
   <string name="correspondenceAndUnlimited">Fernschach an onbegrenzt</string>
   <string name="confirmResignationAndDrawOffers">Resignatioun a Remis-Offere confirméieren</string>

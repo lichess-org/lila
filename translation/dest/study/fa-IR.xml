@@ -87,7 +87,7 @@
   <string name="deleteChapter">حذف بخش</string>
   <string name="deleteThisChapter">حذف این بخش. بازگشت وجود ندارد!</string>
   <string name="clearAllCommentsInThisChapter">همه دیدگاه‌ها، نمادها و شکل‌های ترسیم شده در این بخش، پاک شوند</string>
-  <string name="rightUnderTheBoard">درست زیر صفحهٔ بازی</string>
+  <string name="rightUnderTheBoard">درست زیر تختهٔ بازی</string>
   <string name="noPinnedComment">هیچ</string>
   <string name="normalAnalysis">تحلیل ساده</string>
   <string name="hideNextMoves">پنهان کردن حرکت بعدی</string>
@@ -125,7 +125,7 @@
   <string name="pinnedStudyComment">یادداشت سنجاقیده به مطالعه</string>
   <string name="start">آغاز</string>
   <string name="save">ذخیره</string>
-  <string name="clearChat">پاک کردن گفتگو</string>
+  <string name="clearChat">پاکیدنِ گپ</string>
   <string name="deleteTheStudyChatHistory">پیشینه گپِ مطالعه پاک شود؟ بازگشت وجود ندارد!</string>
   <string name="deleteStudy">پاکیدن مطالعه</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">کل مطالعه پاک شود؟ بازگشت وجود ندارد! برای تایید، نام مطالعه را بنویسید: %s</string>

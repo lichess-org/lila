@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="keyboardInputCommands">دستورهای وردی</string>
+  <string name="keyboardInputCommands">دستورهای ورودیِ صفحه‌کلید</string>
   <string name="performAMove">حرکت کنید</string>
   <string name="movePieceFromE2ToE4">مهره از e2 به e4 رفت</string>
   <string name="moveKnightToC3">اسب به c3 رفت</string>

@@ -51,7 +51,7 @@ final class Dev(env: Env) extends LilaController(env):
     Found(env.security.ipTiers.form.map(_.toOption)): form =>
       bindForm(form)(
         err => BadRequest.page(views.dev.ipTiers(Right(err))),
-        v => env.security.ipTiers.set(v).inject(Redirect(routes.Dev.ipTiers).flashSuccess)
+        v => env.security.ipTiers.writeToFile(v).inject(Redirect(routes.Dev.ipTiers).flashSuccess)
       )
   }
 

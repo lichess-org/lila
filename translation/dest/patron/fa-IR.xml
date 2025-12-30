@@ -3,7 +3,7 @@
   <string name="donate">داشَنیدن</string>
   <string name="donateAsX">به اسمِ %s داشَنید</string>
   <string name="lichessPatron">یاورِ Lichess</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">حامی از %s</string>
+  <string name="patronSince" comment="string is a date">حامی از %s</string>
   <string name="freeAccount">حساب کاربری رایگان</string>
   <string name="becomePatron">یاور Lichess بشوید</string>
   <string name="xBecamePatron">%s یاور Lichess شد</string>
@@ -14,7 +14,7 @@
   <string name="newPatrons">یاوران نو</string>
   <string name="freeChess">شطرنج رایگان برای همه، برای همیشه!</string>
   <string name="noAdsNoSubs">بدون تبلیغات، بدون اشتراکها، فقط متن‌باز و لذت‌بخش.</string>
-  <string name="thankYou" comment="&quot;you&quot; is in singular here.">از داشَن‌تان سپاسگزاریم!</string>
+  <string name="thankYou">از داشَن‌تان سپاسگزاریم!</string>
   <string name="youHaveLifetime">شما دارای یک حساب پشنیبان مادام‌العمر هستید. واقعاً خیلی عالی است!</string>
   <string name="patronUntil">شما تا %s حساب یاور دارید.</string>
   <string name="ifNotRenewedThenAccountWillRevert">اگر تمدید نشود، حساب شما به حالت عادی باز خواهد گشت.</string>

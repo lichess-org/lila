@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">ตั้งค่าเกม</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">ท้าดวลกับเพื่อน</string>
+  <string name="playAgainstComputer">เล่นกับคอมพิวเตอร์</string>
+  <string name="gameMode">โหมดเกม</string>
+  <string name="createLobbyGame">สร้างเกมใหม่ในลอบบี้</string>
+  <string name="youPlayAs">เล่นเป็นสี</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ให้ URL นี้เพื่อเชิญคนมาเล่น</string>
   <string name="gameOver">จบเกม</string>
   <string name="waitingForOpponent">กำลังรอคู่แข่ง</string>
@@ -316,6 +322,7 @@
     <item quantity="other">%s เกมกำลังเล่น</item>
   </plurals>
   <string name="exportGames">ส่งออกเกม</string>
+  <string name="ratingFilter">ตัวกำหนดช่วงเรดติ้ง</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">ให้ %s วินาที</item>
   </plurals>
@@ -363,6 +370,7 @@
     <item quantity="other">คุณจำเป็นต้องเล่นเกม %s ที่คิดคะแนนเพิ่มเติม</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">ระดับคะแนน %s ของคุณเป็นแบบชั่วคราว</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">ตัวกำหนดช่วงเรดติ้งถูกล็อก เพราะเรดติ้งคุณยังไม่คงที่ เล่นเกมคิดคะแนนอีกเพื่อให้เรดติ้งมั่นคงขึ้น</string>
   <string name="yourPerfRatingIsTooHigh">ระดับคะแนน %1$s ของคุณ (%2$s) สูงเกินไป</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">ระดับคะแนน %1$s รายสัปดาห์ของคุณ (%2$s) สูงเกินไป</string>
   <string name="yourPerfRatingIsTooLow">ระดับคะแนน %1$s ของคุณ (%2$s) ต่ำเกินไป</string>
@@ -677,6 +685,7 @@
   <string name="cyclePreviousOrNextVariation">กู้คืน ตาเดินแขนงก่อนหน้า หรือ แขนงถัดไป</string>
   <string name="toggleGlyphAnnotations">สลับคำอธิบายประกอบสัญลักษณ์</string>
   <string name="togglePositionAnnotations">สลับคำอธิบายประกอบหมากรุก</string>
+  <string name="toggleObservationAnnotations">สลับคำอธิบายประกอบหมากรุก</string>
   <string name="variationArrowsInfo">ตาเดินอื่นๆ ทำให้คุณนำร่องตาเดินได้โดยไม่ต้องให้ดูแผ่นตาเดิน</string>
   <string name="playSelectedMove">เล่นตาเดินที่เลือก</string>
   <string name="newTournament">ทัวร์นาเมนต์ใหม่</string>
@@ -717,6 +726,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">คุณสามารถหมุนเลื่อนเหนือกระดานเพื่อเดินในเกมได้ด้วย</string>
   <string name="scrollOverComputerVariationsToPreviewThem">เลื่อนไปเหนือตัวแปรคอมพิวเตอร์เพื่อดูตัวอย่างพวกมัน</string>
   <string name="analysisShapesHowTo">กด shift+คลิก หรือ คลิกขวา เพื่อวาดวงกลมและลูกศรบนกระดาน</string>
+  <string name="primaryColorArrowsHowTo">ปุ่ม Ctrl หรือ shift ได้สีแดง; ปุ่ม alt หรือ meta ได้สีน้ำเงิน; กด ctrl และ alt พร้อมกันได้สีเหลือง</string>
   <string name="letOtherPlayersMessageYou">อนุญาตให้ผู้อื่นส่งข้อความถึงคุณ</string>
   <string name="receiveForumNotifications">รับการแจ้งเตือนเมื่อถูกกล่าวถึงในห้องอภิปราย</string>
   <string name="shareYourInsightsData">แบ่งปันข้อมูลเชิงลึกของคุณ</string>
@@ -777,6 +787,7 @@
   <string name="notifications">การแจ้งเตือน</string>
   <string name="notificationsX">การแจ้งเตือน: %1$s</string>
   <string name="perfRatingX">ระดับคะแนน: %s</string>
+  <string name="yourRatingIsX">เรดติ้งคุณคือ %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s วินาทีต้องเริ่มเดินตาแรก</item>
   </plurals>
@@ -826,6 +837,7 @@
   <string name="playVariationToCreateConditionalPremoves">เล่นหนึ่งการแปรผัน เพื่อสร้างการเดินล่วงหน้าแบบมีเงื่อนไข</string>
   <string name="noConditionalPremoves">ไม่มีการเดินล่วงหน้าแบบมีเงื่อนไข</string>
   <string name="playX">เล่น %s</string>
+  <string name="challengeX">ท้าดวล %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">และบันทึก %s เส้นทางเดินล่วงหน้า</item>
   </plurals>
@@ -852,6 +864,7 @@
   <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ Lichess</string>
   <string name="searchOrStartNewDiscussion">ค้นหา หรือเริ่มการสนทนาใหม่</string>
   <string name="edit">แก้ไข</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">อัลตร้าบูลเล็ต</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">บูลเล็ต</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">บลิตซ์</string>
   <string name="rapid">แรปพิด</string>
@@ -893,7 +906,7 @@
   <string name="timeAlmostUp">เวลาใกล้จะหมดแล้ว</string>
   <string name="clickToRevealEmailAddress">[คลิกเพื่อเผยที่อยู่อีเมล]</string>
   <string name="download">ดาวน์โหลด</string>
-  <string name="coachManager">ตัวจัดการผู้ฝึกสอน</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">ตัวจัดการผู้ฝึกสอน</string>
   <string name="streamerManager">ตัวจัดการผู้สตรีม</string>
   <string name="cancelTournament">ยกเลิกทัวร์นาเมนต์</string>
   <string name="tournDescription">คำบรรยายทัวร์นาเมนต์</string>
@@ -915,6 +928,7 @@
   <string name="simulFeaturedHelp">แสคงไซมัลให้ทุกคนบน %s ถูกปิดการใช้งานสำหรับไซมัลส่วนตัว</string>
   <string name="simulDescription">คำบรรยายไซมัล</string>
   <string name="simulDescriptionHelp">คุณต้องการบอกอะไรผู้เข้าร่วมไหม?</string>
+  <string name="markdownIsAvailable">สามารถใช้ %s ในการจัดรูปแบบได้</string>
   <string name="embedsAvailable">วาง URLของเกม หรือ ศึกษา URL ของบทที่จะตรึงไว้</string>
   <string name="inYourLocalTimezone">ในเขตเวลาท้องถิ่นของคุณ</string>
   <string name="tournChat">แชททัวร์นาเมนต์</string>
@@ -955,4 +969,9 @@
   <string name="enableBlindMode">โหมดแบบไม่เห็นหมาก</string>
   <string name="disableBlindMode">โหมดแบบเห็นหมาก</string>
   <string name="copyToClipboard">คัดลอกไปยังคลิปบอร์ด</string>
+  <string name="online" comment="status of a user">ออนไลน์</string>
+  <string name="offline" comment="status of a user">ออฟไลน์</string>
+  <string name="search">ค้นหา</string>
+  <string name="clearSearch">ล้างการค้นหา</string>
+  <string name="tags">แท็ก</string>
 </resources>

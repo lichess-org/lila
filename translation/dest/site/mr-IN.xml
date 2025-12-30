@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">खेळाची मांडणी</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">एका मित्राला आव्हान करा</string>
-  <string name="playAgainstComputer">संगणक विरुद्ध खेळा</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">मित्राला आव्हान द्या</string>
+  <string name="playAgainstComputer">संगणकाविरुद्ध खेळा</string>
   <string name="gameMode">खेळाची रीत</string>
   <string name="createLobbyGame">प्रेक्षागृहाचा खेळ तयार करा</string>
   <string name="youPlayAs">तुम्ही खेळाल असे</string>
@@ -95,7 +95,7 @@
   <string name="whiteDrawBlack">पांढरा / बरोबरी / काळा</string>
   <string name="averageRatingX">सरासरी मानांकन: %s</string>
   <string name="recentGames">अलीकडचे खेळ</string>
-  <string name="topGames">उत्तम खेळ</string>
+  <string name="topGames">सर्वोत्कृष्ट खेळ</string>
   <string name="masterDbExplanation">%2$s पासून %3$s पर्यंत %1$s आणि FIDE मानांकित खेळाडूंचे 20 लाख प्रत्यक्ष खेळ</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s अर्ध्याचालीत मात</item>
@@ -510,7 +510,7 @@
   <string name="setTheBoard">पट मांडा</string>
   <string name="popularOpenings">लोकप्रिय प्रारंभिक चाली</string>
   <string name="endgamePositions">अंत्यखेळ स्थिती</string>
-  <string name="chess960StartPosition">Chess960 प्रारंभ स्थिती: %s</string>
+  <string name="chess960StartPosition">चेस९६० प्रारंभ स्थिती: %s</string>
   <string name="startPosition">सुरवातीची स्थिती</string>
   <string name="clearBoard">पट रिकामा करा</string>
   <string name="loadPosition">पटस्थिती लोड करा</string>
@@ -607,7 +607,7 @@
   <string name="slow">संथ</string>
   <string name="insideTheBoard">पटाच्या आतमध्ये</string>
   <string name="outsideTheBoard">पटाच्या बाहेर</string>
-  <string name="allSquaresOfTheBoard">फळ्याचे सर्व चौरसे</string>
+  <string name="allSquaresOfTheBoard">पटावरील सर्व घरांवर</string>
   <string name="onSlowGames">संथ खेळामध्ये</string>
   <string name="always">नेहमी</string>
   <string name="never">अजिबात नाही</string>
@@ -729,7 +729,7 @@
   <string name="playSelectedMove">निवडलेली चाल खेळा</string>
   <string name="newTournament">नविन क्रीडासत्र</string>
   <string name="tournamentHomeTitle">विविध वेळ नियंत्रणे आणि प्रकार दर्शविणारे बुद्धीबळ क्रीडासत्र</string>
-  <string name="tournamentHomeDescription">वेगवान-वेगवान बुद्धीबळ क्रीडासत्र खेळा! अधिकृत शेड्यूल टूर्नामेंटमध्ये सामील व्हा किंवा स्वतःचे तयार करा. बुलेट, ब्लीटझ, क्लासिकल, चेस 960, किंग ऑफ द हिल, थ्रीचेक आणि अंतहीन बुद्धिबळ मनोरंजनासाठी अधिक पर्याय उपलब्ध.</string>
+  <string name="tournamentHomeDescription">वेगवान-वेगवान बुद्धीबळ क्रीडासत्र खेळा! अधिकृत शेड्यूल टूर्नामेंटमध्ये सामील व्हा किंवा स्वतःचे तयार करा. बुलेट, ब्लीटझ, क्लासिकल, चेस९६०, किंग ऑफ द हिल, थ्रीचेक आणि अंतहीन बुद्धिबळ मनोरंजनासाठी अधिक पर्याय उपलब्ध.</string>
   <string name="tournamentNotFound">क्रीडासत्र सापडले नाही</string>
   <string name="tournamentDoesNotExist">हे क्रीडासत्र उपलब्ध नाही.</string>
   <string name="tournamentMayHaveBeenCanceled">जर सर्व खेळाडू क्रीडासत्र सुरू होण्यापूर्वी निघून गेले तर क्रीडासत्र रद्द होऊ शकते.</string>
@@ -806,7 +806,7 @@
   <string name="transparent">पारदर्शक</string>
   <string name="deviceTheme">उपकरणानुसार</string>
   <string name="backgroundImageUrl">Background चित्रासाठी URL:</string>
-  <string name="board">फळी</string>
+  <string name="board">पट</string>
   <string name="size">आकार</string>
   <string name="opacity">अपारदर्शकता</string>
   <string name="brightness">तेजस्वीपणा</string>
@@ -908,9 +908,9 @@
   <string name="agreementPolicy">मी Lichess च्या सर्व नियमांचे पालन करेल.</string>
   <string name="searchOrStartNewDiscussion">संभाषण शोधा किंवा नविन सुरू करा</string>
   <string name="edit">सुधार करा</string>
-  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">अल्ट्राबुलेट वेग</string>
-  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">बुलेट वेग</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ब्लित्झ वेग</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">अल्ट्राबुलेट</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">बुलेट</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ब्लिट्झ</string>
   <string name="rapid">द्रुतगती</string>
   <string name="classical">क्लासिकल</string>
   <string name="ultraBulletDesc">अत्यंत वेगवान खेळ: ३० सेकंदांपेक्षा कमी</string>

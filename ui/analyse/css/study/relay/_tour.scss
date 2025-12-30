@@ -443,9 +443,10 @@ $hover-bg: $m-primary_bg--mix-30;
     thead {
       background: none;
       th {
+        white-space: nowrap;
         border: none;
         text-align: end;
-        padding: 0.5rem 1rem 0.5rem 2rem;
+        padding: 0.5rem 1rem 0.5rem 1.5rem;
       }
     }
     th,
@@ -549,13 +550,30 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 }
 
-.fide-players-table .game-link {
-  @extend %flex-center-nowrap, %box-radius;
-  padding: 0.4em 0.5em;
-  font-size: 1.6em;
-  &:hover {
-    background: $m-primary_bg--mix-20;
-    color: $c-font-clearer;
+.fide-players-table {
+  .game-link {
+    @extend %flex-center-nowrap, %box-radius;
+    @media (min-width: at-least($medium)) {
+      padding: 0.4em 0.5em;
+      font-size: 1.6em;
+    }
+    &:hover {
+      background: $m-primary_bg--mix-20;
+      color: $c-font-clearer;
+    }
+  }
+  @media (max-width: at-most($medium)) {
+    td {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .player-intro__photo {
+      display: none;
+    }
+    .player-intro__name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }
 

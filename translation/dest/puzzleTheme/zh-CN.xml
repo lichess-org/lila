@@ -80,9 +80,9 @@
   <string name="long">长谜题</string>
   <string name="longDescription">需要三步棋取胜。</string>
   <string name="master">大师对局</string>
-  <string name="masterDescription">来自有称号棋手对局的谜题。</string>
+  <string name="masterDescription">来自有头衔棋手对局的谜题。</string>
   <string name="masterVsMaster">大师对战大师</string>
-  <string name="masterVsMasterDescription">来自两位有称号棋手之间对局的谜题。</string>
+  <string name="masterVsMasterDescription">来自两位有头衔棋手之间对局的谜题。</string>
   <string name="mate">将杀</string>
   <string name="mateDescription">漂亮地赢得对局。</string>
   <string name="mateIn1">一步杀</string>

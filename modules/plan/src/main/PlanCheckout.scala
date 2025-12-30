@@ -10,7 +10,8 @@ case class PlanCheckout(
     email: Option[String],
     money: Money,
     freq: Freq,
-    giftTo: Option[UserStr]
+    giftTo: Option[UserStr],
+    coverFees: Boolean
 ):
   def fixFreq = copy(
     freq = if giftTo.isDefined then Freq.Onetime else freq
@@ -29,12 +30,19 @@ final class PlanCheckoutForm(
 
   private def make(
       currency: Currency
-  )(email: Option[String], amount: BigDecimal, freq: String, giftTo: Option[UserStr]) =
+  )(
+      email: Option[String],
+      amount: BigDecimal,
+      freq: String,
+      giftTo: Option[UserStr],
+      coverFees: Option[Boolean]
+  ) =
     PlanCheckout(
       email,
       Money(amount, currency),
       if freq == "monthly" then Freq.Monthly else Freq.Onetime,
-      giftTo = giftTo
+      giftTo = giftTo,
+      coverFees = ~coverFees
     )
 
   def form(pricing: PlanPricing)(using me: Me) = Form[PlanCheckout](
@@ -48,7 +56,8 @@ final class PlanCheckoutForm(
         .verifying(
           "Receiver is already a Patron",
           n => n.forall { blockingFetchUser(_).fold(true)(!_.isPatron) }
-        )
+        ),
+      "coverFees" -> optional(boolean)
     )(make(pricing.currency))(_ => none)
   )
 

@@ -103,6 +103,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def removeConceal(chapterId: StudyChapterId) =
     coll(_.unsetField($id(chapterId), "conceal")).void
 
+  def setRelay(chapterId: StudyChapterId, relay: Chapter.Relay) =
+    coll(_.updateField($id(chapterId), "relay", relay)).void
+
   def setRelayPath(chapterId: StudyChapterId, path: UciPath) =
     coll(_.updateField($id(chapterId) ++ $doc("relay.lastMoveAt".$exists(true)), "relay.path", path)).void
 

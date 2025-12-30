@@ -162,7 +162,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
             else r.key
           }
         )(
-          img(src := staticAssetUrl(s"images/emoji/$r.png"), alt := r.key),
+          img(src := staticAssetUrl(s"images/emoji/$r.webp"), alt := r.key),
           (size > 0).option(size)
         )
     )

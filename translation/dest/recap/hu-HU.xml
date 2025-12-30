@@ -16,7 +16,7 @@
 		<item quantity="one">%s lépés</item>
 		<item quantity="other">%s lépés</item>
 	</plurals>
-	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Az %s fa eltolva!</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Ez %s fa mozgatása!</string>
 	<string name="movesStandardPiecesWeight">Az átlagos bábuk körülbelül 40g-ot nyomnak</string>
 	<plurals name="nbMoves">
 		<item quantity="one">%s lépés</item>
@@ -55,7 +55,7 @@
 	<string name="malwareNoAbuse">Nem használtuk az eszközöd ellened</string>
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">De más weboldalak igen, így kérjük, %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">légy óvatos</string>
-	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s játszma Lichessen %2$s-ban/ben</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s játszma Lichessen %2$s-ben</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s a tiéd volt.</string>
 	<string name="thanksTitle">Köszönjük, hogy Lichessen játszol!</string>
 	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Örülünk, hogy itt vagy. Legyen jó %s-os éved!</string>
