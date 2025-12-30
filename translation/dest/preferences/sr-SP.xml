@@ -27,11 +27,11 @@
   <string name="premovesPlayingDuringOpponentTurn">Претпотези (играње током противничког потеза)</string>
   <string name="takebacksWithOpponentApproval">Враћања потеза (са одобрењем противника)</string>
   <string name="inCasualGamesOnly">Само у нерангираним партијама</string>
-  <string name="promoteToQueenAutomatically">Промовишите у Даму аутоматски</string>
+  <string name="promoteToQueenAutomatically">Промовиши у Даму аутоматски</string>
   <string name="whenPremoving">Током претпотеза</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">аутоматски реми после три понављања позиције</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Када преостане &lt; 30 секунди</string>
-  <string name="moveConfirmation">Потврди потез</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Прогласи реми на троструко понављање потеза аутоматски</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Када преостало време &lt; 30 секунди</string>
+  <string name="moveConfirmation">Потврда потеза</string>
   <string name="inCorrespondenceGames">У дописним играма</string>
   <string name="correspondenceAndUnlimited">Dopisno i neograniceno</string>
   <string name="confirmResignationAndDrawOffers">Потврда за предавање и предлагање ремија</string>
