@@ -19,6 +19,11 @@ export default new (class implements SoundI {
   music?: SoundMove;
   primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
   primer = () => {
+    try {
+      const s = (navigator as any).audioSession;
+      // https://bugs.webkit.org/show_bug.cgi?id=237322#c6
+      if (isIos() && s && typeof s === 'object') s.type = 'playback';
+    } catch {}
     this.ctx?.resume().then(() => {
       setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
     });
