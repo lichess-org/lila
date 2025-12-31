@@ -32,11 +32,11 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Прогласи реми на троструко понављање потеза аутоматски</string>
   <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Када преостало време &lt; 30 секунди</string>
   <string name="moveConfirmation">Потврда потеза</string>
-  <string name="inCorrespondenceGames">У дописним играма</string>
-  <string name="correspondenceAndUnlimited">Dopisno i neograniceno</string>
-  <string name="confirmResignationAndDrawOffers">Потврда за предавање и предлагање ремија</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Метода прављења рокаде</string>
-  <string name="castleByMovingTwoSquares">Помери краља за два поља</string>
+  <string name="inCorrespondenceGames">Дописне партије</string>
+  <string name="correspondenceAndUnlimited">Дописне и неограничене</string>
+  <string name="confirmResignationAndDrawOffers">Потврди предају и понуду за реми</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Метода рокадирања</string>
+  <string name="castleByMovingTwoSquares">Помери краља два поља</string>
   <string name="castleByMovingOntoTheRook">Помери краља на топа</string>
   <string name="inputMovesWithTheKeyboard">Уноеси потезе са тастатуром</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Кажи \"Добра партија, добро одиграно\" након пораза или нерешеног</string>
