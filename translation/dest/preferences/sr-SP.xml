@@ -38,7 +38,7 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Метода рокадирања</string>
   <string name="castleByMovingTwoSquares">Помери краља два поља</string>
   <string name="castleByMovingOntoTheRook">Помери краља на топа</string>
-  <string name="inputMovesWithTheKeyboard">Уноеси потезе са тастатуром</string>
+  <string name="inputMovesWithTheKeyboard">Унеси потезе са тастатуром</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Кажи \"Добра партија, добро одиграно\" након пораза или нерешеног</string>
-  <string name="yourPreferencesHaveBeenSaved">Ваше преференце су сачуване.</string>
+  <string name="yourPreferencesHaveBeenSaved">Твоје преференсе су сачуване.</string>
 </resources>
