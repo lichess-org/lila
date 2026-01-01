@@ -167,7 +167,7 @@ export default new (class implements SoundI {
     else this.voiceStorage.set(JSON.stringify({ name: o.name, lang: o.lang }));
   };
 
-  enabled = () => this.theme !== 'silent';
+  enabled = () => this.theme !== 'silent' && this.getVolume() !== 0;
 
   speech = (v?: boolean): boolean => {
     if (defined(v)) this.speechStorage.set(v);
