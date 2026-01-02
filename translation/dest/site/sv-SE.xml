@@ -54,7 +54,7 @@
   <string name="requestAComputerAnalysis">Begär datoranalys</string>
   <string name="computerAnalysis">Datoranalys</string>
   <string name="computerAnalysisAvailable">Datoranalys tillgänglig</string>
-  <string name="computerAnalysisDisabled">Datoranalys otillgänglig</string>
+  <string name="computerAnalysisDisabled">Datoranalys avstängd</string>
   <string name="analysis">Analysbräde</string>
   <string name="depthX">Djup %s</string>
   <string name="usingServerAnalysis">Använder serveranalys</string>
@@ -715,6 +715,7 @@
   <string name="cyclePreviousOrNextVariation">Cykla föregående/nästa variant</string>
   <string name="toggleGlyphAnnotations">Växla glyph-anteckningar</string>
   <string name="togglePositionAnnotations">Växla positionsanteckningar</string>
+  <string name="toggleObservationAnnotations">Analysmarkeringar av/på</string>
   <string name="variationArrowsInfo">Variationspilar låter dig navigera utan att använda draglistan.</string>
   <string name="playSelectedMove">spela markerat drag</string>
   <string name="newTournament">Ny turnering</string>
@@ -936,7 +937,7 @@
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
   <string name="clickToRevealEmailAddress">[Klicka för att visa mailadress]</string>
   <string name="download">Ladda ner</string>
-  <string name="coachManager">Coach-hanterare</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Coach-hanterare</string>
   <string name="streamerManager">Stream-hanterare</string>
   <string name="cancelTournament">Avbryt turneringen</string>
   <string name="tournDescription">Turneringsbeskrivning</string>
