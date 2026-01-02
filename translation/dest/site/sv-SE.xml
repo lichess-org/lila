@@ -9,7 +9,7 @@
   <string name="aiNameLevelAiLevel">%1$s nivå %2$s</string>
   <string name="level">Nivå</string>
   <string name="strength">Styrka</string>
-  <string name="toggleTheChat">Dölj/visa chatten</string>
+  <string name="toggleTheChat">Chattruta av/på</string>
   <string name="chat">Chatta</string>
   <string name="resign">Ge upp</string>
   <string name="checkmate">Schackmatt</string>
@@ -20,11 +20,11 @@
   <string name="asBlack">som svart</string>
   <string name="randomColor">Slumpvis färg</string>
   <string name="createAGame">Skapa ett parti</string>
-  <string name="createTheGame">Skapa ett parti</string>
+  <string name="createTheGame">Skapa parti</string>
   <string name="whiteIsVictorious">Vit har vunnit</string>
   <string name="blackIsVictorious">Svart har vunnit</string>
-  <string name="youPlayTheWhitePieces">Du spelar med de vita pjäserna</string>
-  <string name="youPlayTheBlackPieces">Du spelar med de svarta pjäserna</string>
+  <string name="youPlayTheWhitePieces">Du spelar med vita pjäser</string>
+  <string name="youPlayTheBlackPieces">Du spelar med svarta pjäser</string>
   <string name="itsYourTurn">Det är din tur!</string>
   <string name="cheatDetected">Fusk upptäckt</string>
   <string name="kingInTheCenter">Kungen är i centrum</string>
@@ -38,19 +38,19 @@
   <string name="blackPlays">Svarts drag</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Din motståndare lämnade partiet. Du kan begära seger om %s sekund.</item>
-    <item quantity="other">Din motståndare lämnade partiet. Du kan begära seger om %s sekunder.</item>
+    <item quantity="other">Motståndaren lämnade partiet. Du kan kräva seger om %s sekunder.</item>
   </plurals>
   <string name="opponentLeftChoices">Motståndaren har kanske lämnat partiet. Du kan begära vinst, remi eller invänta att motståndaren kommer tillbaka.</string>
   <string name="forceResignation">Begär vinst</string>
   <string name="forceDraw">Begär remi</string>
-  <string name="talkInChat">Vänligen uppträd trevligt i chatten!</string>
+  <string name="talkInChat">Var snäll i chatten!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den första som använder den här länken kommer att spela med dig.</string>
   <string name="whiteResigned">Vit har gett upp</string>
   <string name="blackResigned">Svart har gett upp</string>
-  <string name="whiteLeftTheGame">Vit har lämnat partiet</string>
+  <string name="whiteLeftTheGame">Vit lämnade partiet</string>
   <string name="blackLeftTheGame">Svart har lämnat partiet</string>
-  <string name="whiteDidntMove">Vit flyttade inte</string>
-  <string name="blackDidntMove">Vit flyttade inte</string>
+  <string name="whiteDidntMove">Vit flyttade ingen pjäs</string>
+  <string name="blackDidntMove">Svart flyttade ingen pjäs</string>
   <string name="requestAComputerAnalysis">Begär datoranalys</string>
   <string name="computerAnalysis">Datoranalys</string>
   <string name="computerAnalysisAvailable">Datoranalys tillgänglig</string>
@@ -72,7 +72,7 @@
   <string name="collapseVariations">Dölj varianter</string>
   <string name="expandVariations">Visa varianter</string>
   <string name="forceVariation">Visa som variant</string>
-  <string name="copyVariationPgn">Kopiera variations-PGN</string>
+  <string name="copyVariationPgn">Kopiera variationens PGN</string>
   <string name="copyMainLinePgn">Kopiera huvudvariantens PGN</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
@@ -166,6 +166,7 @@
   <string name="drawByMutualAgreement">Remi genom ömsesidig överenskommelse</string>
   <string name="fiftyMovesWithoutProgress">Femtio drag utan framsteg</string>
   <string name="currentGames">Pågående partier</string>
+  <string name="joinedX">Anslöt %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
