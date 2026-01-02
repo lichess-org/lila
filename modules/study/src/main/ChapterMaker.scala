@@ -65,7 +65,11 @@ final private class ChapterMaker(
       .ifFalse(data.isDefaultName)
       .orElse:
         StudyChapterName.from:
-          vsFromPgnTags.orElse(parsed.tags("Event")).filter(_.nonEmpty)
+          parsed.chapterNameHint
+            .orElse(vsFromPgnTags)
+            .orElse(parsed.tags("Event"))
+            .map(_.trim)
+            .filter(_.nonEmpty)
       .getOrElse(data.name)
 
   private def resolveOrientation(data: Data, root: Root, userId: UserId, tags: Tags = Tags.empty): Color =
