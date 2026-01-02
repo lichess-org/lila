@@ -26,7 +26,7 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
         counter.invalidateAll(plan.update.map(_._1.id))
         plan.orphans.foreach: chapter =>
           val count = ~counter.getIfPresent(chapter.id) + 1
-          if count >= notifyAfterMisses && once(chapter.id)
+          if count >= notifyAfterMisses && once(chapter.id) && rt.tour.orphanWarn
           then irc.broadcastOrphanBoard(rt.round.id, rt.fullName, chapter.id, chapter.name)
           else counter.put(chapter.id, count)
 
