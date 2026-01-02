@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">Zamatuj króla uwięzionego w ostatnim rzędzie przez własne bierki.</string>
   <string name="balestraMate">Mat Balestra</string>
   <string name="balestraMateDescription">Goniec daje mata, a hetman znajduje się jedno pole z tyłu i z boku matowanego króla i blokuje mu drogę ucieczki</string>
+  <string name="blindSwineMate">Mat dwoma wieżami na tej samej linii</string>
+  <string name="blindSwineMateDescription">Dwie wieże współpracują, aby zamatować króla przeciwnika w kwadracie 2 × 2.</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
   <string name="bodenMate">Mat Bodena</string>
@@ -86,7 +88,7 @@
   <string name="mateIn5Description">Naprawdę długa sekwencja matowa.</string>
   <string name="middlegame">Gra środkowa</string>
   <string name="middlegameDescription">Taktyka w drugiej fazie gry.</string>
-  <string name="oneMove">Jednochodówka</string>
+  <string name="oneMove">Bardzo krótkie zadanie</string>
   <string name="oneMoveDescription">Zadanie, którego długość to tylko jedno posunięcie.</string>
   <string name="opening">Otwarcie</string>
   <string name="openingDescription">Taktyka w pierwszej fazie gry.</string>
