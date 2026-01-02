@@ -43,6 +43,7 @@
     @extend %flex-center-nowrap;
     flex: 1 1 100%;
     gap: 1em;
+    overflow: hidden;
   }
 
   @extend %result-box;
@@ -67,6 +68,7 @@
   .info-split {
     @extend %flex-column;
     line-height: 1.2;
+    overflow: hidden;
   }
   .info-secondary {
     @extend %flex-center-nowrap;
