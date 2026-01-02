@@ -4,6 +4,8 @@ import type { InputValue } from '../interfaces';
 import {
   timeModes,
   sliderTimes,
+  sliderInitVal,
+  timeVToTime,
   incrementVToIncrement,
   daysVToDays,
   type TimeControl,
@@ -95,35 +97,89 @@ const inputRange = (min: number, max: number, prop: Prop<InputValue>, classes?: 
   hl('input.range', {
     class: classes,
     attrs: { type: 'range', min, max, value: prop() },
+    hook: {
+      update: (_: VNode, vnode: VNode) => {
+        const el = vnode.elm as HTMLInputElement;
+        el.value = prop().toString();
+      },
+    },
     on: { input: (e: Event) => prop(parseFloat((e.target as HTMLInputElement).value)) },
   });
 
-export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal: number = 0): VNode =>
-  hl(
-    'div.config-group',
-    site.blindMode
-      ? blindModeTimePickers(tc)
-      : [
-          renderTimeModePicker(tc),
-          tc.mode() === 'realTime' &&
-            hl('div.time-choice.range', [
-              `${i18n.site.minutesPerSide}: `,
-              hl('span', showTime(tc.time())),
-              inputRange(0, 38, tc.timeV, {
-                failure: !tc.realTimeValid(minimumTimeRequiredIfReal),
-              }),
-            ]),
-          tc.mode() === 'realTime'
-            ? hl('div.increment-choice.range', [
-                `${i18n.site.incrementInSeconds}: `,
-                hl('span', `${tc.increment()}`),
-                inputRange(0, 30, tc.incrementV, { failure: !tc.realTimeValid(minimumTimeRequiredIfReal) }),
-              ])
-            : tc.mode() === 'correspondence' &&
-              hl('div.days-choice.range', [
-                `${i18n.site.daysPerTurn}: `,
-                hl('span', `${tc.days()}`),
-                inputRange(1, 7, tc.daysV),
-              ]),
-        ],
-  );
+export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal: number = 0): VNode => {
+  if (site.blindMode) return hl('div.config-group', blindModeTimePickers(tc));
+
+  const activeMode = tc.mode();
+  const showTabs = tc.canSelectMode();
+
+  const tabs = showTabs
+    ? hl(
+        'div.tabs-horiz',
+        tc.modes.map(mode =>
+          hl(
+            'span',
+            {
+              class: { active: activeMode === mode },
+              on: { click: () => tc.mode(mode) },
+            },
+            timeModes.find(m => m.key === mode)?.name || mode,
+          ),
+        ),
+      )
+    : null;
+
+  let panelContent: VNode | null = null;
+
+  if (activeMode === 'realTime') {
+    const [tcTime, tcIncrement] = [tc.time(), tc.increment()];
+    panelContent = hl('div.time-panel', [
+      hl('div.sliders-grid', [
+        hl('div.slider-container', [
+          hl('div.label-row', [hl('label', i18n.site.minutesPerSide), hl('span.val-box', showTime(tcTime))]),
+          inputRange(0, 38, tc.timeV, {
+            failure: !tc.realTimeValid(minimumTimeRequiredIfReal),
+          }),
+        ]),
+        hl('div.slider-separator', '+'),
+        hl('div.slider-container', [
+          hl('div.label-row', [
+            hl('span.val-box', tcIncrement.toString()),
+            hl('label', i18n.site.incrementInSeconds),
+          ]),
+          inputRange(0, 30, tc.incrementV, { failure: !tc.realTimeValid(minimumTimeRequiredIfReal) }),
+        ]),
+      ]),
+      hl(
+        'div.presets',
+        tc.presets.map(p =>
+          hl(
+            'button.preset-btn',
+            {
+              class: {
+                active: tcTime === p.lim && tcIncrement === p.inc,
+              },
+              on: {
+                click: () => {
+                  tc.timeV(sliderInitVal(p.lim, timeVToTime, 100, 9));
+                  tc.incrementV(sliderInitVal(p.inc, incrementVToIncrement, 100, 0));
+                },
+              },
+            },
+            `${showTime(p.lim)}+${p.inc}`,
+          ),
+        ),
+      ),
+    ]);
+  } else if (activeMode === 'correspondence') {
+    panelContent = hl('div.time-panel', [
+      hl('div.slider-container.full-width', [
+        hl('div.label-row', [hl('label', i18n.site.daysPerTurn), hl('span.val-box', tc.days().toString())]),
+        inputRange(1, 7, tc.daysV),
+      ]),
+    ]);
+  } else if (activeMode === 'unlimited') {
+    panelContent = hl('div.time-panel', i18n.site.unlimitedDescription);
+  }
+
+  return hl('div.config-group.time-control-tabs', [tabs, panelContent]);
+};
