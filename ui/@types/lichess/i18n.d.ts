@@ -2701,7 +2701,7 @@ interface I18n {
     mixDescription: string;
     /** Morphy's mate */
     morphysMate: string;
-    /** Use the bishop to check the king, while your rook helps to confine it. */
+    /** A bishop delivers checkmate to the king, while a rook helps to confine it. */
     morphysMateDescription: string;
     /** One-move puzzle */
     oneMove: string;
@@ -2721,7 +2721,7 @@ interface I18n {
     pawnEndgameDescription: string;
     /** Pillsbury's mate */
     pillsburysMate: string;
-    /** The rook delivers checkmate, while the bishop helps to confine it. */
+    /** A rook delivers checkmate to the king, while a bishop helps to confine it. */
     pillsburysMateDescription: string;
     /** Pin */
     pin: string;
