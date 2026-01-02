@@ -26,6 +26,7 @@
   <string name="capturingDefenderDescription">Usunięcie obrońcy który jest kluczowy do obrony innej figury, pozwalając na zbicie niebronionej figury w następnym ruchu.</string>
   <string name="crushing">Decydująca przewaga</string>
   <string name="crushingDescription">Znajdź błąd przeciwnika i zdobądź decydującą przewagę (ocena pozycji: powyżej 600cp)</string>
+  <string name="discoveredCheck">Szach z odsłony</string>
   <string name="doubleBishopMate">Mat dwoma gońcami</string>
   <string name="doubleBishopMateDescription">Dwa atakujące gońce na sąsiednich przekątnych matują króla ograniczonego przez własne bierki.</string>
   <string name="dovetailMate">Jaskółczy ogon</string>
@@ -89,6 +90,7 @@
   <string name="oneMoveDescription">Zadanie, którego długość to tylko jedno posunięcie.</string>
   <string name="opening">Otwarcie</string>
   <string name="openingDescription">Taktyka w pierwszej fazie gry.</string>
+  <string name="operaMate">Mat operowy</string>
   <string name="pawnEndgame">Końcówka pionkowa</string>
   <string name="pawnEndgameDescription">Gra końcowa wyłącznie z pionami.</string>
   <string name="pin">Związanie</string>
