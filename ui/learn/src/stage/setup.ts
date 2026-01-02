@@ -58,7 +58,7 @@ const stage: StageNoID = {
       goal: i18n.learn.pawnsFormTheFrontLine,
       fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - -',
       nbMoves: 1,
-      cssClass: 'highlight-2nd-rank highlight-7th-rank',
+      cssClass: 'highlight-2nd-rank',
     },
   ].map(toLevel),
   complete: i18n.learn.boardSetupComplete,
