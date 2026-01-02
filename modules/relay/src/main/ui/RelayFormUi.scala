@@ -725,6 +725,16 @@ Team Dogs ; Scooby Doo"""),
                         half = true
                       ):
                         form3.select(_, langList.popularLanguagesForm.choices)
+                    ),
+                    form3.split(
+                       form3.checkbox(
+                        form("orphanWarn"),
+                        "Warn about Orphan Boards",
+                        help = raw(
+                          "Show a warning when boards are not receiving updates from the source. Disable it when there are manually entered boards."
+                        ).some,
+                        half = true
+                      )
                     )
                   )
                 )
