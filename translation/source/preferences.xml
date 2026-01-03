@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">Correspondence game updates</string>
   <string name="notifyChallenge">Challenges</string>
   <string name="notifyTournamentSoon">Tournament starting soon</string>
+  <string name="notifyBroadcasts" comment="A more complete information is given in the broadcast itself">Broadcasts you have subscribed to</string>
   <string name="notifyTimeAlarm">Correspondence clock running out</string>
   <string name="notifyBell">Bell notification within Lichess</string>
   <string name="notifyPush">Device notification when you're not on Lichess</string>

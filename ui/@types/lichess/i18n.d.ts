@@ -2295,6 +2295,8 @@ interface I18n {
     notifications: string;
     /** Bell notification within Lichess */
     notifyBell: string;
+    /** Broadcasts you have subscribed to */
+    notifyBroadcasts: string;
     /** Challenges */
     notifyChallenge: string;
     /** Device */

@@ -1209,6 +1209,7 @@ object I18nKey:
     val `notifyGameEvent`: I18nKey = "preferences:notifyGameEvent"
     val `notifyChallenge`: I18nKey = "preferences:notifyChallenge"
     val `notifyTournamentSoon`: I18nKey = "preferences:notifyTournamentSoon"
+    val `notifyBroadcasts`: I18nKey = "preferences:notifyBroadcasts"
     val `notifyTimeAlarm`: I18nKey = "preferences:notifyTimeAlarm"
     val `notifyBell`: I18nKey = "preferences:notifyBell"
     val `notifyPush`: I18nKey = "preferences:notifyPush"

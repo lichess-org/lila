@@ -251,7 +251,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
                     trp.notifyInboxMsg() -> "privateMessage",
                     trp.notifyChallenge() -> "challenge",
                     trp.notifyTournamentSoon() -> "tournamentSoon",
-                    frag("Broadcasts") -> "broadcastRound",
+                    trp.notifyBroadcasts() -> "broadcastRound",
                     trp.notifyGameEvent() -> "gameEvent"
                   ).map(makeRow(form))
                 )
