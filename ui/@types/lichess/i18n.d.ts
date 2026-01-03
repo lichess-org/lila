@@ -3447,6 +3447,8 @@ interface I18n {
     endgamePositions: string;
     /** Error loading engine */
     engineFailed: string;
+    /** En passant */
+    enPassant: string;
     /** This email address is invalid */
     'error.email': string;
     /** This email address is not acceptable. Please double-check it, and try again. */

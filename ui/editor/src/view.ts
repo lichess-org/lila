@@ -119,7 +119,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
         ]),
       ]),
       h('div.enpassant', [
-        h('label', { attrs: { for: 'enpassant-select' } }, 'En passant'),
+        h('label', { attrs: { for: 'enpassant-select' } }, i18n.site.enPassant),
         h(
           'select#enpassant-select',
           {
