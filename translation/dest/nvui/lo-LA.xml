@@ -1,2 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">ກິດຈະກຳເດັ່ນ</string>
+  <string name="moveList">ລາຍການເດີນໝາກ</string>
+  <string name="gameInfo">ຂໍ້ມູນເກມ</string>
+  <string name="pieces">ຕົວໝາກ</string>
+  <string name="gameStatus">ສະຖານະເກມ</string>
+  <string name="lastMove">ຕາເດີນຫຼ້າສຸດ</string>
+  <string name="inputForm">ແບບຟອມປ້ອນຄຳສັ່ງ</string>
+  <string name="actions">ການກະທຳ</string>
+  <string name="yourClock">ເວລາຂອງທ່ານ</string>
+  <string name="opponentClock">ເວລາຂອງຄູ່ຕໍ່ສູ້</string>
+  <string name="gameStart">ເລີ່ມເກມ</string>
+  <string name="boardCommandList">ລາຍການຄຳສັ່ງເມື່ອຢູ່ໜ້າກະດານ</string>
+  <string name="inputFormCommandList">ພິມຄຳສັ່ງເຫຼົ່ານີ້ໃນແບບຟອມປ້ອນຄຳສັ່ງ.</string>
+  <string name="goToInputForm">ໄປທີ່ແບບຟອມປ້ອນຄຳສັ່ງ.</string>
+  <string name="announceCurrentSquare">ບອກຕຳແໜ່ງຫ້ອງປະຈຸບັນ.</string>
+  <string name="announceLastMove">ບອກຕາເດີນຫຼ້າສຸດ.</string>
+  <string name="announceLastMoveCapture">ບອກຕົວໝາກທີ່ຖືກກິນໃນຕາເດີນຫຼ້າສຸດ.</string>
+  <string name="announcePossibleMoves">ບອກຕາເດີນທີ່ເປັນໄປໄດ້ສຳລັບຕົວໝາກທີ່ເລືອກ.</string>
+  <string name="announcePossibleCaptures">ບອກຕົວໝາກທີ່ສາມາດກິນໄດ້ດ້ວຍຕົວໝາກທີ່ເລືອກ.</string>
+  <string name="moveWithArrows">ຍ້າຍໄປຫ້ອງຂ້າງຄຽງ ຊ້າຍ, ຂວາ, ເທິງ ຫຼື ລຸ່ມ.</string>
+  <string name="moveToPieceByType">ຍ້າຍໄປຍັງຫ້ອງຕ່າງໆໂດຍໃຊ້ຊື່ຕົວໝາກ. ຕົວຢ່າງ: ກົດ k ຊ້ຳໆ ຈະຍ້າຍໄປທຸກໆຫ້ອງທີ່ມີມ້າ (knight). ໃຊ້ຕົວພິມໃຫຍ່ເພື່ອປ່ຽນລໍາດັບການເລືອກ.</string>
+  <string name="moveToRank">ຍ້າຍໄປແຖວທີ 1 ຫາ 8.</string>
+  <string name="moveToFile">ຍ້າຍໄປຖັນ a ຫາ h.</string>
+  <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">ບອກຕຳແໜ່ງຂອງຕົວໝາກ. ຕົວຢ່າງ: p ຕົວພິມໃຫຍ່ N ສຳລັບມ້າສີຂາວ, p ຕົວພິມນ້ອຍ k ສຳລັບຄິງສີດຳ, p ຕົວພິມໃຫຍ່ A ສຳລັບຕົວໝາກສີຂາວທັງໝົດ.</string>
+  <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">ບອກຕົວໝາກໃນແຖວ ຫຼື ຖັນ. ຕົວຢ່າງ: s a, s 1.</string>
+  <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">ໄປທີ່ກະດານ. ຫ້ອງເລີ່ມຕົ້ນແມ່ນ e-4. ທ່ານສາມາດລະບຸຫ້ອງໄດ້: board a-1 ຫຼື b a-1 ຈະພາທ່ານໄປທີ່ຫ້ອງ a-1.</string>
+  <string name="movePiece">ເພື່ຶອເດີນໝາກ, ໃຫ້ໃຊ້ລະບົບການບັນທຶກແບບພຶດຊະຄະນິດມາດຕະຖານ.</string>
+  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">ເພື່ອປ່ຽນຕົວໝາກເປັນຢ່າງອື່ນທີ່ບໍ່ແມ່ນຄວີນ, ໃຫ້ໃຊ້ຄຳວ່າ ເທົ່າກັບ. ຕົວຢ່າງ a-8-ເທົ່າກັບ-n ຈະປ່ຽນເປັນມ້າ.</string>
+  <string name="king">ຄິງ</string>
+  <string name="whiteKing">ຄິງສີຂາວ</string>
+  <string name="blackKing">ຄິງສີດຳ</string>
+  <string name="queen">ຄວີນ</string>
+  <string name="whiteQueen">ຄວີນສີຂາວ</string>
+  <string name="blackQueen">ຄວີນສີດຳ</string>
+  <string name="rook">ເຮືອ</string>
+  <string name="whiteRook">ເຮືອສີຂາວ</string>
+  <string name="blackRook">ເຮືອສີດຳ</string>
+  <string name="bishop">ບິຊອບ</string>
+  <string name="whiteBishop">ບິຊອບສີຂາວ</string>
+  <string name="blackBishop">ບິຊອບສີດຳ</string>
+  <string name="knight">ມ້າ</string>
+  <string name="whiteKnight">ມ້າສີຂາວ</string>
+  <string name="blackKnight">ມ້າສີດຳ</string>
+  <string name="pawn">ເບ້</string>
+  <string name="whitePawn">ເບ້ສີຂາວ</string>
+  <string name="blackPawn">ເບ້ສີດຳ</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
+  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">ກິນ</string>
+  <string name="sanCheck" comment="+ in standard notation">ຣຸກ</string>
+  <string name="sanCheckmate" comment="# in standard notation">ຣຸກຈົນ</string>
+  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">ປ່ຽນເປັນ</string>
+  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">ເຂົ້າປ້ອມສັ້ນ</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">ເຂົ້າປ້ອມຍາວ</string>
+  <string name="sanDroppedOn" comment="Indicates a piece is dropped on a square in the Crazyhouse variant, as part of a longer sentence.&#10;&#10;In Crazyhouse, any pieces you capture are placed in your pocket. You can then drop those pieces onto any square on the board.&#10;&#10;Examples:&#10;&quot;bishop is dropped on c 4 check&quot; (B@c4+)&#10;&quot;pawn is dropped on f 7&quot; (@f7)&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'dropped on' corresponds to &quot;@&quot; in Crazyhouse's form of algebraic notation.">ຖືກວາງລົງທີ່</string>
+  <string name="invalidMove">ຕາເດີນບໍ່ຖືກຕ້ອງ</string>
+  <string name="premoveCancelled">ຍົກເລີກການເດີນລ່ວງໜ້າແລ້ວ</string>
+  <string name="premoveRecorded">ບັນທຶກການເດີນລ່ວງໜ້າແລ້ວ: %s. ກົດ enter ເພື່ອຍົກເລີກ</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">ຄັງເກັບຕົວໝາກ</string>
+  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">ຄັດລອກ %s ໄປທີ່ຄລິບບອດ</string>
+  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">ຄັດລອກ %s ໄປທີ່ຄລິບບອດແລ້ວ</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN ແລະ FEN</string>
+</resources>
