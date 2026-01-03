@@ -29,6 +29,9 @@ export default class StudyPracticeCtrl {
     this.root.showBestMoveArrowsProp = readOnlyProp(true);
     this.root.showGauge = readOnlyProp(true);
     this.root.showFishnetAnalysis = readOnlyProp(true);
+    this.root.showPin = readOnlyProp(true);
+    this.root.showCheckable = readOnlyProp(true);
+    this.root.showUndefended = readOnlyProp(true);
     this.goal(this.root.data.practiceGoal!);
     this.nbMoves(0);
     this.success(null);

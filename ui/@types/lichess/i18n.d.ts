@@ -4245,12 +4245,18 @@ interface I18n {
     setTheBoard: string;
     /** Share your chess insights data */
     shareYourInsightsData: string;
+    /** Show checkable king */
+    showCheckableKing: string;
     /** Show this help dialog */
     showHelpDialog: string;
     /** Show me everything */
     showMeEverything: string;
+    /** Show pinned pieces */
+    showPinnedPieces: string;
     /** Show threat */
     showThreat: string;
+    /** Show undefended pieces */
+    showUndefendedPieces: string;
     /** You have received a private message from Lichess. */
     showUnreadLichessMessage: string;
     /** Show variation arrows */
@@ -4559,6 +4565,8 @@ interface I18n {
     viewTheSolution: string;
     /** View tournament */
     viewTournament: string;
+    /** Visual aids */
+    visualAids: string;
     /** We will come back to you shortly to help you complete your signup. */
     waitForSignupHelp: string;
     /** Waiting */
