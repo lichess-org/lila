@@ -731,7 +731,7 @@
   <string name="pieceSet">ຮູບແບບຕົວໝາກຮຸກ</string>
   <string name="embedInYourWebsite">ຝັງ (Embed) ໃນເວັບໄຊຂອງທ່ານ</string>
   <string name="usernameAlreadyUsed">ຊື່ຜູ້ໃຊ້ນີ້ຖືກໃຊ້ໄປແລ້ວ, ກະລຸນາລອງໃຊ້ຊື່ໃໝ່.</string>
-  <string name="usernamePrefixInvalid">ຊື່ຜູ້ໃຊ້ຕ້ອງເລີ່ມຕົ້ນດ້ວຍຕົວອັກສອນ.</string>
+  <string name="usernamePrefixInvalid">ຊື່ຜູ້ໃຊຕ້ອງເລີ່ມຕົ້ນດ້ວຍຕົວອັກສອນ.</string>
   <string name="usernameSuffixInvalid">ຊື່ຜູ້ໃຊ້ຕ້ອງລົງທ້າຍດ້ວຍຕົວອັກສອນ ຫຼື ຕົວເລກ.</string>
   <string name="usernameCharsInvalid">ຊື່ຜູ້ໃຊ້ຕ້ອງປະກອບມີພຽງແຕ່ ຕົວອັກສອນ, ຕົວເລກ, ຂີດກ້ອງ (_), ແລະ ຂີດຕໍ່ (-) ເທົັ້ນັ້ນ. ຫ້າມໃຊ້ຂີດກ້ອງ ຫຼື ຂີດຕໍ່ຕິດກັນ.</string>
   <string name="usernameUnacceptable">ຊື່ຜູ້ໃຊ້ນີ້ບໍ່ສາມາດໃຊ້ໄດ້.</string>
@@ -854,7 +854,7 @@
   <string name="xInvitedYouToY">%1$s ໄດ້ເຊີນທ່ານເຂົ້າຮ່ວມ \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">ຕອນນີ້ທ່ານໄດ້ເປັນສ່ວນໜຶ່ງຂອງທີມແລ້ວ.</string>
   <string name="youHaveJoinedTeamX">ທ່ານໄດ້ເຂົ້າຮ່ວມ \"%1$s\" ແລ້ວ.</string>
-  <string name="someoneYouReportedWasBanned">ຄົນທີ່ທ່ານລາຍງານຖືກແບນແລ້ວ</string>
+  <string name="someoneYouReportedWasBanned">ຄົນທີ່ທ່ານລາຍງານຖືກແແບນແລ້ວ</string>
   <string name="congratsYouWon">ຍິນດີດ້ວຍ, ທ່ານຊະນະແລ້ວ!</string>
   <string name="gameVsX">ເກມພົບກັບ %1$s</string>
   <string name="resVsX">%1$s ພົບກັບ %2$s</string>
@@ -874,10 +874,7 @@
   <string name="minimumRatedGames">ຈຳນວນເກມທີ່ຄິດໄລ່ຄະແນນຂັ້ນຕ່ຳ</string>
   <string name="minimumRating">ຄະແນນຂັ້ນຕ່ຳ</string>
   <string name="maximumWeeklyRating">ຄະແນນສູງສຸດປະຈຳອາທິດ</string>
-  <string name="positionInputHelp">ວາງ FEN ທີ່ຖືກຕ້ອງເພື່ອເລີ່ມຕົ້ນທຸກເກມຈາກຕຳແໜ່ງທີ່ກຳນົດ.
-ມັນໃຊ້ໄດ້ສະເພາະເກມມາດຕະຖານເທົ່ານັ້ນ.
-ທ່ານສາມາດໃຊ້ %s ເພື່ອສ້າງຕຳແໜ່ງ FEN ແລ້ວວາງໃສ່ບ່ອນນີ້.
-ປ່ອຍວ່າງໄວ້ຫາກຕ້ອງການເລີ່ມເກມຈາກຕຳແໜ່ງປົກກະຕິ.</string>
+  <string name="positionInputHelp">ວາງ FEN ທີ່ຖືກຕ້ອງເພື່ອເລີ່ມຕົ້ນທຸກເກມຈາກຕຳແໜ່ງທີ່ກຳນົດ. ມັນໃຊ້ໄດ້ສະເພາະເກມມາດຕະຖານເທົ່ານັ້ນ. ທ່ານສາມາດໃຊ້ %s ເພື່ອສ້າງຕຳແໜ່ງ FEN ແລ້ວວາງໃສ່ບ່ອນນີ້. ປ່ອຍວ່າງໄວ້ຫາກຕ້ອງການເລີ່ມເກມຈາກຕຳແໜ່ງປົກກະຕິ.</string>
   <string name="cancelSimul">ຍົກເລີກການຫຼິ້ນ Simul</string>
   <string name="simulHostcolor">ສີຂອງຜູ້ຈັດໃນແຕ່ລະເກມ</string>
   <string name="estimatedStart">ເວລາເລີ່ມຕົ້ນໂດຍປະມານ</string>
@@ -918,7 +915,7 @@
   <string name="ourEventTips">ຄຳແນະນຳຂອງພວກເຮົາໃນການຈັດກິດຈະກຳ</string>
   <string name="instructions">ຄຳແນະນຳ</string>
   <string name="showMeEverything">ສະແດງໃຫ້ຂ້ອຍເຫັນທັງໝົດ</string>
-  <string name="lichessPatronInfo">Lichess ແມ່ນອົງການການກຸສົນ ແລະ ເປັນຊອບແວໂອເພນຊອດ (Open Source) ທີ່ຟຣີຢ່າງສົມບູນ. ຄ່າໃຊ້ຈ່າຍໃນການດຳເນີນງານ, ການພັດທະນາ ແລະ ເນື້ອຫາທັງໝົດແມ່ນມາຈາກການບໍລິຈາກຂອງຜູ້ໃຊ້ເທົ່ານັ້ນ.</string>
+  <string name="lichessPatronInfo">Lichess ແມ່ນອົງການການກຸສົນ ແລະ ເປັນຊອບແວໂອເພນຊອດ (Open Source) ທີ່ຟຣີຢ່າງສົມບູນ. ຄ່າໃຊ້ຈ່າຍໃນການດຳເນີນງານ, ການພັດທະນາ ແລະ ເນື້ອຫາທັງໝົດແມ່ນມາຈາກການບໍລິຈາກຂອງຜູ້ໃຊ້ເທົັ້ນັ້ນ.</string>
   <string name="nothingToSeeHere">ຍັງບໍ່ມີຫຍັງສະແດງຢູ່ນີ້ໃນເວລານີ້.</string>
   <string name="stats">ສະຖິຕິ</string>
   <string name="accessibility">ການເຂົ້າເຖິງ (Accessibility)</string>
