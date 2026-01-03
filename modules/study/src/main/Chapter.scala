@@ -148,7 +148,7 @@ object Chapter:
     def secondsSinceLastMove: Option[Int] = lastMoveAt.map: at =>
       (nowSeconds - at.toSeconds).toInt
 
-  def relayInit = Relay(UciPath.root, none, none)
+    def relayInit = Relay(UciPath.root, none, none)
 
   case class ServerEval(
       path: UciPath,
