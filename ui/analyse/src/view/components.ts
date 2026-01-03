@@ -104,7 +104,6 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
         },
         update(_, _2) {
           forceInnerCoords(ctrl, needsInnerCoords);
-          ctx.relay?.setBodyClass();
         },
         postpatch(old, vnode) {
           if (old.data!.gaugeOn !== gaugeOn) dispatchChessgroundResize();

@@ -218,7 +218,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def apiShow(id: RelayTourId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     Found(env.relay.api.tourById(id)): tour =>
-      if !tour.canView
+      if !tour.canView && !isGrantedOpt(_.StudyAdmin)
       then Unauthorized(jsonError("This tournament is private"))
       else
         for

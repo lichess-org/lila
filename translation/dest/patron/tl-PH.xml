@@ -3,7 +3,7 @@
   <string name="donate">Mag-donate</string>
   <string name="donateAsX">Mag-donate bilang %s</string>
   <string name="lichessPatron">Lichess Patron</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Patron mula %s</string>
+  <string name="patronSince" comment="string is a date">Patron mula %s</string>
   <string name="freeAccount">Libreng account</string>
   <string name="becomePatron">Maging isang Lichess Patron</string>
   <string name="xBecamePatron">Si %s ay naging isang Lichess Patron</string>

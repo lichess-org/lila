@@ -56,7 +56,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
               s"${titleNameOrId(winnerId)} takes the prize home!"
       )
       .csp(_.withLilaHttp):
-        main(cls := s"tour$extraCls")(
+        main(cls := s"tour variant-${tour.variant.key}$extraCls")(
           st.aside(cls := "tour__side"):
             side(tour, verdicts, shieldOwner, chat._1F, streamers)
           ,
@@ -167,7 +167,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     private def sideBotsWarning(tour: Tournament) =
       tour.conditions.allowsBots.option:
         div(cls := "tour__bots-warning")(
-          img(src := staticAssetUrl("images/icons/bot.png")),
+          img(src := staticAssetUrl("images/icons/bot.webp")),
           div(
             h2("Bot tournament"),
             p(

@@ -7,7 +7,7 @@
   <string name="currentlyStreaming">Nú að streyma: %s</string>
   <string name="lastStream">Síðasta streymi %s</string>
   <string name="becomeStreamer">Gerast streymari á Lichess</string>
-  <string name="doYouHaveStream">Ertu með Twitch eða YouTube-rás?</string>
+  <string name="doYouHaveStream">Ertu með Twitch- eða YouTube-rás?</string>
   <string name="hereWeGo">Nú byrjar ballið!</string>
   <string name="allStreamers">Allir streymarar</string>
   <string name="editPage">Breyta streymarasíðu</string>
@@ -31,13 +31,17 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Þegar þér þykir kominn tími á að láta skrá þig á lista streymara á Lichess, %s</string>
   <string name="submitForReview">Setja í ritskoðun</string>
   <string name="streamerLanguageSettings">Streymarasíða Lichess höfðar til áhorfenda þinna á því tungumáli sem streymisveitan þín býður upp á. Stilltu rétt sjálfgefið tungumál fyrir skákstreymi þín í forritinu eða þjónustunni sem þú notar til útsendingar.</string>
+  <string name="pleaseAllow">Vinsamlegast sýndu biðlund í allt að 72 klukkustundir þar til staðfesting á streymismerki þínu og skráningu liggur fyrir.</string>
+  <string name="chooseYoutubeChannel">Veldu YouTube-rásina sem þú munt nota á Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Tengjast</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Aftengjast</string>
   <string name="streamerName">Streymaranafn þitt á Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Hafðu það stutt: %s stafur að hámarki</item>
     <item quantity="other">Hafðu það stutt: %s stafir að hámarki</item>
   </plurals>
-  <string name="visibility">Sýnilegt á síðu streymara</string>
-  <string name="whenApproved">Við samþykki ritstjóra</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Sýnilegt á síðu streymara</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Við samþykki ritstjóra</string>
   <string name="headline">Fyrirsögn</string>
   <string name="tellUsAboutTheStream">Segðu okkur frá streymi þínu í einni setningu</string>
   <string name="longDescription">Ýtarleg lýsing</string>

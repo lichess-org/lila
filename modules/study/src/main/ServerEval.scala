@@ -68,7 +68,7 @@ object ServerEval:
                 .foldM(UciPath.root):
                   case (path, (node, (info, advOpt))) =>
                     saveAnalysis(chapter, node, path, info, advOpt)
-                .andDo(sendProgress(studyId, chapterId, analysis, complete))
+                .andDo(sendProgress(studyId, chapterId, analysis))
                 .logFailure(logger)
             yield ()
       case _ => funit
@@ -156,13 +156,12 @@ object ServerEval:
     private def sendProgress(
         studyId: StudyId,
         chapterId: StudyChapterId,
-        analysis: Analysis,
-        complete: Boolean
+        analysis: Analysis
     ): Funit =
       chapterRepo
         .byId(chapterId)
         .flatMapz: chapter =>
-          reallySendToChapter(studyId, chapter, complete).mapz:
+          reallySendToChapter(studyId, chapter).mapz:
             socket.onServerEval(
               studyId,
               ServerEval.Progress(
@@ -174,13 +173,13 @@ object ServerEval:
               )
             )
 
-    private def reallySendToChapter(studyId: StudyId, chapter: Chapter, complete: Boolean): Fu[Boolean] =
-      if complete || chapter.relay.isEmpty
+    private def reallySendToChapter(studyId: StudyId, chapter: Chapter): Fu[Boolean] =
+      if chapter.relay.isEmpty
       then fuTrue
       else
         lila.common.Bus
           .ask[Int, GetCrowd](GetCrowd(studyId, _))
-          .map(_ < 5000)
+          .map(_ < 1000)
 
     def divisionOf(chapter: Chapter) =
       divider(

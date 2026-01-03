@@ -53,6 +53,7 @@ def show(
     .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
     .css(ctx.blind.option("round.nvui"))
     .i18n(_.study)
+    .i18n(_.variant)
     .i18nOpt(ctx.speechSynthesis, _.nvui)
     .i18nOpt(ctx.blind, _.keyboardMove)
     .js(analyseNvuiTag)

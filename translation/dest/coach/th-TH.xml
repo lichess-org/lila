@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessCoaches">โค้ช Lichess</string>
+  <string name="lichessCoach">โค้ช Lichess</string>
+  <string name="areYouCoach">คุณเป็นโค้ชที่เก่งโดยมีตำแหน่ง %s หรือเปล่า?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM หรือ ตำแหน่ง FIDE</string>
+  <string name="confirmTitle">ยืนยันตำแหน่งคุณตรงนี้แล้วเราจะตรวจสอบใบสมัครของคุณ</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">ส่งอีเมลที่ %s แล้วเราจะตรวจสอบใบสมัครของคุณ</string>
+  <string name="location">ที่ตั้ง</string>
   <string name="languages">ภาษา</string>
   <string name="rating">ระดับคะแนน</string>
   <string name="hourlyRate">ราคาต่อชั่วโมง</string>
+  <string name="availability">ความพร้อม</string>
+  <string name="accepting">รับนักเรียน</string>
+  <string name="notAccepting">ยังไม่รับนักเรียนในขณะนี้</string>
+  <string name="xCoachesStudents">%s โค้ชนักเรียนหมากรุก</string>
+  <string name="viewXProfile">ดูโปร์ไฟล์ Lichess ของ %s</string>
   <string name="sendPM">ส่งข้อความส่วนตัว</string>
   <string name="aboutMe">เกี่ยวกับฉัน</string>
   <string name="playingExperience">ประสบการณ์การเล่น</string>
@@ -12,4 +24,7 @@
   <string name="teachingMethod">วิธีการสอน</string>
   <string name="publicStudies">กรณีศึกษาสาธารณะ</string>
   <string name="youtubeVideos">วิดีโอ Youtube</string>
+  <string name="allCountries" comment="Appears as a select box option on the Coaches page (https://lichess.org/coach). As such, please keep this string short.&#10;&#10;It is the default option. When selected. it means you are not filtering by country at all. Could alternatively be stated as 'Any country' or 'Show all countries'.&#10;&#10;This string refers to the user's viewing options. A coach cannot state 'any country' on their profile.">ทุกประเทศ</string>
+  <string name="lastLogin" comment="A filter on the coach page, letting users view only coaches who last logged in over a certain period of time.">เข้าระบบล่าสุด</string>
+  <string name="lichessRating" comment="An option for coaches (https://lichess.org/coach) to list their Lichess rating. Coaches list their FIDE rating as standard, but have an option to separately list their rating on Lichess">เรดติ้ง Lichess</string>
 </resources>

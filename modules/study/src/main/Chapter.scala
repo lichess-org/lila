@@ -148,11 +148,14 @@ object Chapter:
     def secondsSinceLastMove: Option[Int] = lastMoveAt.map: at =>
       (nowSeconds - at.toSeconds).toInt
 
+  def relayInit = Relay(UciPath.root, none, none)
+
   case class ServerEval(
       path: UciPath,
       done: Boolean,
       version: Option[Int] // 1+ means chapter document has "comp" hints to allow clean analysis merge
   )
+
 
   type BothClocks = ByColor[Option[Centis]]
 

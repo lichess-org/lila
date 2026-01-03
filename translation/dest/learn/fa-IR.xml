@@ -48,7 +48,7 @@
   <string name="itMovesForwardOnly">فقط به جلو حرکت می‌کند</string>
   <string name="pawnIntro">پیاده‌ها ضعیفند، ولی تَوَند فراوانی دارند.</string>
   <string name="pawnsMoveOneSquareOnly">پیاده‌ها فقط یک خانه حرکت می‌کنند.
-اما وقتی به سوی دیگر صفحه رسند، مهره‌ی نیرومندتری می‌شوند!</string>
+اما وقتی به سوی دیگرِ تخته رسند، مهره‌ی نیرومندتری می‌شوند!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">بیشتر وقت‌ها ارتقا به وزیر، بهترین است.
 اما گهگاه، یک اسب می‌تواند به درد خورد!</string>
   <string name="pawnsMoveForward">پیاده به جلو حرکت می‌کند،
@@ -111,7 +111,7 @@
 طوری که نتواند دفاع کند!</string>
   <string name="mateInOneComplete">شادباش! اینگونه بازی شطرنج را می‌برید!</string>
   <string name="intermediate">متوسط</string>
-  <string name="boardSetup">بَرپایِشِ صفحه</string>
+  <string name="boardSetup">بَرپایِشِ تخته</string>
   <string name="howTheGameStarts">بازی چگونه می‌آغازد</string>
   <string name="boardSetupIntro">دو لشکر باهم رودررو می‌شوند و آماده نبرد هستند.</string>
   <string name="thisIsTheInitialPosition">این وضعیت آغازینِ هر
@@ -129,7 +129,7 @@
 درست در کنار وزیر.</string>
   <string name="pawnsFormTheFrontLine">پیاده‌ها خط جلو را می‌سازند.
 برای ادامه حرکتی کنید.</string>
-  <string name="boardSetupComplete">شادبادش! شما می‌دانید چطور صفحه شطرنج را بچینید.</string>
+  <string name="boardSetupComplete">شادبادش! شما می‌دانید چطور میزِ شطرنج را بچینید.</string>
   <string name="castling">قلعه‌روی</string>
   <string name="theSpecialKingMove">حرکت ویژه شاه</string>
   <string name="castlingIntro">شاه‌تان را جای امنی ببرید و رخ‌تان را برای حمله به پا دارید!</string>

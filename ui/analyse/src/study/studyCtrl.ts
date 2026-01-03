@@ -406,8 +406,8 @@ export default class StudyCtrl {
   };
 
   xhrReload = throttlePromiseDelay(
-    () => 500,
-    (withChapters: boolean = false) => {
+    () => 400,
+    (withChapters: boolean = false, callback: () => void = () => {}) => {
       this.vm.loading = true;
       return xhr
         .reload(
@@ -416,7 +416,8 @@ export default class StudyCtrl {
           this.vm.mode.sticky ? undefined : this.vm.chapterId,
           (withChapters = withChapters),
         )
-        .then(this.onReload, site.reload);
+        .then(this.onReload, site.reload)
+        .then(callback);
     },
   );
 
@@ -508,8 +509,7 @@ export default class StudyCtrl {
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
       this.relay?.liveboardPlugin?.reset();
-      await this.xhrReload();
-      componentCallbacks(id);
+      await this.xhrReload(false, () => componentCallbacks(id));
     }
     if (displayColumns() > 2) window.scrollTo(0, 0);
     return true;

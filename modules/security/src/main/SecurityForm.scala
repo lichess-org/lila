@@ -41,6 +41,7 @@ final class SecurityForm(
   private val sendableEmail = anyEmail.verifying(emailValidator.sendableConstraint)
 
   private def fullyValidEmail(using me: Option[Me]) = sendableEmail
+    .verifying(emailValidator.plusConstraint)
     .verifying(emailValidator.withAcceptableDns)
     .verifying(emailValidator.uniqueConstraint(me))
 

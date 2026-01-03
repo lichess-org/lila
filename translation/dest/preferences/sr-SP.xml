@@ -2,31 +2,31 @@
 <resources>
   <string name="preferences">Преференсе</string>
   <string name="pieceAnimation">Aнимација фигура</string>
-  <string name="materialDifference">Разлика у материјалу</string>
-  <string name="boardHighlights">Осветли последњи потез и шах</string>
-  <string name="pieceDestinations">Bажећи потези (важећи помаци и претпотези)</string>
-  <string name="boardCoordinates">Прикажи координате табле (A-H, 1-8)</string>
-  <string name="moveListWhilePlaying">Листа потеза током партије</string>
-  <string name="pgnPieceNotation">Нотација</string>
-  <string name="chessPieceSymbol">симболи фигура</string>
-  <string name="pgnLetter">Cлова (К, Q, R, B, N)</string>
-  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">зен стање</string>
-  <string name="displayBoardResizeHandle">Прикажи ручицу за мењање величине табле</string>
-  <string name="onlyOnInitialPosition">Само на почетку партије</string>
-  <string name="chessClock">Шаховски сат</string>
+  <string name="materialDifference">Материјална разлика</string>
+  <string name="boardHighlights">Истицања на табли (последњи потез и шах)</string>
+  <string name="pieceDestinations">Дестинације фигура (важећи потези и предпотези)</string>
+  <string name="boardCoordinates">Координате табле (A-H, 1-8)</string>
+  <string name="moveListWhilePlaying">Листа потеза док играш</string>
+  <string name="pgnPieceNotation">Нотација потеза</string>
+  <string name="chessPieceSymbol">Шаховски симбол фигуре</string>
+  <string name="pgnLetter">Cлово (К, Q, R, B, N)</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Зен режим</string>
+  <string name="displayBoardResizeHandle">Прикажи ручицу за промену величине табле</string>
+  <string name="onlyOnInitialPosition">Само на почетној позицији</string>
+  <string name="chessClock">Сат</string>
   <string name="tenthsOfSeconds">Десетинке</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Када имате &lt; 10 секунди</string>
-  <string name="horizontalGreenProgressBars">Хоризонтални зелени индикатор</string>
-  <string name="soundWhenTimeGetsCritical">Звук када преостане мало времена</string>
-  <string name="giveMoreTime">Додај још времена</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Када преостало време &lt; 10 секунди</string>
+  <string name="horizontalGreenProgressBars">Водоравне зелене линије напредка</string>
+  <string name="soundWhenTimeGetsCritical">Звук када време постане критично</string>
+  <string name="giveMoreTime">Дај више времена</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Понашање игре</string>
-  <string name="howDoYouMovePieces">Како померате фигуре?</string>
-  <string name="clickTwoSquares">\"кликни\" два поља</string>
-  <string name="dragPiece">вуци фигуру</string>
-  <string name="bothClicksAndDrag">на оба начина</string>
-  <string name="premovesPlayingDuringOpponentTurn">Претпотез (игра се током противниковог потеза)</string>
-  <string name="takebacksWithOpponentApproval">Враћања потеза (са пристанком противника)</string>
-  <string name="inCasualGamesOnly">Само у неформалним партијама</string>
+  <string name="howDoYouMovePieces">Како помераш фигуре?</string>
+  <string name="clickTwoSquares">Кликни два поља</string>
+  <string name="dragPiece">Превуци фигуру</string>
+  <string name="bothClicksAndDrag">Било како</string>
+  <string name="premovesPlayingDuringOpponentTurn">Претпотези (играње током противничког потеза)</string>
+  <string name="takebacksWithOpponentApproval">Враћања потеза (са одобрењем противника)</string>
+  <string name="inCasualGamesOnly">Само у нерангираним партијама</string>
   <string name="promoteToQueenAutomatically">Промовишите у Даму аутоматски</string>
   <string name="whenPremoving">Током претпотеза</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">аутоматски реми после три понављања позиције</string>

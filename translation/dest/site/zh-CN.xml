@@ -24,7 +24,7 @@
   <string name="black">黑方</string>
   <string name="asWhite">执白</string>
   <string name="asBlack">执黑</string>
-  <string name="randomColor">随机选色</string>
+  <string name="randomColor">随机</string>
   <string name="createAGame">创建对局</string>
   <string name="createTheGame">创建对局</string>
   <string name="whiteIsVictorious">白方胜局</string>
@@ -634,8 +634,8 @@
   <string name="webmasters">网站管理员</string>
   <string name="about">关于</string>
   <string name="aboutX">关于 %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个免费（%2$s）、自由、无广告、开源的国际象棋平台。</string>
-  <string name="really">千真万确</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个%2$s免费、开源共享、绝无广告的国际象棋平台。</string>
+  <string name="really">完全</string>
   <string name="contribute">协助我们</string>
   <string name="termsOfService">服务条款</string>
   <string name="titleVerification">头衔认证</string>

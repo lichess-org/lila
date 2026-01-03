@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">Anstatt de erwarteti Zug, zerscht en Andere mache, wo diräkt droht, so dass de Gägner muess reagiere. Isch au bekannt als \"Zwüschezug\".</string>
   <string name="killBoxMate">Kill Box Matt</string>
   <string name="killBoxMateDescription">En Turm staht näbem gegnerische König und wird vu de Dame unterschtützt, wo au d\'Fluchtfälder vum König blockiert. De Turm und d\'Dame fanged so de König inere 3x3 Fälder grosse, sogenannte „Killbox“.</string>
+  <string name="pillsburysMate">Pillsbury Matt</string>
+  <string name="pillsburysMateDescription">Schachmatt mit em Turm, wobi de Läufer hilft, de König z\'fange.</string>
+  <string name="morphysMate">Morphy Matt</string>
+  <string name="morphysMateDescription">Schachmatt mit em Läufer, wobi de Turm hilft, de König z\'fange.</string>
   <string name="triangleMate">Drüeck-Matt</string>
   <string name="triangleMateDescription">Es Matt vu Turm und Dame, wo zämme mit em gägnerische König es Drüegg bilded.</string>
   <string name="vukovicMate">Vuković-Matt</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">E Ufgab, mit nur 1 Zug.</string>
   <string name="opening">Eröffnig</string>
   <string name="openingDescription">E Taktik für die erscht Fase vum Schpiel.</string>
+  <string name="operaMate">Opern Matt</string>
+  <string name="operaMateDescription">Schachmatt mit em Turm, wo vum Läufer gschützt wird.</string>
   <string name="pawnEndgame">Pure Ändschpiel</string>
   <string name="pawnEndgameDescription">Es Ändschpiel nur mit Pure.</string>
   <string name="pin">Fesslig</string>

@@ -104,7 +104,7 @@
 हा घोडा तुम्हाला शह देत आहे!</string>
   <string name="escapeOrBlock">राजा सोबत पळून जा
 किंवा हल्ला अवरोधित करा!</string>
-  <string name="outOfCheckComplete">अभिनंदन! आपला राजा कधीही घेतला जाऊ शकत नाही, आपण शहापासून बचाव करू शकता याची खात्री करा!</string>
+  <string name="outOfCheckComplete">अभिनंदन! राजाला शहापासून वाचवण्याची काळजी घ्या, म्हणजे आपला राजा कधीही पकडला जाणार नाही!</string>
   <string name="mateInOne">एका चालीत मात</string>
   <string name="defeatTheOpponentsKing">प्रतिस्पर्ध्याच्या राजाचा पराभव करा</string>
   <string name="mateInOneIntro">जेव्हा आपला विरोधक शहाविरूद्ध बचाव करू शकत नाही तेव्हा आपण जिंकता.</string>
@@ -210,7 +210,7 @@
   <string name="playPeople">लोकांसोबत खेळा</string>
   <string name="opponentsFromAroundTheWorld">जगभरातील बुद्धिबळपटू</string>
   <string name="playMachine">मशीन सोबत खेळा</string>
-  <string name="testYourSkillsWithTheComputer">तुमच्या कौशल्याची कॉम्प्युटर सोबत चाचणी करा</string>
+  <string name="testYourSkillsWithTheComputer">तुमच्या कौशल्यांची संगणकासोबत चाचणी करा</string>
   <string name="letsGo">चला!</string>
   <string name="stageX">पायरी %s</string>
   <string name="awesome">खूपच छान!</string>

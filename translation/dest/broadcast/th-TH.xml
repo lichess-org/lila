@@ -2,7 +2,14 @@
 <resources>
   <string name="broadcasts">การออกอากาศ</string>
   <string name="myBroadcasts">บรอดคาสของฉัน</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="other">%s การออกอากาศ</item>
+  </plurals>
+  <plurals name="nbViewers">
+    <item quantity="other">%s คนดู</item>
+  </plurals>
   <string name="liveBroadcasts">การออกอากาศทัวร์นาเมนต์สด</string>
+  <string name="broadcastCalendar">ปฏิทินการออกอากาศ</string>
   <string name="newBroadcast">ออกอากาศสดใหม่</string>
   <string name="subscribedBroadcasts">การออกอากาศที่สมัครรับข้อมูล</string>
   <string name="aboutBroadcasts">เกี่ยวกับการออกอากาศ</string>
