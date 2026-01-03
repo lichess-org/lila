@@ -2339,6 +2339,8 @@ interface I18n {
     sayGgWpAfterLosingOrDrawing: string;
     /** Scroll on the board to replay moves */
     scrollOnTheBoardToReplayMoves: string;
+    /** Show on the left of mobile devices */
+    showClockOnTheLeft: string;
     /** Show player flairs */
     showFlairs: string;
     /** Show player ratings */

@@ -69,4 +69,5 @@
   <string name="notifyDevice">Device</string>
   <string name="bellNotificationSound">Bell notification sound</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindfold</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, showing the clock on the left side of the screen. Only applies to mobile devices.">Show on the left of mobile devices</string>
 </resources>

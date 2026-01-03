@@ -110,7 +110,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               "giveMoreTime"
             ),
             setting(
-              "Show on the left of mobile devices",
+              trp.showClockOnTheLeft(),
               radios(form("clock.swapClock"), booleanChoices),
               "swapClock"
             )
