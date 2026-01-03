@@ -89,3 +89,12 @@ object Info:
 
   def apply(cp: Option[Cp], mate: Option[Mate], variation: List[SanStr]): Ply => Info =
     ply => Info(ply, Eval(cp, mate, None), variation)
+
+  import play.api.libs.json.*
+  import scalalib.json.Json.given
+  import lila.tree.evals.given
+
+  given Reads[Ply] = Reads:
+    case JsNumber(n) => JsSuccess(Ply(n.toInt))
+    case _ => JsError("Ply must be int")
+  given Reads[Info] = Json.reads[Info]

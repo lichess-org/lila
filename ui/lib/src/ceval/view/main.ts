@@ -14,7 +14,7 @@ import { renderEval } from '../util';
 import { setupPosition } from 'chessops/variant';
 import { uciToMove } from '@lichess-org/chessground/util';
 import { renderCevalSettings } from './settings';
-import type CevalCtrl from '../ctrl';
+import type { CevalCtrl } from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { isTouchDevice } from '@/device';
 
@@ -89,7 +89,7 @@ const threatButton = (ctrl: CevalHandler): VNode | null =>
       });
 
 function engineName(ctrl: CevalCtrl): VNode[] {
-  const engine = ctrl.engines.active;
+  const engine = ctrl.engines.current();
   return engine
     ? [
         hl('span', { attrs: { title: engine.name } }, engine.short ?? engine.name),
@@ -115,7 +115,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
 }
 
 export const getBestEval = (ctrl: CevalHandler): EvalScore | undefined => {
-  return ctrl.getNode().ceval ?? (ctrl.showFishnetAnalysis?.() ? ctrl.getNode().eval : undefined);
+  return ctrl.getNode().ceval ?? (ctrl.showStaticAnalysis?.() ? ctrl.getNode().eval : undefined);
 };
 
 let gaugeLast = 0;

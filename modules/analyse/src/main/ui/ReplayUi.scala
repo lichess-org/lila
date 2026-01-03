@@ -141,14 +141,21 @@ final class ReplayUi(helpers: Helpers)(analyseUi: AnalyseUi):
                       div(cls := "computer-analysis")(
                         if hasAnalysis then div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
                         else
-                          postForm(
-                            cls := s"future-game-analysis${ctx.isAuth.not.so(" must-login")}",
-                            action := routes.Analyse.requestAnalysis(gameId)
-                          ):
-                            submitButton(cls := "button text"):
-                              span(cls := "is3 text", dataIcon := Icon.BarChart)(
-                                trans.site.requestAComputerAnalysis()
-                              )
+                          frag(
+                            postForm(
+                              cls := s"future-game-analysis${ctx.isAuth.not.so(" must-login")}",
+                              action := routes.Analyse.requestAnalysis(gameId)
+                            ):
+                              submitButton(cls := "button text"):
+                                span(cls := "is3 text", dataIcon := Icon.BarChart)(
+                                  trans.site.requestAComputerAnalysis()
+                                )
+                            ,
+                            p(trans.study.orPerformAStrongerOne()),
+                            button(cls := "button text local-analysis", tpe := "button")(
+                              trans.study.localAnalysis()
+                            )
+                          )
                       )
                     ),
                     div(cls := "move-times")(

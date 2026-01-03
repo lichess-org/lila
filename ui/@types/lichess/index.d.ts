@@ -244,6 +244,7 @@ type Minutes = number;
 type Seconds = number;
 type Centis = number;
 type Millis = number;
+type Percentage = number;
 
 type ByColor<T> = { [C in Color]: T };
 

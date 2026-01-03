@@ -10,7 +10,7 @@ import type { AnalyseSocketSend } from './socket';
 import type { ExternalEngineInfo } from 'lib/ceval';
 import type { Coords, MoveEvent } from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
-
+import type { AnalysisEngineInfo } from './local/localAnalysisEngine';
 import type * as studyDeps from './study/studyDeps';
 
 export interface NvuiPlugin {
@@ -38,11 +38,11 @@ export interface AnalyseData {
   spectator?: boolean; // for compat with GameData, for game functions
   takebackable: boolean;
   moretimeable: boolean;
-  analysis?: Analysis;
+  analysis?: AnalysisMeta;
   userAnalysis: boolean;
   forecast?: ForecastData;
   sidelines?: Tree.Node[][];
-  treeParts: Tree.NodeOptionalChildren[];
+  treeParts: Tree.NodeBase[];
   practiceGoal?: PracticeGoal;
   clock?: Clock;
   pref: AnalysePref;
@@ -66,11 +66,12 @@ export interface AnalysePref {
   moveEvent: MoveEvent;
 }
 
-export interface ServerEvalData {
+export interface StaticAnalysisData {
   ch: string;
-  analysis?: Analysis;
+  analysis?: AnalysisMeta;
   tree: Tree.Node;
   division?: Division;
+  engine: AnalysisEngineInfo;
 }
 
 export interface EvalHit {
@@ -122,14 +123,15 @@ export interface Division {
   end?: number;
 }
 
-export interface Analysis {
+export interface AnalysisMeta {
   id: string;
-  white: AnalysisSide;
-  black: AnalysisSide;
+  white: AnalysisMetaSide;
+  black: AnalysisMetaSide;
   partial?: boolean;
+  engine?: AnalysisEngineInfo;
 }
 
-export interface AnalysisSide {
+export interface AnalysisMetaSide {
   acpl: number;
   inaccuracy: number;
   mistake: number;

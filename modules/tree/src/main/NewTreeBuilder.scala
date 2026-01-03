@@ -109,13 +109,13 @@ object NewTreeBuilder:
             crazyData = move.after.position.crazyData,
             eval = none
           )
-        )
+        ).setComp
       )
 
     val (tree, error) =
       position.buildTree(info.variation.take(20), ply)(step => makeBranch(step.move, step.ply))
     error.foreach(e => logChessError(formatError(id, e)))
-    tree.map(_.updateValue(_.setComp).toVariation)
+    tree.map(_.toVariation)
 
   private def formatError(id: GameId, err: chess.ErrorStr) =
     s"TreeBuilder https://lichess.org/$id $err"

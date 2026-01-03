@@ -6,6 +6,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.game.SideAndStart
 import lila.tree.Analysis
+import lila.tree.Analysis.given
 
 object JsonView extends lila.tree.AnalysisJson:
 
@@ -48,11 +49,13 @@ object JsonView extends lila.tree.AnalysisJson:
 
   def bothPlayers(startedAtPly: Ply, analysis: Analysis, withAccuracy: Boolean = true) =
     val accuracy = withAccuracy.so(AccuracyPercent.gameAccuracy(startedAtPly.turn, analysis))
-    Json.obj(
-      "id" -> analysis.id.value,
-      "white" -> player(SideAndStart(Color.white, startedAtPly))(analysis, accuracy),
-      "black" -> player(SideAndStart(Color.black, startedAtPly))(analysis, accuracy)
-    )
+    Json
+      .obj(
+        "id" -> analysis.id.value,
+        "white" -> player(SideAndStart(Color.white, startedAtPly))(analysis, accuracy),
+        "black" -> player(SideAndStart(Color.black, startedAtPly))(analysis, accuracy),
+        "engine" -> analysis.engine
+      )
 
 //   def bothPlayers(pov: Game.SideAndStart, analysis: Analysis, accuracy: Option[ByColor[AccuracyPercent]]) =
 //     Json.obj(

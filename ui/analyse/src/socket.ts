@@ -1,7 +1,7 @@
 import { initial as initialBoardFEN } from '@lichess-org/chessground/fen';
 import { ops as treeOps } from 'lib/tree/tree';
 import type AnalyseCtrl from './ctrl';
-import type { EvalGetData, EvalPutData, ServerEvalData } from './interfaces';
+import type { EvalGetData, EvalPutData, StaticAnalysisData } from './interfaces';
 import type { AnaDests, AnaDrop, AnaMove, ChapterData, EditChapterData } from './study/interfaces';
 import type { FormData as StudyFormData } from './study/studyForm';
 
@@ -166,7 +166,7 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
       )
         ctrl.forecast.reloadToLastPly();
     },
-    analysisProgress(data: ServerEvalData) {
+    analysisProgress(data: StaticAnalysisData) {
       ctrl.mergeAnalysisData(data);
     },
     evalHit: ctrl.evalCache.onCloudEval,

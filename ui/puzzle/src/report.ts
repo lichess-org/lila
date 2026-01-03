@@ -40,8 +40,7 @@ export default class Report {
       ctrl.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate')) ||
       // positions with 7 pieces or less can be checked with the tablebase
       pieceCount(ev.fen) <= 7 ||
-      // dynamic import from web worker feature is shared by all stockfish 16+ WASMs
-      !ctrl.ceval.engines.active?.requires?.includes('dynamicImportFromWorker') ||
+      !ctrl.ceval.engines.current()?.trustedFor?.includes('puzzleReport') ||
       // if the user has chosen to hide the dialog less than a week ago
       this.tsHideReportDialog() > Date.now() - 1000 * 3600 * 24 * 7
     )
@@ -69,8 +68,8 @@ export default class Report {
       if (this.evalsWithMultipleSolutions === 2) {
         // in all case, we do not want to show the dialog more than once
         this.reported = true;
-        const engine = ctrl.ceval.engines.active;
-        const engineName = engine?.short || engine.name;
+        const engine = ctrl.ceval.engines.current();
+        const engineName = engine?.short || engine?.name;
         const reason = `(v${version}, ${engineName}) after move ${plyToTurn(node.ply)}. ${node.san}, at depth ${ev.depth}, multiple solutions:\n\n${ev.pvs.map(pv => `${pvEvalToStr(pv)}: ${pv.moves.join(' ')}`).join('\n\n')}`;
         this.reportDialog(ctrl.data.puzzle.id, reason);
       }

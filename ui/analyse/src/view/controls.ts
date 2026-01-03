@@ -114,7 +114,7 @@ function renderMobileCevalTab(ctrl: AnalyseCtrl): LooseVNode {
       engineMode === 'ceval' && [
         hl('div.bar'),
         cevalView.renderCevalSwitch(ctrl),
-        evalstr && ctrl.showAnalysis() && !ctrl.isGamebook() && hl('eval', evalstr),
+        evalstr && ctrl.showEvaluation() && !ctrl.isGamebook() && hl('eval', evalstr),
       ],
       engineMode === 'practice' && evalstr && hl('eval', evalstr),
       engineMode === 'retro' && ctrl.retro?.completion().join('/'),
