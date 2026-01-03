@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="emailConfirm_subject">ຢືນຢັນບັນຊີ lichess.org ຂອງທ່ານ, %s</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">ຄລິກລິ້ງເພື່ອເປີດໃຊ້ງານບັນຊີ Lichess ຂອງທ່ານ:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">ຫາກທ່ານບໍ່ໄດ້ລົງທະບຽນກັບ Lichess, ທ່ານສາມາດລະເລີຍຂໍ້ຄວາມນີ້ໄດ້ຢ່າງປອດໄພ. ບັນຊີທີ່ຍັງບໍ່ທັນຢືນຢັນ ແລະ ຂໍ້ມູນອີເມວທັງໝົດຂອງທ່ານຈະຖືກລຶບອອກຈາກລະບົບຂອງພວກເຮົາຫຼັງຈາກ 48 ຊົ່ວໂມງ.</string>
+  <string name="passwordReset_subject">ຕັ້ງລະຫັດຜ່ານ lichess.org ຂອງທ່ານໃໝ່, %s</string>
+  <string name="passwordReset_intro">ພວກເຮົາໄດ້ຮັບຄຳຮ້ອງຂໍຕັ້ງລະຫັດຜ່ານບັນຊີຂອງທ່ານໃໝ່.</string>
+  <string name="passwordReset_clickOrIgnore">ຫາກທ່ານເປັນຜູ້ສົ່ງຄຳຮ້ອງຂໍນີ້, ໃຫ້ຄລິກລິ້ງລຸ່ມນີ້. ຖ້າບໍ່ແມ່ນ, ທ່ານສາມາດລະເລີຍອີເມວນີ້ໄດ້.</string>
+  <string name="emailChange_subject">ຢືນຢັນທີ່ຢູື່ອີເມວໃໝ່, %s</string>
+  <string name="emailChange_intro">ທ່ານໄດ້ຮ້ອງຂໍປ່ຽນທີ່ຢູື່ອີເມວຂອງທ່ານ.</string>
+  <string name="emailChange_click">ເພື່ອຢືນຢັນວ່າທ່ານສາມາດເຂົ້າເຖິງອີເມວນີ້ໄດ້, ກະລຸນາຄລິກລິ້ງລຸ່ມນີ້:</string>
+  <string name="welcome_subject">ຍິນດີຕ້ອນຮັບສູ່ lichess.org, %s</string>
+  <string name="welcome_text">ທ່ານໄດ້ສ້າງບັນຊີໃນ https://lichess.org ສຳເລັດແລ້ວ.
+
+ນີ້ແມ່ນໜ້າໂປຣໄຟລ໌ຂອງທ່ານ: %1$s. ທ່ານສາມາດປັບແຕ່ງມັນໄດ້ທີ່ %2$s.
+
+ຂໍໃຫ້ມີຄວາມສຸກກັບການຫຼິ້ນ, ແລະ ຂໍໃຫ້ຕົວໝາກຂອງທ່ານຫາທາງໄປຫາຂຸນຂອງຄູ່ຕໍ່ສູ້ໄດ້ສະເໝີ!</string>
+  <string name="logInToLichess">ເຂົ້າສູ່ລະບົບ lichess.org, %s</string>
+  <string name="common_orPaste">(ຫາກຄລິກບໍ່ໄດ້? ໃຫ້ລອງວາງລິ້ງໃສ່ໃນບຣາວເຊີຂອງທ່ານ!)</string>
+  <string name="common_note">ນີ້ແມ່ນອີເມວການບໍລິການທີ່ກ່ຽວຂ້ອງກັບການໃຊ້ງານ %s ຂອງທ່ານ.</string>
+  <string name="common_contact">ເພື່ອຕິດຕໍ່ພວກເຮົາ, ກະລຸນາໃຊ້ %s.</string>
+</resources>
