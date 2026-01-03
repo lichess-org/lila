@@ -42,9 +42,12 @@
   <string name="joinTheGame">ເຂົ້າຮ່ວມເກມ</string>
   <string name="whitePlays">ຝ່າຍຂາວເດີນ</string>
   <string name="blackPlays">ຝ່າຍດຳເດີນ</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">ຄູ່ຕໍ່ສູ້ຂອງທ່ານອອກຈາກເກມແລ້ວ. ທ່ານສາມາດປະກາດໄຊຊະນະໄດ້ໃນ %s ວິນາທີ.</item>
+  </plurals>
   <string name="opponentLeftChoices">ຄູ່ຕໍ່ສູ້ຂອງທ່ານອອກຈາກເກມແລ້ວ. ທ່ານສາມາດປະກາດໄຊຊະນະ, ຂໍສະເໝີ ຫຼື ລໍຖ້າກ່ອນໄດ້.</string>
   <string name="forceResignation">ປະກາດໄຊຊະນະ</string>
-  <string name="forceDraw">ຂໍສະເໝີ</string>
+  <string name="forceDraw">ປະກາດສະເໝີ</string>
   <string name="talkInChat">ກະລຸນາໃຊ້ຄຳສຸພາບໃນການສົນທະນາ!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ຜູ້ທຳອິດທີ່ເຂົ້າ URL ນີ້ຈະໄດ້ຫຼິ້ນກັບທ່ານ.</string>
   <string name="whiteResigned">ຝ່າຍຂາວຍອມແພ້</string>
@@ -60,8 +63,9 @@
   <string name="analysis">ກະດານວິເຄາະ</string>
   <string name="depthX">ຄວາມເລິກ %s</string>
   <string name="usingServerAnalysis">ກຳລັງໃຊ້ການວິເຄາະຈາກເຊີບເວີ</string>
-  <string name="loadingEngine">ກຳລັງໂຫຼດລະບົບ...</string>
+  <string name="loadingEngine">ກຳລັງໂຫຼດລະບົບວິເຄາະ...</string>
   <string name="calculatingMoves">ກຳລັງຄິດໄລ່ທ່າເດີນ...</string>
+  <string name="engineFailed">ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດລະບົບວິເຄາະ</string>
   <string name="cloudAnalysis">ການວິເຄາະແບບຄລາວ</string>
   <string name="goDeeper">ວິເຄາະໃຫ້ເລິກຂຶ້ນ</string>
   <string name="showThreat">ສະແດງທ່າອັນຕະລາຍ</string>
@@ -72,6 +76,9 @@
   <string name="deleteFromHere">ລຶບຕັ້ງແຕ່ບ່ອນນີ້</string>
   <string name="collapseVariations">ຫຍໍ້ຮູບແບບຍ່ອຍ</string>
   <string name="expandVariations">ຂະຫຍາຍຮູບແບບຍ່ອຍ</string>
+  <string name="forceVariation">ບັງຄັບຮູບແບບການເດີນ</string>
+  <string name="copyVariationPgn">ຄັດລອກ PGN ຂອງຮູບແບບການເດີນ</string>
+  <string name="copyMainLinePgn">ຄັດລອກ PGN ຂອງເສັ້ນທາງຫຼັກ</string>
   <string name="move">ທ່າເດີນ</string>
   <string name="variantLoss">ແພ້ຕາມກະຕິກາພິເສດ</string>
   <string name="variantWin">ຊະນະຕາມກະຕິກາພິເສດ</string>
@@ -88,25 +95,61 @@
   <string name="averageRatingX">ຄະແນນສະເລ່ຍ: %s</string>
   <string name="recentGames">ເກມທີ່ຫຼິ້ນຜ່ານມາ</string>
   <string name="topGames">ເກມຍອດນິຍົມ</string>
+  <string name="masterDbExplanation">ເກມ OTB ຂອງຜູ້ຫຼິ້ນທີ່ມີຄະແນນ FIDE %1$s+ ຕັ້ງແຕ່ %2$s ຫາ %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="other">ຮຸກຈົນໃນ %s ຕາເດີນ</item>
+  </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' ແບບປັດເສດ, ອີງຕາມຈຳນວນຕາເດີນຈົນກວ່າຈະມີການກິນໝາກຄັ້ງຕໍ່ໄປ, ການເດີນເບ້ຍ ຫຼື ການຮຸກຈົນ</string>
   <string name="noGameFound">ບໍ່ພົບເກມ</string>
   <string name="maxDepthReached">ຮອດຄວາມເລິກສູງສຸດແລ້ວ!</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ລອງເພີ່ມເກມຈາກເມນູຕັ້ງຄ່າບໍ?</string>
   <string name="openings">ການເປີດເກມ</string>
   <string name="openingExplorer">ສຳຫຼວດການເປີດເກມ</string>
+  <string name="openingEndgameExplorer">ສຳຫຼວດການເປີດເກມ/ປາຍເກມ</string>
+  <string name="xOpeningExplorer">ສຳຫຼວດການເປີດເກມ %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">ຫຼິ້ນທ່າທຳອິດຈາກຕົວສຳຫຼວດການເປີດເກມ/ປາຍເກມ</string>
+  <string name="winPreventedBy50MoveRule">ບໍ່ສາມາດຊະນະໄດ້ເນື່ອງຈາກກົດການເດີນ 50 ຕາ</string>
+  <string name="lossSavedBy50MoveRule">ລອດພົ້ນຈາກການແພ້ເນື່ອງຈາກກົດການເດີນ 50 ຕາ</string>
+  <string name="winOr50MovesByPriorMistake">ຊະນະ ຫຼື 50 ຕາ ຍ້ອນຄວາມຜິດພາດກ່ອນໜ້າ</string>
+  <string name="lossOr50MovesByPriorMistake">ແພ້ ຫຼື 50 ຕາ ຍ້ອນຄວາມຜິດພາດກ່ອນໜ້າ</string>
+  <string name="unknownDueToRounding">ການຊະນະ/ແພ້ ຈະຮັບປະກັນໄດ້ກໍຕໍ່ເມື່ອເດີນຕາມເສັ້ນທາງ Tablebase ທີ່ແນະນຳ ຕັ້ງແຕ່ການກິນໝາກ ຫຼື ການຍັບເບ້ຄັ້ງຫຼ້າສຸດ, ເນື່ອງຈາກຄ່າ DTZ ໃນ Syzygy tablebases ອາດມີການປັດເສດ.</string>
   <string name="allSet">ພ້ອມແລ້ວ!</string>
   <string name="importPgn">ນຳເຂົ້າ PGN</string>
   <string name="delete">ລຶບ</string>
+  <string name="deleteThisImportedGame">ລຶບເກມທີ່ນຳເຂົ້ານີ້ບໍ?</string>
   <string name="replayMode">ຮູບແບບເບິ່ງຄືນ</string>
   <string name="realtimeReplay">ເວລາຈິງ</string>
+  <string name="byCPL">ໂດຍ CPL</string>
   <string name="enable">ເປີດໃຊ້</string>
   <string name="bestMoveArrow">ລູກສອນແນະນຳທ່າທີ່ດີທີ່ສຸດ</string>
+  <string name="showVariationArrows">ສະແດງລູກສອນຮູບແບບການເດີນ</string>
   <string name="evaluationGauge">ແຖບວັດແທກການໄດ້ປຽບ</string>
   <string name="multipleLines">ຫຼາຍເສັ້ນທາງວິເຄາະ</string>
   <string name="cpus">ຊີພີຢູ (CPUs)</string>
   <string name="memory">ໜ່ວຍຄວາມຈຳ</string>
   <string name="infiniteAnalysis">ວິເຄາະແບບບໍ່ຈຳກັດ</string>
+  <string name="removesTheDepthLimit">ຍົກເລີກການຈຳກັດຄວາມເລິກ ແລະ ເຮັດໃຫ້ຄອມພິວເຕີຂອງທ່ານເຮັດວຽກໜັກ</string>
   <string name="blunder">ຜິດພາດຮ້າຍແຮງ</string>
   <string name="mistake">ຜິດພາດ</string>
   <string name="inaccuracy">ບໍ່ແມ່ນທ່າທີ່ດີທີ່ສຸດ</string>
+  <plurals name="nbBlunders">
+    <item quantity="other">%s ຜິດພາດຮ້າຍແຮງ</item>
+  </plurals>
+  <plurals name="numberBlunders">
+    <item quantity="other">%s ຜິດພາດຮ້າຍແຮງ</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="other">%s ຜິດພາດ</item>
+  </plurals>
+  <plurals name="numberMistakes">
+    <item quantity="other">%s ຜິດພາດ</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="other">%s ຈຸດທີ່ບໍ່ແມ່ນຍຳ</item>
+  </plurals>
+  <plurals name="numberInaccuracies">
+    <item quantity="other">%s ຈຸດທີ່ບໍ່ແມ່ນຍຳ</item>
+  </plurals>
   <string name="moveTimes">ເວລາໃນການເດີນ</string>
   <string name="flipBoard">ປີ້ນກະດານ</string>
   <string name="threefoldRepetition">ການເດີນຊ້ຳສາມເທື່ອ</string>
@@ -118,7 +161,7 @@
     <item quantity="other">%s ຜູ້ຫຼິ້ນ</item>
   </plurals>
   <string name="drawByMutualAgreement">ສະເໝີໂດຍການຕົກລົງເຫັນດີນຳກັນ</string>
-  <string name="fiftyMovesWithoutProgress">ການເດີນຫ້າສິບຕາໂດຍບໍ່ມີການກິນ ຫຼື ຍັບເບ້</string>
+  <string name="fiftyMovesWithoutProgress">ການເດີນຫ້າສິບຕາໂດຍບໍ່ມີການກິນໝາກ ຫຼື ຍັບເບ້</string>
   <string name="currentGames">ເກມທີ່ກຳລັງຫຼິ້ນຢູ່</string>
   <string name="joinedX">ເຂົ້າຮ່ວມເມື່ອ %s</string>
   <plurals name="nbGames">
@@ -231,7 +274,7 @@
   <string name="accept">ຍອມຮັບ</string>
   <string name="decline">ປະຕິເສດ</string>
   <string name="playingRightNow">ກຳລັງຫຼິ້ນຢູ່ໃນຕອນນີ້</string>
-  <string name="eventInProgress">ກຳລັງຫຼິ້ນຢູ່</string>
+  <string name="eventInProgress">ກຳລັງດຳເນີນການ</string>
   <string name="finished">ສິ້ນສຸດແລ້ວ</string>
   <string name="abortGame">ຍົກເລີກເກມ</string>
   <string name="gameAborted">ຍົກເລີກເກມແລ້ວ</string>
@@ -298,7 +341,7 @@
   <string name="blackCancelsTakeback">ຝ່າຍດຳຍົກເລີກການຂໍຖອຍຕາເດີນ</string>
   <string name="yourOpponentProposesATakeback">ຄູ່ແຂ່ງຂອງທ່ານສະເໜີຂໍຖອຍຕາເດີນ</string>
   <string name="bookmarkThisGame">ບັນທຶກເກມນີ້ໄວ້</string>
-  <string name="tournament">ການແຂ່ງຂັນ</string>
+  <string name="tournament">ການແແຂ່ງຂັນ</string>
   <string name="tournaments">ລາຍການແຂ່ງຂັນ</string>
   <string name="tournamentPoints">ຄະແນນການແຂ່ງຂັນ</string>
   <plurals name="nbTournamentPoints">
@@ -345,7 +388,7 @@
   <string name="location">ສະຖານທີ່</string>
   <string name="filterGames">ກອງລາຍຊື່ເກມ</string>
   <string name="reset">ຕັ້ງຄ່າໃໝ່</string>
-  <string name="apply">ຕົກລົງ</string>
+  <string name="apply">ນຳໃຊ້</string>
   <string name="save">ບັນທຶກ</string>
   <string name="leaderboard">ຕາຕະລາງຄະແນນນຳ</string>
   <string name="screenshotCurrentPosition">ຖ່າຍຮູບໜ້າຈໍຕຳແໜ່ງປະຈຸບັນ</string>
@@ -355,7 +398,7 @@
   <string name="orUploadPgnFile">ຫຼື ອັບໂຫຼດໄຟລ໌ PGN</string>
   <string name="fromPosition">ຈາກຕຳແໜ່ງ</string>
   <string name="continueFromHere">ສືບຕໍ່ຈາກບ່ອນນີ້</string>
-  <string name="toStudy">ບົດຮຽນ</string>
+  <string name="toStudy">ໄປທີ່ບົດຮຽນ</string>
   <string name="importGame">ນຳເຂົ້າເກມ</string>
   <string name="importGameExplanation">ວາງຂໍ້ຄວາມ PGN ຂອງເກມເພື່ອເບິ່ງການຫຼິ້ນຍ້ອນຄືນ, ການວິເຄາະໂດຍຄອມພິວເຕີ, ຫ້ອງສົນທະນາ ແລະ ລິ້ງທີ່ສາມາດແບ່ງປັນໄດ້.</string>
   <string name="importGameDataPrivacyWarning">ຂໍ້ຄວາມ PGN ນີ້ແມ່ນສາທາລະນະ. ຫາກຕ້ອງການນຳເຂົ້າເກມແບບສ່ວນຕົວ ໃຫ້ໃຊ້ເມນູບົດຮຽນ (Study).</string>
@@ -365,7 +408,7 @@
   <string name="thisIsAChessCaptcha">ນີ້ແມ່ນ CAPTCHA ແບບໝາກຮຸກ.</string>
   <string name="clickOnTheBoardToMakeYourMove">ຄລິກໃສ່ກະດານເພື່ອເດີນຕາຂອງທ່ານ ແລະ ເພື່ອຢືນຢັນວ່າທ່ານບໍ່ແມ່ນໂປຣແກຣມອັດຕະໂນມັດ.</string>
   <string name="captcha.fail">ກະລຸນາແກ້ໄຂ CAPTCHA ແບບໝາກຮຸກ.</string>
-  <string name="notACheckmate">ບໍ່ແມ່ນການກິນຕາຍ (Checkmate)</string>
+  <string name="notACheckmate">ບໍ່ແມ່ນການຮຸກຈົນ</string>
   <string name="whiteCheckmatesInOneMove">ຝ່າຍຂາວກິນຕາຍໃນຕາດຽວ</string>
   <string name="blackCheckmatesInOneMove">ຝ່າຍດຳກິນຕາຍໃນຕາດຽວ</string>
   <string name="retry">ລອງໃໝ່</string>
@@ -788,7 +831,7 @@
   </plurals>
   <string name="opening">ການເປີດເກມ</string>
   <string name="middlegame">ກາງເກມ</string>
-  <string name="endgame">ທ້າຍເກມ</string>
+  <string name="endgame">ປາຍເກມ</string>
   <string name="conditionalPremoves">ການເດີນໝາກລ່ວງໜ້າແບບມີເງື່ອນໄຂ</string>
   <string name="addCurrentVariation">ເພີ່ມຮູບແບບການຫຼິ້ນປັດຈຸບັນ</string>
   <string name="playVariationToCreateConditionalPremoves">ຫຼິ້ນຮູບແບບການຫຼິ້ນເພື່ອສ້າງການເດີນໝາກລ່ວງໜ້າແບບມີເງື່ອນໄຂ</string>
@@ -874,7 +917,7 @@
   <string name="minimumRatedGames">ຈຳນວນເກມທີ່ຄິດໄລ່ຄະແນນຂັ້ນຕ່ຳ</string>
   <string name="minimumRating">ຄະແນນຂັ້ນຕ່ຳ</string>
   <string name="maximumWeeklyRating">ຄະແນນສູງສຸດປະຈຳອາທິດ</string>
-  <string name="positionInputHelp">ວາງ FEN ທີ່ຖືກຕ້ອງເພື່ອເລີ່ມຕົ້ນທຸກເກມຈາກຕຳແໜ່ງທີ່ກຳນົດ. ມັນໃຊ້ໄດ້ສະເພາະເກມມາດຕະຖານເທົ່ານັ້ນ. ທ່ານສາມາດໃຊ້ %s ເພື່ອສ້າງຕຳແໜ່ງ FEN ແລ້ວວາງໃສ່ບ່ອນນີ້. ປ່ອຍວ່າງໄວ້ຫາກຕ້ອງການເລີ່ມເກມຈາກຕຳແໜ່ງປົກກະຕິ.</string>
+  <string name="positionInputHelp">ວາງ FEN ທີ່ຖືກຕ້ອງເພື່ອເລີ່ມຕົ້ນທຸກເກມຈາກຕຳແໜ່ງທີ່ກຳນົດ. ມັນໃຊ້ໄດ້ສະເພາະເກມມາດຕະຖານເທົັ້ນັ້ນ. ທ່ານສາມາດໃຊ້ %s ເພື່ອສ້າງຕຳແໜ່ງ FEN ແລ້ວວາງໃສ່ບ່ອນນີ້. ປ່ອຍວ່າງໄວ້ຫາກຕ້ອງການເລີ່ມເກມຈາກຕຳແໜ່ງປົກກະຕິ.</string>
   <string name="cancelSimul">ຍົກເລີກການຫຼິ້ນ Simul</string>
   <string name="simulHostcolor">ສີຂອງຜູ້ຈັດໃນແຕ່ລະເກມ</string>
   <string name="estimatedStart">ເວລາເລີ່ມຕົ້ນໂດຍປະມານ</string>
