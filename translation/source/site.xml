@@ -43,8 +43,8 @@
   <string name="whitePlays">White to play</string>
   <string name="blackPlays">Black to play</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Your opponent left the game. You can claim victory in %s second.</item>
-    <item quantity="other">Your opponent left the game. You can claim victory in %s seconds.</item>
+    <item quantity="one">Your opponent left the game. You can claim victory in %s&#xA0;second.</item>
+    <item quantity="other">Your opponent left the game. You can claim victory in %s&#xA0;seconds.</item>
   </plurals>
   <string name="opponentLeftChoices">Your opponent left the game. You can claim victory, call the game a draw, or wait.</string>
   <string name="forceResignation">Claim victory</string>
