@@ -59,6 +59,7 @@
   <string name="studyPgn">PGN กรณีศึกษา</string>
   <string name="chapterPgn">PGN บท</string>
   <string name="copyChapterPgn">คัดลอก PGN</string>
+  <string name="copyRawChapterPgn">คัดลอก PGN แบบดิบ</string>
   <string name="downloadGame">ดาวน์โหลดเกม</string>
   <string name="studyUrl">URL กรณีศึกษา</string>
   <string name="currentChapterUrl">URL บทปัจจุบัน</string>
@@ -170,7 +171,9 @@
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s ผู้ชมสามารถดูการศึกษาและพูดคุยในแชท&lt;br&gt;&lt;br&gt;%2$s ผู้สนับสนุนสามารถดำเนินการและอัปเดตการศึกษาได้</string>
   <string name="addMembersText" comment="%s is an icon that will added at runtime">คลิกปุ่ม %s&lt;br&gt; จากนั้นตัดสินใจว่าใครสามารถมีส่วนสนับสนุนหรือไม่</string>
   <string name="studyChaptersTitle">ศึกษาบทต่างๆ</string>
+  <string name="studyChaptersText">การศึกษาหนึ่งๆ สามารถประกอบด้วยหลายบท &lt;br&gt;แต่ละบทมีตำแหน่งเริ่มต้นและแผนผังการเคลื่อนไหวที่แตกต่างกัน</string>
   <string name="commentPositionTitle">วิจารณ์ตำแหน่งนี้</string>
+  <string name="annotatePositionTitle">ระบุตำแหน่งบนกระดาน</string>
   <string name="conclusionTitle">ขอบคุณสำหรับเวลาของคุณ</string>
   <string name="createChapterTitle">มาสร้างบทเรียนกันเถอะ</string>
   <string name="fromInitialPositionTitle">จากตำแหน่งเริ่มต้น</string>
