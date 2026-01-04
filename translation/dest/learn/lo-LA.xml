@@ -1,2 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="learnChess">ຮຽນຮູ້ໝາກຮຸກ</string>
+  <string name="byPlaying">ຜ່ານການຫຼິ້ນ!</string>
+  <string name="menu">ເມນູ</string>
+  <string name="progressX">ຄວາມຄືບໜ້າ: %s</string>
+  <string name="resetMyProgress">ລ້າງຄວາມຄືບໜ້າຂອງຂ້ອຍ</string>
+  <string name="youWillLoseAllYourProgress">ທ່ານຈະເສຍຄວາມຄືບໜ້າທັງໝົດ!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ຫຼິ້ນ!</string>
+  <string name="chessPieces">ໝາກໝາກຮຸກ</string>
+  <string name="theRook">ເຮືອ</string>
+  <string name="itMovesInStraightLines">ມັນເດີນເປັນເສັ້ນຊື່</string>
+  <string name="rookIntro">ເຮືອແມ່ນໝາກທີ່ມີພະລັງຫຼາຍ. ທ່ານພ້ອມທີ່ຈະຄວບຄຸມມັນແລ້ວບໍ?</string>
+  <string name="rookGoal">ຄລິກທີ່ເຮືອ
+ເພື່ອນຳມັນໄປຫາຮູບດາວ!</string>
+  <string name="grabAllTheStars">ເກັບຮູບດາວໃຫ້ໝົດ!</string>
+  <string name="theFewerMoves">ຍິ່ງເດີນໝາກໜ້ອຍເທົ່າໃດ,
+ທ່ານຍິ່ງໄດ້ຄະແນນຫຼາຍເທົ່ານັ້ນ!</string>
+  <string name="useTwoRooks">ໃຊ້ເຮືອສອງລຳ
+ເພື່ອໃຫ້ໄວຂຶ້ນ!</string>
+  <string name="rookComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານໄດ້ຝຶກຝົນການໃຊ້ເຮືອຈົນຊຳນານແລ້ວ.</string>
+  <string name="theBishop">ກົດ (Bishop)</string>
+  <string name="itMovesDiagonally">ມັນເດີນຕາມເສັ້ນສະແຍງ</string>
+  <string name="bishopIntro">ຕໍ່ໄປພວກເຮົາຈະມາຮຽນຮູ່ວິທີການເດີນ ກົດ (Bishop)!</string>
+  <string name="youNeedBothBishops">ກົດຕາສີອ່ອນໜຶ່ງໂຕ,
+ກົດຕາສີເຂັ້ມໜຶ່ງໂຕ.
+ທ່ານຕ້ອງໃຊ້ທັງສອງ!</string>
+  <string name="bishopComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານສາມາດຄວບຄຸມ ກົດ (Bishop) ໄດ້ແລ້ວ.</string>
+  <string name="theQueen">ແມ່ (Queen)</string>
+  <string name="queenCombinesRookAndBishop">ແມ່ = ເເຮືອ + ກົດ</string>
+  <string name="queenIntro">ໝາກຮຸກທີ່ມີພະລັງທີ່ສຸດອອກມາແລ້ວ. ອົງລີນີ ແມ່ (Queen)!</string>
+  <string name="queenComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານເຂົ້າໃຈທຸກການເດີນຂອງ ແມ່ (Queen) ແລ້ວ.</string>
+  <string name="theKing">ຂຸນ (King)</string>
+  <string name="theMostImportantPiece">ໝາກທີ່ສຳຄັນທີ່ສຸດ</string>
+  <string name="kingIntro">ທ່ານຄືຂຸນ. ຫາກທ່ານເສຍໄຊໃນສະໜາມຮົບ, ເກມກໍຈະຈົບລົງ.</string>
+  <string name="theKingIsSlow">ຂຸນຈະເດີນຊ້າ.</string>
+  <string name="lastOne">ອັນສຸດທ້າຍແລ້ວ!</string>
+  <string name="kingComplete">ຕອນນີ້ທ່ານສາມາດຄວບຄຸມຈອມທັບໄດ້ແລ້ວ!</string>
+  <string name="theKnight">ມ້າ</string>
+  <string name="itMovesInAnLShape">ມັນເດີນເປັນຮູບຕົວ L</string>
+  <string name="knightIntro">ນີ້ຄືສິ່ງທ້າທາຍສຳລັບທ່ານ. ມ້າແມ່ນ... ໝາກທີ່ຫຼິ້ນຍາກ ແລະ ມີເລ່ຫຼ່ຽມ.</string>
+  <string name="knightsHaveAFancyWay">ມ້າມີວິທີການໂດດໄປມາ
+ທີ່ໜ້າຕື່ນຕາຕື່ນໃຈ!</string>
+  <string name="knightsCanJumpOverObstacles">ມ້າສາມາດໂດດຂ້າມສິ່ງກີດຂວາງໄດ້!
+ຈົ່ງໂດດໄປເກັບຮູບດາວໃຫ້ໝົດ!</string>
+  <string name="knightComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານໄດ້ຝຶກຝົນການໃຊ້ມ້າຈົນຊຳນານແລ້ວ.</string>
+  <string name="thePawn">ເບ້ (Pawn)</string>
+  <string name="itMovesForwardOnly">ມັນເດີນໄປທາງໜ້າເທົ່ານັ້ນ</string>
+  <string name="pawnIntro">ເບ້ເບິ່ງຄືວ່າອ່ອນແອ, ແຕ່ມັນມີທ່າແຮງມຫາສານ.</string>
+  <string name="pawnsMoveOneSquareOnly">ເບ້ເດີນໄດ້ເທື່ອລະຫ້ອງເທົ່ານັ້ນ.
+ແຕ່ເມື່ອພວກມັນໄປຮອດອີກຝັ່ງຂອງກະດານ, ພວກມັນຈະກາຍເປັນໝາກທີ່ມີພະລັງຫຼາຍຂຶ້ນ!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">ສ່ວນຫຼາຍແລ້ວ ການປ່ຽນເບ້ເປັນ ແມ່ (Queen) ແມ່ນດີທີ່ສຸດ.
+ແຕ່ບາງຄັ້ງມ້າກໍອາດຈະມີປະໂຫຍດຫຼາຍກວ່າ!</string>
+  <string name="pawnsMoveForward">ເບ້ເດີນໄປທາງໜ້າ,
+ແຕ່ກິນໃນແນວສະແຍງ!</string>
+  <string name="captureThenPromote">ກິນ ແລ້ວປ່ຽນເປັນໝາກອື່ນ!</string>
+  <string name="useAllThePawns">ໃຊ້ເບ້ທັງໝົດ!
+ບໍ່ຈຳເປັນຕ້ອງປ່ຽນເປັນໝາກອື່ນ.</string>
+  <string name="aPawnOnTheSecondRank">ເບ້ທີ່ຢູ່ໃນແຖວທີສອງສາມາດເດີນໄດ້ 2 ຫ້ອງໃນບາດດຽວ!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">ເກັບຮູບດາວໃຫ້ໝົດ!
+ບໍ່ຈຳເປັນຕ້ອງປ່ຽນເປັນໝາກອື່ນ.</string>
+  <string name="pawnComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານເຂົ້າໃຈທຸກການເດີນຂອງເບ້ແລ້ວ.</string>
+  <string name="pawnPromotion">ການປ່ຽນເບ້ເປັນໝາກອື່ນ</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">ເບ້ຂອງທ່ານໄປຮອດສຸດຂອບກະດານແລ້ວ!</string>
+  <string name="itNowPromotesToAStrongerPiece">ຕອນນີ້ມັນສາມາດປ່ຽນເປັນໝາກທີ່ມີພະລັງຫຼາຍຂຶ້ນ.</string>
+  <string name="selectThePieceYouWant">ເລືອກໝາກທີ່ທ່ານຕ້ອງການ!</string>
+  <string name="fundamentals">ພື້ນຖານ</string>
+  <string name="capture">ການກິນ (Capture)</string>
+  <string name="takeTheEnemyPieces">ກິນໝາກຂອງສັດຕູ</string>
+  <string name="captureIntro">ຊອກຫາໝາກຂອງຄູ່ຕໍ່ສູ້ທີ່ບໍ່ມີການປ້ອງກັນ, ແລ້ວກິນພວກມັນຊະ!</string>
+  <string name="takeTheBlackPieces">ກິນໝາກສີດຳ!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">ກິນໝາກສີດຳ!
+ແລ້ວຢ່າເສຍໝາກຂອງທ່ານເອງ.</string>
+  <string name="captureComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານຮູ້ວິທີການຕໍ່ສູ້ດ້ວຍໝາກຮຸກແລ້ວ!</string>
+  <string name="protection">ການປ້ອງກັນ</string>
+  <string name="keepYourPiecesSafe">ຮັກສາໝາກຂອງທ່ານໃຫ້ປອດໄພ</string>
+  <string name="protectionIntro">ສັງເກດເບິ່ງໝາກທີ່ຄູ່ຕໍ່ສູ້ກຳລັງໂຈມຕີ, ແລ້ວປ້ອງກັນພວກມັນ!</string>
+  <string name="protectionComplete">ຂໍສະແດງຄວາມຍິນດີ! ໝາກທີ່ທ່ານບໍ່ເສຍໄປ ກໍຄືໝາກທີ່ທ່ານຊະນະ!</string>
+  <string name="escape">ທ່ານກຳລັງຖືກໂຈມຕີ!
+ຈົ່ງຫຼົບຫຼີກຈາກໄພຄຸກຄາມ!</string>
+  <string name="noEscape">ບໍ່ມີທາງຫຼົບຫຼີກ,
+ແຕ່ທ່ານສາມາດປ້ອງກັນໄດ້!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">ຢ່າປ່ອຍໃຫ້ພວກເຂົາກິນ
+ໝາກທີ່ບໍ່ມີການປ້ອງກັນ!</string>
+  <string name="combat">ການຕໍ່ສູ້</string>
+  <string name="captureAndDefendPieces">ກິນ ແລະ ປ້ອງກັນໝາກ</string>
+  <string name="combatIntro">ນັກຮົບທີ່ດີຕ້ອງຮູ້ທັງການບຸກ ແລະ ການຮັບ!</string>
+  <string name="combatComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານຮູ້ວິທີການຕໍ່ສູ້ດ້ວຍໝາກຮຸກແລ້ວ!</string>
+  <string name="checkInOne">ຮຸກ (Check) ໃນຕາດຽວ</string>
+  <string name="attackTheOpponentsKing">ໂຈມຕີຂຸນຂອງຄູ່ຕໍ່ສູ້</string>
+  <string name="checkInOneIntro">ການຮຸກຄູ່ຕໍ່ສູ້ ແມ່ນການໂຈມຕີຂຸນຂອງພວກເຂົາ. ພວກເຂົາຕ້ອງປ້ອງກັນມັນ!</string>
+  <string name="checkInOneGoal">ເລັງໄປທີ່ຂຸນຂອງຄູ່ຕໍ່ສູ້
+ໃນຕາດຽວ!</string>
+  <string name="checkInOneComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານຮຸກຄູ່ຕໍ່ສູ້ແລ້ວ, ເຮັດໃຫ້ພວກເຂົາຕ້ອງປ້ອງກັນຂຸນຂອງຕົນເອງ!</string>
+  <string name="outOfCheck">ການແກ້ຮຸກ</string>
+  <string name="defendYourKing">ປ້ອງກັນຂຸນຂອງທ່ານ</string>
+  <string name="outOfCheckIntro">ທ່ານກຳລັງຖືກຮຸກ! ທ່ານຕ້ອງຫຼົບຫຼີກ ຫຼື ປິດກັ້ນການໂຈມຕີ.</string>
+  <string name="escapeWithTheKing">ພາຂຸນຫຼົບຫຼີກ!</string>
+  <string name="theKingCannotEscapeButBlock">ຂຸນບໍ່ມີທາງຫຼົບຫຼີກ,
+ແຕ່ທ່ານສາມາດປິດກັ້ນການໂຈມຕີໄດ້!</string>
+  <string name="youCanGetOutOfCheckByTaking">ທ່ານສາມາດແກ້ຮຸກໄດ້
+ໂດຍການກິນໝາກທີ່ກຳລັງມາໂຈມຕີ.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">ມ້າໂຕນີ້ກຳລັງຮຸກ
+ຜ່ານການປ້ອງກັນຂອງທ່ານ!</string>
+  <string name="escapeOrBlock">ພາຂຸນຫຼົບຫຼີກ
+ຫຼື ປິດກັ້ນການໂຈມຕີ!</string>
+  <string name="outOfCheckComplete">ຂໍສະແດງຄວາມຍິນດີ! ຂຸນຂອງທ່ານຈະບໍ່ມີວັນຖືກກິນ, ຈົ່ງໝັ້ນໃຈວ່າທ່ານສາມາດປ້ອງກັນການຮຸກໄດ້!</string>
+  <string name="mateInOne">ຮຸກຈົນ (Mate) ໃນຕາດຽວ</string>
+  <string name="defeatTheOpponentsKing">ຜາບແພ້ຂຸນຂອງຄູ່ຕໍ່ສູ້</string>
+  <string name="mateInOneIntro">ທ່ານຈະຊະນະ ເມື່ອຄູ່ຕໍ່ສູ້ບໍ່ສາມາດປ້ອງກັນການຮຸກໄດ້.</string>
+  <string name="attackYourOpponentsKing">ໂຈມຕີຂຸນຂອງຄູ່ຕໍ່ສູ້
+ໃນຮູບແບບທີ່ບໍ່ສາມາດປ້ອງກັນໄດ້!</string>
+  <string name="mateInOneComplete">ຂໍສະແດງຄວາມຍິນດີ! ນີ້ຄືວິທີທີ່ທ່ານຈະຊະນະໃນເກມໝາກຮຸກ!</string>
+  <string name="intermediate">ລະດັບກາງ</string>
+  <string name="boardSetup">ການຈັດວາງກະດານ</string>
+  <string name="howTheGameStarts">ຈຸດເລີ່ມຕົ້ນຂອງເກມ</string>
+  <string name="boardSetupIntro">ກອງທັບທັງສອງຝ່າຍປະເຊີນໜ້າກັນ, ພ້ອມແລ້ວສຳລັບການສູ້ຮົບ.</string>
+  <string name="thisIsTheInitialPosition">ນີ້ແມ່ນຕຳແໜ່ງເລີ່ມຕົ້ນ
+ຂອງທຸກເກມໝາກຮຸກ!
+ເດີນໝາກໃດກໍໄດ້ເພື່ອໄປຕໍ່.</string>
+  <string name="firstPlaceTheRooks">ທຳອິດໃຫ້ວາງເຮືອກ່ອນ!
+ພວກມັນຈະຢູ່ວາງໄວ້ຢູ່ມຸມ.</string>
+  <string name="thenPlaceTheKnights">ຈາກນັ້ນວາງມ້າ!
+ພວກມັນຈະຢູ່ຖັດຈາກເຮືອ.</string>
+  <string name="placeTheBishops">ວາງກົດ (Bishops)!
+ພວກມັນຈະຢູ່ຖັດຈາກມ້າ.</string>
+  <string name="placeTheQueen">ວາງ ແມ່ (Queen)!
+ວາງໄວ້ຢູ່ຕາທີ່ມີສີດຽວກັນກັບມັນ.</string>
+  <string name="placeTheKing">ວາງ ຂຸນ (King)!
+ຢູ່ຖັດຈາກ ແມ່ (Queen) ຂອງລາວ.</string>
+  <string name="pawnsFormTheFrontLine">ເບ້ຈະເປັນແຖວໜ້າ.
+ເດີນໝາກໃດກໍໄດ້ເພື່ອໄປຕໍ່.</string>
+  <string name="boardSetupComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານຮູ້ວິທີຈັດວາງກະດານໝາກຮຸກແລ້ວ.</string>
+  <string name="castling">ການເຂົ້າປ້ອມ (Castling)</string>
+  <string name="theSpecialKingMove">ການເດີນພິເສດຂອງຂຸນ</string>
+  <string name="castlingIntro">ພາຂຸນຂອງທ່ານໄປຫາບ່ອນປອດໄພ ແລະ ໃຊ້ເຮືອຂອງທ່ານເພື່ອໂຈມຕີ!</string>
+  <string name="castleKingSide">ເດີນຂຸນໄປ 2 ຫ້ອງ
+ເພື່ອເຂົ້າປ້ອມຝັ່ງຂຸນ (King-side)!</string>
+  <string name="castleQueenSide">ເດີນຂຸນໄປ 2 ຫ້ອງ
+ເພື່ອເຂົ້າປ້ອມຝັ່ງແມ່ (Queen-side)!</string>
+  <string name="theKnightIsInTheWay">ມ້າຂວາງທາງຢູ່!
+ຈົ່ງເດີນມັນອອກ, ແລ້ວເຂົ້າປ້ອມຝັ່ງຂຸນ.</string>
+  <string name="castleKingSideMovePiecesFirst">ເຂົ້າປ້ອມຝັ່ງຂຸນ!
+ທ່ານຕ້ອງເດີນໝາກອື່ນອອກກ່ອນ.</string>
+  <string name="castleQueenSideMovePiecesFirst">ເຂົ້າປ້ອມຝັ່ງແມ່!
+ທ່ານຕ້ອງເດີນໝາກອື່ນອອກກ່ອນ.</string>
+  <string name="youCannotCastleIfMoved">ທ່ານບໍ່ສາມາດເຂົ້າປ້ອມໄດ້ ຫາກຂຸນ
+ຫຼື ເຮືອໄດ້ເຄີຍເດີນໄປແລ້ວ.</string>
+  <string name="youCannotCastleIfAttacked">ທ່ານບໍ່ສາມາດເຂົ້າປ້ອມໄດ້ ຫາກຂຸນຖືກໂຈມຕີໃນລະຫວ່າງທາງ.
+ຈົ່ງແກ້ຮຸກກ່ອນແລ້ວຈຶ່ງເຂົ້າປ້ອມ!</string>
+  <string name="findAWayToCastleKingSide">ຊອກຫາວິທີ
+ເຂົ້າປ້ອມຝັ່ງຂຸນໃຫ້ໄດ້!</string>
+  <string name="findAWayToCastleQueenSide">ຊອກຫາວິທີ
+ເຂົ້າປ້ອມຝັ່ງແມ່ໃຫ້ໄດ້!</string>
+  <string name="castlingComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານຄວນເຂົ້າປ້ອມເກືອບທຸກຄັ້ງໃນການຫຼິ້ນ.</string>
+  <string name="enPassant">ການກິນຜ່ານ (En passant)</string>
+  <string name="theSpecialPawnMove">ການເດີນພິເສດຂອງເບ້</string>
+  <string name="enPassantIntro">ເມື່ອເບ້ຂອງຄູ່ຕໍ່ສູ້ເດີນມາ 2 ຫ້ອງ, ທ່ານສາມາດກິນມັນໄດ້ ຄືກັບວ່າມັນເດີນມາພຽງຫ້ອງດຽວ.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">ຝ່າຍດຳຫາກໍເດີນເບ້ມາ
+2 ຫ້ອງ!
+ຈົ່ງກິນມັນແບບຜ່ານ (En passant).</string>
+  <string name="enPassantOnlyWorksImmediately">ການກິນແບບຜ່ານຈະເຮັດໄດ້
+ທັນທີ ຫຼັງຈາກທີ່ຄູ່ຕໍ່ສູ້
+ເດີນເບ້ເທົ່ານັ້ນ.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">ການກິນແບບຜ່ານຈະເຮັດໄດ້
+ກໍຕໍ່ເມື່ອເບ້ຂອງທ່ານຢູ່ໃນແຖວທີ 5 ເທົ່ານັ້ນ.</string>
+  <string name="takeAllThePawnsEnPassant">ກິນເບ້ທັງໝົດແບບຜ່ານໃຫ້ໝົດ!</string>
+  <string name="enPassantComplete">ຂໍສະແດງຄວາມຍິນດີ! ຕອນນີ້ທ່ານຮູ້ວິທີກິນແບບຜ່ານ (En passant) ແລ້ວ.</string>
+  <string name="stalemate">ການສະເໝີແບບອັບ (Stalemate)</string>
+  <string name="theGameIsADraw">ເກມນີ້ສະເໝີກັນ</string>
+  <string name="stalemateIntro">ເມື່ອຜູ້ຫຼິ້ນບໍ່ໄດ້ຖືກຮຸກ ແຕ່ບໍ່ມີຕາໃຫ້ເດີນໄດ້ຢ່າງຖືກຕ້ອງ, ມັນຄືການສະເໝີແບບອັບ. ເກມຈະຈົບລົງດ້ວຍການສະເໝີ: ບໍ່ມີໃຜຊະນະ ແລະ ບໍ່ມີໃຜເສຍ.</string>
+  <string name="stalemateGoal">ເພື່ອເຮັດໃຫ້ຝ່າຍດຳສະເໝີແບບອັບ:
+- ຝ່າຍດຳບໍ່ສາມາດເດີນໄປໃສໄດ້
+- ແລະ ບໍ່ໄດ້ຖືກຮຸກຢູ່.</string>
+  <string name="stalemateComplete">ຂໍສະແດງຄວາມຍິນດີ! ສະເໝີແບບອັບ ກໍຍັງດີກວ່າຖືກຮຸກຈົນ!</string>
+  <string name="advanced">ລະດັບສູງ</string>
+  <string name="pieceValue">ຄ່າຂອງໝາກແຕ່ລະໂຕ</string>
+  <string name="evaluatePieceStrength">ປະເມີນຄວາມແຂງແກ່ນຂອງໝາກ</string>
+  <string name="pieceValueIntro">ໝາກທີ່ເດີນໄດ້ຫຼາກຫຼາຍຈະມີຄ່າສູງກວ່າ!
+ແມ່ (Queen) = 9
+ເຮືອ = 5
+ກົດ (Bishop) = 3
+ມ້າ = 3
+ເບ້ = 1
+ສ່ວນຂຸນນັ້ນມີຄ່າຫາທີ່ປຽບບໍ່ໄດ້! ຫາກເສຍຂຸນໄປ ກໍໝາຍເຖິງການເສຍເກມ.</string>
+  <string name="queenOverBishop">ກິນໝາກທີ່ມີຄ່າສູງທີ່ສຸດ!
+ແມ່ (Queen) &gt; ກົດ (Bishop)</string>
+  <string name="pieceValueExchange">ກິນໝາກທີ່ມີຄ່າສູງທີ່ສຸດ!
+ຢ່າແລກໝາກທີ່ມີຄ່າສູງກວ່າ
+ກັບໝາກທີ່ມີຄ່າໜ້ອຍກວ່າ.</string>
+  <string name="pieceValueLegal">ກິນໝາກທີ່ມີຄ່າສູງທີ່ສຸດ!
+ຈົ່ງໝັ້ນໃຈວ່າການເດີນຂອງທ່ານນັ້ນຖືກຕ້ອງ!</string>
+  <string name="takeThePieceWithTheHighestValue">ກິນໝາກທີ່ມີຄ່າສູງທີ່ສຸດ!</string>
+  <string name="pieceValueComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານຮູ້ຈັກຄ່າຂອງໝາກແຕ່ລະໂຕແລ້ວ!
+ແມ່ = 9
+ເຮືອ = 5
+ກົດ = 3
+ມ້າ = 3
+ເບ້ = 1</string>
+  <string name="checkInTwo">ຮຸກ (Check) ໃນສອງຕາ</string>
+  <string name="twoMovesToGiveCheck">ເດີນສອງຕາເພື່ອຮຸກ</string>
+  <string name="checkInTwoIntro">ຊອກຫາການເດີນສອງຕາທີ່ປະສົມປະສານກັນ ເພື່ອຮຸກຂຸນຂອງຄູ່ຕໍ່ສູ້!</string>
+  <string name="checkInTwoGoal">ຂົ່ມຂູ່ຂຸນຂອງຄູ່ຕໍ່ສູ້
+ໃນສອງຕາ!</string>
+  <string name="checkInTwoComplete">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານຮຸກຄູ່ຕໍ່ສູ້ແລ້ວ, ເຮັດໃຫ້ພວກເຂົາຕ້ອງປ້ອງກັນຂຸນຂອງຕົນເອງ!</string>
+  <string name="whatNext">ຈະເຮັດຫຍັງຕໍ່ໄປ?</string>
+  <string name="youKnowHowToPlayChess">ທ່ານຮູ້ວິທີຫຼິ້ນໝາກຮຸກແລ້ວ, ຂໍສະແດງຄວາມຍິນດີ! ທ່ານຢາກເກັ່ງຂຶ້ນກວ່າເກົ່າບໍ?</string>
+  <string name="register">ລົງທະບຽນ</string>
+  <string name="getAFreeLichessAccount">ສະໝັກບັນຊີ Lichess ຟຣີ</string>
+  <string name="practice">ຝຶກຝົນ</string>
+  <string name="learnCommonChessPositions">ຮຽນຮູ້ຕຳແໜ່ງໝາກຮຸກທີ່ພົບເຫັນທົ່ວໄປ</string>
+  <string name="puzzles">ປິດສະໜາ</string>
+  <string name="exerciseYourTacticalSkills">ຝຶກທັກສະການວາງແຜນ (Tactics) ຂອງທ່ານ</string>
+  <string name="videos">ວິດີໂອ</string>
+  <string name="watchInstructiveChessVideos">ເບິ່ງວິດີໂອສອນການຫຼິ້ນໝາກຮຸກ</string>
+  <string name="playPeople">ຫຼິ້ນກັບຄົນ</string>
+  <string name="opponentsFromAroundTheWorld">ຄູ່ຕໍ່ສູ້ຈາກທົ່ວທຸກມຸມໂລກ</string>
+  <string name="playMachine">ຫຼິ້ນກັບຄອມພິວເຕີ</string>
+  <string name="testYourSkillsWithTheComputer">ທົດສອບທັກສະຂອງທ່ານກັບຄອມພິວເຕີ</string>
+  <string name="letsGo">ໄປກັນເລີຍ!</string>
+  <string name="stageX">ດ່ານ %s</string>
+  <string name="awesome">ສຸດຍອດ!</string>
+  <string name="excellent">ດີຫຼາຍ!</string>
+  <string name="greatJob">ເຮັດໄດ້ດີຫຼາຍ!</string>
+  <string name="perfect">ສົມບູນແບບ!</string>
+  <string name="outstanding">ໂດດເດັ່ນຫຼາຍ!</string>
+  <string name="wayToGo">ດີຫຼາຍ, ໄປຕໍ່ເລີຍ!</string>
+  <string name="yesYesYes">ແມ່ນແລ້ວ, ແມ່ນແລ້ວ!</string>
+  <string name="youreGoodAtThis">ທ່ານເກັ່ງເລື່ອງນີ້ໃດ໋!</string>
+  <string name="nailedIt">ເຮັດໄດ້ສຳເລັດແລ້ວ.</string>
+  <string name="rightOn">ຖືກຕ້ອງແລ້ວ!</string>
+  <string name="stageXComplete">ດ່ານ %s ສຳເລັດແລ້ວ</string>
+  <string name="next">ຕໍ່ໄປ</string>
+  <string name="nextX">ຕໍ່ໄປ: %s</string>
+  <string name="backToMenu">ກັບໄປເມນູ</string>
+  <string name="puzzleFailed">ປິດສະໜາລົ້ມເຫຼວ!</string>
+  <string name="retry">ລອງໃໝ່</string>
+</resources>

@@ -1,2 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">FAQ</string>
+  <string name="frequentlyAskedQuestions">ຄຳຖາມທີ່ພົບເລື້ອຍ</string>
+  <string name="whyIsLichessCalledLichess">ເປັນຫຍັງ Lichess ຈຶ່ງຖືກເອີ້ນວ່າ Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess ແມ່ນການປະສົມປະສານຂອງ live/light/libre ແລະ chess. ມັນຖືກອອກສຽງວ່າ %1$s.</string>
+  <string name="leechess">ລີ-ເຊັສ</string>
+  <string name="hearItPronouncedBySpecialist">ຟັງການອອກສຽງໂດຍຜູ້ຊ່ຽວຊານ.</string>
+  <string name="whyLiveLightLibre">Live, ເພາະວ່າເກມແມ່ນຖືກຫຼິ້ນ ແລະ ຖືກຮັບຊົມໃນເວລາຈິງ (real-time) ຕະຫຼອດ 24 ຊົ່ວໂມງ; light ແລະ libre ເນື່ອງຈາກຄວາມຈິງທີ່ວ່າ Lichess ເປັນໂອເພນຊອດ (open-source) ແລະ ບໍ່ມີສິ່ງລົບກວນຈາກຊອຟແວທີ່ມີລິຂະສິດຄືກັບເວັບໄຊອື່ນໆ.</string>
+  <string name="whyIsLilaCalledLila">ເຊັ່ນດຽວກັນ, ຊອດໂຄ້ດ (source code) ຂອງ Lichess, %1$s, ຫຍໍ້ມາຈາກ li[chess in sca]la, ເນື່ອງຈາກສ່ວນໃຫຍ່ຂອງ Lichess ຖືກຂຽນດ້ວຍ %2$s, ເຊິ່ງເປັນພາສາຂຽນໂປຣແກຣມທີ່ເຂົ້າໃຈງ່າຍ.</string>
+  <string name="howCanIContributeToLichess">ຂ້ອຍຈະຊ່ວຍເຫຼືອ Lichess ໄດ້ແນວໃດ?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess ຂັບເຄື່ອນດ້ວຍການບໍລິຈາກຈາກຜູ້ສະໜັບສະໜູນ (patron) ແລະ ຄວາມພະຍາຍາມຂອງທີມງານອາສາສະໝັກ.</string>
+  <string name="findMoreAndSeeHowHelp">ທ່ານສາມາດສຶກສາເພີ່ມເຕີມກ່ຽວກັບ %1$s (ລວມທັງ %2$s). ຫາກທ່ານຕ້ອງການຊ່ວຍ Lichess ໂດຍການສະລະເວລາ ແລະ ທັກສະຂອງທ່ານ, ມີ %3$s ອີກຫຼາຍວິທີ.</string>
+  <string name="beingAPatron">ການເປັນຜູ້ສະໜັບສະໜູນ</string>
+  <string name="breakdownOfOurCosts">ລາຍລະອຽດຄ່າໃຊ້ຈ່າຍຂອງພວກເຮົາ</string>
+  <string name="otherWaysToHelp">ວິທີອື່ນໆໃນການຊ່ວຍເຫຼືອ</string>
+  <string name="areThereWebsitesBasedOnLichess">ມີເວັບໄຊອື່ນທີ່ສ້າງຂຶ້ນໂດຍອີງຕາມ Lichess ບໍ່?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">ແມ່ນແລ້ວ. Lichess ໄດ້ເປັນແຮງບັນດານໃຈໃຫ້ກັບເວັບໄຊໂອເພນຊອດ (open-source) ອື່ນໆ ທີ່ໃຊ້ %1$s, %2$s, ຫຼື %3$s ຂອງພວກເຮົາ.</string>
+  <string name="keyboardShortcuts">ມີປຸ່ມລັດຄີບອດ (Keyboard shortcuts) ຫຍັງແດ່?</string>
+  <string name="keyboardShortcutsExplanation">ບາງໜ້າຂອງ Lichess ມີປຸ່ມລັດຄີບອດທີ່ທ່ານສາມາດໃຊ້ໄດ້. ລອງກົດປຸ່ມ \'?\' ໃນໜ້າບົດສຶກສາ, ການວິເຄາະ, ປິດສະໜາ ຫຼື ໜ້າເກມ ເພື່ອເບິ່ງລາຍຊື່ປຸ່ມລັດທີ່ມີໃຫ້ໃຊ້.</string>
+  <string name="fairPlay">ການຫຼິ້ນທີ່ຍຸດຕິທຳ (Fair Play)</string>
+  <string name="whenAmIEligibleRatinRefund">ເມື່ອໃດຂ້ອຍຈຶ່ງຈະມີສິດໄດ້ຮັບຄະແນນ (Rating) ຄືນໂດຍອັດຕະໂນມັດຈາກຄົນທີ່ໂກງ?</string>
+  <string name="ratingRefundExplanation">ໜຶ່ງນາທີຫຼັງຈາກຜູ້ຫຼິ້ນຖືກໝາຍຊື່, ເກມທີ່ມີການຄິດໄລ່ຄະແນນ 40 ເກມຫຼ້າສຸດຂອງພວກເຂົາໃນ 5 ວັນທີ່ຜ່ານມາຈະຖືກນຳມາກວດສອບ. ຫາກທ່ານເປັນຄູ່ຕໍ່ສູ້ຂອງພວກເຂົາໃນເກມໃດໜຶ່ງ, ທ່ານເສຍຄະແນນ (ເນື່ອງຈາກການເສຍ ຫຼື ສະເໝີ), ແລະ ຄະແນນຂອງທ່ານບໍ່ແມ່ນຄະແນນຊົ່ວຄາວ (provisional), ທ່ານຈະໄດ້ຮັບຄະແນນຄືນ. ການຄືນຄະແນນຈະຖືກຈຳກັດໂດຍອີງຕາມຄະແນນສູງສຸດຂອງທ່ານ ແລະ ຄວາມຄືບໜ້າຂອງຄະແນນຫຼັງຈາກເກມນັ້ນ. (ຕົວຢ່າງ: ຫາກຄະແນນຂອງທ່ານເພີ່ມຂຶ້ນຫຼາຍຫຼັງຈາກເກມນັ້ນ, ທ່ານອາດຈະບໍ່ໄດ້ຮັບຄະແນນຄືນ ຫຼື ໄດ້ຮັບຄືນພຽງບາງສ່ວນ.) ການຄືນຄະແນນຈະບໍ່ເກີນ 150 ຄະແນນ.</string>
+  <string name="preventLeavingGameWithoutResigning">ມີມາດຕະການແນວໃດຕໍ່ຜູ້ຫຼິ້ນທີ່ອອກຈາກເກມໂດຍບໍ່ກົດຍອມແພ້ (Resign)?</string>
+  <string name="leavingGameWithoutResigningExplanation">ຫາກຄູ່ຕໍ່ສູ້ຂອງທ່ານຍົກເລີກ ຫຼື ອອກຈາກເກມເລື້ອຍໆ, ພວກເຂົາຈະຖືກ \"ຫ້າມຫຼິ້ນ\" (Play banned), ເຊິ່ງໝາຍຄວາມວ່າພວກເຂົາຈະຖືກຫ້າມຫຼິ້ນເກມຊົ່ວຄາວ. ສິ່ງນີ້ຈະບໍ່ຖືກສະແດງໃຫ້ສາທາລະນະເຫັນໃນໂປຣໄຟລ໌ຂອງພວກເຂົາ. ຫາກພຶດຕິກຳນີ້ຍັງສືບຕໍ່, ໄລຍະເວລາໃນການຫ້າມຫຼິ້ນຈະເພີ່ມຂຶ້ນ - ແລະ ພຶດຕິກຳທີ່ແກ່ຍາວອາດນຳໄປສູ່ການປິດບັນຊີ.</string>
+  <string name="howCanIBecomeModerator">ຂ້ອຍຈະເປັນຜູ້ເບິ່ງແຍງ (Moderator) ໄດ້ແນວໃດ?</string>
+  <string name="youCannotApply">ບໍ່ສາມາດສະໝັກເຂົ້າເປັນຜູ້ເບິ່ງແຍງໄດ້. ຫາກພວກເຮົາເຫັນຜູ້ໃດທີ່ເໝາະສົມຈະເປັນຜູ້ເບິ່ງແຍງ, ພວກເຮົາຈະຕິດຕໍ່ຫາພວກເຂົາໂດຍກົງ.</string>
+  <string name="isCorrespondenceDifferent">ໝາກຮຸກແບບສົ່ງຂ່າວ (Correspondence) ແຕກຕ່າງຈາກໝາກຮຸກປົກກະຕິແນວໃດ?</string>
+  <string name="pleaseReadFairPlayPage">ສຳລັບຂໍ້ມູນເພີ່ມເຕີມ, ກະລຸນາອ່ານ %s ຂອງພວກເຮົາ</string>
+  <string name="fairPlayPage">ໜ້າການຫຼິ້ນທີ່ຍຸດຕິທຳ</string>
+  <string name="youCanUseOpeningBookNoEngine">ໃນ Lichess, ຄວາມແຕກຕ່າງຫຼັກຂອງກົດລະບຽບສຳລັບໝາກຮຸກແບບສົ່ງຂ່າວ (Correspondence) ແມ່ນອະນຸຍາດໃຫ້ໃຊ້ປຶ້ມການເປີດເກມ (Opening book) ໄດ້. ແຕ່ການໃຊ້ເຄື່ອງຈັກວິເຄາະ (Engine) ຍັງຄົງຖືກຫ້າມ ແລະ ຈະຖືກໝາຍຊື່ຫາກມີການໃຊ້ເຄື່ອງຈັກຊ່ວຍເຫຼືອ. ເຖິງແມ່ນວ່າ ICCF ຈະອະນຸຍາດໃຫ້ໃຊ້ເຄື່ອງຈັກໃນໝາກຮຸກແບບສົ່ງຂ່າວ, ແຕ່ Lichess ບໍ່ອະນຸຍາດ.</string>
+  <string name="gameplay">ຮູບແບບການຫຼິ້ນ</string>
+  <string name="howBulletBlitzEtcDecided">Bullet, Blitz ແລະ ການຄວບຄຸມເວລາອື່ນໆ ຖືກກຳນົດແນວໃດ?</string>
+  <string name="basedOnGameDuration">ການຄວບຄຸມເວລາຂອງ Lichess ແມ່ນອີງຕາມໄລຍະເວລາເກມໂດຍປະມານ = %1$s. ຕົວຢ່າງ: ໄລຍະເວລາໂດຍປະມານຂອງເກມ 5+3 ແມ່ນ 5 × 60 + 40 × 3 = 420 ວິນາທີ.</string>
+  <string name="durationFormula">(ເວລາເລີ່ມຕົ້ນຂອງໂມງເປັນວິນາທີ) + 40 × (ເວລາທີ່ເພີ່ມຂຶ້ນຂອງໂມງ)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s ວິນາທີ = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s ວິນາທີ = %2$s</string>
+  <string name="whatVariantsCanIplay">ຂ້ອຍສາມາດຫຼິ້ນຮູບແບບ (Variants) ໃດແດ່ໃນ Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess ຮອງຮັບໝາກຮຸກມາດຕະຖານ ແລະ %1$s.</string>
+  <string name="eightVariants">ຮູບແບບໝາກຮຸກ 8 ຮູບແບບ</string>
+  <string name="whatIsACPL">ຄ່າເສຍປຽບສະເລ່ຍ (Average Centipawn Loss - ACPL) ແມ່ນຫຍັງ?</string>
+  <string name="acplExplanation">Centipawn ແມ່ນຫົວໜ່ວຍວັດແທກທີ່ໃຊ້ໃນໝາກຮຸກເພື່ອສະແດງເຖິງຄວາມໄດ້ປຽບ. 1 centipawn ມີຄ່າເທົ່າກັບ 1/100 ຂອງໂຕໝາກເບ້ຍ (Pawn). ດັ່ງນັ້ນ 100 centipawns = 1 ໂຕໝາກເບ້ຍ. ຄ່າເຫຼົ່ານີ້ບໍ່ມີບົດບາດເປັນທາງການໃນເກມ ແຕ່ມີປະໂຫຍດຕໍ່ຜູ້ຫຼິ້ນ ແລະ ມີຄວາມຈຳເປັນໃນໝາກຮຸກຄອມພິວເຕີ ສຳລັບການປະເມີນສະຖານະພາບ.
+
+ການເດີນໝາກທີ່ດີທີ່ສຸດຂອງຄອມພິວເຕີຈະເສຍ centipawn ເປັນສູນ, ແຕ່ການເດີນທີ່ດ້ອຍກວ່າຈະສົ່ງຜົນໃຫ້ສະຖານະພາບໃນກະດານຫຼຸດລົງ ເຊິ່ງວັດແທກເປັນ centipawns.
+
+ຄ່ານີ້ສາມາດໃຊ້ເປັນຕົວກໍານົດຄຸນນະພາບຂອງການຫຼິ້ນ. ຍິ່ງເສຍ centipawn ໜ້ອຍເທົ່າໃດຕໍ່ການເດີນ, ການຫຼິ້ນກໍຍິ່ງແຂງແກ່ນເທົ່ານັ້ນ.
+
+ການວິເຄາະຄອມພິວເຕີໃນ Lichess ແມ່ນຂັບເຄື່ອນດ້ວຍ Stockfish.</string>
+  <string name="insufficientMaterial">ການເສຍເວລາ, ການສະເໝີ ແລະ ໂຕໝາກບໍ່ພໍ (Insufficient material)</string>
+  <string name="lichessFollowFIDErules">ໃນກໍລະນີທີ່ຜູ້ຫຼິ້ນຄົນໃດຄົນໜຶ່ງເວລາໝົດ, ຜູ້ຫຼິ້ນຄົນນັ້ນປົກກະຕິຈະເສຍເກມ. ແນວໃດກໍຕາມ, ເກມຈະຖືກຕັດສິນໃຫ້ສະເໝີ ຫາກສະຖານະພາບໃນກະດານນັ້ນ ຄູ່ຕໍ່ສູ້ບໍ່ສາມາດຣຸກຄາດ (Checkmate) ຂຸນຂອງຜູ້ຫຼິ້ນໄດ້ ໂດຍການເດີນຕາມກົດລະບຽບໃນທຸກຮູບແບບທີ່ເປັນໄປໄດ້ (%1$s).
+
+ໃນບາງກໍລະນີທີ່ຫາຍາກ ສິ່ງນີ້ອາດຈະຕັດສິນໂດຍອັດຕະໂນມັດໄດ້ຍາກ (ເຊັ່ນ: ຕາບັງຄັບ ຫຼື ປ້ອມປ້ອງກັນ). ໂດຍມາດຕະຖານແລ້ວ ພວກເຮົາຈະໃຫ້ຝ່າຍທີ່ເວລາບໍ່ໝົດເປັນຝ່າຍໄດ້ປຽບ.
+
+ໝາຍເຫດ: ມັນເປັນໄປໄດ້ທີ່ຈະຣຸກຄາດດ້ວຍມ້າ ຫຼື ບິຊອບ (Bishop) ພຽງໂຕດຽວ ຫາກຄູ່ຕໍ່ສູ້ມີໂຕໝາກທີ່ສາມາດປິດທາງຂຸນຂອງຕົນເອງໄດ້.</string>
+  <string name="fideHandbook">ຄູ່ມື FIDE</string>
+  <string name="fideHandbookX">ຄູ່ມື FIDE %s</string>
+  <string name="discoveringEnPassant">ເປັນຫຍັງໂຕໝາກເບ້ຍຈຶ່ງສາມາດກິນໂຕໝາກເບ້ຍອີກໂຕໜຶ່ງໄດ້ ເມື່ອມັນຍ່າງກາຍໄປແລ້ວ? (En passant)</string>
+  <string name="explainingEnPassant">ນີ້ແມ່ນການເດີນໝາກທີ່ຖືກຕ້ອງຕາມກົດລະບຽບທີ່ເອີ້ນວ່າ \"en passant\". ບົດຄວາມໃນ Wikipedia ມີ %1$s.
+
+ມັນຖືກອະທິບາຍໄວ້ໃນສ່ວນ 3.7.3.1 ແລະ 3.7.3.2 ຂອງ %2$s:
+
+\"ໂຕໝາກເບ້ຍທີ່ຄອບຄອງຫ້ອງໃນແຖວນອນດຽວກັນ ແລະ ຢູ່ໃນແຖວຕັ້ງຖັດຈາກໂຕໝາກເບ້ຍຂອງຄູ່ຕໍ່ສູ້ ທີ່ຫາກໍ່ຍ່າງຂຶ້ນມາສອງຫ້ອງໃນບາດດຽວຈາກຫ້ອງເລີ່ມຕົ້ນ ອາດຈະກິນໂຕໝາກເບ້ຍຂອງຄູ່ຕໍ່ສູ້ນີ້ໄດ້ ຄືກັບວ່າໂຕໝາກເບ້ຍນັ້ນຍ່າງຂຶ້ນມາພຽງຫ້ອງດຽວ. ການກິນນີ້ແມ່ນຖືກຕ້ອງຕາມກົດລະບຽບສະເພາະໃນຕາເດີນຖັດຈາກການຍ່າງຂຶ້ນມານັ້ນເທົ່ານັ້ນ ແລະ ເອີ້ນວ່າການກິນແບບ ‘en passant’.\"
+
+ເບິ່ງ %3$s ກ່ຽວກັບການເດີນນີ້ເພື່ອຝຶກຊ້ອມ.</string>
+  <string name="goodIntroduction">ບົດນຳທີ່ດີ</string>
+  <string name="lichessTraining">ການຝຶກຊ້ອມຂອງ Lichess</string>
+  <string name="watchIMRosenCheckmate">ເບິ່ງ International Master Eric Rosen ຣຸກຄາດແບບ %s.</string>
+  <string name="threefoldRepetition">ການສະເໝີຍ້ອນການຍ້າຍໝາກຊ້ຳສາມເທື່ອ (Threefold repetition)</string>
+  <string name="threefoldRepetitionExplanation">ຫາກສະຖານະພາບໃນກະດານເກີດຂຶ້ນຊ້ຳສາມເທື່ອ, ຜູ້ຫຼິ້ນສາມາດຂໍສະເໝີໄດ້ໂດຍ %1$s. Lichess ປະຕິບັດຕາມກົດລະບຽບທາງການຂອງ FIDE, ຕາມທີ່ອະທິບາຍໄວ້ໃນມາດຕາ 9.2 ຂອງ %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">ການຍ້າຍໝາກຊ້ຳສາມເທື່ອ</string>
+  <string name="notRepeatedMoves">ພວກເຮົາບໍ່ໄດ້ເດີນໝາກຊ້ຳ. ເປັນຫຍັງເກມຈຶ່ງຍັງຖືກຕັດສິນໃຫ້ສະເໝີຍ້ອນການຊ້ຳ?</string>
+  <string name="repeatedPositionsThatMatters">ການສະເໝີຍ້ອນການຊ້ຳສາມເທື່ອແມ່ນກ່ຽວກັບ %1$s ທີ່ຊ້ຳກັນ, ບໍ່ແມ່ນການເດີນໝາກ. ການຊ້ຳບໍ່ຈຳເປັນຕ້ອງເກີດຂຶ້ນຕິດຕໍ່ກັນ.</string>
+  <string name="positions">ສະຖານະພາບໃນກະດານ</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">ພວກເຮົາເດີນໝາກຊ້ຳສະຖານະພາບເດີມສາມເທື່ອ. ເປັນຫຍັງເກມຈຶ່ງບໍ່ສະເໝີ?</string>
+  <string name="threeFoldHasToBeClaimed">ການສະເໝີຍ້ອນການຊ້ຳຕ້ອງຖືກຮຽກຮ້ອງໂດຍຜູ້ຫຼິ້ນຄົນໃດຄົນໜຶ່ງ. ທ່ານສາມາດເຮັດໄດ້ໂດຍການກົດປຸ່ມທີ່ສະແດງຂຶ້ນ, ຫຼື ໂດຍການສະເໜີສະເໝີກ່ອນການເດີນໝາກຊ້ຳເທື່ອສຸດທ້າຍຂອງທ່ານ, ມັນຈະບໍ່ສຳຄັນວ່າຄູ່ຕໍ່ສູ້ຈະປະຕິເສດການຂໍສະເໝີຫຼືບໍ່, ເພາະການສະເໝີຍ້ອນການຊ້ຳສາມເທື່ອຈະຖືກຕັດສິນຢູ່ດີ. ທ່ານຍັງສາມາດ %1$s ໃຫ້ Lichess ຂໍສະເໝີຍ້ອນການຊ້ຳໃຫ້ທ່ານໂດຍອັດຕະໂນມັດ. ນອກຈາກນັ້ນ, ການຊ້ຳຫ້າເທື່ອຈະເຮັດໃຫ້ເກມສິ້ນສຸດລົງທັນທີ.</string>
+  <string name="configure">ຕັ້ງຄ່າ</string>
+  <string name="accounts">ບັນຊີ</string>
+  <string name="titlesAvailableOnLichess">ມີຕຳແໜ່ງ (Titles) ຫຍັງແດ່ໃນ Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess ຮັບຮອງທຸກຕຳແໜ່ງ FIDE ທີ່ໄດ້ຮັບຈາກການຫຼິ້ນແບບ OTB (Over the board), ລວມທັງ %1$s. ນີ້ແມ່ນລາຍຊື່ຕຳແໜ່ງ FIDE:</string>
+  <string name="showYourTitle">ຫາກທ່ານມີຕຳແໜ່ງ OTB, ທ່ານສາມາດສະໝັກເພື່ອໃຫ້ສະແດງຕຳແໜ່ງໃນບັນຊີຂອງທ່ານໄດ້ໂດຍການຕື່ມ %1$s, ລວມທັງຮູບພາບທີ່ຊັດເຈນຂອງເອກະສານ/ບັດຢືນຢັນຕົວຕົນ ແລະ ຮູບເຊວຟີຂອງທ່ານທີ່ຖືເອກະສານ/ບັດນັ້ນ. ການຢືນຢັນຕົວຕົນໃນຖານະຜູ້ຫຼິ້ນທີ່ມີຕຳແໜ່ງໃນ Lichess ຈະເຮັດໃຫ້ສາມາດເຂົ້າຮ່ວມການແຂ່ງຂັນໃນລາຍການ Titled Arena ໄດ້. ສຸດທ້າຍແມ່ນມີຕຳແໜ່ງກຽດຕິຍົດ %2$s.</string>
+  <string name="asWellAsManyNMtitles">ຕຳແໜ່ງ National Master ຈາກຫຼາຍປະເທດ</string>
+  <string name="verificationForm">ແບບຟອມຢືນຢັນຕົວຕົນ</string>
+  <string name="canIbecomeLM">ຂ້ອຍສາມາດໄດ້ຮັບຕຳແໜ່ງ Lichess Master (LM) ບໍ່?</string>
+  <string name="noUpperCaseDot">ບໍ່.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">ຕຳແໜ່ງກຽດຕິຍົດນີ້ບໍ່ເປັນທາງການ ແລະ ມີສະເພາະໃນ Lichess ເທົ່ານັ້ນ. ພວກເຮົາຈະມອບໃຫ້ຜູ້ຫຼິ້ນທີ່ມີຊື່ສຽງ ແລະ ເປັນສະມາຊິກທີ່ດີຂອງ Lichess ເປັນບາງກໍລະນີ ຕາມການພິຈາລະນາຂອງພວກເຮົາ. ທ່ານບໍ່ສາມາດຂໍຕຳແໜ່ງ LM ໄດ້, ແຕ່ຕຳແໜ່ງ LM ຈະເປັນຝ່າຍເລືອກທ່ານເອງ. ຫາກທ່ານມີຄຸນສົມບັດຄົບຖ້ວນ, ທ່ານຈະໄດ້ຮັບຂໍ້ຄວາມຈາກພວກເຮົາກ່ຽວກັບເລື່ອງນີ້ ແລະ ມີສິດເລືອກທີ່ຈະຍອມຮັບ ຫຼື ປະຕິເສດ. ກະລຸນາຢ່າຂໍຕຳແໜ່ງ LM.</string>
+  <string name="whatUsernameCanIchoose">ຊື່ຜູ້ໃຊ້ຂອງຂ້ອຍສາມາດເປັນແນວໃດໄດ້ແດ່?</string>
+  <string name="usernamesNotOffensive">ໂດຍທົ່ວໄປແລ້ວ, ຊື່ຜູ້ໃຊ້ບໍ່ຄວນ: ຫຍາບຄາຍ, ແອບອ້າງເປັນຜູ້ອື່ນ ຫຼື ເປັນການໂຄສະນາ. ທ່ານສາມາດອ່ານເພີ່ມເຕີມກ່ຽວກັບ %1$s.</string>
+  <string name="guidelines">ແນວທາງປະຕິບັດ</string>
+  <string name="canIChangeMyUsername">ຂ້ອຍສາມາດປ່ຽນຊື່ຜູ້ໃຊ້ໄດ້ບໍ່?</string>
+  <string name="usernamesCannotBeChanged">ບໍ່ໄດ້, ຊື່ຜູ້ໃຊ້ບໍ່ສາມາດປ່ຽນແປງໄດ້ຍ້ອນເຫດຜົນທາງເຕັກນິກ ແລະ ພາກປະຕິບັດ. ຊື່ຜູ້ໃຊ້ຖືກບັນທຶກໄວ້ໃນຫຼາຍບ່ອນ: ຖານຂໍ້ມູນ, ການສົ່ງອອກຂໍ້ມູນ, ບັນທຶກການໃຊ້ງານ ແລະ ໃນຄວາມຈຳຂອງຜູ້ຄົນ. ທ່ານສາມາດປັບປ່ຽນຕົວອັກສອນໃຫຍ່-ນ້ອຍໄດ້ພຽງຄັ້ງດຽວ.</string>
+  <string name="uniqueTrophies">ລາງວັນພິເສດ</string>
+  <string name="ownerUniqueTrophies">ລາງວັນນັ້ນເປັນລາງວັນພິເສດໃນປະຫວັດສາດຂອງ Lichess, ບໍ່ມີໃຜນອກຈາກ %1$s ທີ່ຈະໄດ້ຮັບມັນ.</string>
+  <string name="aHourlyBulletTournament">ການແຂ່ງຂັນ Bullet ແບບລາຍຊົ່ວໂມງ</string>
+  <string name="goldenZeeExplanation">ZugAddict ກຳລັງສະຕີມ ແລະ ໄດ້ພະຍາຍາມເອົາຊະນະ A.I. ລະດັບ 8 ໃນເກມ 1+0 ມາເປັນເວລາ 2 ຊົ່ວໂມງແລ້ວແຕ່ບໍ່ສຳເລັດ. Thibault ບອກລາວວ່າ ຫາກເຮັດໄດ້ສຳເລັດໃນຕອນສະຕີມ, ລາວຈະໄດ້ຮັບລາງວັນພິເສດ. ໜຶ່ງຊົ່ວໂມງຕໍ່ມາ, ລາວກໍສາມາດເອົາຊະນະ Stockfish ໄດ້ ແລະ ສັນຍາກໍໄດ້ຮັບການຕອບສະໜອງ.</string>
+  <string name="lichessRatings">ຄະແນນ (Ratings) ຂອງ Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess ໃຊ້ລະບົບຄະແນນໃດ?</string>
+  <string name="ratingSystemUsedByLichess">ຄະແນນຖືກຄິດໄລ່ໂດຍໃຊ້ວິທີ Glicko-2 ທີ່ພັດທະນາໂດຍ Mark Glickman. ນີ້ແມ່ນວິທີທີ່ໄດ້ຮັບຄວາມນິຍົມຫຼາຍ ແລະ ຖືກໃຊ້ໂດຍອົງກອນໝາກຮຸກຈຳນວນຫຼາຍ (ຍົກເວັ້ນ FIDE ທີ່ຍັງໃຊ້ລະບົບ Elo). ລະບົບ Glicko ໃຊ້ \"ໄລຍະຄວາມໝັ້ນໃຈ\" (confidence intervals) ໃນການຄິດໄລ່. ເມື່ອທ່ານເລີ່ມໃຊ້ງານຄັ້ງທຳອິດ, ຄະແນນຂອງທ່ານຈະເລີ່ມທີ່ 1500 ± 1000. ຕົວເລກ 1500 ຄືຄະແນນ ແລະ 1000 ຄືໄລຍະຄວາມໝັ້ນໃຈ. ໝາຍຄວາມວ່າລະບົບໝັ້ນໃຈ 95% ວ່າຄະແນນຂອງທ່ານຢູ່ລະຫວ່າງ 500 ຫາ 2500. ເມື່ອຫຼິ້ນເກມໄປເລື້ອຍໆ, ໄລຍະນີ້ຈະແຄບລົງ ແລະ ຄະແນນຈະສະຖຽນຂຶ້ນ. ແຕ່ຫາກທ່ານຢຸດຫຼິ້ນໄປດົນໆ, ໄລຍະຄວາມໝັ້ນໃຈຈະເພີ່ມຂຶ້ນອີກຄັ້ງ.</string>
+  <string name="whatIsProvisionalRating">ເປັນຫຍັງຈຶ່ງມີເຄື່ອງໝາຍຄຳຖາມ (?) ຖັດຈາກຄະແນນ?</string>
+  <string name="provisionalRatingExplanation">ເຄື່ອງໝາຍຄຳຖາມໝາຍຄວາມວ່າຄະແນນນັ້ນເປັນຄະແນນຊົ່ວຄາວ. ເຫດຜົນລວມມີ:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">ຜູ້ຫຼິ້ນຍັງຫຼິ້ນເກມທີ່ມີການຄິດໄລ່ຄະແນນກັບ %1$s ໃນປະເພດຄະແນນນັ້ນບໍ່ພໍ.</string>
+  <string name="similarOpponents">ຄູ່ຕໍ່ສູ້ທີ່ມີລະດັບຄວາມເກັ່ງໃກ້ຄຽງກັນ</string>
+  <string name="notPlayedRecently">ຜູ້ຫຼິ້ນບໍ່ໄດ້ຫຼິ້ນເກມເມື່ອບໍ່ດົນມານີ້. ອີງຕາມຈຳນວນເກມທີ່ທ່ານເຄີຍຫຼິ້ນ, ມັນອາດຈະໃຊ້ເວລາປະມານໜຶ່ງປີທີ່ບໍ່ມີການເຄື່ອນໄຫວ ເພື່ອໃຫ້ຄະແນນຂອງທ່ານກັບມາເປັນຄະແນນຊົ່ວຄາວອີກຄັ້ງ.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">ເວົ້າໃຫ້ຊັດເຈນກໍຄື ຄ່າຄວາມບ່ຽງເບນ (Deviation) ຂອງ Glicko-2 ແມ່ນສູງກວ່າ 110. ຄ່າຄວາມບ່ຽງເບນແມ່ນລະດັບຄວາມໝັ້ນໃຈຂອງລະບົບທີ່ມີຕໍ່ຄະແນນນັ້ນ. ຍິ່ງຄ່າຄວາມບ່ຽງເບນຕ່ຳເທົ່າໃດ, ຄະແນນກໍຍິ່ງມີຄວາມສະຖຽນຫຼາຍເທົ່ານັ້ນ.</string>
+  <string name="howDoLeaderoardsWork">ອັນດັບ ແລະ ຕາຕະລາງຜູ້ນຳ (Leaderboards) ເຮັດວຽກແນວໃດ?</string>
+  <string name="inOrderToAppearsYouMust">ເພື່ອໃຫ້ປາກົດໃນ %1$s ທ່ານຕ້ອງ:</string>
+  <string name="ratingLeaderboards">ຕາຕະລາງຜູ້ນຳຂອງຄະແນນ</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">ຕ້ອງຫຼິ້ນເກມທີ່ມີການຄິດໄລ່ຄະແນນຢ່າງໜ້ອຍ 30 ເກມໃນປະເພດຄະແນນນັ້ນ,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">ຕ້ອງຫຼິ້ນເກມທີ່ມີການຄິດໄລ່ຄະແນນພາຍໃນອາທິດທີ່ຜ່ານມາສຳລັບຄະແນນນີ້,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">ຕ້ອງມີຄ່າຄວາມບ່ຽງເບນຂອງຄະແນນຕ່ຳກວ່າ %1$s ສຳລັບໝາກຮຸກມາດຕະຖານ ແລະ ຕ່ຳກວ່າ %2$s ສຳລັບຮູບແບບອື່ນໆ,</string>
+  <string name="beInTopTen">ຕ້ອງຢູ່ໃນ 10 ອັນດັບສູງສຸດຂອງຄະແນນນີ້.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">ຂໍ້ກຳນົດທີ 2 ແມ່ນເພື່ອໃຫ້ຜູ້ຫຼິ້ນທີ່ບໍ່ໄດ້ໃຊ້ບັນຊີຂອງພວກເຂົາແລ້ວ ຢຸດການຄອບຄອງພື້ນທີ່ໃນຕາຕະລາງຜູ້ນຳ.</string>
+  <string name="whyAreRatingHigher">ເປັນຫຍັງຄະແນນຈຶ່ງສູງກວ່າເມື່ອທຽບກັບເວັບໄຊ ແລະ ອົງກອນອື່ນໆ ເຊັ່ນ FIDE, USCF ແລະ ICC?</string>
+  <string name="whyAreRatingHigherExplanation">ບໍ່ຄວນຄິດວ່າຄະແນນແມ່ນຕົວເລກທີ່ຕາຍຕົວ ຫຼື ເອົາໄປທຽບກັບອົງກອນອື່ນ. ແຕ່ລະອົງກອນມີລະດັບຜູ້ຫຼິ້ນ ແລະ ລະບົບຄະແນນທີ່ຕ່າງກັນ. ຄວນຄິດວ່າຄະແນນແມ່ນຕົວເລກ \"ທຽບເຄຽງ\" ພາຍໃນກຸ່ມຜູ້ຫຼິ້ນດຽວກັນ ເພື່ອປະເມີນໂອກາດ ຊະນະ/ສະເໝີ/ເສຍ ເທົ່ານັ້ນ. ການບອກວ່າ \"ຂ້ອຍມີຄະແນນ X\" ຈະບໍ່ມີຄວາມໝາຍຫຍັງເລີຍ ຫາກບໍ່ມີຜູ້ຫຼິ້ນຄົນອື່ນໃນລະບົບດຽວກັນມາປຽບທຽບ.</string>
+  <string name="howToHideRatingWhilePlaying">ຈະເຊື່ອງຄະແນນໃນຂະນະທີ່ຫຼິ້ນໄດ້ແນວໃດ?</string>
+  <string name="enableZenMode">ເປີດໃຊ້ງານໂໝດ Zen (Zen-mode) ໃນ %1$s, ຫຼື ໂດຍການກົດ %2$s ໃນລະຫວ່າງການຫຼິ້ນ.</string>
+  <string name="displayPreferences">ການຕັ້ງຄ່າການສະແດງຜົນ</string>
+  <string name="connexionLostCanIGetMyRatingBack">ຂ້ອຍເສຍເກມຍ້ອນອິນເຕີເນັດຊ້າ/ຫຼຸດ. ຂ້ອຍສາມາດຂໍຄະແນນຄືນໄດ້ບໍ່?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">ໜ້າເສຍດາຍ, ພວກເຮົາບໍ່ສາມາດຄືນຄະແນນໃຫ້ກັບເກມທີ່ເສຍຍ້ອນອິນເຕີເນັດຊ້າ ຫຼື ຫຼຸດໄດ້, ບໍ່ວ່າບັນຫານັ້ນຈະເກີດຈາກຝ່າຍທ່ານ ຫຼື ຝ່າຍພວກເຮົາກໍຕາມ. ແຕ່ບັນຫາຈາກຝ່າຍພວກເຮົາແມ່ນເກີດຂຶ້ນໄດ້ຫາຍາກຫຼາຍ. ນອກຈາກນັ້ນ, ເມື່ອ Lichess ເລີ່ມລະບົບໃໝ່ ແລະ ທ່ານເສຍເວລາຍ້ອນເຫດຜົນນັ້ນ, ພວກເຮົາຈະຍົກເລີກເກມເພື່ອປ້ອງກັນການເສຍທີ່ບໍ່ຍຸດຕິທຳ.</string>
+  <string name="howToThreeDots">ວິທີການ...</string>
+  <string name="enableDisableNotificationPopUps">ເປີດ ຫຼື ປິດ ການແຈ້ງເຕືອນແບບປ໊ອບອັບ (Popup)?</string>
+  <string name="viewSiteInformationPopUp">ເບິ່ງປ໊ອບອັບຂໍ້ມູນເວັບໄຊ</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess ສາມາດເລືອກສົ່ງການແຈ້ງເຕືອນແບບປ໊ອບອັບໄດ້, ຕົວຢ່າງ: ເມື່ອຮອດຕາຂອງທ່ານ ຫຼື ເມື່ອທ່ານໄດ້ຮັບຂໍ້ຄວາມສ່ວນຕົວ. ກົດທີ່ໄອຄອນຮູບກະແຈ ຖັດຈາກທີ່ຢູ່ lichess.org ໃນແຖບ URL ຂອງບຣາວເຊີຂອງທ່ານ. ຈາກນັ້ນເລືອກວ່າຈະອະນຸຍາດ ຫຼື ບລັອກການແຈ້ງເຕືອນຈາກ Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">ເປີດໃຊ້ງານການຫຼິ້ນສຽງອັດຕະໂນມັດ?</string>
+  <string name="enableAutoplayForSoundsA">ບຣາວເຊີສ່ວນໃຫຍ່ຈະປ້ອງກັນການຫຼິ້ນສຽງອັດຕະໂນມັດເພື່ອຄວາມເປັນສ່ວນຕົວ. ໄອຄອນຮູບລຳໂພງສີແດງຈະປາກົດຂຶ້ນເມື່ອບຣາວເຊີບລັອກສຽງ. ປົກກະຕິແລ້ວຂໍ້ຈຳກັດນີ້ຈະໝົດໄປເມື່ອທ່ານກົດບາງຢ່າງໃນໜ້າເວັບ. ໃນບຣາວເຊີມືຖືບາງອັນ, ການລາກໂຕໝາກອາດຈະບໍ່ຖືວ່າເປັນການກົດ, ທ່ານອາດຈະຕ້ອງກົດທີ່ກະດານເພື່ອເປີດສຽງໃນຕອນເລີ່ມເກມ. ທ່ານສາມາດຕັ້ງຄ່າໃຫ້ບຣາວເຊີອະນຸຍາດສຽງຈາກ lichess.org ໄດ້ໂດຍກົງ.</string>
+  <string name="desktop">ເດັສທັອບ</string>
+  <string name="enableAutoplayForSoundsFirefox">1. ໄປທີ່ lichess.org
+2. ກົດ Ctrl+i (Linux/Windows) ຫຼື cmd+i (MacOS)
+3. ກົດແຖບ Permissions (ການອະນຸຍາດ)
+4. ອະນຸຍາດ Audio and Video (ສຽງ ແລະ ວິດີໂອ) ໃນ lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. ໄປທີ່ lichess.org
+2. ກົດທີ່ໄອຄອນຮູບກະແຈໃນແຖບທີ່ຢູ່
+3. ກົດ Site Settings (ການຕັ້ງຄ່າເວັບໄຊ)
+4. ອະນຸຍາດ Sound (ສຽງ)</string>
+  <string name="enableAutoplayForSoundsSafari">1. ໄປທີ່ lichess.org
+2. ກົດ Safari ໃນແຖບເມນູ
+3. ກົດ Settings for lichess.org (ການຕັ້ງຄ່າສຳລັບ lichess.org)
+4. ອະນຸຍາດ All Auto-Play (ຫຼິ້ນອັດຕະໂນມັດທັງໝົດ)</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. ກົດທີ່ຈ້ຳສາມຈ້ຳມຸມຂວາເທິງ
+2. ກົດ Settings (ການຕັ້ງຄ່າ)
+3. ກົດ Cookies and Site Permissions (ຄຸກກີ້ ແລະ ການອະນຸຍາດເວັບໄຊ)
+4. ເລື່ອນລົງແລ້ວກົດ Media autoplay (ການຫຼິ້ນສື່ມີເດຍອັດຕະໂນມັດ)
+5. ເພີ່ມ lichess.org ເຂົ້າໃນລາຍຊື່ Allow (ອະນຸຍາດ)</string>
+  <string name="stopMyselfFromPlaying">ຢຸດຕົວເອງຈາກການຫຼິ້ນຫຼາຍເກີນໄປ?</string>
+  <string name="mentalHealthCondition">ສະພາວະສຸຂະພາບຈິດທີ່ເກີດຂຶ້ນດ້ວຍຕົວມັນເອງ</string>
+  <string name="lichessUserstyles">ຮູບແບບຜູ້ໃຊ້ (Userstyles) ຂອງ Lichess</string>
+  <string name="fewerLobbyPools">ລາຍການເກມໃນໜ້າຫຼັກທີ່ໜ້ອຍລົງ</string>
+  <string name="adviceOnMitigatingAddiction">ພວກເຮົາໄດ້ຮັບຂໍ້ຄວາມຈາກຜູ້ໃຊ້ເລື້ອຍໆເພື່ອຂໍໃຫ້ຊ່ວຍຢຸດການຫຼິ້ນທີ່ຫຼາຍເກີນໄປ. ເຖິງວ່າ Lichess ຈະບໍ່ບລັອກຜູ້ຫຼິ້ນນອກຈາກການລະເມີດກົດລະບຽບ, ແຕ່ພວກເຮົາແນະນຳໃຫ້ໃຊ້ເຄື່ອງມືພາຍນອກເພື່ອຈຳກັດການຫຼິ້ນ ເຊັ່ນ %1$s, %2$s, ແລະ %3$s. ຫາກທ່ານຕ້ອງການຫຼິ້ນຕໍ່ແຕ່ບໍ່ຢາກຖືກດຶງດູດດ້ວຍເກມທີ່ໃຊ້ເວລາໄວ, ທ່ານອາດຈະສົນໃຈ %4$s, ເຊັ່ນ ອັນທີ່ມີ %5$s. ອົງກອນອະນາໄມໂລກ (WHO) ຈັດໃຫ້ອາການຕິດເກມເປັນ %6$s ຫາກມີອາການ: 1) ຄວບຄຸມການຫຼິ້ນບໍ່ໄດ້, 2) ໃຫ້ຄວາມສຳຄັນກັບເກມຫຼາຍກວ່າຢ່າງອື່ນ, ແລະ 3) ຍັງຫຼິ້ນຕໍ່ເຖິງວ່າມີຜົນເສຍຕາມມາ. ຫາກທ່ານຮູ້ສຶກແບບນີ້, ພວກເຮົາສະໜັບສະໜູນໃຫ້ປຶກສາໝູ່ເພື່ອນ, ຄອບຄົວ ຫຼື ຜູ້ຊ່ຽວຊານ.</string>
+</resources>

@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="coordinates">ພິກັດ</string>
+  <string name="coordinateTraining">ການຝຶກຊ້ອມພິກັດ</string>
+  <string name="averageScoreAsWhiteX">ຄະແນນສະເລ່ຍໃນຖານະຝ່າຍຂາວ: %s</string>
+  <string name="averageScoreAsBlackX">ຄະແນນສະເລ່ຍໃນຖານະຝ່າຍດຳ: %s</string>
+  <string name="knowingTheChessBoard">ການຮູ້ຈັກພິກັດຂອງກະດານໝາກຮຸກແມ່ນທັກສະທີ່ສຳຄັນຫຼາຍ ດ້ວຍເຫດຜົນຫຼາຍປະການ:</string>
+  <string name="mostChessCourses">ຫຼັກສູດ ແລະ ແບບຝຶກຫັດໝາກຮຸກສ່ວນໃຫຍ່ແມ່ນໃຊ້ລະບົບການບັນທຶກແບບພຶດຊະຄະນິດຢ່າງກວ້າງຂວາງ.</string>
+  <string name="talkToYourChessFriends">ມັນຊ່ວຍໃຫ້ລົມກັບໝູ່ໃນວົງການໝາກຮຸກໄດ້ງ່າຍຂຶ້ນ, ເພາະທັງສອງຝ່າຍຕ່າງກໍເຂົ້າໃຈ \'ພາສາໝາກຮຸກ\' ຄືກັນ.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">ເຈົ້າສາມາດວິເຄາະເກມໄດ້ຢ່າງມີປະສິດທິພາບຫຼາຍຂຶ້ນ ຖ້າເຈົ້າສາມາດຈື່ຈຳພິກັດໄດ້ຢ່າງວ່ອງໄວ.</string>
+  <string name="aCoordinateAppears">ພິກັດຈະປະກົດຂຶ້ນເທິງກະດານ ແລະ ເຈົ້າຕ້ອງກົດເລືອກຫ້ອງທີ່ກົງກັນ.</string>
+  <string name="aSquareIsHighlightedExplanation">ຫ້ອງໜຶ່ງຈະຖືກເນັ້ນຂຶ້ນເທິງກະດານ ແລະ ເຈົ້າຕ້ອງປ້ອນພິກັດຂອງມັນ (ຕົວຢ່າງ: \"e4\").</string>
+  <string name="youHaveThirtySeconds">ເຈົ້າມີເວລາ 30 ວິນາທີ ເພື່ອລະບຸຕຳແໜ່ງຫ້ອງໃຫ້ໄດ້ຫຼາຍທີ່ສຸດ!</string>
+  <string name="goAsLongAsYouWant">ຫຼິ້ນໄດ້ດົນເທົ່າທີ່ເຈົ້າຕ້ອງການ, ບໍ່ມີກຳນົດເວລາ!</string>
+  <string name="showCoordinates">ສະແດງພິກັດ</string>
+  <string name="showCoordsOnAllSquares">ສະແດງພິກັດໃນທຸກໆຫ້ອງ</string>
+  <string name="showPieces">ສະແດງຕົວໝາກ</string>
+  <string name="startTraining">ເລີ່ມການຝຶກຊ້ອມ</string>
+  <string name="findSquare">ຊອກຫາຫ້ອງ</string>
+  <string name="nameSquare">ລະບຸຊື່ຫ້ອງ</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">ຝຶກຊ້ອມບາງແຖວຕັ້ງ ແລະ ແຖວນອນ</string>
+</resources>

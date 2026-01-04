@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">ການຢືນຢັນຕົວຕົນສອງຊັ້ນ</string>
+  <string name="twoFactorHelp">ການຢືນຢັນຕົວຕົນສອງຊັ້ນຈະຊ່ວຍເພີ່ມຄວາມປອດໄພໃຫ້ກັບບັນຊີຂອງທ່ານອີກຂັ້ນໜຶ່ງ.</string>
+  <string name="twoFactorAppRecommend">ຕິດຕັ້ງແອັບສຳລັບການຢືນຢັນຕົວຕົນສອງຊັ້ນ. ພວກເຮົາຂໍແນະນຳແອັບຕໍ່ໄປນີ້:</string>
+  <string name="scanTheCode">ສະແກນລະຫັດ QR ດ້ວຍແອັບ.</string>
+  <string name="enterPassword">ປ້ອນລະຫັດຜ່ານຂອງທ່ານ ແລະ ລະຫັດຢືນຢັນທີ່ສ້າງຂຶ້ນໂດຍແອັບເພື່ອສຳເລັດການຕັ້ງຄ່າ. ທ່ານຈະຕ້ອງໃຊ້ລະຫັດຢືນຢັນທຸກຄັ້ງທີ່ທ່ານເຂົ້າສູ່ລະບົບ.</string>
+  <string name="ifYouCannotScanEnterX">ຖ້າທ່ານບໍ່ສາມາດສະແກນລະຫັດໄດ້, ໃຫ້ປ້ອນລະຫັດລັບ %s ລົງໃນແອັບຂອງທ່ານ.</string>
+  <string name="authenticationCode">ລະຫັດຢືນຢັນຕົວຕົນ</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">ໝາຍເຫດ: ຖ້າທ່ານບໍ່ສາມາດເຂົ້າເຖິງລະຫັດຢືນຢັນຕົວຕົນສອງຊັ້ນໄດ້, ທ່ານສາມາດ %s ຜ່ານອີເມວ.</string>
+  <string name="enableTwoFactor">ເປີດໃຊ້ການຢືນຢັນຕົວຕົນສອງຊັ້ນ</string>
+  <string name="disableTwoFactor">ປິດໃຊ້ການຢືນຢັນຕົວຕົນສອງຊັ້ນ</string>
+  <string name="twoFactorEnabled">ເປີດໃຊ້ການຢືນຢັນຕົວຕົນສອງຊັ້ນແລ້ວ</string>
+  <string name="twoFactorToDisable">ທ່ານຕ້ອງໃຊ້ລະຫັດຜ່ານ ແລະ ລະຫັດຢືນຢັນຈາກແອັບຂອງທ່ານເພື່ອປິດໃຊ້ການຢືນຢັນຕົວຕົນສອງຊັ້ນ.</string>
+  <string name="openTwoFactorApp">ເປີດແອັບຢືນຢັນຕົວຕົນສອງຊັ້ນໃນອຸປະກອນຂອງທ່ານເພື່ອເບິ່ງລະຫັດຢືນຢັນ ແລະ ຢືນຢັນຕົວຕົນຂອງທ່ານ.</string>
+  <string name="setupReminder">ກະລຸນາເປີດໃຊ້ການຢືນຢັນຕົວຕົນສອງຊັ້ນເພື່ອຄວາມປອດໄພຂອງບັນຊີທ່ານທີ່ https://lichess.org/account/twofactor.
+ທ່ານໄດ້ຮັບຂໍ້ຄວາມນີ້ຍ້ອນວ່າບັນຊີຂອງທ່ານມີບົດບາດສຳຄັນ ເຊັ່ນ: ນັກກິລາທີ່ມີຕຳແໜ່ງ, ຫົວໜ້າທີມ, ຄູຝຶກ, ອາຈານ ຫຼື ນັກສະຕຣີມເມີ.</string>
+</resources>
