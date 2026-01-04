@@ -25,6 +25,7 @@
   <string name="fullDescriptionHelp">คำอธิบายยาวซึ่งไม่บังคับของการออกอากาศ %1$s มีพร้อม ความยาวต้องน้อยกว่า %2$s ตัวอักษร</string>
   <string name="sourceSingleUrl">PGN ของแหล่ง URL</string>
   <string name="sourceUrlHelp">URL ที่ Lichess จะทำโพลเพื่อรับอัพเดท PGN มันต้องเข้าถึงได้อย่างสาธารณะจากอินเทอร์เน็ต</string>
+  <string name="sourceGameIds">ใส่ ID เกม lichess ได้มากสุด 64 เกม โดยให้เว้นวรรค</string>
   <string name="startDateTimeZone">วันที่เริ่มต้นตามเขตเวลาท้องถิ่นของการแข่งขัน: %s</string>
   <string name="startDateHelp">ไม่บังคับ, ถ้าคุณรู้ว่ารายการจะเริ่มเมื่อใด</string>
   <string name="currentGameUrl">URL เกมปัจจุบัน</string>
@@ -32,7 +33,10 @@
   <string name="resetRound">รีเซ็ตรอบนี้</string>
   <string name="deleteRound">ลบรอบนี้</string>
   <string name="definitivelyDeleteRound">ลบรอบนั้นและเกมทั้งหมดในรอบนั้นอย่างถาวร</string>
+  <string name="deleteAllGamesOfThisRound">ลบเกมทั้งหมดในรอบนี้ แหล่งข้อมูลการออกอากาศต้องเปิดใช้งานเพื่อสร้างเกมเหล่านั้นขึ้นมาใหม่</string>
+  <string name="editRoundStudy">แก้ไขการเรียนรู้จากเกม</string>
   <string name="deleteTournament">ลบทัวนาเมนต์นี้</string>
+  <string name="definitivelyDeleteTournament">ลบทัวร์นาเมนต์ทั้งหมดอย่างถาวร รวมถึงรอบการแข่งขันและเกมทั้งหมดด้วย</string>
   <string name="showScores">แสดงคะแนนผู้เล่นอ้างอิงจากผลของเกม</string>
   <string name="replacePlayerTags">ตัวเลือก: แทนที่ชื่อผู้เล่น, เรดติ้ง และ ตำแหน่ง</string>
   <string name="fideFederations">สหพันธ์ FIDE</string>
@@ -48,15 +52,23 @@
   <string name="teams">ทีม</string>
   <string name="boards">กระดาน</string>
   <string name="overview">ภาพรวม</string>
+  <string name="subscribeTitle">ติดตามเพื่อรับการแจ้งเตือนเมื่อแต่ละรอบเริ่มต้นขึ้น โดยคุณสามารถปรับวิธีรับการแจ้งเตือนได้ในการตั้งค่าบัญชีของคุณ</string>
   <string name="uploadImage">อัปโหลดรูปทัวนาเมนต์</string>
+  <string name="noBoardsYet">ยังไม่มีกระดาน กระดานจะปรากฏขึ้นเมื่อเกมถูกอัปโหลด</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">สามารถโหลดกระดานได้โดยใช้แหล่งที่มาหรือผ่านทาง %s</string>
   <string name="startsAfter">เริ่มหลังจาก %s</string>
   <string name="startVerySoon">การออกอากาศจะเริ่มขึ้นเร็วๆนี้</string>
+  <string name="notYetStarted">การออกอากาศยังไม่เริ่มต้น</string>
   <string name="officialWebsite">เว็บไซต์ทางการ</string>
   <string name="officialStandings">อันดับอย่างเป็นทางการ</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">ตัวเลือกเพิ่มเติมบน %s</string>
+  <string name="webmastersPage">หน้าผู้ดูแลเว็บ</string>
+  <string name="embedThisBroadcast">ฝังการออกอากาศนี้ลงในเว็บไซต์ของคุณ</string>
+  <string name="ratingDiff">ความแตกต่างของเรดติ้ง</string>
   <string name="gamesThisTournament">เกมในทัวร์นาเมนต์นี้</string>
   <string name="score">คะแนน</string>
   <string name="allTeams">ทีมทั้งหมด</string>
+  <string name="tournamentFormat">รูปแบบทัวร์นาเมนต์</string>
   <string name="tournamentLocation">ตำแหน่งของทัวร์นาเมนต์</string>
   <string name="topPlayers">ผู้เล่นท็อป:</string>
   <string name="timezone">เขตเวลา</string>
@@ -65,6 +77,7 @@
   <string name="pastBroadcasts">การออกอากาศที่ผ่านมา</string>
   <string name="allBroadcastsByMonth">ดูการออกอากาศทั้งหมดตามเดือน</string>
   <string name="backToLiveMove">กลับไปตาเดินล่าสุด</string>
+  <string name="sinceHideResults">เนื่องจากคุณเลือกที่จะซ่อนผลของเกม กระดานแสดงตัวอย่างทั้งหมดจึงว่างเปล่าเพื่อป้องกันการเปิดเผยข้อมูล</string>
   <string name="liveboard">กระดานสด</string>
   <string name="communityBroadcast">การออกอากาศในชุมชน</string>
   <string name="createdAndManagedBy">สร้างและจัดการโดย %s</string>
