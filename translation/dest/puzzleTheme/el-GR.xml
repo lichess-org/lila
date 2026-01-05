@@ -16,6 +16,7 @@
   <string name="backRankMateDescription">Κάντε ματ στον βασιλιά στην τελευταία γραμμή όταν είναι παγιδευμένος εκεί από τα κομμάτια του.</string>
   <string name="balestraMate">Ματ-βαλλίστρα</string>
   <string name="balestraMateDescription">Ένας αξιωματικός κάνει ματ στον αντίπαλο βασιλιά, ενώ η βασίλισσα εμποδίζει τη διαφυγή του στα γειτονικά τετράγωνα</string>
+  <string name="blindSwineMate">Blind Swine ματ</string>
   <string name="blindSwineMateDescription">Δύο πύργοι συνεργάζονται προκειμένου να κάνουν ματ στον αντίπαλο βασιλιά παγιδεύοντάς τον σε μία περιοχή 2 επί 2 τετραγώνων της σκακιέρας.</string>
   <string name="bishopEndgame">Φινάλε αξιωματικών</string>
   <string name="bishopEndgameDescription">Φινάλε μόνο με αξιωματικούς και πιόνια.</string>
