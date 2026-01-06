@@ -197,3 +197,11 @@ Line 2""")
 """
         )
       )
+
+    assertEquals(
+      render(Markdown("2 per line: <t:1765823521:d> <t:1765823521:d>")),
+      Html(
+        """<p>2 per line: <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time> <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time></p>
+"""
+      )
+    )

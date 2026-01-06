@@ -336,12 +336,14 @@ object MarkdownRender:
             private def renderText(node: Text, _context: NodeRendererContext, html: HtmlWriter): Unit =
               val text = node.getChars.toString
 
-              timestampRegex.findFirstMatchIn(text) match
-                case Some(m) =>
+              val matches = timestampRegex.findAllMatchIn(text).toList
+              if matches.isEmpty then html.text(text)
+              else
+                var lastEnd = 0
+                matches.foreach: m =>
                   val timestamp = m.group(1).toLong
                   val format = m.group(2)
-                  val beforeMatch = text.substring(0, m.start)
-                  val afterMatch = text.substring(m.end)
+                  val beforeMatch = text.substring(lastEnd, m.start)
 
                   val instant = Instant.ofEpochSecond(timestamp)
                   val isoDateTime = instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
@@ -368,10 +370,10 @@ object MarkdownRender:
                     .text(displayText)
                     .tag("/time")
 
-                  if afterMatch.nonEmpty then html.text(afterMatch)
+                  lastEnd = m.end
 
-                case None =>
-                  html.text(text)
+                val afterLastMatch = text.substring(lastEnd)
+                if afterLastMatch.nonEmpty then html.text(afterLastMatch)
 
   private val tableWrapperExtension = new HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
