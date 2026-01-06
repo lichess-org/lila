@@ -309,4 +309,3 @@ object Fixtures:
   val pgn9 = "1. e4 f5 2. exf5 Nf6 3. Qh5 Nxh5"
 
   val antichess = List(m9 -> pgn9)
-  
