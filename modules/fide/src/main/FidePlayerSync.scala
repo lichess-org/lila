@@ -174,8 +174,12 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         .fetch(players.map(_.id))
         .flatMap: inDb =>
           val inDbMap: Map[FideId, FidePlayer] = inDb.mapBy(_.id)
-          val changed = players.filter: p =>
-            inDbMap.get(p.id).fold(true)(i => !i.isSame(p))
+          val changed = players.flatMap: fromFide =>
+            val inDb = inDbMap.get(fromFide.id)
+            inDb
+              .forall(i => !i.isSame(fromFide))
+              .option:
+                fromFide.copy(photo = inDb.flatMap(_.photo))
           println(s"FidePlayerSync.saveIfChanged: ${changed.size} changes out of ${players.size} players")
           changed.nonEmpty.so:
             val update = repo.playerColl.update(ordered = false)
