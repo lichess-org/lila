@@ -335,7 +335,12 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
           span(cls := "help", title := trs.onlyAnalysed.txt())("(?)")
         )
       ),
-      td(
-        form3.cmnToggle(form3.id(field), field.name, checked = field.value.has("1"), value = "1")
+      td(cls := "centered-checkbox")(
+        form3.nativeCheckbox(
+          form3.id(field),
+          field.name,
+          checked = field.value.has("1"),
+          value = "1"
+        )
       )
     )
