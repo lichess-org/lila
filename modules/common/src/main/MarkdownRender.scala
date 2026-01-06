@@ -331,9 +331,9 @@ object MarkdownRender:
         new NodeRendererFactory:
           override def apply(options: DataHolder) = new NodeRenderer:
             override def getNodeRenderingHandlers() =
-              Set(NodeRenderingHandler(classOf[Text], renderText(_, _, _))).asJava
+              Set(NodeRenderingHandler(classOf[Text], (node, _, html) => renderText(node, html))).asJava
 
-            private def renderText(node: Text, _context: NodeRendererContext, html: HtmlWriter): Unit =
+            private def renderText(node: Text, html: HtmlWriter): Unit =
               val text = node.getChars.toString
 
               val matches = timestampRegex.findAllMatchIn(text).toList
