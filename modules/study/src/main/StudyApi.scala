@@ -468,7 +468,9 @@ final class StudyApi(
               doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
       yield sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
 
-  def setComment(studyId: StudyId, position: Position.Ref, text: CommentStr)(who: Who) =
+  def setComment(studyId: StudyId, position: Position.Ref, commentId: Option[Comment.Id], text: CommentStr)(
+      who: Who
+  ) =
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
@@ -476,7 +478,7 @@ final class StudyApi(
             .async(who.u)
             .flatMapz: author =>
               val comment = Comment(
-                id = Comment.Id.make,
+                id = commentId.getOrElse(Comment.Id.make),
                 text = text,
                 by = Comment.Author.User(author.id, author.titleName)
               )
@@ -486,8 +488,8 @@ final class StudyApi(
     position.chapter.setComment(comment, position.path) match
       case Some(newChapter) =>
         newChapter.root.nodeAt(position.path).so { node =>
-          node.comments.findBy(comment.by).so { c =>
-            for _ <- chapterRepo.setComments(node.comments.filterEmpty)(newChapter, position.path)
+          node.comments.findByIdAndAuthor(comment.id, comment.by).so { c =>
+            for _ <- chapterRepo.setComments(node.comments.set(c))(newChapter, position.path)
             yield
               sendTo(study.id)(_.setComment(position.ref, c, who))
               studyRepo.updateNow(study)
@@ -702,11 +704,10 @@ final class StudyApi(
               // deleting the current chapter? Automatically move to another one
               else
                 (study.position.chapterId == chapterId).so:
-                  val ids = chaps.map(_.id)
-                  val i = ids.indexOf(chapterId)
-                  val newIdOpt = LazyList(i + 1, i - 1, 0).flatMap(ids.lift).headOption
-                  newIdOpt.so: newId =>
-                    doSetChapter(study, newId, who)
+                  chaps
+                    .find(_.id != chapterId)
+                    .so: newChap =>
+                      doSetChapter(study, newChap.id, who)
             _ <- chapterRepo.delete(chapter.id)
           yield
             reloadChapters(study)
