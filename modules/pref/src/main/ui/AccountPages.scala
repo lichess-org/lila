@@ -31,12 +31,23 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             div(cls := "form-group")(trs.closeAccountAreYouSure()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             myUsernamePasswordFields(form),
-            form3.checkbox(
-              form("forever"),
-              raw("Forever close: make it impossible to reopen"),
-              help = raw(
-                "Prevent reopening the account later. If you check this box, even administrators will be unable to reopen your account at your request."
-              ).some
+            div(cls := "form-group")(
+              div(
+                span(cls := "form-check-input")(
+                  form3.nativeCheckbox(
+                    form3.id(form("forever")),
+                    form("forever").name,
+                    checked = form("forever").value.has("1"),
+                    value = "1"
+                  )
+                ),
+                label(`for` := form3.id(form("forever")))(raw("Forever close: make it impossible to reopen"))
+              ),
+              div(cls := "form-help")(
+                raw(
+                  "Prevent reopening the account later. If you check this box, even administrators will be unable to reopen your account at your request."
+                )
+              )
             ),
             form3.actions(
               frag(
