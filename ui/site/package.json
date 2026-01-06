@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "dialog-polyfill": "0.5.6",
     "@juggle/resize-observer": "^3.4.0",
-    "lib": "workspace:*",
-    "bits": "workspace:*"
+    "bits": "workspace:*",
+    "dialog-polyfill": "0.5.6",
+    "lib": "workspace:*"
   },
   "build": {
     "sync": {
