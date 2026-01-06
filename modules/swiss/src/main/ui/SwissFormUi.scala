@@ -2,7 +2,7 @@ package lila.swiss
 package ui
 
 import chess.variant.Variant
-import play.api.data.Form
+import play.api.data.{ Field, Form }
 
 import lila.core.i18n.Translate
 import lila.gathering.GatheringClock
@@ -83,6 +83,33 @@ final class SwissFormUi(helpers: Helpers)(
   private final class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[Swiss])(using Context):
 
     private def disabledAfterStart = swiss.exists(!_.isCreated)
+
+    private def nativeCheckboxField(
+        field: Field,
+        labelContent: Frag,
+        help: Option[Frag],
+        half: Boolean,
+        value: String = "true"
+    ) =
+      div(
+        cls := List(
+          "form-check form-group" -> true,
+          "form-half" -> half
+        )
+      )(
+        div(
+          span(cls := "form-check-input")(
+            form3.nativeCheckbox(
+              form3.id(field),
+              field.name,
+              checked = field.value.has("true"),
+              value = value
+            )
+          ),
+          label(`for` := form3.id(field))(labelContent)
+        ),
+        help.map(small(cls := "form-help")(_))
+      )
 
     def tournamentFields =
       form3.fieldset("Tournament", toggle = true.some)(
@@ -205,7 +232,7 @@ final class SwissFormUi(helpers: Helpers)(
           )
         ),
         form3.split(
-          form3.checkbox(
+          nativeCheckboxField(
             form("rated"),
             trans.site.rated(),
             help = trans.site.ratedFormHelp().some,
@@ -244,7 +271,7 @@ final class SwissFormUi(helpers: Helpers)(
     )(form3.textarea(_)(rows := 4))
 
     def playYourGames = frag(
-      form3.checkbox(
+      nativeCheckboxField(
         form("conditions.playYourGames"),
         trans.swiss.mustHavePlayedTheirLastSwissGame(),
         help = trans.swiss.mustHavePlayedTheirLastSwissGameHelp().some,
