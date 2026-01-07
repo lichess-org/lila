@@ -29,6 +29,7 @@
   <string name="crushing">Decydująca przewaga</string>
   <string name="crushingDescription">Znajdź błąd przeciwnika i zdobądź decydującą przewagę (ocena pozycji: powyżej 600cp)</string>
   <string name="discoveredCheck">Szach z odsłony</string>
+  <string name="discoveredCheckDescription">Rusz bierką, aby zaszachować króla przeciwnika ukrytą figurą.</string>
   <string name="doubleBishopMate">Mat dwoma gońcami</string>
   <string name="doubleBishopMateDescription">Dwa atakujące gońce na sąsiednich przekątnych matują króla ograniczonego przez własne bierki.</string>
   <string name="dovetailMate">Jaskółczy ogon</string>
@@ -64,6 +65,10 @@
   <string name="intermezzoDescription">Zamiast zagrania spodziewanego posunięcia, wykonanie takiego, które stanowi bezpośrednią groźbę, na którą przeciwnik zmuszony jest odpowiedzieć. Znane również jako „zwischenzug”.</string>
   <string name="killBoxMate">Mat w klatce 3x3</string>
   <string name="killBoxMateDescription">Wieża stoi obok wrogiego króla i broniona jest przez hetmana, który równocześnie blokuje wszystkie pola ucieczki tego króla. Wieża i hetman łapią króla przeciwnika w klatce 3 na 3 (tzw. \"kill box\").</string>
+  <string name="pillsburysMate">Mat Pillsbury\'ego</string>
+  <string name="pillsburysMateDescription">Wieża daje mata, a goniec blokuje pola ucieczki.</string>
+  <string name="morphysMate">Mat Morphy\'ego</string>
+  <string name="morphysMateDescription">Goniec daje mata w narożniku, a wieża blokuje pola ucieczki w sąsiedniej kolumnie.</string>
   <string name="vukovicMate">Mat Vukovic\'a</string>
   <string name="vukovicMateDescription">Para wieża i skoczek matują króla przeciwnika. Wieża wspierana przez trzecią bierkę daje mata, podczas gdy skoczek blokuje królowi przeciwnika wszystkie pola ucieczki.</string>
   <string name="knightEndgame">Końcówka skoczkowa</string>
@@ -93,6 +98,7 @@
   <string name="opening">Otwarcie</string>
   <string name="openingDescription">Taktyka w pierwszej fazie gry.</string>
   <string name="operaMate">Mat operowy</string>
+  <string name="operaMateDescription">Wieża broniona przez gońca daje mata, stojąc bezpośrednio przy królu przeciwnika.</string>
   <string name="pawnEndgame">Końcówka pionkowa</string>
   <string name="pawnEndgameDescription">Gra końcowa wyłącznie z pionami.</string>
   <string name="pin">Związanie</string>
@@ -103,7 +109,7 @@
   <string name="queenEndgameDescription">Gra końcowa wyłącznie z hetmanami i pionami.</string>
   <string name="queenRookEndgame">Końcówka wieżowo-hetmańska</string>
   <string name="queenRookEndgameDescription">Gra końcowa wyłącznie z wieżami, hetmanami i pionami.</string>
-  <string name="queensideAttack">Atak skrzydłem hetmańskim</string>
+  <string name="queensideAttack">Atak na skrzydle hetmańskim</string>
   <string name="queensideAttackDescription">Atak na króla przeciwnika po długiej roszadzie.</string>
   <string name="quietMove">Cichy ruch</string>
   <string name="quietMoveDescription">Posunięcie niebędące ani szachem, ani biciem, które przygotowuje groźbę nie do uniknięcia w jednym z kolejnych posunięć.</string>
