@@ -15,8 +15,8 @@
   <string name="backRankMate">Mat na ostatniej linii</string>
   <string name="backRankMateDescription">Zamatuj króla uwięzionego w ostatnim rzędzie przez własne bierki.</string>
   <string name="balestraMate">Mat Balestra</string>
-  <string name="balestraMateDescription">Goniec daje mata, a hetman znajduje się jedno pole z tyłu i z boku matowanego króla i blokuje mu drogę ucieczki</string>
-  <string name="blindSwineMate">Mat dwoma wieżami na tej samej linii</string>
+  <string name="balestraMateDescription">Goniec daje mata, a hetman blokuje pozostałe pola ucieczki</string>
+  <string name="blindSwineMate">Mat dwoma wieżami na 2. lub 7. linii</string>
   <string name="blindSwineMateDescription">Dwie wieże współpracują, aby zamatować króla przeciwnika w kwadracie 2 × 2.</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
@@ -24,8 +24,8 @@
   <string name="bodenMateDescription">Dwa atakujące gońce na przeciwnych przekątnych matują króla ograniczonego przez własne bierki.</string>
   <string name="castling">Roszada</string>
   <string name="castlingDescription">Zabezpiecz swojego króla i wprowadź do gry wieżę.</string>
-  <string name="capturingDefender">Zabicie obrońcy</string>
-  <string name="capturingDefenderDescription">Usunięcie obrońcy który jest kluczowy do obrony innej figury, pozwalając na zbicie niebronionej figury w następnym ruchu.</string>
+  <string name="capturingDefender">Zbicie obrońcy</string>
+  <string name="capturingDefenderDescription">Usunięcie obrońcy, który jest kluczowy do obrony innej figury, pozwalając na zbicie niebronionej figury w następnym ruchu.</string>
   <string name="crushing">Decydująca przewaga</string>
   <string name="crushingDescription">Znajdź błąd przeciwnika i zdobądź decydującą przewagę (ocena pozycji: powyżej 600cp)</string>
   <string name="discoveredCheck">Szach z odsłony</string>
@@ -35,9 +35,9 @@
   <string name="dovetailMateDescription">Hetman matuje sąsiedniego króla, którego jedyne dwa pola ucieczki są zablokowane przez własne bierki.</string>
   <string name="equality">Równowaga</string>
   <string name="equalityDescription">Odzyskaj remis bądź równowagę wychodząc z przegrywającej pozycji. (ocena pozycji: poniżej 200cp)</string>
-  <string name="kingsideAttack">Atak skrzydłem królewskim</string>
+  <string name="kingsideAttack">Atak na skrzydle królewskim</string>
   <string name="kingsideAttackDescription">Atak na króla przeciwnika po krótkiej roszadzie.</string>
-  <string name="clearance">Zwolnienie</string>
+  <string name="clearance">Zwolnienie pola</string>
   <string name="clearanceDescription">Posunięcie, często z tempem, które udostępnia pole, linię bądź przekątną do wykorzystania w następnej taktyce.</string>
   <string name="defensiveMove">Ruch obronny</string>
   <string name="defensiveMoveDescription">Precyzyjne posunięcie lub ich ciąg, niezbędne by uniknąć straty materiału lub innej przewagi.</string>
@@ -62,7 +62,7 @@
   <string name="interferenceDescription">Ruch figurą pomiędzy dwie figury przeciwnika, tak, że jedna lub obydwie są niebronione. Na przykład ruch skoczkiem na bronione pole pomiędzy dwie wieże.</string>
   <string name="intermezzo">Wtrącony ruch</string>
   <string name="intermezzoDescription">Zamiast zagrania spodziewanego posunięcia, wykonanie takiego, które stanowi bezpośrednią groźbę, na którą przeciwnik zmuszony jest odpowiedzieć. Znane również jako „zwischenzug”.</string>
-  <string name="killBoxMate">Mat w klatce (Kill box mate)</string>
+  <string name="killBoxMate">Mat w klatce 3x3</string>
   <string name="killBoxMateDescription">Wieża stoi obok wrogiego króla i broniona jest przez hetmana, który równocześnie blokuje wszystkie pola ucieczki tego króla. Wieża i hetman łapią króla przeciwnika w klatce 3 na 3 (tzw. \"kill box\").</string>
   <string name="vukovicMate">Mat Vukovic\'a</string>
   <string name="vukovicMateDescription">Para wieża i skoczek matują króla przeciwnika. Wieża wspierana przez trzecią bierkę daje mata, podczas gdy skoczek blokuje królowi przeciwnika wszystkie pola ucieczki.</string>
@@ -97,8 +97,8 @@
   <string name="pawnEndgameDescription">Gra końcowa wyłącznie z pionami.</string>
   <string name="pin">Związanie</string>
   <string name="pinDescription">Taktyka wykorzystująca związania, czyli sytuacje, w których ruch bierki naraża na atak figurę o wyższej wartości.</string>
-  <string name="promotion">Promocja</string>
-  <string name="promotionDescription">Promocja piona lub zagrożenie promocją jest kluczem tej taktyki.</string>
+  <string name="promotion">Przemiana piona</string>
+  <string name="promotionDescription">Zaawansowany pion lub pion grożący przemianą jest kluczowy w tej taktyce.</string>
   <string name="queenEndgame">Końcówka hetmańska</string>
   <string name="queenEndgameDescription">Gra końcowa wyłącznie z hetmanami i pionami.</string>
   <string name="queenRookEndgame">Końcówka wieżowo-hetmańska</string>
