@@ -180,6 +180,8 @@
   <string name="customPositionTitle">ตำแหน่งที่กำหนดเอง</string>
   <string name="loadExistingLichessGameTitle">โหลดเกมบน Lichess ที่มีอยู่แล้ว</string>
   <string name="fromPgnGameTitle">จากเกม PGN</string>
+  <string name="variantsAreSupportedText">ใช่ คุณสามารถศึกษาบ้านอลเวง&lt;br&gt; และตัวแปรกติกา lichess ทั้งหมดได้</string>
+  <string name="chapterConclusionText">บทต่างๆ จะถูกบันทึกไว้ตลอดไป &lt;br&gt;ขอให้สนุกกับการจัดระเบียบเนื้อหาหมากรุกของคุณ!</string>
   <string name="doubleDefeat">แพ้ทั้งสองฝ่าย</string>
   <string name="blackDefeatWhiteCanNotWin">ฝ่ายดำแพ้ แต่ฝ่ายขาวก็ชนะไม่ได้</string>
   <string name="whiteDefeatBlackCanNotWin">ฝ่ายขาวแพ้ แต่ฝ่ายดำก็ชนะไม่ได้</string>
