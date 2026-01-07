@@ -325,7 +325,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
   let pvs: Tree.PvData[],
     threat = false,
     pvMoves: (string | null)[],
-    pvIndex: number | null;
+    pvIndex: number | null = null;
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     threat = true;
