@@ -3,7 +3,7 @@
   <string name="donate">Donér</string>
   <string name="donateAsX">Donér som %s</string>
   <string name="lichessPatron">Lichess Protektor</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Protektor siden %s</string>
+  <string name="patronSince" comment="string is a date">Protektor siden %s</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bliv Lichess Protektor</string>
   <string name="xBecamePatron">%s blev Lichess Protektor</string>
@@ -84,4 +84,5 @@ Men protektorer kan bryste sig af et sejt, nyt profil-ikon.</string>
   <string name="paymentDetails">Betalingsoplysninger</string>
   <string name="updatePaymentMethod">Opdatér betalingsmetode</string>
   <string name="stripeManageSub">Administrer dit abonnement og download dine fakturaer og kvitteringer</string>
+  <string name="coverFees">Jeg vil tilføje %s for at hjælpe med at dække omkostningerne ved at behandle denne transaktion</string>
 </resources>

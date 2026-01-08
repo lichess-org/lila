@@ -265,7 +265,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
         )
       : undefined,
     hl(
-      'table.relay-tour__players.fide-players-table.slist.slist-invert.slist-pad',
+      'table.relay-tour__players__table.fide-players-table.slist.slist-invert.slist-pad',
       {
         hook: onInsert(tableAugment),
       },

@@ -49,7 +49,7 @@
   <string name="opponentLeftChoices">ممکن است حریف شما بازی را ترک کرده باشد. شما می توانید ادعای پیروزی کنید, اعلام تساوی کنید یا منتظر او بمانید.</string>
   <string name="forceResignation">ادعای پیروزی</string>
   <string name="forceDraw">اعلام تساوی</string>
-  <string name="talkInChat">لطفا در گپ‌زنی بااَدب باشید!</string>
+  <string name="talkInChat">لطفا در گپیدن بااَدب باشید!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این وب‌نشانی آید با شما بازی خواهد کرد.</string>
   <string name="whiteResigned">سفید تسلیم شد</string>
   <string name="blackResigned">سیاه تسلیم شد</string>
@@ -316,7 +316,7 @@
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
   <string name="chatRoom">گپ‌سرا</string>
-  <string name="loginToChat">برای گپ زدن، وارد حساب‌تان شوید</string>
+  <string name="loginToChat">برای گپیدن، وارد شوید</string>
   <string name="youHaveBeenTimedOut">زمان شما به پایان رسید.</string>
   <string name="spectatorRoom">اتاق تماشاگران</string>
   <string name="composeMessage">نوشتن پیام</string>
@@ -978,7 +978,7 @@
   <string name="markdownIsAvailable">امکان %s برای قالب‌دِهی وجود دارد.</string>
   <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی بخشی از مطالعه را، برای جاسازی آن، جایگذاری کنید.</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
-  <string name="tournChat">چت مسابقه</string>
+  <string name="tournChat">گپِ مسابقات</string>
   <string name="noChat">بدون گپ</string>
   <string name="onlyTeamLeaders">تنها مسئولان تیم</string>
   <string name="onlyTeamMembers">تنها اعضای تیم</string>

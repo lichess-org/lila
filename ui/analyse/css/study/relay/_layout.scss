@@ -77,16 +77,17 @@ main.is-relay.has-relay-tour {
 
   @include mq-at-least-col2 {
     grid-template-areas: 'relay-tour . side';
+    grid-template-columns: minmax(auto, 80vw) var(---block-gap) 350px;
     @media (pointer: fine) {
       @include resizable-side;
     }
   }
 
   @include mq-at-least-col3 {
+    grid-template-areas: 'side . relay-tour relay-tour relay-tour';
     grid-template-columns:
       $col3-uniboard-side $analyse-block-gap var(---col3-uniboard-width)
       $analyse-block-gap $col3-uniboard-table;
-    grid-template-areas: 'side . relay-tour relay-tour relay-tour';
   }
 }
 
