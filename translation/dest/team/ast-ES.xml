@@ -44,6 +44,9 @@ Los xugadores a los que nun-yos guste recibir los tos mensaxes pueden abandonar 
   <string name="teamsIlead">Equipos que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">¿Quies incluyir un enllaz a dalgún d\'estos próximos torneos?</string>
   <string name="leadersChat">Chat de líderes</string>
+  <string name="introduction">Introducción</string>
+  <string name="teamIntroductionHelp">Pequeña descripción visible nel llistáu d\'equipos. Hasta 200 calteres.</string>
+  <string name="teamDescriptionHelp">Descripción completa visible na páxina del equipu.</string>
   <string name="closeTeam">Dar de baxa l\'equipu</string>
   <string name="closeTeamDescription">Da de baxa l\'equipu definitivamente.</string>
   <string name="entryCode">Códigu d\'entrada al equipu</string>
@@ -54,4 +57,7 @@ Los xugadores a los que nun-yos guste recibir los tos mensaxes pueden abandonar 
   <string name="completedTourns">Torneos terminaos</string>
   <string name="declinedRequests">Solicitúes refugaes</string>
   <string name="joinLichessVariantTeam">Xúnite al equipu oficial de %s pa noticies y eventos</string>
+  <string name="thisTeamBattleIsOver">Esti tornéu terminó y los equipos yá nun pueden ser actualizaos.</string>
+  <string name="listTheTeamsThatWillCompete">Listar los equipos que van competir nesta batalla.</string>
+  <string name="oneTeamPerLine">Un equipu per llínea. Utiliza l\'autocompletáu.</string>
 </resources>
