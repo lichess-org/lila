@@ -15,7 +15,7 @@
   <string name="onlyLeaderLeavesTeam">Por favor, añede un nuevu líder d\'equipu antes de salir, o cierra l\'equipu.</string>
   <string name="quitTeam">Abandonar l\'equipu</string>
   <string name="manuallyReviewAdmissionRequests">Revisar manualmente les solicitúes d\'almisión</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Si ta marcáu, los xugadores van tener qu\'escribir una solicitú pa xunise al equipu, que tu pues refugar o aceptar.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Si ta marcáu, los xugadores van tener qu\'escribir una solicitú pa xunise al equipu, que tu puedes refugar o aceptar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder del equipu</item>
     <item quantity="other">Líderes del equipu</item>
@@ -39,7 +39,7 @@
   <string name="messageAllMembers">Unviar mensaxe a tolos miembros</string>
   <string name="messageAllMembersOverview">Unviar un mensaxe priváu a cada miembru del equipu</string>
   <string name="messageAllMembersLongDescription">Esti mensaxe va unviase a TOLOS miembros del equipu.
-Pues usar esto pa convocar a xugadores a un tornéu o a una batalla d\'equipu.
+Puedes usar esto pa convocar a xugadores a un tornéu o a una batalla d\'equipu.
 Los xugadores a los que nun-yos guste recibir los tos mensaxes pueden abandonar l\'equipu.</string>
   <string name="teamsIlead">Equipos que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">¿Quies incluyir un enllaz a dalgún d\'estos próximos torneos?</string>
@@ -60,4 +60,18 @@ Los xugadores a los que nun-yos guste recibir los tos mensaxes pueden abandonar 
   <string name="thisTeamBattleIsOver">Esti tornéu terminó y los equipos yá nun pueden ser actualizaos.</string>
   <string name="listTheTeamsThatWillCompete">Listar los equipos que van competir nesta batalla.</string>
   <string name="oneTeamPerLine">Un equipu per llínea. Utiliza l\'autocompletáu.</string>
+  <string name="oneTeamPerLineHelp">¡Puedes copiar y pegar esta llista d\'un tornéu a otru!
+
+Nun puedes espulsar un equipu si un xugador yá se xunió al tornéu nesi equipu.</string>
+  <string name="numberOfLeadsPerTeam">Cantidá de líderes per equipu. La suma de les sos puntuaciones va ser la puntuación del equipu.</string>
+  <string name="numberOfLeadsPerTeamHelp">¡Nun tendríes de camudar esti valor dempués de que\'l tornéu empezara!</string>
+  <string name="innerTeam">Equipu internu</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Batalla de %s equipos</item>
+    <item quantity="other">Batalla de %s equipos</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Un líder por equipu</item>
+    <item quantity="other">%s líderes per equipu</item>
+  </plurals>
 </resources>
