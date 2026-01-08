@@ -7,6 +7,7 @@ import lila.core.config.*
 import lila.core.userId
 
 import lila.common.Bus
+import lila.db.dsl.{ *, given }
 
 @Module
 final class Env(
@@ -67,3 +68,6 @@ final class Env(
 
   Bus.sub[lila.core.misc.puzzle.StreakRun]: r =>
     api.addPuzRun("streak", r.userId, r.score)
+
+  Bus.sub[lila.core.user.RemoveFlair]: r =>
+    repo.coll.unsetField($id(r.userId), BSONFields.flair).void
