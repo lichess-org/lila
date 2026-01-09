@@ -118,8 +118,8 @@
   <string name="byCPL">CPL</string>
   <string name="enable">Aktivera</string>
   <string name="bestMoveArrow">Bästa drag-pil</string>
-  <string name="showVariationArrows">Visa pilar för varianter</string>
-  <string name="evaluationGauge">Utvärderingsmätare</string>
+  <string name="showVariationArrows">Visa variantpilar</string>
+  <string name="evaluationGauge">Evalueringsmätare</string>
   <string name="multipleLines">Flera linjer</string>
   <string name="cpus">Processorer</string>
   <string name="memory">Minne</string>
@@ -127,14 +127,14 @@
   <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen och håller datorn varm</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Misstag</string>
-  <string name="inaccuracy">Felaktighet</string>
+  <string name="inaccuracy">Småfel</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s blunder</item>
-    <item quantity="other">%s blundrar</item>
+    <item quantity="other">%s blunders</item>
   </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Blunder</item>
-    <item quantity="other">%s Blundrar</item>
+    <item quantity="other">%s Blunders</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s misstag</item>
@@ -145,12 +145,12 @@
     <item quantity="other">%s Misstag</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="one">%s felaktighet</item>
-    <item quantity="other">%s felaktigheter</item>
+    <item quantity="one">%s småfel</item>
+    <item quantity="other">%s småfel</item>
   </plurals>
   <plurals name="numberInaccuracies">
-    <item quantity="one">%s Felaktighet</item>
-    <item quantity="other">%s Felaktigheter</item>
+    <item quantity="one">%s Småfel</item>
+    <item quantity="other">%s Småfel</item>
   </plurals>
   <string name="moveTimes">Dragtider</string>
   <string name="flipBoard">Vänd brädet</string>
