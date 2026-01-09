@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Mueve pa entamar</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Xuegues con blanques en tolos exercicios</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Xuegues con negres en tolos exercicios</string>
+  <string name="puzzlesSolved">exercicios correctos</string>
+  <string name="newDailyHighscore">¡Récord del día!</string>
+  <string name="newWeeklyHighscore">¡Récord de la selmana!</string>
+  <string name="newMonthlyHighscore">¡Récord del mes!</string>
+  <string name="newAllTimeHighscore">¡Récord absolutu!</string>
+  <string name="previousHighscoreWasX">El récord anterior yera %s</string>
+  <string name="playAgain">Xugar de nuevu</string>
+</resources>
