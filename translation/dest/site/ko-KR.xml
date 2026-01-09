@@ -973,4 +973,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="search">검색</string>
   <string name="clearSearch">검색 초기화</string>
   <string name="tags">태그</string>
+  <string name="enPassant">앙파상</string>
 </resources>
