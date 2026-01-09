@@ -1018,4 +1018,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="search">Busca</string>
   <string name="clearSearch">Limpar busca</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant">En passant</string>
 </resources>
