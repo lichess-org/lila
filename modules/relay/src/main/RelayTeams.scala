@@ -96,7 +96,7 @@ final class RelayTeamTable(
   case class TeamGame(id: StudyChapterId, pov: Color):
     def swap = copy(pov = !pov)
 
-  case class TeamMatch(teams: Pair[TeamWithGames], games: List[TeamGame]):
+  case class TeamMatch(roundId: RelayRoundId, teams: Pair[TeamWithGames], games: List[TeamGame]):
     def is(teamNames: Pair[TeamName]) = teams.map(_.name).is(teamNames)
     def add(
         chap: ChapterPreview,
@@ -140,7 +140,7 @@ final class RelayTeamTable(
           teams <- players.traverse(_.team).map(_.toPair).map(Pair.apply)
           game = players.mapWithColor: (c, p) =>
             RelayPlayer.Game(round.id, chap.id, p, c, points, round.rated, round.customScoring, false)
-          m0 = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithGames(_, Nil)), Nil)
+          m0 = table.find(_.is(teams)) | TeamMatch(round.id, teams.map(TeamWithGames(_, Nil)), Nil)
           m1 = m0.add(
             chap,
             Pair(players.white.player -> teams.a, players.black.player -> teams.b),
@@ -188,11 +188,11 @@ final class TeamLeaderboard(
   private def aggregate(tourId: RelayTourId) =
     for
       scoreGroup <- relayGroupApi.scoreGroupOf(tourId)
-      tours <- scoreGroup.traverse(tourRepo.byId(_))
-      rounds <- tours.map(_.traverse(t => roundRepo.byTourOrdered(t.id)))
-      table <- rounds.flatTraverse(teamTable.table)
-    yield table.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, teamMatch) =>
-      teamMatch.teams.foreach(team =>
+      tours <- scoreGroup.traverse(t => tourRepo.byId(t).orFail(s"Missing relay tour $t"))
+      rounds <- tours.toList.flatTraverse(t => roundRepo.byTourOrdered(t.id))
+      matches <- rounds.flatTraverse(teamTable.table)
+    yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchups) =>
+      matchups.teams.foreach(team =>
         acc.updated(team.name, acc.get(team.name).fold(team.games)(_ :+ team.games))
       )
       acc

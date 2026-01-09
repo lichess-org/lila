@@ -199,7 +199,7 @@ private final class RelayPlayerApi(
   private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](64, "relay.players.photos.json"):
     _.expireAfterWrite(15.seconds).buildAsyncFuture: tourId =>
       for
-        sg <- scoreGroupCache.get(tourId)
+        sg <- relayGroupApi.scoreGroupOf(tourId)
         studyIds <- sg.toList.flatTraverse(roundRepo.studyIdsOf)
         fideIds <- chapterRepo.fideIdsOf(studyIds)
         photos <- photosJson(fideIds)
