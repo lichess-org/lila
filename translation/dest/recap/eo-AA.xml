@@ -13,4 +13,6 @@
 		<item quantity="one">%s kilogramo</item>
 		<item quantity="other">%s kilogramoj</item>
 	</plurals>
+	<string name="malwareNoSell">Ni ne vendis viajn personajn datumojn</string>
+	<string name="malwareNoAbuse">Ni ne uzis vian aparaton kontraŭ vi</string>
 </resources>
