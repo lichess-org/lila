@@ -950,7 +950,7 @@
   <string name="timeAlmostUp">Tíminn er næstum því liðinn!</string>
   <string name="clickToRevealEmailAddress">[Smelltu til að sýna netfang]</string>
   <string name="download">Sækja</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Stýringar þjálfara</string>
+  <string name="coachManager">Stýringar þjálfara</string>
   <string name="streamerManager">Stýringar streymara</string>
   <string name="cancelTournament">Aflýsa mótinu</string>
   <string name="tournDescription">Lýsing móts</string>

@@ -2035,6 +2035,8 @@ interface I18n {
     contactSupport: string;
     /** See the detailed cost breakdown */
     costBreakdown: string;
+    /** I'll add %s to help cover the cost of processing this transaction */
+    coverFees: I18nFormat;
     /** Current status */
     currentStatus: string;
     /** Date */
@@ -2293,6 +2295,8 @@ interface I18n {
     notifications: string;
     /** Bell notification within Lichess */
     notifyBell: string;
+    /** Broadcasts you have subscribed to */
+    notifyBroadcasts: string;
     /** Challenges */
     notifyChallenge: string;
     /** Device */
@@ -2337,6 +2341,8 @@ interface I18n {
     sayGgWpAfterLosingOrDrawing: string;
     /** Scroll on the board to replay moves */
     scrollOnTheBoardToReplayMoves: string;
+    /** Show on the left on mobile devices */
+    showClockOnTheLeft: string;
     /** Show player flairs */
     showFlairs: string;
     /** Show player ratings */
@@ -3445,6 +3451,8 @@ interface I18n {
     endgamePositions: string;
     /** Error loading engine */
     engineFailed: string;
+    /** En passant */
+    enPassant: string;
     /** This email address is invalid */
     'error.email': string;
     /** This email address is not acceptable. Please double-check it, and try again. */

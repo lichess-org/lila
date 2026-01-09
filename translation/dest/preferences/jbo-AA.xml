@@ -10,7 +10,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">cuvytadji</string>
   <string name="chessClock">caxmati junla</string>
   <string name="tenthsOfSeconds">pa no si\'e be lo snidu</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ca\'o lo nu lo se snidu be lo stali temci cu mleca li pa no</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ca\'o lo nu lo se snidu be lo stali temci cu mleca li pa no</string>
   <string name="horizontalGreenProgressBars">pinta ke crino nilmulyuidje</string>
   <string name="soundWhenTimeGetsCritical">sance fi\'o se sinxa lo nu lo temci cu cmalu</string>
   <string name="giveMoreTime">dunda lo temci</string>
@@ -21,7 +21,7 @@
   <string name="inCasualGamesOnly">po\'o ca\'o lo nunjvi ku poi na nilcre cnegau</string>
   <string name="promoteToQueenAutomatically">zmiku palbi\'ogau lo sonci lo noltruni\'u</string>
   <string name="whenPremoving">ca\'o lo nu muvycfapru</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ca\'o lo nu lo se snidu be lo stali temci cu mleca li ci no</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">ca\'o lo nu lo se snidu be lo stali temci cu mleca li ci no</string>
   <string name="moveConfirmation">birtygau fi lo du\'u djica</string>
   <string name="inCorrespondenceGames">masno nunkei</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">lo tadji be lo badydi\'ulujnunmu\'u</string>

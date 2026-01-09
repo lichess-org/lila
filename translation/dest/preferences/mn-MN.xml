@@ -16,7 +16,7 @@
   <string name="onlyOnInitialPosition">Зөвхөн анхны байрлал дээр</string>
   <string name="chessClock">Шатрын цаг</string>
   <string name="tenthsOfSeconds">1/10 секунд</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Хэрэв цаг 10 секундээс бага болвол</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Хэрэв цаг 10 секундээс бага болвол</string>
   <string name="horizontalGreenProgressBars">Элсэн цаг</string>
   <string name="soundWhenTimeGetsCritical">Цаг эрс бага болвол дуут дохио өгөх</string>
   <string name="giveMoreTime">Цаг нэмж өгөх</string>
@@ -31,7 +31,7 @@
   <string name="promoteToQueenAutomatically">Хүүг үргэлж бэрс гаргана</string>
   <string name="whenPremoving">Урьдчилсан нүүдэл хийсэн тохиолдолд</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматаар гурван нүүдлийн тэнцэлийг тооцох</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Хугацаа 30 секундээс доош үлдсэн тохиолдолд</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Хугацаа 30 секундээс доош үлдсэн тохиолдолд</string>
   <string name="moveConfirmation">Нүүдлээ баталгаажуулах</string>
   <string name="inCorrespondenceGames">Бодит цагт тоглогдохгүй өрөг</string>
   <string name="correspondenceAndUnlimited">Ээлжээр нүүх (хязгааргүй)</string>

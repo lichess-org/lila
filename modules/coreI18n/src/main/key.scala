@@ -1111,6 +1111,7 @@ object I18nKey:
     val `paymentDetails`: I18nKey = "patron:paymentDetails"
     val `updatePaymentMethod`: I18nKey = "patron:updatePaymentMethod"
     val `stripeManageSub`: I18nKey = "patron:stripeManageSub"
+    val `coverFees`: I18nKey = "patron:coverFees"
     val `xIsPatronForNbMonths`: I18nKey = "patron:xIsPatronForNbMonths"
     val `patronForMonths`: I18nKey = "patron:patronForMonths"
 
@@ -1208,6 +1209,7 @@ object I18nKey:
     val `notifyGameEvent`: I18nKey = "preferences:notifyGameEvent"
     val `notifyChallenge`: I18nKey = "preferences:notifyChallenge"
     val `notifyTournamentSoon`: I18nKey = "preferences:notifyTournamentSoon"
+    val `notifyBroadcasts`: I18nKey = "preferences:notifyBroadcasts"
     val `notifyTimeAlarm`: I18nKey = "preferences:notifyTimeAlarm"
     val `notifyBell`: I18nKey = "preferences:notifyBell"
     val `notifyPush`: I18nKey = "preferences:notifyPush"
@@ -1215,6 +1217,7 @@ object I18nKey:
     val `notifyDevice`: I18nKey = "preferences:notifyDevice"
     val `bellNotificationSound`: I18nKey = "preferences:bellNotificationSound"
     val `blindfold`: I18nKey = "preferences:blindfold"
+    val `showClockOnTheLeft`: I18nKey = "preferences:showClockOnTheLeft"
 
   object puzzle:
     val `puzzles`: I18nKey = "puzzle:puzzles"
@@ -2369,6 +2372,7 @@ object I18nKey:
     val `search`: I18nKey = "search"
     val `clearSearch`: I18nKey = "clearSearch"
     val `tags`: I18nKey = "tags"
+    val `enPassant`: I18nKey = "enPassant"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
     val `mateInXHalfMoves`: I18nKey = "mateInXHalfMoves"
     val `nbBlunders`: I18nKey = "nbBlunders"

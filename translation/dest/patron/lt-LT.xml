@@ -3,7 +3,7 @@
   <string name="donate">Paremti</string>
   <string name="donateAsX">Paaukoti kaip %s</string>
   <string name="lichessPatron">Lichess rėmėjas</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Rėmėjas nuo %s</string>
+  <string name="patronSince" comment="string is a date">Rėmėjas nuo %s</string>
   <string name="freeAccount">Nemokama paskyra</string>
   <string name="becomePatron">Tapkite Lichess rėmėju</string>
   <string name="xBecamePatron">%s tapo Lichess rėmėju</string>
