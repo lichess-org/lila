@@ -880,7 +880,7 @@
   <string name="timeAlmostUp">Waktu hampir habis!</string>
   <string name="clickToRevealEmailAddress">[Klik untuk memunculkan alamat email]</string>
   <string name="download">Unduh</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Manajer pelatih</string>
+  <string name="coachManager">Manajer pelatih</string>
   <string name="streamerManager">Manajer stream</string>
   <string name="cancelTournament">Batalkan turnamen</string>
   <string name="tournDescription">Deskripsi turnamen</string>
