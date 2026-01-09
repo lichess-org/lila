@@ -10,4 +10,19 @@
   <string name="newAllTimeHighscore">¡Récord absolutu!</string>
   <string name="previousHighscoreWasX">El récord anterior yera %s</string>
   <string name="playAgain">Xugar de nuevu</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 ronda</item>
+    <item quantity="other">%s rondes</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Xugasti una ronda de %2$s</item>
+    <item quantity="other">Xugasti %1$s rondes de %2$s</item>
+  </plurals>
+  <string name="highscoreX">Récord: %s</string>
+  <string name="score">Puntuación</string>
+  <string name="moves">Movimientos</string>
+  <string name="accuracy">Precisión</string>
+  <string name="combo">Racha</string>
+  <string name="time">Tiempu</string>
+  <string name="timePerMove">Tiempu por movimientu</string>
 </resources>
