@@ -15,7 +15,7 @@
   <string name="onlyOnInitialPosition">Само на почетној позицији</string>
   <string name="chessClock">Сат</string>
   <string name="tenthsOfSeconds">Десетинке</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Када преостало време &lt; 10 секунди</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Када преостало време &lt; 10 секунди</string>
   <string name="horizontalGreenProgressBars">Водоравне зелене линије напредка</string>
   <string name="soundWhenTimeGetsCritical">Звук када време постане критично</string>
   <string name="giveMoreTime">Дај више времена</string>
@@ -30,7 +30,7 @@
   <string name="promoteToQueenAutomatically">Промовиши у Даму аутоматски</string>
   <string name="whenPremoving">Током претпотеза</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Прогласи реми на троструко понављање потеза аутоматски</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Када преостало време &lt; 30 секунди</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Када преостало време &lt; 30 секунди</string>
   <string name="moveConfirmation">Потврда потеза</string>
   <string name="inCorrespondenceGames">Дописне партије</string>
   <string name="correspondenceAndUnlimited">Дописне и неограничене</string>
