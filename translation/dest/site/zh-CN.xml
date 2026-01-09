@@ -906,7 +906,7 @@
   <string name="timeAlmostUp">时间快到了！</string>
   <string name="clickToRevealEmailAddress">[点击显示邮箱地址]</string>
   <string name="download">下载</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">教练管理</string>
+  <string name="coachManager">教练管理</string>
   <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消锦标赛</string>
   <string name="tournDescription">锦标赛描述</string>

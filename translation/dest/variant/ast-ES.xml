@@ -2,7 +2,7 @@
 <resources>
   <string name="standard" comment="As in standard chess (not a variant)">Estándar</string>
   <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Riegles d\'axedrez estándar (FIDE)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Axedrez 960</string>
+  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://query.wikidata.org/embed.html#SELECT%20%3Flabel%20WHERE%20%7B%20%0A%20%20wd%3AQ724903%20rdfs%3Alabel%20%3Flabel.%20%0A%7D%0A">Axedrez 960</string>
   <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">La posición inicial de les pieces ye aleatoria.</string>
   <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Rei de la cima</string>
   <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Lleva al to rei al centru pa ganar la partida.</string>
@@ -17,5 +17,5 @@
   <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Reyes en carrera</string>
   <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Lleva al to rei al otru llau del tableru pa ganar.</string>
   <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Revuelta</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Les pieces tomaes pueden volver asitiase nel tableru en llugar de faer un movimientu.</string>
+  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Les pieces tomaes pueden volver asitiase nel tableru en llugar de facer un movimientu.</string>
 </resources>

@@ -948,7 +948,7 @@
   <string name="timeAlmostUp">Time is almost up!</string>
   <string name="clickToRevealEmailAddress">[Click to reveal email address]</string>
   <string name="download">Download</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Coach manager</string>
+  <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
   <string name="cancelTournament">Cancel the tournament</string>
   <string name="tournDescription">Tournament description</string>

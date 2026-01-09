@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
   <string name="onlyOnInitialPosition">Doar înainte de prima mutare</string>
   <string name="inGameOnly">Doar în joc</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Exceptând în timpul jocului</string>
+  <string name="exceptInGame">Exceptând în timpul jocului</string>
   <string name="chessClock">Ceasul de șah</string>
   <string name="tenthsOfSeconds">Zecimi de secundă</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Când rămân mai puțin de 10 secunde</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Când rămân mai puțin de 10 secunde</string>
   <string name="horizontalGreenProgressBars">Bare orizontale verzi cu progresul</string>
   <string name="soundWhenTimeGetsCritical">Sunet când timpul e aproape de expirare</string>
   <string name="giveMoreTime">Adaugă timp adversarului</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Țineți apăsată tasta &lt;ctrl&gt; în timp ce promovați un pion pentru a dezactiva temporar promovarea automată</string>
   <string name="whenPremoving">În cazul mutărilor anticipate</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Declară automat o remiză în cazul a trei repetări</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Când timpul rămas e mai scurt de 30 de secunde</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Când timpul rămas e mai scurt de 30 de secunde</string>
   <string name="moveConfirmation">Confirmare mutare</string>
   <string name="explainCanThenBeTemporarilyDisabled">Poate fi dezactivat în timpul unui joc cu meniul de tablă</string>
   <string name="inCorrespondenceGames">În jocuri prin corespondență</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Dispozitiv</string>
   <string name="bellNotificationSound">Sunet de notificare</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Legat la ochi</string>
+  <string name="blindfold" comment="As in Blindfold chess">Legat la ochi</string>
 </resources>
