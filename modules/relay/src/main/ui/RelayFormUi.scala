@@ -731,7 +731,7 @@ Team Dogs ; Scooby Doo"""),
                         form("orphanWarn"),
                         "Warn about Orphan Boards",
                         help = raw(
-                          "Show a warning when boards are not receiving updates from the source. Disable it when there are manually entered boards."
+                          "Send a warning to the Broadcast team when boards are not receiving updates from the source. Disable if there are manually entered boards."
                         ).some,
                         half = true
                       )
