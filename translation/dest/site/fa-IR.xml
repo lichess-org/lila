@@ -951,7 +951,7 @@
   <string name="timeAlmostUp">زمان نزدیک به پایان است!</string>
   <string name="clickToRevealEmailAddress">[برای آشکارسازی نشانیِ رایانامه بتِلیکید]</string>
   <string name="download">بارگیری</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">تنظیمات مربی</string>
+  <string name="coachManager">تنظیمات مربی</string>
   <string name="streamerManager">مدیریت جریان‌سازی</string>
   <string name="cancelTournament">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
