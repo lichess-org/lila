@@ -42,6 +42,13 @@
   <string name="joinTheGame">Join the game</string>
   <string name="whitePlays">White to play</string>
   <string name="blackPlays">Black to play</string>
+  <!--
+  Non-breaking space (&#xA0;) must be between %s and 'seconds' to prevent line breaks, especially for mobile UI.
+  Examples:
+  English: 'Opponent left %s&#xA0;seconds'
+  French: 'L’adversaire a quitté il y a %s&#xA0;secondes'
+  Tamil: '%s&#xA0;விநாடிகள் முன் எதிரணி விட்டு சென்றார்'
+  -->
   <plurals name="opponentLeftCounter">
     <item quantity="one">Your opponent left the game. You can claim victory in %s&#xA0;second.</item>
     <item quantity="other">Your opponent left the game. You can claim victory in %s&#xA0;seconds.</item>
