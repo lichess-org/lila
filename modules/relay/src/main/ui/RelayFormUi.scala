@@ -76,33 +76,6 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           )
     )
 
-  private def nativeCheckboxField(
-      field: Field,
-      labelContent: Frag,
-      help: Option[Frag] = None,
-      half: Boolean = false,
-      value: String = "true"
-  ) =
-    div(
-      cls := List(
-        "form-check form-group" -> true,
-        "form-half" -> half
-      )
-    )(
-      div(
-        span(cls := "form-check-input")(
-          form3.nativeCheckbox(
-            form3.id(field),
-            field.name,
-            checked = field.value.has(value),
-            value = value
-          )
-        ),
-        label(`for` := form3.id(field))(labelContent)
-      ),
-      help.map(small(cls := "form-help")(_))
-    )
-
   def noAccess(nav: FormNavigation)(using Context) =
     Page("Insufficient permissions").css("bits.relay.form"):
       main(cls := "page page-menu")(
@@ -347,7 +320,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               help = trb.startDateHelp().some,
               half = true
             )(form3.flatpickr(_, local = true, minDate = None)),
-            nativeCheckboxField(
+            form3.nativeCheckboxField(
               form("startsAfterPrevious"),
               "When the previous round completes",
               help = frag(
@@ -406,10 +379,11 @@ Hanna Marie ; Kozul, Zdenko"""),
               form3.group(form("rated"), raw("")): field =>
                 val withDefault =
                   if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
-                nativeCheckboxField(
+                form3.nativeCheckboxField(
                   withDefault,
                   "Rated round",
-                  help = frag("Include this round when calculating players' rating changes").some
+                  help = frag("Include this round when calculating players' rating changes").some,
+                  half = true
                 )
             ),
             Color.all.map: color =>
@@ -614,19 +588,21 @@ Hanna Marie ; Kozul, Zdenko"""),
               .some
           )(
             form3.split(
-              nativeCheckboxField(
+              form3.nativeCheckboxField(
                 form("showScores"),
                 trb.showScores(),
+                help=None,
                 half = true
               ),
-              nativeCheckboxField(
+              form3.nativeCheckboxField(
                 form("showRatingDiffs"),
                 "Show player's rating diffs",
+                help=None,
                 half = true
               )
             ),
             form3.split(
-              nativeCheckboxField(
+              form3.nativeCheckboxField(
                 form("teamTable"),
                 trans.team.teamTournament(),
                 help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some,

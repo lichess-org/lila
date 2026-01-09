@@ -231,17 +231,13 @@ final class GameUi(helpers: Helpers):
               },
               form3.group(form("pgnFile"), trans.site.orUploadPgnFile(), klass = "upload"): f =>
                 form3.file.pgn(f.name),
-              div(cls := "form-group analyse")(
-                span(cls := "form-check-input")(
-                  form3.nativeCheckbox(
-                    form3.id(form("analyse")),
-                    form("analyse").name,
-                    checked = form("analyse").value.has("1"),
-                    value = "1"
-                  )
-                ),
-                label(`for` := form3.id(form("analyse")))(trans.site.requestAComputerAnalysis()),
-                analyseHelp.map(help => div(cls := "form-help")(help))
+              form3.nativeCheckboxField(
+                form("analyse"),
+                trans.site.requestAComputerAnalysis(),
+                help = analyseHelp.map(help => div(cls := "form-help")(help)),
+                half = false,
+                value = "1",
+                klass = "analyse"
               ),
               form3.action(form3.submit(trans.site.importGame(), Icon.UploadCloud.some))
             )

@@ -114,24 +114,15 @@ final class GatheringFormUi(helpers: Helpers):
     )
 
   def bots(field: Field, disabledAfterStart: Boolean) =
-    val disabledAttr = disabledAfterStart.option(disabled)
-    div(cls := "form-group")(
-      div(
-        span(cls := "form-check-input")(
-          form3.nativeCheckbox(
-            field.id,
-            field.name,
-            checked = field.value.has("true"),
-            value = "1"
-          )(disabledAttr.toSeq*)
-        ),
-        label(`for` := field.id)("Allow bot accounts")
-      ),
-      div(cls := "form-help")(
-        frag(
-          "Let ",
-          a(href := "/@/lichess/blog/welcome-lichess-bots/WvDNticA")("bots"),
-          " join the tournament and play with their engines. This often repels human players."
-        ).some
-      )
+    form3.nativeCheckboxField(
+      field,
+      "Allow bot accounts",
+      help = frag(
+        "Let ",
+        a(href := "/@/lichess/blog/welcome-lichess-bots/WvDNticA")("bots"),
+        " join the tournament and play with their engines. This often repels human players."
+      ).some,
+      half = false,
+      value = "1",
+      disabled = disabledAfterStart
     )

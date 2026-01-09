@@ -119,14 +119,47 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       fieldId: String,
       fieldName: String,
       checked: Boolean,
-      value: Value = "true"
+      value: Value = "true",
+      disabled: Boolean = false
   ) =
     st.input(
       st.id := fieldId,
       name := fieldName,
       st.value := value.show,
       tpe := "checkbox",
-      checked.option(st.checked)
+      checked.option(st.checked),
+      disabled.option(st.disabled)
+    )
+
+  def nativeCheckboxField(
+      field: Field,
+      labelContent: Frag,
+      help: Option[Frag],
+      half: Boolean,
+      value: String = "true",
+      disabled: Boolean = false,
+      klass: String = ""
+  ): Frag =
+    div(
+      cls := List(
+        "form-check form-group" -> true,
+        "form-half" -> half,
+        klass -> klass.nonEmpty
+      )
+    )(
+      div(
+        span(cls := "form-check-input")(
+          nativeCheckbox(
+            id(field),
+            field.name,
+            checked = field.value.has(value),
+            value = value,
+            disabled = disabled
+          )
+        ),
+        groupLabel(field)(labelContent)
+      ),
+      help.map { helper(_) }
     )
 
   def select(
