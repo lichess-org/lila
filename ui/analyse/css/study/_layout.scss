@@ -9,6 +9,7 @@
 
 @include mq-at-least-col3 {
   .analyse {
+    grid-template-rows: auto auto minmax(0px, auto) auto 1fr;
     grid-template-areas:
       'side    . board   gauge tools'
       'side    . board   gauge tools'
