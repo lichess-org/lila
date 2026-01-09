@@ -15,7 +15,7 @@
   <string name="onlyOnInitialPosition">Solmente in position initial</string>
   <string name="chessClock">Horologio de chacos</string>
   <string name="tenthsOfSeconds">Decimos de secundas</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando le tempore remanente es minus de dece secundas</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando le tempore remanente es minus de dece secundas</string>
   <string name="horizontalGreenProgressBars">Barras de progresso verde horizontal</string>
   <string name="soundWhenTimeGetsCritical">Sono quando le tempore es critic</string>
   <string name="giveMoreTime">Offerer plus tempore</string>
@@ -30,7 +30,7 @@
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
   <string name="whenPremoving">Quando preselectionante</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Declarar automaticamente le partita como nulle post un repetition triple</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando le tempore remanente es minus de trenta secundas</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quando le tempore remanente es minus de trenta secundas</string>
   <string name="moveConfirmation">Confirmation de movimento</string>
   <string name="inCorrespondenceGames">Jocos per correspondentia</string>
   <string name="correspondenceAndUnlimited">Per correspondentia e illimitate</string>
