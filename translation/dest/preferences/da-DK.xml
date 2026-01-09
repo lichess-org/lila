@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">Opdateringer af korrespondancepartier</string>
   <string name="notifyChallenge">Udfordringer</string>
   <string name="notifyTournamentSoon">Turneringsstart nærmer sig</string>
+  <string name="notifyBroadcasts">Udsendelser, du abonnerer på</string>
   <string name="notifyTimeAlarm">Ur i korrespondance er ved at løbe ud</string>
   <string name="notifyBell">Klokkenotifikation i Lichess</string>
   <string name="notifyPush">Notifikation på enhed, når du ikke er på Lichess</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">Enhed</string>
   <string name="bellNotificationSound">Notifikationslyd</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindskak</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Vis til venstre på mobile enheder</string>
 </resources>
