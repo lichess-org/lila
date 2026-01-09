@@ -938,7 +938,7 @@
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
   <string name="clickToRevealEmailAddress">[Klicka för att visa mailadress]</string>
   <string name="download">Ladda ner</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Coach-hanterare</string>
+  <string name="coachManager">Coach-hanterare</string>
   <string name="streamerManager">Stream-hanterare</string>
   <string name="cancelTournament">Avbryt turneringen</string>
   <string name="tournDescription">Turneringsbeskrivning</string>
