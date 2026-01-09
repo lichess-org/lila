@@ -117,8 +117,8 @@
   <string name="realtimeReplay">Realtid</string>
   <string name="byCPL">CPL</string>
   <string name="enable">Aktivera</string>
-  <string name="bestMoveArrow">Pil som anger bästa drag</string>
-  <string name="showVariationArrows">Visa variationspilar</string>
+  <string name="bestMoveArrow">Bästa drag-pil</string>
+  <string name="showVariationArrows">Visa pilar för varianter</string>
   <string name="evaluationGauge">Utvärderingsmätare</string>
   <string name="multipleLines">Flera linjer</string>
   <string name="cpus">Processorer</string>
