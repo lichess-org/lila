@@ -62,7 +62,7 @@
   <string name="notifyGameEvent">Correspondence game updates</string>
   <string name="notifyChallenge">Challenges</string>
   <string name="notifyTournamentSoon">Tournament starting soon</string>
-  <string name="notifyBroadcasts" comment="A more complete information is given in the broadcast itself">Broadcasts you have subscribed to</string>
+  <string name="notifyBroadcasts">Broadcasts you have subscribed to</string>
   <string name="notifyTimeAlarm">Correspondence clock running out</string>
   <string name="notifyBell">Bell notification within Lichess</string>
   <string name="notifyPush">Device notification when you're not on Lichess</string>
@@ -70,5 +70,5 @@
   <string name="notifyDevice">Device</string>
   <string name="bellNotificationSound">Bell notification sound</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindfold</string>
-  <string name="showClockOnTheLeft" comment="During the game on a mobile device, showing the clock on the left side of the screen. Only applies to mobile devices.">Show on the left of mobile devices</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Show on the left on mobile devices</string>
 </resources>
