@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">Neuigkeiten in Fernschachpartie</string>
   <string name="notifyChallenge">Herausforderungen</string>
   <string name="notifyTournamentSoon">Turnier beginnt bald</string>
+  <string name="notifyBroadcasts">Übertragungen, die du abonniert hast</string>
   <string name="notifyTimeAlarm">Zeit in Fernschachpartie neigt sich dem Ende zu</string>
   <string name="notifyBell">Benachrichtigungs-Glocke auf Lichess</string>
   <string name="notifyPush">Geräte-Benachrichtigung wenn du nicht auf Lichess bist</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">Gerät</string>
   <string name="bellNotificationSound">Glocken-Benachrichtigungston</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindschach</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Auf der linken Seite auf mobilen Geräten anzeigen</string>
 </resources>
