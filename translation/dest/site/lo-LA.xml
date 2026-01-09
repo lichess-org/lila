@@ -906,7 +906,7 @@
   <string name="timeAlmostUp">ເວລາເກືອບຈະໝົດແລ້ວ!</string>
   <string name="clickToRevealEmailAddress">[ຄລິກເພື່ອສະແດງອີເມວ]</string>
   <string name="download">ດາວໂຫຼດ</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">ຜູ້ຈັດການຄູຝຶກ</string>
+  <string name="coachManager">ຜູ້ຈັດການຄູຝຶກ</string>
   <string name="streamerManager">ຜູ້ຈັດການສະຕີມເມີ</string>
   <string name="cancelTournament">ຍົກເລີກການແຂ່ງຂັນ</string>
   <string name="tournDescription">ຄຳອະທິບາຍການແຂ່ງຂັນ</string>
