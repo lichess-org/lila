@@ -82,7 +82,7 @@ Va poder volver xunise al tornéu en cualquier momentu.</string>
 Pa solucionar esti inconveniente, Lichess evita que los xugadores que nun pudieron xugar una partida xunanse a un nuevu eventu suizu mientres un periodu de tiempu determináu.
 El ceador d\'un eventu suizu puede decidir dexar que se xunan al eventu igualmente.</string>
   <string name="lateJoinQ">¿Pueden xunise xugadores a un tornéu empezáu?</string>
-  <string name="lateJoinA">Sí, hasta que s\'empecipiaren más de la metá de les rondes; por casu, nun tornéu suizu de 11 rondes, los xugadores pueden xunise antes qu\'empiece la ronda 6; nun tornéu de 12 rondes, van poder xunise primero qu\'empiece la ronda 7.
+  <string name="lateJoinA">Sí, hasta que s\'entamen más de la metá de les rondes; por casu, nun tornéu suizu de 11 rondes, los xugadores pueden xunise antes qu\'empiece la ronda 6; nun tornéu de 12 rondes, van poder xunise primero qu\'empiece la ronda 7.
 Los xugadores que xunanse a un tornéu empezáu van recibir un únicu bye, inclusive si nun se presenten a delles rondes.</string>
   <string name="willSwissReplaceArenasQ">¿Van reemplazar los torneos suizos a los torneos estándar?</string>
   <string name="willSwissReplaceArenasA">Non, son característiques complementaries.</string>
@@ -115,7 +115,7 @@ El formatu más próximu a un tornéu en llínea de toos contra toos ye un torn�
   <string name="possibleButNotConsecutive">Posible, pero non consecutivu</string>
   <string name="identicalForbidden">Prohibíu</string>
   <string name="lateJoin">Xunirse tarde</string>
-  <string name="lateJoinUntil">Sí, hasta que s\'empecipiaren más de la metá de les rondes</string>
+  <string name="lateJoinUntil">Sí, hasta que s\'entamen más de la metá de les rondes</string>
   <string name="pause">Pausa</string>
   <string name="pauseSwiss">Sí, pero podría amenorgase el númberu de rondes</string>
   <string name="streaksAndBerserk">Raches y Berserk</string>

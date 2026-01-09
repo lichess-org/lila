@@ -1019,4 +1019,5 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="search">Suchen</string>
   <string name="clearSearch">Neue Suche</string>
   <string name="tags">Schlagwörter</string>
+  <string name="enPassant">En passant</string>
 </resources>

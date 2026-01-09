@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">通信棋更新</string>
   <string name="notifyChallenge">挑战</string>
   <string name="notifyTournamentSoon">锦标赛即将开始</string>
+  <string name="notifyBroadcasts">订阅的转播</string>
   <string name="notifyTimeAlarm">通讯棋即将超时</string>
   <string name="notifyBell">Lichess 内的铃声通知</string>
   <string name="notifyPush">Lichess 外的设备通知</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">设备通知</string>
   <string name="bellNotificationSound">通知铃声</string>
   <string name="blindfold" comment="As in Blindfold chess">盲棋</string>
+  <string name="showClockOnTheLeft" comment="A setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.">在移动设备上左侧显示</string>
 </resources>

@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">Оновлення заочних партій</string>
   <string name="notifyChallenge">Виклики</string>
   <string name="notifyTournamentSoon">Турнір скоро почнеться</string>
+  <string name="notifyBroadcasts">Трансляції, на які ви підписані</string>
   <string name="notifyTimeAlarm">Час на відповідь закінчується</string>
   <string name="notifyBell">Звукове сповіщення в Lichess</string>
   <string name="notifyPush">Сповіщення на пристрої, коли ви не на Lichess</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">Пристрій</string>
   <string name="bellNotificationSound">Звук сповіщення</string>
   <string name="blindfold" comment="As in Blindfold chess">Наосліп</string>
+  <string name="showClockOnTheLeft" comment="A setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.">Показувати ліворуч на мобільних пристроях</string>
 </resources>

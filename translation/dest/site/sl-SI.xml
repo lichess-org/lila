@@ -802,6 +802,7 @@
   <string name="cyclePreviousOrNextVariation">Preglej zadnjo/naslednjo varianto</string>
   <string name="toggleGlyphAnnotations">Preklopi opombe potez</string>
   <string name="togglePositionAnnotations">Preklop opomb o položaju</string>
+  <string name="toggleObservationAnnotations">Preklop opomb o položaju</string>
   <string name="variationArrowsInfo">Puščice variant vam omogočajo, da krmarite brez uporabe seznama potez</string>
   <string name="playSelectedMove">igraj izbrano potezo</string>
   <string name="newTournament">Nov turnir</string>
@@ -845,6 +846,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Lahko se skozi partijo pomikaš tudi z miško</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Za predogled variant računalniške analize podrsajte z miškinim koleščkom.</string>
   <string name="analysisShapesHowTo">Pritisni shift+klik ali desni klik za risanje krožcev in puščic po šahovnici</string>
+  <string name="primaryColorArrowsHowTo">Ctrl ali shift = rdeča; command, alt ali meta = modra; tipka od vsake = rumena.</string>
   <string name="letOtherPlayersMessageYou">Dovoli drugim, da ti pišejo sporočila</string>
   <string name="receiveForumNotifications">Prejemajte obvestila, ko so omenjena na forumu</string>
   <string name="shareYourInsightsData">Deli svoje statistične podatke</string>
@@ -994,6 +996,7 @@
   <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
   <string name="searchOrStartNewDiscussion">Poišči ali prični nov pogovor</string>
   <string name="edit">Uredi</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Hitri šah</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hitropotezni šah</string>
   <string name="rapid">Pospešeni</string>
@@ -1058,6 +1061,7 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="simulFeaturedHelp">Pokažite svojo simultanko vsem na %s. Onemogoči za zasebne simulacije.</string>
   <string name="simulDescription">Opis simultanke</string>
   <string name="simulDescriptionHelp">Kaj želite povedati udeležencem?</string>
+  <string name="markdownIsAvailable">%s je na voljo za oblikovanje.</string>
   <string name="embedsAvailable">Prilepite URL igre ali URL poglavja študije, da ga vdelate.</string>
   <string name="inYourLocalTimezone">V svojem lokalnem časovnem pasu</string>
   <string name="tournChat">Turnirski klepet</string>
@@ -1103,4 +1107,5 @@ Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij 
   <string name="search">Išči</string>
   <string name="clearSearch">Počisti iskanje</string>
   <string name="tags">Oznake</string>
+  <string name="enPassant">En passant</string>
 </resources>

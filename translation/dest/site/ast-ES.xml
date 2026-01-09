@@ -112,8 +112,8 @@
   <string name="playFirstOpeningEndgameExplorerMove">Xugar primer movimientu d\'apertura final del esplorador de movimientos</string>
   <string name="winPreventedBy50MoveRule">La riegla de los 50 movimientos torga ganar</string>
   <string name="lossSavedBy50MoveRule">Perda evitada pola riegla de los 50 movimientos</string>
-  <string name="winOr50MovesByPriorMistake">Ganar o 50 xugaes per erru previu</string>
-  <string name="lossOr50MovesByPriorMistake">Perder o 50 xugaes per erru previu</string>
+  <string name="winOr50MovesByPriorMistake">Ganar o 50 xugaes per error previu</string>
+  <string name="lossOr50MovesByPriorMistake">Perder o 50 xugaes per error previu</string>
   <string name="unknownDueToRounding">Victoria o derrota segura solu si siguióse la llínea de movimientos encamentaos dende la última captura o movimientu de peón, pola mor del posible arredondio de valores DTZ de les Tables de Finales Syzygy.</string>
   <string name="allSet">¡Too llisto!</string>
   <string name="importPgn">Importar PGN</string>
@@ -187,7 +187,7 @@
   </plurals>
   <string name="viewInFullSize">Ver en tamañu completu</string>
   <string name="logOut">Pesllar sesión</string>
-  <string name="signIn">Empecipiar sesión</string>
+  <string name="signIn">Aniciar sesión</string>
   <string name="rememberMe">Caltener sesión empecipiada</string>
   <string name="youNeedAnAccountToDoThat">Precises una cuenta para facer eso</string>
   <string name="signUp">Rexistrase</string>
@@ -963,7 +963,7 @@ y afecten a la puntuación de los xugadores</string>
   <string name="minimumRatedGames">Mínimu de partíes por puntos</string>
   <string name="minimumRating">Rating mínimu</string>
   <string name="maximumWeeklyRating">Puntuación máxima selmanal</string>
-  <string name="positionInputHelp">Pega un FEN válidu para empecipiar cada partida dende una posición determinada.
+  <string name="positionInputHelp">Pega un FEN válidu para entamar cada partida dende una posición determinada.
 Namás funciona para partíes estándar, non con variantes.
 Puedes usar el %s para xenerar una posición FEN, y depués pegala equí.
 Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
@@ -1020,4 +1020,5 @@ Tolos gastos de funcionamientu, desenvolvimientu y conteníos finánciense puram
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar busca</string>
   <string name="tags">Etiquetes</string>
+  <string name="enPassant">Garrar al pasu</string>
 </resources>

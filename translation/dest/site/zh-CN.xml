@@ -974,4 +974,5 @@
   <string name="search">搜索</string>
   <string name="clearSearch">清除搜索</string>
   <string name="tags">标签</string>
+  <string name="enPassant">吃过路兵</string>
 </resources>
