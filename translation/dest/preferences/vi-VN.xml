@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ bàn cờ</string>
   <string name="onlyOnInitialPosition">Chỉ ở thế cờ ban đầu</string>
   <string name="inGameOnly">Chỉ trong ván cờ</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Ngoại trừ trong khi đấu</string>
+  <string name="exceptInGame">Ngoại trừ trong khi đấu</string>
   <string name="chessClock">Đồng hồ cờ vua</string>
   <string name="tenthsOfSeconds">Một phần mười giây</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Khi thời gian còn lại &lt; 10 giây</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Khi thời gian còn lại &lt; 10 giây</string>
   <string name="horizontalGreenProgressBars">Thanh tiến trình ngang màu xanh</string>
   <string name="soundWhenTimeGetsCritical">Âm thanh khi thời gian sắp hết</string>
   <string name="giveMoreTime">Cho thêm thời gian</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Giữ nút &lt;ctrl&gt; trong khi phong cấp để tạm thời hủy bỏ việc phong cấp tự động</string>
   <string name="whenPremoving">Khi đi trước</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Tự động hoà khi lặp cờ ba lần</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Khi thời gian còn lại &lt; 30 giây</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Khi thời gian còn lại &lt; 30 giây</string>
   <string name="moveConfirmation">Xác nhận nước đi</string>
   <string name="explainCanThenBeTemporarilyDisabled">Có thể bị vô hiệu hóa trong ván cờ với mục lục bàn cờ</string>
   <string name="inCorrespondenceGames">Cờ qua thư</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">Trình duyệt</string>
   <string name="notifyDevice">Thiết bị</string>
   <string name="bellNotificationSound">Âm thanh chuông báo</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Bịt mắt</string>
+  <string name="blindfold" comment="As in Blindfold chess">Bịt mắt</string>
 </resources>
