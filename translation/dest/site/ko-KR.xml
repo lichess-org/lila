@@ -685,6 +685,7 @@
   <string name="cyclePreviousOrNextVariation">이전/다음 라인 순환하기</string>
   <string name="toggleGlyphAnnotations">수 주석 켜기/끄기</string>
   <string name="togglePositionAnnotations">포지션 주석 켜기/끄기</string>
+  <string name="toggleObservationAnnotations">의견 주석 켜기/끄기</string>
   <string name="variationArrowsInfo">변형 화살표를 사용하면 이동 목록을 사용하지 않고 탐색이 가능합니다.</string>
   <string name="playSelectedMove">선택한 수 두기</string>
   <string name="newTournament">새로운 토너먼트</string>
@@ -973,5 +974,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="search">검색</string>
   <string name="clearSearch">검색 초기화</string>
   <string name="tags">태그</string>
-  <string name="enPassant">앙파상</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">앙파상</string>
 </resources>
