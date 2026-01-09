@@ -65,7 +65,7 @@ export class InlineView {
       .map(comment =>
         this.ctrl.retro?.hideComputerLine(node)
           ? hl('comment', i18n.site.learnFromThisMistake)
-          : (!this.isFishnetComment(comment) || this.ctrl.showFishnetAnalysis()) &&
+          : (!this.isFishnetComment(comment) || this.ctrl.showStaticAnalysis()) &&
             hl('comment', {
               class: {
                 inaccuracy: comment.text.startsWith('Inaccuracy.'),

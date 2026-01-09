@@ -335,6 +335,10 @@ export default class StudyCtrl {
     !this.isGamebookPlay() &&
     !!(this.data.chapter.features.computer || this.data.chapter.practice);
 
+  canMergeAnalysisCleanly() {
+    return !this.data.chapter.serverEval || Number(this.data.chapter.serverEval?.version) > 0;
+  }
+
   configurePractice = () => {
     if (!this.data.chapter.practice && this.ctrl.practice) this.ctrl.togglePractice();
     if (this.data.chapter.practice) this.ctrl.togglePractice(true);

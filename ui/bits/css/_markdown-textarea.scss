@@ -29,7 +29,7 @@
     border-bottom: none;
     background: transparent;
     color: $c-font-dimmer;
-    cursor: pointer;
+    cursor: default;
   }
   .header-tab.active {
     position: relative;
@@ -37,7 +37,6 @@
     border-color: $c-border;
     color: $c-font;
     font-weight: bold;
-    cursor: default;
   }
   .header-tab.active::after {
     position: absolute;
@@ -106,11 +105,12 @@
   }
 }
 
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) {
   .markdown-textarea .header-tab:hover:not(.active) {
     background-color: $m-border--fade-80;
     border-color: $m-border--fade-60;
     color: $c-font;
+    cursor: pointer;
   }
   .markdown-textarea .upload-image:hover:not(.disabled) {
     background-color: $c-primary;

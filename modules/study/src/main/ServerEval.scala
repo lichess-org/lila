@@ -8,7 +8,7 @@ import lila.core.perm.Granter
 import lila.core.relay.GetCrowd
 import lila.db.dsl.bsonWriteOpt
 import lila.tree.Node.Comment
-import lila.tree.{ Advice, Analysis, Branch, Info, Node, Root }
+import lila.tree.{ Advice, Analysis, Branch, Info, Node, Root, Engine }
 
 object ServerEval:
 
@@ -28,7 +28,7 @@ object ServerEval:
             isOfficial <- fuccess(official) >>|
               fuccess(userId.is(UserId.lichess)) >>|
               userApi.me(userId).map(_.soUse(Granter.opt(_.Relay)))
-            _ <- chapterRepo.startServerEval(chapter)
+            _ <- chapterRepo.updateServerEval(chapter.id, false, chapter.root.mainlinePath.some)
           yield lila.common.Bus.pub(
             lila.core.fishnet.Bus.StudyChapterRequest(
               studyId = study.id,
@@ -61,7 +61,8 @@ object ServerEval:
         sequencer.sequenceStudyWithChapter(studyId, chapterId):
           case Study.WithChapter(_, chapter) =>
             for
-              _ <- complete.so(chapterRepo.completeServerEval(chapter))
+              _ <- complete.so(chapterRepo.updateServerEval(chapter.id, true, chapter.root.mainlinePath.some))
+              _ <- chapterRepo.stripEngineFields(chapter)
               _ <- chapter.root.mainline
                 .zip(analysis.infoAdvices)
                 .foldM(UciPath.root):
@@ -148,6 +149,7 @@ object ServerEval:
         check = m.after.position.check,
         crazyData = m.after.position.crazyData,
         clock = none,
+        comp = true,
         forceVariation = false
       )
 
@@ -166,7 +168,8 @@ object ServerEval:
                 chapterId = chapter.id,
                 tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
                 analysis = analysisJson.bothPlayers(chapter.root.ply, analysis),
-                division = divisionOf(chapter)
+                division = divisionOf(chapter),
+                engine = analysis.engine
               )
             )
 
@@ -186,4 +189,10 @@ object ServerEval:
         initialFen = chapter.root.fen.some
       )
 
-  case class Progress(chapterId: StudyChapterId, tree: Root, analysis: JsObject, division: chess.Division)
+  case class Progress(
+      chapterId: StudyChapterId,
+      tree: Root,
+      analysis: JsObject,
+      division: chess.Division,
+      engine: Engine
+  )

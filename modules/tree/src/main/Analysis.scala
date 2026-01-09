@@ -3,9 +3,11 @@ package lila.tree
 import chess.format.pgn.{ Pgn, PgnStr }
 import chess.{ Color, Ply }
 import play.api.libs.json.JsObject
+import Analysis.EngineId
 
 case class AnalysisProgress(gameId: GameId, payload: () => JsObject)
 case class StudyAnalysisProgress(analysis: Analysis, complete: Boolean)
+case class Engine(nodesPerMove: Int, id: EngineId = EngineId("fishnet"), userId: Option[UserId] = none)
 
 trait Analyser:
   def byId(id: Analysis.Id): Fu[Option[Analysis]]
@@ -23,7 +25,7 @@ case class Analysis(
     startPly: Ply,
     date: Instant,
     fk: Option[Analysis.FishnetKey],
-    nodesPerMove: Option[Int]
+    engine: Engine
 ):
   lazy val infoAdvices: InfoAdvices =
     (Info.start(startPly) :: infos)
@@ -33,7 +35,7 @@ case class Analysis(
       .toList
 
   lazy val advices: List[Advice] = infoAdvices.flatMap(_._2)
-
+  def nodesPerMove: Int = engine.nodesPerMove
   def summary: List[(Color, List[(Advice.Judgement, Int)])] =
     Color.all.map { color =>
       color -> (Advice.Judgement.all.map { judgment =>
@@ -50,6 +52,9 @@ case class Analysis(
   def emptyRatio: Double = nbEmptyInfos.toDouble / infos.size
 
 object Analysis:
+
+  opaque type EngineId = String
+  object EngineId extends OpaqueString[EngineId]
 
   enum Id:
     case Game(id: GameId)
@@ -80,3 +85,28 @@ object Analysis:
         case _ => None
 
   type FishnetKey = String
+
+  import play.api.libs.json.*
+  import scalalib.json.Json.given
+
+  given Reads[Engine] = Json.reads[Engine]
+  given Writes[Engine] = Json.writes
+
+  given Reads[Analysis] = Reads: js =>
+    for
+      rawId <- (js \ "id").validate[String]
+      rawStudyIdOpt <- (js \ "studyId").validateOpt[String]
+      infos <- (js \ "infos").validate[List[Info]]
+      startPly <- (js \ "startPly").validate[Ply]
+      date <- (js \ "date").validate[Instant]
+      engine <- (js \ "engine").validate[Engine]
+    yield Analysis(
+      id = rawStudyIdOpt match
+        case Some(sid) => Analysis.Id.Study(StudyId(sid), StudyChapterId(rawId))
+        case None => Analysis.Id.Game(GameId(rawId)),
+      infos = infos,
+      startPly = startPly,
+      date = date,
+      fk = None,
+      engine = engine
+    )

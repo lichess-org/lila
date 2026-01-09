@@ -1,0 +1,168 @@
+$c-content: $m-bg_bg-page--mix-50;
+
+.local-analysis-dialog {
+  width: min(640px, 95vw);
+  height: min(fit-content(0), 95vh);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem 0;
+  background: $c-bg;
+  border-radius: 6px;
+
+  .hidden {
+    visibility: hidden;
+  }
+  .main-content {
+    position: relative;
+  }
+  .preset-tabs {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+
+    * {
+      padding-inline: min(2.5vw, 2rem);
+    }
+  }
+  .preset-tab {
+    margin-bottom: -1px;
+    padding-block: 1rem;
+    background-color: transparent;
+    color: $c-font-dimmer;
+    font-size: 1.3rem;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    outline: none;
+    cursor: default;
+  }
+  .preset-tab.checked {
+    color: $c-border;
+  }
+  .preset-tab.active {
+    z-index: 1;
+    background-color: $c-content;
+    border-color: $m-border--fade-40;
+    color: $c-font;
+  }
+  .preset-tab.active.checked::after {
+    opacity: 1;
+  }
+  .chart-container {
+    position: absolute;
+    padding: min(2vw, 2rem);
+    border: 1px solid $m-border--fade-40;
+    border-radius: 6px;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: $m-bg_bg-page--mix-25;
+  }
+  .chart {
+    background: $m-bg_bg-page--mix-25;
+  }
+  .preset-info {
+    display: grid;
+    grid-template-columns: fit-content(0) 25% fit-content(0) 1fr;
+    grid-auto-rows: auto;
+    grid-column-gap: min(2vw, 1rem);
+    grid-row-gap: 0.5rem;
+    padding: min(2vw, 2rem);
+    align-items: start;
+    justify-items: start;
+    width: 100%;
+    color: $c-font;
+    background-color: $c-content;
+    border-radius: 6px;
+    border: 1px solid $m-border--fade-40;
+    > * {
+      margin: 0;
+      padding: 0;
+      align-self: center;
+      text-align: start;
+    }
+    > span {
+      grid-column: span 4;
+      margin-block: auto;
+      color: $c-font;
+      min-height: 38px;
+    }
+    > label {
+      text-wrap: nowrap;
+      color: $c-font-dim;
+    }
+    hr {
+      width: 100%;
+      height: 1px;
+      margin-block: 1rem;
+      background: $m-border--fade-40;
+    }
+    .separator {
+      white-space: nowrap;
+      font-size: 12px;
+      grid-column: span 4;
+      display: grid;
+      grid-template-columns: 1fr fit-content(0) 1fr;
+      grid-gap: 1rem;
+      align-items: center;
+      width: 100%;
+      color: $c-font-dimmer;
+    }
+    .row-val {
+      grid-column: span 3;
+    }
+    .note {
+      margin-inline-start: 1ch;
+      font-size: 12px;
+      color: $c-font-dim;
+    }
+  }
+  .footer {
+    position: relative;
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 1rem;
+
+    button {
+      position: absolute;
+      padding: 0.75rem min(2vw, 1.5rem);
+      max-width: 20%;
+      min-width: 48px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .status {
+      margin-block: auto;
+      max-width: 55%;
+    }
+    .cancel-btn,
+    .publish-btn {
+      left: 0.5rem;
+    }
+    .analyse-btn,
+    .ok-btn {
+      right: 0.5rem;
+    }
+  }
+}
+@media (hover: hover) {
+  .local-analysis-dialog .preset-tab:not(.active):hover {
+    background-color: $m-border--fade-80;
+    border-color: $m-border--fade-65;
+    color: $c-font-dim;
+    cursor: pointer;
+  }
+}
+@include mq-at-least-col2 {
+  .preset-tab.checked::after {
+    font-family: 'lichess';
+    color: $c-good;
+    margin-inline-start: 0.5rem;
+    content: '✔';
+    opacity: 0.5;
+  }
+}

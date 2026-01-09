@@ -43,7 +43,7 @@ export default class ServerEval {
 export function view(ctrl: ServerEval): VNode {
   const analysis = ctrl.root.data.analysis;
 
-  if (!ctrl.root.showFishnetAnalysis()) return disabled();
+  if (!ctrl.root.showStaticAnalysis()) return disabled();
   if (!analysis) return ctrl.requested ? requested() : requestButton(ctrl);
   const mainline = ctrl.requested ? ctrl.root.data.treeParts : ctrl.analysedMainline();
   const chart = h('canvas.study__server-eval.ready.' + analysis.id, {
@@ -74,14 +74,24 @@ function requestButton(ctrl: ServerEval) {
       : !root.study!.members.canContribute()
         ? [i18n.study.onlyContributorsCanRequestAnalysis]
         : [
-            h('p', [i18n.study.getAFullComputerAnalysis, h('br'), i18n.study.makeSureTheChapterIsComplete]),
+            h('p', [i18n.study.requestAServerAnalysis]),
             h(
               'a.button.text',
               {
-                attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
+                attrs: {
+                  'data-icon': licon.BarChart,
+                  title: i18n.study.makeSureTheChapterIsComplete,
+                  disabled: root.mainline.length < 5,
+                },
                 hook: bind('click', ctrl.request, root.redraw),
               },
               i18n.site.requestAComputerAnalysis,
+            ),
+            h('p', i18n.study.orPerformAStrongerOne),
+            h(
+              'a.button.text',
+              { on: { click: () => site.asset.loadEsm('analyse.local', { init: root }) } },
+              i18n.study.localAnalysis,
             ),
           ],
   );

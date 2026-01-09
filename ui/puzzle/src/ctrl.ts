@@ -678,7 +678,7 @@ export default class PuzzleCtrl implements CevalHandler {
     if (uci) this.playUci(uci);
   };
   autoNexting = () => this.lastFeedback === 'win' && this.autoNext();
-  showEvalGauge = () => this.showAnalysis() && this.isCevalAllowed() && !this.outcome();
+  showEvalGauge = () => this.showEvaluation() && this.isCevalAllowed() && !this.outcome();
   getOrientation = () => this.withGround(g => g.state.orientation)!;
   allThemes = this.opts.themes && {
     dynamic: this.opts.themes.dynamic.split(' '),
@@ -688,7 +688,7 @@ export default class PuzzleCtrl implements CevalHandler {
   getCeval = () => this.ceval;
   ongoing = false;
   getNode = () => this.node;
-  showAnalysis = () => this.mode === 'view';
+  showEvaluation = () => this.mode === 'view';
   routerWithLang = (path: string): string => {
     if (document.body.hasAttribute('data-user')) return path;
     const language = document.documentElement.lang.slice(0, 2);

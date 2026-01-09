@@ -37,7 +37,6 @@ export class GameCtrl {
     this.rewind = undefined;
     this.live = new LocalGame({ ...this.live?.setup, ...game });
     env.bot.setUids(this.live);
-    env.bot.reset();
     this.orientation = this.black ? 'white' : this.white ? 'black' : 'white';
     this.resetClock();
     this.proxy.reset();

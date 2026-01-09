@@ -8,6 +8,7 @@ import type AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'lib/game/router';
 import * as pgnExport from '../pgnExport';
 import { clamp } from 'lib/algo';
+import { canLocalAnalyse } from '@/local/localAnalysisEngine';
 
 interface AutoplaySpeed {
   name: keyof I18n['site'];
@@ -64,7 +65,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       attrs: { method: 'post', action: '/study/as' },
       hook: bind('submit', e => {
         const pgnInput = (e.target as HTMLElement).querySelector('input[name=pgn]') as HTMLInputElement;
-        if (pgnInput && (ctrl.synthetic || ctrl.idbTree.isDirty)) {
+        if (pgnInput && (ctrl.synthetic || ctrl.idbTree.movesDirty)) {
           pgnInput.value = pgnExport.renderFullTxt(ctrl);
         }
       }),
@@ -146,17 +147,32 @@ export function view(ctrl: AnalyseCtrl): VNode {
           i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
-      ctrl.idbTree.isDirty &&
+      canLocalAnalyse(ctrl) &&
+        hl(
+          'a',
+          {
+            attrs: { 'data-icon': licon.Cogs },
+            on: {
+              click: () => {
+                site.asset.loadEsm('analyse.local', { init: ctrl });
+                ctrl.actionMenu(false);
+                ctrl.redraw();
+              },
+            },
+          },
+          i18n.study.localAnalysis,
+        ),
+      (ctrl.idbTree.movesDirty || ctrl.idbTree.hasLocalAnalysis) &&
         hl(
           'a',
           {
             attrs: {
-              title: i18n.site.clearSavedMoves,
+              title: i18n.site.clearLocalData,
               'data-icon': licon.Trash,
             },
-            hook: bind('click', ctrl.idbTree.clear),
+            hook: bind('click', () => ctrl.idbTree.clear()),
           },
-          i18n.site.clearSavedMoves,
+          i18n.site.clearLocalData,
         ),
     ]),
   ];
@@ -168,7 +184,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         name: 'Show fishnet analysis',
         title: 'Show fishnet analysis (Hotkey: z)',
         id: 'all',
-        checked: ctrl.showFishnetAnalysis(),
+        checked: ctrl.showEvaluation(),
         change: ctrl.toggleFishnetAnalysis,
       },
       ctrl,

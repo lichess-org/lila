@@ -1,6 +1,6 @@
 /* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
 
-import { uciChar } from './uciChar';
+import { destCharToKey } from './destCharToKey';
 import { shuffle } from '../algo';
 import { normalizeMove } from 'chessops/chess';
 import { type Chess, type NormalMove, parseUci, makeUci } from 'chessops';
@@ -19,11 +19,11 @@ export const readDests = (lines?: string): Dests | null => {
   if (lines === '') return new Map();
   return lines.split(' ').reduce<Dests>((dests, line) => {
     dests.set(
-      uciChar[line[0]],
+      destCharToKey[line[0]],
       line
         .slice(1)
         .split('')
-        .map(c => uciChar[c]),
+        .map(c => destCharToKey[c]),
     );
     return dests;
   }, new Map());

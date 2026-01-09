@@ -28,7 +28,7 @@ export default function (ctrl: PuzzleCtrl): DrawShape[] {
   let shapes: DrawShape[] = [];
   if (hovering && hovering.fen === n.fen)
     shapes = shapes.concat(makeAutoShapesFromUci(color, hovering.uci, 'paleBlue'));
-  if (ctrl.showAnalysis() && ctrl.ceval.storedPv() > 0) {
+  if (ctrl.showEvaluation() && ctrl.ceval.storedPv() > 0) {
     if (n.eval) shapes = shapes.concat(makeAutoShapesFromUci(color, n.eval.best!, 'paleGreen'));
     if (!hovering) {
       let nextBest: Uci | undefined = ctrl.nextNodeBest();

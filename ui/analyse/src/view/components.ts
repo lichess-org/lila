@@ -111,7 +111,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
         },
       },
       class: {
-        'comp-off': !ctrl.showFishnetAnalysis(),
+        'comp-off': !ctrl.showStaticAnalysis(),
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
         'gamebook-play': !!gamebookPlayView,

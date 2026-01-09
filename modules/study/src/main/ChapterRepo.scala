@@ -269,20 +269,11 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
                 id -> ~hash.get(id)
               .to(SeqMap)
 
-  def startServerEval(chapter: Chapter) =
-    coll:
-      _.updateField(
-        $id(chapter.id),
-        "serverEval",
-        Chapter.ServerEval(
-          path = chapter.root.mainlinePath,
-          done = false
-        )
-      )
-    .void
-
-  def completeServerEval(chapter: Chapter) =
-    coll(_.updateField($id(chapter.id), "serverEval.done", true)).void
+  def updateServerEval(chapterId: StudyChapterId, done: Boolean, mainlinePath: Option[UciPath]) =
+    val update = mainlinePath match
+      case Some(path) => $set("serverEval" -> Chapter.ServerEval(path, done, 1.some))
+      case _ => $set("serverEval.done" -> done)
+    coll(_.update.one($id(chapterId), update)).void
 
   def countByStudyId(studyId: StudyId): Fu[Int] =
     coll(_.countSel($studyId(studyId)))
@@ -295,3 +286,29 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def delete(c: Chapter): Funit = delete(c.id)
 
   def $studyId(id: StudyId) = $doc("studyId" -> id)
+
+  def stripEngineFields(chapter: Chapter): Funit =
+    val engineNodeFields = engineOnlySubtreeFields(chapter.root, UciPath.root)
+    engineNodeFields.nonEmpty.so:
+      val commentFields =
+        chapter.root.children
+          .nodesOn(chapter.root.mainlinePath)
+          .map(_._2)
+          .map(path => s"${path.toDbField}.${lila.study.Node.BsonFields.comments}")
+      val commentPulls = $doc(commentFields.map(f => f -> $doc("by" -> "l")))
+      coll(_.update.one($id(chapter.id), $doc($unset(engineNodeFields), $pull(commentPulls)))).void
+
+  private def engineOnlySubtreeFields(node: lila.tree.Node, path: UciPath): List[String] =
+    node.children.nodes.flatMap: kid =>
+      val kidPath = path + kid.id
+      if hasUserData(kid) then engineOnlySubtreeFields(kid, kidPath)
+      else allDescendants(kid, kidPath)
+
+  private def allDescendants(branch: lila.tree.Branch, path: UciPath): List[String] =
+    (path.toDbField ::
+      branch.children.nodes.flatMap(kid => allDescendants(kid, path + kid.id)))
+
+  private def hasUserData(node: lila.tree.Node): Boolean =
+    !node.comp ||
+      node.comments.value.exists(_.by != lila.tree.Node.Comment.Author.Lichess) ||
+      node.children.nodes.exists(hasUserData)

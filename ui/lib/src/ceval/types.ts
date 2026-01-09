@@ -1,13 +1,14 @@
 import type { Outcome } from 'chessops/types';
 import type { Prop } from '../index';
 import type { Feature } from '../device';
-import type CevalCtrl from './ctrl';
+import type { CevalCtrl } from './ctrl';
 import type { VNode } from 'snabbdom';
 
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
 export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
 export type Millis = number;
+export type EngineTrust = 'cloudEval' | 'staticAnalysis' | 'puzzleReport';
 
 export interface Work {
   variant: VariantKey;
@@ -36,6 +37,7 @@ export interface BaseEngineInfo {
   maxThreads?: number;
   maxHash?: number;
   requires?: Feature[];
+  trustedFor?: EngineTrust[];
 }
 
 export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
@@ -60,7 +62,6 @@ export interface BrowserEngineInfo extends BaseEngineInfo {
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
   requires: Feature[];
   obsoletedBy?: Feature;
-  cloudEval?: boolean;
 }
 
 export type EngineInfo = BrowserEngineInfo | ExternalEngineInfo;
@@ -94,8 +95,19 @@ export interface EvalMeta {
 export type Redraw = () => void;
 export type Progress = (p?: { bytes: number; total: number }) => void;
 
-export interface CustomCeval {
+export interface EngineArgs {
+  threads: number;
+  hashSize: number;
+  id: string;
+}
+
+export interface CustomSearch {
+  engine?: EngineArgs;
   search?: () => Search | Millis; // pass number as millis to cap user defined search
+  canBackground?: boolean;
+}
+
+export interface CustomCeval extends CustomSearch {
   pearlNode?: () => VNode | undefined;
   statusNode?: () => VNode | string | undefined;
 }
@@ -143,7 +155,7 @@ export interface CevalHandler {
   startCeval: () => void;
   cevalEnabled: (enable?: boolean) => boolean | 'force';
   externalEngines?: () => ExternalEngineInfo[] | undefined;
-  showFishnetAnalysis?: () => boolean;
+  showStaticAnalysis?: () => boolean;
 }
 
 export interface NodeEvals {

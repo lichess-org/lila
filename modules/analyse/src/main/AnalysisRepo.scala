@@ -8,7 +8,7 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
 
   import AnalyseBsonHandlers.given
 
-  def save(analysis: Analysis) = coll.insert.one(analysis).void
+  def save(analysis: Analysis) = coll.update.one($id(analysis.id), analysis, upsert = true).void
 
   def byId(id: Analysis.Id): Fu[Option[Analysis]] = coll.byId[Analysis](id)
 
@@ -29,4 +29,5 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
   def remove(ids: List[GameId]) = coll.delete.one($inIds(ids.map(Analysis.Id(_))))
 
   def exists(id: GameId) = coll.exists($id(Analysis.Id(id)))
+  def exists(id: Analysis.Id) = coll.exists($id(id))
   def chapterExists(id: StudyChapterId) = coll.exists($id(id.value))

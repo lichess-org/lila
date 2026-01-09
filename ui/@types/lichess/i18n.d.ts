@@ -3043,6 +3043,8 @@ interface I18n {
     allSquaresOfTheBoard: string;
     /** Always */
     always: string;
+    /** Analyse */
+    analyse: string;
     /** Analysis board */
     analysis: string;
     /** Analysis options */
@@ -3229,8 +3231,8 @@ interface I18n {
     classicalDesc: string;
     /** Clear board */
     clearBoard: string;
-    /** Clear moves */
-    clearSavedMoves: string;
+    /** Clear local data */
+    clearLocalData: string;
     /** Clear search */
     clearSearch: string;
     /** Click here to read it */
@@ -4965,6 +4967,8 @@ interface I18n {
     alphabetical: string;
     /** Analysis mode */
     analysisMode: string;
+    /** Analysis upload failed. Try again later. */
+    analysisUploadFailed: string;
     /** Click the !? button, or a right click on the move list on the right.<br>Annotation glyphs are shared and saved. */
     annotatePositionText: string;
     /** Annotate a position */
@@ -4989,6 +4993,12 @@ interface I18n {
     blunder: string;
     /** Brilliant move */
     brilliantMove: string;
+    /** Broadcast */
+    broadcast: string;
+    /** Same as official broadcast tournaments. Five times stronger than standard. */
+    broadcastQuality: string;
+    /** Cannot be published */
+    cannotBePublished: string;
     /** Chapters are saved forever.<br>Have fun organizing your chess content! */
     chapterConclusionText: string;
     /** Chapter PGN */
@@ -5039,6 +5049,8 @@ interface I18n {
     createStudy: string;
     /** Current chapter URL */
     currentChapterUrl: string;
+    /** Current game */
+    currentGame: string;
     /** Setup the board your way.<br>Suited to explore endgames. */
     customPositionText: string;
     /** Custom position */
@@ -5057,6 +5069,8 @@ interface I18n {
     deleteThisChapter: string;
     /** Development */
     development: string;
+    /** Done in %s seconds */
+    doneInX: I18nFormat;
     /** Double defeat */
     doubleDefeat: string;
     /** Download game */
@@ -5091,12 +5105,12 @@ interface I18n {
     fromPgnGameText: string;
     /** From a PGN game */
     fromPgnGameTitle: string;
-    /** Get a full server-side computer analysis of the mainline. */
-    getAFullComputerAnalysis: string;
     /** Need help? Get the tour! */
     getTheTour: string;
     /** Good move */
     goodMove: string;
+    /** Has */
+    has: string;
     /** Hide next moves */
     hideNextMoves: string;
     /** Hot */
@@ -5113,6 +5127,8 @@ interface I18n {
     inviteOnly: string;
     /** Invite to the study */
     inviteToTheStudy: string;
+    /** Keep mine */
+    keepMine: string;
     /** Kick */
     kick: string;
     /** Leave the study */
@@ -5129,6 +5145,10 @@ interface I18n {
     loadExistingLichessGameText: string;
     /** Load an existing lichess game */
     loadExistingLichessGameTitle: string;
+    /** Local analysis */
+    localAnalysis: string;
+    /** Looks like a similar or better analysis already exists. */
+    looksLikeASimilar: string;
     /** Make sure the chapter is complete. You can only request analysis once. */
     makeSureTheChapterIsComplete: string;
     /** Manage topics */
@@ -5139,6 +5159,8 @@ interface I18n {
     mistake: string;
     /** Most popular */
     mostPopular: string;
+    /** Move %1$s of %2$s */
+    moveXOfY: I18nFormat;
     /** My favourite studies */
     myFavoriteStudies: string;
     /** My private studies */
@@ -5165,6 +5187,8 @@ interface I18n {
     nextChapter: string;
     /** Nobody */
     nobody: string;
+    /** Nodes */
+    nodes: string;
     /** No: let people browse freely */
     noLetPeopleBrowseFreely: string;
     /** None yet. */
@@ -5187,6 +5211,8 @@ interface I18n {
     open: string;
     /** Orientation */
     orientation: string;
+    /** Or perform a stronger one on your device. */
+    orPerformAStrongerOne: string;
     /** Paste games as PGN text here. For each game, a new chapter is created. The study can have up to %s chapters. */
     pasteYourPgnTextHereUpToNbGames: I18nPlural;
     /** %s per page */
@@ -5209,14 +5235,22 @@ interface I18n {
     prevChapter: string;
     /** Private */
     private: string;
+    /** Projected */
+    projected: string;
     /** Public */
     public: string;
+    /** Publish */
+    publish: string;
+    /** Quality */
+    quality: string;
     /** Read more about embedding */
     readMoreAboutEmbedding: string;
     /** Recently updated */
     recentlyUpdated: string;
     /** Relevant */
     relevant: string;
+    /** Request a server analysis of the mainline. */
+    requestAServerAnalysis: string;
     /** Right under the board */
     rightUnderTheBoard: string;
     /** Save */
@@ -5225,6 +5259,12 @@ interface I18n {
     saveChapter: string;
     /** Search by username */
     searchByUsername: string;
+    /** The server already has analysis of this strength. */
+    serverAlreadyHas: string;
+    /** Server analysis */
+    serverAnalysis: string;
+    /** There is a server analysis in progress for this game. You can try again when that's done. */
+    serverAnalysisInProgress: string;
     /** Share & export */
     shareAndExport: string;
     /** Share changes with spectators and save them on the server */
@@ -5239,6 +5279,8 @@ interface I18n {
     showResults: string;
     /** Spectator */
     spectator: string;
+    /** Same as normal Lichess server analysis */
+    standardQuality: string;
     /** Start */
     start: string;
     /** Start at initial position */
@@ -5249,6 +5291,8 @@ interface I18n {
     startFromCustomPosition: string;
     /** Start from initial position */
     startFromInitialPosition: string;
+    /** Starting position */
+    startingPosition: string;
     /** Studies created by %s */
     studiesCreatedByX: I18nFormat;
     /** Studies I contribute to */
@@ -5275,6 +5319,12 @@ interface I18n {
     timeTrouble: string;
     /** Topics */
     topics: string;
+    /** You must enable REC before you can share local analysis to a study. */
+    turnOnRec: string;
+    /** Ultra */
+    ultra: string;
+    /** Use your own engine settings. Your device should outperform broadcast quality at %s seconds per move. */
+    ultraQualityXSeconds: I18nFormat;
     /** Unclear position */
     unclearPosition: string;
     /** Unlike */
@@ -5283,6 +5333,8 @@ interface I18n {
     unlisted: string;
     /** URL of the games, one per line */
     urlOfTheGame: string;
+    /** Use theirs */
+    useTheirs: string;
     /** Yes, you can study crazyhouse<br>and all lichess variants! */
     variantsAreSupportedText: string;
     /** Studies support variants */
@@ -5297,6 +5349,8 @@ interface I18n {
     whatAreStudies: string;
     /** What would you play in this position? */
     whatWouldYouPlay: string;
+    /** Server analysis on chapters created before local analysis was introduced cannot be upgraded cleanly. Older engine lines and comments will remain unless you remove them first. */
+    whenUpgradingOldChapters: string;
     /** Where do you want to study that? */
     whereDoYouWantToStudyThat: string;
     /** White defeat, but Black can't win */
@@ -5307,12 +5361,18 @@ interface I18n {
     whiteIsSlightlyBetter: string;
     /** White is winning */
     whiteIsWinning: string;
+    /** Will use */
+    willUse: string;
     /** With compensation */
     withCompensation: string;
     /** With the idea */
     withTheIdea: string;
     /** %1$s, brought to you by %2$s */
     xBroughtToYouByY: I18nFormat;
+    /** %s nodes per move */
+    xNodesPerMove: I18nFormat;
+    /** %1$sx %2$s quality */
+    xTimesYQuality: I18nFormat;
     /** Yes: keep everyone on the same position */
     yesKeepEveryoneOnTheSamePosition: string;
     /** You are now a contributor */
@@ -5321,6 +5381,8 @@ interface I18n {
     youAreNowASpectator: string;
     /** You can paste this in the forum or your Lichess blog to embed */
     youCanPasteThisInTheForumToEmbed: string;
+    /** Your current local analysis can be published */
+    youCanPublish: string;
     /** Congratulations! You completed this lesson. */
     youCompletedThisLesson: string;
     /** Zugzwang */
