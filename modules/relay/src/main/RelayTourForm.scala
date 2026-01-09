@@ -175,7 +175,7 @@ object RelayTourForm:
         spotlight = spotlight.filterNot(_.isEmpty).ifTrue(Granter(_.StudyAdmin)),
         pinnedStream = pinnedStream.ifTrue(Granter(_.StudyAdmin)),
         note = note,
-        orphanWarn = orphanWarn | true
+        orphanWarn = orphanWarn
       ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:
