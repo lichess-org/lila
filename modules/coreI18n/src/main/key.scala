@@ -2372,6 +2372,7 @@ object I18nKey:
     val `search`: I18nKey = "search"
     val `clearSearch`: I18nKey = "clearSearch"
     val `tags`: I18nKey = "tags"
+    val `enPassant`: I18nKey = "enPassant"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
     val `mateInXHalfMoves`: I18nKey = "mateInXHalfMoves"
     val `nbBlunders`: I18nKey = "nbBlunders"
