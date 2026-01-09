@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">통신 대국 업데이트</string>
   <string name="notifyChallenge">대국 신청</string>
   <string name="notifyTournamentSoon">곧 토너먼트 시작할 때</string>
+  <string name="notifyBroadcasts">구독한 방송</string>
   <string name="notifyTimeAlarm">통신 대국 시간 곧 만료됨</string>
   <string name="notifyBell">Lichess 내에서 벨 알림</string>
   <string name="notifyPush">Lichess를 사용하지 않을 때 기기 알림</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">기기 정보</string>
   <string name="bellNotificationSound">벨 알림 음</string>
   <string name="blindfold" comment="As in Blindfold chess">기물 숨기기</string>
+  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.">모바일 기기에서 왼쪽에 보이기</string>
 </resources>
