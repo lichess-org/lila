@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">Novo v korespondenčnih partijah</string>
   <string name="notifyChallenge">Izzivi</string>
   <string name="notifyTournamentSoon">Turnir se bo kmalu začel</string>
+  <string name="notifyBroadcasts">Oddaje, na katere ste naročeni</string>
   <string name="notifyTimeAlarm">Potekel vam bo čas</string>
   <string name="notifyBell">Zvočno obvestilo znotraj Lichess</string>
   <string name="notifyPush">Obvestilo naprave, ko niste na Lichessu</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">Naprava</string>
   <string name="bellNotificationSound">Zvok obvestila zvonca</string>
   <string name="blindfold" comment="As in Blindfold chess">Šah z zavezanimi očmi</string>
+  <string name="showClockOnTheLeft" comment="A setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.">Prikaži na levi strani na mobilnih napravah</string>
 </resources>
