@@ -9,6 +9,7 @@
 
 @include mq-at-least-col3 {
   .analyse {
+    grid-template-rows: auto auto minmax(0px, auto) auto 1fr;
     grid-template-areas:
       'side    . board   gauge tools'
       'side    . board   gauge tools'
@@ -26,7 +27,7 @@
   }
   .analyse.variant-crazyhouse {
     $pocket-height: 60px;
-    grid-template-rows: $pocket-height auto var(---chat-height) $pocket-height 2.5em 1fr;
+    grid-template-rows: $pocket-height auto var(---chat-height) $pocket-height minmax(0px, auto) 1fr;
     grid-template-areas:
       'side    . board   gauge pocket-top'
       'side    . board   gauge tools'
