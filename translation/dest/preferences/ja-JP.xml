@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">通信戦の進行状況</string>
   <string name="notifyChallenge">挑戦が来た時</string>
   <string name="notifyTournamentSoon">トーナメントが間もなく開始</string>
+  <string name="notifyBroadcasts">あなたがフォローしている配信</string>
   <string name="notifyTimeAlarm">通信戦の時間切迫</string>
   <string name="notifyBell">Lichess にいる時にベル音</string>
   <string name="notifyPush">Lichess にいない時にデバイスでの通知</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">デバイス</string>
   <string name="bellNotificationSound">ベル通知の音</string>
   <string name="blindfold" comment="As in Blindfold chess">めかくしモード</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">モバイル機器では左側に表示</string>
 </resources>
