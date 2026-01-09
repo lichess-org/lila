@@ -27,7 +27,7 @@
   }
   .analyse.variant-crazyhouse {
     $pocket-height: 60px;
-    grid-template-rows: $pocket-height auto var(---chat-height) $pocket-height auto 1fr;
+    grid-template-rows: $pocket-height auto var(---chat-height) $pocket-height minmax(0px, auto) 1fr;
     grid-template-areas:
       'side    . board   gauge pocket-top'
       'side    . board   gauge tools'
