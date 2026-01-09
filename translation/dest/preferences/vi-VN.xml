@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">Những cập nhật liên quan đến ván cờ qua thư</string>
   <string name="notifyChallenge">Các lời thách đấu</string>
   <string name="notifyTournamentSoon">Giải đấu sắp bắt đầu</string>
+  <string name="notifyBroadcasts">Những phát sóng bạn đã đăng ký theo dõi</string>
   <string name="notifyTimeAlarm">Thời gian đánh cờ qua thư sắp hết</string>
   <string name="notifyBell">Chuông thông báo khi đang truy cập Lichess</string>
   <string name="notifyPush">Thông báo tới thiết bị của bạn khi bạn không truy cập Lichess</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">Thiết bị</string>
   <string name="bellNotificationSound">Âm thanh chuông báo</string>
   <string name="blindfold" comment="As in Blindfold chess">Bịt mắt</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Hiện ở bên trái trên thiết bị di động</string>
 </resources>
