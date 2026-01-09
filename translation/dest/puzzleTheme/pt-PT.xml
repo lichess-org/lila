@@ -17,6 +17,7 @@
   <string name="balestraMate">Mate de balestra</string>
   <string name="balestraMateDescription">Um bispo faz xeque-mate, enquanto a rainha bloqueia os restantes quadrados de fuga</string>
   <string name="blindSwineMate">Mate do Porco Cego</string>
+  <string name="blindSwineMateDescription">Duas torres cooperam para dar xeque-mate ao rei numa área de 2 por 2 quadrados.</string>
   <string name="bishopEndgame">Final de bispos</string>
   <string name="bishopEndgameDescription">Um final apenas com bispos e peões.</string>
   <string name="bodenMate">Mate Boden</string>
@@ -27,6 +28,7 @@
   <string name="capturingDefenderDescription">Remove uma peça que seja crítica para a defesa de outra peça, permitindo que esta seja capturada na próxima jogada.</string>
   <string name="crushing">Esmagar</string>
   <string name="crushingDescription">Descobre um erro grave do oponente e obtém uma vantagem esmagadora. (avaliação ≥ 600cp)</string>
+  <string name="discoveredCheck">Xeque Descoberto</string>
   <string name="doubleBishopMate">Mate com dois bispos</string>
   <string name="doubleBishopMateDescription">Dois bispos em diagonais adjacentes dão mate ao rei inimigo obstruído por peças aliadas.</string>
   <string name="dovetailMate">Mate cauda-de-andorinha</string>
