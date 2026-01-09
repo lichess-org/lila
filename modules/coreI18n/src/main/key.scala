@@ -845,7 +845,6 @@ object I18nKey:
     val `findAWayToCastleKingSide`: I18nKey = "learn:findAWayToCastleKingSide"
     val `findAWayToCastleQueenSide`: I18nKey = "learn:findAWayToCastleQueenSide"
     val `castlingComplete`: I18nKey = "learn:castlingComplete"
-    val `enPassant`: I18nKey = "learn:enPassant"
     val `theSpecialPawnMove`: I18nKey = "learn:theSpecialPawnMove"
     val `enPassantIntro`: I18nKey = "learn:enPassantIntro"
     val `blackJustMovedThePawnByTwoSquares`: I18nKey = "learn:blackJustMovedThePawnByTwoSquares"
