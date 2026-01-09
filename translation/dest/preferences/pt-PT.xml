@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Mostrar o cursor de redimensionamento do tabuleiro</string>
   <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
   <string name="inGameOnly">Apenas em Jogo</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Exceto em jogo</string>
+  <string name="exceptInGame">Exceto em jogo</string>
   <string name="chessClock">Relógio de xadrez</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando o tempo restante for &lt; 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando o tempo restante for &lt; 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progresso verdes horizontais</string>
   <string name="soundWhenTimeGetsCritical">Som ao atingir tempo crítico</string>
   <string name="giveMoreTime">Dar mais tempo</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Mantenha a tecla &lt;ctrl&gt; pressionada enquanto promove para desativar temporariamente a autopromoção</string>
   <string name="whenPremoving">Quando mover antecipadamente</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reivindicar empate automaticamente após uma repetição tripla</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando o tempo restante for &lt; 30 segundos</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante for &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
   <string name="explainCanThenBeTemporarilyDisabled">Pode ser desativado durante um jogo com o menu do tabuleiro</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">Navegador</string>
   <string name="notifyDevice">Dispositivo</string>
   <string name="bellNotificationSound">Som da notificação</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">De olhos vendados</string>
+  <string name="blindfold" comment="As in Blindfold chess">De olhos vendados</string>
 </resources>
