@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="chessVideos">ວິດີໂອໝາກຮຸກ</string>
+  <string name="allVideosAreFree">ທຸກວິດີໂອແມ່ນເປີດໃຫ້ເບິ່ງຟຣີສຳລັບທຸກຄົນ.</string>
+  <string name="selectTagsToFilter">ເລືອກແທັກເພື່ອຄັດກອງວິດີໂອ.</string>
+  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">ພວກເຮົາໄດ້ຄັດສັນ %s ວິດີໂອຢ່າງລະອຽດແລ້ວ!</string>
+  <string name="freeChessVideos">ວິດີໂອໝາກຮຸກຟຣີ</string>
+  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s ວິດີໂອໝາກຮຸກທີ່ຄັດສັນມາຢ່າງດີ ແລະ ຟຣີ</string>
+  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s ວິດີໂອໝາກຮຸກທີ່ຄັດສັນມາແລ້ວ</string>
+  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s ພ້ອມກັບແທັກ %2$s</string>
+  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">ຟຣີສຳລັບທຸກຄົນ</string>
+  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+    <item quantity="other">ພົບ %s ວິດີໂອ</item>
+  </plurals>
+  <string name="noVideosForTheseTags">ບໍ່ມີວິດີໂອສຳລັບແທັກເຫຼົ່ານີ້:</string>
+  <string name="thatsAllWeGotForTheseTags">ນັ້ນຄືທັງໝົດທີ່ພວກເຮົາມີສຳລັບແທັກເຫຼົ່ານີ້:</string>
+  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">ນັ້ນຄືທັງໝົດທີ່ພວກເຮົາມີສຳລັບການຄົ້ນຫານີ້: \"%s\"</string>
+  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">ບໍ່ມີຜົນການຄົ້ນຫາສຳລັບ \"%s\"</string>
+  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">ເບິ່ງແທັກເພີ່ມເຕີມ</string>
+  <string name="videoNotFound">ບໍ່ພົບວິດີໂອ!</string>
+  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">%1$s ໂດຍ %2$s</string>
+  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">ແທັກວິດີໂອທັງໝົດ %s ແທັກ</string>
+</resources>

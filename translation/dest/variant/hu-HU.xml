@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="standard" comment="As in standard chess (not a variant)">Normál</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Sakk960</string>
+  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Fischer Random</string>
   <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">Az alapsori bábuk véletlenszerű mezőről indulnak.</string>
   <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Juttasd a királyt a centrumba, hogy megnyerd a partit.</string>
   <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">Adj 3 sakkot a győzelemért.</string>

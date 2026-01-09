@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Confirma la to cuenta de lichess.org, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Polsa nel enllaz pa activar la to cuenta:</string>
-  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Si nun rexistrastete en Lichess, pues ignorar esti mensaxe. Les cuentes ensin confirmar y tolos datos rellacionaos cola to cuenta de corréu van ser borraos del nuestru sistema en 48 hores.</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Si nun rexistrastete en Lichess, puedes ignorar esti mensaxe. Les cuentes ensin confirmar y tolos datos rellacionaos cola to cuenta de corréu van ser borraos del nuestru sistema en 48 hores.</string>
   <string name="passwordReset_subject">Resablez la to contraseña de lichess.org, %s</string>
   <string name="passwordReset_intro">Recibimos una solicitú pa restablecer la to contraseña.</string>
   <string name="passwordReset_clickOrIgnore">Si fixisti esta solicitú, fai click nel enllaz. Si non, ignora\'l mensaxe.</string>
@@ -16,7 +16,7 @@ Esta ye la so páxina de perfil: %1$s. Puedes personalizalo en %2$s.
 
 ¡Préstate y que les tos pieces siempres atopen el camín escontra\'l rei del to oponente!</string>
   <string name="logInToLichess">Empecipia sesión en lichess.org, %s</string>
-  <string name="common_orPaste">(¿Faer clic nun funciona? ¡Intenta pegalo nel to navegador!)</string>
+  <string name="common_orPaste">(¿Facer clic nun funciona? ¡Intenta pegalo nel to navegador!)</string>
   <string name="common_note">Este ye un corréu electrónicu de serviciu rellacionáu col to usu de %s.</string>
   <string name="common_contact">Para ponete en contactu con nós, utiliza %s.</string>
 </resources>

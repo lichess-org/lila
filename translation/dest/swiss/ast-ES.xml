@@ -72,7 +72,59 @@ Creemos que ye más probable qu\'estes condiciones cumplir nun equipu qu\'en tor
   <string name="numberOfByesA">Un xugador recibe un bye d\'un puntu cada vez que\'l sistema d\'empareyamientu nun ye capaz d\'asigna-y un oponente.
 Amás, concédese un únicu bye de mediu puntu cuando un xugador xunir a un tornéu cuando ésti yá empezó.</string>
   <string name="earlyDrawsQ">¿Qué asocede coles tables tempranes?</string>
+  <string name="earlyDrawsAnswer">Nos torneos suizos, los xugadores nun pueden declarar tables antes de xugar 30 movimientos. Esta midida nun puede torgar les tables alcordaes primeramente, pero fai más difícil aceptales sobre la marcha.</string>
+  <string name="whatIfOneDoesntPlayQ">¿Qué pasa si un xugador nun xuega una partida?</string>
+  <string name="whatIfOneDoesntPlayA">El so reló va ponese en marcha, hasta que pierda la partida por tiempu.
+De siguío, el sistema va retirar al xugador del tornéu pa que nun pierda más partíes.
+Va poder volver xunise al tornéu en cualquier momentu.</string>
+  <string name="protectionAgainstNoShowQ">¿Qué asocedi cuando un xugador nun se presenta?</string>
+  <string name="protectionAgainstNoShowA">Los xugadores que se rexistren n\'eventos suizos pero que nun xueguen pueden suponer un problema.
+Pa solucionar esti inconveniente, Lichess evita que los xugadores que nun pudieron xugar una partida xunanse a un nuevu eventu suizu mientres un periodu de tiempu determináu.
+El ceador d\'un eventu suizu puede decidir dexar que se xunan al eventu igualmente.</string>
+  <string name="lateJoinQ">¿Pueden xunise xugadores a un tornéu empezáu?</string>
+  <string name="lateJoinA">Sí, hasta que s\'empecipiaren más de la metá de les rondes; por casu, nun tornéu suizu de 11 rondes, los xugadores pueden xunise antes qu\'empiece la ronda 6; nun tornéu de 12 rondes, van poder xunise primero qu\'empiece la ronda 7.
+Los xugadores que xunanse a un tornéu empezáu van recibir un únicu bye, inclusive si nun se presenten a delles rondes.</string>
+  <string name="willSwissReplaceArenasQ">¿Van reemplazar los torneos suizos a los torneos estándar?</string>
+  <string name="willSwissReplaceArenasA">Non, son característiques complementaries.</string>
+  <string name="roundRobinQ">¿Qué asocede colos empareyamientos de toos contra toos?</string>
   <string name="roundRobinA">Gustaríanos agregarlos, pero esti tipu d\'empareyamientos nun suelen funcionar en llínea.
 El motivu ye que nun esiste xuna forma xusta de penalizar a los xugadores qu\'abandonen el tornéu de forma temprana. Nun podemos esperar que tolos participantes xueguen toles sos partíes nun eventu en llínea. Ye daqué qu\'a tan solo nun va asoceder y, como resultancia, la mayoría de los torneos de toos contra toos van ser imperfectos inxustos, lo que fai que la so principal finalidá sía inválida.
 El formatu más próximu a un tornéu en llínea de toos contra toos ye un tornéu suizu con un númberu de rondes bien eleváu. D\'esta forma, van xugase tolos posibles empareyamientos primero que remate el tornéu.</string>
+  <string name="otherSystemsQ">¿Qué asocede con otros sistemes de torneos?</string>
+  <string name="otherSystemsA">Tovía, nun tenemos previstu añedir más sistemes de torneos a Lichess.</string>
+  <string name="swissDescription">Nun tornéu suizu %1$s, cada xugador nun tien qu\'enfrentase necesariamente a tolos participantes. Los xugadores enfréntense unu a unu en cada ronda y empareyar por aciu un conxuntu de riegles diseñáu pa garantizar que xueguen con oponentes d\'una puntuación similar; pero nun pueden enfrentase más d\'una vegada al mesmu oponente. El ganador ye el xugador que llogre el mayor númberu de puntos en toles rondes. Los participantes tienen de xugar toles rondes, esceuto si hai un númberu impar de xugadores.</string>
+  <string name="teamOnly">Los torneos suizos solo pueden crealos los líderes del equipu, y solo pueden participar los miembros d\'un equipu.
+%1$s pa entamar a xugar en torneos suizos.</string>
+  <string name="joinOrCreateTeam">Xúnite o crea un equipu</string>
+  <string name="nowPlaying">En cursu</string>
+  <string name="startingSoon">Entama pronto</string>
+  <string name="comparison">Comparanza</string>
+  <string name="tournDuration">Duración del tornéu</string>
+  <string name="predefinedDuration">Duración predefinida en minutos</string>
+  <string name="durationUnknown">Númberu máximu predefinido de rondes, pero duración desconocida</string>
+  <string name="numberOfGames">Númberu de partíes</string>
+  <string name="numberOfGamesAsManyAsPossible">Tantes como puedan xugase na duración asignada</string>
+  <string name="numberOfGamesPreDefined">Decidese con antelación, igual pa toos el xugadores</string>
+  <string name="pairingSystem">Sistema d\'empareyamientu</string>
+  <string name="pairingSystemArena">Cualquier oponente disponible con una puntuación similar</string>
+  <string name="pairingSystemSwiss">Meyor empareyamientu basáu en puntos y empates</string>
+  <string name="pairingWaitTime">Tiempu d\'espera d\'empareyamientu</string>
+  <string name="pairingWaitTimeArena">Rápido: nun espera a tolos xugadores</string>
+  <string name="pairingWaitTimeSwiss">Lentu: espera a tolos xugadores</string>
+  <string name="identicalPairing">Empareyamientu idénticu</string>
+  <string name="possibleButNotConsecutive">Posible, pero non consecutivu</string>
+  <string name="identicalForbidden">Prohibíu</string>
+  <string name="lateJoin">Xunirse tarde</string>
+  <string name="lateJoinUntil">Sí, hasta que s\'empecipiaren más de la metá de les rondes</string>
+  <string name="pause">Pausa</string>
+  <string name="pauseSwiss">Sí, pero podría amenorgase el númberu de rondes</string>
+  <string name="streaksAndBerserk">Raches y Berserk</string>
+  <string name="similarToOTB">Similar a torneos presenciales</string>
+  <string name="unlimitedAndFree">Ilimitáu y gratuitu</string>
+  <string name="predefinedUsers">Dexar xunise namá a usuarios predefinidos</string>
+  <string name="forbiddedUsers">Si esta llista nun ta vacida, a los usuarios ausentes d\'esta llista va a tar prohibíu xunise. Un nome d\'usuariu per llínea.</string>
+  <string name="playYourGames">Xuega les tos partíes</string>
+  <string name="byes">Byes</string>
+  <string name="absences">Ausencies</string>
+  <string name="tieBreak">Desempate</string>
 </resources>

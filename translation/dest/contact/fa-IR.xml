@@ -45,7 +45,7 @@
   <string name="illegalCastling">قلعه‌روی نامجاز یا ناممکن</string>
   <string name="castlingPrevented">از قلعه‌روی، هنگامی که شاه از خانه‌ی زیرِضرب می‌گذرد، جلوگیری می‌شود.</string>
   <string name="castlingRules">اطمینان یابید که قانون‌های قلعه‌روی را می‌فهمید</string>
-  <string name="tryCastling">برای تمرین قلعه‌روی در شطرنج، این بازی میان‌کنشی را انجام دهید</string>
+  <string name="tryCastling">برای تمرین قلعه‌روی در شطرنج، این بازی تعاملی را انجام دهید</string>
   <string name="castlingImported">اگر بازی را درون‌بُرده‌اید یا آن را از وضعیتی آغازیده‌اید، مطمئن شوید که حق قلعه‌روی را به‌درستی تنظیم کرده‌اید.</string>
   <string name="insufficientMaterial">نبودِ مهره کافی برای مات کردن</string>
   <string name="fideMate">بازگشت به قوانین فیده برای شطرنج بخش 6.9، اگر کیش و مات با هر گونه سلسله حرکتهای قانونی ممکن باشد، آنگاه بازی مساوی نیست</string>

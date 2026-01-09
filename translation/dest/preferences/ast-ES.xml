@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Amosar el control de tamañu del tableru</string>
   <string name="onlyOnInitialPosition">Namás en posición inicial</string>
   <string name="inGameOnly">Solu mientres la partida</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Escepto nel xuegu</string>
+  <string name="exceptInGame">Escepto nel xuegu</string>
   <string name="chessClock">Reló d\'axedez</string>
   <string name="tenthsOfSeconds">Décimes de segundu</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando queden menos de 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando queden menos de 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barres de progresu horizontales verdes</string>
   <string name="soundWhenTimeGetsCritical">Alerta cuando quede pocu tiempu</string>
   <string name="giveMoreTime">Dar más tiempu</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Mantén pulsiada la tecla &lt;ctrl&gt; al promocionar pa desactivar temporalmente la promoción automática</string>
   <string name="whenPremoving">Con antemanaes</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tables por triple repetición</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando\'l tiempu restante sía de &lt; 30 segundos</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Cuando\'l tiempu restante sía de &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmación de movimientu</string>
   <string name="explainCanThenBeTemporarilyDisabled">Puede desactivase mientres una partida col menú del tableru</string>
   <string name="inCorrespondenceGames">Partíes por correspondencia</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">Restolador web</string>
   <string name="notifyDevice">Dispositivu</string>
   <string name="bellNotificationSound">Campana de notificación</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">A ciegas</string>
+  <string name="blindfold" comment="As in Blindfold chess">A ciegas</string>
 </resources>

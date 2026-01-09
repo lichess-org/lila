@@ -22,7 +22,7 @@
   <string name="inGameOnly">Выключна ў партыі</string>
   <string name="chessClock">Шахматны гадзіннік</string>
   <string name="tenthsOfSeconds">Дзясятыя долі секунды</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Калі засталося менш за 10 с</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Калі засталося менш за 10 с</string>
   <string name="horizontalGreenProgressBars">Індыкатар часу</string>
   <string name="soundWhenTimeGetsCritical">Гукавое апавяшчэнне калі час хутка скончыцца</string>
   <string name="giveMoreTime">Дадаць часу</string>
@@ -38,7 +38,7 @@
   <string name="explainPromoteToQueenAutomatically">Зацісніце клавішу &lt;ctrl&gt; пад час пераўтварэння, каб часова адключыць аўта-пераўтварэнне</string>
   <string name="whenPremoving">Пры ходзе на апярэджанне</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Аўтаматычна запытваць нічыю пры трохразовым паўторы ходу</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Калі застаецца &lt; 30 секунд</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Калі застаецца &lt; 30 секунд</string>
   <string name="moveConfirmation">Пацверджанне руху</string>
   <string name="explainCanThenBeTemporarilyDisabled">Можа быць адключана падчас гульні з дапамогай меню дошкі</string>
   <string name="inCorrespondenceGames">У гульні па ліставанні</string>

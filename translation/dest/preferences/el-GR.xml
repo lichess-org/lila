@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Εμφάνιση χειριστηρίου αλλαγής μεγέθους σκακιέρας</string>
   <string name="onlyOnInitialPosition">Μόνο στην αρχική θέση</string>
   <string name="inGameOnly">Μόνο κατά τη διάρκεια της παρτίδας</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Όχι κατά τη διάρκεια της παρτίδας</string>
+  <string name="exceptInGame">Όχι κατά τη διάρκεια της παρτίδας</string>
   <string name="chessClock">Σκακιστικό χρονόμετρο</string>
   <string name="tenthsOfSeconds">Δέκατα του δευτερολέπτου</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Όταν απομένουν &lt; 10 δευτερόλεπτα</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Όταν απομένουν &lt; 10 δευτερόλεπτα</string>
   <string name="horizontalGreenProgressBars">Οριζόντιες πράσινες γραμμές προόδου</string>
   <string name="soundWhenTimeGetsCritical">Ηχητική ειδοποίηση όταν ο χρόνος γίνεται κρίσιμος</string>
   <string name="giveMoreTime">Προσθέστε περισσότερο χρόνο</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Κρατήστε πατημένο το πλήκτρο &lt;ctrl&gt; ενώ κάνετε την προαγωγή για να απενεργοποιήσετε προσωρινά την αυτόματη προαγωγή</string>
   <string name="whenPremoving">Μόνο στις προκινήσεις</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Διεκδικήστε ισοπαλία αυτόματα σε τριπλή επανάληψη</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Όταν απομένουν &lt; 30 δευτερόλεπτα</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Όταν απομένουν &lt; 30 δευτερόλεπτα</string>
   <string name="moveConfirmation">Επιβεβαίωση κίνησης</string>
   <string name="explainCanThenBeTemporarilyDisabled">Μπορεί να απενεργοποιηθεί κατά τη διάρκεια μιας παρτίδας από το μενού της σκακιέρας</string>
   <string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Συσκευή</string>
   <string name="bellNotificationSound">Ειδοποίηση με ήχο από καμπανάκι</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Τυφλό</string>
+  <string name="blindfold" comment="As in Blindfold chess">Τυφλό</string>
 </resources>
