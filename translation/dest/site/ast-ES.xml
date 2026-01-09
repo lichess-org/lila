@@ -951,7 +951,7 @@
   <string name="timeAlmostUp">¡Quedate pocu tiempu!</string>
   <string name="clickToRevealEmailAddress">[Fai clic pa amosar el corréu electrónicu]</string>
   <string name="download">Decargar</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Xestor d\'entrenador</string>
+  <string name="coachManager">Xestor d\'entrenador</string>
   <string name="streamerManager">Xestor d\'emisiones</string>
   <string name="cancelTournament">Encaboxar tornéu</string>
   <string name="tournDescription">Descripción del tornéu</string>
