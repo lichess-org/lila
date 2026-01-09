@@ -724,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Cycle previous/next variation</string>
   <string name="toggleGlyphAnnotations">Toggle move annotations</string>
   <string name="togglePositionAnnotations">Toggle position annotations</string>
+  <string name="toggleObservationAnnotations">Toggle observation annotations</string>
   <string name="variationArrowsInfo">Variation arrows let you navigate without using the move list.</string>
   <string name="playSelectedMove">play selected move</string>
   <string name="newTournament">New tournament</string>

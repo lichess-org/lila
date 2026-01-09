@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="logInAsUsername">ເຂົ້າສູ່ລະບົບໃນນາມ %s</string>
+  <string name="welcome">ຍິນດີຕ້ອນຮັບ!</string>
+  <string name="welcomeToLichess">ຍິນດີຕ້ອນຮັບສູ່ lichess.org!</string>
+  <string name="thisIsYourProfilePage">ນີ້ແມ່ນໜ້າໂປຣໄຟລ໌ຂອງທ່ານ.</string>
+  <string name="enabledKidModeSuggestion">ບັນຊີນີ້ຈະມີເດັກນ້ອຍໃຊ້ບໍ່? ທ່ານອາດຈະຕ້ອງການເປີດໃຊ້ %s.</string>
+  <string name="whatNowSuggestions">ຈະເຮັດຫຍັງຕໍ່ດີ? ນີ້ແມ່ນບາງຄຳແນະນຳ:</string>
+  <string name="learnChessRules">ຮຽນຮູ້ກົດກະຕິກາໝາກຮຸກ</string>
+  <string name="improveWithChessTacticsPuzzles">ພັດທະນາສີມືດ້ວຍເກມປິດສະໜາແທັກຕິກໝາກຮຸກ.</string>
+  <string name="playTheArtificialIntelligence">ຫຼິ້ນກັບປັນຍາປະດິດ (AI).</string>
+  <string name="playOpponentsFromAroundTheWorld">ຫຼິ້ນກັບຄູ່ຕໍ່ສູ້ຈາກທົ່ວໂລກ.</string>
+  <string name="followYourFriendsOnLichess">ຕິດຕາມໝູ່ເພື່ອນຂອງທ່ານໃນ Lichess.</string>
+  <string name="playInTournaments">ເຂົ້າຮ່ວມການແຂ່ງຂັນ.</string>
+  <string name="learnFromXAndY">ຮຽນຮູ້ຈາກ %1$s ແລະ %2$s.</string>
+  <string name="configureLichess">ຕັ້ງຄ່າ Lichess ຕາມຄວາມມັກຂອງທ່ານ.</string>
+  <string name="exploreTheSiteAndHaveFun">ສຳຫຼວດເວັບໄຊ ແລະ ຂໍໃຫ້ມ່ວນຊື່ນ :)</string>
+</resources>

@@ -3,7 +3,7 @@
   <string name="donate">داشَنیدن</string>
   <string name="donateAsX">به اسمِ %s داشَنید</string>
   <string name="lichessPatron">یاورِ Lichess</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">حامی از %s</string>
+  <string name="patronSince" comment="string is a date">حامی از %s</string>
   <string name="freeAccount">حساب کاربری رایگان</string>
   <string name="becomePatron">یاور Lichess بشوید</string>
   <string name="xBecamePatron">%s یاور Lichess شد</string>
@@ -14,7 +14,7 @@
   <string name="newPatrons">یاوران نو</string>
   <string name="freeChess">شطرنج رایگان برای همه، برای همیشه!</string>
   <string name="noAdsNoSubs">بدون تبلیغات، بدون اشتراکها، فقط متن‌باز و لذت‌بخش.</string>
-  <string name="thankYou" comment="&quot;you&quot; is in singular here.">از داشَن‌تان سپاسگزاریم!</string>
+  <string name="thankYou">از داشَن‌تان سپاسگزاریم!</string>
   <string name="youHaveLifetime">شما دارای یک حساب پشنیبان مادام‌العمر هستید. واقعاً خیلی عالی است!</string>
   <string name="patronUntil">شما تا %s حساب یاور دارید.</string>
   <string name="ifNotRenewedThenAccountWillRevert">اگر تمدید نشود، حساب شما به حالت عادی باز خواهد گشت.</string>
@@ -84,4 +84,5 @@
   <string name="paymentDetails">جزئیات پرداخت</string>
   <string name="updatePaymentMethod">به‌روزرسانی روش پرداخت</string>
   <string name="stripeManageSub">اشتراک خود را مدیریت کنید و صورت‌حساب‌ها و رسیدهای خود را بارگیری کنید</string>
+  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">من %s برای کمک به تکمیلِ هزینهٔ پردازش این تراکنش می‌اَفزایم</string>
 </resources>

@@ -707,8 +707,12 @@ export default class AnalyseCtrl implements CevalHandler {
 
       if (isThreat) {
         const threat = ev as Tree.LocalEval;
-        if (!node.threat || isEvalBetter(threat, node.threat)) node.threat = threat;
-      } else if ((!node.ceval || isEvalBetter(ev, node.ceval)) && !(ev.cloud && this.ceval.engines.external))
+        if (!node.threat || isEvalBetter(threat, node.threat, this.ceval.search.multiPv))
+          node.threat = threat;
+      } else if (
+        (!node.ceval || isEvalBetter(ev, node.ceval, this.ceval.search.multiPv)) &&
+        !(ev.cloud && this.ceval.engines.external)
+      )
         node.ceval = ev;
       else if (!ev.cloud) {
         if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;

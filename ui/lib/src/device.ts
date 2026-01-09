@@ -114,6 +114,9 @@ export const reducedMotion: () => boolean = memoize<boolean>(
 );
 
 function sharedMemoryTest(): boolean {
+  // Avoid WebKit crash: https://bugs.webkit.org/show_bug.cgi?id=303387
+  if (navigator.userAgent.includes('AppleWebKit/605.1.15')) return false;
+
   if (typeof Atomics !== 'object' || typeof SharedArrayBuffer !== 'function') return false;
 
   let mem;

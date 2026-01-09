@@ -110,7 +110,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               "giveMoreTime"
             ),
             setting(
-              "Show on the left of mobile devices",
+              trp.showClockOnTheLeft(),
               radios(form("clock.swapClock"), booleanChoices),
               "swapClock"
             )
@@ -251,7 +251,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
                     trp.notifyInboxMsg() -> "privateMessage",
                     trp.notifyChallenge() -> "challenge",
                     trp.notifyTournamentSoon() -> "tournamentSoon",
-                    frag("Broadcasts") -> "broadcastRound",
+                    trp.notifyBroadcasts() -> "broadcastRound",
                     trp.notifyGameEvent() -> "gameEvent"
                   ).map(makeRow(form))
                 )

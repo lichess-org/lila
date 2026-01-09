@@ -202,7 +202,7 @@ final private class RelaySync(
     for _ <- chapterRepo.setRelayPath(chapter.id, UciPath.root)
     yield
       if tour.official && !study.isMember(UserId("no-analysis")) && chapter.root.mainline.sizeIs > 4 then
-        scheduler.scheduleOnce(15.seconds):
+        scheduler.scheduleOnce(5.seconds):
           studyApi.analysisRequest(study.id, chapter.id, study.ownerId, official = true)
 
   private def makeRelayFor(game: RelayGame, path: UciPath)(using tour: RelayTour) =

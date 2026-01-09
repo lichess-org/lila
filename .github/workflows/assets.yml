@@ -67,7 +67,7 @@ jobs:
       - name: Tar assets
         run: cd assets && tar --zstd -cvpf ../assets.tar.zst . && cd -
       - name: Upload artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: lila-assets
           path: assets.tar.zst

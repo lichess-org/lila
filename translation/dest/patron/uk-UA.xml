@@ -3,7 +3,7 @@
   <string name="donate">Зробити внесок</string>
   <string name="donateAsX">Зробити внесок як %s</string>
   <string name="lichessPatron">Покровитель Lichess</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Спонсор з %s</string>
+  <string name="patronSince" comment="string is a date">Спонсор з %s</string>
   <string name="freeAccount">Безкоштовний обліковий запис</string>
   <string name="becomePatron">Стати Покровителем Lichess</string>
   <string name="xBecamePatron">%s став Покровителем Lichess</string>
@@ -88,4 +88,5 @@
   <string name="paymentDetails">Деталі оплати</string>
   <string name="updatePaymentMethod">Оновити спосіб оплати</string>
   <string name="stripeManageSub">Керувати своєю підпискою та завантажити ваші чеки</string>
+  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), to cover the transaction fees involved with the donation.">Я додам %s, аби покрити вартість обробки цієї трансакції</string>
 </resources>

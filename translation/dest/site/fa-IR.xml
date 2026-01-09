@@ -35,7 +35,7 @@
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
   <string name="kingInTheCenter">شاه روی تپه</string>
   <string name="threeChecks">سه‌کیش</string>
-  <string name="raceFinished">پایان تاخت</string>
+  <string name="raceFinished">پایانِ دو</string>
   <string name="variantEnding">پایان وَرتا</string>
   <string name="newOpponent">حریف جدید</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">حریفتان می‌خواهد یک بازی جدید با شما انجام دهد</string>
@@ -49,7 +49,7 @@
   <string name="opponentLeftChoices">ممکن است حریف شما بازی را ترک کرده باشد. شما می توانید ادعای پیروزی کنید, اعلام تساوی کنید یا منتظر او بمانید.</string>
   <string name="forceResignation">ادعای پیروزی</string>
   <string name="forceDraw">اعلام تساوی</string>
-  <string name="talkInChat">لطفا در گپ‌زنی بااَدب باشید!</string>
+  <string name="talkInChat">لطفا در گپیدن بااَدب باشید!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این وب‌نشانی آید با شما بازی خواهد کرد.</string>
   <string name="whiteResigned">سفید تسلیم شد</string>
   <string name="blackResigned">سیاه تسلیم شد</string>
@@ -133,7 +133,7 @@
   <string name="removesTheDepthLimit">محدودیت عمق را برمی‌دارد و رایانه‌تان داغ می‌ماند</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="mistake">اشتباه</string>
-  <string name="inaccuracy">بی دقتی</string>
+  <string name="inaccuracy">نادقیق</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s اشتباه بزرگ</item>
     <item quantity="other">%s اشتباه بزرگ</item>
@@ -316,7 +316,7 @@
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
   <string name="chatRoom">گپ‌سرا</string>
-  <string name="loginToChat">برای گپ زدن، وارد حساب‌تان شوید</string>
+  <string name="loginToChat">برای گپیدن، وارد شوید</string>
   <string name="youHaveBeenTimedOut">زمان شما به پایان رسید.</string>
   <string name="spectatorRoom">اتاق تماشاگران</string>
   <string name="composeMessage">نوشتن پیام</string>
@@ -622,8 +622,8 @@
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
   <string name="biographyDescription">درباره ی خودتان بگویید - به چه چیزی در شطرنج علاقه داریدو گشایش ها - بازی ها و بازیکنان مورد علاقه تان…</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">حداکثر: %s حرف</item>
-    <item quantity="other">حداکثر: %s حرف</item>
+    <item quantity="one">حداکثر: %s نویسه.</item>
+    <item quantity="other">حداکثر: %s نویسه.</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s مسدود شده</item>
@@ -647,7 +647,7 @@
   <string name="error.email_acceptable">این نشانی رایانامه پذیرفتنی نیست. لطفا باز به آن سر زنید و دوباره بکوشید.</string>
   <string name="error.email_unique">نشانیِ رایانامه نامعتبر یا قبلاً گرفته شده است</string>
   <string name="error.email_different">اکنون، این نشانیِ رایانامه‌تان است</string>
-  <string name="error.minLength">باید حداقل %s حرف داشته باشد</string>
+  <string name="error.minLength">باید حداقل %s نویسه داشته باشد</string>
   <string name="error.maxLength">باید حداکثر %s نویسه داشته باشد</string>
   <string name="error.min">باید حداقل %s باشد</string>
   <string name="error.max">باید حداکثر %s باشد</string>
@@ -951,7 +951,7 @@
   <string name="timeAlmostUp">زمان نزدیک به پایان است!</string>
   <string name="clickToRevealEmailAddress">[برای آشکارسازی نشانیِ رایانامه بتِلیکید]</string>
   <string name="download">بارگیری</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">تنظیمات مربی</string>
+  <string name="coachManager">تنظیمات مربی</string>
   <string name="streamerManager">مدیریت جریان‌سازی</string>
   <string name="cancelTournament">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
@@ -978,7 +978,7 @@
   <string name="markdownIsAvailable">امکان %s برای قالب‌دِهی وجود دارد.</string>
   <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی بخشی از مطالعه را، برای جاسازی آن، جایگذاری کنید.</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
-  <string name="tournChat">چت مسابقه</string>
+  <string name="tournChat">گپِ مسابقات</string>
   <string name="noChat">بدون گپ</string>
   <string name="onlyTeamLeaders">تنها مسئولان تیم</string>
   <string name="onlyTeamMembers">تنها اعضای تیم</string>

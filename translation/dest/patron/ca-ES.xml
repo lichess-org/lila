@@ -3,7 +3,7 @@
   <string name="donate">Donar</string>
   <string name="donateAsX">Donar com a %s</string>
   <string name="lichessPatron">Patró de Lichess</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Patró des de %s</string>
+  <string name="patronSince" comment="string is a date">Patró des de %s</string>
   <string name="freeAccount">Compte gratuït</string>
   <string name="becomePatron">Fes-te patró de Lichess</string>
   <string name="xBecamePatron">%s s\'ha fet patró de Lichess</string>
@@ -84,4 +84,5 @@ Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.
   <string name="paymentDetails">Detalls del pagament</string>
   <string name="updatePaymentMethod">Actualitza el mètode de pagament</string>
   <string name="stripeManageSub">Gestiona la teva subscripció i descarrega les factures i rebuts</string>
+  <string name="coverFees">Afegir %s per ajudar a cobrir el cost de processar aquesta transacció</string>
 </resources>

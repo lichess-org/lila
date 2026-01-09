@@ -21,7 +21,7 @@
   <string name="inGameOnly">Faqat o‘yin ichida</string>
   <string name="chessClock">Shaxmat Soati</string>
   <string name="tenthsOfSeconds">10 lab sekundlar</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Qachonki vaqt tugashiga &lt; 10 sekundlar bo\'lsa</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Qachonki vaqt tugashiga &lt; 10 sekundlar bo\'lsa</string>
   <string name="horizontalGreenProgressBars">Gorizantal yashil rangdagi jarayon indikatori</string>
   <string name="soundWhenTimeGetsCritical">Vaqt kritik holatga kelganda ovoz ovoz berish</string>
   <string name="giveMoreTime">Takroran berish</string>
@@ -36,7 +36,7 @@
   <string name="promoteToQueenAutomatically">Qirolicha darajasigacha avtomatik tarzda oshirish</string>
   <string name="whenPremoving">Oldindan yurilganda</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Avtomatik tarzda uch karra takrorlashga ariza berish</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Qachonki vaqt tugashiga &lt; 30 sekundlar bo\'lsa</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Qachonki vaqt tugashiga &lt; 30 sekundlar bo\'lsa</string>
   <string name="moveConfirmation">Yurishni tasdiqlash</string>
   <string name="inCorrespondenceGames">Yozishmali o\'yinlar</string>
   <string name="correspondenceAndUnlimited">Yozishmali va vaqtda chegaralanmagan</string>

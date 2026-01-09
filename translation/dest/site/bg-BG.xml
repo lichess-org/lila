@@ -951,7 +951,7 @@
   <string name="timeAlmostUp">Времето почти изтече!</string>
   <string name="clickToRevealEmailAddress">[Щракнете, за да видите имейл адреса]</string>
   <string name="download">Изтегли</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Настройки за треньори</string>
+  <string name="coachManager">Настройки за треньори</string>
   <string name="streamerManager">Настройки за стриймъри</string>
   <string name="cancelTournament">Отмяна на турнира</string>
   <string name="tournDescription">Описание на турнира</string>
