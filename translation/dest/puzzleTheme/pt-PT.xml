@@ -14,6 +14,9 @@
   <string name="attractionDescription">Uma troca ou sacrifício que encoraja ou força uma peça adversária a ir para uma casa que permite um tático.</string>
   <string name="backRankMate">Mate de corredor</string>
   <string name="backRankMateDescription">Dá mate ao rei na fila inicial, quando está preso pelas suas próprias peças.</string>
+  <string name="balestraMate">Mate de balestra</string>
+  <string name="balestraMateDescription">Um bispo faz xeque-mate, enquanto a rainha bloqueia os restantes quadrados de fuga</string>
+  <string name="blindSwineMate">Mate do Porco Cego</string>
   <string name="bishopEndgame">Final de bispos</string>
   <string name="bishopEndgameDescription">Um final apenas com bispos e peões.</string>
   <string name="bodenMate">Mate Boden</string>
