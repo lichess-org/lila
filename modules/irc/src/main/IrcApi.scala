@@ -139,10 +139,11 @@ final class IrcApi(
       id: RelayRoundId,
       name: String,
       chapterId: StudyChapterId,
-      boardName: StudyChapterName
+      boardName: StudyChapterName,
+      tier: String
   ): Funit =
-    zulip(_.broadcast, "lila orphan boards"):
-      s"""Orphan board "${boardName}" in ${markdown.broadcastGameLink(id, chapterId, name)}"""
+    zulip(_.broadcast, s"orphan boards - $tier tier"):
+      s"""${markdown.broadcastGameLink(id, chapterId, name)} $boardName"""
 
   def userAppeal(user: LightUser)(using mod: LightUser.Me): Funit =
     zulip
