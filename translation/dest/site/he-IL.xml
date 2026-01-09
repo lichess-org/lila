@@ -1032,7 +1032,7 @@
   <string name="timeAlmostUp">הזמן הולך ואוזל!</string>
   <string name="clickToRevealEmailAddress">לחץ/י כדי לחשוף את כתובת הדוא\"ל</string>
   <string name="download">הורדה</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">הגדרות עבור מאמנים</string>
+  <string name="coachManager">הגדרות עבור מאמנים</string>
   <string name="streamerManager">אזור ניהול משדר</string>
   <string name="cancelTournament">ביטול הטורניר</string>
   <string name="tournDescription">תיאור הטורניר</string>

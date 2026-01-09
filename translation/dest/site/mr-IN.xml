@@ -950,7 +950,7 @@
   <string name="timeAlmostUp">वेळ संपत आलेली आहे!</string>
   <string name="clickToRevealEmailAddress">[ईमेल पाहण्यासाठी क्लिक करा]</string>
   <string name="download">डाउनलोड करा</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">प्रशिक्षक व्यवस्थापक</string>
+  <string name="coachManager">प्रशिक्षक व्यवस्थापक</string>
   <string name="streamerManager">स्ट्रीमर व्यवस्थापक</string>
   <string name="cancelTournament">स्पर्धा रद्द करा</string>
   <string name="tournDescription">संपूर्ण स्पर्धेचे वर्णन</string>

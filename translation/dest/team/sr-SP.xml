@@ -20,7 +20,7 @@
     <item quantity="few">Вође тима</item>
     <item quantity="other">Вођа тима</item>
   </plurals>
-  <string name="teamRecentMembers">Најновији чланови</string>
+  <string name="teamRecentMembers">Недавни чланови</string>
   <string name="kickSomeone">Избаци некога из тима</string>
   <string name="whoToKick">Кога желите избацити из тима?</string>
   <plurals name="xJoinRequests">

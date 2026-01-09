@@ -1,2 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="community">ຊຸມຊົນ</string>
+  <string name="byMonth">ຕາມເດືອນ</string>
+  <string name="byTopic">ຕາມຫົວຂໍ້</string>
+  <string name="byLichess">ໂດຍ Lichess</string>
+  <string name="myFriends">ໝູ່ຂອງຂ້ອຍ</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">ສິ່ງທີ່ຂ້ອຍຖືກໃຈ</string>
+  <string name="myBlog">ບລັອກຂອງຂ້ອຍ</string>
+  <string name="likedBlogs">ໂພສບລັອກທີ່ຖືກໃຈ</string>
+  <plurals name="blogPosts">
+    <item quantity="other">%s ໂພສບລັອກ</item>
+  </plurals>
+  <string name="continueReadingPost">ອ່ານໂພສນີ້ຕໍ່</string>
+  <string name="lichessBlogPostsFromXYear">ໂພສບລັອກ Lichess ໃນປີ %s</string>
+  <string name="previousBlogPosts">ໂພສບລັອກກ່ອນໜ້າ</string>
+  <string name="xBlog">ບລັອກຂອງ %s</string>
+  <string name="newPost">ໂພສໃໝ່</string>
+  <string name="editYourBlogPost">ແກ້ໄຂໂພສບລັອກຂອງທ່ານ</string>
+  <string name="saveDraft">ບັນທຶກສະບັບຮ່າງ</string>
+  <string name="postTitle">ຫົວຂໍ້ໂພສ</string>
+  <string name="postIntro">ຄຳນຳໂພສ</string>
+  <string name="postBody">ເນື້ອໃນໂພສ</string>
+  <string name="drafts">ສະບັບຮ່າງ</string>
+  <string name="published">ເຜີຍແຜ່ແລ້ວ</string>
+  <string name="createBlogDiscussion">ເປີດໃຊ້ການສະແດງຄວາມຄິດເຫັນ</string>
+  <string name="createBlogDiscussionHelp">ຫົວຂໍ້ໃນຟໍຣຳຈະຖືກສ້າງຂຶ້ນເພື່ອໃຫ້ຄົນອື່ນສາມາດສະແດງຄວາມຄິດເຫັນຕໍ່ໂພສຂອງທ່ານ</string>
+  <string name="publishOnYourBlog">ເຜີຍແຜ່ລົງໃນບລັອກຂອງທ່ານ</string>
+  <string name="publishHelp">ຫາກເລືອກໄວ້, ໂພສຈະສະແດງຢູ່ໃນບລັອກຂອງທ່ານ. ຫາກບໍ່ເລືອກ, ມັນຈະເປັນສ່ວນຕົວ ແລະ ຢູ່ໃນສະບັບຮ່າງຂອງທ່ານ</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">ປັກໝຸດໂພສ</string>
+  <string name="stickyPostHelp">ຫາກເລືອກໄວ້, ໂພສນີ້ຈະຖືກສະແດງເປັນອັນດັບທຳອິດໃນໂພສຫຼ້າສຸດຂອງໂປຣໄຟລ໌ ແລະ ໃນບລັອກຂອງທ່ານ.</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="other">ເຜີຍແຜ່ແລ້ວ %s ໂພສ</item>
+  </plurals>
+  <plurals name="nbViews">
+    <item quantity="other">ເຂົ້າເບິ່ງ %s ເທື່ອ</item>
+  </plurals>
+  <string name="xPublishedY">%1$s ໄດ້ເຜີຍແຜ່ %2$s</string>
+  <string name="thisPostIsPublished">ໂພສນີ້ຖືກເຜີຍແຜ່ແລ້ວ</string>
+  <string name="thisIsADraft">ນີ້ແມ່ນສະບັບຮ່າງ</string>
+  <string name="noPostsInThisBlogYet">ຍັງບໍ່ມີໂພສໃນບລັອກນີ້ເທື່ອ.</string>
+  <string name="noDrafts">ບໍ່ມີສະບັບຮ່າງທີ່ຈະສະແດງ.</string>
+  <string name="latestBlogPosts">ໂພສບລັອກຫຼ້າສຸດ</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="other">ເບິ່ງທັງໝົດ %s ໂພສ</item>
+  </plurals>
+  <string name="uploadAnImageForYourPost">ອັບໂຫຼດຮູບພາບສຳລັບໂພສຂອງທ່ານ</string>
+  <string name="imageAlt">ຂໍ້ຄວາມອະທິບາຍຮູບພາບ</string>
+  <string name="imageCredit">ແຫຼ່ງທີ່ມາຂອງຮູບພາບ</string>
+  <string name="deleteBlog">ລຶບໂພສບລັອກນີ້ຢ່າງຖາວອນ</string>
+  <string name="safeToUseImages">ທ່ານສາມາດໃຊ້ຮູບພາບຈາກເວັບໄຊຕໍ່ໄປນີ້ໄດ້ຢ່າງປອດໄພ: </string>
+  <string name="selectPostTopics">ເລືອກຫົວຂໍ້ທີ່ກ່ຽວຂ້ອງກັບໂພສຂອງທ່ານ</string>
+  <string name="useImagesYouMadeYourself">ທ່ານຍັງສາມາດໃຊ້ຮູບພາບທີ່ທ່ານສ້າງເອງ, ຮູບທີ່ທ່ານຖ່າຍ, ຮູບຖ່າຍໜ້າຈໍຂອງ Lichess... ຫຼື ສິ່ງໃດກໍຕາມທີ່ບໍ່ຕິດລິຂະສິດຂອງຄົນອື່ນ.</string>
+  <string name="safeAndRespectfulContent">ກະລຸນາໂພສສະເພາະເນື້ອຫາທີ່ປອດໄພ ແລະ ໃຫ້ກຽດກັນ. ຫ້າມຄັດລອກເນື້ອຫາຂອງຄົນອື່ນ.</string>
+  <string name="inappropriateContentAccountClosed">ສິ່ງໃດກໍຕາມທີ່ບໍ່ເໝາະສົມ ອາດເຮັດໃຫ້ບັນຊີຂອງທ່ານຖືກປິດໄດ້.</string>
+  <string name="blogTips">ເຄັດລັບງ່າຍໆໃນການຂຽນໂພສບລັອກໃຫ້ດີ</string>
+  <string name="discussThisBlogPostInTheForum">ສົນທະນາກ່ຽວກັບໂພສບລັອກນີ້ໃນຟໍຣຳ</string>
+  <string name="youBlockedByBlogAuthor">ທ່ານຖືກບລັອກໂດຍເຈົ້າຂອງບລັອກ.</string>
+</resources>
