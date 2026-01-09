@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">Actualizacións de partida por correspondencia</string>
   <string name="notifyChallenge">Desafíos</string>
   <string name="notifyTournamentSoon">O torneo comeza pronto</string>
+  <string name="notifyBroadcasts">Emisións ás que te subscribiches</string>
   <string name="notifyTimeAlarm">Pouco tempo restante na partida por correspondencia</string>
   <string name="notifyBell">Notificación dentro de Lichess</string>
   <string name="notifyPush">Notificación no dispositivo cando non esteas en Lichess</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">Dispositivo</string>
   <string name="bellNotificationSound">Son da notificación</string>
   <string name="blindfold" comment="As in Blindfold chess">Ás cegas</string>
+  <string name="showClockOnTheLeft" comment="A setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.">Amosar na esquerda en dispositivos móbiles</string>
 </resources>
