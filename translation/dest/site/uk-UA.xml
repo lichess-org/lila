@@ -1106,4 +1106,5 @@
   <string name="search">Пошук</string>
   <string name="clearSearch">Очистити пошук</string>
   <string name="tags">Теги</string>
+  <string name="enPassant">Взяття на проході</string>
 </resources>

@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Mostrar cursor de redimensionamento do tabuleiro</string>
   <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
   <string name="inGameOnly">Durante as partidas</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Exceto durante a partida</string>
+  <string name="exceptInGame">Exceto durante a partida</string>
   <string name="chessClock">Relógio</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando o tempo restante &lt; 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando o tempo restante &lt; 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progresso verdes horizontais</string>
   <string name="soundWhenTimeGetsCritical">Som ao atingir tempo crítico</string>
   <string name="giveMoreTime">Dar mais tempo</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Mantenha a tecla &lt;ctrl&gt; pressionada enquanto promove para desativar temporariamente a autopromoção</string>
   <string name="whenPremoving">Quando pré-mover</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reivindicar empate sobre a repetição tripla automaticamente</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando o tempo restante &lt; 30 segundos</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmação de movimento</string>
   <string name="explainCanThenBeTemporarilyDisabled">Pode ser desativado durante a partida no menu do tabuleiro</string>
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
@@ -62,11 +62,13 @@
   <string name="notifyGameEvent">Atualizações de partidas por correspondência</string>
   <string name="notifyChallenge">Desafios</string>
   <string name="notifyTournamentSoon">O torneio vai começar em breve</string>
+  <string name="notifyBroadcasts">Transmissões nas quais você se inscreveu</string>
   <string name="notifyTimeAlarm">Tempo de partida por correspondência esgotando</string>
   <string name="notifyBell">Notificação no Lichess</string>
   <string name="notifyPush">Notificação no dispositivo fora do Lichess</string>
   <string name="notifyWeb">Navegador</string>
   <string name="notifyDevice">Dispositivo</string>
   <string name="bellNotificationSound">Som de notificação</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Às cegas</string>
+  <string name="blindfold" comment="As in Blindfold chess">Às cegas</string>
+  <string name="showClockOnTheLeft" comment="A setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.">Mostrar à esquerda em dispositivos móveis</string>
 </resources>

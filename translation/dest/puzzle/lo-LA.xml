@@ -1,2 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">ປິດສະໜາ</string>
+  <string name="puzzleThemes">ຫົວຂໍ້ປິດສະໜາ</string>
+  <string name="recommended">ແນະນຳ</string>
+  <string name="phases">ຊ່ວງການຫຼິ້ນ</string>
+  <string name="motifs">ຮູບແບບ</string>
+  <string name="advanced">ຂັ້ນສູງ</string>
+  <string name="lengths">ຄວາມຍາວ</string>
+  <string name="mates">ການຈົນ</string>
+  <string name="mateThemes">ຫົວຂໍ້ການຈົນ</string>
+  <string name="goals">ເປົ້າໝາຍ</string>
+  <string name="origin">ທີ່ມາ</string>
+  <string name="specialMoves">ການເດີນແບບພິເສດ</string>
+  <string name="didYouLikeThisPuzzle">ເຈົ້າມັກປິດສະໜານີ້ບໍ່?</string>
+  <string name="voteToLoadNextOne">ໂຫວດເພື່ອໂຫຼດອັນຖັດໄປ!</string>
+  <string name="upVote">ໃຫ້ຄະແນນບວກ</string>
+  <string name="downVote">ໃຫ້ຄະແນນລົບ</string>
+  <string name="yourPuzzleRatingWillNotChange">ຄະແນນປິດສະໜາຂອງເຈົ້າຈະບໍ່ປ່ຽນແປງ. ຈົ່ງຈື່ໄວ້ວ່າປິດສະໜາບໍ່ແມ່ນການແຂ່ງຂັນ. ຄະແນນຂອງເຈົ້າຈະຊ່ວຍໃນການເລືອກປິດສະໜາທີ່ເໝາະສົມກັບລະດັບທັກສະຂອງເຈົ້າໃນປະຈຸບັນ.</string>
+  <string name="findTheBestMoveForWhite">ຊອກຫາຕາເດີນທີ່ດີທີ່ສຸດສຳລັບຝ່າຍຂາວ.</string>
+  <string name="findTheBestMoveForBlack">ຊອກຫາຕາເດີນທີ່ດີທີ່ສຸດສຳລັບຝ່າຍດຳ.</string>
+  <string name="toGetPersonalizedPuzzles">ເພື່ອຮັບປິດສະໜາທີ່ເໝາະສົມກັບເຈົ້າ:</string>
+  <string name="puzzleId">ປິດສະໜາ %s</string>
+  <string name="puzzleOfTheDay">ປິດສະໜາປະຈຳວັນ</string>
+  <string name="dailyPuzzle">ປິດສະໜາລາຍວັນ</string>
+  <string name="clickToSolve">ຄລິກເພື່ອແກ້ໄຂ</string>
+  <string name="goodMove">ຕາເດີນທີ່ດີ</string>
+  <string name="bestMove">ຕາເດີນທີ່ດີທີ່ສຸດ!</string>
+  <string name="keepGoing">ໄປຕໍ່ເລີຍ…</string>
+  <string name="puzzleSuccess">ສຳເລັດ!</string>
+  <string name="puzzleComplete">ປິດສະໜາສຳເລັດແລ້ວ!</string>
+  <string name="byOpenings">ຕາມຮູບແບບການເປີດເກມ</string>
+  <string name="puzzlesByOpenings">ປິດສະໜາຕາມຮູບແບບການເປີດເກມ</string>
+  <string name="openingsYouPlayedTheMost">ຮູບແບບການເປີດເກມທີ່ເຈົ້າຫຼິ້ນຫຼາຍທີ່ສຸດໃນເກມທີ່ມີການນັບຄະແນນ</string>
+  <string name="useFindInPage">ໃຊ້ \"ຄົ້ນຫາໃນໜ້າ\" ໃນເມນູຂອງບຣາວເຊີເພື່ອຊອກຫາຮູບແບບການເປີດເກມທີ່ເຈົ້າມັກ!</string>
+  <string name="useCtrlF">ໃຊ້ Ctrl+f ເພື່ອຊອກຫາຮູບແບບການເປີດເກມທີ່ເຈົ້າມັກ!</string>
+  <string name="notTheMove">ນັ້ນບໍ່ແມ່ນຕາເດີນທີ່ຖືກຕ້ອງ!</string>
+  <string name="trySomethingElse">ລອງວິທີອື່ນເບິ່ງ.</string>
+  <string name="ratingX">ຄະແນນ: %s</string>
+  <string name="hidden">ເຊື່ອງໄວ້</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">ຫຼິ້ນແລ້ວ %s ຄັ້ງ</item>
+  </plurals>
+  <string name="fromGameLink">ຈາກເກມ %s</string>
+  <string name="continueTraining">ຝຶກຝົນຕໍ່</string>
+  <string name="difficultyLevel">ລະດັບຄວາມຍາກ</string>
+  <string name="normal">ປົກກະຕິ</string>
+  <string name="easier">ງ່າຍຂຶ້ນ</string>
+  <string name="easiest">ງ່າຍທີ່ສຸດ</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="other">%s ຄະແນນ ຕ່ຳກວ່າຄະແນນປິດສະໜາຂອງເຈົ້າ</item>
+  </plurals>
+  <string name="harder">ຍາກຂຶ້ນ</string>
+  <string name="hardest">ຍາກທີ່ສຸດ</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="other">%s ຄະແນນ ສູງກວ່າຄະແນນປິດສະໜາຂອງເຈົ້າ</item>
+  </plurals>
+  <string name="example">ຕົວຢ່າງ</string>
+  <string name="addAnotherTheme">ເພີ່ມຫົວຂໍ້ອື່ນ</string>
+  <string name="nextPuzzle">ປິດສະໜາຖັດໄປ</string>
+  <string name="jumpToNextPuzzleImmediately">ໄປຫາປິດສະໜາຖັດໄປທັນທີ</string>
+  <string name="puzzleDashboard">ແຜງຄວບຄຸມປິດສະໜາ</string>
+  <string name="improvementAreas">ສ່ວນທີ່ຄວນປັບປຸງ</string>
+  <string name="strengths">ຈຸດແຂງ</string>
+  <string name="history">ປະຫວັດປິດສະໜາ</string>
+  <string name="solved">ແກ້ໄດ້ແລ້ວ</string>
+  <string name="failed">ບໍ່ຖືກຕ້ອງ</string>
+  <string name="streakDescription">ແກ້ປິດສະໜາທີ່ຍາກຂຶ້ນເລື້ອຍໆ ແລະ ສ້າງສະຖິຕິການຊະນະຕິດຕໍ່ກັນ. ບໍ່ມີການຈຳກັດເວລາ, ດັ່ງນັ້ນເຈົ້າສາມາດໃຊ້ເວລາໄດ້ເຕັມທີ່. ຖ້າເດີນຜິດພຽງຄັ້ງດຽວ, ເກມຈະຈົບທັນທີ! ແຕ່ເຈົ້າສາມາດຂ້າມໄດ້ໜຶ່ງຕາເດີນຕໍ່ຮອບ.</string>
+  <string name="yourStreakX">ສະຖິຕິຊະນະຕິດຕໍ່ກັນ: %s</string>
+  <string name="streakSkipExplanation">ຂ້າມຕາເດີນນີ້ເພື່ອຮັກສາສະຖິຕິການຊະນະຕິດຕໍ່ກັນຂອງທ່ານ! ສາມາດໃຊ້ໄດ້ພຽງຄັ້ງດຽວຕໍ່ຮອບ.</string>
+  <string name="continueTheStreak">ຫຼິ້ນຕໍ່ເພື່ອຮັກສາສະຖິຕິ</string>
+  <string name="newStreak">ເລີ່ມສະຖິຕິໃໝ່</string>
+  <string name="fromMyGames">ຈາກເກມຂອງຂ້ອຍ</string>
+  <string name="lookupOfPlayer">ຄົ້ນຫາປິດສະໜາຈາກເກມຂອງຜູ້ຫຼິ້ນ</string>
+  <string name="searchPuzzles">ຄົ້ນຫາປິດສະໜາ</string>
+  <string name="fromMyGamesNone">ບໍ່ມີປິດສະໜາຂອງເຈົ້າໃນຖານຂໍ້ມູນ, ແຕ່ Lichess ຍັງຮັກເຈົ້າຫຼາຍຄືເກົ່າ.
+
+ລອງຫຼິ້ນເກມແບບ Rapid ຫຼື Classical ເພື່ອເພີ່ມໂອກາດໃຫ້ປິດສະໜາຂອງເຈົ້າຖືກບັນທຶກໄວ້!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="other">ພົບ %1$s ປິດສະໜາໃນເກມຂອງ %2$s</item>
+  </plurals>
+  <string name="puzzleDashboardDescription">ຝຶກຝົນ, ວິເຄາະ, ປັບປຸງ</string>
+  <plurals name="nbPlayed">
+    <item quantity="other">ຫຼິ້ນແລ້ວ %s</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="other">ຕ້ອງຫຼິ້ນຄືນ %s</item>
+  </plurals>
+  <string name="percentSolved">ແກ້ໄດ້ %s</string>
+  <string name="noPuzzlesToShow">ບໍ່ມີຫຍັງສະແດງ, ລອງໄປຫຼິ້ນປິດສະໜາກ່ອນ!</string>
+  <string name="improvementAreasDescription">ຝຶກຝົນສິ່ງເຫຼົ່ານີ້ເພື່ອພັດທະນາໃຫ້ໄວຂຶ້ນ!</string>
+  <string name="strengthDescription">ເຈົ້າເຮັດໄດ້ດີທີ່ສຸດໃນຫົວຂໍ້ເຫຼົ່ານີ້</string>
+</resources>

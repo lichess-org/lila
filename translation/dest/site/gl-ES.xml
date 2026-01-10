@@ -950,7 +950,7 @@
   <string name="timeAlmostUp">Quédache pouco tempo!</string>
   <string name="clickToRevealEmailAddress">[Pincha para ver o correo electrónico]</string>
   <string name="download">Descarga</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Adestrador</string>
+  <string name="coachManager">Adestrador</string>
   <string name="streamerManager">Administrador de presentadores</string>
   <string name="cancelTournament">Cancelar o torneo</string>
   <string name="tournDescription">Descrición do torneo</string>
@@ -1018,4 +1018,5 @@ Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicam
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar a procura</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant">Captura ao paso</string>
 </resources>
