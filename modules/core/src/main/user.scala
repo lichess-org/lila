@@ -184,8 +184,6 @@ object user:
 
   case class SetKidMode(user: User)
 
-  case class RemoveFlair(userId: UserId)
-
   trait UserApi:
     def byId[U: UserIdOf](u: U): Fu[Option[User]]
     def enabledById[U: UserIdOf](u: U): Fu[Option[User]]

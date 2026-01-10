@@ -5,9 +5,7 @@ import com.softwaremill.tagging.*
 
 import lila.core.config.*
 import lila.core.userId
-
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
 
 @Module
 final class Env(
@@ -18,7 +16,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.core.socket.IsOnline,
     onlineIds: lila.core.socket.OnlineIds
-)(using Executor, Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
   val perfsRepo = UserPerfsRepo(db(CollName("user_perf")))
   val repo = UserRepo(db(CollName("user4")))
@@ -69,5 +67,5 @@ final class Env(
   Bus.sub[lila.core.misc.puzzle.StreakRun]: r =>
     api.addPuzRun("streak", r.userId, r.score)
 
-  Bus.sub[lila.core.user.RemoveFlair]: r =>
-    repo.coll.unsetField($id(r.userId), BSONFields.flair).void
+  scheduler.scheduleAtFixedRate(1.hour, 1.hour): () =>
+    repo.unsetFlairs(FlairApi.badFlairs.flush())

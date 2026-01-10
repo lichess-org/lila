@@ -22,6 +22,15 @@ object FlairApi:
 
   val adminFlairs: Set[Flair] = Set(Flair("activity.lichess"))
 
+  private[user] object badFlairs:
+    private type Pair = (UserId, Flair)
+    private var found: Set[Pair] = Set.empty
+    def add(userId: UserId, flair: Flair): Unit = found += (userId -> flair)
+    def flush(): Set[Pair] =
+      val res = found
+      found = Set.empty
+      res
+
 final class FlairApi(getFile: lila.common.config.GetRelativeFile)(using Executor)(using
     scheduler: Scheduler
 ) extends lila.core.user.FlairApi:

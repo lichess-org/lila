@@ -123,9 +123,7 @@ object BSONHandlers:
         totpSecret = r.getO[TotpSecret](totpSecret),
         flair = r.getO[Flair](flair) match
           case Some(f) if FlairApi.exists(f) => Some(f)
-          case Some(_) =>
-            lila.common.Bus.pub(lila.core.user.RemoveFlair(userId))
-            None
+          case Some(f) => FlairApi.badFlairs.add(userId, f); None
           case None => None,
         marks = r.getO[UserMarks](marks) | UserMarks(Nil),
         hasEmail = r.contains(email)
