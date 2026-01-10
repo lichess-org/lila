@@ -8,6 +8,11 @@
   <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s ücretsiz, küratör onaylı satranç videoları</string>
   <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s küratör onaylı satranç videoları</string>
   <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%2$s etiketleriyle %1$s</string>
+  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">herkese ucretsiz</string>
+  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+    <item quantity="one">%s video bulundu</item>
+    <item quantity="other">%s video bulundu</item>
+  </plurals>
   <string name="noVideosForTheseTags">Bu etiketler için video bulunamadı:</string>
   <string name="thatsAllWeGotForTheseTags">Bu etiketler için bulabildiklerimiz bunlar:</string>
   <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Bu araştırma için bulabildiklerimiz bunlar: \"%s\"</string>
