@@ -10,10 +10,10 @@ import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.memo.CacheApi.buildAsyncTimeout
-import lila.core.user.KidMode
 import lila.core.ublog.{ BlogsBy, Quality }
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.common.LilaFuture.delay
+import lila.ui.Context
 
 final class UblogApi(
     colls: UblogColls,
@@ -40,9 +40,9 @@ final class UblogApi(
     _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
       fetchCarouselFromDb().map(_.shuffled)
 
-  def myCarousel(using kid: KidMode) =
+  def myCarousel(using ctx: Context) =
     for posts <- carouselCache.get({})
-    yield posts.filter(_.isLichess || kid.no).take(carouselSizeSetting.get())
+    yield posts.filter(_.isLichess || ctx.kid.no).take(carouselSizeSetting.get())
 
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
@@ -145,7 +145,7 @@ final class UblogApi(
       .map: results =>
         ids.flatMap(results.mapBy(_.id).get) // lila-search order
 
-  def recommend(blog: UblogBlog.Id, post: UblogPost)(using kid: KidMode): Fu[List[UblogPost.PreviewPost]] =
+  def recommend(blog: UblogBlog.Id, post: UblogPost)(using ctx: Context): Fu[List[UblogPost.PreviewPost]] =
     for
       sameAuthor <- colls.post
         .find(
@@ -163,8 +163,21 @@ final class UblogApi(
         )
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
         .list(9)
-      mix = (similar ++ sameAuthor).filter(_.isLichess || kid.no)
-    yield scala.util.Random.shuffle(mix).take(6)
+      candidates = (similar ++ sameAuthor).filter(_.isLichess || ctx.kid.no)
+      filtered <- ctx.userId match
+        case None => fuccess(candidates)
+        case Some(myId) =>
+          val candidateIds = candidates.map(_.id)
+          for likedCandidateIds <- colls.post
+            .find(
+              $inIds(candidateIds) ++ likes(myId),
+              $id(true).some
+            )
+            .cursor[Bdoc](ReadPref.sec)
+            .list(candidateIds.size)
+            .map(_.flatMap(_.getAsOpt[UblogPostId]("_id")).toSet)
+          yield candidates.filter(p => !likedCandidateIds(p.id) && p.created.by != myId)
+    yield scala.util.Random.shuffle(filtered).take(6)
 
   private def sendPostToZulip(
       user: LightUser,
@@ -238,8 +251,10 @@ final class UblogApi(
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
     colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.sec)
 
+  def likes(userId: UserId): Bdoc = $doc("likers" -> userId)
+
   def liked(post: UblogPost)(user: User): Fu[Boolean] =
-    colls.post.exists($id(post.id) ++ $doc("likers" -> user.id))
+    colls.post.exists($id(post.id) ++ likes(user.id))
 
   def like(postId: UblogPostId, v: Boolean)(using me: Me): Fu[UblogPost.Likes] = for
     res <- colls.post.update.one($id(postId), $addOrPull("likers", me.userId, v))
