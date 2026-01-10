@@ -2,7 +2,7 @@ package lila.swiss
 package ui
 
 import chess.variant.Variant
-import play.api.data.{ Field, Form }
+import play.api.data.Form
 
 import lila.core.i18n.Translate
 import lila.gathering.GatheringClock
