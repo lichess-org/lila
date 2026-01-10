@@ -234,7 +234,7 @@ final class GameUi(helpers: Helpers):
               form3.nativeCheckboxField(
                 form("analyse"),
                 trans.site.requestAComputerAnalysis(),
-                help = analyseHelp.map(help => div(cls := "form-help")(help)),
+                help = analyseHelp,
                 half = false,
                 value = "1",
                 klass = "analyse"
