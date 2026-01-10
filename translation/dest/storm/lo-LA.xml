@@ -1,2 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">ໄປຫາຈຸດເລີ່ມຕົ້ນ</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">ເຈົ້າຫຼິ້ນຝ່າຍໝາກສີຂາວໃນທຸກໆປິດສະໜາ</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">ເຈົ້າຫຼິ້ນຝ່າຍໝາກສີດຳໃນທຸກໆປິດສະໜາ</string>
+  <string name="puzzlesSolved">ປິດສະໜາທີ່ແກ້ສຳເລັດແລ້ວ</string>
+  <string name="newDailyHighscore">ຄະແນນສູງສຸດປະຈຳວັນໃໝ່!</string>
+  <string name="newWeeklyHighscore">ຄະແນນສູງສຸດປະຈຳອາທິດໃໝ່!</string>
+  <string name="newMonthlyHighscore">ຄະແນນສູງສຸດປະຈຳເດືອນໃໝ່!</string>
+  <string name="newAllTimeHighscore">ຄະແນນສູງສຸດຕະຫຼອດການໃໝ່!</string>
+  <string name="previousHighscoreWasX">ຄະແນນສູງສຸດກ່ອນໜ້ານີ້ແມ່ນ %s</string>
+  <string name="playAgain">ຫຼິ້ນອີກຄັ້ງ</string>
+  <plurals name="xRuns">
+    <item quantity="other">%s ຮອບ</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="other">ຫຼິ້ນ %1$s ຮອບຂອງ %2$s</item>
+  </plurals>
+  <string name="highscoreX">ຄະແນນສູງສຸດ: %s</string>
+  <string name="score">ຄະແນນ</string>
+  <string name="moves">ຕາເດີນ</string>
+  <string name="accuracy">ຄວາມຖືກຕ້ອງ</string>
+  <string name="combo">ຄອມໂບ</string>
+  <string name="time">ເວລາ</string>
+  <string name="timePerMove">ເວລາຕໍ່ຕາເດີນ</string>
+  <string name="highestSolved">ແກ້ໄດ້ສູງສຸດ</string>
+  <string name="puzzlesPlayed">ປິດສະໜາທີ່ຫຼິ້ນແລ້ວ</string>
+  <string name="newRun">ເລີ່ມຮອບໃໝ່ (ຄີລັດ: Space)</string>
+  <string name="endRun">ຈົບຮອບ (ຄີລັດ: Enter)</string>
+  <string name="highscores">ຄະແນນສູງສຸດ</string>
+  <string name="viewBestRuns">ເບິ່ງຮອບທີ່ດີທີ່ສຸດ</string>
+  <string name="bestRunOfDay">ຮອບທີ່ດີທີ່ສຸດຂອງມື້ນີ້</string>
+  <string name="runs">ຮອບ</string>
+  <string name="getReady">ກຽມພ້ອມ!</string>
+  <string name="waitingForMorePlayers">ກຳລັງລໍຖ້າຜູ້ຫຼິ້ນຄົນອື່ນເຂົ້າຮ່ວມ...</string>
+  <string name="raceComplete">ການແຂ່ງຂັນສິ້ນສຸດ!</string>
+  <string name="spectating">ກຳລັງເບິ່ງ</string>
+  <string name="joinTheRace">ເຂົ້າຮ່ວມການແຂ່ງຂັນ!</string>
+  <string name="startTheRace">ເລີ່ມການແຂ່ງຂັນ</string>
+  <string name="yourRankX">ອັນດັບຂອງທ່ານ: %s</string>
+  <string name="waitForRematch">ລໍຖ້າການແຂ່ງຄືນ</string>
+  <string name="nextRace">ການແຂ່ງຂັນຕໍ່ໄປ</string>
+  <string name="joinRematch">ເຂົ້າຮ່ວມການແຂ່ງຄືນ</string>
+  <string name="waitingToStart">ກຳລັງລໍຖ້າການເລີ່ມຕົ້ນ</string>
+  <string name="createNewGame">ສ້າງເກມໃໝ່</string>
+  <string name="joinPublicRace">ເຂົ້າຮ່ວມການແແຂ່ງຂັນສາທາລະນະ</string>
+  <string name="raceYourFriends">ແຂ່ງຂັນກັບໝູ່ຂອງທ່ານ</string>
+  <string name="skip">ຂ້າມ</string>
+  <string name="skipHelp">ເຈົ້າສາມາດຂ້າມໄດ້ໜຶ່ງຕາເດີນຕໍ່ການແຂ່ງຂັນ:</string>
+  <string name="skipExplanation">ຂ້າມຕາເດີນນີ້ເພື່ອຮັກສາຄອມໂບຂອງທ່ານ! ໃຊ້ໄດ້ພຽງຄັ້ງດຽວຕໍ່ການແຂ່ງຂັນ.</string>
+  <string name="failedPuzzles">ປິດສະໜາທີ່ຜິດ</string>
+  <string name="slowPuzzles">ປິດສະໜາທີ່ຊ້າ</string>
+  <string name="skippedPuzzle">ຂ້າມປິດສະໜາ</string>
+  <string name="thisWeek">ອາທິດນີ້</string>
+  <string name="thisMonth">ເດືອນນີ້</string>
+  <string name="allTime">ຕະຫຼອດການ</string>
+  <string name="clickToReload">ຄລິກເພື່ອໂຫຼດໃໝ່</string>
+  <string name="thisRunHasExpired">ຮອບນີ້ໝົດເວລາແລ້ວ!</string>
+  <string name="thisRunWasOpenedInAnotherTab">ຮອບນີ້ຖືກເປີດຢູ່ໃນແທັບອື່ນແລ້ວ!</string>
+</resources>

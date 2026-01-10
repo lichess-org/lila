@@ -1018,4 +1018,5 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="search">Cerca</string>
   <string name="clearSearch">Neteja la cerca</string>
   <string name="tags">Etiquetes</string>
+  <string name="enPassant">Captura al pas</string>
 </resources>

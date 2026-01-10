@@ -21,7 +21,7 @@
   <string name="inGameOnly">Ойында ғана</string>
   <string name="chessClock">Шахмат сағаты</string>
   <string name="tenthsOfSeconds">Секундтың ондық бөлігін көрсету</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">10 секунд қалғанда</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">10 секунд қалғанда</string>
   <string name="horizontalGreenProgressBars">Уақыт жүрісін көрсететін көлденең жасыл жолақ</string>
   <string name="soundWhenTimeGetsCritical">Уақыт аз қалғанда, дыбыс белгі беру</string>
   <string name="giveMoreTime">Қарсыласқа уақыт беру мүмкіндігі</string>
@@ -37,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Ойын кезінде автоматты айналдыруды уақытша өшіру үшін &lt;ctrl&gt; басып тұрыңыз</string>
   <string name="whenPremoving">Алдын-ала жүрісте</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Үш реттік қайталану болса, автоматты түрде тепе-теңдік жариялау</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">30 секунд қалғанда</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">30 секунд қалғанда</string>
   <string name="moveConfirmation">Жүрісті растау</string>
   <string name="explainCanThenBeTemporarilyDisabled">Ойын кезінде тақта баптаулары арқылы өшіруге болады</string>
   <string name="inCorrespondenceGames">Хат-хабарлы ойындарда</string>

@@ -1019,4 +1019,5 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar búsqueda</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant">Captura al paso</string>
 </resources>
