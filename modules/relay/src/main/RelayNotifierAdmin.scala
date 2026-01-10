@@ -18,7 +18,7 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
       .expireAfterWrite(3.minutes)
       .build[StudyChapterId, Int]()
 
-    private val once = scalalib.cache.OnceEvery[StudyChapterId](1.hour)
+    private val once = scalalib.cache.OnceEvery[StudyChapterId](4.hour)
 
     def inspectPlan(rt: RelayRound.WithTour, plan: RelayUpdatePlan.Plan): Funit = Future:
       rt.tour.tier.foreach: tier =>
