@@ -40,6 +40,8 @@ final class Env(
     case lila.core.socket.Announce(msg, date, _) if msg.contains("will restart") =>
       pagerDuty.lilaRestart(date)
 
+  AnnounceApi.setupPeriodicUpdate()
+
   object settings:
     import lila.core.data.{ Strings, UserIds }
     import lila.memo.SettingStore.Strings.given
