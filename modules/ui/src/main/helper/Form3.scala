@@ -81,7 +81,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     )(
       div(
         span(cls := "form-check-input")(
-          cmnToggle(id(field), field.name, field.value.has("true"), disabled)
+          cmnToggle(id(field), field.name, isChecked(field), disabled)
         ),
         groupLabel(field)(labelContent)
       ),
@@ -152,7 +152,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
           nativeCheckbox(
             id(field),
             field.name,
-            checked = field.value.has(value),
+            checked = isChecked(field),
             value = value,
             disabled = disabled
           )
@@ -161,6 +161,9 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       ),
       help.map { helper(_) }
     )
+
+  def isChecked(field: Field): Boolean =
+    field.value.exists(v => v == "true" || v == "1")
 
   def select(
       field: Field,

@@ -123,6 +123,5 @@ final class GatheringFormUi(helpers: Helpers):
         " join the tournament and play with their engines. This often repels human players."
       ).some,
       half = false,
-      value = "1",
       disabled = disabledAfterStart
     )

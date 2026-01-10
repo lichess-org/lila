@@ -236,7 +236,6 @@ final class GameUi(helpers: Helpers):
                 trans.site.requestAComputerAnalysis(),
                 help = analyseHelp,
                 half = false,
-                value = "1",
                 klass = "analyse"
               ),
               form3.action(form3.submit(trans.site.importGame(), Icon.UploadCloud.some))

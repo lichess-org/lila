@@ -339,8 +339,7 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
         form3.nativeCheckbox(
           form3.id(field),
           field.name,
-          checked = field.value.has("1"),
-          value = "1"
+          checked = form3.isChecked(field)
         )
       )
     )

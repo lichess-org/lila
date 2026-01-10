@@ -37,8 +37,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                   form3.nativeCheckbox(
                     form3.id(form("forever")),
                     form("forever").name,
-                    checked = form("forever").value.has("1"),
-                    value = "1"
+                    checked = form3.isChecked(form("forever"))
                   )
                 ),
                 label(`for` := form3.id(form("forever")))(raw("Forever close: make it impossible to reopen"))

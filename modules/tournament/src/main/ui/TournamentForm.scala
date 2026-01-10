@@ -196,8 +196,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
           form("berserkable"),
           trans.arena.allowBerserk(),
           help = trans.arena.allowBerserkHelp().some,
-          half = true,
-          value = "1"
+          half = true
         ),
         form3.hiddenFalse(form.prefix("berserkable")),
         nativeCheckboxField(
