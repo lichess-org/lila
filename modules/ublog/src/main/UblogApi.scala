@@ -169,13 +169,13 @@ final class UblogApi(
         case Some(myId) =>
           val candidateIds = candidates.map(_.id)
           for likedCandidateIds <- colls.post
-            .find(
-              $inIds(candidateIds) ++ likes(myId),
-              $id(true).some
-            )
-            .cursor[Bdoc](ReadPref.sec)
-            .list(candidateIds.size)
-            .map(_.flatMap(_.getAsOpt[UblogPostId]("_id")).toSet)
+              .find(
+                $inIds(candidateIds) ++ likes(myId),
+                $id(true).some
+              )
+              .cursor[Bdoc](ReadPref.sec)
+              .list(candidateIds.size)
+              .map(_.flatMap(_.getAsOpt[UblogPostId]("_id")).toSet)
           yield candidates.filter(p => !likedCandidateIds(p.id) && p.created.by != myId)
     yield scala.util.Random.shuffle(filtered).take(6)
 
