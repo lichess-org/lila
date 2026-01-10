@@ -258,11 +258,15 @@ object MarkdownRender:
         baseLink: ResolvedLink
     ) =
       val link = if node.getTitle.isNotNull then baseLink.withTitle(node.getTitle().unescape()) else baseLink
-      html.attr("href", link.getUrl)
+      html.attr("href", addProtocolIfNecessary(link.getUrl))
       html.attr(link.getNonNullAttributes())
       html.srcPos(node.getChars()).withAttr(link).tag("a")
       context.renderChildren(node)
       html.tag("/a")
+
+    private def addProtocolIfNecessary(url: String): String =
+      if url.matches("(?i)^https?://.*") then url
+      else s"https://$url"
 
     private def renderLpvEmbed(
         node: LinkNode,

@@ -4,8 +4,12 @@ import { isMobile } from '../device';
 import { memoize, escapeHtml } from '../index';
 import { domDialog } from '../view/dialog';
 
-export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval): boolean {
-  return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
+export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval, desiredPvs: number): boolean {
+  return (
+    a.depth > b.depth ||
+    (a.depth === b.depth && a.nodes > b.nodes) ||
+    (a.pvs.length >= desiredPvs && b.pvs.length < desiredPvs)
+  );
 }
 
 export function renderEval(e: number): string {

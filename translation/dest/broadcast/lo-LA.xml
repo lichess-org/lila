@@ -1,2 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Broadcasts</string>
+  <string name="myBroadcasts">My broadcasts</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="other">%s broadcasts</item>
+  </plurals>
+  <plurals name="nbViewers">
+    <item quantity="other">%s viewers</item>
+  </plurals>
+  <string name="liveBroadcasts">ການຖ່າຍທອດສົດການແຂ່ງຂັນ</string>
+  <string name="broadcastCalendar">ປະຕິທິນການຖ່າຍທອດສົດ</string>
+  <string name="newBroadcast">ສ້າງການຖ່າຍທອດສົດໃໝ່</string>
+  <string name="subscribedBroadcasts">ການຖ່າຍທອດສົດທີ່ຕິດຕາມ</string>
+  <string name="aboutBroadcasts">ກ່ຽວກັບການຖ່າຍທອດສົດ</string>
+  <string name="howToUseLichessBroadcasts">ວິທີໃຊ້ການຖ່າຍທອດສົດ Lichess.</string>
+  <string name="theNewRoundHelp">ຮອບໃໝ່ຈະມີສະມາຊິກ ແລະ ຜູ້ຮ່ວມຈັດການ ຄືກັນກັບຮອບກ່ອນໜ້າ.</string>
+  <string name="addRound">ເພີ່ມຮອບ</string>
+  <string name="ongoing">ກຳລັງດຳເນີນການ</string>
+  <string name="upcoming">ກຳລັງຈະມາເຖິງ</string>
+  <string name="roundName">ຊື່ຮອບ</string>
+  <string name="tournamentName">ຊື່ການແຂ່ງຂັນ</string>
+  <string name="tournamentDescription">ຄຳອະທິບາຍການແຂ່ງຂັນແບບຫຍໍ້</string>
+  <string name="fullDescription">ຄຳອະທິບາຍການແຂ່ງຂັນແບບເຕັມ</string>
+  <string name="fullDescriptionHelp">ຄຳອະທິບາຍການແຂ່ງຂັນແບບຍາວ (ບໍ່ບັງຄັບ). ສາມາດໃຊ້ %1$s ໄດ້. ຄວາມຍາວຕ້ອງບໍ່ເກີນ %2$s ຕົວອັກສອນ.</string>
+  <string name="sourceSingleUrl">URL ແຫຼ່ງຂໍ້ມູນ PGN</string>
+  <string name="sourceUrlHelp">URL ທີ່ Lichess ຈະກວດສອບເພື່ອຮັບຂໍ້ມູນ PGN ໃໝ່. ມັນຕ້ອງສາມາດເຂົ້າເຖິງໄດ້ແບບສາທາລະນະຜ່ານອິນເຕີເນັດ.</string>
+  <string name="sourceGameIds">ລະບຸ ID ເກມ Lichess ໄດ້ສູງສຸດ 64 ລາຍການ, ແຍກກັນດ້ວຍການຍະຫວ່າງ.</string>
+  <string name="startDateTimeZone">ວັນທີເລີ່ມຕົ້ນໃນເຂດເວລາທ້ອງຖິ່ນຂອງການແຂ່ງຂັນ: %s</string>
+  <string name="startDateHelp">ບໍ່ບັງຄັບ, ຫາກທ່ານຮູ້ວັນທີເລີ່ມຕົ້ນການແຂ່ງຂັນ</string>
+  <string name="currentGameUrl">URL ຂອງເກມປັດຈຸບັນ</string>
+  <string name="downloadAllRounds">ດາວໂຫຼດທຸກຮອບ</string>
+  <string name="resetRound">ຕັ້ງຄ່າຮອບນີ້ໃໝ່</string>
+  <string name="deleteRound">ລຶບຮອບນີ້</string>
+  <string name="definitivelyDeleteRound">ລຶບຮອບນີ້ ແລະ ທຸກເກມໃນຮອບນີ້ຢ່າງຖາວອນ.</string>
+  <string name="deleteAllGamesOfThisRound">ລຶບທຸກເກມໃນຮອບນີ້. ແຫຼ່ງຂໍ້ມູນຈຳເປັນຕ້ອງມີການເຄື່ອນໄຫວຢູ່ເພື່ອສ້າງເກມຂຶ້ນມາໃໝ່.</string>
+  <string name="editRoundStudy">ແກ້ໄຂບົດສຶກສາຂອງຮອບ</string>
+  <string name="deleteTournament">ລຶບການແຂ່ງຂັນນີ້</string>
+  <string name="definitivelyDeleteTournament">ລຶບການແຂ່ງຂັນທັງໝົດ, ທຸກຮອບ ແລະ ທຸກເກມຢ່າງຖາວອນ.</string>
+  <string name="showScores">ສະແດງຄະແນນຜູ້ຫຼິ້ນໂດຍອີງຕາມຜົນການແຂ່ງຂັນ</string>
+  <string name="replacePlayerTags">ບໍ່ບັງຄັບ: ແທນທີ່ຊື່ຜູ້ຫຼິ້ນ, ຄະແນນ (Rating) ແລະ ຕຳແໜ່ງ (Title)</string>
+  <string name="fideFederations">ສະຫະພັນ FIDE</string>
+  <string name="top10Rating">10 ອັນດັບຄະແນນສູງສຸດ</string>
+  <string name="fidePlayers">ຜູ້ຫຼິ້ນ FIDE</string>
+  <string name="fidePlayerNotFound">ບໍ່ພົບຜູ້ຫຼິ້ນ FIDE</string>
+  <string name="fideProfile">ໂປຣໄຟລ໌ FIDE</string>
+  <string name="federation">ສະຫະພັນ</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">ອາຍຸ</string>
+  <string name="unrated">ບໍ່ມີຄະແນນ (Unrated)</string>
+  <string name="recentTournaments">ການແຂ່ງຂັນເມື່ອບໍ່ດົນມານີ້</string>
+  <string name="openLichess">ເປີດໃນ Lichess</string>
+  <string name="teams">ທີມ</string>
+  <string name="boards">ກະດານ</string>
+  <string name="overview">ພາບລວມ</string>
+  <string name="subscribeTitle">ຕິດຕາມເພື່ອຮັບການແຈ້ງເຕືອນເມື່ອແຕ່ລະຮອບເລີ່ມຕົ້ນ. ທ່ານສາມາດເປີດ/ປິດ ການແຈ້ງເຕືອນແບບຊຸກ (Push) ຫຼື ແບບຮູບລະຄັງ ສຳລັບການຖ່າຍທອດສົດໄດ້ໃນການຕັ້ງຄ່າບັນຊີຂອງທ່ານ.</string>
+  <string name="uploadImage">ອັບໂຫຼດຮູບພາບການແຂ່ງຂັນ</string>
+  <string name="noBoardsYet">ຍັງບໍ່ມີກະດານ. ກະດານຈະປາກົດຂຶ້ນເມື່ອມີການອັບໂຫຼດເກມແລ້ວ.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">ກະດານສາມາດໂຫຼດຜ່ານແຫຼ່ງຂໍ້ມູນ ຫຼື ຜ່ານ %s</string>
+  <string name="startsAfter">ເລີ່ມຕົ້ນຫຼັງຈາກ %s</string>
+  <string name="startVerySoon">ການຖ່າຍທອດສົດຈະເລີ່ມຕົ້ນໃນໄວໆນີ້.</string>
+  <string name="notYetStarted">ການຖ່າຍທອດສົດຍັງບໍ່ທັນເລີ່ມຕົ້ນ.</string>
+  <string name="officialWebsite">ເວັບໄຊທາງການ</string>
+  <string name="officialStandings">ຕາຕະລາງຄະແນນທາງການ</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">ຕົວເລືອກເພີ່ມເຕີມໃນ %s</string>
+  <string name="webmastersPage">ໜ້າຜູ້ເບິ່ງແຍງເວັບ</string>
+  <string name="embedThisBroadcast">ຝັງ (Embed) ການຖ່າຍທອດສົດນີ້ໃນເວັບໄຊຂອງທ່ານ</string>
+  <string name="ratingDiff">ຜົນຕ່າງຄະແນນ</string>
+  <string name="gamesThisTournament">ເກມໃນການແຂ່ງຂັນນີ້</string>
+  <string name="score">ຄະແນນ</string>
+  <string name="allTeams">ທຸກທີມ</string>
+  <string name="tournamentFormat">ຮູບແບບການແຂ່ງຂັນ</string>
+  <string name="tournamentLocation">ສະຖານທີ່ຈັດການແຂ່ງຂັນ</string>
+  <string name="topPlayers">ຜູ້ຫຼິ້ນລະດັບທັອບ</string>
+  <string name="timezone">ເຂດເວລາ</string>
+  <string name="fideRatingCategory">ປະເພດຄະແນນ FIDE</string>
+  <string name="optionalDetails">ລາຍລະອຽດເພີ່ມເຕີມ (ບໍ່ບັງຄັບ)</string>
+  <string name="pastBroadcasts">ການຖ່າຍທອດສົດທີ່ຜ່ານມາ</string>
+  <string name="allBroadcastsByMonth">ເບິ່ງການຖ່າຍທອດສົດທັງໝົດຕາມເດືອນ</string>
+  <string name="backToLiveMove">ກັບໄປທີ່ຕາເດີນຫຼ້າສຸດ (Live)</string>
+  <string name="sinceHideResults">ເນື່ອງຈາກທ່ານເລືອກເຊື່ອງຜົນການແຂ່ງຂັນ, ພາບຕົວຢ່າງຂອງທຸກກະດານຈຶ່ງຫວ່າງເປົ່າເພື່ອຫຼີກລ່ຽງການເຫັນຜົນກ່ອນ (Spoilers).</string>
+  <string name="liveboard">ກະດານສົດ</string>
+  <string name="communityBroadcast">ການຖ່າຍທອດສົດຂອງຊຸມຊົນ</string>
+  <string name="createdAndManagedBy">ສ້າງ ແລະ ຈັດການໂດຍ %s.</string>
+  <string name="roundX">ຮອບທີ %s</string>
+  <string name="defaultRoundNameHelp">ການໃຊ້ຊື່ເລີ່ມຕົ້ນຈະເຮັດໃຫ້ມັນຖືກແປເປັນພາສາອື່ນໆໂດຍອັດຕະໂນມັດ.</string>
+</resources>
