@@ -73,7 +73,7 @@
   <string name="inLocalBrowser">nel navegador local</string>
   <string name="toggleLocalEvaluation">Alternar la evaluación local</string>
   <string name="promoteVariation">Promocionar variante</string>
-  <string name="makeMainLine">Faer llínea principal</string>
+  <string name="makeMainLine">Facer llínea principal</string>
   <string name="deleteFromHere">Borrar dende equí</string>
   <string name="collapseVariations">Embrivir variante</string>
   <string name="expandVariations">Espandir variante</string>
@@ -112,8 +112,8 @@
   <string name="playFirstOpeningEndgameExplorerMove">Xugar primer movimientu d\'apertura final del esplorador de movimientos</string>
   <string name="winPreventedBy50MoveRule">La riegla de los 50 movimientos torga ganar</string>
   <string name="lossSavedBy50MoveRule">Perda evitada pola riegla de los 50 movimientos</string>
-  <string name="winOr50MovesByPriorMistake">Ganar o 50 xugaes per erru previu</string>
-  <string name="lossOr50MovesByPriorMistake">Perder o 50 xugaes per erru previu</string>
+  <string name="winOr50MovesByPriorMistake">Ganar o 50 xugaes per error previu</string>
+  <string name="lossOr50MovesByPriorMistake">Perder o 50 xugaes per error previu</string>
   <string name="unknownDueToRounding">Victoria o derrota segura solu si siguióse la llínea de movimientos encamentaos dende la última captura o movimientu de peón, pola mor del posible arredondio de valores DTZ de les Tables de Finales Syzygy.</string>
   <string name="allSet">¡Too llisto!</string>
   <string name="importPgn">Importar PGN</string>
@@ -187,9 +187,9 @@
   </plurals>
   <string name="viewInFullSize">Ver en tamañu completu</string>
   <string name="logOut">Pesllar sesión</string>
-  <string name="signIn">Empecipiar sesión</string>
+  <string name="signIn">Aniciar sesión</string>
   <string name="rememberMe">Caltener sesión empecipiada</string>
-  <string name="youNeedAnAccountToDoThat">Precises una cuenta para faer eso</string>
+  <string name="youNeedAnAccountToDoThat">Precises una cuenta para facer eso</string>
   <string name="signUp">Rexistrase</string>
   <string name="computersAreNotAllowedToPlay">Nun se dexa xugar a ordenadores nin a xugadores asistíos por ordenador. Por favor, nun se ayude de motores d\'axedrez, bases de datos o de otros xugadores mientres xuega. Tamién tenga en cuenta que se desaconseya crear munches cuentes y que l\'usu escesivu de delles cuentes va traer la espulsión.</string>
   <string name="games">Partíes</string>
@@ -259,7 +259,7 @@
   <string name="copyTextToEmail">Copiar y pegar el testu anterior y unvialo a %s</string>
   <string name="waitForSignupHelp">Pondremos en contactu contigo dientro poco para ayudar a completar el rexistru.</string>
   <string name="accountConfirmed">L\'usuariu %s confirmóse correchamente.</string>
-  <string name="accountCanLogin">Pues iniciar sesión agora como %s.</string>
+  <string name="accountCanLogin">Puedes iniciar sesión agora como %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nun necesites un email de confirmación.</string>
   <string name="accountClosed">La cuenta %s ta zarrada.</string>
   <string name="accountRegisteredWithoutEmail">La cuenta %s rexistróse ensin un corréu.</string>
@@ -352,17 +352,17 @@
   </plurals>
   <string name="thisAccountViolatedTos">Esti usuariu nun cumple los Términos de Serviciu de Lichess</string>
   <string name="openingExplorerAndTablebase">Esplorador d\'apertures y base de datos de finales</string>
-  <string name="takeback">Desfaer xugada</string>
-  <string name="proposeATakeback">Proponer desfaer xugada</string>
+  <string name="takeback">Desfacer xugada</string>
+  <string name="proposeATakeback">Proponer desfacer xugada</string>
   <string name="whiteProposesTakeback">Les blanques proponen desfacer la xugada</string>
   <string name="blackProposesTakeback">Les negres proponen desfacer la xugada</string>
-  <string name="takebackPropositionSent">Propuesta de desfaer xugada unviada</string>
-  <string name="whiteDeclinesTakeback">Les blanques refuguen desfaer la xugada</string>
-  <string name="blackDeclinesTakeback">Les negres refuguen desfaer la xugada</string>
-  <string name="whiteAcceptsTakeback">Les blanques acepten desfaer la xugada</string>
-  <string name="blackAcceptsTakeback">Les negres acepten desfaer la xugada</string>
-  <string name="whiteCancelsTakeback">Les blanques encaboxaron desfaer la xugada</string>
-  <string name="blackCancelsTakeback">Les negres encaboxaron desfaer la xugada</string>
+  <string name="takebackPropositionSent">Propuesta de desfacer xugada unviada</string>
+  <string name="whiteDeclinesTakeback">Les blanques refuguen desfacer la xugada</string>
+  <string name="blackDeclinesTakeback">Les negres refuguen desfacer la xugada</string>
+  <string name="whiteAcceptsTakeback">Les blanques acepten desfacer la xugada</string>
+  <string name="blackAcceptsTakeback">Les negres acepten desfacer la xugada</string>
+  <string name="whiteCancelsTakeback">Les blanques encaboxaron desfacer la xugada</string>
+  <string name="blackCancelsTakeback">Les negres encaboxaron desfacer la xugada</string>
   <string name="yourOpponentProposesATakeback">El to oponente propón desfacer la xugada</string>
   <string name="bookmarkThisGame">Marcar esti xuegu como favoritu</string>
   <string name="tournament">Tornéu</string>
@@ -382,7 +382,7 @@
   </plurals>
   <string name="viewTournament">Ver tornéu</string>
   <string name="backToTournament">Volver al tornéu</string>
-  <string name="noDrawBeforeSwissLimit">Nun pues facer tables primero que se xueguen 30 movimientos nun tornéu suizu.</string>
+  <string name="noDrawBeforeSwissLimit">Nun puedes facer tables primero que se xueguen 30 movimientos nun tornéu suizu.</string>
   <string name="thematic">Temática</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partida por puntos</item>
@@ -698,7 +698,7 @@
   <string name="whenCreateSimul">Cuando creas una simultánea, xuegues contra dellos xugadores al empar.</string>
   <string name="simulVariantsHint">Si escueyes distintes variantes, cada xugador escueye cuál xugar.</string>
   <string name="simulClockHint">Configuración de reló Fischer. Cuantos más oponentes, más tiempu precísase.</string>
-  <string name="simulAddExtraTime">Pues añedir tiempu adicional al to reló para ayudar na simultánea.</string>
+  <string name="simulAddExtraTime">Puedes añedir tiempu adicional al to reló para ayudar na simultánea.</string>
   <string name="simulHostExtraTime">Tiempu extra del agospiu</string>
   <string name="simulAddExtraTimePerPlayer">Añedir tiempu inicial al to reló per cada xugador que s\'una a la simultánea.</string>
   <string name="simulHostExtraTimePerPlayer">Tiempu extra del agospiu per cada xugador</string>
@@ -724,11 +724,12 @@
   <string name="cyclePreviousOrNextVariation">Alterna ente la variante siguiente y l\'anterior</string>
   <string name="toggleGlyphAnnotations">Activa o desactiva l\'anotación de figurines</string>
   <string name="togglePositionAnnotations">Alternar anotaciones de posición</string>
+  <string name="toggleObservationAnnotations">Alternar les anotaciones d\'observación</string>
   <string name="variationArrowsInfo">Les fleches de variantes te dexen navegar ensin usar la llista de movimientos.</string>
   <string name="playSelectedMove">facer movimientu escoyíu</string>
   <string name="newTournament">Nuevu tornéu</string>
   <string name="tournamentHomeTitle">Torneos d\'axedrez con distintes variantes y controles de tiempu</string>
-  <string name="tournamentHomeDescription">¡Xuega torneos d\'axedrez rápidu! Xúnite a un tornéu oficial programáu o crea\'l tuyu propiu. Bala, Rellámpagu, Clásicu, Axedrez960, Rei de la Colina, Tres xaques y más opciones disponibles pa una diversión ensin fin n\'axedrez.</string>
+  <string name="tournamentHomeDescription">¡Xuega torneos d\'axedrez rápidu! Xúnite a un tornéu oficial programáu o crea\'l tuyu propiu. Bullet, Blitz, Clásicu, Axedrez960, Rei de la Colina, Tres xaques y más opciones disponibles pa una diversión ensin fin n\'axedrez.</string>
   <string name="tournamentNotFound">Nun s\'atopó\'l tornéu</string>
   <string name="tournamentDoesNotExist">Esti tornéu nun esiste.</string>
   <string name="tournamentMayHaveBeenCanceled">Pue que háyase canceláu, si tolos xugadores fuéronse primero qu\'empezara el tornéu.</string>
@@ -762,7 +763,7 @@
   <string name="downloadImported">Descargar la partida importada</string>
   <string name="downloadAllGames">Descargar toles partíes</string>
   <string name="crosstable">Tabla cruciada</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamién pues usar la rueda del ratón pa movete pola partida.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamién puedes usar la rueda del ratón pa movete pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsiáu sobro les variantes del análisis pa previsualizarlas.</string>
   <string name="analysisShapesHowTo">Fai clic col botón derechu o Máyus+clic para dibuxar círculos y fleches nel tableru.</string>
   <string name="primaryColorArrowsHowTo">Ctrl o mayúscules = coloráu; comandu, alt, o meta = azul; xuna tecla de cada = mariellu.</string>
@@ -854,7 +855,7 @@
   <string name="findBetterMoveForWhite">Atopa un movimientu meyor para les blanques</string>
   <string name="findBetterMoveForBlack">Atopa un movimientu meyor para les prietes</string>
   <string name="resumeLearning">Siguir l\'aprendizaxe</string>
-  <string name="youCanDoBetter">Pues facerlo meyor</string>
+  <string name="youCanDoBetter">Puedes facerlo meyor</string>
   <string name="tryAnotherMoveForWhite">Prueba con otru movimientu pa les blanques</string>
   <string name="tryAnotherMoveForBlack">Prueba con otru movimientu pa les prietes</string>
   <string name="solution">Solución</string>
@@ -907,9 +908,10 @@
   <string name="agreementPolicy">Me comprometo a siguir les normes de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar o empezar una nueva conversación</string>
   <string name="edit">Editar</string>
-  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Rellámpagu</string>
-  <string name="rapid">Rápido</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
+  <string name="rapid">Rápida</string>
   <string name="classical">Clásica</string>
   <string name="ultraBulletDesc">Partíes increíblemente rápides: menos de 30 segundos</string>
   <string name="bulletDesc">Partíes bien rápides: menos de 3 minutos</string>
@@ -919,7 +921,7 @@
   <string name="correspondenceDesc">Partíes por correspondencia: unu o dellos díes por xugada</string>
   <string name="puzzleDesc">Entrenador de táctica d\'axedrez</string>
   <string name="important">Importante</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Pue que la to gueta ya tenga respuesta %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Puede que la to gueta ya tenga respuesta %1$s</string>
   <string name="inTheFAQ">nes guetes frecuentes.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Pa denunciar a un usuariu por tramposu o por mal comportamientu, 
 %1$s</string>
@@ -931,7 +933,7 @@
   <string name="thisTopicIsArchived">Esta tema foi archiváu y ya nun almite respuestes.</string>
   <string name="joinTheTeamXToPost">Xúnite a %1$s para publicar nesti foru</string>
   <string name="teamNamedX">equipu %1$s</string>
-  <string name="youCannotPostYetPlaySomeGames">Tovía nun pues publicar nos foros. ¡Xuega delles partíes!</string>
+  <string name="youCannotPostYetPlaySomeGames">Tovía nun puedes publicar nos foros. ¡Xuega delles partíes!</string>
   <string name="subscribe">Suscribirse</string>
   <string name="unsubscribe">Encaboxar la suscripción</string>
   <string name="mentionedYouInX">mentaronte en \"%1$s\".</string>
@@ -953,7 +955,7 @@
   <string name="streamerManager">Xestor d\'emisiones</string>
   <string name="cancelTournament">Encaboxar tornéu</string>
   <string name="tournDescription">Descripción del tornéu</string>
-  <string name="tournDescriptionHelp">¿Quies dicir daqué especial a los participantes? Intenta ser curtiu. Pues usar enllaces al estilu Markdown: [nome](https://*url)</string>
+  <string name="tournDescriptionHelp">¿Quies dicir daqué especial a los participantes? Intenta ser curtiu. Puedes usar enllaces al estilu Markdown: [nome](https://*url)</string>
   <string name="ratedFormHelp">Les partíes son por puntos
 y afecten a la puntuación de los xugadores</string>
   <string name="onlyMembersOfTeam">Namás miembros del equipu</string>
@@ -961,9 +963,9 @@ y afecten a la puntuación de los xugadores</string>
   <string name="minimumRatedGames">Mínimu de partíes por puntos</string>
   <string name="minimumRating">Rating mínimu</string>
   <string name="maximumWeeklyRating">Puntuación máxima selmanal</string>
-  <string name="positionInputHelp">Pega un FEN válidu para empecipiar cada partida dende una posición determinada.
+  <string name="positionInputHelp">Pega un FEN válidu para entamar cada partida dende una posición determinada.
 Namás funciona para partíes estándar, non con variantes.
-Pues usar el %s para xenerar una posición FEN, y depués pegala equí.
+Puedes usar el %s para xenerar una posición FEN, y depués pegala equí.
 Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
   <string name="cancelSimul">Encaboxar simultánea</string>
   <string name="simulHostcolor">Color del anfitrión para cada partida</string>
@@ -996,7 +998,7 @@ Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
   <string name="gameInProgress">Tas xugando una partida con %s.</string>
   <string name="abortTheGame">Albortar partida</string>
   <string name="resignTheGame">Abandonar partida</string>
-  <string name="youCantStartNewGame">Nun pues empezar una partida teniendo otra en xuegu.</string>
+  <string name="youCantStartNewGame">Nun puedes empezar una partida teniendo otra en xuegu.</string>
   <string name="since">Dende</string>
   <string name="until">Hasta</string>
   <string name="lichessDbExplanation">Partíes por puntos de tolos xugadores de Lichess</string>
@@ -1018,4 +1020,5 @@ Tolos gastos de funcionamientu, desenvolvimientu y conteníos finánciense puram
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar busca</string>
   <string name="tags">Etiquetes</string>
+  <string name="enPassant">Garrar al pasu</string>
 </resources>

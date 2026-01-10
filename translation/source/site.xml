@@ -1018,4 +1018,5 @@ All operating costs, development, and content are funded solely by user donation
   <string name="search">Search</string>
   <string name="clearSearch">Clear search</string>
   <string name="tags">Tags</string>
+  <string name="enPassant">En passant</string>
 </resources>
