@@ -724,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Önceki/sonraki varyasyona geç</string>
   <string name="toggleGlyphAnnotations">Glif dipnotlarını aç/kapat</string>
   <string name="togglePositionAnnotations">Konum açıklamalarını değiştir</string>
+  <string name="toggleObservationAnnotations">Gözlem açıklamalarını aç/kapat</string>
   <string name="variationArrowsInfo">Varyasyon okları, hamle listesini kullanmadan gezinmenizi sağlar.</string>
   <string name="playSelectedMove">seçili hamleyi oyna</string>
   <string name="newTournament">Yeni turnuva</string>
@@ -765,6 +766,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ayrıca fare tekerini kullanarak da hamle yapabilirsiniz.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Fareyi bilgisayar varyantlarının üzerine getirerek pozisyonu görüntüleyin.</string>
   <string name="analysisShapesHowTo">Tahta üzerinde çember ya da ok çizmek için lütfen shift+click ya da right+click kullanın.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl veya shift = kırmızı; command, alt veya meta = mavi; her birinden bir tuş = sarı.</string>
   <string name="letOtherPlayersMessageYou">Diğer oyuncular size mesaj yollayabilsinler mi?</string>
   <string name="receiveForumNotifications">Forumda sizden bahsedildiğinde bildirim alın</string>
   <string name="shareYourInsightsData">Satranç oyun verilerinizi diğerleriyle paylaşın</string>
@@ -1014,4 +1016,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="search">Ara</string>
   <string name="clearSearch">Aramayı temizle</string>
   <string name="tags">Etiketler</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">Geçerken alma</string>
 </resources>
