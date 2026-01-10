@@ -113,10 +113,10 @@ final class RelayTeamTable(
   import play.api.libs.json.*
   import RelayTeam.*
 
-  def tableJson(relay: RelayRound): Fu[JsObject] = jsonCache.get(relay.studyId)
+  def tableJson(roundId: RelayRoundId): Fu[JsObject] = jsonCache.get(roundId.studyId)
 
-  def table(relay: RelayRound): Fu[List[TeamMatch]] =
-    cache.get(relay.studyId)
+  def table(roundId: RelayRoundId): Fu[List[TeamMatch]] =
+    cache.get(roundId.studyId)
 
   private val cache = cacheApi[StudyId, List[TeamMatch]](64, "relay.teamTable"):
     _.expireAfterWrite(3.seconds).buildAsyncFuture(impl.compute)
@@ -211,7 +211,7 @@ final class TeamLeaderboard(
     for
       scoreGroup <- relayGroupApi.scoreGroupOf(tourId)
       tours <- scoreGroup.traverse(t => tourRepo.byId(t).orFail(s"Missing relay tour $t"))
-      rounds <- tours.toList.flatTraverse(t => roundRepo.byTourOrdered(t.id))
+      rounds <- tours.toList.flatTraverse(t => roundRepo.idsByTourOrdered(t.id))
       matches <- rounds.flatTraverse(teamTable.table)
     yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
       matchup.teams.foldLeft(acc):
