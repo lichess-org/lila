@@ -44,9 +44,9 @@
   <string name="createANewLichessAccount">Създадете нов Lichess акаунт</string>
   <string name="createDesc1">Ако ученикът няма Lichess акаунт, можете да създадете негов тук.</string>
   <string name="createDesc2">Няма нужда от e-mail адрес. Паролата ще се генерира автоматично, а Вие трябва да я предадете на ученика, за да могат да влязат.</string>
-  <string name="createDesc3">Важно: учениците не трябва да имат няколко акаунта.</string>
+  <string name="createDesc3">Важно: един ученик не трябва да има повече от една регистрация.</string>
   <string name="createDesc4">Ако вече имат акаунт, използвайте тази форма.</string>
-  <string name="createStudentWarning">Можете да създавате регистрации само за истински ученици. Не използвайте тази възможност да правите допълнителни профили за себе си, защото ще бъдете блокирани.</string>
+  <string name="createStudentWarning">Можете да създавате регистрации само за истински ученици. Не използвайте тази възможност да правите допълнителни регистрации за себе си, защото ще бъдете блокирани.</string>
   <string name="lichessUsername">Lichess потребителско име</string>
   <string name="generateANewUsername">Генерирайте ново потребителско име</string>
   <string name="welcomeToClass">Добре дошли във Вашият клас: %s.
@@ -62,8 +62,8 @@
   <string name="onlyVisibleToTeachers">Да се вижда само от учители на класа</string>
   <string name="lastActiveDate">Активен</string>
   <string name="managed">Управляван</string>
-  <string name="thisStudentAccountIsManaged">Този учебен акаунт е управляван</string>
-  <string name="upgradeFromManaged">Смени от управляван към автономен</string>
+  <string name="thisStudentAccountIsManaged">Управлявана ученическа регистрация</string>
+  <string name="upgradeFromManaged">Преминаване от управлявана към самостоятелна регистрация</string>
   <string name="release">Дипломирай</string>
   <string name="releaseTheAccount">Дипломирай акаунта, за да може ученикът да го управлява автономно.</string>
   <string name="releaseDesc1">Дипломиран акаунт не може да бъде управляван отново. Ученикът ще може да управлява режима за деца и да смени паролата си.</string>
@@ -90,7 +90,7 @@
   <string name="timePlaying">Играно време</string>
   <string name="variantXOverLastY">%1$s за последните %2$s</string>
   <string name="winrate">Процент на победи</string>
-  <string name="na">Неналично</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Неналично</string>
   <string name="overview">Преглед</string>
   <string name="news">Новини</string>
   <string name="classNews">Новини за класа</string>
@@ -107,7 +107,7 @@
   <string name="youDeclinedThisInvitation">Вие отказахте тази покана.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">или</string>
   <string name="createMultipleAccounts">Създайте няколко Lichess акаунта наведнъж</string>
-  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Можете също %s да създадете множество Lichess акаунти от списък с имена на ученици.</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Можете също да използвате %s за да създадете няколко Lichess регистрации от списък с имена на ученици.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">използвайте този формуляр</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Имайте предвид, че един клас може да има до %1$s ученици. За да управлявате повече ученици, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">създайте повече класове</string>
@@ -118,4 +118,11 @@
   <string name="xIsAKidAccountWarning">%1$s е на детски режим и не може да получи съобщението ви. Трябва да им предоставите URL адреса на поканата ръчно: %2$s</string>
   <string name="moveToClass">Преместване в %s</string>
   <string name="moveToAnotherClass">Преместване в друг клас</string>
+  <string name="allowMessagingBetweenStudents">Разрешаване на съобщения между ученици</string>
+  <string name="allowMessagingBetweenStudentsDesc">Това важи само за профилите, които сте създали за вашите ученици.</string>
+  <string name="quickLoginCode">Код за бърз вход</string>
+  <string name="quickLoginCodes">Кодове за бърз вход</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Използвайте тези кодове на %s, за да впишете учениците си в Lichess.</string>
+  <string name="quickLoginCodesDesc2">След изтичане на кодовете учениците ще останат вписани, докато не излязат ръчно.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Изтича след %s</string>
 </resources>

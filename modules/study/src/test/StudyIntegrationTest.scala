@@ -146,7 +146,7 @@ object StudyAction:
       .updateRoot:
         _.withChildren: children =>
           if toMainline then children.promoteToMainlineAt(position.path)
-          else children.promoteUpAt(position.path).map(_._1)
+          else children.promoteUpAt(position.path)._1F
 
   def toggleGlyph(chapter: Chapter, position: Position.Ref, glyph: Glyph) =
     chapter.toggleGlyph(glyph, position.path)

@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Kahlitse kuningas laudan nurkkaan tornilla tai daamilla ja tee sitten matti ratsulla.</string>
   <string name="crushing">Murskaava etu</string>
   <string name="crushingDescription">Löydä vastustajan vakava virhe ja hanki murskaava etu. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Paljastusshakki</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Paljasta yhtä nappulaa siirtämällä toisen hyökkäävän nappulasi shakkaus, millä usein saavuttaa ratkaisevan edun.</string>
+  <string name="discoveredCheck">Paljastusshakki</string>
+  <string name="discoveredCheckDescription">Paljasta yhtä nappulaa siirtämällä toisen hyökkäävän nappulasi shakkaus, millä usein saavuttaa ratkaisevan edun.</string>
   <string name="doubleBishopMate">Kahden lähetin matti</string>
   <string name="doubleBishopMateDescription">Kaksi vierekkäisiltä diagonaaleilta hyökkäävää lähettiä matittaa omien nappuloidensa estämän kuninkaan.</string>
   <string name="dovetailMate">Cozion matti</string>
@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">Tee odotetun siirron sijaan ensin toinen siirto, jonka synnyttämään välittömään uhkaan vastustajasi täytyy vastata. Tunnetaan myös nimellä \"Zwischenzug\".</string>
   <string name="killBoxMate">Tapponeliömatti</string>
   <string name="killBoxMateDescription">Torni on vastustajan kuninkaan vieressä, ja sitä suojelee daami, joka myös vie kuninkaalta pakoruudut. Vastustajan kuningas jää kiinni tornin ja daamin muodostamaan 3x3-ruudun \"tapponeliöön\".</string>
+  <string name="pillsburysMate">Pillsburyn matti</string>
+  <string name="pillsburysMateDescription">Torni matittaa kuninkaan samalla kun lähetti vie kuninkaalta pakoruudut.</string>
+  <string name="morphysMate">Morphyn matti</string>
+  <string name="morphysMateDescription">Matita vastustajan kuningas lähetilläsi samalla kun torni vie kuninkaalta pakoruudut.</string>
   <string name="triangleMate">Kolmiomatti</string>
   <string name="triangleMateDescription">Daami ja torni ovat kumpikin ruudun päässä vastustajan kuninkaasta sekä samalla rivillä tai linjalla siten, että niiden väliin jää yksi tyhjä ruutu, ja ne muodostavat yhdessä kuninkaan kanssa kolmion.</string>
   <string name="vukovicMate">Vukovićin matti</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">Tehtävä, jossa vaaditaan vain yksi siirto.</string>
   <string name="opening">Avaus</string>
   <string name="openingDescription">Taktiikka pelin ensimmäisessä vaiheessa.</string>
+  <string name="operaMate">Oopperamatti</string>
+  <string name="operaMateDescription">Matita vastustajan kuningas tornilla lähetin suojellessa tornia.</string>
   <string name="pawnEndgame">Sotilasloppupeli</string>
   <string name="pawnEndgameDescription">Loppupeli, jossa on vain sotilaita.</string>
   <string name="pin">Kiinnitys</string>

@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="newAccessToken">નવું વ્યક્તિગત API એક્સેસ ટોકન</string>
+  <string name="tokenGrantsPermission">એક ટોકન અન્ય લોકોને તમારું એકાઉન્ટ વાપરવાની પરવાનગી આપે છે.</string>
+  <string name="carefullySelect">તેને તમારી વતી શું કરવાની મંજૂરી છે તે કાળજીપૂર્વક પસંદ કરો.</string>
+  <string name="tokenDescription">ટોકન વર્ણન</string>
+  <string name="rememberTokenUse">તમને યાદ રહે કે આ ટોકન શેના માટે છે</string>
+  <string name="whatTheTokenCanDo">ટોકન તમારી વતી શું કરી શકે છે:</string>
+  <string name="doNotShareIt">ટોકન તમારા એકાઉન્ટને ઍક્સેસ આપશે. તેને કોઈની સાથે શેર કરશો નહીં!</string>
+  <string name="copyTokenNow">તમારા નવા વ્યક્તિગત એક્સેસ ટોકનને હમણાં જ કૉપિ કરવાની ખાતરી કરો. તમે તેને ફરીથી જોઈ શકશો નહીં!</string>
+  <string name="preferenceRead">પસંદગીઓ વાંચો</string>
+  <string name="preferenceWrite">પસંદગીઓ લખો</string>
+  <string name="emailRead">ઇમેઇલ સરનામું વાંચો</string>
+  <string name="challengeRead">આવનારા પડકારો વાંચો</string>
+  <string name="challengeWrite">પડકારો મોકલો, સ્વીકારો અને નકારો</string>
+  <string name="challengeBulk">અન્ય ખેલાડીઓ માટે એક સાથે ઘણી રમતો બનાવો</string>
+  <string name="studyRead">ખાનગી સ્ટડીઝ અને બ્રોડકાસ્ટ્સ વાંચો</string>
+  <string name="studyWrite">સ્ટડીઝ અને બ્રોડકાસ્ટ્સ બનાવો, અપડેટ કરો, કાઢી નાખો</string>
+  <string name="tournamentWrite">ટુર્નામેન્ટ્સ બનાવો, અપડેટ કરો અને જોડાઓ</string>
+  <string name="racerWrite">પઝલ રેસ બનાવો અને જોડાઓ</string>
+  <string name="puzzleRead">પઝલ પ્રવૃત્તિ વાંચો</string>
+  <string name="teamRead">ખાનગી ટીમ માહિતી વાંચો</string>
+  <string name="teamWrite">ટીમોમાં જોડાઓ અને છોડો</string>
+  <string name="teamLead">તમે જે ટીમોનું નેતૃત્વ કરો છો તેનું સંચાલન કરો: PM મોકલો, સભ્યોને બહાર કાઢો</string>
+  <string name="followRead">ફોલો કરેલા ખેલાડીઓ વાંચો</string>
+  <string name="followWrite">અન્ય ખેલાડીઓને ફોલો કરો અને અનફોલો કરો</string>
+  <string name="msgWrite">અન્ય ખેલાડીઓને ખાનગી સંદેશાઓ મોકલો</string>
+  <string name="boardPlay">બોર્ડ API સાથે રમતો રમો</string>
+  <string name="botPlay">બૉટ API સાથે રમતો રમો</string>
+  <string name="engineRead">તમારા બાહ્ય એન્જિનો જુઓ અને ઉપયોગ કરો</string>
+  <string name="engineWrite">બાહ્ય એન્જિનો બનાવો અને અપડેટ કરો</string>
+  <string name="webLogin">પ્રમાણિત વેબસાઇટ સત્રો બનાવો (સંપૂર્ણ ઍક્સેસ આપે છે!)</string>
+  <string name="webMod">મોડરેટર ટૂલ્સનો ઉપયોગ કરો (તમારી પરવાનગીની મર્યાદામાં)</string>
+  <string name="personalAccessTokens">વ્યક્તિગત API એક્સેસ ટોકન્સ</string>
+  <string name="canMakeOauthRequests">તમે %s માંથી પસાર થયા વિના OAuth વિનંતીઓ કરી શકો છો.</string>
+  <string name="authorizationCodeFlow">ઓથોરાઇઝેશન કોડ ફ્લો</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">તેના બદલે, %s કરો જેનો તમે API વિનંતીઓમાં સીધો ઉપયોગ કરી શકો.</string>
+  <string name="generatePersonalToken">એક વ્યક્તિગત એક્સેસ ટોકન જનરેટ કરો</string>
+  <string name="guardTokensCarefully">આ ટોકન્સનું કાળજીપૂર્વક રક્ષણ કરો! તે પાસવર્ડ જેવા છે. સ્ક્રિપ્ટમાં તમારો પાસવર્ડ મૂકવા કરતાં ટોકન્સનો ઉપયોગ કરવાનો ફાયદો એ છે કે ટોકન્સ રદ કરી શકાય છે, અને તમે તેમાંથી ઘણા બધા જનરેટ કરી શકો છો.</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">અહીં એક %1$s અને %2$s છે.</string>
+  <string name="personalTokenAppExample">વ્યક્તિગત ટોકન એપ્લિકેશન ઉદાહરણ</string>
+  <string name="apiDocumentation">API દસ્તાવેજીકરણ</string>
+  <string name="newToken">નવું એક્સેસ ટોકન</string>
+  <string name="apiAccessTokens">API એક્સેસ ટોકન્સ</string>
+  <string name="created">%s બનાવ્યું</string>
+  <string name="lastUsed">છેલ્લે %s નો ઉપયોગ થયો</string>
+  <string name="alreadyHavePlayedGames">તમે પહેલેથી જ રમતો રમી છે!</string>
+  <string name="attentionOfDevelopers">ફક્ત વિકાસકર્તાઓના ધ્યાન માટે નોંધ:</string>
+  <string name="possibleToPrefill">URL ના ક્વેરી પેરામીટર્સને ટ્વીક કરીને આ ફોર્મ પ્રી-ફિલ કરવું શક્ય છે.</string>
+  <string name="forExample">ઉદાહરણ તરીકે: %s</string>
+  <string name="ticksTheScopes">%1$s અને %2$s સ્કોપ્સને ટિક કરે છે, અને ટોકન વર્ણન સેટ કરે છે.</string>
+  <string name="givingPrefilledUrls">તમારા વપરાશકર્તાઓને આ પ્રી-ફિલ્ડ URL આપવાથી તેમને યોગ્ય ટોકન સ્કોપ્સ મેળવવામાં મદદ મળશે.</string>
+</resources>

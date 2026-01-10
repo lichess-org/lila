@@ -155,7 +155,7 @@ private object TutorBuilder:
     final lazy val map: Map[Dim, Pair] = list.toMap
     export map.get
 
-    def dimensions = list.map(_._1)
+    def dimensions = list._1F
     def alignedQuestion = answer.question.filter(Filter(answer.question.dimension, dimensions))
 
   case class AnswerMine[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)

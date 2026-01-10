@@ -3,7 +3,7 @@
   <string name="gameSetup">Oyun ayarları</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Arkadaşına Oyun Teklif Et</string>
   <string name="playAgainstComputer">Bilgisayara karşı oyna</string>
-  <string name="gameMode">Oyun modü</string>
+  <string name="gameMode">Oyun modu</string>
   <string name="createLobbyGame">Lobi oyunu oluştur</string>
   <string name="youPlayAs">Oynadığın renk</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
@@ -345,6 +345,7 @@
     <item quantity="other">%s oynuyor</item>
   </plurals>
   <string name="exportGames">Oyunları indir</string>
+  <string name="ratingFilter">Puan filtreleme</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s saniye ver</item>
     <item quantity="other">%s saniye ver</item>
@@ -473,10 +474,6 @@
   <string name="player">Oyuncu</string>
   <string name="list">Liste</string>
   <string name="graph">Grafik</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s dakikadan daha az</item>
-    <item quantity="other">%s dakikadan daha az</item>
-  </plurals>
   <string name="required">Gerekli.</string>
   <string name="openTournaments">Açık turnuvalar</string>
   <string name="duration">Süre</string>
@@ -881,6 +878,7 @@
   <string name="playVariationToCreateConditionalPremoves">Koşullu ön hamleler yapmak için bir varyasyon oynayın</string>
   <string name="noConditionalPremoves">Koşullu ön hamle yok</string>
   <string name="playX">%s oyna</string>
+  <string name="challengeX">Meydan Oku %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">ve %s önceki varyantları kaydedin</item>
     <item quantity="other">ve %s önceki varyantları kaydedin</item>
@@ -971,6 +969,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="simulFeaturedHelp">Eş zamanlı gösteriyi %s adresinden herkese görünür kılar. Özel gösteriler için devre dışı bırakın.</string>
   <string name="simulDescription">Eş zamanlı gösterinin açıklaması</string>
   <string name="simulDescriptionHelp">Katılımcılara söylemek istediğiniz bir şey var mı?</string>
+  <string name="markdownIsAvailable">%s formatlanmak için uygun.</string>
   <string name="embedsAvailable">Bir maç veya çalışma bölümü eklemek için bağlantıyı buraya yapıştırın.</string>
   <string name="inYourLocalTimezone">Yerel zaman diliminizde</string>
   <string name="tournChat">Turnuva sohbeti</string>

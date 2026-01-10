@@ -474,10 +474,6 @@
   <string name="player">Spieler</string>
   <string name="list">Liste</string>
   <string name="graph">Graph</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Weniger als %s Minute</item>
-    <item quantity="other">Weniger als %s Minuten</item>
-  </plurals>
   <string name="required">Pflichtfeld.</string>
   <string name="openTournaments">Offene Turniere</string>
   <string name="duration">Dauer</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Durch vorherige/nächste Variante schalten</string>
   <string name="toggleGlyphAnnotations">Schalten der Zeichen-Anmerkungen</string>
   <string name="togglePositionAnnotations">Positionsanmerkungen umschalten</string>
+  <string name="toggleObservationAnnotations">Stellungsanmerkungen umschalten</string>
   <string name="variationArrowsInfo">Mit Varianten-Pfeilen navigierst du durch die Zugliste.</string>
   <string name="playSelectedMove">den ausgewählten Zug ausführen</string>
   <string name="newTournament">Neues Turnier</string>
@@ -911,6 +908,7 @@
   <string name="agreementPolicy">Ich stimme zu, dass ich allen Lichess-Richtlinien folgen werde.</string>
   <string name="searchOrStartNewDiscussion">Suche oder beginne eine neue Konversation</string>
   <string name="edit">Bearbeiten</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Schnellschach</string>
@@ -1021,4 +1019,5 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="search">Suchen</string>
   <string name="clearSearch">Neue Suche</string>
   <string name="tags">Schlagwörter</string>
+  <string name="enPassant">En passant</string>
 </resources>

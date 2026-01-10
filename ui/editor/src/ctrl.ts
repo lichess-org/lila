@@ -178,7 +178,7 @@ export default class EditorCtrl {
       }, '');
     const checkRank = (rank: string, regex: RegExp, offset: number, filesEnPassant: Set<number>) => {
       let match: RegExpExecArray | null;
-      while ((match = regex.exec(rank)) != null) {
+      while ((match = regex.exec(rank)) !== null) {
         filesEnPassant.add(match.index + offset);
       }
     };

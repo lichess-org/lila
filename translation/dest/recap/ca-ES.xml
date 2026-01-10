@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hola, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Que has estat fent aquest any?</string>
+	<string name="initTitle">Quin any d\'escacs que has tingut!</string>
+	<string name="noGamesText">No has jugat cap partida aquest any.</string>
+	<string name="noGamesCta">Vols jugar ara?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">I has guanyat %s partides!</string>
+	<string name="gamesNextQuestion">Que t\'ha portat fins aquí?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">Has passat %s jugant!</string>
+	<string name="timeTooMuch">Això és una mica massa escacs.</string>
+	<string name="timeALot">Això són molts escacs.</string>
+	<string name="timeReasonable">Sembla un bona dosi d\'escacs.</string>
+	<string name="timeHowManyMoves">Quants moviments has fet durat aquest temps?</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Això són %s de fusta moguda!</string>
+	<string name="movesStandardPiecesWeight">Les peces estàndard pesen normalment 40g cada una</string>
+	<string name="chessFoes">Els teus millors rivals dels escacs</string>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">és com has començat el %s de les teves partides amb blanques</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">La teva obertura més jugada amb blanques amb %s partida</item>
+		<item quantity="other">La teva obertura més jugada amb blanques amb %s partides</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">La teva obertura més jugada amb negres amb %s partida</item>
+		<item quantity="other">La teva obertura més jugada amb negres amb %s partides</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">També has ajudat a etiquetar %s d\'ells.</string>
+	<string name="puzzlesNone">No has resolt cap problema aquest any.</string>
+	<string name="puzzlesTryNow">Vols provar-n\'he algun ara?</string>
+	<string name="puzzlesYouWonOnFirstTry">Has guanyat %s d\'ells a la primera!</string>
+	<string name="sourcesTitle">Com trobes les teves partides?</string>
+	<string name="perfsTitle">Quins controls de temps i variants has jugat?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s anuncis i rastrejadors carregats</string>
+	<string name="malwareNoSell">Nosaltres no venem les teves dades personals</string>
+	<string name="malwareNoAbuse">No utilitzem el teu dispositiu en contra teu</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Però hi ha altres llocs que si que ho fan. Així que, siusplau %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">sigues curós</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s partides jugades al Lliches al %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s d\'elles han estat teves.</string>
+	<string name="thanksTitle">Gràcies per jugar a Lichess!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Un plaer que hagis estat aquí. Que tinguis un feliç %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">Els %1$s del Lichess d\'aquest any han estat de %2$s.</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">costos</string>
+	<string name="patronCharity">Som una caritat, funcionem totalment amb donacions.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Si t\'hem ajudat a entretenir-te aquest any o creus en el nostre treball, si us plau considera %s!</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">ajuda\'ns amb una donació</string>
+	<string name="shareableTitle" comment="%s is the current year">El meu recap del %s</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">dedicat a jugar</string>
+	<string name="shareableMostPlayedOpponent">oponent més jugat</string>
+	<string name="shareableFavouriteVariant">variant preferida</string>
+	<string name="shareableFavouriteTimeControl">control de temps preferit</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s problema resolt</item>
+		<item quantity="other">%s problemes resolts</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap">El teu resum del %s esta disponible!</string>
+</resources>

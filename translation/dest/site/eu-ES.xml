@@ -474,10 +474,6 @@
   <string name="player">Jokalaria</string>
   <string name="list">Zerrenda</string>
   <string name="graph">Grafikoa</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s minutu baino gutxiago</item>
-    <item quantity="other">%s minutu baino gutxiago</item>
-  </plurals>
   <string name="required">Beharrezkoa.</string>
   <string name="openTournaments">Txapelketa irekiak</string>
   <string name="duration">Iraupena</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Aldatu aurreko/hurrengo ingurabidean</string>
   <string name="toggleGlyphAnnotations">Aktibatu/Desaktibatu ikur bidezko oharrak</string>
   <string name="togglePositionAnnotations">Aktibatu/Desaktibatu posizioko oharrak</string>
+  <string name="toggleObservationAnnotations">Aktibatu/Desaktibatu oharrak</string>
   <string name="variationArrowsInfo">Ingurabidearen geziek jokaldi zerrenda erabili gabe nabigatzen uzten dute.</string>
   <string name="playSelectedMove">jokatu aukeratutako jokaldia</string>
   <string name="newTournament">Txapelketa berria</string>
@@ -911,6 +908,7 @@
   <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
   <string name="searchOrStartNewDiscussion">Hizketaldia bilatu edo berria hasi</string>
   <string name="edit">Aldatu</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Aktiboa</string>
@@ -1020,4 +1018,5 @@ Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.
   <string name="search">Bilatu</string>
   <string name="clearSearch">Garbitu bilaketa</string>
   <string name="tags">Etiketak</string>
+  <string name="enPassant">Igarotzean harrapatzea</string>
 </resources>

@@ -56,14 +56,17 @@ object Permission:
       MonitoredCheatMod,
       MonitoredCommMod
     ),
-    "Content" -> List(
-      Pages,
+    "Broadcast" -> List(
       Relay,
       BroadcastTimeout,
+      FidePlayer,
+      StudyAdmin
+    ),
+    "Content" -> List(
+      Pages,
       ManageEvent,
       ManageTournament,
       ManageSimul,
-      StudyAdmin,
       PuzzleCurator,
       OpeningWiki,
       Presets,
@@ -74,6 +77,7 @@ object Permission:
       Diagnostics,
       Cli,
       Settings,
+      IpTiers,
       Impersonate,
       ChangePermission,
       PayPal

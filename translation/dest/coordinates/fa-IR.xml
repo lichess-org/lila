@@ -4,12 +4,12 @@
   <string name="coordinateTraining">تمرین همآرا</string>
   <string name="averageScoreAsWhiteX">میانگین امتیاز به عنوان سفید: %s</string>
   <string name="averageScoreAsBlackX">میانگین امتیاز به عنوان سیاه: %s</string>
-  <string name="knowingTheChessBoard">دانستن همآرای صفحه شطرنج، مهارت خیلی مهمی است، به چند دلیل:</string>
+  <string name="knowingTheChessBoard">دانستن همآرای تختهٔ شطرنج، مهارت خیلی مهمی است، به چند دلیل:</string>
   <string name="mostChessCourses">بیشتر دوره‌ها و تمرین‌های شطرنج، از نشانه‌گذاری جبری استفاده می‌کنند.</string>
   <string name="talkToYourChessFriends">صحبت با دوستان شطرنجی‌تان را آسان‌تر می‌کند، زیرا هر دوی‌تان «زبان شطرنج» را می‌فهمید.</string>
   <string name="youCanAnalyseAGameMoreEffectively">اگر بتوانید همآرا را به‌تندی تشخیص دهید، می‌توانید یک بازی را موثرتر واکاوید.</string>
-  <string name="aCoordinateAppears">همآرا روی صفحه ظاهر می‌شود و شما باید روی خانهٔ همنوا بزنید.</string>
-  <string name="aSquareIsHighlightedExplanation">یک خانه روی صفحه رنگی شده است و شما باید همآرای آن را وارد کنید (مثال «e4»).</string>
+  <string name="aCoordinateAppears">همآرا روی تخته ظاهر می‌شود و شما باید روی خانهٔ همنوا بزنید.</string>
+  <string name="aSquareIsHighlightedExplanation">یک خانه روی تخته رنگی شده است و شما باید همآرای آن را وارد کنید (مثال «e4»).</string>
   <string name="youHaveThirtySeconds">شما 30 ثانیه فرصت دارید تا هر چه بیشتر خانه‌ها را به‌درستی بیابید!</string>
   <string name="goAsLongAsYouWant">بدون محدودیت زمانی</string>
   <string name="showCoordinates">نمایش همآرا</string>

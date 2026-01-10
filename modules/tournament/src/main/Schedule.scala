@@ -98,6 +98,7 @@ object Schedule:
     case HippoBullet extends Speed(25)
     case SuperBlitz extends Speed(30)
     case Blitz extends Speed(40)
+    case ChillBlitz extends Speed(45)
     case Rapid extends Speed(50)
     case Classical extends Speed(60)
   object Speed:
@@ -124,7 +125,7 @@ object Schedule:
     def toPerfKey(speed: Speed) = speed match
       case UltraBullet => PerfKey.ultraBullet
       case HyperBullet | Bullet | HippoBullet => PerfKey.bullet
-      case SuperBlitz | Blitz => PerfKey.blitz
+      case SuperBlitz | Blitz | ChillBlitz => PerfKey.blitz
       case Rapid => PerfKey.rapid
       case Classical => PerfKey.classical
 
@@ -138,45 +139,44 @@ object Schedule:
     (s.freq, s.variant, s.speed) match
 
       case (Hourly, _, UltraBullet | HyperBullet | Bullet) => 27
-      case (Hourly, _, HippoBullet | SuperBlitz | Blitz) => 57
+      case (Hourly, _, HippoBullet | SuperBlitz | Blitz | ChillBlitz) => 57
       case (Hourly, _, Rapid) if s.hasMaxRating => 57
       case (Hourly, _, Rapid | Classical) => 117
 
       case (Daily | Eastern, Standard, SuperBlitz) => 90
       case (Daily | Eastern, Standard, Blitz) => 120
-      case (Daily | Eastern, _, Blitz) => 90
+      case (Daily | Eastern, _, Blitz | ChillBlitz) => 90
       case (Daily | Eastern, _, Rapid | Classical) => 150
       case (Daily | Eastern, _, _) => 60
 
       case (Weekly, _, UltraBullet | HyperBullet | Bullet) => 60 * 2
-      case (Weekly, _, HippoBullet | SuperBlitz | Blitz) => 60 * 3
+      case (Weekly, _, HippoBullet | SuperBlitz | Blitz | ChillBlitz) => 60 * 3
       case (Weekly, _, Rapid) => 60 * 4
       case (Weekly, _, Classical) => 60 * 5
 
-      case (Weekend, Crazyhouse, _) => 60 * 2
       case (Weekend, _, UltraBullet | HyperBullet | Bullet) => 90
       case (Weekend, _, HippoBullet | SuperBlitz) => 60 * 2
-      case (Weekend, _, Blitz) => 60 * 3
+      case (Weekend, _, Blitz | ChillBlitz) => 60 * 3
       case (Weekend, _, Rapid) => 60 * 4
       case (Weekend, _, Classical) => 60 * 5
 
       case (Monthly, _, UltraBullet) => 60 * 2
       case (Monthly, _, HyperBullet | Bullet) => 60 * 3
       case (Monthly, _, HippoBullet | SuperBlitz) => 60 * 3 + 30
-      case (Monthly, _, Blitz) => 60 * 4
+      case (Monthly, _, Blitz | ChillBlitz) => 60 * 4
       case (Monthly, _, Rapid) => 60 * 5
       case (Monthly, _, Classical) => 60 * 6
 
       case (Shield, _, UltraBullet) => 60 * 3
       case (Shield, _, HyperBullet | Bullet) => 60 * 4
       case (Shield, _, HippoBullet | SuperBlitz) => 60 * 5
-      case (Shield, _, Blitz) => 60 * 6
+      case (Shield, _, Blitz | ChillBlitz) => 60 * 6
       case (Shield, _, Rapid) => 60 * 8
       case (Shield, _, Classical) => 60 * 10
 
       case (Yearly, _, UltraBullet | HyperBullet | Bullet) => 60 * 4
       case (Yearly, _, HippoBullet | SuperBlitz) => 60 * 5
-      case (Yearly, _, Blitz) => 60 * 6
+      case (Yearly, _, Blitz | ChillBlitz) => 60 * 6
       case (Yearly, _, Rapid) => 60 * 8
       case (Yearly, _, Classical) => 60 * 10
 
@@ -187,20 +187,10 @@ object Schedule:
 
   private val standardIncHours = Set(1, 7, 13, 19)
   private def standardInc(s: Schedule) = standardIncHours(s.at.getHour)
-  private def zhInc(s: Schedule) = s.at.getHour % 2 == 0
   private def bottomOfHour(s: Schedule) = s.at.getMinute > 29
 
   private given Conversion[Int, LimitSeconds] = LimitSeconds(_)
   private given Conversion[Int, IncrementSeconds] = IncrementSeconds(_)
-
-  private def zhEliteTc(s: Schedule) =
-    val TC = chess.Clock.Config
-    s.at.getDayOfMonth / 7 match
-      case 0 => TC(3 * 60, 0)
-      case 1 => TC(1 * 60, 1)
-      case 2 => TC(3 * 60, 2)
-      case 3 => TC(1 * 60, 0)
-      case _ => TC(2 * 60, 0) // for the sporadic 5th Saturday
 
   private[tournament] def clockFor(s: Schedule) =
     import Freq.*, Speed.*
@@ -210,13 +200,13 @@ object Schedule:
 
     (s.freq, s.variant, s.speed) match
       // Special cases.
-      case (Weekend, Crazyhouse, Blitz) => zhEliteTc(s)
-      case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
-      case (Hourly, Crazyhouse, Blitz) if zhInc(s) => TC(4 * 60, 2)
       case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2)
       case (Hourly, Standard, Bullet) if s.hasMaxRating && bottomOfHour(s) => TC(60, 1)
-
-      case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
+      case (_, Chess960, ChillBlitz) => TC(5 * 60, 3)
+      case (_, Chess960, Rapid) => TC(10 * 60, 2)
+      case (_, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
+      case (Hourly, Antichess | Atomic, Bullet) if bottomOfHour(s) => TC(0, 2)
+      case (Hourly, variant, HippoBullet) if variant.exotic => TC(60, 2)
 
       case (_, _, UltraBullet) => TC(15, 0)
       case (_, _, HyperBullet) => TC(30, 0)
@@ -224,6 +214,7 @@ object Schedule:
       case (_, _, HippoBullet) => TC(2 * 60, 0)
       case (_, _, SuperBlitz) => TC(3 * 60, 0)
       case (_, _, Blitz) => TC(5 * 60, 0)
+      case (_, _, ChillBlitz) => TC(450, 0) // 7.5 * 60
       case (_, _, Rapid) => TC(10 * 60, 0)
       case (_, _, Classical) => TC(20 * 60, 10)
 
@@ -238,11 +229,11 @@ object Schedule:
         case (Hourly, variant, _) if variant.exotic => 0
 
         case (Hourly | Daily | Eastern, _, HyperBullet | Bullet) => 20
-        case (Hourly | Daily | Eastern, _, HippoBullet | SuperBlitz | Blitz) => 15
+        case (Hourly | Daily | Eastern, _, HippoBullet | SuperBlitz | Blitz | ChillBlitz) => 15
         case (Hourly | Daily | Eastern, _, Rapid) => 10
 
         case (Weekly | Weekend | Monthly | Shield, _, HyperBullet | Bullet) => 30
-        case (Weekly | Weekend | Monthly | Shield, _, HippoBullet | SuperBlitz | Blitz) => 20
+        case (Weekly | Weekend | Monthly | Shield, _, HippoBullet | SuperBlitz | Blitz | ChillBlitz) => 20
         case (Weekly | Weekend | Monthly | Shield, _, Rapid) => 15
         case (Weekly | Weekend | Monthly | Shield, _, Classical) => 5
 

@@ -46,7 +46,7 @@ Contrasinal %3$s</string>
   <string name="createDesc2">Non se precisa enderezo de correo electrónico. Xerarase un contrasinal que debes pasarlle ó alumno para que poida acceder.</string>
   <string name="createDesc3">Importante: os alumnos non deben ter máis dunha conta.</string>
   <string name="createDesc4">Se xa a teñen, usa o formulario de invitación.</string>
-  <string name="createStudentWarning">Crea só contas para estudantes reais. Non uses isto para crear contas múltiples para ti. Serías bloqueado.</string>
+  <string name="createStudentWarning">Só podes crear contas para estudantes reais. Non empregues esta función para crear múltiples contas ó teu nome. Poderías ser suspendido.</string>
   <string name="lichessUsername">Nome de usuario en Lichess</string>
   <string name="generateANewUsername">Xerar un novo nome de usuario</string>
   <string name="welcomeToClass">Benvido á túa clase: %s
@@ -120,4 +120,9 @@ Amosará unha liña separadora horizontal.</string>
   <string name="moveToAnotherClass">Mover a outra clase</string>
   <string name="allowMessagingBetweenStudents">Permitir mensaxes entre estudantes</string>
   <string name="allowMessagingBetweenStudentsDesc">Só se aplica ás contas que creaches para os teus estudantes.</string>
+  <string name="quickLoginCode">Código de inicio de sesión rápida</string>
+  <string name="quickLoginCodes">Códigos de inicio de sesión rápida</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Emprega estes códigos en %s para que os teus estudantes inicien a sesión en Lichess.</string>
+  <string name="quickLoginCodesDesc2">Cando os códigos expiren os teus estudantes permanecerán na sesión ata que saian manualmente do Lichess.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Caducan %s</string>
 </resources>

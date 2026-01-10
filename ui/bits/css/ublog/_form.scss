@@ -8,7 +8,8 @@
     padding-left: var(---box-padding);
     padding-right: var(---box-padding);
   }
-  .toggle-box {
+  .toggle-box,
+  .flash {
     @extend %box-margin-horiz;
   }
   &__delete {

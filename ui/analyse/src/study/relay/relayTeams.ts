@@ -1,13 +1,14 @@
 import { type MaybeVNodes, type VNode, onInsert, hl } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
-import type { RoundId } from './interfaces';
-import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
+import type { RelayRound } from './interfaces';
+import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'lib/view';
-import { playerFed } from '../playerBars';
+import { playerFedFlag } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
 import { userTitle } from 'lib/view/userLink';
 import type RelayPlayers from './relayPlayers';
+import { coloredStatusStr } from './customScoreStatus';
 
 interface TeamWithPoints {
   name: string;
@@ -30,7 +31,7 @@ export default class RelayTeams {
   teams?: TeamTable;
 
   constructor(
-    private readonly roundId: RoundId,
+    private readonly round: RelayRound,
     readonly multiCloudEval: MultiCloudEval | undefined,
     readonly chapterSelect: ChapterSelect,
     readonly roundPath: () => string,
@@ -42,12 +43,17 @@ export default class RelayTeams {
       this.loading = true;
       this.redraw();
     }
-    this.teams = await xhrJson(`/broadcast/${this.roundId}/teams`);
+    this.teams = await xhrJson(`/broadcast/${this.round.id}/teams`);
     this.redraw();
   };
 }
 
-export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: RelayPlayers) =>
+export const teamsView = (
+  ctrl: RelayTeams,
+  chapters: StudyChapters,
+  players: RelayPlayers,
+  round: RelayRound,
+) =>
   hl(
     'div.relay-tour__team-table',
     {
@@ -60,7 +66,14 @@ export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: Re
       },
     },
     ctrl.teams
-      ? renderTeams(ctrl.teams, chapters, ctrl.roundPath(), players, ctrl.multiCloudEval?.thisIfShowEval())
+      ? renderTeams(
+          ctrl.teams,
+          chapters,
+          ctrl.roundPath(),
+          players,
+          ctrl.multiCloudEval?.thisIfShowEval(),
+          round,
+        )
       : [spinner()],
   );
 
@@ -70,18 +83,32 @@ const renderTeams = (
   roundPath: string,
   playersCtrl: RelayPlayers,
   cloudEval?: MultiCloudEval,
+  round?: RelayRound,
 ): MaybeVNodes =>
   teams.table.map(row => {
     const firstTeam = row.teams[0];
+    const secondTeam = row.teams[1];
+    const isFinished = row.games.every(g => {
+      const chap = chapters.get(g.id);
+      return chap?.status !== '*';
+    });
+    const resultClass = (team1: TeamWithPoints, team2: TeamWithPoints) =>
+      !isFinished
+        ? ''
+        : team1.points > team2.points
+          ? 'good.'
+          : team1.points < team2.points
+            ? 'bad.'
+            : 'result.';
     return hl('div.relay-tour__team-match', [
       hl('div.relay-tour__team-match__teams', [
         hl('strong.relay-tour__team-match__team', row.teams[0].name),
         hl('span.relay-tour__team-match__team__points', [
-          hl('points', firstTeam.points.toString()),
+          hl(`${resultClass(firstTeam, secondTeam)}result`, firstTeam.points),
           hl('vs', 'vs'),
-          hl('points', row.teams[1].points.toString()),
+          hl(`${resultClass(secondTeam, firstTeam)}result`, secondTeam.points),
         ]),
-        hl('strong.relay-tour__team', row.teams[1].name),
+        hl('strong.relay-tour__team', secondTeam.name),
       ]),
       hl(
         'div.relay-tour__team-match__games',
@@ -95,7 +122,7 @@ const renderTeams = (
             chap &&
             hl('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(roundPath, chap) }, [
               playerView(playersCtrl, sortedPlayers[0]),
-              statusView(chap, game.pov, chapters, cloudEval),
+              statusView(chap, game.pov, chapters, cloudEval, round),
               playerView(playersCtrl, sortedPlayers[1]),
             ])
           );
@@ -107,17 +134,26 @@ const renderTeams = (
 const playerView = (players: RelayPlayers, p: StudyPlayer) =>
   hl('span.relay-tour__team-match__game__player', [
     hl('span.mini-game__user', players.playerLinkConfig(p), [
-      playerFed(p.fed),
+      playerFedFlag(p.fed),
       hl('span.name', [userTitle(p), p.name]),
     ]),
     !!p.rating && hl('rating', `${p.rating}`),
   ]);
 
-const statusView = (g: ChapterPreview, pov: Color, chapters: StudyChapters, cloudEval?: MultiCloudEval) => {
-  const status = pov === 'white' ? g.status : (g.status?.split('').reverse().join('') as StatusStr);
+const statusView = (
+  g: ChapterPreview,
+  pov: Color,
+  chapters: StudyChapters,
+  cloudEval?: MultiCloudEval,
+  round?: RelayRound,
+) => {
   return hl(
     'span.relay-tour__team-match__game__status',
-    status && status !== '*' ? status : cloudEval ? evalGauge(g, pov, chapters, cloudEval) : '*',
+    g.status && g.status !== '*'
+      ? coloredStatusStr(g.status, pov, round)
+      : cloudEval
+        ? evalGauge(g, pov, chapters, cloudEval)
+        : '*',
   );
 };
 

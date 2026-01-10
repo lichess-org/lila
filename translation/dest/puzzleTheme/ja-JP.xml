@@ -30,6 +30,8 @@
   <string name="cornerMateDescription">ルークかクイーンでキングを隅に追い詰め、ナイトでメイトする形。</string>
   <string name="crushing">圧倒</string>
   <string name="crushingDescription">相手の悪手をとがめて圧倒的な優位を築きます。（評価値は 600cp 以上）</string>
+  <string name="discoveredCheck">ディスカバード・チェック</string>
+  <string name="discoveredCheckDescription">駒を動かして、その陰にいた別の駒でチェックをかける。決定的な優位につながることが多い。</string>
   <string name="doubleBishopMate">ダブル・ビショップのメイト</string>
   <string name="doubleBishopMateDescription">味方の駒にじゃまされたキングを、2 個のビショップが平行な効き筋でメイトする形。</string>
   <string name="dovetailMate">燕尾のメイト</string>
@@ -65,6 +67,10 @@
   <string name="intermezzoDescription">当然に見える手を指す代わりに、いったん相手が受けざるを得ない別の手をはさむ問題。</string>
   <string name="killBoxMate">キルボックスのメイト</string>
   <string name="killBoxMateDescription">ルークが敵キングの隣にあり、クイーンがルークを守ると同時にキングの逃げ道をふさいでいる。ルークとクイーンが 3 × 3 の「キルボックス」に敵キングを捕えた形。</string>
+  <string name="pillsburysMate">ピルズベリーのメイト</string>
+  <string name="pillsburysMateDescription">ルークがチェックをかけ、ビショップがルークを守っているメイト。</string>
+  <string name="morphysMate">モーフィのメイト</string>
+  <string name="morphysMateDescription">ビショップがチェックをかけ、ルークがキングの逃げ道を抑えているメイト。</string>
   <string name="triangleMate">三角のメイト</string>
   <string name="triangleMateDescription">同じランクかファイル上で空きマスを挟んだクイーンとルーク、そして相手のキングが三角形を作るメイト。</string>
   <string name="vukovicMate">ヴコヴィッチのメイト</string>
@@ -95,6 +101,8 @@
   <string name="oneMoveDescription">1 手だけ動かす問題。</string>
   <string name="opening">オープニング</string>
   <string name="openingDescription">ゲームの序盤でのタクティクス。</string>
+  <string name="operaMate">オペラのメイト</string>
+  <string name="operaMateDescription">ルークがチェックをかけ、ビショップがルークを守っているメイト。</string>
   <string name="pawnEndgame">ポーン・エンドゲーム</string>
   <string name="pawnEndgameDescription">ポーンだけの終盤。</string>
   <string name="pin">ピン</string>

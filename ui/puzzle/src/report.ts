@@ -66,7 +66,7 @@ export default class Report {
       } else {
         this.evalsWithMultipleSolutions = 0;
       }
-      if (this.evalsWithMultipleSolutions == 2) {
+      if (this.evalsWithMultipleSolutions === 2) {
         // in all case, we do not want to show the dialog more than once
         this.reported = true;
         const engine = ctrl.ceval.engines.active;

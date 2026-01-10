@@ -31,6 +31,10 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess 配信者登録の用意ができたら、%s</string>
   <string name="submitForReview">審査に提出する</string>
   <string name="streamerLanguageSettings">Lichess の配信者ページは、配信プラットフォームで指定した言語の視聴者を対象にします。配信に使うアプリやサービスでデフォルト言語を正しく設定しておいてください。</string>
+  <string name="pleaseAllow">配信者のバッジとリスト掲載が承認されるまで最大 72 時間かかることがあります。</string>
+  <string name="chooseYoutubeChannel">Lichess で使用する YouTube チャンネルを選択します。</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">アカウント連携</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">アカウント連携を外す</string>
   <string name="streamerName">Lichess での配信者名</string>
   <plurals name="keepItShort">
     <item quantity="other">短めに、最大 %s 字まで</item>

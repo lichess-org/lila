@@ -458,10 +458,6 @@
   <string name="player">Ойыншы</string>
   <string name="list">Тiзiм</string>
   <string name="graph">Диаграм</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s минутқа дейін</item>
-    <item quantity="other">%s минутқа дейін</item>
-  </plurals>
   <string name="required">Талап қойылады.</string>
   <string name="openTournaments">Ашық жарыстар</string>
   <string name="duration">Ұзақтығы</string>

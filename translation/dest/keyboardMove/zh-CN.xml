@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="keyboardInputCommands">使用键盘输入指令</string>
-  <string name="performAMove">走一步棋</string>
+  <string name="performAMove">执行着法</string>
   <string name="movePieceFromE2ToE4">将棋子从 e2 移动到 e4</string>
   <string name="moveKnightToC3">将马移动到 c3</string>
   <string name="kingsideCastle">短易位</string>
   <string name="queensideCastle">长易位</string>
-  <string name="promoteC8ToQueen">移至 c8 升变为后</string>
-  <string name="dropARookAtB4">在 b4 放一个车（仅适用于 Crazyhouse 变体）</string>
-  <string name="offerOrAcceptDraw">提出或接受和棋</string>
+  <string name="promoteC8ToQueen">将 c8 的兵升变为后</string>
+  <string name="dropARookAtB4">在 b4 放置一个车（仅限 Crazyhouse 变体）</string>
+  <string name="offerOrAcceptDraw">提议或接受和棋</string>
   <string name="readOutClocks">播报剩余时间</string>
-  <string name="readOutOpponentName">播报对手用户名</string>
+  <string name="readOutOpponentName">播报对手姓名</string>
   <string name="otherCommands">其他指令</string>
   <string name="tips">提示</string>
-  <string name="ifTheAboveMoveNotationIsUnfamiliar">如果你对上面的移动符号不是很熟悉，可以在这里了解更多：</string>
-  <string name="includingAXToIndicateACapture">包含 \"x\" 表示吃子是可选的</string>
-  <string name="bothTheLetterOAndTheDigitZero">字母 \"o\" 和数字 \"0\" 都可以用于王车易位</string>
-  <string name="ifItIsLegalToCastleBothWays">如果两边易位都是合法的，则输入回车键执行短易位</string>
-  <string name="capitalizationOnlyMattersInAmbiguousSituations">只有涉及到象和 b-兵时，大小写才是敏感的</string>
-  <string name="toPremoveSimplyTypeTheDesiredPremove">要预走棋，只要在你的回合输入指令即可</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">如果您对上述着法记谱方式不熟悉，可以在这里了解更多：</string>
+  <string name="includingAXToIndicateACapture">记谱时包含 \"x\" 表示吃子是可选的</string>
+  <string name="bothTheLetterOAndTheDigitZero">进行王车易位时，字母 \"o\" 和数字 \"0\" 均可使用</string>
+  <string name="ifItIsLegalToCastleBothWays">如果两种方向的王车易位都合法，按回车键将执行短易位</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">大写字母仅在与象和 b 线兵相关的模糊局面中需要区分</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">要进行预走棋，只需在轮到您走棋前输入您想走的着法即可</string>
 </resources>

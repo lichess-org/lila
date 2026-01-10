@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Postavke igre</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Izazovi prijatelja</string>
+  <string name="playAgainstComputer">Igraj protiv računara</string>
+  <string name="gameMode">Način igre</string>
+  <string name="createLobbyGame">Kreiraj igru u lobiju</string>
+  <string name="youPlayAs">Igrate kao</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Da bi ste pozvali nekoga na partiju, pošaljite ovaj link</string>
   <string name="gameOver">Partija je gotova</string>
   <string name="waitingForOpponent">Čekanje na protivnika</string>
@@ -362,6 +368,7 @@
     <item quantity="other">%s u toku</item>
   </plurals>
   <string name="exportGames">Izvezite odigrane partije</string>
+  <string name="ratingFilter">Filter za ocjenjivanje</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodajte protivniku %s sekundu</item>
     <item quantity="few">Dodajte protivniku %s sekundi</item>
@@ -425,6 +432,7 @@
     <item quantity="other">Trebate odigrati još %s partija za rejting bodove</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Vaš %s rejting je privremen</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Filteri za ocjenjivanje su zaključani jer vaša ocjena nije stabilna. Igranje ocijenjenih igara će povećati stabilnost.</string>
   <string name="yourPerfRatingIsTooHigh">Vaš %1$s rejting (%2$s) je previsok</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Vaš najviši sedmični %1$s rejting (%2$s) je previsok</string>
   <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizak</string>
@@ -502,11 +510,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="player">Igrač</string>
   <string name="list">Lista</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Manje od %s minute</item>
-    <item quantity="few">Manje od %s minuta</item>
-    <item quantity="other">Manje od %s minuta</item>
-  </plurals>
   <string name="required">Obavezno.</string>
   <string name="openTournaments">Otvoreni turniri</string>
   <string name="duration">Trajanje</string>
@@ -761,6 +764,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="cyclePreviousOrNextVariation">Ciklus prethodne/sljedeće varijacije</string>
   <string name="toggleGlyphAnnotations">Uključi/isključi napomene o premještanju</string>
   <string name="togglePositionAnnotations">Uključi/isključi anotacije položaja</string>
+  <string name="toggleObservationAnnotations">Uključi/isključi bilješke o posmatranju</string>
   <string name="variationArrowsInfo">Strelice za varijacije vam omogućavaju navigaciju bez korištenja liste poteza.</string>
   <string name="playSelectedMove">odigraj odabrani potez</string>
   <string name="newTournament">Novi turnir</string>
@@ -803,6 +807,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možete koristiti točak od Vašeg miša da brže pređete preko poteza za vrijeme analize partije.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Zadržite miš na računarskim varijantama da ih pregledate.</string>
   <string name="analysisShapesHowTo">Pritisnite shift + lijevi ili desni klik miša kako bi ste nacrtali krugove i strelice na ploči.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl ili shift = crvena; command, alt ili meta = plava; tipka iz svake opcije = žuta.</string>
   <string name="letOtherPlayersMessageYou">Dopustite drugim igračima da Vam mogu poslati poruku</string>
   <string name="receiveForumNotifications">Primajte obavijesti kad budete spomenuti na forumu</string>
   <string name="shareYourInsightsData">Podijelite Vašu šahovsku analitiku</string>
@@ -865,6 +870,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="notifications">Obavijesti</string>
   <string name="notificationsX">Obavještenja: %1$s</string>
   <string name="perfRatingX">Rejting: %s</string>
+  <string name="yourRatingIsX">Vaša ocjena je %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda da odigrate prvi potez</item>
     <item quantity="few">%s sekundi da odigrate prvi potez</item>
@@ -918,6 +924,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="playVariationToCreateConditionalPremoves">Odigrajte varijaciju da stvorite uslovni potez unaprijed</string>
   <string name="noConditionalPremoves">Nema uslovnih poteza unaprijed</string>
   <string name="playX">Igraj %s</string>
+  <string name="challengeX">Izazov %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">i snimi %s potez unaprijed</item>
     <item quantity="few">i snimi %s poteza unaprijed</item>
@@ -1011,6 +1018,7 @@ Ostavite prazno za početak igre sa normalne početne pozicije.</string>
   <string name="simulFeaturedHelp">Pokažite svoju simulaciju svima na %s. Onemogući za privatne simulacije.</string>
   <string name="simulDescription">Opis simultanke</string>
   <string name="simulDescriptionHelp">Želite li nešto reći učesnicima?</string>
+  <string name="markdownIsAvailable">%s je dostupan za formatiranje.</string>
   <string name="embedsAvailable">Zalijepite URL igre ili URL poglavlja studije da biste ga ugradili.</string>
   <string name="inYourLocalTimezone">U vlastitoj vremenskoj zoni</string>
   <string name="tournChat">Turnirski razgovor</string>
@@ -1051,4 +1059,9 @@ Svi operativni troškovi, razvoj i sadržaj finansiraju se isključivo od donaci
   <string name="enableBlindMode">Omogući slijepi način rada</string>
   <string name="disableBlindMode">Onemogući slijepi način rada</string>
   <string name="copyToClipboard">Kopiraj u međuspremnik</string>
+  <string name="online" comment="status of a user">na mreži</string>
+  <string name="offline" comment="status of a user">Bez mreže</string>
+  <string name="search">Pretraga</string>
+  <string name="clearSearch">Obriši pretragu</string>
+  <string name="tags">Oznake</string>
 </resources>

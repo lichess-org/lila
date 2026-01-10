@@ -225,8 +225,6 @@ interface I18nPlural {
   asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural / plural
 }
 interface I18n {
-  /** fetch i18n dynamically */
-  load(catalog: string): Promise<void>;
   /** global noarg key lookup */
   (key: string): string;
   quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';\n\n`;
@@ -269,15 +267,6 @@ const siteInit = await minify(`
       if (v[k]) return v[k];
       return k;
     }
-  };
-  window.i18n.load = function(c) {
-    let s = window.site;
-    return import(document.body.dataset.i18nCatalog).then(
-      function() {
-        let p = 'compiled/i18n/' + c + '.' + s.displayLocale + '.' + s.manifest.i18n[c] + '.js';
-        return import(s.asset.url(p));
-      }
-    );
   };`);
 
 const jsQuantity = [

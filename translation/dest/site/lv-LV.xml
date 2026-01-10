@@ -488,11 +488,6 @@
   <string name="player">Spēlētājs</string>
   <string name="list">Saraksts</string>
   <string name="graph">Grafiks</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="zero">Mazāk kā %s minūtes</item>
-    <item quantity="one">Mazāk kā %s minūte</item>
-    <item quantity="other">Mazāk kā %s minūtes</item>
-  </plurals>
   <string name="required">Obligāts.</string>
   <string name="openTournaments">Atvērtie turnīri</string>
   <string name="duration">Ilgums</string>

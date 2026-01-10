@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xChessInsights">%s seng Schach Abléck</string>
-  <string name="xHasNoChessInsights">%s huet nach keng Schach Abléck!</string>
-  <string name="insightsAreProtected">%s seng Schach Abléck sinn geschützt</string>
+  <string name="xChessInsights">Schachablécker vum %s</string>
+  <string name="xHasNoChessInsights">Et gëtt nach keng Schachablécker vum %s!</string>
+  <string name="insightsAreProtected">D\'Schachablécker vum %s si geschützt</string>
   <string name="cantSeeInsights">Leider kanns du dem %s seng Schach Abléck net ukucken.</string>
   <string name="generateInsights" comment="%s is a player's username.&#10;&#10;Clicking this will scan data on Lichess to create insights for player %s.&#10;&#10;Example:&#10;&#10;Generate DrNykterstein's chess insights.">Dem %s seng Schach Abléck generéieren.</string>
   <string name="crunchingData">Verschafft Daten nemmen fir dech!</string>

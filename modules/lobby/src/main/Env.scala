@@ -3,7 +3,6 @@ package lila.lobby
 import com.softwaremill.macwire.*
 
 import lila.core.config.*
-import lila.core.pool.IsClockCompatible
 
 @Module
 final class Env(
@@ -23,7 +22,7 @@ final class Env(
     Executor,
     Scheduler,
     lila.core.game.IdGenerator,
-    IsClockCompatible,
+    lila.core.pool.IsClockCompatible,
     lila.core.config.RateLimit
 ):
 

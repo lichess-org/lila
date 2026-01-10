@@ -38,7 +38,7 @@ const makeState = (
   lastMove: cg.Key[] | undefined,
   turnColor: cg.Color,
 ): HeadlessState => {
-  const premoveFuncs = new Premove(variant);
+  const premoveFuncs = new Premove(variant, true);
   const state = defaults();
   state.pieces = pieces;
   state.lastMove = lastMove;

@@ -35,22 +35,13 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )(nonce)
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
-  def preload(href: Url, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
-    val linkType = tpe.so(t => s"""type="$t" """)
-    raw:
-      s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin.so("crossorigin")}>"""
+  private def fontPreload(path: String) = preload(assetUrl(s"font/$path"), "font", true, "font/woff2".some)
 
-  def fontPreload(using ctx: Context) = frag(
-    preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
-    preload(
-      assetUrl("font/noto-sans-latin.woff2"),
-      "font",
-      crossorigin = true,
-      "font/woff2".some
-    ),
-    (!ctx.pref.pieceNotationIsLetter).option(
-      preload(assetUrl("font/lichess-chess.woff2"), "font", crossorigin = true, "font/woff2".some)
-    )
+  def fontsPreload(using ctx: Context) = frag(
+    fontPreload("lichess.woff2"),
+    fontPreload("noto-sans-latin.woff2"),
+    fontPreload("roboto-latin.woff2"),
+    ctx.pref.pieceNotationIsLetter.not.option(fontPreload("lichess-chess.woff2"))
   )
 
   def allNotifications(challenges: Int, notifs: Int)(using Translate) =
@@ -90,7 +81,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )
 
   def botImage = img(
-    src := staticAssetUrl("images/icons/bot.png"),
+    src := staticAssetUrl("images/icons/bot.webp"),
     title := "Robot chess",
     style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )

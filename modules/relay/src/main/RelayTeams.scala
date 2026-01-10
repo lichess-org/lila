@@ -27,7 +27,7 @@ private class RelayTeamsTextarea(val text: String):
         case _ => none
     .groupBy(_._1)
     .view
-    .mapValues(_.map(_._2))
+    .mapValues(_._2F)
     .toMap
 
   private lazy val playerTeams: Map[PlayerNameStr | FideId, TeamName] =
@@ -59,6 +59,7 @@ private class RelayTeamsTextarea(val text: String):
     playerTeams.get(player).orElse(tokenizedPlayerTeams.get(tokenizePlayer(player)))
 
 final class RelayTeamTable(
+    roundRepo: RelayRoundRepo,
     chapterPreviewApi: lila.study.ChapterPreviewApi,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
@@ -67,25 +68,25 @@ final class RelayTeamTable(
 
   def tableJson(relay: RelayRound): Fu[JsonStr] = cache.get(relay.studyId)
 
-  private val cache = cacheApi[StudyId, JsonStr](16, "relay.teamTable"):
+  private val cache = cacheApi[StudyId, JsonStr](8, "relay.teamTable"):
     _.expireAfterWrite(3.seconds).buildAsyncFuture(impl.makeJson)
 
   private object impl:
 
-    import chess.{ Color, Outcome }
+    import chess.{ Color, ByColor, Outcome }
 
     def makeJson(studyId: StudyId): Fu[JsonStr] =
-      chapterPreviewApi
-        .dataList(studyId)
-        .map: chapters =>
-          import json.given
-          val table = makeTable(chapters)
-          val ordered = ensureFirstPlayerHasWhite(table)
-          JsonStr(Json.stringify(Json.obj("table" -> ordered)))
+      import json.given
+      for
+        round <- roundRepo.byId(studyId.into(RelayRoundId)).orFail(s"Missing relay round $studyId")
+        chapters <- chapterPreviewApi.dataList(studyId)
+        table = makeTable(chapters, round)
+        ordered = ensureFirstPlayerHasWhite(table)
+      yield JsonStr(Json.stringify(Json.obj("table" -> ordered)))
 
     case class TeamWithPoints(name: String, points: Float = 0):
-      def add(result: Option[Outcome.GamePoints], as: Color) =
-        copy(points = points + result.so(_(as).value))
+      def add(result: Option[Outcome.GamePoints], customPoints: Option[ByColor[Float]], as: Color) =
+        copy(points = points + customPoints.map(_(as)).orElse(result.map(_(as).value)).orZero)
     case class Pair[A](a: A, b: A):
       def is(p: Pair[A]) = (a == p.a && b == p.b) || (a == p.b && b == p.a)
       def map[B](f: A => B) = Pair(f(a), f(b))
@@ -100,23 +101,31 @@ final class RelayTeamTable(
       def add(
           chap: ChapterPreview,
           playerAndTeam: Pair[(StudyPlayer, TeamName)],
-          points: Option[Outcome.GamePoints]
+          points: Option[Outcome.GamePoints],
+          customPoints: Option[ByColor[Float]]
       ): TeamMatch =
         val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
         copy(
           games = TeamGame(chap.id, t0Color) :: games,
-          teams = teams.bimap(_.add(points, t0Color), _.add(points, !t0Color))
+          teams = teams.bimap(_.add(points, customPoints, t0Color), _.add(points, customPoints, !t0Color))
         )
       def swap = copy(teams = teams.reverse, games = games.map(_.swap))
 
-    def makeTable(chapters: List[ChapterPreview]): List[TeamMatch] =
+    def makeTable(chapters: List[ChapterPreview], round: RelayRound): List[TeamMatch] =
       chapters.reverse.foldLeft(List.empty[TeamMatch]): (table, chap) =>
         (for
           points <- chap.points
-          players <- chap.players
+          players <- chap.players.map(_.map(_.studyPlayer))
           teams <- players.traverse(_.team).map(_.toPair).map(Pair.apply)
+          game = players.mapWithColor: (c, p) =>
+            RelayPlayer.Game(round.id, chap.id, p, c, points, round.rated, round.customScoring, false)
           m0 = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
-          m1 = m0.add(chap, Pair(players.white.player -> teams.a, players.black.player -> teams.b), points)
+          m1 = m0.add(
+            chap,
+            Pair(players.white.player -> teams.a, players.black.player -> teams.b),
+            points,
+            game.map(_.playerScore.orZero).some
+          )
           newTable = m1 :: table.filterNot(_.is(teams))
         yield newTable) | table
 

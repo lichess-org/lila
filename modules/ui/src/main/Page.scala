@@ -24,26 +24,22 @@ case class Page(
     body: Option[Frag] = None,
     fullTitle: Option[String] = None,
     cssKeys: List[String] = Nil,
-    i18nModules: List[I18nModule.Selector] = List(_.site, _.timeago, _.preferences, _.nvui), // nvui temporary
+    i18nModules: List[I18nModule.Selector] = List(_.site, _.timeago, _.preferences),
     modules: EsmList = Nil,
-    jsFrag: Option[WithNonce[Frag]] = None,
     pageModule: Option[PageModule] = None,
     openGraph: Option[OpenGraph] = None,
     csp: Option[Update[ContentSecurityPolicy]] = None,
     atomLinkTag: Option[Tag] = None,
     withHrefLangs: Option[LangPath] = None,
     flags: Set[PageFlags] = Set.empty,
-    transform: Update[Frag] = identity
+    transform: Update[Frag] = identity,
+    transformHead: Update[Frag] = identity
 ):
   def js(esm: Esm): Page = copy(modules = modules :+ esm.some)
   def js(esm: EsmList): Page = copy(modules = modules ::: esm)
-  def js(f: WithNonce[Frag]): Page = copy(jsFrag = jsFrag.foldLeft(f)(_ |+| _).some)
-  def js(f: Option[WithNonce[Frag]]): Page = f.foldLeft(this)(_.js(_))
   def js(pm: PageModule): Page = copy(pageModule = pm.some)
   @scala.annotation.targetName("jsModuleOption")
   def js(pm: Option[PageModule]): Page = copy(pageModule = pm)
-  def iife(iifeFrag: Frag): Page = js(_ => iifeFrag)
-  def iife(iifeFrag: Option[Frag]): Page = iifeFrag.foldLeft(this)(_.iife(_))
   def i18n(mods: I18nModule.Selector*): Page = copy(i18nModules = i18nModules ::: mods.toList)
   def i18nOpt(cond: Boolean, mods: => I18nModule.Selector*): Page =
     if cond then copy(i18nModules = i18nModules.appendedAll(mods)) else this
@@ -56,6 +52,11 @@ case class Page(
   def csp(up: Update[ContentSecurityPolicy]): Page = copy(csp = csp.fold(up)(up.compose).some)
   def hrefLangs(path: Option[LangPath]): Page = copy(withHrefLangs = path)
   def hrefLangs(path: LangPath): Page = copy(withHrefLangs = path.some)
+  def transformHead(f: Update[Frag]): Page = copy(transformHead = transformHead.compose(f))
+  def preloadImage(url: Url)(helper: AssetHelper): Page =
+    transformHead(head => frag(head, helper.imagePreload(url)))
+  def preloadImage(url: Option[Url])(helper: AssetHelper): Page =
+    url.fold(this)(preloadImage(_)(helper))
 
   // body stuff
   def body(b: Frag): Page = copy(body = b.some)
@@ -63,6 +64,7 @@ case class Page(
   def transform(f: Update[Frag]): Page = copy(transform = transform.compose(f))
   def wrap(f: Update[Frag]): Page = transform(f)
   def prepend(prelude: Frag): Page = transform(body => frag(prelude, body))
+  def append(postlude: Frag): Page = transform(body => frag(body, postlude))
 
   def markdownTextarea = css("bits.markdownTextarea").js(Esm("bits.markdownTextarea"))
 

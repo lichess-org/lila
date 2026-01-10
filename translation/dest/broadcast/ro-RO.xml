@@ -49,7 +49,7 @@
   <string name="fidePlayerNotFound">Jucătorul FIDE nu a fost găsit</string>
   <string name="fideProfile">Profil FIDE</string>
   <string name="federation">Federație</string>
-  <string name="ageThisYear">Vârsta în acest an</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Vârstă</string>
   <string name="unrated">Fără rating</string>
   <string name="recentTournaments">Turnee recente</string>
   <string name="openLichess">Deschide în Lichess</string>
@@ -85,6 +85,6 @@
   <string name="liveboard">Tablă live</string>
   <string name="communityBroadcast">Transmisie din comunitate</string>
   <string name="createdAndManagedBy">Creat și gestionat de %s.</string>
-  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;If your language changes the word &quot;Round&quot; based on the number after it, consider using punctuation to get around the problem (e.g. &quot;Round: %s&quot;).&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">Runda %s</string>
-  <string name="defaultRoundNameHelp" comment="This is help text for broadcast authors setting a round name. The default is &quot;Round %s&quot; (translatable separately).&#10;&#10;If broadcasters keep the round name to the default, it will be automatically translated.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">Păstrarea numelui implicit îl va traduce automat în toate celelalte limbi.</string>
+  <string name="roundX">Runda %s</string>
+  <string name="defaultRoundNameHelp">Păstrarea numelui implicit îl va traduce automat în toate celelalte limbi.</string>
 </resources>

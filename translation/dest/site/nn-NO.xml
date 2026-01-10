@@ -475,10 +475,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="player">Spelar</string>
   <string name="list">Liste</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Mindre enn %s minutt</item>
-    <item quantity="other">Mindre enn %s minutt</item>
-  </plurals>
   <string name="required">Påkrevd.</string>
   <string name="openTournaments">Opne turneringar</string>
   <string name="duration">Tidslengd</string>
@@ -729,6 +725,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="cyclePreviousOrNextVariation">Gå gjennom førre/neste variant</string>
   <string name="toggleGlyphAnnotations">Slå symbol-merknadar på/av</string>
   <string name="togglePositionAnnotations">Slå merknader for stillingar på/av</string>
+  <string name="toggleObservationAnnotations">Slå observasjonskommentarar av/på</string>
   <string name="variationArrowsInfo">Med hjelp av variantpiler kan du navigere utan å bruka trekklista.</string>
   <string name="playSelectedMove">spel valde trekk</string>
   <string name="newTournament">Ny turnering</string>
@@ -770,6 +767,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også scrolle over brettet for å flytte.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over datamaskin-variasjonane for å førehandsvisa dei.</string>
   <string name="analysisShapesHowTo">Trykk shift-klikk eller høyreklikk for å tegne sirklar og piler på brettet.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl = raud, Shift = gul, Command eller Alt = blå.</string>
   <string name="letOtherPlayersMessageYou">Lat andre spelarar ta kontakt med deg</string>
   <string name="receiveForumNotifications">Bli varsla når du vert nemd i forumet</string>
   <string name="shareYourInsightsData">Del den personlege spelarstatistikken din</string>
@@ -911,6 +909,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lyn</string>
   <string name="rapid">Snøggsjakk</string>
@@ -1021,4 +1020,5 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="search">Søk</string>
   <string name="clearSearch">Nytt søk</string>
   <string name="tags">Etikettar</string>
+  <string name="enPassant">En passant</string>
 </resources>

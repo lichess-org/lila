@@ -51,7 +51,7 @@
   <string name="fidePlayerNotFound">FIDE šachista sa nenašiel</string>
   <string name="fideProfile">FIDE profil</string>
   <string name="federation">Federácia</string>
-  <string name="ageThisYear">Vek tento rok</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Vek</string>
   <string name="unrated">Bez hodnotenia</string>
   <string name="recentTournaments">Posledné turnaje</string>
   <string name="openLichess">Otvoriť na Lichess</string>
@@ -87,6 +87,6 @@
   <string name="liveboard">Aktuálna pozícia</string>
   <string name="communityBroadcast">Vysielanie člena komunity</string>
   <string name="createdAndManagedBy">Vytvoril a spravuje %s.</string>
-  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;If your language changes the word &quot;Round&quot; based on the number after it, consider using punctuation to get around the problem (e.g. &quot;Round: %s&quot;).&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">%s. kolo</string>
-  <string name="defaultRoundNameHelp" comment="This is help text for broadcast authors setting a round name. The default is &quot;Round %s&quot; (translatable separately).&#10;&#10;If broadcasters keep the round name to the default, it will be automatically translated.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">Zachovanie predvoleného názvu spôsobí jeho automatický preklad do všetkých ostatných jazykov.</string>
+  <string name="roundX">%s. kolo</string>
+  <string name="defaultRoundNameHelp">Zachovanie predvoleného názvu spôsobí jeho automatický preklad do všetkých ostatných jazykov.</string>
 </resources>

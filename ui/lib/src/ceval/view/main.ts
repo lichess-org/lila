@@ -187,7 +187,7 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
         attrs: { style: `width: ${percent}%` },
         hook: {
           postpatch: (old, vnode) => {
-            if (old.data!.percent > percent || !!old.data!.threatMode != threatMode) {
+            if (old.data!.percent > percent || !!old.data!.threatMode !== threatMode) {
               const el = vnode.elm as HTMLElement;
               const p = el.parentNode as HTMLElement;
               p.removeChild(el);

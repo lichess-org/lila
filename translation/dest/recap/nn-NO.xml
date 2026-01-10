@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hei, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Kva har du gjort dette året?</string>
+	<string name="initTitle">Litt av eit sjakkår du kan sjå tilbake på!</string>
+	<string name="noGamesText">Dette året spelte du ingen sjakkparti.</string>
+	<string name="noGamesCta">Vil du spela no?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Og du vann %s!</string>
+	<string name="gamesNextQuestion">Korleis enda du opp her?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s total speletid!</string>
+	<string name="timeTooMuch">Det er alt for mykje sjakk.</string>
+	<string name="timeALot">Det er mykje sjakk.</string>
+	<string name="timeReasonable">Det verkar som ei rimeleg mengd sjakk.</string>
+	<string name="timeHowManyMoves">Kor mange trekk spelte du på denne tida?</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Det er %s tre flytta på!</string>
+	<string name="movesStandardPiecesWeight">Ei standardbrikke har ei vekt på omlag 40 gram</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s trekk</item>
+		<item quantity="other">%s trekk</item>
+	</plurals>
+	<string name="chessFoes">Dei beste motspelarane dine</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gram</item>
+		<item quantity="other">%s gram</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogram</item>
+		<item quantity="other">%s kilogram</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">er korleis du starta %s av partia med kvite brikker</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Den mest spela opninga når du spelte med kvite brikker med %s parti</item>
+		<item quantity="other">Den mest spela opninga når du spelte med kvite brikker med %s parti</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Takk for at du stemde på %s oppgåve.</item>
+		<item quantity="other">Takk for at du stemde på %s oppgåver.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Du hjelpte også til med å merka %s av dei.</string>
+	<string name="puzzlesNone">Du løyste ikkje nokre oppgåver i år.</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Vil du freista nokre no?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Du løyste %s av dei på første forsøk!</string>
+	<string name="sourcesTitle">Kvar fann du parti?</string>
+	<string name="perfsTitle">Kva tidskontrollar og variantar spelte du?</string>
+</resources>

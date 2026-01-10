@@ -4,7 +4,10 @@ import * as cg from '@lichess-org/chessground/types';
 export class Premove {
   readonly unrestrictedPremoves: boolean;
 
-  constructor(readonly variant: VariantKey) {
+  constructor(
+    readonly variant: VariantKey,
+    readonly rookCastle: boolean,
+  ) {
     this.unrestrictedPremoves = ['atomic', 'crazyhouse'].includes(variant);
   }
 
@@ -216,7 +219,8 @@ export class Premove {
         this.variant !== 'chess960' &&
         ((ctx.dest.pos[0] === 2 && ctx.rookFilesFriendlies.includes(0)) ||
           (ctx.dest.pos[0] === 6 && ctx.rookFilesFriendlies.includes(7)))) ||
-        ctx.rookFilesFriendlies.includes(ctx.dest.pos[0])) &&
+        ((this.rookCastle || this.variant === 'chess960') &&
+          ctx.rookFilesFriendlies.includes(ctx.dest.pos[0]))) &&
       (this.unrestrictedPremoves ||
         /* The following checks if no non-rook friendly piece is in the way between the king and its castling destination.
          Note that for the Chess960 edge case of Kb1 "long castling", the check passes even if there is a piece in the way

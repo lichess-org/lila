@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">નમસ્કાર, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">તમે આ વર્ષે શું કર્યું?</string>
+	<string name="initTitle">તમારું કેવું ચેસ વર્ષ રહ્યું!</string>
+	<string name="noGamesText">તમે આ વર્ષે કોઈ રમત રમી નથી.</string>
+	<string name="noGamesCta">હવે રમવું છે?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">અને તમે %s જીત્યા!</string>
+	<string name="gamesNextQuestion">ત્યાં સુધી પહોંચવા માટે શું કર્યું?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s રમવામાં વીતાવ્યો!</string>
+	<string name="timeTooMuch">તે ખૂબ વધારે ચેસ છે.</string>
+	<string name="timeALot">તે ઘણી બધી ચેસ છે.</string>
+	<string name="timeReasonable">તે ચેસની વાજબી રકમ લાગે છે.</string>
+	<string name="timeHowManyMoves">તમે આ બધા સમયમાં કેટલી ચાલ રમી?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s ચાલ રમી</item>
+		<item quantity="other">%s ચાલ રમી</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">તે %s લાકડાને ધકેલવામાં આવ્યું!</string>
+	<string name="movesStandardPiecesWeight">માનક ટુકડાઓનું વજન લગભગ 40 ગ્રામ હોય છે</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s ચાલ</item>
+		<item quantity="other">%s ચાલ</item>
+	</plurals>
+	<string name="chessFoes">તમારા શ્રેષ્ઠ ચેસ દુશ્મનો</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s ગ્રામ</item>
+		<item quantity="other">%s ગ્રામ</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s કિલોગ્રામ</item>
+		<item quantity="other">%s કિલોગ્રામ</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">તમારી %s રમતોમાંથી સફેદ તરીકે તમે આ રીતે શરૂઆત કરી</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">સફેદ તરીકે %s રમત સાથે તમારું સૌથી વધુ રમાયેલ ઓપનિંગ</item>
+		<item quantity="other">સફેદ તરીકે %s રમતો સાથે તમારું સૌથી વધુ રમાયેલ ઓપનિંગ</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">કાળા તરીકે %s રમત સાથે તમારું સૌથી વધુ રમાયેલ ઓપનિંગ</item>
+		<item quantity="other">કાળા તરીકે %s રમતો સાથે તમારું સૌથી વધુ રમાયેલ ઓપનિંગ</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">%s પઝલ પર મતદાન કરવા બદલ આભાર.</item>
+		<item quantity="other">%s પઝલ્સ પર મતદાન કરવા બદલ આભાર.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">તમે તેમાંથી %s ને ટેગ કરવામાં પણ મદદ કરી.</string>
+	<string name="puzzlesNone">તમે આ વર્ષે કોઈ પઝલ ઉકેલી નથી.</string>
+	<string name="puzzlesTryNow">હવે થોડી પ્રયાસ કરવી છે?</string>
+	<string name="puzzlesYouWonOnFirstTry">તમે તેમાંથી %s પહેલી જ પ્રયાસમાં જીતી લીધી!</string>
+	<string name="sourcesTitle">તમને રમતો ક્યાં મળી?</string>
+	<string name="perfsTitle">તમે કયા સમય નિયંત્રણો અને વેરિઅન્ટ્સ રમ્યા?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s જાહેરાતો અને ટ્રેકર્સ લોડ થયા</string>
+	<string name="malwareNoSell">અમે તમારો વ્યક્તિગત ડેટા વેચ્યો નથી</string>
+	<string name="malwareNoAbuse">અમે તમારા ઉપકરણનો ઉપયોગ તમારી વિરુદ્ધ કર્યો નથી</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">પરંતુ અન્ય વેબસાઇટ્સ કરે છે, તેથી કૃપા %s</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">સાવચેત રહો</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%2$s માં Lichess પર %1$s રમતો રમાઈ</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">તેમાંથી %s તમારી હતી.</string>
+	<string name="thanksTitle">Lichess પર રમવા બદલ આભાર!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">તમે અહીં છો તે જાણીને અમને આનંદ છે. તમારું %s મહાન રહે!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;750,000 $&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£593,221&quot;">આ વર્ષે Lichess નો %1$s %2$s હતો.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">ખર્ચ</string>
+	<string name="patronCharity">અમે એક ધર્માદા સંસ્થા છીએ, જે માત્ર દાન પર ચાલે છે.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">જો અમે તમને આ વર્ષે મનોરંજનમાં મદદ કરી હોય, અથવા તમે અમારા કાર્યમાં વિશ્વાસ કરો છો, તો કૃપા કરીને %s નો વિચાર કરો!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.">દાન સાથે અમને ટેકો આપો</string>
+	<string name="shareableTitle" comment="%s is the current year">મારો %s રીકેપ</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">રમવામાં વીતાવ્યો</string>
+	<string name="shareableMostPlayedOpponent">સૌથી વધુ રમાયેલ પ્રતિસ્પર્ધી</string>
+	<string name="shareableFavouriteVariant">મનપસંદ વેરિઅન્ટ</string>
+	<string name="shareableFavouriteTimeControl">મનપસંદ સમય નિયંત્રણ</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s પઝલ ઉકેલી</item>
+		<item quantity="other">%s પઝલ્સ ઉકેલી</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap">તમારો %s રીકેપ તૈયાર છે!</string>
+</resources>

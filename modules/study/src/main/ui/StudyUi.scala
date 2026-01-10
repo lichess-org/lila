@@ -41,11 +41,11 @@ final class StudyUi(helpers: Helpers):
   )(using Context) =
     div(cls := "study-create")(
       postForm(action := routes.Study.create)(
-        input(tpe := "hidden", name := "gameId", value := data.gameId),
-        input(tpe := "hidden", name := "orientation", value := data.orientation.map(_.key)),
-        input(tpe := "hidden", name := "fen", value := data.fen.map(_.value)),
-        input(tpe := "hidden", name := "pgn", value := data.pgnStr),
-        input(tpe := "hidden", name := "variant", value := data.variant.map(_.key)),
+        form3.hidden("gameId", data.gameId),
+        form3.hidden("orientation", data.orientation.map(_.key)),
+        form3.hidden("fen", data.fen.map(_.value)),
+        form3.hidden("pgn", data.pgnStr),
+        form3.hidden("variant", data.variant.map(_.key)),
         h2(trans.study.whereDoYouWantToStudyThat()),
         p(
           submitButton(

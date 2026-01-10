@@ -157,7 +157,7 @@ final class Study(
         .byIdWithTour(id.into(RelayRoundId))
         .flatMap:
           _.fold(f): rt =>
-            Redirect(chapterId.fold(rt.path)(rt.path))
+            Redirect(chapterId.fold(rt.call)(rt.call))
     else f
 
   private def showQuery(query: Option[WithChapter])(using ctx: Context): Fu[Result] =
@@ -274,9 +274,8 @@ final class Study(
             else
               val back = HTTPRequest
                 .referer(ctx.req)
-                .orElse(
+                .orElse:
                   data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
-                )
               Ok.page(views.study.create(data, owner, contrib, back))
         yield res
     )

@@ -3,34 +3,34 @@
   <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">搜索</string>
   <string name="advancedSearch">高级搜索</string>
   <plurals name="searchInXGames">
-    <item quantity="other">在 %s 个对局中搜索</item>
+    <item quantity="other">在 %s 场对局中搜索</item>
   </plurals>
   <plurals name="xGamesFound">
-    <item quantity="other">找到 %s 局</item>
+    <item quantity="other">找到 %s 场对局</item>
   </plurals>
-  <string name="opponentName">对手</string>
+  <string name="opponentName">对手名称</string>
   <string name="loser">败者</string>
   <string name="from">从</string>
   <string name="to">至</string>
-  <string name="humanOrComputer">对手玩家是人类还是计算机？</string>
+  <string name="humanOrComputer">对手是人类还是引擎</string>
   <string name="aiLevel">AI 级别</string>
   <string name="source">来源</string>
-  <string name="nbTurns">歩数</string>
+  <string name="nbTurns">回合数</string>
   <string name="result">结果</string>
   <string name="winnerColor">胜者执色</string>
   <string name="date">日期</string>
-  <string name="sortBy">排序依据</string>
+  <string name="sortBy">排序方式</string>
   <string name="analysis">分析</string>
-  <string name="onlyAnalysed">仅显示附加电脑分析的棋局</string>
-  <string name="color">执方颜色</string>
-  <string name="evaluation">评估</string>
+  <string name="onlyAnalysed">仅包含有电脑分析的对局</string>
+  <string name="color">颜色</string>
+  <string name="evaluation">局面评估</string>
   <string name="maxNumber">最大数量</string>
-  <string name="maxNumberExplanation">在结果中最多显示多少条内容</string>
+  <string name="maxNumberExplanation">返回的最大对局数量</string>
   <string name="include">包含</string>
   <string name="descending">降序</string>
   <string name="ascending">升序</string>
   <plurals name="gamesFound">
-    <item quantity="other">找到 %s 个对局</item>
+    <item quantity="other">找到 %s 场对局</item>
   </plurals>
-  <string name="ratingExplanation">两位玩家的平均等级分</string>
+  <string name="ratingExplanation">双方棋手的平均等级分</string>
 </resources>

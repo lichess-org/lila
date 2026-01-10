@@ -121,7 +121,7 @@ export default class TournamentController {
   };
 
   setPage = (page: number | undefined) => {
-    if (page && page != this.page && page >= 1 && page <= players(this).nbPages) {
+    if (page && page !== this.page && page >= 1 && page <= players(this).nbPages) {
       this.page = page;
       xhr.loadPage(this, page);
     }
@@ -169,7 +169,7 @@ export default class TournamentController {
   join = async (team?: string) => {
     this.joinWithTeamSelector = false;
     if (!this.data.verdicts.accepted)
-      return await alerts(this.data.verdicts.list.map(v => v.verdict).filter(v => v != 'ok'));
+      return await alerts(this.data.verdicts.list.map(v => v.verdict).filter(v => v !== 'ok'));
     if (this.data.teamBattle && !team && !this.data.me) {
       this.joinWithTeamSelector = true;
     } else {

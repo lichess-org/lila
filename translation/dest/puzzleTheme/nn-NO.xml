@@ -14,6 +14,10 @@
   <string name="attractionDescription">Avbyte eller offer (magnetoffer) som lokkar eller tvingar motspelaren til å flytte ei brikke til eit felt som gjer det mogleg å setje i verk ein taktisk plan.</string>
   <string name="backRankMate">Matt på åttanderaden</string>
   <string name="backRankMateDescription">Sjakkmatt på åttanderaden, ved at kongen er stengd inne av eigne brikker.</string>
+  <string name="balestraMate">Armbrøstmatt (balestramatt)</string>
+  <string name="balestraMateDescription">Løpar set matt, mens dronning blokkerer fluktfelta</string>
+  <string name="blindSwineMate">Blind grisematt</string>
+  <string name="blindSwineMateDescription">To tårn samarbeider om å matte kongen i eit kvadratisk område på 2x2 felt.</string>
   <string name="bishopEndgame">Løparsluttspel</string>
   <string name="bishopEndgameDescription">Sluttspel med berre løparar og bønder.</string>
   <string name="bodenMate">Bodens matt</string>
@@ -22,8 +26,12 @@
   <string name="castlingDescription">Få kongen din i tryggleik og gjer tårnet klårt for åtak.</string>
   <string name="capturingDefender">Slå ut forsvararen</string>
   <string name="capturingDefenderDescription">Slå ut ei brikke som er kritisk som dekning for ei anna brikke, slik at brikka som no står udekka kan fjernast i eit seinare trekk.</string>
+  <string name="cornerMate">Hjørnematt</string>
+  <string name="cornerMateDescription">Sperr kongen inn i hjørnet ved hjelp av tårn eller dronning og la springar sette matt.</string>
   <string name="crushing">Avgjerande fordel</string>
   <string name="crushingDescription">Finn motspelarens feil for å få ein avgjerande fordel. (eval ≥ 600 centibønder)</string>
+  <string name="discoveredCheck">Avdekkarsjakk</string>
+  <string name="discoveredCheckDescription">Flytt ei brikke for å avdekke sjakk frå en skjult angripar. Ein slik avdekkarsjakk gir ofte ein avgjerande fordel.</string>
   <string name="doubleBishopMate">Dobbeltløparmatt</string>
   <string name="doubleBishopMateDescription">To angripande løparar på tilstøytande diagonalar mattar, hjelpt av at kongen er blokkert av eigne brikker.</string>
   <string name="dovetailMate">Stjertmatt</string>
@@ -59,6 +67,12 @@
   <string name="intermezzoDescription">Eit trekk som kjem før det venta trekket og som utgjer eit trugsmål motspelaren straks må svare på.</string>
   <string name="killBoxMate">Kassematt</string>
   <string name="killBoxMateDescription">Eit tårn står ved sida av motspelarens konge og er støtta av ei dronning som i tillegg stengjer fluktfelta til kongen. Tårnet og dronninga fangar motspelarkongen i ei 3x3 «kasse».</string>
+  <string name="pillsburysMate">Pillsburymatt</string>
+  <string name="pillsburysMateDescription">Tårnet set sjakkmatt medan løparen sperrar av.</string>
+  <string name="morphysMate">Morphys matt</string>
+  <string name="morphysMateDescription">Bruk løparen til å sjakke kongen, medan tårnet avgrensar rørslene til kongen.</string>
+  <string name="triangleMate">Trekantmatt</string>
+  <string name="triangleMateDescription">Dronning og tårn, eit felt frå motspelarkongen, står på samme rad eller linje med ett felt mellom, slik at dei tre brikkene dannea ein trekant.</string>
   <string name="vukovicMate">Vuković-matt</string>
   <string name="vukovicMateDescription">Tårn og springar samarbeider om å sette kongen matt. Tårnet gjev matt med støtte frå ein tredje brikke, medan springaren blokkerer fluktfelta til kongen.</string>
   <string name="knightEndgame">Springarsluttspel</string>
@@ -87,6 +101,8 @@
   <string name="oneMoveDescription">Ei taktikkoppgåve på berre eitt trekk.</string>
   <string name="opening">Opning</string>
   <string name="openingDescription">Taktikk i den første fasen av partiet.</string>
+  <string name="operaMate">Operamatt</string>
+  <string name="operaMateDescription">Sett kongen i sjakk med eit tårn og bruk ein løpar til å forsvare tårnet.</string>
   <string name="pawnEndgame">Bondesluttspel</string>
   <string name="pawnEndgameDescription">Sluttspel med berre bønder.</string>
   <string name="pin">Binding</string>

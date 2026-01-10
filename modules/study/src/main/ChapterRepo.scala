@@ -4,6 +4,7 @@ import scala.collection.immutable.SeqMap
 import akka.stream.scaladsl.*
 import chess.format.UciPath
 import chess.format.pgn.Tags
+import chess.FideId
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
@@ -74,6 +75,18 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def studyIdsByRelayFideId(fideId: chess.FideId): Fu[List[StudyId]] =
     coll(_.distinctEasy[StudyId, List]("studyId", $doc("relay.fideIds" -> fideId)))
 
+  def fideIdsOf(studyIds: List[StudyId]): Fu[Set[FideId]] =
+    coll:
+      _.aggregateOne(): framework =>
+        import framework.*
+        Match($doc("studyId".$in(studyIds), "relay.fideIds".$exists(true))) -> List(
+          Project($doc("_id" -> false, "ids" -> "$relay.fideIds")),
+          UnwindField("ids"),
+          Group(BSONNull)("ids" -> AddFieldToSet("ids"))
+        )
+      .map:
+        _.flatMap(_.getAsOpt[Set[FideId]]("ids")).orZero
+
   def sort(study: Study, ids: List[StudyChapterId]): Funit =
     coll: c =>
       ids
@@ -89,6 +102,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   def removeConceal(chapterId: StudyChapterId) =
     coll(_.unsetField($id(chapterId), "conceal")).void
+
+  def setRelay(chapterId: StudyChapterId, relay: Chapter.Relay) =
+    coll(_.updateField($id(chapterId), "relay", relay)).void
 
   def setRelayPath(chapterId: StudyChapterId, path: UciPath) =
     coll(_.updateField($id(chapterId) ++ $doc("relay.lastMoveAt".$exists(true)), "relay.path", path)).void

@@ -31,7 +31,7 @@ final class TokenUi(helpers: Helpers)(
         standardFlash.map(div(cls := "box__pad")(_)),
         p(cls := "box__pad force-ltr")(
           ot.canMakeOauthRequests(
-            a(href := s"${routes.Api.index}#section/Introduction/Authentication")(ot.authorizationCodeFlow())
+            a(href := s"/api#section/Introduction/Authentication")(ot.authorizationCodeFlow())
           ),
           br,
           br,
@@ -47,7 +47,7 @@ final class TokenUi(helpers: Helpers)(
             a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-personal-token")(
               ot.personalTokenAppExample()
             ),
-            a(href := routes.Api.index)(ot.apiDocumentation())
+            a(href := "/api")(ot.apiDocumentation())
           )
         ),
         tokens.headOption.filter(_.isBrandNew).map { token =>

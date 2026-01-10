@@ -88,7 +88,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
       h('br'),
       h(
         'a.text',
-        { attrs: { 'data-icon': licon.InfoCircle, href: 'https://lichess.org/api#tag/arena-tournaments' } },
+        { attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/arena-tournaments' } },
         'Arena API documentation',
       ),
     ]),

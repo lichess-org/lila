@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Ahoj, %s</string>
+	<string name="noGamesText">Letos jsi nehrál jsi žádnou šachovou hru.</string>
+	<string name="noGamesCta">Chceš si zahrát teď?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">A vyhrál jsi %s!</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s zahraný tah</item>
+		<item quantity="few">%s zahraných tahů</item>
+		<item quantity="many">%s zahraných tahů</item>
+		<item quantity="other">%s zahraných tahů</item>
+	</plurals>
+	<string name="movesStandardPiecesWeight">Běžné figurky váží asi 40g každá</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gram</item>
+		<item quantity="few">%s gramů</item>
+		<item quantity="many">%s gram</item>
+		<item quantity="other">%s gram</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogram</item>
+		<item quantity="few">%s kilogramů</item>
+		<item quantity="many">%s kilogramů</item>
+		<item quantity="other">%s kilogramů</item>
+	</plurals>
+	<string name="thanksTitle">Děkujeme za hraní na Lichess!</string>
+	<string name="shareableTitle" comment="%s is the current year">Můj %s souhrn</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">tráveno hraním</string>
+	<string name="shareableMostPlayedOpponent">nejhranější soupeř</string>
+	<string name="shareableFavouriteVariant">oblíbená varianta</string>
+</resources>

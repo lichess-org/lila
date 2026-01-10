@@ -2,4 +2,8 @@
 <resources>
   <string name="standard" comment="As in standard chess (not a variant)">Standard</string>
   <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Standardschachreegelen (FIDE)</string>
+  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Raiberschach</string>
+  <string name="antichessTitle" comment="Description for the Antichess variant">Verléier all deng Figuren (oder looss dech patt setze) fir d\'Partie ze gewannen.</string>
+  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">Atomschach</string>
+  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Spreng de géigneresche Kinnek an d\'Luucht fir ze gewannen.</string>
 </resources>

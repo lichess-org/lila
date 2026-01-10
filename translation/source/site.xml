@@ -231,7 +231,7 @@
   <string name="changeUsernameNotSame">Only the case of the letters can change. For example "johndoe" to "JohnDoe".</string>
   <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
   <string name="signupUsernameHint">Make sure to choose a username that's appropriate for all ages. You cannot change it later and any accounts with inappropriate usernames will get closed!</string>
-  <string name="signupEmailHint">We will only use it for password reset.</string>
+  <string name="signupEmailHint">We will only use it for password reset and account activation.</string>
   <string name="password">Password</string>
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
@@ -474,10 +474,6 @@
   <string name="player">Player</string>
   <string name="list">List</string>
   <string name="graph">Graph</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Less than %s minute</item>
-    <item quantity="other">Less than %s minutes</item>
-  </plurals>
   <string name="required">Required.</string>
   <string name="openTournaments">Open tournaments</string>
   <string name="duration">Duration</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Cycle previous/next variation</string>
   <string name="toggleGlyphAnnotations">Toggle move annotations</string>
   <string name="togglePositionAnnotations">Toggle position annotations</string>
+  <string name="toggleObservationAnnotations">Toggle observation annotations</string>
   <string name="variationArrowsInfo">Variation arrows let you navigate without using the move list.</string>
   <string name="playSelectedMove">play selected move</string>
   <string name="newTournament">New tournament</string>
@@ -911,6 +908,7 @@
   <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
   <string name="searchOrStartNewDiscussion">Search or start new conversation</string>
   <string name="edit">Edit</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
@@ -1020,4 +1018,5 @@ All operating costs, development, and content are funded solely by user donation
   <string name="search">Search</string>
   <string name="clearSearch">Clear search</string>
   <string name="tags">Tags</string>
+  <string name="enPassant">En passant</string>
 </resources>

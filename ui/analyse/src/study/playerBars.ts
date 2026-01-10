@@ -3,14 +3,16 @@ import { hl } from 'lib/view';
 import renderClocks from '../view/clocks';
 import type AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';
-import type { StudyPlayers, Federation, TagArray, StudyPlayer } from './interfaces';
+import type { StudyPlayers, Federation, TagArray, StudyPlayer, StatusStr } from './interfaces';
 import { findTag, looksLikeLichessGame, resultOf } from './studyChapters';
 import { userTitle } from 'lib/view/userLink';
-import RelayPlayers, { fidePageLinkAttrs, playerId } from './relay/relayPlayers';
+import RelayPlayers, { fidePageLinkAttrs, playerId, playerPhotoOrFallback } from './relay/relayPlayers';
 import { StudyCtrl } from './studyDeps';
 import { intersection } from 'lib/tree/path';
 import { defined } from 'lib';
 import { resultTag } from './studyView';
+import type { RelayRound } from './relay/interfaces';
+import { playerColoredResult } from './relay/customScoreStatus';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
@@ -33,6 +35,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       color,
       tickingColor === color,
       study.data.showRatings || !looksLikeLichessGame(tags),
+      study.relay?.round,
       relayPlayers,
     ),
   );
@@ -55,48 +58,76 @@ function renderPlayer(
   color: Color,
   ticking: boolean,
   showRatings: boolean,
+  round?: RelayRound,
   relayPlayers?: RelayPlayers,
 ): VNode {
   const showResult: boolean =
       !defined(ctrl.study?.relay) ||
       ctrl.study?.multiBoard.showResults() ||
-      ctrl.node.ply == ctrl.tree.lastPly(),
+      ctrl.node.ply === ctrl.tree.lastPly(),
     team = findTag(tags, `${color}team`),
-    result = showResult && resultOf(tags, color === 'white'),
+    rawStatus = showResult ? findTag(tags, 'result')?.replace(/1\/2/g, '½') : undefined,
+    status = rawStatus && rawStatus !== '*' ? (rawStatus as StatusStr) : undefined,
+    result = showResult ? resultOf(tags, color === 'white') : undefined,
     top = ctrl.bottomColor() !== color,
     eloTag = findTag(tags, `${color}elo`),
     fideIdTag = findTag(tags, `${color}fideid`),
+    fideId = fideIdTag ? parseInt(fideIdTag) : undefined,
     player: StudyPlayer = {
       ...players?.[color],
       name: findTag(tags, color),
       title: findTag(tags, `${color}title`),
       rating: showRatings && eloTag ? parseInt(eloTag) : undefined,
-      fideId: fideIdTag ? parseInt(fideIdTag) : undefined,
-    };
-  return hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
-    hl('div.left', [
-      result && hl(`${resultTag(result)}.result`, result),
-      hl('span.info', [
-        team ? hl('span.team', team) : undefined,
-        playerFed(player?.fed),
-        !!player.title && userTitle(player),
-        playerId(player) &&
-          (relayPlayers
-            ? hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name)
-            : hl(
+      fideId,
+    },
+    photo = fideId ? relayPlayers?.fidePhoto(fideId) : undefined;
+  const coloredResult = status && status !== '*' && playerColoredResult(status, color, round);
+  const resultNode = coloredResult
+    ? hl(`${coloredResult.tag}.result`, coloredResult.points)
+    : result && hl(`${resultTag(result)}.result`, result);
+  return relayPlayers
+    ? hl(`div.relay-board-player.relay-board-player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
+        hl('div.left', [
+          playerPhotoOrFallback(player, photo, 'small', 'relay-board-player__photo'),
+          hl('div.info-split', [
+            hl('div', [
+              !!player.title && userTitle(player),
+              playerId(player) &&
+                hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name),
+            ]),
+            hl('div.info-secondary', [
+              team ? hl('span.team', team) : undefined,
+              playerFedFlag(player?.fed),
+              player.rating && hl('span.elo', `${player.rating}`),
+            ]),
+          ]),
+          resultNode,
+        ]),
+        materialDiffs[top ? 0 : 1],
+        clocks?.[color === 'white' ? 0 : 1],
+      ])
+    : hl(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
+        hl('div.left', [
+          resultNode,
+          hl('span.info', [
+            team ? hl('span.team', team) : undefined,
+            playerFedFlag(player?.fed),
+            !!player.title && userTitle(player),
+            playerId(player) &&
+              hl(
                 player.fideId ? 'a.name' : 'span.name',
                 { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
                 player.name,
-              )),
-        player.rating && hl('span.elo', `${player.rating}`),
-      ]),
-    ]),
-    materialDiffs[top ? 0 : 1],
-    clocks?.[color === 'white' ? 0 : 1],
-  ]);
+              ),
+            player.rating && hl('span.elo', `${player.rating}`),
+          ]),
+        ]),
+        materialDiffs[top ? 0 : 1],
+        clocks?.[color === 'white' ? 0 : 1],
+      ]);
 }
 
-export const playerFed = (fed?: Federation): VNode | undefined =>
+export const playerFedFlag = (fed?: Federation): VNode | undefined =>
   fed &&
   hl('img.mini-game__flag', {
     attrs: {

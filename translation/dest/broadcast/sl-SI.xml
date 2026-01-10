@@ -51,7 +51,7 @@
   <string name="fidePlayerNotFound">FIDE igralec ni najden</string>
   <string name="fideProfile">FIDE profil</string>
   <string name="federation">Država</string>
-  <string name="ageThisYear">Starost letos</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Starost</string>
   <string name="unrated">Nima ratinga</string>
   <string name="recentTournaments">Pretekli turnirji</string>
   <string name="openLichess">Odprto v Lichess</string>
@@ -87,4 +87,6 @@
   <string name="liveboard">Živa deska</string>
   <string name="communityBroadcast">Skupnostna oddaja</string>
   <string name="createdAndManagedBy">Ustvaril in upravlja %s.</string>
+  <string name="roundX">Krog %s</string>
+  <string name="defaultRoundNameHelp">Če ohranite privzeto ime, se bo samodejno prevedlo v vse druge jezike.</string>
 </resources>

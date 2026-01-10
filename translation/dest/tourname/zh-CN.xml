@@ -6,8 +6,8 @@
   <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">每小时 %s 赛</string>
   <string name="dailyRapidArena">每日快棋竞技场</string>
   <string name="dailyRapid">每日快棋赛</string>
-  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">每日经典竞技场</string>
-  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">每日经典赛</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">每日慢棋竞技场</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">每日慢棋赛</string>
   <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">每日 %s 竞技场</string>
   <string name="dailyX">每日 %s 赛</string>
   <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">东半球快棋竞技场</string>
@@ -18,20 +18,20 @@
   <string name="easternX">东半球 %s 赛</string>
   <string name="weeklyRapidArena">每周快棋竞技场</string>
   <string name="weeklyRapid">每周快棋赛</string>
-  <string name="weeklyClassicalArena">每周经典竞技场</string>
-  <string name="weeklyClassical">每周经典赛</string>
+  <string name="weeklyClassicalArena">每周慢棋竞技场</string>
+  <string name="weeklyClassical">每周慢棋赛</string>
   <string name="weeklyXArena">每周 %s 竞技场</string>
   <string name="weeklyX">每周 %s 赛</string>
   <string name="monthlyRapidArena">每月快棋竞技场</string>
   <string name="monthlyRapid">每月快棋赛</string>
-  <string name="monthlyClassicalArena">每月经典竞技场</string>
-  <string name="monthlyClassical">每月经典赛</string>
+  <string name="monthlyClassicalArena">每月慢棋竞技场</string>
+  <string name="monthlyClassical">每月慢棋赛</string>
   <string name="monthlyXArena">每月 %s 竞技场</string>
   <string name="monthlyX">每月 %s 赛</string>
   <string name="yearlyRapidArena">年度快棋竞技场</string>
   <string name="yearlyRapid">年度快棋赛</string>
-  <string name="yearlyClassicalArena">年度经典竞技场</string>
-  <string name="yearlyClassical">年度经典赛</string>
+  <string name="yearlyClassicalArena">年度慢棋竞技场</string>
+  <string name="yearlyClassical">年度慢棋赛</string>
   <string name="yearlyXArena">年度 %s 竞技场</string>
   <string name="yearlyX">年度 %s 赛</string>
   <string name="rapidShieldArena">快棋盾牌竞技场</string>
@@ -40,7 +40,7 @@
   <string name="classicalShield">慢棋盾牌赛</string>
   <string name="xShieldArena">%s 盾牌竞技场</string>
   <string name="xShield">%s 盾牌赛</string>
-  <string name="xTeamBattle">%s 团队战斗</string>
+  <string name="xTeamBattle">%s 团队战</string>
   <string name="eliteXArena">精英 %s 竞技场</string>
   <string name="eliteX">精英 %s 赛</string>
   <string name="xArena">%s 竞技场</string>

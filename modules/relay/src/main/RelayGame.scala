@@ -7,6 +7,7 @@ import chess.format.pgn.{ Tag, TagType, Tags }
 import lila.study.{ MultiPgn, PgnDump, StudyPgnImport }
 import lila.tree.{ Root, Clock }
 import lila.tree.Node.Comments
+import lila.core.fide.PlayerToken
 
 case class RelayGame(
     tags: Tags,
@@ -168,3 +169,43 @@ private object RelayGame:
       .mkString(", ")
 
     val iso: Iso.StringIso[List[Slice]] = Iso(parse, show)
+
+  opaque type ReorderNames = String
+  object ReorderNames extends OpaqueString[ReorderNames]:
+    extension (r: ReorderNames)
+      def reorder(games: RelayGames): RelayGames =
+        r.linesIterator.map(parseLine).toVector match
+          case Vector() => games
+          case lines =>
+            val gamesByToken = tokenizeGamesByPlayers(games)
+            val ordered = lines.flatMap: line =>
+              line
+                .map(gamesByToken.getOrElse(_, Vector.empty))
+                .match
+                  case List(one) => one
+                  case List(w, b) => w.filter(b.contains)
+                  case _ => Vector.empty
+                .headOption
+
+            val unordered = games.filterNot(g => ordered.contains(g))
+            ordered ++ unordered
+
+    private def parseLine(line: String): List[PlayerToken] = // one or two player tokens
+      line.split(";", 2).toList.map(_.trim).filter(_.nonEmpty).map(RelayPlayerLine.tokenize.apply)
+
+    private def tokenizeGamesByPlayers(games: RelayGames): Map[PlayerToken, Vector[RelayGame]] =
+      val gamesTokens: Vector[(RelayGame, List[PlayerToken])] =
+        games.map: g =>
+          g -> g.tags.names
+            .mapList(_.map(_.value))
+            .flatten
+            .map(RelayPlayerLine.tokenize.apply)
+            .filter(_.value.nonEmpty)
+
+      gamesTokens
+        .flatMap((game, tokens) => tokens.map(_ -> game))
+        .groupBy(_._1)
+        .toMap
+        .view
+        .mapValues(_.map(_._2).distinct)
+        .toMap

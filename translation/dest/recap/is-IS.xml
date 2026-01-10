@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hæ, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Hvað hefur þú verið að bralla í ár?</string>
+	<string name="initTitle">Glæsilegu skákári er nú senn að ljúka hjá þér!</string>
+	<string name="noGamesText">Þú tefldir ekkert í ár.</string>
+	<string name="noGamesCta">Viltu tefla núna?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Og þú sigraðir %s!</string>
+	<string name="gamesNextQuestion">Hvaða forsendur lágu til grundvallar þessum árangri?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s varið í að tefla!</string>
+	<string name="timeTooMuch">Þetta er óhóflegt magn af skák.</string>
+	<string name="timeALot">Þetta er mikið magn af skák.</string>
+	<string name="timeReasonable">Þetta virðist vera hóflegt magn af skák.</string>
+	<string name="timeHowManyMoves">Hve marga leiki lékst þú á öllum þessum tíma?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s leikur leikinn</item>
+		<item quantity="other">%s leikir leiknir</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Það jafngildir því að þú hafir hreyft %s af viði!</string>
+	<string name="movesStandardPiecesWeight">Til samanburðar vega hefðbundnir taflmenn um 40g hver</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s leikur</item>
+		<item quantity="other">%s leikir</item>
+	</plurals>
+	<string name="chessFoes">Kröfuhörðustu andstæðingar þínir</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gramm</item>
+		<item quantity="other">%s grömm</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kílógramm</item>
+		<item quantity="other">%s kílógrömm</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">var upphafið að %s skákum þínum sem hvítur</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Þá byrjun sem þú tefldir oftast, sem hvítur í %s skák</item>
+		<item quantity="other">Þá byrjun sem þú tefldir oftast, sem hvítur í %s skákum</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Þá byrjun sem þú tefldir oftast, sem svartur í %s skák</item>
+		<item quantity="other">Þá byrjun sem þú tefldir oftast, sem svartur í %s skákum</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Takk fyrir að meta %s þraut.</item>
+		<item quantity="other">Takk fyrir að meta %s þrautir.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Þú hjálpaðir líka til við að merkja %s af þeim.</string>
+	<string name="puzzlesNone">Þú leystir engar þrautir í ár.</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Hefurðu áhuga á að reyna við nokkrar núna?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Þú leystir %s af þeim í fyrstu atrennu!</string>
+	<string name="sourcesTitle">Hvernig fannstu skákir þínar?</string>
+	<string name="perfsTitle">Hvers kyns tímaskorður og afbirgði notaðist þú við í tafli þínu?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s auglýsingum og rakningum hlaðið</string>
+	<string name="malwareNoSell">Við seldum ekki persónuupplýsingar þínar</string>
+	<string name="malwareNoAbuse">Við notuðum ekki tækið þitt gegn hagsmunum þínum</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">En aðrar vefsíður gera það, svo %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">farðu varlega</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s skákir voru tefldar á Lichess árið %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s þeirra voru þínar skákir.</string>
+	<string name="thanksTitle">Takk fyrir að tefla á Lichess!</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Það er okkur mikil ánægja að hafa þig með í för. Gleðilegt %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">%1$s Lichess á þessu ári nam %2$s.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">Rekstrarkostnaður</string>
+	<string name="patronCharity">Við erum sjálfseignarstofnun sem rekin er eingöngu fyrir tilstilli valfrjálsra framlaga.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">Hafi starf okkar fært þér ánægju í ár, eða teljir þú verkefni okkar eiga rétt á sér, biðjum við þig vinsamlegast að íhuga að %s!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">styrkja okkur með fjárframlagi</string>
+	<string name="shareableTitle" comment="%s is the current year">Útdráttur minn %s</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">varið í að tefla</string>
+	<string name="shareableMostPlayedOpponent">teflt oftast við</string>
+	<string name="shareableFavouriteVariant">uppáhaldsafbrigði</string>
+	<string name="shareableFavouriteTimeControl">uppáhaldstímaskorður</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s þraut leyst</item>
+		<item quantity="other">%s þrautir leystar</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Útdráttur þinn fyrir %s er tilbúinn!</string>
+</resources>

@@ -132,7 +132,7 @@ final class PlayApi(env: Env) extends LilaController(env):
       if me.noBot then
         BadRequest:
           jsonError:
-            "This endpoint can only be used with a Bot account. See https://lichess.org/api#tag/bot/post/api/bot/account/upgrade"
+            "This endpoint can only be used with a Bot account. See https://lichess.org/api#tag/bot/post/apibotaccountupgrade"
       else
         isReallyBotCompatible(pov.game).flatMap:
           if _ then f(pov)

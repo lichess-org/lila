@@ -67,7 +67,7 @@ export const pocketsStr = (pocket: Tree.CrazyPocket): string =>
 
 export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): string {
   const color: Color = p === p.toUpperCase() ? 'white' : 'black';
-  if (p.toLowerCase() == 'a') return renderPiecesByColorAsString(pieces, style, color);
+  if (p.toLowerCase() === 'a') return renderPiecesByColorAsString(pieces, style, color);
   const role = charToRole(p)!;
   const keys = keysWithPiece(pieces, role, color);
   let pieceStr = transPieceStr(role, color, i18n);
@@ -155,9 +155,12 @@ export function renderBoard(
         pieceStyle === 'name' || pieceStyle === 'white uppercase name'
           ? transPieceStr(piece.role, piece.color, i18n)
           : renderPieceStr(roleCh, pieceStyle, piece.color, prefixStyle);
-      return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText, plusOrMinus == '-'));
+      return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText, plusOrMinus === '-'));
     } else {
-      return h(pieceWrapper, doPieceButton(rank, file, plusOrMinus, 'none', plusOrMinus, plusOrMinus == '-'));
+      return h(
+        pieceWrapper,
+        doPieceButton(rank, file, plusOrMinus, 'none', plusOrMinus, plusOrMinus === '-'),
+      );
     }
   };
 

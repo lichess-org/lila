@@ -324,7 +324,7 @@ object BSONHandlers:
   given BSONDocumentHandler[Chapter.Relay] = Macros.handler
   given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
 
-  private val clockPair: BSONHandler[PairOf[Option[Centis]]] = optionPairHandler
+  private val clockPair: BSONHandler[PairOf[Option[Centis]]] = optionTupleHandler
   given BSONHandler[Chapter.BothClocks] = clockPair.as[Chapter.BothClocks](ByColor.fromPair, _.toPair)
   given BSONHandler[Chapter.Check] = quickHandler[Chapter.Check](
     { case BSONString(v) => if v == "#" then Chapter.Check.Mate else Chapter.Check.Check },

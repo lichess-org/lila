@@ -405,9 +405,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="player">Pemain</string>
   <string name="list">Senarai</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">Kurang dari %s minit</item>
-  </plurals>
   <string name="required">Diperlukan.</string>
   <string name="openTournaments">Pertandingan terbuka</string>
   <string name="duration">Jangka masa</string>

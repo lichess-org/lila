@@ -1,6 +1,5 @@
 import { updateElements, formatClockTimeVerbal } from './clockView';
 import { ShowClockTenths } from '@/prefs';
-import { reducedMotion } from '@/device';
 
 export interface ClockOpts {
   onFlag(): void;
@@ -93,7 +92,7 @@ export class ClockCtrl {
           ? time => time < 10000
           : time => time < 3600000;
 
-    this.showBar = pref.clockBar && !site.blindMode && !reducedMotion();
+    this.showBar = pref.clockBar && !site.blindMode;
     this.barTime = 1000 * (Math.max(data.initial, 2) + 5 * data.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 
@@ -141,12 +140,17 @@ export class ClockCtrl {
 
   private scheduleTick = (time: Millis, extraDelay: Millis) => {
     if (this.tickTimeout !== undefined) clearTimeout(this.tickTimeout);
-    this.tickTimeout = setTimeout(
-      this.tick,
-      // changing the value of active node confuses the chromevox screen reader
-      // so update the clock less often
-      site.blindMode ? 1000 : (time % (this.showTenths(time) ? 100 : 500)) + 1 + extraDelay,
-    );
+    // changing the value of active node confuses the chromevox screen reader
+    // so update the clock less often for blind mode.
+    // Otherwise: on the 500ms because that affects separator
+    // When tenths are shown, update every 100ms to show tenths.
+    const tickInterval = site.blindMode ? 1000 : this.showTenths(time) ? 100 : 500;
+
+    // Schedule the next tick to occur immediately after the interval boundary.
+    // Note that extraDelay is a value from server which predicts opp lag comp.
+    // It delays a clock from counting down, so should be included in the
+    // calculation of scheduling (when the clock display will need to be updated)
+    this.tickTimeout = setTimeout(this.tick, (time % tickInterval) + 1 + extraDelay);
   };
 
   // Should only be invoked by scheduleTick.

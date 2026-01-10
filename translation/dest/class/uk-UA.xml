@@ -126,4 +126,9 @@
   <string name="moveToAnotherClass">Перевести в інший клас</string>
   <string name="allowMessagingBetweenStudents">Дозволити учням обмінюватися повідомленнями</string>
   <string name="allowMessagingBetweenStudentsDesc">Це стосується лише облікових записів, які ви створили своїм студентам.</string>
+  <string name="quickLoginCode">Код швидкого входу</string>
+  <string name="quickLoginCodes">Коди швидкого входу</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Використайте ці коди за %s, щоб авторизувати своїх учнів на Lichess.</string>
+  <string name="quickLoginCodesDesc2">Коли термін кодів сплине, учні залишаться авторизованими, поки самі не вийдуть.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Сплине %s</string>
 </resources>

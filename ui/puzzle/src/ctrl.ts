@@ -410,7 +410,7 @@ export default class PuzzleCtrl implements CevalHandler {
     } else if (progress === 'win') {
       if (this.streak) this.sound.good();
       this.lastFeedback = 'win';
-      if (this.mode != 'view') {
+      if (this.mode !== 'view') {
         const sent = this.mode === 'play' ? this.sendResult(true) : Promise.resolve();
         this.mode = 'view';
         this.withGround(this.showGround);
@@ -470,7 +470,7 @@ export default class PuzzleCtrl implements CevalHandler {
   private isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
 
   nextPuzzle = (): void => {
-    if (this.streak && this.lastFeedback != 'win') {
+    if (this.streak && this.lastFeedback !== 'win') {
       if (this.lastFeedback === 'fail') site.redirect(this.routerWithLang('/streak'));
       return;
     }
@@ -490,7 +490,7 @@ export default class PuzzleCtrl implements CevalHandler {
 
     if (!this.streak && !this.data.replay) {
       const path = this.routerWithLang(`/training/${this.data.angle.key}`);
-      if (location.pathname != path) history.replaceState(null, '', path);
+      if (location.pathname !== path) history.replaceState(null, '', path);
     }
   };
 
@@ -579,7 +579,7 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   userJump = (path: Tree.Path): void => {
-    if (this.tree.nodeAtPath(path)?.puzzle === 'fail' && this.mode != 'view') return;
+    if (this.tree.nodeAtPath(path)?.puzzle === 'fail' && this.mode !== 'view') return;
     this.withGround(g => g.selectSquare(null));
     this.jump(path);
   };
@@ -587,7 +587,7 @@ export default class PuzzleCtrl implements CevalHandler {
   userJumpPlyDelta = (plyDelta: Ply) => {
     // ensure we are jumping to a valid ply
     let maxValidPly = this.mainline.length - 1;
-    if (last(this.mainline)?.puzzle === 'fail' && this.mode != 'view') maxValidPly -= 1;
+    if (last(this.mainline)?.puzzle === 'fail' && this.mode !== 'view') maxValidPly -= 1;
     const newPly = Math.min(Math.max(this.node.ply + plyDelta, 0), maxValidPly);
     this.userJump(treePath.fromNodeList(this.mainline.slice(0, newPly + 1)));
   };
@@ -595,7 +595,7 @@ export default class PuzzleCtrl implements CevalHandler {
   toggleHint = (): void => {
     if (!this.showHint()) {
       this.hintHasBeenShown(true);
-      this.userJump(treePath.fromNodeList(this.mainline.filter(node => node.puzzle != 'fail')));
+      this.userJump(treePath.fromNodeList(this.mainline.filter(node => node.puzzle !== 'fail')));
     }
     this.showHint.toggle();
     this.setAutoShapes();
@@ -614,7 +614,7 @@ export default class PuzzleCtrl implements CevalHandler {
     const next = this.node.children[0];
     if (next && next.puzzle === 'good') this.userJump(this.path + next.id);
     else {
-      const firstGoodPath = treeOps.takePathWhile(this.mainline, node => node.puzzle != 'good');
+      const firstGoodPath = treeOps.takePathWhile(this.mainline, node => node.puzzle !== 'good');
       if (firstGoodPath) this.userJump(firstGoodPath + this.tree.nodeAtPath(firstGoodPath).children[0].id);
     }
 
@@ -629,7 +629,7 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   skip = () => {
-    if (!this.streak || !this.streak.data.skip || this.mode != 'play') return;
+    if (!this.streak || !this.streak.data.skip || this.mode !== 'play') return;
     this.streak.skip();
     this.userJump(treePath.fromNodeList(this.mainline));
     const moveIndex = treePath.size(this.path) - treePath.size(this.initialPath);

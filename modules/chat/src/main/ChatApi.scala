@@ -102,7 +102,7 @@ final class ChatApi(
       x == "last" || x == "first" || x == "second" || x == "third"
     } || {
       val x = text.filter(_.isLetterOrDigit).toLowerCase
-      x == "1st" || x == "1" || x == "2nd" || x == "2"
+      x == "1st" || x == "1ts" || x == "1" || x == "2nd" || x == "2"
     }
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =

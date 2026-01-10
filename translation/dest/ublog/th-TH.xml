@@ -6,7 +6,11 @@
   <string name="byLichess">โดย Lichess</string>
   <string name="myFriends">เพื่อนของฉัน</string>
   <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">การกดชอบ</string>
+  <string name="myBlog">บล็อกของฉัน</string>
   <string name="likedBlogs">ชอบบล็อกโพสต์</string>
+  <plurals name="blogPosts">
+    <item quantity="other">%sบล็อกที่โพสต์</item>
+  </plurals>
   <string name="continueReadingPost">อ่านโพสต์นี้ต่อ</string>
   <string name="lichessBlogPostsFromXYear">บล็อกโพสต์ของ Lichessใน %s</string>
   <string name="previousBlogPosts">บล็อกโพสต์ที่แล้ว</string>
@@ -20,13 +24,34 @@
   <string name="drafts">แบบร่าง</string>
   <string name="published">เผยแพร่ไปแล้ว</string>
   <string name="createBlogDiscussion">เปิดใช้งานคอมเมนต์</string>
+  <string name="createBlogDiscussionHelp">ระบบจะสร้างหัวข้อในฟอรัมเพื่อให้ผู้คนสามารถแสดงความคิดเห็นในโพสต์ของคุณได้</string>
+  <string name="publishOnYourBlog">เผยแพร่ในบล็อกของคุณ</string>
+  <string name="publishHelp">หากตรวจสอบแล้ว โพสต์จะปรากฏบนบล็อกของคุณ ถ้าไม่โพสต์จะถูกตั้งค่าเป็นส่วนตัวในส่วนร่างโพสต์</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">โพสต์ปักหมุด</string>
+  <string name="stickyPostHelp">หากตรวจสอบแล้ว โพสต์นี้จะปรากฏเป็นอันดับแรกในโพสต์ล่าสุดในโปรไฟล์ของคุณและในบล็อกของคุณ</string>
+  <plurals name="publishedNbBlogPosts">
+    <item quantity="other">เผยแพร่บล็อก %s บล็อก</item>
+  </plurals>
   <plurals name="nbViews">
     <item quantity="other">คนดู %s</item>
   </plurals>
+  <string name="xPublishedY">%1$s ได้เผยแพร่ %2$s</string>
+  <string name="thisPostIsPublished">โพสต์นี้เป็นสาธารณะ</string>
+  <string name="thisIsADraft">นี้คือฉบับร่าง</string>
+  <string name="noPostsInThisBlogYet">ยังไม่มีบล็อกถูกโพสต์</string>
+  <string name="noDrafts">ไม่มีฉบับร่างให้แสดง</string>
   <string name="latestBlogPosts">โพสต์บล็อกล่าสุด</string>
+  <plurals name="viewAllNbPosts">
+    <item quantity="other">ดู %s โพสต์</item>
+  </plurals>
   <string name="uploadAnImageForYourPost">อัปโหลดรูปสำหรับบล็อกของคุณ</string>
+  <string name="imageAlt">ข้อความแสดงแทนรูปภาพ</string>
   <string name="imageCredit">เครดิตภาพ</string>
+  <string name="deleteBlog">ลบโพสต์บล็อกนี้อย่างถาวร</string>
+  <string name="safeToUseImages">สามารถใช้รูปภาพจากเว็บไซต์ต่อไปนี้ได้อย่างปลอดภัย: </string>
   <string name="selectPostTopics">เลือกหัวข้อที่โพสต์ของคุณเกี่ยวกับ</string>
+  <string name="useImagesYouMadeYourself">คุณสามารถใช้รูปภาพที่คุณสร้างเอง รูปภาพที่คุณถ่าย ภาพหน้าจอจาก Lichess... หรืออะไรก็ตามที่ไม่ละเมิดลิขสิทธิ์ของผู้อื่นได้</string>
+  <string name="safeAndRespectfulContent">กรุณาโพสต์เฉพาะเนื้อหาที่ปลอดภัยและสุภาพเท่านั้น ห้ามคัดลอกเนื้อหาของผู้อื่น</string>
   <string name="inappropriateContentAccountClosed">อะไรก็ตามที่ไม่เหมาะสมอาจทำให้บัญชีของคุณโดนปิดได้</string>
   <string name="blogTips">เคล็ดลับง่ายๆของเราในการเขียนบล็อกที่ดี</string>
   <string name="discussThisBlogPostInTheForum">หารือเรื่องบล็อกโพสต์ในฟอรั่ม</string>

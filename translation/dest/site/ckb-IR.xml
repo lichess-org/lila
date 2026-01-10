@@ -466,10 +466,6 @@
   <string name="player">یاریزانان</string>
   <string name="list">لیست</string>
   <string name="graph">هێلکاری روونکردنەوە</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">کەمتر لە %s خولەک</item>
-    <item quantity="other">کەمتر لە %s چەند خولەکێک</item>
-  </plurals>
   <string name="required">داواکراو.</string>
   <string name="openTournaments">پاڵەوانیەتی کراوە</string>
   <string name="duration">ماوە</string>

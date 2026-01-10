@@ -4,6 +4,63 @@ import lila.app.*
 
 final class Dev(env: Env) extends LilaController(env):
 
+  def settings = Secure(_.Settings) { _ ?=> _ ?=>
+    Ok.page:
+      views.dev.settings(settingsList)
+  }
+
+  def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me ?=>
+    settingsList.flatMap(_._2).find(_.id == id).so { setting =>
+      bindForm(setting.form)(
+        _ => BadRequest.page(views.dev.settings(settingsList)),
+        v =>
+          lila
+            .log("setting")
+            .info(s"${me.username} changes $id from ${setting.get()} to ${v.toString}")
+          setting.setString(v.toString).inject(Redirect(routes.Dev.settings))
+      )
+    }
+  }
+
+  def cli = Secure(_.Cli) { _ ?=> _ ?=>
+    Ok.page:
+      views.dev.cli(env.api.cli.form, none)
+  }
+
+  def cliPost = SecureBody(_.Cli) { _ ?=> me ?=>
+    bindForm(env.api.cli.form)(
+      err => BadRequest.page(views.dev.cli(err, "Invalid command".some)),
+      command =>
+        Ok.async:
+          runCommand(command).map: res =>
+            views.dev.cli(env.api.cli.form.fill(command), s"$command\n\n$res".some)
+    )
+  }
+
+  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> _ ?=>
+    isGranted(_.Cli).so:
+      runCommand(ctx.body.body).map { Ok(_) }
+  }
+
+  def ipTiers = Secure(_.IpTiers) { ctx ?=> _ ?=>
+    env.security.ipTiers.form.flatMap: form =>
+      Ok.page(views.dev.ipTiers(form))
+  }
+
+  def ipTiersPost = SecureBody(_.IpTiers) { ctx ?=> _ ?=>
+    Found(env.security.ipTiers.form.map(_.toOption)): form =>
+      bindForm(form)(
+        err => BadRequest.page(views.dev.ipTiers(Right(err))),
+        v => env.security.ipTiers.writeToFile(v).inject(Redirect(routes.Dev.ipTiers).flashSuccess)
+      )
+  }
+
+  private def runCommand(command: String)(using Me): Fu[String] =
+    for
+      _ <- env.mod.logApi.cli(command)
+      res <- env.api.cli.run(command.split(" ").toList)
+    yield res
+
   private lazy val settingsList = List[(String, List[lila.memo.SettingStore[?]])](
     "Moderation" -> List(
       env.security.ugcArmedSetting,
@@ -66,47 +123,3 @@ final class Dev(env: Env) extends LilaController(env):
       env.tournament.reloadEndpointSetting
     )
   )
-
-  def settings = Secure(_.Settings) { _ ?=> _ ?=>
-    Ok.page:
-      views.dev.settings(settingsList)
-  }
-
-  def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me ?=>
-    settingsList.flatMap(_._2).find(_.id == id).so { setting =>
-      bindForm(setting.form)(
-        _ => BadRequest.page(views.dev.settings(settingsList)),
-        v =>
-          lila
-            .log("setting")
-            .info(s"${me.username} changes $id from ${setting.get()} to ${v.toString}")
-          setting.setString(v.toString).inject(Redirect(routes.Dev.settings))
-      )
-    }
-  }
-
-  def cli = Secure(_.Cli) { _ ?=> _ ?=>
-    Ok.page:
-      views.dev.cli(env.api.cli.form, none)
-  }
-
-  def cliPost = SecureBody(_.Cli) { _ ?=> me ?=>
-    bindForm(env.api.cli.form)(
-      err => BadRequest.page(views.dev.cli(err, "Invalid command".some)),
-      command =>
-        Ok.async:
-          runCommand(command).map: res =>
-            views.dev.cli(env.api.cli.form.fill(command), s"$command\n\n$res".some)
-    )
-  }
-
-  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> _ ?=>
-    isGranted(_.Cli).so:
-      runCommand(ctx.body.body).map { Ok(_) }
-  }
-
-  private def runCommand(command: String)(using Me): Fu[String] =
-    for
-      _ <- env.mod.logApi.cli(command)
-      res <- env.api.cli.run(command.split(" ").toList)
-    yield res

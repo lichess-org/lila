@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hej, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Hvordan har dit år været?</string>
+	<string name="initTitle">Sikke et skakår du har haft!</string>
+	<string name="noGamesText">Du spillede ikke nogen partier i år.</string>
+	<string name="noGamesCta">Vil du spille nu?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Og du vandt %s!</string>
+	<string name="gamesNextQuestion">Hvad tog det for at komme dertil?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s brugt på at spille!</string>
+	<string name="timeTooMuch">Det er alt for meget skak.</string>
+	<string name="timeALot">Det er meget skak.</string>
+	<string name="timeReasonable">Det virker som en rimelig mængde skak.</string>
+	<string name="timeHowManyMoves">Hvor mange træk spillede du i al den tid?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s træk spillet</item>
+		<item quantity="other">%s træk spillet</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Det er %s træ skubbet!</string>
+	<string name="movesStandardPiecesWeight">Standardbrikker vejer omkring 40 g hver</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s træk</item>
+		<item quantity="other">%s træk</item>
+	</plurals>
+	<string name="chessFoes">Dine bedste skakmodstandere</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gram</item>
+		<item quantity="other">%s gram</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogram</item>
+		<item quantity="other">%s kilogram</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">er hvordan du startede %s af dine partier som hvid</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Din mest spillede åbning som hvid med %s parti</item>
+		<item quantity="other">Din mest spillede åbning som hvid med %s partier</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Din mest spillede åbning som sort med %s parti</item>
+		<item quantity="other">Din mest spillede åbning som sort med %s partier</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Tak fordi du stemte på %s opgave.</item>
+		<item quantity="other">Tak fordi du stemte på %s opgaver.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Du hjalp også med at tagge %s af dem.</string>
+	<string name="puzzlesNone">Du har ikke løst nogen opgaver i år.</string>
+	<string name="puzzlesTryNow">Vil du prøve nogle nu?</string>
+	<string name="puzzlesYouWonOnFirstTry">Du vandt %s af dem i første forsøg!</string>
+	<string name="sourcesTitle">Hvor fandt du partier?</string>
+	<string name="perfsTitle">Hvilke tidskontroller og varianter spillede du?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s annoncer og trackers indlæst</string>
+	<string name="malwareNoSell">Vi har ikke solgt dine personlige data</string>
+	<string name="malwareNoAbuse">Vi har ikke brugt din enhed mod dig</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Men andre hjemmesider gør, så vær %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">forsigtig</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s partier spillet på Lichess i %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s af dem var dine.</string>
+	<string name="thanksTitle">Tak fordi du spiller på Lichess!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Vi er glade for at du er her. Hav et fantastisk %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">Lichess\'s %1$s var i år på %2$s.</string>
+	<string name="patronCosts" comment="It is a link to lichess.org/costs">omkostninger</string>
+	<string name="patronCharity">Vi er en velgørenhedsorganisation, der udelukkende drives af donationer.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Hvis vi har bidraget til at underholde dig i år, eller hvis du kan lide vores arbejde, så overvej %s!</string>
+	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">at støtte os med en donation</string>
+	<string name="shareableTitle" comment="%s is the current year">Mit %s resumé</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">brugt på at spille</string>
+	<string name="shareableMostPlayedOpponent">mest spillede modstander</string>
+	<string name="shareableFavouriteVariant">favoritvariant</string>
+	<string name="shareableFavouriteTimeControl">favorittidskontrol</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s opgave løst</item>
+		<item quantity="other">%s opgaver løst</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap">Dit %s resumé er klar!</string>
+</resources>

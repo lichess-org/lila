@@ -20,7 +20,7 @@
   <string name="onlyOnInitialPosition">Vetëm në pozicionin fillestar</string>
   <string name="chessClock">Ora e shahut</string>
   <string name="tenthsOfSeconds">Të dhjeta të sekondës</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kur koha e mbetur &lt;10 sekonda</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kur koha e mbetur &lt;10 sekonda</string>
   <string name="horizontalGreenProgressBars">Shtyllë ecurie horizontale e gjelbër</string>
   <string name="soundWhenTimeGetsCritical">Tingull kur koha i afrohet kritikes</string>
   <string name="giveMoreTime">Jep më shumë kohë</string>
@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Mbani të shtypur tastin &lt;Ctrl&gt; gjatë daljes, për të çaktivizuar përkohësisht daljet e automatizuara</string>
   <string name="whenPremoving">Kur bëhet lëvizje e paracaktuar</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kërko automatikisht barazim pas përsëritjeje të trefishtë</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kur koha e mbetur &lt;30 sekonda</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kur koha e mbetur &lt;30 sekonda</string>
   <string name="moveConfirmation">Ripohim lëvizjesh</string>
   <string name="explainCanThenBeTemporarilyDisabled">Mund të çaktivizohet gjatë një loje me menu tabele</string>
   <string name="inCorrespondenceGames">Lojëra me korrespondencë</string>
@@ -62,5 +62,5 @@
   <string name="notifyWeb">Shfletues</string>
   <string name="notifyDevice">Pajisje</string>
   <string name="bellNotificationSound">Tingull zileje njoftimesh</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Me sytë lidhur</string>
+  <string name="blindfold" comment="As in Blindfold chess">Me sytë lidhur</string>
 </resources>

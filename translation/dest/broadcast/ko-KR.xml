@@ -45,7 +45,7 @@
   <string name="fidePlayerNotFound">해당 FIDE 선수를 찾을 수 없음</string>
   <string name="fideProfile">FIDE 프로필</string>
   <string name="federation">연맹</string>
-  <string name="ageThisYear">올해 나이</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">나이</string>
   <string name="unrated">비레이팅</string>
   <string name="recentTournaments">최근 토너먼트</string>
   <string name="openLichess">Lichess에서 열기</string>
@@ -81,6 +81,6 @@
   <string name="liveboard">실시간 체스판</string>
   <string name="communityBroadcast">커뮤니티 방송</string>
   <string name="createdAndManagedBy">%s로부터 생성되고 관리됨.</string>
-  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;If your language changes the word &quot;Round&quot; based on the number after it, consider using punctuation to get around the problem (e.g. &quot;Round: %s&quot;).&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">%s라운드</string>
-  <string name="defaultRoundNameHelp" comment="This is help text for broadcast authors setting a round name. The default is &quot;Round %s&quot; (translatable separately).&#10;&#10;If broadcasters keep the round name to the default, it will be automatically translated.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">기본 이름을 유지하면 자동으로 다른 모든 언어로 번역됩니다.</string>
+  <string name="roundX">%s라운드</string>
+  <string name="defaultRoundNameHelp">기본 이름을 유지하면 자동으로 다른 모든 언어로 번역됩니다.</string>
 </resources>

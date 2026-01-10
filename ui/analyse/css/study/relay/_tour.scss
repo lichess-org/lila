@@ -10,6 +10,7 @@ $hover-bg: $m-primary_bg--mix-30;
   background: $c-bg-box;
   &__side {
     @extend %flex-column;
+    overflow: hidden;
     &__preload {
       @extend %box-neat;
       flex: 1;
@@ -18,9 +19,10 @@ $hover-bg: $m-primary_bg--mix-30;
     &__header {
       @extend %flex-center-nowrap, %box-radius-top;
       @include prevent-select;
+      position: relative;
       overflow: hidden;
       align-items: stretch;
-      flex: 0 0 auto;
+      flex: 0 0 $player-height;
       button {
         @extend %flex-center-nowrap, %metal;
         border: none;
@@ -57,6 +59,7 @@ $hover-bg: $m-primary_bg--mix-30;
       }
     }
     &__name {
+      @extend %nowrap-ellipsis;
       flex: 1;
       padding: 1em;
       gap: 0.7em;
@@ -86,6 +89,75 @@ $hover-bg: $m-primary_bg--mix-30;
       height: unset;
       line-height: 1.3em;
       min-height: 1.3em;
+    }
+    .streamer-show {
+      display: none;
+      position: relative;
+      padding: 0 1.2rem;
+      font-size: 1.5em;
+      color: $c-font-dim;
+
+      &.disabled {
+        display: none !important;
+      }
+
+      &.streaming {
+        color: $c-good;
+      }
+
+      &.active {
+        color: #eee;
+        background: $c-primary;
+        text-shadow: none;
+
+        &:hover,
+        &:hover::before {
+          background: $m-primary_font--mix-90;
+          color: white;
+        }
+      }
+
+      &::after {
+        transform: translate(-80%, 80%);
+        @include if-rtl {
+          transform: translate(80%, 80%);
+        }
+        background-color: $c-brag;
+      }
+    }
+
+    .streamer-menu-anchor {
+      position: relative;
+      height: 0;
+    }
+
+    .streamer-menu {
+      @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+      position: absolute;
+      max-height: 12em;
+      overflow-y: auto;
+      background: $c-bg-zebra;
+      z-index: $z-mz-menu-4;
+      width: 100%;
+      border: $c-primary 2px solid;
+    }
+
+    .streamer {
+      @extend %flex-center-nowrap;
+      padding: 0.7em 1em;
+      font-size: 1.1em;
+      color: $c-font;
+      i {
+        margin-inline-start: auto;
+        color: $c-font-dimmer;
+      }
+      &::before {
+        font-size: 1.3em;
+      }
+      &:hover {
+        background: $m-primary_bg--mix-30;
+        color: $c-font-clearer;
+      }
     }
   }
 
@@ -367,25 +439,32 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__players {
-    overflow-x: auto;
+    overflow: auto;
+  }
+  &__players__table {
     thead {
       background: none;
       th {
+        white-space: nowrap;
         border: none;
         text-align: end;
-        padding: 0.5rem 2rem 0.5rem 2rem;
+        padding: 0.5rem 1rem 0.5rem 1.5rem;
       }
-    }
-    th.player-name {
-      text-align: start;
-      padding-right: 2rem;
     }
     th,
     td {
       &.rank {
         text-align: end;
-        padding: 0.4em;
+        padding: 0.4em 0 0.4em 0.4em;
+        width: 6ch;
+        font-weight: bold;
       }
+    }
+    th.rank {
+      display: inline-block;
+    }
+    th.player-name {
+      text-align: start;
     }
     th {
       a {
@@ -400,13 +479,12 @@ $hover-bg: $m-primary_bg--mix-30;
         }
       }
     }
-    .score {
+    td.score {
       font-weight: bold;
     }
-    td + td:not(.player-name) {
+    td + td:not(.player-intro-td) {
       font-family: monospace;
       text-align: end;
-      padding: 1rem 2rem;
     }
     .rp,
     .rp--same {
@@ -417,30 +495,24 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__standings--disclaimer {
-    text-align: end;
+    text-align: center;
+    color: $c-font-dim;
   }
 
-  &__player {
-    @extend %flex-column;
-    gap: 2em;
+  .fide-player {
     a {
       color: $c-font;
       &:hover {
         color: $c-primary;
       }
     }
-    &__name {
-      @extend %tour-margin-horiz;
-      font-size: 1.7em;
-      &::before {
-        font-size: 1.8em;
-      }
+    &__photo {
+      @extend %box-neat;
+      aspect-ratio: 1;
+      max-width: 300px;
     }
-    &__team {
+    &__header {
       @extend %tour-margin-horiz;
-      font-weight: bold;
-      font-size: 1.2em;
-      color: $c-brag;
     }
     &__cards {
       @extend %tour-margin-horiz;
@@ -471,23 +543,38 @@ $hover-bg: $m-primary_bg--mix-30;
     .mini-game__flag {
       width: 1em;
     }
-    &__fed-team {
-      @extend %flex-center;
-      gap: 1em;
-    }
-    &__games {
-      tr {
-        cursor: pointer;
-        &:hover {
-          background: $m-primary_bg--mix-15 !important;
-        }
-      }
-    }
   }
 
   .study__multiboard {
     @media (min-width: at-least($xx-large)) {
       margin: 0 0.5em;
+    }
+  }
+}
+
+.fide-players-table {
+  .game-link {
+    @extend %flex-center-nowrap, %box-radius;
+    @media (min-width: at-least($medium)) {
+      padding: 0.4em 0.5em;
+      font-size: 1.6em;
+    }
+    &:hover {
+      background: $m-primary_bg--mix-20;
+      color: $c-font-clearer;
+    }
+  }
+  @media (max-width: at-most($medium)) {
+    td {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .player-intro__photo {
+      display: none;
+    }
+    .player-intro__name {
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
@@ -570,152 +657,5 @@ $hover-bg: $m-primary_bg--mix-30;
   canvas {
     min-height: 50vh;
     margin: 0 2em 0 1em;
-  }
-}
-
-.relay-tour__side {
-  overflow: hidden;
-  &__header {
-    position: relative;
-  }
-  .streamer-show {
-    display: none;
-    position: relative;
-    padding: 0 1.2rem;
-    font-size: 1.5em;
-    color: $c-font-dim;
-
-    &.disabled {
-      display: none !important;
-    }
-
-    &.streaming {
-      color: $c-good;
-    }
-
-    &.active {
-      color: #eee;
-      background: $c-primary;
-      text-shadow: none;
-
-      &:hover,
-      &:hover::before {
-        background: $m-primary_font--mix-90;
-        color: white;
-      }
-    }
-
-    &::after {
-      transform: translate(-80%, 80%);
-      @include if-rtl {
-        transform: translate(80%, 80%);
-      }
-      background-color: $c-brag;
-    }
-  }
-
-  .streamer-menu-anchor {
-    position: relative;
-    height: 0;
-  }
-
-  .streamer-menu {
-    @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
-    position: absolute;
-    max-height: 12em;
-    overflow-y: auto;
-    background: $c-bg-zebra;
-    z-index: $z-mz-menu-4;
-    width: 100%;
-    border: $c-primary 2px solid;
-  }
-
-  .streamer {
-    @extend %flex-center-nowrap;
-    padding: 0.7em 1em;
-    font-size: 1.1em;
-    color: $c-font;
-    i {
-      margin-inline-start: auto;
-      color: $c-font-dimmer;
-    }
-    &::before {
-      font-size: 1.3em;
-    }
-    &:hover {
-      background: $m-primary_bg--mix-30;
-      color: $c-font-clearer;
-    }
-  }
-}
-
-#tour-player-tip {
-  @extend %box-radius-force, %popup-shadow;
-  display: none;
-  background: $c-bg-box;
-  position: absolute;
-  z-index: $z-powertip-120;
-
-  border: 1px solid $c-brag;
-  min-width: 330px;
-}
-.tpp {
-  a {
-    color: $c-font;
-    &:hover {
-      color: $c-primary;
-    }
-  }
-  &__player {
-    @extend %flex-column;
-    gap: 0.5em;
-    padding: 1.5em 2em;
-    background: $c-bg-popup;
-    font-size: 1.1em;
-    &__name {
-      @extend %flex-center-nowrap, %ellipsis;
-      font-size: 1.3em;
-    }
-    &__info {
-      @extend %flex-between;
-      font-weight: bold;
-    }
-  }
-  &__preload {
-    margin: 1em auto;
-  }
-  &__games {
-    margin-bottom: 0.3em;
-    max-height: 40vh;
-    overflow-y: auto;
-    &__status {
-      font-weight: bold;
-    }
-    table {
-      width: 100%;
-    }
-    td {
-      padding: 0.4rem;
-      border-top: $border;
-      cursor: pointer;
-    }
-    tr {
-      cursor: pointer;
-      &:hover {
-        background: $c-bg-zebra;
-      }
-    }
-    tr:first-child td {
-      border-top: none;
-    }
-    td:first-child {
-      padding-inline-start: 1.5rem;
-      text-align: end;
-      color: $c-font-dimmer;
-      font-weight: bold;
-    }
-    td:last-child {
-      padding-inline-end: 1.5rem;
-    }
   }
 }

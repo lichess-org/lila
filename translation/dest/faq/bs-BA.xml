@@ -147,7 +147,7 @@ Zatim odaberite hoćete li dopustiti ili blokirati obavijesti od Lichess-a.</str
 
 U slučaju kada pretraživač spriječi lichess.org u izvođenju zvuka, prikazat će se crvena ikona za utišenje. Najčešće ova restrikcija će biti uklonjena nakon što kliknete negdje. Na nekim mobilnim pretraživačima, povlačenje dodirom figure se ne računa kao klik. U tom slučaju mora te dodirnuti ploču da bi dozvolili zvuk na početku svakog meča. 
 Prikazat ćemo Vam spomenutu crvenu ikonu kada se ovo desi. Često možete eksplicitno dozvoliti lichess.org-u da reproducira zvukove. Upute kako to uraditi na novijim verzijama od nekih popularnijih pretraživača možete pronaći ovdje.</string>
-  <string name="desktop">desktop</string>
+  <string name="desktop">Sučelje</string>
   <string name="enableAutoplayForSoundsFirefox">1. Posjetite lichess.org stranicu
 2. Pritisnite CRTL+i dugme na Linux-u/Windows-u ili CMD-i na Mac-OS-u
 3. Kliknite Tab za ovlaštenja

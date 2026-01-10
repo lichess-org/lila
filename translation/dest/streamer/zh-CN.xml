@@ -2,46 +2,50 @@
 <resources>
   <string name="lichessStreamers">Lichess 主播</string>
   <string name="lichessStreamer">Lichess 主播</string>
-  <string name="live">在线</string>
+  <string name="live">直播</string>
   <string name="offline">离线</string>
   <string name="currentlyStreaming">正在直播：%s</string>
   <string name="lastStream">上次直播：%s</string>
   <string name="becomeStreamer">成为 Lichess 主播</string>
-  <string name="doYouHaveStream">你有 Twitch 或 YouTube 频道吗？</string>
+  <string name="doYouHaveStream">您有 Twitch 或 YouTube 频道吗？</string>
   <string name="hereWeGo">我们开始吧！</string>
   <string name="allStreamers">所有主播</string>
   <string name="editPage">编辑主播页面</string>
-  <string name="yourPage">你的主播页面</string>
-  <string name="downloadKit">下载主播工具</string>
+  <string name="yourPage">您的主播页面</string>
+  <string name="downloadKit">下载主播工具包</string>
   <string name="xIsStreaming">%s 正在直播</string>
   <string name="rules">直播规则</string>
-  <string name="rule1">当你在 Lichess 直播时，请在你的直播标题中包含关键词 \"lichess.org\"。</string>
-  <string name="rule2">当你直播与 Lichess 不相关的内容时，请移除关键词。</string>
-  <string name="rule3">Lichess 将自动检测你的直播并启用以下津贴：</string>
-  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">阅读我们的 %s 以确保你在直播中公平地进行游戏。</string>
-  <string name="streamingFairplayFAQ">直播公平游戏常见问题</string>
+  <string name="rule1">在 Lichess 上直播时，请在您的直播标题中包含关键词\"lichess.org\"，并使用\"Chess\"类别。</string>
+  <string name="rule2">当您直播非 Lichess 内容时，请移除该关键词。</string>
+  <string name="rule3">Lichess 将自动检测您的直播并启用以下特权：</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">请阅读我们的 %s，以确保您在直播期间为所有人提供公平的竞赛环境。</string>
+  <string name="streamingFairplayFAQ">直播公平竞赛常见问题</string>
   <string name="perks">使用关键词直播的好处</string>
-  <string name="perk1">在你的 Lichess 个人资料上获得一个主播图标。</string>
-  <string name="perk2">快速到达主播列表顶部。</string>
-  <string name="perk3">通知你的 Lichess 粉丝。</string>
-  <string name="perk4">在你的对局、比赛与研究中显示你的直播。</string>
-  <string name="approved">你的直播已被批准。</string>
-  <string name="pendingReview">你的直播正在审核。</string>
-  <string name="pleaseFillIn">请填写你的主播信息并上传一张图片。</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">当你准备好成为 Lichess 主播时，%s</string>
+  <string name="perk1">在您的 Lichess 个人资料上获得一个火焰主播图标。</string>
+  <string name="perk2">在主播列表中提升至顶部。</string>
+  <string name="perk3">通知您的 Lichess 关注者。</string>
+  <string name="perk4">在您的对局、锦标赛和研习中显示您的直播。</string>
+  <string name="approved">您的直播已获批准。</string>
+  <string name="pendingReview">您的直播正在由版主审核。</string>
+  <string name="pleaseFillIn">请填写您的主播信息，并上传一张图片。</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">当您准备好被列为 Lichess 主播时，请 %s。</string>
   <string name="submitForReview">提交审核</string>
-  <string name="streamerLanguageSettings">Lichess 主播页面以你直播平台使用的语言推送给观众。请在你直播的平台设置正确的默认语言。</string>
-  <string name="streamerName">你在 Lichess 的主播名字</string>
+  <string name="streamerLanguageSettings">Lichess 主播页面会根据您的直播平台提供的语言信息来定位您的受众。请在您用于直播的应用程序或服务中，为您的国象直播设置正确的默认语言。</string>
+  <string name="pleaseAllow">您的主播徽章和列表在审核通过前，最多可能需要 72 小时。</string>
+  <string name="chooseYoutubeChannel">请选择您将在 Lichess 上使用的 YouTube 频道。</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">连接</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">断开连接</string>
+  <string name="streamerName">您在 Lichess 上的主播名称</string>
   <plurals name="keepItShort">
-    <item quantity="other">不超过 %s 个字符</item>
+    <item quantity="other">请保持简短：最多 %s 个字符</item>
   </plurals>
-  <string name="visibility">在主播页面可见</string>
-  <string name="whenApproved">当被版主批准时</string>
+  <string name="visibility">显示在主播页面</string>
+  <string name="whenApproved">经版主批准后</string>
   <string name="headline">标题</string>
-  <string name="tellUsAboutTheStream">用一句话中描述你的直播</string>
+  <string name="tellUsAboutTheStream">用一句话告诉我们您的直播内容</string>
   <string name="longDescription">详细描述</string>
   <string name="xStreamerPicture">%s 主播图片</string>
-  <string name="changePicture">更改/删除你的图片</string>
+  <string name="changePicture">更改/删除您的图片</string>
   <string name="uploadPicture">上传图片</string>
-  <string name="maxSize">大小上限：%s</string>
+  <string name="maxSize">最大尺寸：%s</string>
 </resources>

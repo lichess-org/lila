@@ -9,7 +9,7 @@
   <string name="aiNameLevelAiLevel">%1$s nivå %2$s</string>
   <string name="level">Nivå</string>
   <string name="strength">Styrka</string>
-  <string name="toggleTheChat">Dölj/visa chatten</string>
+  <string name="toggleTheChat">Chattruta av/på</string>
   <string name="chat">Chatta</string>
   <string name="resign">Ge upp</string>
   <string name="checkmate">Schackmatt</string>
@@ -20,11 +20,11 @@
   <string name="asBlack">som svart</string>
   <string name="randomColor">Slumpvis färg</string>
   <string name="createAGame">Skapa ett parti</string>
-  <string name="createTheGame">Skapa ett parti</string>
+  <string name="createTheGame">Skapa parti</string>
   <string name="whiteIsVictorious">Vit har vunnit</string>
   <string name="blackIsVictorious">Svart har vunnit</string>
-  <string name="youPlayTheWhitePieces">Du spelar med de vita pjäserna</string>
-  <string name="youPlayTheBlackPieces">Du spelar med de svarta pjäserna</string>
+  <string name="youPlayTheWhitePieces">Du spelar med vita pjäser</string>
+  <string name="youPlayTheBlackPieces">Du spelar med svarta pjäser</string>
   <string name="itsYourTurn">Det är din tur!</string>
   <string name="cheatDetected">Fusk upptäckt</string>
   <string name="kingInTheCenter">Kungen är i centrum</string>
@@ -38,23 +38,23 @@
   <string name="blackPlays">Svarts drag</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Din motståndare lämnade partiet. Du kan begära seger om %s sekund.</item>
-    <item quantity="other">Din motståndare lämnade partiet. Du kan begära seger om %s sekunder.</item>
+    <item quantity="other">Motståndaren lämnade partiet. Du kan kräva seger om %s sekunder.</item>
   </plurals>
   <string name="opponentLeftChoices">Motståndaren har kanske lämnat partiet. Du kan begära vinst, remi eller invänta att motståndaren kommer tillbaka.</string>
   <string name="forceResignation">Begär vinst</string>
   <string name="forceDraw">Begär remi</string>
-  <string name="talkInChat">Vänligen uppträd trevligt i chatten!</string>
+  <string name="talkInChat">Var snäll i chatten!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den första som använder den här länken kommer att spela med dig.</string>
   <string name="whiteResigned">Vit har gett upp</string>
   <string name="blackResigned">Svart har gett upp</string>
-  <string name="whiteLeftTheGame">Vit har lämnat partiet</string>
+  <string name="whiteLeftTheGame">Vit lämnade partiet</string>
   <string name="blackLeftTheGame">Svart har lämnat partiet</string>
-  <string name="whiteDidntMove">Vit flyttade inte</string>
-  <string name="blackDidntMove">Vit flyttade inte</string>
+  <string name="whiteDidntMove">Vit flyttade ingen pjäs</string>
+  <string name="blackDidntMove">Svart flyttade ingen pjäs</string>
   <string name="requestAComputerAnalysis">Begär datoranalys</string>
   <string name="computerAnalysis">Datoranalys</string>
   <string name="computerAnalysisAvailable">Datoranalys tillgänglig</string>
-  <string name="computerAnalysisDisabled">Datoranalys otillgänglig</string>
+  <string name="computerAnalysisDisabled">Datoranalys avstängd</string>
   <string name="analysis">Analysbräde</string>
   <string name="depthX">Djup %s</string>
   <string name="usingServerAnalysis">Använder serveranalys</string>
@@ -72,7 +72,7 @@
   <string name="collapseVariations">Dölj varianter</string>
   <string name="expandVariations">Visa varianter</string>
   <string name="forceVariation">Visa som variant</string>
-  <string name="copyVariationPgn">Kopiera variations-PGN</string>
+  <string name="copyVariationPgn">Kopiera variationens PGN</string>
   <string name="copyMainLinePgn">Kopiera huvudvariantens PGN</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
@@ -117,9 +117,9 @@
   <string name="realtimeReplay">Realtid</string>
   <string name="byCPL">CPL</string>
   <string name="enable">Aktivera</string>
-  <string name="bestMoveArrow">Pil som anger bästa drag</string>
-  <string name="showVariationArrows">Visa variationspilar</string>
-  <string name="evaluationGauge">Utvärderingsmätare</string>
+  <string name="bestMoveArrow">Bästa drag-pil</string>
+  <string name="showVariationArrows">Visa variantpilar</string>
+  <string name="evaluationGauge">Evalueringsmätare</string>
   <string name="multipleLines">Flera linjer</string>
   <string name="cpus">Processorer</string>
   <string name="memory">Minne</string>
@@ -127,14 +127,14 @@
   <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen och håller datorn varm</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Misstag</string>
-  <string name="inaccuracy">Felaktighet</string>
+  <string name="inaccuracy">Småfel</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s blunder</item>
-    <item quantity="other">%s blundrar</item>
+    <item quantity="other">%s blunders</item>
   </plurals>
   <plurals name="numberBlunders">
     <item quantity="one">%s Blunder</item>
-    <item quantity="other">%s Blundrar</item>
+    <item quantity="other">%s Blunders</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s misstag</item>
@@ -145,12 +145,12 @@
     <item quantity="other">%s Misstag</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="one">%s felaktighet</item>
-    <item quantity="other">%s felaktigheter</item>
+    <item quantity="one">%s småfel</item>
+    <item quantity="other">%s småfel</item>
   </plurals>
   <plurals name="numberInaccuracies">
-    <item quantity="one">%s Felaktighet</item>
-    <item quantity="other">%s Felaktigheter</item>
+    <item quantity="one">%s Småfel</item>
+    <item quantity="other">%s Småfel</item>
   </plurals>
   <string name="moveTimes">Dragtider</string>
   <string name="flipBoard">Vänd brädet</string>
@@ -166,6 +166,7 @@
   <string name="drawByMutualAgreement">Remi genom ömsesidig överenskommelse</string>
   <string name="fiftyMovesWithoutProgress">Femtio drag utan framsteg</string>
   <string name="currentGames">Pågående partier</string>
+  <string name="joinedX">Anslöt %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
@@ -465,10 +466,6 @@
   <string name="player">Spelare</string>
   <string name="list">Lista</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Mindre än %s minut</item>
-    <item quantity="other">Mindre än %s minuter</item>
-  </plurals>
   <string name="required">Obligatoriskt.</string>
   <string name="openTournaments">Öppna turneringar</string>
   <string name="duration">Varaktighet</string>
@@ -719,6 +716,7 @@
   <string name="cyclePreviousOrNextVariation">Cykla föregående/nästa variant</string>
   <string name="toggleGlyphAnnotations">Växla glyph-anteckningar</string>
   <string name="togglePositionAnnotations">Växla positionsanteckningar</string>
+  <string name="toggleObservationAnnotations">Analysmarkeringar av/på</string>
   <string name="variationArrowsInfo">Variationspilar låter dig navigera utan att använda draglistan.</string>
   <string name="playSelectedMove">spela markerat drag</string>
   <string name="newTournament">Ny turnering</string>

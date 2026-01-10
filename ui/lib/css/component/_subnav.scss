@@ -55,7 +55,7 @@
   }
 
   @include mq-subnav-side {
-    margin-top: 5px;
+    margin-right: 10px;
     z-index: $z-subnav-side-2;
 
     /* active border must go over the page content */
@@ -66,29 +66,14 @@
       padding: 0.7rem 2vw 0.7rem 0.8rem;
       position: relative;
 
-      &::after {
-        content: '';
-        background: $m-accent--fade-40;
-        width: 3px;
-        position: absolute;
-        height: 98%;
-        top: 1%;
-        @include inline-end(-1px);
-
-        @include transition(all, 0.25s);
-
-        transform: scale(0);
-      }
-
       &.active,
       &:hover {
-        &::after {
-          transform: scale(1);
-        }
+        color: $c-font-clear;
       }
 
       &.active {
-        color: $c-accent;
+        border-radius: $box-radius-size;
+        background: $c-bg-box;
       }
     }
 

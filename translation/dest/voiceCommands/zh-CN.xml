@@ -3,19 +3,19 @@
   <string name="voiceCommands">语音指令</string>
   <string name="watchTheVideoTutorial">观看视频教程</string>
   <string name="instructions1">使用 %1$s 按钮来启用语音识别， %2$s 按钮来打开此帮助框， %3$s 菜单按钮来更改语音设置。</string>
-  <string name="instructions2">当识别结果不确定时我们会以多个箭头展示可能的着法。请说出箭头的颜色或数字以选中它。</string>
-  <string name="instructions3">当箭头展示出雷达扫描图案时，着法会在圆圈转完之后被走出。在这段时间内，您可以说 %1$s 来立即走出这一步， %2$s 来取消，或是说出另一个箭头的颜色/数字。此计时器可在设置中被调节或取消。</string>
-  <string name="instructions4">在吵闹的环境中请启用 %s 。当此选项启用时，请在按住 shift 键的同时说出指令。</string>
-  <string name="instructions5">使用音标字母来提高对棋盘竖线的识别精度。</string>
+  <string name="instructions2">当识别结果不确定时，我们会以多个箭头展示可能的着法。请说出箭头对应的颜色或编号来选择它。</string>
+  <string name="instructions3">当箭头展示出雷达扫描图案时，着法会在圆圈转完之后被走出。在这段时间内，您可以说 %1$s 来立即走出这一步， %2$s 来取消，或者说出其他箭头的颜色/编号。此计时器可以在设置中调整或关闭。</string>
+  <string name="instructions4">在吵闹的环境中请启用 %s 。当此功能启用时，请在按住 Shift 键的同时说出指令。</string>
+  <string name="instructions5">使用语音字母表来提高棋盘横线坐标的识别率。</string>
   <string name="instructions6">%s 详细解释了语音走棋的设置。</string>
   <string name="thisBlogPost">这篇博客文章</string>
   <string name="moveToE4OrSelectE4Piece">移动到 e4 格或选中 e4 格的棋子</string>
   <string name="selectOrCaptureABishop">选中象或吃象</string>
   <string name="takeRookWithQueen">用后吃车</string>
   <string name="castle" comment="Castle is used as a verb here, referring to castling.">王车易位（任一侧）</string>
-  <string name="phoneticAlphabetIsBest">请最好使用语音字母表说这些格子从而使识别更准确</string>
-  <string name="cancelTimerOrDenyARequest">关闭计时器或拒绝请求</string>
-  <string name="playPreferredMoveOrConfirmSomething">走语音识别为更相似的一步或确认某事</string>
+  <string name="phoneticAlphabetIsBest">最好使用语音字母表</string>
+  <string name="cancelTimerOrDenyARequest">取消计时器或拒绝请求</string>
+  <string name="playPreferredMoveOrConfirmSomething">走首选着法或确认某事</string>
   <string name="sleep">休眠（如果唤醒词被启用）</string>
   <string name="turnOffVoiceRecognition">关闭语音识别</string>
   <string name="showPuzzleSolution">显示谜题解答</string>

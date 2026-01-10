@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Merhaba, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Bu yıl neler yaptın?</string>
+	<string name="noGamesText">Bu yıl hiç oyun oynamadın.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">dikkatli ol</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.">bağışlarınla bize destek ol</string>
+</resources>

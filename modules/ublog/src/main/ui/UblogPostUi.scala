@@ -19,18 +19,20 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(connectLinks: Frag):
       followed: Boolean,
       isInCarousel: Boolean
   )(using ctx: Context) =
+    val imageUrl = post.image.isDefined.option(ui.thumbnailUrl(post, _.Size.Large))
     Page(s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}")
       .css("bits.ublog")
       .js(Esm("bits.expandText") ++ ctx.isAuth.so(Esm("bits.ublog")))
       .graph(
         OpenGraph(
           `type` = "article",
-          image = post.image.isDefined.option(ui.thumbnailUrl(post, _.Size.Large)),
+          image = imageUrl,
           title = post.title,
           url = routeUrl(routes.Ublog.post(user.username, post.slug, post.id)),
           description = post.intro
         )
       )
+      .preloadImage(imageUrl)(helpers)
       .copy(atomLinkTag =
         link(
           href := routes.Ublog.userAtom(user.username),

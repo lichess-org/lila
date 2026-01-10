@@ -13,8 +13,10 @@
   <string name="youHaveThirtySeconds">तुम्हाला ३० सेकंदात जास्तीतजास्त सहनिर्देशकांसाठी घरे शोधायची आहेत!</string>
   <string name="goAsLongAsYouWant">वेळेची मर्यादा नाही, तुम्हाला हवा तेवढा वेळ वापरा!</string>
   <string name="showCoordinates">सहनिर्देशक दाखवा</string>
+  <string name="showCoordsOnAllSquares">प्रत्येक घरावर सहनिदर्शक</string>
   <string name="showPieces">सोंगट्या दाखवा</string>
   <string name="startTraining">प्रशिक्षण सुरू करा</string>
   <string name="findSquare">घरे शोधा</string>
   <string name="nameSquare">घराचे नाव सांगा</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">फक्त काही स्तंभ &amp; पंक्तीचे सराव करा</string>
 </resources>

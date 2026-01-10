@@ -3,7 +3,7 @@
   <string name="donate">Spenden</string>
   <string name="donateAsX">Spende als %s</string>
   <string name="lichessPatron">Lichess Patron</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Patron seit %s</string>
+  <string name="patronSince" comment="string is a date">Patron seit %s</string>
   <string name="freeAccount">Kostenloses Konto</string>
   <string name="becomePatron">Werde Lichess Patron</string>
   <string name="xBecamePatron">%s wurde Lichess Patron</string>
@@ -84,4 +84,5 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="paymentDetails">Zahlungsdetails</string>
   <string name="updatePaymentMethod">Zahlungsmethode aktualisieren</string>
   <string name="stripeManageSub">Verwalte dein Abonnement und lade deine Rechnungen und Belege herunter</string>
+  <string name="coverFees">Ich spende weitere %s, um die Kosten für die Verarbeitung dieser Transaktion zu decken</string>
 </resources>

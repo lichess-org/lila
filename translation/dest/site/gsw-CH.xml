@@ -476,10 +476,6 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="player">Schpiller</string>
   <string name="list">Lischtä</string>
   <string name="graph">Grafik</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Weniger als %s Minute</item>
-    <item quantity="other">Weniger als %s Minute</item>
-  </plurals>
   <string name="required">Pflichtfäld.</string>
   <string name="openTournaments">Offeni Turnier</string>
   <string name="duration">Duur</string>
@@ -737,6 +733,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="cyclePreviousOrNextVariation">Zyklus vorherigi/nächschti Variante</string>
   <string name="toggleGlyphAnnotations">Glyph-Amerkige ischalte und usschalte (...was immer das glyph isch?!)</string>
   <string name="togglePositionAnnotations">Positionsamerkige umschalte</string>
+  <string name="toggleObservationAnnotations">Beobachtigs-Bemerkige umschalte</string>
   <string name="variationArrowsInfo">Mit de Variationspfil chasch ohni d\'Zugslischte navigiere.</string>
   <string name="playSelectedMove">spill de gwählti zug</string>
   <string name="newTournament">Neus Turnier</string>
@@ -778,6 +775,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Übers Brätt scrolle laht s\'Schpil vor- oder rückwärts laufe.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Über e Computer-Variante scrolle, zeigt e Vorschau.</string>
   <string name="analysisShapesHowTo">Mit Shift + Musklick - rächts oder links - chasch grüeni oder roti Chreis und Pfil ufs Brätt zeichne.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl oder shift = rot; command, alt, oder meta = blau; je eini devo = gähl.</string>
   <string name="letOtherPlayersMessageYou">Erlaub andere Schpiller dir Nachrichte z\'schicke</string>
   <string name="receiveForumNotifications">Mäldige empfange, falls du im Forum erwähnt wirsch</string>
   <string name="shareYourInsightsData">Teil dini persönliche Schpilldate</string>
@@ -919,6 +917,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="agreementPolicy">Ich schtimme zue, dass ich alli Lichess-Richtlinie befolge.</string>
   <string name="searchOrStartNewDiscussion">Suech e Underhaltig oder fang e Neui a</string>
   <string name="edit">Bearbeite</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Schnällschach</string>
@@ -1030,4 +1029,5 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="search">Suechi</string>
   <string name="clearSearch">Suechi lösche</string>
   <string name="tags">Tags</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">En passant</string>
 </resources>

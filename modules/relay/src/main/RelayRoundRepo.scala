@@ -34,6 +34,13 @@ final private class RelayRoundRepo(val coll: Coll, tourRepo: RelayTourRepo)(usin
   def byTourOrdered(tourId: RelayTourId): Fu[List[RelayRound]] =
     byTourOrderedCursor(tourId).list(RelayTour.maxRelays.value)
 
+  def byToursOrdered(tourIds: Seq[RelayTourId]): Fu[List[RelayRound]] =
+    coll
+      .find($doc("tourId".$in(tourIds)))
+      .sort(sort.ascByDateStarted)
+      .cursor[RelayRound]()
+      .list(RelayTour.maxRelays.value * tourIds.size)
+
   def idsByTourOrdered(tour: RelayTourId): Fu[List[RelayRoundId]] =
     coll.primitive[RelayRoundId](
       selector = selectors.tour(tour),
@@ -121,6 +128,7 @@ private object RelayRoundRepo:
 
   object sort:
     val asc = $doc("order" -> 1)
+    val ascByDateStarted = $doc("order" -> 1, "startedAt" -> 1)
     val desc = $doc("order" -> -1)
 
   object selectors:

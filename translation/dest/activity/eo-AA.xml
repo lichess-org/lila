@@ -34,6 +34,10 @@
     <item quantity="one">Finiĝis %s koresponda ludo</item>
     <item quantity="other">Finiĝis %s korespondaj ludoj</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Finiĝis %1$s %2$s koresponda ludo</item>
+    <item quantity="other">Finiĝis %1$s %2$s korespondaj ludoj</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Komencis sekvi %s ludanton</item>
     <item quantity="other">Komencis sekvi %s ludantojn</item>

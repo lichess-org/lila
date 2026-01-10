@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Thách đấu một người bạn</string>
   <string name="playAgainstComputer">Chơi với máy</string>
   <string name="gameMode">Chế độ chơi</string>
-  <string name="createLobbyGame">Tạo sảnh ván đấu</string>
+  <string name="createLobbyGame">Tạo ván đấu tại sảnh</string>
   <string name="youPlayAs">Bạn cầm quân</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi đường dẫn này</string>
   <string name="gameOver">Ván cờ kết thúc</string>
@@ -254,7 +254,7 @@
     <item quantity="other">Thứ hạng được cập nhật mỗi %s phút</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="other">%s cấu đố</item>
+    <item quantity="other">%s câu đố</item>
   </plurals>
   <string name="gamesPlayed">Số ván đã chơi</string>
   <plurals name="nbGamesWithYou">
@@ -440,9 +440,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="player">Người chơi</string>
   <string name="list">Danh sách</string>
   <string name="graph">Biểu đồ</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">Ít hơn %s phút</item>
-  </plurals>
   <string name="required">Bắt buộc.</string>
   <string name="openTournaments">Các giải đấu mở</string>
   <string name="duration">Thời lượng</string>
@@ -689,6 +686,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="cyclePreviousOrNextVariation">Chu kì của biến trước/tiếp theo</string>
   <string name="toggleGlyphAnnotations">Đổi chú thích nước cờ</string>
   <string name="togglePositionAnnotations">Chuyển đổi chú thích thế cờ</string>
+  <string name="toggleObservationAnnotations">Chuyển đổi chú thích quan sát</string>
   <string name="variationArrowsInfo">Mũi tên của biến cho phép bạn điều hướng mà không cần sử dụng danh sách nước đi.</string>
   <string name="playSelectedMove">chơi nước đi đã chọn</string>
   <string name="newTournament">Giải đấu mới</string>
@@ -867,6 +865,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lichess.</string>
   <string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
   <string name="edit">Chỉnh sửa</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Cờ siêu đạn</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Cờ đạn</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Cờ chớp</string>
   <string name="rapid">Cờ nhanh</string>
@@ -976,4 +975,5 @@ Mọi chi phí vận hành, phát triển, và nội dung được tài trợ b�
   <string name="search">Tìm kiếm</string>
   <string name="clearSearch">Xóa nội dung tìm kiếm</string>
   <string name="tags">Thẻ</string>
+  <string name="enPassant">Bắt tốt qua đường</string>
 </resources>

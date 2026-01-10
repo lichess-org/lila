@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">%s આંકડા (સ્ટેટ્સ)</string>
+  <string name="viewTheGames">રમતો જુઓ.</string>
+  <string name="provisional">કામચલાઉ</string>
+  <string name="notEnoughRatedGames">વિશ્વસનીય રેટિંગ સ્થાપિત કરવા માટે પૂરતી રેટેડ ગેમ્સ (રમતો) રમાઈ નથી.</string>
+  <string name="progressOverLastXGames">છેલ્લી %s રમતોમાં પ્રગતિ:</string>
+  <string name="ratingDeviation">રેટિંગમાં વિચલન (ડિવિએશન): %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">નીચું મૂલ્ય એટલે રેટિંગ વધારે સ્થિર છે. %1$s થી ઉપર, રેટિંગ કામચલાઉ (provisional) માનવામાં આવે છે. રેન્કિંગમાં સમાવેશ થવા માટે, આ મૂલ્ય %2$s (સ્ટાન્ડર્ડ ચેસ) અથવા %3$s (વેરિયન્ટ્સ) થી નીચે હોવું જોઈએ.</string>
+  <string name="totalGames">કુલ રમતો</string>
+  <string name="ratedGames">રેટેડ રમતો</string>
+  <string name="tournamentGames">ટૂર્નામેન્ટની રમતો</string>
+  <string name="berserkedGames">બર્ઝર્કડ રમતો </string>
+  <string name="timeSpentPlaying">રમવામાં વિતાવેલો સમય</string>
+  <string name="averageOpponent">સરેરાશ પ્રતિસ્પર્ધી</string>
+  <string name="victories">વિજય</string>
+  <string name="defeats">હાર</string>
+  <string name="disconnections">ડિસ્કનેક્શન્સ</string>
+  <string name="notEnoughGames">પૂરતી રમતો રમાઈ નથી</string>
+  <string name="highestRating">સૌથી વધુ રેટિંગ: %s</string>
+  <string name="lowestRating">સૌથી ઓછું રેટિંગ: %s</string>
+  <string name="fromXToY">%1$s થી %2$s સુધી</string>
+  <string name="winningStreak">વિજયની શ્રેણી</string>
+  <string name="losingStreak">હારની શ્રેણી</string>
+  <string name="longestStreak">સૌથી લાંબી શ્રેણી: %s</string>
+  <string name="currentStreak">વર્તમાન શ્રેણી: %s</string>
+  <string name="bestRated">શ્રેષ્ઠ રેટેડ વિજય</string>
+  <string name="gamesInARow">સતત રમાયેલી રમતો</string>
+  <string name="lessThanOneHour">રમતો વચ્ચે એક કલાકથી ઓછો સમય</string>
+  <string name="maxTimePlaying">રમવામાં વિતાવેલો મહત્તમ સમય</string>
+  <string name="now">હવે</string>
+</resources>

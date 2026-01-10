@@ -1,29 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Личес стримери</string>
-  <string name="lichessStreamer">Личес стример</string>
+  <string name="lichessStreamers">Lichess стримери</string>
+  <string name="lichessStreamer">Lichess стример</string>
   <string name="live">УЖИВО!</string>
-  <string name="offline">ОФЛАЈН</string>
+  <string name="offline">НИЈЕ НА МРЕЖИ</string>
   <string name="currentlyStreaming">Тренутно стримује: %s</string>
   <string name="lastStream">Последњи стрим %s</string>
-  <string name="becomeStreamer">Постани Личес стример</string>
-  <string name="doYouHaveStream">Имаш ли Твич или Јутјуб канал?</string>
+  <string name="becomeStreamer">Постани Lichess стример</string>
+  <string name="doYouHaveStream">Да ли имаш Твич или Јутјуб канал?</string>
   <string name="hereWeGo">Идемо!</string>
   <string name="allStreamers">Сви стримери</string>
-  <string name="editPage">Уреди страницу стримера</string>
-  <string name="yourPage">Твоја страница стримера</string>
+  <string name="editPage">Уреди стример страницу</string>
+  <string name="yourPage">Твоја стример страница</string>
+  <string name="downloadKit">Преузми стирмер опрему</string>
   <string name="xIsStreaming">%s стримује</string>
   <string name="rules">Правила стримовања</string>
-  <string name="rule1">Када стримујеш на Личесу, користи категорију \"Chess\" и укључи реч \"lichess.org\" у наслову стрима.</string>
-  <string name="rule2">Избаци ту реч када се на стриму не бавиш Личесом.</string>
-  <string name="perk3">Обавестите ваше Личес пратиоце.</string>
+  <string name="rule1">Укључи кључну реч \"lichess.org\" у свом наслову стрима и користи категорију \"Chess\" када стримујеш на Lichess-у.</string>
+  <string name="rule2">Избаци ту кључну реч када стримујеш ствари невезане за Lichess.</string>
+  <string name="rule3">Lichess ће детектовати твој стрим аутоматски и омогућити следеће предности:</string>
+  <string name="perks">Предности стримовања са кључном речи</string>
+  <string name="perk1">Добићеш горећу стример икону на твом Lichess профилу.</string>
+  <string name="perk2">Бићете пробијеени на врх листе стримера.</string>
+  <string name="perk3">Обавести своје Lichess пратиоце.</string>
+  <string name="perk4">Покажи твој стрим у својим партијама, турнирима и студијама.</string>
   <string name="approved">Твој стрим је одобрен.</string>
   <string name="pendingReview">Твој стрим проверавају модератори.</string>
-  <string name="pleaseFillIn">Молимо попуните стримерске информације и поставите слику.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Када будете спремни да постанете Личес стример, %s</string>
+  <string name="pleaseFillIn">Молимо да попуниш твоје стримерске информације и поставиш слику.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Када будеш спреман/на да постанеш Lichess стример, %s</string>
+  <string name="streamerName">Твоје стримерско име на Lichess-у</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Нека буде кратко: %s карактер највише</item>
+    <item quantity="few">Нека буде кратко: %s карактера највише</item>
+    <item quantity="other">Нека буде кратко: %s карактера највише</item>
+  </plurals>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Видљив на страници стримера</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Након одобрења модератора</string>
   <string name="headline">Наслов</string>
   <string name="tellUsAboutTheStream">Реци нам нешто о свом стриму у једној реченици</string>
-  <string name="longDescription">Дужи опис</string>
+  <string name="longDescription">Дуги опис</string>
+  <string name="xStreamerPicture">%s стримерска слика</string>
   <string name="changePicture">Измени/избриши своју слику</string>
   <string name="uploadPicture">Постави слику</string>
   <string name="maxSize">Максимална величина: %s</string>

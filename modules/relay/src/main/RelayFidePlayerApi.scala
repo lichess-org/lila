@@ -13,7 +13,7 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
         game.copy(tags = tags)
 
   def enrichTags(tour: RelayTour): Tags => Fu[Tags] =
-    tags => enrichTags(tags, tour.info.fideTcOrGuess)
+    enrichTags(_, tour.info.fideTcOrGuess)
 
   private def enrichTags(tags: Tags, tc: FideTC): Fu[Tags] =
     (tags.fideIds
@@ -28,7 +28,7 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
 
   private def update(tags: Tags, tc: FideTC, fidePlayers: ByColor[Option[Player]]): Tags =
     Color.all.foldLeft(tags): (tags, color) =>
-      tags ++ Tags:
+      val fideTags = Tags:
         fidePlayers(color).so: fide =>
           List(
             Tag(_.fideIds(color), fide.id.toString).some,
@@ -36,6 +36,7 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
             fide.title.map { title => Tag(_.titles(color), title.value) },
             fide.ratingOf(tc).map { rating => Tag(_.elos(color), rating.toString) }
           ).flatten
+      tags ++ fideTags
 
   private def filterSourceTitles(tags: Tags): ByColor[Option[PlayerTitle]] =
     tags.titles.map(_.filterNot(fideTitles.contains))

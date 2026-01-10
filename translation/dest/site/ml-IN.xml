@@ -453,10 +453,6 @@
   <string name="player">കളിക്കാരന്‍</string>
   <string name="list">പട്ടിക</string>
   <string name="graph">ഗ്രാഫ്</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s നിമിഷങ്ങൾക്ക് ഉള്ളിൽ</item>
-    <item quantity="other">%s നിമിഷങ്ങൾക്ക് ഉള്ളിൽ</item>
-  </plurals>
   <string name="required">നിർബന്ധമാണ്.</string>
   <string name="openTournaments">തുറന്ന മൽസര പരമ്പരകൾ</string>
   <string name="duration">ദൈര്‍ഘ്യം</string>

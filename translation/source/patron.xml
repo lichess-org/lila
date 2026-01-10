@@ -85,4 +85,5 @@ However, Patrons get bragging rights with cool new Patron wings that show up on 
   <string name="paymentDetails">Payment details</string>
   <string name="updatePaymentMethod">Update payment method</string>
   <string name="stripeManageSub">Manage your subscription and download your invoices and receipts</string>
+  <string name="coverFees">I'll add %s to help cover the cost of processing this transaction</string>
 </resources>

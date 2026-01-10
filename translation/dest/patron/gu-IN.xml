@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="donate">દાન </string>
+  <string name="donateAsX">%s તરીકે દાન કરો</string>
+  <string name="lichessPatron">Lichess પેટ્રોન</string>
+  <string name="patronSince" comment="string is a date">%s થી આશ્રયદાતા</string>
+  <string name="freeAccount">મફત ખાતું</string>
+  <string name="becomePatron">Lichess પેટ્રોન બનો</string>
+  <string name="xBecamePatron">%s Lichess પેટ્રોન બન્યો</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s એ %2$s મહિના માટે Lichess પેટ્રોન છે.</item>
+    <item quantity="other">%1$s %2$s મહિના માટે Lichess પેટ્રોન છે.</item>
+  </plurals>
+  <string name="newPatrons">નવા પેટ્રોનર્સ</string>
+  <string name="freeChess">બધા માટે મફત ચેસ, કાયમ માટે!</string>
+  <string name="noAdsNoSubs">કોઈ જાહેરાતો નહીં, કોઈ સબ્સ્ક્રિપ્શન નહીં; પરંતુ ઓપન-સોર્સ અને જુસ્સો.</string>
+  <string name="thankYou">તમારા દાન બદલ આભાર!</string>
+  <string name="youHaveLifetime">તમારી પાસે લાઇફટાઇમ પેટ્રોન એકાઉન્ટ છે. તે ખૂબ જ સરસ છે!</string>
+  <string name="patronUntil">તમારી પાસે %s સુધી પેટ્રન એકાઉન્ટ છે.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">જો તમારું ખાતું રિન્યુ ન થાય, તો તે પછી તે નિયમિત ખાતામાં પાછું આવશે.</string>
+  <string name="weAreNonProfit">અમે એક બિન-લાભકારી સંગઠન છીએ કારણ કે અમે માનીએ છીએ કે દરેકને મફત, વિશ્વ-સ્તરીય ચેસ પ્લેટફોર્મની ઍક્સેસ હોવી જોઈએ.</string>
+  <string name="weRelyOnSupport">અમે આ શક્ય બનાવવા માટે તમારા જેવા લોકોના સમર્થન પર આધાર રાખીએ છીએ. જો તમને Lichess નો ઉપયોગ કરવામાં આનંદ આવે, તો કૃપા કરીને દાન આપીને અને પેટ્રન બનીને અમને ટેકો આપવાનું વિચારો!</string>
+  <string name="lifetime">આજીવન</string>
+  <string name="payLifetimeOnce">%s ને એકવાર ચૂકવો. હંમેશા માટે Lichess પેટ્રોન બનો!</string>
+  <string name="lifetimePatron">લાઇફટાઇમ Lichess પેટ્રોન</string>
+  <string name="monthly">માસિક</string>
+  <string name="recurringBilling">રિકરિંગ બિલિંગ, દર મહિને તમારા પેટ્રોન વિંગ્સનું નવીકરણ.</string>
+  <string name="onetime">એક વખત</string>
+  <string name="singleDonation">એક જ દાન જે તમને એક મહિના માટે પેટ્રોન વિંગ્સ આપે છે.</string>
+  <string name="otherAmount">અન્ય</string>
+  <string name="pleaseEnterAmountInX">કૃપા કરીને %s માં રકમ દાખલ કરો.</string>
+  <string name="withCreditCard">ક્રેડિટ કાર્ડ</string>
+  <string name="logInToDonate">દાન કરવા માટે લોગ ઇન કરો</string>
+  <string name="weAreSmallTeam">અમે એક નાની ટીમ છીએ, તેથી તમારા સમર્થનથી ઘણો ફરક પડે છે!</string>
+  <string name="celebratedPatrons">Lichess ને શક્ય બનાવનારા પ્રખ્યાત આશ્રયદાતાઓ</string>
+  <string name="whereMoneyGoes">પૈસા ક્યાં જાય છે?</string>
   <string name="serversAndDeveloper">સૌ પ્રથમ, શક્તિશાળી સર્વર્સ.
 પછી અમે એક પૂર્ણ-સમય વિકાસકર્તાને ચૂકવણી કરીએ છીએ: %s, જે Lichess ના સ્થાપક છે.</string>
   <string name="costBreakdown">વિગતવાર ખર્ચ વિરામ જુઓ</string>

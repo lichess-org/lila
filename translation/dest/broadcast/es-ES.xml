@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">Jugador FIDE no encontrado</string>
   <string name="fideProfile">Perfil FIDE</string>
   <string name="federation">Federación</string>
-  <string name="ageThisYear">Edad</string>
+  <string name="age" comment="Label for the age of a player. Appears on players' FIDE profiles.">Edad</string>
   <string name="unrated">Sin puntuación</string>
   <string name="recentTournaments">Torneos recientes</string>
   <string name="openLichess">Abrir en Lichess</string>
@@ -83,6 +83,6 @@
   <string name="liveboard">Tablero en directo</string>
   <string name="communityBroadcast">Transmisión de la comunidad</string>
   <string name="createdAndManagedBy">Creada y administrada por %s.</string>
-  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;If your language changes the word &quot;Round&quot; based on the number after it, consider using punctuation to get around the problem (e.g. &quot;Round: %s&quot;).&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">Ronda %s</string>
-  <string name="defaultRoundNameHelp" comment="This is help text for broadcast authors setting a round name. The default is &quot;Round %s&quot; (translatable separately).&#10;&#10;If broadcasters keep the round name to the default, it will be automatically translated.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">Si mantiene el nombre predeterminado se traducirá automáticamente al resto de idiomas.</string>
+  <string name="roundX">Ronda %s</string>
+  <string name="defaultRoundNameHelp">Si mantiene el nombre predeterminado se traducirá automáticamente al resto de idiomas.</string>
 </resources>

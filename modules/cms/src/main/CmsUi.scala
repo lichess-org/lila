@@ -139,10 +139,14 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
     layout(s"Lichess page ${page.key}")(cls := "box-pad"):
       frag(
         boxTop(
-          h1(a(href := routes.Cms.index)("Lichess page"), " • ", page.key),
+          h1(a(href := routes.Cms.index)("Lichess page"), " • ", page.key, " (", page.language, ")"),
           div(cls := "box__top__actions"):
             a(
-              href := page.canonicalPath.getOrElse(routes.Cms.lonePage(page.key).url),
+              href := addQueryParam(
+                page.canonicalPath.getOrElse(routes.Cms.lonePage(page.key).url),
+                "lang",
+                page.language.value
+              ),
               cls := "button button-green",
               dataIcon := Icon.Eye
             )

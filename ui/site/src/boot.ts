@@ -138,6 +138,10 @@ function mirrorCheck() {
     'lootverse.org',
     'phantomstride.org',
     'raksharealm.org',
+    'ludicfrontiers.org',
+    'lichess.dscs2009.com',
+    'sidequest-circus.org',
+    'joystickcaravan.org',
   ];
   if (mirrors.includes(location.host)) location.href = 'https://lichess.org' + location.pathname;
 }

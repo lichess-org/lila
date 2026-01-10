@@ -53,6 +53,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case MarkBooster extends Permission("ADJUST_BOOSTER", List(UserModView), "Mark as booster")
   case ViewPrintNoIP extends Permission("VIEW_PRINT_NOIP", "View Print & NoIP")
   case IpBan extends Permission("IP_BAN", List(UserModView, ViewPrintNoIP), "IP ban")
+  case IpTiers extends Permission("IP_TIERS", "IP limit tiers")
   case PrintBan extends Permission("PRINT_BAN", List(UserModView), "Print ban")
   case DisableTwoFactor extends Permission("DISABLE_2FA", "Disable 2FA")
   case CloseAccount extends Permission("CLOSE_ACCOUNT", List(UserModView), "Close/reopen account")
@@ -92,6 +93,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case PayPal extends Permission("PAYPAL", "PayPal")
   // Set the tier of own broadcasts, making them official. Group own broadcasts.
   case Relay extends Permission("RELAY", "Broadcast official")
+  case FidePlayer extends Permission("FIDE_PLAYER", "Edit FIDE players")
   case Cli extends Permission("CLI", "Command line")
   case Settings extends Permission("SETTINGS", "Lila settings")
   case Streamers extends Permission("STREAMERS", "Manage streamers")
@@ -213,6 +215,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           Shusher,
           Appeals,
           IpBan,
+          IpTiers,
           PrintBan,
           CloseAccount,
           SetTitle,
@@ -230,6 +233,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           DisableTwoFactor,
           ChangePermission,
           StudyAdmin,
+          FidePlayer,
           BroadcastTimeout,
           ApiChallengeAdmin,
           Feed

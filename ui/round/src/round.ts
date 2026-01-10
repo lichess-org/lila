@@ -67,7 +67,7 @@ async function boot(
         color: Color;
         player?: { title?: string; name: string; rating?: number };
       }) {
-        if (data.tv && data.tv.channel == o.channel) site.reload();
+        if (data.tv && data.tv.channel === o.channel) site.reload();
         else
           $('.tv-channels .' + o.channel + ' .champion').html(
             o.player

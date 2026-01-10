@@ -117,7 +117,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
         "_id"
       )
       .map:
-        _.flatMap(TeamMember.parseId).groupBy(_._2).view.mapValues(_.map(_._1)).toMap
+        _.flatMap(TeamMember.parseId).groupBy(_._2).view.mapValues(_._1F).toMap
       .map: grouped =>
         teams.view.map(t => Team.WithPublicLeaderIds(t, grouped.getOrElse(t.id, Nil))).toList
 
@@ -128,7 +128,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
         "_id"
       )
       .map:
-        _.flatMap(TeamMember.parseId).view.map(_._1).toList
+        _.flatMap(TeamMember.parseId)._1F.toList
       .map(Team.WithPublicLeaderIds(team, _))
 
   def addMyLeadership(teams: Seq[Team])(using me: Option[MyId]): Fu[List[Team.WithMyLeadership]] =

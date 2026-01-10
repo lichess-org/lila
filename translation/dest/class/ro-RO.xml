@@ -123,4 +123,9 @@ Va aparea o linie orizontală.</string>
   <string name="moveToAnotherClass">Mutați la altă clasă</string>
   <string name="allowMessagingBetweenStudents">Permite mesaje între studenți</string>
   <string name="allowMessagingBetweenStudentsDesc">Acest lucru se aplică numai conturilor pe care le-ai creat pentru studenții tăi.</string>
+  <string name="quickLoginCode">Cod autentificare rapidă</string>
+  <string name="quickLoginCodes">Coduri de conectare rapidă</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Utilizați aceste coduri la %s pentru a vă înregistra elevii în Lichess.</string>
+  <string name="quickLoginCodesDesc2">Când codurile expiră, elevii tăi vor rămâne conectați, până când se vor deconecta manual.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Expiră %s</string>
 </resources>

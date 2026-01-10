@@ -28,7 +28,7 @@ final class SwissForm(using mode: play.api.Mode):
         "nbRounds" -> number(min = minRounds, max = 100),
         "description" -> optional(cleanNonEmptyText),
         "position" -> optional(lila.common.Form.fen.playableStrict),
-        "chatFor" -> optional(numberIn(chatForChoices.map(_._1))),
+        "chatFor" -> optional(numberIn(chatForChoices._1F)),
         "roundInterval" -> optional(numberIn(roundIntervals)),
         "password" -> optional(cleanNonEmptyText),
         "conditions" -> SwissCondition.form.all,

@@ -28,16 +28,27 @@ final private class RelayFormatApi(
       .foreach: proxy =>
         cache.invalidate(url -> proxy)
 
+  def httpGetRoundJson(url: URL)(using CanProxy): Fu[DgtJson.RoundJson] =
+    http.get(url).flatMap(readAsJson[DgtJson.RoundJson](url))
+
+  def readAsJson[A: Reads](url: URL)(body: HttpClient.Body): Fu[A] = for
+    json <- Future(Json.parse(body)) // Json.parse throws exceptions (!)
+    data <- summon[Reads[A]].reads(json).fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
+  yield data
+
   private def guessFormat(url: URL)(using CanProxy): Fu[RelayFormat] =
     import RelayRound.Sync.url.*
     url.lcc
       .match
         case Some(lcc) =>
-          looksLikeJson(lcc.indexUrl).flatMapz:
-            def gameExists(index: Int) = looksLikeJson(lcc.gameUrl(index)).recoverDefault(false)(_ => ())
-            (gameExists(1) >>| gameExists(2)).map:
-              if _ then LccWithGames(lcc).some
-              else LccWithoutGames(lcc).some
+          httpGetRoundJson(lcc.indexUrl)
+            .flatMap:
+              _.firstNonEmptyPairingIndex
+                .so(index => looksLikeJson(lcc.gameUrl(index + 1)).recoverDefault(_ => {}))
+                .map:
+                  if _ then LccWithGames(lcc).some
+                  else LccWithoutGames(lcc).some
+            .recover(_ => none)
         case None =>
           guessRelayRound(url).orElse:
             looksLikePgn(url).mapz(SingleFile(url).some)

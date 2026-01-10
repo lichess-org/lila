@@ -544,12 +544,6 @@
   <string name="player">Игрок</string>
   <string name="list">Список</string>
   <string name="graph">Диаграмма</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Менее %s минуты</item>
-    <item quantity="few">Менее %s минут</item>
-    <item quantity="many">Менее %s минут</item>
-    <item quantity="other">Менее %s минут</item>
-  </plurals>
   <string name="required">Обязательное поле.</string>
   <string name="openTournaments">Открытые турниры</string>
   <string name="duration">Длительность</string>
@@ -808,6 +802,7 @@
   <string name="cyclePreviousOrNextVariation">Прокручивать предыдущий/следующий вариант</string>
   <string name="toggleGlyphAnnotations">Переключить значки аннотации</string>
   <string name="togglePositionAnnotations">Переключить аннотацию позиций</string>
+  <string name="toggleObservationAnnotations">Переключить аннотации наблюдения</string>
   <string name="variationArrowsInfo">Стрелки вариантов позволяют вам перемещаться без использования списка ходов.</string>
   <string name="playSelectedMove">сыграть выбранный ход</string>
   <string name="newTournament">Новый турнир</string>
@@ -1001,6 +996,7 @@
   <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
   <string name="edit">Изменить</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ультра-пуля</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Пуля</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Рапид</string>

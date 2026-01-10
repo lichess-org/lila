@@ -1,7 +1,5 @@
 package lila.relay
 
-import scala.collection.immutable.SeqMap
-
 class RelayPlayerTest extends munit.FunSuite:
 
   test("dr. and prof."):
@@ -38,8 +36,8 @@ class RelayPlayerTest extends munit.FunSuite:
   test("sorting by tiebreakpoints"):
     import chess.tiebreak.*
     val tiebreaks = Tiebreak.preset.take(2)
-    val tb1 = SeqMap(tiebreaks(0) -> TiebreakPoint(10), tiebreaks(1) -> TiebreakPoint(5))
-    val tb2 = SeqMap(tiebreaks(0) -> TiebreakPoint(12), tiebreaks(1) -> TiebreakPoint(4))
+    val tb1 = Seq(tiebreaks(0) -> TiebreakPoint(10), tiebreaks(1) -> TiebreakPoint(5))
+    val tb2 = Seq(tiebreaks(0) -> TiebreakPoint(12), tiebreaks(1) -> TiebreakPoint(4))
     val p1 = RelayPlayer(dummyPlayer("Alice", 2000), Some(3.0f), None, None, Some(tb1), None, Vector.empty)
     val p2 = RelayPlayer(dummyPlayer("Bob", 2100), Some(3.0f), None, None, Some(tb2), None, Vector.empty)
     val sorted = List(p1, p2).sorted

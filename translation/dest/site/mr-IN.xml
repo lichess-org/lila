@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">खेळाची मांडणी</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">एका मित्राला आव्हान करा</string>
-  <string name="playAgainstComputer">संगणक विरुद्ध खेळा</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">मित्राला आव्हान द्या</string>
+  <string name="playAgainstComputer">संगणकाविरुद्ध खेळा</string>
   <string name="gameMode">खेळाची रीत</string>
   <string name="createLobbyGame">प्रेक्षागृहाचा खेळ तयार करा</string>
   <string name="youPlayAs">तुम्ही खेळाल असे</string>
@@ -95,7 +95,7 @@
   <string name="whiteDrawBlack">पांढरा / बरोबरी / काळा</string>
   <string name="averageRatingX">सरासरी मानांकन: %s</string>
   <string name="recentGames">अलीकडचे खेळ</string>
-  <string name="topGames">उत्तम खेळ</string>
+  <string name="topGames">सर्वोत्कृष्ट खेळ</string>
   <string name="masterDbExplanation">%2$s पासून %3$s पर्यंत %1$s आणि FIDE मानांकित खेळाडूंचे 20 लाख प्रत्यक्ष खेळ</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s अर्ध्याचालीत मात</item>
@@ -401,6 +401,7 @@
     <item quantity="other">आपल्याला आणखी %s गुणांकित खेळ खेळण्याची आवश्यकता आहे</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">आपला %s गुणांकन तात्पुरते आहे</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">तुमचे रेटिंग स्थिर नसल्याने रेटिंग गाळी बंद केले गेले आहे. रेटेड खेळ खेळल्याने स्थिरता वाढेल.</string>
   <string name="yourPerfRatingIsTooHigh">आपले %1$s गुणांकन (%2$s) खूप जास्त आहे</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">आपले साप्ताहिक %1$s गुणांकन (%2$s) खूप जास्त आहे</string>
   <string name="yourPerfRatingIsTooLow">आपले %1$s गुणांकन (%2$s) खूप कमी आहे</string>
@@ -473,10 +474,6 @@
   <string name="player">खेळाडू</string>
   <string name="list">यादी</string>
   <string name="graph">आलेख</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s मिनिटापेक्षा कमी</item>
-    <item quantity="other">%s मिनिटांपेक्षा कमी</item>
-  </plurals>
   <string name="required">गरजेचे आहे.</string>
   <string name="openTournaments">खुली क्रीडासत्रे</string>
   <string name="duration">कालावधी</string>
@@ -513,7 +510,7 @@
   <string name="setTheBoard">पट मांडा</string>
   <string name="popularOpenings">लोकप्रिय प्रारंभिक चाली</string>
   <string name="endgamePositions">अंत्यखेळ स्थिती</string>
-  <string name="chess960StartPosition">Chess960 प्रारंभ स्थिती: %s</string>
+  <string name="chess960StartPosition">चेस९६० प्रारंभ स्थिती: %s</string>
   <string name="startPosition">सुरवातीची स्थिती</string>
   <string name="clearBoard">पट रिकामा करा</string>
   <string name="loadPosition">पटस्थिती लोड करा</string>
@@ -610,7 +607,7 @@
   <string name="slow">संथ</string>
   <string name="insideTheBoard">पटाच्या आतमध्ये</string>
   <string name="outsideTheBoard">पटाच्या बाहेर</string>
-  <string name="allSquaresOfTheBoard">फळ्याचे सर्व चौरसे</string>
+  <string name="allSquaresOfTheBoard">पटावरील सर्व घरांवर</string>
   <string name="onSlowGames">संथ खेळामध्ये</string>
   <string name="always">नेहमी</string>
   <string name="never">अजिबात नाही</string>
@@ -724,10 +721,15 @@
   <string name="keyPreviousBranch">मागील शाखा</string>
   <string name="keyNextBranch">पुढील शाखा</string>
   <string name="toggleVariationArrows">भिन्नतेंचे बाण निवडा</string>
+  <string name="cyclePreviousOrNextVariation">पूर्वीच्या/नंतरच्या प्रकारावर जा</string>
+  <string name="toggleGlyphAnnotations">डावांच्या भाष्यांनचे खुंटन करा</string>
+  <string name="togglePositionAnnotations">स्तिथीच्या भाष्यांनचे खुंटन करा</string>
+  <string name="toggleObservationAnnotations">निरक्षणकयोग्य भाष्यांनचे खुंटन करा</string>
+  <string name="variationArrowsInfo">अंतरलेले बाण तुम्हाला डावांची यादी न वापरता सरकवु देतात.</string>
   <string name="playSelectedMove">निवडलेली चाल खेळा</string>
   <string name="newTournament">नविन क्रीडासत्र</string>
   <string name="tournamentHomeTitle">विविध वेळ नियंत्रणे आणि प्रकार दर्शविणारे बुद्धीबळ क्रीडासत्र</string>
-  <string name="tournamentHomeDescription">वेगवान-वेगवान बुद्धीबळ क्रीडासत्र खेळा! अधिकृत शेड्यूल टूर्नामेंटमध्ये सामील व्हा किंवा स्वतःचे तयार करा. बुलेट, ब्लीटझ, क्लासिकल, चेस 960, किंग ऑफ द हिल, थ्रीचेक आणि अंतहीन बुद्धिबळ मनोरंजनासाठी अधिक पर्याय उपलब्ध.</string>
+  <string name="tournamentHomeDescription">वेगवान-वेगवान बुद्धीबळ क्रीडासत्र खेळा! अधिकृत शेड्यूल टूर्नामेंटमध्ये सामील व्हा किंवा स्वतःचे तयार करा. बुलेट, ब्लीटझ, क्लासिकल, चेस९६०, किंग ऑफ द हिल, थ्रीचेक आणि अंतहीन बुद्धिबळ मनोरंजनासाठी अधिक पर्याय उपलब्ध.</string>
   <string name="tournamentNotFound">क्रीडासत्र सापडले नाही</string>
   <string name="tournamentDoesNotExist">हे क्रीडासत्र उपलब्ध नाही.</string>
   <string name="tournamentMayHaveBeenCanceled">जर सर्व खेळाडू क्रीडासत्र सुरू होण्यापूर्वी निघून गेले तर क्रीडासत्र रद्द होऊ शकते.</string>
@@ -748,6 +750,9 @@
   <string name="checkYourEmail">तुमचा ईमेल तपासा</string>
   <string name="weHaveSentYouAnEmailClickTheLink">आम्ही तुम्हाला ईमेल पाठवला आहे. दिलेल्या लिंक वर क्लिक करून आपले खाते सक्रिय करा.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">जर तुम्हाला ईमेल मिळाला नसेल, तर इतर ठिकाणी तपासा, जसे की junk, spam, social, किंवा इतर फोल्डर्स.</string>
+  <string name="ifYouDoNotGetTheEmail">जर तुम्हाला 5 मिनिटात इ-मेल नाही मिळाला:</string>
+  <string name="checkAllEmailFolders">सर्व जंक व स्पॅम फोल्डर तपासा</string>
+  <string name="verifyYourAddress">सत्यापित करा कि %s तुमचे इ-मेल आड्रेस आहे</string>
   <string name="weHaveSentYouAnEmailTo">आम्ही %s वर ईमेल पाठवला आहे. पासवर्ड रेसेट करण्यासाठी ईमेल मधील लिंक क्लिक करा.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">नोंदणी करतेवेळी, तुम्ही आमच्या %s ला बांधील आहात.</string>
   <string name="readAboutOur">आमच्या %s बद्दल वाचा.</string>
@@ -756,10 +761,12 @@
   <string name="downloadAnnotated">डाउनलोड annotated</string>
   <string name="downloadRaw">डाउनलोड raw</string>
   <string name="downloadImported">डाउनलोड imported</string>
+  <string name="downloadAllGames">सर्व खेळांचे अवचयन करा</string>
   <string name="crosstable">अभिलेख</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">गेममध्ये जाण्यासाठी आपण बोर्डवर स्क्रोल देखील करू शकता.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">संगणक बदलांचे पूर्वावलोकन करण्यासाठी त्यांचेवर स्क्रोल करा.</string>
   <string name="analysisShapesHowTo">पटावर वर्तुळे आणि बाण काढण्यासाठी शिफ्ट + क्लिक दाबा किंवा उजवे-क्लिक दाबा.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl किंवा shift = लाल; command, alt, किंवा meta = निळा; प्रत्येकामधून अंक = पिवळा.</string>
   <string name="letOtherPlayersMessageYou">इतर खेळाडूंना संदेश पाठवू द्या</string>
   <string name="receiveForumNotifications">फोरममध्ये नमूद केल्यावर सूचना प्राप्त करा</string>
   <string name="shareYourInsightsData">आपला बुद्धिबळ अंतर्गत डेटा सामायिक करा</string>
@@ -767,8 +774,10 @@
   <string name="withFriends">मित्रांसोबत</string>
   <string name="withEverybody">सर्वांसोबत</string>
   <string name="kidMode">Kid Mode</string>
+  <string name="kidModeIsEnabled">पालक नियंत्रण चालू आहे.</string>
   <string name="kidModeExplanation">हे सुरक्षिततेबद्दल आहे. किड मोडमध्ये, सर्व साइट संप्रेषणे अक्षम केली आहेत. आपल्या मुलांना आणि शालेय विद्यार्थ्यांसाठी इतर इंटरनेट वापरकर्त्यांपासून त्यांचे संरक्षण करण्यासाठी हे सक्षम करा.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">किड मोडमध्ये, लीचेस लोगोला %s चिन्ह येते, यावरून आपल्या समजते की आपले पाल्य सुरक्षित आहे.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">तुमचे खाते व्यवस्थापित आहे. तुमच्या बुद्धिबळ शिक्षकाला किंवा शिक्षिकेला पालक नियंत्रण बंद करण्याची विनंती करा.</string>
   <string name="enableKidMode">Kid Mode सुरू करा</string>
   <string name="disableKidMode">Kid Mode बंद करा</string>
   <string name="security">सुरक्षितता</string>
@@ -777,6 +786,7 @@
   <string name="playChessEverywhere">सगळीकडे बुद्धिबळ खेळा</string>
   <string name="everybodyGetsAllFeaturesForFree">प्रत्येकास सर्व वैशिष्ट्ये विनामूल्य मिळतात</string>
   <string name="viewTheSolution">समाधान पहा</string>
+  <string name="noChallenges">काही आव्हाने नाहीत</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s भाषेत उपलब्ध!</item>
     <item quantity="other">%s भाषेत उपलब्ध!</item>
@@ -789,12 +799,19 @@
   <string name="anonymous">अनामिक</string>
   <string name="yourScore">तुमचे गुण: %s</string>
   <string name="language">भाषा</string>
+  <string name="allLanguages">सर्व भाषा</string>
   <string name="background">पार्श्वभूमी</string>
   <string name="light">सौम्य</string>
   <string name="dark">गडद</string>
   <string name="transparent">पारदर्शक</string>
   <string name="deviceTheme">उपकरणानुसार</string>
   <string name="backgroundImageUrl">Background चित्रासाठी URL:</string>
+  <string name="board">पट</string>
+  <string name="size">आकार</string>
+  <string name="opacity">अपारदर्शकता</string>
+  <string name="brightness">तेजस्वीपणा</string>
+  <string name="hue">रंग</string>
+  <string name="boardReset">रंगांना परत पाहिल्यासारखे करा</string>
   <string name="pieceSet">सोंगट्या</string>
   <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
   <string name="usernameAlreadyUsed">हे नाव अगोदर वापरलेले आहे, कृपया अन्य वापरा.</string>
@@ -811,6 +828,7 @@
   <string name="notifications">Notifications</string>
   <string name="notificationsX">%1$s सूचना</string>
   <string name="perfRatingX">गुणांकन: %s</string>
+  <string name="yourRatingIsX">तुमचे रेटिंग आहे %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
     <item quantity="other">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
@@ -862,10 +880,13 @@
   <string name="playVariationToCreateConditionalPremoves">सशर्त प्रिमुव्ह तयार करण्यासाठी variation खेळा</string>
   <string name="noConditionalPremoves">सशर्त प्रिमुव्ह नाही</string>
   <string name="playX">%s खेळा</string>
+  <string name="challengeX">आव्हाने %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">आणि %s प्रिमुव्ह संपादित करा</item>
     <item quantity="other">आणि %s प्रिमुव्ह संपादित करा</item>
   </plurals>
+  <string name="showUnreadLichessMessage">तुम्हाला Lichess कडून एक गुप्त संदेश आला आहे.</string>
+  <string name="clickHereToReadIt">वाचण्यासाठी इथे दाबा</string>
   <string name="sorry">माफ करा</string>
   <string name="weHadToTimeYouOutForAWhile">आम्हाला आपल्याला काही वेळ खेळू देता येणार नाही.</string>
   <string name="why">कारण?</string>
@@ -887,6 +908,9 @@
   <string name="agreementPolicy">मी Lichess च्या सर्व नियमांचे पालन करेल.</string>
   <string name="searchOrStartNewDiscussion">संभाषण शोधा किंवा नविन सुरू करा</string>
   <string name="edit">सुधार करा</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">अल्ट्राबुलेट</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">बुलेट</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ब्लिट्झ</string>
   <string name="rapid">द्रुतगती</string>
   <string name="classical">क्लासिकल</string>
   <string name="ultraBulletDesc">अत्यंत वेगवान खेळ: ३० सेकंदांपेक्षा कमी</string>
@@ -903,6 +927,8 @@
   <string name="useTheReportForm">अहवाल फॉर्म वापरा</string>
   <string name="toRequestSupport">मदत मिळवण्यासाठी, %1$s</string>
   <string name="tryTheContactPage">संपर्क पृष्ठ वापरा</string>
+  <string name="makeSureToRead">%1$s वाचण्याची खात्री करावी</string>
+  <string name="theForumEtiquette">चर्चामंचाचे शिष्टाचार</string>
   <string name="thisTopicIsArchived">हा विषय संग्रहित केला गेला आहे आणि यापुढे त्यास प्रत्युत्तर दिले जाऊ शकत नाही.</string>
   <string name="joinTheTeamXToPost">या मंचावर पोस्ट टाकण्यासाठी %1$s सामील व्हा</string>
   <string name="teamNamedX">%1$s संघ</string>
@@ -948,6 +974,7 @@
 खाजगी प्रदर्शनासाठी बंद करा.</string>
   <string name="simulDescription">प्रदर्शनाचे वर्णन</string>
   <string name="simulDescriptionHelp">सदस्यांना काही सांगावेसे वाटते काय?</string>
+  <string name="markdownIsAvailable">%s स्वरूपनासाठी उपलब्ध आहे</string>
   <string name="embedsAvailable">एम्बेड करण्यासाठी खेळाचा URL Paste करावा किंवा अभ्यासातील अध्यायाचा URL Paste करावा.</string>
   <string name="inYourLocalTimezone">आपल्या स्थानिक वेळेप्रमाणे</string>
   <string name="tournChat">स्पर्धेतील गप्पा</string>
@@ -963,6 +990,7 @@
   <string name="focusChat">chat वर लक्ष्य केंद्रित करा</string>
   <string name="showHelpDialog">येथील मदत पर्याय दाखवा</string>
   <string name="reopenYourAccount">आपले खाते पुन्हा उघडा</string>
+  <string name="reopenYourAccountDescription">जर तुम्ही तुमचे खाते बंद केले असेल, परंतु त्यानंतर तुमचा विचार बदलला असेल, तर तुम्हाला तुमचे खाते परत मिळण्याची संधी मिळेल. </string>
   <string name="emailAssociatedToaccount">खात्याशी संबंधित ईमेल अॅड्रेस</string>
   <string name="sentEmailWithLink">आम्ही आपल्याला लिंक सहित एक ईमेल पाठवला आहे.</string>
   <string name="tournamentEntryCode">स्पर्धेचा प्रवेश संकेतशब्द</string>
@@ -976,6 +1004,20 @@
   <string name="lichessDbExplanation">मानांकीत खेळ सर्व lichess खेळाडूंकडून नमुने घेऊन ठरवले आहेत</string>
   <string name="switchSides">रंग बदला</string>
   <string name="closingAccountWithdrawAppeal">खाते बंद केल्यास आवाहन मागे घेतले जाईल</string>
+  <string name="ourEventTips">कार्यक्रम आयोजित करण्यासाठी आमच्या सल्ला</string>
+  <string name="instructions">सूचना</string>
+  <string name="showMeEverything">मला सगळं दाखवा</string>
   <string name="lichessPatronInfo">Lichess एक चॅरिटी आहे आणि संपूर्णपणे मुक्त / नि: शुल्क मुक्त स्रोत सॉफ्टवेअर आहे.
 सर्व ऑपरेटिंग खर्च, विकास आणि सामग्री केवळ वापरकर्त्याच्या देणग्याद्वारे अनुदानित केली जाते.</string>
+  <string name="nothingToSeeHere">सध्या येथे पाहण्यासाठी काहीही नाही.</string>
+  <string name="stats">आकडेवारी</string>
+  <string name="accessibility">सुलभता</string>
+  <string name="enableBlindMode">अंध मोड सक्षम करा</string>
+  <string name="disableBlindMode">अंध मोड अक्षम करा</string>
+  <string name="copyToClipboard">क्लिपबोर्ड वर पुस्ती करा</string>
+  <string name="online" comment="status of a user">उपस्थित</string>
+  <string name="offline" comment="status of a user">उपस्थित नाही</string>
+  <string name="search">शोधा</string>
+  <string name="clearSearch">शोध हटवा</string>
+  <string name="tags">टॅंग्स</string>
 </resources>

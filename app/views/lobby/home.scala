@@ -12,6 +12,7 @@ object home:
     import homepage.*
     Page("")
       .copy(fullTitle = s"$siteName • ${trans.site.freeOnlineChess.txt()}".some)
+      .i18n(_.variant)
       .js(
         PageModule(
           "lobby",

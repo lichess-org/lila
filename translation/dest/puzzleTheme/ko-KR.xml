@@ -30,6 +30,8 @@
   <string name="cornerMateDescription">킹을 룩이나 퀸으로 구석에 가두고, 나이트로 체크메이트를 가합니다.</string>
   <string name="crushing">박살내기</string>
   <string name="crushingDescription">상대의 블런더를 포착하고 박살내어 이득을 얻으세요. (eval ≥ 600cp)</string>
+  <string name="discoveredCheck">디스커버드 체크</string>
+  <string name="discoveredCheckDescription">기물을 움직여서 가려졌던 공격 기물로 체크합니다. 많은 경우 결정적인 이점을 얻습니다.</string>
   <string name="doubleBishopMate">2비숍 메이트</string>
   <string name="doubleBishopMateDescription">자신의 기물에 막힌 킹에게 두 비숍이 인접한 대각선을 막아 메이트를 합니다.</string>
   <string name="dovetailMate">도브테일 메이트</string>
@@ -65,6 +67,10 @@
   <string name="intermezzoDescription">예상되는 플레이를 하는 대신, 먼저 상대가 즉시 해결해야 하는 또 다른 위협을 끼워 넣습니다. \"Zwischenzug\"나 \"In between\"이라고도 합니다.</string>
   <string name="killBoxMate">킬 박스 체크메이트</string>
   <string name="killBoxMateDescription">킹 옆에서는 룩이 체크를 넣고, 퀸이 그 룩을 지켜주면서 킹의 도주로를 차단하는 체크메이트 패턴입니다. 룩과 퀸이 3 x 3 \"킬 박스\" 안에서 킹을 공격합니다.</string>
+  <string name="pillsburysMate">필즈버리 메이트</string>
+  <string name="pillsburysMateDescription">비숍이 킹을 가두어두는 동안 룩을 이용해 메이트를 합니다.</string>
+  <string name="morphysMate">모피 메이트</string>
+  <string name="morphysMateDescription">룩으로 킹의 퇴로를 차단하고, 비숍으로 킹에게 체크합니다.</string>
   <string name="triangleMate">트라이앵글 메이트</string>
   <string name="triangleMateDescription">퀸과 룩이 적 킹과 한 칸 떨어진 상태에서, 같은 랭크 혹은 파일에 있으며, 서로 한 칸을 사이에 두어 세 기물이 삼각형을 형성합니다.</string>
   <string name="vukovicMate">부코비치 메이트</string>
@@ -95,6 +101,8 @@
   <string name="oneMoveDescription">한 수짜리 퍼즐입니다.</string>
   <string name="opening">오프닝</string>
   <string name="openingDescription">게임 초반부에서의 전략</string>
+  <string name="operaMate">오페라 메이트</string>
+  <string name="operaMateDescription">룩으로 킹을 체크하고, 비숍이 룩이 있는 칸을 지킵니다.</string>
   <string name="pawnEndgame">폰 엔드게임</string>
   <string name="pawnEndgameDescription">폰만 있는 엔드게임.</string>
   <string name="pin">핀</string>

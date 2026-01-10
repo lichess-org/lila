@@ -4,7 +4,7 @@
   <string name="closeAccount">계정 폐쇄</string>
   <string name="managedAccountCannotBeClosed">당신의 계정은 관리되고 있으며, 폐쇄될 수 없습니다.</string>
   <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">대소문자가 다르더라도, 똑같은 이름으로는 다시 회원가입할 수 없습니다.</string>
-  <string name="cancelKeepAccount">취소하고 계정 지키기</string>
+  <string name="cancelKeepAccount">취소하고 계정 유지하기</string>
   <string name="closeAccountAreYouSure">정말로 탈퇴하시겠습니까?</string>
   <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">계정이 폐쇄되었습니다.</string>
 </resources>

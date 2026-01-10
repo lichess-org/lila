@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Bonjour %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results">Qu\'avez-vous fait cette année?</string>
+	<string name="initTitle">Vous avez eu d\'excellents résultats!</string>
+	<string name="noGamesText">Vous n\'avez joué aucune partie cette année.</string>
+	<string name="noGamesCta">Voulez-vous jouer une partie?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Et vous en avez gagné %s!</string>
+	<string name="gamesNextQuestion">Qu\'avez-vous fait pour y parvenir?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">Temps passé à jouer : %s</string>
+	<string name="timeTooMuch">Vous jouez beaucoup trop.</string>
+	<string name="timeALot">Vous jouez beaucoup.</string>
+	<string name="timeReasonable">C\'est un temps raisonnable.</string>
+	<string name="timeHowManyMoves">Combien de coups avez-vous joué pendant tout ce temps?</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Vous avez déplacé l\'équivalent de %s!</string>
+	<string name="movesStandardPiecesWeight">Les pièces standard pèsent environ 40 g chacune.</string>
+	<string name="chessFoes">Vos meilleurs adversaires</string>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">est le coup que vous avez joué dans %s de vos parties avec les blancs.</string>
+	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Vous avez aidé à étiqueter %s problèmes.</string>
+	<string name="puzzlesNone">Vous n\'avez fait aucun problème cette année.</string>
+	<string name="puzzlesTryNow">Voulez-vous en faire maintenant?</string>
+	<string name="puzzlesYouWonOnFirstTry">Vous avez réussi %s problèmes au premier essai!</string>
+	<string name="sourcesTitle">Où avez-vous trouvé des parties à jouer?</string>
+	<string name="perfsTitle">Quelles étaient les cadences et les variantes?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s publicités et traceurs chargés</string>
+	<string name="malwareNoSell">Nous n\'avons pas vendu vos données personnelles.</string>
+	<string name="malwareNoAbuse">Nous n\'avons pas utilisé votre appareil contre vous.</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Mais les autres sites Web le font, alors %s svp.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">méfiez-vous</string>
+	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s parties jouées sur Lichess en %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">Vous en avez joué %s.</string>
+	<string name="thanksTitle">Merci de jouer sur Lichess!</string>
+	<string name="thanksHaveAGreat" comment="%s is the next year">Nous sommes heureux de vous compter parmi nous et nous vous souhaitons une bonne année %s!</string>
+	<string name="shareableTitle" comment="%s is the current year">Mon récapitulatif %s</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">de temps passé à jouer</string>
+	<string name="shareableMostPlayedOpponent">Adversaire le plus fréquent</string>
+	<string name="shareableFavouriteVariant">Variante préférée</string>
+	<string name="shareableFavouriteTimeControl">Cadence préférée</string>
+	<string name="recapReady" comment="%s is the year of the recap">Votre récapitulatif %s est prêt!</string>
+</resources>

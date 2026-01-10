@@ -166,8 +166,8 @@
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s jogadores conectados</item>
-    <item quantity="other">%s jogadores conectados</item>
+    <item quantity="one">%s jogador</item>
+    <item quantity="other">%s jogadores</item>
   </plurals>
   <string name="drawByMutualAgreement">Empate por acordo mútuo</string>
   <string name="fiftyMovesWithoutProgress">Cinquenta jogadas sem progresso</string>
@@ -474,10 +474,6 @@
   <string name="player">Jogador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfico</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menos que %s minutos</item>
-    <item quantity="other">Menos que %s minutos</item>
-  </plurals>
   <string name="required">Obrigatório.</string>
   <string name="openTournaments">Torneios abertos</string>
   <string name="duration">Duração</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Variante seguinte/anterior</string>
   <string name="toggleGlyphAnnotations">Ativar/desativar anotações</string>
   <string name="togglePositionAnnotations">Ativar/desativar anotações de posição</string>
+  <string name="toggleObservationAnnotations">Ativar/desativar anotações de observação</string>
   <string name="variationArrowsInfo">Setas de variação permitem navegar sem usar a lista de movimentos.</string>
   <string name="playSelectedMove">jogar movimento selecionado</string>
   <string name="newTournament">Novo torneio</string>
@@ -911,6 +908,7 @@
   <string name="agreementPolicy">Eu concordo que seguirei todas as normas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Procurar ou iniciar nova conversa</string>
   <string name="edit">Editar</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rápida</string>
@@ -1020,4 +1018,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="search">Busca</string>
   <string name="clearSearch">Limpar busca</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant">En passant</string>
 </resources>

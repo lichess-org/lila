@@ -116,4 +116,9 @@
   <string name="moveToAnotherClass">別のクラスに移動</string>
   <string name="allowMessagingBetweenStudents">生徒どうしのメッセージを許可</string>
   <string name="allowMessagingBetweenStudentsDesc">これはあなたが生徒のために作成したアカウントにのみ適用されます。</string>
+  <string name="quickLoginCode">クイックログインコード</string>
+  <string name="quickLoginCodes">クイックログインコード</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">%s でこのコードを使うと生徒たちを Lichess にログインさせることができます。</string>
+  <string name="quickLoginCodesDesc2">コードが期限切れになると、生徒は手動でログアウトするまでログイン状態のままです。</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">使用期限：%s</string>
 </resources>

@@ -15,7 +15,7 @@
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
   <string name="level">سطح</string>
   <string name="strength">قدرت</string>
-  <string name="toggleTheChat">گپ روشن/خاموش</string>
+  <string name="toggleTheChat">کلیدِ گپ</string>
   <string name="chat">گپ</string>
   <string name="resign">تسلیم شدن</string>
   <string name="checkmate">کیش و مات</string>
@@ -35,7 +35,7 @@
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
   <string name="kingInTheCenter">شاه روی تپه</string>
   <string name="threeChecks">سه‌کیش</string>
-  <string name="raceFinished">پایان تاخت</string>
+  <string name="raceFinished">پایانِ دو</string>
   <string name="variantEnding">پایان وَرتا</string>
   <string name="newOpponent">حریف جدید</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">حریفتان می‌خواهد یک بازی جدید با شما انجام دهد</string>
@@ -49,7 +49,7 @@
   <string name="opponentLeftChoices">ممکن است حریف شما بازی را ترک کرده باشد. شما می توانید ادعای پیروزی کنید, اعلام تساوی کنید یا منتظر او بمانید.</string>
   <string name="forceResignation">ادعای پیروزی</string>
   <string name="forceDraw">اعلام تساوی</string>
-  <string name="talkInChat">لطفا در گپ‌زنی بااَدب باشید!</string>
+  <string name="talkInChat">لطفا در گپیدن بااَدب باشید!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این وب‌نشانی آید با شما بازی خواهد کرد.</string>
   <string name="whiteResigned">سفید تسلیم شد</string>
   <string name="blackResigned">سیاه تسلیم شد</string>
@@ -121,7 +121,7 @@
   <string name="deleteThisImportedGame">آیا این بازیِ فراخوانده شده پاک شود؟</string>
   <string name="replayMode">حالت بازپخش</string>
   <string name="realtimeReplay">مشابه بازی</string>
-  <string name="byCPL">درنگ هنگام اشتباه</string>
+  <string name="byCPL">مَکث حینِ اشتباه</string>
   <string name="enable">فعال سازی</string>
   <string name="bestMoveArrow">پیکانِ بهترین حرکت</string>
   <string name="showVariationArrows">نمایش پیکان‌های وَرتِش</string>
@@ -133,7 +133,7 @@
   <string name="removesTheDepthLimit">محدودیت عمق را برمی‌دارد و رایانه‌تان داغ می‌ماند</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="mistake">اشتباه</string>
-  <string name="inaccuracy">بی دقتی</string>
+  <string name="inaccuracy">نادقیق</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s اشتباه بزرگ</item>
     <item quantity="other">%s اشتباه بزرگ</item>
@@ -159,7 +159,7 @@
     <item quantity="other">%s نادقیق</item>
   </plurals>
   <string name="moveTimes">مدت حركت‌ها</string>
-  <string name="flipBoard">چرخاندن صفحه</string>
+  <string name="flipBoard">چرخاندن میز</string>
   <string name="threefoldRepetition">تکرار سه‌گانه</string>
   <string name="claimADraw">ادعای تساوی</string>
   <string name="drawClaimed">بازی در تساوی پایان یافت</string>
@@ -234,8 +234,8 @@
   <string name="signupEmailHint">ما فقط برای بازنشاندن گذرواژه، از آن استفاده خواهیم کرد.</string>
   <string name="password">گذرواژه</string>
   <string name="changePassword">تغییر گذرواژه</string>
-  <string name="changeEmail">تغییر ایمیل</string>
-  <string name="email">ایمیل</string>
+  <string name="changeEmail">تغییرِ رایانامه</string>
+  <string name="email">رایانامه</string>
   <string name="passwordReset">بازنشانی گذرواژه</string>
   <string name="forgotPassword">گذرواژه را فراموش کرده‌اید?</string>
   <string name="error.weakPassword">این گذرواژه بسیار رایج و آسان‌حدس است.</string>
@@ -246,23 +246,23 @@
   <string name="proceedToX">بروید به %s</string>
   <string name="passwordSuggestion">از رمز عبور پیشنهاد شده از شخص دیگر استفاده نکنید. در این صورت احتمال سرقت حساب شما وجود دارد.</string>
   <string name="emailSuggestion">از ایمیلی که از شخص دیگر به شما پیشنهاد داده است استفاده نکنید. در این صورت احتمال سرقت حساب شما وجود دارد.</string>
-  <string name="emailConfirmHelp">کمک با تائید ایمیل</string>
+  <string name="emailConfirmHelp">کمک با تائید رایانامه</string>
   <string name="emailConfirmNotReceived">آیا رایانامهٔ تاییدتان را پس از نام‌نویسی دریافت نکردید؟</string>
   <string name="whatSignupUsername">از چه نام کاربری برای ثبت نام استفاده کردید؟</string>
   <string name="usernameNotFound">ما هیچ کابری با این نام نیافتیم: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">شما می توانید از این نام کاربری برای ایجاد یک حساب کاربری جدید استفاده کنید</string>
-  <string name="emailSent">ما یک ایمیل به آدرس %s ارسال کرده ایم.</string>
+  <string name="emailSent">ما رایانامه‌ای به %s فرستاده‌ایم.</string>
   <string name="emailCanTakeSomeTime">ممکن است کمی طول بکشد تا برسد.</string>
-  <string name="refreshInboxAfterFiveMinutes">5 دقیقه صبر کنید و صندوق ورودی ایمیل خود را تازه کنید.</string>
+  <string name="refreshInboxAfterFiveMinutes">۵ دقیقه بصبرید و صندوق رایانامه‌تان را تازه کنید.</string>
   <string name="checkSpamFolder">پوشه هرزنامه خود را نیز بررسی کنید، ممکن است در آنجا باشد. اگر چنین است، آن را به عنوان غیر هرزنامه علامت‌گذاری کنید.</string>
-  <string name="emailForSignupHelp">اگر تمام موارد ناموفق بود، این ایمیل را برای ما ارسال کنید:</string>
+  <string name="emailForSignupHelp">اگر تمام موارد ناموفق بود، این رایانامه را به ما بفرستید:</string>
   <string name="copyTextToEmail">متن بالا را کپی و پیست کرده و به آدرس زیر ارسال کنید %s</string>
   <string name="waitForSignupHelp">ما به زودی با شما تماس خواهیم گرفت تا به شما کمک کنیم ثبت نام خود را تکمیل کنید.</string>
   <string name="accountConfirmed">کاربر با نام %s با موفقیت تایید شده است.</string>
   <string name="accountCanLogin">شما می توانید همین الان با نام %s وارد شوید.</string>
-  <string name="accountConfirmationEmailNotNeeded">شما نیازی به ایمیل تایید ندارید.</string>
+  <string name="accountConfirmationEmailNotNeeded">به رایانامهٔ تایید نیاز ندارید.</string>
   <string name="accountClosed">حساب کاربری %s بسته شده است.</string>
-  <string name="accountRegisteredWithoutEmail">حساب کاربری %s بدون ایمیل ثبت نام شده بود.</string>
+  <string name="accountRegisteredWithoutEmail">حسابِ %s بدون رایانامه نام‌نویسی شده بود.</string>
   <string name="rank">رتبه</string>
   <string name="rankX">رتبه:%s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -316,7 +316,7 @@
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
   <string name="chatRoom">گپ‌سرا</string>
-  <string name="loginToChat">برای گپ زدن، وارد حساب‌تان شوید</string>
+  <string name="loginToChat">برای گپیدن، وارد شوید</string>
   <string name="youHaveBeenTimedOut">زمان شما به پایان رسید.</string>
   <string name="spectatorRoom">اتاق تماشاگران</string>
   <string name="composeMessage">نوشتن پیام</string>
@@ -438,7 +438,7 @@
     <item quantity="other">%s بارگذاری شده</item>
   </plurals>
   <string name="thisIsAChessCaptcha">این یک کپچا [کد امنیتی] شطرنجی است</string>
-  <string name="clickOnTheBoardToMakeYourMove">روی صفحه بزنید تا حرکت‌تان را بروید و اثبات کنید که انسانید.</string>
+  <string name="clickOnTheBoardToMakeYourMove">روی میز بزنید تا حرکت‌تان را بروید و اثبات کنید که انسانید.</string>
   <string name="captcha.fail">لطفا captcha را حل کنید</string>
   <string name="notACheckmate">این یک کیش و مات نیست</string>
   <string name="whiteCheckmatesInOneMove">سفید در یک حرکت مات می‌کند</string>
@@ -474,10 +474,6 @@
   <string name="player">بازیکن</string>
   <string name="list">فهرست</string>
   <string name="graph">نمودار</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">کمتر از %s دقیقه</item>
-    <item quantity="other">کمتر از %s دقیقه</item>
-  </plurals>
   <string name="required">مورد نیاز است</string>
   <string name="openTournaments">باز کردن مسابقه</string>
   <string name="duration">مدت</string>
@@ -516,7 +512,7 @@
   <string name="endgamePositions">وضعیت‌های آخربازی</string>
   <string name="chess960StartPosition">وضعیت آغازین شطرنج۹۶۰: %s</string>
   <string name="startPosition">وضعیت آغازش</string>
-  <string name="clearBoard">پاک کردن صفحه</string>
+  <string name="clearBoard">پاکیدنِ میز</string>
   <string name="loadPosition">بارگذاری وضعیت</string>
   <string name="isPrivate">خصوصی</string>
   <string name="reportXToModerators">گزارش %s به ناظران</string>
@@ -591,7 +587,7 @@
   <string name="invalidUsernameOrPassword">نام کاربری یا گذرواژهٔ نامعتبر</string>
   <string name="incorrectPassword">گذرواژهٔ نادرست</string>
   <string name="invalidAuthenticationCode">کد راستین‌آزمایی نامعتبر</string>
-  <string name="emailMeALink">یک لینک به من ایمیل کنید</string>
+  <string name="emailMeALink">پیوندی به رایانامه‌ام بفرست</string>
   <string name="currentPassword">گذرواژهٔ جاری</string>
   <string name="newPassword">گذرواژهٔ نو</string>
   <string name="newPasswordAgain">گذرواژهٔ نو (دوباره)</string>
@@ -609,9 +605,9 @@
   <string name="fast">سریع</string>
   <string name="normal">متوسط</string>
   <string name="slow">آرام</string>
-  <string name="insideTheBoard">در صفحه</string>
-  <string name="outsideTheBoard">بیرون صفحه</string>
-  <string name="allSquaresOfTheBoard">همه خانه‌های صفحه</string>
+  <string name="insideTheBoard">درونِ تخته</string>
+  <string name="outsideTheBoard">بیرونِ تخته</string>
+  <string name="allSquaresOfTheBoard">همه خانه‌های تخته</string>
   <string name="onSlowGames">در بازی های آرام</string>
   <string name="always">همیشه</string>
   <string name="never">هرگز</string>
@@ -626,8 +622,8 @@
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
   <string name="biographyDescription">درباره ی خودتان بگویید - به چه چیزی در شطرنج علاقه داریدو گشایش ها - بازی ها و بازیکنان مورد علاقه تان…</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">حداکثر: %s حرف</item>
-    <item quantity="other">حداکثر: %s حرف</item>
+    <item quantity="one">حداکثر: %s نویسه.</item>
+    <item quantity="other">حداکثر: %s نویسه.</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s مسدود شده</item>
@@ -647,11 +643,11 @@
   <string name="increment">افزایش زمان</string>
   <string name="error.unknown">مقدار نامعتبر</string>
   <string name="error.required">حتماً باید این خانه را پر کنید</string>
-  <string name="error.email">آدرس ایمیل غیر معتبر است</string>
+  <string name="error.email">نشانی رایانامه نامعتبر است</string>
   <string name="error.email_acceptable">این نشانی رایانامه پذیرفتنی نیست. لطفا باز به آن سر زنید و دوباره بکوشید.</string>
-  <string name="error.email_unique">آدرس ایمیل نامعتبر است یا قبلا در سیستم ثبت شده است</string>
-  <string name="error.email_different">اکنون، این نشانی رایانامه‌تان شما است</string>
-  <string name="error.minLength">باید حداقل %s حرف داشته باشد</string>
+  <string name="error.email_unique">نشانیِ رایانامه نامعتبر یا قبلاً گرفته شده است</string>
+  <string name="error.email_different">اکنون، این نشانیِ رایانامه‌تان است</string>
+  <string name="error.minLength">باید حداقل %s نویسه داشته باشد</string>
   <string name="error.maxLength">باید حداکثر %s نویسه داشته باشد</string>
   <string name="error.min">باید حداقل %s باشد</string>
   <string name="error.max">باید حداکثر %s باشد</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">چرخاندن پیشین/پسین وَرتِش</string>
   <string name="toggleGlyphAnnotations">کلید علائم حرکت‌نویسی</string>
   <string name="togglePositionAnnotations">تغییر حرکت‌نویسی وضعیت</string>
+  <string name="toggleObservationAnnotations">کلید مشاهدهٔ حرکت‌نویسی</string>
   <string name="variationArrowsInfo">پیکان های وَرتِش به شما امکان ناوِش بدون استفاده از فهرستِ حرکت را می‌دهد.</string>
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
@@ -751,12 +748,13 @@
   <string name="cumulative">تجمعی</string>
   <string name="glicko2Rating">درجه‌بندی Glicko-2</string>
   <string name="checkYourEmail">به رایانامه‌تان سر زنید</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید
+ما به شما یک رایانامه‌ای فرستاده‌ایم. برای فعال‌سازی حساب کاربری‌تان روی پیوند موجود در رایانامه بِتِلیکید.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، جاهای دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موردها را بررسی کنید.</string>
-  <string name="ifYouDoNotGetTheEmail">اگر ایمیل را در 5 دقیقه دریافت نکرده اید</string>
+  <string name="ifYouDoNotGetTheEmail">اگر ظرفِ ۵ دقیقه رایانامه را نگرفتید:</string>
   <string name="checkAllEmailFolders">فولدر های junk, spam و دیگر را چک کنید</string>
-  <string name="verifyYourAddress">تائید کنید که %s ایمیل شما هست</string>
-  <string name="weHaveSentYouAnEmailTo">ما یک رایانامه به %s فرستاده‌ایم. برای بازنشانی گذرواژه‌تان، روی پیوند موجود در رایانامه بزنید.</string>
+  <string name="verifyYourAddress">تائید کنید که %s نشانیِ رایانامه‌تان است</string>
+  <string name="weHaveSentYouAnEmailTo">ما رایانامه‌ای به %s فرستاده‌ایم. برای بازنشانی گذرواژه‌تان، روی پیوند موجود در رایانامه بزنید.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">با ثبت‌نام، با %s موافقت می‌کنید.</string>
   <string name="readAboutOur">درباره %s ما بخوانید.</string>
   <string name="networkLagBetweenYouAndLichess">تاخیر شبکه میان شما و لیچس</string>
@@ -766,7 +764,7 @@
   <string name="downloadImported">بارگیری درونبُرد</string>
   <string name="downloadAllGames">بارگیری تمام بازی ها</string>
   <string name="crosstable">رودررو</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">برای حرکت، روی صفحه بازی بِنَوَردید.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">برای حرکت، روی تختهٔ بازی بِنَوَردید.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمایش آن‌ها، روی وَرتِش‌های رایانه‌ای بِغَرالید.</string>
   <string name="analysisShapesHowTo">برای رسم دایره و پیکان روی تخته، shift+click یا راست-تِلیک را بفشارید.</string>
   <string name="primaryColorArrowsHowTo">Ctrl یا shift = قرمز؛ command، alt یا meta = آبی؛ یک کلید از هر کدام = زرد.</string>
@@ -809,7 +807,7 @@
   <string name="transparent">شفاف</string>
   <string name="deviceTheme">پوستهٔ اَفزاره</string>
   <string name="backgroundImageUrl">وب‌نشانی تصویر پس‌زمینه:</string>
-  <string name="board">صفحه شطرنج</string>
+  <string name="board">میز</string>
   <string name="size">اندازه</string>
   <string name="opacity">کدری</string>
   <string name="brightness">درخشندگی</string>
@@ -911,6 +909,7 @@
   <string name="agreementPolicy">با پیروی از همهٔ خط‌مشی‌های لیچس، موافقم.</string>
   <string name="searchOrStartNewDiscussion">جستجو یا شروع کردن مکالمه جدید</string>
   <string name="edit">ویرایش</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">اولاگلوله</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">گلوله</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">برق‌آسا</string>
   <string name="rapid">سریع</string>
@@ -979,7 +978,7 @@
   <string name="markdownIsAvailable">امکان %s برای قالب‌دِهی وجود دارد.</string>
   <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی بخشی از مطالعه را، برای جاسازی آن، جایگذاری کنید.</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
-  <string name="tournChat">چت مسابقه</string>
+  <string name="tournChat">گپِ مسابقات</string>
   <string name="noChat">بدون گپ</string>
   <string name="onlyTeamLeaders">تنها مسئولان تیم</string>
   <string name="onlyTeamMembers">تنها اعضای تیم</string>
@@ -993,7 +992,7 @@
   <string name="showHelpDialog">نمایش این پنجره راهنما</string>
   <string name="reopenYourAccount">باز کردن مجدد حساب کاربری</string>
   <string name="reopenYourAccountDescription">اگر حسابتان را بسته اید ولی نظرتان عوض شده، فرصت بازپس‌گیری آن را دارید.</string>
-  <string name="emailAssociatedToaccount">آدرس ایمیلی که به حساب کاربری مربوط شده است</string>
+  <string name="emailAssociatedToaccount">نشانیِ رایانامهٔ مرتبط با حساب</string>
   <string name="sentEmailWithLink">ما رایانامه‌ای شامل یک پیوند را به شما فرستاده‌ایم.</string>
   <string name="tournamentEntryCode">کد ورودی مسابقه</string>
   <string name="hangOn">صبر کن!</string>
@@ -1009,13 +1008,13 @@
   <string name="ourEventTips">پیشنهادهای ما برای برگزاری رویدادها</string>
   <string name="instructions">راهنما</string>
   <string name="showMeEverything">همه چیز را به من نشان بده</string>
-  <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
+  <string name="lichessPatronInfo">وبگاهِ Lichess خیریه است و نرم‌افزار متن‌بازِ تمام‌رایگانی است. همهٔ هزینه‌های عملیات، توسعه و محتوا تنها از راهِ داشَن‌های کاربران تأمین می‌شود.</string>
   <string name="nothingToSeeHere">فعلا هیچی اینجا نیست.</string>
   <string name="stats">آمار</string>
   <string name="accessibility">دسترسی</string>
   <string name="enableBlindMode">فعال‌سازی حالت نابینایی</string>
   <string name="disableBlindMode">غیرفعال سازی حالت نابینایی</string>
-  <string name="copyToClipboard">کپی در کلیپ‌بورد</string>
+  <string name="copyToClipboard">رونوشت در بُریده‌دان</string>
   <string name="online" comment="status of a user">بَرخط</string>
   <string name="offline" comment="status of a user">بُرون‌خط</string>
   <string name="search">جستجو</string>

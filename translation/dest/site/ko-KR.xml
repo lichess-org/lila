@@ -99,7 +99,7 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s개의 반수 후 체크메이트</item>
   </plurals>
-  <string name="dtzWithRounding">다음 포획 혹은 폰 수까지 남은 반수를 반올림후 나타낸 DTZ50\" 수치</string>
+  <string name="dtzWithRounding">다음 포획, 폰 이동 혹은 체크메이트까지 남은 반수를 반올림 후 나타낸 DTZ50\" 수치</string>
   <string name="noGameFound">대국을 찾을 수 없습니다</string>
   <string name="maxDepthReached">최대 깊이 도달!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 대국을 포함하세요.</string>
@@ -165,7 +165,7 @@
   <string name="currentGames">진행 중인 대국들</string>
   <string name="joinedX">%s 전에 가입함</string>
   <plurals name="nbGames">
-    <item quantity="other">대국 %s개</item>
+    <item quantity="other">%s개의 대국</item>
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="other">%1$s 점수 (대국 %2$s 회)</item>
@@ -369,11 +369,11 @@
   <plurals name="needNbMoreGames">
     <item quantity="other">공식 대국을 %s회 더 두어야 합니다.</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">사용자의 임시 등급 %s는 임시적입니다.</string>
-  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">귀하의 평가가 안정적이지 않기 때문에 평가 필터가 잠겨 있습니다. 정격 게임을 플레이하면 안정성이 향상됩니다.</string>
-  <string name="yourPerfRatingIsTooHigh">귀하의 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">%1$s 랭크가 너무 높습니다. (%2$s)</string>
-  <string name="yourPerfRatingIsTooLow">%1$s 랭크가 너무 낮습니다. (%2$s)</string>
+  <string name="yourPerfRatingIsProvisional">당신의 %s 레이팅은 임시 레이팅입니다</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">귀하의 레이팅이 안정적이지 않기 때문에 레이팅 필터가 잠겨 있습니다. 레이팅 반영 게임을 플레이하면 안정성이 향상됩니다.</string>
+  <string name="yourPerfRatingIsTooHigh">당신의 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">당신의 주간 최고 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
+  <string name="yourPerfRatingIsTooLow">당신의 %1$s 레이팅(%2$s)은 너무 낮습니다.</string>
   <string name="ratedMoreThanInPerf">%2$s 레이팅 %1$s 이상</string>
   <string name="ratedLessThanInPerf">%2$s 레이팅 %1$s 이하</string>
   <string name="mustBeInTeam">팀 %s 의 멤버에 한정</string>
@@ -439,9 +439,6 @@
   <string name="player">플레이어</string>
   <string name="list">목록</string>
   <string name="graph">그래프</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">%s분 미만</item>
-  </plurals>
   <string name="required">필수 항목</string>
   <string name="openTournaments">시작 예정 토너먼트</string>
   <string name="duration">경기 시간</string>
@@ -688,6 +685,7 @@
   <string name="cyclePreviousOrNextVariation">이전/다음 라인 순환하기</string>
   <string name="toggleGlyphAnnotations">수 주석 켜기/끄기</string>
   <string name="togglePositionAnnotations">포지션 주석 켜기/끄기</string>
+  <string name="toggleObservationAnnotations">의견 주석 켜기/끄기</string>
   <string name="variationArrowsInfo">변형 화살표를 사용하면 이동 목록을 사용하지 않고 탐색이 가능합니다.</string>
   <string name="playSelectedMove">선택한 수 두기</string>
   <string name="newTournament">새로운 토너먼트</string>
@@ -789,7 +787,7 @@
   <string name="notifications">알림</string>
   <string name="notificationsX">알림: %1$s</string>
   <string name="perfRatingX">레이팅: %s</string>
-  <string name="yourRatingIsX">%s 귀하의 평가는</string>
+  <string name="yourRatingIsX">당신의 레이팅: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s 초 안에 첫 수를 두십시오.</item>
   </plurals>
@@ -866,6 +864,7 @@
   <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">울트라불릿</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">불릿</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">블리츠</string>
   <string name="rapid">래피드</string>
@@ -929,6 +928,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="simulFeaturedHelp">모두가 %s에서 다면기를 볼 수 있습니다. 비공개 대국을 위해서는 비활성화하세요.</string>
   <string name="simulDescription">다면기 설명</string>
   <string name="simulDescriptionHelp">참가자들에게 하고 싶은 말이 있나요?</string>
+  <string name="markdownIsAvailable">%s 서식을 사용할 수 있습니다.</string>
   <string name="embedsAvailable">포함할 대국 URL 또는 연구 챕터 URL을 붙여넣으세요.</string>
   <string name="inYourLocalTimezone">본인의 현지 시간대 기준</string>
   <string name="tournChat">토너먼트 채팅</string>
@@ -974,4 +974,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="search">검색</string>
   <string name="clearSearch">검색 초기화</string>
   <string name="tags">태그</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">앙파상</string>
 </resources>

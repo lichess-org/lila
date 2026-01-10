@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights">%s ની ચેસ ઇનસાઇટ્સ</string>
+  <string name="xHasNoChessInsights">%s પાસે હજી કોઈ ચેસ ઇનસાઇટ્સ નથી!</string>
+  <string name="insightsAreProtected">%s ની ચેસ ઇનસાઇટ્સ સુરક્ષિત છે</string>
+  <string name="cantSeeInsights">માફ કરશો, તમે %s ની ચેસ ઇનસાઇટ્સ જોઈ શકતા નથી.</string>
+  <string name="generateInsights" comment="%s is a player's username.&#10;&#10;Clicking this will scan data on Lichess to create insights for player %s.&#10;&#10;Example:&#10;&#10;Generate DrNykterstein's chess insights.">%s ની ચેસ ઇનસાઇટ્સ જનરેટ કરો.</string>
+  <string name="crunchingData">હવે ફક્ત તમારા માટે ડેટા ક્રંચ કરવામાં આવી રહ્યો છે!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">કદાચ તેમને તેમના %s બદલવાનું કહો?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">ઇનસાઇટ્સ સેટિંગ્સ</string>
+</resources>

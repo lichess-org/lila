@@ -4,7 +4,7 @@
   <string name="teachClassesOfChessStudents">Lichess Class साधनॆचा वापर करुन विद्यार्थ्यांना शिकवा.</string>
   <string name="features">वैशिष्ट्ये</string>
   <string name="quicklyGenerateSafeUsernames">विद्यार्थ्यांसाठी त्वरीत सुरक्षित वापरकर्तानाव आणि पासवर्ड तयार करा</string>
-  <string name="trackStudentProgress">खेळ आणि कोड्यांमध्ये विद्यार्थ्यांच्या प्रगतीचा मोगावा घ्या</string>
+  <string name="trackStudentProgress">खेळ आणि कोड्यांमध्ये विद्यार्थ्यांच्या प्रगतीचा मागोवा घ्या</string>
   <string name="messageAllStudents">नवीन वर्ग सामग्रीबद्दल सर्व विद्यार्थ्यांना संदेश द्या</string>
   <string name="freeForAllForever">सर्वांसाठी 100% विनामूल्य, कायमचे, कोणत्याही जाहिराती किंवा ट्रॅकरशिवाय</string>
   <string name="applyToBeLichessTeacher">लिचेस प्रशिक्षक होण्यासाठी अर्ज करा</string>
@@ -90,7 +90,7 @@
   <string name="timePlaying">खेळलेला वेळ</string>
   <string name="variantXOverLastY">%1$s मागील %2$s</string>
   <string name="winrate">जिंकण्याचे प्रमाण</string>
-  <string name="na">लागू नाही</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">लागू नाही</string>
   <string name="overview">आढावा</string>
   <string name="news">बातमी</string>
   <string name="classNews">वर्गाबाबत बातम्या</string>
@@ -99,8 +99,8 @@
   <string name="nothingHere">अजून येथे काही नाही.</string>
   <string name="newsEdit1">एकाच क्षेत्रात सर्व वर्गंनच्या बातम्या.</string>
   <string name="newsEdit2">शीर्षस्थानी अलीकडील बातम्या जोडा. पूर्वीच्या बातम्या काढू नका.</string>
-  <string name="newsEdit3">यासह बातमी वेगळी करा ---
-ते क्षैतिज रेषा दर्शवेल.</string>
+  <string name="newsEdit3">--- वापरून बातम्या अलिप्त करा 
+त्यामूळे आडवी रेषा दिेसेल.</string>
   <string name="invite">आमंत्रित करा</string>
   <string name="youHaveBeenInvitedByX">%s ने तुम्हाला आमंत्रित केले आहे.</string>
   <string name="youAcceptedThisInvitation">तुम्ही हे आमंत्रण स्वीकारले.</string>
@@ -120,4 +120,9 @@
   <string name="moveToAnotherClass">दुसऱ्या शिकवणीत जा</string>
   <string name="allowMessagingBetweenStudents">विद्यर्थ्यांमधील गप्पांना परवानगी द्या</string>
   <string name="allowMessagingBetweenStudentsDesc">हे फक्त तुमच्या विद्यार्थ्यांसाठी बनवलेल्या खात्यांसाठी लागू होते.</string>
+  <string name="quickLoginCode">खात्यात प्रवेश करण्यासाठी जलद परवली</string>
+  <string name="quickLoginCodes">खात्यात प्रवेश करण्यासाठी जलद परवल्या</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">ह्या पाणावल्या %s वर वापरा तुमच्या विद्यार्थ्यांना Lichess  वर प्रवेश करण्यासाठी</string>
+  <string name="quickLoginCodesDesc2">जेव्हा हे पाणावल्या कालबाह्य होतात, ते खात्याचा आत बाहेर पाडण्यापर्यंत राहतात</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">%s मध्ये कालबाह्य होईल</string>
 </resources>

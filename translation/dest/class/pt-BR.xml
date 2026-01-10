@@ -90,7 +90,7 @@ Aqui está o link para acessar a turma.</string>
   <string name="timePlaying">Tempo jogado</string>
   <string name="variantXOverLastY">%1$s sobre os últimos %2$s</string>
   <string name="winrate">Índice de vitórias</string>
-  <string name="na">N/A</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
   <string name="overview">Visão Geral</string>
   <string name="news">Notícias</string>
   <string name="classNews">Novidades sobre as aulas</string>
@@ -119,4 +119,9 @@ Aqui está o link para acessar a turma.</string>
   <string name="moveToAnotherClass">Mover para outra turma</string>
   <string name="allowMessagingBetweenStudents">Permitir mensagens entre alunos</string>
   <string name="allowMessagingBetweenStudentsDesc">Isso só se aplica às contas criadas para seus alunos.</string>
+  <string name="quickLoginCode">Código de acesso rápido</string>
+  <string name="quickLoginCodes">Códigos de acesso rápido</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Use esses códigos no %s para registrar seus alunos no Lichess.</string>
+  <string name="quickLoginCodesDesc2">Quando </string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Expiração %s</string>
 </resources>

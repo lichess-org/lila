@@ -474,10 +474,6 @@
   <string name="player">Player</string>
   <string name="list">List</string>
   <string name="graph">Graph</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Less than %s minute</item>
-    <item quantity="other">Less than %s minutes</item>
-  </plurals>
   <string name="required">Required.</string>
   <string name="openTournaments">Open tournaments</string>
   <string name="duration">Duration</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Cycle previous/next variation</string>
   <string name="toggleGlyphAnnotations">Toggle move annotations</string>
   <string name="togglePositionAnnotations">Toggle position annotations</string>
+  <string name="toggleObservationAnnotations">Toggle observation annotations</string>
   <string name="variationArrowsInfo">Variation arrows let you navigate without using the move list.</string>
   <string name="playSelectedMove">play selected move</string>
   <string name="newTournament">New tournament</string>

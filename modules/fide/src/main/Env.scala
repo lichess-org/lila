@@ -5,11 +5,17 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.CollName
 import lila.core.fide.*
-import lila.memo.CacheApi
+import lila.memo.{ CacheApi, PicfitApi, PicfitUrl }
 import scalalib.paginator.Paginator
 
 @Module
-final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(using
+final class Env(
+    db: lila.db.Db,
+    cacheApi: CacheApi,
+    picfitApi: PicfitApi,
+    picfitUrl: PicfitUrl,
+    ws: StandaloneWSClient
+)(using
     Executor,
     akka.stream.Materializer
 )(using mode: play.api.Mode, scheduler: Scheduler):
@@ -17,9 +23,12 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
   val repo =
     FideRepo(
       playerColl = db(CollName("fide_player")),
+      ratingColl = db(CollName("fide_player_rating")),
       federationColl = db(CollName("fide_federation")),
       followerColl = db(CollName("fide_player_follower"))
     )
+
+  lazy val json = wire[FideJson]
 
   lazy val playerApi = wire[FidePlayerApi]
 
@@ -33,6 +42,7 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
   def guessPlayer: GuessPlayer = playerApi.guessPlayer.apply
   def getPlayer: GetPlayer = playerApi.get
   def getPlayerFollowers: GetPlayerFollowers = repo.follower.followers
+  def photosJson: PhotosJson.Get = ids => playerApi.photos(ids).map(json.photosJson)
 
   def search(q: Option[String], page: Int = 1, order: FidePlayerOrder)(using
       me: Option[Me]
@@ -59,3 +69,8 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
     case "fide" :: "player" :: "sync" :: Nil =>
       fideSync()
       fuccess("Updating the player database in the background.")
+    case "fide" :: "player" :: "rip" :: fideId :: year :: Nil =>
+      chess.FideId
+        .from(fideId.toIntOption)
+        .so(repo.player.setDeceasedYear(_, year.toIntOption))
+        .inject("done")

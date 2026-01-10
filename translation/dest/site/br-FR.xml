@@ -531,13 +531,6 @@
   <string name="player">C\'hoarier</string>
   <string name="list">Roll</string>
   <string name="graph">Krommenn</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Nebeutoc\'h evit %s vunutenn</item>
-    <item quantity="two">Nebeutoc\'h evit %s vunutenn</item>
-    <item quantity="few">Nebeutoc\'h evit %s munutenn</item>
-    <item quantity="many">Nebeutoc\'h evit %s munutenn</item>
-    <item quantity="other">Nebeutoc\'h evit %s munutenn</item>
-  </plurals>
   <string name="required">Rekis.</string>
   <string name="openTournaments">Tournamantoù digor</string>
   <string name="duration">Padelezh</string>

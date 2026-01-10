@@ -91,19 +91,11 @@ final class MarkdownRender(
   private def mentionsToLinks(markdown: Markdown): Markdown =
     Markdown(RawHtml.atUsernameRegex.replaceAllIn(markdown.value, "[@$1](/@/$1)"))
 
-  // https://github.com/vsch/flexmark-java/issues/496
-  private val tooManyUnderscoreRegex = """(_{6,})""".r
-  private val tooManyQuotes = """[>\s*]{5,}""".r
-  private def preventStackOverflow(text: Markdown) =
-    text.map:
-      _.pipe(tooManyUnderscoreRegex.replaceAllIn(_, "_" * 3))
-        .pipe(tooManyQuotes.replaceAllIn(_, "> " * 4))
-
   def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html:
     Chronometer
       .sync:
         try
-          val saferText = preventStackOverflow(text)
+          val saferText = MarkdownRender.preventStackOverflow(text)
           renderer.render(parser.parse((if sourceMap then saferText else mentionsToLinks(saferText)).value))
         catch
           case e: StackOverflowError =>
@@ -124,6 +116,20 @@ object MarkdownRender:
     text.value.replaceAll(raw"""(?i)!?\[([^\]\n]*)\]\([^)]*\)""", "[$1]")
 
   private val rel = "nofollow noreferrer"
+
+  object preventStackOverflow:
+    // https://github.com/vsch/flexmark-java/issues/496
+    private val tooManyUnderscoreRegex = """(_{6,})""".r
+    private val tooManyQuotes = """^\s*(>\s*){5,}""".r
+    def apply(text: Markdown) =
+      text.map: t =>
+        tooManyUnderscoreRegex
+          .replaceAllIn(t, "_" * 3)
+          .linesIterator
+          .map: line =>
+            if line.count(_ == '>') > 15 then line.replaceAll(">", "").trim
+            else tooManyQuotes.replaceAllIn(line, "> " * 5)
+          .mkString("\n")
 
   private object WhitelistedImage:
 
@@ -252,11 +258,15 @@ object MarkdownRender:
         baseLink: ResolvedLink
     ) =
       val link = if node.getTitle.isNotNull then baseLink.withTitle(node.getTitle().unescape()) else baseLink
-      html.attr("href", link.getUrl)
+      html.attr("href", addProtocolIfNecessary(link.getUrl))
       html.attr(link.getNonNullAttributes())
       html.srcPos(node.getChars()).withAttr(link).tag("a")
       context.renderChildren(node)
       html.tag("/a")
+
+    private def addProtocolIfNecessary(url: String): String =
+      if url.matches("(?i)^https?://.*") then url
+      else s"https://$url"
 
     private def renderLpvEmbed(
         node: LinkNode,

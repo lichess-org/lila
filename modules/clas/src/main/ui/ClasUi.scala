@@ -54,7 +54,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
                 postForm(action := routes.Auth.clasLogin)(
                   input(
                     name := "code",
-                    st.placeholder := "Quick login code",
+                    st.placeholder := trans.clas.quickLoginCode.txt(),
                     spellcheck := "false",
                     autocomplete := "off",
                     required

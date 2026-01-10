@@ -14,8 +14,8 @@
 
   &__top {
     @extend %flex-between;
-
-    padding: 0.4em 1em 0.4em 0.4em;
+    gap: 0.4em;
+    padding: 0.4em 1em 1em 0.4em;
   }
   &__options {
     @extend %flex-center;

@@ -292,7 +292,7 @@ final class TeamApi(
         // create a request to set declined in order to prevent kicked use to rejoin
         val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
         for
-          _ <- requestRepo.coll.insert.one(request)
+          _ <- requestRepo.coll.update.one($id(request.id), request, upsert = true)
           _ <- doQuit(team, userId)
         yield Bus.pub(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
     yield ()

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">کمک مالی</string>
-  <string name="donateAsX">به عنوان %s اهدا کنید</string>
+  <string name="donate">داشَنیدن</string>
+  <string name="donateAsX">به اسمِ %s داشَنید</string>
   <string name="lichessPatron">یاورِ Lichess</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">حامی از %s</string>
+  <string name="patronSince" comment="string is a date">حامی از %s</string>
   <string name="freeAccount">حساب کاربری رایگان</string>
   <string name="becomePatron">یاور Lichess بشوید</string>
   <string name="xBecamePatron">%s یاور Lichess شد</string>
@@ -14,23 +14,23 @@
   <string name="newPatrons">یاوران نو</string>
   <string name="freeChess">شطرنج رایگان برای همه، برای همیشه!</string>
   <string name="noAdsNoSubs">بدون تبلیغات، بدون اشتراکها، فقط متن‌باز و لذت‌بخش.</string>
-  <string name="thankYou">از کمک مالی شما سپاسگزاریم!</string>
+  <string name="thankYou">از داشَن‌تان سپاسگزاریم!</string>
   <string name="youHaveLifetime">شما دارای یک حساب پشنیبان مادام‌العمر هستید. واقعاً خیلی عالی است!</string>
   <string name="patronUntil">شما تا %s حساب یاور دارید.</string>
   <string name="ifNotRenewedThenAccountWillRevert">اگر تمدید نشود، حساب شما به حالت عادی باز خواهد گشت.</string>
   <string name="weAreNonProfit">ما یک انجمن ناسودبریم زیرا باور داریم همه باید به یک پَندیس رایگان و در ردهٔ جهانی شطرنج دسترسی داشته باشند.</string>
-  <string name="weRelyOnSupport">ما بر روی کمک از سوی کسانی چون شما برای تحقق آن تکیه می‌کنیم. اگر از استفاده از Lichess لذت می‌برید، لطفاً با کمک مالی و پشتیبان شدن، ما را یاری برسانید!</string>
+  <string name="weRelyOnSupport">ما به حمایت کسانی مانند شما برای تحقق آن تکیه می‌کنیم. اگر از بَهریدنِ Lichess لذت می‌برید، لطفا حمایت از ما با دانَشیدن و یاور شدن در نظر بگیرید!</string>
   <string name="lifetime">مادام‌العمر</string>
   <string name="payLifetimeOnce">یکبار %s بپردازید. برای همیشه پشتیبانِ Lichess باشید!</string>
   <string name="lifetimePatron">یاور همیشگی Lichess</string>
   <string name="monthly">ماهانه</string>
   <string name="recurringBilling">تکرارِ صورت‌حساب، تجدیدِ بالهای پشتیبانِ شما در هر ماه.</string>
   <string name="onetime">یک بار</string>
-  <string name="singleDonation">یک کمک مالی که به شما بالهای پشتیبان را برای یک ماه اعطا می‌کند.</string>
+  <string name="singleDonation">یک داشَن که به شما بال‌های یاور را مدتِ یک ماه اعطا می‌کند.</string>
   <string name="otherAmount">دیگر</string>
   <string name="pleaseEnterAmountInX">لطفا مقدار را در %s وارد کنید</string>
   <string name="withCreditCard">کارت اعتباری</string>
-  <string name="logInToDonate">برای اهدای کمک به حساب کاربری خود وارد شوید</string>
+  <string name="logInToDonate">برای داشَنیدن وارد شوید</string>
   <string name="weAreSmallTeam">ما یک تیم کوچک هستیم، بنابراین پشتیبانی شما تغییر بزرگی ایجاد می‌کند!</string>
   <string name="celebratedPatrons">پشتبان‌های ارجمند که Lichess را ممکن می‌سازند</string>
   <string name="whereMoneyGoes">پول به کجا می‌رود؟</string>
@@ -43,10 +43,10 @@
   <string name="changeOrContact">بله، هر لحظه، از این صفحه. 
 یا شما می‌توانید %s.</string>
   <string name="contactSupport">با پشتیبانیِ Lichess تماس بگیرید</string>
-  <string name="otherMethods">روشهای دیگر برای کمک مالی؟</string>
+  <string name="otherMethods">روشهای دیگرِ داشَنیدن؟</string>
   <string name="lichessIsRegisteredWith">وبگاه Lichess در %s ثبت شده است.</string>
   <string name="bankTransfers">ما انتقالهای بانکی را هم قبول می‌کنیم</string>
-  <string name="onlyDonationFromAbove">لطفاً توجه داشته باشید که فقط برگه کمک مالی بالا، جایگاه حامی را به ارمغان می‌آورد.</string>
+  <string name="onlyDonationFromAbove">لطفاً توجه کنید که فقط برگهٔ داشَنِ بالا، وضعیتِ یاور را اعطا می‌کند.</string>
   <string name="patronFeatures">آیا برخی ویژگیها فقط برای پشتیبان‌ها قابل دسترس است؟</string>
   <string name="noPatronFeatures">نه، زیرا Lichess برای همیشه و برای همه، کاملا رایگان است. قول می‌دهیم.
 با این حال، حامیان با بال‌های معرکه‌ای که در رُخ‌نمای‌شان نشان داده می‌شود، حق پُز دادن دارند.</string>
@@ -60,7 +60,7 @@
   <string name="currentStatus">وضعیت کنونی</string>
   <string name="nextPayment">پرداخت بعدی</string>
   <string name="youWillBeChargedXOnY">برای شما در تاریخ %2$s به مقدار %1$s بدهکاری ثبت خواهد شد.</string>
-  <string name="makeAdditionalDonation">یک کمک مالی اضافه انجام دهید</string>
+  <string name="makeAdditionalDonation">انجامِ یک داشَنِ اضافی</string>
   <string name="giftPatronWingsShort">بال‌های پشتیبان هدیه دهید</string>
   <string name="giftPatronWings">به یک بازیکن بالهای پشتیبان هدیه بدهید</string>
   <string name="update">به روز رسانی</string>
@@ -74,7 +74,7 @@
   <string name="viewOthers">پشتیبانهای دیگرِ Lichess را ببینید</string>
   <string name="date">تاریخ</string>
   <string name="amount">مقدار</string>
-  <string name="transactionCompleted">تراکنشِ شما تکمیل شد، و یک رسید برای کمک مالی شما برایتان ایمیل شد.</string>
+  <string name="transactionCompleted">تراکنش‌تان تکمیل شده است و رسیدِ داشَن‌تان به رایانامه‌تان فرستاده شده است.</string>
   <string name="permanentPatron">شما هم‌اکنون یک حساب دائمی پشتیبان دارید.</string>
   <string name="checkOutProfile">به صفحه رُخ‌نمای‌تان سَر بزنید!</string>
   <string name="nowLifetime">شما هم‌اکنون یک پشتیبانِ مادام‌العمرِ Lichess هستید!</string>
@@ -84,4 +84,5 @@
   <string name="paymentDetails">جزئیات پرداخت</string>
   <string name="updatePaymentMethod">به‌روزرسانی روش پرداخت</string>
   <string name="stripeManageSub">اشتراک خود را مدیریت کنید و صورت‌حساب‌ها و رسیدهای خود را بارگیری کنید</string>
+  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">من %s برای کمک به تکمیلِ هزینهٔ پردازش این تراکنش می‌اَفزایم</string>
 </resources>

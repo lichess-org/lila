@@ -16,7 +16,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying(),
-    premove = new Premove(data.game.variant.key);
+    premove = new Premove(data.game.variant.key, !!data.pref.rookCastle);
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),

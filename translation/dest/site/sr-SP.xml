@@ -474,11 +474,6 @@
   <string name="player">Играч</string>
   <string name="list">Листа</string>
   <string name="graph">Графикон</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Мање од %s минуте</item>
-    <item quantity="few">Мање од %s минута</item>
-    <item quantity="other">Мање од %s минута</item>
-  </plurals>
   <string name="required">Неопходно.</string>
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Трајање</string>
@@ -490,7 +485,7 @@
   <string name="safeTournamentName">Изабери веома сигурно име за турнир.</string>
   <string name="inappropriateNameWarning">Било шта имало неприкладно може довести до затварања твог налога.</string>
   <string name="emptyTournamentName">Остави празно да би назвао/ла турнир по познатом шаховском играчу.</string>
-  <string name="makePrivateTournament">Учини турнир приватним и ограничи приступ са шифром</string>
+  <string name="makePrivateTournament">Направи турнир приватним и ограничи приступ са лозинком</string>
   <string name="join">Придружи се</string>
   <string name="withdraw">Повуци се</string>
   <string name="points">Бодови</string>
@@ -532,7 +527,7 @@
   <string name="biography">Биографија</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Земља или регион</string>
   <string name="thankYou">Хвала!</string>
-  <string name="socialMediaLinks">Линкови за социјалне медије</string>
+  <string name="socialMediaLinks">Линкови друштвених мрежа</string>
   <string name="oneUrlPerLine">Један УРЛ по линији.</string>
   <string name="inlineNotation">Линијска нотација</string>
   <string name="makeAStudy">Како би сачувао и делио, размисли о томе да направиш студију.</string>
@@ -567,7 +562,7 @@
   <string name="views">Прегледa</string>
   <string name="replies">Одговора</string>
   <string name="replyToThisTopic">Одговори на ову тему</string>
-  <string name="reply">Одговор</string>
+  <string name="reply">Одговори</string>
   <string name="message">Порука</string>
   <string name="createTheTopic">Направи тему</string>
   <string name="reportAUser">Пријави корисника</string>
@@ -598,8 +593,8 @@
   <string name="newPasswordAgain">Нова лозинка (поново)</string>
   <string name="newPasswordsDontMatch">Нове лозинке се не подударају</string>
   <string name="newPasswordStrength">Јачина лозинке</string>
-  <string name="clockInitialTime">Почетно време на сату</string>
-  <string name="clockIncrement">Повећање времена</string>
+  <string name="clockInitialTime">Почетно време сата</string>
+  <string name="clockIncrement">Додатак сата</string>
   <string name="privacy">Приватност</string>
   <string name="privacyPolicy">Политика приватности</string>
   <string name="letOtherPlayersFollowYou">Допусти да те други играчи прате</string>

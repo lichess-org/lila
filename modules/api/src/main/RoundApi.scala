@@ -13,12 +13,12 @@ import lila.core.perm.Granter
 import lila.core.user.GameUsers
 import lila.pref.Pref
 import lila.puzzle.PuzzleOpening
-import lila.round.RoundGame.*
 import lila.round.{ Forecast, JsonView }
 import lila.simul.Simul
 import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
 import lila.tree.{ ExportOptions, Tree }
+import lila.game.GameExt.timeForFirstMove
 
 final private[api] class RoundApi(
     jsonView: JsonView,

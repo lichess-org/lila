@@ -99,7 +99,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
       hook: {
         insert: () => {
           forceInnerCoords(ctrl, needsInnerCoords);
-          if (!!playerBars !== document.body.classList.contains('header-margin'))
+          if (!ctx.relay && !!playerBars !== document.body.classList.contains('header-margin'))
             $('body').toggleClass('header-margin', !!playerBars);
         },
         update(_, _2) {
@@ -342,11 +342,8 @@ export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   if (defined(ctrl.study?.relay)) {
     if (!ctrl.study.multiBoard.showResults()) {
-      return (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => {
-        if (isMainline && ctrl.node.ply >= node.ply) return null;
-        if (treePath.contains(ctrl.path, path)) return null;
-        return 'hide';
-      };
+      return _ => (path: Tree.Path, _) =>
+        treePath.contains(ctrl.path, ctrl.onMainline ? path : treePath.init(path)) ? null : 'hide';
     }
     return undefined;
   }

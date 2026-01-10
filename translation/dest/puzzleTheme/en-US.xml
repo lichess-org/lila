@@ -29,8 +29,8 @@
   <string name="cornerMate">Corner mate</string>
   <string name="crushing">Crushing</string>
   <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Discovered check</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.</string>
+  <string name="discoveredCheck">Discovered check</string>
+  <string name="discoveredCheckDescription">Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.</string>
   <string name="doubleBishopMate">Double bishop mate</string>
   <string name="doubleBishopMateDescription">Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.</string>
   <string name="dovetailMate">Dovetail mate</string>

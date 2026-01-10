@@ -16,7 +16,7 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
     Object.keys(f).forEach(k => {
       const input = $div.find(`input[name="${k}"]`)[0] as HTMLInputElement;
       if (!input) return;
-      if (input.type == 'checkbox') input.checked = true;
+      if (input.type === 'checkbox') input.checked = true;
       else input.value = f[k];
     });
   else $div.find('input').prop('checked', true);

@@ -130,7 +130,7 @@ final class GameSearchUi(helpers: Helpers)(
         tr(cls := "opponentName")(
           th(label(`for` := form3.id(form("players")("b")))(trs.opponentName())),
           td(cls := "usernames")(
-            st.input(tpe := "hidden", value := u.id, name := "players.a"),
+            form3.hidden("players.a", u.id),
             form3.input(form("players")("b"))(tpe := "text")
           )
         ),

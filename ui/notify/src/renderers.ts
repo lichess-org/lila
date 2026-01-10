@@ -142,12 +142,16 @@ export default function makeRenderers(): Renderers {
     irwinDone: jobDone('Irwin'),
     kaladinDone: jobDone('Kaladin'),
     recap: {
-      html: n =>
-        generic(n, '/recap', licon.Logo, [
-          h('span', h('strong', `Your ${n.content.year} recap is ready!`)),
-          h('span', 'What have you been up to this year?'),
-        ]),
-      text: n => `Your ${n.content.year} recap is ready!`,
+      html: n => {
+        site.asset.loadI18n('recap');
+        const title = i18n.recap?.recapReady?.(n.content.year) || `Your ${n.content.year} recap is ready!`;
+        const text = i18n.recap?.awaitQuestion || 'What have you been up to this year?';
+        return generic(n, '/recap', licon.Logo, [h('span', h('strong', title)), h('span', text)]);
+      },
+      text: n => {
+        site.asset.loadI18n('recap');
+        return i18n.recap?.recapReady?.(n.content.year) || `Your ${n.content.year} recap is ready!`;
+      },
     },
   };
 }

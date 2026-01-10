@@ -37,10 +37,13 @@
   <string name="deleteTournament">Forigi ĉi tiun turniron</string>
   <string name="definitivelyDeleteTournament">Sendube forigi la tuta turniro, kaj ĝiajn raŭndojn kaj ĉiujn ĝiajn ludojn.</string>
   <string name="replacePlayerTags">Nedeviga: anstataŭigi nomojn de ludantoj, rangojn kaj titolojn</string>
+  <string name="fideFederations">FIDE federacioj</string>
   <string name="top10Rating">La 10 plej bonaj</string>
+  <string name="fidePlayers">FIDE ludanto</string>
+  <string name="fidePlayerNotFound">FIDE ludanto ne trovita</string>
   <string name="fideProfile">Profilo FIDE</string>
   <string name="federation">Federacio</string>
-  <string name="ageThisYear">Ĉi jara aĝo</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Aĝo</string>
   <string name="unrated">Sen rango</string>
   <string name="recentTournaments">Ĵusaj turniroj</string>
   <string name="openLichess">Malfermi en Lichess</string>
@@ -50,6 +53,7 @@
   <string name="startsAfter">Komenciĝo post %s</string>
   <string name="officialWebsite">Oficiala retejo</string>
   <string name="ratingDiff">Ranga malsamo</string>
+  <string name="gamesThisTournament">Ludoj en ĉi tiun turniron</string>
   <string name="allTeams">Ĉiuj teamoj</string>
   <string name="timezone">Horzono</string>
   <string name="fideRatingCategory">Kategorio de rango de FIDE</string>

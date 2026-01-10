@@ -56,12 +56,13 @@ final class Env(
 
   val jsonView = wire[UblogJsonView]
 
-  Bus.sub[lila.core.mod.Shadowban]:
-    case lila.core.mod.Shadowban(userId, v) =>
-      api.setShadowban(userId, v)
+  Bus.sub[lila.core.mod.Shadowban]: s =>
+    api.setShadowban(s.user, s.value)
 
-  import lila.core.security.ReopenAccount
-  Bus.sub[ReopenAccount]:
-    case ReopenAccount(user) => api.onAccountReopen(user)
+  Bus.sub[lila.core.security.ReopenAccount]: r =>
+    api.resetDefaultTier(r.user)
+
+  Bus.sub[lila.core.user.SetKidMode]: k =>
+    api.resetDefaultTier(k.user)
 
 final private class UblogColls(val blog: Coll, val post: Coll)

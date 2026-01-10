@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">Акаунтът ви не е маркиран или ограничен. Всичко е наред!</string>
+  <string name="engineMarked">Акаунтът ви е маркиран за ползване на външна помощ по време на игра.</string>
+  <string name="engineMarkedInfo">Дефинираме това като използване на всякаква външна помощ за подсилване на вашите знания и/или умения за пресмятане, с цел получаване на нечестно предимство пред опонента ви. Вижте страницата за %s за повече подробности.</string>
+  <string name="arenaBanned">Акаунтът ви има забрана за участие в Арена турнири.</string>
+  <string name="prizeBanned">Акаунтът ви има забрана за участие в турнири с материални награди.</string>
+  <string name="boosterMarked">Акаунтът ви е маркиран за манипулиране на рейтинга.</string>
+  <string name="boosterMarkedInfo">Дефинираме това като умишлено манипулиране на рейтинга чрез преднамерена загуба на партии или чрез игра срещу друг акаунт, който губи нарочно.</string>
+  <string name="accountMuted">Акаунтът ви е заглушен.</string>
+  <string name="accountMutedInfo">Прочетете нашите %s. Неспазването на правилата за комуникация може да доведе до заглушаване на акаунта.</string>
+  <string name="excludedFromLeaderboards">Акаунтът ви е изключен от класациите.</string>
+  <string name="excludedFromLeaderboardsInfo">Дефинираме това като използване на всякакви нечестни методи за влизане в класациите.</string>
+  <string name="closedByModerators">Акаунтът ви беше закрит от модераторите.</string>
+  <string name="hiddenBlog">Блоговете ви бяха скрити от модераторите.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">Уверете се, че сте прочели отново нашите %s.</string>
+  <string name="playTimeout">Имате временно ограничение за игра.</string>
+  <string name="communicationGuidelines">правила за комуникация</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">правила за блоговете</string>
+  <string name="fairPlay">Честна игра</string>
+</resources>

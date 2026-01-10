@@ -119,4 +119,9 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="moveToAnotherClass">Beste klase batera mugitu</string>
   <string name="allowMessagingBetweenStudents">Baimendu ikasleen arteko mezuak</string>
   <string name="allowMessagingBetweenStudentsDesc">Hau zure ikasleentzat sortutako kontuen artekoa da bakarrik.</string>
+  <string name="quickLoginCode">Azkar sartzeko kodea</string>
+  <string name="quickLoginCodes">Azkar sartzeko kodeak</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Erabili kode hauek %s zure ikasleak Lichessen sartzeko.</string>
+  <string name="quickLoginCodesDesc2">Kodeak iraungitzen direnean zure ikasleek sartuta jarraituko dute eskuz irteten diren arte.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Iraungitzea %s</string>
 </resources>

@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard" comment="As in standard chess (not a variant)">Standard</string>
+  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Standardregler för schack (FIDE)</string>
+  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://query.wikidata.org/embed.html#SELECT%20%3Flabel%20WHERE%20%7B%20%0A%20%20wd%3AQ724903%20rdfs%3Alabel%20%3Flabel.%20%0A%7D%0A">Schack960</string>
+  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">Pjäspositioner på bakre raden är slumpade.</string>
+  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Herre på täppan</string>
+  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Ta din kung till centrum för att vinna spelet.</string>
+  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">Tre-schack</string>
+  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">Schacka din motståndare 3 gånger för att vinna.</string>
+  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Antischack</string>
+  <string name="antichessTitle" comment="Description for the Antichess variant">Förlora alla pjäser (eller hamna i patt) för att vinna spelet.</string>
+  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">Atomiskt</string>
+  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Spräng din motståndares kung för att vinna spelet.</string>
+  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Hord</string>
+  <string name="hordeTitle" comment="Description for the Horde chess variant">Ena sidan har ett stort antal bönder, den andra har normal pjäsuppställning.</string>
+  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Racingkungar</string>
+  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Få din kung till andra sidan av brädet för att vinna.</string>
+  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Crazyhouse</string>
+  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Fångade pjäser kan återplaceras på brädet istället för att flytta en pjäs.</string>
+</resources>

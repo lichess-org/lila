@@ -27,6 +27,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.core.user.LightUserApi,
+    relationApi: lila.core.relation.RelationApi,
     userApi: lila.core.user.UserApi,
     settingStore: lila.memo.SettingStore.Builder,
     ip2proxy: lila.core.security.Ip2ProxyApi

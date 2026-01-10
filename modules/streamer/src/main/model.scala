@@ -15,10 +15,10 @@ import lila.core.i18n.toLanguage
 import lila.db.dsl.given
 
 trait Stream:
-  def platform: Platform
-  val status: Html
   val streamer: Streamer
-  val lang: Lang
+  def platform: Platform
+  def status: Html
+  def lang: Lang
   def urls: Stream.Urls
 
   def is[U: UserIdOf](u: U): Boolean = streamer.is(u)
@@ -132,18 +132,21 @@ object Streamer:
       reason: Option[String]
   )
 
-  case class Twitch(id: String, login: String) derives Eq:
+  import lila.streamer.Twitch.{ TwitchId, TwitchLogin }
+  case class Twitch(id: TwitchId, login: TwitchLogin) derives Eq:
     def fullUrl = s"https://www.twitch.tv/$login"
     def minUrl = s"twitch.tv/$login"
+
   object Twitch:
+
     private val LoginRegex = """([a-zA-Z0-9](?:\w{2,24}+))""".r
     private val UrlRegex = ("""twitch\.tv/""" + LoginRegex + "").r.unanchored
     given Reads[Twitch] = Json.reads
     // https://www.twitch.tv/chessnetwork
-    def parseLogin(str: String): Option[String] =
+    def parseLogin(str: String): Option[TwitchLogin] =
       str match
-        case LoginRegex(u) => u.some
-        case UrlRegex(u) => u.some
+        case LoginRegex(u) => TwitchLogin(u).some
+        case UrlRegex(u) => TwitchLogin(u).some
         case _ => none
 
   case class Youtube(channelId: String, liveVideoId: Option[String], pubsubVideoId: Option[String])

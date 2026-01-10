@@ -454,10 +454,6 @@
   <string name="player">Lîzer</string>
   <string name="list">Lîste</string>
   <string name="graph">Grafîk</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Ji %s deqeyê kêmtir</item>
-    <item quantity="other">Ji %s deqeyê kêmtir</item>
-  </plurals>
   <string name="required">Pêwîst e.</string>
   <string name="openTournaments">Pêşbirkên vekirî</string>
   <string name="duration">Mawe</string>

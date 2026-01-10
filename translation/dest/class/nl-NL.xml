@@ -119,4 +119,9 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="moveToAnotherClass">Verplaats naar een andere klas</string>
   <string name="allowMessagingBetweenStudents">Berichten tussen leerlingen toestaan</string>
   <string name="allowMessagingBetweenStudentsDesc">Dit geldt alleen voor de accounts die u hebt aangemaakt voor uw leerlingen.</string>
+  <string name="quickLoginCode">Snelle inlogcode</string>
+  <string name="quickLoginCodes">Snelle inlogcodes</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Gebruik deze codes op %s om jouw studenten op Lichess in te loggen.</string>
+  <string name="quickLoginCodesDesc2">Als de codes verlopen zullen jouw studenten ingelogd blijven, tot ze handmatig uitloggen.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Verloopt %s</string>
 </resources>

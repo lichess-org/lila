@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">Матование короля на его горизонтали, когда он заблокирован своими же фигурами.</string>
   <string name="balestraMate">Мат Балестра</string>
   <string name="balestraMateDescription">Слон ставит мат, а ферзь перекрывает оставшиеся поля отступления</string>
+  <string name="blindSwineMate">Мат двумя ладьями по предпоследней горизонтали</string>
+  <string name="blindSwineMateDescription">Две ладьи объединяются, чтобы поставить мат королю на поле размером 2 на 2 клетки.</string>
   <string name="bishopEndgame">Слоновый эндшпиль</string>
   <string name="bishopEndgameDescription">Эндшпиль, где присутствуют лишь слоны и пешки.</string>
   <string name="bodenMate">Мат Бодена</string>
@@ -24,8 +26,12 @@
   <string name="castlingDescription">Помещение короля в надёжное место и вывод в бой ладьи.</string>
   <string name="capturingDefender">Уничтожение защитника</string>
   <string name="capturingDefenderDescription">Взятие или размен фигуры, защищающей другую фигуру, с последующим взятием фигуры, оставшейся без защиты.</string>
+  <string name="cornerMate">Угловой мат</string>
+  <string name="cornerMateDescription">Загоните короля в угол ладьёй или ферзём, и поставьте там мат конём.</string>
   <string name="crushing">Разгром</string>
   <string name="crushingDescription">Используйте зевок противника для получения сокрушительного преимущества. (600 и более сантипешек)</string>
+  <string name="discoveredCheck">Вскрытый шах</string>
+  <string name="discoveredCheckDescription">Переместите фигуру и поставьте шах скрытой до этого атакующей фигурой, чтобы получить решающее преимущество.</string>
   <string name="doubleBishopMate">Мат двумя слонами</string>
   <string name="doubleBishopMateDescription">Два слона атакующей стороны ставят мат на смежных диагоналях королю противника, окружённому своими же фигурами.</string>
   <string name="dovetailMate">Мат «ласточкин хвост»</string>
@@ -47,7 +53,7 @@
   <string name="endgame">Эндшпиль</string>
   <string name="endgameDescription">Тактика в последней стадии игры.</string>
   <string name="enPassantDescription">Тактика с применением правила «взятие на проходе», где своя пешка может взять пешку противника, сходившую на две клетки из своего начального положения, и при этом пропущенное поле было под боем своей пешки.</string>
-  <string name="exposedKing">Голый король</string>
+  <string name="exposedKing">Открытый король</string>
   <string name="exposedKingDescription">Незащищённый или слабо защищённый король часто становится жертвой матовой атаки.</string>
   <string name="fork">Вилка</string>
   <string name="forkDescription">Ход, при котором под удар попадают две фигуры противника.</string>

@@ -440,9 +440,6 @@
   <string name="player">プレイヤー</string>
   <string name="list">リスト</string>
   <string name="graph">グラフ</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">%s 分未満</item>
-  </plurals>
   <string name="required">必須です。</string>
   <string name="openTournaments">参加募集中のトーナメント</string>
   <string name="duration">対局継続時間</string>
@@ -866,6 +863,7 @@
   <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
   <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
   <string name="edit">編集</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">ウルトラブレット</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">ブレット</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ブリッツ</string>
   <string name="rapid">ラピッド</string>
@@ -976,4 +974,5 @@
   <string name="search">検索</string>
   <string name="clearSearch">検索をクリア</string>
   <string name="tags">タグ</string>
+  <string name="enPassant">アンパッサン</string>
 </resources>

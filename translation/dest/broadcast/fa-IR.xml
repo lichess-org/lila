@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">بازیکن فیده پیدا نشد</string>
   <string name="fideProfile">رُخ‌نمای فیده</string>
   <string name="federation">کشورگان</string>
-  <string name="ageThisYear">سنِ امسال</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">سن</string>
   <string name="unrated">بی‌درجه‌بندی</string>
   <string name="recentTournaments">مسابقاتِ اخیر</string>
   <string name="openLichess">آزاد در Lichess</string>
@@ -80,9 +80,9 @@
   <string name="allBroadcastsByMonth">دیدن پخش‌های هر ماه</string>
   <string name="backToLiveMove">بازگشت به حرکت زنده</string>
   <string name="sinceHideResults">چون شما پنهان کردن نتایج را انتخاب کردید، تمام صفحه‌های پیش‌نمایش برای جلوگیری از لو رفتن نتیجه، خالی هستند.</string>
-  <string name="liveboard">صفحه زنده</string>
-  <string name="communityBroadcast">پخش همگانی</string>
+  <string name="liveboard">میزِ زنده</string>
+  <string name="communityBroadcast">پخشِ همدارگان</string>
   <string name="createdAndManagedBy">ایجاد و مدیریت‌شده توسط %s.</string>
-  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;If your language changes the word &quot;Round&quot; based on the number after it, consider using punctuation to get around the problem (e.g. &quot;Round: %s&quot;).&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">دورِ %s</string>
-  <string name="defaultRoundNameHelp" comment="This is help text for broadcast authors setting a round name. The default is &quot;Round %s&quot; (translatable separately).&#10;&#10;If broadcasters keep the round name to the default, it will be automatically translated.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">حفظِ نامِ پیش‌فرض، خودکار آن را به همهٔ زبان‌های دیگر می‌تَرجُمد.</string>
+  <string name="roundX">دورِ %s</string>
+  <string name="defaultRoundNameHelp">حفظِ نامِ پیش‌فرض، خودکار آن را به همهٔ زبان‌های دیگر می‌تَرجُمد.</string>
 </resources>

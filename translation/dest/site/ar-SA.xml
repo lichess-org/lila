@@ -614,14 +614,6 @@
   <string name="player">لاعب</string>
   <string name="list">قائمة</string>
   <string name="graph">رسم بياني</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="zero">أقل من %s دقيقة</item>
-    <item quantity="one">أقل من %s دقيقة</item>
-    <item quantity="two">أقل من %s دقيقة</item>
-    <item quantity="few">أقل من %s دقيقة</item>
-    <item quantity="many">أقل من %s دقيقة</item>
-    <item quantity="other">أقل من %s دقيقة</item>
-  </plurals>
   <string name="required">مطلوب</string>
   <string name="openTournaments">المسابقات المفتوحة</string>
   <string name="duration">المدة</string>

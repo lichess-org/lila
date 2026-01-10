@@ -4,19 +4,19 @@
   <string name="coordinateTraining">坐标训练</string>
   <string name="averageScoreAsWhiteX">白方平均得分：%s</string>
   <string name="averageScoreAsBlackX">黑方平均得分：%s</string>
-  <string name="knowingTheChessBoard">了解棋盘坐标是一门很重要的象棋技能：</string>
-  <string name="mostChessCourses">象棋课程及练习普遍使用代数记谱法。</string>
-  <string name="talkToYourChessFriends">这能让您更便捷地与棋友交谈，因为你们都懂这门“象棋语言”。</string>
-  <string name="youCanAnalyseAGameMoreEffectively">快速识别格子可以高效的分析对局。</string>
+  <string name="knowingTheChessBoard">掌握国际象棋棋盘坐标是一项非常重要的技能，原因如下：</string>
+  <string name="mostChessCourses">大多数国际象棋课程和练习都广泛使用代数记谱法。</string>
+  <string name="talkToYourChessFriends">这能让您与棋手交流更容易，因为你们都理解“国际象棋的语言”。</string>
+  <string name="youCanAnalyseAGameMoreEffectively">如果您能快速识别坐标，就能更有效地分析对局。</string>
   <string name="aCoordinateAppears">坐标将在棋盘上出现，您必须点击对应的棋格。</string>
-  <string name="aSquareIsHighlightedExplanation">棋格将在棋盘上高亮显示，您必须输入它的坐标(例如\"e4\")。</string>
-  <string name="youHaveThirtySeconds">您有30秒时间正确配对尽可能多的棋格。</string>
+  <string name="aSquareIsHighlightedExplanation">棋格将在棋盘上高亮显示，您必须输入其坐标（例如“e4”）。</string>
+  <string name="youHaveThirtySeconds">您有 30 秒时间来尽可能多地正确匹配棋格！</string>
   <string name="goAsLongAsYouWant">没有时间限制，尽情练习吧！</string>
   <string name="showCoordinates">显示坐标</string>
-  <string name="showCoordsOnAllSquares">在每个格子上显示坐标</string>
+  <string name="showCoordsOnAllSquares">在每个棋格上显示坐标</string>
   <string name="showPieces">显示棋子</string>
   <string name="startTraining">开始训练</string>
-  <string name="findSquare">找格子</string>
-  <string name="nameSquare">格子坐标</string>
-  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">练习指定行&amp;列</string>
+  <string name="findSquare">寻找棋格</string>
+  <string name="nameSquare">棋格坐标</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">仅练习特定横线与纵线</string>
 </resources>

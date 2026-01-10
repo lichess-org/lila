@@ -6,7 +6,7 @@
   <string name="willBeNotified">Bạn sẽ được thông báo khi giải đấu bắt đầu, vì vậy hãy yên tâm chơi trong tab khác trong lúc chờ.</string>
   <string name="isRated">Giải đấu này có xếp hạng và sẽ ảnh hưởng đến hệ số của bạn.</string>
   <string name="isNotRated">Giải đấu này *không* xếp hạng và sẽ *không* ảnh hưởng đến hệ số của bạn.</string>
-  <string name="someRated">Ngáo à</string>
+  <string name="someRated">Một số giải đấu có xếp hạng và sẽ ảnh hưởng đến hệ số của bạn.</string>
   <string name="howAreScoresCalculated">Điểm được tính thế nào?</string>
   <string name="howAreScoresCalculatedAnswer">Điểm cơ sở cho một ván thắng là 2 điểm, hòa: 1 điểm, thua: 0 điểm.
 Nếu bạn thắng hai ván liên tiếp bạn sẽ bắt đầu có chuỗi nhân đôi điểm, thể hiện bằng hình ngọn lửa.

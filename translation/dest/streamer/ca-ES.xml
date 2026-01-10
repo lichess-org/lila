@@ -31,12 +31,14 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Quan estiguis llest per ser enumerat com a retransmissor de Lichess, %s</string>
   <string name="submitForReview">Enviar a revisió</string>
   <string name="streamerLanguageSettings">La pàgina de comunicadors de Lichess es dirigeix al públic amb el mateix idioma que el que dona la vostra plataforma de vídeo en temps real. Establiu l\'idioma correcte de les vostres directes d\'escacs a l\'aplicació o servei que utilitzeu per comunicar.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Connecta</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Desconnecta</string>
   <string name="streamerName">El teu nom de retransmissor a Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Mantingues-ho breu: màxim %s caràcters</item>
     <item quantity="other">Mantingues-ho breu: màxim %s caràcters</item>
   </plurals>
-  <string name="visibility">Visible a la pàgina de retransmissors</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Visible a la pàgina de retransmissors</string>
   <string name="whenApproved">Quan aprovat pels moderadors</string>
   <string name="headline">Encapçalament</string>
   <string name="tellUsAboutTheStream">En una frase, explica\'ns sobre la teva retransmissió</string>

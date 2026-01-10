@@ -20,7 +20,10 @@ final class RelayTourStream(colls: RelayColls, jsonView: RelayJsonView)(using ak
     pipe = List($doc("$sort" -> RelayRoundRepo.sort.asc))
   )
 
-  def officialTourStream(perSecond: MaxPerSecond, nb: Max)(using RelayJsonView.Config): Source[JsObject, ?] =
+  def officialTourStream(perSecond: MaxPerSecond, nb: Max)(using
+      RelayJsonView.Config,
+      lila.core.i18n.Translate
+  ): Source[JsObject, ?] =
     val activeStream = colls.tour
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*

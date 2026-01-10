@@ -8,14 +8,24 @@
   cursor: row-resize;
   width: 100%;
   height: 22px;
+  touch-action: none;
 
-  &:hover {
-    background: $m-primary--fade-70;
+  &:hover,
+  &.is-dragging {
     hr {
       background: $c-font;
       width: 40px;
     }
   }
+
+  &:hover {
+    background: $m-primary--fade-70;
+  }
+
+  &.is-dragging {
+    background: $m-primary--fade-80;
+  }
+
   hr {
     @include transition;
     margin: 0;

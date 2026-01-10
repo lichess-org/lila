@@ -31,6 +31,8 @@ object Lilaism extends LilaLibraryExtensions:
     override def toString = value
   given cats.Show[StringValue] = cats.Show.show(_.value)
 
+  given cats.Show[play.api.mvc.Call] = cats.Show.show(_.url)
+
   // move somewhere else when we have more Eqs
   given cats.Eq[play.api.i18n.Lang] = cats.Eq.fromUniversalEquals
 

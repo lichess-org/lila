@@ -157,6 +157,11 @@
     &.low {
       opacity: 0.15;
     }
+    @media (prefers-reduced-motion: reduce) {
+      &.low {
+        opacity: 0.5;
+      }
+    }
   }
 
   &.running .time {

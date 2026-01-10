@@ -8,6 +8,10 @@
   <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Miaj ŝatoj</string>
   <string name="myBlog">Mia blogo</string>
   <string name="likedBlogs">Ŝatitaj blogafiŝoj</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s bloga artikolo</item>
+    <item quantity="other">%s blogaj artikoloj</item>
+  </plurals>
   <string name="continueReadingPost">Daŭri legi ĉi tiun afiŝon</string>
   <string name="lichessBlogPostsFromXYear">Lichess blogafiŝojn en %s</string>
   <string name="previousBlogPosts">Antaŭaj blogafiŝoj</string>

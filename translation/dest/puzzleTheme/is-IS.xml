@@ -16,6 +16,8 @@
   <string name="backRankMateDescription">Mátaðu kónginn á endaröðinni, þegar hann er tepptur þar af eigin taflmönnum.</string>
   <string name="balestraMate">Lásbogamát</string>
   <string name="balestraMateDescription">Biskup mátar en drottning hindrar þá undankomureiti sem eftir eru</string>
+  <string name="blindSwineMate">Tveggja hróka mát</string>
+  <string name="blindSwineMateDescription">Tveir hrókar vinna saman að því að máta kónginn á 2x2 reita svæði.</string>
   <string name="bishopEndgame">Biskups endatafl</string>
   <string name="bishopEndgameDescription">Endatafl með einungis biskupum og peðum.</string>
   <string name="bodenMate">Boden-mát</string>
@@ -24,11 +26,15 @@
   <string name="castlingDescription">Færðu kónginn á öruggan stað og undirbúðu hrókinn fyrir árás.</string>
   <string name="capturingDefender">Dreptu varnarmanninn</string>
   <string name="capturingDefenderDescription">Að fjarlægja taflmann sem er mikilvægur fyrir völd annars taflmanns, svo að hinn óvaldaði taflmaður geti verið drepinn í næsta leik.</string>
+  <string name="cornerMate">Hornsmát</string>
+  <string name="cornerMateDescription">Króaðu kónginn af í horninu með hrók eða drottningu og notaðu svo riddara til að ljúka við mátunina.</string>
   <string name="crushing">Algerir yfirburðir</string>
   <string name="crushingDescription">Komdu auga á afleik andstæðingsins til að ná algerum yfirburðum. (mat ≥ 600sp)</string>
+  <string name="discoveredCheck">Skák með fráleik</string>
+  <string name="discoveredCheckDescription">Færðu taflmann úr vegi til að opna á skák frá öðrum taflmanni, sem var í felum bak við hann. Þetta leiðir oft til afgerandi yfirburða.</string>
   <string name="doubleBishopMate">Tvískák með biskupum</string>
   <string name="doubleBishopMateDescription">Tveir biskupar sem hóta kóngi á aðliggjandi skálínum máta hann, en kóngurinn er tepptur af eigin taflmönnum.</string>
-  <string name="dovetailMate">Cozio-mát</string>
+  <string name="dovetailMate">Geirnaglamát</string>
   <string name="dovetailMateDescription">Drottning mátar aðliggjandi kóng, en tveir einu flóttareitir hans eru tepptir af eigin taflmönnum.</string>
   <string name="equality">Jafnræði</string>
   <string name="equalityDescription">Rétta úr kútnum eftir viðsjárverða stöðu, og tryggðu þér jafntefli eða jafna stöðu. (mat ≤ 200sp)</string>
@@ -61,6 +67,12 @@
   <string name="intermezzoDescription">Í stað þess að leika þann leik sem búist er við skaltu fyrst leika annan sem skapar tafarlausa hótun sem andstæðingurinn verður að mæta. Þetta kallast „millileikur\" (e. Zwischenzug).</string>
   <string name="killBoxMate">Frúarmát með hrók og biskup</string>
   <string name="killBoxMateDescription">Hrókur er við hlið fjandkóngsins og studdur af drottningu sem einnig lokar fyrir flóttareiti kóngsins. Hrókurinn og drottningin fanga fjandkónginn í 3x3 reita kassa.</string>
+  <string name="pillsburysMate">Pillsbury-mát</string>
+  <string name="pillsburysMateDescription">Hrókurinn mátar á meðan biskupinn hjálpar til við að króa kónginn af.</string>
+  <string name="morphysMate">Morphy-mát</string>
+  <string name="morphysMateDescription">Notaðu biskupinn til að skáka kóngnum á meðan hrókurinn hjálpar til við að króa hann af.</string>
+  <string name="triangleMate">Þríhyrningsmát</string>
+  <string name="triangleMateDescription">Drottningin og hrókurinn eru í eins reits fjarlægð frá kóngi andstæðingsins. Þeir eru á sömu línu eða röð, með einn auðan reit á milli sín, þannig að þeir mynda þríhyrning.</string>
   <string name="vukovicMate">Vukovic-mát</string>
   <string name="vukovicMateDescription">Hrókur og riddari vinna saman að því að máta kónginn. Hrókurinn mátar með stuðningi frá þriðja taflmanni, og riddarinn er notaður til að loka fyrir flóttareiti kóngsins.</string>
   <string name="knightEndgame">Endatafl með riddurum</string>
@@ -89,6 +101,8 @@
   <string name="oneMoveDescription">Þraut sem þarfnast bara eins leiks.</string>
   <string name="opening">Byrjun</string>
   <string name="openingDescription">Bragðvísi sem kemur upp á upphafsstigi skákarinnar.</string>
+  <string name="operaMate">Óperumát</string>
+  <string name="operaMateDescription">Skákaðu kóngnum með hrók og notaðu biskup til að verja hrókinn.</string>
   <string name="pawnEndgame">Endatafl með peðum</string>
   <string name="pawnEndgameDescription">Endatafl með einungis peðum.</string>
   <string name="pin">Leppun</string>

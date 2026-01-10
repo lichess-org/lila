@@ -56,6 +56,8 @@ final class RelayPush(
       .flatMap(_.split("as:").headOption)
       .getOrElse(ua.value)
       .trim
+      .some
+      .filter(_.nonEmpty) | "no-UA"
     lila.mon.relay.push(name = rt.path, user = me.username, client = client)(
       games = results.size,
       moves = results.collect { case Right(a) => a.moves }.sum,
@@ -69,7 +71,8 @@ final class RelayPush(
         _ <- cantHaveUpstream(rt.round).so(fail => fufail[Unit](fail.error))
         withPlayers = playerEnrich.enrichAndReportAmbiguous(rt)(rawGames)
         withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
-        games = rt.tour.teams.fold(withFide)(_.update(withFide))
+        withReplacements = rt.tour.players.fold(withFide)(_.parse.update(withFide)._1)
+        games = rt.tour.teams.fold(withReplacements)(_.update(withReplacements))
         event <- sync
           .updateStudyChapters(rt, games)
           .map: res =>

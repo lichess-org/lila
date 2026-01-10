@@ -31,6 +31,10 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess 스트리머가 될 준비가 되셨다면, %s</string>
   <string name="submitForReview">검토를 위해 제출하기</string>
   <string name="streamerLanguageSettings">Lichess 스트리머 페이지에서는 내 스트리밍 플랫폼에서 제공하는 언어로 시청자를 타겟팅합니다. 생방송에 사용하는 앱 또는 서비스에서 체스 스트림의 기본 언어를 올바르게 설정하세요.</string>
+  <string name="pleaseAllow">스트리머 배지 추가 및 목록에 올라가기까지 72시간이 소요될 수 있습니다.</string>
+  <string name="chooseYoutubeChannel">Lichess 와 사용할 유튜브 채널을 선택하세요.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">연결</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">연결 해제</string>
   <string name="streamerName">Lichess에서의 스트리머 이름</string>
   <plurals name="keepItShort">
     <item quantity="other">짧게 유지하세요: 최대 %s자</item>

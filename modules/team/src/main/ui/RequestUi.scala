@@ -63,11 +63,7 @@ final class RequestUi(helpers: Helpers, bits: TeamUi):
             td(momentFromNow(request.date)),
             td(cls := "process")(
               postForm(cls := "process-request", action := routes.Team.requestProcess(request.id))(
-                input(
-                  tpe := "hidden",
-                  name := "url",
-                  value := t.fold(routes.Team.requests)(te => routes.Team.show(te.id))
-                ),
+                form3.hidden("url", t.fold(routes.Team.requests)(te => routes.Team.show(te.id))),
                 button(name := "process", cls := "button button-empty button-red", value := "decline")(
                   trans.site.decline()
                 ),
@@ -123,11 +119,7 @@ final class RequestUi(helpers: Helpers, bits: TeamUi):
                       cls := "process-request",
                       action := routes.Team.requestProcess(request.id)
                     )(
-                      input(
-                        tpe := "hidden",
-                        name := "url",
-                        value := routes.Team.declinedRequests(team.id, requests.currentPage)
-                      ),
+                      form3.hidden("url", routes.Team.declinedRequests(team.id, requests.currentPage)),
                       button(name := "process", cls := "button button-green", value := "accept")(
                         trans.site.accept()
                       )

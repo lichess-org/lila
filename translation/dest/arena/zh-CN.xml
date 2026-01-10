@@ -1,85 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arena">竞技场</string>
-  <string name="arenaTournaments">竞技场</string>
+  <string name="arenaTournaments">竞技场锦标赛</string>
   <string name="isItRated">会影响等级分吗？</string>
-  <string name="willBeNotified">当锦标赛开始时，你将收到通知，所以在其他标签页中下棋是无碍的。</string>
-  <string name="isRated">本锦标赛为排位赛，会影响你的等级分。</string>
-  <string name="isNotRated">本锦标赛为休闲赛，不会影响你的等级分。</string>
-  <string name="someRated">部分锦标赛是排位赛，会影响你的等级分。</string>
-  <string name="howAreScoresCalculated">分数是如何计算的？</string>
-  <string name="howAreScoresCalculatedAnswer">赢局的基础分数是2分，平局1分，输局不得分。如果你连胜两局将开始双倍积分，以火焰图标表示。接下来的对局将继续获得双倍积分，直到你输棋为止。也就是说，在双倍积分的情况下赢局值4分，平局2分。输局仍然不得分。 
+  <string name="willBeNotified">锦标赛开始时您会收到通知，所以请放心让此标签页保持闲置。</string>
+  <string name="isRated">本锦标赛为排位赛，会影响您的等级分。</string>
+  <string name="isNotRated">本锦标赛为休闲赛，不会影响您的等级分。</string>
+  <string name="someRated">部分锦标赛是排位赛，会影响您的等级分。</string>
+  <string name="howAreScoresCalculated">分数如何计算？</string>
+  <string name="howAreScoresCalculatedAnswer">胜局基础得分为 2 分，和局为 1 分，负局不得分。
+如果您连续赢得两局对局，将开启双倍得分连胜，并用火焰图标表示。
+接下来的对局将继续获得双倍分数，直到您未能赢得对局为止。
+即，胜局得 4 分，和局得 2 分，负局仍不得分。
 
-例如两场胜利紧接着一场平局得6分： 2 + 2 + (2 x 1)。</string>
-  <string name="berserk">狂暴锦标赛</string>
-  <string name="berserkAnswer">如果棋手在棋局开始时点击“狂暴”按钮，将会损失一半的时间，但战胜该局将多得 1 分。
+例如，两场胜局后接一场和局将获得 6 分：2 + 2 + (2 x 1)</string>
+  <string name="berserk">竞技场狂暴模式</string>
+  <string name="berserkAnswer">当棋手在对局开始时点击狂暴按钮，他们将损失一半的棋钟时间，但胜局将额外获得 1 点锦标赛分数。
 
-如果棋局时限有加秒，那么启动狂暴会导致神速方加秒被取消。(唯一的例外是 1+2, 在这个情况下启动神速会把神速方的时限变为 1+0)。
+在带有加时的时限设置中使用狂暴模式，也会取消加时（1+2 是例外，它变为 1+0）。
 
-在无基础局时的棋局 (如 0+1、0+2 等) ，狂暴功能被禁用。
+初始时间为零的对局（0+1，0+2）无法使用狂暴模式。
 
-只有走过 7 步棋以上的棋局会有狂暴加分。</string>
-  <string name="howIsTheWinnerDecided">赢家是如何决定的？</string>
-  <string name="howIsTheWinnerDecidedAnswer">在锦标赛设定时间限制结束时积分最多的玩家将被宣布为获胜者。
+只有在对局中至少走满 7 步，狂暴模式才会授予额外分数。</string>
+  <string name="howIsTheWinnerDecided">获胜者如何决定？</string>
+  <string name="howIsTheWinnerDecidedAnswer">在锦标赛设定的时限结束后，得分最高的棋手将被宣布为获胜者。
 
-当两个或两个以上的玩家拥有相同分数时，锦标赛的表现是決勝。</string>
-  <string name="howDoesPairingWork">棋手是怎么配对的？</string>
-  <string name="howDoesPairingWorkAnswer">在锦标赛开始时，系统会根据棋手的等级分进行配对。一局结束后，回到锦标赛主页等待。此后你会和与你锦标赛名次接近的棋手配对，这尽可能降低了等待时间。然而，你不一定会和锦标赛所有其他棋手下棋。
-
-为了下更多的棋局以得到更多的锦标赛积分，尽量快地下完每一盘棋并回到主页。</string>
+当两名或多名棋手得分相同时，以锦标赛表现分作为破同分依据。</string>
+  <string name="howDoesPairingWork">配对如何运作？</string>
+  <string name="howDoesPairingWorkAnswer">锦标赛开始时，棋手根据其等级分进行配对。
+一旦您结束一局对局，请返回锦标赛大厅：您将被与排名相近的棋手配对。这确保了最短的等待时间，但您可能不会遇到锦标赛中的所有其他棋手。
+快速对弈并返回大厅，以进行更多对局并赢得更多分数。</string>
   <string name="howDoesItEnd">锦标赛如何结束？</string>
-  <string name="howDoesItEndAnswer">锦标赛有倒计时。当它到零的时候锦标赛名次不再变动，赢家就确定了。此时未下完的棋局必须下完但这些棋局不计入锦标赛分数。</string>
+  <string name="howDoesItEndAnswer">锦标赛有一个倒计时时钟。当它归零时，锦标赛排名将冻结，并宣布获胜者。进行中的对局必须完成，但它们不计入锦标赛成绩。</string>
   <string name="otherRules">其他重要规则</string>
-  <string name="thereIsACountdown">第一次移动有时间限制。规定时间内未能采取行动将会转由对手操作。</string>
+  <string name="thereIsACountdown">您走第一步棋有时间限制。未在此时间内走棋将判您负于对手。</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="other">前 %s 次移动玩家并不会获得任何积分。</item>
+    <item quantity="other">在前 %s 步内和棋，双方棋手均不得分。</item>
   </plurals>
-  <string name="thisIsPrivate">这是一个私人锦标赛</string>
-  <string name="shareUrl">分享本链接让其他人加入本锦标赛：%s</string>
-  <string name="drawStreakStandard">连和场数：当棋手在竞技场中连续和棋时，只有第一次和棋或者超过 %s 步的和局才会计分。连和场数只能被胜利打破，不会被输棋或和棋打破。</string>
-  <string name="drawStreakVariants">计分的和局的最小步数由不同的变体而变化。下面的表格列出了每个变体的阀值。</string>
+  <string name="thisIsPrivate">这是私人锦标赛</string>
+  <string name="shareUrl">分享此链接以允许他人加入：%s</string>
+  <string name="drawStreakStandard">和棋连胜：当棋手在竞技场中连续和棋时，只有第一次和棋会获得分数，或者在标准对局中和棋步数超过 %s 步时才会得分。和棋连胜只能通过胜局来终结，负局或和局不能。</string>
+  <string name="drawStreakVariants">和棋对局需达到最短步数限制才能获得分数，此限制因变体而异。下表列出了各变体的阈值。</string>
   <string name="variant">变体</string>
-  <string name="minimumGameLength">最少棋局步数</string>
-  <string name="history">竞技场历史</string>
+  <string name="minimumGameLength">最短对局步数</string>
+  <string name="history">竞技场历史记录</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="other">查看所有 %s 团队</item>
+    <item quantity="other">查看全部 %s 支团队</item>
   </plurals>
-  <string name="newTeamBattle">新团队战</string>
+  <string name="newTeamBattle">新建团队战</string>
   <string name="customStartDate">自定义开始日期</string>
-  <string name="customStartDateHelp">在你的本地时区，这将覆盖 “距比赛开始时间” 选项</string>
+  <string name="customStartDateHelp">使用您自己的本地时区。这将覆盖“锦标赛开始前等待时间”设置</string>
   <string name="allowBerserk">允许狂暴模式</string>
-  <string name="allowBerserkHelp">允许玩家将自己的时间减半以获得额外得分</string>
-  <string name="allowChatHelp">允许玩家在聊天室中讨论</string>
-  <string name="arenaStreaks">连胜奖励</string>
-  <string name="arenaStreaksHelp">连胜两场后，获得4分而不是2分。</string>
-  <string name="noBerserkAllowed">禁止“狂暴”模式</string>
-  <string name="noArenaStreaks">取消连胜积分奖励</string>
-  <string name="averagePerformance">平均表现</string>
-  <string name="averageScore">平均分数</string>
+  <string name="allowBerserkHelp">允许棋手减半其棋钟时间以获得额外得分</string>
+  <string name="allowChatHelp">允许棋手在聊天室讨论</string>
+  <string name="arenaStreaks">竞技场连胜</string>
+  <string name="arenaStreaksHelp">在 2 场胜局后，连续胜局授予 4 分而非 2 分。</string>
+  <string name="noBerserkAllowed">禁止狂暴模式</string>
+  <string name="noArenaStreaks">无竞技场连胜</string>
+  <string name="averagePerformance">平均表现分</string>
+  <string name="averageScore">平均得分</string>
   <string name="myTournaments">我的锦标赛</string>
   <string name="editTournament">编辑锦标赛</string>
-  <string name="editTeamBattle">编辑团队战斗</string>
+  <string name="editTeamBattle">编辑团队战</string>
   <string name="defender">防守方</string>
   <string name="pickYourTeam">请选择您的团队</string>
-  <string name="whichTeamWillYouRepresentInThisBattle">你将代表哪个团队出战？</string>
-  <string name="youMustJoinOneOfTheseTeamsToParticipate">您必须加入这些团队之一才能参与！</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">您将在此战中代表哪支团队？</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">您必须加入其中一支团队才能参与！</string>
   <string name="created">创建于</string>
-  <string name="recentlyPlayed">最近结束</string>
-  <string name="bestResults">最佳结果</string>
+  <string name="recentlyPlayed">最近参与</string>
+  <string name="bestResults">最佳成绩</string>
   <string name="tournamentStats">锦标赛统计</string>
-  <string name="rankAvgHelp">等级平均值是您排名的百分比。较低的排名越好。
+  <string name="rankAvgHelp">排名平均值是您排名的百分比。数值越低越好。
 
-例如，在 100 个玩家的锦标赛中排名第三名 = 3%。在 1000 个玩家的锦标赛中排名第 10 名 = 1%。</string>
+例如，在 100 名棋手的锦标赛中排名第 3 = 3%。在 1000 名棋手的锦标赛中排名第 10 = 1%。</string>
   <string name="medians">中位数</string>
-  <string name="allAveragesAreX">此页面上的所有平均值是 %s。</string>
+  <string name="allAveragesAreX">本页所有平均值均为 %s。</string>
   <string name="total">总计</string>
-  <string name="pointsAvg">平均分数</string>
-  <string name="pointsSum">总分数</string>
-  <string name="rankAvg">平均等级</string>
-  <string name="tournamentWinners">锦标赛赢家</string>
+  <string name="pointsAvg">平均得分</string>
+  <string name="pointsSum">总得分</string>
+  <string name="rankAvg">平均排名</string>
+  <string name="tournamentWinners">锦标赛获胜者</string>
   <string name="tournamentShields">锦标赛盾牌</string>
-  <string name="onlyTitled">仅限有头衔玩家</string>
-  <string name="onlyTitledHelp">需要官方头衔才能加入比赛</string>
-  <string name="tournamentPairingsAreNowClosed">竞技场配对已关闭。</string>
-  <string name="berserkRate">狂暴局比例</string>
+  <string name="onlyTitled">仅限有头衔棋手</string>
+  <string name="onlyTitledHelp">需要官方头衔才能加入锦标赛</string>
+  <string name="tournamentPairingsAreNowClosed">锦标赛配对现已关闭。</string>
+  <string name="berserkRate">狂暴率</string>
 </resources>

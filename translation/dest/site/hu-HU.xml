@@ -474,10 +474,6 @@
   <string name="player">Játékos</string>
   <string name="list">Lista</string>
   <string name="graph">Grafikon</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Kevesebb mint %s perc</item>
-    <item quantity="other">Kevesebb mint %s perc</item>
-  </plurals>
   <string name="required">Kötelező.</string>
   <string name="openTournaments">Nyílt versenyek</string>
   <string name="duration">Időtartam</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Az előző/következő változatok váltogatása</string>
   <string name="toggleGlyphAnnotations">Lépésjegyzetek ki-be</string>
   <string name="togglePositionAnnotations">Helyzetelemzések ki-be</string>
+  <string name="toggleObservationAnnotations">Helyzetelemzések ki-be</string>
   <string name="variationArrowsInfo">A változatnyilakkal a lépéslista használata nélkül is navigálhatsz.</string>
   <string name="playSelectedMove">játszd a kijelölt lépést</string>
   <string name="newTournament">Új torna</string>
@@ -770,6 +767,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Görgess az egérgörgővel a tábla felett, hogy láthasd lépéseket.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Vidd a kurzort a számítógép variációk fölé az előnézethez.</string>
   <string name="analysisShapesHowTo">Shift-kattintva vagy jobb egérgombbal rajzolhatsz karikákat és nyilakat a táblára</string>
+  <string name="primaryColorArrowsHowTo">Ctrl vagy shift = piros; command, alt, vagy meta = kék; egy billentyű mindegyikből = sárga.</string>
   <string name="letOtherPlayersMessageYou">Mások küldhetnek neked üzenetet</string>
   <string name="receiveForumNotifications">Értesítést kérek, ha megemlítenek a fórumban</string>
   <string name="shareYourInsightsData">Éleslátó adatbepillantás megosztása másokkal</string>
@@ -911,6 +909,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="agreementPolicy">Elfogadom, hogy követni fogom a Lichess szabályait.</string>
   <string name="searchOrStartNewDiscussion">Keresés, vagy új beszélgetés indítása</string>
   <string name="edit">Szerkeszt</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
@@ -975,6 +974,7 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="simulFeaturedHelp">Szimultán közzététele %s oldalon. Kapcsold ki privát szimultánhoz.</string>
   <string name="simulDescription">Szimultán leírása</string>
   <string name="simulDescriptionHelp">Van bármi amit elmondanál a résztvevőknek?</string>
+  <string name="markdownIsAvailable">%s elérhető a formázáshoz.</string>
   <string name="embedsAvailable">Illeszd be a játék vagy a tanulmány URL-jét a beágyazáshoz.</string>
   <string name="inYourLocalTimezone">Saját időzónád szerint</string>
   <string name="tournChat">Verseny csevegő</string>

@@ -207,7 +207,7 @@ function renderTouchDeviceCommands(ctx: RoundNvuiContext): LooseVNodes {
         'button',
         {
           hook: bind('click', () => {
-            if ($('.nvui .botc').text().trim() != '')
+            if ($('.nvui .botc').text().trim() !== '')
               notify.set($('.nvui .botc').text() + ' - ' + $('.nvui .topc').text());
             else notify.set('not available');
           }),

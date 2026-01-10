@@ -10,7 +10,7 @@
   <string name="allStudies">همه مطالعه‌ها</string>
   <string name="studiesCreatedByX">مطالعه‌هایی که %s ساخته است</string>
   <string name="noneYet">هیچکدام تا به حال.</string>
-  <string name="hot">شلوغ</string>
+  <string name="hot">داغ</string>
   <string name="dateAddedNewest">تاریخ افزوده شدن (نوترین)</string>
   <string name="dateAddedOldest">تاریخ افزوده شدن (کهنه‌ترین)</string>
   <string name="recentlyUpdated">تازگی به‌روزشده</string>
@@ -87,11 +87,11 @@
   <string name="deleteChapter">حذف بخش</string>
   <string name="deleteThisChapter">حذف این بخش. بازگشت وجود ندارد!</string>
   <string name="clearAllCommentsInThisChapter">همه دیدگاه‌ها، نمادها و شکل‌های ترسیم شده در این بخش، پاک شوند</string>
-  <string name="rightUnderTheBoard">درست زیر صفحهٔ بازی</string>
+  <string name="rightUnderTheBoard">درست زیر تختهٔ بازی</string>
   <string name="noPinnedComment">هیچ</string>
   <string name="normalAnalysis">تحلیل ساده</string>
   <string name="hideNextMoves">پنهان کردن حرکت بعدی</string>
-  <string name="interactiveLesson">درس میان‌کنشی</string>
+  <string name="interactiveLesson">درس تعاملی</string>
   <string name="chapterX">بخش %s</string>
   <string name="empty">خالی</string>
   <string name="startFromInitialPosition">از وضعیت نخستین بیاغازید</string>
@@ -125,7 +125,7 @@
   <string name="pinnedStudyComment">یادداشت سنجاقیده به مطالعه</string>
   <string name="start">آغاز</string>
   <string name="save">ذخیره</string>
-  <string name="clearChat">پاک کردن گفتگو</string>
+  <string name="clearChat">پاکیدنِ گپ</string>
   <string name="deleteTheStudyChatHistory">پیشینه گپِ مطالعه پاک شود؟ بازگشت وجود ندارد!</string>
   <string name="deleteStudy">پاکیدن مطالعه</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">کل مطالعه پاک شود؟ بازگشت وجود ندارد! برای تایید، نام مطالعه را بنویسید: %s</string>
@@ -181,7 +181,7 @@
   <string name="annotatePositionTitle">یادداشت‌گذاری روی یک وضعیت</string>
   <string name="annotatePositionText">روی دکمهٔ !؟ بتِلیکید، یا روی فهرستِ حرکاتِ سمت راست، راست-تِلیکید.&lt;br&gt;علائمِ حرکت‌نویسی ذخیره و همرسانیده می‌شوند.</string>
   <string name="conclusionTitle">ممنون از وقتی که گذاشتید</string>
-  <string name="conclusionText">شما می‌توانید مطالعه‌های قبلی خود را از صفحهٔ پروفایلتان پیدا کنید، همچنین یک پست وبلاگ دربارهٔ مطالعه‌ها وجود دارد. کاربران حرفه‌ای می‌توانند کلید «؟» را برای دیدن میان‌برهای صفحه‌کلید فشار دهند. خوش بگذره!</string>
+  <string name="conclusionText">شما می‌توانید &lt;a href=\'/study/mine/hot\'&gt;مطالعه‌های پیشین‌تان&lt;/a&gt; از صفحهٔ رُخ‌نمای‌تان بیابید.&lt;br&gt;همچنین یک &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;وبنوشته دربارهٔ مطالعه‌ها&lt;/a&gt; وجود دارد.&lt;br&gt;کاربران حرفه‌ای می‌توانند کلید «؟» را برای دیدن میان‌برهای صفحه‌کلید بِفِشارند.&lt;br&gt;خوش بگذرد!</string>
   <string name="createChapterTitle">بیایید یک فصل مطالعه بسازیم</string>
   <string name="createChapterText">یک مطالعه می‌تواند چندین فصل داشته باشد. هر فصل درخت حرکات متمایزی دارد و می‌تواند به روش‌های مختلفی ایجاد شود.</string>
   <string name="fromInitialPositionTitle">از وضعیت اولیه</string>

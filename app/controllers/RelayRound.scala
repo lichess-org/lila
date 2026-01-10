@@ -134,6 +134,7 @@ final class RelayRound(
               (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
               rounds <- env.relay.api.byTourOrdered(rt.tour)
               group <- env.relay.api.withTours.get(rt.tour.id)
+              photos <- env.relay.playerApi.photosJson(rt.tour.id)
               data = env.relay.jsonView.makeData(
                 rt.tour.withRounds(rounds.map(_.round)),
                 rt.round.id,
@@ -143,7 +144,8 @@ final class RelayRound(
                 isSubscribed = none,
                 videoUrls = none,
                 pinned = none,
-                delayedUntil = none
+                delayedUntil = none,
+                photos = photos
               )
               sVersion <- NoCrawlers(env.study.version(sc.study.id))
               embed <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
@@ -165,9 +167,18 @@ final class RelayRound(
           targetRound <- env.relay.api.officialTarget(rt.round)
           isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
           sVersion <- HTTPRequest.isLichessMobile(ctx.req).optionFu(env.study.version(study.id))
+          photos <- env.relay.playerApi.photosJson(rt.tour.id)
         yield JsonOk:
           env.relay.jsonView
-            .withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound, isSubscribed, sVersion)
+            .withUrlAndPreviews(
+              rt.withStudy(study),
+              previews,
+              group,
+              targetRound,
+              isSubscribed,
+              sVersion,
+              photos
+            )
       )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
@@ -180,7 +191,7 @@ final class RelayRound(
 
   private def pgnWithFlags(ts: String, rs: String, id: RelayRoundId)(using Context): Fu[Result] =
     studyC.pgnWithFlags(
-      id.into(StudyId),
+      id.studyId,
       _.copy(
         updateTags = _ + Tag("GameURL", routeUrl(routes.RelayRound.show(ts, rs, id))),
         comments = false,
@@ -241,7 +252,7 @@ final class RelayRound(
   )(using ctx: Context): Fu[Result] =
     Found(env.relay.api.byIdWithTour(id)): rt =>
       if !ctx.req.path.startsWith(rt.path) && HTTPRequest.isRedirectable(ctx.req)
-      then Redirect(chapterId.fold(rt.path)(rt.path))
+      then Redirect(chapterId.fold(rt.call)(rt.call))
       else f(rt)
 
   private def WithTour(id: RelayTourId)(
@@ -285,6 +296,7 @@ final class RelayRound(
         crossSiteIsolation = videoUrls.isEmpty || (
           rt.tour.pinnedStream.isDefined && crossOriginPolicy.supportsCredentiallessIFrames(ctx.req)
         )
+        photos <- env.relay.playerApi.photosJson(rt.tour.id)
         data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
           rt.round.id,
@@ -294,7 +306,8 @@ final class RelayRound(
           isSubscribed,
           videoUrls,
           rt.tour.pinnedStream,
-          delayedUntil = delayedUntil
+          delayedUntil,
+          photos
         )
         chat <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion <- NoCrawlers(env.study.version(sc.study.id))

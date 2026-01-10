@@ -32,6 +32,7 @@ trait Context:
   def myId: Option[MyId] = me.map(_.myId)
   def noBlind = !blind
   def flash(name: String): Option[String] = req.flash.get(name)
+  def speechSynthesis = pref.hasSpeech || blind
   inline def noBot = !isBot
   lazy val acceptLanguages: Set[Language] =
     lila.core.i18n.playAcceptLanguages(req).view.map(toLanguage).toSet + defaultLanguage ++

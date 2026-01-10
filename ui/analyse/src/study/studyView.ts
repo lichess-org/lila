@@ -31,7 +31,7 @@ import crazyView from '../crazy/crazyView';
 import { watchers } from 'lib/view/watchers';
 import type StudyCtrl from './studyCtrl';
 import { verticalResize } from 'lib/view/verticalResize';
-import { isTouchDevice, displayColumns, shareIcon } from 'lib/device';
+import { displayColumns, shareIcon } from 'lib/device';
 import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } from '../view/components';
 import { renderControls } from '../view/controls';
 
@@ -194,7 +194,7 @@ export function underboard(ctrl: AnalyseCtrl): LooseVNodes {
   return [notifView(study.notif), descView(study, true), descView(study, false), buttons(ctrl), panel];
 }
 
-export const resultTag = (s: any) => (s === '1' ? 'good' : s === '0' ? 'bad' : 'status');
+export const resultTag = (s: string) => (s === '1' ? 'good' : s === '0' ? 'bad' : 'status');
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
@@ -322,7 +322,7 @@ function metadata(ctrl: StudyCtrl): VNode {
 
 function sideTrailerNodes(study: StudyCtrl): LooseVNodes {
   const showChat = study.ctrl.chatCtrl && study?.data.settings.chat !== 'nobody';
-  const resizeId = !isTouchDevice() && displayColumns() > 2 && `studySide/${study?.data.id}`;
+  const resizeId = displayColumns() > 2 && `studySide/${study?.data.id}`;
   return [
     resizeId &&
       verticalResize({

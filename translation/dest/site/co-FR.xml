@@ -407,10 +407,6 @@
   <string name="player">Ghjucadore</string>
   <string name="list">Listu</string>
   <string name="graph">Grafficu</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menu di %s minutu</item>
-    <item quantity="other">Menu di %s minuti</item>
-  </plurals>
   <string name="required">Dumandata.</string>
   <string name="openTournaments">Ghjustre aperte</string>
   <string name="duration">Durata</string>

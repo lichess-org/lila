@@ -1,66 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Tantang teman</string>
+  <string name="playAgainstComputer">Bermain lawan komputer</string>
+  <string name="gameMode">Mode bermain</string>
+  <string name="youPlayAs">Anda bermain sebagai</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Undang yang lain dengan memberikan URL berikut</string>
   <string name="gameOver">Permainan Berakhir</string>
   <string name="waitingForOpponent">Menunggu lawan</string>
-  <string name="orLetYourOpponentScanQrCode">Atau silakan lawan anda untuk melakukan scan pada kode QR ini</string>
+  <string name="orLetYourOpponentScanQrCode">Atau minta lawan Anda memindai kode QR ini</string>
   <string name="waiting">Menunggu</string>
   <string name="yourTurn">Giliran Anda</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Level</string>
   <string name="strength">Kekuatan</string>
   <string name="toggleTheChat">Ganti tampilan obrolan</string>
-  <string name="chat">Obrolan</string>
+  <string name="chat">Mengobrol</string>
   <string name="resign">Menyerah</string>
   <string name="checkmate">Skakmat</string>
   <string name="stalemate">Langkah buntu</string>
   <string name="white">Putih</string>
   <string name="black">Hitam</string>
-  <string name="asWhite">sebagai Putih</string>
-  <string name="asBlack">sebagai Hitam</string>
+  <string name="asWhite">sebagai putih</string>
+  <string name="asBlack">sebagai hitam</string>
   <string name="randomColor">Warna acak</string>
   <string name="createAGame">Mulai permainan baru</string>
-  <string name="createTheGame">BUAT GAMENYA</string>
+  <string name="createTheGame">Membuat permainannya</string>
   <string name="whiteIsVictorious">Putih menang</string>
   <string name="blackIsVictorious">Hitam menang</string>
-  <string name="youPlayTheWhitePieces">Anda bermain dipihak putih</string>
-  <string name="youPlayTheBlackPieces">Anda bermain dipihak hitam</string>
+  <string name="youPlayTheWhitePieces">Anda bermain sebagai putih</string>
+  <string name="youPlayTheBlackPieces">Anda bermain sebagai hitam</string>
   <string name="itsYourTurn">Giliran Anda!</string>
-  <string name="cheatDetected">Curang Terdeteksi</string>
+  <string name="cheatDetected">Kecurangan Terdeteksi</string>
   <string name="kingInTheCenter">Raja berada di tengah</string>
   <string name="threeChecks">Tiga kali skak</string>
   <string name="raceFinished">Balapan telah berakhir</string>
   <string name="variantEnding">Akhir sesuai aturan variasi</string>
-  <string name="newOpponent">Permainan yang baru</string>
+  <string name="newOpponent">Lawan baru</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Lawan Anda ingin bermain lagi dengan Anda</string>
   <string name="joinTheGame">Ikuti permainan</string>
   <string name="whitePlays">Putih melangkah</string>
   <string name="blackPlays">Hitam melangkah</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">Lawanmu telah meninggalkan permainan. Anda dapat mengklaim kemenangan dalam %s detik.</item>
+    <item quantity="other">Lawan Anda meninggalkan permainan. Anda dapat mengklaim kemenangan dalam %s detik.</item>
   </plurals>
-  <string name="opponentLeftChoices">Pemain lainnya telah meninggalkan permainan. Anda bisa klaim kemenangan, menyatakan remis, atau menunggunya.</string>
+  <string name="opponentLeftChoices">Lawan Anda meninggalkan permainan. Anda bisa klaim kemenangan, menyatakan remis, atau menunggunya.</string>
   <string name="forceResignation">Klaim menang</string>
   <string name="forceDraw">Nyatakan remis</string>
-  <string name="talkInChat">Silahkan mengobrol dengan sopan</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Orang pertama yang datang ke URL ini akan bermain dengan Anda</string>
+  <string name="talkInChat">Silakan mengobrol dengan sopan!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Orang pertama yang membuka URL ini akan bermain dengan Anda.</string>
   <string name="whiteResigned">Putih menyerah</string>
   <string name="blackResigned">Hitam menyerah</string>
   <string name="whiteLeftTheGame">Putih meninggalkan permainan</string>
   <string name="blackLeftTheGame">Hitam meninggalkan permainan</string>
   <string name="whiteDidntMove">Putih tidak melangkah</string>
   <string name="blackDidntMove">Hitam tidak melangkah</string>
-  <string name="requestAComputerAnalysis">Minta analisa komputer</string>
-  <string name="computerAnalysis">Analisa komputer</string>
-  <string name="computerAnalysisAvailable">Analisa komputer tersedia</string>
-  <string name="computerAnalysisDisabled">Analisa komputer tidak tersedia</string>
-  <string name="analysis">Papan analisa</string>
+  <string name="requestAComputerAnalysis">Minta analisis komputer</string>
+  <string name="computerAnalysis">Analisis komputer</string>
+  <string name="computerAnalysisAvailable">Analisis komputer tersedia</string>
+  <string name="computerAnalysisDisabled">Analisis komputer nonaktif</string>
+  <string name="analysis">Papan analisis</string>
   <string name="depthX">Detil %s</string>
   <string name="usingServerAnalysis">Menggunakan server analisa</string>
-  <string name="loadingEngine">Memuat...</string>
-  <string name="calculatingMoves">Menghitung...</string>
+  <string name="loadingEngine">Memuat komputer...</string>
+  <string name="calculatingMoves">Menghitung langkah...</string>
   <string name="engineFailed">Gagal memuat komputer</string>
-  <string name="cloudAnalysis">Analisis Cloud</string>
+  <string name="cloudAnalysis">Analisis cloud</string>
   <string name="goDeeper">Lihat lebih detail</string>
   <string name="showThreat">Tunjukkan ancaman</string>
   <string name="inLocalBrowser">di browser lokal</string>
@@ -157,6 +161,7 @@
   <string name="drawByMutualAgreement">Remis atas keputusan bersama</string>
   <string name="fiftyMovesWithoutProgress">50 langkah tanpa kemajuan</string>
   <string name="currentGames">Permainan saat ini</string>
+  <string name="joinedX">Bergabung %s</string>
   <plurals name="nbGames">
     <item quantity="other">Lihat semua %s Permainan</item>
   </plurals>
@@ -315,6 +320,7 @@
     <item quantity="other">%s Sedang bermain</item>
   </plurals>
   <string name="exportGames">Ekspor Permainan</string>
+  <string name="ratingFilter">Filter rating</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">Berikan %s detik</item>
   </plurals>
@@ -430,9 +436,6 @@
   <string name="player">Pemain</string>
   <string name="list">Daftar</string>
   <string name="graph">Grafik</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">Kurang dari %s menit</item>
-  </plurals>
   <string name="required">Dibutuhkan.</string>
   <string name="openTournaments">Turnamen terbuka</string>
   <string name="duration">Durasi</string>
@@ -511,6 +514,7 @@
   <string name="no">Tidak</string>
   <string name="yes">Ya</string>
   <string name="website">Situs Web</string>
+  <string name="mobile">Mobile</string>
   <string name="help">Bantuan:</string>
   <string name="createANewTopic">Buat topik baru</string>
   <string name="topics">Topik</string>
@@ -529,6 +533,8 @@
   <string name="cheat">Cheat</string>
   <string name="troll">Jebakan</string>
   <string name="other">Lainnya</string>
+  <string name="reportCheatBoostHelp">Tempel link permainan yang bersangkutan dan jelaskan hal tidak benar yang dilakukan pengguna ini. Jangan hanya menulis \"ia curang\", tetapi beri tahu kami mengapa Anda bisa merasa demikian.</string>
+  <string name="reportProcessedFasterInEnglish">Laporan Anda akan diproses lebih cepat jika ditulis dalam bahasa Inggris.</string>
   <string name="error.provideOneCheatedGameLink">Harap berikan setidaknya satu tautan ke permainan yang curang.</string>
   <string name="by">oleh %s</string>
   <string name="importedByX">Diimpor oleh %s</string>
@@ -779,7 +785,7 @@
   <string name="learnFromThisMistake">Pelajari dari kesalahan ini</string>
   <string name="skipThisMove">Lewatkan langkah ini</string>
   <string name="next">Selanjutnya</string>
-  <string name="xWasPlayed">%s sedang diamainkan</string>
+  <string name="xWasPlayed">%s sedang dimainkan</string>
   <string name="findBetterMoveForWhite">Temukan langkah yang lebih baik untuk warna putih</string>
   <string name="findBetterMoveForBlack">Temukan langkah yang lebih baik untuk warna hitam</string>
   <string name="resumeLearning">Lanjutkan materi</string>

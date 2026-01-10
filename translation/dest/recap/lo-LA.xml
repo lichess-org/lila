@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">ສະບາຍດີ, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">ປີນີ້ເຈົ້າເປັນແນວໃດແດ່?</string>
+	<string name="initTitle">ປີແຫ່ງໝາກຮຸກທີ່ຍອດຢ້ຽມຂອງເຈົ້າ!</string>
+	<string name="noGamesText">ເຈົ້າບໍ່ໄດ້ຫຼິ້ນເກມໃດເລີຍໃນປີນີ້.</string>
+	<string name="noGamesCta">ຢາກຫຼິ້ນຕອນນີ້ເລີຍບໍ່?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">ແລະ ເຈົ້າຊະນະ %s!</string>
+	<string name="gamesNextQuestion">ຕ້ອງເຮັດແນວໃດຈຶ່ງຈະໄປເຖິງຈຸດນັ້ນໄດ້?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s ທີ່ໃຊ້ເວລາຫຼິ້ນໄປ!</string>
+	<string name="timeTooMuch">ນັ້ນແມ່ນການຫຼິ້ນໝາກຮຸກທີ່ຫຼາຍເກີນໄປແລ້ວ.</string>
+	<string name="timeALot">ນັ້ນແມ່ນການຫຼິ້ນໝາກຮຸກທີ່ຫຼາຍສົມຄວນ.</string>
+	<string name="timeReasonable">ເບິ່ງຄືວ່າເປັນປະລິມານການຫຼິ້ນໝາກຮຸກທີ່ເໝາະສົມແລ້ວ.</string>
+	<string name="timeHowManyMoves">ເຈົ້າເດີນໝາກໄປທັງໝົດຈັກຄັ້ງໃນຊ່ວງເວລານັ້ນ?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="other">ເດີນໝາກໄປ %s ຄັ້ງ</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">ນັ້ນຄືການຍູ້ໄມ້ທີ່ມີນ້ຳໜັກເຖິງ %s!</string>
+	<string name="movesStandardPiecesWeight">ໝາກຮຸກມາດຕະຖານແຕ່ລະໂຕມີນ້ຳໜັກປະມານ 40 ກຣາມ</string>
+	<plurals name="nbMoves">
+		<item quantity="other">%s ຕາ</item>
+	</plurals>
+	<string name="chessFoes">ຄູ່ແຂ່ງໝາກຮຸກທີ່ດີທີ່ສຸດຂອງເຈົ້າ</string>
+	<plurals name="nbGrams">
+		<item quantity="other">%s ກຣາມ</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="other">%s ກິໂລກຣາມ</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">ແມ່ນວິທີທີ່ເຈົ້າເລີ່ມຕົ້ນ %s ຂອງເກມທີ່ເຈົ້າຫຼິ້ນເປັນຝ່າຍຂາວ</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="other">ຮູບແບບການເປີດເກມທີ່ເຈົ້າຫຼິ້ນຫຼາຍທີ່ສຸດເປັນຝ່າຍຂາວ ໂດຍມີ %s ເກມ</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="other">ຮູບແບບການເປີດເກມທີ່ເຈົ້າຫຼິ້ນຫຼາຍທີ່ສຸດເປັນຝ່າຍດຳ ໂດຍມີ %s ເກມ</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="other">ຂອບໃຈທີ່ຮ່ວມລົງຄະແນນໃຫ້ກັບ %s ປິດສະໜາ.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">ເຈົ້າຍັງໄດ້ຊ່ວຍຕິດແທັກໃຫ້ອີກ %s ອັນ.</string>
+	<string name="puzzlesNone">ເຈົ້າບໍ່ໄດ້ແກ້ປິດສະໜາໃດເລີຍໃນປີນີ້.</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">ຢາກລອງຕອນນີ້ເລີຍບໍ່?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">ເຈົ້າແກ້ຖືກ %s ອັນ ຕັ້ງແຕ່ຄັ້ງທຳອິດ!</string>
+	<string name="sourcesTitle">ເຈົ້າຫາເກມຫຼິ້ນຈາກໃສ?</string>
+	<string name="perfsTitle">ເຈົ້າຫຼິ້ນດ້ວຍການຄວບຄຸມເວລາ ແລະ ຮູບແບບໃດແດ່?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">ໂຫຼດໂຄສະນາ ແລະ ຕົວຕິດຕາມ %s ອັນ</string>
+	<string name="malwareNoSell">ພວກເຮົາບໍ່ໄດ້ຂາຍຂໍ້ມູນສ່ວນຕົວຂອງເຈົ້າ</string>
+	<string name="malwareNoAbuse">ພວກເຮົາບໍ່ໄດ້ໃຊ້ລະບົບອຸປະກອນຂອງເຈົ້າໃນທາງທີ່ບໍ່ດີ</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">ແຕ່ເວັບໄຊອື່ນອາດເຮັດ, ດັ່ງນັ້ນກະລຸນາ %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">ລະມັດລະວັງ</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">ມີເກມທີ່ຫຼິ້ນໃນ Lichess ທັງໝົດ %1$s ເກມ ໃນປີ %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s ໃນນັ້ນແມ່ນເກມຂອງເຈົ້າ.</string>
+	<string name="thanksTitle">ຂອບໃຈທີ່ຫຼິ້ນໃນ Lichess!</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">ພວກເຮົາດີໃຈທີ່ມີເຈົ້າຢູ່ທີ່ນີ້. ຂໍໃຫ້ເປັນປີ %s ທີ່ດີ!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">%1$s ຂອງ Lichess ໃນປີນີ້ແມ່ນ %2$s.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">ຄ່າໃຊ້ຈ່າຍ</string>
+	<string name="patronCharity">ພວກເຮົາເປັນອົງກອນການກຸສົນ, ດຳເນີນການດ້ວຍເງິນບໍລິຈາກທັງໝົດ.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">ຫາກພວກເຮົາໄດ້ສ້າງຄວາມບັນເທີງໃຫ້ເຈົ້າໃນປີນີ້ ຫຼື ເຈົ້າເຊື່ອໝັ້ນໃນວຽກງານຂອງພວກເຮົາ, ກະລຸນາພິຈາລະນາ %s!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">ສະໜັບສະໜູນພວກເຮົາດ້ວຍການບໍລິຈາກ</string>
+	<string name="shareableTitle" comment="%s is the current year">ສະຫຼຸບຜົນງານ %s ຂອງຂ້ອຍ</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">ໃຊ້ເວລາຫຼິ້ນ</string>
+	<string name="shareableMostPlayedOpponent">ຄູ່ແຂ່ງທີ່ຫຼິ້ນນຳຫຼາຍທີ່ສຸດ</string>
+	<string name="shareableFavouriteVariant">ຮູບແບບທີ່ມັກທີ່ສຸດ</string>
+	<string name="shareableFavouriteTimeControl">ການຄວບຄຸມເວລາທີ່ມັກທີ່ສຸດ</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="other">ແກ້ປິດສະໜາໄປແລ້ວ %s ອັນ</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">ຂໍ້ມູນສະຫຼຸບ %s ຂອງທ່ານພ້ອມແລ້ວ!</string>
+</resources>

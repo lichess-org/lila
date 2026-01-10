@@ -124,18 +124,18 @@ final class RelayPager(
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
 
     val day = 1000L * 3600 * 24
+
+    val (textSearch, nameFilter) = query match
+      case RelayPager.yearRegex(pre, year, post) =>
+        val remaining = s"$pre $post".trim
+        (if remaining.isEmpty then query else remaining, $doc("name".$regex(s"\\b$year\\b")))
+      case q => (q, $empty)
+
     // We add quotes to the query to perform an exact match even when the query contains whitespaces
-    val exactQuery = s"\"$query\""
-
-    val textSelector = $text(exactQuery) ++ selectors.officialPublic
-
-    // Special case of querying so that users can filter broadcasts by year
-    val yearOpt = """\b(20)\d{2}\b""".r.findFirstIn(query)
-    val selector = yearOpt.foldLeft(textSelector): (sel, year) =>
-      sel ++ "name".$regex(s"\\b$year\\b")
+    val textSelector = $text(s"\"$textSearch\"") ++ nameFilter ++ selectors.officialPublic
 
     forSelector(
-      selector = selector,
+      selector = textSelector,
       page = page,
       onlyKeepGroupFirst = false,
       addFields = $doc(
@@ -199,3 +199,6 @@ final class RelayPager(
     round = rounds.headOption
     group = RelayTourRepo.group.readFrom(doc)
   yield round.fold(tour)(WithLastRound(tour, _, group))
+
+private object RelayPager:
+  val yearRegex = """(.*)\b(20\d{2})\b(.*)""".r

@@ -185,7 +185,7 @@ function keyText(target: HTMLElement) {
   const color = target.getAttribute('color');
   const piece = target.getAttribute('piece');
   const key = keyFromAttrs(target);
-  return key && color && piece && color != 'none' && piece != '-'
+  return key && color && piece && color !== 'none' && piece !== '-'
     ? key +
         ' ' +
         pieceStr(charToRole(piece)!, color as Color) +

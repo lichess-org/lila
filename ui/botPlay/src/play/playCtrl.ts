@@ -83,7 +83,7 @@ export default class PlayCtrl {
 
   onFlag = () => {
     this.game.computeEnd();
-    if (this.game.end?.status == 'outoftime') {
+    if (this.game.end?.status === 'outoftime') {
       this.recomputeAndSetClock();
       this.updateGround();
       this.opts.redraw();
@@ -123,11 +123,11 @@ export default class PlayCtrl {
   private safelyRequestBotMove = async () => {
     const source = await this.opts.bridge;
     if (this.game.computeEnd()) return;
-    if (this.game.turn() == this.game.pov) return;
+    if (this.game.turn() === this.game.pov) return;
     const sign = () => this.game.pov + this.game.moves.map(m => m.san).join('');
     const before = sign();
     const chessMove = await requestBotMove(source, this.game);
-    if (sign() != before) return console.warn('Bot move ignored due to board state mismatch');
+    if (sign() !== before) return console.warn('Bot move ignored due to board state mismatch');
     if (this.game.computeEnd()) return;
     const onLastPly = this.isOnLastPly();
     const move = this.game.playMoveAtPly(chessMove, this.game.ply());

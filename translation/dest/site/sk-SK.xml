@@ -544,12 +544,6 @@
   <string name="player">Hráč</string>
   <string name="list">Zoznam</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menej ako %s minúta</item>
-    <item quantity="few">Menej ako %s minúty</item>
-    <item quantity="many">Menej ako %s minút</item>
-    <item quantity="other">Menej ako %s minút</item>
-  </plurals>
   <string name="required">Vyžaduje sa.</string>
   <string name="openTournaments">Otvorené turnaje</string>
   <string name="duration">Dĺžka</string>
@@ -851,6 +845,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii môžete tiež použiť scrollovacie koliečko myši nad šachovnicou.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Prejdite kurzorom ponad počítačové varianty pre zobrazenie ich náhľadu.</string>
   <string name="analysisShapesHowTo">Stlačte shift+ľavé tlačidlo na myši alebo pravé tlačidlo na myši na kreslenie kruhov a šípok na šachovnici.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl / Shift = červená; Command / Alt / Meta = modrá; Dve klávesy naraz (z oboch skupín jedna) = žltá.</string>
   <string name="letOtherPlayersMessageYou">Povoliť ostatným hráčom aby Vám napísali správu</string>
   <string name="receiveForumNotifications">Dostávať upozornenia keď ťa niekto spomenie na fóre</string>
   <string name="shareYourInsightsData">Zdieľať výsledky analýz Vašich partií</string>
@@ -1000,6 +995,7 @@
   <string name="agreementPolicy">Súhlasím, že budem dodržiavať všetky pravidlá Lichessu.</string>
   <string name="searchOrStartNewDiscussion">Prehľadávať alebo začať novú konverzáciu</string>
   <string name="edit">Upraviť</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>

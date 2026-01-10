@@ -120,4 +120,9 @@ It will display a horizontal line.</string>
   <string name="moveToAnotherClass">Move to another class</string>
   <string name="allowMessagingBetweenStudents">Allow messages between students</string>
   <string name="allowMessagingBetweenStudentsDesc">This only applies to the accounts you have created for your students.</string>
+  <string name="quickLoginCode">Quick login code</string>
+  <string name="quickLoginCodes">Quick login codes</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Use these codes on %s to log your students into Lichess.</string>
+  <string name="quickLoginCodesDesc2">When the codes expire, your students will remain logged in, until they manually log out.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Expiration %s</string>
 </resources>

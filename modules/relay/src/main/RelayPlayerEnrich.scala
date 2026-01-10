@@ -2,7 +2,6 @@ package lila.relay
 
 import chess.format.pgn.{ Tag, Tags }
 import chess.{ FideId, PlayerName, PlayerTitle, IntRating }
-import akka.stream.scaladsl.Sink
 
 import lila.core.socket.Sri
 import lila.core.fide.{ PlayerToken, diacritics }
@@ -194,12 +193,14 @@ private final class RelayPlayerEnrich(
                 (newTags != chapter.tags).so:
                   enrichFromFideId(newTags)
                     .flatMap: enriched =>
-                      val newName = Chapter.nameFromPlayerTags(enriched)
+                      val forcedReplacements = newTags.map(_.filterNot(enriched.value.contains))
+                      val finalTags = enriched ++ forcedReplacements
+                      val newName = Chapter.nameFromPlayerTags(finalTags)
                       studyApi.setTagsAndRename(
                         studyId = chapter.studyId,
                         chapterId = chapter.id,
-                        tags = enriched,
+                        tags = finalTags,
                         newName = newName.filter(_ != chapter.name)
                       )(lila.study.Who(chapter.ownerId, Sri("")))
-              .runWith(Sink.ignore)
+              .run()
           yield ()

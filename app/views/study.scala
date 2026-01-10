@@ -51,8 +51,10 @@ def show(
   Page(s.name.value)
     .css("analyse.study")
     .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
-    .i18n(_.puzzle, _.study)
-    .i18nOpt(ctx.pref.hasSpeech || ctx.blind, _.nvui)
+    .css(ctx.blind.option("round.nvui"))
+    .i18n(_.study)
+    .i18n(_.variant)
+    .i18nOpt(ctx.speechSynthesis, _.nvui)
     .i18nOpt(ctx.blind, _.keyboardMove)
     .js(analyseNvuiTag)
     .js(

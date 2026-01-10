@@ -474,10 +474,6 @@
   <string name="player">Skákmenn</string>
   <string name="list">Listi</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Minna en %s mínútur</item>
-    <item quantity="other">Minna en %s mínútur</item>
-  </plurals>
   <string name="required">Krafist.</string>
   <string name="openTournaments">Opin mót</string>
   <string name="duration">Lengd</string>
@@ -497,7 +493,7 @@
   <string name="wins">Vinningar</string>
   <string name="losses">Töp</string>
   <string name="startingIn" comment="Displayed above a timer">Hefst eftir</string>
-  <string name="standByX">Hinkraðu %s, verið er að ákvarða mætingar, hafðu augun hjá þér!</string>
+  <string name="standByX">Hinkraðu %s, verið er að ákvarða viðureignir, hafðu augun hjá þér!</string>
   <string name="pause">Hlé</string>
   <string name="resume">Halda áfram</string>
   <string name="youArePlaying">Þú ert að tefla!</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Fara í fyrra/næsta afbrigði</string>
   <string name="toggleGlyphAnnotations">Víxla leiksglósum</string>
   <string name="togglePositionAnnotations">Víxla stöðuglósum</string>
+  <string name="toggleObservationAnnotations">Víxla athugunarglósum</string>
   <string name="variationArrowsInfo">Afbrigðisörvar gera þér kleift að fletta án þess að nota leikjalistann.</string>
   <string name="playSelectedMove">leika valinn leik</string>
   <string name="newTournament">Nýtt mót</string>
@@ -911,6 +908,7 @@
   <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum Lichess.</string>
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
   <string name="edit">Breyta</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Örskák</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Leifturskák</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hraðskák</string>
   <string name="rapid">Atskák</string>
@@ -987,7 +985,7 @@ Skildu eftir autt til að tefla útfrá hefðbundinni upphafsstöðu.</string>
   <string name="toggleAllAnalysis">Virkja tölvugreiningu á öllum vélum</string>
   <string name="playComputerMove">Leika eftirlætisleik tölvunnar</string>
   <string name="analysisOptions">Valkostir greiningar</string>
-  <string name="focusChat">Skerpa spjall</string>
+  <string name="focusChat">Virkja spjallgluggann</string>
   <string name="showHelpDialog">Sýna þennan hjálpglugga</string>
   <string name="reopenYourAccount">Endurheimta aðgang þinn</string>
   <string name="reopenYourAccountDescription">Ef þú lokaðir aðganginum þínum, en hefur síðan skipt um skoðun, átt þú möguleika á að fá hann aftur.</string>

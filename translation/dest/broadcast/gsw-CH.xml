@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">FIDE Schpiller nöd g\'funde</string>
   <string name="fideProfile">FIDE Profil</string>
   <string name="federation">Verband</string>
-  <string name="ageThisYear">Alter i dem Jahr</string>
+  <string name="age" comment="Label for the age of a player. Appears on players' FIDE profiles.">Alter</string>
   <string name="unrated">Ungwertet</string>
   <string name="recentTournaments">Aktuellschti Turnier</string>
   <string name="openLichess">In Lichess öffne</string>
@@ -83,4 +83,6 @@
   <string name="liveboard">Live-Brätt</string>
   <string name="communityBroadcast">Gmeinschafts-Überträgig</string>
   <string name="createdAndManagedBy">Kreiert und betreut vu %s.</string>
+  <string name="roundX">Rundi %s</string>
+  <string name="defaultRoundNameHelp">Wänn du de Standardname b\'haltsch, wird er automatisch i alli andere Schprache übersetzt.</string>
 </resources>

@@ -80,6 +80,13 @@ export const loadEsmPage = async (name: string) => {
   module.initModule ? module.initModule(opts) : module.default(opts);
 };
 
+export const loadI18n = async (catalog: string) => {
+  await import(document.body.dataset.i18nCatalog!);
+  const s = window.site;
+  const path = `compiled/i18n/${catalog}.${s.displayLocale}.${s.manifest.i18n![catalog]}.js`;
+  await import(url(path));
+};
+
 export function embedChessground() {
   return import(url('npm/chessground.min.js'));
 }

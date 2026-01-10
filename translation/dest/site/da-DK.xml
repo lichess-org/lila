@@ -474,10 +474,6 @@
   <string name="player">Spiller</string>
   <string name="list">Liste</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Mindre end %s minut</item>
-    <item quantity="other">Mindre end %s minutter</item>
-  </plurals>
   <string name="required">Påkrævet</string>
   <string name="openTournaments">Åben turnering</string>
   <string name="duration">Varighed</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Gennemgå forrige/næste variant</string>
   <string name="toggleGlyphAnnotations">Slå træk-annotationer til/fra</string>
   <string name="togglePositionAnnotations">Slå positionsannotationer til/fra</string>
+  <string name="toggleObservationAnnotations">Slå observationsannotationer til/fra</string>
   <string name="variationArrowsInfo">Variantpile lader dig navigere uden at bruge træklisten.</string>
   <string name="playSelectedMove">spil valgte træk</string>
   <string name="newTournament">Ny turnering</string>
@@ -911,6 +908,7 @@
   <string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lichess-politikker.</string>
   <string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
   <string name="edit">Rediger</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
@@ -1021,4 +1019,5 @@ Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerd
   <string name="search">Søg</string>
   <string name="clearSearch">Ryd søgning</string>
   <string name="tags">Etiketter</string>
+  <string name="enPassant">En passant</string>
 </resources>

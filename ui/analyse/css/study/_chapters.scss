@@ -3,10 +3,6 @@ $span-width: 1.7em;
 .study__chapters {
   @extend %study-list, %study-list-ongoing;
 
-  @include mq-at-least-col3 {
-    max-height: unset;
-  }
-
   h3 {
     @extend %break-word;
 

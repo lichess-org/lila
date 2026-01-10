@@ -119,7 +119,12 @@ export default class StudyCtrl {
     this.data = data;
     this.notif = new NotifCtrl(ctrl.redraw);
     const isManualChapter = data.chapter.id !== data.position.chapterId;
-    const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
+    const sticked =
+      data.features.sticky &&
+      !ctrl.initialPath &&
+      ctrl.requestInitialPly === undefined &&
+      !isManualChapter &&
+      !practiceData;
     this.vm = {
       loading: false,
       tab: prop<Tab>(!relayData && data.chapters?.[1] ? 'chapters' : 'members'),
@@ -397,8 +402,8 @@ export default class StudyCtrl {
   };
 
   xhrReload = throttlePromiseDelay(
-    () => 500,
-    (withChapters: boolean = false) => {
+    () => 400,
+    (withChapters: boolean = false, callback: () => void = () => {}) => {
       this.vm.loading = true;
       return xhr
         .reload(
@@ -407,7 +412,8 @@ export default class StudyCtrl {
           this.vm.mode.sticky ? undefined : this.vm.chapterId,
           (withChapters = withChapters),
         )
-        .then(this.onReload, site.reload);
+        .then(this.onReload, site.reload)
+        .then(callback);
     },
   );
 
@@ -499,8 +505,7 @@ export default class StudyCtrl {
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
       this.relay?.liveboardPlugin?.reset();
-      await this.xhrReload();
-      componentCallbacks(id);
+      await this.xhrReload(false, () => componentCallbacks(id));
     }
     if (displayColumns() > 2) window.scrollTo(0, 0);
     return true;
@@ -779,9 +784,12 @@ export default class StudyCtrl {
       this.redraw();
     },
     chapters: d => {
+      const prevChapters = this.chapters.list.all();
       this.chapters.loadFromServer(d);
       if (!this.currentChapter()) {
-        this.vm.chapterId = d[0].id;
+        const prevIndex = prevChapters.findIndex(ch => ch.id === this.vm.chapterId);
+        const newIndex = prevIndex === -1 ? 0 : prevIndex >= d.length ? d.length - 1 : prevIndex;
+        this.vm.chapterId = d[newIndex].id;
         if (!this.vm.mode.sticky) this.xhrReload();
       }
       this.redraw();

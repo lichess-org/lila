@@ -119,7 +119,7 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
       }
       if (by) {
         let ply = ctrl.lastPly();
-        if ((by == 'white') == (ply % 2 == 0)) ply++;
+        if ((by === 'white') === (ply % 2 === 0)) ply++;
         ctrl.data.game.drawOffers = (ctrl.data.game.drawOffers || []).concat([ply]);
       }
       ctrl.redraw();
@@ -130,15 +130,15 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
     gone: ctrl.setGone,
     goneIn: ctrl.setGone,
     checkCount(e: { white: number; black: number }) {
-      ctrl.data.player.checks = ctrl.data.player.color == 'white' ? e.white : e.black;
-      ctrl.data.opponent.checks = ctrl.data.opponent.color == 'white' ? e.white : e.black;
+      ctrl.data.player.checks = ctrl.data.player.color === 'white' ? e.white : e.black;
+      ctrl.data.opponent.checks = ctrl.data.opponent.color === 'white' ? e.white : e.black;
       ctrl.redraw();
     },
     simulPlayerMove(gameId: string) {
       if (
         ctrl.opts.userId &&
         ctrl.data.simul &&
-        ctrl.opts.userId == ctrl.data.simul.hostId &&
+        ctrl.opts.userId === ctrl.data.simul.hostId &&
         gameId !== ctrl.data.game.id &&
         ctrl.moveOn.get() &&
         !isPlayerTurn(ctrl.data)

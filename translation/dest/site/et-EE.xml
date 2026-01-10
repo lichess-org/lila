@@ -433,10 +433,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="player">Mängija</string>
   <string name="list">Nimekiri</string>
   <string name="graph">Graafik</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Alla %s minuti</item>
-    <item quantity="other">Alla %s minuti</item>
-  </plurals>
   <string name="required">Nõutud</string>
   <string name="openTournaments">Avatud turniirid</string>
   <string name="duration">Kestvus</string>

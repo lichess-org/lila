@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="dgtBoard">DGT ploča</string>
-  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="lichessAndDgt">Lichess i DGT</string>
   <string name="dgtBoardRequirements">Zahtjevi DGT ploče</string>
   <string name="dgtBoardLimitations">Ograničenja DGT ploče</string>
   <string name="thisPageAllowsConnectingDgtBoard">Ova stranica Vam dopušta da povežete vašu DGT ploču sa Lichess-om i da je koristite za igranje.</string>
@@ -27,7 +27,7 @@
   <string name="noSuitableOauthToken">Odgovarajuć OAuth token nije kreiran.</string>
   <string name="dgtBoardConnectivity">Povezivost DGT ploče</string>
   <string name="clickToGenerateOne">Kliknite da generišete jedan</string>
-  <string name="webSocketUrl">%s WebSocket URL</string>
+  <string name="webSocketUrl">%s URL WebSocketa</string>
   <string name="useWebSocketUrl">Koristite \"%1$s\" ukoliko %2$s je pokrenut na drugoj mašini ili drugom portu.</string>
   <string name="textToSpeech">Tekst u govor</string>
   <string name="configureVoiceNarration">Postavite vašu glasovnu naraciju odigranih poteza, tako da možete zadržati vaš pogled na ploči.</string>

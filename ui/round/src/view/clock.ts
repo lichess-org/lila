@@ -24,7 +24,7 @@ export const anyClockView = (ctrl: RoundController, position: TopOrBottom): Loos
 };
 
 const onTheSide = (round: RoundController) => (color: Color, position: TopOrBottom) => {
-  const isPlayer = !round.data.player.spectator && round.data.player.color == color;
+  const isPlayer = !round.data.player.spectator && round.data.player.color === color;
   const ranks = round.data.tournament?.ranks || round.data.swiss?.ranks;
   return [
     renderBerserk(round, color, position) || (isPlayer ? goBerserk(round, color) : moretime(round)),

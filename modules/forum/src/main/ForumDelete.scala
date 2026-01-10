@@ -1,7 +1,5 @@
 package lila.forum
 
-import akka.stream.scaladsl.*
-
 import lila.common.Bus
 import lila.core.forum.BusForum
 import lila.core.perm.Granter as MasterGranter
@@ -21,7 +19,7 @@ final class ForumDelete(
       .documentSource()
       .mapAsyncUnordered(4): post =>
         postApi.viewOf(post).flatMap(_.so(deletePost))
-      .runWith(Sink.ignore)
+      .run()
       .void
 
   def deleteTopic(view: PostView)(using Me): Funit =

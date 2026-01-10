@@ -29,9 +29,6 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     val mustUpgrade = appVersion.exists(Mobile.AppVersion.mustUpgrade)
     JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
 
-  def index = Anon:
-    Ok.snip(views.bits.api)
-
   private val userShowApiRateLimit =
     env.security.ipTrust.rateLimit(8_000 * 2, 1.day, "user.show.api.ip", _.proxyMultiplier(4))
 
@@ -289,7 +286,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   val eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
       def limited = rateLimited:
-        "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/board/get/api/board/game/stream/{gameId}."
+        "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/bot/get/apibotgamestreamgameid."
       HTTPRequest.bearer(ctx.req).so { bearer =>
         limit.eventStream(bearer, limited, msg = s"${me.username} ${HTTPRequest.printClient(req)}"):
           for

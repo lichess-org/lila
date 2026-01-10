@@ -218,13 +218,15 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def apiShow(id: RelayTourId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     Found(env.relay.api.tourById(id)): tour =>
-      if !tour.canView
+      if !tour.canView && !isGrantedOpt(_.StudyAdmin)
       then Unauthorized(jsonError("This tournament is private"))
       else
         for
           trs <- env.relay.api.withRounds(tour)
           group <- env.relay.api.withTours.get(tour.id)
-        yield Ok(env.relay.jsonView.fullTourWithRounds(trs, group))
+          photos <- env.relay.playerApi.photosJson(tour.id)
+          json = env.relay.jsonView.fullTourWithRounds(trs, group).add("photos" -> photos.some)
+        yield Ok(json)
 
   def pgn(id: RelayTourId) = OpenOrScoped(): ctx ?=>
     Found(env.relay.api.tourById(id)): tour =>
@@ -255,16 +257,16 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           yield res
         case None => JsonBadRequest("Search query cannot be empty")
 
-  def player(tourId: RelayTourId, id: String) = AnonOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
+  def player(tourId: RelayTourId, id: String) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
     Found(env.relay.api.tourById(tourId)): tour =>
       val decoded = lila.common.String.decodeUriPathSegment(id) | id
       val json =
         for
           player <- env.relay.playerApi.player(tour, decoded)
-          fidePlayer <- player.flatMap(_.fideId).so(env.fide.repo.player.fetch)
-          isFollowing <- (ctx.userId, fidePlayer.map(_.id)).tupled.traverse:
-            env.fide.repo.follower.isFollowing
-        yield player.map(RelayPlayer.json.full(tour)(_, fidePlayer, isFollowing))
+          fideId = player.flatMap(_.fideId)
+          fp <- fideId.so(env.fide.playerApi.withFollow)
+          user <- fideId.so(env.title.api.publicUserOf)
+        yield player.map(RelayPlayer.json.full(tour)(_, fp.map(_.player), user, fp.map(_.follow)))
       Found(json)(JsonOk)
 
   private given (using RequestHeader): RelayJsonView.Config = RelayJsonView.Config(html = getBool("html"))

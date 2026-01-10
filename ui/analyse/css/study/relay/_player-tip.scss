@@ -1,0 +1,72 @@
+#tour-player-tip {
+  @extend %box-radius-force, %popup-shadow;
+  display: none;
+  background: $c-bg-box;
+  position: absolute;
+  z-index: $z-powertip-120;
+
+  border: 1px solid $c-brag;
+  min-width: 370px;
+}
+
+.tpp {
+  a {
+    color: $c-font;
+  }
+  &__player {
+    @extend %flex-center-nowrap;
+    align-items: stretch;
+    background: $c-bg-popup;
+    gap: 1em;
+    .fide-players__photo {
+      width: 150px;
+    }
+    &__info {
+      @extend %flex-column;
+      justify-content: space-between;
+      font-size: 1.1em;
+      margin: 1em 0.5em 1em 0;
+    }
+    &__name {
+      @extend %flex-center-nowrap, %ellipsis;
+      font-size: 1.2em;
+      &:hover {
+        color: $c-primary;
+      }
+    }
+    &__details {
+      @extend %flex-column;
+      gap: 0.5em;
+    }
+  }
+  &__preload {
+    margin: 1em auto;
+  }
+  &__games {
+    margin-bottom: 0.3em;
+    max-height: 40vh;
+    overflow-y: auto;
+    &__status {
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+    }
+    td {
+      padding: 0.4rem;
+      border-top: $border;
+    }
+    tr:first-child td {
+      border-top: none;
+    }
+    td:first-child {
+      padding-inline-start: 1.5rem;
+      text-align: end;
+      color: $c-font-dimmer;
+      font-weight: bold;
+    }
+    td:last-child {
+      padding-inline-end: 1.5rem;
+    }
+  }
+}

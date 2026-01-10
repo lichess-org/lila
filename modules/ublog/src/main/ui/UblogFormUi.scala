@@ -41,8 +41,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
             h1(
               if ctx.is(post.created.by) then trans.ublog.editYourBlogPost()
               else s"Edit ${usernameOrId(post.created.by)}'s post"
-            ),
-            a(href := ui.urlOfPost(post), dataIcon := Icon.Eye, cls := "text", targetBlank)("Preview")
+            )
           ),
           inner(f, Right(post), none),
           postForm(

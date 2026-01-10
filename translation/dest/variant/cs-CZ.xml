@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard" comment="As in standard chess (not a variant)">Standardní</string>
+  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Standardní pravidla šachů (FIDE)</string>
+  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Fischerovy šachy</string>
+  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">Počáteční pozice je zadních figur náhodná.</string>
+  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Král hory</string>
+  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Přines svého krále do středu a vyhraj hru.</string>
+  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">Dej soupeři tříkrát šach a vyhraj hru.</string>
+  <string name="antichessTitle" comment="Description for the Antichess variant">Ztrať všechny své figury (nebo se dostaň do patu) a vyhraj hru.</string>
+</resources>

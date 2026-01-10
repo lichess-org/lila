@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">سلام %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">امسال چه کرده‌اید؟</string>
+	<string name="initTitle">چه سالِ شطرنج-ی داشته‌اید!</string>
+	<string name="noGamesText">امسال هیچ بازی‌ای نکردید.</string>
+	<string name="noGamesCta">می‌خواهید اکنون بازی کنید؟</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">و %sتای‌شان را بردید!</string>
+	<string name="gamesNextQuestion">لازمهٔ رسیدن به این آمار چه بود؟</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">صرفِ %s!</string>
+	<string name="timeTooMuch">این مقدار شطرنج، اِفراط است.</string>
+	<string name="timeALot">این مقدار شطرنج، خیلی است.</string>
+	<string name="timeReasonable">به نظر مقداری منطقی برای شطرنج است.</string>
+	<string name="timeHowManyMoves">در تمام این مدت، چند حرکت کردی؟</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s حرکت کردی</item>
+		<item quantity="other">%s حرکت کردی</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">این یعنی %s چوب هُل دادید!</string>
+	<string name="movesStandardPiecesWeight">وزنِ هر مُهرهٔ اِستانده حدودِ ۴۰ گرم است</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s حرکت</item>
+		<item quantity="other">%s حرکت</item>
+	</plurals>
+	<string name="chessFoes">بهترین هَماوَردهای شطرنجی‌تان</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s گرم</item>
+		<item quantity="other">%s گرم</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s کیلوگرم</item>
+		<item quantity="other">%s کیلوگرم</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">حرکتی‌ست که %s تا از بازی‌های‌تان با سفید را آغازیدید</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">بازی‌شده‌ترین گشایشِ شما با سفید، %s بازی</item>
+		<item quantity="other">بازی‌شده‌ترین گشایشِ شما با سفید، %s بازی</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">بازی‌شده‌ترین گشایشِ شما با سیاه، %s بازی</item>
+		<item quantity="other">بازی‌شده‌ترین گشایشِ شما با سیاه، %s بازی</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">از شما برای رأی‌دهی به %s معما سپاسگزاریم.</item>
+		<item quantity="other">از شما برای رأی‌دهی به %s معما سپاسگزاریم.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">همچنین شما به برچسب‌زنی %s از آنها کمک کردید.</string>
+	<string name="puzzlesNone">امسال هیچ معمایی را حل نکردید.</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">می‌خواهی اکنون امتحان کنی؟</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">شما %s از آنها را در تلاشِ نخست حل کردید!</string>
+	<string name="sourcesTitle">کجا بازی‌ها را یافتید؟</string>
+	<string name="perfsTitle">شما چه زمان‌بندی‌ها و وَرتاهایی را بازی کردید؟</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s تَبلیغ و تُرگر بار شد</string>
+	<string name="malwareNoSell">ما داده‌های شخصی‌تان را نفروختیم</string>
+	<string name="malwareNoAbuse">ما از اَفزاره‌تان علیه‌تان نَبَهریدیم</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">اما وبگاه‌های دیگر این کار را می‌کنند، بنابراین لطفاً %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">مراقب باشید</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s بازی در سالِ %2$s در Lichess شده</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s‌ شان مالِ شما بود.</string>
+	<string name="thanksTitle">از بازی کردن‌تان در Lichess سپاسگزاریم!</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">خُرسندیم که اینجایید. سال %s محشری داشته باشید!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">%1$s اِمسالِ Lichess مقدارِ %2$s بود.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">هزینه‌های</string>
+	<string name="patronCharity">ما یک خیریه‌ایم که صرفا با داشَن‌ها اداره می‌شود.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">اگر ما اِمسال به سرگرمیدنِ شما کمک کرده‌ایم، یا به کار ما باور دارید، لطفاً %s را در نظر بگیرید!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">حمایت از ما با داشَن</string>
+	<string name="shareableTitle" comment="%s is the current year">سَرجمعِ من در سال %s</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">صرفِ بازی</string>
+	<string name="shareableMostPlayedOpponent">بازی‌شده‌ترین حریف</string>
+	<string name="shareableFavouriteVariant">وَرتای دلپسند</string>
+	<string name="shareableFavouriteTimeControl">زمان‌بندیِ دلپسند</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s معما حل شد</item>
+		<item quantity="other">%s معما حل شد</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">سَرجمعِ سالِ %s تان آماده است!</string>
+</resources>

@@ -63,6 +63,10 @@
   <string name="interferenceDescription">Lëvizja e një guri mes dy gurësh të kundërshtarit për të lënë të pambrojtur një ose të dy gurët e kundërshtarit, bie fjala, një kalë në një kuadrat mes dy torresh.</string>
   <string name="intermezzo">Ndërmjetësim</string>
   <string name="intermezzoDescription">Në vend që të luhet lëvizja e pritshme, së pari ndërhyni një lëvizje tjetër që paraqet një kërcënim të menjëhershëm, që kundërshtari duhet t\'i përgjigjet. Njihet gjithashtu si \"Zwischenzug\" ose \"Në mes\".</string>
+  <string name="pillsburysMate">Mati i Pilsbërit</string>
+  <string name="pillsburysMateDescription">Torreja jep shahmat, teksa oficeri ndihmon të kufizohet ai.</string>
+  <string name="morphysMate">Mati i Morfit</string>
+  <string name="morphysMateDescription">Përdorni oficerin për t’i dhënë shah mbretit, teksa torreja juaj ndihmon të kufohet ai.</string>
   <string name="triangleMate">Mat trekëndësh</string>
   <string name="triangleMateDescription">Mbretëresha dhe torra, një kuadrat larg nga mbreti armik, gjenden në të njëjtin rresht ose shtyllë, një kuadrat larg njëri-tjetrit, duke formuar një trekëndësh.</string>
   <string name="vukovicMate">Mat Vukoviç</string>
@@ -93,6 +97,8 @@
   <string name="oneMoveDescription">Një ushtrim që zgjidhet me një lëvizje.</string>
   <string name="opening">Hapje</string>
   <string name="openingDescription">Një taktikë gjatë fazës së parë të lojës.</string>
+  <string name="operaMate">Mat Opera</string>
+  <string name="operaMateDescription">Jepini shah mbretit me një torre dhe përdorni një oficer që të mbroni torren.</string>
   <string name="pawnEndgame">Fund loje me ushtar</string>
   <string name="pawnEndgameDescription">Një fund loje vetëm me ushtarë.</string>
   <string name="pin">Mbërthimi</string>

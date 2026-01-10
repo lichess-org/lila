@@ -5,16 +5,18 @@ import scalalib.Json.paginatorWriteNoNbResults
 import scalalib.paginator.Paginator
 
 import lila.common.Json.{ *, given }
-import lila.core.config.BaseUrl
+import lila.core.config.RouteUrl
 import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ WithLastRound, WithRounds }
 import lila.study.ChapterPreview
 import lila.study.Settings
 import lila.core.socket.SocketVersion
 import lila.core.LightUser.GetterSync
+import lila.core.i18n.Translate
+import lila.core.fide.PhotosJson
 
 final class RelayJsonView(
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     picfitUrl: PicfitUrl,
     lightUserSync: GetterSync,
     markdown: RelayMarkdown
@@ -40,7 +42,7 @@ final class RelayJsonView(
         "slug" -> t.slug,
         "info" -> t.info,
         "createdAt" -> t.createdAt,
-        "url" -> s"$baseUrl${t.path}"
+        "url" -> routeUrl(t.call)
       )
       .add("tier" -> t.tier)
       .add("dates" -> t.dates)
@@ -65,7 +67,10 @@ final class RelayJsonView(
       .add("teamTable" -> tour.teamTable)
       .add("communityOwner" -> tour.communityOwner.map(lightUserSync))
 
-  def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using Config): JsObject =
+  def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using
+      Config,
+      Translate
+  ): JsObject =
     Json
       .obj(
         "tour" -> fullTour(trs.tour),
@@ -75,7 +80,7 @@ final class RelayJsonView(
       .add("group" -> group)
       .add("defaultRoundId" -> RelayDefaults.defaultRoundToLink(trs).map(_.id))
 
-  def tourWithAnyRound(t: RelayTour | WithLastRound | RelayCard)(using Config): JsObject = t match
+  def tourWithAnyRound(t: RelayTour | WithLastRound | RelayCard)(using Config, Translate): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
     case tr: WithLastRound =>
       Json
@@ -93,11 +98,11 @@ final class RelayJsonView(
         .add("roundToLink" -> (tr.link.id != tr.display.id).option(apply(tr.link)))
         .add("group" -> tr.group)
 
-  def apply(round: RelayRound): JsObject = Json.toJsObject(round)
+  def apply(round: RelayRound)(using Translate): JsObject = Json.toJsObject(round)
 
-  def withUrl(rt: RelayRound.WithTour, withTour: Boolean): JsObject =
+  def withUrl(rt: RelayRound.WithTour, withTour: Boolean)(using Translate): JsObject =
     apply(rt.round) ++ Json
-      .obj("url" -> s"$baseUrl${rt.path}")
+      .obj("url" -> routeUrl(rt.call))
       .add("tour" -> withTour.option(rt.tour))
 
   def withUrlAndPreviews(
@@ -106,10 +111,11 @@ final class RelayJsonView(
       group: Option[RelayGroup.WithTours],
       targetRound: Option[RelayRound.WithTour],
       isSubscribed: Option[Boolean],
-      socketVersion: Option[SocketVersion]
-  )(using Option[Me]): JsObject =
+      socketVersion: Option[SocketVersion],
+      photos: PhotosJson
+  )(using Option[Me])(using Translate): JsObject =
     myRound(rt) ++ Json
-      .obj("games" -> previews)
+      .obj("games" -> previews, "photos" -> photos)
       .add("group" -> group)
       .add("targetRound" -> targetRound.map(withUrl(_, true)))
       .add("isSubscribed", isSubscribed)
@@ -117,7 +123,7 @@ final class RelayJsonView(
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
 
-  def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) =
+  def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me])(using Translate) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection(r.study.settings), r.study, me.map(_.userId))
@@ -126,7 +132,7 @@ final class RelayJsonView(
 
     Json.obj(
       "round" -> apply(r.relay)
-        .add("url" -> s"$baseUrl${r.path}".some)
+        .add("url" -> routeUrl(r.call).some)
         .add("delay" -> r.relay.sync.delay),
       "tour" -> fullTour(r.tour)(using Config(html = false)),
       "study" -> Json.obj(
@@ -148,8 +154,9 @@ final class RelayJsonView(
       isSubscribed: Option[Boolean],
       videoUrls: Option[PairOf[String]],
       pinned: Option[RelayPinnedStream],
-      delayedUntil: Option[Instant]
-  ) =
+      delayedUntil: Option[Instant],
+      photos: PhotosJson
+  )(using Translate) =
     RelayJsonView.JsData(
       relay = fullTourWithRounds(trs, group)(using Config(html = true))
         .add("sync" -> canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync)))
@@ -158,6 +165,7 @@ final class RelayJsonView(
         .add("videoUrls" -> videoUrls)
         .add("note" -> canContribute.so(trs.tour.note))
         .add("delayedUntil" -> delayedUntil)
+        .add("photos" -> photos.some)
         .add("pinned" -> pinned.map: p =>
           Json
             .obj("name" -> p.name)
@@ -168,23 +176,28 @@ final class RelayJsonView(
       group = group.map(_.group.name)
     )
 
-  def home(h: RelayHome)(using Config) = top(h.ongoing ::: h.recent, h.past)
+  def home(h: RelayHome)(using Config, Translate) = top(h.ongoing ::: h.recent, h.past)
 
-  def top(active: List[RelayCard | WithLastRound], tours: Paginator[WithLastRound])(using Config) =
+  def top(active: List[RelayCard | WithLastRound], tours: Paginator[WithLastRound])(using Config, Translate) =
     Json.obj(
       "active" -> active.map(tourWithAnyRound),
       "upcoming" -> Json.arr(), // BC
       "past" -> paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound))
     )
 
-  def search(tours: Paginator[WithLastRound])(using Config) =
+  def search(tours: Paginator[WithLastRound])(using Config, Translate) =
     paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound(_)))
 
 object RelayJsonView:
 
   case class Config(html: Boolean)
 
-  case class JsData(relay: JsObject, study: JsObject, analysis: JsObject, group: Option[RelayGroup.Name])
+  case class JsData(
+      relay: JsObject,
+      study: JsObject,
+      analysis: JsObject,
+      group: Option[RelayGroup.Name]
+  )
 
   given OWrites[RelayPinnedStream] = OWrites: s =>
     Json.obj("name" -> s.name)
@@ -193,11 +206,11 @@ object RelayJsonView:
 
   given OWrites[RelayRound.CustomScoring] = Json.writes
 
-  given OWrites[RelayRound] = OWrites: r =>
+  given (using Translate): OWrites[RelayRound] = OWrites: r =>
     Json
       .obj(
         "id" -> r.id,
-        "name" -> r.name,
+        "name" -> r.transName,
         "slug" -> r.slug,
         "createdAt" -> r.createdAt,
         "rated" -> r.rated

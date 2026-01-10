@@ -182,6 +182,8 @@ object user:
   case class UserDelete(user: User):
     export user.id
 
+  case class SetKidMode(user: User)
+
   trait UserApi:
     def byId[U: UserIdOf](u: U): Fu[Option[User]]
     def enabledById[U: UserIdOf](u: U): Fu[Option[User]]

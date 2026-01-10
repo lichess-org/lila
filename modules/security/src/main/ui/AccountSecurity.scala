@@ -114,7 +114,7 @@ final class AccountSecurity(helpers: Helpers)(
           ),
           td(
             postForm(action := routes.OAuth.revokeClient)(
-              input(tpe := "hidden", name := "origin", value := client.origin),
+              form3.hidden("origin", client.origin),
               submitButton(cls := "button button-red", title := "Revoke", dataIcon := Icon.X)
             )
           )

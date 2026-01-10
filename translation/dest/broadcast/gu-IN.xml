@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">FIDE પ્લેયર મળ્યું નથી</string>
   <string name="fideProfile">FIDE પ્રોફાઇલ</string>
   <string name="federation">ફેડરેશન</string>
-  <string name="ageThisYear">આ વર્ષની ઉંમર</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">વય</string>
   <string name="unrated">અનરેટેડ</string>
   <string name="recentTournaments">તાજેતરની ટુર્નામેન્ટ્સ</string>
   <string name="openLichess">Lichess ખુલ્લું</string>
@@ -83,6 +83,6 @@
   <string name="liveboard">લાઈવ બોર્ડ</string>
   <string name="communityBroadcast">સમુદાય પ્રસારણ</string>
   <string name="createdAndManagedBy">%s દ્વારા બનાવવામાં અને સંચાલિત.</string>
-  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;If your language changes the word &quot;Round&quot; based on the number after it, consider using punctuation to get around the problem (e.g. &quot;Round: %s&quot;).&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">રાઉન્ડ %s</string>
-  <string name="defaultRoundNameHelp" comment="This is help text for broadcast authors setting a round name. The default is &quot;Round %s&quot; (translatable separately).&#10;&#10;If broadcasters keep the round name to the default, it will be automatically translated.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">ડિફોલ્ટ નામ રાખવાથી તે આપમેળે અન્ય બધી ભાષાઓમાં અનુવાદિત થશે.</string>
+  <string name="roundX">રાઉન્ડ %s</string>
+  <string name="defaultRoundNameHelp">ડિફોલ્ટ નામ રાખવાથી તે આપમેળે અન્ય બધી ભાષાઓમાં અનુવાદિત થશે.</string>
 </resources>

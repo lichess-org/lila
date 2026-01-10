@@ -337,10 +337,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="player">Oýunçy</string>
   <string name="list">Sanaw</string>
   <string name="graph">Grafika</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s minutdan az</item>
-    <item quantity="other">%s minutdan az</item>
-  </plurals>
   <string name="required">Hökmany.</string>
   <string name="openTournaments">Açyk bäsleşikler</string>
   <string name="duration">Dowamlylygy</string>

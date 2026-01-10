@@ -41,7 +41,7 @@ export default class MsgCtrl {
   }
 
   openConvo = (userId: string) => {
-    if (this.data.convo?.user.id != userId) {
+    if (this.data.convo?.user.id !== userId) {
       this.data.convo = undefined;
       this.loading = true;
     }
@@ -70,7 +70,7 @@ export default class MsgCtrl {
         if (
           !this.data.convo ||
           !data.convo ||
-          data.convo.user.id != this.data.convo.user.id ||
+          data.convo.user.id !== this.data.convo.user.id ||
           !data.convo.msgs[0]
         )
           return;
@@ -144,7 +144,7 @@ export default class MsgCtrl {
   private addMsg = (msg: LastMsg, contact?: Contact) => {
     if (contact) {
       contact.lastMsg = msg;
-      this.data.contacts = [contact].concat(this.data.contacts.filter(c => c.user.id != contact.user.id));
+      this.data.contacts = [contact].concat(this.data.contacts.filter(c => c.user.id !== contact.user.id));
     }
   };
 
@@ -169,7 +169,7 @@ export default class MsgCtrl {
 
   setRead = () => {
     const msg = this.currentContact()?.lastMsg;
-    if (msg && msg.user != this.data.me.id) {
+    if (msg && msg.user !== this.data.me.id) {
       pubsub.emit('notify-app.set-read', msg.user);
       if (msg.read) return false;
       msg.read = true;

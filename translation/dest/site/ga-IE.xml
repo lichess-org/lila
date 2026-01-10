@@ -535,13 +535,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="player">Imreoir</string>
   <string name="list">Liosta</string>
   <string name="graph">Graf</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Níos lú ná nóiméad amháin</item>
-    <item quantity="two">Níos lú ná %s nóiméad</item>
-    <item quantity="few">Níos lú ná %s nóiméad</item>
-    <item quantity="many">Níos lú ná %s nóiméad</item>
-    <item quantity="other">Níos lú ná %s nóiméid</item>
-  </plurals>
   <string name="required">Riachtanach.</string>
   <string name="openTournaments">Comórtais oscailte</string>
   <string name="duration">Fad</string>

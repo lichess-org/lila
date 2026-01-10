@@ -6,22 +6,22 @@
   <string name="lichessCombinationLiveLightLibrePronounced">واژه Lichess آمیخته‌ای از واژگان live (زنده)، light (سَبُک)، libre (آزاد و متن‌باز) و chess (شطرنج) است. تلفظ Lichess %1$s است.</string>
   <string name="leechess">لی-چِس</string>
   <string name="hearItPronouncedBySpecialist">تلفظ آن را از یک متخصص بشنوید.</string>
-  <string name="whyLiveLightLibre">Live (زنده) چون به صورت بی‌درنگ در 24 ساعت روز و 7 روز هفته بازیکنان با یکدیگر بازی می‌کنند و بازی‌ها قابل تماشا است. Libre (آزاد) چون که این سایت منبع باز است بر خلاف سایر وب‌سایت‌ها، هیچ کسی مالک سایت نیست.</string>
+  <string name="whyLiveLightLibre">زنده (Live)، زیرا بازی‌ها زنده و در تمام طول روز و شب ۲۴/۷ انجام و تماشا می‌شوند؛ سَبُک (light) و آزاد (libre) به خاطر اینکه Lichess متن‌باز است و سَبُک‌بار از شَر بُنجُل‌های اختصاصی‌ای که طاعونِ دیگر وبگاه‌هاست.</string>
   <string name="whyIsLilaCalledLila">به طور مشابه، کد مرجع برای لیچس، %1$s، که مخفف li[chess in sca]la هست، قابل رویت است به صورت فشرده لیچس که نوشته در %2$s، که یک زبان شهودی برنامه نویسی است.</string>
   <string name="howCanIContributeToLichess">چگونه می‌توانم به Lichess کمک کنم؟</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">لایچس از طریق کمک های مالی حامیان و تلاش های داوطلبان تامین میشود.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">وبگاهِ Lichess با داشَن‌های یاوران و تلاش‌های گروهی از داوطلبان برقرار است.</string>
   <string name="findMoreAndSeeHowHelp">اینجا میتوانید بیشتر راجع‌ به %1$s بدانید (همینطور %2$s). اگر میخواهید به‌صورت داوطلب وقت و مهارت‌تان را در اختیار لیچس بگذارید، اینجا تعدادی از %3$s وجود دارد.</string>
   <string name="beingAPatron">پشتیبان بودن</string>
   <string name="breakdownOfOurCosts">جزئیات مخارج ما</string>
   <string name="otherWaysToHelp">راه دیگر برای کمک</string>
-  <string name="areThereWebsitesBasedOnLichess">آیا وب‌سایتهایی که بر اساس Lichess ساخته شده باشند، وجود دارد؟</string>
+  <string name="areThereWebsitesBasedOnLichess">آیا وبگاه‌هایی بر اساس Lichess وجود دارد؟</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">بله. Lichess در واقع الهام‌بخش دیگر وبگاه‌های متن‌باز است که از %1$s، %2$s، یا %3$s ما می‌بَهرند.</string>
-  <string name="keyboardShortcuts">چه میانبرهای صفحه کلیدی وجود دارند؟</string>
+  <string name="keyboardShortcuts">چه میانبرهای صفحه‌کلیدی وجود دارند؟</string>
   <string name="keyboardShortcutsExplanation">برخی از صفحاتِ Lichess دارای کلید‌های میانبرَند که می‌توانید از آنها بَهرایید. برای دیدن فهرست کلید‌های میانبر، در صفحاتِ مطالعه، تحلیل، معما یا بازی، کلید «؟» را بفشارید.</string>
   <string name="fairPlay">بازی منصفانه</string>
   <string name="whenAmIEligibleRatinRefund">چه زمانی برای پس‌گیری خودکار درجه‌بندی‌ام از تقلب‌کارها، واجد شرایط‌ هستم؟</string>
   <string name="ratingRefundExplanation">یک دقیقه پس از تشخیص بازیکن تقلب‌کار، ۴۰ بازی رسمی اخیرش در ۳ روز گذشته انتخاب می‌شود. اگر در یکی از آن بازی‌ها حریفشان بوده‌اید و امتیاز از دست داده‌اید (به دلیل باخت یا تساوی)، و درجه‌بندی‌تان هم موقتی نبوده، مقداری امتیاز به شما پس داده می‌شود. امتیاز پس‌دهی بر اساس بیشینه درجه‌بندی‌تان و پیشرفت درجه‌بندی‌تان پس از بازی، محدود می‌شود. (مثلاً اگر درجه‌بندی‌تان بعد از آن بازی بسیار افزایش یابد، ممکن است هیچ امتیازی دریافت نکنید یا فقط مقداری جزئی دریافت کنید.) مقدار پس‌دهی هرگز بیشتر از ۱۵۰ امتیاز نخواهد شد.</string>
-  <string name="preventLeavingGameWithoutResigning">چه اقدامی درباره بازیکنانی که بازی را بدون انصراف ترک میکنند انجام شده است?</string>
+  <string name="preventLeavingGameWithoutResigning">چه اقدامی درباره بازیکنانی که تسلیم‌نشده بازی را می‌تَرکَند، انجام می‌شود؟</string>
   <string name="leavingGameWithoutResigningExplanation">اگر حریف شما به صورت مداوم بازی را ترک کند، از بازی محروم می شود این به این معنی است که به صورت موقت اجازه بازی کردن را نخواهد داشت. این امر در حساب کاربری فرد نمایش داده نمی شود. اگر این رفتار ادامه پیدا کند، مدت زمان محرومیت از بازی افزایش می یابد و انجام این کار در مدت زمان طولانی ممکن است منجر به مسدود شدن حساب کاربر شود.</string>
   <string name="howCanIBecomeModerator">چگونه می‌توانم یک مدیر باشم؟</string>
   <string name="youCannotApply">امکان تقاضا برای مدیر شدن وجود ندارد. اگر ما ببینیم که فردی از نظر ما می تواند یک مدیر خوب باشد، ما با او مستقیما ارتباط برقرار خواهیم کرد.</string>
@@ -30,7 +30,7 @@
   <string name="fairPlayPage">صفحه بازی عادلانه</string>
   <string name="youCanUseOpeningBookNoEngine">در لیچس، تفاوت اصلی در قانون‌های شطرنج مکاتبه‌ای آن است که، کتاب گشایش مجاز است. استفاده از موتورها همچنان ممنوع است و منجر به نشانه‌گذاری «کمک از موتور» می‌شود. اگرچه ICCF اجازه استفاده از موتور را در مکاتبه می‌دهد، لیچس اجازه نمی‌دهد.</string>
   <string name="gameplay">روند بازی</string>
-  <string name="howBulletBlitzEtcDecided">محاسبات زمانی شطرنج گلوله‌ای، برق‌آسا و سایر موارد، چگونه تصمیم‌گیری می‌شود؟</string>
+  <string name="howBulletBlitzEtcDecided">زمان‌بندیِ شطرنج گلوله، برق‌آسا و دیگر موارد، چگونه تصمیم‌گیری می‌شود؟</string>
   <string name="basedOnGameDuration">زمان‌بندی‌های لیچس بر پایهٔ مدت برآوردشدهٔ بازی است = %1$s.
 برای نمونه، مدت برآوردشدهٔ یک بازی ۵+۳ می‌شود ۵ × ۶۰ + ۴۰ × ۳۰ = ۴۲۰ ثانیه.</string>
   <string name="durationFormula">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
@@ -98,7 +98,7 @@
   <string name="usernamesCannotBeChanged">خیر، نام‌های کاربری به دلیل‌های فنی و عملی تغییرپذیر نیستند. نام‌های کاربری در جاهای زیادی ثبت شده‌اند: دادگان‌ها، برونبُردها، گزارش‌ها و در حافظه مردم. می‌توانید یک بار کوچکی-بزرگی حرف‌ها را تنظیم کنید.</string>
   <string name="uniqueTrophies">غنائم منحصر به فرد</string>
   <string name="ownerUniqueTrophies">آن جایزه در تاریخ لیچس خاص هست و هیچکس به غیر از %1$s نمی‌توانند داشته باشند.</string>
-  <string name="aHourlyBulletTournament">یک مسابقه گلوله‌ای ساعتی</string>
+  <string name="aHourlyBulletTournament">مسابقه گلوله یک‌ساعته</string>
   <string name="goldenZeeExplanation">کاربر ZugAddict جریان‌سازی می‌کرد و در ۲ ساعت آخر کوشید هوش مصنوعی را شکست دهد. سطح ۸ در زمان ۱+۰، کامیاب نشد. بُناگرِ Lichess به او گفت که اگر هنگام پخش، در این کار کامیاب شود، یک جامینهٔ یکتا خواهد گرفت. یک ساعت بعد، او Stockfish را شکست داد و آن قول عملی شد.</string>
   <string name="lichessRatings">درجه‌بندی در Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Lichess از چه شیوه درجه‌بندی‌ای استفاده می‌کند؟</string>

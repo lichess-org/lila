@@ -470,10 +470,6 @@
   <string name="player">ఆటగాడు</string>
   <string name="list">జాబితా</string>
   <string name="graph">గ్రాఫ్</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s నిమిషం కన్నా తక్కువ</item>
-    <item quantity="other">%s నిమిషాల కన్నా తక్కువ</item>
-  </plurals>
   <string name="required">అవసరం.</string>
   <string name="openTournaments">ఓపెన్ టోర్నమెంట్లు</string>
   <string name="duration">వ్యవధి</string>

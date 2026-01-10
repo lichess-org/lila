@@ -8,7 +8,7 @@
   <string name="newPatrons">Нови Покровитељи</string>
   <string name="freeChess">Бесплатан шах за све, заувек!</string>
   <string name="noAdsNoSubs">Нема реклама, нема претплата; само отворен изворни код и страст.</string>
-  <string name="thankYou" comment="&quot;you&quot; is in singular here.">Хвала ти на твојој донацији!</string>
+  <string name="thankYou">Хвала ти на твојој донацији!</string>
   <string name="youHaveLifetime">Имаш Доживотни Покровитељ налог. То је поприлично сјајно!</string>
   <string name="patronUntil">Имаш Покровитељ налог до %s.</string>
   <string name="weAreNonProfit">Ми смо непрофитно удружење јер верујемо да сви требају имати приступ бесплатној шаховској платформи светске класе.</string>
@@ -49,18 +49,22 @@
   <string name="tyvm">Хвала ти пуно на твојој помоћи. Супер си!</string>
   <string name="currentStatus">Тренутни статус</string>
   <string name="nextPayment">Следећа уплата</string>
-  <string name="makeAdditionalDonation">Направи додатну донацију сада</string>
-  <string name="changeMonthlyAmount">Промени месечну вредност (%s)</string>
-  <string name="cancelSupport">откажи твоју пордшку</string>
+  <string name="youWillBeChargedXOnY">Биће ти наплаћено %1$s на %2$s.</string>
+  <string name="makeAdditionalDonation">Направи додатну донацију</string>
+  <string name="update">Ажурирај</string>
+  <string name="changeMonthlyAmount">Промени месечни износ (%s)</string>
+  <string name="cancelSupport">Откажи твоју подршку</string>
   <string name="xOrY">%1$s или %2$s</string>
-  <string name="decideHowMuch">Одлучи колико Личес теби вреди:</string>
-  <string name="stopPayments">Повуци своју кредитну картицу и обустави наплате:</string>
-  <string name="viewOthers">Погледај остале Личес Патроне</string>
+  <string name="decideHowMuch">Одлучи колико ти Lichess вреди:</string>
+  <string name="stopPayments">Повуци своју кредитну картицу и заустави плаћања:</string>
+  <string name="noLongerSupport">Не подржавај више Lichess</string>
+  <string name="viewOthers">Погледај остале Lichess Покровитеље</string>
   <string name="date">Датум</string>
   <string name="amount">Износ</string>
-  <string name="transactionCompleted">Твоја трансакција је завршена и рачун за твоју донацију је послат на твоју е-пошту.</string>
-  <string name="permanentPatron">Сада имаш трајни Патрон налог.</string>
-  <string name="nowLifetime">Сада си доживотни Личес Патрон!</string>
-  <string name="nowOneMonth">Сада си Личес Патрон један месец!</string>
-  <string name="downgradeNextMonth">За месец дана, нећете бити поново наплаћени, а ваш Личес налог ће се вратити на обичан налог.</string>
+  <string name="transactionCompleted">Твоја трансакција је завршена и рачун за твоју донацију је послат на твој имејл.</string>
+  <string name="permanentPatron">Сада имаш стални Покровитељски налог.</string>
+  <string name="checkOutProfile">Погледај своју профилну страницу!</string>
+  <string name="nowLifetime">Сада си доживотни Lichess Покровитељ!</string>
+  <string name="nowOneMonth">Сада си Lichess Покровитељ на један месец!</string>
+  <string name="downgradeNextMonth">За месец дана, НЕЋЕШ бити поново наплаћен/а и твој Lichess налог ће се вратити на обичан налог.</string>
 </resources>

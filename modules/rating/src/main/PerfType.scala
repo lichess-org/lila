@@ -23,7 +23,7 @@ enum PerfType(
         PerfId(0),
         key = PerfKey.ultraBullet,
         icon = Icon.UltraBullet,
-        nameKey = I18nKey(Speed.UltraBullet.name),
+        nameKey = I18nKey.site.ultraBullet,
         descKey = I18nKey.site.ultraBulletDesc
       )
 
@@ -77,8 +77,8 @@ enum PerfType(
         PerfId(5),
         key = PerfKey.standard,
         icon = Icon.Crown,
-        nameKey = I18nKey(variant.Standard.name),
-        descKey = I18nKey("Standard rules of chess")
+        nameKey = I18nKey.variant.standard,
+        descKey = I18nKey.variant.standardTitle
       )
 
   case Chess960
@@ -86,8 +86,8 @@ enum PerfType(
         PerfId(11),
         key = PerfKey.chess960,
         icon = Icon.DieSix,
-        nameKey = I18nKey(variant.Chess960.name),
-        descKey = I18nKey("Chess960 variant")
+        nameKey = I18nKey.variant.chess960,
+        descKey = I18nKey.variant.chess960Title
       )
 
   case KingOfTheHill
@@ -95,8 +95,8 @@ enum PerfType(
         PerfId(12),
         key = PerfKey.kingOfTheHill,
         icon = Icon.FlagKingHill,
-        nameKey = I18nKey(variant.KingOfTheHill.name),
-        descKey = I18nKey("King of the Hill variant")
+        nameKey = I18nKey.variant.kingOfTheHill,
+        descKey = I18nKey.variant.kingOfTheHillTitle
       )
 
   case Antichess
@@ -104,8 +104,8 @@ enum PerfType(
         PerfId(13),
         key = PerfKey.antichess,
         icon = Icon.Antichess,
-        nameKey = I18nKey(variant.Antichess.name),
-        descKey = I18nKey("Antichess variant")
+        nameKey = I18nKey.variant.antichess,
+        descKey = I18nKey.variant.antichessTitle
       )
 
   case Atomic
@@ -113,8 +113,8 @@ enum PerfType(
         PerfId(14),
         key = PerfKey.atomic,
         icon = Icon.Atom,
-        nameKey = I18nKey(variant.Atomic.name),
-        descKey = I18nKey("Atomic variant")
+        nameKey = I18nKey.variant.atomic,
+        descKey = I18nKey.variant.atomicTitle
       )
 
   case ThreeCheck
@@ -122,8 +122,8 @@ enum PerfType(
         PerfId(15),
         key = PerfKey.threeCheck,
         icon = Icon.ThreeCheckStack,
-        nameKey = I18nKey(variant.ThreeCheck.name),
-        descKey = I18nKey("Three-check variant")
+        nameKey = I18nKey.variant.threeCheck,
+        descKey = I18nKey.variant.threeCheckTitle
       )
 
   case Horde
@@ -131,8 +131,8 @@ enum PerfType(
         PerfId(16),
         key = PerfKey.horde,
         icon = Icon.Keypad,
-        nameKey = I18nKey(variant.Horde.name),
-        descKey = I18nKey("Horde variant")
+        nameKey = I18nKey.variant.horde,
+        descKey = I18nKey.variant.hordeTitle
       )
 
   case RacingKings
@@ -140,8 +140,8 @@ enum PerfType(
         PerfId(17),
         key = PerfKey.racingKings,
         icon = Icon.FlagRacingKings,
-        nameKey = I18nKey(variant.RacingKings.name),
-        descKey = I18nKey("Racing kings variant")
+        nameKey = I18nKey.variant.racingKings,
+        descKey = I18nKey.variant.racingKingsTitle
       )
 
   case Crazyhouse
@@ -149,8 +149,8 @@ enum PerfType(
         PerfId(18),
         key = PerfKey.crazyhouse,
         icon = Icon.Crazyhouse,
-        nameKey = I18nKey(variant.Crazyhouse.name),
-        descKey = I18nKey("Crazyhouse variant")
+        nameKey = I18nKey.variant.crazyhouse,
+        descKey = I18nKey.variant.crazyhouseTitle
       )
 
   case Puzzle

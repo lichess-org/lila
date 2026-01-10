@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">No s\'ha trobat el jugador FIDE</string>
   <string name="fideProfile">Perfil FIDE</string>
   <string name="federation">Federació</string>
-  <string name="ageThisYear">Edat aquest any</string>
+  <string name="age" comment="Label for the age of a player. Appears on players' FIDE profiles.">Edat</string>
   <string name="unrated">Sense avaluació</string>
   <string name="recentTournaments">Tornejos recents</string>
   <string name="openLichess">Obre a Lichess</string>
@@ -83,6 +83,6 @@
   <string name="liveboard">Tauler en directe</string>
   <string name="communityBroadcast">Retransmissió comunitària</string>
   <string name="createdAndManagedBy">Creada i gestionada per %s.</string>
-  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcast authors may optionally  override it - and if they do, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot;.">Ronda %s</string>
+  <string name="roundX">Ronda %s</string>
   <string name="defaultRoundNameHelp">Deixant el nom per defecte el traduirà automàticament a tots els altres llenguatges.</string>
 </resources>

@@ -7,10 +7,11 @@ import lila.core.perm.Permission
 import lila.core.report.SuspectId
 import lila.core.user.{ UserMark, UserMarks, KidMode }
 import lila.report.{ Room, Suspect }
-import lila.user.{ LightUserApi, UserRepo }
+import lila.user.{ LightUserApi, UserRepo, UserApi }
 
 final class ModApi(
     userRepo: UserRepo,
+    userApi: UserApi,
     logApi: ModlogApi,
     reportApi: lila.report.ReportApi,
     noteApi: lila.user.NoteApi,
@@ -129,10 +130,7 @@ final class ModApi(
 
   def setKid(mod: ModId, username: UserStr, v: KidMode): Funit =
     withUser(username): user =>
-      for
-        prev <- userRepo.isKid(user.id)
-        _ <- (v != prev).so(userRepo.setKid(user, v))
-      yield if v != prev then logApi.setKidMode(mod, user.id, v)
+      userApi.setKid(user, v).mapz(logApi.setKidMode(mod, user.id, _))
 
   def setTitle(username: UserStr, title: Option[PlayerTitle])(using Me): Funit =
     withUser(username): user =>

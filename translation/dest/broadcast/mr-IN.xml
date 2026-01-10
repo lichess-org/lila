@@ -6,8 +6,14 @@
     <item quantity="one">%s प्रसारणे</item>
     <item quantity="other">%s प्रसारणे</item>
   </plurals>
+  <plurals name="nbViewers">
+    <item quantity="one">%s दर्शक</item>
+    <item quantity="other">%s दर्शक</item>
+  </plurals>
   <string name="liveBroadcasts">थेट स्पर्धा प्रसारणे</string>
+  <string name="broadcastCalendar">प्रसाराणांची दिनदर्शिका</string>
   <string name="newBroadcast">नवीन थेट प्रसारण</string>
+  <string name="subscribedBroadcasts">सदस्यत्व घेतलेले प्रसारणे</string>
   <string name="aboutBroadcasts">प्रसारणां बद्दल</string>
   <string name="howToUseLichessBroadcasts">Lichess ब्रॉडकास्ट कसे वापरावे.</string>
   <string name="theNewRoundHelp">नवीन फेरीत मागील प्रमाणेच सदस्य आणि योगदानकर्ते असतील.</string>
@@ -19,15 +25,64 @@
   <string name="tournamentDescription">लघु स्पर्धेचे वर्णन</string>
   <string name="fullDescription">संपूर्ण स्पर्धेचे वर्णन</string>
   <string name="fullDescriptionHelp">स्पर्धेचे पर्यायी संपूर्ण वर्णन. %1$s उपलब्ध आहे. %2$s अक्षरांपेक्षा कमी.</string>
+  <string name="sourceSingleUrl">PGN चे स्रोत URL</string>
   <string name="sourceUrlHelp">URL जी लाइसेस PGN अद्यतने मिळविण्यासाठी तपासणी करेल. ते इंटरनेट वरून सार्वजनिकरित्या प्रवेश करण्यायोग्य असणे आवश्यक आहे.</string>
+  <string name="sourceGameIds">६४ Lichess खेळ ID पर्यंत, अवकाशांने (space) वेगळे केलेले.</string>
+  <string name="startDateTimeZone">स्थानिक कालविभाग स्पर्धा सुरू होण्याची तारीख: %s</string>
   <string name="startDateHelp">पर्यायी, इव्हेंट कधी सुरू होतो हे आपल्याला माहिती असल्यास</string>
   <string name="currentGameUrl">चालू खेळाचा URL</string>
   <string name="downloadAllRounds">सर्व फेऱ्या डाउनलोड करा</string>
-  <string name="resetRound">ही फेरी रेसेट करा</string>
+  <string name="resetRound">ही फेरी परत चालू करा</string>
   <string name="deleteRound">फेरी रद्द करा</string>
   <string name="definitivelyDeleteRound">फेरी आणि त्याचे सर्व गेम निश्चितपणे हटवा.</string>
   <string name="deleteAllGamesOfThisRound">या फेरीतील सर्व खेळ हटवा. ते पुन्हा तयार करण्यासाठी स्त्रोत सक्रिय असणे आवश्यक आहे.</string>
   <string name="editRoundStudy">फेरीचा अभ्यास संपादित करा</string>
   <string name="deleteTournament">ही स्पर्धा हटवा</string>
-  <string name="definitivelyDeleteTournament">संपूर्ण टूर्नामेंट, त्याच्या सर्व फेऱ्या आणि त्याचे सर्व गेम निश्चितपणे हटवा.</string>
+  <string name="definitivelyDeleteTournament">संपूर्ण स्पर्धा, त्याच्या सर्व फेऱ्या आणि त्याचे सर्व खेळ निश्चितपणे हटवा.</string>
+  <string name="showScores">खेळाच्या निकालांवर आधारित खेळाडूंचे अंक दाखवा</string>
+  <string name="replacePlayerTags">पर्यायी: खेळाडूंची नावे, रेटिंग्ज आणि शीर्षके बदला</string>
+  <string name="fideFederations">FIDE संघराज्ये </string>
+  <string name="top10Rating">शीर्ष १० रेटींग</string>
+  <string name="fidePlayers">FIDE खेळाडू</string>
+  <string name="fidePlayerNotFound">FIDE खेळाडू सापडले नाही</string>
+  <string name="fideProfile">FIDE चरित्र</string>
+  <string name="federation">संघराज्य</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">वय</string>
+  <string name="unrated">अस्थित</string>
+  <string name="recentTournaments">नुकतीच स्पर्धा</string>
+  <string name="openLichess">Lichess मध्ये उघडा</string>
+  <string name="teams">संघ</string>
+  <string name="boards">पट</string>
+  <string name="overview">विहंगावलोकन</string>
+  <string name="subscribeTitle">प्रत्येक फेरी सुरू झाल्यावर सूचना मिळवण्यासाठी सदस्यता घ्या. तुम्ही तुमच्या खाते प्राधान्यांमध्ये प्रसारणासाठी बेल किंवा पुश सूचना निवडू शकता.</string>
+  <string name="uploadImage">स्पर्धेचे चित्र टाका</string>
+  <string name="noBoardsYet">आता पट नाही आहेत. हे खेळ टाकल्यावर दिसतील.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">पट स्रोत बरोबर किंवा %s ने भारले जाऊ शकतात</string>
+  <string name="startsAfter">%s नंतर चालू होईल</string>
+  <string name="startVerySoon">प्रसारण लवकरच चालू होईल.</string>
+  <string name="notYetStarted">प्रसारण अजून चालू नाही झ्हालं आहे</string>
+  <string name="officialWebsite">अधिकृत वेबसाइट</string>
+  <string name="officialStandings">अधिकृत स्थिती</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">%s वर अजून पर्याय</string>
+  <string name="webmastersPage">अंतर्मालकाचे पृष्ठ</string>
+  <string name="embedThisBroadcast">हे प्रसारण तुमच्या संकेतस्थळात बसावा करा</string>
+  <string name="ratingDiff">रेटिंग डिफ</string>
+  <string name="gamesThisTournament">ह्या स्पर्धेतील खेळ</string>
+  <string name="score">गुण</string>
+  <string name="allTeams">सगळे संघ</string>
+  <string name="tournamentFormat">स्पर्धेचे स्वरूप</string>
+  <string name="tournamentLocation">स्पर्धेचे स्थान</string>
+  <string name="topPlayers">शीर्ष खेळाडू</string>
+  <string name="timezone">कालविभाग</string>
+  <string name="fideRatingCategory">FIDE रेटिंग श्रेणी</string>
+  <string name="optionalDetails">पर्यायी तपशील</string>
+  <string name="pastBroadcasts">मागील प्रसारणे</string>
+  <string name="allBroadcastsByMonth">एका महिन्यातले सर्व प्रसाराने पहा</string>
+  <string name="backToLiveMove">परत चालू असलेल्या चाली वर या</string>
+  <string name="sinceHideResults">तुम्ही निकाल लपवण्याचा निर्णय घेतल्यामुळे, सर्व पूर्वावलोकन पट रिकामे आहेत.</string>
+  <string name="liveboard">सद्य पट</string>
+  <string name="communityBroadcast">समुदाय प्रसारण</string>
+  <string name="createdAndManagedBy">%s ने बनवलेले व व्यवस्थापित केलेले.</string>
+  <string name="roundX">फेरी %s</string>
+  <string name="defaultRoundNameHelp">मूळ नाव ठेवल्याने बाकीच्या भाषांमध्ये आपोआप भाषांतर केले जाईल.</string>
 </resources>

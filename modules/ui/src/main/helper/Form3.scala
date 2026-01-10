@@ -177,8 +177,8 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     button(
       tpe := "submit",
       dataIcon := icon,
-      name := nameValue.map(_._1),
-      value := nameValue.map(_._2),
+      name := nameValue._1F,
+      value := nameValue._2F,
       cls := List(
         "submit button" -> true,
         "text" -> icon.isDefined,
@@ -187,8 +187,18 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       title := confirm
     )(content)
 
+  def hidden(field: Field): Tag =
+    hidden(field.name, ~field.value)
+
   def hidden[Value: Show](field: Field, value: Option[Value] = None): Tag =
     hidden(field.name, ~value.map(_.show).orElse(field.value))
+
+  def hidden[Value: Show](name: String, value: Option[Value]): Tag =
+    st.input(
+      st.name := name,
+      st.value := value.map(_.show),
+      tpe := "hidden"
+    )
 
   def hidden[Value: Show](name: String, value: Value): Tag =
     st.input(

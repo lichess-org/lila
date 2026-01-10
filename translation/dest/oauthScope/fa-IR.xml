@@ -10,14 +10,14 @@
   <string name="copyTokenNow">مطمعن شوید توکن را هم اکنون ذخیره کرده اید. در آینده دسترسی به آن امکان پذیر نیست!</string>
   <string name="preferenceRead">خواندن تنظیمات</string>
   <string name="preferenceWrite">ایجاد تنظیمات</string>
-  <string name="emailRead">خواندن ایمیل</string>
+  <string name="emailRead">خواندنِ نشانیِ رایانامه</string>
   <string name="challengeRead">خواندن پیشنهادهای بازی دریافت‌شده</string>
   <string name="challengeWrite">ارسال، پذیرش و رد پیشنهادهای بازی</string>
   <string name="challengeBulk">ایجاد چندین بازی به طور همزمان برای بازیکنان دیگر</string>
   <string name="studyRead">خواندن پخش و مطالعهٔ خصوصی</string>
   <string name="studyWrite">ایجاد، به روز رسانی، حذف درس ها و پخش</string>
   <string name="tournamentWrite">ایجاد، به روز رسانی، و پیوستن به مسابقات</string>
-  <string name="racerWrite">ایجاد و پیوستن به تاختِ معما</string>
+  <string name="racerWrite">ایجاد و پیوستن به تازِ معما</string>
   <string name="puzzleRead">خواندن داده‌های معماها</string>
   <string name="teamRead">خواندن اطلاعات خصوصی یَران</string>
   <string name="teamWrite">پیوستن و ترک کردن تیم ها</string>

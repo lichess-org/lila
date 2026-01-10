@@ -96,7 +96,7 @@ export default class AnalyseCtrl implements CevalHandler {
   showGauge = storedBooleanProp('analyse.show-gauge', true);
   private showCevalProp: Prop<boolean> = storedBooleanProp('analyse.show-engine', !!this.cevalEnabledProp());
   showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
-  showMoveAnnotation = storedBooleanProp('analyse.show-move-annotation', true);
+  possiblyShowMoveAnnotationsOnBoard = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   disclosureMode = storedBooleanProp('analyse.disclosure.enabled', false);
@@ -382,7 +382,7 @@ export default class AnalyseCtrl implements CevalHandler {
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
 
-    if (this.data.pref.keyboardMove) {
+    if (this.data.pref.keyboardMove && !this.study?.relay) {
       this.keyboardMove ??= makeKeyboardMove({
         ...this,
         data: { ...this.data, player: { color: 'both' } },
@@ -707,8 +707,12 @@ export default class AnalyseCtrl implements CevalHandler {
 
       if (isThreat) {
         const threat = ev as Tree.LocalEval;
-        if (!node.threat || isEvalBetter(threat, node.threat)) node.threat = threat;
-      } else if ((!node.ceval || isEvalBetter(ev, node.ceval)) && !(ev.cloud && this.ceval.engines.external))
+        if (!node.threat || isEvalBetter(threat, node.threat, this.ceval.search.multiPv))
+          node.threat = threat;
+      } else if (
+        (!node.ceval || isEvalBetter(ev, node.ceval, this.ceval.search.multiPv)) &&
+        !(ev.cloud && this.ceval.engines.external)
+      )
         node.ceval = ev;
       else if (!ev.cloud) {
         if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
@@ -801,6 +805,11 @@ export default class AnalyseCtrl implements CevalHandler {
     return this.showFishnetAnalysis() || (this.cevalEnabled() && this.isCevalAllowed());
   }
 
+  showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.showFishnetAnalysis();
+
+  showMoveAnnotationsOnBoard = (): boolean =>
+    this.possiblyShowMoveAnnotationsOnBoard() && this.showMoveGlyphs();
+
   showEvalGauge(): boolean {
     return (
       this.showGauge() &&
@@ -859,8 +868,8 @@ export default class AnalyseCtrl implements CevalHandler {
     this.redraw();
   };
 
-  toggleMoveAnnotation = (v: boolean): void => {
-    this.showMoveAnnotation(v);
+  togglePossiblyShowMoveAnnotationsOnBoard = (v: boolean): void => {
+    this.possiblyShowMoveAnnotationsOnBoard(v);
     this.resetAutoShapes();
   };
 
@@ -915,7 +924,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   gamebookPlay = (): GamebookPlayCtrl | undefined => this.study?.gamebookPlay;
 
-  isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
+  isGamebook = (): boolean => !!this.study?.data.chapter.gamebook;
 
   private closeTools = () => {
     this.retro = undefined;
@@ -1066,7 +1075,11 @@ export default class AnalyseCtrl implements CevalHandler {
   showBestMoveArrows = () => this.showBestMoveArrowsProp() && !this.retro?.hideComputerLine(this.node);
 
   private resetAutoShapes = () => {
-    if (this.showBestMoveArrows() || this.showMoveAnnotation() || this.variationArrowOpacity())
+    if (
+      this.showBestMoveArrows() ||
+      this.possiblyShowMoveAnnotationsOnBoard() ||
+      this.variationArrowOpacity()
+    )
       this.setAutoShapes();
     else this.chessground?.setAutoShapes([]);
   };

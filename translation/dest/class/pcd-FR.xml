@@ -119,4 +119,8 @@ Voici le lien pour accéder à la classe.</string>
   <string name="moveToAnotherClass">Déplacer vers une autre classe</string>
   <string name="allowMessagingBetweenStudents">Permettre les messages entre élèves</string>
   <string name="allowMessagingBetweenStudentsDesc">Cette option ne s\'applique qu\'aux comptes créés pour vos élèves.</string>
+  <string name="quickLoginCode">Code de connexion rapide</string>
+  <string name="quickLoginCodes">Codes de connexion rapide</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Utilisez ces codes sur %s pour connecter vos élèves à Lichess.</string>
+  <string name="quickLoginCodesDesc2">Lorsque les codes expirent, vos élèves restent connecté-es jusqu\'à leur déconnexion manuelle.</string>
 </resources>

@@ -476,10 +476,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="player">Lojtar</string>
   <string name="list">Listë</string>
   <string name="graph">Grafik</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Më pak se %s minutë</item>
-    <item quantity="other">Më pak se %s minuta</item>
-  </plurals>
   <string name="required">E domosdoshme.</string>
   <string name="openTournaments">Turne të hapur</string>
   <string name="duration">Kohëzgjatja</string>

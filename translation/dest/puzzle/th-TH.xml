@@ -8,6 +8,7 @@
   <string name="advanced">ขั้นสูง</string>
   <string name="lengths">จำนวนตาเดิน</string>
   <string name="mates">การรุกจน</string>
+  <string name="mateThemes">รูปแบบการรุกจน</string>
   <string name="goals">เป้าหมาย</string>
   <string name="origin">ต้นกำเนิดเกม</string>
   <string name="specialMoves">การเดินพิเศษ</string>

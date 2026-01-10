@@ -474,10 +474,6 @@
   <string name="player">Ludanto</string>
   <string name="list">Listo</string>
   <string name="graph">Grafo</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Malpli ol %s minuto</item>
-    <item quantity="other">Malpli ol %s minutoj</item>
-  </plurals>
   <string name="required">Necesa.</string>
   <string name="openTournaments">Enireblaj turniroj</string>
   <string name="duration">Daŭro</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Cickligi antaŭan/sekvan variaĵon</string>
   <string name="toggleGlyphAnnotations">Baskuligi movajn prinotaĵojn</string>
   <string name="togglePositionAnnotations">Baskuligi poziciajn prinotaĵojn</string>
+  <string name="toggleObservationAnnotations">Baskuligi observojn prinotaĵojn</string>
   <string name="variationArrowsInfo">Variaĵaj sagoj lasi vin navigi neutile la movlisto.</string>
   <string name="playSelectedMove">ludi elektan movon</string>
   <string name="newTournament">Nova konkurso</string>

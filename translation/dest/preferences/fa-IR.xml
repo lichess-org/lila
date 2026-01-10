@@ -6,7 +6,7 @@
   <string name="notifications">اعلان</string>
   <string name="pieceAnimation">حرکت مهره ها</string>
   <string name="materialDifference">تفاوت مُهره‌ها</string>
-  <string name="boardHighlights">رنگ‌نمایی صفحه (آخرین حرکت و کیش)</string>
+  <string name="boardHighlights">رنگ‌نمایی تخته (آخرین حرکت و کیش)</string>
   <string name="pieceDestinations">مقصد مهره(حرکت معتبر و پیش حرکت )</string>
   <string name="boardCoordinates">مختصات صفحه(A-H، 1-8)</string>
   <string name="moveListWhilePlaying">فهرست‌حرکت هنگام بازی کردن</string>
@@ -17,13 +17,13 @@
   <string name="showPlayerRatings">نشان دادن درجه‌بندی بازیکنان</string>
   <string name="showFlairs">نمایش نشان بازیکنان</string>
   <string name="explainShowPlayerRatings">این گزینه همه درجه‌بندی‌ها در Lichess را پنهان می‌کند تا کمک کند روی شطرنج تمرکز کنید. بازی‌های رسمی همچنان بر درجه‌بندی‌تان تاثیر می‌گذارند، این گزینه فقط مربوط به دیدن/ندیدن درجه‌بندی‌هاست.</string>
-  <string name="displayBoardResizeHandle">نمایش دستگیره برای تغییر اندازه صفحه</string>
+  <string name="displayBoardResizeHandle">نمایش دستگیرهٔ تغییر اندازهٔ تخته</string>
   <string name="onlyOnInitialPosition">فقط در وضعیت آغازین</string>
   <string name="inGameOnly">تنها در بازی</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">به غیر از داخل بازی</string>
+  <string name="exceptInGame">به غیر از داخل بازی</string>
   <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">وقتی زمان باقی مانده کمتر از ده ثانیه می باشد</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">وقتی زمان باقی مانده کمتر از ده ثانیه می باشد</string>
   <string name="horizontalGreenProgressBars">نمودار زمان سبز رنگ افقی</string>
   <string name="soundWhenTimeGetsCritical">صدا در هنگام زمان بحرانی زده می شود</string>
   <string name="giveMoreTime">افزایش زمان حریف</string>
@@ -39,21 +39,21 @@
   <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; را در هنگام تبلیغ بزنید تا به طور موقت تبلیغات خودکار را غیرفعال کنید</string>
   <string name="whenPremoving">در زمان پیش حرکت</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای خودکار تساوی، در تکرار سه‌گانه</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
   <string name="moveConfirmation">تایید حرکت</string>
-  <string name="explainCanThenBeTemporarilyDisabled">می‌تواند هنگام بازی با «گزینگان صفحه‌بازی» خاموش شود</string>
+  <string name="explainCanThenBeTemporarilyDisabled">می‌تواند هنگام بازی با «گزینگانِ تخته» خاموش شود</string>
   <string name="inCorrespondenceGames">در حال بازی مکاتبه ای</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>
   <string name="confirmResignationAndDrawOffers">نیاز به تایید دوباره؛ زمانی که تسلیم می شوید یا پیشنهاد تساوی می دهید</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">روش قلعه‌روی</string>
   <string name="castleByMovingTwoSquares">شاه را دو خانه حرکت دهید</string>
   <string name="castleByMovingOntoTheRook">شاه را روی رخ گذارید</string>
-  <string name="inputMovesWithTheKeyboard">ورود حرکات با استفاده از صفحه کلید</string>
+  <string name="inputMovesWithTheKeyboard">حرکاتِ ورودی با صفحه‌کلید</string>
   <string name="inputMovesWithVoice">حرکات را با صدای خود وارد کنید</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">چسبیدن پیکان‌ها به حرکت‌های ممکن</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">گفتن \"بازی خوبی بود، خوب بازی کردی\" در هنگام باخت یا تساوی</string>
   <string name="yourPreferencesHaveBeenSaved">تغییرات شما ذخیره شده است</string>
-  <string name="scrollOnTheBoardToReplayMoves">برای بازپخش حرکت‌ها، روی صفحه بازی بِنَوَردید</string>
+  <string name="scrollOnTheBoardToReplayMoves">برای بازپخش حرکت‌ها، روی تخته بِنَوَردید</string>
   <string name="correspondenceEmailNotification">فهرست رایانامهٔ روزانه از بازی‌های مکاتبه‌ای‌تان</string>
   <string name="notifyStreamStart">بَرخَط-محتواساز روی پخش است</string>
   <string name="notifyInboxMsg">پیام جدید</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">مرورگر</string>
   <string name="notifyDevice">اَفزاره</string>
   <string name="bellNotificationSound">صدای اعلان زنگی</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">چشم‌بسته</string>
+  <string name="blindfold" comment="As in Blindfold chess">چشم‌بسته</string>
 </resources>

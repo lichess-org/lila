@@ -28,7 +28,6 @@ export default class RelayCtrl {
   showStreamerMenu = toggle(false);
   videoPlayer?: VideoPlayer;
   liveboardPlugin?: LiveboardPlugin;
-  private i18nRoundNameCache = new Map<string, string>();
 
   constructor(
     private readonly study: StudyCtrl,
@@ -52,13 +51,15 @@ export default class RelayCtrl {
         : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
-      ? new RelayTeams(study.data.id, study.multiCloudEval, study.chapterSelect, this.roundPath, this.redraw)
+      ? new RelayTeams(this.round, study.multiCloudEval, study.chapterSelect, this.roundPath, this.redraw)
       : undefined;
     this.players = new RelayPlayers(
       data.tour.id,
       () => this.openTab('players'),
       study.ctrl.isEmbed,
       () => study.data.federations,
+      () => (study.multiBoard.showResults() ? undefined : this.round.id),
+      fideId => data.photos[fideId],
       this.redraw,
     );
     this.stats = new RelayStats(this.round, this.redraw);
@@ -123,14 +124,6 @@ export default class RelayCtrl {
   };
 
   fullRoundName = () => `${this.data.tour.name} - ${this.round.name}`;
-  i18nRoundName = (round: RelayRound): string => {
-    const cached = this.i18nRoundNameCache.get(round.id);
-    if (cached) return cached;
-    const engMatch = round.name.match(/^round (\d+)$/i);
-    const result = engMatch ? i18n.broadcast.roundX(engMatch[1]) : round.name;
-    this.i18nRoundNameCache.set(round.id, result);
-    return result;
-  };
 
   tourPath = () => `/broadcast/${this.data.tour.slug}/${this.data.tour.id}`;
   roundPath = (round?: RelayRound) => {

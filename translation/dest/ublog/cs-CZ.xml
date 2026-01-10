@@ -4,6 +4,8 @@
   <string name="byMonth">Podle měsíce</string>
   <string name="byTopic">Podle tématu</string>
   <string name="byLichess">Od Lichessu</string>
+  <string name="myFriends">Přátelé</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Líbí se mi</string>
   <string name="myBlog">Můj blog</string>
   <string name="likedBlogs">Oblíbené příspěvky blogu</string>
   <plurals name="blogPosts">

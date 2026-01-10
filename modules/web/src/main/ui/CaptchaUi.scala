@@ -18,7 +18,7 @@ final class CaptchaUi(helpers: Helpers):
 
   def apply(form: Form[?] | Field, captcha: Captcha)(using ctx: Context) =
     frag(
-      form3.hidden(formField(form, "gameId"), captcha.gameId.value.some),
+      form3.hidden(formField(form, "gameId"), captcha.gameId.some),
       if ctx.blind then form3.hidden(formField(form, "move"), captcha.solutions.head.some)
       else
         val url = routeUrl(routes.Round.watcher(captcha.gameId, captcha.color))

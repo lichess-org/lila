@@ -165,8 +165,7 @@ object Form:
 
   def tolerantBoolean = of[Boolean](using formatter.tolerantBooleanFormatter)
 
-  def hasKey[A](choices: Options[A], key: A) =
-    choices.map(_._1).toList contains key
+  def hasKey[A](choices: Options[A], key: A) = choices.exists(_._1 == key)
 
   def trueish(v: Int) = v == 1
   def trueish(v: String) = v == "1" || v == "true" || v == "True" || v == "on" || v == "yes"

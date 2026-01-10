@@ -33,7 +33,7 @@ final class Env(
     db: lila.db.Db,
     net: lila.core.config.NetConfig,
     langList: lila.core.i18n.LangList
-)(using scheduler: Scheduler)(using Executor):
+)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
 
   private given ConfigLoader[TwitchConfig] = AutoConfig.loader[TwitchConfig]
   private given ConfigLoader[YoutubeConfig] = AutoConfig.loader[YoutubeConfig]
@@ -73,7 +73,7 @@ final class Env(
     repo = repo,
     isOnline = isOnline,
     keyword = config.keyword,
-    alwaysFeatured = (() => alwaysFeaturedSetting.get()),
+    alwaysFeatured = () => alwaysFeaturedSetting.get(),
     twitchApi = twitchApi,
     ytApi = ytApi,
     langList = langList
@@ -89,11 +89,24 @@ final class Env(
     case lila.core.mod.Shadowban(userId, true) => api.demote(userId)
     case lila.core.mod.Shadowban(userId, false) => repo.unignore(userId)
 
+  lila.common.Cli.handle:
+    case "streamer" :: "twitch" :: "resync" :: Nil =>
+      twitchApi.syncAll.inject("done")
+    case "streamer" :: "twitch" :: "resub" :: Nil =>
+      twitchApi.subscribeAll.inject("done")
+    case "streamer" :: "twitch" :: "show" :: Nil =>
+      fuccess(twitchApi.debugLives)
+
   scheduler.scheduleWithFixedDelay(1.hour, 1.day): () =>
     repo.autoDemoteFakes
+
   scheduler.scheduleWithFixedDelay(21.minutes, 8.days): () =>
     ytApi.subscribeAll
-  scheduler.scheduleWithFixedDelay(10.seconds, 1.day): () =>
-    twitchApi.syncAll
-  scheduler.scheduleWithFixedDelay(10.seconds, 8.days): () =>
-    twitchApi.subscribeAll
+
+  if config.twitchConfig.clientId.nonEmpty then
+    scheduler.scheduleWithFixedDelay(30.seconds, 1.day): () =>
+      twitchApi.syncAll
+    scheduler.scheduleWithFixedDelay(72.seconds, 1.day): () =>
+      twitchApi.subscribeAll
+    scheduler.scheduleWithFixedDelay(4.minutes, 4.minutes): () =>
+      twitchApi.checkThatLiveStreamersReallyAreLive

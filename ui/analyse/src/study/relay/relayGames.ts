@@ -5,16 +5,18 @@ import { defined, scrollToInnerSelector } from 'lib';
 import { renderClock, verticalEvalGauge } from '../multiBoard';
 import type { ChapterPreview } from '../interfaces';
 import { gameLinkAttrs } from '../studyChapters';
-import { playerFed } from '../playerBars';
-import { h } from 'snabbdom';
-import { resultTag } from '../studyView';
+import { playerFedFlag } from '../playerBars';
+import { hl } from 'lib/view';
+import { playerColoredResult } from './customScoreStatus';
+import { COLORS } from 'chessops';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();
   const cloudEval = study.multiCloudEval?.thisIfShowEval();
   const roundPath = relay.roundPath();
   const showResults = study.multiBoard.showResults();
-  return h(
+  const round = study.relay?.round;
+  return hl(
     'div.relay-games',
     {
       class: { 'relay-games__eval': defined(cloudEval) },
@@ -30,14 +32,13 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
     chapters.length === 1 && chapters[0].name === 'Chapter 1'
       ? []
       : chapters.map((c, i) => {
-          const status =
-            !c.status || c.status === '*' ? renderClocks(c) : [c.status.slice(2, 3), c.status.slice(0, 1)];
+          const clocks = renderClocks(c);
           const players = [c.players?.black, c.players?.white];
           if (c.orientation === 'black') {
             players.reverse();
-            status.reverse();
+            clocks.reverse();
           }
-          return h(
+          return hl(
             `a.relay-game.relay-game--${c.id}`,
             {
               attrs: {
@@ -47,22 +48,31 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               class: { 'relay-game--current': c.id === study.data.chapter.id },
             },
             [
-              showResults ? cloudEval && verticalEvalGauge(c, cloudEval) : undefined,
-              h(
+              showResults && cloudEval && verticalEvalGauge(c, cloudEval),
+              hl(
                 'span.relay-game__players',
                 players.map((p, i) => {
-                  const s = status[i];
-                  return h(
+                  const playerColor: Color = (c.orientation === 'black' ? COLORS : COLORS.slice().reverse())[
+                    i
+                  ];
+                  const coloredResult =
+                    showResults &&
+                    c.status &&
+                    c.status !== '*' &&
+                    playerColoredResult(c.status, playerColor, round);
+                  return hl(
                     'span.relay-game__player',
                     p
                       ? [
-                          h('span.mini-game__user', [
-                            playerFed(p.fed),
-                            h('span.name', [userTitle(p), p.name]),
+                          hl('span.mini-game__user', [
+                            playerFedFlag(p.fed),
+                            hl('span.name', [userTitle(p), p.name]),
                           ]),
-                          showResults ? h(resultTag(s), [s]) : null,
+                          coloredResult
+                            ? hl(`${coloredResult.tag}`, [coloredResult.points])
+                            : showResults && hl('span', clocks[i]),
                         ]
-                      : [h('span.mini-game__user', h('span.name', 'Unknown player'))],
+                      : [hl('span.mini-game__user', hl('span.name', 'Unknown player'))],
                   );
                 }),
               ),

@@ -474,10 +474,6 @@
   <string name="player">Joueur</string>
   <string name="list">Liste</string>
   <string name="graph">Graphique</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Moins de %s minute</item>
-    <item quantity="other">Moins de %s minutes</item>
-  </plurals>
   <string name="required">Requis.</string>
   <string name="openTournaments">Tournois ouverts</string>
   <string name="duration">Durée</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Variante précédente/suivante</string>
   <string name="toggleGlyphAnnotations">Activer/désactiver les annotations en symboles</string>
   <string name="togglePositionAnnotations">Activer/désactiver les annotations de positions</string>
+  <string name="toggleObservationAnnotations">Activer/désactiver les annotations d\'observation</string>
   <string name="variationArrowsInfo">Les flèches de variantes vous permettent de naviguer sans utiliser la liste des coups.</string>
   <string name="playSelectedMove">jouer le coup sélectionné</string>
   <string name="newTournament">Nouveau tournoi</string>
@@ -911,6 +908,7 @@
   <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Rechercher ou démarrer une nouvelle conversation</string>
   <string name="edit">Éditer</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ultrabullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapide</string>
@@ -952,8 +950,8 @@
   <string name="timeAlmostUp">Vous n\'avez presque plus de temps!</string>
   <string name="clickToRevealEmailAddress">[Cliquer pour révéler l\'adresse courriel]</string>
   <string name="download">Télécharger</string>
-  <string name="coachManager">Config. param. coach</string>
-  <string name="streamerManager">Config. param. streamer</string>
+  <string name="coachManager">Votre profil de coach</string>
+  <string name="streamerManager">Votre profil de streamer</string>
   <string name="cancelTournament">Annuler le tournoi</string>
   <string name="tournDescription">Description du tournoi</string>
   <string name="tournDescriptionHelp">Quelque chose de spécial à dire aux participants ? Soyez bref. Des liens Markdown sont disponibles : [name](https://url)</string>

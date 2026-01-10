@@ -13,6 +13,13 @@
   color: $c-font-clear;
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
 }
+@mixin dropdown-action-highlight {
+  background: $c-primary;
+  &,
+  &::after {
+    color: $c-over;
+  }
+}
 
 .page-menu {
   /* for the trophies. This glorious hack bypasses the .user-show overflow: hidden */
@@ -123,17 +130,17 @@
           @include hamburger-visible;
         }
       }
+      .dropdown .dropdown-window a:active,
+      .dropdown .dropdown-window button:active {
+        @include dropdown-action-highlight;
+      }
       @media (hover: hover) and (pointer: fine) {
         .dropdown:not(.btn-rack__btn):hover > a {
           @include hamburger-visible;
         }
         .dropdown .dropdown-window a:hover,
         .dropdown .dropdown-window button:hover {
-          background: $c-primary;
-          &,
-          &::after {
-            color: $c-over;
-          }
+          @include dropdown-action-highlight;
         }
         .dropdown:hover .dropdown-window,
         .dropdown:focus-within .dropdown-window {

@@ -66,9 +66,8 @@ final class LiveApi(
 
   def streamerUserIds(within: Iterable[UserId]): Fu[List[UserId]] =
     all.map:
-      _.streams
-        .collect:
-          case s if within.exists(s.streamer.is(_)) => s.streamer.userId
+      _.streams.collect:
+        case s if within.exists(s.streamer.is(_)) => s.streamer.userId
 
   def of(s: Streamer.WithContext): Fu[Streamer.WithUserAndStream] = all.map: live =>
     Streamer.WithUserAndStream(s.streamer, s.user, live.get(s.streamer), s.subscribed)

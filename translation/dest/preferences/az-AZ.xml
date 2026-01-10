@@ -15,7 +15,7 @@
   <string name="onlyOnInitialPosition">Yalnız başlanğıc pozisiyada</string>
   <string name="chessClock">Şahmat saatı</string>
   <string name="tenthsOfSeconds">Saniyənin onda biri</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">10 saniyədən az vaxt qalanda</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">10 saniyədən az vaxt qalanda</string>
   <string name="horizontalGreenProgressBars">Üfüqi yaşıl inkişaf sətri</string>
   <string name="soundWhenTimeGetsCritical">Zaman azaldığında səslə xəbərdarlıq</string>
   <string name="giveMoreTime">Vaxt ver</string>
@@ -30,7 +30,7 @@
   <string name="promoteToQueenAutomatically">Avtomatik Vəzirə çıx</string>
   <string name="whenPremoving">Ön gediş edərkən</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Üç dəfə təkrarlanan oyunda avtomatik heç-heçə təklif et</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Qalan vaxt 30 saniyədən az olanda</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Qalan vaxt 30 saniyədən az olanda</string>
   <string name="moveConfirmation">Gediş təsdiqi</string>
   <string name="inCorrespondenceGames">Yazışmalı oyunlar</string>
   <string name="correspondenceAndUnlimited">Yazışmalı və vaxtsız</string>

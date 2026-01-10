@@ -1,3 +1,5 @@
+import type { FideId } from '../interfaces';
+
 export interface RelayData {
   tour: RelayTour;
   rounds: RelayRound[];
@@ -9,6 +11,17 @@ export interface RelayData {
   note?: string;
   lcc?: boolean;
   delayedUntil?: number;
+  photos: Photos;
+}
+
+export interface Photos {
+  [id: FideId]: Photo;
+}
+
+export interface Photo {
+  small: string;
+  medium: string;
+  credit?: string;
 }
 
 export interface RelayGroup {
@@ -28,6 +41,13 @@ export interface RelayTourPreview {
   live?: boolean; // see modules/relay/src/main/RelayTour.scala
 }
 
+interface CustomScore {
+  win: number;
+  draw: number;
+}
+
+export type CustomScoring = ByColor<CustomScore>;
+
 export interface RelayRound {
   id: RoundId;
   name: string;
@@ -37,6 +57,7 @@ export interface RelayRound {
   ongoing?: boolean;
   startsAt?: number;
   startsAfterPrevious?: boolean;
+  customScoring?: CustomScoring;
 }
 
 export interface RelayTourInfo {

@@ -61,20 +61,28 @@
   <string name="averageScore">Среден резултат</string>
   <string name="myTournaments">Моите турнири</string>
   <string name="editTournament">Редактиране на турнира</string>
+  <string name="editTeamBattle">Редактирай отборната битка</string>
   <string name="defender">Защитаващ</string>
   <string name="pickYourTeam">Изберете отбора си</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Кой отбор ще представлявате в тази битка?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Трябва да се присъедините към един от тези отбори, за да участвате!</string>
   <string name="created">Създадено</string>
   <string name="recentlyPlayed">Изиграни наскоро</string>
   <string name="bestResults">Най-добри резултати</string>
   <string name="tournamentStats">Статистика от турнира</string>
+  <string name="rankAvgHelp">Средното класиране е процентно изражение на вашето място. По-ниското е по-добро.
+
+Например: 3-то място в турнир със 100 играчи = 3%. 10-о място в турнир с 1000 играчи = 1%.</string>
   <string name="medians">медиани</string>
+  <string name="allAveragesAreX">Всички средни стойности на тази страница са %s.</string>
   <string name="total">Общо</string>
   <string name="pointsAvg">Среднени точки</string>
   <string name="pointsSum">Сума на точките</string>
   <string name="rankAvg">Среднен рейтинг</string>
   <string name="tournamentWinners">Победители в турнира</string>
+  <string name="tournamentShields">Турнирни щитове</string>
   <string name="onlyTitled">Само титулувани играчи</string>
-  <string name="onlyTitledHelp">Изискване на официална титла за участие в турнира</string>
-  <string name="tournamentPairingsAreNowClosed">Съчетаването на играчи вече приключи.</string>
-  <string name="berserkRate">Берсерк процент</string>
+  <string name="onlyTitledHelp">Изисквайте официално звание за участие в турнира</string>
+  <string name="tournamentPairingsAreNowClosed">Жребият за турнира вече е приключен.</string>
+  <string name="berserkRate">Процент берсерк</string>
 </resources>

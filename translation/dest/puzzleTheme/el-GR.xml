@@ -16,6 +16,7 @@
   <string name="backRankMateDescription">Κάντε ματ στον βασιλιά στην τελευταία γραμμή όταν είναι παγιδευμένος εκεί από τα κομμάτια του.</string>
   <string name="balestraMate">Ματ-βαλλίστρα</string>
   <string name="balestraMateDescription">Ένας αξιωματικός κάνει ματ στον αντίπαλο βασιλιά, ενώ η βασίλισσα εμποδίζει τη διαφυγή του στα γειτονικά τετράγωνα</string>
+  <string name="blindSwineMate">Ματ Blind Swine</string>
   <string name="blindSwineMateDescription">Δύο πύργοι συνεργάζονται προκειμένου να κάνουν ματ στον αντίπαλο βασιλιά παγιδεύοντάς τον σε μία περιοχή 2 επί 2 τετραγώνων της σκακιέρας.</string>
   <string name="bishopEndgame">Φινάλε αξιωματικών</string>
   <string name="bishopEndgameDescription">Φινάλε μόνο με αξιωματικούς και πιόνια.</string>
@@ -29,8 +30,8 @@
   <string name="cornerMateDescription">Ο πύργος ή η βασίλισσα περιορίζουν τον αντίπαλο βασιλιά στη γωνία, με τον ίππο να δίνει ματ.</string>
   <string name="crushing">Σαρωτική επίθεση</string>
   <string name="crushingDescription">Εντοπίστε το σοβαρό λάθος του αντιπάλου και αποκτήστε καθοριστικό πλεονέκτημα. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Σαχ με αποκάλυψη</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Μετακινήστε ένα κομμάτι ώστε ένα άλλο κομμάτι να αποκαλυφθεί και να δώσει σαχ, αποκτώντας παράλληλα ένα αποφασιστικό πλεονέκτημα.</string>
+  <string name="discoveredCheck">Σαχ με αποκάλυψη</string>
+  <string name="discoveredCheckDescription">Μετακινήστε ένα κομμάτι ώστε ένα άλλο κομμάτι να αποκαλυφθεί και να δώσει σαχ, αποκτώντας παράλληλα ένα αποφασιστικό πλεονέκτημα.</string>
   <string name="doubleBishopMate">Ματ με δύο αξιωματικούς</string>
   <string name="doubleBishopMateDescription">Δύο αξιωματικοί σε γειτονικές διαγώνιους κάνουν ματ σε βασιλιά που εμποδίζεται από δικά του κομμάτια.</string>
   <string name="dovetailMate">Dovetail ματ</string>
@@ -66,6 +67,10 @@
   <string name="intermezzoDescription">Αντί για την αναμενόμενη κίνηση παίζεται πρώτα κάποια ενδιάμεση κίνηση που δημιουργεί μια απειλή την οποία ο αντίπαλος πρέπει να αντιμετωπίσει αμέσως. Επίσης γνωστό ως \"Zwischenzug\" ή \"Intermezzo\".</string>
   <string name="killBoxMate">Ματ του κουτιού εξόντωσης</string>
   <string name="killBoxMateDescription">Ένας πύργος βρίσκεται δίπλα από τον αντίπαλο βασιλιά και υποστηρίζεται από τη βασίλισσα η οποία εμποδίζει τα τετράγωνα διαφυγής του βασιλιά. Ο πύργος και η βασίλισσα εγκλωβίζουν τον αντίπαλο βασιλιά σε ένα 3 επί 3 «κουτί εξόντωσης».</string>
+  <string name="pillsburysMate">Ματ του Πίλσμπερι</string>
+  <string name="pillsburysMateDescription">Ο πύργος κάνει ματ στον αντίπαλο βασιλιά, τον οποίο ένας αξιωματικός έχει περιορίσει.</string>
+  <string name="morphysMate">Ματ του Μόρφυ</string>
+  <string name="morphysMateDescription">Ένας αξιωματικός κάνει σαχ στον αντίπαλο βασιλιά, περιορίζοντάς τον με τη βοήθεια ενός πύργου.</string>
   <string name="triangleMate">Τριγωνικό ματ</string>
   <string name="triangleMateDescription">Η βασίλισσα και ο πύργος βρίσκονται ένα τετράγωνο μακριά από στον αντίπαλο βασιλιά και είναι στην ίδια γραμμή ή στην ίδια στήλη, ενώ χωρίζονται μεταξύ τους από ένα τετράγωνο, σχηματίζοντας κατά τον τρόπο αυτό ένα τρίγωνο.</string>
   <string name="vukovicMate">Ματ του Vukovic</string>
@@ -96,6 +101,8 @@
   <string name="oneMoveDescription">Τακτικά που έχουν μόνο μία κίνηση.</string>
   <string name="opening">Άνοιγμα</string>
   <string name="openingDescription">Τακτικά κατά την πρώτη φάση της παρτίδας.</string>
+  <string name="operaMate">Ματ της όπερας</string>
+  <string name="operaMateDescription">Ένας πύργος που προστατεύεται από έναν αξιωματικό κάνει ματ στον αντίπαλο βασιλιά.</string>
   <string name="pawnEndgame">Φινάλε πιονιών</string>
   <string name="pawnEndgameDescription">Φινάλε μόνο με πιόνια.</string>
   <string name="pin">Κάρφωμα</string>

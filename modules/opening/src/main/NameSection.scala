@@ -16,7 +16,7 @@ object NameSection extends OpaqueString[NameSection]:
       .zipAll(sectionsOf(next).toList, "", "")
       .dropWhile { (a, b) => a == b }
       .headOption
-      .map(_._2)
+      ._2F
       .filter(_.nonEmpty)
       .getOrElse(sectionsOf(next).last)
 

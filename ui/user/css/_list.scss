@@ -28,6 +28,15 @@ $user-list-width: 30ch;
     .user-link {
       @extend %ellipsis;
     }
+
+    a:not(.user-link) {
+      // tournament link
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.9em;
+      gap: 0.5ch;
+    }
   }
 
   &__online {

@@ -6,171 +6,172 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist">请听一位专家的发音。</string>
-  <string name="whyLiveLightLibre">Live 代表棋局全年无休，实时可游玩、可观看。 Light 和 Libre 代表 Lichess 完全开源，没有其他网站特有的种种专有限制和问题。</string>
-  <string name="whyIsLilaCalledLila">同样，Lichess 的源代码 %1$s，表示 li[chess in sca]la，因为 Lichess 的主体是用 %2$s，一种直观的编程语言写的。</string>
+  <string name="whyLiveLightLibre">Live（实时），因为对局可 24/7 实时进行与观看；light（轻量）和 libre（自由），这源于 Lichess 的开源本质，使其免受那些困扰其他网站的专有臃肿功能所累。</string>
+  <string name="whyIsLilaCalledLila">同样地，Lichess 的源代码项目 %1$s，代表 li[chess in sca]la，因为 Lichess 的核心部分是用 %2$s（一种直观的编程语言）编写的。</string>
   <string name="howCanIContributeToLichess">我可以如何为 Lichess 做出贡献？</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess 由赞助者的捐赠和志愿者团队的努力驱动。</string>
-  <string name="findMoreAndSeeHowHelp">你可以找到更多关于 %1$s 的信息 (包括 %2$s)。如果你想通过贡献你的时间和技能来帮助 Lichess，这里有许多 %3$s。</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess 的运行依赖于赞助者的赞助和志愿者团队的努力。</string>
+  <string name="findMoreAndSeeHowHelp">您可以了解更多关于 %1$s 的信息（包括一份 %2$s）。如果您希望贡献时间和技能来帮助 Lichess，这里有很多 %3$s。</string>
   <string name="beingAPatron">成为赞助者</string>
-  <string name="breakdownOfOurCosts">我们的费用明细表</string>
-  <string name="otherWaysToHelp">其它的帮助方式</string>
-  <string name="areThereWebsitesBasedOnLichess">是否有其他基于 Lichess 的网站？</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">是的，Lichess 确实激励了其他使用我们的 %1$s、%2$s 或 %3$s 的开源站点。</string>
-  <string name="keyboardShortcuts">都有哪些键盘快捷键？</string>
-  <string name="keyboardShortcutsExplanation">部分页面可以使用键盘快捷键。在研讨、分析、谜题或对局界面按下“?”键，即可列出你可以使用的快捷键。</string>
-  <string name="fairPlay">公平竞争</string>
-  <string name="whenAmIEligibleRatinRefund">我因与作弊者对弈而损失等级分，何时有资格获得自动补偿？</string>
-  <string name="ratingRefundExplanation">在棋手被标记为作弊者 1 分钟后，他们在过去 3 天内最新的 40 个评分对局也会被标记。 如果你下了这些对局并丢分 (因为输棋或者平局) ，并且你的等级分不是临时的，那么所丢的分数会返还给你。返还分数情况各异，具体分数基于你的最高分和该对局应得分数自动设定，且最多不会超过 150 分。(例如，如果你的评分在与作弊者对弈后一段时间内大幅增加，则你可能只能得到部分返还分数或得不到返还分数。)</string>
-  <string name="preventLeavingGameWithoutResigning">玩家没有认输就离开棋局，怎么处理？</string>
-  <string name="leavingGameWithoutResigningExplanation">如果你的对手频繁中止或离开棋局，他们会被 “禁止游戏”，即暂时禁止他们参加对局。 这一限制不会显示在他们的个人资料中。如果他们继续这样做，禁止的期限就会延长――长期被禁止可能会导致账户封禁。</string>
-  <string name="howCanIBecomeModerator">如何成为仲裁人？</string>
-  <string name="youCannotApply">你没有办法主动申请成为管理员。 如果有我们认为有能力担任管理员的人，我们会直接与他们联系。</string>
+  <string name="breakdownOfOurCosts">我们的成本明细</string>
+  <string name="otherWaysToHelp">其他帮助方式</string>
+  <string name="areThereWebsitesBasedOnLichess">有基于 Lichess 的网站吗？</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">是的。Lichess 确实启发了其他使用我们 %1$s、%2$s 或 %3$s 的开源网站。</string>
+  <string name="keyboardShortcuts">有哪些键盘快捷键？</string>
+  <string name="keyboardShortcutsExplanation">部分 Lichess 页面提供可用的键盘快捷键。您可以在研习、分析、谜题或对局页面尝试按下“?”键来查看可用的快捷键列表。</string>
+  <string name="fairPlay">公平竞赛</string>
+  <string name="whenAmIEligibleRatinRefund">我何时有资格获得因对手作弊而自动返还的等级分？</string>
+  <string name="ratingRefundExplanation">在棋手被标记后一分钟，系统会提取该棋手过去 5 天内最近的 40 场排位对局。如果您是其中某局的对手，并且因输棋或和棋损失了等级分，且您的等级分不是暂定状态，您将获得等级分返还。返还点数设有限制，基于您的历史最高等级分以及该局对局后您的等级分变化情况。（例如，如果您在那局对局后等级分大幅提升，您可能无法获得返还或仅获得部分返还。）单次返还点数永远不会超过 150 分。</string>
+  <string name="preventLeavingGameWithoutResigning">对手不认输就离开对局的行为，如何处理？</string>
+  <string name="leavingGameWithoutResigningExplanation">如果您的对手频繁地中止/离开对局，他们将会被处以“禁赛”，即暂时禁止进行对局。此处罚不会在其个人资料中公开显示。若此行为持续发生，禁赛时长将会增加——长期如此的行为可能导致账户被封禁。</string>
+  <string name="howCanIBecomeModerator">如何成为管理员（版主）？</string>
+  <string name="youCannotApply">您无法申请成为管理员。如果我们发现有人具备成为管理员的潜质，我们会直接联系他们。</string>
   <string name="isCorrespondenceDifferent">通讯棋是否不同于常规棋？</string>
   <string name="pleaseReadFairPlayPage">欲了解更多信息，请阅读我们的 %s</string>
-  <string name="fairPlayPage">“公平竞争”页面</string>
-  <string name="youCanUseOpeningBookNoEngine">在 Lichess，通讯棋的主要区别是允许使用开局库，但仍然禁止使用引擎，否则结果将被标记为引擎援助。 尽管 ICCF 允许在通讯棋中使用引擎，但 Lichess 不允许。</string>
+  <string name="fairPlayPage">公平竞赛页面</string>
+  <string name="youCanUseOpeningBookNoEngine">在 Lichess 上，通讯棋规则的主要区别是允许使用开局库。但使用引擎仍然是被禁止的，并会导致因引擎辅助而被标记。尽管 ICCF 在通讯棋中允许使用引擎，但 Lichess 不允许。</string>
   <string name="gameplay">对弈</string>
-  <string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何决定的？</string>
-  <string name="basedOnGameDuration">Lichess 时限基于预计的游戏持续时间 = %1$s。 例如，5+3 的估计持续时间是 5 × 60 + 40 × 3 = 420 秒。</string>
-  <string name="durationFormula">(时钟初始时间) + 40 × (加时)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s秒 = %2$s</string>
-  <string name="superiorThanXsEqualYtimeControl">≥ %1$s秒 = %2$s</string>
-  <string name="whatVariantsCanIplay">我可以在 Lichess 上玩到哪些变体？</string>
-  <string name="lichessSupportChessAnd">Lichess 支持标准国际象棋和 %1$s。</string>
+  <string name="howBulletBlitzEtcDecided">子弹棋、超快棋以及其他时限的时间是如何划分的？</string>
+  <string name="basedOnGameDuration">Lichess 的时间控制基于预计对局时长 = %1$s。
+例如，一盘 5+3 对局的预计时长为 5 × 60 + 40 × 3 = 420 秒。</string>
+  <string name="durationFormula">（棋钟初始秒数）+ 40 × （棋钟加秒）</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s 秒 = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s 秒 = %2$s</string>
+  <string name="whatVariantsCanIplay">我可以在 Lichess 上玩哪些变体棋？</string>
+  <string name="lichessSupportChessAnd">Lichess 支持标准国际象棋及 %1$s。</string>
   <string name="eightVariants">8 种国际象棋变体</string>
-  <string name="whatIsACPL">平均厘兵损失 (ACPL) 是什么？</string>
-  <string name="acplExplanation">兵厘是国际象棋计算优势所用的计量单位。一兵厘等于兵价值的 1/100。也就是说，一百个厘兵 =1 个兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
+  <string name="whatIsACPL">平均厘兵损失（ACPL）是什么？</string>
+  <string name="acplExplanation">厘兵是国际象棋中用于衡量优势的单位。1 厘兵等于 1/100 个兵的价值，因此 100 厘兵 = 1 个兵。这些数值在对局中没有正式作用，但对棋手评估局面很有用，并且在计算机象棋中对于局面评估至关重要。
 
-最佳的电脑着法将会损失零兵厘，但较少的着法将导致兵厘计量下局面的恶化。
+计算机认为的最佳着法将损失 0 厘兵，但较差的着法会导致局面恶化，其程度以厘兵衡量。
 
-该值可以用作着法质量的一个指标。每次失去的兵厘越少，着法就越强。
+这个数值可以作为对局质量的指标。每一步棋损失的厘兵越少，说明棋力越强。
 
-Lichess 上的电脑分析是基于 Stockfish 的。</string>
-  <string name="insufficientMaterial">超时判负、和棋以及子力不足</string>
-  <string name="lichessFollowFIDErules">如果玩家耗尽了时间，该玩家通常会被判负。另外，如果对手无法在允许的最大限着 (%1$s 回合) 内将杀玩家的王，对局就是和棋。
+Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
+  <string name="insufficientMaterial">超时判负、和棋与子力不足</string>
+  <string name="lichessFollowFIDErules">如果一方棋手时间耗尽，该棋手通常将输掉对局。然而，如果当前局面下对手通过任何可能的合法着法序列都无法将杀该棋手的王，则对局判为和棋（%1$s）。
 
-在极少数情况下，这可能很难自动决定 (强制变招、子力优势过大)。 默认情况下，我们会偏向于未耗尽时间的一方。
+在极少数情况下，这可能难以自动判定（强制线路、优势过大）。默认情况下，我们总是倾向于支持未超时的一方。
 
-注意，在很特殊的情况下——例如，对方有一颗棋子封锁住了自己的王——甚至可以用单马或单象将死对方。</string>
+请注意，如果对手有一个可以阻挡己方王的棋子，那么用单个马或象将杀对方是可能的。</string>
   <string name="fideHandbook">国际棋联手册</string>
   <string name="fideHandbookX">国际棋联手册 %s</string>
-  <string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？（吃过路兵）</string>
-  <string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个 %1$s。
+  <string name="discoveringEnPassant">为什么一个兵能够吃掉已经过其控制格的其他兵？（吃过路兵）</string>
+  <string name="explainingEnPassant">这是一种被称为“吃过路兵”的合法着法。维基百科文章提供了 %1$s。
 
-在 %2$s 的 3.7.3.1 与 3.7.3.2 节中对此作了如下描述：
+该规则在 %2$s 的第 3.7.3.1 和 3.7.3.2 条中有描述：
 
-“对方一只兵刚刚从初始位置起步走两格，与本方的兵处在相邻横线时，本方的兵可以吃掉它，就如同它只走了一格一样。这种吃法称为‘吃过路兵’，只能在对方兵走两格之后立即进行。“
+“当一方兵从原始位置一次移动两格，到达与对方某个兵相邻的直行且在同一横线时，对方兵可以吃掉这个兵，就像该兵只移动了一格一样。这种吃法只能在兵移动后的下一步立即进行，称为‘吃过路兵’。”
 
-请查看 %3$s 以练习这个着法。</string>
+查看关于此着法的 %3$s 以进行一些练习。</string>
   <string name="goodIntroduction">不错的介绍</string>
   <string name="lichessTraining">Lichess 训练</string>
-  <string name="watchIMRosenCheckmate">观看国际大师 Eric Rosen 将死 %s。</string>
+  <string name="watchIMRosenCheckmate">观看 IM Eric Rosen 将杀 %s。</string>
   <string name="threefoldRepetition">三次重复局面</string>
-  <string name="threefoldRepetitionExplanation">如果一个局面出现了三次，玩家可以根据 %1$s 提和。Lichess 执行 FIDE 官方规则，这些规则在 %2$s 第 9.2 条中已有规定。</string>
+  <string name="threefoldRepetitionExplanation">如果一个局面出现了三次，棋手可以根据 %1$s 提和。Lichess 执行 FIDE 官方规则，如 %2$s 第 9.2 条所述。</string>
   <string name="threefoldRepetitionLowerCase">三次重复局面</string>
-  <string name="notRepeatedMoves">我们没有重复着法。为什么对局仍然被判和？</string>
-  <string name="repeatedPositionsThatMatters">三次重复局面是关于局面的 %1$s 重复，而不是着法。重复局面不一定会连续发生。</string>
-  <string name="positions">位置</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">我们重复了三次的局面。为什么对局没有判和？</string>
-  <string name="threeFoldHasToBeClaimed">重复局面和棋需要由其中一个选手提出。您可以通过按下已显示的按钮，或者在您最后一次重复移动之前提出和棋，因为无论对方接不接受，根据三次重复规范，游戏会以和棋结束。您也可以 %1$s 让 Lichess 在局面重复时给您自动提和。此外，五次重复局面永远会立即结束游戏。</string>
+  <string name="notRepeatedMoves">我们并没有重复着法。为什么对局仍然因重复局面而判和？</string>
+  <string name="repeatedPositionsThatMatters">三次重复局面指的是重复的 %1$s，而不是重复的着法。并且局面重复不需要连续发生。</string>
+  <string name="positions">棋盘局面</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">我们重复了三次局面。为什么对局没有被判和？</string>
+  <string name="threeFoldHasToBeClaimed">重复局面需要由一方棋手提出申诉。您可以通过按下显示的按钮来申诉，或者在您最后一步导致重复的着法之前提和——即使您的对手拒绝和棋提议，三次重复局面的和棋申诉仍然会被执行。您也可以 %1$s Lichess 为您自动申诉重复局面。此外，五次重复局面会立即自动结束对局。</string>
   <string name="configure">配置</string>
   <string name="accounts">账户</string>
-  <string name="titlesAvailableOnLichess">Lichess 上有什么头衔？</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess 承认所有 OTB (在棋盘上) 对局得到的国际棋联称号，以及 %1$s。以下列出这些国际棋联称号：</string>
-  <string name="showYourTitle">如果你有国际象棋称号，可以填写 %1$s 来申请将其显示在你的账户上，需要一张你手持清晰身份证件/卡片的自拍照。
+  <string name="titlesAvailableOnLichess">Lichess 上有哪些头衔？</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess 承认所有通过线下对局（OTB）获得的国际棋联（FIDE）头衔，以及 %1$s。以下是国际棋联头衔列表：</string>
+  <string name="showYourTitle">如果您拥有国际象棋头衔，您可以填写 %1$s 来申请在您的账户上显示该头衔，申请需包括一份清晰的身份证件/卡片图片以及您手持该证件/卡片的自拍。
 
-在 Lichess 上验证国际象棋称号的用户可以在国际象棋称号专用竞技场中下棋。
+在 Lichess 上验证为头衔棋手后，将获得参加“头衔棋手专属竞技场”赛事的资格。
 
-最后，网站有一个 %2$s 荣誉称号。</string>
-  <string name="asWellAsManyNMtitles">许多国家级大师头衔</string>
-  <string name="verificationForm">验证表格</string>
-  <string name="canIbecomeLM">我可以获得 Lichess 大师 (LM) 头衔吗？</string>
+此外，还有一个荣誉性的 %2$s 头衔。</string>
+  <string name="asWellAsManyNMtitles">众多国家大师（NM）头衔</string>
+  <string name="verificationForm">验证申请表</string>
+  <string name="canIbecomeLM">我能获得 Lichess 大师（LM）头衔吗？</string>
   <string name="noUpperCaseDot">不能。</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">这个荣誉称号是非正式的，只存在于 Lichess 上。
+  <string name="lMtitleComesToYouDoNotRequestIt">这个荣誉头衔是非官方的，仅存在于 Lichess。
 
-极少数情况下我们会决定把它授予那些优秀的著名 Lichess 公民。不是你去获取 LM 称号，而是 LM 称号找上你。如果你有资格，会收到我们的消息，并选择接受或拒绝。
+我们很少会自行决定将其授予那些表现卓越且是 Lichess 良好社区的棋手。您无法申请获得 LM 头衔，而是 LM 头衔会找到您。如果您符合条件，您将会收到我们关于此事的消息，并可以选择接受或拒绝。
 
-不要主动要求 LM 称号。</string>
+请勿主动索取 LM 头衔。</string>
   <string name="whatUsernameCanIchoose">我的用户名可以是什么？</string>
-  <string name="usernamesNotOffensive">一般而言，用户名不应该是攻击性、冒用他人或广告。你可以阅读更多关于 %1$s 的信息。</string>
-  <string name="guidelines">指南</string>
-  <string name="canIChangeMyUsername">我能变更我的用户名吗?</string>
-  <string name="usernamesCannotBeChanged">不可以，由于技术和实际原因，不能更改用户名。 用户名在很多地方都得到了体现：数据库，导出，日志和人们的想法。 你可以调整一次用户名大小写。</string>
+  <string name="usernamesNotOffensive">一般来说，用户名不应是：冒犯性的、冒充他人的或用于广告宣传的。您可以阅读更多关于 %1$s 的信息。</string>
+  <string name="guidelines">用户名指南</string>
+  <string name="canIChangeMyUsername">我可以更改我的用户名吗？</string>
+  <string name="usernamesCannotBeChanged">不能，由于技术和实际原因，用户名无法更改。用户名在太多地方被固化：数据库、导出文件、日志以及人们的记忆中。但您可以调整一次用户名的大小写。</string>
   <string name="uniqueTrophies">独一无二的奖杯</string>
-  <string name="ownerUniqueTrophies">这个奖杯在 Lichess 历史上是独一无二的，除了 %1$s，任何人都不会有。</string>
-  <string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
-  <string name="goldenZeeExplanation">ZugAddict 当时在直播，他两个小时里一直试图在 1+0 的棋局中打败第八级的 AI，但没有成功。Thibault 告诉他，如果他直播时成功地做到这个，他就会得到一个独一无二的奖杯。一个小时后，他打败了鳕鱼，承诺得到兑现。</string>
-  <string name="lichessRatings">Lichess 排名</string>
+  <string name="ownerUniqueTrophies">这个奖杯在 Lichess 历史上是独一无二的，除了 %1$s 之外，永远不会再有其他人获得它。</string>
+  <string name="aHourlyBulletTournament">每小时子弹棋锦标赛</string>
+  <string name="goldenZeeExplanation">ZugAddict 当时正在直播，在过去的 2 小时里，他一直尝试在 1+0 的时限下击败第八级 AI，但未能成功。Thibault（网站创始人）告诉他，如果他在直播中成功做到，他将获得一个独一无二的奖杯。一小时后，他击败了 Stockfish，承诺也得到了兑现。</string>
+  <string name="lichessRatings">Lichess 等级分</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么等级分系统？</string>
-  <string name="ratingSystemUsedByLichess">等级分使用 Mark Glickman 发明的 Glicko-2 算法计算得出。这是一个非常流行的等级分计算方法，被大量国际象棋组织所采用 (FIDE 是一个特别的反面案例，其依旧沿用已过时的 Elo 等级分系统)。
+  <string name="ratingSystemUsedByLichess">等级分使用 Mark Glickman 发明的 Glicko-2 算法计算得出。这是一个非常流行的等级分计算方法，被大量国际象棋组织所采用（FIDE 是一个特别的反面案例，其依旧沿用已过时的 Elo 等级分系统）。
 
-总的来说，Glicko 算法使用“置信区间”来计算和表示你的等级分。当首次来到本站时，你的初始等级分为 1500 ± 1000。其中 1500 表示你的等级分，1000 表示置信区间。
+总的来说，Glicko 算法使用“置信区间”来计算和表示您的等级分。当首次来到本站时，您的初始等级分为 1500 ± 1000。其中 1500 表示您的等级分，1000 表示置信区间。
 
-大体上，系统拥有 95% 的确信度认定你的等级分在 500 到 2500 之间的某个值，这是相当模糊的。因为这个原因，玩家的等级分会在起始的几局比赛中快速变化，一局可能变化好几百分。但是在和一些等级分稳定的玩家对弈之后，置信区间会缩小，并且在之后比赛中获得/损失的分值也会变小。
+大体上，系统拥有 95% 的确信度认定您的等级分在 500 到 2500 之间的某个值，这是相当模糊的。因为这个原因，棋手的等级分会在起始的几局比赛中快速变化，一局可能变化好几百分。但是在和一些等级分稳定的棋手对弈之后，置信区间会缩小，并且在之后比赛中获得/损失的分值也会变小。
 
-此外，随着时间的推移，置信区间将会逐步增大。这使你获得/损失的分值能够更快速地匹配你在此段时间内棋力的变化。</string>
-  <string name="whatIsProvisionalRating">为什么在等级分旁边有一个问号 (?) ？</string>
-  <string name="provisionalRatingExplanation">问号标记表示等级分是暂时的。原因包括：</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">用户还没有在变体中与 %1$s 完成足够多的排位棋局。</string>
-  <string name="similarOpponents">相近实力的对手</string>
-  <string name="notPlayedRecently">用户最近没有下足够多的棋局。根据你下过的对局数量，你的等级分可能需要一年左右的不活跃状态才会再次变成暂时性的。</string>
-  <string name="ratingDeviationMorethanOneHundredTen">具体地说，这表示 Glicko-2 标准差大于 110。标准差是等级分的可靠性，标准差越低，等级分就越稳定。</string>
-  <string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
-  <string name="inOrderToAppearsYouMust">为了登上 %1$s 你必须：</string>
+此外，随着时间的推移，置信区间将会逐步增大。这使您获得/损失的分值能够更快速地匹配您在此段时间内棋力的变化。</string>
+  <string name="whatIsProvisionalRating">为什么等级分旁边有一个问号（？）？</string>
+  <string name="provisionalRatingExplanation">问号表示该等级分为暂定状态。原因包括：</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">该棋手在该等级分类别中，尚未完成足够多的与 %1$s 的排位对局。</string>
+  <string name="similarOpponents">实力相近的对手</string>
+  <string name="notPlayedRecently">该棋手最近没有进行足够多的对局。根据您已进行的对局数量，如果大约一年不活动，您的等级分可能会再次变为暂定状态。</string>
+  <string name="ratingDeviationMorethanOneHundredTen">具体来说，这意味着 Glicko-2 偏差值大于 110。偏差值是系统对该等级分的置信水平。偏差值越低，等级分越稳定。</string>
+  <string name="howDoLeaderoardsWork">排名和排行榜是如何工作的？</string>
+  <string name="inOrderToAppearsYouMust">为了登上 %1$s，您必须：</string>
   <string name="ratingLeaderboards">排行榜</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">在特定变体中进行过至少 30 场排位赛</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">过去一周内，在此变体中进行过至少一场排位赛</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">标准国际象棋的等级分偏差小于 %1$s，变体则小于 %2$s</string>
-  <string name="beInTopTen">在此变体中获得前十</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了防止不再使用的账户占用排行榜。</string>
-  <string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要更高，比如国际棋联、美国棋联和国际象棋俱乐部？</string>
-  <string name="whyAreRatingHigherExplanation">你不应将等级分视为一个绝对数值，也不应将其与其它组织的等级分进行比较。不同的组织拥有不同级别的玩家和评分系统 (Elo、Clicko、Clicko-2 或其中一个的变种)。这些因素都会极大地影响绝对数值 (等级分)。
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">在特定等级分中进行了至少 30 场排位对局，</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">在过去一周内进行过该等级分的对局，</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">拥有低于 %1$s 的等级分偏差值（标准棋），以及低于 %2$s 的偏差值（变体棋），</string>
+  <string name="beInTopTen">在该等级分中排名前 10。</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二个要求是为了让不再使用其账户的棋手不再占据排行榜。</string>
+  <string name="whyAreRatingHigher">为什么 Lichess 的等级分比国际棋联（FIDE）、美国国际象棋联合会（USCF）和国际象棋俱乐部（ICC）等其他网站和组织要高？</string>
+  <string name="whyAreRatingHigherExplanation">最好不要将等级分视为绝对数值，或将其与其他组织进行比较。不同的组织拥有不同水平的棋手，使用不同的等级分系统（Elo、Glicko、Glicko-2 或上述系统的修改版）。这些因素会极大地影响绝对数值（等级分）。
 
-相反地，你应该将等级分视为一个“相对”数值 (与“绝对”相反)：在一群玩家中，他们各自不同的等级分可以帮助你预测出谁将会胜/和/负，以及发生该结果的概率。一个玩家的等级分只有在和其它玩家相比较时才有意义。</string>
-  <string name="howToHideRatingWhilePlaying">如何在对局时隐藏分数？</string>
-  <string name="enableZenMode">在 %1$s 中开启禅意模式或在游戏中按 %2$s。</string>
-  <string name="displayPreferences">显示偏好</string>
-  <string name="connexionLostCanIGetMyRatingBack">由于延迟/断线，我输了游戏。我可以要回我的等级分吗？</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了对局的等级分，不管是你的问题还是我们的。尽管后者非常少见。也请注意，当 Lichess 正在重启，且你因此超时输掉了对局，我们会终止游戏以避免不公平的判决。</string>
-  <string name="howToThreeDots">说明</string>
-  <string name="enableDisableNotificationPopUps">启用或禁用通知弹窗？</string>
+最好将等级分视为“相对”数值（与“绝对”数值相对）：在一群棋手中，他们等级分的相对差异将帮助您估计谁会赢/和/输，以及频率如何。说“我有 X 等级分”本身没有意义，除非有其他棋手的等级分可供比较。</string>
+  <string name="howToHideRatingWhilePlaying">如何在对局时隐藏等级分？</string>
+  <string name="enableZenMode">在 %1$s 中启用“禅意模式”，或在对局过程中按 %2$s。</string>
+  <string name="displayPreferences">显示偏好设置</string>
+  <string name="connexionLostCanIGetMyRatingBack">我因为延迟/断线输了一局。我能拿回我的等级分吗？</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">很遗憾，对于因延迟或断线而输掉的对局，我们无法归还等级分，无论问题是出在您这边还是我们这边。不过，后者情况非常罕见。另外请注意，当 Lichess 重启导致您超时输棋时，我们会中止对局以避免不公平的损失。</string>
+  <string name="howToThreeDots">操作指南</string>
+  <string name="enableDisableNotificationPopUps">如何启用或禁用通知弹窗？</string>
   <string name="viewSiteInformationPopUp">查看网站信息弹窗</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess 可以选择性的发送弹窗提醒，比如当到了你的回合时，或是你收到了一条私信时。
+  <string name="lichessCanOptionnalySendPopUps">Lichess 可以选择性地发送弹窗通知，例如轮到您走棋时或收到私信时。
 
- 点击你的浏览器网址栏中 lichess.org 地址旁的锁形图标。
+点击浏览器地址栏中 lichess.org 地址旁边的锁形图标。
 
- 然后选择是否允许或拦截来自 Lichess 的提醒。</string>
-  <string name="enableAutoplayForSoundsQ">启用自动播放音频？</string>
-  <string name="enableAutoplayForSoundsA">大多数浏览器会在打开新加载的页面时通过阻止播放音频来保护用户。想象一下如果每个网站都使用带声音的广告来轰炸您的场景吧。
+然后选择允许或阻止来自 Lichess 的通知。</string>
+  <string name="enableAutoplayForSoundsQ">如何启用声音自动播放？</string>
+  <string name="enableAutoplayForSoundsA">大多数浏览器会阻止新加载的页面播放声音，以保护用户。想象一下，如果每个网站都能立即用音频广告轰炸您，那得多糟糕。
 
-当浏览器阻止 lichess.org 播放音频时，红色的静音标志会出现。通常来说这个限制会在您点击某些内容之后取消。在一些移动浏览器上，触摸拖动棋子不被视为点击。在这种情况下您必须在每盘对局开始前点击棋盘来允许声音播放。
+当您的浏览器阻止 lichess.org 播放声音时，会出现红色的静音图标。通常，在您点击某处后，此限制就会被解除。在某些移动浏览器上，触摸拖动棋子不算作点击。在这种情况下，您必须在每局对局开始时点击棋盘以允许播放声音。
 
-当这种情况发生时我们会通过红色的标志来提醒您。通常您可以直接设置允许 lichess.org 播放音频。以下是一些流行的浏览器的最新版本的设置方法。</string>
+当这种情况发生时，我们会显示红色图标来提醒您。通常，您可以明确允许 lichess.org 播放声音。以下是在一些流行浏览器的最新版本上进行设置的指南。</string>
   <string name="desktop">桌面端</string>
-  <string name="enableAutoplayForSoundsFirefox">1. 前往 lichess.org
-2. Linux 与 Windows 系统请点击 Ctrl + i，MacOS 系统请点击 cmd + i
-3. 点击权限选项卡
-4. 允许 lichess.org 的音频与视频权限</string>
-  <string name="enableAutoplayForSoundsChrome">1. 前往 lichess.org
-2. 点击网址栏上的锁图标
-3. 点击网站设置
-4. 允许声音播放</string>
-  <string name="enableAutoplayForSoundsSafari">1. 登录 lichess.org
+  <string name="enableAutoplayForSoundsFirefox">1. 访问 lichess.org
+2. 在 Linux/Windows 上按 Ctrl + i，或在 MacOS 上按 cmd + i
+3. 点击“权限”选项卡
+4. 在 lichess.org 上允许“音频和视频”</string>
+  <string name="enableAutoplayForSoundsChrome">1. 访问 lichess.org
+2. 点击地址栏中的锁形图标
+3. 点击“网站设置”
+4. 允许“播放声音”</string>
+  <string name="enableAutoplayForSoundsSafari">1. 访问 lichess.org
 2. 点击 Safari 浏览器菜单栏
-3.点击 lichess.org 设置
-4. 允许所有自动播放</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge">1. 点击右上角的三个小点
+3. 点击“lichness.org 的设置”
+4. 允许“所有自动播放”</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. 点击右上角的三个点
 2. 点击“设置”
 3. 点击“Cookie 和网站权限”
-4. 向下滑动页面，点击“媒体自动播放”
-5. 添加 lichess.org 至允许列表</string>
-  <string name="stopMyselfFromPlaying">防止自己过度沉迷于游戏？</string>
-  <string name="mentalHealthCondition">独立的精神健康状况</string>
+4. 向下滚动并点击“媒体自动播放”
+5. 将 lichess.org 添加到“允许”列表中</string>
+  <string name="stopMyselfFromPlaying">如何预防自己过度沉迷于对弈？</string>
+  <string name="mentalHealthCondition">独立的精神/心理健康状况</string>
   <string name="lichessUserstyles">Lichess 用户样式</string>
-  <string name="fewerLobbyPools">更少的大厅游戏池</string>
-  <string name="adviceOnMitigatingAddiction">我们经常收到用户的信息，要求我们帮助他们阻止过度沉迷于游戏。
+  <string name="fewerLobbyPools">减少大厅对局池</string>
+  <string name="adviceOnMitigatingAddiction">我们经常收到用户的求助信息，希望我们帮助他们阻止过度沉迷于对弈。
 
-除了违反服务条款的情况外，Lichess 不会封禁或屏蔽玩家，但我们建议使用外部工具来限制过度游戏行为。一些常见的网站屏蔽工具包括 %1$s、%2$s 和 %3$s。如果您想继续使用网站，但又不想受到快速时间控制的诱惑，您可能会对 %4$s 感兴趣，这里有一种 %5$s 的用户风格。
+虽然 Lichess 不会仅仅因为过度对弈而对棋手进行封禁或屏蔽（除非违反服务条款），但我们推荐使用外部工具来限制过度对弈行为。一些常见的网站拦截工具建议包括 %1$s、%2$s 和 %3$s。如果您想继续使用本网站，但又不想被快棋时间控制所诱惑，您可能也会对 %4$s 感兴趣，这里有一个 %5$s 的样式表。
 
-有些玩家可能会觉得自己的游戏行为已经成瘾。事实上，世界卫生组织将游戏障碍归类为一种 %6$s，其基本特征是：1)对游戏的控制能力受损；2)对游戏的重视程度不断提高；3)即便知道这种行为会导致负面后果，仍然持续或增加游戏行为。如果您认为自己的下棋行为符合这种模式，我们鼓励您与朋友或家人以及专业人士讨论一下。</string>
+有些棋手可能会觉得自己的对弈行为正在变成一种瘾。事实上，世界卫生组织将游戏障碍归类为一种 %6$s，其基本特征是：1) 对游戏的控制力受损，2) 游戏的优先级不断提高，3) 尽管有负面影响，游戏行为仍在升级。如果您认为您的国际象棋对弈行为符合这种模式，我们鼓励您与朋友或家人和/或专业人士谈谈此事。</string>
 </resources>

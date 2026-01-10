@@ -1,0 +1,86 @@
+@import 'ratings';
+
+.fide-player {
+  @extend %flex-column;
+  gap: 2em;
+  &__photo {
+    @extend %flex-column;
+    flex: 0 2 300px;
+    img {
+      @extend %box-neat;
+      aspect-ratio: 1;
+      display: block;
+      max-width: 300px;
+    }
+    gap: 3px;
+    &__credit {
+      color: $c-font-dim;
+      font-style: italic;
+      font-size: 0.8em;
+      text-align: center;
+    }
+  }
+  &__header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 2em;
+    &__name {
+      @extend %flex-between;
+      @include fluid-size('font-size', 18px, 38px);
+      align-items: center;
+      gap: 1em;
+    }
+    &__info {
+      @extend %flex-column;
+      gap: 2em;
+      flex: 2 0 220px;
+    }
+    &__table {
+      border: none !important;
+      tr {
+        background: none !important;
+      }
+      td {
+        font-size: 1.5em;
+        padding: 0.4em 0.5em;
+      }
+    }
+  }
+  &__follow {
+    @extend %flex-center-nowrap, %box-radius;
+    gap: 1ch;
+    cursor: pointer;
+    border: $border;
+    padding: 0.5em 1em;
+    background: $m-brag--fade-90;
+    &:hover {
+      border-color: $c-brag;
+    }
+  }
+  &__user {
+    font-size: 0.7em;
+  }
+  &__federation {
+    @extend %flex-center-nowrap;
+    .flag {
+      height: 1em;
+      width: 1em;
+      margin-right: 1ch;
+      vertical-align: middle;
+    }
+  }
+  &__tours {
+    h2 {
+      margin-bottom: 1em;
+    }
+  }
+  .toggle-box {
+    margin: -1.5rem 0 -1rem 0;
+  }
+  .toggle-box--toggle-off {
+    opacity: 0.6;
+    font-size: 0.5em;
+    border: none;
+  }
+}

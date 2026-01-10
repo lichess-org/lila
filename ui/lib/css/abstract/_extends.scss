@@ -129,6 +129,12 @@
   text-shadow: 0 1px 1px black !important;
 }
 
+%active-secondary {
+  @extend %active-primary;
+
+  background: $c-secondary;
+}
+
 %dropdown-shadow {
   @include if-transp {
     @include back-blur();

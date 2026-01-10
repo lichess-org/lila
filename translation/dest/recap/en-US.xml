@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hi, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">What have you been up to this year?</string>
+	<string name="initTitle">What a chess year you\'ve had!</string>
+	<string name="noGamesText">You did not play any games this year.</string>
+	<string name="noGamesCta">Wanna play now?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">And you won %s!</string>
+	<string name="gamesNextQuestion">What did it take to get there?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s spent playing!</string>
+	<string name="timeTooMuch">That is way too much chess.</string>
+	<string name="timeALot">That is a lot of chess.</string>
+	<string name="timeReasonable">That seems like a reasonable amount of chess.</string>
+	<string name="timeHowManyMoves">How many moves did you play in all that time?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s move played</item>
+		<item quantity="other">%s moves played</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">That\'s %s of wood pushed!</string>
+	<string name="movesStandardPiecesWeight">Standard pieces weigh about 40g each</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s move</item>
+		<item quantity="other">%s moves</item>
+	</plurals>
+	<string name="chessFoes">Your best chess foes</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gram</item>
+		<item quantity="other">%s grams</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogram</item>
+		<item quantity="other">%s kilograms</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">is how you started %s of your games as white</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Your most played opening as white in %s game</item>
+		<item quantity="other">Your most played opening as white in %s games</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Your most played opening as black in %s game</item>
+		<item quantity="other">Your most played opening as black in %s games</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Your %s recap is ready!</string>
+</resources>

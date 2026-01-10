@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">કીબોર્ડ ઇનપુટ કમાન્ડ્સ</string>
+  <string name="performAMove">એક ચાલ કરો</string>
+  <string name="movePieceFromE2ToE4">e2 થી e4 પર ટુકડો ખસેડો</string>
+  <string name="moveKnightToC3">ઘોડો c3 પર ખસેડો</string>
+  <string name="kingsideCastle">કિંગસાઇડ કેસલ</string>
+  <string name="queensideCastle">ક્વીનસાઇડ</string>
+  <string name="promoteC8ToQueen">c8 ને રાણી માં પ્રમોટ કરો</string>
+  <string name="dropARookAtB4">b4 પર એક હાથી મૂકો (ફક્ત ક્રેઝીહાઉસ વેરિઅન્ટ માટે)</string>
+  <string name="offerOrAcceptDraw">ડ્રોની ઓફર કરો અથવા સ્વીકારો</string>
+  <string name="readOutClocks">ઘડિયાળો વાંચો</string>
+  <string name="readOutOpponentName">પ્રતિસ્પર્ધીનું નામ વાંચો</string>
+  <string name="otherCommands">અન્ય આદેશો</string>
+  <string name="tips">ટિપ્સ</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">જો ઉપરની ચાલની સંજ્ઞા અજાણી હોય, તો અહીં વધુ જાણો:</string>
+  <string name="includingAXToIndicateACapture">કેપ્ચર સૂચવવા માટે \"x\" શામેલ કરવું વૈકલ્પિક છે</string>
+  <string name="bothTheLetterOAndTheDigitZero">કેસલિંગ કરતી વખતે અક્ષર \"o\" અને અંક શૂન્ય \"0\" બંનેનો ઉપયોગ કરી શકાય છે</string>
+  <string name="ifItIsLegalToCastleBothWays">જો બંને રીતે કેસલ કરવું કાયદેસર હોય, તો કિંગસાઇડ કેસલ કરવા માટે એન્ટરનો ઉપયોગ કરો</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">કેપિટલાઇઝેશન ફક્ત ઊંટ અને b-પ્યાદાનો સમાવેશ કરતી અસ્પષ્ટ પરિસ્થિતિઓમાં જ મહત્વપૂર્ણ છે</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">પ્રીમૂવ કરવા માટે, તમારો વારો આવે તે પહેલાં ફક્ત ઇચ્છિત પ્રીમૂવ ટાઇપ કરો</string>
+</resources>

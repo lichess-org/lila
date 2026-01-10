@@ -19,6 +19,7 @@ private object DgtJson:
     }.filter(_.nonEmpty)
 
   case class RoundJsonPairing(
+      live: Boolean,
       white: Option[PairingPlayer],
       black: Option[PairingPlayer],
       result: Option[String]
@@ -35,14 +36,15 @@ private object DgtJson:
         Tag(_.Round, s"$round.$game").some,
         date.map(Tag(_.Date, _))
       ).flatten
+    def nonEmpty = white.isDefined && black.isDefined
 
   case class RoundJson(
       date: Option[String],
       pairings: List[RoundJsonPairing]
   ):
-    def finishedGameIndexes: List[Int] = pairings.zipWithIndex.collect:
-      case (pairing, i) if pairing.result.forall(_ != "*") => i
     def formattedDate = date.map(_.replace("-", "."))
+    def firstNonEmptyPairingIndex: Option[Int] =
+      pairings.indexWhere(_.nonEmpty).some.filter(_ >= 0)
 
   case class ClockJson(white: Option[Seconds], black: Option[Seconds], time: Long):
     def referenceTime: Instant = millisToInstant(time)

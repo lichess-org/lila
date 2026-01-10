@@ -30,6 +30,8 @@
   <string name="cornerMateDescription">Baztertu erregea gaztelua edo dama eta zaldia erabiliz matea emateako.</string>
   <string name="crushing">Zapalketa</string>
   <string name="crushingDescription">Akatsa aurkitu eta guztizko abantaila lortu. (ebaluazioa ≥ 600cp)</string>
+  <string name="discoveredCheck">Ageriko xakea</string>
+  <string name="discoveredCheckDescription">Mugitu pieza bat, atzean dagoen pieza batek aurkariari xake emateko. Normalean abantaila nabarmena lortzen da.</string>
   <string name="doubleBishopMate">Bi alfilen matea</string>
   <string name="doubleBishopMateDescription">Bi alfilek beren piezen artean trabatuta dagoen erregeari ematen dioten matea.</string>
   <string name="dovetailMate">Mirubuztanaren matea</string>
@@ -65,6 +67,10 @@
   <string name="intermezzoDescription">Esperotako jokaldia egin beharrean, aurkariari mehatxu bat eginez beste jokaldi bat egin aurkaria jokaldi horri erantzutera derrigortuz.</string>
   <string name="killBoxMate">Hilkutxaren matea</string>
   <string name="killBoxMateDescription">Gaztelua aurkariaren erregearen ondoan dago damaren laguntzarekin, honek gainera erregearen ihes-laukiak babesten ditu. Gazteluak eta damak erregea 3x3ko \"hilkutxa\" baten harrapatu dezakete.</string>
+  <string name="pillsburysMate">Pillsburyren matea</string>
+  <string name="pillsburysMateDescription">Gazteluak ematen du matea, alfilak erregea baztertuta mantentzen duen bitartean.</string>
+  <string name="morphysMate">Morphyren matea</string>
+  <string name="morphysMateDescription">Erabili alfila erregeari mate emateko gazteluak erregea baztertuta mantentzen duen artean.</string>
   <string name="triangleMate">Hirukiaren matea</string>
   <string name="triangleMateDescription">Dama eta gaztelua erregearengandik lauki batera daudela, errenkada edo zutabe berean, biak lauki batez banatuta, hiruki bat osatuz.</string>
   <string name="vukovicMate">Vukovicen matea</string>
@@ -95,6 +101,8 @@
   <string name="oneMoveDescription">Jokaldi bakarrean ebazten den ariketa.</string>
   <string name="opening">Hasiera</string>
   <string name="openingDescription">Partidaren lehenengo faseko taktika.</string>
+  <string name="operaMate">Opera matea</string>
+  <string name="operaMateDescription">Eman xake erregeari gazteluarekine ta erabili alfila gaztelua defendatzeko.</string>
   <string name="pawnEndgame">Peoien finala</string>
   <string name="pawnEndgameDescription">Peoiak bakarrik dituen finala.</string>
   <string name="pin">Iltzaketa</string>

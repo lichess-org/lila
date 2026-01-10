@@ -51,7 +51,7 @@
   <string name="fidePlayerNotFound">Гравця FIDE не знайдено</string>
   <string name="fideProfile">Профіль FIDE</string>
   <string name="federation">Федерація</string>
-  <string name="ageThisYear">Вік цього року</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Вік</string>
   <string name="unrated">Без рейтингу</string>
   <string name="recentTournaments">Нещодавні турніри</string>
   <string name="openLichess">Відкрити в Lichess</string>
@@ -87,6 +87,6 @@
   <string name="liveboard">Наживо</string>
   <string name="communityBroadcast">Трансляція спільноти</string>
   <string name="createdAndManagedBy">Створено та адмініструється %s.</string>
-  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;If your language changes the word &quot;Round&quot; based on the number after it, consider using punctuation to get around the problem (e.g. &quot;Round: %s&quot;).&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">Раунд %s</string>
-  <string name="defaultRoundNameHelp" comment="This is help text for broadcast authors setting a round name. The default is &quot;Round %s&quot; (translatable separately).&#10;&#10;If broadcasters keep the round name to the default, it will be automatically translated.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">Усталене ім\'я автоматично перекладатиметься іншими мовами.</string>
+  <string name="roundX">Раунд %s</string>
+  <string name="defaultRoundNameHelp">Усталене ім\'я автоматично перекладатиметься іншими мовами.</string>
 </resources>

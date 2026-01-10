@@ -55,6 +55,7 @@ object PieceSet extends PieceSetObject:
     PieceSet("monarchy", Featured.Yes), // 10/18 revised after poll
     PieceSet("governor"), // 14/15
     PieceSet("dubrovny", Featured.Yes), // 15/15
+    PieceSet("shahi-ivory-brown"),
     PieceSet("icpieces"), // 3/25
     PieceSet("mpchess", Featured.Yes), // 17/12
     PieceSet("kiwen-suwi"), // 8/21

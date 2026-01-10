@@ -3,7 +3,6 @@ package lila.oauth
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import reactivemongo.akkastream.cursorProducer
-import akka.stream.scaladsl.*
 
 import lila.common.Json.given
 import lila.core.misc.oauth.{ AccessTokenId, TokenRevoke }
@@ -177,7 +176,7 @@ final class AccessTokenApi(
       .cursor[AccessToken]()
       .documentSource()
       .mapAsyncUnordered(4)(token => revokeById(token.id)(using userId.into(MyId)))
-      .runWith(Sink.ignore)
+      .run()
       .void
 
   def revokeByClientOrigin(clientOrigin: String)(using me: MyId): Funit =
@@ -191,7 +190,7 @@ final class AccessTokenApi(
       .cursor[AccessToken]()
       .documentSource()
       .mapAsyncUnordered(4)(token => revokeById(token.id))
-      .runWith(Sink.ignore)
+      .run()
       .void
 
   def revoke(bearer: Bearer) =

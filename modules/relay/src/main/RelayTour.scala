@@ -33,7 +33,8 @@ case class RelayTour(
     image: Option[ImageId] = None,
     dates: Option[RelayTour.Dates] = None, // denormalized from round dates
     pinnedStream: Option[RelayPinnedStream] = None,
-    note: Option[String] = None
+    note: Option[String] = None,
+    orphanWarn: Boolean = true
 ):
   def slug = name.toSlug
 
@@ -54,7 +55,7 @@ case class RelayTour(
           else ownerIds.filterNot(_ == UserId.broadcaster).toNel | ownerIds
       )
 
-  def path = routes.RelayTour.show(slug, id).url
+  def call = routes.RelayTour.show(slug, id)
 
   def tierIs(selector: RelayTour.Tier.Selector) = tier.has(selector(RelayTour.Tier))
 

@@ -458,10 +458,6 @@
   <string name="player">ஆட்டக்காரர்</string>
   <string name="list">பட்டியல்</string>
   <string name="graph">வரைவு</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s விடக் குறைந்த மணித்துளி</item>
-    <item quantity="other">%s விடக் குறைந்த மணிதுளிகள்</item>
-  </plurals>
   <string name="required">தேவை.</string>
   <string name="openTournaments">நுழைவேற்கும் பந்தயங்கள்</string>
   <string name="duration">காலம்</string>

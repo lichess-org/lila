@@ -273,7 +273,6 @@ final class ClasApi(
           .orFail(s"No user could be created for ${data.username}")
         _ = studentCache.addStudent(user.id)
         student = Student.make(user, clas, teacher.id, data.realName, managed = true)
-        _ <- userRepo.setKid(user, KidMode.Yes)
         _ <- perfsRepo.setManagedUserInitialPerfs(user.id)
         _ <- coll.insert.one(student)
         _ <- sendWelcomeMessage(teacher.id, user, clas)
@@ -323,6 +322,17 @@ final class ClasApi(
             else $unset("archived"),
           fetchNewObject = true
         )
+
+    def archiveMany(studentIds: List[StudentId], v: Boolean)(using me: Me): Funit =
+      coll.update
+        .one(
+          q = $inIds(studentIds),
+          u =
+            if v then $set("archived" -> Clas.Recorded(me, nowInstant))
+            else $unset("archived"),
+          multi = true
+        )
+        .void
 
     def closeAccount(s: Student.WithUser): Funit =
       coll.delete.one($id(s.student.id)).void
@@ -399,6 +409,17 @@ ${clas.desc}""",
 
     def delete(id: ClasInviteId): Funit =
       colls.invite.delete.one($id(id)).void
+
+    def deleteInvites(id: ClasId, userIds: List[UserId]): Funit =
+      userIds.nonEmpty.so:
+        colls.invite.delete
+          .one(
+            $doc(
+              "userId".$in(userIds),
+              "clasId" -> id
+            )
+          )
+          .void
 
     private def sendInviteMessage(
         teacher: Me,

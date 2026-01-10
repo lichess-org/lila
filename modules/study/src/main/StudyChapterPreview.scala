@@ -1,6 +1,5 @@
 package lila.study
 
-import scala.collection.immutable.SeqMap
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
 import chess.{ ByColor, Color, FideId, Outcome }
@@ -70,14 +69,6 @@ final class ChapterPreviewApi(
 
     def apply(studyId: StudyId): Fu[List[ChapterPreview]] = cache.get(studyId)
 
-    def uniquePlayers(studyId: StudyId): Fu[SeqMap[StudyPlayer.Id, ChapterPlayer]] =
-      apply(studyId).map:
-        _.flatMap(_.players.so(_.toList)).distinct
-          .foldLeft(SeqMap.empty[StudyPlayer.Id, ChapterPlayer]): (players, p) =>
-            p.player.id.fold(players): id =>
-              if players.contains(id) then players
-              else players.updated(id, p)
-
   def firstId(studyId: StudyId): Fu[Option[StudyChapterId]] =
     jsonList(studyId).map(ChapterPreview.json.readFirstId)
 
@@ -111,7 +102,7 @@ final class ChapterPreviewApi(
     )
 
   object federations:
-    private val cache = cacheApi[StudyId, JsObject](256, "study.chapterPreview.federations"):
+    private val cache = cacheApi[StudyId, JsObject](512, "study.chapterPreview.federations"):
       _.expireAfterWrite(1.minute).buildAsyncFuture: studyId =>
         for
           chapters <- dataList(studyId)

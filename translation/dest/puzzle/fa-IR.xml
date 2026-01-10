@@ -13,9 +13,9 @@
   <string name="origin">خاستگاه</string>
   <string name="specialMoves">حرکات ویژه</string>
   <string name="didYouLikeThisPuzzle">این معما را دوست داشتید؟</string>
-  <string name="voteToLoadNextOne">موافقت برای بارگذاری معمای بعدی!</string>
-  <string name="upVote">معمای خوبی بود</string>
-  <string name="downVote">معمای بدی بود</string>
+  <string name="voteToLoadNextOne">رأی‌ دهید تا معمای بعدی بار شود!</string>
+  <string name="upVote">رأیِ مثبت به معما</string>
+  <string name="downVote">رأیِ منفی به معما</string>
   <string name="yourPuzzleRatingWillNotChange">درجه‌بندی معمایی شما تغییری نخواهد کرد. توجه داشته باشید که معماها یک رقابت نیستند. درجه‌بندی‌تان به انتخاب بهترین معماها برای سطح مهارت فعلی‌تان کمک می‌کند.</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت سفید را بیابید.</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت سیاه را بیابید.</string>
@@ -73,7 +73,7 @@
   <string name="streakSkipExplanation">این حرکت را رد کنید تا رکورد خود را حفظ کنید! فقط یک بار در هر دور امکان‌پذیر است.</string>
   <string name="continueTheStreak">توالی را ادامه دهید</string>
   <string name="newStreak">رکورد جدید</string>
-  <string name="fromMyGames">از بازی های من</string>
+  <string name="fromMyGames">از بازی‌های من</string>
   <string name="lookupOfPlayer">به دنبال معماهای برگرفته از بازی‌های یک بازیکن مشخص، بگردید</string>
   <string name="searchPuzzles">جستجوی معما</string>
   <string name="fromMyGamesNone">شما هیچ معمایی در دادگان ندارید، اما Lichess همچنان شما را بسیار دوست دارد.

@@ -151,7 +151,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
           i18n.site.join,
         );
 
-  if (d.me && d.status != 'finished')
+  if (d.me && d.status !== 'finished')
     return d.me.absent
       ? ctrl.joinSpinner
         ? spinnerVdom()
@@ -249,7 +249,9 @@ function stats(ctrl: SwissCtrl) {
       hl('br'),
       hl(
         'a.text',
-        { attrs: { 'data-icon': licon.InfoCircle, href: 'https://lichess.org/api#tag/swiss-tournaments' } },
+        {
+          attrs: { 'data-icon': licon.InfoCircle, href: '/api#tag/swiss-tournaments' },
+        },
         'Swiss API documentation',
       ),
     ]),

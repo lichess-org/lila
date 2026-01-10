@@ -1,5 +1,6 @@
 @import '../analyse.abstract';
 @import '../../../lib/css/form/form3';
+@import '../../../lib/css/form/cmn-favourite';
 @import '../../../lib/css/component/tabs-horiz';
 @import '../../../lib/css/component/markdown';
 @import '../../../lib/css/component/slist';
@@ -9,6 +10,10 @@
 @import '../../../lib/css/component/tablesort';
 @import '../../../lib/css/component/vertical-resize';
 @import '../../../lib/css/chat/chat';
+@import '../../../fide/css/table';
+@import '../../../fide/css/show';
 
 @import '../study/show';
+
+$player-height: 45px;
 @import '../study/relay/show';

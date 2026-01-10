@@ -7,6 +7,9 @@
   <string name="actions">Agoj</string>
   <string name="yourClock">Via horloĝo</string>
   <string name="opponentClock">Kontraŭula horloĝo</string>
+  <string name="gameStart">Komenco de la ludo</string>
+  <string name="announceCurrentSquare">Anonci la nunan kvadraton.</string>
+  <string name="announceLastMove">Anonci la lastan movon.</string>
   <string name="movePiece">Por movi pecon, uzu normalan algebran notadon.</string>
   <string name="king">reĝo</string>
   <string name="whiteKing">blanka reĝo</string>

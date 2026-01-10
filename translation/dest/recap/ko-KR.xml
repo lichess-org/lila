@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">반갑습니다, %s님</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">올해는 어떻게 지내셨나요?</string>
+	<string name="initTitle">체스와 함께한 한 해로군요!</string>
+	<string name="noGamesText">올해 대국을 플레이하지 않으셨습니다.</string>
+	<string name="noGamesCta">지금 플레이하시겠습니까?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">그리고 %s번 이겼습니다!</string>
+	<string name="gamesNextQuestion">여기까지 오는 데 얼마나 걸렸나요?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s 동안 플레이하셨습니다!</string>
+	<string name="timeTooMuch">체스를 너무 많이 두신 것 같네요.</string>
+	<string name="timeALot">체스를 많이 두셨네요.</string>
+	<string name="timeReasonable">체스를 적당한 만큼 두신 것 같네요.</string>
+	<string name="timeHowManyMoves">그동안 몇 수나 두었나요?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="other">%s 말 이동 횟수</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">%s만큼의 나무를 옮기셨네요!</string>
+	<string name="movesStandardPiecesWeight">표준 기물은 개당 무게가 40g 정도입니다</string>
+	<plurals name="nbMoves">
+		<item quantity="other">%s수</item>
+	</plurals>
+	<string name="chessFoes">최고의 체스 상대</string>
+	<plurals name="nbGrams">
+		<item quantity="other">%s그램</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="other">%s킬로그램</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">로 백으로 둔 %s 경기를 시작했습니다</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="other">백으로 가장 많이 둔 오프닝이며, %s번의 대국에서 두었습니다</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="other"> 흑으로 가장 많이 둔 오프닝이며, %s번의 대국에서 두었습니다</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="other">%s개의 퍼즐에 투표해주셔서 감사합니다.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">%s개의 퍼즐에 태그를 다는 것도 도와주셨습니다.</string>
+	<string name="puzzlesNone">올해 퍼즐을 풀지 않으셨습니다.</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">지금 풀어보시겠습니까?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">첫 시도만에 %s개를 맞추셨습니다!</string>
+	<string name="sourcesTitle">어디서 대국을 찾았나요?</string>
+	<string name="perfsTitle">어떤 시간 제한과 변형 체스를 플레이하였나요?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s 개의 광고 및 트래커가 로드되었습니다</string>
+	<string name="malwareNoSell">Lichess는 당신의 개인정보를 판매하지 않았습니다</string>
+	<string name="malwareNoAbuse">Lichess는 당신의 디바이스를 악용하지 않았습니다</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">그러나 다른 웹사이트들은 그러기 때문에, %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">주의하세요</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s 번의 대국이 %2$s년 Lichess에서 진행되었습니다</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s가 당신의 대국이었습니다.</string>
+	<string name="thanksTitle">Lichess에서 플레이해주셔서 감사합니다!</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">와주셔서 기쁩니다. 행복한 %s년 보내세요!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">올해 Lichess의 %1$s은 %2$s였습니다.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">비용</string>
+	<string name="patronCharity">Lichess는 자선단체이며, 기부금만으로 비용을 충당합니다.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">올해 Lichess를 즐겁게 이용하셨거나 가치 있다고 생각하시면, %s해주세요!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">기부를 통해 지원</string>
+	<string name="shareableTitle" comment="%s is the current year">나의 %s년 요약</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">플레이한 시간</string>
+	<string name="shareableMostPlayedOpponent">가장 자주 플레이한 상대</string>
+	<string name="shareableFavouriteVariant">좋아하는 변형 체스</string>
+	<string name="shareableFavouriteTimeControl">좋아하는 시간 제한</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="other">%s 해결한 퍼즐의 수</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">당신의 %s년 요약이 준비되었습니다!</string>
+</resources>

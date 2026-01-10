@@ -28,6 +28,7 @@
   </plurals>
   <string name="willBeReviewed">Qoşulma istəyiniz komanda lideri tərəfindən nəzərdən keçiriləcək.</string>
   <string name="beingReviewed">Qoşulma istəyiniz komanda lideri tərəfindən nəzərdən keçirilir.</string>
+  <string name="requestDeclined">Qatılma istəyiniz komanda lideri tərəfindən rədd edildi.</string>
   <string name="subToTeamMessages">Komanda mesajlarına abunə olun</string>
   <string name="teamBattle">Komanda Döyüşü</string>
   <string name="teamBattleOverview">Çoxlu komandaların döyüşü, hər oyunçu öz komandası üçün xal qazanır</string>

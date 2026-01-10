@@ -19,7 +19,7 @@ final class AssetManifest(getFile: GetRelativeFile):
   def lastUpdate: Instant = maps.modified
 
   def update(): Unit =
-    val pathname = getFile.exec(s"public/compiled/manifest.json").toPath
+    val pathname = getFile.exec("public/compiled/manifest.json").toPath
     try
       val current = Files.getLastModifiedTime(pathname).toInstant
       if current.isAfter(maps.modified) then

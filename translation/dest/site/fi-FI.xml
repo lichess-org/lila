@@ -104,7 +104,7 @@
   <string name="dtzWithRounding">DTZ50\'\' pyöristettynä, puolisiirtojen määrä seuraavaan lyöntiin tai sotilaan siirtoon</string>
   <string name="noGameFound">Pelejä ei löytynyt</string>
   <string name="maxDepthReached">Maksimisyvyys saavutettu!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voisit sisällyttää lisää pelejä asetusvalikosta?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Ehkä voisit tuoda tähän asetusvalikon kautta lisää pelejä näkyville?</string>
   <string name="openings">Avaukset</string>
   <string name="openingExplorer">Avausselain</string>
   <string name="openingEndgameExplorer">Avaus- ja loppupeliselain</string>
@@ -188,7 +188,7 @@
   <string name="viewInFullSize">Näytä täysikokoisena</string>
   <string name="logOut">Kirjaudu ulos</string>
   <string name="signIn">Kirjaudu sisään</string>
-  <string name="rememberMe">Muista minut</string>
+  <string name="rememberMe">Pysy sisäänkirjautuneena</string>
   <string name="youNeedAnAccountToDoThat">Tämä toiminto vaatii käyttäjätunnuksen</string>
   <string name="signUp">Rekisteröidy</string>
   <string name="computersAreNotAllowedToPlay">Tietokoneet ja tietokoneen avustamat pelaajat eivät saa pelata täällä. Kun pelaat, älä käytä apunasi shakkiohjelmia tai -tietokantoja äläkä toisten pelaajien neuvoja. Ota myös huomioon, että useiden käyttäjätunnuksien luomista ei katsota lainkaan hyvällä, ja liiallisuuksiin mennessään se johtaa porttikieltoon.</string>
@@ -474,10 +474,6 @@
   <string name="player">Pelaaja</string>
   <string name="list">Lista</string>
   <string name="graph">Kaavio</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Alle %s minuutti</item>
-    <item quantity="other">Alle %s minuuttia</item>
-  </plurals>
   <string name="required">Vaadittu.</string>
   <string name="openTournaments">Avoimet turnaukset</string>
   <string name="duration">Kesto</string>
@@ -689,7 +685,7 @@
   <string name="yourPendingSimuls">Odottavat simultaanisi</string>
   <string name="createdSimuls">Äskettäin luodut simultaanit</string>
   <string name="hostANewSimul">Pidä uusi simultaani</string>
-  <string name="signUpToHostOrJoinASimul">Kirjaudu niin voit antaa simultaanin tai liittyä sellaiseen</string>
+  <string name="signUpToHostOrJoinASimul">Kirjaudu sisään, jotta voit pitää simultaanin tai liittyä simultaaniin</string>
   <string name="noSimulFound">Simultaania ei löydy</string>
   <string name="noSimulExplanation">Tätä simultaania ei ole olemassa.</string>
   <string name="returnToSimulHomepage">Palaa simultaanin kotisivulle</string>
@@ -911,6 +907,7 @@
   <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Hae tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Pikapeli</string>
   <string name="rapid">Nopea</string>

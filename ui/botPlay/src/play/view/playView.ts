@@ -63,7 +63,7 @@ const viewActions = (ctrl: PlayCtrl) =>
 const viewResult = (ctrl: PlayCtrl) => {
   const end = ctrl.game.end;
   if (!end) return;
-  const result = end.winner == 'white' ? '1-0' : end.winner == 'black' ? '0-1' : '½-½';
+  const result = end.winner === 'white' ? '1-0' : end.winner === 'black' ? '0-1' : '½-½';
   const statusData: StatusData = {
     winner: end.winner,
     ply: ctrl.game.moves.length,

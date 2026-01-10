@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Le roi adverse est confiné dans un coin de l\'échiquier par une tour ou la dame, puis un cavalier le met mat.</string>
   <string name="crushing">Écrasant</string>
   <string name="crushingDescription">Repérez la gaffe de l\'adversaire pour obtenir un avantage écrasant. (évaluation &gt; 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Échec à la découverte</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">En se déplaçant, une pièce permet à une autre pièce de mettre le roi adverse en échec et d\'obtenir souvent un avantage décisif.</string>
+  <string name="discoveredCheck">Échec à la découverte</string>
+  <string name="discoveredCheckDescription">En se déplaçant, une pièce permet à une autre pièce de mettre le roi adverse en échec et d\'obtenir souvent un avantage décisif.</string>
   <string name="doubleBishopMate">Mat des deux Fous</string>
   <string name="doubleBishopMateDescription">Deux Fous contrôlant des diagonales adjacentes matent un Roi bloqué par ses propres pièces.</string>
   <string name="dovetailMate">Mat de Cozio</string>
@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">Au lieu de jouer le coup attendu, jouez d\'abord un autre coup posant une menace immédiate à laquelle l\'adversaire doit répondre. Aussi connu sous le nom de \"Zwischenzug\".</string>
   <string name="killBoxMate">Mat par mise en boîte</string>
   <string name="killBoxMateDescription">La tour, protégée par la dame, met le roi adverse en échec et la dame bloque la seule case de fuite du roi (le roi est enfermé dans une boîte de 3 cases par 3 cases formée par la tour et la dame).</string>
+  <string name="pillsburysMate">Mat de Pillsbury</string>
+  <string name="pillsburysMateDescription">La tour met le roi adverse mat avec l\'aide du fou.</string>
+  <string name="morphysMate">Mat de Morphy</string>
+  <string name="morphysMateDescription">Le fou met le roi adverse échec et mat avec l\'aide de la tour.</string>
   <string name="triangleMate">Mat du triangle</string>
   <string name="triangleMateDescription">La dame et la tour, à une case de distance du roi adverse, sont sur la même rangée ou colonne et donnent mat en formant un triangle.</string>
   <string name="vukovicMate">Mat de Vukovic</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">Un problème qui ne dure qu\'un coup.</string>
   <string name="opening">Ouverture</string>
   <string name="openingDescription">Une tactique durant la première phase de la partie.</string>
+  <string name="operaMate">Mat de l\'opéra</string>
+  <string name="operaMateDescription">Protégée par le fou, la tour met le roi adverse échec et mat.</string>
   <string name="pawnEndgame">Finale de pions</string>
   <string name="pawnEndgameDescription">Une finale avec seulement des pions.</string>
   <string name="pin">Clouage</string>

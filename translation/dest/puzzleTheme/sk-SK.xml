@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Zatlačte kráľa do rohu pomocou veže a jazdca alebo dámy a jazdca, aby ste dosiahli mat.</string>
   <string name="crushing">Rozdrvenie</string>
   <string name="crushingDescription">Odhaľte súperovu hrubú chybu a získajte drvivú výhodu. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Odkrytý šach</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Pohnite figúrkou, aby ste odkryli šach od skrytej útočiacej figúry. Často to vedie k rozhodujúcej výhode.</string>
+  <string name="discoveredCheck">Odkrytý šach</string>
+  <string name="discoveredCheckDescription">Pohnite figúrkou, aby ste odkryli šach od skrytej útočiacej figúry. Často to vedie k rozhodujúcej výhode.</string>
   <string name="doubleBishopMate">Mat dvojicou strelcov</string>
   <string name="doubleBishopMateDescription">Dvaja útočiaci strelci na susediacich diagonálach zmatujú kráľa zablokovaného vlastnými figúrkami.</string>
   <string name="dovetailMate">Devetailov mat</string>
@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">Namiesto očakávaného ťahu, zahranie ťahu znamenajúceho okamžitú hrozbu, na ktorú musí protihráč reagovať. Nazývaný tiež \"Zwischenzug\".</string>
   <string name="killBoxMate">Mat na poli smrti</string>
   <string name="killBoxMateDescription">Veža je vedľa súperovho kráľa a podporuje ju dáma, ktorá zároveň blokuje kráľove únikové polia. Veža a dáma chytia súperovho kráľa do pasce na 3 x 3 „poli smrti“.</string>
+  <string name="pillsburysMate">Pillsburyho mat</string>
+  <string name="pillsburysMateDescription">Veža dáva kráľovi mat, zatiaľ čo strelec obmedzuje jeho pohyb.</string>
+  <string name="morphysMate">Morphyho mat</string>
+  <string name="morphysMateDescription">Strelec dáva kráľovi mat, zatiaľ čo veža obmedzuje jeho pohyb.</string>
   <string name="triangleMate">Trojuholníkový mat</string>
   <string name="triangleMateDescription">Dáma a veža, vzdialené jedno políčko od súperovho kráľa, sú na rovnakom rade alebo stĺpci, oddelené jedným políčkom, a tvoria trojuholník.</string>
   <string name="vukovicMate">Vukovičov mat</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">Úloha, ktorá je iba jednoťahová.</string>
   <string name="opening">Otvorenie</string>
   <string name="openingDescription">Taktika počas prvého úseku hry.</string>
+  <string name="operaMate">Opera mat</string>
+  <string name="operaMateDescription">Veža dáva kráľovi mat, zatiaľ čo strelec ju kryje.</string>
   <string name="pawnEndgame">Pešiaková koncovka</string>
   <string name="pawnEndgameDescription">Koncovka iba s pešiakmi.</string>
   <string name="pin">Väzba</string>

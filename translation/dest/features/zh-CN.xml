@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking">零广告，无跟踪器</string>
+  <string name="zeroAdsAndNoTracking">零广告，无跟踪</string>
   <string name="correspondenceWithConditionalPremoves">通过条件预先走子的通讯棋</string>
   <string name="standardChessAndX" comment="%s is 8 variants">标准棋和 %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">深度 %s 服务器分析</string>
   <plurals name="gamesPerDay">
-    <item quantity="other">每天 %s 局棋</item>
+    <item quantity="other">每日 %s 场对局</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">棋盘编辑和使用 %s 的分析面板</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">支持 %s 的棋盘编辑器和分析面板</string>
   <string name="cloudEngineAnalysis">云引擎分析</string>
-  <string name="studies">研究（可共享和持久分析）</string>
-  <string name="chessInsights">国际象棋的见解（详细分析你的打法）</string>
-  <string name="allChessBasicsLessons">所有国际象棋基础课程</string>
-  <string name="tacticalPuzzlesFromUserGames">来自用户对局的战术谜题</string>
-  <string name="personalOpeningExplorerX">%1$s (也适用于 %2$s)</string>
-  <string name="personalOpeningExplorer">个人的开局浏览器</string>
-  <string name="globalOpeningExplorerInNbGames">全球的开局浏览器 (%s 局棋！)</string>
-  <string name="endgameTablebase">7 子残局库</string>
-  <string name="downloadOrUploadAnyGameAsPgn">以 PGN 格式下载/上传任何棋局</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges">博客、论坛、团队、电视、短信、朋友、挑战</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">亮/暗主题，自定义棋盘、棋子和背景</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">超子弹棋、子弹棋、闪电棋、快棋、慢棋、通讯棋</string>
-  <string name="allFeaturesToCome">所有即将到来的功能，永远！</string>
-  <string name="landscapeSupportOnApp">iPhone &amp; Android 手机以及平板电脑，横屏支持</string>
-  <string name="everybodyGetsAllFeaturesForFree">是的，这两个帐户具有相同的功能！</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest">我们相信每个棋手都应该得到最好的，所以：</string>
-  <string name="allFeaturesAreFreeForEverybody">所有功能都是免费的，永远！</string>
-  <string name="ifYouLoveLichess">如果你爱 Lichess，</string>
-  <string name="supportUsWithAPatronAccount">请用赞助帐户支持我们！</string>
+  <string name="studies">研习模式（可分享、可长期保存的分析）</string>
+  <string name="chessInsights">对局洞察（对您的对局进行详细分析）</string>
+  <string name="allChessBasicsLessons">全部国际象棋基础课程</string>
+  <string name="tacticalPuzzlesFromUserGames">基于用户对局的战术谜题</string>
+  <string name="personalOpeningExplorerX">%1$s（同时支持 %2$s）</string>
+  <string name="personalOpeningExplorer">个人开局探索器</string>
+  <string name="globalOpeningExplorerInNbGames">全球开局探索器（收录 %s 场对局！）</string>
+  <string name="endgameTablebase">七子残局数据库</string>
+  <string name="downloadOrUploadAnyGameAsPgn">任意对局的 PGN 文件下载/上传</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">博客、论坛、团队、直播、消息、好友、挑战</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">浅色/深色主题，自定义棋盘、棋子和背景</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">超子弹棋、子弹棋、超快棋、快棋、慢棋、通讯棋</string>
+  <string name="allFeaturesToCome">所有未来开发的功能，永久免费！</string>
+  <string name="landscapeSupportOnApp">支持 iPhone 和 Android 手机与平板，支持横屏模式</string>
+  <string name="everybodyGetsAllFeaturesForFree">是的，两个账户享有完全相同的功能！</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">我们相信每一位棋手都值得拥有最好的体验，因此：</string>
+  <string name="allFeaturesAreFreeForEverybody">所有功能对所有人永久免费！</string>
+  <string name="ifYouLoveLichess">如果您喜爱 Lichess，</string>
+  <string name="supportUsWithAPatronAccount">请成为赞助者以此支持我们！</string>
 </resources>

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Настройки на играта</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Покана за игра</string>
+  <string name="playAgainstComputer">Игра срещу компютъра</string>
+  <string name="gameMode">Режим на игра</string>
+  <string name="createLobbyGame">Създаване на игра</string>
+  <string name="youPlayAs">Играете с</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканите някого на игра, дайте му този адрес</string>
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
@@ -18,7 +24,7 @@
   <string name="black">Черни</string>
   <string name="asWhite">с белите</string>
   <string name="asBlack">с черните</string>
-  <string name="randomColor">Произволна страна</string>
+  <string name="randomColor">Случаен цвят</string>
   <string name="createAGame">Създай игра</string>
   <string name="createTheGame">Създай играта</string>
   <string name="whiteIsVictorious">Белите победиха</string>
@@ -65,14 +71,15 @@
   <string name="goDeeper">По-детайлно</string>
   <string name="showThreat">Покажи заплаха</string>
   <string name="inLocalBrowser">в локалния браузър</string>
-  <string name="toggleLocalEvaluation">Превключване на локална оценка</string>
+  <string name="toggleLocalEvaluation">Превключи локалната оценка</string>
   <string name="promoteVariation">Повиши вариацията</string>
   <string name="makeMainLine">Направи основна линия</string>
   <string name="deleteFromHere">Изтриване от тук</string>
   <string name="collapseVariations">Скрий вариациите</string>
   <string name="expandVariations">Покажи вариациите</string>
   <string name="forceVariation">Покажи като вариация</string>
-  <string name="copyVariationPgn">Копирай PGN на вариацията</string>
+  <string name="copyVariationPgn">Копирай варианта (PGN)</string>
+  <string name="copyMainLinePgn">Копирай основния вариант (PGN)</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Вариант на загуба</string>
   <string name="variantWin">Вариант на победа</string>
@@ -290,6 +297,7 @@
   <string name="abortGame">Отмени играта</string>
   <string name="gameAborted">Играта е отменена</string>
   <string name="standard">Обикновен</string>
+  <string name="customPosition">От позиция</string>
   <string name="unlimited">Неограничено</string>
   <string name="mode">Начин</string>
   <string name="casual">Приятелски</string>
@@ -337,6 +345,7 @@
     <item quantity="other">%s текущи</item>
   </plurals>
   <string name="exportGames">Изтегли партиите</string>
+  <string name="ratingFilter">Рейтингов филтър</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Дай %s sec</item>
     <item quantity="other">Дай %s sec</item>
@@ -364,8 +373,8 @@
     <item quantity="other">%s точки от турнира</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s казус</item>
-    <item quantity="other">%s казуси</item>
+    <item quantity="one">%s студия</item>
+    <item quantity="other">%s студии</item>
   </plurals>
   <plurals name="nbSimuls">
     <item quantity="one">%s сеанс</item>
@@ -392,6 +401,7 @@
     <item quantity="other">Трябва да изиграете още %s оценени игри</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Вашият %s рейтинг е условен</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Филтрите за рейтинг са заключени, защото рейтингът ви не е стабилен. Играйте партии за рейтинг, за да го стабилизирате.</string>
   <string name="yourPerfRatingIsTooHigh">Вашият %1$s рейтинг (%2$s) е твърде висок</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Вашият топ седмичен %1$s рейтинг (%2$s) е твърде висок</string>
   <string name="yourPerfRatingIsTooLow">Вашият %1$s рейтинг (%2$s) е твърде висок</string>
@@ -423,6 +433,7 @@
   <string name="importGame">Добави игра</string>
   <string name="importGameExplanation">При поставяне на PGN може да разгледате играта с чата,
 да получите компютърен анализ и линк за споделяне.</string>
+  <string name="importGameDataPrivacyWarning">Този PGN е публично достъпен. За да импортирате партия поверително, използвайте студия.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Добавени игри</item>
     <item quantity="other">%s Добавени игри</item>
@@ -464,10 +475,6 @@
   <string name="player">Играч</string>
   <string name="list">Списък</string>
   <string name="graph">Графика</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">По-малко от %s минута</item>
-    <item quantity="other">По-малко от %s минути</item>
-  </plurals>
   <string name="required">Изисквано.</string>
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Времетраене</string>
@@ -491,12 +498,13 @@
   <string name="pause">Пауза</string>
   <string name="resume">Възобновяване</string>
   <string name="youArePlaying">Играете!</string>
-  <string name="winRate">Успеваемост</string>
+  <string name="winRate">Победи</string>
   <string name="performance">Производителност</string>
   <string name="tournamentComplete">Турнирът завърши</string>
   <string name="movesPlayed">Изиграни ходове</string>
   <string name="whiteWins">Белите печелят</string>
   <string name="blackWins">Черните печелят</string>
+  <string name="drawRate">Ремита</string>
   <string name="draws">Равенства</string>
   <string name="averageOpponent">Среден противник</string>
   <string name="boardEditor">Шахматен редактор</string>
@@ -517,13 +525,14 @@
   <string name="realName">Истинско име</string>
   <string name="setFlair">Изберете вашето емоджи</string>
   <string name="flair">Емоджи</string>
+  <string name="youCanHideFlair">Съществува настройка за скриване на емблемите в целия сайт.</string>
   <string name="biography">Животопис</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Държава или регион</string>
   <string name="thankYou">Благодаря!</string>
   <string name="socialMediaLinks">Връзки към социални медии</string>
   <string name="oneUrlPerLine">Един URL на ред.</string>
   <string name="inlineNotation">Вградена нотация</string>
-  <string name="makeAStudy">За съхранение и споделяне помислете за изготвяне на казус.</string>
+  <string name="makeAStudy">За по-сигурно съхранение и споделяне, обмислете създаването на студия.</string>
   <string name="clearSavedMoves">Изтрий ходовете</string>
   <string name="previouslyOnLichessTV">Приключили игри</string>
   <string name="onlinePlayers">Играчи на линия</string>
@@ -537,6 +546,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматично преминаване към следващата игра след хода</string>
   <string name="autoSwitch">Автоматично превключване</string>
   <string name="puzzles">Задачи</string>
+  <string name="onlineBots">Онлайн ботове</string>
   <string name="name">Име</string>
   <string name="description">Описание</string>
   <string name="descPrivate">Вътрешно описание</string>
@@ -565,6 +575,7 @@
   <string name="other">Друго</string>
   <string name="reportCheatBoostHelp">Поставете линкът към играта/игрите и обяснете какво не е наред с поведението на този потребител. Не казвайте само \"мами\", а ни кажете как стигнахте до това заключение.</string>
   <string name="reportUsernameHelp">Обяснете защо потребителското име е обидно. Не казвайте само \"обидно/неуместно е\", а ни кажете как стигнахте до това заключение - особено ако обидата е прикрита, не е на английски, или е историческа или културна препратка.</string>
+  <string name="reportProcessedFasterInEnglish">Докладът ви ще бъде обработен по-бързо, ако е написан на английски.</string>
   <string name="error.provideOneCheatedGameLink">Моля дай поне един линк до измамна игра.</string>
   <string name="by">от %s</string>
   <string name="importedByX">Внесени от %s</string>
@@ -589,7 +600,7 @@
   <string name="privacyPolicy">Политика за поверителност</string>
   <string name="letOtherPlayersFollowYou">Позволи на другите играчи да ви следват</string>
   <string name="letOtherPlayersChallengeYou">Позволи на други играчи да ви предизвикват</string>
-  <string name="letOtherPlayersInviteYouToStudy">Позволяване на играчи да ви поканят в проучване</string>
+  <string name="letOtherPlayersInviteYouToStudy">Позволи на други играчи да те канят в студия</string>
   <string name="sound">Звук</string>
   <string name="none">Не</string>
   <string name="fast">Бързо</string>
@@ -626,7 +637,7 @@
   <string name="clock">Часовник</string>
   <string name="opponent">Противник</string>
   <string name="learnMenu">Научи</string>
-  <string name="studyMenu">Казус</string>
+  <string name="studyMenu">Студия</string>
   <string name="practice">Упражнявайте се</string>
   <string name="community">Общност</string>
   <string name="tools">Средства</string>
@@ -672,8 +683,10 @@
   <string name="simultaneousExhibitions">Сеанси</string>
   <string name="host">Домакин</string>
   <string name="hostColorX">Домакин: %s</string>
+  <string name="yourPendingSimuls">Предстоящите ви сеанси</string>
   <string name="createdSimuls">Нови сеанси</string>
   <string name="hostANewSimul">Бъди домакин на сеанс</string>
+  <string name="signUpToHostOrJoinASimul">Регистрация за участие в сеанс</string>
   <string name="noSimulFound">Сеансът не е намерен</string>
   <string name="noSimulExplanation">Този сеанс не съществува.</string>
   <string name="returnToSimulHomepage">Връщане към Главната страница</string>
@@ -696,8 +709,9 @@
   <string name="averageCentipawnLoss">Средна загуба в стотни на пешка</string>
   <string name="accuracy">Точност</string>
   <string name="keyboardShortcuts">Клавиатурни комбинации</string>
-  <string name="keyMoveBackwardOrForward">мести напред/назад</string>
+  <string name="keyMoveBackwardOrForward">назад/напред</string>
   <string name="keyGoToStartOrEnd">към началото/края</string>
+  <string name="keyCycleSelectedVariation">Превключи избрания вариант</string>
   <string name="keyShowOrHideComments">покажи/скрий коментарите</string>
   <string name="keyEnterOrExitVariation">влез/излез от вариацията</string>
   <string name="keyRequestComputerAnalysis">Поискайте компютърен анализ, Учете се от грешките си</string>
@@ -705,9 +719,14 @@
   <string name="keyNextBlunder">Следваща груба грешка</string>
   <string name="keyNextMistake">Следваща грешка</string>
   <string name="keyNextInaccuracy">Следваща неточност</string>
-  <string name="keyPreviousBranch">Предходен клон</string>
-  <string name="keyNextBranch">Следващ клон</string>
+  <string name="keyPreviousBranch">Предишно разклонение</string>
+  <string name="keyNextBranch">Следващо разклонение</string>
+  <string name="toggleVariationArrows">Превключване на стрелките за варианти</string>
   <string name="cyclePreviousOrNextVariation">Превключи между предходна/следваща вариация</string>
+  <string name="toggleGlyphAnnotations">Превключване на анотациите за ходове</string>
+  <string name="togglePositionAnnotations">Превключване на анотациите за позиция</string>
+  <string name="toggleObservationAnnotations">Превключване на анотациите за наблюдение</string>
+  <string name="variationArrowsInfo">Стрелките за вариантите позволяват да навигирате без използване на списъка с ходове.</string>
   <string name="playSelectedMove">изиграй избраният ход</string>
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шахматният турнир включва различни времеви контроли и варианти</string>
@@ -748,6 +767,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Може още да скролираш върху дъската, за да местиш ходовете.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Задръжте курсора над компютърните вариации за да ги прегледате.</string>
   <string name="analysisShapesHowTo">Натисни shift едновременно с ляво или дясно копче за да рисуваш кръгове и стрелки върху дъската.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl или Shift = червено; Command, Alt или Meta = синьо; по един клавиш от двете = жълто.</string>
   <string name="letOtherPlayersMessageYou">Разреши на другите да ви пишат</string>
   <string name="receiveForumNotifications">Получаване на съобщения когато сте споменати във форума</string>
   <string name="shareYourInsightsData">Споделете измерванията върху вашата игра</string>
@@ -775,7 +795,7 @@
   <string name="xHostsY">%1$s води %2$s</string>
   <string name="xJoinsY">%1$s се присъедини към %2$s</string>
   <string name="xLikesY">%1$s хареса %2$s</string>
-  <string name="quickPairing">Бързо свързване</string>
+  <string name="quickPairing">Бърза игра</string>
   <string name="lobby">Лоби</string>
   <string name="anonymous">Анонимен</string>
   <string name="yourScore">Резултатът ви: %s</string>
@@ -809,6 +829,7 @@
   <string name="notifications">Известия</string>
   <string name="notificationsX">Известия: %1$s</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <string name="yourRatingIsX">Вашият рейтинг е %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда за първия ход</item>
     <item quantity="other">%s секунди за първия ход</item>
@@ -860,10 +881,12 @@
   <string name="playVariationToCreateConditionalPremoves">Изиграйте вариация за да създадете предварителни ходове под условие</string>
   <string name="noConditionalPremoves">Без предварителни ходове под условие</string>
   <string name="playX">Играй %s</string>
+  <string name="challengeX">Предизвикай %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">и запиши %s като предварителен ход</item>
     <item quantity="other">и запиши %s като предварителен ход</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Получихте лично съобщение от Lichess.</string>
   <string name="clickHereToReadIt">Щракнете тук, за да го прочетете</string>
   <string name="sorry">Съжалявам :(</string>
   <string name="weHadToTimeYouOutForAWhile">Наложи се да Ви сложим в принудителна почивка за известно време.</string>
@@ -886,6 +909,7 @@
   <string name="agreementPolicy">Съгласявам се, че ше спазвам всички правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Търси или започни нов разговор</string>
   <string name="edit">Редактиране</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Ускорен</string>
@@ -948,7 +972,8 @@
   <string name="simulFeaturedHelp">Показвайте сеанса си всички на %s. Изключете за частни сеанси.</string>
   <string name="simulDescription">Описание на сеанса</string>
   <string name="simulDescriptionHelp">Има ли нещо което искате да кажете на участниците?</string>
-  <string name="embedsAvailable">Копирайте URL на игра или на глава от проучване за да я включите в страницата.</string>
+  <string name="markdownIsAvailable">Можете да използвате %s за форматиране.</string>
+  <string name="embedsAvailable">Постави URL на партия или на глава от студия, за да ги вградиш.</string>
   <string name="inYourLocalTimezone">Във Вашата часова зона</string>
   <string name="tournChat">Чат в турнира</string>
   <string name="noChat">Без чат</string>
@@ -956,8 +981,8 @@
   <string name="onlyTeamMembers">Само членовете на отбора</string>
   <string name="navigateMoveTree">Навигирайте листа на ходовете</string>
   <string name="mouseTricks">Миши трик</string>
-  <string name="toggleLocalAnalysis">Включи/изключи локалния компютърен анализ</string>
-  <string name="toggleAllAnalysis">Включи/изключи целия компютърен анализ</string>
+  <string name="toggleLocalAnalysis">Превключване на локален компютърен анализ</string>
+  <string name="toggleAllAnalysis">Превключване на целия компютърен анализ</string>
   <string name="playComputerMove">Изиграй най-добрия компютърен ход</string>
   <string name="analysisOptions">Параметри на анализа</string>
   <string name="focusChat">Фокусирай текста</string>
@@ -981,10 +1006,15 @@
   <string name="instructions">Инструкции</string>
   <string name="showMeEverything">Покажи ми всичко</string>
   <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
+  <string name="nothingToSeeHere">Засега тук няма нищо.</string>
   <string name="stats">Статистика</string>
   <string name="accessibility">Достъпност</string>
   <string name="enableBlindMode">Включи режима за незрящи</string>
   <string name="disableBlindMode">Изключи режима за незрящи</string>
+  <string name="copyToClipboard">Копиране в клипборда</string>
   <string name="online" comment="status of a user">онлайн</string>
   <string name="offline" comment="status of a user">офлайн</string>
+  <string name="search">Търсене</string>
+  <string name="clearSearch">Изчистване на търсенето</string>
+  <string name="tags">Етикети</string>
 </resources>

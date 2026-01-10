@@ -72,9 +72,10 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
         of(using formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
       ),
       "spotlight" -> optional(spotlightMapping),
-      "grouping" -> groupForm.mapping,
+      "grouping" -> optional(groupForm.mapping),
       "pinnedStream" -> optional(pinnedStreamMapping),
-      "note" -> optional(nonEmptyText(maxLength = 20_000))
+      "note" -> optional(nonEmptyText(maxLength = 20_000)),
+      "orphanWarn" -> boolean
     )(Data.apply)(unapply)
       .verifying(
         "Tiebreaks submitted without automatic scoring enabled",
@@ -106,7 +107,8 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       spotlight = tour.spotlight,
       grouping = group.map(groupForm.data),
       pinnedStream = tour.pinnedStream,
-      note = tour.note
+      note = tour.note,
+      orphanWarn = tour.orphanWarn
     )
 
 object RelayTourForm:
@@ -126,7 +128,8 @@ object RelayTourForm:
       spotlight: Option[RelayTour.Spotlight] = none,
       grouping: Option[RelayGroupData] = none,
       pinnedStream: Option[RelayPinnedStream] = none,
-      note: Option[String] = none
+      note: Option[String] = none,
+      orphanWarn: Boolean = true
   ):
 
     def update(tour: RelayTour)(using me: Me) =
@@ -145,7 +148,8 @@ object RelayTourForm:
           teams = teams,
           spotlight = if Granter(_.StudyAdmin) then spotlight.filterNot(_.isEmpty) else tour.spotlight,
           pinnedStream = if Granter(_.StudyAdmin) then pinnedStream else tour.pinnedStream,
-          note = note
+          note = note,
+          orphanWarn = if Granter(_.StudyAdmin) then orphanWarn else tour.orphanWarn
         )
         .giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
@@ -170,7 +174,8 @@ object RelayTourForm:
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty).ifTrue(Granter(_.StudyAdmin)),
         pinnedStream = pinnedStream.ifTrue(Granter(_.StudyAdmin)),
-        note = note
+        note = note,
+        orphanWarn = orphanWarn
       ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:

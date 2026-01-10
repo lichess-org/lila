@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="community">انجمن</string>
+  <string name="community">همدارگان</string>
   <string name="byMonth">ماهانه</string>
   <string name="byTopic">موضوعی</string>
-  <string name="byLichess">از طرف لیچس</string>
-  <string name="myFriends">دوستانم</string>
-  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">پسندهایم</string>
-  <string name="myBlog">وبلاگم</string>
+  <string name="byLichess">وبنوشته‌های Lichess</string>
+  <string name="myFriends">دوستانِ من</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">پسندهای من</string>
+  <string name="myBlog">وبنوشتِ من</string>
   <string name="likedBlogs">وبنوشته‌های پسندیده</string>
   <plurals name="blogPosts">
-    <item quantity="one">%s پست وبلاگ</item>
-    <item quantity="other">%s پست وبلاگ</item>
+    <item quantity="one">%s وبنوشته</item>
+    <item quantity="other">%s وبنوشته</item>
   </plurals>
   <string name="continueReadingPost">ادامهٔ خواندن این فرسته</string>
   <string name="lichessBlogPostsFromXYear">وبنوشته‌های لیچس در %s</string>

@@ -40,18 +40,6 @@ $clock-height: 20px;
   font-weight: bold;
   text-align: center;
 
-  &.top {
-    @extend %box-radius-top;
-
-    .is3d & {
-      @extend %box-radius;
-    }
-  }
-
-  &.bottom {
-    @extend %box-radius-bottom;
-  }
-
   &.active {
     background: $m-primary_bg--mix-30;
   }

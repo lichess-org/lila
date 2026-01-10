@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">Δε βρέθηκε κανένας παίκτης FIDE</string>
   <string name="fideProfile">Προφίλ FIDE</string>
   <string name="federation">Ομοσπονδία</string>
-  <string name="ageThisYear">Ηλικία</string>
+  <string name="age" comment="Label for the age of a player. Appears on players' FIDE profiles.">Ηλικία</string>
   <string name="unrated">Μη βαθμολογημένο</string>
   <string name="recentTournaments">Πρόσφατα τουρνουά</string>
   <string name="openLichess">Άνοιγμα στο Lichess</string>
@@ -83,6 +83,6 @@
   <string name="liveboard">Ζωντανά</string>
   <string name="communityBroadcast">Μετάδοση της κοινότητας</string>
   <string name="createdAndManagedBy">Δημιουργήθηκε και διαχειρίζεται από τον %s.</string>
-  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;If your language changes the word &quot;Round&quot; based on the number after it, consider using punctuation to get around the problem (e.g. &quot;Round: %s&quot;).&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">Γύρος %s</string>
-  <string name="defaultRoundNameHelp" comment="This is help text for broadcast authors setting a round name. The default is &quot;Round %s&quot; (translatable separately).&#10;&#10;If broadcasters keep the round name to the default, it will be automatically translated.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">Διατηρώντας το προεπιλεγμένο όνομα θα μεταφραστεί αυτόματα σε όλες τις άλλες γλώσσες.</string>
+  <string name="roundX">Γύρος %s</string>
+  <string name="defaultRoundNameHelp">Διατηρώντας το προεπιλεγμένο όνομα θα μεταφραστεί αυτόματα σε όλες τις άλλες γλώσσες.</string>
 </resources>

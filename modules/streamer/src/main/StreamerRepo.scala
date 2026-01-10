@@ -1,7 +1,10 @@
 package lila.streamer
 
+import reactivemongo.api.bson.*
+
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
+import Twitch.TwitchId
 
 final class StreamerRepo(
     coll: Coll,
@@ -44,18 +47,23 @@ final class StreamerRepo(
       _ <- elements.nonEmpty.so(update.many(elements).void)
     yield ()
 
-  private[streamer] def approvedIds(platform: Platform, limit: Int = 1000): Fu[Seq[String]] =
-    val field = if platform == "youtube" then "youtube.channelId" else "twitch.id"
-    val Array(docType, id) = field.split("\\.", 2)
+  private[streamer] def approvedTwitchIds(limit: Int = 1000): Fu[Seq[TwitchId]] =
+    approvedIds[TwitchId]("twitch.id", limit)
+
+  private[streamer] def approvedYoutubeIds(limit: Int = 1000): Fu[Seq[String]] =
+    approvedIds[String]("youtube.channelId", limit)
+
+  private def approvedIds[Id: BSONReader](field: String, limit: Int): Fu[Seq[Id]] =
     coll
-      .find(
-        $doc(field.$exists(true), "approval.granted" -> true),
-        $doc(field -> true).some
-      )
-      .sort($doc("lastSeenAt" -> -1))
-      .cursor[Bdoc]()
-      .list(limit)
-      .map(_.flatMap(_.getAsOpt[Bdoc](docType).flatMap(_.string(id))))
+      .aggregateOne(_.sec): framework =>
+        import framework.*
+        Match($doc(field.$exists(true), "approval.granted" -> true)) -> List(
+          Sort(Descending("seenAt")),
+          Limit(limit),
+          Group(BSONNull)("ids" -> PushField(field))
+        )
+      .map:
+        _.so(~_.getAsOpt[Seq[Id]]("ids"))
 
   private[streamer] def approvedByChannelId(channelId: String): Fu[Option[Streamer]] =
     coll
@@ -105,7 +113,7 @@ final class StreamerRepo(
         )
       .map(bulk.many(_))
 
-  private[streamer] def setTwitchLogin(id: Streamer.Id, login: String): Funit =
+  private[streamer] def setTwitchLogin(id: Streamer.Id, login: Twitch.TwitchLogin): Funit =
     coll.update.one($id(id), $set("twitch.login" -> login)).void
 
   private[streamer] def setYoutubePubsubVideo(id: Streamer.Id, videoId: String): Funit =

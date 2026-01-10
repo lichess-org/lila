@@ -474,10 +474,6 @@
   <string name="player">Jugador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfico</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menos de %s minuto</item>
-    <item quantity="other">Menos de %s minutos</item>
-  </plurals>
   <string name="required">Obligatorio.</string>
   <string name="openTournaments">Torneos abiertos</string>
   <string name="duration">Duración</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Alterna entre la siguiente variante y la anterior</string>
   <string name="toggleGlyphAnnotations">Activa o desactiva la anotación de figurines</string>
   <string name="togglePositionAnnotations">Activa o desactiva anotaciones de posición</string>
+  <string name="toggleObservationAnnotations">Alternar las anotaciones de observación</string>
   <string name="variationArrowsInfo">Las flechas de variantes te permiten navegar sin usar la lista de movimientos.</string>
   <string name="playSelectedMove">hacer movimiento seleccionado</string>
   <string name="newTournament">Nuevo torneo</string>
@@ -911,6 +908,7 @@
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar o empezar una nueva conversación</string>
   <string name="edit">Editar</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rápida</string>
@@ -1021,4 +1019,5 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar búsqueda</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant">Captura al paso</string>
 </resources>

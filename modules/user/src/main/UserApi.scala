@@ -9,7 +9,7 @@ import lila.core.LightUser
 import lila.core.email.NormalizedEmailAddress
 import lila.core.lilaism.LilaInvalid
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
-import lila.core.user.{ GameUsers, UserMark, WithEmails, WithPerf }
+import lila.core.user.{ GameUsers, UserMark, WithEmails, WithPerf, KidMode, SetKidMode }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.rating.PerfType
@@ -106,18 +106,20 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     for _ <- ups.all.map(perfsRepo.updatePerfs).parallelVoid
     yield gamePlayers.cache.invalidate(ups.map(_._1.id.some).toPair -> gamePerfType)
 
-  def withPerfs[U: UserIdOf](u: U): Fu[Option[UserWithPerfs]] =
-    userRepo.coll
-      .aggregateOne(): framework =>
-        import framework.*
-        Match($id(u.id)) -> List:
-          PipelineOperator(perfsRepo.aggregate.lookup)
-      .map: docO =>
-        for
-          doc <- docO
-          user <- doc.asOpt[User]
-          perfs = perfsRepo.aggregate.readFirst(doc, user)
-        yield UserWithPerfs(user, perfs)
+  def withPerfs[U: UserIdOf](u: U): Fu[Option[UserWithPerfs]] = u.id
+    .isnt(UserId.undefined)
+    .so:
+      userRepo.coll
+        .aggregateOne(): framework =>
+          import framework.*
+          Match($id(u.id)) -> List:
+            PipelineOperator(perfsRepo.aggregate.lookup)
+        .map: docO =>
+          for
+            doc <- docO
+            user <- doc.asOpt[User]
+            perfs = perfsRepo.aggregate.readFirst(doc, user)
+          yield UserWithPerfs(user, perfs)
 
   def enabledWithPerf[U: UserIdOf](id: U, perfType: PerfType): Fu[Option[WithPerf]] =
     byIdWithPerf(id, perfType).dmap(_.filter(_.user.enabled.yes))
@@ -221,6 +223,15 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       userRepo.setTitle(user.id, PlayerTitle.BOT) >>
         userRepo.setRoles(user.id, Nil) >>
         perfsRepo.setBotInitialPerfs(user.id)
+
+  def setKid(user: User, v: KidMode): Fu[Option[KidMode]] =
+    (user.kid != v)
+      .option:
+        for
+          _ <- userRepo.setKid(user, v)
+          _ = lila.common.Bus.pub(SetKidMode(user.copy(kid = v)))
+        yield v
+      .sequence
 
   def visibleBotsByIds(ids: Iterable[UserId]): Fu[List[UserWithPerfs]] =
     userRepo.coll

@@ -21,7 +21,7 @@
   <string name="inGameOnly">Միայն խաղի մեջ</string>
   <string name="chessClock">շախմատի ժամացույց</string>
   <string name="tenthsOfSeconds">ցուցադրել վայրկյանները</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Երբ ժամանակը մնացել է &lt;10 վայրկյան</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Երբ ժամանակը մնացել է &lt;10 վայրկյան</string>
   <string name="horizontalGreenProgressBars">Հորիզոնական կանաչ գծով</string>
   <string name="soundWhenTimeGetsCritical">ձայնով, երբ ժամանակը վերջանում է</string>
   <string name="giveMoreTime">Ավելացնել ժամանակ</string>
@@ -36,7 +36,7 @@
   <string name="promoteToQueenAutomatically">Ավտոմատ փոխակերպվել թագուհու</string>
   <string name="whenPremoving">Նախաքայլ անելիս</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Քայլերի եռակի կրկնության դեպքում ինքնաբերաբար պահանջել ոչ-ոքի</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Երբ մնում է &lt; 30 վայրկյանից քիչ</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Երբ մնում է &lt; 30 վայրկյանից քիչ</string>
   <string name="moveConfirmation">Քայլի հաստատում</string>
   <string name="inCorrespondenceGames">Նամակագրական խաղեր</string>
   <string name="correspondenceAndUnlimited">Նամակագրական և առանց ժամանակի սահմանափակման</string>

@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">FIDE player not found</string>
   <string name="fideProfile">FIDE profile</string>
   <string name="federation">Federation</string>
-  <string name="ageThisYear">Age this year</string>
+  <string name="age">Age</string>
   <string name="unrated">Unrated</string>
   <string name="recentTournaments">Recent tournaments</string>
   <string name="openLichess">Open in Lichess</string>

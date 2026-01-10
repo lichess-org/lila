@@ -544,12 +544,6 @@
   <string name="player">Gracz</string>
   <string name="list">Lista</string>
   <string name="graph">Wykres</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Poniżej %s minuty</item>
-    <item quantity="few">Poniżej %s minut</item>
-    <item quantity="many">Poniżej %s minut</item>
-    <item quantity="other">Poniżej %s minut</item>
-  </plurals>
   <string name="required">Wymagane.</string>
   <string name="openTournaments">Dostępne turnieje</string>
   <string name="duration">Czas trwania</string>
@@ -808,6 +802,7 @@
   <string name="cyclePreviousOrNextVariation">Powtarzaj poprzedni/następny wariant</string>
   <string name="toggleGlyphAnnotations">Przełącz adnotacje symbolami</string>
   <string name="togglePositionAnnotations">Przełącz adnotacje pozycji</string>
+  <string name="toggleObservationAnnotations">Przełącz adnotacje obserwacji</string>
   <string name="variationArrowsInfo">Strzałki wariantów pozwalają nawigować bez użycia listy posunięć.</string>
   <string name="playSelectedMove">wykonaj wybrane posunięcie</string>
   <string name="newTournament">Nowy turniej</string>
@@ -851,6 +846,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przewijać nad szachownicą, by zmieniać postęp partii.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Przewiń po wariantach komputera, aby je podglądać.</string>
   <string name="analysisShapesHowTo">Kliknij podczas trzymania Shift lub przytrzymaj prawy przycisk myszy aby rysować okręgi i strzałki na szachownicy.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl lub shift = kolor czerwony; command, alt lub meta = kolor niebieski; Ctrl lub shift + command, alt lub meta = kolor żółty.</string>
   <string name="letOtherPlayersMessageYou">Zezwól na wiadomości od innych graczy</string>
   <string name="receiveForumNotifications">Otrzymuj powiadomienia, kiedy ktoś wspomni o Tobie na forum</string>
   <string name="shareYourInsightsData">Udostępniaj szczegółowe statystyki</string>
@@ -1000,6 +996,7 @@
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
   <string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową rozmowę</string>
   <string name="edit">Edytuj</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Szybkie</string>
@@ -1110,4 +1107,5 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="search">Szukaj</string>
   <string name="clearSearch">Wyczyść wyszukiwanie</string>
   <string name="tags">Tagi</string>
+  <string name="enPassant">Bicie w przelocie</string>
 </resources>

@@ -132,6 +132,7 @@ class WsSocket {
       events: settings.events || {},
       params: {
         sri: site.sri,
+        from: 'website',
         ...(settings.params || {}),
       },
     };
@@ -195,8 +196,8 @@ class WsSocket {
     }
 
     const message = JSON.stringify(msg);
-    if (t === 'racerScore' && o.sign != this._sign) return;
-    if (t === 'move' && o.sign != this._sign) {
+    if (t === 'racerScore' && o.sign !== this._sign) return;
+    if (t === 'move' && o.sign !== this._sign) {
       let stack: string;
       try {
         stack = new Error().stack!.split('\n').join(' / ').replace(/\s+/g, ' ');

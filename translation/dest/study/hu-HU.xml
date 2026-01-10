@@ -54,7 +54,7 @@
   <string name="shareChanges">A módosítások láthatóak a nézők számára, és mentésre kerülnek a szerveren</string>
   <string name="playing">Folyamatban</string>
   <string name="showResults">Eredmények</string>
-  <string name="showEvalBar">Értéksávok</string>
+  <string name="showEvalBar">Állásértékelő oldaljelzés</string>
   <string name="next">Következő</string>
   <string name="shareAndExport">Megosztás és exportálás</string>
   <string name="cloneStudy">Klónozás</string>
@@ -179,7 +179,7 @@ Használd játszmák elemzésére és jegyzetek készítésére,&lt;br&gt;beszé
   <string name="commentPositionTitle">Kommentáld az állást</string>
   <string name="commentPositionText" comment="%s is an icon that will added at runtime">Kattints a %s parancsra, vagy jobb klikk a jobb oldali lépéslistára.&lt;br&gt;A megjegyzéseket megosztod és elmented.</string>
   <string name="annotatePositionTitle">Jegyezd le az állást</string>
-  <string name="annotatePositionText">Kattints a !? parancsra, vagy jobb klikk a jobb oldali lépéslistára!&lt;br&gt;Így az értékelő jelzéseket megosztod és elmented.</string>
+  <string name="annotatePositionText">Kattints a !? gombra, vagy jobb klikk a jobb oldali lépéslistára.&lt;br&gt;Így a jelöléseket megosztod és elmented.</string>
   <string name="conclusionTitle">Köszönjük az idődet</string>
   <string name="conclusionText">Megtalálod&lt;a href=\'/study/mine/hot\'&gt;korábbi tanulmányaidat&lt;/a&gt;a profilod oldalán.&lt;br&gt;Van egy &lt;ahref=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;blog poszt is a tanulmányokról&lt;/a&gt;.&lt;br&gt;A haladó felhasználók a \"?\" megnyomásával megnézhetik a billentyűparancsokat.&lt;br&gt;Jó szórakozást!</string>
   <string name="createChapterTitle">Hozzunk létre egy tanulmány fejezetet</string>

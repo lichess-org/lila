@@ -101,7 +101,7 @@ final class PgnDump(
       Tag(_.Site, importedTags.flatMap(_.apply(_.Site)) | gameUrl(game.id)).some,
       Tag(_.GameId, game.id).some,
       Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
-      importedTags.flatMap(_.apply(_.Round)).map(Tag(_.Round, _)),
+      Tag(_.Round, importedTags.flatMap(_.apply(_.Round)) | "-").some,
       Tag(_.White, player(game.whitePlayer, users.white)).some,
       Tag(_.Black, player(game.blackPlayer, users.black)).some,
       Tag(_.Result, result(game)).some,

@@ -36,7 +36,7 @@ final private class Plurals(val messages: Map[I18nQuantity, String]) extends Tra
     messages
       .get(quantity)
       .orElse(messages.get(I18nQuantity.Other))
-      .orElse(messages.headOption.map(_._2))
+      .orElse(messages.headOption._2F)
 
   def formatTxt(quantity: I18nQuantity, args: Seq[Any]): Option[String] =
     messageFor(quantity).map { message =>

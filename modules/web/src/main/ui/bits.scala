@@ -71,19 +71,3 @@ z-index: 99;
         noFollow
       )("Twitch")
     )
-
-  def api = raw:
-    """<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src https://cdn.jsdelivr.net blob:; child-src blob:; connect-src https://raw.githubusercontent.com; img-src data: https://lichess.org https://lichess1.org;">
-    <title>Lichess.org API reference</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>body { margin: 0; padding: 0; }</style>
-  </head>
-  <body>
-    <redoc spec-url="https://raw.githubusercontent.com/lichess-org/api/master/doc/specs/lichess-api.yaml"></redoc>
-    <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
-  </body>
-</html>"""

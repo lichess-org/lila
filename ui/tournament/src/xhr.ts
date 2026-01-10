@@ -81,7 +81,7 @@ export const reloadNow: (ctrl: TournamentController) => Promise<void> = finallyD
           ctrl.redraw();
         },
         () => {
-          if (ctrl.data.reloadEndpoint != reloadEndpointFallback(ctrl)) {
+          if (ctrl.data.reloadEndpoint !== reloadEndpointFallback(ctrl)) {
             ctrl.data.reloadEndpoint = reloadEndpointFallback(ctrl);
             return reloadNow(ctrl);
           } else return onFail();

@@ -123,7 +123,7 @@ lazy val i18n = module("i18n",
     I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "site arena emails learn activity coordinates study class contact appeal patron coach broadcast streamer tfa settings practice preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding features nvui video variant".split(' ').toList,
+      dbs = "activity appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn nvui oauthScope onboarding patron perfStat practice preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands".split(' ').toList,
       outputDir = (Compile / resourceManaged).value
     )
   }.taskValue

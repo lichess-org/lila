@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="featuredEvents">精选比赛</string>
+  <string name="featuredEvents">精选赛事</string>
   <string name="moveList">着法列表</string>
   <string name="gameInfo">对局信息</string>
   <string name="pieces">棋子</string>
   <string name="gameStatus">对局状态</string>
-  <string name="lastMove">上一回合</string>
+  <string name="lastMove">最后一着</string>
   <string name="inputForm">命令输入框</string>
-  <string name="actions">动作</string>
-  <string name="yourClock">你的时间</string>
-  <string name="opponentClock">对手的时间</string>
-  <string name="gameStart">游戏开始</string>
-  <string name="boardCommandList">当聚焦到棋盘上时的命令列表</string>
-  <string name="inputFormCommandList">将这些命令输入到命令输入框。</string>
-  <string name="goToInputForm">跳转到输入框。</string>
-  <string name="announceCurrentSquare">播报当前的棋格。</string>
-  <string name="announceLastMove">播报上一个着法。</string>
-  <string name="announceLastMoveCapture">播报在上一个着法中被吃的棋子。</string>
-  <string name="announcePossibleMoves">播报选中棋子的可能着法。</string>
-  <string name="announcePossibleCaptures">播报选中棋子的可能吃法。</string>
-  <string name="moveWithArrows">移动到相邻的上下左右棋格。</string>
-  <string name="moveToPieceByType">使用棋子名移动到格子。例如：重复k将会移动到每一个有马的格子。用大写来反转顺序。</string>
-  <string name="moveToRank">移动到1至8列。</string>
-  <string name="moveToFile">移动到a至h行。</string>
-  <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">播报棋子的位置。例如：p大写的N代表白方的马，p小写的k代表黑方的王。</string>
-  <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">播报棋子所在的行列。例如：s a, s 1。</string>
-  <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">跳转到棋盘。默认格子是e-4。你可以指定一个格子：board a-1或者b a-1将会把你带到a-1格。</string>
-  <string name="movePiece">使用标准代数制记录法移动棋子。</string>
-  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">使用equals升变为皇后以外的棋子。 例如a-8-equals-n升变为马。</string>
+  <string name="actions">操作</string>
+  <string name="yourClock">您的棋钟</string>
+  <string name="opponentClock">对手的棋钟</string>
+  <string name="gameStart">对局开始</string>
+  <string name="boardCommandList">棋盘聚焦时的命令列表</string>
+  <string name="inputFormCommandList">请在命令输入框中输入这些命令。</string>
+  <string name="goToInputForm">跳转到命令输入框。</string>
+  <string name="announceCurrentSquare">播报当前棋格。</string>
+  <string name="announceLastMove">播报最后一着。</string>
+  <string name="announceLastMoveCapture">播报最后一着中被吃掉的棋子。</string>
+  <string name="announcePossibleMoves">播报所选棋子可能的走法。</string>
+  <string name="announcePossibleCaptures">播报所选棋子可能的吃子着法。</string>
+  <string name="moveWithArrows">向左、右、上或下移动到相邻棋格。</string>
+  <string name="moveToPieceByType">使用棋子名称跳转到相应棋格。例如：重复按 k 将依次跳转到所有有马的棋格。使用大写字母可反转顺序。</string>
+  <string name="moveToRank">跳转到第 1 至第 8 横线。</string>
+  <string name="moveToFile">跳转到 a 至 h 纵线。</string>
+  <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">播报棋子的位置。例如：p 大写 N 播报白马位置，p 小写 k 播报黑王位置，p 大写 A 播报所有白方棋子位置。</string>
+  <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">播报某横线或纵线上的棋子。例如：s a 播报 a 纵线，s 1 播报第 1 横线。</string>
+  <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">跳转到棋盘。默认棋格是 e4。您可以指定棋格：输入 board a1 或 b a1 将跳转到 a1 棋格。</string>
+  <string name="movePiece">移动棋子，请使用标准代数记谱法。</string>
+  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">若要升变为皇后以外的棋子，请使用等于号。例如 a8=n 升变为马。</string>
   <string name="king">王</string>
   <string name="whiteKing">白王</string>
   <string name="blackKing">黑王</string>
@@ -49,16 +49,16 @@
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
   <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">吃</string>
   <string name="sanCheck" comment="+ in standard notation">将军</string>
-  <string name="sanCheckmate" comment="# in standard notation">将死</string>
-  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">升变成</string>
+  <string name="sanCheckmate" comment="# in standard notation">将杀</string>
+  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">升变为</string>
   <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">短易位</string>
   <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">长易位</string>
-  <string name="sanDroppedOn" comment="Indicates a piece is dropped on a square in the Crazyhouse variant, as part of a longer sentence.&#10;&#10;In Crazyhouse, any pieces you capture are placed in your pocket. You can then drop those pieces onto any square on the board.&#10;&#10;Examples:&#10;&quot;bishop is dropped on c 4 check&quot; (B@c4+)&#10;&quot;pawn is dropped on f 7&quot; (@f7)&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'dropped on' corresponds to &quot;@&quot; in Crazyhouse's form of algebraic notation.">丢弃</string>
-  <string name="invalidMove">违规着法</string>
-  <string name="premoveCancelled">预先走棋已取消</string>
-  <string name="premoveRecorded">预先走棋已记录：%s。按回车键以取消</string>
-  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">建议</string>
+  <string name="sanDroppedOn" comment="Indicates a piece is dropped on a square in the Crazyhouse variant, as part of a longer sentence.&#10;&#10;In Crazyhouse, any pieces you capture are placed in your pocket. You can then drop those pieces onto any square on the board.&#10;&#10;Examples:&#10;&quot;bishop is dropped on c 4 check&quot; (B@c4+)&#10;&quot;pawn is dropped on f 7&quot; (@f7)&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'dropped on' corresponds to &quot;@&quot; in Crazyhouse's form of algebraic notation.">被置于</string>
+  <string name="invalidMove">无效着法</string>
+  <string name="premoveCancelled">预走棋已取消</string>
+  <string name="premoveRecorded">预走棋已记录：%s。按回车键取消</string>
+  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">口袋棋子</string>
   <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">复制 %s 到剪贴板</string>
   <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s 已复制到剪贴板</string>
-  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN和FEN</string>
+  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN 与 FEN</string>
 </resources>

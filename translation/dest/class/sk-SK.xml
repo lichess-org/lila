@@ -126,4 +126,9 @@ To zobrazí horizontálnu čiaru.</string>
   <string name="moveToAnotherClass">Presunúť do inej triedy</string>
   <string name="allowMessagingBetweenStudents">Povoliť správy medzi študentami</string>
   <string name="allowMessagingBetweenStudentsDesc">Toto sa vzťahuje iba na tie účty, ktoré ste vytvorili pre svojich študentov.</string>
+  <string name="quickLoginCode">Kód rýchleho prihlásenia</string>
+  <string name="quickLoginCodes">Kódy rýchleho prihlásenia</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Použite tieto kódy na %s, aby ste Vašich študentov prihlásili do Lichess.</string>
+  <string name="quickLoginCodesDesc2">Keď platnosť kódov vyprší, Vaši študenti zostanú prihlásení, kým sa ručne neodhlásia.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Expirácia %s</string>
 </resources>

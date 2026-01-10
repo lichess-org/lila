@@ -1,6 +1,5 @@
 package lila.fishnet
 
-import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
@@ -34,7 +33,7 @@ final private class Cleaner(
           logger.info(s"Timeout analysis $ana")
           ana.acquired.foreach: ack =>
             Monitor.timeout(ack.userId)
-      .runWith(Sink.ignore)
+      .run()
       .void
 
   system.scheduler.scheduleWithFixedDelay(15.seconds, 10.seconds): () =>

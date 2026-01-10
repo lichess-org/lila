@@ -2,7 +2,7 @@ import { prop } from 'lib';
 import * as licon from 'lib/licon';
 import { type VNode, bind, dataIcon, hl } from 'lib/view';
 import { copyMeInput } from 'lib/view';
-import { text as xhrText, url as xhrUrl } from 'lib/xhr';
+import { writeTextClipboard, url as xhrUrl } from 'lib/xhr';
 import { renderIndexAndMove } from '../view/components';
 import { baseUrl } from '../view/util';
 import type { ChapterPreview, StudyData } from './interfaces';
@@ -49,19 +49,6 @@ export class StudyShare {
   gamebook = this.data.chapter.gamebook;
 }
 
-async function writePgnClipboard(url: string): Promise<void> {
-  // Firefox does not support `ClipboardItem`
-  if (typeof ClipboardItem === 'undefined') {
-    const pgn = await xhrText(url);
-    return navigator.clipboard.writeText(pgn);
-  } else {
-    const clipboardItem = new ClipboardItem({
-      'text/plain': xhrText(url).then(pgn => new Blob([pgn], { type: 'text/plain' })),
-    });
-    return navigator.clipboard.write([clipboardItem]);
-  }
-}
-
 export function view(ctrl: StudyShare): VNode {
   const studyId = ctrl.studyId,
     chapter = ctrl.chapter();
@@ -90,7 +77,7 @@ export function view(ctrl: StudyShare): VNode {
             target.setAttribute('data-icon', success ? licon.Checkmark : licon.X);
             setTimeout(() => target.setAttribute('data-icon', licon.Clipboard), 1000);
           };
-          writePgnClipboard(url).then(
+          writeTextClipboard(url).then(
             () => iconFeedback(true),
             err => {
               console.log(err);

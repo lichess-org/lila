@@ -466,10 +466,6 @@
   <string name="player">O\'yinchi</string>
   <string name="list">Ro‘yxat</string>
   <string name="graph">Grafik</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s minutdan kam</item>
-    <item quantity="other">%s minutlardan kam</item>
-  </plurals>
   <string name="required">Talab qilinadi.</string>
   <string name="openTournaments">Ochiq turnir</string>
   <string name="duration">Davomiyligi</string>

@@ -4,7 +4,6 @@ import chess.format.pgn.{ PgnStr, Tag, Tags }
 import chess.TournamentClock
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
-import play.api.libs.json.*
 import scalalib.model.Seconds
 
 import lila.common.LilaScheduler
@@ -92,9 +91,11 @@ final private class RelayFetch(
           .so(notifyAdmin.tooManyGames(rt, sliced.size, RelayFetch.maxChaptersToShow))
         withPlayers = playerEnrich.enrichAndReportAmbiguous(rt)(limited)
         withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
-        withTeams = rt.tour.teams.fold(withFide)(_.update(withFide))
+        withReplacements = rt.tour.players.fold(withFide)(_.parse.update(withFide)._1)
+        withTeams = rt.tour.teams.fold(withReplacements)(_.update(withReplacements))
+        reordered = rt.round.sync.reorder.fold(withTeams)(_.reorder(withTeams))
         res <- sync
-          .updateStudyChapters(rt, withTeams)
+          .updateStudyChapters(rt, reordered)
           .withTimeoutError(7.seconds, SyncResult.Timeout)
           .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
@@ -320,7 +321,7 @@ final private class RelayFetch(
       .flatMap:
         case RelayFormat.Round(id) =>
           studyChapterRepo
-            .orderedByStudyLoadingAllInMemory(id.into(StudyId))
+            .orderedByStudyLoadingAllInMemory(id.studyId)
             .map(_.view.map(RelayGame.fromChapter).toVector)
         case RelayFormat.SingleFile(url) =>
           httpGetPgn(url)
@@ -328,7 +329,8 @@ final private class RelayFetch(
             .map(injectTimeControl.in(rt.tour.info.clock))
             .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
-          httpGetRoundJson(lcc.indexUrl)
+          formatApi
+            .httpGetRoundJson(lcc.indexUrl)
             .flatMap: round =>
               val lookForStart: Boolean =
                 rt.round.startsAtTime
@@ -347,11 +349,12 @@ final private class RelayFetch(
                     .map(game -> _)
                 .parallel
                 .map: pgns =>
-                  MultiPgn(pgns.sortBy(_._1).map(_._2))
+                  MultiPgn(pgns.sortBy(_._1)._2F)
                 .map(injectTimeControl.in(rt.tour.info.clock))
                 .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithoutGames(lcc) =>
-          httpGetRoundJson(lcc.indexUrl)
+          formatApi
+            .httpGetRoundJson(lcc.indexUrl)
             .map: round =>
               MultiPgn:
                 round.pairings.mapWithIndex: (pairing, i) =>
@@ -360,14 +363,8 @@ final private class RelayFetch(
             .flatMap(multiPgnToGames.future)
 
   private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] = PgnStr.from(http.get(url))
-  private def httpGetRoundJson(url: URL)(using CanProxy): Fu[DgtJson.RoundJson] =
-    http.get(url).flatMap(readAsJson[DgtJson.RoundJson](url))
   private def httpGetGameJson(url: URL)(using CanProxy): Fu[DgtJson.GameJson] =
-    http.get(url).flatMap(readAsJson[DgtJson.GameJson](url))
-  private def readAsJson[A: Reads](url: URL)(body: HttpClient.Body): Fu[A] = for
-    json <- Future(Json.parse(body)) // Json.parse throws exceptions (!)
-    data <- summon[Reads[A]].reads(json).fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
-  yield data
+    http.get(url).flatMap(formatApi.readAsJson[DgtJson.GameJson](url))
 
 private object RelayFetch:
 
@@ -402,7 +399,7 @@ private object RelayFetch:
               .flatMap: game =>
                 if game.isEmpty then LilaInvalid(s"Found an empty PGN at index $index").asLeft
                 else (acc :+ game, index + 1).asRight
-        .map(_._1)
+        ._1F
 
     def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = either(multiPgn).toFuture
 

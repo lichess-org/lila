@@ -124,4 +124,6 @@ Zobrazí se vodorovná čára.</string>
   <string name="xIsAKidAccountWarning">%1$s je dětský účet a nemůže přijmout tvojí zprávu. Musíš mu dát URL adresu pozvánky sám:%2$s</string>
   <string name="moveToClass">Přesunout do %s</string>
   <string name="moveToAnotherClass">Přesunout do jiné třídy</string>
+  <string name="allowMessagingBetweenStudents">Povolit zprávy mezi studenty</string>
+  <string name="allowMessagingBetweenStudentsDesc">Tohle platí pouze pro účty, které jste vytvořil pro studenty.</string>
 </resources>

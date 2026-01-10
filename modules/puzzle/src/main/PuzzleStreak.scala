@@ -32,7 +32,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
     2649 -> 21,
     2799 -> 21
   )
-  private val poolSize = buckets.map(_._2).sum
+  private val poolSize = buckets._2F.sum
   private val theme = lila.puzzle.PuzzleTheme.mix.key
 
   private val current = cacheApi.unit[Option[PuzzleStreak]]:

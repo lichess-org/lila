@@ -94,7 +94,7 @@ final class Account(
 
   val apiMe = Scoped() { ctx ?=> me ?=>
     def limited = rateLimited:
-      "Please don't poll this endpoint. Stream https://lichess.org/api#tag/board/get/api/board/game/stream/{gameId} instead."
+      "Please don't poll this endpoint. Stream https://lichess.org/api#tag/board/get/apistreamevent instead."
     val wikiGranted = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
     if getBool("wiki") && !wikiGranted then Unauthorized(jsonError("Wiki access not granted"))
     else
@@ -314,11 +314,8 @@ final class Account(
             ),
           _ =>
             for
-              _ <- env.user.repo.setKid(me, getBoolAs[KidMode]("v"))
-              res <- negotiate(
-                Redirect(routes.Account.kid).flashSuccess,
-                jsonOkResult
-              )
+              _ <- env.user.api.setKid(me, getBoolAs[KidMode]("v"))
+              res <- negotiate(Redirect(routes.Account.kid).flashSuccess, jsonOkResult)
             yield res
         )
   }
@@ -326,7 +323,7 @@ final class Account(
   def apiKidPost = Scoped(_.Preference.Write) { ctx ?=> me ?=>
     getBoolOptAs[KidMode]("v") match
       case None => BadRequest(jsonError("Missing v parameter"))
-      case Some(v) => env.user.repo.setKid(me, v).inject(jsonOkResult)
+      case Some(v) => env.user.api.setKid(me, v).inject(jsonOkResult)
   }
 
   def security = Auth { _ ?=> me ?=>

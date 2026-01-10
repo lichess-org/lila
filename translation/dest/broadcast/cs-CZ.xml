@@ -51,7 +51,6 @@
   <string name="fidePlayerNotFound">FIDE hráč nenalezen</string>
   <string name="fideProfile">FIDE profil</string>
   <string name="federation">Federace</string>
-  <string name="ageThisYear">Věk tento rok</string>
   <string name="unrated">Nehodnocen</string>
   <string name="recentTournaments">Nedávné tournamenty</string>
   <string name="openLichess">Otevřít v Lichess</string>
@@ -87,4 +86,6 @@
   <string name="liveboard">Živá deska</string>
   <string name="communityBroadcast">Komunitní vysílání</string>
   <string name="createdAndManagedBy">Vytvořeno a spravováno %s.</string>
+  <string name="roundX">Kolo %s</string>
+  <string name="defaultRoundNameHelp">Ponechání výchozího jména se automaticky přeloží do jiného jazyka.</string>
 </resources>

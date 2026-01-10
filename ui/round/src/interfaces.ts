@@ -200,7 +200,7 @@ export interface Pref {
   moveEvent: Prefs.MoveEvent;
   ratings: boolean;
   replay: Prefs.Replay;
-  rookCastle: boolean;
+  rookCastle?: boolean;
   showCaptured: boolean;
   submitMove: boolean;
   resizeHandle: Prefs.ShowResizeHandle;

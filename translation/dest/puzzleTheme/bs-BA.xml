@@ -14,6 +14,10 @@
   <string name="attractionDescription">Razmjena ili žrtvovanje kojim se ohrabruje ili tjera protivnička figura na polje koja omogućava taktiku praćenja.</string>
   <string name="backRankMate">Mat na posljednjem redu</string>
   <string name="backRankMateDescription">Matirajte kralja na njegovom početnom redu kad je zarobljen od vlastitih figura.</string>
+  <string name="balestraMate">Balestra drug</string>
+  <string name="balestraMateDescription">Lovac daje šah-mat, dok dama blokira preostala polja za bijeg.</string>
+  <string name="blindSwineMate">Slijepi svinjarski partner</string>
+  <string name="blindSwineMateDescription">Dva topova se udružuju kako bi matirali kralja u području 2 puta 2 polja.</string>
   <string name="bishopEndgame">Lovačka završnica</string>
   <string name="bishopEndgameDescription">Lovačko-pješačka završnica.</string>
   <string name="bodenMate">Bodenov mat</string>
@@ -22,8 +26,12 @@
   <string name="castlingDescription">Sklonite kralja na sigurno i razvijte topa za napad.</string>
   <string name="capturingDefender">Uzmite figuru koja brani drugu</string>
   <string name="capturingDefenderDescription">Uklanjanje figure koja je ključna za odbranu druge figure, što omogućuje da sada nebranjena figura bude uzeta u sljedećem potezu.</string>
+  <string name="cornerMate">Suigrač iz ugla</string>
+  <string name="cornerMateDescription">Ograničite kralja u ugao koristeći top ili damu i skakača kako biste se suočili sa šah-matom.</string>
   <string name="crushing">Uništavanje</string>
   <string name="crushingDescription">Uočite protivnikov grubi previd kako biste stekli razornu prednost (≥ 600 cp)</string>
+  <string name="discoveredCheck">Otkriveni ček</string>
+  <string name="discoveredCheckDescription">Pomaknite figuru da biste otkrili šah skrivene napadačke figure, što često dovodi do odlučujuće prednosti.</string>
   <string name="doubleBishopMate">Dvostruki biskupski mat</string>
   <string name="doubleBishopMateDescription">Dva napadačka biskupa na susjednim dijagonalama isporučuju partnera kralju spriječenom prijateljskim figurama.</string>
   <string name="dovetailMate">Mat lastinog repa</string>
@@ -59,6 +67,8 @@
   <string name="intermezzoDescription">Umjesto igranja očekivanog poteza, prvo ubacite drugi potez koji predstavlja neposrednu prijetnju na koju protivnik mora odgovoriti. Poznat i kao \"Zwischenzug\" ili \"Između\".</string>
   <string name="killBoxMate">Mat ubistvene kutije</string>
   <string name="killBoxMateDescription">Top se nalazi pored neprijateljskog kralja i podržava ga kraljica koja također blokira kraljeva polja za bijeg. Top i kraljica hvataju neprijateljskog kralja u \"ubistvenoj kutiji\" dimenzija 3 od 3.</string>
+  <string name="triangleMate">Trokutni partner</string>
+  <string name="triangleMateDescription">Kraljica i top, jedno polje udaljeni od protivničkog kralja, nalaze se u istom redu ili liniji, odvojene jednim poljem, formirajući trougao.</string>
   <string name="vukovicMate">Vukovićev mat</string>
   <string name="vukovicMateDescription">Top i skakač se udružuju kako bi matirali kralja. Top daje mat uz podršku treće figure, a skakač se koristi za blokiranje kraljevih polja za bijeg.</string>
   <string name="knightEndgame">Vitezova krajnica</string>
@@ -124,7 +134,7 @@
   <string name="zugzwang">Iznudica</string>
   <string name="zugzwangDescription">Protivnik ima ograničen broj poteza, a svaki od njih pogoršava mu poziciju.</string>
   <string name="mix">Zdrava mješavina</string>
-  <string name="mixDescription">Svega pomalo. Ne znate šta možete očekivati, pa ostajete spremni na sve! Baš kao u pravim partijama.</string>
+  <string name="mixDescription">Pomalo od svega. Ne znate šta da očekujete, pa ste spremni na sve! Baš kao u pravim igrama.</string>
   <string name="playerGames">Igračke igre</string>
   <string name="playerGamesDescription">Potražite zagonetke stvorene iz vaših igara ili iz igara drugog igrača.</string>
   <string name="puzzleDownloadInformation">Ove zagonetke su u javnoj domeni i mogu se preuzeti sa %s.</string>

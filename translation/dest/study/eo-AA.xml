@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Lastatempe ĝisdatigita</string>
   <string name="mostPopular">Plej popularaj</string>
   <string name="alphabetical">Alfabete</string>
+  <string name="relevant">Rilata</string>
   <string name="addNewChapter">Aldoni novan ĉapitron</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Ĉapitro</item>
@@ -166,6 +167,8 @@
   <string name="youCompletedThisLesson">Gratulon! Vi kompletigis la lecionon.</string>
   <string name="perPage">Po %s en ĉiu paĝo</string>
   <string name="welcomeToLichessStudyTitle">Bonvenu al Lichess Studo!</string>
+  <string name="studyMembersTitle">Studaj membroj</string>
+  <string name="studyChaptersTitle">Studaj ĉapitroj</string>
   <string name="commentPositionTitle">Komenti pozicion</string>
   <string name="fromFenStringTitle">El teksto FEN</string>
 </resources>

@@ -50,13 +50,13 @@
   <string name="forceResignation">જીતવાનો દાવો કરો</string>
   <string name="forceDraw">ડ્રો બોલો</string>
   <string name="talkInChat">કૃપા કરીને વાત ચીતમાં સભ્યતા રાખજો!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">જે સ્પર્ધક પહેલા આવશે url પર તે તમારી સાથે રમશે.</string>
-  <string name="whiteResigned">સફેદ દ્વારા resign કરવામાં આવ્યું</string>
-  <string name="blackResigned">કાળા દ્વારા resign કરવામાં આવ્યું</string>
-  <string name="whiteLeftTheGame">સફેદ એ ગેમ છોડી દીધી</string>
-  <string name="blackLeftTheGame">કાળા એ ગેમ છોડી દીધી</string>
-  <string name="whiteDidntMove">સફેદ ચાલ ન ચાલ્યું</string>
-  <string name="blackDidntMove">કાળો ચાલ ન ચાલ્યું</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">જે પણ પહેલી વ્યક્તિ આ લિંક પર આવશે એ જ તમારી સાથે રમશે.</string>
+  <string name="whiteResigned">સફેદ એ રાજીનામું આપ્યું</string>
+  <string name="blackResigned">કાળા એ રાજીનામું આપ્યું</string>
+  <string name="whiteLeftTheGame">સફેદ એ રમત છોડી દીધી</string>
+  <string name="blackLeftTheGame">કાળા એ રમત છોડી દીધી</string>
+  <string name="whiteDidntMove">સફેદ હલ્યા નહીં</string>
+  <string name="blackDidntMove">કાળા હલ્યા નહીં</string>
   <string name="requestAComputerAnalysis">કમ્પ્યુટર વિશ્લેષણ કરો</string>
   <string name="computerAnalysis">કમ્પ્યુટર વિશ્લેષણ</string>
   <string name="computerAnalysisAvailable">કમ્પ્યુટર વિશ્લેષણ હાજર છે</string>
@@ -64,19 +64,17 @@
   <string name="analysis">વિષ્લેષણ</string>
   <string name="depthX">ઊંડાઈ %s</string>
   <string name="usingServerAnalysis">સર્વર નું વિશ્લેષણ વપરાય છે</string>
-  <string name="loadingEngine">રાહ જુઓ...</string>
+  <string name="loadingEngine">એન્જિન લોડ થઈ રહ્યું છે...</string>
   <string name="calculatingMoves">ગણતરી ચાલુ...</string>
-  <string name="engineFailed">કી: એન્જિન નિષ્ફળ
-એન્જિન નિષ્ફળ
-જો સ્થાનિક ઉપકરણ પર ચેસ એન્જિન લોડ થવામાં નિષ્ફળ થયું હોય તો દેખાય છે</string>
+  <string name="engineFailed">એન્જિન લોડ થવામાં ત્રુટિ</string>
   <string name="cloudAnalysis">ક્લાઉડ વિશ્લેષણ</string>
   <string name="goDeeper">વધુ ઉંડાણપૂર્વક</string>
-  <string name="showThreat">થ્રેટ જુઓ</string>
+  <string name="showThreat">ખતરો દેખાડો</string>
   <string name="inLocalBrowser">લોકલ બ્રાઉઝર થી વિશ્લેષણ</string>
   <string name="toggleLocalEvaluation">લોકલ વિશ્લેષણ કરો</string>
   <string name="promoteVariation">પ્રોમોટ વેરીએશન</string>
   <string name="makeMainLine">મેઈન લાઈન બનાવો</string>
-  <string name="deleteFromHere">અહીંથી ડિલીટ કરો</string>
+  <string name="deleteFromHere">અહીંથી કાઢી નાખો</string>
   <string name="collapseVariations">વિભ્કતો બંધ</string>
   <string name="expandVariations">વિવિધતાઓ વિસ્તૃત કરો</string>
   <string name="forceVariation">ફોર્સ વેરિએશન</string>
@@ -86,28 +84,28 @@
   <string name="variantLoss">Variant હાર</string>
   <string name="variantWin">Variant જીત</string>
   <string name="insufficientMaterial">પૂરતું મટીરિયલ નથી</string>
-  <string name="pawnMove">પ્યાદા ની ચાલ</string>
-  <string name="capture">કબજા</string>
+  <string name="pawnMove">સિપાહી ની ચાલ</string>
+  <string name="capture">મારી નાખો</string>
   <string name="close">બંધ કરો</string>
   <string name="winning">જીતનાર ચાલ</string>
   <string name="losing">હારનાર ચાલ</string>
-  <string name="drawn">Draw તરફ જસે ચાલ</string>
+  <string name="drawn">ડ્રો તરફ જસે ચાલ</string>
   <string name="unknown">અજ્ઞાત</string>
-  <string name="database">ડેટા બેઝ</string>
-  <string name="whiteDrawBlack">સફેદ/બરોબરી/કાળો</string>
+  <string name="database">ડેટાબેસ</string>
+  <string name="whiteDrawBlack">સફેદ/ડ્રો/કાળા</string>
   <string name="averageRatingX">સરેરાશ રેટિંગ %s</string>
-  <string name="recentGames">તાજેતરની ગેમ</string>
-  <string name="topGames">ટોપ ગેમ</string>
+  <string name="recentGames">તાજેતરની રમતો</string>
+  <string name="topGames">શ્રેષ્ઠ રમતો</string>
   <string name="masterDbExplanation">વીસ લાખ ગેમ્સ છે %1$s ની+ફિડે રેટિંગ વાળા પ્લેયર %2$s થી %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">મેટ %s ચાલ માં</item>
     <item quantity="other">મેટ %s ચાલ માં</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' રાઉન્ડિંગ સાથે, આગામી કેપ્ચર અથવા પ્યાદાની ચાલ સુધી અર્ધ-ચાલની સંખ્યાના આધારે</string>
-  <string name="noGameFound">ડેટાબેઝમાં આવી કોઈ રમત નથી</string>
+  <string name="noGameFound">કોઈ રમત ના મળી</string>
   <string name="maxDepthReached">મહત્તમ ઊંડાઈ પહોંચી!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">પસંદગી મેનૂમાંથી વધુ રમતો શામેલ કરીને જોવો?</string>
-  <string name="openings">શરુઆતી ચાલો</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">થાય તો પસંદગી ના મેન્યુમાંથી વધુ રમતો સમાવેશ કરીને જોવો?</string>
+  <string name="openings">ઓપનિંગ્સ</string>
   <string name="openingExplorer">રમત પ્રારંભ સંશોધક</string>
   <string name="openingEndgameExplorer">ઓપનિંગ/એન્ડગેમ એક્સપ્લોરર</string>
   <string name="xOpeningExplorer">%s રમત પ્રારંભ સંશોધક</string>
@@ -482,10 +480,6 @@
   <string name="player">ખેલાડી</string>
   <string name="list">યાદી</string>
   <string name="graph">આલેખ</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s કરતા ઓછી મિનિટ</item>
-    <item quantity="other">%s કરતા ઓછી મિનિટો</item>
-  </plurals>
   <string name="required">જરુરી.</string>
   <string name="openTournaments">ખુલ્લી પ્રતિયોગિતા</string>
   <string name="duration">અવધિ</string>
@@ -738,6 +732,7 @@
   <string name="cyclePreviousOrNextVariation">ચક્ર પાછલું/આગલું ભિન્નતા</string>
   <string name="toggleGlyphAnnotations">ખસેડવાની ટીકાઓ ટૉગલ કરો</string>
   <string name="togglePositionAnnotations">પોઝિશન એનોટેશન ટૉગલ કરો</string>
+  <string name="toggleObservationAnnotations">અવલોકન ટીકાઓ ટૉગલ કરો</string>
   <string name="variationArrowsInfo">ભિન્નતા તીર તમને મૂવ લિસ્ટનો ઉપયોગ કર્યા વિના નેવિગેટ કરવા દે છે.</string>
   <string name="playSelectedMove">પસંદ કરેલી ચાલ ચલાવો</string>
   <string name="newTournament">નવી ટુર્નામેન્ટ</string>
@@ -921,6 +916,7 @@
   <string name="agreementPolicy">હું સંમત છું કે હું લાઇચેસની બધી નીતિઓનું પાલન કરીશ.</string>
   <string name="searchOrStartNewDiscussion">નવી વાતચીત શોધો અથવા શરૂ કરો</string>
   <string name="edit">ફેરફાર કરો</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">અલ્ટ્રાબુલેટ</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">બુલેટ</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">બ્લિટ્ઝ</string>
   <string name="rapid">રેપિડ</string>

@@ -55,4 +55,23 @@
   <string name="botRatingAbuse">અમુક સંજોગોમાં બોટ એકાઉન્ટ સામે રમતી વખતે, જો ખેલાડી રેટિંગ પોઈન્ટ માટે બોટનો દુરુપયોગ કરી રહ્યો હોય તો રેટેડ ગેમ પોઈન્ટ આપી શકશે નહીં.</string>
   <string name="errorPage">ભૂલ પૃષ્ઠ</string>
   <string name="reportErrorPage">જો તમને કોઈ ભૂલ પૃષ્ઠનો સામનો કરવો પડ્યો હોય, તો તમે તેની જાણ કરી શકો છો:</string>
+  <string name="learnHowToMakeBroadcasts">Lichess પર તમારા પોતાના પ્રસારણ કેવી રીતે બનાવવા તે શીખો</string>
+  <string name="banAppeal">પ્રતિબંધ અથવા IP પ્રતિબંધ માટે અપીલ</string>
+  <string name="engineAppeal">એન્જિન અથવા ચીટ માર્ક</string>
+  <string name="sendAppealTo">તમે %s ને અપીલ મોકલી શકો છો.</string>
+  <string name="falsePositives">ખોટા હકારાત્મક પરિણામો ક્યારેક બને છે, અને અમને તે બદલ દિલગીર છે.</string>
+  <string name="ifLegit">જો તમારી અપીલ કાયદેસર હશે, તો અમે શક્ય તેટલી વહેલી તકે પ્રતિબંધ ઉઠાવી લઈશું.</string>
+  <string name="accountLost">જોકે, જો તમે ખરેખર એન્જિન સહાયનો ઉપયોગ કર્યો હોય, ફક્ત એક જ વાર, તો કમનસીબે તમારું એકાઉન્ટ ખોવાઈ ગયું છે.</string>
+  <string name="doNotDeny">છેતરપિંડી કરી હોવાનો ઇનકાર ન કરો. જો તમે નવું એકાઉન્ટ બનાવવાની મંજૂરી મેળવવા માંગતા હો, તો ફક્ત તમે જે કર્યું તે સ્વીકારો, અને બતાવો કે તમે સમજ્યા છો કે તે ભૂલ હતી.</string>
+  <string name="otherRestriction">અન્ય પ્રતિબંધ</string>
+  <string name="collaboration">સહયોગ, કાનૂની, વ્યાપારી</string>
+  <string name="monetizing">Lichess નું મુદ્રીકરણ</string>
+  <string name="buyingLichess">Lichess ખરીદવું</string>
+  <string name="authorizationToUse">Lichess નો ઉપયોગ કરવાની અધિકૃતતા</string>
+  <string name="welcomeToUse">તમારી પ્રવૃત્તિ માટે, વ્યાપારી રીતે પણ, Lichess નો ઉપયોગ કરી શકો છો.</string>
+  <string name="videosAndBooks">તમે તેને તમારા વીડિયોમાં બતાવી શકો છો, અને તમે તમારા પુસ્તકોમાં Lichess ના સ્ક્રીનશોટ પ્રિન્ટ કરી શકો છો.</string>
+  <string name="creditAppreciated">ક્રેડિટની પ્રશંસા થાય છે પણ જરૂરી નથી.</string>
+  <string name="noneOfTheAbove">ઉપરોક્તમાંથી કોઈ નહીં</string>
+  <string name="sendEmailAt">અમને %s પર ઇમેઇલ મોકલો.</string>
+  <string name="explainYourRequest">કૃપા કરીને તમારી વિનંતીને સ્પષ્ટ અને સંપૂર્ણ રીતે સમજાવો. તમારા Lichess વપરાશકર્તાનામ અને કોઈપણ માહિતી જણાવો જે અમને તમારી મદદ કરવામાં મદદ કરી શકે.</string>
 </resources>

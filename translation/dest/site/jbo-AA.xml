@@ -338,9 +338,6 @@
   <string name="player">lo jivna</string>
   <string name="list">liste</string>
   <string name="graph">cartu</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="other">mentu li me\'i %s</item>
-  </plurals>
   <string name="required">jai se bilga</string>
   <string name="openTournaments">zifre sezyjmina grinunjvi</string>
   <string name="duration">se mentu</string>

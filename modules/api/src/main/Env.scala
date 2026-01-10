@@ -45,6 +45,7 @@ final class Env(
     appealApi: lila.appeal.AppealApi,
     shutupEnv: lila.shutup.Env,
     titleEnv: lila.title.Env,
+    fideEnv: lila.fide.Env,
     modLogApi: lila.mod.ModlogApi,
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,

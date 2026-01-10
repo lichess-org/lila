@@ -47,7 +47,6 @@
   <string name="fidePlayerNotFound">Giocatore FIDE non trovato</string>
   <string name="fideProfile">Profilo FIDE</string>
   <string name="federation">Federazione</string>
-  <string name="ageThisYear">Età quest\'anno</string>
   <string name="unrated">Non classificato</string>
   <string name="recentTournaments">Tornei recenti</string>
   <string name="openLichess">Apri con Lichess</string>
@@ -83,6 +82,6 @@
   <string name="liveboard">Scacchiera in diretta</string>
   <string name="communityBroadcast">Trasmissione della community</string>
   <string name="createdAndManagedBy">Creata e gestita da %s.</string>
-  <string name="roundX" comment="%s is the number of the round.&#10;e.g. &quot;Round 2&quot;.&#10;&#10;If your language changes the word &quot;Round&quot; based on the number after it, consider using punctuation to get around the problem (e.g. &quot;Round: %s&quot;).&#10;&#10;This is the standard name for a round in a broadcast (https://lichess.org/broadcast), so it is translatable.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">Turno %s</string>
-  <string name="defaultRoundNameHelp" comment="This is help text for broadcast authors setting a round name. The default is &quot;Round %s&quot; (translatable separately).&#10;&#10;If broadcasters keep the round name to the default, it will be automatically translated.&#10;&#10;Broadcasters may optionally override it. If they override the default name, it will be in a language and words of their choice e.g. &quot;Semifinals Tiebreak 1&quot; - no longer being translatable.">Mantenendo il nome predefinito, questo verrà automaticamente tradotto in tutte le altre lingue.</string>
+  <string name="roundX">Turno %s</string>
+  <string name="defaultRoundNameHelp">Mantenendo il nome predefinito, questo verrà automaticamente tradotto in tutte le altre lingue.</string>
 </resources>

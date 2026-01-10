@@ -1,26 +1,29 @@
 package lila.fide
 
-import chess.FideId
+import scala.util.Success
+import java.time.YearMonth
+import chess.{ FideId, FideTC }
+import chess.rating.Elo
 import reactivemongo.api.bson.*
 
 import lila.core.fide.{ Federation, FidePlayerOrder }
 import lila.db.dsl.{ *, given }
-import scala.util.Success
 
 final private class FideRepo(
     private[fide] val playerColl: Coll,
+    private[fide] val ratingColl: Coll,
     private[fide] val federationColl: Coll,
     private[fide] val followerColl: Coll
 )(using Executor):
 
   object player:
+    given BSONDocumentHandler[FidePlayer.PlayerPhoto] = Macros.handler
     given handler: BSONDocumentHandler[FidePlayer] = Macros.handler
     val selectActive: Bdoc = $doc("inactive".$ne(true))
     def selectFed(fed: Federation.Id): Bdoc = $doc("fed" -> fed)
     def sortStandard: Bdoc = $sort.desc("standard")
     def sortBy(o: FidePlayerOrder) = o match
       case FidePlayerOrder.name => $sort.asc("name")
-      case FidePlayerOrder.federation => $sort.asc("fed")
       case FidePlayerOrder.standard => $sort.desc("standard")
       case FidePlayerOrder.rapid => $sort.desc("rapid")
       case FidePlayerOrder.blitz => $sort.desc("blitz")
@@ -30,6 +33,26 @@ final private class FideRepo(
     def fetch(ids: Seq[FideId]): Fu[List[FidePlayer]] =
       playerColl.find($inIds(ids)).cursor[FidePlayer](ReadPref.sec).listAll()
     def countAll = playerColl.count()
+    def setPhoto(id: FideId, photo: FidePlayer.PlayerPhoto): Funit =
+      playerColl.updateField($id(id), "photo", photo).void
+    def setPhotoCredit(p: FidePlayer, credit: Option[String]): Funit =
+      playerColl.updateOrUnsetField($id(p.id) ++ $doc("photo.id".$exists(true)), "photo.credit", credit).void
+    def setDeceasedYear(id: FideId, year: Option[Int]): Funit =
+      playerColl.updateOrUnsetField($id(id), "deceasedYear", year).void
+
+  object rating:
+    private given BSONHandler[YearMonth] =
+      quickHandler({ case BSONString(s) => YearMonth.parse(s) }, ym => BSONString(ym.toString))
+    given BSONHandler[FideRatingHistory.RatingPoint] = tupleHandler
+    given BSONDocumentHandler[FideRatingHistory] = Macros.handler
+    def get(id: FideId): Fu[FideRatingHistory] =
+      ratingColl.byId[FideRatingHistory](id).map(_ | FideRatingHistory.empty(id))
+    def set(id: FideId, date: YearMonth, elos: Map[FideTC, Elo]): Funit = elos.nonEmpty.so:
+      for
+        history <- get(id)
+        updated = history.set(date, elos)
+        _ <- ratingColl.update.one($id(id), updated, upsert = true)
+      yield ()
 
   object federation:
     given BSONDocumentHandler[Federation.Stats] = Macros.handler

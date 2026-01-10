@@ -1,2 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challengesX">પડકારો: %1$s</string>
+  <string name="challengeToPlay" comment="Appears as a button on profiles and on a challenge modal; lets you challenge that player to a game.&#10;&quot;Challenge&quot; is used as a verb.&#10;&#10;This text used to state &quot;Challenge to a game&quot;. Please shorten to just &quot;Challenge&quot; if you see a translation of the old version of the string.">પડકાર</string>
+  <string name="challengeDeclined">પડકાર નકારવામાં આવ્યો.</string>
+  <string name="challengeAccepted">પડકાર સ્વીકારવામાં આવ્યો!</string>
+  <string name="challengeCanceled">પડકાર રદ કરવામાં આવ્યો.</string>
+  <string name="registerToSendChallenges">આ વપરાશકર્તાને પડકાર મોકલવા માટે કૃપા કરીને નોંધણી કરો.</string>
+  <string name="youCannotChallengeX">તમે %s ને પડકારી શકતા નથી.</string>
+  <string name="xDoesNotAcceptChallenges">%s પડકારો સ્વીકારતા નથી.</string>
+  <string name="yourXRatingIsTooFarFromY">તમારું %1$s રેટિંગ %2$s થી ઘણું દૂર છે.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">કામચલાઉ %s રેટિંગને કારણે પડકારી શકાતું નથી.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s ફક્ત મિત્રોના પડકારો સ્વીકારે છે.</string>
+  <string name="declineGeneric">હું હાલમાં પડકારો સ્વીકારતો નથી.</string>
+  <string name="declineLater">આ મારા માટે યોગ્ય સમય નથી, કૃપા કરીને પછીથી ફરીથી પૂછો.</string>
+  <string name="declineTooFast">આ સમય નિયંત્રણ મારા માટે ખૂબ ઝડપી છે, કૃપા કરીને ધીમી રમત સાથે ફરીથી પડકાર આપો.</string>
+  <string name="declineTooSlow">આ સમય નિયંત્રણ મારા માટે ખૂબ ધીમું છે, કૃપા કરીને ઝડપી રમત સાથે ફરીથી પડકાર આપો.</string>
+  <string name="declineTimeControl">હું આ સમય નિયંત્રણ સાથે પડકારો સ્વીકારતો નથી.</string>
+  <string name="declineRated">કૃપા કરીને તેના બદલે મને રેટેડ પડકાર મોકલો.</string>
+  <string name="declineCasual">કૃપા કરીને તેના બદલે મને કેઝ્યુઅલ પડકાર મોકલો.</string>
+  <string name="declineStandard">હું અત્યારે વેરિઅન્ટ પડકારો સ્વીકારતો નથી.</string>
+  <string name="declineVariant">હું અત્યારે આ વેરિઅન્ટ રમવા તૈયાર નથી.</string>
+  <string name="declineNoBot">હું બૉટોના પડકારો સ્વીકારતો નથી.</string>
+  <string name="declineOnlyBot">હું ફક્ત બૉટોના પડકારો સ્વીકારું છું.</string>
+  <string name="inviteLichessUser">અથવા Lichess વપરાશકર્તાને આમંત્રિત કરો:</string>
+</resources>

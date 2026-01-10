@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Spillastellungen</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">E Kolleeg erausfuerderen</string>
   <string name="playAgainstComputer">Géint de Computer spillen</string>
   <string name="gameMode">Spillmodus</string>
+  <string name="createLobbyGame">Nei Lobby-Partie ufänken</string>
   <string name="youPlayAs">Du spills mat</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
   <string name="gameOver">Game Over</string>
@@ -343,6 +345,7 @@
     <item quantity="other">%s lafend</item>
   </plurals>
   <string name="exportGames">Partien exportéieren</string>
+  <string name="ratingFilter">Ratingfilter</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dem Géigner %s Sekonn bäiginn</item>
     <item quantity="other">Dem Géigner %s Sekonne bäiginn</item>
@@ -398,6 +401,7 @@
     <item quantity="other">Du muss nach %s gewäert Partien spillen</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Deng %s Wäertung ass provisoresch</string>
+  <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Ratingfiltere si gespaart, well däi Rating net stabill ass. Duerch d\'Spille vu gewäerte Partië geet d\'Stabilitéit an d\'Luucht.</string>
   <string name="yourPerfRatingIsTooHigh">Deng %1$s Wäertung (%2$s) ass ze héich</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Deng bescht wéchentlech %1$s-Wäertung (%2$s) ass ze héich</string>
   <string name="yourPerfRatingIsTooLow">Deng %1$s Wäertung (%2$s) ass ze niddreg</string>
@@ -470,10 +474,6 @@
   <string name="player">Spiller</string>
   <string name="list">Lëscht</string>
   <string name="graph">Grafik</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Manner wéi %s Minutt</item>
-    <item quantity="other">Manner wéi %s Minutten</item>
-  </plurals>
   <string name="required">Obligatoresch.</string>
   <string name="openTournaments">Oppen Turnéieren</string>
   <string name="duration">Dauer</string>
@@ -806,12 +806,12 @@
   <string name="usernameCharsInvalid">De Benotzernumm däerf just Buschtawen, Zuelen, Ënner- an Bindestricher enthalen. Konsekutiv Ënner- an Bindestricher sinn net erlaabt.</string>
   <string name="usernameUnacceptable">Dësen Benotzernumm ass net akzeptabel.</string>
   <string name="playChessInStyle">Mat Style Schach spillen</string>
-  <string name="chessBasics">Schach Grondlagen</string>
+  <string name="chessBasics">Schachgrondlagen</string>
   <string name="coaches">Trainer</string>
   <string name="invalidPgn">Ongëlteg PGN</string>
   <string name="invalidFen">Ongëlteg FEN</string>
   <string name="custom">Personaliséiert</string>
-  <string name="notifications">Notificatiounen</string>
+  <string name="notifications">Notifikatiounen</string>
   <string name="notificationsX">Notifikatiounen: %1$s</string>
   <string name="perfRatingX">Wäertung: %s</string>
   <string name="yourRatingIsX">Deng Wäertung ass %s</string>

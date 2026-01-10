@@ -21,10 +21,12 @@ export default (ctrl: PuzzleCtrl) =>
       control.last(ctrl);
       ctrl.redraw();
     })
-    .bind('l', () => ctrl.cevalEnabled(!ctrl.cevalEnabled()))
+    .bind('l', () => {
+      if (ctrl.isCevalAllowed()) ctrl.cevalEnabled(!ctrl.cevalEnabled());
+    })
     .bind('x', ctrl.toggleThreatMode)
     .bind('space', () => {
-      if (ctrl.mode === 'view') {
+      if (ctrl.isCevalAllowed()) {
         if (ctrl.cevalEnabled()) ctrl.playBestMove();
         else ctrl.cevalEnabled(true);
       }

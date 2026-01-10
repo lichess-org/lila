@@ -327,7 +327,7 @@ final class StudyApi(
             .updateRoot:
               _.withChildren: children =>
                 if toMainline then children.promoteToMainlineAt(position.path)
-                else children.promoteUpAt(position.path).map(_._1)
+                else children.promoteUpAt(position.path)._1F
             .match
               case Some(newChapter) =>
                 chapterRepo.update(newChapter) >>
@@ -632,9 +632,8 @@ final class StudyApi(
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
         chapterRepo.byIdAndStudy(data.id, studyId).flatMapz { chapter =>
-          val name = Chapter.fixName(data.name)
           val newChapter = chapter.copy(
-            name = name,
+            name = Chapter.fixName(data.name),
             practice = data.isPractice.option(true),
             gamebook = data.isGamebook.option(true),
             conceal = (chapter.conceal, data.isConceal) match
@@ -651,25 +650,24 @@ final class StudyApi(
               chapter.description | "-"
             }
           )
-          if chapter == newChapter then funit
-          else
-            chapterRepo.update(newChapter) >> {
-              if chapter.conceal != newChapter.conceal then
-                val shouldResetPosition =
-                  (newChapter.conceal.isDefined && study.position.chapterId == chapter.id)
-                for _ <- shouldResetPosition
-                    .so(studyRepo.setPosition(study.id, study.position.withPath(UciPath.root)))
-                yield sendTo(study.id)(_.reloadAll)
-              else
-                fuccess:
-                  val shouldReload =
-                    (newChapter.setup.orientation != chapter.setup.orientation) ||
-                      (newChapter.practice != chapter.practice) ||
-                      (newChapter.gamebook != chapter.gamebook) ||
-                      (newChapter.description != chapter.description)
-                  if shouldReload then sendTo(study.id)(_.updateChapter(chapter.id, who))
-                  else reloadChapters(study)
-            }
+          (chapter != newChapter).so:
+            for
+              _ <- chapterRepo.update(newChapter)
+              concealChanged = chapter.conceal != newChapter.conceal
+              shouldResetPosition =
+                concealChanged && newChapter.conceal.isDefined && study.position.chapterId == chapter.id
+              shouldReload =
+                concealChanged ||
+                  newChapter.setup.orientation != chapter.setup.orientation ||
+                  newChapter.practice != chapter.practice ||
+                  newChapter.gamebook != chapter.gamebook ||
+                  newChapter.description != chapter.description
+              _ <- shouldResetPosition.so:
+                studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
+            yield
+              if shouldReload // `updateChapter` makes the client reload the whole thing with XHR
+              then sendTo(study.id)(_.updateChapter(chapter.id, who))
+              else reloadChapters(study)
         }
 
   def descChapter(studyId: StudyId, data: ChapterMaker.DescData)(who: Who) =
@@ -704,10 +702,11 @@ final class StudyApi(
               // deleting the current chapter? Automatically move to another one
               else
                 (study.position.chapterId == chapterId).so:
-                  chaps
-                    .find(_.id != chapterId)
-                    .so: newChap =>
-                      doSetChapter(study, newChap.id, who)
+                  val ids = chaps.map(_.id)
+                  val i = ids.indexOf(chapterId)
+                  val newIdOpt = LazyList(i + 1, i - 1, 0).flatMap(ids.lift).headOption
+                  newIdOpt.so: newId =>
+                    doSetChapter(study, newId, who)
             _ <- chapterRepo.delete(chapter.id)
           yield
             reloadChapters(study)

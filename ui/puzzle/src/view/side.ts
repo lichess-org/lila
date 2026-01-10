@@ -72,7 +72,7 @@ function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
         'div.players',
         game.players.map(p => {
           const user =
-            p.name == 'ghost'
+            p.name === 'ghost'
               ? p.rating?.toString() || ''
               : userLink({ ...p, rating: ctrl.opts.showRatings ? p.rating : undefined, line: false });
           return hl('div.player.color-icon.is.text.' + p.color, user);

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hei %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Mitä olet puuhannut tänä vuonna?</string>
+	<string name="initTitle">Millainen shakkivuosi sinulla onkaan ollut!</string>
+	<string name="noGamesText">Et pelannut tänä vuonna yhtään peliä.</string>
+	<string name="noGamesCta">Pelaisitko nyt?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Ja voitit niistä %s!</string>
+	<string name="gamesNextQuestion">Miten pääsit näihin lukuihin?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">Käytit pelaamiseen %s!</string>
+	<string name="timeTooMuch">Se on jo aivan liikaa shakkia.</string>
+	<string name="timeALot">Se on aika paljon shakkia.</string>
+	<string name="timeReasonable">Se vaikuttaa aika kohtuulliselta määrältä shakkia.</string>
+	<string name="timeHowManyMoves">Kuinka monta siirtoa teit sinä aikana?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">Pelasit %s siirron</item>
+		<item quantity="other">Teit %s siirtoa</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Tuuppasit siis %s:n edestä puuta!</string>
+	<string name="movesStandardPiecesWeight">Normaalit nappulat painavat kukin noin 40 g</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s siirto</item>
+		<item quantity="other">%s siirtoa</item>
+	</plurals>
+	<string name="chessFoes">Vahvimmat vastustajasi</string>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogramma</item>
+		<item quantity="other">%s kilogrammaa</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">oli avaussiirtosi %s valkeilla pelaamassasi pelissä</string>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Eniten pelaamasi avaus mustilla, %s peli</item>
+		<item quantity="other">Eniten pelaamasi avaus valkeilla, %s peliä</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Autoit myös tunnisteiden lisäämisessä %s tehtävään.</string>
+	<string name="puzzlesNone">Et ratkaissut tänä vuonna yhtään tehtävää.</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Yrittäisitkö nyt?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Ratkaisit niistä %s ensimmäisellä yrityksellä!</string>
+	<string name="sourcesTitle">Mistä löysit pelisi?</string>
+	<string name="perfsTitle">Millä aikajärjestelmillä ja varianteilla pelasit?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s mainosta ja jäljitintä ladattiin</string>
+	<string name="malwareNoSell">Me emme myyneet henkilötietojasi</string>
+	<string name="malwareNoAbuse">Me emme käyttäneet laitettasi sinua vastaan</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Mutta muut sivustot tekevät niin, joten %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">pidä varasi</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s peliä pelattiin Lichessissä yhteensä vuonna %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s niistä olivat sinun.</string>
+	<string name="thanksTitle">Kiitoksia, että pelaat Lichessissä!</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Olemme iloisia siitä, että olet täällä. Toivotamme mahtavaa uutta vuotta %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">Lichessin %1$s tänä vuonna olivat %2$s.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">kulut</string>
+	<string name="patronCharity">Me olemme hyväntekeväisyysjärjestö, joka toimii täysin lahjoitusten varassa.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">Jos olemme kuluneen vuoden aikana saaneet sinut viihtymään, tai jos olet vakuuttunut työstämme, harkitse %s!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">meidän tukemista lahjoituksella</string>
+	<string name="shareableTitle" comment="%s is the current year">Vuoden %s yhteenvetoni</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">käytetty pelaamiseen</string>
+	<string name="shareableMostPlayedOpponent">useimmin kohtaamani vastustaja</string>
+	<string name="shareableFavouriteVariant">suosikkivarianttini</string>
+	<string name="shareableFavouriteTimeControl">suosimani aikajärjestelmä</string>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Yhteenvetosi vuodesta %s on valmis!</string>
+</resources>

@@ -2,7 +2,7 @@
 <resources>
   <string name="settings">Настройки</string>
   <string name="closeAccount">Удалить учётную запись</string>
-  <string name="managedAccountCannotBeClosed">Ваш аккаунт находится под управлением и не может быть закрыт.</string>
+  <string name="managedAccountCannotBeClosed">В вашем аккаунте происходят изменения, и он не может быть удалён.</string>
   <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Вы не сможете создать новый аккаунт с таким же именем, даже если регистр символов отличается.</string>
   <string name="cancelKeepAccount">Отменить и оставить мою учётную запись</string>
   <string name="closeAccountAreYouSure">Вы уверены, что хотите удалить свою учётную запись?</string>

@@ -117,4 +117,9 @@
   <string name="moveToAnotherClass">다른 반으로 이동</string>
   <string name="allowMessagingBetweenStudents">학생들끼리 메세지를 주고받는 것을 허용하기</string>
   <string name="allowMessagingBetweenStudentsDesc">이는 귀하가 학생을 위해 생성한 계정에만 적용됩니다.</string>
+  <string name="quickLoginCode">빠른 로그인 코드</string>
+  <string name="quickLoginCodes">빠른 로그인 코드</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">%s에서 이 코드를 사용하여 Lichess에 학생들을 로그인시키세요.</string>
+  <string name="quickLoginCodesDesc2">코드가 만료되어도, 학생들은 수동으로 로그아웃하기 전까지 로그인되어 있습니다.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">만료: %s</string>
 </resources>

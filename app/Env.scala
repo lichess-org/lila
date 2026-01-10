@@ -67,7 +67,7 @@ final class Env(
   val forum: lila.forum.Env = wire[lila.forum.Env]
   val forumSearch: lila.forumSearch.Env = wire[lila.forumSearch.Env]
   val pool: lila.pool.Env = wire[lila.pool.Env]
-  import pool.isClockCompatible
+  import pool.given
   val lobby: lila.lobby.Env = wire[lila.lobby.Env]
   val setup: lila.setup.Env = wire[lila.setup.Env]
   val simul: lila.simul.Env = wire[lila.simul.Env]

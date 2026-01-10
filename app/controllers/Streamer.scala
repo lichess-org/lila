@@ -152,10 +152,9 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def onTwitchEventSub = AnonBodyOf(parse.tolerantText): body =>
-    env.streamer.twitchApi.onMessage(body, req.headers).map {
-      case Some(challenge) => Ok(challenge)
-      case _ => NoContent
-    }
+    env.streamer.twitchApi
+      .onMessage(body, req.headers)
+      .map(_.fold(NoContent)(Ok(_)))
 
   def onYoutubeVideo = AnonBodyOf(parse.tolerantXml): body =>
     env.streamer.ytApi.onVideoXml(body)

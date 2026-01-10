@@ -545,12 +545,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="player">Žaidėjas</string>
   <string name="list">Sąrašas</string>
   <string name="graph">Grafikas</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Mažiau nei %s minutė</item>
-    <item quantity="few">Mažiau nei %s minutės</item>
-    <item quantity="many">Mažiau nei %s minučių</item>
-    <item quantity="other">Mažiau nei %s minučių</item>
-  </plurals>
   <string name="required">Privaloma.</string>
   <string name="openTournaments">Atviri turnyrai</string>
   <string name="duration">Trukmė</string>

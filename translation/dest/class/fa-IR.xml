@@ -32,7 +32,7 @@
   <string name="realName">نام واقعی</string>
   <string name="privateWillNeverBeShown">خصوصی. هرگز در خارج از کلاس نمایش داده نخواهد شد. به یاد آوری دانش آموز کمک می کند.</string>
   <string name="addStudent">افزودن شطرنج‌آموز</string>
-  <string name="lichessProfileXCreatedForY">رُخ‌نما %1$s برای %2$s ساخته شد.</string>
+  <string name="lichessProfileXCreatedForY">رُخ‌نمای %1$s برای %2$s ساخته شد.</string>
   <string name="studentCredentials">شطرنج‌آموز: %1$s
 نام کاربری: %2$s
 گذرواژه: %3$s</string>
@@ -43,7 +43,7 @@
   <string name="inviteDesc4">هرگز دعوت‌های ناخواسته را برای بازیکنان دلخواه ارسال نکنید.</string>
   <string name="createANewLichessAccount">ساخت یک حساب جدید در lichess</string>
   <string name="createDesc1">اگر دانش آموز هنوز حساب lichess ندارد، شما می توانید از اینجا برای او حساب درست کنید.</string>
-  <string name="createDesc2">هیچ آدرس ایمیلی نیاز نیست. یک رمز عبور ساخته خواهد شد و شما باید آن را به دانش آموز انتقال بدهید تا بتواند وارد شود.</string>
+  <string name="createDesc2">نیازی به نشانیِ رایانامه نیست. یک گذرواژه آزانیده خواهد شد و شما باید آن را به دانشجو منتقل کنید تا بتوانند وارد شوند.</string>
   <string name="createDesc3">مهم: یک دانش‌جو نباید حسابهای کاربری متعدد داشته باشد.</string>
   <string name="createDesc4">اگر قبلاً یکی دارند، به جای آن از فرم دعوت استفاده کنید.</string>
   <string name="createStudentWarning">فقط برای شطرنج‌آموزان واقعی حساب بسازید. جهت ساخت حساب‌های چندگانه برای خودتان استفاده نکنید. حساب‌تان بسته می‌شود.</string>
@@ -68,7 +68,7 @@
   <string name="releaseTheAccount">حساب را فارغ التحصیل کنید تا دانش آموز بتواند به صورت مستقل آن را مدیریت کند.</string>
   <string name="releaseDesc1">یک حساب فارغ التحصیل شده را نمی توان دوباره مدیریت کرد. دانش‌آموز می‌تواند حالت کودک را ببندد و رمز عبور خود را عوض کند.</string>
   <string name="releaseDesc2">دانش آموز پس از فارغ التحصیلی حساب خود در کلاس باقی می ماند.</string>
-  <string name="realUniqueEmail">آدرس ایمیل واقعی و منحصر به فرد دانش آموز. ما یک ایمیل تأیید برای آن ارسال خواهیم کرد، همراه با پیوندی برای تکمیل حساب.</string>
+  <string name="realUniqueEmail">نشانیِ رایانامهٔ واقعی و یکتای دانشجو. ما یک رایانامهٔ تأیید به آن خواهیم فرستاد، با پیوندی برای فارغیدنِ حساب.</string>
   <string name="closeStudent">بستن حساب کاربری</string>
   <string name="closeTheAccount">بستن دائمی حساب دانش آموز.</string>
   <string name="closeDesc1">دانش آموز هرگز قادر به استفاده دوباره از این حساب کاربری نخواهد بود. بستن حساب گام نهایی است. مطمئن شود که دانش آموز درک می کند و موافق است.</string>
@@ -120,4 +120,9 @@
   <string name="moveToAnotherClass">حرکت به کلاس دیگر</string>
   <string name="allowMessagingBetweenStudents">اِجازهٔ پیامیدنِ میانِ شطرنج‌آموزان</string>
   <string name="allowMessagingBetweenStudentsDesc">این فقط مربوط به حساب‌هایی‌ست که برای شطرنج‌آموزان‌تان ایجاد کرده‌اید.</string>
+  <string name="quickLoginCode">کدِ ورودِ فوری</string>
+  <string name="quickLoginCodes">کدهای ورودِ فوری</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">از این کدها در %s برای ورود شطرنج‌آموزان‌تان به Lichess ببَهرید.</string>
+  <string name="quickLoginCodesDesc2">زمانی که کدها انقضا شوند، شطرنج‌آموزان‌تان در حالت ورود باقی خواهند ماند تا وقتی که دستی خارج شوند.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">انقضا %s</string>
 </resources>

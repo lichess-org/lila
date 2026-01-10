@@ -231,7 +231,7 @@
   <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
   <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
   <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario axeitado pra todas as idades. Non poderás cambialo máis tarde e calquera conta con nome de usuario inadecuado será pechada!</string>
-  <string name="signupEmailHint">Só se usará para restablecer o contrasinal.</string>
+  <string name="signupEmailHint">Usarémolo só pra o restablecemento do contrasinal e a activación da conta.</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
@@ -474,10 +474,6 @@
   <string name="player">Xogador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfica</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menos de %s minuto</item>
-    <item quantity="other">Menos de %s minutos</item>
-  </plurals>
   <string name="required">Obrigatorio.</string>
   <string name="openTournaments">Torneos abertos</string>
   <string name="duration">Duración</string>
@@ -728,6 +724,7 @@
   <string name="cyclePreviousOrNextVariation">Variante anterior/seguinte</string>
   <string name="toggleGlyphAnnotations">Activar/desactivar as anotacións con símbolos</string>
   <string name="togglePositionAnnotations">Activar/desactivar as anotacións</string>
+  <string name="toggleObservationAnnotations">Activar/desactivar as anotacións</string>
   <string name="variationArrowsInfo">As frechas das variantes permítenche navegar sen usar a lista de movementos.</string>
   <string name="playSelectedMove">facer a xogada seleccionada</string>
   <string name="newTournament">Novo torneo</string>
@@ -911,6 +908,7 @@
   <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBala</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lóstrego</string>
   <string name="rapid">Rápidas</string>
@@ -952,7 +950,7 @@
   <string name="timeAlmostUp">Quédache pouco tempo!</string>
   <string name="clickToRevealEmailAddress">[Pincha para ver o correo electrónico]</string>
   <string name="download">Descarga</string>
-  <string name="coachManager">Administrador de adestradores</string>
+  <string name="coachManager">Adestrador</string>
   <string name="streamerManager">Administrador de presentadores</string>
   <string name="cancelTournament">Cancelar o torneo</string>
   <string name="tournDescription">Descrición do torneo</string>
@@ -1020,4 +1018,5 @@ Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicam
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar a procura</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant">Captura ao paso</string>
 </resources>

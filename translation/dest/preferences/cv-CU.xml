@@ -13,7 +13,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Тсӑн халӗ</string>
   <string name="chessClock">Шахмат сехечӗ</string>
   <string name="tenthsOfSeconds">Ҫеккунтӑн вуннӑмӗшӗсем</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Вӑхӑт &lt; 10 ҫеккунтран йулсан</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Вӑхӑт &lt; 10 ҫеккунтран йулсан</string>
   <string name="horizontalGreenProgressBars">Горисонталлӑ симӗс йӗрсем</string>
   <string name="soundWhenTimeGetsCritical">Вӑхӑт пӗтсех пырсан чӗвӗ йанӑранни</string>
   <string name="giveMoreTime">Вӑхӑт партар</string>
@@ -22,7 +22,7 @@
   <string name="inCasualGamesOnly">Ахаль выльанӑ чухне кана</string>
   <string name="promoteToQueenAutomatically">Фӑрӑҫа хӑй халлӗн тухасси</string>
   <string name="whenPremoving">Умӗн куҫнӑ чух</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Вӑхӑт &lt; 30 ҫеккунтран сахал йулсан</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Вӑхӑт &lt; 30 ҫеккунтран сахал йулсан</string>
   <string name="moveConfirmation">Куҫӑма ҫирӗплетесси</string>
   <string name="inCorrespondenceGames">Куҫӑн мар вӑйӑсем</string>
   <string name="correspondenceAndUnlimited">Вӑрах тата чикӗсӗр</string>

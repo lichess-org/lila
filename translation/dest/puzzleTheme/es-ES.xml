@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Encierra al rey en una esquina usando una torre o dama y un caballo para dar mate.</string>
   <string name="crushing">Aplastante</string>
   <string name="crushingDescription">Detecta el error del oponente para obtener una ventaja ganadora. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Jaque a la descubierta</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Mueve una pieza para dar jaque con otra que se encuentra detrás, lo que a menudo conduce a una ventaja decisiva.</string>
+  <string name="discoveredCheck">Jaque a la descubierta</string>
+  <string name="discoveredCheckDescription">Mueve una pieza para dar jaque con otra que se encuentra detrás, lo que a menudo conduce a una ventaja decisiva.</string>
   <string name="doubleBishopMate">Mate de los dos alfiles</string>
   <string name="doubleBishopMateDescription">Dos alfiles atacantes en diagonales adyacentes dan mate al rey obstruido por piezas de su bando.</string>
   <string name="dovetailMate">Mate de Cozio</string>
@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">En lugar de jugar el movimiento esperado, se realiza antes otro movimiento que plantea una amenaza inmediata a la que el oponente debe responder. También conocido como \"Zwischenzug\" o \"Intermezzo\".</string>
   <string name="killBoxMate">Mate del recuadro mortal</string>
   <string name="killBoxMateDescription">Una torre está cerca del rey enemigo apoyada por una dama que también bloquea las casillas de escape del rey. La torre y la dama capturan al rey enemigo en un recuadro mortal de 3 por 3.</string>
+  <string name="pillsburysMate">Mate de Pillsbury</string>
+  <string name="pillsburysMateDescription">La torre da jaque mate, al tiempo que el alfil ayuda a confinar al rey enemigo.</string>
+  <string name="morphysMate">Mate de Morphy</string>
+  <string name="morphysMateDescription">Utiliza el alfil para dar jaque al rey, mientras que tu torre ayuda a mantenerlo confinado.</string>
   <string name="triangleMate">Mate del triángulo</string>
   <string name="triangleMateDescription">La dama y la torre, a una casilla de distancia del rey rival, están en la misma fila o columna, separadas por una casilla, formando un triángulo.</string>
   <string name="vukovicMate">Mate de Vukovic</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">Un movimiento para ganar.</string>
   <string name="opening">Apertura</string>
   <string name="openingDescription">Una táctica durante la primera fase de la partida.</string>
+  <string name="operaMate">Mate de la Ópera</string>
+  <string name="operaMateDescription">Da jaque al rey con una torre defendida por un alfil.</string>
   <string name="pawnEndgame">Final de peones</string>
   <string name="pawnEndgameDescription">Un final solo con peones.</string>
   <string name="pin">Clavada</string>

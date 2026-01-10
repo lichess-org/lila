@@ -1,2 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="swiss">સ્વિસ</string>
+  <string name="swissTournaments">સ્વિસ ટુર્નામેન્ટ્સ</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">રાઉન્ડ જુઓ</item>
+    <item quantity="other">બધા %s રાઉન્ડ જુઓ</item>
+  </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s રાઉન્ડ</item>
+    <item quantity="other">%s રાઉન્ડ્સ</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s રાઉન્ડ સ્વિસ</item>
+    <item quantity="other">%s રાઉન્ડ્સ સ્વિસ</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">દરરોજ એક રાઉન્ડ</item>
+    <item quantity="other">દર %s દિવસે એક રાઉન્ડ</item>
+  </plurals>
+  <string name="roundsAreStartedManually">રાઉન્ડ્સ મેન્યુઅલી શરૂ થાય છે</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">રાઉન્ડ્સ વચ્ચે %s સેકન્ડ</item>
+    <item quantity="other">રાઉન્ડ્સ વચ્ચે %s સેકન્ડ્સ</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s મિનિટ રાઉન્ડ્સ વચ્ચે</item>
+    <item quantity="other">%s મિનિટ્સ રાઉન્ડ્સ વચ્ચે</item>
+  </plurals>
+  <string name="nextRound">આગામી રાઉન્ડ</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">ચાલુ રમત</item>
+    <item quantity="other">ચાલુ રમતો</item>
+  </plurals>
+  <string name="tournStartDate">ટુર્નામેન્ટ શરૂ થવાની તારીખ</string>
+  <string name="numberOfRounds">રાઉન્ડ્સની સંખ્યા</string>
+  <string name="numberOfRoundsHelp">વિષમ સંખ્યામાં રાઉન્ડ્સ શ્રેષ્ઠ રંગ સંતુલન માટે પરવાનગી આપે છે.</string>
+  <string name="roundInterval">રાઉન્ડ્સ વચ્ચેનો અંતરાલ</string>
+  <string name="forbiddenPairings">પ્રતિબંધિત જોડીઓ</string>
+  <string name="forbiddenPairingsHelp">જે ખેલાડીઓએ સાથે ન રમવું જોઈએ તેમના યુઝરનેમ્સ (ઉદાહરણ તરીકે, ભાઈ-બહેન). દર લીટી દીઠ બે યુઝરનેમ્સ, સ્પેસ દ્વારા અલગ કરેલા.</string>
+  <string name="manualPairings">આગામી રાઉન્ડમાં મેન્યુઅલ જોડીઓ</string>
+  <string name="manualPairingsHelp">આગામી રાઉન્ડની તમામ જોડીઓ મેન્યુઅલી સ્પષ્ટ કરો. દર લીટી દીઠ એક ખેલાડીની જોડી. ઉદાહરણ: PlayerA PlayerB PlayerC PlayerD જોડી બનાવવાને બદલે કોઈ ખેલાડીને બાય (1 પોઇન્ટ) આપવા માટે, આ પ્રમાણે એક લીટી ઉમેરો: PlayerE 1 ગુમ થયેલા ખેલાડીઓને ગેરહાજર ગણવામાં આવશે અને તેમને શૂન્ય પોઇન્ટ મળશે. Lichess ને આપમેળે જોડીઓ બનાવવા દેવા માટે આ ક્ષેત્રને ખાલી છોડી દો.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">તેમની છેલ્લી સ્વિસ ગેમ રમેલા હોવા જોઈએ</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">જો ખેલાડીઓએ તેમની છેલ્લી સ્વિસ ગેમ રમી હોય તો જ તેમને જોડાવા દો. જો તેઓ તાજેતરની સ્વિસ ઇવેન્ટમાં હાજર થવામાં નિષ્ફળ ગયા હોય, તો તેઓ તમારામાં પ્રવેશ કરી શકશે નહીં. આનાથી જે ખેલાડીઓ ખરેખખર હાજર થાય છે તેમના માટે વધુ સારો સ્વિસ અનુભવ મળે છે.</string>
+  <string name="newSwiss">નવી સ્વિસ ટુર્નામેન્ટ</string>
+  <string name="swissVsArenaQ">એરેનાને બદલે સ્વિસ ટુર્નામેન્ટનો ઉપયોગ ક્યારે કરવો?</string>
+  <string name="swissVsArenaA">સ્વિસ ટુર્નામેન્ટમાં, બધા સહભાગીઓ સમાન સંખ્યામાં ગેમ્સ રમે છે, અને એકબીજા સામે માત્ર એક જ વાર રમી શકે છે. તે ક્લબ્સ અને સત્તાવાર ટુર્નામેન્ટ્સ માટે સારો વિકલ્પ હોઈ શકે છે.</string>
+  <string name="pointsCalculationQ">પોઇન્ટ્સની ગણતરી કેવી રીતે થાય છે?</string>
+  <string name="pointsCalculationA">જીતનું મૂલ્ય એક પોઇન્ટ છે, ડ્રોનું અડધો પોઇન્ટ છે, અને હારનું શૂન્ય પોઇન્ટ છે. જ્યારે કોઈ ખેલાડીને રાઉન્ડ દરમિયાન જોડી શકાતો નથી, ત્યારે તેને એક પોઇન્ટનું મૂલ્ય ધરાવતું બાય (bye) મળે છે.</string>
+  <string name="tiebreaksCalculationQ">ટાઇ બ્રેક્સની ગણતરી કેવી રીતે થાય છે?</string>
+  <string name="sonnebornBergerScore">સોનેબોર્ન–બર્જર સ્કોર</string>
+  <string name="tiebreaksCalculationA">%s સાથે. ખેલાડી જે દરેક પ્રતિસ્પર્ધીને હરાવે છે તેના સ્કોર્સ અને ખેલાડી જે દરેક પ્રતિસ્પર્ધી સાથે ડ્રો કરે છે તેના સ્કોરના અડધા ભાગને ઉમેરો.</string>
+  <string name="pairingsQ">જોડીઓ કેવી રીતે નક્કી કરવામાં આવે છે?</string>
+  <string name="dutchSystem">ડચ સિસ્ટમ</string>
+  <string name="FIDEHandbook">FIDE હેન્ડબુક</string>
+  <string name="pairingsA">%3$s અનુસાર, %2$s દ્વારા અમલમાં મૂકાયેલ %1$s સાથે.</string>
+  <string name="moreRoundsThanPlayersQ">જો ટુર્નામેન્ટમાં ખેલાડીઓ કરતાં વધુ રાઉન્ડ હોય તો શું થાય?</string>
+  <string name="moreRoundsThanPlayersA">જ્યારે તમામ સંભવિત જોડીઓ રમાઈ જાય, ત્યારે ટુર્નામેન્ટ સમાપ્ત કરવામાં આવશે અને વિજેતા જાહેર કરવામાં આવશે.</string>
+  <string name="restrictedToTeamsQ">તે ટીમો પૂરતું કેમ પ્રતિબંધિત છે?</string>
+  <string name="restrictedToTeamsA">સ્વિસ ટુર્નામેન્ટ્સ ઓનલાઈન ચેસ માટે ડિઝાઇન કરવામાં આવી ન હતી. તેઓ ખેલાડીઓ પાસેથી સમયની પાબંદી, સમર્પણ અને ધીરજની માંગ કરે છે. અમે વિચારીએ છીએ કે આ શરતો વૈશ્વિક ટુર્નામેન્ટ્સ કરતાં ટીમની અંદર વધુ પૂરી થવાની સંભાવના છે.</string>
+  <string name="numberOfByesQ">કોઈ ખેલાડીને કેટલા બાય (byes) મળી શકે?</string>
+  <string name="numberOfByesA">જ્યારે પણ જોડી બનાવવાની સિસ્ટમ તેમના માટે કોઈ જોડી શોધી શકતી નથી ત્યારે ખેલાડીને એક પોઇન્ટનું બાય મળે છે. વધારામાં, જ્યારે કોઈ ખેલાડી ટુર્નામેન્ટમાં મોડેથી જોડાય છે, ત્યારે તેને અડધા પોઇન્ટનું સિંગલ બાય આપવામાં આવે છે.</string>
+  <string name="earlyDrawsQ">વહેલા ડ્રોનું શું થાય છે?</string>
+  <string name="earlyDrawsAnswer">સ્વિસ રમતોમાં, ખેલાડીઓ 30 ચાલ રમાય તે પહેલાં ડ્રો કરી શકતા નથી. જોકે આ પગલું પૂર્વ-આયોજિત ડ્રોને અટકાવી શકતું નથી, તે ઓછામાં ઓછું ત્વરિત ડ્રો માટે સંમત થવું મુશ્કેલ બનાવે છે.</string>
+  <string name="whatIfOneDoesntPlayQ">જો કોઈ ખેલાડી રમત ન રમે તો શું થાય?</string>
+  <string name="whatIfOneDoesntPlayA">તેમની ઘડિયાળ ચાલુ થશે, તેઓ ફ્લેગ કરશે અને રમત હારી જશે. પછી સિસ્ટમ ખેલાડીને ટુર્નામેન્ટમાંથી પાછો ખેંચી લેશે (withdraw), જેથી તેઓ વધુ રમતો ન ગુમાવે. તેઓ કોઈપણ સમયે ટુર્નામેન્ટમાં ફરી જોડાઈ શકે છે.</string>
+  <string name="protectionAgainstNoShowQ">નો-શો (No-shows) અંગે શું કરવામાં આવે છે?</string>
+  <string name="protectionAgainstNoShowA">જે ખેલાડીઓ સ્વિસ ઇવેન્ટ્સ માટે સાઇન અપ કરે છે પરંતુ તેમની રમતો રમતા નથી તેઓ સમસ્યાજનક બની શકે છે. આ સમસ્યાને હળવી કરવા માટે, Lichess જે ખેલાડીઓ રમત રમવામાં નિષ્ફળ ગયા હોય તેમને ચોક્કસ સમયગાળા માટે નવી સ્વિસ ઇવેન્ટમાં જોડાતા અટકાવે છે. સ્વિસ ઇવેન્ટનો સર્જક તેમને તેમ છતાં ઇવેન્ટમાં જોડાવાની મંજૂરી આપવાનું નક્કી કરી શકે છે.</string>
+  <string name="lateJoinQ">શું ખેલાડીઓ મોડેથી જોડાઈ શકે છે</string>
+  <string name="lateJoinA">હા, અડધાથી વધુ રાઉન્ડ શરૂ ન થાય ત્યાં સુધી; ઉદાહરણ તરીકે 11-રાઉન્ડની સ્વિસમાં, ખેલાડીઓ રાઉન્ડ 6 શરૂ થાય તે પહેલાં જોડાઈ શકે છે અને 12-રાઉન્ડમાં રાઉન્ડ 7 શરૂ થાય તે પહેલાં. મોડેથી જોડાનારાઓને એક સિંગલ બાય મળે છે, ભલે તેઓ ઘણા રાઉન્ડ ચૂકી ગયા હોય.</string>
+  <string name="willSwissReplaceArenasQ">શું સ્વિસ એરેના ટુર્નામેન્ટ્સનું સ્થાન લેશે?</string>
+  <string name="willSwissReplaceArenasA">ના. તેઓ પૂરક સુવિધાઓ છે.</string>
+  <string name="roundRobinQ">રાઉન્ડ રોબિન (Round Robin) વિશે શું?</string>
+  <string name="roundRobinA">અમે તેને ઉમેરવા માંગીએ છીએ, પરંતુ દુર્ભાગ્યે રાઉન્ડ રોબિન ઓનલાઈન કામ કરતું નથી. કારણ એ છે કે જે લોકો ટુર્નામેન્ટ વહેલા છોડી દે છે તેમની સાથે વ્યવહાર કરવાની તેની પાસે કોઈ ન્યાયી રીત નથી. અમે એવી અપેક્ષા રાખી શકતા નથી કે બધા ખેલાડીઓ ઓનલાઈન ઇવેન્ટમાં તેમની બધી રમતો રમશે. તે ફક્ત થશે નહીં, અને પરિણામે મોટાભાગની રાઉન્ડ રોબિન ટુર્નામેન્ટ્સ ખામીયુક્ત અને અન્યાયી હશે, જે તેમના અસ્તિત્વના મૂળભૂત કારણને નિષ્ફળ બનાવે છે. તમે ઓનલાઈન રાઉન્ડ રોબિનની સૌથી નજીક જઈ શકો છો તે છે ખૂબ જ વધારે સંખ્યામાં રાઉન્ડ સાથે સ્વિસ ટુર્નામેન્ટ રમવી. પછી ટુર્નામેન્ટ સમાપ્ત થાય તે પહેલાં તમામ સંભવિત જોડીઓ રમાઈ જશે.</string>
+  <string name="otherSystemsQ">અન્ય ટુર્નામેન્ટ સિસ્ટમ્સ વિશે શું?</string>
+  <string name="otherSystemsA">અમે અત્યારે Lichess માં વધુ ટુર્નામેન્ટ સિસ્ટમ્સ ઉમેરવાનું આયોજન કરતા નથી.</string>
+  <string name="swissDescription">સ્વિસ ટુર્નામેન્ટમાં %1$s, દરેક સ્પર્ધક જરૂરી નથી કે અન્ય તમામ પ્રવેશકર્તાઓ સામે રમે. સ્પર્ધકો દરેક રાઉન્ડમાં સામ-સામે મળે છે અને તેમને નિયમોના સમૂહનો ઉપયોગ કરીને જોડી બનાવવામાં આવે છે જે સુનિશ્ચિત કરે છે કે દરેક સ્પર્ધક સમાન ચાલુ સ્કોર ધરાવતા પ્રતિસ્પર્ધીઓ સામે રમે, પરંતુ તે જ પ્રતિસ્પર્ધી સામે એક કરતાં વધુ વાર નહીં. વિજેતા એ સ્પર્ધક છે જેણે તમામ રાઉન્ડમાં સૌથી વધુ કુલ પોઇન્ટ્સ મેળવ્યા હોય. જો ખેલાડીઓની સંખ્યા વિષમ ન હોય તો તમામ સ્પર્ધકો દરેક રાઉન્ડમાં રમે છે.</string>
+  <string name="teamOnly">સ્વિસ ટુર્નામેન્ટ્સ ફક્ત ટીમ લીડર્સ દ્વારા જ બનાવી શકાય છે, અને તે ફક્ત ટીમ સભ્યો દ્વારા જ રમી શકાય છે. સ્વિસ ટુર્નામેન્ટ્સમાં રમવાનું શરૂ કરવા માટે %1$s.</string>
+  <string name="joinOrCreateTeam">એક ટીમમાં જોડાઓ અથવા બનાવો</string>
+  <string name="nowPlaying">હવે રમી રહ્યા છીએ</string>
+  <string name="startingSoon">ટૂંક સમયમાં શરૂ થઈ રહ્યું છે</string>
+  <string name="comparison">સરખામણી</string>
+  <string name="tournDuration">ટુર્નામેન્ટનો સમયગાળો</string>
+  <string name="predefinedDuration">મિનિટોમાં પૂર્વવ્યાખ્યાયિત સમયગાળો</string>
+  <string name="durationUnknown">પૂર્વવ્યાખ્યાયિત મહત્તમ રાઉન્ડ્સ, પરંતુ</string>
+  <string name="numberOfGames">રમતોની સંખ્યા</string>
+  <string name="numberOfGamesAsManyAsPossible">ફાળવેલ સમયગાળામાં જેટલી રમી શકાય તેટલી</string>
+  <string name="numberOfGamesPreDefined">અગાઉથી નક્કી, બધા ખેલાડીઓ માટે સમાન</string>
+  <string name="pairingSystem">જોડી બનાવવાની સિસ્ટમ</string>
+  <string name="pairingSystemArena">સમાન રેન્કિંગ સાથેનો કોઈપણ ઉપલબ્ધ પ્રતિસ્પર્ધી</string>
+  <string name="pairingSystemSwiss">પોઇન્ટ્સ અને ટાઇ બ્રેક્સના આધારે શ્રેષ્ઠ જોડી</string>
+  <string name="pairingWaitTime">જોડી બનાવવાની રાહ જોવાનો સમય</string>
+  <string name="pairingWaitTimeArena">ઝડપી: બધા ખેલાડીઓ માટે રાહ જોતો નથી</string>
+  <string name="pairingWaitTimeSwiss">ધીમો: બધા ખેલાડીઓ માટે રાહ જુએ છે</string>
+  <string name="identicalPairing">સમાન જોડી</string>
+  <string name="possibleButNotConsecutive">શક્ય છે, પરંતુ સતત નહીં</string>
+  <string name="identicalForbidden">પ્રતિબંધિત</string>
+  <string name="lateJoin">મોડેથી જોડાવું</string>
+  <string name="lateJoinUntil">હા, અડધાથી વધુ રાઉન્ડ શરૂ ન થાય ત્યાં સુધી</string>
+  <string name="pause">વિરામ</string>
+  <string name="pauseSwiss">હા, પરંતુ રાઉન્ડની સંખ્યા ઘટાડી શકે છે</string>
+  <string name="streaksAndBerserk">શ્રેણી અને બર્સર્ક</string>
+  <string name="similarToOTB">OTB (ઓવેર થે બોર્ડ) ટુર્નામેન્ટ્સ જેવું</string>
+  <string name="unlimitedAndFree">અમર્યાદિત અને મફત</string>
+  <string name="predefinedUsers">ફક્ત પૂર્વ-વ્યાખ્યાયિત વપરાશકર્તાઓને જોડાવાની મંજૂરી આપો</string>
+  <string name="forbiddedUsers">જો આ સૂચિ ખાલી ન હોય, તો આ સૂચિમાં ગેરહાજર વપરાશકર્તાઓને જોડાવા માટે પ્રતિબંધિત કરવામાં આવશે. દર લીટી દીઠ એક યુઝરનેમ.</string>
+  <string name="playYourGames">તમારી રમતો રમો</string>
+  <string name="byes">બાય</string>
+  <string name="absences">ગેરહાજરી</string>
+  <string name="tieBreak">ટાઇ બ્રેક</string>
+</resources>

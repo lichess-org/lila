@@ -445,10 +445,6 @@
   <string name="player">მოთამაშე</string>
   <string name="list">სია</string>
   <string name="graph">გრაფა</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s წუთწე ნაკლები</item>
-    <item quantity="other">%s წუთწე ნაკლები</item>
-  </plurals>
   <string name="required">საჭირო.</string>
   <string name="openTournaments">გახსენით ტურნირი</string>
   <string name="duration">ხანგრძლივობა</string>

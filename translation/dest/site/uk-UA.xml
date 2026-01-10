@@ -544,12 +544,6 @@
   <string name="player">Гравець</string>
   <string name="list">Список</string>
   <string name="graph">Діаграма</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Менше %s хвилини</item>
-    <item quantity="few">Менше %s хвилин</item>
-    <item quantity="many">Менше %s хвилин</item>
-    <item quantity="other">Менше %s хвилин</item>
-  </plurals>
   <string name="required">Обов\'язково.</string>
   <string name="openTournaments">Відкриті турніри</string>
   <string name="duration">Тривалість</string>
@@ -808,6 +802,7 @@
   <string name="cyclePreviousOrNextVariation">Прокрутити попередній/наступний варіант</string>
   <string name="toggleGlyphAnnotations">Перемкнути анотації ходів</string>
   <string name="togglePositionAnnotations">Перемкнути анотації позицій</string>
+  <string name="toggleObservationAnnotations">Перемкнути анотації спостереження</string>
   <string name="variationArrowsInfo">Стрілки варіантів дозволяють переміщуватись без використання списку ходів.</string>
   <string name="playSelectedMove">зіграти обраний хід</string>
   <string name="newTournament">Новий турнір</string>
@@ -1001,6 +996,7 @@
   <string name="agreementPolicy">Я погоджуюся, що я буду слідувати усім правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Шукати або розпочати бесіду</string>
   <string name="edit">Змінити</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ультракуля</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Куля</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Бліц</string>
   <string name="rapid">Швидкі</string>
@@ -1110,4 +1106,5 @@
   <string name="search">Пошук</string>
   <string name="clearSearch">Очистити пошук</string>
   <string name="tags">Теги</string>
+  <string name="enPassant">Взяття на проході</string>
 </resources>

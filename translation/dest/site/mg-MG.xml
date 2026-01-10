@@ -312,10 +312,6 @@
   <string name="player">Mpilalao</string>
   <string name="list">Lisitra</string>
   <string name="graph">Graphe</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Latsaky ny %s minitra</item>
-    <item quantity="other">Latsaky ny %s minitra</item>
-  </plurals>
   <string name="required">Ilaina.</string>
   <string name="openTournaments">Fifaninanana misokatra</string>
   <string name="duration">Halavany</string>

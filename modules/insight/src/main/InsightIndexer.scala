@@ -1,6 +1,5 @@
 package lila.insight
 
-import akka.stream.scaladsl.*
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
@@ -86,5 +85,5 @@ final private class InsightIndexer(
           .via(LilaStream.collect)
           .grouped(100.atMost(maxGames))
           .map(storage.bulkInsert)
-          .runWith(Sink.ignore)
+          .run()
           .void

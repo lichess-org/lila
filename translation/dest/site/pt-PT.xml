@@ -6,10 +6,10 @@
   <string name="gameMode">Modo de jogo</string>
   <string name="createLobbyGame">Criar jogo no lobby</string>
   <string name="youPlayAs">Jogas com</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
-  <string name="orLetYourOpponentScanQrCode">Ou deixa o teu oponente ler este código QR</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixe o seu oponente ler este código QR</string>
   <string name="waiting">A aguardar</string>
   <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -475,10 +475,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="player">Jogador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfico</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Menos de %s minuto</item>
-    <item quantity="other">Menos de %s minutos</item>
-  </plurals>
   <string name="required">Obrigatório.</string>
   <string name="openTournaments">Torneios abertos</string>
   <string name="duration">Duração</string>
@@ -729,6 +725,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="cyclePreviousOrNextVariation">Ciclo anterior/próxima variante</string>
   <string name="toggleGlyphAnnotations">Ativar/desativar anotações com símbolos</string>
   <string name="togglePositionAnnotations">Ativar/desativar anotações de posição</string>
+  <string name="toggleObservationAnnotations">Ativar/desativar anotações</string>
   <string name="variationArrowsInfo">Setas de variação permitem navegar sem usar a lista de movimentos.</string>
   <string name="playSelectedMove">jogar o movimento selecionado</string>
   <string name="newTournament">Novo torneio</string>
@@ -912,6 +909,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="agreementPolicy">Concordo que seguirei todas as políticas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Pesquisa ou começa uma nova conversa</string>
   <string name="edit">Editar</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ultra-Bala</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Rápidas</string>
   <string name="rapid">Semi-rápidas</string>
@@ -976,6 +974,7 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="simulFeaturedHelp">Mostre a sua simultânea a todos em %s. Desativar para simultâneas privadas.</string>
   <string name="simulDescription">Descrição da simultânea</string>
   <string name="simulDescriptionHelp">Quer dizer alguma coisa aos participantes?</string>
+  <string name="markdownIsAvailable">%s está disponível para formatação.</string>
   <string name="embedsAvailable">Cole o URL de um jogo ou um URL de um capítulo de estudo para integrá-lo.</string>
   <string name="inYourLocalTimezone">No seu próprio fuso horário local</string>
   <string name="tournChat">Chat do torneio</string>
@@ -1021,4 +1020,5 @@ Todos os custos operacionais, de desenvolvimento e conteúdo são financiados ex
   <string name="search">Pesquisar</string>
   <string name="clearSearch">Limpar pesquisa</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant">En passant</string>
 </resources>

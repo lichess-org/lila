@@ -27,7 +27,7 @@ import { gameLinksListener } from '../studyChapters';
 import { baseUrl } from '@/view/util';
 import { commonDateFormat, timeago } from 'lib/i18n';
 import { renderChat } from 'lib/chat/renderChat';
-import { displayColumns, isTouchDevice } from 'lib/device';
+import { displayColumns } from 'lib/device';
 import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
 import { userLink } from 'lib/view/userLink';
@@ -53,10 +53,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
   const { ctrl, study, relay } = ctx;
   const empty = study.chapters.list.looksNew();
   const resizeId =
-    !ctrl.isEmbed &&
-    !isTouchDevice() &&
-    displayColumns() > (ctx.hasRelayTour ? 1 : 2) &&
-    `relayTour/${relay.data.tour.id}`;
+    !ctrl.isEmbed && displayColumns() > (ctx.hasRelayTour ? 1 : 2) && `relayTour/${relay.data.tour.id}`;
   return hl(
     'aside.relay-tour__side',
     {
@@ -78,7 +75,7 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
               hl(
                 'button.relay-tour__side__name',
                 { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
-                relay.i18nRoundName(relay.round),
+                relay.round.name,
               ),
               !ctrl.isEmbed &&
                 hl('button.streamer-show.data-count', {
@@ -130,7 +127,7 @@ const startCountdown = (relay: RelayCtrl) => {
     startsAt = defined(round.startsAt) && new Date(round.startsAt),
     date = startsAt && hl('time', commonDateFormat(startsAt));
   return hl('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
-    hl('strong', relay.i18nRoundName(round)),
+    hl('strong', round.name),
     startsAt
       ? startsAt.getTime() < Date.now() + 1000 * 10 * 60 // in the last 10 minutes, only say it's soon.
         ? [i18n.broadcast.startVerySoon, date]
@@ -240,7 +237,7 @@ const share = (ctx: RelayViewContext) => {
           'To synchronize ongoing games, use ',
           hl(
             'a',
-            { attrs: { href: '/api#tag/broadcasts/get/api/stream/broadcast/round/{broadcastRoundId}.pgn' } },
+            { attrs: { href: '/api#tag/broadcasts/get/apistreambroadcastroundbroadcastroundidpgn' } },
             'our free streaming API',
           ),
           ' for stupendous speed and efficiency.',
@@ -333,7 +330,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
     },
     [
       hl('label.mselect__label.relay-tour__round-select__label', clickHook, [
-        hl('span.relay-tour__round-select__name', relay.i18nRoundName(round)),
+        hl('span.relay-tour__round-select__name', round.name),
         hl('span.relay-tour__round-select__status', icon || (!!round.startsAt && timeago(round.startsAt))),
       ]),
       toggle() && [
@@ -373,7 +370,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                       hl(
                         'a',
                         { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
-                        relay.i18nRoundName(round),
+                        round.name,
                       ),
                     ),
                     hl(
@@ -382,9 +379,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                         ? commonDateFormat(new Date(round.startsAt))
                         : round.startsAfterPrevious &&
                             i18n.broadcast.startsAfter(
-                              relay.data.rounds[i - 1]
-                                ? relay.i18nRoundName(relay.data.rounds[i - 1])
-                                : 'the previous round',
+                              relay.data.rounds[i - 1] ? relay.data.rounds[i - 1].name : 'the previous round',
                             ),
                     ),
                     hl(
@@ -421,7 +416,7 @@ const games = (ctx: RelayViewContext) => [
 
 const teams = (ctx: RelayViewContext) => [
   header(ctx),
-  ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list, ctx.relay.players),
+  ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list, ctx.relay.players, ctx.relay.round),
 ];
 
 const stats = (ctx: RelayViewContext) => [header(ctx), statsView(ctx.relay.stats)];
@@ -558,7 +553,7 @@ const broadcastImageOrStream = (ctx: RelayViewContext) => {
     embedVideo
       ? relay.videoPlayer?.render()
       : d.tour.image
-        ? hl('img', { attrs: { src: d.tour.image } })
+        ? hl('img', { attrs: { src: d.tour.image, alt: '' } })
         : ctx.study.members.isOwner()
           ? hl(
               'a.button.relay-tour__header__image-upload',

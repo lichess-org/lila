@@ -18,4 +18,5 @@
   <string name="startTraining">Започни упражнението</string>
   <string name="findSquare">Намери полето</string>
   <string name="nameSquare">Назови полето</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Само някои вертикали &amp; хоризонтали</string>
 </resources>

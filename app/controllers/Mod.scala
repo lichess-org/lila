@@ -45,7 +45,7 @@ final class Mod(
             sus <- api.setAlt(prev, true)
             _ <- prev.user.enabled.yes.so(env.api.accountTermination.disable(sus.user, forever = false))
           yield ()
-      .runWith(Sink.ignore)
+      .run()
       .void
       .inject(NoContent)
   }

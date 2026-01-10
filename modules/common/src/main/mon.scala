@@ -368,11 +368,10 @@ object mon:
       val epoch = gauge("security.geoip.epoch").withoutTags()
       val loadTime = gauge("security.geoip.loadTime").withoutTags()
     object login:
-      def attempt(byEmail: Boolean, stuffing: String, pwned: Boolean, result: Boolean) =
+      def attempt(byEmail: Boolean, pwned: Boolean, result: Boolean) =
         counter("security.login.attempt").withTags:
           tags(
             "by" -> (if byEmail then "email" else "name"),
-            "stuffing" -> stuffing,
             "pwned" -> pwned,
             "result" -> result
           )
@@ -465,6 +464,9 @@ object mon:
     val percent = gauge("plan.percent").withoutTags()
     def webhook(service: String, tpe: String) =
       counter("plan.webhook").withTags(tags("service" -> service, "tpe" -> tpe))
+    def intent(service: String, currency: java.util.Currency, coverFees: Boolean) =
+      counter("plan.intent").withTags:
+        tags("service" -> service, "currency" -> currency.getCurrencyCode, "coverFees" -> coverFees)
     object charge:
       def first(service: String) = counter("plan.charge.first").withTag("service", service)
       def countryCents(country: String, currency: java.util.Currency, service: String, gift: Boolean) =

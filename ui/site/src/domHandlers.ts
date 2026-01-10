@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { text as xhrText } from 'lib/xhr';
+import { writeTextClipboard, text as xhrText } from 'lib/xhr';
 import topBar from './topBar';
 import { userComplete } from 'lib/view/userComplete';
 import { confirm } from 'lib/view';
@@ -26,12 +26,11 @@ export function addDomHandlers() {
       $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
       setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
     };
-    const copyText = (text: string) => navigator.clipboard.writeText(text).then(showCheckmark);
     const fetchContent = $(this).parent().hasClass('fetch-content');
     $(this.parentElement!.firstElementChild!).each(function (this: any) {
       try {
-        if (fetchContent) xhrText(this.href).then(res => copyText(res));
-        else copyText(this.value || this.href);
+        if (fetchContent) writeTextClipboard(this.href, showCheckmark);
+        else navigator.clipboard.writeText(this.value || this.href).then(showCheckmark);
       } catch (e) {
         console.error(e);
       }

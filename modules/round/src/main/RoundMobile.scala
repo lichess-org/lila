@@ -103,11 +103,7 @@ final class RoundMobile(
           "black" -> playerJson(Color.Black)
         )
         .add("socket" -> use.socketStatus.map(_.version))
-        .add("expiration" -> game.expirable.option:
-          Json.obj(
-            "idleMillis" -> (nowMillis - game.movedAt.toMillis),
-            "millisToMove" -> game.timeForFirstMove.millis
-          ))
+        .add("expiration" -> lila.game.JsonView.expiration(game))
         .add("clock", game.clock.map(roundJson.clockJson))
         .add("correspondence", game.correspondenceClock)
         .add("takebackable" -> takebackable)

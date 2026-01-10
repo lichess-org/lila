@@ -30,8 +30,8 @@
   <string name="cornerMateDescription">Kìm hãm vua ở góc bằng cách sử dụng một xe hoặc hậu và một mã để chiếu hết.</string>
   <string name="crushing">Áp đảo</string>
   <string name="crushingDescription">Phát hiện sai lầm nghiêm trọng của đối phương để giành được lợi thế áp đảo. (đánh giá ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Đòn chiếu mở</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Đi một quân để lộ ra quân cờ tấn công đang ẩn núp, điều này thường dẫn đến lợi thế quyết định.</string>
+  <string name="discoveredCheck">Đòn chiếu mở</string>
+  <string name="discoveredCheckDescription">Đi một quân để lộ ra quân cờ tấn công đang ẩn núp, điều này thường dẫn đến lợi thế quyết định.</string>
   <string name="doubleBishopMate">Chiếu hết bằng cặp Tượng</string>
   <string name="doubleBishopMateDescription">Hai quân Tượng tấn công trên các đường chéo liền kề chiếu hết một quân vua bị cản trở bởi quân cờ.</string>
   <string name="dovetailMate">Chiếu hết kiểu Đuôi én</string>
@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">Thay vì chơi nước đi dự kiến, trước tiên hãy xen vào một nước đi khác gây ra mối đe dọa ngay lập tức mà đối thủ phải đáp trả. Còn được gọi là \"Zwischenzug\" hoặc \"Ở giữa\".</string>
   <string name="killBoxMate">Hộp chết chiếu hết</string>
   <string name="killBoxMateDescription">Một quân xe ở cạnh vua địch và được hỗ trợ bởi quân hậu cũng chặn các ô trốn thoát của vua địch. Xe và hậu bắt vua địch trong ô \"kill box\" chết chóc 3 x 3.</string>
+  <string name="pillsburysMate">Chiếu hết kiểu Pillsbury</string>
+  <string name="pillsburysMateDescription">Quân xe chiếu hết, trong khi quân tượng giúp khống chế nước đi đó.</string>
+  <string name="morphysMate">Chiếu hết kiểu Morphy</string>
+  <string name="morphysMateDescription">Dùng quân tượng để chiếu vua, trong khi quân xe giúp kìm hãm vua.</string>
   <string name="triangleMate">Chiếu hết kiểu tam giác</string>
   <string name="triangleMateDescription">Quân hậu và quân xe, cách quân vua của đối phương một ô, nằm trên cùng một hàng, cách nhau một ô, tạo thành một hình tam giác.</string>
   <string name="vukovicMate">Chiếu hết kiểu Vukovic</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">Câu đố mà chỉ có một nước đi.</string>
   <string name="opening">Khai cuộc</string>
   <string name="openingDescription">Chiến thuật trong phần mở đầu của ván cờ.</string>
+  <string name="operaMate">Chiếu hết kiểu Opera</string>
+  <string name="operaMateDescription">Dùng quân xe chiếu vua và dùng quân tượng để bảo vệ quân xe.</string>
   <string name="pawnEndgame">Tàn cuộc Tốt</string>
   <string name="pawnEndgameDescription">Một thế tàn cuộc chỉ với tốt.</string>
   <string name="pin">Ghim</string>

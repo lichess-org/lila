@@ -475,10 +475,6 @@
   <string name="player">ක්‍රීඩකයා</string>
   <string name="list">ලැයිස්තුව</string>
   <string name="graph">ප්‍රස්ථාරය​</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s මිනිත්තුවකට අඩුයි</item>
-    <item quantity="other">මිනිත්තු %sකට අඩුයි</item>
-  </plurals>
   <string name="required">අවශ්‍යයි.</string>
   <string name="openTournaments">විවෘත තරඟාවලි</string>
   <string name="duration">කාල සීමාව</string>

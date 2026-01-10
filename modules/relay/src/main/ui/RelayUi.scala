@@ -26,21 +26,24 @@ final class RelayUi(helpers: Helpers)(
       chatOption: Option[(JsObject, Frag)],
       socketVersion: SocketVersion
   )(using ctx: Context) =
-    Page(rt.fullName)
+    val imageUrl = rt.tour.image.map(thumbnail.url(_, _.Size.Large))
+    Page(rt.transName)
       .css("analyse.relay")
+      .css(ctx.blind.option("round.nvui"))
       .i18n(_.study, _.broadcast)
-      .i18nOpt(ctx.blind, _.keyboardMove, _.nvui)
+      .i18nOpt(ctx.speechSynthesis, _.nvui)
+      .i18nOpt(ctx.blind, _.keyboardMove)
       .js(analyseNvuiTag)
       .js(pageModule(rt, data, chatOption, socketVersion))
       .flag(_.zoom)
-      .graph(
+      .graph:
         OpenGraph(
-          title = rt.fullName,
-          url = pathUrl(rt.path),
+          title = rt.transName,
+          url = routeUrl(rt.call),
           description = shorten(rt.tour.info.toString, 152),
-          image = rt.tour.image.map(thumbnail.url(_, _.Size.Large))
+          image = imageUrl
         )
-      ):
+      .preloadImage(imageUrl)(helpers):
         showPreload(rt, data)
 
   def pageModule(
@@ -59,14 +62,14 @@ final class RelayUi(helpers: Helpers)(
           "data" -> data.analysis,
           "tagTypes" -> lila.study.StudyPgnTags.typesToString,
           "userId" -> ctx.userId,
-          "chat" -> chatOption.map(_._1),
+          "chat" -> chatOption._1F,
           "socketUrl" -> socketUrl(rt.study.id),
           "socketVersion" -> socketVersion
         )
         .add("embed" -> embed) ++ explorerAndCevalConfig
     )
 
-  def showPreload(rt: WithTourAndStudy, data: lila.relay.RelayJsonView.JsData): Tag =
+  def showPreload(rt: WithTourAndStudy, data: RelayJsonView.JsData)(using Translate): Tag =
     main(cls := "analyse is-relay has-relay-tour")(
       div(cls := "box relay-tour")(
         div(cls := "relay-tour__header")(
@@ -75,7 +78,7 @@ final class RelayUi(helpers: Helpers)(
             div(cls := "relay-tour__header__selectors"):
               div(cls := "mselect relay-tour__mselect"):
                 label(cls := "mselect__label"):
-                  span(cls := "relay-tour__round-select__name")(rt.relay.name)
+                  span(cls := "relay-tour__round-select__name")(rt.relay.transName)
           ),
           div(cls := "relay-tour__header__image"):
             rt.tour.image.map: imgId =>
@@ -113,7 +116,7 @@ final class RelayUi(helpers: Helpers)(
       span(cls := "content")(
         span(cls := "name")(tr.tour.spotlight.flatMap(_.title) | tr.tour.name.value),
         span(cls := "more")(
-          tr.display.caption.fold(tr.display.name.value)(_.value),
+          tr.display.caption.fold(tr.display.transName)(_.value),
           " • ",
           if tr.display.hasStarted
           then trans.site.eventInProgress()
