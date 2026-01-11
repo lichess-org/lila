@@ -30,7 +30,7 @@
   <string name="whiteIsVictorious">Blanques ganen</string>
   <string name="blackIsVictorious">Prietes ganen</string>
   <string name="youPlayTheWhitePieces">Xuegas con blanques</string>
-  <string name="youPlayTheBlackPieces">Xuegas con prietes</string>
+  <string name="youPlayTheBlackPieces">Xuegas con negres</string>
   <string name="itsYourTurn">¡Ye la to vez!</string>
   <string name="cheatDetected">Trampes detectaes</string>
   <string name="kingInTheCenter">Rei nel centru</string>
@@ -1020,5 +1020,5 @@ Tolos gastos de funcionamientu, desenvolvimientu y conteníos finánciense puram
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar busca</string>
   <string name="tags">Etiquetes</string>
-  <string name="enPassant">Garrar al pasu</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">Garrar al pasu</string>
 </resources>
