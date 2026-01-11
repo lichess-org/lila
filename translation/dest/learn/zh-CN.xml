@@ -130,7 +130,7 @@
   <string name="theSpecialKingMove">王的特殊走法</string>
   <string name="castlingIntro">将您的王带到安全地带，并调动您的车用于进攻！</string>
   <string name="castleKingSide">请将您的王移动两格
-进行王翼易位！</string>
+进行王车易位！</string>
   <string name="castleQueenSide">请将您的王移动两格
 进行后翼易位！</string>
   <string name="theKnightIsInTheWay">马挡在路上！
