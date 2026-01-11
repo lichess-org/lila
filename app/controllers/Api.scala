@@ -63,7 +63,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     limit.apiUsers(req.ipAddress, rateLimited, cost = cost.atLeast(1)):
       lila.mon.api.users.increment(cost.toLong)
       env.user.api
-        .listWithPerfs(usernames)
+        .listWithPerfs(usernames, includeClosed = true)
         .map:
           _.map: u =>
             env.user.jsonView.full(
