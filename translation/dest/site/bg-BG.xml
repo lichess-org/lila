@@ -1017,4 +1017,5 @@
   <string name="search">Търсене</string>
   <string name="clearSearch">Изчистване на търсенето</string>
   <string name="tags">Етикети</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">Ан пасан</string>
 </resources>
