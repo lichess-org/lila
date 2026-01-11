@@ -75,7 +75,7 @@ object StudyPgnImport:
           tags = StudyPgnTags
             .withRelevantTags(parsed.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
           ending = ending,
-          chapterNameHint = parsed.tags("ChapterName").map(_.trim).filter(_.nonEmpty)
+          chapterNameHint = StudyChapterName.from(parsed.tags("ChapterName").map(_.trim).filter(_.nonEmpty))
         )
 
   case class Result(
@@ -83,7 +83,7 @@ object StudyPgnImport:
       variant: chess.variant.Variant,
       tags: Tags,
       ending: Option[Ending],
-      chapterNameHint: Option[String]
+      chapterNameHint: Option[StudyChapterName]
   )
 
   case class Ending(
