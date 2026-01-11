@@ -91,7 +91,7 @@
   <string name="noPinnedComment">هیچ</string>
   <string name="normalAnalysis">تحلیل ساده</string>
   <string name="hideNextMoves">پنهان کردن حرکت بعدی</string>
-  <string name="interactiveLesson">درس میان‌کنشی</string>
+  <string name="interactiveLesson">درس تعاملی</string>
   <string name="chapterX">بخش %s</string>
   <string name="empty">خالی</string>
   <string name="startFromInitialPosition">از وضعیت نخستین بیاغازید</string>

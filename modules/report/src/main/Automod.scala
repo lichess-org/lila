@@ -40,7 +40,6 @@ final class Automod(
     imageFlagReason(req.id, req.dim.some)
       .map: flagged =>
         picfitApi.setAutomod(req.id, ImageAutomod(flagged))
-      .logFailure(logger)
 
   def text(
       userText: String,
@@ -127,6 +126,10 @@ final class Automod(
             flagged.option:
               res.str("reason") | "No reason provided"
           .monSuccess(_.mod.report.automod.imageRequest)
+          .recover:
+            case err =>
+              logger.error(err.getMessage, err)
+              none
 
   private def extractJsonFromResponse(rsp: StandaloneWSResponse): Either[String, Option[JsObject]] =
     for

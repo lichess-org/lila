@@ -1019,4 +1019,5 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar búsqueda</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">Al paso</string>
 </resources>

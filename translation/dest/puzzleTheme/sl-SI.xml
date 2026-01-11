@@ -18,6 +18,8 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="backRankMateDescription">Matiranje kralja, ko je še na začetni vrsti, ujet s svojimi figurami.</string>
   <string name="balestraMate">Mat dan z lovcem</string>
   <string name="balestraMateDescription">Lovec da šah-mat, medtem ko dama blokira preostala polja za pobeg</string>
+  <string name="blindSwineMate">Slepi prašičji mat</string>
+  <string name="blindSwineMateDescription">Dva topova se združita, da bi matirala kralja na območju 2 krat 2 polj.</string>
   <string name="bishopEndgame">Končnica lovcev</string>
   <string name="bishopEndgameDescription">Končnica s samo lovci in kmeti.</string>
   <string name="bodenMate">Bodenov mat</string>

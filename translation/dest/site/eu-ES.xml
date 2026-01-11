@@ -1018,4 +1018,5 @@ Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.
   <string name="search">Bilatu</string>
   <string name="clearSearch">Garbitu bilaketa</string>
   <string name="tags">Etiketak</string>
+  <string name="enPassant">Igarotzean harrapatzea</string>
 </resources>

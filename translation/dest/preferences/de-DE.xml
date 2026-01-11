@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Regler zum Ändern der Brettgröße anzeigen</string>
   <string name="onlyOnInitialPosition">Nur in der Anfangsstellung</string>
   <string name="inGameOnly">Nur während einer Partie</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Außer in der Partie</string>
+  <string name="exceptInGame">Außer in der Partie</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zehntelsekunden</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wenn Restzeit &lt; 10 Sekunden</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wenn Restzeit &lt; 10 Sekunden</string>
   <string name="horizontalGreenProgressBars">Horizontale grüne Fortschrittsbalken</string>
   <string name="soundWhenTimeGetsCritical">Ton, wenn die Zeit knapp wird</string>
   <string name="giveMoreTime">Mehr Zeit geben</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Halte die &lt;ctrl&gt; Taste während der Umwandlung um vorübergehend die automatische Umwandlung zu deaktivieren</string>
   <string name="whenPremoving">Bei Vorauszug</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reklamiere automatisch Remis bei dreifacher Stellungswiederholung</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wenn Restzeit &lt; 30 Sekunden</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Wenn Restzeit &lt; 30 Sekunden</string>
   <string name="moveConfirmation">Zugbestätigung</string>
   <string name="explainCanThenBeTemporarilyDisabled">Kann während einer Partie mittels Brettmenü deaktiviert werden</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>
@@ -62,11 +62,13 @@
   <string name="notifyGameEvent">Neuigkeiten in Fernschachpartie</string>
   <string name="notifyChallenge">Herausforderungen</string>
   <string name="notifyTournamentSoon">Turnier beginnt bald</string>
+  <string name="notifyBroadcasts">Übertragungen, die du abonniert hast</string>
   <string name="notifyTimeAlarm">Zeit in Fernschachpartie neigt sich dem Ende zu</string>
   <string name="notifyBell">Benachrichtigungs-Glocke auf Lichess</string>
   <string name="notifyPush">Geräte-Benachrichtigung wenn du nicht auf Lichess bist</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Gerät</string>
   <string name="bellNotificationSound">Glocken-Benachrichtigungston</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Blindschach</string>
+  <string name="blindfold" comment="As in Blindfold chess">Blindschach</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Auf der linken Seite auf mobilen Geräten anzeigen</string>
 </resources>

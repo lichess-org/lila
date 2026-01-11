@@ -951,7 +951,7 @@
   <string name="timeAlmostUp">Времето почти изтече!</string>
   <string name="clickToRevealEmailAddress">[Щракнете, за да видите имейл адреса]</string>
   <string name="download">Изтегли</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Настройки за треньори</string>
+  <string name="coachManager">Настройки за треньори</string>
   <string name="streamerManager">Настройки за стриймъри</string>
   <string name="cancelTournament">Отмяна на турнира</string>
   <string name="tournDescription">Описание на турнира</string>
@@ -1017,4 +1017,5 @@
   <string name="search">Търсене</string>
   <string name="clearSearch">Изчистване на търсенето</string>
   <string name="tags">Етикети</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">Ан пасан</string>
 </resources>

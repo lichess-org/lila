@@ -61,11 +61,8 @@ final class UblogApi(
     _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
     _ <- picfitApi.addRef(post.markdown, s"ublog:${post.id}", routes.Ublog.redirect(post.id).url.some)
     _ = if isFirstPublish then onFirstPublish(author.light, blog, post)
-  yield
-    triggerAutomod(post).foreach: res =>
-      if isFirstPublish && blog.visible
-      then sendPostToZulip(author.light, post, blog.modTier.getOrElse(blog.tier), res)
-    post
+    _ = triggerAutomod(post)
+  yield post
 
   private def onFirstPublish(author: LightUser, blog: UblogBlog, post: UblogPost) =
     lila.common.Bus.pub(UblogPost.Create(post))
@@ -178,33 +175,6 @@ final class UblogApi(
               .map(_.flatMap(_.getAsOpt[UblogPostId]("_id")).toSet)
           yield candidates.filter(p => !likedCandidateIds(p.id) && p.created.by != myId)
     yield scala.util.Random.shuffle(filtered).take(6)
-
-  private def sendPostToZulip(
-      user: LightUser,
-      post: UblogPost,
-      tier: Tier,
-      assessment: Option[UblogAutomod.Assessment]
-  ): Funit =
-    val source =
-      if tier == Tier.UNLISTED then "unlisted tier"
-      else assessment.fold(Tier.name(tier).toLowerCase + " tier")(_.quality.name + " quality")
-    val emdashes = post.markdown.value.count(_ == '—')
-    val automodNotes = assessment.map: r =>
-      ~r.flagged.map("Flagged: " + _ + "\n") +
-        ~r.commercial.map("Commercial: " + _ + "\n") +
-        (emdashes match
-          case 0 => ""
-          case 1 => s"#### 1 emdash found\n"
-          case n => s"#### $n emdashes found\n")
-    irc.ublogPost(
-      user,
-      id = post.id,
-      slug = post.slug,
-      title = post.title,
-      intro = post.intro,
-      topic = s"$source new posts",
-      automodNotes
-    )
 
   def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
     val retries = 5 // 30s, 1m, 2m, 4m, 8m

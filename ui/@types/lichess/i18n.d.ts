@@ -1483,8 +1483,6 @@ interface I18n {
     defendYourKing: string;
     /** Don't let them take */
     dontLetThemTakeAnyUndefendedPiece: string;
-    /** En passant */
-    enPassant: string;
     /** Congratulations! You can now take en passant. */
     enPassantComplete: string;
     /** When the opponent pawn moved by two squares, you can take it like if it moved by one square. */
@@ -2295,6 +2293,8 @@ interface I18n {
     notifications: string;
     /** Bell notification within Lichess */
     notifyBell: string;
+    /** Broadcasts you have subscribed to */
+    notifyBroadcasts: string;
     /** Challenges */
     notifyChallenge: string;
     /** Device */
@@ -2339,6 +2339,8 @@ interface I18n {
     sayGgWpAfterLosingOrDrawing: string;
     /** Scroll on the board to replay moves */
     scrollOnTheBoardToReplayMoves: string;
+    /** Show on the left on mobile devices */
+    showClockOnTheLeft: string;
     /** Show player flairs */
     showFlairs: string;
     /** Show player ratings */
@@ -3447,6 +3449,8 @@ interface I18n {
     endgamePositions: string;
     /** Error loading engine */
     engineFailed: string;
+    /** En passant */
+    enPassant: string;
     /** This email address is invalid */
     'error.email': string;
     /** This email address is not acceptable. Please double-check it, and try again. */

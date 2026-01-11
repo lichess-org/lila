@@ -18,17 +18,18 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
       .expireAfterWrite(3.minutes)
       .build[StudyChapterId, Int]()
 
-    private val once = scalalib.cache.OnceEvery[StudyChapterId](1.hour)
+    private val once = scalalib.cache.OnceEvery[StudyChapterId](4.hour)
 
     def inspectPlan(rt: RelayRound.WithTour, plan: RelayUpdatePlan.Plan): Funit = Future:
-      if rt.tour.official && plan.input.games.nonEmpty && !rt.round.sync.upstream.exists(_.isInternal)
-      then
-        counter.invalidateAll(plan.update.map(_._1.id))
-        plan.orphans.foreach: chapter =>
-          val count = ~counter.getIfPresent(chapter.id) + 1
-          if count >= notifyAfterMisses && once(chapter.id)
-          then irc.broadcastOrphanBoard(rt.round.id, rt.fullName, chapter.id, chapter.name)
-          else counter.put(chapter.id, count)
+      rt.tour.tier.foreach: tier =>
+        if plan.input.games.nonEmpty && !rt.round.sync.upstream.exists(_.isInternal)
+        then
+          counter.invalidateAll(plan.update.map(_._1.id))
+          plan.orphans.foreach: chapter =>
+            val count = ~counter.getIfPresent(chapter.id) + 1
+            if rt.tour.orphanWarn && count >= notifyAfterMisses && once(chapter.id)
+            then irc.broadcastOrphanBoard(rt.round.id, rt.fullName, chapter.id, chapter.name, tier.key)
+            else counter.put(chapter.id, count)
 
   object tooManyGames:
 

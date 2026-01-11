@@ -104,8 +104,9 @@ object BSONHandlers:
     import BSONFields.*
 
     def reads(r: BSON.Reader): User =
+      val userId = r.get[UserId](id)
       new User(
-        id = r.get[UserId](id),
+        id = userId,
         username = r.get[UserName](username),
         count = r.get[lila.core.user.Count](count),
         enabled = r.get[UserEnabled](enabled),
@@ -120,7 +121,10 @@ object BSONHandlers:
         title = r.getO[chess.PlayerTitle](title),
         plan = r.getO[Plan](plan) | lila.user.Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
-        flair = r.getO[Flair](flair).filter(FlairApi.exists),
+        flair = r.getO[Flair](flair) match
+          case Some(f) if FlairApi.exists(f) => Some(f)
+          case Some(f) => FlairApi.badFlairs.add(userId, f); None
+          case None => None,
         marks = r.getO[UserMarks](marks) | UserMarks(Nil),
         hasEmail = r.contains(email)
       )
