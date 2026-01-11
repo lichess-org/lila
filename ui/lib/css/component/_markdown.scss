@@ -132,6 +132,12 @@
       }
     }
   }
+
+  time {
+    border-bottom: 1px dashed $c-font-dim;
+    cursor: help;
+    font-size: 100%;
+  }
 }
 
 @mixin rendered-markdown--code {

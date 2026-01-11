@@ -94,19 +94,6 @@ final class IrcApi(
       zulip(_.mod.commsPublic, "forum-log"):
         s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
 
-  def ublogPost(
-      user: LightUser,
-      id: UblogPostId,
-      slug: String,
-      title: String,
-      intro: String,
-      topic: String,
-      automod: Option[String]
-  ): Funit =
-    zulip(_.blog, topic):
-      val link = markdown.lichessLink(s"/@/${user.name}/blog/$slug/$id", title)
-      s":note: $link $intro - by ${markdown.userLink(user)}${~automod.map(n => s"\n$n")}"
-
   def ublogBlog(userId: UserId, mod: UserName, tier: Option[String], note: Option[String]): Funit =
     lightUser(userId).flatMapz: user =>
       zulip(_.blog, "Tier and plagiarism checks"):
@@ -152,10 +139,11 @@ final class IrcApi(
       id: RelayRoundId,
       name: String,
       chapterId: StudyChapterId,
-      boardName: StudyChapterName
+      boardName: StudyChapterName,
+      tier: String
   ): Funit =
-    zulip(_.broadcast, "lila orphan boards"):
-      s"""Orphan board "${boardName}" in ${markdown.broadcastGameLink(id, chapterId, name)}"""
+    zulip(_.broadcast, s"orphan boards - $tier tier"):
+      s"""${markdown.broadcastGameLink(id, chapterId, name)} $boardName"""
 
   def userAppeal(user: LightUser)(using mod: LightUser.Me): Funit =
     zulip

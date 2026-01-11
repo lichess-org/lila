@@ -48,9 +48,10 @@ case class FidePlayer(
 
   def ratingsMap: Map[FideTC, Elo] = FideTC.values.flatMap(tc => ratingOf(tc).map(tc -> _)).toMap
 
-  def isSame(other: FidePlayer) = values == other.values
+  def isSame(other: FidePlayer) = fideData == other.fideData
 
-  private def values = (name, fed, title, standard, standardK, rapid, rapidK, blitz, blitzK, year, inactive)
+  private def fideData =
+    (name, fed, title, standard, standardK, rapid, rapidK, blitz, blitzK, year, inactive)
 
   def ratingsStr = List(
     "Standard" -> standard,

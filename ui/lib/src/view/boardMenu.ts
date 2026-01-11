@@ -9,7 +9,7 @@ import { type ToggleSettings, toggle } from '@/view/controls';
 import { pubsub } from '@/pubsub';
 
 export const toggleButton = (toggle: Toggle, title: string): VNode =>
-  h('button.fbt.board-menu-toggle', {
+  h('button.fbt.board-menu-toggle-btn', {
     class: { active: toggle() },
     attrs: { title, 'data-icon': licon.Hamburger },
     hook: onInsert(el => addPointerListeners(el, { click: toggle.toggle })),

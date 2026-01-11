@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">دەسکی گۆڕینی قەبارەی بۆرد پیشان بدە</string>
   <string name="onlyOnInitialPosition">تەنها لە شوێنی سەرەتایی</string>
   <string name="inGameOnly">تەنیا لەناو یاری</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">بێجگە لەنێو یاری</string>
+  <string name="exceptInGame">بێجگە لەنێو یاری</string>
   <string name="chessClock">کاتژمێری شەتڕەنج</string>
   <string name="tenthsOfSeconds">دەیەکی چرکە</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">کاتێک کاتی ماوە کەمتر بێت لە ١٠ چرکە</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">کاتێک کاتی ماوە کەمتر بێت لە ١٠ چرکە</string>
   <string name="horizontalGreenProgressBars">ئەو هێڵە ئاسۆییەکانەی کە کاتێک جوڵە دەکەی بەرەو پێش ڕەنگی سەوز دەبێت</string>
   <string name="soundWhenTimeGetsCritical">ھەبوونی دەنگ کاتێک کات نزیک دەبێتەوە لە تەواوبوون</string>
   <string name="giveMoreTime">کاتێکی زیاتر ببەخشە</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">اضغط مفتاح&lt;ctrl&gt; اثناء الترقية لتعطيل الترقية التلقائية مؤقتاً</string>
   <string name="whenPremoving">لە کاتی جوڵەی پێشوەختەدا</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">داواکاری لەسەر دووبارەبوونەوەی سێ جار لەسەر یەک بە شێوەیەکی ئۆتۆماتیکی یاریەکە یەکسان دەبێت</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">کاتێک کات دەمێنێتەوە &lt; ٣٠ چرکە</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">کاتێک کات دەمێنێتەوە &lt; ٣٠ چرکە</string>
   <string name="moveConfirmation">پشتڕاستکردنەوەی جوڵە</string>
   <string name="explainCanThenBeTemporarilyDisabled">ئەم تایبەتمەندییە دەتوانرێت لەناو یارییەکەدا بە بەکارهێنانی لیستی تەختەی شەتڕەنجەکە لەکاربخرێت</string>
   <string name="inCorrespondenceGames">نامەناردن لە یاریدا</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">وێبگەڕ</string>
   <string name="notifyDevice">ئامێر</string>
   <string name="bellNotificationSound">دەنگی زەنگی ئاگادارکردنەوە</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">چاوبەستراوانە</string>
+  <string name="blindfold" comment="As in Blindfold chess">چاوبەستراوانە</string>
 </resources>

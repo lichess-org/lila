@@ -766,6 +766,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">You can also scroll over the board to move in the game.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variations to preview them.</string>
   <string name="analysisShapesHowTo">Press shift+click or right-click to draw circles and arrows on the board.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl or shift = red; command, alt, or meta = blue; a key from each = yellow.</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
   <string name="receiveForumNotifications">Receive notifications when mentioned in the forum</string>
   <string name="shareYourInsightsData">Share your chess insights data</string>
@@ -907,6 +908,7 @@
   <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
   <string name="searchOrStartNewDiscussion">Search or start new conversation</string>
   <string name="edit">Edit</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
@@ -948,7 +950,7 @@
   <string name="timeAlmostUp">Time is almost up!</string>
   <string name="clickToRevealEmailAddress">[Click to reveal email address]</string>
   <string name="download">Download</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Coach manager</string>
+  <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
   <string name="cancelTournament">Cancel the tournament</string>
   <string name="tournDescription">Tournament description</string>
@@ -1016,4 +1018,5 @@ All operating costs, development, and content are funded solely by user donation
   <string name="search">Search</string>
   <string name="clearSearch">Clear search</string>
   <string name="tags">Tags</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">En passant</string>
 </resources>

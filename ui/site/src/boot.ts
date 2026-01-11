@@ -17,7 +17,7 @@ import { isIos, isWebkit, prefersLightThemeQuery } from 'lib/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'lib';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { addDomHandlers } from './domHandlers';
-import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
+import { updateTimeAgo, renderTimeAgo, renderLocalizedTimestamps } from './renderTimeAgo';
 import { pubsub } from 'lib/pubsub';
 import { once } from 'lib/storage';
 import { addExceptionListeners } from './unhandledError';
@@ -36,6 +36,7 @@ export function boot() {
     pubsub.on('content-loaded', initMiniGames);
     updateTimeAgo(1000);
     pubsub.on('content-loaded', renderTimeAgo);
+    renderLocalizedTimestamps();
     pubsub.on('content-loaded', toggleBoxInit);
   });
   requestIdleCallback(() => {

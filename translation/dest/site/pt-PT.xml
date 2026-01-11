@@ -6,7 +6,7 @@
   <string name="gameMode">Modo de jogo</string>
   <string name="createLobbyGame">Criar jogo no lobby</string>
   <string name="youPlayAs">Jogas com</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
   <string name="orLetYourOpponentScanQrCode">Ou deixe o seu oponente ler este código QR</string>
@@ -1020,4 +1020,5 @@ Todos os custos operacionais, de desenvolvimento e conteúdo são financiados ex
   <string name="search">Pesquisar</string>
   <string name="clearSearch">Limpar pesquisa</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant">En passant</string>
 </resources>

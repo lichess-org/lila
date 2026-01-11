@@ -47,13 +47,14 @@
   <string name="fidePlayerNotFound">Xugador FIDE non atopáu</string>
   <string name="fideProfile">Perfil FIDE</string>
   <string name="federation">Federación</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Edá</string>
   <string name="unrated">Ensin puntuación</string>
   <string name="recentTournaments">Torneos recientes</string>
   <string name="openLichess">Abrir en Lichess</string>
   <string name="teams">Equipos</string>
   <string name="boards">Tableros</string>
   <string name="overview">Resume</string>
-  <string name="subscribeTitle">Suscríbite pa ser notificao per voz cuando entame cada ronda. Pues alternar ente notificaciones de campana o de dispositivu pa emisiones nes preferencies de la to cuenta.</string>
+  <string name="subscribeTitle">Suscríbite pa ser notificao per voz cuando entame cada ronda. Puedes alternar ente notificaciones de campana o de dispositivu pa emisiones nes preferencies de la to cuenta.</string>
   <string name="uploadImage">Xubir imaxe del tornéu</string>
   <string name="noBoardsYet">Entá nun hai tableros. Estos van apaecer una vegada que se xuban les partíes.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Los tableros pueden cargase con una fonte o al traviés de %s</string>
@@ -82,4 +83,6 @@
   <string name="liveboard">Tableru en directu</string>
   <string name="communityBroadcast">Tresmisión de la comunidá</string>
   <string name="createdAndManagedBy">Creada y alministrada por %s.</string>
+  <string name="roundX">Ronda %s</string>
+  <string name="defaultRoundNameHelp">Si mantiene el nome predeterminado va traducise automáticamente al restu d\'idiomes.</string>
 </resources>
