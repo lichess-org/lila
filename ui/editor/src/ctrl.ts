@@ -33,6 +33,7 @@ export default class EditorCtrl {
   turn: Color;
   castlingRights: SquareSet | undefined;
   castlingToggles: CastlingToggles<boolean>;
+  enabledCastlingToggles: CastlingToggles<boolean>;
   epSquare: Square | undefined;
   remainingChecks: RemainingChecks | undefined;
   rules: Rules;
@@ -100,8 +101,11 @@ export default class EditorCtrl {
   }
 
   onChange(): void {
-    this.castlingToggles = this.computeCastlingToggles();
-    this.castlingRights = undefined;
+    this.enabledCastlingToggles = this.computeCastlingToggles();
+    if (this.guessCastlingToggles) {
+      this.castlingToggles = this.enabledCastlingToggles
+      this.castlingRights = undefined;
+    }
 
     const fen = this.fenFixedEp(this.getFen());
     if (!this.cfg.embed) {
@@ -273,6 +277,8 @@ export default class EditorCtrl {
     this.castlingToggles['K'] = defined(castles.rook.white.h) || this.castlingRights.has(7);
     this.castlingToggles['q'] = defined(castles.rook.black.a) || this.castlingRights.has(56);
     this.castlingToggles['k'] = defined(castles.rook.black.h) || this.castlingRights.has(63);
+
+    this.enabledCastlingToggles = this.computeCastlingToggles();
   };
 
   setFen = (fen: string): boolean =>

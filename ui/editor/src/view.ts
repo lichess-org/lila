@@ -16,7 +16,7 @@ import { chess960IdToFEN } from './chess960';
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
     attrs: { type: 'checkbox' },
-    props: { checked: ctrl.castlingToggles[id] },
+    props: { checked: ctrl.castlingToggles[id], disabled: !ctrl.enabledCastlingToggles[id] },
     on: {
       change(e) {
         ctrl.setCastlingToggle(id, (e.target as HTMLInputElement).checked);
@@ -67,6 +67,8 @@ const allVariants: Array<[Rules | 'chess960', string]> = [
 ];
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
+
+
   const endgamePosition2option = function (pos: EndgamePosition): VNode {
     return h('option', { attrs: { value: pos.epd || pos.fen, 'data-fen': pos.fen } }, pos.name);
   };
