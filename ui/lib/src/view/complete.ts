@@ -3,7 +3,7 @@ type Fetch<Result> = (term: string) => Promise<Result[]>;
 export interface CompleteOpts<Result> {
   input: HTMLInputElement;
   fetch: Fetch<Result>;
-  render: (result: Result) => string;
+  render: (result: Result) => string | HTMLElement;
   populate: (result: Result) => string; // input value from a search result
   onSelect?: (result: Result) => void;
   empty?: () => string;

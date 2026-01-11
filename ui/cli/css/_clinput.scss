@@ -49,3 +49,20 @@ body.clinput #top {
     }
   }
 }
+
+#clinput {
+  .complete-result--menu {
+    &::before {
+      @extend %data-icon;
+      content: $licon-GreaterThan;
+      display: inline-block;
+      text-align: center;
+      width: 1.5em;
+      color: $c-link;
+      opacity: 0.5;
+    }
+    &:has(+ .user-link) {
+      border-bottom: $border;
+    }
+  }
+}
