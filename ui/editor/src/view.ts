@@ -16,7 +16,10 @@ import { chess960IdToFEN } from './chess960';
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
     attrs: { type: 'checkbox' },
-    props: { checked: ctrl.castlingToggles[id], disabled: !ctrl.enabledCastlingToggles[id] },
+    props: {
+      checked: ctrl.castlingToggles[id] && ctrl.enabledCastlingToggles[id],
+      disabled: !ctrl.enabledCastlingToggles[id],
+    },
     on: {
       change(e) {
         ctrl.setCastlingToggle(id, (e.target as HTMLInputElement).checked);
