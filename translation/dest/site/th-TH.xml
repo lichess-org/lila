@@ -974,4 +974,5 @@
   <string name="search">ค้นหา</string>
   <string name="clearSearch">ล้างการค้นหา</string>
   <string name="tags">แท็ก</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">การกินผ่าน</string>
 </resources>
