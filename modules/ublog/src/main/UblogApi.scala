@@ -143,10 +143,15 @@ final class UblogApi(
         ids.flatMap(results.mapBy(_.id).get) // lila-search order
 
   def recommend(blog: UblogBlog.Id, post: UblogPost)(using ctx: Context): Fu[List[UblogPost.PreviewPost]] =
+    val requirement = ctx.userId match
+      case None => $empty
+      case Some(myId) => $nor(likes(myId), authored(myId))
     for
       sameAuthor <- colls.post
         .find(
-          $doc("blog" -> blog, "live" -> true, "_id".$ne(post.id), "automod.evergreen".$ne(false)),
+          $doc(
+            "blog" -> blog, "live" -> true, "_id".$ne(post.id), "automod.evergreen".$ne(false)
+          ) ++ requirement,
           previewPostProjection.some
         )
         .sort($doc("lived.at" -> -1))
@@ -155,26 +160,13 @@ final class UblogApi(
       similarIds = post.similar.so(_.filterNot(s => s.count < 4 || sameAuthor.exists(_.id == s.id)).map(_.id))
       similar <- colls.post
         .find(
-          $inIds(similarIds) ++ $doc("live" -> true, "automod.evergreen".$ne(false)),
+          $inIds(similarIds) ++ $doc("live" -> true, "automod.evergreen".$ne(false)) ++ requirement,
           previewPostProjection.some
         )
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
         .list(9)
-      candidates = (similar ++ sameAuthor).filter(_.isLichess || ctx.kid.no)
-      filtered <- ctx.userId match
-        case None => fuccess(candidates)
-        case Some(myId) =>
-          val candidateIds = candidates.map(_.id)
-          for likedCandidateIds <- colls.post
-              .find(
-                $inIds(candidateIds) ++ likes(myId),
-                $id(true).some
-              )
-              .cursor[Bdoc](ReadPref.sec)
-              .list(candidateIds.size)
-              .map(_.flatMap(_.getAsOpt[UblogPostId]("_id")).toSet)
-          yield candidates.filter(p => !likedCandidateIds(p.id) && p.created.by != myId)
-    yield scala.util.Random.shuffle(filtered).take(6)
+      mix = (similar ++ sameAuthor).filter(_.isLichess || ctx.kid.no)
+    yield scala.util.Random.shuffle(mix).take(6)
 
   def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
     val retries = 5 // 30s, 1m, 2m, 4m, 8m
@@ -219,7 +211,9 @@ final class UblogApi(
   yield ()
 
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
-    colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.sec)
+    colls.post.find(authored(user.id)).cursor[UblogPost](ReadPref.sec)
+
+  def authored(userId: UserId): Bdoc = $doc("blog" -> s"user:${userId}")
 
   def likes(userId: UserId): Bdoc = $doc("likers" -> userId)
 
