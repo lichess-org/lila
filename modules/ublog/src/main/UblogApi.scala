@@ -145,7 +145,7 @@ final class UblogApi(
   def recommend(blog: UblogBlog.Id, post: UblogPost)(using ctx: Context): Fu[List[UblogPost.PreviewPost]] =
     val requirement = ctx.userId match
       case None => $empty
-      case Some(myId) => $nor(likes(myId), authored(myId))
+      case Some(myId) => $nor(likedFilter(myId), authoredFilter(myId))
     for
       sameAuthor <- colls.post
         .find(
@@ -211,14 +211,14 @@ final class UblogApi(
   yield ()
 
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
-    colls.post.find(authored(user.id)).cursor[UblogPost](ReadPref.sec)
+    colls.post.find(authoredFilter(user.id)).cursor[UblogPost](ReadPref.sec)
 
-  def authored(userId: UserId): Bdoc = $doc("blog" -> s"user:${userId}")
+  def authoredFilter(userId: UserId): Bdoc = $doc("blog" -> s"user:${userId}")
 
-  def likes(userId: UserId): Bdoc = $doc("likers" -> userId)
+  def likedFilter(userId: UserId): Bdoc = $doc("likers" -> userId)
 
   def liked(post: UblogPost)(user: User): Fu[Boolean] =
-    colls.post.exists($id(post.id) ++ likes(user.id))
+    colls.post.exists($id(post.id) ++ likedFilter(user.id))
 
   def like(postId: UblogPostId, v: Boolean)(using me: Me): Fu[UblogPost.Likes] = for
     res <- colls.post.update.one($id(postId), $addOrPull("likers", me.userId, v))
