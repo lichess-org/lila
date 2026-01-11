@@ -231,11 +231,12 @@ final class GameUi(helpers: Helpers):
               },
               form3.group(form("pgnFile"), trans.site.orUploadPgnFile(), klass = "upload"): f =>
                 form3.file.pgn(f.name),
-              form3.checkbox(
+              form3.nativeCheckboxField(
                 form("analyse"),
                 trans.site.requestAComputerAnalysis(),
-                help = Some(analyseHelp),
-                disabled = !ctx.isAuth
+                help = analyseHelp,
+                half = false,
+                klass = "analyse"
               ),
               form3.action(form3.submit(trans.site.importGame(), Icon.UploadCloud.some))
             )
