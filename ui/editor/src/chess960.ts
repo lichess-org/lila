@@ -16,29 +16,28 @@ export function chess960IdToFEN(id: number): string {
     backRank[file] = piece;
   };
 
-  // Bishops
   const darkSquares = [0, 2, 4, 6];
   const lightSquares = [1, 3, 5, 7];
 
   let n = id;
 
+  // White bishop
   const b1 = lightSquares[n % 4];
   n = Math.floor(n / 4);
+  place('B', b1);
 
+  // Black bishop
   const b2 = darkSquares[n % 4];
   n = Math.floor(n / 4);
-
-  place('B', b1);
   place('B', b2);
 
   // Queen
   const freeSquares = () => [...Array(8).keys()].filter(i => backRank[i] === '');
-
   const q = freeSquares()[n % 6];
   n = Math.floor(n / 6);
   place('Q', q);
 
-  // King, knigts and rooks
+  // King, rooks and knights
   const KRN = [
     ['N', 'N', 'R', 'K', 'R'],
     ['N', 'R', 'N', 'K', 'R'],
