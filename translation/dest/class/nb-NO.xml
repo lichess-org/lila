@@ -90,7 +90,7 @@ Her er lenken som gir tilgang til klassen.</string>
   <string name="timePlaying">Spilletid</string>
   <string name="variantXOverLastY">%1$s de siste %2$s</string>
   <string name="winrate">Seiersrate</string>
-  <string name="na">N/A (ikke tilgjengelig)</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A (ikke tilgjengelig)</string>
   <string name="overview">Oversikt</string>
   <string name="news">Nyheter</string>
   <string name="classNews">Klassenyheter</string>
@@ -119,4 +119,5 @@ Her er lenken som gir tilgang til klassen.</string>
   <string name="moveToAnotherClass">Flytt til en annen klasse</string>
   <string name="allowMessagingBetweenStudents">Tillat meldinger mellom elever</string>
   <string name="allowMessagingBetweenStudentsDesc">Dette gjelder bare kontoene du har opprettet for elevene dine.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Utløper %s</string>
 </resources>

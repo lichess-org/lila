@@ -6,7 +6,7 @@
   <string name="progressX">Progresu: %s</string>
   <string name="resetMyProgress">Reiniciar el mio progresu</string>
   <string name="youWillLoseAllYourProgress">¡Vas Perder tolos tos progresos!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">¡xugar!</string>
+  <string name="play">¡xugar!</string>
   <string name="chessPieces">Les pieces d\'axedrez</string>
   <string name="theRook">La Torre</string>
   <string name="itMovesInStraightLines">Muévese en llínea recta</string>
@@ -128,7 +128,6 @@ Mueve cualquier pieza pa siguir.</string>
   <string name="findAWayToCastleKingSide">¡Atopa la forma de enrocar en curtiu!</string>
   <string name="findAWayToCastleQueenSide">¡Atopa la forma d\'enrocar en llargu!</string>
   <string name="castlingComplete">¡Norabona! Convien enrocar en casi toles partíes.</string>
-  <string name="enPassant">Garrar al pasu</string>
   <string name="theSpecialPawnMove">El movimientu especial del peón</string>
   <string name="enPassantIntro">Cuándo\'l peón contrariu mueve dos casielles, puedes garralo como si moviera namás una.</string>
   <string name="blackJustMovedThePawnByTwoSquares">¡El prietu movió\'l so peón dos casielles! Gárralu al pasu.</string>

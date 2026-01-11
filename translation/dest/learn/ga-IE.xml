@@ -6,7 +6,7 @@
   <string name="progressX">Forás: %s</string>
   <string name="resetMyProgress">Athshocraigh mo fhorás</string>
   <string name="youWillLoseAllYourProgress">Caillfidh tú do fhorás ar fad!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">imir!</string>
+  <string name="play">imir!</string>
   <string name="chessPieces">Píosaí fichille</string>
   <string name="theRook">An caiseal</string>
   <string name="itMovesInStraightLines">Bogann sé i línte díreacha</string>
@@ -154,7 +154,6 @@ caisliú ar taobh an rí!</string>
   <string name="findAWayToCastleQueenSide">Faigh bealach chun
 caisliú ar taobh na mbanríon!</string>
   <string name="castlingComplete">Comhghairdeas! Ba chóir duit caisliú i gcluiche beagnach i gcónaí.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Beart speisialta an ceithearnach</string>
   <string name="enPassantIntro">Nuair a bogann ceithearnach do chéile comhraic dhá chearnóg, tá cead é a mharú mar a bhog sé le cearnóg amháin.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Bog dubh an ceithearnach

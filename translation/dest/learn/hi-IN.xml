@@ -6,7 +6,7 @@
   <string name="progressX">प्रगति: %s</string>
   <string name="resetMyProgress">मेरी प्रगति को रीसेट करें</string>
   <string name="youWillLoseAllYourProgress">आप अपनी सारी प्रगति खो देंगे!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">खेलें!</string>
+  <string name="play">खेलें!</string>
   <string name="chessPieces">शतरंज के मोहरे</string>
   <string name="theRook">हाथी</string>
   <string name="itMovesInStraightLines">यह सीधी रेखा में चलता है</string>
@@ -135,7 +135,6 @@ to speed things up!</string>
   <string name="findAWayToCastleKingSide">किंग साइड कैसेल करने का रास्ता खोजे</string>
   <string name="findAWayToCastleQueenSide">वज़ीर साइड कैसेल करने का रास्ता खोजे</string>
   <string name="castlingComplete">बधाई हो! अब आप कैसेल करने का तरीका जान चुके है</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">विशेष मोहरा कदम</string>
   <string name="enPassantIntro">जब प्रतिद्वन्दी का मोहरा दो कदम आगे बढ़ेगा आप इसे ले सकते है जैसे कि उसने एक कदम बढ़ाया गया हो</string>
   <string name="blackJustMovedThePawnByTwoSquares">काला प्यादा दो कदम बढ़ा है आप इसे en passant से ले सकते है</string>

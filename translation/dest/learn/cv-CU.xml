@@ -6,7 +6,7 @@
   <string name="progressX">Ӳсӗм: %s</string>
   <string name="resetMyProgress">Ҫитнӗ ӳсӗме силле</string>
   <string name="youWillLoseAllYourProgress">Ҫитнӗ ӳсӗмӗве пӗтӗмпех ҫухатӑн!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">выльас!</string>
+  <string name="play">выльас!</string>
   <string name="chessPieces">Шахмат кӗлеткисем</string>
   <string name="theRook">Пашне</string>
   <string name="itMovesInStraightLines">Вӑл тӳрӗ линипе ҫӳрет</string>

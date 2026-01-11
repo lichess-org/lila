@@ -6,7 +6,7 @@
   <string name="progressX">অগ্রগতি: %s</string>
   <string name="resetMyProgress">আমার অগ্রগতি রিসেট হোক</string>
   <string name="youWillLoseAllYourProgress">আপনি আপনার সকল অগ্রগতি হারাবেন!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">খেলুন!</string>
+  <string name="play">খেলুন!</string>
   <string name="chessPieces">দাবার ঘুটি</string>
   <string name="theRook">নৌকা</string>
   <string name="itMovesInStraightLines">এটা সোজাসুজি (সোজা রেখার মতো) যায়</string>
@@ -152,7 +152,6 @@
   <string name="findAWayToCastleQueenSide">প্রসাদ রানীর পাশে
 একটি উপায় খুজুন!</string>
   <string name="castlingComplete">অভিনন্দন! আপনাকে প্রায় সবসময় খেলায় প্রসাদ করা উচিত.</string>
-  <string name="enPassant">এন পাসান্ত</string>
   <string name="theSpecialPawnMove">বিশেষ গুটি সরান</string>
   <string name="enPassantIntro">যখন প্রতিদ্বন্দ্বী গুটি দুই বর্গ সরে, আপনি এটা নিতে পারবেন যেমন এটা যদি এক বর্গে সরে.</string>
   <string name="blackJustMovedThePawnByTwoSquares">শুধু কালো গুটি দুই বর্গ সরেছে!

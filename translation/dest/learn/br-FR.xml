@@ -6,7 +6,7 @@
   <string name="progressX">Araokadur: %s</string>
   <string name="resetMyProgress">Nullañ ma araokadur</string>
   <string name="youWillLoseAllYourProgress">Kollet e vo hoc\'h araokadur ganeoc\'h!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">c\'hoari!</string>
+  <string name="play">c\'hoari!</string>
   <string name="chessPieces">Pezhioù ar c\'hoari echedoù</string>
   <string name="theRook">An tour</string>
   <string name="itMovesInStraightLines">Fiñval a ra a-blom hag a-blaen</string>
@@ -142,7 +142,6 @@ Ret eo en em zizober diouzh an dagadenn a-raok rokañ!</string>
   <string name="findAWayToCastleKingSide">Kavit un doare da rokañ eus tu ar roue!</string>
   <string name="findAWayToCastleQueenSide">Kavit un doare da rokañ eus tu ar rouanez!</string>
   <string name="castlingComplete">Gourc\'hemennoù! Gwelloc\'h e vefe deoc\'h rokañ e-kerz pep krogad.</string>
-  <string name="enPassant">En ur dremen</string>
   <string name="theSpecialPawnMove">Fiñvadenn ispisial ar pezh gwerin</string>
   <string name="enPassantIntro">Pa vez pezh gwerin hoc\'h enebour o vont war-raok deus div garrezenn e c\'hallit e zebriñ evel pa en dije graet ur fiñvadenn ur garrezenn hepken.</string>
   <string name="blackJustMovedThePawnByTwoSquares">O paouez ober ur fiñvadenn div garrezenn emañ ar re zu!

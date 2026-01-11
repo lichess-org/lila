@@ -6,7 +6,7 @@
   <string name="progressX">Napredek: %s</string>
   <string name="resetMyProgress">Ponastavi moj napredek</string>
   <string name="youWillLoseAllYourProgress">Izgubili boste ves napredek!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">igraj!</string>
+  <string name="play">igraj!</string>
   <string name="chessPieces">Šahovske figure</string>
   <string name="theRook">Trdnjava</string>
   <string name="itMovesInStraightLines">Se premika v ravni črti</string>
@@ -141,7 +141,6 @@ za rokado na kraljevo stran!</string>
   <string name="findAWayToCastleQueenSide">Najdite način
 za rokado na kraljičino stran!</string>
   <string name="castlingComplete">Čestitamo! V skoraj vsaki partiji je dobro rokirati.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Posebna poteza s kmetom</string>
   <string name="enPassantIntro">Kadar se nasprotnikov kmet premakne za dve polji, ga lahko pojeste, kot če bi se premaknil za eno polje.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Črni je ravno premaknil kmeta

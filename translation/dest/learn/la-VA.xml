@@ -6,7 +6,7 @@
   <string name="progressX">Progressus: %s</string>
   <string name="resetMyProgress">Progressum repone</string>
   <string name="youWillLoseAllYourProgress">Omnem tuum prōgressum āmittēs!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">lūde!</string>
+  <string name="play">lūde!</string>
   <string name="chessPieces">Scaccī</string>
   <string name="theRook">Turris</string>
   <string name="itMovesInStraightLines">Dirēctē movētur</string>

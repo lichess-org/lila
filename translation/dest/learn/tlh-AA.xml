@@ -3,7 +3,7 @@
   <string name="learnChess">cheS Quj DaghojmeH</string>
   <string name="byPlaying">yIQuj</string>
   <string name="menu">HIDjolev</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">Quj!</string>
+  <string name="play">Quj!</string>
   <string name="chessPieces">cheS QujwI\' lIw</string>
   <string name="theRook">jem\'IH</string>
   <string name="theBishop">maqlegh</string>

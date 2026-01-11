@@ -6,7 +6,7 @@
   <string name="progressX">प्रगति :  %s</string>
   <string name="resetMyProgress">फेरी शुरुबाट थल्नुहोस्</string>
   <string name="youWillLoseAllYourProgress">तपाइको सबै प्रगति हट्ने छ</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">खेल्नुहोस्</string>
+  <string name="play">खेल्नुहोस्</string>
   <string name="chessPieces">बुद्धिचाल को गट्टीहरू</string>
   <string name="theRook">हात्ती</string>
   <string name="itMovesInStraightLines">यो सिधा हिँड्छ ।</string>
@@ -154,7 +154,6 @@
 तरिका पत्ता लगाउनुहोस्!</string>
   <string name="castlingComplete">बधाई छ, तपाइले खेलमा प्राय: सधै क्यासल गर्नु पर्छ । 
 शव्द याद गर्नुहोस् प्राय ।</string>
-  <string name="enPassant">अँ पशं</string>
   <string name="theSpecialPawnMove">पिउसोको विशेष चाल।
 फ्रेन्चमा अँ पशं (en passant) भनेको \"बाटोमा\" हो</string>
   <string name="enPassantIntro">जब विपक्षीको दुइ कोठा अघाडी बढ्छ, तब तपाइले त्यसलाई एक कोठा मात्र चलेको जसरि खान सक्नुहुन्छ|</string>

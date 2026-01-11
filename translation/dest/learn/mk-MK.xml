@@ -6,7 +6,7 @@
   <string name="progressX">Напредок: %s</string>
   <string name="resetMyProgress">Избриши го напредокот</string>
   <string name="youWillLoseAllYourProgress">Ќе го изгубиш целиот напредок!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">играј!</string>
+  <string name="play">играј!</string>
   <string name="chessPieces">Шаховски фигури</string>
   <string name="theRook">Топот</string>
   <string name="itMovesInStraightLines">Се движи по права линија</string>
@@ -149,7 +149,6 @@
   <string name="findAWayToCastleKingSide">Најди начин да направиш мала рокада!</string>
   <string name="findAWayToCastleQueenSide">Најди начин да направиш голема рокада!</string>
   <string name="castlingComplete">Честитки! Добро е да правиш рокада во скоро секоја партија.</string>
-  <string name="enPassant">Ан Пасан</string>
   <string name="theSpecialPawnMove">Посебниот потег на пешакот</string>
   <string name="enPassantIntro">Кога противничкиот пешак се движи две полиња напред,
 можеш да го земеш исто како да се придвижил за едно поле.</string>

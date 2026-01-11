@@ -6,7 +6,7 @@
   <string name="progressX">pali: %s</string>
   <string name="resetMyProgress">o ala e pali mi</string>
   <string name="youWillLoseAllYourProgress">tenpo kama poka la pali sina li kama ala!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">o musi!</string>
+  <string name="play">o musi!</string>
   <string name="chessPieces">ijo musi</string>
   <string name="theRook">tomo utala</string>
   <string name="itMovesInStraightLines">ona li tawa kepeken nasin weka linja</string>
@@ -141,7 +141,6 @@ lon poka mije kepeken tawa seme?</string>
   <string name="findAWayToCastleQueenSide">o lukin e ni: sina ken tawa \"tomo awen\"
 lon poka meli kepeken tawa seme?</string>
   <string name="castlingComplete">pona a! tawa \"tomo awen\" li pona lon kama pi mute suli.</string>
-  <string name="enPassant">tawa la o anpa</string>
   <string name="theSpecialPawnMove">tawa sewi pi jan utala</string>
   <string name="enPassantIntro">jan utala pi jan ante li tawa lon poki pi weka tu la sina ken anpa e ona sama ni: ona li tawa lon poki pi weka wan.</string>
   <string name="blackJustMovedThePawnByTwoSquares">pimeja li tawa e ijo

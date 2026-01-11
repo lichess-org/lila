@@ -6,7 +6,7 @@
   <string name="progressX">پێشکەوتن: %s</string>
   <string name="resetMyProgress">پێشکەوتنەکانم رێکبخەوە</string>
   <string name="youWillLoseAllYourProgress">ھەموو پێشکەوتنەکانت لەدەست دەدەیت!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">یاری بکە!</string>
+  <string name="play">یاری بکە!</string>
   <string name="chessPieces">داشەکانی شەتڕەنج</string>
   <string name="theRook">قەڵا</string>
   <string name="itMovesInStraightLines">لەسەر ھێڵێکی ڕاست دەجووڵێت</string>
@@ -144,7 +144,6 @@
   <string name="findAWayToCastleQueenSide">رێگەیەک بدۆزەوە بۆ
 کاستڵینگ لە لای شاژن!</string>
   <string name="castlingComplete">پیرۆزە، تا ڕاددەیەکی زۆر لە هەموویارییەک پێویستە کاستڵینگ بکەی.</string>
-  <string name="enPassant">ئانپاسانت</string>
   <string name="theSpecialPawnMove">جوڵەیەکی تایبەتی سەرباز</string>
   <string name="enPassantIntro">ئەگەر سەربازی رکابەرەکەت دوو چوارگۆشە جوڵەیکرد و هاتە بەرانبەر سەربازەکەت، سەربازەکەت دەتوانێت بیبات و بچێتە پشت خانەکەی.</string>
   <string name="blackJustMovedThePawnByTwoSquares">رەش دوو خانە هاتە پێش!

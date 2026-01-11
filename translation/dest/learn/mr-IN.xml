@@ -6,7 +6,7 @@
   <string name="progressX">प्रगती:%s</string>
   <string name="resetMyProgress">माझी प्रगती समायोजित करा</string>
   <string name="youWillLoseAllYourProgress">आपण आपली सर्व प्रगती गमावाल!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">खेळा!</string>
+  <string name="play">खेळा!</string>
   <string name="chessPieces">बुद्धिबळातील सोंगट्या</string>
   <string name="theRook">हत्ती</string>
   <string name="itMovesInStraightLines">तो सरळ रेषेत फिरतो</string>
@@ -153,7 +153,6 @@
   <string name="findAWayToCastleKingSide">राजाच्या बाजूला किल्लेकोट!</string>
   <string name="findAWayToCastleQueenSide">वजिराच्या बाजूला किल्लेकोट!</string>
   <string name="castlingComplete">अभिनंदन! आपण खेळामध्ये जवळजवळ नेहमीच किल्लेकोट करायला पाहिजे.</string>
-  <string name="enPassant">एन पसांट</string>
   <string name="theSpecialPawnMove">प्याद्याची विशेष चाल</string>
   <string name="enPassantIntro">जेव्हा विरोधकाचे प्यादे दोन घर पुढे सरकले असेल, तेव्हा तुम्ही ते जणू एकच घर चालले आहे असे मानून मारू शकता.</string>
   <string name="blackJustMovedThePawnByTwoSquares">काळ्याने फक्त 2 घरे प्यादे हलवले आहे!

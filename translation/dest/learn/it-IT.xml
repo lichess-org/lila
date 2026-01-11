@@ -6,7 +6,7 @@
   <string name="progressX">Progresso: %s</string>
   <string name="resetMyProgress">Azzera i progressi</string>
   <string name="youWillLoseAllYourProgress">Perderai tutti i tuoi progressi!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">gioca!</string>
+  <string name="play">gioca!</string>
   <string name="chessPieces">I pezzi degli scacchi</string>
   <string name="theRook">La torre</string>
   <string name="itMovesInStraightLines">Si muove in linea retta</string>
@@ -150,7 +150,6 @@ arroccare sull\'ala di re!</string>
   <string name="findAWayToCastleQueenSide">Trova un modo per
 arroccare sull\'ala di regina!</string>
   <string name="castlingComplete">Congratulazioni! Dovrai arroccare quasi in ogni partita.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">La mossa speciale del pedone</string>
   <string name="enPassantIntro">Quando il pedone avversario si muove di due case, lo puoi catturare come se si fosse mosso di una casa sola.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Il nero ha mosso il pedone
