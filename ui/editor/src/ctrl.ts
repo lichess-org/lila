@@ -38,8 +38,7 @@ export default class EditorCtrl {
   halfmoves: number;
   fullmoves: number;
   guessCastlingToggles: boolean;
-  chess960PositionId: number  | undefined;  
- 
+  chess960PositionId: number | undefined;
 
   constructor(
     readonly cfg: Config,
