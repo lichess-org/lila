@@ -337,6 +337,11 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
   }
   const pos = setupPosition(lichessRules(ceval.opts.variant.key), setup);
 
+  const resetPvIndexAndBoard = () => {
+    ctrl.ceval.setPvBoard(null);
+    pvIndex = null;
+  };
+
   return hl(
     'div.pv_box',
     {
@@ -349,6 +354,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
             if ((e.target as HTMLElement).closest('.pv-wrap-toggle')) return;
             if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
               ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
+              resetPvIndexAndBoard();
               e.preventDefault();
             }
           });
@@ -380,10 +386,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
             }),
           );
           el.addEventListener('mouseout', () => setHovering(ceval, null));
-          el.addEventListener('mouseleave', () => {
-            ctrl.ceval.setPvBoard(null);
-            pvIndex = null;
-          });
+          el.addEventListener('mouseleave', resetPvIndexAndBoard);
           checkHover(el, ceval);
         },
         postpatch: (_, vnode) => !isTouchDevice() && checkHover(vnode.elm as HTMLElement, ceval),
