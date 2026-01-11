@@ -11,6 +11,7 @@ import lila.core.rating.{ RatingProg, Score }
 import lila.core.simul.Simul
 import lila.core.tournament.leaderboard.Ratio
 import lila.rating.PerfType
+import lila.core.i18n.Translate
 
 final class JsonView(
     getTourName: lila.core.tournament.GetTourName,
@@ -88,7 +89,9 @@ final class JsonView(
   import Writers.{ *, given }
 
   private given OWrites[lila.core.study.IdName] = Json.writes
-  def apply(a: ActivityView, user: User)(using Lang): Fu[JsObject] =
+
+  def apply(a: ActivityView, user: User)(using trans: Translate): Fu[JsObject] =
+    given Lang = trans.lang
     fuccess:
       Json
         .obj("interval" -> a.interval)
@@ -103,7 +106,7 @@ final class JsonView(
           a.practice.map(_.toList.sortBy(-_._2).map { (study, nb) =>
             Json.obj(
               "url" -> routeUrl(routes.Practice.show("-", study.slug, study.id)),
-              "name" -> study.name,
+              "name" -> study.name.txt(),
               "nbPositions" -> nb
             )
           })
