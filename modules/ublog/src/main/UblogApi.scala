@@ -143,9 +143,9 @@ final class UblogApi(
         ids.flatMap(results.mapBy(_.id).get) // lila-search order
 
   def recommend(blog: UblogBlog.Id, post: UblogPost)(using ctx: Context): Fu[List[UblogPost.PreviewPost]] =
-    val requirement = ctx.userId match
+    val postFilter = ctx.userId match
       case None => $empty
-      case Some(myId) => $nor(likedFilter(myId), authoredFilter(myId))
+      case Some(myId) => $nor(likedBdoc(myId), authoredBdoc(myId))
     for
       sameAuthor <- colls.post
         .find(
@@ -154,7 +154,7 @@ final class UblogApi(
             "live" -> true,
             "_id".$ne(post.id),
             "automod.evergreen".$ne(false)
-          ) ++ requirement,
+          ) ++ postFilter,
           previewPostProjection.some
         )
         .sort($doc("lived.at" -> -1))
@@ -163,7 +163,7 @@ final class UblogApi(
       similarIds = post.similar.so(_.filterNot(s => s.count < 4 || sameAuthor.exists(_.id == s.id)).map(_.id))
       similar <- colls.post
         .find(
-          $inIds(similarIds) ++ $doc("live" -> true, "automod.evergreen".$ne(false)) ++ requirement,
+          $inIds(similarIds) ++ $doc("live" -> true, "automod.evergreen".$ne(false)) ++ postFilter,
           previewPostProjection.some
         )
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
@@ -214,14 +214,14 @@ final class UblogApi(
   yield ()
 
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
-    colls.post.find(authoredFilter(user.id)).cursor[UblogPost](ReadPref.sec)
+    colls.post.find(authoredBdoc(user.id)).cursor[UblogPost](ReadPref.sec)
 
-  def authoredFilter(userId: UserId): Bdoc = $doc("blog" -> s"user:${userId}")
+  def authoredBdoc(userId: UserId): Bdoc = $doc("blog" -> s"user:${userId}")
 
-  def likedFilter(userId: UserId): Bdoc = $doc("likers" -> userId)
+  def likedBdoc(userId: UserId): Bdoc = $doc("likers" -> userId)
 
   def liked(post: UblogPost)(user: User): Fu[Boolean] =
-    colls.post.exists($id(post.id) ++ likedFilter(user.id))
+    colls.post.exists($id(post.id) ++ likedBdoc(user.id))
 
   def like(postId: UblogPostId, v: Boolean)(using me: Me): Fu[UblogPost.Likes] = for
     res <- colls.post.update.one($id(postId), $addOrPull("likers", me.userId, v))
