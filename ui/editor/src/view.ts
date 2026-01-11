@@ -67,8 +67,6 @@ const allVariants: Array<[Rules | 'chess960', string]> = [
 ];
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
-
-
   const endgamePosition2option = function (pos: EndgamePosition): VNode {
     return h('option', { attrs: { value: pos.epd || pos.fen, 'data-fen': pos.fen } }, pos.name);
   };

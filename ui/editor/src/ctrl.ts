@@ -103,7 +103,7 @@ export default class EditorCtrl {
   onChange(): void {
     this.enabledCastlingToggles = this.computeCastlingToggles();
     if (this.guessCastlingToggles) {
-      this.castlingToggles = this.enabledCastlingToggles
+      this.castlingToggles = this.enabledCastlingToggles;
       this.castlingRights = undefined;
     }
 
