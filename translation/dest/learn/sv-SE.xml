@@ -6,7 +6,7 @@
   <string name="progressX">Framsteg: %s</string>
   <string name="resetMyProgress">Återställ framsteg</string>
   <string name="youWillLoseAllYourProgress">Du kommer att förlora alla dina framsteg!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">spela!</string>
+  <string name="play">spela!</string>
   <string name="chessPieces">Schackpjäser</string>
   <string name="theRook">Tornet</string>
   <string name="itMovesInStraightLines">Det rör sig i raka linjer</string>
@@ -116,7 +116,6 @@ Du behöver bägge!</string>
   <string name="findAWayToCastleKingSide">Hitta ett sätt att rockera kort!</string>
   <string name="findAWayToCastleQueenSide">Hitta ett sätt att rockera långt!</string>
   <string name="castlingComplete">Grattis! Du bör nästan alltid rockera.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Det speciella bondedraget</string>
   <string name="enPassantIntro">Om din motståndare flyttat en bonde två steg, så kan du ta den som om den flyttat bara ett steg.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Svart har flyttat bonden två steg! Ta den en passant (i förbigående).</string>
