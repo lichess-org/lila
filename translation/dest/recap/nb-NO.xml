@@ -32,5 +32,14 @@
 		<item quantity="other">%s kilogram</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">slik startet du %s av partiene dine som hvit</string>
+	<string name="shareableTitle" comment="%s is the current year">Oppsummeringen min for %s</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">brukt på å spille</string>
 	<string name="shareableMostPlayedOpponent">mest spilte motstander</string>
+	<string name="shareableFavouriteVariant">favorittvariant</string>
+	<string name="shareableFavouriteTimeControl">favorittidskontroll</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s sjakknøtt løst</item>
+		<item quantity="other">%s sjakknøtter løst</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Oppsummeringen din for %s er klar!</string>
 </resources>
