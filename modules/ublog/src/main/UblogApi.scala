@@ -150,7 +150,10 @@ final class UblogApi(
       sameAuthor <- colls.post
         .find(
           $doc(
-            "blog" -> blog, "live" -> true, "_id".$ne(post.id), "automod.evergreen".$ne(false)
+            "blog" -> blog,
+            "live" -> true,
+            "_id".$ne(post.id),
+            "automod.evergreen".$ne(false)
           ) ++ requirement,
           previewPostProjection.some
         )
