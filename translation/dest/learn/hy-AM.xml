@@ -6,7 +6,7 @@
   <string name="progressX">Հաղթահարված է` %s</string>
   <string name="resetMyProgress">Զրոյացնել առաջխաղացումս</string>
   <string name="youWillLoseAllYourProgress">Դուք կկորցնեք Ձեր բոլոր միավորները</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">Խաղա՛լ</string>
+  <string name="play">Խաղա՛լ</string>
   <string name="chessPieces">Խաղաքարեր</string>
   <string name="theRook">Նավակ</string>
   <string name="itMovesInStraightLines">Այն տեղաշարժվում է ուղիղ գծերով</string>
@@ -118,7 +118,6 @@
   <string name="findAWayToCastleKingSide">Գտե՛ք կարճ փոխատեղում կատարելու եղանակը։</string>
   <string name="findAWayToCastleQueenSide">Գտե՛ք երկար փոխատեղում կատարելու եղանակը։</string>
   <string name="castlingComplete">Շնորհավորո՜ւմ ենք։ Գրեթե բոլոր պարտիաներում պետք է կատարել փոխատեղում։</string>
-  <string name="enPassant">Կողանցիկ հարված</string>
   <string name="theSpecialPawnMove">Զինվորի յուրահատուկ քայլ</string>
   <string name="enPassantIntro">Երբ մրցակցի զինվորը շարժվում է երկու վանդակ առաջ, Դուք կարող եք այն վերցնել, ասես այն առաջ է եկել մեկ վանդակ։</string>
   <string name="blackJustMovedThePawnByTwoSquares">Սևերի զինվորը հենց նոր երկու դաշտ առաջ եկավ։ Վերցրե՛ք այն կողանցիկ հարվածով։</string>
