@@ -1,10 +1,41 @@
-// id_to_FEN
-
-// FEN_to_id
-
-// computeCastlingSquares(from position id)
+import { FILE_NAMES } from 'chessops';
 
 export function chess960IdToFEN(id: number): string {
+  const rank1 = chess960IdToRank(id);
+  const rank2 = 'PPPPPPPP';
+  const rank7 = 'pppppppp';
+  const rank8 = rank1.toLowerCase();
+
+  const board = `${rank8}/${rank7}/8/8/8/8/${rank2}/${rank1}`;
+
+  return `${board} w KQkq - 0 1`;
+}
+
+export function chess960CastlingSquares(id: number | undefined): {
+  white: { king: string; rookQ: string; rookK: string };
+  black: { king: string; rookQ: string; rookK: string };
+} {
+  const rank1 = chess960IdToRank(id === undefined ? 518 : id); // default to standard chess
+
+  const kingFile = rank1.indexOf('K');
+  const rookKFile = rank1.lastIndexOf('R');
+  const rookQFile = rank1.indexOf('R');
+
+  return {
+    white: {
+      king: FILE_NAMES[kingFile] + '1',
+      rookK: FILE_NAMES[rookKFile] + '1',
+      rookQ: FILE_NAMES[rookQFile] + '1',
+    },
+    black: {
+      king: FILE_NAMES[kingFile] + '8',
+      rookK: FILE_NAMES[rookKFile] + '8',
+      rookQ: FILE_NAMES[rookQFile] + '8',
+    },
+  };
+}
+
+function chess960IdToRank(id: number): string {
   if (id < 0 || id > 959) {
     throw new Error('Chess960 id must be between 0 and 959');
   }
@@ -56,13 +87,5 @@ export function chess960IdToFEN(id: number): string {
     place(KRN[n][i], remaining[i]);
   }
 
-  // Build FEN ranks
-  const rank1 = backRank.join('');
-  const rank2 = 'PPPPPPPP';
-  const rank7 = 'pppppppp';
-  const rank8 = rank1.toLowerCase();
-
-  const board = `${rank8}/${rank7}/8/8/8/8/${rank2}/${rank1}`;
-
-  return `${board} w KQkq - 0 1`;
+  return backRank.join('');
 }

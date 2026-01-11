@@ -20,6 +20,7 @@ import { defined, prop, type Prop } from 'lib';
 import { prompt } from 'lib/view';
 import { opposite } from '@lichess-org/chessground/util';
 import { parseSquare } from 'chessops';
+import { chess960CastlingSquares } from './chess960';
 
 export default class EditorCtrl {
   options: Options;
@@ -99,10 +100,9 @@ export default class EditorCtrl {
   }
 
   onChange(): void {
-    if (this.guessCastlingToggles) {
-      this.castlingToggles = this.computeCastlingToggles();
-      this.castlingRights = undefined;
-    }
+    this.castlingToggles = this.computeCastlingToggles();
+    this.castlingRights = undefined;
+
     const fen = this.fenFixedEp(this.getFen());
     if (!this.cfg.embed) {
       window.history.replaceState(null, '', this.makeEditorUrl(fen, this.bottomColor()));
@@ -120,16 +120,17 @@ export default class EditorCtrl {
   }
 
   private computeCastlingToggles(): CastlingToggles<boolean> {
+    const chess960Castling = chess960CastlingSquares(this.chess960PositionId);
     const board = this.getSetup().board,
-      whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare('e1')),
-      blackKingOnE8 = board.king.intersect(board.black).has(parseSquare('e8')),
+      whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare(chess960Castling.white.king)!),
+      blackKingOnE8 = board.king.intersect(board.black).has(parseSquare(chess960Castling.black.king)!),
       whiteRooks = board.rook.intersect(board.white),
       blackRooks = board.rook.intersect(board.black);
     return {
-      K: whiteKingOnE1 && whiteRooks.has(parseSquare('h1')),
-      Q: whiteKingOnE1 && whiteRooks.has(parseSquare('a1')),
-      k: blackKingOnE8 && blackRooks.has(parseSquare('h8')),
-      q: blackKingOnE8 && blackRooks.has(parseSquare('a8')),
+      K: whiteKingOnE1 && whiteRooks.has(parseSquare(chess960Castling.white.rookK)!),
+      Q: whiteKingOnE1 && whiteRooks.has(parseSquare(chess960Castling.white.rookQ)!),
+      k: blackKingOnE8 && blackRooks.has(parseSquare(chess960Castling.black.rookK)!),
+      q: blackKingOnE8 && blackRooks.has(parseSquare(chess960Castling.black.rookQ)!),
     };
   }
 
