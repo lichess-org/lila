@@ -18,4 +18,6 @@
   <string name="racingKingsTitle">Bringe deinen König auf die andere Seite des Bretts, um zu gewinnen.</string>
   <string name="crazyhouse">Einsetzschach</string>
   <string name="crazyhouseTitle">Geschlagene Figuren können, statt eines regulären Zuges, auf das Brett zurückgebracht werden.</string>
+  <string name="fromPosition">Von Stellung</string>
+  <string name="fromPositionTitle">Standardschach mit einer selbstgewählten Stellung</string>
 </resources>
