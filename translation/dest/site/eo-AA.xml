@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Ludi kontraŭ komputilo</string>
   <string name="gameMode">Tipo de ludo</string>
   <string name="createLobbyGame">Krei ludon en atendejo</string>
-  <string name="youPlayAs">Koloro de viaj pecoj</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por inviti iun al ludo, donu ĉi tiun ligilon</string>
   <string name="gameOver">Ludo finiĝis</string>
   <string name="waitingForOpponent">Atendante kontraŭulon</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Glui la FEN-ĉenon ĉi tie</string>
   <string name="pasteThePgnStringHere">Glui la PGN-ĉenon ĉi tie</string>
   <string name="orUploadPgnFile">Aŭ alŝuti PGN-dosieron</string>
-  <string name="fromPosition">De pozicio</string>
   <string name="continueFromHere">Daŭrigi de ĉi tie</string>
   <string name="toStudy">Studo</string>
   <string name="importGame">Importi ludon</string>
