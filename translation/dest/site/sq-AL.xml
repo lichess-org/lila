@@ -204,6 +204,7 @@
   <string name="minutesPerSide">Minuta për palë</string>
   <string name="variant">Variant</string>
   <string name="variants">Variante</string>
+  <string name="variantsDescription">Më tepër mënyra për luajtje</string>
   <string name="timeControl">Kontroll kohe</string>
   <string name="realTime">Kohë reale</string>
   <string name="correspondence">Korrespondencë</string>
@@ -298,6 +299,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Pozicion vetjak</string>
   <string name="unlimited">E pakufizuar</string>
+  <string name="unlimitedDescription">Mendohuni aq kohë sa ju duhet</string>
   <string name="mode">Lloji</string>
   <string name="casual">Rastësore</string>
   <string name="rated">Me vlerësim</string>
