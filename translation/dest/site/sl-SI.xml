@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Igraj proti računalniku</string>
   <string name="gameMode">Igralni način</string>
   <string name="createLobbyGame">Ustvari igro v preddverju</string>
-  <string name="youPlayAs">Igraš kot</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kopiraj URL in povabi prijatelja k igri</string>
   <string name="gameOver">Konec igre</string>
   <string name="waitingForOpponent">Čakam nasprotnika</string>
@@ -489,7 +488,6 @@
   <string name="pasteTheFenStringHere">Prilepi FEN niz sem</string>
   <string name="pasteThePgnStringHere">Prilepi PGN niz sem</string>
   <string name="orUploadPgnFile">Ali pa naložite datoteko PGN</string>
-  <string name="fromPosition">Nastavljena pozicija</string>
   <string name="continueFromHere">Nadaljuj od tukaj</string>
   <string name="toStudy">Študiraj</string>
   <string name="importGame">Uvozi igro</string>
