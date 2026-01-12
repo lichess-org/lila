@@ -218,7 +218,7 @@ final class RelayTeamLeaderboard(
       cache
         .get(tourId)
         .map: l =>
-          JsonStr(Json.toJson(l).toString())
+          JsonStr(Json.stringify(Json.toJson(l.values.toList)))
 
   private def aggregate(tourId: RelayTourId): Fu[TeamLeaderboard] =
     for
