@@ -141,7 +141,6 @@
   <string name="leaderboard">Clàr nan curaidh</string>
   <string name="pasteTheFenStringHere">Cuir a-steach an t-sreang FEN an-seo</string>
   <string name="pasteThePgnStringHere">Cuir a-steach an t-sreang PGN an-seo</string>
-  <string name="fromPosition">On t-suidheachadh</string>
   <string name="continueFromHere">Lean air adhart on a sheo</string>
   <string name="importGame">Ion-phortaich geama</string>
   <string name="thisIsAChessCaptcha">Seo CAPTCHA tàileisg.</string>
