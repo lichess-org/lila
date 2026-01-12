@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">Pfeil für besten Zug</string>
   <string name="showVariationArrows">Varianten-Pfeile anzeigen</string>
   <string name="evaluationGauge">Bewertungsanzeige</string>
+  <string name="visualMotifs">Visuelle Motive</string>
+  <string name="undefendedPieces">Nicht verteidigte Figuren</string>
+  <string name="pinnedPieces">Gefesselte Figuren</string>
+  <string name="checkableKing">König, dem Schach geboten werden kann</string>
   <string name="multipleLines">Mehrere Varianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Arbeitsspeicher</string>
