@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">Seta de melhor movimento</string>
   <string name="showVariationArrows">Mostrar setas das variantes</string>
   <string name="evaluationGauge">Escala de avaliação</string>
+  <string name="visualMotifs">Temas visuais</string>
+  <string name="undefendedPieces">Peças indefesas</string>
+  <string name="pinnedPieces">Peças cravadas</string>
+  <string name="checkableKing">Rei possível de xeque</string>
   <string name="multipleLines">Linhas de análise</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memória</string>
@@ -299,7 +303,7 @@
   <string name="standard">Padrão</string>
   <string name="customPosition">Posição personalizada</string>
   <string name="unlimited">Ilimitado</string>
-  <string name="unlimitedDescription" comment="Description for the 'Unlimited' time control.">Leve o tempo que precisar</string>
+  <string name="unlimitedDescription">Leve o tempo que precisar</string>
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
   <string name="rated">Ranqueada</string>
