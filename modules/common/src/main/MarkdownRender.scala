@@ -268,7 +268,7 @@ object MarkdownRender:
       html.tag("/a")
 
     private def addProtocolIfNecessary(url: String): String =
-      if url.matches("(?i)^https?://.*") then url
+      if url.startsWith("/") || url.matches("(?i)^https?://.*") then url
       else s"https://$url"
 
     private def renderLpvEmbed(
