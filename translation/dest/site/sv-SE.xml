@@ -419,7 +419,6 @@
   <string name="pasteTheFenStringHere">Klistra in FEN-koden här</string>
   <string name="pasteThePgnStringHere">Klistra in PGN-koden här</string>
   <string name="orUploadPgnFile">Eller ladda upp en PGN-fil</string>
-  <string name="fromPosition">Från position</string>
   <string name="continueFromHere">Fortsätt härifrån</string>
   <string name="toStudy">Studera</string>
   <string name="importGame">Importera parti</string>
