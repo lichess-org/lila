@@ -3211,6 +3211,8 @@ interface I18n {
     cheat: string;
     /** Cheat Detected */
     cheatDetected: string;
+    /** Checkable king */
+    checkableKing: string;
     /** Check all junk, spam, and other folders */
     checkAllEmailFolders: string;
     /** Checkmate */
@@ -4027,6 +4029,8 @@ interface I18n {
     perfRatingX: I18nFormat;
     /** Piece set */
     pieceSet: string;
+    /** Pinned pieces */
+    pinnedPieces: string;
     /** Play */
     play: string;
     /** Play against computer */
@@ -4245,18 +4249,12 @@ interface I18n {
     setTheBoard: string;
     /** Share your chess insights data */
     shareYourInsightsData: string;
-    /** Show checkable king */
-    showCheckableKing: string;
     /** Show this help dialog */
     showHelpDialog: string;
     /** Show me everything */
     showMeEverything: string;
-    /** Show pinned pieces */
-    showPinnedPieces: string;
     /** Show threat */
     showThreat: string;
-    /** Show undefended pieces */
-    showUndefendedPieces: string;
     /** You have received a private message from Lichess. */
     showUnreadLichessMessage: string;
     /** Show variation arrows */
@@ -4495,6 +4493,8 @@ interface I18n {
     ultraBulletDesc: string;
     /** Unblock */
     unblock: string;
+    /** Undefended pieces */
+    undefendedPieces: string;
     /** Unfollow */
     unfollow: string;
     /** Unfollow %s */
@@ -4565,8 +4565,8 @@ interface I18n {
     viewTheSolution: string;
     /** View tournament */
     viewTournament: string;
-    /** Visual aids */
-    visualAids: string;
+    /** Visual motifs */
+    visualMotifs: string;
     /** We will come back to you shortly to help you complete your signup. */
     waitForSignupHelp: string;
     /** Waiting */

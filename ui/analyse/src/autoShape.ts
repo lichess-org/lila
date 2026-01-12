@@ -6,7 +6,6 @@ import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
 import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
 import type AnalyseCtrl from './ctrl';
 import { isUci } from 'lib/game/chess';
-import { detectPins, detectUndefended, detectCheckable, boardAnalysisVariants } from './boardAnalysis';
 import { parseFen } from 'chessops/fen';
 
 const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
@@ -135,14 +134,12 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       });
     };
 
-    if (boardAnalysisVariants.includes(ctrl.data.game.variant.key)) {
-      if (ctrl.showPin()) detectPins(board).forEach(p => addAnalysis(makeSquare(p.pinned) as Key, 'pin'));
-      if (ctrl.showUndefended())
-        detectUndefended(board).forEach(u => addAnalysis(makeSquare(u.square) as Key, 'undefended'));
-      if (ctrl.showCheckable())
-        detectCheckable(board, epSquare, castlingRights).forEach(s =>
-          addAnalysis(makeSquare(s.king) as Key, 'checkable'),
-        );
+    if (ctrl.motifEnabled()) {
+      ctrl.motif.detectPins(board).forEach(p => addAnalysis(makeSquare(p.pinned) as Key, 'pin'));
+      ctrl.motif.detectUndefended(board).forEach(u => addAnalysis(makeSquare(u.square) as Key, 'undefended'));
+      ctrl.motif
+        .detectCheckable(board, epSquare, castlingRights)
+        .forEach(s => addAnalysis(makeSquare(s.king) as Key, 'checkable'));
     }
   }
 

@@ -8,6 +8,7 @@ import type AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'lib/game/router';
 import * as pgnExport from '../pgnExport';
 import { clamp } from 'lib/algo';
+import { config as motifConfig } from '../motif/motifView';
 
 interface AutoplaySpeed {
   name: keyof I18n['site'];
@@ -195,37 +196,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ),
   ];
 
-  const visualAidConfig: LooseVNodes = ctrl.study?.isCevalAllowed() !== false && [
-    displayColumns() > 1 && hl('h2', i18n.site.visualAids),
-    ctrlToggle(
-      {
-        name: i18n.site.showUndefendedPieces,
-        id: 'show-undefended',
-        checked: ctrl.showUndefended(),
-        change: ctrl.showUndefended,
-      },
-      ctrl,
-    ),
-    ctrlToggle(
-      {
-        name: i18n.site.showPinnedPieces,
-        id: 'show-pin',
-        checked: ctrl.showPin(),
-        change: ctrl.showPin,
-      },
-      ctrl,
-    ),
-    ctrlToggle(
-      {
-        name: i18n.site.showCheckableKing,
-        id: 'show-checkable',
-        checked: ctrl.showCheckable(),
-        change: ctrl.showCheckable,
-      },
-      ctrl,
-    ),
-  ];
-
   const displayConfig = [
     displayColumns() > 1 && hl('h2', 'Display'),
     ctrlToggle(
@@ -269,7 +239,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     displayConfig,
     displayColumns() > 1 && renderVariationOpacitySlider(ctrl),
     cevalConfig,
-    visualAidConfig,
+    ctrl.motifAllowed() ? motifConfig(ctrl) : [],
     displayColumns() === 1 && renderVariationOpacitySlider(ctrl),
     ctrl.mainline.length > 4 && [hl('h2', i18n.site.replayMode), autoplayButtons(ctrl)],
     canContinue &&

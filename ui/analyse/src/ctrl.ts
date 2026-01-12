@@ -47,6 +47,7 @@ import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view';
 import api from './api';
 import { displayColumns } from 'lib/device';
+import MotifCtrl from './motif/motifCtrl';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;
@@ -77,6 +78,7 @@ export default class AnalyseCtrl implements CevalHandler {
   promotion: PromotionCtrl;
   chatCtrl?: ChatCtrl;
   wiki?: WikiTheory;
+  motif: MotifCtrl;
 
   // state flags
   justPlayed?: string; // pos
@@ -97,9 +99,6 @@ export default class AnalyseCtrl implements CevalHandler {
   private showCevalProp: Prop<boolean> = storedBooleanProp('analyse.show-engine', !!this.cevalEnabledProp());
   showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
   possiblyShowMoveAnnotationsOnBoard = storedBooleanProp('analyse.show-move-annotation', true);
-  showPin: Prop<boolean>;
-  showCheckable: Prop<boolean>;
-  showUndefended: Prop<boolean>;
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   disclosureMode = storedBooleanProp('analyse.disclosure.enabled', false);
@@ -143,6 +142,7 @@ export default class AnalyseCtrl implements CevalHandler {
       () => this.withCg(g => g.set(this.cgConfig)),
       this.redraw,
     );
+    this.motif = new MotifCtrl(this.setAutoShapes);
 
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
@@ -171,9 +171,6 @@ export default class AnalyseCtrl implements CevalHandler {
       true,
       this.setAutoShapes,
     );
-    this.showPin = storedBooleanPropWithEffect('analyse.show-pin', true, this.setAutoShapes);
-    this.showCheckable = storedBooleanPropWithEffect('analyse.show-checkable', false, this.setAutoShapes);
-    this.showUndefended = storedBooleanPropWithEffect('analyse.show-undefended', true, this.setAutoShapes);
     this.resetAutoShapes();
     this.explorer.setNode();
     this.study =
@@ -657,6 +654,9 @@ export default class AnalyseCtrl implements CevalHandler {
     return (this.cevalEnabled() && node.ceval) || (this.showFishnetAnalysis() && node.eval);
   }
 
+  motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false;
+  motifEnabled = (): boolean => this.motifAllowed() && this.motif.supports(this.data.game.variant.key);
+
   outcome(node?: Tree.Node): Outcome | undefined {
     return this.position(node || this.node).unwrap(
       pos => pos.outcome(),
@@ -1085,9 +1085,7 @@ export default class AnalyseCtrl implements CevalHandler {
       this.showBestMoveArrows() ||
       this.possiblyShowMoveAnnotationsOnBoard() ||
       this.variationArrowOpacity() ||
-      this.showPin() ||
-      this.showCheckable() ||
-      this.showUndefended()
+      (this.motifEnabled() && this.motif.any())
     )
       this.setAutoShapes();
     else this.chessground?.setAutoShapes([]);

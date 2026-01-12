@@ -12,7 +12,6 @@ import type { Coords, MoveEvent } from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
 
 import type * as studyDeps from './study/studyDeps';
-import type { NormalMove } from 'chessops/types';
 
 export interface NvuiPlugin {
   render(deps?: typeof studyDeps): VNode;
@@ -182,20 +181,3 @@ export interface EvalPutData extends Tree.ServerEval {
 
 export type Conceal = false | 'conceal' | 'hide' | null;
 export type ConcealOf = (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
-
-export interface Pin {
-  pinned: number;
-  pinner: number;
-  target: number;
-}
-
-export interface Undefended {
-  square: number;
-  materialLoss: number;
-  principalAttacker: number;
-}
-
-export interface Checkable {
-  king: number;
-  check: NormalMove;
-}
