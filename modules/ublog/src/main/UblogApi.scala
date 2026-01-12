@@ -13,7 +13,7 @@ import lila.memo.CacheApi.buildAsyncTimeout
 import lila.core.ublog.{ BlogsBy, Quality }
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.common.LilaFuture.delay
-import lila.ui.Context
+import lila.core.user.KidMode
 
 final class UblogApi(
     colls: UblogColls,
@@ -40,9 +40,9 @@ final class UblogApi(
     _.refreshAfterWrite(10.seconds).buildAsyncTimeout(): _ =>
       fetchCarouselFromDb().map(_.shuffled)
 
-  def myCarousel(using ctx: Context) =
+  def myCarousel(using kid: KidMode) =
     for posts <- carouselCache.get({})
-    yield posts.filter(_.isLichess || ctx.kid.no).take(carouselSizeSetting.get())
+    yield posts.filter(_.isLichess || kid.no).take(carouselSizeSetting.get())
 
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
@@ -142,10 +142,12 @@ final class UblogApi(
       .map: results =>
         ids.flatMap(results.mapBy(_.id).get) // lila-search order
 
-  def recommend(blog: UblogBlog.Id, post: UblogPost)(using ctx: Context): Fu[List[UblogPost.PreviewPost]] =
-    val postFilter = ctx.userId match
-      case None => $empty
-      case Some(myId) => $nor(likedBdoc(myId), authoredBdoc(myId))
+  def recommend(blog: UblogBlog.Id, post: UblogPost)(using
+      kid: KidMode,
+      me: Option[MyId]
+  ): Fu[List[UblogPost.PreviewPost]] =
+    val postFilter = me.so: myId =>
+      $nor(likedBdoc(myId), authoredBdoc(myId))
     for
       sameAuthor <- colls.post
         .find(
@@ -168,7 +170,7 @@ final class UblogApi(
         )
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
         .list(9)
-      mix = (similar ++ sameAuthor).filter(_.isLichess || ctx.kid.no)
+      mix = (similar ++ sameAuthor).filter(_.isLichess || kid.no)
     yield scala.util.Random.shuffle(mix).take(6)
 
   def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
