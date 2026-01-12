@@ -422,7 +422,6 @@
   <string name="pasteTheFenStringHere">FEN వచనాన్ని ఇక్కడ అతికించండి</string>
   <string name="pasteThePgnStringHere">PGN వచనాన్ని ఇక్కడ అతికించండి</string>
   <string name="orUploadPgnFile">లేదా పిజిఎన్ ఫైలును అప్ లోడ్ చేయండి</string>
-  <string name="fromPosition">స్థానం నుండి</string>
   <string name="continueFromHere">ఇక్కడ నుండి కొనసాగండి</string>
   <string name="toStudy">చదువు</string>
   <string name="importGame">దిగుమతి ఆట</string>
