@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Zagraj z komputerem</string>
   <string name="gameMode">Tryby gry</string>
   <string name="createLobbyGame">Utwórz grę w poczekalni</string>
-  <string name="youPlayAs">Grasz</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na ruch przeciwnika</string>
@@ -489,7 +488,6 @@
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
   <string name="pasteThePgnStringHere">Wklej poniżej przebieg partii w formacie PGN</string>
   <string name="orUploadPgnFile">lub wgraj plik PGN</string>
-  <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="toStudy">Opracowanie</string>
   <string name="importGame">Importuj partię</string>
