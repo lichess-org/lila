@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">Jokaldi onenaren gezia</string>
   <string name="showVariationArrows">Erakutsi aldaeren geziak</string>
   <string name="evaluationGauge">Ebaluazio langa</string>
+  <string name="visualMotifs">Ikurrak</string>
+  <string name="undefendedPieces">Defentsarik ez duten piezak</string>
+  <string name="pinnedPieces">Iltzatutako piezak</string>
+  <string name="checkableKing">Xake egin dakiokeen erregea</string>
   <string name="multipleLines">Linea anitz</string>
   <string name="cpus">CPU</string>
   <string name="memory">Memoria</string>
