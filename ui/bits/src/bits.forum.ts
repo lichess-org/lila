@@ -204,6 +204,7 @@ site.load.then(() => {
   });
 
   $('form.reply').on('submit', () => {
+    if (submittingReply) return false;
     replyStorage.remove();
     submittingReply = true;
   });
