@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">Estándar</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Reglas de ajedrez estándar (FIDE)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Ajedrez 960</string>
-  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">La posición inicial de las piezas es aleatoria.</string>
-  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Rey de la colina</string>
-  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Lleva a tu rey al centro para ganar la partida.</string>
-  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">Tres jaques</string>
-  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">Poner en jaque a tu oponente 3 veces para ganar la partida.</string>
-  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Antiajedrez</string>
-  <string name="antichessTitle" comment="Description for the Antichess variant">Pierde todas tus piezas (o una posición de ahogado) para ganar la partida.</string>
-  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">Atómico</string>
-  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Haz explotar al rey de tu oponente para ganar.</string>
-  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Horda</string>
-  <string name="hordeTitle" comment="Description for the Horde chess variant">Un jugador tiene un gran número de peones, el otro posee un ejército normal.</string>
-  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Reyes en carrera</string>
-  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Lleva a tu rey al otro lado del tablero para ganar.</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Revuelta</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Las piezas capturadas pueden volver a colocarse en el tablero en lugar de hacer un movimiento.</string>
+  <string name="standard">Estándar</string>
+  <string name="standardTitle">Reglas de ajedrez estándar (FIDE)</string>
+  <string name="chess960">Ajedrez 960</string>
+  <string name="chess960Title">La posición inicial de las piezas es aleatoria.</string>
+  <string name="kingOfTheHill">Rey de la colina</string>
+  <string name="kingOfTheHillTitle">Lleva a tu rey al centro para ganar la partida.</string>
+  <string name="threeCheck">Tres jaques</string>
+  <string name="threeCheckTitle">Poner en jaque a tu oponente 3 veces para ganar la partida.</string>
+  <string name="antichess">Antiajedrez</string>
+  <string name="antichessTitle">Pierde todas tus piezas (o una posición de ahogado) para ganar la partida.</string>
+  <string name="atomic">Atómico</string>
+  <string name="atomicTitle">Haz explotar al rey de tu oponente para ganar.</string>
+  <string name="horde">Horda</string>
+  <string name="hordeTitle">Un jugador tiene un gran número de peones, el otro posee un ejército normal.</string>
+  <string name="racingKings">Reyes en carrera</string>
+  <string name="racingKingsTitle">Lleva a tu rey al otro lado del tablero para ganar.</string>
+  <string name="crazyhouse">Revuelta</string>
+  <string name="crazyhouseTitle">Las piezas capturadas pueden volver a colocarse en el tablero en lugar de hacer un movimiento.</string>
 </resources>
