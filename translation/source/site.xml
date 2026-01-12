@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">Best move arrow</string>
   <string name="showVariationArrows">Show variation arrows</string>
   <string name="evaluationGauge">Evaluation gauge</string>
+  <string name="visualMotifs">Visual motifs</string>
+  <string name="undefendedPieces">Undefended pieces</string>
+  <string name="pinnedPieces">Pinned pieces</string>
+  <string name="checkableKing">Checkable king</string>
   <string name="multipleLines">Multiple lines</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memory</string>
