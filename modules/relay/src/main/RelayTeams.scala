@@ -104,6 +104,8 @@ object RelayTeam:
         if teams.a.name == teamName then Some(o.a)
         else if teams.b.name == teamName then Some(o.b)
         else None
+    def isFinished: Boolean =
+      teams.forall(_.games.forall(_.points.isDefined))
 
 final class RelayTeamTable(
     roundRepo: RelayRoundRepo,
@@ -192,10 +194,16 @@ final class RelayTeamLeaderboard(
       matches: List[RelayTeam.TeamMatch]
   ):
     def matchPoints: Float =
-      matches.flatMap(_.pointsFor(name).map(_.value)).sum
+      matches
+        .flatMap: m =>
+          m.isFinished.so:
+            m.pointsFor(name).map(_.value)
+        .sum
     def boardPoints: Float =
       matches
-        .flatMap(_.teams.find(_.name == name).flatMap(_.points))
+        .flatMap: m =>
+          m.isFinished.so:
+            m.teams.find(_.name == name).flatMap(_.points)
         .sum
 
   given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.boardPoints, t.name))
