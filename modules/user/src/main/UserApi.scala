@@ -237,7 +237,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     userRepo.coll
       .aggregateList(onlineBotVisible.value, _.sec): framework =>
         import framework.*
-        Match($inIds(ids) ++ userRepo.botWithBioSelect ++ userRepo.enabledSelect ++ userRepo.notLame) -> List(
+        val inIds = ids.nonEmpty.so($inIds(ids))
+        Match(inIds ++ userRepo.botWithBioSelect ++ userRepo.enabledSelect ++ userRepo.notLame) -> List(
           Sort(Descending(BSONFields.roles), Descending("time.human")),
           Limit(onlineBotVisible.value),
           PipelineOperator(perfsRepo.aggregate.lookup)
