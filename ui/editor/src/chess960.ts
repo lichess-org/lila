@@ -1,4 +1,23 @@
+// Best description is found at https://fr.wikipedia.org/wiki/%C3%89checs_al%C3%A9atoires_Fischer#Identification_des_positions_initiales
+
 import { FILE_NAMES } from 'chessops';
+
+// Square on rank 1
+const darkSquares = [0, 2, 4, 6];
+const lightSquares = [1, 3, 5, 7];
+// King, rooks and knights
+const KRN = [
+  ['N', 'N', 'R', 'K', 'R'],
+  ['N', 'R', 'N', 'K', 'R'],
+  ['N', 'R', 'K', 'N', 'R'],
+  ['N', 'R', 'K', 'R', 'N'],
+  ['R', 'N', 'N', 'K', 'R'],
+  ['R', 'N', 'K', 'N', 'R'],
+  ['R', 'N', 'K', 'R', 'N'],
+  ['R', 'K', 'N', 'N', 'R'],
+  ['R', 'K', 'N', 'R', 'N'],
+  ['R', 'K', 'R', 'N', 'N'],
+];
 
 export function chess960IdToFEN(id: number): string {
   const rank1 = chess960IdToRank(id);
@@ -35,6 +54,58 @@ export function chess960CastlingSquares(id: number | undefined): {
   };
 }
 
+export function fenToChess960Id(fen: string): number | undefined {
+  const parts = fen.split(' ');
+  if (parts.length < 1) return undefined;
+  const ranks = parts[0].split('/');
+  if (ranks.length !== 8) return undefined;
+  const rank1 = ranks[7];
+  const rank8 = ranks[0];
+  if (rank1.toLowerCase() !== rank8 || rank1.length !== 8 || rank1 !== rank1.toUpperCase()) return undefined;
+
+  const king = rank1.indexOf('K');
+  const queen = rank1.indexOf('Q');
+  const rook1 = rank1.indexOf('R');
+  const rook2 = rank1.lastIndexOf('R');
+  const bishop1 = rank1.indexOf('B');
+  const bishop2 = rank1.lastIndexOf('B');
+  const knight1 = rank1.indexOf('N');
+  const knight2 = rank1.lastIndexOf('N');
+  if ([king, queen, rook1, rook2, bishop1, bishop2, knight1, knight2].includes(-1)) {
+    return undefined;
+  }
+  // Bishops
+  const lightBishopFile = bishop1 % 2 === 1 ? bishop1 : bishop2;
+  const darkBishopFile = bishop1 % 2 === 0 ? bishop1 : bishop2;
+  const lightBishopIndex = lightSquares.indexOf(lightBishopFile);
+  const darkBishopIndex = darkSquares.indexOf(darkBishopFile);
+  if (lightBishopIndex === -1 || darkBishopIndex === -1) return undefined;
+
+  // Queen
+  const occupiedAfterBishops = [lightBishopFile, darkBishopFile];
+  const freeSquaresAfterBishops = [...Array(8).keys()].filter(i => !occupiedAfterBishops.includes(i));
+  const queenFile = queen;
+  const queenIndex = freeSquaresAfterBishops.indexOf(queenFile);
+  if (queenIndex === -1 || queenIndex >= 6) return undefined;
+
+  // Remaining pieces: K, R, R, N, N
+  const occupiedAfterQueenBishops = [lightBishopFile, darkBishopFile, queenFile];
+  const freeSquaresAfterQueenBishops = [...Array(8).keys()].filter(
+    i => !occupiedAfterQueenBishops.includes(i),
+  );
+  const remainingPieces = freeSquaresAfterQueenBishops.map(file => rank1[file]);
+
+  const krnIndex = KRN.findIndex(arr => {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] !== remainingPieces[i]) return false;
+    }
+    return true;
+  });
+  if (krnIndex === -1) return undefined;
+
+  return lightBishopIndex + 4 * darkBishopIndex + 16 * queenIndex + 96 * krnIndex;
+}
+
 function chess960IdToRank(id: number): string {
   if (id < 0 || id > 959) {
     throw new Error('Chess960 id must be between 0 and 959');
@@ -46,9 +117,6 @@ function chess960IdToRank(id: number): string {
   const place = (piece: string, file: number) => {
     backRank[file] = piece;
   };
-
-  const darkSquares = [0, 2, 4, 6];
-  const lightSquares = [1, 3, 5, 7];
 
   let n = id;
 
@@ -67,20 +135,6 @@ function chess960IdToRank(id: number): string {
   const q = freeSquares()[n % 6];
   n = Math.floor(n / 6);
   place('Q', q);
-
-  // King, rooks and knights
-  const KRN = [
-    ['N', 'N', 'R', 'K', 'R'],
-    ['N', 'R', 'N', 'K', 'R'],
-    ['N', 'R', 'K', 'N', 'R'],
-    ['N', 'R', 'K', 'R', 'N'],
-    ['R', 'N', 'N', 'K', 'R'],
-    ['R', 'N', 'K', 'N', 'R'],
-    ['R', 'N', 'K', 'R', 'N'],
-    ['R', 'K', 'N', 'N', 'R'],
-    ['R', 'K', 'N', 'R', 'N'],
-    ['R', 'K', 'R', 'N', 'N'],
-  ];
 
   const remaining = freeSquares();
   for (let i = 0; i < 5; i++) {

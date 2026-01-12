@@ -11,7 +11,7 @@ import type EditorCtrl from './ctrl';
 import chessground from './chessground';
 import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
 import { fenToEpd } from 'lib/game/chess';
-import { chess960IdToFEN } from './chess960';
+import { chess960IdToFEN, fenToChess960Id } from './chess960';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
@@ -331,6 +331,10 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
           keypress(e) {
             const el = e.target as HTMLInputElement;
             if (e.key === 'Enter') {
+              const candidateChess960Id = fenToChess960Id(el.value.trim());
+              if (candidateChess960Id !== undefined) {
+                ctrl.chess960PositionId = candidateChess960Id;
+              }
               el.blur();
             }
           },
