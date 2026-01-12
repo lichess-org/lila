@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">人机对弈</string>
   <string name="gameMode">对局模式</string>
   <string name="createLobbyGame">创建对局</string>
-  <string name="youPlayAs">执棋</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">请分享此链接以邀请好友对弈：</string>
   <string name="gameOver">对局结束</string>
   <string name="waitingForOpponent">正在等待对手</string>
@@ -396,7 +395,6 @@
   <string name="pasteTheFenStringHere">在此处粘贴 FEN 文本</string>
   <string name="pasteThePgnStringHere">在此处粘贴 PGN 文本</string>
   <string name="orUploadPgnFile">或上传 PGN 文件</string>
-  <string name="fromPosition">自定义局面</string>
   <string name="continueFromHere">从此处继续</string>
   <string name="toStudy">研习</string>
   <string name="importGame">导入对局</string>
