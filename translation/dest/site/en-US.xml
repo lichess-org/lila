@@ -204,6 +204,7 @@
   <string name="minutesPerSide">Minutes per side</string>
   <string name="variant">Variant</string>
   <string name="variants">Variants</string>
+  <string name="variantsDescription">More ways to play</string>
   <string name="timeControl">Time control</string>
   <string name="realTime">Real time</string>
   <string name="correspondence">Correspondence</string>
@@ -298,6 +299,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Custom position</string>
   <string name="unlimited">Unlimited</string>
+  <string name="unlimitedDescription">Take all the time you need</string>
   <string name="mode">Mode</string>
   <string name="casual">Casual</string>
   <string name="rated">Rated</string>
