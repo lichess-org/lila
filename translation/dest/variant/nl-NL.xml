@@ -18,4 +18,5 @@
   <string name="racingKingsTitle">Breng je koning naar de andere kant van het bord om te winnen.</string>
   <string name="crazyhouse">Gekkenhuisschaak</string>
   <string name="crazyhouseTitle">Geslagen stukken kunnen terug op het bord worden geplaatst in plaats van dat ze verzet worden.</string>
+  <string name="fromPosition" comment="An option that lets you create a standard chess game from a custom position.">Vanaf een stelling</string>
 </resources>
