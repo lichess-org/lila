@@ -124,13 +124,13 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def enabledWithPerf[U: UserIdOf](id: U, perfType: PerfType): Fu[Option[WithPerf]] =
     byIdWithPerf(id, perfType).dmap(_.filter(_.user.enabled.yes))
 
-  def listWithPerfs[U: UserIdOf](us: List[U]): Fu[List[UserWithPerfs]] =
+  def listWithPerfs[U: UserIdOf](us: List[U], includeClosed: Boolean): Fu[List[UserWithPerfs]] =
     us.nonEmpty.so:
       val ids = us.map(_.id)
       userRepo.coll
         .aggregateList(Int.MaxValue): framework =>
           import framework.*
-          Match($inIds(ids) ++ userRepo.enabledSelect) -> List(
+          Match($inIds(ids) ++ includeClosed.not.so(userRepo.enabledSelect)) -> List(
             PipelineOperator(perfsRepo.aggregate.lookup),
             AddFields($sort.orderField(ids)),
             Sort(Ascending("_order"))
@@ -146,7 +146,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pk).dmap(some))
 
   def pairWithPerfs(userIds: ByColor[Option[UserId]]): Fu[ByColor[Option[UserWithPerfs]]] =
-    listWithPerfs(userIds.flatten).map: users =>
+    listWithPerfs(userIds.flatten, includeClosed = true).map: users =>
       userIds.map(_.flatMap(id => users.find(_.id == id)))
 
   def listWithPerf[U: UserIdOf](

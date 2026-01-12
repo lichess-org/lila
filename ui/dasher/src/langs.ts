@@ -2,6 +2,7 @@ import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { header } from './util';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
+import { onInsert } from 'lib/view';
 
 type Code = string;
 type Name = string;
@@ -30,7 +31,10 @@ export class LangsCtrl extends PaneCtrl {
             'button' +
               (this.data.current === code ? '.current' : '') +
               (this.data.accepted.includes(code) ? '.accepted' : ''),
-            { attrs: { type: 'submit', name: 'lang', value: code, title: code } },
+            {
+              attrs: { type: 'submit', name: 'lang', value: code, title: code },
+              hook: this.data.current === code ? onInsert(el => el.scrollIntoView({ block: 'center' })) : {},
+            },
             name,
           ),
         ),

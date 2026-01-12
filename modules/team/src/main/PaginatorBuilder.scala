@@ -116,5 +116,5 @@ final private[team] class PaginatorBuilder(
           .skip(offset)
           .cursor[TeamRequest]()
           .list(length)
-        users <- userApi.listWithPerfs(requests.map(_.user))
+        users <- userApi.listWithPerfs(requests.map(_.user), includeClosed = false)
       yield RequestWithUser.combine(requests, users)

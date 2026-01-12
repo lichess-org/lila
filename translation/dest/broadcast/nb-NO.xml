@@ -47,6 +47,7 @@
   <string name="fidePlayerNotFound">Fant ikke FIDE-spiller</string>
   <string name="fideProfile">FIDE-profil</string>
   <string name="federation">Forbund</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Alder</string>
   <string name="unrated">Uratet</string>
   <string name="recentTournaments">Nylige turneringer</string>
   <string name="openLichess">Åpne i Lichess</string>

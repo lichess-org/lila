@@ -6,7 +6,7 @@
   <string name="progressX">პროგრესი %s</string>
   <string name="resetMyProgress">განაახლე ჩემი პროგრესი</string>
   <string name="youWillLoseAllYourProgress">დაკარგავთ თქვენს პროგრესს!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ითამაშე!</string>
+  <string name="play">ითამაშე!</string>
   <string name="chessPieces">ჭადრაკის ფიგურები</string>
   <string name="theRook">ეტლი</string>
   <string name="itMovesInStraightLines">ის მოძრაობს სწორ ხაზებზე</string>
@@ -143,7 +143,6 @@
   <string name="findAWayToCastleKingSide">ცადე გააკეთო მოკლე როქი!</string>
   <string name="findAWayToCastleQueenSide">ცადე გააკეთო გრძელი როქი!</string>
   <string name="castlingComplete">გილოცავ! როქი თითქმის ყოველთვის საჭიროა.</string>
-  <string name="enPassant">გავლით აყვანა</string>
   <string name="theSpecialPawnMove">სპეციალური პაიკის სვლა</string>
   <string name="enPassantIntro">როცა მოწინააღდეგის პაიკი ორი უჯრით წამოვა, შეგიძლია აიყვანო გეგონება ერთი უჯრით წამოვიდა.</string>
   <string name="blackJustMovedThePawnByTwoSquares">შავმა ორი სვლით წამოწია პაიკი!
