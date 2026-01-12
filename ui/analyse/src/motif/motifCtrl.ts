@@ -11,9 +11,9 @@ export default class MotifCtrl {
   undefended: Prop<boolean>;
 
   constructor(setAutoShapes: () => void) {
-    this.pin = storedBooleanPropWithEffect('analyse.motif.pin', true, setAutoShapes);
-    this.checkable = storedBooleanPropWithEffect('analyse.motif.checkable', true, setAutoShapes);
-    this.undefended = storedBooleanPropWithEffect('analyse.motif.undefended', true, setAutoShapes);
+    this.pin = storedBooleanPropWithEffect('analyse.motif.pin', false, setAutoShapes);
+    this.checkable = storedBooleanPropWithEffect('analyse.motif.checkable', false, setAutoShapes);
+    this.undefended = storedBooleanPropWithEffect('analyse.motif.undefended', false, setAutoShapes);
   }
 
   supports = (variant: VariantKey): boolean => boardAnalysisVariants.includes(variant);
