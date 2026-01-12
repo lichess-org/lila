@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { parseFen } from 'chessops/fen';
 import { makeSquare } from 'chessops/util';
-import { detectPins, detectUndefended, detectCheckable } from '../src/boardAnalysis';
+import { detectPins, detectUndefended, detectCheckable } from '../src/motif/boardAnalysis';
 
 function runAnalysis(fen: string): string[] {
   const parsed = parseFen(fen);
