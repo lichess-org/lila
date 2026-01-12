@@ -42,4 +42,7 @@
 	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Du løyste %s av dei på første forsøk!</string>
 	<string name="sourcesTitle">Kvar fann du parti?</string>
 	<string name="perfsTitle">Kva tidskontrollar og variantar spelte du?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s annonsar og \"trackers\" er lasta opp</string>
+	<string name="malwareNoSell">Vi har ikkje selt personopplysningane dine</string>
+	<string name="malwareNoAbuse">Vi har ikkje brukt eininga di mot deg</string>
 </resources>
