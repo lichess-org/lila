@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">Звычайныя шахматы</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Стандартныя правілы шахмат (ФІДЭ)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Шахматы Фішара</string>
-  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">Стартавая пазіцыя фігур выпадковая.</string>
-  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Цар гары</string>
-  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Для перамогі трэба прывесці караля ў цэнтр.</string>
-  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">Шахматы да трох шахаў</string>
-  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">Для перамогі трэба даць шах тройчы.</string>
-  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Паддаўкі</string>
-  <string name="antichessTitle" comment="Description for the Antichess variant">Для перамогі трэба прайграць усе фігуры ці атрымаць пат.</string>
-  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">Атамныя шахматы</string>
-  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Для перамогі трэба ўзарваць караля суперніка.</string>
-  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Арда</string>
-  <string name="hordeTitle" comment="Description for the Horde chess variant">Адзін бок мае шмат пешак, у іншага звычайны набор фігур.</string>
-  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Гонка каралёў</string>
-  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Для перамогі трэба давесці свайго караля да канца дошкі першым</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Шведкі на дваіх</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Збітыя фігуры можна вярнуць на дошку замест хода.</string>
+  <string name="standard">Звычайныя шахматы</string>
+  <string name="standardTitle">Стандартныя правілы шахмат (ФІДЭ)</string>
+  <string name="chess960">Шахматы Фішара</string>
+  <string name="chess960Title">Стартавая пазіцыя фігур выпадковая.</string>
+  <string name="kingOfTheHill">Цар гары</string>
+  <string name="kingOfTheHillTitle">Для перамогі трэба прывесці караля ў цэнтр.</string>
+  <string name="threeCheck">Шахматы да трох шахаў</string>
+  <string name="threeCheckTitle">Для перамогі трэба даць шах тройчы.</string>
+  <string name="antichess">Паддаўкі</string>
+  <string name="antichessTitle">Для перамогі трэба прайграць усе фігуры ці атрымаць пат.</string>
+  <string name="atomic">Атамныя шахматы</string>
+  <string name="atomicTitle">Для перамогі трэба ўзарваць караля суперніка.</string>
+  <string name="horde">Арда</string>
+  <string name="hordeTitle">Адзін бок мае шмат пешак, у іншага звычайны набор фігур.</string>
+  <string name="racingKings">Гонка каралёў</string>
+  <string name="racingKingsTitle">Для перамогі трэба давесці свайго караля да канца дошкі першым</string>
+  <string name="crazyhouse">Шведкі на дваіх</string>
+  <string name="crazyhouseTitle">Збітыя фігуры можна вярнуць на дошку замест хода.</string>
 </resources>
