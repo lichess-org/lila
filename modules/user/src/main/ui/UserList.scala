@@ -144,9 +144,8 @@ final class UserList(helpers: Helpers, bits: UserBits):
           users.partition(_.isVerified) match
             case (featured, all) =>
               div(cls := "bots page-menu__content")(
-                div(cls := "box bots__featured")(
-                  h1(cls := "box__top")("Featured bots"),
-                  botTable(featured, bestPerfs)
+                div(cls := "bots__featured")(
+                  botGrid(featured, bestPerfs)
                 ),
                 div(cls := "box")(
                   boxTop(
@@ -156,31 +155,30 @@ final class UserList(helpers: Helpers, bits: UserBits):
                       href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"
                     )("About Lichess Bots")
                   ),
-                  botTable(all, bestPerfs)
+                  botGrid(all, bestPerfs)
                 )
               )
         )
 
-  private def botTable(users: List[UserWithPerfs], bestPerfs: UserPerfs => List[PerfKey])(using
+  private def botGrid(users: List[UserWithPerfs], bestPerfs: UserPerfs => List[PerfKey])(using
       ctx: Context
   ) = div(cls := "bots__list")(
     users.map: u =>
       div(cls := "bots__list__entry")(
-        div(cls := "bots__list__entry__desc")(
-          div(cls := "bots__list__entry__head")(
-            userLink(u),
-            ctx.pref.showRatings.option(div(cls := "bots__list__entry__rating"):
-              bestPerfs(u.perfs).map { showPerfRating(u.perfs, _) })
-          ),
-          u.profile
-            .ifTrue(ctx.kid.no)
-            .ifTrue(!u.marks.troll || ctx.is(u))
-            .flatMap(_.nonEmptyBio)
-            .map { bio => td(shorten(bio, 400)) }
+        div(cls := "bots__list__entry__head")(
+          userLink(u, withTitle = false, withOnline = u.isPatron),
+          ctx.pref.showRatings.option:
+            div(cls := "bots__list__entry__rating"):
+              bestPerfs(u.perfs).map(u.perfs.keyed).filter(_._2.provisional.no).map(showPerfRating)
         ),
+        u.profile
+          .ifTrue(ctx.kid.no)
+          .ifTrue(!u.marks.troll || ctx.is(u))
+          .flatMap(_.nonEmptyBio)
+          .map { bio => div(cls := "bots__list__entry__bio")(shorten(bio, 400)) },
         a(
           dataIcon := Icon.Swords,
-          cls := List("bots__list__entry__play button button-empty text" -> true),
+          cls := List("bots__list__entry__play text" -> true),
           st.title := trans.challenge.challengeToPlay.txt(),
           href := s"${routes.Lobby.home}?user=${u.username}#friend"
         )(trans.site.play())
