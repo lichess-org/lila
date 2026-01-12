@@ -198,15 +198,7 @@ final class RelayTeamLeaderboard(
         .flatMap(_.teams.find(_.name == name).flatMap(_.points))
         .sum
 
-  given Ordering[TeamLeaderboardEntry] = new:
-    def compare(a: TeamLeaderboardEntry, b: TeamLeaderboardEntry): Int =
-      lazy val mpA = a.matchPoints
-      lazy val mpB = b.matchPoints
-      lazy val bpA = a.boardPoints
-      lazy val bpB = b.boardPoints
-      if mpA != mpB then mpB.compare(mpA)
-      else if bpA != bpB then bpB.compare(bpA)
-      else a.name.compare(b.name)
+  given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.boardPoints, t.name))
 
   object json:
     given Writes[TeamLeaderboardEntry] = t =>
