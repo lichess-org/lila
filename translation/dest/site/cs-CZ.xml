@@ -4,7 +4,6 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Vyzvi přítele</string>
   <string name="playAgainstComputer">Hrát proti počítači</string>
   <string name="gameMode">Herní mód</string>
-  <string name="youPlayAs">Hrajete jako</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pro pozvání někoho ke hře využijte tento odkaz</string>
   <string name="gameOver">Konec hry</string>
   <string name="waitingForOpponent">Čekání na soupeře</string>
@@ -485,7 +484,6 @@
   <string name="pasteTheFenStringHere">Zde vložte FEN řetězec</string>
   <string name="pasteThePgnStringHere">Zde vložte PGN řetězec</string>
   <string name="orUploadPgnFile">Nebo nahrajte soubor PGN</string>
-  <string name="fromPosition">Z pozice</string>
   <string name="continueFromHere">Pokračovat zde</string>
   <string name="toStudy">Do studie</string>
   <string name="importGame">Importuj hru</string>
