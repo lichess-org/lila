@@ -49,6 +49,7 @@
   }
   &__follow {
     @extend %flex-center-nowrap, %box-radius;
+    display: inline-block;
     gap: 1ch;
     cursor: pointer;
     border: $border;
