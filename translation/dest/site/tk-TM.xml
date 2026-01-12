@@ -300,7 +300,6 @@
   <string name="leaderboard">Liderlik sanawy</string>
   <string name="pasteTheFenStringHere">FEN tekstini şu taýa ýelmäň</string>
   <string name="pasteThePgnStringHere">PGN tekstini şu taýa ýelmäň</string>
-  <string name="fromPosition">Aýratyn pozisiýadan</string>
   <string name="continueFromHere">Şu ýerden dowam et</string>
   <string name="importGame">Oýun import et</string>
   <string name="importGameExplanation">Oýun PGN-si ýükläniňizde göz aýlap boljak replay,
