@@ -90,6 +90,8 @@ final class Env(
 
   lazy val teamTable = wire[RelayTeamTable]
 
+  lazy val teamLeaderboard = wire[RelayTeamLeaderboard]
+
   lazy val playerTour = wire[RelayPlayerTour]
 
   lazy val playerApi = wire[RelayPlayerApi]

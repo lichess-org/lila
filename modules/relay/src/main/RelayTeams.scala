@@ -176,7 +176,7 @@ final class RelayTeamTable(
           )
           .add("points" -> t.points)
 
-final class TeamLeaderboard(
+final class RelayTeamLeaderboard(
     tourRepo: RelayTourRepo,
     relayGroupApi: RelayGroupApi,
     roundRepo: RelayRoundRepo,
@@ -198,14 +198,35 @@ final class TeamLeaderboard(
         .flatMap(_.teams.find(_.name == name).flatMap(_.points))
         .sum
 
+  given Ordering[TeamLeaderboardEntry] = new:
+    def compare(a: TeamLeaderboardEntry, b: TeamLeaderboardEntry): Int =
+      lazy val mpA = a.matchPoints
+      lazy val mpB = b.matchPoints
+      lazy val bpA = a.boardPoints
+      lazy val bpB = b.boardPoints
+      if mpA != mpB then mpB.compare(mpA)
+      else if bpA != bpB then bpB.compare(bpA)
+      else a.name.compare(b.name)
+
   object json:
     given Writes[TeamLeaderboardEntry] = t =>
       Json.obj("name" -> t.name, "mp" -> t.matchPoints, "bp" -> t.boardPoints)
 
-  def leaderboardJson(tour: RelayTourId): Fu[TeamLeaderboard] = cache.get(tour)
+  def leaderboardJson(tour: RelayTourId): Fu[JsonStr] =
+    jsonCache.get(tour)
+
+  def leaderboard(tour: RelayTourId): Fu[TeamLeaderboard] = cache.get(tour)
 
   private val cache = cacheApi[RelayTourId, TeamLeaderboard](12, "relay.teamLeaderboard"):
     _.expireAfterWrite(1.minute).buildAsyncFuture(aggregate)
+
+  private val jsonCache = cacheApi[RelayTourId, JsonStr](8, "relay.teamLeaderboard.json"):
+    _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
+      import json.given
+      cache
+        .get(tourId)
+        .map: l =>
+          JsonStr(Json.toJson(l).toString())
 
   private def aggregate(tourId: RelayTourId): Fu[TeamLeaderboard] =
     for
@@ -214,12 +235,16 @@ final class TeamLeaderboard(
       rounds <- tours.toList.flatTraverse(t => roundRepo.idsByTourOrdered(t.id))
       matches <- rounds.flatTraverse(teamTable.table)
     yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
-      matchup.teams.foldLeft(acc):
-        case (acc, team) =>
-          acc.updated(
-            team.name,
-            acc
-              .get(team.name)
-              .fold(TeamLeaderboardEntry(team.name, List(matchup))): team =>
-                team.copy(matches = team.matches :+ matchup)
-          )
+      matchup.teams
+        .foldLeft(acc):
+          case (acc, team) =>
+            acc.updated(
+              team.name,
+              acc
+                .get(team.name)
+                .fold(TeamLeaderboardEntry(team.name, List(matchup))): team =>
+                  team.copy(matches = team.matches :+ matchup)
+            )
+        .toList
+        .sortBy(_._2)
+        .to(SeqMap)
