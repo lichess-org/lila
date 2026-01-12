@@ -204,6 +204,7 @@
   <string name="minutesPerSide">Minuts per jugador</string>
   <string name="variant">Variant</string>
   <string name="variants">Variants</string>
+  <string name="variantsDescription">Més formes de jugar</string>
   <string name="timeControl">Control de temps</string>
   <string name="realTime">En temps real</string>
   <string name="correspondence">Correspondència</string>
@@ -298,6 +299,7 @@
   <string name="standard">Estàndard</string>
   <string name="customPosition">Posició personalitzada</string>
   <string name="unlimited">Il·limitat</string>
+  <string name="unlimitedDescription">Preneu-se tot el temps que necessiteu</string>
   <string name="mode">Mode</string>
   <string name="casual">Amistosa</string>
   <string name="rated">Puntuat</string>
