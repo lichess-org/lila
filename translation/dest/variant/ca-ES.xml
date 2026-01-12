@@ -17,4 +17,6 @@
   <string name="racingKingsTitle">Fes arribar el teu rei a l\'altre costat del tauler per guanyar.</string>
   <string name="crazyhouse">Passa peces</string>
   <string name="crazyhouseTitle">Les peces capturades es poden tornar a ficar al tauler en comptes de moure una peça.</string>
+  <string name="fromPosition">Des de la posició</string>
+  <string name="fromPositionTitle">Escacs estàndard des d\'una posició personalitzada</string>
 </resources>
