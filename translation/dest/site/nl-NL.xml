@@ -204,6 +204,7 @@
   <string name="minutesPerSide">Minuten per speler</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianten</string>
+  <string name="variantsDescription">Meer manieren om te spelen</string>
   <string name="timeControl">Speeltempo</string>
   <string name="realTime">Live</string>
   <string name="correspondence">Correspondentie</string>
@@ -298,6 +299,7 @@
   <string name="standard">Standaard</string>
   <string name="customPosition">Aangepaste positie</string>
   <string name="unlimited">Onbeperkt</string>
+  <string name="unlimitedDescription">Neem alle tijd die je nodig hebt</string>
   <string name="mode">Instelling</string>
   <string name="casual">Vrijblijvend</string>
   <string name="rated">Met rating</string>
