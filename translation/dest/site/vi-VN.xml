@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Chơi với máy</string>
   <string name="gameMode">Chế độ chơi</string>
   <string name="createLobbyGame">Tạo ván đấu tại sảnh</string>
-  <string name="youPlayAs">Bạn cầm quân</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi đường dẫn này</string>
   <string name="gameOver">Ván cờ kết thúc</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
@@ -396,7 +395,6 @@
   <string name="pasteTheFenStringHere">Dán chuỗi FEN vào đây</string>
   <string name="pasteThePgnStringHere">Dán chuỗi PGN vào đây</string>
   <string name="orUploadPgnFile">Hoặc tải lên tệp PGN</string>
-  <string name="fromPosition">Từ thế cờ</string>
   <string name="continueFromHere">Tiếp tục từ đây</string>
   <string name="toStudy">Nghiên cứu</string>
   <string name="importGame">Nhập ván cờ</string>
