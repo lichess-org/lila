@@ -18,4 +18,6 @@
   <string name="racingKingsTitle">Få din konge til den anden side af brættet for at vinde.</string>
   <string name="crazyhouse">Galehus</string>
   <string name="crazyhouseTitle">Erobrede brikker kan genindsættes på brættet i stedet for at foretage et træk.</string>
+  <string name="fromPosition">Fra stilling</string>
+  <string name="fromPositionTitle">Standard skak fra en brugerdefineret position</string>
 </resources>
