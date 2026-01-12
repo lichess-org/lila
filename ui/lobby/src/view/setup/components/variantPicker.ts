@@ -36,7 +36,7 @@ export const variantPicker = (ctrl: LobbyController) => {
   return h('div.variant-picker-split', [
     h('group.radio', [
       h('div', [
-        h('input#variant_std', {
+        h('input#setup-variant-std', {
           attrs: {
             type: 'radio',
             name: 'variant',
@@ -57,13 +57,13 @@ export const variantPicker = (ctrl: LobbyController) => {
           },
           on: { change: () => setupCtrl.variant('standard') },
         }),
-        h('label', { attrs: { for: 'variant_std' } }, [
+        h('label', { attrs: { for: 'setup-variant-std' } }, [
           h('span.icon', { attrs: { 'data-icon': stdVariant.icon } }),
           h('div.text', [h('span.name', i18n.site.standard), h('span.desc', stdVariant.description)]),
         ]),
       ]),
       h('div', [
-        h('input#variant_other', {
+        h('input#setup-variant-other', {
           attrs: {
             type: 'radio',
             name: 'variant',
@@ -85,7 +85,7 @@ export const variantPicker = (ctrl: LobbyController) => {
         h(
           'label',
           {
-            attrs: { for: 'variant_other' },
+            attrs: { for: 'setup-variant-other' },
             on: {
               click: (e: Event) => {
                 e.preventDefault();
