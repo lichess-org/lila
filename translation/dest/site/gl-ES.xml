@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">Frecha coa mellor xogada</string>
   <string name="showVariationArrows">Amosar as frechas das variantes</string>
   <string name="evaluationGauge">Indicador de avaliación</string>
+  <string name="visualMotifs">Motivos visuais</string>
+  <string name="undefendedPieces">Pezas non defendidas</string>
+  <string name="pinnedPieces">Pezas cravadas</string>
+  <string name="checkableKing">Rei exposto a xaque</string>
   <string name="multipleLines">Liñas múltiples</string>
   <string name="cpus">Procesadores</string>
   <string name="memory">Memoria</string>
@@ -204,6 +208,7 @@
   <string name="minutesPerSide">Minutos por bando</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
+  <string name="variantsDescription">Máis formas de xogar</string>
   <string name="timeControl">Control de tempo</string>
   <string name="realTime">Cronometrado</string>
   <string name="correspondence">Postal</string>
@@ -298,6 +303,7 @@
   <string name="standard">Estándar</string>
   <string name="customPosition">Posición á medida</string>
   <string name="unlimited">Ilimitado</string>
+  <string name="unlimitedDescription">Emprega todo o tempo que precises</string>
   <string name="mode">Modo</string>
   <string name="casual">Amigable</string>
   <string name="rated">Puntuada</string>
