@@ -1,4 +1,4 @@
-import { type Prop, propWithEffect } from 'lib';
+import { type Prop, propWithEffect, toggle } from 'lib';
 import { debounce } from 'lib/async';
 import * as xhr from 'lib/xhr';
 import { storedJsonProp } from 'lib/storage';
@@ -36,7 +36,7 @@ export default class SetupController {
   ratingMax: Prop<number>;
   aiLevel: Prop<number>;
 
-  variantMenuOpen = false;
+  variantMenuOpen = toggle(false);
 
   timeControl: TimeControl;
 
@@ -176,14 +176,14 @@ export default class SetupController {
     this.fenError = false;
     this.lastValidFen = '';
     this.friendUser = friendUser || '';
-    this.variantMenuOpen = false;
+    this.variantMenuOpen(false);
     this.loadPropsFromStore(forceOptions);
   };
 
   closeModal?: () => void; // managed by view/setup/modal.ts
 
   toggleVariantMenu = () => {
-    this.variantMenuOpen = !this.variantMenuOpen;
+    this.variantMenuOpen.toggle();
     this.root.redraw();
   };
 

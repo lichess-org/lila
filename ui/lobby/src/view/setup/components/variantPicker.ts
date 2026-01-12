@@ -106,7 +106,7 @@ export const variantPicker = (ctrl: LobbyController) => {
 export const variantModal = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;
 
-  if (!setupCtrl.variantMenuOpen) return null;
+  if (!setupCtrl.variantMenuOpen()) return null;
 
   const currentVariant = setupCtrl.variant();
   const availableVariants = variantsForGameType(variants, setupCtrl.gameType!).filter(
@@ -114,7 +114,7 @@ export const variantModal = (ctrl: LobbyController) => {
   );
 
   const onClose = () => {
-    setupCtrl.variantMenuOpen = false;
+    setupCtrl.variantMenuOpen(false);
     setupCtrl.root.redraw();
   };
 
