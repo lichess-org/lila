@@ -99,7 +99,8 @@ final class MarkdownRender(
       .sync:
         try
           val saferText = MarkdownRender.preventStackOverflow(text)
-          renderer.render(parser.parse((if sourceMap then saferText else mentionsToLinks(saferText)).value))
+          val withMentions = if sourceMap then saferText else mentionsToLinks(saferText)
+          renderer.render(parser.parse(withMentions.value)).pp(withMentions)
         catch
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
