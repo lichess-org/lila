@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">スタンダード</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">チェスの標準ルール (FIDE)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">チェス960</string>
-  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">1 段目の駒の配置がランダムになります。</string>
-  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">キング・オブ・ザ・ヒル</string>
-  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">キングを中央のマスに進めると勝ち。</string>
-  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">スリ―チェック</string>
-  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">先に 3 回チェックした方が勝ち。</string>
-  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">アンチチェス</string>
-  <string name="antichessTitle" comment="Description for the Antichess variant">すべての駒を取られる（またはステイルメイトされる）と勝ち。</string>
-  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">アトミック</string>
-  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">相手のキングを「吹き飛ばす」と勝ち。</string>
-  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">ホード</string>
-  <string name="hordeTitle" comment="Description for the Horde chess variant">一方はポーンだけ、他方はふつうの駒で戦う。</string>
-  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">キング・レース</string>
-  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">キングをボードの向こうの端まで進めると勝ち。</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">クレージーハウス</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">取った駒を自分の手番に盤上に打つことができる。</string>
+  <string name="standard">スタンダード</string>
+  <string name="standardTitle">チェスの標準ルール (FIDE)</string>
+  <string name="chess960">チェス960</string>
+  <string name="chess960Title">1 段目の駒の配置がランダムになります。</string>
+  <string name="kingOfTheHill">キング・オブ・ザ・ヒル</string>
+  <string name="kingOfTheHillTitle">キングを中央のマスに進めると勝ち。</string>
+  <string name="threeCheck">スリ―チェック</string>
+  <string name="threeCheckTitle">先に 3 回チェックした方が勝ち。</string>
+  <string name="antichess">アンチチェス</string>
+  <string name="antichessTitle">すべての駒を取られる（またはステイルメイトされる）と勝ち。</string>
+  <string name="atomic">アトミック</string>
+  <string name="atomicTitle">相手のキングを「吹き飛ばす」と勝ち。</string>
+  <string name="horde">ホード</string>
+  <string name="hordeTitle">一方はポーンだけ、他方はふつうの駒で戦う。</string>
+  <string name="racingKings">キング・レース</string>
+  <string name="racingKingsTitle">キングをボードの向こうの端まで進めると勝ち。</string>
+  <string name="crazyhouse">クレージーハウス</string>
+  <string name="crazyhouseTitle">取った駒を自分の手番に盤上に打つことができる。</string>
 </resources>
