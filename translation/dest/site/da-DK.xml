@@ -204,6 +204,7 @@
   <string name="minutesPerSide">Minutter per spiller</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianter</string>
+  <string name="variantsDescription">Flere måder at spille på</string>
   <string name="timeControl">Tidskontrol</string>
   <string name="realTime">Realtid</string>
   <string name="correspondence">Korrespondance</string>
@@ -298,6 +299,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Brugerdefineret stilling</string>
   <string name="unlimited">Ubegrænset</string>
+  <string name="unlimitedDescription">Tag al den tid, du har brug for</string>
   <string name="mode">Variant</string>
   <string name="casual">Uformelt</string>
   <string name="rated">Ratet</string>
