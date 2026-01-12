@@ -126,6 +126,9 @@
   <string name="showVariationArrows">Vis variantpiler</string>
   <string name="evaluationGauge">Syn evaluering</string>
   <string name="visualMotifs">Visuelt motiv</string>
+  <string name="undefendedPieces">Hengande konge</string>
+  <string name="pinnedPieces">Spidda brikker</string>
+  <string name="checkableKing">Konge som kan setjas i sjakk</string>
   <string name="multipleLines">Fleire variantar</string>
   <string name="cpus">Prosessorar</string>
   <string name="memory">Minne</string>
