@@ -18,4 +18,6 @@
   <string name="racingKingsTitle">Lleva a tu rey al otro lado del tablero para ganar.</string>
   <string name="crazyhouse">Revuelta</string>
   <string name="crazyhouseTitle">Las piezas capturadas pueden volver a colocarse en el tablero en lugar de hacer un movimiento.</string>
+  <string name="fromPosition">De la posición</string>
+  <string name="fromPositionTitle">Ajedrez estándar desde una posición personalizada</string>
 </resources>
