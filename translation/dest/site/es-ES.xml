@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Jugar contra el ordenador</string>
   <string name="gameMode">Tipo de partida</string>
   <string name="createLobbyGame">Crear partida en la sala de espera</string>
-  <string name="youPlayAs">Juegas con</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguien a jugar, comparte este enlace</string>
   <string name="gameOver">Fin de la partida</string>
   <string name="waitingForOpponent">Esperando al oponente</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
   <string name="orUploadPgnFile">o sube un archivo PGN</string>
-  <string name="fromPosition">Desde posición</string>
   <string name="continueFromHere">Continuar desde aquí</string>
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>
@@ -1019,5 +1017,5 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar búsqueda</string>
   <string name="tags">Etiquetas</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">Al paso</string>
+  <string name="enPassant">Al paso</string>
 </resources>
