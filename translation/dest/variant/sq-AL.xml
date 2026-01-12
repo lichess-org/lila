@@ -4,4 +4,6 @@
   <string name="standardTitle">Rregulla standarde shahu (FIDE)</string>
   <string name="chess960">Chess960</string>
   <string name="antichess">Antishah</string>
+  <string name="fromPosition">Nga Pozicion</string>
+  <string name="fromPositionTitle">Shah standard nga një pozicion vetjak</string>
 </resources>
