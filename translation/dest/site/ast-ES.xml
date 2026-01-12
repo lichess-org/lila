@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Xugar contra l\'ordenador</string>
   <string name="gameMode">Tipu de partida</string>
   <string name="createLobbyGame">Crear partida na sala d\'espera</string>
-  <string name="youPlayAs">Xuegues con</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar a daquién a xugar, da-y esti enllaz</string>
   <string name="gameOver">Xuegu termináu</string>
   <string name="waitingForOpponent">Esperando al oponente</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Pega\'l testu FEN equí</string>
   <string name="pasteThePgnStringHere">Pega\'l testu PGN equí</string>
   <string name="orUploadPgnFile">O xube un archivu PGN</string>
-  <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Siguir dende equí</string>
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>
@@ -1020,5 +1018,5 @@ Tolos gastos de funcionamientu, desenvolvimientu y conteníos finánciense puram
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar busca</string>
   <string name="tags">Etiquetes</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">Garrar al pasu</string>
+  <string name="enPassant">Garrar al pasu</string>
 </resources>
