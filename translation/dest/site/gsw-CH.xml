@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Schpill gäge de Computer</string>
   <string name="gameMode">Schpielart</string>
   <string name="createLobbyGame">Es Schpiel erschtelle</string>
-  <string name="youPlayAs">Du schpillsch mit</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille ilade - schick die URL</string>
   <string name="gameOver">Schpiel verbi</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
@@ -428,7 +427,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="pasteTheFenStringHere">Füeg de FEN-Tegscht da i</string>
   <string name="pasteThePgnStringHere">Füeg de PGN-Tegscht da i</string>
   <string name="orUploadPgnFile">Oder lad e PGN-Datei ufe</string>
-  <string name="fromPosition">Ab Schtellig</string>
   <string name="continueFromHere">Vu da us witer schpille</string>
   <string name="toStudy">Schtudie</string>
   <string name="importGame">Schpiel importiere</string>
@@ -1029,5 +1027,5 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="search">Suechi</string>
   <string name="clearSearch">Suechi lösche</string>
   <string name="tags">Tags</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">En passant</string>
+  <string name="enPassant">En passant</string>
 </resources>
