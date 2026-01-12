@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Joacă împotriva calculatorului</string>
   <string name="gameMode">Mod joc</string>
   <string name="createLobbyGame">Creează un joc nou</string>
-  <string name="youPlayAs">Tu joci ca</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
@@ -458,7 +457,6 @@
   <string name="pasteTheFenStringHere">Lipește textul FEN aici</string>
   <string name="pasteThePgnStringHere">Lipește textul PGN aici</string>
   <string name="orUploadPgnFile">Sau încarcă un fișier PGN</string>
-  <string name="fromPosition">De la poziția</string>
   <string name="continueFromHere">Continuați de aici</string>
   <string name="toStudy">Studiază</string>
   <string name="importGame">Importați partida</string>
