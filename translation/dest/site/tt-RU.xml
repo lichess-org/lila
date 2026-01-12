@@ -349,7 +349,6 @@
   <string name="gameAsGIF">GIF итеп саклау</string>
   <string name="pasteTheFenStringHere">FEN текстын монда кертегез</string>
   <string name="pasteThePgnStringHere">PGN текстын монда кертегез</string>
-  <string name="fromPosition">Позициядән</string>
   <string name="continueFromHere">Бу җирдән дәвам итү</string>
   <string name="toStudy">Өйрәнү</string>
   <string name="importGame">Уенны импортлау</string>
