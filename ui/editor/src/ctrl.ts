@@ -20,7 +20,7 @@ import { defined, prop, type Prop } from 'lib';
 import { prompt } from 'lib/view';
 import { opposite } from '@lichess-org/chessground/util';
 import { parseSquare } from 'chessops';
-import { chess960CastlingSquares } from './chess960';
+import { chess960CastlingSquares, chess960IdToFEN } from './chess960';
 
 export default class EditorCtrl {
   options: Options;
@@ -249,7 +249,12 @@ export default class EditorCtrl {
     this.onChange();
   }
 
-  startPosition = (): boolean => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
+  startPosition = (): boolean =>
+    this.setFen(
+      this.rules === 'chess' && this.chess960PositionId !== undefined
+        ? chess960IdToFEN(this.chess960PositionId)
+        : makeFen(defaultPosition(this.rules).toSetup()),
+    );
 
   clearBoard = (): boolean => {
     this.guessCastlingToggles = this.rules !== 'antichess';
