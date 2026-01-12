@@ -129,6 +129,7 @@
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
   <string name="showVariationArrows">Pokaż strzałki wariantów</string>
   <string name="evaluationGauge">Wskaźnik oceny pozycji</string>
+  <string name="visualMotifs">Motywy taktyczne</string>
   <string name="undefendedPieces">Wiszące bierki</string>
   <string name="pinnedPieces">Związane bierki</string>
   <string name="checkableKing">Groźba szacha</string>
