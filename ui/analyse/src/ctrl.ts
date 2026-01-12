@@ -816,6 +816,7 @@ export default class AnalyseCtrl implements CevalHandler {
       displayColumns() > 1 &&
       this.showAnalysis() &&
       this.isCevalAllowed() &&
+      (this.cevalEnabled() || !!this.node.eval || !!this.node.ceval) &&
       !this.outcome()
     );
   }
