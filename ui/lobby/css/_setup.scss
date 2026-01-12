@@ -119,7 +119,6 @@ $c-slider: $c-setup;
   .rating-range {
     @extend %flex-center-nowrap;
     justify-content: center;
-    font-size: 1.25rem;
 
     .rating-min,
     .rating-max {
