@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Speel tegen de computer</string>
   <string name="gameMode">Spelmodus</string>
   <string name="createLobbyGame">Maak een lobby spel aan</string>
-  <string name="youPlayAs">Je speelt als</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Deel deze link als u iemand wil uitnodigen om met u te spelen</string>
   <string name="gameOver">Partij afgelopen</string>
   <string name="waitingForOpponent">Wachten op een tegenstander</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Plak de FEN-code hier</string>
   <string name="pasteThePgnStringHere">Plak de PGN-code hier</string>
   <string name="orUploadPgnFile">Of upload een PGN-bestand</string>
-  <string name="fromPosition">Vanuit een stelling</string>
   <string name="continueFromHere">Ga vanaf hier verder</string>
   <string name="toStudy">Studie</string>
   <string name="importGame">Importeer partij</string>
