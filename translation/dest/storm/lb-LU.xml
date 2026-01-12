@@ -5,9 +5,9 @@
   <string name="youPlayTheBlackPiecesInAllPuzzles">Du spills an allen Aufgaben mat de schwaarze Figuren</string>
   <string name="puzzlesSolved">Aufgabe geléist</string>
   <string name="newDailyHighscore">Neien Dagesrekord!</string>
-  <string name="newWeeklyHighscore">Néie Wocherekord!</string>
-  <string name="newMonthlyHighscore">Néie Rekord vum Mount!</string>
-  <string name="newAllTimeHighscore">Néien Allzäitrekord!</string>
+  <string name="newWeeklyHighscore">Neie Wocherekord!</string>
+  <string name="newMonthlyHighscore">Neie Rekord vum Mount!</string>
+  <string name="newAllTimeHighscore">Neien Allzäitrekord!</string>
   <string name="previousHighscoreWasX">De virege Rekord war %s</string>
   <string name="playAgain">Nach eng Kéier spillen</string>
   <plurals name="xRuns">
@@ -25,7 +25,7 @@
   <string name="combo">Kombo</string>
   <string name="time">Zäit</string>
   <string name="timePerMove">Zäit pro Zuch</string>
-  <string name="highestSolved">Héchsten geléist Aufgab</string>
+  <string name="highestSolved">Héchste geléist Aufgab</string>
   <string name="puzzlesPlayed">Aufgaben gespillt</string>
   <string name="newRun">Neien Duerchlaf (hotkey: Leertaste)</string>
   <string name="endRun">Duerchlaf ofbriechen (hotkey: Enter)</string>

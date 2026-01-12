@@ -6,7 +6,7 @@
   <string name="progressX">മുന്നേറ്റം: %s</string>
   <string name="resetMyProgress">എന്റെ മുന്നേറ്റങ്ങളെ പുനഃക്രമീകരിക്കുക</string>
   <string name="youWillLoseAllYourProgress">ഇത് ചെയ്താൽ നിങ്ങളുടെ എല്ലാ പുരോഗതിയും നഷ്ടമാകും!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">തുടങ്ങാം!</string>
+  <string name="play">തുടങ്ങാം!</string>
   <string name="chessPieces">ചതുരംഗം കരുക്കൾ</string>
   <string name="theRook">തേര്</string>
   <string name="itMovesInStraightLines">അത് നേർരേഖകളിലൂടെ മാത്രം നീങ്ങുന്നു</string>
@@ -146,7 +146,6 @@
   <string name="findAWayToCastleKingSide">രാജാവിന്റെ വശത്തേക്ക് കാസ്റ്റലിങ് നടത്താൻ വഴി കണ്ടെത്തൂ!</string>
   <string name="findAWayToCastleQueenSide">രാജ്ഞിയുടെ വശത്തേക്ക് കാസ്റ്റലിങ് നടത്താൻ വഴി കണ്ടെത്തൂ!</string>
   <string name="castlingComplete">അഭിനന്ദനങൾ! നിങ്ങൾ ഏകദേശം എല്ലാ തവണയും കാസ്റ്റലിങ് നടത്താൻ ശ്രമിക്കണം.</string>
-  <string name="enPassant">എൻ പാസ്സൻറ്</string>
   <string name="theSpecialPawnMove">പ്രത്യേക കാലാൾ നീക്കം</string>
   <string name="enPassantIntro">എതിർ കാലാൾ രണ്ടു കളങ്ങൾ നീങ്ങിയാൽ, അതു രണ്ടു കളങ്ങൾ നീങ്ങിയതായി കണക്കാക്കി നമുക്ക് അതിനെ കൈക്കലാക്കാം.</string>
   <string name="blackJustMovedThePawnByTwoSquares">കറുപ്പ് അവരുടെ കാലാളിനെ 
