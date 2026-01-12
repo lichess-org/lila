@@ -204,6 +204,7 @@
   <string name="minutesPerSide">Minuten pro Spieler</string>
   <string name="variant">Variante</string>
   <string name="variants">Varianten</string>
+  <string name="variantsDescription">Weitere Spielarten</string>
   <string name="timeControl">Bedenkzeit</string>
   <string name="realTime">Normale Bedenkzeit</string>
   <string name="correspondence">Fernschach</string>
@@ -298,6 +299,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Benutzerdefinierte Stellung</string>
   <string name="unlimited">Unbegrenzt</string>
+  <string name="unlimitedDescription">Nimm dir so viel Zeit, wie du brauchst</string>
   <string name="mode">Modus</string>
   <string name="casual">Ungewertet</string>
   <string name="rated">Gewertet</string>
