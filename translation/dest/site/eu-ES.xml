@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Jokatu ordenagailuaren aurka</string>
   <string name="gameMode">Jokuaren modua</string>
   <string name="createLobbyGame">Sortu egongelako partida</string>
-  <string name="youPlayAs">Kolore hau izango duzu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norbait jokatzera gonbidatzeko, URL hau bidali iezaiozu</string>
   <string name="gameOver">Partida amaitu da</string>
   <string name="waitingForOpponent">Aurkariaren zain</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">FEN-a kodea hemen jarri</string>
   <string name="pasteThePgnStringHere">PGN-a kodea hemen jarri</string>
   <string name="orUploadPgnFile">Edo kargatu PGN fitxategi bat</string>
-  <string name="fromPosition">Posizio jakin batetik</string>
   <string name="continueFromHere">Hemendik jarraitu</string>
   <string name="toStudy">Aztertu</string>
   <string name="importGame">Partida inportatu</string>
