@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Hrať proti počítaču</string>
   <string name="gameMode">Herný režim</string>
   <string name="createLobbyGame">Vytvoriť výzvu</string>
-  <string name="youPlayAs">Hráte ako</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Zdieľaním tejto adresy môžete niekoho pozvať k partii</string>
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
@@ -489,7 +488,6 @@
   <string name="pasteTheFenStringHere">Sem vložte FEN reťazec</string>
   <string name="pasteThePgnStringHere">Sem vložte PGN reťazec</string>
   <string name="orUploadPgnFile">Alebo nahrajte súbor PGN</string>
-  <string name="fromPosition">Z pozície</string>
   <string name="continueFromHere">Pokračujte odtiaľto</string>
   <string name="toStudy">Štúdia</string>
   <string name="importGame">Importovať partiu</string>
