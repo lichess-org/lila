@@ -125,6 +125,7 @@
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
   <string name="evaluationGauge">Syn evaluering</string>
+  <string name="visualMotifs">Visuelt motiv</string>
   <string name="multipleLines">Fleire variantar</string>
   <string name="cpus">Prosessorar</string>
   <string name="memory">Minne</string>
@@ -204,6 +205,7 @@
   <string name="minutesPerSide">Minutt per spelar</string>
   <string name="variant">Variant</string>
   <string name="variants">Variantar</string>
+  <string name="variantsDescription">Fleire spelemåtar</string>
   <string name="timeControl">Tidskontroll</string>
   <string name="realTime">Sanntid</string>
   <string name="correspondence">Fjernsjakk</string>
@@ -298,6 +300,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Brukardefinert stilling</string>
   <string name="unlimited">Uavgrensa</string>
+  <string name="unlimitedDescription">Ta den tida du treng</string>
   <string name="mode">Modus</string>
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
