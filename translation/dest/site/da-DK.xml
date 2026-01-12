@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Spil mod computer</string>
   <string name="gameMode">Spiltype</string>
   <string name="createLobbyGame">Opret lobbyparti</string>
-  <string name="youPlayAs">Du spiller som</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér nogen til at spille ved at give dem denne URL</string>
   <string name="gameOver">Spillet er slut</string>
   <string name="waitingForOpponent">Venter på modstander</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Indsæt FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Indsæt PGN-teksten her</string>
   <string name="orUploadPgnFile">Eller upload en PGN-fil</string>
-  <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsæt herfra</string>
   <string name="toStudy">Studér</string>
   <string name="importGame">Importér parti</string>
