@@ -15,6 +15,7 @@ import { chess960IdToFEN, fenToChess960Id } from './chess960';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
+    class: { 'not-allowed': !ctrl.enabledCastlingToggles[id] },
     attrs: { type: 'checkbox' },
     props: {
       checked: ctrl.castlingToggles[id] && ctrl.enabledCastlingToggles[id],
