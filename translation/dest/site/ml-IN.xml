@@ -406,7 +406,6 @@
   <string name="pasteTheFenStringHere">FEN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
   <string name="pasteThePgnStringHere">PGN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
   <string name="orUploadPgnFile">അല്ലെങ്കിൽ ഒരു PGN രേഖയായി കയറ്റിവയ്ക്കുക</string>
-  <string name="fromPosition">സ്ഥാനത്തു നിന്ന്</string>
   <string name="continueFromHere">ഇവിടെ മുതല്‍ പുനരാരംഭിക്കുക</string>
   <string name="toStudy">പഠനം</string>
   <string name="importGame">കളി ഇറക്കുമതി ചെയ്യുക</string>
