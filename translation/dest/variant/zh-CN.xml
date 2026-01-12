@@ -18,4 +18,6 @@
   <string name="racingKingsTitle">将您的王移动至棋盘另一侧即可获胜。</string>
   <string name="crazyhouse">Crazyhouse</string>
   <string name="crazyhouseTitle">被吃掉的棋子可以放回棋盘上，代替走子。</string>
+  <string name="fromPosition">自定义局面</string>
+  <string name="fromPositionTitle">来自自定义局面的标准国际象棋</string>
 </resources>
