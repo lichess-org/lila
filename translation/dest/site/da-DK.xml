@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">Bedste træk pil</string>
   <string name="showVariationArrows">Vis variantpile</string>
   <string name="evaluationGauge">Evalueringsindikator</string>
+  <string name="visualMotifs">Visuelle motiver</string>
+  <string name="undefendedPieces">Uforsvarede brikker</string>
+  <string name="pinnedPieces">Bundne brikker</string>
+  <string name="checkableKing">Konge der kan sættes i skak</string>
   <string name="multipleLines">Flere linjer</string>
   <string name="cpus">CPU\'er</string>
   <string name="memory">Hukommelse</string>
