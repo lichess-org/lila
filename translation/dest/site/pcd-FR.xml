@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Jouer contre l\'ordinateur</string>
   <string name="gameMode">Mode de jeu</string>
   <string name="createLobbyGame">Créer une partie dans le salon</string>
-  <string name="youPlayAs">Couleur</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pour inviter quelqu\'un à jouer, donnez-lui ce lien</string>
   <string name="gameOver">Partie terminée</string>
   <string name="waitingForOpponent">En attente de votre adversaire</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Coller le FEN ici</string>
   <string name="pasteThePgnStringHere">Coller le PGN ici</string>
   <string name="orUploadPgnFile">Ou téléverser un fichier PGN</string>
-  <string name="fromPosition">Depuis une position</string>
   <string name="continueFromHere">Continuer depuis cette position</string>
   <string name="toStudy">Étude</string>
   <string name="importGame">Importer une partie</string>
