@@ -24,7 +24,10 @@ export class LangsCtrl extends PaneCtrl {
       header(i18n.site.language, this.close),
       h(
         'form',
-        { attrs: { method: 'post', action: '/translation/select' } },
+        {
+          attrs: { method: 'post', action: '/translation/select' },
+          hook: { insert: vnode => this.autoScrollToCurrent(vnode.elm as HTMLElement) },
+        },
         this.list().map(([code, name]: Lang) =>
           h(
             'button' +
@@ -50,4 +53,16 @@ export class LangsCtrl extends PaneCtrl {
     ...this.data.list.filter(lang => this.data.accepted.includes(lang[0])),
     ...this.data.list,
   ];
+
+  private autoScrollToCurrent(form: HTMLElement): void {
+    const current = form.querySelector('button.current') as HTMLElement | null;
+    if (current && !this.visible(current, form))
+      form.scrollTop = Math.max(0, current.offsetTop - form.clientHeight / 2 + current.offsetHeight / 2);
+  }
+
+  private visible(button: HTMLElement, form: HTMLElement): boolean {
+    const top = button.offsetTop,
+      viewTop = form.scrollTop;
+    return top >= viewTop && top + button.offsetHeight <= viewTop + form.clientHeight;
+  }
 }
