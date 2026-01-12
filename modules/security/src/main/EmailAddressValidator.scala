@@ -22,7 +22,7 @@ final class EmailAddressValidator(
     else Invalid(ValidationError("error.email_acceptable"))
 
   val plusConstraint = Constraint[EmailAddress]("constraint.email_acceptable"): email =>
-    if email.username.contains("++") then Invalid(ValidationError("error.email_acceptable"))
+    if """[\*\+]{2}""".r.matches(email.username) then Invalid(ValidationError("error.email_acceptable"))
     else Valid
 
   def uniqueConstraint(forUser: Option[User]) =

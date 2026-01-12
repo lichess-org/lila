@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">Ενημερώσεις σε παρτίδες δι\' αλληλογραφίας</string>
   <string name="notifyChallenge">Προκλήσεις</string>
   <string name="notifyTournamentSoon">Το τουρνουά ξεκινά σύντομα</string>
+  <string name="notifyBroadcasts">Μεταδόσεις στις οποίες έχετε εγγραφεί</string>
   <string name="notifyTimeAlarm">Λίγος χρόνος σε παρτίδα δι\' αλληλογραφίας</string>
   <string name="notifyBell">Ειδοποίηση με καμπανάκι εντός του Lichess</string>
   <string name="notifyPush">Ειδοποίηση συσκευής όταν δεν είστε στο Lichess</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">Συσκευή</string>
   <string name="bellNotificationSound">Ειδοποίηση με ήχο από καμπανάκι</string>
   <string name="blindfold" comment="As in Blindfold chess">Τυφλό</string>
+  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Εμφάνιση στα αριστερά στις κινητές συσκευές</string>
 </resources>

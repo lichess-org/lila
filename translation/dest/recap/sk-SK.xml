@@ -12,6 +12,8 @@
 	<string name="timeALot">To je veľa šachu.</string>
 	<string name="timeReasonable">To vyzerá ako rozumné množstvo šachu.</string>
 	<string name="timeHowManyMoves">Koľko ťahov si za ten čas odohral?</string>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">To je %s posunutého dreva!</string>
+	<string name="movesStandardPiecesWeight">Štandardná figúrka váži okolo 40g</string>
 	<string name="chessFoes">Vaši najlepší šachoví súperi</string>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">takto si začal %s svojich hier ako biely</string>
 	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">

@@ -1483,8 +1483,6 @@ interface I18n {
     defendYourKing: string;
     /** Don't let them take */
     dontLetThemTakeAnyUndefendedPiece: string;
-    /** En passant */
-    enPassant: string;
     /** Congratulations! You can now take en passant. */
     enPassantComplete: string;
     /** When the opponent pawn moved by two squares, you can take it like if it moved by one square. */

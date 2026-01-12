@@ -30,6 +30,8 @@ import com.vladsch.flexmark.util.html.MutableAttributes
 import com.vladsch.flexmark.util.misc.Extension
 import com.vladsch.flexmark.util.sequence.BasedSequence
 
+import java.time.{ Instant, ZoneOffset }
+import java.time.format.DateTimeFormatter
 import java.util.Arrays
 import scala.collection.Set
 import scala.jdk.CollectionConverters.*
@@ -63,6 +65,7 @@ final class MarkdownRender(
   extensions.add(
     pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension) { MarkdownRender.PgnEmbedExtension(_) }
   )
+  extensions.add(MarkdownRender.TimestampExtension)
   if sourceMap then extensions.add(MarkdownRender.SourceMapExtension)
 
   private val options = MutableDataSet()
@@ -96,7 +99,8 @@ final class MarkdownRender(
       .sync:
         try
           val saferText = MarkdownRender.preventStackOverflow(text)
-          renderer.render(parser.parse((if sourceMap then saferText else mentionsToLinks(saferText)).value))
+          val withMentions = if sourceMap then saferText else mentionsToLinks(saferText)
+          renderer.render(parser.parse(withMentions.value))
         catch
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
@@ -265,7 +269,7 @@ object MarkdownRender:
       html.tag("/a")
 
     private def addProtocolIfNecessary(url: String): String =
-      if url.matches("(?i)^https?://.*") then url
+      if url.startsWith("/") || url.matches("(?i)^https?://.*") then url
       else s"https://$url"
 
     private def renderLpvEmbed(
@@ -322,6 +326,59 @@ object MarkdownRender:
         attributes.replaceValue("target", "_blank")
         attributes.replaceValue("rel", rel)
         attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href")))
+
+  private object TimestampExtension extends HtmlRenderer.HtmlRendererExtension:
+    private val timestampRegex = """<t:(\d+):([a-zA-Z]+)>""".r
+
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+      htmlRendererBuilder.nodeRendererFactory:
+        new NodeRendererFactory:
+          override def apply(options: DataHolder) = new NodeRenderer:
+            override def getNodeRenderingHandlers() =
+              Set(NodeRenderingHandler(classOf[Text], (node, _, html) => renderText(node, html))).asJava
+
+            private def renderText(node: Text, html: HtmlWriter): Unit =
+              val text = node.getChars.toString
+
+              val matches = timestampRegex.findAllMatchIn(text).toList
+              if matches.isEmpty then html.text(text)
+              else
+                var lastEnd = 0
+                matches.foreach: m =>
+                  val timestamp = m.group(1).toLong
+                  val format = m.group(2)
+                  val beforeMatch = text.substring(lastEnd, m.start)
+
+                  val instant = Instant.ofEpochSecond(timestamp)
+                  val isoDateTime = instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
+
+                  val displayText = format match
+                    case "d" | "D" =>
+                      val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                      instant.atZone(ZoneOffset.UTC).format(dateFormatter)
+                    case "t" | "T" =>
+                      val timeFormatter = DateTimeFormatter.ofPattern("HH:mm 'UTC'")
+                      instant.atZone(ZoneOffset.UTC).format(timeFormatter)
+                    case _ =>
+                      val fullFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm 'UTC'")
+                      instant.atZone(ZoneOffset.UTC).format(fullFormatter)
+
+                  if beforeMatch.nonEmpty then html.text(beforeMatch)
+
+                  html
+                    .attr("datetime", isoDateTime)
+                    .attr("format", format)
+                    .attr("title", displayText)
+                    .withAttr()
+                    .tag("time")
+                    .text(displayText)
+                    .tag("/time")
+
+                  lastEnd = m.end
+
+                val afterLastMatch = text.substring(lastEnd)
+                if afterLastMatch.nonEmpty then html.text(afterLastMatch)
 
   private val tableWrapperExtension = new HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
