@@ -129,6 +129,9 @@
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
   <string name="showVariationArrows">Pokaż strzałki wariantów</string>
   <string name="evaluationGauge">Wskaźnik oceny pozycji</string>
+  <string name="undefendedPieces">Wiszące bierki</string>
+  <string name="pinnedPieces">Związane bierki</string>
+  <string name="checkableKing">Groźba szacha</string>
   <string name="multipleLines">Analizowane warianty</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamięć RAM</string>
@@ -228,6 +231,7 @@
   <string name="minutesPerSide">Minuty na gracza</string>
   <string name="variant">Odmiana</string>
   <string name="variants">Odmiany</string>
+  <string name="variantsDescription">Więcej odmian szachów</string>
   <string name="timeControl">Tempo gry</string>
   <string name="realTime">W czasie rzeczywistym</string>
   <string name="correspondence">Korespondencyjne</string>
@@ -334,6 +338,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Niestandardowa pozycja</string>
   <string name="unlimited">Bez limitu</string>
+  <string name="unlimitedDescription">Nie spiesz się</string>
   <string name="mode">Rodzaj</string>
   <string name="casual">Towarzyska</string>
   <string name="rated">Rankingowa</string>
