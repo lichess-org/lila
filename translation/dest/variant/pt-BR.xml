@@ -18,4 +18,6 @@
   <string name="racingKingsTitle">Leve seu rei para o outro lado do tabuleiro para vencer.</string>
   <string name="crazyhouse">Crazyhouse</string>
   <string name="crazyhouseTitle">As peças capturadas podem ser devolvidas ao tabuleiro ao invés de mover uma peça.</string>
+  <string name="fromPosition">A partir da posição</string>
+  <string name="fromPositionTitle" comment="Description for when looking to start a game 'From position'">Xadrez padrão de uma posição personalizada</string>
 </resources>
