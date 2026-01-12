@@ -192,6 +192,7 @@
   <string name="minutesPerSide">各方限时（分钟）</string>
   <string name="variant">变体</string>
   <string name="variants">变体</string>
+  <string name="variantsDescription">更多玩法</string>
   <string name="timeControl">时间限制</string>
   <string name="realTime">实时对局</string>
   <string name="correspondence">通讯棋</string>
@@ -280,6 +281,7 @@
   <string name="standard">标准</string>
   <string name="customPosition">自定义局面</string>
   <string name="unlimited">无限制</string>
+  <string name="unlimitedDescription">请随意安排时间</string>
   <string name="mode">模式</string>
   <string name="casual">休闲</string>
   <string name="rated">排位</string>
