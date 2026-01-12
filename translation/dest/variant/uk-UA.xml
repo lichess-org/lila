@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">Стандартні шахи</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Стандартні правила шахів (FIDE)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Шахи-960</string>
-  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">Початкова позиція задніх фігур задається випадково.</string>
-  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Король гори</string>
-  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Перемістіть свого короля до центру, щоб перемогти.</string>
-  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">До трьох шахів</string>
-  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">Поставте шах супернику 3 рази, щоб перемогти.</string>
-  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Антишахи</string>
-  <string name="antichessTitle" comment="Description for the Antichess variant">Утратьте всі свої фігури (або хай вам поставлять пат), щоб перемогти.</string>
-  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">Атомічні шахи</string>
-  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Підірвіть короля суперника, щоб перемогти.</string>
-  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Орда</string>
-  <string name="hordeTitle" comment="Description for the Horde chess variant">Одна сторона має багато пішаків, а інша — звичайну армію.</string>
-  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Королівські перегони</string>
-  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Перемістіть короля на інший бік дошки, щоб перемогти.</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Шалені шахи</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Замість звичайного ходу можна поставити захоплену ворожу фігуру.</string>
+  <string name="standard">Стандартні шахи</string>
+  <string name="standardTitle">Стандартні правила шахів (FIDE)</string>
+  <string name="chess960">Шахи-960</string>
+  <string name="chess960Title">Початкова позиція задніх фігур задається випадково.</string>
+  <string name="kingOfTheHill">Король гори</string>
+  <string name="kingOfTheHillTitle">Перемістіть свого короля до центру, щоб перемогти.</string>
+  <string name="threeCheck">До трьох шахів</string>
+  <string name="threeCheckTitle">Поставте шах супернику 3 рази, щоб перемогти.</string>
+  <string name="antichess">Антишахи</string>
+  <string name="antichessTitle">Утратьте всі свої фігури (або хай вам поставлять пат), щоб перемогти.</string>
+  <string name="atomic">Атомічні шахи</string>
+  <string name="atomicTitle">Підірвіть короля суперника, щоб перемогти.</string>
+  <string name="horde">Орда</string>
+  <string name="hordeTitle">Одна сторона має багато пішаків, а інша — звичайну армію.</string>
+  <string name="racingKings">Королівські перегони</string>
+  <string name="racingKingsTitle">Перемістіть короля на інший бік дошки, щоб перемогти.</string>
+  <string name="crazyhouse">Шалені шахи</string>
+  <string name="crazyhouseTitle">Замість звичайного ходу можна поставити захоплену ворожу фігуру.</string>
 </resources>
