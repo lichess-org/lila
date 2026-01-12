@@ -6,7 +6,7 @@
   <string name="progressX">Progresas: %s</string>
   <string name="resetMyProgress">Atkurti mano progresą</string>
   <string name="youWillLoseAllYourProgress">Jūs neteksite viso progreso!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">Žaisk!</string>
+  <string name="play">Žaisk!</string>
   <string name="chessPieces">Šachmatų figūros</string>
   <string name="theRook">Bokštas</string>
   <string name="itMovesInStraightLines">Juda tiesiomis linijomis</string>
@@ -139,7 +139,6 @@ atlikti trumpąją rokiruotę!</string>
   <string name="findAWayToCastleQueenSide">Rask būdą
 atlikti ilgąją rokiruotę!</string>
   <string name="castlingComplete">Sveikiname! Partijos metu beveik visada gera mintis atlikti rokiruotę.</string>
-  <string name="enPassant">Kirtimas prasilenkiant</string>
   <string name="theSpecialPawnMove">Specialusis ėjimas pėstininku</string>
   <string name="enPassantIntro">Kai varžovo pėstininkas pajudėjo per du laukelius, gali kirsti jį lyg būtų paėjęs vieną.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Juodieji ką tik paėjo pėstininku

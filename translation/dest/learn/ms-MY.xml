@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="byPlaying">!dengan bermain!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">main!</string>
+  <string name="play">main!</string>
   <string name="chessPieces">Bidak catur</string>
   <string name="theRook">Benteng</string>
   <string name="theBishop">Gajah</string>

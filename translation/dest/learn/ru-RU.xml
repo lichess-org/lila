@@ -6,7 +6,7 @@
   <string name="progressX">Пройдено: %s</string>
   <string name="resetMyProgress">Начать всё сначала</string>
   <string name="youWillLoseAllYourProgress">Все ваши успехи обнулятся!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">играть!</string>
+  <string name="play">играть!</string>
   <string name="chessPieces">Шахматные фигуры</string>
   <string name="theRook">Ладья</string>
   <string name="itMovesInStraightLines">Движется по прямой</string>
@@ -151,7 +151,6 @@
   <string name="findAWayToCastleKingSide">Найдите способ сделать короткую рокировку!</string>
   <string name="findAWayToCastleQueenSide">Найдите способ сделать длинную рокировку!</string>
   <string name="castlingComplete">Поздравляем! Практически во всех партиях вы должны рокироваться.</string>
-  <string name="enPassant">Взятие на проходе</string>
   <string name="theSpecialPawnMove">Особый ход пешки</string>
   <string name="enPassantIntro">Когда пешка соперника делает ход на две клетки, вы можете взять её, как если бы она сделала ход на одну.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Чёрные только что сходили пешкой на два поля!
