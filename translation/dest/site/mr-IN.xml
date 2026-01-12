@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">संगणकाविरुद्ध खेळा</string>
   <string name="gameMode">खेळाची रीत</string>
   <string name="createLobbyGame">प्रेक्षागृहाचा खेळ तयार करा</string>
-  <string name="youPlayAs">तुम्ही खेळाल असे</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रण देण्यासाठी हा URL द्या</string>
   <string name="gameOver">डाव समाप्त</string>
   <string name="waitingForOpponent">प्रतिस्पर्ध्याची प्रतीक्षा आहे</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">FEN टेक्स्ट येथे पेस्ट करा</string>
   <string name="pasteThePgnStringHere">PGN टेक्स्ट येथे पेस्ट करा</string>
   <string name="orUploadPgnFile">किंवा PGN फाईल अपलोड करा</string>
-  <string name="fromPosition">ह्या रचनेतून</string>
   <string name="continueFromHere">येथून खेळायला सुरवात करा</string>
   <string name="toStudy">अभ्यास</string>
   <string name="importGame">खेळ आयात करा</string>
