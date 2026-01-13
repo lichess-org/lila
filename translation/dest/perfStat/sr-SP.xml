@@ -10,9 +10,10 @@
   <string name="totalGames">Укупно партија</string>
   <string name="ratedGames">Рангираних партија</string>
   <string name="tournamentGames">Турнирских партија</string>
-  <string name="timeSpentPlaying">Време проведено у игри</string>
-  <string name="averageOpponent">Просечан противник</string>
-  <string name="victories">Победе</string>
+  <string name="berserkedGames">Берсерковане партије</string>
+  <string name="timeSpentPlaying">Време проведено играјући</string>
+  <string name="averageOpponent">Просечни противник</string>
+  <string name="victories">Победа</string>
   <string name="defeats">Пораза</string>
   <string name="disconnections">Прекидања веза</string>
   <string name="notEnoughGames">Није одиграно довољно партија</string>
