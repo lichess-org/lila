@@ -19,7 +19,7 @@ const KRN = [
   ['R', 'K', 'R', 'N', 'N'],
 ];
 
-export function chess960IdToFEN(id: number): string {
+export function chess960IdToFEN(id: number): FEN {
   const rank1 = chess960IdToRank(id);
   const rank2 = 'PPPPPPPP';
   const rank7 = 'pppppppp';
@@ -30,10 +30,13 @@ export function chess960IdToFEN(id: number): string {
   return `${board} w KQkq - 0 1`;
 }
 
-export function chess960CastlingSquares(id: number | undefined): {
-  white: { king: string; rookQ: string; rookK: string };
-  black: { king: string; rookQ: string; rookK: string };
-} {
+interface CastlingSquares {
+  king: string;
+  rookQ: string;
+  rookK: string;
+}
+
+export function chess960CastlingSquares(id: number | undefined): ByColor<CastlingSquares> {
   const rank1 = chess960IdToRank(id === undefined ? 518 : id); // default to standard chess
 
   const kingFile = rank1.indexOf('K');
@@ -54,7 +57,7 @@ export function chess960CastlingSquares(id: number | undefined): {
   };
 }
 
-export function fenToChess960Id(fen: string): number | undefined {
+export function fenToChess960Id(fen: FEN): number | undefined {
   const parts = fen.split(' ');
   if (parts.length < 1) return undefined;
   const ranks = parts[0].split('/');
