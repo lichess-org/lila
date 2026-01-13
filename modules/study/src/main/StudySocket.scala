@@ -188,10 +188,10 @@ final private class StudySocket(
 
         case "setComment" =>
           reading[AtPosition](o): position =>
-            (o \ "d" \ "text")
-              .asOpt[String]
-              .foreach: text =>
-                applyWho(api.setComment(studyId, position.ref, Comment.sanitize(text)))
+            for
+              text <- (o \ "d" \ "text").asOpt[String]
+              commentId = (o \ "d" \ "id").asOpt[Comment.Id]
+            do applyWho(api.setComment(studyId, position.ref, commentId, Comment.sanitize(text)))
 
         case "deleteComment" =>
           reading[AtPosition](o): position =>

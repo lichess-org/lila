@@ -567,7 +567,7 @@ object mon:
       counter("game.finish").withTags:
         tags(
           "variant" -> variant.key,
-          "speed" -> speed,
+          "speed" -> speed.key,
           "source" -> source.fold("unknown")(_.name),
           "mode" -> mode.name,
           "status" -> status.name
