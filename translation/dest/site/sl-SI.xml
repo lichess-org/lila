@@ -129,6 +129,10 @@
   <string name="bestMoveArrow">Puščica najboljše poteze</string>
   <string name="showVariationArrows">Prikaži puščice z variacijami</string>
   <string name="evaluationGauge">Kazalnik ocene</string>
+  <string name="visualMotifs">Vizualni motivi</string>
+  <string name="undefendedPieces">Nebranjene figure</string>
+  <string name="pinnedPieces">Pripete figure</string>
+  <string name="checkableKing">Kralj, ki ga je mogoče šahirati</string>
   <string name="multipleLines">Več variant</string>
   <string name="cpus">CPU-ji</string>
   <string name="memory">Spomin</string>
