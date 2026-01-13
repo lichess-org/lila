@@ -95,6 +95,12 @@ test('Undefended: Order of trades', () => {
   assert.deepEqual(runAnalysis(fen), expected);
 });
 
+test('Undefended: Absolute pin', () => {
+  const fen = '3k4/3b4/8/1B6/1b6/2N5/1P6/4K3 w - - 0 1';
+  const expected = ['b5:undefended', 'c3:pin', 'e1:checkable'].sort();
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
 test('Crazyhouse', () => {
   const fen = 'rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R/ b KQkq - 1 2';
   const expected = ['e5:undefended'].sort();
