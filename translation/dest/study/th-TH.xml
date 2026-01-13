@@ -175,8 +175,6 @@
   <string name="commentPositionTitle">วิจารณ์ตำแหน่งนี้</string>
   <string name="commentPositionText" comment="%s is an icon that will added at runtime">กดปุ่ม %s หรือคลิกขวาที่ตารางที่แสดงตาเดินที่อยู่ฝั่งขวา &lt;br&gt; คอมเมนต์จะถูกแชร์และบันทึก</string>
   <string name="annotatePositionTitle">ระบุตำแหน่งบนกระดาน</string>
-  <string name="annotatePositionText">กดปุ่ม %s หรือคลิกขวาที่ตารางที่แสดงตาเดินที่อยู่ฝั่งขวา &lt;br&gt; อักษรคำอธิบายประกอบ
-จะถูกแชร์และบันทึก</string>
   <string name="conclusionTitle">ขอบคุณสำหรับเวลาของคุณ</string>
   <string name="conclusionText">คุณสามารถเจอ&lt;a href=\'/study/mine/hot\'&gt;การศึกษาก่อนหน้า&lt;/a&gt;จากหน้าโปรไฟล์ &lt;br&gt;นอกจากนั้นยังมี &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt; บล็อกเกี่ยวกับกรณีศึกษา&lt;/a&gt; &lt;br&gt;ผู้ใช้งานขั้นสูงอาจต้องการกด \"?\" เพื่อดูแป้นพิมพ์ลัด&lt;br&gt;ขอให้สนุกน้า!</string>
   <string name="createChapterTitle">มาสร้างบทเรียนกันเถอะ</string>
