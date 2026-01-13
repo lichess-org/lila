@@ -120,7 +120,7 @@ const expandGame = async (exp: Expandable) => {
     await site.asset.loadEsm('bits.lpv', {
       init: { el: $lpv[0] as HTMLElement, url: exp.link.src, lpvOpts: exp.link.opts },
     });
-  } catch (e) {
+  } catch (_) {
     $(wrapper).replaceWith(backup);
   }
   scroller.auto();
