@@ -40,7 +40,7 @@ class PgnImportTest extends LilaTest:
         assertEquals(parsed.root.children.nodes.size, 1)
         assertEquals(parsed.root.ply, Ply.initial)
 
-  test("comment ordering".only):
+  test("comment ordering"):
     StudyPgnImport
       .result("{test 1 } {test 2} 1.d4 {test 3} { test 4}", Nil)
       .assertRight: parsed =>

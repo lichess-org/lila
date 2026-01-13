@@ -113,8 +113,8 @@ object StudyPgnImport:
       comments: List[CommentStr],
       annotator: Option[Comment.Author]
   ): (Shapes, Option[Centis], Option[Centis], Comments) =
-    comments.foldLeft((Shapes(Nil), none[Centis], none[Centis], Comments(Nil))):
-      case ((shapes, clock, emt, comments), txt) =>
+    comments.foldRight((Shapes(Nil), none[Centis], none[Centis], Comments(Nil))):
+      case (txt, (shapes, clock, emt, comments)) =>
         CommentParser(txt) match
           case CommentParser.ParsedComment(s, c, e, str) =>
             (
