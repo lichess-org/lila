@@ -4,7 +4,8 @@ import { copyMeInput, dataIcon, domDialog } from 'lib/view';
 import type { MouchEvent, NumberPair } from '@lichess-org/chessground/types';
 import { dragNewPiece } from '@lichess-org/chessground/drag';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
-import type { Rules } from 'chessops/types';
+import { lichessRules } from 'chessops/compat';
+
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
 import type EditorCtrl from './ctrl';
@@ -37,7 +38,7 @@ function optgroup(name: string, opts: VNode[]): VNode {
 function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
   return h('form', { attrs: { method: 'post', action: '/study/as' } }, [
     h('input', { attrs: { type: 'hidden', name: 'orientation', value: ctrl.bottomColor() } }),
-    h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.rules } }),
+    h('input', { attrs: { type: 'hidden', name: 'variant', value: lichessRules(ctrl.variant) } }),
     h('input', { attrs: { type: 'hidden', name: 'fen', value: state.legalFen || '' } }),
     h(
       'button',
@@ -50,23 +51,23 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
   ]);
 }
 
-function variant2option(key: Rules | 'chess960', name: string, ctrl: EditorCtrl): VNode {
+function variant2option(key: VariantKey, name: string, ctrl: EditorCtrl): VNode {
   return h(
     'option',
-    { attrs: { value: key, selected: key === ctrl.rules } },
+    { attrs: { value: key, selected: key === ctrl.variant } },
     `${i18n.site.variant} | ${name}`,
   );
 }
 
-const allVariants: Array<[Rules | 'chess960', string]> = [
-  ['chess', 'Standard'],
+const allVariants: Array<[VariantKey, string]> = [
+  ['standard', 'Standard'],
   ['antichess', 'Antichess'],
   ['atomic', 'Atomic'],
   ['crazyhouse', 'Crazyhouse'],
   ['horde', 'Horde'],
-  ['kingofthehill', 'King of the Hill'],
-  ['racingkings', 'Racing Kings'],
-  ['3check', 'Three-check'],
+  ['kingOfTheHill', 'King of the Hill'],
+  ['racingKings', 'Racing Kings'],
+  ['threeCheck', 'Three-check'],
   ['chess960', 'Chess960'],
 ];
 
@@ -203,22 +204,19 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 attrs: { id: 'variants' },
                 on: {
                   change(e) {
-                    let value = (e.target as HTMLSelectElement).value;
+                    const value = (e.target as HTMLSelectElement).value;
                     if (value === 'chess960') {
-                      value = 'chess';
                       ctrl.chess960PositionId = Math.floor(Math.random() * 960);
                       ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
-                    } else {
-                      ctrl.chess960PositionId = undefined;
                     }
-                    ctrl.setRules(value as Rules);
+                    ctrl.setVariant(value as VariantKey);
                   },
                 },
               },
               allVariants.map(x => variant2option(x[0], x[1], ctrl)),
             ),
           ]),
-          ctrl.chess960PositionId === undefined
+          ctrl.variant !== 'chess960'
             ? null
             : h('div.metadata', [
                 h(
