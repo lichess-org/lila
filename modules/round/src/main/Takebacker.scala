@@ -105,9 +105,8 @@ final private class Takebacker(
       if secondMove && ply.turn.white then ""
       else s"${(ply.value + 1) / 2}${if ply.turn.black then "." else "..."}"
     val rollbackMoves: List[String] =
-      lastSans.zipWithIndex.map { case (san, i) =>
+      lastSans.zipWithIndex.map: (san, i) =>
         s"${movePrefix(startPly + i, i == 1)}$san"
-      }
     val base = pov.color.fold(trans.site.whiteProposesTakeback, trans.site.blackProposesTakeback).txt()
     s"$base (${rollbackMoves.mkString(" ")})"
 
