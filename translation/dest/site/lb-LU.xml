@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Géint de Computer spillen</string>
   <string name="gameMode">Spillmodus</string>
   <string name="createLobbyGame">Nei Lobby-Partie ufänken</string>
-  <string name="youPlayAs">Du spills mat</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Op de Géigner waarden</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">FEN Text hei afügen</string>
   <string name="pasteThePgnStringHere">PGN Text hei afügen</string>
   <string name="orUploadPgnFile">Oder PGN Datei héichlueden</string>
-  <string name="fromPosition">Aus Positioun</string>
   <string name="continueFromHere">Vun hei weiderspillen</string>
   <string name="toStudy">Etüd</string>
   <string name="importGame">Partie importéieren</string>
@@ -895,7 +893,7 @@
   <string name="edit">Änneren</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
-  <string name="rapid">Schnellschach</string>
+  <string name="rapid">Rapid</string>
   <string name="classical">Klassesch</string>
   <string name="ultraBulletDesc">Immens séier Partien: Manner wéi 30 Sekonnen</string>
   <string name="bulletDesc">Ganz schnell Partien: manner wéi 3 Minutten</string>

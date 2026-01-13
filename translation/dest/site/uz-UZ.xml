@@ -419,7 +419,6 @@
   <string name="pasteTheFenStringHere">FEN matnini shu yerga qo\'ying</string>
   <string name="pasteThePgnStringHere">PGN matnini shu yerga qo\'ying</string>
   <string name="orUploadPgnFile">Yoki PGN fayl yuklang</string>
-  <string name="fromPosition">Ushbu joyidan</string>
   <string name="continueFromHere">Shu joydan davom etish</string>
   <string name="toStudy">O\'rganish</string>
   <string name="importGame">O\'yinni import qilish</string>

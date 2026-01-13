@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">පරිගණකයට එරෙහිව ක්‍රීඩා කරන්න</string>
   <string name="gameMode">ක්‍රීඩා විධිය</string>
   <string name="createLobbyGame">ලොබි ක්‍රීඩාවක් සාදන්න</string>
-  <string name="youPlayAs">ඔබ ක්‍රීඩා කරනුයේ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ක්‍රීඩා කිරීමට යමෙකුට ආරාධනා කිරීමට, මෙම URL එක දෙන්න</string>
   <string name="gameOver">තරගය අවසන්</string>
   <string name="waitingForOpponent">ප්‍රතිවාදියා වෙනුවෙන් බලාසිටිමින්</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">FEN පෙළ මෙහි අලවන්න</string>
   <string name="pasteThePgnStringHere">PGN පෙළ මෙහි අලවන්න</string>
   <string name="orUploadPgnFile">නැතහොත් PGN ගොනුවක් උඩුගත කරන්න</string>
-  <string name="fromPosition">තනතුරේ සිට</string>
   <string name="continueFromHere">මෙතැන් සිට ඉදිරියට යන්න</string>
   <string name="toStudy">අධ්‍යයනය</string>
   <string name="importGame">ක්‍රීඩාව ආනයනය කරන්න</string>

@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Luani kundër kompjuterit</string>
   <string name="gameMode">Mënyrë loje</string>
   <string name="createLobbyGame">Krijoni lojë holli</string>
-  <string name="youPlayAs">Ju luani si</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë, jepni këtë URL</string>
   <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
@@ -205,6 +204,7 @@
   <string name="minutesPerSide">Minuta për palë</string>
   <string name="variant">Variant</string>
   <string name="variants">Variante</string>
+  <string name="variantsDescription">Më tepër mënyra për luajtje</string>
   <string name="timeControl">Kontroll kohe</string>
   <string name="realTime">Kohë reale</string>
   <string name="correspondence">Korrespondencë</string>
@@ -299,6 +299,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Pozicion vetjak</string>
   <string name="unlimited">E pakufizuar</string>
+  <string name="unlimitedDescription">Mendohuni aq kohë sa ju duhet</string>
   <string name="mode">Lloji</string>
   <string name="casual">Rastësore</string>
   <string name="rated">Me vlerësim</string>
@@ -427,7 +428,6 @@
   <string name="pasteTheFenStringHere">Ngjitni këtu tekstin FEN</string>
   <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PGN</string>
   <string name="orUploadPgnFile">Ose ngarkoni një kartelë PGN</string>
-  <string name="fromPosition">Nga pozicioni</string>
   <string name="continueFromHere">Vazhdoni nga këtu</string>
   <string name="toStudy">Mësim</string>
   <string name="importGame">Importo lojën</string>

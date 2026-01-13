@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Gegen den Computer spielen</string>
   <string name="gameMode">Spielmodus</string>
   <string name="createLobbyGame">Neue Partie erstellen</string>
-  <string name="youPlayAs">Du spielst als</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
   <string name="gameOver">Partie beendet</string>
   <string name="waitingForOpponent">Auf den Gegner warten</string>
@@ -126,6 +125,10 @@
   <string name="bestMoveArrow">Pfeil für besten Zug</string>
   <string name="showVariationArrows">Varianten-Pfeile anzeigen</string>
   <string name="evaluationGauge">Bewertungsanzeige</string>
+  <string name="visualMotifs">Visuelle Motive</string>
+  <string name="undefendedPieces">Nicht verteidigte Figuren</string>
+  <string name="pinnedPieces">Gefesselte Figuren</string>
+  <string name="checkableKing">König, dem Schach geboten werden kann</string>
   <string name="multipleLines">Mehrere Varianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Arbeitsspeicher</string>
@@ -205,6 +208,7 @@
   <string name="minutesPerSide">Minuten pro Spieler</string>
   <string name="variant">Variante</string>
   <string name="variants">Varianten</string>
+  <string name="variantsDescription">Weitere Spielarten</string>
   <string name="timeControl">Bedenkzeit</string>
   <string name="realTime">Normale Bedenkzeit</string>
   <string name="correspondence">Fernschach</string>
@@ -299,6 +303,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Benutzerdefinierte Stellung</string>
   <string name="unlimited">Unbegrenzt</string>
+  <string name="unlimitedDescription">Nimm dir so viel Zeit, wie du brauchst</string>
   <string name="mode">Modus</string>
   <string name="casual">Ungewertet</string>
   <string name="rated">Gewertet</string>
@@ -427,7 +432,6 @@
   <string name="pasteTheFenStringHere">Füge den FEN-Text hier ein</string>
   <string name="pasteThePgnStringHere">Füge den PGN-Text hier ein</string>
   <string name="orUploadPgnFile">Oder lade eine PGN-Datei hoch</string>
-  <string name="fromPosition">Von Stellung</string>
   <string name="continueFromHere">Von hier aus weiterspielen</string>
   <string name="toStudy">Studie</string>
   <string name="importGame">Partie importieren</string>

@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Spil mod computer</string>
   <string name="gameMode">Spiltype</string>
   <string name="createLobbyGame">Opret lobbyparti</string>
-  <string name="youPlayAs">Du spiller som</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér nogen til at spille ved at give dem denne URL</string>
   <string name="gameOver">Spillet er slut</string>
   <string name="waitingForOpponent">Venter på modstander</string>
@@ -126,6 +125,10 @@
   <string name="bestMoveArrow">Bedste træk pil</string>
   <string name="showVariationArrows">Vis variantpile</string>
   <string name="evaluationGauge">Evalueringsindikator</string>
+  <string name="visualMotifs">Visuelle motiver</string>
+  <string name="undefendedPieces">Uforsvarede brikker</string>
+  <string name="pinnedPieces">Bundne brikker</string>
+  <string name="checkableKing">Konge der kan sættes i skak</string>
   <string name="multipleLines">Flere linjer</string>
   <string name="cpus">CPU\'er</string>
   <string name="memory">Hukommelse</string>
@@ -205,6 +208,7 @@
   <string name="minutesPerSide">Minutter per spiller</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianter</string>
+  <string name="variantsDescription">Flere måder at spille på</string>
   <string name="timeControl">Tidskontrol</string>
   <string name="realTime">Realtid</string>
   <string name="correspondence">Korrespondance</string>
@@ -299,6 +303,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Brugerdefineret stilling</string>
   <string name="unlimited">Ubegrænset</string>
+  <string name="unlimitedDescription">Tag al den tid, du har brug for</string>
   <string name="mode">Variant</string>
   <string name="casual">Uformelt</string>
   <string name="rated">Ratet</string>
@@ -427,7 +432,6 @@
   <string name="pasteTheFenStringHere">Indsæt FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Indsæt PGN-teksten her</string>
   <string name="orUploadPgnFile">Eller upload en PGN-fil</string>
-  <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsæt herfra</string>
   <string name="toStudy">Studér</string>
   <string name="importGame">Importér parti</string>

@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Žaiskite prieš kompiuterį</string>
   <string name="gameMode">Žaidimo režimas</string>
   <string name="createLobbyGame">Sukurti žaidimą laukimo salėje</string>
-  <string name="youPlayAs">Jūs žaidžiate kaip</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norėdami pakviesti varžovą, pasidalinkite šiuo adresu</string>
   <string name="gameOver">Partija baigta</string>
   <string name="waitingForOpponent">Laukiama varžovo</string>
@@ -489,7 +488,6 @@
   <string name="pasteTheFenStringHere">FEN tekstą įrašykite čia</string>
   <string name="pasteThePgnStringHere">PGN tekstą įrašykite čia</string>
   <string name="orUploadPgnFile">Arba įkelkite PGN failą</string>
-  <string name="fromPosition">Nuo pozicijos</string>
   <string name="continueFromHere">Tęsti nuo čia</string>
   <string name="toStudy">Studijuoti</string>
   <string name="importGame">Importuoti partiją</string>

@@ -352,7 +352,6 @@
   <string name="leaderboard">Stigatalva</string>
   <string name="pasteTheFenStringHere">Flyt FEN tekstin higar</string>
   <string name="pasteThePgnStringHere">Flyt PGN tekstin higar</string>
-  <string name="fromPosition">Frá støðuni</string>
   <string name="continueFromHere">Halt fram hiðani</string>
   <string name="toStudy">Rannsókn</string>
   <string name="importGame">Les inn talv</string>

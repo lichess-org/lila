@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">संगणकाविरुद्ध खेळा</string>
   <string name="gameMode">खेळाची रीत</string>
   <string name="createLobbyGame">प्रेक्षागृहाचा खेळ तयार करा</string>
-  <string name="youPlayAs">तुम्ही खेळाल असे</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रण देण्यासाठी हा URL द्या</string>
   <string name="gameOver">डाव समाप्त</string>
   <string name="waitingForOpponent">प्रतिस्पर्ध्याची प्रतीक्षा आहे</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">FEN टेक्स्ट येथे पेस्ट करा</string>
   <string name="pasteThePgnStringHere">PGN टेक्स्ट येथे पेस्ट करा</string>
   <string name="orUploadPgnFile">किंवा PGN फाईल अपलोड करा</string>
-  <string name="fromPosition">ह्या रचनेतून</string>
   <string name="continueFromHere">येथून खेळायला सुरवात करा</string>
   <string name="toStudy">अभ्यास</string>
   <string name="importGame">खेळ आयात करा</string>
@@ -786,7 +784,7 @@
   <string name="playChessEverywhere">सगळीकडे बुद्धिबळ खेळा</string>
   <string name="everybodyGetsAllFeaturesForFree">प्रत्येकास सर्व वैशिष्ट्ये विनामूल्य मिळतात</string>
   <string name="viewTheSolution">समाधान पहा</string>
-  <string name="noChallenges">काही आव्हाने नाहीत</string>
+  <string name="noChallenges">कोणतीही आव्हाने नाहीत.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s भाषेत उपलब्ध!</item>
     <item quantity="other">%s भाषेत उपलब्ध!</item>
@@ -880,7 +878,7 @@
   <string name="playVariationToCreateConditionalPremoves">सशर्त प्रिमुव्ह तयार करण्यासाठी variation खेळा</string>
   <string name="noConditionalPremoves">सशर्त प्रिमुव्ह नाही</string>
   <string name="playX">%s खेळा</string>
-  <string name="challengeX">आव्हाने %s</string>
+  <string name="challengeX">%s ला आव्हान द्या</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">आणि %s प्रिमुव्ह संपादित करा</item>
     <item quantity="other">आणि %s प्रिमुव्ह संपादित करा</item>

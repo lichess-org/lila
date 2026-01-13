@@ -408,7 +408,6 @@
   <string name="pasteTheFenStringHere">Plak die FEN string hier</string>
   <string name="pasteThePgnStringHere">Plak die PGN string hier</string>
   <string name="orUploadPgnFile">Of laai ‘n PGN-lêer op</string>
-  <string name="fromPosition">Van posisie</string>
   <string name="continueFromHere">Gaan voort van hier af</string>
   <string name="toStudy">Bestudeer</string>
   <string name="importGame">Voer spel in</string>

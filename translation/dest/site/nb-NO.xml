@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Spill mot maskinen</string>
   <string name="gameMode">Modus</string>
   <string name="createLobbyGame">Opprett lobbyparti</string>
-  <string name="youPlayAs">Dine brikker</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">For å invitere noen til å spille, gi dem denne lenken</string>
   <string name="gameOver">Partiet er avsluttet</string>
   <string name="waitingForOpponent">Venter på motstander</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
   <string name="orUploadPgnFile">Eller last opp en PGN-fil</string>
-  <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsett herfra</string>
   <string name="toStudy">Studie</string>
   <string name="importGame">Importer parti</string>
@@ -1018,5 +1016,5 @@ Alle kostnader for drift, utvikling og innhold finansieres utelukkende av bruker
   <string name="search">Søk</string>
   <string name="clearSearch">Tøm søk</string>
   <string name="tags">Merkelapper</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">En passant</string>
+  <string name="enPassant">En passant</string>
 </resources>

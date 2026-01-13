@@ -57,10 +57,12 @@
   <string name="notifyGameEvent">Përditësime loje me korrespondencë</string>
   <string name="notifyChallenge">Sfida</string>
   <string name="notifyTournamentSoon">Turne që fillon së shpejti</string>
+  <string name="notifyBroadcasts">Transmetime te të cilat jeni pajtuar</string>
   <string name="notifyBell">Njoftim zileje brenda Lichess-it</string>
   <string name="notifyPush">Njoftim pajisjeje kur s’gjendeni në Lichess</string>
   <string name="notifyWeb">Shfletues</string>
   <string name="notifyDevice">Pajisje</string>
   <string name="bellNotificationSound">Tingull zileje njoftimesh</string>
   <string name="blindfold" comment="As in Blindfold chess">Me sytë lidhur</string>
+  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Shfaqe në të majtë të pajisjesh celulare</string>
 </resources>

@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">컴퓨터와 대국하기</string>
   <string name="gameMode">게임 모드</string>
   <string name="createLobbyGame">로비 게임 만들기</string>
-  <string name="youPlayAs">당신은 다음 색으로 플레이합니다:</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
   <string name="gameOver">대국 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
@@ -396,7 +395,6 @@
   <string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
   <string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
   <string name="orUploadPgnFile">또는 PGN 파일을 업로드하세요</string>
-  <string name="fromPosition">정해진 보드판에서 시작</string>
   <string name="continueFromHere">여기서부터 시작</string>
   <string name="toStudy">연구</string>
   <string name="importGame">대국 불러오기</string>
@@ -974,5 +972,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="search">검색</string>
   <string name="clearSearch">검색 초기화</string>
   <string name="tags">태그</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">앙파상</string>
+  <string name="enPassant">앙파상</string>
 </resources>

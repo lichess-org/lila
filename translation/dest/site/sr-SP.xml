@@ -423,7 +423,6 @@
   <string name="pasteTheFenStringHere">Налепи FEN текст овде</string>
   <string name="pasteThePgnStringHere">Налепи PGN текст овде</string>
   <string name="orUploadPgnFile">Или учитај PGN фајл</string>
-  <string name="fromPosition">Од позиције</string>
   <string name="continueFromHere">Настави одавде</string>
   <string name="toStudy">Проучи</string>
   <string name="importGame">Увези партију</string>

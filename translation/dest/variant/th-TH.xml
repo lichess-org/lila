@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">ปกติ</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">กฎกติกาหมากรุกมาตรฐาน (สหพันธ์หมากรุกโลก)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">หมาก 960 ตำแหน่ง</string>
-  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">ในตอนเริ่มเกม หมากแถวหลังจะถูกสุ่มตำแหน่ง</string>
-  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">ราชาแห่งเนินเขา</string>
-  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">นำคิงของคุณไปกลางกระดานเพื่อชนะ</string>
-  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">รุกสามที</string>
-  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">รุกคิงฝ่ายตรงข้ามให้ได้ 3 ครั้งเพื่อชนะ</string>
-  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">หมากกลับตาลปัตร</string>
-  <string name="antichessTitle" comment="Description for the Antichess variant">เส้นหมากให้หมดทุกตัว (หรือทำให้ตัวเองรุกอับ) เพื่อชนะ</string>
-  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">หมากปรมาณู</string>
-  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">ระเบิดคิงฝ่ายตรงข้ามเพื่อชนะ</string>
-  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">ทัพเบี้ย</string>
-  <string name="hordeTitle" comment="Description for the Horde chess variant">ฝั่งหนึ่งเป็นกองทัพเบึ้ยหลายตัว ส่วนอีกฝั่งเป็นหมากปกติ</string>
-  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">แข่งคิง</string>
-  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">นำคิงไปถึงอีกฝั่งหนึ่งของกระดานเพื่อชนะ</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">บ้านอลเวง</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">หมากที่ถูกกินแล้วสามารถนำกลับมาวางบนกระดานได้แทนที่จะเดินหมากตัวอื่น</string>
+  <string name="standard">ปกติ</string>
+  <string name="standardTitle">กฎกติกาหมากรุกมาตรฐาน (สหพันธ์หมากรุกโลก)</string>
+  <string name="chess960">หมาก 960 ตำแหน่ง</string>
+  <string name="chess960Title">ในตอนเริ่มเกม หมากแถวหลังจะถูกสุ่มตำแหน่ง</string>
+  <string name="kingOfTheHill">ราชาแห่งเนินเขา</string>
+  <string name="kingOfTheHillTitle">นำคิงของคุณไปกลางกระดานเพื่อชนะ</string>
+  <string name="threeCheck">รุกสามที</string>
+  <string name="threeCheckTitle">รุกคิงฝ่ายตรงข้ามให้ได้ 3 ครั้งเพื่อชนะ</string>
+  <string name="antichess">หมากกลับตาลปัตร</string>
+  <string name="antichessTitle">เส้นหมากให้หมดทุกตัว (หรือทำให้ตัวเองรุกอับ) เพื่อชนะ</string>
+  <string name="atomic">หมากปรมาณู</string>
+  <string name="atomicTitle">ระเบิดคิงฝ่ายตรงข้ามเพื่อชนะ</string>
+  <string name="horde">ทัพเบี้ย</string>
+  <string name="hordeTitle">ฝั่งหนึ่งเป็นกองทัพเบึ้ยหลายตัว ส่วนอีกฝั่งเป็นหมากปกติ</string>
+  <string name="racingKings">แข่งคิง</string>
+  <string name="racingKingsTitle">นำคิงไปถึงอีกฝั่งหนึ่งของกระดานเพื่อชนะ</string>
+  <string name="crazyhouse">บ้านอลเวง</string>
+  <string name="crazyhouseTitle">หมากที่ถูกกินแล้วสามารถนำกลับมาวางบนกระดานได้แทนที่จะเดินหมากตัวอื่น</string>
 </resources>

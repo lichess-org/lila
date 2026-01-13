@@ -3,7 +3,6 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Tantang teman</string>
   <string name="playAgainstComputer">Bermain lawan komputer</string>
   <string name="gameMode">Mode bermain</string>
-  <string name="youPlayAs">Anda bermain sebagai</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Undang yang lain dengan memberikan URL berikut</string>
   <string name="gameOver">Permainan Berakhir</string>
   <string name="waitingForOpponent">Menunggu lawan</string>
@@ -393,7 +392,6 @@
   <string name="pasteTheFenStringHere">Paste string FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste string PGN di sini</string>
   <string name="orUploadPgnFile">Atau muat berkas PGN</string>
-  <string name="fromPosition">Dari posisi</string>
   <string name="continueFromHere">Lanjutkan dari sini</string>
   <string name="toStudy">Studi</string>
   <string name="importGame">Masukkan permainan</string>

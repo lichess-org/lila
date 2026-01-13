@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Сыграть с компьютером</string>
   <string name="gameMode">Режим игры</string>
   <string name="createLobbyGame">Создать запрос на игру</string>
-  <string name="youPlayAs">Вы играете за</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Чтобы пригласить друга, отправьте ему эту ссылку</string>
   <string name="gameOver">Партия окончена</string>
   <string name="waitingForOpponent">Ожидание соперника</string>
@@ -229,6 +228,7 @@
   <string name="minutesPerSide">Минут на партию</string>
   <string name="variant">Вариант</string>
   <string name="variants">Варианты</string>
+  <string name="variantsDescription">Больше способов сыграть</string>
   <string name="timeControl">Контроль времени</string>
   <string name="realTime">По часам</string>
   <string name="correspondence">Игра по переписке</string>
@@ -335,6 +335,7 @@
   <string name="standard">Классические шахматы</string>
   <string name="customPosition">Настраиваемая позиция</string>
   <string name="unlimited">Отсутствует</string>
+  <string name="unlimitedDescription">Возьмите столько времени, сколько вам нужно</string>
   <string name="mode">Режим</string>
   <string name="casual">Товарищеская</string>
   <string name="rated">Рейтинговая</string>
@@ -489,7 +490,6 @@
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="orUploadPgnFile">Или загрузите PGN-файл</string>
-  <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с этой позиции</string>
   <string name="toStudy">Студия</string>
   <string name="importGame">Импортировать партию</string>
@@ -1107,5 +1107,5 @@
   <string name="search">Поиск</string>
   <string name="clearSearch">Очистить поиск</string>
   <string name="tags">Теги</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">Взятие на проходе</string>
+  <string name="enPassant">Взятие на проходе</string>
 </resources>

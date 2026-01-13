@@ -477,7 +477,6 @@
   <string name="pasteTheFenStringHere">Greamaigh an téacs FEN anseo</string>
   <string name="pasteThePgnStringHere">Greamaigh an téacs PGN anseo</string>
   <string name="orUploadPgnFile">Nó treas a uaslódáil</string>
-  <string name="fromPosition">Ó shuíomh</string>
   <string name="continueFromHere">Lean ar aghaidh ó seo</string>
   <string name="toStudy">Staidéar</string>
   <string name="importGame">Déan cluiche a iompórtáil</string>

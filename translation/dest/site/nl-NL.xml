@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Speel tegen de computer</string>
   <string name="gameMode">Spelmodus</string>
   <string name="createLobbyGame">Maak een lobby spel aan</string>
-  <string name="youPlayAs">Je speelt als</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Deel deze link als u iemand wil uitnodigen om met u te spelen</string>
   <string name="gameOver">Partij afgelopen</string>
   <string name="waitingForOpponent">Wachten op een tegenstander</string>
@@ -205,6 +204,7 @@
   <string name="minutesPerSide">Minuten per speler</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianten</string>
+  <string name="variantsDescription">Meer manieren om te spelen</string>
   <string name="timeControl">Speeltempo</string>
   <string name="realTime">Live</string>
   <string name="correspondence">Correspondentie</string>
@@ -299,6 +299,7 @@
   <string name="standard">Standaard</string>
   <string name="customPosition">Aangepaste positie</string>
   <string name="unlimited">Onbeperkt</string>
+  <string name="unlimitedDescription">Neem alle tijd die je nodig hebt</string>
   <string name="mode">Instelling</string>
   <string name="casual">Vrijblijvend</string>
   <string name="rated">Met rating</string>
@@ -427,7 +428,6 @@
   <string name="pasteTheFenStringHere">Plak de FEN-code hier</string>
   <string name="pasteThePgnStringHere">Plak de PGN-code hier</string>
   <string name="orUploadPgnFile">Of upload een PGN-bestand</string>
-  <string name="fromPosition">Vanuit een stelling</string>
   <string name="continueFromHere">Ga vanaf hier verder</string>
   <string name="toStudy">Studie</string>
   <string name="importGame">Importeer partij</string>
@@ -1019,4 +1019,5 @@ Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door do
   <string name="search">Zoeken</string>
   <string name="clearSearch">Zoekopdracht wissen</string>
   <string name="tags">Labels</string>
+  <string name="enPassant">En passant</string>
 </resources>
