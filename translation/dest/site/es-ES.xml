@@ -125,10 +125,10 @@
   <string name="bestMoveArrow">Indicar la mejor jugada</string>
   <string name="showVariationArrows">Mostrar flechas de variantes</string>
   <string name="evaluationGauge">Indicador de evaluación</string>
-  <string name="visualMotifs">Motivos visuales</string>
-  <string name="undefendedPieces">Piezas indefensas</string>
+  <string name="visualMotifs">Complementos visuales</string>
+  <string name="undefendedPieces">Piezas no defendidas</string>
   <string name="pinnedPieces">Piezas clavadas</string>
-  <string name="checkableKing">Rey en jaque</string>
+  <string name="checkableKing">Rey en peligro</string>
   <string name="multipleLines">Múltiples líneas</string>
   <string name="cpus">Procesadores</string>
   <string name="memory">Memoria</string>
