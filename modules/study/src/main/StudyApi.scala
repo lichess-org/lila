@@ -468,7 +468,9 @@ final class StudyApi(
               doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
       yield sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
 
-  def setComment(studyId: StudyId, position: Position.Ref, text: CommentStr)(who: Who) =
+  def setComment(studyId: StudyId, position: Position.Ref, commentId: Option[Comment.Id], text: CommentStr)(
+      who: Who
+  ) =
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
@@ -476,7 +478,7 @@ final class StudyApi(
             .async(who.u)
             .flatMapz: author =>
               val comment = Comment(
-                id = Comment.Id.make,
+                id = commentId.getOrElse(Comment.Id.make),
                 text = text,
                 by = Comment.Author.User(author.id, author.titleName)
               )
@@ -486,8 +488,8 @@ final class StudyApi(
     position.chapter.setComment(comment, position.path) match
       case Some(newChapter) =>
         newChapter.root.nodeAt(position.path).so { node =>
-          node.comments.findBy(comment.by).so { c =>
-            for _ <- chapterRepo.setComments(node.comments.filterEmpty)(newChapter, position.path)
+          node.comments.findByIdAndAuthor(comment.id, comment.by).so { c =>
+            for _ <- chapterRepo.setComments(node.comments.set(c))(newChapter, position.path)
             yield
               sendTo(study.id)(_.setComment(position.ref, c, who))
               studyRepo.updateNow(study)
