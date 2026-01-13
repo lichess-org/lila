@@ -54,12 +54,16 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   def usersByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val usernames = ctx.body.body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList
-    val cost = usernames.size / (if ctx.me.exists(_.isVerified) then 20 else 4)
+    val cost = usernames.size / {
+      if ctx.me.exists(_.isVerified) then 20
+      else if ctx.isAuth then 6
+      else 3
+    }
     val withRanks = getBool("rank")
     limit.apiUsers(req.ipAddress, rateLimited, cost = cost.atLeast(1)):
       lila.mon.api.users.increment(cost.toLong)
       env.user.api
-        .listWithPerfs(usernames)
+        .listWithPerfs(usernames, includeClosed = true)
         .map:
           _.map: u =>
             env.user.jsonView.full(

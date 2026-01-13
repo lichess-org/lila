@@ -1,5 +1,5 @@
 import { pieceGrams, totalGames } from './constants';
-import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
+import type { Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
 import { onInsert, hl, type LooseVNodes, type VNode, dataIcon } from 'lib/view';
 import { loadOpeningLpv } from './ui';
 import { shuffle } from 'lib/algo';

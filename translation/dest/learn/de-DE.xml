@@ -6,7 +6,7 @@
   <string name="progressX">Fortschritt: %s</string>
   <string name="resetMyProgress">Fortschritt zurücksetzen</string>
   <string name="youWillLoseAllYourProgress">Du verlierst all deinen Fortschritt!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">Spielen!</string>
+  <string name="play">Spielen!</string>
   <string name="chessPieces">Schachfiguren</string>
   <string name="theRook">Der Turm</string>
   <string name="itMovesInStraightLines">Er bewegt sich in geraden Linien</string>
@@ -116,7 +116,6 @@ kurz zu rochieren!</string>
   <string name="findAWayToCastleQueenSide">Finde eine Möglichkeit,
 lang zu rochieren!</string>
   <string name="castlingComplete">Herzlichen Glückwunsch! Die Rochade ist in fast jedem Spiel empfehlenswert.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Der besondere Bauernzug</string>
   <string name="enPassantIntro">Wenn der gegnerische Bauer zwei Felder gezogen ist, kannst du ihn schlagen als wenn er nur ein Feld gezogen wäre.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Schwarz hat seinen Bauern um zwei Felder bewegt!

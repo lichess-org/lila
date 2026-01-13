@@ -67,6 +67,8 @@
   <string name="intermezzoDescription">I stedet for å foreta det forventede trekket utføres først et annet trekk som utgjør en umiddelbar trussel, som motstanderen må svare på.</string>
   <string name="killBoxMate">Kassematt</string>
   <string name="killBoxMateDescription">Et tårn står ved siden av motstanderens konge og er støttet av en dronning som også blokkerer kongens fluktfelter. Tårnet og dronningen fanger motstanderens konge i en 3x3 «kasse».</string>
+  <string name="pillsburysMate">Pillsburys matt</string>
+  <string name="morphysMate">Morphys matt</string>
   <string name="triangleMate">Trekantmatt</string>
   <string name="triangleMateDescription">Dronning og tårn, på tilstøtende felt til motstanderens konge, står på samme rad eller linje med ett felt mellom seg, slik at de tre brikkene danner en trekant.</string>
   <string name="vukovicMate">Vuković-matt</string>
@@ -97,6 +99,7 @@
   <string name="oneMoveDescription">En sjakknøtt på bare ett trekk.</string>
   <string name="opening">Åpning</string>
   <string name="openingDescription">En taktikk i den første fasen av partiet.</string>
+  <string name="operaMate">Operamatt</string>
   <string name="pawnEndgame">Bondesluttspill</string>
   <string name="pawnEndgameDescription">Et sluttspill med kun bønder.</string>
   <string name="pin">Binding</string>

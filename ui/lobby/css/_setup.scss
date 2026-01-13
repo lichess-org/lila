@@ -3,11 +3,30 @@
 $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
+%setup-card-content {
+  @extend %flex-center-nowrap;
+
+  .icon {
+    font-size: 1.5rem;
+    margin-inline-end: 0.75rem;
+  }
+  .text {
+    @extend %flex-column;
+    .name {
+      font-weight: bold;
+    }
+    .desc {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+  }
+}
+
 .game-setup {
-  width: 30em;
+  width: 42rem;
   max-width: 96vw;
   padding: 0;
-  text-align: center;
+  overflow: hidden;
 
   h2 {
     margin: 1.5rem 0;
@@ -16,8 +35,8 @@ $c-slider: $c-setup;
   .setup-content {
     @extend %flex-column;
     border-block: $border;
-    padding: 1.5rem 1rem;
-    gap: 1.2rem;
+    padding: 1.8rem 1.2rem;
+    gap: 1.8rem;
     background: $c-bg-zebra;
   }
 
@@ -26,22 +45,19 @@ $c-slider: $c-setup;
     cursor: default !important;
   }
 
-  group.radio {
-    width: 70%;
-    align-self: center;
-
-    input:checked + label {
-      background: $c-setup;
-    }
-  }
-
-  > div {
-    @extend %flex-column;
+  group.radio input:checked + label {
+    background: $c-setup;
   }
 
   .config-group {
     @extend %flex-column;
     gap: 0.5rem;
+
+    .label {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: $c-font;
+    }
   }
 
   .fen__form {
@@ -60,13 +76,7 @@ $c-slider: $c-setup;
   .failure {
     background: $m-bad_bg--mix-20;
     box-shadow: 0 0 13px 6px $m-bad_bg--mix-20;
-    border-radius: 0.5rem;
-  }
-
-  group.radio.color-picker {
-    width: auto;
-    margin: 0;
-    justify-content: center;
+    border-radius: $box-radius-size;
   }
 
   .footer {
@@ -93,12 +103,6 @@ $c-slider: $c-setup;
     height: 56px;
   }
 
-  .radio-pane {
-    @extend %flex-center-nowrap;
-    justify-content: center;
-    gap: 0.8rem;
-  }
-
   .range {
     span {
       font-weight: bold;
@@ -115,7 +119,6 @@ $c-slider: $c-setup;
   .rating-range {
     @extend %flex-center-nowrap;
     justify-content: center;
-    font-size: 1.25rem;
 
     .rating-min,
     .rating-max {
@@ -129,11 +132,6 @@ $c-slider: $c-setup;
     }
   }
 
-  .time-choice,
-  .days-choice {
-    margin-top: 0.5rem;
-  }
-
   .ratings {
     width: 100%;
     text-align: center;
@@ -142,21 +140,108 @@ $c-slider: $c-setup;
     }
   }
 
-  .label-select {
-    @extend %flex-center;
+  .variant-picker-split {
+    group.radio {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 4.5rem;
 
-    &.variant {
-      padding-bottom: 0;
+      label {
+        @extend %setup-card-content;
+        .text {
+          flex: 0 1 auto;
+          text-align: start;
+        }
+      }
+    }
+  }
+
+  .time-control-tabs {
+    .tabs-horiz {
+      border-bottom: $border;
+      margin-bottom: 1rem;
+      width: 100%;
+      span {
+        &.active,
+        &:hover {
+          border-color: $c-setup;
+        }
+        &.active {
+          color: $c-setup;
+        }
+      }
     }
 
-    label {
-      flex: 0 0 33%;
-      text-align: end;
-    }
+    .time-panel {
+      @extend %flex-column;
+      gap: 1.2rem;
 
-    select {
-      margin-inline-start: 0.8rem;
-      font-weight: bold;
+      .presets {
+        @extend %flex-wrap;
+        margin-top: -0.5rem;
+
+        .preset-btn {
+          @extend %button-none;
+          color: $c-font-dim;
+          padding: 0.4rem 0.7rem;
+          font-size: 0.9rem;
+          border-radius: $box-radius-size;
+          &:hover {
+            background: $c-bg-zebra2;
+            color: $c-font-clear;
+          }
+          &.active {
+            background: $c-setup;
+            color: $c-over;
+          }
+        }
+      }
+
+      .sliders-grid {
+        display: grid;
+        grid-template-columns: 1fr 3ch 1fr;
+      }
+
+      .slider-container {
+        @extend %flex-column;
+        justify-content: space-between;
+        .label-row {
+          @extend %flex-between-nowrap;
+          align-items: flex-start;
+          margin-bottom: 0.5rem;
+
+          .val-box {
+            background: $c-bg-low;
+            padding: 0.1rem 0.5rem;
+            border-radius: $box-radius-size / 2;
+            font-weight: bold;
+            color: $c-font;
+          }
+        }
+
+        input[type='range'] {
+          width: 100%;
+          padding: 0;
+        }
+      }
+      .slider-separator {
+        line-height: 1.7;
+      }
+    }
+  }
+
+  .color-cards {
+    @extend %button-shadow;
+
+    .card-radio {
+      @extend %flex-column;
+      padding: 0.75rem;
+
+      .text {
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        font-weight: 500;
+      }
     }
   }
 
@@ -175,6 +260,57 @@ $c-slider: $c-setup;
     }
     &:has(.increment-choice) .fen__board {
       width: 30%;
+    }
+  }
+}
+
+.variant-selector {
+  width: 40rem;
+  max-width: 90vw;
+  max-height: 90%;
+  padding: 0;
+  @extend %flex-column;
+  border-radius: $box-radius-size;
+  overflow: hidden;
+
+  h2 {
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+
+  .variant-grid {
+    background: $c-bg-zebra;
+    border-top: $border;
+
+    padding: 1rem;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+
+    .variant-card {
+      @extend %setup-card-content;
+      @extend %metal;
+      border: $border;
+      padding: 0.75rem;
+      border-radius: $box-radius-size;
+      text-align: start;
+
+      &:hover {
+        @extend %metal-hover;
+      }
+      &.selected {
+        background: $c-setup;
+        @extend %active-inset-shadow;
+        color: $c-font-clearer;
+        text-shadow: 0 1px 1px #000 !important;
+
+        .icon::before,
+        .text,
+        .num {
+          color: $c-font-clearer;
+        }
+      }
     }
   }
 }

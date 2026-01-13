@@ -67,6 +67,10 @@
   <string name="intermezzoDescription">Вместо того, чтобы сделать ожидаемый ход, сначала делается другой ход, представляющий непосредственную угрозу, на которую противник должен ответить. Также известен как «Zwischenzug» или «Intermezzo».</string>
   <string name="killBoxMate">Мат «Смертельная коробка»</string>
   <string name="killBoxMateDescription">Ладья ставится рядом с королём противника под защитой ферзя, который одновременно препятствует побегу короля. Ладья и ферзь ловят вражеского короля в «смертельную коробку» 3×3.</string>
+  <string name="pillsburysMate">Мат Пиллсбери</string>
+  <string name="pillsburysMateDescription">Ладья ставит мат, в то время как слон контролирует угловое поле.</string>
+  <string name="morphysMate">Мат Морфи</string>
+  <string name="morphysMateDescription">Слон ставит мат, в то время как ладья контролирует соседнюю вертикаль.</string>
   <string name="triangleMate">Треугольный мат</string>
   <string name="triangleMateDescription">Ферзь и ладья находятся на соседних полях с вражеским королём, на той же горизонтали или вертикали, образуюя треугольник.</string>
   <string name="vukovicMate">Мат Вуковича</string>
@@ -97,6 +101,8 @@
   <string name="oneMoveDescription">Задача, где нужно сделать только один выигрывающий ход.</string>
   <string name="opening">Дебют</string>
   <string name="openingDescription">Тактика в первой стадии игры.</string>
+  <string name="operaMate">Оперный мат</string>
+  <string name="operaMateDescription">Ладья ставит мат под защитой слона.</string>
   <string name="pawnEndgame">Пешечный эндшпиль</string>
   <string name="pawnEndgameDescription">Эндшпиль с пешками.</string>
   <string name="pin">Связка</string>

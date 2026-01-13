@@ -111,6 +111,7 @@ final class Mod(
         _ <- env.forum.delete.allByUser(sus.user)
         _ <- env.msg.api.deleteAllBy(sus.user)
         _ <- env.mod.logApi.deleteComms(sus)
+        _ <- env.memo.picfitApi.deleteByUser(sus.user.id)
       yield ().some
   }(actionResult(username))
 

@@ -178,10 +178,10 @@ final private class ForumTopicApi(
   def closedByMod(topic: ForumTopic)(using Me): Fu[Boolean] =
     topic.closed.so(topicRepo.closedByMod(topic.id))
 
-  def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using Me): Funit =
-    topicRepo.sticky(topic.id, topic.toggleSticky) >>
+  def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
+    topicRepo.sticky(topic.id, topic.sticky.isEmpty.option(me.userId)) >>
       MasterGranter(_.ModerateForum).so:
-        modLog.toggleStickyTopic(categ.id, topic.slug, !topic.isSticky)
+        modLog.toggleStickyTopic(categ.id, topic.slug, topic.sticky.isEmpty)
 
   private[forum] def denormalize(topic: ForumTopic): Funit = for
     nbPosts <- postRepo.countByTopic(topic)
