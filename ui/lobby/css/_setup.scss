@@ -302,14 +302,8 @@ $c-slider: $c-setup;
       &.selected {
         background: $c-setup;
         @extend %active-inset-shadow;
-        color: $c-font-clearer;
+        color: #fff;
         text-shadow: 0 1px 1px #000 !important;
-
-        .icon::before,
-        .text,
-        .num {
-          color: $c-font-clearer;
-        }
       }
     }
   }
