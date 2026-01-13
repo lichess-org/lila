@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">Pfil für de bescht Zug</string>
   <string name="showVariationArrows">Pfil für Variante azeige</string>
   <string name="evaluationGauge">Bewertigs-Massschtab</string>
+  <string name="visualMotifs">Visuelli Motif</string>
+  <string name="undefendedPieces">Ung\'schützti Figure</string>
+  <string name="pinnedPieces">G\'fessleti Figure</string>
+  <string name="checkableKing">Agrifbare König</string>
   <string name="multipleLines">Mehreri Variantä</string>
   <string name="cpus">Prozässore</string>
   <string name="memory">Arbetsschpeicher</string>
@@ -205,6 +209,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="minutesPerSide">Minute pro Schpiller</string>
   <string name="variant">Variante</string>
   <string name="variants">Variante</string>
+  <string name="variantsDescription">Meh Schpielvariante</string>
   <string name="timeControl">Bedänkzit</string>
   <string name="realTime">Ächtzit</string>
   <string name="correspondence">Fernschach</string>
@@ -299,6 +304,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="standard">Standard</string>
   <string name="customPosition">Benutzerdefinierti Schtellig</string>
   <string name="unlimited">Unbegränzt</string>
+  <string name="unlimitedDescription">Nimm dir sovill Zit, wie du bruchsch</string>
   <string name="mode">Modus</string>
   <string name="casual">Ungwertet</string>
   <string name="rated">Gwertet</string>
