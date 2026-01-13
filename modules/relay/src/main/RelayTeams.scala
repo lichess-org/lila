@@ -199,18 +199,18 @@ final class RelayTeamLeaderboard(
           m.isFinished.so:
             m.pointsFor(name).map(_.value)
         .sum
-    def boardPoints: Float =
+    def gamePoints: Float =
       matches
         .flatMap: m =>
           m.isFinished.so:
             m.teams.find(_.name == name).flatMap(_.points)
         .sum
 
-  given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.boardPoints, t.name))
+  given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.gamePoints, t.name))
 
   object json:
     given Writes[TeamLeaderboardEntry] = t =>
-      Json.obj("name" -> t.name, "mp" -> t.matchPoints, "bp" -> t.boardPoints)
+      Json.obj("name" -> t.name, "mp" -> t.matchPoints, "gp" -> t.gamePoints)
 
   def leaderboardJson(tour: RelayTourId): Fu[JsonStr] =
     jsonCache.get(tour)
