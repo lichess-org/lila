@@ -69,7 +69,8 @@ export default class EditorCtrl {
     this.variant = this.cfg.embed ? 'standard' : ((params.get('variant') || 'standard') as VariantKey);
     this.initialFen = (cfg.fen || params.get('fen') || INITIAL_FEN).replace(/_/g, ' ');
     this.guessCastlingToggles = false;
-    this.chess960PositionId = params.get('position') === null ? undefined : parseInt(params.get('position')!, 10);
+    this.chess960PositionId =
+      params.get('position') === null ? undefined : parseInt(params.get('position')!, 10);
 
     if (!this.cfg.embed) this.options.orientation = params.get('color') === 'black' ? 'black' : 'white';
 
@@ -229,7 +230,7 @@ export default class EditorCtrl {
     if (fen === INITIAL_FEN && this.variant === 'standard' && orientation === 'white')
       return this.cfg.baseUrl;
     const variant = this.variant === 'standard' ? '' : '?variant=' + this.variant;
-     const chess960PositionId =
+    const chess960PositionId =
       this.chess960PositionId === undefined ? '' : `&position=${this.chess960PositionId}`;
     const orientationParam = variant ? `&color=${orientation}` : `?color=${orientation}`;
     return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}${orientationParam}${chess960PositionId}`;
