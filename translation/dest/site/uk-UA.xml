@@ -129,6 +129,8 @@
   <string name="bestMoveArrow">Стрілка «Найкращий хід»</string>
   <string name="showVariationArrows">Показати стрілки для варіантів</string>
   <string name="evaluationGauge">Шкала оцінки</string>
+  <string name="undefendedPieces">Незахищені фігури</string>
+  <string name="checkableKing">Король, якому можна поставити шах</string>
   <string name="multipleLines">Кількість стрілок</string>
   <string name="cpus">Потоки</string>
   <string name="memory">Пам\'ять</string>
@@ -228,6 +230,7 @@
   <string name="minutesPerSide">Хвилин на кожного</string>
   <string name="variant">Варіант</string>
   <string name="variants">Варіанти</string>
+  <string name="variantsDescription">Більше способів гри</string>
   <string name="timeControl">Контроль часу</string>
   <string name="realTime">Наживо</string>
   <string name="correspondence">Заочні</string>
