@@ -73,12 +73,9 @@ export function view(root: AnalyseCtrl): VNode {
 
   const commentTextareas = () => {
     let comments = current.node.comments || [];
-    comments = comments.filter(comment => {
-      return isAuthorObj(comment.by) && comment.by.id === ctrl.root.opts.userId;
-    });
-    if (comments.length === 0) {
-      comments = [{ id: '', by: '', text: '' }];
-    }
+    comments = comments.filter(comment => isAuthorObj(comment.by) && comment.by.id === ctrl.root.opts.userId);
+    if (comments.length === 0) comments = [{ id: '', by: '', text: '' }];
+
     return comments.map(comment =>
       h('div.study__comment-edit', [
         h('textarea.form-control', {
