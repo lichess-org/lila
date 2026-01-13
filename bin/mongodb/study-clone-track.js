@@ -1,6 +1,6 @@
 const user = 'Amazing_Tactics'.toLowerCase();
 
-db.study.find({ ownerId: user, visibility: 'public' }).forEach(function(study) {
+db.study.find({ ownerId: user, visibility: 'public' }).forEach(function (study) {
   const line = computeLine(study);
   if (line.find(l => l.ownerId != user)) {
     console.log('--------------------------');
