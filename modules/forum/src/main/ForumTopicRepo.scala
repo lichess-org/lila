@@ -25,8 +25,8 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
     case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
     case Unsafe => $empty
 
-  private lazy val notStickyQuery = $doc("sticky".$ne(true))
-  private lazy val stickyQuery = $doc("sticky" -> true)
+  private lazy val notStickyQuery = $or($doc("sticky".$exists(false)), $doc("sticky" -> false))
+  private lazy val stickyQuery = $and($doc("sticky".$exists(true)), $doc("sticky".$ne(false)))
 
   def byId(id: ForumTopicId): Fu[Option[ForumTopic]] = coll.byId[ForumTopic](id)
 
