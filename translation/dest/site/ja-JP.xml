@@ -123,6 +123,10 @@
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="showVariationArrows">変化手順の矢印を表示</string>
   <string name="evaluationGauge">評価値を表示</string>
+  <string name="visualMotifs">形のパターン</string>
+  <string name="undefendedPieces">浮き駒</string>
+  <string name="pinnedPieces">ピンされた駒</string>
+  <string name="checkableKing">チェックできるキング</string>
   <string name="multipleLines">解析ライン数</string>
   <string name="cpus">スレッド数</string>
   <string name="memory">メモリ</string>
@@ -192,6 +196,7 @@
   <string name="minutesPerSide">持ち時間</string>
   <string name="variant">バリアント</string>
   <string name="variants">変則チェス</string>
+  <string name="variantsDescription">さまざまな遊び方</string>
   <string name="timeControl">持時間</string>
   <string name="realTime">実時間</string>
   <string name="correspondence">通信チェス</string>
@@ -280,6 +285,7 @@
   <string name="standard">スタンダード</string>
   <string name="customPosition">自由配置局面</string>
   <string name="unlimited">無制限</string>
+  <string name="unlimitedDescription">しっかり時間をかけて</string>
   <string name="mode">モード</string>
   <string name="casual">非レート戦</string>
   <string name="rated">レート戦</string>
