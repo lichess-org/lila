@@ -302,7 +302,7 @@ $c-slider: $c-setup;
       &.selected {
         background: $c-setup;
         @extend %active-inset-shadow;
-        color: #fff;
+        color: $c-over;
         text-shadow: 0 1px 1px #000 !important;
       }
     }
