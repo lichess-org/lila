@@ -192,6 +192,7 @@
   <string name="minutesPerSide">Số phút cho mỗi bên</string>
   <string name="variant">Biến thể</string>
   <string name="variants">Biến thể</string>
+  <string name="variantsDescription">Nhiều cách chơi hơn</string>
   <string name="timeControl">Kiểu thời gian</string>
   <string name="realTime">Thời gian thực</string>
   <string name="correspondence">Cờ qua thư</string>
@@ -280,6 +281,7 @@
   <string name="standard">Tiêu chuẩn</string>
   <string name="customPosition">Thế trận tùy chỉnh</string>
   <string name="unlimited">Vô hạn</string>
+  <string name="unlimitedDescription">Hãy dành tất cả thời gian bạn cần</string>
   <string name="mode">Chế độ</string>
   <string name="casual">Không xếp hạng</string>
   <string name="rated">Có xếp hạng</string>
