@@ -1,11 +1,6 @@
 .color-picker {
-  --button-size: 40px;
   --king-size: 32px;
   &__button {
-    width: 50px !important;
-    height: var(--button-size) !important;
-    padding: 4px 8px !important;
-
     i {
       display: block;
       width: var(--king-size);

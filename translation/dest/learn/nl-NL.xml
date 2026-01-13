@@ -6,7 +6,7 @@
   <string name="progressX">Voortgang: %s</string>
   <string name="resetMyProgress">Voortgang verwijderen</string>
   <string name="youWillLoseAllYourProgress">Je zult al je voortgang verliezen!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">speel!</string>
+  <string name="play">speel!</string>
   <string name="chessPieces">Schaakstukken</string>
   <string name="theRook">De toren</string>
   <string name="itMovesInStraightLines">Hij beweegt in rechte lijnen</string>
@@ -150,7 +150,6 @@ naar de koningszijde te rokeren!</string>
   <string name="findAWayToCastleQueenSide">Vind een manier om
 naar de dameszijde te rokeren!</string>
   <string name="castlingComplete">Gefeliciteerd! Rokeren is bijna iedere partij een goed idee.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De speciale pionzet</string>
   <string name="enPassantIntro">Als de vijandige pion twee vakjes tegelijk beweegt, kunt je hem slaan alsof hij maar één vakje heeft bewogen.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Zwart verplaatste zijn pion net

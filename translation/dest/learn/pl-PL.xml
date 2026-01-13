@@ -6,7 +6,7 @@
   <string name="progressX">Postęp: %s</string>
   <string name="resetMyProgress">Zresetuj moje wyniki</string>
   <string name="youWillLoseAllYourProgress">Stracisz cały swój postęp!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">graj!</string>
+  <string name="play">graj!</string>
   <string name="chessPieces">Bierki szachowe</string>
   <string name="theRook">Wieża</string>
   <string name="itMovesInStraightLines">Porusza się po liniach prostych</string>
@@ -119,7 +119,6 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="findAWayToCastleKingSide">Znajdź sposób aby wykonać krótką roszadę!</string>
   <string name="findAWayToCastleQueenSide">Znajdź sposób aby wykonać długą roszadę!</string>
   <string name="castlingComplete">Gratulacje! Roszada powinna być wykonana w prawie każdej partii.</string>
-  <string name="enPassant">Bicie w przelocie</string>
   <string name="theSpecialPawnMove">Specjalny ruch piona</string>
   <string name="enPassantIntro">Kiedy pion przeciwnika poruszył się o dwa pola do przodu, możesz zbić go tak, jak gdyby poruszył się tylko o jedno pole.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Czarne właśnie ruszyły się pionem o dwa pola do przodu! Zbij go w przelocie.</string>

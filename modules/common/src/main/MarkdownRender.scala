@@ -99,7 +99,8 @@ final class MarkdownRender(
       .sync:
         try
           val saferText = MarkdownRender.preventStackOverflow(text)
-          renderer.render(parser.parse((if sourceMap then saferText else mentionsToLinks(saferText)).value))
+          val withMentions = if sourceMap then saferText else mentionsToLinks(saferText)
+          renderer.render(parser.parse(withMentions.value))
         catch
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
@@ -268,7 +269,7 @@ object MarkdownRender:
       html.tag("/a")
 
     private def addProtocolIfNecessary(url: String): String =
-      if url.matches("(?i)^https?://.*") then url
+      if url.startsWith("/") || url.matches("(?i)^https?://.*") then url
       else s"https://$url"
 
     private def renderLpvEmbed(

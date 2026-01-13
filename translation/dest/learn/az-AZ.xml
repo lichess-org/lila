@@ -6,7 +6,7 @@
   <string name="progressX">İrəliləyiş: %s</string>
   <string name="resetMyProgress">Irəliləyiş tarixini sıfırla</string>
   <string name="youWillLoseAllYourProgress">İrəliləyiş tarixi itəcək!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">oyna!</string>
+  <string name="play">oyna!</string>
   <string name="chessPieces">Şahmat fiqurları</string>
   <string name="theRook">Top</string>
   <string name="itMovesInStraightLines">Düz xətlə gedir</string>
@@ -151,7 +151,6 @@ Hücumu bloklayın sonra qalaqurma edin!</string>
   <string name="findAWayToCastleKingSide">Qısa qalaqurmanın bir yolunu tap!</string>
   <string name="findAWayToCastleQueenSide">Vəzir tərəfə qalaqurmanın bir yolunu tapın!</string>
   <string name="castlingComplete">Təbriklər! Demək olar hər bir oyunda qalaqurma etməlisən.</string>
-  <string name="enPassant">Keçiddə götürmə</string>
   <string name="theSpecialPawnMove">Xüsusi piyada gedişi</string>
   <string name="enPassantIntro">Rəqib piyada iki xana hərəkət etdikdə, onu bir xana hərəkət etdiyi kimi qəbul edə bilərsiniz.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Qaralar piyadanı iki xana 

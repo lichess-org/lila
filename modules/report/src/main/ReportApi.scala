@@ -540,7 +540,7 @@ final class ReportApi(
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
     userApi
-      .listWithPerfs(reports.map(_.user).distinct)
+      .listWithPerfs(reports.map(_.user).distinct, includeClosed = true)
       .map: users =>
         reports
           .flatMap: r =>

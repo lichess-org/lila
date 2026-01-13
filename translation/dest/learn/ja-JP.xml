@@ -6,7 +6,7 @@
   <string name="progressX">修了: %s</string>
   <string name="resetMyProgress">学習履歴をリセット</string>
   <string name="youWillLoseAllYourProgress">修了の数字はゼロになります！</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">今ここ</string>
+  <string name="play">今ここ</string>
   <string name="chessPieces">チェスの駒</string>
   <string name="theRook">ルーク</string>
   <string name="itMovesInStraightLines">タテヨコに動く</string>
@@ -155,7 +155,6 @@
   <string name="findAWayToCastleQueenSide">準備してから
 左にキャスリング</string>
   <string name="castlingComplete">おめでとう！　ほとんどの場合キャスリングはしておくべきです。</string>
-  <string name="enPassant">アンパッサン</string>
   <string name="theSpecialPawnMove">ポーンの特殊な動き</string>
   <string name="enPassantIntro">相手のポーンが 2 マス進んだら、1 マス進んだ時と同じように取ることができます。</string>
   <string name="blackJustMovedThePawnByTwoSquares">黒は今ポーンを

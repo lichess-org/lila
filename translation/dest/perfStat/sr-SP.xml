@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="perfStats">%s статистика</string>
+  <string name="perfStats">%s статистике</string>
   <string name="viewTheGames">Погледај партије</string>
-  <string name="provisional">привремени</string>
-  <string name="notEnoughRatedGames">Није одиграно довољно рангираних игара како би се оствари поуздан рејтинг.</string>
+  <string name="provisional">пробни</string>
+  <string name="notEnoughRatedGames">Није одиграно довољно рангираних партија да се успостави поуздан рејтинг.</string>
   <string name="progressOverLastXGames">Напредак кроз задњих %s партија:</string>
   <string name="ratingDeviation">Девијација рејтинга: %s.</string>
   <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Мања вредност значи да је рејтинг стабилнији. Преко %1$s, рејтинг се рачуна као привремени. Да би се урачунала у рејтингу, ова вредност би требала бити испод %2$s (стандардни шах) или %3$s (варијанте).</string>

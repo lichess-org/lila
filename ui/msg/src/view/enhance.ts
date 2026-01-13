@@ -112,11 +112,17 @@ function expandGames(games: Expandable[]): void {
 
 const expandGame = async (exp: Expandable) => {
   const $lpv = $('<div>');
-  $(exp.element).parent().parent().addClass('has-embed');
+  const wrapper = exp.element.parentElement!.parentElement!;
+  const backup = wrapper.cloneNode(true);
+  wrapper.classList.add('has-embed');
   $(exp.element).replaceWith($('<div>').prepend($lpv));
-  await site.asset.loadEsm('bits.lpv', {
-    init: { el: $lpv[0] as HTMLElement, url: exp.link.src, lpvOpts: exp.link.opts },
-  });
+  try {
+    await site.asset.loadEsm('bits.lpv', {
+      init: { el: $lpv[0] as HTMLElement, url: exp.link.src, lpvOpts: exp.link.opts },
+    });
+  } catch (_) {
+    $(wrapper).replaceWith(backup);
+  }
   scroller.auto();
 };
 

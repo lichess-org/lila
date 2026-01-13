@@ -102,7 +102,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))
         .mapAsync(1): ids =>
-          env.user.api.listWithPerfs(ids.toList)
+          env.user.api.listWithPerfs(ids.toList, includeClosed = false)
         .mapConcat(identity)
         .map(env.api.userApi.one(_, None))
   }
@@ -141,7 +141,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     )
 
   private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related[UserWithPerfs]]] = for
-    users <- env.user.api.listWithPerfs(userIds.toList)
+    users <- env.user.api.listWithPerfs(userIds.toList, includeClosed = false)
     followables <- ctx.isAuth.so(env.pref.api.followableIds(users.map(_.id)))
     rels <- users.sequentially: u =>
       ctx.userId

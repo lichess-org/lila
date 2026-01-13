@@ -284,6 +284,11 @@ function getElUci(e: TouchEvent | MouseEvent): string | undefined {
   );
 }
 
+function getElPvIndex(e: TouchEvent | MouseEvent): number | null {
+  const moveIndex = (e.target as HTMLElement).dataset.moveIndex;
+  return moveIndex === undefined ? null : Number(moveIndex);
+}
+
 function getElUciList(e: TouchEvent | MouseEvent): string[] {
   return getElPvMoves(e)
     .filter(notNull)
@@ -337,6 +342,11 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
   }
   const pos = setupPosition(lichessRules(ceval.opts.variant.key), setup);
 
+  const resetPvIndexAndBoard = () => {
+    ctrl.ceval.setPvBoard(null);
+    pvIndex = null;
+  };
+
   return hl(
     'div.pv_box',
     {
@@ -347,8 +357,10 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
           el.addEventListener('pointerdown', (e: PointerEvent) => {
             const uciList = getElUciList(e);
             if ((e.target as HTMLElement).closest('.pv-wrap-toggle')) return;
+            if (isTouchDevice()) pvIndex = getElPvIndex(e);
             if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
               ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
+              resetPvIndexAndBoard();
               e.preventDefault();
             }
           });
@@ -358,7 +370,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
             setHovering(ceval, getElFen(el), getElUci(e));
             const pvBoard = (e.target as HTMLElement).dataset.board;
             if (pvBoard) {
-              pvIndex = Number((e.target as HTMLElement).dataset.moveIndex);
+              pvIndex = getElPvIndex(e);
               pvMoves = getElPvMoves(e);
               const [fen, uci] = pvBoard.split('|');
               ceval.setPvBoard({ fen, uci });
@@ -380,10 +392,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
             }),
           );
           el.addEventListener('mouseout', () => setHovering(ceval, null));
-          el.addEventListener('mouseleave', () => {
-            ctrl.ceval.setPvBoard(null);
-            pvIndex = null;
-          });
+          el.addEventListener('mouseleave', resetPvIndexAndBoard);
           checkHover(el, ceval);
         },
         postpatch: (_, vnode) => !isTouchDevice() && checkHover(vnode.elm as HTMLElement, ceval),

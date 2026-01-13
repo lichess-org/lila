@@ -6,7 +6,7 @@
   <string name="progressX">Зроблена: %s</string>
   <string name="resetMyProgress">Скасаваць дасягненні</string>
   <string name="youWillLoseAllYourProgress">Усе вашыя дасягненні будуць скасаваныя!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">гуляць!</string>
+  <string name="play">гуляць!</string>
   <string name="chessPieces">Шахматныя фігуры</string>
   <string name="theRook">Ладдзя</string>
   <string name="itMovesInStraightLines">Рухаецца па простых лініях</string>
@@ -136,7 +136,6 @@
   <string name="findAWayToCastleKingSide">Знайдзіце спосаб зрабіць кароткую ракіроўку!</string>
   <string name="findAWayToCastleQueenSide">Знайдзіце спосаб зрабіць доўгую ракіроўку!</string>
   <string name="castlingComplete">Віншуем! Вы павінны амаль заўсёды ракіравацца ў партыях.</string>
-  <string name="enPassant">Узяцце на праходзе</string>
   <string name="theSpecialPawnMove">Адмысловы ход пешкай</string>
   <string name="enPassantIntro">Калі пешка суперніка робіць ход на дзве клеткі, вы можаце ўзяць яе, як калі б яна зрабіла ход на адну.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Чорныя толькі што схадзілі пешкай

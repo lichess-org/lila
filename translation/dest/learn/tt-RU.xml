@@ -6,7 +6,7 @@
   <string name="progressX">Үтелгән: %s</string>
   <string name="resetMyProgress">Яңадан башларга</string>
   <string name="youWillLoseAllYourProgress">Сез бөтен прогрессыгызны югалтырсыз!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">уйна!</string>
+  <string name="play">уйна!</string>
   <string name="chessPieces">Шахмат сыннары</string>
   <string name="theRook">Тура</string>
   <string name="itMovesInStraightLines">Туры юл буенча йөри</string>
@@ -114,7 +114,6 @@
 Алар атчылар янына китәләр.</string>
   <string name="castling">Рокировка</string>
   <string name="castlingComplete">Котлыйбыз! Сез һәрвакыт диярлек уенда калкалада булырга тиеш.</string>
-  <string name="enPassant">Бик вакытлы</string>
   <string name="theSpecialPawnMove">Махсус җәяүле хәрәкәте</string>
   <string name="enPassantIntro">Рәкыйпнең җәяүле ике квадрат белән хәрәкәтләнгәндә, сез аны бер квадрат хәрәкәт кебек кабул итә аласыз.</string>
   <string name="stalemate">Пат</string>

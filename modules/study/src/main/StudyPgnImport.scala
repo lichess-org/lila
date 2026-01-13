@@ -74,14 +74,16 @@ object StudyPgnImport:
           variant = replay.setup.position.variant,
           tags = StudyPgnTags
             .withRelevantTags(parsed.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
-          ending = ending
+          ending = ending,
+          chapterNameHint = StudyChapterName.from(parsed.tags("ChapterName").map(_.trim).filter(_.nonEmpty))
         )
 
   case class Result(
       root: Root,
       variant: chess.variant.Variant,
       tags: Tags,
-      ending: Option[Ending]
+      ending: Option[Ending],
+      chapterNameHint: Option[StudyChapterName]
   )
 
   case class Ending(

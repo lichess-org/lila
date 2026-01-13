@@ -1,4 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hei, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Hva har du holdt på med i år?</string>
+	<string name="initTitle">For et sjakkår du har hatt!</string>
+	<string name="noGamesText">Du spilte ingen partier i år.</string>
+	<string name="noGamesCta">Vil du spille nå?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Og du vant %s!</string>
+	<string name="gamesNextQuestion">Hva måtte til?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s brukt på å spille!</string>
+	<string name="timeTooMuch">Det er altfor mye sjakk.</string>
+	<string name="timeALot">Det er mye sjakk.</string>
+	<string name="timeReasonable">Det virker som en rimelig mengde sjakk.</string>
+	<string name="timeHowManyMoves">Hvor mange trekk utførte du i løpet av all den tiden?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s trekk utført</item>
+		<item quantity="other">%s trekk utført</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Det er %s tre som er flyttet på!</string>
+	<string name="movesStandardPiecesWeight">Standardbrikker veier omtrent 40 g hver</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s trekk</item>
+		<item quantity="other">%s trekk</item>
+	</plurals>
+	<string name="chessFoes">Dine beste sjakkmotstandere</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gram</item>
+		<item quantity="other">%s gram</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogram</item>
+		<item quantity="other">%s kilogram</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">slik startet du %s av partiene dine som hvit</string>
+	<string name="shareableTitle" comment="%s is the current year">Oppsummeringen min for %s</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">brukt på å spille</string>
+	<string name="shareableMostPlayedOpponent">mest spilte motstander</string>
+	<string name="shareableFavouriteVariant">favorittvariant</string>
+	<string name="shareableFavouriteTimeControl">favorittidskontroll</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s sjakknøtt løst</item>
+		<item quantity="other">%s sjakknøtter løst</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Oppsummeringen din for %s er klar!</string>
 </resources>

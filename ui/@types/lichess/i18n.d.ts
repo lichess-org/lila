@@ -1483,8 +1483,6 @@ interface I18n {
     defendYourKing: string;
     /** Don't let them take */
     dontLetThemTakeAnyUndefendedPiece: string;
-    /** En passant */
-    enPassant: string;
     /** Congratulations! You can now take en passant. */
     enPassantComplete: string;
     /** When the opponent pawn moved by two squares, you can take it like if it moved by one square. */
@@ -3213,6 +3211,8 @@ interface I18n {
     cheat: string;
     /** Cheat Detected */
     cheatDetected: string;
+    /** Checkable king */
+    checkableKing: string;
     /** Check all junk, spam, and other folders */
     checkAllEmailFolders: string;
     /** Checkmate */
@@ -3533,8 +3533,6 @@ interface I18n {
     freeOnlineChess: string;
     /** Friends */
     friends: string;
-    /** From position */
-    fromPosition: string;
     /** Game aborted */
     gameAborted: string;
     /** Game as GIF */
@@ -4029,6 +4027,8 @@ interface I18n {
     perfRatingX: I18nFormat;
     /** Piece set */
     pieceSet: string;
+    /** Pinned pieces */
+    pinnedPieces: string;
     /** Play */
     play: string;
     /** Play against computer */
@@ -4491,6 +4491,8 @@ interface I18n {
     ultraBulletDesc: string;
     /** Unblock */
     unblock: string;
+    /** Undefended pieces */
+    undefendedPieces: string;
     /** Unfollow */
     unfollow: string;
     /** Unfollow %s */
@@ -4501,6 +4503,8 @@ interface I18n {
     unknownDueToRounding: string;
     /** Unlimited */
     unlimited: string;
+    /** Take all the time you need */
+    unlimitedDescription: string;
     /** Unsubscribe */
     unsubscribe: string;
     /** Until */
@@ -4539,6 +4543,8 @@ interface I18n {
     variantLoss: string;
     /** Variants */
     variants: string;
+    /** More ways to play */
+    variantsDescription: string;
     /** Variant win */
     variantWin: string;
     /** Variation arrows let you navigate without using the move list. */
@@ -4561,6 +4567,8 @@ interface I18n {
     viewTheSolution: string;
     /** View tournament */
     viewTournament: string;
+    /** Visual motifs */
+    visualMotifs: string;
     /** We will come back to you shortly to help you complete your signup. */
     waitForSignupHelp: string;
     /** Waiting */
@@ -4717,8 +4725,6 @@ interface I18n {
     youHaveJoinedTeamX: I18nFormat;
     /** You need an account to do that */
     youNeedAnAccountToDoThat: string;
-    /** You play as */
-    youPlayAs: string;
     /** You play the black pieces */
     youPlayTheBlackPieces: string;
     /** You play the white pieces */
@@ -5893,6 +5899,10 @@ interface I18n {
     crazyhouse: string;
     /** Captured pieces can be dropped back on the board instead of moving a piece. */
     crazyhouseTitle: string;
+    /** From Position */
+    fromPosition: string;
+    /** Standard chess from a custom position */
+    fromPositionTitle: string;
     /** Horde */
     horde: string;
     /** One side has a large number of pawns, the other has a normal army. */

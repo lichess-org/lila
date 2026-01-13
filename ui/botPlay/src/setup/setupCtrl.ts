@@ -44,6 +44,7 @@ export default class SetupCtrl {
       s.increment,
       0,
       this.redraw,
+      [],
     );
   }
 
