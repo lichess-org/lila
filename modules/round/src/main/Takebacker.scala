@@ -10,6 +10,7 @@ import lila.game.{ Event, GameRepo, Progress, Rewind, UciMemo }
 import lila.pref.{ Pref, PrefApi }
 import lila.round.RoundAsyncActor.TakebackBoard
 import lila.round.RoundGame.playableByAi
+import chess.Ply
 
 final private class Takebacker(
     messenger: Messenger,
@@ -55,10 +56,7 @@ final private class Takebacker(
             _ = publishTakeback(pov)
           yield events -> board
         case pov if canProposeTakeback(pov) && board.offerable =>
-          messenger.volatile(
-            pov.game,
-            pov.color.fold(trans.site.whiteProposesTakeback, trans.site.blackProposesTakeback).txt()
-          )
+          messenger.volatile(pov.game, offerTakebackMessage(pov))
           val progress = Progress(pov.game).map: g =>
             g.updatePlayer(pov.color, _.copy(proposeTakebackAt = g.ply))
           for
@@ -98,6 +96,20 @@ final private class Takebacker(
 
   def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]]): Fu[Boolean] =
     game.canTakebackOrAddTime.so(isAllowedByPrefs(game, prefs))
+
+  private def offerTakebackMessage(pov: Pov): String =
+    val k = if pov.game.turnOf(pov.color) then 2 else 1
+    val lastSans = pov.game.sans.takeRight(k).toList
+    val startPly = pov.game.ply - k + 1
+    def movePrefix(ply: Ply, secondMove: Boolean): String =
+      if secondMove && ply.turn.white then ""
+      else s"${(ply.value + 1) / 2}${if ply.turn.black then "." else "..."}"
+    val rollbackMoves: List[String] =
+      lastSans.zipWithIndex.map { case (san, i) =>
+        s"${movePrefix(startPly + i, i == 1)}$san"
+      }
+    val base = pov.color.fold(trans.site.whiteProposesTakeback, trans.site.blackProposesTakeback).txt()
+    s"$base (${rollbackMoves.mkString(" ")})"
 
   private def isAllowedByPrefs(game: Game, prefs: Preload[ByColor[Pref]]): Fu[Boolean] =
     if game.hasAi then fuTrue
