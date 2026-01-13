@@ -125,6 +125,9 @@
   <string name="bestMoveArrow">Sago por optimuma movo</string>
   <string name="showVariationArrows">Montri variaĵojn sagojn</string>
   <string name="evaluationGauge">Gaŭĝo de rangado</string>
+  <string name="undefendedPieces">Nedefenditaj pecoj</string>
+  <string name="pinnedPieces">Fiksitaj pecoj</string>
+  <string name="checkableKing">Ŝakigebla reĝo</string>
   <string name="multipleLines">Pluraj linioj</string>
   <string name="cpus">Ĉefprocesoroj</string>
   <string name="memory">Memoro</string>
@@ -204,6 +207,7 @@
   <string name="minutesPerSide">Minutoj por ĉiu flanko</string>
   <string name="variant">Variaĵo</string>
   <string name="variants">Variaĵoj</string>
+  <string name="variantsDescription">Aliaj manieroj ludi</string>
   <string name="timeControl">Temporegado</string>
   <string name="realTime">Reala tempo</string>
   <string name="correspondence">Korespondo</string>
@@ -298,6 +302,7 @@
   <string name="standard">Normale</string>
   <string name="customPosition">Tajlora pozicio</string>
   <string name="unlimited">Senlime</string>
+  <string name="unlimitedDescription">Tiel longe, kiel vi bezonas</string>
   <string name="mode">Modo</string>
   <string name="casual">Amike</string>
   <string name="rated">Range</string>
@@ -764,6 +769,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vi povas ankaŭ rulumi sur la tabulo por movi en la ludo.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Tuŝadi sur komputilaj varioj por antaŭrigardi ilin.</string>
   <string name="analysisShapesHowTo">Premu shift+click aŭ rekt-klaki por desegni cirklojn kaj sagojn sur la tabulo.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl aŭ Maj = ruĝa; Ordono, Alt aŭ Meta = blua; unu klavo el ĉiu grupo = flava.</string>
   <string name="letOtherPlayersMessageYou">Lasu aliajn ludantojn mesaĝi vin</string>
   <string name="receiveForumNotifications">Ricevi sciigojn kiam iu mencias vin en forumo</string>
   <string name="shareYourInsightsData">Havebligi viajn datumojn pri ŝaka kompreno</string>
