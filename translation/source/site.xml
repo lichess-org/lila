@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Play against computer</string>
   <string name="gameMode">Game mode</string>
   <string name="createLobbyGame">Create lobby game</string>
-  <string name="youPlayAs">You play as</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Waiting for opponent</string>
@@ -126,6 +125,10 @@
   <string name="bestMoveArrow">Best move arrow</string>
   <string name="showVariationArrows">Show variation arrows</string>
   <string name="evaluationGauge">Evaluation gauge</string>
+  <string name="visualMotifs">Visual motifs</string>
+  <string name="undefendedPieces">Undefended pieces</string>
+  <string name="pinnedPieces">Pinned pieces</string>
+  <string name="checkableKing">Checkable king</string>
   <string name="multipleLines">Multiple lines</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memory</string>
@@ -205,6 +208,7 @@
   <string name="minutesPerSide">Minutes per side</string>
   <string name="variant">Variant</string>
   <string name="variants">Variants</string>
+  <string name="variantsDescription">More ways to play</string>
   <string name="timeControl">Time control</string>
   <string name="realTime">Real time</string>
   <string name="correspondence">Correspondence</string>
@@ -299,6 +303,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Custom position</string>
   <string name="unlimited">Unlimited</string>
+  <string name="unlimitedDescription">Take all the time you need</string>
   <string name="mode">Mode</string>
   <string name="casual">Casual</string>
   <string name="rated">Rated</string>
@@ -427,7 +432,6 @@
   <string name="pasteTheFenStringHere">Paste the FEN text here</string>
   <string name="pasteThePgnStringHere">Paste the PGN text here</string>
   <string name="orUploadPgnFile">Or upload a PGN file</string>
-  <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="toStudy">Study</string>
   <string name="importGame">Import game</string>
@@ -1018,4 +1022,5 @@ All operating costs, development, and content are funded solely by user donation
   <string name="search">Search</string>
   <string name="clearSearch">Clear search</string>
   <string name="tags">Tags</string>
+  <string name="enPassant">En passant</string>
 </resources>

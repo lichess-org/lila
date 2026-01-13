@@ -47,6 +47,7 @@ import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { confirm } from 'lib/view';
 import api from './api';
 import { displayColumns } from 'lib/device';
+import MotifCtrl from './motif/motifCtrl';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;
@@ -77,6 +78,7 @@ export default class AnalyseCtrl implements CevalHandler {
   promotion: PromotionCtrl;
   chatCtrl?: ChatCtrl;
   wiki?: WikiTheory;
+  motif: MotifCtrl;
 
   // state flags
   justPlayed?: string; // pos
@@ -140,6 +142,7 @@ export default class AnalyseCtrl implements CevalHandler {
       () => this.withCg(g => g.set(this.cgConfig)),
       this.redraw,
     );
+    this.motif = new MotifCtrl(this.setAutoShapes);
 
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
@@ -651,6 +654,9 @@ export default class AnalyseCtrl implements CevalHandler {
     return (this.cevalEnabled() && node.ceval) || (this.showFishnetAnalysis() && node.eval);
   }
 
+  motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false;
+  motifEnabled = (): boolean => this.motifAllowed() && this.motif.supports(this.data.game.variant.key);
+
   outcome(node?: Tree.Node): Outcome | undefined {
     return this.position(node || this.node).unwrap(
       pos => pos.outcome(),
@@ -707,8 +713,12 @@ export default class AnalyseCtrl implements CevalHandler {
 
       if (isThreat) {
         const threat = ev as Tree.LocalEval;
-        if (!node.threat || isEvalBetter(threat, node.threat)) node.threat = threat;
-      } else if ((!node.ceval || isEvalBetter(ev, node.ceval)) && !(ev.cloud && this.ceval.engines.external))
+        if (!node.threat || isEvalBetter(threat, node.threat, this.ceval.search.multiPv))
+          node.threat = threat;
+      } else if (
+        (!node.ceval || isEvalBetter(ev, node.ceval, this.ceval.search.multiPv)) &&
+        !(ev.cloud && this.ceval.engines.external)
+      )
         node.ceval = ev;
       else if (!ev.cloud) {
         if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
@@ -812,6 +822,7 @@ export default class AnalyseCtrl implements CevalHandler {
       displayColumns() > 1 &&
       this.showAnalysis() &&
       this.isCevalAllowed() &&
+      (this.cevalEnabled() || !!this.node.eval || !!this.node.ceval) &&
       !this.outcome()
     );
   }
@@ -1074,7 +1085,8 @@ export default class AnalyseCtrl implements CevalHandler {
     if (
       this.showBestMoveArrows() ||
       this.possiblyShowMoveAnnotationsOnBoard() ||
-      this.variationArrowOpacity()
+      this.variationArrowOpacity() ||
+      (this.motifEnabled() && this.motif.any())
     )
       this.setAutoShapes();
     else this.chessground?.setAutoShapes([]);

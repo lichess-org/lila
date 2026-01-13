@@ -20,17 +20,17 @@
     <item quantity="few">Вође тима</item>
     <item quantity="other">Вођа тима</item>
   </plurals>
-  <string name="teamRecentMembers">Најновији чланови</string>
+  <string name="teamRecentMembers">Недавни чланови</string>
   <string name="kickSomeone">Избаци некога из тима</string>
-  <string name="whoToKick">Кога желите избацити из тима?</string>
+  <string name="whoToKick">Кога желиш избацити из тима?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s захтев за придруживање</item>
     <item quantity="few">%s захтева за придруживање</item>
     <item quantity="other">%s захтева за придруживање</item>
   </plurals>
-  <string name="willBeReviewed">Вођа тима ће прегледати Ваш захтев за придруживање.</string>
-  <string name="beingReviewed">Вођа тима прегледава Ваш захтев за придруживање.</string>
-  <string name="teamBattle">Борба Тимова</string>
+  <string name="willBeReviewed">Вођа тима ће прегледати твој захтев за придруживање.</string>
+  <string name="beingReviewed">Вођа тима прегледа твој захтев за придруживање.</string>
+  <string name="teamBattle">Тимска Битка</string>
   <string name="teamBattleOverview">Борба више тимова, сваки играч доноси бодове свом тиму</string>
   <string name="teamTournament">Тимски турнир</string>
   <string name="teamTournamentOverview">Арена турнир којем се само чланови Вашег тима могу придружити</string>

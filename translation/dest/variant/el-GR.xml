@@ -2,9 +2,9 @@
 <resources>
   <string name="standard" comment="As in standard chess (not a variant)">Κανονικό</string>
   <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Πρότυποι κανόνες του σκακιού (FIDE)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Σκάκι960</string>
+  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://query.wikidata.org/embed.html#SELECT%20%3Flabel%20WHERE%20%7B%20%0A%20%20wd%3AQ724903%20rdfs%3Alabel%20%3Flabel.%20%0A%7D%0A">Σκάκι960</string>
   <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">Η αρχική θέση των κομματιών της πρώτης και τελευταίας γραμμής είναι τυχαία.</string>
-  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Βασιλιάς του Λόφου</string>
+  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Βασιλιάς του λόφου</string>
   <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Φέρτε τον βασιλιά στο κέντρο της σκακιέρας για να κερδίσετε την παρτίδα.</string>
   <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">Τριών σαχ</string>
   <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">Κάντε σαχ 3 φορές για να κερδίσετε την παρτίδα.</string>
@@ -14,7 +14,7 @@
   <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Ανατινάξτε τον αντίπαλο βασιλιά για να κερδίσετε.</string>
   <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Ορδής</string>
   <string name="hordeTitle" comment="Description for the Horde chess variant">Η μία πλευρά έχει πολλά πιόνια, ενώ η άλλη έχει κανονική διάταξη σκακιού.</string>
-  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Βασιλικός Αγώνας</string>
+  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Βασιλικός αγώνας</string>
   <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Κερδίζει ο βασιλιάς που φτάνει μέχρι την άλλη άκρη της σκακιέρας.</string>
   <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Τρελάδικο</string>
   <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Τα αιχμαλωτισμένα κομμάτια μπορούν να «φυτευτούν» πάλι στη σκακιέρα.</string>

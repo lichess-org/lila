@@ -57,12 +57,20 @@
   <string name="fideHandbook">คู่มือ FIDE</string>
   <string name="fideHandbookX">คู่มือ FIDE %s</string>
   <string name="discoveringEnPassant">ทำไมเบี้ยสามารถกินเบี้ยอีกตัวของฝ่ายตรงข้ามได้ในเมื่อเบี้ยเราเดินผ่านไปแล้ว(การกินผ่าน)</string>
+  <string name="explainingEnPassant">นี่เป็นการเดินตามกฎที่เรียกว่า \"en passant\" บทความในวิกิพีเดียให้ค่า %1$s
+มีการอธิบายไว้ในส่วนที่ 3.7.3.1 และ 3.7.3.2 ของ %2$s:
+
+\"เบี้ยที่อยู่บนช่องเดียวกันและอยู่ติดกับเบี้ยของฝ่ายตรงข้ามที่เพิ่งเดินมาสองช่องในตาเดียวจากช่องเริ่มต้น สามารถกินเบี้ยของฝ่ายตรงข้ามได้เสมือนว่าเบี้ยนั้นเดินมาเพียงหนึ่งช่อง การกินแบบนี้จะถูกต้องตามกฎเฉพาะในตาเดินถัดจากที่เบี้ยเดินมา และเรียกว่าการกินแบบ \'en passant\'\"
+
+ดู %3$s ในการเดินนี้เพื่อฝึกฝนการเล่น</string>
   <string name="goodIntroduction">นำเปิดเรื่องที่ดี</string>
   <string name="lichessTraining">การฝึกฝนใน Lichess</string>
   <string name="watchIMRosenCheckmate">ดู อินเตอร์เนชั่นแนลมาสเตอร์ เอริค โรเซน รุกจน %s</string>
   <string name="threefoldRepetition">เดินซ้ำสามครั้ง</string>
+  <string name="threefoldRepetitionExplanation">ถ้าเดินแล้วมาตำแหน่งเดิมซ้ำกันสามครั้ง ผู้เล่นสามารถขอเสมอโดย %1$s Lichess ปฏิบัติตามกฎอย่างเป็นทางการของ FIDE ตามที่ระบุไว้ในมาตรา 9.2 ของ %2$s</string>
   <string name="threefoldRepetitionLowerCase">การเดินซ้ำสามรอบ</string>
   <string name="notRepeatedMoves">พวกเราไม่ได้เดินซ้ำ ทำไมเกมถึงยังเสมอโดยการเดินซ้ำ</string>
+  <string name="repeatedPositionsThatMatters">การทำซ้ำสามครั้งหมายถึงการทำซ้ำ %1$s ไม่ใช่การเดิน การทำซ้ำไม่จำเป็นต้องเกิดขึ้นติดต่อกัน</string>
   <string name="positions">ตำแหน่ง</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">พวกเราเดินซ้ำกันสามครั้งทำไมเกมถึงไม่เสมอ</string>
   <string name="threeFoldHasToBeClaimed">การเดินซ้ำจะต้องได้รับการอ้างสิทธิ์โดยผู้เล่นคนใดคนหนึ่ง คุณสามารถทำได้โดยการกดปุ่มที่แสดงอยู่ หรือโดยเสนอเสมอก่อนการตาเดินซ้ำครั้งสุดท้ายของคุณ โดยไม่สำคัญว่าคู่ต่อสู้ของคุณจะปฏิเสธข้อเสนอเสมอหรือไม่ก็ตาม ยังไงก็ตามการเสมอโดยการเดินซ้ำสามรอบจะถูกรับ คุณยังสามารถ %1$s Lichess เพื่อขอรับสิทธิ์การเดินซ้ำให้คุณได้โดยอัตโนมัติ นอกจากนี้ การเดินซ้ำห้าครั้งจะทำให้จบเกมในทันที</string>
@@ -83,6 +91,15 @@
   <string name="usernamesNotOffensive">โดยปกติแล้ว ชื่อผู้ใช้ไม่ควรแสดงถึงการคุกคาม, ใส่ร้ายหรือคุกคามผู้อื่น, หรือการโฆษณา อ่านเพิ่มเติมเกี่ยวกับเรื่องนี้ที่ %1$s</string>
   <string name="guidelines">หลักเกณฑ์</string>
   <string name="canIChangeMyUsername">ฉันสามารถเปลี่ยนชื่อผู้ใช้งานของฉันได้ไหม?</string>
+  <string name="usernamesCannotBeChanged">ไม่ ชื่อผู้ใช้ไม่สามารถเปลี่ยนแปลงได้เนื่องจากเหตุผลทางเทคนิคและข้อจำกัดทางปฏิบัติ ชื่อผู้ใช้ปรากฏอยู่ในหลายที่มากเกินไป ทั้งในฐานข้อมูล การส่งออก บันทึก และในความคิดของผู้คน คุณสามารถปรับการใช้ตัวพิมพ์ใหญ่ได้เพียงครั้งเดียว</string>
   <string name="uniqueTrophies">รางวัลที่ไม่ซ้ำใคร</string>
+  <string name="ownerUniqueTrophies">ถ้วยรางวัลนั้นเป็นเอกลักษณ์ในประวัติศาสตร์ของ Lichess ไม่มีใครอื่นนอกจาก %1$s จะได้ครอบครองมัน</string>
+  <string name="aHourlyBulletTournament">ทัวร์นาเมนต์เกมบูลเล็ตรายชั่วโมง</string>
+  <string name="lichessRatings">เรดติ้ง Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">ระบบเรดติ้งที่ Lichess ใช้คืออะไร</string>
+  <string name="howToThreeDots">วิธี...</string>
+  <string name="enableDisableNotificationPopUps">เปิดหรือปิดการแจ้งเตือนแบบป๊อปอัพ</string>
+  <string name="viewSiteInformationPopUp">ดูข้อมูลเว็บไซต์แบบป๊อปอัพ</string>
   <string name="enableAutoplayForSoundsQ">เปิดใช้งานการเล่นอัตโนมัติสำหรับเสียงไหม</string>
+  <string name="desktop">เดสก์ท็อป</string>
 </resources>

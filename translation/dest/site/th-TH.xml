@@ -906,7 +906,7 @@
   <string name="timeAlmostUp">เวลาใกล้จะหมดแล้ว</string>
   <string name="clickToRevealEmailAddress">[คลิกเพื่อเผยที่อยู่อีเมล]</string>
   <string name="download">ดาวน์โหลด</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">ตัวจัดการผู้ฝึกสอน</string>
+  <string name="coachManager">ตัวจัดการผู้ฝึกสอน</string>
   <string name="streamerManager">ตัวจัดการผู้สตรีม</string>
   <string name="cancelTournament">ยกเลิกทัวร์นาเมนต์</string>
   <string name="tournDescription">คำบรรยายทัวร์นาเมนต์</string>
@@ -974,4 +974,5 @@
   <string name="search">ค้นหา</string>
   <string name="clearSearch">ล้างการค้นหา</string>
   <string name="tags">แท็ก</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">การกินผ่าน</string>
 </resources>

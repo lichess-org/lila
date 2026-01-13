@@ -553,6 +553,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def setFlair(user: User, flair: Option[Flair]): Funit =
     coll.updateOrUnsetField($id(user.id), F.flair, flair).void
 
+  def unsetFlairs(all: Set[(UserId, Flair)]): Funit = all.nonEmpty.so:
+    all.toList.sequentiallyVoid: (userId, flair) =>
+      coll.unsetField($id(userId) ++ $doc(BSONFields.flair -> flair), BSONFields.flair)
+
   def byIdAs[A: BSONDocumentReader](id: String, proj: Bdoc): Fu[Option[A]] =
     coll.one[A]($id(id), proj)
 

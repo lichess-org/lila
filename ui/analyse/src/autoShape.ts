@@ -3,9 +3,10 @@ import { isDrop } from 'chessops/types';
 import { winningChances } from 'lib/ceval';
 import { opposite } from '@lichess-org/chessground/util';
 import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
-import { annotationShapes } from 'lib/game/glyphs';
+import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
 import type AnalyseCtrl from './ctrl';
 import { isUci } from 'lib/game/chess';
+import { parseFen } from 'chessops/fen';
 
 const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
   orig: key,
@@ -107,7 +108,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     shapes = shapes.concat(makeShapesFromUci(rcolor, pv0.moves[0], pv1s.length > 0 ? 'paleRed' : 'red'));
 
     pv1s.forEach(function (pv) {
-      const shift = winningChances.povDiff(rcolor, pv, pv0);
+      const shift = winningChances.povDiff(rcolor, pv0, pv);
       if (shift >= 0 && shift < 0.2) {
         shapes = shapes.concat(
           makeShapesFromUci(rcolor, pv.moves[0], 'paleRed', {
@@ -119,6 +120,29 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   }
   if (ctrl.showMoveAnnotationsOnBoard()) shapes = shapes.concat(annotationShapes(ctrl.node));
   if (ctrl.showVariationArrows()) hiliteVariations(ctrl, shapes);
+
+  if (ctrl.isCevalAllowed()) {
+    const parsed = parseFen(nFen);
+    if ('error' in parsed) return shapes;
+    const { board, epSquare, castlingRights } = parsed.value;
+
+    const addAnalysis = (orig: Key, type: keyof typeof analysisGlyphs) => {
+      const idx = shapes.filter(s => s.orig === orig && s.customSvg).length;
+      shapes.push({
+        orig,
+        customSvg: { html: analysisGlyphs[type](idx) },
+      });
+    };
+
+    if (ctrl.motifEnabled()) {
+      ctrl.motif.detectPins(board).forEach(p => addAnalysis(makeSquare(p.pinned) as Key, 'pin'));
+      ctrl.motif.detectUndefended(board).forEach(u => addAnalysis(makeSquare(u.square) as Key, 'undefended'));
+      ctrl.motif
+        .detectCheckable(board, epSquare, castlingRights)
+        .forEach(s => addAnalysis(makeSquare(s.king) as Key, 'checkable'));
+    }
+  }
+
   return shapes;
 }
 

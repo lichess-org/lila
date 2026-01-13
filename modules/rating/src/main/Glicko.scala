@@ -63,7 +63,7 @@ object Glicko:
   val defaultManagedPuzzle = new Glicko(800d, 400d, defaultVolatility)
 
   // bot accounts (usually a stockfish instance)
-  val defaultBot = new Glicko(2000d, maxDeviation, defaultVolatility)
+  val defaultBot = new Glicko(3000d, maxDeviation, defaultVolatility)
 
   // rating that can be lost or gained with a single game
   val maxRatingDelta = 700

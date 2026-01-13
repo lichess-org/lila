@@ -47,6 +47,7 @@
   <string name="fidePlayerNotFound">FIDE oyuncusu bulunamadı</string>
   <string name="fideProfile">FIDE profili</string>
   <string name="federation">Federasyon</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Yaş</string>
   <string name="unrated">Derecelendirilmemiş</string>
   <string name="recentTournaments">Son Turnuvalar</string>
   <string name="openLichess">Lichess\'te aç</string>
@@ -82,4 +83,6 @@
   <string name="liveboard">Canlı tahta</string>
   <string name="communityBroadcast">Topluluk yayını</string>
   <string name="createdAndManagedBy">%s tarafından oluşturuldu ve yönetiliyor.</string>
+  <string name="roundX">Tur %s</string>
+  <string name="defaultRoundNameHelp">Varsayılan adı korumak, adın otomatik olarak diğer tüm dillere çevrilmesini sağlayacaktır.</string>
 </resources>
