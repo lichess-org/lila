@@ -123,6 +123,10 @@
   <string name="bestMoveArrow">最佳着法指示</string>
   <string name="showVariationArrows">显示变着指示</string>
   <string name="evaluationGauge">显示局面评估</string>
+  <string name="visualMotifs">可视化模式</string>
+  <string name="undefendedPieces">无保护的棋子</string>
+  <string name="pinnedPieces">被牵制的棋子</string>
+  <string name="checkableKing">可将军的王</string>
   <string name="multipleLines">多线分析</string>
   <string name="cpus">CPU</string>
   <string name="memory">内存</string>
