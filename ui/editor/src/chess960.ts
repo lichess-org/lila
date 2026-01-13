@@ -6,7 +6,7 @@ import { FILE_NAMES } from 'chessops';
 const darkSquares = [0, 2, 4, 6];
 const lightSquares = [1, 3, 5, 7];
 // King, rooks and knights
-const KRN = [
+const KRN: ('K' | 'R' | 'N')[][] = [
   ['N', 'N', 'R', 'K', 'R'],
   ['N', 'R', 'N', 'K', 'R'],
   ['N', 'R', 'K', 'N', 'R'],
