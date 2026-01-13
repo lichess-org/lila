@@ -203,14 +203,13 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 attrs: { id: 'variants' },
                 on: {
                   change(e) {
-                    var value = (e.target as HTMLSelectElement).value;
-                    if (value === 'chess') {
-                      ctrl.chess960PositionId = undefined;
-                    }
+                    let value = (e.target as HTMLSelectElement).value;
                     if (value === 'chess960') {
                       value = 'chess';
                       ctrl.chess960PositionId = Math.floor(Math.random() * 960);
                       ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
+                    } else {
+                      ctrl.chess960PositionId = undefined;
                     }
                     ctrl.setRules(value as Rules);
                   },
