@@ -340,7 +340,8 @@ final class RelayApi(
           ("startsAt", _.startsAt),
           ("startedAt", _.startedAt),
           ("finishedAt", _.finishedAt),
-          ("customScoring", _.customScoring)
+          ("customScoring", _.customScoring),
+          ("teamCustomScoring", _.teamCustomScoring)
         )
         _ <- roundRepo.coll.update.one($id(round.id), $set(setters) ++ unsets).void
         _ <- (round.sync.playing != from.sync.playing)

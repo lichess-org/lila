@@ -78,7 +78,12 @@ object RelayTeam:
   case class TeamGame(id: StudyChapterId, pov: Color):
     def swap = copy(pov = !pov)
 
-  case class TeamMatch(roundId: RelayRoundId, teams: Pair[TeamWithGames], games: List[TeamGame]):
+  case class TeamMatch(
+      roundId: RelayRoundId,
+      teams: Pair[TeamWithGames],
+      games: List[TeamGame],
+      teamCustomScoring: Option[RelayRound.CustomScoring]
+  ):
     def is(teamNames: Pair[TeamName]) = teams.map(_.name).is(teamNames)
     def add(
         chap: ChapterPreview,
@@ -104,6 +109,18 @@ object RelayTeam:
         if teams.a.name == teamName then Some(o.a)
         else if teams.b.name == teamName then Some(o.b)
         else None
+    def scoreFor(teamName: TeamName): Option[Float] =
+      teamCustomScoring
+        .flatMap: cs =>
+          pointsFor(teamName).map: pts =>
+            pts match
+              case Points.One => cs.win
+              case Points.Half => cs.draw
+              case zero => RelayRound.CustomPoints(zero.value)
+        .map(_.value)
+        .orElse(
+          pointsFor(teamName).map(_.value)
+        )
     def isFinished: Boolean =
       teams.forall(_.games.forall(_.points.isDefined))
 
@@ -149,7 +166,12 @@ final class RelayTeamTable(
           teams <- players.traverse(_.team).map(_.toPair).map(Pair.apply)
           game = players.mapWithColor: (c, p) =>
             RelayPlayer.Game(round.id, chap.id, p, c, points, round.rated, round.customScoring, false)
-          m0 = table.find(_.is(teams)) | TeamMatch(round.id, teams.map(TeamWithGames(_, Nil)), Nil)
+          m0 = table.find(_.is(teams)) | TeamMatch(
+            round.id,
+            teams.map(TeamWithGames(_, Nil)),
+            Nil,
+            round.teamCustomScoring
+          )
           m1 = m0.add(
             chap,
             Pair(players.white.player -> teams.a, players.black.player -> teams.b),
@@ -166,6 +188,7 @@ final class RelayTeamTable(
     object json:
       import lila.common.Json.given
       import RelayPlayer.json.given
+      import RelayJsonView.given
       given [A: Writes]: Writes[Pair[A]] = Writes: p =>
         Json.arr(p.a, p.b)
       given Writes[TeamGame] = Json.writes[TeamGame]
@@ -197,7 +220,7 @@ final class RelayTeamLeaderboard(
       matches
         .flatMap: m =>
           m.isFinished.so:
-            m.pointsFor(name).map(_.value)
+            m.scoreFor(name)
         .sum
     def gamePoints: Float =
       matches

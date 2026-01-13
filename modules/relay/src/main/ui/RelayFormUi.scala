@@ -373,7 +373,7 @@ Hanna Marie ; Kozul, Zdenko"""),
         (nav.tour.showScores || nav.tour.showRatingDiffs).option(
           form3.fieldset(
             "Custom scoring",
-            toggle = nav.round.exists(_.customScoring.isDefined).some
+            toggle = nav.round.exists(r => r.customScoring.isDefined || r.teamCustomScoring.isDefined).some
           )(
             nav.tour.showRatingDiffs.option(
               form3.group(form("rated"), raw("")): field =>
@@ -397,7 +397,17 @@ Hanna Marie ; Kozul, Zdenko"""),
             ,
             p(
               "Optional. Affects automatic scoring. Points must be >= 0 and <=10. At most 2 decimal places. Default = 1.0 for a win and 0.5 for a draw."
-            )
+            ),
+            br,
+            nav.tour.teamTable.option:
+              form3.split:
+                List("win", "draw").map: result =>
+                  form3.group(
+                    form("teamCustomScoring")(result),
+                    raw(s"Team points for a match $result")
+                  )(
+                    form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
+                  )
           )
         ),
         Granter
