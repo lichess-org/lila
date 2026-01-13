@@ -25,9 +25,6 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
     case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
     case Unsafe => $empty
 
-  private lazy val notStickyQuery = $or($doc("sticky".$exists(false)), $doc("sticky" -> false))
-  private lazy val stickyQuery = $and($doc("sticky".$exists(true)), $doc("sticky".$ne(false)))
-
   def byId(id: ForumTopicId): Fu[Option[ForumTopic]] = coll.byId[ForumTopic](id)
 
   def byIds(ids: Seq[ForumTopicId]): Fu[List[ForumTopicMini]] =
@@ -43,11 +40,8 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
   def remove(topic: ForumTopic): Funit =
     coll.delete.one($id(topic.id)).void
 
-  def sticky(id: ForumTopicId, value: Boolean): Funit =
-    coll.updateField($id(id), "sticky", value).void
-
-  def sticky(id: ForumTopicId, value: ForumTopic.Sticky): Funit =
-    coll.updateField($id(id), "sticky", value).void
+  def sticky(id: ForumTopicId, value: Option[UserId]): Funit =
+    coll.updateOrUnsetField($id(id), "sticky", value).void
 
   def byCateg(categ: ForumCategId): Fu[List[ForumTopic]] =
     coll.list(byCategQuery(categ))
@@ -62,7 +56,7 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
     coll.exists($doc("categId" -> categId, "slug" -> slug))
 
   def stickyByCateg(categ: ForumCategId): Fu[List[ForumTopic]] =
-    coll.list(byCategQuery(categ) ++ stickyQuery)
+    coll.list(byCategQuery(categ) ++ "sticky".$exists(true))
 
   def nextSlug(categ: ForumCateg, name: String, it: Int = 1): Fu[ForumTopicSlug] =
     val slug = ForumTopicSlug:
@@ -74,4 +68,4 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
     }
 
   def byCategQuery(categ: ForumCategId) = $doc("categId" -> categ) ++ trollFilter
-  def byCategNotStickyQuery(categ: ForumCategId) = byCategQuery(categ) ++ notStickyQuery
+  def byCategNotStickyQuery(categ: ForumCategId) = byCategQuery(categ) ++ "sticky".$exists(false)
