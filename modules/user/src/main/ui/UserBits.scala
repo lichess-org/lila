@@ -25,12 +25,13 @@ final class UserBits(helpers: Helpers):
       a(cls := active.active("shield"), href := routes.Tournament.shields)(
         trans.arena.tournamentShields()
       ),
-      a(href := routes.Fide.index())(
-        "FIDE players"
-      ),
       div(cls := "sep"),
       a(cls := active.active("bots"), href := routes.PlayApi.botOnline)(
         trans.site.onlineBots()
+      ),
+      div(cls := "sep"),
+      a(cls := active.active("fide"), href := addQueryParam(routes.Fide.index().url, "community", "1"))(
+        trans.broadcast.fidePlayers()
       )
     )
 
