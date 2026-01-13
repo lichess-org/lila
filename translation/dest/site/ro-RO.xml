@@ -127,6 +127,8 @@
   <string name="bestMoveArrow">Săgeată pentru cea mai bună mutare</string>
   <string name="showVariationArrows">Afișează săgețile variației</string>
   <string name="evaluationGauge">Indicator de evaluare</string>
+  <string name="visualMotifs">Motive vizuale</string>
+  <string name="undefendedPieces">Piese neapărate</string>
   <string name="multipleLines">Mutări multiple</string>
   <string name="cpus">Procesoare</string>
   <string name="memory">Memorie</string>
@@ -216,6 +218,7 @@
   <string name="minutesPerSide">Minute pe fiecare parte</string>
   <string name="variant">Variantă</string>
   <string name="variants">Variante</string>
+  <string name="variantsDescription">Mai multe moduri de a juca</string>
   <string name="timeControl">Controlul de timp</string>
   <string name="realTime">În timp real</string>
   <string name="correspondence">Corespondență</string>
@@ -316,6 +319,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Poziție personalizată</string>
   <string name="unlimited">Nelimitat</string>
+  <string name="unlimitedDescription">Ia tot timpul de care ai nevoie</string>
   <string name="mode">Mod</string>
   <string name="casual">Amical</string>
   <string name="rated">Oficial</string>
