@@ -209,7 +209,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                     }
                     if (value === 'chess960') {
                       value = 'chess';
-                      ctrl.chess960PositionId = 0;
+                      ctrl.chess960PositionId = Math.floor(Math.random() * 960);
                       ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
                     }
                     ctrl.setRules(value as Rules);
