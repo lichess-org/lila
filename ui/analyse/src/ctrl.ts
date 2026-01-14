@@ -1,6 +1,6 @@
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
 import * as keyboard from './keyboard';
-import { treeReconstruct, plyColor, completeNode } from './util';
+import { treeReconstruct, plyColor, completeNode, addCrazyData } from './util';
 import { plural } from './view/util';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
@@ -25,7 +25,7 @@ import { make as makeRetro, type RetroCtrl } from './retrospect/retroCtrl';
 import { make as makeSocket, type Socket } from './socket';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
 import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from 'chessops/util';
-import { type Outcome, isNormal } from 'chessops/types';
+import { type Outcome, isNormal, type Move } from 'chessops/types';
 import { makeFen, parseFen } from 'chessops/fen';
 import type { Position, PositionError } from 'chessops/chess';
 import type { Result } from '@badrap/result';
@@ -548,7 +548,6 @@ export default class AnalyseCtrl implements CevalHandler {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
-      site.sound.move();
       const drop = {
         role: piece.role,
         pos,
@@ -556,9 +555,11 @@ export default class AnalyseCtrl implements CevalHandler {
         fen: this.node.fen,
         path: this.path,
       };
-      this.socket.sendAnaDrop(drop);
-      this.preparePremoving();
-      this.redraw();
+      if (this.study) this.socket.sendAnaDrop(drop);
+      this.addNodeLocally({
+        role: piece.role,
+        to: parseSquare(pos)!,
+      });
     } else this.jump(this.path);
   };
 
@@ -584,48 +585,30 @@ export default class AnalyseCtrl implements CevalHandler {
     if (prom) move.promotion = prom;
     if (capture) this.justCaptured = capture;
     if (this.practice) this.practice.onUserMove();
-    if (this.study) {
-      this.socket.sendAnaMove(move);
-      this.preparePremoving();
-      this.redraw();
-    } else {
-      this.addNodeLocally(move);
-    }
-  };
-
-  private preparePremoving(): void {
-    this.chessground.set({
-      turnColor: this.chessground.state.movable.color as Color,
-      movable: {
-        color: opposite(this.chessground.state.movable.color as Color),
-      },
-      premovable: {
-        enabled: true,
-      },
+    if (this.study) this.socket.sendAnaMove(move);
+    this.addNodeLocally({
+      from: parseSquare(orig)!,
+      to: parseSquare(dest)!,
+      promotion: prom,
     });
-  }
+  };
 
   onPremoveSet = () => {
     if (this.study) this.study.onPremoveSet();
   };
 
-  private addNodeLocally(am: AnaMove): void {
+  private addNodeLocally(move: Move): void {
     const pos = this.position(this.node).unwrap();
-    const move = normalizeMove(pos, {
-      from: parseSquare(am.orig)!,
-      to: parseSquare(am.dest)!,
-      promotion: am.promotion,
-    });
+    move = normalizeMove(pos, move);
     const san = makeSanAndPlay(pos, move);
-    this.addNode(
-      completeNode({
-        ply: this.node.ply + 1,
-        uci: makeUci(move),
-        san,
-        fen: makeFen(pos.toSetup()),
-      }),
-      this.path,
-    );
+    const node = completeNode({
+      ply: this.node.ply + 1,
+      uci: makeUci(move),
+      san,
+      fen: makeFen(pos.toSetup()),
+    });
+    addCrazyData(node, pos);
+    this.addNode(node, this.path);
   }
 
   addNode(node: Tree.Node, path: Tree.Path) {

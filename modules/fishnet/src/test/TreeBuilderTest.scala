@@ -75,7 +75,6 @@ object TreeBuilderTest:
 
     val exportOptions: List[ExportOptions] =
       for
-        opening <- List(true, false)
         movetimes <- List(true, false)
         division <- List(true, false)
         clocks <- List(true, false)
@@ -85,7 +84,6 @@ object TreeBuilderTest:
         nvui <- List(true, false)
         lichobileCompat <- List(true, false)
       yield ExportOptions(
-        opening,
         movetimes,
         division,
         clocks,
@@ -125,7 +123,6 @@ object TreeBuilderTest:
           newRoot.gamebook,
           newRoot.glyphs,
           newRoot.tree.fold(Branches.empty)(_.toBranches),
-          newRoot.opening,
           newRoot.clock,
           newRoot.crazyData
         )
@@ -160,7 +157,6 @@ object TreeBuilderTest:
         newBranch.gamebook,
         newBranch.glyphs,
         children.fold(Branches.empty)(_.toBranches),
-        newBranch.opening,
         newBranch.comp,
         newBranch.clock,
         newBranch.crazyData,

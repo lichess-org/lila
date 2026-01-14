@@ -82,41 +82,13 @@ export interface Socket {
 }
 
 export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
-  let anaMoveTimeout: number | undefined;
-
   // forecast mode: reload when opponent moves
   if (!ctrl.synthetic)
     setTimeout(function () {
       send('startWatching', ctrl.data.game.id);
     }, 1000);
 
-  function currentChapterId(): string | undefined {
-    if (ctrl.study) return ctrl.study.vm.chapterId;
-    return undefined;
-  }
-
-  function addStudyData(req: { ch?: string } & MoveOpts, isWrite = false) {
-    const c = currentChapterId();
-    if (c) {
-      req.ch = c;
-      if (isWrite) {
-        if (ctrl.study!.isWriting()) {
-          if (!ctrl.study!.vm.mode.sticky) req.sticky = false;
-        } else req.write = false;
-      }
-    }
-  }
-
   const handlers = {
-    node(data: { ch?: string; node: Tree.Node; path: string }) {
-      clearTimeout(anaMoveTimeout);
-      if (data.ch === currentChapterId()) ctrl.addNode(data.node, data.path);
-      else console.log('socket handler node got wrong chapter id', data);
-    },
-    stepFailure() {
-      clearTimeout(anaMoveTimeout);
-      ctrl.reset();
-    },
     opening({ fen, opening }: { fen: FEN; opening: Opening }) {
       console.log(fen, opening);
       // ctrl.setOpening(fen, opening);
@@ -140,19 +112,19 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
   }
 
   function sendAnaMove(req: AnaMove) {
-    clearTimeout(anaMoveTimeout);
-    withoutStandardVariant(req);
-    addStudyData(req, true);
-    send('anaMove', req);
-    anaMoveTimeout = setTimeout(() => sendAnaMove(req), 3000);
+    const studyData = ctrl.study?.socketSendNodeData();
+    if (studyData) {
+      withoutStandardVariant(req);
+      send('anaMove', { ...req, ...studyData });
+    }
   }
 
   function sendAnaDrop(req: AnaDrop) {
-    clearTimeout(anaMoveTimeout);
-    withoutStandardVariant(req);
-    addStudyData(req, true);
-    send('anaDrop', req);
-    anaMoveTimeout = setTimeout(() => sendAnaDrop(req), 3000);
+    const studyData = ctrl.study?.socketSendNodeData();
+    if (studyData) {
+      withoutStandardVariant(req);
+      send('anaDrop', { ...req, ...studyData });
+    }
   }
 
   return {

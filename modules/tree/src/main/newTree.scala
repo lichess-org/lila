@@ -2,7 +2,6 @@ package lila.tree
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.json.Json.given
-import chess.opening.Opening
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ HasId, Mergeable, Node as ChessNode, Ply, Position, Tree, Variation }
 import monocle.syntax.all.*
@@ -19,7 +18,6 @@ case class Metas(
     comments: Node.Comments = Comments.empty,
     gamebook: Option[Node.Gamebook] = None,
     glyphs: Glyphs = Glyphs.empty,
-    opening: Option[Opening] = None,
     clock: Option[Clock] = None,
     crazyData: Option[Crazyhouse.Data] = None
     // TODO, add support for variationComments
@@ -55,7 +53,7 @@ case class NewBranch(
     forceVariation: Boolean = false,
     metas: Metas
 ):
-  export metas.{ ply, fen, eval, shapes, comments, gamebook, glyphs, opening, clock, crazyData }
+  export metas.{ ply, fen, eval, shapes, comments, gamebook, glyphs, clock, crazyData }
   override def toString = s"$ply, $id, ${move.uci}"
   def id = UciCharPair(move.uci)
   def withClock(clock: Option[Clock]) = this.focus(_.metas.clock).replace(clock)
@@ -148,7 +146,6 @@ object NewTree:
       node.comments,
       node.gamebook,
       node.glyphs,
-      node.opening,
       node.clock,
       node.crazyData
     )
@@ -162,7 +159,7 @@ object NewTree:
 
 case class NewRoot(metas: Metas, tree: Option[NewTree]):
 
-  export metas.{ ply, fen, eval, shapes, comments, gamebook, glyphs, opening, clock, crazyData }
+  export metas.{ ply, fen, eval, shapes, comments, gamebook, glyphs, clock, crazyData }
 
   def mainline: List[NewTree] = tree.fold(List.empty[NewTree])(_.mainline)
 
@@ -279,7 +276,6 @@ object NewRoot:
       .add("gamebook", gamebook)
       .add("glyphs", glyphs.nonEmpty)
       .add("shapes", Option.when(shapes.value.nonEmpty)(shapes.value))
-      .add("opening", opening)
       .add("clock", clock.map(_.centis))
       .add("crazy", crazyData)
 

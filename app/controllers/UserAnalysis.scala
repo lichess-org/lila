@@ -138,7 +138,6 @@ final class UserAnalysis(
       initialFen = initialFen,
       withFlags = ExportOptions(
         division = true,
-        opening = true,
         clocks = true,
         movetimes = true,
         rating = ctx.pref.showRatings,

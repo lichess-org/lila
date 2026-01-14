@@ -72,7 +72,6 @@ object StudyArbitraries:
       comments,
       None,
       glyphs,
-      None,
       clock,
       board.crazyData
     )

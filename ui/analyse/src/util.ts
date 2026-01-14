@@ -1,4 +1,4 @@
-import { parseUci } from 'chessops';
+import { parseUci, Position } from 'chessops';
 import { scalachessCharPair } from 'chessops/compat';
 
 export const plyColor = (ply: number): Color => (ply % 2 === 0 ? 'white' : 'black');
@@ -25,4 +25,11 @@ export function treeReconstruct(parts: Tree.NodeIncomplete[], sidelines?: Tree.N
     node = n;
   }
   return root;
+}
+
+export function addCrazyData(node: Tree.Node, pos: Position): void {
+  if (pos.pockets)
+    node.crazy = {
+      pockets: [pos.pockets.white, pos.pockets.black],
+    };
 }

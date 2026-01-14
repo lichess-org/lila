@@ -55,7 +55,6 @@ object Helpers:
       newBranch.gamebook,
       newBranch.glyphs,
       children.fold(Branches.empty)(_.toBranches),
-      newBranch.opening,
       newBranch.comp,
       newBranch.clock,
       newBranch.crazyData,
@@ -82,7 +81,6 @@ object Helpers:
         root.gamebook,
         root.glyphs,
         root.tree.fold(Branches.empty)(_.toBranches),
-        root.opening,
         root.clock,
         root.crazyData
       )

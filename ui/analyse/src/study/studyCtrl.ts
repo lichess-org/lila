@@ -638,6 +638,12 @@ export default class StudyCtrl {
     if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);
     else if (chapterUrl !== location.href) history.replaceState({}, '', chapterUrl);
   };
+  socketSendNodeData = () => {
+    if (!this.isWriting()) return false;
+    const data: { ch: string; sticky?: false } = { ch: this.vm.chapterId };
+    if (!this.vm.mode.sticky) data.sticky = false;
+    return data;
+  };
   socketHandler = (t: string, d: any) => {
     const handler = (this.socketHandlers as any as SocketHandlers)[t];
     if (handler) {
@@ -671,11 +677,11 @@ export default class StudyCtrl {
       this.redraw();
     },
     addNode: d => {
-      if (d.relayPath === '!') d.relayPath = d.p.path + d.n.id;
       const position = d.p,
         node = completeNode(d.n),
         who = d.w,
         sticky = d.s;
+      if (d.relayPath === '!') d.relayPath = d.p.path + d.n.id;
       this.setMemberActive(who);
       this.chapters.addNode(d);
       this.multiCloudEval?.addNode(d);
