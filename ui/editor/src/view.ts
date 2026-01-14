@@ -89,6 +89,34 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
       i18n.site.clearBoard,
     );
 
+  const chess960PositionIdSelector =
+    ctrl.variant !== 'chess960'
+      ? null
+      : h('div.metadata', [
+          h(
+            'label.form-label',
+            {
+              attrs: { for: 'chess960-position-id' },
+            },
+            'chess960 position id',
+          ),
+          h('input#chess960-position-id', {
+            attrs: { minlength: 1, maxlength: 3, type: 'number', min: '0', max: '959' },
+            props: {
+              value:
+                ctrl.chess960PositionId !== undefined
+                  ? ctrl.chess960PositionId
+                  : (ctrl.chess960PositionId = Math.floor(Math.random() * 960)),
+            },
+            on: {
+              change(e) {
+                ctrl.chess960PositionId = parseInt((e.target as HTMLSelectElement).value, 10);
+                ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
+              },
+            },
+          }),
+        ]);
+
   return h('div.board-editor__tools', [
     h('div.metadata', [
       h(
@@ -195,7 +223,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           })(),
         ]),
     ...(ctrl.cfg.embed
-      ? [h('div.actions', [buttonStart(), buttonClear()])]
+      ? [h('div.actions', [chess960PositionIdSelector, buttonStart(), buttonClear()])]
       : [
           h('div', [
             h(
@@ -216,27 +244,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               allVariants.map(x => variant2option(x[0], x[1], ctrl)),
             ),
           ]),
-          ctrl.variant !== 'chess960'
-            ? null
-            : h('div.metadata', [
-                h(
-                  'label.form-label',
-                  {
-                    attrs: { for: 'chess960-position-id' },
-                  },
-                  'chess960 position id',
-                ),
-                h('input#chess960-position-id', {
-                  attrs: { minlength: 1, maxlength: 3, type: 'number', min: '0', max: '959' },
-                  props: { value: ctrl.chess960PositionId !== undefined ? ctrl.chess960PositionId : '0' },
-                  on: {
-                    change(e) {
-                      ctrl.chess960PositionId = parseInt((e.target as HTMLSelectElement).value, 10);
-                      ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
-                    },
-                  },
-                }),
-              ]),
+          chess960PositionIdSelector,
           h('div.actions', [
             buttonStart(licon.Reload),
             buttonClear(licon.Trash),
