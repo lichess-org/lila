@@ -73,6 +73,8 @@ object RelayPlayer:
   opaque type Rank = Int
   object Rank extends OpaqueInt[Rank]
 
+  type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
+
   def empty(player: StudyPlayer.WithFed) =
     RelayPlayer(player, None, None, None, None, None, Vector.empty)
 
@@ -178,8 +180,6 @@ private final class RelayPlayerApi(
     photosJson: PhotosJson.Get
 )(using Executor)(using scheduler: Scheduler):
   import RelayPlayer.*
-
-  type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
 
   private val cache = cacheApi[ScoreGroup, RelayPlayers](128, "relay.players.data"):
     _.expireAfterWrite(1.minute).buildAsyncFuture(computeScoreGroup)

@@ -8,6 +8,7 @@ import lila.core.fide.{ PlayerToken, Tokenize }
 import lila.study.ChapterPreview
 import lila.study.StudyPlayer
 import scala.collection.immutable.SeqMap
+import lila.relay.RelayTeam.POVMatch
 
 type TeamName = String
 
@@ -62,10 +63,18 @@ private class RelayTeamsTextarea(val text: String):
 
 object RelayTeam:
   import chess.{ Color, ByColor }
-  case class TeamWithGames(name: TeamName, games: List[RelayPlayer.Game]):
-    def add(game: RelayPlayer.Game) =
-      copy(games = games :+ game)
-    def points = games.foldMap(_.playerScore)
+  case class TeamWithGames(name: TeamName, players: RelayPlayer.RelayPlayers):
+    def add(player: RelayPlayer) =
+      player.id.fold(this): id =>
+        copy(players =
+          players.updated(
+            id,
+            players.get(id).fold(player)(rp => rp.copy(games = rp.games ++ player.games))
+          )
+        )
+    def points = players.values.toList.foldMap(_.score)
+    def allGamesFinished: Boolean =
+      players.values.forall(_.games.forall(_.points.isDefined))
   case class Pair[A](a: A, b: A):
     def is(p: Pair[A]) = (a == p.a && b == p.b) || (a == p.b && b == p.a)
     def map[B](f: A => B) = Pair(f(a), f(b))
@@ -91,24 +100,26 @@ object RelayTeam:
         game: ByColor[RelayPlayer.Game]
     ): TeamMatch =
       val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
+      val wPOV = game(t0Color)
+      val bPOV = game(!t0Color)
+      val wPlayer = RelayPlayer.empty(bPOV.opponent).copy(score = wPOV.playerScore, games = Vector(wPOV))
+      val bPlayer = RelayPlayer.empty(wPOV.opponent).copy(score = bPOV.playerScore, games = Vector(bPOV))
       copy(
         games = TeamGame(chap.id, t0Color) :: games,
-        teams = teams.bimap(_.add(game(t0Color)), _.add(game(!t0Color)))
+        teams = teams.bimap(_.add(wPlayer), _.add(bPlayer))
       )
     def swap = copy(teams = teams.reverse, games = games.map(_.swap))
+    def isFinished: Boolean = teams.forall(_.allGamesFinished)
     def pointsPair: Option[Pair[Points]] =
       teams
-        .forall(t => t.games.nonEmpty)
+        .forall(_.allGamesFinished)
         .so:
           (teams.a.points, teams.b.points).mapN: (aPoints, bPoints) =>
             if aPoints == bPoints then Pair(Points.Half, Points.Half)
             else if aPoints > bPoints then Pair(Points.One, Points.Zero)
             else Pair(Points.Zero, Points.One)
     def pointsFor(teamName: TeamName): Option[Points] =
-      pointsPair.flatMap: o =>
-        if teams.a.name == teamName then Some(o.a)
-        else if teams.b.name == teamName then Some(o.b)
-        else None
+      pointsPair.map(o => if teams.a.name == teamName then (o.a) else (o.b))
     def scoreFor(teamName: TeamName): Option[Float] =
       teamCustomScoring
         .flatMap: cs =>
@@ -121,8 +132,22 @@ object RelayTeam:
         .orElse(
           pointsFor(teamName).map(_.value)
         )
-    def isFinished: Boolean =
-      teams.forall(_.games.forall(_.points.isDefined))
+    def povMatches: Pair[POVMatch] =
+      teams.bimap(
+        t => POVMatch(teams.b.name, t.players, pointsFor(t.name), scoreFor(t.name)),
+        t => POVMatch(teams.a.name, t.players, pointsFor(t.name), scoreFor(t.name))
+      )
+    def povMatch(teamName: TeamName): Option[POVMatch] =
+      if teams.a.name == teamName then Some(povMatches.a)
+      else if teams.b.name == teamName then Some(povMatches.b)
+      else None
+
+  case class POVMatch(
+      opponentName: TeamName,
+      players: RelayPlayer.RelayPlayers,
+      points: Option[Points],
+      score: Option[Float]
+  )
 
 final class RelayTeamTable(
     roundRepo: RelayRoundRepo,
@@ -168,7 +193,7 @@ final class RelayTeamTable(
             RelayPlayer.Game(round.id, chap.id, p, c, points, round.rated, round.customScoring, false)
           m0 = table.find(_.is(teams)) | TeamMatch(
             round.id,
-            teams.map(TeamWithGames(_, Nil)),
+            teams.map(TeamWithGames(_, SeqMap.empty)),
             Nil,
             round.teamCustomScoring
           )
@@ -216,13 +241,21 @@ final class RelayTeamLeaderboard(
   given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.gamePoints, t.name))
 
   object json:
-    import RelayTeamTable.json.given
+    import RelayPlayer.json.given
+    given Writes[POVMatch] = m =>
+      Json
+        .obj(
+          "opponent" -> m.opponentName,
+          "players" -> m.players.values.toList.sortBy(_.rating.map(-_.value))
+        )
+        .add("points" -> m.points)
+        .add("score" -> m.score)
     given Writes[TeamLeaderboardEntry] = t =>
       Json.obj(
         "name" -> t.name,
         "mp" -> t.matchPoints,
         "gp" -> t.gamePoints,
-        "matches" -> t.matches
+        "matches" -> t.matches.map(_.povMatch(t.name))
       )
 
   def leaderboardJson(tour: RelayTourId): Fu[JsonStr] =
@@ -277,6 +310,6 @@ object RelayTeamTable:
       Json
         .obj(
           "name" -> t.name,
-          "games" -> t.games
+          "players" -> Json.toJson(t.players.values.toList)
         )
         .add("points" -> t.points)
