@@ -146,7 +146,7 @@ final class RelayTeamTable(
   private object impl:
 
     def makeJson(studyId: StudyId): Fu[JsObject] =
-      import json.given
+      import RelayTeamTable.json.given
       for matches <- cache.get(studyId)
       yield Json.obj("table" -> matches)
 
@@ -185,22 +185,6 @@ final class RelayTeamTable(
         if m.games.headOption.forall(_.pov.white) then m
         else m.swap
 
-    object json:
-      import lila.common.Json.given
-      import RelayPlayer.json.given
-      import RelayJsonView.given
-      given [A: Writes]: Writes[Pair[A]] = Writes: p =>
-        Json.arr(p.a, p.b)
-      given Writes[TeamGame] = Json.writes[TeamGame]
-      given Writes[TeamMatch] = Json.writes[TeamMatch]
-      given Writes[TeamWithGames] = t =>
-        Json
-          .obj(
-            "name" -> t.name,
-            "games" -> t.games
-          )
-          .add("points" -> t.points)
-
 final class RelayTeamLeaderboard(
     tourRepo: RelayTourRepo,
     relayGroupApi: RelayGroupApi,
@@ -232,8 +216,14 @@ final class RelayTeamLeaderboard(
   given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.gamePoints, t.name))
 
   object json:
+    import RelayTeamTable.json.given
     given Writes[TeamLeaderboardEntry] = t =>
-      Json.obj("name" -> t.name, "mp" -> t.matchPoints, "gp" -> t.gamePoints)
+      Json.obj(
+        "name" -> t.name,
+        "mp" -> t.matchPoints,
+        "gp" -> t.gamePoints,
+        "matches" -> t.matches
+      )
 
   def leaderboardJson(tour: RelayTourId): Fu[JsonStr] =
     jsonCache.get(tour)
@@ -271,3 +261,22 @@ final class RelayTeamLeaderboard(
         .toList
         .sortBy(_._2)
         .to(SeqMap)
+
+object RelayTeamTable:
+  object json:
+    import play.api.libs.json.*
+    import lila.common.Json.given
+    import RelayPlayer.json.given
+    import RelayJsonView.given
+    import RelayTeam.*
+    given [A: Writes]: Writes[Pair[A]] = Writes: p =>
+      Json.arr(p.a, p.b)
+    given Writes[TeamGame] = Json.writes[TeamGame]
+    given Writes[TeamMatch] = Json.writes[TeamMatch]
+    given Writes[TeamWithGames] = t =>
+      Json
+        .obj(
+          "name" -> t.name,
+          "games" -> t.games
+        )
+        .add("points" -> t.points)

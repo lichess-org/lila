@@ -32,6 +32,7 @@ import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
 import { userLink } from 'lib/view/userLink';
 import { pubsub } from 'lib/pubsub';
+import { standingsView } from './relayTeamsStandings';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -40,11 +41,13 @@ export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
       ? games(ctx)
       : tab === 'teams'
         ? teams(ctx)
-        : tab === 'stats'
-          ? stats(ctx)
-          : tab === 'players'
-            ? players(ctx)
-            : overview(ctx);
+        : tab === 'team-results'
+          ? teamResults(ctx)
+          : tab === 'stats'
+            ? stats(ctx)
+            : tab === 'players'
+              ? players(ctx)
+              : overview(ctx);
 
   return hl('div.box.relay-tour', content);
 }
@@ -419,6 +422,11 @@ const teams = (ctx: RelayViewContext) => [
   ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list, ctx.relay.players, ctx.relay.round),
 ];
 
+const teamResults = (ctx: RelayViewContext) => [
+  header(ctx),
+  ctx.relay.teams && standingsView(ctx.relay.teamStandings),
+];
+
 const stats = (ctx: RelayViewContext) => [header(ctx), statsView(ctx.relay.stats)];
 
 const renderNote = (title: VNode, desc?: VNode) => hl('div.relay-tour__note', hl('div', [title, desc]));
@@ -516,6 +524,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     makeTab('boards', i18n.broadcast.boards),
     makeTab('players', i18n.site.players),
     relay.teams && makeTab('teams', i18n.broadcast.teams),
+    relay.teams && makeTab('team-results', 'Team Results'),
     study.members.myMember() && !!relay.data.tour.tier
       ? makeTab('stats', i18n.site.stats)
       : ctrl.isEmbed &&

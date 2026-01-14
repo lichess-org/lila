@@ -8,8 +8,9 @@ import { VideoPlayer } from './videoPlayer';
 import RelayStats from './relayStats';
 import { LiveboardPlugin } from './liveboardPlugin';
 import { pubsub } from 'lib/pubsub';
+import RelayTeamsStandings from './relayTeamsStandings';
 
-export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats'] as const;
+export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats', 'team-results'] as const;
 export type RelayTab = (typeof relayTabs)[number];
 type StreamInfo = [UserId, { name: string; lang: string }];
 
@@ -23,6 +24,7 @@ export default class RelayCtrl {
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
   players: RelayPlayers;
+  teamStandings: RelayTeamsStandings;
   stats: RelayStats;
   streams: StreamInfo[] = [];
   showStreamerMenu = toggle(false);
@@ -62,6 +64,7 @@ export default class RelayCtrl {
       fideId => data.photos[fideId],
       this.redraw,
     );
+    this.teamStandings = new RelayTeamsStandings(this.data.tour.id, () => this.round?.id, this.redraw);
     this.stats = new RelayStats(this.round, this.redraw);
     if (data.videoUrls?.[0] || this.isPinnedStreamOngoing())
       this.videoPlayer = new VideoPlayer(

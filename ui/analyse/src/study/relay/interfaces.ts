@@ -104,3 +104,18 @@ export interface LogEvent {
   error?: string;
   at: number;
 }
+
+export interface RelayTeamMatch {
+  roundId: RoundId;
+}
+
+export type RelayTeamName = string;
+
+export interface RelayTeamStandingsEntry {
+  name: RelayTeamName;
+  mp: number;
+  gp: number;
+  matches: RelayTeamMatch[];
+}
+
+export type RelayTeamStandiings = RelayTeamStandingsEntry[];

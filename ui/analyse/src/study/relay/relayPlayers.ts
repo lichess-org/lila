@@ -502,7 +502,7 @@ const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
         : hl('span.rp--same', ' ==');
 };
 
-const tableAugment = (el: HTMLTableElement) => {
+export const tableAugment = (el: HTMLTableElement) => {
   extendTablesortNumber();
   $(el).each(function (this: HTMLElement) {
     sortTable(this, {
