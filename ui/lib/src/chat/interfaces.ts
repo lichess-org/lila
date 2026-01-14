@@ -35,7 +35,8 @@ export interface ChatData {
   name: string;
   lines: Line[];
   userId?: string;
-  resourceId: string;
+  resourceType: string; // team, swiss, tournament, watcher, etc.
+  resourceId: string; // team:<id>
   loginRequired: boolean;
   restricted: boolean;
   voiceChat: boolean;

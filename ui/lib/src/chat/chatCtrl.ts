@@ -29,7 +29,7 @@ export class ChatCtrl {
   private storedTabKey: Prop<string>;
   private allTabs: Tab[] = [];
 
-  chatEnabled: Prop<boolean> = storedBooleanProp('chat.enabled', true);
+  chatEnabled: Prop<boolean>;
   voiceChat: VoiceChatData;
   moderation: ModerationCtrl | undefined;
   note: NoteCtrl | undefined;
@@ -41,6 +41,7 @@ export class ChatCtrl {
     readonly redraw: Redraw,
   ) {
     this.data = opts.data;
+    this.chatEnabled = storedBooleanProp(`chat.${this.data.resourceType}.enabled`, true);
     this.storedTabKey = storedStringProp(`chat.${opts.plugin ? opts.plugin.key + '.' : ''}tab`, 'discussion');
     if (!opts.kidMode) this.allTabs.push({ key: 'discussion' });
     if (opts.noteId) this.allTabs.push({ key: 'note' });
