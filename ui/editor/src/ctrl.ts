@@ -28,7 +28,7 @@ export default class EditorCtrl {
 
   selected: Prop<Selected>;
 
-  initialFen: string;
+  initialFen: FEN;
   pockets: Material | undefined;
   turn: Color;
   castlingRights: SquareSet | undefined;

@@ -9,8 +9,8 @@ export type Redraw = () => void;
 export type Selected = 'pointer' | 'trash' | [Color, Role];
 
 export interface EditorState {
-  fen: string;
-  legalFen: string | undefined;
+  fen: FEN;
+  legalFen: FEN | undefined;
   playable: boolean;
   enPassantOptions: string[];
 }
@@ -25,7 +25,7 @@ export interface LichessEditor {
 export interface Config {
   el: HTMLElement;
   baseUrl: string;
-  fen?: string;
+  fen?: FEN;
   options?: Options;
   is3d: boolean;
   animation: {
@@ -47,12 +47,12 @@ export interface Options {
 export interface OpeningPosition {
   eco?: string;
   name: string;
-  fen: string;
+  fen: FEN;
   epd?: string;
 }
 
 export interface EndgamePosition {
   name: string;
-  fen: string;
+  fen: FEN;
   epd?: string;
 }

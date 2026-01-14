@@ -302,7 +302,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
   ]);
 }
 
-function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
+function inputs(ctrl: EditorCtrl, fen: FEN): VNode | undefined {
   if (ctrl.cfg.embed) return;
   return h('div.copyables', [
     h('p', [
