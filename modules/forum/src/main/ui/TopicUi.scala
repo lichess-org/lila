@@ -164,7 +164,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               (canModCateg || Granter.opt(_.StickyPosts)).option:
                 postForm(action := routes.ForumTopic.sticky(categ.id, topic.slug))(
                   button(cls := "button button-empty button-brag"):
-                    topic.sticky.fold("Sticky")(by => s"$by Unsticky")
+                    topic.sticky.fold("Sticky")(by => s"${by.toString().substring(0,15)} Unsticky")
                 )
               ,
               (canModCateg || ctx.me.exists(topic.isAuthor)).option(deleteModal),
