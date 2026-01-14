@@ -1,5 +1,3 @@
-import type { Rules } from 'chessops/types';
-
 export type CastlingToggle = 'K' | 'Q' | 'k' | 'q';
 export const CASTLING_TOGGLES: CastlingToggle[] = ['K', 'Q', 'k', 'q'];
 export type CastlingToggles<T> = {
@@ -19,7 +17,7 @@ export interface LichessEditor {
   getFen(): FEN;
   setFen(fen: FEN): void;
   setOrientation(o: Color): void;
-  setRules(rules: Rules): void;
+  setVariant(variant: VariantKey): void;
 }
 
 export interface Config {
