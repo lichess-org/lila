@@ -46,13 +46,9 @@ object Helpers:
 
   extension (newBranch: NewBranch)
     def toBranch(children: Option[NewTree]): Branch = Branch(
-      newBranch.id,
       newBranch.ply,
       newBranch.move,
       newBranch.fen,
-      newBranch.check,
-      newBranch.dests,
-      newBranch.drops,
       newBranch.eval,
       newBranch.shapes,
       newBranch.comments,
@@ -80,9 +76,6 @@ object Helpers:
       Root(
         root.ply,
         root.fen,
-        root.check,
-        root.dests,
-        root.drops,
         root.eval,
         root.shapes,
         root.comments,

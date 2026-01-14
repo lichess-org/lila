@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.ErrorStr
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
+import chess.format.{ Fen, Uci, UciPath }
 import chess.opening.*
 import chess.variant.Variant
 import play.api.libs.json.JsObject
@@ -24,17 +24,12 @@ case class AnaDrop(
       .drop(role, pos)
       .map: (game, drop) =>
         val uci = Uci(drop)
-        val movable = !game.position.end
         val fen = chess.format.Fen.write(game)
         Branch(
-          id = UciCharPair(uci),
           ply = game.ply,
           move = Uci.WithSan(uci, drop.toSanStr),
           fen = fen,
-          check = game.position.check,
-          dests = Some(movable.so(game.position.destinations)),
           opening = OpeningDb.findByFullFen(fen),
-          drops = if movable then game.position.drops else Some(Nil),
           crazyData = game.position.crazyData
         )
 

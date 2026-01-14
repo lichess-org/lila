@@ -8,7 +8,7 @@ import chess.format.pgn.{ Glyph, Glyphs, Comment as CommentStr }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.Opening
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Bitboard, Centis, Check, Ply, Square }
+import chess.{ Centis, Ply, Square }
 import play.api.libs.json.*
 import scalalib.StringOps.softCleanUp
 import scalalib.ThreadLocalRandom
@@ -288,7 +288,6 @@ object Root:
     Root(
       ply = Ply.initial,
       fen = variant.initialFen,
-      check = Check.No,
       crazyData = variant.crazyhouse.option(Crazyhouse.Data.init)
     )
 
@@ -296,27 +295,23 @@ case class Clock(centis: Centis, trust: Option[Boolean] = none):
   def positive = centis >= Centis(0)
 
 case class Branch(
-    id: UciCharPair,
     ply: Ply,
     move: Uci.WithSan,
     fen: Fen.Full,
-    check: Check,
-    // None when not computed yet
-    dests: Option[Map[Square, Bitboard]] = None,
-    drops: Option[List[Square]] = None,
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
     comments: Node.Comments = Node.Comments(Nil),
     gamebook: Option[Node.Gamebook] = None,
     glyphs: Glyphs = Glyphs.empty,
     children: Branches = Branches.empty, // Vector used in `Study.Node`, switch?
-    opening: Option[Opening] = None,
+    opening: Option[Opening] = None, // TODO remove?
     comp: Boolean = false,
     clock: Option[Clock] = None, // clock state after the move is played, and the increment applied
     crazyData: Option[Crazyhouse.Data],
     forceVariation: Boolean = false // cannot be mainline
 ) extends Node:
 
+  def id = UciCharPair(move.uci)
   def idOption = Some(id)
   def moveOption = Some(move)
 

@@ -34,9 +34,6 @@ object StudyPgnImportNew:
               Metas(
                 ply = replay.setup.ply,
                 fen = initialFen | replay.setup.position.variant.initialFen,
-                check = replay.setup.position.check,
-                dests = None,
-                drops = None,
                 eval = None,
                 shapes = shapes,
                 comments = comments,
@@ -105,16 +102,12 @@ object StudyPgnImportNew:
           .filter(_.positive)
         val newBranch =
           NewBranch(
-            id = id,
             move = Uci.WithSan(uci, sanStr),
             comp = false,
             forceVariation = false,
             Metas(
               ply = currentPly,
               fen = Fen.write(game, currentPly.fullMoveNumber),
-              check = game.check,
-              dests = None,
-              drops = None,
               eval = None,
               shapes = shapes,
               comments = comments,

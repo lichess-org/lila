@@ -1,7 +1,7 @@
 package lila.tree
 
 import chess.format.pgn.{ Comment, Glyphs }
-import chess.format.{ Fen, Uci, UciCharPair }
+import chess.format.{ Fen, Uci }
 import chess.opening.*
 import chess.variant.Variant
 import chess.{ Centis, Ply, Position }
@@ -34,7 +34,6 @@ object TreeBuilder:
     val root = Root(
       ply = setup.ply,
       fen = fen,
-      check = setup.position.check,
       opening = openingOf(fen),
       clock = withFlags.clocks.so:
         game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value)).map(Clock(_))
@@ -50,11 +49,9 @@ object TreeBuilder:
       val advice = advices.get(ply)
 
       val branch = Branch(
-        id = UciCharPair(move.toUci),
         ply = ply,
         move = Uci.WithSan(move.toUci, move.toSanStr),
         fen = fen,
-        check = move.after.check,
         opening = openingOf(fen),
         clock = withClocks.flatMap(_.lift(index)).map(Clock(_)),
         crazyData = move.after.crazyData,
@@ -114,11 +111,9 @@ object TreeBuilder:
     def makeBranch(m: chess.MoveOrDrop, ply: Ply): Branch =
       val fen = Fen.write(m.after, ply.fullMoveNumber)
       Branch(
-        id = UciCharPair(m.toUci),
         ply = ply,
         move = Uci.WithSan(m.toUci, m.toSanStr),
         fen = fen,
-        check = m.after.position.check,
         opening = openingOf(fen),
         crazyData = m.after.position.crazyData,
         eval = none

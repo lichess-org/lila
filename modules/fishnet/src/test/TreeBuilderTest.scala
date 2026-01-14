@@ -119,9 +119,6 @@ object TreeBuilderTest:
         Root(
           newRoot.ply,
           newRoot.fen,
-          newRoot.check,
-          newRoot.dests,
-          newRoot.drops,
           newRoot.eval,
           newRoot.shapes,
           newRoot.comments,
@@ -154,13 +151,9 @@ object TreeBuilderTest:
 
     extension (newBranch: NewBranch)
       def toBranch(children: Option[NewTree]): Branch = Branch(
-        newBranch.id,
         newBranch.ply,
         newBranch.move,
         newBranch.fen,
-        newBranch.check,
-        newBranch.dests,
-        newBranch.drops,
         newBranch.eval,
         newBranch.shapes,
         newBranch.comments,
