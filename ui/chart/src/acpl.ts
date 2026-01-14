@@ -34,7 +34,7 @@ Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, 
 export default async function (
   el: HTMLCanvasElement,
   data: AnalyseData,
-  mainline: Tree.NodeOptionalChildren[],
+  mainline: Tree.NodeIncomplete[],
 ): Promise<AcplChart> {
   const possibleChart = maybeChart(el);
   if (possibleChart) return possibleChart as AcplChart;
@@ -47,7 +47,7 @@ export default async function (
 
   const makeDataset = (
     d: AnalyseData,
-    mainline: Tree.NodeOptionalChildren[],
+    mainline: Tree.NodeIncomplete[],
   ): { acpl: ChartDataset<'line'>; moveLabels: string[]; adviceHoverColors: string[] } => {
     const pointBackgroundColors: (
       | typeof orangeAccent
@@ -190,7 +190,7 @@ export default async function (
 }
 
 type Advice = 'blunder' | 'mistake' | 'inaccuracy';
-const glyphProperties = (node: Tree.NodeOptionalChildren): { advice?: Advice; color?: string } => {
+const glyphProperties = (node: Tree.NodeIncomplete): { advice?: Advice; color?: string } => {
   if (node.glyphs?.some(g => g.id === 4)) return { advice: 'blunder', color: '#db3031' };
   else if (node.glyphs?.some(g => g.id === 2)) return { advice: 'mistake', color: '#e69d00' };
   else if (node.glyphs?.some(g => g.id === 6)) return { advice: 'inaccuracy', color: '#4da3d5' };
@@ -199,7 +199,7 @@ const glyphProperties = (node: Tree.NodeOptionalChildren): { advice?: Advice; co
 
 const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 
-function christmasTree(chart: AcplChart, mainline: Tree.NodeOptionalChildren[], hoverColors: string[]) {
+function christmasTree(chart: AcplChart, mainline: Tree.NodeIncomplete[], hoverColors: string[]) {
   $('div.advice-summary').on('mouseenter', 'div.symbol', function (this: HTMLElement) {
     const symbol = this.getAttribute('data-symbol');
     const playerColorBit = this.getAttribute('data-color') === 'white' ? 1 : 0;

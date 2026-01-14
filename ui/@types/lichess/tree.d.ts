@@ -1,6 +1,7 @@
 // file://./../../analyse/src/ctrl.ts
 
 declare namespace Tree {
+  export type NodeId = string;
   export type Path = string;
 
   interface ClientEvalBase extends EvalScore {
@@ -44,7 +45,6 @@ declare namespace Tree {
 
   export interface NodeBase {
     // file://./../../tree/src/tree.ts
-    id: string;
     ply: Ply;
     uci?: Uci;
     fen: FEN;
@@ -71,11 +71,13 @@ declare namespace Tree {
     collapsed?: boolean;
   }
 
-  export interface NodeOptionalChildren extends NodeBase {
+  export interface NodeIncomplete extends NodeBase {
+    id?: NodeId;
     children?: Node[];
   }
 
   export interface Node extends NodeBase {
+    id: NodeId;
     children: Node[];
   }
 

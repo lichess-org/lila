@@ -52,6 +52,7 @@ import { MultiCloudEval } from './multiCloudEval';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view';
 import { displayColumns } from 'lib/device';
+import { completeNode } from '@/util';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -672,10 +673,7 @@ export default class StudyCtrl {
     addNode: d => {
       if (d.relayPath === '!') d.relayPath = d.p.path + d.n.id;
       const position = d.p,
-        node = {
-          ...d.n,
-          children: d.n.children || [],
-        },
+        node = completeNode(d.n),
         who = d.w,
         sticky = d.s;
       this.setMemberActive(who);
