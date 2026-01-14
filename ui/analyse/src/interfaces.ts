@@ -114,7 +114,7 @@ export interface Game {
 export interface Opening {
   name: string;
   eco: string;
-  ply: number;
+  ply: Ply;
 }
 
 export interface Division {

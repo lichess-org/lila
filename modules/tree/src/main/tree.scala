@@ -138,10 +138,6 @@ object Branches:
 sealed trait Node:
   def ply: Ply
   def fen: Fen.Full
-  def check: Check
-  // None when not computed yet
-  def dests: Option[Map[Square, Bitboard]]
-  def drops: Option[List[Square]]
   def eval: Option[Eval]
   def shapes: Node.Shapes
   def comments: Node.Comments
@@ -169,10 +165,6 @@ sealed trait Node:
 case class Root(
     ply: Ply,
     fen: Fen.Full,
-    check: Check,
-    // None when not computed yet
-    dests: Option[Map[Square, Bitboard]] = None,
-    drops: Option[List[Square]] = None,
     eval: Option[Eval] = None,
     shapes: Node.Shapes = Node.Shapes(Nil),
     comments: Node.Comments = Node.Comments(Nil),
@@ -547,15 +539,12 @@ object Node:
           .add("id", idOption.map(_.toString))
           .add("uci", moveOption.map(_.uci.uci))
           .add("san", moveOption.map(_.san))
-          .add("check", check)
           .add("eval", eval.filterNot(_.isEmpty))
           .add("comments", if comments.nonEmpty then Some(comments) else None)
           .add("gamebook", gamebook)
           .add("glyphs", glyphs.nonEmpty)
           .add("shapes", if shapes.value.nonEmpty then Some(shapes.value) else None)
           .add("opening", opening)
-          .add("dests", dests)
-          .add("drops", drops.map(drops => JsString(drops.map(_.key).mkString)))
           .add("clock", clock.map(_.centis))
           .add("crazy", crazyData)
           .add("comp", comp)

@@ -1,7 +1,7 @@
 import { Chess, normalizeMove } from 'chessops/chess';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
-import { makeSquare, makeUci, parseUci } from 'chessops/util';
+import { makeUci, parseUci } from 'chessops/util';
 import { scalachessCharPair } from 'chessops/compat';
 import { type TreeWrapper, path as pathOps } from 'lib/tree/tree';
 import { isNormal, type Move, type NormalMove } from 'chessops/types';
@@ -47,7 +47,7 @@ const makeNode = (pos: Chess, move: Move, ply: number, san: San): Tree.Node => (
   fen: makeFen(pos.toSetup()),
   id: scalachessCharPair(move),
   uci: makeUci(move),
-  check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
+  check: pos.isCheck(),
   children: [],
 });
 

@@ -242,13 +242,6 @@ export interface EditChapterData {
   description: string;
 }
 
-export interface AnaDests {
-  dests: string;
-  path: string;
-  ch?: string;
-  opening?: Opening;
-}
-
 export interface AnaMove {
   orig: string;
   dest: string;

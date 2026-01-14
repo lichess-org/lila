@@ -41,7 +41,6 @@ function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
       fen: node.fen,
       uci: node.uci!,
       san: node.san!,
-      check: node.check,
     })),
   );
 }

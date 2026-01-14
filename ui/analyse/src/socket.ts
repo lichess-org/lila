@@ -1,20 +1,8 @@
-import { initial as initialBoardFEN } from '@lichess-org/chessground/fen';
 import { ops as treeOps } from 'lib/tree/tree';
 import type AnalyseCtrl from './ctrl';
-import type { EvalGetData, EvalPutData, ServerEvalData } from './interfaces';
-import type { AnaDests, AnaDrop, AnaMove, ChapterData, EditChapterData } from './study/interfaces';
+import type { EvalGetData, EvalPutData, Opening, ServerEvalData } from './interfaces';
+import type { AnaDrop, AnaMove, ChapterData, EditChapterData } from './study/interfaces';
 import type { FormData as StudyFormData } from './study/studyForm';
-
-interface DestsCache {
-  [fen: string]: AnaDests;
-}
-
-interface AnaDestsReq {
-  fen: FEN;
-  path: string;
-  ch?: string;
-  variant?: VariantKey;
-}
 
 interface MoveOpts {
   write?: false;
@@ -58,7 +46,7 @@ export interface StudySocketSendParams {
   setTag: (d: { chapterId: string; name: string; value: string }) => void;
   anaMove: (d: AnaMove & MoveOpts) => void;
   anaDrop: (d: AnaDrop & MoveOpts) => void;
-  anaDests: (d: AnaDestsReq) => void;
+  opening: (d: { fen: FEN }) => void;
   like: (d: { liked: boolean }) => void;
   kick: (username: string) => void;
   editStudy: (d: StudyFormData) => void;
@@ -91,28 +79,10 @@ export interface Socket {
   receive(type: string, data: any): boolean;
   sendAnaMove(d: AnaMove): void;
   sendAnaDrop(d: AnaDrop): void;
-  sendAnaDests(d: AnaDestsReq): void;
-  clearCache(): void;
 }
 
 export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
   let anaMoveTimeout: number | undefined;
-  let anaDestsTimeout: number | undefined;
-
-  let anaDestsCache: DestsCache = {};
-
-  function clearCache() {
-    anaDestsCache =
-      ctrl.data.game.variant.key === 'standard' && ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFEN
-        ? {
-            '': {
-              path: '',
-              dests: 'iqy muC gvx ltB bqs pxF jrz nvD ksA owE',
-            },
-          }
-        : {};
-  }
-  clearCache();
 
   // forecast mode: reload when opponent moves
   if (!ctrl.synthetic)
@@ -147,16 +117,9 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
       clearTimeout(anaMoveTimeout);
       ctrl.reset();
     },
-    dests(data: AnaDests) {
-      clearTimeout(anaDestsTimeout);
-      if (!data.ch || data.ch === currentChapterId()) {
-        anaDestsCache[data.path] = data;
-        ctrl.addDests(data.dests, data.path);
-      } else console.log('socket handler node got wrong chapter id', data);
-    },
-    destsFailure(data: any) {
-      console.log(data);
-      clearTimeout(anaDestsTimeout);
+    opening({ fen, opening }: { fen: FEN; opening: Opening }) {
+      console.log(fen, opening);
+      // ctrl.setOpening(fen, opening);
     },
     fen(e: GameUpdate) {
       if (
@@ -174,20 +137,6 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
 
   function withoutStandardVariant(obj: { variant?: VariantKey }) {
     if (obj.variant === 'standard') delete obj.variant;
-  }
-
-  function sendAnaDests(req: AnaDestsReq) {
-    clearTimeout(anaDestsTimeout);
-    if (anaDestsCache[req.path]) setTimeout(() => handlers.dests(anaDestsCache[req.path]), 300);
-    else {
-      withoutStandardVariant(req);
-      addStudyData(req);
-      send('anaDests', req);
-      anaDestsTimeout = setTimeout(function () {
-        console.log(req, 'resendAnaDests');
-        sendAnaDests(req);
-      }, 3000);
-    }
   }
 
   function sendAnaMove(req: AnaMove) {
@@ -217,8 +166,6 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
     },
     sendAnaMove,
     sendAnaDrop,
-    sendAnaDests,
-    clearCache,
     send,
   };
 }

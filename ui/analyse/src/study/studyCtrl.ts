@@ -694,7 +694,6 @@ export default class StudyCtrl {
       this.data.chapter.relayPath = d.relayPath;
       const newPath = this.ctrl.tree.addNode(node, position.path);
       if (!newPath) return this.xhrReload();
-      if (d.n.dests) this.ctrl.tree.addDests(d.n.dests, newPath);
       if (d.relayPath && !this.ctrl.tree.pathIsMainline(d.relayPath))
         this.ctrl.tree.promoteAt(d.relayPath, true);
       if (sticky) this.data.position.path = newPath;

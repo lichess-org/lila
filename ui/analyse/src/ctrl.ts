@@ -1,4 +1,4 @@
-import { playable, playedTurns, fenToEpd, readDests, readDrops, validUci } from 'lib/game';
+import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
 import { plural } from './view/util';
@@ -17,7 +17,7 @@ import type { Prop, Toggle } from 'lib';
 import { defined, prop, toggle, debounce, throttle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
-import { lichessRules } from 'chessops/compat';
+import { chessgroundDests, lichessRules } from 'chessops/compat';
 import EvalCache from './evalCache';
 import { ForkCtrl } from './fork';
 import { make as makePractice, type PracticeCtrl } from './practice/practiceCtrl';
@@ -239,8 +239,7 @@ export default class AnalyseCtrl implements CevalHandler {
     }
 
     this.autoplay = new Autoplay(this);
-    if (this.socket) this.socket.clearCache();
-    else this.socket = makeSocket(this.opts.socketSend, this);
+    this.socket ??= makeSocket(this.opts.socketSend, this);
     if (this.explorer) this.explorer.destroy();
     this.explorer = new ExplorerCtrl(this, this.opts.explorer, this.explorer);
     this.gamePath = this.synthetic || this.ongoing ? undefined : treePath.fromNodeList(mainline);
@@ -326,37 +325,42 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   private showGround(): void {
+    this.ensureDests();
     this.onChange();
-    if (!defined(this.node.dests)) this.getDests();
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
       if (this.node.shapes) cg.setShapes(this.node.shapes.slice() as DrawShape[]);
+      cg.playPremove();
     });
   }
 
-  private getDests: () => void = throttle(800, () => {
-    if (!defined(this.node.dests))
-      this.socket.sendAnaDests({
-        variant: this.data.game.variant.key,
-        fen: this.node.fen,
-        path: this.path,
-      });
-  });
+  private ensureDests: () => void = () => {
+    if (defined(this.node.dests)) return;
+    const position = this.position(this.node).unwrap();
+    this.node.dests = chessgroundDests(position);
+    if (this.data.game.variant.key === 'crazyhouse') {
+      const drops = position.dropDests();
+      if (drops) this.node.drops = Array.from(drops, makeSquare);
+    }
+    this.node.check = position.isCheck();
+    this.pluginUpdate(this.node.fen);
+    if (position.outcome()) this.ceval.stop();
+  };
 
   serverMainline = () => this.mainline.slice(0, playedTurns(this.data) + 1);
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
       color = this.turnColor(),
-      dests = readDests(this.node.dests),
-      drops = readDrops(this.node.drops),
+      dests = this.node.dests,
+      drops = this.node.drops,
       gamebookPlay = this.gamebookPlay(),
       movableColor = gamebookPlay
         ? gamebookPlay.movableColor()
         : this.practice
           ? this.bottomColor()
-          : (dests && dests.size > 0) || drops === null || drops.length
+          : dests?.size || drops?.length
             ? color
             : undefined,
       config: ChessgroundConfig = {
@@ -618,15 +622,9 @@ export default class AnalyseCtrl implements CevalHandler {
     else this.chessground.playPremove();
   }
 
-  addDests(dests: string, path: Tree.Path): void {
-    this.tree.addDests(dests, path);
-    if (path === this.path) {
-      this.showGround();
-      this.pluginUpdate(this.node.fen);
-      if (this.outcome()) this.ceval.stop();
-    }
-    this.withCg(cg => cg.playPremove());
-  }
+  // setOpening(fen: FEN, opening: Opening): void {
+  //   this.tree.setDests(dests, path);
+  // }
 
   async deleteNode(path: Tree.Path): Promise<void> {
     this.pendingDeletionPath(null);

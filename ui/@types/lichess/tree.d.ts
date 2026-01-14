@@ -50,9 +50,9 @@ declare namespace Tree {
     fen: FEN;
     comments?: Comment[];
     gamebook?: Gamebook;
-    dests?: string;
-    drops?: string | null;
-    check?: Key;
+    dests?: Dests;
+    drops?: Key[];
+    check?: boolean;
     threat?: LocalEval;
     ceval?: ClientEval;
     eval?: ServerEval;

@@ -20,7 +20,7 @@ import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { CevalCtrl } from 'lib/ceval';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
-import { defined, prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'lib';
+import { prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'lib';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
@@ -340,7 +340,6 @@ export default class PuzzleCtrl implements CevalHandler {
   sendMoveAt = (path: Tree.Path, pos: Chess, move: Move): void => {
     move = normalizeMove(pos, move);
     const san = makeSanAndPlay(pos, move);
-    const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
     this.addNode(
       {
         ply: 2 * (pos.fullmoves - 1) + (pos.turn === 'white' ? 0 : 1),
@@ -348,7 +347,7 @@ export default class PuzzleCtrl implements CevalHandler {
         id: scalachessCharPair(move),
         uci: makeUci(move),
         san,
-        check: defined(check) ? makeSquare(check) : undefined,
+        check: pos.isCheck(),
         children: [],
       },
       path,
