@@ -1,6 +1,6 @@
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
 import * as keyboard from './keyboard';
-import { treeReconstruct, plyColor } from './util';
+import { treeReconstruct, plyColor, completeNode } from './util';
 import { plural } from './view/util';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
@@ -24,12 +24,12 @@ import { make as makePractice, type PracticeCtrl } from './practice/practiceCtrl
 import { make as makeRetro, type RetroCtrl } from './retrospect/retroCtrl';
 import { make as makeSocket, type Socket } from './socket';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
-import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
+import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from 'chessops/util';
 import { type Outcome, isNormal } from 'chessops/types';
-import { parseFen } from 'chessops/fen';
+import { makeFen, parseFen } from 'chessops/fen';
 import type { Position, PositionError } from 'chessops/chess';
 import type { Result } from '@badrap/result';
-import { setupPosition } from 'chessops/variant';
+import { normalizeMove, setupPosition } from 'chessops/variant';
 import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
 import type { AnaMove } from './study/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
@@ -48,6 +48,7 @@ import { confirm } from 'lib/view';
 import api from './api';
 import { displayColumns } from 'lib/device';
 import MotifCtrl from './motif/motifCtrl';
+import { makeSanAndPlay } from 'chessops/san';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;
@@ -580,12 +581,16 @@ export default class AnalyseCtrl implements CevalHandler {
       fen: this.node.fen,
       path: this.path,
     };
-    if (capture) this.justCaptured = capture;
     if (prom) move.promotion = prom;
+    if (capture) this.justCaptured = capture;
     if (this.practice) this.practice.onUserMove();
-    this.socket.sendAnaMove(move);
-    this.preparePremoving();
-    this.redraw();
+    if (this.study) {
+      this.socket.sendAnaMove(move);
+      this.preparePremoving();
+      this.redraw();
+    } else {
+      this.addNodeLocally(move);
+    }
   };
 
   private preparePremoving(): void {
@@ -604,6 +609,25 @@ export default class AnalyseCtrl implements CevalHandler {
     if (this.study) this.study.onPremoveSet();
   };
 
+  private addNodeLocally(am: AnaMove): void {
+    const pos = this.position(this.node).unwrap();
+    const move = normalizeMove(pos, {
+      from: parseSquare(am.orig)!,
+      to: parseSquare(am.dest)!,
+      promotion: am.promotion,
+    });
+    const san = makeSanAndPlay(pos, move);
+    this.addNode(
+      completeNode({
+        ply: this.node.ply + 1,
+        uci: makeUci(move),
+        san,
+        fen: makeFen(pos.toSetup()),
+      }),
+      this.path,
+    );
+  }
+
   addNode(node: Tree.Node, path: Tree.Path) {
     this.idbTree.onAddNode(node, path);
     const newPath = this.tree.addNode(node, path);
@@ -621,10 +645,6 @@ export default class AnalyseCtrl implements CevalHandler {
     if (queuedUci) this.playUci(queuedUci, this.pvUciQueue);
     else this.chessground.playPremove();
   }
-
-  // setOpening(fen: FEN, opening: Opening): void {
-  //   this.tree.setDests(dests, path);
-  // }
 
   async deleteNode(path: Tree.Path): Promise<void> {
     this.pendingDeletionPath(null);
