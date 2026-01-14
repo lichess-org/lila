@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Гуляць з камп\'ютарам</string>
   <string name="gameMode">Рэжым гульні</string>
   <string name="createLobbyGame">Стварыць запыт на гульню</string>
-  <string name="youPlayAs">Вы гуляеце за</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Выкарыстайце гэтую спасылку каб запрасіць кагосьці да гульні</string>
   <string name="gameOver">Гульня скончана</string>
   <string name="waitingForOpponent">Чакаем апанента</string>
@@ -460,7 +459,6 @@
   <string name="pasteTheFenStringHere">Устаўце сюды радок у фармаце FEN</string>
   <string name="pasteThePgnStringHere">Устаўце сюды радок у фармаце PGN</string>
   <string name="orUploadPgnFile">Або загрузіце PGN файл</string>
-  <string name="fromPosition">З пазіцыі</string>
   <string name="continueFromHere">Працягнуць адсюль</string>
   <string name="toStudy">Навучанне</string>
   <string name="importGame">Імпартаваць гульню</string>

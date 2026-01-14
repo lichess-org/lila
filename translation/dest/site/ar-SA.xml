@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">لعب ضد الحاسوب</string>
   <string name="gameMode">نمط اللعب</string>
   <string name="createLobbyGame">إنشاء ساحة لعب</string>
-  <string name="youPlayAs">لعب ك</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
   <string name="gameOver">انتهت المباراة</string>
   <string name="waitingForOpponent">في انتظار المنافس</string>
@@ -551,7 +550,6 @@
   <string name="pasteTheFenStringHere">ألصق الـFEN هنا</string>
   <string name="pasteThePgnStringHere">ألصق الـPGN هنا</string>
   <string name="orUploadPgnFile">أو حمل مِلف PGN</string>
-  <string name="fromPosition">من وضع</string>
   <string name="continueFromHere">تابع من هنا</string>
   <string name="toStudy">دراسة</string>
   <string name="importGame">استورد مباراة</string>

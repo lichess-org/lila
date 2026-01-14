@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Játék a gép ellen</string>
   <string name="gameMode">Játékmód</string>
   <string name="createLobbyGame">Játék létrehozása</string>
-  <string name="youPlayAs">Úgy játszol, mint</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Küldd el ezt a linket annak, akivel játszani szeretnél</string>
   <string name="gameOver">Játszma vége</string>
   <string name="waitingForOpponent">Várakozás az ellenfélre</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Másold ide a FEN szöveget</string>
   <string name="pasteThePgnStringHere">Másold ide a PGN szöveget</string>
   <string name="orUploadPgnFile">Vagy tölts fel egy PGN fájlt</string>
-  <string name="fromPosition">Adott állásból</string>
   <string name="continueFromHere">Folytatás innen</string>
   <string name="toStudy">Tanulmány</string>
   <string name="importGame">Játszma importálása</string>

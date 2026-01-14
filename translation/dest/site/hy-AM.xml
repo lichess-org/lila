@@ -407,7 +407,6 @@
   <string name="pasteTheFenStringHere">տեղադրել FEN տեքստը այստեղ</string>
   <string name="pasteThePgnStringHere">տեղադրել PGN-տողը այստեղ</string>
   <string name="orUploadPgnFile">Կամ վերբեռնեք PGN ֆայլը</string>
-  <string name="fromPosition">Դիրքից</string>
   <string name="continueFromHere">Շարունակել այստեղից</string>
   <string name="toStudy">Սովորել</string>
   <string name="importGame">Խաղ ներմուծել</string>

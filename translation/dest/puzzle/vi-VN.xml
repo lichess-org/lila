@@ -88,6 +88,6 @@ Hãy chơi thêm nhiều ván cờ nhanh và cờ chậm để có cơ hội có
   </plurals>
   <string name="percentSolved">Giải đúng %s</string>
   <string name="noPuzzlesToShow">Chưa có gì cả, hãy giải một vài câu đố trước đã!</string>
-  <string name="improvementAreasDescription">Luyện tập chúng để tối ưu hóa tiến trình của bạn!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Luyện tập chúng để tối ưu hóa tiến trình của bạn!</string>
   <string name="strengthDescription">Bạn thể hiện tốt nhất ở những lĩnh vực này</string>
 </resources>

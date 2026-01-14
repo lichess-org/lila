@@ -404,7 +404,6 @@
   <string name="pasteTheFenStringHere">FEN mətnini bura yapışdırın</string>
   <string name="pasteThePgnStringHere">PGN mətnini bura yapışdırın</string>
   <string name="orUploadPgnFile">Və ya PGN faylı yükləyin</string>
-  <string name="fromPosition">Pozisiyadan</string>
   <string name="continueFromHere">Buradan davam edin</string>
   <string name="toStudy">Çalışma</string>
   <string name="importGame">Oyun daxil edin</string>

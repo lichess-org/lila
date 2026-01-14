@@ -407,7 +407,6 @@
   <string name="pasteTheFenStringHere">Apega lo texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Apega lo texto PGN aquí</string>
   <string name="orUploadPgnFile">U penchar un fichero PGN</string>
-  <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Continar dende aquí</string>
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>

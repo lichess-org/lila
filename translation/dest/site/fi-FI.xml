@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Pelaa tietokonetta vastaan</string>
   <string name="gameMode">Pelityyppi</string>
   <string name="createLobbyGame">Luo peli</string>
-  <string name="youPlayAs">Nappuloidesi väri</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lähetä tämä linkki kaverillesi, jonka haluat kutsua pelaamaan</string>
   <string name="gameOver">Peli ohi</string>
   <string name="waitingForOpponent">Odotetaan vastustajaa</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Liitä FEN-merkkijono tähän</string>
   <string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
   <string name="orUploadPgnFile">Tai lataa PGN-tiedosto</string>
-  <string name="fromPosition">Asemasta</string>
   <string name="continueFromHere">Jatka tästä</string>
   <string name="toStudy">Tutki</string>
   <string name="importGame">Tuo peli</string>
@@ -1018,5 +1016,5 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="search">Hae</string>
   <string name="clearSearch">Tyhjennä haku</string>
   <string name="tags">Tunnisteet</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">Ohestalyönti</string>
+  <string name="enPassant">Ohestalyönti</string>
 </resources>

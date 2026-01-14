@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Bilgisayara karşı oyna</string>
   <string name="gameMode">Oyun modu</string>
   <string name="createLobbyGame">Lobi oyunu oluştur</string>
-  <string name="youPlayAs">Oynadığın renk</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
@@ -126,6 +125,10 @@
   <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="showVariationArrows">Varyasyon oklarını göster</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
+  <string name="visualMotifs">Görsel motifler</string>
+  <string name="undefendedPieces">Korumasız taşlar</string>
+  <string name="pinnedPieces">Sabitlenmiş taşlar</string>
+  <string name="checkableKing">Şah çekilebilirlik</string>
   <string name="multipleLines">Çoklu varyantlar</string>
   <string name="cpus">İşlemci</string>
   <string name="memory">Hafıza</string>
@@ -205,6 +208,7 @@
   <string name="minutesPerSide">Taraf başına dakika</string>
   <string name="variant">Varyant</string>
   <string name="variants">Varyantlar</string>
+  <string name="variantsDescription">Oynamanın daha fazla yolu</string>
   <string name="timeControl">Süre ayarı</string>
   <string name="realTime">Gerçek zaman</string>
   <string name="correspondence">Yazışma</string>
@@ -299,6 +303,7 @@
   <string name="standard">Standart</string>
   <string name="customPosition">Özel Konum</string>
   <string name="unlimited">Sınırsız</string>
+  <string name="unlimitedDescription">İhtiyacınız olan tüm zamanı alın</string>
   <string name="mode">Mod</string>
   <string name="casual">Puansız</string>
   <string name="rated">Puanlı</string>
@@ -427,7 +432,6 @@
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN kodunu buraya yapıştırın</string>
   <string name="orUploadPgnFile">Veya bir PGN dosyası yükle</string>
-  <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="toStudy">Çalışma oluştur</string>
   <string name="importGame">Oyun yükle</string>
@@ -1017,5 +1021,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="search">Ara</string>
   <string name="clearSearch">Aramayı temizle</string>
   <string name="tags">Etiketler</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">Geçerken alma</string>
+  <string name="enPassant">Geçerken alma</string>
 </resources>
