@@ -4,7 +4,7 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONDocument
 
-import lila.core.shutup.{ PublicSource, ShutupApi }
+import lila.core.shutup.ShutupApi
 import lila.core.timeline as tl
 import lila.core.LightUser
 import lila.db.dsl.{ *, given }
@@ -70,7 +70,7 @@ final class UblogApi(
       lila.common.Bus.pub:
         tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
           .toFollowersOf(post.created.by)
-      shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
+      shutupApi.publicText(author.id, post.allText, lila.core.chat.PublicSource.Ublog(post.id))
 
   def getUserBlogOption(user: User): Fu[Option[UblogBlog]] =
     getBlog(UblogBlog.Id.User(user.id))

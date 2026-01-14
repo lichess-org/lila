@@ -42,7 +42,7 @@ def show(
       name = trans.site.chatRoom.txt(),
       timeout = c.timeout,
       public = true,
-      resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
+      resource = lila.core.chat.PublicSource.Tournament(tour.id),
       localMod = ctx.userId.has(tour.createdBy),
       writeable = !c.locked
     )

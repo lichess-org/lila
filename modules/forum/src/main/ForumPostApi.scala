@@ -3,7 +3,8 @@ package lila.forum
 import lila.common.Bus
 import lila.core.forum.{ ForumCateg as _, ForumPost as _, * }
 import lila.core.perm.Granter as MasterGranter
-import lila.core.shutup.{ PublicSource, ShutupApi }
+import lila.core.shutup.ShutupApi
+import lila.core.chat.PublicSource
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.db.dsl.{ *, given }
 

@@ -209,7 +209,7 @@ final class StudyApi(
           study.id.into(ChatId),
           userId = userId,
           text = text,
-          publicSource = study.isPublic.option(lila.core.shutup.PublicSource.Study(studyId)),
+          publicSource = study.isPublic.option(lila.core.chat.PublicSource.Study(studyId)),
           busChan = _.study
         )
 

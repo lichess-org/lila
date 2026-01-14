@@ -2,7 +2,8 @@ package lila.api
 
 import monocle.syntax.all.*
 
-import lila.core.shutup.{ PublicLine, PublicSource as Source }
+import lila.core.shutup.PublicLine
+import lila.core.chat.PublicSource
 import lila.playban.TempBan
 
 class ModTimelineTest extends munit.FunSuite:
@@ -13,7 +14,7 @@ class ModTimelineTest extends munit.FunSuite:
   val now = nowInstant
 
   def line(text: String, source: String) =
-    ReportLineFlag(None, PublicLine(text, Source.longNotation.read(source).get, now))
+    ReportLineFlag(None, PublicLine(text, PublicSource.longNotation.read(source).get, now))
   val l1 = line("linguine", "simul/aaa")
   val l2 = line("fusilli", "simul/aaa")
   val l3 = line("linguine", "relay/bbb")

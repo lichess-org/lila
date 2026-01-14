@@ -1,6 +1,6 @@
 package lila.api
 
-import lila.core.shutup.PublicSource
+import lila.core.chat.PublicSource
 import lila.swiss.{ Swiss, SwissCache }
 import lila.tournament.{ Tournament, TournamentCache }
 
