@@ -50,6 +50,12 @@
     <item quantity="many">Згуляна %s гульняў па ліставанні</item>
     <item quantity="other">Згуляна %s гульняў па ліставанні</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Згуляна %1$s %2$s гульня па ліставанні</item>
+    <item quantity="few">Згуляна %1$s %2$s гульні па ліставанні</item>
+    <item quantity="many">Згуляна %1$s %2$s гульняў па ліставанні</item>
+    <item quantity="other">Згуляна %1$s %2$s гульняў па ліставанні</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Падпісаўся на %s гульца</item>
     <item quantity="few">Падпісаўся на %s гульцоў</item>
