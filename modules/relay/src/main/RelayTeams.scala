@@ -284,15 +284,11 @@ final class RelayTeamLeaderboard(
       matches <- rounds.flatTraverse(teamTable.table)
     yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
       matchup.teams
-        .foldLeft(acc):
-          case (acc, team) =>
-            acc.updated(
-              team.name,
-              acc
-                .get(team.name)
-                .fold(TeamLeaderboardEntry(team.name, List(matchup))): team =>
-                  team.copy(matches = team.matches :+ matchup)
-            )
+        .foldLeft(acc): (acc, team) =>
+          acc.updatedWith(team.name):
+            _.fold(TeamLeaderboardEntry(team.name, List(matchup))): team =>
+              team.copy(matches = team.matches :+ matchup)
+            .some
         .toList
         .sortBy(_._2)
         .to(SeqMap)
