@@ -1,5 +1,7 @@
 package lila.relay
 
+import scala.collection.immutable.SeqMap
+
 import chess.format.pgn.*
 import chess.{ FideId, PlayerName }
 import chess.Outcome.Points
@@ -7,7 +9,6 @@ import chess.Outcome.Points
 import lila.core.fide.{ PlayerToken, Tokenize }
 import lila.study.ChapterPreview
 import lila.study.StudyPlayer
-import scala.collection.immutable.SeqMap
 
 type TeamName = String
 
@@ -118,7 +119,7 @@ object RelayTeam:
             else if aPoints > bPoints then Pair(Points.One, Points.Zero)
             else Pair(Points.Zero, Points.One)
     def pointsFor(teamName: TeamName): Option[Points] =
-      pointsPair.map(o => if teams.a.name == teamName then (o.a) else (o.b))
+      pointsPair.map(o => if teams.a.name == teamName then o.a else o.b)
     def scoreFor(teamName: TeamName): Option[Float] =
       teamCustomScoring
         .flatMap: cs =>
@@ -128,9 +129,7 @@ object RelayTeam:
               case Points.Half => cs.draw
               case zero => RelayRound.CustomPoints(zero.value)
         .map(_.value)
-        .orElse(
-          pointsFor(teamName).map(_.value)
-        )
+        .orElse(pointsFor(teamName).map(_.value))
     def povMatches: Pair[POVMatch] =
       teams.bimap(
         t => POVMatch(roundId, teams.b.name, t.players, pointsFor(t.name), scoreFor(t.name)),
@@ -241,15 +240,13 @@ final class RelayTeamLeaderboard(
   ):
     def matchPoints: Float =
       matches
-        .flatMap: m =>
-          m.isFinished.so:
-            m.scoreFor(name)
+        .filter(_.isFinished)
+        .flatMap(_.scoreFor(name))
         .sum
     def gamePoints: Float =
       matches
-        .flatMap: m =>
-          m.isFinished.so:
-            m.teams.find(_.name == name).flatMap(_.points)
+        .filter(_.isFinished)
+        .flatMap(_.teams.find(_.name == name).flatMap(_.points))
         .sum
 
   given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.gamePoints, t.name))
