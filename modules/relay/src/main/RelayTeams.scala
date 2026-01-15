@@ -224,7 +224,6 @@ final class RelayTeamTable(
         else m.swap
 
 final class RelayTeamLeaderboard(
-    tourRepo: RelayTourRepo,
     relayGroupApi: RelayGroupApi,
     roundRepo: RelayRoundRepo,
     teamTable: RelayTeamTable,
