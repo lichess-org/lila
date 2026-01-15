@@ -11,7 +11,8 @@ export function readOnlyProp<A>(value: A): () => A {
 
 export const completeNode = (node: Tree.NodeIncomplete): Tree.Node => {
   node.children ||= [];
-  node.id = node.uci ? scalachessCharPair(parseUci(node.uci)!) : '';
+  node.id ||= node.uci ? scalachessCharPair(parseUci(node.uci)!) : '';
+  node.children.forEach(completeNode);
   return node as Tree.Node;
 };
 
