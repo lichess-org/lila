@@ -280,8 +280,7 @@ final class RelayTeamLeaderboard(
   private def aggregate(tourId: RelayTourId): Fu[TeamLeaderboard] =
     for
       scoreGroup <- relayGroupApi.scoreGroupOf(tourId)
-      tours <- scoreGroup.traverse(t => tourRepo.byId(t).orFail(s"Missing relay tour $t"))
-      rounds <- tours.toList.flatTraverse(t => roundRepo.idsByTourOrdered(t.id))
+      rounds <- scoreGroup.toList.flatTraverse(roundRepo.idsByTourOrdered)
       matches <- rounds.flatTraverse(teamTable.table)
     yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
       matchup.teams
