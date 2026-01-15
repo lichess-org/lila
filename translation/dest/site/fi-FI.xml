@@ -125,6 +125,9 @@
   <string name="bestMoveArrow">Parhaan siirron nuoli</string>
   <string name="showVariationArrows">Näytä muunnelman nuolet</string>
   <string name="evaluationGauge">Arviomittari</string>
+  <string name="undefendedPieces">Suojaamattomat nappulat</string>
+  <string name="pinnedPieces">Kiinnitetyt nappulat</string>
+  <string name="checkableKing">Kuningas, jota voi shakata</string>
   <string name="multipleLines">Muunnelmien määrä</string>
   <string name="cpus">Suorittimia</string>
   <string name="memory">Muistia</string>
