@@ -338,15 +338,22 @@ export default class AnalyseCtrl implements CevalHandler {
 
   private ensureDests: () => void = () => {
     if (defined(this.node.dests)) return;
-    const position = this.position(this.node).unwrap();
-    this.node.dests = chessgroundDests(position);
-    if (this.data.game.variant.key === 'crazyhouse') {
-      const drops = position.dropDests();
-      if (drops) this.node.drops = Array.from(drops, makeSquare);
-    }
-    this.node.check = position.isCheck();
+    this.position(this.node).unwrap(
+      position => {
+        this.node.dests = chessgroundDests(position);
+        if (this.data.game.variant.key === 'crazyhouse') {
+          const drops = position.dropDests();
+          if (drops) this.node.drops = Array.from(drops, makeSquare);
+        }
+        this.node.check = position.isCheck();
+        if (position.outcome()) this.ceval.stop();
+      },
+      err => {
+        console.error(err);
+        this.node.dests = new Map();
+      },
+    );
     this.pluginUpdate(this.node.fen);
-    if (position.outcome()) this.ceval.stop();
   };
 
   serverMainline = () => this.mainline.slice(0, playedTurns(this.data) + 1);
