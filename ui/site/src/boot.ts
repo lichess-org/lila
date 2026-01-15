@@ -143,6 +143,7 @@ function mirrorCheck() {
     'lichess.dscs2009.com',
     'sidequest-circus.org',
     'joystickcaravan.org',
+    'gamelorecollective.com',
   ];
   if (mirrors.includes(location.host)) location.href = 'https://lichess.org' + location.pathname;
 }
