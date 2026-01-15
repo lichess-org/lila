@@ -1,10 +1,12 @@
 import { h, type VNode } from 'snabbdom';
+import resizeHandle from 'lib/chessgroundResize';
 import type { MouchEvent } from '@lichess-org/chessground/types';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
 import type EditorCtrl from './ctrl';
 import { storage } from 'lib/storage';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
+import { ShowResizeHandle } from 'lib/prefs';
 
 export default function (ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
@@ -124,7 +126,7 @@ function deletePiece(ctrl: EditorCtrl, key: Key): void {
 
 function makeConfig(ctrl: EditorCtrl): CgConfig {
   return {
-    fen: ctrl.initialFen,
+    fen: ctrl.getFen(),
     orientation: ctrl.options.orientation || 'white',
     coordinates: ctrl.options.coordinates !== false,
     autoCastle: false,
@@ -155,6 +157,9 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     },
     events: {
       change: ctrl.onChange.bind(ctrl),
+      insert(elements) {
+        resizeHandle(elements, ShowResizeHandle.Always, 0);
+      },
     },
   };
 }

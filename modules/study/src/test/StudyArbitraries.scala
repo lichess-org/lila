@@ -3,7 +3,7 @@ package lila.study
 import chess.ChessTreeArbitraries.*
 import chess.CoreArbitraries.given
 import chess.format.pgn.{ Glyphs, Comment as CommentStr }
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
+import chess.format.{ Fen, Uci, UciPath }
 import chess.{ Centis, FromMove, Move, Ply, Position, Square, WithMove }
 import org.scalacheck.{ Arbitrary, Gen }
 
@@ -51,7 +51,6 @@ object StudyArbitraries:
         yield WithMove[NewBranch](
           move,
           NewBranch(
-            id = UciCharPair(move.toUci),
             move = Uci.WithSan(uci, move.toSanStr),
             comp = false,
             forceVariation = false,
@@ -68,15 +67,11 @@ object StudyArbitraries:
     yield Metas(
       ply,
       Fen.write(board, ply.fullMoveNumber),
-      board.check,
-      None,
-      None,
       None,
       shapes,
       comments,
       None,
       glyphs,
-      None,
       clock,
       board.crazyData
     )

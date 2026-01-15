@@ -41,6 +41,9 @@
           margin: 3px;
           vertical-align: middle;
         }
+        input.not-allowed {
+          visibility: hidden;
+        }
       }
 
       .enpassant {

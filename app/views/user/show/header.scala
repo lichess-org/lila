@@ -144,6 +144,7 @@ object header:
         case _ =>
           val profile = u.profileOrDefault
           val hideTroll = u.marks.troll && ctx.isnt(u)
+          val showProfile = ctx.kid.no && u.kid.no && !hideTroll || isGranted(_.UserModView)
           div(id := "us_profile")(
             if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)) then
               views.user.perfStat.ratingHistoryContainer
@@ -156,20 +157,20 @@ object header:
                     trans.site.thisAccountViolatedTos()
                   )
                 ,
-                (ctx.kid.no && u.kid.no && !hideTroll)
+                showProfile
                   .so(profile.nonEmptyRealName)
-                  .map(strong(cls := "name")(_)),
+                  .map(strong(cls := List("name" -> true, "muted" -> hideTroll))(_)),
                 info.publicFideId.map: id =>
                   p(a(href := routes.Fide.show(id, u.username.value))("FIDE player #" + id)),
-                (showLinks && ctx.kid.no && u.kid.no && !hideTroll || isGranted(_.UserModView))
+                (showLinks && showProfile || isGranted(_.UserModView))
                   .so(profile.nonEmptyBio)
                   .map: bio =>
                     p(cls := List("bio" -> true, "muted" -> hideTroll))(richText(bio, nl2br = true)),
                 div(cls := "stats")(
                   profile.officialRating.map: r =>
                     div(r.name.toUpperCase, " rating: ", strong(r.rating)),
-                  profile.nonEmptyLocation.ifTrue(ctx.kid.no && !hideTroll).map { l =>
-                    span(cls := "location")(l)
+                  profile.nonEmptyLocation.ifTrue(showProfile).map { l =>
+                    span(cls := List("location" -> true, "muted" -> hideTroll))(l)
                   },
                   profile.flagInfo.map: c =>
                     span(cls := "flag")(

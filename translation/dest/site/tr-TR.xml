@@ -127,8 +127,8 @@
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
   <string name="visualMotifs">Görsel motifler</string>
   <string name="undefendedPieces">Korumasız taşlar</string>
-  <string name="pinnedPieces">Sabitlenmiş taşlar</string>
-  <string name="checkableKing">Şah çekilebilirlik</string>
+  <string name="pinnedPieces">Açmazdaki taşlar</string>
+  <string name="checkableKing">Çekilebilir şah</string>
   <string name="multipleLines">Çoklu varyantlar</string>
   <string name="cpus">İşlemci</string>
   <string name="memory">Hafıza</string>

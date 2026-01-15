@@ -242,13 +242,6 @@ export interface EditChapterData {
   description: string;
 }
 
-export interface AnaDests {
-  dests: string;
-  path: string;
-  ch?: string;
-  opening?: Opening;
-}
-
 export interface AnaMove {
   orig: string;
   dest: string;
@@ -268,7 +261,7 @@ export interface AnaDrop {
   ch?: string;
 }
 export interface ServerNodeMsg extends WithWhoAndPos {
-  n: Tree.NodeOptionalChildren;
+  n: Tree.NodeIncomplete;
   o: Opening;
   s: boolean;
   relayPath?: Tree.Path;

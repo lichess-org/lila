@@ -13,7 +13,6 @@ import {
 import { IllegalSetup, type Position } from 'chessops/chess';
 import type { Player } from 'lib/game';
 import { scalachessCharPair } from 'chessops/compat';
-import { makeSquare } from 'chessops/util';
 
 const readNode = (
   node: ChildNode<PgnNodeData>,
@@ -30,7 +29,6 @@ const readNode = (
     fen: makeFen(pos.toSetup()),
     uci: makeUci(move),
     children: withChildren ? node.children.map(child => readNode(child, pos.clone(), ply + 1)) : [],
-    check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
   };
 };
 

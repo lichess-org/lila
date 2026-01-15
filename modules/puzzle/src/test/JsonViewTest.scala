@@ -48,11 +48,9 @@ class JsonViewTest extends munit.FunSuite:
           prev(uci.orig, uci.dest, uci.promotion)
             .fold(err => sys.error(s"puzzle ${puzzle.id} $err"), identity)
         val branch = tree.Branch(
-          id = UciCharPair(move.toUci),
           ply = game.ply,
           move = Uci.WithSan(move.toUci, game.sans.last),
           fen = chess.format.Fen.write(game),
-          check = game.position.check,
           crazyData = none
         )
         (game, branch :: branches)

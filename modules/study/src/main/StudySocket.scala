@@ -258,12 +258,8 @@ final private class StudySocket(
   )
 
   private def moveOrDrop(studyId: StudyId, m: AnaAny, opts: MoveOpts)(using Who) =
-    m.branch.foreach: branch =>
-      if branch.ply < Node.MAX_PLIES then
-        m.chapterId
-          .ifTrue(opts.write)
-          .foreach: chapterId =>
-            api.addNode(AddNode(studyId, Position.Ref(chapterId, m.path), branch, opts))
+    m.chapterId.foreach: chapterId =>
+      api.addNode(AddNode(studyId, Position.Ref(chapterId, m.path), m.branch, opts))
 
   private lazy val send = socketKit.send("study-out")
 

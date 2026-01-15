@@ -1,6 +1,5 @@
 /* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
 
-import { uciChar } from './uciChar';
 import { shuffle } from '../algo';
 import { normalizeMove } from 'chessops/chess';
 import { type Chess, type NormalMove, parseUci, makeUci } from 'chessops';
@@ -13,24 +12,6 @@ export const destsToUcis = (destMap: Dests): Uci[] =>
 export { uciToMove } from '@lichess-org/chessground/util';
 
 export const fenColor = (fen: string): Color => (fen.includes(' w') ? 'white' : 'black');
-
-export const readDests = (lines?: string): Dests | null => {
-  if (lines == null) return null; // TODO: technically works, but should this be `=== undefined`?
-  if (lines === '') return new Map();
-  return lines.split(' ').reduce<Dests>((dests, line) => {
-    dests.set(
-      uciChar[line[0]],
-      line
-        .slice(1)
-        .split('')
-        .map(c => uciChar[c]),
-    );
-    return dests;
-  }, new Map());
-};
-
-export const readDrops = (line?: string | null): Key[] | null =>
-  line ? (line.match(/.{2}/g) as Key[]) || [] : null;
 
 // Extended Position Description
 export const fenToEpd = (fen: FEN): string => fen.split(' ').slice(0, 4).join(' ');

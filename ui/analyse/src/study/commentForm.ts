@@ -53,15 +53,15 @@ export function view(root: AnalyseCtrl): VNode {
     current = ctrl.current();
   if (!current) return viewDisabled(root, 'Select a move to comment');
 
-  const setupTextarea = (vnode: VNode, comment?: any, old?: VNode) => {
+  const setupTextarea = (vnode: VNode, comment: Tree.Comment, old?: VNode) => {
     const el = vnode.elm as HTMLInputElement;
-    const newKey = current.chapterId + current.path + (comment ? comment.id : '');
+    const newKey = current.chapterId + current.path + (comment.id || '');
 
     if (old?.data!.path !== newKey) {
-      const mine = (current.node.comments || []).find(function (c) {
-        return isAuthorObj(c.by) && c.by.id && c.by.id === ctrl.root.opts.userId && c.id === comment!.id;
-      });
-      el.value = mine ? mine.text : '';
+      const mine = (current.node.comments || []).find(
+        c => isAuthorObj(c.by) && c.by.id && c.by.id === ctrl.root.opts.userId && c.id === comment.id,
+      );
+      el.value = mine?.text || '';
     }
     vnode.data!.path = newKey;
 
@@ -80,7 +80,6 @@ export function view(root: AnalyseCtrl): VNode {
       h('div.study__comment-edit', [
         h('textarea.form-control', {
           key: comment.id,
-          props: { value: comment.text },
           hook: {
             insert(vnode) {
               setupTextarea(vnode, comment);

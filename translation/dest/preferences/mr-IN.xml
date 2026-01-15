@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">ध्यानग्र स्थिती</string>
   <string name="showPlayerRatings">गुणांकन दाखवा</string>
   <string name="showFlairs">खेळाडूंचे फ्लेअर दाखवा</string>
-  <string name="explainShowPlayerRatings">यामुळे बुद्धिबळावर लक्ष्य केंद्रित राहण्यासाठी संकेतस्थळावरील सर्व गुणांकने लपवली जातील. खेळ गुणांकितच असतील, याचा परिणाम फक्त तुम्हाला काय दिसते यावर होतो.</string>
+  <string name="explainShowPlayerRatings">यामुळे बुद्धिबळावर लक्ष्य केंद्रित राहण्यासाठी संकेतस्थळावरील सर्व मानांकने लपवली जातील. खेळ मानांकितच असतील, याचा परिणाम फक्त तुम्हाला काय दिसते यावर होतो.</string>
   <string name="displayBoardResizeHandle">पट लहान/मोठा करायचा दांडा दाखवा</string>
   <string name="onlyOnInitialPosition">केवळ प्रारंभिक स्थितीवर</string>
   <string name="inGameOnly">फक्त गेम-मध्ये</string>
