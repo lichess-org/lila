@@ -125,6 +125,7 @@
   <string name="bestMoveArrow">Parhaan siirron nuoli</string>
   <string name="showVariationArrows">Näytä muunnelman nuolet</string>
   <string name="evaluationGauge">Arviomittari</string>
+  <string name="visualMotifs">Visuaaliset motiivit</string>
   <string name="undefendedPieces">Suojaamattomat nappulat</string>
   <string name="pinnedPieces">Kiinnitetyt nappulat</string>
   <string name="checkableKing">Kuningas, jota voi shakata</string>
@@ -207,6 +208,7 @@
   <string name="minutesPerSide">Minuuttia per pelaaja</string>
   <string name="variant">Variantti</string>
   <string name="variants">Variantit</string>
+  <string name="variantsDescription">Lisää pelitapoja</string>
   <string name="timeControl">Aikajärjestelmä</string>
   <string name="realTime">Pikapeli</string>
   <string name="correspondence">Kirjeshakki</string>
@@ -301,6 +303,7 @@
   <string name="standard">Tavallinen</string>
   <string name="customPosition">Itse määritetty asema</string>
   <string name="unlimited">Rajaton</string>
+  <string name="unlimitedDescription">Käytä niin paljon aikaa kuin tarvitset</string>
   <string name="mode">Tyyppi</string>
   <string name="casual">Rento</string>
   <string name="rated">Pisteytetty</string>
