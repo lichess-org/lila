@@ -1,4 +1,6 @@
-# search ignores
+# Ignore generated and static asset directories
+# Added to reduce repo size and avoid committing build artifacts
+# Contribution aligned with Lichess asset management conventions
 vendor
 translation/dest
 public/font
