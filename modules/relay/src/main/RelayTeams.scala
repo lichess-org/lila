@@ -238,12 +238,12 @@ final class RelayTeamLeaderboard(
       name: TeamName,
       matches: List[RelayTeam.TeamMatch]
   ):
-    def matchPoints: Float =
+    lazy val matchPoints: Float =
       matches
         .filter(_.isFinished)
         .flatMap(_.scoreFor(name))
         .sum
-    def gamePoints: Float =
+    lazy val gamePoints: Float =
       matches
         .filter(_.isFinished)
         .flatMap(_.teams.find(_.name == name).flatMap(_.points))
