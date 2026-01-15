@@ -9,6 +9,7 @@ export function readOnlyProp<A>(value: A): () => A {
   };
 }
 
+// mutates and returns the node
 export const completeNode = (node: Tree.NodeIncomplete): Tree.Node => {
   node.children ||= [];
   node.id ||= node.uci ? scalachessCharPair(parseUci(node.uci)!) : '';

@@ -950,10 +950,10 @@ export default class AnalyseCtrl implements CevalHandler {
 
   mergeAnalysisData(data: ServerEvalData) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
-    this.tree.merge(data.tree);
+    const tree = completeNode(data.tree);
+    this.tree.merge(tree);
     this.data.analysis = data.analysis;
-    if (data.analysis)
-      data.analysis.partial = !!treeOps.findInMainline(data.tree, this.partialAnalysisCallback);
+    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(tree, this.partialAnalysisCallback);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     pubsub.emit('analysis.server.progress', this.data);

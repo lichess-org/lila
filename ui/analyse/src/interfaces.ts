@@ -69,7 +69,7 @@ export interface AnalysePref {
 export interface ServerEvalData {
   ch: string;
   analysis?: Analysis;
-  tree: Tree.Node;
+  tree: Tree.NodeIncomplete;
   division?: Division;
 }
 
