@@ -13,7 +13,8 @@ private case class PuzzleSession(
     previousPaths = previousPaths + pathId,
     positionInPath = 0
   )
-  def next = copy(positionInPath = positionInPath + 1)
+  def forward(nb: Int) = copy(positionInPath = positionInPath + nb)
+  def next = forward(1)
 
   def brandNew = positionInPath == 0
 
@@ -34,14 +35,14 @@ object PuzzleSettings:
 
 final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using Executor):
 
-  def onComplete(round: PuzzleRound, angle: PuzzleAngle): Funit =
+  def onComplete(userId: UserId, angle: PuzzleAngle, nb: Int = 1): Funit =
     sessions
-      .getIfPresent(round.userId)
+      .getIfPresent(userId)
       .so:
         _.map: session =>
           // yes, even if the completed puzzle was not the current session puzzle
           // in that case we just skip a puzzle on the path, which doesn't matter
-          if session.path.angle == angle then sessions.put(round.userId, fuccess(session.next))
+          if session.path.angle == angle then sessions.put(userId, fuccess(session.forward(nb)))
 
   def getSettings(user: User): Fu[PuzzleSettings] =
     sessions
