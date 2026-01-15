@@ -50,9 +50,8 @@ object Branches:
           }
 
     def addNodeAt(node: Branch, path: UciPath): Option[Branches] =
-      path.split match
-        case None => addNode(node).some
-        case Some(head, tail) => updateChildren(head, _.addNodeAt(node, tail))
+      path.split.fold(addNode(node).some): (head, tail) =>
+        updateChildren(head, _.addNodeAt(node, tail))
 
     // suboptimal due to using List instead of Vector
     def addNode(node: Branch): Branches =
@@ -69,27 +68,23 @@ object Branches:
         case (head, tail) => updateChildren(head, _.deleteNodeAt(tail))
 
     def promoteToMainlineAt(path: UciPath): Option[Branches] =
-      path.split match
-        case None => nodes.some
-        case Some(head, tail) =>
-          get(head).flatMap: node =>
-            node.withChildren(_.promoteToMainlineAt(tail)).map { promoted =>
-              promoted :: nodes.filterNot(node ==)
-            }
+      path.split.fold(nodes.some): (head, tail) =>
+        for
+          node <- get(head)
+          promoted <- node.withChildren(_.promoteToMainlineAt(tail))
+        yield promoted :: nodes.filterNot(node ==)
 
     def promoteUpAt(path: UciPath): Option[(Branches, Boolean)] =
-      path.split match
-        case None => Some(nodes -> false)
-        case Some(head, tail) =>
-          for
-            node <- get(head)
-            mainlineNode <- nodes.first
-            (newChildren, isDone) <- node.children.promoteUpAt(tail)
-            newNode = node.copy(children = newChildren)
-          yield
-            if isDone then update(newNode) -> true
-            else if newNode.id == mainlineNode.id then update(newNode) -> false
-            else (newNode :: nodes.filterNot(newNode ==)) -> true
+      path.split.fold(Some(nodes -> false)): (head, tail) =>
+        for
+          node <- get(head)
+          mainlineNode <- nodes.first
+          (newChildren, isDone) <- node.children.promoteUpAt(tail)
+          newNode = node.copy(children = newChildren)
+        yield
+          if isDone then update(newNode) -> true
+          else if newNode.id == mainlineNode.id then update(newNode) -> false
+          else (newNode :: nodes.filterNot(newNode ==)) -> true
 
     def updateAt(path: UciPath, f: Branch => Branch): Option[Branches] =
       path.split.flatMap:
@@ -101,9 +96,8 @@ object Branches:
         op(n.copy(children = n.children.updateAllWith(op)))
 
     def update(child: Branch): Branches =
-      nodes.map:
-        case n if child.id == n.id => child
-        case n => n
+      nodes.map: n =>
+        if child.id == n.id then child else n
 
     def updateWith(id: UciCharPair, op: Branch => Option[Branch]): Option[Branches] =
       get(id).flatMap(op).map(update)
