@@ -186,6 +186,7 @@
   <string name="drawByMutualAgreement">Нічыя па ўзаемнай згодзе</string>
   <string name="fiftyMovesWithoutProgress">Пяцьдзесят хадоў без прагрэсу</string>
   <string name="currentGames">Бягучыя гульні</string>
+  <string name="joinedX">Далучыўся %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s гульня</item>
     <item quantity="few">%s гульні</item>
@@ -302,6 +303,7 @@
     <item quantity="many">%s партый з вамі</item>
     <item quantity="other">%s партый з вамі</item>
   </plurals>
+  <string name="ok">ОК</string>
   <string name="cancel">Скасаваць</string>
   <string name="whiteTimeOut">Час белых скончыўся</string>
   <string name="blackTimeOut">Час чорных скончыўся</string>
@@ -477,6 +479,7 @@
   <string name="blackCheckmatesInOneMove">Чорныя ставяць мат у адзін ход</string>
   <string name="retry">Яшчэ раз</string>
   <string name="reconnecting">Перападлучэнне</string>
+  <string name="noNetwork">Не ў сетцы</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s сябар у сетцы</item>
     <item quantity="few">%s сябра ў сетцы</item>
@@ -586,6 +589,7 @@
   <string name="no">Не</string>
   <string name="yes">Так</string>
   <string name="website">Вэб-сайт</string>
+  <string name="mobile">Мабільны</string>
   <string name="help">Дапамога:</string>
   <string name="createANewTopic">Стварыць новую тэму</string>
   <string name="topics">Тэмы</string>
