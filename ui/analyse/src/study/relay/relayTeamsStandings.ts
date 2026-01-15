@@ -6,7 +6,6 @@ import { tableAugment } from './relayPlayers';
 export default class RelayTeamsStandings {
   standings: RelayTeamStandings | undefined;
   teamToShow: RelayTeamName | undefined;
-  loading = false;
   constructor(
     private readonly tourId: TourId,
     readonly hideResultsSinceRoundId: () => RoundId | undefined,
@@ -14,7 +13,6 @@ export default class RelayTeamsStandings {
   ) {}
 
   async loadFromXhr() {
-    this.loading = true;
     this.standings = await xhrJson(`/broadcast/${this.tourId}/teams/standings`);
     this.redraw();
   }
