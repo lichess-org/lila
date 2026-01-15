@@ -45,7 +45,7 @@ export default class RelayCtrl {
       study.ctrl.opts.chat.plugin = this.liveboardPlugin;
     }
 
-    const locationTab = location.hash.replace(/^#(\w+).*$/, '$1') as RelayTab;
+    const locationTab = location.hash.replace(/^#([\w-]+).*$/, '$1') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
       ? locationTab
       : this.study.chapters.list.looksNew()
