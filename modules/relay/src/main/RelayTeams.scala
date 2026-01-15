@@ -8,7 +8,6 @@ import lila.core.fide.{ PlayerToken, Tokenize }
 import lila.study.ChapterPreview
 import lila.study.StudyPlayer
 import scala.collection.immutable.SeqMap
-import lila.relay.RelayTeam.POVMatch
 
 type TeamName = String
 
@@ -148,6 +147,18 @@ object RelayTeam:
       points: Option[Points],
       score: Option[Float]
   )
+  object POVMatch:
+    object json:
+      import play.api.libs.json.*
+      import RelayPlayer.json.given
+      given Writes[POVMatch] = m =>
+        Json
+          .obj(
+            "opponent" -> m.opponentName,
+            "players" -> m.players.values.toList.sortBy(_.rating.map(-_.value))
+          )
+          .add("points" -> m.points)
+          .add("score" -> m.score)
 
 final class RelayTeamTable(
     roundRepo: RelayRoundRepo,
@@ -241,15 +252,7 @@ final class RelayTeamLeaderboard(
   given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.gamePoints, t.name))
 
   object json:
-    import RelayPlayer.json.given
-    given Writes[POVMatch] = m =>
-      Json
-        .obj(
-          "opponent" -> m.opponentName,
-          "players" -> m.players.values.toList.sortBy(_.rating.map(-_.value))
-        )
-        .add("points" -> m.points)
-        .add("score" -> m.score)
+    import RelayTeam.POVMatch.json.given
     given Writes[TeamLeaderboardEntry] = t =>
       Json.obj(
         "name" -> t.name,
