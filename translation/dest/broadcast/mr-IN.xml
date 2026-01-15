@@ -42,7 +42,7 @@
   <string name="showScores">खेळाच्या निकालांवर आधारित खेळाडूंचे अंक दाखवा</string>
   <string name="replacePlayerTags">पर्यायी: खेळाडूंची नावे, रेटिंग्ज आणि शीर्षके बदला</string>
   <string name="fideFederations">FIDE संघराज्ये </string>
-  <string name="top10Rating">शीर्ष १० रेटींग</string>
+  <string name="top10Rating">सर्वोच्च १० मानांकनांची सरासरी</string>
   <string name="fidePlayers">FIDE खेळाडू</string>
   <string name="fidePlayerNotFound">FIDE खेळाडू सापडले नाही</string>
   <string name="fideProfile">FIDE चरित्र</string>
