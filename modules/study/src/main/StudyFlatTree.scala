@@ -14,13 +14,11 @@ private object StudyFlatTree:
     val depth = path.depth
 
     def toNodeWithChildren(children: Option[Branches]): Option[Branch] =
-      path.lastId
-        .flatMap { readBranch(data, _) }
-        .map:
-          _.copy(children = children | Branches.empty)
+      readBranch(data).map:
+        _.copy(children = children | Branches.empty)
 
     def toNodeWithChild(child: Option[NewTree]): Option[NewTree] =
-      readNewBranch(data, path).map(NewTree(_, child, Nil))
+      readNewBranch(data).map(NewTree(_, child, Nil))
 
   object reader:
 

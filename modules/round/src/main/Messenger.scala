@@ -1,7 +1,7 @@
 package lila.round
 
 import lila.chat.{ ChatApi, ChatTimeout }
-import lila.core.shutup.PublicSource
+import lila.core.chat.PublicSource
 
 final class Messenger(api: ChatApi):
 

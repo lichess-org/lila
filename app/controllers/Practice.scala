@@ -92,9 +92,7 @@ final class Practice(
             owner = false
           )
         analysis = baseData ++ Json.obj(
-          "treeParts" -> partitionTreeJsonWriter.writes {
-            lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-          },
+          "treeParts" -> partitionTreeJsonWriter.writes(chapter.root),
           "practiceGoal" -> lila.practice.PracticeGoal(chapter)
         )
         analysisJson <- env.analyse.externalEngine.withExternalEngines(analysis)

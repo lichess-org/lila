@@ -6,6 +6,7 @@ import lila.common.Json.given
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+import lila.core.chat.PublicSource
 
 object ChatUi:
 
@@ -28,7 +29,7 @@ object ChatUi:
       name: String,
       timeout: Boolean,
       public: Boolean, // game players chat is not public
-      resourceId: Chat.ResourceId,
+      resource: PublicSource,
       withNoteAge: Option[Int] = None,
       writeable: Boolean = true,
       localMod: Boolean = false,
@@ -43,7 +44,7 @@ object ChatUi:
       withNoteAge = withNoteAge,
       writeable = writeable,
       public = public,
-      resourceId = resourceId,
+      resource = resource,
       restricted = chat.restricted,
       localMod = localMod,
       voiceChat = voiceChat,
@@ -56,7 +57,7 @@ object ChatUi:
       name: String,
       timeout: Boolean,
       public: Boolean, // game players chat is not public
-      resourceId: Chat.ResourceId,
+      resource: PublicSource,
       withNoteAge: Option[Int] = None,
       writeable: Boolean = true,
       restricted: Boolean = false,
@@ -80,16 +81,15 @@ object ChatUi:
               "id" -> chat.id,
               "name" -> name,
               "lines" -> lines,
-              "resourceId" -> resourceId.value
+              "resourceType" -> resource.typeName,
+              "resourceId" -> resource.resourceId
             )
             .add("hostIds" -> hostIds.some.filter(_.nonEmpty))
             .add("userId" -> ctx.userId)
             .add("loginRequired" -> chat.loginRequired)
             .add("restricted" -> restricted)
             .add("voiceChat" -> (voiceChat && ctx.isAuth))
-            .add(
-              "opponentId" -> opponentId
-            ),
+            .add("opponentId" -> opponentId),
           "writeable" -> writeable,
           "public" -> public,
           "permissions" -> Json

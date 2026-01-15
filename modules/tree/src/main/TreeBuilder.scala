@@ -1,15 +1,12 @@
 package lila.tree
 
 import chess.format.pgn.{ Comment, Glyphs }
-import chess.format.{ Fen, Uci, UciCharPair }
-import chess.opening.*
-import chess.variant.Variant
+import chess.format.{ Fen, Uci }
 import chess.{ Centis, Ply, Position }
 
 object TreeBuilder:
 
   type LogChessError = String => Unit
-  private[tree] type OpeningOf = Fen.Full => Option[Opening]
 
   private[tree] def makeEval(info: Info) = Eval(cp = info.cp, mate = info.mate, best = info.best)
 
@@ -25,17 +22,11 @@ object TreeBuilder:
     val setup = chess.Position.AndFullMoveNumber(game.variant, initialFen)
     val fen = Fen.write(setup)
     val infos: Vector[Info] = analysis.so(_.infos.toVector)
-    val openingOf: OpeningOf =
-      if withFlags.opening && Variant.list.openingSensibleVariants(game.variant)
-      then OpeningDb.findByFullFen
-      else _ => None
     val advices: Map[Ply, Advice] = analysis.so(_.advices.mapBy(_.ply))
 
     val root = Root(
       ply = setup.ply,
       fen = fen,
-      check = setup.position.check,
-      opening = openingOf(fen),
       clock = withFlags.clocks.so:
         game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value)).map(Clock(_))
       ,
@@ -50,12 +41,9 @@ object TreeBuilder:
       val advice = advices.get(ply)
 
       val branch = Branch(
-        id = UciCharPair(move.toUci),
         ply = ply,
         move = Uci.WithSan(move.toUci, move.toSanStr),
         fen = fen,
-        check = move.after.check,
-        opening = openingOf(fen),
         clock = withClocks.flatMap(_.lift(index)).map(Clock(_)),
         crazyData = move.after.crazyData,
         eval = info.map(makeEval),
@@ -73,17 +61,14 @@ object TreeBuilder:
 
       advices
         .get(ply + 1)
-        .map { adv =>
+        .fold(branch): adv =>
           withAnalysisChild(
             game.id,
             branch,
             move.after,
             ply,
-            openingOf,
             logChessError
           )(adv.info)
-        }
-        .getOrElse(branch)
 
     val (result, error) = setup.position.foldRight(game.sans, setup.ply)(
       none[Branch],
@@ -107,19 +92,15 @@ object TreeBuilder:
       root: Branch,
       position: Position,
       ply: Ply,
-      openingOf: OpeningOf,
       logChessError: LogChessError
   )(info: Info): Branch =
 
     def makeBranch(m: chess.MoveOrDrop, ply: Ply): Branch =
       val fen = Fen.write(m.after, ply.fullMoveNumber)
       Branch(
-        id = UciCharPair(m.toUci),
         ply = ply,
         move = Uci.WithSan(m.toUci, m.toSanStr),
         fen = fen,
-        check = m.after.position.check,
-        opening = openingOf(fen),
         crazyData = m.after.position.crazyData,
         eval = none
       )

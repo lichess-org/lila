@@ -157,7 +157,7 @@ final private[api] class RoundApi(
       .so(forecastApi.loadForDisplay(pov))
       .map: fco =>
         withForecast(pov, fco):
-          withTree(pov, analysis = none, initialFen, ExportOptions(opening = true)):
+          withTree(pov, analysis = none, initialFen, ExportOptions.default):
             jsonView.userAnalysisJson(
               pov,
               pref,

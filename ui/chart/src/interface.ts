@@ -23,7 +23,7 @@ export interface Player {
 export interface AnalyseData {
   player: Player;
   opponent: Player;
-  treeParts: Tree.NodeOptionalChildren[];
+  treeParts: Tree.NodeIncomplete[];
   game: {
     division?: Division;
     variant: {
@@ -46,7 +46,7 @@ export interface AnalyseData {
 }
 
 export interface ChartGame {
-  acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.NodeOptionalChildren[]): Promise<AcplChart>;
+  acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.NodeIncomplete[]): Promise<AcplChart>;
   movetime(el: HTMLCanvasElement, data: AnalyseData, hunter: boolean): Promise<PlyChart | undefined>;
 }
 

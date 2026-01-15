@@ -44,7 +44,7 @@ object show:
                 name = if t.isChatFor(_.Leaders) then trt.leadersChat.txt() else trans.site.chatRoom.txt(),
                 timeout = chat.timeout,
                 public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
+                resource = lila.core.chat.PublicSource.Team(t.id),
                 localMod = havePerm(_.Comm)
               ))
         )

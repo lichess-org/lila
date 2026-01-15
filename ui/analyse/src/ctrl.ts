@@ -1,6 +1,6 @@
-import { playable, playedTurns, fenToEpd, readDests, readDrops, validUci } from 'lib/game';
+import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
 import * as keyboard from './keyboard';
-import { treeReconstruct, plyColor } from './util';
+import { treeReconstruct, plyColor, completeNode, addCrazyData } from './util';
 import { plural } from './view/util';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
@@ -17,19 +17,19 @@ import type { Prop, Toggle } from 'lib';
 import { defined, prop, toggle, debounce, throttle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
-import { lichessRules } from 'chessops/compat';
+import { chessgroundDests, lichessRules } from 'chessops/compat';
 import EvalCache from './evalCache';
 import { ForkCtrl } from './fork';
 import { make as makePractice, type PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeRetro, type RetroCtrl } from './retrospect/retroCtrl';
 import { make as makeSocket, type Socket } from './socket';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
-import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
-import { type Outcome, isNormal } from 'chessops/types';
-import { parseFen } from 'chessops/fen';
+import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from 'chessops/util';
+import { type Outcome, isNormal, type Move } from 'chessops/types';
+import { makeFen, parseFen } from 'chessops/fen';
 import type { Position, PositionError } from 'chessops/chess';
 import type { Result } from '@badrap/result';
-import { setupPosition } from 'chessops/variant';
+import { normalizeMove, setupPosition } from 'chessops/variant';
 import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
 import type { AnaMove } from './study/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
@@ -48,6 +48,7 @@ import { confirm } from 'lib/view';
 import api from './api';
 import { displayColumns } from 'lib/device';
 import MotifCtrl from './motif/motifCtrl';
+import { makeSanAndPlay } from 'chessops/san';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;
@@ -239,8 +240,7 @@ export default class AnalyseCtrl implements CevalHandler {
     }
 
     this.autoplay = new Autoplay(this);
-    if (this.socket) this.socket.clearCache();
-    else this.socket = makeSocket(this.opts.socketSend, this);
+    this.socket ??= makeSocket(this.opts.socketSend, this);
     if (this.explorer) this.explorer.destroy();
     this.explorer = new ExplorerCtrl(this, this.opts.explorer, this.explorer);
     this.gamePath = this.synthetic || this.ongoing ? undefined : treePath.fromNodeList(mainline);
@@ -326,37 +326,42 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   private showGround(): void {
+    this.ensureDests();
     this.onChange();
-    if (!defined(this.node.dests)) this.getDests();
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
       if (this.node.shapes) cg.setShapes(this.node.shapes.slice() as DrawShape[]);
+      cg.playPremove();
     });
   }
 
-  private getDests: () => void = throttle(800, () => {
-    if (!defined(this.node.dests))
-      this.socket.sendAnaDests({
-        variant: this.data.game.variant.key,
-        fen: this.node.fen,
-        path: this.path,
-      });
-  });
+  private ensureDests: () => void = () => {
+    if (defined(this.node.dests)) return;
+    const position = this.position(this.node).unwrap();
+    this.node.dests = chessgroundDests(position);
+    if (this.data.game.variant.key === 'crazyhouse') {
+      const drops = position.dropDests();
+      if (drops) this.node.drops = Array.from(drops, makeSquare);
+    }
+    this.node.check = position.isCheck();
+    this.pluginUpdate(this.node.fen);
+    if (position.outcome()) this.ceval.stop();
+  };
 
   serverMainline = () => this.mainline.slice(0, playedTurns(this.data) + 1);
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
       color = this.turnColor(),
-      dests = readDests(this.node.dests),
-      drops = readDrops(this.node.drops),
+      dests = this.node.dests,
+      drops = this.node.drops,
       gamebookPlay = this.gamebookPlay(),
       movableColor = gamebookPlay
         ? gamebookPlay.movableColor()
         : this.practice
           ? this.bottomColor()
-          : (dests && dests.size > 0) || drops === null || drops.length
+          : dests?.size || drops?.length
             ? color
             : undefined,
       config: ChessgroundConfig = {
@@ -543,7 +548,6 @@ export default class AnalyseCtrl implements CevalHandler {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
-      site.sound.move();
       const drop = {
         role: piece.role,
         pos,
@@ -551,9 +555,11 @@ export default class AnalyseCtrl implements CevalHandler {
         fen: this.node.fen,
         path: this.path,
       };
-      this.socket.sendAnaDrop(drop);
-      this.preparePremoving();
-      this.redraw();
+      if (this.study) this.socket.sendAnaDrop(drop);
+      this.addNodeLocally({
+        role: piece.role,
+        to: parseSquare(pos)!,
+      });
     } else this.jump(this.path);
   };
 
@@ -576,29 +582,34 @@ export default class AnalyseCtrl implements CevalHandler {
       fen: this.node.fen,
       path: this.path,
     };
-    if (capture) this.justCaptured = capture;
     if (prom) move.promotion = prom;
+    if (capture) this.justCaptured = capture;
     if (this.practice) this.practice.onUserMove();
-    this.socket.sendAnaMove(move);
-    this.preparePremoving();
-    this.redraw();
-  };
-
-  private preparePremoving(): void {
-    this.chessground.set({
-      turnColor: this.chessground.state.movable.color as Color,
-      movable: {
-        color: opposite(this.chessground.state.movable.color as Color),
-      },
-      premovable: {
-        enabled: true,
-      },
+    if (this.study) this.socket.sendAnaMove(move);
+    this.addNodeLocally({
+      from: parseSquare(orig)!,
+      to: parseSquare(dest)!,
+      promotion: prom,
     });
-  }
+  };
 
   onPremoveSet = () => {
     if (this.study) this.study.onPremoveSet();
   };
+
+  private addNodeLocally(move: Move): void {
+    const pos = this.position(this.node).unwrap();
+    move = normalizeMove(pos, move);
+    const san = makeSanAndPlay(pos, move);
+    const node = completeNode({
+      ply: this.node.ply + 1,
+      uci: makeUci(move),
+      san,
+      fen: makeFen(pos.toSetup()),
+    });
+    addCrazyData(node, pos);
+    this.addNode(node, this.path);
+  }
 
   addNode(node: Tree.Node, path: Tree.Path) {
     this.idbTree.onAddNode(node, path);
@@ -616,16 +627,6 @@ export default class AnalyseCtrl implements CevalHandler {
     const queuedUci = this.pvUciQueue.shift();
     if (queuedUci) this.playUci(queuedUci, this.pvUciQueue);
     else this.chessground.playPremove();
-  }
-
-  addDests(dests: string, path: Tree.Path): void {
-    this.tree.addDests(dests, path);
-    if (path === this.path) {
-      this.showGround();
-      this.pluginUpdate(this.node.fen);
-      if (this.outcome()) this.ceval.stop();
-    }
-    this.withCg(cg => cg.playPremove());
   }
 
   async deleteNode(path: Tree.Path): Promise<void> {
@@ -949,10 +950,10 @@ export default class AnalyseCtrl implements CevalHandler {
 
   mergeAnalysisData(data: ServerEvalData) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
-    this.tree.merge(data.tree);
+    const tree = completeNode(data.tree);
+    this.tree.merge(tree);
     this.data.analysis = data.analysis;
-    if (data.analysis)
-      data.analysis.partial = !!treeOps.findInMainline(data.tree, this.partialAnalysisCallback);
+    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(tree, this.partialAnalysisCallback);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     pubsub.emit('analysis.server.progress', this.data);

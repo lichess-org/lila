@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.{ Glyphs, ParsedPgnTree, PgnNodeData, PgnStr, Tags, Tag }
-import chess.format.{ Fen, Uci, UciCharPair }
+import chess.format.{ Fen, Uci }
 import chess.{ ErrorStr, Node as PgnNode, ByColor }
 import monocle.syntax.all.*
 
@@ -34,15 +34,11 @@ object StudyPgnImportNew:
               Metas(
                 ply = replay.setup.ply,
                 fen = initialFen | replay.setup.position.variant.initialFen,
-                check = replay.setup.position.check,
-                dests = None,
-                drops = None,
                 eval = None,
                 shapes = shapes,
                 comments = comments,
                 gamebook = None,
                 glyphs = Glyphs.empty,
-                opening = None,
                 crazyData = replay.setup.position.crazyData,
                 clock = clock
               ),
@@ -93,7 +89,6 @@ object StudyPgnImportNew:
         val game = moveOrDrop.after
         val currentPly = context.ply.next
         val uci = moveOrDrop.toUci
-        val id = UciCharPair(uci)
         val sanStr = moveOrDrop.toSanStr
         val (shapes, clock, emt, comments) = StudyPgnImport.parseComments(data.metas.comments, annotator)
         val mover = !game.color
@@ -105,22 +100,17 @@ object StudyPgnImportNew:
           .filter(_.positive)
         val newBranch =
           NewBranch(
-            id = id,
             move = Uci.WithSan(uci, sanStr),
             comp = false,
             forceVariation = false,
             Metas(
               ply = currentPly,
               fen = Fen.write(game, currentPly.fullMoveNumber),
-              check = game.check,
-              dests = None,
-              drops = None,
               eval = None,
               shapes = shapes,
               comments = comments,
               gamebook = None,
               glyphs = data.metas.glyphs,
-              opening = None,
               clock = computedClock,
               crazyData = game.crazyData
             )
