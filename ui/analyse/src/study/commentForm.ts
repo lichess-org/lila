@@ -80,7 +80,6 @@ export function view(root: AnalyseCtrl): VNode {
       h('div.study__comment-edit', [
         h('textarea.form-control', {
           key: comment.id,
-          props: { value: comment.text },
           hook: {
             insert(vnode) {
               setupTextarea(vnode, comment);
