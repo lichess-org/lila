@@ -18,4 +18,6 @@
   <string name="racingKingsTitle">นำคิงไปถึงอีกฝั่งหนึ่งของกระดานเพื่อชนะ</string>
   <string name="crazyhouse">บ้านอลเวง</string>
   <string name="crazyhouseTitle">หมากที่ถูกกินแล้วสามารถนำกลับมาวางบนกระดานได้แทนที่จะเดินหมากตัวอื่น</string>
+  <string name="fromPosition" comment="An option that lets you create a standard chess game from a custom position.">จากตำแหน่ง</string>
+  <string name="fromPositionTitle" comment="Description for when looking to start a game 'From position'">หมากรุกปกติจากการจัดตำแหน่งเอง</string>
 </resources>
