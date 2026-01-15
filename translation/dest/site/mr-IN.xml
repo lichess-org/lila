@@ -344,7 +344,7 @@
     <item quantity="other">%s खेळतोय</item>
   </plurals>
   <string name="exportGames">खेळ निर्यात करा</string>
-  <string name="ratingFilter">धाऱ्याची पाझरत</string>
+  <string name="ratingFilter">मानांकन श्रेणी</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s सेकंद द्या</item>
     <item quantity="other">%s सेकंद द्या</item>
@@ -737,7 +737,7 @@
     <item quantity="one">%1$s %2$s या आठवड्यातील खेळाडू.</item>
     <item quantity="other">%1$s %2$s या आठवड्यातील खेळाडू.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">तुमची %1$s रेटिंग %2$s आहे.</string>
+  <string name="yourPerfTypeRatingIsRating">तुमचे %1$s मानांकन %2$s आहे.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">तुम्ही %1$s %2$s खेळाडूंपेक्षा उत्तम आहात.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s %3$s खेळाडूंपेक्षा उत्तम आहे.</string>
   <string name="betterThanPercentPlayers">तुम्ही %1$s %2$s खेळाडूंपेक्षा उत्तम आहात</string>
