@@ -33,9 +33,6 @@ object Branches:
     def isEmpty = nodes.isEmpty
     def nonEmpty = !isEmpty
 
-    def prepend(b: Branch): Branches = b :: nodes
-    def append(b: Branch): Branches = nodes :+ b
-
     def get(id: UciCharPair): Option[Branch] = nodes.find(_.id == id)
     def hasNode(id: UciCharPair): Boolean = nodes.exists(_.id == id)
 
@@ -61,6 +58,9 @@ object Branches:
     def addNode(node: Branch): Branches =
       get(node.id).fold(nodes :+ node): prev =>
         nodes.filterNot(_.id == node.id) :+ prev.merge(node)
+
+    // doesn't check if a node with the same ID exists!
+    def prependUnchecked(b: Branch): Branches = b :: nodes
 
     def deleteNodeAt(path: UciPath): Option[Branches] =
       path.split.flatMap:
@@ -176,9 +176,8 @@ case class Root(
   def comp = false
   def forceVariation = false
 
-  // def addChild(branch: Branch)     = copy(children = children :+ branch)
   def addChild(child: Branch): Root = copy(children = children.addNode(child))
-  def prependChild(branch: Branch) = copy(children = children.prepend(branch))
+  def prependChildUnchecked(branch: Branch) = copy(children = children.prependUnchecked(branch))
   def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.variations))
 
   def withChildren(f: Branches => Option[Branches]): Option[Root] =
@@ -333,7 +332,7 @@ case class Branch(
 
   def withoutChildren = copy(children = Branches.empty)
 
-  def addChild(branch: Branch): Branch = copy(children = children.append(branch))
+  def addChild(branch: Branch): Branch = copy(children = children.addNode(branch))
 
   def withClock(clock: Option[Clock]) = copy(clock = clock)
   def withForceVariation(force: Boolean) = copy(forceVariation = force)
@@ -363,7 +362,7 @@ case class Branch(
       children = children.first.fold(Branches.empty) { child => Branches(List(child.clearVariations)) }
     )
 
-  def prependChild(branch: Branch) = copy(children = children.prepend(branch))
+  def prependChildUnchecked(branch: Branch) = copy(children = children.prependUnchecked(branch))
   def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.variations))
 
   def setComp = copy(comp = true)

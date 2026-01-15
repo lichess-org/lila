@@ -74,11 +74,11 @@ object TreeBuilder:
       none[Branch],
       (step, acc) =>
         inline def branch = makeBranch(step.move, step.ply)
-        acc.fold(branch)(acc => branch.prependChild(acc)).some
+        acc.fold(branch)(branch.prependChildUnchecked).some
     )
 
     error.foreach(err => logChessError(formatError(game.id, err)))
-    result.fold(root)(b => root.prependChild(b))
+    result.fold(root)(root.prependChildUnchecked)
 
   private[tree] def makeLichessComment(c: Comment) =
     Node.Comment(
