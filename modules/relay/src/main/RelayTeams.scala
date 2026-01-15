@@ -133,8 +133,8 @@ object RelayTeam:
         )
     def povMatches: Pair[POVMatch] =
       teams.bimap(
-        t => POVMatch(teams.b.name, t.players, pointsFor(t.name), scoreFor(t.name)),
-        t => POVMatch(teams.a.name, t.players, pointsFor(t.name), scoreFor(t.name))
+        t => POVMatch(roundId, teams.b.name, t.players, pointsFor(t.name), scoreFor(t.name)),
+        t => POVMatch(roundId, teams.a.name, t.players, pointsFor(t.name), scoreFor(t.name))
       )
     def povMatch(teamName: TeamName): Option[POVMatch] =
       if teams.a.name == teamName then Some(povMatches.a)
@@ -142,6 +142,7 @@ object RelayTeam:
       else None
 
   case class POVMatch(
+      roundId: RelayRoundId,
       opponentName: TeamName,
       players: RelayPlayer.RelayPlayers,
       points: Option[Points],
@@ -150,10 +151,12 @@ object RelayTeam:
   object POVMatch:
     object json:
       import play.api.libs.json.*
+      import lila.common.Json.given
       import RelayPlayer.json.given
       given Writes[POVMatch] = m =>
         Json
           .obj(
+            "roundId" -> m.roundId,
             "opponent" -> m.opponentName,
             "players" -> m.players.values.toList.sortBy(_.rating.map(-_.value))
           )
