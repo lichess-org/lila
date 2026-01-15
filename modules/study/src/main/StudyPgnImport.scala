@@ -202,7 +202,7 @@ object StudyPgnImport:
       case Some(main) if children.variations.exists(_.id == main.id) =>
         Branches:
           main +: children.variations.flatMap { node =>
-            if node.id == main.id then node.children.nodes
+            if node.id == main.id then node.children.toList
             else List(node)
           }
       case _ => children
