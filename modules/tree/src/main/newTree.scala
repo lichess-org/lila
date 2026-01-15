@@ -282,7 +282,6 @@ object NewRoot:
   given OWrites[NewBranch] = OWrites: branch =>
     metasWriter
       .writes(branch.metas)
-      .add("id", branch.id.toString.some)
       .add("uci", branch.move.uci.uci.some)
       .add("san", branch.move.san.some)
       .add("comp", branch.comp)
@@ -320,7 +319,6 @@ object NewRoot:
     Writes: root =>
       metasWriter
         .writes(root.metas)
-        .add("id", none[String])
         .add("uci", none[String])
         .add("san", none[String])
         .add("comp", none[Int])
@@ -336,7 +334,6 @@ object NewRoot:
     Writes: root =>
       metasWriter
         .writes(root.metas)
-        .add("id", none[String])
         .add("uci", none[String])
         .add("san", none[String])
         .add("comp", none[Int])
