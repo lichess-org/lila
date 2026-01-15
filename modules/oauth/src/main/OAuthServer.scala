@@ -76,10 +76,10 @@ final class OAuthServer(
         if token.scopes.has(_.Web.Mobile) && !signed then
           logger.warn(s"Web:Mobile token requested but not signed: $token")
           mode.isDev.option(token)
-        else
-          if token.scopes.has(_.Web.Mobile) && !token.clientOrigin.has("org.lichess.mobile://") then
-            logger.warn(s"Web:Mobile token requested but invalid origin: $token")
-          token.some
+        else if token.scopes.has(_.Web.Mobile) && !token.clientOrigin.has("org.lichess.mobile://") then
+          logger.warn(s"Web:Mobile token requested but invalid origin: $token")
+          mode.isDev.option(token)
+        else token.some
 
   private def monitorAuth(success: Boolean) =
     lila.mon.user.oauth.request(success).increment()
