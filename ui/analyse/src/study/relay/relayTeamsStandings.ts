@@ -1,10 +1,10 @@
 import { hl, onInsert, spinnerVdom, type VNode } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
-import type { RelayTeamName, RelayTeamStandiings, RoundId, TourId } from './interfaces';
+import type { RelayTeamName, RelayTeamStandings, RoundId, TourId } from './interfaces';
 import { tableAugment } from './relayPlayers';
 
 export default class RelayTeamsStandings {
-  standings: RelayTeamStandiings | undefined;
+  standings: RelayTeamStandings | undefined;
   teamToShow: RelayTeamName | undefined;
   loading = false;
   constructor(

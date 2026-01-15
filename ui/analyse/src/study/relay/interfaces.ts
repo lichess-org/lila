@@ -118,4 +118,4 @@ export interface RelayTeamStandingsEntry {
   matches: RelayTeamMatch[];
 }
 
-export type RelayTeamStandiings = RelayTeamStandingsEntry[];
+export type RelayTeamStandings = RelayTeamStandingsEntry[];
