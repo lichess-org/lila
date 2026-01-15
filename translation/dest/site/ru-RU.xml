@@ -129,6 +129,10 @@
   <string name="bestMoveArrow">Показывать лучшие ходы стрелками</string>
   <string name="showVariationArrows">Показать стрелки вариантов</string>
   <string name="evaluationGauge">Шкала оценки</string>
+  <string name="visualMotifs">Шахматные мотивы</string>
+  <string name="undefendedPieces">Незащищённые фигуры</string>
+  <string name="pinnedPieces">Связанные фигуры</string>
+  <string name="checkableKing">Возможность дать шах королю</string>
   <string name="multipleLines">Множество вариантов</string>
   <string name="cpus">Потоки</string>
   <string name="memory">Память</string>
