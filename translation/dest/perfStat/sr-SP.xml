@@ -20,8 +20,8 @@
   <string name="highestRating">Највиши рејтинг: %s</string>
   <string name="lowestRating">Најнижи рејтинг: %s</string>
   <string name="fromXToY">од %1$s до %2$s</string>
-  <string name="winningStreak">Низ победа</string>
-  <string name="losingStreak">Низ пораза</string>
+  <string name="winningStreak">Победнички низ</string>
+  <string name="losingStreak">Губитнички низ</string>
   <string name="longestStreak">Најдужи низ: %s</string>
   <string name="currentStreak">Тренутни низ: %s</string>
   <string name="bestRated">Најбоље рангиране победе</string>
