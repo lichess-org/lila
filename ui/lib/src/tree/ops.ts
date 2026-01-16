@@ -1,21 +1,23 @@
 /* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
 
-export function withMainlineChild<T>(node: Tree.Node, f: (node: Tree.Node) => T): T | undefined {
+import type { TreeNode, TreePath } from './types';
+
+export function withMainlineChild<T>(node: TreeNode, f: (node: TreeNode) => T): T | undefined {
   const next = node.children[0];
   return next ? f(next) : undefined;
 }
 
 export function findInMainline(
-  fromNode: Tree.Node,
-  predicate: (node: Tree.Node) => boolean,
-): Tree.Node | undefined {
-  const findFrom = (node: Tree.Node): Tree.Node | undefined =>
+  fromNode: TreeNode,
+  predicate: (node: TreeNode) => boolean,
+): TreeNode | undefined {
+  const findFrom = (node: TreeNode): TreeNode | undefined =>
     predicate(node) ? node : withMainlineChild(node, findFrom);
   return findFrom(fromNode);
 }
 
 // returns a list of nodes collected from the original one
-export function collect(from: Tree.Node, pickChild: (node: Tree.Node) => Tree.Node | undefined): Tree.Node[] {
+export function collect(from: TreeNode, pickChild: (node: TreeNode) => TreeNode | undefined): TreeNode[] {
   const nodes = [from];
   let n = from,
     c;
@@ -26,15 +28,15 @@ export function collect(from: Tree.Node, pickChild: (node: Tree.Node) => Tree.No
   return nodes;
 }
 
-export const childById = (node: Tree.Node, id: string): Tree.Node | undefined =>
+export const childById = (node: TreeNode, id: string): TreeNode | undefined =>
   node.children.find(child => child.id === id);
 
-export const last = (nodeList: Tree.Node[]): Tree.Node | undefined => nodeList[nodeList.length - 1];
+export const last = (nodeList: TreeNode[]): TreeNode | undefined => nodeList[nodeList.length - 1];
 
-export const nodeAtPly = (nodeList: Tree.Node[], ply: number): Tree.Node | undefined =>
+export const nodeAtPly = (nodeList: TreeNode[], ply: number): TreeNode | undefined =>
   nodeList.find(node => node.ply === ply);
 
-export function takePathWhile(nodeList: Tree.Node[], predicate: (node: Tree.Node) => boolean): Tree.Path {
+export function takePathWhile(nodeList: TreeNode[], predicate: (node: TreeNode) => boolean): TreePath {
   let path = '';
   for (const n of nodeList) {
     if (predicate(n)) path += n.id;
@@ -43,11 +45,11 @@ export function takePathWhile(nodeList: Tree.Node[], predicate: (node: Tree.Node
   return path;
 }
 
-export function removeChild(parent: Tree.Node, id: string): void {
+export function removeChild(parent: TreeNode, id: string): void {
   parent.children = parent.children.filter(n => n.id !== id);
 }
 
-export function countChildrenAndComments(node: Tree.Node): {
+export function countChildrenAndComments(node: TreeNode): {
   nodes: number;
   comments: number;
 } {
@@ -64,7 +66,7 @@ export function countChildrenAndComments(node: Tree.Node): {
 }
 
 // adds n2 into n1
-export function merge(n1: Tree.Node, n2: Tree.Node): void {
+export function merge(n1: TreeNode, n2: TreeNode): void {
   if (n2.eval) n1.eval = n2.eval;
   if (n2.glyphs) n1.glyphs = n2.glyphs;
   n2.comments &&
@@ -84,26 +86,26 @@ export function merge(n1: Tree.Node, n2: Tree.Node): void {
   });
 }
 
-export const hasBranching = (node: Tree.Node, maxDepth: number): boolean =>
+export const hasBranching = (node: TreeNode, maxDepth: number): boolean =>
   maxDepth <= 0 || !!node.children[1] || (!!node.children[0] && hasBranching(node.children[0], maxDepth - 1));
 
-export const mainlineNodeList = (from: Tree.Node): Tree.Node[] => collect(from, node => node.children[0]);
+export const mainlineNodeList = (from: TreeNode): TreeNode[] => collect(from, node => node.children[0]);
 
-export function updateAll(root: Tree.Node, f: (node: Tree.Node) => void): void {
+export function updateAll(root: TreeNode, f: (node: TreeNode) => void): void {
   // applies f recursively to all nodes
-  function update(node: Tree.Node) {
+  function update(node: TreeNode) {
     f(node);
     node.children.forEach(update);
   }
   update(root);
 }
 
-export function distance(a: Tree.Path, b: Tree.Path): number {
+export function distance(a: TreePath, b: TreePath): number {
   let i = 0;
   while (i < a.length && i < b.length && a[i] === b[i] && a[i + 1] === b[i + 1]) i += 2;
   return (a.length + b.length) / 2 - i;
 }
 
-export function contains(container: Tree.Node, descendant: Tree.Node): boolean {
+export function contains(container: TreeNode, descendant: TreeNode): boolean {
   return container === descendant || container.children.some(child => contains(child, descendant));
 }

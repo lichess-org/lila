@@ -13,6 +13,7 @@ import { defined } from 'lib';
 import { resultTag } from './studyView';
 import type { RelayRound } from './relay/interfaces';
 import { playerColoredResult } from './relay/customScoreStatus';
+import type { TreePath } from 'lib/tree/types';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
@@ -44,7 +45,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
 // The tree node whose clocks are displayed.
 // Finished game: last mainline node of the current variation.
 // Ongoing game: the last mainline node, no matter what
-function selectClockPath(ctrl: AnalyseCtrl, study: StudyCtrl): Tree.Path {
+function selectClockPath(ctrl: AnalyseCtrl, study: StudyCtrl): TreePath {
   const gamePath = ctrl.gamePath || study.data.chapter.relayPath;
   return ctrl.node.clock ? ctrl.path : gamePath ? intersection(ctrl.path, gamePath) : ctrl.path;
 }

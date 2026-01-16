@@ -1,13 +1,14 @@
 import type AnalyseCtrl from '@/ctrl';
 import type { Goal } from './interfaces';
 import type { Comment } from '@/practice/practiceCtrl';
+import type { TreeNode } from 'lib/tree/types';
 
 // returns null if not deep enough to know
-const isDrawish = (node: Tree.Node): boolean | null =>
+const isDrawish = (node: TreeNode): boolean | null =>
   hasSolidEval(node) ? !node.ceval!.mate && Math.abs(node.ceval!.cp!) < 150 : null;
 
 // returns null if not deep enough to know
-const isWinning = (ctrl: AnalyseCtrl, node: Tree.Node, goalCp: number, color: Color): boolean | null => {
+const isWinning = (ctrl: AnalyseCtrl, node: TreeNode, goalCp: number, color: Color): boolean | null => {
   if (!hasSolidEval(node)) {
     const pos = ctrl.position(node).unwrap();
     return pos.isStalemate() || pos.isInsufficientMaterial() ? false : null;
@@ -17,14 +18,14 @@ const isWinning = (ctrl: AnalyseCtrl, node: Tree.Node, goalCp: number, color: Co
 };
 
 // returns null if not deep enough to know
-const myMateIn = (node: Tree.Node, color: Color): number | boolean | null => {
+const myMateIn = (node: TreeNode, color: Color): number | boolean | null => {
   if (!hasSolidEval(node)) return null;
   if (!node.ceval?.mate) return false;
   const mateIn = node.ceval.mate * (color === 'white' ? 1 : -1);
   return mateIn > 0 ? mateIn : false;
 };
 
-const hasSolidEval = (node: Tree.Node) => node.ceval && node.ceval.depth >= 16;
+const hasSolidEval = (node: TreeNode) => node.ceval && node.ceval.depth >= 16;
 
 const hasBlundered = (comment: Comment | null) =>
   comment && (comment.verdict === 'mistake' || comment.verdict === 'blunder');

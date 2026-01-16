@@ -13,13 +13,9 @@ import {
 import { IllegalSetup, type Position } from 'chessops/chess';
 import type { Player } from 'lib/game';
 import { scalachessCharPair } from 'chessops/compat';
+import type { TreeNode } from 'lib/tree/types';
 
-const readNode = (
-  node: ChildNode<PgnNodeData>,
-  pos: Position,
-  ply: number,
-  withChildren = true,
-): Tree.Node => {
+const readNode = (node: ChildNode<PgnNodeData>, pos: Position, ply: Ply, withChildren = true): TreeNode => {
   const move = parseSan(pos, node.data.san);
   if (!move) throw new Error(`Can't play ${node.data.san} at move ${Math.ceil(ply / 2)}, ply ${ply}`);
   return {
@@ -38,7 +34,7 @@ export default function (pgn: string): Partial<AnalyseData> {
   const start = startingPosition(game.headers).unwrap();
   const fen = makeFen(start.toSetup());
   const initialPly = (start.toSetup().fullmoves - 1) * 2 + (start.turn === 'white' ? 0 : 1);
-  const treeParts: Tree.Node[] = [
+  const treeParts: TreeNode[] = [
     {
       id: '',
       ply: initialPly,
@@ -48,7 +44,7 @@ export default function (pgn: string): Partial<AnalyseData> {
   ];
   let tree = game.moves;
   const pos = start;
-  const sidelines: Tree.Node[][] = [[]];
+  const sidelines: TreeNode[][] = [[]];
   let index = 0;
   while (tree.children.length) {
     const [mainline, ...variations] = tree.children;

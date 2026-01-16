@@ -3,6 +3,7 @@ import type { Prop } from '../index';
 import type { Feature } from '../device';
 import type CevalCtrl from './ctrl';
 import type { VNode } from 'snabbdom';
+import type { ClientEval, LocalEval, ServerEval, TreeNode } from '@/tree/types';
 
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
@@ -24,7 +25,7 @@ export interface Work {
   initialFen: string;
   currentFen: string;
   moves: string[];
-  emit: (ev: Tree.LocalEval) => void;
+  emit: (ev: LocalEval) => void;
 }
 
 export interface BaseEngineInfo {
@@ -103,7 +104,7 @@ export interface CustomCeval {
 export interface CevalOpts {
   variant: Variant;
   initialFen: string | undefined;
-  emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
+  emit: (ev: LocalEval, meta: EvalMeta) => void;
   onUciHover: (hovering: Hovering | null) => void;
   redraw: Redraw;
   onSelectEngine?: () => void;
@@ -138,7 +139,7 @@ export interface CevalHandler {
   playUciList(uciList: string[]): void;
   getOrientation(): Color;
   threatMode(): boolean;
-  getNode(): Tree.Node;
+  getNode(): TreeNode;
   clearCeval: () => void;
   startCeval: () => void;
   cevalEnabled: (enable?: boolean) => boolean | 'force';
@@ -147,8 +148,8 @@ export interface CevalHandler {
 }
 
 export interface NodeEvals {
-  client?: Tree.ClientEval;
-  server?: Tree.ServerEval;
+  client?: ClientEval;
+  server?: ServerEval;
 }
 
 export interface Step {
@@ -156,6 +157,6 @@ export interface Step {
   fen: string;
   san?: string;
   uci?: string;
-  threat?: Tree.ClientEval;
-  ceval?: Tree.ClientEval;
+  threat?: ClientEval;
+  ceval?: ClientEval;
 }

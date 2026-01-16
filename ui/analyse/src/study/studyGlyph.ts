@@ -4,14 +4,15 @@ import { throttle } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import { glyphs as xhrGlyphs } from './studyXhr';
+import type { Glyph, GlyphId, TreeNode } from 'lib/tree/types';
 
 interface AllGlyphs {
-  move: Tree.Glyph[];
-  observation: Tree.Glyph[];
-  position: Tree.Glyph[];
+  move: Glyph[];
+  observation: Glyph[];
+  position: Glyph[];
 }
 
-const renderGlyph = (ctrl: GlyphForm, node: Tree.Node) => (glyph: Tree.Glyph) =>
+const renderGlyph = (ctrl: GlyphForm, node: TreeNode) => (glyph: Glyph) =>
   h(
     'button',
     {
@@ -35,7 +36,7 @@ export class GlyphForm {
       });
   };
 
-  toggleGlyph = throttle(500, (id: Tree.GlyphId) => {
+  toggleGlyph = throttle(500, (id: GlyphId) => {
     this.root.study!.makeChange('toggleGlyph', this.root.study!.withPosition({ id }));
     this.root.redraw();
   });

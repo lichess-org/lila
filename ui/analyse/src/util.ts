@@ -1,23 +1,22 @@
 import { parseUci, Position } from 'chessops';
 import { scalachessCharPair } from 'chessops/compat';
+import type { TreeNode, TreeNodeIncomplete } from 'lib/tree/types';
 
 export const plyColor = (ply: number): Color => (ply % 2 === 0 ? 'white' : 'black');
 
 export function readOnlyProp<A>(value: A): () => A {
-  return function (): A {
-    return value;
-  };
+  return () => value;
 }
 
 // mutates and returns the node
-export const completeNode = (node: Tree.NodeIncomplete): Tree.Node => {
+export const completeNode = (node: TreeNodeIncomplete): TreeNode => {
   node.children ||= [];
   node.id ||= node.uci ? scalachessCharPair(parseUci(node.uci)!) : '';
   node.children.forEach(completeNode);
-  return node as Tree.Node;
+  return node as TreeNode;
 };
 
-export function treeReconstruct(parts: Tree.NodeIncomplete[], sidelines?: Tree.Node[][]): Tree.Node {
+export function treeReconstruct(parts: TreeNodeIncomplete[], sidelines?: TreeNode[][]): TreeNode {
   const root = completeNode(parts[0]);
   let node = root;
   for (let i = 1; i < parts.length; i++) {
@@ -29,7 +28,7 @@ export function treeReconstruct(parts: Tree.NodeIncomplete[], sidelines?: Tree.N
   return root;
 }
 
-export function addCrazyData(node: Tree.Node, pos: Position): void {
+export function addCrazyData(node: TreeNode, pos: Position): void {
   if (pos.pockets)
     node.crazy = {
       pockets: [pos.pockets.white, pos.pockets.black],

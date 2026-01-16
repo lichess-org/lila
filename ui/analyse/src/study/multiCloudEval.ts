@@ -6,6 +6,7 @@ import { type VNode, bind, hl } from 'lib/view';
 import type { StudyChapters } from './studyChapters';
 import { debounce } from 'lib/async';
 import type { ServerNodeMsg } from './interfaces';
+import type { ClientEval, TreeNode } from 'lib/tree/types';
 
 export interface CloudEval extends EvalHitMulti {
   chances: number;
@@ -82,7 +83,7 @@ export class MultiCloudEval {
     this.redraw();
   };
 
-  onLocalCeval = (node: Tree.Node, ev: Tree.ClientEval) => {
+  onLocalCeval = (node: TreeNode, ev: ClientEval) => {
     this.cloudEvals.set(node.fen, { ...ev, chances: povChances('white', ev) });
   };
 

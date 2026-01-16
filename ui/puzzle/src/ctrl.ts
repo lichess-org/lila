@@ -35,6 +35,7 @@ import type { CevalHandler } from 'lib/ceval/types';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view';
 import { type WithGround } from 'lib/game/ground';
+import type { TreeNode, TreePath } from 'lib/tree/types';
 
 export default class PuzzleCtrl implements CevalHandler {
   data: PuzzleData;
@@ -55,12 +56,12 @@ export default class PuzzleCtrl implements CevalHandler {
   promotion: PromotionCtrl;
   keyboardHelp: Prop<boolean>;
   cgConfig?: CgConfig;
-  path: Tree.Path;
-  node: Tree.Node;
-  nodeList: Tree.Node[];
-  mainline: Tree.Node[];
-  initialPath: Tree.Path;
-  initialNode: Tree.Node;
+  path: TreePath;
+  node: TreeNode;
+  nodeList: TreeNode[];
+  mainline: TreeNode[];
+  initialPath: TreePath;
+  initialNode: TreeNode;
   pov: Color;
   mode: 'play' | 'view' | 'try';
   round?: PuzzleRound;
@@ -160,7 +161,7 @@ export default class PuzzleCtrl implements CevalHandler {
     end: this.loadSound('lisp/PuzzleStormEnd', 1),
   };
 
-  setPath = (path: Tree.Path): void => {
+  setPath = (path: TreePath): void => {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList)!;
@@ -337,7 +338,7 @@ export default class PuzzleCtrl implements CevalHandler {
 
   sendMove = (move: Move): void => this.sendMoveAt(this.path, this.position(), move);
 
-  sendMoveAt = (path: Tree.Path, pos: Chess, move: Move): void => {
+  sendMoveAt = (path: TreePath, pos: Chess, move: Move): void => {
     move = normalizeMove(pos, move);
     const san = makeSanAndPlay(pos, move);
     this.addNode(
@@ -354,7 +355,7 @@ export default class PuzzleCtrl implements CevalHandler {
     );
   };
 
-  addNode = (node: Tree.Node, path: Tree.Path): void => {
+  addNode = (node: TreeNode, path: TreePath): void => {
     const newPath = this.tree.addNode(node, path)!;
     this.jump(newPath);
     this.withGround(g => g.playPremove());
@@ -367,7 +368,7 @@ export default class PuzzleCtrl implements CevalHandler {
     this.redraw();
   };
 
-  reorderChildren = (path: Tree.Path, recursive?: boolean): void => {
+  reorderChildren = (path: TreePath, recursive?: boolean): void => {
     const node = this.tree.nodeAtPath(path);
     node.children.sort((c1, _) => {
       const p = c1.puzzle;
@@ -556,7 +557,7 @@ export default class PuzzleCtrl implements CevalHandler {
 
   outcome = (): Outcome | undefined => this.position().outcome();
 
-  jump = (path: Tree.Path): void => {
+  jump = (path: TreePath): void => {
     const pathChanged = path !== this.path,
       isForwardStep = pathChanged && path.length === this.path.length + 2;
     this.setPath(path);
@@ -577,7 +578,7 @@ export default class PuzzleCtrl implements CevalHandler {
     pubsub.emit('ply', this.node.ply);
   };
 
-  userJump = (path: Tree.Path): void => {
+  userJump = (path: TreePath): void => {
     if (this.tree.nodeAtPath(path)?.puzzle === 'fail' && this.mode !== 'view') return;
     this.withGround(g => g.selectSquare(null));
     this.jump(path);

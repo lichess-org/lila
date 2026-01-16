@@ -51,6 +51,7 @@ import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
 import type { AnalyseNvuiContext } from '../analyse.nvui';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
+import type { ClientEval, PvData } from 'lib/tree/types';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -288,7 +289,7 @@ const evalInfo = (bestEv: EvalScore | undefined): string =>
       ? `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`
       : '';
 
-const depthInfo = (clientEv: Tree.ClientEval | undefined, isCloud: boolean): string =>
+const depthInfo = (clientEv: ClientEval | undefined, isCloud: boolean): string =>
   clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
 
 const noEvalStr = (ctrl: AnalyseCtrl) =>
@@ -303,7 +304,7 @@ function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
   if (noEvalMsg) return noEvalMsg;
   const node = ctrl.node,
     setup = parseFen(node.fen).unwrap();
-  let pvs: Tree.PvData[] = [];
+  let pvs: PvData[] = [];
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     setup.turn = opposite(setup.turn);

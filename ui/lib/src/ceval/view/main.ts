@@ -17,6 +17,7 @@ import { renderCevalSettings } from './settings';
 import type CevalCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { isTouchDevice } from '@/device';
+import type { ClientEval, LocalEval, PvData } from '@/tree/types';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
 
@@ -49,12 +50,12 @@ function localEvalNodes(ctrl: CevalHandler, evs: NodeEvals): Array<VNode | strin
   return t;
 }
 
-function threatInfo(ctrl: CevalHandler, threat?: Tree.LocalEval | false): string {
+function threatInfo(ctrl: CevalHandler, threat?: LocalEval | false): string {
   const info = localInfo(ctrl, threat);
   return info.depthText + (info.knps ? ' · ' + info.npsText : '');
 }
 
-function localInfo(ctrl: CevalHandler, ev?: Tree.ClientEval | false): EvalInfo {
+function localInfo(ctrl: CevalHandler, ev?: ClientEval | false): EvalInfo {
   const info = {
     npsText: '',
     knps: 0,
@@ -327,7 +328,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
   const multiPv = ceval.search.multiPv,
     node = ctrl.getNode(),
     setup = parseFen(node.fen).unwrap();
-  let pvs: Tree.PvData[],
+  let pvs: PvData[],
     threat = false,
     pvMoves: (string | null)[],
     pvIndex: number | null = null;
@@ -409,7 +410,7 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
 
 const MAX_NUM_MOVES = 16;
 
-function renderPv(threat: boolean, multiPv: number, pv?: Tree.PvData, pos?: Position): VNode {
+function renderPv(threat: boolean, multiPv: number, pv?: PvData, pos?: Position): VNode {
   const data: any = {};
   const children: VNode[] = [renderPvWrapToggle()];
   if (pv) {

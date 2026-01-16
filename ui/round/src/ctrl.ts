@@ -50,6 +50,7 @@ import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { plyToTurn } from 'lib/game/chess';
 import { type SocketSendOpts } from 'lib/socket';
+import type { NodeCrazy } from 'lib/tree/types';
 import Server from './server';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
@@ -511,7 +512,7 @@ export default class RoundController implements MoveRootCtrl {
 
   crazyValid = (role: Role, key: Key): boolean => crazyValid(this.data, role, key);
 
-  getCrazyhousePockets = (): Tree.NodeCrazy['pockets'] | undefined => this.data.crazyhouse?.pockets;
+  getCrazyhousePockets = (): NodeCrazy['pockets'] | undefined => this.data.crazyhouse?.pockets;
 
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {

@@ -6,15 +6,16 @@ import { scalachessCharPair } from 'chessops/compat';
 import { type TreeWrapper, path as pathOps } from 'lib/tree/tree';
 import { isNormal, type Move, type NormalMove } from 'chessops/types';
 import type PuzzleCtrl from './ctrl';
+import type { TreeNode, TreePath } from 'lib/tree/types';
 
-export function pgnToTree(pgn: San[]): Tree.Node {
+export function pgnToTree(pgn: San[]): TreeNode {
   const pos = Chess.default();
-  const root: Tree.Node = {
+  const root: TreeNode = {
     ply: 0,
     id: '',
     fen: INITIAL_FEN,
     children: [],
-  } as Tree.Node;
+  } as TreeNode;
   let current = root;
   pgn.forEach((san, i) => {
     const move = parseSan(pos, san)!;
@@ -26,7 +27,7 @@ export function pgnToTree(pgn: San[]): Tree.Node {
   return root;
 }
 
-export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solution: Uci[], pov: Color): void {
+export function mergeSolution(root: TreeWrapper, initialPath: TreePath, solution: Uci[], pov: Color): void {
   const initialNode = root.nodeAtPath(initialPath);
   const pos = Chess.fromSetup(parseFen(initialNode.fen).unwrap()).unwrap();
   const fromPly = initialNode.ply;
@@ -41,7 +42,7 @@ export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solutio
   root.addNodes(nodes, initialPath);
 }
 
-const makeNode = (pos: Chess, move: Move, ply: number, san: San): Tree.Node => ({
+const makeNode = (pos: Chess, move: Move, ply: number, san: San): TreeNode => ({
   ply,
   san,
   fen: makeFen(pos.toSetup()),
