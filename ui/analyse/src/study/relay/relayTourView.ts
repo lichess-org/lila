@@ -32,7 +32,6 @@ import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
 import { userLink } from 'lib/view/userLink';
 import { pubsub } from 'lib/pubsub';
-import { standingsView } from './relayTeamsStandings';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -424,7 +423,7 @@ const teams = (ctx: RelayViewContext) => [
 
 const teamResults = (ctx: RelayViewContext) => [
   header(ctx),
-  ctx.relay.teams && standingsView(ctx.relay.teamStandings),
+  ctx.relay.teams && ctx.relay.teamStandings.view(),
 ];
 
 const stats = (ctx: RelayViewContext) => [header(ctx), statsView(ctx.relay.stats)];

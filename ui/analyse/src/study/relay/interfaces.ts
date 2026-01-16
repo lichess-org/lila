@@ -1,4 +1,5 @@
-import type { FideId } from '../interfaces';
+import type { FideId, PointsStr } from '../interfaces';
+import type { RelayPlayer } from './relayPlayers';
 
 export interface RelayData {
   tour: RelayTour;
@@ -105,8 +106,13 @@ export interface LogEvent {
   at: number;
 }
 
-export interface RelayTeamMatch {
+export interface POVTeamMatch {
   roundId: RoundId;
+  opponent: RelayTeamName;
+  players: RelayPlayer[];
+  points?: PointsStr;
+  mp?: number;
+  gp?: number;
 }
 
 export type RelayTeamName = string;
@@ -115,7 +121,7 @@ export interface RelayTeamStandingsEntry {
   name: RelayTeamName;
   mp: number;
   gp: number;
-  matches: RelayTeamMatch[];
+  matches: POVTeamMatch[];
 }
 
 export type RelayTeamStandiings = RelayTeamStandingsEntry[];

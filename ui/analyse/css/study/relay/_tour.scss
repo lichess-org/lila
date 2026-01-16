@@ -499,13 +499,16 @@ $hover-bg: $m-primary_bg--mix-30;
     color: $c-font-dim;
   }
 
-  .fide-player {
+  .fide-player,
+  &__teams__standings {
     a {
       color: $c-font;
       &:hover {
         color: $c-primary;
       }
     }
+  }
+  .fide-player {
     &__photo {
       @extend %box-neat;
       aspect-ratio: 1;
@@ -548,6 +551,16 @@ $hover-bg: $m-primary_bg--mix-30;
   .study__multiboard {
     @media (min-width: at-least($xx-large)) {
       margin: 0 0.5em;
+    }
+  }
+
+  &__team-summary {
+    gap: 3vh;
+    &__header {
+      @extend %tour-margin-horiz;
+    }
+    .score {
+      font-weight: bold;
     }
   }
 }

@@ -64,7 +64,12 @@ export default class RelayCtrl {
       fideId => data.photos[fideId],
       this.redraw,
     );
-    this.teamStandings = new RelayTeamsStandings(this.data.tour.id, () => this.round?.id, this.redraw);
+    this.teamStandings = new RelayTeamsStandings(
+      this.data.tour.id,
+      () => this.round?.id,
+      this.redraw,
+      this.players,
+    );
     this.stats = new RelayStats(this.round, this.redraw);
     if (data.videoUrls?.[0] || this.isPinnedStreamOngoing())
       this.videoPlayer = new VideoPlayer(
@@ -95,6 +100,7 @@ export default class RelayCtrl {
 
   openTab = (t: RelayTab) => {
     this.players.closePlayer();
+    this.teamStandings.closeTeam();
     this.tab(t);
     this.tourShow(true);
     this.redraw();
@@ -136,7 +142,14 @@ export default class RelayCtrl {
   roundUrlWithHash = (round?: RelayRound) => `${this.roundPath(round)}#${this.tab()}`;
   updateAddressBar = (tourUrl: string, roundUrl: string) => {
     const tab = this.tab();
-    const tabHash = () => (tab === 'overview' ? '' : tab === 'players' ? this.players.tabHash() : `#${tab}`);
+    const tabHash = () =>
+      tab === 'overview'
+        ? ''
+        : tab === 'players'
+          ? this.players.tabHash()
+          : tab === 'team-results'
+            ? this.teamStandings.tabHash()
+            : `#${tab}`;
     const url = this.tourShow() ? `${tourUrl}${tabHash()}` : roundUrl;
     // when jumping from a tour tab to another page, remember which tour tab we were on.
     if (!this.tourShow() && location.href.includes('#')) history.pushState({}, '', url);

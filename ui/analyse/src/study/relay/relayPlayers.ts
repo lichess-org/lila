@@ -29,7 +29,7 @@ interface Tiebreak {
   points: number;
 }
 
-interface RelayPlayer extends StudyPlayer {
+export interface RelayPlayer extends StudyPlayer {
   score?: number;
   played?: number;
   ratingDiff?: number;
@@ -247,7 +247,7 @@ const playersList = (ctrl: RelayPlayers): VNode =>
     ctrl.players ? renderPlayers(ctrl, ctrl.players) : [spinner()],
   );
 
-const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes => {
+export const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes => {
   const withRating = !!players.find(p => p.rating);
   const withScores = !!players.find(p => p.score !== undefined);
   const withRank = !!players.find(p => p.rank);
