@@ -98,7 +98,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             {
               attrs: { for: 'chess960-position-id' },
             },
-            'chess960 position id',
+            'Chess960 position ID:',
           ),
           h('input#chess960-position-id', {
             attrs: { minlength: 1, maxlength: 3, type: 'number', min: '0', max: '959' },
