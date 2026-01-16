@@ -6,7 +6,7 @@
   <string name="notEnoughRatedGames">विश्वसनीय मानांकन ठरवण्यासाठी पुरसे मानांकित खेळ नाहीत.</string>
   <string name="progressOverLastXGames">गेल्या %s खेळांतील प्रगती:</string>
   <string name="ratingDeviation">मानांकनातील विचलन: %s.</string>
-  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">हे जेवढे कमी, तेवढे मानांकन जास्त स्थिर. %1$s पेक्षा जास्त असेल तर मानांकन तात्पुरते समजले जाते. क्रमवारीत वापरण्यासाठी हे %2$s पेक्षा कमी (साधारण बुद्धिबळासाठी) किंवा %3$s पेक्षा कमी (इतर प्रकारांसाठी) असावे लागते.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">हे जेवढे कमी, तेवढे मानांकन जास्त स्थिर. %1$s पेक्षा जास्त असेल तर मानांकन तात्पुरते समजले जाते. क्रमवारीत वापरण्यासाठी हे %2$s पेक्षा कमी (पारंपारिक बुद्धिबळासाठी) किंवा %3$s पेक्षा कमी (इतर प्रकारांसाठी) असावे लागते.</string>
   <string name="totalGames">एकूण खेळ</string>
   <string name="ratedGames">मानांकित खेळ</string>
   <string name="tournamentGames">स्पर्धेतील खेळ</string>
