@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="sanCheck" comment="+ in standard notation">शह</string>
+  <string name="sanCheckmate" comment="# in standard notation">शहमात</string>
+  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">जवळचा किल्लेकोट</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">लांबचा किल्लेकोट</string>
+</resources>
