@@ -1,5 +1,7 @@
 package lila.relay
 
+import scala.collection.immutable.SeqMap
+
 import chess.format.pgn.*
 import chess.{ FideId, PlayerName }
 import chess.Outcome.Points
@@ -7,7 +9,6 @@ import chess.Outcome.Points
 import lila.core.fide.{ PlayerToken, Tokenize }
 import lila.study.ChapterPreview
 import lila.study.StudyPlayer
-import scala.collection.immutable.SeqMap
 
 type TeamName = String
 
@@ -118,7 +119,7 @@ object RelayTeam:
             else if aPoints > bPoints then Pair(Points.One, Points.Zero)
             else Pair(Points.Zero, Points.One)
     def pointsFor(teamName: TeamName): Option[Points] =
-      pointsPair.map(o => if teams.a.name == teamName then (o.a) else (o.b))
+      pointsPair.map(o => if teams.a.name == teamName then o.a else o.b)
     def scoreFor(teamName: TeamName): Option[Float] =
       teamCustomScoring
         .flatMap: cs =>
@@ -128,9 +129,7 @@ object RelayTeam:
               case Points.Half => cs.draw
               case zero => RelayRound.CustomPoints(zero.value)
         .map(_.value)
-        .orElse(
-          pointsFor(teamName).map(_.value)
-        )
+        .orElse(pointsFor(teamName).map(_.value))
     def povMatches: Pair[POVMatch] =
       teams.bimap(
         t =>
@@ -243,7 +242,6 @@ final class RelayTeamTable(
         else m.swap
 
 final class RelayTeamLeaderboard(
-    tourRepo: RelayTourRepo,
     relayGroupApi: RelayGroupApi,
     roundRepo: RelayRoundRepo,
     teamTable: RelayTeamTable,
@@ -257,17 +255,15 @@ final class RelayTeamLeaderboard(
       name: TeamName,
       matches: List[RelayTeam.TeamMatch]
   ):
-    def matchPoints: Float =
+    lazy val matchPoints: Float =
       matches
-        .flatMap: m =>
-          m.isFinished.so:
-            m.scoreFor(name)
+        .filter(_.isFinished)
+        .flatMap(_.scoreFor(name))
         .sum
-    def gamePoints: Float =
+    lazy val gamePoints: Float =
       matches
-        .flatMap: m =>
-          m.isFinished.so:
-            m.teams.find(_.name == name).flatMap(_.points)
+        .filter(_.isFinished)
+        .flatMap(_.teams.find(_.name == name).flatMap(_.points))
         .sum
 
   given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.gamePoints, t.name))
@@ -301,20 +297,15 @@ final class RelayTeamLeaderboard(
   private def aggregate(tourId: RelayTourId): Fu[TeamLeaderboard] =
     for
       scoreGroup <- relayGroupApi.scoreGroupOf(tourId)
-      tours <- scoreGroup.traverse(t => tourRepo.byId(t).orFail(s"Missing relay tour $t"))
-      rounds <- tours.toList.flatTraverse(t => roundRepo.idsByTourOrdered(t.id))
+      rounds <- scoreGroup.toList.flatTraverse(roundRepo.idsByTourOrdered)
       matches <- rounds.flatTraverse(teamTable.table)
     yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
       matchup.teams
-        .foldLeft(acc):
-          case (acc, team) =>
-            acc.updated(
-              team.name,
-              acc
-                .get(team.name)
-                .fold(TeamLeaderboardEntry(team.name, List(matchup))): team =>
-                  team.copy(matches = team.matches :+ matchup)
-            )
+        .foldLeft(acc): (acc, team) =>
+          acc.updatedWith(team.name):
+            _.fold(TeamLeaderboardEntry(team.name, List(matchup))): team =>
+              team.copy(matches = team.matches :+ matchup)
+            .some
         .toList
         .sortBy(_._2)
         .to(SeqMap)

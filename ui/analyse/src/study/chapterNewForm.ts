@@ -13,7 +13,6 @@ import { importPgn, variants as xhrVariants } from './studyXhr';
 import type { StudyChapters } from './studyChapters';
 import type { LichessEditor } from 'editor';
 import { pubsub } from 'lib/pubsub';
-import { lichessRules } from 'chessops/compat';
 
 export const modeChoices = [
   ['normal', i18n.study.normalAnalysis],
@@ -224,7 +223,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                       };
                       ctrl.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
                       ctrl.editorFen(ctrl.editor.getFen());
-                      ctrl.editor.setRules(lichessRules(currentChapter.setup.variant.key));
+                      ctrl.editor.setVariant(currentChapter.setup.variant.key);
                     });
                   },
                   destroy: () => (ctrl.editor = null),
@@ -331,7 +330,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   attrs: { disabled: gameOrPgn },
                   hook: bind('change', e => {
-                    ctrl.editor?.setRules(lichessRules((e.target as HTMLSelectElement).value as VariantKey));
+                    ctrl.editor?.setVariant((e.target as HTMLSelectElement).value as VariantKey);
                   }),
                 },
                 gameOrPgn

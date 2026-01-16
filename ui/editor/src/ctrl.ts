@@ -15,11 +15,12 @@ import { Board } from 'chessops/board';
 import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
 import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
-import { lichessVariant, lichessRules } from 'chessops/compat';
+import { lichessRules } from 'chessops/compat';
 import { defined, prop, type Prop } from 'lib';
 import { prompt } from 'lib/view';
 import { opposite } from '@lichess-org/chessground/util';
 import { parseSquare } from 'chessops';
+import { chess960CastlingSquares, chess960IdToFEN } from './chess960';
 
 export default class EditorCtrl {
   options: Options;
@@ -27,17 +28,19 @@ export default class EditorCtrl {
 
   selected: Prop<Selected>;
 
-  initialFen: string;
+  initialFen: FEN;
   pockets: Material | undefined;
   turn: Color;
   castlingRights: SquareSet | undefined;
   castlingToggles: CastlingToggles<boolean>;
+  enabledCastlingToggles: CastlingToggles<boolean>;
   epSquare: Square | undefined;
   remainingChecks: RemainingChecks | undefined;
-  rules: Rules;
+  variant: VariantKey = 'standard';
   halfmoves: number;
   fullmoves: number;
   guessCastlingToggles: boolean;
+  chess960PositionId: number | undefined;
 
   constructor(
     readonly cfg: Config,
@@ -63,9 +66,11 @@ export default class EditorCtrl {
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
-    this.rules = this.cfg.embed ? 'chess' : lichessRules((params.get('variant') || 'standard') as VariantKey);
+    this.variant = this.cfg.embed ? 'standard' : ((params.get('variant') || 'standard') as VariantKey);
     this.initialFen = (cfg.fen || params.get('fen') || INITIAL_FEN).replace(/_/g, ' ');
     this.guessCastlingToggles = false;
+    this.chess960PositionId =
+      params.get('position') === null ? undefined : parseInt(params.get('position')!, 10);
 
     if (!this.cfg.embed) this.options.orientation = params.get('color') === 'black' ? 'black' : 'white';
 
@@ -98,10 +103,12 @@ export default class EditorCtrl {
   }
 
   onChange(): void {
+    this.enabledCastlingToggles = this.computeCastlingToggles();
     if (this.guessCastlingToggles) {
-      this.castlingToggles = this.computeCastlingToggles();
+      this.castlingToggles = this.enabledCastlingToggles;
       this.castlingRights = undefined;
     }
+
     const fen = this.fenFixedEp(this.getFen());
     if (!this.cfg.embed) {
       window.history.replaceState(null, '', this.makeEditorUrl(fen, this.bottomColor()));
@@ -119,16 +126,17 @@ export default class EditorCtrl {
   }
 
   private computeCastlingToggles(): CastlingToggles<boolean> {
+    const chess960Castling = chess960CastlingSquares(this.chess960PositionId);
     const board = this.getSetup().board,
-      whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare('e1')),
-      blackKingOnE8 = board.king.intersect(board.black).has(parseSquare('e8')),
+      whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare(chess960Castling.white.king)!),
+      blackKingOnE8 = board.king.intersect(board.black).has(parseSquare(chess960Castling.black.king)!),
       whiteRooks = board.rook.intersect(board.white),
       blackRooks = board.rook.intersect(board.black);
     return {
-      K: whiteKingOnE1 && whiteRooks.has(parseSquare('h1')),
-      Q: whiteKingOnE1 && whiteRooks.has(parseSquare('a1')),
-      k: blackKingOnE8 && blackRooks.has(parseSquare('h8')),
-      q: blackKingOnE8 && blackRooks.has(parseSquare('a8')),
+      K: whiteKingOnE1 && whiteRooks.has(parseSquare(chess960Castling.white.rookK)!),
+      Q: whiteKingOnE1 && whiteRooks.has(parseSquare(chess960Castling.white.rookQ)!),
+      k: blackKingOnE8 && blackRooks.has(parseSquare(chess960Castling.black.rookK)!),
+      q: blackKingOnE8 && blackRooks.has(parseSquare(chess960Castling.black.rookQ)!),
     };
   }
 
@@ -150,19 +158,23 @@ export default class EditorCtrl {
     };
   }
 
+  private getRules(): Rules {
+    return lichessRules(this.variant);
+  }
+
   getFen(): string {
     return makeFen(this.getSetup());
   }
 
   private getLegalFen(): string | undefined {
-    return setupPosition(this.rules, this.getSetup()).unwrap(
+    return setupPosition(this.getRules(), this.getSetup()).unwrap(
       pos => makeFen(pos.toSetup()),
       _ => undefined,
     );
   }
 
   private isPlayable(): boolean {
-    return setupPosition(this.rules, this.getSetup()).unwrap(
+    return setupPosition(this.getRules(), this.getSetup()).unwrap(
       pos => !pos.isEnd(),
       _ => false,
     );
@@ -202,21 +214,26 @@ export default class EditorCtrl {
     return {
       fen: this.getFen(),
       legalFen: legalFen,
-      playable: this.rules === 'chess' && this.isPlayable(),
+      playable: this.variant === 'standard' && this.isPlayable(),
       enPassantOptions: legalFen ? this.getEnPassantOptions(legalFen) : [],
     };
   }
 
   makeAnalysisUrl(legalFen: string, orientation: Color = 'white'): string {
-    const variant = this.rules === 'chess' ? '' : lichessVariant(this.rules) + '/';
-    return `/analysis/${variant}${urlFen(legalFen)}?color=${orientation}`;
+    const variant = this.variant === 'standard' ? '' : this.variant + '/';
+    const chess960PositionId =
+      this.chess960PositionId === undefined ? '' : `&position=${this.chess960PositionId}`;
+    return `/analysis/${variant}${urlFen(legalFen)}?color=${orientation}${chess960PositionId}`;
   }
 
   makeEditorUrl(fen: string, orientation: Color = 'white'): string {
-    if (fen === INITIAL_FEN && this.rules === 'chess' && orientation === 'white') return this.cfg.baseUrl;
-    const variant = this.rules === 'chess' ? '' : '?variant=' + lichessVariant(this.rules);
+    if (fen === INITIAL_FEN && this.variant === 'standard' && orientation === 'white')
+      return this.cfg.baseUrl;
+    const variant = this.variant === 'standard' ? '' : '?variant=' + this.variant;
+    const chess960PositionId =
+      this.chess960PositionId === undefined ? '' : `&position=${this.chess960PositionId}`;
     const orientationParam = variant ? `&color=${orientation}` : `?color=${orientation}`;
-    return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}${orientationParam}`;
+    return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}${orientationParam}${chess960PositionId}`;
   }
 
   makeImageUrl = (fen: string): string =>
@@ -243,10 +260,15 @@ export default class EditorCtrl {
     this.onChange();
   }
 
-  startPosition = (): boolean => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
+  startPosition = (): boolean =>
+    this.setFen(
+      this.variant === 'chess960' && this.chess960PositionId !== undefined
+        ? chess960IdToFEN(this.chess960PositionId)
+        : makeFen(defaultPosition(this.getRules()).toSetup()),
+    );
 
   clearBoard = (): boolean => {
-    this.guessCastlingToggles = this.rules !== 'antichess';
+    this.guessCastlingToggles = this.variant !== 'antichess';
     const parts = EMPTY_FEN.split(' ');
     parts[1] = this.turn[0];
     return this.setFen(parts.join(' '));
@@ -271,6 +293,8 @@ export default class EditorCtrl {
     this.castlingToggles['K'] = defined(castles.rook.white.h) || this.castlingRights.has(7);
     this.castlingToggles['q'] = defined(castles.rook.black.a) || this.castlingRights.has(56);
     this.castlingToggles['k'] = defined(castles.rook.black.h) || this.castlingRights.has(63);
+
+    this.enabledCastlingToggles = this.computeCastlingToggles();
   };
 
   setFen = (fen: string): boolean =>
@@ -284,11 +308,11 @@ export default class EditorCtrl {
       _ => false,
     );
 
-  setRules(rules: Rules): void {
-    this.rules = rules;
-    if (rules !== 'crazyhouse') this.pockets = undefined;
+  setVariant(variant: VariantKey): void {
+    this.variant = variant;
+    if (variant !== 'crazyhouse') this.pockets = undefined;
     else if (!this.pockets) this.pockets = Material.empty();
-    if (rules !== '3check') this.remainingChecks = undefined;
+    if (variant !== 'threeCheck') this.remainingChecks = undefined;
     else if (!this.remainingChecks) this.remainingChecks = RemainingChecks.default();
     this.onChange();
   }

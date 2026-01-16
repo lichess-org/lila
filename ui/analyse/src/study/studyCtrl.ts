@@ -52,6 +52,7 @@ import { MultiCloudEval } from './multiCloudEval';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view';
 import { displayColumns } from 'lib/device';
+import { completeNode } from '@/util';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -637,6 +638,12 @@ export default class StudyCtrl {
     if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);
     else if (chapterUrl !== location.href) history.replaceState({}, '', chapterUrl);
   };
+  socketSendNodeData = () => {
+    if (!this.isWriting()) return false;
+    const data: { ch: string; sticky?: false } = { ch: this.vm.chapterId };
+    if (!this.vm.mode.sticky) data.sticky = false;
+    return data;
+  };
   socketHandler = (t: string, d: any) => {
     const handler = (this.socketHandlers as any as SocketHandlers)[t];
     if (handler) {
@@ -670,14 +677,11 @@ export default class StudyCtrl {
       this.redraw();
     },
     addNode: d => {
-      if (d.relayPath === '!') d.relayPath = d.p.path + d.n.id;
       const position = d.p,
-        node = {
-          ...d.n,
-          children: d.n.children || [],
-        },
+        node = completeNode(d.n),
         who = d.w,
         sticky = d.s;
+      if (d.relayPath === '!') d.relayPath = d.p.path + d.n.id;
       this.setMemberActive(who);
       this.chapters.addNode(d);
       this.multiCloudEval?.addNode(d);
@@ -694,7 +698,6 @@ export default class StudyCtrl {
       this.data.chapter.relayPath = d.relayPath;
       const newPath = this.ctrl.tree.addNode(node, position.path);
       if (!newPath) return this.xhrReload();
-      if (d.n.dests) this.ctrl.tree.addDests(d.n.dests, newPath);
       if (d.relayPath && !this.ctrl.tree.pathIsMainline(d.relayPath))
         this.ctrl.tree.promoteAt(d.relayPath, true);
       if (sticky) this.data.position.path = newPath;

@@ -92,7 +92,6 @@ final private class ChapterMaker(
           Root(
             ply = game.ply,
             fen = Fen.write(game),
-            check = game.position.check,
             clock = none,
             crazyData = game.position.crazyData,
             children = Branches.empty

@@ -4,18 +4,24 @@ import { copyMeInput, dataIcon, domDialog } from 'lib/view';
 import type { MouchEvent, NumberPair } from '@lichess-org/chessground/types';
 import { dragNewPiece } from '@lichess-org/chessground/drag';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
-import type { Rules } from 'chessops/types';
+import { lichessRules } from 'chessops/compat';
+
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
 import type EditorCtrl from './ctrl';
 import chessground from './chessground';
 import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
 import { fenToEpd } from 'lib/game/chess';
+import { chess960IdToFEN, fenToChess960Id } from './chess960';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
+    class: { 'not-allowed': !ctrl.enabledCastlingToggles[id] },
     attrs: { type: 'checkbox' },
-    props: { checked: ctrl.castlingToggles[id] },
+    props: {
+      checked: ctrl.castlingToggles[id] && ctrl.enabledCastlingToggles[id],
+      disabled: !ctrl.enabledCastlingToggles[id],
+    },
     on: {
       change(e) {
         ctrl.setCastlingToggle(id, (e.target as HTMLInputElement).checked);
@@ -32,7 +38,7 @@ function optgroup(name: string, opts: VNode[]): VNode {
 function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
   return h('form', { attrs: { method: 'post', action: '/study/as' } }, [
     h('input', { attrs: { type: 'hidden', name: 'orientation', value: ctrl.bottomColor() } }),
-    h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.rules } }),
+    h('input', { attrs: { type: 'hidden', name: 'variant', value: lichessRules(ctrl.variant) } }),
     h('input', { attrs: { type: 'hidden', name: 'fen', value: state.legalFen || '' } }),
     h(
       'button',
@@ -45,23 +51,24 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
   ]);
 }
 
-function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
+function variant2option(key: VariantKey, name: string, ctrl: EditorCtrl): VNode {
   return h(
     'option',
-    { attrs: { value: key, selected: key === ctrl.rules } },
+    { attrs: { value: key, selected: key === ctrl.variant } },
     `${i18n.site.variant} | ${name}`,
   );
 }
 
-const allVariants: Array<[Rules, string]> = [
-  ['chess', 'Standard'],
-  ['antichess', 'Antichess'],
-  ['atomic', 'Atomic'],
-  ['crazyhouse', 'Crazyhouse'],
-  ['horde', 'Horde'],
-  ['kingofthehill', 'King of the Hill'],
-  ['racingkings', 'Racing Kings'],
-  ['3check', 'Three-check'],
+const allVariants: Array<[VariantKey, string]> = [
+  ['standard', i18n.variant.standard],
+  ['chess960', i18n.variant.chess960],
+  ['kingOfTheHill', i18n.variant.kingOfTheHill],
+  ['threeCheck', i18n.variant.threeCheck],
+  ['crazyhouse', i18n.variant.crazyhouse],
+  ['antichess', i18n.variant.antichess],
+  ['atomic', i18n.variant.atomic],
+  ['horde', i18n.variant.horde],
+  ['racingKings', i18n.variant.racingKings],
 ];
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
@@ -81,6 +88,34 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
       { on: { click: ctrl.clearBoard }, attrs: icon ? dataIcon(icon) : {} },
       i18n.site.clearBoard,
     );
+
+  const chess960PositionIdSelector =
+    ctrl.variant !== 'chess960'
+      ? null
+      : h('div.metadata', [
+          h(
+            'label.form-label',
+            {
+              attrs: { for: 'chess960-position-id' },
+            },
+            'chess960 position id',
+          ),
+          h('input#chess960-position-id', {
+            attrs: { minlength: 1, maxlength: 3, type: 'number', min: '0', max: '959' },
+            props: {
+              value:
+                ctrl.chess960PositionId !== undefined
+                  ? ctrl.chess960PositionId
+                  : (ctrl.chess960PositionId = Math.floor(Math.random() * 960)),
+            },
+            on: {
+              change(e) {
+                ctrl.chess960PositionId = parseInt((e.target as HTMLSelectElement).value, 10);
+                ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
+              },
+            },
+          }),
+        ]);
 
   return h('div.board-editor__tools', [
     h('div.metadata', [
@@ -188,7 +223,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           })(),
         ]),
     ...(ctrl.cfg.embed
-      ? [h('div.actions', [buttonStart(), buttonClear()])]
+      ? [h('div.actions', [chess960PositionIdSelector, buttonStart(), buttonClear()])]
       : [
           h('div', [
             h(
@@ -197,13 +232,19 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 attrs: { id: 'variants' },
                 on: {
                   change(e) {
-                    ctrl.setRules((e.target as HTMLSelectElement).value as Rules);
+                    const value = (e.target as HTMLSelectElement).value;
+                    if (value === 'chess960') {
+                      ctrl.chess960PositionId = Math.floor(Math.random() * 960);
+                      ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
+                    }
+                    ctrl.setVariant(value as VariantKey);
                   },
                 },
               },
               allVariants.map(x => variant2option(x[0], x[1], ctrl)),
             ),
           ]),
+          chess960PositionIdSelector,
           h('div.actions', [
             buttonStart(licon.Reload),
             buttonClear(licon.Trash),
@@ -269,7 +310,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
   ]);
 }
 
-function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
+function inputs(ctrl: EditorCtrl, fen: FEN): VNode | undefined {
   if (ctrl.cfg.embed) return;
   return h('div.copyables', [
     h('p', [
@@ -296,6 +337,10 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
           keypress(e) {
             const el = e.target as HTMLInputElement;
             if (e.key === 'Enter') {
+              const candidateChess960Id = fenToChess960Id(el.value.trim());
+              if (candidateChess960Id !== undefined) {
+                ctrl.chess960PositionId = candidateChess960Id;
+              }
               el.blur();
             }
           },
@@ -401,11 +446,15 @@ export default function (ctrl: EditorCtrl): VNode {
   const state = ctrl.getState();
   const color = ctrl.bottomColor();
 
-  return h('div.board-editor', { attrs: { style: `cursor: ${makeCursor(ctrl.selected())}` } }, [
-    sparePieces(ctrl, opposite(color), color, 'top'),
-    h('div.main-board', [chessground(ctrl)]),
-    sparePieces(ctrl, color, color, 'bottom'),
-    controls(ctrl, state),
-    inputs(ctrl, state.legalFen || state.fen),
-  ]);
+  return h(
+    `div.board-editor.board-editor--${ctrl.variant}`,
+    { attrs: { style: `cursor: ${makeCursor(ctrl.selected())}` } },
+    [
+      sparePieces(ctrl, opposite(color), color, 'top'),
+      h('div.main-board', [chessground(ctrl)]),
+      sparePieces(ctrl, color, color, 'bottom'),
+      controls(ctrl, state),
+      inputs(ctrl, state.legalFen || state.fen),
+    ],
+  );
 }

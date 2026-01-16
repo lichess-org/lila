@@ -2,7 +2,7 @@
 <resources>
   <string name="chessVideos">बुद्धिबळाचे लघुचलचित्रे</string>
   <string name="allVideosAreFree">सर्व लघुचलचित्रे सर्वांसाठी मोफत आहे.</string>
-  <string name="selectTagsToFilter">लघुचलचित्रांना पाझरत करण्यासाठी टॅग निवडा.</string>
+  <string name="selectTagsToFilter">व्हिडिओ गाळण्यासाठी टॅग निवडा.</string>
   <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">आम्ही आतापर्यंत काळजीपूर्वक %s लघुचलचित्रे निवडले आहेत!</string>
   <string name="freeChessVideos">मोफत बुद्धिबळाचे लघुचलचित्रे</string>
   <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s मोफत, काळजीपूर्वक निवडलेले लघुचलचित्रे</string>

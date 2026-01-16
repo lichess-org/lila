@@ -3,7 +3,7 @@ import { Group, StudyBoard } from 'lib/licon';
 import { json as xhrJson } from 'lib/xhr';
 import type {
   RelayTeamName,
-  RelayTeamStandiings as RelayTeamStandings,
+  RelayTeamStandings,
   RelayTeamStandingsEntry,
   RoundId,
   TourId,
@@ -14,7 +14,6 @@ import { defined } from 'lib';
 export default class RelayTeamsStandings {
   standings: RelayTeamStandings | undefined;
   teamToShow: RelayTeamName | undefined;
-  loading = false;
   constructor(
     private readonly tourId: TourId,
     readonly hideResultsSinceRoundId: () => RoundId | undefined,
@@ -26,7 +25,6 @@ export default class RelayTeamsStandings {
   }
 
   async loadFromXhr() {
-    this.loading = true;
     this.standings = await xhrJson(`/broadcast/${this.tourId}/teams/standings`);
     this.redraw();
   }

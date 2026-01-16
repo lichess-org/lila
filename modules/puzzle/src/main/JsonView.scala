@@ -207,11 +207,9 @@ object JsonView:
         .fold(err => sys.error(s"puzzle ${puzzle.id} $err"), identity)
       game -> chess.Node(
         NewBranch(
-          id = UciCharPair(move.toUci),
           move = Uci.WithSan(move.toUci, game.sans.last),
           metas = Metas(
             fen = Fen.write(game),
-            check = game.position.check,
             ply = game.ply,
             crazyData = none
           )

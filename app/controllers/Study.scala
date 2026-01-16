@@ -226,11 +226,7 @@ final class Study(
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData
-        .add(
-          "treeParts" -> partitionTreeJsonWriter.writes {
-            lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-          }.some
-        )
+        .add("treeParts" -> partitionTreeJsonWriter.writes(chapter.root).some)
         .add("analysis" -> analysis.map { env.analyse.jsonView.bothPlayers(chapter.root.ply, _) })
     )
 

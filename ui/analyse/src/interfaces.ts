@@ -42,7 +42,7 @@ export interface AnalyseData {
   userAnalysis: boolean;
   forecast?: ForecastData;
   sidelines?: Tree.Node[][];
-  treeParts: Tree.NodeOptionalChildren[];
+  treeParts: Tree.NodeIncomplete[];
   practiceGoal?: PracticeGoal;
   clock?: Clock;
   pref: AnalysePref;
@@ -69,7 +69,7 @@ export interface AnalysePref {
 export interface ServerEvalData {
   ch: string;
   analysis?: Analysis;
-  tree: Tree.Node;
+  tree: Tree.NodeIncomplete;
   division?: Division;
 }
 
@@ -114,7 +114,7 @@ export interface Game {
 export interface Opening {
   name: string;
   eco: string;
-  ply: number;
+  ply: Ply;
 }
 
 export interface Division {
