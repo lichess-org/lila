@@ -290,16 +290,16 @@ object NewRoot:
   given defaultNodeJsonWriter: Writes[NewRoot] = makeRootJsonWriter(lichobile = false)
   val lichobileNodeJsonWriter: Writes[NewRoot] = makeRootJsonWriter(lichobile = true)
 
-  def makeTreeWriter[A](alwaysChildren: Boolean)(using wa: OWrites[A]): Writes[Tree[A]] = Writes: tree =>
+  def makeTreeWriter[A](lichobile: Boolean)(using wa: OWrites[A]): Writes[Tree[A]] = Writes: tree =>
     wa.writes(tree.value)
       .add(
         "children",
-        Option.when(alwaysChildren || tree.childAndChildVariations.nonEmpty):
-          nodeListJsonWriter(alwaysChildren).writes(tree.childAndChildVariations)
+        Option.when(lichobile || tree.childAndChildVariations.nonEmpty):
+          nodeListJsonWriter(lichobile).writes(tree.childAndChildVariations)
       )
 
   def makeNodeWriter[A](using OWrites[A]): Writes[ChessNode[A]] =
-    makeTreeWriter(true).contramap(identity)
+    makeTreeWriter(false).contramap(identity)
 
   def makeMainlineWriter[A](using wa: OWrites[A]): Writes[ChessNode[A]] = Writes: tree =>
     wa.writes(tree.value)
