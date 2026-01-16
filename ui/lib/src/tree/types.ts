@@ -1,4 +1,4 @@
-import type { Position, PositionError } from 'chessops';
+import type { Outcome, Position, PositionError } from 'chessops';
 import type { Result } from '@badrap/result';
 
 export type TreeNodeId = string;
@@ -50,9 +50,6 @@ export interface TreeNodeBase {
   fen: FEN;
   comments?: TreeComment[];
   gamebook?: Gamebook;
-  dests?: Dests;
-  drops?: Key[];
-  check?: boolean;
   threat?: LocalEval;
   ceval?: ClientEval;
   eval?: ServerEval;
@@ -71,16 +68,22 @@ export interface TreeNodeBase {
   collapsed?: boolean;
 }
 
+export type PositionResult = Result<Position, PositionError>;
+
 export interface TreeNodeIncomplete extends TreeNodeBase {
   id?: TreeNodeId;
   children?: TreeNodeIncomplete[];
-  position?: () => Result<Position, PositionError>;
+  position?: () => PositionResult; // precomputed
 }
 
 export interface TreeNode extends TreeNodeBase {
   id: TreeNodeId;
   children: TreeNode[];
-  position: () => Result<Position, PositionError>;
+  position: () => PositionResult;
+  dests: () => Dests;
+  drops: () => Key[] | undefined;
+  check: () => boolean;
+  outcome: () => Outcome | undefined;
 }
 
 export interface NodeCrazy {

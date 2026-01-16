@@ -84,7 +84,7 @@ const threatButton = (ctrl: CevalHandler): VNode | null =>
   ctrl.ceval.download
     ? null
     : hl('button.show-threat', {
-        class: { active: ctrl.threatMode(), hidden: !!ctrl.getNode().check },
+        class: { active: ctrl.threatMode(), hidden: !!ctrl.getNode().check() },
         attrs: { 'data-icon': licon.Target, title: i18n.site.showThreat + ' (x)' },
         hook: bind('click', () => ctrl.toggleThreatMode()),
       });
@@ -142,11 +142,12 @@ export function renderGauge(ctrl: CevalHandler): VNode | undefined {
 
 export function renderCeval(ctrl: CevalHandler): VNode[] {
   const ceval = ctrl.ceval;
-  const enabled = !ceval.isPaused && ctrl.cevalEnabled(),
-    client = ctrl.getNode().ceval,
-    server = ctrl.getNode().eval,
+  const node = ctrl.getNode(),
+    enabled = !ceval.isPaused && ctrl.cevalEnabled(),
+    client = node.ceval,
+    server = node.eval,
     threatMode = ctrl.threatMode(),
-    threat = threatMode ? ctrl.getNode().threat : undefined,
+    threat = threatMode ? node.threat : undefined,
     bestEv = threat || getBestEval(ctrl),
     search = ceval.search,
     download = ceval.download;
@@ -170,11 +171,11 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
     percent = 100;
   } else {
     if (!enabled) pearl = hl('pearl', hl('i'));
-    else if (ctrl.outcome() || ctrl.getNode().threefold) pearl = hl('pearl', '-');
+    else if (node.outcome() || node.threefold) pearl = hl('pearl', '-');
     else if (ceval.state === CevalState.Failed)
       pearl = hl('pearl', hl('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } }));
     else pearl = hl('pearl', hl('i.ddloader'));
-    percent = ctrl.outcome() ? 100 : 0;
+    percent = node.outcome() ? 100 : 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
   else if (ceval.search.indeterminate || (percent > 0 && !ceval.isComputing)) percent = 100;
@@ -208,9 +209,9 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
           threatMode ? [i18n.site.showThreat] : engineName(ceval),
           hl(
             'span.info',
-            ctrl.outcome()
+            node.outcome()
               ? [i18n.site.gameOver]
-              : ctrl.getNode().threefold
+              : node.threefold
                 ? [i18n.site.threefoldRepetition]
                 : threatMode
                   ? [threatInfo(ctrl, threat)]

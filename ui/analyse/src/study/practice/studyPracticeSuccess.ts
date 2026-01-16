@@ -35,9 +35,9 @@ const hasBlundered = (comment: Comment | null) =>
 export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolean | null {
   const node = root.node;
   if (!node.uci) return null;
-  const outcome = root.outcome();
-  if (outcome && outcome.winner && outcome.winner !== root.bottomColor()) return false;
-  if (outcome && outcome.winner && outcome.winner === root.bottomColor()) return true;
+  const outcome = node.outcome();
+  if (outcome?.winner !== root.bottomColor()) return false;
+  if (outcome?.winner === root.bottomColor()) return true;
   if (hasBlundered(root.practice!.comment())) return false;
   switch (goal.result) {
     case 'drawIn':

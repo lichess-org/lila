@@ -67,7 +67,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
     };
 
   function commentable(node: TreeNode, bonus = 0): boolean {
-    if (node.tbhit || root.outcome(node)) return true;
+    if (node.tbhit || node.outcome()) return true;
     const ceval = node.ceval;
     return ceval
       ? ceval.depth + bonus >= 15 || (ceval.depth >= 13 && !ceval.cloud && ceval.millis > 3000)
@@ -99,9 +99,9 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
 
   function makeComment(prev: TreeNode, node: TreeNode, path: TreePath): Comment {
     let verdict: Verdict, best: Uci | undefined;
-    const outcome = root.outcome(node);
+    const outcome = node.outcome();
 
-    if (outcome && outcome.winner) verdict = 'goodMove';
+    if (outcome?.winner) verdict = 'goodMove';
     else {
       const isFiftyMoves = node.fen.split(' ')[4] === '100';
       const nodeEval: EvalScore =

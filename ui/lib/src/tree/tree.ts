@@ -16,7 +16,6 @@ export interface TreeWrapper {
   updateAt(path: TreePath, update: (node: TreeNode) => void): MaybeNode;
   addNode(node: TreeNode, path: TreePath): TreePath | undefined;
   addNodes(nodes: TreeNode[], path: TreePath): TreePath | undefined;
-  setDests(dests: Dests, path: TreePath): MaybeNode;
   setShapes(shapes: Shape[], path: TreePath): MaybeNode;
   setCommentAt(comment: TreeComment, path: TreePath): MaybeNode;
   deleteCommentAt(id: string, path: TreePath): MaybeNode;
@@ -217,10 +216,6 @@ export function makeTree(root: TreeNode): TreeWrapper {
     updateAt,
     addNode,
     addNodes,
-    setDests: (dests: Dests, path: TreePath) =>
-      updateAt(path, node => {
-        node.dests = dests;
-      }),
     setShapes: (shapes: Shape[], path: TreePath) =>
       updateAt(path, (node: TreeNode) => {
         node.shapes = shapes.slice();

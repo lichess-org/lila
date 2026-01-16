@@ -50,7 +50,7 @@ export function countChecks(steps: CheckState[], ply: Ply): CheckCount {
   const checks: CheckCount = { ...NO_CHECKS };
   for (const step of steps) {
     if (ply < step.ply) break;
-    if (step.check) {
+    if (step.check === true || (step.check !== false && step.check !== undefined && step.check())) {
       if (step.ply % 2 === 1) checks.white++;
       else checks.black++;
     }

@@ -48,7 +48,6 @@ const makeNode = (pos: Chess, move: Move, ply: number, san: San): TreeNode =>
     fen: makeFen(pos.toSetup()),
     uci: makeUci(move),
     position: () => Result.ok(pos),
-    check: pos.isCheck(),
     children: [],
   });
 

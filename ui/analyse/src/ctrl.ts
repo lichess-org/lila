@@ -17,7 +17,6 @@ import type { Prop, Toggle } from 'lib';
 import { defined, prop, toggle, debounce, throttle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
-import { chessgroundDests } from 'chessops/compat';
 import EvalCache from './evalCache';
 import { ForkCtrl } from './fork';
 import { make as makePractice, type PracticeCtrl } from './practice/practiceCtrl';
@@ -25,7 +24,7 @@ import { make as makeRetro, type RetroCtrl } from './retrospect/retroCtrl';
 import { make as makeSocket, type Socket } from './socket';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
 import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from 'chessops/util';
-import { type Outcome, isNormal, type Move } from 'chessops/types';
+import { isNormal, type Move } from 'chessops/types';
 import { makeFen } from 'chessops/fen';
 import { normalizeMove } from 'chessops/variant';
 import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
@@ -330,7 +329,8 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   private showGround(): void {
-    this.ensureDests();
+    if (this.node.position().isErr || this.node.outcome()) this.ceval.stop();
+    this.pluginUpdate(this.node.fen);
     this.onChange();
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
@@ -340,39 +340,19 @@ export default class AnalyseCtrl implements CevalHandler {
     });
   }
 
-  private ensureDests: () => void = () => {
-    if (defined(this.node.dests)) return;
-    this.node.position().unwrap(
-      position => {
-        this.node.dests = chessgroundDests(position);
-        if (this.data.game.variant.key === 'crazyhouse') {
-          const drops = position.dropDests();
-          if (drops) this.node.drops = Array.from(drops, makeSquare);
-        }
-        this.node.check = position.isCheck();
-        if (position.outcome()) this.ceval.stop();
-      },
-      err => {
-        console.error(err);
-        this.node.dests = new Map();
-      },
-    );
-    this.pluginUpdate(this.node.fen);
-  };
-
   serverMainline = () => this.mainline.slice(0, playedTurns(this.data) + 1);
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
       color = this.turnColor(),
-      dests = this.node.dests,
-      drops = this.node.drops,
+      dests = this.node.dests(),
+      drops = this.node.drops(),
       gamebookPlay = this.gamebookPlay(),
       movableColor = gamebookPlay
         ? gamebookPlay.movableColor()
         : this.practice
           ? this.bottomColor()
-          : dests?.size || drops?.length
+          : dests.size || drops?.length
             ? color
             : undefined,
       config: ChessgroundConfig = {
@@ -382,15 +362,9 @@ export default class AnalyseCtrl implements CevalHandler {
           color: movableColor,
           dests: (movableColor === color && dests) || new Map(),
         },
-        check: !!node.check,
+        check: !!node.check(),
         lastMove: uciToMove(node.uci),
       };
-    if (!dests && !node.check) {
-      // premove while dests are loading from server
-      // can't use when in check because it highlights the wrong king
-      config.turnColor = opposite(color);
-      config.movable!.color = color;
-    }
     config.premovable = {
       enabled: config.movable!.color && config.turnColor !== config.movable!.color,
     };
@@ -452,7 +426,6 @@ export default class AnalyseCtrl implements CevalHandler {
     }
     pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
-    this.pluginUpdate(this.node.fen);
   }
 
   userJump = (path: TreePath): void => {
@@ -543,7 +516,7 @@ export default class AnalyseCtrl implements CevalHandler {
     const color = this.chessground.state.movable.color;
     return (
       (color === 'white' || color === 'black') &&
-      crazyValid(this.chessground, this.node.drops, { color, role }, key)
+      crazyValid(this.chessground, this.node.drops(), { color, role }, key)
     );
   };
 
@@ -555,7 +528,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   userNewPiece = (piece: Piece, pos: Key): void => {
-    if (crazyValid(this.chessground, this.node.drops, piece, pos)) {
+    if (crazyValid(this.chessground, this.node.drops(), piece, pos)) {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
@@ -668,13 +641,6 @@ export default class AnalyseCtrl implements CevalHandler {
 
   motifAllowed = (): boolean => this.study?.isCevalAllowed() !== false;
   motifEnabled = (): boolean => this.motifAllowed() && this.motif.supports(this.data.game.variant.key);
-
-  outcome(node?: TreeNode): Outcome | undefined {
-    return (node || this.node).position().unwrap(
-      pos => pos.outcome(),
-      _ => undefined,
-    );
-  }
 
   promote(path: TreePath, toMainline: boolean): void {
     this.tree.promoteAt(path, toMainline);
@@ -797,7 +763,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   startCeval = () => {
     if (!this.ceval.download) this.ceval.stop();
-    if (this.node.threefold || !this.cevalEnabled() || this.outcome()) return;
+    if (this.node.threefold || !this.cevalEnabled() || this.node.outcome()) return;
     this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
     this.evalCache.fetch(this.path, this.ceval.search.multiPv);
   };
@@ -830,7 +796,7 @@ export default class AnalyseCtrl implements CevalHandler {
       this.showAnalysis() &&
       this.isCevalAllowed() &&
       (this.cevalEnabled() || !!this.node.eval || !!this.node.ceval) &&
-      !this.outcome()
+      !this.node.outcome()
     );
   }
 
@@ -873,7 +839,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   toggleThreatMode = (v = !this.threatMode()) => {
     if (v === this.threatMode()) return;
-    if (this.node.check || !this.showAnalysis()) return;
+    if (this.node.check() || !this.showAnalysis()) return;
     if (!this.cevalEnabled()) return;
     this.threatMode(v);
     if (this.threatMode() && this.practice) this.togglePractice();
