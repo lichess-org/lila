@@ -1,7 +1,8 @@
-import type { TreeNode, TreePath } from 'lib/tree/types';
+import type { TreeNode, TreeNodeIncomplete, TreePath } from 'lib/tree/types';
 import type AnalyseCtrl from './ctrl';
 import { objectStorage, type ObjectStorage } from 'lib/objectStorage';
 import * as treeOps from 'lib/tree/ops';
+import { completeNode } from 'lib/tree/node';
 
 export type DiscloseState = undefined | 'expanded' | 'collapsed';
 
@@ -101,8 +102,19 @@ export class IdbTree {
 
   async saveMoves(force = false): Promise<IDBValidKey | undefined> {
     if (this.ctrl.study || this.ctrl.synthetic || !(this.dirty || force)) return;
-    return this.moveDb?.put(this.id, { root: this.ctrl.tree.root });
+    return this.moveDb?.put(this.id, { root: IdbTree.serializeNode(this.ctrl.tree.root) });
   }
+
+  static serializeNode = (n: TreeNode): TreeNodeIncomplete =>
+    ({
+      ...n,
+      position: undefined,
+      dests: undefined,
+      drops: undefined,
+      check: undefined,
+      outcome: undefined,
+      children: n.children.map(IdbTree.serializeNode),
+    }) as TreeNodeIncomplete;
 
   async merge(): Promise<void> {
     if (!('indexedDB' in window) || !window.indexedDB) return;
@@ -111,7 +123,7 @@ export class IdbTree {
         this.moveDb ??= await objectStorage<MoveState>({ store: 'analyse-state', db: 'lichess' });
         const state = await this.moveDb.get(this.ctrl.data.game.id);
         if (state?.root) {
-          this.ctrl.tree.merge(state.root);
+          this.ctrl.tree.merge(completeNode(this.ctrl.variantKey)(state.root));
           this.dirty = true;
         }
       }
@@ -183,5 +195,5 @@ export class IdbTree {
 }
 
 interface MoveState {
-  root: TreeNode | undefined;
+  root: TreeNodeIncomplete | undefined;
 }
