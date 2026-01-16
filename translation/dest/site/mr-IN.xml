@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">उत्तम चाल बाण</string>
   <string name="showVariationArrows">भिन्नतेचे बाण दाखवा</string>
   <string name="evaluationGauge">मूल्यांकन परिमाण</string>
+  <string name="visualMotifs">दृष्य आकृतीबंध</string>
+  <string name="undefendedPieces">असुरक्षित मोहरे</string>
+  <string name="pinnedPieces">जकडलेले मोहरे</string>
+  <string name="checkableKing">शह मिळू शकेल असा राजा</string>
   <string name="multipleLines">अनेक लाइन</string>
   <string name="cpus">गणक</string>
   <string name="memory">मेमरी</string>
@@ -204,6 +208,7 @@
   <string name="minutesPerSide">दर बाजूचे मिनिट</string>
   <string name="variant">प्रकार</string>
   <string name="variants">प्रकार</string>
+  <string name="variantsDescription">खेळण्याचे आणखी मार्ग</string>
   <string name="timeControl">वेळाचे नियंत्रण</string>
   <string name="realTime">प्रत्यक्ष वेळी</string>
   <string name="correspondence">दीर्घकालीन</string>
@@ -298,6 +303,7 @@
   <string name="standard">मानक</string>
   <string name="customPosition">सानुकूल स्थिति</string>
   <string name="unlimited">अमर्याद</string>
+  <string name="unlimitedDescription">आपल्याला हवा तितका वेळ घ्या</string>
   <string name="mode">पध्दती</string>
   <string name="casual">अनौपचारिक</string>
   <string name="rated">मानांकित</string>
@@ -1018,4 +1024,5 @@
   <string name="search">शोधा</string>
   <string name="clearSearch">शोध हटवा</string>
   <string name="tags">टॅंग्स</string>
+  <string name="enPassant">एन पसांट</string>
 </resources>
