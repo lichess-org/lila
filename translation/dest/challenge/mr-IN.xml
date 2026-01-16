@@ -9,7 +9,7 @@
   <string name="youCannotChallengeX">तुम्ही %s ला आव्हान देऊ शकत नाही.</string>
   <string name="xDoesNotAcceptChallenges">%s आव्हाने स्वीकारत नाही.</string>
   <string name="yourXRatingIsTooFarFromY">तुमची व %2$s च्या %1$s च्या रेटिंग पेक्षा फार फरक आहे.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">अस्थायी %s रेटिंगमुळे आव्हान देऊ शकत नाही.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">अस्थायी %s मानांकनामुळे आव्हान देऊ शकत नाही.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s केवळ मित्रांकडील आव्हाने स्वीकारतात.</string>
   <string name="declineGeneric">मी याक्षणी आव्हाने स्वीकारत नाही.</string>
   <string name="declineLater">माझ्यासाठी ही योग्य वेळ नाही, कृपया नंतर पुन्हा विचारा.</string>
