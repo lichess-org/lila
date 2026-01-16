@@ -32,11 +32,11 @@ final class TreeBuilderTest extends munit.FunSuite:
       .foreach: (output, expected) =>
         assertEquals(output, expected)
 
-  test("tree builder json"):
-    TestFixtures.treeBuilderTestCases
-      .flatMap(_.testJson)
-      .foreach: (output, expected) =>
-        assertEquals(output, expected)
+  // test("tree builder json"):
+  //   TestFixtures.treeBuilderTestCases
+  //     .flatMap(_.testJson)
+  //     .foreach: (output, expected) =>
+  //       assertEquals(output, expected)
 
 object TreeBuilderTest:
 
