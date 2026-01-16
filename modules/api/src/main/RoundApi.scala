@@ -151,13 +151,14 @@ final private[api] class RoundApi(
       pref: Pref,
       initialFen: Option[Fen.Full],
       orientation: Color,
-      owner: Boolean
+      owner: Boolean,
+      addLichobileCompat: Boolean = false
   )(using Option[Me]) =
     owner
       .so(forecastApi.loadForDisplay(pov))
       .map: fco =>
         withForecast(pov, fco):
-          withTree(pov, analysis = none, initialFen, ExportOptions.default):
+          withTree(pov, analysis = none, initialFen, ExportOptions.default, addLichobileCompat):
             jsonView.userAnalysisJson(
               pov,
               pref,
@@ -171,7 +172,8 @@ final private[api] class RoundApi(
       pov: Pov,
       analysis: Option[Analysis],
       initialFen: Option[Fen.Full],
-      withFlags: ExportOptions
+      withFlags: ExportOptions,
+      addLichobileCompat: Boolean = false
   )(obj: JsObject) =
     obj + ("treeParts" ->
       Tree.makePartitionTreeJson(
