@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">अलीकडे बदललेले</string>
   <string name="mostPopular">जास्त लोकप्रिय</string>
   <string name="alphabetical">वर्णक्रमानुसार</string>
+  <string name="relevant">संबंधित</string>
   <string name="addNewChapter">एक नवीन अध्याय जोडा</string>
   <plurals name="nbGames">
     <item quantity="one">%s खेळ</item>
@@ -47,6 +48,7 @@
   <string name="onlyPublicStudiesCanBeEmbedded">फक्त सार्वजनिक अभ्यास वेबसाइटवर टाकता येतात!</string>
   <string name="open">उघडा</string>
   <string name="orientation">अभिमुखता</string>
+  <string name="analysisMode">विश्लेषण पद्धती</string>
   <string name="startFromInitialPosition">प्रारंभिक स्थितीपासून सुरूवात</string>
   <string name="save">जतन करा</string>
   <string name="goodMove">चांगली चाल</string>
