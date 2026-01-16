@@ -750,6 +750,8 @@
   <string name="keyNextBlunder">Наступны зявок</string>
   <string name="keyNextMistake">Наступная памылка</string>
   <string name="keyNextInaccuracy">Наступная недакладнасць</string>
+  <string name="keyPreviousBranch">Папярэдні варыянт</string>
+  <string name="keyNextBranch">Наступны варыянт</string>
   <string name="newTournament">Новы турнір</string>
   <string name="tournamentHomeTitle">Шахматны турнір</string>
   <string name="tournamentHomeDescription">Грайце ў хутка мінаючыя шахматныя турніры! Далучайцеся да любых з афіцыйна запланаваных турніраў ці стварыце ўласны. «Куля», бліц, класічныя, шахматы Фішэра, «кароль гары», тры шахі і яшчэ бясконцае мноства варыянтаў. Весяліцеся.</string>
@@ -775,6 +777,7 @@
   <string name="checkYourEmail">Праверце сваю пошту</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Мы адаслалі ліст на вашу электронную пошту. Націсніце на спасылку ў лісце, каб актываваць ваш уліковы запіс.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Калі вы не бачыце ліст, праверце, магчыма, ён трапіў у тэчку для спаму.</string>
+  <string name="ifYouDoNotGetTheEmail">Калі вы не атрымалі ліст працягам 5 хвілін:</string>
   <string name="weHaveSentYouAnEmailTo">Мы адправілі ліст на вашу пошту %s. Перайдзіце па спасылцы ў лісце, каб аднавіць ваш пароль.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Звярніце ўвагу: рэгіструючыся, вы прымаеце нашыя %s.</string>
   <string name="readAboutOur">Чытай пра нас %s.</string>
@@ -783,10 +786,12 @@
   <string name="downloadAnnotated">Спампаваць з анатацыямі</string>
   <string name="downloadRaw">Спампаваць без анатацый</string>
   <string name="downloadImported">Спампаваць у арыгінальным выглядзе</string>
+  <string name="downloadAllGames">Спампаваць усе гульні</string>
   <string name="crosstable">Лік</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Вы таксама можаце гартаць хады колцам мышы, калі навядзецеся на дошку.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Пракруціць кампутарныя варыяцыі, каб праглядзець іх.</string>
   <string name="analysisShapesHowTo">Каб маляваць стрэлкі і кружкі на дошцы, карыстайцеся Shift + ЛКМ або ПКМ.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl або Shift = чырвоны; Command, Alt, або Meta = сіні; Кожная з іх = жоўты.</string>
   <string name="letOtherPlayersMessageYou">Дазволіць дасылаць вам паведамленні</string>
   <string name="receiveForumNotifications">Атрымоўваць апавяшчэнні, пры згадванні на форуме</string>
   <string name="shareYourInsightsData">Дзяліцца вашым шахматнымі аналітычнымі данымі</string>
@@ -794,6 +799,7 @@
   <string name="withFriends">З сябрамі</string>
   <string name="withEverybody">З усімі</string>
   <string name="kidMode">Дзіцячы рэжым</string>
+  <string name="kidModeIsEnabled">Дзіцячы рэжым уключаны.</string>
   <string name="kidModeExplanation">Гэта для бяспекі. У дзіцячым рэжыме адключаны ўсе камунікацыі на сайце. Уключыце гэта для вашых дзяцей і школьнікаў, каб абараніць іх ад іншых карыстачоў Інтэрнэту.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">У дзіцячым рэжыме лагатып lichess атрымвае значок у выглядзе %s, так што вы ведаеце, што вашы дзеці знаходзяцца ў бяспецы.</string>
   <string name="enableKidMode">Уключыць дзіцячы рэжым</string>
@@ -804,6 +810,7 @@
   <string name="playChessEverywhere">Гуляйце ў шахматы дзе заўгодна</string>
   <string name="everybodyGetsAllFeaturesForFree">Кожны бясплатна атрымлівае ўсе магчымасці</string>
   <string name="viewTheSolution">Паглядзець рашэнне</string>
+  <string name="noChallenges">Няма выклікаў.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Даступна на %s мове!</item>
     <item quantity="few">Даступна на %s мовах!</item>
@@ -818,6 +825,7 @@
   <string name="anonymous">Ананімны гулец</string>
   <string name="yourScore">Ваш лік: %s</string>
   <string name="language">Мова</string>
+  <string name="allLanguages">Усе мовы</string>
   <string name="background">Фон</string>
   <string name="light">Светлы</string>
   <string name="dark">Цёмны</string>
@@ -845,6 +853,7 @@
   <string name="notifications">Апавяшчэнні</string>
   <string name="notificationsX">Апавяшчэнні: %1$s</string>
   <string name="perfRatingX">Рэйтынг: %s</string>
+  <string name="yourRatingIsX">Ваш рэйтынг %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на першы ход</item>
     <item quantity="few">%s секунды на першы ход</item>
@@ -900,12 +909,14 @@
   <string name="playVariationToCreateConditionalPremoves">Згуляйце варыянт, каб стварыць умоўныя ходы на апярэджанне</string>
   <string name="noConditionalPremoves">Хады на апярэджанне без умоў</string>
   <string name="playX">Згуляць %s</string>
+  <string name="challengeX">Выклікаў %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">і захаваць %s паслядоўнасць</item>
     <item quantity="few">і захаваць %s паслядоўнасці</item>
     <item quantity="many">і захаваць %s паслядоўнасцяў</item>
     <item quantity="other">і захаваць %s паслядоўнасцяў</item>
   </plurals>
+  <string name="clickHereToReadIt">Націсніце тут, каб прачытаць</string>
   <string name="sorry">Прабачце :(</string>
   <string name="weHadToTimeYouOutForAWhile">Нам прыйшлося на нейкі час выдаць вам тайм-аўт.</string>
   <string name="why">Чаму?</string>
@@ -927,6 +938,8 @@
   <string name="agreementPolicy">Я згаджаюся, што я буду прытрымлівацца ўсіх правіл Lichess.</string>
   <string name="searchOrStartNewDiscussion">Знайсці размову або пачаць новую</string>
   <string name="edit">Рэдагаваць</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ультракуля</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Куля</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Бліц</string>
   <string name="rapid">Хуткія</string>
   <string name="classical">Класіка</string>
@@ -1019,6 +1032,16 @@
   <string name="switchSides">Змяніць бок</string>
   <string name="closingAccountWithdrawAppeal">Закрыцце вашага ўліковага запісу адкліча вашу апеляцыю</string>
   <string name="ourEventTips">Нашы парады па арганізацыі падзей</string>
+  <string name="instructions">Інструкцыі</string>
+  <string name="showMeEverything">Паказаць усё</string>
   <string name="lichessPatronInfo">Lichess - гэта дабрачынная і цалкам бясплатная праграма з адкрытым зыходным кодам.
 Усе аперацыйныя выдаткі, распрацоўка і шахматны кантэнт фінансуюцца выключна за кошт ахвяраванняў карыстальнікаў.</string>
+  <string name="stats">Статыстыка</string>
+  <string name="accessibility">Спецыяльныя магчымасці</string>
+  <string name="online" comment="status of a user">у сетцы</string>
+  <string name="offline" comment="status of a user">не ў сетцы</string>
+  <string name="search">Пошук</string>
+  <string name="clearSearch">Ачысціць пошук</string>
+  <string name="tags">Тэгі</string>
+  <string name="enPassant">Узяцце на праходзе</string>
 </resources>
