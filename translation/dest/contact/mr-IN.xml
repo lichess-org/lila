@@ -12,11 +12,13 @@
   <string name="reopenOnThisPage">या पानावर तुम्हाला तुमचे खाते परत सुरू करता येईल. पण ते एकदाच काम करेल.</string>
   <string name="doNotAskByEmailToReopen">आम्हाला ई-मेल वरून खाते परत सुरू करण्यास सांगू नका, आम्ही ते करणार नाही.</string>
   <string name="wantChangeUsername">मला सदस्यनाव बदलायचे आहे</string>
+  <string name="cantClearHistory">तुमचा डावांचा, कोड्यांचा अथवा मानांकनाचा इतिहास पुसणे शक्य नाही.</string>
   <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">प्याद्याला मारणे अवैध</string>
   <string name="calledEnPassant">त्याला म्हणतात \"एन पसांट\", तो एक बुद्धिबळाचा नियम आहे.</string>
   <string name="illegalCastling">किल्लेकोट अवैध किंवा असंभव</string>
   <string name="castlingRules">तुम्हाला किल्लेकोटाचे नियम कळलेत याची खात्री करा</string>
   <string name="tryCastling">बुद्धिबळातील किल्लेकोटाचा सराव करण्यासाठी हा छोटा खेळ खेळा</string>
   <string name="insufficientMaterial">शहमातीसाठी अपर्याप्त सोंगट्या</string>
+  <string name="noRatingPoints">मानांकनाचे गुण मिळाले नाहीत</string>
   <string name="otherRestriction">दुसरा निर्बंध</string>
 </resources>
