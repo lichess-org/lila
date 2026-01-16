@@ -447,7 +447,7 @@ final class Study(
           }(studyUnauthorized(study), studyForbidden(study))
         }
 
-  def exportPgn(username: UserStr) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
+  def apiExportPgn(username: UserStr) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
     val name =
       if username.value == "me"
       then ctx.me.fold(UserName("me"))(_.username)
@@ -457,7 +457,7 @@ final class Study(
     val makeStream = env.study.studyRepo
       .sourceByOwner(userId, isMe)
       .flatMapConcat(env.study.pgnDump.chaptersOf(_, _ => requestPgnFlags))
-      .throttle(16, 1.second)
+      .throttle(if isMe then 20 else 10, 1.second)
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(userId.some)(makeStream): source =>
       Ok.chunked(source)
         .asAttachmentStream(s"${name}-${if isMe then "all" else "public"}-studies.pgn")
