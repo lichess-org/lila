@@ -270,8 +270,8 @@
   <string name="rank">मानांकन</string>
   <string name="rankX">मानांकन: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">मानांकन प्रत्येक मिनिटाला अद्यतनित केला जातो</item>
-    <item quantity="other">मानांकन प्रत्येक %s मिनिटाला अद्यतनित केला जातो</item>
+    <item quantity="one">क्रमवारी प्रत्येक मिनिटाला अद्यतनित केली जाते</item>
+    <item quantity="other">क्रमवारी प्रत्येक %s मिनिटाला अद्यतनित केली जाते</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s कोडी</item>
@@ -832,7 +832,7 @@
   <string name="notifications">Notifications</string>
   <string name="notificationsX">%1$s सूचना</string>
   <string name="perfRatingX">मानांकन: %s</string>
-  <string name="yourRatingIsX">तुमचे रेटिंग आहे %s</string>
+  <string name="yourRatingIsX">तुमचे मानांकन आहे %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
     <item quantity="other">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
@@ -950,7 +950,7 @@
   <string name="gameVsX">खेळ विरुद्ध %1$s</string>
   <string name="resVsX">%1$s विरुद्ध %2$s</string>
   <string name="lostAgainstTOSViolator">आपला Lichess TOS चे नियम भंग करणार्‍या खेळाडुकडून पराभव झाला</string>
-  <string name="refundXpointsTimeControlY">परतावा: %2$s चे %1$s रेटिंग गुण.</string>
+  <string name="refundXpointsTimeControlY">परतावा: %2$s चे %1$s मानांकन गुण.</string>
   <string name="timeAlmostUp">वेळ संपत आलेली आहे!</string>
   <string name="clickToRevealEmailAddress">[ईमेल पाहण्यासाठी क्लिक करा]</string>
   <string name="download">डाउनलोड करा</string>
