@@ -1,7 +1,7 @@
 import { hl, type VNode, type LooseVNodes } from 'lib/view';
 import { snabDialog, spinnerVdom } from 'lib/view';
 import type LobbyController from '@/ctrl';
-import { variantPicker, variantModal } from './components/variantPicker';
+import { variantPicker } from './components/variantPicker';
 import { gameModeButtons } from './components/gameModeButtons';
 import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
 import { colorButtons } from './components/colorButtons';
@@ -51,7 +51,6 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
         dlg.show();
       },
     }),
-    variantModal(ctrl),
   ].filter(v => v !== null) as VNode[];
 }
 

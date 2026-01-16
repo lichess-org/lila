@@ -98,7 +98,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             {
               attrs: { for: 'chess960-position-id' },
             },
-            'chess960 position id',
+            'Chess960 position ID:',
           ),
           h('input#chess960-position-id', {
             attrs: { minlength: 1, maxlength: 3, type: 'number', min: '0', max: '959' },
@@ -110,8 +110,13 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             },
             on: {
               change(e) {
-                ctrl.chess960PositionId = parseInt((e.target as HTMLSelectElement).value, 10);
+                const candidateId = parseInt((e.target as HTMLSelectElement).value || '0', 10);
+                if (!Number.isInteger(candidateId) || candidateId < 0 || candidateId > 959) return;
+                ctrl.chess960PositionId = candidateId;
                 ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
+              },
+              keydown(e) {
+                if (e.key === 'Enter') (e.target as HTMLElement).blur();
               },
             },
           }),
