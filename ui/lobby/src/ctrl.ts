@@ -77,32 +77,45 @@ export default class LobbyController {
       const forceOptions: ForceSetupOptions = {};
       const urlParams = new URLSearchParams(location.search);
       const friendUser = urlParams.get('user') ?? undefined;
-      const minutesPerSide = urlParams.get('minutesPerSide');
-      const increment = urlParams.get('increment');
       const variant = urlParams.get('variant');
-      const time = urlParams.get('time');
 
       if (variant) forceOptions.variant = variant as VariantKey;
-
-      if (minutesPerSide) {
-        forceOptions.time = parseInt(minutesPerSide);
-      }
-
-      if (increment) {
-        forceOptions.increment = parseInt(increment);
-      }
-
-      if (time === 'realTime') {
-        if (locationHash === 'hook') this.tab = 'real_time';
-        forceOptions.timeMode = 'realTime';
-      } else if (time === 'correspondence') {
-        if (locationHash === 'hook') this.tab = 'seeks';
-        forceOptions.timeMode = 'correspondence';
-      }
 
       if (locationHash !== 'hook' && urlParams.get('fen')) {
         forceOptions.fen = urlParams.get('fen')!;
         forceOptions.variant = 'fromPosition';
+      }
+
+      let timeMode = urlParams.get('time');
+      const days = urlParams.get('days');
+      const minutesPerSide = urlParams.get('minutesPerSide');
+      const increment = urlParams.get('increment');
+
+      if (!timeMode) {
+        if (days) timeMode = 'correspondence';
+        else if (minutesPerSide || increment) timeMode = 'realTime';
+      }
+
+      if (timeMode === 'correspondence') {
+        forceOptions.timeMode = 'correspondence';
+        if (days) forceOptions.days = parseInt(days);
+        if (locationHash === 'hook') this.tab = 'seeks';
+      } else if (timeMode === 'realTime') {
+        forceOptions.timeMode = 'realTime';
+        if (minutesPerSide) forceOptions.time = parseInt(minutesPerSide);
+        if (increment) forceOptions.increment = parseInt(increment);
+        if (locationHash === 'hook') this.tab = 'real_time';
+      } else if (timeMode === 'unlimited') {
+        if (locationHash === 'hook') this.tab = 'seeks';
+        forceOptions.timeMode = 'unlimited';
+        forceOptions.mode = 'casual';
+      }
+
+      if (locationHash === 'hook' || locationHash === 'friend') {
+        const gameMode = urlParams.get('gameMode');
+        if (gameMode === 'casual' || gameMode === 'rated') {
+          forceOptions.mode = gameMode;
+        }
       }
 
       pubsub.after('polyfill.dialog').then(() => {
