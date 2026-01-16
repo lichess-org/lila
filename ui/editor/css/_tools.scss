@@ -56,6 +56,13 @@
           width: 9ch;
         }
       }
+
+      #chess960-position-id {
+        margin-left: 0.5rem;
+        &:invalid {
+          border-color: $c-error;
+        }
+      }
     }
 
     .actions {
