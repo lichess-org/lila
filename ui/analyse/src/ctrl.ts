@@ -1,6 +1,6 @@
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
 import * as keyboard from './keyboard';
-import { treeReconstruct, plyColor, addCrazyData } from './util';
+import { treeReconstruct, addCrazyData } from './util';
 import { plural } from './view/util';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
@@ -320,7 +320,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   turnColor(): Color {
-    return plyColor(this.node.ply);
+    return this.node.ply % 2 === 0 ? 'white' : 'black';
   }
 
   togglePlay(delay: AutoplayDelay): void {

@@ -2,8 +2,6 @@ import { Position } from 'chessops';
 import type { TreeNode, TreeNodeIncomplete } from 'lib/tree/types';
 import { completeNode } from 'lib/tree/node';
 
-export const plyColor = (ply: number): Color => (ply % 2 === 0 ? 'white' : 'black');
-
 export function readOnlyProp<A>(value: A): () => A {
   return () => value;
 }
