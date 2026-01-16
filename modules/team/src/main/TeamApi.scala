@@ -110,7 +110,7 @@ final class TeamApi(
   def hasJoinedTooManyTeams(using me: Me) =
     countTeamsOf(me).dmap(Team.maxJoin(me) < _)
 
-  def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
+  def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.nonEmpty)
 
   def joinedTeamIdsOfUserAsSeenBy(of: User)(using viewer: Option[Me]): Fu[List[TeamId]] =
     cached
