@@ -42,6 +42,7 @@ import { backToLiveView } from '../study/relay/relayView';
 import { findTag } from '../study/studyChapters';
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import type { ClientEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
+import { h } from 'snabbdom';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -293,18 +294,18 @@ export function renderResult(ctrl: AnalyseCtrl): VNode[] {
   return [];
 }
 
-export const renderIndexAndMove = (node: TreeNode, withEval: boolean, withGlyphs: boolean): LooseVNodes =>
-  node.san ? [renderIndex(node.ply, true), renderMoveNodes(node, withEval, withGlyphs)] : undefined;
+export const renderIndexAndMove = (node: TreeNode, withEval: boolean, withGlyphs: boolean): VNode[] =>
+  node.san ? [renderIndex(node.ply, true), ...renderMoveNodes(node, withEval, withGlyphs)] : [];
 
 export const renderIndex = (ply: Ply, withDots: boolean): VNode =>
-  hl(`index.sbhint${ply}`, plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
+  h(`index.sbhint${ply}`, plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 
 export function renderMoveNodes(
   node: TreeNode,
   withEval: boolean,
   withGlyphs: boolean,
   ev?: ClientEval | ServerEval | false,
-): LooseVNodes {
+): VNode[] {
   ev ??= node.ceval ?? node.eval; // ev = false will override withEval
   const evalText = !ev
     ? ''
@@ -313,12 +314,12 @@ export function renderMoveNodes(
       : ev?.mate !== undefined
         ? `#${ev.mate}`
         : '';
-  return [
-    hl('san', fixCrazySan(node.san!)),
-    withGlyphs && node.glyphs?.map(g => hl('glyph', { attrs: { title: g.name } }, g.symbol)),
-    withEval && !!node.shapes?.length && hl('shapes'),
-    withEval && evalText && hl('eval', evalText.replace('-', '−')),
-  ];
+  const nodes = [h('san', fixCrazySan(node.san!))];
+  if (withGlyphs && node.glyphs)
+    nodes.concat(node.glyphs.map(g => h('glyph', { attrs: { title: g.name } }, g.symbol)));
+  if (withEval && node.shapes?.length) nodes.push(h('shapes'));
+  if (withEval && evalText) nodes.push(h('eval', evalText.replace('-', '−')));
+  return nodes;
 }
 
 const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf): VNode =>
