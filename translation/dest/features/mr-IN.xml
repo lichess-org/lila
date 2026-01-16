@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="standardChessAndX" comment="%s is 8 variants">पारंपारिक बुद्धिबळ व %s</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">अल्ट्राबुलेट, बुलेट, ब्लिट्झ, द्रुतगती, पारंपारिक, पत्रव्यवहार बुद्धिबळ</string>
 </resources>
