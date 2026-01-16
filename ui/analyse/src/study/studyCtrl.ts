@@ -52,8 +52,8 @@ import { MultiCloudEval } from './multiCloudEval';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view';
 import { displayColumns } from 'lib/device';
-import { completeNode } from '@/util';
 import type { Glyph, Shape, TreeComment, TreeNode, TreePath } from 'lib/tree/types';
+import { completeNode } from 'lib/tree/node';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -679,7 +679,7 @@ export default class StudyCtrl {
     },
     addNode: d => {
       const position = d.p,
-        node = completeNode(d.n),
+        node = completeNode(this.ctrl.variantKey)(d.n),
         who = d.w,
         sticky = d.s;
       if (d.relayPath === '!') d.relayPath = d.p.path + d.n.id;

@@ -1,6 +1,6 @@
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
 import * as keyboard from './keyboard';
-import { treeReconstruct, plyColor, completeNode, addCrazyData } from './util';
+import { treeReconstruct, plyColor, addCrazyData } from './util';
 import { plural } from './view/util';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
@@ -17,7 +17,7 @@ import type { Prop, Toggle } from 'lib';
 import { defined, prop, toggle, debounce, throttle, requestIdleCallback, propWithEffect } from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
-import { chessgroundDests, lichessRules } from 'chessops/compat';
+import { chessgroundDests } from 'chessops/compat';
 import EvalCache from './evalCache';
 import { ForkCtrl } from './fork';
 import { make as makePractice, type PracticeCtrl } from './practice/practiceCtrl';
@@ -26,10 +26,8 @@ import { make as makeSocket, type Socket } from './socket';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
 import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from 'chessops/util';
 import { type Outcome, isNormal, type Move } from 'chessops/types';
-import { makeFen, parseFen } from 'chessops/fen';
-import type { Position, PositionError } from 'chessops/chess';
-import type { Result } from '@badrap/result';
-import { normalizeMove, setupPosition } from 'chessops/variant';
+import { makeFen } from 'chessops/fen';
+import { normalizeMove } from 'chessops/variant';
 import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
 import type { AnaMove } from './study/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
@@ -50,6 +48,7 @@ import { displayColumns } from 'lib/device';
 import MotifCtrl from './motif/motifCtrl';
 import { makeSanAndPlay } from 'chessops/san';
 import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
+import { completeNode } from 'lib/tree/node';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;
@@ -233,7 +232,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.ongoing = !this.synthetic && playable(data);
     this.treeView.hidden = true;
     const prevTree = merge && this.tree.root;
-    this.tree = makeTree(treeReconstruct(this.data.treeParts, this.data.sidelines));
+    this.tree = makeTree(treeReconstruct(this.data.treeParts, this.variantKey, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
     const mainline = treeOps.mainlineNodeList(this.tree.root);
     if (this.data.game.status.name === 'draw') {
@@ -250,7 +249,11 @@ export default class AnalyseCtrl implements CevalHandler {
     site.sound.preloadBoardSounds();
   }
 
-  private makeInitialPath = (): string => {
+  get variantKey(): VariantKey {
+    return this.data.game.variant.key;
+  }
+
+  private makeInitialPath = (): TreePath => {
     // if correspondence, always use latest actual move to set 'current' style
     if (this.ongoing) return treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     const loc = window.location,
@@ -339,7 +342,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   private ensureDests: () => void = () => {
     if (defined(this.node.dests)) return;
-    this.position(this.node).unwrap(
+    this.node.position().unwrap(
       position => {
         this.node.dests = chessgroundDests(position);
         if (this.data.game.variant.key === 'crazyhouse') {
@@ -606,10 +609,10 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private addNodeLocally(move: Move): void {
-    const pos = this.position(this.node).unwrap();
+    const pos = this.node.position().unwrap();
     move = normalizeMove(pos, move);
     const san = makeSanAndPlay(pos, move);
-    const node = completeNode({
+    const node = completeNode(this.variantKey)({
       ply: this.node.ply + 1,
       uci: makeUci(move),
       san,
@@ -667,15 +670,10 @@ export default class AnalyseCtrl implements CevalHandler {
   motifEnabled = (): boolean => this.motifAllowed() && this.motif.supports(this.data.game.variant.key);
 
   outcome(node?: TreeNode): Outcome | undefined {
-    return this.position(node || this.node).unwrap(
+    return (node || this.node).position().unwrap(
       pos => pos.outcome(),
       _ => undefined,
     );
-  }
-
-  position(node: TreeNode): Result<Position, PositionError> {
-    const setup = parseFen(node.fen).unwrap();
-    return setupPosition(lichessRules(this.data.game.variant.key), setup);
   }
 
   promote(path: TreePath, toMainline: boolean): void {
@@ -958,7 +956,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   mergeAnalysisData(data: ServerEvalData) {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
-    const tree = completeNode(data.tree);
+    const tree = completeNode(this.variantKey)(data.tree);
     this.tree.merge(tree);
     this.data.analysis = data.analysis;
     if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(tree, this.partialAnalysisCallback);

@@ -16,7 +16,7 @@ import type {
 } from './interfaces';
 import { makeTree, treeOps, treePath, type TreeWrapper } from 'lib/tree';
 import { Chess, normalizeMove } from 'chessops/chess';
-import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
+import { chessgroundDests } from 'chessops/compat';
 import { CevalCtrl } from 'lib/ceval';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
@@ -36,6 +36,8 @@ import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view';
 import { type WithGround } from 'lib/game/ground';
 import type { TreeNode, TreePath } from 'lib/tree/types';
+import { completeNode } from 'lib/tree/node';
+import { Result } from '@badrap/result';
 
 export default class PuzzleCtrl implements CevalHandler {
   data: PuzzleData;
@@ -342,15 +344,14 @@ export default class PuzzleCtrl implements CevalHandler {
     move = normalizeMove(pos, move);
     const san = makeSanAndPlay(pos, move);
     this.addNode(
-      {
+      completeNode('standard')({
         ply: 2 * (pos.fullmoves - 1) + (pos.turn === 'white' ? 0 : 1),
         fen: makeFen(pos.toSetup()),
-        id: scalachessCharPair(move),
         uci: makeUci(move),
         san,
+        position: () => Result.ok(pos),
         check: pos.isCheck(),
-        children: [],
-      },
+      }),
       path,
     );
   };

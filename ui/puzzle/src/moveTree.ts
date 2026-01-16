@@ -2,20 +2,19 @@ import { Chess, normalizeMove } from 'chessops/chess';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
 import { makeUci, parseUci } from 'chessops/util';
-import { scalachessCharPair } from 'chessops/compat';
 import { type TreeWrapper, path as pathOps } from 'lib/tree/tree';
 import { isNormal, type Move, type NormalMove } from 'chessops/types';
 import type PuzzleCtrl from './ctrl';
-import type { TreeNode, TreePath } from 'lib/tree/types';
+import type { TreeNode, TreePath } from '../../lib/src/tree/types';
+import { completeNode } from 'lib/tree/node';
+import { Result } from '@badrap/result';
 
 export function pgnToTree(pgn: San[]): TreeNode {
   const pos = Chess.default();
-  const root: TreeNode = {
+  const root: TreeNode = completeNode('standard')({
     ply: 0,
-    id: '',
     fen: INITIAL_FEN,
-    children: [],
-  } as TreeNode;
+  });
   let current = root;
   pgn.forEach((san, i) => {
     const move = parseSan(pos, san)!;
@@ -42,15 +41,16 @@ export function mergeSolution(root: TreeWrapper, initialPath: TreePath, solution
   root.addNodes(nodes, initialPath);
 }
 
-const makeNode = (pos: Chess, move: Move, ply: number, san: San): TreeNode => ({
-  ply,
-  san,
-  fen: makeFen(pos.toSetup()),
-  id: scalachessCharPair(move),
-  uci: makeUci(move),
-  check: pos.isCheck(),
-  children: [],
-});
+const makeNode = (pos: Chess, move: Move, ply: number, san: San): TreeNode =>
+  completeNode('standard')({
+    ply,
+    san,
+    fen: makeFen(pos.toSetup()),
+    uci: makeUci(move),
+    position: () => Result.ok(pos),
+    check: pos.isCheck(),
+    children: [],
+  });
 
 export function nextCorrectMove(ctrl: PuzzleCtrl): NormalMove | undefined {
   if (ctrl.mode === 'view') return;

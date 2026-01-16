@@ -8,11 +8,12 @@ const isDrawish = (node: TreeNode): boolean | null =>
   hasSolidEval(node) ? !node.ceval!.mate && Math.abs(node.ceval!.cp!) < 150 : null;
 
 // returns null if not deep enough to know
-const isWinning = (ctrl: AnalyseCtrl, node: TreeNode, goalCp: number, color: Color): boolean | null => {
+const isWinning = (node: TreeNode, goalCp: number, color: Color): boolean | null => {
   if (!hasSolidEval(node)) {
-    const pos = ctrl.position(node).unwrap();
+    const pos = node.position().unwrap();
     return pos.isStalemate() || pos.isInsufficientMaterial() ? false : null;
   }
+
   const cp = node.ceval!.mate! > 0 ? 99999 : node.ceval!.mate! < 0 ? -99999 : node.ceval!.cp;
   return color === 'white' ? cp! >= goalCp : cp! <= goalCp;
 };
@@ -48,7 +49,7 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
       if (nbMoves >= goal.moves!) return isDrawish(node);
       break;
     case 'evalIn':
-      if (nbMoves >= goal.moves!) return isWinning(root, node, goal.cp!, root.bottomColor());
+      if (nbMoves >= goal.moves!) return isWinning(node, goal.cp!, root.bottomColor());
       break;
     case 'mateIn': {
       if (nbMoves > goal.moves!) return false;
@@ -59,11 +60,11 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
     }
     case 'promotion':
       if (!node.uci[4]) return null;
-      return isWinning(root, node, goal.cp!, root.bottomColor());
+      return isWinning(node, goal.cp!, root.bottomColor());
     case 'mate':
       if (node.threefold) return false;
       if (isDrawish(node)) return false;
-      if (root.position(node).unwrap().isStalemate()) return false;
+      if (node.position().unwrap().isStalemate()) return false;
   }
   return null;
 }

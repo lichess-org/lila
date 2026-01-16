@@ -134,7 +134,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
       best: best
         ? {
             uci: best,
-            san: root.position(prev).unwrap(
+            san: prev.position().unwrap(
               pos => makeSan(pos, parseUci(best)!),
               _ => '--',
             ),

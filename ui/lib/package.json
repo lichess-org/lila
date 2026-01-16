@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@badrap/result": "^0.3.1",
     "@lichess-org/stockfish-web": "0.0.14",
     "@lichess-org/zerofish": "^0.0.40",
     "@types/debounce-promise": "^3.1.9",

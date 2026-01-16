@@ -1,3 +1,6 @@
+import type { Position, PositionError } from 'chessops';
+import type { Result } from '@badrap/result';
+
 export type TreeNodeId = string;
 export type TreePath = string;
 
@@ -71,12 +74,13 @@ export interface TreeNodeBase {
 export interface TreeNodeIncomplete extends TreeNodeBase {
   id?: TreeNodeId;
   children?: TreeNodeIncomplete[];
-  // position?: () => Position;
+  position?: () => Result<Position, PositionError>;
 }
 
 export interface TreeNode extends TreeNodeBase {
   id: TreeNodeId;
   children: TreeNode[];
+  position: () => Result<Position, PositionError>;
 }
 
 export interface NodeCrazy {
