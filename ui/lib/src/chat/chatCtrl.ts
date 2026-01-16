@@ -41,7 +41,7 @@ export class ChatCtrl {
     readonly redraw: Redraw,
   ) {
     this.data = opts.data;
-    this.chatEnabled = this.data
+    this.chatEnabled = this.data // tmp BC, remove check
       ? storedBooleanProp(`chat.${this.data.resourceType}.enabled`, true)
       : prop(false);
     this.storedTabKey = storedStringProp(`chat.${opts.plugin ? opts.plugin.key + '.' : ''}tab`, 'discussion');
