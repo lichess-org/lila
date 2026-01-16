@@ -151,7 +151,6 @@ export class IdbTree {
   }
 
   private isCollapsible(node: TreeNode, isMainline: boolean): boolean {
-    if (!node) return false;
     const [first, second, third] = node.children.filter(n => this.ctrl.showFishnetAnalysis() || !n.comp);
     return Boolean(
       first?.forceVariation ||
