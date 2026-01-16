@@ -133,8 +133,24 @@ object RelayTeam:
         )
     def povMatches: Pair[POVMatch] =
       teams.bimap(
-        t => POVMatch(roundId, teams.b.name, t.players, pointsFor(t.name), scoreFor(t.name)),
-        t => POVMatch(roundId, teams.a.name, t.players, pointsFor(t.name), scoreFor(t.name))
+        t =>
+          POVMatch(
+            roundId,
+            teams.b.name,
+            teams.b.players,
+            pointsFor(t.name),
+            scoreFor(t.name),
+            t.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
+          ),
+        t =>
+          POVMatch(
+            roundId,
+            teams.a.name,
+            teams.a.players,
+            pointsFor(t.name),
+            scoreFor(t.name),
+            t.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
+          )
       )
     def povMatch(teamName: TeamName): Option[POVMatch] =
       if teams.a.name == teamName then Some(povMatches.a)
@@ -146,7 +162,8 @@ object RelayTeam:
       opponentName: TeamName,
       players: RelayPlayer.RelayPlayers,
       points: Option[Points],
-      score: Option[Float]
+      mp: Option[Float],
+      gp: Option[Float]
   )
   object POVMatch:
     object json:
@@ -161,7 +178,8 @@ object RelayTeam:
             "players" -> m.players.values.toList.sortBy(_.rating.map(-_.value))
           )
           .add("points" -> m.points)
-          .add("score" -> m.score)
+          .add("mp" -> m.mp)
+          .add("gp" -> m.gp)
 
 final class RelayTeamTable(
     roundRepo: RelayRoundRepo,
