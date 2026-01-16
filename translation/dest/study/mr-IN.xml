@@ -47,8 +47,11 @@
   <string name="readMoreAboutEmbedding">तुमच्या वेबसाइटवर टाकण्याबद्दल वाचा</string>
   <string name="onlyPublicStudiesCanBeEmbedded">फक्त सार्वजनिक अभ्यास वेबसाइटवर टाकता येतात!</string>
   <string name="open">उघडा</string>
+  <string name="importFromChapterX">%s मधून आयात करा</string>
   <string name="orientation">अभिमुखता</string>
   <string name="analysisMode">विश्लेषण पद्धती</string>
+  <string name="saveChapter">आध्याय जतन करा</string>
+  <string name="chapterX">आध्याय %s</string>
   <string name="startFromInitialPosition">प्रारंभिक स्थितीपासून सुरूवात</string>
   <string name="save">जतन करा</string>
   <string name="goodMove">चांगली चाल</string>
@@ -86,4 +89,5 @@
   <string name="playAgain">परत खेळा</string>
   <string name="whatWouldYouPlay">या स्थितीत तुम्ही काय खेळाल?</string>
   <string name="youCompletedThisLesson">अभिनंदन! तुम्ही हा धडा पूर्ण केला.</string>
+  <string name="fromInitialPositionTitle">प्रारंभिक स्थितीपासून</string>
 </resources>
