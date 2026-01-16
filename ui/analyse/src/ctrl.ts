@@ -48,6 +48,7 @@ import MotifCtrl from './motif/motifCtrl';
 import { makeSanAndPlay } from 'chessops/san';
 import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import { completeNode } from 'lib/tree/node';
+import { Result } from '@badrap/result';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;
@@ -590,6 +591,7 @@ export default class AnalyseCtrl implements CevalHandler {
       uci: makeUci(move),
       san,
       fen: makeFen(pos.toSetup()),
+      position: () => Result.ok(pos),
     });
     addCrazyData(node, pos);
     this.addNode(node, this.path);
