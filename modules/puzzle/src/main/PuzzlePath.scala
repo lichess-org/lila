@@ -24,7 +24,7 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
   import PuzzlePath.*
 
   /* What stresses out the puzzle db
-   * 
+   *
 {"t":{"$date":"2025-05-30T07:11:05.938+00:00"},"s":"I",  "c":"COMMAND",  "id":51803,   "ctx":"conn156","msg":"Slow query","attr":{"type":"command","ns":"puzzler.puzzle2_path","command":{"aggregate":"puzzle2_path","pipeline":[{"$match":{"min":{"$lte":"mix|top|1214"},"max":{"$gte":"mix|top|1214"}}},{"$sample":{"size":1}},{"$project":{"_id":true}}],"
 explain":false,"allowDiskUse":false,"cursor":{"batchSize":101},"bypassDocumentValidation":false,"readConcern":{"level":"local"},"$db":"puzzler","$readPreference":{"mode":"primary"}},"planSummary":"IXSCAN { min: 1, max: -1 }","planningTimeMicros":81,"keysExamined":18388,"docsExamined":30,"cursorExhausted":true,"numYields":18,"nreturned":1,"queryHas
 h":"5B7ADA38","planCacheKey":"7FF0C349","queryFramework":"classic","reslen":286,"locks":{"FeatureCompatibilityVersion":{"acquireCount":{"r":20}},"Global":{"acquireCount":{"r":20}}},"readConcern":{"level":"local","provenance":"clientSupplied"},"writeConcern":{"w":"majority","wtimeout":0,"provenance":"implicitDefault"},"storage":{},"cpuNanos":445997
