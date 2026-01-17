@@ -12,13 +12,13 @@ export const completeNode =
     const node = from as TreeNode;
     node.id ||= node.uci ? scalachessCharPair(parseUci(node.uci)!) : '';
     node.children ||= [];
-    node.position ||= memoize(() =>
+    node.pos ||= memoize(() =>
       parseFen(node.fen).chain(setup => setupPosition(lichessRules(variant), setup)),
     );
-    node.dests = memoize(() => computeDests(node.position()));
-    node.drops = memoize(() => computeDrops(variant, node.position()));
-    node.check = memoize(() => computeCheck(node.position()));
-    node.outcome ||= memoize(() => computeOutcome(node.position()));
+    node.dests = memoize(() => computeDests(node.pos()));
+    node.drops = memoize(() => computeDrops(variant, node.pos()));
+    node.check = memoize(() => computeCheck(node.pos()));
+    node.outcome ||= memoize(() => computeOutcome(node.pos()));
     node.children.forEach(completeNode(variant));
     return node as TreeNode;
   };

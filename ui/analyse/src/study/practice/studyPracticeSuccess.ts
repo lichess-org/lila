@@ -10,7 +10,7 @@ const isDrawish = (node: TreeNode): boolean | null =>
 // returns null if not deep enough to know
 const isWinning = (node: TreeNode, goalCp: number, color: Color): boolean | null => {
   if (!hasSolidEval(node)) {
-    const pos = node.position().unwrap();
+    const pos = node.pos().unwrap();
     return pos.isStalemate() || pos.isInsufficientMaterial() ? false : null;
   }
 
@@ -64,7 +64,7 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
     case 'mate':
       if (node.threefold) return false;
       if (isDrawish(node)) return false;
-      if (node.position().unwrap().isStalemate()) return false;
+      if (node.pos().unwrap().isStalemate()) return false;
   }
   return null;
 }

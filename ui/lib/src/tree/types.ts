@@ -79,7 +79,7 @@ export interface TreeNodeIncomplete extends TreeNodeBase {
 export interface TreeNode extends TreeNodeBase {
   id: TreeNodeId;
   children: TreeNode[];
-  position: () => PositionResult;
+  pos: () => PositionResult;
   dests: () => Dests;
   drops: () => Key[] | undefined;
   check: () => boolean;

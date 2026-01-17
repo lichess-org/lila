@@ -330,7 +330,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   private showGround(): void {
-    if (this.node.position().isErr || this.node.outcome()) this.ceval.stop();
+    if (this.node.pos().isErr || this.node.outcome()) this.ceval.stop();
     this.pluginUpdate(this.node.fen);
     this.onChange();
     this.withCg(cg => {
@@ -583,7 +583,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private addNodeLocally(move: Move): void {
-    const pos = this.node.position().unwrap().clone();
+    const pos = this.node.pos().unwrap().clone();
     move = normalizeMove(pos, move);
     const san = makeSanAndPlay(pos, move);
     const node = completeNode(this.variantKey)({
@@ -1038,7 +1038,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
   position = () => {
     this.ltCompatAlert();
-    return this.node.position();
+    return this.node.pos();
   };
   private ltCompatAlert = () => {
     if (once('lt-compat-alert', { seconds: 60 }))
