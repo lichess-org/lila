@@ -316,7 +316,7 @@ export function renderMoveNodes(
         : '';
   const nodes = [h('san', fixCrazySan(node.san!))];
   if (withGlyphs && node.glyphs)
-    nodes.concat(node.glyphs.map(g => h('glyph', { attrs: { title: g.name } }, g.symbol)));
+    node.glyphs.forEach(g => nodes.push(h('glyph', { attrs: { title: g.name } }, g.symbol)));
   if (withEval && node.shapes?.length) nodes.push(h('shapes'));
   if (withEval && evalText) nodes.push(h('eval', evalText.replace('-', '−')));
   return nodes;
