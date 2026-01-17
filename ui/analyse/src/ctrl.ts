@@ -583,7 +583,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private addNodeLocally(move: Move): void {
-    const pos = this.node.position().unwrap();
+    const pos = this.node.position().unwrap().clone();
     move = normalizeMove(pos, move);
     const san = makeSanAndPlay(pos, move);
     const node = completeNode(this.variantKey)({
