@@ -71,8 +71,12 @@ export default class CevalCtrl {
   }
 
   resume(work?: Work): void {
-    this.worker ??= this.engines.make({ variant: this.opts.variant.key });
-    if (work) this.worker.start(work);
+    try {
+      this.worker ??= this.engines.make({ variant: this.opts.variant.key });
+      if (work) this.worker.start(work);
+    } catch (e) {
+      alert((e as Error).message);
+    }
   }
 
   onEmit: (ev: LocalEval, work: Work) => void = throttle(200, (ev: LocalEval, work: Work) => {

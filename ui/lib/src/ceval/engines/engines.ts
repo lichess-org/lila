@@ -273,7 +273,7 @@ export class Engines {
 
   make(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
     const e = (this.activeEngine = this.getEngine(selector));
-    if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selectProp()}}`);
+    if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selectProp()}`);
 
     return !this.isExternalEngineInfo(e)
       ? this.localEngineMap.get(e.id)!.make(e)
