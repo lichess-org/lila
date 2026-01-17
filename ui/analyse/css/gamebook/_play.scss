@@ -48,6 +48,7 @@
     background: $c-bg-box;
     border-radius: 1rem;
     position: relative;
+    top: 10px;
 
     /* fixes firefox overflow when comment is long https://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox */
     min-height: 0;
@@ -159,7 +160,7 @@
       font-size: 1.5em;
     }
 
-    &.play > div {
+    &.play>div {
       display: flex;
       align-items: center;
       margin: 0 10px;
@@ -171,7 +172,7 @@
       margin-inline-end: 10px;
     }
 
-    .instruction > * {
+    .instruction>* {
       display: block;
     }
 
