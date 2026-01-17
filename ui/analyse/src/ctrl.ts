@@ -27,7 +27,7 @@ import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from
 import { isNormal, type Move } from 'chessops/types';
 import { makeFen } from 'chessops/fen';
 import { normalizeMove } from 'chessops/variant';
-import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
+import { once, storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
 import type { AnaMove } from './study/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'lib/game/promotion';
@@ -48,6 +48,7 @@ import MotifCtrl from './motif/motifCtrl';
 import { makeSanAndPlay } from 'chessops/san';
 import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import { completeNode } from 'lib/tree/node';
+import { Result } from '@badrap/result';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;
@@ -582,7 +583,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private addNodeLocally(move: Move): void {
-    const pos = this.node.position().unwrap();
+    const pos = this.node.position().unwrap().clone();
     move = normalizeMove(pos, move);
     const san = makeSanAndPlay(pos, move);
     const node = completeNode(this.variantKey)({
@@ -590,6 +591,7 @@ export default class AnalyseCtrl implements CevalHandler {
       uci: makeUci(move),
       san,
       fen: makeFen(pos.toSetup()),
+      position: () => Result.ok(pos),
     });
     addCrazyData(node, pos);
     this.addNode(node, this.path);
@@ -1028,6 +1030,21 @@ export default class AnalyseCtrl implements CevalHandler {
   toggleVariationArrows = () => {
     const trueValue = this.variationArrowOpacity(false);
     this.variationArrowOpacity(trueValue === 0 ? 0.6 : -trueValue);
+  };
+
+  outcome = () => {
+    this.ltCompatAlert();
+    return this.node.outcome();
+  };
+  position = () => {
+    this.ltCompatAlert();
+    return this.node.position();
+  };
+  private ltCompatAlert = () => {
+    if (once('lt-compat-alert', { seconds: 60 }))
+      alert(
+        'The Lichess Tools extension by Siderite is temporarily broken. Disable it until an update is available.',
+      );
   };
 
   private makeVariationOpacityProp(): Prop<number | false> {

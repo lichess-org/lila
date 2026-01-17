@@ -1,6 +1,6 @@
-import { Chess, normalizeMove } from 'chessops/chess';
+import { Chess, normalizeMove, Position } from 'chessops/chess';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
-import { makeSan, parseSan } from 'chessops/san';
+import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { makeUci, parseUci } from 'chessops/util';
 import { type TreeWrapper, path as pathOps } from 'lib/tree/tree';
 import { isNormal, type Move, type NormalMove } from 'chessops/types';
@@ -19,7 +19,7 @@ export function pgnToTree(pgn: San[]): TreeNode {
   pgn.forEach((san, i) => {
     const move = parseSan(pos, san)!;
     pos.play(move);
-    const nextNode = makeNode(pos, move, i + 1, san);
+    const nextNode = makeNode(pos.clone(), move, i + 1, san);
     current.children.push(nextNode);
     current = nextNode;
   });
@@ -32,16 +32,15 @@ export function mergeSolution(root: TreeWrapper, initialPath: TreePath, solution
   const fromPly = initialNode.ply;
   const nodes = solution.map((uci, i) => {
     const move = normalizeMove(pos, parseUci(uci)!);
-    const san = makeSan(pos, move);
-    pos.play(move);
-    const node = makeNode(pos, move, fromPly + i + 1, san);
+    const san = makeSanAndPlay(pos, move);
+    const node = makeNode(pos.clone(), move, fromPly + i + 1, san);
     if ((pov === 'white') === (node.ply % 2 === 1)) node.puzzle = 'good';
     return node;
   });
   root.addNodes(nodes, initialPath);
 }
 
-const makeNode = (pos: Chess, move: Move, ply: number, san: San): TreeNode =>
+const makeNode = (pos: Position, move: Move, ply: number, san: San): TreeNode =>
   completeNode('standard')({
     ply,
     san,

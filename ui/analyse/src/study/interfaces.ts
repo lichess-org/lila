@@ -165,6 +165,7 @@ export interface StudyMemberMap {
 
 export type TagTypes = string[];
 export type TagArray = [string, string];
+export type TagMap = Map<string, string>;
 
 export interface LocalPaths {
   [chapterId: string]: TreePath;

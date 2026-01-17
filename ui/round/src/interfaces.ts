@@ -90,7 +90,7 @@ export interface RoundData extends GameData {
   correspondence?: CorresClockData;
   tv?: Tv;
   userTv?: {
-    id: string;
+    id: UserId;
   };
   expiration?: Expiration;
   local?: RoundProxy;

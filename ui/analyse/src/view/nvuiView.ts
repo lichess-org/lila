@@ -52,6 +52,7 @@ import { showInfo as tourOverview } from '../study/relay/relayTourView';
 import type { AnalyseNvuiContext } from '../analyse.nvui';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import type { ClientEval, PvData } from 'lib/tree/types';
+import { COLORS } from 'chessops';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -83,9 +84,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
     hl('div.nvui', [
       studyDetails(ctrl),
       hl('h2', i18n.nvui.gameInfo),
-      ...['white', 'black'].map((color: Color) =>
-        hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))]),
-      ),
+      ...COLORS.map(color => hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))])),
       hl('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
       d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
       hl('h2', i18n.nvui.moveList),
@@ -461,7 +460,7 @@ function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
   const analysisGlyphs = ['?!', '?', '??'];
   const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
-  ['white', 'black'].forEach((color: Color) => {
+  COLORS.forEach(color => {
     res.push(hl('h3', `${color} player: ${analysis[color].acpl} ${i18n.site.averageCentipawnLoss}`));
     res.push(
       hl(
