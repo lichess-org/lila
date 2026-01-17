@@ -25,13 +25,16 @@ final class ApiMoveStream(
         lightUsers <- lightUserApi.asyncManyOptions(game.players.mapList(_.userId))
       yield
         val buffer = scala.collection.mutable.Queue.empty[JsObject]
-        def makeGameJson(g: Game) =
-          gameJsonView.baseWithChessDenorm(g, initialFen) ++ Json.obj(
+        def makeGameJson(g: Game, full: Boolean) =
+          val base =
+            if full then gameJsonView.base(g, initialFen)
+            else gameJsonView.immutable(g, initialFen)
+          base ++ Json.obj(
             "players" -> JsObject(g.players.all.zip(lightUsers).map { (p, user) =>
               p.color.name -> gameJsonView.player(p, user)
             })
           )
-        Source(List(makeGameJson(game))).concat(
+        Source(List(makeGameJson(game, full = false))).concat(
           Source
             .queue[JsObject]((game.ply.value + 3).atLeast(16), akka.stream.OverflowStrategy.dropHead)
             .mapMaterializedValue: queue =>
@@ -63,7 +66,7 @@ final class ApiMoveStream(
                     )
                 }
               if game.finished then
-                queue.offer(makeGameJson(game))
+                queue.offer(makeGameJson(game, full = true))
                 queue.complete()
               else
                 val chan = MoveGameEvent.makeChan(game.id)
@@ -72,7 +75,7 @@ final class ApiMoveStream(
                     queue.offer(toJson(g, fen, move.some))
                 val subFinish = Bus.sub[FinishGame]:
                   case FinishGame(g, _) if g.id == game.id =>
-                    queue.offer(makeGameJson(g))
+                    queue.offer(makeGameJson(g, full = true))
                     (1 to buffer.size).foreach { _ => queue.offer(Json.obj()) } // push buffer content out
                     queue.complete()
                 queue
