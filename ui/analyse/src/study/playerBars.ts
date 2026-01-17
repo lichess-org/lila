@@ -15,6 +15,7 @@ import type { RelayRound } from './relay/interfaces';
 import { playerColoredResult } from './relay/customScoreStatus';
 import type { TreePath } from 'lib/tree/types';
 import { tagsToMap } from './studyTags';
+import { COLORS } from 'chessops';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
@@ -28,7 +29,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
     materialDiffs = renderMaterialDiffs(ctrl),
     tagsMap = tagsToMap(tags);
 
-  return (['white', 'black'] as Color[]).map(color =>
+  return COLORS.map(color =>
     renderPlayer(
       ctrl,
       tagsMap,
