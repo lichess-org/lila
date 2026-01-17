@@ -1042,7 +1042,9 @@ export default class AnalyseCtrl implements CevalHandler {
   };
   private ltCompatAlert = () => {
     if (once('lt-compat-alert', { seconds: 60 }))
-      alert('The Lichess Tools extension by Siderite requires an update.');
+      alert(
+        'The Lichess Tools extension by Siderite is temporarily broken. Disable it until an update is available.',
+      );
   };
 
   private makeVariationOpacityProp(): Prop<number | false> {
