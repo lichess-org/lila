@@ -1041,7 +1041,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return this.node.position();
   };
   private ltCompatAlert = () => {
-    if (once('lt-compat-alert', { hours: 1 }))
+    if (once('lt-compat-alert', { seconds: 60 }))
       alert('The Lichess Tools extension by Siderite requires an update.');
   };
 
