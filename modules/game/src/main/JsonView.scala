@@ -42,7 +42,7 @@ final class JsonView(rematches: Rematches):
       .add("rematch" -> rematches.getAcceptedId(game.id))
       .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
 
-  // adds fields that could be computed by the client instead
+  // adds fields that should be computed by the client instead
   def baseWithChessDenorm(game: Game, initialFen: Option[Fen.Full]) =
     base(game, initialFen) ++ Json
       .obj("player" -> game.turnColor)
