@@ -1751,6 +1751,10 @@ interface I18n {
   nvui: {
     /** Actions */
     actions: string;
+    /** Announce computer best move */
+    announceComputerBestMove: string;
+    /** Announce computer evaluation */
+    announceComputerEvaluation: string;
     /** Announce current square. */
     announceCurrentSquare: string;
     /** Announce last move. */
@@ -1759,6 +1763,8 @@ interface I18n {
     announceLastMoveCapture: string;
     /** Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king, p capital A for all white pieces. */
     announcePieceLocations: string;
+    /** Announce pieces around current square (try shift and alt) */
+    announcePiecesAroundCurrentSquare: string;
     /** Announce pieces on a rank or a file. Example: s a, s 1. */
     announcePiecesOnRankOrFile: string;
     /** Announce possible captures with selected piece. */
@@ -1821,6 +1827,8 @@ interface I18n {
     moveToRank: string;
     /** Move to adjacent square left, right, up or down. */
     moveWithArrows: string;
+    /** This is not a valid square */
+    notAValidSquare: string;
     /** Opponent clock */
     opponentClock: string;
     /** pawn */
@@ -1829,6 +1837,8 @@ interface I18n {
     pgnAndFen: string;
     /** Pieces */
     pieces: string;
+    /** Play computer best move */
+    playComputerBestMove: string;
     /** Pockets */
     pockets: string;
     /** Premove cancelled */
@@ -1857,6 +1867,8 @@ interface I18n {
     sanSymbols: string;
     /** takes */
     sanTakes: string;
+    /** Use arrow keys to navigate in the game */
+    useArrowKeysToNavigateInGame: string;
     /** white bishop */
     whiteBishop: string;
     /** white king */
