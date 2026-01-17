@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">उत्तम चाल बाण</string>
   <string name="showVariationArrows">भिन्नतेचे बाण दाखवा</string>
   <string name="evaluationGauge">मूल्यांकन परिमाण</string>
+  <string name="visualMotifs">दृष्य आकृतीबंध</string>
+  <string name="undefendedPieces">असुरक्षित मोहरे</string>
+  <string name="pinnedPieces">जकडलेले मोहरे</string>
+  <string name="checkableKing">शह मिळू शकेल असा राजा</string>
   <string name="multipleLines">अनेक लाइन</string>
   <string name="cpus">गणक</string>
   <string name="memory">मेमरी</string>
@@ -204,6 +208,7 @@
   <string name="minutesPerSide">दर बाजूचे मिनिट</string>
   <string name="variant">प्रकार</string>
   <string name="variants">प्रकार</string>
+  <string name="variantsDescription">खेळण्याचे आणखी मार्ग</string>
   <string name="timeControl">वेळाचे नियंत्रण</string>
   <string name="realTime">प्रत्यक्ष वेळी</string>
   <string name="correspondence">दीर्घकालीन</string>
@@ -265,8 +270,8 @@
   <string name="rank">मानांकन</string>
   <string name="rankX">मानांकन: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">मानांकन प्रत्येक मिनिटाला अद्यतनित केला जातो</item>
-    <item quantity="other">मानांकन प्रत्येक %s मिनिटाला अद्यतनित केला जातो</item>
+    <item quantity="one">क्रमवारी प्रत्येक मिनिटाला अद्यतनित केली जाते</item>
+    <item quantity="other">क्रमवारी प्रत्येक %s मिनिटाला अद्यतनित केली जाते</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s कोडी</item>
@@ -295,9 +300,10 @@
   <string name="finished">समाप्त</string>
   <string name="abortGame">डाव बंद करा</string>
   <string name="gameAborted">डाव बंद केला गेला</string>
-  <string name="standard">मानक</string>
+  <string name="standard">पारंपारिक</string>
   <string name="customPosition">सानुकूल स्थिति</string>
   <string name="unlimited">अमर्याद</string>
+  <string name="unlimitedDescription">आपल्याला हवा तितका वेळ घ्या</string>
   <string name="mode">पध्दती</string>
   <string name="casual">अनौपचारिक</string>
   <string name="rated">मानांकित</string>
@@ -826,7 +832,7 @@
   <string name="notifications">Notifications</string>
   <string name="notificationsX">%1$s सूचना</string>
   <string name="perfRatingX">मानांकन: %s</string>
-  <string name="yourRatingIsX">तुमचे रेटिंग आहे %s</string>
+  <string name="yourRatingIsX">तुमचे मानांकन आहे %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
     <item quantity="other">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
@@ -944,7 +950,7 @@
   <string name="gameVsX">खेळ विरुद्ध %1$s</string>
   <string name="resVsX">%1$s विरुद्ध %2$s</string>
   <string name="lostAgainstTOSViolator">आपला Lichess TOS चे नियम भंग करणार्‍या खेळाडुकडून पराभव झाला</string>
-  <string name="refundXpointsTimeControlY">परतावा: %2$s चे %1$s रेटिंग गुण.</string>
+  <string name="refundXpointsTimeControlY">परतावा: %2$s चे %1$s मानांकन गुण.</string>
   <string name="timeAlmostUp">वेळ संपत आलेली आहे!</string>
   <string name="clickToRevealEmailAddress">[ईमेल पाहण्यासाठी क्लिक करा]</string>
   <string name="download">डाउनलोड करा</string>
@@ -1018,4 +1024,5 @@
   <string name="search">शोधा</string>
   <string name="clearSearch">शोध हटवा</string>
   <string name="tags">टॅंग्स</string>
+  <string name="enPassant">एन पसांट</string>
 </resources>

@@ -1,10 +1,11 @@
 /* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
 
+import type { ClientEval } from '@/tree/types';
 import { isMobile } from '../device';
 import { memoize, escapeHtml } from '../index';
 import { domDialog } from '../view/dialog';
 
-export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval, desiredPvs: number): boolean {
+export function isEvalBetter(a: ClientEval, b: ClientEval, desiredPvs: number): boolean {
   return (
     a.depth > b.depth ||
     (a.depth === b.depth && a.nodes > b.nodes) ||

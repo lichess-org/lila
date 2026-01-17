@@ -1,11 +1,12 @@
 import type { Chart } from 'chart.js';
+import type { TreeNode, TreeNodeIncomplete } from 'lib/tree/types';
 
 export interface PlyChart extends Chart<'line'> {
   selectPly(ply: number, isMainline: boolean): void;
 }
 
 export interface AcplChart extends PlyChart {
-  updateData(d: AnalyseData, mainline: Tree.Node[]): void;
+  updateData(d: AnalyseData, mainline: TreeNode[]): void;
 }
 
 export interface Division {
@@ -23,7 +24,7 @@ export interface Player {
 export interface AnalyseData {
   player: Player;
   opponent: Player;
-  treeParts: Tree.NodeIncomplete[];
+  treeParts: TreeNodeIncomplete[];
   game: {
     division?: Division;
     variant: {
@@ -46,7 +47,7 @@ export interface AnalyseData {
 }
 
 export interface ChartGame {
-  acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.NodeIncomplete[]): Promise<AcplChart>;
+  acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: TreeNodeIncomplete[]): Promise<AcplChart>;
   movetime(el: HTMLCanvasElement, data: AnalyseData, hunter: boolean): Promise<PlyChart | undefined>;
 }
 

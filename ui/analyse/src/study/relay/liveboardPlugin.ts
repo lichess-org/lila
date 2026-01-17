@@ -41,7 +41,7 @@ export class LiveboardPlugin implements ChatPlugin {
     const node = localMainline[localMainline.length - 1];
     if (path) {
       const node = tree.nodeAtPath(path);
-      this.board = { fen: node.fen, check: !!node.check && fenColor(node.fen), lastUci: node.uci };
+      this.board = { fen: node.fen, check: !!node.check() && fenColor(node.fen), lastUci: node.uci };
     } else if (this.chapter && !this.board) {
       const preview = this.ctrl.study?.chapters.list.get(this.chapter);
       if (!preview) return spinnerVdom();
@@ -51,7 +51,7 @@ export class LiveboardPlugin implements ChatPlugin {
         check: !!preview.check && fenColor(preview.fen),
       };
     }
-    this.board ??= { fen: node.fen, lastUci: node.uci, check: !!node.check && fenColor(node.fen) };
+    this.board ??= { fen: node.fen, lastUci: node.uci, check: !!node.check() && fenColor(node.fen) };
     this.board.animation = { enabled: this.animate };
     this.board.lastMove = uciToMove(this.board.lastUci);
     this.board.orientation = this.ctrl.bottomColor();

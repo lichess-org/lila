@@ -62,7 +62,7 @@ class JsonTest extends munit.FunSuite:
       root.toNewRoot.cleanup.toRoot
 
   def writeTree(tree: Root): String =
-    Node.partitionTreeJsonWriter.writes(tree).toString
+    Node.partitionTreeWriter(tree, false).toString
 
   def writeTree(tree: NewRoot): String =
     NewRoot.partitionTreeJsonWriter.writes(tree).toString

@@ -19,7 +19,7 @@ import lila.study.PgnDump.WithFlags
 import lila.study.Study.WithChapter
 import lila.study.{ BecomeStudyAdmin, Who }
 import lila.study.{ Chapter, Orders, Settings, Study as StudyModel, StudyForm }
-import lila.tree.Node.partitionTreeJsonWriter
+import lila.tree.Node.partitionTreeWriter
 import com.fasterxml.jackson.core.JsonParseException
 import lila.ui.Page
 
@@ -223,10 +223,11 @@ final class Study(
       )
       withMembers = !study.isRelay || isGrantedOpt(_.StudyAdmin) || ctx.me.exists(study.isMember)
       studyJson <- env.study.jsonView.full(study, chapter, previews, fedNames.some, withMembers = withMembers)
+      lichobile = HTTPRequest.isLichobile(ctx.req)
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData
-        .add("treeParts" -> partitionTreeJsonWriter.writes(chapter.root).some)
+        .add("treeParts" -> partitionTreeWriter(chapter.root, lichobile = lichobile).some)
         .add("analysis" -> analysis.map { env.analyse.jsonView.bothPlayers(chapter.root.ply, _) })
     )
 
@@ -447,7 +448,7 @@ final class Study(
           }(studyUnauthorized(study), studyForbidden(study))
         }
 
-  def exportPgn(username: UserStr) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
+  def apiExportPgn(username: UserStr) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
     val name =
       if username.value == "me"
       then ctx.me.fold(UserName("me"))(_.username)
@@ -457,7 +458,7 @@ final class Study(
     val makeStream = env.study.studyRepo
       .sourceByOwner(userId, isMe)
       .flatMapConcat(env.study.pgnDump.chaptersOf(_, _ => requestPgnFlags))
-      .throttle(16, 1.second)
+      .throttle(if isMe then 20 else 10, 1.second)
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(userId.some)(makeStream): source =>
       Ok.chunked(source)
         .asAttachmentStream(s"${name}-${if isMe then "all" else "public"}-studies.pgn")

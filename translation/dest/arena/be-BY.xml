@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Арэна</string>
   <string name="arenaTournaments">Турніры Арэны</string>
   <string name="isItRated">Гэта рэйтынгавыя гульні?</string>
   <string name="willBeNotified">Вас апавясцяць, калі пачнецца турнір, так што пакуль што можаце пагуляць, адкрыўшы іншую ўкладку.</string>
@@ -56,5 +57,11 @@
   <string name="arenaStreaks">Серыі Арэны</string>
   <string name="arenaStreaksHelp">Пасля 2 перамог запар, наступныя перамогі прынясуць 4 ачкі, замест 2.</string>
   <string name="noBerserkAllowed">Берсерк не дазволены</string>
+  <string name="noArenaStreaks">Няма серый на Арэне</string>
+  <string name="averageScore">Сярэдні рэзультат</string>
   <string name="myTournaments">Мае турніры</string>
+  <string name="defender">Абаронца</string>
+  <string name="created">Створана</string>
+  <string name="bestResults">Найлепшыя рэзультаты</string>
+  <string name="total">Агулам</string>
 </resources>

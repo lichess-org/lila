@@ -287,21 +287,19 @@ object NewRoot:
       .add("comp", branch.comp)
       .add("forceVariation", branch.forceVariation)
 
-  given defaultNodeJsonWriter: Writes[NewRoot] = makeRootJsonWriter(alwaysChildren = true)
-  val minimalNodeJsonWriter: Writes[NewRoot] = makeRootJsonWriter(alwaysChildren = false)
-  given defaultTreeJsonWriter: Writes[Tree[NewBranch]] = makeTreeWriter(alwaysChildren = true)
-  val minimalTreeJsonWriter: Writes[Tree[NewBranch]] = makeTreeWriter(alwaysChildren = false)
+  given defaultNodeJsonWriter: Writes[NewRoot] = makeRootJsonWriter(lichobile = false)
+  val lichobileNodeJsonWriter: Writes[NewRoot] = makeRootJsonWriter(lichobile = true)
 
-  def makeTreeWriter[A](alwaysChildren: Boolean)(using wa: OWrites[A]): Writes[Tree[A]] = Writes: tree =>
+  def makeTreeWriter[A](lichobile: Boolean)(using wa: OWrites[A]): Writes[Tree[A]] = Writes: tree =>
     wa.writes(tree.value)
       .add(
         "children",
-        Option.when(alwaysChildren || tree.childAndChildVariations.nonEmpty):
-          nodeListJsonWriter(alwaysChildren).writes(tree.childAndChildVariations)
+        Option.when(lichobile || tree.childAndChildVariations.nonEmpty):
+          nodeListJsonWriter(lichobile).writes(tree.childAndChildVariations)
       )
 
   def makeNodeWriter[A](using OWrites[A]): Writes[ChessNode[A]] =
-    makeTreeWriter(true).contramap(identity)
+    makeTreeWriter(false).contramap(identity)
 
   def makeMainlineWriter[A](using wa: OWrites[A]): Writes[ChessNode[A]] = Writes: tree =>
     wa.writes(tree.value)
@@ -315,7 +313,7 @@ object NewRoot:
     Writes: list =>
       JsArray(list.map(makeTreeWriter(alwaysChildren).writes))
 
-  def makeRootJsonWriter(alwaysChildren: Boolean): Writes[NewRoot] =
+  def makeRootJsonWriter(lichobile: Boolean): Writes[NewRoot] =
     Writes: root =>
       metasWriter
         .writes(root.metas)
@@ -325,7 +323,7 @@ object NewRoot:
         .add("forceVariation", none[Boolean])
         .add(
           "children",
-          Option.when(alwaysChildren || root.tree.isDefined):
+          Option.when(lichobile || root.tree.isDefined):
             nodeListJsonWriter(true)
               .writes(root.tree.fold(Nil)(x => x.withoutVariations :: x.variations))
         )

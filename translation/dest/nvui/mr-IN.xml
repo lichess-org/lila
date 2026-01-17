@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="movePiece">मोहरा हालवण्यासाठी, पारंपारिक बीजगणीतीय नोंदपद्धती वापरा.</string>
+  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">वझिराशिवाय इतर सोंगटीमध्ये बढती देण्यासाठी = कळ वापरा, उदाहरणार्थ a-8-equals-n वापरल्यास प्याद्याला घोडा म्हणून बढती मिळेल.</string>
+  <string name="sanCheck" comment="+ in standard notation">शह</string>
+  <string name="sanCheckmate" comment="# in standard notation">शहमात</string>
+  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">ची बढत झाली</string>
+  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">जवळचा किल्लेकोट</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">लांबचा किल्लेकोट</string>
+</resources>

@@ -22,6 +22,7 @@ import { prop, type Prop, type Toggle, toggle } from '../index';
 import { clamp } from '../algo';
 import { storedIntProp, storage } from '../storage';
 import type { Rules } from 'chessops';
+import type { LocalEval, PvData, TreePath } from '@/tree/types';
 
 export default class CevalCtrl {
   opts: CevalOpts;
@@ -34,7 +35,7 @@ export default class CevalCtrl {
   hovering: Prop<Hovering | null> = prop<Hovering | null>(null);
   pvBoard: Prop<PvBoard | null> = prop<PvBoard | null>(null);
   isDeeper: Toggle = toggle(false);
-  curEval: Tree.LocalEval | null = null;
+  curEval: LocalEval | null = null;
   lastStarted: Started | false = false;
   showEnginePrefs: Toggle = toggle(false);
 
@@ -74,7 +75,7 @@ export default class CevalCtrl {
     if (work) this.worker.start(work);
   }
 
-  onEmit: (ev: Tree.LocalEval, work: Work) => void = throttle(200, (ev: Tree.LocalEval, work: Work) => {
+  onEmit: (ev: LocalEval, work: Work) => void = throttle(200, (ev: LocalEval, work: Work) => {
     this.sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
     this.curEval = ev;
     this.opts.emit(ev, work);
@@ -98,7 +99,7 @@ export default class CevalCtrl {
     return !document.hidden && this.analysable;
   }
 
-  private doStart = (path: Tree.Path, steps: Step[], gameId: string | undefined, threatMode: boolean) => {
+  private doStart = (path: TreePath, steps: Step[], gameId: string | undefined, threatMode: boolean) => {
     const step = steps[steps.length - 1];
     if (
       !this.isDeeper() &&
@@ -122,7 +123,7 @@ export default class CevalCtrl {
       search: this.search.by,
       multiPv: this.search.multiPv,
       threatMode,
-      emit: (ev: Tree.LocalEval) => this.onEmit(ev, work),
+      emit: (ev: LocalEval) => this.onEmit(ev, work),
     };
 
     if (threatMode) {
@@ -279,6 +280,6 @@ export default class CevalCtrl {
   }
 
   private lastEmitFen: string | null = null;
-  private sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
+  private sortPvsInPlace = (pvs: PvData[], color: Color) =>
     pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 }

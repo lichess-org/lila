@@ -8,6 +8,7 @@ import { VideoPlayer } from './videoPlayer';
 import RelayStats from './relayStats';
 import { LiveboardPlugin } from './liveboardPlugin';
 import { pubsub } from 'lib/pubsub';
+import { COLORS } from 'chessops';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats'] as const;
 export type RelayTab = (typeof relayTabs)[number];
@@ -117,7 +118,7 @@ export default class RelayCtrl {
   setClockToChapterPreview = (msg: ServerClockMsg, clocks: BothClocks) => {
     const cp = this.study.chapters.list.get(msg.p.chapterId);
     if (cp?.players)
-      ['white', 'black'].forEach((color: Color, i) => {
+      COLORS.forEach((color, i) => {
         const clock = clocks[i];
         if (notNull(clock)) cp.players![color].clock = clock;
       });

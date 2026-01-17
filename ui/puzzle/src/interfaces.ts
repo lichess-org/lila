@@ -3,6 +3,7 @@ import type { VNode } from 'snabbdom';
 import type { Coords } from 'lib/prefs';
 import perfIcons from 'lib/game/perfIcons';
 import type { ExternalEngineInfo } from 'lib/ceval';
+import type { TreePath } from 'lib/tree/types';
 
 export type PuzzleId = string;
 export type ThemeKey = keyof I18n['puzzleTheme'];
@@ -134,5 +135,5 @@ export interface PuzzleRound {
 export interface MoveTest {
   move: Move;
   fen: FEN;
-  path: Tree.Path;
+  path: TreePath;
 }

@@ -498,15 +498,14 @@ object Node:
 
   import lila.tree.evals.jsonWrites
 
-  given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = true)
-
-  val minimalNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = false)
+  given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(lichobile = false)
+  val lichobileNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(lichobile = true)
 
   private val nodeListJsonWriter: Writes[List[Node]] =
     Writes: list =>
       JsArray(list.map(defaultNodeJsonWriter.writes))
 
-  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] =
+  private def makeNodeJsonWriter(lichobile: Boolean): Writes[Node] =
     Writes: node =>
       import node.*
       try
@@ -516,6 +515,7 @@ object Node:
             "ply" -> ply,
             "fen" -> fen
           )
+          .add("id", lichobile.so(idOption))
           .add("uci", moveOption.map(_.uci.uci))
           .add("san", moveOption.map(_.san))
           .add("eval", eval.filterNot(_.isEmpty))
@@ -528,27 +528,28 @@ object Node:
           .add("comp", comp)
           .add(
             "children",
-            Option.when(alwaysChildren || children.nonEmpty):
+            Option.when(lichobile || children.nonEmpty):
               nodeListJsonWriter.writes(children.toList)
           )
           .add("forceVariation", forceVariation)
       catch
         case e: StackOverflowError =>
           e.printStackTrace()
-          sys.error(s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)")
+          sys.error(s"### StackOverflowError ### in tree.makeNodeJsonWriter($lichobile)")
 
-  val partitionTreeJsonWriter: Writes[Node] = Writes: node =>
-    JsArray(node.mainlineNodeList.map(minimalNodeJsonWriter.writes))
+  def partitionTreeWriter(node: Node, lichobile: Boolean): JsValue =
+    val writer = if lichobile then lichobileNodeJsonWriter.writes else defaultNodeJsonWriter.writes
+    JsArray(node.mainlineNodeList.map(writer))
 
 object Tree:
 
-  def makeMinimalJsonString(
+  def makeJsonString(
       game: Game,
       analysis: Option[Analysis],
       initialFen: Fen.Full,
       logChessError: TreeBuilder.LogChessError
   ): JsValue =
-    Node.minimalNodeJsonWriter.writes:
+    Node.defaultNodeJsonWriter.writes:
       TreeBuilder(game, analysis, initialFen, lila.tree.ExportOptions.default, logChessError)
 
   def makePartitionTreeJson(
@@ -558,26 +559,5 @@ object Tree:
       options: ExportOptions,
       logChessError: TreeBuilder.LogChessError
   ): JsValue =
-    Node.partitionTreeJsonWriter.writes:
-      TreeBuilder(game, analysis, initialFen, options, logChessError)
-
-  def makeMinimalJsonStringNew(
-      game: Game,
-      analysis: Option[Analysis],
-      initialFen: Fen.Full,
-      logChessError: TreeBuilder.LogChessError
-  ): JsValue =
-    NewRoot.minimalNodeJsonWriter.writes:
-      val x = NewTreeBuilder(game, analysis, initialFen, lila.tree.ExportOptions.default, logChessError)
-      x.size
-      x
-
-  def makePartitionTreeJsonNew(
-      game: Game,
-      analysis: Option[Analysis],
-      initialFen: Fen.Full,
-      options: ExportOptions,
-      logChessError: TreeBuilder.LogChessError
-  ): JsValue =
-    NewRoot.partitionTreeJsonWriter.writes:
-      NewTreeBuilder(game, analysis, initialFen, options, logChessError)
+    val root = TreeBuilder(game, analysis, initialFen, options, logChessError)
+    Node.partitionTreeWriter(root, options.lichobileCompat)
