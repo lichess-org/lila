@@ -108,7 +108,7 @@ export class IdbTree {
   static serializeNode = (n: TreeNode): TreeNodeIncomplete =>
     ({
       ...n,
-      position: undefined,
+      pos: undefined,
       dests: undefined,
       drops: undefined,
       check: undefined,
