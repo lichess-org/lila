@@ -154,19 +154,6 @@ $c-slider: $c-setup;
     height: 56px;
   }
 
-  .range {
-    span {
-      font-weight: bold;
-    }
-
-    input {
-      font-size: 1.5rem;
-      margin-top: 0.2rem;
-      padding: 0;
-      width: 90%;
-    }
-  }
-
   .rating-range {
     @extend %flex-center-nowrap;
     justify-content: center;
@@ -177,7 +164,6 @@ $c-slider: $c-setup;
       flex: 0 0 5.5ch;
     }
     input {
-      font-size: 1.5rem;
       padding: 0;
       width: 30%;
     }
