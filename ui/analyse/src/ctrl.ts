@@ -1032,6 +1032,11 @@ export default class AnalyseCtrl implements CevalHandler {
     this.variationArrowOpacity(trueValue === 0 ? 0.6 : -trueValue);
   };
 
+  outcome = () => {
+    alert('The Lichess Tools extension by Siderite requires an update.');
+    return this.node.outcome();
+  };
+
   private makeVariationOpacityProp(): Prop<number | false> {
     let value = parseFloat(localStorage.getItem('analyse.variation-arrow-opacity') || '0');
     if (isNaN(value) || value < -1 || value > 1) value = 0;
