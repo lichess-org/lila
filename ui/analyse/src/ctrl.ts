@@ -27,7 +27,7 @@ import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from
 import { isNormal, type Move } from 'chessops/types';
 import { makeFen } from 'chessops/fen';
 import { normalizeMove } from 'chessops/variant';
-import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
+import { once, storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
 import type { AnaMove } from './study/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'lib/game/promotion';
@@ -1033,8 +1033,16 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   outcome = () => {
-    alert('The Lichess Tools extension by Siderite requires an update.');
+    this.ltCompatAlert();
     return this.node.outcome();
+  };
+  position = () => {
+    this.ltCompatAlert();
+    return this.node.outcome();
+  };
+  private ltCompatAlert = () => {
+    if (once('lt-compat-alert', { hours: 1 }))
+      alert('The Lichess Tools extension by Siderite requires an update.');
   };
 
   private makeVariationOpacityProp(): Prop<number | false> {
