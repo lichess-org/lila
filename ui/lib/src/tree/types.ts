@@ -73,7 +73,7 @@ export type PositionResult = Result<Position, PositionError>;
 export interface TreeNodeIncomplete extends TreeNodeBase {
   id?: TreeNodeId;
   children?: TreeNodeIncomplete[];
-  position?: () => PositionResult; // precomputed
+  pos?: () => PositionResult; // precomputed
 }
 
 export interface TreeNode extends TreeNodeBase {

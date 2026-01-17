@@ -591,7 +591,7 @@ export default class AnalyseCtrl implements CevalHandler {
       uci: makeUci(move),
       san,
       fen: makeFen(pos.toSetup()),
-      position: () => Result.ok(pos),
+      pos: () => Result.ok(pos),
     });
     addCrazyData(node, pos);
     this.addNode(node, this.path);

@@ -349,7 +349,7 @@ export default class PuzzleCtrl implements CevalHandler {
         fen: makeFen(pos.toSetup()),
         uci: makeUci(move),
         san,
-        position: () => Result.ok(pos),
+        pos: () => Result.ok(pos),
       }),
       path,
     );
