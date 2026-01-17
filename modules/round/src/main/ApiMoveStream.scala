@@ -24,7 +24,6 @@ final class ApiMoveStream(
         initialFen <- gameRepo.initialFen(game)
         lightUsers <- lightUserApi.asyncManyOptions(game.players.mapList(_.userId))
       yield
-        val buffer = scala.collection.mutable.Queue.empty[JsObject]
         def makeGameJson(g: Game, full: Boolean) =
           val base =
             if full then gameJsonView.base(g, initialFen)
@@ -42,10 +41,7 @@ final class ApiMoveStream(
                 for
                   clk <- game.clock
                   clkHistory <- game.clockHistory
-                yield ByColor(
-                  Vector(clk.config.initTime) ++ clkHistory.white,
-                  Vector(clk.config.initTime) ++ clkHistory.black
-                )
+                yield clkHistory.map(Vector(clk.config.initTime) ++ _)
               val clockOffset = game.startColor.fold(0, 1)
               Position(game.variant, initialFen)
                 .playPositions(game.sans)
@@ -76,7 +72,6 @@ final class ApiMoveStream(
                 val subFinish = Bus.sub[FinishGame]:
                   case FinishGame(g, _) if g.id == game.id =>
                     queue.offer(makeGameJson(g, full = true))
-                    (1 to buffer.size).foreach { _ => queue.offer(Json.obj()) } // push buffer content out
                     queue.complete()
                 queue
                   .watchCompletion()
