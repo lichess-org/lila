@@ -523,7 +523,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     makeTab('boards', i18n.broadcast.boards),
     makeTab('players', i18n.site.players),
     relay.teams && makeTab('teams', i18n.broadcast.teams),
-    relay.teams && makeTab('team-results', 'Team Results'),
+    relay.data.tour.showTeamScores && makeTab('team-results', 'Team Results'),
     study.members.myMember() && !!relay.data.tour.tier
       ? makeTab('stats', i18n.site.stats)
       : ctrl.isEmbed &&

@@ -232,6 +232,7 @@ final class RelayApi(
           "teamTable" -> tour.teamTable.some,
           "players" -> tour.players,
           "teams" -> tour.teams,
+          "showTeamScores" -> tour.showTeamScores.some,
           "spotlight" -> tour.spotlight,
           "ownerIds" -> tour.ownerIds.some,
           "pinnedStream" -> tour.pinnedStream,

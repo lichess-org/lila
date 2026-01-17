@@ -593,7 +593,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             toggle = tg
               .map(_.tour)
               .exists: t =>
-                !t.showScores || !t.showRatingDiffs || t.teamTable || !t.isPublic
+                !t.showScores || !t.showRatingDiffs || t.teamTable || t.showTeamScores || !t.isPublic
               .some
           )(
             form3.split(
@@ -612,9 +612,17 @@ Hanna Marie ; Kozul, Zdenko"""),
               form3.checkbox(
                 form("teamTable"),
                 trans.team.teamTournament(),
-                help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some,
+                help = frag("Show a team table. Requires WhiteTeam and BlackTeam PGN tags.").some,
                 half = true
               ),
+              form3.checkbox(
+                form("showTeamScores"),
+                "Show team scores based on game results",
+                help = frag("Compute and show match points (MP) and game points (GP) for teams.").some,
+                half = true
+              )
+            ),
+            form3.split(
               form3.group(
                 form("visibility"),
                 trans.study.visibility(),

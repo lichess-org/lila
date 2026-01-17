@@ -81,6 +81,7 @@ export interface RelayTour {
   info: RelayTourInfo;
   image?: string;
   teamTable?: boolean;
+  showTeamScores?: boolean;
   tier?: number;
   dates?: RelayTourDates;
   tc?: 'standard' | 'rapid' | 'blitz';

@@ -244,6 +244,7 @@ final class RelayTeamTable(
 final class RelayTeamLeaderboard(
     relayGroupApi: RelayGroupApi,
     roundRepo: RelayRoundRepo,
+    tourRepo: RelayTourRepo,
     teamTable: RelayTeamTable,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
@@ -297,18 +298,20 @@ final class RelayTeamLeaderboard(
   private def aggregate(tourId: RelayTourId): Fu[TeamLeaderboard] =
     for
       scoreGroup <- relayGroupApi.scoreGroupOf(tourId)
+      tour <- tourRepo.byId(scoreGroup.head).orFail(s"Missing relay tour $tourId")
       rounds <- scoreGroup.toList.flatTraverse(roundRepo.idsByTourOrdered)
       matches <- rounds.flatTraverse(teamTable.table)
-    yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
-      matchup.teams
-        .foldLeft(acc): (acc, team) =>
-          acc.updatedWith(team.name):
-            _.fold(TeamLeaderboardEntry(team.name, List(matchup))): team =>
-              team.copy(matches = team.matches :+ matchup)
-            .some
-        .toList
-        .sortBy(_._2)
-        .to(SeqMap)
+    yield tour.showTeamScores.so:
+      matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
+        matchup.teams
+          .foldLeft(acc): (acc, team) =>
+            acc.updatedWith(team.name):
+              _.fold(TeamLeaderboardEntry(team.name, List(matchup))): team =>
+                team.copy(matches = team.matches :+ matchup)
+              .some
+          .toList
+          .sortBy(_._2)
+          .to(SeqMap)
 
 object RelayTeamTable:
   object json:
