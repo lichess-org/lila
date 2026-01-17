@@ -7,6 +7,7 @@ import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
 import type AnalyseCtrl from './ctrl';
 import { isUci } from 'lib/game/chess';
 import { parseFen } from 'chessops/fen';
+import type { ServerEval } from 'lib/tree/types';
 
 const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
   orig: key,
@@ -53,12 +54,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     }
     return [];
   }
-  const {
-    eval: nEval = {} as Partial<Tree.ServerEval>,
-    fen: nFen,
-    ceval: nCeval,
-    threat: nThreat,
-  } = ctrl.node;
+  const { eval: nEval = {} as Partial<ServerEval>, fen: nFen, ceval: nCeval, threat: nThreat } = ctrl.node;
 
   let hovering = ctrl.explorer.hovering();
 

@@ -362,6 +362,9 @@ importers:
 
   ui/lib:
     dependencies:
+      '@badrap/result':
+        specifier: ^0.3.1
+        version: 0.3.1
       '@lichess-org/stockfish-web':
         specifier: 0.0.14
         version: 0.0.14
@@ -467,6 +470,9 @@ importers:
 
   ui/puzzle:
     dependencies:
+      '@badrap/result':
+        specifier: ^0.3.1
+        version: 0.3.1
       chart.js:
         specifier: 4.4.8
         version: 4.4.8

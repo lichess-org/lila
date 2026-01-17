@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">Shigjetë e lëvizjes më të mirë</string>
   <string name="showVariationArrows">Shfaq shigjeta variacionesh</string>
   <string name="evaluationGauge">Matësi i vlerësimit</string>
+  <string name="visualMotifs">Motive pamore</string>
+  <string name="undefendedPieces">Gurë të pambrojtur</string>
+  <string name="pinnedPieces">Gurë të fiksuar</string>
+  <string name="checkableKing">Mbret të cilit mund t’i jepet shah</string>
   <string name="multipleLines">Linja të shumta</string>
   <string name="cpus">Procesorë</string>
   <string name="memory">Kujtesë</string>

@@ -125,6 +125,8 @@
   <string name="bestMoveArrow">Legjobb lépés mutatása</string>
   <string name="showVariationArrows">Változatok nyilainak megjelenítése</string>
   <string name="evaluationGauge">Állásértékelő oldaljelzés</string>
+  <string name="undefendedPieces">Védtelen bábuk</string>
+  <string name="pinnedPieces">Kötött bábuk</string>
   <string name="multipleLines">Több változat</string>
   <string name="cpus">Processzorok</string>
   <string name="memory">Memória</string>
@@ -1018,4 +1020,5 @@ Minden működési költséget, fejlesztést és tartalmat felhasználói adomá
   <string name="search">Keresés</string>
   <string name="clearSearch">Keresési előzmények törlése</string>
   <string name="tags">Címkék</string>
+  <string name="enPassant">En passant</string>
 </resources>

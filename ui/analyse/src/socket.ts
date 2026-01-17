@@ -3,6 +3,7 @@ import type AnalyseCtrl from './ctrl';
 import type { EvalGetData, EvalPutData, Opening, ServerEvalData } from './interfaces';
 import type { AnaDrop, AnaMove, ChapterData, EditChapterData } from './study/interfaces';
 import type { FormData as StudyFormData } from './study/studyForm';
+import type { Shape } from 'lib/tree/types';
 
 interface MoveOpts {
   write?: false;
@@ -27,7 +28,7 @@ export interface StudySocketSendParams {
   deleteNode: (d: ReqPosition & { jumpTo: string }) => void;
   promote: (d: ReqPosition & { toMainline: boolean }) => void;
   forceVariation: (d: ReqPosition & { force: boolean }) => void;
-  shapes: (d: ReqPosition & { shapes: Tree.Shape[] }) => void;
+  shapes: (d: ReqPosition & { shapes: Shape[] }) => void;
   setComment: (d: ReqPosition & { id?: string; text: string }) => void;
   deleteComment: (d: ReqPosition & { id: string }) => void;
   setGamebook: (d: ReqPosition & { gamebook: { deviation?: string; hint?: string } }) => void;

@@ -56,7 +56,7 @@ final class Analyser(
   ): JsObject =
     Json.obj(
       "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
-      "tree" -> Tree.makeMinimalJsonString(
+      "tree" -> Tree.makeJsonString(
         game,
         analysis.some,
         initialFen,

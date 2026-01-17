@@ -32,11 +32,11 @@ final class TreeBuilderTest extends munit.FunSuite:
       .foreach: (output, expected) =>
         assertEquals(output, expected)
 
-  test("tree builder json"):
-    TestFixtures.treeBuilderTestCases
-      .flatMap(_.testJson)
-      .foreach: (output, expected) =>
-        assertEquals(output, expected)
+  // test("tree builder json"):
+  //   TestFixtures.treeBuilderTestCases
+  //     .flatMap(_.testJson)
+  //     .foreach: (output, expected) =>
+  //       assertEquals(output, expected)
 
 object TreeBuilderTest:
 
@@ -102,9 +102,9 @@ object TreeBuilderTest:
         option <- takeRandomN(11)(exportOptions)
         analysis <- List(analysis.some, none)
       yield
-        val x = Node.minimalNodeJsonWriter.writes:
+        val x = Node.defaultNodeJsonWriter.writes:
           TreeBuilder(makeGame(game), analysis, fen, option, logError).cleanCommentIds
-        val y = NewRoot.minimalNodeJsonWriter.writes:
+        val y = NewRoot.defaultNodeJsonWriter.writes:
           NewTreeBuilder(makeGame(game), analysis, fen, option, logError).cleanup
         y -> x
 

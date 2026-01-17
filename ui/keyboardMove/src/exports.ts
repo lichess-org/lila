@@ -6,6 +6,7 @@ import { h, type VNode } from 'snabbdom';
 import { onInsert, snabDialog } from 'lib/view';
 import { promote } from 'lib/game/promotion';
 import { charToRole } from 'chessops';
+import type { NodeCrazy } from 'lib/tree/types';
 
 export interface Opts {
   input: HTMLInputElement;
@@ -53,7 +54,7 @@ export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
   handleArrowKey?: (arrowKey: ArrowKey) => void;
   submitMove?: (v: boolean) => void;
   crazyValid?: (role: Role, key: Key) => boolean;
-  getCrazyhousePockets?: () => Tree.NodeCrazy['pockets'] | undefined;
+  getCrazyhousePockets?: () => NodeCrazy['pockets'] | undefined;
   data: RootData;
 }
 

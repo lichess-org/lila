@@ -63,7 +63,12 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                 'click',
                 () =>
                   ctrl.userJump(
-                    fctrl.showForecast((playable(ctrl.data) && ctrl.initialPath) || '', ctrl.tree, nodes),
+                    fctrl.showForecast(
+                      ctrl.variantKey,
+                      (playable(ctrl.data) && ctrl.initialPath) || '',
+                      ctrl.tree,
+                      nodes,
+                    ),
                   ),
                 ctrl.redraw,
               ),

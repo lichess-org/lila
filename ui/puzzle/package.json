@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@badrap/result": "^0.3.1",
     "chart.js": "4.4.8",
     "lib": "workspace:*",
     "keyboardMove": "workspace:*",

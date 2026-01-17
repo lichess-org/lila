@@ -13,7 +13,7 @@ import {
 import { Board } from 'chessops/board';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
-import type { Role, Color, NormalMove } from 'chessops/types';
+import { type Role, type Color, type NormalMove, COLORS } from 'chessops/types';
 import type { Pin, Undefended, Checkable } from './interfaces';
 
 export const boardAnalysisVariants = [
@@ -209,7 +209,7 @@ export function detectCheckable(
   const checkable: Checkable[] = [];
   const cb = board;
 
-  for (const color of ['white', 'black'] as const) {
+  for (const color of COLORS) {
     const kSq = cb.kingOf(color);
 
     // Skip if King is already in check

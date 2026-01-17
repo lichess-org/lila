@@ -52,7 +52,8 @@ import { MultiCloudEval } from './multiCloudEval';
 import { pubsub } from 'lib/pubsub';
 import { alert } from 'lib/view';
 import { displayColumns } from 'lib/device';
-import { completeNode } from '@/util';
+import type { Glyph, Shape, TreeComment, TreeNode, TreePath } from 'lib/tree/types';
+import { completeNode } from 'lib/tree/node';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -62,9 +63,9 @@ interface Handlers {
   liking(d: WithWho & { l: { likes: number; me: boolean } }): void;
   shapes(d: WithWhoAndPos & { s: DrawShape[] }): void;
   members(d: { [id: string]: { user: { name: string; id: string }; role: 'r' | 'w' } }): void;
-  setComment(d: WithWhoAndPos & { c: Tree.Comment }): void;
+  setComment(d: WithWhoAndPos & { c: TreeComment }): void;
   deleteComment(d: WithWhoAndPos & { id: string }): void;
-  glyphs(d: WithWhoAndPos & { g: Tree.Glyph[] }): void;
+  glyphs(d: WithWhoAndPos & { g: Glyph[] }): void;
   clock(d: ServerClockMsg): void;
   forceVariation(d: WithWhoAndPos & { force: boolean }): void;
   chapters(d: ChapterPreviewFromServer[]): void;
@@ -88,7 +89,7 @@ export default class StudyCtrl {
   relayRecProp = prop(false);
   nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
-  arrowHistory: Tree.Shape[][] = [];
+  arrowHistory: Shape[][] = [];
   data: StudyData;
   vm: StudyVm;
   notif: NotifCtrl;
@@ -279,7 +280,7 @@ export default class StudyCtrl {
 
   isWriting = (): boolean => this.vm.mode.write && !this.isGamebookPlay();
 
-  private updateShapes = (shapes: Tree.Shape[]) => {
+  private updateShapes = (shapes: Shape[]) => {
     this.ctrl.tree.setShapes(shapes, this.ctrl.path);
     this.makeChange(
       'shapes',
@@ -374,7 +375,7 @@ export default class StudyCtrl {
 
     this.instantiateGamebookPlay();
 
-    let nextPath: Tree.Path;
+    let nextPath: TreePath;
 
     if (this.vm.mode.sticky) {
       this.vm.chapterId = this.data.position.chapterId;
@@ -418,7 +419,7 @@ export default class StudyCtrl {
     },
   );
 
-  onSetPath = throttle(300, (path: Tree.Path) => {
+  onSetPath = throttle(300, (path: TreePath) => {
     if (this.vm.mode.sticky && path !== this.data.position.path)
       this.makeChange('setPath', this.addChapterId({ path }));
   });
@@ -443,7 +444,7 @@ export default class StudyCtrl {
   };
 
   mutateCgConfig = (config: Required<Pick<CgConfig, 'drawable'>>) => {
-    config.drawable.onChange = (shapes: Tree.Shape[]) => {
+    config.drawable.onChange = (shapes: Shape[]) => {
       if (this.vm.mode.write) {
         this.arrowHistory.push(this.ctrl.node.shapes?.slice() ?? []);
         this.updateShapes(shapes);
@@ -537,7 +538,7 @@ export default class StudyCtrl {
     this.likeToggler();
   };
   position = () => this.data.position;
-  canJumpTo = (path: Tree.Path) =>
+  canJumpTo = (path: TreePath) =>
     this.gamebookPlay
       ? this.gamebookPlay.canJumpTo(path)
       : this.data.chapter.conceal === undefined ||
@@ -555,7 +556,7 @@ export default class StudyCtrl {
     return true;
   };
 
-  isClockTicking = (path: Tree.Path) =>
+  isClockTicking = (path: TreePath) =>
     path !== '' && this.data.chapter.relayPath === path && !isFinished(this.data.chapter);
 
   isRelayAwayFromLive = (): boolean =>
@@ -567,12 +568,12 @@ export default class StudyCtrl {
   isRelayAndInVariation = (): boolean =>
     this.isRelayAwayFromLive() && !treePath.contains(this.data.chapter.relayPath!, this.ctrl.path);
 
-  setPath = (path: Tree.Path, node: Tree.Node) => {
+  setPath = (path: TreePath, node: TreeNode) => {
     this.arrowHistory = [];
     this.onSetPath(path);
     this.commentForm.onSetPath(this.vm.chapterId, path, node);
   };
-  deleteNode = (path: Tree.Path) =>
+  deleteNode = (path: TreePath) =>
     this.makeChange(
       'deleteNode',
       this.addChapterId({
@@ -580,7 +581,7 @@ export default class StudyCtrl {
         jumpTo: this.ctrl.path,
       }),
     );
-  promote = (path: Tree.Path, toMainline: boolean) =>
+  promote = (path: TreePath, toMainline: boolean) =>
     this.makeChange(
       'promote',
       this.addChapterId({
@@ -588,7 +589,7 @@ export default class StudyCtrl {
         path,
       }),
     );
-  forceVariation = (path: Tree.Path, force: boolean) =>
+  forceVariation = (path: TreePath, force: boolean) =>
     this.makeChange(
       'forceVariation',
       this.addChapterId({
@@ -678,7 +679,7 @@ export default class StudyCtrl {
     },
     addNode: d => {
       const position = d.p,
-        node = completeNode(d.n),
+        node = completeNode(this.ctrl.variantKey)(d.n),
         who = d.w,
         sticky = d.s;
       if (d.relayPath === '!') d.relayPath = d.p.path + d.n.id;

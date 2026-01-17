@@ -237,7 +237,7 @@ export class GameCtrl {
   }
 
   private triggerStart(inProgress = false) {
-    for (const c of ['white', 'black'] as const) {
+    for (const c of co.COLORS) {
       if (!env.bot[c]) continue;
       env.bot.bots.get(env.bot[c].uid)?.playSound(['greeting']);
     }

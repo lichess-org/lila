@@ -196,7 +196,7 @@ const materialDiffs = (ctrl: PlayCtrl) =>
   renderMaterialDiffs(
     ctrl.opts.pref.showCaptured,
     ctrl.bottomColor(),
-    ctrl.board.chess,
+    ctrl.board.chess.board,
     false,
     [],
     ctrl.game.ply(),

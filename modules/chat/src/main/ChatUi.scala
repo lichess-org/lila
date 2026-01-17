@@ -68,42 +68,37 @@ object ChatUi:
       opponentId: Option[UserId] = None
   )(using ctx: Context): JsObject =
     val noteId = (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value.take(8))
-    if ctx.kid.yes then
-      Json
-        .obj("kidMode" -> true)
-        .add("noteId" -> noteId)
-        .add("noteAge" -> withNoteAge)
-    else
-      Json
-        .obj(
-          "data" -> Json
-            .obj(
-              "id" -> chat.id,
-              "name" -> name,
-              "lines" -> lines,
-              "resourceType" -> resource.typeName,
-              "resourceId" -> resource.resourceId
-            )
-            .add("hostIds" -> hostIds.some.filter(_.nonEmpty))
-            .add("userId" -> ctx.userId)
-            .add("loginRequired" -> chat.loginRequired)
-            .add("restricted" -> restricted)
-            .add("voiceChat" -> (voiceChat && ctx.isAuth))
-            .add("opponentId" -> opponentId),
-          "writeable" -> writeable,
-          "public" -> public,
-          "permissions" -> Json
-            .obj("local" -> (public && localMod))
-            .add("broadcast" -> (public && broadcastMod))
-            .add("timeout" -> (public && Granter.opt(_.ChatTimeout)))
-            .add("shadowban" -> (public && Granter.opt(_.Shadowban)))
-        )
-        .add("kobold" -> ctx.troll)
-        .add("blind" -> ctx.blind)
-        .add("timeout" -> timeout)
-        .add("noteId" -> noteId)
-        .add("noteAge" -> withNoteAge)
-        .add(
-          "timeoutReasons" -> (!localMod && (Granter.opt(_.ChatTimeout) || Granter.opt(_.BroadcastTimeout)))
-            .option(ChatJsonView.timeoutReasons)
-        )
+    Json
+      .obj(
+        "data" -> Json
+          .obj(
+            "id" -> chat.id,
+            "name" -> name,
+            "lines" -> (if ctx.kid.no then lines else Json.arr()),
+            "resourceType" -> resource.typeName,
+            "resourceId" -> resource.resourceId
+          )
+          .add("hostIds" -> hostIds.some.filter(_.nonEmpty))
+          .add("userId" -> ctx.userId)
+          .add("loginRequired" -> chat.loginRequired)
+          .add("restricted" -> restricted)
+          .add("voiceChat" -> (voiceChat && ctx.isAuth))
+          .add("opponentId" -> opponentId),
+        "writeable" -> writeable,
+        "public" -> public,
+        "permissions" -> Json
+          .obj("local" -> (public && localMod))
+          .add("broadcast" -> (public && broadcastMod))
+          .add("timeout" -> (public && Granter.opt(_.ChatTimeout)))
+          .add("shadowban" -> (public && Granter.opt(_.Shadowban)))
+      )
+      .add("kidMode" -> ctx.kid)
+      .add("kobold" -> ctx.troll)
+      .add("blind" -> ctx.blind)
+      .add("timeout" -> timeout)
+      .add("noteId" -> noteId)
+      .add("noteAge" -> withNoteAge)
+      .add(
+        "timeoutReasons" -> (!localMod && (Granter.opt(_.ChatTimeout) || Granter.opt(_.BroadcastTimeout)))
+          .option(ChatJsonView.timeoutReasons)
+      )
