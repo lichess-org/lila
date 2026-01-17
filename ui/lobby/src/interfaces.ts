@@ -137,4 +137,6 @@ export interface ForceSetupOptions {
   timeMode?: TimeMode;
   time?: number;
   increment?: number;
+  days?: number;
+  mode?: GameMode;
 }

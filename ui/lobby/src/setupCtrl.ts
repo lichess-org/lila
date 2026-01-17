@@ -79,11 +79,11 @@ export default class SetupController {
       canChangeTimeMode ? allTimeModeKeys : ['realTime'],
       forceOptions?.time ?? storeProps.time,
       forceOptions?.increment ?? storeProps.increment,
-      storeProps.days,
+      forceOptions?.days ?? storeProps.days,
       this.onPropChange,
       this.root.pools,
     );
-    this.gameMode = this.propWithApply(storeProps.gameMode);
+    this.gameMode = this.propWithApply(forceOptions?.mode ?? storeProps.gameMode);
     this.ratingMin = this.propWithApply(storeProps.ratingMin);
     this.ratingMax = this.propWithApply(storeProps.ratingMax);
     this.aiLevel = this.propWithApply(storeProps.aiLevel);
