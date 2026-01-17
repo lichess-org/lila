@@ -248,11 +248,11 @@ $c-slider: $c-setup;
           margin-bottom: 0.5rem;
 
           .val-box {
-            background: $c-bg-low;
+            background: $c-font-dim;
             padding: 0.1rem 0.5rem;
             border-radius: $box-radius-size / 2;
             font-weight: bold;
-            color: $c-font;
+            color: $c-bg;
           }
         }
 
