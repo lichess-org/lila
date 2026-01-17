@@ -87,6 +87,7 @@ export default class SetupController {
     this.ratingMin = this.propWithApply(storeProps.ratingMin);
     this.ratingMax = this.propWithApply(storeProps.ratingMax);
     this.aiLevel = this.propWithApply(storeProps.aiLevel);
+    this.color(forceOptions?.color || 'random');
 
     this.enforcePropRules();
     // Upon loading the props from the store, overriding with forced options, and enforcing rules,
