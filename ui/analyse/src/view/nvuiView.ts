@@ -186,11 +186,11 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       hl(
         'p',
         [
-          'Use arrow keys to navigate in the game.',
+          i18n.nvui.useArrowKeysToNavigateInGame,
           `l: ${i18n.site.toggleLocalAnalysis}`,
           `z: ${i18n.site.toggleAllAnalysis}`,
           `space: ${i18n.site.playComputerMove}`,
-          'c: announce computer evaluation',
+          `c: ${i18n.nvui.announceComputerEvaluation}`,
           `x: ${i18n.site.showThreat}`,
         ].reduce(addBreaks, []),
       ),
@@ -199,12 +199,11 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       hl(
         'p',
         [
-          'Type these commands in the command input.',
           ...inputCommands
             .filter(c => !c.invalid?.(ctrl))
             .flatMap(command => [noTrans(`${command.cmd}: `), command.help]),
         ].reduce<VNodeChildren[]>(
-          (acc, curr, i) => (i % 2 !== 0 ? addBreaks(acc, curr) : acc.concat(curr)),
+          (acc, curr, i) => (i % 2 !== 1 ? addBreaks(acc, curr) : acc.concat(curr)),
           [],
         ),
       ),
@@ -392,12 +391,12 @@ const inputCommands: InputCommand[] = [
   },
   {
     cmd: 'eval',
-    help: noTrans("announce last move's computer evaluation"),
+    help: i18n.nvui.announceComputerEvaluation,
     cb: ({ ctrl, notify }) => notify.set(renderEvalAndDepth(ctrl)),
   },
   {
     cmd: 'best',
-    help: noTrans('announce the top engine move'),
+    help: i18n.nvui.announceComputerBestMove,
     cb: ctx => ctx.notify.set(renderBestMove(ctx)),
   },
   {

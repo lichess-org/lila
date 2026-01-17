@@ -61,4 +61,10 @@
   <string name="copyToClipboard">Copy %s to clipboard</string>
   <string name="copiedToClipboard">%s copied to clipboard</string>
   <string name="pgnAndFen">PGN and FEN</string>
+  <string name="useArrowKeysToNavigateInGame">Use arrow keys to navigate in the game</string>
+  <string name="announcePiecesAroundCurrentSquare">Announce pieces around current square (try shift and alt)</string>
+  <string name="announceComputerEvaluation">Announce computer evaluation</string>
+  <string name="announceComputerBestMove">Announce computer best move</string>
+  <string name="playComputerBestMove">Play computer best move</string>
+  <string name="notAValidSquare">This is not a valid square</string>
 </resources>

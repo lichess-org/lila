@@ -966,6 +966,12 @@ object I18nKey:
     val `copyToClipboard`: I18nKey = "nvui:copyToClipboard"
     val `copiedToClipboard`: I18nKey = "nvui:copiedToClipboard"
     val `pgnAndFen`: I18nKey = "nvui:pgnAndFen"
+    val `useArrowKeysToNavigateInGame`: I18nKey = "nvui:useArrowKeysToNavigateInGame"
+    val `announcePiecesAroundCurrentSquare`: I18nKey = "nvui:announcePiecesAroundCurrentSquare"
+    val `announceComputerEvaluation`: I18nKey = "nvui:announceComputerEvaluation"
+    val `announceComputerBestMove`: I18nKey = "nvui:announceComputerBestMove"
+    val `playComputerBestMove`: I18nKey = "nvui:playComputerBestMove"
+    val `notAValidSquare`: I18nKey = "nvui:notAValidSquare"
 
   object oauthScope:
     val `newAccessToken`: I18nKey = "oauthScope:newAccessToken"

@@ -37,7 +37,7 @@ export const commands: () => Commands = memoize(() => ({
         button.focus();
         return '';
       } else {
-        return file + '.' + rank + ' is not a valid square';
+        return `${file}.${rank} ${i18n.nvui.notAValidSquare}`;
       }
     },
   },
@@ -62,11 +62,11 @@ export const boardCommands = (): VNode[] => [
       `1 to 8: ${i18n.nvui.moveToRank}`,
       `shift+1 to 8: ${i18n.nvui.moveToFile}`,
       `shift+a/d: ${i18n.site.keyMoveBackwardOrForward}`,
-      'x: announce pieces around this square (try shift and alt)',
+      `x: ${i18n.nvui.announcePiecesAroundCurrentSquare}`,
       `shift+m: ${i18n.nvui.announcePossibleCaptures}`,
-      'v: announce computer evaluation',
-      'g: announce computer best move',
-      'shift+g: play computer best move',
+      `v: ${i18n.nvui.announceComputerEvaluation}`,
+      `g: ${i18n.nvui.announceComputerBestMove}`,
+      `shift+g: ${i18n.nvui.playComputerBestMove}`,
       `alt+shift+a/d: ${i18n.site.cyclePreviousOrNextVariation}`,
     ].reduce(addBreaks, []),
   ]),
