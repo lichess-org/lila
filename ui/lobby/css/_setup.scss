@@ -213,14 +213,16 @@ $c-slider: $c-setup;
 
       .presets {
         @extend %flex-wrap;
+        justify-content: center;
         margin-top: -0.5rem;
+        gap: 0.3rem;
 
         .preset-btn {
-          @extend %button-none;
+          @extend %button-none, %box-radius;
           color: $c-font-dim;
-          padding: 0.4rem 0.7rem;
+          padding: 0.2rem 0.5rem;
           font-size: 0.9rem;
-          border-radius: $box-radius-size;
+          background: $c-bg-low;
           &:hover {
             background: $c-bg-zebra2;
             color: $c-font-clear;
