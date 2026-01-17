@@ -1038,7 +1038,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
   position = () => {
     this.ltCompatAlert();
-    return this.node.outcome();
+    return this.node.position();
   };
   private ltCompatAlert = () => {
     if (once('lt-compat-alert', { hours: 1 }))
