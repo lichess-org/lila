@@ -24,6 +24,7 @@ import SetupController from './setupCtrl';
 import { storage, type LichessStorage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
 import { wsPingInterval } from 'lib/socket';
+import { colors, type ColorChoice } from 'lib/setup/color';
 
 export default class LobbyController {
   data: LobbyData;
@@ -116,6 +117,11 @@ export default class LobbyController {
         if (gameMode === 'casual' || gameMode === 'rated') {
           forceOptions.mode = gameMode;
         }
+      }
+
+      const color = urlParams.get('color');
+      if (color && colors.some(c => c.key === color)) {
+        forceOptions.color = color as ColorChoice;
       }
 
       pubsub.after('polyfill.dialog').then(() => {
