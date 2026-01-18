@@ -175,7 +175,15 @@ final class ChallengeUi(helpers: Helpers):
                       div(cls := "invite__qrcode")(
                         h2(cls := "ninja-title", trans.site.orLetYourOpponentScanQrCode()),
                         qrcode(challengeLink, width = 150)
-                      )
+                      ),
+                      genericLink(c).map: url =>
+                        div(cls := "invite__url")(
+                          h2(cls := "ninja-title", trans.site.reusableChallengeUrl()),
+                          br,
+                          copyMeInput(url),
+                          br,
+                          p(trans.site.permanentLinkForAnyoneToChallengeYou())
+                        )
                     )
                 },
               c.notableInitialFen.map: fen =>
@@ -297,3 +305,30 @@ final class ChallengeUi(helpers: Helpers):
               details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.site.newOpponent())
             )
+
+  private def genericLink(c: Challenge): Option[String] =
+    c.challengerUser.map: user =>
+      import c.{ initialFen, rated, timeControl, variant, colorChoice }
+      val params = List(
+        "user" -> user.id.value,
+        "variant" -> variant.key.toString,
+        "gameMode" -> rated.name.toLowerCase
+      ) ++ (timeControl match
+        case Challenge.TimeControl.Clock(config) =>
+          List(
+            "minutesPerSide" -> (config.limit.centis / 6000d).toString,
+            "increment" -> (config.increment.centis / 100).toString
+          )
+        case Challenge.TimeControl.Correspondence(days) =>
+          List("days" -> days.value.toString)
+        case Challenge.TimeControl.Unlimited => List("time" -> "unlimited")) ++ initialFen
+        .map(f => "fen" -> f.value)
+        .toList ++
+        (colorChoice match
+          case Challenge.ColorChoice.White => List("color" -> "white")
+          case Challenge.ColorChoice.Black => List("color" -> "black")
+          case _ => Nil)
+      val query = params
+        .map((k, v) => s"$k=${java.net.URLEncoder.encode(v, "UTF-8")}")
+        .mkString("&")
+      s"${routeUrl(routes.Lobby.home).value}?$query#friend"

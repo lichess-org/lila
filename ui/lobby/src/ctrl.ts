@@ -103,7 +103,7 @@ export default class LobbyController {
         if (locationHash === 'hook') this.tab = 'seeks';
       } else if (timeMode === 'realTime') {
         forceOptions.timeMode = 'realTime';
-        if (minutesPerSide) forceOptions.time = parseInt(minutesPerSide);
+        if (minutesPerSide) forceOptions.time = parseFloat(minutesPerSide);
         if (increment) forceOptions.increment = parseInt(increment);
         if (locationHash === 'hook') this.tab = 'real_time';
       } else if (timeMode === 'unlimited') {
