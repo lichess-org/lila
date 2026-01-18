@@ -4,10 +4,13 @@
     gap: 2em;
   }
   &-grade {
+    @extend %flex-column;
+    gap: 0.5em;
     &__name {
+      @extend %flex-center-nowrap;
+      gap: 1ch;
       font-weight: normal;
       font-size: 1.2em;
-      margin-bottom: 0.5em;
     }
     &__concept {
       @extend %roboto;
@@ -25,6 +28,7 @@
         height: 1.5em;
         line-height: 1.5em;
         border: $border;
+        border-radius: 4px;
         background: $c-bg-low;
         &.lit {
           background: $m-secondary_bg--mix-80;
@@ -54,10 +58,6 @@
       margin-bottom: 2em;
       padding-bottom: 2em;
       border-bottom: $border;
-      &:last-child {
-        margin-bottom: 0;
-        border-bottom: none;
-      }
     }
   }
 }

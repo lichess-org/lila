@@ -5,7 +5,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class PerfUi(helpers: Helpers, bits: TutorBits):
+final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
   import helpers.{ *, given }
 
   def apply(full: TutorFullReport, report: TutorPerfReport, user: User)(using Context) =
@@ -45,7 +45,7 @@ final class PerfUi(helpers: Helpers, bits: TutorBits):
           )(
             Color.all.map: color =>
               report.openings(color).families.headOption.map { fam =>
-                grade.peerGrade(concept.adhoc(s"${fam.family.name} as $color"), fam.mix, h4)
+                grade.peerGrade(concept.opening(fam.family, color), fam.mix, h4)
               }
           ),
           angleCard(

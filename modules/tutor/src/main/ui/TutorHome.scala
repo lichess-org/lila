@@ -8,7 +8,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
+final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
   import helpers.{ *, given }
 
   def apply(full: TutorFullReport.Available, user: User)(using Context) =
