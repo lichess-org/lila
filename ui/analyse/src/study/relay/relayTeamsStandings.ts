@@ -129,47 +129,56 @@ export default class RelayTeamsStandings {
     if (!foundTeam) return this.standingsView();
     return hl('div.relay-tour__team-summary', [
       hl('div.relay-tour__team-summary', [
-        hl('h2.relay-tour__team-summary__header', { attrs: dataIcon(Group) }, foundTeam.name),
+        hl('h2.relay-tour__team-summary__header text', { attrs: dataIcon(Group) }, foundTeam.name),
         hl('div', this.rosterView(foundTeam)),
-        hl('h2', 'Match History'),
       ]),
-      hl('table.relay-tour__team-summary__table.slist.slist-pad', [
-        hl('thead', hl('tr', [hl('th', 'Opposing Team'), hl('th', `MP`), hl('th', `GP`)])),
-        hl(
-          'tbody',
-          foundTeam.matches.map((match, i) =>
-            hl('tr', [
-              hl('td', [
-                hl(
-                  'a',
-                  { attrs: { ...dataIcon(StudyBoard), href: `/broadcast/-/-/${match.roundId}` } },
-                  `${i + 1}`,
-                ),
-                hl(
-                  'a.team-name',
-                  {
-                    on: {
-                      click: this.toggleTeam(match.opponent),
-                    },
-                  },
-                  match.opponent,
-                ),
-              ]),
-              defined(match.points) &&
-                defined(match.mp) &&
-                defined(match.gp) && [
-                  hl(
-                    'td.score',
-                    hl(
-                      `${match.points === '1' ? 'good' : match.points === '0' ? 'bad' : 'draw'}`,
-                      `${match.mp}`,
-                    ),
-                  ),
-                  hl('td.score', `${match.gp}`),
-                ],
-            ]),
+      hl('div.relay-tour__team-summary__matches', [
+        hl('h2.relay-tour__team-summary__matches__header', 'Matches'),
+        hl('table.relay-tour__team-summary__table.slist.slist-pad', [
+          hl(
+            'thead',
+            hl('tr', [hl('th', 'Match'), hl('th', 'Opposing Team'), hl('th', `MP`), hl('th', `GP`)]),
           ),
-        ),
+          hl(
+            'tbody',
+            foundTeam.matches.map((match, i) =>
+              hl('tr', [
+                hl(
+                  'td',
+                  hl(
+                    'a.game-link text',
+                    { attrs: { ...dataIcon(StudyBoard), href: `/broadcast/-/-/${match.roundId}#teams` } },
+                    `${i + 1}`,
+                  ),
+                ),
+                hl(
+                  'td',
+                  hl(
+                    'a.team-name',
+                    {
+                      on: {
+                        click: this.toggleTeam(match.opponent),
+                      },
+                    },
+                    match.opponent,
+                  ),
+                ),
+                defined(match.points) &&
+                  defined(match.mp) &&
+                  defined(match.gp) && [
+                    hl(
+                      'td.score',
+                      hl(
+                        `${match.points === '1' ? 'good' : match.points === '0' ? 'bad' : 'draw'}`,
+                        `${match.mp}`,
+                      ),
+                    ),
+                    hl('td.score', `${match.gp}`),
+                  ],
+              ]),
+            ),
+          ),
+        ]),
       ]),
     ]);
   };

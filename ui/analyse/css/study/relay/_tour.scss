@@ -555,18 +555,32 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__team-summary {
+    @extend %flex-column;
     gap: 3vh;
-    &__header {
+    &__header,
+    &__matches__header {
       @extend %tour-margin-horiz;
     }
     .score {
       font-weight: bold;
     }
+    &__table {
+      .game-link {
+        @extend %game-link-styles;
+      }
+      .team-name {
+        font-size: 1.1em;
+      }
+      a {
+        color: $c-font;
+        &:hover {
+          color: $c-over;
+        }
+      }
+    }
   }
-}
 
-.fide-players-table {
-  .game-link {
+  %game-link-styles {
     @extend %flex-center-nowrap, %box-radius;
     @media (min-width: at-least($medium)) {
       padding: 0.4em 0.5em;
@@ -575,6 +589,12 @@ $hover-bg: $m-primary_bg--mix-30;
     &:hover {
       background: $m-primary_bg--mix-20;
       color: $c-font-clearer;
+    }
+  }
+
+  .fide-players-table {
+    .game-link {
+      @extend %game-link-styles;
     }
   }
   @media (max-width: at-most($medium)) {
