@@ -12,7 +12,7 @@
     <item quantity="few">%s партије пронађене</item>
     <item quantity="other">%s партија пронађено</item>
   </plurals>
-  <string name="opponentName">Име противника</string>
+  <string name="opponentName">Противничко име</string>
   <string name="loser">Губитник</string>
   <string name="from">Од</string>
   <string name="to">До</string>

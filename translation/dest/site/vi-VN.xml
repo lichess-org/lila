@@ -123,6 +123,10 @@
   <string name="bestMoveArrow">Mũi tên chỉ nước đi tốt nhất</string>
   <string name="showVariationArrows">Hiển thị mũi tên biến</string>
   <string name="evaluationGauge">Thang đo lợi thế</string>
+  <string name="visualMotifs">Họa tiết thị giác</string>
+  <string name="undefendedPieces">Các quân cờ không được bảo vệ</string>
+  <string name="pinnedPieces">Quân cờ bị ghim</string>
+  <string name="checkableKing">Có thể chiếu tướng</string>
   <string name="multipleLines">Số hàng phân tích</string>
   <string name="cpus">CPU</string>
   <string name="memory">Bộ nhớ</string>
