@@ -2,6 +2,27 @@
   &__tools {
     @extend %flex-column;
 
+    cursor: default;
+
+    button,
+    .button,
+    select,
+    label,
+    input[type='checkbox'] {
+      cursor: pointer;
+    }
+
+    input[type='text'],
+    input[type='number'] {
+      cursor: text;
+    }
+
+    button:disabled,
+    select:disabled,
+    input:disabled {
+      cursor: not-allowed;
+    }
+
     grid-area: tools;
     align-self: center;
 
