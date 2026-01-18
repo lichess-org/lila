@@ -37,7 +37,7 @@
   justify-content: flex-end;
 
   @include mq-is-col1 {
-    margin-top: 2rem;
+    margin: 2rem $block-gap 0 $block-gap;
     justify-content: start;
   }
 
@@ -135,7 +135,7 @@
       @extend %box-neat;
 
       font-size: 2em;
-      color: #fff;
+      color: $c-over;
       cursor: pointer;
       opacity: 0.85;
 
@@ -226,6 +226,9 @@
 
         &:last-child {
           @extend %box-radius-right;
+          &:first-child {
+            @extend %box-radius;
+          }
         }
 
         &:hover {
