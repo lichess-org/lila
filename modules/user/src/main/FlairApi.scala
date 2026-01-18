@@ -39,12 +39,13 @@ final class FlairApi(getFile: lila.common.config.GetRelativeFile)(using Executor
   export FlairApi.{ find, formField, adminFlairs }
 
   private def refresh(): Unit =
-    try refreshFrom(scala.io.Source.fromFile("public/flair/list.txt", "UTF-8"))
-    catch
-      case e: Exception =>
-        logger.error("Cannot read flairs, trying alternative path", e)
-        val pathname = getFile.exec("public/flair/list.txt").toPath.toString
-        refreshFrom(scala.io.Source.fromFile(pathname, "UTF-8"))
+    val path1 = "public/flair/list.txt"
+    val path2 = getFile.exec("public/flair/list.txt").toPath.toString
+    scala.util
+      .Try(refreshFrom(scala.io.Source.fromFile(path1, "UTF-8")))
+      .orElse(scala.util.Try(refreshFrom(scala.io.Source.fromFile(path2, "UTF-8"))))
+      .recover:
+        case e: Exception => throw Exception(s"Cannot read flairs from either $path1 or $path2", e)
 
   private def refreshFrom(source: scala.io.Source): Unit =
     try
