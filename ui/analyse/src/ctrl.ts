@@ -27,7 +27,7 @@ import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from
 import { isNormal, type Move } from 'chessops/types';
 import { makeFen } from 'chessops/fen';
 import { normalizeMove } from 'chessops/variant';
-import { once, storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
+import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
 import type { AnaMove } from './study/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'lib/game/promotion';
@@ -1032,20 +1032,8 @@ export default class AnalyseCtrl implements CevalHandler {
     this.variationArrowOpacity(trueValue === 0 ? 0.6 : -trueValue);
   };
 
-  outcome = () => {
-    this.ltCompatAlert();
-    return this.node.outcome();
-  };
-  position = () => {
-    this.ltCompatAlert();
-    return this.node.pos();
-  };
-  private ltCompatAlert = () => {
-    if (once('lt-compat-alert', { seconds: 60 }))
-      alert(
-        'The Lichess Tools extension by Siderite is temporarily broken. Disable it until an update is available.',
-      );
-  };
+  outcome = () => this.node.outcome(); // LT BC
+  position = () => this.node.pos(); // LT BC
 
   private makeVariationOpacityProp(): Prop<number | false> {
     let value = parseFloat(localStorage.getItem('analyse.variation-arrow-opacity') || '0');
