@@ -8,13 +8,20 @@ $c-grade-good: $m-good_bg--mix-90;
     gap: 2em;
   }
   &-grade {
-    @extend %flex-column;
-    gap: 0.4em;
+    display: flex;
+    align-items: stretch;
+    gap: 1.2em;
+    .tutor-icon {
+    }
+    &__content {
+      @extend %flex-column;
+      gap: 0.4em;
+      flex: 1;
+    }
     &__name {
       @extend %flex-center-nowrap;
-      gap: 1ch;
       font-weight: normal;
-      font-size: 1.2em;
+      font-size: 1.3em;
     }
     &__concept {
       @extend %roboto;

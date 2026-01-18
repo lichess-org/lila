@@ -15,8 +15,11 @@ object grade:
   ): Option[Tag] =
     metricOptions.asAvailable.map: metric =>
       div(cls := s"tutor-grade tutor-grade--${metric.grade.wording.id}")(
-        titleTag(cls := "tutor-grade__name")(c.icon.frag, concept.show(c)),
-        gradeVisual(c, metric)
+        c.icon.frag,
+        div(cls := "tutor-grade__content")(
+          titleTag(cls := "tutor-grade__name")(concept.show(c)),
+          gradeVisual(c, metric)
+        )
       )
 
   def peerGradeWithDetail[A: TutorNumber](
