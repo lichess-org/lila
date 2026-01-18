@@ -244,7 +244,7 @@ POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
 GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: StudyId)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.chapterPgn(id: StudyId, chapterId: StudyChapterId)
-GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String], showGlyphs: Boolean ?= true)
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String], showGlyphs: Boolean ?= false)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: StudyId)
 GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id: StudyId)
 POST  /study/$id<\w{8}>/cloneApply     controllers.Study.cloneApply(id: StudyId)
