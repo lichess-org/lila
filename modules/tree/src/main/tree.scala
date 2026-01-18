@@ -539,15 +539,6 @@ object Node:
 
 object Tree:
 
-  def makeJsonString(
-      game: Game,
-      analysis: Option[Analysis],
-      initialFen: Fen.Full,
-      logChessError: TreeBuilder.LogChessError
-  ): JsValue =
-    Node.defaultNodeJsonWriter.writes:
-      TreeBuilder(game, analysis, initialFen, lila.tree.ExportOptions.default, logChessError)
-
   def makePartitionTreeJson(
       game: Game,
       analysis: Option[Analysis],
