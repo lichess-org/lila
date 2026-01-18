@@ -703,8 +703,8 @@ export default class AnalyseCtrl implements CevalHandler {
         this.setAutoShapes();
         if (!isThreat) {
           this.retro?.onCeval();
-          this.practice?.onCeval();
           this.study?.practice?.onCeval();
+          this.practice?.onCeval();
           this.study?.multiCloudEval?.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }
