@@ -37,7 +37,7 @@
   justify-content: flex-end;
 
   @include mq-is-col1 {
-    padding-top: 1rem;
+    margin-top: 2rem;
     justify-content: start;
   }
 
