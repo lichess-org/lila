@@ -266,17 +266,27 @@ final class RelayTeamLeaderboard(
         .filter(_.isFinished)
         .flatMap(_.teams.find(_.name == name).flatMap(_.points))
         .sum
+    lazy val povMatches = matches.map(_.povMatch(name)).flatten
+    lazy val players = povMatches
+      .flatMap(_.players.values)
+      .groupBy(_.id)
+      .values
+      .map(
+        _.reduce((r1, r2) => r1.copy(games = r1.games ++ r2.games, score = r1.score |+| r2.score))
+      )
 
   given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.gamePoints, t.name))
 
   object json:
     import RelayTeam.POVMatch.json.given
+    import RelayPlayer.json.given
     given Writes[TeamLeaderboardEntry] = t =>
       Json.obj(
         "name" -> t.name,
         "mp" -> t.matchPoints,
         "gp" -> t.gamePoints,
-        "matches" -> t.matches.map(_.povMatch(t.name))
+        "matches" -> t.povMatches,
+        "players" -> t.players
       )
 
   def leaderboardJson(tour: RelayTourId): Fu[JsonStr] =

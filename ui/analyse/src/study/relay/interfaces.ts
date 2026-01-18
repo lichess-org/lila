@@ -123,6 +123,7 @@ export interface RelayTeamStandingsEntry {
   mp: number;
   gp: number;
   matches: POVTeamMatch[];
+  players: RelayPlayer[];
 }
 
 export type RelayTeamStandings = RelayTeamStandingsEntry[];

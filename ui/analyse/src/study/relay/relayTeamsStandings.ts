@@ -8,7 +8,7 @@ import type {
   RoundId,
   TourId,
 } from './interfaces';
-import RelayPlayers, { playerId, renderPlayers, tableAugment, type RelayPlayer } from './relayPlayers';
+import RelayPlayers, { renderPlayers, tableAugment, type RelayPlayer } from './relayPlayers';
 import { defined } from 'lib';
 import type { Federations, StudyPlayerFromServer } from '../interfaces';
 import { convertPlayerFromServer } from '../studyChapters';
@@ -30,11 +30,9 @@ export default class RelayTeamsStandings {
   async loadFromXhr() {
     this.standings = await xhrJson(`/broadcast/${this.tourId}/teams/standings`);
     this.standings?.forEach(teamEntry => {
-      teamEntry.matches.forEach(match => {
-        match.players = match.players.map((player: RelayPlayer & StudyPlayerFromServer) =>
-          convertPlayerFromServer(player, this.federations),
-        );
-      });
+      teamEntry.players = teamEntry.players.map((player: RelayPlayer & StudyPlayerFromServer) =>
+        convertPlayerFromServer(player, this.federations),
+      );
     });
     this.redraw();
   }
@@ -108,26 +106,7 @@ export default class RelayTeamsStandings {
   };
 
   private rosterView(team: RelayTeamStandingsEntry) {
-    const consolidatedPlayers: RelayPlayer[] = Array.from(
-      team.matches
-        .flatMap(m => m.players)
-        .reduce((acc, player) => {
-          const existing = acc.get(`${playerId(player)}`);
-          acc.set(
-            `${playerId(player)}`,
-            existing
-              ? {
-                  ...existing,
-                  played: (existing.played ?? 0) + (player.played ?? 0),
-                  score: (existing.score ?? 0) + (player.score ?? 0),
-                }
-              : player,
-          );
-          return acc;
-        }, new Map<string, RelayPlayer>())
-        .values(),
-    );
-    return hl('div.relay-tour__team-summary__roster', renderPlayers(this.players, consolidatedPlayers));
+    return hl('div.relay-tour__team-summary__roster', renderPlayers(this.players, team.players));
   }
 
   teamView = (): VNode => {
