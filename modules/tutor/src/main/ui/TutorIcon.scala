@@ -6,6 +6,8 @@ import ScalatagsTemplate.*
 opaque type TutorIcon = Frag
 
 /* Inlined SVG to allow CSS styling.
+ * Most (all?) of which come from https://game-icons.net/about.html
+ * Creative Commons 3.0 BY license: http://creativecommons.org/licenses/by/3.0/
  * When importing from https://game-icons.net,
  * download the SVG, open it in a text editor,
  * and remove the `style="height: 512px; width: 512px;"`
