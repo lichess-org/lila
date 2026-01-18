@@ -1,11 +1,13 @@
 package lila.puzzle
 
 import lila.memo.CacheApi
+import chess.IntRating
 
 private case class PuzzleSession(
     settings: PuzzleSettings,
     path: PuzzlePath.Id,
     positionInPath: Int,
+    rating: IntRating,
     previousPaths: Set[PuzzlePath.Id] = Set.empty
 ):
   def switchTo(pathId: PuzzlePath.Id) = copy(
@@ -103,7 +105,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
 
   // renew the session often for provisional players
   private def shouldFlushSession(session: PuzzleSession)(using perf: Perf) = !session.brandNew && {
-    perf.glicko.clueless || (perf.provisional.yes && perf.nb % 5 == 0)
+    Math.abs((perf.intRating - session.rating).value) > 100
   }
 
   private def createSessionFor(reason: String)(angle: PuzzleAngle, settings: PuzzleSettings)(using
@@ -116,4 +118,4 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
     pathApi
       .nextFor(s"session.$reason")(angle, PuzzleTier.top, validSettings.difficulty, Set.empty)
       .orFail(s"No puzzle path found for ${me.username}, angle: $angle")
-      .map(pathId => PuzzleSession(validSettings, pathId, 0))
+      .map(pathId => PuzzleSession(validSettings, pathId, 0, perf.intRating))

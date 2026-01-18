@@ -18,7 +18,10 @@ final class ApiMoveStream(
     lightUserApi: lila.user.LightUserApi
 )(using Executor):
 
+  private val delayMovesBy = 3
+
   def apply(game: Game, delayMoves: Boolean): Source[JsObject, ?] =
+    val delayingMoves = delayMoves && game.hasClock && game.playable
     Source.futureSource:
       for
         initialFen <- gameRepo.initialFen(game)
@@ -35,7 +38,10 @@ final class ApiMoveStream(
           )
         Source(List(makeGameJson(game, full = false))).concat(
           Source
-            .queue[JsObject]((game.ply.value + 3).atLeast(16), akka.stream.OverflowStrategy.dropHead)
+            .queue[JsObject](
+              (game.ply.value + delayMovesBy).atLeast(16),
+              akka.stream.OverflowStrategy.dropHead
+            )
             .mapMaterializedValue: queue =>
               val clocks =
                 for
@@ -72,6 +78,7 @@ final class ApiMoveStream(
                 val subFinish = Bus.sub[FinishGame]:
                   case FinishGame(g, _) if g.id == game.id =>
                     queue.offer(makeGameJson(g, full = true))
+                    if delayingMoves then for _ <- 1 to delayMovesBy do queue.offer(Json.obj())
                     queue.complete()
                 queue
                   .watchCompletion()
@@ -79,17 +86,11 @@ final class ApiMoveStream(
                     Bus.unsubscribeDyn(subEvent, List(chan))
                     Bus.unsub[FinishGame](subFinish)
             .pipe: source =>
-              if delayMoves && game.playable
-              then source.delay(delayMovesBy(game), akka.stream.DelayOverflowStrategy.emitEarly)
+              if delayingMoves
+              then source.sliding(delayMovesBy + 1).mapConcat(_.headOption)
               else source
         )
   end apply
-
-  private def delayMovesBy(game: Game): FiniteDuration =
-    game.clock
-      .fold(60): clock =>
-        (clock.config.estimateTotalSeconds / 60).atLeast(3).atMost(60)
-      .seconds
 
   private def toJson(game: Game, fen: Fen.Full, lastMove: Option[Uci]): JsObject =
     toJson(

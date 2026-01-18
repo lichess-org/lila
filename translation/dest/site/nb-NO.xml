@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
   <string name="evaluationGauge">Evalueringsmåler</string>
+  <string name="visualMotifs">Visuelle motiver</string>
+  <string name="undefendedPieces">Ubeskyttede brikker</string>
+  <string name="pinnedPieces">Bundne brikker</string>
+  <string name="checkableKing">Sjakkbar konge</string>
   <string name="multipleLines">Flere varianter</string>
   <string name="cpus">Prosessorer</string>
   <string name="memory">Minne</string>
@@ -204,6 +208,7 @@
   <string name="minutesPerSide">Minutter per spiller</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianter</string>
+  <string name="variantsDescription">Flere måter å spille på</string>
   <string name="timeControl">Tidskontroll</string>
   <string name="realTime">Sanntid</string>
   <string name="correspondence">Fjernsjakk</string>
@@ -298,6 +303,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Brukerdefinert stilling</string>
   <string name="unlimited">Ubegrenset</string>
+  <string name="unlimitedDescription">Ta den tiden du trenger</string>
   <string name="mode">Modus</string>
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
