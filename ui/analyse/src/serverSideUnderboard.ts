@@ -17,7 +17,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
     inputFen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input'),
-    gameGifLink = document.querySelector<HTMLAnchorElement>('.game-gif a'),
+    gameGifLink = document.querySelector<HTMLAnchorElement>('a.game-gif'),
     positionGifLink = document.querySelector<HTMLAnchorElement>('.position-gif a');
   let lastInputHash: string;
   let advChart: AcplChart;
@@ -31,11 +31,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         color: ctrl.bottomColor(),
         lastMove: ctrl.node.uci,
         variant: ctrl.data.game.variant.key,
-        theme: ds.board,
-        piece: ds.pieceSet,
-      });
-    if (gameGifLink)
-      gameGifLink.href = xhrUrl(ds.assetUrl + `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
         theme: ds.board,
         piece: ds.pieceSet,
       });
@@ -177,46 +172,52 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   // GIF export dialog
   if (gameGifLink) {
     const gifPrefs = {
-      showPlayers: storedBooleanProp('analyse.gif.players', true),
-      showRatings: storedBooleanProp('analyse.gif.ratings', true),
-      showClocks: storedBooleanProp('analyse.gif.clocks', false),
-      showGlyphs: storedBooleanProp('analyse.gif.glyphs', false),
-    };
-    let gifOrientation: Color = ctrl.bottomColor();
+        showPlayers: {
+          label: i18n.site.displayPlayerNames,
+          prop: storedBooleanProp('analyse.gif.players', true),
+        },
+        showRatings: {
+          label: i18n.site.displayRatings,
+          prop: storedBooleanProp('analyse.gif.ratings', true),
+        },
+        showGlyphs: {
+          label: i18n.site.displayMoveAnnotations,
+          prop: storedBooleanProp('analyse.gif.glyphs', false),
+        },
+        showClocks: { label: i18n.site.displayClocks, prop: storedBooleanProp('analyse.gif.clocks', false) },
+      },
+      gameGifParent = gameGifLink.parentElement;
 
-    const buildGifUrl = () => {
-      const ds = document.body.dataset;
-      return xhrUrl(`${ds.assetUrl}/game/export/gif/${gifOrientation}/${data.game.id}.gif`, {
-        theme: ds.board,
-        piece: ds.pieceSet,
-        showClocks: gifPrefs.showClocks(),
-        showGlyphs: gifPrefs.showGlyphs(),
-        showPlayers: gifPrefs.showPlayers(),
-        showRatings: gifPrefs.showRatings(),
-      });
-    };
-
-    const makeToggle = (id: string, label: string, checked: boolean) => `
-      <div class="setting">
-        <div class="switch">
-          <input id="gif-${id}" class="cmn-toggle" type="checkbox" ${checked ? 'checked' : ''}>
-          <label for="gif-${id}"></label>
-        </div>
-        <label for="gif-${id}">${label}</label>
-      </div>`;
-
-    const gameGifParent = gameGifLink.parentElement;
     gameGifParent?.addEventListener('click', e => {
       e.preventDefault();
+      let gifOrientation: Color = ctrl.bottomColor();
+
+      const buildGifUrl = () => {
+        const ds = document.body.dataset;
+        return xhrUrl(`${ds.assetUrl}/game/export/gif/${gifOrientation}/${data.game.id}.gif`, {
+          theme: ds.board,
+          piece: ds.pieceSet,
+          ...Object.fromEntries(Object.entries(gifPrefs).map(([k, { prop }]) => [k, prop()])),
+        });
+      };
+
+      const makeToggle = (key: keyof typeof gifPrefs) => `
+        <div class="setting">
+          <div class="switch">
+            <input id="gif-${key}" class="cmn-toggle" type="checkbox" ${gifPrefs[key].prop() ? 'checked' : ''}>
+            <label for="gif-${key}"></label>
+          </div>
+          <label for="gif-${key}">${gifPrefs[key].label}</label>
+        </div>`;
 
       const updateUrl = (dlg: Dialog) =>
         ((dlg.view.querySelector('.gif-download') as HTMLAnchorElement).href = buildGifUrl());
 
-      const toggleAction = (id: string, prop: { (): boolean; (v: boolean): boolean }) => ({
-        selector: `#gif-${id}`,
+      const toggleAction = (key: keyof typeof gifPrefs) => ({
+        selector: `#gif-${key}`,
         event: 'change',
         listener: (ev: Event, dlg: Dialog) => {
-          prop((ev.target as HTMLInputElement).checked);
+          gifPrefs[key].prop((ev.target as HTMLInputElement).checked);
           updateUrl(dlg);
         },
       });
@@ -230,15 +231,10 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
           <div class="gif-export-dialog">
             <strong style="font-size:1.5em">${i18n.site.gameAsGIF}</strong>
             <div class="gif-options">
-              <div class="gif-orientation">
-                <button class="button button-empty text gif-flip" data-icon="${licon.ChasingArrows}">
-                  ${i18n.site[gifOrientation]}
-                </button>
-              </div>
-              ${makeToggle('players', i18n.site.displayPlayerNames, gifPrefs.showPlayers())}
-              ${makeToggle('ratings', i18n.site.displayRatings, gifPrefs.showRatings())}
-              ${makeToggle('clocks', i18n.site.displayClocks, gifPrefs.showClocks())}
-              ${makeToggle('glyphs', i18n.site.displayMoveAnnotations, gifPrefs.showGlyphs())}
+              <button class="button button-empty text gif-flip" data-icon="${licon.ChasingArrows}">
+                ${i18n.site[gifOrientation]}
+              </button>
+              ${Object.keys(gifPrefs).map(makeToggle).join('')}
             </div>
             <div class="gif-actions">
               <button class="button button-metal text gif-copy" data-icon="${licon.Clipboard}">
@@ -277,10 +273,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
             selector: '.gif-download',
             listener: (_, dlg) => dlg.close(),
           },
-          toggleAction('players', gifPrefs.showPlayers),
-          toggleAction('ratings', gifPrefs.showRatings),
-          toggleAction('clocks', gifPrefs.showClocks),
-          toggleAction('glyphs', gifPrefs.showGlyphs),
+          ...Object.keys(gifPrefs).map(toggleAction),
         ],
       });
     });
