@@ -1,5 +1,7 @@
 package lila.user
 
+import scala.util.Try
+
 object FlairApi:
 
   private var db: Set[Flair] = Set.empty
@@ -40,14 +42,14 @@ final class FlairApi(getFile: lila.common.config.GetRelativeFile)(using Executor
 
   private def refresh(): Unit =
     val path1 = "public/flair/list.txt"
-    val path2 = getFile.exec("public/flair/list.txt").toPath.toString
-    scala.util
-      .Try(refreshFrom(scala.io.Source.fromFile(path1, "UTF-8")))
-      .orElse(scala.util.Try(refreshFrom(scala.io.Source.fromFile(path2, "UTF-8"))))
+    val path2 = getFile.exec(path1).toPath.toString
+    Try(refreshFrom(path1))
+      .orElse(Try(refreshFrom(path2)))
       .recover:
         case e: Exception => throw Exception(s"Cannot read flairs from either $path1 or $path2", e)
 
-  private def refreshFrom(source: scala.io.Source): Unit =
+  private def refreshFrom(path: String): Unit =
+    val source = scala.io.Source.fromFile(path, "UTF-8")
     try
       db = Flair.from(source.getLines.toSet)
       logger.info(s"Updated flair db with ${db.size} flairs")
