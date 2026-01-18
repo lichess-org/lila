@@ -4,12 +4,12 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.core.fide.FidePlayerOrder
-import lila.fide.Federation
+import lila.fide.{ FidePlayer, Federation }
 
 final class Fide(env: Env) extends LilaController(env):
 
   import env.fide.json.given
-  private def playerUrl(player: lila.fide.FidePlayer) = routes.Fide.show(player.id, player.slug)
+  private def playerUrl(player: FidePlayer) = routes.Fide.show(player.id, player.slug)
 
   def index(page: Int, q: Option[String] = None) = Open:
     Reasonable(page):
@@ -74,15 +74,22 @@ final class Fide(env: Env) extends LilaController(env):
       Found(env.fide.repo.player.fetch(id)): p =>
         ctx.body.body.file("photo") match
           case Some(photo) =>
-            for _ <- env.fide.playerApi.uploadPhoto(p, photo)
+            for
+              pic <- env.fide.playerApi.uploadPhoto(p, photo)
+              picUrl = FidePlayer.PlayerPhoto(env.memo.picfitUrl, pic.id, _.Small)
+              _ <- env.irc.api.fidePhoto(playerUrl(p).url, picUrl)
             yield Redirect(routes.Coach.edit)
           case None => Redirect(playerUrl(p))
   }
 
   def playerUpdate(id: chess.FideId) = SecureBody(_.FidePlayer) { ctx ?=> _ ?=>
     Found(env.fide.repo.player.fetch(id)): p =>
-      bindForm(lila.fide.FidePlayer.form.credit(p))(
+      bindForm(FidePlayer.form.credit(p))(
         _ => funit,
-        credit => env.fide.playerApi.setPhotoCredit(p, credit)
+        credit =>
+          for
+            _ <- env.fide.playerApi.setPhotoCredit(p, credit)
+            _ <- env.irc.api.fidePhotoCredits(playerUrl(p).url, credit | "-")
+          yield ()
       ).inject(Redirect(playerUrl(p)))
   }

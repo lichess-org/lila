@@ -18,6 +18,10 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
   const text =
     opts?.text ??
     `Browser: ${navigator.userAgent}\n` +
+      ('userAgentData' in navigator
+        ? //@ts-ignore userAgentData not documented in TypeScript https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgentData
+          `Brand: "${navigator.userAgentData.brands.map(b => `${b.brand} ${b.version}`).join('; ')}", `
+        : '') +
       `Cores: ${navigator.hardwareConcurrency}, ` +
       `Touch: ${isTouchDevice()} ${navigator.maxTouchPoints}, ` +
       `Screen: ${window.screen.width}x${window.screen.height}, ` +

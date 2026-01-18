@@ -7,6 +7,7 @@ import type { ChartGame, AcplChart } from 'chart';
 import type { AnalyseData } from '../interfaces';
 import { pubsub } from 'lib/pubsub';
 import { stockfishName } from '../serverSideUnderboard';
+import type { TreeNode } from 'lib/tree/types';
 
 export const chartSpinner = (): VNode =>
   h('div#acpl-chart-container-loader', [
@@ -36,7 +37,7 @@ export default class ServerEval {
 
   updateChart = (d: AnalyseData) => this.chart?.updateData(d, this.analysedMainline());
 
-  analysedMainline = () =>
+  analysedMainline = (): TreeNode[] =>
     this.root.mainline.slice(0, (this.root.study?.data.chapter?.serverEval?.path?.length || 999) / 2 + 1);
 }
 

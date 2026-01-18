@@ -7,6 +7,7 @@ import { domDialog } from 'lib/view';
 import { pubsub } from 'lib/pubsub';
 import { wsSign, wsVersion } from 'lib/socket';
 import type { RoundSocketSend, EventsWithoutPayload } from './interfaces';
+import { COLORS } from 'chessops';
 
 export interface RoundSocket {
   send: RoundSocketSend;
@@ -94,7 +95,7 @@ export function make(send: RoundSocketSend, ctrl: RoundController): RoundSocket 
       }
     },
     crowd(o: { white: boolean; black: boolean }) {
-      (['white', 'black'] as const).forEach(c => {
+      COLORS.forEach(c => {
         if (defined(o[c])) setOnGame(ctrl.data, c, o[c]);
       });
       ctrl.redraw();

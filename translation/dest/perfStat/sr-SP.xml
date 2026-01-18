@@ -26,7 +26,7 @@
   <string name="currentStreak">Тренутни низ: %s</string>
   <string name="bestRated">Најбоље рангиране победе</string>
   <string name="gamesInARow">Узастопно одиграних партија</string>
-  <string name="lessThanOneHour">Мање од један сат између партија</string>
-  <string name="maxTimePlaying">Највише времена проведено у игри</string>
+  <string name="lessThanOneHour">Мање од једног сата између партија</string>
+  <string name="maxTimePlaying">Максимално време проведено играјући</string>
   <string name="now">сада</string>
 </resources>

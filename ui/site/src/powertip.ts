@@ -133,8 +133,8 @@ $.fn.powerTip = function (opts) {
   const options = Object.assign({}, defaults, opts) as Options,
     tipController = new TooltipController(options);
 
-  // hook mouse and viewport dimension tracking
-  initTracking();
+  // hook mouse and viewport dimension tracking, causes layout reflow
+  requestIdleCallback(() => initTracking());
 
   // setup the elements
   this.each((_, el: WithTooltip) => {

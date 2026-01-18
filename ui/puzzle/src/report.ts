@@ -6,6 +6,7 @@ import * as licon from 'lib/licon';
 import { type StoredProp, storedIntProp } from 'lib/storage';
 import { domDialog } from 'lib/view';
 import { plyToTurn, pieceCount } from 'lib/game/chess';
+import type { ClientEval, PvData, TreeNode } from 'lib/tree/types';
 
 // bump when logic is changed, to distinguish cached clients from new ones
 const version = 10;
@@ -25,7 +26,7 @@ export default class Report {
 
   // (?)take the eval as arg instead of taking it from the node to be sure it's the most up to date
   // All non-mates puzzle should have one and only one solution, if that is not the case, report it back to backend
-  checkForMultipleSolutions(ev: Tree.ClientEval, ctrl: PuzzleCtrl, threatMode: boolean): void {
+  checkForMultipleSolutions(ev: ClientEval, ctrl: PuzzleCtrl, threatMode: boolean): void {
     // first, make sure we're in view mode so we know the solution is the mainline
     // do not check, checkmate puzzles
     if (
@@ -52,7 +53,7 @@ export default class Report {
     if (
       nextMoveInSolution(node) &&
       nodeTurn === ctrl.pov &&
-      ctrl.mainline.some((n: Tree.Node) => n.id === node.id)
+      ctrl.mainline.some((n: TreeNode) => n.id === node.id)
     ) {
       const [bestEval, secondBestEval] = [ev.pvs[0], ev.pvs[1]];
       // stricter than lichess-puzzler v49 check in how it defines similar moves
@@ -124,11 +125,11 @@ export default class Report {
 
 // since we check the nodes of the opposite side, to know if we're
 // in the solution we need to check the following move
-const nextMoveInSolution = (before: Tree.Node) => {
+const nextMoveInSolution = (before: TreeNode) => {
   const node = before.children[0];
   return node && (node.puzzle === 'good' || node.puzzle === 'win');
 };
 
-const pvEvalToStr = (pv: Tree.PvData): string => {
+const pvEvalToStr = (pv: PvData): string => {
   return pv.mate ? `#${pv.mate}` : `${pv.cp}`;
 };

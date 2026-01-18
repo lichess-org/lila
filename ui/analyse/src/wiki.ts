@@ -1,7 +1,8 @@
 import { debounce } from 'lib/async';
+import type { TreeNode } from 'lib/tree/types';
 import { storedBooleanPropWithEffect } from 'lib/storage';
 
-export type WikiTheory = (nodes: Tree.Node[]) => void;
+export type WikiTheory = (nodes: TreeNode[]) => void;
 
 export function wikiToggleBox() {
   $('#wikibook-field').each(function (this: HTMLElement) {
@@ -29,7 +30,7 @@ export default function wikiTheory(): WikiTheory {
     $('.analyse__wiki-text').html(html);
   };
 
-  const plyPrefix = (node: Tree.Node) =>
+  const plyPrefix = (node: TreeNode) =>
     `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
 
   const wikiBooksUrl = 'https://en.wikibooks.org';
@@ -72,7 +73,7 @@ export default function wikiTheory(): WikiTheory {
     ) + readMore(title);
 
   return debounce(
-    async (nodes: Tree.Node[]) => {
+    async (nodes: TreeNode[]) => {
       const pathParts = nodes.slice(1).map(n => `${plyPrefix(n)}${n.san}`);
       const path = pathParts.join('/').replace(/[+!#?]/g, '') ?? '';
       if (pathParts.length > 30 || !path || path.length > 255 - 21) show('');

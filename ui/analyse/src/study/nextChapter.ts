@@ -11,7 +11,7 @@ export const renderNextChapter = (ctrl: AnalyseCtrl) =>
         {
           attrs: { 'data-icon': licon.PlayTriangle, type: 'button' },
           hook: bind('click', ctrl.study.goToNextChapter),
-          class: { highlighted: !!ctrl.outcome() || ctrl.node === treeOps.last(ctrl.mainline) },
+          class: { highlighted: !!ctrl.node.outcome() || ctrl.node === treeOps.last(ctrl.mainline) },
         },
         i18n.study.nextChapter,
       )

@@ -170,6 +170,15 @@ final class IrcApi(
     zulip(_.mod.adminGeneral, "name 48h closure"):
       s"@**remind** here in 48h to close ${markdown.userLink(name)}"
 
+  def fidePhoto(playerPath: String, picUrl: Url)(using me: Me): Funit =
+    zulip(_.content, "/fide player photos"):
+      s":camera: $playerPath by ${markdown.modLink(me.username)}\n" +
+        s"${markdown.fixImageUrl(picUrl.value)}"
+
+  def fidePhotoCredits(playerPath: String, credits: String)(using me: Me): Funit =
+    zulip(_.content, "/fide player photos"):
+      s":note: $playerPath by ${markdown.modLink(me.username)}\n> $credits"
+
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
   def publishEvent(event: Event): Funit = event match

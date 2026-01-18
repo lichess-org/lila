@@ -5,6 +5,9 @@
   <string name="whatCanWeHelpYouWith">आम्ही आपल्याला काय मदत करू शकतो?</string>
   <string name="visitThisPage">समस्या सोडवण्यासाठी या पानावर जा</string>
   <string name="iCantLogIn">मी सनोंद प्रवेश करू शकत नाही</string>
+  <string name="forgotPassword">परवलीचा शब्द विसरलात</string>
+  <string name="forgotUsername">वापरकर्ता नाव विसरलात</string>
+  <string name="wantTitle">मला माझी पदवी लिचेसवर दाखवायची आहे</string>
   <string name="wantCloseAccount">मला माझे खाते बंद करायचे आहे</string>
   <string name="closeYourAccount">या पानावर तुम्हाला तुमचे खाते बंद करता येईल</string>
   <string name="doNotAskByEmail">आम्हाला ई-मेल वरून खाते बंद करण्यास सांगू नका, आम्ही ते करणार नाही.</string>

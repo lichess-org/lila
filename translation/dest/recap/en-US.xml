@@ -40,5 +40,6 @@
 		<item quantity="one">Your most played opening as black in %s game</item>
 		<item quantity="other">Your most played opening as black in %s games</item>
 	</plurals>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s ads and trackers loaded</string>
 	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Your %s recap is ready!</string>
 </resources>

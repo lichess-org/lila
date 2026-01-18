@@ -14,5 +14,5 @@
   <string name="knight">riddare</string>
   <string name="whitePawn">vit bonde</string>
   <string name="blackPawn">svart bonde</string>
-  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">tar</string>
+  <string name="sanTakes" comment="x in standard notation">tar</string>
 </resources>

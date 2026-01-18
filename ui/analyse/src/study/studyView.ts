@@ -34,6 +34,7 @@ import { verticalResize } from 'lib/view/verticalResize';
 import { displayColumns, shareIcon } from 'lib/device';
 import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } from '../view/components';
 import { renderControls } from '../view/controls';
+import type { TreeNode, TreePath } from 'lib/tree/types';
 
 export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
@@ -109,7 +110,7 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
   ];
 }
 
-export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {
+export function contextMenu(ctrl: StudyCtrl, path: TreePath, node: TreeNode): VNode[] {
   return ctrl.vm.mode.write
     ? [
         hl(

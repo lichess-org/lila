@@ -5,6 +5,7 @@ import { path as treePath } from 'lib/tree/tree';
 import { isEmpty, type Prop, prop } from 'lib';
 import type { OpeningData } from '../explorer/interfaces';
 import type AnalyseCtrl from '../ctrl';
+import type { TreeNode } from 'lib/tree/types';
 
 export interface RetroCtrl {
   isSolving(): boolean;
@@ -16,8 +17,8 @@ export interface RetroCtrl {
   jumpToNext(): void;
   skip(): void;
   viewSolution(): void;
-  hideComputerLine(node: Tree.Node): boolean;
-  showBadNode(): Tree.Node | undefined;
+  hideComputerLine(node: TreeNode): boolean;
+  showBadNode(): TreeNode | undefined;
   onCeval(): void;
   onMergeAnalysisData(): void;
   completion(): [number, number];
@@ -25,13 +26,13 @@ export interface RetroCtrl {
   flip(): void;
   preventGoingToNextMove(): boolean;
   close(): void;
-  node(): Tree.Node;
+  node(): TreeNode;
   redraw: Redraw;
   forceCeval(): boolean;
 }
 
 interface NodeWithPath {
-  node: Tree.Node;
+  node: TreeNode;
   path: string;
 }
 
@@ -46,7 +47,7 @@ type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view' | 'offTrack';
 
 export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   const game = root.data.game;
-  let candidateNodes: Tree.Node[] = [];
+  let candidateNodes: TreeNode[] = [];
   const explorerCancelPlies: number[] = [];
   let solvedPlies: number[] = [];
   const current = prop<Retrospection | null>(null);
@@ -60,7 +61,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     return solvedPlies.includes(ply);
   }
 
-  function findNextNode(): Tree.Node | undefined {
+  function findNextNode(): TreeNode | undefined {
     const colorModulo = color === 'white' ? 1 : 0;
     candidateNodes = evalSwings(
       root.mainline,
@@ -146,7 +147,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     root.setAutoShapes();
   }
 
-  function isCevalReady(node: Tree.Node): boolean {
+  function isCevalReady(node: TreeNode): boolean {
     return node.ceval
       ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && (node.ceval.millis ?? 0) > 6000)
       : false;
@@ -196,11 +197,11 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     if (current()) solvedPlies.push(current()!.fault.node.ply);
   }
 
-  function hideComputerLine(node: Tree.Node): boolean {
+  function hideComputerLine(node: TreeNode): boolean {
     return (node.ply % 2 === 0) !== (color === 'white') && !isPlySolved(node.ply);
   }
 
-  function showBadNode(): Tree.Node | undefined {
+  function showBadNode(): TreeNode | undefined {
     const cur = current();
     if (cur && isSolving() && cur.prev.path === root.path) return cur.fault.node;
     return undefined;

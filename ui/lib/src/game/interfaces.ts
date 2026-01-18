@@ -160,7 +160,7 @@ export interface GameView {
 
 export interface CheckState {
   ply: Ply;
-  check?: boolean | Key;
+  check?: boolean | (() => boolean);
 }
 
 export interface CheckCount {

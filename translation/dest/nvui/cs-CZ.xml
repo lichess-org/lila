@@ -27,10 +27,10 @@
   <string name="pawn">pěšec</string>
   <string name="whitePawn">bílý pěšec</string>
   <string name="blackPawn">černý pěšec</string>
-  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">bere</string>
+  <string name="sanTakes" comment="x in standard notation">bere</string>
   <string name="sanCheck" comment="+ in standard notation">šach</string>
   <string name="sanCheckmate" comment="# in standard notation">šach mat</string>
-  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">krátká rošáda</string>
-  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">dlouhá rošáda</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">krátká rošáda</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">dlouhá rošáda</string>
   <string name="invalidMove">Neplatný tah</string>
 </resources>
