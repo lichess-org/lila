@@ -501,41 +501,37 @@ object Node:
   given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(lichobile = false)
   val lichobileNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(lichobile = true)
 
-  private val nodeListJsonWriter: Writes[List[Node]] =
-    Writes: list =>
-      JsArray(list.map(defaultNodeJsonWriter.writes))
-
-  private def makeNodeJsonWriter(lichobile: Boolean): Writes[Node] =
-    Writes: node =>
-      import node.*
-      try
-        val comments = node.comments.value.flatMap(_.removeMeta)
-        Json
-          .obj(
-            "ply" -> ply,
-            "fen" -> fen
-          )
-          .add("id", lichobile.so(idOption))
-          .add("uci", moveOption.map(_.uci.uci))
-          .add("san", moveOption.map(_.san))
-          .add("eval", eval.filterNot(_.isEmpty))
-          .add("comments", if comments.nonEmpty then Some(comments) else None)
-          .add("gamebook", gamebook)
-          .add("glyphs", glyphs.nonEmpty)
-          .add("shapes", if shapes.value.nonEmpty then Some(shapes.value) else None)
-          .add("clock", clock.map(_.centis))
-          .add("crazy", crazyData)
-          .add("comp", comp)
-          .add(
-            "children",
-            Option.when(lichobile || children.nonEmpty):
-              nodeListJsonWriter.writes(children.toList)
-          )
-          .add("forceVariation", forceVariation)
-      catch
-        case e: StackOverflowError =>
-          e.printStackTrace()
-          sys.error(s"### StackOverflowError ### in tree.makeNodeJsonWriter($lichobile)")
+  private def makeNodeJsonWriter(lichobile: Boolean): Writes[Node] = Writes: node =>
+    import node.*
+    try
+      val comments = node.comments.value.flatMap(_.removeMeta)
+      Json
+        .obj(
+          "ply" -> ply,
+          "fen" -> fen
+        )
+        .add("id", lichobile.so(idOption))
+        .add("uci", moveOption.map(_.uci.uci))
+        .add("san", moveOption.map(_.san))
+        .add("eval", eval.filterNot(_.isEmpty))
+        .add("comments", if comments.nonEmpty then Some(comments) else None)
+        .add("gamebook", gamebook)
+        .add("glyphs", glyphs.nonEmpty)
+        .add("shapes", if shapes.value.nonEmpty then Some(shapes.value) else None)
+        .add("clock", clock.map(_.centis))
+        .add("crazy", crazyData)
+        .add("comp", comp)
+        .add(
+          "children",
+          Option.when(lichobile || children.nonEmpty):
+            val writer = if lichobile then lichobileNodeJsonWriter else defaultNodeJsonWriter
+            JsArray(children.toList.map(writer.writes))
+        )
+        .add("forceVariation", forceVariation)
+    catch
+      case e: StackOverflowError =>
+        e.printStackTrace()
+        sys.error(s"### StackOverflowError ### in tree.makeNodeJsonWriter($lichobile)")
 
   def partitionTreeWriter(node: Node, lichobile: Boolean): JsValue =
     val writer = if lichobile then lichobileNodeJsonWriter.writes else defaultNodeJsonWriter.writes
