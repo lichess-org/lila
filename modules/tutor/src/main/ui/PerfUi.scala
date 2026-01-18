@@ -85,9 +85,9 @@ final class PerfUi(helpers: Helpers, bits: TutorBits):
     },
     frag(
       "Average rating: ",
-      strong(perfReport.stats.rating),
-      ". Peers rating: ",
-      strong(perfReport.stats.peers.showRatingRange)
+      strong(perfReport.stats.rating)
+      // ". Peers rating: ",
+      // strong(perfReport.stats.peers.showRatingRange)
     )
   )
 
@@ -96,6 +96,7 @@ final class PerfUi(helpers: Helpers, bits: TutorBits):
       report: TutorPerfReport,
       active: String
   )(using Context) = frag(
+    a(href := routes.Tutor.user(user.username))("Tutor"),
     a(href := routes.Tutor.perf(user.username, report.perf.key), cls := active.active("perf"))(
       report.perf.trans
     ),
@@ -123,7 +124,7 @@ final class PerfUi(helpers: Helpers, bits: TutorBits):
           h3(cls := "tutor-card__top__title__text")(title)
         )
       ),
-      div(cls := "tutor-card__content")(content)
+      div(cls := "tutor-card__content tutor-grades")(content)
     )
 
   def phases(report: TutorPerfReport, user: User)(using Context) =

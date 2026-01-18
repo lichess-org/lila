@@ -68,7 +68,8 @@ private case object TutorOpening:
     performances.mine.list.map { (family, myPerformance) =>
       TutorOpeningFamily(
         family,
-        performance = IntRating.from(performances.valueMetric(family, myPerformance).map(roundToInt)),
+        performance =
+          IntRating.from(performances.valueMetric(family, myPerformance).map(TutorNumber.roundToInt)),
         accuracy = AccuracyPercent.from(accuracy.valueMetric(family)),
         awareness = GoodPercent.from(awareness.valueMetric(family))
       )

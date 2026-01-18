@@ -1,12 +1,9 @@
 .tutor {
+  &-grades {
+    @extend %flex-column;
+    gap: 2em;
+  }
   &-grade {
-    margin-bottom: 2em;
-    padding-bottom: 2em;
-    border-bottom: $border;
-    &:last-child {
-      margin-bottom: 0;
-      border-bottom: none;
-    }
     &__name {
       font-weight: normal;
       font-size: 1.2em;
@@ -54,6 +51,13 @@
       font-size: 0.9em;
       color: $c-font-dim;
       margin-top: 0.3em;
+      margin-bottom: 2em;
+      padding-bottom: 2em;
+      border-bottom: $border;
+      &:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+      }
     }
   }
 }
