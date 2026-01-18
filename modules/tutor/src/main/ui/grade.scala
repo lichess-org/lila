@@ -14,7 +14,7 @@ object grade:
       titleTag: Text.Tag = h3
   ): Option[Tag] =
     metricOptions.asAvailable.map: metric =>
-      div(cls := "tutor-grade")(
+      div(cls := s"tutor-grade tutor-grade--${metric.grade.wording.id}")(
         titleTag(cls := "tutor-grade__name")(c.icon.frag, concept.show(c)),
         gradeVisual(c, metric)
       )
@@ -26,7 +26,7 @@ object grade:
       titleTag: Text.Tag = h2
   )(using Translate): Option[Tag] =
     metricOptions.asAvailable.map: metric =>
-      div(cls := "tutor-grade tutor-grade--detail")(
+      div(cls := s"tutor-grade tutor-grade--${metric.grade.wording.id} tutor-grade--detail")(
         titleTag(cls := "tutor-grade__name")(c.icon.frag, concept.show(c)),
         c.description.nonEmpty.option(p(cls := "tutor-grade__concept")(c.description)),
         gradeVisual(c, metric),

@@ -1,3 +1,7 @@
+$c-grade-bad: $m-bad_font--mix-80;
+$c-grade-avg: $m-brag_font-dim--mix-60;
+$c-grade-good: $m-good_bg--mix-90;
+
 .tutor {
   &-grades {
     @extend %flex-column;
@@ -5,7 +9,7 @@
   }
   &-grade {
     @extend %flex-column;
-    gap: 0.5em;
+    gap: 0.4em;
     &__name {
       @extend %flex-center-nowrap;
       gap: 1ch;
@@ -31,23 +35,19 @@
         border-radius: 4px;
         background: $c-bg-low;
         &.lit {
-          background: $m-secondary_bg--mix-80;
+          background: $c-grade-good;
         }
       }
       &--1,
       &--2 {
         > div.lit {
-          background: $m-bad_bg--mix-80;
+          background: $c-grade-bad;
         }
       }
-      &--3 {
-        > div.lit {
-          background: $m-brag_bg--mix-80;
-        }
-      }
+      &--3,
       &--4 {
         > div.lit {
-          background: $c-tutor-bg;
+          background: $c-grade-avg;
         }
       }
     }
@@ -58,6 +58,25 @@
       margin-bottom: 2em;
       padding-bottom: 2em;
       border-bottom: $border;
+    }
+
+    .tutor-icon,
+    .tutor-grade__name {
+      color: $c-grade-good;
+    }
+    &--1,
+    &--2 {
+      .tutor-icon,
+      .tutor-grade__name {
+        color: $c-grade-bad;
+      }
+    }
+    &--3,
+    &--4 {
+      .tutor-icon,
+      .tutor-grade__name {
+        color: $c-grade-avg;
+      }
     }
   }
 }

@@ -17,6 +17,7 @@ $c-bg-popup: hsl(0, 0%, 100%);
 $c-bg-opaque: hsl(0, 0%, 100%);
 $c-body-gradient: hsl(37, 12%, 84%);
 $c-font: hsl(0, 0%, 30%);
+$c-font-dim: hsl(0, 0%, 47%);
 $c-primary: hsl(209, 77%, 46%);
 $c-brag: hsl(37, 74%, 48%);
 $c-shade: hsl(0, 0%, 84%);
@@ -45,7 +46,7 @@ html.light {
   --c-metal-top-hover: hsl(0, 0%, 98%);
   --c-metal-bottom-hover: hsl(0, 0%, 95%);
 
-  --c-font-dim: #{change-color($c-font, $lightness: 47%)};
+  --c-font-dim: #{$c-font-dim};
   --c-font-dimmer: #{change-color($c-font, $lightness: 70%)};
   --c-font-clear: #{change-color($c-font, $lightness: 12%)};
   --c-font-clearer: #{change-color($c-font, $lightness: 0%)};
