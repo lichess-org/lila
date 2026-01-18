@@ -32,6 +32,22 @@
 		<item quantity="other">%s kilogram</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">slik startet du %s av partiene dine som hvit</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Åpningen du har spilt mest som hvit, med %s parti</item>
+		<item quantity="other">Åpningen du har spilt mest som hvit, med %s partier</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Åpningen du har spilt mest som svart, med %s parti</item>
+		<item quantity="other">Åpningen du har spilt mest som svart, med %s partier</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Takk for at du stemte på %s sjakknøtt.</item>
+		<item quantity="other">Takk for at du stemte på %s sjakknøtter.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Du bidro også med å merke %s av dem.</string>
+	<string name="puzzlesNone">Du løste ingen sjakknøtter i år.</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Vil du prøve noen nå?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Du løste %s av dem på første forsøk!</string>
 	<string name="sourcesTitle">Hvor fant du partier?</string>
 	<string name="perfsTitle">Hvilke tidskontroller og varianter spilte du?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s annonser og sporere lastet inn</string>
