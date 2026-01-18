@@ -10,6 +10,8 @@ import type {
 } from './interfaces';
 import RelayPlayers, { playerId, renderPlayers, tableAugment, type RelayPlayer } from './relayPlayers';
 import { defined } from 'lib';
+import type { Federations, StudyPlayerFromServer } from '../interfaces';
+import { convertPlayerFromServer } from '../studyChapters';
 
 export default class RelayTeamsStandings {
   standings: RelayTeamStandings | undefined;
@@ -17,6 +19,7 @@ export default class RelayTeamsStandings {
   constructor(
     private readonly tourId: TourId,
     readonly hideResultsSinceRoundId: () => RoundId | undefined,
+    private readonly federations: Federations | undefined,
     private readonly redraw: Redraw,
     private readonly players: RelayPlayers,
   ) {
@@ -26,6 +29,13 @@ export default class RelayTeamsStandings {
 
   async loadFromXhr() {
     this.standings = await xhrJson(`/broadcast/${this.tourId}/teams/standings`);
+    this.standings?.forEach(teamEntry => {
+      teamEntry.matches.forEach(match => {
+        match.players = match.players.map((player: RelayPlayer & StudyPlayerFromServer) =>
+          convertPlayerFromServer(player, this.federations),
+        );
+      });
+    });
     this.redraw();
   }
 

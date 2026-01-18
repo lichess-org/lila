@@ -67,6 +67,7 @@ export default class RelayCtrl {
     this.teamStandings = new RelayTeamsStandings(
       this.data.tour.id,
       () => this.round?.id,
+      this.study.data.federations,
       this.redraw,
       this.players,
     );
