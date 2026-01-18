@@ -20,7 +20,7 @@ import { defined, prop, type Prop } from 'lib';
 import { prompt } from 'lib/view';
 import { opposite } from '@lichess-org/chessground/util';
 import { parseSquare } from 'chessops';
-import { chess960CastlingSquares, chess960IdToFEN } from './chess960';
+import { chess960CastlingSquares, chess960IdToFEN, fenToChess960Id, randomPositionId } from './chess960';
 
 export default class EditorCtrl {
   options: Options;
@@ -67,10 +67,14 @@ export default class EditorCtrl {
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
     this.variant = this.cfg.embed ? 'standard' : ((params.get('variant') || 'standard') as VariantKey);
-    this.initialFen = (cfg.fen || params.get('fen') || INITIAL_FEN).replace(/_/g, ' ');
+    const fenPassedIn: string | null = cfg.fen || params.get('fen');
+    this.initialFen = (fenPassedIn || INITIAL_FEN).replace(/_/g, ' ');
     this.guessCastlingToggles = false;
-    this.chess960PositionId =
-      params.get('position') === null ? undefined : parseInt(params.get('position')!, 10);
+    this.chess960PositionId = fenPassedIn
+      ? fenToChess960Id(fenPassedIn)
+      : params.get('position') !== null
+        ? parseInt(params.get('position')!, 10)
+        : randomPositionId();
 
     if (!this.cfg.embed) this.options.orientation = params.get('color') === 'black' ? 'black' : 'white';
 
@@ -114,6 +118,7 @@ export default class EditorCtrl {
       window.history.replaceState(null, '', this.makeEditorUrl(fen, this.bottomColor()));
     }
     this.options.onChange?.(fen);
+    this.chess960PositionId = fenToChess960Id(fen) ?? this.chess960PositionId;
     this.redraw();
   }
 
