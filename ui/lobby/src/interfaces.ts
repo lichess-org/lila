@@ -80,10 +80,7 @@ export interface LobbyData {
   counters: { members: number; rounds: number };
 }
 
-export interface RatingWithProvisional {
-  rating: number;
-  prov?: boolean;
-}
+type RatingWithProvisional = number;
 
 export interface NowPlaying {
   fullId: string;
