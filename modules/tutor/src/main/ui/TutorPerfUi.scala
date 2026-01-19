@@ -1,9 +1,10 @@
 package lila.tutor
 package ui
+
 import lila.insight.{ InsightPosition, Phase }
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import chess.Color
 
 final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
   import helpers.{ *, given }
@@ -43,10 +44,8 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
             frag(report.perf.trans, " openings"),
             routes.Tutor.openings(user.username, report.perf.key).some
           )(
-            Color.all.map: color =>
-              report.openings(color).families.headOption.map { fam =>
-                grade.peerGrade(concept.opening(fam.family, color), fam.mix, h4)
-              }
+            selectThreeOpenings(report).map: (color, fam) =>
+              grade.peerGrade(concept.opening(fam.family, color), fam.mix, h4)
           ),
           angleCard(
             frag(report.perf.trans, " time management"),
@@ -90,6 +89,20 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
       // strong(perfReport.stats.peers.showRatingRange)
     )
   )
+
+  private def selectThreeOpenings(report: TutorPerfReport): List[(Color, TutorOpeningFamily)] =
+    val byColor = chess.ByColor[List[TutorOpeningFamily]]: color =>
+      report.openings(color).families.take(2)
+    val firstTwo: List[(Color, TutorOpeningFamily)] = byColor.zipColor.flatMap: (color, fams) =>
+      fams.headOption.map(color -> _)
+    val extraOne: List[(Color, TutorOpeningFamily)] =
+      byColor.zipColor
+        .flatMap: (color, fams) =>
+          fams.lift(1).map(color -> _)
+        .sortBy(-_._2.performance.mine.count)
+        .headOption
+        .toList
+    firstTwo ::: extraOne
 
   def menu(
       user: User,
