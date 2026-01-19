@@ -429,6 +429,8 @@
   <string name="leaderboard">Rangliste</string>
   <string name="screenshotCurrentPosition">Eine Bildschirmaufnahme der aktuellen Stellung anfertigen</string>
   <string name="gameAsGIF">Partie als GIF</string>
+  <string name="playerNames">Spielernamen</string>
+  <string name="moveAnnotations">Zugnotation</string>
   <string name="pasteTheFenStringHere">Füge den FEN-Text hier ein</string>
   <string name="pasteThePgnStringHere">Füge den PGN-Text hier ein</string>
   <string name="orUploadPgnFile">Oder lade eine PGN-Datei hoch</string>
