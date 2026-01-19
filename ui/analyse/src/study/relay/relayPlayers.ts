@@ -248,9 +248,9 @@ const playersList = (ctrl: RelayPlayers): VNode =>
   );
 
 export const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes => {
-  const withRating = !!players.find(p => p.rating);
-  const withScores = !!players.find(p => p.score !== undefined);
-  const withRank = !!players.find(p => p.rank);
+  const withRating = players.some(p => defined(p.rating));
+  const withScores = players.some(p => defined(p.score));
+  const withRank = players.some(p => defined(p.rank));
   const defaultSort = { attrs: { 'data-sort-default': 1 } };
   const tbs = players?.[0]?.tiebreaks;
   const sortByBoth = (x?: number, y?: number) => ({
