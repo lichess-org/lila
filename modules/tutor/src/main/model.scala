@@ -75,7 +75,7 @@ case class Grade private (value: Double):
   val wording: Wording = Wording.list.find(_.top > value) | Wording.MuchBetter
 
 object Grade:
-  def percent[P](a: P, b: P)(using p: Percent[P]): Grade = apply((p.value(a) - p.value(b)) / 25)
+  def percent[P](a: P, b: P)(using p: Percent[P]): Grade = apply((p.value(a) - p.value(b)) / 20)
   def apply(value: Double): Grade = new Grade(value.atLeast(-1).atMost(1))
 
   enum Wording(val id: Int, val value: String, val top: Double) extends Ordered[Wording]:
