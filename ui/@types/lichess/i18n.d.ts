@@ -3371,14 +3371,6 @@ interface I18n {
     disableKidMode: string;
     /** Conversations */
     discussions: string;
-    /** Display clocks */
-    displayClocks: string;
-    /** Display move annotations */
-    displayMoveAnnotations: string;
-    /** Display player names */
-    displayPlayerNames: string;
-    /** Display ratings */
-    displayRatings: string;
     /** Do it again */
     doItAgain: string;
     /** Done reviewing black mistakes */
@@ -3817,6 +3809,8 @@ interface I18n {
     mouseTricks: string;
     /** Move */
     move: string;
+    /** Move annotations */
+    moveAnnotations: string;
     /** Moves played */
     movesPlayed: string;
     /** Move times */
@@ -4049,6 +4043,8 @@ interface I18n {
     playComputerMove: string;
     /** Player */
     player: string;
+    /** Player names */
+    playerNames: string;
     /** Players */
     players: string;
     /** Play every game you start. */

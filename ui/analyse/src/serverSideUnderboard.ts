@@ -173,18 +173,21 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   if (gameGifLink) {
     const gifPrefs = {
         showPlayers: {
-          label: i18n.site.displayPlayerNames,
+          label: i18n.site.playerNames,
           prop: storedBooleanProp('analyse.gif.players', true),
         },
         showRatings: {
-          label: i18n.site.displayRatings,
+          label: i18n.preferences.showPlayerRatings,
           prop: storedBooleanProp('analyse.gif.ratings', true),
         },
         showGlyphs: {
-          label: i18n.site.displayMoveAnnotations,
+          label: i18n.site.moveAnnotations,
           prop: storedBooleanProp('analyse.gif.glyphs', false),
         },
-        showClocks: { label: i18n.site.displayClocks, prop: storedBooleanProp('analyse.gif.clocks', false) },
+        showClocks: {
+          label: i18n.preferences.chessClock,
+          prop: storedBooleanProp('analyse.gif.clocks', false),
+        },
       },
       gameGifParent = gameGifLink.parentElement;
 
