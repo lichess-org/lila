@@ -9,6 +9,8 @@
   <string name="gameOver">Schpiel verbi</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
   <string name="orLetYourOpponentScanQrCode">Oder lass din Gägner de QR-Code skänne</string>
+  <string name="reusableChallengeUrl">Wieder verwändbari Forderigs-URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">En permanänte Link, für jedermann - um mit genau dene Istellige z\'fordere.</string>
   <string name="waiting">Am Warte</string>
   <string name="yourTurn">Du bisch dra</string>
   <string name="aiNameLevelAiLevel">%1$s Schtufe %2$s</string>
