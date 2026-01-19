@@ -10,7 +10,7 @@ import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 import scalalib.Maths
 
 import lila.common.Json.given
-import lila.core.config.BaseUrl
+import lila.core.config.RouteUrl
 import lila.core.game.{ Game, Pov }
 import lila.game.GameExt.*
 import lila.tree.Analysis
@@ -43,7 +43,7 @@ object GifExport:
 final class GifExport(
     ws: StandaloneWSClient,
     lightUserApi: lila.core.user.LightUserApi,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     url: String
 )(using Executor):
   private val targetMedianTime = Centis(80)
@@ -70,7 +70,7 @@ final class GifExport(
           .withBody(
             Json
               .obj(
-                "comment" -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/lichess-org/lila-gif",
+                "comment" -> s"${routeUrl(routes.Round.watcher(pov.game.id, pov.color))} rendered with https://github.com/lichess-org/lila-gif",
                 "orientation" -> pov.color.name,
                 "delay" -> targetMedianTime.centis, // default delay for frames
                 "frames" -> frames(pov.game, initialFen, analysis, options),
