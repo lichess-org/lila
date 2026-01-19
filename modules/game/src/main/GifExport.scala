@@ -16,6 +16,8 @@ import lila.game.GameExt.*
 import lila.tree.Analysis
 import play.api.mvc.RequestHeader
 import lila.common.HTTPRequest.queryStringBoolOpt
+import chess.Ply
+import chess.format.pgn.Glyph
 
 object GifExport:
   case class UpstreamStatus(code: Int) extends lila.core.lilaism.LilaException:
@@ -52,42 +54,34 @@ final class GifExport(
       initialFen: Option[Fen.Full],
       theme: String,
       piece: String,
-      analysis: Option[Analysis] = None,
-      options: GifExport.Options = GifExport.Options()
+      analysis: Option[Analysis],
+      options: GifExport.Options
   ): Fu[Source[ByteString, ?]] =
-    (lightUserApi.preloadMany(pov.game.userIds) >>
-      ws.url(s"$url/game.gif")
-        .withMethod("POST")
-        .addHttpHeaders("Content-Type" -> "application/json")
-        .withBody(
-          Json
-            .obj(
-              "comment" -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/lichess-org/lila-gif",
-              "orientation" -> pov.color.name,
-              "delay" -> targetMedianTime.centis, // default delay for frames
-              "frames" -> frames(pov.game, initialFen, analysis, options),
-              "theme" -> theme,
-              "piece" -> piece
-            )
-            .add(
-              "white",
-              options.players.option(
-                Namer.playerTextBlocking(pov.game.whitePlayer, withRating = options.ratings)(using
-                  lightUserApi.sync
-                )
-              )
-            )
-            .add(
-              "black",
-              options.players.option(
-                Namer.playerTextBlocking(pov.game.blackPlayer, withRating = options.ratings)(using
-                  lightUserApi.sync
-                )
-              )
-            )
-            .add("clocks", clocksJson(pov.game, options))
+    def showPlayer(color: Color) =
+      options.players.option:
+        Namer.playerTextBlocking(pov.game.players(color), withRating = options.ratings)(using
+          lightUserApi.sync
         )
-        .stream()).pipe(upstreamResponse(s"pov ${pov.game.id}"))
+    upstreamResponse(s"pov ${pov.game.id}"):
+      lightUserApi.preloadMany(pov.game.userIds) >>
+        ws.url(s"$url/game.gif")
+          .withMethod("POST")
+          .addHttpHeaders("Content-Type" -> "application/json")
+          .withBody(
+            Json
+              .obj(
+                "comment" -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/lichess-org/lila-gif",
+                "orientation" -> pov.color.name,
+                "delay" -> targetMedianTime.centis, // default delay for frames
+                "frames" -> frames(pov.game, initialFen, analysis, options),
+                "theme" -> theme,
+                "piece" -> piece
+              )
+              .add("white", showPlayer(Color.White))
+              .add("black", showPlayer(Color.Black))
+              .add("clocks", clocksJson(pov.game, options))
+          )
+          .stream()
 
   def gameThumbnail(game: Game, theme: String, piece: String): Fu[Source[ByteString, ?]] =
     lightUserApi.preloadMany(game.userIds) >>
@@ -112,23 +106,23 @@ final class GifExport(
       piece: String,
       description: String
   ): Fu[Source[ByteString, ?]] =
-    ws.url(s"$url/image.gif")
-      .withMethod("GET")
-      .withQueryStringParameters(
-        List(
-          "fen" -> Fen.write(position).value,
-          "orientation" -> orientation.name,
-          "theme" -> theme,
-          "piece" -> piece
-        ) ::: List(
-          white.map { "white" -> _ },
-          black.map { "black" -> _ },
-          lastMove.map { lm => "lastMove" -> UciDump.lastMove(lm, position.variant) },
-          position.checkSquare.map { "check" -> _.key }
-        ).flatten*
-      )
-      .stream()
-      .pipe(upstreamResponse(description))
+    upstreamResponse(description):
+      ws.url(s"$url/image.gif")
+        .withMethod("GET")
+        .withQueryStringParameters(
+          List(
+            "fen" -> Fen.write(position).value,
+            "orientation" -> orientation.name,
+            "theme" -> theme,
+            "piece" -> piece
+          ) ::: List(
+            white.map { "white" -> _ },
+            black.map { "black" -> _ },
+            lastMove.map { lm => "lastMove" -> UciDump.lastMove(lm, position.variant) },
+            position.checkSquare.map { "check" -> _.key }
+          ).flatten*
+        )
+        .stream()
 
   private def upstreamResponse(
       description: String
@@ -160,10 +154,9 @@ final class GifExport(
           "black" -> history.black.map(_.centis)
         )
 
-  private def glyphsMap(analysis: Option[Analysis], options: GifExport.Options): Map[Int, String] =
-    options.glyphs.so:
-      analysis.fold(Map.empty[Int, String]): a =>
-        a.advices.map(adv => adv.ply.value -> adv.judgment.glyph.symbol).toMap
+  private def glyphsMap(analysis: Option[Analysis]): Map[Ply, Glyph] =
+    analysis.fold(Map.empty[Ply, Glyph]): a =>
+      a.advices.map(adv => adv.ply -> adv.judgment.glyph).toMap
 
   private def frames(
       game: Game,
@@ -172,19 +165,19 @@ final class GifExport(
       options: GifExport.Options
   ): JsArray =
     val positions = Position(game.variant, initialFen).playPositions(game.sans).getOrElse(List(game.position))
-    val glyphs = glyphsMap(analysis, options)
+    val glyphs = options.glyphs.so(glyphsMap(analysis))
     framesRec(
       positions.zip(scaleMoveTimes(~game.moveTimes).map(some).padTo(positions.length, None)),
       glyphs,
-      0,
+      Ply.initial,
       Json.arr()
     )
 
   @annotation.tailrec
   private def framesRec(
       games: List[(Position, Option[Centis])],
-      glyphs: Map[Int, String],
-      ply: Int,
+      glyphs: Map[Ply, Glyph],
+      ply: Ply,
       arr: JsArray
   ): JsArray =
     games match
@@ -195,7 +188,7 @@ final class GifExport(
         val glyph = glyphs.get(ply)
         framesRec(tail, glyphs, ply + 1, arr :+ frame(position, position.history.lastMove, delay, glyph))
 
-  private def frame(position: Position, uci: Option[Uci], delay: Option[Centis], glyph: Option[String]) =
+  private def frame(position: Position, uci: Option[Uci], delay: Option[Centis], glyph: Option[Glyph]) =
     Json
       .obj(
         "fen" -> (Fen.write(position)),
@@ -203,4 +196,4 @@ final class GifExport(
       )
       .add("check", position.checkSquare.map(_.key))
       .add("delay", delay.map(_.centis))
-      .add("glyph", glyph)
+      .add("glyph", glyph.map(_.symbol))
