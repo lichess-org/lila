@@ -9,6 +9,7 @@ import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapter
 import { userTitle } from 'lib/view/userLink';
 import type RelayPlayers from './relayPlayers';
 import { coloredStatusStr } from './customScoreStatus';
+import { teamLink } from './relayTeamsStandings';
 
 interface TeamWithPoints {
   name: string;
@@ -102,27 +103,13 @@ const renderTeams = (
             : 'result.';
     return hl('div.relay-tour__team-match', [
       hl('div.relay-tour__team-match__teams', [
-        hl(
-          'strong.relay-tour__team-match__team',
-          hl(
-            'a',
-            { attrs: { href: `#team-results/${encodeURIComponent(row.teams[0].name)}` } },
-            row.teams[0].name,
-          ),
-        ),
+        hl('strong.relay-tour__team-match__team', hl('a', teamLink(row.teams[0].name), row.teams[0].name)),
         hl('span.relay-tour__team-match__team__points', [
           hl(`${resultClass(firstTeam, secondTeam)}result`, firstTeam.points),
           hl('vs', 'vs'),
           hl(`${resultClass(secondTeam, firstTeam)}result`, secondTeam.points),
         ]),
-        hl(
-          'strong.relay-tour__team-match__team',
-          hl(
-            'a',
-            { attrs: { href: `#team-results/${encodeURIComponent(secondTeam.name)}` } },
-            secondTeam.name,
-          ),
-        ),
+        hl('strong.relay-tour__team-match__team', hl('a', teamLink(secondTeam.name), secondTeam.name)),
       ]),
       hl(
         'div.relay-tour__team-match__games',

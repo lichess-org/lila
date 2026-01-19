@@ -1,4 +1,4 @@
-import { dataIcon, hl, onInsert, spinnerVdom, type VNode } from 'lib/view';
+import { dataIcon, hl, onInsert, spinnerVdom, type VNode, type VNodeData } from 'lib/view';
 import { Group, StudyBoard } from 'lib/licon';
 import { json as xhrJson } from 'lib/xhr';
 import type { RelayTeamName, RelayTeamStandings, RelayTeamStandingsEntry, TourId } from './interfaces';
@@ -174,3 +174,9 @@ export default class RelayTeamsStandings {
     this.setTeamToShow(team);
   };
 }
+
+export const teamLink = (teamName: RelayTeamName): VNodeData => ({
+  attrs: {
+    href: `#team-results/${encodeURIComponent(teamName)}`,
+  },
+});
