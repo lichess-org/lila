@@ -114,10 +114,18 @@ export default class RelayTeamsStandings {
     return hl('div.relay-tour__team-summary', [
       hl('div.relay-tour__team-summary', [
         hl('h2.relay-tour__team-summary__header text', { attrs: dataIcon(Group) }, foundTeam.name),
-        hl('div', this.rosterView(foundTeam)),
+        hl(
+          'table.relay-tour__team-summary__header__stats',
+          hl('tbody', [
+            hl('tr', [hl('th', 'Matches Played'), hl('td', `${foundTeam.matches.length}`)]),
+            hl('tr', [hl('th', 'Match Points'), hl('td', `${foundTeam.mp}`)]),
+            hl('tr', [hl('th', 'Game Points'), hl('td', `${foundTeam.gp}`)]),
+          ]),
+        ),
       ]),
+      hl('div.relay-tour__team-summary__roster', this.rosterView(foundTeam)),
       hl('div.relay-tour__team-summary__matches', [
-        hl('h2.relay-tour__team-summary__matches__header', 'Matches'),
+        hl('h2.relay-tour__team-summary__matches__header', 'Match History'),
         hl('table.relay-tour__team-summary__table.slist.slist-pad', [
           hl(
             'thead',

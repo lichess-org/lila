@@ -561,6 +561,11 @@ $hover-bg: $m-primary_bg--mix-30;
     &__matches__header {
       @extend %tour-margin-horiz;
     }
+    &__header {
+      &__stats {
+        @extend %tour-margin-horiz;
+      }
+    }
     .score {
       font-weight: bold;
     }
@@ -574,7 +579,7 @@ $hover-bg: $m-primary_bg--mix-30;
       a {
         color: $c-font;
         &:hover {
-          color: $c-over;
+          color: $c-primary;
         }
       }
     }
