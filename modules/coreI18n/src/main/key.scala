@@ -1838,6 +1838,8 @@ object I18nKey:
     val `leaderboard`: I18nKey = "leaderboard"
     val `screenshotCurrentPosition`: I18nKey = "screenshotCurrentPosition"
     val `gameAsGIF`: I18nKey = "gameAsGIF"
+    val `playerNames`: I18nKey = "playerNames"
+    val `moveAnnotations`: I18nKey = "moveAnnotations"
     val `pasteTheFenStringHere`: I18nKey = "pasteTheFenStringHere"
     val `pasteThePgnStringHere`: I18nKey = "pasteThePgnStringHere"
     val `orUploadPgnFile`: I18nKey = "orUploadPgnFile"

@@ -165,6 +165,7 @@ export function view(ctrl: StudyShare): VNode {
                   href: xhrUrl(`/study/${studyId}/${chapter.id}.gif`, {
                     theme: document.body.dataset.board,
                     piece: document.body.dataset.pieceSet,
+                    showGlyphs: true,
                   }),
                   download: true,
                 },

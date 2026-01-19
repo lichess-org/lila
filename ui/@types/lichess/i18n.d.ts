@@ -3809,6 +3809,8 @@ interface I18n {
     mouseTricks: string;
     /** Move */
     move: string;
+    /** Move annotations */
+    moveAnnotations: string;
     /** Moves played */
     movesPlayed: string;
     /** Move times */
@@ -4041,6 +4043,8 @@ interface I18n {
     playComputerMove: string;
     /** Player */
     player: string;
+    /** Player names */
+    playerNames: string;
     /** Players */
     players: string;
     /** Play every game you start. */

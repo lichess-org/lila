@@ -429,6 +429,8 @@
   <string name="leaderboard">Leaderboard</string>
   <string name="screenshotCurrentPosition">Screenshot current position</string>
   <string name="gameAsGIF">Game as GIF</string>
+  <string name="playerNames">Player names</string>
+  <string name="moveAnnotations">Move annotations</string>
   <string name="pasteTheFenStringHere">Paste the FEN text here</string>
   <string name="pasteThePgnStringHere">Paste the PGN text here</string>
   <string name="orUploadPgnFile">Or upload a PGN file</string>
