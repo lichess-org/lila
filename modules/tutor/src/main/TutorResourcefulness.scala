@@ -12,7 +12,7 @@ object TutorResourcefulness:
   val maxGames = Max(10_000)
 
   private[tutor] def compute(
-      users: NonEmptyList[TutorUser]
+      users: NonEmptyList[TutorPlayer]
   )(using insightApi: InsightApi, ec: Executor): Fu[TutorBuilder.Answers[PerfType]] =
     val perfs = users.toList.map(_.perfType)
     val question = Question(

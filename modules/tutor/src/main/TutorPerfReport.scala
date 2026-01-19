@@ -128,7 +128,7 @@ private object TutorPerfReport:
   )
   private def hasClock(p: PerfType) = p != PerfType.Correspondence
 
-  def compute(users: NonEmptyList[TutorUser])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
+  def compute(users: NonEmptyList[TutorPlayer])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
     for
       accuracy <- answerManyPerfs(accuracyQuestion, users)
       awareness <- answerManyPerfs(awarenessQuestion, users)

@@ -7,7 +7,7 @@ import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
 final private class TutorCustomInsight[A: TutorNumber](
-    users: NonEmptyList[TutorUser],
+    users: NonEmptyList[TutorPlayer],
     question: Question[PerfType],
     monitoringKey: String,
     peerMatch: TutorPerfReport.PeerMatch => TutorBothValueOptions[A]
@@ -19,9 +19,8 @@ final private class TutorCustomInsight[A: TutorNumber](
   )(using Executor): Fu[TutorBuilder.Answers[PerfType]] =
     for
       mine <- insightColl
-        .aggregateList(maxDocs = Int.MaxValue)(_ =>
+        .aggregateList(maxDocs = Int.MaxValue): _ =>
           aggregateMine(InsightStorage.selectUserId(users.head.user.id))
-        )
         .map { docs => TutorBuilder.AnswerMine(Answer(question, clusterParser(docs), Nil)) }
         .monSuccess(_.tutor.askMine(monitoringKey, "all"))
       peerDocs <- users.toList.map { u =>

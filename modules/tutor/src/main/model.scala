@@ -87,7 +87,7 @@ object Grade:
   object Wording:
     val list = values.reverse.toList
 
-case class TutorUser(
+case class TutorPlayer(
     user: User,
     perfType: PerfType,
     perfStats: InsightPerfStats,
