@@ -8,7 +8,7 @@
       flex: 250px 1 1;
       h2 {
         font-size: 2em;
-        margin-bottom: 1em;
+        margin-bottom: $block-gap;
       }
       &__openings {
         display: grid;

@@ -29,58 +29,60 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
     bits.page(
       title = s"Lichess Tutor • ${perfReport.perf.trans} • ${as.name} • ${report.family.name.value}",
       menu = openingMenu(perfReport, report, as, user)
-    )(cls := "tutor__opening box"):
+    )(cls := "tutor__opening tutor-layout"):
       frag(
-        boxTop(
-          h1(
-            a(
-              href := routes.Tutor.openings(user.username, perfReport.perf.key),
-              dataIcon := Icon.LessThan,
-              cls := "text"
-            ),
-            bits.otherUser(user),
-            perfReport.perf.trans,
-            ": ",
-            report.family.name,
-            " as ",
-            as.name
-          )
-        ),
-        bits.mascotSays(
-          div(
-            cls := "lpv lpv--todo",
-            st.data("pgn") := report.family.anyOpening.pgn,
-            st.data("title") := report.family.name
+        div(cls := "box tutor__first-box")(
+          boxTop(
+            h1(
+              a(
+                href := routes.Tutor.openings(user.username, perfReport.perf.key),
+                dataIcon := Icon.LessThan,
+                cls := "text"
+              ),
+              bits.otherUser(user),
+              perfReport.perf.trans,
+              ": ",
+              report.family.name,
+              " as ",
+              as.name
+            )
           ),
-          div(cls := "mascot-says__content__text")(
-            p(
-              "You played the ",
-              report.family.name.value,
-              " in ",
-              report.performance.mine.count.localize,
-              " games, which is ",
-              bits.percentFrag(perfReport.openingFrequency(as, report)),
-              " of the time you played as ",
-              as.name,
-              "."
+          bits.mascotSays(
+            div(
+              cls := "lpv lpv--todo",
+              st.data("pgn") := report.family.anyOpening.pgn,
+              st.data("title") := report.family.name
             ),
-            div(cls := "mascot-says__buttons")(
-              a(
-                cls := "button button-no-upper text",
-                dataIcon := Icon.InfoCircle,
-                href := bits.openingUrl(report.family.anyOpening)
-              )("Learn about this opening"),
-              a(
-                cls := "button button-no-upper text",
-                dataIcon := Icon.Book,
-                href := s"${routes.UserAnalysis
-                    .pgn(report.family.anyOpening.pgn.value.replace(" ", "_"))}#explorer/${user.username}"
-              )("Personal opening explorer"),
-              puzzle
+            div(cls := "mascot-says__content__text")(
+              p(
+                "You played the ",
+                report.family.name.value,
+                " in ",
+                report.performance.mine.count.localize,
+                " games, which is ",
+                bits.percentFrag(perfReport.openingFrequency(as, report)),
+                " of the time you played as ",
+                as.name,
+                "."
+              ),
+              div(cls := "mascot-says__buttons")(
+                a(
+                  cls := "button button-no-upper text",
+                  dataIcon := Icon.InfoCircle,
+                  href := bits.openingUrl(report.family.anyOpening)
+                )("Learn about this opening"),
+                a(
+                  cls := "button button-no-upper text",
+                  dataIcon := Icon.Book,
+                  href := s"${routes.UserAnalysis
+                      .pgn(report.family.anyOpening.pgn.value.replace(" ", "_"))}#explorer/${user.username}"
+                )("Personal opening explorer"),
+                puzzle
+              )
             )
           )
         ),
-        div(cls := "tutor__pad tutor-grades")(
+        div(cls := "box tutor__pad tutor-grades")(
           grade.peerGradeWithDetail(concept.performance, report.performance.toOption, InsightPosition.Game),
           grade.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),
           grade.peerGradeWithDetail(concept.tacticalAwareness, report.awareness, InsightPosition.Move)
@@ -88,22 +90,24 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
       )
 
   def openings(report: TutorPerfReport, user: User)(using ctx: Context) =
-    bits.page(menu = perfUi.menu(user, report, "openings"))(cls := "tutor__openings box"):
+    bits.page(menu = perfUi.menu(user, report, "openings"))(cls := "tutor__openings tutor-layout"):
       frag(
-        boxTop(
-          h1(
-            a(
-              href := routes.Tutor.perf(user.username, report.perf.key),
-              dataIcon := Icon.LessThan,
-              cls := "text"
-            ),
-            bits.otherUser(user),
-            report.perf.trans,
-            " openings"
+        div(cls := "tutor__first-box box")(
+          boxTop(
+            h1(
+              a(
+                href := routes.Tutor.perf(user.username, report.perf.key),
+                dataIcon := Icon.LessThan,
+                cls := "text"
+              ),
+              bits.otherUser(user),
+              report.perf.trans,
+              " openings"
+            )
+          ),
+          bits.mascotSays(
+            report.openingHighlights(3).map(compare.show)
           )
-        ),
-        bits.mascotSays(
-          report.openingHighlights(3).map(compare.show)
         ),
         div(cls := "tutor__openings__colors tutor__pad")(Color.all.map { color =>
           st.section(cls := "tutor__openings__color")(
