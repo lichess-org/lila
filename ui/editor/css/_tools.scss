@@ -58,8 +58,7 @@
       }
 
       .chess960-position-row {
-        display: flex;
-        align-items: center;
+        @extend %flex-center-nowrap;
       }
 
       #chess960-position-id {
