@@ -124,8 +124,8 @@ export default class RelayTeamsStandings {
         ),
       ]),
       hl('div.relay-tour__team-summary__roster', this.rosterView(foundTeam)),
+      hl('h2.relay-tour__team-summary__matches__header', 'Match History'),
       hl('div.relay-tour__team-summary__matches', [
-        hl('h2.relay-tour__team-summary__matches__header', 'Match History'),
         hl('table.relay-tour__team-summary__table.slist.slist-pad', [
           hl(
             'thead',
