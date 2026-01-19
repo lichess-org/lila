@@ -9,6 +9,8 @@
   <string name="gameOver">Spillet er slut</string>
   <string name="waitingForOpponent">Venter på modstander</string>
   <string name="orLetYourOpponentScanQrCode">Eller lad din modstander scanne denne QR-kode</string>
+  <string name="reusableChallengeUrl">Genanvendelig udfordrings-URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Et permanent link, som enhver kan bruge til at udfordre dig med nøjagtig disse indstillinger.</string>
   <string name="waiting">Venter</string>
   <string name="yourTurn">Din tur</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
