@@ -57,8 +57,12 @@
         }
       }
 
+      .chess960-position-row {
+        @extend %flex-center-nowrap;
+        gap: 0.5rem;
+      }
+
       #chess960-position-id {
-        margin-left: 0.5rem;
         &:invalid {
           border-color: $c-error;
         }
