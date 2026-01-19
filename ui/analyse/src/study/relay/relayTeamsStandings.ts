@@ -5,7 +5,6 @@ import type {
   RelayTeamName,
   RelayTeamStandings,
   RelayTeamStandingsEntry,
-  RoundId,
   TourId,
 } from './interfaces';
 import RelayPlayers, { renderPlayers, tableAugment, type RelayPlayer } from './relayPlayers';
@@ -18,7 +17,6 @@ export default class RelayTeamsStandings {
   teamToShow: RelayTeamName | undefined;
   constructor(
     private readonly tourId: TourId,
-    readonly hideResultsSinceRoundId: () => RoundId | undefined,
     private readonly federations: Federations | undefined,
     private readonly redraw: Redraw,
     private readonly players: RelayPlayers,
