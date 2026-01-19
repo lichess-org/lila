@@ -45,6 +45,8 @@
         opacity: 0.7;
       }
       &__title {
+        @extend %flex-center-nowrap;
+        gap: 1ch;
         &--pad {
           @include padding-direction(2rem, #{$card-padding-w}, 0, #{$card-padding-w});
         }
@@ -61,6 +63,9 @@
         &__sub {
           margin-top: 0.3rem;
           color: $c-font-dim;
+        }
+        .tutor-icon {
+          height: 2.5em;
         }
       }
     }

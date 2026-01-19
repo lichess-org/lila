@@ -80,7 +80,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
             )
           )
         ),
-        div(cls := "tutor__pad")(
+        div(cls := "tutor__pad tutor-grades")(
           grade.peerGradeWithDetail(concept.performance, report.performance.toOption, InsightPosition.Game),
           grade.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),
           grade.peerGradeWithDetail(concept.tacticalAwareness, report.awareness, InsightPosition.Move)

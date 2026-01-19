@@ -45,7 +45,7 @@ object concept:
   val performance =
     TutorConcept("Performance", InsightMetric.Performance.description, rating, TutorIcon.steelwingEmblem)
 
-  private val phaseIcon: Phase => TutorIcon =
+  val phaseIcon: Phase => TutorIcon =
     case Phase.Opening => TutorIcon.groundSprout
     case Phase.Middle => TutorIcon.magicTrick
     case Phase.End => TutorIcon.towerFall
