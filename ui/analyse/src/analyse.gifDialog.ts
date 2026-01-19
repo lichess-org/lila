@@ -3,6 +3,7 @@ import { url as xhrUrl } from 'lib/xhr';
 import * as licon from 'lib/licon';
 import type AnalyseCtrl from './ctrl';
 import { domDialog, type Dialog } from 'lib/view';
+import { opposite } from 'chessops';
 
 export function initModule(ctrl: AnalyseCtrl): void {
   let gifOrientation: Color = ctrl.bottomColor();
@@ -82,7 +83,7 @@ export function initModule(ctrl: AnalyseCtrl): void {
       {
         selector: '.gif-flip',
         listener: (_, dlg) => {
-          gifOrientation = gifOrientation === ctrl.bottomColor() ? ctrl.topColor() : ctrl.bottomColor();
+          gifOrientation = opposite(gifOrientation);
           dlg.view.querySelector('.gif-flip')!.textContent = i18n.site[gifOrientation];
           updateUrl(dlg);
         },
@@ -90,9 +91,9 @@ export function initModule(ctrl: AnalyseCtrl): void {
       {
         selector: '.gif-copy',
         listener: (_, dlg) => {
-          const url = (dlg.view.querySelector('.gif-download') as HTMLAnchorElement).href;
+          const url = dlg.view.querySelector<HTMLAnchorElement>('.gif-download')!.href;
           navigator.clipboard.writeText(url).then(() => {
-            const btn = dlg.view.querySelector('.gif-copy') as HTMLButtonElement;
+            const btn = dlg.view.querySelector<HTMLButtonElement>('.gif-copy')!;
             btn.dataset.icon = licon.Checkmark;
             btn.classList.remove('button-metal');
             setTimeout(() => {
