@@ -64,26 +64,23 @@ object GoodPercent extends OpaqueDouble[GoodPercent]:
 
 // value from -1 (worse) to +1 (best)
 case class Grade private (value: Double):
-
   import Grade.Wording
-
   def abs = math.abs(value)
   def better = wording >= Wording.SlightlyBetter
   def worse = wording <= Wording.SlightlyWorse
   def negate = copy(value = -value)
-
   val wording: Wording = Wording.list.find(_.top > value) | Wording.MuchBetter
 
 object Grade:
-  def percent[P](a: P, b: P)(using p: Percent[P]): Grade = apply((p.value(a) - p.value(b)) / 20)
+  def percent[P](a: P, b: P)(using p: Percent[P]): Grade = apply((p.value(a) - p.value(b)) / 25)
   def apply(value: Double): Grade = new Grade(value.atLeast(-1).atMost(1))
 
   enum Wording(val id: Int, val value: String, val top: Double) extends Ordered[Wording]:
     def compare(other: Wording) = top.compare(other.top)
     case MuchBetter extends Wording(7, "much better than", 1)
-    case Better extends Wording(6, "better than", 0.6)
-    case SlightlyBetter extends Wording(5, "slightly better than", 0.3)
-    case Similar extends Wording(4, "similar to", 0.1)
+    case Better extends Wording(6, "better than", 0.4)
+    case SlightlyBetter extends Wording(5, "slightly better than", 0.2)
+    case Similar extends Wording(4, "similar to", 0.07)
     case SlightlyWorse extends Wording(3, "slightly worse than", -Similar.top)
     case Worse extends Wording(2, "worse than", -SlightlyBetter.top)
     case MuchWorse extends Wording(1, "much worse than", -Better.top)
