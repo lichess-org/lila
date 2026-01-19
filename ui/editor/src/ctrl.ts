@@ -20,7 +20,7 @@ import { defined, prop, type Prop } from 'lib';
 import { prompt } from 'lib/view';
 import { opposite } from '@lichess-org/chessground/util';
 import { parseSquare } from 'chessops';
-import { chess960CastlingSquares, chess960IdToFEN } from './chess960';
+import { chess960CastlingSquares, chess960IdToFEN, randomPositionId } from './chess960';
 
 export default class EditorCtrl {
   options: Options;
@@ -321,6 +321,13 @@ export default class EditorCtrl {
     this.options.orientation = o;
     if (this.chessground!.state.orientation !== o) this.chessground!.toggleOrientation();
     this.redraw();
+  }
+
+  setRandom960Position(): void {
+    let id = randomPositionId();
+    while (id === this.chess960PositionId) id = randomPositionId();
+    this.chess960PositionId = id;
+    this.setFen(chess960IdToFEN(id));
   }
 }
 

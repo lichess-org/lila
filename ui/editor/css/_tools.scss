@@ -57,6 +57,11 @@
         }
       }
 
+      .chess960-position-row {
+        display: flex;
+        align-items: center;
+      }
+
       #chess960-position-id {
         margin-left: 0.5rem;
         &:invalid {

@@ -12,7 +12,7 @@ import type EditorCtrl from './ctrl';
 import chessground from './chessground';
 import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
 import { fenToEpd } from 'lib/game/chess';
-import { chess960IdToFEN, fenToChess960Id } from './chess960';
+import { chess960IdToFEN, fenToChess960Id, randomPositionId } from './chess960';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
@@ -93,33 +93,44 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
     ctrl.variant !== 'chess960'
       ? null
       : h('div.metadata', [
-          h(
-            'label.form-label',
-            {
-              attrs: { for: 'chess960-position-id' },
-            },
-            'Chess960 position ID:',
-          ),
-          h('input#chess960-position-id', {
-            attrs: { minlength: 1, maxlength: 3, type: 'number', min: '0', max: '959' },
-            props: {
-              value:
-                ctrl.chess960PositionId !== undefined
-                  ? ctrl.chess960PositionId
-                  : (ctrl.chess960PositionId = Math.floor(Math.random() * 960)),
-            },
-            on: {
-              change(e) {
-                const candidateId = parseInt((e.target as HTMLSelectElement).value || '0', 10);
-                if (!Number.isInteger(candidateId) || candidateId < 0 || candidateId > 959) return;
-                ctrl.chess960PositionId = candidateId;
-                ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
+          h('div.chess960-position-row', [
+            h(
+              'label.form-label',
+              {
+                attrs: { for: 'chess960-position-id' },
               },
-              keydown(e) {
-                if (e.key === 'Enter') (e.target as HTMLElement).blur();
+              'Chess960 position ID:',
+            ),
+            h('input#chess960-position-id', {
+              attrs: { minlength: 1, maxlength: 3, type: 'number', min: '0', max: '959' },
+              props: {
+                value:
+                  ctrl.chess960PositionId !== undefined
+                    ? ctrl.chess960PositionId
+                    : (ctrl.chess960PositionId = randomPositionId()),
               },
-            },
-          }),
+              on: {
+                change(e) {
+                  const candidateId = parseInt((e.target as HTMLSelectElement).value || '0', 10);
+                  if (!Number.isInteger(candidateId) || candidateId < 0 || candidateId > 959) return;
+                  ctrl.chess960PositionId = candidateId;
+                  ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
+                },
+                keydown(e) {
+                  if (e.key === 'Enter') (e.target as HTMLElement).blur();
+                },
+              },
+            }),
+            h('button.button.button-empty.chess960-position-random', {
+              attrs: { type: 'button', title: 'Random Chess960 position', ...dataIcon(licon.DieSix) },
+              on: {
+                click(e) {
+                  e.preventDefault();
+                  ctrl.setRandom960Position();
+                },
+              },
+            }),
+          ]),
         ]);
 
   return h('div.board-editor__tools', [
@@ -238,10 +249,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 on: {
                   change(e) {
                     const value = (e.target as HTMLSelectElement).value;
-                    if (value === 'chess960') {
-                      ctrl.chess960PositionId = Math.floor(Math.random() * 960);
-                      ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
-                    }
+                    if (value === 'chess960') ctrl.setRandom960Position();
                     ctrl.setVariant(value as VariantKey);
                   },
                 },
