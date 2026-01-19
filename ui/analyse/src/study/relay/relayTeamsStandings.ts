@@ -1,12 +1,7 @@
 import { dataIcon, hl, onInsert, spinnerVdom, type VNode } from 'lib/view';
 import { Group, StudyBoard } from 'lib/licon';
 import { json as xhrJson } from 'lib/xhr';
-import type {
-  RelayTeamName,
-  RelayTeamStandings,
-  RelayTeamStandingsEntry,
-  TourId,
-} from './interfaces';
+import type { RelayTeamName, RelayTeamStandings, RelayTeamStandingsEntry, TourId } from './interfaces';
 import RelayPlayers, { renderPlayers, tableAugment, type RelayPlayer } from './relayPlayers';
 import { defined } from 'lib';
 import type { Federations, StudyPlayerFromServer } from '../interfaces';
@@ -17,6 +12,7 @@ export default class RelayTeamsStandings {
   teamToShow: RelayTeamName | undefined;
   constructor(
     private readonly tourId: TourId,
+    private readonly switchToTeamResultsTab: () => void,
     private readonly federations: Federations | undefined,
     private readonly redraw: Redraw,
     private readonly players: RelayPlayers,
@@ -48,6 +44,7 @@ export default class RelayTeamsStandings {
   };
 
   setTeamToShow = (team: RelayTeamName) => {
+    this.switchToTeamResultsTab();
     this.teamToShow = team;
     this.setTabHash();
     this.redraw();

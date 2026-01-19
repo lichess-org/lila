@@ -198,7 +198,14 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                         ),
                       ]),
                     p.team &&
-                      hl('tr', [hl('th', 'Team'), hl('td.text', { attrs: dataIcon(licon.Group) }, p.team)]),
+                      hl('tr', [
+                        hl('th', 'Team'),
+                        hl(
+                          'td.text',
+                          { attrs: dataIcon(licon.Group) },
+                          hl('a', { attrs: { href: `#team-results/${encodeURIComponent(p.team)}` } }, p.team),
+                        ),
+                      ]),
                     age && hl('tr', [hl('th', i18n.broadcast.age), hl('td', age.toString())]),
                   ]),
                 ]),
@@ -390,7 +397,12 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
     hl('div.tpp__player__info', [
       hl(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
       hl('div.tpp__player__details', [
-        p.team && hl('div.tpp__player__team', p.team),
+        p.team &&
+          hl(
+            'a.tpp__player__team',
+            { attrs: { href: `#team-results/${encodeURIComponent(p.team)}` } },
+            p.team,
+          ),
         hl('div', [
           playerFedFlag(p.fed),
           !!p.rating && [`${p.rating}`, isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p)],
