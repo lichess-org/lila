@@ -1,5 +1,5 @@
 import { pieceGrams, totalGames } from './constants';
-import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
+import type { Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
 import { onInsert, hl, type LooseVNodes, type VNode, dataIcon } from 'lib/view';
 import { loadOpeningLpv } from './ui';
 import { shuffle } from 'lib/algo';
@@ -9,6 +9,7 @@ import { formatDuration, perfIsSpeed, perfLabel } from './util';
 import perfIcons from 'lib/game/perfIcons';
 import * as licon from 'lib/licon';
 import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
+import { COLORS } from 'chessops';
 
 const confettiCanvas = (): VNode =>
   hl('canvas#confetti', {
@@ -362,7 +363,7 @@ export const shareable = (r: Recap): VNode =>
       ]),
       hl(
         'div.openings',
-        (['white', 'black'] as const).map(
+        COLORS.map(
           c =>
             r.games.openings[c].count &&
             stat(r.games.openings[c].value.name, i18n.site[c === 'white' ? 'asWhite' : 'asBlack']),

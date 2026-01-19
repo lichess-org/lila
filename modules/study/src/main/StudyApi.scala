@@ -209,7 +209,7 @@ final class StudyApi(
           study.id.into(ChatId),
           userId = userId,
           text = text,
-          publicSource = study.isPublic.option(lila.core.shutup.PublicSource.Study(studyId)),
+          publicSource = study.isPublic.option(lila.core.chat.PublicSource.Study(studyId)),
           busChan = _.study
         )
 
@@ -242,34 +242,41 @@ final class StudyApi(
       position: Position
   ): Fu[Option[() => Funit]] =
     import args.{ *, given }
-    val singleNode = args.node.withoutChildren
-    if position.chapter.isOverweight then
-      logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
-      reloadSriBecauseOf(study, who.sri, position.chapter.id, "overweight".some)
-      fuccess(none)
-    else
-      position.chapter.addNode(singleNode, position.path, relay) match
-        case None =>
-          reloadSriBecauseOf(study, who.sri, position.chapter.id)
-          fufail(s"Invalid addNode ${study.id} ${position.ref} $singleNode")
-        case Some(chapter) =>
-          chapter.root.nodeAt(position.path).so { parent =>
-            parent.children.get(singleNode.id).so { node =>
-              val newPosition = position.ref + node
-              for
-                _ <- chapterRepo.addSubTree(chapter, node, position.path, relay)
-                _ <-
-                  if opts.sticky
-                  then studyRepo.setPosition(study.id, newPosition)
-                  else studyRepo.updateNow(study)
-                _ = sendTo(study.id):
-                  _.addNode(position.ref, node, chapter.setup.variant, sticky = opts.sticky, relay, who)
-                isMainline = newPosition.path.isMainline(chapter.root)
-                promoteToMainline = opts.promoteToMainline && !isMainline
-              yield promoteToMainline.option: () =>
-                promote(study.id, position.ref + node, toMainline = true)
-            }
-          }
+    args
+      .node(position.chapter.setup.variant)
+      .map(_.withoutChildren)
+      .fold(
+        err => fufail(err.toString),
+        node =>
+          if node.ply >= Node.MAX_PLIES then fuccess(none)
+          else if position.chapter.isOverweight then
+            logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
+            reloadSriBecauseOf(study, who.sri, position.chapter.id, "overweight".some)
+            fuccess(none)
+          else
+            position.chapter.addNode(node, position.path, relay) match
+              case None =>
+                reloadSriBecauseOf(study, who.sri, position.chapter.id)
+                fufail(s"Invalid addNode ${study.id} ${position.ref} $node")
+              case Some(chapter) =>
+                chapter.root.nodeAt(position.path).so { parent =>
+                  parent.children.get(node.id).so { node =>
+                    val newPosition = position.ref + node
+                    for
+                      _ <- chapterRepo.addSubTree(chapter, node, position.path, relay)
+                      _ <-
+                        if opts.sticky
+                        then studyRepo.setPosition(study.id, newPosition)
+                        else studyRepo.updateNow(study)
+                      _ = sendTo(study.id):
+                        _.addNode(position.ref, node, chapter.setup.variant, sticky = opts.sticky, relay, who)
+                      isMainline = newPosition.path.isMainline(chapter.root)
+                      promoteToMainline = opts.promoteToMainline && !isMainline
+                    yield promoteToMainline.option: () =>
+                      promote(study.id, position.ref + node, toMainline = true)
+                  }
+                }
+      )
 
   def deleteNodeAt(studyId: StudyId, position: Position.Ref)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):
@@ -468,7 +475,9 @@ final class StudyApi(
               doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
       yield sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
 
-  def setComment(studyId: StudyId, position: Position.Ref, text: CommentStr)(who: Who) =
+  def setComment(studyId: StudyId, position: Position.Ref, commentId: Option[Comment.Id], text: CommentStr)(
+      who: Who
+  ) =
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
@@ -476,7 +485,7 @@ final class StudyApi(
             .async(who.u)
             .flatMapz: author =>
               val comment = Comment(
-                id = Comment.Id.make,
+                id = commentId.getOrElse(Comment.Id.make),
                 text = text,
                 by = Comment.Author.User(author.id, author.titleName)
               )
@@ -486,8 +495,8 @@ final class StudyApi(
     position.chapter.setComment(comment, position.path) match
       case Some(newChapter) =>
         newChapter.root.nodeAt(position.path).so { node =>
-          node.comments.findBy(comment.by).so { c =>
-            for _ <- chapterRepo.setComments(node.comments.filterEmpty)(newChapter, position.path)
+          node.comments.findByIdAndAuthor(comment.id, comment.by).so { c =>
+            for _ <- chapterRepo.setComments(node.comments.set(c))(newChapter, position.path)
             yield
               sendTo(study.id)(_.setComment(position.ref, c, who))
               studyRepo.updateNow(study)

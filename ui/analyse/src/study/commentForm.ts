@@ -5,11 +5,13 @@ import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import { currentComments, isAuthorObj } from './studyComments';
 import { storage } from 'lib/storage';
+import type { TreeComment, TreeNode, TreePath } from 'lib/tree/types';
+import type { ChapterId } from './interfaces';
 
 interface Current {
-  chapterId: string;
-  path: Tree.Path;
-  node: Tree.Node;
+  chapterId: ChapterId;
+  path: TreePath;
+  node: TreeNode;
 }
 
 export class CommentForm {
@@ -17,20 +19,21 @@ export class CommentForm {
   opening = prop(false);
   constructor(readonly root: AnalyseCtrl) {}
 
-  submit = (text: string) => this.current() && this.doSubmit(text);
+  submit = (commentId: string, text: string) => this.current() && this.doSubmit(commentId, text);
 
-  doSubmit = throttle(500, (text: string) => {
+  doSubmit = throttle(500, (commentId: string, text: string) => {
     const cur = this.current();
-    if (cur) this.root.study!.makeChange('setComment', { ch: cur.chapterId, path: cur.path, text });
+    if (cur)
+      this.root.study!.makeChange('setComment', { ch: cur.chapterId, path: cur.path, text, id: commentId });
   });
 
-  start = (chapterId: string, path: Tree.Path, node: Tree.Node): void => {
+  start = (chapterId: string, path: TreePath, node: TreeNode): void => {
     this.opening(true);
     this.current({ chapterId, path, node });
     this.root.userJump(path);
   };
 
-  onSetPath = (chapterId: string, path: Tree.Path, node: Tree.Node): void => {
+  onSetPath = (chapterId: string, path: TreePath, node: TreeNode): void => {
     const cur = this.current();
     if (cur && (path !== cur.path || chapterId !== cur.chapterId || cur.node !== node)) {
       cur.chapterId = chapterId;
@@ -38,7 +41,7 @@ export class CommentForm {
       cur.node = node;
     }
   };
-  delete = (chapterId: string, path: Tree.Path, id: string) => {
+  delete = (chapterId: string, path: TreePath, id: string) => {
     this.root.study!.makeChange('deleteComment', { ch: chapterId, path, id });
   };
 }
@@ -51,15 +54,16 @@ export function view(root: AnalyseCtrl): VNode {
     ctrl = study.commentForm,
     current = ctrl.current();
   if (!current) return viewDisabled(root, 'Select a move to comment');
-  const setupTextarea = (vnode: VNode, old?: VNode) => {
+
+  const setupTextarea = (vnode: VNode, comment: TreeComment, old?: VNode) => {
     const el = vnode.elm as HTMLInputElement;
-    const newKey = current.chapterId + current.path;
+    const newKey = current.chapterId + current.path + (comment.id || '');
 
     if (old?.data!.path !== newKey) {
-      const mine = (current.node.comments || []).find(function (c) {
-        return isAuthorObj(c.by) && c.by.id && c.by.id === ctrl.root.opts.userId;
-      });
-      el.value = mine ? mine.text : '';
+      const mine = (current.node.comments || []).find(
+        c => isAuthorObj(c.by) && c.by.id && c.by.id === ctrl.root.opts.userId && c.id === comment.id,
+      );
+      el.value = mine?.text || '';
     }
     vnode.data!.path = newKey;
 
@@ -69,19 +73,21 @@ export function view(root: AnalyseCtrl): VNode {
     }
   };
 
-  return h(
-    'div.study__comments',
-    { hook: onInsert(() => root.enableWiki(root.data.game.variant.key === 'standard')) },
-    [
-      currentComments(root, !study.members.canContribute()),
-      h('form.form3', [
-        h('textarea#comment-text.form-control', {
+  const commentTextareas = () => {
+    let comments = current.node.comments || [];
+    comments = comments.filter(comment => isAuthorObj(comment.by) && comment.by.id === ctrl.root.opts.userId);
+    if (comments.length === 0) comments = [{ id: '', by: '', text: '' }];
+
+    return comments.map(comment =>
+      h('div.study__comment-edit', [
+        h('textarea.form-control', {
+          key: comment.id,
           hook: {
             insert(vnode) {
-              setupTextarea(vnode);
+              setupTextarea(vnode, comment);
               const el = vnode.elm as HTMLInputElement;
-              el.oninput = () => setTimeout(() => ctrl.submit(el.value), 50);
-              const heightStore = storage.make('study.comment.height');
+              el.oninput = () => setTimeout(() => ctrl.submit(comment.id, el.value), 50);
+              const heightStore = storage.make('study.comment.height.' + comment.id);
               el.onmouseup = () => heightStore.set('' + el.offsetHeight);
               el.style.height = parseInt(heightStore.get() || '80') + 'px';
 
@@ -89,10 +95,19 @@ export function view(root: AnalyseCtrl): VNode {
                 if (e.code === 'Escape') el.blur();
               });
             },
-            postpatch: (old, vnode) => setupTextarea(vnode, old),
+            postpatch: (old, vnode) => setupTextarea(vnode, comment, old),
           },
         }),
       ]),
+    );
+  };
+
+  return h(
+    'div.study__comments',
+    { hook: onInsert(() => root.enableWiki(root.data.game.variant.key === 'standard')) },
+    [
+      currentComments(root, !study.members.canContribute()),
+      h('form.form3', commentTextareas()),
       h('div.analyse__wiki.study__wiki.force-ltr'),
     ],
   );

@@ -410,7 +410,6 @@
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
   <string name="orUploadPgnFile">Не PGN файлын жүктеп салыңыз</string>
-  <string name="fromPosition">Бір күйден бастап</string>
   <string name="continueFromHere">Осы жерден жалғастыру</string>
   <string name="toStudy">Зертхана</string>
   <string name="importGame">Ойынды жүктеп салу</string>

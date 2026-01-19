@@ -10,7 +10,7 @@ import lila.user.Note
 import lila.core.config.NetDomain
 import lila.core.userId.ModId
 import lila.shutup.{ PublicLine, Analyser }
-import lila.core.shutup.PublicSource
+import lila.core.chat.PublicSource
 import lila.core.i18n.Translate
 
 final class ModTimelineUi(helpers: Helpers)(

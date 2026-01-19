@@ -23,11 +23,11 @@
   <string name="moveToPieceByType">ટુકડાના નામોનો ઉપયોગ કરીને ચોરસ પર ખસેડો. ઉદાહરણ તરીકે: પુનરાવર્તિત \'k\' એ દરેક ચોરસ પર ખસેડશે જ્યાં ઘોડો હોય. ક્રમ ઉલટાવવા માટે મોટા અક્ષરોનો ઉપયોગ કરો.</string>
   <string name="moveToRank">રેન્ક 1 થી 8 પર ખસેડો.</string>
   <string name="moveToFile">ફાઇલ a થી h પર ખસેડો.</string>
-  <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">ટુકડાઓના સ્થાનોની જાહેરાત કરો. ઉદાહરણ: સફેદ ઘોડા માટે \'p capital N\', કાળા રાજા માટે \'p lowercase k\', બધા સફેદ ટુકડાઓ માટે \'p capital A\'.</string>
-  <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">રેન્ક અથવા ફાઇલ પરના ટુકડાઓની જાહેરાત કરો. ઉદાહરણ: s a, s 1.</string>
-  <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">બોર્ડ પર જાઓ. ડિફોલ્ટ ચોરસ e-4 છે. તમે એક ચોરસ સ્પષ્ટ કરી શકો છો: \'board a-1\' અથવા \'b a-1\' તમને ચોરસ a-1 પર લઈ જશે.</string>
+  <string name="announcePieceLocations">ટુકડાઓના સ્થાનોની જાહેરાત કરો. ઉદાહરણ: સફેદ ઘોડા માટે \'p capital N\', કાળા રાજા માટે \'p lowercase k\', બધા સફેદ ટુકડાઓ માટે \'p capital A\'.</string>
+  <string name="announcePiecesOnRankOrFile">રેન્ક અથવા ફાઇલ પરના ટુકડાઓની જાહેરાત કરો. ઉદાહરણ: s a, s 1.</string>
+  <string name="goToBoard">બોર્ડ પર જાઓ. ડિફોલ્ટ ચોરસ e-4 છે. તમે એક ચોરસ સ્પષ્ટ કરી શકો છો: \'board a-1\' અથવા \'b a-1\' તમને ચોરસ a-1 પર લઈ જશે.</string>
   <string name="movePiece">ટુકડો ખસેડવા માટે, માનક બીજગણિતીય સંજ્ઞાનો ઉપયોગ કરો.</string>
-  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">રાણી સિવાય અન્ય કોઈપણમાં પ્રમોટ કરવા માટે, બરાબર (equals) નો ઉપયોગ કરો. ઉદાહરણ તરીકે \'a-8-equals-n\' ઘોડો માં પ્રમોટ કરે છે.</string>
+  <string name="promotion">રાણી સિવાય અન્ય કોઈપણમાં પ્રમોટ કરવા માટે, બરાબર (equals) નો ઉપયોગ કરો. ઉદાહરણ તરીકે \'a-8-equals-n\' ઘોડો માં પ્રમોટ કરે છે.</string>
   <string name="king">રાજા</string>
   <string name="whiteKing">સફેદ રાજા</string>
   <string name="blackKing">કાળો રાજા</string>
@@ -47,18 +47,18 @@
   <string name="whitePawn">સફેદ પ્યાદુ</string>
   <string name="blackPawn">કાળો પ્યાદુ</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
-  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">પકડે છે</string>
+  <string name="sanTakes" comment="x in standard notation">પકડે છે</string>
   <string name="sanCheck" comment="+ in standard notation">ચેક</string>
   <string name="sanCheckmate" comment="# in standard notation">ચેકમેટ</string>
-  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">માં પ્રમોટ કરે છે</string>
-  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">ટૂંકું કેસલિંગ</string>
-  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">લાંબું કેસલિંગ</string>
-  <string name="sanDroppedOn" comment="Indicates a piece is dropped on a square in the Crazyhouse variant, as part of a longer sentence.&#10;&#10;In Crazyhouse, any pieces you capture are placed in your pocket. You can then drop those pieces onto any square on the board.&#10;&#10;Examples:&#10;&quot;bishop is dropped on c 4 check&quot; (B@c4+)&#10;&quot;pawn is dropped on f 7&quot; (@f7)&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'dropped on' corresponds to &quot;@&quot; in Crazyhouse's form of algebraic notation.">પર મૂકવામાં આવ્યો છે</string>
+  <string name="sanPromotesTo" comment="= in standard notation">માં પ્રમોટ કરે છે</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">ટૂંકું કેસલિંગ</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">લાંબું કેસલિંગ</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">પર મૂકવામાં આવ્યો છે</string>
   <string name="invalidMove">અમાન્ય ચાલ</string>
   <string name="premoveCancelled">પ્રીમૂવ રદ</string>
   <string name="premoveRecorded">પ્રીમૂવ રેકોર્ડ થયેલ: %s. રદ કરવા માટે એન્ટર દબાવો</string>
-  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">ખિસ્સા (પોકેટ્સ)</string>
-  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s ને ક્લિપબોર્ડ પર કૉપિ કરો</string>
-  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s ક્લિપબોર્ડ પર કૉપિ થયેલ</string>
-  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN અને FEN</string>
+  <string name="pockets" comment="Crazyhouse pockets">ખિસ્સા (પોકેટ્સ)</string>
+  <string name="copyToClipboard">%s ને ક્લિપબોર્ડ પર કૉપિ કરો</string>
+  <string name="copiedToClipboard">%s ક્લિપબોર્ડ પર કૉપિ થયેલ</string>
+  <string name="pgnAndFen">PGN અને FEN</string>
 </resources>

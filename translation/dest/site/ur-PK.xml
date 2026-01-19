@@ -341,7 +341,6 @@
   <string name="leaderboard">درجہ بندی</string>
   <string name="pasteTheFenStringHere">FEN یہاں داخل کریں</string>
   <string name="pasteThePgnStringHere">PGN یہاں داخل کریں</string>
-  <string name="fromPosition">خاص پوزیشن سے</string>
   <string name="continueFromHere">یہاں سے کھیل شروع کریں</string>
   <string name="toStudy">مطالعہ</string>
   <string name="importGame">کھیلنامہ (PGN) درآمد کریں</string>

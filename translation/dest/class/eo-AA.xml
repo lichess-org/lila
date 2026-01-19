@@ -90,7 +90,7 @@ Jen la ligo por aliri la klason.</string>
   <string name="timePlaying">Tempo pasita ludante</string>
   <string name="variantXOverLastY">%1$s sur la lastaj %2$s</string>
   <string name="winrate">Venka procento</string>
-  <string name="na">Ne havebla</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Ne havebla</string>
   <string name="overview">Superrigardo</string>
   <string name="news">Novaĵoj</string>
   <string name="classNews">Novaĵoj de la lecionoj</string>
@@ -119,4 +119,5 @@ Jen la ligo por aliri la klason.</string>
   <string name="moveToClass">Movi al %s</string>
   <string name="moveToAnotherClass">Movi al alia klaso</string>
   <string name="allowMessagingBetweenStudents">Permesi mesaĝojn inter studentoj</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Senvalidiĝo: %s</string>
 </resources>

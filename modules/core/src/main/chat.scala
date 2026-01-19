@@ -3,9 +3,9 @@ package chat
 
 import play.api.libs.json.JsObject
 
-import lila.core.id.ChatId
-import lila.core.shutup.PublicSource
+import lila.core.id.*
 import lila.core.userId.*
+import lila.core.data.Url
 
 case class ChatLine(chatId: ChatId, line: Line, json: JsObject)
 case class OnTimeout(chatId: ChatId, userId: UserId)
@@ -33,7 +33,42 @@ enum BusChan:
 object BusChan:
   type Select = BusChan.type => BusChan
 
-val etiquetteUrl = "lichess.org/page/chat-etiquette"
+val etiquetteUrl = Url("lichess.org/page/chat-etiquette")
+
+enum PublicSource(val typeName: String, val someId: Any):
+  case Tournament(id: TourId) extends PublicSource("tournament", id)
+  case Simul(id: SimulId) extends PublicSource("simul", id)
+  case Study(id: StudyId) extends PublicSource("study", id)
+  case Player(gameId: GameId) extends PublicSource("player", id) // not actually public
+  case Watcher(gameId: GameId) extends PublicSource("watcher", id)
+  case Team(id: TeamId) extends PublicSource("team", id)
+  case Swiss(id: SwissId) extends PublicSource("swiss", id)
+  case Forum(id: ForumPostId) extends PublicSource("forum", id)
+  case Ublog(id: UblogPostId) extends PublicSource("ublog", id)
+  case Relay(id: RelayRoundId) extends PublicSource("relay", id)
+
+  def resourceId: ResourceId = ResourceId:
+    this match
+      case PublicSource.Watcher(gameId) => s"game/$gameId"
+      case PublicSource.Player(gameId) => gameId.value
+      case _ => s"$typeName/$someId"
+
+object PublicSource:
+  object longNotation:
+    def read(str: String): Option[PublicSource] = str.split('/') match
+      case Array("tournament", id) => Some(PublicSource.Tournament(TourId(id)))
+      case Array("simul", id) => Some(PublicSource.Simul(SimulId(id)))
+      case Array("game", id) => Some(PublicSource.Watcher(GameId(id)))
+      case Array("study", id) => Some(PublicSource.Study(StudyId(id)))
+      case Array("team", id) => Some(PublicSource.Team(TeamId(id)))
+      case Array("swiss", id) => Some(PublicSource.Swiss(SwissId(id)))
+      case Array("forum", id) => Some(PublicSource.Forum(ForumPostId(id)))
+      case Array("blog", id) => Some(PublicSource.Ublog(UblogPostId(id)))
+      case Array("relay", id) => Some(PublicSource.Relay(RelayRoundId(id)))
+      case _ => None
+
+opaque type ResourceId = String
+object ResourceId extends OpaqueString[ResourceId]
 
 enum TimeoutReason(val key: String, val name: String):
   lazy val shortName = name.split(';').lift(0) | name

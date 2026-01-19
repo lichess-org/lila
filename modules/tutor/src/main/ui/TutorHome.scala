@@ -8,7 +8,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
+final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
   import helpers.{ *, given }
 
   def apply(full: TutorFullReport.Available, user: User)(using Context) =
@@ -77,7 +77,7 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
           )
         )
       ),
-      div(cls := "tutor-card__content")(
+      div(cls := "tutor-card__content tutor-grades")(
         grade.peerGrade(concept.accuracy, perfReport.accuracy),
         grade.peerGrade(concept.tacticalAwareness, perfReport.awareness),
         grade.peerGrade(concept.resourcefulness, perfReport.resourcefulness),
@@ -85,9 +85,8 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
         grade.peerGrade(concept.speed, perfReport.globalClock),
         grade.peerGrade(concept.clockFlagVictory, perfReport.flagging.win),
         grade.peerGrade(concept.clockTimeUsage, perfReport.clockUsage),
-        perfReport.phases.map { phase =>
-          grade.peerGrade(concept.phase(phase.phase), phase.mix)
-        },
+        perfReport.phases.map: phase =>
+          grade.peerGrade(concept.phase(phase.phase), phase.mix),
         bits.seeMore
       )
     )

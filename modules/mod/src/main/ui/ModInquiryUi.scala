@@ -5,7 +5,7 @@ import lila.core.config.NetDomain
 import lila.report.Report
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.shutup.PublicSource
+import lila.core.chat.PublicSource
 import lila.core.i18n.Translate
 import lila.core.perm.Permission
 

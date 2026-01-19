@@ -7,6 +7,7 @@ import { renderIndexAndMove } from '../view/components';
 import { baseUrl } from '../view/util';
 import type { ChapterPreview, StudyData } from './interfaces';
 import type RelayCtrl from './relay/relayCtrl';
+import type { TreeNode } from 'lib/tree/types';
 
 function fromPly(ctrl: StudyShare): VNode {
   const renderedMove = renderIndexAndMove(ctrl.currentNode(), false, false);
@@ -31,7 +32,7 @@ export class StudyShare {
   constructor(
     readonly data: StudyData,
     readonly currentChapter: () => ChapterPreview,
-    readonly currentNode: () => Tree.Node,
+    readonly currentNode: () => TreeNode,
     readonly onMainline: () => boolean,
     readonly bottomColor: () => Color,
     readonly relay: RelayCtrl | undefined,

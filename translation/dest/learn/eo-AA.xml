@@ -6,7 +6,7 @@
   <string name="progressX">Progreso: %s</string>
   <string name="resetMyProgress">Nulu mian progreson</string>
   <string name="youWillLoseAllYourProgress">Vi tute perdos vian progreson!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ludi!</string>
+  <string name="play">ludi!</string>
   <string name="chessPieces">Ŝakludaj pecoj</string>
   <string name="theRook">La turo</string>
   <string name="itMovesInStraightLines">Ĝi moviĝas rekte</string>
@@ -146,7 +146,6 @@ Bloku la ŝakon, poste aroku!</string>
   <string name="findAWayToCastleKingSide">Aroku reĝflanke iele!</string>
   <string name="findAWayToCastleQueenSide">Aroku damflanke iele!</string>
   <string name="castlingComplete">Gratulon! Vi devas preskaŭ ĉiam aroki dum ajna ludu.</string>
-  <string name="enPassant">Preterpasa preno</string>
   <string name="theSpecialPawnMove">La aparta movo de la soldato</string>
   <string name="enPassantIntro">Kiam la kontraŭa soldato moviĝis 2 kvadratojn, vi povas kapti ĝin kvazaŭ ĝi movus 1 kvadraton.</string>
   <string name="blackJustMovedThePawnByTwoSquares">La nigrulo ĵus movis la soldaton

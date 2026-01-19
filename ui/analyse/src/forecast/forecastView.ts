@@ -41,7 +41,6 @@ function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
       fen: node.fen,
       uci: node.uci!,
       san: node.san!,
-      check: node.check,
     })),
   );
 }
@@ -64,7 +63,12 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                 'click',
                 () =>
                   ctrl.userJump(
-                    fctrl.showForecast((playable(ctrl.data) && ctrl.initialPath) || '', ctrl.tree, nodes),
+                    fctrl.showForecast(
+                      ctrl.variantKey,
+                      (playable(ctrl.data) && ctrl.initialPath) || '',
+                      ctrl.tree,
+                      nodes,
+                    ),
                   ),
                 ctrl.redraw,
               ),

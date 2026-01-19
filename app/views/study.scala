@@ -75,7 +75,7 @@ def show(
               timeout = c.timeout,
               writeable = ctx.userId.exists(s.canChat),
               public = true,
-              resourceId = lila.chat.Chat.ResourceId(s"study/${c.chat.id}"),
+              resource = lila.core.chat.PublicSource.Study(s.id),
               voiceChat = ctx.userId.exists(s.isMember),
               localMod = ctx.userId.exists(s.canContribute)
             ),

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">Pamantayan</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Pamantayang tuntunin ng chess (FIDE)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Chess960</string>
-  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">Ang simulang posisyon ng mga piraso sa ranggo ng bahay ay magkaiba.</string>
-  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Hari ng Burol</string>
-  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Dalhin ang Hari sa gitna para manalo ang laro.</string>
-  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">Tatlong-Check</string>
-  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">I-check ang iyong kalaban ng 3 beses para manalo ang laro.</string>
-  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Antichess</string>
-  <string name="antichessTitle" comment="Description for the Antichess variant">Mawala lahat ng piraso mo (o ma-stalemate) para manalo ang laro.</string>
-  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">Atomic</string>
-  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Isabog ang kalabang hari para manalo.</string>
-  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Horde</string>
-  <string name="hordeTitle" comment="Description for the Horde chess variant">Ang isang gilid ay may malaking bilang ng pawn, yung iba ay may karaniwang hukbo.</string>
-  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Karerang Hari</string>
-  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Dalhin ang hari sa kabilang gilid ng board para manalo.</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Crazyhouse</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Ang mga nakuhang piraso ay pwedeng ilagay muli sa board imbes ng galawin ang piraso.</string>
+  <string name="standard">Pamantayan</string>
+  <string name="standardTitle">Pamantayang tuntunin ng chess (FIDE)</string>
+  <string name="chess960">Chess960</string>
+  <string name="chess960Title">Ang simulang posisyon ng mga piraso sa ranggo ng bahay ay magkaiba.</string>
+  <string name="kingOfTheHill">Hari ng Burol</string>
+  <string name="kingOfTheHillTitle">Dalhin ang Hari sa gitna para manalo ang laro.</string>
+  <string name="threeCheck">Tatlong-Check</string>
+  <string name="threeCheckTitle">I-check ang iyong kalaban ng 3 beses para manalo ang laro.</string>
+  <string name="antichess">Antichess</string>
+  <string name="antichessTitle">Mawala lahat ng piraso mo (o ma-stalemate) para manalo ang laro.</string>
+  <string name="atomic">Atomic</string>
+  <string name="atomicTitle">Isabog ang kalabang hari para manalo.</string>
+  <string name="horde">Horde</string>
+  <string name="hordeTitle">Ang isang gilid ay may malaking bilang ng pawn, yung iba ay may karaniwang hukbo.</string>
+  <string name="racingKings">Karerang Hari</string>
+  <string name="racingKingsTitle">Dalhin ang hari sa kabilang gilid ng board para manalo.</string>
+  <string name="crazyhouse">Crazyhouse</string>
+  <string name="crazyhouseTitle">Ang mga nakuhang piraso ay pwedeng ilagay muli sa board imbes ng galawin ang piraso.</string>
 </resources>

@@ -6,7 +6,7 @@
   <string name="progressX">प्रगती:%s</string>
   <string name="resetMyProgress">माझी प्रगती समायोजित करा</string>
   <string name="youWillLoseAllYourProgress">आपण आपली सर्व प्रगती गमावाल!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">खेळा!</string>
+  <string name="play">खेळा!</string>
   <string name="chessPieces">बुद्धिबळातील सोंगट्या</string>
   <string name="theRook">हत्ती</string>
   <string name="itMovesInStraightLines">तो सरळ रेषेत फिरतो</string>
@@ -60,10 +60,10 @@
   <string name="grabAllTheStarsNoNeedToPromote">सर्व तारे पकडा!
 बढतीची गरज नाही.</string>
   <string name="pawnComplete">अभिनंदन! तुम्हाला प्याद्याबद्दल सर्व काही माहित झालय.</string>
-  <string name="pawnPromotion">प्याद्याची उन्नती</string>
+  <string name="pawnPromotion">प्याद्याची बढती</string>
   <string name="yourPawnReachedTheEndOfTheBoard">आपले प्यादे पटाच्या दुसऱ्या टोकाला पोहोचले!</string>
-  <string name="itNowPromotesToAStrongerPiece">तुम्ही प्याद्याला कोणती हि दुसरी गोटी म्हणून उन्नत करू शकता.</string>
-  <string name="selectThePieceYouWant">हवी ती गोटी निवडा!</string>
+  <string name="itNowPromotesToAStrongerPiece">त्याला आता ताकदवान सोंगटी म्हणून बढती मिळेल.</string>
+  <string name="selectThePieceYouWant">हवी ती सोंगटी निवडा!</string>
   <string name="fundamentals">मूलतत्त्वे</string>
   <string name="capture">मारा (पकडा)</string>
   <string name="takeTheEnemyPieces">शत्रूच्या सोंगट्या घ्या</string>
@@ -153,7 +153,6 @@
   <string name="findAWayToCastleKingSide">राजाच्या बाजूला किल्लेकोट!</string>
   <string name="findAWayToCastleQueenSide">वजिराच्या बाजूला किल्लेकोट!</string>
   <string name="castlingComplete">अभिनंदन! आपण खेळामध्ये जवळजवळ नेहमीच किल्लेकोट करायला पाहिजे.</string>
-  <string name="enPassant">एन पसांट</string>
   <string name="theSpecialPawnMove">प्याद्याची विशेष चाल</string>
   <string name="enPassantIntro">जेव्हा विरोधकाचे प्यादे दोन घर पुढे सरकले असेल, तेव्हा तुम्ही ते जणू एकच घर चालले आहे असे मानून मारू शकता.</string>
   <string name="blackJustMovedThePawnByTwoSquares">काळ्याने फक्त 2 घरे प्यादे हलवले आहे!

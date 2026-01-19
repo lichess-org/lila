@@ -235,7 +235,8 @@ final class RelayApi(
           "spotlight" -> tour.spotlight,
           "ownerIds" -> tour.ownerIds.some,
           "pinnedStream" -> tour.pinnedStream,
-          "note" -> tour.note
+          "note" -> tour.note,
+          "orphanWarn" -> tour.orphanWarn.some
         )
       )
       _ <- data.grouping.so(updateGrouping(tour, _))

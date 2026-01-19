@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Jugar contra el ordenador</string>
   <string name="gameMode">Tipo de partida</string>
   <string name="createLobbyGame">Crear partida en la sala de espera</string>
-  <string name="youPlayAs">Juegas con</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguien a jugar, comparte este enlace</string>
   <string name="gameOver">Fin de la partida</string>
   <string name="waitingForOpponent">Esperando al oponente</string>
@@ -126,6 +125,10 @@
   <string name="bestMoveArrow">Indicar la mejor jugada</string>
   <string name="showVariationArrows">Mostrar flechas de variantes</string>
   <string name="evaluationGauge">Indicador de evaluación</string>
+  <string name="visualMotifs">Complementos visuales</string>
+  <string name="undefendedPieces">Piezas no defendidas</string>
+  <string name="pinnedPieces">Piezas clavadas</string>
+  <string name="checkableKing">Rey en peligro</string>
   <string name="multipleLines">Múltiples líneas</string>
   <string name="cpus">Procesadores</string>
   <string name="memory">Memoria</string>
@@ -205,6 +208,7 @@
   <string name="minutesPerSide">Minutos por jugador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
+  <string name="variantsDescription">Más formas de jugar</string>
   <string name="timeControl">Control de tiempo</string>
   <string name="realTime">Tiempo real</string>
   <string name="correspondence">Correspondencia</string>
@@ -299,6 +303,7 @@
   <string name="standard">Estándar</string>
   <string name="customPosition">Posición personalizada</string>
   <string name="unlimited">Ilimitado</string>
+  <string name="unlimitedDescription">Tómate tu tiempo</string>
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
   <string name="rated">Por puntos</string>
@@ -427,7 +432,6 @@
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
   <string name="orUploadPgnFile">o sube un archivo PGN</string>
-  <string name="fromPosition">Desde posición</string>
   <string name="continueFromHere">Continuar desde aquí</string>
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>
@@ -1019,5 +1023,5 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar búsqueda</string>
   <string name="tags">Etiquetas</string>
-  <string name="enPassant">Captura al paso</string>
+  <string name="enPassant">Al paso</string>
 </resources>

@@ -19,13 +19,13 @@
   <string name="announcePossibleCaptures">현재 선택된 기물이 잡을 수 있는 수 읽어주기.</string>
   <string name="moveWithArrows">좌측, 우측, 위쪽, 또는 아래쪽에 인접한 칸으로 이동.</string>
   <string name="moveToPieceByType">기물 이름을 입력해 해당 기물이 있는 칸으로 이동합니다. 예를 들어, k를 반복해서 누르면 나이트가 있는 모든 칸을 차례대로 이동합니다. 대문자를 사용하면 역순으로 이동합니다.</string>
-  <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">기물의 위치 읽어주기. 예를 들어 p를 누르고 대문자 N을 입력하면 백 나이트의 위치를, p를 누르고 소문자 k를 입력하면 흑 킹의 위치를 읽어줍니다. p를 누르고 대문자 A를 누르면 백의 모든 기물을 읽어줍니다.</string>
-  <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">특정 랭크나 파일에 있는 기물 읽어주기. 예를 들어, 소문자 s를 누르고 소문자 a를 누르면 a파일에 있는 기물을, 소문자 s를 누르고 1을 누르면 1랭크에 있는 기물을 읽어줍니다.</string>
-  <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">보드로 이동합니다. 기본 칸은 e-4이며, 칸을 특정할 수 있습니다. board a-1 또는 b a-1을 입력함으로써 a-1칸으로 이동할 수 있습니다.</string>
+  <string name="announcePieceLocations">기물의 위치 읽어주기. 예를 들어 p를 누르고 대문자 N을 입력하면 백 나이트의 위치를, p를 누르고 소문자 k를 입력하면 흑 킹의 위치를 읽어줍니다. p를 누르고 대문자 A를 누르면 백의 모든 기물을 읽어줍니다.</string>
+  <string name="announcePiecesOnRankOrFile">특정 랭크나 파일에 있는 기물 읽어주기. 예를 들어, 소문자 s를 누르고 소문자 a를 누르면 a파일에 있는 기물을, 소문자 s를 누르고 1을 누르면 1랭크에 있는 기물을 읽어줍니다.</string>
+  <string name="goToBoard">보드로 이동합니다. 기본 칸은 e-4이며, 칸을 특정할 수 있습니다. board a-1 또는 b a-1을 입력함으로써 a-1칸으로 이동할 수 있습니다.</string>
   <string name="movePiece">기물을 움직일려면, 기본 대수 기보 표기법을 사용하세요.</string>
-  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">퀸 이외에 다른 기물로 승진하기 위해서, 등호 기호를 사용하세요. 예를 들어, a-8-등호-n 을 입력하여 나이트로 승진할 수 있습니다.</string>
+  <string name="promotion">퀸 이외에 다른 기물로 승진하기 위해서, 등호 기호를 사용하세요. 예를 들어, a-8-등호-n 을 입력하여 나이트로 승진할 수 있습니다.</string>
   <string name="premoveCancelled">미리두기 취소됨</string>
-  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">포켓</string>
-  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s를 클립보드를 복사</string>
-  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s 클립보드에 복사됨</string>
+  <string name="pockets" comment="Crazyhouse pockets">포켓</string>
+  <string name="copyToClipboard">%s를 클립보드를 복사</string>
+  <string name="copiedToClipboard">%s 클립보드에 복사됨</string>
 </resources>

@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Игра срещу компютъра</string>
   <string name="gameMode">Режим на игра</string>
   <string name="createLobbyGame">Създаване на игра</string>
-  <string name="youPlayAs">Играете с</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканите някого на игра, дайте му този адрес</string>
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Постави FEN низа тук</string>
   <string name="pasteThePgnStringHere">Постави PGN низа тук</string>
   <string name="orUploadPgnFile">Или качете PGN файл</string>
-  <string name="fromPosition">От позиция</string>
   <string name="continueFromHere">Продължаване от тук</string>
   <string name="toStudy">Разучи</string>
   <string name="importGame">Добави игра</string>
@@ -1017,4 +1015,5 @@
   <string name="search">Търсене</string>
   <string name="clearSearch">Изчистване на търсенето</string>
   <string name="tags">Етикети</string>
+  <string name="enPassant">Ан пасан</string>
 </resources>

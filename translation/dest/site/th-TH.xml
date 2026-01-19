@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">เล่นกับคอมพิวเตอร์</string>
   <string name="gameMode">โหมดเกม</string>
   <string name="createLobbyGame">สร้างเกมใหม่ในลอบบี้</string>
-  <string name="youPlayAs">เล่นเป็นสี</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ให้ URL นี้เพื่อเชิญคนมาเล่น</string>
   <string name="gameOver">จบเกม</string>
   <string name="waitingForOpponent">กำลังรอคู่แข่ง</string>
@@ -193,6 +192,7 @@
   <string name="minutesPerSide">นาทีต่อฝ่าย</string>
   <string name="variant">ตัวแปรกติกา</string>
   <string name="variants">ตัวแปรกติกา</string>
+  <string name="variantsDescription">ทางเลือกอื่นในการเล่น</string>
   <string name="timeControl">กำหนดเวลา</string>
   <string name="realTime">เวลาตามจริง</string>
   <string name="correspondence">ยาวนาน</string>
@@ -281,6 +281,7 @@
   <string name="standard">มาตรฐาน</string>
   <string name="customPosition">ตำแหน่งที่กำหนดเอง</string>
   <string name="unlimited">ไม่จำกัด</string>
+  <string name="unlimitedDescription">ใช้เวลาทั้งหมดที่คุณต้องการ</string>
   <string name="mode">รูปแบบการเล่น</string>
   <string name="casual">เกมสบาย ๆ</string>
   <string name="rated">เกมคิดแต้ม</string>
@@ -396,7 +397,6 @@
   <string name="pasteTheFenStringHere">วางสตริง FEN ที่นี่</string>
   <string name="pasteThePgnStringHere">วางสตริง PGN ที่นี่</string>
   <string name="orUploadPgnFile">หรืออัปโหลดไฟล์ PGN</string>
-  <string name="fromPosition">จากตำแหน่ง</string>
   <string name="continueFromHere">เล่นต่อจากที่นี่</string>
   <string name="toStudy">ทำเป็นกรณีศึกษา</string>
   <string name="importGame">นำเข้าเกม</string>
@@ -974,4 +974,5 @@
   <string name="search">ค้นหา</string>
   <string name="clearSearch">ล้างการค้นหา</string>
   <string name="tags">แท็ก</string>
+  <string name="enPassant">การกินผ่าน</string>
 </resources>

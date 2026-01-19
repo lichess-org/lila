@@ -61,7 +61,7 @@ final class Cached(
           Team.IdsStr(~doc.flatMap(_.getAsOpt[List[TeamId]]("ids"))),
     default = _ => Team.IdsStr.empty,
     strategy = Syncache.Strategy.WaitAfterUptime(20.millis),
-    expireAfter = Syncache.ExpireAfter.Write(40.minutes)
+    expireAfter = Syncache.ExpireAfter.Write(30.minutes)
   )
 
   export teamIdsCache.{ async as teamIds, invalidate as invalidateTeamIds, sync as syncTeamIds }

@@ -306,7 +306,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
     private def renderSession(session: PuzzleSession)(using Context) =
       div(cls := "puzzle-history__session")(
         h2(cls := "puzzle-history__session__title")(
-          strong(PuzzleTheme(session.theme).name()),
+          strong(session.angle.name()),
           momentFromNow(session.puzzles.head.round.date)
         ),
         div(cls := "puzzle-history__session__rounds")(session.puzzles.toList.reverse.map(renderRound))

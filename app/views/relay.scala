@@ -31,7 +31,7 @@ def show(
         timeout = c.timeout,
         writeable = ctx.userId.exists(rt.study.canChat),
         public = true,
-        resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
+        resource = lila.core.chat.PublicSource.Relay(rt.relay.id),
         localMod = rt.tour.tier.isEmpty && ctx.userId.exists(rt.study.canContribute),
         broadcastMod = rt.tour.tier.isDefined && isGranted(_.BroadcastTimeout),
         hostIds = rt.study.members.ids.toList

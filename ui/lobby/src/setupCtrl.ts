@@ -1,4 +1,4 @@
-import { type Prop, propWithEffect } from 'lib';
+import { type Prop, propWithEffect, toggle } from 'lib';
 import { debounce } from 'lib/async';
 import * as xhr from 'lib/xhr';
 import { storedJsonProp } from 'lib/storage';
@@ -35,6 +35,8 @@ export default class SetupController {
   ratingMin: Prop<number>;
   ratingMax: Prop<number>;
   aiLevel: Prop<number>;
+
+  variantMenuOpen = toggle(false);
 
   timeControl: TimeControl;
 
@@ -77,13 +79,15 @@ export default class SetupController {
       canChangeTimeMode ? allTimeModeKeys : ['realTime'],
       forceOptions?.time ?? storeProps.time,
       forceOptions?.increment ?? storeProps.increment,
-      storeProps.days,
+      forceOptions?.days ?? storeProps.days,
       this.onPropChange,
+      this.root.pools,
     );
-    this.gameMode = this.propWithApply(storeProps.gameMode);
+    this.gameMode = this.propWithApply(forceOptions?.mode ?? storeProps.gameMode);
     this.ratingMin = this.propWithApply(storeProps.ratingMin);
     this.ratingMax = this.propWithApply(storeProps.ratingMax);
     this.aiLevel = this.propWithApply(storeProps.aiLevel);
+    this.color(forceOptions?.color || 'random');
 
     this.enforcePropRules();
     // Upon loading the props from the store, overriding with forced options, and enforcing rules,
@@ -132,10 +136,8 @@ export default class SetupController {
       ratingMax: this.store[this.gameType]().ratingMax,
     });
 
-  private isProvisional = () => {
-    const rating = this.root.data.ratingMap && this.root.data.ratingMap[this.selectedPerf()];
-    return rating ? !!rating.prov : true;
-  };
+  myRating = () => this.root.data.ratingMap && Math.abs(this.root.data.ratingMap[this.selectedPerf()]);
+  isProvisional = () => (this.root.data.ratingMap ? this.root.data.ratingMap[this.selectedPerf()] < 0 : true);
 
   private onPropChange = () => {
     if (this.isProvisional()) this.savePropsToStoreExceptRating();
@@ -173,10 +175,16 @@ export default class SetupController {
     this.fenError = false;
     this.lastValidFen = '';
     this.friendUser = friendUser || '';
+    this.variantMenuOpen(false);
     this.loadPropsFromStore(forceOptions);
   };
 
   closeModal?: () => void; // managed by view/setup/modal.ts
+
+  toggleVariantMenu = () => {
+    this.variantMenuOpen.toggle();
+    this.root.redraw();
+  };
 
   validateFen = debounce(() => {
     const fen = this.fen();
@@ -212,9 +220,8 @@ export default class SetupController {
   selectedPerf = (): Perf => getPerf(this.variant(), this.timeControl);
 
   ratingRange = (): string => {
-    if (!this.root.data.ratingMap) return '';
-    const rating = this.root.data.ratingMap[this.selectedPerf()].rating;
-    return `${Math.max(100, rating + this.ratingMin())}-${rating + this.ratingMax()}`;
+    const rating = this.myRating();
+    return rating ? `${Math.max(100, rating + this.ratingMin())}-${rating + this.ratingMax()}` : '';
   };
 
   hookToPoolMember = (color: ColorChoice): PoolMember | null => {

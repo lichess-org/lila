@@ -25,7 +25,7 @@ $c-mselect: $c-primary;
       content: $licon-MoreTriangle;
       font-size: 70%;
       color: $c-mselect;
-      @include margin-inline-start(0.4em);
+      margin-inline: 0.4em 0;
     }
   }
 

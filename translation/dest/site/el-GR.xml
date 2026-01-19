@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Νέα παρτίδα εναντίον μηχανής</string>
   <string name="gameMode">Τύπος παιχνιδιού</string>
   <string name="createLobbyGame">Νέα παρτίδα</string>
-  <string name="youPlayAs">Παίζετε με τα</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Για να προσκαλέσετε κάποιον σε ένα παιχνίδι, στείλτε του αυτήν τη διεύθυνση</string>
   <string name="gameOver">Τέλος παρτίδας</string>
   <string name="waitingForOpponent">Αναμονή για αντίπαλο</string>
@@ -126,6 +125,10 @@
   <string name="bestMoveArrow">Βέλτιστη κίνηση βέλους</string>
   <string name="showVariationArrows">Εμφάνιση βελών για βαριάντες</string>
   <string name="evaluationGauge">Δείκτης αξιολόγησης</string>
+  <string name="visualMotifs">Οπτικά μοτίβα</string>
+  <string name="undefendedPieces">Ανυπεράσπιστα κομμάτια</string>
+  <string name="pinnedPieces">Καρφωμένα κομμάτια</string>
+  <string name="checkableKing">Βασιλιάς που μπορεί να δεχθεί σαχ</string>
   <string name="multipleLines">Πολλαπλές γραμμές</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Μνήμη</string>
@@ -205,6 +208,7 @@
   <string name="minutesPerSide">Λεπτά ανά πλευρά</string>
   <string name="variant">Εκδοχή</string>
   <string name="variants">Εκδοχές</string>
+  <string name="variantsDescription">Περισσότεροι τρόποι για να παίξετε</string>
   <string name="timeControl">Χρονόμετρο</string>
   <string name="realTime">Πραγματικού χρόνου</string>
   <string name="correspondence">Αλληλογραφία</string>
@@ -299,6 +303,7 @@
   <string name="standard">Κανονικό</string>
   <string name="customPosition">Προσαρμοσμένη θέση</string>
   <string name="unlimited">Απεριόριστου χρόνου</string>
+  <string name="unlimitedDescription">Χρησιμοποιήστε όσο χρόνο χρειάζεστε</string>
   <string name="mode">Τύπος παιχνιδιού</string>
   <string name="casual">Φιλικό</string>
   <string name="rated">Βαθμολογημένο</string>
@@ -427,7 +432,6 @@
   <string name="pasteTheFenStringHere">Επικολλήστε τον κώδικα FEN εδώ</string>
   <string name="pasteThePgnStringHere">Επικολλήστε το κείμενο του PGN εδώ</string>
   <string name="orUploadPgnFile">Ή μεταφορτώστε ένα αρχείο PGN</string>
-  <string name="fromPosition">Από συγκεκριμένη θέση</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="toStudy">Μελέτη</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
@@ -1018,5 +1022,5 @@
   <string name="search">Αναζήτηση</string>
   <string name="clearSearch">Εκκαθάριση πεδίου αναζήτησης</string>
   <string name="tags">Ετικέτες</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">En passant</string>
+  <string name="enPassant">En passant</string>
 </resources>

@@ -14,8 +14,8 @@ importers:
   .:
     dependencies:
       '@lichess-org/chessground':
-        specifier: 9.9.0
-        version: 9.9.0
+        specifier: 9.10.3
+        version: 9.10.3
       '@lichess-org/pgn-viewer':
         specifier: ^2.5.5
         version: 2.5.5
@@ -273,9 +273,15 @@ importers:
 
   ui/cli:
     dependencies:
+      '@types/debounce-promise':
+        specifier: ^3.1.9
+        version: 3.1.9
       dasher:
         specifier: workspace:*
         version: link:../dasher
+      debounce-promise:
+        specifier: ^3.1.2
+        version: 3.1.2
       lib:
         specifier: workspace:*
         version: link:../lib
@@ -356,6 +362,9 @@ importers:
 
   ui/lib:
     dependencies:
+      '@badrap/result':
+        specifier: ^0.3.1
+        version: 0.3.1
       '@lichess-org/stockfish-web':
         specifier: 0.0.14
         version: 0.0.14
@@ -461,6 +470,9 @@ importers:
 
   ui/puzzle:
     dependencies:
+      '@badrap/result':
+        specifier: ^0.3.1
+        version: 0.3.1
       chart.js:
         specifier: 4.4.8
         version: 4.4.8
@@ -863,8 +875,8 @@ packages:
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
 
-  '@lichess-org/chessground@9.9.0':
-    resolution: {integrity: sha512-0BAyVXgRLaYTC8lj69Wr5EZoQzHRRwY1oGsggCbNXnkdcoQPP6lQgW0bHgbTScADGiNZvRs8VcV5JEZTTMEPfg==}
+  '@lichess-org/chessground@9.10.3':
+    resolution: {integrity: sha512-Ig9fTOxva+ifW7GLOls7ZcBTP6ODHlYGdhjoAas34/X3BYL9nMoQplJO3a9RGq/XB3LoAXrCe2FgBw41DkDvPg==}
 
   '@lichess-org/pgn-viewer@2.5.5':
     resolution: {integrity: sha512-Ufw6ifeslSXUA2ivjuP2BPD/csixetaY0HmLltZa4c2iQ9nNL3twBjcgzCpOJieBrgDHCg1IdpWQkBnus3w44A==}
@@ -2849,11 +2861,11 @@ snapshots:
 
   '@kurkle/color@0.3.4': {}
 
-  '@lichess-org/chessground@9.9.0': {}
+  '@lichess-org/chessground@9.10.3': {}
 
   '@lichess-org/pgn-viewer@2.5.5':
     dependencies:
-      '@lichess-org/chessground': 9.9.0
+      '@lichess-org/chessground': 9.10.3
       chessops: 0.15.0
       snabbdom: 3.5.1
 

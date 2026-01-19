@@ -374,7 +374,6 @@
   <string name="pasteTheFenStringHere">FEN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
   <string name="pasteThePgnStringHere">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
   <string name="orUploadPgnFile">PGN फाईल अपलोड गर्नुहोस् ।</string>
-  <string name="fromPosition">पोजिसन बाट</string>
   <string name="continueFromHere">अगाडि खेलौ</string>
   <string name="toStudy">अध्ययन</string>
   <string name="importGame">खेल निर्यात गरौं</string>

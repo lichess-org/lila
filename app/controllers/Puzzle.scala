@@ -397,9 +397,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                 case Some(me) =>
                   given Me = me
                   WithPuzzlePerf:
-                    env.puzzle.finisher.batch(angle, data.solutions).map {
-                      _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
-                    }
+                    for
+                      solves <- env.puzzle.finisher.batch(angle, data.solutions)
+                      _ <- env.puzzle.session.onComplete(me.userId, angle, solves.size)
+                    yield solves.map(env.puzzle.jsonView.roundJson.api.tupled)
                 case None =>
                   data.solutions
                     .sequentiallyVoid { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }
@@ -460,7 +461,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                   case None =>
                     Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
                   case Some(round, newPerf) =>
-                    env.puzzle.session.onComplete(round, PuzzleAngle.mix)
+                    env.puzzle.session.onComplete(round.userId, PuzzleAngle.mix)
                     Ok(env.puzzle.jsonView.bc.userJson(newPerf.intRating))
         )
   }

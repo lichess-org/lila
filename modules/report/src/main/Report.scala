@@ -7,7 +7,7 @@ import lila.core.id.ReportId
 import lila.core.perf.UserWithPerfs
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
-import lila.core.shutup.PublicSource
+import lila.core.chat.PublicSource
 
 case class Report(
     @Key("_id") id: ReportId, // also the url slug

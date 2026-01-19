@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">Oyun ayarları</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Arkadaşına Oyun Teklif Et</string>
-  <string name="playAgainstComputer">Bilgisayara karşı oyna</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Bir arkadaşınıza meydan okuyun</string>
+  <string name="playAgainstComputer">Bilgisayara Karşı Oyna</string>
   <string name="gameMode">Oyun modu</string>
   <string name="createLobbyGame">Lobi oyunu oluştur</string>
-  <string name="youPlayAs">Oynadığın renk</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
@@ -126,6 +125,10 @@
   <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="showVariationArrows">Varyasyon oklarını göster</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
+  <string name="visualMotifs">Görsel motifler</string>
+  <string name="undefendedPieces">Korumasız taşlar</string>
+  <string name="pinnedPieces">Açmazdaki taşlar</string>
+  <string name="checkableKing">Çekilebilir şah</string>
   <string name="multipleLines">Çoklu varyantlar</string>
   <string name="cpus">İşlemci</string>
   <string name="memory">Hafıza</string>
@@ -205,6 +208,7 @@
   <string name="minutesPerSide">Taraf başına dakika</string>
   <string name="variant">Varyant</string>
   <string name="variants">Varyantlar</string>
+  <string name="variantsDescription">Oynamanın daha fazla yolu</string>
   <string name="timeControl">Süre ayarı</string>
   <string name="realTime">Gerçek zaman</string>
   <string name="correspondence">Yazışma</string>
@@ -299,6 +303,7 @@
   <string name="standard">Standart</string>
   <string name="customPosition">Özel Konum</string>
   <string name="unlimited">Sınırsız</string>
+  <string name="unlimitedDescription">İhtiyacınız olan tüm zamanı alın</string>
   <string name="mode">Mod</string>
   <string name="casual">Puansız</string>
   <string name="rated">Puanlı</string>
@@ -427,7 +432,6 @@
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN kodunu buraya yapıştırın</string>
   <string name="orUploadPgnFile">Veya bir PGN dosyası yükle</string>
-  <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="toStudy">Çalışma oluştur</string>
   <string name="importGame">Oyun yükle</string>
@@ -724,6 +728,7 @@
   <string name="cyclePreviousOrNextVariation">Önceki/sonraki varyasyona geç</string>
   <string name="toggleGlyphAnnotations">Glif dipnotlarını aç/kapat</string>
   <string name="togglePositionAnnotations">Konum açıklamalarını değiştir</string>
+  <string name="toggleObservationAnnotations">Gözlem açıklamalarını aç/kapat</string>
   <string name="variationArrowsInfo">Varyasyon okları, hamle listesini kullanmadan gezinmenizi sağlar.</string>
   <string name="playSelectedMove">seçili hamleyi oyna</string>
   <string name="newTournament">Yeni turnuva</string>
@@ -765,6 +770,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ayrıca fare tekerini kullanarak da hamle yapabilirsiniz.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Fareyi bilgisayar varyantlarının üzerine getirerek pozisyonu görüntüleyin.</string>
   <string name="analysisShapesHowTo">Tahta üzerinde çember ya da ok çizmek için lütfen shift+click ya da right+click kullanın.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl veya shift = kırmızı; command, alt veya meta = mavi; her birinden bir tuş = sarı.</string>
   <string name="letOtherPlayersMessageYou">Diğer oyuncular size mesaj yollayabilsinler mi?</string>
   <string name="receiveForumNotifications">Forumda sizden bahsedildiğinde bildirim alın</string>
   <string name="shareYourInsightsData">Satranç oyun verilerinizi diğerleriyle paylaşın</string>
@@ -906,6 +912,7 @@
   <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Yıldırım</string>
   <string name="rapid">Hızlı</string>
@@ -1014,4 +1021,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="search">Ara</string>
   <string name="clearSearch">Aramayı temizle</string>
   <string name="tags">Etiketler</string>
+  <string name="enPassant">Geçerken alma</string>
 </resources>

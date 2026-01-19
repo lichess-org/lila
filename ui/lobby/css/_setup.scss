@@ -1,13 +1,83 @@
 @import '../../lib/css/setup/colorChoice';
+@import '../../lib/css/component/mselect';
 
 $c-setup: $c-secondary;
 $c-slider: $c-setup;
 
 .game-setup {
-  width: 30em;
+  width: 42rem;
   max-width: 96vw;
   padding: 0;
-  text-align: center;
+  overflow: visible;
+
+  .mselect {
+    .fullscreen-mask {
+      display: block;
+    }
+
+    .desc {
+      font-size: 0.9rem;
+      color: $c-font-dim;
+    }
+
+    .mselect__label {
+      padding-inline-end: 1rem;
+      gap: 0.8rem;
+      font-size: 1.2rem;
+
+      .text {
+        @extend %flex-center-nowrap;
+        gap: 0.8rem;
+        overflow: hidden;
+        width: 100%;
+
+        .name {
+          line-height: 1.2;
+          white-space: nowrap;
+        }
+
+        .desc {
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+    .mselect__list {
+      transform: none;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mselect__item {
+      opacity: 1;
+      display: table-row;
+      cursor: pointer;
+
+      td {
+        padding: 0.5em 0.8em;
+        text-align: start;
+      }
+
+      .icon {
+        padding-inline-end: 0;
+      }
+
+      .name {
+        font-weight: bold;
+      }
+
+      .desc {
+        padding-inline-end: 1.5em;
+        white-space: normal;
+      }
+
+      &:hover * {
+        background: $c-primary;
+        color: $c-over;
+      }
+    }
+  }
 
   h2 {
     margin: 1.5rem 0;
@@ -16,8 +86,8 @@ $c-slider: $c-setup;
   .setup-content {
     @extend %flex-column;
     border-block: $border;
-    padding: 1.5rem 1rem;
-    gap: 1.2rem;
+    padding: 1.8rem 1.2rem;
+    gap: 1.8rem;
     background: $c-bg-zebra;
   }
 
@@ -26,22 +96,19 @@ $c-slider: $c-setup;
     cursor: default !important;
   }
 
-  group.radio {
-    width: 70%;
-    align-self: center;
-
-    input:checked + label {
-      background: $c-setup;
-    }
-  }
-
-  > div {
-    @extend %flex-column;
+  group.radio input:checked + label {
+    background: $c-setup;
   }
 
   .config-group {
     @extend %flex-column;
     gap: 0.5rem;
+
+    .label {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: $c-font;
+    }
   }
 
   .fen__form {
@@ -60,13 +127,7 @@ $c-slider: $c-setup;
   .failure {
     background: $m-bad_bg--mix-20;
     box-shadow: 0 0 13px 6px $m-bad_bg--mix-20;
-    border-radius: 0.5rem;
-  }
-
-  group.radio.color-picker {
-    width: auto;
-    margin: 0;
-    justify-content: center;
+    border-radius: $box-radius-size;
   }
 
   .footer {
@@ -93,29 +154,9 @@ $c-slider: $c-setup;
     height: 56px;
   }
 
-  .radio-pane {
-    @extend %flex-center-nowrap;
-    justify-content: center;
-    gap: 0.8rem;
-  }
-
-  .range {
-    span {
-      font-weight: bold;
-    }
-
-    input {
-      font-size: 1.5rem;
-      margin-top: 0.2rem;
-      padding: 0;
-      width: 90%;
-    }
-  }
-
   .rating-range {
     @extend %flex-center-nowrap;
     justify-content: center;
-    font-size: 1.25rem;
 
     .rating-min,
     .rating-max {
@@ -123,15 +164,9 @@ $c-slider: $c-setup;
       flex: 0 0 5.5ch;
     }
     input {
-      font-size: 1.5rem;
       padding: 0;
       width: 30%;
     }
-  }
-
-  .time-choice,
-  .days-choice {
-    margin-top: 0.5rem;
   }
 
   .ratings {
@@ -142,21 +177,94 @@ $c-slider: $c-setup;
     }
   }
 
-  .label-select {
-    @extend %flex-center;
-
-    &.variant {
-      padding-bottom: 0;
+  .time-control-tabs {
+    .tabs-horiz {
+      border-bottom: $border;
+      margin-bottom: 1rem;
+      width: 100%;
+      span {
+        &.active,
+        &:hover {
+          border-color: $c-setup;
+        }
+        &.active {
+          color: $c-setup;
+        }
+      }
     }
 
-    label {
-      flex: 0 0 33%;
-      text-align: end;
-    }
+    .time-panel {
+      @extend %flex-column;
+      gap: 1.2rem;
 
-    select {
-      margin-inline-start: 0.8rem;
-      font-weight: bold;
+      .presets {
+        @extend %flex-wrap;
+        justify-content: center;
+        margin-top: -0.5rem;
+        gap: 0.3rem;
+
+        .preset-btn {
+          @extend %button-none, %box-radius;
+          color: $c-font-dim;
+          padding: 0.2rem 0.5rem;
+          font-size: 0.9rem;
+          background: $c-bg-low;
+          &:hover {
+            background: $c-bg-zebra2;
+            color: $c-font-clear;
+          }
+          &.active {
+            background: $c-setup;
+            color: $c-over;
+          }
+        }
+      }
+
+      .sliders-grid {
+        display: grid;
+        grid-template-columns: 1fr 3ch 1fr;
+      }
+
+      .slider-container {
+        @extend %flex-column;
+        justify-content: space-between;
+        .label-row {
+          @extend %flex-between-nowrap;
+          align-items: flex-start;
+          margin-bottom: 0.5rem;
+
+          .val-box {
+            background: $c-font-dim;
+            padding: 0.1rem 0.5rem;
+            border-radius: $box-radius-size / 2;
+            font-weight: bold;
+            color: $c-bg;
+          }
+        }
+
+        input[type='range'] {
+          width: 100%;
+          padding: 0;
+        }
+      }
+      .slider-separator {
+        line-height: 1.7;
+      }
+    }
+  }
+
+  .color-cards {
+    @extend %button-shadow;
+
+    .card-radio {
+      @extend %flex-column;
+      padding: 0.75rem;
+
+      .text {
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        font-weight: 500;
+      }
     }
   }
 

@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Сыграть с компьютером</string>
   <string name="gameMode">Режим игры</string>
   <string name="createLobbyGame">Создать запрос на игру</string>
-  <string name="youPlayAs">Вы играете за</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Чтобы пригласить друга, отправьте ему эту ссылку</string>
   <string name="gameOver">Партия окончена</string>
   <string name="waitingForOpponent">Ожидание соперника</string>
@@ -130,6 +129,10 @@
   <string name="bestMoveArrow">Показывать лучшие ходы стрелками</string>
   <string name="showVariationArrows">Показать стрелки вариантов</string>
   <string name="evaluationGauge">Шкала оценки</string>
+  <string name="visualMotifs">Шахматные мотивы</string>
+  <string name="undefendedPieces">Незащищённые фигуры</string>
+  <string name="pinnedPieces">Связанные фигуры</string>
+  <string name="checkableKing">Возможность дать шах королю</string>
   <string name="multipleLines">Множество вариантов</string>
   <string name="cpus">Потоки</string>
   <string name="memory">Память</string>
@@ -229,6 +232,7 @@
   <string name="minutesPerSide">Минут на партию</string>
   <string name="variant">Вариант</string>
   <string name="variants">Варианты</string>
+  <string name="variantsDescription">Больше способов сыграть</string>
   <string name="timeControl">Контроль времени</string>
   <string name="realTime">По часам</string>
   <string name="correspondence">Игра по переписке</string>
@@ -335,6 +339,7 @@
   <string name="standard">Классические шахматы</string>
   <string name="customPosition">Настраиваемая позиция</string>
   <string name="unlimited">Отсутствует</string>
+  <string name="unlimitedDescription">Возьмите столько времени, сколько вам нужно</string>
   <string name="mode">Режим</string>
   <string name="casual">Товарищеская</string>
   <string name="rated">Рейтинговая</string>
@@ -489,7 +494,6 @@
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="orUploadPgnFile">Или загрузите PGN-файл</string>
-  <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с этой позиции</string>
   <string name="toStudy">Студия</string>
   <string name="importGame">Импортировать партию</string>
@@ -1107,4 +1111,5 @@
   <string name="search">Поиск</string>
   <string name="clearSearch">Очистить поиск</string>
   <string name="tags">Теги</string>
+  <string name="enPassant">Взятие на проходе</string>
 </resources>

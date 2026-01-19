@@ -13,12 +13,14 @@ object grade:
       metricOptions: TutorBothValueOptions[A],
       titleTag: Text.Tag = h3
   ): Option[Tag] =
-    metricOptions.asAvailable.map { metric =>
-      div(cls := "tutor-grade")(
-        titleTag(cls := "tutor-grade__name")(concept.show(c)),
-        gradeVisual(c, metric)
+    metricOptions.asAvailable.map: metric =>
+      div(cls := s"tutor-grade tutor-grade--${metric.grade.wording.id}")(
+        c.icon.frag,
+        div(cls := "tutor-grade__content")(
+          titleTag(cls := "tutor-grade__name")(concept.show(c)),
+          gradeVisual(c, metric)
+        )
       )
-    }
 
   def peerGradeWithDetail[A: TutorNumber](
       c: TutorConcept,
@@ -27,8 +29,8 @@ object grade:
       titleTag: Text.Tag = h2
   )(using Translate): Option[Tag] =
     metricOptions.asAvailable.map: metric =>
-      div(cls := "tutor-grade tutor-grade--detail")(
-        titleTag(cls := "tutor-grade__name")(concept.show(c)),
+      div(cls := s"tutor-grade tutor-grade--${metric.grade.wording.id} tutor-grade--detail")(
+        titleTag(cls := "tutor-grade__name")(c.icon.frag, concept.show(c)),
         c.description.nonEmpty.option(p(cls := "tutor-grade__concept")(c.description)),
         gradeVisual(c, metric),
         div(cls := "tutor-grade__detail")(

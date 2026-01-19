@@ -46,6 +46,7 @@
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Também ajudou a etiquetar %s deles.</string>
 	<string name="puzzlesNone">Não resolveu nenhum quebra-cabeças neste ano.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">seja cuidadoso</string>
 	<string name="thanksTitle">Obrigado por jogar no Lichess!</string>
 	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">custos</string>
 </resources>

@@ -7,7 +7,7 @@ import lila.app.{ *, given }
 import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
 import lila.study.Study.WithChapter
-import lila.tree.Node.partitionTreeJsonWriter
+import lila.tree.Node.partitionTreeWriter
 
 final class Practice(
     env: Env,
@@ -92,9 +92,7 @@ final class Practice(
             owner = false
           )
         analysis = baseData ++ Json.obj(
-          "treeParts" -> partitionTreeJsonWriter.writes {
-            lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-          },
+          "treeParts" -> partitionTreeWriter(chapter.root, lichobile = false),
           "practiceGoal" -> lila.practice.PracticeGoal(chapter)
         )
         analysisJson <- env.analyse.externalEngine.withExternalEngines(analysis)

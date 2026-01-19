@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.Ply
-import chess.format.pgn.{ PgnStr, Tags }
+import chess.format.pgn.{ PgnStr, Tags, Comment }
 
 import scala.language.implicitConversions
 
@@ -29,7 +29,7 @@ class PgnImportTest extends LilaTest:
       .result(pgn, List(user))
       .assertRight: parsed =>
         assertEquals(parsed.tags, Tags.empty)
-        assertEquals(parsed.root.children.nodes.size, 3)
+        assertEquals(parsed.root.children.toList.size, 3)
         assertEquals(parsed.root.ply, Ply.initial)
 
   test("import a simple pgn"):
@@ -37,8 +37,17 @@ class PgnImportTest extends LilaTest:
       .result("1.d4 d5 2.e4 e5", List(user))
       .assertRight: parsed =>
         assertEquals(parsed.tags, Tags.empty)
-        assertEquals(parsed.root.children.nodes.size, 1)
+        assertEquals(parsed.root.children.toList.size, 1)
         assertEquals(parsed.root.ply, Ply.initial)
+
+  test("comment ordering"):
+    StudyPgnImport
+      .result("{test 1 } {test 2} 1.d4 {test 3} { test 4}", Nil)
+      .assertRight: parsed =>
+        val rootComments = parsed.root.comments.value.map(_.text)
+        assertEquals(rootComments, Comment.from(List("test 1", "test 2")))
+        val firstMoveComments = parsed.root.mainlineNodeList(1).comments.value.map(_.text)
+        assertEquals(firstMoveComments, Comment.from(List("test 3", "test 4")))
 
   test("import a simple pgn with a clock comment"):
     val x = StudyPgnImport.result("1.d4 {[%clk 1:59:59]}", Nil).toOption.get

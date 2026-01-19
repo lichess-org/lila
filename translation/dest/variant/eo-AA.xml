@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">Normala</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Normal reguloj ŝakaj (FIDE)</string>
+  <string name="standard">Normala</string>
+  <string name="standardTitle">Normal reguloj ŝakaj (FIDE)</string>
 </resources>

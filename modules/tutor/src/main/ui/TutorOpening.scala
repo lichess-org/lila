@@ -1,11 +1,11 @@
 package lila.tutor
 package ui
+
 import lila.insight.InsightPosition
 import lila.ui.*
-
 import ScalatagsTemplate.{ *, given }
 
-final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
+final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
   import helpers.{ *, given }
 
   def openingMenu(perfReport: TutorPerfReport, report: TutorOpeningFamily, as: Color, user: User) =
@@ -124,7 +124,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
                     )
                   )
                 ),
-                div(cls := "tutor-card__content")(
+                div(cls := "tutor-card__content tutor-grades")(
                   grade.peerGrade(concept.performance, fam.performance.toOption),
                   grade.peerGrade(concept.accuracy, fam.accuracy),
                   grade.peerGrade(concept.tacticalAwareness, fam.awareness)

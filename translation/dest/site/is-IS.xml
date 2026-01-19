@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Tefla á móti tölvu</string>
   <string name="gameMode">Gerð</string>
   <string name="createLobbyGame">Hefja skák í salnum</string>
-  <string name="youPlayAs">Þú ert</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gefðu upp þessa vefslóð til að bjóða einhverjum að tefla</string>
   <string name="gameOver">Búið spil</string>
   <string name="waitingForOpponent">Bið eftir andstæðingi</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Límdu FEN strenginn hér</string>
   <string name="pasteThePgnStringHere">Límdu inn PGN-strenginn hér</string>
   <string name="orUploadPgnFile">Eða hlaða upp PGN-skrá</string>
-  <string name="fromPosition">Frá stöðu</string>
   <string name="continueFromHere">Halda áfram héðan</string>
   <string name="toStudy">Stúdera</string>
   <string name="importGame">Hlaða inn skák</string>

@@ -6,7 +6,7 @@
   <string name="progressX">Progresso: %s</string>
   <string name="resetMyProgress">Reiniciar o meu progresso</string>
   <string name="youWillLoseAllYourProgress">Vais perder todo o teu progresso!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">joga!</string>
+  <string name="play">joga!</string>
   <string name="chessPieces">Peças de xadrez</string>
   <string name="theRook">A torre</string>
   <string name="itMovesInStraightLines">Move-se em linhas retas</string>
@@ -155,7 +155,6 @@ fazer o roque do lado do rei!</string>
   <string name="findAWayToCastleQueenSide">Encontra a maneira de
 fazer o roque grande!</string>
   <string name="castlingComplete">Parabéns! Deves fazer o roque durante um jogo, quase sempre.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">O movimento especial do peão</string>
   <string name="enPassantIntro">Quando um peão do adversário avança duas casas, podes capturá-lo com um peão como se ele só tivesse avançado uma casa.</string>
   <string name="blackJustMovedThePawnByTwoSquares">As pretas acabaram de

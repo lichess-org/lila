@@ -7,7 +7,8 @@ import lila.common.String.noShouting
 import lila.core.config.NetDomain
 import lila.core.forum.BusForum.CreatePost
 import lila.core.perm.Granter as MasterGranter
-import lila.core.shutup.{ PublicSource, ShutupApi }
+import lila.core.shutup.ShutupApi
+import lila.core.chat.PublicSource
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.core.id.ForumTopicSlug
 import lila.db.dsl.{ *, given }
@@ -178,10 +179,10 @@ final private class ForumTopicApi(
   def closedByMod(topic: ForumTopic)(using Me): Fu[Boolean] =
     topic.closed.so(topicRepo.closedByMod(topic.id))
 
-  def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using Me): Funit =
-    topicRepo.sticky(topic.id, topic.toggleSticky) >>
+  def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
+    topicRepo.sticky(topic.id, topic.sticky.isEmpty.option(me.userId)) >>
       MasterGranter(_.ModerateForum).so:
-        modLog.toggleStickyTopic(categ.id, topic.slug, !topic.isSticky)
+        modLog.toggleStickyTopic(categ.id, topic.slug, topic.sticky.isEmpty)
 
   private[forum] def denormalize(topic: ForumTopic): Funit = for
     nbPosts <- postRepo.countByTopic(topic)

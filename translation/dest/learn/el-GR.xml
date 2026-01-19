@@ -6,7 +6,7 @@
   <string name="progressX">Πρόοδος: %s</string>
   <string name="resetMyProgress">Μηδενισμός προόδου</string>
   <string name="youWillLoseAllYourProgress">Θα χάσετε όλη την πρόοδο σας!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">παίξτε!</string>
+  <string name="play">παίξτε!</string>
   <string name="chessPieces">Κομμάτια σκακιού</string>
   <string name="theRook">Ο πύργος</string>
   <string name="itMovesInStraightLines">Κινείται σε ευθείες γραμμές</string>
@@ -149,7 +149,6 @@
   <string name="findAWayToCastleQueenSide">Βρείτε τρόπο για να κάνετε
 ροκέ στην πλευρά της βασίλισσας!</string>
   <string name="castlingComplete">Συγχαρητήρια! Προτείνεται να κάνετε ροκέ σε κάθε παρτίδα.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Ειδική κίνηση πιονιού</string>
   <string name="enPassantIntro">Όταν το αντίπαλο πιόνι κινηθεί δύο τετράγωνα, μπορείτε να το αιχμαλωτίσετε σαν να είχε κινηθεί μόνο ένα τετράγωνο.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Τα μαύρα μόλις μετακίνησαν το πιόνι δύο τετράγωνα!

@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.Glyphs
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
+import chess.format.{ Fen, Uci, UciPath }
 import play.api.libs.json.*
 
 import lila.core.perm.Granter
@@ -141,11 +141,9 @@ object ServerEval:
 
     private def makeBranch(m: chess.MoveOrDrop, ply: chess.Ply): Branch =
       Branch(
-        id = UciCharPair(m.toUci),
         ply = ply,
         move = Uci.WithSan(m.toUci, m.toSanStr),
         fen = Fen.write(m.after, ply.fullMoveNumber),
-        check = m.after.position.check,
         crazyData = m.after.position.crazyData,
         clock = none,
         forceVariation = false
@@ -164,7 +162,7 @@ object ServerEval:
               studyId,
               ServerEval.Progress(
                 chapterId = chapter.id,
-                tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
+                tree = chapter.root,
                 analysis = analysisJson.bothPlayers(chapter.root.ply, analysis),
                 division = divisionOf(chapter)
               )

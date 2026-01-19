@@ -12,41 +12,6 @@
 
   @include fluid-size('font-size', 14px, 25px);
 
-  > div {
-    @extend %flex-column, %box-radius, %break-word;
-
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-
-    background: $c-pool-button;
-    @include if-light {
-      background: $m-bg--fade-50;
-    }
-
-    color: $c-font-dim;
-
-    @include transition;
-
-    &:hover {
-      color: $c-font;
-      background: $m-accent--fade-80 !important;
-      opacity: 1;
-    }
-  }
-
-  .active {
-    @extend %popup-shadow;
-
-    .perf {
-      display: none;
-    }
-  }
-
-  .transp {
-    opacity: 0.35;
-  }
-
   .spinner {
     flex: 0 0 auto;
     margin: 0.1em 0 0.6em 0;
@@ -79,5 +44,40 @@
     background-image: linear-gradient(90deg, transparent, $c-brag, transparent);
     animation: range-sweep 3s cubic-bezier(0.2, 0.6, 0.95, 0.7) infinite;
     margin: 0.2em 0 1.3em 0;
+  }
+}
+
+.lpool {
+  @extend %flex-column, %box-radius, %break-word;
+
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  background: $c-pool-button;
+  @include if-light {
+    background: $m-bg--fade-50;
+  }
+
+  color: $c-font-dim;
+
+  @include transition;
+
+  &:hover {
+    color: $c-font;
+    background: $m-accent--fade-80 !important;
+    opacity: 1;
+  }
+
+  &.active {
+    @extend %popup-shadow;
+
+    .perf {
+      display: none;
+    }
+  }
+
+  &.transp {
+    opacity: 0.35;
   }
 }

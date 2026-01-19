@@ -209,7 +209,6 @@
   <string name="leaderboard">Лидӗрсен йышӗ</string>
   <string name="pasteTheFenStringHere">FEN текстне кунта кӗрт</string>
   <string name="pasteThePgnStringHere">PGN текстне кунта кӗрт</string>
-  <string name="fromPosition">Тӑрӑмран</string>
   <string name="continueFromHere">Кунтан малалла тӑс</string>
   <string name="importGame">Вӑйӑ импортласси</string>
   <plurals name="nbImportedGames">

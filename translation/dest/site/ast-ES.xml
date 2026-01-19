@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Xugar contra l\'ordenador</string>
   <string name="gameMode">Tipu de partida</string>
   <string name="createLobbyGame">Crear partida na sala d\'espera</string>
-  <string name="youPlayAs">Xuegues con</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar a daquién a xugar, da-y esti enllaz</string>
   <string name="gameOver">Xuegu termináu</string>
   <string name="waitingForOpponent">Esperando al oponente</string>
@@ -30,7 +29,7 @@
   <string name="whiteIsVictorious">Blanques ganen</string>
   <string name="blackIsVictorious">Prietes ganen</string>
   <string name="youPlayTheWhitePieces">Xuegas con blanques</string>
-  <string name="youPlayTheBlackPieces">Xuegas con prietes</string>
+  <string name="youPlayTheBlackPieces">Xuegas con negres</string>
   <string name="itsYourTurn">¡Ye la to vez!</string>
   <string name="cheatDetected">Trampes detectaes</string>
   <string name="kingInTheCenter">Rei nel centru</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Pega\'l testu FEN equí</string>
   <string name="pasteThePgnStringHere">Pega\'l testu PGN equí</string>
   <string name="orUploadPgnFile">O xube un archivu PGN</string>
-  <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Siguir dende equí</string>
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>

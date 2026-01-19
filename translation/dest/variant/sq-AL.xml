@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">Standard</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Rregulla standarde shahu (FIDE)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Chess960</string>
-  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Antishah</string>
+  <string name="standard">Standard</string>
+  <string name="standardTitle">Rregulla standarde shahu (FIDE)</string>
+  <string name="chess960">Chess960</string>
+  <string name="antichess">Antishah</string>
+  <string name="fromPosition">Nga Pozicion</string>
+  <string name="fromPositionTitle">Shah standard nga një pozicion vetjak</string>
 </resources>
