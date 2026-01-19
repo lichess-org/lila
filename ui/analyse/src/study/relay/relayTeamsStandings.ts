@@ -1,4 +1,4 @@
-import { dataIcon, hl, onInsert, spinnerVdom, type VNode, type VNodeData } from 'lib/view';
+import { dataIcon, hl, onInsert, requiresI18n, spinnerVdom, type VNode, type VNodeData } from 'lib/view';
 import { Group, StudyBoard } from 'lib/licon';
 import { json as xhrJson } from 'lib/xhr';
 import type { RelayTeamName, RelayTeamStandings, RelayTeamStandingsEntry, TourId } from './interfaces';
@@ -64,7 +64,7 @@ export default class RelayTeamsStandings {
       [
         hl('thead', [
           hl('tr', [
-            hl('th.text', { attrs: dataIcon(Group) }, 'Team'),
+            hl('th.text', { attrs: dataIcon(Group) }, `${i18n.team.team}`),
             hl('th', 'Matches'),
             hl('th', { attrs: { 'data-sort-default': 1, title: 'Match points' } }, 'MP'),
             hl('th', { attrs: { title: 'Game points' } }, 'GP'),
@@ -175,7 +175,8 @@ export default class RelayTeamsStandings {
     ]);
   };
 
-  view = (): VNode => (this.teamToShow ? this.teamView() : this.standingsView());
+  view = (): VNode =>
+    requiresI18n('team', this.redraw, () => (this.teamToShow ? this.teamView() : this.standingsView()));
 
   private toggleTeam = (team: RelayTeamName) => (ev: PointerEvent) => {
     ev.preventDefault();
