@@ -429,6 +429,8 @@
   <string name="leaderboard">Listaxe de líderes</string>
   <string name="screenshotCurrentPosition">Fai unha captura de pantalla da posición actual</string>
   <string name="gameAsGIF">Gardar a partida en formato GIF</string>
+  <string name="playerNames">Nomes das xogadoras/es</string>
+  <string name="moveAnnotations">Mover anotacións</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega o texto PGN aquí</string>
   <string name="orUploadPgnFile">Ou sube un ficheiro PGN</string>
