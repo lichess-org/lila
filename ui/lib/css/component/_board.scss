@@ -17,8 +17,11 @@ cg-board {
 }
 .mini-board cg-board,
 .mini-game cg-board {
-  overflow: hidden;
   border-radius: 4px;
+}
+.mini-board:not(.manipulable) cg-board,
+.mini-game cg-board {
+  overflow: hidden;
 }
 
 .mini-board,
