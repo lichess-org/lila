@@ -429,6 +429,8 @@
   <string name="leaderboard">Leiartabell</string>
   <string name="screenshotCurrentPosition">Ta eit skjermbilete av gjeldande stilling</string>
   <string name="gameAsGIF">Parti som GIF</string>
+  <string name="playerNames">Namn på spelarane</string>
+  <string name="moveAnnotations">Trekknotasjon</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-koden her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-koden her</string>
   <string name="orUploadPgnFile">Eller last opp ei PGN-fil</string>
