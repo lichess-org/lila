@@ -27,6 +27,7 @@ export default class SetupController {
   friendUser = '';
   loading = false;
   color: ColorProp;
+  forced?: ForceSetupOptions;
 
   // Store props
   variant: Prop<VariantKey>;
@@ -178,6 +179,7 @@ export default class SetupController {
     this.lastValidFen = '';
     this.friendUser = friendUser || '';
     this.variantMenuOpen(false);
+    this.forced = forceOptions;
     this.loadPropsFromStore(forceOptions);
   };
 
@@ -264,7 +266,26 @@ export default class SetupController {
 
   validFen = (): boolean => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
 
-  valid = (): boolean => this.validFen() && this.timeControl.valid(this.minimumTimeIfReal());
+  valid = (): boolean =>
+    this.validFen() && this.timeControl.valid(this.minimumTimeIfReal()) && this.validConstraints();
+
+  private validConstraints = (): boolean => {
+    if (this.forced) {
+      const invalid = <A>(forced: A | undefined, current: A) => forced !== undefined && forced !== current;
+      if (invalid(this.forced.variant, this.variant())) return false;
+      if (invalid(this.forced.mode, this.gameMode())) return false;
+      if (invalid(this.forced.timeMode, this.timeControl.mode())) return false;
+      if (invalid(this.forced.color, this.color())) return false;
+      if (this.timeControl.mode() === 'correspondence' && invalid(this.forced.days, this.timeControl.days()))
+        return false;
+      if (this.timeControl.mode() === 'realTime') {
+        if (invalid(this.forced.time, this.timeControl.time())) return false;
+        if (invalid(this.forced.increment, this.timeControl.increment())) return false;
+      }
+      if (invalid(this.forced.fen, this.fen())) return false;
+    }
+    return true;
+  };
 
   minimumTimeIfReal = (): number => (this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0);
 
