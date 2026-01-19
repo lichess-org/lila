@@ -9,6 +9,8 @@
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
   <string name="orLetYourOpponentScanQrCode">Ou deixe seu oponente ler este QR code</string>
+  <string name="reusableChallengeUrl">URL reutilizável para desafios</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Um link permanente para qualquer pessoa desafiar você com essas mesmas configurações.</string>
   <string name="waiting">Aguardando</string>
   <string name="yourTurn">Sua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
