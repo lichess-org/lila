@@ -121,7 +121,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 },
               },
             }),
-            h('button.button.button-empty.chess960-position-random', {
+            h('button.button.button-empty', {
               attrs: { type: 'button', title: 'Random Chess960 position', ...dataIcon(licon.DieSix) },
               on: {
                 click(e) {
