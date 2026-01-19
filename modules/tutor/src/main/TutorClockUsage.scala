@@ -7,9 +7,9 @@ import lila.insight.InsightEntry.BSONFields as F
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
-object TutorClockUsage:
+private object TutorClockUsage:
 
-  val maxGames = Max(10_000)
+  val maxGamesPerPerf = Max(5_000)
 
   def compute(
       users: NonEmptyList[TutorPlayer]
@@ -21,15 +21,15 @@ object TutorClockUsage:
       List(Filter(InsightDimension.Perf, perfs.filter(_ != PerfType.Correspondence)))
     )
     val select = $doc(F.result -> Result.Loss.id)
-    val compute = TutorCustomInsight(users, question, "clock_usage", _.clockUsage) { docs =>
+    val insightRunner = TutorCustomInsight(users, question, "clock_usage", _.clockUsage): docs =>
       for
         doc <- docs
         perf <- doc.getAsOpt[PerfType]("_id")
         clockPercent <- doc.getAsOpt[ClockPercent]("cp")
         size <- doc.int("nb")
       yield Cluster(perf, Insight.Single(Point(100 - clockPercent.value)), size, Nil)
-    }
-    insightApi.coll { coll =>
+
+    insightApi.coll: coll =>
       import coll.AggregationFramework.*
       val sharedPipeline = List(
         Project($doc(F.perf -> true, F.moves -> $doc("$last" -> s"$$${F.moves}"))),
@@ -38,13 +38,12 @@ object TutorClockUsage:
         GroupField(F.perf)("cp" -> AvgField("cp"), "nb" -> SumAll),
         Project($doc(F.perf -> true, "nb" -> true, "cp" -> $doc("$toInt" -> "$cp")))
       )
-      compute(coll)(
+      insightRunner(coll)(
         aggregateMine = mineSelect =>
           Match(mineSelect ++ select ++ $doc(F.perf.$in(perfs))) -> List(
             Sort(Descending(F.date)),
-            Limit(maxGames.value)
+            Limit(maxGamesPerPerf.value)
           ).appendedAll(sharedPipeline),
         aggregatePeer = peerSelect =>
-          Match(peerSelect ++ select) -> List(Limit(maxGames.value / 2)).appendedAll(sharedPipeline)
+          Match(peerSelect ++ select) -> List(Limit(maxGamesPerPerf.value)).appendedAll(sharedPipeline)
       )
-    }

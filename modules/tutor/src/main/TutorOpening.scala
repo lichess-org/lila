@@ -2,6 +2,7 @@ package lila.tutor
 
 import chess.{ ByColor, Color }
 import chess.IntRating
+import monocle.syntax.all.*
 
 import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
@@ -51,11 +52,7 @@ private case object TutorOpening:
       Executor
   ): Fu[TutorColorOpenings] = for
     myPerfsFull <- answerMine(perfQuestion(color), user)
-    myPerfs = myPerfsFull.copy(answer =
-      myPerfsFull.answer.copy(
-        clusters = myPerfsFull.answer.clusters.take(nbOpeningsPerColor)
-      )
-    )
+    myPerfs = myPerfsFull.focus(_.answer.clusters).modify(_.take(nbOpeningsPerColor))
     peerPerfs <- answerPeer(myPerfs.alignedQuestion, user, Max(10_000))
     performances = Answers(myPerfs, peerPerfs)
     accuracyQuestion = myPerfs.alignedQuestion
@@ -65,7 +62,7 @@ private case object TutorOpening:
     awarenessQuestion = accuracyQuestion.withMetric(InsightMetric.Awareness)
     awareness <- answerBoth(awarenessQuestion, user, Max(1000))
   yield TutorColorOpenings:
-    performances.mine.list.map { (family, myPerformance) =>
+    performances.mine.list.map: (family, myPerformance) =>
       TutorOpeningFamily(
         family,
         performance =
@@ -73,7 +70,6 @@ private case object TutorOpening:
         accuracy = AccuracyPercent.from(accuracy.valueMetric(family)),
         awareness = GoodPercent.from(awareness.valueMetric(family))
       )
-    }
 
   def perfQuestion(color: Color) = Question(
     InsightDimension.OpeningFamily,

@@ -9,7 +9,7 @@ import lila.rating.PerfType
 
 object TutorResourcefulness:
 
-  val maxGames = Max(10_000)
+  val maxGamesPerPerf = Max(10_000)
 
   private[tutor] def compute(
       users: NonEmptyList[TutorPlayer]
@@ -45,12 +45,12 @@ object TutorResourcefulness:
         aggregateMine = mineSelect =>
           Match(select ++ mineSelect ++ $doc(F.perf.$in(perfs))) -> List(
             Sort(Descending(F.date)),
-            Limit(maxGames.value),
+            Limit(maxGamesPerPerf.value),
             groupByPerf
           ),
         aggregatePeer = peerSelect =>
           Match(select ++ peerSelect) -> List(
-            Limit(maxGames.value / 2),
+            Limit(maxGamesPerPerf.value / 3),
             groupByPerf
           )
       )
