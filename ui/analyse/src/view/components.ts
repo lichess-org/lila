@@ -298,7 +298,7 @@ export const renderIndexAndMove = (node: TreeNode, withEval: boolean, withGlyphs
   node.san ? [renderIndex(node.ply, true), ...renderMoveNodes(node, withEval, withGlyphs)] : [];
 
 export const renderIndex = (ply: Ply, withDots: boolean): VNode =>
-  h(`index.sbhint${ply}`, plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
+  h('index', plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 
 export function renderMoveNodes(
   node: TreeNode,
