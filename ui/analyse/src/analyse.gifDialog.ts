@@ -9,19 +9,19 @@ export function initModule(ctrl: AnalyseCtrl): void {
   let gifOrientation: Color = ctrl.bottomColor();
 
   const gifPrefs = {
-    showPlayers: {
+    players: {
       label: i18n.site.playerNames,
       prop: storedBooleanProp('analyse.gif.players', true),
     },
-    showRatings: {
+    ratings: {
       label: i18n.preferences.showPlayerRatings,
       prop: storedBooleanProp('analyse.gif.ratings', true),
     },
-    showGlyphs: {
+    glyphs: {
       label: i18n.site.moveAnnotations,
       prop: storedBooleanProp('analyse.gif.glyphs', false),
     },
-    showClocks: {
+    clocks: {
       label: i18n.preferences.chessClock,
       prop: storedBooleanProp('analyse.gif.clocks', false),
     },

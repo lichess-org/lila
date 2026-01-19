@@ -20,10 +20,10 @@ object GifExport:
     val message = s"gif service status: $code"
 
   case class Options(
-      showPlayers: Boolean = true,
-      showRatings: Boolean = true,
-      showClocks: Boolean = true,
-      showGlyphs: Boolean = true
+      players: Boolean = true,
+      ratings: Boolean = true,
+      clocks: Boolean = true,
+      glyphs: Boolean = true
   )
 
 final class GifExport(
@@ -59,16 +59,16 @@ final class GifExport(
             )
             .add(
               "white",
-              options.showPlayers.option(
-                Namer.playerTextBlocking(pov.game.whitePlayer, withRating = options.showRatings)(using
+              options.players.option(
+                Namer.playerTextBlocking(pov.game.whitePlayer, withRating = options.ratings)(using
                   lightUserApi.sync
                 )
               )
             )
             .add(
               "black",
-              options.showPlayers.option(
-                Namer.playerTextBlocking(pov.game.blackPlayer, withRating = options.showRatings)(using
+              options.players.option(
+                Namer.playerTextBlocking(pov.game.blackPlayer, withRating = options.ratings)(using
                   lightUserApi.sync
                 )
               )
@@ -141,7 +141,7 @@ final class GifExport(
       case None => moveTimes.map(_.atMost(targetMaxTime))
 
   private def clocksJson(game: Game, options: GifExport.Options): Option[JsObject] =
-    options.showClocks.so:
+    options.clocks.so:
       game.clockHistory.map: history =>
         Json.obj(
           "white" -> history.white.map(_.centis),
@@ -149,7 +149,7 @@ final class GifExport(
         )
 
   private def glyphsMap(analysis: Option[Analysis], options: GifExport.Options): Map[Int, String] =
-    options.showGlyphs.so:
+    options.glyphs.so:
       analysis.fold(Map.empty[Int, String]): a =>
         a.advices.map(adv => adv.ply.value -> adv.judgment.glyph.symbol).toMap
 

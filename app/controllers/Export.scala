@@ -21,19 +21,19 @@ final class Export(env: Env) extends LilaController(env):
       color: Color,
       theme: Option[String],
       piece: Option[String],
-      showClocks: Boolean,
-      showGlyphs: Boolean,
-      showPlayers: Boolean,
-      showRatings: Boolean
+      clocks: Boolean,
+      glyphs: Boolean,
+      players: Boolean,
+      ratings: Boolean
   ) = Anon:
     NoCrawlersUnlessPreview:
       exportImageOf(env.game.gameRepo.gameWithInitialFen(id)): g =>
-        (if showGlyphs then env.analyse.analysisRepo.byGame(g.game) else fuccess(None)).flatMap: analysis =>
+        (if glyphs then env.analyse.analysisRepo.byGame(g.game) else fuccess(None)).flatMap: analysis =>
           val options = lila.game.GifExport.Options(
-            showPlayers = showPlayers,
-            showRatings = showRatings && showPlayers, // ratings hidden if players hidden
-            showClocks = showClocks,
-            showGlyphs = showGlyphs
+            players = players,
+            ratings = ratings && players, // ratings hidden if players hidden
+            clocks = clocks,
+            glyphs = glyphs
           )
           env.game.gifExport
             .fromPov(
