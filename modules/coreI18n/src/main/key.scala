@@ -1542,6 +1542,8 @@ object I18nKey:
     val `gameOver`: I18nKey = "gameOver"
     val `waitingForOpponent`: I18nKey = "waitingForOpponent"
     val `orLetYourOpponentScanQrCode`: I18nKey = "orLetYourOpponentScanQrCode"
+    val `reusableChallengeUrl`: I18nKey = "reusableChallengeUrl"
+    val `permanentLinkForAnyoneToChallengeYou`: I18nKey = "permanentLinkForAnyoneToChallengeYou"
     val `waiting`: I18nKey = "waiting"
     val `yourTurn`: I18nKey = "yourTurn"
     val `aiNameLevelAiLevel`: I18nKey = "aiNameLevelAiLevel"

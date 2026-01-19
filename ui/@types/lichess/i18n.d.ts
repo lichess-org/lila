@@ -4027,6 +4027,8 @@ interface I18n {
     performance: string;
     /** Rating: %s */
     perfRatingX: I18nFormat;
+    /** A permanent link for anyone to challenge you with these exact settings. */
+    permanentLinkForAnyoneToChallengeYou: string;
     /** Piece set */
     pieceSet: string;
     /** Pinned pieces */
@@ -4217,6 +4219,8 @@ interface I18n {
     returnToSimulHomepage: string;
     /** Return to tournaments homepage */
     returnToTournamentsHomepage: string;
+    /** Reusable challenge URL */
+    reusableChallengeUrl: string;
     /** Review black mistakes */
     reviewBlackMistakes: string;
     /** Review white mistakes */
