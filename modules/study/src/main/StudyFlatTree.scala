@@ -73,7 +73,7 @@ private object StudyFlatTree:
 
     def rootChildren(root: Root): List[(String, Bdoc)] =
       Chronometer.syncMon(_.study.tree.write):
-        root.children.nodes.flatMap { traverse(_, UciPath.root) }
+        root.children.toList.flatMap { traverse(_, UciPath.root) }
 
     def newRootChildren(root: NewRoot): List[(String, Bdoc)] =
       Chronometer.syncMon(_.study.tree.write):
@@ -86,7 +86,7 @@ private object StudyFlatTree:
     private def traverse(node: Branch, parentPath: UciPath): List[(String, Bdoc)] =
       (parentPath.depth < Node.MAX_PLIES).so:
         val path = parentPath + node.id
-        node.children.nodes
+        node.children.toList
           .flatMap:
             traverse(_, path)
           .appended(UciPathDb.encodeDbKey(path) -> writeBranch(node))

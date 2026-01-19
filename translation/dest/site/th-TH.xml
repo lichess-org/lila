@@ -192,6 +192,7 @@
   <string name="minutesPerSide">นาทีต่อฝ่าย</string>
   <string name="variant">ตัวแปรกติกา</string>
   <string name="variants">ตัวแปรกติกา</string>
+  <string name="variantsDescription">ทางเลือกอื่นในการเล่น</string>
   <string name="timeControl">กำหนดเวลา</string>
   <string name="realTime">เวลาตามจริง</string>
   <string name="correspondence">ยาวนาน</string>
@@ -280,6 +281,7 @@
   <string name="standard">มาตรฐาน</string>
   <string name="customPosition">ตำแหน่งที่กำหนดเอง</string>
   <string name="unlimited">ไม่จำกัด</string>
+  <string name="unlimitedDescription">ใช้เวลาทั้งหมดที่คุณต้องการ</string>
   <string name="mode">รูปแบบการเล่น</string>
   <string name="casual">เกมสบาย ๆ</string>
   <string name="rated">เกมคิดแต้ม</string>

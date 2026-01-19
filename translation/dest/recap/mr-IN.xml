@@ -17,7 +17,7 @@
 		<item quantity="other">%s चाले खेळल्या</item>
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">तुम्ही %s लाकूड ढकलले!</string>
-	<string name="movesStandardPiecesWeight">आदर्श सोंगट्यांचे वजन 40 ग्रॅम असते</string>
+	<string name="movesStandardPiecesWeight">प्रमाण सोंगट्यांचे वजन ४० ग्रॅम असते</string>
 	<plurals name="nbMoves">
 		<item quantity="one">%s चाल</item>
 		<item quantity="other">%s चाले</item>

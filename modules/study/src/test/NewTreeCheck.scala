@@ -204,16 +204,16 @@ class NewTreeCheck extends munit.ScalaCheckSuite:
       val y = NewRoot.defaultNodeJsonWriter.writes(root)
       assertEquals(x, y)
 
-  test("minimalNodeJsonWriter"):
+  test("lichobile compat"):
     forAll: (root: NewRoot) =>
       val oldRoot = root.toRoot
-      val x = Node.minimalNodeJsonWriter.writes(oldRoot)
-      val y = NewRoot.minimalNodeJsonWriter.writes(root)
+      val x = Node.lichobileNodeJsonWriter.writes(oldRoot)
+      val y = NewRoot.lichobileNodeJsonWriter.writes(root)
       assertEquals(x, y)
 
   test("partitionTreeJsonWriter"):
     forAll: (root: NewRoot) =>
       val oldRoot = root.toRoot
-      val x = Node.partitionTreeJsonWriter.writes(oldRoot)
+      val x = Node.partitionTreeWriter(oldRoot, false)
       val y = NewRoot.partitionTreeJsonWriter.writes(root)
       assertEquals(x, y)

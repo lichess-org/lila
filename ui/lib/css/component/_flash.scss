@@ -8,7 +8,7 @@
     @extend %data-icon;
 
     content: $licon-Checkmark;
-    @include margin-inline-end(2rem);
+    margin-inline: 0 2rem;
     font-size: 1.5em;
   }
 

@@ -5,11 +5,13 @@ import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import { currentComments, isAuthorObj } from './studyComments';
 import { storage } from 'lib/storage';
+import type { TreeComment, TreeNode, TreePath } from 'lib/tree/types';
+import type { ChapterId } from './interfaces';
 
 interface Current {
-  chapterId: string;
-  path: Tree.Path;
-  node: Tree.Node;
+  chapterId: ChapterId;
+  path: TreePath;
+  node: TreeNode;
 }
 
 export class CommentForm {
@@ -25,13 +27,13 @@ export class CommentForm {
       this.root.study!.makeChange('setComment', { ch: cur.chapterId, path: cur.path, text, id: commentId });
   });
 
-  start = (chapterId: string, path: Tree.Path, node: Tree.Node): void => {
+  start = (chapterId: string, path: TreePath, node: TreeNode): void => {
     this.opening(true);
     this.current({ chapterId, path, node });
     this.root.userJump(path);
   };
 
-  onSetPath = (chapterId: string, path: Tree.Path, node: Tree.Node): void => {
+  onSetPath = (chapterId: string, path: TreePath, node: TreeNode): void => {
     const cur = this.current();
     if (cur && (path !== cur.path || chapterId !== cur.chapterId || cur.node !== node)) {
       cur.chapterId = chapterId;
@@ -39,7 +41,7 @@ export class CommentForm {
       cur.node = node;
     }
   };
-  delete = (chapterId: string, path: Tree.Path, id: string) => {
+  delete = (chapterId: string, path: TreePath, id: string) => {
     this.root.study!.makeChange('deleteComment', { ch: chapterId, path, id });
   };
 }
@@ -53,7 +55,7 @@ export function view(root: AnalyseCtrl): VNode {
     current = ctrl.current();
   if (!current) return viewDisabled(root, 'Select a move to comment');
 
-  const setupTextarea = (vnode: VNode, comment: Tree.Comment, old?: VNode) => {
+  const setupTextarea = (vnode: VNode, comment: TreeComment, old?: VNode) => {
     const el = vnode.elm as HTMLInputElement;
     const newKey = current.chapterId + current.path + (comment.id || '');
 

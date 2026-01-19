@@ -3,8 +3,8 @@ import { hl } from 'lib/view';
 import renderClocks from '../view/clocks';
 import type AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';
-import type { StudyPlayers, Federation, TagArray, StudyPlayer, StatusStr } from './interfaces';
-import { findTag, looksLikeLichessGame, resultOf } from './studyChapters';
+import type { StudyPlayers, Federation, StudyPlayer, StatusStr, TagMap } from './interfaces';
+import { looksLikeLichessGame } from './studyChapters';
 import { userTitle } from 'lib/view/userLink';
 import RelayPlayers, { fidePageLinkAttrs, playerId, playerPhotoOrFallback } from './relay/relayPlayers';
 import { StudyCtrl } from './studyDeps';
@@ -13,6 +13,9 @@ import { defined } from 'lib';
 import { resultTag } from './studyView';
 import type { RelayRound } from './relay/interfaces';
 import { playerColoredResult } from './relay/customScoreStatus';
+import type { TreePath } from 'lib/tree/types';
+import { tagsToMap } from './studyTags';
+import { COLORS } from 'chessops';
 import RelayTeamsStandings from './relay/relayTeamsStandings';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
@@ -25,12 +28,13 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
     tags = study.data.chapter.tags,
     clocks = renderClocks(ctrl, selectClockPath(ctrl, study)),
     tickingColor = study.isClockTicking(ctrl.path) && ctrl.turnColor(),
-    materialDiffs = renderMaterialDiffs(ctrl);
+    materialDiffs = renderMaterialDiffs(ctrl),
+    tagsMap = tagsToMap(tags);
 
-  return (['white', 'black'] as Color[]).map(color =>
+  return COLORS.map(color =>
     renderPlayer(
       ctrl,
-      tags,
+      tagsMap,
       clocks,
       materialDiffs,
       players,
@@ -47,14 +51,14 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
 // The tree node whose clocks are displayed.
 // Finished game: last mainline node of the current variation.
 // Ongoing game: the last mainline node, no matter what
-function selectClockPath(ctrl: AnalyseCtrl, study: StudyCtrl): Tree.Path {
+function selectClockPath(ctrl: AnalyseCtrl, study: StudyCtrl): TreePath {
   const gamePath = ctrl.gamePath || study.data.chapter.relayPath;
   return ctrl.node.clock ? ctrl.path : gamePath ? intersection(ctrl.path, gamePath) : ctrl.path;
 }
 
 function renderPlayer(
   ctrl: AnalyseCtrl,
-  tags: TagArray[],
+  tags: TagMap,
   clocks: [VNode, VNode] | undefined,
   materialDiffs: [VNode, VNode],
   players: StudyPlayers | undefined,
@@ -69,18 +73,18 @@ function renderPlayer(
       !defined(ctrl.study?.relay) ||
       ctrl.study?.multiBoard.showResults() ||
       ctrl.node.ply === ctrl.tree.lastPly(),
-    team = findTag(tags, `${color}team`),
-    rawStatus = showResult ? findTag(tags, 'result')?.replace(/1\/2/g, '½') : undefined,
+    team = tags.get(`${color}team`),
+    rawStatus = showResult ? tags.get('result')?.replace(/1\/2/g, '½') : undefined,
     status = rawStatus && rawStatus !== '*' ? (rawStatus as StatusStr) : undefined,
     result = showResult ? resultOf(tags, color === 'white') : undefined,
     top = ctrl.bottomColor() !== color,
-    eloTag = findTag(tags, `${color}elo`),
-    fideIdTag = findTag(tags, `${color}fideid`),
+    eloTag = tags.get(`${color}elo`),
+    fideIdTag = tags.get(`${color}fideid`),
     fideId = fideIdTag ? parseInt(fideIdTag) : undefined,
     player: StudyPlayer = {
       ...players?.[color],
-      name: findTag(tags, color),
-      title: findTag(tags, `${color}title`),
+      name: tags.get(color),
+      title: tags.get(`${color}title`),
       rating: showRatings && eloTag ? parseInt(eloTag) : undefined,
       fideId,
     },
@@ -142,6 +146,12 @@ function renderPlayer(
         materialDiffs[top ? 0 : 1],
         clocks?.[color === 'white' ? 0 : 1],
       ]);
+}
+
+function resultOf(tags: TagMap, isWhite: boolean): string | undefined {
+  const both = tags.get('result')?.split('-');
+  const mine = both && both.length === 2 ? both[isWhite ? 0 : 1] : undefined;
+  return mine === '1/2' ? '½' : mine;
 }
 
 export const playerFedFlag = (fed?: Federation): VNode | undefined =>

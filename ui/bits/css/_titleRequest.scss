@@ -53,7 +53,7 @@
   font-size: 1.2em;
 
   .icon-flair {
-    @include margin-inline-end(2rem);
+    margin-inline: 0 2rem;
     height: 60px;
   }
   h2 {

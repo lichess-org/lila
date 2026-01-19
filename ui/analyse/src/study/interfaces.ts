@@ -3,6 +3,7 @@ import type { AnalyseData } from '../interfaces';
 import type { GamebookOverride } from './gamebook/interfaces';
 import type { Opening } from '../explorer/interfaces';
 import type AnalyseCtrl from '../ctrl';
+import type { TreeNodeIncomplete, TreePath } from 'lib/tree/types';
 
 export type Tab = 'intro' | 'members' | 'chapters';
 export type ChapterTab = 'init' | 'edit' | 'game' | 'fen' | 'pgn';
@@ -89,7 +90,7 @@ export interface ReloadData {
 
 export interface Position {
   chapterId: ChapterId;
-  path: Tree.Path;
+  path: TreePath;
 }
 
 export interface StudyFeatures {
@@ -120,7 +121,7 @@ export interface StudyChapter {
   gamebook: boolean;
   features: StudyChapterFeatures;
   description?: string;
-  relayPath?: Tree.Path;
+  relayPath?: TreePath;
   serverEval?: StudyChapterServerEval;
 }
 
@@ -130,7 +131,7 @@ export interface StudyChapterServerEval {
 }
 
 export interface StudyChapterRelay {
-  path: Tree.Path;
+  path: TreePath;
   lastMoveAt?: number;
 }
 
@@ -164,9 +165,10 @@ export interface StudyMemberMap {
 
 export type TagTypes = string[];
 export type TagArray = [string, string];
+export type TagMap = Map<string, string>;
 
 export interface LocalPaths {
-  [chapterId: string]: Tree.Path;
+  [chapterId: string]: TreePath;
 }
 
 export interface ChapterPreviewBase {
@@ -261,10 +263,10 @@ export interface AnaDrop {
   ch?: string;
 }
 export interface ServerNodeMsg extends WithWhoAndPos {
-  n: Tree.NodeIncomplete;
+  n: TreeNodeIncomplete;
   o: Opening;
   s: boolean;
-  relayPath?: Tree.Path;
+  relayPath?: TreePath;
 }
 export interface ServerClockMsg extends WithWhoAndPos {
   c?: number;

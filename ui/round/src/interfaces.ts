@@ -7,6 +7,7 @@ import * as Prefs from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
 import type { RoundSocket } from './socket';
 import type { MoveMetadata as CgMoveMetadata } from '@lichess-org/chessground/types';
+import type { NodeCrazy } from 'lib/tree/types';
 
 export { type RoundSocket } from './socket';
 export { type CorresClockData } from './corresClock/corresClockCtrl';
@@ -85,11 +86,11 @@ export interface RoundData extends GameData {
   possibleDrops?: string;
   forecastCount?: number;
   opponentSignal?: number;
-  crazyhouse?: Tree.NodeCrazy;
+  crazyhouse?: NodeCrazy;
   correspondence?: CorresClockData;
   tv?: Tv;
   userTv?: {
-    id: string;
+    id: UserId;
   };
   expiration?: Expiration;
   local?: RoundProxy;
@@ -151,7 +152,7 @@ export interface ApiMove {
   fiftyMoves?: boolean;
   wDraw?: boolean;
   bDraw?: boolean;
-  crazyhouse?: Tree.NodeCrazy;
+  crazyhouse?: NodeCrazy;
   role?: Role;
   drops?: string;
   promotion?: {

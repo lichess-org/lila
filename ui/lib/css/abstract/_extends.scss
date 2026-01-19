@@ -282,10 +282,10 @@
 
 %fullscreen-mask {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw; // escape from bounding box of any fixed position parent
-  height: 100vh;
+  top: -100vh;
+  left: -100vw;
+  width: 300vw;
+  height: 300vh;
   background: $c-page-mask;
   z-index: $z-fullscreen-mask-110;
 }

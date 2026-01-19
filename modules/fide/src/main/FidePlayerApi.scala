@@ -6,6 +6,7 @@ import reactivemongo.api.bson.*
 import lila.core.fide.Federation
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
+import lila.memo.PicfitImage
 
 final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitApi)(using Executor):
 
@@ -41,11 +42,11 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: CacheApi, picfitApi: PicfitA
           .so(repo.follower.isFollowing(_, id))
           .map(FidePlayer.WithFollow(player, _).some)
 
-  def uploadPhoto(p: FidePlayer, photo: PicfitApi.FilePart)(using me: Me): Funit =
+  def uploadPhoto(p: FidePlayer, photo: PicfitApi.FilePart)(using me: Me): Fu[PicfitImage] =
     for
       pic <- picfitApi.uploadFile(photo, me.userId, s"fidePlayer:${p.id}".some, requestAutomod = false)
       _ <- repo.player.setPhoto(p.id, FidePlayer.PlayerPhoto(pic.id, none))
-    yield ()
+    yield pic
 
   private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](8_192, "player.fidePlayer.byId"):
     _.expireAfterWrite(3.minutes).buildAsyncFuture(repo.player.fetch)

@@ -12,9 +12,9 @@ import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
-import lila.tree.Node.minimalNodeJsonWriter
 import lila.core.study.Visibility
 import cats.mtl.Handle.*
+import lila.tree.Node.lichobileNodeJsonWriter
 
 final private class StudySocket(
     api: StudyApi,
@@ -46,7 +46,7 @@ final private class StudySocket(
           Json.obj(
             "analysis" -> analysis,
             "ch" -> chapterId,
-            "tree" -> lila.tree.Node.defaultNodeJsonWriter.writes(tree),
+            "tree" -> lichobileNodeJsonWriter.writes(tree),
             "division" -> division
           )
         )
@@ -297,7 +297,7 @@ final private class StudySocket(
       "addNode",
       Json
         .obj(
-          "n" -> minimalNodeJsonWriter.writes(node),
+          "n" -> defaultNodeJsonWriter.writes(node),
           "p" -> pos,
           "s" -> sticky
         )

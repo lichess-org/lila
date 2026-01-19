@@ -100,6 +100,7 @@ final class UserAnalysis(
     )
 
   // correspondence premove aka forecast
+  // also used by lichobile for post-game analysis
   def game(id: GameId, color: Color) = Open:
     Found(env.game.gameRepo.game(id)): g =>
       env.round.proxyRepo.upgradeIfPresent(g).flatMap { game =>
@@ -113,7 +114,14 @@ final class UserAnalysis(
                 initialFen <- env.game.gameRepo.initialFen(game.id)
                 data <-
                   env.api.roundApi
-                    .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner)
+                    .userAnalysisJson(
+                      pov,
+                      ctx.pref,
+                      initialFen,
+                      pov.color,
+                      owner = owner,
+                      addLichobileCompat = true
+                    )
                 withForecast = owner && !pov.game.synthetic && pov.game.playable
                 page <- renderPage:
                   views.analyse.ui.userAnalysis(data, pov, withForecast = withForecast)

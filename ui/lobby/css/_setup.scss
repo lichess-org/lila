@@ -1,32 +1,83 @@
 @import '../../lib/css/setup/colorChoice';
+@import '../../lib/css/component/mselect';
 
 $c-setup: $c-secondary;
 $c-slider: $c-setup;
-
-%setup-card-content {
-  @extend %flex-center-nowrap;
-
-  .icon {
-    font-size: 1.5rem;
-    margin-inline-end: 0.75rem;
-  }
-  .text {
-    @extend %flex-column;
-    .name {
-      font-weight: bold;
-    }
-    .desc {
-      font-size: 0.85rem;
-      opacity: 0.8;
-    }
-  }
-}
 
 .game-setup {
   width: 42rem;
   max-width: 96vw;
   padding: 0;
-  overflow: hidden;
+  overflow: visible;
+
+  .mselect {
+    .fullscreen-mask {
+      display: block;
+    }
+
+    .desc {
+      font-size: 0.9rem;
+      color: $c-font-dim;
+    }
+
+    .mselect__label {
+      padding-inline-end: 1rem;
+      gap: 0.8rem;
+      font-size: 1.2rem;
+
+      .text {
+        @extend %flex-center-nowrap;
+        gap: 0.8rem;
+        overflow: hidden;
+        width: 100%;
+
+        .name {
+          line-height: 1.2;
+          white-space: nowrap;
+        }
+
+        .desc {
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+    .mselect__list {
+      transform: none;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mselect__item {
+      opacity: 1;
+      display: table-row;
+      cursor: pointer;
+
+      td {
+        padding: 0.5em 0.8em;
+        text-align: start;
+      }
+
+      .icon {
+        padding-inline-end: 0;
+      }
+
+      .name {
+        font-weight: bold;
+      }
+
+      .desc {
+        padding-inline-end: 1.5em;
+        white-space: normal;
+      }
+
+      &:hover * {
+        background: $c-primary;
+        color: $c-over;
+      }
+    }
+  }
 
   h2 {
     margin: 1.5rem 0;
@@ -103,19 +154,6 @@ $c-slider: $c-setup;
     height: 56px;
   }
 
-  .range {
-    span {
-      font-weight: bold;
-    }
-
-    input {
-      font-size: 1.5rem;
-      margin-top: 0.2rem;
-      padding: 0;
-      width: 90%;
-    }
-  }
-
   .rating-range {
     @extend %flex-center-nowrap;
     justify-content: center;
@@ -126,7 +164,6 @@ $c-slider: $c-setup;
       flex: 0 0 5.5ch;
     }
     input {
-      font-size: 1.5rem;
       padding: 0;
       width: 30%;
     }
@@ -137,22 +174,6 @@ $c-slider: $c-setup;
     text-align: center;
     strong {
       margin-inline-end: 0.25rem;
-    }
-  }
-
-  .variant-picker-split {
-    group.radio {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 4.5rem;
-
-      label {
-        @extend %setup-card-content;
-        .text {
-          flex: 0 1 auto;
-          text-align: start;
-        }
-      }
     }
   }
 
@@ -178,14 +199,16 @@ $c-slider: $c-setup;
 
       .presets {
         @extend %flex-wrap;
+        justify-content: center;
         margin-top: -0.5rem;
+        gap: 0.3rem;
 
         .preset-btn {
-          @extend %button-none;
+          @extend %button-none, %box-radius;
           color: $c-font-dim;
-          padding: 0.4rem 0.7rem;
+          padding: 0.2rem 0.5rem;
           font-size: 0.9rem;
-          border-radius: $box-radius-size;
+          background: $c-bg-low;
           &:hover {
             background: $c-bg-zebra2;
             color: $c-font-clear;
@@ -211,11 +234,11 @@ $c-slider: $c-setup;
           margin-bottom: 0.5rem;
 
           .val-box {
-            background: $c-bg-low;
+            background: $c-font-dim;
             padding: 0.1rem 0.5rem;
             border-radius: $box-radius-size / 2;
             font-weight: bold;
-            color: $c-font;
+            color: $c-bg;
           }
         }
 
@@ -260,51 +283,6 @@ $c-slider: $c-setup;
     }
     &:has(.increment-choice) .fen__board {
       width: 30%;
-    }
-  }
-}
-
-.variant-selector {
-  width: 40rem;
-  max-width: 90vw;
-  max-height: 90%;
-  padding: 0;
-  @extend %flex-column;
-  border-radius: $box-radius-size;
-  overflow: hidden;
-
-  h2 {
-    margin: 1.5rem 0;
-    text-align: center;
-  }
-
-  .variant-grid {
-    background: $c-bg-zebra;
-    border-top: $border;
-
-    padding: 1rem;
-    overflow-y: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-
-    .variant-card {
-      @extend %setup-card-content;
-      @extend %metal;
-      border: $border;
-      padding: 0.75rem;
-      border-radius: $box-radius-size;
-      text-align: start;
-
-      &:hover {
-        @extend %metal-hover;
-      }
-      &.selected {
-        background: $c-setup;
-        @extend %active-inset-shadow;
-        color: $c-over;
-        text-shadow: 0 1px 1px #000 !important;
-      }
     }
   }
 }

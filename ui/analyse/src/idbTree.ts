@@ -1,13 +1,15 @@
+import type { TreeNode, TreeNodeIncomplete, TreePath } from 'lib/tree/types';
 import type AnalyseCtrl from './ctrl';
 import { objectStorage, type ObjectStorage } from 'lib/objectStorage';
 import * as treeOps from 'lib/tree/ops';
+import { completeNode } from 'lib/tree/node';
 
 export type DiscloseState = undefined | 'expanded' | 'collapsed';
 
 export class IdbTree {
   private dirty = false;
   private moveDb?: ObjectStorage<MoveState>;
-  private collapseDb?: ObjectStorage<Tree.Path[]>;
+  private collapseDb?: ObjectStorage<TreePath[]>;
 
   constructor(private ctrl: AnalyseCtrl) {}
 
@@ -22,10 +24,10 @@ export class IdbTree {
     );
   }
 
-  // getCollapseTarget(path: Tree.Path): Tree.Path | undefined {
+  // getCollapseTarget(path: TreePath): TreePath | undefined {
   //   if (this.ctrl.legacyVariationsProp()) return undefined;
   //   const { tree } = this.ctrl;
-  //   const depth = (n: Tree.Node) => n.ply - tree.root.ply;
+  //   const depth = (n: TreeNode) => n.ply - tree.root.ply;
 
   //   for (const node of tree
   //     .getNodeList(path)
@@ -36,7 +38,7 @@ export class IdbTree {
   //   return undefined;
   // }
 
-  stepLine(fromPath: Tree.Path = this.ctrl.path, which: 'prev' | 'next' = 'next'): Tree.Path {
+  stepLine(fromPath: TreePath = this.ctrl.path, which: 'prev' | 'next' = 'next'): TreePath {
     let [path, kids] = this.familyOf(fromPath);
     while (path && kids.length < 2 && !this.ctrl.tree.pathIsMainline(path)) {
       [path, kids] = this.familyOf(path);
@@ -46,13 +48,13 @@ export class IdbTree {
     return !stepTo ? fromPath : path + stepTo.id;
   }
 
-  setCollapsed(path: Tree.Path, collapsed: boolean): void {
+  setCollapsed(path: TreePath, collapsed: boolean): void {
     this.ctrl.tree.updateAt(path, n => (n.collapsed = collapsed));
     this.saveCollapsed();
     this.ctrl.redraw();
   }
 
-  setCollapsedFrom(from: Tree.Path, collapsed: boolean, thisBranchOnly = false): void {
+  setCollapsedFrom(from: TreePath, collapsed: boolean, thisBranchOnly = false): void {
     this.ctrl.tree.walkUntilTrue(
       (n, m) => {
         if (this.isCollapsible(n, m)) n.collapsed = collapsed;
@@ -78,7 +80,7 @@ export class IdbTree {
     if (save) this.saveCollapsed();
   }
 
-  discloseOf(node: Tree.Node | undefined, isMainline: boolean): DiscloseState {
+  discloseOf(node: TreeNode | undefined, isMainline: boolean): DiscloseState {
     if (!node) return undefined;
     return this.isCollapsible(node, isMainline)
       ? this.ctrl.disclosureMode() && node.collapsed
@@ -87,7 +89,7 @@ export class IdbTree {
       : undefined;
   }
 
-  onAddNode(node: Tree.Node, path: Tree.Path): void {
+  onAddNode(node: TreeNode, path: TreePath): void {
     if (this.ctrl.study || this.ctrl.synthetic || this.dirty) return;
     this.dirty = !this.ctrl.tree.pathExists(path + node.id);
   }
@@ -100,8 +102,19 @@ export class IdbTree {
 
   async saveMoves(force = false): Promise<IDBValidKey | undefined> {
     if (this.ctrl.study || this.ctrl.synthetic || !(this.dirty || force)) return;
-    return this.moveDb?.put(this.id, { root: this.ctrl.tree.root });
+    return this.moveDb?.put(this.id, { root: IdbTree.serializeNode(this.ctrl.tree.root) });
   }
+
+  static serializeNode = (n: TreeNode): TreeNodeIncomplete =>
+    ({
+      ...n,
+      pos: undefined,
+      dests: undefined,
+      drops: undefined,
+      check: undefined,
+      outcome: undefined,
+      children: n.children.map(IdbTree.serializeNode),
+    }) as TreeNodeIncomplete;
 
   async merge(): Promise<void> {
     if (!('indexedDB' in window) || !window.indexedDB) return;
@@ -110,11 +123,11 @@ export class IdbTree {
         this.moveDb ??= await objectStorage<MoveState>({ store: 'analyse-state', db: 'lichess' });
         const state = await this.moveDb.get(this.ctrl.data.game.id);
         if (state?.root) {
-          this.ctrl.tree.merge(state.root);
+          this.ctrl.tree.merge(completeNode(this.ctrl.variantKey)(state.root));
           this.dirty = true;
         }
       }
-      this.collapseDb ??= await objectStorage<Tree.Path[]>({ store: 'analyse-collapse' });
+      this.collapseDb ??= await objectStorage<TreePath[]>({ store: 'analyse-collapse' });
       const collapsedPaths = await this.collapseDb.getOpt(this.id);
       if (!collapsedPaths) return this.collapseDefault();
       for (const path of collapsedPaths) {
@@ -137,8 +150,7 @@ export class IdbTree {
     return this.collapseDb?.put(this.id, this.getCollapsed());
   }
 
-  private isCollapsible(node: Tree.Node, isMainline: boolean): boolean {
-    if (!node) return false;
+  private isCollapsible(node: TreeNode, isMainline: boolean): boolean {
     const [first, second, third] = node.children.filter(n => this.ctrl.showFishnetAnalysis() || !n.comp);
     return Boolean(
       first?.forceVariation ||
@@ -150,9 +162,9 @@ export class IdbTree {
     );
   }
 
-  private getCollapsed(): Tree.Path[] {
-    const collapsedPaths: Tree.Path[] = [];
-    function traverse(node: Tree.Node, path: Tree.Path): void {
+  private getCollapsed(): TreePath[] {
+    const collapsedPaths: TreePath[] = [];
+    function traverse(node: TreeNode, path: TreePath): void {
       if (node.collapsed) collapsedPaths.push(path);
       for (const c of node.children) traverse(c, path + c.id);
     }
@@ -163,7 +175,7 @@ export class IdbTree {
   private collapseDefault() {
     const depthThreshold = 1;
 
-    const traverse = (node: Tree.Node, depth: number) => {
+    const traverse = (node: TreeNode, depth: number) => {
       if (depth === depthThreshold && this.isCollapsible(node, false)) {
         node.collapsed = true;
       }
@@ -172,7 +184,7 @@ export class IdbTree {
     traverse(this.ctrl.tree.root, 0);
   }
 
-  private familyOf(path: Tree.Path): [Tree.Path, Tree.Node[]] {
+  private familyOf(path: TreePath): [TreePath, TreeNode[]] {
     const parentPath = path.slice(0, -2);
     return [
       parentPath,
@@ -182,5 +194,5 @@ export class IdbTree {
 }
 
 interface MoveState {
-  root: Tree.Node | undefined;
+  root: TreeNodeIncomplete | undefined;
 }

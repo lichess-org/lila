@@ -3,7 +3,7 @@ package views.tutor
 import lila.app.UiEnv.{ *, given }
 
 val bits = lila.tutor.ui.TutorBits(helpers)(views.opening.bits.openingUrl)
-val perf = lila.tutor.ui.PerfUi(helpers, bits)
+val perf = lila.tutor.ui.TutorPerfUi(helpers, bits)
 val home = lila.tutor.ui.TutorHome(helpers, bits, perf)
 val openingUi = lila.tutor.ui.TutorOpening(helpers, bits, perf)
 

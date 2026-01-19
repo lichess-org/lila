@@ -4,7 +4,7 @@
   <string name="display">दृश्य</string>
   <string name="privacy">गोपनीयता</string>
   <string name="notifications">अधिसूचना</string>
-  <string name="pieceAnimation">सोंगट्यांचे चलचित्रता</string>
+  <string name="pieceAnimation">सोंगट्यांची चलचित्रता</string>
   <string name="materialDifference">मोहऱ्यांमधील फरक</string>
   <string name="boardHighlights">पटावरील ठळकपणा (शेवटची चाल व शह)</string>
   <string name="pieceDestinations">सोंगट्यांची गंतव्यस्थाने (वैध चाली आणि आधी खेळलेल्या चाली)</string>

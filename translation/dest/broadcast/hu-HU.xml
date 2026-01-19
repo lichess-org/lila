@@ -83,4 +83,5 @@
   <string name="liveboard">Élő tábla</string>
   <string name="communityBroadcast">Közösségi közvetítés</string>
   <string name="createdAndManagedBy">Létrehozta és felügyeli: %s.</string>
+  <string name="roundX">%s. forduló</string>
 </resources>

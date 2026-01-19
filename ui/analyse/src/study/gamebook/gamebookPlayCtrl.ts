@@ -1,6 +1,7 @@
 import type AnalyseCtrl from '@/ctrl';
 import { path as treePath } from 'lib/tree/tree';
 import { makeShapesFromUci } from '@/autoShape';
+import type { Shape, TreePath } from 'lib/tree/types';
 
 export type Feedback = 'play' | 'good' | 'bad' | 'end';
 
@@ -101,7 +102,7 @@ export default class GamebookPlayCtrl {
     );
   };
 
-  canJumpTo = (path: Tree.Path) => treePath.contains(this.root.path, path);
+  canJumpTo = (path: TreePath) => treePath.contains(this.root.path, path);
 
   onJump = () => {
     this.makeState();
@@ -109,7 +110,7 @@ export default class GamebookPlayCtrl {
     setTimeout(() => this.root.withCg(cg => cg.playPremove()), 100);
   };
 
-  onShapeChange = (shapes: Tree.Shape[]) => {
+  onShapeChange = (shapes: Shape[]) => {
     const node = this.root.node;
     if (node.gamebook && node.gamebook.shapes && !shapes.length) {
       node.shapes = node.gamebook.shapes.slice(0);

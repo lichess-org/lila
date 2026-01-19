@@ -135,15 +135,10 @@ const isUnsupportedBrowser = () => isWebkit({ below: '15.4' });
 
 function mirrorCheck() {
   const mirrors: string[] = [
-    'chess.shark-stars.com',
-    'lootverse.org',
-    'phantomstride.org',
-    'raksharealm.org',
-    'ludicfrontiers.org',
     'lichess.dscs2009.com',
-    'sidequest-circus.org',
     'joystickcaravan.org',
     'gamelorecollective.com',
+    'joystick-astral.com',
   ];
   if (mirrors.includes(location.host)) location.href = 'https://lichess.org' + location.pathname;
 }
