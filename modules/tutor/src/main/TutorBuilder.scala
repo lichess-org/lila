@@ -70,13 +70,17 @@ final private class TutorBuilder(
   private def findPeerMatches(
       perfs: Map[PerfType, lila.insight.MeanRating]
   ): Fu[List[TutorPerfReport.PeerMatch]] =
+    val ratingDelta = 2
     perfs
       .map: (pt, rating) =>
         colls.report
           .one[Bdoc](
             $doc(
               TutorFullReport.F.perfs -> $doc(
-                "$elemMatch" -> $doc("perf" -> pt.id, "stats.rating" -> rating)
+                "$elemMatch" -> $doc(
+                  "perf" -> pt.id,
+                  "stats.rating".$gte(rating.map(_ - ratingDelta)).$lte(rating.map(_ + ratingDelta))
+                )
               ),
               TutorFullReport.F.at.$gt(nowInstant.minusMonths(1)) // index hit
             ),
