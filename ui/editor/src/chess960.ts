@@ -57,6 +57,8 @@ export function chess960CastlingSquares(id: number | undefined): ByColor<Castlin
   };
 }
 
+export const randomPositionId = (): number => Math.floor(Math.random() * 960);
+
 export function fenToChess960Id(fen: FEN): number | undefined {
   const parts = fen.split(' ');
   if (parts.length < 1) return undefined;
