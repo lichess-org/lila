@@ -271,25 +271,19 @@ export default class SetupController {
 
   private validConstraints = (): boolean => {
     if (this.forced) {
-      if (this.forced.variant && this.variant() !== this.forced.variant) return false;
-      if (this.forced.mode && this.gameMode() !== this.forced.mode) return false;
-      if (this.forced.timeMode && this.timeControl.mode() !== this.forced.timeMode) return false;
-      if (this.forced.color && this.color() !== this.forced.color) return false;
-      if (
-        this.forced.days &&
-        this.timeControl.mode() === 'correspondence' &&
-        this.timeControl.days() !== this.forced.days
-      )
+      const invalid = <A>(forced: A | undefined, current: A) => forced !== undefined && forced !== current;
+      if (invalid(this.forced.variant, this.variant())) return false;
+      if (invalid(this.forced.mode, this.gameMode())) return false;
+      if (invalid(this.forced.timeMode, this.timeControl.mode())) return false;
+      if (invalid(this.forced.color, this.color())) return false;
+      if (this.timeControl.mode() === 'correspondence' && invalid(this.forced.days, this.timeControl.days()))
         return false;
       if (this.timeControl.mode() === 'realTime') {
-        // 0 is a valid time and increment, check for undefined
-        if (this.forced.time !== undefined && this.timeControl.time() !== this.forced.time) return false;
-        if (this.forced.increment !== undefined && this.timeControl.increment() !== this.forced.increment)
-          return false;
+        if (invalid(this.forced.time, this.timeControl.time())) return false;
+        if (invalid(this.forced.increment, this.timeControl.increment())) return false;
       }
-      if (this.forced.fen && this.fen() !== this.forced.fen) return false;
+      if (invalid(this.forced.fen, this.fen())) return false;
     }
-
     return true;
   };
 
