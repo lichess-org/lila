@@ -121,7 +121,7 @@ export type PoolRange = string;
 
 export interface SetupStore {
   variant: VariantKey;
-  fen: string;
+  fen: FEN;
   timeMode: TimeMode;
   gameMode: GameMode;
   ratingMin: number;
@@ -134,7 +134,7 @@ export interface SetupStore {
 
 export interface ForceSetupOptions {
   variant?: VariantKey;
-  fen?: string;
+  fen?: FEN;
   timeMode?: TimeMode;
   time?: number;
   increment?: number;
