@@ -429,6 +429,8 @@
   <string name="leaderboard">Clasificación</string>
   <string name="screenshotCurrentPosition">Hacer captura de pantalla de la posición actual</string>
   <string name="gameAsGIF">Guardar partida en formato GIF</string>
+  <string name="playerNames">Nombres de jugadores</string>
+  <string name="moveAnnotations">Anotación de los movimientos</string>
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
   <string name="orUploadPgnFile">o sube un archivo PGN</string>
