@@ -2,6 +2,8 @@ package lila.relay
 
 import scala.collection.immutable.SeqMap
 
+import scalalib.Debouncer
+
 import chess.format.pgn.*
 import chess.{ FideId, PlayerName }
 import chess.Outcome.Points
@@ -9,6 +11,7 @@ import chess.Outcome.Points
 import lila.core.fide.{ PlayerToken, Tokenize }
 import lila.study.ChapterPreview
 import lila.study.StudyPlayer
+import lila.relay.RelayGroup.ScoreGroup
 
 type TeamName = String
 
@@ -247,7 +250,7 @@ final class RelayTeamLeaderboard(
     tourRepo: RelayTourRepo,
     teamTable: RelayTeamTable,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor)(using scheduler: Scheduler):
   import play.api.libs.json.*
 
   type TeamLeaderboard = SeqMap[TeamName, TeamLeaderboardEntry]
@@ -290,14 +293,21 @@ final class RelayTeamLeaderboard(
       )
 
   def leaderboardJson(tour: RelayTourId): Fu[JsonStr] =
-    jsonCache.get(tour)
+    relayGroupApi
+      .scoreGroupOf(tour)
+      .flatMap: tourId =>
+        jsonCache.get(tourId)
 
-  def leaderboard(tour: RelayTourId): Fu[TeamLeaderboard] = cache.get(tour)
+  def leaderboard(tour: RelayTourId): Fu[TeamLeaderboard] =
+    relayGroupApi
+      .scoreGroupOf(tour)
+      .flatMap: tourId =>
+        cache.get(tourId)
 
-  private val cache = cacheApi[RelayTourId, TeamLeaderboard](12, "relay.teamLeaderboard"):
+  private val cache = cacheApi[ScoreGroup, TeamLeaderboard](12, "relay.teamLeaderboard"):
     _.expireAfterWrite(1.minute).buildAsyncFuture(aggregate)
 
-  private val jsonCache = cacheApi[RelayTourId, JsonStr](8, "relay.teamLeaderboard.json"):
+  private val jsonCache = cacheApi[ScoreGroup, JsonStr](8, "relay.teamLeaderboard.json"):
     _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
       import json.given
       cache
@@ -305,10 +315,20 @@ final class RelayTeamLeaderboard(
         .map: l =>
           JsonStr(Json.stringify(Json.toJson(l.values.toList)))
 
-  private def aggregate(tourId: RelayTourId): Fu[TeamLeaderboard] =
+  def invalidate(id: RelayTourId): Unit =
+    invalidateDebouncer.push(id)
+
+  private val invalidateDebouncer = Debouncer[RelayTourId](scheduler.scheduleOnce(3.seconds, _), 32): id =>
+    import lila.memo.CacheApi.invalidate
+    relayGroupApi
+      .scoreGroupOf(id)
+      .foreach: key =>
+        cache.invalidate(key)
+        jsonCache.invalidate(key)
+
+  private def aggregate(scoreGroup: ScoreGroup): Fu[TeamLeaderboard] =
     for
-      scoreGroup <- relayGroupApi.scoreGroupOf(tourId)
-      tour <- tourRepo.byId(scoreGroup.head).orFail(s"Missing relay tour $tourId")
+      tour <- tourRepo.byId(scoreGroup.head).orFail(s"Missing relay tour ${scoreGroup.head}")
       rounds <- scoreGroup.toList.flatTraverse(roundRepo.idsByTourOrdered)
       matches <- rounds.flatTraverse(teamTable.table)
     yield tour.showTeamScores.so:

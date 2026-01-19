@@ -35,6 +35,7 @@ final class RelayApi(
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     players: RelayPlayerApi,
+    teamLeaderboard: RelayTeamLeaderboard,
     studyPropagation: RelayStudyPropagation,
     preview: ChapterPreviewApi,
     picfitApi: PicfitApi
@@ -248,6 +249,7 @@ final class RelayApi(
       studyIds <- roundRepo.studyIdsOf(tour.id)
     yield
       players.invalidate(tour.id)
+      teamLeaderboard.invalidate(tour.id)
       studyIds.foreach(preview.invalidate)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
 
@@ -385,7 +387,9 @@ final class RelayApi(
         _ <- old.hasStartedEarly.so:
           roundRepo.coll.unsetField($id(relay.id), "startedAt").void
         _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
-      yield players.invalidate(relay.tourId)
+      yield
+        teamLeaderboard.invalidate(relay.tourId)
+        players.invalidate(relay.tourId)
     } >> requestPlay(old.id, v = true, "reset")
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
