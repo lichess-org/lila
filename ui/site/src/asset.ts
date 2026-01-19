@@ -84,7 +84,7 @@ export const loadEsmPage = async (name: string) => {
 export const loadI18n = async (catalog: string) => {
   await import(document.body.dataset.i18nCatalog!);
   const s = window.site;
-  const path = `compiled/i18n/${catalog}.${s.displayLocale}.${s.manifest.i18n![catalog]}.js`;
+  const path = `compiled/i18n/${catalog}.${document.documentElement.lang}.${s.manifest.i18n![catalog]}.js`;
   await import(url(path));
 };
 
