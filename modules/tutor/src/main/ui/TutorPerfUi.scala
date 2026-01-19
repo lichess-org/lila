@@ -10,25 +10,27 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
   import helpers.{ *, given }
 
   def apply(full: TutorFullReport, report: TutorPerfReport, user: User)(using Context) =
-    bits.page(menu = menu(user, report, "perf"))(cls := "tutor__perf box"):
+    bits.page(menu = menu(user, report, "perf"))(cls := "tutor__perf tutor-layout"):
       frag(
-        boxTop(
-          h1(
-            a(href := routes.Tutor.user(user.username), dataIcon := Icon.LessThan, cls := "text"),
-            bits.otherUser(user),
-            "Tutor: ",
-            report.perf.trans
-          )
-        ),
-        bits.mascotSays(
-          p(
-            "Looking at ",
-            pluralizeLocalize("game", report.stats.totalNbGames),
-            report.stats.dates.map: dates =>
-              frag(" played between ", showDate(dates.start), " and ", showDate(dates.end))
+        div(cls := "box tutor__first-box")(
+          boxTop(
+            h1(
+              a(href := routes.Tutor.user(user.username), dataIcon := Icon.LessThan, cls := "text"),
+              bits.otherUser(user),
+              "Tutor: ",
+              report.perf.trans
+            )
           ),
-          timePercentAndRating(full, report),
-          ul(TutorCompare.mixedBag(report.relevantComparisons)(4).map(compare.show))
+          bits.mascotSays(
+            p(
+              "Looking at ",
+              pluralizeLocalize("game", report.stats.totalNbGames),
+              report.stats.dates.map: dates =>
+                frag(" played between ", showDate(dates.start), " and ", showDate(dates.end))
+            ),
+            timePercentAndRating(full, report),
+            ul(TutorCompare.mixedBag(report.relevantComparisons)(4).map(compare.show))
+          )
         ),
         div(cls := "tutor__perf__angles tutor-cards")(
           angleCard(
@@ -141,21 +143,25 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
     )
 
   def phases(report: TutorPerfReport, user: User)(using Context) =
-    bits.page(menu = menu(user, report, "phases"))(cls := "tutor__phases box"):
+    bits.page(menu = menu(user, report, "phases"))(cls := "tutor__phases tutor-layout"):
       frag(
-        boxTop(
-          h1(
-            a(
-              href := routes.Tutor.perf(user.username, report.perf.key),
-              dataIcon := Icon.LessThan,
-              cls := "text"
+        div(cls := "tutor__first-box box")(
+          frag(
+            boxTop(
+              h1(
+                a(
+                  href := routes.Tutor.perf(user.username, report.perf.key),
+                  dataIcon := Icon.LessThan,
+                  cls := "text"
+                ),
+                bits.otherUser(user),
+                report.perf.trans,
+                " phases"
+              )
             ),
-            bits.otherUser(user),
-            report.perf.trans,
-            " phases"
+            bits.mascotSays(ul(report.phaseHighlights(3).map(compare.show)))
           )
         ),
-        bits.mascotSays(ul(report.phaseHighlights(3).map(compare.show))),
         div(cls := "tutor-cards tutor-cards--triple")(
           report.phases.map: phase =>
             st.section(cls := "tutor-card tutor__phases__phase")(
@@ -197,22 +203,24 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
       )
 
   def skills(report: TutorPerfReport, user: User)(using Context) =
-    bits.page(menu = menu(user, report, "skills"))(cls := "tutor__skills box"):
+    bits.page(menu = menu(user, report, "skills"))(cls := "tutor__skills tutor-layout"):
       frag(
-        boxTop(
-          h1(
-            a(
-              href := routes.Tutor.perf(user.username, report.perf.key),
-              dataIcon := Icon.LessThan,
-              cls := "text"
-            ),
-            bits.otherUser(user),
-            report.perf.trans,
-            " skills"
+        div(cls := "tutor__first-box box")(
+          boxTop(
+            h1(
+              a(
+                href := routes.Tutor.perf(user.username, report.perf.key),
+                dataIcon := Icon.LessThan,
+                cls := "text"
+              ),
+              bits.otherUser(user),
+              report.perf.trans,
+              " skills"
+            )
+          ),
+          bits.mascotSays(
+            ul(report.skillHighlights(3).map(compare.show))
           )
-        ),
-        bits.mascotSays(
-          ul(report.skillHighlights(3).map(compare.show))
         ),
         div(cls := "tutor__pad tutor-grades")(
           grade.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),
@@ -223,22 +231,24 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
       )
 
   def time(report: TutorPerfReport, user: User)(using Context) =
-    bits.page(menu = menu(user, report, "time"))(cls := "tutor__time box"):
+    bits.page(menu = menu(user, report, "time"))(cls := "tutor__time tutor-layout"):
       frag(
-        boxTop(
-          h1(
-            a(
-              href := routes.Tutor.perf(user.username, report.perf.key),
-              dataIcon := Icon.LessThan,
-              cls := "text"
-            ),
-            bits.otherUser(user),
-            report.perf.trans,
-            " time management"
+        div(cls := "tutor__first-box box")(
+          boxTop(
+            h1(
+              a(
+                href := routes.Tutor.perf(user.username, report.perf.key),
+                dataIcon := Icon.LessThan,
+                cls := "text"
+              ),
+              bits.otherUser(user),
+              report.perf.trans,
+              " time management"
+            )
+          ),
+          bits.mascotSays(
+            ul(report.timeHighlights(5).map(compare.show))
           )
-        ),
-        bits.mascotSays(
-          ul(report.timeHighlights(5).map(compare.show))
         ),
         div(cls := "tutor__pad tutor-grades")(
           grade.peerGradeWithDetail(concept.speed, report.globalClock, InsightPosition.Move),

@@ -2,8 +2,8 @@
   &-cards {
     @extend %box-padding-horiz;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-    grid-gap: 1em;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-gap: $block-gap;
     margin: var(---box-padding) 0;
     &--triple {
       grid-template-columns: 1fr;
@@ -36,22 +36,10 @@
 
     &__top {
       @extend %flex-center-nowrap;
-
-      i {
-        @extend %page-text-shadow;
-        font-size: 4em;
-        margin: 0 1rem 0 1rem;
-        color: $c-primary;
-        opacity: 0.7;
-      }
       &__title {
-        @extend %flex-center-nowrap;
-        gap: 1ch;
+        @extend %flex-column;
         &--pad {
           @include padding-direction(2rem, #{$card-padding-w}, 0, #{$card-padding-w});
-        }
-        i + & {
-          margin-top: 1em;
         }
         &__text {
           font-size: 1.7em;
@@ -66,6 +54,32 @@
         }
         .tutor-icon {
           height: 2.5em;
+        }
+      }
+    }
+    &--perf {
+      &__top {
+        @extend %flex-center-nowrap;
+
+        i {
+          @extend %page-text-shadow;
+          font-size: 4em;
+          margin: 0 1rem 0 1rem;
+          opacity: 0.7;
+        }
+        &__title {
+          @extend %flex-column;
+          i + & {
+            margin-top: 1em;
+          }
+          &__text {
+            font-size: 1.7em;
+            margin-top: 0.7rem;
+          }
+          &__sub {
+            margin-top: 0.3rem;
+            color: $c-font-dim;
+          }
         }
       }
     }
