@@ -1,82 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Швейцарска</string>
   <string name="swissTournaments">Швейцарски турнири</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Вижте кръга</item>
-    <item quantity="other">Вижте всички %s рунда</item>
+    <item quantity="other">Вижте всички %s кръга</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
-    <item quantity="one">%s рунд</item>
-    <item quantity="other">%s рунда</item>
+    <item quantity="one">%s кръг</item>
+    <item quantity="other">%s кръга</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="one">%s рунд по швейцарската система</item>
-    <item quantity="other">%s рунда по швейцарската система</item>
+    <item quantity="one">%s кръг по швейцарската система</item>
+    <item quantity="other">%s кръга по швейцарската система</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
-    <item quantity="one">Един рунд на ден</item>
-    <item quantity="other">Един рунд всеки %s дена</item>
+    <item quantity="one">Един кръг на ден</item>
+    <item quantity="other">Един кръг всеки %s дена</item>
   </plurals>
-  <string name="roundsAreStartedManually">Рундовете се пускат на ръка</string>
+  <string name="roundsAreStartedManually">Кръговете се пускат на ръка</string>
   <plurals name="xSecondsBetweenRounds">
-    <item quantity="one">%s секунда между рундовете</item>
-    <item quantity="other">%s секунди между рундовете</item>
+    <item quantity="one">%s секунда между кръговете</item>
+    <item quantity="other">%s секунди между кръговете</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="one">%s минута между рундовете</item>
-    <item quantity="other">%s минути между рундовете</item>
+    <item quantity="one">%s минута между кръговете</item>
+    <item quantity="other">%s минути между кръговете</item>
   </plurals>
-  <string name="nextRound">Следващ рунд</string>
+  <string name="nextRound">Следващ кръг</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Текуща партия</item>
     <item quantity="other">Текущи партии</item>
   </plurals>
   <string name="tournStartDate">Начална дата на турнира</string>
-  <string name="numberOfRounds">Брой рундове</string>
-  <string name="numberOfRoundsHelp">Нечетен брой рундове оптимално балансира на цветовете за всички играчи.</string>
-  <string name="roundInterval">Интервал между рундовете</string>
+  <string name="numberOfRounds">Брой кръгове</string>
+  <string name="numberOfRoundsHelp">Нечетен брой кръгове оптимално балансира цветовете за всички играчи.</string>
+  <string name="roundInterval">Интервал между кръговете</string>
   <string name="forbiddenPairings">Забранени съчетавания</string>
-  <string name="forbiddenPairingsHelp">Имена на играчите които не трябва да играят един срещу друг (например роднини). Въведете по две имена на линия, разделени с интервал.</string>
+  <string name="forbiddenPairingsHelp">Имена на играчите, които не трябва да играят един срещу друг (например роднини). Въведете по две имена на ред, разделени с интервал.</string>
+  <string name="manualPairings">Ръчно определяне на двойките за следващия кръг</string>
+  <string name="manualPairingsHelp">Задайте ръчно всички двойки за следващия кръг. По една двойка играчи на ред. Пример:
+PlayerA PlayerB
+PlayerC PlayerD
+За да дадете служебна победа (1 точка) на играч вместо да го съчетаете, добавете ред по следния начин:
+PlayerE 1
+Липсващите играчи ще се считат за отсъстващи и ще получат нула точки.
+Оставете това поле празно, за да позволите на Lichess да състави двойките автоматично.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Трябва да са завършили последната си партия от швейцарски турнир</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Позволява присъединяването само на играчи, които са доиграли последната си партия от швейцарски турнир. Ако не са се явили в скорошно швейцарско събитие, няма да могат да влязат във вашето. Това води до по-добро преживяване за играчите, които действително се явяват.</string>
   <string name="newSwiss">Нов швейцарски турнир</string>
   <string name="swissVsArenaQ">Кога да използваме швейцарски турнири вместо арени?</string>
   <string name="swissVsArenaA">В турнир по швейцарската система всички участници играят еднакъв брой игри и могат да играят един срещу друг само веднъж.
 Това е добър избор за клубове и официални турнири.</string>
   <string name="pointsCalculationQ">Как се изчисляват точките?</string>
-  <string name="pointsCalculationA">Победа дава една точка, реми - половин точка, а загубата не носи точки. Когато играч не може да бъде съчетан, получва енда точка за автоматична победа.</string>
+  <string name="pointsCalculationA">Победа дава една точка, реми - половин точка, а загубата не носи точки. Когато играч не може да бъде съчетан, получава една точка за автоматична победа.</string>
+  <string name="tiebreaksCalculationQ">Как се изчисляват допълнителните показатели?</string>
   <string name="sonnebornBergerScore">показател на Зонеборн-Бергер</string>
   <string name="tiebreaksCalculationA">Чрез %s.
 Сумата от точките на противниците, срещу които състезателят е спечелил, плюс половината от точките на противниците, с които е завършил реми.</string>
+  <string name="pairingsQ">Как се определят двойките?</string>
   <string name="dutchSystem">Холандската система</string>
   <string name="FIDEHandbook">Правилника на ФИДЕ</string>
   <string name="pairingsA">По %1$s, осъществена чрез %2$s, според %3$s.</string>
-  <string name="moreRoundsThanPlayersQ">Какво става ако турнир има повече рундове отколкото играчи?</string>
+  <string name="moreRoundsThanPlayersQ">Какво става, ако турнирът има повече кръгове отколкото играчи?</string>
+  <string name="moreRoundsThanPlayersA">Когато всички възможни двойки са изиграни, турнирът ще приключи и ще бъде обявен победител.</string>
+  <string name="restrictedToTeamsQ">Защо е ограничено до отбори?</string>
   <string name="restrictedToTeamsA">Турнири по швейцарската система не са подходящи за онлайн шах. Те изискват точност, отдаденост и търпение от играчите.
 Смятаме, че тези условия е по-вероятно да бъдат изпълнени в отборни турнири, отколкото в глобални турнири.</string>
-  <string name="earlyDrawsAnswer">В турнири по швейцарската система игрите не могат да завършат с реми преди да са изиграни 30 хода. Въпреки че това правило не може да предотврати предватително договорени ремита, то прави договарянето на реми по време на игра по-тудно.</string>
-  <string name="lateJoinA">Да, докато не са започнали повече от половината рундове; например в 11-рундов турнир по швейцарската система играчи могат да се присъединят преди началото на рунд 6, а в 12-рундов, преди началото на рунд 7.
-Късно присъединяващите се получават една точка, дори ако са пропуснали няколко рунда.</string>
-  <string name="roundRobinA">Бихме искали да го добавим, но за съжаление Round Robin не работи онлайн. Причината е, че няма справедлив начин да се справи с играчите, които напускат турнира по-рано. Не можем да очакваме, че всички играчи ще изиграят всичките си игри в дадено онлайн събитие. В резултат, повечето Round Robin турнири биха били несправедливи, което противоречи на самата причина те да съществуват. Най-близкото до онлайн Round Robin турнир е швейцарски турнир с много голям брой рундове. Тогава всички възможни сдвоявания ще бъдат изиграни преди края на турнира.</string>
+  <string name="numberOfByesQ">Колко служебни победи може да получи даден играч?</string>
+  <string name="numberOfByesA">Играч получава служебна победа от една точка всеки път, когато системата не може да намери опонент за него.
+Допълнително, еднократна служебна победа от половин точка се присъжда, когато играч се присъедини късно към турнира.</string>
+  <string name="earlyDrawsQ">Какво се случва при ранни ремита?</string>
+  <string name="earlyDrawsAnswer">В турнири по швейцарската система игрите не могат да завършат с реми преди да са изиграни 30 хода. Въпреки че това правило не може да предотврати предварително договорени ремита, то прави договарянето на реми по време на игра по-трудно.</string>
+  <string name="whatIfOneDoesntPlayQ">Какво става, ако играч не изиграе партия?</string>
+  <string name="whatIfOneDoesntPlayA">Времето му ще изтече и ще загуби партията.
+След това системата ще оттегли играча от турнира, за да не губи повече партии.
+Той може да се върне в турнира по всяко време.</string>
+  <string name="protectionAgainstNoShowQ">Какво се прави по отношение на неявилите се?</string>
+  <string name="protectionAgainstNoShowA">Играчи, които се записват за швейцарски събития, но не играят партиите си, създават проблеми.
+За да облекчи този проблем, Lichess не позволява на играчи, които са пропуснали партия, да се присъединяват към ново швейцарско събитие за определен период от време.
+Създателят на швейцарското събитие може да реши да ги допусне въпреки това.</string>
+  <string name="lateJoinQ">Могат ли играчи да се присъединяват късно?</string>
+  <string name="lateJoinA">Да, докато не са започнали повече от половината кръгове; например в 11-кръгов турнир по швейцарската система играчи могат да се присъединят преди началото на 6-ия кръг, а в 12-кръгов, преди началото на 7-ия кръг.
+Късно присъединяващите се получават една точка, дори ако са пропуснали няколко кръга.</string>
+  <string name="willSwissReplaceArenasQ">Ще заменят ли швейцарските турнири арените?</string>
+  <string name="willSwissReplaceArenasA">Не. Те са взаимно допълващи се функции.</string>
+  <string name="roundRobinQ">Как стои въпросът с турнирите „Всеки срещу всеки“ (Round Robin)?</string>
+  <string name="roundRobinA">Бихме искали да го добавим, но за съжаление Round Robin не работи онлайн. Причината е, че няма справедлив начин да се справи с играчите, които напускат турнира по-рано. Не можем да очакваме, че всички играчи ще изиграят всичките си игри в дадено онлайн събитие. В резултат, повечето Round Robin турнири биха били несправедливи, което противоречи на самата причина те да съществуват. Най-близкото до онлайн Round Robin турнир е швейцарски турнир с много голям брой кръгове. Тогава всички възможни сдвоявания ще бъдат изиграни преди края на турнира.</string>
+  <string name="otherSystemsQ">Ами други турнирни системи?</string>
+  <string name="otherSystemsA">В момента не планираме да добавяме други турнирни системи в Lichess.</string>
+  <string name="swissDescription">В турнир по швейцарската система %1$s, участниците не играят непременно срещу всички останали. Състезателите се срещат един срещу един във всеки кръг и се съчетават чрез набор от правила, целящи всеки да играе с опоненти с подобен текущ актив, но не и с един и същ опонент повече от веднъж. Победител е състезателят с най-висок общ брой точки, спечелени във всички кръгове. Всички състезатели играят във всеки кръг, освен ако броят на играчите не е нечетен.</string>
+  <string name="teamOnly">Швейцарски турнири могат да се създават само от лидери на отбори и да се играят само от членове на отбора.
+%1$s, за да започнете да играете в швейцарски турнири.</string>
+  <string name="joinOrCreateTeam">Присъединете се към или създайте отбор</string>
+  <string name="nowPlaying">В момента се играят</string>
   <string name="startingSoon">Скоро започва</string>
   <string name="comparison">Сравнение</string>
   <string name="tournDuration">Продължителност на турнира</string>
+  <string name="predefinedDuration">Предварително зададена продължителност в минути</string>
+  <string name="durationUnknown">Предварително зададен максимален брой кръгове, но продължителността е неизвестна</string>
   <string name="numberOfGames">Брой партии</string>
   <string name="numberOfGamesAsManyAsPossible">Толкова, колкото могат да се изиграят за даденото време</string>
   <string name="numberOfGamesPreDefined">Задава се предварително, еднакво за всички играчи</string>
   <string name="pairingSystem">Система за съчетаване</string>
+  <string name="pairingSystemArena">Всеки наличен опонент с подобен рейтинг</string>
+  <string name="pairingSystemSwiss">Най-доброто съчетаване въз основа на точки и тайбреци</string>
+  <string name="pairingWaitTime">Време за изчакване на съчетаване</string>
   <string name="pairingWaitTimeArena">Бързо: не се изчакват всички играчи</string>
   <string name="pairingWaitTimeSwiss">Бавно: изчакват се всички играчи</string>
   <string name="identicalPairing">Идентични съчетавания</string>
   <string name="possibleButNotConsecutive">Възможни, но не последователни</string>
   <string name="identicalForbidden">Забранени</string>
   <string name="lateJoin">Късно включване</string>
-  <string name="lateJoinUntil">Да, преди повече от половината рундове да са започнали</string>
+  <string name="lateJoinUntil">Да, преди повече от половината кръгове да са започнали</string>
   <string name="pause">Пауза</string>
-  <string name="pauseSwiss">Да, но може да намали броя на рундовете</string>
+  <string name="pauseSwiss">Да, но може да намали броя на кръговете</string>
   <string name="streaksAndBerserk">Поредици и Берсерк</string>
   <string name="similarToOTB">Подобно на класическите турнири</string>
   <string name="unlimitedAndFree">Неограничено и безплатно</string>
   <string name="predefinedUsers">Позволете само на определени играчи да участват</string>
   <string name="forbiddedUsers">Само играчите от този списък ще могат да участват, освен ако списъкът е празен. Въведете само по едно потребителско име на ред.</string>
   <string name="playYourGames">Играйте игрите си</string>
+  <string name="byes">Почивки</string>
   <string name="absences">Отсъствия</string>
+  <string name="tieBreak">Тайбрек</string>
 </resources>
