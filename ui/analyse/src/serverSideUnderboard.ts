@@ -4,9 +4,9 @@ import * as licon from 'lib/licon';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'lib/xhr';
 import type { AnalyseData } from './interfaces';
 import type { ChartGame, AcplChart } from 'chart';
-import { spinnerHtml, domDialog, alert, confirm, type Dialog } from 'lib/view';
+import { spinnerHtml, domDialog, alert, confirm } from 'lib/view';
 import { escapeHtml } from 'lib';
-import { storage, storedBooleanProp } from 'lib/storage';
+import { storage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
 
 export const stockfishName = 'Stockfish 17.1';
@@ -17,7 +17,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
     inputFen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input'),
-    gameGifLink = document.querySelector<HTMLAnchorElement>('a.game-gif'),
     positionGifLink = document.querySelector<HTMLAnchorElement>('.position-gif a');
   let lastInputHash: string;
   let advChart: AcplChart;
@@ -169,116 +168,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   });
 
-  // GIF export dialog
-  if (gameGifLink) {
-    const gifPrefs = {
-        showPlayers: {
-          label: i18n.site.playerNames,
-          prop: storedBooleanProp('analyse.gif.players', true),
-        },
-        showRatings: {
-          label: i18n.preferences.showPlayerRatings,
-          prop: storedBooleanProp('analyse.gif.ratings', true),
-        },
-        showGlyphs: {
-          label: i18n.site.moveAnnotations,
-          prop: storedBooleanProp('analyse.gif.glyphs', false),
-        },
-        showClocks: {
-          label: i18n.preferences.chessClock,
-          prop: storedBooleanProp('analyse.gif.clocks', false),
-        },
-      },
-      gameGifParent = gameGifLink.parentElement;
-
-    gameGifParent?.addEventListener('click', e => {
-      e.preventDefault();
-      let gifOrientation: Color = ctrl.bottomColor();
-
-      const buildGifUrl = () => {
-        const ds = document.body.dataset;
-        return xhrUrl(`${ds.assetUrl}/game/export/gif/${gifOrientation}/${data.game.id}.gif`, {
-          theme: ds.board,
-          piece: ds.pieceSet,
-          ...Object.fromEntries(Object.entries(gifPrefs).map(([k, { prop }]) => [k, prop()])),
-        });
-      };
-
-      const makeToggle = (key: keyof typeof gifPrefs) => `
-        <div class="setting">
-          <div class="switch">
-            <input id="gif-${key}" class="cmn-toggle" type="checkbox" ${gifPrefs[key].prop() ? 'checked' : ''}>
-            <label for="gif-${key}"></label>
-          </div>
-          <label for="gif-${key}">${gifPrefs[key].label}</label>
-        </div>`;
-
-      const updateUrl = (dlg: Dialog) =>
-        ((dlg.view.querySelector('.gif-download') as HTMLAnchorElement).href = buildGifUrl());
-
-      const toggleAction = (key: keyof typeof gifPrefs) => ({
-        selector: `#gif-${key}`,
-        event: 'change',
-        listener: (ev: Event, dlg: Dialog) => {
-          gifPrefs[key].prop((ev.target as HTMLInputElement).checked);
-          updateUrl(dlg);
-        },
-      });
-
-      domDialog({
-        class: 'gif-export',
-        modal: true,
-        show: true,
-        noClickAway: true,
-        htmlText: `
-          <div class="gif-export-dialog">
-            <strong style="font-size:1.5em">${i18n.site.gameAsGIF}</strong>
-            <div class="gif-options">
-              <button class="button button-empty text gif-flip" data-icon="${licon.ChasingArrows}">
-                ${i18n.site[gifOrientation]}
-              </button>
-              ${Object.keys(gifPrefs).map(makeToggle).join('')}
-            </div>
-            <div class="gif-actions">
-              <button class="button button-metal text gif-copy" data-icon="${licon.Clipboard}">
-                ${i18n.site.copyToClipboard}
-              </button>
-              <a class="button button-green text gif-download" data-icon="${licon.Download}" href="${buildGifUrl()}" target="_blank">
-                ${i18n.site.download}
-              </a>
-            </div>
-          </div>`,
-        actions: [
-          {
-            selector: '.gif-flip',
-            listener: (_, dlg) => {
-              gifOrientation = gifOrientation === ctrl.bottomColor() ? ctrl.topColor() : ctrl.bottomColor();
-              dlg.view.querySelector('.gif-flip')!.textContent = i18n.site[gifOrientation];
-              updateUrl(dlg);
-            },
-          },
-          {
-            selector: '.gif-copy',
-            listener: (_, dlg) => {
-              const url = (dlg.view.querySelector('.gif-download') as HTMLAnchorElement).href;
-              navigator.clipboard.writeText(url).then(() => {
-                const btn = dlg.view.querySelector('.gif-copy') as HTMLButtonElement;
-                btn.dataset.icon = licon.Checkmark;
-                btn.classList.remove('button-metal');
-                setTimeout(() => {
-                  btn.dataset.icon = licon.Clipboard;
-                  btn.classList.add('button-metal');
-                }, 1000);
-              });
-            },
-          },
-          {
-            selector: '.gif-download',
-            listener: (_, dlg) => dlg.close(),
-          },
-          ...Object.keys(gifPrefs).map(toggleAction),
-        ],
-      });
-    });
-  }
+  document.querySelector<HTMLAnchorElement>('a.game-gif')?.addEventListener('click', e => {
+    e.preventDefault();
+    site.asset.loadEsm('analyse.gifDialog', { init: ctrl });
+  });
 }
