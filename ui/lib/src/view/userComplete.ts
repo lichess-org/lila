@@ -25,7 +25,7 @@ export function userComplete(opts: UserCompleteOpts): void {
   complete<LightUserOnline>({
     input: opts.input,
     fetch: t => debouncedXhr(t).then(checkDebouncedResultAgainstTerm(t)),
-    render: renderUserEntry,
+    render: (o: LightUserOnline) => renderUserEntry(o, opts.tag),
     populate: opts.populate || (r => r.name),
     onSelect: opts.onSelect,
     regex: /^[a-z][\w-]{2,29}$/i,

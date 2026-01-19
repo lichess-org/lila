@@ -15,5 +15,3 @@ private given Ordering[IntRating] = intOrdering
 private given Ordering[GoodPercent] = doubleOrdering
 
 private given Conversion[UserWithPerfs, User] = _.user
-
-private def roundToInt(d: Double) = Math.round(d).toInt

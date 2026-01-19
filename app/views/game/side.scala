@@ -35,41 +35,39 @@ def meta(
     div(cls := "game__meta")(
       st.section(
         div(cls := "game__meta__infos", dataIcon := ui.gameIcon(game))(
-          div(
-            div(cls := "header")(
-              div(cls := "setup")(
-                views.bookmark.toggle(game, bookmarked),
-                if game.sourceIs(_.Import) then
-                  div(
-                    a(href := routes.Importer.importGame, title := trans.site.importGame.txt())("IMPORT"),
-                    separator,
-                    variantLink(game.variant, game.perfType, initialFen = initialFen, shortName = true)
-                  )
-                else
-                  frag(
-                    ui.widgets.showClock(game),
-                    separator,
-                    ratedName(game.rated),
-                    separator,
-                    variantLink(game.variant, game.perfType, initialFen, shortName = true)
-                  )
-              ),
-              game.pgnImport.flatMap(_.date).fold(momentFromNowWithPreload(game.createdAt))(frag(_))
-            ),
-            game.pgnImport
-              .flatMap(_.user)
-              .map: importedBy =>
-                small(
-                  trans.site.importedByX(userIdLink(importedBy.some, None, withOnline = false)),
-                  ctx
-                    .is(importedBy)
-                    .option(form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
-                      submitButton(
-                        cls := "button-link yes-no-confirm",
-                        title := trans.site.deleteThisImportedGame.txt()
-                      )(trans.site.delete.txt()))
+          div(cls := "header")(
+            div(cls := "setup")(
+              views.bookmark.toggle(game, bookmarked),
+              if game.sourceIs(_.Import) then
+                div(
+                  a(href := routes.Importer.importGame, title := trans.site.importGame.txt())("IMPORT"),
+                  separator,
+                  variantLink(game.variant, game.perfType, initialFen = initialFen, shortName = true)
                 )
-          )
+              else
+                frag(
+                  ui.widgets.showClock(game),
+                  separator,
+                  ratedName(game.rated),
+                  separator,
+                  variantLink(game.variant, game.perfType, initialFen, shortName = true)
+                )
+            ),
+            game.pgnImport.flatMap(_.date).fold(momentFromNowWithPreload(game.createdAt))(frag(_))
+          ),
+          game.pgnImport
+            .flatMap(_.user)
+            .map: importedBy =>
+              small(
+                trans.site.importedByX(userIdLink(importedBy.some, None, withOnline = false)),
+                ctx
+                  .is(importedBy)
+                  .option(form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
+                    submitButton(
+                      cls := "button-link yes-no-confirm",
+                      title := trans.site.deleteThisImportedGame.txt()
+                    )(trans.site.delete.txt()))
+              )
         ),
         div(cls := "game__meta__players")(
           game.players.mapList: p =>
