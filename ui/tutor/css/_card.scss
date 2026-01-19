@@ -17,20 +17,19 @@
   }
   &-card {
     @extend %box-neat;
-    background: $c-bg-zebra;
+    background: $c-bg-box;
 
     $card-padding-w: 2em;
     $card-padding-h: 2em;
 
     &--link {
-      border-radius: 10px;
+      border-radius: 12px;
       position: relative;
-      // outline: 3px solid mix($c-link, $c-bg-box, 30%);
       cursor: pointer;
       &:hover {
-        outline: 3px solid $m-primary_bg--mix-60;
-        background: $m-primary_bg-zebra--mix-10;
-        box-shadow: 0 0 30px $m-primary_bg--mix-20;
+        outline: 1px solid $m-primary_bg--mix-60;
+        background: $m-primary_bg--mix-08;
+        box-shadow: 0 0 20px $m-primary_bg--mix-20;
       }
     }
 
