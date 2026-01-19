@@ -16,13 +16,13 @@ import { playerColoredResult } from './relay/customScoreStatus';
 import type { TreePath } from 'lib/tree/types';
 import { tagsToMap } from './studyTags';
 import { COLORS } from 'chessops';
-import RelayTeamsStandings from './relay/relayTeamsStandings';
+import RelayTeamLeaderboard from './relay/relayTeamLeaderboard';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
   if (!study) return;
   const relayPlayers = study.relay?.players;
-  const relayTeamsStandings = study.relay?.teamStandings;
+  const relayTeamLeaderboard = study.relay?.teamLeaderboard;
 
   const players = study.currentChapter().players,
     tags = study.data.chapter.tags,
@@ -43,7 +43,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       study.data.showRatings || !looksLikeLichessGame(tags),
       study.relay?.round,
       relayPlayers,
-      relayTeamsStandings,
+      relayTeamLeaderboard,
     ),
   );
 }
@@ -67,7 +67,7 @@ function renderPlayer(
   showRatings: boolean,
   round?: RelayRound,
   relayPlayers?: RelayPlayers,
-  relayTeamsStandings?: RelayTeamsStandings,
+  relayTeamsStandings?: RelayTeamLeaderboard,
 ): VNode {
   const showResult: boolean =
       !defined(ctrl.study?.relay) ||

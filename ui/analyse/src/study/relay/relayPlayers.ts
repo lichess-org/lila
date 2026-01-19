@@ -20,7 +20,7 @@ import { type Attrs, type Hooks, init as initSnabbdom, attributesModule, type VN
 import { convertPlayerFromServer } from '../studyChapters';
 import { isTouchDevice } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
-import { teamLink } from './relayTeamsStandings';
+import { teamLink } from './relayTeamLeaderboard';
 
 export type RelayPlayerId = FideId | string;
 

@@ -423,7 +423,7 @@ const teams = (ctx: RelayViewContext) => [
 
 const teamResults = (ctx: RelayViewContext) => [
   header(ctx),
-  ctx.relay.teams && ctx.relay.teamStandings.view(),
+  ctx.relay.teams && ctx.relay.teamLeaderboard.view(),
 ];
 
 const stats = (ctx: RelayViewContext) => [header(ctx), statsView(ctx.relay.stats)];

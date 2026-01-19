@@ -9,7 +9,7 @@ import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapter
 import { userTitle } from 'lib/view/userLink';
 import type RelayPlayers from './relayPlayers';
 import { coloredStatusStr } from './customScoreStatus';
-import { teamLink } from './relayTeamsStandings';
+import { teamLink } from './relayTeamLeaderboard';
 
 interface TeamWithPoints {
   name: string;

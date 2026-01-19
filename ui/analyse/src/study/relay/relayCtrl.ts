@@ -9,7 +9,7 @@ import RelayStats from './relayStats';
 import { LiveboardPlugin } from './liveboardPlugin';
 import { pubsub } from 'lib/pubsub';
 import { COLORS } from 'chessops';
-import RelayTeamsStandings from './relayTeamsStandings';
+import RelayTeamLeaderboard from './relayTeamLeaderboard';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats', 'team-results'] as const;
 export type RelayTab = (typeof relayTabs)[number];
@@ -25,7 +25,7 @@ export default class RelayCtrl {
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
   players: RelayPlayers;
-  teamStandings: RelayTeamsStandings;
+  teamLeaderboard: RelayTeamLeaderboard;
   stats: RelayStats;
   streams: StreamInfo[] = [];
   showStreamerMenu = toggle(false);
@@ -65,7 +65,7 @@ export default class RelayCtrl {
       fideId => data.photos[fideId],
       this.redraw,
     );
-    this.teamStandings = new RelayTeamsStandings(
+    this.teamLeaderboard = new RelayTeamLeaderboard(
       this.data.tour.id,
       () => this.openTab('team-results'),
       this.study.data.federations,
@@ -102,7 +102,7 @@ export default class RelayCtrl {
 
   openTab = (t: RelayTab) => {
     this.players.closePlayer();
-    this.teamStandings.closeTeam();
+    this.teamLeaderboard.closeTeam();
     this.tab(t);
     this.tourShow(true);
     this.redraw();
@@ -150,7 +150,7 @@ export default class RelayCtrl {
         : tab === 'players'
           ? this.players.tabHash()
           : tab === 'team-results'
-            ? this.teamStandings.tabHash()
+            ? this.teamLeaderboard.tabHash()
             : `#${tab}`;
     const url = this.tourShow() ? `${tourUrl}${tabHash()}` : roundUrl;
     // when jumping from a tour tab to another page, remember which tour tab we were on.
