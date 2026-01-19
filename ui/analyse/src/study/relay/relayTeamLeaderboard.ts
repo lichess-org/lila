@@ -136,7 +136,7 @@ export default class RelayTeamsStandings {
             foundTeam.matches.map((match, i) =>
               hl('tr', [
                 hl(
-                  'td',
+                  'td.game-link',
                   hl(
                     'a.game-link text',
                     { attrs: { ...dataIcon(StudyBoard), href: `/broadcast/-/-/${match.roundId}#teams` } },

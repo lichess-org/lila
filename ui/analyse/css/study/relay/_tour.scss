@@ -564,14 +564,34 @@ $hover-bg: $m-primary_bg--mix-30;
     &__header {
       &__stats {
         @extend %tour-margin-horiz;
+        tr {
+          font-size: 1.1em;
+          th {
+            width: 1%;
+            white-space: nowrap;
+          }
+          th + td {
+            padding-left: 3em;
+          }
+        }
+        border-collapse: separate;
+        border-spacing: 0 0.5em;
+        td {
+          padding-left: 1em;
+        }
       }
     }
     .score {
       font-weight: bold;
     }
     &__table {
-      .game-link {
-        @extend %game-link-styles;
+      th:first-child,
+      td.game-link {
+        width: 1%;
+        white-space: nowrap;
+        a.game-link {
+          @extend %game-link-styles;
+        }
       }
       .team-name {
         font-size: 1.1em;
