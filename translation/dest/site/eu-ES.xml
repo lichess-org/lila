@@ -429,6 +429,8 @@
   <string name="leaderboard">Jokalaririk onenak</string>
   <string name="screenshotCurrentPosition">Uneko posizioaren irudia</string>
   <string name="gameAsGIF">Partida GIF gisa</string>
+  <string name="playerNames">Jokalarien izenak</string>
+  <string name="moveAnnotations">Jokaldien komentarioak</string>
   <string name="pasteTheFenStringHere">FEN-a kodea hemen jarri</string>
   <string name="pasteThePgnStringHere">PGN-a kodea hemen jarri</string>
   <string name="orUploadPgnFile">Edo kargatu PGN fitxategi bat</string>
