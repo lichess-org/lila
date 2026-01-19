@@ -5,7 +5,8 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
   if (!ctrl.me || !ctrl.data.ratingMap) return null;
 
   const { setupCtrl } = ctrl;
-  const isProvisional = setupCtrl.isProvisional();
+  const selectedPerf = ctrl.setupCtrl.selectedPerf();
+  const isProvisional = !!ctrl.data.ratingMap[selectedPerf].prov;
 
   // Get current rating values or use default values if isProvisional
   const currentRatingMin = isProvisional ? -500 : setupCtrl.ratingMin();

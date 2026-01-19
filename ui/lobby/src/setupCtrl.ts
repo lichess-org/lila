@@ -136,8 +136,10 @@ export default class SetupController {
       ratingMax: this.store[this.gameType]().ratingMax,
     });
 
-  myRating = () => this.root.data.ratingMap && Math.abs(this.root.data.ratingMap[this.selectedPerf()]);
-  isProvisional = () => (this.root.data.ratingMap ? this.root.data.ratingMap[this.selectedPerf()] < 0 : true);
+  private isProvisional = () => {
+    const rating = this.root.data.ratingMap && this.root.data.ratingMap[this.selectedPerf()];
+    return rating ? !!rating.prov : true;
+  };
 
   private onPropChange = () => {
     if (this.isProvisional()) this.savePropsToStoreExceptRating();
@@ -220,8 +222,9 @@ export default class SetupController {
   selectedPerf = (): Perf => getPerf(this.variant(), this.timeControl);
 
   ratingRange = (): string => {
-    const rating = this.myRating();
-    return rating ? `${Math.max(100, rating + this.ratingMin())}-${rating + this.ratingMax()}` : '';
+    if (!this.root.data.ratingMap) return '';
+    const rating = this.root.data.ratingMap[this.selectedPerf()].rating;
+    return `${Math.max(100, rating + this.ratingMin())}-${rating + this.ratingMax()}`;
   };
 
   hookToPoolMember = (color: ColorChoice): PoolMember | null => {
