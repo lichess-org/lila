@@ -17,7 +17,7 @@
   <string name="from">Од</string>
   <string name="to">До</string>
   <string name="humanOrComputer">Да ли је играчев противник био човек или рачунар</string>
-  <string name="aiLevel">Ниво В.И.</string>
+  <string name="aiLevel">Ниво вештачке интелигенције</string>
   <string name="source">Извор</string>
   <string name="nbTurns">Број потеза</string>
   <string name="result">Резултат</string>
