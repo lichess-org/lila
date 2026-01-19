@@ -147,10 +147,6 @@ $col2-panel-height: 240px;
     @extend %flex-column;
 
     gap: 0.8em;
-
-    button {
-      width: 100%;
-    }
   }
 
   .setting {
@@ -160,12 +156,12 @@ $col2-panel-height: 240px;
 
     label {
       cursor: pointer;
+      user-select: none;
     }
   }
 
   .gif-actions {
-    display: flex;
-    justify-content: center;
+    @extend %flex-center-nowrap;
     gap: 1em;
   }
 }
