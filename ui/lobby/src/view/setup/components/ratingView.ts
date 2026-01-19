@@ -23,7 +23,7 @@ export const ratingView = (ctrl: LobbyController): MaybeVNode => {
               h(
                 'strong',
                 perfIconAttrs,
-                ctrl.setupCtrl.myRating() + (ctrl.setupCtrl.isProvisional() ? '?' : ''),
+                data.ratingMap[selectedPerf].rating + (data.ratingMap[selectedPerf].prov ? '?' : ''),
               ),
             ),
             perfOrSpeed.name,
