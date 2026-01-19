@@ -14,6 +14,8 @@ import lila.core.config.BaseUrl
 import lila.core.game.{ Game, Pov }
 import lila.game.GameExt.*
 import lila.tree.Analysis
+import play.api.mvc.RequestHeader
+import lila.common.HTTPRequest.queryStringBoolOpt
 
 object GifExport:
   case class UpstreamStatus(code: Int) extends lila.core.lilaism.LilaException:
@@ -24,7 +26,17 @@ object GifExport:
       ratings: Boolean = true,
       clocks: Boolean = true,
       glyphs: Boolean = true
-  )
+  ):
+    def makeSense = copy(ratings = players && ratings)
+  object Options:
+    val default = Options()
+    def fromReq(using RequestHeader): Options =
+      Options(
+        players = queryStringBoolOpt("players") | default.players,
+        ratings = queryStringBoolOpt("ratings") | default.ratings,
+        clocks = queryStringBoolOpt("clocks") | default.clocks,
+        glyphs = queryStringBoolOpt("glyphs") | default.glyphs
+      ).makeSense
 
 final class GifExport(
     ws: StandaloneWSClient,

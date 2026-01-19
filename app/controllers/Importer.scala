@@ -13,7 +13,7 @@ import lila.common.Json.given
 final class Importer(env: Env) extends LilaController(env):
 
   def importGame = OpenBody:
-    val pgn = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
+    val pgn = ~get("pgn")
     val data = lila.game.importer.ImportData(PgnStr(pgn), None)
     Ok.page(views.game.ui.importer(lila.game.importer.form.fill(data)))
 

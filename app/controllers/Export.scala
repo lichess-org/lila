@@ -6,7 +6,7 @@ import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import play.api.mvc.Result
 
-import lila.app.*
+import lila.app.{ *, given }
 import lila.core.id.PuzzleId
 import lila.pref.{ PieceSet, Theme }
 
@@ -20,23 +20,15 @@ final class Export(env: Env) extends LilaController(env):
       id: GameId,
       color: Color,
       theme: Option[String],
-      piece: Option[String],
-      clocks: Boolean,
-      glyphs: Boolean,
-      players: Boolean,
-      ratings: Boolean
+      piece: Option[String]
   ) = Anon:
     NoCrawlersUnlessPreview:
       exportImageOf(env.game.gameRepo.gameWithInitialFen(id)): g =>
-        (if glyphs then env.analyse.analysisRepo.byGame(g.game) else fuccess(None)).flatMap: analysis =>
-          val options = lila.game.GifExport.Options(
-            players = players,
-            ratings = ratings && players, // ratings hidden if players hidden
-            clocks = clocks,
-            glyphs = glyphs
-          )
-          env.game.gifExport
-            .fromPov(
+        val options = lila.game.GifExport.Options.fromReq
+        stream(cacheSeconds = if g.game.finishedOrAborted then 3600 * 24 else 10):
+          for
+            analysis <- options.glyphs.so(env.analyse.analysisRepo.byGame(g.game))
+            source <- env.game.gifExport.fromPov(
               Pov(g.game, color),
               g.fen,
               Theme(theme).name,
@@ -44,7 +36,7 @@ final class Export(env: Env) extends LilaController(env):
               analysis,
               options
             )
-            .pipe(stream(cacheSeconds = if g.game.finishedOrAborted then 3600 * 24 else 10))
+          yield source
 
   def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
     MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url)
