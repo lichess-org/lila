@@ -9,6 +9,7 @@
   <string name="gameOver">Partij afgelopen</string>
   <string name="waitingForOpponent">Wachten op een tegenstander</string>
   <string name="orLetYourOpponentScanQrCode">Of laat je tegenstander deze QR-code scannen</string>
+  <string name="reusableChallengeUrl">Herbruikbare URL</string>
   <string name="waiting">Even geduld a.u.b.</string>
   <string name="yourTurn">U bent aan zet</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
@@ -425,6 +426,8 @@
   <string name="leaderboard">Ranglijst</string>
   <string name="screenshotCurrentPosition">Schermafbeelding huidige stelling</string>
   <string name="gameAsGIF">Download partij als GIF</string>
+  <string name="playerNames">Spelersnamen</string>
+  <string name="moveAnnotations">Aantekeningen</string>
   <string name="pasteTheFenStringHere">Plak de FEN-code hier</string>
   <string name="pasteThePgnStringHere">Plak de PGN-code hier</string>
   <string name="orUploadPgnFile">Of upload een PGN-bestand</string>
