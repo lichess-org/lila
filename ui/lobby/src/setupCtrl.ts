@@ -282,7 +282,7 @@ export default class SetupController {
         if (invalid(this.forced.time, this.timeControl.time())) return false;
         if (invalid(this.forced.increment, this.timeControl.increment())) return false;
       }
-      if (invalid(this.forced.fen, this.fen())) return false;
+      if (invalid(this.forced.fen?.replace(/_/g, ' '), this.fen())) return false;
     }
     return true;
   };
