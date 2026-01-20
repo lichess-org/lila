@@ -83,29 +83,6 @@ final class ClasApi(
     def isTeacherOf(teacher: User, clasId: ClasId): Fu[Boolean] =
       coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
 
-    def canKidsUseMessages(kid1: UserId, kid2: UserId): Fu[Boolean] =
-      fuccess(studentCache.isStudent(kid1) && studentCache.isStudent(kid2)) >>&
-        colls.student.aggregateExists(_.sec): framework =>
-          import framework.*
-          Match($doc("userId".$in(List(kid1.id, kid2.id)))) -> List(
-            PipelineOperator(
-              $lookup.simple(
-                from = colls.clas,
-                as = "clas",
-                local = "clasId",
-                foreign = "_id",
-                pipe = List(
-                  $doc("$match" -> $doc("canMsg" -> true)),
-                  $doc("$project" -> $id(true))
-                )
-              )
-            ),
-            Unwind("clas"),
-            GroupField("clas._id")("nb" -> SumAll),
-            Match($doc("nb" -> 2)),
-            Limit(1)
-          )
-
     def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
       studentCache
         .isStudent(student)
@@ -133,6 +110,31 @@ final class ClasApi(
                 Project($id(true))
               )
         )
+
+    // def studentNamesOfTeacher(teacher: User, userIds: Iterable[UserIds]): Fu[Map[UserId,
+
+    def canKidsUseMessages(kid1: UserId, kid2: UserId): Fu[Boolean] =
+      fuccess(studentCache.isStudent(kid1) && studentCache.isStudent(kid2)) >>&
+        colls.student.aggregateExists(_.sec): framework =>
+          import framework.*
+          Match($doc("userId".$in(List(kid1.id, kid2.id)))) -> List(
+            PipelineOperator(
+              $lookup.simple(
+                from = colls.clas,
+                as = "clas",
+                local = "clasId",
+                foreign = "_id",
+                pipe = List(
+                  $doc("$match" -> $doc("canMsg" -> true)),
+                  $doc("$project" -> $id(true))
+                )
+              )
+            ),
+            Unwind("clas"),
+            GroupField("clas._id")("nb" -> SumAll),
+            Match($doc("nb" -> 2)),
+            Limit(1)
+          )
 
     def archive(c: Clas, t: User, v: Boolean): Funit =
       coll.update
@@ -356,7 +358,9 @@ ${clas.desc}""",
 
     import ClasInvite.Feedback.*
 
-    def create(clas: Clas, user: User, realName: String)(using teacher: Me): Fu[ClasInvite.Feedback] =
+    def create(clas: Clas, user: User, realName: Student.RealName)(using
+        teacher: Me
+    ): Fu[ClasInvite.Feedback] =
       student
         .archive(Student.makeId(user.id, clas.id), v = false)
         .map2[ClasInvite.Feedback](_ => Already)
