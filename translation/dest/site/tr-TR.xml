@@ -9,6 +9,8 @@
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
   <string name="orLetYourOpponentScanQrCode">Veya rakibiniz bu QR kodunu tarasın</string>
+  <string name="reusableChallengeUrl">Yeniden kullanılabilir meydan okuma bağlantısı</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Bu ayarlar tam olarak aynı olduğundan, herkesin size meydan okuyabileceği kalıcı bir bağlantı.</string>
   <string name="waiting">Bekleniyor</string>
   <string name="yourTurn">Sıra sizde</string>
   <string name="aiNameLevelAiLevel">%1$s seviye %2$s</string>
@@ -429,6 +431,7 @@
   <string name="leaderboard">Lider Tablosu</string>
   <string name="screenshotCurrentPosition">Geçerli pozisyonun ekran görüntüsünü al</string>
   <string name="gameAsGIF">Oyunun GIF hali</string>
+  <string name="playerNames">Oyuncu isimleri</string>
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN kodunu buraya yapıştırın</string>
   <string name="orUploadPgnFile">Veya bir PGN dosyası yükle</string>
