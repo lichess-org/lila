@@ -101,7 +101,7 @@ export default class RelayTeamsStandings {
   };
 
   private rosterView(team: RelayTeamStandingsEntry) {
-    return hl('div.relay-tour__team-summary__roster', renderPlayers(this.players, team.players));
+    return hl('div.relay-tour__team-summary__roster', renderPlayers(this.players, team.players, true));
   }
 
   teamView = (): VNode => {

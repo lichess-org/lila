@@ -251,7 +251,11 @@ const playersList = (ctrl: RelayPlayers): VNode =>
     ctrl.players ? renderPlayers(ctrl, ctrl.players) : [spinner()],
   );
 
-export const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes => {
+export const renderPlayers = (
+  ctrl: RelayPlayers,
+  players: RelayPlayer[],
+  forceEloSort = false,
+): MaybeVNodes => {
   const withRating = players.some(p => defined(p.rating));
   const withScores = players.some(p => defined(p.score));
   const withRank = players.some(p => defined(p.rank));
@@ -277,10 +281,10 @@ export const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): Maybe
         hl(
           'thead',
           hl('tr', [
-            withRank && hl('th.rank', { attrs: { 'data-sort-default': 1, ...dataIcon(licon.Trophy) } }),
+            withRank && hl('th.rank', { attrs: { ...defaultSort['attrs'], ...dataIcon(licon.Trophy) } }),
             hl('th.player-name', i18n.site.player),
-            withRating && hl('th', !withScores && !withRank && defaultSort, 'Elo'),
-            withScores && hl('th.score', !withRank && defaultSort, i18n.broadcast.score),
+            withRating && hl('th', ((!withScores && !withRank) || forceEloSort) && defaultSort, 'Elo'),
+            withScores && hl('th.score', !withRank && !forceEloSort && defaultSort, i18n.broadcast.score),
             hl('th', i18n.site.games),
             tbs?.map(tb =>
               hl(
