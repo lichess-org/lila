@@ -59,6 +59,8 @@ export function chess960CastlingSquares(id: number | undefined): ByColor<Castlin
 
 export const randomPositionId = (): number => Math.floor(Math.random() * 960);
 
+export const isValidPositionId = (id: number): boolean => Number.isInteger(id) && id >= 0 && id <= 959;
+
 export function fenToChess960Id(fen: FEN): number | undefined {
   const parts = fen.split(' ');
   if (parts.length < 1) return undefined;
@@ -112,7 +114,7 @@ export function fenToChess960Id(fen: FEN): number | undefined {
 }
 
 function chess960IdToRank(id: number): string {
-  if (id < 0 || id > 959) {
+  if (!isValidPositionId(id)) {
     throw new Error('Chess960 id must be between 0 and 959');
   }
 
