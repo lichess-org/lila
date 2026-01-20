@@ -109,6 +109,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       teamTable = tour.teamTable,
       players = tour.players,
       teams = tour.teams,
+      showTeamScores = tour.showTeamScores,
       spotlight = tour.spotlight,
       grouping = group.map(groupForm.data),
       pinnedStream = tour.pinnedStream,
