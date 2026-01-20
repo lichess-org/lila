@@ -508,7 +508,23 @@ Hanna Marie ; Kozul, Zdenko"""),
       frag(
         (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
-        form3.group(form("name"), trb.tournamentName())(form3.input(_)(autofocus)),
+        form3.split(
+          form3.group(form("name"), trb.tournamentName(), half = true)(form3.input(_)(autofocus)),
+          form3.group(
+            form("visibility"),
+            trans.study.visibility(),
+            half = true
+          )(
+            form3.select(
+              _,
+              List(
+                Visibility.public.key -> "Public",
+                Visibility.unlisted.key -> "Unlisted (from URL only)",
+                Visibility.`private`.key -> "Private (invited members only)"
+              )
+            )
+          )
+        ),
         form3.fieldset(trb.optionalDetails(), toggle = tg.exists(_.tour.info.nonEmpty).some)(
           form3.split(
             form3.group(
@@ -593,7 +609,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             toggle = tg
               .map(_.tour)
               .exists: t =>
-                !t.showScores || !t.showRatingDiffs || t.teamTable || t.showTeamScores || !t.isPublic
+                !t.showScores || !t.showRatingDiffs || t.teamTable || t.showTeamScores
               .some
           )(
             form3.split(
@@ -620,22 +636,6 @@ Hanna Marie ; Kozul, Zdenko"""),
                 "Show team scores based on game results",
                 help = frag("Compute and show match points (MP) and game points (GP) for teams.").some,
                 half = true
-              )
-            ),
-            form3.split(
-              form3.group(
-                form("visibility"),
-                trans.study.visibility(),
-                half = true
-              )(
-                form3.select(
-                  _,
-                  List(
-                    Visibility.public.key -> "Public",
-                    Visibility.unlisted.key -> "Unlisted (from URL only)",
-                    Visibility.`private`.key -> "Private (invited members only)"
-                  )
-                )
               )
             )
           ),
