@@ -116,7 +116,7 @@ object show:
                 )
               ),
               div(
-                (t.enabled && info.simuls.nonEmpty).option(
+                (t.enabled && canSeeMembers && info.simuls.nonEmpty).option(
                   frag(
                     st.section(cls := "team-show__tour team-events team-simuls")(
                       h2(trans.site.simultaneousExhibitions()),
@@ -124,7 +124,7 @@ object show:
                     )
                   )
                 ),
-                (t.enabled && info.tours.nonEmpty).option(
+                (t.enabled && canSeeMembers && info.tours.nonEmpty).option(
                   frag(
                     st.section(cls := "team-show__tour team-events team-tournaments")(
                       h2(a(href := routes.Team.tournaments(t.id))(trans.site.tournaments())),

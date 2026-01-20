@@ -2,6 +2,7 @@ import { hl, type VNode } from './snabbdom';
 import { clamp } from '@/algo';
 import { storedMap } from '@/storage';
 import { myUserId } from '@/index';
+import { isSafari } from '@/device';
 
 interface Opts {
   selector?: string; // selector for element to resize, defaults to the previous sibling
@@ -40,7 +41,7 @@ export function verticalResize(o: Opts): VNode {
           divider.observer.observe(divider.parentElement!, { childList: true });
 
           divider.addEventListener('pointerdown', down => {
-            document.body.classList.add('prevent-select');
+            safariHack(true);
             divider.classList.add('is-dragging');
 
             const el = o.selector
@@ -76,6 +77,13 @@ export function verticalResize(o: Opts): VNode {
     [o.kid, hl('hr', { attrs: { role: 'separator' } })],
   );
 }
+
+const safariHack = (enable: boolean) => {
+  if (isSafari()) {
+    site.asset.loadCssPath('bits.safari-sucks');
+    document.body.classList.toggle('prevent-select', enable);
+  }
+};
 
 const heightStore = storedMap<number | undefined>(
   `lib.view.verticalResize.height-store.${myUserId()}`,

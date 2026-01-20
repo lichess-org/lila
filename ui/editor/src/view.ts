@@ -93,32 +93,43 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
     ctrl.variant !== 'chess960'
       ? null
       : h('div.metadata', [
-          h(
-            'label.form-label',
-            {
-              attrs: { for: 'chess960-position-id' },
-            },
-            'Chess960 position ID:',
-          ),
-          h('input#chess960-position-id', {
-            attrs: { minlength: 1, maxlength: 3, type: 'number', min: '0', max: '959' },
-            props: {
-              value: ctrl.chess960PositionId,
-            },
-            on: {
-              change(e) {
-                const value = (e.target as HTMLSelectElement).value;
-                if (!/^\d+$/.test(value)) return;
-                const candidateId = parseInt(value);
-                if (!isValidPositionId(candidateId)) return;
-                ctrl.chess960PositionId = candidateId;
-                ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
+          h('div.chess960-position-row', [
+            h(
+              'label.form-label',
+              {
+                attrs: { for: 'chess960-position-id' },
               },
-              keydown(e) {
-                if (e.key === 'Enter') (e.target as HTMLElement).blur();
+              'Chess960 position ID:',
+            ),
+            h('input#chess960-position-id', {
+              attrs: { minlength: 1, maxlength: 3, type: 'number', min: '0', max: '959' },
+              props: {
+                value: ctrl.chess960PositionId // todo - use new func in constructor for setting this
               },
-            },
-          }),
+              on: {
+                change(e) {
+                  const value = (e.target as HTMLSelectElement).value;
+                  if (!/^\d+$/.test(value)) return;
+                  const candidateId = parseInt(value);
+                  if (!isValidPositionId(candidateId)) return;
+                  ctrl.chess960PositionId = candidateId;
+                  ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
+                },
+                keydown(e) {
+                  if (e.key === 'Enter') (e.target as HTMLElement).blur();
+                },
+              },
+            }),
+            h('button.button.button-empty', {
+              attrs: { type: 'button', title: 'Random Chess960 position', ...dataIcon(licon.DieSix) },
+              on: {
+                click(e) {
+                  e.preventDefault();
+                  ctrl.setRandom960Position();
+                },
+              },
+            }),
+          ]),
         ]);
 
   return h('div.board-editor__tools', [

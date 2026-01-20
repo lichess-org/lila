@@ -4,9 +4,12 @@
 @import '../base/data-icon';
 @import '../base/unread';
 @import '../base/util';
+@import '../base/scrollbar';
+@import '../base/ltr';
 
 @include theme-style;
 
+@import '../layout/vars';
 @import '../layout/base';
 @import '../layout/page-menu';
 

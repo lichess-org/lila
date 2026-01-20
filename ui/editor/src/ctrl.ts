@@ -327,6 +327,13 @@ export default class EditorCtrl {
     if (this.chessground!.state.orientation !== o) this.chessground!.toggleOrientation();
     this.redraw();
   }
+
+  setRandom960Position(): void {
+    let id = randomPositionId();
+    while (id === this.chess960PositionId) id = randomPositionId();
+    this.chess960PositionId = id;
+    this.setFen(chess960IdToFEN(id));
+  }
 }
 
 function urlFen(fen: string): string {

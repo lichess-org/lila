@@ -36,8 +36,7 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
   const node = root.node;
   if (!node.uci) return null;
   const outcome = node.outcome();
-  if (outcome?.winner !== root.bottomColor()) return false;
-  if (outcome?.winner === root.bottomColor()) return true;
+  if (outcome?.winner) return outcome.winner === root.bottomColor();
   if (hasBlundered(root.practice!.comment())) return false;
   switch (goal.result) {
     case 'drawIn':

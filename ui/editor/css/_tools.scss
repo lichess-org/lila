@@ -2,6 +2,27 @@
   &__tools {
     @extend %flex-column;
 
+    cursor: default;
+
+    button,
+    .button,
+    select,
+    label,
+    input[type='checkbox'] {
+      cursor: pointer;
+    }
+
+    input[type='text'],
+    input[type='number'] {
+      cursor: text;
+    }
+
+    button:disabled,
+    select:disabled,
+    input:disabled {
+      cursor: not-allowed;
+    }
+
     grid-area: tools;
     align-self: center;
 
@@ -57,8 +78,12 @@
         }
       }
 
+      .chess960-position-row {
+        @extend %flex-center-nowrap;
+        gap: 0.5rem;
+      }
+
       #chess960-position-id {
-        margin-left: 0.5rem;
         &:invalid {
           border-color: $c-error;
         }

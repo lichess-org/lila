@@ -37,20 +37,19 @@ final class Team(env: Env) extends LilaController(env):
         then notFound
         else renderTeam(team, page, mod && canEnterModView)
 
+  private def CanSeeMembers(team: TeamModel)(f: => Fu[lila.ui.Page])(using ctx: Context): Fu[Result] =
+    val canSee = fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>|
+      ctx.userId.so(api.belongsTo(team.id, _))
+    canSee.flatMap:
+      if _ then Ok.async(f) else authorizationFailed
+
   def members(id: TeamId, page: Int) = Open:
     Reasonable(page, Max(50)):
       Found(api.teamEnabled(id)): team =>
-        val canSee =
-          fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>|
-            ctx.userId.so(api.belongsTo(team.id, _))
-        canSee.flatMap:
-          if _ then
-            Ok.async:
-              paginator
-                .teamMembersWithDate(team, page)
-                .map:
-                  views.team.membersPage(team, _)
-          else authorizationFailed
+        CanSeeMembers(team):
+          paginator
+            .teamMembersWithDate(team, page)
+            .map(views.team.membersPage(team, _))
 
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
@@ -101,11 +100,11 @@ final class Team(env: Env) extends LilaController(env):
     }
 
   def tournaments(teamId: TeamId) = Open:
-    FoundPage(api.teamEnabled(teamId)): team =>
-      env.teamInfo
-        .tournaments(team, 30, 30)
-        .map:
-          views.team.tournaments.page(team, _)
+    Found(api.teamEnabled(teamId)): team =>
+      CanSeeMembers(team):
+        env.teamInfo
+          .tournaments(team, 30, 30)
+          .map(views.team.tournaments.page(team, _))
 
   private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: Context) = for
     member <- env.team.memberRepo.get(team.id, me)

@@ -95,8 +95,6 @@ final class Dev(env: Env) extends LilaController(env):
     "Limits" -> List(
       env.web.settings.apiTimeline,
       env.web.settings.apiExplorerGamesPerSecond,
-      env.tutor.nbAnalysisSetting,
-      env.tutor.parallelismSetting,
       env.recap.parallelismSetting,
       env.fishnet.openingBookDepth
     ),
@@ -104,6 +102,10 @@ final class Dev(env: Env) extends LilaController(env):
       env.relay.proxyDomainRegex,
       env.relay.proxyHostPort,
       env.relay.proxyCredentials
+    ),
+    "Tutor" -> List(
+      env.tutor.nbAnalysisSetting,
+      env.tutor.parallelismSetting
     ),
     "Automod" -> List(
       env.report.automod.imageModelSetting,

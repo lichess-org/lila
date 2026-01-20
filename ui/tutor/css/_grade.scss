@@ -1,16 +1,27 @@
+$c-grade-bad: $m-bad_font--mix-80;
+$c-grade-avg: $m-brag_font-dim--mix-60;
+$c-grade-good: $m-good_bg--mix-90;
+
 .tutor {
+  &-grades {
+    @extend %flex-column;
+    gap: 2em;
+  }
   &-grade {
-    margin-bottom: 2em;
-    padding-bottom: 2em;
-    border-bottom: $border;
-    &:last-child {
-      margin-bottom: 0;
-      border-bottom: none;
+    display: flex;
+    align-items: stretch;
+    gap: 1.2em;
+    .tutor-icon {
+    }
+    &__content {
+      @extend %flex-column;
+      gap: 0.4em;
+      flex: 1 1 auto;
     }
     &__name {
+      @extend %flex-center-nowrap;
       font-weight: normal;
-      font-size: 1.2em;
-      margin-bottom: 0.5em;
+      font-size: 1.3em;
     }
     &__concept {
       @extend %roboto;
@@ -20,6 +31,9 @@
       font-size: 1.7em;
       margin-bottom: 0.5em;
     }
+    &--detail.tutor-grade--narrow .tutor-grade__name {
+      font-size: 1.3em;
+    }
     &__visual {
       @extend %flex-center;
       > div {
@@ -28,32 +42,58 @@
         height: 1.5em;
         line-height: 1.5em;
         border: $border;
+        border-radius: 4px;
         background: $c-bg-low;
         &.lit {
-          background: $m-secondary_bg--mix-80;
+          background: $c-grade-good;
         }
       }
       &--1,
       &--2 {
         > div.lit {
-          background: $m-bad_bg--mix-80;
+          background: $c-grade-bad;
         }
       }
-      &--3 {
-        > div.lit {
-          background: $m-brag_bg--mix-80;
-        }
-      }
+      &--3,
       &--4 {
         > div.lit {
-          background: $c-tutor-bg;
+          background: $c-grade-avg;
         }
+      }
+    }
+    &--detail {
+      padding-bottom: 2em;
+      border-bottom: $border;
+      gap: var(---box-padding);
+      .tutor-icon {
+        flex: 0 1 8em;
       }
     }
     &__detail {
       font-size: 0.9em;
       color: $c-font-dim;
-      margin-top: 0.3em;
+    }
+
+    .tutor-icon,
+    .tutor-grade__name {
+      color: $c-grade-good;
+    }
+    &--1,
+    &--2 {
+      .tutor-icon,
+      .tutor-grade__name {
+        color: $c-grade-bad;
+      }
+    }
+    &--3,
+    &--4 {
+      .tutor-icon,
+      .tutor-grade__name {
+        color: $c-grade-avg;
+      }
+    }
+    &--narrow .tutor-icon {
+      display: none;
     }
   }
 }

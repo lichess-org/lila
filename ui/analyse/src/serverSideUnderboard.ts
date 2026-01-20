@@ -17,7 +17,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
     inputFen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input'),
-    gameGifLink = document.querySelector<HTMLAnchorElement>('.game-gif a'),
     positionGifLink = document.querySelector<HTMLAnchorElement>('.position-gif a');
   let lastInputHash: string;
   let advChart: AcplChart;
@@ -31,11 +30,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         color: ctrl.bottomColor(),
         lastMove: ctrl.node.uci,
         variant: ctrl.data.game.variant.key,
-        theme: ds.board,
-        piece: ds.pieceSet,
-      });
-    if (gameGifLink)
-      gameGifLink.href = xhrUrl(ds.assetUrl + `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
         theme: ds.board,
         piece: ds.pieceSet,
       });
@@ -172,5 +166,10 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         '<br /><br />' +
         `<a class="text" data-icon="${licon.InfoCircle}" href="/developers#embed-game">Read more about embedding games</a></div>`,
     });
+  });
+
+  document.querySelector<HTMLAnchorElement>('a.game-gif')?.addEventListener('click', e => {
+    e.preventDefault();
+    site.asset.loadEsm('analyse.gifDialog', { init: ctrl });
   });
 }
