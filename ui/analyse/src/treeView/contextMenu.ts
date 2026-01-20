@@ -155,6 +155,18 @@ function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
         () => ctrl.pendingCopyPath(null),
       ),
 
+      !ctrl.moveRangeEnd() &&
+        onMainline &&
+        action(licon.Target, ctrl.moveRangeStart() ? i18n.site.setRangeEnd : i18n.site.setRangeStart, () =>
+          ctrl.setRangePoint(path),
+        ),
+
+      (ctrl.moveRangeStart() || ctrl.moveRangeEnd()) &&
+        action(licon.X, i18n.site.clearRange, () => {
+          ctrl.moveRangeStart(null);
+          ctrl.moveRangeEnd(null);
+        }),
+
       path &&
         action(
           licon.Trash,

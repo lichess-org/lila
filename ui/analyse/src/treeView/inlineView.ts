@@ -161,6 +161,7 @@ export class InlineView {
       'context-menu': path === ctrl.contextMenuPath,
       'pending-deletion': path.startsWith(ctrl.pendingDeletionPath() || ' '),
       'pending-copy': !!ctrl.pendingCopyPath()?.startsWith(path),
+      'in-range': ctrl.isInRange(path),
     };
     if (ctrl.showMoveGlyphs())
       node.glyphs

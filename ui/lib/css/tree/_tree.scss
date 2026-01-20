@@ -79,6 +79,10 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     border-radius: unset;
     background: color-mix(in srgb, $c-good 30%, transparent) !important;
   }
+  &.in-range {
+    border-radius: unset;
+    background: color-mix(in srgb, $c-accent 20%, transparent) !important;
+  }
   &.nongame {
     font-style: italic;
   }

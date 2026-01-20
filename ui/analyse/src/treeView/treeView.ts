@@ -61,7 +61,13 @@ export class TreeView {
           if (!(e.target instanceof HTMLElement)) return;
           if (e.target.classList.contains('disclosure') || (defined(e.button) && e.button !== 0)) return;
           const path = eventPath(e);
-          if (path) ctrl.userJump(path);
+          if (path) {
+            if (e.shiftKey) {
+              ctrl.setRangePoint(path);
+            } else {
+              ctrl.userJump(path);
+            }
+          }
           this.autoScrollRequest = false;
           ctrl.redraw();
         });

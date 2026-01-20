@@ -3233,6 +3233,8 @@ interface I18n {
     classicalDesc: string;
     /** Clear board */
     clearBoard: string;
+    /** Clear range */
+    clearRange: string;
     /** Clear moves */
     clearSavedMoves: string;
     /** Clear search */
@@ -4251,6 +4253,10 @@ interface I18n {
     sessions: string;
     /** Set your flair */
     setFlair: string;
+    /** Set range end */
+    setRangeEnd: string;
+    /** Set range start */
+    setRangeStart: string;
     /** Set the board */
     setTheBoard: string;
     /** Share your chess insights data */

@@ -81,6 +81,9 @@
   <string name="forceVariation">Force variation</string>
   <string name="copyVariationPgn">Copy variation PGN</string>
   <string name="copyMainLinePgn">Copy mainline PGN</string>
+  <string name="setRangeStart">Set range start</string>
+  <string name="setRangeEnd">Set range end</string>
+  <string name="clearRange">Clear range</string>
   <string name="move">Move</string>
   <string name="variantLoss">Variant loss</string>
   <string name="variantWin">Variant win</string>

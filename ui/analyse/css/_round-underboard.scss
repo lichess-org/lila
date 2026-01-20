@@ -143,6 +143,15 @@ $col2-panel-height: 240px;
 
   gap: 1.5em;
 
+  .gif-range {
+    font-size: 1.1em;
+    color: $c-font-dim;
+
+    san {
+      @extend %san;
+    }
+  }
+
   .gif-options {
     @extend %flex-column;
 
