@@ -253,14 +253,13 @@ final class RelayTeamLeaderboard(
         .filter(_.isFinished)
         .flatMap(_.teams.find(_.name == name).flatMap(_.points))
         .sum
-    lazy val povMatches = matches.map(_.povMatch(name)).flatten
-    lazy val players = povMatches
+    lazy val povMatches: List[RelayTeam.POVMatch] = matches.flatMap(_.povMatch(name))
+    lazy val players: Iterable[RelayPlayer] = povMatches
       .flatMap(_.players.values)
       .groupBy(_.id)
       .values
-      .map(
+      .map:
         _.reduce((r1, r2) => r1.copy(games = r1.games ++ r2.games, score = r1.score |+| r2.score))
-      )
 
   given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.gamePoints, t.name))
 
@@ -277,16 +276,10 @@ final class RelayTeamLeaderboard(
       )
 
   def leaderboardJson(tour: RelayTourId): Fu[JsonStr] =
-    relayGroupApi
-      .scoreGroupOf(tour)
-      .flatMap: tourId =>
-        jsonCache.get(tourId)
+    relayGroupApi.scoreGroupOf(tour).flatMap(jsonCache.get)
 
   def leaderboard(tour: RelayTourId): Fu[TeamLeaderboard] =
-    relayGroupApi
-      .scoreGroupOf(tour)
-      .flatMap: tourId =>
-        cache.get(tourId)
+    relayGroupApi.scoreGroupOf(tour).flatMap(cache.get)
 
   private val cache = cacheApi[ScoreGroup, TeamLeaderboard](12, "relay.teamLeaderboard"):
     _.expireAfterWrite(1.minute).buildAsyncFuture(aggregate)
