@@ -15,7 +15,7 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
     bits.page(menu = bits.menu(full, user, none))(cls := "tutor__home tutor-layout"):
       frag(
         div(cls := "box tutor__first-box")(
-          boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
+          boxTop(h1(bits.otherUser(user), "Lichess Tutor", strong(cls := "tutor__beta")("BETA"))),
           if full.report.perfs.isEmpty then empty.mascotSaysInsufficient
           else
             bits.mascotSays(

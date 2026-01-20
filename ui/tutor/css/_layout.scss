@@ -20,8 +20,4 @@
   &__first-box {
     @extend %box-neat-force;
   }
-
-  &__pad {
-    padding: 0 var(---box-padding) $box-padding-vert var(---box-padding);
-  }
 }

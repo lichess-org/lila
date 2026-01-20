@@ -222,7 +222,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
             ul(report.skillHighlights(3).map(compare.show))
           )
         ),
-        div(cls := "tutor__pad tutor-grades")(
+        div(cls := "tutor-grades box box-pad")(
           grade.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),
           grade.peerGradeWithDetail(concept.tacticalAwareness, report.awareness, InsightPosition.Move),
           grade.peerGradeWithDetail(concept.resourcefulness, report.resourcefulness, InsightPosition.Game),
@@ -250,7 +250,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
             ul(report.timeHighlights(5).map(compare.show))
           )
         ),
-        div(cls := "tutor__pad tutor-grades")(
+        div(cls := "tutor-grades box box-pad")(
           grade.peerGradeWithDetail(concept.speed, report.globalClock, InsightPosition.Move),
           grade.peerGradeWithDetail(concept.clockFlagVictory, report.flagging.win, InsightPosition.Game),
           grade.peerGradeWithDetail(concept.clockTimeUsage, report.clockUsage, InsightPosition.Game)

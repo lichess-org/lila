@@ -3,6 +3,11 @@
     margin-right: 1ch;
     color: $c-good;
   }
+  &__beta {
+    color: $c-brag;
+    margin-inline-start: 1ch;
+    font-size: 0.75em;
+  }
   &__home {
     .tutor__mascot-says h2 {
       font-size: 1.5em;

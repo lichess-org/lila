@@ -23,9 +23,6 @@ $c-grade-good: $m-good_bg--mix-90;
       font-weight: normal;
       font-size: 1.3em;
     }
-    &__concept {
-      @extend %roboto;
-    }
     &--detail .tutor-grade__name {
       text-transform: uppercase;
       font-size: 1.7em;
@@ -33,6 +30,9 @@ $c-grade-good: $m-good_bg--mix-90;
     }
     &--detail.tutor-grade--narrow .tutor-grade__name {
       font-size: 1.3em;
+    }
+    &--narrow .tutor-grade__concept {
+      @extend %roboto;
     }
     &__visual {
       @extend %flex-center;
@@ -62,9 +62,11 @@ $c-grade-good: $m-good_bg--mix-90;
       }
     }
     &--detail {
-      padding-bottom: 2em;
-      border-bottom: $border;
       gap: var(---box-padding);
+      &:not(:last-child) {
+        padding-bottom: 2em;
+        border-bottom: $border;
+      }
       .tutor-icon {
         flex: 0 1 8em;
       }
