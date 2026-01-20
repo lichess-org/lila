@@ -127,6 +127,10 @@
   <string name="bestMoveArrow">Beste zet-pijl</string>
   <string name="showVariationArrows">Toon variantpijlen</string>
   <string name="evaluationGauge">Evaluatiemeter</string>
+  <string name="visualMotifs">Visuele motieven</string>
+  <string name="undefendedPieces">Onverdedigde stukken</string>
+  <string name="pinnedPieces">Gepende stukken</string>
+  <string name="checkableKing">Schaakbare koning</string>
   <string name="multipleLines">Meerdere varianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Geheugen</string>
