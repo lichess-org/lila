@@ -432,6 +432,7 @@
   <string name="screenshotCurrentPosition">Geçerli pozisyonun ekran görüntüsünü al</string>
   <string name="gameAsGIF">Oyunun GIF hali</string>
   <string name="playerNames">Oyuncu isimleri</string>
+  <string name="moveAnnotations">Hamle açıklamaları</string>
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN kodunu buraya yapıştırın</string>
   <string name="orUploadPgnFile">Veya bir PGN dosyası yükle</string>
