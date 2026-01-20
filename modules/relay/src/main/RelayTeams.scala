@@ -327,21 +327,22 @@ final class RelayTeamLeaderboard(
         jsonCache.invalidate(key)
 
   private def aggregate(scoreGroup: ScoreGroup): Fu[TeamLeaderboard] =
-    for
-      tour <- tourRepo.byId(scoreGroup.head).orFail(s"Missing relay tour ${scoreGroup.head}")
-      rounds <- scoreGroup.toList.flatTraverse(roundRepo.idsByTourOrdered)
-      matches <- rounds.flatTraverse(teamTable.table)
-    yield tour.showTeamScores.so:
-      matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
-        matchup.teams
-          .foldLeft(acc): (acc, team) =>
-            acc.updatedWith(team.name):
-              _.fold(TeamLeaderboardEntry(team.name, List(matchup))): team =>
-                team.copy(matches = team.matches :+ matchup)
-              .some
-          .toList
-          .sortBy(_._2)
-          .to(SeqMap)
+    tourRepo
+      .showTeamScores(scoreGroup.head)
+      .flatMapz:
+        for
+          rounds <- scoreGroup.toList.flatTraverse(roundRepo.idsByTourOrdered)
+          matches <- rounds.flatTraverse(teamTable.table)
+        yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
+          matchup.teams
+            .foldLeft(acc): (acc, team) =>
+              acc.updatedWith(team.name):
+                _.fold(TeamLeaderboardEntry(team.name, List(matchup))): team =>
+                  team.copy(matches = team.matches :+ matchup)
+                .some
+            .toList
+            .sortBy(_._2)
+            .to(SeqMap)
 
 object RelayTeamTable:
   object json:
