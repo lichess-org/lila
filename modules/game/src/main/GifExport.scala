@@ -11,7 +11,7 @@ import scalalib.Maths
 
 import lila.common.Json.given
 import lila.core.config.RouteUrl
-import lila.core.game.{ Game, Pov }
+import lila.core.game.{ ClockHistory, Game, Pov }
 import lila.game.GameExt.*
 import lila.tree.Analysis
 import play.api.mvc.RequestHeader
@@ -55,7 +55,9 @@ final class GifExport(
       theme: String,
       piece: String,
       analysis: Option[Analysis],
-      options: GifExport.Options
+      options: GifExport.Options,
+      fromPly: Option[Ply] = None,
+      toPly: Option[Ply] = None
   ): Fu[Source[ByteString, ?]] =
     def showPlayer(color: Color) =
       options.players.option:
@@ -73,13 +75,12 @@ final class GifExport(
                 "comment" -> s"${routeUrl(routes.Round.watcher(pov.game.id, pov.color))} rendered with https://github.com/lichess-org/lila-gif",
                 "orientation" -> pov.color.name,
                 "delay" -> targetMedianTime.centis, // default delay for frames
-                "frames" -> frames(pov.game, initialFen, analysis, options),
+                "frames" -> frames(pov.game, initialFen, analysis, options, fromPly, toPly),
                 "theme" -> theme,
                 "piece" -> piece
               )
               .add("white", showPlayer(Color.White))
               .add("black", showPlayer(Color.Black))
-              .add("clocks", clocksJson(pov.game, options))
           )
           .stream()
 
@@ -146,14 +147,6 @@ final class GifExport(
         }
       case None => moveTimes.map(_.atMost(targetMaxTime))
 
-  private def clocksJson(game: Game, options: GifExport.Options): Option[JsObject] =
-    options.clocks.so:
-      game.clockHistory.map: history =>
-        Json.obj(
-          "white" -> history.white.map(_.centis),
-          "black" -> history.black.map(_.centis)
-        )
-
   private def glyphsMap(analysis: Option[Analysis]): Map[Ply, Glyph] =
     analysis.fold(Map.empty[Ply, Glyph]): a =>
       a.advices.map(adv => adv.ply -> adv.judgment.glyph).toMap
@@ -162,14 +155,24 @@ final class GifExport(
       game: Game,
       initialFen: Option[Fen.Full],
       analysis: Option[Analysis],
-      options: GifExport.Options
+      options: GifExport.Options,
+      fromPly: Option[Ply],
+      toPly: Option[Ply]
   ): JsArray =
-    val positions = Position(game.variant, initialFen).playPositions(game.sans).getOrElse(List(game.position))
+    val allPositions =
+      Position(game.variant, initialFen).playPositions(game.sans).getOrElse(List(game.position))
+    val allMoveTimes = scaleMoveTimes(~game.moveTimes).map(some).padTo(allPositions.length, None)
+    val from = fromPly.fold(0)(_.value).atLeast(0)
+    val to = toPly.fold(allPositions.length - 1)(_.value).atMost(allPositions.length - 1)
+    val positions = allPositions.slice(from, to + 1)
+    val moveTimes = allMoveTimes.slice(from, to + 1)
     val glyphs = options.glyphs.so(glyphsMap(analysis))
+    val clocks = options.clocks.so(game.clockHistory)
     framesRec(
-      positions.zip(scaleMoveTimes(~game.moveTimes).map(some).padTo(positions.length, None)),
+      positions.zip(moveTimes),
       glyphs,
-      Ply.initial,
+      clocks,
+      Ply(from),
       Json.arr()
     )
 
@@ -177,6 +180,7 @@ final class GifExport(
   private def framesRec(
       games: List[(Position, Option[Centis])],
       glyphs: Map[Ply, Glyph],
+      clocks: Option[ClockHistory],
       ply: Ply,
       arr: JsArray
   ): JsArray =
@@ -186,9 +190,19 @@ final class GifExport(
         // longer delay for last frame
         val delay = if tail.isEmpty then Centis(500).some else scaledMoveTime
         val glyph = glyphs.get(ply)
-        framesRec(tail, glyphs, ply + 1, arr :+ frame(position, position.history.lastMove, delay, glyph))
+        val whiteClock = clocks.flatMap(_.white.lift((ply.value - 1).atLeast(0) / 2))
+        val blackClock = clocks.flatMap(_.black.lift((ply.value - 2).atLeast(0) / 2))
+        val f = frame(position, position.history.lastMove, delay, glyph, whiteClock, blackClock)
+        framesRec(tail, glyphs, clocks, ply + 1, arr :+ f)
 
-  private def frame(position: Position, uci: Option[Uci], delay: Option[Centis], glyph: Option[Glyph]) =
+  private def frame(
+      position: Position,
+      uci: Option[Uci],
+      delay: Option[Centis],
+      glyph: Option[Glyph],
+      whiteClock: Option[Centis],
+      blackClock: Option[Centis]
+  ) =
     Json
       .obj(
         "fen" -> (Fen.write(position)),
@@ -197,3 +211,9 @@ final class GifExport(
       .add("check", position.checkSquare.map(_.key))
       .add("delay", delay.map(_.centis))
       .add("glyph", glyph.map(_.symbol))
+      .add(
+        "clock",
+        (whiteClock.isDefined || blackClock.isDefined).option(
+          Json.obj().add("white", whiteClock.map(_.centis)).add("black", blackClock.map(_.centis))
+        )
+      )

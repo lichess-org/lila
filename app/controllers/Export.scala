@@ -20,7 +20,9 @@ final class Export(env: Env) extends LilaController(env):
       id: GameId,
       color: Color,
       theme: Option[String],
-      piece: Option[String]
+      piece: Option[String],
+      fromPly: Option[Int],
+      toPly: Option[Int]
   ) = Anon:
     NoCrawlersUnlessPreview:
       exportImageOf(env.game.gameRepo.gameWithInitialFen(id)): g =>
@@ -34,7 +36,9 @@ final class Export(env: Env) extends LilaController(env):
               Theme(theme).name,
               PieceSet.get(piece).name,
               analysis,
-              options
+              options,
+              fromPly.map(chess.Ply(_)),
+              toPly.map(chess.Ply(_))
             )
           yield source
 
