@@ -14,8 +14,8 @@ importers:
   .:
     dependencies:
       '@lichess-org/chessground':
-        specifier: ^10.0.0
-        version: 10.0.0
+        specifier: ^10.0.1
+        version: 10.0.1
       '@lichess-org/pgn-viewer':
         specifier: ^2.5.5
         version: 2.5.5
@@ -875,8 +875,8 @@ packages:
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
 
-  '@lichess-org/chessground@10.0.0':
-    resolution: {integrity: sha512-VyZGX1qBf7iPL8Qz9Z6IHDDUlVTGufos11L7aTvXeCPGYmWJVOeONkfTglg6wF5YqSfbnCu4Y0Ud6SEVlpx6ow==}
+  '@lichess-org/chessground@10.0.1':
+    resolution: {integrity: sha512-QNVgPB2XqfIo4qAbgffP/Eaze12ZzaBJsIDN65g6b1FqbVR0zJYYehTJ8C/dukPR+L9z6+7MJd8n00urelBl/A==}
 
   '@lichess-org/chessground@9.10.3':
     resolution: {integrity: sha512-Ig9fTOxva+ifW7GLOls7ZcBTP6ODHlYGdhjoAas34/X3BYL9nMoQplJO3a9RGq/XB3LoAXrCe2FgBw41DkDvPg==}
@@ -2864,7 +2864,7 @@ snapshots:
 
   '@kurkle/color@0.3.4': {}
 
-  '@lichess-org/chessground@10.0.0': {}
+  '@lichess-org/chessground@10.0.1': {}
 
   '@lichess-org/chessground@9.10.3': {}
 
