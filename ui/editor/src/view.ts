@@ -104,7 +104,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             h('input#chess960-position-id', {
               attrs: { minlength: 1, maxlength: 3, type: 'number', min: '0', max: '959' },
               props: {
-                value: ctrl.chess960PositionId // todo - use new func in constructor for setting this
+                value: ctrl.chess960PositionId, // todo - use new func in constructor for setting this
               },
               on: {
                 change(e) {
@@ -248,10 +248,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 on: {
                   change(e) {
                     const value = (e.target as HTMLSelectElement).value;
-                    if (value === 'chess960') {
-                      ctrl.chess960PositionId = randomPositionId();
-                      ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
-                    }
+                    if (value === 'chess960') ctrl.setRandom960Position();
                     ctrl.setVariant(value as VariantKey);
                   },
                 },
