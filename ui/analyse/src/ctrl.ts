@@ -122,6 +122,10 @@ export default class AnalyseCtrl implements CevalHandler {
   pendingCopyPath: Prop<TreePath | null>;
   pendingDeletionPath: Prop<TreePath | null>;
 
+  // move range selection for exports
+  moveRangeStart: Prop<TreePath | null>;
+  moveRangeEnd: Prop<TreePath | null>;
+
   // misc
   requestInitialPly?: number; // start ply from the URL location hash
   cgConfig: any; // latest chessground config (useful for revert)
@@ -161,6 +165,8 @@ export default class AnalyseCtrl implements CevalHandler {
     this.initCeval();
     this.pendingCopyPath = propWithEffect(null, this.redraw);
     this.pendingDeletionPath = propWithEffect(null, this.redraw);
+    this.moveRangeStart = propWithEffect(null, this.redraw);
+    this.moveRangeEnd = propWithEffect(null, this.redraw);
     this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
 
@@ -299,6 +305,39 @@ export default class AnalyseCtrl implements CevalHandler {
     this.explorer.onFlip();
     this.onChange();
     this.redraw();
+  };
+
+  private pathToPly = (path: TreePath | null): number | null =>
+    path ? this.tree.root.ply + treePath.size(path) : null;
+
+  isInRange = (path: TreePath): boolean => {
+    const start = this.moveRangeStart();
+    const end = this.moveRangeEnd();
+    if (!start && !end) return false;
+    if (!end) return path === start;
+    if (!start) return path === end;
+    const [first, last] = treePath.contains(end, start) ? [start, end] : [end, start];
+    return treePath.contains(path, first) && treePath.contains(last, path);
+  };
+
+  getRangePlies = (): { from: number; to: number } | null => {
+    const startPly = this.pathToPly(this.moveRangeStart());
+    const endPly = this.pathToPly(this.moveRangeEnd());
+    if (startPly === null && endPly === null) return null;
+    const from = startPly ?? endPly!;
+    const to = endPly ?? startPly!;
+    return { from: Math.min(from, to), to: Math.max(from, to) };
+  };
+
+  setRangePoint = (path: TreePath): void => {
+    const rangeComplete = this.moveRangeStart() && this.moveRangeEnd();
+    if (!this.tree.pathIsMainline(path)) return;
+    if (!this.moveRangeStart() || rangeComplete) {
+      this.moveRangeStart(path);
+      this.moveRangeEnd(null);
+    } else {
+      this.moveRangeEnd(path);
+    }
   };
 
   topColor(): Color {
