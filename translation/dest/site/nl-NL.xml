@@ -10,6 +10,7 @@
   <string name="waitingForOpponent">Wachten op een tegenstander</string>
   <string name="orLetYourOpponentScanQrCode">Of laat je tegenstander deze QR-code scannen</string>
   <string name="reusableChallengeUrl">Herbruikbare URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Een permanente link voor iedereen om je uit te dagen met exact deze instellingen.</string>
   <string name="waiting">Even geduld a.u.b.</string>
   <string name="yourTurn">U bent aan zet</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
