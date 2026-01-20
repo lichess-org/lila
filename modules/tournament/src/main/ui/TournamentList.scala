@@ -57,7 +57,11 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
               br,
               a(href := routes.Tournament.history(Freq.Unique.name))(trans.arena.history()),
               br,
-              a(href := routes.Tournament.help)(trans.site.tournamentFAQ())
+              a(href := routes.Tournament.help)(trans.site.tournamentFAQ()),
+              br,
+              a(href := routes.Cms.lonePage(lila.core.id.CmsPageKey("leagues-and-battles")))(
+                "Leagues & Streamer Battles"
+              )
             ),
             h2(trans.site.lichessTournaments()),
             div(cls := "scheduled")(
