@@ -16,11 +16,13 @@ import { playerColoredResult } from './relay/customScoreStatus';
 import type { TreePath } from 'lib/tree/types';
 import { tagsToMap } from './studyTags';
 import { COLORS } from 'chessops';
+import RelayTeamLeaderboard from './relay/relayTeamLeaderboard';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
   if (!study) return;
   const relayPlayers = study.relay?.players;
+  const relayTeamLeaderboard = study.relay?.teamLeaderboard;
 
   const players = study.currentChapter().players,
     tags = study.data.chapter.tags,
@@ -41,6 +43,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       study.data.showRatings || !looksLikeLichessGame(tags),
       study.relay?.round,
       relayPlayers,
+      relayTeamLeaderboard,
     ),
   );
 }
@@ -64,6 +67,7 @@ function renderPlayer(
   showRatings: boolean,
   round?: RelayRound,
   relayPlayers?: RelayPlayers,
+  relayTeamsStandings?: RelayTeamLeaderboard,
 ): VNode {
   const showResult: boolean =
       !defined(ctrl.study?.relay) ||
@@ -100,7 +104,20 @@ function renderPlayer(
                 hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name),
             ]),
             hl('div.info-secondary', [
-              team ? hl('span.team', team) : undefined,
+              team
+                ? hl(
+                    'a.team',
+                    {
+                      on: {
+                        click: (ev: PointerEvent) => {
+                          ev.preventDefault();
+                          relayTeamsStandings?.setTeamToShow(team);
+                        },
+                      },
+                    },
+                    team,
+                  )
+                : undefined,
               playerFedFlag(player?.fed),
               player.rating && hl('span.elo', `${player.rating}`),
             ]),

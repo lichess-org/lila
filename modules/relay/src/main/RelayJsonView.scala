@@ -65,6 +65,7 @@ final class RelayJsonView(
         if config.html then markdown.of(tour).map(_.value) else tour.markup.map(_.value)
       })
       .add("teamTable" -> tour.teamTable)
+      .add("showTeamScores" -> tour.showTeamScores)
       .add("communityOwner" -> tour.communityOwner.map(lightUserSync))
 
   def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using

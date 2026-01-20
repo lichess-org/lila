@@ -20,6 +20,7 @@ import { type Attrs, type Hooks, init as initSnabbdom, attributesModule, type VN
 import { convertPlayerFromServer } from '../studyChapters';
 import { isTouchDevice } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
+import { teamLinkData } from './relayTeamLeaderboard';
 
 export type RelayPlayerId = FideId | string;
 
@@ -29,7 +30,7 @@ interface Tiebreak {
   points: number;
 }
 
-interface RelayPlayer extends StudyPlayer {
+export interface RelayPlayer extends StudyPlayer {
   score?: number;
   played?: number;
   ratingDiff?: number;
@@ -198,7 +199,14 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                         ),
                       ]),
                     p.team &&
-                      hl('tr', [hl('th', 'Team'), hl('td.text', { attrs: dataIcon(licon.Group) }, p.team)]),
+                      hl('tr', [
+                        hl('th', 'Team'),
+                        hl(
+                          'td.text',
+                          { attrs: dataIcon(licon.Group) },
+                          hl('a', teamLinkData(p.team), p.team),
+                        ),
+                      ]),
                     age && hl('tr', [hl('th', i18n.broadcast.age), hl('td', age.toString())]),
                   ]),
                 ]),
@@ -247,10 +255,14 @@ const playersList = (ctrl: RelayPlayers): VNode =>
     ctrl.players ? renderPlayers(ctrl, ctrl.players) : [spinner()],
   );
 
-const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes => {
-  const withRating = !!players.find(p => p.rating);
-  const withScores = !!players.find(p => p.score !== undefined);
-  const withRank = !!players.find(p => p.rank);
+export const renderPlayers = (
+  ctrl: RelayPlayers,
+  players: RelayPlayer[],
+  forceEloSort = false,
+): MaybeVNodes => {
+  const withRating = players.some(p => defined(p.rating));
+  const withScores = players.some(p => defined(p.score));
+  const withRank = players.some(p => defined(p.rank));
   const defaultSort = { attrs: { 'data-sort-default': 1 } };
   const tbs = players?.[0]?.tiebreaks;
   const sortByBoth = (x?: number, y?: number) => ({
@@ -273,10 +285,10 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
         hl(
           'thead',
           hl('tr', [
-            withRank && hl('th.rank', { attrs: { 'data-sort-default': 1, ...dataIcon(licon.Trophy) } }),
+            withRank && hl('th.rank', { attrs: { ...defaultSort['attrs'], ...dataIcon(licon.Trophy) } }),
             hl('th.player-name', i18n.site.player),
-            withRating && hl('th', !withScores && !withRank && defaultSort, 'Elo'),
-            withScores && hl('th.score', !withRank && defaultSort, i18n.broadcast.score),
+            withRating && hl('th', ((!withScores && !withRank) || forceEloSort) && defaultSort, 'Elo'),
+            withScores && hl('th.score', !withRank && !forceEloSort && defaultSort, i18n.broadcast.score),
             hl('th', i18n.site.games),
             tbs?.map(tb =>
               hl(
@@ -390,7 +402,7 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
     hl('div.tpp__player__info', [
       hl(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
       hl('div.tpp__player__details', [
-        p.team && hl('div.tpp__player__team', p.team),
+        p.team && hl('a.tpp__player__team', teamLinkData(p.team), p.team),
         hl('div', [
           playerFedFlag(p.fed),
           !!p.rating && [`${p.rating}`, isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p)],
@@ -502,7 +514,7 @@ const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
         : hl('span.rp--same', ' ==');
 };
 
-const tableAugment = (el: HTMLTableElement) => {
+export const tableAugment = (el: HTMLTableElement) => {
   extendTablesortNumber();
   $(el).each(function (this: HTMLElement) {
     sortTable(this, {

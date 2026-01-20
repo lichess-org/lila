@@ -30,6 +30,7 @@ case class RelayTour(
     teamTable: Boolean = false,
     players: Option[RelayPlayersTextarea] = None,
     teams: Option[RelayTeamsTextarea] = None,
+    showTeamScores: Boolean = false,
     image: Option[ImageId] = None,
     dates: Option[RelayTour.Dates] = None, // denormalized from round dates
     pinnedStream: Option[RelayPinnedStream] = None,

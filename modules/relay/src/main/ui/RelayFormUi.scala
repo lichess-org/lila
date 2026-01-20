@@ -373,7 +373,7 @@ Hanna Marie ; Kozul, Zdenko"""),
         (nav.tour.showScores || nav.tour.showRatingDiffs).option(
           form3.fieldset(
             "Custom scoring",
-            toggle = nav.round.exists(_.customScoring.isDefined).some
+            toggle = nav.round.exists(r => r.customScoring.isDefined || r.teamCustomScoring.isDefined).some
           )(
             nav.tour.showRatingDiffs.option(
               form3.group(form("rated"), raw("")): field =>
@@ -397,7 +397,17 @@ Hanna Marie ; Kozul, Zdenko"""),
             ,
             p(
               "Optional. Affects automatic scoring. Points must be >= 0 and <=10. At most 2 decimal places. Default = 1.0 for a win and 0.5 for a draw."
-            )
+            ),
+            br,
+            nav.tour.teamTable.option:
+              form3.split:
+                List("win", "draw").map: result =>
+                  form3.group(
+                    form("teamCustomScoring")(result),
+                    raw(s"Team points for a match $result")
+                  )(
+                    form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
+                  )
           )
         ),
         Granter
@@ -498,7 +508,23 @@ Hanna Marie ; Kozul, Zdenko"""),
       frag(
         (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
-        form3.group(form("name"), trb.tournamentName())(form3.input(_)(autofocus)),
+        form3.split(
+          form3.group(form("name"), trb.tournamentName(), half = true)(form3.input(_)(autofocus)),
+          form3.group(
+            form("visibility"),
+            trans.study.visibility(),
+            half = true
+          )(
+            form3.select(
+              _,
+              List(
+                Visibility.public.key -> "Public",
+                Visibility.unlisted.key -> "Unlisted (from URL only)",
+                Visibility.`private`.key -> "Private (invited members only)"
+              )
+            )
+          )
+        ),
         form3.fieldset(trb.optionalDetails(), toggle = tg.exists(_.tour.info.nonEmpty).some)(
           form3.split(
             form3.group(
@@ -583,7 +609,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             toggle = tg
               .map(_.tour)
               .exists: t =>
-                !t.showScores || !t.showRatingDiffs || t.teamTable || !t.isPublic
+                !t.showScores || !t.showRatingDiffs || t.teamTable || t.showTeamScores
               .some
           )(
             form3.split(
@@ -602,22 +628,14 @@ Hanna Marie ; Kozul, Zdenko"""),
               form3.checkbox(
                 form("teamTable"),
                 trans.team.teamTournament(),
-                help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some,
+                help = frag("Show a team table. Requires WhiteTeam and BlackTeam PGN tags.").some,
                 half = true
               ),
-              form3.group(
-                form("visibility"),
-                trans.study.visibility(),
+              form3.checkbox(
+                form("showTeamScores"),
+                "Show team scores based on game results",
+                help = frag("Compute and show match points (MP) and game points (GP) for teams.").some,
                 half = true
-              )(
-                form3.select(
-                  _,
-                  List(
-                    Visibility.public.key -> "Public",
-                    Visibility.unlisted.key -> "Unlisted (from URL only)",
-                    Visibility.`private`.key -> "Private (invited members only)"
-                  )
-                )
               )
             )
           ),

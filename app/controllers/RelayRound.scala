@@ -236,7 +236,7 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
       studyC.CanView(rt.study) {
         rt.tour.teamTable.so:
-          env.relay.teamTable.tableJson(rt.relay).map(JsonStrOk)
+          env.relay.teamTable.tableJson(rt.relay.id).map(JsonOk)
       }(Unauthorized, Forbidden)
 
   def stats(id: RelayRoundId) = Open:

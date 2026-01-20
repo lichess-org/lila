@@ -14,6 +14,7 @@ final private class RelaySync(
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
     players: RelayPlayerApi,
+    teamLeaderboard: RelayTeamLeaderboard,
     notifier: RelayNotifier,
     tagManualOverride: RelayTagManualOverride
 )(using Executor)(using scheduler: Scheduler):
@@ -41,6 +42,7 @@ final private class RelaySync(
       preview.invalidate(study.id)
       studyApi.reloadChapters(study)
       players.invalidate(rt.tour.id)
+      teamLeaderboard.invalidate(rt.tour.id)
   yield result
 
   private def updateChapter(
