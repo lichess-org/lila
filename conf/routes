@@ -294,7 +294,7 @@ GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId: RelayTourId)
 GET   /broadcast/$tourId<\w{8}>/players       controllers.RelayTour.playersView(tourId: RelayTourId)
 GET   /broadcast/$tourId<\w{8}>/players/:id   controllers.RelayTour.player(tourId: RelayTourId, id:  String)
-GET   /broadcast/$tourId<\w{8}>/teams/standings         controllers.RelayTour.teamLeaderboard(tourId: RelayTourId)
+GET   /broadcast/$tourId<\w{8}>/teams/standings controllers.RelayTour.teamLeaderboard(tourId: RelayTourId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId: RelayRoundId)
 GET   /api/broadcast/:ts/:rs/$roundId<\w{8}>  controllers.RelayRound.apiShow(ts, rs, roundId: RelayRoundId)
 GET   /embed/broadcast/:ts/:rs/$roundId<\w{8}> controllers.RelayRound.embedShow(ts, rs, roundId: RelayRoundId)

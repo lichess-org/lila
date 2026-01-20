@@ -113,7 +113,7 @@ export default class RelayTeamsStandings {
     if (!foundTeam) return this.standingsView();
     return hl('div.relay-tour__team-summary', [
       hl('div.relay-tour__team-summary', [
-        hl('h2.relay-tour__team-summary__header text', { attrs: dataIcon(Group) }, foundTeam.name),
+        hl('h2.relay-tour__team-summary__header.text', { attrs: dataIcon(Group) }, foundTeam.name),
         hl(
           'table.relay-tour__team-summary__header__stats',
           hl('tbody', [
@@ -129,7 +129,7 @@ export default class RelayTeamsStandings {
         hl('table.relay-tour__team-summary__table.slist.slist-pad', [
           hl(
             'thead',
-            hl('tr', [hl('th', 'Match'), hl('th', 'Opposing Team'), hl('th', `MP`), hl('th', `GP`)]),
+            hl('tr', [hl('th', 'Match'), hl('th', 'Opposing Team'), hl('th', 'MP'), hl('th', 'GP')]),
           ),
           hl(
             'tbody',
@@ -184,7 +184,7 @@ export default class RelayTeamsStandings {
   };
 }
 
-export const teamLink = (teamName: RelayTeamName): VNodeData => ({
+export const teamLinkData = (teamName: RelayTeamName): VNodeData => ({
   attrs: {
     href: `#team-results/${encodeURIComponent(teamName)}`,
   },
