@@ -4,6 +4,8 @@ import * as licon from 'lib/licon';
 import type AnalyseCtrl from './ctrl';
 import { domDialog, type Dialog } from 'lib/view';
 import { opposite } from 'chessops';
+import { fixCrazySan, plyToTurn } from 'lib/game/chess';
+import { ops as treeOps } from 'lib/tree/tree';
 
 export function initModule(ctrl: AnalyseCtrl): void {
   let gifOrientation: Color = ctrl.bottomColor();
@@ -27,11 +29,26 @@ export function initModule(ctrl: AnalyseCtrl): void {
     },
   };
 
+  const moveLabel = ({ ply, san }: { ply: number; san?: string }): string =>
+    `${plyToTurn(ply)}${ply & 1 ? '.' : '...'} <san>${fixCrazySan(san!)}</san>`;
+
+  const getRangeLabel = (): string => {
+    const mainline = treeOps.mainlineNodeList(ctrl.tree.root);
+    const range = ctrl.getRangePlies();
+    const start = mainline.find(n => n.ply === (range?.from ?? 1));
+    const end = mainline.find(n => n.ply === (range?.to ?? ctrl.tree.lastPly()));
+    if (!start?.san || !end?.san) return '';
+    return start === end ? moveLabel(start) : `${moveLabel(start)} - ${moveLabel(end)}`;
+  };
+
   const buildGifUrl = () => {
     const ds = document.body.dataset;
+    const range = ctrl.getRangePlies();
     return xhrUrl(`${ds.assetUrl}/game/export/gif/${gifOrientation}/${ctrl.data.game.id}.gif`, {
       theme: ds.board,
       piece: ds.pieceSet,
+      fromPly: range?.from,
+      toPly: range?.to,
       ...Object.fromEntries(Object.entries(gifPrefs).map(([k, { prop }]) => [k, prop()])),
     });
   };
@@ -68,6 +85,7 @@ export function initModule(ctrl: AnalyseCtrl): void {
           <button class="button button-empty text gif-flip" data-icon="${licon.ChasingArrows}">
             ${i18n.site[gifOrientation]}
           </button>
+          <div class="gif-range">${getRangeLabel()}</div>
           ${Object.keys(gifPrefs).map(makeToggle).join('')}
         </div>
         <div class="gif-actions">
