@@ -25,5 +25,5 @@
   <string name="date">Датум</string>
   <string name="sortBy">Сортирај по</string>
   <string name="analysis">Анализа</string>
-  <string name="onlyAnalysed">Само партије у којима је рачунарска анализа доступна</string>
+  <string name="onlyAnalysed">Само партије где је анализа рачунара доступна</string>
 </resources>
