@@ -82,6 +82,7 @@ object RelayTeam:
     def is(p: Pair[A]) = (a == p.a && b == p.b) || (a == p.b && b == p.a)
     def map[B](f: A => B) = Pair(f(a), f(b))
     def bimap[B](f: A => B, g: A => B) = Pair(f(a), g(b))
+    def permutations: Pair[PairOf[A]] = Pair((a, b), (b, a))
     def forall(f: A => Boolean) = f(a) && f(b)
     def find(f: A => Boolean): Option[A] = if f(a) then Some(a) else if f(b) then Some(b) else None
     def foldLeft[B](z: B)(f: (B, A) => B) = f(f(z, a), b)
@@ -134,26 +135,9 @@ object RelayTeam:
         .map(_.value)
         .orElse(pointsFor(teamName).map(_.value))
     def povMatches: Pair[POVMatch] =
-      teams.bimap(
-        t =>
-          POVMatch(
-            roundId,
-            teams.b.name,
-            teams.b.players,
-            pointsFor(t.name),
-            scoreFor(t.name),
-            t.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
-          ),
-        t =>
-          POVMatch(
-            roundId,
-            teams.a.name,
-            teams.a.players,
-            pointsFor(t.name),
-            scoreFor(t.name),
-            t.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
-          )
-      )
+      teams.permutations.map: (x, y) =>
+        val gp = x.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
+        POVMatch(roundId, y.name, y.players, pointsFor(x.name), scoreFor(x.name), gp)
     def povMatch(teamName: TeamName): Option[POVMatch] =
       if teams.a.name == teamName then Some(povMatches.a)
       else if teams.b.name == teamName then Some(povMatches.b)
@@ -315,9 +299,6 @@ final class RelayTeamLeaderboard(
         .map: l =>
           JsonStr(Json.stringify(Json.toJson(l.values.toList)))
 
-  def invalidate(id: RelayTourId): Unit =
-    invalidateDebouncer.push(id)
-
   private val invalidateDebouncer = Debouncer[RelayTourId](scheduler.scheduleOnce(3.seconds, _), 32): id =>
     import lila.memo.CacheApi.invalidate
     relayGroupApi
@@ -325,6 +306,8 @@ final class RelayTeamLeaderboard(
       .foreach: key =>
         cache.invalidate(key)
         jsonCache.invalidate(key)
+
+  export invalidateDebouncer.push as invalidate
 
   private def aggregate(scoreGroup: ScoreGroup): Fu[TeamLeaderboard] =
     tourRepo
