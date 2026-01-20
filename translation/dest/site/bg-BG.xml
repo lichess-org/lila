@@ -9,6 +9,8 @@
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
   <string name="orLetYourOpponentScanQrCode">Или дайте на противника си да сканира този QR код</string>
+  <string name="reusableChallengeUrl">Връзка за многократна употреба</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Постоянна връзка, чрез която всеки може да ви предизвика с точно тези настройки.</string>
   <string name="waiting">Изчакване</string>
   <string name="yourTurn">Вашият ход</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
@@ -125,6 +127,10 @@
   <string name="bestMoveArrow">Показване на най-добър ход</string>
   <string name="showVariationArrows">Показване на стрелки за вариациите</string>
   <string name="evaluationGauge">Показване на оценка</string>
+  <string name="visualMotifs">Визуални мотиви</string>
+  <string name="undefendedPieces">Незащитени фигури</string>
+  <string name="pinnedPieces">Вързани фигури</string>
+  <string name="checkableKing">Цар, изложен на шах</string>
   <string name="multipleLines">Множество ходове</string>
   <string name="cpus">Процесори</string>
   <string name="memory">Памет</string>
@@ -204,6 +210,7 @@
   <string name="minutesPerSide">Време в минути</string>
   <string name="variant">Вариант</string>
   <string name="variants">Варианти</string>
+  <string name="variantsDescription">Още начини за игра</string>
   <string name="timeControl">Времева контрола</string>
   <string name="realTime">Определено време</string>
   <string name="correspondence">Кореспондентски</string>
@@ -298,6 +305,7 @@
   <string name="standard">Обикновен</string>
   <string name="customPosition">От позиция</string>
   <string name="unlimited">Неограничено</string>
+  <string name="unlimitedDescription">Мислете колкото ви е необходимо</string>
   <string name="mode">Начин</string>
   <string name="casual">Приятелски</string>
   <string name="rated">С рейтинг</string>
@@ -423,6 +431,8 @@
   <string name="leaderboard">Табло с водачите</string>
   <string name="screenshotCurrentPosition">Снимане на екрана на текущата позиция</string>
   <string name="gameAsGIF">Запазване на партията като гифче</string>
+  <string name="playerNames">Имена на играчите</string>
+  <string name="moveAnnotations">Преместване на анотациите</string>
   <string name="pasteTheFenStringHere">Постави FEN низа тук</string>
   <string name="pasteThePgnStringHere">Постави PGN низа тук</string>
   <string name="orUploadPgnFile">Или качете PGN файл</string>

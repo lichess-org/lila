@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">Flèche du meilleur coup</string>
   <string name="showVariationArrows">Afficher les flèches de variantes</string>
   <string name="evaluationGauge">Jauge d\'évaluation</string>
+  <string name="visualMotifs">Motifs visuels</string>
+  <string name="undefendedPieces">Pièces non défendues</string>
+  <string name="pinnedPieces">Pièces clouées</string>
+  <string name="checkableKing">Roi pouvant être mis en échec</string>
   <string name="multipleLines">Lignes d\'analyse</string>
   <string name="cpus">Processeurs</string>
   <string name="memory">Mémoire</string>
@@ -204,6 +208,7 @@
   <string name="minutesPerSide">Minutes par joueur</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
+  <string name="variantsDescription">Autres façons de jouer</string>
   <string name="timeControl">Cadence</string>
   <string name="realTime">Temps réel</string>
   <string name="correspondence">Correspondance</string>
@@ -298,6 +303,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Position personnalisée</string>
   <string name="unlimited">Illimité</string>
+  <string name="unlimitedDescription">Prenez tout le temps dont vous avez besoin.</string>
   <string name="mode">Mode</string>
   <string name="casual">Amical</string>
   <string name="rated">Classé</string>

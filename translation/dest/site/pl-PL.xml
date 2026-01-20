@@ -9,6 +9,8 @@
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na ruch przeciwnika</string>
   <string name="orLetYourOpponentScanQrCode">Lub pozwól przeciwnikowi zeskanować ten kod QR</string>
+  <string name="reusableChallengeUrl">URL wyzwania wielokrotnego użytku</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Stały link do wyzwania na określonych warunkach, które każdy może Ci rzucić.</string>
   <string name="waiting">Oczekiwanie</string>
   <string name="yourTurn">Twój ruch</string>
   <string name="aiNameLevelAiLevel">%1$s poziom %2$s</string>
@@ -491,6 +493,8 @@
   <string name="leaderboard">Najlepsi gracze</string>
   <string name="screenshotCurrentPosition">Zrzut ekranu aktualnej pozycji</string>
   <string name="gameAsGIF">Zapisz jako GIF</string>
+  <string name="playerNames">Nazwy graczy</string>
+  <string name="moveAnnotations">Adnotacje do posunięcia</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
   <string name="pasteThePgnStringHere">Wklej poniżej przebieg partii w formacie PGN</string>
   <string name="orUploadPgnFile">lub wgraj plik PGN</string>
