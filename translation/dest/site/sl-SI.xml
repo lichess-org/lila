@@ -489,6 +489,8 @@
   <string name="leaderboard">Lestvica</string>
   <string name="screenshotCurrentPosition">Zajemi sliko trenutne pozicije</string>
   <string name="gameAsGIF">Partija kot GIF</string>
+  <string name="playerNames">Imena igralcev</string>
+  <string name="moveAnnotations">Zapis potez</string>
   <string name="pasteTheFenStringHere">Prilepi FEN niz sem</string>
   <string name="pasteThePgnStringHere">Prilepi PGN niz sem</string>
   <string name="orUploadPgnFile">Ali pa naložite datoteko PGN</string>
