@@ -19,7 +19,7 @@ final class ClasStudentCache(colls: ClasColls)(using scheduler: Scheduler)(using
   def addStudent(userId: UserId): Unit = bloomFilter.add(userId.value)
 
   private def rebuildBloomFilter(): Unit =
-    colls.student
+    colls.student.secondary
       .countSel("archived".$exists(false))
       .foreach: count =>
         val nextBloom = BloomFilter[String](count + 1, falsePositiveRate)
@@ -27,7 +27,6 @@ final class ClasStudentCache(colls: ClasColls)(using scheduler: Scheduler)(using
           .find($doc("archived".$exists(false)), $doc("userId" -> true, "_id" -> false).some)
           .cursor[Bdoc](ReadPref.sec)
           .documentSource()
-          .throttle(300, 1.second)
           .runWith:
             Sink.fold[Int, Bdoc](0): (counter, doc) =>
               if counter % 1000 == 0 then logger.info(s"ClasStudentCache.rebuild $counter")
@@ -39,5 +38,5 @@ final class ClasStudentCache(colls: ClasColls)(using scheduler: Scheduler)(using
             bloomFilter = nextBloom
           .monSuccess(_.clas.student.bloomFilter.fu)
 
-  scheduler.scheduleWithFixedDelay(71.seconds, 24.hours): () =>
+  scheduler.scheduleWithFixedDelay(81.seconds, 7.days): () =>
     rebuildBloomFilter()

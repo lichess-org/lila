@@ -57,7 +57,7 @@ export class LiveboardPlugin implements ChatPlugin {
     this.board.orientation = this.ctrl.bottomColor();
     this.animate = true;
 
-    return hl('div.chat-liveboard', {
+    return hl('div.chat-liveboard.is2d', {
       hook: {
         insert: (vn: VNode) => initMiniBoardWith(vn.elm as HTMLElement, this.board!),
         update: (_, vn: VNode) => {

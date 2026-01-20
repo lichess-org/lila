@@ -12,7 +12,7 @@ import type EditorCtrl from './ctrl';
 import chessground from './chessground';
 import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
 import { fenToEpd } from 'lib/game/chess';
-import { chess960IdToFEN, fenToChess960Id, randomPositionId } from './chess960';
+import { chess960IdToFEN, fenToChess960Id, isValidPositionId } from './chess960';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
@@ -104,15 +104,14 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             h('input#chess960-position-id', {
               attrs: { minlength: 1, maxlength: 3, type: 'number', min: '0', max: '959' },
               props: {
-                value:
-                  ctrl.chess960PositionId !== undefined
-                    ? ctrl.chess960PositionId
-                    : (ctrl.chess960PositionId = randomPositionId()),
+                value: ctrl.chess960PositionId,
               },
               on: {
                 change(e) {
-                  const candidateId = parseInt((e.target as HTMLSelectElement).value || '0', 10);
-                  if (!Number.isInteger(candidateId) || candidateId < 0 || candidateId > 959) return;
+                  const value = (e.target as HTMLSelectElement).value;
+                  if (!/^\d+$/.test(value)) return;
+                  const candidateId = parseInt(value);
+                  if (!isValidPositionId(candidateId)) return;
                   ctrl.chess960PositionId = candidateId;
                   ctrl.setFen(chess960IdToFEN(ctrl.chess960PositionId));
                 },
