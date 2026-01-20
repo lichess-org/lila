@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">פאזלים</string>
+  <string name="puzzles">חידות</string>
   <string name="puzzleThemes">חידות נושאיות</string>
   <string name="recommended">מומלץ</string>
   <string name="phases">שלבים</string>
@@ -11,10 +11,10 @@
   <string name="goals">יעדים</string>
   <string name="origin">מקור</string>
   <string name="specialMoves">צעדים מיוחדים</string>
-  <string name="didYouLikeThisPuzzle">האם אהבת את החידה הזאת?</string>
-  <string name="voteToLoadNextOne">דרגו כדי לקבל את הפאזל הבא!</string>
-  <string name="upVote">אהבתם את החידה? הצביעו הצבעה עילית</string>
-  <string name="downVote">לא אהבתם? הצביעו הצבעה תחתית</string>
+  <string name="didYouLikeThisPuzzle">אהבת את החידה?</string>
+  <string name="voteToLoadNextOne">יש לדרג לקבלת החידה הבאה!</string>
+  <string name="upVote">הצבעה בעד החידה</string>
+  <string name="downVote">הצבעה נגד החידה</string>
   <string name="yourPuzzleRatingWillNotChange">דירוג החידות שלך לא ישתנה. שימו לב כי פתירת חידות אינה תחרות. הדירוג נועד לאפשר בחירה של חידות המתאימות לרמה הנוכחית שלך.</string>
   <string name="findTheBestMoveForWhite">מצא/י את המהלך הטוב ביותר ללבן.</string>
   <string name="findTheBestMoveForBlack">מצא/י את המהלך הטוב ביותר לשחור.</string>
@@ -46,17 +46,17 @@
   <string name="fromGameLink">מתוך משחק %s</string>
   <string name="continueTraining">המשיכו להתאמן</string>
   <string name="difficultyLevel">רמת קושי</string>
-  <string name="normal">רגיל</string>
-  <string name="easier">קל יותר</string>
-  <string name="easiest">מאוד קל</string>
+  <string name="normal">רגילה</string>
+  <string name="easier">קלה מאוד</string>
+  <string name="easiest">קלה ביותר</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
     <item quantity="one">נקודה %s מתחת לדירוג החידות שלך</item>
     <item quantity="two">%s נקודות מתחת לדירוג החידות שלך</item>
     <item quantity="many">%s נקודות מתחת לדירוג החידות שלך</item>
     <item quantity="other">%s נקודות מתחת לדירוג החידות שלך</item>
   </plurals>
-  <string name="harder">קשה יותר</string>
-  <string name="hardest">מאוד קשה</string>
+  <string name="harder">קשה מאוד</string>
+  <string name="hardest">קשה ביותר</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">נקודה %s מעל לדירוג החידות שלך</item>
     <item quantity="two">נקודה 1 מתחת לדירוג הפזלים שלך</item>
@@ -65,7 +65,7 @@
   </plurals>
   <string name="example">דוגמה</string>
   <string name="addAnotherTheme">הוסיפו נושא חדש</string>
-  <string name="nextPuzzle">הפאזל הבא</string>
+  <string name="nextPuzzle">לחידה הבאה</string>
   <string name="jumpToNextPuzzleImmediately">המשיכו ישר לחידה הבאה</string>
   <string name="puzzleDashboard">תמונת מצב</string>
   <string name="improvementAreas">תחומים לשיפור</string>
@@ -98,6 +98,6 @@
   </plurals>
   <string name="percentSolved">%s נפתרו</string>
   <string name="noPuzzlesToShow">אין מה להראות, לכו לפתור כמה חידות קודם!</string>
-  <string name="improvementAreasDescription">התאמנו על אלה כדי לשפר את ההתקדמות שלכם!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">התאמנו על אלה כדי לשפר את ההתקדמות שלכם!</string>
   <string name="strengthDescription">את/ה מתפקד/ת הכי טוב בנושאים הבאים</string>
 </resources>

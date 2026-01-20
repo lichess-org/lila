@@ -9,6 +9,8 @@
   <string name="gameOver">Partiet er avslutta</string>
   <string name="waitingForOpponent">Ventar på motspelar</string>
   <string name="orLetYourOpponentScanQrCode">Eller la motspelaren din skanna denne QR-koden</string>
+  <string name="reusableChallengeUrl">Ombrukeleg utfordrings-URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Ei permanent lenke der kven som helst kan utfordra deg med eksakt desse innstillingane.</string>
   <string name="waiting">Ventar</string>
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
@@ -429,6 +431,8 @@
   <string name="leaderboard">Leiartabell</string>
   <string name="screenshotCurrentPosition">Ta eit skjermbilete av gjeldande stilling</string>
   <string name="gameAsGIF">Parti som GIF</string>
+  <string name="playerNames">Namn på spelarane</string>
+  <string name="moveAnnotations">Trekknotasjon</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-koden her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-koden her</string>
   <string name="orUploadPgnFile">Eller last opp ei PGN-fil</string>

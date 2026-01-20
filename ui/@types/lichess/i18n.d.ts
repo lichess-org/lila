@@ -3809,6 +3809,8 @@ interface I18n {
     mouseTricks: string;
     /** Move */
     move: string;
+    /** Move annotations */
+    moveAnnotations: string;
     /** Moves played */
     movesPlayed: string;
     /** Move times */
@@ -4025,6 +4027,8 @@ interface I18n {
     performance: string;
     /** Rating: %s */
     perfRatingX: I18nFormat;
+    /** A permanent link for anyone to challenge you with these exact settings. */
+    permanentLinkForAnyoneToChallengeYou: string;
     /** Piece set */
     pieceSet: string;
     /** Pinned pieces */
@@ -4041,6 +4045,8 @@ interface I18n {
     playComputerMove: string;
     /** Player */
     player: string;
+    /** Player names */
+    playerNames: string;
     /** Players */
     players: string;
     /** Play every game you start. */
@@ -4213,6 +4219,8 @@ interface I18n {
     returnToSimulHomepage: string;
     /** Return to tournaments homepage */
     returnToTournamentsHomepage: string;
+    /** Reusable challenge URL */
+    reusableChallengeUrl: string;
     /** Review black mistakes */
     reviewBlackMistakes: string;
     /** Review white mistakes */

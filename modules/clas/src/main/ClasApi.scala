@@ -11,6 +11,7 @@ import lila.core.msg.MsgApi
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
 import lila.core.user.KidMode
+import lila.core.perm.Granter
 
 final class ClasApi(
     colls: ClasColls,
@@ -83,6 +84,55 @@ final class ClasApi(
     def isTeacherOf(teacher: User, clasId: ClasId): Fu[Boolean] =
       coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
 
+    private def lookupClasOfTeacher(teacher: UserId) =
+      $lookup.simple(
+        from = colls.clas,
+        as = "clasId",
+        local = "clasId",
+        foreign = "_id",
+        pipe = List(
+          $doc("$match" -> $doc("teachers" -> teacher)),
+          $doc("$limit" -> 1),
+          $doc("$project" -> $id(true))
+        )
+      )
+
+    def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
+      studentCache
+        .isStudent(student)
+        .so:
+          colls.student
+            .aggregateExists(_.sec): framework =>
+              import framework.*
+              Match($doc("userId" -> student)) -> List(
+                Project($doc("clasId" -> true)),
+                PipelineOperator(lookupClasOfTeacher(teacher)),
+                Match("clasId".$ne($arr())),
+                Limit(1),
+                Project($id(true))
+              )
+
+    def myPotentialStudentNames(userIds: Iterable[UserId])(using me: Me): Fu[Map[UserId, Student.RealName]] =
+      Granter(_.Teacher).so:
+        val potentialStudents = userIds.filter(studentCache.isStudent)
+        potentialStudents.nonEmpty.so:
+          colls.student
+            .aggregateList(128, _.sec): framework =>
+              import framework.*
+              Match("userId".$in(potentialStudents)) -> List(
+                Project($doc("userId" -> true, "clasId" -> true, "realName" -> true)),
+                PipelineOperator(lookupClasOfTeacher(me.userId)),
+                Match("clasId".$ne($arr())),
+                GroupField("userId")("realName" -> LastField("realName"))
+              )
+            .map: docs =>
+              docs.flatMap: doc =>
+                for
+                  userId <- doc.getAsOpt[UserId]("_id")
+                  realName <- doc.getAsOpt[Student.RealName]("realName")
+                yield userId -> realName
+            .map(_.toMap)
+
     def canKidsUseMessages(kid1: UserId, kid2: UserId): Fu[Boolean] =
       fuccess(studentCache.isStudent(kid1) && studentCache.isStudent(kid2)) >>&
         colls.student.aggregateExists(_.sec): framework =>
@@ -105,34 +155,6 @@ final class ClasApi(
             Match($doc("nb" -> 2)),
             Limit(1)
           )
-
-    def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-      studentCache
-        .isStudent(student)
-        .so(
-          colls.student
-            .aggregateExists(_.sec): framework =>
-              import framework.*
-              Match($doc("userId" -> student)) -> List(
-                Project($doc("clasId" -> true)),
-                PipelineOperator(
-                  $lookup.simple(
-                    from = colls.clas,
-                    as = "clas",
-                    local = "clasId",
-                    foreign = "_id",
-                    pipe = List(
-                      $doc("$match" -> $doc("teachers" -> teacher)),
-                      $doc("$limit" -> 1),
-                      $doc("$project" -> $id(true))
-                    )
-                  )
-                ),
-                Match("clas".$ne($arr())),
-                Limit(1),
-                Project($id(true))
-              )
-        )
 
     def archive(c: Clas, t: User, v: Boolean): Funit =
       coll.update
@@ -356,7 +378,9 @@ ${clas.desc}""",
 
     import ClasInvite.Feedback.*
 
-    def create(clas: Clas, user: User, realName: String)(using teacher: Me): Fu[ClasInvite.Feedback] =
+    def create(clas: Clas, user: User, realName: Student.RealName)(using
+        teacher: Me
+    ): Fu[ClasInvite.Feedback] =
       student
         .archive(Student.makeId(user.id, clas.id), v = false)
         .map2[ClasInvite.Feedback](_ => Already)

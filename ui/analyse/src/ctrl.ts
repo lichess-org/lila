@@ -331,14 +331,14 @@ export default class AnalyseCtrl implements CevalHandler {
 
   private showGround(): void {
     if (this.node.pos().isErr || this.node.outcome()) this.ceval.stop();
-    this.pluginUpdate(this.node.fen);
-    this.onChange();
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
       if (this.node.shapes) cg.setShapes(this.node.shapes.slice() as DrawShape[]);
       cg.playPremove();
     });
+    this.pluginUpdate(this.node.fen);
+    this.onChange();
   }
 
   serverMainline = () => this.mainline.slice(0, playedTurns(this.data) + 1);
@@ -703,8 +703,8 @@ export default class AnalyseCtrl implements CevalHandler {
         this.setAutoShapes();
         if (!isThreat) {
           this.retro?.onCeval();
-          this.practice?.onCeval();
           this.study?.practice?.onCeval();
+          this.practice?.onCeval();
           this.study?.multiCloudEval?.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }

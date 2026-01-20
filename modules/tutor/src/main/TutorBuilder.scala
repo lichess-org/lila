@@ -50,7 +50,7 @@ final private class TutorBuilder(
       .monSuccess(_.tutor.buildSegment("perf-stats"))
     peerMatches <- findPeerMatches(perfStats.view.mapValues(_.stats.rating).toMap)
     tutorUsers = perfStats
-      .map { (pt, stats) => TutorUser(user, pt, stats.stats, peerMatches.find(_.perf == pt)) }
+      .map { (pt, stats) => TutorPlayer(user, pt, stats.stats, peerMatches.find(_.perf == pt)) }
       .toList
       .sortBy(-_.perfStats.totalNbGames)
     _ <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor.buildSegment("fishnet-analysis"))
@@ -70,13 +70,17 @@ final private class TutorBuilder(
   private def findPeerMatches(
       perfs: Map[PerfType, lila.insight.MeanRating]
   ): Fu[List[TutorPerfReport.PeerMatch]] =
+    val ratingDelta = 2
     perfs
       .map: (pt, rating) =>
         colls.report
           .one[Bdoc](
             $doc(
               TutorFullReport.F.perfs -> $doc(
-                "$elemMatch" -> $doc("perf" -> pt.id, "stats.rating" -> rating)
+                "$elemMatch" -> $doc(
+                  "perf" -> pt.id,
+                  "stats.rating".$gte(rating.map(_ - ratingDelta)).$lte(rating.map(_ + ratingDelta))
+                )
               ),
               TutorFullReport.F.at.$gt(nowInstant.minusMonths(1)) // index hit
             ),
@@ -105,7 +109,7 @@ private object TutorBuilder:
 
   val peerNbGames = Max(5_000)
 
-  def answerMine[Dim](question: Question[Dim], user: TutorUser)(using
+  def answerMine[Dim](question: Question[Dim], user: TutorPlayer)(using
       insightApi: InsightApi,
       ec: Executor
   ): Fu[AnswerMine[Dim]] = insightApi
@@ -113,7 +117,7 @@ private object TutorBuilder:
     .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key))
     .map(AnswerMine.apply)
 
-  def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: Max = peerNbGames)(using
+  def answerPeer[Dim](question: Question[Dim], user: TutorPlayer, nbGames: Max = peerNbGames)(using
       insightApi: InsightApi,
       ec: Executor
   ): Fu[AnswerPeer[Dim]] = insightApi
@@ -121,7 +125,7 @@ private object TutorBuilder:
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key))
     .map(AnswerPeer.apply)
 
-  def answerBoth[Dim](question: Question[Dim], user: TutorUser, nbPeerGames: Max = peerNbGames)(using
+  def answerBoth[Dim](question: Question[Dim], user: TutorPlayer, nbPeerGames: Max = peerNbGames)(using
       InsightApi,
       Executor
   ): Fu[Answers[Dim]] = for
@@ -129,7 +133,7 @@ private object TutorBuilder:
     peer <- answerPeer(question, user, nbPeerGames)
   yield Answers(mine, peer)
 
-  def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorUser])(using
+  def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorPlayer])(using
       insightApi: InsightApi,
       ec: Executor
   ): Fu[Answers[Dim]] = for

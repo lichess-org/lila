@@ -9,6 +9,8 @@
   <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
   <string name="orLetYourOpponentScanQrCode">Ose lëreni kundërshtarin tuaj të skanojë këtë kod QR</string>
+  <string name="reusableChallengeUrl">URL e ripërdorshme sfide</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Një lidhje e përhershme, për këdo që dëshiron t’ju sfidojë me saktësisht këto rregullime.</string>
   <string name="waiting">Në pritje</string>
   <string name="yourTurn">Radha juaj</string>
   <string name="aiNameLevelAiLevel">%1$s niveli %2$s</string>
@@ -429,6 +431,8 @@
   <string name="leaderboard">Tabelë klasifikimi</string>
   <string name="screenshotCurrentPosition">Bëj foto ekrani të pozicionit të tanishëm</string>
   <string name="gameAsGIF">GIF i lojës</string>
+  <string name="playerNames">Emra lojtarësh</string>
+  <string name="moveAnnotations">Shënime lëvizjesh</string>
   <string name="pasteTheFenStringHere">Ngjitni këtu tekstin FEN</string>
   <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PGN</string>
   <string name="orUploadPgnFile">Ose ngarkoni një kartelë PGN</string>

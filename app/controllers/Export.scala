@@ -6,7 +6,7 @@ import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import play.api.mvc.Result
 
-import lila.app.*
+import lila.app.{ *, given }
 import lila.core.id.PuzzleId
 import lila.pref.{ PieceSet, Theme }
 
@@ -16,12 +16,27 @@ final class Export(env: Env) extends LilaController(env):
     Found(fetch): res =>
       limit.exportImage(((), req.ipAddress), rateLimited)(convert(res))
 
-  def gif(id: GameId, color: Color, theme: Option[String], piece: Option[String]) = Anon:
+  def gif(
+      id: GameId,
+      color: Color,
+      theme: Option[String],
+      piece: Option[String]
+  ) = Anon:
     NoCrawlersUnlessPreview:
       exportImageOf(env.game.gameRepo.gameWithInitialFen(id)): g =>
-        env.game.gifExport
-          .fromPov(Pov(g.game, color), g.fen, Theme(theme).name, PieceSet.get(piece).name)
-          .pipe(stream(cacheSeconds = if g.game.finishedOrAborted then 3600 * 24 else 10))
+        val options = lila.game.GifExport.Options.fromReq
+        stream(cacheSeconds = if g.game.finishedOrAborted then 3600 * 24 else 10):
+          for
+            analysis <- options.glyphs.so(env.analyse.analysisRepo.byGame(g.game))
+            source <- env.game.gifExport.fromPov(
+              Pov(g.game, color),
+              g.fen,
+              Theme(theme).name,
+              PieceSet.get(piece).name,
+              analysis,
+              options
+            )
+          yield source
 
   def legacyGameThumbnail(id: GameId, theme: Option[String], piece: Option[String]) = Anon:
     MovedPermanently(routes.Export.gameThumbnail(id, theme, piece).url)

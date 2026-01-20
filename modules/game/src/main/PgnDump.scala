@@ -6,14 +6,14 @@ import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 import chess.rating.IntRatingDiff
 
 import lila.core.LightUser
-import lila.core.config.BaseUrl
+import lila.core.config.RouteUrl
 import lila.core.game.PgnDump.WithFlags
 import lila.core.game.{ Game, Player }
 import lila.game.GameExt.perfType
 import lila.game.Player.nameSplit
 
 final class PgnDump(
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     lightUserApi: lila.core.user.LightUserApiMinimal,
     fideIdOf: lila.core.user.PublicFideIdOf
 )(using Executor)
@@ -52,7 +52,7 @@ final class PgnDump(
         )
       Pgn(ts, InitialComments.empty, tree, ply.next)
 
-  private def gameUrl(id: GameId) = s"$baseUrl/$id"
+  private def gameUrl(id: GameId) = routeUrl(routes.Round.watcher(id, Color.White))
 
   private type GameUsers = ByColor[Option[LightUser]]
 

@@ -9,6 +9,8 @@
   <string name="gameOver">Peli ohi</string>
   <string name="waitingForOpponent">Odotetaan vastustajaa</string>
   <string name="orLetYourOpponentScanQrCode">Tai anna vastustajasi skannata tämä QR-koodi</string>
+  <string name="reusableChallengeUrl">Haasteen URL-osoite (uudestaan käytettävä)</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Pysyvä linkki, jonka kautta kuka tahansa voi haastaa sinut juuri näillä asetuksilla.</string>
   <string name="waiting">Odotetaan</string>
   <string name="yourTurn">Sinun vuorosi</string>
   <string name="aiNameLevelAiLevel">%1$s taso %2$s</string>
@@ -429,6 +431,8 @@
   <string name="leaderboard">Pistetaulukko</string>
   <string name="screenshotCurrentPosition">Ota tämänhetkisestä asemasta kuvakaappaus</string>
   <string name="gameAsGIF">Tallenna peli GIF:nä</string>
+  <string name="playerNames">Pelaajien nimet</string>
+  <string name="moveAnnotations">Siirtokommentit</string>
   <string name="pasteTheFenStringHere">Liitä FEN-merkkijono tähän</string>
   <string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
   <string name="orUploadPgnFile">Tai lataa PGN-tiedosto</string>
@@ -726,7 +730,7 @@
   <string name="keyNextBranch">Seuraava haara</string>
   <string name="toggleVariationArrows">Muunnelmanuolet päälle/pois</string>
   <string name="cyclePreviousOrNextVariation">Siirry edelliseen/seuraavaan muunnelmaan</string>
-  <string name="toggleGlyphAnnotations">Symbolikommentit päälle/pois</string>
+  <string name="toggleGlyphAnnotations">Siirtokommentit päälle/pois</string>
   <string name="togglePositionAnnotations">Aseman kommentit päälle/pois</string>
   <string name="variationArrowsInfo">Muunnelmanuolia napsauttamalla voit edetä muunnelmissa siirtolistaa käyttämättä.</string>
   <string name="playSelectedMove">tee valittu siirto</string>

@@ -68,7 +68,9 @@
   <string name="killBoxMate">Kassematt</string>
   <string name="killBoxMateDescription">Et tårn står ved siden av motstanderens konge og er støttet av en dronning som også blokkerer kongens fluktfelter. Tårnet og dronningen fanger motstanderens konge i en 3x3 «kasse».</string>
   <string name="pillsburysMate">Pillsburys matt</string>
+  <string name="pillsburysMateDescription">Tårnet setter matt, mens løperen sperrer.</string>
   <string name="morphysMate">Morphys matt</string>
+  <string name="morphysMateDescription">Løperen setter matt, mens tårnet sperrer.</string>
   <string name="triangleMate">Trekantmatt</string>
   <string name="triangleMateDescription">Dronning og tårn, på tilstøtende felt til motstanderens konge, står på samme rad eller linje med ett felt mellom seg, slik at de tre brikkene danner en trekant.</string>
   <string name="vukovicMate">Vuković-matt</string>
@@ -100,6 +102,7 @@
   <string name="opening">Åpning</string>
   <string name="openingDescription">En taktikk i den første fasen av partiet.</string>
   <string name="operaMate">Operamatt</string>
+  <string name="operaMateDescription">Tårn matter, dekket av løper.</string>
   <string name="pawnEndgame">Bondesluttspill</string>
   <string name="pawnEndgameDescription">Et sluttspill med kun bønder.</string>
   <string name="pin">Binding</string>

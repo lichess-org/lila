@@ -16,7 +16,7 @@ $c-grade-good: $m-good_bg--mix-90;
     &__content {
       @extend %flex-column;
       gap: 0.4em;
-      flex: 1;
+      flex: 1 1 auto;
     }
     &__name {
       @extend %flex-center-nowrap;
@@ -30,6 +30,9 @@ $c-grade-good: $m-good_bg--mix-90;
       text-transform: uppercase;
       font-size: 1.7em;
       margin-bottom: 0.5em;
+    }
+    &--detail.tutor-grade--narrow .tutor-grade__name {
+      font-size: 1.3em;
     }
     &__visual {
       @extend %flex-center;
@@ -58,13 +61,17 @@ $c-grade-good: $m-good_bg--mix-90;
         }
       }
     }
+    &--detail {
+      padding-bottom: 2em;
+      border-bottom: $border;
+      gap: var(---box-padding);
+      .tutor-icon {
+        flex: 0 1 8em;
+      }
+    }
     &__detail {
       font-size: 0.9em;
       color: $c-font-dim;
-      margin-top: 0.3em;
-      margin-bottom: 2em;
-      padding-bottom: 2em;
-      border-bottom: $border;
     }
 
     .tutor-icon,
@@ -84,6 +91,9 @@ $c-grade-good: $m-good_bg--mix-90;
       .tutor-grade__name {
         color: $c-grade-avg;
       }
+    }
+    &--narrow .tutor-icon {
+      display: none;
     }
   }
 }

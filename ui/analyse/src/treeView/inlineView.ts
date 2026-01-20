@@ -151,7 +151,7 @@ export class InlineView {
           parentNode.children.length > 1 &&
           (!parenthetical || parentNode.children[0] !== node))); // ugh
     const classes: Classes = {
-      mainline: isMainline,
+      mainline: isMainline && this.inline,
       conceal: conceal === 'conceal',
       hide: conceal === 'hide',
       active: path === ctrl.path,

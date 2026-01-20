@@ -480,12 +480,18 @@ final class Study(
       orientation = getBool("orientation")
     )
 
-  def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) = Open:
+  def chapterGif(
+      id: StudyId,
+      chapterId: StudyChapterId,
+      theme: Option[String],
+      piece: Option[String],
+      showGlyphs: Boolean
+  ) = Open:
     Found(env.study.api.byIdWithChapter(id, chapterId)):
       case WithChapter(study, chapter) =>
         CanView(study) {
           env.study.gifExport
-            .ofChapter(chapter, theme, piece)
+            .ofChapter(chapter, theme, piece, showGlyphs)
             .map: stream =>
               Ok.chunked(stream)
                 .asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif")

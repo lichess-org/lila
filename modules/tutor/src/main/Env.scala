@@ -20,7 +20,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: CacheApi,
     lightUserApi: lila.core.user.LightUserApi
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, play.api.Mode):
 
   private val colls = TutorColls(db(config.CollName("tutor_report")), db(config.CollName("tutor_queue")))
 
