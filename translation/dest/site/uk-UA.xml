@@ -9,6 +9,8 @@
   <string name="gameOver">Гру завершено</string>
   <string name="waitingForOpponent">Очікування на суперника</string>
   <string name="orLetYourOpponentScanQrCode">Або дайте вашому супернику просканувати цей QR-код</string>
+  <string name="reusableChallengeUrl">Постійне посилання на виклик</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Постійне посилання, за яким хто-небудь може кинути вам виклик із цими налаштуваннями.</string>
   <string name="waiting">Очікування</string>
   <string name="yourTurn">Ваш хід</string>
   <string name="aiNameLevelAiLevel">%1$s, рівень %2$s</string>
