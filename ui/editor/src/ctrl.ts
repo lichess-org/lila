@@ -51,7 +51,7 @@ export default class EditorCtrl {
     this.selected = prop('pointer');
 
     [...(cfg.positions || []), ...(cfg.endgamePositions || [])].forEach(
-      p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')),
+      p => (p.epd = p.fen.split(' ').slice(0, 4).join(' ')),
     );
 
     if (this.options.bindHotkeys !== false)
