@@ -28,6 +28,7 @@ export class StudyChapterNewForm {
   readonly multiPgnMax = 64;
   variants: Variant[] = [];
   dialog: Dialog | undefined;
+  onDialogKeydown?: (e: KeyboardEvent) => void;
   isOpen = toggle(false, val => {
     if (!val) this.dialog?.close();
   });
@@ -146,6 +147,10 @@ export function view(ctrl: StudyChapterNewForm): VNode {
   return snabDialog({
     class: 'chapter-new',
     onClose() {
+      if (ctrl.onDialogKeydown) {
+        ctrl.dialog?.dialog.removeEventListener('keydown', ctrl.onDialogKeydown);
+        ctrl.onDialogKeydown = undefined;
+      }
       ctrl.dialog = undefined;
       ctrl.isOpen(false);
       ctrl.redraw();
@@ -154,6 +159,23 @@ export function view(ctrl: StudyChapterNewForm): VNode {
     noClickAway: true,
     onInsert: dlg => {
       ctrl.dialog = dlg;
+      ctrl.onDialogKeydown = (e: KeyboardEvent) => {
+        if (
+          e.key !== 'Enter' ||
+          e.shiftKey ||
+          e.ctrlKey ||
+          e.altKey ||
+          e.metaKey ||
+          e.isComposing ||
+          dlg.dialog.ownerDocument.activeElement !== dlg.dialog
+        )
+          return;
+        // When the dialog itself is active (and nothing inside it is active), treat enter as a form submit.
+        e.preventDefault();
+        e.stopPropagation();
+        dlg.view.querySelector('form')?.requestSubmit?.();
+      };
+      dlg.dialog.addEventListener('keydown', ctrl.onDialogKeydown);
       dlg.show();
     },
     vnodes: [
