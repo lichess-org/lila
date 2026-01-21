@@ -383,7 +383,7 @@ Hanna Marie ; Kozul, Zdenko"""),
                   withDefault,
                   "Rated round",
                   help = frag("Include this round when calculating players' rating changes").some,
-                  half = true
+                  half = false
                 )
             ),
             Color.all.map: color =>
