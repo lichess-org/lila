@@ -43,7 +43,7 @@ final class TutorApi(
         val expired =
           started.isBefore(nowInstant.minusSeconds(builder.maxTime.toSeconds.toInt)) ||
             started.isBefore(Uptime.startedAt)
-        for _ <- expired.so(queue.remove(next.userId).thenPp(s"$started $expired"))
+        for _ <- expired.so(queue.remove(next.userId))
         yield lila.mon.tutor.buildTimeout.increment()
 
   // we only wait for queue.start
