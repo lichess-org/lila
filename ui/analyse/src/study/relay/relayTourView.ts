@@ -1,7 +1,7 @@
 import type AnalyseCtrl from '@/ctrl';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, onInsert, hl, type LooseVNode } from 'lib/view';
+import { bind, dataIcon, onInsert, hl, type LooseVNode, toggle, copyMeInput } from 'lib/view';
 import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'lib/richText';
 import type {
@@ -15,7 +15,6 @@ import type {
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'lib';
 import type StudyCtrl from '../studyCtrl';
-import { toggle, copyMeInput } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';

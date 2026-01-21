@@ -1,4 +1,4 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 import { povChances } from '../winningChances';
 import * as licon from '@/licon';

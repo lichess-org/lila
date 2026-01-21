@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "singleQuote": true,
+  "printWidth": 110,
+  "arrowParens": "avoid",
+  "endOfLine": "lf",
+  "ignorePatterns": ["package.json"]
+}

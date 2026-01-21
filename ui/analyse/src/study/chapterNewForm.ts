@@ -1,7 +1,17 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, type Prop, toggle } from 'lib';
-import type { Dialog, VNode } from 'lib/view';
-import { snabDialog, alert, bind, bindSubmit, onInsert, hl, dataIcon, spinnerVdom } from 'lib/view';
+import {
+  snabDialog,
+  alert,
+  bind,
+  bindSubmit,
+  onInsert,
+  hl,
+  dataIcon,
+  spinnerVdom,
+  type Dialog,
+  type VNode,
+} from 'lib/view';
 import * as licon from 'lib/licon';
 import { storedProp } from 'lib/storage';
 import { json as xhrJson, text as xhrText } from 'lib/xhr';

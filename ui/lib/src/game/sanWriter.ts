@@ -1,4 +1,4 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 import { charToRole, makeSquare, type Square } from 'chessops';
 import { fixCrazySan } from './chess';

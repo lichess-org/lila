@@ -1,6 +1,6 @@
 import { defined, prop, type Prop, scrollToInnerSelector } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, iconTag, hl } from 'lib/view';
+import { type VNode, bind, dataIcon, iconTag, hl, alert } from 'lib/view';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
@@ -24,7 +24,6 @@ import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'lib/game/chess';
 import type Sortable from 'sortablejs';
-import { alert } from 'lib/view';
 import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */

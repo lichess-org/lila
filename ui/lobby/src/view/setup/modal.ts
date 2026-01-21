@@ -1,5 +1,4 @@
-import { hl, type VNode, type LooseVNodes } from 'lib/view';
-import { snabDialog, spinnerVdom } from 'lib/view';
+import { hl, type VNode, type LooseVNodes, snabDialog, spinnerVdom } from 'lib/view';
 import type LobbyController from '@/ctrl';
 import { variantPicker } from './components/variantPicker';
 import { gameModeButtons } from './components/gameModeButtons';

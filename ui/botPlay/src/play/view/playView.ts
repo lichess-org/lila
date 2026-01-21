@@ -1,7 +1,15 @@
 import * as licon from 'lib/licon';
-import { bind, hl, onInsert, type LooseVNodes, dataIcon, type VNode } from 'lib/view';
+import {
+  bind,
+  hl,
+  onInsert,
+  type LooseVNodes,
+  dataIcon,
+  type VNode,
+  stepwiseScroll,
+  toggleButton as boardMenuToggleButton,
+} from 'lib/view';
 import { Chessground } from '@lichess-org/chessground';
-import { stepwiseScroll, toggleButton as boardMenuToggleButton } from 'lib/view';
 import type PlayCtrl from '../playCtrl';
 import { initialGround } from '@/ground';
 import { botAssetUrl } from 'lib/bot/botLoader';
