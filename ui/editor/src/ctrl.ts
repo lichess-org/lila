@@ -85,9 +85,8 @@ export default class EditorCtrl {
 
   private indexOfNthOccurrence = (haystack: string, needle: string, n: number): number => {
     let index = haystack.indexOf(needle);
-    return n <= 1 || index === -1
-      ? index
-      : this.indexOfNthOccurrence(haystack.slice(index + needle.length), needle, n - 1);
+    for (; n > 1 && index !== -1; n--) index = haystack.indexOf(needle, index + needle.length);
+    return index;
   };
 
   // Ideally to be replaced when something like parseCastlingFen exists in chessops but for epSquare (@getSetup)
