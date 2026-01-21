@@ -81,12 +81,12 @@ export function view(root: AnalyseCtrl): VNode {
     return comments.map(comment =>
       h('div.study__comment-edit', [
         h('textarea.form-control', {
-          key: comment.id,
+          attrs: { 'comment-id': comment.id ? comment.id : ''  },
           hook: {
             insert(vnode) {
               setupTextarea(vnode, comment);
               const el = vnode.elm as HTMLInputElement;
-              el.oninput = () => setTimeout(() => ctrl.submit(comment.id, el.value), 50);
+              el.oninput = () => setTimeout(() => ctrl.submit(el.getAttribute('comment-id') || '', el.value), 50);
               const heightStore = storage.make('study.comment.height.' + comment.id);
               el.onmouseup = () => heightStore.set('' + el.offsetHeight);
               el.style.height = parseInt(heightStore.get() || '80') + 'px';

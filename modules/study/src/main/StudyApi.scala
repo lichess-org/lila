@@ -485,7 +485,7 @@ final class StudyApi(
             .async(who.u)
             .flatMapz: author =>
               val comment = Comment(
-                id = commentId.getOrElse(Comment.Id.make),
+                id = if commentId.getOrElse("") == "" then Comment.Id.make else commentId.get,
                 text = text,
                 by = Comment.Author.User(author.id, author.titleName)
               )
