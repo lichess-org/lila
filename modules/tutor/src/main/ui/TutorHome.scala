@@ -15,7 +15,7 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
     bits.page(menu = bits.menu(full, user, none))(cls := "tutor__home tutor-layout"):
       frag(
         div(cls := "box tutor__first-box")(
-          boxTop(h1("Lichess Tutor", strong(cls := "tutor__beta")("BETA"), bits.otherUser(user))),
+          boxTop(h1("Lichess Tutor", bits.beta, bits.otherUser(user))),
           if full.report.perfs.isEmpty then empty.mascotSaysInsufficient
           else
             bits.mascotSays(
@@ -97,7 +97,7 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
     def start(user: User)(using Context) =
       bits.page(menu = emptyFrag, pageSmall = true)(cls := "tutor__empty box"):
         frag(
-          boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
+          boxTop(h1("Lichess Tutor", bits.beta, bits.otherUser(user))),
           bits.mascotSays("Explain what tutor is about here."),
           postForm(cls := "tutor__empty__cta", action := routes.Tutor.refresh(user.username))(
             submitButton(cls := "button button-fat button-no-upper")("Analyse my games and help me improve")
@@ -111,7 +111,7 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
         cls := "tutor__empty tutor__queued box"
       ):
         frag(
-          boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
+          boxTop(h1("Lichess Tutor", bits.beta, bits.otherUser(user))),
           bits.mascotSays(
             p(strong(cls := "tutor__intro")("I'm examining your games.")),
             examinationMethod,

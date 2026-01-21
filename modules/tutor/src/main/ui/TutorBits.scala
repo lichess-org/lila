@@ -38,6 +38,8 @@ final class TutorBits(helpers: Helpers)(
   def percentNumber[A](v: A)(using number: TutorNumber[A]) = f"${number.double(v)}%1.1f"
   def percentFrag[A](v: A)(using TutorNumber[A]) = frag(strong(percentNumber(v)), "%")
 
+  def beta = strong(cls := "tutor__beta")("BETA")
+
   def otherUser(user: User)(using ctx: Context) =
     ctx.isnt(user).option(userSpan(user, withOnline = false, withTitle = false, withFlair = false))
 
