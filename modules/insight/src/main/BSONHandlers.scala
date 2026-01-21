@@ -17,6 +17,8 @@ import lila.game.BSONHandlers.sourceHandler
 
 object BSONHandlers:
 
+  given lila.db.NoDbHandler[WinPercent] with {}
+
   given BSONHandler[Role] = tryHandler(
     { case BSONString(v) => Role.allByForsyth.get(v.head).toTry(s"Invalid role $v") },
     e => BSONString(e.forsyth.toString)
