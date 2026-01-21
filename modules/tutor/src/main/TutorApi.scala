@@ -68,7 +68,7 @@ final class TutorApi(
       .maximumSize(1024)
       .buildAsyncFuture(findLatest)
 
-  private def findLatest(userId: UserId) = colls.report
-    .find($doc(TutorFullReport.F.user -> userId))
-    .sort($sort.desc(TutorFullReport.F.at))
-    .one[TutorFullReport]
+  private def findLatest(userId: UserId) = colls.report:
+    _.find($doc(TutorFullReport.F.user -> userId))
+      .sort($sort.desc(TutorFullReport.F.at))
+      .one[TutorFullReport]

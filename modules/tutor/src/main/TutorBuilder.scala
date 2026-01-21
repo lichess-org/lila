@@ -40,7 +40,7 @@ final private class TutorBuilder(
           "_id" -> s"${report.user}:${dateFormatter.print(report.at)}",
           "millis" -> lap.millis
         )
-        _ <- colls.report.insert.one(doc).void
+        _ <- colls.report(_.insert.one(doc).void)
       yield report.some
   yield report
 
@@ -62,11 +62,12 @@ final private class TutorBuilder(
     lila.rating.PerfType.standardWithUltra.filter: pt =>
       user.perfs(pt).latest.exists(_.isAfter(nowInstant.minusMonths(12)))
 
-  private def hasFreshReport(user: User): Fu[Boolean] = colls.report.exists:
-    $doc(
-      TutorFullReport.F.user -> user.id,
-      TutorFullReport.F.at.$gt(nowInstant.minusMinutes(TutorFullReport.freshness.toMinutes.toInt))
-    )
+  private def hasFreshReport(user: User): Fu[Boolean] = colls.report:
+    _.exists:
+      $doc(
+        TutorFullReport.F.user -> user.id,
+        TutorFullReport.F.at.$gt(nowInstant.minusMinutes(TutorFullReport.freshness.toMinutes.toInt))
+      )
 
   private def findPeerMatches(
       perfs: Map[PerfType, lila.insight.MeanRating]
@@ -74,8 +75,8 @@ final private class TutorBuilder(
     val ratingDelta = 2
     perfs
       .map: (pt, rating) =>
-        colls.report
-          .one[Bdoc](
+        colls.report:
+          _.one[Bdoc](
             $doc(
               TutorFullReport.F.perfs -> $doc(
                 "$elemMatch" -> $doc(
@@ -87,13 +88,13 @@ final private class TutorBuilder(
             ),
             $doc(s"${TutorFullReport.F.perfs}.$$" -> true)
           )
-          .map: docO =>
-            for
-              doc <- docO
-              reports <- doc.getAsOpt[List[TutorPerfReport]](TutorFullReport.F.perfs)
-              report <- reports.headOption
-              if report.perf == pt
-            yield TutorPerfReport.PeerMatch(report)
+            .map: docO =>
+              for
+                doc <- docO
+                reports <- doc.getAsOpt[List[TutorPerfReport]](TutorFullReport.F.perfs)
+                report <- reports.headOption
+                if report.perf == pt
+              yield TutorPerfReport.PeerMatch(report)
       .parallel
       .map(_.toList.flatten)
       .addEffect: matches =>
