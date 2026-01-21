@@ -21,13 +21,7 @@ const KRN: ('K' | 'R' | 'N')[][] = [
 
 export function chess960IdToFEN(id: number): FEN {
   const rank1 = chess960IdToRank(id);
-  const rank2 = 'PPPPPPPP';
-  const rank7 = 'pppppppp';
-  const rank8 = rank1.toLowerCase();
-
-  const board = `${rank8}/${rank7}/8/8/8/8/${rank2}/${rank1}`;
-
-  return `${board} w KQkq - 0 1`;
+  return `${rank1.toLowerCase()}/pppppppp/8/8/8/8/PPPPPPPP/${rank1} w KQkq - 0 1`;
 }
 
 interface CastlingSquares {
@@ -37,7 +31,7 @@ interface CastlingSquares {
 }
 
 export function chess960CastlingSquares(id: number | undefined): ByColor<CastlingSquares> {
-  const rank1 = chess960IdToRank(id === undefined ? 518 : id); // default to standard chess
+  const rank1 = chess960IdToRank(id ?? 518); // default to standard chess
 
   const kingFile = rank1.indexOf('K');
   const rookKFile = rank1.lastIndexOf('R');
@@ -66,18 +60,17 @@ export function fenToChess960Id(fen: FEN): number | undefined {
   if (parts.length < 1) return undefined;
   const ranks = parts[0].split('/');
   if (ranks.length !== 8) return undefined;
-  const rank1 = ranks[7];
-  const rank8 = ranks[0];
-  if (rank1.toLowerCase() !== rank8 || rank1.length !== 8 || rank1 !== rank1.toUpperCase()) return undefined;
+  const rank = ranks[7];
+  if (rank.toLowerCase() !== ranks[0] || rank.length !== 8 || rank !== rank.toUpperCase()) return undefined;
 
-  const king = rank1.indexOf('K');
-  const queen = rank1.indexOf('Q');
-  const rook1 = rank1.indexOf('R');
-  const rook2 = rank1.lastIndexOf('R');
-  const bishop1 = rank1.indexOf('B');
-  const bishop2 = rank1.lastIndexOf('B');
-  const knight1 = rank1.indexOf('N');
-  const knight2 = rank1.lastIndexOf('N');
+  const king = rank.indexOf('K');
+  const queen = rank.indexOf('Q');
+  const rook1 = rank.indexOf('R');
+  const rook2 = rank.lastIndexOf('R');
+  const bishop1 = rank.indexOf('B');
+  const bishop2 = rank.lastIndexOf('B');
+  const knight1 = rank.indexOf('N');
+  const knight2 = rank.lastIndexOf('N');
   if ([king, queen, rook1, rook2, bishop1, bishop2, knight1, knight2].includes(-1)) {
     return undefined;
   }
@@ -89,28 +82,21 @@ export function fenToChess960Id(fen: FEN): number | undefined {
   if (lightBishopIndex === -1 || darkBishopIndex === -1) return undefined;
 
   // Queen
-  const occupiedAfterBishops = [lightBishopFile, darkBishopFile];
-  const freeSquaresAfterBishops = [...Array(8).keys()].filter(i => !occupiedAfterBishops.includes(i));
+  const freeSquaresAfterBishops = [...Array(8).keys()].filter(
+    i => ![lightBishopFile, darkBishopFile].includes(i),
+  );
   const queenFile = queen;
   const queenIndex = freeSquaresAfterBishops.indexOf(queenFile);
   if (queenIndex === -1 || queenIndex >= 6) return undefined;
 
   // Remaining pieces: K, R, R, N, N
-  const occupiedAfterQueenBishops = [lightBishopFile, darkBishopFile, queenFile];
-  const freeSquaresAfterQueenBishops = [...Array(8).keys()].filter(
-    i => !occupiedAfterQueenBishops.includes(i),
-  );
-  const remainingPieces = freeSquaresAfterQueenBishops.map(file => rank1[file]);
-
-  const krnIndex = KRN.findIndex(arr => {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] !== remainingPieces[i]) return false;
-    }
-    return true;
-  });
-  if (krnIndex === -1) return undefined;
-
-  return lightBishopIndex + 4 * darkBishopIndex + 16 * queenIndex + 96 * krnIndex;
+  const remainingPieces = [...Array(8).keys()]
+    .filter(i => ![lightBishopFile, darkBishopFile, queenFile].includes(i))
+    .map(file => rank[file]);
+  const krnIndex = KRN.findIndex(arr => arr.every((p, i) => p === remainingPieces[i]));
+  return krnIndex === -1
+    ? undefined
+    : lightBishopIndex + 4 * darkBishopIndex + 16 * queenIndex + 96 * krnIndex;
 }
 
 function chess960IdToRank(id: number): string {
