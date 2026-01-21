@@ -1,8 +1,17 @@
 import { isEmpty } from 'lib';
 import * as licon from 'lib/licon';
 import { displayColumns } from 'lib/device';
-import type { VNode, LooseVNodes, MaybeVNodes, ToggleSettings } from 'lib/view';
-import { domDialog, bind, dataIcon, hl, toggle } from 'lib/view';
+import {
+  domDialog,
+  bind,
+  dataIcon,
+  hl,
+  toggle,
+  type VNode,
+  type LooseVNodes,
+  type MaybeVNodes,
+  type ToggleSettings,
+} from 'lib/view';
 import type { AutoplayDelay } from '../autoplay';
 import type AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'lib/game/router';
@@ -134,7 +143,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
           { hook: bind('click', ctrl.toggleRetro, ctrl.redraw), attrs: dataIcon(licon.GraduateCap) },
           'Learn from your mistakes',
         ),
-      ,
       canContinue &&
         hl(
           'a',

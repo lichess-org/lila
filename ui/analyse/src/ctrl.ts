@@ -10,11 +10,26 @@ import { Autoplay, type AutoplayDelay } from './autoplay';
 import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
 import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
-import type { CevalHandler, EvalMeta, CevalOpts } from 'lib/ceval';
-import { CevalCtrl, isEvalBetter, sanIrreversible } from 'lib/ceval';
+import {
+  CevalCtrl,
+  isEvalBetter,
+  sanIrreversible,
+  type CevalHandler,
+  type EvalMeta,
+  type CevalOpts,
+} from 'lib/ceval';
 import { TreeView } from './treeView/treeView';
-import type { Prop, Toggle } from 'lib';
-import { defined, prop, toggle, debounce, throttle, requestIdleCallback, propWithEffect } from 'lib';
+import {
+  defined,
+  prop,
+  toggle,
+  debounce,
+  throttle,
+  requestIdleCallback,
+  propWithEffect,
+  type Prop,
+  type Toggle,
+} from 'lib';
 import { pubsub } from 'lib/pubsub';
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import EvalCache from './evalCache';
@@ -1029,7 +1044,9 @@ export default class AnalyseCtrl implements CevalHandler {
 
   toggleVariationArrows = () => {
     const trueValue = this.variationArrowOpacity(false);
-    this.variationArrowOpacity(trueValue === 0 ? 0.6 : -trueValue);
+    if (typeof trueValue === 'number') {
+      this.variationArrowOpacity(trueValue === 0 ? 0.6 : -trueValue);
+    }
   };
 
   outcome = () => this.node.outcome(); // LT BC

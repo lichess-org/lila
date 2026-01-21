@@ -1,5 +1,4 @@
-import { hl, type VNode } from 'lib/view';
-import { getChessground, initMiniBoardWith, spinnerVdom } from 'lib/view';
+import { hl, type VNode, getChessground, initMiniBoardWith, spinnerVdom } from 'lib/view';
 import { fenColor, uciToMove } from 'lib/game/chess';
 import { type ChatPlugin } from 'lib/chat/interfaces';
 import type AnalyseCtrl from '@/ctrl';

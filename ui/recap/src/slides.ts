@@ -1,10 +1,9 @@
 import { pieceGrams, totalGames } from './constants';
 import type { Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
-import { onInsert, hl, type LooseVNodes, type VNode, dataIcon } from 'lib/view';
+import { onInsert, hl, type LooseVNodes, type VNode, dataIcon, spinnerVdom } from 'lib/view';
 import { loadOpeningLpv } from './ui';
 import { shuffle } from 'lib/algo';
 import { fullName, userFlair, userTitle } from 'lib/view/userLink';
-import { spinnerVdom } from 'lib/view';
 import { formatDuration, perfIsSpeed, perfLabel } from './util';
 import perfIcons from 'lib/game/perfIcons';
 import * as licon from 'lib/licon';

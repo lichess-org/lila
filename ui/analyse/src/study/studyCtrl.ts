@@ -412,7 +412,7 @@ export default class StudyCtrl {
           this.practice ? 'practice/load' : 'study',
           this.data.id,
           this.vm.mode.sticky ? undefined : this.vm.chapterId,
-          (withChapters = withChapters),
+          withChapters,
         )
         .then(this.onReload, site.reload)
         .then(callback);

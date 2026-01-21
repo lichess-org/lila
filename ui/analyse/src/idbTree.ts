@@ -154,11 +154,11 @@ export class IdbTree {
     const [first, second, third] = node.children.filter(n => this.ctrl.showFishnetAnalysis() || !n.comp);
     return Boolean(
       first?.forceVariation ||
-        third ||
-        (second && treeOps.hasBranching(second, 6)) ||
-        (isMainline &&
-          this.ctrl.treeView.mode === 'column' &&
-          (second || first?.comments?.filter(Boolean).length)),
+      third ||
+      (second && treeOps.hasBranching(second, 6)) ||
+      (isMainline &&
+        this.ctrl.treeView.mode === 'column' &&
+        (second || first?.comments?.filter(Boolean).length)),
     );
   }
 

@@ -1,7 +1,6 @@
-import { type VNode, dataIcon, hl, onInsert, type MaybeVNodes } from 'lib/view';
+import { type VNode, dataIcon, hl, onInsert, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/view';
 import type { Photo, RelayRound, RelayTour, RoundId, TourId } from './interfaces';
 import { playerColoredResult } from './customScoreStatus';
 import { playerFedFlag } from '../playerBars';

@@ -1,7 +1,15 @@
 import { Pane } from './pane';
 import { Chart, PointElement, LinearScale, LineController, LineElement } from 'chart.js';
-import type { Filter, FilterBy, FilterFacetKey } from 'lib/bot/filter';
-import { addPoint, asData, filterFacetKeys, filterFacets, filterBys } from 'lib/bot/filter';
+import {
+  addPoint,
+  asData,
+  filterFacetKeys,
+  filterFacets,
+  filterBys,
+  type Filter,
+  type FilterBy,
+  type FilterFacetKey,
+} from 'lib/bot/filter';
 import { frag } from 'lib';
 import { clamp } from 'lib/algo';
 import type { PaneArgs, FilterInfo } from './devTypes';

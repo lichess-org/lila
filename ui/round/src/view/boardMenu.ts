@@ -1,6 +1,11 @@
-import { hl, type LooseVNode } from 'lib/view';
+import {
+  hl,
+  type LooseVNode,
+  boardMenu as menuDropdown,
+  toggle as cmnToggle,
+  boolPrefXhrToggle,
+} from 'lib/view';
 import type RoundController from '../ctrl';
-import { boardMenu as menuDropdown, toggle as cmnToggle, boolPrefXhrToggle } from 'lib/view';
 import { toggle } from 'lib';
 import { displayColumns, isTouchDevice } from 'lib/device';
 import { storage } from 'lib/storage';

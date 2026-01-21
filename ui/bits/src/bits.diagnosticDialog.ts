@@ -20,7 +20,6 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
     `Browser: ${navigator.userAgent}\n` +
       ('userAgentData' in navigator
         ? // @ts-ignore userAgentData not documented in TypeScript https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgentData
-          // eslint-disable-next-line compat/compat
           `Brand: "${navigator.userAgentData.brands.map(b => `${b.brand} ${b.version}`).join('; ')}", `
         : '') +
       `Cores: ${navigator.hardwareConcurrency}, ` +

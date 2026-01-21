@@ -1,4 +1,4 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 import { h, type Hooks, type VNode, type Attrs } from 'snabbdom';
 import { bind } from './snabbdom';
