@@ -319,7 +319,7 @@ db.title_request.createIndex(
 // you may want to run these on the insight database
 // if it's a different one
 db.insight.createIndex({ mr: 1, p: 1, c: 1 });
-db.insight.createIndex({ mr: 1, a: 1 }, { partialFilterExpression: { mr: { $exists: true } } });
+db.insight.createIndex({ mr: 1, p: 1, a: 1 }, { partialFilterExpression: { mr: { $exists: true } } });
 db.insight.createIndex({ u: 1, d: -1 });
 db.kaladin_queue.createIndex(
   { 'response.at': 1, 'response.read': 1 },
