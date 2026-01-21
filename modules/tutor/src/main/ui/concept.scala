@@ -9,7 +9,7 @@ sealed class TutorConcept(
     val name: String,
     val description: String,
     val unit: TutorUnit,
-    val icon: TutorIcon = TutorIcon.bullseye
+    val icon: TutorIcon
 )
 
 object concept:
@@ -35,10 +35,12 @@ object concept:
     TutorIcon.clockwork
   )
 
-  val accuracy = TutorConcept("Accuracy", InsightMetric.MeanAccuracy.description, percent, TutorIcon.bullseye)
+  val accuracy =
+    TutorConcept("Accuracy", InsightMetric.MeanAccuracy.description, percent, TutorIcon.targeting)
   val tacticalAwareness =
     TutorConcept("Tactical Awareness", InsightMetric.Awareness.description, percent, TutorIcon.eyeTarget)
-  val resourcefulness = TutorConcept("Resourcefulness", "Come back from lost positions", percent)
+  val resourcefulness =
+    TutorConcept("Resourcefulness", "Come back from lost positions", percent, TutorIcon.riposte)
   val conversion =
     TutorConcept("Conversion", "Convert good positions into victories", percent, TutorIcon.cycle)
 
