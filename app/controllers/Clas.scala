@@ -71,7 +71,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                   .verify()
                   .flatMap: captcha =>
                     if captcha.ok
-                    then env.clas.api.clas.create(data, me.value).map(redirectTo)
+                    then env.clas.api.clas.create(data, me).map(redirectTo)
                     else BadRequest.async(renderCreate(data.some))
             )
   }
@@ -301,7 +301,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def archive(id: ClasId, v: Boolean) = SecureBody(_.Teacher) { _ ?=> me ?=>
     WithClass(id): clas =>
-      env.clas.api.clas.archive(clas, me.value, v).inject(redirectTo(clas).flashSuccess)
+      env.clas.api.clas.archive(clas, me, v).inject(redirectTo(clas).flashSuccess)
   }
 
   def studentForm(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
@@ -340,7 +340,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                   }
               ,
               data =>
-                env.clas.api.student.create(clas, data, me.value).map { s =>
+                env.clas.api.student.create(clas, data, me).map { s =>
                   Redirect(routes.Clas.studentForm(clas.id))
                     .flashing("created" -> s"${s.student.userId} ${s.password.value}")
                 }
@@ -378,7 +378,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
               bindForm(env.clas.forms.student.manyCreate(lila.clas.Clas.maxStudents - nbStudents))(
                 err => BadRequest.page(views.clas.student.manyForm(clas, students, err, nbStudents, Nil)),
                 data =>
-                  env.clas.api.student.manyCreate(clas, data, me.value).flatMap { many =>
+                  env.clas.api.student.manyCreate(clas, data, me).flatMap { many =>
                     env.user.lightUserApi
                       .preloadMany(many.map(_.student.userId))
                       .inject(
