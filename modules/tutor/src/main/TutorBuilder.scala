@@ -49,6 +49,7 @@ final private class TutorBuilder(
     perfStats <- perfStatsApi(user, eligiblePerfKeysOf(user).map(PerfType(_)), fishnet.maxGamesToConsider)
       .monSuccess(_.tutor.buildSegment("perf-stats"))
     peerMatches <- findPeerMatches(perfStats.view.mapValues(_.stats.rating).toMap)
+      .monSuccess(_.tutor.buildSegment("peer-matches"))
     tutorUsers = perfStats
       .map { (pt, stats) => TutorPlayer(user, pt, stats.stats, peerMatches.find(_.perf == pt)) }
       .toList
