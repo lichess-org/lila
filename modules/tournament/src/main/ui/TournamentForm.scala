@@ -162,44 +162,17 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       )
     )
 
-  private def nativeCheckboxField(
-      field: Field,
-      labelContent: Frag,
-      help: Option[Frag],
-      half: Boolean = false,
-      value: String = "true"
-  ) =
-    div(
-      cls := List(
-        "form-check form-group" -> true,
-        "form-half" -> half
-      )
-    )(
-      div(
-        span(cls := "form-check-input")(
-          form3.nativeCheckbox(
-            form3.id(field),
-            field.name,
-            checked = field.value.has("true"),
-            value = value
-          )
-        ),
-        label(`for` := form3.id(field))(labelContent)
-      ),
-      help.map(small(cls := "form-help")(_))
-    )
-
   def featuresFields(form: Form[?])(using ctx: Context)(using FormPrefix) =
     form3.fieldset("Features", toggle = false.some)(
       form3.split(
-        nativeCheckboxField(
+        form3.nativeCheckboxField(
           form("berserkable"),
           trans.arena.allowBerserk(),
           help = trans.arena.allowBerserkHelp().some,
           half = true
         ),
         form3.hiddenFalse(form.prefix("berserkable")),
-        nativeCheckboxField(
+        form3.nativeCheckboxField(
           form("streakable"),
           trans.arena.arenaStreaks(),
           help = trans.arena.arenaStreaksHelp().some,
@@ -208,13 +181,14 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
         form3.hiddenFalse(form.prefix("streakable"))
       ),
       form3.split(
-        nativeCheckboxField(
+        form3.nativeCheckboxField(
           form("rated"),
           trans.site.rated(),
-          help = trans.site.ratedFormHelp().some
+          help = trans.site.ratedFormHelp().some,
+          half = true
         ),
         form3.hiddenFalse(form.prefix("rated")),
-        nativeCheckboxField(
+        form3.nativeCheckboxField(
           form("hasChat"),
           trans.site.chatRoom(),
           help = trans.arena.allowChatHelp().some,
