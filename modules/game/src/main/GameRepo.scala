@@ -137,7 +137,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def unanalysedGames(gameIds: Seq[GameId], max: Max = Max(100)): Fu[List[Game]] =
     coll
-      .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 to 160))
+      .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 -> 160))
       .cursor[Game](ReadPref.sec)
       .list(max.value)
 

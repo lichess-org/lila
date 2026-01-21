@@ -14,7 +14,6 @@ case class InsightPerfStats(
     dates: Option[TimeInterval]
 ):
   def totalNbGames = nbGames.white + nbGames.black
-  def peers = Question.Peers(rating)
 
 object InsightPerfStats:
   case class WithGameIds(stats: InsightPerfStats, gameIds: List[GameId])

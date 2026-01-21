@@ -18,7 +18,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
 
   def aggregate[X](
       question: Question[X],
-      target: Either[User, Question.Peers],
+      target: Either[User, PeersRatingRange],
       withPovs: Boolean,
       nbGames: Max = maxGames
   ): Fu[List[Bdoc]] =
