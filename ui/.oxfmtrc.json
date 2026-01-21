@@ -4,5 +4,5 @@
   "printWidth": 110,
   "arrowParens": "avoid",
   "endOfLine": "lf",
-  "ignorePatterns": ["package.json"]
+  "experimentalSortPackageJson": false
 }
