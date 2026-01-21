@@ -290,7 +290,8 @@ final class ClasApi(
             blind = false,
             mobileApiVersion = none,
             mustConfirmEmail = false,
-            lang = teacher.lang
+            lang = teacher.lang,
+            kid = KidMode.Yes
           )
           .orFail(s"No user could be created for ${data.username}")
         _ = studentCache.addStudent(user.id)
