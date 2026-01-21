@@ -12,6 +12,7 @@ import lila.tutor.TutorCompare.AnyComparison
 case class TutorPerfReport(
     perf: PerfType,
     stats: InsightPerfStats,
+    peers: PeersRatingRange,
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[GoodPercent],
     resourcefulness: TutorBothValueOptions[GoodPercent],
@@ -145,6 +146,7 @@ private object TutorPerfReport:
         yield TutorPerfReport(
           user.perfType,
           user.perfStats,
+          user.perfStats.peers,
           accuracy = AccuracyPercent.from(accuracy.valueMetric(user.perfType)),
           awareness = GoodPercent.from(awareness.valueMetric(user.perfType)),
           resourcefulness = GoodPercent.from(resourcefulness.valueMetric(user.perfType)),
