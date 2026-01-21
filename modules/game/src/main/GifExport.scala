@@ -11,7 +11,7 @@ import scalalib.Maths
 
 import lila.common.Json.given
 import lila.core.config.RouteUrl
-import lila.core.game.{ Game, Pov }
+import lila.core.game.{ ClockHistory, Game, Pov }
 import lila.game.GameExt.*
 import lila.tree.Analysis
 import play.api.mvc.RequestHeader
@@ -79,7 +79,6 @@ final class GifExport(
               )
               .add("white", showPlayer(Color.White))
               .add("black", showPlayer(Color.Black))
-              .add("clocks", clocksJson(pov.game, options))
           )
           .stream()
 
@@ -146,13 +145,12 @@ final class GifExport(
         }
       case None => moveTimes.map(_.atMost(targetMaxTime))
 
-  private def clocksJson(game: Game, options: GifExport.Options): Option[JsObject] =
-    options.clocks.so:
-      game.clockHistory.map: history =>
-        Json.obj(
-          "white" -> history.white.map(_.centis),
-          "black" -> history.black.map(_.centis)
-        )
+  private def clockJson(clocks: Option[ClockHistory], ply: Int): Option[JsObject] =
+    clocks.map: c =>
+      Json
+        .obj()
+        .add("white", c.white.lift((ply - 1).atLeast(0) / 2).map(_.centis))
+        .add("black", c.black.lift((ply - 2).atLeast(0) / 2).map(_.centis))
 
   private def glyphsMap(analysis: Option[Analysis]): Map[Ply, Glyph] =
     analysis.fold(Map.empty[Ply, Glyph]): a =>
@@ -166,9 +164,11 @@ final class GifExport(
   ): JsArray =
     val positions = Position(game.variant, initialFen).playPositions(game.sans).getOrElse(List(game.position))
     val glyphs = options.glyphs.so(glyphsMap(analysis))
+    val clocks = options.clocks.so(game.clockHistory)
     framesRec(
       positions.zip(scaleMoveTimes(~game.moveTimes).map(some).padTo(positions.length, None)),
       glyphs,
+      clocks,
       Ply.initial,
       Json.arr()
     )
@@ -177,6 +177,7 @@ final class GifExport(
   private def framesRec(
       games: List[(Position, Option[Centis])],
       glyphs: Map[Ply, Glyph],
+      clocks: Option[ClockHistory],
       ply: Ply,
       arr: JsArray
   ): JsArray =
@@ -186,9 +187,22 @@ final class GifExport(
         // longer delay for last frame
         val delay = if tail.isEmpty then Centis(500).some else scaledMoveTime
         val glyph = glyphs.get(ply)
-        framesRec(tail, glyphs, ply + 1, arr :+ frame(position, position.history.lastMove, delay, glyph))
+        val clock = clockJson(clocks, ply.value)
+        framesRec(
+          tail,
+          glyphs,
+          clocks,
+          ply + 1,
+          arr :+ frame(position, position.history.lastMove, delay, glyph, clock)
+        )
 
-  private def frame(position: Position, uci: Option[Uci], delay: Option[Centis], glyph: Option[Glyph]) =
+  private def frame(
+      position: Position,
+      uci: Option[Uci],
+      delay: Option[Centis],
+      glyph: Option[Glyph],
+      clock: Option[JsObject]
+  ) =
     Json
       .obj(
         "fen" -> (Fen.write(position)),
@@ -197,3 +211,4 @@ final class GifExport(
       .add("check", position.checkSquare.map(_.key))
       .add("delay", delay.map(_.centis))
       .add("glyph", glyph.map(_.symbol))
+      .add("clock", clock)
