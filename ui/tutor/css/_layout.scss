@@ -16,8 +16,4 @@
     @extend %flex-column;
     gap: $block-gap;
   }
-
-  &__first-box {
-    @extend %box-neat-force;
-  }
 }

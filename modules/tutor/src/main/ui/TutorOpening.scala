@@ -20,6 +20,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
     )
 
   def opening(
+      full: TutorFullReport,
       perfReport: TutorPerfReport,
       report: TutorOpeningFamily,
       as: Color,
@@ -39,12 +40,9 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
                 dataIcon := Icon.LessThan,
                 cls := "text"
               ),
-              bits.otherUser(user),
-              perfReport.perf.trans,
-              ": ",
-              report.family.name,
-              " as ",
-              as.name
+              bits.perfSelector(full, perfReport.perf)(routes.Tutor.openings),
+              s"$as ${report.family.name}",
+              bits.otherUser(user)
             )
           ),
           bits.mascotSays(
@@ -89,7 +87,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
         )
       )
 
-  def openings(report: TutorPerfReport, user: User)(using ctx: Context) =
+  def openings(full: TutorFullReport, report: TutorPerfReport, user: User)(using ctx: Context) =
     bits.page(menu = perfUi.menu(user, report, "openings"))(cls := "tutor__openings tutor-layout"):
       frag(
         div(cls := "tutor__first-box box")(
@@ -100,9 +98,9 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
                 dataIcon := Icon.LessThan,
                 cls := "text"
               ),
-              bits.otherUser(user),
-              report.perf.trans,
-              " openings"
+              bits.perfSelector(full, report.perf)(routes.Tutor.openings),
+              bits.reportSelector(report, "openings", user),
+              bits.otherUser(user)
             )
           ),
           bits.mascotSays(

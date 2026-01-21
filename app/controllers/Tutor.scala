@@ -22,31 +22,32 @@ final class Tutor(env: Env) extends LilaController(env):
     Ok.page(views.tutor.perf(full.report, perf, user))
   }
 
-  def openings(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.tutor.openingUi.openings(perf, user))
-  }
+  def openings(username: UserStr, perf: PerfKey) =
+    TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
+      Ok.page(views.tutor.openingUi.openings(full.report, perf, user))
+    }
 
   def opening(username: UserStr, perf: PerfKey, color: Color, opName: String) =
-    TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+    TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
       LilaOpeningFamily
         .find(opName)
         .flatMap(perf.openings(color).find)
         .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): family =>
           env.puzzle.opening.find(family.family.key).flatMap { puzzle =>
-            Ok.page(views.tutor.opening(perf, family, color, user, puzzle))
+            Ok.page(views.tutor.opening(full.report, perf, family, color, user, puzzle))
           }
     }
 
-  def skills(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.tutor.perf.skills(perf, user))
+  def skills(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
+    Ok.page(views.tutor.perf.skills(full.report, perf, user))
   }
 
-  def phases(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.tutor.perf.phases(perf, user))
+  def phases(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
+    Ok.page(views.tutor.perf.phases(full.report, perf, user))
   }
 
-  def time(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.tutor.perf.time(perf, user))
+  def time(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
+    Ok.page(views.tutor.perf.time(full.report, perf, user))
   }
 
   def refresh(username: UserStr) = TutorPageAvailability(username) { _ ?=> user => availability =>

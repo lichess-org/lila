@@ -24,6 +24,9 @@
       }
     }
   }
+  .mascot-says {
+    @extend %box-radius-bottom;
+  }
 }
 
 .tutor-icon {

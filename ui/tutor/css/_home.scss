@@ -1,11 +1,15 @@
 .tutor {
-  h1 .user-link {
-    margin-right: 1ch;
-    color: $c-good;
+  h1 {
+    @extend %flex-center-nowrap;
+    justify-content: flex-start;
+    gap: 1ch;
+    .user-link {
+      color: $c-good;
+      font-size: 0.6em;
+    }
   }
   &__beta {
     color: $c-brag;
-    margin-inline-start: 1ch;
     font-size: 0.75em;
   }
   &__home {

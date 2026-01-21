@@ -16,9 +16,9 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
           boxTop(
             h1(
               a(href := routes.Tutor.user(user.username), dataIcon := Icon.LessThan, cls := "text"),
-              bits.otherUser(user),
-              "Tutor: ",
-              report.perf.trans
+              "Tutor",
+              bits.perfSelector(full, report.perf)(routes.Tutor.perf),
+              bits.otherUser(user)
             )
           ),
           bits.mascotSays(
@@ -115,18 +115,8 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
     a(href := routes.Tutor.perf(user.username, report.perf.key), cls := active.active("perf"))(
       report.perf.trans
     ),
-    a(href := routes.Tutor.skills(user.username, report.perf.key), cls := active.active("skills"))(
-      "Skills"
-    ),
-    a(href := routes.Tutor.openings(user.username, report.perf.key), cls := active.active("openings"))(
-      "Openings"
-    ),
-    a(href := routes.Tutor.time(user.username, report.perf.key), cls := active.active("time"))(
-      "Time management"
-    ),
-    a(href := routes.Tutor.phases(user.username, report.perf.key), cls := active.active("phases"))(
-      "Game phases"
-    )
+    bits.reportAngles.map: (key, name, route) =>
+      a(href := route(user.username, report.perf.key), cls := active.active(key))(name)
   )
 
   private def angleCard(title: Frag, url: Option[Call])(content: Modifier*) =
@@ -142,7 +132,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
       div(cls := "tutor-card__content tutor-grades")(content)
     )
 
-  def phases(report: TutorPerfReport, user: User)(using Context) =
+  def phases(full: TutorFullReport, report: TutorPerfReport, user: User)(using Context) =
     bits.page(menu = menu(user, report, "phases"))(cls := "tutor__phases tutor-layout"):
       frag(
         div(cls := "tutor__first-box box")(
@@ -154,9 +144,9 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
                   dataIcon := Icon.LessThan,
                   cls := "text"
                 ),
-                bits.otherUser(user),
-                report.perf.trans,
-                " phases"
+                bits.perfSelector(full, report.perf)(routes.Tutor.phases),
+                bits.reportSelector(report, "phases", user),
+                bits.otherUser(user)
               )
             ),
             bits.mascotSays(ul(report.phaseHighlights(3).map(compare.show)))
@@ -202,7 +192,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
         )
       )
 
-  def skills(report: TutorPerfReport, user: User)(using Context) =
+  def skills(full: TutorFullReport, report: TutorPerfReport, user: User)(using Context) =
     bits.page(menu = menu(user, report, "skills"))(cls := "tutor__skills tutor-layout"):
       frag(
         div(cls := "tutor__first-box box")(
@@ -213,9 +203,9 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
                 dataIcon := Icon.LessThan,
                 cls := "text"
               ),
-              bits.otherUser(user),
-              report.perf.trans,
-              " skills"
+              bits.perfSelector(full, report.perf)(routes.Tutor.skills),
+              bits.reportSelector(report, "skills", user),
+              bits.otherUser(user)
             )
           ),
           bits.mascotSays(
@@ -230,7 +220,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
         )
       )
 
-  def time(report: TutorPerfReport, user: User)(using Context) =
+  def time(full: TutorFullReport, report: TutorPerfReport, user: User)(using Context) =
     bits.page(menu = menu(user, report, "time"))(cls := "tutor__time tutor-layout"):
       frag(
         div(cls := "tutor__first-box box")(
@@ -241,9 +231,9 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
                 dataIcon := Icon.LessThan,
                 cls := "text"
               ),
-              bits.otherUser(user),
-              report.perf.trans,
-              " time management"
+              bits.perfSelector(full, report.perf)(routes.Tutor.time),
+              bits.reportSelector(report, "time", user),
+              bits.otherUser(user)
             )
           ),
           bits.mascotSays(

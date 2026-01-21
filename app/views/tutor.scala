@@ -8,6 +8,7 @@ val home = lila.tutor.ui.TutorHome(helpers, bits, perf)
 val openingUi = lila.tutor.ui.TutorOpening(helpers, bits, perf)
 
 def opening(
+    full: lila.tutor.TutorFullReport,
     perfReport: lila.tutor.TutorPerfReport,
     report: lila.tutor.TutorOpeningFamily,
     as: Color,
@@ -20,4 +21,4 @@ def opening(
       dataIcon := Icon.ArcheryTarget,
       href := routes.Puzzle.angleAndColor(p.family.key.value, as.name)
     )("Train with puzzles")
-  openingUi.opening(perfReport, report, as, user, puzzleFrag)
+  openingUi.opening(full, perfReport, report, as, user, puzzleFrag)
