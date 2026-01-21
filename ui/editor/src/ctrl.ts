@@ -50,10 +50,9 @@ export default class EditorCtrl {
 
     this.selected = prop('pointer');
 
-    if (cfg.positions) cfg.positions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
-
-    if (cfg.endgamePositions)
-      cfg.endgamePositions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
+    [...(cfg.positions || []), ...(cfg.endgamePositions || [])].forEach(
+      p => (p.epd = p.fen.split(' ').slice(0, 4).join(' ')),
+    );
 
     if (this.options.bindHotkeys !== false)
       site.mousetrap.bind('f', () => {
@@ -84,12 +83,9 @@ export default class EditorCtrl {
     });
   }
 
-  private nthIndexOf = (haystack: string, needle: string, n: number): number => {
+  private indexOfNthOccurrence = (haystack: string, needle: string, n: number): number => {
     let index = haystack.indexOf(needle);
-    while (n-- > 0) {
-      if (index === -1) break;
-      index = haystack.indexOf(needle, index + needle.length);
-    }
+    for (; n > 1 && index !== -1; n--) index = haystack.indexOf(needle, index + needle.length);
     return index;
   };
 
@@ -100,8 +96,7 @@ export default class EditorCtrl {
       this.epSquare = undefined;
       enPassant = '-';
     }
-
-    const epIndex = this.nthIndexOf(fen, ' ', 2) + 1;
+    const epIndex = this.indexOfNthOccurrence(fen, ' ', 3) + 1;
     const epEndIndex = fen.indexOf(' ', epIndex);
     return `${fen.substring(0, epIndex)}${enPassant}${fen.substring(epEndIndex)}`;
   }
@@ -123,11 +118,7 @@ export default class EditorCtrl {
   }
 
   private castlingToggleFen(): string {
-    let fen = '';
-    for (const toggle of CASTLING_TOGGLES) {
-      if (this.castlingToggles[toggle]) fen += toggle;
-    }
-    return fen;
+    return CASTLING_TOGGLES.filter(toggle => this.castlingToggles[toggle]).join('');
   }
 
   private computeCastlingToggles(): CastlingToggles<boolean> {
@@ -315,10 +306,10 @@ export default class EditorCtrl {
 
   setVariant(variant: VariantKey): void {
     this.variant = variant;
-    if (variant !== 'crazyhouse') this.pockets = undefined;
-    else if (!this.pockets) this.pockets = Material.empty();
-    if (variant !== 'threeCheck') this.remainingChecks = undefined;
-    else if (!this.remainingChecks) this.remainingChecks = RemainingChecks.default();
+    if (variant === 'crazyhouse') this.pockets ||= Material.empty();
+    else this.pockets = undefined;
+    if (variant === 'threeCheck') this.remainingChecks ||= RemainingChecks.default();
+    else this.remainingChecks = undefined;
     this.onChange();
   }
 
@@ -328,11 +319,14 @@ export default class EditorCtrl {
     this.redraw();
   }
 
+  set960Position(positionId: number): void {
+    this.chess960PositionId = positionId;
+    this.setFen(chess960IdToFEN(positionId));
+  }
+
   setRandom960Position(): void {
-    let id = randomPositionId();
-    while (id === this.chess960PositionId) id = randomPositionId();
-    this.chess960PositionId = id;
-    this.setFen(chess960IdToFEN(id));
+    const id = randomPositionId();
+    id !== this.chess960PositionId ? this.set960Position(id) : this.setRandom960Position();
   }
 }
 
