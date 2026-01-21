@@ -410,7 +410,7 @@
   <string name="xJoinedTeamY">%1$s се придружио/ла тиму %2$s</string>
   <string name="xCreatedTeamY">%1$s је основао/ла тим %2$s</string>
   <string name="startedStreaming">стриминг започет</string>
-  <string name="xStartedStreaming">%s је почео са приказивањем</string>
+  <string name="xStartedStreaming">%s је почео/ла стримовати</string>
   <string name="averageElo">Просечни рејтинг</string>
   <string name="location">Локација</string>
   <string name="filterGames">Филтрирај партије</string>
@@ -907,8 +907,8 @@
   <string name="searchOrStartNewDiscussion">Претражи или започни нови разговор</string>
   <string name="edit">Уреди</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Муњевити</string>
-  <string name="rapid">Брзопотез</string>
-  <string name="classical">Класична</string>
+  <string name="rapid">Брзопотезни</string>
+  <string name="classical">Класични</string>
   <string name="ultraBulletDesc">Лудо брзе партије: испод 30 секунди</string>
   <string name="bulletDesc">Веома брзе партије: испод 3 минута</string>
   <string name="blitzDesc">Брзе партије: 3 до 8 минута</string>
