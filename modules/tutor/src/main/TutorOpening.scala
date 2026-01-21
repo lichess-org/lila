@@ -53,14 +53,14 @@ private case object TutorOpening:
   ): Fu[TutorColorOpenings] = for
     myPerfsFull <- answerMine(perfQuestion(color), user)
     myPerfs = myPerfsFull.focus(_.answer.clusters).modify(_.take(nbOpeningsPerColor))
-    peerPerfs <- answerPeer(myPerfs.alignedQuestion, user, Max(10_000))
+    peerPerfs <- answerPeer(myPerfs.alignedQuestion, user)
     performances = Answers(myPerfs, peerPerfs)
     accuracyQuestion = myPerfs.alignedQuestion
       .withMetric(InsightMetric.MeanAccuracy)
       .filter(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
-    accuracy <- answerBoth(accuracyQuestion, user, Max(1000))
+    accuracy <- answerBoth(accuracyQuestion, user, Max(2_000))
     awarenessQuestion = accuracyQuestion.withMetric(InsightMetric.Awareness)
-    awareness <- answerBoth(awarenessQuestion, user, Max(1000))
+    awareness <- answerBoth(awarenessQuestion, user, Max(2_000))
   yield TutorColorOpenings:
     performances.mine.list.map: (family, myPerformance) =>
       TutorOpeningFamily(
