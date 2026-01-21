@@ -146,7 +146,7 @@ private object TutorBuilder:
       )
       .monSuccess(_.tutor.askMine(question.monKey, "all"))
       .map(AnswerMine.apply)
-    peerByPerf <- tutorUsers.toList.map { answerPeer(question, _) }.parallel
+    peerByPerf <- tutorUsers.toList.map(answerPeer(question, _)).parallel
     peer = AnswerPeer(InsightAnswer(question, peerByPerf.flatMap(_.answer.clusters), Nil))
   yield Answers(mine, peer)
 

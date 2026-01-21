@@ -4,6 +4,7 @@ import chess.eval.WinPercent
 import lila.db.dsl.{ *, given }
 import lila.insight.*
 import lila.insight.InsightEntry.BSONFields as F
+import lila.insight.BSONHandlers.given
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
