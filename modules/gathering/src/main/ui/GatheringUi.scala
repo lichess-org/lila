@@ -106,7 +106,7 @@ final class GatheringFormUi(helpers: Helpers):
     )(form3.textarea(_)(rows := 4))
 
   def titled(field: Field)(using Translate) =
-    form3.nativeCheckboxField(
+    form3.checkboxGroup(
       field,
       trans.arena.onlyTitled(),
       help = trans.arena.onlyTitledHelp().some,
@@ -114,7 +114,7 @@ final class GatheringFormUi(helpers: Helpers):
     )
 
   def bots(field: Field, disabledAfterStart: Boolean) =
-    form3.nativeCheckboxField(
+    form3.checkboxGroup(
       field,
       "Allow bot accounts",
       help = frag(

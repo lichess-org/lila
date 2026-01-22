@@ -134,7 +134,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       label(cls := "form-check__label", `for` := fieldId)
     )
 
-  def nativeCheckboxField(
+  def checkboxGroup(
       field: Field,
       labelContent: Frag,
       half: Boolean = false,

@@ -31,7 +31,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             div(cls := "form-group")(trs.closeAccountAreYouSure()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             myUsernamePasswordFields(form),
-            form3.nativeCheckboxField(
+            form3.checkboxGroup(
               form("forever"),
               raw("Forever close: make it impossible to reopen"),
               help = raw(

@@ -320,7 +320,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               help = trb.startDateHelp().some,
               half = true
             )(form3.flatpickr(_, local = true, minDate = None)),
-            form3.nativeCheckboxField(
+            form3.checkboxGroup(
               form("startsAfterPrevious"),
               "When the previous round completes",
               half = true,
@@ -379,7 +379,7 @@ Hanna Marie ; Kozul, Zdenko"""),
               form3.group(form("rated"), raw("")): field =>
                 val withDefault =
                   if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
-                form3.nativeCheckboxField(
+                form3.checkboxGroup(
                   withDefault,
                   "Rated round",
                   help = frag("Include this round when calculating players' rating changes").some
@@ -613,25 +613,25 @@ Hanna Marie ; Kozul, Zdenko"""),
               .some
           )(
             form3.split(
-              form3.nativeCheckboxField(
+              form3.checkboxGroup(
                 form("showScores"),
                 trb.showScores(),
                 half = true
               ),
-              form3.nativeCheckboxField(
+              form3.checkboxGroup(
                 form("showRatingDiffs"),
                 "Show player's rating diffs",
                 half = true
               )
             ),
             form3.split(
-              form3.nativeCheckboxField(
+              form3.checkboxGroup(
                 form("teamTable"),
                 trans.team.teamTournament(),
                 help = frag("Show a team table. Requires WhiteTeam and BlackTeam PGN tags.").some,
                 half = true
               ),
-              form3.nativeCheckboxField(
+              form3.checkboxGroup(
                 form("showTeamScores"),
                 "Show team scores based on game results",
                 help = frag("Compute and show match points (MP) and game points (GP) for teams.").some,
@@ -715,7 +715,7 @@ Team Dogs ; Scooby Doo"""),
                 Granter
                   .opt(_.StudyAdmin)
                   .option(
-                    form3.nativeCheckboxField(
+                    form3.checkboxGroup(
                       form("spotlight.enabled"),
                       "Show a homepage spotlight",
                       help = raw("As a Big Blue Button - for admins only").some,
@@ -745,7 +745,7 @@ Team Dogs ; Scooby Doo"""),
                         form3.select(_, langList.popularLanguagesForm.choices)
                     ),
                     form3.split(
-                      form3.nativeCheckboxField(
+                      form3.checkboxGroup(
                         form("orphanWarn"),
                         "Warn about Orphan Boards",
                         help = raw(
