@@ -270,14 +270,14 @@ object Fixtures:
 """.trim
 
   val pgn4 =
-    "1. e4 e6 2. d4 d5 3. Nc3 (3. exd5 exd5!! $15 { We have French exchange, the most exciting opening ever } 4. Bd3) (3. e5 c5 { French Defence: Advance Variation, another better position for Black } { [%cal Gc5d4,Gh2h4] }) 3... dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is scrwed } { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } (3... Bb4) 4. Nxe4 Nd7"
+    "1. e4 e6 2. d4 d5 3. Nc3 (3. exd5 exd5!! $15 { We have French exchange, the most exciting opening ever } 4. Bd3) (3. e5 c5 { French Defence: Advance Variation, another better position for Black } { [%cal Gc5d4,Gh2h4] }) 3... dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } (3... Bb4) 4. Nxe4 Nd7"
 
   val m5 = s"""$m4\n{"t":"clearAnnotations","d":"kMOZO15F"}"""
   val pgn5 = "1. e4 e6 2. d4 d5 3. Nc3 (3. exd5 exd5 4. Bd3) (3. e5 c5) 3... dxe4 (3... Bb4) 4. Nxe4 Nd7"
 
   val m6 = s"""$m4\n{"t":"clearVariations","d":"kMOZO15F"}"""
   val pgn6 =
-    "1. e4 e6 2. d4 d5 3. Nc3 dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is scrwed } { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } 4. Nxe4 Nd7"
+    "1. e4 e6 2. d4 d5 3. Nc3 dxe4 { 3. Nc3 is the main weapon of White, but it doesn't match for the powerful Rubinstein. White is screwed here } 4. Nxe4 Nd7"
 
   val ms = List(m0, m1, m2, m3, m4, m5, m6)
   val ps = List(pgn0, pgn1, pgn2, pgn3, pgn4, pgn5, pgn6)
