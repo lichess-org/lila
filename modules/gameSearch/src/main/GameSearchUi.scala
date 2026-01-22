@@ -335,7 +335,7 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
           span(cls := "help", title := trs.onlyAnalysed.txt())("(?)")
         )
       ),
-      td(cls := "centered-checkbox")(
+      td(
         form3.nativeCheckbox(
           form3.id(field),
           field.name,
