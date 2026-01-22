@@ -27,6 +27,7 @@ final class ClasStudentCache(colls: ClasColls)(using scheduler: Scheduler)(using
           .find($doc("archived".$exists(false)), $doc("userId" -> true, "_id" -> false).some)
           .cursor[Bdoc](ReadPref.sec)
           .documentSource()
+          .throttle(10_000, 1.second)
           .runWith:
             Sink.fold[Int, Bdoc](0): (counter, doc) =>
               if counter % 1000 == 0 then logger.info(s"ClasStudentCache.rebuild $counter")
