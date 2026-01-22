@@ -309,3 +309,8 @@
   // prevent iPad safari from zooming in on double tap
   touch-action: manipulation;
 }
+
+// hide an input element while keeping it accessible to screen readers
+%visually-hidden {
+  margin-left: -99999px;
+}

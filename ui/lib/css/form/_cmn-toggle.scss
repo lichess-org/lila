@@ -1,10 +1,5 @@
 .cmn-toggle {
-  @extend %double-tap;
-  position: absolute;
-  margin-inline-start: -99999px;
-  .force-ltr & {
-    margin-left: -99999px;
-  }
+  @extend %double-tap, %visually-hidden;
 }
 
 .cmn-toggle + label {

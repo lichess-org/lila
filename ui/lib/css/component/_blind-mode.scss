@@ -1,6 +1,5 @@
 #blind-mode {
-  margin-inline-start: -99999px;
-  height: 0;
+  @extend %visually-hidden;
 
   .blind-mode & {
     text-align: center;
