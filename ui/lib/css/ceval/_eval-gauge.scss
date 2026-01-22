@@ -1,10 +1,14 @@
 .eval-gauge {
+  $white: #c0c0c0;
+  $black: #444;
+  @include if-light {
+    $white: #fff;
+    $black: #606060;
+  }
+
   width: $block-gap;
   position: relative;
-  background: #a0a0a0;
-  @include if-light {
-    background: #fff;
-  }
+  background: $white;
   overflow: hidden;
 
   @include mq-is-col1 {
@@ -26,7 +30,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) inset;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) inset;
   }
 
   tick {
@@ -51,10 +55,7 @@
   .black {
     width: 100%;
     height: 50%;
-    background: #666;
-    @include if-light {
-      background: #888;
-    }
+    background: $black;
     transition: height 1s;
   }
 }
