@@ -66,31 +66,24 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       cls := List("form-control" -> true, klass -> klass.nonEmpty)
     )(validationModifiers(field))
 
-  def cmnToggle[Value: Show](
+  def cmnToggle(
       fieldId: String,
       fieldName: String,
       checked: Boolean,
-      disabled: Boolean = false,
-      value: Value = "true",
       styleClass: String = "cmn-toggle",
-      title: Option[String] = None,
       action: Option[String] = None
   ) =
     frag(
-      (disabled && checked).option: // disabled checkboxes don't submit; need an extra hidden field
-        hidden(fieldName, value)
-      ,
       st.input(
         st.id := fieldId,
         name := fieldName,
-        st.value := value.show,
+        st.value := "true",
         tpe := "checkbox",
         cls := s"form-control $styleClass",
         checked.option(st.checked),
-        disabled.option(st.disabled),
         action.map(st.data("action") := _)
       ),
-      label(`for` := fieldId, title.map(st.title := _))
+      label(`for` := fieldId)
     )
 
   def nativeCheckbox[Value: Show](
