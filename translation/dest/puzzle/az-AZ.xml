@@ -70,6 +70,6 @@ Bir tapmaca əlavə etmək şansınızı artırmaq üçün sürətli və klassik
   <string name="puzzleDashboardDescription">Təlim edin, təhlil edin, təkmilləşdirmə edin</string>
   <string name="percentSolved">%s həll edildi</string>
   <string name="noPuzzlesToShow">Göstərəcək bir şey yoxdur, əvvəlcə bəzi tapmacalar oynayın!</string>
-  <string name="improvementAreasDescription">irəliləmənizi yoxlamaq üçün bunları optimize edin!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">irəliləmənizi yoxlamaq üçün bunları optimize edin!</string>
   <string name="strengthDescription">Bu mövzularda ən yaxşı performansı göstərirsiniz</string>
 </resources>
