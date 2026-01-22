@@ -312,5 +312,6 @@
 
 // hide an input element while keeping it accessible to screen readers
 %visually-hidden {
-  margin-left: -99999px;
+  position: absolute !important;
+  left: -99999px !important;
 }

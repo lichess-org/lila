@@ -122,13 +122,16 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       value: Value = "true",
       disabled: Boolean = false
   ) =
-    st.input(
-      st.id := fieldId,
-      name := fieldName,
-      st.value := value.show,
-      tpe := "checkbox",
-      checked.option(st.checked),
-      disabled.option(st.disabled)
+    span(cls := "form-check__input")(
+      st.input(
+        st.id := fieldId,
+        name := fieldName,
+        st.value := value.show,
+        tpe := "checkbox",
+        checked.option(st.checked),
+        disabled.option(st.disabled)
+      ),
+      label(cls := "form-check__label", `for` := fieldId)
     )
 
   def nativeCheckboxField(
@@ -147,15 +150,13 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         klass -> klass.nonEmpty
       )
     )(
-      div(
-        span(cls := "form-check-input")(
-          nativeCheckbox(
-            id(field),
-            field.name,
-            checked = isChecked(field),
-            value = value,
-            disabled = disabled
-          )
+      div(cls := "form-check__container")(
+        nativeCheckbox(
+          id(field),
+          field.name,
+          checked = isChecked(field),
+          value = value,
+          disabled = disabled
         ),
         groupLabel(field)(labelContent)
       ),
