@@ -93,6 +93,6 @@ Jogue partidas rápidas e clássicas para aumentar suas chances de ter um desafi
   </plurals>
   <string name="percentSolved">%s resolvido</string>
   <string name="noPuzzlesToShow">Não há nada para mostrar aqui, jogue alguns quebra-cabeças primeiro!</string>
-  <string name="improvementAreasDescription">Treine estes para otimizar o seu progresso!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Treine estes para otimizar o seu progresso!</string>
   <string name="strengthDescription">Sua perfomance é melhor nesses temas</string>
 </resources>
