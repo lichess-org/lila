@@ -32,8 +32,8 @@
     <item quantity="one">Halt tað stutt: %s stavur í mesta lagi</item>
     <item quantity="other">Halt tað stutt: %s stavir í mesta lagi</item>
   </plurals>
-  <string name="visibility">Sjónligt á stroymarasíðuni</string>
-  <string name="whenApproved">Tá ið fyriskiparar hava góðkent</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Sjónligt á stroymarasíðuni</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Tá ið fyriskiparar hava góðkent</string>
   <string name="headline">Yvirskrift</string>
   <string name="tellUsAboutTheStream">Greið okkum frá um stroyming tína í einum setningi</string>
   <string name="longDescription">Long lýsing</string>
