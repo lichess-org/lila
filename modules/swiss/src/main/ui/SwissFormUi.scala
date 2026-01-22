@@ -205,7 +205,7 @@ final class SwissFormUi(helpers: Helpers)(
           )
         ),
         form3.split(
-          form3.checkbox(
+          form3.nativeCheckboxField(
             form("rated"),
             trans.site.rated(),
             help = trans.site.ratedFormHelp().some,
@@ -244,7 +244,7 @@ final class SwissFormUi(helpers: Helpers)(
     )(form3.textarea(_)(rows := 4))
 
     def playYourGames = frag(
-      form3.checkbox(
+      form3.nativeCheckboxField(
         form("conditions.playYourGames"),
         trans.swiss.mustHavePlayedTheirLastSwissGame(),
         help = trans.swiss.mustHavePlayedTheirLastSwissGameHelp().some,

@@ -165,15 +165,15 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
   def featuresFields(form: Form[?])(using ctx: Context)(using FormPrefix) =
     form3.fieldset("Features", toggle = false.some)(
       form3.split(
-        form3.checkbox(
-          form.prefix("berserkable"),
+        form3.nativeCheckboxField(
+          form("berserkable"),
           trans.arena.allowBerserk(),
           help = trans.arena.allowBerserkHelp().some,
           half = true
         ),
         form3.hiddenFalse(form.prefix("berserkable")),
-        form3.checkbox(
-          form.prefix("streakable"),
+        form3.nativeCheckboxField(
+          form("streakable"),
           trans.arena.arenaStreaks(),
           help = trans.arena.arenaStreaksHelp().some,
           half = true
@@ -181,14 +181,15 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
         form3.hiddenFalse(form.prefix("streakable"))
       ),
       form3.split(
-        form3.checkbox(
-          form.prefix("rated"),
+        form3.nativeCheckboxField(
+          form("rated"),
           trans.site.rated(),
-          help = trans.site.ratedFormHelp().some
+          help = trans.site.ratedFormHelp().some,
+          half = true
         ),
         form3.hiddenFalse(form.prefix("rated")),
-        form3.checkbox(
-          form.prefix("hasChat"),
+        form3.nativeCheckboxField(
+          form("hasChat"),
           trans.site.chatRoom(),
           help = trans.arena.allowChatHelp().some,
           half = true
