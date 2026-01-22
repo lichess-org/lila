@@ -106,7 +106,7 @@ final class GatheringFormUi(helpers: Helpers):
     )(form3.textarea(_)(rows := 4))
 
   def titled(field: Field)(using Translate) =
-    form3.checkbox(
+    form3.nativeCheckboxField(
       field,
       trans.arena.onlyTitled(),
       help = trans.arena.onlyTitledHelp().some,

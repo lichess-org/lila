@@ -323,6 +323,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             form3.nativeCheckboxField(
               form("startsAfterPrevious"),
               "When the previous round completes",
+              half = true,
               help = frag(
                 "The start date is unknown, and the round will start automatically when the previous round completes."
               ).some
@@ -630,7 +631,7 @@ Hanna Marie ; Kozul, Zdenko"""),
                 help = frag("Show a team table. Requires WhiteTeam and BlackTeam PGN tags.").some,
                 half = true
               ),
-              form3.checkbox(
+              form3.nativeCheckboxField(
                 form("showTeamScores"),
                 "Show team scores based on game results",
                 help = frag("Compute and show match points (MP) and game points (GP) for teams.").some,
@@ -714,7 +715,7 @@ Team Dogs ; Scooby Doo"""),
                 Granter
                   .opt(_.StudyAdmin)
                   .option(
-                    form3.checkbox(
+                    form3.nativeCheckboxField(
                       form("spotlight.enabled"),
                       "Show a homepage spotlight",
                       help = raw("As a Big Blue Button - for admins only").some,
@@ -744,7 +745,7 @@ Team Dogs ; Scooby Doo"""),
                         form3.select(_, langList.popularLanguagesForm.choices)
                     ),
                     form3.split(
-                      form3.checkbox(
+                      form3.nativeCheckboxField(
                         form("orphanWarn"),
                         "Warn about Orphan Boards",
                         help = raw(
