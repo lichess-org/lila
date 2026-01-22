@@ -8,8 +8,10 @@ import { VideoPlayer } from './videoPlayer';
 import RelayStats from './relayStats';
 import { LiveboardPlugin } from './liveboardPlugin';
 import { pubsub } from 'lib/pubsub';
+import { COLORS } from 'chessops';
+import RelayTeamLeaderboard from './relayTeamLeaderboard';
 
-export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats'] as const;
+export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats', 'team-results'] as const;
 export type RelayTab = (typeof relayTabs)[number];
 type StreamInfo = [UserId, { name: string; lang: string }];
 
@@ -23,6 +25,7 @@ export default class RelayCtrl {
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
   players: RelayPlayers;
+  teamLeaderboard: RelayTeamLeaderboard;
   stats: RelayStats;
   streams: StreamInfo[] = [];
   showStreamerMenu = toggle(false);
@@ -43,7 +46,7 @@ export default class RelayCtrl {
       study.ctrl.opts.chat.plugin = this.liveboardPlugin;
     }
 
-    const locationTab = location.hash.replace(/^#(\w+).*$/, '$1') as RelayTab;
+    const locationTab = location.hash.replace(/^#([\w-]+).*$/, '$1') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
       ? locationTab
       : this.study.chapters.list.looksNew()
@@ -61,6 +64,13 @@ export default class RelayCtrl {
       () => (study.multiBoard.showResults() ? undefined : this.round.id),
       fideId => data.photos[fideId],
       this.redraw,
+    );
+    this.teamLeaderboard = new RelayTeamLeaderboard(
+      this.data.tour.id,
+      () => this.openTab('team-results'),
+      this.study.data.federations,
+      this.redraw,
+      this.players,
     );
     this.stats = new RelayStats(this.round, this.redraw);
     if (data.videoUrls?.[0] || this.isPinnedStreamOngoing())
@@ -92,6 +102,7 @@ export default class RelayCtrl {
 
   openTab = (t: RelayTab) => {
     this.players.closePlayer();
+    this.teamLeaderboard.closeTeam();
     this.tab(t);
     this.tourShow(true);
     this.redraw();
@@ -117,7 +128,7 @@ export default class RelayCtrl {
   setClockToChapterPreview = (msg: ServerClockMsg, clocks: BothClocks) => {
     const cp = this.study.chapters.list.get(msg.p.chapterId);
     if (cp?.players)
-      ['white', 'black'].forEach((color: Color, i) => {
+      COLORS.forEach((color, i) => {
         const clock = clocks[i];
         if (notNull(clock)) cp.players![color].clock = clock;
       });
@@ -133,7 +144,14 @@ export default class RelayCtrl {
   roundUrlWithHash = (round?: RelayRound) => `${this.roundPath(round)}#${this.tab()}`;
   updateAddressBar = (tourUrl: string, roundUrl: string) => {
     const tab = this.tab();
-    const tabHash = () => (tab === 'overview' ? '' : tab === 'players' ? this.players.tabHash() : `#${tab}`);
+    const tabHash = () =>
+      tab === 'overview'
+        ? ''
+        : tab === 'players'
+          ? this.players.tabHash()
+          : tab === 'team-results'
+            ? this.teamLeaderboard.tabHash()
+            : `#${tab}`;
     const url = this.tourShow() ? `${tourUrl}${tabHash()}` : roundUrl;
     // when jumping from a tour tab to another page, remember which tour tab we were on.
     if (!this.tourShow() && location.href.includes('#')) history.pushState({}, '', url);

@@ -44,7 +44,7 @@ final class InsightApi(
 
   def askPeers[X](question: Question[X], rating: MeanRating, nbGames: Max): Fu[Answer[X]] =
     pipeline
-      .aggregate(question, Right(Question.Peers(rating)), withPovs = false, nbGames = nbGames)
+      .aggregate(question, Right(PeersRatingRange.of(rating)), withPovs = false, nbGames = nbGames)
       .map: aggDocs =>
         Answer(question, AggregationClusters(question, aggDocs), Nil)
       .monSuccess(_.insight.peers)

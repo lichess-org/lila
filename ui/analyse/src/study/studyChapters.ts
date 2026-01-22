@@ -1,6 +1,6 @@
 import { defined, prop, type Prop, scrollToInnerSelector } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, iconTag, hl } from 'lib/view';
+import { type VNode, bind, dataIcon, iconTag, hl, alert } from 'lib/view';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
@@ -24,7 +24,6 @@ import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'lib/game/chess';
 import type Sortable from 'sortablejs';
-import { alert } from 'lib/view';
 import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */
@@ -135,12 +134,6 @@ export const findTag = (tags: TagArray[], name: string) => tags.find(t => t[0].t
 
 export const looksLikeLichessGame = (tags: TagArray[]) =>
   !!findTag(tags, 'site')?.match(new RegExp(location.hostname + '/\\w{8}$'));
-
-export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
-  const both = findTag(tags, 'result')?.split('-');
-  const mine = both && both.length === 2 ? both[isWhite ? 0 : 1] : undefined;
-  return mine === '1/2' ? '½' : mine;
-}
 
 export const gameLinkAttrs = (roundPath: string, game: { id: ChapterId }) => ({
   href: `${roundPath}/${game.id}`,

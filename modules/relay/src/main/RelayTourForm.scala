@@ -71,6 +71,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       "teams" -> optional(
         of(using formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
       ),
+      "showTeamScores" -> boolean,
       "spotlight" -> optional(spotlightMapping),
       "grouping" -> optional(groupForm.mapping),
       "pinnedStream" -> optional(pinnedStreamMapping),
@@ -80,6 +81,10 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       .verifying(
         "Tiebreaks submitted without automatic scoring enabled",
         tour => tour.tiebreaks.forall(_ => tour.showScores)
+      )
+      .verifying(
+        "Team scores can only be shown if team table is enabled",
+        tour => !tour.showTeamScores || tour.teamTable
       )
   ).fill(Data.empty)
 
@@ -104,6 +109,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       teamTable = tour.teamTable,
       players = tour.players,
       teams = tour.teams,
+      showTeamScores = tour.showTeamScores,
       spotlight = tour.spotlight,
       grouping = group.map(groupForm.data),
       pinnedStream = tour.pinnedStream,
@@ -125,6 +131,7 @@ object RelayTourForm:
       teamTable: Boolean = false,
       players: Option[RelayPlayersTextarea] = none,
       teams: Option[RelayTeamsTextarea] = none,
+      showTeamScores: Boolean = false,
       spotlight: Option[RelayTour.Spotlight] = none,
       grouping: Option[RelayGroupData] = none,
       pinnedStream: Option[RelayPinnedStream] = none,
@@ -146,6 +153,7 @@ object RelayTourForm:
           teamTable = teamTable,
           players = players,
           teams = teams,
+          showTeamScores = showTeamScores,
           spotlight = if Granter(_.StudyAdmin) then spotlight.filterNot(_.isEmpty) else tour.spotlight,
           pinnedStream = if Granter(_.StudyAdmin) then pinnedStream else tour.pinnedStream,
           note = note,

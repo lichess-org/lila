@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">İlerlemiş piyon</string>
-  <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
+  <string name="advancedPawnDescription">Piyonlarınızdan biri rakip alanın içlerine kadar ilerlemiş durumda ve belki de terfi etmek üzere.</string>
   <string name="advantage">Avantaj</string>
   <string name="advantageDescription">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
   <string name="anastasiaMate">Anastasia matı</string>
@@ -9,15 +9,15 @@
   <string name="arabianMate">Arap matı</string>
   <string name="arabianMateDescription">At ile kalenin, rakip şahı tahtanın köşesine sıkıştırdığı matlar.</string>
   <string name="attackingF2F7">Saldırı: f2 ve f7</string>
-  <string name="attackingF2F7Description">Kızarmış karaciğer açılışında olduğu gibi f2 veya f7 karesindeki piyonları hedef alan saldırılar.</string>
+  <string name="attackingF2F7Description">Kızarmış ciğer saldırısında olduğu gibi f2 veya f7 karesindeki piyonları hedef alan saldırılar.</string>
   <string name="attraction">Cezbetme</string>
   <string name="attractionDescription">Rakip taşı türlü taktiklere müsait bir kareye gitmeye zorlayan yahut teşvik eden takas veya taş fedası.</string>
   <string name="backRankMate">Koridor matı</string>
-  <string name="backRankMateDescription">Kendi taşları arkasında sıkışıp kalmış şaha koridorun kapısını göster.</string>
+  <string name="backRankMateDescription">Kendi taşları arkasında sıkışıp kalmış şahı, kendi sırasında mat edin.</string>
   <string name="balestraMate">Balestra matı</string>
-  <string name="balestraMateDescription">Fil matı gerçekleştirirken, vezir kalan kareleri kontrol eder</string>
+  <string name="balestraMateDescription">Fil matı gerçekleştirirken, vezir kalan kareleri kontrol eder.</string>
   <string name="blindSwineMate">Blind Swine matı</string>
-  <string name="blindSwineMateDescription">İki kale, şahı mat etmek için 2 ye 2 bir alanda işbirliği yapıyorlar.</string>
+  <string name="blindSwineMateDescription">İki kale, şahı mat etmek için 2x2 bir alanda işbirliği yapıyorlar.</string>
   <string name="bishopEndgame">Fil oyunsonu</string>
   <string name="bishopEndgameDescription">Sadece fil ve piyon içeren oyunsonu.</string>
   <string name="bodenMate">Boden matı</string>

@@ -499,13 +499,16 @@ $hover-bg: $m-primary_bg--mix-30;
     color: $c-font-dim;
   }
 
-  .fide-player {
+  .fide-player,
+  &__teams__standings {
     a {
       color: $c-font;
       &:hover {
         color: $c-primary;
       }
     }
+  }
+  .fide-player {
     &__photo {
       @extend %box-neat;
       aspect-ratio: 1;
@@ -550,10 +553,59 @@ $hover-bg: $m-primary_bg--mix-30;
       margin: 0 0.5em;
     }
   }
-}
 
-.fide-players-table {
-  .game-link {
+  &__team-summary {
+    @extend %flex-column;
+    gap: 3vh;
+    &__header,
+    &__matches__header {
+      @extend %tour-margin-horiz;
+    }
+    &__header {
+      &__stats {
+        @extend %tour-margin-horiz;
+        tr {
+          font-size: 1.1em;
+          th {
+            width: 1%;
+            white-space: nowrap;
+          }
+          th + td {
+            padding-left: 3em;
+          }
+        }
+        border-collapse: separate;
+        border-spacing: 0 0.5em;
+        td {
+          padding-left: 1em;
+        }
+      }
+    }
+    .score {
+      font-weight: bold;
+    }
+    &__table {
+      th:first-child,
+      td.game-link {
+        width: 1%;
+        white-space: nowrap;
+        a.game-link {
+          @extend %game-link-styles;
+        }
+      }
+      .team-name {
+        font-size: 1.1em;
+      }
+      a {
+        color: $c-font;
+        &:hover {
+          color: $c-primary;
+        }
+      }
+    }
+  }
+
+  %game-link-styles {
     @extend %flex-center-nowrap, %box-radius;
     @media (min-width: at-least($medium)) {
       padding: 0.4em 0.5em;
@@ -562,6 +614,12 @@ $hover-bg: $m-primary_bg--mix-30;
     &:hover {
       background: $m-primary_bg--mix-20;
       color: $c-font-clearer;
+    }
+  }
+
+  .fide-players-table {
+    .game-link {
+      @extend %game-link-styles;
     }
   }
   @media (max-width: at-most($medium)) {

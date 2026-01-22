@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Jogar contra o computador</string>
   <string name="gameMode">Tipo de partida</string>
   <string name="createLobbyGame">Criar partida na sala de espera</string>
-  <string name="youPlayAs">Você joga com as</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
   <string name="orLetYourOpponentScanQrCode">Ou deixe seu oponente ler este QR code</string>
+  <string name="reusableChallengeUrl">URL reutilizável para desafios</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Um link permanente para qualquer pessoa desafiar você com essas mesmas configurações.</string>
   <string name="waiting">Aguardando</string>
   <string name="yourTurn">Sua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Seta de melhor movimento</string>
   <string name="showVariationArrows">Mostrar setas das variantes</string>
   <string name="evaluationGauge">Escala de avaliação</string>
+  <string name="visualMotifs">Temas visuais</string>
+  <string name="undefendedPieces">Peças indefesas</string>
+  <string name="pinnedPieces">Peças cravadas</string>
+  <string name="checkableKing">Rei possível de xeque</string>
   <string name="multipleLines">Linhas de análise</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memória</string>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
+  <string name="variantsDescription">Mais formas de jogar</string>
   <string name="timeControl">Ritmo</string>
   <string name="realTime">Tempo real</string>
   <string name="correspondence">Correspondência</string>
@@ -299,6 +305,7 @@
   <string name="standard">Padrão</string>
   <string name="customPosition">Posição personalizada</string>
   <string name="unlimited">Ilimitado</string>
+  <string name="unlimitedDescription">Leve o tempo que precisar</string>
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
   <string name="rated">Ranqueada</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">Classificação</string>
   <string name="screenshotCurrentPosition">Captura de tela da posição atual</string>
   <string name="gameAsGIF">Salvar a partida como GIF</string>
+  <string name="playerNames">Nomes dos jogadores</string>
+  <string name="moveAnnotations">Anotações de movimentos</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
   <string name="orUploadPgnFile">Ou carregue um arquivo PGN</string>
-  <string name="fromPosition">A partir da posição</string>
   <string name="continueFromHere">Continuar daqui</string>
   <string name="toStudy">Estudar</string>
   <string name="importGame">Importar partida</string>

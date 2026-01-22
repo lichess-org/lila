@@ -316,10 +316,10 @@ db.title_request.createIndex(
   { partialFilterExpression: { 'history.0.status.n': 'approved', 'data.fideId': { $exists: 1 } } },
 );
 
-// you may want to run these on the insight database
-// if it's a different one
+// you may want to run these on the insight database if it's a different one
+// p{erf}, c{color}, a{nalysed}, mr{ating} (stable), d{ate}
 db.insight.createIndex({ mr: 1, p: 1, c: 1 });
-db.insight.createIndex({ mr: 1, a: 1 }, { partialFilterExpression: { mr: { $exists: true } } });
+db.insight.createIndex({ mr: 1, p: 1, a: 1 }, { partialFilterExpression: { mr: { $exists: true } } });
 db.insight.createIndex({ u: 1, d: -1 });
 db.kaladin_queue.createIndex(
   { 'response.at': 1, 'response.read': 1 },

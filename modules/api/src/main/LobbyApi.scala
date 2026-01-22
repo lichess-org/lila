@@ -41,11 +41,9 @@ final class LobbyApi(
 
   private def ratingMap(perfs: UserPerfs): JsObject =
     Writes
-      .keyMapWrites[PerfKey, JsObject, Map]
+      .keyMapWrites[PerfKey, Int, Map]
       .writes(
         perfs.perfsList.view.map { (pk, perf) =>
-          pk -> Json
-            .obj("rating" -> perf.intRating)
-            .add("prov" -> perf.glicko.provisional)
+          pk -> (perf.intRating.value * (if perf.glicko.provisional.yes then -1 else 1))
         }.toMap
       )

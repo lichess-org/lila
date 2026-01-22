@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">بازی با رایانه</string>
   <string name="gameMode">حالتِ بازی</string>
   <string name="createLobbyGame">ایجاد بازی در سَرسَرا</string>
-  <string name="youPlayAs">رنگِ مُهرهٔ شما</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">در انتظار حریف</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">رشته FEN را در این قسمت قرار دهید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
   <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
-  <string name="fromPosition">از وضعیت</string>
   <string name="continueFromHere">از اینجا ادامه دهید</string>
   <string name="toStudy">مطالعه</string>
   <string name="importGame">بارگذاری بازی</string>

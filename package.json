@@ -15,40 +15,39 @@
     }
   },
   "dependencies": {
-    "@lichess-org/chessground": "9.9.0",
-    "@lichess-org/pgn-viewer": "^2.5.5",
+    "@lichess-org/chessground": "^10.0.1",
+    "@lichess-org/pgn-viewer": "^2.5.6",
     "@types/lichess": "workspace:*",
     "@types/node": "^24.10.0",
-    "@typescript-eslint/eslint-plugin": "^8.46.3",
-    "@typescript-eslint/parser": "^8.46.3",
     "ab": "github:lichess-org/ab-stub",
     "chessops": "^0.15",
-    "eslint": "^9.39.1",
-    "eslint-plugin-compat": "^6.0.2",
-    "eslint-plugin-import": "^2.32.0",
     "jsdom": "^27.1.0",
     "lint-staged": "^16.2.6",
-    "prettier": "^3.6.2",
+    "oxfmt": "^0.26.0",
+    "oxlint": "^1.41.0",
+    "oxlint-tsgolint": "^0.11.1",
     "snabbdom": "3.5.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
   "//": [
     "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",
-    "typescript above just to allow manual tsc. ui/.build/package.json's typesript version is the truth"
+    "typescript above just to allow manual tsc. ui/.build/package.json's typescript version is the truth"
   ],
   "scripts": {
-    "format": "prettier --config=ui/.prettierrc.json --cache --write --log-level=warn .",
-    "check-format": "prettier --config=ui/.prettierrc.json --cache --check --log-level=warn .",
+    "format": "oxfmt --config=ui/.oxfmtrc.json ui",
+    "check-format": "oxfmt --config=ui/.oxfmtrc.json --check ui",
     "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true",
-    "lint": "eslint --config=ui/eslint.config.mjs --cache --cache-location=ui/.eslintcache",
-    "lint-staged": "lint-staged --config=ui/lint-staged.config.mjs",
+    "lint": "oxlint --config=ui/.oxlintrc.json --tsconfig=ui/tsconfig.base.json --type-aware ui",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
     "multilog": "pnpm serverlog & ui/build -w"
+  },
+  "lint-staged": {
+    "*.{json,scss,ts,mts,mjs}": "pnpm lint --fix && pnpm format"
   },
   "browserslist": [
     "defaults",

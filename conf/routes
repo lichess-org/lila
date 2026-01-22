@@ -237,7 +237,6 @@ GET   /study/public/:order             controllers.Study.minePublic(order: Study
 GET   /study/private/:order            controllers.Study.minePrivate(order: StudyOrder, page: Int ?= 1)
 GET   /study/likes/:order              controllers.Study.mineLikes(order: StudyOrder, page: Int ?= 1)
 GET   /study/by/:username              controllers.Study.byOwnerDefault(username: UserStr, page: Int ?= 1)
-GET   /study/by/:username/export.pgn   controllers.Study.exportPgn(username: UserStr)
 GET   /study/by/:username/:order       controllers.Study.byOwner(username: UserStr, order: StudyOrder, page: Int ?= 1)
 GET   /study/search                    controllers.Study.search(q ?= "", page: Int ?= 1, order: Option[StudyOrder] ?= None)
 GET   /study/$id<\w{8}>                controllers.Study.show(id: StudyId)
@@ -245,7 +244,7 @@ POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
 GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: StudyId)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.chapterPgn(id: StudyId, chapterId: StudyChapterId)
-GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String])
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String], showGlyphs: Boolean ?= false)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: StudyId)
 GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id: StudyId)
 POST  /study/$id<\w{8}>/cloneApply     controllers.Study.cloneApply(id: StudyId)
@@ -265,6 +264,7 @@ GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id: StudyId)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id: StudyId, chapterId: StudyChapterId)
 DELETE /api/study/$id<\w{8}>/$chapterId<\w{8}>    controllers.Study.apiChapterDelete(id: StudyId, chapterId: StudyChapterId)
 GET   /api/study/by/:user              controllers.Study.apiListByOwner(user: UserStr)
+GET   /api/study/by/:username/export.pgn controllers.Study.apiExportPgn(username: UserStr)
 POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id: StudyId)
 POST  /api/study/$id<\w{8}>/$chapterId<\w{8}>/tags controllers.Study.apiChapterTagsUpdate(id: StudyId, chapterId: StudyChapterId)
 
@@ -294,6 +294,7 @@ GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId: RelayTourId)
 GET   /broadcast/$tourId<\w{8}>/players       controllers.RelayTour.playersView(tourId: RelayTourId)
 GET   /broadcast/$tourId<\w{8}>/players/:id   controllers.RelayTour.player(tourId: RelayTourId, id:  String)
+GET   /broadcast/$tourId<\w{8}>/teams/standings controllers.RelayTour.teamLeaderboard(tourId: RelayTourId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId: RelayRoundId)
 GET   /api/broadcast/:ts/:rs/$roundId<\w{8}>  controllers.RelayRound.apiShow(ts, rs, roundId: RelayRoundId)
 GET   /embed/broadcast/:ts/:rs/$roundId<\w{8}> controllers.RelayRound.embedShow(ts, rs, roundId: RelayRoundId)
@@ -504,7 +505,7 @@ GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.e
 GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.legacyGameThumbnail(gameId: GameId, theme: Option[String], piece: Option[String])
 GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: GameId, theme: Option[String], piece: Option[String])
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: GameId, color: Color = Color.white, theme: Option[String], piece: Option[String])
-GET   /game/export/gif/:color/$gameId<\w{8}>.gif controllers.Export.gif(gameId: GameId, color: Color, theme: Option[String], piece: Option[String])
+GET   /game/export/gif/:color/$gameId<\w{8}>.gif              controllers.Export.gif(gameId: GameId, color: Color, theme: Option[String], piece: Option[String])
 GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen, color: Option[Color], lastMove: Option[Uci], variant: Option[chess.variant.Variant.LilaKey], theme: Option[String], piece: Option[String])
 
 # Fishnet

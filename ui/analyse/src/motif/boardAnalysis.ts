@@ -13,7 +13,7 @@ import {
 import { Board } from 'chessops/board';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
-import type { Role, Color, NormalMove } from 'chessops/types';
+import { type Role, type Color, type NormalMove, COLORS } from 'chessops/types';
 import type { Pin, Undefended, Checkable } from './interfaces';
 
 export const boardAnalysisVariants = [
@@ -115,6 +115,7 @@ function getSEE(
   square: number,
   target: { role: Role; color: Color },
   cb: Board,
+  pins: Pin[],
 ): { balance: number; firstAttacker?: number } {
   const balances: number[] = [];
   let pieceOnSquare = target;
@@ -130,12 +131,31 @@ function getSEE(
     if (attackers.length === 0) break;
 
     // LVA
-    let bestAttacker = attackers[0];
-    for (let i = 1; i < attackers.length; i++) {
-      if (values[attackers[i].role] < values[bestAttacker.role]) {
-        bestAttacker = attackers[i];
+    attackers.sort((a, b) => values[a.role] - values[b.role]);
+
+    let bestAttacker: (typeof attackers)[0] | undefined;
+
+    if (pins.length === 0) {
+      bestAttacker = attackers[0];
+    } else {
+      for (const attacker of attackers) {
+        // Check if the attacker is absolutely pinned and trying to move off the pin line
+        const pin = pins.find(p => p.pinned === attacker.square);
+        if (pin) {
+          const pinTarget = cb.get(pin.target);
+          if (pinTarget && pinTarget.role === 'king') {
+            if (square !== pin.pinner && !between(pin.pinner, pin.target).has(square)) {
+              continue;
+            }
+          }
+        }
+
+        bestAttacker = attacker;
+        break;
       }
     }
+
+    if (!bestAttacker) break;
 
     if (firstAttacker === undefined) firstAttacker = bestAttacker.square;
 
@@ -163,11 +183,12 @@ function getSEE(
 export function detectUndefended(board: Board): Undefended[] {
   const undefended: Undefended[] = [];
   const cb = board;
+  const pins = detectPins(board);
 
   for (let i = 0; i < 64; i++) {
     const p = board.get(i);
     if (p && p.role !== 'king' && isSquareAttacked(i, opposite(p.color), cb)) {
-      const { balance, firstAttacker } = getSEE(i, p, cb);
+      const { balance, firstAttacker } = getSEE(i, p, cb, pins);
       if (balance > 0 && firstAttacker !== undefined) {
         undefended.push({
           square: i,
@@ -188,7 +209,7 @@ export function detectCheckable(
   const checkable: Checkable[] = [];
   const cb = board;
 
-  for (const color of ['white', 'black'] as const) {
+  for (const color of COLORS) {
     const kSq = cb.kingOf(color);
 
     // Skip if King is already in check

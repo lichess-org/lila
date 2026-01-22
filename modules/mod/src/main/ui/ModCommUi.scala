@@ -5,7 +5,8 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 import lila.chat.MixedChat
-import lila.core.shutup.{ PublicLine, PublicSource }
+import lila.core.shutup.PublicLine
+import lila.core.chat.PublicSource
 
 final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
 

@@ -2,6 +2,7 @@ package lila.tutor
 
 import chess.{ ByColor, Color }
 import chess.IntRating
+import monocle.syntax.all.*
 
 import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
@@ -43,36 +44,32 @@ private case object TutorOpening:
 
   val nbOpeningsPerColor = 8
 
-  def compute(user: TutorUser)(using InsightApi, Executor): Fu[ByColor[TutorColorOpenings]] =
+  def compute(user: TutorPlayer)(using InsightApi, Executor): Fu[ByColor[TutorColorOpenings]] =
     ByColor(computeOpenings(user, _))
 
-  def computeOpenings(user: TutorUser, color: Color)(using
+  def computeOpenings(user: TutorPlayer, color: Color)(using
       InsightApi,
       Executor
   ): Fu[TutorColorOpenings] = for
     myPerfsFull <- answerMine(perfQuestion(color), user)
-    myPerfs = myPerfsFull.copy(answer =
-      myPerfsFull.answer.copy(
-        clusters = myPerfsFull.answer.clusters.take(nbOpeningsPerColor)
-      )
-    )
-    peerPerfs <- answerPeer(myPerfs.alignedQuestion, user, Max(10_000))
+    myPerfs = myPerfsFull.focus(_.answer.clusters).modify(_.take(nbOpeningsPerColor))
+    peerPerfs <- answerPeer(myPerfs.alignedQuestion, user)
     performances = Answers(myPerfs, peerPerfs)
     accuracyQuestion = myPerfs.alignedQuestion
       .withMetric(InsightMetric.MeanAccuracy)
       .filter(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
-    accuracy <- answerBoth(accuracyQuestion, user, Max(1000))
+    accuracy <- answerBoth(accuracyQuestion, user, Max(2_000))
     awarenessQuestion = accuracyQuestion.withMetric(InsightMetric.Awareness)
-    awareness <- answerBoth(awarenessQuestion, user, Max(1000))
+    awareness <- answerBoth(awarenessQuestion, user, Max(2_000))
   yield TutorColorOpenings:
-    performances.mine.list.map { (family, myPerformance) =>
+    performances.mine.list.map: (family, myPerformance) =>
       TutorOpeningFamily(
         family,
-        performance = IntRating.from(performances.valueMetric(family, myPerformance).map(roundToInt)),
+        performance =
+          IntRating.from(performances.valueMetric(family, myPerformance).map(TutorNumber.roundToInt)),
         accuracy = AccuracyPercent.from(accuracy.valueMetric(family)),
         awareness = GoodPercent.from(awareness.valueMetric(family))
       )
-    }
 
   def perfQuestion(color: Color) = Question(
     InsightDimension.OpeningFamily,

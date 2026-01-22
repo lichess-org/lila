@@ -416,7 +416,6 @@
   <string name="pasteTheFenStringHere">এখানে FEN স্ট্রিংটি জোড়া লাগান</string>
   <string name="pasteThePgnStringHere">এখানে PGN স্ট্রিংটি জোড়া লাগান</string>
   <string name="orUploadPgnFile">অথবা PGN আপলোড করুন</string>
-  <string name="fromPosition">অবস্থা থেকে</string>
   <string name="continueFromHere">এখান থেকে আবার শুরু করুন</string>
   <string name="toStudy">স্টাডি</string>
   <string name="importGame">খেলা আমদানী</string>

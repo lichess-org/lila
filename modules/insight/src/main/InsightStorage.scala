@@ -79,7 +79,7 @@ object InsightStorage:
 
   def selectId(id: String) = $doc(F.id -> id)
   def selectUserId(id: UserId) = $doc(F.userId -> id)
-  def selectPeers(peers: Question.Peers) = $doc(F.rating.$inRange(peers.ratingRange))
+  def selectPeers(peers: PeersRatingRange) = $doc(F.rating.$inRange(peers.value))
   val sortChronological = $sort.asc(F.date)
   val sortAntiChronological = $sort.desc(F.date)
 

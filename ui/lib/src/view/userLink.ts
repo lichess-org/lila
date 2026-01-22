@@ -1,5 +1,5 @@
-import { type Attrs, h, type VNode } from 'snabbdom';
-import { type MaybeVNode } from './snabbdom';
+import { type Attrs, h, type VNode, type VNodeData } from 'snabbdom';
+import { type MaybeVNodes } from './snabbdom';
 
 export interface HasRating {
   rating?: number;
@@ -32,15 +32,13 @@ export interface AnyUser extends HasRating, HasFlair, HasTitle, HasLine {
 }
 
 export const userLink = (u: AnyUser): VNode =>
-  h(
-    'a',
-    {
-      // can't be inlined because of thunks
-      class: { 'user-link': true, ulpt: u.name !== 'ghost', online: !!u.online },
-      attrs: { href: `/@/${u.name}`, ...u.attrs },
-    },
-    [userLine(u), ...fullName(u), u.rating && ` ${userRating(u)} `],
-  );
+  h('a', userLinkData(u), [userLine(u), ...fullName(u), u.rating && ` ${userRating(u)} `]);
+
+export const userLinkData = (u: AnyUser): VNodeData => ({
+  // can't be inlined because of thunks
+  class: { 'user-link': true, ulpt: u.name !== 'ghost', online: !!u.online },
+  attrs: { href: `/@/${u.name}`, ...u.attrs },
+});
 
 export const userFlair = (u: HasFlair): VNode | undefined =>
   u.flair ? h('img.uflair', { attrs: { src: site.asset.flairSrc(u.flair) } }) : undefined;
@@ -62,7 +60,7 @@ export const userTitle = (u: HasTitle): VNode | undefined =>
     ? h('span.utitle', u.title === 'BOT' ? { attrs: { 'data-bot': true } } : {}, [u.title, '\xa0'])
     : undefined;
 
-export const fullName = (u: AnyUser): MaybeVNode[] => [userTitle(u), u.name, userFlair(u)];
+export const fullName = (u: AnyUser): MaybeVNodes => [userTitle(u), u.name, userFlair(u)];
 
 export const userRating = (u: HasRating): string | undefined => {
   if (u.rating) {

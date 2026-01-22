@@ -8,6 +8,7 @@
   <string name="advanced">Прасунутыя</string>
   <string name="lengths">Колькасць хадоў</string>
   <string name="mates">Маты</string>
+  <string name="mateThemes">Віды матаў</string>
   <string name="goals">Мэты</string>
   <string name="origin">Паходжанне</string>
   <string name="specialMoves">Адмысловыя хады</string>
@@ -21,13 +22,18 @@
   <string name="toGetPersonalizedPuzzles">Каб атрымаць персаналізаваныя задачы:</string>
   <string name="puzzleId">Задача %s</string>
   <string name="puzzleOfTheDay">Задача дня</string>
+  <string name="dailyPuzzle">Штодзённыя задачы</string>
   <string name="clickToSolve">Націсніце, каб рашыць</string>
   <string name="goodMove">Добры ход</string>
   <string name="bestMove">Найлепшы ход!</string>
   <string name="keepGoing">Працягвайце…</string>
   <string name="puzzleSuccess">Поспех!</string>
   <string name="puzzleComplete">Задача вырашана!</string>
+  <string name="byOpenings">Па дэбютам</string>
   <string name="puzzlesByOpenings">Задачы за дэбютамі</string>
+  <string name="openingsYouPlayedTheMost">Дэбюты, якія вы гулялі часцей за ўсе ў рэйтынгавых гульнях</string>
+  <string name="useFindInPage">Карыстайцеся \"Знайсці на старонце\" ў браузеры каб знайсці ваш любімы дэбют!</string>
+  <string name="useCtrlF">Ctrl+f каб знайсці ваш любімы дэбют!</string>
   <string name="notTheMove">Гэта не той ход!</string>
   <string name="trySomethingElse">Паспрабуйце нешта іншае.</string>
   <string name="ratingX">Рэйтынг: %s</string>
@@ -78,6 +84,12 @@
   <string name="searchPuzzles">Шукаць задачы</string>
   <string name="fromMyGamesNone">Базе дадзеных няма задач з вашых гульня, але Liches усе роўна любіць вас!
 Пагуляйце ў хуткія або класічныя шахматы каб павялічыць шанец выкарыстання вашых гульняў у задачах.</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">Адна задача знойдзена ў іграх %2$s</item>
+    <item quantity="few">%1$s задач знойдзена ў іграх %2$s</item>
+    <item quantity="many">%1$s задач знойдзена ў іграх %2$s</item>
+    <item quantity="other">%1$s задач знойдзена ў іграх %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Трэніруйцеся, аналізуйце, паляпшайцеся</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s вырашана</item>
@@ -93,6 +105,6 @@
   </plurals>
   <string name="percentSolved">%s вырашана правільна</string>
   <string name="noPuzzlesToShow">Нічога няма, вырашыце некалькі задач спачатку!</string>
-  <string name="improvementAreasDescription">Трэніруйце гэта, каб палепшыць прагрэс!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Трэніруйце гэта, каб палепшыць прагрэс!</string>
   <string name="strengthDescription">Найбольш атрымоўваюцца гэтыя тэмы</string>
 </resources>

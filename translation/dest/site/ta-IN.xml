@@ -411,7 +411,6 @@
   <string name="pasteTheFenStringHere">FEN தொடரை இங்கே ஒட்டு</string>
   <string name="pasteThePgnStringHere">PGN தொடரை இங்கே ஒட்டு</string>
   <string name="orUploadPgnFile">அல்லது PGN கோப்புவை பதிவேற்று</string>
-  <string name="fromPosition">நிலையிலிருந்து</string>
   <string name="continueFromHere">இங்கிருந்து தொடர்க</string>
   <string name="toStudy">கற்கை</string>
   <string name="importGame">ஆட்டத்தை உள்ளேற்று</string>

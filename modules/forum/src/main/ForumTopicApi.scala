@@ -7,7 +7,8 @@ import lila.common.String.noShouting
 import lila.core.config.NetDomain
 import lila.core.forum.BusForum.CreatePost
 import lila.core.perm.Granter as MasterGranter
-import lila.core.shutup.{ PublicSource, ShutupApi }
+import lila.core.shutup.ShutupApi
+import lila.core.chat.PublicSource
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.core.id.ForumTopicSlug
 import lila.db.dsl.{ *, given }

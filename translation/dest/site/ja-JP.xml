@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">コンピュータと対戦</string>
   <string name="gameMode">対局モード</string>
   <string name="createLobbyGame">ロビー対局を作成</string>
-  <string name="youPlayAs">色（白/黒）</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
   <string name="orLetYourOpponentScanQrCode">または相手にこの QR コードをスキャンさせてください</string>
+  <string name="reusableChallengeUrl">再利用可能なチャレンジ URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">誰でもこのとおりの設定であなたにチャレンジできる恒久的リンク。</string>
   <string name="waiting">待機中</string>
   <string name="yourTurn">あなたの手番です</string>
   <string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
@@ -124,6 +125,10 @@
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="showVariationArrows">変化手順の矢印を表示</string>
   <string name="evaluationGauge">評価値を表示</string>
+  <string name="visualMotifs">形のパターン</string>
+  <string name="undefendedPieces">浮き駒</string>
+  <string name="pinnedPieces">ピンされた駒</string>
+  <string name="checkableKing">チェックできるキング</string>
   <string name="multipleLines">解析ライン数</string>
   <string name="cpus">スレッド数</string>
   <string name="memory">メモリ</string>
@@ -193,6 +198,7 @@
   <string name="minutesPerSide">持ち時間</string>
   <string name="variant">バリアント</string>
   <string name="variants">変則チェス</string>
+  <string name="variantsDescription">さまざまな遊び方</string>
   <string name="timeControl">持時間</string>
   <string name="realTime">実時間</string>
   <string name="correspondence">通信チェス</string>
@@ -281,6 +287,7 @@
   <string name="standard">スタンダード</string>
   <string name="customPosition">自由配置局面</string>
   <string name="unlimited">無制限</string>
+  <string name="unlimitedDescription">しっかり時間をかけて</string>
   <string name="mode">モード</string>
   <string name="casual">非レート戦</string>
   <string name="rated">レート戦</string>
@@ -393,10 +400,10 @@
   <string name="leaderboard">ランキング</string>
   <string name="screenshotCurrentPosition">現局面のスクリーンショット</string>
   <string name="gameAsGIF">GIF 形式の棋譜</string>
+  <string name="playerNames">プレイヤー名</string>
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="orUploadPgnFile">または PGN ファイルをアップロード</string>
-  <string name="fromPosition">特定の局面から</string>
   <string name="continueFromHere">この局面から対局</string>
   <string name="toStudy">研究</string>
   <string name="importGame">棋譜をインポート</string>

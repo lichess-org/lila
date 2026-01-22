@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">કમ્પ્યુટર સામે રમો</string>
   <string name="gameMode">રમતની રિત</string>
   <string name="createLobbyGame">રમત બનાવો</string>
-  <string name="youPlayAs">તમે આ રીતે રમો છો</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">રમવા માટે કોઈને આમંત્રણ આપવા, આ URL આપો</string>
   <string name="gameOver">રમત પુરી</string>
   <string name="waitingForOpponent">વિરોધી માટે રાહ જોઈ રહ્યા છો</string>
@@ -433,7 +432,6 @@
   <string name="pasteTheFenStringHere">અહીંયા FEN લખાણ Paste કરો</string>
   <string name="pasteThePgnStringHere">અહીંયા PGN લખાણ Paste કરો</string>
   <string name="orUploadPgnFile">અથવા PGN ફાઇલ અપલોડ કરો</string>
-  <string name="fromPosition">આ જગ્યાએથી</string>
   <string name="continueFromHere">અંહિયાથી ચાલુ કરો</string>
   <string name="toStudy">અભ્યાસ</string>
   <string name="importGame">રમત દાખલ કરો</string>

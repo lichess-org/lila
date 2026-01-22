@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Spel mot datamaskin</string>
   <string name="gameMode">Spelmodus</string>
   <string name="createLobbyGame">Opprett lobbyparti</string>
-  <string name="youPlayAs">Du spelar som</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Send denne lekkja til den du utfordrar</string>
   <string name="gameOver">Partiet er avslutta</string>
   <string name="waitingForOpponent">Ventar på motspelar</string>
   <string name="orLetYourOpponentScanQrCode">Eller la motspelaren din skanna denne QR-koden</string>
+  <string name="reusableChallengeUrl">Ombrukeleg utfordrings-URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Ei permanent lenke der kven som helst kan utfordra deg med eksakt desse innstillingane.</string>
   <string name="waiting">Ventar</string>
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
   <string name="evaluationGauge">Syn evaluering</string>
+  <string name="visualMotifs">Visuelt motiv</string>
+  <string name="undefendedPieces">Hengande konge</string>
+  <string name="pinnedPieces">Spidda brikker</string>
+  <string name="checkableKing">Konge som kan setjas i sjakk</string>
   <string name="multipleLines">Fleire variantar</string>
   <string name="cpus">Prosessorar</string>
   <string name="memory">Minne</string>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Minutt per spelar</string>
   <string name="variant">Variant</string>
   <string name="variants">Variantar</string>
+  <string name="variantsDescription">Fleire spelemåtar</string>
   <string name="timeControl">Tidskontroll</string>
   <string name="realTime">Sanntid</string>
   <string name="correspondence">Fjernsjakk</string>
@@ -299,6 +305,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Brukardefinert stilling</string>
   <string name="unlimited">Uavgrensa</string>
+  <string name="unlimitedDescription">Ta den tida du treng</string>
   <string name="mode">Modus</string>
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">Leiartabell</string>
   <string name="screenshotCurrentPosition">Ta eit skjermbilete av gjeldande stilling</string>
   <string name="gameAsGIF">Parti som GIF</string>
+  <string name="playerNames">Namn på spelarane</string>
+  <string name="moveAnnotations">Trekknotasjon</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-koden her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-koden her</string>
   <string name="orUploadPgnFile">Eller last opp ei PGN-fil</string>
-  <string name="fromPosition">Frå stilling</string>
   <string name="continueFromHere">Fortsett herfrå</string>
   <string name="toStudy">Studér</string>
   <string name="importGame">Importér parti</string>

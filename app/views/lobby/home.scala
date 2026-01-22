@@ -19,9 +19,9 @@ object home:
           Json
             .obj(
               "data" -> data,
-              "showRatings" -> ctx.pref.showRatings,
-              "hasUnreadLichessMessage" -> hasUnreadLichessMessage
+              "showRatings" -> ctx.pref.showRatings
             )
+            .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
             .add("bots", Granter.opt(_.Beta))
             .add(
               "playban",

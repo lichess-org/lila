@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Do\'stinggizni o\'yinga taklif qilish</string>
+  <string name="playAgainstComputer">Kompyuterga qarshi o\'ynash</string>
+  <string name="gameMode">O\'yin rejimi</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir o\'yinga taklif qilish uchun ushbu URL ni olib unga bering</string>
   <string name="gameOver">O‘yin tugadi</string>
   <string name="waitingForOpponent">Sherik tanlanishi kutilayabdi</string>
@@ -419,7 +422,6 @@
   <string name="pasteTheFenStringHere">FEN matnini shu yerga qo\'ying</string>
   <string name="pasteThePgnStringHere">PGN matnini shu yerga qo\'ying</string>
   <string name="orUploadPgnFile">Yoki PGN fayl yuklang</string>
-  <string name="fromPosition">Ushbu joyidan</string>
   <string name="continueFromHere">Shu joydan davom etish</string>
   <string name="toStudy">O\'rganish</string>
   <string name="importGame">O\'yinni import qilish</string>
@@ -818,6 +820,7 @@
   <string name="notifications">Xabarlar</string>
   <string name="notificationsX">Xabarlar: %1$s</string>
   <string name="perfRatingX">Reyting: %s</string>
+  <string name="yourRatingIsX">Sizning reytingingiz %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Birinchi yurish uchun %s sekund</item>
     <item quantity="other">Birinchi yurish uchun %s sekundlar</item>
@@ -960,6 +963,7 @@ Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
   <string name="simulFeaturedHelp">%s dagi hammaga sizning seansingizni ko‘rsatish. Shaxsiy seanslaringiz uchun uni o‘chirib qo‘ying.</string>
   <string name="simulDescription">Seans izohi</string>
   <string name="simulDescriptionHelp">Ishtirokchilarga nimadir aytmoqchimisiz?</string>
+  <string name="markdownIsAvailable">%s formatlash uchun mavjud</string>
   <string name="embedsAvailable">O‘yin yoki o‘rganish URL ini ulashish uchun ishlating.</string>
   <string name="inYourLocalTimezone">Sizning mahalliy vaqt hududingizda</string>
   <string name="tournChat">Turnir suhbati</string>
@@ -999,4 +1003,11 @@ Ishlab chiqish, saytni ma‘lumotlar bilan to‘ldirish kabi barcha boshqa amall
   <string name="accessibility">Maxsus imkoniyatlar</string>
   <string name="enableBlindMode">Koʻzi ojizlar uchun rejimni yoqing</string>
   <string name="disableBlindMode">Koʻzi ojizlar uchun rejimni oʻchiring</string>
+  <string name="copyToClipboard">Nusxalash</string>
+  <string name="online" comment="status of a user">onlayn</string>
+  <string name="offline" comment="status of a user">oflayn</string>
+  <string name="search">Qidirish</string>
+  <string name="clearSearch">Qidiruvni tozalash</string>
+  <string name="tags">Teglar</string>
+  <string name="enPassant">Yo\'lakda olish</string>
 </resources>

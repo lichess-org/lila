@@ -9,7 +9,8 @@ import scala.util.Try
 
 private object TutorBsonHandlers:
 
-  import lila.insight.BSONHandlers.given
+  // *export* insight handlers to ensure NoDbHandler[WinPercent]
+  export lila.insight.BSONHandlers.given
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
   given BSONHandler[FiniteDuration] = lila.db.dsl.minutesHandler

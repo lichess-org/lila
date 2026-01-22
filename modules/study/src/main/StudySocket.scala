@@ -12,9 +12,9 @@ import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
-import lila.tree.Node.minimalNodeJsonWriter
 import lila.core.study.Visibility
 import cats.mtl.Handle.*
+import lila.tree.Node.lichobileNodeJsonWriter
 
 final private class StudySocket(
     api: StudyApi,
@@ -46,7 +46,7 @@ final private class StudySocket(
           Json.obj(
             "analysis" -> analysis,
             "ch" -> chapterId,
-            "tree" -> lila.tree.Node.defaultNodeJsonWriter.writes(tree),
+            "tree" -> lichobileNodeJsonWriter.writes(tree),
             "division" -> division
           )
         )
@@ -188,10 +188,8 @@ final private class StudySocket(
 
         case "setComment" =>
           reading[AtPosition](o): position =>
-            (o \ "d" \ "text")
-              .asOpt[String]
-              .foreach: text =>
-                applyWho(api.setComment(studyId, position.ref, Comment.sanitize(text)))
+            for text <- (o \ "d" \ "text").asOpt[String]
+            do applyWho(api.setComment(studyId, position.ref, Comment.sanitize(text)))
 
         case "deleteComment" =>
           reading[AtPosition](o): position =>
@@ -258,12 +256,8 @@ final private class StudySocket(
   )
 
   private def moveOrDrop(studyId: StudyId, m: AnaAny, opts: MoveOpts)(using Who) =
-    m.branch.foreach: branch =>
-      if branch.ply < Node.MAX_PLIES then
-        m.chapterId
-          .ifTrue(opts.write)
-          .foreach: chapterId =>
-            api.addNode(AddNode(studyId, Position.Ref(chapterId, m.path), branch, opts))
+    m.chapterId.foreach: chapterId =>
+      api.addNode(AddNode(studyId, Position.Ref(chapterId, m.path), m.branch, opts))
 
   private lazy val send = socketKit.send("study-out")
 
@@ -301,7 +295,7 @@ final private class StudySocket(
       "addNode",
       Json
         .obj(
-          "n" -> minimalNodeJsonWriter.writes(node),
+          "n" -> defaultNodeJsonWriter.writes(node),
           "p" -> pos,
           "s" -> sticky
         )

@@ -39,7 +39,7 @@
     <item quantity="other">%s दृश्ये</item>
   </plurals>
   <string name="xPublishedY">%1$s ने %2$s प्रकाशित केले</string>
-  <string name="thisPostIsPublished">ही नेमणी प्रकाशित झ्हाली</string>
+  <string name="thisPostIsPublished">ही टिप्पणी प्रकाशित झाली</string>
   <string name="thisIsADraft">हे एक मसुदा आहे</string>
   <string name="noPostsInThisBlogYet">ह्या अनुदिनीत आतापर्यंत नेमण्या नाही आहेत.</string>
   <string name="noDrafts">दाखवण्यासाठी कोणतेही मसुदे नाहीत.</string>

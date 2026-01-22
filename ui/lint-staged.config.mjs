@@ -5,7 +5,7 @@ export default {
   '*.{json,scss,ts}': files => {
     const regularFiles = files.filter(f => !lstatSync(f).isSymbolicLink());
     return regularFiles.length
-      ? `prettier --config=ui/.prettierrc.json --write ${regularFiles.join(' ')}`
+      ? `oxfmt --config=ui/.oxfmtrc.json --write ${regularFiles.join(' ')}`
       : 'true';
   },
 };

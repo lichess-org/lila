@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">Standard</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Standard rules of chess (FIDE)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://query.wikidata.org/embed.html#SELECT%20%3Flabel%20WHERE%20%7B%20%0A%20%20wd%3AQ724903%20rdfs%3Alabel%20%3Flabel.%20%0A%7D%0A">Chess960</string>
-  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">The starting position of the home rank pieces is randomized.</string>
-  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">King of the Hill</string>
-  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Bring your King to the center to win the game.</string>
-  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">Three-Check</string>
-  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">Check your opponent 3 times to win the game.</string>
-  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Antichess</string>
-  <string name="antichessTitle" comment="Description for the Antichess variant">Lose all your pieces (or get stalemated) to win the game.</string>
-  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">Atomic</string>
-  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Nuke your opponent\'s king to win.</string>
-  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Horde</string>
-  <string name="hordeTitle" comment="Description for the Horde chess variant">One side has a large number of pawns, the other has a normal army.</string>
-  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Racing Kings</string>
-  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Get your king to the other side of the board to win.</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Crazyhouse</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Captured pieces can be dropped back on the board instead of moving a piece.</string>
+  <string name="standard">Standard</string>
+  <string name="standardTitle">Standard rules of chess (FIDE)</string>
+  <string name="chess960">Chess960</string>
+  <string name="chess960Title">The starting position of the home rank pieces is randomized.</string>
+  <string name="kingOfTheHill">King of the Hill</string>
+  <string name="kingOfTheHillTitle">Bring your King to the center to win the game.</string>
+  <string name="threeCheck">Three-Check</string>
+  <string name="threeCheckTitle">Check your opponent 3 times to win the game.</string>
+  <string name="antichess">Antichess</string>
+  <string name="antichessTitle">Lose all your pieces (or get stalemated) to win the game.</string>
+  <string name="atomic">Atomic</string>
+  <string name="atomicTitle">Nuke your opponent\'s king to win.</string>
+  <string name="horde">Horde</string>
+  <string name="hordeTitle">One side has a large number of pawns, the other has a normal army.</string>
+  <string name="racingKings">Racing Kings</string>
+  <string name="racingKingsTitle">Get your king to the other side of the board to win.</string>
+  <string name="crazyhouse">Crazyhouse</string>
+  <string name="crazyhouseTitle">Captured pieces can be dropped back on the board instead of moving a piece.</string>
+  <string name="fromPosition" comment="An option that lets you create a standard chess game from a custom position.">From Position</string>
+  <string name="fromPositionTitle" comment="Description for when looking to start a game 'From position'">Standard chess from a custom position</string>
 </resources>

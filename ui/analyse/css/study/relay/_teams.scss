@@ -30,6 +30,12 @@
       }
     }
     &__team {
+      a {
+        color: $c-font;
+        &:hover {
+          color: $c-primary;
+        }
+      }
       padding: 0.5em 1em;
       &__points {
         @extend %flex-around;

@@ -104,6 +104,6 @@ object EmbedContext:
   given (using config: EmbedContext): Lang = config.lang
   def apply(ctx: Context): EmbedContext = new EmbedContext(
     ctx,
-    bg = ctx.req.queryString.get("bg").flatMap(_.headOption).filterNot("auto".==) | "system",
+    bg = HTTPRequest.queryStringGet("bg")(using ctx.req).filterNot("auto".==) | "system",
     nonce = Nonce.random
   )
