@@ -88,6 +88,6 @@
   </plurals>
   <string name="percentSolved">%s সমাধান করেছেন।</string>
   <string name="noPuzzlesToShow">প্রদর্শনের কিছু নেই। প্রথমে কিছু ধাঁধা খেলুন।</string>
-  <string name="improvementAreasDescription">আপনার প্রগতির জন্য এইগুলোতে প্রশিক্ষণ করুন!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">আপনার প্রগতির জন্য এইগুলোতে প্রশিক্ষণ করুন!</string>
   <string name="strengthDescription">আপনি এই ধাঁচের গুলোয় ভালো খেলেন।</string>
 </resources>
