@@ -11,7 +11,9 @@
   <string name="yourClock">Vaše hodiny</string>
   <string name="opponentClock">Soupeřovy hodiny</string>
   <string name="gameStart">Začátek hry</string>
+  <string name="king">král</string>
   <string name="whiteKing">bílý král</string>
+  <string name="blackKing">černý král</string>
   <string name="queen">královna</string>
   <string name="whiteQueen">bílá královna</string>
   <string name="blackQueen">černá královna</string>
@@ -27,6 +29,7 @@
   <string name="pawn">pěšec</string>
   <string name="whitePawn">bílý pěšec</string>
   <string name="blackPawn">černý pěšec</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D V S J x</string>
   <string name="sanTakes" comment="x in standard notation">bere</string>
   <string name="sanCheck" comment="+ in standard notation">šach</string>
   <string name="sanCheckmate" comment="# in standard notation">šach mat</string>
