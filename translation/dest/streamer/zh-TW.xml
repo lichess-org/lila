@@ -35,8 +35,8 @@
   <plurals name="keepItShort">
     <item quantity="other">請保持簡短: 最多%s個字</item>
   </plurals>
-  <string name="visibility">可見於實況主頁面上</string>
-  <string name="whenApproved">當通過版主審核時</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">可見於實況主頁面上</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">當通過版主審核時</string>
   <string name="headline">標題</string>
   <string name="tellUsAboutTheStream">請用一句話形容您的直播</string>
   <string name="longDescription">詳細說明</string>
