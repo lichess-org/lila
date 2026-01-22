@@ -94,6 +94,6 @@ Xoga partidas rápidas e clásicas para ter máis opcións de que se engadan os 
   <string name="percentSolved">%s
 resoltos</string>
   <string name="noPuzzlesToShow">Non hai nada que amosar, primeiro resolve algún crebacabezas!</string>
-  <string name="improvementAreasDescription">Adestra nestes temas para progresar!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Adestra nestes temas para progresar!</string>
   <string name="strengthDescription">Estas son as áreas nas que es máis forte</string>
 </resources>
