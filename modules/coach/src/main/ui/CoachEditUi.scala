@@ -63,13 +63,13 @@ final class CoachEditUi(helpers: Helpers, ui: CoachUi):
             div(cls := "panels")(
               div(cls := "panel basics active")(
                 form3.split(
-                  form3.checkbox(
+                  form3.checkboxGroup(
                     form("listed"),
                     raw("Publish on the coaches list"),
                     help = raw("Enable when your profile is ready").some,
                     half = true
                   ),
-                  form3.checkbox(
+                  form3.checkboxGroup(
                     form("available"),
                     raw("Currently available for lessons"),
                     help = raw("Enable to get more students").some,

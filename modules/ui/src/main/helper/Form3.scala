@@ -66,28 +66,6 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       cls := List("form-control" -> true, klass -> klass.nonEmpty)
     )(validationModifiers(field))
 
-  def checkbox(
-      field: Field,
-      labelContent: Frag,
-      half: Boolean = false,
-      help: Option[Frag] = None,
-      disabled: Boolean = false
-  ): Frag =
-    div(
-      cls := List(
-        "form-check form-group" -> true,
-        "form-half" -> half
-      )
-    )(
-      div(
-        span(cls := "form-check-input")(
-          cmnToggle(id(field), field.name, isChecked(field), disabled)
-        ),
-        groupLabel(field)(labelContent)
-      ),
-      help.map { helper(_) }
-    )
-
   def cmnToggle[Value: Show](
       fieldId: String,
       fieldName: String,

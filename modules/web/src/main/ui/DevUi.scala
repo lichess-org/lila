@@ -26,8 +26,7 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
                     postForm(action := routes.Dev.settingsPost(s.id))(
                       label(`for` := "v")(s.text | s.id),
                       s.form.value match
-                        case Some(v: Boolean) =>
-                          div(span(cls := "form-check-input")(form3.nativeCheckbox(s.id, "v", v)))
+                        case Some(v: Boolean) => form3.nativeCheckbox(s.id, "v", v)
                         case Some(v: lila.core.data.Text) => textarea(name := "v")(v.value)
                         case v => input(name := "v", value := v.map(_.toString))
                       ,

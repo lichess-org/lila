@@ -226,7 +226,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
           half = true
         )(f => form3.input(f)(tour.isDefined.option(readonly := true)))
       ),
-      form3.checkbox(
+      form3.checkboxGroup(
         form("teamBattle"),
         raw("Team battle"),
         half = true

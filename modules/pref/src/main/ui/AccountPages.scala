@@ -69,7 +69,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
               " instead?"
             ),
             myUsernamePasswordFields(form),
-            form3.checkbox(form("understand"), "I understand that deleted accounts aren't recoverable"),
+            form3.checkboxGroup(form("understand"), "I understand that deleted accounts aren't recoverable"),
             form3.errors(form("understand")),
             me.marks.dirty.option:
               div(cls := "form-group")(

@@ -319,7 +319,7 @@ final class AuthUi(helpers: Helpers):
         strong(cls := "error"):
           "You must agree to the Lichess policies listed below:"),
       agreements.map: (field, text) =>
-        form3.checkbox(form(field), text)
+        form3.checkboxGroup(form(field), text)
     )
 
   private def agreements(using Context) = List(
