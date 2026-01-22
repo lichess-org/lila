@@ -92,7 +92,7 @@ Lozinka: %3$s</string>
   <string name="timePlaying">Vrijeme igranja</string>
   <string name="variantXOverLastY">%1$s u zadnjih %2$s</string>
   <string name="winrate">Stopa pobjede</string>
-  <string name="na">N/A</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
   <string name="overview">Pregled</string>
   <string name="news">Vijesti</string>
   <string name="classNews">Nastavne novosti</string>
