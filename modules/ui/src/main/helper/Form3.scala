@@ -140,16 +140,9 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       half: Boolean = false,
       help: Option[Frag] = None,
       value: String = "true",
-      disabled: Boolean = false,
-      klass: String = ""
+      disabled: Boolean = false
   ): Frag =
-    div(
-      cls := List(
-        "form-check form-group" -> true,
-        "form-half" -> half,
-        klass -> klass.nonEmpty
-      )
-    )(
+    div(cls := List("form-check form-group" -> true, "form-half" -> half))(
       div(cls := "form-check__container")(
         nativeCheckbox(
           id(field),
