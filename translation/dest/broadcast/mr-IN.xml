@@ -60,7 +60,7 @@
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">पट स्रोत बरोबर किंवा %s ने भारले जाऊ शकतात</string>
   <string name="startsAfter">%s नंतर चालू होईल</string>
   <string name="startVerySoon">प्रसारण लवकरच चालू होईल.</string>
-  <string name="notYetStarted">प्रसारण अजून चालू नाही झ्हालं आहे</string>
+  <string name="notYetStarted">प्रसारण अजून चालू झाले नाही.</string>
   <string name="officialWebsite">अधिकृत वेबसाइट</string>
   <string name="officialStandings">अधिकृत स्थिती</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s वर अजून पर्याय</string>
