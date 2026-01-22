@@ -36,8 +36,8 @@
     <item quantity="one">کورتی بکەرەوە: زۆرترین پیت %s</item>
     <item quantity="other">کورتی بکەرەوە: زۆرترین پیت %s</item>
   </plurals>
-  <string name="visibility">لە پەیجی ستریمەرەکاندا دیارە</string>
-  <string name="whenApproved">دوای ئەوەی بەرێوەبەرەکان قبوڵیان کرد</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">لە پەیجی ستریمەرەکاندا دیارە</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">دوای ئەوەی بەرێوەبەرەکان قبوڵیان کرد</string>
   <string name="headline">ناونیشان</string>
   <string name="tellUsAboutTheStream">بە ڕستەیەک بارودۆخی پەخشەکەتمان پێ بڵێ</string>
   <string name="longDescription">بە درێژی باسی بکە</string>
