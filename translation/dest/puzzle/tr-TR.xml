@@ -92,6 +92,6 @@
   </plurals>
   <string name="percentSolved">%s çözüldü</string>
   <string name="noPuzzlesToShow">Gösterilecek bir şey yok. Önce biraz bulmaca çöz!</string>
-  <string name="improvementAreasDescription">Gelişiminizi optimize etmek için bunlar üzerine çalışın!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Gelişiminizi optimize etmek için bunlar üzerine çalışın!</string>
   <string name="strengthDescription">En iyi performansı bu temalarda gösteriyorsunuz</string>
 </resources>
