@@ -234,8 +234,7 @@ final class GameUi(helpers: Helpers):
               form3.nativeCheckboxField(
                 form("analyse"),
                 trans.site.requestAComputerAnalysis(),
-                help = analyseHelp,
-                half = false
+                help = analyseHelp
               ),
               form3.action(form3.submit(trans.site.importGame(), Icon.UploadCloud.some))
             )

@@ -122,6 +122,5 @@ final class GatheringFormUi(helpers: Helpers):
         a(href := "/@/lichess/blog/welcome-lichess-bots/WvDNticA")("bots"),
         " join the tournament and play with their engines. This often repels human players."
       ).some,
-      half = false,
       disabled = disabledAfterStart
     )

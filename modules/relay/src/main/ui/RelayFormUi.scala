@@ -325,8 +325,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               "When the previous round completes",
               help = frag(
                 "The start date is unknown, and the round will start automatically when the previous round completes."
-              ).some,
-              half = true
+              ).some
             )
           )
         ),
@@ -382,8 +381,7 @@ Hanna Marie ; Kozul, Zdenko"""),
                 form3.nativeCheckboxField(
                   withDefault,
                   "Rated round",
-                  help = frag("Include this round when calculating players' rating changes").some,
-                  half = false
+                  help = frag("Include this round when calculating players' rating changes").some
                 )
             ),
             Color.all.map: color =>

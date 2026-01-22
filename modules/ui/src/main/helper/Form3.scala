@@ -135,7 +135,7 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       field: Field,
       labelContent: Frag,
       help: Option[Frag],
-      half: Boolean,
+      half: Boolean = false,
       value: String = "true",
       disabled: Boolean = false,
       klass: String = ""

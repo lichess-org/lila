@@ -36,8 +36,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
               raw("Forever close: make it impossible to reopen"),
               help = raw(
                 "Prevent reopening the account later. If you check this box, even administrators will be unable to reopen your account at your request."
-              ).some,
-              half = false
+              ).some
             ),
             form3.actions(
               frag(
