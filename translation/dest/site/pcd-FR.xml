@@ -9,6 +9,8 @@
   <string name="gameOver">Partie terminée</string>
   <string name="waitingForOpponent">En attente de votre adversaire</string>
   <string name="orLetYourOpponentScanQrCode">Ou laissez votre adversaire scanner ce code QR</string>
+  <string name="reusableChallengeUrl">URL réutilisable pour les défis</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Lien permanent qui permet à quiconque de vous défier avec ces paramètres</string>
   <string name="waiting">En attente</string>
   <string name="yourTurn">À votre tour</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
@@ -95,7 +97,7 @@
   <string name="averageRatingX">Classement moyen : %s</string>
   <string name="recentGames">Parties récentes</string>
   <string name="topGames">Meilleures parties</string>
-  <string name="masterDbExplanation">Deux millions de parties jouées en tournois FIDE >%1$s de %2$s à %3$s</string>
+  <string name="masterDbExplanation">Deux millions de parties jouées en tournois FIDE &gt;%1$s de %2$s à %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate en %s demi-coup</item>
     <item quantity="other">Mate en %s demi-coups</item>
@@ -429,6 +431,8 @@
   <string name="leaderboard">Classements</string>
   <string name="screenshotCurrentPosition">Capture d\'écran de la position actuelle</string>
   <string name="gameAsGIF">Enregistrer la partie en GIF</string>
+  <string name="playerNames">Noms des joueurs</string>
+  <string name="moveAnnotations">Annotations</string>
   <string name="pasteTheFenStringHere">Coller le FEN ici</string>
   <string name="pasteThePgnStringHere">Coller le PGN ici</string>
   <string name="orUploadPgnFile">Ou téléverser un fichier PGN</string>
