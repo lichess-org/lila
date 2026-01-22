@@ -58,7 +58,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi):
                       ),
                       t.leaders.mapWithIndex: (l, li) =>
                         td(dataLabel := l.user):
-                          form3.cmnToggle(
+                          form3.nativeCheckbox(
                             fieldId = s"leaders-$li-perms-${perm.key}",
                             fieldName = s"leaders[$li].perms[]",
                             checked = (0 to TeamSecurity.Permission.values.size).exists: i =>

@@ -9,8 +9,10 @@
 
 .form-check__input {
   position: relative;
-  margin-inline-end: 0.5rem;
   cursor: pointer;
+}
+.form-check__input + .form-label {
+  margin-inline-start: 0.5rem;
 }
 
 .form-check__label {
