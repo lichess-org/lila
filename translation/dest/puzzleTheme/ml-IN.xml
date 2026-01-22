@@ -2,7 +2,7 @@
 <resources>
   <string name="advantage">മേൽകൈ</string>
   <string name="crushing">കീഴ്പെടുത്തുന്നു</string>
-  <string name="crushingDescription">ഒരു കീഴ്പെടുത്തുന്ന നേട്ടം ലഭിക്കാൻ എതിരാളിയുടെ അബദ്ധം കണ്ടുപ്പിടിക്കുക (ഈവാൽ>=600cp)</string>
+  <string name="crushingDescription">ഒരു കീഴ്പെടുത്തുന്ന നേട്ടം ലഭിക്കാൻ എതിരാളിയുടെ അബദ്ധം കണ്ടുപ്പിടിക്കുക (ഈവാൽ&gt;=600cp)</string>
   <string name="mate">അടിയറവു്</string>
   <string name="mateIn1Description">ഒരു നീക്കത്തിൽ അടിയറവു് വരുത്തുക.</string>
   <string name="mateIn2Description">രണ്ടു് നീക്കത്തിൽ അടിയറവു് വരുത്തുക.</string>
