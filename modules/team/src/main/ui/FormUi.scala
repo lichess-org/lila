@@ -124,7 +124,6 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
       form3.nativeCheckboxField(
         form("hideMembers"),
         "Hide team member list from non-members.",
-        help = none,
         half = true
       ),
       form3.split(

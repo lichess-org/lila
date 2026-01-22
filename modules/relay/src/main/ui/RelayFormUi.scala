@@ -615,13 +615,11 @@ Hanna Marie ; Kozul, Zdenko"""),
               form3.nativeCheckboxField(
                 form("showScores"),
                 trb.showScores(),
-                help = None,
                 half = true
               ),
               form3.nativeCheckboxField(
                 form("showRatingDiffs"),
                 "Show player's rating diffs",
-                help = None,
                 half = true
               )
             ),
