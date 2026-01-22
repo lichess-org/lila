@@ -92,6 +92,6 @@ Luani lojëra të shpejta dhe klasike, që të rriten shanset tuaja për të pas
   </plurals>
   <string name="percentSolved">%s të zgjidhur</string>
   <string name="noPuzzlesToShow">S’ka gjë për shfaqje, shkoni e luani ca ushtrime, së pari!</string>
-  <string name="improvementAreasDescription">Stërvituni me këto, që të optimizoni përparimin tuaj!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Stërvituni me këto, që të optimizoni përparimin tuaj!</string>
   <string name="strengthDescription">Dilni më mirë në këto tema</string>
 </resources>
