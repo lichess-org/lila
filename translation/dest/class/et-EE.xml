@@ -88,7 +88,7 @@ Siin on link klassi sisenemiseks.</string>
   <string name="timePlaying">Mängitud aeg</string>
   <string name="variantXOverLastY">%1$s viimase %2$s jooksul</string>
   <string name="winrate">Võiduprotsent</string>
-  <string name="na">Puudub</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Puudub</string>
   <string name="overview">Ülevaade</string>
   <string name="news">Uudised</string>
   <string name="classNews">Klassi uudised</string>
