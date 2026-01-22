@@ -36,8 +36,8 @@
     <item quantity="one">Ierobežojiet garumu: ne vairāk kā %s rakstzīme</item>
     <item quantity="other">Ierobežojiet garumu: ne vairāk kā %s rakstzīmes</item>
   </plurals>
-  <string name="visibility">Redzams straumētāju lapā</string>
-  <string name="whenApproved">Tad, kad moderatori apstiprinās</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Redzams straumētāju lapā</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Tad, kad moderatori apstiprinās</string>
   <string name="headline">Virsraksts</string>
   <string name="tellUsAboutTheStream">Pastāstiet par savu straumi vienā teikumā</string>
   <string name="longDescription">Pilnais apraksts</string>
