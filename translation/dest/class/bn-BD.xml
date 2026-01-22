@@ -41,7 +41,7 @@
   <string name="timePlaying">কত সময় খেলছে</string>
   <string name="variantXOverLastY">শেষ %2$s এর %1$s</string>
   <string name="winrate">জেতার হার</string>
-  <string name="na">প্র/ন</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">প্র/ন</string>
   <string name="editNews">সংবাদ সম্পাদনা করুন</string>
   <string name="notifyAllStudents">সকল ছাত্রকে অবগত করুন</string>
   <string name="nothingHere">এখানে কিছুই নেই, আপাতত...</string>
