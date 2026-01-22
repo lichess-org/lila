@@ -282,11 +282,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       details = image.automod.flatMap(_.flagged)
     )
 
-  def wasUnengined(sus: Suspect) = coll.exists:
+  def wasUnengined(sus: Suspect, after: Option[Instant] = None) = coll.exists:
     $doc(
       "user" -> sus.user.id,
       "action" -> Modlog.unengine
-    )
+    ) ++ after.so(d => $doc("date".$gte(d)))
 
   def wasUnbooster(userId: UserId) = coll.exists:
     $doc(
