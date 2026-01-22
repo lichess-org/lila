@@ -88,6 +88,6 @@
   </plurals>
   <string name="percentSolved">%s 已解决</string>
   <string name="noPuzzlesToShow">暂无数据显示，请先去解决一些谜题吧！</string>
-  <string name="improvementAreasDescription">训练这些主题以提升您的棋艺！</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">训练这些主题以提升您的棋艺！</string>
   <string name="strengthDescription">您在这些主题中表现最佳</string>
 </resources>
