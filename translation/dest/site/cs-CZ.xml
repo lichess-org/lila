@@ -388,6 +388,7 @@
     <item quantity="other">%s se hraje</item>
   </plurals>
   <string name="exportGames">Exportovat partie</string>
+  <string name="ratingFilter">Filtr ratingu</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Přidat %s sekundu</item>
     <item quantity="few">Přidat %s sekundy</item>
@@ -987,6 +988,7 @@
   <string name="agreementPolicy">Souhlasím, že se budu řídit všemi pravidly Lichessu.</string>
   <string name="searchOrStartNewDiscussion">Začněte nebo vyhledejte konverzaci</string>
   <string name="edit">Upravit</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Bleskové šachy</string>
   <string name="rapid">Rapid</string>
@@ -1094,4 +1096,5 @@ Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z př�
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Hledat</string>
   <string name="clearSearch">Vymazat vyhledávání</string>
+  <string name="enPassant">Braní mimochodem</string>
 </resources>
