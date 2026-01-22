@@ -89,6 +89,6 @@ Speel snel en klassieke spelle om jou kanse te verhoog dat een van jou eie raais
   </plurals>
   <string name="percentSolved">%s opgelos</string>
   <string name="noPuzzlesToShow">Niks om te wys nie, gaan los eers \'n paar raaisels op!</string>
-  <string name="improvementAreasDescription">Oefen hierdie om jou progressie te optimaliseer!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Oefen hierdie om jou progressie te optimaliseer!</string>
   <string name="strengthDescription">Jy presteer die beste in hierdie temas</string>
 </resources>
