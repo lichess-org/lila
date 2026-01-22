@@ -94,6 +94,6 @@ Schpill schnälli und au klassischi Schpiel, will so erhöht sich d\'Chance, das
   </plurals>
   <string name="percentSolved">%s glöst</string>
   <string name="noPuzzlesToShow">Es git no nüt zum Zeige, lös zerscht es paar Ufgabe!</string>
-  <string name="improvementAreasDescription">Trainier mit dene Ufgabe und optimier din Fortschritt!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Trainier mit dene Ufgabe und optimier din Fortschritt!</string>
   <string name="strengthDescription">Dini Leischtig isch am beschte i dene Theme</string>
 </resources>
