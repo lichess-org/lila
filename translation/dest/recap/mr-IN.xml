@@ -58,7 +58,7 @@
 	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">Lichess वर %1$s खेळ खेळले गेले %2$s मध्ये</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s तुमचे होते.</string>
 	<string name="thanksTitle">Lichess मध्ये खेळण्यास धन्यवाद!</string>
-	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">तुम्हाला बघून आम्ही प्रसन्न झ्हालो, तुमचे %s सुखमय हो!</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">तुम्हाला बघून आम्ही प्रसन्न झालो, तुमचे %s सुखमय हो!</string>
 	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">Lichess चे %1$s ह्या वर्षी %2$s होते</string>
 	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">खर्च</string>
 	<string name="patronCharity">आम्ही एक धर्मादाय संस्था आहोत, जी पूर्णपणे देणग्यांवर चालते.</string>
