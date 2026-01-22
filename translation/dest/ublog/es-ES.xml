@@ -2,7 +2,7 @@
 <resources>
   <string name="community">Comunidad</string>
   <string name="byMonth">Por mes</string>
-  <string name="byTopic">PorTema</string>
+  <string name="byTopic">Por tema</string>
   <string name="byLichess">Por Lichess</string>
   <string name="myFriends">Mis amigos</string>
   <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Mis \"Me gusta\"</string>
