@@ -88,6 +88,6 @@ Spela snabbschack och klassiska partier för att öka dina chanser att få ett a
   </plurals>
   <string name="percentSolved">%s lösta</string>
   <string name="noPuzzlesToShow">Ingenting att visa, gå och lös några problem först!</string>
-  <string name="improvementAreasDescription">Öva på dessa för att optimera dina framsteg!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Öva på dessa för att optimera dina framsteg!</string>
   <string name="strengthDescription">Du presterar bäst i dessa teman</string>
 </resources>
