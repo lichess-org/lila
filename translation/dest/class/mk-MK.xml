@@ -88,7 +88,7 @@
   <string name="timePlaying">Време на играње</string>
   <string name="variantXOverLastY">%1$s во последните %2$s</string>
   <string name="winrate">Стапка на победи</string>
-  <string name="na">N/A</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
   <string name="overview">Преглед</string>
   <string name="news">Новости</string>
   <string name="classNews">Наставни новости</string>
