@@ -38,8 +38,8 @@
     <item quantity="many">Pasirinkite trumpą: daugiausia %s ženklo</item>
     <item quantity="other">Pasirinkite trumpą: daugiausia %s ženklų</item>
   </plurals>
-  <string name="visibility">Matomas transliuotojų puslapyje</string>
-  <string name="whenApproved">Kai bus patvirtintas moderatorių</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Matomas transliuotojų puslapyje</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Kai bus patvirtintas moderatorių</string>
   <string name="headline">Antraštė</string>
   <string name="tellUsAboutTheStream">Papasakokite apie savo transliaciją vienu sakiniu</string>
   <string name="longDescription">Ilgas aprašymas</string>
