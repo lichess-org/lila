@@ -11,10 +11,10 @@ object PeersRatingRange extends TotalWrapper[PeersRatingRange, PairOf[IntRating]
     // > db.insight.estimatedDocumentCount()
     // 2853219252
     // > db.insight.aggregate([{$sample:{size:50000000}},{$project:{_id:0,mr:1}},{$match:{mr:{$exists:1}}},{$group:{_id:null,ratings:{$avg:'$mr'}}}])
-    // { "_id" : null, "ratings" : 1878.1484907826184 }
+    // { "_id" : null, "ratings" : 1823.3090773968 }
     // > db.insight.aggregate([{$sample:{size:50000000}},{$project:{_id:0,mr:1}},{$match:{mr:{$exists:1}}},{$group:{_id:null,ratings:{$stdDevSamp:'$mr'}}}])
-    // { "_id" : null, "ratings" : 357.42969844387625 }
-    lila.rating.Gaussian(1878d, 357d)
+    // { "_id" : null, "ratings" : 364.74285981482296 }
+    lila.rating.Gaussian(1823.31, 364.74d)
 
   private val minRating = Glicko.minRating
   private val maxRating = IntRating(3200)
