@@ -97,6 +97,6 @@ Imir cluichí gasta agus clasaiceacha chun cur leis na seansanna go gcuirfear fa
   </plurals>
   <string name="percentSolved">Réitíodh %s</string>
   <string name="noPuzzlesToShow">Níl rud le taispeáint, imirt roinnt fadhb ar dtús!</string>
-  <string name="improvementAreasDescription">Traenáil iad seo chun do fhorbairt a bharrfheabhsú!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Traenáil iad seo chun do fhorbairt a bharrfheabhsú!</string>
   <string name="strengthDescription">Cruthaigh tú an chuid is fearr sna réimsí seo</string>
 </resources>
