@@ -101,6 +101,9 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       disabled: Boolean = false
   ) =
     span(cls := "form-check__input")(
+      (disabled && checked).option: // disabled checkboxes don't submit; need an extra hidden field
+        hidden(fieldName, value)
+      ,
       st.input(
         st.id := fieldId,
         name := fieldName,
