@@ -96,7 +96,7 @@ Tukaj je povezava za dostop do razreda.</string>
   <string name="timePlaying">Čas igranja</string>
   <string name="variantXOverLastY">%1$s v zadnjih %2$s</string>
   <string name="winrate">Delež zmag</string>
-  <string name="na">Ni na voljo</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Ni na voljo</string>
   <string name="overview">Pregled</string>
   <string name="news">Obvestila</string>
   <string name="classNews">Novice razreda</string>
@@ -128,7 +128,7 @@ Prikazal bo horizontalno črto.</string>
   <string name="allowMessagingBetweenStudentsDesc">To velja samo za račune, ki ste jih ustvarili za svoje učence.</string>
   <string name="quickLoginCode">Koda za hitro prijavo</string>
   <string name="quickLoginCodes">Kode za hitro prijavo</string>
-  <string name="quickLoginCodesDesc1" comment="String is a URL">Uporabite te kode na %s za prijavo svojih učencev v Lichess.</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Uporabite te kode na %s za prijavo svojih učencev v Lichess.</string>
   <string name="quickLoginCodesDesc2">Ko kode potečejo, bodo vaši učenci ostali prijavljeni, dokler se ročno ne odjavijo.</string>
-  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Potek: %s</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Potek: %s</string>
 </resources>
