@@ -98,6 +98,6 @@
   </plurals>
   <string name="percentSolved">%s išspręsta</string>
   <string name="noPuzzlesToShow">Nėra ką rodyti, pirma išspręskite galvosūkių!</string>
-  <string name="improvementAreasDescription">Treniruokitės su šiomis norėdami pagerinti savo progresą!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Treniruokitės su šiomis norėdami pagerinti savo progresą!</string>
   <string name="strengthDescription">Jums geriausiai sekasi šiose temose</string>
 </resources>
