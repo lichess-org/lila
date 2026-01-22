@@ -28,8 +28,7 @@
       padding: 0.5em 0;
     }
 
-    label {
-      cursor: pointer;
+    .form-check__input {
       margin-inline-start: 0.5em;
     }
   }
@@ -38,11 +37,5 @@
     background: $m-secondary_bg--mix-10;
     color: $c-good;
     padding: 0.5em 0;
-  }
-
-  .cmn-toggle:not(:checked) + label::before {
-    @include inline-end(1px);
-    background-color: transparent;
-    border-radius: 24px;
   }
 }
