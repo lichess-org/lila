@@ -83,6 +83,6 @@ Ghjucate e partite rapide è e partite classiche per aumintà a prubabilità d\'
   </plurals>
   <string name="percentSolved">%s risolti</string>
   <string name="noPuzzlesToShow">Nunda à mustrà, ghjucate parechji prublemi innanzu!</string>
-  <string name="improvementAreasDescription">Addestrate vi in issi duminii pà prugressà du modu ottimu!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Addestrate vi in issi duminii pà prugressà du modu ottimu!</string>
   <string name="strengthDescription">Avete riesciutu di modu ottimu in issi temi</string>
 </resources>
