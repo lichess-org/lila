@@ -23,7 +23,8 @@ case class Team(
     chat: Access,
     forum: Access,
     hideMembers: Option[Boolean],
-    flair: Option[Flair]
+    flair: Option[Flair],
+    ofClas: Option[Boolean] = None
 ):
 
   inline def slug = id
@@ -49,6 +50,10 @@ case class Team(
   def notable = open && (nbMembers > 10 || (nbMembers > 1 && daysOld > 7))
 
   def automodText = s"$name\n${~intro}\n$description"
+
+  def isClas = ~ofClas
+  def acceptsMembers = !isClas
+  def doesTeamMessages = !isClas
 
 object Team:
 
@@ -110,7 +115,7 @@ object Team:
       description: Markdown,
       descPrivate: Option[Markdown],
       open: Boolean,
-      createdBy: User
+      createdBy: UserId
   ): Team = new Team(
     id = id,
     name = name,
@@ -122,9 +127,9 @@ object Team:
     enabled = true,
     open = open,
     createdAt = nowInstant,
-    createdBy = createdBy.id,
-    chat = Access.Members,
-    forum = Access.Members,
+    createdBy = createdBy,
+    chat = Access.None,
+    forum = Access.None,
     hideMembers = none,
     flair = none
   )

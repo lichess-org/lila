@@ -53,7 +53,7 @@ final class TeamApi(
 
   def request(id: TeamRequest.ID) = requestRepo.coll.byId[TeamRequest](id)
 
-  def create(setup: TeamSetup, me: User): Fu[Team] =
+  def create(setup: TeamSetup)(using me: Me): Fu[Team] =
     val bestId = Team.nameToId(setup.name)
     for
       exists <- chatApi.exists(bestId.into(ChatId))
@@ -69,12 +69,19 @@ final class TeamApi(
         createdBy = me
       )
       _ <- teamRepo.coll.insert.one(team)
-      _ <- memberRepo.add(team.id, me.id, TeamSecurity.Permission.values.toSet)
+      _ <- memberRepo.add(team.id, me.userId, TeamSecurity.Permission.values.toSet)
     yield
-      cached.invalidateTeamIds(me.id)
+      cached.invalidateTeamIds(me.userId)
       Bus.pub(TeamCreate(team.data))
-      lila.common.Bus.pub(tl.Propagate(tl.TeamCreate(me.id, team.id)).toFollowersOf(me.id))
+      lila.common.Bus.pub(tl.Propagate(tl.TeamCreate(me.userId, team.id)).toFollowersOf(me.userId))
       team
+
+  private[team] def createQuietly(team: Team)(using me: Me): Fu[Team] = for
+    _ <- teamRepo.coll.insert.one(team)
+    _ <- memberRepo.add(team.id, me.userId, TeamSecurity.Permission.values.toSet)
+  yield
+    cached.invalidateTeamIds(me.userId)
+    team
 
   def update(old: Team, edit: TeamEdit)(using me: Me): Fu[String] = update:
     old.copy(
@@ -153,15 +160,17 @@ final class TeamApi(
 
   def join(team: Team, request: Option[String], password: Option[String])(using me: Me): Fu[Requesting] =
     workQueue(team.id):
-      blocklist
-        .has(team, me.userId)
-        .flatMap:
-          if _ then fuccess(Requesting.Blocklist)
-          else if team.open then
-            if team.passwordMatches(~password)
-            then doJoin(team).inject(Requesting.Joined)
-            else fuccess(Requesting.NeedPassword)
-          else motivateOrJoin(team, request)
+      if !team.acceptsMembers then fuccess(Requesting.Closed)
+      else
+        blocklist
+          .has(team, me.userId)
+          .flatMap:
+            if _ then fuccess(Requesting.Blocklist)
+            else if team.open then
+              if team.passwordMatches(~password)
+              then doJoin(team, me.userId).inject(Requesting.Joined)
+              else fuccess(Requesting.NeedPassword)
+            else motivateOrJoin(team, request)
 
   private def motivateOrJoin(team: Team, msg: Option[String])(using Me) =
     msg.fold(fuccess[Requesting](Requesting.NeedRequest)): txt =>
@@ -201,7 +210,7 @@ final class TeamApi(
       for
         _ <- requestRepo.remove(request.id)
         userOption <- userApi.byId(request.user)
-        _ <- userOption.so(user => doJoin(team)(using Me(user)) >> notifier.acceptRequest(team, request))
+        _ <- userOption.so(user => doJoin(team, user.id) >> notifier.acceptRequest(team, request))
       yield ()
     else funit
   }.addEffect: _ =>
@@ -218,15 +227,16 @@ final class TeamApi(
               .map:
                 _.map(_.user).foreach(cached.nbRequests.invalidate)
 
-  def doJoin(team: Team)(using me: Me): Funit = {
-    belongsTo(team.id, me).not.flatMapz:
+  private[team] def doJoin(team: Team, userId: UserId, quietly: Boolean = false): Funit = {
+    belongsTo(team.id, userId).not.flatMapz:
       for
-        _ <- memberRepo.add(team.id, me)
+        _ <- memberRepo.add(team.id, userId)
         _ <- teamRepo.incMembers(team.id, +1)
       yield
-        cached.invalidateTeamIds(me)
-        lila.common.Bus.pub(tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me))
-        Bus.pub(JoinTeam(id = team.id, userId = me))
+        cached.invalidateTeamIds(userId)
+        if !quietly then
+          lila.common.Bus.pub(tl.Propagate(tl.TeamJoin(userId, team.id)).toFollowersOf(userId))
+          Bus.pub(JoinTeam(team.id, userId))
   }.recover(lila.db.ignoreDuplicateKey)
 
   private[team] def addMembers(team: Team, userIds: List[UserId]): Funit =
@@ -360,7 +370,7 @@ final class TeamApi(
   export teamRepo.cursor
   export memberRepo.{ publicLeaderIds, leaderIds, isSubscribed, subscribe, filterUserIdsInTeam }
 
-  // delete for ever, with members but not forums
+  // delete forever, with members but not forums
   def delete(team: Team, by: User, explain: String): Funit = for
     _ <- teamRepo.coll.delete.one($id(team.id))
     _ <- memberRepo.removeByTeam(team.id)

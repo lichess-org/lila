@@ -1,7 +1,7 @@
 package lila.core
 package misc
 
-import lila.core.id.GameId
+import lila.core.id.{ GameId, ClasId }
 import lila.core.userId.*
 import lila.core.user.Me
 
@@ -18,10 +18,14 @@ package streamer:
   case class StreamersOnline(streamers: Map[UserId, StreamInfo])
 
 package clas:
+
   enum ClasBus:
     case CanKidsUseMessages(kid1: UserId, kid2: UserId, promise: Promise[Boolean])
     case IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
     case ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
+
+  case class ClasTeamConfig(name: String, teacherIds: NonEmptyList[UserId], studentIds: List[UserId])
+  case class ClasTeamUpdate(clasId: ClasId, wantsTeam: Option[ClasTeamConfig])(using val me: Me)
 
 package puzzle:
   case class StormRun(userId: UserId, score: Int)

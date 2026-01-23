@@ -12,6 +12,7 @@ import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
 import lila.core.user.KidMode
 import lila.core.perm.Granter
+import lila.common.Bus
 
 final class ClasApi(
     colls: ClasColls,
@@ -26,7 +27,7 @@ final class ClasApi(
 
   import BsonHandlers.given
 
-  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+  Bus.sub[lila.core.user.UserDelete]: del =>
     colls.clas.update.one($doc("created.by" -> del.id), $set("created.by" -> UserId.ghost), multi = true)
     colls.clas.update.one($doc("teachers" -> del.id), $pull("teachers" -> del.id), multi = true)
     colls.student.delete.one($doc("userId" -> del.id))
@@ -54,18 +55,22 @@ final class ClasApi(
         .cursor[Clas]()
         .listAll()
 
-    def create(data: ClasForm.ClasData, teacher: User): Fu[Clas] =
+    def create(data: ClasForm.ClasData, teacher: User)(using Me): Fu[Clas] =
       val clas = Clas.make(teacher, data.name, data.desc)
-      coll.insert.one(clas).inject(clas)
+      for
+        _ <- coll.insert.one(clas)
+        _ = publishTeamUpdate(clas)
+      yield clas
 
-    def update(from: Clas, data: ClasForm.ClasData): Fu[Clas] =
+    def update(from: Clas, data: ClasForm.ClasData)(using Me): Fu[Clas] =
       val clas = data.update(from)
-      userRepo.filterEnabled(clas.teachers.toList).flatMap { filtered =>
-        val checked = clas.copy(
-          teachers = clas.teachers.toList.filter(filtered.contains).toNel | from.teachers
-        )
-        coll.update.one($id(clas.id), checked).inject(checked)
-      }
+      for
+        enabledTeachers <- userRepo.filterEnabled(clas.teachers.toList)
+        fixedTeachers = clas.teachers.toList.filter(enabledTeachers.contains).toNel | from.teachers
+        checked = clas.copy(teachers = fixedTeachers)
+        _ <- coll.update.one($id(clas.id), checked)
+        _ = publishTeamUpdate(checked)
+      yield checked
 
     def updateWall(clas: Clas, text: Markdown): Funit =
       coll.updateField($id(clas.id), "wall", text).void
@@ -83,6 +88,16 @@ final class ClasApi(
 
     def isTeacherOf(teacher: User, clasId: ClasId): Fu[Boolean] =
       coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
+
+    private def publishTeamUpdate(clas: Clas)(using Me): Unit =
+      import lila.core.misc.clas.*
+      val cfgFu = clas.hasTeam.orZero.so:
+        student
+          .activeUserIdsOf(clas)
+          .map: studentIds =>
+            ClasTeamConfig(clas.name, clas.teachers, studentIds).some
+      cfgFu.foreach: config =>
+        Bus.pub(ClasTeamUpdate(clas.id, config))
 
     private def lookupClasOfTeacher(teacher: UserId) =
       $lookup.simple(
@@ -173,6 +188,10 @@ final class ClasApi(
 
     def activeOf(clas: Clas): Fu[List[Student]] =
       of($doc("clasId" -> clas.id) ++ selectArchived(false))
+
+    def activeUserIdsOf(clas: Clas): Fu[List[UserId]] =
+      coll
+        .primitive[UserId]($doc("clasId" -> clas.id) ++ selectArchived(false), $sort.asc("userId"), "userId")
 
     def allWithUsers(clas: Clas, selector: Bdoc = $empty): Fu[List[Student.WithUser]] =
       colls.student

@@ -13,7 +13,8 @@ case class Clas(
     created: Clas.Recorded,
     viewedAt: Instant,
     archived: Option[Clas.Recorded],
-    canMsg: Option[Boolean]
+    canMsg: Option[Boolean],
+    hasTeam: Option[Boolean]
 ):
   def withStudents(students: List[Student]) = Clas.WithStudents(this, students)
 
@@ -33,7 +34,8 @@ object Clas:
       created = Recorded(teacher.id, nowInstant),
       viewedAt = nowInstant,
       archived = none,
-      canMsg = false.some
+      canMsg = false.some,
+      hasTeam = false.some
     )
 
   case class Recorded(by: UserId, at: Instant)

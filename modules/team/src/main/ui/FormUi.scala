@@ -25,8 +25,9 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
           postForm(cls := "form3", action := routes.Team.create)(
             form3.globalError(form),
             form3.group(form("name"), trans.site.name())(form3.input(_)),
-            entryFields(form),
+            entryFields(form, none),
             textFields(form),
+            accessFields(form, none),
             renderCaptcha(form, captcha),
             form3.actions(
               a(href := routes.Team.home(1))(trans.site.cancel()),
@@ -45,10 +46,10 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
           standardFlash,
           t.enabled.option(
             postForm(cls := "form3", action := routes.Team.update(t.id))(
-              flairField(form),
-              entryFields(form),
+              flairField(form, t.some),
+              entryFields(form, t.some),
               textFields(form),
-              accessFields(form),
+              accessFields(form, t.some),
               form3.actions(
                 a(href := routes.Team.show(t.id))(trans.site.cancel()),
                 form3.submit(trans.site.apply())
@@ -92,8 +93,9 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
-  private def flairField(form: Form[?])(using Context) =
-    form3.flairPickerGroup(form("flair"), Flair.from(form("flair").value))
+  private def flairField(form: Form[?], team: Option[Team])(using Context) =
+    Option.unless(team.exists(_.isClas)):
+      form3.flairPickerGroup(form("flair"), Flair.from(form("flair").value))
 
   private def textFields(form: Form[?])(using Context, Me) = frag(
     form3.group(
@@ -119,12 +121,13 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
     )(f => teamDescTextarea(f)())
   )
 
-  private def accessFields(form: Form[?])(using Context) =
+  private def accessFields(form: Form[?], team: Option[Team])(using Context) =
     frag(
       form3.checkboxGroup(
         form("hideMembers"),
         "Hide team member list from non-members.",
-        half = true
+        half = true,
+        disabled = team.exists(_.isClas)
       ),
       form3.split(
         form3.group(form("chat"), frag("Team chat"), help = frag("Who can use the team chat?").some) { f =>
@@ -159,21 +162,24 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
       )
     )
 
-  private def entryFields(form: Form[?])(using ctx: Context) =
-    form3.split(
-      form3.checkboxGroup(
-        form("request"),
-        trans.team.manuallyReviewAdmissionRequests(),
-        help = trans.team.manuallyReviewAdmissionRequestsHelp().some,
-        half = true
-      ),
-      form3.group(
-        form("password"),
-        trans.team.entryCode(),
-        help = trans.team.entryCodeDescriptionForLeader().some,
-        half = true
-      )(form3.input(_))
-    )
+  private def entryFields(form: Form[?], team: Option[Team])(using ctx: Context) =
+    team
+      .forall(_.acceptsMembers)
+      .option:
+        form3.split(
+          form3.checkboxGroup(
+            form("request"),
+            trans.team.manuallyReviewAdmissionRequests(),
+            help = trans.team.manuallyReviewAdmissionRequestsHelp().some,
+            half = true
+          ),
+          form3.group(
+            form("password"),
+            trans.team.entryCode(),
+            help = trans.team.entryCodeDescriptionForLeader().some,
+            half = true
+          )(form3.input(_))
+        )
 
   private def teamDescTextarea(field: play.api.data.Field)(modifiers: Modifier*)(using Me) =
     lila.ui.bits.markdownTextarea(s"team${field.name.capitalize}".some):

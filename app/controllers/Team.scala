@@ -233,8 +233,10 @@ final class Team(env: Env) extends LilaController(env):
       bindForm(forms.explain)(
         _ => redirect.flashFailure,
         explain =>
-          (api.toggleEnabled(team, explain) >>
-            env.mod.logApi.toggleTeam(team.id, team.enabled, explain)).inject(redirect.flashSuccess)
+          for
+            _ <- api.toggleEnabled(team, explain)
+            _ <- env.mod.logApi.toggleTeam(team.id, team.enabled, explain)
+          yield redirect.flashSuccess
       )
   }
 
@@ -270,7 +272,7 @@ final class Team(env: Env) extends LilaController(env):
             err => BadRequest.page(views.team.form.create(err, anyCaptcha)),
             data =>
               for
-                team <- api.create(data, me)
+                team <- api.create(data)
                 url = routes.Team.show(team.id).url
                 _ <- env.memo.picfitApi.addRef(Markdown(team.automodText), ref(team.id), url.some)
               yield
@@ -313,9 +315,9 @@ final class Team(env: Env) extends LilaController(env):
                   .join(team, setup.message, setup.password)
                   .flatMap:
                     case Requesting.Joined => jsonOkResult
-                    case Requesting.NeedRequest => BadRequest(jsonError("This team requires confirmation."))
-                    case Requesting.NeedPassword => BadRequest(jsonError("This team requires a password."))
-                    case Requesting.Blocklist => BadRequest(jsonError("You cannot join this team."))
+                    case Requesting.NeedRequest => JsonBadRequest("This team requires confirmation.")
+                    case Requesting.NeedPassword => JsonBadRequest("This team requires a password.")
+                    case _ => JsonBadRequest("You cannot join this team.")
             )
           )
   }
@@ -363,8 +365,7 @@ final class Team(env: Env) extends LilaController(env):
           Redirect(env.web.referrerRedirect.fromReq | routes.Team.show(team.id).url).flashSuccess
         case Requesting.NeedRequest | Requesting.NeedPassword =>
           Redirect(routes.Team.requestForm(team.id)).flashSuccess
-        case Requesting.Blocklist =>
-          Redirect(routes.Team.show(team.id)).flashFailure("You cannot join this team.")
+        case _ => Redirect(routes.Team.show(team.id)).flashFailure("You cannot join this team.")
 
   def requestProcess(requestId: String) = AuthBody { ctx ?=> me ?=>
     Found(for
@@ -393,23 +394,24 @@ final class Team(env: Env) extends LilaController(env):
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
     Found(api.team(id)): team =>
-      api
-        .withLeaders(team)
-        .flatMap: t =>
-          val admins = t.leaders.filter(_.hasPerm(_.Admin))
-          if admins.nonEmpty && admins.forall(_.is(me))
-          then
-            val msg = lila.core.i18n.I18nKey.team.onlyLeaderLeavesTeam.txt()
-            negotiate(
-              html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
-              json = JsonBadRequest(msg)
-            )
-          else
-            api.cancelRequestOrQuit(team) >>
+      team.isClas.not.so:
+        api
+          .withLeaders(team)
+          .flatMap: t =>
+            val admins = t.leaders.filter(_.hasPerm(_.Admin))
+            if admins.nonEmpty && admins.forall(_.is(me))
+            then
+              val msg = lila.core.i18n.I18nKey.team.onlyLeaderLeavesTeam.txt()
               negotiate(
-                html = Redirect(routes.Team.mine).flashSuccess,
-                json = jsonOkResult
+                html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
+                json = JsonBadRequest(msg)
               )
+            else
+              api.cancelRequestOrQuit(team) >>
+                negotiate(
+                  html = Redirect(routes.Team.mine).flashSuccess,
+                  json = jsonOkResult
+                )
   }
 
   def autocomplete = Anon:
