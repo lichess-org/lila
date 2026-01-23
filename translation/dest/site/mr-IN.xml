@@ -9,6 +9,8 @@
   <string name="gameOver">डाव समाप्त</string>
   <string name="waitingForOpponent">प्रतिस्पर्ध्याची प्रतीक्षा आहे</string>
   <string name="orLetYourOpponentScanQrCode">तुमच्या विरोधकाला हा QR Code स्कॅन करायला सांगा</string>
+  <string name="reusableChallengeUrl">पुनर्प्रयोगी आव्हान URL </string>
+  <string name="permanentLinkForAnyoneToChallengeYou">एक शाश्वत लिंक ज्याने कोणीही तुम्हाला ह्याच नेमक्या कोंदणांबरोबर आव्हान करू शकतो.</string>
   <string name="waiting">प्रतीक्षेत आहे</string>
   <string name="yourTurn">तुमची चाल</string>
   <string name="aiNameLevelAiLevel">%1$s, पातळी %2$s</string>
@@ -429,6 +431,8 @@
   <string name="leaderboard">आघाडीचे खेळाडू</string>
   <string name="screenshotCurrentPosition">आत्ताच्या स्थितीचा स्क्रीनशॉट</string>
   <string name="gameAsGIF">GIF म्हणून खेळ</string>
+  <string name="playerNames">खेळाडूंची नावे</string>
+  <string name="moveAnnotations">डावांचे भाष्ये</string>
   <string name="pasteTheFenStringHere">FEN टेक्स्ट येथे पेस्ट करा</string>
   <string name="pasteThePgnStringHere">PGN टेक्स्ट येथे पेस्ट करा</string>
   <string name="orUploadPgnFile">किंवा PGN फाईल अपलोड करा</string>
