@@ -818,6 +818,7 @@
   <string name="size">Tamaina</string>
   <string name="opacity">Gardentasuna</string>
   <string name="brightness">Argitasuna</string>
+  <string name="contrast">Kontrastea</string>
   <string name="hue">Ñabardura</string>
   <string name="boardReset">Berrezarri koloreak defektuzkoetara</string>
   <string name="pieceSet">Pieza formatua</string>
