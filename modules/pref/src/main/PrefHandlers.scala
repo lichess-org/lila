@@ -8,7 +8,24 @@ import lila.db.dsl.{ *, given }
 
 private object PrefHandlers:
 
-  given BSONDocumentHandler[Pref.BoardPref] = Macros.handler
+  given BSONDocumentHandler[Pref.BoardPref] = new BSON[Pref.BoardPref]:
+
+    def reads(r: BSON.Reader): Pref.BoardPref =
+      val d = Pref.default.board
+      Pref.BoardPref(
+        brightness = r.getD("brightness", d.brightness),
+        contrast = r.getD("contrast", d.contrast),
+        opacity = r.getD("opacity", d.opacity),
+        hue = r.getD("hue", d.hue)
+      )
+
+    def writes(w: BSON.Writer, o: Pref.BoardPref) =
+      $doc(
+        "brightness" -> o.brightness,
+        "contrast" -> o.contrast,
+        "opacity" -> o.opacity,
+        "hue" -> o.hue
+      )
 
   given BSONDocumentHandler[Pref] = new BSON[Pref]:
 
