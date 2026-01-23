@@ -47,8 +47,6 @@ final private class InsightIndexer(
       Query.notFromPosition ++
       Query.notHordeOrSincePawnsAreWhite
 
-  private val maxGames = 10_000
-
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if user.count.rated == 0 then fuccess(none)
     else
