@@ -900,6 +900,7 @@
   <string name="size">Rozmiar</string>
   <string name="opacity">Przezroczystość</string>
   <string name="brightness">Jasność</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Odcień</string>
   <string name="boardReset">Przywróć domyślne kolory</string>
   <string name="pieceSet">Zestaw bierek</string>
