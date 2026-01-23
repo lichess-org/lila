@@ -5,4 +5,4 @@ export lila.common.extensions.*
 
 private val logger = lila.log("insight")
 
-val maxGames = 10_000
+val maxGames = Max(10_000)

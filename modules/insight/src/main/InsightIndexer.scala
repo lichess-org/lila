@@ -50,12 +50,12 @@ final private class InsightIndexer(
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if user.count.rated == 0 then fuccess(none)
     else
-      (user.count.rated >= maxGames)
+      (maxGames < user.count.rated)
         .so:
           gameRepo.coll
             .find(gameQuery(user))
             .sort(Query.sortCreated)
-            .skip(maxGames - 1)
+            .skip(maxGames.value - 1)
             .one[Game](ReadPref.sec)
         .orElse:
           gameRepo.coll
@@ -78,10 +78,10 @@ final private class InsightIndexer(
         val query = gameQuery(user) ++ $doc(lila.game.Game.BSONFields.createdAt.$gte(from))
         gameRepo
           .sortedCursor(query, Query.sortChronological)
-          .documentSource(maxGames)
+          .documentSource(maxGames.value)
           .mapAsync(16)(toEntry)
           .via(LilaStream.collect)
-          .grouped(100.atMost(maxGames))
+          .grouped(100.atMost(maxGames.value))
           .map(storage.bulkInsert)
           .run()
           .void

@@ -42,7 +42,7 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
         import framework.*
         Match(selectUserId(userId) ++ $doc(F.opening.$exists(true))) -> List(
           Sort(Descending(F.date)),
-          Limit(maxGames),
+          Limit(maxGames.value),
           Facet(
             List(
               "families" -> List(
