@@ -10,8 +10,6 @@ final private class AggregationPipeline(store: InsightStorage)(using
   import InsightStorage.*
   import BSONHandlers.given
 
-  val maxGames = Max(10_000)
-
   def gameMatcher(filters: List[Filter[?]]) = combineDocs(filters.collect {
     case f if f.dimension.isInGame => f.matcher
   })

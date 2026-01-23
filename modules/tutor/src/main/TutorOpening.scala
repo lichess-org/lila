@@ -58,9 +58,9 @@ private case object TutorOpening:
     accuracyQuestion = myPerfs.alignedQuestion
       .withMetric(InsightMetric.MeanAccuracy)
       .filter(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
-    accuracy <- answerBoth(accuracyQuestion, user, Max(2_000))
+    accuracy <- answerBoth(accuracyQuestion, user, Max(5_000))
     awarenessQuestion = accuracyQuestion.withMetric(InsightMetric.Awareness)
-    awareness <- answerBoth(awarenessQuestion, user, Max(2_000))
+    awareness <- answerBoth(awarenessQuestion, user, Max(5_000))
   yield TutorColorOpenings:
     performances.mine.list.map: (family, myPerformance) =>
       TutorOpeningFamily(

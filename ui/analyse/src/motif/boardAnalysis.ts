@@ -1,4 +1,4 @@
-import { parseSquare, opposite, squareRank } from 'chessops/util';
+import { parseSquare, opposite, squareRank, squareFile, squareFromCoords } from 'chessops/util';
 import { SquareSet } from 'chessops/squareSet';
 import {
   attacks,
@@ -108,8 +108,12 @@ export function detectPins(board: Board): Pin[] {
   return pins;
 }
 
+const epTargetPawnSq = (epSquare: Square): Square =>
+  squareFromCoords(squareFile(epSquare), squareRank(epSquare) === 2 ? 3 : 4)!;
+
 function getSEE(
   square: Square,
+  isEpSquare: boolean,
   target: { role: Role; color: Color },
   cb: Board,
   pins: Pin[],
@@ -122,6 +126,7 @@ function getSEE(
   let firstAttacker: Square | undefined;
 
   const simulationBoard = cb.clone();
+  if (isEpSquare) simulationBoard.take(epTargetPawnSq(square)); // e.g., Qf3 would control f6 ep square
 
   while (true) {
     const attackers = getAttackers(square, nextColor, simulationBoard);
@@ -176,15 +181,15 @@ function getSEE(
   return { balance: currentVal, firstAttacker };
 }
 
-export function detectUndefended(board: Board): Undefended[] {
+export function detectUndefended(board: Board, epSquare: Square | undefined): Undefended[] {
   const undefended: Undefended[] = [];
   const cb = board;
   const pins = detectPins(board);
 
   for (let i = 0; i < 64; i++) {
-    const p = board.get(i);
+    const p = board.get(i === epSquare ? epTargetPawnSq(epSquare) : i);
     if (p && p.role !== 'king' && isSquareAttacked(i, opposite(p.color), cb)) {
-      const { balance, firstAttacker } = getSEE(i, p, cb, pins);
+      const { balance, firstAttacker } = getSEE(i, i === epSquare, p, cb, pins);
       if (balance > 0 && firstAttacker !== undefined) {
         undefended.push({
           square: i,

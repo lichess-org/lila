@@ -21,7 +21,8 @@ export default class MotifCtrl {
   any = () => this.pin() || this.checkable() || this.undefended();
 
   detectPins = (board: Board): Pin[] => (this.pin() ? detectPins(board) : []);
-  detectUndefended = (board: Board): Undefended[] => (this.undefended() ? detectUndefended(board) : []);
+  detectUndefended = (board: Board, epSquare: Square | undefined): Undefended[] =>
+    this.undefended() ? detectUndefended(board, epSquare) : [];
   detectCheckable = (board: Board, epSquare: Square | undefined, castlingRights: SquareSet): Checkable[] =>
     this.checkable() ? detectCheckable(board, epSquare, castlingRights) : [];
 }
