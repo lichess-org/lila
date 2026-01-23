@@ -34,9 +34,9 @@
     top: 0;
     @include inline-start(0);
     width: 100%;
-    border-bottom: 2px ridge #a0a0a0;
+    border-bottom: 2px ridge #888;
     @include if-light {
-      border-bottom: 2px ridge #eee;
+      border-bottom-color: #ccc;
     }
     opacity: 0.4;
   }
