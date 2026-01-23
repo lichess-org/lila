@@ -135,29 +135,30 @@ final class UserList(helpers: Helpers, bits: UserBits):
 
   def bots(users: List[UserWithPerfs], bestPerfs: UserPerfs => List[PerfKey])(using Context) =
     val title = s"${users.size} Online bots"
+    val aboutLink = a(href := "/blog/WvDNticAAMu_mHKP/welcome-lichess-bots")("About Lichess Bots")
+    val (featured, community) = users.partition(_.isVerified)
     Page(title)
       .css("bits.slist")
       .css("user.bot.list")
       .flag(_.fullScreen):
-        main(cls := "page-menu bots")(
+        main(cls := "page-menu")(
           bits.communityMenu("bots"),
-          users.partition(_.isVerified) match
-            case (featured, all) =>
-              div(cls := "bots page-menu__content")(
-                div(cls := "bots__featured")(
-                  botGrid(featured, bestPerfs)
-                ),
-                div(cls := "box")(
-                  boxTop(
-                    h1("Community bots"),
-                    a(
-                      cls := "bots__about",
-                      href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"
-                    )("About Lichess Bots")
-                  ),
-                  botGrid(all, bestPerfs)
-                )
+          div(cls := "bots page-menu__content")(
+            div(cls := "box box-pad bots__categ")(
+              boxTop(h1("Featured bots")),
+              div("Try playing these innovative chess engines! These are our favourites.")
+            ),
+            div(cls := "bots__featured")(
+              botGrid(featured, bestPerfs)
+            ),
+            div(cls := "box box-pad bots__categ")(
+              boxTop(h1("Community bots"), aboutLink),
+              div(
+                "More chess engines created by the Lichess community. They are hosted by their creators, and as such might not always be online."
               )
+            ),
+            botGrid(community, bestPerfs)
+          )
         )
 
   private def botGrid(users: List[UserWithPerfs], bestPerfs: UserPerfs => List[PerfKey])(using

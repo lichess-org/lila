@@ -1,6 +1,14 @@
 .bots {
-  &__about {
-    margin-top: 1rem;
+  @extend %flex-column;
+  gap: $block-gap;
+
+  &__categ {
+    &.box-pad {
+      padding: 3vh var(---box-padding);
+    }
+    .box__top {
+      padding-bottom: 1.5em;
+    }
   }
 
   --c-bot: #{$c-primary};
@@ -9,7 +17,6 @@
   }
 
   &__list {
-    margin: 0 1em;
     --min-card-width: 300px;
     @media (max-width: at-most($x-small)) {
       --min-card-width: 240px;
@@ -17,7 +24,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--min-card-width), 1fr));
     grid-gap: 1em;
-    margin-bottom: 1em;
     user-select: none;
 
     &__entry {
@@ -35,7 +41,7 @@
         gap: 0.5em;
 
         .user-link {
-          font-size: 1.5em;
+          font-size: 1.7em;
           color: $c-font;
         }
       }
