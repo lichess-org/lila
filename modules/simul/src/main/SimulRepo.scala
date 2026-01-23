@@ -163,13 +163,6 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
       )
       .void
 
-  def cleanup =
-    coll.delete.one(
-      createdSelect ++ $doc(
-        "createdAt" -> $doc("$lt" -> (nowInstant.minusMinutes(60)))
-      )
-    )
-
   private[simul] def anonymizeHost(id: UserId) =
     coll.update.one($doc("hostId" -> id), $set("hostId" -> UserId.ghost), multi = true)
 
