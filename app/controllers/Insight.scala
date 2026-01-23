@@ -15,7 +15,7 @@ final class Insight(env: Env) extends LilaController(env):
   def index(username: UserStr) = OpenOrScoped(): ctx ?=>
     Accessible(username): user =>
       negotiate(
-        html = doPath(user, InsightMetric.MeanCpl.key, InsightDimension.Perf.key, ""),
+        html = doPath(user, InsightMetric.MeanAccuracy.key, InsightDimension.Perf.key, ""),
         json = env.insight.api.userStatus(user).map { status =>
           Ok(Json.obj("status" -> status.toString))
         }
