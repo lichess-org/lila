@@ -103,6 +103,10 @@ final class PgnDump(
       Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
       Tag(_.Round, importedTags.flatMap(_.apply(_.Round)) | "-").some,
       Tag(_.White, player(game.whitePlayer, users.white)).some,
+      game.whitePlayer.berserk.option:
+        Tag("WhiteBerserk", game.whitePlayer.berserk),
+      game.blackPlayer.berserk.option:
+        Tag("BlackBerserk", game.blackPlayer.berserk),
       Tag(_.Black, player(game.blackPlayer, users.black)).some,
       Tag(_.Result, result(game)).some,
       importedDate.isEmpty.option:
