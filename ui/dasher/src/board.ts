@@ -157,6 +157,7 @@ export class BoardCtrl extends PaneCtrl {
   private defaults: [string, number][] = [
     ['board-opacity', 100],
     ['board-brightness', 100],
+    ['board-contrast', 100],
     ['board-hue', 0],
   ];
 
@@ -171,6 +172,7 @@ export class BoardCtrl extends PaneCtrl {
       sliders.push(this.propSlider('board-opacity', i18n.site.opacity, { min: 0, max: 100, step: 1 }));
     else
       sliders.push(this.propSlider('board-brightness', i18n.site.brightness, { min: 20, max: 140, step: 1 }));
+    sliders.push(this.propSlider('board-contrast', i18n.site.contrast, { min: 60, max: 200, step: 1 }));
     sliders.push(
       this.propSlider(
         'board-hue',

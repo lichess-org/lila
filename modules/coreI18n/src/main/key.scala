@@ -2187,6 +2187,7 @@ object I18nKey:
     val `size`: I18nKey = "size"
     val `opacity`: I18nKey = "opacity"
     val `brightness`: I18nKey = "brightness"
+    val `contrast`: I18nKey = "contrast"
     val `hue`: I18nKey = "hue"
     val `boardReset`: I18nKey = "boardReset"
     val `pieceSet`: I18nKey = "pieceSet"

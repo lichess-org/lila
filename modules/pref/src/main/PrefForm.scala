@@ -55,7 +55,8 @@ object PrefForm:
     val challenge = "challenge" -> checkedNumber(Pref.Challenge.choices)
     val message = "message" -> checkedNumber(Pref.Message.choices)
     object board:
-      val brightness = "boardBrightness" -> number(0, 150)
+      val brightness = "boardBrightness" -> number(20, 140)
+      val contrast = "boardContrast" -> number(60, 200)
       val opacity = "boardOpacity" -> number(0, 100)
       val hue = "boardHue" -> number(0, 100)
     val sayGG = "sayGG" -> checkedNumber(Pref.SayGG.choices)
