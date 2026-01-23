@@ -400,8 +400,8 @@ object mon:
     val unblock = c.withTag("type", "unblock")
   object clas:
     object student:
-      def create(teacher: String) = counter("clas.student.create").withTag("teacher", teacher)
-      def invite(teacher: String) = counter("clas.student.invite").withTag("teacher", teacher)
+      def create(teacher: UserId) = counter("clas.student.create").withTag("teacher", teacher)
+      def invite(teacher: UserId) = counter("clas.student.invite").withTag("teacher", teacher)
       object bloomFilter:
         val count = gauge("clas.student.bloomFilter.count").withoutTags()
         val fu = future("clas.student.bloomFilter.future")

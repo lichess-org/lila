@@ -5,33 +5,54 @@ import lila.core.misc.clas.{ ClasTeamUpdate, ClasTeamConfig }
 import lila.core.id.ClasId
 import lila.core.team.Access
 
-private final class TeamClasSync(api: TeamApi, memberRepo: TeamMemberRepo)(using Executor):
+private final class TeamClasSync(api: TeamApi, teamRepo: TeamRepo, memberRepo: TeamMemberRepo)(using
+    Executor
+)(using scheduler: Scheduler):
 
-  Bus.sub[ClasTeamUpdate](sync(_))
+  private val debouncer =
+    scalalib.Debouncer[ClasTeamUpdate](scheduler.scheduleOnce(3.seconds, _), 1)(sync)
+
+  Bus.sub[ClasTeamUpdate](debouncer.push(_))
 
   private def sync(ev: ClasTeamUpdate): Funit =
     import ev.me
     val id = ev.clasId.into(TeamId)
-    api
-      .team(id)
-      .flatMap:
-        case None => ev.wantsTeam.so(createFromClas(ev.clasId))
-        case Some(team) =>
-          ev.wantsTeam match
-            case Some(cfg) => syncMembers(team, cfg)
-            case None => deleteTeam(team)
+    for
+      team <- api.team(id)
+      _ <- (team, ev.wantsTeam) match
+        case (None, None) => funit
+        case (None, Some(cfg)) => create(ev.clasId, cfg)
+        case (Some(team), Some(cfg)) => update(team, cfg)
+        case (Some(team), None) => disableTeam(team)
+    yield ()
+
+  private def update(team: Team, cfg: ClasTeamConfig): Funit =
+    for
+      _ <- team.enabled.not.so(teamRepo.enable(team))
+      _ <- syncMembers(team, cfg)
+      _ <- syncPermissions(team, cfg)
+    yield ()
 
   private def syncMembers(team: Team, cfg: ClasTeamConfig): Funit =
-    import TeamSecurity.Permission.*
-    val allMemberIds = cfg.teacherIds.toList ::: cfg.studentIds
     for
-      _ <- allMemberIds.toList.sequentiallyVoid(api.doJoin(team, _, quietly = true))
-      teacherPerms = Set(Public, Settings, Tour, Comm)
-      _ <- cfg.teacherIds.toList.sequentiallyVoid: tid =>
+      studentIds <- cfg.studentIds.value
+      teamMemberIds <- memberRepo.userIdsByTeam(team.id)
+      allClassIds = cfg.teacherIds.toList ::: studentIds
+      intruders = teamMemberIds.toSet -- allClassIds.toSet
+      _ <- intruders.toList.sequentiallyVoid(memberRepo.remove(team.id, _))
+      missing = allClassIds.toSet -- teamMemberIds.toSet
+      _ <- missing.toList.sequentiallyVoid(api.doJoin(team, _, quietly = true))
+      _ <- teamRepo.incMembers(team.id, missing.size - intruders.size)
+    yield ()
+
+  private def syncPermissions(team: Team, cfg: ClasTeamConfig): Funit =
+    import TeamSecurity.Permission.*
+    val teacherPerms = Set(Public, Settings, Tour, Comm)
+    for _ <- cfg.teacherIds.toList.sequentiallyVoid: tid =>
         memberRepo.setPerms(team.id, tid, teacherPerms)
     yield ()
 
-  private def createFromClas(clasId: ClasId)(cfg: ClasTeamConfig)(using me: Me): Funit =
+  private def create(clasId: ClasId, cfg: ClasTeamConfig)(using me: Me): Funit =
     val id = clasId.into(TeamId)
     val intro = s"Team of class ${cfg.name}"
     val team = Team
@@ -59,5 +80,6 @@ private final class TeamClasSync(api: TeamApi, memberRepo: TeamMemberRepo)(using
 
   // it's a bit too easy to unselect the class team from the class settings
   // if it resulted in actual team deletion, we would probably get support requests
-  private def deleteTeam(team: Team)(using me: Me): Funit =
-    api.toggleEnabled(team, "Unselected from class settings").void
+  private def disableTeam(team: Team)(using me: Me): Funit =
+    team.enabled.so:
+      api.toggleEnabled(team, "Unselected from class settings").void

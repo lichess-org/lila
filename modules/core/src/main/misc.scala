@@ -1,6 +1,7 @@
 package lila.core
 package misc
 
+import scalalib.data.LazyFu
 import lila.core.id.{ GameId, ClasId }
 import lila.core.userId.*
 import lila.core.user.Me
@@ -24,7 +25,7 @@ package clas:
     case IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
     case ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
 
-  case class ClasTeamConfig(name: String, teacherIds: NonEmptyList[UserId], studentIds: List[UserId])
+  case class ClasTeamConfig(name: String, teacherIds: NonEmptyList[UserId], studentIds: LazyFu[List[UserId]])
   case class ClasTeamUpdate(clasId: ClasId, wantsTeam: Option[ClasTeamConfig])(using val me: Me)
 
 package puzzle:

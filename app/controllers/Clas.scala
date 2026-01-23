@@ -301,7 +301,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def archive(id: ClasId, v: Boolean) = SecureBody(_.Teacher) { _ ?=> me ?=>
     WithClass(id): clas =>
-      env.clas.api.clas.archive(clas, me, v).inject(redirectTo(clas).flashSuccess)
+      env.clas.api.clas.archive(clas, v).inject(redirectTo(clas).flashSuccess)
   }
 
   def studentForm(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
@@ -340,7 +340,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                   }
               ,
               data =>
-                env.clas.api.student.create(clas, data, me).map { s =>
+                env.clas.api.student.create(clas, data).map { s =>
                   Redirect(routes.Clas.studentForm(clas.id))
                     .flashing("created" -> s"${s.student.userId} ${s.password.value}")
                 }
@@ -378,7 +378,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
               bindForm(env.clas.forms.student.manyCreate(lila.clas.Clas.maxStudents - nbStudents))(
                 err => BadRequest.page(views.clas.student.manyForm(clas, students, err, nbStudents, Nil)),
                 data =>
-                  env.clas.api.student.manyCreate(clas, data, me).flatMap { many =>
+                  env.clas.api.student.manyCreate(clas, data).flatMap { many =>
                     env.user.lightUserApi
                       .preloadMany(many.map(_.student.userId))
                       .inject(
@@ -445,7 +445,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClass(id): clas =>
       WithStudent(clas, username): s =>
         env.clas.api.student
-          .archive(s.student.id, v)
+          .archive(clas, s.student.id, v)
           .inject(Redirect(routes.Clas.studentShow(clas.id, s.user.username)).flashSuccess)
   }
 
@@ -500,11 +500,12 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithStudent(clas, username): s =>
         if s.student.managed then
           for
-            _ <- env.clas.api.student.closeAccount(s)
+            _ <- env.clas.api.student.deleteStudent(clas, s)
             _ <- env.api.accountTermination.disable(s.user, forever = false)
           yield redirectTo(clas).flashSuccess
         else if s.student.isArchived then
-          for _ <- env.clas.api.student.closeAccount(s) yield redirectTo(clas).flashSuccess
+          for _ <- env.clas.api.student.deleteStudent(clas, s)
+          yield redirectTo(clas).flashSuccess
         else redirectTo(clas)
   }
 
@@ -522,7 +523,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClassAndStudents(id): (clas, _) =>
       WithStudent(clas, username): s =>
         WithClass(to): toClas =>
-          for _ <- env.clas.api.student.move(s, toClas)
+          for _ <- env.clas.api.student.move(clas, s, toClas)
           yield Redirect(routes.Clas.show(clas.id)).flashSuccess
   }
 
