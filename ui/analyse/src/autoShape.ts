@@ -80,8 +80,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
       if (
         ctrl.isCevalAllowed() &&
-        nCeval &&
-        nCeval.pvs[1] &&
+        nCeval?.pvs[1] &&
         !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)
       ) {
         nCeval.pvs.forEach(function (pv) {
