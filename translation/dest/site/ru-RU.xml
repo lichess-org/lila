@@ -900,6 +900,7 @@
   <string name="size">Размер</string>
   <string name="opacity">Непрозрачность</string>
   <string name="brightness">Яркость</string>
+  <string name="contrast">Контрастность</string>
   <string name="hue">Насыщенность</string>
   <string name="boardReset">Сбросить на цвета по умолчанию</string>
   <string name="pieceSet">Оформление фигур</string>
