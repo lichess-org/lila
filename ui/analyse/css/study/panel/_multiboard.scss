@@ -95,11 +95,11 @@
   }
 }
 .mini-game {
-  $white: #c0c0c0;
-  $black: #444;
+  --c-eval-bar-white: #c0c0c0;
+  --c-eval-bar-black: #444;
   @include if-light {
-    $white: #fff;
-    $black: #606060;
+    --c-eval-bar-white: #fff;
+    --c-eval-bar-black: #606060;
   }
   .cg-gauge {
     display: flex;
@@ -119,17 +119,17 @@
     margin-top: -1px;
     overflow: hidden;
     opacity: 0.4;
-    background: linear-gradient(to top, $white, $black);
+    background: linear-gradient(to top, var(--c-eval-bar-white), var(--c-eval-bar-black));
 
     &__black {
       display: none;
       width: 100%;
       height: 50%;
-      background: $black;
+      background: var(--c-eval-bar-black);
     }
 
     &--flip {
-      background: linear-gradient(to bottom, $white, $black);
+      background: linear-gradient(to bottom, var(--c-eval-bar-white), var(--c-eval-bar-black));
       .mini-game__gauge__black {
         position: absolute;
         bottom: 0;
@@ -138,7 +138,7 @@
 
     &--set {
       opacity: 1;
-      background: $white;
+      background: var(--c-eval-bar-white);
       .mini-game__gauge__black {
         display: block;
       }
