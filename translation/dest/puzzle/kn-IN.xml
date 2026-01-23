@@ -88,6 +88,6 @@
   </plurals>
   <string name="percentSolved">%s ಉತ್ತರಿಸಿದ್ದೀರಿ</string>
   <string name="noPuzzlesToShow">ತೋರಿಸಲು ಯಾವುದೇ ವಿವರಗಳಿಲ್ಲ, ಮೊದಲು ಸ್ವಲ್ಪ ಒಗಟುಗಳನ್ನು ಆಡಿ!</string>
-  <string name="improvementAreasDescription">ನಿಮ್ಮ ಚೆಸ್ ಪ್ರಗತಿಯನ್ನು ಉತ್ತಮಗೊಳಿಸಲು ಇವನ್ನು ಅಭ್ಯಾಸ ಮಾಡಿ!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">ನಿಮ್ಮ ಚೆಸ್ ಪ್ರಗತಿಯನ್ನು ಉತ್ತಮಗೊಳಿಸಲು ಇವನ್ನು ಅಭ್ಯಾಸ ಮಾಡಿ!</string>
   <string name="strengthDescription">ನೀವು ಈ ವಿಷಯಗಳಲ್ಲಿ ಚೆನ್ನಾಗಿ ಆಡುತ್ತೀರಿ</string>
 </resources>

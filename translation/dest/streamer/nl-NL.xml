@@ -40,8 +40,8 @@
     <item quantity="one">Houd het kort: maximaal %s tekens</item>
     <item quantity="other">Houd het kort: maximaal %s tekens</item>
   </plurals>
-  <string name="visibility">Zichtbaar op de streamers pagina</string>
-  <string name="whenApproved">Zodra goedgekeurd door toezichthouders</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Zichtbaar op de streamers pagina</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Zodra goedgekeurd door toezichthouders</string>
   <string name="headline">Titel</string>
   <string name="tellUsAboutTheStream">Vertel ons in één zin over je stream</string>
   <string name="longDescription">Uitgebreide omschrijving</string>

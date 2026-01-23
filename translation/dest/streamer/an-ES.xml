@@ -32,8 +32,8 @@
     <item quantity="one">Sía breu: maximo %s caracters</item>
     <item quantity="other">Sía breu: maximo %s caracters</item>
   </plurals>
-  <string name="visibility">Visible en a pachina de presentadors</string>
-  <string name="whenApproved">Quan sía aprebau per los moderadors</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Visible en a pachina de presentadors</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Quan sía aprebau per los moderadors</string>
   <string name="headline">Encabezau</string>
   <string name="tellUsAboutTheStream">En una frase, conta-nos sobre la tuya emisión</string>
   <string name="longDescription">Descripción larga</string>

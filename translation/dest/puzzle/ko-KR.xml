@@ -87,6 +87,6 @@
   </plurals>
   <string name="percentSolved">%s 해결함</string>
   <string name="noPuzzlesToShow">표시할 것이 없습니다. 먼저 퍼즐을 플레이하세요!</string>
-  <string name="improvementAreasDescription">실력을 높이기 위해 훈련하세요!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">실력을 높이기 위해 훈련하세요!</string>
   <string name="strengthDescription">이 테마에서 최고의 성적을 냈습니다</string>
 </resources>

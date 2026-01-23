@@ -93,7 +93,7 @@ Evo linka za pristup času.</string>
   <string name="timePlaying">Vrijeme igranja</string>
   <string name="variantXOverLastY">%1$s tokom poslednjih %2$s</string>
   <string name="winrate">Postotak pobjeda</string>
-  <string name="na">NIje dostupno</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">NIje dostupno</string>
   <string name="overview">Pregled</string>
   <string name="news">Vijesti</string>
   <string name="classNews">Nastavne vijesti</string>

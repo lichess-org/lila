@@ -90,7 +90,7 @@ Hier is die skakel om die klas te betree.</string>
   <string name="timePlaying">Tyd gespeel</string>
   <string name="variantXOverLastY">%1$s oor laaste %2$s</string>
   <string name="winrate">Wen koers</string>
-  <string name="na">N.v.t.</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N.v.t.</string>
   <string name="overview">Oorsig</string>
   <string name="news">Nuus</string>
   <string name="classNews">Klasnuus</string>

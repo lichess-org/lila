@@ -93,6 +93,6 @@ Spel parti i snøggsjakk og klassisk sjakk for å auke sjansen for å få med ei
   </plurals>
   <string name="percentSolved">%s løyst</string>
   <string name="noPuzzlesToShow">Ikkje noko å visa, spel nokre oppgåver fyrst!</string>
-  <string name="improvementAreasDescription">Øv på desse for å betra framgongen!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Øv på desse for å betra framgongen!</string>
   <string name="strengthDescription">Du klarar deg best i disse temaa</string>
 </resources>

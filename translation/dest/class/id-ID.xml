@@ -84,7 +84,7 @@ Inilah tautan untuk mengakses kelas.</string>
   <string name="timePlaying">Waktu bermain</string>
   <string name="variantXOverLastY">%1$s sampai %2$s</string>
   <string name="winrate">Rata-rata kemenangan</string>
-  <string name="na">Tidak ada</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Tidak ada</string>
   <string name="overview">Ringkasan</string>
   <string name="news">Berita</string>
   <string name="classNews">Berita kelas</string>

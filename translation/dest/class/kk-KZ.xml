@@ -88,7 +88,7 @@
   <string name="timePlaying">Ойнау уақыты</string>
   <string name="variantXOverLastY">%1$s, кейінгі %2$s-де</string>
   <string name="winrate">Жеңіс үлесі</string>
-  <string name="na">МлмЖоқ</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">МлмЖоқ</string>
   <string name="overview">Қарап шығу</string>
   <string name="news">Жаңалықтар</string>
   <string name="classNews">Үйірме жаңалықтары</string>

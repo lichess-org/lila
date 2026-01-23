@@ -83,7 +83,7 @@
   <string name="timePlaying">Խաղաժամանակ</string>
   <string name="variantXOverLastY">%1$s վերջին %2$sում</string>
   <string name="winrate">Հաղթանակների տոկոս</string>
-  <string name="na">Կիրառելի չէ</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Կիրառելի չէ</string>
   <string name="overview">Դիտում</string>
   <string name="news">Նորություններ</string>
   <string name="classNews">Դասարանի նորություններ</string>

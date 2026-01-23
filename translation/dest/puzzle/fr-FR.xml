@@ -93,6 +93,6 @@ Jouez des parties rapides et classiques pour augmenter vos chances qu\'une de vo
   </plurals>
   <string name="percentSolved">%s des problèmes résolus</string>
   <string name="noPuzzlesToShow">Rien à afficher - faites d\'abord quelques problèmes !</string>
-  <string name="improvementAreasDescription">Faites ces problèmes pour progresser !</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Faites ces problèmes pour progresser !</string>
   <string name="strengthDescription">Vous avez le plus de succès dans ces thèmes.</string>
 </resources>

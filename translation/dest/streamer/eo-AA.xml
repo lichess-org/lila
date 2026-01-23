@@ -35,8 +35,8 @@
     <item quantity="one">Estu mallonga: maksimume %s presliteroj</item>
     <item quantity="other">Estu mallonga: maksimume %s presliteroj</item>
   </plurals>
-  <string name="visibility">Videbla ĉe la filmprezentisto paĝo</string>
-  <string name="whenApproved">Kiam akceptita de moderatoroj</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Videbla ĉe la filmprezentisto paĝo</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Kiam akceptita de moderatoroj</string>
   <string name="headline">Titolo</string>
   <string name="tellUsAboutTheStream">Diru al ni pri via filmelsendo</string>
   <string name="longDescription">Longa priskribo</string>

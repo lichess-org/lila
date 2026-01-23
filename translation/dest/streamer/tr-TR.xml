@@ -40,8 +40,8 @@
     <item quantity="one">Kısa tutun: En fazla %s karakter</item>
     <item quantity="other">Kısa tutun: En fazla %s karakter</item>
   </plurals>
-  <string name="visibility">Yayıncılar sayfasına görünsün</string>
-  <string name="whenApproved">Moderatörler tarafından onaylandığı zaman</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Yayıncılar sayfasına görünsün</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Moderatörler tarafından onaylandığı zaman</string>
   <string name="headline">Başlık</string>
   <string name="tellUsAboutTheStream">Bir cümle ile bize yayınınızı tarif edin</string>
   <string name="longDescription">Ayrıntılı açıklama</string>

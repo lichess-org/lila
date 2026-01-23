@@ -90,7 +90,7 @@ Aqui está o link para acederes à aula.</string>
   <string name="timePlaying">Tempo jogado</string>
   <string name="variantXOverLastY">%1$s sobre os últimos %2$s</string>
   <string name="winrate">Taxa de vitórias</string>
-  <string name="na">N/A</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
   <string name="overview">Visão geral</string>
   <string name="news">Notícias</string>
   <string name="classNews">Novidades sobre a aula</string>

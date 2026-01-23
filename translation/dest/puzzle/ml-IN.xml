@@ -70,6 +70,6 @@
   </plurals>
   <string name="percentSolved">%s പൂർതീകരിച്ചിരിക്കുന്നു</string>
   <string name="noPuzzlesToShow">കാണിക്കാനൊന്നുമില്ല, ആദ്യം പസ്സിലുകൾ ശ്രമിച്ചു് നോക്കു്!</string>
-  <string name="improvementAreasDescription">മുന്നേറുകാൻ അഭ്യാസിക്കൂ!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">മുന്നേറുകാൻ അഭ്യാസിക്കൂ!</string>
   <string name="strengthDescription">ഈ വിഷയങ്ങളിലാണു് താങ്ങൾ ഏറ്റവും നല്ലതു് കളിക്കുന്നതു്</string>
 </resources>

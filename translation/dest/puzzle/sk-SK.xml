@@ -106,6 +106,6 @@ Hrajte rapid a klasické partie, aby ste zvýšili svoje šance na pridanie úlo
   </plurals>
   <string name="percentSolved">%s vyriešených</string>
   <string name="noPuzzlesToShow">Niet čo zobraziť, vyriešte najprv zopár úloh!</string>
-  <string name="improvementAreasDescription">Precvičujte tieto úlohy aby ste napredovali čo najrýchlejšie!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Precvičujte tieto úlohy aby ste napredovali čo najrýchlejšie!</string>
   <string name="strengthDescription">Tieto okruhy Vám idú najlepšie</string>
 </resources>

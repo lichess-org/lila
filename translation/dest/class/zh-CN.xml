@@ -87,7 +87,7 @@
   <string name="timePlaying">对局时长</string>
   <string name="variantXOverLastY">最近 %2$s 天内总计 %1$s</string>
   <string name="winrate">胜率</string>
-  <string name="na">N/A</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
   <string name="overview">概览</string>
   <string name="news">公告</string>
   <string name="classNews">班级公告</string>

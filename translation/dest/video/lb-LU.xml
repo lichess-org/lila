@@ -4,18 +4,18 @@
   <string name="allVideosAreFree">All Videoe si fir jidderee gratis.</string>
   <string name="selectTagsToFilter">Etikette wiele fir d\'Videoen ze filteren.</string>
   <string name="freeChessVideos">Gratis Schachvideoen</string>
-  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s mat den Etiketten %2$s</string>
-  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">fir jidderee gratis</string>
-  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+  <string name="xWithTagsY">%1$s mat den Etiketten %2$s</string>
+  <string name="freeForAll">fir jidderee gratis</string>
+  <plurals name="nbVideosFound">
     <item quantity="one">%s Video fonnt</item>
     <item quantity="other">%s Videoe fonnt</item>
   </plurals>
   <string name="noVideosForTheseTags">Keng Videoe fir dës Etiketten:</string>
   <string name="thatsAllWeGotForTheseTags">Dat ass alles, wat mir fir dës Etikette fonnt hunn:</string>
-  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Dat ass alles, wat mir fir dës Sich fonnt hunn: „%s“</string>
-  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">Et gëtt keng Resultater fir „%s“</string>
-  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">Méi Etikette weisen</string>
+  <string name="thatsAllWeGotForThisSearchX">Dat ass alles, wat mir fir dës Sich fonnt hunn: „%s“</string>
+  <string name="thereAreNoResultsForX">Et gëtt keng Resultater fir „%s“</string>
+  <string name="viewMoreTags">Méi Etikette weisen</string>
   <string name="videoNotFound">Video net fonnt!</string>
-  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">%1$s vum %2$s</string>
-  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">All %s Videoetiketten</string>
+  <string name="xByY">%1$s vum %2$s</string>
+  <string name="allNbVideoTags">All %s Videoetiketten</string>
 </resources>

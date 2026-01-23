@@ -90,7 +90,7 @@
   <string name="timePlaying">کاتی یاری</string>
   <string name="variantXOverLastY">%1$s لە ماوەی کۆتا %2$s</string>
   <string name="winrate">ڕێژەی براوە</string>
-  <string name="na">بەردەست نییە</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">بەردەست نییە</string>
   <string name="overview">تێڕوانینێکی گشتی</string>
   <string name="news">هەواڵ</string>
   <string name="classNews">هەواڵی پۆل</string>

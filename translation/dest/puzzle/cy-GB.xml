@@ -16,6 +16,6 @@
   <string name="puzzleDashboardDescription">Ymarfer, adolygu, gwella</string>
   <string name="percentSolved">%s wedi\'i datrys</string>
   <string name="noPuzzlesToShow">Dim i\'w ddangos, ewch i chwarae rhai posau yn gyntaf!</string>
-  <string name="improvementAreasDescription">Ymarferwch rhein i optimeiddio eich cynnydd!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Ymarferwch rhein i optimeiddio eich cynnydd!</string>
   <string name="strengthDescription">Rydych yn perfformio orau yn y themau yma</string>
 </resources>

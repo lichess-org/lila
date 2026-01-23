@@ -99,6 +99,6 @@ Hrajte rapid a klasické hry ke zvýšení šance na přidání vlastní úlohy!
   </plurals>
   <string name="percentSolved">%s vyřešeno</string>
   <string name="noPuzzlesToShow">Nic k zobrazení, jděte nejdříve zkusit nějaké úlohy!</string>
-  <string name="improvementAreasDescription">Tyto procvičujte pro zlepšení!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Tyto procvičujte pro zlepšení!</string>
   <string name="strengthDescription">V těchto tématech se vám daří nejvíc</string>
 </resources>

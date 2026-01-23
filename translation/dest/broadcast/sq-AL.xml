@@ -46,7 +46,7 @@
   <string name="fidePlayerNotFound">S’u gjet lojtar FIDE</string>
   <string name="fideProfile">Profil FIDE</string>
   <string name="federation">Federim</string>
-  <string name="age" comment="Label for the age of a player. Appears on players' FIDE profiles.">Moshë</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Moshë</string>
   <string name="unrated">Pa pikë</string>
   <string name="recentTournaments">Turne së fundi</string>
   <string name="openLichess">Hape në Lichess</string>

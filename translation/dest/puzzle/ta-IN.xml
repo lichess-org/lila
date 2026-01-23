@@ -93,6 +93,6 @@
   </plurals>
   <string name="percentSolved">%s தீர்க்கப்பட்டது</string>
   <string name="noPuzzlesToShow">காட்சிப்படுத்துவதற்கு எதுவுமில்லை. முதலில் சில புதிர்களைத் தீர்க்கவும்!</string>
-  <string name="improvementAreasDescription">உங்கள் முன்னேற்றத்தை உகப்பாக்க இவற்றைப் பயிலவும்!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">உங்கள் முன்னேற்றத்தை உகப்பாக்க இவற்றைப் பயிலவும்!</string>
   <string name="strengthDescription">இந்தக் கருப்பொருளில் நீங்கள் சிறப்பாக விளையாடினீர்கள்</string>
 </resources>

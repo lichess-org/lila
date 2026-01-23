@@ -73,6 +73,6 @@
   <string name="puzzleDashboardDescription">ვარჯიში, ანალიზი, გაუმჯობესება</string>
   <string name="percentSolved">%s ამოხსნილია</string>
   <string name="noPuzzlesToShow">არაფერი საჩვენებელი , პირველად  ამოხსენი რამოდენიმე ამოცანა</string>
-  <string name="improvementAreasDescription">ივარჯიშე რომ გააუმჯობესო შენი წინსვლა!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">ივარჯიშე რომ გააუმჯობესო შენი წინსვლა!</string>
   <string name="strengthDescription">თქვენ საუკეთესოდ შეასრულეთ ეს თემები</string>
 </resources>

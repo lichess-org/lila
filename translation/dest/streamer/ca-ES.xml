@@ -39,7 +39,7 @@
     <item quantity="other">Mantingues-ho breu: màxim %s caràcters</item>
   </plurals>
   <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Visible a la pàgina de retransmissors</string>
-  <string name="whenApproved">Quan aprovat pels moderadors</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Quan aprovat pels moderadors</string>
   <string name="headline">Encapçalament</string>
   <string name="tellUsAboutTheStream">En una frase, explica\'ns sobre la teva retransmissió</string>
   <string name="longDescription">Descripció llarga</string>

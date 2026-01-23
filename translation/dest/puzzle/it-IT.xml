@@ -93,6 +93,6 @@ Gioca altre partite rapide o classiche per aumentare le possibilità di avere un
   </plurals>
   <string name="percentSolved">%s risolto</string>
   <string name="noPuzzlesToShow">Non c\'è niente qui. Prova prima a risolvere qualche problema!</string>
-  <string name="improvementAreasDescription">Addestrali per ottimizzare il tuo progresso!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Addestrali per ottimizzare il tuo progresso!</string>
   <string name="strengthDescription">Dai il meglio di te in questi temi</string>
 </resources>

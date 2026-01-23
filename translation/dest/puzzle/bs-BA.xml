@@ -99,6 +99,6 @@ Igrajte ubrzani i klasični šah kako biste povećali šanse da bude dodan Vaš 
   </plurals>
   <string name="percentSolved">%s riješeno</string>
   <string name="noPuzzlesToShow">Ništa za pokazati, idite prvo da igrate neke zagonetke!</string>
-  <string name="improvementAreasDescription">Trenirajte ove da biste usavršili svoj napredak!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Trenirajte ove da biste usavršili svoj napredak!</string>
   <string name="strengthDescription">U ovim temama najbolje učestvujete</string>
 </resources>
