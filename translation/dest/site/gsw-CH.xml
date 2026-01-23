@@ -827,6 +827,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="size">Grössi</string>
   <string name="opacity">OpaStadt</string>
   <string name="brightness">Helligkeit</string>
+  <string name="contrast">Kontrascht</string>
   <string name="hue">Farbton</string>
   <string name="boardReset">Farbe zruggstelle</string>
   <string name="pieceSet">Figureart</string>
