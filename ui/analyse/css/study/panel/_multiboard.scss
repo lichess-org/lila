@@ -94,13 +94,15 @@
     display: none;
   }
 }
-.mini-game {
-  --c-eval-bar-white: #c0c0c0;
-  --c-eval-bar-black: #444;
+.mini-game__gauge {
+  --c-eval-mini-gauge-white: #c0c0c0;
+  --c-eval-mini-gauge-black: #444;
   @include if-light {
-    --c-eval-bar-white: #fff;
-    --c-eval-bar-black: #606060;
+    --c-eval-mini-gauge-white: #fff;
+    --c-eval-mini-gauge-black: #606060;
   }
+}
+.mini-game {
   .cg-gauge {
     display: flex;
     flex-flow: row nowrap;
@@ -119,17 +121,17 @@
     margin-top: -1px;
     overflow: hidden;
     opacity: 0.4;
-    background: linear-gradient(to top, var(--c-eval-bar-white), var(--c-eval-bar-black));
+    background: linear-gradient(to top, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
 
     &__black {
       display: none;
       width: 100%;
       height: 50%;
-      background: var(--c-eval-bar-black);
+      background: var(--c-eval-mini-gauge-black);
     }
 
     &--flip {
-      background: linear-gradient(to bottom, var(--c-eval-bar-white), var(--c-eval-bar-black));
+      background: linear-gradient(to bottom, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
       .mini-game__gauge__black {
         position: absolute;
         bottom: 0;
@@ -138,7 +140,7 @@
 
     &--set {
       opacity: 1;
-      background: var(--c-eval-bar-white);
+      background: var(--c-eval-mini-gauge-white);
       .mini-game__gauge__black {
         display: block;
       }
