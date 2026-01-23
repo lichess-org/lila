@@ -269,7 +269,7 @@ export default class StudyCtrl {
   };
 
   setTab = (tab: Tab) => {
-    if (tab === 'chapters') this.chapters.scroller.request = 'instant';
+    if (tab === 'chapters') this.chapters.scroller.request('instant');
     this.vm.tab(tab);
     this.redraw();
   };
@@ -492,6 +492,7 @@ export default class StudyCtrl {
       this.redraw();
       return true;
     }
+    this.chapters.scroller.request('smooth');
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {
@@ -505,7 +506,7 @@ export default class StudyCtrl {
       this.vm.mode.sticky = false;
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
-      this.chapters.scroller.request = 'smooth'; // sticky scroll request is set in `changeChapter`
+      this.chapters.scroller.request('smooth'); // sticky scroll request is set in `changeChapter`
       this.relay?.liveboardPlugin?.reset();
       await this.xhrReload(false, () => componentCallbacks(id));
     }
@@ -741,7 +742,7 @@ export default class StudyCtrl {
       this.setMemberActive(d.w);
       this.data.position = d.p;
       if (this.vm.mode.sticky) {
-        this.chapters.scroller.request = 'smooth'; // non-sticky scroll request is set in `setChapter`
+        this.chapters.scroller.request('smooth'); // non-sticky scroll request is set in `setChapter`
         this.xhrReload();
       } else {
         this.vm.behind++;
@@ -781,8 +782,8 @@ export default class StudyCtrl {
         this.vm.mode.write = this.relay ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
         this.vm.nextChapterId = d.p.chapterId;
-        this.chapters.scroller.request = 'instant';
-      } else this.chapters.scroller.request = 'smooth';
+        this.chapters.scroller.request('instant');
+      } else this.chapters.scroller.request('smooth');
       this.xhrReload(true);
     },
     members: d => {
