@@ -6,11 +6,11 @@ import { detectPins, detectUndefended, detectCheckable } from '../src/motif/boar
 
 function runAnalysis(fen: string): string[] {
   const parsed = parseFen(fen);
-  if ('error' in parsed) throw new Error(parsed.error);
+  if ('error' in parsed) throw parsed.error;
   const { board, epSquare, castlingRights } = parsed.value;
 
   const pins = detectPins(board).map(p => `${makeSquare(p.pinned)}:pin`);
-  const undefended = detectUndefended(board).map(u => `${makeSquare(u.square)}:undefended`);
+  const undefended = detectUndefended(board, epSquare).map(u => `${makeSquare(u.square)}:undefended`);
   const checkable = detectCheckable(board, epSquare, castlingRights).map(
     s => `${makeSquare(s.king)}:checkable`,
   );
