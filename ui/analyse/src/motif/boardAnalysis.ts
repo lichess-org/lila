@@ -137,8 +137,13 @@ function getSEE(
     } else {
       for (const attacker of attackers) {
         // Check if the attacker is absolutely pinned and trying to move off the pin line
-        const pin = pins.find((p) => p.pinned === attacker.square);
-        if (pin && cb.get(pin.target)?.role === 'king' && square !== pin.pinner && !between(pin.pinner, pin.target).has(square)) {
+        const pin = pins.find(p => p.pinned === attacker.square);
+        if (
+          pin &&
+          cb.get(pin.target)?.role === 'king' &&
+          square !== pin.pinner &&
+          !between(pin.pinner, pin.target).has(square)
+        ) {
           continue;
         }
         bestAttacker = attacker;
