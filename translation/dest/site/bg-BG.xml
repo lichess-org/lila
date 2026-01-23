@@ -819,6 +819,7 @@
   <string name="size">Размер</string>
   <string name="opacity">Прозрачност</string>
   <string name="brightness">Яркост</string>
+  <string name="contrast">Контраст</string>
   <string name="hue">Цветови тон</string>
   <string name="boardReset">Възстановяване на стандартните цветовете</string>
   <string name="pieceSet">Дизайн на фигури</string>
