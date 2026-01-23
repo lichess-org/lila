@@ -2,7 +2,7 @@ import type { Prop } from 'lib';
 
 import { storedBooleanPropWithEffect } from 'lib/storage';
 import { boardAnalysisVariants, detectCheckable, detectPins, detectUndefended } from './boardAnalysis';
-import type { Board, SquareSet } from 'chessops';
+import type { Board, Square, SquareSet } from 'chessops';
 import type { Checkable, Pin, Undefended } from './interfaces';
 
 export default class MotifCtrl {
@@ -21,7 +21,8 @@ export default class MotifCtrl {
   any = () => this.pin() || this.checkable() || this.undefended();
 
   detectPins = (board: Board): Pin[] => (this.pin() ? detectPins(board) : []);
-  detectUndefended = (board: Board): Undefended[] => (this.undefended() ? detectUndefended(board) : []);
+  detectUndefended = (board: Board, epSquare: Square | undefined): Undefended[] =>
+    this.undefended() ? detectUndefended(board, epSquare) : [];
   detectCheckable = (board: Board, epSquare: number | undefined, castlingRights: SquareSet): Checkable[] =>
     this.checkable() ? detectCheckable(board, epSquare, castlingRights) : [];
 }

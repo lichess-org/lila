@@ -132,7 +132,9 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 
     if (ctrl.motifEnabled()) {
       ctrl.motif.detectPins(board).forEach(p => addAnalysis(makeSquare(p.pinned) as Key, 'pin'));
-      ctrl.motif.detectUndefended(board).forEach(u => addAnalysis(makeSquare(u.square) as Key, 'undefended'));
+      ctrl.motif
+        .detectUndefended(board, epSquare)
+        .forEach(u => addAnalysis(makeSquare(u.square) as Key, 'undefended'));
       ctrl.motif
         .detectCheckable(board, epSquare, castlingRights)
         .forEach(s => addAnalysis(makeSquare(s.king) as Key, 'checkable'));

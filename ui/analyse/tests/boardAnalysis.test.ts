@@ -6,11 +6,11 @@ import { detectPins, detectUndefended, detectCheckable } from '../src/motif/boar
 
 function runAnalysis(fen: string): string[] {
   const parsed = parseFen(fen);
-  if ('error' in parsed) throw new Error(parsed.error);
+  if ('error' in parsed) throw parsed.error;
   const { board, epSquare, castlingRights } = parsed.value;
 
   const pins = detectPins(board).map(p => `${makeSquare(p.pinned)}:pin`);
-  const undefended = detectUndefended(board).map(u => `${makeSquare(u.square)}:undefended`);
+  const undefended = detectUndefended(board, epSquare).map(u => `${makeSquare(u.square)}:undefended`);
   const checkable = detectCheckable(board, epSquare, castlingRights).map(
     s => `${makeSquare(s.king)}:checkable`,
   );
@@ -27,7 +27,7 @@ test('Pin: Absolute', () => {
 
 test('Pin: Relative', () => {
   const fen = '4q2k/4n2p/8/8/8/4R3/P7/K7 w - - 0 1';
-  const expected = ['e7:pin'].sort();
+  const expected = ['e7:pin'];
 
   assert.deepEqual(runAnalysis(fen), expected);
 });
@@ -41,28 +41,28 @@ test('Pin: Trade', () => {
 
 test('Checkable: Castling', () => {
   const fen = '8/8/8/8/8/8/3PPP2/k3K2R w K - 0 1';
-  const expected = ['a1:checkable'].sort();
+  const expected = ['a1:checkable'];
 
   assert.deepEqual(runAnalysis(fen), expected);
 });
 
 test('Checkable: En passant', () => {
   const fen = '7k/8/8/8/4Pp2/8/3K4/8 b - e3 0 1';
-  const expected = ['d2:checkable'].sort();
+  const expected = ['d2:checkable'];
 
   assert.deepEqual(runAnalysis(fen), expected);
 });
 
 test('Checkable: Promotion', () => {
   const fen = '4k3/2P5/8/8/8/8/8/2K5 w - - 0 1';
-  const expected = ['e8:checkable'].sort();
+  const expected = ['e8:checkable'];
 
   assert.deepEqual(runAnalysis(fen), expected);
 });
 
 test('Checkable: Underpromotion', () => {
   const fen = '8/2P1k3/8/8/8/8/8/2K5 w - - 0 1';
-  const expected = ['e7:checkable'].sort();
+  const expected = ['e7:checkable'];
 
   assert.deepEqual(runAnalysis(fen), expected);
 });
@@ -90,7 +90,7 @@ test('Undefended: Losing trade', () => {
 
 test('Undefended: Order of trades', () => {
   const fen = '6rk/6pp/5p2/r7/1b6/P3Q3/1B5P/7K w - - 0 1';
-  const expected = ['b4:undefended'].sort();
+  const expected = ['b4:undefended'];
 
   assert.deepEqual(runAnalysis(fen), expected);
 });
@@ -101,9 +101,33 @@ test('Undefended: Absolute pin', () => {
   assert.deepEqual(runAnalysis(fen), expected);
 });
 
+test('Undefended: Pawn hanging directly and via en passant', () => {
+  const fen = '7k/8/8/3pPp2/8/8/6B1/6K1 w - d6 0 1';
+  const expected = ['d5:undefended', 'd6:undefended'].sort();
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Undefended: Pawn hanging directly but protected from en passant', () => {
+  const fen = '5b1k/8/8/3pPp2/8/8/6B1/6K1 w - d6 0 1';
+  const expected = ['d5:undefended', 'g1:checkable'].sort();
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Undefended: Pawn hanging via en passant but not directly', () => {
+  const fen = '6bk/8/8/3pPp2/8/8/6B1/6K1 w - d6 0 1';
+  const expected = ['d6:undefended'];
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Undefended: En passant rook xray', () => {
+  const fen = '5b1k/8/8/3pPp2/8/8/8/3R2K1 w - d6 0 1';
+  const expected = ['d6:undefended', 'd5:undefended', 'g1:checkable'].sort();
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
 test('Crazyhouse', () => {
   const fen = 'rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R/ b KQkq - 1 2';
-  const expected = ['e5:undefended'].sort();
+  const expected = ['e5:undefended'];
 
   assert.deepEqual(runAnalysis(fen), expected);
 });
