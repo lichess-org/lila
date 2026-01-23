@@ -85,7 +85,7 @@ final class ClasBulkApi(api: ClasApi)(using Executor):
         for _ <- api.student.archiveMany(clas, data.activeUserIds.map(studentId), true)
         yield PostResponse.Done
       case "restore" =>
-        for _ <- api.student.archiveMany(clas, data.activeUserIds.map(studentId), false)
+        for _ <- api.student.archiveMany(clas, data.archivedUserIds.map(studentId), false)
         yield PostResponse.Done
       case moveTo(to) =>
         api.clas
