@@ -230,17 +230,15 @@ export function view(ctrl: StudyCtrl): VNode {
 }
 
 export class StudyChapterScroller {
-  constructor(
-    public request: ScrollBehavior | undefined = 'instant',
-    public rafId?: number,
-  ) {}
+  request: Prop<ScrollBehavior | null> = prop('instant');
+  private rafId?: number;
 
   scrollIfNeeded(list: HTMLElement) {
-    if (!this.request) return;
+    const request = this.request();
+    if (!request) return;
     const active = list.querySelector('.active');
     if (!active) return;
-    const request = this.request;
-    this.request = undefined;
+    this.request(null);
     const [c, l] = [list.getBoundingClientRect(), active.getBoundingClientRect()];
     if (c.top < l.top || c.bottom > l.bottom) {
       cancelAnimationFrame(this.rafId ?? 0);

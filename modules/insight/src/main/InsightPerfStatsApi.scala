@@ -36,7 +36,7 @@ final class InsightPerfStatsApi(
         val filters = List(lila.insight.Filter(InsightDimension.Perf, perfTypes))
         Match(InsightStorage.selectUserId(user.id) ++ pipeline.gameMatcher(filters)) -> List(
           Sort(Descending(F.date)),
-          Limit(pipeline.maxGames.value),
+          Limit(maxGames.value),
           Project(
             $doc(
               F.perf -> true,

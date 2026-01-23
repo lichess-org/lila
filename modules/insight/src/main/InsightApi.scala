@@ -17,13 +17,14 @@ final class InsightApi(
 
   private val userCache = cacheApi[UserId, InsightUser](1024, "insight.user"):
     _.expireAfterWrite(15.minutes).maximumSize(4096).buildAsyncFuture(computeUser)
+
   private def computeUser(userId: UserId): Fu[InsightUser] =
     storage
       .count(userId)
       .flatMap:
         case 0 => fuccess(InsightUser(0, Nil, Nil))
         case count =>
-          storage.openings(userId).map { case (families, openings) =>
+          storage.openings(userId).map { (families, openings) =>
             InsightUser(count, families, openings)
           }
   private given Ordering[GameId] = stringOrdering
