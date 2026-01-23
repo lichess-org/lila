@@ -3,22 +3,22 @@
   <string name="chessVideos">Sjakkvideoar</string>
   <string name="allVideosAreFree">Alle videoar er gratis for alle.</string>
   <string name="selectTagsToFilter">Velg etikettar for å filtrere videoane.</string>
-  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">Vi har omhyggjeleg plukka ut %s videoer så langt!</string>
+  <string name="weHaveCarefullySelectedX">Vi har omhyggjeleg plukka ut %s videoer så langt!</string>
   <string name="freeChessVideos">Fritt tilgjengelege sjakkvideoar</string>
-  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s gratis og omhyggjeleg utvalde sjakkvideoar</string>
-  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s utvalde sjakkvideoar</string>
-  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s med etikettar %2$s</string>
-  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">fritt tilgjengeleg for alle</string>
-  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+  <string name="xFreeCarefullyCurated">%s gratis og omhyggjeleg utvalde sjakkvideoar</string>
+  <string name="xCuratedChessVideos">%s utvalde sjakkvideoar</string>
+  <string name="xWithTagsY">%1$s med etikettar %2$s</string>
+  <string name="freeForAll">fritt tilgjengeleg for alle</string>
+  <plurals name="nbVideosFound">
     <item quantity="one">%s video funne</item>
     <item quantity="other">%s videoar funne</item>
   </plurals>
   <string name="noVideosForTheseTags">Ingen videoar for desse etikettane:</string>
   <string name="thatsAllWeGotForTheseTags">Det var alt vi fann med desse etikettane:</string>
-  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Det var alt vi fann for dette søket: \"%s\"</string>
-  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">Det er ingen resultat for \"%s\"</string>
-  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">Sjå fleire etikettar</string>
+  <string name="thatsAllWeGotForThisSearchX">Det var alt vi fann for dette søket: \"%s\"</string>
+  <string name="thereAreNoResultsForX">Det er ingen resultat for \"%s\"</string>
+  <string name="viewMoreTags">Sjå fleire etikettar</string>
   <string name="videoNotFound">Finn ikkje video!</string>
-  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">%1$s av %2$s</string>
-  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">Alle %s videoetikettar</string>
+  <string name="xByY">%1$s av %2$s</string>
+  <string name="allNbVideoTags">Alle %s videoetikettar</string>
 </resources>

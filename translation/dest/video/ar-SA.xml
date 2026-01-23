@@ -4,10 +4,10 @@
   <string name="allVideosAreFree">كل الفيديوهات مجانية للجميع</string>
   <string name="selectTagsToFilter">أدخل تصنيفات لتصفية الفيديوهات </string>
   <string name="freeChessVideos">فيديوهات شطرنج مجانية</string>
-  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">مجاني للجميع</string>
+  <string name="freeForAll">مجاني للجميع</string>
   <string name="noVideosForTheseTags">لا يوجد فيديوهات لهذا التصنيف</string>
   <string name="thatsAllWeGotForTheseTags">هذا كل شيئ لهذا التصنيف </string>
-  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">رؤية المزيد من التصنيفات</string>
+  <string name="viewMoreTags">رؤية المزيد من التصنيفات</string>
   <string name="videoNotFound">الفيديو غير متاح</string>
-  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">%sكل </string>
+  <string name="allNbVideoTags">%sكل </string>
 </resources>

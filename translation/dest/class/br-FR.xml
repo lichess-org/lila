@@ -94,7 +94,7 @@ Amañ emañ al liamm evit mont ennañ.</string>
   <string name="timePlaying">Amzer o c\'hoari</string>
   <string name="variantXOverLastY">%1$s e-pad an/ar %2$s</string>
   <string name="winrate">Feur trec\'h</string>
-  <string name="na">N\'eus ket</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N\'eus ket</string>
   <string name="editNews">Cheñch ar c\'heleier</string>
   <string name="notifyAllStudents">Kemenn an holl studierien</string>
   <string name="nothingHere">Netra amañ evit poent.</string>

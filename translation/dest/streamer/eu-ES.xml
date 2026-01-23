@@ -40,8 +40,8 @@
     <item quantity="one">Laburra izan dadila: gehienez karaktere %s</item>
     <item quantity="other">Laburra izan dadila: gehienez %s karaktere</item>
   </plurals>
-  <string name="visibility">Esatarien orrialdean ikusgai</string>
-  <string name="whenApproved">Moderatzaileek onartzen dutenean</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Esatarien orrialdean ikusgai</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Moderatzaileek onartzen dutenean</string>
   <string name="headline">Izenburua</string>
   <string name="tellUsAboutTheStream">Lerro baten, esan iezaguzu zerbait zure emanaldiei buruz</string>
   <string name="longDescription">Deskribapen luzea</string>

@@ -3,22 +3,22 @@
   <string name="chessVideos">Шахматни видеа</string>
   <string name="allVideosAreFree">Всички видеа са безплатни за всеки.</string>
   <string name="selectTagsToFilter">Изберете етикети, за да филтрирате видеата.</string>
-  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">Досега внимателно подбрахме %s видеа!</string>
+  <string name="weHaveCarefullySelectedX">Досега внимателно подбрахме %s видеа!</string>
   <string name="freeChessVideos">Безплатни шахматни видеа</string>
-  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s безплатни, внимателно подбрани шахматни видеа</string>
-  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s подбрани шахматни видеа</string>
-  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s с етикети %2$s</string>
-  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">безплатно за всички</string>
-  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+  <string name="xFreeCarefullyCurated">%s безплатни, внимателно подбрани шахматни видеа</string>
+  <string name="xCuratedChessVideos">%s подбрани шахматни видеа</string>
+  <string name="xWithTagsY">%1$s с етикети %2$s</string>
+  <string name="freeForAll">безплатно за всички</string>
+  <plurals name="nbVideosFound">
     <item quantity="one">Намерено е %s видео</item>
     <item quantity="other">Намерени са %s видеа</item>
   </plurals>
   <string name="noVideosForTheseTags">Няма видеа за тези етикети:</string>
   <string name="thatsAllWeGotForTheseTags">Това е всичко, което имаме за тези етикети:</string>
-  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Това е всичко, което открихме за това търсене: „%s“</string>
-  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">Няма резултати за „%s“</string>
-  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">Вижте още етикети</string>
+  <string name="thatsAllWeGotForThisSearchX">Това е всичко, което открихме за това търсене: „%s“</string>
+  <string name="thereAreNoResultsForX">Няма резултати за „%s“</string>
+  <string name="viewMoreTags">Вижте още етикети</string>
   <string name="videoNotFound">Видеото не е намерено!</string>
-  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">%1$s от %2$s</string>
-  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">Всички %s етикета на видеа</string>
+  <string name="xByY">%1$s от %2$s</string>
+  <string name="allNbVideoTags">Всички %s етикета на видеа</string>
 </resources>

@@ -75,6 +75,6 @@ Mainkan permainan cepat dan klasik untuk meningkatkan kesempatan Anda agar sebua
   </plurals>
   <string name="percentSolved">%s selesai</string>
   <string name="noPuzzlesToShow">Tidak ada apa apa, silahkan mainkan taktik terlebih dahulu!</string>
-  <string name="improvementAreasDescription">Latih ini untuk mengoptimisasi kemajuan anda!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Latih ini untuk mengoptimisasi kemajuan anda!</string>
   <string name="strengthDescription">Performa anda baik di tema-tema ini</string>
 </resources>

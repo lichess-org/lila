@@ -87,6 +87,6 @@
   </plurals>
   <string name="percentSolved">%s ක් සාදා ඇත​</string>
   <string name="noPuzzlesToShow">පෙන්වීමට කිසිවක් නැත, පළමුව ප්‍රහේලිකා කිහිපයක් සෙල්ලම් කරන්න!</string>
-  <string name="improvementAreasDescription">ඔබේ ප්‍රගතිය ප්‍රශස්ත කිරීමට මේවා පුහුණු කරන්න!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">ඔබේ ප්‍රගතිය ප්‍රශස්ත කිරීමට මේවා පුහුණු කරන්න!</string>
   <string name="strengthDescription">ඔබ මෙම තේමාවන්හි හොඳටම ක්‍රීඩා කරයි</string>
 </resources>

@@ -73,6 +73,6 @@ Main permainan pantas dan klasik untuk meningkatkan peluang anda untuk menambahk
   </plurals>
   <string name="percentSolved">%s diselesaikan</string>
   <string name="noPuzzlesToShow">Tiada apa-apa yang ditunjukkan, main dulu teka-teki!</string>
-  <string name="improvementAreasDescription">Latih ini untuk mengoptimumkan kemajuan anda!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Latih ini untuk mengoptimumkan kemajuan anda!</string>
   <string name="strengthDescription">Anda menunjukkan prestasi terbaik dalam tema ini</string>
 </resources>

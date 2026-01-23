@@ -18,6 +18,6 @@
   <string name="racingKingsTitle">Ereman zure erregea taularen beste aldera partida irabazteko.</string>
   <string name="crazyhouse">Auto-fitxa-pasa</string>
   <string name="crazyhouseTitle">Harrapatutako piezak berriz ere xake-taulak jarri ditzakezu jokaldi bat egin beharrean.</string>
-  <string name="fromPosition">Posizio jakin batetik</string>
-  <string name="fromPositionTitle">Xake estandarra posizio jakin batetik abiatuta</string>
+  <string name="fromPosition" comment="An option that lets you create a standard chess game from a custom position.">Posizio jakin batetik</string>
+  <string name="fromPositionTitle" comment="Description for when looking to start a game 'From position'">Xake estandarra posizio jakin batetik abiatuta</string>
 </resources>

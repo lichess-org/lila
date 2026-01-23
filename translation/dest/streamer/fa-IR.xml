@@ -40,8 +40,8 @@
     <item quantity="one">کوتاه بنویسید: کمتر از %s حرف</item>
     <item quantity="other">کوتاه بنویسید: کمتر از %s حرف</item>
   </plurals>
-  <string name="visibility">نمایان در صفحهٔ بَرخَط-محتواسازان</string>
-  <string name="whenApproved">هنگام تأیید مدیران سایت</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">نمایان در صفحهٔ بَرخَط-محتواسازان</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">هنگام تأیید مدیران سایت</string>
   <string name="headline">عنوان .</string>
   <string name="tellUsAboutTheStream">در یک جمله به ما دربارهٔ جریان‌تان بگویید</string>
   <string name="longDescription">توضیحات  طولانی.</string>

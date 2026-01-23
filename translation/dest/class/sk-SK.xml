@@ -96,7 +96,7 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="timePlaying">Odohraný čas</string>
   <string name="variantXOverLastY">%1$s za posledných %2$s</string>
   <string name="winrate">Pomer výhier</string>
-  <string name="na">Nedostupné</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Nedostupné</string>
   <string name="overview">Prehľad</string>
   <string name="news">Novinky</string>
   <string name="classNews">Novinky triedy</string>

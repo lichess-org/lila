@@ -3287,6 +3287,8 @@ interface I18n {
     congratsYouWon: string;
     /** Continue from here */
     continueFromHere: string;
+    /** Contrast */
+    contrast: string;
     /** Contribute */
     contribute: string;
     /** Copy mainline PGN */

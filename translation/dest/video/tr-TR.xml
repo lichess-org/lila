@@ -3,22 +3,22 @@
   <string name="chessVideos">Satranç videoları</string>
   <string name="allVideosAreFree">Tüm videolar tamamen ücretsiz.</string>
   <string name="selectTagsToFilter">Videoları filtrelemek için etiket seç.</string>
-  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">Şu ana kadar özenle %s video seçtik!</string>
+  <string name="weHaveCarefullySelectedX">Şu ana kadar özenle %s video seçtik!</string>
   <string name="freeChessVideos">Ücretsiz satranç videoları</string>
-  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s ücretsiz, küratör onaylı satranç videoları</string>
-  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s küratör onaylı satranç videoları</string>
-  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%2$s etiketleriyle %1$s</string>
-  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">herkese ucretsiz</string>
-  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+  <string name="xFreeCarefullyCurated">%s ücretsiz, küratör onaylı satranç videoları</string>
+  <string name="xCuratedChessVideos">%s küratör onaylı satranç videoları</string>
+  <string name="xWithTagsY">%2$s etiketleriyle %1$s</string>
+  <string name="freeForAll">herkese ucretsiz</string>
+  <plurals name="nbVideosFound">
     <item quantity="one">%s video bulundu</item>
     <item quantity="other">%s video bulundu</item>
   </plurals>
   <string name="noVideosForTheseTags">Bu etiketler için video bulunamadı:</string>
   <string name="thatsAllWeGotForTheseTags">Bu etiketler için bulabildiklerimiz bunlar:</string>
-  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Bu araştırma için bulabildiklerimiz bunlar: \"%s\"</string>
-  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">\"%s\" için sonuç bulunamadı</string>
-  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">Daha fazla etiket</string>
+  <string name="thatsAllWeGotForThisSearchX">Bu araştırma için bulabildiklerimiz bunlar: \"%s\"</string>
+  <string name="thereAreNoResultsForX">\"%s\" için sonuç bulunamadı</string>
+  <string name="viewMoreTags">Daha fazla etiket</string>
   <string name="videoNotFound">Video bulunamadı!</string>
-  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">%2$s den %1$s</string>
-  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">Tüm %s video etiketleri</string>
+  <string name="xByY">%2$s den %1$s</string>
+  <string name="allNbVideoTags">Tüm %s video etiketleri</string>
 </resources>

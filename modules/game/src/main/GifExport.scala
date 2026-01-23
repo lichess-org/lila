@@ -23,22 +23,16 @@ object GifExport:
   case class UpstreamStatus(code: Int) extends lila.core.lilaism.LilaException:
     val message = s"gif service status: $code"
 
-  case class Options(
-      players: Boolean = true,
-      ratings: Boolean = true,
-      clocks: Boolean = true,
-      glyphs: Boolean = true
-  ):
-    def makeSense = copy(ratings = players && ratings)
+  final class Options(val players: Boolean, val ratings: Boolean, val clocks: Boolean, val glyphs: Boolean)
   object Options:
-    val default = Options()
+    val default = Options(true, true, true, true)
     def fromReq(using RequestHeader): Options =
       Options(
         players = queryStringBoolOpt("players") | default.players,
         ratings = queryStringBoolOpt("ratings") | default.ratings,
         clocks = queryStringBoolOpt("clocks") | default.clocks,
         glyphs = queryStringBoolOpt("glyphs") | default.glyphs
-      ).makeSense
+      )
 
 final class GifExport(
     ws: StandaloneWSClient,

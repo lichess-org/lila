@@ -94,7 +94,7 @@
   <string name="timePlaying">Час за гульнёй</string>
   <string name="variantXOverLastY">%1$s на працягу апошніх %2$s</string>
   <string name="winrate">Адсотак перамог</string>
-  <string name="na">Не дастасоўваецца</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Не дастасоўваецца</string>
   <string name="overview">Агляд</string>
   <string name="news">Навіны</string>
   <string name="classNews">Навіны занятку</string>

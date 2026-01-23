@@ -41,5 +41,5 @@
   <string name="fromMyGamesNone">N\'eus poelladenn ebet tennet diwar ho krogadoù met gant Lichess oc\'h karet memestra.
 Kontant e vefec\'h e vefe savet ur boelladenn diwar unan eus ho partiennoù? C\'hoariit krogadoù prim pe glasel evit kaout muioc\'h a chañs!</string>
   <string name="puzzleDashboardDescription">Pleustriñ, dielfennañ, mont war-raok</string>
-  <string name="improvementAreasDescription">Pleustrit war ar re-mañ evit mont war-raok!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Pleustrit war ar re-mañ evit mont war-raok!</string>
 </resources>

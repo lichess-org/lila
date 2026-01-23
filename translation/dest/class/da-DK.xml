@@ -90,7 +90,7 @@ Her er linket, der giver adgang til klassen.</string>
   <string name="timePlaying">Tid spillet</string>
   <string name="variantXOverLastY">%1$s over sidste %2$s</string>
   <string name="winrate">Sejrsrate</string>
-  <string name="na">Ikke tilgængelig</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Ikke tilgængelig</string>
   <string name="overview">Oversigt</string>
   <string name="news">Nyheder</string>
   <string name="classNews">Klasse-nyheder</string>
@@ -121,7 +121,7 @@ Her er linket, der giver adgang til klassen.</string>
   <string name="allowMessagingBetweenStudentsDesc">Dette gælder kun for de konti, du har oprettet for dine elever.</string>
   <string name="quickLoginCode">Hurtig login-kode</string>
   <string name="quickLoginCodes">Hurtig login-koder</string>
-  <string name="quickLoginCodesDesc1" comment="String is a URL">Brug disse koder på %s til at logge dine elever ind i Lichess.</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Brug disse koder på %s til at logge dine elever ind i Lichess.</string>
   <string name="quickLoginCodesDesc2">Når koderne udløber, vil dine elever forblive logget ind, indtil de manuelt logger ud.</string>
-  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Udløber %s</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Udløber %s</string>
 </resources>

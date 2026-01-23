@@ -3,13 +3,13 @@
   <string name="chessVideos">Шахматные видео</string>
   <string name="allVideosAreFree">Все видео бесплатно доступны всем желающим.</string>
   <string name="selectTagsToFilter">Выберите теги для фильтрации видео.</string>
-  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">Мы тщательно выбрали %s видео!</string>
+  <string name="weHaveCarefullySelectedX">Мы тщательно выбрали %s видео!</string>
   <string name="freeChessVideos">Бесплатные шахматные видео</string>
-  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s бесплатных, тщательно выбранных шахматных видео</string>
-  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s шахматных видео от кураторов</string>
-  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s подходят по тегам %2$s</string>
-  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">бесплатно для всех желающих</string>
-  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+  <string name="xFreeCarefullyCurated">%s бесплатных, тщательно выбранных шахматных видео</string>
+  <string name="xCuratedChessVideos">%s шахматных видео от кураторов</string>
+  <string name="xWithTagsY">%1$s подходят по тегам %2$s</string>
+  <string name="freeForAll">бесплатно для всех желающих</string>
+  <plurals name="nbVideosFound">
     <item quantity="one">%s видео найдено</item>
     <item quantity="few">%s видео найдено</item>
     <item quantity="many">%s видео найдено</item>
@@ -17,10 +17,10 @@
   </plurals>
   <string name="noVideosForTheseTags">По следующим тегам видео не найдены:</string>
   <string name="thatsAllWeGotForTheseTags">Вот что мы нашли по следующим тегам:</string>
-  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Это всё, что мы нашли для такого запроса: \"%s\"</string>
-  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">По запросу \"%s\" не нашлось видео</string>
-  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">Посмотреть больше тегов</string>
+  <string name="thatsAllWeGotForThisSearchX">Это всё, что мы нашли для такого запроса: \"%s\"</string>
+  <string name="thereAreNoResultsForX">По запросу \"%s\" не нашлось видео</string>
+  <string name="viewMoreTags">Посмотреть больше тегов</string>
   <string name="videoNotFound">Видео не найдено!</string>
-  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">%1$s от %2$s</string>
-  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">Всего %s тегов для видео</string>
+  <string name="xByY">%1$s от %2$s</string>
+  <string name="allNbVideoTags">Всего %s тегов для видео</string>
 </resources>

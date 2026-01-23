@@ -818,6 +818,7 @@
   <string name="size">Size</string>
   <string name="opacity">Opacity</string>
   <string name="brightness">Brightness</string>
+  <string name="contrast">Contrast</string>
   <string name="hue">Hue</string>
   <string name="boardReset">Reset colours to default</string>
   <string name="pieceSet">Piece set</string>

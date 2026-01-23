@@ -90,7 +90,7 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="timePlaying">Speletid</string>
   <string name="variantXOverLastY">%1$s over siste %2$s</string>
   <string name="winrate">Vinstrate</string>
-  <string name="na">N/A (ikkje tilgjengeleg)</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A (ikkje tilgjengeleg)</string>
   <string name="overview">Oversikt</string>
   <string name="news">Nyhende</string>
   <string name="classNews">Klassenyhende</string>
@@ -121,7 +121,7 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="allowMessagingBetweenStudentsDesc">Dette gjeld berre for kontoane du har oppretta for elevane dine.</string>
   <string name="quickLoginCode">Kode for hurtig innlogging</string>
   <string name="quickLoginCodes">Kodar for hurtig innlogging</string>
-  <string name="quickLoginCodesDesc1" comment="String is a URL">Bruk desse kodane på %s for å logge elevane inn på Lichess.</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Bruk desse kodane på %s for å logge elevane inn på Lichess.</string>
   <string name="quickLoginCodesDesc2">Elevene dine er logga inn heilt til dei loggar ut manuelt, sjølv om kodane er utløpt.</string>
-  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Utløper %s</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Utløper %s</string>
 </resources>

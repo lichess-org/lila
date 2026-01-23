@@ -36,8 +36,8 @@
     <item quantity="one">Legyen rövid: legfeljebb %s karakter</item>
     <item quantity="other">Legyen rövid: legfeljebb %s karakter</item>
   </plurals>
-  <string name="visibility">Megjelenik a közvetítők oldalán</string>
-  <string name="whenApproved">Ha a moderátorok jóvá hagyták</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Megjelenik a közvetítők oldalán</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Ha a moderátorok jóvá hagyták</string>
   <string name="headline">Főcím</string>
   <string name="tellUsAboutTheStream">A közvetítés jellemzése egy mondatban</string>
   <string name="longDescription">Bővebb leírás</string>

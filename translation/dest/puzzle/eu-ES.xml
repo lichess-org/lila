@@ -93,6 +93,6 @@ Jokatu partida azkar eta arruntak zure partidetatik eratorritako ariketak izatek
   </plurals>
   <string name="percentSolved">%s ebatzita</string>
   <string name="noPuzzlesToShow">Ez dago ezer erakusteko, ebatzi ariketa batzuk!</string>
-  <string name="improvementAreasDescription">Entrenatu zure eboluzioa hobetzeko!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Entrenatu zure eboluzioa hobetzeko!</string>
   <string name="strengthDescription">Gai hauetan zabiltza ondoen</string>
 </resources>

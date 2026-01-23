@@ -85,7 +85,7 @@ Dito ang link para ma-access ang klase.</string>
   <string name="timePlaying">Oras na naglaro</string>
   <string name="variantXOverLastY">%1$s sa huling %2$s</string>
   <string name="winrate">Porsyento na manalo</string>
-  <string name="na">N/A</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
   <string name="news">Mga balita</string>
   <string name="classNews">Balita sa klase</string>
   <string name="editNews">I-edit ang balita</string>

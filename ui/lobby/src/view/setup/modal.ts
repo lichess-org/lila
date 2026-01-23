@@ -64,14 +64,14 @@ const views = {
   ],
   friend: (ctrl: LobbyController): LooseVNodes => [
     variantPicker(ctrl),
-    fenInput(ctrl),
+    fenInput(ctrl.setupCtrl),
     timePickerAndSliders(ctrl.setupCtrl.timeControl, 0),
     gameModeButtons(ctrl),
     colorButtons(ctrl),
   ],
   ai: (ctrl: LobbyController): LooseVNodes => [
     variantPicker(ctrl),
-    fenInput(ctrl),
+    fenInput(ctrl.setupCtrl),
     timePickerAndSliders(ctrl.setupCtrl.timeControl, ctrl.setupCtrl.minimumTimeIfReal()),
     levelButtons(ctrl),
     colorButtons(ctrl),

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Kaixo %s</string>
-	<string name="awaitQuestion" comment="Displayed while waiting for results">Zertan aritu zara aurten?</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Zertan aritu zara aurten?</string>
 	<string name="initTitle">Hau da hau izan duzun urtea!</string>
 	<string name="noGamesText">Aurten ez duzu partidarik jokatu.</string>
 	<string name="noGamesCta">Orain jokatu nahi duzu?</string>
@@ -44,10 +44,10 @@
 		<item quantity="one">Eskerrik asko ariketa %si emandako botoagatik.</item>
 		<item quantity="other">Eskerrik asko %s ariketari emandako botoengatik.</item>
 	</plurals>
-	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Gainera %s etiketatzen lagundu diguzu.</string>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Gainera %s etiketatzen lagundu diguzu.</string>
 	<string name="puzzlesNone">Aurten ez duzu ariketarik ebatzi.</string>
-	<string name="puzzlesTryNow">Saiakeraren bat egin nahi duzu?</string>
-	<string name="puzzlesYouWonOnFirstTry">%s lehenengoan ebatzi dituzu!</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Saiakeraren bat egin nahi duzu?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">%s lehenengoan ebatzi dituzu!</string>
 	<string name="sourcesTitle">Non aurkitu dituzu partidak?</string>
 	<string name="perfsTitle">Zein denbora-kontrol eta aldaeratan aritu zara?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s iragarki kargatu dira</string>
@@ -55,15 +55,15 @@
 	<string name="malwareNoAbuse">Ez dugu zure gailua zure aurka erabili</string>
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Beste webgune batzuk egiten dute, beraz %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">kontuz ibili</string>
-	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s partida jokatu dira Lichessen %2$s urtean</string>
-	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">Zureak %s izan dira.</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s partida jokatu dira Lichessen %2$s urtean</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">Zureak %s izan dira.</string>
 	<string name="thanksTitle">Eskerrik asko Lichessen jokatzeagatik!</string>
-	<string name="thanksHaveAGreat" comment="%s is the next year">Asko pozten gara zu gurekin izateaz. %s urte berri on!</string>
-	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;750,000 $&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£593,221&quot;">Aurtengo Lichessen %1$s %2$s izan dira.</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Asko pozten gara zu gurekin izateaz. %s urte berri on!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">Aurtengo Lichessen %1$s %2$s izan dira.</string>
 	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">kostuak</string>
 	<string name="patronCharity">Dohaintzekin funtzionatzen duen irabazi asmorik gabeko elkartea gara.</string>
-	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Zure egunak atseginago izaten lagundu badizugu, pentsatu %s!</string>
-	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.">dohaintza bat egitea</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">Zure egunak atseginago izaten lagundu badizugu, pentsatu %s!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">dohaintza bat egitea</string>
 	<string name="shareableTitle" comment="%s is the current year">Nire %s urteko laburpena</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">eman dituzu jokatzen</string>
 	<string name="shareableMostPlayedOpponent">da gehinetan jokatu duzun aurkaria</string>
@@ -73,5 +73,5 @@
 		<item quantity="one">Ariketa %s ebatzi duzu</item>
 		<item quantity="other">%s ariketa ebatzi dituzu</item>
 	</plurals>
-	<string name="recapReady" comment="%s is the year of the recap">Zure %s urteko laburpena prest dago!</string>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Zure %s urteko laburpena prest dago!</string>
 </resources>

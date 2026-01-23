@@ -35,8 +35,8 @@
     <item quantity="one">Hou dit kort: %s karakter maks</item>
     <item quantity="other">Hou dit kort: %s karakters maks</item>
   </plurals>
-  <string name="visibility">Sigbaar op die aanbiederblad</string>
-  <string name="whenApproved">Wanneer moderator dit goedkeur</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Sigbaar op die aanbiederblad</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Wanneer moderator dit goedkeur</string>
   <string name="headline">Hoofopskrif</string>
   <string name="tellUsAboutTheStream">Vertel ons meer van jou uitsending in een sin</string>
   <string name="longDescription">Lang uitbreiding</string>

@@ -35,8 +35,8 @@
     <item quantity="one">Қысқа болсын: ең көбі %s таңба</item>
     <item quantity="other">Қысқа болсын: ең көбі %s таңба</item>
   </plurals>
-  <string name="visibility">Стримерлер парақшасында көріну</string>
-  <string name="whenApproved">Модераторлар растаса</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Стримерлер парақшасында көріну</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Модераторлар растаса</string>
   <string name="headline">Басты тақырып</string>
   <string name="tellUsAboutTheStream">Стрим туралы бір сөйлеммен айтып беріңіз</string>
   <string name="longDescription">Ұзын сипаттама</string>
