@@ -23,7 +23,8 @@ cg-board::before {
   box-shadow: inherit;
 
   body:not(.simple-board) & {
-    filter: brightness(calc(var(---board-brightness) / 100)) hue-rotate(calc(var(---board-hue) * 3.6deg));
+    filter: brightness(calc(var(---board-brightness) / 100)) contrast(calc(var(---board-contrast) / 100))
+      hue-rotate(calc(var(---board-hue) * 3.6deg));
 
     @include if-transp {
       opacity: calc(var(---board-opacity) / 100);
