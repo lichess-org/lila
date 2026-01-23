@@ -6,6 +6,7 @@ import type SetupController from '@/setupCtrl';
 export const fenInput = (ctrl: SetupController) => {
   if (ctrl.variant() !== 'fromPosition') return null;
   const fen = ctrl.fen();
+  const pov = ctrl.color() === 'black' ? 'black' : 'white';
   return h('div.config-group', [
     h('div.fen__form', [
       h('input#fen-input', {
@@ -33,7 +34,7 @@ export const fenInput = (ctrl: SetupController) => {
       !ctrl.lastValidFen || !ctrl.validFen()
         ? null
         : h('div.position.mini-board.cg-wrap.is2d', {
-            attrs: { 'data-state': `${ctrl.lastValidFen},white` },
+            attrs: { 'data-state': `${ctrl.lastValidFen},${pov}` },
             hook: {
               insert: vnode => initMiniBoard(vnode.elm as HTMLElement),
               update: vnode => initMiniBoard(vnode.elm as HTMLElement),
