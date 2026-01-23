@@ -27,22 +27,19 @@ export const boardAnalysisVariants = [
 
 const values: Record<Role, number> = { pawn: 1, knight: 3, bishop: 3, rook: 5, queen: 9, king: 100 };
 
-function isSquareAttacked(square: number, byColor: Color, cb: Board): boolean {
-  if (knightAttacks(square).intersects(cb[byColor].intersect(cb.knight))) return true;
-  if (pawnAttacks(opposite(byColor), square).intersects(cb[byColor].intersect(cb.pawn))) return true;
-  if (kingAttacks(square).intersects(cb[byColor].intersect(cb.king))) return true;
-  if (rookAttacks(square, cb.occupied).intersects(cb[byColor].intersect(cb.rooksAndQueens()))) return true;
-  if (bishopAttacks(square, cb.occupied).intersects(cb[byColor].intersect(cb.bishopsAndQueens())))
-    return true;
-  return false;
-}
+const isSquareAttacked = (square: Square, byColor: Color, cb: Board): boolean =>
+  knightAttacks(square).intersects(cb[byColor].intersect(cb.knight)) ||
+  pawnAttacks(opposite(byColor), square).intersects(cb[byColor].intersect(cb.pawn)) ||
+  kingAttacks(square).intersects(cb[byColor].intersect(cb.king)) ||
+  rookAttacks(square, cb.occupied).intersects(cb[byColor].intersect(cb.rooksAndQueens())) ||
+  bishopAttacks(square, cb.occupied).intersects(cb[byColor].intersect(cb.bishopsAndQueens()));
 
 function getAttackers(
-  square: number,
+  square: Square,
   byColor: Color,
   cb: Board,
-): { square: number; role: Role; color: Color }[] {
-  const attackers: { square: number; role: Role; color: Color }[] = [];
+): { square: Square; role: Role; color: Color }[] {
+  const attackers: { square: Square; role: Role; color: Color }[] = [];
   const colorSet = cb[byColor];
 
   const add = (set: SquareSet) => {
@@ -115,18 +112,18 @@ const epTargetPawnSq = (epSquare: Square): Square =>
   squareFromCoords(squareFile(epSquare), squareRank(epSquare) === 2 ? 3 : 4)!;
 
 function getSEE(
-  square: number,
+  square: Square,
   isEpSquare: boolean,
   target: { role: Role; color: Color },
   cb: Board,
   pins: Pin[],
-): { balance: number; firstAttacker?: number } {
+): { balance: number; firstAttacker?: Square } {
   const balances: number[] = [];
   let pieceOnSquare = target;
   let currentGain = 0;
   const attackerColor = opposite(target.color);
   let nextColor = attackerColor;
-  let firstAttacker: number | undefined;
+  let firstAttacker: Square | undefined;
 
   const simulationBoard = cb.clone();
   if (isEpSquare) simulationBoard.take(epTargetPawnSq(square)); // e.g., Qf3 would control f6 ep square
@@ -146,15 +143,14 @@ function getSEE(
       for (const attacker of attackers) {
         // Check if the attacker is absolutely pinned and trying to move off the pin line
         const pin = pins.find(p => p.pinned === attacker.square);
-        if (pin) {
-          const pinTarget = cb.get(pin.target);
-          if (pinTarget && pinTarget.role === 'king') {
-            if (square !== pin.pinner && !between(pin.pinner, pin.target).has(square)) {
-              continue;
-            }
-          }
+        if (
+          pin &&
+          cb.get(pin.target)?.role === 'king' &&
+          square !== pin.pinner &&
+          !between(pin.pinner, pin.target).has(square)
+        ) {
+          continue;
         }
-
         bestAttacker = attacker;
         break;
       }
@@ -208,7 +204,7 @@ export function detectUndefended(board: Board, epSquare: Square | undefined): Un
 
 export function detectCheckable(
   board: Board,
-  epSquare: number | undefined,
+  epSquare: Square | undefined,
   castlingRights: SquareSet,
 ): Checkable[] {
   const checkable: Checkable[] = [];
@@ -270,17 +266,13 @@ export function detectCheckable(
         } else {
           const occupied = cb.occupied.without(from).with(to);
 
-          // Direct check
-          if (attacks(piece, to, occupied).has(kSq)) {
+          // Direct check or discovered check
+          if (
+            attacks(piece, to, occupied).has(kSq) ||
+            rookAttacks(kSq, occupied).intersects(enemyRooksQueens.without(from)) ||
+            bishopAttacks(kSq, occupied).intersects(enemyBishopsQueens.without(from))
+          ) {
             checkFound = { from, to };
-          } else {
-            // Discovered check
-            if (
-              rookAttacks(kSq, occupied).intersects(enemyRooksQueens.without(from)) ||
-              bishopAttacks(kSq, occupied).intersects(enemyBishopsQueens.without(from))
-            ) {
-              checkFound = { from, to };
-            }
           }
         }
 
