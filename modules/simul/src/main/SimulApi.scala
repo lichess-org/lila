@@ -165,10 +165,9 @@ final class SimulApi(
       }
 
   def setText(simulId: SimulId, text: String): Funit =
-    workQueue(simulId):
-      repo.find(simulId).flatMapz { simul =>
-        for _ <- repo.setText(simul, text) yield socket.reload(simulId)
-      }
+    repo.find(simulId).flatMapz { simul =>
+      for _ <- repo.setText(simul, text) yield socket.reload(simulId)
+    }
 
   private[simul] def finishGame(game: Game): Funit =
     game.simulId.so:
