@@ -317,11 +317,9 @@ db.title_request.createIndex(
 // you may want to run these on the insight database if it's a different one
 // u{ser}, p{erf}, c{color}, a{nalysed}, mr{ating} (stable), d{ate}, c{color}, of{opening family}
 db.insight.createIndex({ u: 1, d: -1 }); // for insights
-// for tutor
-db.insight.createIndex(
-  { mr: 1, p: 1, a: 1, c: 1, of: 1 },
-  { partialFilterExpression: { mr: { $exists: true } } },
-);
+// for tutor. We can't index by opening family, because it sorts the game by opening
+// and then requests about multiple openings are fully biased towards the first one alphabetically.
+db.insight.createIndex({ mr: 1, p: 1, a: 1, c: 1 }, { partialFilterExpression: { mr: { $exists: true } } });
 db.kaladin_queue.createIndex(
   { 'response.at': 1, 'response.read': 1 },
   { partialFilterExpression: { 'response.at': { $exists: true } } },
