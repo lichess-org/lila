@@ -269,7 +269,7 @@ export default class StudyCtrl {
   };
 
   setTab = (tab: Tab) => {
-    if (tab === 'chapters') this.chapters.scroller.request = 'instant';
+    if (tab === 'chapters') this.chapters.scroller.request('instant');
     this.vm.tab(tab);
     this.redraw();
   };
@@ -492,7 +492,7 @@ export default class StudyCtrl {
       this.redraw();
       return true;
     }
-    this.chapters.scroller.request = 'smooth';
+    this.chapters.scroller.request('smooth');
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {
@@ -778,7 +778,7 @@ export default class StudyCtrl {
         this.vm.mode.write = this.relay ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
         this.vm.nextChapterId = d.p.chapterId;
-        this.chapters.scroller.request = 'instant';
+        this.chapters.scroller.request('instant');
       }
       this.xhrReload(true);
     },
