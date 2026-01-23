@@ -116,17 +116,18 @@
       padding: 0.2em 1em;
       margin-left: 1em;
     }
+    .form-check__container {
+      margin-inline-start: 1em;
+    }
+    .form-label {
+      font-weight: normal;
+    }
 
     div {
       @extend %flex-center-nowrap;
       margin-top: 1em;
       &:last-child {
         margin-bottom: 1em;
-      }
-
-      label {
-        margin-inline-start: 1rem;
-        cursor: pointer;
       }
       em {
         @extend %roboto;

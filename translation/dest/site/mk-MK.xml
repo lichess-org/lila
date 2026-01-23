@@ -395,7 +395,6 @@
   <string name="pasteTheFenStringHere">Пастирај го FEN стрингот овде</string>
   <string name="pasteThePgnStringHere">Пастирај го PGN стрингот овде</string>
   <string name="orUploadPgnFile">Или закачете PGN датотека</string>
-  <string name="fromPosition">Од позиција</string>
   <string name="continueFromHere">Продолжи од овде</string>
   <string name="toStudy">Студија</string>
   <string name="importGame">Внеси игра</string>

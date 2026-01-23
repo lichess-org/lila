@@ -106,7 +106,7 @@ final class GatheringFormUi(helpers: Helpers):
     )(form3.textarea(_)(rows := 4))
 
   def titled(field: Field)(using Translate) =
-    form3.checkbox(
+    form3.checkboxGroup(
       field,
       trans.arena.onlyTitled(),
       help = trans.arena.onlyTitledHelp().some,
@@ -114,7 +114,7 @@ final class GatheringFormUi(helpers: Helpers):
     )
 
   def bots(field: Field, disabledAfterStart: Boolean) =
-    form3.checkbox(
+    form3.checkboxGroup(
       field,
       "Allow bot accounts",
       help = frag(
@@ -122,6 +122,5 @@ final class GatheringFormUi(helpers: Helpers):
         a(href := "/@/lichess/blog/welcome-lichess-bots/WvDNticA")("bots"),
         " join the tournament and play with their engines. This often repels human players."
       ).some,
-      half = true,
       disabled = disabledAfterStart
     )

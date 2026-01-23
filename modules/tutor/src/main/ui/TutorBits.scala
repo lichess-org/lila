@@ -4,6 +4,7 @@ package ui
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+import lila.rating.PerfType
 
 final class TutorBits(helpers: Helpers)(
     val openingUrl: chess.opening.Opening => Call
@@ -37,8 +38,10 @@ final class TutorBits(helpers: Helpers)(
   def percentNumber[A](v: A)(using number: TutorNumber[A]) = f"${number.double(v)}%1.1f"
   def percentFrag[A](v: A)(using TutorNumber[A]) = frag(strong(percentNumber(v)), "%")
 
+  def beta = strong(cls := "tutor__beta")("BETA")
+
   def otherUser(user: User)(using ctx: Context) =
-    ctx.isnt(user).option(userSpan(user, withOnline = false))
+    ctx.isnt(user).option(userSpan(user, withOnline = false, withTitle = false, withFlair = false))
 
   def menu(full: TutorFullReport.Available, user: User, report: Option[TutorPerfReport])(using
       Context
@@ -49,4 +52,35 @@ final class TutorBits(helpers: Helpers)(
         cls := p.perf.key.value.active(report.so(_.perf.key.value)),
         href := routes.Tutor.perf(user.username, p.perf.key)
       )(p.perf.trans)
+  )
+
+  def perfSelector(full: TutorFullReport, current: PerfType)(routing: (UserStr, PerfKey) => Call)(using
+      Context
+  ) =
+    lila.ui.bits.mselect(
+      "tutor-perf-select",
+      span(current.trans),
+      full.perfs.toList.map: r =>
+        a(
+          href := routing(usernameOrId(full.user), r.perf.key),
+          cls := (current == r.perf).option("current")
+        )(r.perf.trans)
+    )
+
+  def reportSelector(report: TutorPerfReport, current: String, user: User) =
+    lila.ui.bits.mselect(
+      "tutor-report-select",
+      span(reportAngles.find(_._1 == current).map(_._2) | current),
+      reportAngles.map: (key, name, route) =>
+        a(
+          href := route(user.username, report.perf.key),
+          cls := (current == key).option("current")
+        )(name)
+    )
+
+  val reportAngles: List[(String, String, (UserStr, PerfKey) => Call)] = List(
+    ("skills", "Skills", routes.Tutor.skills),
+    ("openings", "Openings", routes.Tutor.openings),
+    ("time", "Time management", routes.Tutor.time),
+    ("phases", "Game phases", routes.Tutor.phases)
   )

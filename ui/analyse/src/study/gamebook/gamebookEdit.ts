@@ -5,6 +5,7 @@ import * as licon from 'lib/licon';
 import { throttle } from 'lib/async';
 import { iconTag, bind, type MaybeVNodes } from 'lib/view';
 import { h, type Hooks, type VNode } from 'snabbdom';
+import type { Gamebook, TreeNode } from 'lib/tree/types';
 
 export function running(ctrl: AnalyseCtrl): boolean {
   return (
@@ -126,7 +127,7 @@ function renderHint(ctrl: AnalyseCtrl): VNode {
   ]);
 }
 
-const saveNode = throttle(500, (ctrl: AnalyseCtrl, gamebook: Tree.Gamebook) => {
+const saveNode = throttle(500, (ctrl: AnalyseCtrl, gamebook: Gamebook) => {
   ctrl.socket.send('setGamebook', {
     path: ctrl.path,
     ch: ctrl.study!.vm.chapterId,
@@ -135,7 +136,7 @@ const saveNode = throttle(500, (ctrl: AnalyseCtrl, gamebook: Tree.Gamebook) => {
   ctrl.redraw();
 });
 
-function nodeGamebookValue(node: Tree.Node, field: 'deviation' | 'hint'): string {
+function nodeGamebookValue(node: TreeNode, field: 'deviation' | 'hint'): string {
   return (node.gamebook && node.gamebook[field]) || '';
 }
 

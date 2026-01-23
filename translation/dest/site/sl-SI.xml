@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Igraj proti računalniku</string>
   <string name="gameMode">Igralni način</string>
   <string name="createLobbyGame">Ustvari igro v preddverju</string>
-  <string name="youPlayAs">Igraš kot</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kopiraj URL in povabi prijatelja k igri</string>
   <string name="gameOver">Konec igre</string>
   <string name="waitingForOpponent">Čakam nasprotnika</string>
@@ -130,6 +129,10 @@
   <string name="bestMoveArrow">Puščica najboljše poteze</string>
   <string name="showVariationArrows">Prikaži puščice z variacijami</string>
   <string name="evaluationGauge">Kazalnik ocene</string>
+  <string name="visualMotifs">Vizualni motivi</string>
+  <string name="undefendedPieces">Nebranjene figure</string>
+  <string name="pinnedPieces">Pripete figure</string>
+  <string name="checkableKing">Kralj, ki ga je mogoče šahirati</string>
   <string name="multipleLines">Več variant</string>
   <string name="cpus">CPU-ji</string>
   <string name="memory">Spomin</string>
@@ -486,10 +489,11 @@
   <string name="leaderboard">Lestvica</string>
   <string name="screenshotCurrentPosition">Zajemi sliko trenutne pozicije</string>
   <string name="gameAsGIF">Partija kot GIF</string>
+  <string name="playerNames">Imena igralcev</string>
+  <string name="moveAnnotations">Zapis potez</string>
   <string name="pasteTheFenStringHere">Prilepi FEN niz sem</string>
   <string name="pasteThePgnStringHere">Prilepi PGN niz sem</string>
   <string name="orUploadPgnFile">Ali pa naložite datoteko PGN</string>
-  <string name="fromPosition">Nastavljena pozicija</string>
   <string name="continueFromHere">Nadaljuj od tukaj</string>
   <string name="toStudy">Študiraj</string>
   <string name="importGame">Uvozi igro</string>

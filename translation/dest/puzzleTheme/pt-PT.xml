@@ -92,6 +92,8 @@
   <string name="oneMoveDescription">Um problema que é resolvido com apenas um movimento.</string>
   <string name="opening">Abertura</string>
   <string name="openingDescription">Uma tática durante a primeira fase do jogo.</string>
+  <string name="operaMate">Mate da ópera</string>
+  <string name="operaMateDescription">Xeque o rei com a torre e use o bispo para defender a torre.</string>
   <string name="pawnEndgame">Final de peões</string>
   <string name="pawnEndgameDescription">Um final de jogo só com peões.</string>
   <string name="pin">Cravada</string>

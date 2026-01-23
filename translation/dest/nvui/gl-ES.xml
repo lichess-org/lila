@@ -23,11 +23,11 @@
   <string name="moveToPieceByType">Ir ás casas usando os nomes das pezas. Por exemplo: premendo \"k\" (Knight=Cabalo) varias veces para seleccionar as casas ocupadas polos cabalos. Usando \"MAIÚSCULAS + k\" neste exemplo cambiaría a orde desta rotación.</string>
   <string name="moveToRank">Ir á fila 1 a 8.</string>
   <string name="moveToFile">Mover á columna a-h.</string>
-  <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">Anunciar as posicións das pezas. Por exemplo: \"p capital N\" para os cabalos brancos; \"p lowercase k\" para o rei negro, \"p capital A\" para todas as pezas brancas.</string>
-  <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">Anunciar as pezas dunha fila ou columna. Por exemplo: \"s a\" (canta as pezas da columna \"a\") ou \"s 1\" (canta as pezas da fila \"1\").</string>
-  <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">Ir ó taboleiro. A casa á que vai por defecto é \"e-4\". Pódese especificar mediante as coordenadas: \"board a-1\" ou \"b a-1\" irá á casa \"a-1\".</string>
+  <string name="announcePieceLocations">Anunciar as posicións das pezas. Por exemplo: \"p capital N\" para os cabalos brancos; \"p lowercase k\" para o rei negro, \"p capital A\" para todas as pezas brancas.</string>
+  <string name="announcePiecesOnRankOrFile">Anunciar as pezas dunha fila ou columna. Por exemplo: \"s a\" (canta as pezas da columna \"a\") ou \"s 1\" (canta as pezas da fila \"1\").</string>
+  <string name="goToBoard">Ir ó taboleiro. A casa á que vai por defecto é \"e-4\". Pódese especificar mediante as coordenadas: \"board a-1\" ou \"b a-1\" irá á casa \"a-1\".</string>
   <string name="movePiece">Empregar a Notación Alxébrica Estándar para mover as pezas.</string>
-  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">Para non coroar automaticamente coma dama débese usar \"equals\" (\"é igual a\", en inglés). Así, \"a-8-equals-n\" coroa coma cabalo (n==Knight, en inglés).</string>
+  <string name="promotion">Para non coroar automaticamente coma dama débese usar \"equals\" (\"é igual a\", en inglés). Así, \"a-8-equals-n\" coroa coma cabalo (n==Knight, en inglés).</string>
   <string name="king">rei</string>
   <string name="whiteKing">rei branco</string>
   <string name="blackKing">rei negro</string>
@@ -47,18 +47,18 @@
   <string name="whitePawn">peón branco</string>
   <string name="blackPawn">peón negro</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">R D T A C</string>
-  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">captura</string>
+  <string name="sanTakes" comment="x in standard notation">captura</string>
   <string name="sanCheck" comment="+ in standard notation">xaque</string>
   <string name="sanCheckmate" comment="# in standard notation">xaque mate</string>
-  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">coroa como</string>
-  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">enroque curto</string>
-  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">enroque longo</string>
-  <string name="sanDroppedOn" comment="Indicates a piece is dropped on a square in the Crazyhouse variant, as part of a longer sentence.&#10;&#10;In Crazyhouse, any pieces you capture are placed in your pocket. You can then drop those pieces onto any square on the board.&#10;&#10;Examples:&#10;&quot;bishop is dropped on c 4 check&quot; (B@c4+)&#10;&quot;pawn is dropped on f 7&quot; (@f7)&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'dropped on' corresponds to &quot;@&quot; in Crazyhouse's form of algebraic notation.">guíndase en</string>
+  <string name="sanPromotesTo" comment="= in standard notation">coroa como</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">enroque curto</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">enroque longo</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">guíndase en</string>
   <string name="invalidMove">Movemento non válido</string>
   <string name="premoveCancelled">Premovemento cancelado</string>
   <string name="premoveRecorded">Premovemento gardado: %s. Pulsa Enter para cancelar</string>
-  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Petos</string>
-  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Copiar o %s ao portapapeis</string>
-  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s copiado ao portapapeis</string>
-  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN e FEN</string>
+  <string name="pockets" comment="Crazyhouse pockets">Petos</string>
+  <string name="copyToClipboard">Copiar o %s ao portapapeis</string>
+  <string name="copiedToClipboard">%s copiado ao portapapeis</string>
+  <string name="pgnAndFen">PGN e FEN</string>
 </resources>

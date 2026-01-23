@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Jokatu ordenagailuaren aurka</string>
   <string name="gameMode">Jokuaren modua</string>
   <string name="createLobbyGame">Sortu egongelako partida</string>
-  <string name="youPlayAs">Kolore hau izango duzu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norbait jokatzera gonbidatzeko, URL hau bidali iezaiozu</string>
   <string name="gameOver">Partida amaitu da</string>
   <string name="waitingForOpponent">Aurkariaren zain</string>
   <string name="orLetYourOpponentScanQrCode">Edo utzi zure aurkariari QR kode hau eskaneatzen</string>
+  <string name="reusableChallengeUrl">Berrerabili daitekeen erronkaren esteka</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Ezarpen hauekin edonork zuri erronka botatzeko helbidea.</string>
   <string name="waiting">Zain</string>
   <string name="yourTurn">Zure txanda</string>
   <string name="aiNameLevelAiLevel">%1$s, %2$s. maila</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Jokaldi onenaren gezia</string>
   <string name="showVariationArrows">Erakutsi aldaeren geziak</string>
   <string name="evaluationGauge">Ebaluazio langa</string>
+  <string name="visualMotifs">Ikurrak</string>
+  <string name="undefendedPieces">Defentsarik ez duten piezak</string>
+  <string name="pinnedPieces">Iltzatutako piezak</string>
+  <string name="checkableKing">Xake egin dakiokeen erregea</string>
   <string name="multipleLines">Linea anitz</string>
   <string name="cpus">CPU</string>
   <string name="memory">Memoria</string>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Minutuak alde bakoitzeko</string>
   <string name="variant">Aldaera</string>
   <string name="variants">Aldaerak</string>
+  <string name="variantsDescription">Jokatzeko modu gehiago</string>
   <string name="timeControl">Denbora kontrola</string>
   <string name="realTime">Partida arinak</string>
   <string name="correspondence">Posta bidezko partidak</string>
@@ -299,6 +305,7 @@
   <string name="standard">Ohikoa</string>
   <string name="customPosition">Posizio pertsonalizatua</string>
   <string name="unlimited">Mugagabea</string>
+  <string name="unlimitedDescription">Hartu behar duzun denbora</string>
   <string name="mode">Modua</string>
   <string name="casual">Lagunartekoa</string>
   <string name="rated">Sailkapenerako baliogarria</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">Jokalaririk onenak</string>
   <string name="screenshotCurrentPosition">Uneko posizioaren irudia</string>
   <string name="gameAsGIF">Partida GIF gisa</string>
+  <string name="playerNames">Jokalarien izenak</string>
+  <string name="moveAnnotations">Jokaldien komentarioak</string>
   <string name="pasteTheFenStringHere">FEN-a kodea hemen jarri</string>
   <string name="pasteThePgnStringHere">PGN-a kodea hemen jarri</string>
   <string name="orUploadPgnFile">Edo kargatu PGN fitxategi bat</string>
-  <string name="fromPosition">Posizio jakin batetik</string>
   <string name="continueFromHere">Hemendik jarraitu</string>
   <string name="toStudy">Aztertu</string>
   <string name="importGame">Partida inportatu</string>

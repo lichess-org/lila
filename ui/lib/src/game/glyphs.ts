@@ -1,16 +1,17 @@
 import { parseUci, makeSquare, squareRank } from 'chessops/util';
 import type { DrawShape } from '@lichess-org/chessground/draw';
+import type { Glyph, TreeNode } from '@/tree/types';
 
 // maximum number of glyphs to show for a given move
 const maxGlyphs = 4;
 
-export function annotationShapes(node: Tree.Node): DrawShape[] {
+export function annotationShapes(node: TreeNode): DrawShape[] {
   const { uci, glyphs, san } = node;
   if (uci && san && glyphs) {
     return (
       glyphs
         .slice(0, maxGlyphs)
-        .map((glyph: Tree.Glyph, idx: number) => {
+        .map((glyph: Glyph, idx: number) => {
           const move = parseUci(uci)!;
           const destSquare = san.startsWith('O-O') // castle, short or long
             ? squareRank(move.to) === 0 // white castle

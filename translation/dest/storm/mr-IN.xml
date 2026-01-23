@@ -35,7 +35,7 @@
   <string name="runs">श्रेण्या</string>
   <string name="getReady">तयार राहा!</string>
   <string name="waitingForMorePlayers">आणखी खेळाडू दाखल होण्याच्या प्रतिक्षेत...</string>
-  <string name="raceComplete">श्रेणी संपूर्ण झ्हाली</string>
+  <string name="raceComplete">स्पर्धा समाप्त!</string>
   <string name="spectating">पाहात आहोत</string>
   <string name="joinTheRace">शर्यतीत भाग घ्या!</string>
   <string name="startTheRace">शर्यत चालू करा</string>
@@ -57,6 +57,6 @@
   <string name="thisMonth">या महिन्यात</string>
   <string name="allTime">सर्वकालीन</string>
   <string name="clickToReload">परत भारण्यासाठी इथे दाबा</string>
-  <string name="thisRunHasExpired">ही श्रेणी कालबाह्य झ्हाली!</string>
+  <string name="thisRunHasExpired">ही धाव कालबाह्य झाली!</string>
   <string name="thisRunWasOpenedInAnotherTab">ही श्रेणी दुसऱ्या जागी उघडली गेली आहे!</string>
 </resources>

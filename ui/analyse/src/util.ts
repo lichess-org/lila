@@ -1,25 +1,31 @@
-export const plyColor = (ply: number): Color => (ply % 2 === 0 ? 'white' : 'black');
+import { Position } from 'chessops';
+import type { TreeNode, TreeNodeIncomplete } from 'lib/tree/types';
+import { completeNode } from 'lib/tree/node';
 
 export function readOnlyProp<A>(value: A): () => A {
-  return function (): A {
-    return value;
-  };
+  return () => value;
 }
 
-const ensureChildren = (node: Tree.NodeOptionalChildren): Tree.Node => {
-  node.children ||= [];
-  return node as Tree.Node;
-};
-
-export function treeReconstruct(parts: Tree.NodeOptionalChildren[], sidelines?: Tree.Node[][]): Tree.Node {
-  const root = ensureChildren(parts[0]);
-  root.id = '';
+export function treeReconstruct(
+  parts: TreeNodeIncomplete[],
+  variant: VariantKey,
+  sidelines?: TreeNode[][],
+): TreeNode {
+  const completer = completeNode(variant);
+  const root = completer(parts[0]);
   let node = root;
   for (let i = 1; i < parts.length; i++) {
-    const n = ensureChildren(parts[i]);
+    const n = completer(parts[i]);
     const variations = sidelines ? sidelines[i] : [];
     node.children.unshift(n, ...variations);
     node = n;
   }
   return root;
+}
+
+export function addCrazyData(node: TreeNode, pos: Position): void {
+  if (pos.pockets)
+    node.crazy = {
+      pockets: [pos.pockets.white, pos.pockets.black],
+    };
 }

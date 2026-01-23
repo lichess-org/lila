@@ -7,6 +7,7 @@ import play.api.mvc.RequestHeader
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.core.security.{ Hcaptcha, HcaptchaForm }
+import lila.clas.Student.RealName
 
 final class ClasForm(
     lightUserAsync: lila.core.LightUser.Getter,
@@ -52,7 +53,7 @@ final class ClasForm(
     val create: Form[CreateStudent] = Form:
       mapping(
         "create-username" -> signupForm.username,
-        "create-realName" -> cleanNonEmptyText(maxLength = 100)
+        "create-realName" -> cleanNonEmptyText(maxLength = 100).into[RealName]
       )(CreateStudent.apply)(unapply)
 
     def generate(using Lang): Fu[Form[CreateStudent]] =
@@ -60,7 +61,7 @@ final class ClasForm(
         create.fill:
           CreateStudent(
             username = username | UserName(""),
-            realName = ""
+            realName = RealName("")
           )
 
     def invite(c: Clas) = Form:
@@ -68,14 +69,14 @@ final class ClasForm(
         "username" -> lila.common.Form.username.historicalField
           .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
           .verifying("This is a teacher", u => !c.teachers.toList.contains(u.id)),
-        "realName" -> cleanNonEmptyText
+        "realName" -> cleanNonEmptyText.into[RealName]
       )(InviteStudent.apply)(unapply)
 
     val inviteAccept = Form(single("v" -> Forms.boolean))
 
     def edit(s: Student) = Form(
       mapping(
-        "realName" -> cleanNonEmptyText,
+        "realName" -> cleanNonEmptyText.into[RealName],
         "notes" -> text(maxLength = 20000)
       )(StudentData.apply)(unapply)
     ).fill(StudentData(s.realName, s.notes))
@@ -118,11 +119,11 @@ object ClasForm:
   private def readTeacherIds(str: String) =
     UserStr.from(str.linesIterator.map(_.trim).filter(_.nonEmpty)).map(_.id).distinct.toList
 
-  case class InviteStudent(username: UserStr, realName: String)
-  case class CreateStudent(username: UserName, realName: String)
+  case class InviteStudent(username: UserStr, realName: RealName)
+  case class CreateStudent(username: UserName, realName: RealName)
 
   case class StudentData(
-      realName: String,
+      realName: RealName,
       notes: String
   ):
     def update(c: Student) =
@@ -132,5 +133,5 @@ object ClasForm:
       )
 
   case class ManyNewStudent(realNamesText: String):
-    def realNames =
+    def realNames = RealName.from:
       realNamesText.linesIterator.map(_.trim.take(realNameMaxSize)).filter(_.nonEmpty).distinct.toList

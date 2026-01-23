@@ -13,7 +13,7 @@ import { pubsub } from 'lib/pubsub';
 import { wsSend, wsAverageLag } from 'lib/socket';
 
 declare module 'chart.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // oxlint-disable-next-line no-unused-vars
   interface PluginOptionsByType<TType extends ChartType> {
     needle?: {
       value: number;

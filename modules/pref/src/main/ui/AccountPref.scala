@@ -281,7 +281,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
           val checked = form.data(name).contains("true")
           td(
             if !hiddenFields(s"$filterName.$allow") then
-              div(cls := "toggle", form3.cmnToggle(name, name, checked))
+              div(cls := "toggle", form3.nativeCheckbox(name, name, checked))
             else if !checked then div(iconTag(Icon.X))
             else
               div(

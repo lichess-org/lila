@@ -5,12 +5,13 @@ import com.softwaremill.tagging.*
 
 import lila.core.config
 import lila.core.fishnet.{ AnalysisAwaiter, FishnetRequest }
-import lila.db.dsl.Coll
 import lila.memo.CacheApi
+import lila.game.core.insight.InsightDb
+import lila.db.AsyncColl
 
 @Module
 final class Env(
-    db: lila.db.Db,
+    insightDb: lila.db.AsyncDb @@ InsightDb,
     userApi: lila.core.user.UserApi,
     gameRepo: lila.game.GameRepo,
     fishnetAwaiter: AnalysisAwaiter,
@@ -20,9 +21,10 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: CacheApi,
     lightUserApi: lila.core.user.LightUserApi
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, play.api.Mode):
 
-  private val colls = TutorColls(db(config.CollName("tutor_report")), db(config.CollName("tutor_queue")))
+  private val colls =
+    TutorColls(insightDb(config.CollName("tutor_report")), insightDb(config.CollName("tutor_queue")))
 
   lazy val nbAnalysisSetting = settingStore[Int](
     "tutorNbAnalysis",
@@ -42,6 +44,6 @@ final class Env(
 
   val api = wire[TutorApi]
 
-final private class TutorColls(val report: Coll, val queue: Coll)
+final private class TutorColls(val report: AsyncColl, val queue: AsyncColl)
 trait NbAnalysis
 trait Parallelism

@@ -20,10 +20,20 @@
   <string name="keyboardShortcutsExplanation">काही Lichess पृष्ठांवर कीबोर्ड शॉर्टकट असतात जे तुम्ही वापरू शकता. उपलब्ध कीबोर्ड शॉर्टकटची यादी करण्यासाठी अभ्यास, विश्लेषण, कोडे किंवा खेळाच्या पृष्ठिवर \'?\' दाबून पहा.</string>
   <string name="fairPlay">वाजवी खेळ </string>
   <string name="whenAmIEligibleRatinRefund">फसवणूक करणाऱ्यांकडून माझं रेटिंग परत मिळवण्यास मी लायक आहे का?</string>
-  <string name="ratingRefundExplanation">खेळाडूला चिन्हांकित केल्यानंतर एका मिनिटानंतर, गेल्या ५ दिवसांत त्यांचे ४० नवीनतम रेट केलेले खेळ घेतले जातात. जर तुम्ही त्यापैकी एका खेळात त्यांचे प्रतिस्पर्धी असाल आणि जर तुम्ही रेटिंग गमावली असेल (हार किंवा बरोबरीमुळे), आणि तुमचे रेटिंग तात्पुरते नसेल, तर तुम्हाला रेटिंग परतावा मिळतो. तुमच्या सर्वोच्च रेटिंग आणि खेळानंतर तुमच्या रेटिंग प्रगतीवर आधारित परतावा मर्यादित केला जातो. (उदाहरणार्थ, जर त्या गेमनंतर तुमचे रेटिंग खूप वाढले असेल, तर तुम्हाला परतावा मिळू शकत नाही किंवा फक्त आंशिक परतावा मिळू शकतो.) परतावा कधीही १५० गुणांपेक्षा जास्त होणार नाही.</string>
+  <string name="ratingRefundExplanation">खेळाडूला चिन्हांकित केल्यानंतर एका मिनिटाने, त्यांचे गेल्या ५ दिवसांतील ४० नवीनतम मानांकित डाव घेतले जातात. जर तुम्ही त्यापैकी एखाद्या डावात त्यांचे प्रतिस्पर्धी असून (हार किंवा बरोबरीमुळे) मानांकन गमावले असेल आणि जर तुमचे मानांकन तात्पुरते नसेल, तर तुम्हाला मानांकन परत मिळते. तुमच्या सर्वोच्च मानांकनानुसार व मानांकनातील प्रगतीनुसार मर्यादित परतावा दिला जातो. (उदाहरणार्थ, जर त्या डावानंतर तुमचे मानांकन खूप वाढले असेल, तर तुम्हाला परतावा मिळू शकत नाही किंवा फक्त आंशिक परतावा मिळू शकतो.) परतावा कधीही १५० गुणांपेक्षा जास्त होणार नाही.</string>
+  <string name="howBulletBlitzEtcDecided">बुलेट, ब्लिट्झ आणि इतर वेळ नियंत्रणे कशी ठरवली जातात?</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$sसे = %2$s</string>
+  <string name="lichessSupportChessAnd">Lichess वर पारंपारिक बुद्धिबळ आणि %1$s खेळता येतात.</string>
   <string name="whatIsACPL">सरासरी सेंटीपॉन तोटा (ACPL) म्हणजे काय?</string>
   <string name="lichessTraining">लीचेस प्रशिक्षण</string>
   <string name="threefoldRepetition">तीनदा पुनरावृत्ती</string>
   <string name="threefoldRepetitionLowerCase">तीनदा पुनरावृत्ती</string>
+  <string name="accounts">खाती</string>
+  <string name="titlesAvailableOnLichess">लिचेसवरती कोणत्या पदव्या आहेत?</string>
+  <string name="aHourlyBulletTournament">ताशी बुलेट स्पर्धेत</string>
+  <string name="lichessRatings">लीचेस मानांकने</string>
+  <string name="whichRatingSystemUsedByLichess">लिचेस कोणती मानांकन पद्धती वापरते?</string>
   <string name="similarOpponents">समान ताकदीचे प्रतिस्पर्धी</string>
+  <string name="beInTopTen">या मानांकनात आघाडीच्या १० स्थानांमध्ये असल्यास.</string>
+  <string name="howToHideRatingWhilePlaying">खेळत असताना मानांकन कसे लपवायचे?</string>
 </resources>

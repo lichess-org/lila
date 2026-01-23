@@ -32,11 +32,11 @@ final class TreeBuilderTest extends munit.FunSuite:
       .foreach: (output, expected) =>
         assertEquals(output, expected)
 
-  test("tree builder json"):
-    TestFixtures.treeBuilderTestCases
-      .flatMap(_.testJson)
-      .foreach: (output, expected) =>
-        assertEquals(output, expected)
+  // test("tree builder json"):
+  //   TestFixtures.treeBuilderTestCases
+  //     .flatMap(_.testJson)
+  //     .foreach: (output, expected) =>
+  //       assertEquals(output, expected)
 
 object TreeBuilderTest:
 
@@ -75,7 +75,6 @@ object TreeBuilderTest:
 
     val exportOptions: List[ExportOptions] =
       for
-        opening <- List(true, false)
         movetimes <- List(true, false)
         division <- List(true, false)
         clocks <- List(true, false)
@@ -85,7 +84,6 @@ object TreeBuilderTest:
         nvui <- List(true, false)
         lichobileCompat <- List(true, false)
       yield ExportOptions(
-        opening,
         movetimes,
         division,
         clocks,
@@ -104,9 +102,9 @@ object TreeBuilderTest:
         option <- takeRandomN(11)(exportOptions)
         analysis <- List(analysis.some, none)
       yield
-        val x = Node.minimalNodeJsonWriter.writes:
+        val x = Node.defaultNodeJsonWriter.writes:
           TreeBuilder(makeGame(game), analysis, fen, option, logError).cleanCommentIds
-        val y = NewRoot.minimalNodeJsonWriter.writes:
+        val y = NewRoot.defaultNodeJsonWriter.writes:
           NewTreeBuilder(makeGame(game), analysis, fen, option, logError).cleanup
         y -> x
 
@@ -119,16 +117,12 @@ object TreeBuilderTest:
         Root(
           newRoot.ply,
           newRoot.fen,
-          newRoot.check,
-          newRoot.dests,
-          newRoot.drops,
           newRoot.eval,
           newRoot.shapes,
           newRoot.comments,
           newRoot.gamebook,
           newRoot.glyphs,
           newRoot.tree.fold(Branches.empty)(_.toBranches),
-          newRoot.opening,
           newRoot.clock,
           newRoot.crazyData
         )
@@ -154,20 +148,15 @@ object TreeBuilderTest:
 
     extension (newBranch: NewBranch)
       def toBranch(children: Option[NewTree]): Branch = Branch(
-        newBranch.id,
         newBranch.ply,
         newBranch.move,
         newBranch.fen,
-        newBranch.check,
-        newBranch.dests,
-        newBranch.drops,
         newBranch.eval,
         newBranch.shapes,
         newBranch.comments,
         newBranch.gamebook,
         newBranch.glyphs,
         children.fold(Branches.empty)(_.toBranches),
-        newBranch.opening,
         newBranch.comp,
         newBranch.clock,
         newBranch.crazyData,

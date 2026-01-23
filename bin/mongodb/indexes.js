@@ -4,7 +4,6 @@ db.picfit_image.createIndex(
   { 'automod.flagged': 1 },
   { partialFilterExpression: { 'automod.flagged': { $exists: true } } },
 );
-db.tutor_report.createIndex({ at: -1 });
 db.swiss_pairing.createIndex({ s: 1, p: 1, r: 1 });
 db.swiss_pairing.createIndex({ t: 1 }, { partialFilterExpression: { t: true } });
 db.oauth2_authorization.createIndex({ expires: 1 }, { expireAfterSeconds: 0 });
@@ -264,7 +263,6 @@ db.f_post.createIndex({ categId: 1, createdAt: -1 });
 db.f_post.createIndex({ topicId: 1, createdAt: -1 });
 db.external_engine.createIndex({ userId: 1 });
 db.external_engine.createIndex({ oauthToken: 1 });
-db.tutor_queue.createIndex({ requestedAt: 1 });
 db.clas_clas.createIndex({ teachers: 1, viewedAt: -1 });
 db.clas_student.createIndex({ clasId: 1, userId: 1 });
 db.clas_student.createIndex({ userId: 1 });
@@ -316,15 +314,18 @@ db.title_request.createIndex(
   { partialFilterExpression: { 'history.0.status.n': 'approved', 'data.fideId': { $exists: 1 } } },
 );
 
-// you may want to run these on the insight database
-// if it's a different one
-db.insight.createIndex({ mr: 1, p: 1, c: 1 });
-db.insight.createIndex({ mr: 1, a: 1 }, { partialFilterExpression: { mr: { $exists: true } } });
-db.insight.createIndex({ u: 1, d: -1 });
+// you may want to run these on the insight database if it's a different one
+// u{ser}, p{erf}, c{color}, a{nalysed}, mr{ating} (stable), d{ate}, c{color}, of{opening family}
+db.insight.createIndex({ u: 1, d: -1 }); // for insights
+// for tutor. We can't index by opening family, because it sorts the game by opening
+// and then requests about multiple openings are fully biased towards the first one alphabetically.
+db.insight.createIndex({ mr: 1, p: 1, a: 1, c: 1 }, { partialFilterExpression: { mr: { $exists: true } } });
 db.kaladin_queue.createIndex(
   { 'response.at': 1, 'response.read': 1 },
   { partialFilterExpression: { 'response.at': { $exists: true } } },
 );
+db.tutor_queue.createIndex({ requestedAt: 1 });
+db.tutor_report.createIndex({ at: -1 });
 
 // you may want to run these on the puzzle database
 db.puzzle2_round.createIndex({ p: 1 }, { partialFilterExpression: { t: { $exists: true } } });

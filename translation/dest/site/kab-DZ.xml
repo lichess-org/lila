@@ -178,7 +178,6 @@
   <string name="leaderboard">Abellez</string>
   <string name="pasteTheFenStringHere">Senteḍ  tangalt FEN dagi</string>
   <string name="pasteThePgnStringHere">Senteḍ aḍris PGN dagi</string>
-  <string name="fromPosition">Ɣer amkan</string>
   <string name="continueFromHere">Kemmel si ideg agi</string>
   <string name="importGame">Kter timlilit</string>
   <plurals name="nbImportedGames">

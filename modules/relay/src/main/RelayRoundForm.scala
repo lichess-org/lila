@@ -93,7 +93,8 @@ final class RelayRoundForm(using mode: Mode):
       ,
       "reorder" -> optional(nonEmptyText.into[RelayGame.ReorderNames]),
       "rated" -> optional(boolean.into[Rated]),
-      "customScoring" -> optional(byColor.mappingOf(customScoringMapping))
+      "customScoring" -> optional(byColor.mappingOf(customScoringMapping)),
+      "teamCustomScoring" -> optional(customScoringMapping)
     )(Data.apply)(unapply)
 
   def create(trs: RelayTour.WithRounds)(using Me) = Form(
@@ -168,7 +169,8 @@ object RelayRoundForm:
       onlyRound = prev.flatMap(_.sync.onlyRound).map(_.map(_ + 1)).map(Sync.OnlyRound.toString),
       slices = prev.flatMap(_.sync.slices),
       rated = prev.map(_.rated),
-      customScoring = prev.flatMap(_.customScoring)
+      customScoring = prev.flatMap(_.customScoring),
+      teamCustomScoring = prev.flatMap(_.teamCustomScoring)
     )
 
   case class GameIds(ids: List[GameId])
@@ -238,7 +240,8 @@ object RelayRoundForm:
       slices: Option[List[RelayGame.Slice]] = None,
       reorder: Option[RelayGame.ReorderNames] = None,
       rated: Option[Rated] = None,
-      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None
+      customScoring: Option[ByColor[RelayRound.CustomScoring]] = None,
+      teamCustomScoring: Option[RelayRound.CustomScoring] = None
   ):
     def upstream: Option[Upstream] = syncSource.match
       case None => syncUrl.orElse(syncUrls).orElse(syncIds).orElse(syncUsers)
@@ -264,7 +267,8 @@ object RelayRoundForm:
           case _ => round.startedAt.orElse(nowInstant.some),
         finishedAt = status.has("finished").option(round.finishedAt.|(nowInstant)),
         rated = rated | Rated.No,
-        customScoring = customScoring
+        customScoring = customScoring,
+        teamCustomScoring = teamCustomScoring
       )
 
     private def makeSync(prev: Option[RelayRound.Sync])(using Me): Sync =
@@ -293,7 +297,8 @@ object RelayRoundForm:
         startedAt = if status.has("new") then none else nowInstant.some,
         finishedAt = status.has("finished").option(nowInstant),
         rated = rated | Rated.No,
-        customScoring = customScoring
+        customScoring = customScoring,
+        teamCustomScoring = teamCustomScoring
       )
 
   object Data:
@@ -333,5 +338,6 @@ object RelayRoundForm:
         reorder = round.sync.reorder,
         delay = round.sync.delay,
         rated = round.rated.some,
-        customScoring = round.customScoring
+        customScoring = round.customScoring,
+        teamCustomScoring = round.teamCustomScoring
       )

@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Joacă împotriva calculatorului</string>
   <string name="gameMode">Mod joc</string>
   <string name="createLobbyGame">Creează un joc nou</string>
-  <string name="youPlayAs">Tu joci ca</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
@@ -128,6 +127,8 @@
   <string name="bestMoveArrow">Săgeată pentru cea mai bună mutare</string>
   <string name="showVariationArrows">Afișează săgețile variației</string>
   <string name="evaluationGauge">Indicator de evaluare</string>
+  <string name="visualMotifs">Motive vizuale</string>
+  <string name="undefendedPieces">Piese neapărate</string>
   <string name="multipleLines">Mutări multiple</string>
   <string name="cpus">Procesoare</string>
   <string name="memory">Memorie</string>
@@ -217,6 +218,7 @@
   <string name="minutesPerSide">Minute pe fiecare parte</string>
   <string name="variant">Variantă</string>
   <string name="variants">Variante</string>
+  <string name="variantsDescription">Mai multe moduri de a juca</string>
   <string name="timeControl">Controlul de timp</string>
   <string name="realTime">În timp real</string>
   <string name="correspondence">Corespondență</string>
@@ -317,6 +319,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Poziție personalizată</string>
   <string name="unlimited">Nelimitat</string>
+  <string name="unlimitedDescription">Ia tot timpul de care ai nevoie</string>
   <string name="mode">Mod</string>
   <string name="casual">Amical</string>
   <string name="rated">Oficial</string>
@@ -458,7 +461,6 @@
   <string name="pasteTheFenStringHere">Lipește textul FEN aici</string>
   <string name="pasteThePgnStringHere">Lipește textul PGN aici</string>
   <string name="orUploadPgnFile">Sau încarcă un fișier PGN</string>
-  <string name="fromPosition">De la poziția</string>
   <string name="continueFromHere">Continuați de aici</string>
   <string name="toStudy">Studiază</string>
   <string name="importGame">Importați partida</string>

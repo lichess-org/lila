@@ -1,4 +1,4 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 import type { Status } from './status';
 
@@ -160,7 +160,7 @@ export interface GameView {
 
 export interface CheckState {
   ply: Ply;
-  check?: boolean | Key;
+  check?: boolean | (() => boolean);
 }
 
 export interface CheckCount {

@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">मानक</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">बुद्धिबळाचे आदर्श नियम (FIDE)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">चेस९६०</string>
-  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">सोंगट्यांची प्रारंभिक घरे व सुरुवातीची स्थिती यादृच्छिक आहे.</string>
-  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">टेकडीचा राजा</string>
-  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">खेळ जिंकण्यासाठी तुमच्या राजाला मध्यभागी आणा.</string>
-  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">तीन-चेक</string>
-  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">खेळ जिंकण्यासाठी तुमच्या विरोधकाला ३ वेळा शह द्या.</string>
-  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">द्रोहीबुद्धिबळ</string>
-  <string name="antichessTitle" comment="Description for the Antichess variant">खेळ जिंकण्यासाठी तुमच्या सर्व सोंगट्यांना त्याग करा (किंवा अर्धमात व्हा)</string>
-  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">अणु</string>
-  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">खेळ जिंकण्यासाठी तुमच्या विरोधकाच्या राजाला स्फोटाने मारा.</string>
-  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">कळपाचा हल्ला</string>
-  <string name="hordeTitle" comment="Description for the Horde chess variant">एका खेळाडूकडे सामान्य सोंगट्या आहेत पण दुसऱ्याकडे फक्त प्यादे आहेत.</string>
-  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">धावते राजे</string>
-  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">जिंकण्यासाठी राजाला पटाच्या दुसऱ्या बाजूला पोहोचवा.</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">वेडाघर</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">सोंगटी हलवण्याऐवजी पकडलेल्या सोंगट्या पटावर परत ठेवता येऊ शकतात.</string>
+  <string name="standard">पारंपारिक</string>
+  <string name="standardTitle">बुद्धिबळाचे पारंपारिक नियम (FIDE)</string>
+  <string name="chess960">चेस९६०</string>
+  <string name="chess960Title">सोंगट्यांची प्रारंभिक घरे व सुरुवातीची स्थिती यादृच्छिक आहे.</string>
+  <string name="kingOfTheHill">टेकडीचा राजा</string>
+  <string name="kingOfTheHillTitle">खेळ जिंकण्यासाठी तुमच्या राजाला मध्यभागी आणा.</string>
+  <string name="threeCheck">तीन-शह</string>
+  <string name="threeCheckTitle">खेळ जिंकण्यासाठी तुमच्या विरोधकाला ३ वेळा शह द्या.</string>
+  <string name="antichess">द्रोहीबुद्धिबळ</string>
+  <string name="antichessTitle">खेळ जिंकण्यासाठी तुमच्या सर्व सोंगट्यांना त्याग करा (किंवा अर्धमात व्हा)</string>
+  <string name="atomic">अणु</string>
+  <string name="atomicTitle">खेळ जिंकण्यासाठी तुमच्या विरोधकाच्या राजाला स्फोटाने मारा.</string>
+  <string name="horde">कळपाचा हल्ला</string>
+  <string name="hordeTitle">एका खेळाडूकडे सामान्य सोंगट्या आहेत पण दुसऱ्याकडे फक्त प्यादे आहेत.</string>
+  <string name="racingKings">धावते राजे</string>
+  <string name="racingKingsTitle">जिंकण्यासाठी राजाला पटाच्या दुसऱ्या बाजूला पोहोचवा.</string>
+  <string name="crazyhouse">वेडाघर</string>
+  <string name="crazyhouseTitle">सोंगटी हलवण्याऐवजी पकडलेल्या सोंगट्या पटावर परत ठेवता येऊ शकतात.</string>
+  <string name="fromPosition" comment="An option that lets you create a standard chess game from a custom position.">या स्थितीपासून</string>
+  <string name="fromPositionTitle" comment="Description for when looking to start a game 'From position'">विशिष्ट स्थितीपासून पारंपारिक बुद्धिबळ</string>
 </resources>

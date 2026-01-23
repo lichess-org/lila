@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Játék a gép ellen</string>
   <string name="gameMode">Játékmód</string>
   <string name="createLobbyGame">Játék létrehozása</string>
-  <string name="youPlayAs">Úgy játszol, mint</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Küldd el ezt a linket annak, akivel játszani szeretnél</string>
   <string name="gameOver">Játszma vége</string>
   <string name="waitingForOpponent">Várakozás az ellenfélre</string>
@@ -126,6 +125,8 @@
   <string name="bestMoveArrow">Legjobb lépés mutatása</string>
   <string name="showVariationArrows">Változatok nyilainak megjelenítése</string>
   <string name="evaluationGauge">Állásértékelő oldaljelzés</string>
+  <string name="undefendedPieces">Védtelen bábuk</string>
+  <string name="pinnedPieces">Kötött bábuk</string>
   <string name="multipleLines">Több változat</string>
   <string name="cpus">Processzorok</string>
   <string name="memory">Memória</string>
@@ -427,7 +428,6 @@
   <string name="pasteTheFenStringHere">Másold ide a FEN szöveget</string>
   <string name="pasteThePgnStringHere">Másold ide a PGN szöveget</string>
   <string name="orUploadPgnFile">Vagy tölts fel egy PGN fájlt</string>
-  <string name="fromPosition">Adott állásból</string>
   <string name="continueFromHere">Folytatás innen</string>
   <string name="toStudy">Tanulmány</string>
   <string name="importGame">Játszma importálása</string>
@@ -1020,4 +1020,5 @@ Minden működési költséget, fejlesztést és tartalmat felhasználói adomá
   <string name="search">Keresés</string>
   <string name="clearSearch">Keresési előzmények törlése</string>
   <string name="tags">Címkék</string>
+  <string name="enPassant">En passant</string>
 </resources>

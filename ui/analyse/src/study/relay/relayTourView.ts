@@ -1,7 +1,7 @@
 import type AnalyseCtrl from '@/ctrl';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, onInsert, hl, type LooseVNode } from 'lib/view';
+import { bind, dataIcon, onInsert, hl, type LooseVNode, toggle, copyMeInput } from 'lib/view';
 import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'lib/richText';
 import type {
@@ -15,7 +15,6 @@ import type {
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'lib';
 import type StudyCtrl from '../studyCtrl';
-import { toggle, copyMeInput } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
@@ -40,11 +39,13 @@ export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
       ? games(ctx)
       : tab === 'teams'
         ? teams(ctx)
-        : tab === 'stats'
-          ? stats(ctx)
-          : tab === 'players'
-            ? players(ctx)
-            : overview(ctx);
+        : tab === 'team-results'
+          ? teamResults(ctx)
+          : tab === 'stats'
+            ? stats(ctx)
+            : tab === 'players'
+              ? players(ctx)
+              : overview(ctx);
 
   return hl('div.box.relay-tour', content);
 }
@@ -419,6 +420,11 @@ const teams = (ctx: RelayViewContext) => [
   ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list, ctx.relay.players, ctx.relay.round),
 ];
 
+const teamResults = (ctx: RelayViewContext) => [
+  header(ctx),
+  ctx.relay.teams && ctx.relay.teamLeaderboard.view(),
+];
+
 const stats = (ctx: RelayViewContext) => [header(ctx), statsView(ctx.relay.stats)];
 
 const renderNote = (title: VNode, desc?: VNode) => hl('div.relay-tour__note', hl('div', [title, desc]));
@@ -516,6 +522,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     makeTab('boards', i18n.broadcast.boards),
     makeTab('players', i18n.site.players),
     relay.teams && makeTab('teams', i18n.broadcast.teams),
+    relay.data.tour.showTeamScores && makeTab('team-results', 'Team Results'),
     study.members.myMember() && !!relay.data.tour.tier
       ? makeTab('stats', i18n.site.stats)
       : ctrl.isEmbed &&

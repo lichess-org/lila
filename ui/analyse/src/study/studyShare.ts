@@ -1,12 +1,12 @@
 import { prop } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, hl } from 'lib/view';
-import { copyMeInput } from 'lib/view';
+import { type VNode, bind, dataIcon, hl, copyMeInput } from 'lib/view';
 import { writeTextClipboard, url as xhrUrl } from 'lib/xhr';
 import { renderIndexAndMove } from '../view/components';
 import { baseUrl } from '../view/util';
 import type { ChapterPreview, StudyData } from './interfaces';
 import type RelayCtrl from './relay/relayCtrl';
+import type { TreeNode } from 'lib/tree/types';
 
 function fromPly(ctrl: StudyShare): VNode {
   const renderedMove = renderIndexAndMove(ctrl.currentNode(), false, false);
@@ -31,7 +31,7 @@ export class StudyShare {
   constructor(
     readonly data: StudyData,
     readonly currentChapter: () => ChapterPreview,
-    readonly currentNode: () => Tree.Node,
+    readonly currentNode: () => TreeNode,
     readonly onMainline: () => boolean,
     readonly bottomColor: () => Color,
     readonly relay: RelayCtrl | undefined,
@@ -164,6 +164,7 @@ export function view(ctrl: StudyShare): VNode {
                   href: xhrUrl(`/study/${studyId}/${chapter.id}.gif`, {
                     theme: document.body.dataset.board,
                     piece: document.body.dataset.pieceSet,
+                    showGlyphs: true,
                   }),
                   download: true,
                 },

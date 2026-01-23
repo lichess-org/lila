@@ -363,7 +363,6 @@
   <string name="pasteTheFenStringHere">Paste teks FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste text PGN di sini</string>
   <string name="orUploadPgnFile">Atau muat naik fail PGN</string>
-  <string name="fromPosition">Dari kedudukan</string>
   <string name="continueFromHere">Teruskan dari sini</string>
   <string name="toStudy">Belajar</string>
   <string name="importGame">Import permainan</string>

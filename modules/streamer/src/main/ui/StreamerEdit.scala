@@ -88,12 +88,12 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                     .option(
                       div(cls := "mod")(
                         form3.split(
-                          form3.checkbox(
+                          form3.checkboxGroup(
                             form("approval.granted"),
                             frag("Publish on the streamers list"),
                             half = true
                           ),
-                          form3.checkbox(
+                          form3.checkboxGroup(
                             form("approval.requested"),
                             frag("Active approval request"),
                             half = true
@@ -101,7 +101,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                         ),
                         form3.hidden("approval.reason", ""),
                         form3.split(
-                          form3.checkbox(
+                          form3.checkboxGroup(
                             form("approval.chat"),
                             frag("Embed stream chat too"),
                             half = true
@@ -116,7 +116,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                               half = true
                             )(form3.select(_, lila.streamer.Streamer.tierChoices))
                           else
-                            form3.checkbox(
+                            form3.checkboxGroup(
                               form("approval.ignored"),
                               frag("Ignore further approval requests"),
                               half = true
@@ -170,7 +170,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                       help = trs.keepItShort(25).some,
                       half = true
                     )(form3.input(_)),
-                    form3.checkbox(
+                    form3.checkboxGroup(
                       form("listed"),
                       trs.visibility(),
                       help = trs.whenApproved().some,

@@ -8,30 +8,31 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
+final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
   import helpers.{ *, given }
 
   def apply(full: TutorFullReport.Available, user: User)(using Context) =
-    bits.page(menu = bits.menu(full, user, none))(cls := "tutor__home box"):
+    bits.page(menu = bits.menu(full, user, none))(cls := "tutor__home tutor-layout"):
       frag(
-        boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
-        if full.report.perfs.isEmpty then empty.mascotSaysInsufficient
-        else
-          bits.mascotSays(
-            p(
-              strong(
-                cls := "tutor__intro",
-                "Hello, I have examined ",
-                full.report.nbGames.localize,
-                " recent rated games of yours."
+        div(cls := "box tutor__first-box")(
+          boxTop(h1("Lichess Tutor", bits.beta, bits.otherUser(user))),
+          if full.report.perfs.isEmpty then empty.mascotSaysInsufficient
+          else
+            bits.mascotSays(
+              p(
+                strong(
+                  cls := "tutor__intro",
+                  "Hello, I have examined ",
+                  full.report.nbGames.localize,
+                  " recent rated games of yours."
+                )
+              ),
+              p("Let's compare your play style to your peers: players with a rating very similar to yours."),
+              p(
+                "It should give us some idea about what your strengths are, and where you have room for improvement."
               )
-            ),
-            p("Let's compare your play style to your peers: players with a rating very similar to yours."),
-            p(
-              "It should give us some idea about what your strengths are, and where you have room for improvement."
             )
-          )
-        ,
+        ),
         div(cls := "tutor__perfs tutor-cards")(
           full.report.perfs.toList.map { perfReportCard(full.report, _, user) }
         )
@@ -63,21 +64,21 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
       cls := "tutor__perfs__perf tutor-card tutor-card--link",
       dataHref := routes.Tutor.perf(user.username, perfReport.perf.key)
     )(
-      div(cls := "tutor-card__top")(
+      div(cls := "tutor-card--perf__top")(
         iconTag(perfReport.perf.icon),
-        div(cls := "tutor-card__top__title")(
-          h3(cls := "tutor-card__top__title__text")(
+        div(cls := "tutor-card--perf__top__title")(
+          h3(cls := "tutor-card--perf__top__title__text")(
             perfReport.stats.totalNbGames.localize,
             " ",
             perfReport.perf.trans,
             " games"
           ),
-          div(cls := "tutor-card__top__title__sub")(
+          div(cls := "tutor-card--perf__top__title__sub")(
             perfUi.timePercentAndRating(report, perfReport)
           )
         )
       ),
-      div(cls := "tutor-card__content")(
+      div(cls := "tutor-card__content tutor-grades")(
         grade.peerGrade(concept.accuracy, perfReport.accuracy),
         grade.peerGrade(concept.tacticalAwareness, perfReport.awareness),
         grade.peerGrade(concept.resourcefulness, perfReport.resourcefulness),
@@ -85,9 +86,8 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
         grade.peerGrade(concept.speed, perfReport.globalClock),
         grade.peerGrade(concept.clockFlagVictory, perfReport.flagging.win),
         grade.peerGrade(concept.clockTimeUsage, perfReport.clockUsage),
-        perfReport.phases.map { phase =>
-          grade.peerGrade(concept.phase(phase.phase), phase.mix)
-        },
+        perfReport.phases.map: phase =>
+          grade.peerGrade(concept.phase(phase.phase), phase.mix),
         bits.seeMore
       )
     )
@@ -97,7 +97,7 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
     def start(user: User)(using Context) =
       bits.page(menu = emptyFrag, pageSmall = true)(cls := "tutor__empty box"):
         frag(
-          boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
+          boxTop(h1("Lichess Tutor", bits.beta, bits.otherUser(user))),
           bits.mascotSays("Explain what tutor is about here."),
           postForm(cls := "tutor__empty__cta", action := routes.Tutor.refresh(user.username))(
             submitButton(cls := "button button-fat button-no-upper")("Analyse my games and help me improve")
@@ -111,7 +111,7 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
         cls := "tutor__empty tutor__queued box"
       ):
         frag(
-          boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
+          boxTop(h1("Lichess Tutor", bits.beta, bits.otherUser(user))),
           bits.mascotSays(
             p(strong(cls := "tutor__intro")("I'm examining your games.")),
             examinationMethod,

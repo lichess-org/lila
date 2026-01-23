@@ -167,8 +167,13 @@
   <string name="youCompletedThisLesson">Gratulon! Vi kompletigis la lecionon.</string>
   <string name="perPage">Po %s en ĉiu paĝo</string>
   <string name="welcomeToLichessStudyTitle">Bonvenu al Lichess Studo!</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Dividita kaj konservita</string>
   <string name="studyMembersTitle">Studaj membroj</string>
   <string name="studyChaptersTitle">Studaj ĉapitroj</string>
   <string name="commentPositionTitle">Komenti pozicion</string>
+  <string name="conclusionTitle">Dankon pro via tempo</string>
+  <string name="fromInitialPositionTitle">Ekde komenca pozicio</string>
+  <string name="customPositionTitle">Personecigita pozicio</string>
   <string name="fromFenStringTitle">El teksto FEN</string>
+  <string name="fromPgnGameTitle">El ludo en PNG</string>
 </resources>

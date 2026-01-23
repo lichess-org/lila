@@ -1,14 +1,14 @@
-import { type MaybeVNodes, type VNode, onInsert, hl } from 'lib/view';
+import { type MaybeVNodes, type VNode, onInsert, hl, spinnerVdom as spinner } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import type { RelayRound } from './interfaces';
 import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
-import { spinnerVdom as spinner } from 'lib/view';
 import { playerFedFlag } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
 import { userTitle } from 'lib/view/userLink';
 import type RelayPlayers from './relayPlayers';
 import { coloredStatusStr } from './customScoreStatus';
+import { teamLinkData } from './relayTeamLeaderboard';
 
 interface TeamWithPoints {
   name: string;
@@ -102,13 +102,16 @@ const renderTeams = (
             : 'result.';
     return hl('div.relay-tour__team-match', [
       hl('div.relay-tour__team-match__teams', [
-        hl('strong.relay-tour__team-match__team', row.teams[0].name),
+        hl(
+          'strong.relay-tour__team-match__team',
+          hl('a', teamLinkData(row.teams[0].name), row.teams[0].name),
+        ),
         hl('span.relay-tour__team-match__team__points', [
           hl(`${resultClass(firstTeam, secondTeam)}result`, firstTeam.points),
           hl('vs', 'vs'),
           hl(`${resultClass(secondTeam, firstTeam)}result`, secondTeam.points),
         ]),
-        hl('strong.relay-tour__team', secondTeam.name),
+        hl('strong.relay-tour__team-match__team', hl('a', teamLinkData(secondTeam.name), secondTeam.name)),
       ]),
       hl(
         'div.relay-tour__team-match__games',

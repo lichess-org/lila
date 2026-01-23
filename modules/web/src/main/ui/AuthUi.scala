@@ -84,9 +84,10 @@ final class AuthUi(helpers: Helpers):
               "form3" -> true,
               "h-captcha-enabled" -> form.enabled
             ),
-            action := HTTPRequest.queryStringGet(ctx.req, "referrer").foldLeft(routes.Auth.signupPost.url) {
-              (url, ref) => addQueryParam(url, "referrer", ref)
-            }
+            action := HTTPRequest
+              .queryStringGet("referrer")(using ctx.req)
+              .foldLeft(routes.Auth.signupPost.url): (url, ref) =>
+                addQueryParam(url, "referrer", ref)
           )(
             formFields(form("username"), form("password"), form("email").some, register = true),
             globalErrorNamed(form.form, "error.namePassword"),
@@ -318,7 +319,7 @@ final class AuthUi(helpers: Helpers):
         strong(cls := "error"):
           "You must agree to the Lichess policies listed below:"),
       agreements.map: (field, text) =>
-        form3.checkbox(form(field), text)
+        form3.checkboxGroup(form(field), text)
     )
 
   private def agreements(using Context) = List(

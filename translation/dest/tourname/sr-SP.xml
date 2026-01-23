@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Часовна Рапид Арена</string>
-  <string name="hourlyRapid">Часовни Рапид</string>
-  <string name="hourlyXArena">Часовна %s арена</string>
+  <string name="hourlyRapidArena">Часовна Брзопотезна Арена</string>
+  <string name="hourlyRapid">Часовни Брзопотез</string>
+  <string name="hourlyXArena">Часовна %s Арена</string>
   <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">Часовни %s</string>
-  <string name="dailyRapidArena">Дневна рапид арена</string>
+  <string name="dailyRapidArena">Дневна Брзопотезна Арена</string>
   <string name="dailyRapid">Дневни рапид</string>
   <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Дневна класична арена</string>
   <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Дневни класични</string>

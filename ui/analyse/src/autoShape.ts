@@ -7,6 +7,7 @@ import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
 import type AnalyseCtrl from './ctrl';
 import { isUci } from 'lib/game/chess';
 import { parseFen } from 'chessops/fen';
+import type { ServerEval } from 'lib/tree/types';
 
 const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
   orig: key,
@@ -53,12 +54,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     }
     return [];
   }
-  const {
-    eval: nEval = {} as Partial<Tree.ServerEval>,
-    fen: nFen,
-    ceval: nCeval,
-    threat: nThreat,
-  } = ctrl.node;
+  const { eval: nEval = {} as Partial<ServerEval>, fen: nFen, ceval: nCeval, threat: nThreat } = ctrl.node;
 
   let hovering = ctrl.explorer.hovering();
 
@@ -84,8 +80,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
       if (
         ctrl.isCevalAllowed() &&
-        nCeval &&
-        nCeval.pvs[1] &&
+        nCeval?.pvs[1] &&
         !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)
       ) {
         nCeval.pvs.forEach(function (pv) {
@@ -136,7 +131,9 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 
     if (ctrl.motifEnabled()) {
       ctrl.motif.detectPins(board).forEach(p => addAnalysis(makeSquare(p.pinned) as Key, 'pin'));
-      ctrl.motif.detectUndefended(board).forEach(u => addAnalysis(makeSquare(u.square) as Key, 'undefended'));
+      ctrl.motif
+        .detectUndefended(board, epSquare)
+        .forEach(u => addAnalysis(makeSquare(u.square) as Key, 'undefended'));
       ctrl.motif
         .detectCheckable(board, epSquare, castlingRights)
         .forEach(s => addAnalysis(makeSquare(s.king) as Key, 'checkable'));

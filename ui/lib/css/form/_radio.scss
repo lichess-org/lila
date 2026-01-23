@@ -10,8 +10,7 @@ group.radio {
   }
 
   input {
-    position: absolute;
-    left: -99999px;
+    @extend %visually-hidden;
   }
 
   label,

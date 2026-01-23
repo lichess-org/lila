@@ -336,6 +336,10 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
         )
       ),
       td(
-        form3.cmnToggle(form3.id(field), field.name, checked = field.value.has("1"), value = "1")
+        form3.nativeCheckbox(
+          form3.id(field),
+          field.name,
+          checked = form3.isChecked(field)
+        )
       )
     )

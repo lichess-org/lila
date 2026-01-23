@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">ຫຼິ້ນກັບຄອມພິວເຕີ</string>
   <string name="gameMode">ຮູບແບບເກມ</string>
   <string name="createLobbyGame">ສ້າງເກມສາທາລະນະ</string>
-  <string name="youPlayAs">ເຈົ້າຫຼິ້ນເປັນຝ່າຍ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ເພື່ອເຊີນຄົນມາຫຼິ້ນ, ໃຫ້ສົ່ງ URL ນີ້</string>
   <string name="gameOver">ຈົບເກມ</string>
   <string name="waitingForOpponent">ກຳລັງລໍຖ້າຄູ່ຕໍ່ສູ້</string>
@@ -396,7 +395,6 @@
   <string name="pasteTheFenStringHere">ວາງຂໍ້ຄວາມ FEN ທີ່ນີ້</string>
   <string name="pasteThePgnStringHere">ວາງຂໍ້ຄວາມ PGN ທີ່ນີ້</string>
   <string name="orUploadPgnFile">ຫຼື ອັບໂຫຼດໄຟລ໌ PGN</string>
-  <string name="fromPosition">ຈາກຕຳແໜ່ງ</string>
   <string name="continueFromHere">ສືບຕໍ່ຈາກບ່ອນນີ້</string>
   <string name="toStudy">ໄປທີ່ບົດຮຽນ</string>
   <string name="importGame">ນຳເຂົ້າເກມ</string>

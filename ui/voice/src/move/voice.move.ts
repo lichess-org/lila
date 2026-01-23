@@ -9,7 +9,6 @@ import type { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
 import type { MsgType } from '../interfaces';
-import type { Transform, SparseMap } from '../util';
 import {
   spread,
   spreadMap,
@@ -22,6 +21,8 @@ import {
   src,
   dest,
   promo,
+  type Transform,
+  type SparseMap,
 } from '../util';
 
 export function initModule({

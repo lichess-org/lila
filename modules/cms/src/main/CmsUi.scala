@@ -217,7 +217,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
           )
         ),
       form3.split(
-        form3.checkbox(form("live"), raw("Live"), half = true)
+        form3.checkboxGroup(form("live"), raw("Live"), half = true)
       ),
       form3.action(form3.submit("Save"))
     )

@@ -10,15 +10,13 @@ final private class AggregationPipeline(store: InsightStorage)(using
   import InsightStorage.*
   import BSONHandlers.given
 
-  val maxGames = Max(10_000)
-
   def gameMatcher(filters: List[Filter[?]]) = combineDocs(filters.collect {
     case f if f.dimension.isInGame => f.matcher
   })
 
   def aggregate[X](
       question: Question[X],
-      target: Either[User, Question.Peers],
+      target: Either[User, PeersRatingRange],
       withPovs: Boolean,
       nbGames: Max = maxGames
   ): Fu[List[Bdoc]] =

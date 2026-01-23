@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Zagraj z komputerem</string>
   <string name="gameMode">Tryby gry</string>
   <string name="createLobbyGame">Utwórz grę w poczekalni</string>
-  <string name="youPlayAs">Grasz</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na ruch przeciwnika</string>
   <string name="orLetYourOpponentScanQrCode">Lub pozwól przeciwnikowi zeskanować ten kod QR</string>
+  <string name="reusableChallengeUrl">URL wyzwania wielokrotnego użytku</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Stały link do wyzwania na określonych warunkach, które każdy może Ci rzucić.</string>
   <string name="waiting">Oczekiwanie</string>
   <string name="yourTurn">Twój ruch</string>
   <string name="aiNameLevelAiLevel">%1$s poziom %2$s</string>
@@ -130,6 +131,10 @@
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
   <string name="showVariationArrows">Pokaż strzałki wariantów</string>
   <string name="evaluationGauge">Wskaźnik oceny pozycji</string>
+  <string name="visualMotifs">Motywy taktyczne</string>
+  <string name="undefendedPieces">Wiszące bierki</string>
+  <string name="pinnedPieces">Związane bierki</string>
+  <string name="checkableKing">Groźba szacha</string>
   <string name="multipleLines">Analizowane warianty</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamięć RAM</string>
@@ -229,6 +234,7 @@
   <string name="minutesPerSide">Minuty na gracza</string>
   <string name="variant">Odmiana</string>
   <string name="variants">Odmiany</string>
+  <string name="variantsDescription">Więcej odmian szachów</string>
   <string name="timeControl">Tempo gry</string>
   <string name="realTime">W czasie rzeczywistym</string>
   <string name="correspondence">Korespondencyjne</string>
@@ -335,6 +341,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Niestandardowa pozycja</string>
   <string name="unlimited">Bez limitu</string>
+  <string name="unlimitedDescription">Nie spiesz się</string>
   <string name="mode">Rodzaj</string>
   <string name="casual">Towarzyska</string>
   <string name="rated">Rankingowa</string>
@@ -486,10 +493,11 @@
   <string name="leaderboard">Najlepsi gracze</string>
   <string name="screenshotCurrentPosition">Zrzut ekranu aktualnej pozycji</string>
   <string name="gameAsGIF">Zapisz jako GIF</string>
+  <string name="playerNames">Nazwy graczy</string>
+  <string name="moveAnnotations">Adnotacje do posunięcia</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
   <string name="pasteThePgnStringHere">Wklej poniżej przebieg partii w formacie PGN</string>
   <string name="orUploadPgnFile">lub wgraj plik PGN</string>
-  <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="toStudy">Opracowanie</string>
   <string name="importGame">Importuj partię</string>

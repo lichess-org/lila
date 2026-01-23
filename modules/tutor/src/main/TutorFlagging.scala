@@ -15,15 +15,19 @@ object TutorFlagging:
   val maxPeerGames = Max(10_000)
 
   private[tutor] def compute(
-      user: TutorUser
+      user: TutorPlayer
   )(using insightApi: InsightApi, ec: Executor): Fu[TutorFlagging] =
     val question = Question(InsightDimension.Result, InsightMetric.Termination).filter(
       TutorBuilder.perfFilter(user.perfType)
     )
     val clockFlagValueName = InsightMetric.MetricValueName(Termination.ClockFlag.name)
     for
-      mine <- insightApi.ask(question, user.user, withPovs = false)
-      peer <- insightApi.askPeers(question, user.perfStats.rating, nbGames = maxPeerGames)
+      mine <- insightApi
+        .ask(question, user.user, withPovs = false)
+        .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key))
+      peer <- insightApi
+        .askPeers(question, user.perfStats.rating, nbGames = maxPeerGames)
+        .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key))
     yield
       def valueCountOf(answer: Answer[Result], result: Result) =
         answer.clusters.collectFirst:
