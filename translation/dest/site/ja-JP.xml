@@ -775,6 +775,7 @@
   <string name="size">サイズ</string>
   <string name="opacity">透明度</string>
   <string name="brightness">明るさ</string>
+  <string name="contrast">コントラスト</string>
   <string name="hue">色</string>
   <string name="boardReset">色をデフォルトに戻す</string>
   <string name="pieceSet">駒のデザイン</string>
