@@ -61,7 +61,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
     concurrency:
       group: docker-build-publish
       cancel-in-progress: true
