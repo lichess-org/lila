@@ -28,7 +28,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                   views.clas.clas.teacherIndex(_, getBool("closed"))
           case Some(me) =>
             for
-              hasClas <- fuccess(env.clas.filters.student.is(me)) >>| couldBeTeacher.not
+              hasClas <- fuccess(env.clas.filters.student(me)) >>| couldBeTeacher.not
               res <-
                 if hasClas
                 then

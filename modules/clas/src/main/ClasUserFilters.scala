@@ -40,7 +40,7 @@ private final class ClasUserCache(name: String)(
   private var bloomFilter: BloomFilter[String] =
     BloomFilter[String](100, falsePositiveRate) // temporary empty filter
 
-  def is(userId: UserId) = bloomFilter.mightContain(userId.value)
+  def apply(userId: UserId) = bloomFilter.mightContain(userId.value)
 
   def add(userId: UserId): Unit = bloomFilter.add(userId.value)
 

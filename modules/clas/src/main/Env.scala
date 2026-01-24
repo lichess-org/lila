@@ -44,10 +44,10 @@ final class Env(
   lazy val bulk = wire[ClasBulkApi]
 
   def isTeacher(using me: Me) =
-    lila.core.perm.Granter(_.Teacher) && filters.teacher.is(me)
+    lila.core.perm.Granter(_.Teacher) && filters.teacher(me)
 
   def hasClas(using me: Me) =
-    filters.student.is(me) || isTeacher
+    filters.student(me) || isTeacher
 
   lila.common.Bus.sub[lila.core.game.FinishGame]: finish =>
     progressApi.onFinishGame(finish.game)

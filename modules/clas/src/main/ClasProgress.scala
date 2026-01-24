@@ -163,5 +163,5 @@ final class ClasProgressApi(
   private val gamePerfField = "pt"
 
   private[clas] def onFinishGame(game: Game): Unit =
-    if game.userIds.exists(filters.student.is)
+    if game.userIds.exists(filters.student.apply)
     then gameRepo.coll.updateFieldUnchecked($id(game.id), gamePerfField, game.perfKey.id)

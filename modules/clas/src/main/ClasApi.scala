@@ -12,7 +12,6 @@ import lila.core.msg.MsgApi
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
 import lila.core.user.KidMode
-import lila.core.perm.Granter
 import lila.common.Bus
 
 final class ClasApi(
@@ -90,8 +89,8 @@ final class ClasApi(
       userRepo.byOrderedIds(clas.teachers.toList, readPref = _.sec)
 
     def isTeacherOf(teacher: User, clasId: ClasId): Fu[Boolean] =
-      filters.teacher
-        .is(teacher.id)
+      filters
+        .teacher(teacher.id)
         .so:
           coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
 
@@ -109,7 +108,7 @@ final class ClasApi(
       )
 
     def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-      (filters.student.is(student) && filters.teacher.is(teacher)).so:
+      (filters.student(student) && filters.teacher(teacher)).so:
         colls.student
           .aggregateExists(_.sec): framework =>
             import framework.*
@@ -122,10 +121,10 @@ final class ClasApi(
             )
 
     def myPotentialStudentNames(userIds: Iterable[UserId])(using me: Me): Fu[Map[UserId, Student.RealName]] =
-      filters.teacher
-        .is(me.userId)
+      filters
+        .teacher(me.userId)
         .so:
-          val potentialStudents = userIds.filter(filters.student.is)
+          val potentialStudents = userIds.filter(filters.student.apply)
           potentialStudents.nonEmpty.so:
             colls.student
               .aggregateList(128, _.sec): framework =>
@@ -145,13 +144,13 @@ final class ClasApi(
               .map(_.toMap)
 
     def myPotentialStudentName(userId: UserId)(using me: Me): Fu[Option[Student.RealName]] =
-      filters.teacher
-        .is(me.userId)
+      filters
+        .teacher(me.userId)
         .so:
           myPotentialStudentNames(List(userId)).map(_.get(userId))
 
     def canKidsUseMessages(kid1: UserId, kid2: UserId): Fu[Boolean] =
-      fuccess(filters.student.is(kid1) && filters.student.is(kid2)) >>&
+      fuccess(filters.student(kid1) && filters.student(kid2)) >>&
         colls.student.aggregateExists(_.sec): framework =>
           import framework.*
           Match($doc("userId".$in(List(kid1.id, kid2.id)))) -> List(
