@@ -15,9 +15,10 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       playing: Option[Frag],
       blocked: Boolean,
       ping: Option[Int],
-      rel: Frag,
+      relation: Frag,
       crosstable: UserId => Option[Frag],
       flag: Option[Flag],
+      realName: Option[Frag],
       best8Perfs: List[PerfKey],
       userMarks: => Frag
   )(using ctx: Context) =
@@ -38,6 +39,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
           ,
           ping.map(bits.signalBars)
         ),
+        realName.map(div(cls := "upt__info__realname")(_)),
         if u.lame && ctx.isnt(u) && !Granter.opt(_.UserModView)
         then div(cls := "upt__info__warning")(trans.site.thisAccountViolatedTos())
         else
@@ -70,7 +72,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
                   )
                 )
               ),
-              rel
+              relation
             )
           ),
           crosstable(myId)

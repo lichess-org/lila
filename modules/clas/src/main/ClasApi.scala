@@ -139,6 +139,10 @@ final class ClasApi(
                 yield userId -> realName
             .map(_.toMap)
 
+    def myPotentialStudentName(userId: UserId)(using me: Me): Fu[Option[Student.RealName]] =
+      Granter(_.Teacher).so:
+        myPotentialStudentNames(List(userId)).map(_.get(userId))
+
     def canKidsUseMessages(kid1: UserId, kid2: UserId): Fu[Boolean] =
       fuccess(studentCache.isStudent(kid1) && studentCache.isStudent(kid2)) >>&
         colls.student.aggregateExists(_.sec): framework =>
