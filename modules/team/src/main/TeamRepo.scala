@@ -87,6 +87,8 @@ final class TeamRepo(val coll: Coll)(using Executor):
   def deleteNewlyCreatedBy(userId: UserId): Funit =
     coll.delete.one($doc("createdBy" -> userId, "createdAt" -> $gte(nowInstant.minusDays(2)))).void
 
+  def ofClas(id: TeamId): Fu[Boolean] = coll.secondary.exists($id(id) ++ $doc("ofClas" -> true))
+
   private[team] val enabledSelect = $doc("enabled" -> true)
 
   private[team] val sortPopular = $sort.desc("nbMembers")

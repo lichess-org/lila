@@ -462,9 +462,15 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   private def WithVisibleTournament(id: TourId)(
       f: Tour => Fu[Result]
   )(using ctx: Context): Fu[Result] =
+    def nope = negotiate(tournamentNotFound, notFoundJson("No such tournament"))
     cachedTour(id).flatMap:
-      case None => negotiate(tournamentNotFound, notFoundJson("No such tournament"))
-      case Some(tour) => f(tour)
+      case None => nope
+      case Some(tour) =>
+        tour.conditions.teamMember
+          .map(_.teamId)
+          .so(env.team.api.clasMemberCheck)
+          .flatMap:
+            if _ then f(tour) else nope
 
   private val streamerCache = env.memo.cacheApi[TourId, List[UserId]](64, "tournament.streamers"):
     _.refreshAfterWrite(15.seconds)

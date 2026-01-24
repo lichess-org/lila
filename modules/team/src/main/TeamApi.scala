@@ -382,6 +382,12 @@ final class TeamApi(
   def belongsTo[U: UserIdOf](teamId: TeamId, u: U): Fu[Boolean] =
     cached.teamIds(u.id).dmap(_.contains(teamId))
 
+  def clasMemberCheck(teamId: TeamId)(using me: Option[MyId]): Fu[Boolean] =
+    for
+      isClas <- teamRepo.ofClas(teamId)
+      ok <- if isClas then me.so(belongsTo(teamId, _)) else fuTrue
+    yield ok
+
   def memberOf[U: UserIdOf](teamId: TeamId, u: U): Fu[Option[TeamMember]] =
     belongsTo(teamId, u).flatMapz:
       memberRepo.get(teamId, u)
