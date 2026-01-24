@@ -100,7 +100,7 @@ final class TopNav(helpers: Helpers):
           a(href := routes.Search.index())(trans.search.advancedSearch())
         )
       ),
-        st.section:
+      st.section:
         val broadcastUrl = langHref(routes.RelayTour.index())
         frag(
           linkTitle(broadcastUrl, "Tournaments"),
@@ -108,8 +108,7 @@ final class TopNav(helpers: Helpers):
             a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
             a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),
             a(href := langHref(routes.Swiss.home))(trans.swiss.swissTournaments()),
-            a(href := langHref(routes.Simul.home))(trans.site.simultaneousExhibitions()),
+            a(href := langHref(routes.Simul.home))(trans.site.simultaneousExhibitions())
           )
         )
-      ,
     )
