@@ -28,7 +28,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                   views.clas.clas.teacherIndex(_, getBool("closed"))
           case Some(me) =>
             for
-              hasClas <- fuccess(env.clas.studentCache.isStudent(me)) >>| couldBeTeacher.not
+              hasClas <- fuccess(env.clas.filters.student.is(me)) >>| couldBeTeacher.not
               res <-
                 if hasClas
                 then
@@ -58,7 +58,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     Ok.async(renderCreate(none)).map(_.hasPersonalData)
   }
 
-  def create = SecureBody(_.Teacher) { ctx ?=> me ?=>
+  def create = SecureBody(_.Teacher) { ctx ?=> _ ?=>
     NoTor:
       SafeTeacher:
         env.clas.forms.clas.create.flatMap:
@@ -71,7 +71,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                   .verify()
                   .flatMap: captcha =>
                     if captcha.ok
-                    then env.clas.api.clas.create(data, me).map(redirectTo)
+                    then env.clas.api.clas.create(data).map(redirectTo)
                     else BadRequest.async(renderCreate(data.some))
             )
   }
@@ -125,8 +125,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result],
       orDefault: Context => Fu[Result] = notFound(using _)
   )(using ctx: Context, me: Me): Fu[Result] =
-    isGranted(_.Teacher)
-      .so(env.clas.api.clas.isTeacherOf(me, id))
+    env.clas.api.clas
+      .isTeacherOf(me, id)
       .flatMap:
         if _ then forTeacher
         else

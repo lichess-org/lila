@@ -46,7 +46,7 @@ final class ClasProgressApi(
     perfsRepo: lila.user.UserPerfsRepo,
     historyApi: lila.core.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,
-    studentCache: ClasStudentCache
+    filters: ClasUserFilters
 )(using Executor):
 
   case class PlayStats(nb: Int, wins: Int, millis: Long)
@@ -163,5 +163,5 @@ final class ClasProgressApi(
   private val gamePerfField = "pt"
 
   private[clas] def onFinishGame(game: Game): Unit =
-    if game.userIds.exists(studentCache.isStudent)
+    if game.userIds.exists(filters.student.is)
     then gameRepo.coll.updateFieldUnchecked($id(game.id), gamePerfField, game.perfKey.id)

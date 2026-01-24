@@ -29,7 +29,7 @@ final class OAuthToken(env: Env) extends LilaController(env):
     bindForm(OAuthTokenForm.create)(
       err => BadRequest.page(views.oAuth.token.create(err, me)),
       setup =>
-        for _ <- tokenApi.create(setup, env.clas.studentCache.isStudent(me))
+        for _ <- tokenApi.create(setup, env.clas.filters.student.is(me))
         yield Redirect(routes.OAuthToken.index).flashSuccess
     )
   }

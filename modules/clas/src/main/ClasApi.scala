@@ -17,7 +17,7 @@ import lila.common.Bus
 
 final class ClasApi(
     colls: ClasColls,
-    studentCache: ClasStudentCache,
+    filters: ClasUserFilters,
     nameGenerator: NameGenerator,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
@@ -56,10 +56,11 @@ final class ClasApi(
         .cursor[Clas]()
         .listAll()
 
-    def create(data: ClasForm.ClasData, teacher: User)(using Me): Fu[Clas] =
+    def create(data: ClasForm.ClasData)(using teacher: Me): Fu[Clas] =
       val clas = Clas.make(teacher, data.name, data.desc)
       for
         _ <- coll.insert.one(clas)
+        _ = filters.teacher.add(teacher.userId)
         _ = teamSync(clas)
       yield clas
 
@@ -70,6 +71,7 @@ final class ClasApi(
         fixedTeachers = clas.teachers.toList.filter(enabledTeachers.contains).toNel | from.teachers
         checked = clas.copy(teachers = fixedTeachers)
         _ <- coll.update.one($id(clas.id), checked)
+        _ = fixedTeachers.toList.foreach(filters.teacher.add)
         _ = teamSync(checked)
       yield checked
 
@@ -88,7 +90,10 @@ final class ClasApi(
       userRepo.byOrderedIds(clas.teachers.toList, readPref = _.sec)
 
     def isTeacherOf(teacher: User, clasId: ClasId): Fu[Boolean] =
-      coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
+      filters.teacher
+        .is(teacher.id)
+        .so:
+          coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
 
     private def lookupClasOfTeacher(teacher: UserId) =
       $lookup.simple(
@@ -104,47 +109,49 @@ final class ClasApi(
       )
 
     def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-      studentCache
-        .isStudent(student)
-        .so:
-          colls.student
-            .aggregateExists(_.sec): framework =>
-              import framework.*
-              Match($doc("userId" -> student)) -> List(
-                Project($doc("clasId" -> true)),
-                PipelineOperator(lookupClasOfTeacher(teacher)),
-                Match("clasId".$ne($arr())),
-                Limit(1),
-                Project($id(true))
-              )
+      (filters.student.is(student) && filters.teacher.is(teacher)).so:
+        colls.student
+          .aggregateExists(_.sec): framework =>
+            import framework.*
+            Match($doc("userId" -> student)) -> List(
+              Project($doc("clasId" -> true)),
+              PipelineOperator(lookupClasOfTeacher(teacher)),
+              Match("clasId".$ne($arr())),
+              Limit(1),
+              Project($id(true))
+            )
 
     def myPotentialStudentNames(userIds: Iterable[UserId])(using me: Me): Fu[Map[UserId, Student.RealName]] =
-      Granter(_.Teacher).so:
-        val potentialStudents = userIds.filter(studentCache.isStudent)
-        potentialStudents.nonEmpty.so:
-          colls.student
-            .aggregateList(128, _.sec): framework =>
-              import framework.*
-              Match("userId".$in(potentialStudents)) -> List(
-                Project($doc("userId" -> true, "clasId" -> true, "realName" -> true)),
-                PipelineOperator(lookupClasOfTeacher(me.userId)),
-                Match("clasId".$ne($arr())),
-                GroupField("userId")("realName" -> LastField("realName"))
-              )
-            .map: docs =>
-              docs.flatMap: doc =>
-                for
-                  userId <- doc.getAsOpt[UserId]("_id")
-                  realName <- doc.getAsOpt[Student.RealName]("realName")
-                yield userId -> realName
-            .map(_.toMap)
+      filters.teacher
+        .is(me.userId)
+        .so:
+          val potentialStudents = userIds.filter(filters.student.is)
+          potentialStudents.nonEmpty.so:
+            colls.student
+              .aggregateList(128, _.sec): framework =>
+                import framework.*
+                Match("userId".$in(potentialStudents)) -> List(
+                  Project($doc("userId" -> true, "clasId" -> true, "realName" -> true)),
+                  PipelineOperator(lookupClasOfTeacher(me.userId)),
+                  Match("clasId".$ne($arr())),
+                  GroupField("userId")("realName" -> LastField("realName"))
+                )
+              .map: docs =>
+                docs.flatMap: doc =>
+                  for
+                    userId <- doc.getAsOpt[UserId]("_id")
+                    realName <- doc.getAsOpt[Student.RealName]("realName")
+                  yield userId -> realName
+              .map(_.toMap)
 
     def myPotentialStudentName(userId: UserId)(using me: Me): Fu[Option[Student.RealName]] =
-      Granter(_.Teacher).so:
-        myPotentialStudentNames(List(userId)).map(_.get(userId))
+      filters.teacher
+        .is(me.userId)
+        .so:
+          myPotentialStudentNames(List(userId)).map(_.get(userId))
 
     def canKidsUseMessages(kid1: UserId, kid2: UserId): Fu[Boolean] =
-      fuccess(studentCache.isStudent(kid1) && studentCache.isStudent(kid2)) >>&
+      fuccess(filters.student.is(kid1) && filters.student.is(kid2)) >>&
         colls.student.aggregateExists(_.sec): framework =>
           import framework.*
           Match($doc("userId".$in(List(kid1.id, kid2.id)))) -> List(
@@ -303,7 +310,7 @@ final class ClasApi(
             kid = KidMode.Yes
           )
           .orFail(s"No user could be created for ${data.username}")
-        _ = studentCache.addStudent(user.id)
+        _ = filters.student.add(user.id)
         student = Student.make(user, clas, teacher.id, data.realName, managed = true)
         _ <- perfsRepo.setManagedUserInitialPerfs(user.id)
         _ <- coll.insert.one(student)
@@ -421,7 +428,7 @@ ${clas.desc}""",
     def accept(id: ClasInviteId, user: User): Fu[Option[Student]] =
       colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)).flatMapz { invite =>
         colls.clas.one[Clas]($id(invite.clasId)).flatMapz { clas =>
-          studentCache.addStudent(user.id)
+          filters.student.add(user.id)
           val stu = Student.make(user, clas, invite.created.by, invite.realName, managed = false)
           (colls.student.insert.one(stu) >>
             colls.invite.updateField($id(id), "accepted", true) >>

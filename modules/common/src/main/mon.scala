@@ -402,9 +402,9 @@ object mon:
     object student:
       def create(teacher: UserId) = counter("clas.student.create").withTag("teacher", teacher)
       def invite(teacher: UserId) = counter("clas.student.invite").withTag("teacher", teacher)
-      object bloomFilter:
-        val count = gauge("clas.student.bloomFilter.count").withoutTags()
-        val fu = future("clas.student.bloomFilter.future")
+    final class bloomFilter(name: String):
+      def count = gauge(s"clas.${name}.bloomFilter.count").withoutTags()
+      def fu = future(s"clas.${name}.bloomFilter.future")
   object tournament:
     object pairing:
       val batchSize = histogram("tournament.pairing.batchSize").withoutTags()

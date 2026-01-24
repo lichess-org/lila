@@ -5,12 +5,12 @@ import reactivemongo.api.bson.BSONNull
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 
-final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: ClasStudentCache)(using
+final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFilters)(using
     Executor
 ):
 
   def get(studentId: UserId): Fu[Set[UserId]] =
-    studentCache.isStudent(studentId).so(cache.get(studentId))
+    filters.student.is(studentId).so(cache.get(studentId))
 
   private val cache = cacheApi[UserId, Set[UserId]](64, "clas.mates"):
     _.expireAfterWrite(5.minutes)

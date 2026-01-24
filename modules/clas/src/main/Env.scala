@@ -29,7 +29,7 @@ final class Env(
 
   private val colls = wire[ClasColls]
 
-  lazy val studentCache = wire[ClasStudentCache]
+  lazy val filters = wire[ClasUserFilters]
 
   lazy val matesCache = wire[ClasMatesCache]
 
@@ -43,8 +43,11 @@ final class Env(
 
   lazy val bulk = wire[ClasBulkApi]
 
+  def isTeacher(using me: Me) =
+    lila.core.perm.Granter(_.Teacher) && filters.teacher.is(me)
+
   def hasClas(using me: Me) =
-    lila.core.perm.Granter(_.Teacher) || studentCache.isStudent(me)
+    filters.student.is(me) || isTeacher
 
   lila.common.Bus.sub[lila.core.game.FinishGame]: finish =>
     progressApi.onFinishGame(finish.game)

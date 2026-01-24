@@ -245,7 +245,6 @@ final class Team(env: Env) extends LilaController(env):
       val allow =
         isGrantedOpt(_.ManageTeam) ||
           (isGrantedOpt(_.Verified) && count < 100) ||
-          (isGrantedOpt(_.Teacher) && count < 10) ||
           count < 3
       if allow then a
       else Forbidden.page(views.site.message.teamCreateLimit)
