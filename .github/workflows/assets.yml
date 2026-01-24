@@ -111,7 +111,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: .github/docker/assets.Dockerfile
+          file: .github/workflows/docker/assets.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
