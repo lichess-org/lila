@@ -84,7 +84,8 @@ final class ClasBulkApi(api: ClasApi)(using Executor):
       case "archive" =>
         api.student.archiveMany(data.activeUserIds.map(studentId), true).inject(PostResponse.Done)
       case "restore" =>
-        api.student.archiveMany(data.activeUserIds.map(studentId), true).inject(PostResponse.Done)
+        for _ <- api.student.archiveMany(data.archivedUserIds.map(studentId), false)
+        yield PostResponse.Done
       case moveTo(to) =>
         api.clas
           .getAndView(ClasId(to))

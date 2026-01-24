@@ -121,8 +121,12 @@ final class PgnDump(
       fideIds.black.map(Tag(_.BlackFideId, _)),
       teams.map(t => Tag("WhiteTeam", t.white)),
       teams.map(t => Tag("BlackTeam", t.black)),
+      game.whitePlayer.berserk.option(Tag("WhiteBerserk", game.whitePlayer.berserk)),
+      game.blackPlayer.berserk.option(Tag("BlackBerserk", game.blackPlayer.berserk)),
       Tag(_.Variant, game.variant.name.capitalize).some,
-      Tag.timeControl(game.clock.map(_.config)).some,
+      game.daysPerTurn
+        .map(dpt => Tag(_.TimeControl, s"$dpt day${if dpt.value > 1 then "s" else ""} per move"))
+        .orElse(Tag.timeControl(game.clock.map(_.config)).some),
       Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
       withOpening.option(Tag(_.Opening, game.opening.fold("?")(_.opening.name))),
       Tag(
