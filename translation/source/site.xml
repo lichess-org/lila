@@ -664,7 +664,7 @@
   <string name="onlyExistingConversations">Only existing conversations</string>
   <string name="onlyFriends">Only friends</string>
   <string name="menu">Menu</string>
-  <string name="castling">Castling</string>
+  <string name="castling">Castling rights</string>
   <string name="whiteCastlingKingside">White O-O</string>
   <string name="blackCastlingKingside">Black O-O</string>
   <plurals name="nbForumPosts">
@@ -1027,5 +1027,5 @@ All operating costs, development, and content are funded solely by user donation
   <string name="search">Search</string>
   <string name="clearSearch">Clear search</string>
   <string name="tags">Tags</string>
-  <string name="enPassant">En passant</string>
+  <string name="enPassant">En passant rights</string>
 </resources>
