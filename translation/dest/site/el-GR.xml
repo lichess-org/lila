@@ -818,6 +818,7 @@
   <string name="size">Μέγεθος</string>
   <string name="opacity">Αδιαφάνεια</string>
   <string name="brightness">Φωτεινότητα</string>
+  <string name="contrast">Αντίθεση</string>
   <string name="hue">Χροιά</string>
   <string name="boardReset">Επαναφορά χρωμάτων στα προκαθορισμένα</string>
   <string name="pieceSet">Επιλογή κομματιών</string>
