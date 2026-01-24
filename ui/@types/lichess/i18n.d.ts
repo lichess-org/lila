@@ -3183,7 +3183,7 @@ interface I18n {
     'captcha.fail': string;
     /** Capture */
     capture: string;
-    /** Castling */
+    /** Castling rights */
     castling: string;
     /** Casual */
     casual: string;
@@ -3453,7 +3453,7 @@ interface I18n {
     endgamePositions: string;
     /** Error loading engine */
     engineFailed: string;
-    /** En passant */
+    /** En passant rights */
     enPassant: string;
     /** This email address is invalid */
     'error.email': string;
