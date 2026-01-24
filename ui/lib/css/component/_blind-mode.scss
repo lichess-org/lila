@@ -2,10 +2,10 @@
   @extend %visually-hidden;
 
   .blind-mode & {
+    position: static;
     text-align: center;
     padding: 5px 0;
     background: #888;
-    margin-inline-start: 0;
     height: auto;
   }
 }
