@@ -35,6 +35,7 @@ final class RelayApi(
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     players: RelayPlayerApi,
+    teamLeaderboard: RelayTeamLeaderboard,
     studyPropagation: RelayStudyPropagation,
     preview: ChapterPreviewApi,
     picfitApi: PicfitApi
@@ -232,6 +233,7 @@ final class RelayApi(
           "teamTable" -> tour.teamTable.some,
           "players" -> tour.players,
           "teams" -> tour.teams,
+          "showTeamScores" -> tour.showTeamScores.some,
           "spotlight" -> tour.spotlight,
           "ownerIds" -> tour.ownerIds.some,
           "pinnedStream" -> tour.pinnedStream,
@@ -247,6 +249,7 @@ final class RelayApi(
       studyIds <- roundRepo.studyIdsOf(tour.id)
     yield
       players.invalidate(tour.id)
+      teamLeaderboard.invalidate(tour.id)
       studyIds.foreach(preview.invalidate)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
 
@@ -340,7 +343,8 @@ final class RelayApi(
           ("startsAt", _.startsAt),
           ("startedAt", _.startedAt),
           ("finishedAt", _.finishedAt),
-          ("customScoring", _.customScoring)
+          ("customScoring", _.customScoring),
+          ("teamCustomScoring", _.teamCustomScoring)
         )
         _ <- roundRepo.coll.update.one($id(round.id), $set(setters) ++ unsets).void
         _ <- (round.sync.playing != from.sync.playing)
@@ -383,7 +387,9 @@ final class RelayApi(
         _ <- old.hasStartedEarly.so:
           roundRepo.coll.unsetField($id(relay.id), "startedAt").void
         _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
-      yield players.invalidate(relay.tourId)
+      yield
+        teamLeaderboard.invalidate(relay.tourId)
+        players.invalidate(relay.tourId)
     } >> requestPlay(old.id, v = true, "reset")
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
@@ -508,6 +514,7 @@ final class RelayApi(
             .$lt(nowInstant.plusSeconds(RelayDelay.maxSeconds.value))
             .$gt(nowInstant.minusDays(1)), // bit late now
           "startedAt".$exists(false),
+          "finishedAt".$exists(false),
           "sync.upstream".$exists(true),
           $or("sync.until".$exists(false), "sync.until".$lt(nowInstant))
         ) ++ only.so($id(_))

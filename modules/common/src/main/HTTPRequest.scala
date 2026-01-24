@@ -160,8 +160,14 @@ object HTTPRequest:
     else if isCrawler(req).yes then "crawler"
     else "browser"
 
-  def queryStringGet(req: RequestHeader, name: String): Option[String] =
+  def queryStringGet(name: String)(using req: RequestHeader): Option[String] =
     req.queryString.get(name).flatMap(_.headOption).filter(_.nonEmpty)
+
+  def queryStringBool(name: String)(using req: RequestHeader): Boolean =
+    queryStringGet(name).exists(trueish)
+
+  def queryStringBoolOpt(name: String)(using req: RequestHeader): Option[Boolean] =
+    queryStringGet(name).map(trueish)
 
   def looksLikeLichessBot(req: RequestHeader) =
     val ua = userAgent(req).value

@@ -1,7 +1,7 @@
 package lila.relay
 package ui
 
-import play.api.data.Form
+import play.api.data.{ Field, Form }
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ given, * }
 import lila.core.study.Visibility
@@ -320,13 +320,13 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               help = trb.startDateHelp().some,
               half = true
             )(form3.flatpickr(_, local = true, minDate = None)),
-            form3.checkbox(
+            form3.checkboxGroup(
               form("startsAfterPrevious"),
               "When the previous round completes",
+              half = true,
               help = frag(
                 "The start date is unknown, and the round will start automatically when the previous round completes."
-              ).some,
-              half = true
+              ).some
             )
           )
         ),
@@ -373,15 +373,15 @@ Hanna Marie ; Kozul, Zdenko"""),
         (nav.tour.showScores || nav.tour.showRatingDiffs).option(
           form3.fieldset(
             "Custom scoring",
-            toggle = nav.round.exists(_.customScoring.isDefined).some
+            toggle = nav.round.exists(r => r.customScoring.isDefined || r.teamCustomScoring.isDefined).some
           )(
             nav.tour.showRatingDiffs.option(
               form3.group(form("rated"), raw("")): field =>
                 val withDefault =
                   if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
-                form3.checkbox(
+                form3.checkboxGroup(
                   withDefault,
-                  labelContent = frag("Rated round"),
+                  "Rated round",
                   help = frag("Include this round when calculating players' rating changes").some
                 )
             ),
@@ -397,7 +397,17 @@ Hanna Marie ; Kozul, Zdenko"""),
             ,
             p(
               "Optional. Affects automatic scoring. Points must be >= 0 and <=10. At most 2 decimal places. Default = 1.0 for a win and 0.5 for a draw."
-            )
+            ),
+            br,
+            nav.tour.teamTable.option:
+              form3.split:
+                List("win", "draw").map: result =>
+                  form3.group(
+                    form("teamCustomScoring")(result),
+                    raw(s"Team points for a match $result")
+                  )(
+                    form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
+                  )
           )
         ),
         Granter
@@ -498,7 +508,23 @@ Hanna Marie ; Kozul, Zdenko"""),
       frag(
         (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
-        form3.group(form("name"), trb.tournamentName())(form3.input(_)(autofocus)),
+        form3.split(
+          form3.group(form("name"), trb.tournamentName(), half = true)(form3.input(_)(autofocus)),
+          form3.group(
+            form("visibility"),
+            trans.study.visibility(),
+            half = true
+          )(
+            form3.select(
+              _,
+              List(
+                Visibility.public.key -> "Public",
+                Visibility.unlisted.key -> "Unlisted (from URL only)",
+                Visibility.`private`.key -> "Private (invited members only)"
+              )
+            )
+          )
+        ),
         form3.fieldset(trb.optionalDetails(), toggle = tg.exists(_.tour.info.nonEmpty).some)(
           form3.split(
             form3.group(
@@ -583,41 +609,33 @@ Hanna Marie ; Kozul, Zdenko"""),
             toggle = tg
               .map(_.tour)
               .exists: t =>
-                !t.showScores || !t.showRatingDiffs || t.teamTable || !t.isPublic
+                !t.showScores || !t.showRatingDiffs || t.teamTable || t.showTeamScores
               .some
           )(
             form3.split(
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("showScores"),
                 trb.showScores(),
                 half = true
               ),
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("showRatingDiffs"),
                 "Show player's rating diffs",
                 half = true
               )
             ),
             form3.split(
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("teamTable"),
                 trans.team.teamTournament(),
-                help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some,
+                help = frag("Show a team table. Requires WhiteTeam and BlackTeam PGN tags.").some,
                 half = true
               ),
-              form3.group(
-                form("visibility"),
-                trans.study.visibility(),
+              form3.checkboxGroup(
+                form("showTeamScores"),
+                "Show team scores based on game results",
+                help = frag("Compute and show match points (MP) and game points (GP) for teams.").some,
                 half = true
-              )(
-                form3.select(
-                  _,
-                  List(
-                    Visibility.public.key -> "Public",
-                    Visibility.unlisted.key -> "Unlisted (from URL only)",
-                    Visibility.`private`.key -> "Private (invited members only)"
-                  )
-                )
               )
             )
           ),
@@ -697,7 +715,7 @@ Team Dogs ; Scooby Doo"""),
                 Granter
                   .opt(_.StudyAdmin)
                   .option(
-                    form3.checkbox(
+                    form3.checkboxGroup(
                       form("spotlight.enabled"),
                       "Show a homepage spotlight",
                       help = raw("As a Big Blue Button - for admins only").some,
@@ -727,7 +745,7 @@ Team Dogs ; Scooby Doo"""),
                         form3.select(_, langList.popularLanguagesForm.choices)
                     ),
                     form3.split(
-                      form3.checkbox(
+                      form3.checkboxGroup(
                         form("orphanWarn"),
                         "Warn about Orphan Boards",
                         help = raw(

@@ -110,7 +110,7 @@ object Query:
   def bothRatingsGreaterThan(v: Int) = $doc("p0.e".$gt(v), "p1.e".$gt(v))
 
   def turnsGt(nb: Int) = F.turns.$gt(nb)
-  def turns(range: Range) = F.turns.$inRange(range)
+  def turns(range: PairOf[Int]) = F.turns.$inRange(range)
 
   def checkable = F.checkAt.$lt(nowInstant)
 

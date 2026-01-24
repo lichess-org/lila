@@ -51,7 +51,7 @@ final class PuzzleApi(
       val roundDoc = roundHandler.write(r) ++
         $doc(
           PuzzleRound.BSONFields.user -> r.id.userId,
-          PuzzleRound.BSONFields.theme -> angle.some.filter(_ != PuzzleAngle.mix)
+          PuzzleRound.BSONFields.angle -> angle.some.filter(_ != PuzzleAngle.mix)
         )
       colls.round(_.update.one($id(r.id), roundDoc, upsert = true)).void
 

@@ -13,7 +13,7 @@
       content: $licon-InfoCircle;
       font-size: 5em;
       opacity: 0.5;
-      @include margin-inline-end(2rem);
+      margin-inline: 0 2rem;
     }
     &__title {
       text-align: start;

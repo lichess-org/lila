@@ -1,7 +1,6 @@
-import { hl, type VNode, type LooseVNodes } from 'lib/view';
-import { snabDialog, spinnerVdom } from 'lib/view';
+import { hl, type VNode, type LooseVNodes, snabDialog, spinnerVdom } from 'lib/view';
 import type LobbyController from '@/ctrl';
-import { variantPicker, variantModal } from './components/variantPicker';
+import { variantPicker } from './components/variantPicker';
 import { gameModeButtons } from './components/gameModeButtons';
 import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
 import { colorButtons } from './components/colorButtons';
@@ -51,7 +50,6 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
         dlg.show();
       },
     }),
-    variantModal(ctrl),
   ].filter(v => v !== null) as VNode[];
 }
 
@@ -66,14 +64,14 @@ const views = {
   ],
   friend: (ctrl: LobbyController): LooseVNodes => [
     variantPicker(ctrl),
-    fenInput(ctrl),
+    fenInput(ctrl.setupCtrl),
     timePickerAndSliders(ctrl.setupCtrl.timeControl, 0),
     gameModeButtons(ctrl),
     colorButtons(ctrl),
   ],
   ai: (ctrl: LobbyController): LooseVNodes => [
     variantPicker(ctrl),
-    fenInput(ctrl),
+    fenInput(ctrl.setupCtrl),
     timePickerAndSliders(ctrl.setupCtrl.timeControl, ctrl.setupCtrl.minimumTimeIfReal()),
     levelButtons(ctrl),
     colorButtons(ctrl),

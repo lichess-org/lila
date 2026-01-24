@@ -60,10 +60,10 @@
   <string name="grabAllTheStarsNoNeedToPromote">सर्व तारे पकडा!
 बढतीची गरज नाही.</string>
   <string name="pawnComplete">अभिनंदन! तुम्हाला प्याद्याबद्दल सर्व काही माहित झालय.</string>
-  <string name="pawnPromotion">प्याद्याची उन्नती</string>
+  <string name="pawnPromotion">प्याद्याची बढती</string>
   <string name="yourPawnReachedTheEndOfTheBoard">आपले प्यादे पटाच्या दुसऱ्या टोकाला पोहोचले!</string>
-  <string name="itNowPromotesToAStrongerPiece">तुम्ही प्याद्याला कोणती हि दुसरी गोटी म्हणून उन्नत करू शकता.</string>
-  <string name="selectThePieceYouWant">हवी ती गोटी निवडा!</string>
+  <string name="itNowPromotesToAStrongerPiece">त्याला आता ताकदवान सोंगटी म्हणून बढती मिळेल.</string>
+  <string name="selectThePieceYouWant">हवी ती सोंगटी निवडा!</string>
   <string name="fundamentals">मूलतत्त्वे</string>
   <string name="capture">मारा (पकडा)</string>
   <string name="takeTheEnemyPieces">शत्रूच्या सोंगट्या घ्या</string>

@@ -9,6 +9,8 @@
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
   <string name="orLetYourOpponentScanQrCode">または相手にこの QR コードをスキャンさせてください</string>
+  <string name="reusableChallengeUrl">再利用可能なチャレンジ URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">誰でもこのとおりの設定であなたにチャレンジできる恒久的リンク。</string>
   <string name="waiting">待機中</string>
   <string name="yourTurn">あなたの手番です</string>
   <string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
@@ -398,6 +400,7 @@
   <string name="leaderboard">ランキング</string>
   <string name="screenshotCurrentPosition">現局面のスクリーンショット</string>
   <string name="gameAsGIF">GIF 形式の棋譜</string>
+  <string name="playerNames">プレイヤー名</string>
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="orUploadPgnFile">または PGN ファイルをアップロード</string>

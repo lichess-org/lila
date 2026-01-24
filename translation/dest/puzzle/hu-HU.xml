@@ -93,6 +93,6 @@ Játssz rapid vagy klasszikus partikat, így nagyobb eséllyel szerepelhetnek a 
   </plurals>
   <string name="percentSolved">%s sikeres</string>
   <string name="noPuzzlesToShow">Oldj meg néhány feladványt a statisztika megjelenítéséhez!</string>
-  <string name="improvementAreasDescription">Gyakorolj ezekben a témákban, hogy erősítsd a tudásod!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Gyakorolj ezekben a témákban, hogy erősítsd a tudásod!</string>
   <string name="strengthDescription">Ezekben a témákban teljesítesz a legjobban</string>
 </resources>

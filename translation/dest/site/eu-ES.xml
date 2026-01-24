@@ -9,6 +9,8 @@
   <string name="gameOver">Partida amaitu da</string>
   <string name="waitingForOpponent">Aurkariaren zain</string>
   <string name="orLetYourOpponentScanQrCode">Edo utzi zure aurkariari QR kode hau eskaneatzen</string>
+  <string name="reusableChallengeUrl">Berrerabili daitekeen erronkaren esteka</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Ezarpen hauekin edonork zuri erronka botatzeko helbidea.</string>
   <string name="waiting">Zain</string>
   <string name="yourTurn">Zure txanda</string>
   <string name="aiNameLevelAiLevel">%1$s, %2$s. maila</string>
@@ -429,6 +431,8 @@
   <string name="leaderboard">Jokalaririk onenak</string>
   <string name="screenshotCurrentPosition">Uneko posizioaren irudia</string>
   <string name="gameAsGIF">Partida GIF gisa</string>
+  <string name="playerNames">Jokalarien izenak</string>
+  <string name="moveAnnotations">Jokaldien komentarioak</string>
   <string name="pasteTheFenStringHere">FEN-a kodea hemen jarri</string>
   <string name="pasteThePgnStringHere">PGN-a kodea hemen jarri</string>
   <string name="orUploadPgnFile">Edo kargatu PGN fitxategi bat</string>

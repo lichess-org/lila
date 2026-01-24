@@ -9,6 +9,8 @@
   <string name="gameOver">Партия окончена</string>
   <string name="waitingForOpponent">Ожидание соперника</string>
   <string name="orLetYourOpponentScanQrCode">Или позвольте вашему сопернику отсканировать этот QR-код</string>
+  <string name="reusableChallengeUrl">Постоянная ссылка на вызов на игру</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Постоянная ссылка на игру с заданными настройками.</string>
   <string name="waiting">Ожидание</string>
   <string name="yourTurn">Ваш ход</string>
   <string name="aiNameLevelAiLevel">%1$s уровня %2$s</string>
@@ -129,6 +131,10 @@
   <string name="bestMoveArrow">Показывать лучшие ходы стрелками</string>
   <string name="showVariationArrows">Показать стрелки вариантов</string>
   <string name="evaluationGauge">Шкала оценки</string>
+  <string name="visualMotifs">Шахматные мотивы</string>
+  <string name="undefendedPieces">Незащищённые фигуры</string>
+  <string name="pinnedPieces">Связанные фигуры</string>
+  <string name="checkableKing">Возможность дать шах королю</string>
   <string name="multipleLines">Множество вариантов</string>
   <string name="cpus">Потоки</string>
   <string name="memory">Память</string>
@@ -487,6 +493,8 @@
   <string name="leaderboard">Лучшие игроки</string>
   <string name="screenshotCurrentPosition">Сделать снимок этой позиции</string>
   <string name="gameAsGIF">Партия в формате GIF</string>
+  <string name="playerNames">Имена игроков</string>
+  <string name="moveAnnotations">Аннотации ходов</string>
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="orUploadPgnFile">Или загрузите PGN-файл</string>

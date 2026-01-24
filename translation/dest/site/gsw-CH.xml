@@ -9,6 +9,8 @@
   <string name="gameOver">Schpiel verbi</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
   <string name="orLetYourOpponentScanQrCode">Oder lass din Gägner de QR-Code skänne</string>
+  <string name="reusableChallengeUrl">Wieder verwändbari Forderigs-URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">En permanänte Link, für jedermann - um mit genau dene Istellige z\'fordere.</string>
   <string name="waiting">Am Warte</string>
   <string name="yourTurn">Du bisch dra</string>
   <string name="aiNameLevelAiLevel">%1$s Schtufe %2$s</string>
@@ -125,7 +127,7 @@
   <string name="bestMoveArrow">Pfil für de bescht Zug</string>
   <string name="showVariationArrows">Pfil für Variante azeige</string>
   <string name="evaluationGauge">Bewertigs-Massschtab</string>
-  <string name="visualMotifs">Visuelli Motif</string>
+  <string name="visualMotifs">Visuelli Motiv</string>
   <string name="undefendedPieces">Ung\'schützti Figure</string>
   <string name="pinnedPieces">G\'fessleti Figure</string>
   <string name="checkableKing">Agrifbare König</string>
@@ -430,6 +432,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="leaderboard">Ranglischte</string>
   <string name="screenshotCurrentPosition">En Screenshot vu de aktuelle Schtellig mache</string>
   <string name="gameAsGIF">Schpiel als GIF</string>
+  <string name="playerNames">Schpiller Näme</string>
+  <string name="moveAnnotations">Zugs-Notatione</string>
   <string name="pasteTheFenStringHere">Füeg de FEN-Tegscht da i</string>
   <string name="pasteThePgnStringHere">Füeg de PGN-Tegscht da i</string>
   <string name="orUploadPgnFile">Oder lad e PGN-Datei ufe</string>

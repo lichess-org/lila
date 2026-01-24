@@ -40,8 +40,8 @@
     <item quantity="many">ابقه قصيرًا: %s حرف أقصى</item>
     <item quantity="other">ابقه قصيرًا: %s حرف كحد أقصى</item>
   </plurals>
-  <string name="visibility">إظهار على قائمة بثوث اللاعبين</string>
-  <string name="whenApproved">بعد الموافقة من قبل المشرفين</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">إظهار على قائمة بثوث اللاعبين</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">بعد الموافقة من قبل المشرفين</string>
   <string name="headline">العنوان</string>
   <string name="tellUsAboutTheStream">أخبرنا عن البث الخاص بك في جملة واحدة</string>
   <string name="longDescription">وصف مطول</string>

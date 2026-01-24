@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard">मानक</string>
-  <string name="standardTitle">बुद्धिबळाचे आदर्श नियम (FIDE)</string>
+  <string name="standard">पारंपारिक</string>
+  <string name="standardTitle">बुद्धिबळाचे पारंपारिक नियम (FIDE)</string>
   <string name="chess960">चेस९६०</string>
   <string name="chess960Title">सोंगट्यांची प्रारंभिक घरे व सुरुवातीची स्थिती यादृच्छिक आहे.</string>
   <string name="kingOfTheHill">टेकडीचा राजा</string>
   <string name="kingOfTheHillTitle">खेळ जिंकण्यासाठी तुमच्या राजाला मध्यभागी आणा.</string>
-  <string name="threeCheck">तीन-चेक</string>
+  <string name="threeCheck">तीन-शह</string>
   <string name="threeCheckTitle">खेळ जिंकण्यासाठी तुमच्या विरोधकाला ३ वेळा शह द्या.</string>
   <string name="antichess">द्रोहीबुद्धिबळ</string>
   <string name="antichessTitle">खेळ जिंकण्यासाठी तुमच्या सर्व सोंगट्यांना त्याग करा (किंवा अर्धमात व्हा)</string>
@@ -18,4 +18,6 @@
   <string name="racingKingsTitle">जिंकण्यासाठी राजाला पटाच्या दुसऱ्या बाजूला पोहोचवा.</string>
   <string name="crazyhouse">वेडाघर</string>
   <string name="crazyhouseTitle">सोंगटी हलवण्याऐवजी पकडलेल्या सोंगट्या पटावर परत ठेवता येऊ शकतात.</string>
+  <string name="fromPosition" comment="An option that lets you create a standard chess game from a custom position.">या स्थितीपासून</string>
+  <string name="fromPositionTitle" comment="Description for when looking to start a game 'From position'">विशिष्ट स्थितीपासून पारंपारिक बुद्धिबळ</string>
 </resources>

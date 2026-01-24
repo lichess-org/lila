@@ -2,23 +2,23 @@
 <resources>
   <string name="chessVideos">बुद्धिबळाचे लघुचलचित्रे</string>
   <string name="allVideosAreFree">सर्व लघुचलचित्रे सर्वांसाठी मोफत आहे.</string>
-  <string name="selectTagsToFilter">लघुचलचित्रांना पाझरत करण्यासाठी टॅग निवडा.</string>
-  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">आम्ही आतापर्यंत काळजीपूर्वक %s लघुचलचित्रे निवडले आहेत!</string>
+  <string name="selectTagsToFilter">व्हिडिओ गाळण्यासाठी टॅग निवडा.</string>
+  <string name="weHaveCarefullySelectedX">आम्ही आतापर्यंत काळजीपूर्वक %s लघुचलचित्रे निवडले आहेत!</string>
   <string name="freeChessVideos">मोफत बुद्धिबळाचे लघुचलचित्रे</string>
-  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s मोफत, काळजीपूर्वक निवडलेले लघुचलचित्रे</string>
-  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s निवडलेले बुद्धिबळाचे लघुचलचित्रे</string>
-  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s बरोबरचे %2$s</string>
-  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">सगळ्यांसाठी मोफत</string>
-  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+  <string name="xFreeCarefullyCurated">%s मोफत, काळजीपूर्वक निवडलेले लघुचलचित्रे</string>
+  <string name="xCuratedChessVideos">%s निवडलेले बुद्धिबळाचे लघुचलचित्रे</string>
+  <string name="xWithTagsY">%1$s बरोबरचे %2$s</string>
+  <string name="freeForAll">सगळ्यांसाठी मोफत</string>
+  <plurals name="nbVideosFound">
     <item quantity="one">%s लघुचलचित्रे सापडले</item>
     <item quantity="other">%s लघुचलचित्रे सापडले</item>
   </plurals>
   <string name="noVideosForTheseTags">ह्या श्रेणीसाठी लघुचलचित्रे नाही:</string>
   <string name="thatsAllWeGotForTheseTags">ह्या श्रेणीसाठी आमच्याकडे एवढेच आहे:</string>
-  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">ह्या शोधासाठी आमच्याकडे एवढेच आहे: \"%s\"</string>
-  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">ह्या शोधासाठी काही परिणाम नाही \"%s\"</string>
-  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">अधिक श्रेण्या पहा</string>
+  <string name="thatsAllWeGotForThisSearchX">ह्या शोधासाठी आमच्याकडे एवढेच आहे: \"%s\"</string>
+  <string name="thereAreNoResultsForX">ह्या शोधासाठी काही परिणाम नाही \"%s\"</string>
+  <string name="viewMoreTags">अधिक श्रेण्या पहा</string>
   <string name="videoNotFound">लघुचलचित्रे नाही सापडले!</string>
-  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">%2$sचे %1$s</string>
-  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">सगळे %s लघुचलचित्र श्रेणी</string>
+  <string name="xByY">%2$sचे %1$s</string>
+  <string name="allNbVideoTags">सगळे %s लघुचलचित्र श्रेणी</string>
 </resources>

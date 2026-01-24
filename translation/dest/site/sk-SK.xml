@@ -129,6 +129,7 @@
   <string name="bestMoveArrow">Šípka pre najlepší ťah</string>
   <string name="showVariationArrows">Zobraziť šípky variantov</string>
   <string name="evaluationGauge">Ukazovateľ hodnotenia</string>
+  <string name="visualMotifs">Vizuálne motívy</string>
   <string name="multipleLines">Počet variantov</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamäť</string>

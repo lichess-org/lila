@@ -65,8 +65,3 @@ final class Env(
       default = 300,
       text = "Opening explorer games per second".some
     )
-    val sitewideCoepCredentiallessHeader = settingStore[Boolean](
-      "sitewideCoepCredentiallessHeader",
-      default = true,
-      text = "Enable COEP:credentialless header site-wide in supported browsers (Chromium)".some
-    )

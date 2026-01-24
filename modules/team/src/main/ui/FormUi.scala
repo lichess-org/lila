@@ -121,7 +121,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
 
   private def accessFields(form: Form[?])(using Context) =
     frag(
-      form3.checkbox(
+      form3.checkboxGroup(
         form("hideMembers"),
         "Hide team member list from non-members.",
         half = true
@@ -161,7 +161,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
 
   private def entryFields(form: Form[?])(using ctx: Context) =
     form3.split(
-      form3.checkbox(
+      form3.checkboxGroup(
         form("request"),
         trans.team.manuallyReviewAdmissionRequests(),
         help = trans.team.manuallyReviewAdmissionRequestsHelp().some,

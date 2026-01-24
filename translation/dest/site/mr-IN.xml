@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">उत्तम चाल बाण</string>
   <string name="showVariationArrows">भिन्नतेचे बाण दाखवा</string>
   <string name="evaluationGauge">मूल्यांकन परिमाण</string>
+  <string name="visualMotifs">दृष्य आकृतीबंध</string>
+  <string name="undefendedPieces">असुरक्षित मोहरे</string>
+  <string name="pinnedPieces">जकडलेले मोहरे</string>
+  <string name="checkableKing">शह मिळू शकेल असा राजा</string>
   <string name="multipleLines">अनेक लाइन</string>
   <string name="cpus">गणक</string>
   <string name="memory">मेमरी</string>
@@ -204,6 +208,7 @@
   <string name="minutesPerSide">दर बाजूचे मिनिट</string>
   <string name="variant">प्रकार</string>
   <string name="variants">प्रकार</string>
+  <string name="variantsDescription">खेळण्याचे आणखी मार्ग</string>
   <string name="timeControl">वेळाचे नियंत्रण</string>
   <string name="realTime">प्रत्यक्ष वेळी</string>
   <string name="correspondence">दीर्घकालीन</string>
@@ -222,8 +227,8 @@
     <item quantity="other">%s मिनीटे</item>
   </plurals>
   <string name="time">वेळ</string>
-  <string name="rating">गुणांकन</string>
-  <string name="ratingStats">गुणांकन सांख्यिकी</string>
+  <string name="rating">मानांकन</string>
+  <string name="ratingStats">मानांकन सांख्यिकी</string>
   <string name="username">वापरकर्त्याचे नाव</string>
   <string name="usernameOrEmail">वापरकर्त्याचे नाव किंवा पत्ता</string>
   <string name="changeUsername">नाव बदला</string>
@@ -265,8 +270,8 @@
   <string name="rank">मानांकन</string>
   <string name="rankX">मानांकन: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">मानांकन प्रत्येक मिनिटाला अद्यतनित केला जातो</item>
-    <item quantity="other">मानांकन प्रत्येक %s मिनिटाला अद्यतनित केला जातो</item>
+    <item quantity="one">क्रमवारी प्रत्येक मिनिटाला अद्यतनित केली जाते</item>
+    <item quantity="other">क्रमवारी प्रत्येक %s मिनिटाला अद्यतनित केली जाते</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s कोडी</item>
@@ -295,15 +300,16 @@
   <string name="finished">समाप्त</string>
   <string name="abortGame">डाव बंद करा</string>
   <string name="gameAborted">डाव बंद केला गेला</string>
-  <string name="standard">मानक</string>
+  <string name="standard">पारंपारिक</string>
   <string name="customPosition">सानुकूल स्थिति</string>
   <string name="unlimited">अमर्याद</string>
+  <string name="unlimitedDescription">आपल्याला हवा तितका वेळ घ्या</string>
   <string name="mode">पध्दती</string>
   <string name="casual">अनौपचारिक</string>
-  <string name="rated">गुणांकित</string>
+  <string name="rated">मानांकित</string>
   <string name="casualTournament">अनौपचारिक</string>
-  <string name="ratedTournament">गुणांकित</string>
-  <string name="thisGameIsRated">हा खेळ गुणांकित आहे</string>
+  <string name="ratedTournament">मानांकित</string>
+  <string name="thisGameIsRated">हा खेळ मानांकित आहे</string>
   <string name="rematch">पुनः खेळा</string>
   <string name="rematchOfferSent">पुनः खेळण्याचा प्रस्ताव पाठवला</string>
   <string name="rematchOfferAccepted">पुनः खेळण्याचा प्रस्ताव स्वीकारला</string>
@@ -324,8 +330,8 @@
   <string name="incrementInSeconds">सेकंदांमध्ये वाढ</string>
   <string name="freeOnlineChess">विनामूल्य ऑनलाइन बुद्धिबळ</string>
   <plurals name="nbRated">
-    <item quantity="one">%s गुणांकित</item>
-    <item quantity="other">%s औपचारिक</item>
+    <item quantity="one">%s मानांकित</item>
+    <item quantity="other">%s मानांकित</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s विजय</item>
@@ -344,7 +350,7 @@
     <item quantity="other">%s खेळतोय</item>
   </plurals>
   <string name="exportGames">खेळ निर्यात करा</string>
-  <string name="ratingFilter">धाऱ्याची पाझरत</string>
+  <string name="ratingFilter">मानांकन श्रेणी</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s सेकंद द्या</item>
     <item quantity="other">%s सेकंद द्या</item>
@@ -384,28 +390,28 @@
   <string name="noDrawBeforeSwissLimit">स्विस स्पर्धेमध्ये तुम्ही ३० चाली खेळल्याशिवाय डाव परस्पर संमतीने बरोबरीत सोडवू शकत नाही.</string>
   <string name="thematic">विषयगत</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s गुणांकित खेळ</item>
-    <item quantity="other">≥ %s गुणांकित खेळ</item>
+    <item quantity="one">≥ %s मानांकित खेळ</item>
+    <item quantity="other">≥ %s मानांकित खेळ</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s गुणांकित खेळ</item>
-    <item quantity="other">≥ %1$s %2$s गुणांकित खेळ</item>
+    <item quantity="one">≥ %1$s %2$s मानांकित खेळ</item>
+    <item quantity="other">≥ %1$s %2$s मानांकित खेळ</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">आपल्याला आणखी %1$s %2$s-गुणांकित खेळ खेळण्याची आवश्यकता आहे</item>
-    <item quantity="other">आपल्याला आणखी %1$s %2$s-गुणांकित खेळ खेळण्याची आवश्यकता आहे</item>
+    <item quantity="one">आपल्याला आणखी %1$s %2$s-मानांकित खेळ खेळण्याची आवश्यकता आहे</item>
+    <item quantity="other">आपल्याला आणखी %1$s %2$s-मानांकित खेळ खेळण्याची आवश्यकता आहे</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">आपल्याला आणखी %s गुणांकित खेळ खेळण्याची आवश्यकता आहे</item>
-    <item quantity="other">आपल्याला आणखी %s गुणांकित खेळ खेळण्याची आवश्यकता आहे</item>
+    <item quantity="one">आपल्याला आणखी %s मानांकित खेळ खेळण्याची आवश्यकता आहे</item>
+    <item quantity="other">आपल्याला आणखी %s मानांकित खेळ खेळण्याची आवश्यकता आहे</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">आपला %s गुणांकन तात्पुरते आहे</string>
+  <string name="yourPerfRatingIsProvisional">आपले %s मानांकन तात्पुरते आहे</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">तुमचे रेटिंग स्थिर नसल्याने रेटिंग गाळी बंद केले गेले आहे. रेटेड खेळ खेळल्याने स्थिरता वाढेल.</string>
-  <string name="yourPerfRatingIsTooHigh">आपले %1$s गुणांकन (%2$s) खूप जास्त आहे</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">आपले साप्ताहिक %1$s गुणांकन (%2$s) खूप जास्त आहे</string>
-  <string name="yourPerfRatingIsTooLow">आपले %1$s गुणांकन (%2$s) खूप कमी आहे</string>
-  <string name="ratedMoreThanInPerf">गुणांकन ≥ %1$s %2$s मध्ये</string>
-  <string name="ratedLessThanInPerf">गुणांकन ≤ %1$s %2$s मध्ये</string>
+  <string name="yourPerfRatingIsTooHigh">आपले %1$s मानांकन (%2$s) खूप जास्त आहे</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">आपले साप्ताहिक %1$s मानांकन (%2$s) खूप जास्त आहे</string>
+  <string name="yourPerfRatingIsTooLow">आपले %1$s मानांकन (%2$s) खूप कमी आहे</string>
+  <string name="ratedMoreThanInPerf">मानांकन ≥ %1$s %2$s मध्ये</string>
+  <string name="ratedLessThanInPerf">मानांकन ≤ %1$s %2$s मध्ये</string>
   <string name="mustBeInTeam">%s संघात असणे आवश्यक आहे</string>
   <string name="youAreNotInTeam">तुम्ही %s संघात नाही</string>
   <string name="backToGame">खेळात परत या</string>
@@ -737,14 +743,14 @@
     <item quantity="one">%1$s %2$s या आठवड्यातील खेळाडू.</item>
     <item quantity="other">%1$s %2$s या आठवड्यातील खेळाडू.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">तुमची %1$s रेटिंग %2$s आहे.</string>
+  <string name="yourPerfTypeRatingIsRating">तुमचे %1$s मानांकन %2$s आहे.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">तुम्ही %1$s %2$s खेळाडूंपेक्षा उत्तम आहात.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s %3$s खेळाडूंपेक्षा उत्तम आहे.</string>
   <string name="betterThanPercentPlayers">तुम्ही %1$s %2$s खेळाडूंपेक्षा उत्तम आहात</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपल्याकडे %s रेटिंग नाही.</string>
-  <string name="yourRating">आपले गुणांकन</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपल्याकडे अजूनही %s मानांकन नाही.</string>
+  <string name="yourRating">आपले मानांकन</string>
   <string name="cumulative">एकत्रित</string>
-  <string name="glicko2Rating">Glicko-2 गुणांकन</string>
+  <string name="glicko2Rating">Glicko-2 मानांकन</string>
   <string name="checkYourEmail">तुमचा ईमेल तपासा</string>
   <string name="weHaveSentYouAnEmailClickTheLink">आम्ही तुम्हाला ईमेल पाठवला आहे. दिलेल्या लिंक वर क्लिक करून आपले खाते सक्रिय करा.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">जर तुम्हाला ईमेल मिळाला नसेल, तर इतर ठिकाणी तपासा, जसे की junk, spam, social, किंवा इतर फोल्डर्स.</string>
@@ -825,8 +831,8 @@
   <string name="custom">इतर</string>
   <string name="notifications">Notifications</string>
   <string name="notificationsX">%1$s सूचना</string>
-  <string name="perfRatingX">गुणांकन: %s</string>
-  <string name="yourRatingIsX">तुमचे रेटिंग आहे %s</string>
+  <string name="perfRatingX">मानांकन: %s</string>
+  <string name="yourRatingIsX">तुमचे मानांकन आहे %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
     <item quantity="other">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
@@ -944,7 +950,7 @@
   <string name="gameVsX">खेळ विरुद्ध %1$s</string>
   <string name="resVsX">%1$s विरुद्ध %2$s</string>
   <string name="lostAgainstTOSViolator">आपला Lichess TOS चे नियम भंग करणार्‍या खेळाडुकडून पराभव झाला</string>
-  <string name="refundXpointsTimeControlY">परतावा: %2$s चे %1$s रेटिंग गुण.</string>
+  <string name="refundXpointsTimeControlY">परतावा: %2$s चे %1$s मानांकन गुण.</string>
   <string name="timeAlmostUp">वेळ संपत आलेली आहे!</string>
   <string name="clickToRevealEmailAddress">[ईमेल पाहण्यासाठी क्लिक करा]</string>
   <string name="download">डाउनलोड करा</string>
@@ -1018,4 +1024,5 @@
   <string name="search">शोधा</string>
   <string name="clearSearch">शोध हटवा</string>
   <string name="tags">टॅंग्स</string>
+  <string name="enPassant">एन पसांट</string>
 </resources>

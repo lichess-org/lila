@@ -9,6 +9,8 @@
   <string name="gameOver">Fin de la partida</string>
   <string name="waitingForOpponent">Esperando al oponente</string>
   <string name="orLetYourOpponentScanQrCode">O dile a tu oponente que escanee este código QR</string>
+  <string name="reusableChallengeUrl">Enlace reutilizable del desafío</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Enlace permanente para que cualquiera pueda desafiarte con estos ajustes concretos.</string>
   <string name="waiting">Esperando</string>
   <string name="yourTurn">Tu turno</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
@@ -429,6 +431,8 @@
   <string name="leaderboard">Clasificación</string>
   <string name="screenshotCurrentPosition">Hacer captura de pantalla de la posición actual</string>
   <string name="gameAsGIF">Guardar partida en formato GIF</string>
+  <string name="playerNames">Nombres de jugadores</string>
+  <string name="moveAnnotations">Anotación de los movimientos</string>
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
   <string name="orUploadPgnFile">o sube un archivo PGN</string>

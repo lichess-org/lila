@@ -88,6 +88,6 @@ Spill rapid an klassesch Partien, fir deng Chancen ze erhéijen, eng Aufgab vun 
   </plurals>
   <string name="percentSolved">%s geléist</string>
   <string name="noPuzzlesToShow">Näicht ze weisen, spill fir d\'éischt e puer Aufgaben!</string>
-  <string name="improvementAreasDescription">Trainéier dës fir däin Fortschrëtt ze optimiséieren!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Trainéier dës fir däin Fortschrëtt ze optimiséieren!</string>
   <string name="strengthDescription">Dës Aufgabe leien dir am beschten</string>
 </resources>

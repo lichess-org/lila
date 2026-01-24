@@ -15,18 +15,18 @@
   <string name="averageOpponent">Просечни противник</string>
   <string name="victories">Победа</string>
   <string name="defeats">Пораза</string>
-  <string name="disconnections">Прекидања веза</string>
-  <string name="notEnoughGames">Није одиграно довољно партија</string>
+  <string name="disconnections">Искључења</string>
+  <string name="notEnoughGames">Недовољно партија одиграно</string>
   <string name="highestRating">Највиши рејтинг: %s</string>
   <string name="lowestRating">Најнижи рејтинг: %s</string>
   <string name="fromXToY">од %1$s до %2$s</string>
-  <string name="winningStreak">Низ победа</string>
-  <string name="losingStreak">Низ пораза</string>
+  <string name="winningStreak">Победнички низ</string>
+  <string name="losingStreak">Губитнички низ</string>
   <string name="longestStreak">Најдужи низ: %s</string>
   <string name="currentStreak">Тренутни низ: %s</string>
   <string name="bestRated">Најбоље рангиране победе</string>
   <string name="gamesInARow">Узастопно одиграних партија</string>
-  <string name="lessThanOneHour">Мање од један сат између партија</string>
-  <string name="maxTimePlaying">Највише времена проведено у игри</string>
+  <string name="lessThanOneHour">Мање од једног сата између партија</string>
+  <string name="maxTimePlaying">Максимално време проведено играјући</string>
   <string name="now">сада</string>
 </resources>

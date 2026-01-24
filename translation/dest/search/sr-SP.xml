@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">Претрага</string>
+  <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">Претражи</string>
   <string name="advancedSearch">Напредна претрага</string>
   <plurals name="searchInXGames">
     <item quantity="one">Претражи у %s шаховској партији</item>
@@ -12,12 +12,12 @@
     <item quantity="few">%s партије пронађене</item>
     <item quantity="other">%s партија пронађено</item>
   </plurals>
-  <string name="opponentName">Име противника</string>
+  <string name="opponentName">Противничко име</string>
   <string name="loser">Губитник</string>
   <string name="from">Од</string>
   <string name="to">До</string>
   <string name="humanOrComputer">Да ли је играчев противник био човек или рачунар</string>
-  <string name="aiLevel">Ниво В.И.</string>
+  <string name="aiLevel">Ниво вештачке интелигенције</string>
   <string name="source">Извор</string>
   <string name="nbTurns">Број потеза</string>
   <string name="result">Резултат</string>
@@ -25,5 +25,5 @@
   <string name="date">Датум</string>
   <string name="sortBy">Сортирај по</string>
   <string name="analysis">Анализа</string>
-  <string name="onlyAnalysed">Само партије у којима је рачунарска анализа доступна</string>
+  <string name="onlyAnalysed">Само партије где је анализа рачунара доступна</string>
 </resources>

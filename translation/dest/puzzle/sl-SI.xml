@@ -105,6 +105,6 @@ Igrajte hitre in klasične igre, da povečate možnosti za dodajanje svoje ugank
   </plurals>
   <string name="percentSolved">%s rešenih</string>
   <string name="noPuzzlesToShow">Nič za pokazati, najprej pojdite igrati uganke!</string>
-  <string name="improvementAreasDescription">Trenirajte jih, da optimizirate svoj napredek!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Trenirajte jih, da optimizirate svoj napredek!</string>
   <string name="strengthDescription">V teh temah se najbolje odrežete</string>
 </resources>

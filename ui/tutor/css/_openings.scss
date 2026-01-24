@@ -8,7 +8,8 @@
       flex: 250px 1 1;
       h2 {
         font-size: 2em;
-        margin-bottom: 1em;
+        margin-bottom: $block-gap;
+        color: $c-font-page;
       }
       &__openings {
         display: grid;
@@ -21,8 +22,8 @@
     }
     &__opening {
       .no-square {
-        flex: 0 0 5em;
-        height: 5em;
+        flex: 0 0 6em;
+        height: 6em;
 
         piece {
           position: inherit;

@@ -28,7 +28,8 @@ case class RelayRound(
     crowd: Option[Crowd],
     // crowdAt: Option[Instant], // in DB but not used by RelayRound
     rated: Rated = Rated.Yes,
-    customScoring: Option[ByColor[RelayRound.CustomScoring]] = none
+    customScoring: Option[ByColor[RelayRound.CustomScoring]] = none,
+    teamCustomScoring: Option[RelayRound.CustomScoring] = none
 ):
   inline def studyId = id.studyId
 

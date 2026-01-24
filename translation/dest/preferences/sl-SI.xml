@@ -70,5 +70,5 @@
   <string name="notifyDevice">Naprava</string>
   <string name="bellNotificationSound">Zvok obvestila zvonca</string>
   <string name="blindfold" comment="As in Blindfold chess">Šah z zavezanimi očmi</string>
-  <string name="showClockOnTheLeft" comment="A setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.">Prikaži na levi strani na mobilnih napravah</string>
+  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Prikaži na levi strani na mobilnih napravah</string>
 </resources>

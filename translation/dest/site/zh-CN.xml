@@ -9,6 +9,8 @@
   <string name="gameOver">对局结束</string>
   <string name="waitingForOpponent">正在等待对手</string>
   <string name="orLetYourOpponentScanQrCode">或让对方扫描此二维码</string>
+  <string name="reusableChallengeUrl">可重复使用的挑战链接</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">一个永久链接，任何人都可以使用此设定向您发起挑战。</string>
   <string name="waiting">等待中</string>
   <string name="yourTurn">轮到您走棋</string>
   <string name="aiNameLevelAiLevel">%1$s 级别 %2$s</string>
@@ -398,6 +400,7 @@
   <string name="leaderboard">排行榜</string>
   <string name="screenshotCurrentPosition">保存当前局面为图片</string>
   <string name="gameAsGIF">保存对局为 GIF</string>
+  <string name="playerNames">棋手名称</string>
   <string name="pasteTheFenStringHere">在此处粘贴 FEN 文本</string>
   <string name="pasteThePgnStringHere">在此处粘贴 PGN 文本</string>
   <string name="orUploadPgnFile">或上传 PGN 文件</string>

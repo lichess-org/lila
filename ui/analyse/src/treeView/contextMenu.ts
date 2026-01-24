@@ -5,8 +5,9 @@ import * as studyView from '../study/studyView';
 import { patch, nodeFullName } from '../view/util';
 import { renderVariationPgn } from '../pgnExport';
 import { isTouchDevice } from 'lib/device';
+import type { TreePath } from 'lib/tree/types';
 
-export function renderContextMenu(e: MouseEvent, ctrl: AnalyseCtrl, path: Tree.Path): void {
+export function renderContextMenu(e: MouseEvent, ctrl: AnalyseCtrl, path: TreePath): void {
   let pos = getPosition(e);
   if (pos === null) {
     if (ctrl.contextMenuPath) return;
@@ -103,7 +104,7 @@ function action(
   );
 }
 
-function view(ctrl: AnalyseCtrl, path: Tree.Path, coords: Coords): VNode {
+function view(ctrl: AnalyseCtrl, path: TreePath, coords: Coords): VNode {
   const { tree, idbTree } = ctrl;
   const node = tree.nodeAtPath(path),
     onMainline = tree.pathIsMainline(path) && !tree.pathIsForcedVariation(path),

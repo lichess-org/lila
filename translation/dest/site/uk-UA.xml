@@ -9,6 +9,8 @@
   <string name="gameOver">Гру завершено</string>
   <string name="waitingForOpponent">Очікування на суперника</string>
   <string name="orLetYourOpponentScanQrCode">Або дайте вашому супернику просканувати цей QR-код</string>
+  <string name="reusableChallengeUrl">Постійне посилання на виклик</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Постійне посилання, за яким хто-небудь може кинути вам виклик із цими налаштуваннями.</string>
   <string name="waiting">Очікування</string>
   <string name="yourTurn">Ваш хід</string>
   <string name="aiNameLevelAiLevel">%1$s, рівень %2$s</string>
@@ -130,6 +132,7 @@
   <string name="showVariationArrows">Показати стрілки для варіантів</string>
   <string name="evaluationGauge">Шкала оцінки</string>
   <string name="undefendedPieces">Незахищені фігури</string>
+  <string name="pinnedPieces">Зв\'язані фігури</string>
   <string name="checkableKing">Король, якому можна поставити шах</string>
   <string name="multipleLines">Кількість стрілок</string>
   <string name="cpus">Потоки</string>
@@ -337,6 +340,7 @@
   <string name="standard">Стандартний</string>
   <string name="customPosition">Користувацька позиція</string>
   <string name="unlimited">Необмежений</string>
+  <string name="unlimitedDescription">Використовуйте стільки часу, скільки потрібно</string>
   <string name="mode">Режим</string>
   <string name="casual">Дружня гра</string>
   <string name="rated">Рейтингова</string>
@@ -488,6 +492,8 @@
   <string name="leaderboard">Дошка лідерів</string>
   <string name="screenshotCurrentPosition">Скріншот поточної позиції</string>
   <string name="gameAsGIF">Зберегти як GIF</string>
+  <string name="playerNames">Імена гравців</string>
+  <string name="moveAnnotations">Анотації ходу</string>
   <string name="pasteTheFenStringHere">Вставте рядок FEN тут</string>
   <string name="pasteThePgnStringHere">Вставте рядок PGN тут</string>
   <string name="orUploadPgnFile">Або завантажте файл PGN</string>

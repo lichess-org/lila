@@ -93,6 +93,6 @@
   </plurals>
   <string name="percentSolved">%s решени</string>
   <string name="noPuzzlesToShow">Няма нищо за показване, първо порешавайте малко пъзели!</string>
-  <string name="improvementAreasDescription">Упражнявайте се върху тези, за да оптимизирате прогреса си!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Упражнявайте се върху тези, за да оптимизирате прогреса си!</string>
   <string name="strengthDescription">Справяте се най-добре в тези теми</string>
 </resources>

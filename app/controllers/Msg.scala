@@ -12,10 +12,10 @@ final class Msg(env: Env) extends LilaController(env):
 
   def home = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     negotiateApi(
-      html = Ok.async(inboxJson.map(views.msg.home)).map(_.hasPersonalData),
+      html = Ok.async(inboxJson(none).map(views.msg.home)).map(_.hasPersonalData),
       api = v =>
         JsonOk:
-          if v >= newMobileApi then inboxJson
+          if v >= newMobileApi then inboxJson(none)
           else env.msg.compat.inbox(getInt("page"))
     )
   }
@@ -29,7 +29,7 @@ final class Msg(env: Env) extends LilaController(env):
         .flatMap:
           case None => negotiate(Redirect(routes.Msg.home), notFoundJson())
           case Some(c) =>
-            def newJson = inboxJson.map { _ + ("convo" -> env.msg.json.convo(c)) }
+            def newJson = inboxJson(c.contact.id.some).map { _ + ("convo" -> env.msg.json.convo(c)) }
             negotiateApi(
               html = Ok.async(newJson.map(views.msg.home)),
               api = v =>
@@ -53,7 +53,7 @@ final class Msg(env: Env) extends LilaController(env):
 
   def convoDelete(username: UserStr) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     env.msg.api.delete(username) >>
-      JsonOk(inboxJson)
+      JsonOk(inboxJson(none))
   }
 
   def compatCreate = AuthBody { ctx ?=> me ?=>
@@ -89,10 +89,15 @@ final class Msg(env: Env) extends LilaController(env):
         )
   }
 
-  private def inboxJson(using me: Me) =
+  private def inboxJson(withConvo: Option[UserId])(using me: Me) =
     import lila.common.Json.lightUserWrites
-    for threads <- env.msg.api.myThreads.flatMap(env.msg.json.threads)
+    for
+      threads <- env.msg.api.myThreads
+      contactIds = withConvo.toList ::: threads.map(_.other)
+      studentNames <- env.clas.api.clas.myPotentialStudentNames(contactIds)
+      contacts <- env.msg.json.threads(threads)
     yield Json.obj(
       "me" -> Json.toJsObject(me.light).add("bot" -> me.isBot),
-      "contacts" -> threads
+      "contacts" -> contacts,
+      "names" -> studentNames
     )

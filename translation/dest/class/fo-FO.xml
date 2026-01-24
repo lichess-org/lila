@@ -82,7 +82,7 @@ Her er leinkið til atgongdina til flokkin.</string>
   <string name="timePlaying">Leiktíð</string>
   <string name="variantXOverLastY">%1$s yvir seinastu %2$s</string>
   <string name="winrate">Tal á sigrum</string>
-  <string name="na">N/A</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
   <string name="editNews">Ritstjórna tíðindi</string>
   <string name="notifyAllStudents">Gev øllum næmingum boð</string>
   <string name="nothingHere">Einki her enn.</string>

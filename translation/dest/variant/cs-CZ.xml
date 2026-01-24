@@ -6,6 +6,14 @@
   <string name="chess960Title">Počáteční pozice je zadních figur náhodná.</string>
   <string name="kingOfTheHill">Král hory</string>
   <string name="kingOfTheHillTitle">Přines svého krále do středu a vyhraj hru.</string>
+  <string name="threeCheck">Třikrát šach</string>
   <string name="threeCheckTitle">Dej soupeři tříkrát šach a vyhraj hru.</string>
+  <string name="antichess">Antichess</string>
   <string name="antichessTitle">Ztrať všechny své figury (nebo se dostaň do patu) a vyhraj hru.</string>
+  <string name="atomic">Atomic</string>
+  <string name="horde">Horde</string>
+  <string name="racingKings">Racing Kings</string>
+  <string name="racingKingsTitle">Dostaň svého krále na druhou stranu šachovnice, abys vyhrál.</string>
+  <string name="crazyhouse">Crazyhouse</string>
+  <string name="fromPosition" comment="An option that lets you create a standard chess game from a custom position.">Z pozice</string>
 </resources>

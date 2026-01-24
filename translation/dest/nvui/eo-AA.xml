@@ -29,13 +29,13 @@
   <string name="pawn">peono</string>
   <string name="whitePawn">blanka peono</string>
   <string name="blackPawn">nigra peono</string>
-  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">kaptas</string>
+  <string name="sanTakes" comment="x in standard notation">kaptas</string>
   <string name="sanCheck" comment="+ in standard notation">ŝako</string>
   <string name="sanCheckmate" comment="# in standard notation">mato</string>
-  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">ŝanĝiĝas al</string>
-  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">mallonga aroko</string>
-  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">longa aroko</string>
+  <string name="sanPromotesTo" comment="= in standard notation">ŝanĝiĝas al</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">mallonga aroko</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">longa aroko</string>
   <string name="invalidMove">Nevalida movo</string>
   <string name="premoveCancelled">Nuligita antaŭmovo</string>
-  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PNG kaj FEN</string>
+  <string name="pgnAndFen">PNG kaj FEN</string>
 </resources>

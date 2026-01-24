@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">No s\'ha trobat el jugador FIDE</string>
   <string name="fideProfile">Perfil FIDE</string>
   <string name="federation">Federació</string>
-  <string name="age" comment="Label for the age of a player. Appears on players' FIDE profiles.">Edat</string>
+  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Edat</string>
   <string name="unrated">Sense avaluació</string>
   <string name="recentTournaments">Tornejos recents</string>
   <string name="openLichess">Obre a Lichess</string>

@@ -34,6 +34,11 @@
         color: $c-primary;
       }
     }
+    &__team {
+      &:hover {
+        color: $c-primary;
+      }
+    }
     &__details {
       @extend %flex-column;
       gap: 0.5em;

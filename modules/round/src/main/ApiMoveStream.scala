@@ -18,31 +18,36 @@ final class ApiMoveStream(
     lightUserApi: lila.user.LightUserApi
 )(using Executor):
 
+  private val delayMovesBy = 3
+
   def apply(game: Game, delayMoves: Boolean): Source[JsObject, ?] =
+    val delayingMoves = delayMoves && game.hasClock && game.playable
     Source.futureSource:
       for
         initialFen <- gameRepo.initialFen(game)
         lightUsers <- lightUserApi.asyncManyOptions(game.players.mapList(_.userId))
       yield
-        val buffer = scala.collection.mutable.Queue.empty[JsObject]
-        def makeGameJson(g: Game) =
-          gameJsonView.baseWithChessDenorm(g, initialFen) ++ Json.obj(
+        def makeGameJson(g: Game, full: Boolean) =
+          val base =
+            if full then gameJsonView.base(g, initialFen)
+            else gameJsonView.immutable(g, initialFen)
+          base ++ Json.obj(
             "players" -> JsObject(g.players.all.zip(lightUsers).map { (p, user) =>
               p.color.name -> gameJsonView.player(p, user)
             })
           )
-        Source(List(makeGameJson(game))).concat(
+        Source(List(makeGameJson(game, full = false))).concat(
           Source
-            .queue[JsObject]((game.ply.value + 3).atLeast(16), akka.stream.OverflowStrategy.dropHead)
+            .queue[JsObject](
+              (game.ply.value + delayMovesBy).atLeast(16),
+              akka.stream.OverflowStrategy.dropHead
+            )
             .mapMaterializedValue: queue =>
               val clocks =
                 for
                   clk <- game.clock
                   clkHistory <- game.clockHistory
-                yield ByColor(
-                  Vector(clk.config.initTime) ++ clkHistory.white,
-                  Vector(clk.config.initTime) ++ clkHistory.black
-                )
+                yield clkHistory.map(Vector(clk.config.initTime) ++ _)
               val clockOffset = game.startColor.fold(0, 1)
               Position(game.variant, initialFen)
                 .playPositions(game.sans)
@@ -63,7 +68,7 @@ final class ApiMoveStream(
                     )
                 }
               if game.finished then
-                queue.offer(makeGameJson(game))
+                queue.offer(makeGameJson(game, full = true))
                 queue.complete()
               else
                 val chan = MoveGameEvent.makeChan(game.id)
@@ -72,8 +77,8 @@ final class ApiMoveStream(
                     queue.offer(toJson(g, fen, move.some))
                 val subFinish = Bus.sub[FinishGame]:
                   case FinishGame(g, _) if g.id == game.id =>
-                    queue.offer(makeGameJson(g))
-                    (1 to buffer.size).foreach { _ => queue.offer(Json.obj()) } // push buffer content out
+                    queue.offer(makeGameJson(g, full = true))
+                    if delayingMoves then for _ <- 1 to delayMovesBy do queue.offer(Json.obj())
                     queue.complete()
                 queue
                   .watchCompletion()
@@ -81,17 +86,11 @@ final class ApiMoveStream(
                     Bus.unsubscribeDyn(subEvent, List(chan))
                     Bus.unsub[FinishGame](subFinish)
             .pipe: source =>
-              if delayMoves && game.playable
-              then source.delay(delayMovesBy(game), akka.stream.DelayOverflowStrategy.emitEarly)
+              if delayingMoves
+              then source.sliding(delayMovesBy + 1).mapConcat(_.headOption)
               else source
         )
   end apply
-
-  private def delayMovesBy(game: Game): FiniteDuration =
-    game.clock
-      .fold(60): clock =>
-        (clock.config.estimateTotalSeconds / 60).atLeast(3).atMost(60)
-      .seconds
 
   private def toJson(game: Game, fen: Fen.Full, lastMove: Option[Uci]): JsObject =
     toJson(

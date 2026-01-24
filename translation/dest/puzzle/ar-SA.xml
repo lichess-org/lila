@@ -116,6 +116,6 @@
   </plurals>
   <string name="percentSolved">تم حل %s</string>
   <string name="noPuzzlesToShow">لا شيء لإظهاره، اذهب والعب بعض الألغاز!</string>
-  <string name="improvementAreasDescription">تدرب بهذه لتحسين تقدمك!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">تدرب بهذه لتحسين تقدمك!</string>
   <string name="strengthDescription">أنت تقوم بهذه المهارة بأفضل شكل</string>
 </resources>

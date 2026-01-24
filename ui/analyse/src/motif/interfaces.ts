@@ -1,18 +1,18 @@
-import type { NormalMove } from 'chessops';
+import type { NormalMove, Square } from 'chessops';
 
 export interface Pin {
-  pinned: number;
-  pinner: number;
-  target: number;
+  pinned: Square;
+  pinner: Square;
+  target: Square;
 }
 
 export interface Undefended {
-  square: number;
+  square: Square;
   materialLoss: number;
-  principalAttacker: number;
+  principalAttacker: Square;
 }
 
 export interface Checkable {
-  king: number;
+  king: Square;
   check: NormalMove;
 }

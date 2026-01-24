@@ -119,5 +119,7 @@ Her er lenken som gir tilgang til klassen.</string>
   <string name="moveToAnotherClass">Flytt til en annen klasse</string>
   <string name="allowMessagingBetweenStudents">Tillat meldinger mellom elever</string>
   <string name="allowMessagingBetweenStudentsDesc">Dette gjelder bare kontoene du har opprettet for elevene dine.</string>
+  <string name="quickLoginCode">Kode for hurtig innlogging</string>
+  <string name="quickLoginCodes">Koder for hurtig innlogging</string>
   <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Utløper %s</string>
 </resources>

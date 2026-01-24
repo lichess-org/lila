@@ -94,6 +94,6 @@ Tefldu atskákir og hefðbundnar skákir til þess að auka líkurnar á því a
   </plurals>
   <string name="percentSolved">%s leystar</string>
   <string name="noPuzzlesToShow">Ekkert til að sýna, farðu og leystu nokkrar þrautir fyrst!</string>
-  <string name="improvementAreasDescription">Æfðu eftirfarandi til þess að hámarka framfarir þínar!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Æfðu eftirfarandi til þess að hámarka framfarir þínar!</string>
   <string name="strengthDescription">Þú stendur þig best í þessum þemum</string>
 </resources>

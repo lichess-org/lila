@@ -70,5 +70,5 @@
   <string name="notifyDevice">设备通知</string>
   <string name="bellNotificationSound">通知铃声</string>
   <string name="blindfold" comment="As in Blindfold chess">盲棋</string>
-  <string name="showClockOnTheLeft" comment="A setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.">在移动设备上左侧显示</string>
+  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">在移动设备上左侧显示</string>
 </resources>

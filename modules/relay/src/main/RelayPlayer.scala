@@ -73,6 +73,8 @@ object RelayPlayer:
   opaque type Rank = Int
   object Rank extends OpaqueInt[Rank]
 
+  type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
+
   def empty(player: StudyPlayer.WithFed) =
     RelayPlayer(player, None, None, None, None, None, Vector.empty)
 
@@ -171,20 +173,13 @@ object RelayPlayer:
 private final class RelayPlayerApi(
     tourRepo: RelayTourRepo,
     roundRepo: RelayRoundRepo,
-    groupRepo: RelayGroupRepo,
+    relayGroupApi: RelayGroupApi,
     chapterRepo: lila.study.ChapterRepo,
     cacheApi: CacheApi,
     fidePlayerGet: lila.core.fide.GetPlayer,
     photosJson: PhotosJson.Get
 )(using Executor)(using scheduler: Scheduler):
   import RelayPlayer.*
-
-  type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
-
-  private val scoreGroupCache = cacheApi[RelayTourId, ScoreGroup](128, "relay.players.scoreGroup"):
-    _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
-      for group <- groupRepo.byTour(tourId)
-      yield group.flatMap(_.scoreGroupOf(tourId)) | NonEmptyList.of(tourId)
 
   private val cache = cacheApi[ScoreGroup, RelayPlayers](128, "relay.players.data"):
     _.expireAfterWrite(1.minute).buildAsyncFuture(computeScoreGroup)
@@ -196,15 +191,15 @@ private final class RelayPlayerApi(
       yield JsonStr(Json.stringify(Json.toJson(players.values.toList)))
 
   def get(tourId: RelayTourId): Fu[RelayPlayers] =
-    scoreGroupCache.get(tourId).flatMap(cache.get)
+    relayGroupApi.scoreGroupOf(tourId).flatMap(cache.get)
 
   def jsonList(tourId: RelayTourId): Fu[JsonStr] =
-    scoreGroupCache.get(tourId).flatMap(jsonCache.get)
+    relayGroupApi.scoreGroupOf(tourId).flatMap(jsonCache.get)
 
   private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](64, "relay.players.photos.json"):
     _.expireAfterWrite(15.seconds).buildAsyncFuture: tourId =>
       for
-        sg <- scoreGroupCache.get(tourId)
+        sg <- relayGroupApi.scoreGroupOf(tourId)
         studyIds <- sg.toList.flatTraverse(roundRepo.studyIdsOf)
         fideIds <- chapterRepo.fideIdsOf(studyIds)
         photos <- photosJson(fideIds)
@@ -223,8 +218,8 @@ private final class RelayPlayerApi(
 
   private val invalidateDebouncer = Debouncer[RelayTourId](scheduler.scheduleOnce(3.seconds, _), 32): id =>
     import lila.memo.CacheApi.invalidate
-    scoreGroupCache
-      .get(id)
+    relayGroupApi
+      .scoreGroupOf(id)
       .foreach: key =>
         cache.invalidate(key)
         jsonCache.invalidate(key)

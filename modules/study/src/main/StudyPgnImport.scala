@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.{ Comment as CommentStr, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags, Tag }
-import chess.format.{ Fen, Uci, UciCharPair }
+import chess.format.{ Fen, Uci }
 import chess.{ ByColor, Centis, ErrorStr, Node as PgnNode, Outcome, Status, TournamentClock, Ply }
 
 import lila.core.LightUser
@@ -40,7 +40,6 @@ object StudyPgnImport:
         val root = Root(
           ply = replay.setup.ply,
           fen = initialFen | replay.setup.position.variant.initialFen,
-          check = replay.setup.position.check,
           shapes = shapes,
           comments = comments,
           glyphs = Glyphs.empty,
@@ -159,11 +158,9 @@ object StudyPgnImport:
                 (context.clocks(mover), emt).mapN(guessNewClockState(_, context.timeControl, _))
               .filter(_.positive)
             Branch(
-              id = UciCharPair(uci),
               ply = currentPly,
               move = Uci.WithSan(uci, sanStr),
               fen = Fen.write(position, currentPly.fullMoveNumber),
-              check = position.check,
               shapes = shapes,
               comments = comments,
               glyphs = node.value.metas.glyphs,
@@ -205,7 +202,7 @@ object StudyPgnImport:
       case Some(main) if children.variations.exists(_.id == main.id) =>
         Branches:
           main +: children.variations.flatMap { node =>
-            if node.id == main.id then node.children.nodes
+            if node.id == main.id then node.children.toList
             else List(node)
           }
       case _ => children

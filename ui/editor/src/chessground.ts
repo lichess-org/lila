@@ -1,10 +1,12 @@
 import { h, type VNode } from 'snabbdom';
+import resizeHandle from 'lib/chessgroundResize';
 import type { MouchEvent } from '@lichess-org/chessground/types';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
 import type EditorCtrl from './ctrl';
 import { storage } from 'lib/storage';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
+import { ShowResizeHandle } from 'lib/prefs';
 
 export default function (ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
@@ -21,26 +23,20 @@ export default function (ctrl: EditorCtrl): VNode {
 
 function bindEvents(el: HTMLElement, ctrl: EditorCtrl): void {
   const handler = onMouseEvent(ctrl);
-  ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function (ev) {
-    el.addEventListener(ev, handler);
-  });
+  ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(ev =>
+    el.addEventListener(ev, handler),
+  );
   pubsub.on('board.change', (is3d: boolean) => {
     ctrl.chessground!.state.addPieceZIndex = is3d;
     ctrl.chessground!.redrawAll();
   });
 }
 
-function isLeftButton(e: MouchEvent): boolean {
-  return e.buttons === 1 || e.button === 1;
-}
+const isLeftButton = (e: MouchEvent): boolean => e.buttons === 1 || e.button === 1;
 
-function isLeftClick(e: MouchEvent): boolean {
-  return isLeftButton(e) && !e.ctrlKey;
-}
+const isLeftClick = (e: MouchEvent): boolean => isLeftButton(e) && !e.ctrlKey;
 
-function isRightClick(e: MouchEvent): boolean {
-  return e.button === 2 || (!!e.ctrlKey && isLeftButton(e));
-}
+const isRightClick = (e: MouchEvent): boolean => e.button === 2 || (!!e.ctrlKey && isLeftButton(e));
 
 let downKey: Key | undefined;
 let lastKey: Key | undefined;
@@ -49,6 +45,7 @@ let placeDelete: boolean | undefined;
 function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
   return function (e: MouchEvent): void {
     const sel = ctrl.selected();
+    const isMouseOrTouchStart = e.type === 'mousedown' || e.type === 'touchstart';
 
     // do not generate corresponding mouse event
     // (https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent)
@@ -56,18 +53,12 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
       e.preventDefault();
 
     if (isLeftClick(e) || e.type === 'touchstart' || e.type === 'touchmove') {
-      if (
-        sel === 'pointer' ||
-        (ctrl.chessground &&
-          ctrl.chessground.state.draggable.current &&
-          ctrl.chessground.state.draggable.current.newPiece)
-      )
-        return;
+      if (sel === 'pointer' || ctrl.chessground?.state.draggable.current?.newPiece) return;
       const pos = eventPosition(e);
       if (!pos) return;
       const key = ctrl.chessground!.getKeyAtDomPos(pos);
       if (!key) return;
-      if (e.type === 'mousedown' || e.type === 'touchstart') downKey = key;
+      if (isMouseOrTouchStart) downKey = key;
       if (sel === 'trash') deleteOrHidePiece(ctrl, key, e);
       else {
         const existingPiece = ctrl.chessground!.state.pieces.get(key);
@@ -78,12 +69,12 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
         const samePiece =
           existingPiece && piece.color === existingPiece.color && piece.role === existingPiece.role;
 
-        if ((e.type === 'mousedown' || e.type === 'touchstart') && samePiece) {
+        if (isMouseOrTouchStart && samePiece) {
           deleteOrHidePiece(ctrl, key, e);
           placeDelete = true;
           const endEvents = { mousedown: 'mouseup', touchstart: 'touchend' };
           document.addEventListener(endEvents[e.type], () => (placeDelete = false), { once: true });
-        } else if (!placeDelete && (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)) {
+        } else if (!placeDelete && (isMouseOrTouchStart || key !== lastKey)) {
           ctrl.chessground!.setPieces(new Map([[key, piece]]));
           ctrl.onChange();
           ctrl.chessground!.cancelMove();
@@ -124,7 +115,7 @@ function deletePiece(ctrl: EditorCtrl, key: Key): void {
 
 function makeConfig(ctrl: EditorCtrl): CgConfig {
   return {
-    fen: ctrl.initialFen,
+    fen: ctrl.getFen(),
     orientation: ctrl.options.orientation || 'white',
     coordinates: ctrl.options.coordinates !== false,
     autoCastle: false,
@@ -155,6 +146,9 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     },
     events: {
       change: ctrl.onChange.bind(ctrl),
+      insert(elements) {
+        resizeHandle(elements, ShowResizeHandle.Always, 0);
+      },
     },
   };
 }

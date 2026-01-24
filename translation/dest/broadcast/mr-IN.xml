@@ -13,8 +13,8 @@
   <string name="liveBroadcasts">थेट स्पर्धा प्रसारणे</string>
   <string name="broadcastCalendar">प्रसाराणांची दिनदर्शिका</string>
   <string name="newBroadcast">नवीन थेट प्रसारण</string>
-  <string name="subscribedBroadcasts">सदस्यत्व घेतलेले प्रसारणे</string>
-  <string name="aboutBroadcasts">प्रसारणां बद्दल</string>
+  <string name="subscribedBroadcasts">सदस्यत्व घेतलेली प्रसारणे</string>
+  <string name="aboutBroadcasts">प्रसारणांबद्दल माहिती</string>
   <string name="howToUseLichessBroadcasts">Lichess ब्रॉडकास्ट कसे वापरावे.</string>
   <string name="theNewRoundHelp">नवीन फेरीत मागील प्रमाणेच सदस्य आणि योगदानकर्ते असतील.</string>
   <string name="addRound">फेरी जोडा</string>
@@ -42,7 +42,7 @@
   <string name="showScores">खेळाच्या निकालांवर आधारित खेळाडूंचे अंक दाखवा</string>
   <string name="replacePlayerTags">पर्यायी: खेळाडूंची नावे, रेटिंग्ज आणि शीर्षके बदला</string>
   <string name="fideFederations">FIDE संघराज्ये </string>
-  <string name="top10Rating">शीर्ष १० रेटींग</string>
+  <string name="top10Rating">सर्वोच्च १० मानांकनांची सरासरी</string>
   <string name="fidePlayers">FIDE खेळाडू</string>
   <string name="fidePlayerNotFound">FIDE खेळाडू सापडले नाही</string>
   <string name="fideProfile">FIDE चरित्र</string>
@@ -60,7 +60,7 @@
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">पट स्रोत बरोबर किंवा %s ने भारले जाऊ शकतात</string>
   <string name="startsAfter">%s नंतर चालू होईल</string>
   <string name="startVerySoon">प्रसारण लवकरच चालू होईल.</string>
-  <string name="notYetStarted">प्रसारण अजून चालू नाही झ्हालं आहे</string>
+  <string name="notYetStarted">प्रसारण अजून चालू झाले नाही.</string>
   <string name="officialWebsite">अधिकृत वेबसाइट</string>
   <string name="officialStandings">अधिकृत स्थिती</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s वर अजून पर्याय</string>
@@ -74,7 +74,7 @@
   <string name="tournamentLocation">स्पर्धेचे स्थान</string>
   <string name="topPlayers">शीर्ष खेळाडू</string>
   <string name="timezone">कालविभाग</string>
-  <string name="fideRatingCategory">FIDE रेटिंग श्रेणी</string>
+  <string name="fideRatingCategory">FIDE मानांकन श्रेणी</string>
   <string name="optionalDetails">पर्यायी तपशील</string>
   <string name="pastBroadcasts">मागील प्रसारणे</string>
   <string name="allBroadcastsByMonth">एका महिन्यातले सर्व प्रसाराने पहा</string>

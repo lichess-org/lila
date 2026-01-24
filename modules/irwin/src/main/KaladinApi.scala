@@ -82,7 +82,7 @@ final class KaladinApi(
       // hits a mongodb index
       // db.kaladin_queue.createIndex({'response.at':1,'response.read':1},{partialFilterExpression:{'response.at':{$exists:true}}})
       coll
-        .find($doc("response.at".$exists(true), "response.read".$ne(true)))
+        .find($doc("response.at".$exists(true), "response.read" -> false))
         .sort($doc("response.at" -> 1))
         .hint(coll.hint("response.at_1_response.read_1"))
         .cursor[KaladinUser]()

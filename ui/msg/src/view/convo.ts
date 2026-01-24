@@ -2,11 +2,11 @@ import type MsgCtrl from '../ctrl';
 import renderActions from './actions';
 import renderInteract from './interact';
 import renderMsgs from './msgs';
-import type { Convo } from '../interfaces';
+import type { Convo, User } from '../interfaces';
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { hookMobileMousedown } from 'lib/device';
-import { userLink } from 'lib/view/userLink';
+import { userLine, userLink, userLinkData } from 'lib/view/userLink';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.user;
@@ -17,7 +17,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
           attrs: { 'data-icon': licon.LessThan },
           hook: hookMobileMousedown(ctrl.showSide),
         }),
-        userLink({ ...user, moderator: user.id === 'lichess' }),
+        contactLink(user, ctrl),
         convo.modDetails?.kid ? h('bad', 'KID') : undefined,
         convo.modDetails?.openInbox === false ? h('bad', "doesn't want messages") : undefined,
       ]),
@@ -35,6 +35,13 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
     ]),
   ]);
 }
+
+const contactLink = (user: User, ctrl: MsgCtrl): VNode => {
+  const realName = ctrl.data.names[user.id];
+  return realName
+    ? h('a', userLinkData(user), [userLine(user), realName])
+    : userLink({ ...user, moderator: user.id === 'lichess' });
+};
 
 const blocked = (msg: string) =>
   h('div.msg-app__convo__reply__block.text', { attrs: { 'data-icon': licon.NotAllowed } }, msg);

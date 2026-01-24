@@ -94,6 +94,6 @@ Igraj rapid i classic partije da povećaš vjerojatnost da zadatak iz tvoje part
   </plurals>
   <string name="percentSolved">%s riješenih</string>
   <string name="noPuzzlesToShow">Niste odigrali ni jedan zadatak.</string>
-  <string name="improvementAreasDescription">Vježbaj ove zadatke da bi optimalno napredovao!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Vježbaj ove zadatke da bi optimalno napredovao!</string>
   <string name="strengthDescription">Ove teme ti idu najbolje</string>
 </resources>

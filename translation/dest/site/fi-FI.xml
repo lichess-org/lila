@@ -9,6 +9,8 @@
   <string name="gameOver">Peli ohi</string>
   <string name="waitingForOpponent">Odotetaan vastustajaa</string>
   <string name="orLetYourOpponentScanQrCode">Tai anna vastustajasi skannata tämä QR-koodi</string>
+  <string name="reusableChallengeUrl">Haasteen URL-osoite (uudestaan käytettävä)</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Pysyvä linkki, jonka kautta kuka tahansa voi haastaa sinut juuri näillä asetuksilla.</string>
   <string name="waiting">Odotetaan</string>
   <string name="yourTurn">Sinun vuorosi</string>
   <string name="aiNameLevelAiLevel">%1$s taso %2$s</string>
@@ -125,6 +127,10 @@
   <string name="bestMoveArrow">Parhaan siirron nuoli</string>
   <string name="showVariationArrows">Näytä muunnelman nuolet</string>
   <string name="evaluationGauge">Arviomittari</string>
+  <string name="visualMotifs">Visuaaliset motiivit</string>
+  <string name="undefendedPieces">Suojaamattomat nappulat</string>
+  <string name="pinnedPieces">Kiinnitetyt nappulat</string>
+  <string name="checkableKing">Kuningas, jota voi shakata</string>
   <string name="multipleLines">Muunnelmien määrä</string>
   <string name="cpus">Suorittimia</string>
   <string name="memory">Muistia</string>
@@ -204,6 +210,7 @@
   <string name="minutesPerSide">Minuuttia per pelaaja</string>
   <string name="variant">Variantti</string>
   <string name="variants">Variantit</string>
+  <string name="variantsDescription">Lisää pelitapoja</string>
   <string name="timeControl">Aikajärjestelmä</string>
   <string name="realTime">Pikapeli</string>
   <string name="correspondence">Kirjeshakki</string>
@@ -298,6 +305,7 @@
   <string name="standard">Tavallinen</string>
   <string name="customPosition">Itse määritetty asema</string>
   <string name="unlimited">Rajaton</string>
+  <string name="unlimitedDescription">Käytä niin paljon aikaa kuin tarvitset</string>
   <string name="mode">Tyyppi</string>
   <string name="casual">Rento</string>
   <string name="rated">Pisteytetty</string>
@@ -423,6 +431,8 @@
   <string name="leaderboard">Pistetaulukko</string>
   <string name="screenshotCurrentPosition">Ota tämänhetkisestä asemasta kuvakaappaus</string>
   <string name="gameAsGIF">Tallenna peli GIF:nä</string>
+  <string name="playerNames">Pelaajien nimet</string>
+  <string name="moveAnnotations">Siirtokommentit</string>
   <string name="pasteTheFenStringHere">Liitä FEN-merkkijono tähän</string>
   <string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
   <string name="orUploadPgnFile">Tai lataa PGN-tiedosto</string>
@@ -720,7 +730,7 @@
   <string name="keyNextBranch">Seuraava haara</string>
   <string name="toggleVariationArrows">Muunnelmanuolet päälle/pois</string>
   <string name="cyclePreviousOrNextVariation">Siirry edelliseen/seuraavaan muunnelmaan</string>
-  <string name="toggleGlyphAnnotations">Symbolikommentit päälle/pois</string>
+  <string name="toggleGlyphAnnotations">Siirtokommentit päälle/pois</string>
   <string name="togglePositionAnnotations">Aseman kommentit päälle/pois</string>
   <string name="variationArrowsInfo">Muunnelmanuolia napsauttamalla voit edetä muunnelmissa siirtolistaa käyttämättä.</string>
   <string name="playSelectedMove">tee valittu siirto</string>

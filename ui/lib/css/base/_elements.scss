@@ -1,5 +1,4 @@
 html {
-  box-sizing: border-box;
   min-height: 100%;
   color-scheme: light dark;
 }
@@ -7,7 +6,7 @@ html {
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 

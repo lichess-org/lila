@@ -1,6 +1,5 @@
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/view';
-import { type VNode, bind, dataIcon, hl } from 'lib/view';
+import { spinnerVdom as spinner, type VNode, bind, dataIcon, hl } from 'lib/view';
 import { player as renderPlayer } from './util';
 import { fullName } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';

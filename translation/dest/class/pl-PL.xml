@@ -96,7 +96,7 @@ Oto link do klasy.</string>
   <string name="timePlaying">Czas w grze</string>
   <string name="variantXOverLastY">%1$s przez ostatni %2$s</string>
   <string name="winrate">Współczynnik zwycięstw</string>
-  <string name="na">Niedostępne</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Niedostępne</string>
   <string name="overview">Przegląd</string>
   <string name="news">Wiadomości</string>
   <string name="classNews">Aktualności klasowe</string>

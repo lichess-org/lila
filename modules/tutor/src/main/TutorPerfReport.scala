@@ -12,6 +12,7 @@ import lila.tutor.TutorCompare.AnyComparison
 case class TutorPerfReport(
     perf: PerfType,
     stats: InsightPerfStats,
+    peers: PeersRatingRange,
     accuracy: TutorBothValueOptions[AccuracyPercent],
     awareness: TutorBothValueOptions[GoodPercent],
     resourcefulness: TutorBothValueOptions[GoodPercent],
@@ -128,7 +129,7 @@ private object TutorPerfReport:
   )
   private def hasClock(p: PerfType) = p != PerfType.Correspondence
 
-  def compute(users: NonEmptyList[TutorUser])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
+  def compute(users: NonEmptyList[TutorPlayer])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
     for
       accuracy <- answerManyPerfs(accuracyQuestion, users)
       awareness <- answerManyPerfs(awarenessQuestion, users)
@@ -145,6 +146,7 @@ private object TutorPerfReport:
         yield TutorPerfReport(
           user.perfType,
           user.perfStats,
+          user.perfStats.peers,
           accuracy = AccuracyPercent.from(accuracy.valueMetric(user.perfType)),
           awareness = GoodPercent.from(awareness.valueMetric(user.perfType)),
           resourcefulness = GoodPercent.from(resourcefulness.valueMetric(user.perfType)),

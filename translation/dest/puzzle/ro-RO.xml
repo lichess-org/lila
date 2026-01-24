@@ -99,6 +99,6 @@ Joacă jocuri rapide și clasice pentru a crește șansele de a vedea adăugată
   </plurals>
   <string name="percentSolved">%s rezolvate</string>
   <string name="noPuzzlesToShow">Nimic de arătat, joacă mai întâi câteva puzzle-uri!</string>
-  <string name="improvementAreasDescription">Antreneaza-te pentru a-ti optimiza progresul!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Antreneaza-te pentru a-ti optimiza progresul!</string>
   <string name="strengthDescription">Obțineți cele mai bune rezultate la aceste teme</string>
 </resources>

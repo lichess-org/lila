@@ -29,7 +29,7 @@ class PgnImportTest extends LilaTest:
       .result(pgn, List(user))
       .assertRight: parsed =>
         assertEquals(parsed.tags, Tags.empty)
-        assertEquals(parsed.root.children.nodes.size, 3)
+        assertEquals(parsed.root.children.toList.size, 3)
         assertEquals(parsed.root.ply, Ply.initial)
 
   test("import a simple pgn"):
@@ -37,7 +37,7 @@ class PgnImportTest extends LilaTest:
       .result("1.d4 d5 2.e4 e5", List(user))
       .assertRight: parsed =>
         assertEquals(parsed.tags, Tags.empty)
-        assertEquals(parsed.root.children.nodes.size, 1)
+        assertEquals(parsed.root.children.toList.size, 1)
         assertEquals(parsed.root.ply, Ply.initial)
 
   test("comment ordering"):

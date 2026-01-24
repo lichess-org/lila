@@ -3,7 +3,7 @@
  * flight. Any extra calls are dropped, except the last one, which waits for
  * the previous call to complete.
  */
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 export function throttlePromiseWithResult<R, T extends (...args: any) => Promise<R>>(
   wrapped: T,

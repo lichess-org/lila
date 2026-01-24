@@ -181,3 +181,10 @@ final class RelayGroupCrowdSumCache(
         Match($doc("tourId".$in(tourIds), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->
           List(Group(BSONNull)("sum" -> SumField("crowd")))
     yield res.headOption.flatMap(_.int("sum")).orZero
+
+final class RelayGroupApi(groupRepo: RelayGroupRepo, cacheApi: lila.memo.CacheApi)(using Executor):
+  private val scoreGroupCache = cacheApi[RelayTourId, ScoreGroup](128, "relay.players.scoreGroup"):
+    _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
+      for group <- groupRepo.byTour(tourId)
+      yield group.flatMap(_.scoreGroupOf(tourId)) | NonEmptyList.of(tourId)
+  def scoreGroupOf(tourId: RelayTourId): Fu[ScoreGroup] = scoreGroupCache.get(tourId)
