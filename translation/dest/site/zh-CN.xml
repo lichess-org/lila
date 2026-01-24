@@ -401,6 +401,7 @@
   <string name="screenshotCurrentPosition">保存当前局面为图片</string>
   <string name="gameAsGIF">保存对局为 GIF</string>
   <string name="playerNames">棋手名称</string>
+  <string name="moveAnnotations">着法评注</string>
   <string name="pasteTheFenStringHere">在此处粘贴 FEN 文本</string>
   <string name="pasteThePgnStringHere">在此处粘贴 PGN 文本</string>
   <string name="orUploadPgnFile">或上传 PGN 文件</string>
@@ -776,6 +777,7 @@
   <string name="size">尺寸</string>
   <string name="opacity">不透明度</string>
   <string name="brightness">亮度</string>
+  <string name="contrast">对比</string>
   <string name="hue">色调</string>
   <string name="boardReset">恢复默认</string>
   <string name="pieceSet">棋子样式</string>
