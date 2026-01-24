@@ -66,9 +66,9 @@ final class TopNav(helpers: Helpers):
         )
       ),
       st.section:
-        val broadcastUrl = langHref(routes.RelayTour.index())
+        val tvUrl = langHref(routes.Tv.index)
         frag(
-          linkTitle(broadcastUrl, trans.site.watch()),
+          linkTitle(tvUrl, trans.site.watch()),
           div(role := "group")(
             a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
             a(href := langHref(routes.Tv.index))("Lichess TV"),
@@ -99,5 +99,17 @@ final class TopNav(helpers: Helpers):
           a(href := routes.Importer.importGame)(trans.site.importGame()),
           a(href := routes.Search.index())(trans.search.advancedSearch())
         )
-      )
+      ),
+        st.section:
+        val broadcastUrl = langHref(routes.RelayTour.index())
+        frag(
+          linkTitle(broadcastUrl, "Tournaments"),
+          div(role := "group")(
+            a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
+            a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),
+            a(href := langHref(routes.Swiss.home))(trans.swiss.swissTournaments()),
+            a(href := langHref(routes.Simul.home))(trans.site.simultaneousExhibitions()),
+          )
+        )
+      ,
     )
