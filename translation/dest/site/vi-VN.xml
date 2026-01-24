@@ -9,6 +9,8 @@
   <string name="gameOver">Ván cờ kết thúc</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
   <string name="orLetYourOpponentScanQrCode">Hoặc để đối thủ của bạn quét mã QR này</string>
+  <string name="reusableChallengeUrl">URL thách đấu có thể tái sử dụng</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Một liên kết cố định để bất kỳ ai cũng có thể thách đấu bạn với chính xác các theo các thiết lập này.</string>
   <string name="waiting">Đang chờ</string>
   <string name="yourTurn">Đến lượt bạn</string>
   <string name="aiNameLevelAiLevel">%1$s cấp độ %2$s</string>
@@ -398,6 +400,8 @@
   <string name="leaderboard">Bảng dẫn đầu</string>
   <string name="screenshotCurrentPosition">Chụp màn hình thế cờ hiện tại</string>
   <string name="gameAsGIF">Ván cờ dưới dạng ảnh GIF</string>
+  <string name="playerNames">Tên người chơi</string>
+  <string name="moveAnnotations">Chú thích nước đi</string>
   <string name="pasteTheFenStringHere">Dán chuỗi FEN vào đây</string>
   <string name="pasteThePgnStringHere">Dán chuỗi PGN vào đây</string>
   <string name="orUploadPgnFile">Hoặc tải lên tệp PGN</string>
@@ -774,6 +778,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="size">Kích cỡ</string>
   <string name="opacity">Độ trong suốt</string>
   <string name="brightness">Độ sáng</string>
+  <string name="contrast">Độ tương phản</string>
   <string name="hue">Màu gốc</string>
   <string name="boardReset">Đặt lại màu về mặc định</string>
   <string name="pieceSet">Bộ cờ</string>
