@@ -817,6 +817,7 @@
   <string name="size">Koko</string>
   <string name="opacity">Peittävyys</string>
   <string name="brightness">Kirkkaus</string>
+  <string name="contrast">Kontrasti</string>
   <string name="hue">Värisävy</string>
   <string name="boardReset">Palauta oletusvärit</string>
   <string name="pieceSet">Nappuloiden tyyli</string>
