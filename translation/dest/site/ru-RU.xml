@@ -1010,11 +1010,11 @@
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классика</string>
-  <string name="ultraBulletDesc">Безумно быстрые игры: менее 30 секунд</string>
-  <string name="bulletDesc">Очень быстрые игры: менее 3 минут</string>
-  <string name="blitzDesc">Быстрые игры: от 3 до 8 минут</string>
-  <string name="rapidDesc">Быстрые игры: от 8 до 25 минут</string>
-  <string name="classicalDesc">Классические игры: 25 минут и больше</string>
+  <string name="ultraBulletDesc">Невероятно быстрые партии: менее 30 секунд</string>
+  <string name="bulletDesc">Очень быстрые партии: меньше 3 минут</string>
+  <string name="blitzDesc">Быстрые партии: от 3 до 8 минут</string>
+  <string name="rapidDesc">Короткие партии: от 8 до 25 минут</string>
+  <string name="classicalDesc">Классические партии: 25 минут и больше</string>
   <string name="correspondenceDesc">Игры по переписке: один или несколько дней на ход</string>
   <string name="puzzleDesc">Тактический тренажёр</string>
   <string name="important">Важно</string>
