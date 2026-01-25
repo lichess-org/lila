@@ -8,12 +8,13 @@ import {
   type CastlingToggles,
   CASTLING_TOGGLES,
 } from './interfaces';
+import { type Result } from '@badrap/result';
 import type { Api as CgApi } from '@lichess-org/chessground/api';
 import type { Rules, Square } from 'chessops/types';
 import type { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
 import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
-import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
+import { Castles, defaultPosition, Position, PositionError, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessRules } from 'chessops/compat';
 import { defined, prop, type Prop } from 'lib';
@@ -66,7 +67,7 @@ export default class EditorCtrl {
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
     this.variant = this.cfg.embed ? 'standard' : ((params.get('variant') || 'standard') as VariantKey);
-    const fenPassedIn: string | null = cfg.fen || params.get('fen');
+    const fenPassedIn: FEN | null = cfg.fen || params.get('fen');
     this.initialFen = (fenPassedIn || INITIAL_FEN).replace(/_/g, ' ');
     this.guessCastlingToggles = false;
     this.chess960PositionId = fenPassedIn
@@ -90,7 +91,7 @@ export default class EditorCtrl {
   };
 
   // Ideally to be replaced when something like parseCastlingFen exists in chessops but for epSquare (@getSetup)
-  private fenFixedEp(fen: string) {
+  private fenFixedEp(fen: FEN) {
     let enPassant = fen.split(' ')[3];
     if (enPassant !== '-' && !this.getEnPassantOptions(fen).includes(enPassant)) {
       this.epSquare = undefined;
@@ -158,19 +159,23 @@ export default class EditorCtrl {
     return lichessRules(this.variant);
   }
 
-  getFen(): string {
+  getFen(): FEN {
     return makeFen(this.getSetup());
   }
 
-  private getLegalFen(): string | undefined {
-    return setupPosition(this.getRules(), this.getSetup()).unwrap(
+  getPosition(): Result<Position, PositionError> {
+    return setupPosition(this.getRules(), this.getSetup());
+  }
+
+  private getLegalFen(): FEN | undefined {
+    return this.getPosition().unwrap(
       pos => makeFen(pos.toSetup()),
       _ => undefined,
     );
   }
 
   private isPlayable(): boolean {
-    return setupPosition(this.getRules(), this.getSetup()).unwrap(
+    return this.getPosition().unwrap(
       pos => !pos.isEnd(),
       _ => false,
     );
@@ -178,7 +183,7 @@ export default class EditorCtrl {
 
   // hopefully moved to chessops soon
   // https://github.com/niklasf/chessops/issues/154
-  private getEnPassantOptions(fen: string): string[] {
+  private getEnPassantOptions(fen: FEN): string[] {
     const unpackRank = (packedRank: string) =>
       [...packedRank].reduce((accumulator, current) => {
         const parsedInt = parseInt(current);
@@ -215,14 +220,14 @@ export default class EditorCtrl {
     };
   }
 
-  makeAnalysisUrl(legalFen: string, orientation: Color = 'white'): string {
+  makeAnalysisUrl(legalFen: FEN, orientation: Color = 'white'): string {
     const variant = this.variant === 'standard' ? '' : this.variant + '/';
     const chess960PositionId =
       this.chess960PositionId === undefined ? '' : `&position=${this.chess960PositionId}`;
     return `/analysis/${variant}${urlFen(legalFen)}?color=${orientation}${chess960PositionId}`;
   }
 
-  makeEditorUrl(fen: string, orientation: Color = 'white'): string {
+  makeEditorUrl(fen: FEN, orientation: Color = 'white'): string {
     if (fen === INITIAL_FEN && this.variant === 'standard' && orientation === 'white')
       return this.cfg.baseUrl;
     const variant = this.variant === 'standard' ? '' : '?variant=' + this.variant;
@@ -232,7 +237,7 @@ export default class EditorCtrl {
     return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}${orientationParam}${chess960PositionId}`;
   }
 
-  makeImageUrl = (fen: string): string =>
+  makeImageUrl = (fen: FEN): string =>
     `${site.asset.baseUrl()}/export/fen.gif?fen=${urlFen(fen)}&color=${this.bottomColor()}`;
 
   bottomColor = (): Color =>
@@ -270,7 +275,7 @@ export default class EditorCtrl {
     return this.setFen(parts.join(' '));
   };
 
-  loadNewFen(fen: string | 'prompt'): void {
+  loadNewFen(fen: FEN | 'prompt'): void {
     if (fen === 'prompt') prompt('Paste FEN position').then(fen => fen && this.setFen(fen.trim()));
     else this.setFen(fen);
   }
@@ -293,7 +298,7 @@ export default class EditorCtrl {
     this.enabledCastlingToggles = this.computeCastlingToggles();
   };
 
-  setFen = (fen: string): boolean =>
+  setFen = (fen: FEN): boolean =>
     parseFen(fen).unwrap(
       setup => {
         if (this.chessground) this.chessground.set({ fen });
@@ -330,6 +335,6 @@ export default class EditorCtrl {
   }
 }
 
-function urlFen(fen: string): string {
+function urlFen(fen: FEN): string {
   return encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
 }

@@ -302,6 +302,9 @@ importers:
 
   ui/editor:
     dependencies:
+      '@badrap/result':
+        specifier: ^0.3.1
+        version: 0.3.1
       lib:
         specifier: workspace:*
         version: link:../lib
