@@ -310,10 +310,10 @@ final class ClasApi(
           )
           .orFail(s"No user could be created for ${data.username}")
         _ = filters.student.add(user.id)
-        student = Student.make(user, clas, teacher.id, data.realName, managed = true)
+        student = Student.make(user, clas, teacher.userId, data.realName, managed = true)
         _ <- perfsRepo.setManagedUserInitialPerfs(user.id)
         _ <- coll.insert.one(student)
-        _ <- sendWelcomeMessage(teacher.id, user, clas)
+        _ <- sendWelcomeMessage(teacher.userId, user, clas)
         _ = teamSync(clas)
       yield Student.WithPassword(student, password)
 
