@@ -106,8 +106,8 @@ object RelayTeam:
       val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
       val wPOV = game(t0Color)
       val bPOV = game(!t0Color)
-      val wPlayer = RelayPlayer.empty(bPOV.opponent).copy(score = wPOV.playerScore, games = Vector(wPOV))
-      val bPlayer = RelayPlayer.empty(wPOV.opponent).copy(score = bPOV.playerScore, games = Vector(bPOV))
+      val wPlayer = RelayPlayer.empty(wPOV.opponent).copy(score = wPOV.playerScore, games = Vector(wPOV))
+      val bPlayer = RelayPlayer.empty(bPOV.opponent).copy(score = bPOV.playerScore, games = Vector(bPOV))
       copy(
         games = TeamGame(chap.id, t0Color) :: games,
         teams = teams.bimap(_.add(wPlayer), _.add(bPlayer))
@@ -137,7 +137,7 @@ object RelayTeam:
     def povMatches: Pair[POVMatch] =
       teams.permutations.map: (team, opp) =>
         val gp = team.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
-        POVMatch(roundId, opp.name, opp.players, pointsFor(team.name), scoreFor(team.name), gp)
+        POVMatch(roundId, opp.name, team.players, pointsFor(team.name), scoreFor(team.name), gp)
     def povMatch(teamName: TeamName): Option[POVMatch] =
       if teams.a.name == teamName then Some(povMatches.a)
       else if teams.b.name == teamName then Some(povMatches.b)
