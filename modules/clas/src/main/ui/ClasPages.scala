@@ -17,7 +17,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
     ClasPage(trans.clas.lichessClasses.txt(), Right("classes"))(cls := "clas-index"):
       frag(
         div(cls := "box__top")(
-          h1(cls := "box__top")(trans.clas.lichessClasses()),
+          h1(trans.clas.lichessClasses()),
           a(
             href := routes.Clas.form,
             cls := "new button button-empty",

@@ -30,7 +30,7 @@ $c-good: hsl(88, 62%, 37%);
 $c-accent: hsl(22, 100%, 42%);
 $c-bad: hsl(0, 60%, 50%);
 $c-brag: hsl(37, 74%, 43%);
-$c-clas: rgb(127, 90, 240);
+$c-clas: rgb(88, 28, 135);
 $c-shade: hsl(0, 0%, 30%);
 $c-inaccuracy: hsl(202, 78%, 62%);
 $c-mistake: hsl(41, 100%, 45%);
@@ -111,8 +111,6 @@ $patron-colors: $patron-colors-dark;
   --c-accent-clear: #{_dim($c-accent)};
 
   --c-dasher: #{$c-secondary};
-  --c-clas: #{$c-clas};
-  --c-clas-light: #{mix($c-clas, #fff, 86%)};
   --c-bot: var(--c-fancy);
   --c-good: #{$c-secondary};
   --c-warn: #{$c-brag};
