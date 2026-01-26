@@ -192,6 +192,16 @@ export function view(ctrl: AnalyseCtrl): VNode {
       },
       ctrl,
     ),
+    ctrl.showBestMoveArrowsProp() &&
+      ctrlToggle(
+        {
+          name: 'Piece maneuver arrows',
+          id: 'maneuver-arrows',
+          checked: ctrl.showManeuverMoveArrowsProp(),
+          change: ctrl.showManeuverMoveArrowsProp,
+        },
+        ctrl,
+      ),
     displayColumns() > 1 &&
       ctrlToggle(
         {
