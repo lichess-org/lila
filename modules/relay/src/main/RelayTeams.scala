@@ -161,7 +161,7 @@ object RelayTeam:
           .obj(
             "roundId" -> m.roundId,
             "opponent" -> m.opponentName,
-            "players" -> m.players.values.toList.sortBy(_.rating.map(-_.value))
+            "players" -> m.players.values.toList
           )
           .add("points" -> m.points)
           .add("mp" -> m.mp)
