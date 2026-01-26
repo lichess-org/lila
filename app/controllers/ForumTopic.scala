@@ -49,12 +49,12 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
         then notFound
         else
           for
-            unsub <- ctx.me.soUse(env.timeline.status(s"forum:${topic.id}"))
+            unsub <- ctx.useMe(env.timeline.status(s"forum:${topic.id}"))
             canRead <- access.isGrantedRead(categ.id)
             canWrite <- access.isGrantedWrite(categ.id, tryingToPostAsMod = true)
             canModCateg <- access.isGrantedMod(categ.id)
-            replyBlocked <- ctx.me.soUse(access.isReplyBlockedOnUBlog(topic, canModCateg))
-            inOwnTeam <- ctx.me.soUse(categ.team.so(env.team.api.isLeader))
+            replyBlocked <- ctx.useMe(access.isReplyBlockedOnUBlog(topic, canModCateg))
+            inOwnTeam <- ctx.useMe(categ.team.so(env.team.api.isLeader))
             form = ctx.me
               .filter(_ => canWrite && topic.open && !topic.isOld && !replyBlocked)
               .soUse: _ ?=>

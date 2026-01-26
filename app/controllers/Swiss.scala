@@ -53,7 +53,7 @@ final class Swiss(
                 .map:
                   _.copy(locked = !env.api.chatFreshness.of(swiss))
             streamers <- streamerCache.get(swiss.id)
-            isLocalMod <- ctx.me.soUse(env.team.api.hasCommPerm(swiss.teamId))
+            isLocalMod <- ctx.useMe(env.team.api.hasCommPerm(swiss.teamId))
             page <- renderPage(views.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
         json = swissOption.fold[Fu[Result]](notFoundJson("No such Swiss tournament")): (swiss, _) =>
@@ -110,7 +110,7 @@ final class Swiss(
               Ok.page(views.swiss.showUi.round(swiss, r, team, pager))
 
   private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
-    ctx.me.soUse(env.team.api.isGranted(teamId, _.Tour)).elseNotFound(f)
+    ctx.useMe(env.team.api.isGranted(teamId, _.Tour)).elseNotFound(f)
 
   def form(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoLameOrBot:
@@ -272,8 +272,8 @@ final class Swiss(
       swiss.chatFor match
         case ChatFor.NONE => fuFalse
         case _ if isGrantedOpt(_.ChatTimeout) => fuTrue
-        case ChatFor.LEADERS => ctx.me.soUse(env.team.api.isLeader(swiss.teamId))
-        case ChatFor.MEMBERS => ctx.me.soUse(env.team.api.isMember(swiss.teamId))
+        case ChatFor.LEADERS => ctx.useMe(env.team.api.isLeader(swiss.teamId))
+        case ChatFor.MEMBERS => ctx.useMe(env.team.api.isMember(swiss.teamId))
         case _ => fuTrue
 
   private val streamerCache =

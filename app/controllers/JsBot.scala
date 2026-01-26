@@ -11,7 +11,7 @@ final class JsBot(env: Env) extends LilaController(env):
 
   def index = Beta:
     for
-      bots <- ctx.me.soUse(env.jsBot.api.playable.get(env.team.isBetaTester))
+      bots <- ctx.useMe(env.jsBot.api.playable.get(env.team.isBetaTester))
       res <-
         if bots.isEmpty then notFound
         else

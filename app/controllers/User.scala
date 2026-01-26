@@ -170,7 +170,7 @@ final class User(
             .redirect(username.value)
             .flatMap:
               case Some(url) => Redirect(url).toFuccess
-              case None if isGrantedOpt(_.UserModView) => ctx.me.soUse(modC.searchTerm(username.value))
+              case None if isGrantedOpt(_.UserModView) => ctx.useMe(modC.searchTerm(username.value))
               case None => notFound(true)
         case Some(u) if u.enabled.yes || isGrantedOpt(_.UserModView) => f(u)
         case u => notFound(u.isEmpty)
@@ -186,7 +186,7 @@ final class User(
               ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
               ctx.userId.traverse(env.game.crosstableApi(user.id, _)),
               ctx.isAuth.so(env.pref.api.followable(user.id)),
-              ctx.me.soUse(env.clas.api.clas.realName(user.id))
+              ctx.useMe(env.clas.api.clas.realName(user.id))
             ).flatMapN: (blocked, crosstable, followable, realName) =>
               negotiate(
                 html = for

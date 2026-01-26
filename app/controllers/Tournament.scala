@@ -160,7 +160,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     WithVisibleTournament(tourId): tour =>
       Found(env.team.lightTeam(teamId)): team =>
         for
-          joined <- ctx.me.soUse(env.team.api.isMember(team.id))
+          joined <- ctx.useMe(env.team.api.isMember(team.id))
           res <- negotiate(
             FoundPage(api.teamBattleTeamInfo(tour, teamId)):
               views.tournament.teamBattle.teamInfo(tour, team, _)

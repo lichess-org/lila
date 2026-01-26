@@ -39,7 +39,7 @@ final class Team(env: Env) extends LilaController(env):
 
   private def CanSeeMembers(team: TeamModel)(f: => Fu[lila.ui.Page])(using ctx: Context): Fu[Result] =
     val canSee = fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>|
-      ctx.me.soUse(api.isMember(team.id))
+      ctx.useMe(api.isMember(team.id))
     canSee.flatMap:
       if _ then Ok.async(f) else authorizationFailed
 
@@ -484,8 +484,8 @@ final class Team(env: Env) extends LilaController(env):
       f: (TeamModel, AsMod) => Fu[Result]
   )(using Context): Fu[Result] =
     Found(api.team(teamId)): team =>
-      ctx.me
-        .soUse(api.hasPerm(team.id, perm))
+      ctx
+        .useMe(api.hasPerm(team.id, perm))
         .flatMap: isGrantedLeader =>
           val asMod = !isGrantedLeader && isGrantedOpt(_.ManageTeam)
           if isGrantedLeader || asMod then f(team, asMod)

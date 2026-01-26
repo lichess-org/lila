@@ -534,7 +534,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       yield Redirect(routes.Clas.index)
   }
 
-  private def couldBeTeacher(using ctx: Context): Fu[Boolean] = ctx.me.soUse: me ?=>
+  private def couldBeTeacher(using ctx: Context): Fu[Boolean] = ctx.useMe: me ?=>
     if me.isBot then fuFalse
     else if ctx.kid.yes then fuFalse
     else if env.clas.hasClas then fuTrue

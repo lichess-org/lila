@@ -28,7 +28,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         .teamEnabled(id)
         .flatMapz: team =>
           for
-            joined <- ctx.me.soUse(api.isMember(id))
+            joined <- ctx.useMe(api.isMember(id))
             requested <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
             withLeaders <- env.team.memberRepo.addPublicLeaderIds(team)
             _ <- env.user.lightUserApi.preloadMany(withLeaders.publicLeaders)
@@ -46,7 +46,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
     Found(api.teamEnabled(teamId)): team =>
       val canView: Fu[Boolean] =
         if team.publicMembers then fuccess(true)
-        else ctx.me.soUse(api.isMember(team.id))
+        else ctx.useMe(api.isMember(team.id))
       canView.map:
         if _ then
           val full = getBool("full")
