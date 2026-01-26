@@ -427,15 +427,17 @@ ${clas.desc}""",
     def accept(id: ClasInviteId, user: User): Fu[Option[Student]] =
       colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)).flatMapz { invite =>
         colls.clas.one[Clas]($id(invite.clasId)).flatMapz { clas =>
-          filters.student.add(user.id)
           val stu = Student.make(user, clas, invite.created.by, invite.realName, managed = false)
-          (colls.student.insert.one(stu) >>
-            colls.invite.updateField($id(id), "accepted", true) >>
-            student.sendWelcomeMessage(invite.created.by, user, clas))
-            .inject(stu.some)
-            .recoverWith(lila.db.recoverDuplicateKey { _ =>
-              student.get(clas, user.id)
-            })
+          val done = for
+            _ <- colls.student.insert.one(stu)
+            _ <- colls.invite.updateField($id(id), "accepted", true)
+            _ <- student.sendWelcomeMessage(invite.created.by, user, clas)
+            _ = filters.student.add(user.id)
+            _ = teamSync(clas)(using none)
+          yield stu.some
+          done.recoverWith(lila.db.recoverDuplicateKey { _ =>
+            student.get(clas, user.id)
+          })
         }
       }
 
@@ -492,7 +494,7 @@ $url""",
           .inject(ClasInvite.Feedback.Invited)
   end invite
 
-  private def teamSync(clas: Clas)(using Me): Unit =
+  private def teamSync(clas: Clas)(using Option[Me]): Unit =
     import lila.core.misc.clas.*
     val config = (~clas.hasTeam && clas.isActive).option:
       val students = LazyFu(() => student.activeUserIdsOf(clas))

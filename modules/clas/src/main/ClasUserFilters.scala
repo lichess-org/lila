@@ -4,17 +4,20 @@ import akka.stream.Materializer
 import akka.stream.scaladsl.*
 import bloomfilter.mutable.BloomFilter
 import reactivemongo.akkastream.cursorProducer
+import play.api.Mode
 
 import lila.db.dsl.{ *, given }
 
-final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: ClasColls):
+final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: ClasColls)(using mode: Mode):
+
+  private val isHacking = false && mode == Mode.Dev
 
   val student = ClasUserCache("student")(
     colls.student,
     selector = $doc("archived".$exists(false)),
     projection = $doc("userId" -> true, "_id" -> false),
     reader = _.getAsOpt[UserId]("userId").toList,
-    initialDelay = 81.seconds,
+    initialDelay = if isHacking then 1.second else 81.seconds,
     perSecond = 10_000
   )
   val teacher = ClasUserCache("teacher")(
@@ -22,7 +25,7 @@ final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: Clas
     selector = $doc("archived".$exists(false)),
     projection = $doc("teachers" -> true, "_id" -> false),
     reader = _.getAsOpt[List[UserId]]("teachers").orZero,
-    initialDelay = 53.seconds,
+    initialDelay = if isHacking then 1.second else 53.seconds,
     perSecond = 2_000
   )
 
@@ -60,7 +63,7 @@ private final class ClasUserCache(name: String)(
               UserId.raw(reader(doc)).foreach(nextBloom.add)
               counter + 1
           .addEffect: nb =>
-            lila.mon.clas.bloomFilter(name).count.update(nb.pp)
+            lila.mon.clas.bloomFilter(name).count.update(nb)
             bloomFilter.dispose()
             bloomFilter = nextBloom
           .monSuccess(_.clas.bloomFilter(name).fu)

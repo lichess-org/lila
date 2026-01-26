@@ -26,7 +26,7 @@ package clas:
     case ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
 
   case class ClasTeamConfig(name: String, teacherIds: NonEmptyList[UserId], studentIds: LazyFu[List[UserId]])
-  case class ClasTeamUpdate(clasId: ClasId, wantsTeam: Option[ClasTeamConfig])(using val me: Me)
+  case class ClasTeamUpdate(clasId: ClasId, wantsTeam: Option[ClasTeamConfig])(using val teacher: Option[Me])
 
 package puzzle:
   case class StormRun(userId: UserId, score: Int)

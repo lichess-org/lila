@@ -5,9 +5,12 @@ import lila.core.misc.clas.{ ClasTeamUpdate, ClasTeamConfig }
 import lila.core.id.ClasId
 import lila.core.team.Access
 
-private final class TeamClasSync(api: TeamApi, teamRepo: TeamRepo, memberRepo: TeamMemberRepo)(using
-    Executor
-)(using scheduler: Scheduler):
+private final class TeamClasSync(
+    api: TeamApi,
+    teamRepo: TeamRepo,
+    memberRepo: TeamMemberRepo,
+    cached: TeamCached
+)(using Executor)(using scheduler: Scheduler):
 
   private val debouncer =
     scalalib.Debouncer[ClasTeamUpdate](scheduler.scheduleOnce(3.seconds, _), 1)(sync)
@@ -15,15 +18,14 @@ private final class TeamClasSync(api: TeamApi, teamRepo: TeamRepo, memberRepo: T
   Bus.sub[ClasTeamUpdate](debouncer.push(_))
 
   private def sync(ev: ClasTeamUpdate): Funit =
-    import ev.me
     val id = ev.clasId.into(TeamId)
     for
       team <- api.team(id)
       _ <- (team, ev.wantsTeam) match
         case (None, None) => funit
-        case (None, Some(cfg)) => create(ev.clasId, cfg)
+        case (None, Some(cfg)) => ev.teacher.soUse(create(ev.clasId, cfg))
         case (Some(team), Some(cfg)) => update(team, cfg)
-        case (Some(team), None) => disableTeam(team)
+        case (Some(team), None) => ev.teacher.soUse(disableTeam(team))
     yield ()
 
   private def update(team: Team, cfg: ClasTeamConfig): Funit =
@@ -39,7 +41,9 @@ private final class TeamClasSync(api: TeamApi, teamRepo: TeamRepo, memberRepo: T
       teamMemberIds <- memberRepo.userIdsByTeam(team.id)
       allClassIds = cfg.teacherIds.toList ::: studentIds
       intruders = teamMemberIds.toSet -- allClassIds.toSet
-      _ <- intruders.toList.sequentiallyVoid(memberRepo.remove(team.id, _))
+      _ <- intruders.toList.sequentiallyVoid: intruder =>
+        for _ <- memberRepo.remove(team.id, intruder)
+        yield cached.invalidateTeamIds(intruder)
       missing = allClassIds.toSet -- teamMemberIds.toSet
       _ <- missing.toList.sequentiallyVoid(api.doJoin(team, _, quietly = true))
       _ <- teamRepo.incMembers(team.id, missing.size - intruders.size)

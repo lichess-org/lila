@@ -21,7 +21,7 @@ final class Env(
     markdownCache: lila.memo.MarkdownCache,
     hcaptcha: lila.core.security.Hcaptcha,
     baseUrl: BaseUrl
-)(using Executor, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator):
+)(using Executor, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator, play.api.Mode):
 
   lazy val nameGenerator: NameGenerator = wire[NameGenerator]
 
