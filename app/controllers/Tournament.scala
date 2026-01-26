@@ -480,6 +480,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           .isUnfinished(tourId)
           .flatMapz:
             env.streamer.liveApi.all.flatMap:
+              // #TODO it can become expensive to run `hasUser` for many streamers
+              // there should be an `hasUsers` method
               _.streams
                 .sequentially: stream =>
                   env.tournament
