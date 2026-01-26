@@ -135,9 +135,9 @@ object RelayTeam:
         .map(_.value)
         .orElse(pointsFor(teamName).map(_.value))
     def povMatches: Pair[POVMatch] =
-      teams.permutations.map: (x, y) =>
-        val gp = x.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
-        POVMatch(roundId, y.name, y.players, pointsFor(x.name), scoreFor(x.name), gp)
+      teams.permutations.map: (team, opp) =>
+        val gp = team.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
+        POVMatch(roundId, opp.name, opp.players, pointsFor(team.name), scoreFor(team.name), gp)
     def povMatch(teamName: TeamName): Option[POVMatch] =
       if teams.a.name == teamName then Some(povMatches.a)
       else if teams.b.name == teamName then Some(povMatches.b)
@@ -259,7 +259,7 @@ final class RelayTeamLeaderboard(
       .groupBy(_.id)
       .values
       .map:
-        _.reduce((r1, r2) => r1.copy(games = r1.games ++ r2.games, score = r1.score |+| r2.score))
+        _.reduce((acc, p) => acc.copy(games = acc.games ++ p.games, score = acc.score |+| p.score))
 
   given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.gamePoints, t.name))
 
