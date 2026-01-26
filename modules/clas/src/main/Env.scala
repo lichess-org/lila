@@ -31,7 +31,7 @@ final class Env(
 
   lazy val filters = wire[ClasUserFilters]
 
-  lazy val matesCache = wire[ClasMatesCache]
+  lazy val mates = wire[ClasMates]
 
   lazy val api: ClasApi = wire[ClasApi]
 
@@ -58,7 +58,7 @@ final class Env(
     case ClasBus.CanKidsUseMessages(kid1, kid2, promise) =>
       promise.completeWith(api.clas.canKidsUseMessages(kid1, kid2))
     case ClasBus.ClasMatesAndTeachers(kid, promise) =>
-      promise.completeWith(matesCache.get(kid.id))
+      promise.completeWith(mates.get(kid.id))
 
 private final class ClasColls(db: lila.db.Db):
   val clas = db(CollName("clas_clas"))

@@ -4,8 +4,9 @@ import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
+import lila.clas.BsonHandlers.given
 
-final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFilters)(using
+final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFilters)(using
     Executor
 ):
 
@@ -95,3 +96,27 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, filters: ClasUs
           teachers <- doc.getAsOpt[Set[UserId]]("teachers")
         yield mates ++ teachers
       .dmap(~_)
+
+  /* Find student that shares a class with me */
+  def findMateStudent(studentId: UserId)(using me: Me): Fu[Option[Student]] =
+    colls.student
+      .aggregateOne(_.sec): framework =>
+        import framework.*
+        Match($doc("userId" -> me.userId)) -> List(
+          Project($doc("mateId" -> $doc("$concat" -> $arr(s"$studentId${Student.idSeparator}", "$clasId")))),
+          Group(BSONNull)("mates" -> PushField("mateId")),
+          PipelineOperator(
+            $lookup.pipelineFull(
+              from = colls.student.name,
+              as = "mates",
+              let = $doc("ids" -> "$mates"),
+              pipe = List(
+                $doc("$match" -> $expr($doc("$in" -> $arr("$_id", "$$ids")))),
+                $doc("$limit" -> 1)
+              )
+            )
+          ),
+          Unwind("mates")
+        )
+      .map:
+        _.flatMap(_.getAsOpt[Student]("mates"))

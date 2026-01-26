@@ -17,6 +17,7 @@ import lila.common.Bus
 final class ClasApi(
     colls: ClasColls,
     filters: ClasUserFilters,
+    matesCache: ClasMates,
     nameGenerator: NameGenerator,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
@@ -26,6 +27,7 @@ final class ClasApi(
 )(using Executor, lila.core.i18n.Translator):
 
   import BsonHandlers.given
+  import filters.{ student as isStudent, teacher as isTeacher }
 
   Bus.sub[lila.core.user.UserDelete]: del =>
     colls.clas.update.one($doc("created.by" -> del.id), $set("created.by" -> UserId.ghost), multi = true)
@@ -108,7 +110,7 @@ final class ClasApi(
       )
 
     def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-      (filters.student(student) && filters.teacher(teacher)).so:
+      (isStudent(student) && isTeacher(teacher)).so:
         colls.student
           .aggregateExists(_.sec): framework =>
             import framework.*
@@ -124,7 +126,7 @@ final class ClasApi(
       filters
         .teacher(me.userId)
         .so:
-          val potentialStudents = userIds.filter(filters.student.apply)
+          val potentialStudents = userIds.filter(isStudent.apply)
           potentialStudents.nonEmpty.so:
             colls.student
               .aggregateList(128, _.sec): framework =>
@@ -135,22 +137,31 @@ final class ClasApi(
                   Match("clasId".$ne($arr())),
                   GroupField("userId")("realName" -> LastField("realName"))
                 )
-              .map: docs =>
-                docs.flatMap: doc =>
+              .map:
+                _.flatMap: doc =>
                   for
                     userId <- doc.getAsOpt[UserId]("_id")
                     realName <- doc.getAsOpt[Student.RealName]("realName")
                   yield userId -> realName
               .map(_.toMap)
 
-    def myPotentialStudentName(userId: UserId)(using me: Me): Fu[Option[Student.RealName]] =
-      filters
-        .teacher(me.userId)
-        .so:
-          myPotentialStudentNames(List(userId)).map(_.get(userId))
+    /* Only if userId and I have a class in common,
+     * wether we're teachers or students */
+    def realName(userId: UserId)(using me: Me): Fu[Option[String]] =
+      if isTeacher(userId)
+      then userRepo.realName(userId)
+      else
+        isStudent(userId)
+          .so:
+            if isTeacher(me.userId)
+            then myPotentialStudentNames(List(userId)).map(_.get(userId))
+            else
+              isStudent(me.userId).so:
+                matesCache.findMateStudent(userId).map2(_.realName)
+          .map2(_.value)
 
     def canKidsUseMessages(kid1: UserId, kid2: UserId): Fu[Boolean] =
-      fuccess(filters.student(kid1) && filters.student(kid2)) >>&
+      fuccess(isStudent(kid1) && isStudent(kid2)) >>&
         colls.student.aggregateExists(_.sec): framework =>
           import framework.*
           Match($doc("userId".$in(List(kid1.id, kid2.id)))) -> List(

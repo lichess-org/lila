@@ -186,7 +186,7 @@ final class User(
               ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
               ctx.userId.traverse(env.game.crosstableApi(user.id, _)),
               ctx.isAuth.so(env.pref.api.followable(user.id)),
-              ctx.me.soUse(env.clas.api.clas.myPotentialStudentName(user.id))
+              ctx.me.soUse(env.clas.api.clas.realName(user.id))
             ).flatMapN: (blocked, crosstable, followable, realName) =>
               negotiate(
                 html = for

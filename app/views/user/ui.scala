@@ -19,7 +19,7 @@ def mini(
     relation: Option[lila.relation.Relation],
     ping: Option[Int],
     ct: Option[lila.game.Crosstable],
-    realName: Option[lila.clas.Student.RealName]
+    realName: Option[String]
 )(using ctx: Context) =
   val rel = views.relation.mini(u.id, blocked, followable, relation)
   def crosstable(myId: UserId) = ct
