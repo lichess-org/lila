@@ -41,12 +41,12 @@
   <string name="knightIntro">आपल्यासाठी हे एक आव्हान आहे. नाइट एक...अवघड मोहरा आहे.</string>
   <string name="knightsHaveAFancyWay">घोडे विलक्षण पणे 
 उड्या मारतात!</string>
-  <string name="knightsCanJumpOverObstacles">घोडे अडथळ्यांवरून उडी मारू शकता! 
-तारे ओलांडून त्यांना जिंको शकतात!</string>
+  <string name="knightsCanJumpOverObstacles">घोडे अडथळ्यांवरून उडी मारू शकतात! 
+आता निघा व ताऱ्रयांवर विजय मिळवा!</string>
   <string name="knightComplete">अभिनंदन! आपण घोडा चालविण्यास यशस्वी झालात.</string>
   <string name="thePawn">प्यादे</string>
   <string name="itMovesForwardOnly">हे फक्त पुढे जाते</string>
-  <string name="pawnIntro">प्यादे कमकुवत आहेत, पण ते हि महत्वाचे कामं करू शकतात.</string>
+  <string name="pawnIntro">प्यादी कमकुवत आहेत, पण तीही महत्त्वाची कामं करू शकतात.</string>
   <string name="pawnsMoveOneSquareOnly">प्यादी केवळ एक घर चालतात.
 पण जेव्हा ती पटाच्या दुसऱ्या बाजूला पोहोचतात तेव्हा ती अधिक शक्तीशाली सोंगटी बनतात!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">बऱ्याच वेळा प्याद्याला वजीर बनवणेच सर्वोत्तम आहे.

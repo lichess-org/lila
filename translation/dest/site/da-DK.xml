@@ -818,6 +818,7 @@
   <string name="size">Størrelse</string>
   <string name="opacity">Uigennemsigtighed</string>
   <string name="brightness">Lysstyrke</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Farvetone</string>
   <string name="boardReset">Nulstil farver til standard</string>
   <string name="pieceSet">Brikker</string>

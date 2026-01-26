@@ -432,7 +432,7 @@
   <string name="screenshotCurrentPosition">Captura de tela da posição atual</string>
   <string name="gameAsGIF">Salvar a partida como GIF</string>
   <string name="playerNames">Nomes dos jogadores</string>
-  <string name="moveAnnotations">Anotações de movimentos</string>
+  <string name="moveAnnotations">Anotações de lances</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
   <string name="orUploadPgnFile">Ou carregue um arquivo PGN</string>
@@ -818,6 +818,7 @@
   <string name="size">Tamanho</string>
   <string name="opacity">Opacidade</string>
   <string name="brightness">Brilho</string>
+  <string name="contrast">Contraste</string>
   <string name="hue">Tom</string>
   <string name="boardReset">Restaurar as cores padrão</string>
   <string name="pieceSet">Estilo das peças</string>

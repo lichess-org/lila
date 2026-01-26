@@ -9,6 +9,8 @@
   <string name="gameOver">대국 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
   <string name="orLetYourOpponentScanQrCode">상대방에게 이 QR 코드를 스캔하라고 하셔도 됩니다.</string>
+  <string name="reusableChallengeUrl">재사용 가능 도전 URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">누구나 동일한 설정으로 당신에게 도전할 수 있는 영구적인 링크입니다.</string>
   <string name="waiting">기다리는 중</string>
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>

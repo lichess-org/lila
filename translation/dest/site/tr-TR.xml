@@ -818,6 +818,7 @@
   <string name="size">Boyut</string>
   <string name="opacity">Opaklık</string>
   <string name="brightness">Parlaklık</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Ton</string>
   <string name="boardReset">Renkleri varsayılana döndür</string>
   <string name="pieceSet">Taş seti</string>

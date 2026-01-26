@@ -9,6 +9,8 @@
   <string name="gameOver">Partiet er avsluttet</string>
   <string name="waitingForOpponent">Venter på motstander</string>
   <string name="orLetYourOpponentScanQrCode">Eller få motstanderen din til å skanne denne QR-koden</string>
+  <string name="reusableChallengeUrl">Gjenbrukbar utfordringslenke</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">En permanent lenke som hvem som helst kan bruke til å utfordre deg med disse nøyaktige innstillingene.</string>
   <string name="waiting">Venter</string>
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
@@ -429,6 +431,8 @@
   <string name="leaderboard">Ledertabell</string>
   <string name="screenshotCurrentPosition">Skjermbilde av stillingen</string>
   <string name="gameAsGIF">Parti som gif</string>
+  <string name="playerNames">Spillernavn</string>
+  <string name="moveAnnotations">Trekk-kommentarer</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
   <string name="orUploadPgnFile">Eller last opp en PGN-fil</string>
@@ -813,6 +817,7 @@
   <string name="size">Størrelse</string>
   <string name="opacity">Ugjennomsiktighet</string>
   <string name="brightness">Lysstyrke</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Fargetone</string>
   <string name="boardReset">Tilbake til standardfarger</string>
   <string name="pieceSet">Brikkesett</string>
