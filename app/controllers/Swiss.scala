@@ -53,7 +53,7 @@ final class Swiss(
                 .map:
                   _.copy(locked = !env.api.chatFreshness.of(swiss))
             streamers <- streamerCache.get(swiss.id)
-            isLocalMod <- ctx.me.so { env.team.api.hasPerm(swiss.teamId, _, _.Comm) }
+            isLocalMod <- ctx.me.soUse(env.team.api.hasCommPerm(swiss.teamId))
             page <- renderPage(views.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
         json = swissOption.fold[Fu[Result]](notFoundJson("No such Swiss tournament")): (swiss, _) =>
@@ -88,9 +88,8 @@ final class Swiss(
       json <- env.swiss.json.api(swiss, verdicts)
     yield json
 
-  private def isUserInTheTeam(teamId: lila.team.TeamId)(using me: Option[Me]) =
-    me.so: u =>
-      env.team.cached.teamIds(u).dmap(_.contains(teamId))
+  private def isUserInTheTeam(teamId: lila.team.TeamId)(using me: Option[MyId]) =
+    me.soUse(env.team.cached.isMember(teamId))
 
   private def cachedSwissAndTeam(id: SwissId): Fu[Option[(SwissModel, LightTeam)]] =
     env.swiss.cache.swissCache
@@ -111,7 +110,7 @@ final class Swiss(
               Ok.page(views.swiss.showUi.round(swiss, r, team, pager))
 
   private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
-    ctx.me.so(env.team.api.isGranted(teamId, _, _.Tour)).elseNotFound(f)
+    ctx.me.soUse(env.team.api.isGranted(teamId, _.Tour)).elseNotFound(f)
 
   def form(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoLameOrBot:
@@ -137,7 +136,7 @@ final class Swiss(
     if me.isBot || me.lame then notFoundJson("This account cannot create tournaments")
     else
       env.team.api
-        .isGranted(teamId, me, _.Tour)
+        .isGranted(teamId, _.Tour)
         .flatMap:
           if _ then
             bindForm(env.swiss.forms.create(me))(
@@ -273,8 +272,8 @@ final class Swiss(
       swiss.chatFor match
         case ChatFor.NONE => fuFalse
         case _ if isGrantedOpt(_.ChatTimeout) => fuTrue
-        case ChatFor.LEADERS => ctx.me.so { env.team.api.isLeader(swiss.teamId, _) }
-        case ChatFor.MEMBERS => ctx.me.so { env.team.api.belongsTo(swiss.teamId, _) }
+        case ChatFor.LEADERS => ctx.me.soUse(env.team.api.isLeader(swiss.teamId))
+        case ChatFor.MEMBERS => ctx.me.soUse(env.team.api.isMember(swiss.teamId))
         case _ => fuTrue
 
   private val streamerCache =

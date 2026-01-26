@@ -313,10 +313,12 @@ abstract private[controllers] class LilaController(val env: Env)
           withSecure(perm)(f)
         }
 
-  /* everyone on dev/stage, beta perm on prod */
+  /* everyone on dev/stage, beta perm or https://lichess.org/team/lichess-beta-testers on prod */
   def Beta[A](f: Context ?=> Fu[Result]): EssentialAction =
     Open: ctx ?=>
-      if env.mode.notProd || isGrantedOpt(_.Beta) then f else authorizationFailed
+      if env.mode.notProd || isGrantedOpt(_.Beta)
+      then f
+      else ctx.myId.soUse(env.team.isBetaTester).flatMap(if _ then f else authorizationFailed)
 
   def FormFuResult[A, B: Writeable](
       form: Form[A]

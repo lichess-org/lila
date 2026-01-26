@@ -160,7 +160,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     WithVisibleTournament(tourId): tour =>
       Found(env.team.lightTeam(teamId)): team =>
         for
-          joined <- ctx.userId.so(env.team.api.belongsTo(team.id, _))
+          joined <- ctx.me.soUse(env.team.api.isMember(team.id))
           res <- negotiate(
             FoundPage(api.teamBattleTeamInfo(tour, teamId)):
               views.tournament.teamBattle.teamInfo(tour, team, _)
@@ -189,9 +189,9 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
               BadRequest(Json.obj("error" -> error))
   }
 
-  private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using me: Me) =
+  private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using Me) =
     data.team
-      .so(env.team.api.isGranted(_, me, _.Tour))
+      .so(env.team.api.isGranted(_, _.Tour))
       .flatMap: isLeader =>
         api.join(tourId, data = data, asLeader = isLeader)
 
@@ -214,11 +214,11 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       }
   }
 
-  def teamBattleForm(teamId: TeamId) = Auth { ctx ?=> me ?=>
+  def teamBattleForm(teamId: TeamId) = Auth { _ ?=> me ?=>
     NoBot:
       env.team.api.lightsByTourLeader(me).flatMap { teams =>
         env.team.api
-          .isGranted(teamId, me, _.Tour)
+          .isGranted(teamId, _.Tour)
           .elseNotFound(Ok.page(views.tournament.form.create(forms.create(teams, teamId.some), Nil)))
       }
   }

@@ -14,7 +14,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     NoBot:
       NotForKids:
         FoundPage(env.forum.categRepo.byId(categId)): categ =>
-          categ.team.so(env.team.api.isLeader(_, me)).map { inOwnTeam =>
+          categ.team.so(env.team.api.isLeader).map { inOwnTeam =>
             views.forum.topic.form(categ, forms.topic(inOwnTeam), anyCaptcha)
           }
   }
@@ -23,7 +23,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     NoBot:
       CategGrantWrite(categId):
         Found(env.forum.categRepo.byId(categId)): categ =>
-          categ.team.so(env.team.api.isLeader(_, me)).flatMap { inOwnTeam =>
+          categ.team.so(env.team.api.isLeader).flatMap { inOwnTeam =>
             bindForm(forms.topic(inOwnTeam))(
               err => BadRequest.page(views.forum.topic.form(categ, err, anyCaptcha)),
               data =>
@@ -54,7 +54,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
             canWrite <- access.isGrantedWrite(categ.id, tryingToPostAsMod = true)
             canModCateg <- access.isGrantedMod(categ.id)
             replyBlocked <- ctx.me.soUse(access.isReplyBlockedOnUBlog(topic, canModCateg))
-            inOwnTeam <- ~(categ.team, ctx.me).mapN(env.team.api.isLeader(_, _))
+            inOwnTeam <- ctx.me.soUse(categ.team.so(env.team.api.isLeader))
             form = ctx.me
               .filter(_ => canWrite && topic.open && !topic.isOld && !replyBlocked)
               .soUse: _ ?=>
