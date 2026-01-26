@@ -818,6 +818,7 @@
   <string name="size">Tamaño</string>
   <string name="opacity">Opacidade</string>
   <string name="brightness">Brillo</string>
+  <string name="contrast">Contraste</string>
   <string name="hue">Matiz</string>
   <string name="boardReset">Restaurar ás cores por defecto</string>
   <string name="pieceSet">Estilo das pezas</string>

@@ -818,6 +818,7 @@
   <string name="size">Taille</string>
   <string name="opacity">Opacité</string>
   <string name="brightness">Luminosité</string>
+  <string name="contrast">Contraste</string>
   <string name="hue">Teinte</string>
   <string name="boardReset">Rétablir les couleurs par défaut</string>
   <string name="pieceSet">Jeu de pièces</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Vorgruckte Puur</string>
-  <string name="advancedPawnDescription">En Pur isch tüf i di gägnerisch Schtellig vorgruckt und droht sich umzuwandle.</string>
+  <string name="advancedPawn">Vorgruckte Pur</string>
+  <string name="advancedPawnDescription">Eine vu dine Pure isch tüf i di gägnerisch Schtellig vorgruckt und droht sich umzuwandle.</string>
   <string name="advantage">Vorteil</string>
   <string name="advantageDescription">Nutz dini Chance, en entscheidende Vorteil z\'erlange. (200 Hundertstelpure ≤ Bewertung ≤ 600 Hundertstelpure)</string>
   <string name="anastasiaMate">Anastasia\'s Matt</string>

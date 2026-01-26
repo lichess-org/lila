@@ -726,7 +726,7 @@
   <string name="toggleGlyphAnnotations">Анотација потеза</string>
   <string name="togglePositionAnnotations">Анотација позиције</string>
   <string name="variationArrowsInfo">Стрелице за варијације вам омогућавају да се крећете без коришћења листе за померање.</string>
-  <string name="playSelectedMove">игра изабрани потез</string>
+  <string name="playSelectedMove">одиграј одабрани потез</string>
   <string name="newTournament">Нови турнир</string>
   <string name="tournamentHomeTitle">Шаховски турнири са разним временским контролама и варијантама</string>
   <string name="tournamentHomeDescription">Играј брзе шаховске турнире! Придружи се званичном организованом турниру или направи свој. Метак-шах, Блиц, Класични, Шах960, Краљ брда, Три шаха и више доступних опција за неограничену шаховску забаву.</string>

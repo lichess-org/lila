@@ -817,6 +817,7 @@
   <string name="size">Mida</string>
   <string name="opacity">Opacitat</string>
   <string name="brightness">Brillantor</string>
+  <string name="contrast">Contrast</string>
   <string name="hue">Tonalitat</string>
   <string name="boardReset">Restableix els colors per defecte</string>
   <string name="pieceSet">Conjunt de peces</string>

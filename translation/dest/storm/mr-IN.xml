@@ -35,7 +35,7 @@
   <string name="runs">श्रेण्या</string>
   <string name="getReady">तयार राहा!</string>
   <string name="waitingForMorePlayers">आणखी खेळाडू दाखल होण्याच्या प्रतिक्षेत...</string>
-  <string name="raceComplete">स्पर्धा समाप्त!</string>
+  <string name="raceComplete">शर्यत समाप्त!</string>
   <string name="spectating">पाहात आहोत</string>
   <string name="joinTheRace">शर्यतीत भाग घ्या!</string>
   <string name="startTheRace">शर्यत चालू करा</string>
@@ -48,7 +48,7 @@
   <string name="joinPublicRace">सार्वजनिक शर्यतीत भाग घ्या</string>
   <string name="raceYourFriends">तुमच्या मित्रांसोबत शर्यत लावा</string>
   <string name="skip">सोडा</string>
-  <string name="skipHelp">तुम्ही प्रति शर्यत एक डाव वगळा करू शकतात:</string>
+  <string name="skipHelp">तुम्ही एका शर्यतीत एक डाव सोडू शकता:</string>
   <string name="skipExplanation">ह्या डावाला वगळा करून आपले संयोजन जातं करा! प्रति शर्यत फक्त एकदाच काम करते.</string>
   <string name="failedPuzzles">अयशस्वी कोडी</string>
   <string name="slowPuzzles">हळू कोडी</string>

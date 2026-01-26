@@ -815,6 +815,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="size">Madhësi</string>
   <string name="opacity">Patejdukshmëri</string>
   <string name="brightness">Ndriçim</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Ngjyrim</string>
   <string name="boardReset">Riktheji ngjyrat te parazgjedhjet</string>
   <string name="pieceSet">Figura</string>

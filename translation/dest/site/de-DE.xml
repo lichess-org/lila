@@ -818,6 +818,7 @@
   <string name="size">Größe</string>
   <string name="opacity">Transparenz</string>
   <string name="brightness">Helligkeit</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Farbton</string>
   <string name="boardReset">Farben auf Standardwerte zurücksetzen</string>
   <string name="pieceSet">Figurenstil</string>

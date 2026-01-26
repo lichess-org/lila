@@ -2,8 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">आपल्या lichess.org खात्याची खात्री करा, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">आपले lichess खाते कार्यान्वीत करण्यासाठी लिंकवर क्लिक करा:</string>
-  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">जर तुम्ही Lichess बरोबर नोंदणी केली नाही आहे, तर तुम्ही ह्या संदेशला निश्चिंत होऊन दुर्लक्ष करू शकतात. हा 
-अपुष्ट खाता आणि तुमच्या ई-मेलचे सर्व खुणे आमच्या तंत्रामधून 48 तासात हटवले जातील.</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">जर तुम्ही Lichess बरोबर नोंदणी केली नसेल, तर तुम्ही ह्या संदेशाकडे निश्चिंत होऊन दुर्लक्ष करू शकता. हे अपुष्ट खाते आणि तुमच्या ई-मेलचे सर्व पुरावे आमच्या प्रणालीमधून ४८ तासात हटवले जातील.</string>
   <string name="passwordReset_subject">आपला lichess. org चा पासवर्ड रिसेट करा, %s</string>
   <string name="passwordReset_intro">आपल्या खात्यासाठी पासवर्ड रिसेट ची विनंती आम्हाला मिळाली आहे.</string>
   <string name="passwordReset_clickOrIgnore">जर आपण ही विनंती केली असेल तर खालील लिंक वर क्लिक करा. जर आपण असे केले नसेल तर या मेल कडे दुर्लक्ष करा.</string>

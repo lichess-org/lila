@@ -819,6 +819,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="size">Storleik</string>
   <string name="opacity">Opasitet</string>
   <string name="brightness">Lysstyrke</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Fargetone</string>
   <string name="boardReset">Sttendestill til standardfargar</string>
   <string name="pieceSet">Brikkesett</string>

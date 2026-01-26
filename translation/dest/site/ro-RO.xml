@@ -9,6 +9,8 @@
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
   <string name="orLetYourOpponentScanQrCode">Sau lăsați adversarul să scaneze acest cod QR</string>
+  <string name="reusableChallengeUrl">URL provocare reutilizabil</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Un link permanent pentru oricine să vă provoace cu aceste setări exacte.</string>
   <string name="waiting">Se așteaptă</string>
   <string name="yourTurn">Rândul tău</string>
   <string name="aiNameLevelAiLevel">%1$s nivelul %2$s</string>
@@ -458,6 +460,8 @@
   <string name="leaderboard">Clasament</string>
   <string name="screenshotCurrentPosition">Captură de ecran cu poziția curentă</string>
   <string name="gameAsGIF">Salvați jocul ca fișier GIF</string>
+  <string name="playerNames">Nume jucători</string>
+  <string name="moveAnnotations">Notație mutări</string>
   <string name="pasteTheFenStringHere">Lipește textul FEN aici</string>
   <string name="pasteThePgnStringHere">Lipește textul PGN aici</string>
   <string name="orUploadPgnFile">Sau încarcă un fișier PGN</string>
@@ -852,6 +856,7 @@
   <string name="size">Dimensiune</string>
   <string name="opacity">Opacitate</string>
   <string name="brightness">Luminozitate</string>
+  <string name="contrast">Contrast</string>
   <string name="hue">Nuanță</string>
   <string name="boardReset">Resetează culorile la valorile implicite</string>
   <string name="pieceSet">Set de piese</string>

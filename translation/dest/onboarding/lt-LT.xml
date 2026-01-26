@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="logInAsUsername">Prisijungimo vardas %s</string>
+  <string name="logInAsUsername">Prisijungti kaip %s</string>
   <string name="welcome">Sveiki!</string>
   <string name="welcomeToLichess">Sveiki atvykę į lichess.org!</string>
   <string name="thisIsYourProfilePage">Tai jūsų profilio puslapis.</string>
