@@ -19,7 +19,7 @@ final class TeamApi(
     memberRepo: TeamMemberRepo,
     requestRepo: TeamRequestRepo,
     userApi: lila.core.user.UserApi,
-    cached: Cached,
+    cached: TeamCached,
     notifier: Notifier,
     chatApi: lila.core.chat.ChatApi
 )(using Executor, Scheduler)

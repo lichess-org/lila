@@ -98,7 +98,7 @@ object UserInfo:
       userApi: lila.api.UserApi,
       streamerApi: lila.streamer.StreamerApi,
       teamApi: lila.team.TeamApi,
-      teamCache: lila.team.Cached,
+      teamCache: lila.team.TeamCached,
       coachApi: lila.coach.CoachApi,
       fideIdOf: lila.core.user.PublicFideIdOf,
       insightShare: lila.insight.Share

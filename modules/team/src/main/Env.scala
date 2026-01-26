@@ -31,7 +31,7 @@ final class Env(
 
   lazy val paginator = wire[PaginatorBuilder]
 
-  lazy val cached: Cached = wire[Cached]
+  lazy val cached: TeamCached = wire[TeamCached]
 
   lazy val jsonView = wire[JsonView]
 
