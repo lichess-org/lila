@@ -472,8 +472,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           .flatMap:
             if _ then f(tour) else nope
 
-  private val streamerCache = env.memo.cacheApi[TourId, List[UserId]](64, "tournament.streamers"):
-    _.refreshAfterWrite(15.seconds)
+  private val streamerCache = env.memo.cacheApi[TourId, List[UserId]](256, "tournament.streamers"):
+    _.expireAfterWrite(15.seconds)
       .maximumSize(256)
       .buildAsyncFuture: tourId =>
         repo
