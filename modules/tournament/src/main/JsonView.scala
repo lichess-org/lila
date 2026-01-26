@@ -4,6 +4,7 @@ import com.softwaremill.tagging.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import chess.IntRating
+import chess.variant.Crazyhouse
 
 import lila.common.Json.given
 import lila.common.Json.lightUser.writeNoId
@@ -231,6 +232,17 @@ final class JsonView(
                 rp2 <- RankedPlayer(ranking.ranking)(p2)
               yield FeaturedGame(game, rp1, rp2)
 
+  // Shape matches the socket update payload from lila-ws: {"pockets":[{...},{...}]}
+  private def pocketsJson(pos: chess.Position): Option[JsArray] =
+    pos.crazyData.map: cd =>
+      def pocketObj(pocket: Crazyhouse.Pocket): JsObject =
+        val fields: Seq[(String, JsValue)] =
+          pocket
+            .map((role, nb) => (role.name, nb))
+            .collect { case (name, nb) if nb > 0 => name -> JsNumber(nb) }
+        JsObject(fields)
+      JsArray(Seq(pocketObj(cd.pockets.white), pocketObj(cd.pockets.black)))
+
   private def sheetNbs(s: arena.Sheet) =
     Json.obj(
       "game" -> s.scores.size,
@@ -287,6 +299,7 @@ final class JsonView(
         "white" -> ofPlayer(featured.white, game.player(chess.White)),
         "black" -> ofPlayer(featured.black, game.player(chess.Black))
       )
+      .add("pockets" -> pocketsJson(game.position))
       .add(
         // not named `clock` to avoid conflict with lichobile
         "c" -> game.clock
