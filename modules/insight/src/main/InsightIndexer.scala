@@ -23,12 +23,13 @@ final private class InsightIndexer(
   )
 
   def all(user: User): Funit =
-    workQueue:
-      storage
-        .fetchLast(user.id)
-        .flatMap:
-          _.fold(fromScratch(user)): e =>
-            computeFrom(user, e.date.plusSeconds(1))
+    user.lame.not.so:
+      workQueue:
+        storage
+          .fetchLast(user.id)
+          .flatMap:
+            _.fold(fromScratch(user)): e =>
+              computeFrom(user, e.date.plusSeconds(1))
 
   def update(game: Game, userId: UserId, previous: InsightEntry): Funit =
     povToEntry(game, userId, previous.provisional).flatMap:

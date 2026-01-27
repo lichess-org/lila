@@ -30,8 +30,6 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
 
   def update(p: InsightEntry) = coll(_.update.one(selectId(p.id), p, upsert = true).void)
 
-  def remove(p: InsightEntry) = coll(_.delete.one(selectId(p.id)).void)
-
   def removeAll(userId: UserId) = coll(_.delete.one(selectUserId(userId)).void)
 
   def find(id: String) = coll(_.one[InsightEntry](selectId(id)))
