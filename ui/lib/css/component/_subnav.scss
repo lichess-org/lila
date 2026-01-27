@@ -65,14 +65,15 @@
       color: $c-font-page;
       padding: 0.7rem 2vw 0.7rem 0.8rem;
       position: relative;
+      border-radius: $box-radius-size;
 
       &.active,
       &:hover {
         color: $c-font-clear;
+        background: rgba(128, 128, 128, 0.07);
       }
 
       &.active {
-        border-radius: $box-radius-size;
         background: $c-bg-box;
       }
     }
