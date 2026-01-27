@@ -125,6 +125,32 @@ test('Undefended: En passant rook xray', () => {
   assert.deepEqual(runAnalysis(fen), expected);
 });
 
+test('Undefended: Attacker also pins defender', () => {
+  const fen = '6k1/8/8/8/1q6/2B5/1P6/4K3 b - - 0 1';
+  const expected = ['c3:pin', 'b4:undefended', 'e1:checkable'].sort();
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Undefended: Using more valuable attacker first', () => {
+  const fen = '6k1/8/8/8/2r1BK2/8/1qP5/8 b - - 0 1';
+  const expected = ['e4:pin', 'c2:undefended', 'f4:checkable'].sort();
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Undefended: Calculation', () => {
+  const fen = '7r/4n3/2knbrR1/5n2/7N/6NB/5R2/5Q1K w - - 0 1';
+  const expected = [
+    'f5:undefended',
+    'f6:undefended',
+    'g6:undefended',
+    'h4:undefended',
+    'c6:checkable',
+    'h1:checkable',
+    'f5:pin',
+  ].sort();
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
 test('Crazyhouse', () => {
   const fen = 'rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R/ b KQkq - 1 2';
   const expected = ['e5:undefended'];
