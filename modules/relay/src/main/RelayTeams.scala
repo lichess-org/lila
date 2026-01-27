@@ -241,11 +241,10 @@ final class RelayTeamLeaderboard(
 
   case class TeamLeaderboardEntry(
       name: TeamName,
-      matches: List[RelayTeam.TeamMatch]
+      povMatches: List[RelayTeam.POVMatch]
   ):
     lazy val matchPoints: Float = povMatches.filter(_.isFinished).flatMap(_.mp).sum
     lazy val gamePoints: Float = povMatches.filter(_.isFinished).flatMap(_.gp).sum
-    lazy val povMatches: List[RelayTeam.POVMatch] = matches.flatMap(_.povMatch(name))
     lazy val players: Iterable[RelayPlayer] = povMatches
       .flatMap(_.players.values)
       .groupBy(_.id)
@@ -304,10 +303,12 @@ final class RelayTeamLeaderboard(
         yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
           matchup.teams
             .foldLeft(acc): (acc, team) =>
-              acc.updatedWith(team.name):
-                _.fold(TeamLeaderboardEntry(team.name, List(matchup))): team =>
-                  team.copy(matches = team.matches :+ matchup)
-                .some
+              acc.updatedWith(team.name): entry =>
+                matchup
+                  .povMatch(team.name)
+                  .flatMap: pov =>
+                    entry.fold(TeamLeaderboardEntry(team.name, List(pov)).some): team =>
+                      team.copy(povMatches = team.povMatches :+ pov).some
             .toList
             .sortBy(_._2)
             .to(SeqMap)
