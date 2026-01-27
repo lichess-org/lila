@@ -66,6 +66,8 @@ private class RelayTeamsTextarea(val text: String):
 
 object RelayTeam:
   import chess.{ Color, ByColor }
+  extension (players: Iterable[RelayPlayer])
+    def allGamesFinished: Boolean = players.forall(_.games.forall(_.points.isDefined))
   case class TeamWithGames(name: TeamName, players: RelayPlayer.RelayPlayers):
     def add(player: RelayPlayer) =
       player.id.fold(this): id =>
@@ -76,8 +78,6 @@ object RelayTeam:
           )
         )
     def points = players.values.toList.foldMap(_.score)
-    def allGamesFinished: Boolean =
-      players.values.forall(_.games.forall(_.points.isDefined))
   case class Pair[A](a: A, b: A):
     def is(p: Pair[A]) = (a == p.a && b == p.b) || (a == p.b && b == p.a)
     def map[B](f: A => B) = Pair(f(a), f(b))
@@ -113,10 +113,9 @@ object RelayTeam:
         teams = teams.bimap(_.add(wPlayer), _.add(bPlayer))
       )
     def swap = copy(teams = teams.reverse, games = games.map(_.swap))
-    def isFinished: Boolean = teams.forall(_.allGamesFinished)
     def pointsPair: Option[Pair[Points]] =
       teams
-        .forall(_.allGamesFinished)
+        .forall(_.players.values.allGamesFinished)
         .so:
           (teams.a.points, teams.b.points).mapN: (aPoints, bPoints) =>
             if aPoints == bPoints then Pair(Points.Half, Points.Half)
@@ -150,7 +149,8 @@ object RelayTeam:
       points: Option[Points],
       mp: Option[Float],
       gp: Option[Float]
-  )
+  ):
+    def isFinished: Boolean = players.values.allGamesFinished
   object POVMatch:
     object json:
       import play.api.libs.json.*
@@ -243,16 +243,8 @@ final class RelayTeamLeaderboard(
       name: TeamName,
       matches: List[RelayTeam.TeamMatch]
   ):
-    lazy val matchPoints: Float =
-      matches
-        .filter(_.isFinished)
-        .flatMap(_.scoreFor(name))
-        .sum
-    lazy val gamePoints: Float =
-      matches
-        .filter(_.isFinished)
-        .flatMap(_.teams.find(_.name == name).flatMap(_.points))
-        .sum
+    lazy val matchPoints: Float = povMatches.filter(_.isFinished).flatMap(_.mp).sum
+    lazy val gamePoints: Float = povMatches.filter(_.isFinished).flatMap(_.gp).sum
     lazy val povMatches: List[RelayTeam.POVMatch] = matches.flatMap(_.povMatch(name))
     lazy val players: Iterable[RelayPlayer] = povMatches
       .flatMap(_.players.values)
