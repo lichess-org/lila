@@ -57,7 +57,7 @@ final class TeamInfoApi(
   )(using me: Option[Me]): Fu[TeamInfo] = for
     member <- me.soUse(api.memberOf(team.id))
     requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(api.requestsWithUsers(team.team))
-    myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.id)))
+    myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.userId)))
     subscribed <- member.so(api.isSubscribed(team.team, _))
     forumPosts <- withForum(member).optionFu(forumRecent(team.id))
     tours <- tournaments(team.team, 5, 5)
