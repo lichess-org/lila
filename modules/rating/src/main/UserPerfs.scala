@@ -197,7 +197,7 @@ object UserPerfs:
       case Speed.UltraBullet => perfs.ultraBullet
 
   import lila.db.BSON
-  import lila.db.dsl.{ *, given }
+  import lila.db.dsl.given
   import reactivemongo.api.bson.*
 
   def idPerfReader(pk: PerfKey) = BSONDocumentReader.option[(UserId, Perf)] { doc =>
