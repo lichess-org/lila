@@ -34,7 +34,7 @@ object header:
             blocked = social.blocked
           )
       ,
-      ctx.me.soUse(lila.mod.canImpersonate(u.id))
+      ctx.useMe(lila.mod.canImpersonate(u.id))
     )
 
   private def userDom(u: User)(using ctx: Context) =

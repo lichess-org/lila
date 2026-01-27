@@ -2,7 +2,7 @@ package lila.app
 
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
-import play.api.mvc.{ Call, ControllerComponents, SessionCookieBaker }
+import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
 
 import lila.core.config.*
@@ -20,7 +20,7 @@ final class Env(
 ):
   val net: NetConfig = lila.web.WebConfig.netConfig(config)
   export net.baseUrl
-  val routeUrl: Call => Url = call => Url(s"${baseUrl}${call.url}")
+  val routeUrl: RouteUrl = call => Url(s"${baseUrl}${call.url}")
 
   given mode: Mode = environment.mode
   given translator: lila.core.i18n.Translator = lila.i18n.Translator

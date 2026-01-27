@@ -2,7 +2,7 @@ package lila.ui
 
 import play.api.libs.json.*
 
-import lila.core.config.{ BaseUrl, AssetBaseUrl, ImageGetOrigin }
+import lila.core.config.{ BaseUrl, RouteUrl, AssetBaseUrl, ImageGetOrigin }
 import lila.core.data.SafeJsonStr
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -11,7 +11,7 @@ trait AssetHelper:
   export lila.ui.Esm
 
   def netBaseUrl: BaseUrl
-  def routeUrl: Call => Url
+  def routeUrl: RouteUrl
   def assetBaseUrl: AssetBaseUrl
   def assetUrl(path: String): Url
   def safeJsonValue(jsValue: JsValue): SafeJsonStr

@@ -204,7 +204,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
     def hasPerm(perm: TeamSecurity.Permission.Selector) = member.exists(_.hasPerm(perm))
     val canManage = asMod && Granter.opt(_.ManageTeam)
     div(cls := "team-show__actions")(
-      (team.enabled && member.isEmpty).option(
+      (team.enabled && team.acceptsMembers && member.isEmpty).option(
         frag(
           if myRequest.exists(_.declined) then
             frag(
@@ -220,7 +220,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           else (ctx.isAuth && !asMod).option(joinButton(team))
         )
       ),
-      (team.enabled && member.isDefined).option(
+      (team.enabled && team.doesTeamMessages && member.isDefined).option(
         postForm(
           cls := "team-show__subscribe form3",
           action := routes.Team.subscribe(team.id)
@@ -231,7 +231,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           )
         )
       ),
-      (member.isDefined && !hasPerm(_.Admin)).option(
+      (member.isDefined && !team.isClas && !hasPerm(_.Admin)).option(
         postForm(cls := "quit", action := routes.Team.quit(team.id))(
           submitButton(cls := "button button-empty button-red yes-no-confirm")(trt.quitTeam.txt())
         )

@@ -1,7 +1,6 @@
 package lila.app
 package mashup
 import lila.core.forum.ForumPostMiniView
-import lila.core.user.User
 import lila.simul.{ Simul, SimulApi }
 import lila.swiss.{ Swiss, SwissApi }
 import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRequestRepo }
@@ -54,12 +53,11 @@ final class TeamInfoApi(
 
   def apply(
       team: Team.WithLeaders,
-      me: Option[User],
       withForum: Option[TeamMember] => Boolean
-  ): Fu[TeamInfo] = for
-    member <- me.so(api.memberOf(team.id, _))
+  )(using me: Option[Me]): Fu[TeamInfo] = for
+    member <- me.soUse(api.memberOf(team.id))
     requests <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(api.requestsWithUsers(team.team))
-    myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.id)))
+    myRequest <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.userId)))
     subscribed <- member.so(api.isSubscribed(team.team, _))
     forumPosts <- withForum(member).optionFu(forumRecent(team.id))
     tours <- tournaments(team.team, 5, 5)

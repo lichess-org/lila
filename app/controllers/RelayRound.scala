@@ -264,8 +264,8 @@ final class RelayRound(
       f: FormNavigation => Fu[Result]
   )(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
-      ctx.me
-        .soUse(env.relay.api.canUpdate(tour))
+      ctx
+        .useMe(env.relay.api.canUpdate(tour))
         .elseNotFound:
           env.relay.api.formNavigation(tour).flatMap(f)
 

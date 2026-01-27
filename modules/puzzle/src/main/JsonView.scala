@@ -181,7 +181,7 @@ final class JsonView(
       "lines" -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")): (acc, move) =>
         Json.obj(move.uci -> acc),
       "vote" -> 0,
-      "branch" -> makeTree(puzzle).map(NewTree.defaultNodeJsonWriter.writes)
+      "branch" -> makeTree(puzzle).map(NewTree.lichobileNodeJsonWriter.writes)
     )
 
 object JsonView:

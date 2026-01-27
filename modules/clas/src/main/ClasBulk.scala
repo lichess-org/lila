@@ -80,11 +80,12 @@ final class ClasBulkApi(api: ClasApi)(using Executor):
   def post(clas: Clas, data: ClasBulkForm.ActionData)(using me: Me): Fu[PostResponse] =
     val moveTo = """move-to-(.+)""".r
     def studentId(id: UserId) = Student.makeId(id, clas.id)
-    data.action match
+    data.pp.action match
       case "archive" =>
-        api.student.archiveMany(data.activeUserIds.map(studentId), true).inject(PostResponse.Done)
+        for _ <- api.student.archiveMany(clas, data.activeUserIds.map(studentId), true)
+        yield PostResponse.Done
       case "restore" =>
-        for _ <- api.student.archiveMany(data.archivedUserIds.map(studentId), false)
+        for _ <- api.student.archiveMany(clas, data.archivedUserIds.map(studentId), false)
         yield PostResponse.Done
       case moveTo(to) =>
         api.clas
@@ -96,20 +97,20 @@ final class ClasBulkApi(api: ClasApi)(using Executor):
               for
                 students <- api.student.allWithUsers(clas)
                 selected = students.filter(s => studentIdsSet.contains(s.user.id))
-                _ <- selected.traverse(api.student.move(_, toClas))
+                _ <- selected.traverse(api.student.move(clas, _, toClas))
               yield PostResponse.Done
       case "remove" =>
         val studentIdsSet = data.archivedUserIds.toSet
         for
           students <- api.student.allWithUsers(clas)
           selected = students.filter(s => studentIdsSet.contains(s.user.id))
-          closeUsers <- selected.sequentially(closeStudent(_))
+          closeUsers <- selected.sequentially(closeStudent(clas, _))
         yield PostResponse.CloseAccounts(closeUsers.flatten)
       case "delete-invites" =>
         api.invite.deleteInvites(clas.id, data.invitesUserIds).inject(PostResponse.Done)
       case _ => fuccess(PostResponse.Fail)
 
-  private def closeStudent(s: Student.WithUser)(using me: Me): Fu[Option[User]] =
-    if s.student.managed then api.student.closeAccount(s).inject(s.user.some)
-    else if s.student.isArchived then api.student.closeAccount(s).inject(none)
+  private def closeStudent(clas: Clas, s: Student.WithUser)(using Me): Fu[Option[User]] =
+    if s.student.managed then api.student.deleteStudent(clas, s).inject(s.user.some)
+    else if s.student.isArchived then api.student.deleteStudent(clas, s).inject(none)
     else fuccess(none)

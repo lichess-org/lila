@@ -31,7 +31,8 @@ final class ClasForm(
             ids.nonEmpty && ids.sizeIs <= 10 && ids.forall: id =>
               blockingFetchUser(id.into(UserStr)).isDefined
         ),
-        "canMsg" -> boolean
+        "canMsg" -> boolean,
+        "hasTeam" -> boolean
       )(ClasData.apply)(unapply)
 
     def create(using RequestHeader): Fu[HcaptchaForm[ClasData]] = hcaptcha.form(form)
@@ -41,7 +42,8 @@ final class ClasForm(
         name = c.name,
         desc = c.desc,
         teachers = c.teachers.toList.mkString("\n"),
-        canMsg = ~c.canMsg
+        canMsg = ~c.canMsg,
+        hasTeam = ~c.hasTeam
       )
 
     def wall = Form(single("wall" -> text(maxLength = 100_000).into[Markdown]))
@@ -102,14 +104,16 @@ object ClasForm:
       name: String,
       desc: String,
       teachers: String,
-      canMsg: Boolean
+      canMsg: Boolean,
+      hasTeam: Boolean
   ):
     def update(c: Clas) =
       c.copy(
         name = name,
         desc = desc,
         teachers = teacherIds.toNel | c.teachers,
-        canMsg = some(canMsg)
+        canMsg = some(canMsg),
+        hasTeam = some(hasTeam)
       )
 
     def teacherIds = readTeacherIds(teachers)

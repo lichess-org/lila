@@ -17,7 +17,7 @@ import lila.core.team.Access
 import lila.core.user.FlairApi
 import lila.db.dsl.{ *, given }
 
-final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: FlairApi)(using
+final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: FlairApi)(using
     Executor
 ):
   import TeamForm.Fields
@@ -116,7 +116,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
   private def teamExists(setup: TeamSetup) =
     teamRepo.coll.exists($id(Team.nameToId(setup.name)))
 
-private[team] case class TeamSetup(
+private case class TeamSetup(
     name: String,
     password: Option[String],
     intro: Option[String],
@@ -129,7 +129,7 @@ private[team] case class TeamSetup(
 ) extends lila.core.captcha.WithCaptcha:
   def isOpen = !request
 
-private[team] case class TeamEdit(
+private case class TeamEdit(
     password: Option[String],
     intro: Option[String],
     description: Markdown,
@@ -148,7 +148,7 @@ private[team] case class TeamEdit(
       descPrivate = descPrivate.filter(_.value.nonEmpty)
     )
 
-private[team] case class RequestSetup(
+private case class RequestSetup(
     message: Option[String],
     password: Option[String]
 )

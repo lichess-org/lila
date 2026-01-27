@@ -1,11 +1,10 @@
 package lila.plan
 
 import play.api.i18n.Lang
-import play.api.mvc.Call
 import reactivemongo.api.*
 
 import lila.common.Bus
-import lila.core.config.Secret
+import lila.core.config.{ RouteUrl, Secret }
 import lila.core.net.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
@@ -184,7 +183,7 @@ final class PlanApi(
         checkout: PlanCheckout,
         customerId: StripeCustomerId,
         giftTo: Option[User],
-        routeUrl: Call => Url
+        routeUrl: RouteUrl
     )(using ctx: Context, me: Me, lang: Lang) =
       for
         isLifetime <- pricingApi.isLifetime(checkout.money)

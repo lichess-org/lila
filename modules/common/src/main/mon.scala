@@ -389,9 +389,9 @@ object mon:
       def candidates(channel: String) = histogram("tv.selector.candidates").withTag("channel", channel)
       def cheats(channel: String) = histogram("tv.selector.cheats").withTag("channel", channel)
       def rating(channel: String) = histogram("tv.selector.rating").withTag("channel", channel)
-    object streamer:
-      def present(n: String) = gauge("tv.streamer.present").withTag("name", n.escape)
-      def twitch = future("tv.streamer.twitch")
+  object streamer:
+    def online = gauge("tv.streamer.count").withoutTags()
+    def present(n: String) = gauge("tv.streamer.present").withTag("name", n.escape)
   object relation:
     private val c = counter("relation.action")
     val follow = c.withTag("type", "follow")
@@ -400,11 +400,11 @@ object mon:
     val unblock = c.withTag("type", "unblock")
   object clas:
     object student:
-      def create(teacher: String) = counter("clas.student.create").withTag("teacher", teacher)
-      def invite(teacher: String) = counter("clas.student.invite").withTag("teacher", teacher)
-      object bloomFilter:
-        val count = gauge("clas.student.bloomFilter.count").withoutTags()
-        val fu = future("clas.student.bloomFilter.future")
+      def create(teacher: UserId) = counter("clas.student.create").withTag("teacher", teacher)
+      def invite(teacher: UserId) = counter("clas.student.invite").withTag("teacher", teacher)
+    final class bloomFilter(name: String):
+      def count = gauge(s"clas.${name}.bloomFilter.count").withoutTags()
+      def fu = future(s"clas.${name}.bloomFilter.future")
   object tournament:
     object pairing:
       val batchSize = histogram("tournament.pairing.batchSize").withoutTags()
