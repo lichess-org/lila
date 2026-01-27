@@ -127,6 +127,7 @@ test('Undefended: En passant rook xray', () => {
 
 test('Undefended: Attacker also pins defender', () => {
   const fen = '6k1/8/8/8/1q6/2B5/1P6/4K3 b - - 0 1';
+  // b2 should not be undefended
   const expected = ['c3:pin', 'b4:undefended', 'e1:checkable'].sort();
   assert.deepEqual(runAnalysis(fen), expected);
 });
@@ -139,6 +140,7 @@ test('Undefended: Using more valuable attacker first', () => {
 
 test('Undefended: Calculation', () => {
   const fen = '7r/4n3/2knbrR1/5n2/7N/6NB/5R2/5Q1K w - - 0 1';
+  // f5 should be undefended
   const expected = [
     'f5:undefended',
     'f6:undefended',
