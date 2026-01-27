@@ -110,7 +110,6 @@ export default class AnalyseCtrl implements CevalHandler {
   flipped = false;
   showComments = true; // whether to display comments in the move tree
   showBestMoveArrowsProp: Prop<boolean>;
-  showManeuverMoveArrowsProp: Prop<boolean>;
   variationArrowOpacity: Prop<number | false>;
   showGauge = storedBooleanProp('analyse.show-gauge', true);
   private showCevalProp: Prop<boolean> = storedBooleanProp('analyse.show-engine', !!this.cevalEnabledProp());
@@ -185,11 +184,6 @@ export default class AnalyseCtrl implements CevalHandler {
     this.variationArrowOpacity = this.makeVariationOpacityProp();
     this.showBestMoveArrowsProp = storedBooleanPropWithEffect(
       'analyse.auto-shapes',
-      true,
-      this.setAutoShapes,
-    );
-    this.showManeuverMoveArrowsProp = storedBooleanPropWithEffect(
-      'analyse.maneuver-arrows',
       true,
       this.setAutoShapes,
     );
