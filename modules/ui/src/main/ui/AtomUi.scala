@@ -3,8 +3,9 @@ package lila.ui
 import java.time.LocalDate
 
 import ScalatagsTemplate.{ *, given }
+import lila.core.config.RouteUrl
 
-final class AtomUi(routeUrl: Call => Url):
+final class AtomUi(routeUrl: RouteUrl):
 
   def feed[A](
       elems: Seq[A],
