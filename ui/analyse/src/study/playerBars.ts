@@ -67,7 +67,7 @@ function renderPlayer(
   showRatings: boolean,
   round?: RelayRound,
   relayPlayers?: RelayPlayers,
-  relayTeamsStandings?: RelayTeamLeaderboard,
+  relayTeamLeaderboard?: RelayTeamLeaderboard,
 ): VNode {
   const showResult: boolean =
       !defined(ctrl.study?.relay) ||
@@ -111,7 +111,7 @@ function renderPlayer(
                       on: {
                         click: (ev: PointerEvent) => {
                           ev.preventDefault();
-                          relayTeamsStandings?.setTeamToShow(team);
+                          relayTeamLeaderboard?.setTeamToShow(team);
                         },
                       },
                     },
