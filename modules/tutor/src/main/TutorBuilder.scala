@@ -19,7 +19,9 @@ final private class TutorBuilder(
     insightApi: InsightApi,
     perfStatsApi: InsightPerfStatsApi,
     userApi: lila.core.user.UserApi,
-    fishnet: TutorFishnet
+    fishnet: TutorFishnet,
+    messenger: lila.core.msg.MsgApi,
+    routeUrl: lila.core.config.RouteUrl
 )(using Executor):
 
   import TutorBsonHandlers.given
@@ -41,6 +43,7 @@ final private class TutorBuilder(
           "millis" -> lap.millis
         )
         _ <- colls.report(_.insert.one(doc).void)
+        _ <- messenger.postPreset(userId, doneMsg).void
       yield report.some
   yield report
 
@@ -102,6 +105,9 @@ final private class TutorBuilder(
           lila.mon.tutor.peerMatch(matches.exists(_.perf == pt)).increment()
 
   private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+  lazy private val doneMsg =
+    lila.core.msg.MsgPreset("Tutor complete", s"Your tutor report is ready! ${routeUrl(routes.Tutor.home())}")
 
 private object TutorBuilder:
 

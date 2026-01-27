@@ -20,7 +20,9 @@ final class Env(
     perfStatsApi: lila.insight.InsightPerfStatsApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: CacheApi,
-    lightUserApi: lila.core.user.LightUserApi
+    lightUserApi: lila.core.user.LightUserApi,
+    msgApi: lila.core.msg.MsgApi,
+    routeUrl: config.RouteUrl
 )(using Executor, Scheduler, play.api.Mode):
 
   private val colls =
