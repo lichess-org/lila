@@ -41,13 +41,11 @@ private final class TeamClasSync(
       teamMemberIds <- memberRepo.userIdsByTeam(team.id)
       allClassIds = cfg.teacherIds.toList ::: studentIds
       intruders = teamMemberIds.toSet -- allClassIds.toSet
-      _ <- intruders.toList.sequentiallyVoid: intruder =>
-        for _ <- memberRepo.remove(team.id, intruder)
-        yield cached.invalidateTeamIds(intruder)
+      _ <- intruders.toList.sequentiallyVoid(memberRepo.remove(team.id, _))
       missing = allClassIds.toSet -- teamMemberIds.toSet
-      _ <- missing.toList.sequentiallyVoid(api.doJoin(team, _, quietly = true))
-      _ <- teamRepo.incMembers(team.id, missing.size - intruders.size)
-    yield ()
+      added <- missing.toList.sequentially(memberRepo.add(team.id, _))
+      _ <- teamRepo.incMembers(team.id, added.count(identity) - intruders.size)
+    yield (intruders ++ missing).toList.foreach(cached.invalidateTeamIds)
 
   private def syncPermissions(team: Team, cfg: ClasTeamConfig): Funit =
     import TeamSecurity.Permission.*

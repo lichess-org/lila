@@ -26,8 +26,11 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
   def exists[U: UserIdOf](teamId: TeamId, user: U): Fu[Boolean] =
     coll.exists(selectId(teamId, user))
 
-  def add(teamId: TeamId, userId: UserId, perms: Set[TeamSecurity.Permission] = Set.empty): Funit =
-    coll.insert.one(TeamMember.make(team = teamId, user = userId).copy(perms = perms)).void
+  def add(teamId: TeamId, userId: UserId, perms: Set[TeamSecurity.Permission] = Set.empty): Fu[Boolean] =
+    coll.insert
+      .one(TeamMember.make(team = teamId, user = userId).copy(perms = perms))
+      .inject(true)
+      .recover(lila.db.recoverDuplicateKey(_ => false))
 
   def remove(teamId: TeamId, userId: UserId): Fu[WriteResult] =
     coll.delete.one(selectId(teamId, userId))

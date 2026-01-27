@@ -227,17 +227,15 @@ final class TeamApi(
               .map:
                 _.map(_.user).foreach(cached.nbRequests.invalidate)
 
-  private[team] def doJoin(team: Team, userId: UserId, quietly: Boolean = false): Funit = {
+  private[team] def doJoin(team: Team, userId: UserId): Funit =
     isMember(team.id)(using userId.into(MyId)).not.flatMapz:
       for
-        _ <- memberRepo.add(team.id, userId)
-        _ <- teamRepo.incMembers(team.id, +1)
+        done <- memberRepo.add(team.id, userId)
+        _ <- done.so(teamRepo.incMembers(team.id, 1))
       yield
         cached.invalidateTeamIds(userId)
-        if !quietly then
-          lila.common.Bus.pub(tl.Propagate(tl.TeamJoin(userId, team.id)).toFollowersOf(userId))
-          Bus.pub(JoinTeam(team.id, userId))
-  }.recover(lila.db.ignoreDuplicateKey)
+        lila.common.Bus.pub(tl.Propagate(tl.TeamJoin(userId, team.id)).toFollowersOf(userId))
+        Bus.pub(JoinTeam(team.id, userId))
 
   private[team] def addMembers(team: Team, userIds: List[UserId]): Funit =
     userIds
@@ -247,12 +245,10 @@ final class TeamApi(
           .flatMapz: user =>
             memberRepo
               .add(team.id, user.id)
-              .map: _ =>
-                cached.invalidateTeamIds(user.id)
-                1
-              .recover(lila.db.recoverDuplicateKey(_ => 0))
+              .addEffect: done =>
+                if done then cached.invalidateTeamIds(user.id)
       .flatMap: inserts =>
-        teamRepo.incMembers(team.id, inserts.sum)
+        teamRepo.incMembers(team.id, inserts.count(identity))
 
   def teamsOf(username: UserStr) =
     cached.teamIdsList(username.id).flatMap(teamsByIds)
