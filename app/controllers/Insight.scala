@@ -77,7 +77,7 @@ final class Insight(env: Env) extends LilaController(env):
   )(f: lila.user.User => Fu[Result], fallback: lila.user.User => Fu[Result])(using Context): Fu[Result] =
     Found(meOrFetch(username)): u =>
       env.insight.share
-        .grant(u)(using ctx.me)
+        .grant(u)
         .flatMap:
           if _ then f(u)
           else fallback(u)

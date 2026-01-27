@@ -41,9 +41,9 @@ final class Env(
 
   private lazy val notifier = wire[Notifier]
 
-  export cached.lightApi as lightTeamApi
+  export cached.{ lightApi as lightTeamApi, async as lightTeam, sync as lightTeamSync }
 
-  export cached.{ async as lightTeam, sync as lightTeamSync }
+  def isBetaTester(using myId: MyId) = cached.isMember(TeamId("lichess-beta-testers"))
 
   lazy val limiter = wire[TeamLimiter]
 
@@ -67,7 +67,7 @@ final class Env(
 
   Bus.sub[lila.core.team.IsLeaderWithCommPerm]:
     case lila.core.team.IsLeaderWithCommPerm(teamId, userId, promise) =>
-      promise.completeWith(api.hasPerm(teamId, userId, _.Comm))
+      promise.completeWith(api.hasCommPerm(teamId)(using userId.into(MyId)))
 
   Bus.sub[lila.core.team.TeamIdsJoinedBy]:
     case lila.core.team.TeamIdsJoinedBy(userId, promise) =>

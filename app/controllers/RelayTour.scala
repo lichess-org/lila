@@ -183,8 +183,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
               .get(tour.id)
               .flatMap:
                 case None =>
-                  ctx.me
-                    .soUse(env.relay.api.canUpdate(tour))
+                  ctx
+                    .useMe(env.relay.api.canUpdate(tour))
                     .flatMap:
                       if _ then Redirect(routes.RelayRound.form(tour.id))
                       else emptyBroadcastPage(tour)

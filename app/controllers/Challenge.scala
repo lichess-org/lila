@@ -118,7 +118,7 @@ final class Challenge(env: Env) extends LilaController(env):
 
   def apiAccept(id: ChallengeId, color: Option[Color]) =
     AnonOrScoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=>
-      def tryRematch = ctx.me.soUse:
+      def tryRematch = ctx.useMe:
         env.bot.player
           .rematchAccept(id.into(GameId))
           .flatMap:
@@ -131,8 +131,8 @@ final class Challenge(env: Env) extends LilaController(env):
             case None => tryRematch
             case Some(c) if c.accepted => tryRematch
             case Some(c) =>
-              ctx.me
-                .soUse(c.challengerUserId.so(env.bot.limit.acceptLimitError))
+              ctx
+                .useMe(c.challengerUserId.so(env.bot.limit.acceptLimitError))
                 .map(eitherBotLimitResponse)
                 .getOrElse:
                   allow:

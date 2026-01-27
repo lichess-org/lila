@@ -32,6 +32,9 @@ final class TeamCached(
     def sync = TeamCached.this.sync
     export lightCache.preloadSet as preload
 
+  def isMember(teamId: TeamId)(using myId: MyId): Fu[Boolean] =
+    teamIdsCache.async(myId).map(_.contains(teamId))
+
   private val teamIdsCache = cacheApi.sync[UserId, Team.IdsStr](
     name = "team.ids",
     initialCapacity = 131_072,

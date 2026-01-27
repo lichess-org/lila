@@ -39,7 +39,7 @@ final class Team(env: Env) extends LilaController(env):
 
   private def CanSeeMembers(team: TeamModel)(f: => Fu[lila.ui.Page])(using ctx: Context): Fu[Result] =
     val canSee = fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>|
-      ctx.userId.so(api.belongsTo(team.id, _))
+      ctx.useMe(api.isMember(team.id))
     canSee.flatMap:
       if _ then Ok.async(f) else authorizationFailed
 
@@ -65,7 +65,7 @@ final class Team(env: Env) extends LilaController(env):
 
   private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for
     team <- api.withLeaders(team)
-    info <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team.team, asMod))
+    info <- env.teamInfo(team, withForum = canHaveForum(team.team, asMod))
     members <- paginator.teamMembers(team.team, page)
     log <- (asMod && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(info, asMod)
@@ -371,7 +371,7 @@ final class Team(env: Env) extends LilaController(env):
       requestOption <- api.request(requestId)
       teamOption <- requestOption.so(req => env.team.teamRepo.byId(req.team))
       isGranted <- teamOption.so: team =>
-        api.isGranted(team.id, me, _.Request)
+        api.isGranted(team.id, _.Request)
     yield (teamOption.ifTrue(isGranted), requestOption).tupled): (team, request) =>
       bindForm(forms.processRequest)(
         _ => Redirect(routes.Team.show(team.id)),
@@ -484,8 +484,8 @@ final class Team(env: Env) extends LilaController(env):
       f: (TeamModel, AsMod) => Fu[Result]
   )(using Context): Fu[Result] =
     Found(api.team(teamId)): team =>
-      ctx.userId
-        .so(api.hasPerm(team.id, _, perm))
+      ctx
+        .useMe(api.hasPerm(team.id, perm))
         .flatMap: isGrantedLeader =>
           val asMod = !isGrantedLeader && isGrantedOpt(_.ManageTeam)
           if isGrantedLeader || asMod then f(team, asMod)

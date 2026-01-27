@@ -56,7 +56,7 @@ object UserInfo:
       given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
       (
         ctx.userId.so(relationApi.fetchRelation(_, u.id).mon(_.user.segment("relation"))),
-        ctx.me.soUse(_ ?=> noteApi.getForMyPermissions(u).mon(_.user.segment("notes"))),
+        ctx.useMe(noteApi.getForMyPermissions(u).mon(_.user.segment("notes"))),
         ctx.isAuth.so(prefApi.followable(u.id).mon(_.user.segment("followable"))),
         ctx.userId.so(myId => relationApi.fetchBlocks(u.id, myId).mon(_.user.segment("blocks")))
       ).mapN(Social.apply)
@@ -125,7 +125,7 @@ object UserInfo:
         streamerApi.isActualStreamer(user).mon(_.user.segment("streamer")),
         coachApi.isListedCoach(user).mon(_.user.segment("coach")),
         fideIdOf(user.light),
-        (user.count.rated >= 10).so(insightShare.grant(user)(using ctx.me))
+        (user.count.rated >= 10).so(insightShare.grant(user))
       ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _, _))
 
     def preloadTeams(info: UserInfo) = teamCache.lightCache.preloadMany(info.teamIds)

@@ -101,7 +101,7 @@ final class TeamApi(
     for
       blocklist <- blocklist.get(team)
       _ <- teamRepo.coll.update.one($id(team.id), bsonWriteDoc(team) ++ $doc("blocklist" -> blocklist))
-      isLeader <- hasPerm(team.id, me, _.Settings)
+      isLeader <- hasPerm(team.id, _.Settings)
     yield
       cached.forumAccess.invalidate(team.id)
       cached.lightCache.invalidate(team.id)
@@ -182,7 +182,7 @@ final class TeamApi(
   yield teamOption.ifTrue(able)
 
   def requestable(team: Team)(using me: Me): Fu[Boolean] = for
-    belongs <- belongsTo(team.id, me)
+    belongs <- isMember(team.id)
     requested <- requestRepo.exists(team.id, me)
   yield !belongs && !requested
 
@@ -228,7 +228,7 @@ final class TeamApi(
                 _.map(_.user).foreach(cached.nbRequests.invalidate)
 
   private[team] def doJoin(team: Team, userId: UserId, quietly: Boolean = false): Funit = {
-    belongsTo(team.id, userId).not.flatMapz:
+    isMember(team.id)(using userId.into(MyId)).not.flatMapz:
       for
         _ <- memberRepo.add(team.id, userId)
         _ <- teamRepo.incMembers(team.id, +1)
@@ -282,7 +282,7 @@ final class TeamApi(
 
   def searchMembersAs(teamId: TeamId, term: UserSearch, nb: Int)(using me: Option[MyId]): Fu[List[UserId]] =
     team(teamId).flatMapz: team =>
-      val canSee = fuccess(team.publicMembers) >>| me.so(me => cached.teamIds(me).map(_.contains(teamId)))
+      val canSee = fuccess(team.publicMembers) >>| me.soUse(cached.isMember(teamId))
       canSee.flatMapz:
         memberRepo.coll.primitive[UserId](
           selector = memberRepo.teamQuery(teamId) ++ $doc("user".$startsWith(term.value)),
@@ -369,6 +369,7 @@ final class TeamApi(
 
   export teamRepo.cursor
   export memberRepo.{ publicLeaderIds, leaderIds, isSubscribed, subscribe, filterUserIdsInTeam }
+  export cached.isMember
 
   // delete forever, with members but not forums
   def delete(team: Team, by: User, explain: String): Funit = for
@@ -379,35 +380,32 @@ final class TeamApi(
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
     cached.syncTeamIds(userId).contains(teamId)
 
-  def belongsTo[U: UserIdOf](teamId: TeamId, u: U): Fu[Boolean] =
-    cached.teamIds(u.id).dmap(_.contains(teamId))
-
   def clasMemberCheck(teamId: TeamId)(using me: Option[MyId]): Fu[Boolean] =
     for
       isClas <- teamRepo.ofClas(teamId)
-      ok <- if isClas then me.so(belongsTo(teamId, _)) else fuTrue
+      ok <- if isClas then me.soUse(isMember(teamId)) else fuTrue
     yield ok
 
-  def memberOf[U: UserIdOf](teamId: TeamId, u: U): Fu[Option[TeamMember]] =
-    belongsTo(teamId, u).flatMapz:
-      memberRepo.get(teamId, u)
+  def memberOf(teamId: TeamId)(using myId: MyId): Fu[Option[TeamMember]] =
+    isMember(teamId).flatMapz:
+      memberRepo.get(teamId, myId)
 
   def isCreatorGranted(team: Team, perm: TeamSecurity.Permission.Selector): Fu[Boolean] =
     memberRepo.hasPerm(team.id, team.createdBy, perm)
 
-  def isLeader[U: UserIdOf](team: TeamId, leader: U) =
-    belongsTo(team, leader).flatMapz:
-      memberRepo.hasAnyPerm(team, leader)
+  def isLeader(team: TeamId)(using myId: MyId) =
+    isMember(team).flatMapz:
+      memberRepo.hasAnyPerm(team, myId)
 
-  def isGranted(team: TeamId, user: User, perm: TeamSecurity.Permission.Selector) =
-    fuccess(Granter.ofUser(_.ManageTeam)(user)) >>|
-      hasPerm(team, user.id, perm)
+  def isGranted(team: TeamId, perm: TeamSecurity.Permission.Selector)(using Me) =
+    fuccess(Granter(_.ManageTeam)) >>|
+      hasPerm(team, perm)
 
-  def hasPerm(team: TeamId, userId: UserId, perm: TeamSecurity.Permission.Selector): Fu[Boolean] =
-    belongsTo(team, userId).flatMapz:
-      memberRepo.hasPerm(team, userId, perm)
+  def hasPerm(team: TeamId, perm: TeamSecurity.Permission.Selector)(using myId: MyId): Fu[Boolean] =
+    isMember(team).flatMapz:
+      memberRepo.hasPerm(team, myId, perm)
 
-  def hasCommPerm(team: TeamId, userId: UserId): Fu[Boolean] = hasPerm(team, userId, _.Comm)
+  def hasCommPerm(team: TeamId)(using MyId): Fu[Boolean] = hasPerm(team, _.Comm)
 
   def isLeaderOf[U: UserIdOf](leader: UserId, member: U) =
     cached
