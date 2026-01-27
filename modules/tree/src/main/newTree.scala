@@ -152,7 +152,10 @@ object NewTree:
 
   import NewRoot.given
   given defaultNodeJsonWriter: Writes[NewTree] =
-    NewRoot.makeNodeWriter
+    NewRoot.makeNodeWriter(lichobile = false)
+
+  val lichobileNodeJsonWriter: Writes[NewTree] =
+    NewRoot.makeNodeWriter(lichobile = true)
 
   // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
   // def fromNodeToBranch(node: Node): NewBranch = ???
@@ -298,8 +301,8 @@ object NewRoot:
           nodeListJsonWriter(lichobile).writes(tree.childAndChildVariations)
       )
 
-  def makeNodeWriter[A](using OWrites[A]): Writes[ChessNode[A]] =
-    makeTreeWriter(false).contramap(identity)
+  def makeNodeWriter[A](lichobile: Boolean)(using OWrites[A]): Writes[ChessNode[A]] =
+    makeTreeWriter(lichobile).contramap(identity)
 
   def makeMainlineWriter[A](using wa: OWrites[A]): Writes[ChessNode[A]] = Writes: tree =>
     wa.writes(tree.value)
