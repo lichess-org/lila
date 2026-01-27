@@ -49,7 +49,8 @@ final class TutorBits(helpers: Helpers)(
     a(href := routes.Tutor.user(user.username), cls := report.isEmpty.option("active"))("Tutor"),
     full.report.perfs.map: p =>
       a(
-        cls := p.perf.key.value.active(report.so(_.perf.key.value)),
+        cls := List("text" -> true, "active" -> report.exists(_.perf === p.perf)),
+        dataIcon := p.perf.icon,
         href := routes.Tutor.perf(user.username, p.perf.key)
       )(p.perf.trans)
   )
@@ -59,11 +60,12 @@ final class TutorBits(helpers: Helpers)(
   ) =
     lila.ui.bits.mselect(
       "tutor-perf-select",
-      span(current.trans),
+      span(cls := "text", dataIcon := current.icon)(current.trans),
       full.perfs.toList.map: r =>
         a(
           href := routing(usernameOrId(full.user), r.perf.key),
-          cls := (current == r.perf).option("current")
+          cls := List("text" -> true, "current" -> (current == r.perf)),
+          dataIcon := r.perf.icon
         )(r.perf.trans)
     )
 

@@ -112,11 +112,16 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
       active: String
   )(using Context) = frag(
     a(href := routes.Tutor.user(user.username))("Tutor"),
-    a(href := routes.Tutor.perf(user.username, report.perf.key), cls := active.active("perf"))(
-      report.perf.trans
-    ),
+    a(
+      href := routes.Tutor.perf(user.username, report.perf.key),
+      cls := List("active" -> (active == "perf"), "text" -> true),
+      dataIcon := report.perf.icon
+    )(report.perf.trans),
     bits.reportAngles.map: (key, name, route) =>
-      a(href := route(user.username, report.perf.key), cls := active.active(key))(name)
+      a(
+        href := route(user.username, report.perf.key),
+        cls := List("active" -> (active == key), "subnav__subitem" -> true)
+      )(name)
   )
 
   private def angleCard(title: Frag, url: Option[Call])(content: Modifier*) =
