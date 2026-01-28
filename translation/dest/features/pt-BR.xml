@@ -5,8 +5,8 @@
   <string name="standardChessAndX" comment="%s is 8 variants">Xadrez padrão e %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Análise profunda do servidor %s</string>
   <plurals name="gamesPerDay">
-    <item quantity="one">%s jogo por dia</item>
-    <item quantity="other">%s jogos por dia</item>
+    <item quantity="one">%s partida por dia</item>
+    <item quantity="other">%s partidas por dia</item>
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Editor e análise com %s</string>
   <string name="cloudEngineAnalysis">Análise na nuvem</string>
