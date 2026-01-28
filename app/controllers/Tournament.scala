@@ -258,28 +258,29 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             ),
           setup =>
             rateLimitCreation(setup.isPrivate, whenRateLimited):
-              api
-                .createTournament(setup, teams, andJoin = ctx.isWebAuth)
-                .flatMap: tour =>
-                  val tourUrl = routes.Tournament.show(tour.id)
-                  discard { env.report.api.automodComms(setup.automodText, tourUrl.url) }
-                  given GetMyTeamIds = _ => fuccess(teams.map(_.id))
-                  negotiate(
-                    html = Redirect {
-                      if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
-                      else tourUrl
-                    }.flashSuccess,
-                    json = jsonView(
-                      tour,
-                      none,
-                      none,
-                      none,
-                      partial = false,
-                      withScores = false,
-                      withAllowList = true,
-                      withDescription = true
-                    ).map { Ok(_) }
-                  )
+              given GetMyTeamIds = _ => fuccess(teams.map(_.id))
+              for
+                tour <- api.createTournament(setup, teams, andJoin = ctx.isWebAuth)
+                _ <- env.api.clas.onArenaCreate(tour)
+                tourUrl = routes.Tournament.show(tour.id)
+                _ = env.report.api.automodComms(setup.automodText, tourUrl.url).discard
+                result <- negotiate(
+                  html = Redirect {
+                    if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
+                    else tourUrl
+                  }.flashSuccess,
+                  json = jsonView(
+                    tour,
+                    none,
+                    none,
+                    none,
+                    partial = false,
+                    withScores = false,
+                    withAllowList = true,
+                    withDescription = true
+                  ).map { Ok(_) }
+                )
+              yield result
         )
 
   def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
@@ -422,7 +423,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         .kill(tour)
         .inject:
           env.mod.logApi.terminateTournament(tour.name())
-          Redirect(routes.Tournament.home)
+          Redirect:
+            tour.singleTeamId.fold(routes.Tournament.home)(routes.Team.show(_))
   }
 
   def byTeam(id: TeamId) = Anon:

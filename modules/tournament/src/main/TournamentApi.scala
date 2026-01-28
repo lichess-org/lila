@@ -337,6 +337,21 @@ final class TournamentApi(
           socket.reload(tour.id)
         .recover(lila.db.recoverDuplicateKey(_ => JoinResult.Ok))
 
+  def joinManyNoChecks(id: TourId, userIds: List[UserId], teamId: TeamId): Funit =
+    Parallel(id, "joinMany")(cached.tourCache.enterable): tour =>
+      for
+        battleTeam = tour.teamBattle.flatMap: battle =>
+          teamId.some.filter(battle.teams.contains)
+        users <- userApi.enabledByIds(userIds)
+        _ <- users.sequentiallyVoid: user =>
+          for
+            user <- userApi.withPerf(user, tour.perfType)
+            _ <- playerRepo.join(tour.id, user, battleTeam, none)
+          yield ()
+      yield
+        updateNbPlayers(tour.id)
+        socket.reload(tour.id)
+
   def pageOf(tour: Tournament, userId: UserId): Fu[Option[Int]] =
     cached
       .ranking(tour)

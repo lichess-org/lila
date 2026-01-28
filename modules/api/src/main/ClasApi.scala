@@ -1,19 +1,31 @@
 package lila.api
 
-import lila.swiss.{ Swiss, SwissApi }
 import lila.core.id.ClasId
+import lila.swiss.{ Swiss, SwissApi }
+import lila.tournament.{ Tournament, TournamentApi }
+import lila.team.TeamApi
 
-final class ClasApi(clasApi: lila.clas.ClasApi, teamApi: lila.team.TeamApi, swissApi: SwissApi)(using
-    Executor
-):
+final class ClasApi(
+    clasApi: lila.clas.ClasApi,
+    teamApi: TeamApi,
+    swissApi: SwissApi,
+    tourApi: TournamentApi
+)(using Executor):
 
   def onSwissCreate(swiss: Swiss): Funit =
+    WithStudents(swiss.teamId): students =>
+      swissApi.joinManyNoChecks(swiss.id, students)
+
+  def onArenaCreate(tour: Tournament): Funit =
+    tour.singleTeamId.so: teamId =>
+      WithStudents(teamId): students =>
+        tourApi.joinManyNoChecks(tour.id, students, teamId)
+
+  private def WithStudents(teamId: TeamId)(f: List[UserId] => Funit): Funit =
     teamApi
-      .team(swiss.teamId)
+      .team(teamId)
       .map(_.filter(_.isClas))
       .flatMapz: team =>
-        val clasId = team.id.into(ClasId)
-        for
-          userIds <- clasApi.student.activeUserIdsOf(clasId)
-          _ <- swissApi.joinManyNoChecks(swiss.id, userIds)
-        yield ()
+        clasApi.student
+          .activeUserIdsOf(team.id.into(ClasId))
+          .flatMap(f)
