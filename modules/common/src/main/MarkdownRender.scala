@@ -126,12 +126,10 @@ object MarkdownRender:
     // https://github.com/vsch/flexmark-java/issues/496
     private val tooManyUnderscoreRegex = """(_{6,})""".r
     private val tooManyQuotes = """^\s*(>\s*){5,}""".r
-    private val escapedListItemRegex = """(?m)^(\d+)\.\\""".r
     def apply(text: Markdown) =
       text.map: t =>
-        val withFixedListEscapes = escapedListItemRegex.replaceAllIn(t, """$1\\.""")
         tooManyUnderscoreRegex
-          .replaceAllIn(withFixedListEscapes, "_" * 3)
+          .replaceAllIn(t, "_" * 3)
           .linesIterator
           .map: line =>
             if line.count(_ == '>') > 15 then line.replaceAll(">", "").trim
@@ -339,13 +337,13 @@ object MarkdownRender:
         new NodeRendererFactory:
           override def apply(options: DataHolder) = new NodeRenderer:
             override def getNodeRenderingHandlers() =
-              Set(NodeRenderingHandler(classOf[Text], (node, _, html) => renderText(node, html))).asJava
+              Set(NodeRenderingHandler(classOf[Text], (node, ctx, html) => renderText(node, ctx, html))).asJava
 
-            private def renderText(node: Text, html: HtmlWriter): Unit =
+            private def renderText(node: Text, context: NodeRendererContext, html: HtmlWriter): Unit =
               val text = node.getChars.toString
 
               val matches = timestampRegex.findAllMatchIn(text).toList
-              if matches.isEmpty then html.text(text)
+              if matches.isEmpty then context.delegateRender()
               else
                 var lastEnd = 0
                 matches.foreach: m =>
