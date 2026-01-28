@@ -118,7 +118,8 @@ final class TournamentApi(
       then playerRepo.teamsWithPlayers(tour.id).map(_ ++ formTeamIds).map(_.take(TeamBattle.maxTeams))
       else fuccess(formTeamIds)
     _ <- tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
-    _ <- tour.isCreated.so { playerRepo.removeNotInTeams(tour.id, teamIds) >> updateNbPlayers(tour.id) }
+    _ <- tour.isCreated.so:
+      for _ <- playerRepo.removeNotInTeams(tour.id, teamIds) yield updateNbPlayers(tour.id)
   yield
     cached.tourCache.clear(tour.id)
     socket.reload(tour.id)
@@ -308,8 +309,8 @@ final class TournamentApi(
                 def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] = for
                   user <- userApi.withPerf(me.value, tour.perfType)
                   _ <- playerRepo.join(tour.id, user, team, prevPlayer)
-                  _ <- updateNbPlayers(tour.id)
                 yield
+                  updateNbPlayers(tour.id)
                   publish()
                   JoinResult.Ok
                 tour.teamBattle.fold(proceedWithTeam(none)): battle =>
@@ -346,9 +347,9 @@ final class TournamentApi(
             _.value / 10 + 1
 
   private object updateNbPlayers:
-    private val onceEvery = scalalib.cache.OnceEvery[TourId](1.second)
-    def apply(tourId: TourId): Funit = onceEvery(tourId).so:
-      playerRepo.count(tourId).flatMap { tournamentRepo.setNbPlayers(tourId, _) }
+    private val debouncer = Debouncer[TourId](scheduler.scheduleOnce(1.seconds, _), 64): tourId =>
+      playerRepo.count(tourId).flatMap(tournamentRepo.setNbPlayers(tourId, _))
+    def apply(tourId: TourId): Unit = debouncer.push(tourId)
 
   def selfPause(tourId: TourId, userId: UserId): Funit =
     withdraw(tourId, userId, isPause = true, isStalling = false)
@@ -361,10 +362,9 @@ final class TournamentApi(
   ): Funit =
     Parallel(tourId, "withdraw")(cached.tourCache.enterable):
       case tour if tour.isCreated =>
-        for
-          _ <- playerRepo.remove(tour.id, userId)
-          _ <- updateNbPlayers(tour.id)
+        for _ <- playerRepo.remove(tour.id, userId)
         yield
+          updateNbPlayers(tour.id)
           socket.reload(tour.id)
           publish()
       case tour if tour.isStarted =>
@@ -482,19 +482,18 @@ final class TournamentApi(
       .flatMap:
         _.sequentiallyVoid: tourId =>
           Parallel(tourId, "kickFromTeam")(tournamentRepo.byId): tour =>
-            for
-              _ <-
+            for _ <-
                 if tour.isCreated then playerRepo.remove(tour.id, userId)
                 else playerRepo.withdraw(tour.id, userId)
-              _ <- updateNbPlayers(tourId)
             yield
+              updateNbPlayers(tourId)
               duelStore.kick(tour, userId)
               socket.reload(tourId)
 
   // withdraws the player and forfeits all pairings in ongoing tournaments
   private[tournament] def ejectLameFromEnterable(tourId: TourId, userId: UserId): Funit =
     Parallel(tourId, "ejectLameFromEnterable")(cached.tourCache.enterable): tour =>
-      if tour.isCreated then playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)
+      if tour.isCreated then for _ <- playerRepo.remove(tour.id, userId) yield updateNbPlayers(tour.id)
       else
         for
           _ <- playerRepo.remove(tourId, userId)
@@ -507,8 +506,8 @@ final class TournamentApi(
               _ <- pairingRepo.forfeitByTourAndUserId(tour.id, userId)
               _ <- uids.toList.sequentiallyVoid(recomputePlayerAndSheet(tour))
             yield ()
-          _ <- updateNbPlayers(tour.id)
         yield
+          updateNbPlayers(tour.id)
           duelStore.kick(tour, userId)
           socket.reload(tour.id)
           publish()
