@@ -23,7 +23,7 @@ final private class InsightIndexer(
   )
 
   def all(user: User, force: Boolean): Funit =
-    (force || user.lame.not).so:
+    (force || (user.lame.not && user.noBot)).so:
       workQueue:
         storage
           .fetchLast(user.id)

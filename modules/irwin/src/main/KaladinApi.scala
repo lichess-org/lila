@@ -70,7 +70,7 @@ final class KaladinApi(
             _ <-
               if enoughMoves then
                 lila.mon.mod.kaladin.request(requester.name).increment()
-                insightApi.indexAll(user.user) >>
+                insightApi.indexAll(user.user, force = false) >>
                   coll(_.update.one($id(req.id), req, upsert = true)).void
               else
                 lila.mon.mod.kaladin.insufficientMoves(requester.name).increment()
