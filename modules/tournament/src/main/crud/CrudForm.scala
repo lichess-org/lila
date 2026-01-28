@@ -26,7 +26,7 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
       image = "",
       headline = "",
       teamBattle = false,
-      setup = forms.empty()
+      setup = forms.empty(forClas = false)
     )
   )
 

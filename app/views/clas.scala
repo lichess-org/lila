@@ -31,7 +31,7 @@ object student:
 
 def clasTournaments(tours: PastAndNext)(using Context) =
   tours.nonEmpty.option:
-    st.section(cls := "clas-tournaments"):
+    st.section(cls := "clas-tournaments team-events"):
       table(cls := "slist"):
         val allTours = tours.next ::: tours.past.take(5 - tours.next.size)
         val recentTours = allTours.filter(_.isRecent)

@@ -210,7 +210,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def form = Auth { ctx ?=> me ?=>
     NoBot:
       env.team.api.lightsByTourLeader(me).flatMap { teams =>
-        Ok.page(views.tournament.form.create(forms.create(teams), teams))
+        Ok.page(views.tournament.form.create(forms.create(teams, forClas = getBool("clas")), teams))
       }
   }
 
