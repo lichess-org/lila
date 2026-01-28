@@ -10,7 +10,8 @@ final class Insight(env: Env) extends LilaController(env):
 
   def refresh(username: UserStr) = OpenOrScoped(): ctx ?=>
     AccessibleApi(username): user =>
-      env.insight.api.indexAll(user, force = isGrantedOpt(_.Appeals)).inject(Ok)
+      val byMod = isGrantedOpt(_.MarkBooster) || isGrantedOpt(_.MarkEngine)
+      env.insight.api.indexAll(user, force = byMod).inject(Ok)
 
   def index(username: UserStr) = OpenOrScoped(): ctx ?=>
     Accessible(username): user =>
