@@ -276,7 +276,7 @@
     <item quantity="other">O ranking é atualizado a cada %s minutos</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s quebra-cabeça</item>
+    <item quantity="one">%s problema</item>
     <item quantity="other">%s problemas</item>
   </plurals>
   <string name="gamesPlayed">Partidas realizadas</string>
@@ -552,7 +552,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
   <string name="autoSwitch">Alternar automaticamente</string>
-  <string name="puzzles">Quebra-cabeças</string>
+  <string name="puzzles">Problemas</string>
   <string name="onlineBots">Bots online</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
