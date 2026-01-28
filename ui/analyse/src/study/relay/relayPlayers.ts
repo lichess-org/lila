@@ -1,7 +1,7 @@
 import { type VNode, dataIcon, hl, onInsert, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
-import type { Photo, RelayRound, RelayTour, RoundId, TourId } from './interfaces';
+import type { Photo, RelayRound, RelayTeamName, RelayTour, RoundId } from './interfaces';
 import { playerColoredResult } from './customScoreStatus';
 import { playerFedFlag } from '../playerBars';
 import { userLink, userTitle } from 'lib/view/userLink';
@@ -76,7 +76,7 @@ export default class RelayPlayers {
   show?: PlayerToShow;
 
   constructor(
-    private readonly tourId: TourId,
+    readonly tour: RelayTour,
     readonly switchToPlayerTab: () => void,
     readonly isEmbed: boolean,
     private readonly federations: () => Federations | undefined,
@@ -113,7 +113,7 @@ export default class RelayPlayers {
       this.redraw();
     }
     const players: (RelayPlayer & StudyPlayerFromServer)[] = await xhrJson(
-      `/broadcast/${this.tourId}/players`,
+      `/broadcast/${this.tour.id}/players`,
     );
     this.players = players.map(p => convertPlayerFromServer(p, this.federations()));
     this.redraw();
@@ -122,7 +122,7 @@ export default class RelayPlayers {
   loadPlayerWithGames = async (id: RelayPlayerId) => {
     const feds = this.federations();
     const full: RelayPlayerWithGames = await xhrJson(
-      `/broadcast/${this.tourId}/players/${encodeURIComponent(id)}`,
+      `/broadcast/${this.tour.id}/players/${encodeURIComponent(id)}`,
     ).then(p => convertPlayerFromServer(p, feds));
     full.games.forEach((g: RelayPlayerGame) => {
       g.opponent = convertPlayerFromServer(g.opponent as RelayPlayer & StudyPlayerFromServer, feds);
@@ -133,8 +133,8 @@ export default class RelayPlayers {
   playerLinkConfig = (p: StudyPlayer): VNodeData | undefined => playerLinkConfig(this, p, true);
 }
 
-export const playersView = (ctrl: RelayPlayers, tour: RelayTour): VNode =>
-  ctrl.show ? playerView(ctrl, ctrl.show, tour) : playersList(ctrl);
+export const playersView = (ctrl: RelayPlayers): VNode =>
+  ctrl.show ? playerView(ctrl, ctrl.show) : playersList(ctrl);
 
 const ratingCategs = [
   ['standard', i18n.site.classical],
@@ -142,7 +142,8 @@ const ratingCategs = [
   ['blitz', i18n.site.blitz],
 ];
 
-const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VNode => {
+const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
+  const tour = ctrl.tour;
   const p = show.player;
   const year = (tour.dates?.[0] ? new Date(tour.dates[0]) : new Date()).getFullYear();
   const tc = tour.info.fideTc || 'standard';
@@ -203,7 +204,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                         hl(
                           'td.text',
                           { attrs: dataIcon(licon.Group) },
-                          hl('a', teamLinkData(p.team), p.team),
+                          hl('a', matchOrResultsTeamLink(ctrl, p.team), p.team),
                         ),
                       ]),
                     age && hl('tr', [hl('th', i18n.broadcast.age), hl('td', age.toString())]),
@@ -401,7 +402,7 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
     hl('div.tpp__player__info', [
       hl(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
       hl('div.tpp__player__details', [
-        p.team && hl('a.tpp__player__team', teamLinkData(p.team), p.team),
+        p.team && hl('a.tpp__player__team', matchOrResultsTeamLink(ctrl, p.team), p.team),
         hl('div', [
           playerFedFlag(p.fed),
           !!p.rating && [`${p.rating}`, isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p)],
@@ -521,3 +522,6 @@ export const tableAugment = (el: HTMLTableElement) => {
     });
   });
 };
+
+const matchOrResultsTeamLink = (ctrl: RelayPlayers, teamName: RelayTeamName): VNodeData =>
+  ctrl.tour.showTeamScores ? teamLinkData(teamName) : { attrs: { href: '#teams' } };

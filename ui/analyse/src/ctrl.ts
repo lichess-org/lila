@@ -1067,7 +1067,7 @@ export default class AnalyseCtrl implements CevalHandler {
     };
   }
 
-  private pluginUpdate = (fen: string) => {
+  private pluginUpdate = (fen: FEN) => {
     // If controller and chessground board states differ, ignore this update. Once the chessground
     // state is updated to match, pluginUpdate will be called again.
     if (!fen.startsWith(this.chessground?.getFen())) return;

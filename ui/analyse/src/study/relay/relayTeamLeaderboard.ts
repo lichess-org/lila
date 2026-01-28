@@ -7,7 +7,7 @@ import { defined } from 'lib';
 import type { Federations, StudyPlayerFromServer } from '../interfaces';
 import { convertPlayerFromServer } from '../studyChapters';
 
-export default class RelayTeamsStandings {
+export default class RelayTeamLeaderboard {
   standings: RelayTeamStandings | undefined;
   teamToShow: RelayTeamName | undefined;
   constructor(

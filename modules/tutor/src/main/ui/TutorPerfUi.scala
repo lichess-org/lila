@@ -26,7 +26,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
               "Looking at ",
               pluralizeLocalize("game", report.stats.totalNbGames),
               report.stats.dates.map: dates =>
-                frag(" played between ", showDate(dates.start), " and ", showDate(dates.end))
+                frag(" played between ", showDate(dates.start), " and ", showDate(dates.end), ".")
             ),
             timePercentAndRating(full, report),
             ul(TutorCompare.mixedBag(report.relevantComparisons)(4).map(compare.show))

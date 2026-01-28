@@ -66,6 +66,8 @@ private class RelayTeamsTextarea(val text: String):
 
 object RelayTeam:
   import chess.{ Color, ByColor }
+  extension (players: Iterable[RelayPlayer])
+    def allGamesFinished: Boolean = players.forall(_.games.forall(_.points.isDefined))
   case class TeamWithGames(name: TeamName, players: RelayPlayer.RelayPlayers):
     def add(player: RelayPlayer) =
       player.id.fold(this): id =>
@@ -76,8 +78,6 @@ object RelayTeam:
           )
         )
     def points = players.values.toList.foldMap(_.score)
-    def allGamesFinished: Boolean =
-      players.values.forall(_.games.forall(_.points.isDefined))
   case class Pair[A](a: A, b: A):
     def is(p: Pair[A]) = (a == p.a && b == p.b) || (a == p.b && b == p.a)
     def map[B](f: A => B) = Pair(f(a), f(b))
@@ -106,17 +106,16 @@ object RelayTeam:
       val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
       val wPOV = game(t0Color)
       val bPOV = game(!t0Color)
-      val wPlayer = RelayPlayer.empty(bPOV.opponent).copy(score = wPOV.playerScore, games = Vector(wPOV))
-      val bPlayer = RelayPlayer.empty(wPOV.opponent).copy(score = bPOV.playerScore, games = Vector(bPOV))
+      val wPlayer = RelayPlayer.empty(wPOV.opponent).copy(score = wPOV.playerScore, games = Vector(wPOV))
+      val bPlayer = RelayPlayer.empty(bPOV.opponent).copy(score = bPOV.playerScore, games = Vector(bPOV))
       copy(
         games = TeamGame(chap.id, t0Color) :: games,
         teams = teams.bimap(_.add(wPlayer), _.add(bPlayer))
       )
     def swap = copy(teams = teams.reverse, games = games.map(_.swap))
-    def isFinished: Boolean = teams.forall(_.allGamesFinished)
     def pointsPair: Option[Pair[Points]] =
       teams
-        .forall(_.allGamesFinished)
+        .forall(_.players.values.allGamesFinished)
         .so:
           (teams.a.points, teams.b.points).mapN: (aPoints, bPoints) =>
             if aPoints == bPoints then Pair(Points.Half, Points.Half)
@@ -135,9 +134,9 @@ object RelayTeam:
         .map(_.value)
         .orElse(pointsFor(teamName).map(_.value))
     def povMatches: Pair[POVMatch] =
-      teams.permutations.map: (x, y) =>
-        val gp = x.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
-        POVMatch(roundId, y.name, y.players, pointsFor(x.name), scoreFor(x.name), gp)
+      teams.permutations.map: (team, opp) =>
+        val gp = team.players.values.toList.foldMap(_.games.foldMap(_.playerScore))
+        POVMatch(roundId, opp.name, team.players, pointsFor(team.name), scoreFor(team.name), gp)
     def povMatch(teamName: TeamName): Option[POVMatch] =
       if teams.a.name == teamName then Some(povMatches.a)
       else if teams.b.name == teamName then Some(povMatches.b)
@@ -150,7 +149,8 @@ object RelayTeam:
       points: Option[Points],
       mp: Option[Float],
       gp: Option[Float]
-  )
+  ):
+    def isFinished: Boolean = players.values.allGamesFinished
   object POVMatch:
     object json:
       import play.api.libs.json.*
@@ -161,7 +161,7 @@ object RelayTeam:
           .obj(
             "roundId" -> m.roundId,
             "opponent" -> m.opponentName,
-            "players" -> m.players.values.toList.sortBy(_.rating.map(-_.value))
+            "players" -> m.players.values.toList
           )
           .add("points" -> m.points)
           .add("mp" -> m.mp)
@@ -241,25 +241,16 @@ final class RelayTeamLeaderboard(
 
   case class TeamLeaderboardEntry(
       name: TeamName,
-      matches: List[RelayTeam.TeamMatch]
+      povMatches: List[RelayTeam.POVMatch]
   ):
-    lazy val matchPoints: Float =
-      matches
-        .filter(_.isFinished)
-        .flatMap(_.scoreFor(name))
-        .sum
-    lazy val gamePoints: Float =
-      matches
-        .filter(_.isFinished)
-        .flatMap(_.teams.find(_.name == name).flatMap(_.points))
-        .sum
-    lazy val povMatches: List[RelayTeam.POVMatch] = matches.flatMap(_.povMatch(name))
+    lazy val matchPoints: Float = povMatches.filter(_.isFinished).flatMap(_.mp).sum
+    lazy val gamePoints: Float = povMatches.filter(_.isFinished).flatMap(_.gp).sum
     lazy val players: Iterable[RelayPlayer] = povMatches
       .flatMap(_.players.values)
       .groupBy(_.id)
       .values
       .map:
-        _.reduce((r1, r2) => r1.copy(games = r1.games ++ r2.games, score = r1.score |+| r2.score))
+        _.reduce((acc, p) => acc.copy(games = acc.games ++ p.games, score = acc.score |+| p.score))
 
   given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.gamePoints, t.name))
 
@@ -312,10 +303,12 @@ final class RelayTeamLeaderboard(
         yield matches.foldLeft(SeqMap.empty: TeamLeaderboard): (acc, matchup) =>
           matchup.teams
             .foldLeft(acc): (acc, team) =>
-              acc.updatedWith(team.name):
-                _.fold(TeamLeaderboardEntry(team.name, List(matchup))): team =>
-                  team.copy(matches = team.matches :+ matchup)
-                .some
+              acc.updatedWith(team.name): entry =>
+                matchup
+                  .povMatch(team.name)
+                  .flatMap: pov =>
+                    entry.fold(TeamLeaderboardEntry(team.name, List(pov)).some): team =>
+                      team.copy(povMatches = team.povMatches :+ pov).some
             .toList
             .sortBy(_._2)
             .to(SeqMap)
