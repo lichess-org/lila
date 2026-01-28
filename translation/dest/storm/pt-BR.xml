@@ -50,9 +50,9 @@
   <string name="skip">pular</string>
   <string name="skipHelp">Você pode pular um movimento por corrida:</string>
   <string name="skipExplanation">Pule este lance para preservar o seu combo! Funciona apenas uma vez por corrida.</string>
-  <string name="failedPuzzles">Quebra-cabeças falhados</string>
-  <string name="slowPuzzles">Quebra-cabeças lentos</string>
-  <string name="skippedPuzzle">Quebra-cabeça pulado</string>
+  <string name="failedPuzzles">Problemas com falha</string>
+  <string name="slowPuzzles">Problemas lentos</string>
+  <string name="skippedPuzzle">Problema pulado</string>
   <string name="thisWeek">Essa semana</string>
   <string name="thisMonth">Esse mês</string>
   <string name="allTime">Desde o início</string>
