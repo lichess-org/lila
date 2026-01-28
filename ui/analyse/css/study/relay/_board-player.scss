@@ -95,9 +95,9 @@
     @extend %roboto;
     flex: 2;
     color: $c-font-dim;
-    &:hover {
-      color: $c-primary;
-    }
+  }
+  a.team:hover {
+    color: $c-link;
   }
   .mini-game__flag {
     width: 1em;

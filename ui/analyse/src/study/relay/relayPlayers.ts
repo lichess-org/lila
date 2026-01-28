@@ -203,7 +203,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                         hl(
                           'td.text',
                           { attrs: dataIcon(licon.Group) },
-                          hl('a', teamLinkData(p.team), p.team),
+                          tour.showTeamScores ? hl('a', teamLinkData(p.team), p.team) : p.team,
                         ),
                       ]),
                     age && hl('tr', [hl('th', i18n.broadcast.age), hl('td', age.toString())]),
