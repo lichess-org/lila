@@ -3,6 +3,7 @@ package lila.insight
 import scalalib.HeapSort.botN
 
 import lila.game.GameRepo
+import lila.core.perm.Granter
 
 final class InsightApi(
     storage: InsightStorage,
@@ -63,8 +64,8 @@ final class InsightApi(
               case Some(entry) if entry.date.isBefore(game.createdAt) => UserStatus.Stale
               case _ => UserStatus.Fresh
 
-  def indexAll(user: User) =
-    for _ <- indexer.all(user).monSuccess(_.insight.index)
+  def indexAll(user: User)(using me: Me) =
+    for _ <- indexer.all(user, force = Granter(_.Appeals)).monSuccess(_.insight.index)
     yield userCache.put(user.id, computeUser(user.id))
 
   def updateGame(g: Game) =
