@@ -8,7 +8,7 @@ import lila.core.misc.lpv.LpvEmbed
 class MarkdownTest extends munit.FunSuite:
 
   val render: Markdown => Html =
-    new MarkdownRender(assetDomain = AssetDomain("lichess1.org").some, header = true)("test")
+    new MarkdownRender(assetDomain = AssetDomain("lichess1.org").some, header = true, list = true)("test")
 
   test("autolinks add rel"):
     val md = Markdown("https://example.com")
@@ -154,6 +154,22 @@ Line 2""")
     assertEquals(
       render(Markdown(">>>>> Hi")),
       Html("""<p>&gt; &gt; &gt; &gt; &gt; Hi</p>
+""")
+    )
+
+  test("Escaped non-list element".only):
+    // the markdown visual editor adds backslashes before the dot
+    // when the writer types something that looks like a list item, but isn't.
+    // Example: "1.\ Something"
+    // We don't want to render the backslash, or to make it a list item.
+    // assertEquals(render(Markdown("""1.\ Something""")), Html("""<p>1. Something</p>"""))
+    assertEquals(render(Markdown("""1.\ More dots.""")), Html("""<p>1. More dots.</p>"""))
+    // ensure that normal list items still work
+    assertEquals(
+      render(Markdown("""1. Something""")),
+      Html("""<ol>
+<li>Something</li>
+</ol>
 """)
     )
 
