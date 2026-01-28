@@ -721,7 +721,7 @@
   <string name="keyCycleSelectedVariation">Alternar entre as variantes</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentários</string>
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
-  <string name="keyRequestComputerAnalysis">Solicite análise do computador, aprenda com seus erros</string>
+  <string name="keyRequestComputerAnalysis">Solicite análise do computador, Aprenda com seus erros</string>
   <string name="keyNextLearnFromYourMistakes">Próximo (Aprenda com seus erros)</string>
   <string name="keyNextBlunder">Próximo erro grave</string>
   <string name="keyNextMistake">Próximo erro</string>
@@ -871,9 +871,9 @@
   <string name="waitingForAnalysis">Aguardando análise</string>
   <string name="noMistakesFoundForWhite">Nenhum erro encontrado para as Brancas</string>
   <string name="noMistakesFoundForBlack">Nenhum erro encontrado para as Pretas</string>
-  <string name="doneReviewingWhiteMistakes">Erros das brancas já revistos</string>
-  <string name="doneReviewingBlackMistakes">Erros das pretas já revistos</string>
-  <string name="doItAgain">Faça novamente</string>
+  <string name="doneReviewingWhiteMistakes">Terminada a revisão de erros das brancas</string>
+  <string name="doneReviewingBlackMistakes">Terminada a revisão de erros das pretas</string>
+  <string name="doItAgain">Repetir</string>
   <string name="reviewWhiteMistakes">Rever erros das Brancas</string>
   <string name="reviewBlackMistakes">Rever erros das Pretas</string>
   <string name="advantage">Vantagem</string>
