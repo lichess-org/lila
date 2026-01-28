@@ -168,6 +168,13 @@ Line 2""")
       Html("""<p>1. More dots.</p>
 """)
     )
+    val renderWithTimestamp = MarkdownRender(timestamp = true)("test")
+    assertEquals(
+      renderWithTimestamp(Markdown("""1\. More dots\.""")),
+      Html("""<p>1. More dots.</p>
+""")
+    )
+
     // ensure that normal list items still work
     assertEquals(
       render(Markdown("""1. Something""")),
