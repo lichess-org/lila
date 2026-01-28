@@ -167,7 +167,6 @@ private object TutorBuilder:
     export map.get
 
     def dimensions = list._1F
-    def alignedQuestion = answer.question.filter(Filter(answer.question.dimension, dimensions))
 
   case class AnswerMine[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)
   case class AnswerPeer[Dim](answer: InsightAnswer[Dim]) extends Answer(answer)

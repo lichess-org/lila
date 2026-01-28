@@ -6,7 +6,7 @@ import monocle.syntax.all.*
 
 import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
-import lila.insight.{ Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
+import lila.insight.{ Insight, Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
 
 case class TutorColorOpenings(families: List[TutorOpeningFamily]):
   lazy val accuracyCompare = TutorCompare[LilaOpeningFamily, AccuracyPercent](
@@ -51,16 +51,31 @@ private case object TutorOpening:
       InsightApi,
       Executor
   ): Fu[TutorColorOpenings] = for
-    myPerfsFull <- answerMine(perfQuestion(color), user)
-    myPerfs = myPerfsFull.focus(_.answer.clusters).modify(_.take(nbOpeningsPerColor))
-    peerPerfs <- answerPeer(myPerfs.alignedQuestion, user)
+    wideQuestion = Question(
+      InsightDimension.OpeningFamily,
+      InsightMetric.Performance,
+      List(Filter(color))
+    )
+    myPerfsWide <- answerMine(wideQuestion, user)
+    myPerfs = myPerfsWide.focus(_.answer.clusters).modify(_.take(nbOpeningsPerColor))
+    myOpenings = myPerfs.dimensions
+    focusedQuestion = wideQuestion.filter(Filter(InsightDimension.OpeningFamily, myOpenings))
+    meanRatingPoint = Insight.Single(lila.insight.Point(user.perfStats.rating.value.toDouble))
+    peerPerfs = AnswerPeer:
+      myPerfs.answer
+        .focus(_.clusters)
+        .modify(_.map(_.set(meanRatingPoint, peerNbGames.value)))
     performances = Answers(myPerfs, peerPerfs)
-    accuracyQuestion = myPerfs.alignedQuestion
+    myAccuracyQuestion = focusedQuestion
       .withMetric(InsightMetric.MeanAccuracy)
-      .filter(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
-    accuracy <- answerBoth(accuracyQuestion, user, Max(5_000))
-    awarenessQuestion = accuracyQuestion.withMetric(InsightMetric.Awareness)
-    awareness <- answerBoth(awarenessQuestion, user, Max(5_000))
+      .filter(phaseFilter)
+    myAccuracy <- answerMine(myAccuracyQuestion, user)
+    peerAccuracy <- peerOpeningAnswerFromSinglePoint(user, myAccuracy.answer, color)
+    accuracy = Answers(myAccuracy, peerAccuracy)
+    myAwarenessQuestion = myAccuracyQuestion.withMetric(InsightMetric.Awareness)
+    myAwareness <- answerMine(myAwarenessQuestion, user)
+    peerAwareness <- peerOpeningAnswerFromSinglePoint(user, myAwareness.answer, color)
+    awareness = Answers(myAwareness, peerAwareness)
   yield TutorColorOpenings:
     performances.mine.list.map: (family, myPerformance) =>
       TutorOpeningFamily(
@@ -71,8 +86,20 @@ private case object TutorOpening:
         awareness = GoodPercent.from(awareness.valueMetric(family))
       )
 
-  def perfQuestion(color: Color) = Question(
-    InsightDimension.OpeningFamily,
-    InsightMetric.Performance,
-    List(colorFilter(color))
-  )
+  private val phaseFilter = Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle))
+
+  private def peerOpeningAnswerFromSinglePoint[Dim](
+      user: TutorPlayer,
+      myAnswer: lila.insight.Answer[Dim],
+      color: Color
+  )(using insightApi: InsightApi, ec: Executor): Fu[AnswerPeer[Dim]] = for
+    question = Question(InsightDimension.Color, myAnswer.question.metric, List(phaseFilter, Filter(color)))
+    answer <- answerPeer(question, user)
+    answerPoint = answer.answer.clusters.headOption.map(_.insight)
+    peerAnswer = AnswerPeer:
+      myAnswer
+        .focus(_.clusters)
+        .modify: clusters =>
+          answerPoint.so: point =>
+            clusters.map(_.set(point, peerNbGames.value))
+  yield peerAnswer
