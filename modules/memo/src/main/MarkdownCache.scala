@@ -14,22 +14,11 @@ case class MarkdownOptions(
     strikeThrough: Boolean = false,
     blockQuote: Boolean = false,
     code: Boolean = false,
+    timestamp: Boolean = false,
     maxPgns: Max = Max(0),
     toastUi: Boolean = false,
     sourceMap: Boolean = false
 )
-
-object MarkdownOptions:
-  val all = MarkdownOptions(
-    autoLink = true,
-    list = true,
-    table = true,
-    header = true,
-    strikeThrough = true,
-    blockQuote = true,
-    code = true,
-    maxPgns = Max(0)
-  )
 
 final class MarkdownCache(
     cacheApi: CacheApi,
@@ -96,10 +85,11 @@ final class MarkdownCache(
         header = opts.header,
         blockQuote = opts.blockQuote,
         code = opts.code,
+        timestamp = opts.timestamp,
         table = opts.table,
         sourceMap = opts.sourceMap,
         pgnExpand = pgnCache.expand.some,
-        assetDomain.some
+        assetDomain = assetDomain.some
       )
     )
 

@@ -48,6 +48,7 @@ final class MarkdownRender(
     blockQuote: Boolean = false,
     list: Boolean = false,
     code: Boolean = false,
+    timestamp: Boolean = false,
     sourceMap: Boolean = false,
     pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
     assetDomain: Option[AssetDomain] = None
@@ -63,9 +64,9 @@ final class MarkdownRender(
     extensions.add(AutolinkExtension.create())
     extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain))
   extensions.add(
-    pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension) { MarkdownRender.PgnEmbedExtension(_) }
+    pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension)(MarkdownRender.PgnEmbedExtension(_))
   )
-  extensions.add(MarkdownRender.TimestampExtension)
+  if timestamp then extensions.add(MarkdownRender.TimestampExtension)
   if sourceMap then extensions.add(MarkdownRender.SourceMapExtension)
 
   private val options = MutableDataSet()
