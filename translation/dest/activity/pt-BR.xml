@@ -11,8 +11,8 @@
     <item quantity="other">Praticou %1$s posições em %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Resolveu %s quebra-cabeça tático</item>
-    <item quantity="other">Resolveu %s quebra-cabeças táticos</item>
+    <item quantity="one">Resolveu %s problema de treino</item>
+    <item quantity="other">Resolveu %s problemas de treino</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Jogou %1$s partida de %2$s</item>
