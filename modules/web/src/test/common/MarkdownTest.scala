@@ -163,7 +163,11 @@ Line 2""")
     // Example: "1.\ Something"
     // We don't want to render the backslash, or to make it a list item.
     // assertEquals(render(Markdown("""1.\ Something""")), Html("""<p>1. Something</p>"""))
-    assertEquals(render(Markdown("""1.\ More dots.""")), Html("""<p>1. More dots.</p>"""))
+    assertEquals(
+      render(Markdown("""1\. More dots\.""")),
+      Html("""<p>1. More dots.</p>
+""")
+    )
     // ensure that normal list items still work
     assertEquals(
       render(Markdown("""1. Something""")),
