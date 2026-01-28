@@ -48,7 +48,7 @@ final private class TutorBuilder(
   yield report
 
   private def produce(user: UserWithPerfs): Fu[TutorFullReport] = for
-    _ <- insightApi.indexAll(user).monSuccess(_.tutor.buildSegment("insight-index"))
+    _ <- insightApi.indexAll(user, force = false).monSuccess(_.tutor.buildSegment("insight-index"))
     perfStats <- perfStatsApi(user, eligiblePerfKeysOf(user).map(PerfType(_)), fishnet.maxGamesToConsider)
       .monSuccess(_.tutor.buildSegment("perf-stats"))
     peerMatches <- findPeerMatches(perfStats.view.mapValues(_.stats.rating).toMap)

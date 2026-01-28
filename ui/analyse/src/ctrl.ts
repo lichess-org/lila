@@ -1049,9 +1049,6 @@ export default class AnalyseCtrl implements CevalHandler {
     }
   };
 
-  outcome = () => this.node.outcome(); // LT BC
-  position = () => this.node.pos(); // LT BC
-
   private makeVariationOpacityProp(): Prop<number | false> {
     let value = parseFloat(localStorage.getItem('analyse.variation-arrow-opacity') || '0');
     if (isNaN(value) || value < -1 || value > 1) value = 0;

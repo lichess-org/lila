@@ -22,8 +22,8 @@ final private class InsightIndexer(
     lila.log.asyncActorMonitor.full
   )
 
-  def all(user: User): Funit =
-    user.lame.not.so:
+  def all(user: User, force: Boolean): Funit =
+    (force || (user.lame.not && user.noBot)).so:
       workQueue:
         storage
           .fetchLast(user.id)
