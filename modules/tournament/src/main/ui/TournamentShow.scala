@@ -116,8 +116,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
           variantTeamLinks
             .get(tour.variant.key)
             .filter: (team, _) =>
-              tour.createdBy.is(UserId.lichess) || tour.conditions.teamMember
-                .exists(_.teamId == team.id)
+              tour.createdBy.is(UserId.lichess) || tour.singleTeamId.has(team.id)
             .map: (team, link) =>
               st.section(
                 if isMyTeamSync(team.id) then frag(trans.team.team(), " ", link)

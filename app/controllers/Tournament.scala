@@ -466,8 +466,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     cachedTour(id).flatMap:
       case None => nope
       case Some(tour) =>
-        tour.conditions.teamMember
-          .map(_.teamId)
+        tour.singleTeamId
           .fold(fuTrue)(env.team.api.clasMemberCheck)
           .flatMap:
             if _ then f(tour) else nope

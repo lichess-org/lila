@@ -61,7 +61,7 @@ final class TournamentApi(
     for
       _ <- tournamentRepo.insert(tour)
       _ <- setup.teamBattleByTeam
-        .orElse(tour.conditions.teamMember.map(_.teamId))
+        .orElse(tour.singleTeamId)
         .so: teamId =>
           tournamentRepo.setForTeam(tour.id, teamId).void
       _ <- (andJoin && !me.isBot && !me.lame).so:
