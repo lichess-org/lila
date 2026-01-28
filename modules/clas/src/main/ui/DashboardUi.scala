@@ -105,7 +105,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             )
           )
 
-    def overview(c: Clas, students: List[Student.WithUserPerfs])(using Context) =
+    def overview(c: Clas, students: List[Student.WithUserPerfs], tournaments: Option[Frag])(using Context) =
       TeacherPage(c, students, "overview")():
         frag(
           div(cls := "clas-show__overview")(
@@ -121,6 +121,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                   )
             )
           ),
+          tournaments,
           if students.isEmpty
           then p(cls := "box__pad students__empty")(trans.clas.noStudents())
           else studentList(c, students)

@@ -31,10 +31,8 @@ object TeamInfo:
   opaque type AnyTour = Tournament | Swiss
   object AnyTour extends TotalWrapper[AnyTour, Tournament | Swiss]:
     extension (e: AnyTour)
-      def isEnterable = e.fold(_.isEnterable, _.isEnterable)
       def startsAt = e.fold(_.startsAt, _.startsAt)
-      def isNowOrSoon = e.fold(_.isNowOrSoon, _.isNowOrSoon)
-      def nbPlayers = e.fold(_.nbPlayers, _.nbPlayers)
+      def isRecent = e.startsAt.isAfter(nowInstant.minusDays(1))
       inline def fold[A](ft: Tournament => A, fs: Swiss => A): A = e match
         case t: Tournament => ft(t)
         case s: Swiss => fs(s)
