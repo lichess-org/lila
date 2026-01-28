@@ -157,7 +157,7 @@ Line 2""")
 """)
     )
 
-  test("Escaped non-list element".only):
+  test("Escaped non-list element"):
     // the markdown visual editor adds backslashes before the dot
     // when the writer types something that looks like a list item, but isn't.
     // Example: "1.\ Something"
