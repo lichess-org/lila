@@ -22,6 +22,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
   if (!study) return;
   const relayPlayers = study.relay?.players;
+  const showTeamLeaderboard = !!study.relay?.data.tour.showTeamScores;
   const relayTeamLeaderboard = study.relay?.teamLeaderboard;
 
   const players = study.currentChapter().players,
@@ -43,7 +44,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       study.data.showRatings || !looksLikeLichessGame(tags),
       study.relay?.round,
       relayPlayers,
-      relayTeamLeaderboard,
+      { show: showTeamLeaderboard, leaderboard: relayTeamLeaderboard },
     ),
   );
 }
@@ -67,7 +68,7 @@ function renderPlayer(
   showRatings: boolean,
   round?: RelayRound,
   relayPlayers?: RelayPlayers,
-  relayTeamsStandings?: RelayTeamLeaderboard,
+  relayTeamLeaderboard?: { show: boolean; leaderboard?: RelayTeamLeaderboard },
 ): VNode {
   const showResult: boolean =
       !defined(ctrl.study?.relay) ||
@@ -111,7 +112,9 @@ function renderPlayer(
                       on: {
                         click: (ev: PointerEvent) => {
                           ev.preventDefault();
-                          relayTeamsStandings?.setTeamToShow(team);
+                          relayTeamLeaderboard?.show
+                            ? relayTeamLeaderboard?.leaderboard?.setTeamToShow(team)
+                            : ctrl.study?.relay?.openTab('teams');
                         },
                       },
                     },
