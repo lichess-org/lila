@@ -102,9 +102,7 @@ const renderTeams = (
       hl('div.relay-tour__team-match__teams', [
         hl(
           'strong.relay-tour__team-match__team',
-          showTeamScores
-            ? hl('a.team', teamLinkData(row.teams[0].name), row.teams[0].name)
-            : row.teams[0].name,
+          showTeamScores ? hl('a.team', teamLinkData(firstTeam.name), firstTeam.name) : firstTeam.name,
         ),
         hl('span.relay-tour__team-match__team__points', [
           hl(`${resultClass(firstTeam, secondTeam)}result`, firstTeam.points),
