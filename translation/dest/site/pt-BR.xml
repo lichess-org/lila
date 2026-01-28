@@ -221,7 +221,7 @@
     <item quantity="other">%s dias</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s horas</item>
+    <item quantity="one">%s hora</item>
     <item quantity="other">%s horas</item>
   </plurals>
   <plurals name="nbMinutes">
@@ -803,7 +803,7 @@
   <string name="xJoinsY">%1$s entrou em %2$s</string>
   <string name="xLikesY">%1$s gostou de %2$s</string>
   <string name="quickPairing">Pareamento rápido</string>
-  <string name="lobby">Salão</string>
+  <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anônimo</string>
   <string name="yourScore">Sua pontuação:%s</string>
   <string name="language">Idioma</string>
