@@ -1,6 +1,6 @@
 import { type MaybeVNodes, type VNode, onInsert, hl, spinnerVdom as spinner } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
-import type { RelayRound } from './interfaces';
+import type { RelayRound, RelayTour } from './interfaces';
 import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
 import { playerFedFlag } from '../playerBars';
@@ -31,6 +31,7 @@ export default class RelayTeams {
   teams?: TeamTable;
 
   constructor(
+    readonly tour: RelayTour,
     readonly round: RelayRound,
     readonly multiCloudEval: MultiCloudEval | undefined,
     readonly chapterSelect: ChapterSelect,
@@ -68,6 +69,7 @@ export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: Re
           players,
           ctrl.multiCloudEval?.thisIfShowEval(),
           ctrl.round,
+          ctrl.tour.showTeamScores,
         )
       : [spinner()],
   );
@@ -79,6 +81,7 @@ const renderTeams = (
   playersCtrl: RelayPlayers,
   cloudEval?: MultiCloudEval,
   round?: RelayRound,
+  showTeamScores?: boolean,
 ): MaybeVNodes =>
   teams.table.map(row => {
     const firstTeam = row.teams[0];
@@ -99,14 +102,19 @@ const renderTeams = (
       hl('div.relay-tour__team-match__teams', [
         hl(
           'strong.relay-tour__team-match__team',
-          hl('a', teamLinkData(row.teams[0].name), row.teams[0].name),
+          showTeamScores
+            ? hl('a.team', teamLinkData(row.teams[0].name), row.teams[0].name)
+            : row.teams[0].name,
         ),
         hl('span.relay-tour__team-match__team__points', [
           hl(`${resultClass(firstTeam, secondTeam)}result`, firstTeam.points),
           hl('vs', 'vs'),
           hl(`${resultClass(secondTeam, firstTeam)}result`, secondTeam.points),
         ]),
-        hl('strong.relay-tour__team-match__team', hl('a', teamLinkData(secondTeam.name), secondTeam.name)),
+        hl(
+          'strong.relay-tour__team-match__team',
+          showTeamScores ? hl('a.team', teamLinkData(secondTeam.name), secondTeam.name) : secondTeam.name,
+        ),
       ]),
       hl(
         'div.relay-tour__team-match__games',
