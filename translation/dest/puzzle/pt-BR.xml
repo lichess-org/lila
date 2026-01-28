@@ -34,8 +34,8 @@
   <string name="openingsYouPlayedTheMost">Aberturas que você mais jogou em partidas valendo pontos</string>
   <string name="useFindInPage">Use a ferramenta \"Encontrar na página\" do navegador para encontrar sua abertura favorita!</string>
   <string name="useCtrlF">Aperte Ctrl + F para encontrar sua abertura favorita!</string>
-  <string name="notTheMove">O movimento não é este!</string>
-  <string name="trySomethingElse">Tente algo diferente.</string>
+  <string name="notTheMove">Esse não é o lance!</string>
+  <string name="trySomethingElse">Tenta outra coisa.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">oculto</string>
   <plurals name="playedXTimes">
@@ -70,7 +70,7 @@
   <string name="failed">falhou</string>
   <string name="streakDescription">Resolva problemas progressivamente mais difíceis e construa uma sequência de vitórias. Não há relógio, então tome seu tempo. Um lance errado e o jogo acaba! Porém, você pode pular um movimento por sessão.</string>
   <string name="yourStreakX">Sua sequência: %s</string>
-  <string name="streakSkipExplanation">Pule este lance para preservar a sua sequência! Funciona apenas uma vez por corrida.</string>
+  <string name="streakSkipExplanation">Pule este lance para preservar a sua sequência! Funciona apenas uma vez por tentativa.</string>
   <string name="continueTheStreak">Continuar a sequência</string>
   <string name="newStreak">Nova sequência</string>
   <string name="fromMyGames">Dos meus jogos</string>
