@@ -13,7 +13,7 @@
   <string name="studies">Estudos (análise persistente que pode ser compartilhada)</string>
   <string name="chessInsights">Dicas de xadrez (análise detalhada de seu jogo)</string>
   <string name="allChessBasicsLessons">Todas as aulas básicas de xadrez</string>
-  <string name="tacticalPuzzlesFromUserGames">Quebra-cabeças táticos de jogos de usuários</string>
+  <string name="tacticalPuzzlesFromUserGames">Problemas táticos de partidas de usuários</string>
   <string name="personalOpeningExplorerX">%1$s (também funciona com %2$s)</string>
   <string name="personalOpeningExplorer">Explorador pessoal de aberturas</string>
   <string name="globalOpeningExplorerInNbGames">Explorador global de aberturas (%s jogos!)</string>
