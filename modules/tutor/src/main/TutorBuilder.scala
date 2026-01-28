@@ -8,7 +8,6 @@ import lila.insight.{
   Filter,
   Insight,
   InsightApi,
-  InsightDimension,
   InsightPerfStatsApi,
   Question
 }
@@ -121,7 +120,7 @@ private object TutorBuilder:
       insightApi: InsightApi,
       ec: Executor
   ): Fu[AnswerMine[Dim]] = insightApi
-    .ask(question.filter(perfFilter(user.perfType)), user.user, withPovs = false)
+    .ask(question.filter(Filter(user.perfType)), user.user, withPovs = false)
     .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key))
     .map(AnswerMine.apply)
 
@@ -129,7 +128,7 @@ private object TutorBuilder:
       insightApi: InsightApi,
       ec: Executor
   ): Fu[AnswerPeer[Dim]] = insightApi
-    .askPeers(question.filter(perfFilter(user.perfType)), user.perfStats.rating, nbGames = nbGames)
+    .askPeers(question.filter(Filter(user.perfType)), user.perfStats.rating, nbGames = nbGames)
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key))
     .map(AnswerPeer.apply)
 
@@ -147,7 +146,7 @@ private object TutorBuilder:
   ): Fu[Answers[Dim]] = for
     mine <- insightApi
       .ask(
-        question.filter(perfsFilter(tutorUsers.toList.map(_.perfType))),
+        question.filter(Filter(tutorUsers.toList.map(_.perfType))),
         tutorUsers.head.user,
         withPovs = false
       )
@@ -178,7 +177,3 @@ private object TutorBuilder:
     def valueMetric(dim: Dim, myValue: Pair) = TutorBothValues(myValue, peer.get(dim))
 
     def valueMetric(dim: Dim) = TutorBothValueOptions(mine.get(dim), peer.get(dim))
-
-  def colorFilter(color: Color) = Filter(InsightDimension.Color, List(color))
-  def perfFilter(perfType: PerfType) = Filter(InsightDimension.Perf, List(perfType))
-  def perfsFilter(perfTypes: Iterable[PerfType]) = Filter(InsightDimension.Perf, perfTypes.toList)
