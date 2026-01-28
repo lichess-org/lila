@@ -126,10 +126,12 @@ object MarkdownRender:
     // https://github.com/vsch/flexmark-java/issues/496
     private val tooManyUnderscoreRegex = """(_{6,})""".r
     private val tooManyQuotes = """^\s*(>\s*){5,}""".r
+    private val escapedListItemRegex = """(?m)^(\d+)\.\\""".r
     def apply(text: Markdown) =
       text.map: t =>
+        val withFixedListEscapes = escapedListItemRegex.replaceAllIn(t, """$1\\.""")
         tooManyUnderscoreRegex
-          .replaceAllIn(t, "_" * 3)
+          .replaceAllIn(withFixedListEscapes, "_" * 3)
           .linesIterator
           .map: line =>
             if line.count(_ == '>') > 15 then line.replaceAll(">", "").trim

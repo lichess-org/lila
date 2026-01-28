@@ -157,7 +157,7 @@ Line 2""")
 """)
     )
 
-  test("Escaped non-list element".only):
+  test("Escaped non-list element"):
     // the markdown visual editor adds backslashes before the dot
     // when the writer types something that looks like a list item, but isn't.
     // Example: "1.\ Something"
@@ -197,6 +197,15 @@ Line 2""")
     )
 
   test("markdown datetime rendering"):
+    val renderTimestamp: Markdown => Html =
+      new MarkdownRender(
+        assetDomain = AssetDomain("lichess1.org").some,
+        header = true,
+        list = true,
+        timestamp = true
+      )(
+        "test"
+      )
     val formats = List(
       "d" -> "2025-12-15",
       "D" -> "2025-12-15",
@@ -211,7 +220,7 @@ Line 2""")
 
     for (format, expected) <- formats do
       assertEquals(
-        render(Markdown(s"The event is at <t:1765823521:$format>.")),
+        renderTimestamp(Markdown(s"The event is at <t:1765823521:$format>.")),
         Html(
           s"""<p>The event is at <time datetime="2025-12-15T18:32:01Z" format="$format" title="$expected">$expected</time>.</p>
 """
@@ -219,7 +228,7 @@ Line 2""")
       )
 
     assertEquals(
-      render(Markdown("2 per line: <t:1765823521:d> <t:1765823521:d>")),
+      renderTimestamp(Markdown("2 per line: <t:1765823521:d> <t:1765823521:d>")),
       Html(
         """<p>2 per line: <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time> <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time></p>
 """
