@@ -3,8 +3,10 @@ package mashup
 import lila.core.forum.ForumPostMiniView
 import lila.simul.{ Simul, SimulApi }
 import lila.swiss.{ Swiss, SwissApi }
-import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRequestRepo }
+import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRepo, TeamRequestRepo }
 import lila.tournament.{ Tournament, TournamentApi }
+import lila.clas.Clas
+import alleycats.Zero
 
 case class TeamInfo(
     withLeaders: Team.WithLeaders,
@@ -39,6 +41,8 @@ object TeamInfo:
 
   case class PastAndNext(past: List[AnyTour], next: List[AnyTour]):
     def nonEmpty = past.nonEmpty || next.nonEmpty
+  object PastAndNext:
+    given Zero[PastAndNext] = Zero(PastAndNext(Nil, Nil))
 
 final class TeamInfoApi(
     api: TeamApi,
@@ -46,6 +50,7 @@ final class TeamInfoApi(
     tourApi: TournamentApi,
     swissApi: SwissApi,
     simulApi: SimulApi,
+    teamRepo: TeamRepo,
     requestRepo: TeamRequestRepo
 )(using Executor):
 
@@ -86,3 +91,7 @@ final class TeamInfoApi(
             tours.next.map(AnyTour(_)) ::: swisses.next.map(AnyTour(_))
           }.sortBy(_.startsAt.toSeconds)
         )
+
+  def clasTournaments(clas: Clas): Fu[PastAndNext] =
+    clas.hasTeam.orZero.so:
+      teamRepo.byClasId(clas.id.into(TeamId)).flatMapz(tournaments(_, 1, 1))

@@ -4,6 +4,7 @@ import play.api.data.Form
 
 import lila.app.UiEnv.{ *, given }
 import lila.clas.{ Clas, Student }
+import lila.app.mashup.TeamInfo.PastAndNext
 
 lazy val ui = lila.clas.ui.ClasUi(helpers)(views.mod.ui.menu("search"))
 private lazy val dashUi = lila.clas.ui.DashboardUi(helpers, ui)
@@ -27,3 +28,14 @@ object student:
       activities: Seq[lila.activity.ActivityView]
   )(using ctx: Context) =
     ui.show(clas, students, s, views.activity(s.withPerfs, activities))
+
+def clasTournaments(tours: PastAndNext)(using Context) =
+  tours.nonEmpty.option:
+    st.section(cls := "team-show__tour team-events team-tournaments")(
+      h2(trans.site.tournaments()),
+      table(cls := "slist")(
+        views.team.tournaments.renderList(
+          tours.next ::: tours.past.take(5 - tours.next.size)
+        )
+      )
+    )

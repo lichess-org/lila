@@ -499,7 +499,8 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         c: Clas,
         wall: Html,
         teachers: List[User],
-        students: List[Student.WithUserPerfs]
+        students: List[Student.WithUserPerfs],
+        tournaments: Option[Frag]
     )(using Context) =
       ClasPage(c.name, Left(c.withStudents(Nil)))(cls := "clas-show dashboard dashboard-student"):
         frag(
@@ -541,6 +542,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                   challengeTd(user)
                 )
           ),
+          tournaments,
           c.wall.value.nonEmpty.option(div(cls := "box__pad clas-wall")(wall)),
           div(cls := "students")(studentList(students))
         )
