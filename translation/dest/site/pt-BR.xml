@@ -66,10 +66,10 @@
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Análise de servidor em uso</string>
   <string name="loadingEngine">Carregando ...</string>
-  <string name="calculatingMoves">Calculando jogadas...</string>
+  <string name="calculatingMoves">Calculando lances...</string>
   <string name="engineFailed">Erro ao carregar o engine</string>
   <string name="cloudAnalysis">Análise na nuvem</string>
-  <string name="goDeeper">Detalhar</string>
+  <string name="goDeeper">Aprofundar</string>
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
   <string name="toggleLocalEvaluation">Ativar/Desativar análise local</string>
@@ -793,7 +793,7 @@
   <string name="revokeAllSessions">revogar todas as sessões</string>
   <string name="playChessEverywhere">Jogue xadrez em qualquer lugar</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos têm todos os recursos de graça</string>
-  <string name="viewTheSolution">Ver solução</string>
+  <string name="viewTheSolution">Ver a solução</string>
   <string name="noChallenges">Sem desafios.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponível em %s idiomas!</item>
@@ -903,8 +903,8 @@
   <string name="goodPractice">Para isso, precisamos assegurar que nossos jogadores sigam boas práticas.</string>
   <string name="potentialProblem">Quando um problema em potencial é detectado, nós mostramos esta mensagem.</string>
   <string name="howToAvoidThis">Como evitar isso?</string>
-  <string name="playEveryGame">Jogue todos os jogos que inicia.</string>
-  <string name="tryToWin">Tente vencer (ou pelo menos empatar) todos os jogos que jogar.</string>
+  <string name="playEveryGame">Jogue todas as partidas que você iniciar.</string>
+  <string name="tryToWin">Tente vencer (ou pelo menos empatar) todos as partidas que jogar.</string>
   <string name="resignLostGames">Conceda partidas perdidas (não deixe o relógio ir até ao fim).</string>
   <string name="temporaryInconvenience">Pedimos desculpa pelo incômodo temporário,</string>
   <string name="wishYouGreatGames">e desejamos-lhe grandes jogos em lichess.org.</string>
@@ -992,7 +992,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="navigateMoveTree">Navegar pela notação de movimentos</string>
   <string name="mouseTricks">Funcionalidades do mouse</string>
   <string name="toggleLocalAnalysis">Ativar/desativar análise local do computador</string>
-  <string name="toggleAllAnalysis">Ativar/desativar todas análises locais do computador</string>
+  <string name="toggleAllAnalysis">Alternar todas as análises de computador</string>
   <string name="playComputerMove">Jogar o melhor lance de computador</string>
   <string name="analysisOptions">Opções de análise</string>
   <string name="focusChat">Focar texto</string>
