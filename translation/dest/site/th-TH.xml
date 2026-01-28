@@ -9,6 +9,8 @@
   <string name="gameOver">จบเกม</string>
   <string name="waitingForOpponent">กำลังรอคู่แข่ง</string>
   <string name="orLetYourOpponentScanQrCode">หรือให้คู่แข่งคุณสแกน QR code นี้</string>
+  <string name="reusableChallengeUrl">การท้าดวลที่ใช้ URL เดิมได้</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">ลิงก์ถาวรนี้เปิดโอกาสให้ทุกคนสามารถท้าดวลคุณด้วยการตั้งค่าเหล่านี้ได้</string>
   <string name="waiting">กำลังรอ</string>
   <string name="yourTurn">ตาคุณ</string>
   <string name="aiNameLevelAiLevel">%1$s ระดับ %2$s</string>
@@ -394,6 +396,7 @@
   <string name="leaderboard">กระดานผู้นำ</string>
   <string name="screenshotCurrentPosition">จับภาพหน้าจอตำแหน่งปัจจุบัน</string>
   <string name="gameAsGIF">เกมเป็น GIF</string>
+  <string name="playerNames">ชื่อผู้เล่น</string>
   <string name="pasteTheFenStringHere">วางสตริง FEN ที่นี่</string>
   <string name="pasteThePgnStringHere">วางสตริง PGN ที่นี่</string>
   <string name="orUploadPgnFile">หรืออัปโหลดไฟล์ PGN</string>
@@ -769,6 +772,7 @@
   <string name="size">ขนาด</string>
   <string name="opacity">ค่าความทึบ</string>
   <string name="brightness">ความสว่าง</string>
+  <string name="contrast">ความเข้มจาง</string>
   <string name="hue">เฉดสี</string>
   <string name="boardReset">เปลี่ยนสีเป็นค่าตั้งต้น</string>
   <string name="pieceSet">ชุดหมาก</string>

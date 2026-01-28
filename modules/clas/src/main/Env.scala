@@ -21,7 +21,7 @@ final class Env(
     markdownCache: lila.memo.MarkdownCache,
     hcaptcha: lila.core.security.Hcaptcha,
     baseUrl: BaseUrl
-)(using Executor, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator):
+)(using Executor, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator, play.api.Mode):
 
   lazy val nameGenerator: NameGenerator = wire[NameGenerator]
 
@@ -29,9 +29,9 @@ final class Env(
 
   private val colls = wire[ClasColls]
 
-  lazy val studentCache = wire[ClasStudentCache]
+  lazy val filters = wire[ClasUserFilters]
 
-  lazy val matesCache = wire[ClasMatesCache]
+  lazy val mates = wire[ClasMates]
 
   lazy val api: ClasApi = wire[ClasApi]
 
@@ -43,8 +43,11 @@ final class Env(
 
   lazy val bulk = wire[ClasBulkApi]
 
+  def isTeacher(using me: Me) =
+    lila.core.perm.Granter(_.Teacher) && filters.teacher(me)
+
   def hasClas(using me: Me) =
-    lila.core.perm.Granter(_.Teacher) || studentCache.isStudent(me)
+    filters.student(me) || isTeacher
 
   lila.common.Bus.sub[lila.core.game.FinishGame]: finish =>
     progressApi.onFinishGame(finish.game)
@@ -55,7 +58,7 @@ final class Env(
     case ClasBus.CanKidsUseMessages(kid1, kid2, promise) =>
       promise.completeWith(api.clas.canKidsUseMessages(kid1, kid2))
     case ClasBus.ClasMatesAndTeachers(kid, promise) =>
-      promise.completeWith(matesCache.get(kid.id))
+      promise.completeWith(mates.get(kid.id))
 
 private final class ClasColls(db: lila.db.Db):
   val clas = db(CollName("clas_clas"))

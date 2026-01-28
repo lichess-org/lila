@@ -899,6 +899,7 @@
   <string name="size">Розмір</string>
   <string name="opacity">Прозорість</string>
   <string name="brightness">Яскравість</string>
+  <string name="contrast">Контраст</string>
   <string name="hue">Відтінок</string>
   <string name="boardReset">Застосувати кольори за замовчуванням</string>
   <string name="pieceSet">Набір фігур</string>

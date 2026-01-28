@@ -13,7 +13,7 @@ import {
 import { Board } from 'chessops/board';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
-import { type Role, type Color, type NormalMove, COLORS, type Square } from 'chessops/types';
+import { type Role, type Color, type Piece, type NormalMove, COLORS, type Square } from 'chessops/types';
 import type { Pin, Undefended, Checkable } from './interfaces';
 
 export const boardAnalysisVariants = [
@@ -34,18 +34,19 @@ const isSquareAttacked = (square: Square, byColor: Color, cb: Board): boolean =>
   rookAttacks(square, cb.occupied).intersects(cb[byColor].intersect(cb.rooksAndQueens())) ||
   bishopAttacks(square, cb.occupied).intersects(cb[byColor].intersect(cb.bishopsAndQueens()));
 
-function getAttackers(
-  square: Square,
-  byColor: Color,
-  cb: Board,
-): { square: Square; role: Role; color: Color }[] {
-  const attackers: { square: Square; role: Role; color: Color }[] = [];
+interface PieceOnSquare {
+  piece: Piece;
+  square: Square;
+}
+
+function getAttackers(square: Square, byColor: Color, cb: Board, byRole?: Role): PieceOnSquare[] {
+  const attackers: PieceOnSquare[] = [];
   const colorSet = cb[byColor];
 
   const add = (set: SquareSet) => {
     for (const s of set) {
       const p = cb.get(s);
-      if (p) attackers.push({ ...p, square: s });
+      if (p && (!byRole || p.role === byRole)) attackers.push({ piece: p, square: s });
     }
   };
 
@@ -55,7 +56,18 @@ function getAttackers(
   add(rookAttacks(square, cb.occupied).intersect(colorSet).intersect(cb.rooksAndQueens()));
   add(bishopAttacks(square, cb.occupied).intersect(colorSet).intersect(cb.bishopsAndQueens()));
 
-  return attackers;
+  const pins = detectPins(cb);
+  const usableAttacker = (attacker: PieceOnSquare): boolean => {
+    if (attacker.piece.role === 'king' && isSquareAttacked(square, opposite(byColor), cb)) return false;
+    const pin = pins.find(p => p.pinned === attacker.square);
+    return (
+      !pin ||
+      cb.get(pin.target)?.role !== 'king' ||
+      square === pin.pinner ||
+      between(pin.pinner, pin.target).has(square)
+    );
+  };
+  return attackers.filter(usableAttacker);
 }
 
 export function detectPins(board: Board): Pin[] {
@@ -111,85 +123,62 @@ export function detectPins(board: Board): Pin[] {
 const epTargetPawnSq = (epSquare: Square): Square =>
   squareFromCoords(squareFile(epSquare), squareRank(epSquare) === 2 ? 3 : 4)!;
 
+const lookupKey = (board: Board, target: Piece) => `${board.occupied.hi},${board.occupied.lo},${target.role}`;
+
+interface SEEResult {
+  balance: number;
+  firstAttacker?: Square;
+}
+
 function getSEE(
   square: Square,
   isEpSquare: boolean,
-  target: { role: Role; color: Color },
+  target: Piece,
   cb: Board,
-  pins: Pin[],
-): { balance: number; firstAttacker?: Square } {
-  const balances: number[] = [];
-  let pieceOnSquare = target;
-  let currentGain = 0;
-  const attackerColor = opposite(target.color);
-  let nextColor = attackerColor;
-  let firstAttacker: Square | undefined;
-
-  const simulationBoard = cb.clone();
-  if (isEpSquare) simulationBoard.take(epTargetPawnSq(square)); // e.g., Qf3 would control f6 ep square
-
-  while (true) {
-    const attackers = getAttackers(square, nextColor, simulationBoard);
-    if (attackers.length === 0) break;
-
-    // LVA
-    attackers.sort((a, b) => values[a.role] - values[b.role]);
-
-    let bestAttacker: (typeof attackers)[0] | undefined;
-
-    if (pins.length === 0) {
-      bestAttacker = attackers[0];
-    } else {
-      for (const attacker of attackers) {
-        // Check if the attacker is absolutely pinned and trying to move off the pin line
-        const pin = pins.find(p => p.pinned === attacker.square);
-        if (
-          pin &&
-          cb.get(pin.target)?.role === 'king' &&
-          square !== pin.pinner &&
-          !between(pin.pinner, pin.target).has(square)
-        ) {
-          continue;
-        }
-        bestAttacker = attacker;
-        break;
-      }
+  lookupTable: Map<string, SEEResult>,
+  recursiveCall: boolean,
+): SEEResult {
+  if (!recursiveCall) {
+    cb = cb.clone();
+    cb.take(square);
+    if (isEpSquare) cb.take(epTargetPawnSq(square)); // e.g., Qf3 would control f6 ep square
+  }
+  const key = lookupKey(cb, target);
+  if (lookupTable.has(key)) return lookupTable.get(key)!;
+  const attackers = getAttackers(square, opposite(target.color), cb, isEpSquare ? 'pawn' : undefined);
+  // LVA
+  attackers.sort((a, b) => values[a.piece.role] - values[b.piece.role]);
+  let bestChoiceBalance = 0;
+  let firstAttacker: Square | undefined = undefined;
+  for (const attacker of attackers.slice(0, 2)) {
+    const simulationBoard = cb.clone();
+    simulationBoard.take(attacker.square);
+    const opponentRecaptureBalance = getSEE(
+      square,
+      false,
+      attacker.piece,
+      simulationBoard,
+      lookupTable,
+      true,
+    ).balance;
+    const currChoiceBalance = values[target.role] - opponentRecaptureBalance;
+    if (currChoiceBalance > bestChoiceBalance) {
+      bestChoiceBalance = currChoiceBalance;
+      firstAttacker = attacker.square;
     }
-
-    if (!bestAttacker) break;
-
-    if (firstAttacker === undefined) firstAttacker = bestAttacker.square;
-
-    // King safety check
-    if (bestAttacker.role === 'king' && isSquareAttacked(square, opposite(nextColor), simulationBoard)) break;
-
-    currentGain += (nextColor === attackerColor ? 1 : -1) * values[pieceOnSquare.role];
-    balances.push(currentGain);
-
-    simulationBoard.take(bestAttacker.square);
-    pieceOnSquare = bestAttacker;
-    nextColor = opposite(nextColor);
   }
-
-  if (balances.length === 0) return { balance: 0 };
-
-  // Minimax
-  let currentVal = balances[balances.length - 1];
-  for (let i = balances.length - 2; i >= 0; i--) {
-    currentVal = i % 2 === 0 ? Math.min(balances[i], currentVal) : Math.max(balances[i], currentVal);
-  }
-  return { balance: currentVal, firstAttacker };
+  const result = { balance: bestChoiceBalance, firstAttacker };
+  lookupTable.set(key, result);
+  return result;
 }
 
 export function detectUndefended(board: Board, epSquare: Square | undefined): Undefended[] {
   const undefended: Undefended[] = [];
   const cb = board;
-  const pins = detectPins(board);
-
   for (let i = 0; i < 64; i++) {
     const p = board.get(i === epSquare ? epTargetPawnSq(epSquare) : i);
     if (p && p.role !== 'king' && isSquareAttacked(i, opposite(p.color), cb)) {
-      const { balance, firstAttacker } = getSEE(i, i === epSquare, p, cb, pins);
+      const { balance, firstAttacker } = getSEE(i, i === epSquare, p, cb, new Map(), false);
       if (balance > 0 && firstAttacker !== undefined) {
         undefended.push({
           square: i,

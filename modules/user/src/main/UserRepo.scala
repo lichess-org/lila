@@ -170,6 +170,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def setRealName(id: UserId, name: String): Funit =
     coll.updateField($id(id), s"${F.profile}.realName", name).void
 
+  def realName(id: UserId): Fu[Option[String]] =
+    coll.primitiveOne[String]($id(id), s"${F.profile}.realName")
+
   def setUsernameCased(id: UserId, name: UserName): Funit =
     if id.is(name) then
       coll.update

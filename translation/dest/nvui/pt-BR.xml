@@ -57,7 +57,7 @@
   <string name="invalidMove">Lance inválido</string>
   <string name="premoveCancelled">Pré-movimento cancelado</string>
   <string name="premoveRecorded">Pré-movimento gravado: %s. Pressione enter para cancelar</string>
-  <string name="pockets" comment="Crazyhouse pockets">Bolsos</string>
+  <string name="pockets" comment="Crazyhouse pockets">Reservas</string>
   <string name="copyToClipboard">Copiar %s para área de transferência</string>
   <string name="copiedToClipboard">%s copiado para a área de transferência</string>
   <string name="pgnAndFen">PGN e FEN</string>

@@ -40,7 +40,7 @@ final class Importer(env: Env) extends LilaController(env):
                 negotiate(
                   html = ctx.me
                     .filter(_ => data.analyse.isDefined && lila.game.GameExt.analysable(game))
-                    .soUse { me ?=>
+                    .soUse: me ?=>
                       env.fishnet
                         .analyser(
                           game,
@@ -52,7 +52,6 @@ final class Importer(env: Env) extends LilaController(env):
                           )
                         )
                         .void
-                    }
                     .inject(Redirect(routes.Round.watcher(game.id, Color.white))),
                   json =
                     if HTTPRequest.isLichobile(ctx.req)

@@ -8,7 +8,7 @@ import type { UserCompleteResult } from 'lib/view/userComplete';
 site.load.then(() => {
   $('table.sortable').each(function (this: HTMLElement) {
     sortTable(this, {
-      descending: true,
+      descending: false,
     });
   });
   $('.name-regen').on('click', function (this: HTMLAnchorElement) {

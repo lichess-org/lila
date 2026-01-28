@@ -3,9 +3,9 @@
   <string name="standard">Шахматы</string>
   <string name="standardTitle">Стандартные правила шахмат (FIDE)</string>
   <string name="chess960">Шахматы Фишера</string>
-  <string name="chess960Title">Стартовая позиция фигур на доске случайна.</string>
+  <string name="chess960Title">Стартовая позиция фигур определяется случайно.</string>
   <string name="kingOfTheHill">Царь горы</string>
-  <string name="kingOfTheHillTitle">Приведи короля в центр доски, что бы выиграть партию.</string>
+  <string name="kingOfTheHillTitle">Проведите короля в центр доски, чтобы выиграть партию.</string>
   <string name="threeCheck">Три шаха</string>
   <string name="threeCheckTitle">Объявите 3 шаха, чтобы победить.</string>
   <string name="antichess">Поддавки</string>

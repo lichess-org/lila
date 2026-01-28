@@ -1,0 +1,14 @@
+.tutor {
+  h1 {
+    @extend %flex-center-nowrap;
+    justify-content: flex-start;
+    gap: 1ch;
+    .user-link {
+      color: $c-good;
+      font-size: 0.6em;
+    }
+    .mselect__label {
+      height: 1.5em;
+    }
+  }
+}

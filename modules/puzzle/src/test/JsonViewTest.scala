@@ -40,7 +40,6 @@ class JsonViewTest extends munit.FunSuite:
       assertEquals(newTree, branch)
 
   def makeBranch(puzzle: Puzzle): Option[tree.Branch] =
-    import chess.format.*
     val init = chess.Game(none, puzzle.fenAfterInitialMove.some).withTurns(puzzle.initialPly + 1)
     val (_, branchList) = puzzle.line.tail.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)):
       case ((prev, branches), uci) =>

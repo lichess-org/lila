@@ -5,16 +5,16 @@
   <string name="hourlyXArena">Часовна %s Арена</string>
   <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">Часовни %s</string>
   <string name="dailyRapidArena">Дневна Брзопотезна Арена</string>
-  <string name="dailyRapid">Дневни рапид</string>
-  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Дневна класична арена</string>
-  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Дневни класични</string>
-  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">Дневна %s арена</string>
+  <string name="dailyRapid">Дневни Брзопотез</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Дневна Класична Арена</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Дневна Класична</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">Дневна %s Арена</string>
   <string name="dailyX">Дневни %s</string>
-  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Источна рапид арена</string>
-  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">Источни рапид</string>
-  <string name="easternClassicalArena">Источна класична арена</string>
-  <string name="easternClassical">Источни класични</string>
-  <string name="easternXArena">Источна %s арена</string>
+  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Источна Брзопотезна Арена</string>
+  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">Источни Брзопотез</string>
+  <string name="easternClassicalArena">Источна Класична Арена</string>
+  <string name="easternClassical">Источна Класична</string>
+  <string name="easternXArena">Источна %s Арена</string>
   <string name="easternX">Источни %s</string>
   <string name="weeklyRapidArena">Седмична рапид арена</string>
   <string name="weeklyRapid">Седмични рапид</string>

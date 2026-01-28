@@ -36,7 +36,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             res <-
               if replyBlocked then BadRequest.snip(trans.ublog.youBlockedByBlogAuthor()).toFuccess
               else
-                categ.team.so(env.team.api.isLeader(_, me)).flatMap { inOwnTeam =>
+                categ.team.so(env.team.api.isLeader).flatMap { inOwnTeam =>
                   bindForm(forms.post(inOwnTeam))(
                     err =>
                       CategGrantWrite(categId, tryingToPostAsMod = true):
@@ -74,7 +74,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     Found(postApi.getPost(postId)): post =>
       for
         teamId <- env.forum.postApi.teamIdOfPost(post)
-        inOwnTeam <- teamId.so(env.team.api.isLeader(_, me))
+        inOwnTeam <- teamId.so(env.team.api.isLeader)
         res <- bindForm(forms.postEdit(inOwnTeam, post.text))(
           _ => Redirect(routes.ForumPost.redirect(postId)).toFuccess,
           data =>

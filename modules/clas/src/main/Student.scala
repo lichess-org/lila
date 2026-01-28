@@ -28,7 +28,9 @@ object Student:
   opaque type RealName = String
   object RealName extends OpaqueString[RealName]
 
-  def makeId(userId: UserId, clasId: ClasId) = StudentId(s"$userId:$clasId")
+  private[clas] val idSeparator = ":"
+
+  def makeId(userId: UserId, clasId: ClasId) = StudentId(s"$userId$idSeparator$clasId")
 
   def make(user: User, clas: Clas, teacherId: UserId, realName: RealName, managed: Boolean) =
     Student(

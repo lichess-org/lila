@@ -2,7 +2,7 @@ package lila.game
 
 import chess.format.Uci
 import chess.variant.Variant
-import chess.{ ByColor, Castles, Centis, Clock, Color, Game as ChessGame, MoveOrDrop, Ply, Speed, Status }
+import chess.{ Castles, Centis, Clock, Color, Game as ChessGame, MoveOrDrop, Ply, Speed, Status }
 import scalalib.model.Days
 
 import lila.core.game.{ ClockHistory, Game, Player, Pov, Source }

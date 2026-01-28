@@ -16,7 +16,7 @@ final class MobileApi(
     lightUserApi: lila.core.user.LightUserApi,
     gameProxy: lila.round.GameProxyRepo,
     unreadCount: lila.msg.MsgUnreadCount,
-    teamCached: lila.team.Cached,
+    teamCached: lila.team.TeamCached,
     tourFeaturing: lila.tournament.TournamentFeaturing,
     tourApiJson: lila.tournament.ApiJsonView,
     relayHome: lila.relay.RelayHomeApi,

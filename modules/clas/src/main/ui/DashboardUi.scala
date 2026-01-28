@@ -111,7 +111,14 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           div(cls := "clas-show__overview")(
             c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc))),
             div(cls := "clas-show__overview__manage")(
-              ui.teachers(c)
+              div(cls := "clas-teachers")(
+                trans.clas.teachersX(fragList(c.teachers.toList.map(t => userIdLink(t.some))))
+              ),
+              c.teamId.map: teamId =>
+                div(cls := "clas-team"):
+                  a(href := routes.Team.show(teamId), cls := "text", dataIcon := Icon.Group)(
+                    trans.team.team()
+                  )
             )
           ),
           if students.isEmpty

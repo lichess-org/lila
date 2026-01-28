@@ -44,7 +44,7 @@
   <string name="whitePlays">白の手番</string>
   <string name="blackPlays">黒の手番</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">相手がいなくなりました。後 %s 秒で勝ちにできます。</item>
+    <item quantity="other">相手がいなくなりました。あと %s 秒で勝ちにできます。</item>
   </plurals>
   <string name="opponentLeftChoices">相手が退席したようです。投了させる、引き分けにする、相手を待つ、のどれかを選んでください。</string>
   <string name="forceResignation">投了させる</string>
@@ -401,6 +401,7 @@
   <string name="screenshotCurrentPosition">現局面のスクリーンショット</string>
   <string name="gameAsGIF">GIF 形式の棋譜</string>
   <string name="playerNames">プレイヤー名</string>
+  <string name="moveAnnotations">移動の注釈</string>
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="orUploadPgnFile">または PGN ファイルをアップロード</string>
@@ -693,6 +694,7 @@
   <string name="cyclePreviousOrNextVariation">ひとつ前/次の手順を切り替え</string>
   <string name="toggleGlyphAnnotations">記号での注釈を切り替え</string>
   <string name="togglePositionAnnotations">わからん</string>
+  <string name="toggleObservationAnnotations">注釈の表示切替</string>
   <string name="variationArrowsInfo">変化手順の矢印があれば棋譜記録を使わずにナビゲーションできます。</string>
   <string name="playSelectedMove">選択した手をプレイ</string>
   <string name="newTournament">新しいトーナメント</string>
@@ -733,6 +735,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
   <string name="scrollOverComputerVariationsToPreviewThem">手順の上にカーソルを移動させるとプレビューが表示されます。</string>
   <string name="analysisShapesHowTo">Shift + クリックや右クリックで盤上に丸や矢印が描けます。</string>
+  <string name="primaryColorArrowsHowTo">Ctrl（またはShift）を押しながら描くと赤色に、Alt（またはCommandかMeta）を押しながら描くと青色になります。各色のキーを同時に押しながら描くと黄色になります。</string>
   <string name="letOtherPlayersMessageYou">他のプレイヤーからのメッセージを受け付ける</string>
   <string name="receiveForumNotifications">フォーラムで自分の名前が出たときに通知を受け取る</string>
   <string name="shareYourInsightsData">Insights のデータを共有する</string>
@@ -775,6 +778,7 @@
   <string name="size">サイズ</string>
   <string name="opacity">透明度</string>
   <string name="brightness">明るさ</string>
+  <string name="contrast">コントラスト</string>
   <string name="hue">色</string>
   <string name="boardReset">色をデフォルトに戻す</string>
   <string name="pieceSet">駒のデザイン</string>

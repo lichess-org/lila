@@ -10,7 +10,6 @@ import lila.app.{ *, given }
 import lila.common.{ Bus, HTTPRequest }
 import lila.core.id.RelayRoundId
 import lila.core.misc.lpv.LpvEmbed
-import lila.core.net.IpAddress
 import lila.core.socket.Sri
 import lila.core.study.StudyOrder
 import lila.core.data.ErrorMsg

@@ -522,8 +522,8 @@ object dsl extends dsl with Handlers:
         .update(ordered = false, writeConcern = WriteConcern.Unacknowledged)
         .one(selector, set)
 
-    def updateField[V: BSONWriter](selector: Bdoc, field: String, value: V) =
-      coll.update.one(selector, $set(field -> value))
+    def updateField[V: BSONWriter](selector: Bdoc, field: String, value: V, multi: Boolean = false) =
+      coll.update.one(selector, $set(field -> value), multi = multi)
 
     def updateFieldUnchecked[V: BSONWriter](selector: Bdoc, field: String, value: V): Unit =
       updateUnchecked(selector, $set(field -> value))
@@ -537,10 +537,15 @@ object dsl extends dsl with Handlers:
     def unsetField(selector: Bdoc, field: String, multi: Boolean = false) =
       coll.update.one(selector, $unset(field), multi = multi)
 
-    def updateOrUnsetField[V: BSONWriter](selector: Bdoc, field: String, value: Option[V]): Fu[Int] =
+    def updateOrUnsetField[V: BSONWriter](
+        selector: Bdoc,
+        field: String,
+        value: Option[V],
+        multi: Boolean = false
+    ): Fu[Int] =
       value match
-        case None => unsetField(selector, field).dmap(_.n)
-        case Some(v) => updateField(selector, field, v).dmap(_.n)
+        case None => unsetField(selector, field, multi = multi).dmap(_.n)
+        case Some(v) => updateField(selector, field, v, multi = multi).dmap(_.n)
 
     def fetchUpdate[D: BSONDocumentHandler](selector: Bdoc)(update: D => Bdoc): Funit =
       one[D](selector).flatMapz: doc =>

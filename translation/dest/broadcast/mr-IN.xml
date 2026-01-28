@@ -57,7 +57,7 @@
   <string name="subscribeTitle">प्रत्येक फेरी सुरू झाल्यावर सूचना मिळवण्यासाठी सदस्यता घ्या. तुम्ही तुमच्या खाते प्राधान्यांमध्ये प्रसारणासाठी बेल किंवा पुश सूचना निवडू शकता.</string>
   <string name="uploadImage">स्पर्धेचे चित्र टाका</string>
   <string name="noBoardsYet">आता पट नाही आहेत. हे खेळ टाकल्यावर दिसतील.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">पट स्रोत बरोबर किंवा %s ने भारले जाऊ शकतात</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">पट स्रोता बरोबर किंवा %s ने भारले जाऊ शकतात</string>
   <string name="startsAfter">%s नंतर चालू होईल</string>
   <string name="startVerySoon">प्रसारण लवकरच चालू होईल.</string>
   <string name="notYetStarted">प्रसारण अजून चालू झाले नाही.</string>

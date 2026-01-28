@@ -6,7 +6,7 @@ import lila.core.team.{ Access, LightTeam }
 import lila.db.dsl.{ *, given }
 import lila.memo.Syncache
 
-final class Cached(
+final class TeamCached(
     teamRepo: TeamRepo,
     memberRepo: TeamMemberRepo,
     requestRepo: TeamRequestRepo,
@@ -28,9 +28,12 @@ final class Cached(
   export lightCache.{ preloadSet, preloadMany }
 
   val lightApi = new LightTeam.Api:
-    def async = Cached.this.async
-    def sync = Cached.this.sync
+    def async = TeamCached.this.async
+    def sync = TeamCached.this.sync
     export lightCache.preloadSet as preload
+
+  def isMember(teamId: TeamId)(using myId: MyId): Fu[Boolean] =
+    teamIdsCache.async(myId).dmap(_.contains(teamId))
 
   private val teamIdsCache = cacheApi.sync[UserId, Team.IdsStr](
     name = "team.ids",
