@@ -628,7 +628,7 @@ function tourDetails({ ctrl, deps }: AnalyseNvuiContext): VNode[] {
       clickHook(() => ctx.relay.tab('players'), ctrl.redraw),
       'Load player list',
     ),
-    hl('div', ctx.relay.tab() === 'players' && playersView(ctx.relay.players, ctx.relay.data.tour)),
+    hl('div', ctx.relay.tab() === 'players' && playersView(ctx.relay.players)),
   ];
 }
 
