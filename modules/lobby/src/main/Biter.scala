@@ -1,6 +1,6 @@
 package lila.lobby
 
-import chess.{ Position, ByColor, Game as ChessGame }
+import chess.{ ByColor, Game as ChessGame }
 
 import lila.core.socket.Sri
 import lila.core.user.{ GameUsers, WithPerf }

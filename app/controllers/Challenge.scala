@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.libs.json.Json
-import play.api.mvc.{ RequestHeader, Result }
+import play.api.mvc.Result
 
 import lila.app.{ *, given }
 import lila.challenge.{ Challenge as ChallengeModel, Direction }
