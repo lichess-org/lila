@@ -16,11 +16,11 @@
   <string name="easternClassical">Источна Класична</string>
   <string name="easternXArena">Источна %s Арена</string>
   <string name="easternX">Источни %s</string>
-  <string name="weeklyRapidArena">Седмична рапид арена</string>
-  <string name="weeklyRapid">Седмични рапид</string>
-  <string name="weeklyClassicalArena">Недељна класична арена</string>
-  <string name="weeklyClassical">Недељни класични</string>
-  <string name="weeklyXArena">Недељна %s арена</string>
+  <string name="weeklyRapidArena">Седмична Брзопотезна Арена</string>
+  <string name="weeklyRapid">Седмични Брзопотез</string>
+  <string name="weeklyClassicalArena">Седмична Класична Арена</string>
+  <string name="weeklyClassical">Седмична Класична</string>
+  <string name="weeklyXArena">Седмична %s Арена</string>
   <string name="weeklyX">Седмични %s</string>
   <string name="monthlyRapidArena">Месечна рапид арена</string>
   <string name="monthlyRapid">Месечни рапид</string>
