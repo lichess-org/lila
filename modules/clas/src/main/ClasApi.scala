@@ -148,7 +148,8 @@ final class ClasApi(
     /* Only if userId and I have a class in common,
      * wether we're teachers or students */
     def realName(userId: UserId)(using me: Me): Fu[Option[String]] =
-      if isTeacher(userId)
+      if me.is(userId) then fuccess(none)
+      else if isTeacher(userId)
       then userRepo.realName(userId)
       else
         isStudent(userId)
