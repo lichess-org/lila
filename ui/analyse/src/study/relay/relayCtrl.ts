@@ -64,7 +64,7 @@ export default class RelayCtrl {
         )
       : undefined;
     this.players = new RelayPlayers(
-      data.tour.id,
+      data.tour,
       () => this.openTab('players'),
       study.ctrl.isEmbed,
       () => study.data.federations,

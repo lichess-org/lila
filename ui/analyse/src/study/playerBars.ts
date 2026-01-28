@@ -107,17 +107,17 @@ function renderPlayer(
             hl('div.info-secondary', [
               team
                 ? hl(
-                    `${relayTeamLeaderboard?.show ? 'a' : 'span'}.team`,
-                    relayTeamLeaderboard?.show
-                      ? {
-                          on: {
-                            click: (ev: PointerEvent) => {
-                              ev.preventDefault();
-                              relayTeamLeaderboard?.leaderboard?.setTeamToShow(team);
-                            },
-                          },
-                        }
-                      : {},
+                    'a.team',
+                    {
+                      on: {
+                        click: (ev: PointerEvent) => {
+                          ev.preventDefault();
+                          relayTeamLeaderboard?.show
+                            ? relayTeamLeaderboard?.leaderboard?.setTeamToShow(team)
+                            : ctrl.study?.relay?.openTab('teams');
+                        },
+                      },
+                    },
                     team,
                   )
                 : undefined,
