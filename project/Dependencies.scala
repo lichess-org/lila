@@ -18,7 +18,7 @@ object Dependencies {
   val alleycats = "org.typelevel" %% "alleycats-core" % "2.13.0"
   val catsMtl = "org.typelevel" %% "cats-mtl" % "1.6.0"
   val hasher = "com.roundeights" %% "hasher" % "1.3.1"
-  val compression = "com.github.lichess-org" % "compression" % "3.1.3"
+  val compression = "com.github.lichess-org" % "compression" % "3.2.0"
   val maxmind = "com.maxmind.geoip2" % "geoip2" % "4.0.1"
   val caffeine = "com.github.ben-manes.caffeine" % "caffeine" % "3.2.3" % "compile"
   val scaffeine = "com.github.blemale" %% "scaffeine" % "5.3.0" % "compile"
@@ -44,7 +44,7 @@ object Dependencies {
   }
 
   object chess {
-    val version = "17.14.3"
+    val version = "17.15.0"
     val org = "com.github.lichess-org.scalachess"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalachess" % version
@@ -56,7 +56,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version = "11.9.5"
+    val version = "11.10.0"
     val org = "com.github.lichess-org.scalalib"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalalib-core" % version
