@@ -31,7 +31,7 @@ export default class RelayTeams {
   teams?: TeamTable;
 
   constructor(
-    private readonly round: RelayRound,
+    readonly round: RelayRound,
     readonly multiCloudEval: MultiCloudEval | undefined,
     readonly chapterSelect: ChapterSelect,
     readonly roundPath: () => string,
@@ -48,12 +48,7 @@ export default class RelayTeams {
   };
 }
 
-export const teamsView = (
-  ctrl: RelayTeams,
-  chapters: StudyChapters,
-  players: RelayPlayers,
-  round: RelayRound,
-) =>
+export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: RelayPlayers) =>
   hl(
     'div.relay-tour__team-table',
     {
@@ -72,7 +67,7 @@ export const teamsView = (
           ctrl.roundPath(),
           players,
           ctrl.multiCloudEval?.thisIfShowEval(),
-          round,
+          ctrl.round,
         )
       : [spinner()],
   );
