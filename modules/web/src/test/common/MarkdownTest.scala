@@ -168,10 +168,18 @@ Line 2""")
       Html("""<p>1. More dots.</p>
 """)
     )
+
     val renderWithTimestamp = MarkdownRender(timestamp = true)("test")
     assertEquals(
       renderWithTimestamp(Markdown("""1\. More dots\.""")),
       Html("""<p>1. More dots.</p>
+""")
+    )
+
+    val renderWithTimestampAndList = MarkdownRender(timestamp = true, list = true)("test")
+    assertEquals(
+      renderWithTimestampAndList(Markdown("""1\. <t:1765823521:d>\.""")),
+      Html("""<p>1. <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time>.</p>
 """)
     )
 
