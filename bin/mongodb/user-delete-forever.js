@@ -1,4 +1,4 @@
-var username = 'jamesflynn';
+var username = '';
 var userId = username.toLowerCase();
 var user = db.user4.findOne({
   _id: userId,
@@ -47,122 +47,125 @@ print('done');
 
 print('Delete old PMs');
 print(
-  db.m_thread.remove({
+  db.m_thread.deleteMany({
     visibleByUserIds: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete new PMs');
 print(
-  db.msg_thread.remove({
+  db.msg_thread.deleteMany({
     users: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete mod log');
 print(
-  db.modlog.remove({
+  db.modlog.deleteMany({
     user: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete rating history');
 print(
-  db.history3.remove({
+  db.history3.deleteOne({
     _id: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete bookmarks');
 print(
-  db.bookmark.remove({
+  db.bookmark.deleteMany({
     u: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete learn progress');
 print(
-  db.learn_progress.remove({
+  db.learn_progress.deleteOne({
     _id: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete perf stats');
 var nb = 0;
 for (var i = 5; i <= 20; i++)
-  nb += db.perf_stat.remove({
+  nb += db.perf_stat.deleteOne({
     _id: userId + '/' + i,
-  }).nRemoved;
+  }).deletedCount;
 print(nb + ' done');
 
 print('Delete prefs');
 print(
-  db.pref.remove({
+  db.pref.deleteOne({
     _id: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete relations from');
 print(
-  db.relation.remove({
+  db.relation.deleteMany({
     u1: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete relations to');
 print(
-  db.relation.remove({
+  db.relation.deleteMany({
     u2: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete security data');
 print(
-  db.security.remove({
+  db.security.deleteMany({
     user: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete team membership');
 print(
-  db.team_member.remove({
+  db.team_member.deleteMany({
     user: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete playbans');
 print(
-  db.playban.remove({
+  db.playban.deleteOne({
     _id: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete perf stats');
 print(
-  db.perf_stat.remove({
+  db.perf_stat.deleteMany({
     _id: new RegExp('^' + userId + '/'),
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete activity');
 print(
-  db.activity.remove({
+  db.activity.deleteMany({
     _id: new RegExp('^' + userId + ':'),
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete assessments');
 print(
-  db.player_assessment.remove({
+  db.player_assessment.deleteMany({
     userId: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
 );
 
 print('Delete user');
 print(
-  db.user4.remove({
+  db.user4.deleteOne({
     _id: userId,
-  }).nRemoved + ' done',
+  }).deletedCount + ' done',
+  db.user_perf.deleteOne({
+    _id: userId,
+  }).deletedCount + ' done',
 );
 
 print('\n complete.');
