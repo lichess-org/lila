@@ -84,7 +84,7 @@ private object DisposableEmailDomain:
     "temporary",
     "throwaway",
     "dispos(e|able)",
-    "spam"
+    "\bspam\b"
   ).mkString("|").r.unanchored
 
   private val outlookDomains: Set[Domain.Lower] = Domain.Lower.from:
