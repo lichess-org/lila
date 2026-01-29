@@ -192,6 +192,7 @@ object mon:
     def peerMatch(hit: Boolean, perf: PerfKey) = counter("tutor.peerMatch").withTags:
       tags("hit" -> hitTag(hit), "perf" -> perf)
     def parallelism = gauge("tutor.build.parallelism").withoutTags()
+    def fishnetWait(nbMissing: Int) = timer("tutor.fishnet.awaiter").withTag("nbMissing", nbMissing)
     private def askAs(as: "mine" | "peer")(question: String, perf: PerfKey | "all") =
       future("tutor.insight.ask", tags("question" -> question, "perf" -> perf, "as" -> as))
   object search:
