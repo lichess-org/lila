@@ -46,7 +46,7 @@ final private class InsightIndexer(
       Query.finished ++
       Query.turnsGt(2) ++
       Query.notFromPosition ++
-      Query.notHordeOrSincePawnsAreWhite
+      Query.createdSince(minDate)
 
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if user.count.rated == 0 then fuccess(none)
