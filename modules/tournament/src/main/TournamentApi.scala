@@ -339,9 +339,9 @@ final class TournamentApi(
 
   def joinManyNoChecks(id: TourId, userIds: List[UserId], teamId: TeamId): Funit =
     Parallel(id, "joinMany")(cached.tourCache.enterable): tour =>
-      val battleTeam = tour.teamBattle.flatMap: battle =>
-        teamId.some.filter(battle.teams.contains)
       for
+        battleTeam = tour.teamBattle.flatMap: battle =>
+          teamId.some.filter(battle.teams.contains)
         users <- userApi.enabledByIds(userIds)
         _ <- users.sequentiallyVoid: user =>
           for
@@ -419,7 +419,6 @@ final class TournamentApi(
                       pairing.colorOf(userId).so { color =>
                         roundApi
                           .ask(gameId)(GoBerserk(color, _))
-                          .withTimeout(3.seconds, "berserk response timeout")
                           .flatMapz:
                             pairingRepo.setBerserk(pairing, userId)
                       }

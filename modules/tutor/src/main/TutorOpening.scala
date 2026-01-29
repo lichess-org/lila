@@ -50,42 +50,41 @@ private case object TutorOpening:
   def computeOpenings(user: TutorPlayer, color: Color)(using
       InsightApi,
       Executor
-  ): Fu[TutorColorOpenings] =
-    val wideQuestion = Question(
+  ): Fu[TutorColorOpenings] = for
+    wideQuestion = Question(
       InsightDimension.OpeningFamily,
       InsightMetric.Performance,
       List(Filter(color))
     )
-    for
-      myPerfsWide <- answerMine(wideQuestion, user)
-      myPerfs = myPerfsWide.focus(_.answer.clusters).modify(_.take(nbOpeningsPerColor))
-      myOpenings = myPerfs.dimensions
-      focusedQuestion = wideQuestion.filter(Filter(InsightDimension.OpeningFamily, myOpenings))
-      meanRatingPoint = Insight.Single(lila.insight.Point(user.perfStats.rating.value.toDouble))
-      peerPerfs = AnswerPeer:
-        myPerfs.answer
-          .focus(_.clusters)
-          .modify(_.map(_.set(meanRatingPoint, peerNbGames.value)))
-      performances = Answers(myPerfs, peerPerfs)
-      myAccuracyQuestion = focusedQuestion
-        .withMetric(InsightMetric.MeanAccuracy)
-        .filter(phaseFilter)
-      myAccuracy <- answerMine(myAccuracyQuestion, user)
-      peerAccuracy <- peerOpeningAnswerFromSinglePoint(user, myAccuracy.answer, color)
-      accuracy = Answers(myAccuracy, peerAccuracy)
-      myAwarenessQuestion = myAccuracyQuestion.withMetric(InsightMetric.Awareness)
-      myAwareness <- answerMine(myAwarenessQuestion, user)
-      peerAwareness <- peerOpeningAnswerFromSinglePoint(user, myAwareness.answer, color)
-      awareness = Answers(myAwareness, peerAwareness)
-    yield TutorColorOpenings:
-      performances.mine.list.map: (family, myPerformance) =>
-        TutorOpeningFamily(
-          family,
-          performance =
-            IntRating.from(performances.valueMetric(family, myPerformance).map(TutorNumber.roundToInt)),
-          accuracy = AccuracyPercent.from(accuracy.valueMetric(family)),
-          awareness = GoodPercent.from(awareness.valueMetric(family))
-        )
+    myPerfsWide <- answerMine(wideQuestion, user)
+    myPerfs = myPerfsWide.focus(_.answer.clusters).modify(_.take(nbOpeningsPerColor))
+    myOpenings = myPerfs.dimensions
+    focusedQuestion = wideQuestion.filter(Filter(InsightDimension.OpeningFamily, myOpenings))
+    meanRatingPoint = Insight.Single(lila.insight.Point(user.perfStats.rating.value.toDouble))
+    peerPerfs = AnswerPeer:
+      myPerfs.answer
+        .focus(_.clusters)
+        .modify(_.map(_.set(meanRatingPoint, peerNbGames.value)))
+    performances = Answers(myPerfs, peerPerfs)
+    myAccuracyQuestion = focusedQuestion
+      .withMetric(InsightMetric.MeanAccuracy)
+      .filter(phaseFilter)
+    myAccuracy <- answerMine(myAccuracyQuestion, user)
+    peerAccuracy <- peerOpeningAnswerFromSinglePoint(user, myAccuracy.answer, color)
+    accuracy = Answers(myAccuracy, peerAccuracy)
+    myAwarenessQuestion = myAccuracyQuestion.withMetric(InsightMetric.Awareness)
+    myAwareness <- answerMine(myAwarenessQuestion, user)
+    peerAwareness <- peerOpeningAnswerFromSinglePoint(user, myAwareness.answer, color)
+    awareness = Answers(myAwareness, peerAwareness)
+  yield TutorColorOpenings:
+    performances.mine.list.map: (family, myPerformance) =>
+      TutorOpeningFamily(
+        family,
+        performance =
+          IntRating.from(performances.valueMetric(family, myPerformance).map(TutorNumber.roundToInt)),
+        accuracy = AccuracyPercent.from(accuracy.valueMetric(family)),
+        awareness = GoodPercent.from(awareness.valueMetric(family))
+      )
 
   private val phaseFilter = Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle))
 
@@ -93,16 +92,14 @@ private case object TutorOpening:
       user: TutorPlayer,
       myAnswer: lila.insight.Answer[Dim],
       color: Color
-  )(using insightApi: InsightApi, ec: Executor): Fu[AnswerPeer[Dim]] =
-    val question =
-      Question(InsightDimension.Color, myAnswer.question.metric, List(phaseFilter, Filter(color)))
-    for
-      answer <- answerPeer(question, user)
-      answerPoint = answer.answer.clusters.headOption.map(_.insight)
-      peerAnswer = AnswerPeer:
-        myAnswer
-          .focus(_.clusters)
-          .modify: clusters =>
-            answerPoint.so: point =>
-              clusters.map(_.set(point, peerNbGames.value))
-    yield peerAnswer
+  )(using insightApi: InsightApi, ec: Executor): Fu[AnswerPeer[Dim]] = for
+    question = Question(InsightDimension.Color, myAnswer.question.metric, List(phaseFilter, Filter(color)))
+    answer <- answerPeer(question, user)
+    answerPoint = answer.answer.clusters.headOption.map(_.insight)
+    peerAnswer = AnswerPeer:
+      myAnswer
+        .focus(_.clusters)
+        .modify: clusters =>
+          answerPoint.so: point =>
+            clusters.map(_.set(point, peerNbGames.value))
+  yield peerAnswer
