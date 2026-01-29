@@ -49,7 +49,10 @@ private case object TutorOpening:
   def compute(user: TutorPlayer)(using InsightApi, Executor): Fu[ByColor[TutorColorOpenings]] =
     ByColor(computeOpenings(user, _))
 
-  def computeOpenings(user: TutorPlayer, color: Color)(using InsightApi, Executor): Fu[TutorColorOpenings] =
+  private def computeOpenings(user: TutorPlayer, color: Color)(using
+      InsightApi,
+      Executor
+  ): Fu[TutorColorOpenings] =
 
     val wideQuestion = Question(
       InsightDimension.OpeningFamily,
@@ -57,28 +60,34 @@ private case object TutorOpening:
       List(Filter(color))
     )
 
-    def peerOpeningPoint(mine: AnswerMine[?])(using InsightApi, Executor): Fu[Option[Double]] =
-      val question =
-        Question(InsightDimension.Color, mine.answer.question.metric, List(phaseFilter, Filter(color)))
-      answerPeer(question, user).map:
-        _.answer.clusters.headOption
-          .map(_.insight)
-          .collect:
-            case Insight.Single(point) => point.value
+    val peerMatch = user.peerMatch.flatMap(_.openings(color).families.headOption)
+
+    def peerOpeningPoint(mine: AnswerMine[?], fromPeerMatch: TutorOpeningFamily => Option[Double])(using
+        InsightApi,
+        Executor
+    ): Fu[Option[Double]] =
+      peerMatch.flatMap(fromPeerMatch) match
+        case Some(found) => fuccess(found.some)
+        case None =>
+          val question =
+            Question(InsightDimension.Color, mine.answer.question.metric, List(phaseFilter, Filter(color)))
+          answerPeer(question, user).map:
+            _.answer.clusters.headOption
+              .map(_.insight)
+              .collect:
+                case Insight.Single(point) => point.value
 
     for
       myPerfsWide <- answerMine(wideQuestion, user)
       myPerformance = myPerfsWide.focus(_.answer.clusters).modify(_.take(nbOpeningsPerColor))
       focusedQuestion = wideQuestion.filter(Filter(InsightDimension.OpeningFamily, myPerformance.dimensions))
       peerPerformance = user.perfStats.rating
-      myAccuracyQuestion = focusedQuestion
-        .withMetric(InsightMetric.MeanAccuracy)
-        .filter(phaseFilter)
+      myAccuracyQuestion = focusedQuestion.withMetric(InsightMetric.MeanAccuracy).filter(phaseFilter)
       myAccuracy <- answerMine(myAccuracyQuestion, user)
-      peerAccuracy <- peerOpeningPoint(myAccuracy)
+      peerAccuracy <- peerOpeningPoint(myAccuracy, _.accuracy.map(_.peer.value))
       myAwarenessQuestion = myAccuracyQuestion.withMetric(InsightMetric.Awareness)
       myAwareness <- answerMine(myAwarenessQuestion, user)
-      peerAwareness <- peerOpeningPoint(myAwareness)
+      peerAwareness <- peerOpeningPoint(myAwareness, _.awareness.map(_.peer.value))
     yield TutorColorOpenings:
       myPerformance.list.map: (family, myPerformance) =>
         TutorOpeningFamily(
