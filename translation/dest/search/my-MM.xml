@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="ascending">ငယ်စဉ်ကြီးလိုက်</string>
-  <plurals name="gamesFound">
-    <item quantity="other">ကစားပွဲ %s ခု တွေ့သည်</item>
-  </plurals>
-  <string name="ratingExplanation">ကစားသမား နှစ်ဦးတို့ရဲ့ ပျမ်းမျှ လက်ရည်အမှတ်များ</string>
-</resources>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="standard">Standard</string>
-  <string name="standardTitle">Standardschachreegelen (FIDE)</string>
-  <string name="antichess">Raiberschach</string>
-  <string name="antichessTitle">Verléier all deng Figuren (oder looss dech patt setze) fir d\'Partie ze gewannen.</string>
-  <string name="atomic">Atomschach</string>
-  <string name="atomicTitle">Spreng de géigneresche Kinnek an d\'Luucht fir ze gewannen.</string>
-</resources>

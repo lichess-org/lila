@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="emailConfirm_subject">%s, emeza konte yawe ya lichess.org</string>
-  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Kanda link ikurikira, utangire gukoresha konte yawe ya Lichess:</string>
-</resources>

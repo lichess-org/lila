@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="performAMove">Diblasañ ur pezh</string>
-  <string name="promoteC8ToQueen">Kas c8 da rouanez</string>
-  <string name="offerOrAcceptDraw">Kinnig pe asañtiñ bezañ rampo</string>
-  <string name="readOutOpponentName">Klevet anv ma enebour</string>
-  <string name="tips">Tunioù</string>
-  <string name="bothTheLetterOAndTheDigitZero">Al lizherenn \"o\" kement hag ar sifr zero \"0\" a c\'hall servij da rokañ</string>
-</resources>

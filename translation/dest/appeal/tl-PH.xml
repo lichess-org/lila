@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="cleanAllGood">Hindi minarkahan o hinigpitan ang iyong akawnt. Ayos kana!</string>
-  <string name="engineMarked">Minarkahan ang iyong akawnt dahil sa paggamit ng panlabas na tulong sa mga laro.</string>
-  <string name="arenaBanned">Ipinagbawal na ang iyong akawnt sa pagsali sa mga arena.</string>
-  <string name="prizeBanned">Ipinagbawal na ang iyong akawnt sa mga torneo na mayroong mga totong premyo.</string>
-  <string name="boosterMarked">Minarkahan ang iyong akawnt dahil sa pagmamanipula ng rating.</string>
-</resources>

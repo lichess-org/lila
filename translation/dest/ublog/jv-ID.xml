@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="createBlogDiscussionHelp">Topik forum bakal digawe kanggo wong kanggo menehi komentar babagan kiriman sampeyan</string>
-  <string name="publishOnYourBlog">Nerbitaké ing blog</string>
-  <string name="publishHelp">Yen dipriksa, kiriman kasebut bakal didaftar ing blog sampeyan. Yen ora, bakal dadi pribadi, ing kiriman draf</string>
-  <string name="useImagesYouMadeYourself">Sampeyan uga bisa nggunakake gambar sing digawe dhewe, gambar sing dijupuk, gambar Saka Lichess... apa wae sing ora duwe hak cipta dening wong liya.</string>
-  <string name="safeAndRespectfulContent">Mangga mung ngirim content sing aman lan hormat. Aja nyalin content wong liya.</string>
-  <string name="inappropriateContentAccountClosed">Apa wae sing ora cocog bisa nutup akun sampeyan.</string>
-</resources>

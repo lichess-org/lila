@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="arenaTournaments">Турнир арена</string>
-  <string name="isNotRated">Рейтинг был рейтингта турниры була һәм һеҙгә йоғонто яһай алмаҫ.</string>
-  <string name="someRated">Һәм һеҙ ҡайһы бер рейтинг турнирында рейтингҡа йоғонто яһаған.</string>
-  <string name="howAreScoresCalculated">Подсчитываться нисек балы?</string>
-</resources>

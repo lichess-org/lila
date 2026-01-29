@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">সেটিংস</string>
-  <string name="closeAccount">একাউন্ট বন্ধ করুন</string>
-  <string name="managedAccountCannotBeClosed">আপনার অ্যাকাউন্ট পরিচালিত এবং বন্ধ করা যাবে না.</string>
-  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">আপনি একই নামে আর নতুন একাউন্ট খুলতে পারবেন না, যদিও নামের বর্ণগুলো ছোট/বড় হাতের হয়।</string>
-  <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">এই একাউন্টটি বন্ধ করা হয়েছে</string>
-</resources>

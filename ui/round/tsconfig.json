@@ -1,9 +1,0 @@
-{
-  "extends": "../tsconfig.base.json",
-  "compilerOptions": { "emitDeclarationOnly": true },
-  "references": [
-    { "path": "../lib/tsconfig.json" },
-    { "path": "../keyboardMove/tsconfig.json" },
-    { "path": "../voice/tsconfig.json" }
-  ]
-}

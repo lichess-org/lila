@@ -1,7 +1,0 @@
-.opening {
-  &__games {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-gap: $block-gap;
-  }
-}

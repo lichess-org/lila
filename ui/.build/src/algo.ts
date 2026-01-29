@@ -1,1 +1,0 @@
-../../lib/src/algo.ts

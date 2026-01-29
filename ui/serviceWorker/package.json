@@ -1,8 +1,0 @@
-{
-  "name": "serviceWorker",
-  "private": true,
-  "type": "module",
-  "build": {
-    "bundle": "src/serviceWorker.ts"
-  }
-}

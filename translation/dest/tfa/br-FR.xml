@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="twoFactorAuth">Dilesadur daou-faktor</string>
-  <string name="scanTheCode">Skanit ar c\'hQR kod gant an arload.</string>
-  <string name="authenticationCode">Rineg dilesa</string>
-</resources>

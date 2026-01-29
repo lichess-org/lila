@@ -1,5 +1,0 @@
-#!/bin/sh -e
-
-COMMAND=$*
-
-curl -H "Authorization: Bearer $LILA_CLI_TOKEN" -d "$COMMAND" https://lichess.org/run/cli

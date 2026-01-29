@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="challengeDeclined">qaD lajQo\'ta\'</string>
-  <string name="challengeAccepted">qaD lajta\'!</string>
-  <string name="challengeCanceled">qaD qIlta\'.</string>
-  <string name="youCannotChallengeX">%s vIqaDlaHbe\'.</string>
-</resources>

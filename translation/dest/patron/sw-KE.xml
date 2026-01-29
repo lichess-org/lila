@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="donate">Changia</string>
-  <string name="donateAsX">Changia kama%s</string>
-  <string name="lichessPatron">Lichess Mlinzi</string>
-  <string name="freeAccount">Akaunti ya bure</string>
-  <string name="monthly">Kila Mwezi</string>
-  <string name="whereMoneyGoes">Pesa inaenda wapi?</string>
-</resources>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">ಸಂಯೋಜನೆಗಳು</string>
-  <string name="closeAccount">ಖಾತೆ ಮುಚ್ಚಿ</string>
-  <string name="managedAccountCannotBeClosed">ನಿಮ್ಮ ಖಾತೆಯನ್ನು ನಿರ್ವಹಿಸಲಾಗಿದೆ ಮತ್ತು ಮುಚ್ಚಲಾಗುವುದಿಲ್ಲ.</string>
-  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">ನೀವು ಆ ಖಾತೆ ಹೆಸರಿನಲ್ಲಿ ಮುಂದೆ ಮತ್ತೊಂದು ಖಾತೆ ತೆರೆಯಲಾಗುವುದಿಲ್ಲ, case(a/A) ಬೇರೆಯಿದ್ದರೂ.</string>
-  <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">ಈ ಖಾತೆಯನ್ನು ಮುಚ್ಚಲಾಗಿದೆ.</string>
-</resources>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<plurals name="shareableNbPuzzlesSolved">
-		<item quantity="one">%s problema risolto</item>
-		<item quantity="other">%s problemi risolti</item>
-	</plurals>
-</resources>

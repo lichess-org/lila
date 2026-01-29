@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="activity">କାର୍ଯ୍ୟକଳାପ</string>
-  <plurals name="supportedNbMonths">
-    <item quantity="one">ଜଣେ %2$s ଭାବରେ %1$s ମାସ ପାଇଁ lichess.org କୁ ସମର୍ଥନ କଲେ</item>
-    <item quantity="other">ଜଣେ %2$s ଭାବରେ %1$s ମାସ ପାଇଁ lichess.org କୁ ସମର୍ଥନ କଲେ</item>
-  </plurals>
-</resources>

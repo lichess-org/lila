@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">खोजौं</string>
-  <string name="advancedSearch">विस्तृत खोजी</string>
-</resources>

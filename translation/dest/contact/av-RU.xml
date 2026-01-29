@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="contact">Контактаби</string>
-  <string name="contactLichess">Lichess-гун бухьен гьабизе</string>
-  <string name="forgotPassword">Дида парол кӀочон тана</string>
-  <string name="forgotUsername">Дида дир хӀалтӀизабулесда цӀар кӀочон тана</string>
-  <string name="accountSupport">Дие аккаунталъул квербакъи къваригӀун буго</string>
-</resources>

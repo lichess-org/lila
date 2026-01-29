@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="teams">Teams</string>
-  <string name="newTeam">Nij team</string>
-  <string name="noTeamFound">Gjin team fûn</string>
-  <string name="joinTeam">Mei team meidwaan</string>
-  <string name="quitTeam">Team ferlitte</string>
-</resources>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="challengeToPlay" comment="Appears as a button on profiles and on a challenge modal; lets you challenge that player to a game.&#10;&quot;Challenge&quot; is used as a verb.&#10;&#10;This text used to state &quot;Challenge to a game&quot;. Please shorten to just &quot;Challenge&quot; if you see a translation of the old version of the string.">کھیل پر چیلنج کرنا</string>
-  <string name="challengeAccepted">چیلنج منظور!</string>
-  <string name="declineGeneric">میں اس وقت چیلنج قبول نہیں کر رہا۔</string>
-  <string name="declineLater">یہ میرے لیۓ مناسب وقت نہیں ہے، براۓ مہربانی بعد میں دوبارہ پوچھیں۔</string>
-  <string name="declineNoBot">میں بوٹس سے چیلنج قبول نہیں کر رہا۔</string>
-  <string name="declineOnlyBot">میں صرف بوٹس سے چیلنجیں منظور کر رہا ہوں۔</string>
-</resources>

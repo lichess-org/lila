@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="approved">Чиний дамжуулалт зөвшөөрөгдлөө.</string>
-  <string name="headline">Гарчиг</string>
-  <string name="changePicture">Хөөрхөн зурагаа устгах/солих</string>
-  <string name="uploadPicture">Хөөрхөн цээж зурагаа оруулах</string>
-</resources>

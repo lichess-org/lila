@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="dgtBoard">กระดาน ดีจีที</string>
-  <string name="reloadThisPage">โหลดหน้านี้ใหม่</string>
-  <string name="textToSpeech">การแปลงข้อความเป็นเสียง</string>
-  <string name="keywords">คีย์เวิร์ด</string>
-  <string name="playWithDgtBoard">เล่นด้วยกระดานดีจีที</string>
-  <string name="configure">กำหนดค่า</string>
-</resources>

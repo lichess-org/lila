@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <plurals name="gamesPerDay">
-    <item quantity="one">%s игра на ден</item>
-    <item quantity="other">%s игри на ден</item>
-  </plurals>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Светла/Тъмна тема, персонализирана дъска, фигури и фон</string>
-  <string name="supportUsWithAPatronAccount">Подкрепете ни като Patron!</string>
-</resources>

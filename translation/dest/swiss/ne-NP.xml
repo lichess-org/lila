@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="one">स्वीस गेमको राउण्ड %s</item>
-    <item quantity="other">स्वीस गेमको राउण्ड %s</item>
-  </plurals>
-</resources>

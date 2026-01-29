@@ -1,9 +1,0 @@
-<!ELEMENT resources (string|plurals)*>
-<!ELEMENT string (#PCDATA)>
-<!ATTLIST string name ID #REQUIRED>
-<!ATTLIST string comment CDATA "">
-<!ELEMENT plurals (item+)>
-<!ATTLIST plurals name ID #REQUIRED>
-<!ATTLIST plurals comment CDATA "">
-<!ELEMENT item (#PCDATA)>
-<!ATTLIST item quantity (zero|one|two|few|many|other) #REQUIRED>

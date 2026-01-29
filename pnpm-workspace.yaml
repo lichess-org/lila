@@ -1,7 +1,0 @@
-useNodeVersion: 24.11.1
-managePackageManagerVersions: true
-updateNotified: false
-packages:
-  - 'bin'
-  - 'ui/*'
-  - 'ui/@types/*'

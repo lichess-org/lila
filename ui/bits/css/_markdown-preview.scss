@@ -1,9 +1,0 @@
-.markdown-textarea .comment-preview {
-  font-size: 1.1rem;
-
-  @include rendered-markdown(1em, 1600px);
-  @include rendered-markdown--code;
-  @include rendered-markdown--quote;
-  @include rendered-markdown--img;
-  @include rendered-markdown--embed;
-}

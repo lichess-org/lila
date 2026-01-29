@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="loser">Прыгравшый</string>
-  <string name="from">Из</string>
-  <string name="to">Од</string>
-  <string name="date">Дата</string>
-</resources>

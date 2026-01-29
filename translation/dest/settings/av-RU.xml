@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Рекъезариял</string>
-  <string name="closeAccount">Аккаунт къазе</string>
-  <string name="managedAccountCannotBeClosed">Дур аккаунталъе нухмалъи гьабула, къазе кӀоларо.</string>
-  <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">Гьеб аккаунт къан буго.</string>
-</resources>

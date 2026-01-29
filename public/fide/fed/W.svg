@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 640 640">
-  <circle transform="matrix(1, 0, 0, 1.000109, 107.134995, -4.240456)" cx="212.865" cy="324.24" r="320" fill="#00c"/>
-  <g fill="none" stroke="#fff" stroke-width="52.9" transform="matrix(0.497314, 0, 0, 0.497019, -269.068695, 544.653198)">
-    <circle cx="1184.5" cy="-452.1" r="502.7"/>
-    <path stroke-linecap="square" d="M855-112a659 659 0 0 1 659 0m0-680a659 659 0 0 1-659 0"/>
-    <path d="M1183 50a628 628 0 0 1-250-502 628 628 0 0 1 250-502m2-1V51M682-452h1005m-501-502a628 628 0 0 1 250 502 628 628 0 0 1-250 502"/>
-  </g>
-</svg>

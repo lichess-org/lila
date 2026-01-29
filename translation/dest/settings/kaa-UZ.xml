@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="settings">Sazlawlar</string>
-  <string name="closeAccount">Akkaunttı jabıw</string>
-  <string name="managedAccountCannotBeClosed">Akkauntıńız basqa adam tárepinen basqarılmaqta, jabıw múmkinshiligi joq.</string>
-  <string name="thisAccountIsClosed" comment="Appears on mouseover for a user profile (account) which has been closed.&#10;&#10;This should be in the passive voice. It is typically the player's choice to close their own account, but it is could instead be Lichess moderators who closed the account.">Akkaunt jabılǵan.</string>
-</resources>

@@ -1,7 +1,0 @@
-[
-  { "from": "the", "to": "d", "cost": 0.3 },
-  { "from": "the", "to": "b", "cost": 0.6 },
-  { "from": "the", "to": "e", "cost": 0.6 },
-  { "from": "two", "to": "blue", "cost": 0.4 },
-  { "from": "white", "to": "knight", "cost": 0.4 }
-]

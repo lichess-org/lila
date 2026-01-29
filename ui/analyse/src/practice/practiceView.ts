@@ -27,6 +27,7 @@ function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
     : [];
 }
 
+
 function renderOffTrack(ctrl: PracticeCtrl): VNode {
   return hl('div.player.off', [
     hl('div.icon.off', '!'),

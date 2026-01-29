@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="coordinates">Координатсем</string>
-  <string name="coordinateTraining">Координатӑ хӑнӑхтарӑвӗ</string>
-  <string name="knowingTheChessBoard">Шахмат хӑминчи координатӑсене пӗлни питӗ пӗлтерӗшлӗ меслет:</string>
-  <string name="startTraining">Хӑнӑхтару пуҫла</string>
-  <string name="findSquare">Клеткӑна туп</string>
-</resources>

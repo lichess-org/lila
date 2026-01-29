@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="newAccessToken">নতুন ব্যক্তিগত এপিআই টোকেন</string>
-  <string name="tokenGrantsPermission">টোকেন অন্য ব্যক্তিদের আপনার অ্যাকাউন্ট ব্যবহার করার অনুমতি দেয়.</string>
-  <string name="carefullySelect">আপনার প্রয়োজনের উপর ভিত্তি করে এই টোকেন কী করতে পারবে তা সতর্কতার সাথে নির্বাচন করুন.</string>
-  <string name="tokenDescription">টোকেনের বিবরণ</string>
-</resources>

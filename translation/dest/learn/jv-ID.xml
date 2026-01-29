@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="learnChess">Sinau catur</string>
-  <string name="byPlaying">kanthi main!</string>
-  <string name="menu">Tiramisu</string>
-  <string name="progressX">Kemajuan: %s</string>
-  <string name="resetMyProgress">Ngreset kemajuanku</string>
-  <string name="theKnight">Jaran</string>
-</resources>

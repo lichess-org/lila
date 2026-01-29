@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="closedByModerators">आपका एकाउंट मॉडरेटर द्वारा बंद कर दिया गया था.</string>
-  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">हमारे %s को दोबारा पढ़ना सुनिश्चित करें।</string>
-  <string name="communicationGuidelines">संचार दिशानिर्देश</string>
-  <string name="fairPlay">फेयर प्ले</string>
-</resources>

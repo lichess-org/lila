@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">തിരയുക</string>
-  <string name="advancedSearch">മികച്ച തിരച്ചില്‍</string>
-  <string name="source">ഉറവിടം</string>
-</resources>

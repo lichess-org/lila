@@ -1,8 +1,0 @@
-/lila       text eol=lf
-/ui/build   text eol=lf
-/public/lifat/nnue/*.nnue filter=lfs diff=lfs merge=lfs -text
-/public/lifat/vosk/*.tar.gz filter=lfs diff=lfs merge=lfs -text
-/public/lifat/bots/net/*.pb filter=lfs diff=lfs merge=lfs -text
-/public/lifat/bots/book/*.bin filter=lfs diff=lfs merge=lfs -text
-/public/lifat/bots/book/*.png filter=lfs diff=lfs merge=lfs -text
-/public/lifat/background/gallery/*.webp filter=lfs diff=lfs merge=lfs -text

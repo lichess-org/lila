@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="swissTournaments">ტურნირები შვეიცარული სისტემით</string>
-  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
-    <item quantity="one">Ყველა %s რაუნდის ნახვა</item>
-    <item quantity="other">ყველა %s რაუნდის ნახვა</item>
-  </plurals>
-</resources>
