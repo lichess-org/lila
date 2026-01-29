@@ -35,14 +35,16 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       });
   };
 
-  pubsub.on('analysis.change', (fen: FEN, _) => {
+  const onFenChange = (fen: FEN) => {
     const nextInputHash = `${fen}${ctrl.bottomColor()}`;
     if (fen && nextInputHash !== lastInputHash) {
       if (inputFen) inputFen.value = fen;
       if (!site.blindMode) updateGifLinks(fen);
       lastInputHash = nextInputHash;
     }
-  });
+  };
+  onFenChange(ctrl.node.fen);
+  pubsub.on('analysis.change', onFenChange);
 
   if (!site.blindMode) {
     pubsub.on('board.change', () => inputFen && updateGifLinks(inputFen.value));
