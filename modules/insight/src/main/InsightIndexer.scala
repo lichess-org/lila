@@ -44,7 +44,7 @@ final private class InsightIndexer(
     Query.user(user.id) ++
       Query.rated ++
       Query.finished ++
-      Query.turnsGt(2) ++
+      Query.turnsGt(10) ++
       Query.notFromPosition ++
       Query.createdSince(minDate)
 
