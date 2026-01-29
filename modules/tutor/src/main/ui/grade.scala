@@ -37,7 +37,7 @@ object grade:
           gradeVisual(c, metric),
           div(cls := "tutor-grade__detail")(
             c.unit.html(metric.mine.value),
-            em(" vs peers"),
+            em(" vs ", c.unit.html(metric.peer), " (peers)"),
             " over ",
             lila.ui.NumberHelper.formatter.format(metric.mine.count),
             " ",
