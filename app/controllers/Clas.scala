@@ -94,7 +94,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           students <- env.clas.api.student.activeWithUsers(clas)
           _ = preloadStudentUsers(students)
           students <- env.clas.api.student.withPerfs(students)
-          page <- renderPage(views.clas.teacherDashboard.overview(clas, students))
+          tours <- env.teamInfo.clasTournaments(clas)
+          tourUi = views.clas.clasTournaments(tours)
+          page <- renderPage(views.clas.teacherDashboard.overview(clas, students, tourUi))
         yield Ok(page),
       forStudent = (clas, students) =>
         for
@@ -102,12 +104,14 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           _ = preloadStudentUsers(students)
           students <- env.clas.api.student.withPerfs(students)
           html <- env.clas.markdown.wallHtml(clas)
+          tours <- env.teamInfo.clasTournaments(clas)
           page <- renderPage:
             views.clas.studentDashboard(
               clas,
               html,
               teachers,
-              students
+              students,
+              views.clas.clasTournaments(tours)
             )
         yield Ok(page),
       orDefault = _ =>

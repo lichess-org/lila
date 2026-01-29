@@ -4,9 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 
-final private class AggregationPipeline(store: InsightStorage)(using
-    ec: Executor
-):
+final private class AggregationPipeline(store: InsightStorage)(using Executor):
   import InsightStorage.*
   import BSONHandlers.given
 
@@ -51,18 +49,16 @@ final private class AggregationPipeline(store: InsightStorage)(using
         )
 
         lazy val movetimeIdDispatcher =
-          MovetimeRange.reversedNoInf.foldLeft[BSONValue](BSONInteger(MovetimeRange.MTRInf.id)):
-            case (acc, mtr) =>
-              $doc(
-                "$cond" -> $arr(
-                  $doc("$lt" -> $arr("$" + F.moves("t"), mtr.tenths)),
-                  mtr.id,
-                  acc
-                )
+          MovetimeRange.reversedNoInf.foldLeft[BSONValue](BSONInteger(MovetimeRange.MTRInf.id)): (acc, mtr) =>
+            $doc(
+              "$cond" -> $arr(
+                $doc("$lt" -> $arr("$" + F.moves("t"), mtr.tenths)),
+                mtr.id,
+                acc
               )
-
+            )
         lazy val cplIdDispatcher =
-          CplRange.all.reverse.foldLeft[BSONValue](BSONInteger(CplRange.worse.cpl)) { case (acc, cpl) =>
+          CplRange.all.reverse.foldLeft[BSONValue](BSONInteger(CplRange.worse.cpl)): (acc, cpl) =>
             $doc(
               "$cond" -> $arr(
                 $doc("$lte" -> $arr("$" + F.moves("c"), cpl.cpl)),
@@ -70,30 +66,15 @@ final private class AggregationPipeline(store: InsightStorage)(using
                 acc
               )
             )
-          }
-
-        lazy val accuracyPercentDispatcher =
-          $doc( // rounding
-            "$multiply" -> $arr(
-              10,
-              $doc(
-                "$toInt" -> $arr($divide(s"$$${F.moves("a")}", percentBsonMultiplier * 10))
-              )
-            )
+        def roundingDispatcher(moveField: String, factor: Int) = $doc(
+          "$multiply" -> $arr(
+            factor,
+            $doc("$toInt" -> $arr($divide(s"$$${F.moves(moveField)}", percentBsonMultiplier * factor)))
           )
-        lazy val winPercentDispatcher =
-          $doc( // rounding
-            "$multiply" -> $arr(
-              10,
-              $doc(
-                "$toInt" -> $arr($divide(s"$$${F.moves("w")}", percentBsonMultiplier * 10))
-              )
-            )
-          )
-
+        )
         def clockPercentDispatcher =
           ClockPercentRange.all.tail
-            .foldLeft[BSONValue](BSONInteger(ClockPercentRange.all.head.bottom.toInt)) { (acc, tp) =>
+            .foldLeft[BSONValue](BSONInteger(ClockPercentRange.all.head.bottom.toInt)): (acc, tp) =>
               $doc(
                 "$cond" -> $arr(
                   $doc("$gte" -> $arr("$" + F.moves("s"), tp.bottom)),
@@ -101,8 +82,6 @@ final private class AggregationPipeline(store: InsightStorage)(using
                   acc
                 )
               )
-            }
-
         lazy val materialIdDispatcher = $doc(
           "$cond" -> $arr(
             $doc("$eq" -> $arr("$" + F.moves("i"), 0)),
@@ -120,7 +99,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
           )
         )
         lazy val evalIdDispatcher =
-          EvalRange.reversedButLast.foldLeft[BSONValue](BSONInteger(EvalRange.Up5.id)) { (acc, ev) =>
+          EvalRange.reversedButLast.foldLeft[BSONValue](BSONInteger(EvalRange.Up5.id)): (acc, ev) =>
             $doc(
               "$cond" -> $arr(
                 $doc("$lt" -> $arr("$" + F.moves("e"), ev.eval)),
@@ -128,11 +107,10 @@ final private class AggregationPipeline(store: InsightStorage)(using
                 acc
               )
             )
-          }
         lazy val timeVarianceIdDispatcher =
           TimeVariance.values.reverse
             .drop(1)
-            .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)) { (acc, tvi) =>
+            .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)): (acc, tvi) =>
               $doc(
                 "$cond" -> $arr(
                   $doc("$lte" -> $arr("$" + F.moves("v"), tvi.intFactored)),
@@ -140,15 +118,14 @@ final private class AggregationPipeline(store: InsightStorage)(using
                   acc
                 )
               )
-            }
         def dimensionGroupId(dim: InsightDimension[?]): BSONValue =
           dim match
             case InsightDimension.MovetimeRange => movetimeIdDispatcher
             case InsightDimension.CplRange => cplIdDispatcher
-            case InsightDimension.AccuracyPercentRange => accuracyPercentDispatcher
+            case InsightDimension.AccuracyPercentRange => roundingDispatcher("a", 10)
             case InsightDimension.MaterialRange => materialIdDispatcher
             case InsightDimension.EvalRange => evalIdDispatcher
-            case InsightDimension.WinPercentRange => winPercentDispatcher
+            case InsightDimension.WinPercentRange => roundingDispatcher("w", 10)
             case InsightDimension.TimeVariance => timeVarianceIdDispatcher
             case InsightDimension.ClockPercentRange => clockPercentDispatcher
             case d => BSONString("$" + d.dbKey)

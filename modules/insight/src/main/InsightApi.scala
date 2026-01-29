@@ -63,8 +63,8 @@ final class InsightApi(
               case Some(entry) if entry.date.isBefore(game.createdAt) => UserStatus.Stale
               case _ => UserStatus.Fresh
 
-  def indexAll(user: User) =
-    for _ <- indexer.all(user).monSuccess(_.insight.index)
+  def indexAll(user: User, force: Boolean): Funit =
+    for _ <- indexer.all(user, force).monSuccess(_.insight.index)
     yield userCache.put(user.id, computeUser(user.id))
 
   def updateGame(g: Game) =

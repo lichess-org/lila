@@ -148,7 +148,8 @@ final class ClasApi(
     /* Only if userId and I have a class in common,
      * wether we're teachers or students */
     def realName(userId: UserId)(using me: Me): Fu[Option[String]] =
-      if isTeacher(userId)
+      if me.is(userId) then fuccess(none)
+      else if isTeacher(userId)
       then userRepo.realName(userId)
       else
         isStudent(userId)
@@ -197,9 +198,8 @@ final class ClasApi(
     def activeOf(clas: Clas): Fu[List[Student]] =
       of($doc("clasId" -> clas.id) ++ selectArchived(false))
 
-    def activeUserIdsOf(clas: Clas): Fu[List[UserId]] =
-      coll
-        .primitive[UserId]($doc("clasId" -> clas.id) ++ selectArchived(false), $sort.asc("userId"), "userId")
+    def activeUserIdsOf(clas: ClasId): Fu[List[UserId]] =
+      coll.primitive[UserId]($doc("clasId" -> clas) ++ selectArchived(false), $sort.asc("userId"), "userId")
 
     def allWithUsers(clas: Clas, selector: Bdoc = $empty): Fu[List[Student.WithUser]] =
       colls.student
@@ -508,6 +508,6 @@ $url""",
   private def teamSync(clas: Clas)(using Option[Me]): Unit =
     import lila.core.misc.clas.*
     val config = (~clas.hasTeam && clas.isActive).option:
-      val students = LazyFu(() => student.activeUserIdsOf(clas))
+      val students = LazyFu(() => student.activeUserIdsOf(clas.id))
       ClasTeamConfig(clas.name, clas.teachers, students)
     Bus.pub(ClasTeamUpdate(clas.id, config))

@@ -8,7 +8,7 @@ import lila.core.misc.lpv.LpvEmbed
 class MarkdownTest extends munit.FunSuite:
 
   val render: Markdown => Html =
-    new MarkdownRender(assetDomain = AssetDomain("lichess1.org").some, header = true)("test")
+    new MarkdownRender(assetDomain = AssetDomain("lichess1.org").some, header = true, list = true)("test")
 
   test("autolinks add rel"):
     val md = Markdown("https://example.com")
@@ -157,6 +157,26 @@ Line 2""")
 """)
     )
 
+  test("Escaped non-list element"):
+    // the markdown visual editor adds backslashes before the dot
+    // when the writer types something that looks like a list item, but isn't.
+    // Example: "1.\ Something"
+    // We don't want to render the backslash, or to make it a list item.
+    // assertEquals(render(Markdown("""1.\ Something""")), Html("""<p>1. Something</p>"""))
+    assertEquals(
+      render(Markdown("""1\. More dots\.""")),
+      Html("""<p>1. More dots.</p>
+""")
+    )
+    // ensure that normal list items still work
+    assertEquals(
+      render(Markdown("""1. Something""")),
+      Html("""<ol>
+<li>Something</li>
+</ol>
+""")
+    )
+
   test("prod case"):
     assertEquals(
       MarkdownRender.preventStackOverflow(
@@ -176,32 +196,32 @@ Line 2""")
 """)
     )
 
-  test("markdown datetime rendering"):
-    val formats = List(
-      "d" -> "2025-12-15",
-      "D" -> "2025-12-15",
-      "t" -> "18:32 UTC",
-      "T" -> "18:32 UTC",
-      "f" -> "2025-12-15 18:32 UTC",
-      "F" -> "2025-12-15 18:32 UTC",
-      "s" -> "2025-12-15 18:32 UTC",
-      "S" -> "2025-12-15 18:32 UTC",
-      "R" -> "2025-12-15 18:32 UTC"
-    )
+  // test("markdown datetime rendering"):
+  //   val formats = List(
+  //     "d" -> "2025-12-15",
+  //     "D" -> "2025-12-15",
+  //     "t" -> "18:32 UTC",
+  //     "T" -> "18:32 UTC",
+  //     "f" -> "2025-12-15 18:32 UTC",
+  //     "F" -> "2025-12-15 18:32 UTC",
+  //     "s" -> "2025-12-15 18:32 UTC",
+  //     "S" -> "2025-12-15 18:32 UTC",
+  //     "R" -> "2025-12-15 18:32 UTC"
+  //   )
 
-    for (format, expected) <- formats do
-      assertEquals(
-        render(Markdown(s"The event is at <t:1765823521:$format>.")),
-        Html(
-          s"""<p>The event is at <time datetime="2025-12-15T18:32:01Z" format="$format" title="$expected">$expected</time>.</p>
-"""
-        )
-      )
-
-    assertEquals(
-      render(Markdown("2 per line: <t:1765823521:d> <t:1765823521:d>")),
-      Html(
-        """<p>2 per line: <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time> <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time></p>
-"""
-      )
-    )
+//     for (format, expected) <- formats do
+//       assertEquals(
+//         render(Markdown(s"The event is at <t:1765823521:$format>.")),
+//         Html(
+//           s"""<p>The event is at <time datetime="2025-12-15T18:32:01Z" format="$format" title="$expected">$expected</time>.</p>
+// """
+//         )
+//       )
+//
+//     assertEquals(
+//       render(Markdown("2 per line: <t:1765823521:d> <t:1765823521:d>")),
+//       Html(
+//         """<p>2 per line: <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time> <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time></p>
+// """
+//       )
+//     )

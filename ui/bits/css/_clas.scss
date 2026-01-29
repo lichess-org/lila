@@ -66,10 +66,6 @@ body {
   }
 }
 
-.slist tbody tr:nth-child(2n) {
-  background: $m-clas_bg--mix-7;
-}
-
 h1 {
   @extend %base-font;
   background-image: var(--bg-clas-title);
@@ -327,10 +323,6 @@ h1 {
         margin-top: -1.5em;
         padding-bottom: 3em;
       }
-    }
-
-    .teachers {
-      margin-bottom: 2em;
     }
 
     .clas-wall {

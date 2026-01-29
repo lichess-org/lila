@@ -138,7 +138,7 @@ private object TutorPerfReport:
       clockUsers = users.filter(_.perfType != PerfType.Correspondence).toNel
       globalClock <- clockUsers.traverse(answerManyPerfs(globalClockQuestion, _))
       clockUsage <- clockUsers.traverse(TutorClockUsage.compute)
-      perfReports <- Future.sequence(users.toList.map { user =>
+      perfReports <- users.toList.sequentially: user =>
         for
           openings <- TutorOpening.compute(user)
           phases <- TutorPhases.compute(user)
@@ -157,5 +157,4 @@ private object TutorPerfReport:
           phases,
           flagging
         )
-      })
     yield perfReports

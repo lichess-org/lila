@@ -57,7 +57,7 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
       .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
       .add("minRatedGames", tour.conditions.nbRatedGame)
       .add("onlyTitled", tour.conditions.titled.isDefined)
-      .add("teamMember", tour.conditions.teamMember.map(_.teamId))
+      .add("teamMember", tour.singleTeamId)
       .add("private", tour.isPrivate)
       .add("position", tour.position.map(position))
       .add("schedule", tour.scheduleData.map(scheduleJson))

@@ -1049,9 +1049,6 @@ export default class AnalyseCtrl implements CevalHandler {
     }
   };
 
-  outcome = () => this.node.outcome(); // LT BC
-  position = () => this.node.pos(); // LT BC
-
   private makeVariationOpacityProp(): Prop<number | false> {
     let value = parseFloat(localStorage.getItem('analyse.variation-arrow-opacity') || '0');
     if (isNaN(value) || value < -1 || value > 1) value = 0;
@@ -1067,7 +1064,7 @@ export default class AnalyseCtrl implements CevalHandler {
     };
   }
 
-  private pluginUpdate = (fen: string) => {
+  private pluginUpdate = (fen: FEN) => {
     // If controller and chessground board states differ, ignore this update. Once the chessground
     // state is updated to match, pluginUpdate will be called again.
     if (!fen.startsWith(this.chessground?.getFen())) return;

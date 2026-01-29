@@ -238,18 +238,22 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
       ),
       (team.enabled && hasPerm(_.Tour)).option(
         frag(
-          a(
-            href := routes.Tournament.teamBattleForm(team.id),
-            cls := "button button-empty text",
-            dataIcon := Icon.Trophy
-          ):
-            span(
-              strong(trt.teamBattle()),
-              em(trt.teamBattleOverview())
-            )
+          team.isClas.not.option:
+            a(
+              href := routes.Tournament.teamBattleForm(team.id),
+              cls := "button button-empty text",
+              dataIcon := Icon.Trophy
+            ):
+              span(
+                strong(trt.teamBattle()),
+                em(trt.teamBattleOverview())
+              )
           ,
           a(
-            href := s"${routes.Tournament.form}?team=${team.id}",
+            href := addQueryParams(
+              routes.Tournament.form.url,
+              Map("team" -> team.id.value) ++ team.isClas.so(Map("clas" -> "1"))
+            ),
             cls := "button button-empty text",
             dataIcon := Icon.Trophy
           ):

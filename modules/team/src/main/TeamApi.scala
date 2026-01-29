@@ -378,7 +378,7 @@ final class TeamApi(
 
   def clasMemberCheck(teamId: TeamId)(using me: Option[MyId]): Fu[Boolean] =
     for
-      isClas <- teamRepo.ofClas(teamId)
+      isClas <- teamRepo.isClas(teamId)
       ok <- if isClas then me.soUse(isMember(teamId)) else fuTrue
     yield ok
 
