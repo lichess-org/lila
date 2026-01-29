@@ -1,7 +1,7 @@
 import { type VNode, dataIcon, hl, onInsert, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
-import type { Photo, RelayRound, RelayTeamName, RelayTour, RoundId } from './interfaces';
+import type { FideTC, Photo, RelayRound, RelayTeamName, RelayTour, RoundId } from './interfaces';
 import { playerColoredResult } from './customScoreStatus';
 import { playerFedFlag } from '../playerBars';
 import { userLink, userTitle } from 'lib/view/userLink';
@@ -20,6 +20,7 @@ import { convertPlayerFromServer } from '../studyChapters';
 import { isTouchDevice } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
 import { teamLinkData } from './relayTeamLeaderboard';
+import perfIcons from 'lib/game/perfIcons';
 
 export type RelayPlayerId = FideId | string;
 
@@ -32,8 +33,9 @@ interface Tiebreak {
 export interface RelayPlayer extends StudyPlayer {
   score?: number;
   played?: number;
-  ratingDiff?: number;
-  performance?: number;
+  ratingsMap?: { [tc in FideTC]?: number };
+  ratingDiffs?: { [tc in FideTC]?: number };
+  performances?: { [tc in FideTC]?: number };
   tiebreaks?: Tiebreak[];
   rank?: number;
 }
@@ -44,6 +46,7 @@ interface RelayPlayerGame {
   roundObj?: RelayRound;
   opponent: RelayPlayer;
   color: Color;
+  fideTC: FideTC;
   points?: PointsStr;
   customPoints?: number;
   ratingDiff?: number;
@@ -136,12 +139,11 @@ export default class RelayPlayers {
 export const playersView = (ctrl: RelayPlayers): VNode =>
   ctrl.show ? playerView(ctrl, ctrl.show) : playersList(ctrl);
 
-const ratingCategs = [
-  ['standard', i18n.site.classical],
-  ['rapid', i18n.site.rapid],
-  ['blitz', i18n.site.blitz],
-];
-
+const ratingCategs: { [key in FideTC]: string } = {
+  standard: i18n.site.classical,
+  rapid: i18n.site.rapid,
+  blitz: i18n.site.blitz,
+};
 const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
   const tour = ctrl.tour;
   const p = show.player;
@@ -215,7 +217,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
           ),
           hl('div.fide-player__cards', [
             p.fide?.ratings &&
-              ratingCategs.map(([key, name]) =>
+              Object.entries(ratingCategs).map(([key, name]: [FideTC, string]) =>
                 hl(`div.fide-player__card${key === tc ? '.active' : ''}`, [
                   hl('em', name),
                   hl('span', [p.fide?.ratings[key] || '-']),
@@ -226,12 +228,18 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
                 hl('em', i18n.broadcast.score),
                 hl('span', [p.score, ' / ', p.played]),
               ]),
-            !!p.performance &&
+            p.performances &&
               hl('div.fide-player__card', [
                 hl('em', i18n.site.performance),
-                hl('span', [p.performance, p.games.length < 4 ? '?' : '']),
+                Object.entries(p.performances).map(([tc, value]: [FideTC, number]) =>
+                  hl(
+                    'div',
+                    fideTCAttrs(tc),
+                    `${value}${p.games.filter(g => g.fideTC === tc).length < 4 ? '?' : ''}`,
+                  ),
+                ),
               ]),
-            p.ratingDiff !== undefined &&
+            p.ratingDiffs &&
               hl('div.fide-player__card', [hl('em', i18n.broadcast.ratingDiff), ratingDiff(p)]),
           ]),
           hl('table.relay-tour__player__games.slist.slist-pad', [
@@ -310,7 +318,7 @@ export const renderPlayers = (
                 hl(
                   'td',
                   sortByBoth(player.rating, (player.score || 0) * 10),
-                  !!player.rating && [`${player.rating}`, ratingDiff(player)],
+                  player.rating && ratingDiff(player),
                 ),
               withScores &&
                 hl(
@@ -405,7 +413,7 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
         p.team && hl('a.tpp__player__team', matchOrResultsTeamLink(ctrl, p.team), p.team),
         hl('div', [
           playerFedFlag(p.fed),
-          !!p.rating && [`${p.rating}`, isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p)],
+          !!p.rating && isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p),
         ]),
         isRelayPlayer(p) &&
           !ctrl.hideResultsSinceRoundId() &&
@@ -456,7 +464,12 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
         hl('td', op.rating?.toString()),
         hl('td.is.color-icon.' + game.color),
         hl('td.tpp__games__status', points !== undefined ? coloredPoint(points) : '*'),
-        hl('td', defined(game.ratingDiff) && hideResultsSinceIndex > i ? ratingDiff(game) : undefined),
+        hl(
+          'td',
+          defined(game.ratingDiff) &&
+            hideResultsSinceIndex > i &&
+            ratingDiff(game, p.ratingsMap && Object.keys(p.ratingsMap).length > 1),
+        ),
       ]);
     }),
   );
@@ -503,16 +516,35 @@ const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): V
   );
 };
 
-const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
-  const rd = p.ratingDiff;
-  return !defined(rd)
+const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = true) =>
+  isRelayPlayerGame(p)
+    ? hl('div', showIcons ? fideTCAttrs(p.fideTC) : {}, diffNode(p.ratingDiff))
+    : p.ratingDiffs &&
+      Object.entries(p.ratingDiffs).map(([tc, diff]: [FideTC, number]) =>
+        hl('div', p.ratingsMap && Object.keys(p.ratingsMap).length > 1 ? fideTCAttrs(tc) : {}, [
+          p.ratingsMap?.[tc],
+          diffNode(diff),
+        ]),
+      );
+
+const diffNode = (rd: number | undefined) =>
+  !defined(rd)
     ? undefined
     : rd > 0
       ? hl('good.rp', '+' + rd)
       : rd < 0
         ? hl('bad.rp', '−' + -rd)
         : hl('span.rp--same', ' ==');
-};
+
+const isRelayPlayerGame = (p: RelayPlayer | RelayPlayerGame): p is RelayPlayerGame =>
+  'round' in p && 'opponent' in p;
+
+const fideTCAttrs = (tc: FideTC): VNodeData => ({
+  attrs: {
+    'data-icon': perfIcons[tc === 'standard' ? 'classical' : tc],
+    title: ratingCategs[tc],
+  },
+});
 
 export const tableAugment = (el: HTMLTableElement) => {
   extendTablesortNumber();
