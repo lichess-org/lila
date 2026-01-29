@@ -337,7 +337,9 @@ object MarkdownRender:
         new NodeRendererFactory:
           override def apply(options: DataHolder) = new NodeRenderer:
             override def getNodeRenderingHandlers() =
-              Set(NodeRenderingHandler(classOf[Text], (node, ctx, html) => renderText(node, ctx, html))).asJava
+              Set(
+                NodeRenderingHandler(classOf[Text], (node, ctx, html) => renderText(node, ctx, html))
+              ).asJava
 
             private def renderText(node: Text, context: NodeRendererContext, html: HtmlWriter): Unit =
               val text = node.getChars.toString
