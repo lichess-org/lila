@@ -5,11 +5,12 @@ import lila.insight.{ InsightApi, InsightDimension, InsightMetric, Phase, Questi
 
 case class TutorPhase(
     phase: Phase,
-    accuracy: TutorBothValueOptions[AccuracyPercent],
-    awareness: TutorBothValueOptions[GoodPercent]
+    accuracy: TutorBothOption[AccuracyPercent],
+    awareness: TutorBothOption[GoodPercent]
 ):
 
-  def mix: TutorBothValueOptions[GoodPercent] = accuracy.map(_.into(GoodPercent)).mix(awareness)
+  def mix: TutorBothOption[GoodPercent] =
+    TutorBothValues.mix(accuracy.map(_.map(_.into(GoodPercent))), awareness)
 
 private object TutorPhases:
 

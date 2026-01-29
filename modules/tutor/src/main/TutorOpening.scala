@@ -6,9 +6,10 @@ import monocle.syntax.all.*
 
 import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
-import lila.insight.{ Insight, Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
+import lila.insight.{ Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
 
 case class TutorColorOpenings(families: List[TutorOpeningFamily]):
+
   lazy val accuracyCompare = TutorCompare[LilaOpeningFamily, AccuracyPercent](
     InsightDimension.OpeningFamily,
     TutorMetric.Accuracy,
@@ -17,7 +18,7 @@ case class TutorColorOpenings(families: List[TutorOpeningFamily]):
   lazy val performanceCompare = TutorCompare[LilaOpeningFamily, IntRating](
     InsightDimension.OpeningFamily,
     TutorMetric.Performance,
-    families.map { f => (f.family, f.performance.toOption) }
+    families.map { f => (f.family, f.performance.some) }
   )
   lazy val awarenessCompare = TutorCompare[LilaOpeningFamily, GoodPercent](
     InsightDimension.OpeningFamily,
@@ -32,11 +33,12 @@ case class TutorColorOpenings(families: List[TutorOpeningFamily]):
 case class TutorOpeningFamily(
     family: LilaOpeningFamily,
     performance: TutorBothValues[IntRating],
-    accuracy: TutorBothValueOptions[AccuracyPercent],
-    awareness: TutorBothValueOptions[GoodPercent]
+    accuracy: TutorBothOption[AccuracyPercent],
+    awareness: TutorBothOption[GoodPercent]
 ):
 
-  def mix: TutorBothValueOptions[GoodPercent] = accuracy.map(a => GoodPercent(a.value)).mix(awareness)
+  def mix: TutorBothOption[GoodPercent] =
+    TutorBothValues.mix(accuracy.map(_.map(a => GoodPercent(a.value))), awareness)
 
 private case object TutorOpening:
 
@@ -58,15 +60,10 @@ private case object TutorOpening:
     )
     for
       myPerfsWide <- answerMine(wideQuestion, user)
-      myPerfs = myPerfsWide.focus(_.answer.clusters).modify(_.take(nbOpeningsPerColor))
-      myOpenings = myPerfs.dimensions
+      myPerformance = myPerfsWide.focus(_.answer.clusters).modify(_.take(nbOpeningsPerColor))
+      myOpenings = myPerformance.dimensions
       focusedQuestion = wideQuestion.filter(Filter(InsightDimension.OpeningFamily, myOpenings))
-      meanRatingPoint = Insight.Single(lila.insight.Point(user.perfStats.rating.value.toDouble))
-      peerPerfs = AnswerPeer:
-        myPerfs.answer
-          .focus(_.clusters)
-          .modify(_.map(_.set(meanRatingPoint, peerNbGames.value)))
-      performances = Answers(myPerfs, peerPerfs)
+      peerPerformance = user.perfStats.rating
       myAccuracyQuestion = focusedQuestion
         .withMetric(InsightMetric.MeanAccuracy)
         .filter(phaseFilter)
@@ -78,13 +75,14 @@ private case object TutorOpening:
       peerAwareness <- peerOpeningAnswerFromSinglePoint(user, myAwareness.answer, color)
       awareness = Answers(myAwareness, peerAwareness)
     yield TutorColorOpenings:
-      performances.mine.list.map: (family, myPerformance) =>
+      myPerformance.list.map: (family, myPerformance) =>
         TutorOpeningFamily(
           family,
-          performance =
-            IntRating.from(performances.valueMetric(family, myPerformance).map(TutorNumber.roundToInt)),
-          accuracy = AccuracyPercent.from(accuracy.valueMetric(family)),
-          awareness = GoodPercent.from(awareness.valueMetric(family))
+          performance = IntRating.from:
+            TutorBothValues(myPerformance, peerPerformance.value).map(TutorNumber.roundToInt)
+          ,
+          accuracy = accuracy.valueMetric(family).map(AccuracyPercent.from),
+          awareness = awareness.valueMetric(family).map(GoodPercent.from)
         )
 
   private val phaseFilter = Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle))

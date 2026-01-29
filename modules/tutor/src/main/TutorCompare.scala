@@ -7,25 +7,24 @@ import lila.insight.{ InsightDimension, InsightPosition }
 case class TutorCompare[D, V](
     dimensionType: InsightDimension[D],
     metric: TutorMetric[V],
-    points: List[(D, TutorBothValueOptions[V])],
+    points: List[(D, TutorBothOption[V])],
     color: Option[Color] = None
 )(using number: TutorNumber[V]):
   import TutorCompare.*
 
-  val totalCountMine = points.map(_._2.mine.so(_.count)).sum
+  val totalCountMine = points.map(_._2.so(_.mine.count)).sum
 
   lazy val dimensionComparisons: List[AnyComparison] =
     val myPoints: List[(D, ValueCount[V])] =
-      points.collect { case (dim, TutorBothValueOptions(Some(mine), _)) => dim -> mine }
+      points.collect { case (dim, Some(TutorBothValues(mine, _))) => dim -> mine }
     for
       (dim1, met1) <- myPoints.filter(_._2.relevantTo(totalCountMine))
       avg = number.mean(myPoints.filter(_._1 != dim1)._2F)
-    yield Comparison(dimensionType, dim1, metric, met1, DimAvg(avg), color)
+    yield Comparison(dimensionType, dim1, metric, met1, Reference.DimAvg(avg.value), color)
 
   lazy val peerComparisons: List[AnyComparison] = points.collect:
-    case (dim, TutorBothValueOptions(Some(mine), Some(peer)))
-        if mine.relevantTo(totalCountMine) && peer.reliableEnough =>
-      Comparison(dimensionType, dim, metric, mine, Peers(peer), color)
+    case (dim, Some(TutorBothValues(mine, peer))) if mine.relevantTo(totalCountMine) =>
+      Comparison(dimensionType, dim, metric, mine, Reference.Peers(peer), color)
 
   def allComparisons: List[AnyComparison] = dimensionComparisons ::: peerComparisons
 
@@ -42,7 +41,7 @@ object TutorCompare:
       color: Option[Color] = None
   )(using number: TutorNumber[V]):
 
-    val grade = number.grade(value.value, reference.value.value)
+    val grade = number.grade(value.value, reference.value)
 
     val importance = grade.value * math.sqrt:
       value.count * metric.metric.position.match
@@ -62,8 +61,8 @@ object TutorCompare:
 
   def mixedBag(comparisons: List[AnyComparison])(nb: Int): List[AnyComparison] = {
     val half = ~scalalib.Maths.divideRoundUp(nb, 2)
-    comparisons.partition(_.better) match
-      case (positives, negatives) => positives.topN(half) ::: negatives.topN(half)
+    val (positives, negatives) = comparisons.partition(_.better)
+    positives.topN(half) ::: negatives.topN(half)
   }.sortedReverse.take(nb)
 
   def sortAndPreventRepetitions(comparisons: List[AnyComparison])(nb: Int): List[AnyComparison] =
@@ -75,7 +74,6 @@ object TutorCompare:
         case (acc, c) => acc :+ c
       .toList
 
-  sealed trait Reference[V]:
-    val value: ValueCount[V]
-  case class Peers[V](value: ValueCount[V]) extends Reference[V]
-  case class DimAvg[V](value: ValueCount[V]) extends Reference[V]
+  enum Reference[V](val value: V):
+    case Peers(v: V) extends Reference(v)
+    case DimAvg(v: V) extends Reference(v)
