@@ -242,9 +242,18 @@ private final class RelayPlayerApi(
               .map(computeTiebreaks(withRatingDiff, tiebreaks, _))
         yield withTiebreaks
 
-  private def readGamesAndPlayers(tourIds: Seq[RelayTourId]): Fu[RelayPlayers] =
+  private def sgIsParallel(tours: List[RelayTour]): Boolean =
+    tours.headOption
+      .flatMap(_.dates.map(_.start))
+      .exists: firstStart =>
+        tours.tailOption.exists(_.forall(_.dates.map(_.start).exists(_.isBefore(firstStart.plusMinutes(20)))))
+
+  private def readGamesAndPlayers(tourIds: List[RelayTourId]): Fu[RelayPlayers] =
     for
-      rounds <- roundRepo.byToursOrdered(tourIds)
+      tours <- tourRepo.byIds(tourIds)
+      rounds <-
+        if sgIsParallel(tours) then roundRepo.byToursOrdered(tourIds)
+        else tourIds.flatTraverse(roundRepo.byTourOrdered)
       roundsById = rounds.mapBy(_.id)
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
       allFideIds = chapters.flatMap(_._2.flatMap((_, tags) => tags.fideIds.flatten)).toList.distinct
