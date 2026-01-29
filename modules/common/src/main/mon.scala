@@ -189,7 +189,8 @@ object mon:
     def askMine = askAs("mine")
     def askPeer = askAs("peer")
     def buildTimeout = counter("tutor.build.timeout").withoutTags()
-    def peerMatch(hit: Boolean) = counter("tutor.peerMatch").withTag("hit", hitTag(hit))
+    def peerMatch(hit: Boolean, perf: PerfKey) = counter("tutor.peerMatch").withTags:
+      tags("hit" -> hitTag(hit), "perf" -> perf)
     def parallelism = gauge("tutor.build.parallelism").withoutTags()
     private def askAs(as: "mine" | "peer")(question: String, perf: PerfKey | "all") =
       future("tutor.insight.ask", tags("question" -> question, "perf" -> perf, "as" -> as))

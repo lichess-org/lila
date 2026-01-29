@@ -101,7 +101,7 @@ final private class TutorBuilder(
       .map(_.toList.flatten)
       .addEffect: matches =>
         perfs.keys.foreach: pt =>
-          lila.mon.tutor.peerMatch(matches.exists(_.perf == pt)).increment()
+          lila.mon.tutor.peerMatch(matches.exists(_.perf == pt), pt.key).increment()
 
   private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
