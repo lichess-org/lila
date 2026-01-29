@@ -417,10 +417,12 @@ final class TournamentApi(
                   .flatMap:
                     case Some(pairing) if !pairing.berserkOf(userId) =>
                       pairing.colorOf(userId).so { color =>
+                        println("asking round to apply berserk")
                         roundApi
                           .ask(gameId)(GoBerserk(color, _))
+                          .withTimeout(3.seconds, "roundApi.ask berserk")
                           .flatMapz:
-                            pairingRepo.setBerserk(pairing, userId)
+                            pairingRepo.setBerserk(pairing, userId).thenPp("applied berserk to pairing")
                       }
                     case _ => funit
         }
