@@ -59,6 +59,11 @@
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s der Partien waren deine.</string>
 	<string name="thanksTitle">Vielen Dank, dass du auf Lichess spielst!</string>
 	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Wir sind froh, dass du hier bist. Hab\' ein fantastisches %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">Die %1$s von Lichess betrugen dieses Jahr %2$s.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">Betriebskosten</string>
+	<string name="patronCharity">Wir sind eine Wohltätigkeitsorganisation, die ausschließlich spendenbasiert operiert.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">Falls wir dazu beitragen konnten dich dieses Jahr zu unterhalten oder du an unsere Arbeit glaubst, bitte %s!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">unterstütze unsere Arbeit durch eine Spende</string>
 	<string name="shareableTitle" comment="%s is the current year">Deine %s Zusammenfassung</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">Gesamtspielzeit</string>
 	<string name="shareableMostPlayedOpponent">Häufigster Gegner</string>
