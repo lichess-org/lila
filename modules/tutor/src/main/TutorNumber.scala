@@ -24,8 +24,9 @@ trait TutorNumber[V]:
         iso.from((double(a.value) * a.count + double(b.value) * b.count) / (a.count + b.count)),
         a.count + b.count
       )
-  def mean(a: Option[ValueCount[V]], b: Option[ValueCount[V]]): ValueCount[V] =
-    mean(~a, ~b)
+  def mean(a: Option[ValueCount[V]], b: Option[ValueCount[V]]): ValueCount[V] = mean(~a, ~b)
+  def mean(a: V, b: V): V = iso.from((double(a) + double(b)) / 2)
+  def mean(a: Option[V], b: Option[V]): V = iso.from((a.so(double) + b.so(double)) / 2)
 
   def reverseCompare = new TutorNumber[V]:
     val iso = TutorNumber.this.iso
