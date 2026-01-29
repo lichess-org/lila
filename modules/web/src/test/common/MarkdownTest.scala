@@ -196,32 +196,32 @@ Line 2""")
 """)
     )
 
-  // test("markdown datetime rendering"):
-  //   val formats = List(
-  //     "d" -> "2025-12-15",
-  //     "D" -> "2025-12-15",
-  //     "t" -> "18:32 UTC",
-  //     "T" -> "18:32 UTC",
-  //     "f" -> "2025-12-15 18:32 UTC",
-  //     "F" -> "2025-12-15 18:32 UTC",
-  //     "s" -> "2025-12-15 18:32 UTC",
-  //     "S" -> "2025-12-15 18:32 UTC",
-  //     "R" -> "2025-12-15 18:32 UTC"
-  //   )
+  test("markdown datetime rendering".ignore):
+    val formats = List(
+      "d" -> "2025-12-15",
+      "D" -> "2025-12-15",
+      "t" -> "18:32 UTC",
+      "T" -> "18:32 UTC",
+      "f" -> "2025-12-15 18:32 UTC",
+      "F" -> "2025-12-15 18:32 UTC",
+      "s" -> "2025-12-15 18:32 UTC",
+      "S" -> "2025-12-15 18:32 UTC",
+      "R" -> "2025-12-15 18:32 UTC"
+    )
 
-//     for (format, expected) <- formats do
-//       assertEquals(
-//         render(Markdown(s"The event is at <t:1765823521:$format>.")),
-//         Html(
-//           s"""<p>The event is at <time datetime="2025-12-15T18:32:01Z" format="$format" title="$expected">$expected</time>.</p>
-// """
-//         )
-//       )
-//
-//     assertEquals(
-//       render(Markdown("2 per line: <t:1765823521:d> <t:1765823521:d>")),
-//       Html(
-//         """<p>2 per line: <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time> <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time></p>
-// """
-//       )
-//     )
+    for (format, expected) <- formats do
+      assertEquals(
+        render(Markdown(s"The event is at <t:1765823521:$format>.")),
+        Html(
+          s"""<p>The event is at <time datetime="2025-12-15T18:32:01Z" format="$format" title="$expected">$expected</time>.</p>
+"""
+        )
+      )
+
+    assertEquals(
+      render(Markdown("2 per line: <t:1765823521:d> <t:1765823521:d>")),
+      Html(
+        """<p>2 per line: <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time> <time datetime="2025-12-15T18:32:01Z" format="d" title="2025-12-15">2025-12-15</time></p>
+"""
+      )
+    )
