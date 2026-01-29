@@ -1,5 +1,4 @@
 import { prop } from 'lib';
-import { onInsert } from 'lib/view';
 import { throttle } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
@@ -72,9 +71,24 @@ export function view(root: AnalyseCtrl): VNode {
     }
   };
 
+  const syncWiki = (vnode: VNode, old?: VNode) => {
+    const shouldEnable = root.data.game.variant.key === 'standard';
+    if (old?.data?.wikiEnabled !== shouldEnable) root.enableWiki(shouldEnable);
+    vnode.data!.wikiEnabled = shouldEnable;
+  };
+
   return h(
     'div.study__comments',
-    { hook: onInsert(() => root.enableWiki(root.data.game.variant.key === 'standard')) },
+    {
+      hook: {
+        insert(vnode) {
+          syncWiki(vnode);
+        },
+        postpatch(old, vnode) {
+          syncWiki(vnode, old);
+        },
+      },
+    },
     [
       currentComments(root, !study.members.canContribute()),
       h('form.form3', [

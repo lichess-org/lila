@@ -92,8 +92,9 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
 export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
   const { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour } = ctx;
   const isRelay = defined(ctrl.study?.relay);
+  const variantClass = 'variant-' + ctrl.data.game.variant.key;
   return hl(
-    'main.analyse.variant-' + ctrl.data.game.variant.key,
+    'main.analyse',
     {
       attrs: {
         'data-active-tool': ctrl.activeControlBarTool(),
@@ -114,6 +115,7 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
         },
       },
       class: {
+        [variantClass]: true,
         'comp-off': !ctrl.showFishnetAnalysis(),
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
