@@ -150,8 +150,7 @@ test('Undefended: Not using attacker that blocks multiple defenders', () => {
   // e3 should be undefended, since White can capture without using the d4-bishop
   // If we had an extremely contrived case like 6k1/b7/1b5b/2b3b1/3B1B2/4n3/4R3/6K1 w - - 0 1,
   // with multiple attackers each blocking multiple defenders, then the piece would wrongly be
-  // labelled undefended. This is because the branching factor in `getSEE` is 2, so it only examines
-  // bishop captures on the first move.
+  // labelled undefended (branching factor in `getSEE` is only 2).
   const expected = ['e3:undefended', 'd4:undefended'].sort();
   assert.deepEqual(runAnalysis(fen), expected);
 });
