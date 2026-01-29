@@ -83,7 +83,12 @@ final class Main(
 
   def contact = Open:
     pageHit
-    Ok.page(views.site.page.contact)
+    for
+      res <- Ok.page(views.site.page.contact)
+      _ = println("side effect in for")
+    yield
+      println("side effect in yield")
+      res
 
   def faq = Open:
     pageHit

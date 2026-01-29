@@ -209,6 +209,7 @@ final private class RoundAsyncActor(
       handleAi: pov =>
         pov.game.resignable.so(finisher.other(pov.game, _.Resign, Some(!pov.color)))
 
+    // this does not complete the promise:
     case GoBerserk(color, promise) =>
       handle(color): pov =>
         val berserked = pov.game.goBerserk(color)
@@ -218,8 +219,27 @@ final private class RoundAsyncActor(
               _ <- proxy.save(progress)
               _ <- gameRepo.goBerserk(pov)
             yield progress.events
+          _ = println("will complete berserk promise")
           _ = promise.success(berserked.isDefined)
+          _ = println("did complete berserk promise")
         yield events
+
+    // this completes the promise, because of the extra println in the yield:
+    // case GoBerserk(color, promise) =>
+    //   handle(color): pov =>
+    //     val berserked = pov.game.goBerserk(color)
+    //     for
+    //       events <- berserked.so: progress =>
+    //         for
+    //           _ <- proxy.save(progress)
+    //           _ <- gameRepo.goBerserk(pov)
+    //         yield progress.events
+    //       _ = println("will complete berserk promise")
+    //       _ = promise.success(berserked.isDefined)
+    //       _ = println("did complete berserk promise")
+    //     yield
+    //       println("side effect in yield")
+    //       events
 
     case Blindfold(playerId, value) =>
       handle(playerId): pov =>
