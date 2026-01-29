@@ -339,30 +339,9 @@ object MarkdownRender:
     override def getSegments(): Array[BasedSequence] = BasedSequence.EMPTY_ARRAY
 
   private object TimestampExtension extends Parser.ParserExtension with HtmlRenderer.HtmlRendererExtension:
-    private val pattern = Pattern.compile("<t:(\\d+):([a-zA-Z])>")
-
     override def parserOptions(options: MutableDataHolder) = ()
     override def extend(parserBuilder: Parser.Builder) =
-      parserBuilder.customInlineParserExtensionFactory(new InlineParserExtensionFactory:
-        override def getCharacters(): CharSequence = "<"
-        override def getAfterDependents(): java.util.Set[Class[?]] = null
-        override def getBeforeDependents(): java.util.Set[Class[?]] = null
-        override def affectsGlobalScope() = false
-        override def apply(inlineParser: LightInlineParser): InlineParserExtension =
-          new InlineParserExtension:
-            override def finalizeDocument(inlineParser: InlineParser) = ()
-            override def finalizeBlock(inlineParser: InlineParser) = ()
-            override def parse(inlineParser: LightInlineParser): Boolean =
-              val groups = inlineParser.matchWithGroups(pattern)
-              if groups == null then false
-              else
-                val epoch = groups(1).toString.toLong
-                val fmt = groups(2).toString
-                val node = TimestampNode(epoch, fmt)
-                node.setChars(groups(0))
-                inlineParser.flushTextNode()
-                inlineParser.appendNode(node)
-                true)
+      parserBuilder.customInlineParserExtensionFactory(new TimestampParserExtension.Factory)
 
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
@@ -392,6 +371,30 @@ object MarkdownRender:
                 .tag("time")
                 .text(displayText)
                 .tag("/time")
+
+  object TimestampParserExtension:
+    private val timestampPattern = Pattern.compile("<t:(\\d+):([a-zA-Z])>")
+
+    class Factory extends InlineParserExtensionFactory:
+      override def getCharacters(): CharSequence = "<"
+      override def getAfterDependents(): java.util.Set[Class[?]] = null
+      override def getBeforeDependents(): java.util.Set[Class[?]] = null
+      override def affectsGlobalScope() = false
+      override def apply(inlineParser: LightInlineParser): InlineParserExtension =
+        new InlineParserExtension:
+          override def finalizeDocument(inlineParser: InlineParser) = ()
+          override def finalizeBlock(inlineParser: InlineParser) = ()
+          override def parse(inlineParser: LightInlineParser): Boolean =
+            val groups = inlineParser.matchWithGroups(timestampPattern)
+            if groups == null then false
+            else
+              val epoch = groups(1).toString.toLong
+              val fmt = groups(2).toString
+              val node = TimestampNode(epoch, fmt)
+              node.setChars(groups(0))
+              inlineParser.flushTextNode()
+              inlineParser.appendNode(node)
+              true
 
   private val tableWrapperExtension = new HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
