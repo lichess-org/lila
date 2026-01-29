@@ -285,7 +285,7 @@ export const renderPlayers = (
           'thead',
           hl('tr', [
             withRank && hl('th.rank', { attrs: { ...defaultSort['attrs'], ...dataIcon(licon.Trophy) } }),
-            hl('th.player-name', i18n.site.player),
+            hl('th.player-name', { attrs: { 'data-sort-reverse': true } }, i18n.site.player),
             withRating && hl('th', ((!withScores && !withRank) || forceEloSort) && defaultSort, 'Elo'),
             withScores && hl('th.score', !withRank && !forceEloSort && defaultSort, i18n.broadcast.score),
             hl('th', i18n.site.games),
