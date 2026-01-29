@@ -138,39 +138,45 @@ test('Undefended: Using more valuable attacker first', () => {
   assert.deepEqual(runAnalysis(fen), expected);
 });
 
-test('Undefended: Calculation', () => {
-  const fen = '7r/4n3/2knbrR1/5n2/7N/6NB/5R2/5Q1K w - - 0 1';
-  // f5 should be undefended
-  const expected = [
-    'f5:undefended',
-    'f6:undefended',
-    'g6:undefended',
-    'h4:undefended',
-    'c6:checkable',
-    'h1:checkable',
-    'f5:pin',
-  ].sort();
+test('Undefended: Not using attacker that does necessary pin', () => {
+  const fen = '6k1/B7/1B3B2/2BrBNK1/3N2P1/2b5/1b1r1b2/b5q1 w - - 0 1';
+  // d4 should be undefended, as the last piece Black can take with is the queen
+  const expected = ['d4:undefended', 'g4:pin', 'g5:checkable', 'g8:checkable'].sort();
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Undefended: Not using attacker that blocks multiple defenders', () => {
+  const fen = '6k1/b7/1b6/2b2n2/3B2n1/4n3/4R3/2B1R1K1 w - - 0 1';
+  // e3 should be undefended, since White can capture without using the d4-bishop
+  // If we had an extremely contrived case like 6k1/b7/1b5b/2b3b1/3B1B2/4n3/4R3/6K1 w - - 0 1,
+  // with multiple attackers each blocking multiple defenders, then the piece would wrongly be
+  // labelled undefended (branching factor in `getSEE` is only 2).
+  const expected = ['e3:undefended', 'd4:undefended'].sort();
+  assert.deepEqual(runAnalysis(fen), expected);
+});
+
+test('Undefended: Not using a certain defender', () => {
+  const fen = '6k1/b7/2n2B2/1n1rBNK1/3B4/1N6/2Nr1q2/B7 w - - 0 1';
+  // d4 should not be undefended, since White can recapture with all but the f5-knight
+  const expected = ['c2:undefended', 'd2:undefended', 'f2:undefended', 'g5:checkable', 'g8:checkable'].sort();
   assert.deepEqual(runAnalysis(fen), expected);
 });
 
 test('Crazyhouse', () => {
   const fen = 'rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R/ b KQkq - 1 2';
   const expected = ['e5:undefended'];
-
   assert.deepEqual(runAnalysis(fen), expected);
 });
 
 test('Three-Check', () => {
   const fen = 'rn2kbnr/pppbpppp/3p4/7Q/4P3/8/PPPP1PPP/RNB1K1NR b KQkq - 1 4 +2+0';
   const expected = ['f7:pin', 'h7:pin', 'e8:checkable'].sort();
-
   assert.deepEqual(runAnalysis(fen), expected);
 });
 
 test('Multiple tests (1)', () => {
   const fen = '8/6qk/1p2p3/pBn1p1pP/P3PbN1/2P2P2/KP1r2Q1/6R1 w - - 0 1';
   const expected = ['g2:undefended', 'b2:pin', 'a2:checkable', 'h7:checkable'].sort();
-
   assert.deepEqual(runAnalysis(fen), expected);
 });
 
@@ -184,6 +190,5 @@ test('Multiple tests (2)', () => {
     'e5:pin',
     'g8:checkable',
   ].sort();
-
   assert.deepEqual(runAnalysis(fen), expected);
 });

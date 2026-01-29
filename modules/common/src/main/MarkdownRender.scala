@@ -69,26 +69,26 @@ final class MarkdownRender(
   if timestamp then extensions.add(MarkdownRender.TimestampExtension)
   if sourceMap then extensions.add(MarkdownRender.SourceMapExtension)
 
-  private val options = MutableDataSet()
-    .set(Parser.EXTENSIONS, extensions)
-    .set(HtmlRenderer.ESCAPE_HTML, true)
-    .set(HtmlRenderer.SOFT_BREAK, "<br/>")
-    // always disabled
-    .set(Parser.HTML_BLOCK_PARSER, false)
-    .set(Parser.INDENTED_CODE_BLOCK_PARSER, false)
-    .set(Parser.FENCED_CODE_BLOCK_PARSER, code)
+  private val options =
+    val o = MutableDataSet()
+      .set(Parser.EXTENSIONS, extensions)
+      .set(HtmlRenderer.ESCAPE_HTML, true)
+      .set(HtmlRenderer.SOFT_BREAK, "<br/>")
+      // always disabled
+      .set(Parser.HTML_BLOCK_PARSER, false)
+      .set(Parser.INDENTED_CODE_BLOCK_PARSER, false)
+      .set(Parser.FENCED_CODE_BLOCK_PARSER, code)
 
-  // configurable
-  if table then options.set(TablesExtension.CLASS_NAME, "slist")
-  if header then options.set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, false)
-  else options.set(Parser.HEADING_PARSER, false)
-  if !blockQuote then options.set(Parser.BLOCK_QUOTE_PARSER, false)
-  if !list then options.set(Parser.LIST_BLOCK_PARSER, false)
+    // configurable
+    if table then o.set(TablesExtension.CLASS_NAME, "slist")
+    if header then o.set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, false)
+    else o.set(Parser.HEADING_PARSER, false)
+    if !blockQuote then o.set(Parser.BLOCK_QUOTE_PARSER, false)
+    if !list then o.set(Parser.LIST_BLOCK_PARSER, false)
+    o.toImmutable
 
-  private val immutableOptions = options.toImmutable
-
-  private val parser = Parser.builder(immutableOptions).build()
-  private val renderer = HtmlRenderer.builder(immutableOptions).build()
+  private val parser = Parser.builder(options).build()
+  private val renderer = HtmlRenderer.builder(options).build()
 
   private val logger = lila.log("markdown")
 

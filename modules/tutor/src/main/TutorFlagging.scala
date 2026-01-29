@@ -3,10 +3,16 @@ package lila.tutor
 import alleycats.Zero
 
 import lila.insight.*
+import lila.rating.PerfType
 
-case class TutorFlagging(win: TutorBothValueOptions[GoodPercent], loss: TutorBothValueOptions[GoodPercent])
+private case class TutorFlagging(
+    win: TutorBothValueOptions[GoodPercent],
+    loss: TutorBothValueOptions[GoodPercent]
+)
 
-object TutorFlagging:
+private object TutorFlagging:
+
+  private def relevant(pt: PerfType): Boolean = pt != PerfType.Correspondence && pt != PerfType.Classical
 
   given Zero[TutorFlagging] =
     val values = TutorBothValueOptions.zero[GoodPercent].zero
@@ -14,9 +20,9 @@ object TutorFlagging:
 
   val maxPeerGames = Max(10_000)
 
-  private[tutor] def compute(
+  private[tutor] def computeIfRelevant(
       user: TutorPlayer
-  )(using insightApi: InsightApi, ec: Executor): Fu[TutorFlagging] =
+  )(using insightApi: InsightApi, ec: Executor): Fu[TutorFlagging] = relevant(user.perfType).so:
     val question = Question(InsightDimension.Result, InsightMetric.Termination).filter(Filter(user.perfType))
     val clockFlagValueName = InsightMetric.MetricValueName(Termination.ClockFlag.name)
     for
