@@ -10,7 +10,7 @@ import lila.db.dsl.{ *, given }
 
 final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: ClasColls)(using mode: Mode):
 
-  private val isHacking = true && mode == Mode.Dev
+  private val isHacking = false && mode == Mode.Dev
 
   val student = ClasUserCache("student")(
     colls.student,

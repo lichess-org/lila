@@ -125,10 +125,10 @@ final class Swiss(
           err => BadRequest.page(views.swiss.form.create(err, teamId)),
           data =>
             tourC.rateLimitCreation(isPrivate = true, Redirect(routes.Team.show(teamId))):
-              env.swiss.api
-                .create(data, teamId)
-                .map: swiss =>
-                  Redirect(routes.Swiss.show(swiss.id))
+              for
+                swiss <- env.swiss.api.create(data, teamId)
+                _ <- env.api.clas.onSwissCreate(swiss)
+              yield Redirect(routes.Swiss.show(swiss.id))
         )
   }
 

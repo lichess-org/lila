@@ -21,3 +21,12 @@ case class Filter[A](
   import reactivemongo.api.bson.*
 
   def matcher: BSONDocument = InsightDimension.filtersOf(dimension, selected)
+
+object Filter:
+
+  import lila.insight.InsightDimension as D
+  import lila.rating.PerfType
+
+  def apply(color: Color): Filter[Color] = Filter(D.Color, List(color))
+  def apply(perfType: PerfType): Filter[PerfType] = Filter(D.Perf, List(perfType))
+  def apply(perfTypes: Iterable[PerfType]): Filter[PerfType] = Filter(D.Perf, perfTypes.toList)

@@ -17,9 +17,7 @@ object TutorFlagging:
   private[tutor] def compute(
       user: TutorPlayer
   )(using insightApi: InsightApi, ec: Executor): Fu[TutorFlagging] =
-    val question = Question(InsightDimension.Result, InsightMetric.Termination).filter(
-      TutorBuilder.perfFilter(user.perfType)
-    )
+    val question = Question(InsightDimension.Result, InsightMetric.Termination).filter(Filter(user.perfType))
     val clockFlagValueName = InsightMetric.MetricValueName(Termination.ClockFlag.name)
     for
       mine <- insightApi

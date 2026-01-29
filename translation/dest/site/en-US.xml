@@ -9,6 +9,8 @@
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Waiting for opponent</string>
   <string name="orLetYourOpponentScanQrCode">Or let your opponent scan this QR code</string>
+  <string name="reusableChallengeUrl">Reusable challenge URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">A permanent link, with these exact settings, for anyone to challenge you.</string>
   <string name="waiting">Waiting</string>
   <string name="yourTurn">Your turn</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
@@ -426,6 +428,8 @@
   <string name="leaderboard">Leaderboard</string>
   <string name="screenshotCurrentPosition">Screenshot current position</string>
   <string name="gameAsGIF">Game as GIF</string>
+  <string name="playerNames">Player names</string>
+  <string name="moveAnnotations">Move annotations</string>
   <string name="pasteTheFenStringHere">Paste the FEN text here</string>
   <string name="pasteThePgnStringHere">Paste the PGN text here</string>
   <string name="orUploadPgnFile">Or upload a PGN file</string>
@@ -811,6 +815,7 @@
   <string name="size">Size</string>
   <string name="opacity">Opacity</string>
   <string name="brightness">Brightness</string>
+  <string name="contrast">Contrast</string>
   <string name="hue">Hue</string>
   <string name="boardReset">Reset colors to default</string>
   <string name="pieceSet">Piece set</string>
