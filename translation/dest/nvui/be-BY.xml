@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="featuredEvents">Рэкамендаваныя падзеі</string>
+  <string name="moveList">Спіс хадоў</string>
+  <string name="gameInfo">Інфармацыя пра гульню</string>
+  <string name="pieces">Фігуры</string>
+  <string name="gameStatus">Статус гульні</string>
+  <string name="lastMove">Апошні ход</string>
+  <string name="inputForm">Форма ўводу каманд</string>
+  <string name="actions">Дзеянні</string>
+  <string name="yourClock">Ваш гадзіннік</string>
+</resources>
