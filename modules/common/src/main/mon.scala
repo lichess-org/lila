@@ -185,14 +185,14 @@ object mon:
     val index = future("insight.index.time")
   object tutor:
     def buildSegment(segment: String) = future("tutor.build.segment", segment)
-    def buildFull = future("tutor.build.full")
-    def askMine = askAs("mine")
-    def askPeer = askAs("peer")
-    def buildTimeout = counter("tutor.build.timeout").withoutTags()
+    val buildFull = future("tutor.build.full")
+    val askMine = askAs("mine")
+    val askPeer = askAs("peer")
+    val buildTimeout = counter("tutor.build.timeout").withoutTags()
     def peerMatch(hit: Boolean, perf: PerfKey) = counter("tutor.peerMatch").withTags:
       tags("hit" -> hitTag(hit), "perf" -> perf)
-    def parallelism = gauge("tutor.build.parallelism").withoutTags()
-    def fishnetWait(nbMissing: Int) = timer("tutor.fishnet.awaiter").withTag("nbMissing", nbMissing)
+    val parallelism = gauge("tutor.build.parallelism").withoutTags()
+    val fishnetMissing = histogram("tutor.fishnet.missing").withoutTags()
     private def askAs(as: "mine" | "peer")(question: String, perf: PerfKey | "all") =
       future("tutor.insight.ask", tags("question" -> question, "perf" -> perf, "as" -> as))
   object search:
