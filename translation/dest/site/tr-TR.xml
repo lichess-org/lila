@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">Oyun ayarları</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Bir arkadaşınıza meydan okuyun</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Arkadaşa meydan oku</string>
   <string name="playAgainstComputer">Bilgisayara Karşı Oyna</string>
   <string name="gameMode">Oyun modu</string>
   <string name="createLobbyGame">Lobi oyunu oluştur</string>
