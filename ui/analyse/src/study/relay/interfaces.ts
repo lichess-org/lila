@@ -61,10 +61,13 @@ export interface RelayRound {
   customScoring?: CustomScoring;
 }
 
+export type FideTC = 'standard' | 'rapid' | 'blitz';
+export type StatByFideTC = { [tc in FideTC]?: number };
+
 export interface RelayTourInfo {
   format?: string;
   tc?: string;
-  fideTc?: string;
+  fideTc?: FideTC;
   location?: string;
   players?: string;
   website?: string;
@@ -84,7 +87,7 @@ export interface RelayTour {
   showTeamScores?: boolean;
   tier?: number;
   dates?: RelayTourDates;
-  tc?: 'standard' | 'rapid' | 'blitz';
+  tc?: FideTC;
   communityOwner?: LightUser;
 }
 
