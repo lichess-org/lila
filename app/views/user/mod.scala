@@ -82,12 +82,12 @@ object mod:
       table(cls := "slist")(
         thead(
           tr(
-            th(
+            th(dataSortAsc)(
               pluralize("linked user", userLogins.otherUsers.size),
               ((max < 1000 || othersPartiallyLoaded) && !readOnly).option:
                 frag(nbsp, a(cls := "more-others")("Load more"))
             ),
-            Granter.opt(_.Admin).option(th("Email")),
+            Granter.opt(_.Admin).option(th(dataSortAsc)("Email")),
             thSortNumber(dataSortDefault)("Same"),
             th("Games"),
             thSortNumber(playban)(cls := "i", title := "Playban"),

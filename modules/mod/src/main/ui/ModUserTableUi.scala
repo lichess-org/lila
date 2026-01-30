@@ -45,7 +45,7 @@ final class ModUserTableUi(helpers: Helpers, modUi: ModUi):
       table(cls := "slist slist-pad mod-user-table")(
         thead(
           tr(
-            th("User"),
+            th(dataSortAsc)("User"),
             thSortNumber("Games"),
             th("Marks"),
             th("Closed"),
