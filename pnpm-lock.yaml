@@ -387,8 +387,8 @@ importers:
         specifier: ^0.10.0
         version: 0.10.0
       tablesort:
-        specifier: 5.5.0
-        version: 5.5.0
+        specifier: 5.7.0
+        version: 5.7.0
 
   ui/lobby:
     dependencies:
@@ -1692,9 +1692,9 @@ packages:
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
 
-  tablesort@5.5.0:
-    resolution: {integrity: sha512-/yi34JHVmfuzwtK+6O/rhxbIimNp+eAZGXlVz8pWTyoJggAs8lDf76bsbjeGpE2sbvsNmIR9u8a0KfUj0YGGvw==}
-    engines: {node: '>= 16', npm: '>= 8'}
+  tablesort@5.7.0:
+    resolution: {integrity: sha512-irnN1HPD08466v6DHKR1+gqZ2be2+QZBDIGTM1DFGoWywY+d38bFtfsuUqBbMGkqaMyYE1uPxE7p0AM5cmbRSA==}
+    engines: {node: '>= 22', npm: '>= 10'}
 
   textarea-caret@3.1.0:
     resolution: {integrity: sha512-cXAvzO9pP5CGa6NKx0WYHl+8CHKZs8byMkt3PCJBCmq2a34YA9pO1NrQET5pzeqnBjBdToF5No4rrmkDUgQC2Q==}
@@ -2849,7 +2849,7 @@ snapshots:
 
   symbol-tree@3.2.4: {}
 
-  tablesort@5.5.0: {}
+  tablesort@5.7.0: {}
 
   textarea-caret@3.1.0: {}
 

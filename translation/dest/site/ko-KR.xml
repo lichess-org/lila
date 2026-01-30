@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">최선의 수 화살표</string>
   <string name="showVariationArrows">라인을 화살표로 표시하기</string>
   <string name="evaluationGauge">평가 게이지</string>
+  <string name="visualMotifs">전술 시각화</string>
+  <string name="undefendedPieces">수비가 없는 기물들</string>
+  <string name="pinnedPieces">핀에 걸린 기물들</string>
+  <string name="checkableKing">체크할 수 있는 킹</string>
   <string name="multipleLines">다중 라인 수</string>
   <string name="cpus">CPU 수</string>
   <string name="memory">메모리</string>
@@ -194,6 +198,7 @@
   <string name="minutesPerSide">제한 시간 (분)</string>
   <string name="variant">변형</string>
   <string name="variants">변형</string>
+  <string name="variantsDescription">더 많은 플레이 방법</string>
   <string name="timeControl">시간 제한</string>
   <string name="realTime">실시간</string>
   <string name="correspondence">통신 대국</string>
@@ -282,6 +287,7 @@
   <string name="standard">스탠다드</string>
   <string name="customPosition">커스텀 포지션</string>
   <string name="unlimited">무제한</string>
+  <string name="unlimitedDescription">필요한 만큼 시간을 쓰세요</string>
   <string name="mode">모드</string>
   <string name="casual">캐주얼</string>
   <string name="rated">레이팅</string>
@@ -394,6 +400,8 @@
   <string name="leaderboard">리더보드</string>
   <string name="screenshotCurrentPosition">스크린샷 찍기</string>
   <string name="gameAsGIF">GIF로 저장하기</string>
+  <string name="playerNames">플레이어명</string>
+  <string name="moveAnnotations">수 주석</string>
   <string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
   <string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
   <string name="orUploadPgnFile">또는 PGN 파일을 업로드하세요</string>
@@ -769,6 +777,7 @@
   <string name="size">크기</string>
   <string name="opacity">투명도</string>
   <string name="brightness">명도</string>
+  <string name="contrast">대비</string>
   <string name="hue">색상</string>
   <string name="boardReset">기본 색상으로 되돌리기</string>
   <string name="pieceSet">기물 세트</string>

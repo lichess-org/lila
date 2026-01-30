@@ -15,7 +15,6 @@ case class Cluster[X](
     insightIds: List[String]
 ):
   def gameIds = insightIds.map(GameId.take)
-  def set(i: Insight, size: Int) = copy(insight = i, size = size)
 
 enum Insight:
   case Single(point: Point)

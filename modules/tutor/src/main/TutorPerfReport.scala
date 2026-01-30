@@ -13,12 +13,12 @@ case class TutorPerfReport(
     perf: PerfType,
     stats: InsightPerfStats,
     peers: PeersRatingRange,
-    accuracy: TutorBothValueOptions[AccuracyPercent],
-    awareness: TutorBothValueOptions[GoodPercent],
-    resourcefulness: TutorBothValueOptions[GoodPercent],
-    conversion: TutorBothValueOptions[GoodPercent],
-    globalClock: TutorBothValueOptions[ClockPercent],
-    clockUsage: TutorBothValueOptions[ClockPercent],
+    accuracy: TutorBothOption[AccuracyPercent],
+    awareness: TutorBothOption[GoodPercent],
+    resourcefulness: TutorBothOption[GoodPercent],
+    conversion: TutorBothOption[GoodPercent],
+    globalClock: TutorBothOption[ClockPercent],
+    clockUsage: TutorBothOption[ClockPercent],
     openings: ByColor[TutorColorOpenings],
     phases: List[TutorPhase],
     flagging: TutorFlagging
@@ -127,7 +127,6 @@ private object TutorPerfReport:
     InsightMetric.ClockPercent,
     List(Filter(InsightDimension.Phase, List(Phase.Middle, Phase.End)))
   )
-  private def hasClock(p: PerfType) = p != PerfType.Correspondence
 
   def compute(users: NonEmptyList[TutorPlayer])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
     for
@@ -142,7 +141,7 @@ private object TutorPerfReport:
         for
           openings <- TutorOpening.compute(user)
           phases <- TutorPhases.compute(user)
-          flagging <- hasClock(user.perfType).so(TutorFlagging.compute(user))
+          flagging <- TutorFlagging.computeIfRelevant(user)
         yield TutorPerfReport(
           user.perfType,
           user.perfStats,

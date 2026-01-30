@@ -174,14 +174,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def byIdsCursor(ids: Iterable[GameId]): Cursor[Game] = coll.find($inIds(ids)).cursor[Game]()
 
   def goBerserk(pov: Pov): Funit =
-    coll.update
-      .one(
-        $id(pov.gameId),
-        $set(
-          s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${PF.berserk}" -> true
-        )
-      )
-      .void
+    val field = s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${PF.berserk}"
+    coll.updateField($id(pov.gameId), field, true).void
 
   def setBlindfold(pov: Pov, blindfold: Boolean): Funit =
     val field = s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${PF.blindfold}"

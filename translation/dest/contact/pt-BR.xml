@@ -57,7 +57,7 @@
   <string name="reportErrorPage">Se você encontrou uma página de erro, você pode reportá-la:</string>
   <string name="learnHowToMakeBroadcasts">Aprenda a fazer suas próprias transmissões no Lichess</string>
   <string name="banAppeal">Apelação de banimento ou restrição de IP</string>
-  <string name="engineAppeal">Assistência de software de xadrez</string>
+  <string name="engineAppeal">Marcado por trapaça ou uso de engine</string>
   <string name="sendAppealTo">Você pode enviar uma apelação para %s.</string>
   <string name="falsePositives">Erros podem acontecer e lamentamos por isso.</string>
   <string name="ifLegit">Se a sua apelação for legítima, retiraremos a proibição o mais rápido possível.</string>

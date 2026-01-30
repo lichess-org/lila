@@ -24,8 +24,8 @@ object compare:
       showQuality(comp.grade),
       " ",
       comp.reference match
-        case TutorCompare.DimAvg(_) => frag("in ", otherDims(comp.dimensionType))
-        case TutorCompare.Peers(_) => frag("your peers'")
+        case TutorCompare.Reference.DimAvg(_) => frag("in ", otherDims(comp.dimensionType))
+        case TutorCompare.Reference.Peers(_) => frag("your peers'")
       ,
       "."
     )

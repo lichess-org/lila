@@ -293,7 +293,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             table(cls := "slist slist-pad sortable")(
               thead(
                 tr(
-                  th(dataSortDefault)(
+                  th(dataSortDefault)(dataSortAsc)(
                     trans.clas
                       .variantXOverLastY(progress.perfType.trans, trans.site.nbDays.txt(progress.days)),
                     thSortNumber(trans.site.rating()),
@@ -348,7 +348,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             table(cls := "slist slist-pad sortable")(
               thead(
                 tr(
-                  th(dataSortDefault)(
+                  th(dataSortDefault)(dataSortAsc)(
                     trans.clas.nbStudents.pluralSame(students.size),
                     thSortNumber(trans.site.chessBasics()),
                     thSortNumber(trans.site.practice()),
@@ -460,7 +460,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         table(cls := "slist slist-pad sortable")(
           thead:
             tr(
-              th(dataSortDefault)(trans.clas.nbStudents(students.size)),
+              th(dataSortDefault)(dataSortAsc)(trans.clas.nbStudents(students.size)),
               thSortNumber(trans.site.rating()),
               thSortNumber(trans.site.games()),
               thSortNumber(trans.site.puzzles()),
@@ -552,7 +552,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
       table(cls := "slist slist-pad sortable")(
         thead:
           tr(
-            th(dataSortDefault)(trans.clas.nbStudents(students.size)),
+            th(dataSortDefault)(dataSortAsc)(trans.clas.nbStudents(students.size)),
             thSortNumber(trans.site.rating()),
             thSortNumber(trans.site.games()),
             thSortNumber(trans.site.puzzles()),

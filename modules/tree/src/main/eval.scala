@@ -1,6 +1,5 @@
 package lila.tree
 
-import cats.data.NonEmptyList
 import chess.format.Uci
 import chess.Position
 import chess.eval.{ Eval as Ev, * }

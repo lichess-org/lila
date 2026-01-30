@@ -139,6 +139,7 @@ function mirrorCheck() {
     'joystickcaravan.org',
     'gamelorecollective.com',
     'joystick-astral.com',
+    'orbitofavatars.com',
   ];
   if (mirrors.includes(location.host)) location.href = 'https://lichess.org' + location.pathname;
 }

@@ -186,7 +186,7 @@ Peão = 1</string>
   <string name="getAFreeLichessAccount">Obtenha uma conta Lichess grátis</string>
   <string name="practice">Praticar</string>
   <string name="learnCommonChessPositions">Aprenda posições comuns do xadrez</string>
-  <string name="puzzles">Quebra-cabeças</string>
+  <string name="puzzles">Problemas</string>
   <string name="exerciseYourTacticalSkills">Exercite suas habilidades táticas</string>
   <string name="videos">Vídeos</string>
   <string name="watchInstructiveChessVideos">Assista a vídeos de xadrez instrutivos</string>
@@ -210,6 +210,6 @@ Peão = 1</string>
   <string name="next">Próximo</string>
   <string name="nextX">Próximo: %s</string>
   <string name="backToMenu">Voltar ao menu</string>
-  <string name="puzzleFailed">Quebra-cabeça falhou!</string>
+  <string name="puzzleFailed">Falhou no problema!</string>
   <string name="retry">Tentar de novo</string>
 </resources>

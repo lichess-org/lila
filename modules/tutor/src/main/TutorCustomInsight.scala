@@ -10,7 +10,7 @@ final private class TutorCustomInsight[A: TutorNumber](
     users: NonEmptyList[TutorPlayer],
     question: Question[PerfType],
     monitoringKey: String,
-    peerMatch: TutorPerfReport.PeerMatch => TutorBothValueOptions[A]
+    peerMatch: TutorPerfReport.PeerMatch => TutorBothOption[A]
 )(clusterParser: List[Bdoc] => List[Cluster[PerfType]]):
 
   def apply(insightColl: Coll)(
@@ -24,9 +24,10 @@ final private class TutorCustomInsight[A: TutorNumber](
         .map { docs => TutorBuilder.AnswerMine(Answer(question, clusterParser(docs), Nil)) }
         .monSuccess(_.tutor.askMine(monitoringKey, "all"))
       peerDocs <- users.toList.map { u =>
-        u.peerMatch.flatMap(peerMatch(_).peer) match
+        u.peerMatch.flatMap(peerMatch).map(_.peer) match
           case Some(cached) =>
-            fuccess(List(Cluster(u.perfType, Insight.Single(Point(cached.double.value)), cached.count, Nil)))
+            val peerValue = summon[TutorNumber[A]].double(cached)
+            fuccess(List(Cluster(u.perfType, Insight.Single(Point(peerValue)), maxGames.value, Nil)))
           case None =>
             val peerSelect = $doc(lila.insight.InsightEntry.BSONFields.perf -> u.perfType) ++
               InsightStorage.selectPeers(u.perfStats.peers)

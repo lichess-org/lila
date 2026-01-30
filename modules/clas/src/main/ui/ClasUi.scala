@@ -132,11 +132,11 @@ final class ClasUi(helpers: lila.ui.Helpers)(
               table(cls := "slist slist-pad")(
                 thead(
                   tr(
-                    th("Id"),
-                    th("Name"),
+                    th(dataSortAsc)("Id"),
+                    th(dataSortAsc)("Name"),
                     th("Created"),
                     th("Archived"),
-                    th("Teachers (first is owner)")
+                    th(dataSortAsc)("Teachers (first is owner)")
                   )
                 ),
                 tbody(

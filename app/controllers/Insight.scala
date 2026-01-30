@@ -62,7 +62,7 @@ final class Insight(env: Env) extends LilaController(env):
         _.question.fold(BadRequest.toFuccess): q =>
           env.insight.api
             .ask(q, user)
-            .flatMap(lila.insight.Chart.fromAnswer(env.user.lightUser))
+            .flatMap(lila.insight.InsightChart.fromAnswer(env.user.lightUser))
             .map(env.insight.jsonView.chartWrites.writes)
             .map { Ok(_) }
       )

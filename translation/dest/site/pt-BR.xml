@@ -66,10 +66,10 @@
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Análise de servidor em uso</string>
   <string name="loadingEngine">Carregando ...</string>
-  <string name="calculatingMoves">Calculando jogadas...</string>
+  <string name="calculatingMoves">Calculando lances...</string>
   <string name="engineFailed">Erro ao carregar o engine</string>
   <string name="cloudAnalysis">Análise na nuvem</string>
-  <string name="goDeeper">Detalhar</string>
+  <string name="goDeeper">Aprofundar</string>
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
   <string name="toggleLocalEvaluation">Ativar/Desativar análise local</string>
@@ -221,7 +221,7 @@
     <item quantity="other">%s dias</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s horas</item>
+    <item quantity="one">%s hora</item>
     <item quantity="other">%s horas</item>
   </plurals>
   <plurals name="nbMinutes">
@@ -276,7 +276,7 @@
     <item quantity="other">O ranking é atualizado a cada %s minutos</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s quebra-cabeça</item>
+    <item quantity="one">%s problema</item>
     <item quantity="other">%s problemas</item>
   </plurals>
   <string name="gamesPlayed">Partidas realizadas</string>
@@ -552,7 +552,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
   <string name="autoSwitch">Alternar automaticamente</string>
-  <string name="puzzles">Quebra-cabeças</string>
+  <string name="puzzles">Problemas</string>
   <string name="onlineBots">Bots online</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
@@ -721,7 +721,7 @@
   <string name="keyCycleSelectedVariation">Alternar entre as variantes</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentários</string>
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
-  <string name="keyRequestComputerAnalysis">Solicite análise do computador, aprenda com seus erros</string>
+  <string name="keyRequestComputerAnalysis">Solicite análise do computador, Aprenda com seus erros</string>
   <string name="keyNextLearnFromYourMistakes">Próximo (Aprenda com seus erros)</string>
   <string name="keyNextBlunder">Próximo erro grave</string>
   <string name="keyNextMistake">Próximo erro</string>
@@ -793,7 +793,7 @@
   <string name="revokeAllSessions">revogar todas as sessões</string>
   <string name="playChessEverywhere">Jogue xadrez em qualquer lugar</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos têm todos os recursos de graça</string>
-  <string name="viewTheSolution">Ver solução</string>
+  <string name="viewTheSolution">Ver a solução</string>
   <string name="noChallenges">Sem desafios.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponível em %s idiomas!</item>
@@ -803,7 +803,7 @@
   <string name="xJoinsY">%1$s entrou em %2$s</string>
   <string name="xLikesY">%1$s gostou de %2$s</string>
   <string name="quickPairing">Pareamento rápido</string>
-  <string name="lobby">Salão</string>
+  <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anônimo</string>
   <string name="yourScore">Sua pontuação:%s</string>
   <string name="language">Idioma</string>
@@ -871,9 +871,9 @@
   <string name="waitingForAnalysis">Aguardando análise</string>
   <string name="noMistakesFoundForWhite">Nenhum erro encontrado para as Brancas</string>
   <string name="noMistakesFoundForBlack">Nenhum erro encontrado para as Pretas</string>
-  <string name="doneReviewingWhiteMistakes">Erros das brancas já revistos</string>
-  <string name="doneReviewingBlackMistakes">Erros das pretas já revistos</string>
-  <string name="doItAgain">Faça novamente</string>
+  <string name="doneReviewingWhiteMistakes">Terminada a revisão de erros das brancas</string>
+  <string name="doneReviewingBlackMistakes">Terminada a revisão de erros das pretas</string>
+  <string name="doItAgain">Repetir</string>
   <string name="reviewWhiteMistakes">Rever erros das Brancas</string>
   <string name="reviewBlackMistakes">Rever erros das Pretas</string>
   <string name="advantage">Vantagem</string>
@@ -903,8 +903,8 @@
   <string name="goodPractice">Para isso, precisamos assegurar que nossos jogadores sigam boas práticas.</string>
   <string name="potentialProblem">Quando um problema em potencial é detectado, nós mostramos esta mensagem.</string>
   <string name="howToAvoidThis">Como evitar isso?</string>
-  <string name="playEveryGame">Jogue todos os jogos que inicia.</string>
-  <string name="tryToWin">Tente vencer (ou pelo menos empatar) todos os jogos que jogar.</string>
+  <string name="playEveryGame">Jogue todas as partidas que você iniciar.</string>
+  <string name="tryToWin">Tente vencer (ou pelo menos empatar) todos as partidas que jogar.</string>
   <string name="resignLostGames">Conceda partidas perdidas (não deixe o relógio ir até ao fim).</string>
   <string name="temporaryInconvenience">Pedimos desculpa pelo incômodo temporário,</string>
   <string name="wishYouGreatGames">e desejamos-lhe grandes jogos em lichess.org.</string>
@@ -992,7 +992,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="navigateMoveTree">Navegar pela notação de movimentos</string>
   <string name="mouseTricks">Funcionalidades do mouse</string>
   <string name="toggleLocalAnalysis">Ativar/desativar análise local do computador</string>
-  <string name="toggleAllAnalysis">Ativar/desativar todas análises locais do computador</string>
+  <string name="toggleAllAnalysis">Alternar todas as análises de computador</string>
   <string name="playComputerMove">Jogar o melhor lance de computador</string>
   <string name="analysisOptions">Opções de análise</string>
   <string name="focusChat">Focar texto</string>

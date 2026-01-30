@@ -23,34 +23,28 @@ private object TutorBsonHandlers:
         map => Map("w" -> map.white, "b" -> map.black)
       )
 
-  private given [V](using handler: BSONHandler[V]): BSONHandler[Option[ValueCount[V]]] =
-    quickHandler[Option[ValueCount[V]]](
+  given [A](using handler: BSONHandler[A], ordering: Ordering[A]): BSONHandler[TutorBothOption[A]] =
+    quickHandler[TutorBothOption[A]](
       {
         case arr: BSONArray =>
-          for v <- arr.getAsOpt[V](0); c <- arr.getAsOpt[Int](1) yield ValueCount(v, c)
+          for
+            v <- arr.getAsOpt[A](0)
+            c <- arr.getAsOpt[Int](1)
+            p <- arr.getAsOpt[A](2)
+          yield TutorBothValues(ValueCount(v, c), p)
         case _ => None
       },
-      vcOpt =>
+      bothOpt =>
         {
-          for vc <- vcOpt; v <- handler.writeOpt(vc.value) yield $arr(v, BSONInteger(vc.count))
+          for
+            b <- bothOpt
+            v <- handler.writeOpt(b.mine.value)
+            p <- handler.writeOpt(b.peer)
+          yield $arr(v, BSONInteger(b.mine.count), p)
         }.getOrElse(BSONNull)
     )
-
-  given [A](using handler: BSONHandler[A], ordering: Ordering[A]): BSONHandler[TutorBothValues[A]] =
-    summon[BSONHandler[List[Option[ValueCount[A]]]]]
-      .as[TutorBothValues[A]](
-        list => TutorBothValues(list(0).get, list.lift(1).flatten),
-        metric => List(metric.mine.some, metric.peer)
-      )
-
-  given [A](using
-      handler: BSONHandler[A],
-      ordering: Ordering[A]
-  ): BSONHandler[TutorBothValueOptions[A]] =
-    summon[BSONHandler[List[Option[ValueCount[A]]]]].as[TutorBothValueOptions[A]](
-      list => TutorBothValueOptions(list.lift(0).flatten, list.lift(1).flatten),
-      metric => List(metric.mine, metric.peer)
-    )
+  given [A](using BSONHandler[A], Ordering[A]): BSONHandler[TutorBothValues[A]] =
+    summon[BSONHandler[TutorBothOption[A]]].as(_.get, Some(_))
 
   given BSONDocumentHandler[TutorOpeningFamily] = Macros.handler
 

@@ -208,7 +208,17 @@ final class RelayTeamTable(
           players <- chap.players.map(_.map(_.studyPlayer))
           teams <- players.traverse(_.team).map(_.toPair).map(Pair.apply)
           game = players.mapWithColor: (c, p) =>
-            RelayPlayer.Game(round.id, chap.id, p, c, points, round.rated, round.customScoring, false)
+            RelayPlayer.Game(
+              round.id,
+              chap.id,
+              p,
+              c,
+              points,
+              round.rated,
+              chess.FideTC.standard,
+              round.customScoring,
+              false
+            )
           m0 = table.find(_.is(teams)) | TeamMatch(
             round.id,
             teams.map(TeamWithGames(_, SeqMap.empty)),

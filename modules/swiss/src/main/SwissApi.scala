@@ -199,7 +199,7 @@ final class SwissApi(
                 _ <- error.isEmpty.so:
                   mongo.player.insert
                     .one(SwissPlayer.make(swiss.id, user))
-                    .zip(mongo.swiss.updateField($id(swiss.id), Swiss.Fields.nbPlayers, 1))
+                    .zip(mongo.swiss.incField($id(swiss.id), Swiss.Fields.nbPlayers, 1))
                     .void
               yield
                 cache.swissCache.clear(swiss.id)

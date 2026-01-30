@@ -22,7 +22,7 @@ enum Bus:
       official: Boolean
   )
 
-type AnalysisAwaiter = (Seq[GameId], FiniteDuration) => Funit
+type AnalysisAwaiter = (Seq[GameId], FiniteDuration) => Fu[Int]
 
 trait FishnetRequest:
   def tutor(gameId: GameId): Funit
