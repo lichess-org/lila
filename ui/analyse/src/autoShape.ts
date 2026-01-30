@@ -48,27 +48,29 @@ function interferingArrow(from: Square, to: Square, occupied: Uint8Array): boole
   return true;
 }
 
-function drawManeuver(color: Color, moves: Uci[], brush: string, shapes: DrawShape[]) {
-  const maxPairs = Math.min(moves.length, MAX_MANEUVER_ARROWS * 2);
-  const occupied = new Uint8Array(64);
+function drawManeuver(ctrl: AnalyseCtrl, color: Color, moves: Uci[], brush: string, shapes: DrawShape[]) {
+  if (ctrl.showManeuverMoveArrowsProp()) {
+    const maxPairs = Math.min(moves.length, MAX_MANEUVER_ARROWS * 2);
+    const occupied = new Uint8Array(64);
 
-  for (let i = 0; i < maxPairs; i += 2) {
-    const uci = moves[i];
-    const move = parseUci(uci);
-    if (!move) break;
+    for (let i = 0; i < maxPairs; i += 2) {
+      const uci = moves[i];
+      const move = parseUci(uci);
+      if (!move) break;
 
-    if (i > 0) {
-      const prevMove = parseUci(moves[i - 2])!;
-      if (prevMove.to !== (isDrop(move) ? -1 : move.from)) break;
+      if (i > 0) {
+        const prevMove = parseUci(moves[i - 2])!;
+        if (prevMove.to !== (isDrop(move) ? -1 : move.from)) break;
+      }
+
+      if (isDrop(move)) {
+        if (occupied[move.to]) break;
+        occupied[move.to] = 1;
+      } else if (interferingArrow(move.from, move.to, occupied)) break;
+
+      makeShapesFromUci(color, uci, brush).forEach(s => shapes.push(s));
     }
-
-    if (isDrop(move)) {
-      if (occupied[move.to]) break;
-      occupied[move.to] = 1;
-    } else if (interferingArrow(move.from, move.to, occupied)) break;
-
-    makeShapesFromUci(color, uci, brush).forEach(s => shapes.push(s));
-  }
+  } else if (moves[0]) makeShapesFromUci(color, moves[0], brush).forEach(s => shapes.push(s));
 }
 
 export function makeShapesFromUci(
@@ -132,7 +134,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       const nextBest = bestPvMoves?.[0] || ctrl.nextNodeBest();
 
       if (nextBest) {
-        drawManeuver(color, bestPvMoves || [nextBest], 'paleBlue', shapes);
+        drawManeuver(ctrl, color, bestPvMoves || [nextBest], 'paleBlue', shapes);
       }
 
       if (
@@ -158,7 +160,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     const [pv0, ...pv1s] = nThreat.pvs;
     const brush = pv1s.length > 0 ? 'paleRed' : 'red';
 
-    drawManeuver(rcolor, pv0.moves, brush, shapes);
+    drawManeuver(ctrl, rcolor, pv0.moves, brush, shapes);
 
     pv1s.forEach(function (pv) {
       const shift = winningChances.povDiff(rcolor, pv0, pv);
