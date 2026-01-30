@@ -76,7 +76,7 @@ def games(
                     st.value := "all"
                   )
                 ),
-                thSortNumber(dataSortAsc)("Opponent"),
+                thSortNumber("Opponent"),
                 thSortNumber("Speed"),
                 th(iconTag(Icon.Trophy)),
                 thSortNumber("Moves"),
