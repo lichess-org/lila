@@ -94,7 +94,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .cursor[Game](ReadPref.sec)
       .list(max.value)
 
-  def ongoingByUserIdsCursor(userIds: Set[UserId]) =
+  // both players must be in the userId set
+  def ongoingByUserIdsCursor(userIds: Set[UserId]): AkkaStreamCursor[Game] =
     coll
       .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
         import framework.*
@@ -102,10 +103,16 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           Match($doc(lila.game.Game.BSONFields.playingUids -> $doc("$in" -> userIds, "$size" -> 2))),
           AddFields:
             $doc:
-              "both" -> $doc("$setIsSubset" -> $arr("$" + lila.core.game.BSONFields.playingUids, userIds))
+              "both" -> $doc("$setIsSubset" -> $arr("$" + F.playingUids, userIds))
           ,
           Match($doc("both" -> true))
         )
+
+  // only one player needs to be in the userId set
+  def ongoingByOneOfUserIdsCursor(userIds: Set[UserId]): AkkaStreamCursor[Game] =
+    coll
+      .find($doc(F.playingUids -> $doc("$in" -> userIds, "$size" -> 2)))
+      .cursor[Game](ReadPref.sec)
 
   def gamesForAssessment(userId: UserId, nb: Int): Fu[List[Game]] =
     coll

@@ -193,6 +193,9 @@ final class AccessTokenApi(
       .run()
       .void
 
+  def userIdsByClientOrigin(clientOrigin: String): Fu[Set[UserId]] =
+    coll.distinctEasy[UserId, Set]("userId", $doc(F.clientOrigin -> clientOrigin), _.sec)
+
   def revoke(bearer: Bearer) =
     val id = AccessToken.idFrom(bearer)
     for _ <- coll.delete.one($id(id)) yield onRevoke(id)

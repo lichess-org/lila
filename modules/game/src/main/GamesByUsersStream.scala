@@ -15,9 +15,8 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.M
       val initialGames = if withCurrentGames then currentGamesSource(userIds) else Source.empty
       val startStream =
         Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead).mapMaterializedValue { queue =>
-          def matches(game: Game) = game.userIds match
-            case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
-            case _ => false
+          def matches(game: Game) = game.twoUserIds.exists: (u1, u2) =>
+            userIds(u1) && userIds(u2)
           val subStart = Bus.sub[StartGame]:
             case StartGame(game, _) if matches(game) => queue.offer(game)
           val subFinish = Bus.sub[FinishGame]:
@@ -36,7 +35,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.M
   private def currentGamesSource(userIds: Set[UserId]): Source[Game, ?] =
     gameRepo.ongoingByUserIdsCursor(userIds).documentSource().throttle(30, 1.second)
 
-private object GameStream:
+object GameStream:
 
   val gameWithInitialFenWriter: OWrites[WithInitialFen] = OWrites:
     case WithInitialFen(g, initialFen) =>
