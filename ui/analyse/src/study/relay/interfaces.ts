@@ -62,6 +62,7 @@ export interface RelayRound {
 }
 
 export type FideTC = 'standard' | 'rapid' | 'blitz';
+export type StatByFideTC = { [tc in FideTC]?: number };
 
 export interface RelayTourInfo {
   format?: string;

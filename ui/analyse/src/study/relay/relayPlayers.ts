@@ -1,7 +1,15 @@
 import { type VNode, dataIcon, hl, onInsert, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
-import type { FideTC, Photo, RelayRound, RelayTeamName, RelayTour, RoundId } from './interfaces';
+import type {
+  FideTC,
+  Photo,
+  RelayRound,
+  RelayTeamName,
+  RelayTour,
+  RoundId,
+  StatByFideTC,
+} from './interfaces';
 import { playerColoredResult } from './customScoreStatus';
 import { playerFedFlag } from '../playerBars';
 import { userLink, userTitle } from 'lib/view/userLink';
@@ -33,9 +41,9 @@ interface Tiebreak {
 export interface RelayPlayer extends StudyPlayer {
   score?: number;
   played?: number;
-  ratingsMap?: { [tc in FideTC]?: number };
-  ratingDiffs?: { [tc in FideTC]?: number };
-  performances?: { [tc in FideTC]?: number };
+  ratingsMap?: StatByFideTC;
+  ratingDiffs?: StatByFideTC;
+  performances?: StatByFideTC;
   tiebreaks?: Tiebreak[];
   rank?: number;
 }
@@ -59,9 +67,7 @@ interface RelayPlayerWithGames extends RelayPlayer {
 }
 
 interface FidePlayer {
-  ratings: {
-    [key: string]: number;
-  };
+  ratings: StatByFideTC;
   year?: number;
   follow?: boolean;
 }
