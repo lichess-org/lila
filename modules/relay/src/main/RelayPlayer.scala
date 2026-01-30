@@ -317,11 +317,10 @@ private final class RelayPlayerApi(
           score = p.games.foldMap(_.playerScore),
           performances = p.games
             .groupBy(_.fideTC)
-            .foldLeft(Map.empty[FideTC, IntRating]): (acc, entry) =>
-              val (gameTC, tcGames) = entry
-              val performanceRating =
-                Elo.computePerformanceRating(tcGames.flatMap(_.eloGame))
-              performanceRating.fold(acc)(r => acc + (gameTC -> r.into(IntRating)))
+            .foldLeft(Map.empty):
+              case (acc, (gameTC, tcGames)) =>
+                val performanceRating = Elo.computePerformanceRating(tcGames.flatMap(_.eloGame))
+                performanceRating.fold(acc)(r => acc + (gameTC -> r.into(IntRating)))
         )
       .to(SeqMap)
 
@@ -337,16 +336,16 @@ private final class RelayPlayerApi(
               val newPlayer = fidePlayerOpt.fold(player): fidePlayer =>
                 val newRatingDiffs = player.games
                   .groupBy(_.fideTC)
-                  .foldLeft(Map.empty[FideTC, IntRatingDiff]): (diffs, entry) =>
-                    val (gameTC, tcGames) = entry
-                    val r = player.ratingsMap
-                      .get(gameTC)
-                      .map(_.into(Elo))
-                      .orElse(fidePlayer.ratingOf(gameTC))
-                    r.fold(diffs): rating =>
-                      val p = Elo.Player(rating, fidePlayer.kFactorOf(gameTC))
-                      val newDiff = Elo.computeRatingDiff(gameTC)(p, tcGames.flatMap(_.eloGame))
-                      diffs + (gameTC -> newDiff)
+                  .foldLeft(Map.empty[FideTC, IntRatingDiff]):
+                    case (diffs, (gameTC, tcGames)) =>
+                      player.ratingsMap
+                        .get(gameTC)
+                        .map(_.into(Elo))
+                        .orElse(fidePlayer.ratingOf(gameTC))
+                        .fold(diffs): rating =>
+                          val p = Elo.Player(rating, fidePlayer.kFactorOf(gameTC))
+                          val newDiff = Elo.computeRatingDiff(gameTC)(p, tcGames.flatMap(_.eloGame))
+                          diffs + (gameTC -> newDiff)
                 player.copy(ratingDiffs = newRatingDiffs)
               id -> newPlayer
       .map(_.to(SeqMap))
