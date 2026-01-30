@@ -133,10 +133,21 @@
     }
   }
 
-  p time {
-    border-bottom: 1px dashed $c-font-dim;
-    cursor: help;
-    font-size: 100%;
+  p {
+    time {
+      border-bottom: 1px dashed $c-font-dim;
+      cursor: help;
+      font-size: 100%;
+    }
+
+    a {
+      & > time {
+        border-color: $c-link;
+      }
+      &:hover > time {
+        border-color: $c-link-hover;
+      }
+    }
   }
 }
 

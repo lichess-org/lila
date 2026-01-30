@@ -23,7 +23,13 @@ import com.vladsch.flexmark.html.{
   HtmlWriter,
   IndependentAttributeProviderFactory
 }
-import com.vladsch.flexmark.parser.Parser
+import com.vladsch.flexmark.parser.{
+  InlineParser,
+  InlineParserExtension,
+  InlineParserExtensionFactory,
+  LightInlineParser,
+  Parser
+}
 import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor, Block }
 import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDataSet }
 import com.vladsch.flexmark.util.html.MutableAttributes
@@ -33,6 +39,7 @@ import com.vladsch.flexmark.util.sequence.BasedSequence
 import java.time.{ Instant, ZoneOffset }
 import java.time.format.DateTimeFormatter
 import java.util.Arrays
+import java.util.regex.Pattern
 import scala.collection.Set
 import scala.jdk.CollectionConverters.*
 import scala.util.matching.Regex
@@ -221,7 +228,7 @@ object MarkdownRender:
 
     final class PgnRegexes(val game: Regex, val chapter: Regex)
     private val pgnRegexes: PgnRegexes =
-      val quotedDomain = java.util.regex.Pattern.quote(expander.domain.value)
+      val quotedDomain = Pattern.quote(expander.domain.value)
       PgnRegexes(
         s"""^(?:https?://)?$quotedDomain/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r,
         s"""^(?:https?://)?$quotedDomain/study/(?:embed/)?(?:\\w{8}/)?(\\w{8})(?:#(last|\\d+))?$$""".r
@@ -328,8 +335,13 @@ object MarkdownRender:
         attributes.replaceValue("rel", rel)
         attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href")))
 
-  private object TimestampExtension extends HtmlRenderer.HtmlRendererExtension:
-    private val timestampRegex = """<t:(\d+):([a-zA-Z]+)>""".r
+  private class TimestampNode(val timestamp: Long, val format: String) extends Node():
+    override def getSegments(): Array[BasedSequence] = BasedSequence.EMPTY_ARRAY
+
+  private object TimestampExtension extends Parser.ParserExtension with HtmlRenderer.HtmlRendererExtension:
+    override def parserOptions(options: MutableDataHolder) = ()
+    override def extend(parserBuilder: Parser.Builder) =
+      parserBuilder.customInlineParserExtensionFactory(new TimestampParserExtension.Factory)
 
     override def rendererOptions(options: MutableDataHolder) = ()
     override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
@@ -337,49 +349,52 @@ object MarkdownRender:
         new NodeRendererFactory:
           override def apply(options: DataHolder) = new NodeRenderer:
             override def getNodeRenderingHandlers() =
-              Set(NodeRenderingHandler(classOf[Text], (node, _, html) => renderText(node, html))).asJava
+              Set(
+                NodeRenderingHandler(classOf[TimestampNode], (node, _, html) => renderTimestamp(node, html))
+              ).asJava
 
-            private def renderText(node: Text, html: HtmlWriter): Unit =
-              val text = node.getChars.toString
+            private def renderTimestamp(node: TimestampNode, html: HtmlWriter): Unit =
+              val instant = Instant.ofEpochSecond(node.timestamp)
+              val isoDateTime = instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
+              val displayText = node.format match
+                case "d" | "D" =>
+                  instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                case "t" | "T" =>
+                  instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("HH:mm 'UTC'"))
+                case _ =>
+                  instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm 'UTC'"))
+              html
+                .attr("datetime", isoDateTime)
+                .attr("format", node.format)
+                .attr("title", displayText)
+                .withAttr()
+                .tag("time")
+                .text(displayText)
+                .tag("/time")
 
-              val matches = timestampRegex.findAllMatchIn(text).toList
-              if matches.isEmpty then html.text(text)
-              else
-                var lastEnd = 0
-                matches.foreach: m =>
-                  val timestamp = m.group(1).toLong
-                  val format = m.group(2)
-                  val beforeMatch = text.substring(lastEnd, m.start)
+  object TimestampParserExtension:
+    private val timestampPattern = Pattern.compile("<t:(\\d+):([a-zA-Z])>")
 
-                  val instant = Instant.ofEpochSecond(timestamp)
-                  val isoDateTime = instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
-
-                  val displayText = format match
-                    case "d" | "D" =>
-                      val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                      instant.atZone(ZoneOffset.UTC).format(dateFormatter)
-                    case "t" | "T" =>
-                      val timeFormatter = DateTimeFormatter.ofPattern("HH:mm 'UTC'")
-                      instant.atZone(ZoneOffset.UTC).format(timeFormatter)
-                    case _ =>
-                      val fullFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm 'UTC'")
-                      instant.atZone(ZoneOffset.UTC).format(fullFormatter)
-
-                  if beforeMatch.nonEmpty then html.text(beforeMatch)
-
-                  html
-                    .attr("datetime", isoDateTime)
-                    .attr("format", format)
-                    .attr("title", displayText)
-                    .withAttr()
-                    .tag("time")
-                    .text(displayText)
-                    .tag("/time")
-
-                  lastEnd = m.end
-
-                val afterLastMatch = text.substring(lastEnd)
-                if afterLastMatch.nonEmpty then html.text(afterLastMatch)
+    class Factory extends InlineParserExtensionFactory:
+      override def getCharacters(): CharSequence = "<"
+      override def getAfterDependents(): java.util.Set[Class[?]] = null
+      override def getBeforeDependents(): java.util.Set[Class[?]] = null
+      override def affectsGlobalScope() = false
+      override def apply(inlineParser: LightInlineParser): InlineParserExtension =
+        new InlineParserExtension:
+          override def finalizeDocument(inlineParser: InlineParser) = ()
+          override def finalizeBlock(inlineParser: InlineParser) = ()
+          override def parse(inlineParser: LightInlineParser): Boolean =
+            val groups = inlineParser.matchWithGroups(timestampPattern)
+            if groups == null then false
+            else
+              val epoch = groups(1).toString.toLong
+              val fmt = groups(2).toString
+              val node = TimestampNode(epoch, fmt)
+              node.setChars(groups(0))
+              inlineParser.flushTextNode()
+              inlineParser.appendNode(node)
+              true
 
   private val tableWrapperExtension = new HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()
