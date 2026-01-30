@@ -26,11 +26,11 @@
   <string name="monthlyRapid">Месечни Брзопотез</string>
   <string name="monthlyClassicalArena">Месечна Класична Арена</string>
   <string name="monthlyClassical">Месечна Класична</string>
-  <string name="monthlyXArena">Месечна %s арена</string>
+  <string name="monthlyXArena">Месечна %s Арена</string>
   <string name="monthlyX">Месечни %s</string>
-  <string name="yearlyRapidArena">Годишња рапид арена</string>
-  <string name="yearlyRapid">Годишњи рапид</string>
-  <string name="yearlyClassicalArena">Годишња класична арена</string>
+  <string name="yearlyRapidArena">Годишња Брзопотезна Арена</string>
+  <string name="yearlyRapid">Годишњи Брзопотез</string>
+  <string name="yearlyClassicalArena">Годишња Класична Арена</string>
   <string name="yearlyClassical">Годишњи класични</string>
   <string name="yearlyXArena">Годишња %s арена</string>
   <string name="yearlyX">Годишњи %s</string>
