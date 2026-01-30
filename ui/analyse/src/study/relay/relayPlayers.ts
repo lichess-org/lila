@@ -219,7 +219,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
             p.fide?.ratings &&
               Object.entries(ratingCategs).map(([key, name]: [FideTC, string]) =>
                 hl(`div.fide-player__card${key === tc ? '.active' : ''}`, [
-                  hl('em', name),
+                  hl('em', fideTCAttrs(key), name),
                   hl('span', [p.fide?.ratings[key] || '-']),
                 ]),
               ),
