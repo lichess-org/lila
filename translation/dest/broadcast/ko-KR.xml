@@ -17,7 +17,7 @@
   <string name="theNewRoundHelp">새로운 라운드에는 이전 라운드와 동일한 구성원과 기여자가 있을 것입니다.</string>
   <string name="addRound">라운드 추가</string>
   <string name="ongoing">진행중</string>
-  <string name="upcoming">방영 예정</string>
+  <string name="upcoming">예정</string>
   <string name="roundName">라운드 이름</string>
   <string name="tournamentName">토너먼트 이름</string>
   <string name="tournamentDescription">짧은 토너먼트 설명</string>

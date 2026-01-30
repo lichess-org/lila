@@ -101,7 +101,7 @@ final private class TutorBuilder(
       .map(_.toList.flatten)
       .addEffect: matches =>
         perfs.keys.foreach: pt =>
-          lila.mon.tutor.peerMatch(matches.exists(_.perf == pt)).increment()
+          lila.mon.tutor.peerMatch(matches.exists(_.perf == pt), pt.key).increment()
 
   private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
@@ -132,14 +132,6 @@ private object TutorBuilder:
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key))
     .map(AnswerPeer.apply)
 
-  def answerBoth[Dim](question: Question[Dim], user: TutorPlayer, nbPeerGames: Max = peerNbGames)(using
-      InsightApi,
-      Executor
-  ): Fu[Answers[Dim]] = for
-    mine <- answerMine(question, user)
-    peer <- answerPeer(question, user, nbPeerGames)
-  yield Answers(mine, peer)
-
   def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorPlayer])(using
       insightApi: InsightApi,
       ec: Executor
@@ -165,6 +157,8 @@ private object TutorBuilder:
 
     final lazy val map: Map[Dim, Pair] = list.toMap
     export map.get
+
+    def getValue(dim: Dim): Option[Double] = map.get(dim).map(_.value)
 
     def dimensions = list._1F
 

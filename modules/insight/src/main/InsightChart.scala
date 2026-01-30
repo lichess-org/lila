@@ -6,17 +6,17 @@ import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.i18n.Translate
 
-case class Chart(
+case class InsightChart(
     question: JsonQuestion,
-    xAxis: Chart.Xaxis,
-    valueYaxis: Chart.Yaxis,
-    sizeYaxis: Chart.Yaxis,
-    series: List[Chart.Serie],
-    sizeSerie: Chart.Serie,
+    xAxis: InsightChart.Xaxis,
+    valueYaxis: InsightChart.Yaxis,
+    sizeYaxis: InsightChart.Yaxis,
+    series: List[InsightChart.Serie],
+    sizeSerie: InsightChart.Serie,
     games: List[JsObject]
 )
 
-object Chart:
+object InsightChart:
 
   case class Xaxis(
       name: String,
@@ -38,7 +38,7 @@ object Chart:
 
   def fromAnswer[X](
       getLightUser: LightUser.Getter
-  )(answer: Answer[X])(using Translate, Executor): Fu[Chart] =
+  )(answer: Answer[X])(using Translate, Executor): Fu[InsightChart] =
 
     import answer.*, question.*
 
@@ -126,7 +126,7 @@ object Chart:
         )
       }
       .map { games =>
-        Chart(
+        InsightChart(
           question = JsonQuestion.fromQuestion(question),
           xAxis = xAxis,
           valueYaxis = Yaxis(metric.name, metric.dataType.name),

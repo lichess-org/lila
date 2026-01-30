@@ -29,3 +29,6 @@ final private class TutorFishnet(
       .flatMap: games =>
         games.foreach(g => analyser.tutor(g.id))
         awaiter(games.map(_.id), maxTime)
+          .monValue: nbMissing =>
+            _.tutor.fishnetWait(nbMissing)
+          .void
