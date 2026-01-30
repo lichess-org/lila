@@ -522,14 +522,15 @@ const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): V
   );
 };
 
-const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = true) =>
-  isRelayPlayerGame(p)
-    ? hl('div', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff))
-    : (p.ratingDiffs &&
-        Object.entries(p.ratingDiffs).map(([tc, diff]: [FideTC, number]) =>
-          hl('div', fideTCAttrs(tc), [p.ratingsMap?.[tc], diffNode(diff)]),
-        )) ||
-      p.rating;
+const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = false) => {
+  if (isRelayPlayerGame(p)) return hl('div', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff));
+  if (!p.ratingDiffs) return p.rating;
+  const rds = Object.entries(p.ratingDiffs);
+  return rds.map(([tc, diff]: [FideTC, number]) => {
+    const node = [p.ratingsMap?.[tc], diffNode(diff)];
+    return rds.length === 1 ? node : hl('div', fideTCAttrs(tc), node);
+  });
+};
 
 const diffNode = (rd: number | undefined) =>
   !defined(rd)
