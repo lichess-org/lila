@@ -581,6 +581,9 @@ object mon:
       def decode(format: String) = timer("game.pgn.decode").withTag("format", format)
     val idCollision = counter("game.idCollision").withoutTags()
     def idGenerator(collisions: Int) = timer("game.idGenerator").withTags(tags("collisions" -> collisions))
+    object streamByOauthOrigin:
+      def event(tpe: String) = counter("game.streamByOauthOrigin.event").withTag("type", tpe)
+      val users = gauge("game.streamByOauthOrigin.users").withoutTags()
   object chat:
     private val msgCounter = counter("chat.message")
     def message(parent: String, troll: Boolean) =

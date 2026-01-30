@@ -269,8 +269,12 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     else f(ids)
 
   def gamesByOauthOriginStream = Scoped():
-    ndJson.addKeepAlive:
-      env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames"))
+    env.api
+      .gameStreamByOauthOrigin(getTimestamp("since"))
+      .fold(
+        error => JsonBadRequest(error).toFuccess,
+        source => jsOptToNdJson(ndJson.addKeepAlive(source))
+      )
 
   val cloudEval =
     val rateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "cloud-eval.api.ip", _.proxyMultiplier(3))

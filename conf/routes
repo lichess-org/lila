@@ -764,7 +764,7 @@ GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: UserStr, u
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
 POST  /api/stream/games/:streamId      controllers.Api.gamesByIdsStream(streamId)
 POST  /api/stream/games/:streamId/add  controllers.Api.gamesByIdsStreamAddIds(streamId)
-GET   /api/stream/event                controllers.Api.eventStream
+GET   /api/stream/games/by-oauth-origin controllers.Api.gamesByOauthOriginStream
 GET   /api/stream/game/:id             controllers.Api.moveStream(id: GameId)
 GET   /api/account                     controllers.Account.apiMe
 GET   /api/account/playing             controllers.Account.apiNowPlaying

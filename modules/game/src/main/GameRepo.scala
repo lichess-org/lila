@@ -114,6 +114,16 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .find($doc(F.playingUids -> $doc("$in" -> userIds, "$size" -> 2)))
       .cursor[Game](ReadPref.sec)
 
+  def finishedByOneOfUserIdsSince(userIds: Set[UserId], since: Instant): AkkaStreamCursor[Game] =
+    coll
+      .find:
+        Query.finished ++
+          Query.users(userIds) ++
+          Query.createdSince(since.minusHours(3)) ++
+          $doc(F.movedAt.$gt(since))
+      .hint(coll.hint("us_1_ca_-1")) // important index hit. Do not sort the query.
+      .cursor[Game](ReadPref.sec)
+
   def gamesForAssessment(userId: UserId, nb: Int): Fu[List[Game]] =
     coll
       .find(
