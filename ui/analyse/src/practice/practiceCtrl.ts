@@ -5,7 +5,6 @@
  * - TODO: Verify dynamic userColor is correct for all scenarios (variants, tablebase, etc.)
  */
 
-
 import { winningChances, type CustomCeval } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
 import { detectThreefold } from '../nodeFinder';
@@ -59,12 +58,11 @@ export interface PracticeCtrl {
   redraw: Redraw;
 }
 
-
 export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): PracticeCtrl {
   // Rely on state-based data, not the UI
   // TODO: Ensure `root.data.player.color` correctly represents the current user's color
   const humanColor: Color = root.data.player?.color ?? 'white';
-  
+
   function isMyTurn(): boolean {
     // Compare current turn color with the human player's color
     return root.turnColor() === humanColor;
@@ -160,7 +158,6 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
         : undefined,
     };
   }
-
 
   function checkCeval() {
     const node = root.node;
