@@ -127,6 +127,7 @@ export interface RelayTeamStandingsEntry {
   gp: number;
   matches: POVTeamMatch[];
   players: RelayPlayer[];
+  averageRating?: number;
 }
 
 export type RelayTeamStandings = RelayTeamStandingsEntry[];

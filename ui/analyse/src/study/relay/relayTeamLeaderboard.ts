@@ -120,6 +120,8 @@ export default class RelayTeamLeaderboard {
             hl('tr', [hl('th', 'Matches Played'), hl('td', `${foundTeam.matches.length}`)]),
             hl('tr', [hl('th', 'Match Points'), hl('td', `${foundTeam.mp}`)]),
             hl('tr', [hl('th', 'Game Points'), hl('td', `${foundTeam.gp}`)]),
+            foundTeam.averageRating &&
+              hl('tr', [hl('th', i18n.site.averageElo), hl('td', `${foundTeam.averageRating}`)]),
           ]),
         ),
       ]),
