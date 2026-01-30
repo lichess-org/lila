@@ -140,7 +140,7 @@ object RelayPlayer:
             "description" -> tb.description,
             "points" -> tbv.value
           )
-    private given KeyWrites[FideTC] = _.toString // required by ratingDiffs & performances
+    given KeyWrites[FideTC] = _.toString // required by ratingDiffs & performances
 
     given OWrites[RelayPlayer] = OWrites: p =>
       Json.toJsObject(p.player) ++ Json
@@ -152,7 +152,7 @@ object RelayPlayer:
         .add("performances" -> p.performances.some.filter(_.nonEmpty))
         .add("tiebreaks" -> p.tiebreaks)
         .add("rank" -> p.rank) ++
-        Json.obj("ratingsMap" -> p.ratingsMap.view.mapValues(_.value).toMap)
+        Json.obj("ratingsMap" -> p.ratingsMap)
     def full(
         tour: RelayTour
     )(p: RelayPlayer, fidePlayer: Option[FidePlayer], user: Option[User], follow: Option[Boolean]): JsObject =
@@ -183,7 +183,7 @@ object RelayPlayer:
         .add("fide", fidePlayer.map(Json.toJsObject).map(_.add("follow", follow))) ++
         Json.obj("games" -> gamesJson)
     given OWrites[FidePlayer] = OWrites: p =>
-      Json.obj("ratings" -> p.ratingsMap.mapKeys(_.toString), "year" -> p.year)
+      Json.obj("ratings" -> p.ratingsMap, "year" -> p.year)
 
 private final class RelayPlayerApi(
     tourRepo: RelayTourRepo,
