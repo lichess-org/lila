@@ -14,8 +14,7 @@ final class GameStreamByOauthOrigin(
 )(using akka.stream.Materializer, Executor):
 
   private val origins = Map(
-    UserId("taketaketakeapp") -> "https://auth.taketaketake.com",
-    UserId("thibault") -> "http://127.0.0.1"
+    UserId("taketaketakeapp") -> "https://auth.taketaketake.com"
   )
   private def mon = lila.mon.game.streamByOauthOrigin
 
