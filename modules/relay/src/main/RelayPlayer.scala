@@ -130,11 +130,7 @@ object RelayPlayer:
     given Writes[Outcome] = Json.writes
     given Writes[Outcome.Points] = writeAs(_.show)
     given Writes[Outcome.GamePoints] = writeAs(points => Outcome.showPoints(points.some))
-    given Writes[FideTC] = writeAs(_.toString())
-    given ratingsMapWrites: OWrites[Map[FideTC, Int]] = OWrites: m =>
-      JsObject:
-        m.map: (tc, rating) =>
-          (tc.toString, Json.toJson(rating))
+    given Writes[FideTC] = writeAs(_.toString)
     given Writes[RelayPlayer.Game] = Json.writes
     given Writes[Seq[(Tiebreak, TiebreakPoint)]] = Writes: tbs =>
       Json.toJson:
@@ -144,14 +140,16 @@ object RelayPlayer:
             "description" -> tb.description,
             "points" -> tbv.value
           )
+    private given KeyWrites[FideTC] = _.toString // required by ratingDiffs & performances
+
     given OWrites[RelayPlayer] = OWrites: p =>
       Json.toJsObject(p.player) ++ Json
         .obj("played" -> p.games.count(_.points.isDefined))
         .add("score" -> p.score)
-        .add("ratingDiff" -> p.ratingDiffs.flatMap(_.headOption).map(_._2)) // API BC grace
-        .add("ratingDiffs" -> p.ratingDiffs.map(_.view.mapValues(_.value).toMap))
-        .add("performance" -> p.performances.flatMap(_.headOption).map(_._2)) // API BC grace
-        .add("performances" -> p.performances.map(_.view.mapValues(_.value).toMap))
+        .add("ratingDiff" -> p.ratingDiffs.flatMap(_.headOption)._2F) // API BC grace
+        .add("ratingDiffs" -> p.ratingDiffs.filter(_.nonEmpty))
+        .add("performance" -> p.performances.flatMap(_.headOption)._2F) // API BC grace
+        .add("performances" -> p.performances.filter(_.nonEmpty))
         .add("tiebreaks" -> p.tiebreaks)
         .add("rank" -> p.rank) ++
         Json.obj("ratingsMap" -> p.ratingsMap.view.mapValues(_.value).toMap)
