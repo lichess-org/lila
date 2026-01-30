@@ -48,6 +48,11 @@ main.analyse.is-relay:not(.has-relay-tour) {
   .analyse__controls .features {
     flex: 0 0 2.5rem;
   }
+  &,
+  .analyse__tools {
+    /* undo the site negative margins for player names */
+    margin-top: 0;
+  }
 }
 
 /* tour view */
