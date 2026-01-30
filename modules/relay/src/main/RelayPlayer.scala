@@ -2,7 +2,6 @@ package lila.relay
 
 import scala.collection.immutable.SeqMap
 import play.api.libs.json.*
-import scalalib.Json.writeAs
 import scalalib.Debouncer
 import chess.{ ByColor, Color, FideId, FideTC, Outcome, PlayerName, IntRating }
 import chess.rating.{ Elo, IntRatingDiff }
@@ -20,8 +19,8 @@ case class RelayPlayer(
     player: StudyPlayer.WithFed,
     ratingsMap: Map[FideTC, IntRating],
     score: Option[Float],
-    ratingDiffs: Option[Map[FideTC, IntRatingDiff]],
-    performances: Option[Map[FideTC, IntRating]],
+    ratingDiffs: Map[FideTC, IntRatingDiff],
+    performances: Map[FideTC, IntRating],
     tiebreaks: Option[Seq[(Tiebreak, TiebreakPoint)]],
     rank: Option[RelayPlayer.Rank],
     games: Vector[RelayPlayer.Game]
@@ -83,7 +82,7 @@ object RelayPlayer:
   type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
 
   def empty(player: StudyPlayer.WithFed) =
-    RelayPlayer(player, Map.empty, None, None, None, None, None, Vector.empty)
+    RelayPlayer(player, Map.empty, None, Map.empty, Map.empty, None, None, Vector.empty)
 
   case class Game(
       round: RelayRoundId,
@@ -126,6 +125,7 @@ object RelayPlayer:
     yield Elo.Game(pp, opRating.into(Elo))
 
   object json:
+    import scalalib.Json.writeAs
     import RelayJsonView.given
     given Writes[Outcome] = Json.writes
     given Writes[Outcome.Points] = writeAs(_.show)
@@ -146,10 +146,10 @@ object RelayPlayer:
       Json.toJsObject(p.player) ++ Json
         .obj("played" -> p.games.count(_.points.isDefined))
         .add("score" -> p.score)
-        .add("ratingDiff" -> p.ratingDiffs.flatMap(_.headOption)._2F) // API BC grace
-        .add("ratingDiffs" -> p.ratingDiffs.filter(_.nonEmpty))
-        .add("performance" -> p.performances.flatMap(_.headOption)._2F) // API BC grace
-        .add("performances" -> p.performances.filter(_.nonEmpty))
+        .add("ratingDiff" -> p.ratingDiffs.headOption._2F) // API BC grace
+        .add("ratingDiffs" -> p.ratingDiffs.some.filter(_.nonEmpty))
+        .add("performance" -> p.performances.headOption._2F) // API BC grace
+        .add("performances" -> p.performances.some.filter(_.nonEmpty))
         .add("tiebreaks" -> p.tiebreaks)
         .add("rank" -> p.rank) ++
         Json.obj("ratingsMap" -> p.ratingsMap.view.mapValues(_.value).toMap)
@@ -322,7 +322,6 @@ private final class RelayPlayerApi(
               val performanceRating =
                 Elo.computePerformanceRating(tcGames.flatMap(_.eloGame))
               performanceRating.fold(acc)(r => acc + (gameTC -> r.into(IntRating)))
-            .some
         )
       .to(SeqMap)
 
@@ -348,7 +347,7 @@ private final class RelayPlayerApi(
                       val p = Elo.Player(rating, fidePlayer.kFactorOf(gameTC))
                       val newDiff = Elo.computeRatingDiff(gameTC)(p, tcGames.flatMap(_.eloGame))
                       diffs + (gameTC -> newDiff)
-                player.copy(ratingDiffs = newRatingDiffs.some)
+                player.copy(ratingDiffs = newRatingDiffs)
               id -> newPlayer
       .map(_.to(SeqMap))
 
