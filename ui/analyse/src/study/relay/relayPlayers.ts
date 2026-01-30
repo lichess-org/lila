@@ -524,11 +524,12 @@ const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): V
 
 const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = true) =>
   isRelayPlayerGame(p)
-    ? hl('div', showIcons ? fideTCAttrs(p.fideTC) : {}, diffNode(p.ratingDiff))
-    : p.ratingDiffs &&
-      Object.entries(p.ratingDiffs).map(([tc, diff]: [FideTC, number]) =>
-        hl('div', fideTCAttrs(tc), [p.ratingsMap?.[tc], diffNode(diff)]),
-      );
+    ? hl('div', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff))
+    : (p.ratingDiffs &&
+        Object.entries(p.ratingDiffs).map(([tc, diff]: [FideTC, number]) =>
+          hl('div', fideTCAttrs(tc), [p.ratingsMap?.[tc], diffNode(diff)]),
+        )) ||
+      p.rating;
 
 const diffNode = (rd: number | undefined) =>
   !defined(rd)
