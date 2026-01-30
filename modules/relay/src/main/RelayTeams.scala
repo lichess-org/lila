@@ -1,11 +1,10 @@
 package lila.relay
 
 import scala.collection.immutable.SeqMap
-
 import scalalib.Debouncer
 
 import chess.format.pgn.*
-import chess.{ FideId, PlayerName }
+import chess.{ FideId, PlayerName, IntRating }
 import chess.Outcome.Points
 
 import lila.core.fide.{ PlayerToken, Tokenize }
@@ -255,6 +254,8 @@ final class RelayTeamLeaderboard(
   ):
     lazy val matchPoints: Float = povMatches.filter(_.isFinished).flatMap(_.mp).sum
     lazy val gamePoints: Float = povMatches.filter(_.isFinished).flatMap(_.gp).sum
+    lazy val averageRating: Option[IntRating] = IntRating.from:
+      scalalib.Maths.mean(IntRating.raw(players.flatMap(_.rating))).map(x => Math.round(x).toInt)
     lazy val players: Iterable[RelayPlayer] = povMatches
       .flatMap(_.players.values)
       .groupBy(_.id)
@@ -265,16 +266,19 @@ final class RelayTeamLeaderboard(
   given Ordering[TeamLeaderboardEntry] = Ordering.by(t => (-t.matchPoints, -t.gamePoints, t.name))
 
   object json:
+    import lila.common.Json.given
     import RelayTeam.POVMatch.json.given
     import RelayPlayer.json.given
     given Writes[TeamLeaderboardEntry] = t =>
-      Json.obj(
-        "name" -> t.name,
-        "mp" -> t.matchPoints,
-        "gp" -> t.gamePoints,
-        "matches" -> t.povMatches,
-        "players" -> t.players
-      )
+      Json
+        .obj(
+          "name" -> t.name,
+          "mp" -> t.matchPoints,
+          "gp" -> t.gamePoints,
+          "matches" -> t.povMatches,
+          "players" -> t.players
+        )
+        .add("averageRating" -> t.averageRating)
 
   def leaderboardJson(tour: RelayTourId): Fu[JsonStr] =
     relayGroupApi.scoreGroupOf(tour).flatMap(jsonCache.get)
