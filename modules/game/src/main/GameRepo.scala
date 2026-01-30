@@ -111,7 +111,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   // only one player needs to be in the userId set
   def ongoingByOneOfUserIdsCursor(userIds: Set[UserId]): AkkaStreamCursor[Game] =
     coll
-      .find($doc(F.playingUids -> $doc("$in" -> userIds, "$size" -> 2)))
+      .find($doc(F.playingUids.$in(userIds)))
       .cursor[Game](ReadPref.sec)
 
   def finishedByOneOfUserIdsSince(userIds: Set[UserId], since: Instant): AkkaStreamCursor[Game] =
