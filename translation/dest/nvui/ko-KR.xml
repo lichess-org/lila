@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="featuredEvents">주요 이벤트</string>
   <string name="moveList">수 목록</string>
   <string name="gameInfo">게임 정보</string>
   <string name="pieces">기물</string>

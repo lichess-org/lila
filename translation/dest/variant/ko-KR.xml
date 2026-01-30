@@ -18,4 +18,6 @@
   <string name="racingKingsTitle">킹이 보드 반대편 끝까지 도달하면 승리합니다.</string>
   <string name="crazyhouse">크레이지하우스</string>
   <string name="crazyhouseTitle">자신의 차례일 때, 기물을 움직이는 대신 잡았던 기물을 자신의 색으로 보드에 소환할 수 있습니다.</string>
+  <string name="fromPosition" comment="An option that lets you create a standard chess game from a custom position.">정해진 보드판에서 시작</string>
+  <string name="fromPositionTitle" comment="Description for when looking to start a game 'From position'">사용자가 지정한 포지션으로 시작하는 일반 체스</string>
 </resources>
