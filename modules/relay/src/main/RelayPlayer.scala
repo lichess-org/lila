@@ -148,7 +148,7 @@ object RelayPlayer:
       Json.toJsObject(p.player) ++ Json
         .obj("played" -> p.games.count(_.points.isDefined))
         .add("score" -> p.score)
-        .add("ratingDiff" -> p.ratingDiffs.map(_.head._2)) // API BC grace
+        .add("ratingDiff" -> p.ratingDiffs.flatMap(_.headOption).map(_._2)) // API BC grace
         .add("ratingDiffs" -> p.ratingDiffs.map(_.view.mapValues(_.value).toMap))
         .add("performance" -> p.performances.flatMap(_.headOption).map(_._2)) // API BC grace
         .add("performances" -> p.performances.map(_.view.mapValues(_.value).toMap))
