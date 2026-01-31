@@ -49,14 +49,24 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
               ),
               ctx.me.flatMap: me =>
                 given Me = me
+                val quoteButton = (canReply && !post.erased).option(
+                  button(
+                    cls := "mod quote button button-empty text",
+                    tpe := "button",
+                    dataIcon := "❝"
+                  )("Quote")
+                )
                 if !post.erased && post.canBeEditedByMe
                 then
-                  postForm(action := routes.ForumPost.delete(post.id))(
-                    submitButton(
-                      cls := "mod delete button button-empty yes-no-confirm",
-                      dataIcon := Icon.Trash,
-                      title := "Delete"
-                    )
+                  frag(
+                    postForm(action := routes.ForumPost.delete(post.id))(
+                      submitButton(
+                        cls := "mod delete button button-empty yes-no-confirm",
+                        dataIcon := Icon.Trash,
+                        title := "Delete"
+                      )
+                    ),
+                    quoteButton
                   ).some
                 else
                   frag(
@@ -69,17 +79,19 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                       )
                     ,
                     if canModCateg || topic.isUblogAuthor(me) then
-                      a(
-                        cls := "mod delete button button-empty",
-                        href := routes.ForumPost.delete(post.id),
-                        dataIcon := Icon.Trash,
-                        title := "Delete"
+                      frag(
+                        a(
+                          cls := "mod delete button button-empty",
+                          href := routes.ForumPost.delete(post.id),
+                          dataIcon := Icon.Trash,
+                          title := "Delete"
+                        ),
+                        quoteButton
                       )
                     else
                       post.userId.map: userId =>
                         val postUrl = routeUrl(routes.ForumPost.redirect(post.id))
-                        frag(
-                          nbsp,
+                        span(cls := "forum-post__actions")(
                           a(
                             titleOrText(trans.site.reportXToModerators.txt(userId)),
                             cls := "mod report button button-empty",
@@ -88,21 +100,15 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                               Map("username" -> userId.value, "postUrl" -> postUrl.value, "from" -> "forum")
                             ),
                             dataIcon := Icon.CautionTriangle
-                          )
+                          ),
+                          quoteButton
                         )
                   ).some
               ,
-              (canReply && !post.erased).option(
-                button(
-                  cls := "mod quote button button-empty text",
-                  tpe := "button",
-                  dataIcon := "❝"
-                )("Quote")
-              )
+              ctx.blind.not.option:
+                a(cls := "anchor", href := url)(s"#${post.number}")
             )
-          ),
-          ctx.blind.not.option:
-            a(cls := "anchor", href := url)(s"#${post.number}")
+          )
         ),
         if hide then
           div(cls := "forum-post__blocked")(
@@ -142,7 +148,12 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
   def reactions(post: ForumPost, canReact: Boolean)(using ctx: Context) =
     val mine = ctx.me.so { ForumPost.Reaction.of(~post.reactions, _) }
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
+    val allReactionsVisible =
+      ForumPost.Reaction.list.forall(r => (~post.reactions.flatMap(_.get(r))).nonEmpty)
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
+      (canActuallyReact && !allReactionsVisible).option(
+        button(cls := "reactions-toggle", tpe := "button", dataIcon := Icon.PlusButton)
+      ),
       ForumPost.Reaction.list.map: r =>
         val users = ~post.reactions.flatMap(_.get(r))
         val size = users.size
