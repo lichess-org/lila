@@ -21,7 +21,7 @@ export default function initModule(): void {
       /^quarter[- ]?finals$/i,
       /^semi[- ]?finals$/i,
       /^finals$/i,
-      /^tiebreaks$/i,
+      /^tie[-\s]?break(?:er)?[s]?$/i,
       /^knock[-\s]?out[s]?$/i,
     ];
     const helpEl = document.createElement('small');

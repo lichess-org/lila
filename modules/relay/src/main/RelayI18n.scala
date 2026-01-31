@@ -18,7 +18,7 @@ private object RelayI18n:
   private val quarterfinalsRegex = """(?i)^quarter[- ]?finals$""".r
   private val semifinalsRegex = """(?i)^semi[- ]?finals$""".r
   private val finalsRegex = """(?i)^finals$""".r
-  private val tiebreaksRegex = """(?i)^tiebreaks$""".r
+  private val tiebreaksRegex = """(?i)^tie[-\s]?break(?:er)?[s]?$""".r
   private val knockoutsRegex = """(?i)^knock[-\s]?out[s]?$""".r
   private val sep = """\s+\|\s+""".r
 
