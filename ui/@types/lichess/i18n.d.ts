@@ -248,7 +248,7 @@ interface I18n {
     /** Boys */
     boysTournament: string;
     /** Boys U%s */
-    boysUnderXTournament: I18nFormat;
+    boysUnderXAgeTournament: I18nFormat;
     /** Broadcast calendar */
     broadcastCalendar: string;
     /** Broadcasts */
@@ -302,7 +302,7 @@ interface I18n {
     /** Girls */
     girlsTournament: string;
     /** Girls U%s */
-    girlsUnderXTournament: I18nFormat;
+    girlsUnderXAgeTournament: I18nFormat;
     /** How to use Lichess Broadcasts. */
     howToUseLichessBroadcasts: string;
     /** More options on the %s */
