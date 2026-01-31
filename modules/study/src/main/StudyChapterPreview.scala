@@ -3,7 +3,6 @@ package lila.study
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
 import chess.{ ByColor, Color, FideId, Outcome }
-import chess.variant.{ Variant, Standard }
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
@@ -19,7 +18,6 @@ case class ChapterPreview(
     lastMove: Option[Uci],
     lastMoveAt: Option[Instant],
     check: Option[Chapter.Check],
-    variant: Variant,
     /* None = No Result PGN tag, the chapter may not be a game
      * Some(None) = Result PGN tag is "*", the game is new or ongoing
      * Some(Some(GamePoints)) = Game is over with a result
@@ -100,8 +98,7 @@ final class ChapterPreviewApi(
       lastMove = denorm.flatMap(_.uci),
       lastMoveAt = relay.flatMap(_.lastMoveAt),
       check = denorm.flatMap(_.check),
-      points = tags.points.isDefined.option(tags.points),
-      variant = setup.variant
+      points = tags.points.isDefined.option(tags.points)
     )
 
   object federations:
@@ -144,7 +141,6 @@ object ChapterPreview:
         .add("fen", Option.when(!c.fen.isInitial)(c.fen))
         .add("players", c.players.map(_.toList))
         .add("orientation", c.orientation.some.filter(_.black))
-        .add("variant", c.variant.some.filterNot(_.standard).map(_.id))
         .add("lastMove", c.lastMove)
         .add("check", c.check)
         .add("thinkTime", c.thinkTime)
@@ -159,7 +155,6 @@ object ChapterPreview:
       "tags" -> true,
       "lastMoveAt" -> "$relay.lastMoveAt",
       "orientation" -> "$setup.orientation",
-      "variant" -> "$setup.variant",
       "rootFen" -> "$root._.f"
     )
 
@@ -172,7 +167,6 @@ object ChapterPreview:
           lastPos = doc.getAsOpt[Chapter.LastPosDenorm]("denorm")
           tags = doc.getAsOpt[Tags]("tags")
           orientation = doc.getAsOpt[Color]("orientation") | Color.White
-          variant = doc.getAsOpt[Variant]("variant") | Standard
         yield ChapterPreview(
           id = id,
           name = name,
@@ -182,6 +176,5 @@ object ChapterPreview:
           lastMove = lastPos.flatMap(_.uci),
           lastMoveAt = lastMoveAt,
           check = lastPos.flatMap(_.check),
-          points = tags.filter(_.exists(_.Result)).map(_.points),
-          variant = variant
+          points = tags.filter(_.exists(_.Result)).map(_.points)
         )
