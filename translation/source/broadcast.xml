@@ -83,6 +83,7 @@
   <string name="liveboard">Live board</string>
   <string name="communityBroadcast">Community broadcast</string>
   <string name="createdAndManagedBy">Created and managed by %s.</string>
+  <string name="automaticallyTranslated">This name will be automatically translated.</string>
   <string name="roundX">Round %s</string>
   <string name="defaultRoundNameHelp">Keeping the default name will automatically translate it to all other languages.</string>
   <string name="openTournament">Open</string>

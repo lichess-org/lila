@@ -92,6 +92,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
       Page(title)
         .css("bits.relay.form")
         .js(List(Esm("bits.flatpickr"), Esm("bits.relayForm")).map(some))
+        .js(esmInit("bits.broadcastForm.i18nCheck"))
+        .i18n(_.broadcast)
         .wrap: body =>
           main(cls := "page page-menu")(
             navigationMenu(nav),
@@ -446,6 +448,8 @@ Hanna Marie ; Kozul, Zdenko"""),
       Page(title)
         .css("bits.relay.form")
         .js(Esm("bits.relayForm"))
+        .js(esmInit("bits.broadcastForm.i18nCheck"))
+        .i18n(_.broadcast)
         .wrap: body =>
           main(cls := "page page-menu")(
             menu.fold(pageMenu(_), navigationMenu),

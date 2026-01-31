@@ -237,6 +237,8 @@ interface I18n {
     allBroadcastsByMonth: string;
     /** All teams */
     allTeams: string;
+    /** This name will be automatically translated. */
+    automaticallyTranslated: string;
     /** Back to live move */
     backToLiveMove: string;
     /** Boards */
