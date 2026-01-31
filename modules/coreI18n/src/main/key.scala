@@ -217,6 +217,7 @@ object I18nKey:
     val `semifinals`: I18nKey = "broadcast:semifinals"
     val `finals`: I18nKey = "broadcast:finals"
     val `tiebreaks`: I18nKey = "broadcast:tiebreaks"
+    val `gameX`: I18nKey = "broadcast:gameX"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
     val `nbViewers`: I18nKey = "broadcast:nbViewers"
 

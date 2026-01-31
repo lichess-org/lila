@@ -295,6 +295,8 @@ interface I18n {
     fullDescriptionHelp: I18nFormat;
     /** Games in this tournament */
     gamesThisTournament: string;
+    /** Game %s */
+    gameX: I18nFormat;
     /** Girls */
     girlsTournament: string;
     /** Girls U%s */

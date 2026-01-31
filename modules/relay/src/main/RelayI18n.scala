@@ -3,6 +3,7 @@ package lila.relay
 object RelayI18n:
   import lila.core.i18n.{ I18nKey, Translate }
   private val roundRegex = """(?i)^Round (\d+)$""".r
+  private val gameRegex = """(?i)^Game (\d+)$""".r
   private val blitzRegex = """(?i)^blitz$""".r
   private val rapidRegex = """(?i)^rapid$""".r
   private val classicalRegex = """(?i)^classical$""".r
@@ -23,6 +24,7 @@ object RelayI18n:
       .map: part =>
         part match
           case roundRegex(number) => I18nKey.broadcast.roundX.txt(number)
+          case gameRegex(number) => I18nKey.broadcast.gameX.txt(number)
           case blitzRegex() => I18nKey.site.blitz.txt()
           case rapidRegex() => I18nKey.site.rapid.txt()
           case classicalRegex() => I18nKey.site.classical.txt()
