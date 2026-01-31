@@ -72,6 +72,7 @@ object RelayTour:
   opaque type Name = String
   object Name extends OpaqueString[Name]:
     extension (name: Name)
+      def translate(using lila.core.i18n.Translate): String = RelayI18n(name)
       def toSlug =
         val s = scalalib.StringOps.slug(name.value)
         if s.isEmpty then "-" else s

@@ -80,7 +80,7 @@ final class RelayPush(
           .recover:
             case e: Exception => SyncLog.event(0, e.some)
         _ = if !rt.round.hasStarted && !rt.tour.official && event.hasMoves then
-          irc.broadcastStart(rt.round.id, rt.fullName)
+          irc.broadcastStart(rt.round.id, rt.fullNameNoTrans)
         allGamesFinished <- (games.nonEmpty && games.forall(_.points.isDefined)).so:
           chapterPreview.dataList(rt.round.studyId).map(_.forall(_.finished))
         round <- api.update(rt.round): r1 =>

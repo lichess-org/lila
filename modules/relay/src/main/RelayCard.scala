@@ -24,4 +24,4 @@ case class RelayCard(
           List("No updates in a while")
       .orZero
 
-  def asIdName = lila.core.relay.RoundIdName(display.id, fullName)
+  def asIdName = lila.core.relay.RoundIdName(display.id, fullNameNoTrans)
