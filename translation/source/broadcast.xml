@@ -85,4 +85,14 @@
   <string name="createdAndManagedBy">Created and managed by %s.</string>
   <string name="roundX">Round %s</string>
   <string name="defaultRoundNameHelp">Keeping the default name will automatically translate it to all other languages.</string>
+  <string name="openTournament">Open</string>
+  <string name="womenTournament">Women</string>
+  <string name="boysTournament">Boys</string>
+  <string name="girlsTournament">Girls</string>
+  <string name="boysUnderXTournament">Boys U%s</string>
+  <string name="girlsUnderXTournament">Girls U%s</string>
+  <string name="quarterfinals">Quarter-finals</string>
+  <string name="semifinals">Semi-finals</string>
+  <string name="finals">Finals</string>
+  <string name="tiebreaks">Tiebreaks</string>
 </resources>

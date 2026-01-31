@@ -26,14 +26,17 @@ object RelayGroup:
         if tour.value.startsWith(name.value)
         then RelayTour.Name(tour.value.drop(name.value.size + 1).dropWhile(!_.isLetterOrDigit))
         else tour
+      def transName(tourName: RelayTour.Name)(using lila.core.i18n.Translate) =
+        Relayi18n(name.shortTourName(tourName).value)
       def toSlug =
         val s = scalalib.StringOps.slug(name.value)
         if s.isEmpty then "-" else s
 
   case class WithTours(group: RelayGroup, tours: List[RelayTour.TourPreview]):
-    def withShorterTourNames = copy(
+    def withShorterTourNames(using lila.core.i18n.Translate) = copy(
       tours = tours.map: tour =>
-        tour.copy(name = group.name.shortTourName(tour.name))
+        tour.copy(name = RelayTour.Name:
+          group.name.transName(tour.name))
     )
 
 private case class RelayGroupData(

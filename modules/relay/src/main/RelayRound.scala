@@ -75,7 +75,7 @@ case class RelayRound(
 
   def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
 
-  def transName(using lila.core.i18n.Translate) = RelayRound.transName(name)
+  def transName(using lila.core.i18n.Translate) = Relayi18n(name.value)
 
   override def toString = s"""relay #$id "$name" $sync"""
 
@@ -244,10 +244,3 @@ object RelayRound:
 
   case class WithStudy(relay: RelayRound, study: Study):
     def withTour(tour: RelayTour) = WithTourAndStudy(relay, tour, study)
-
-  object transName:
-    import lila.core.i18n.{ I18nKey, Translate }
-    private val roundRegex = """(?i)Round (\d+)""".r
-    def apply(name: Name)(using Translate): String = name match
-      case roundRegex(number) => I18nKey.broadcast.roundX.txt(number)
-      case _ => name

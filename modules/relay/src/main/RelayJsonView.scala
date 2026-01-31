@@ -50,7 +50,7 @@ final class RelayJsonView(
 
   given OWrites[RelayTour.TourPreview] = Json.writes
 
-  given OWrites[RelayGroup.WithTours] = OWrites: g =>
+  given (using Translate): OWrites[RelayGroup.WithTours] = OWrites: g =>
     Json.obj(
       "id" -> g.group.id,
       "slug" -> g.group.name.toSlug,
