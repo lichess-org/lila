@@ -78,7 +78,6 @@ export default class StudyChaptersCtrl {
         fen: c.fen || INITIAL_FEN,
         players: c.players ? this.convertPlayersFromServer(c.players) : undefined,
         orientation: c.orientation || 'white',
-        variant: c.variant || 'standard',
         playing: defined(c.lastMove) && c.status === '*',
         lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
       })),
