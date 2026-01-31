@@ -11,6 +11,8 @@ body {
   ---block-gap: 10px;
   ---zoom: 95 !important;
 
+  ---col2-board-width: calc(min(calc(100vw - 340px), calc(100vh - 45px * 2)));
+
   @media (min-width: at-least($small)) {
     ---main-margin: 1vw;
     ---block-gap: 15px;
@@ -22,15 +24,14 @@ body {
 main.analyse.is-relay:not(.has-relay-tour) {
   /* In embed mode we don't want any space on the sides. Make the table expand to the full width */
   @include mq-at-least-col2 {
-    grid-template-columns: var(---col2-uniboard-width) $analyse-block-gap $embed-uniboard-table;
+    grid-template-columns: var(---col2-board-width) $analyse-block-gap $embed-uniboard-table;
     grid-template-rows: repeat(2, calc(50vh - 1.5rem)) 3rem;
     grid-template-areas:
       'board gauge side'
       'board gauge tools'
       'board . controls';
     .main-board {
-      /* space for the top player bar */
-      margin-top: calc((100vh - var(---col2-uniboard-width)) / 2);
+      align-self: center;
     }
     .relay-tour__side {
       margin-top: 0;
@@ -48,6 +49,11 @@ main.analyse.is-relay:not(.has-relay-tour) {
   .analyse__controls .features {
     flex: 0 0 2.5rem;
   }
+  &,
+  .analyse__tools {
+    /* undo the site negative margins for player names */
+    margin-top: 0;
+  }
 }
 
 /* tour view */
@@ -56,7 +62,7 @@ main.is-relay.has-relay-tour {
 
   @include mq-at-least-col2 {
     /* Same column layout as in the game view */
-    grid-template-columns: var(---col2-uniboard-width) $analyse-block-gap $embed-uniboard-table;
+    grid-template-columns: var(---col2-board-width) $analyse-block-gap $embed-uniboard-table;
     grid-template-rows: 100vh;
     grid-template-areas: 'relay-tour . side';
   }

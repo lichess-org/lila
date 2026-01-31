@@ -192,10 +192,10 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
         coll.delete.one($inIds(olds)).void
       } >> uncacheAllOf(userId)
 
-  def shareAnIpOrFp(u1: UserId, u2: UserId): Fu[Boolean] =
+  def shareAnIpOrFp(users: PairOf[UserId]): Fu[Boolean] =
     coll.aggregateExists(_.sec): framework =>
       import framework.*
-      Match($doc("user".$in(List(u1, u2)))) -> List(
+      Match($doc("user".$in(users.asList))) -> List(
         Limit(500),
         Project(
           $doc(

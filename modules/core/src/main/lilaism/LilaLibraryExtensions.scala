@@ -192,4 +192,6 @@ trait LilaLibraryExtensions extends CoreExports:
     // inline def unary_! = fua.map { !_ }(EC.parasitic)
     inline def not = fua.map { !_ }(using EC.parasitic)
 
-  extension [A](p: PairOf[A]) def pairMap[B](f: A => B): PairOf[B] = (f(p._1), f(p._2))
+  extension [A](p: PairOf[A])
+    def pairMap[B](f: A => B): PairOf[B] = (f(p._1), f(p._2))
+    def asList: List[A] = List(p._1, p._2)
