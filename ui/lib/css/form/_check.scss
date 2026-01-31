@@ -17,6 +17,7 @@
 
 .form-check__label {
   @extend %box-radius;
+  position: relative;
   display: block;
   margin-bottom: 0;
   background-color: $c-bg-input;
@@ -31,11 +32,11 @@
     content: '';
     width: 12px;
     height: 6px;
-    left: 7px;
-    top: 8px;
+    left: 50%;
+    top: 50%;
     opacity: 0;
     position: absolute;
-    transform: rotate(-45deg);
+    transform: translate(-50%, -58%) rotate(-45deg);
   }
 }
 
