@@ -9,6 +9,7 @@ import lila.oauth.AccessToken
 
 final class GameStreamByOauthOrigin(
     gameRepo: lila.game.GameRepo,
+    userRepo: lila.user.UserRepo,
     tokenApi: lila.oauth.AccessTokenApi,
     lightUserGet: lila.core.LightUser.GetterSync
 )(using akka.stream.Materializer, Executor):
@@ -18,7 +19,9 @@ final class GameStreamByOauthOrigin(
   )
   private def mon = lila.mon.game.streamByOauthOrigin
 
-  def apply(since: Option[Instant])(using me: Me): Either[String, Source[JsValue, ?]] =
+  def apply(since: Option[Instant], extraUsers: Set[UserId])(using
+      me: Me
+  ): Either[String, Source[JsValue, ?]] =
     for
       origin <- origins.get(me.userId).toRight("Invalid authenticated user")
       since <- since match
@@ -26,19 +29,23 @@ final class GameStreamByOauthOrigin(
         case Some(s) if s.isBefore(nowInstant.minusHours(3)) => Left("`since` is older than 3 hours")
         case s => Right(s)
     yield Source.futureSource:
-      tokenApi
-        .userIdsByClientOrigin(origin)
-        .map(run(since, origin, _))
+      for
+        tokenUsers <- tokenApi.userIdsByClientOrigin(origin)
+        allUsers = tokenUsers ++ extraUsers
+        recentlySeenUsers <- userRepo.filterSeenSince((since | nowInstant).minusMinutes(30))(allUsers)
+      yield run(since, origin, allUsers, recentlySeenUsers)
 
   private def run(
       since: Option[Instant],
       origin: String,
-      initialUserIds: Set[UserId]
+      initialUserIds: Set[UserId],
+      recentlySeenUserIds: List[UserId]
   ): Source[JsObject, ?] =
     val startStream =
       Source.queue[Game](300, akka.stream.OverflowStrategy.dropHead).mapMaterializedValue { queue =>
         var userIds = initialUserIds
-        mon.users.update(initialUserIds.size)
+        mon.users("initial").update(userIds.size)
+        mon.users("recentlySeen").update(recentlySeenUserIds.size)
 
         def matches(game: Game) = game.nonAi &&
           game.players.exists(_.userId.exists(userIds))
@@ -52,7 +59,7 @@ final class GameStreamByOauthOrigin(
         val subToken = Bus.sub[AccessToken.Create]: tc =>
           if tc.token.clientOrigin.has(origin) then
             userIds = userIds + tc.token.userId
-            mon.users.update(userIds.size)
+            mon.users("newToken").update(userIds.size)
 
         queue
           .watchCompletion()
@@ -61,8 +68,8 @@ final class GameStreamByOauthOrigin(
             Bus.unsub[FinishGame](subFinish)
             Bus.unsub[AccessToken.Create](subToken)
       }
-    pastGamesSource(initialUserIds, since)
-      .concat(currentGamesSource(initialUserIds))
+    pastGamesSource(recentlySeenUserIds, since)
+      .concat(currentGamesSource(recentlySeenUserIds))
       .concat(startStream)
       .mapAsync(1)(gameRepo.withInitialFen)
       .map: wif =>
@@ -75,9 +82,9 @@ final class GameStreamByOauthOrigin(
         Json.obj("moves" -> wif.game.sans.mkString(" "))
     }
 
-  private def pastGamesSource(userIds: Set[UserId], since: Option[Instant]): Source[Game, ?] =
+  private def pastGamesSource(userIds: Iterable[UserId], since: Option[Instant]): Source[Game, ?] =
     since.fold(Source.empty): since =>
       gameRepo.finishedByOneOfUserIdsSince(userIds, since).documentSource().throttle(100, 1.second)
 
-  private def currentGamesSource(userIds: Set[UserId]): Source[Game, ?] =
+  private def currentGamesSource(userIds: Iterable[UserId]): Source[Game, ?] =
     gameRepo.ongoingByOneOfUserIdsCursor(userIds).documentSource().throttle(100, 1.second)

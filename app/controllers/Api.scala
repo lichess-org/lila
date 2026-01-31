@@ -269,8 +269,9 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     else f(ids)
 
   def gamesByOauthOriginStream = Scoped():
+    val extraUsers = get("extraUsers").so(_.split(',').view.flatMap(UserStr.read).map(_.id).toSet)
     env.api
-      .gameStreamByOauthOrigin(getTimestamp("since"))
+      .gameStreamByOauthOrigin(getTimestamp("since"), extraUsers)
       .fold(
         error => JsonBadRequest(error).toFuccess,
         source => jsOptToNdJson(ndJson.addKeepAlive(source))
