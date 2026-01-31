@@ -6,6 +6,7 @@ import lila.core.i18n.I18nKey.*
 private object RelayI18n:
 
   private val roundRegex = """(?i)^round (\d+)$""".r
+  private val gameRegex = """(?i)^game (\d+)$""".r
   private val blitzRegex = """(?i)^blitz$""".r
   private val rapidRegex = """(?i)^rapid$""".r
   private val classicalRegex = """(?i)^classical$""".r
@@ -26,6 +27,7 @@ private object RelayI18n:
       .split(name.toString)
       .map:
         case roundRegex(number) => broadcast.roundX.txt(number)
+        case gameRegex(number) => broadcast.gameX.txt(number)
         case blitzRegex() => site.blitz.txt()
         case rapidRegex() => site.rapid.txt()
         case classicalRegex() => site.classical.txt()
