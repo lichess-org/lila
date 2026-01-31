@@ -22,6 +22,7 @@ export default function initModule(): void {
       /^semi[- ]?finals$/i,
       /^finals$/i,
       /^tiebreaks$/i,
+      /^knock[-\s]?out[s]?$/i,
     ];
     const helpEl = document.createElement('small');
     helpEl.classList.add('form-help');

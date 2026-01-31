@@ -19,6 +19,7 @@ private object RelayI18n:
   private val semifinalsRegex = """(?i)^semi[- ]?finals$""".r
   private val finalsRegex = """(?i)^finals$""".r
   private val tiebreaksRegex = """(?i)^tiebreaks$""".r
+  private val knockoutsRegex = """(?i)^knock[-\s]?out[s]?$""".r
   private val sep = """\s+\|\s+""".r
 
   def apply(name: RelayTour.Name | RelayRound.Name)(using Translate): String =
@@ -39,5 +40,6 @@ private object RelayI18n:
         case semifinalsRegex() => broadcast.semifinals.txt()
         case finalsRegex() => broadcast.finals.txt()
         case tiebreaksRegex() => broadcast.tiebreaks.txt()
+        case knockoutsRegex() => broadcast.knockouts.txt()
         case _ => name
       .mkString(" | ")
