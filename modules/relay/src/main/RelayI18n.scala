@@ -21,9 +21,9 @@ private object RelayI18n:
   private val tiebreaksRegex = """(?i)^tiebreaks$""".r
   private val sep = """\s+\|\s+""".r
 
-  def apply(name: String)(using Translate): String =
+  def apply(name: RelayTour.Name | RelayRound.Name)(using Translate): String =
     sep
-      .split(name)
+      .split(name.toString)
       .map:
         case roundRegex(number) => broadcast.roundX.txt(number)
         case blitzRegex() => site.blitz.txt()

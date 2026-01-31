@@ -36,9 +36,9 @@ final class RelayCardUi(helpers: Helpers, ui: RelayUi):
         span(cls := "relay-card__info")(
           tr.tour.active.option:
             span(cls := "relay-card__round")(
-              tr.display.transName,
+              tr.display.name.translate,
               (tr.group, alt).mapN: (group, alt) =>
-                frag(" & ", group.transName(alt.tour.name))
+                frag(" & ", group.shortTourName(alt.tour.name).translate)
             )
           ,
           if live
@@ -77,7 +77,7 @@ final class RelayCardUi(helpers: Helpers, ui: RelayUi):
   def renderTourOfGroup(group: RelayGroup)(tour: RelayTour)(using Context) =
     link(tour, routes.RelayTour.show(tour.slug, tour.id).url, ~tour.live)(
       cls := s"relay-card--tier-${tour.tier.so(_.v)}"
-    )(tourBody(tour, RelayTour.Name(group.name.transName(tour.name))))
+    )(tourBody(tour, group.name.shortTourName(tour.name)))
 
   def empty(t: RelayTour)(using Translate) =
     link(t, routes.RelayTour.show(t.slug, t.id).url, ~t.live)(tourBody(t, t.name))
@@ -93,7 +93,7 @@ final class RelayCardUi(helpers: Helpers, ui: RelayUi):
           span(cls := "relay-card__finished text", dataIcon := Icon.Checkmark)(trans.site.finished())
         else emptyFrag
       ),
-      h3(cls := "relay-card__title")(name),
+      h3(cls := "relay-card__title")(name.translate),
       truncatedPlayers(t)
     )
   )

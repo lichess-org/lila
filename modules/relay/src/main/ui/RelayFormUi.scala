@@ -51,7 +51,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               else if r.hasStarted then Icon.DiscBig
               else Icon.DiscOutline
             )
-          )(r.transName),
+          )(r.name.translate),
         a(
           href := routes.RelayRound.create(nav.tour.id),
           cls := List(
@@ -119,16 +119,16 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
         form: Form[RelayRoundForm.Data],
         nav: FormNavigation
     )(using Context) =
-      page(r.transName, nav):
+      page(r.name.translate, nav):
         val rt = r.withTour(nav.tour)
         frag(
-          boxTop(h1(a(href := rt.path)(rt.transName))),
+          boxTop(h1(a(href := rt.path)(rt.fullName))),
           standardFlash,
           nav.targetRound.map: tr =>
             flashMessage("success")(
               "Your tournament round is officially broadcasted by Lichess!",
               br,
-              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.transName)),
+              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.fullName)),
               "."
             ),
           inner(form, routes.RelayRound.update(r.id), nav),
@@ -219,7 +219,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             nav.sourceRound.map: source =>
               flashMessage("round-push")(
                 "Getting real-time updates from ",
-                strong(a(href := source.path)(source.transName)),
+                strong(a(href := source.path)(source.fullName)),
                 br,
                 "Owner: ",
                 fragList(source.tour.ownerIds.toList.map(u => userIdLink(u.some))),
