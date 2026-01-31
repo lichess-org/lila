@@ -37,6 +37,7 @@ export function boot() {
     updateTimeAgo(1000);
     pubsub.on('content-loaded', renderTimeAgo);
     renderLocalizedTimestamps();
+    pubsub.on('content-loaded', renderLocalizedTimestamps);
     pubsub.on('content-loaded', toggleBoxInit);
   });
   requestIdleCallback(() => {

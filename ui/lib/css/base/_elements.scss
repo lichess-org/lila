@@ -63,6 +63,10 @@ time {
 
   /* don't use c-color-dim, it overrides too hard */
   unicode-bidi: plaintext;
+
+  .activity &[format]:not([data-localized]) {
+    visibility: hidden;
+  }
 }
 
 hr {

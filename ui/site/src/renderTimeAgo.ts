@@ -49,13 +49,14 @@ export const renderLocalizedTimestamps = (): void => {
         const date = toDate(node.getAttribute('datetime')!);
         node.textContent = datetimeFormat(date, format);
       }
+      node.toggleAttribute('data-localized', true);
     });
   });
 };
 
-const discordFormats: { [key: string]: Intl.DateTimeFormatOptions } = {
+const discordFormatsExtended: { [key: string]: Intl.DateTimeFormatOptions } = {
   d: { year: 'numeric', month: '2-digit', day: '2-digit' }, // 12/31/2025
-  D: { year: 'numeric', month: 'long', day: 'numeric' }, // December 31st, 2025
+  D: { year: 'numeric', month: 'long', day: 'numeric' }, // December 31, 2025
   t: { hour: 'numeric', minute: 'numeric' }, // 6:26 PM
   T: { hour: 'numeric', minute: 'numeric', second: 'numeric' }, // 6:26:00 PM
   f: {
@@ -64,7 +65,7 @@ const discordFormats: { [key: string]: Intl.DateTimeFormatOptions } = {
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-  }, // December 31st, 2025 at 6:26 PM
+  }, // December 31, 2025 at 6:26 PM
   F: {
     weekday: 'long',
     year: 'numeric',
@@ -72,7 +73,7 @@ const discordFormats: { [key: string]: Intl.DateTimeFormatOptions } = {
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-  }, // Wednesday, December 31st, 2025 at 6:26 PM
+  }, // Wednesday, December 31, 2025 at 6:26 PM
   s: {
     year: 'numeric',
     month: '2-digit',
@@ -88,6 +89,8 @@ const discordFormats: { [key: string]: Intl.DateTimeFormatOptions } = {
     minute: 'numeric',
     second: 'numeric',
   }, // 12/31/2025, 6:26:00 PM
+  // non-discord format:
+  b: { year: 'numeric', month: 'short', day: 'numeric' }, // Dec 31, 2025
 };
 
 const datetimeFormat = (date: Date, formatStr: string): string => {
@@ -95,7 +98,7 @@ const datetimeFormat = (date: Date, formatStr: string): string => {
     return timeago(date);
   }
 
-  const fmt = discordFormats[formatStr];
+  const fmt = discordFormatsExtended[formatStr];
 
   if (fmt) {
     const formatter = new Intl.DateTimeFormat(displayLocale, fmt);
