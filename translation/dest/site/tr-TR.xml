@@ -110,7 +110,7 @@
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="openingEndgameExplorer">Açılış/oyunsonu kâşifi</string>
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
-  <string name="playFirstOpeningEndgameExplorerMove">İlk sıradaki açılış kaşifi/oyun sonu analizi hamlesini oyna</string>
+  <string name="playFirstOpeningEndgameExplorerMove">İlk sıradaki açılış kâşifi/oyun sonu analizi hamlesini oyna</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
   <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde önlendi</string>
   <string name="winOr50MovesByPriorMistake">Galibiyet veya geçmiş hata sebebiyle 50 hamle</string>
