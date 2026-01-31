@@ -144,6 +144,9 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
   }
 
   function isMyTurn(): boolean {
+    if (root.data.game.variant.key === 'racingKings' && root.data.game.player === 'black') {
+      return root.turnColor() !== root.bottomColor();
+    }
     return root.turnColor() === root.bottomColor();
   }
 
