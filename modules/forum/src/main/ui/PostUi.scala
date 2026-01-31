@@ -98,11 +98,11 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                   tpe := "button",
                   dataIcon := "❝"
                 )("Quote")
-              )
+              ),
+              ctx.blind.not.option:
+                a(cls := "anchor", href := url)(s"#${post.number}")
             )
-          ),
-          ctx.blind.not.option:
-            a(cls := "anchor", href := url)(s"#${post.number}")
+          )
         ),
         if hide then
           div(cls := "forum-post__blocked")(

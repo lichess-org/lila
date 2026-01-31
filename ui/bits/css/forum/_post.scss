@@ -8,10 +8,9 @@
   }
 
   &__metas {
-    @extend %flex-between;
-
     > div {
       @extend %flex-center;
+      flex: 1;
     }
 
     .author {
@@ -33,6 +32,7 @@
 
       color: $c-link-dim;
       font-weight: bold;
+      margin-inline-start: auto;
     }
 
     time {
