@@ -39,17 +39,19 @@
     opacity: 0;
   }
 
-  .forum-post:hover &-auth button.no {
-    opacity: 0.4;
-    filter: grayscale(100%);
+  @media (hover: hover) {
+    .forum-post:hover &-auth button.no {
+      opacity: 0.4;
+      filter: grayscale(100%);
 
-    &:hover {
-      opacity: 0.7;
-      filter: grayscale(0%);
-      background: $m-primary_bg--mix-15;
+      &:hover {
+        opacity: 0.7;
+        filter: grayscale(0%);
+        background: $m-primary_bg--mix-15;
 
-      img {
-        transform: scale(1.2) !important;
+        img {
+          transform: scale(1.2) !important;
+        }
       }
     }
   }
