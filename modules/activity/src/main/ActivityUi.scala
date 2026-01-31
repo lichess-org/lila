@@ -25,7 +25,7 @@ final class ActivityUi(helpers: Helpers)(
         .filterNot(_.isEmpty)
         .map: a =>
           st.section(
-            h2(semanticDate(a.interval.start)),
+            h2(semanticDate(a.interval.start, Some("b"))),
             div(cls := "entries")(
               a.patron.map(renderPatron),
               a.practice.map(renderPractice),
