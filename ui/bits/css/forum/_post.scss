@@ -35,6 +35,10 @@
       margin-inline-start: auto;
     }
 
+    &__actions {
+      @extend %flex-center-nowrap;
+    }
+
     time {
       margin-inline-end: 1em;
     }
