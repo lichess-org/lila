@@ -45,7 +45,7 @@ export default function initModule(): void {
     // Initial load
     const shortName = getShortName();
     !!shortName && checkAndToggle(shortName);
-    nameInput?.addEventListener('input', () => {
+    nameInput.addEventListener('input', () => {
       const shortName = getShortName();
       !!shortName && checkAndToggle(shortName);
     });
