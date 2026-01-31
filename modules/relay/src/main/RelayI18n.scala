@@ -12,10 +12,9 @@ private object RelayI18n:
   private val classicalRegex = """(?i)^classical$""".r
   private val openRegex = """(?i)^open$""".r
   private val womenRegex = """(?i)^women$""".r
-  private val boysRegex = """(?i)^boys$""".r
   private val girlsRegex = """(?i)^girls$""".r
-  private val boysUnderXRegex = """(?i)^boys\s+u(\d+)$""".r
-  private val girlsUnderXRegex = """(?i)^girls\s+u(\d+)$""".r
+  private val openUnderXAgeRegex = """(?i)^open\s+u(\d+)$""".r
+  private val girlsUnderXAgeRegex = """(?i)^girls\s+u(\d+)$""".r
   private val quarterfinalsRegex = """(?i)^quarter[- ]?finals$""".r
   private val semifinalsRegex = """(?i)^semi[- ]?finals$""".r
   private val finalsRegex = """(?i)^finals$""".r
@@ -33,10 +32,9 @@ private object RelayI18n:
         case classicalRegex() => site.classical.txt()
         case openRegex() => broadcast.openTournament.txt()
         case womenRegex() => broadcast.womenTournament.txt()
-        case boysRegex() => broadcast.boysTournament.txt()
         case girlsRegex() => broadcast.girlsTournament.txt()
-        case boysUnderXRegex(age) => broadcast.boysUnderXTournament.txt(age)
-        case girlsUnderXRegex(age) => broadcast.girlsUnderXTournament.txt(age)
+        case openUnderXAgeRegex(age) => broadcast.openUnderXAgeTournament.txt(age)
+        case girlsUnderXAgeRegex(age) => broadcast.girlsUnderXAgeTournament.txt(age)
         case quarterfinalsRegex() => broadcast.quarterfinals.txt()
         case semifinalsRegex() => broadcast.semifinals.txt()
         case finalsRegex() => broadcast.finals.txt()
