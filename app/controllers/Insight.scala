@@ -15,8 +15,10 @@ final class Insight(env: Env) extends LilaController(env):
 
   def index(username: UserStr) = OpenOrScoped(): ctx ?=>
     Accessible(username): user =>
+      val defaultMetric: InsightMetric =
+        if isGrantedOpt(_.SeeInsight) then InsightMetric.MeanCpl else InsightMetric.MeanAccuracy
       negotiate(
-        html = doPath(user, InsightMetric.MeanAccuracy.key, InsightDimension.Perf.key, ""),
+        html = doPath(user, defaultMetric.key, InsightDimension.Perf.key, ""),
         json = env.insight.api.userStatus(user).map { status =>
           Ok(Json.obj("status" -> status.toString))
         }
