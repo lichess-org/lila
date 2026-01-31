@@ -92,8 +92,8 @@
   <string name="girlsTournament">Girls</string>
   <string name="boysUnderXTournament">Boys U%s</string>
   <string name="girlsUnderXTournament">Girls U%s</string>
-  <string name="quarterfinals">Quarter-finals</string>
-  <string name="semifinals">Semi-finals</string>
+  <string name="quarterfinals">Quarterfinals</string>
+  <string name="semifinals">Semifinals</string>
   <string name="finals">Finals</string>
   <string name="tiebreaks">Tiebreaks</string>
   <string name="gameX">Game %s</string>

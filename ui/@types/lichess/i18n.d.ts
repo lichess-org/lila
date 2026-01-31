@@ -339,7 +339,7 @@ interface I18n {
     overview: string;
     /** Past broadcasts */
     pastBroadcasts: string;
-    /** Quarter-finals */
+    /** Quarterfinals */
     quarterfinals: string;
     /** Rating diff */
     ratingDiff: string;
@@ -355,7 +355,7 @@ interface I18n {
     roundX: I18nFormat;
     /** Score */
     score: string;
-    /** Semi-finals */
+    /** Semifinals */
     semifinals: string;
     /** Show players scores based on game results */
     showScores: string;
