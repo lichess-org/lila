@@ -125,4 +125,17 @@ It will display a horizontal line.</string>
   <string name="quickLoginCodesDesc1" comment="String is a URL">Use these codes on %s to log your students into Lichess.</string>
   <string name="quickLoginCodesDesc2">When the codes expire, your students will remain logged in, until they manually log out.</string>
   <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Expiration %s</string>
+  <string name="bulkActions" comment="Text of a button that gives access to actions on a list of students">Bulk actions</string>
+  <string name="activeStudents" comment="List of students who can enter the class">Active students</string>
+  <string name="archivedStudents" comment="List of students who cannot enter the class but are still managed by the teacher">Archived students</string>
+  <string name="pendingInvites" comment="List of invitations to join the class waiting for an anwser">Pending invites</string>
+  <string name="archiveAction" comment="Action to move selected students to the archived student list">Archive</string>
+  <string name="restoreAction" comment="Action to move selected students back to the active student list">Restore</string>
+  <string name="removeAction" comment="Action to completely remove selected students">Remove</string>
+  <string name="bulkActionDisclaimer">Important! Make sure you understand how this works:</string>
+  <string name="bulkActionHelpLine1">Edit the list above to keep some students selected for a bulk action.</string>
+  <string name="bulkActionHelpLine2">All the students remaining in the list will be affected by the action.</string>
+  <string name="bulkActionHelpLine3">The students you removed from the list will remain in the class, unchanged.</string>
+  <string name="bulkActionInstruction">Choose the action to perform on the students listed above:</string>
+  <string name="removeActionWarning">BEWARE: removing a student with managed account will close the account permanently.</string>
 </resources>
