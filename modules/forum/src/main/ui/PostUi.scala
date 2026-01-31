@@ -143,6 +143,9 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
     val mine = ctx.me.so { ForumPost.Reaction.of(~post.reactions, _) }
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
+      canActuallyReact.option(
+        button(cls := "reactions-toggle", tpe := "button", dataIcon := Icon.PlusButton)
+      ),
       ForumPost.Reaction.list.map: r =>
         val users = ~post.reactions.flatMap(_.get(r))
         val size = users.size

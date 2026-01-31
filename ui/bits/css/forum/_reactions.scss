@@ -69,4 +69,14 @@
     transition: transform 0.15s cubic-bezier(0.2, 0, 0.13, 2);
     pointer-events: none;
   }
+
+  &-toggle {
+    order: 2;
+    font-size: 1.5em;
+    color: $c-font !important;
+
+    @media (hover: hover) {
+      display: none !important;
+    }
+  }
 }
