@@ -18,9 +18,9 @@ export default function initModule(): void {
       /^girls$/i,
       /^open\s+u(\d+)$/i,
       /^girls\s+u(\d+)$/i,
-      /^quarter[- ]?finals$/i,
-      /^semi[- ]?finals$/i,
-      /^finals$/i,
+      /^quarter[-\s]?final[s]?$/i,
+      /^semi[-\s]?final[s]?$/i,
+      /^final[s]?$/i,
       /^tie[-\s]?break(?:er)?[s]?$/i,
       /^knock[-\s]?out[s]?$/i,
     ];
