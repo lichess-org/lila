@@ -27,7 +27,7 @@ object RelayGroup:
         then RelayTour.Name(tour.value.drop(name.value.size + 1).dropWhile(!_.isLetterOrDigit))
         else tour
       def transName(tourName: RelayTour.Name)(using lila.core.i18n.Translate) =
-        Relayi18n(name.shortTourName(tourName).value)
+        RelayI18n(name.shortTourName(tourName).value)
       def toSlug =
         val s = scalalib.StringOps.slug(name.value)
         if s.isEmpty then "-" else s

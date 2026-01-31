@@ -75,7 +75,7 @@ case class RelayRound(
 
   def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
 
-  def transName(using lila.core.i18n.Translate) = Relayi18n(name.value)
+  def transName(using lila.core.i18n.Translate) = RelayI18n(name.value)
 
   override def toString = s"""relay #$id "$name" $sync"""
 

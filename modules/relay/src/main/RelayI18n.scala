@@ -1,6 +1,6 @@
 package lila.relay
 
-object Relayi18n:
+object RelayI18n:
   import lila.core.i18n.{ I18nKey, Translate }
   private val roundRegex = """(?i)^Round (\d+)$""".r
   private val blitzRegex = """(?i)^blitz$""".r
