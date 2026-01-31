@@ -70,6 +70,11 @@
     pointer-events: none;
   }
 
+  .forum-post &-auth:focus-within button.no {
+    opacity: 0.4;
+    filter: grayscale(100%);
+  }
+
   &-toggle {
     order: 2;
     font-size: 1.5em;
