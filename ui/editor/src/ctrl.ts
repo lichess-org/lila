@@ -11,7 +11,6 @@ import {
 import { type Result } from '@badrap/result';
 import type { Api as CgApi } from '@lichess-org/chessground/api';
 import type { Rules, Square } from 'chessops/types';
-import type { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
 import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
 import { Castles, defaultPosition, Position, PositionError, setupPosition } from 'chessops/variant';
@@ -32,7 +31,6 @@ export default class EditorCtrl {
   initialFen: FEN;
   pockets: Material | undefined;
   turn: Color;
-  castlingRights: SquareSet | undefined;
   castlingToggles: CastlingToggles<boolean>;
   enabledCastlingToggles: CastlingToggles<boolean>;
   epSquare: Square | undefined;
@@ -65,6 +63,7 @@ export default class EditorCtrl {
       });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
+    this.enabledCastlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
     this.variant = this.cfg.embed ? 'standard' : ((params.get('variant') || 'standard') as VariantKey);
     const fenPassedIn: FEN | null = cfg.fen || params.get('fen');
@@ -106,7 +105,6 @@ export default class EditorCtrl {
     this.enabledCastlingToggles = this.computeCastlingToggles();
     if (this.guessCastlingToggles) {
       this.castlingToggles = this.enabledCastlingToggles;
-      this.castlingRights = undefined;
     }
 
     const fen = this.fenFixedEp(this.getFen());
@@ -119,7 +117,7 @@ export default class EditorCtrl {
   }
 
   private castlingToggleFen(): string {
-    return CASTLING_TOGGLES.filter(toggle => this.castlingToggles[toggle]).join('');
+    return CASTLING_TOGGLES.filter(toggle => this.enabledCastlingToggles[toggle] && this.castlingToggles[toggle]).join('');
   }
 
   private computeCastlingToggles(): CastlingToggles<boolean> {
@@ -147,7 +145,7 @@ export default class EditorCtrl {
       board,
       pockets: this.pockets,
       turn: this.turn,
-      castlingRights: this.castlingRights || parseCastlingFen(board, this.castlingToggleFen()).unwrap(),
+      castlingRights: parseCastlingFen(board, this.castlingToggleFen()).unwrap(),
       epSquare: this.epSquare,
       remainingChecks: this.remainingChecks,
       halfmoves: this.halfmoves,
@@ -244,7 +242,6 @@ export default class EditorCtrl {
     this.chessground ? this.chessground.state.orientation : this.options.orientation || 'white';
 
   setCastlingToggle(id: CastlingToggle, value: boolean): void {
-    if (this.castlingToggles[id] !== value) this.castlingRights = undefined;
     this.castlingToggles[id] = value;
     this.guessCastlingToggles = false;
     this.onChange();
@@ -283,17 +280,16 @@ export default class EditorCtrl {
   private setSetup = (setup: Setup): void => {
     this.pockets = setup.pockets;
     this.turn = setup.turn;
-    this.castlingRights = setup.castlingRights;
     this.epSquare = setup.epSquare;
     this.remainingChecks = setup.remainingChecks;
     this.halfmoves = setup.halfmoves;
     this.fullmoves = setup.fullmoves;
 
     const castles = Castles.fromSetup(setup);
-    this.castlingToggles['Q'] = defined(castles.rook.white.a) || this.castlingRights.has(0);
-    this.castlingToggles['K'] = defined(castles.rook.white.h) || this.castlingRights.has(7);
-    this.castlingToggles['q'] = defined(castles.rook.black.a) || this.castlingRights.has(56);
-    this.castlingToggles['k'] = defined(castles.rook.black.h) || this.castlingRights.has(63);
+    this.castlingToggles['Q'] = defined(castles.rook.white.a) || setup.castlingRights.has(0);
+    this.castlingToggles['K'] = defined(castles.rook.white.h) || setup.castlingRights.has(7);
+    this.castlingToggles['q'] = defined(castles.rook.black.a) || setup.castlingRights.has(56);
+    this.castlingToggles['k'] = defined(castles.rook.black.h) || setup.castlingRights.has(63);
 
     this.enabledCastlingToggles = this.computeCastlingToggles();
   };
