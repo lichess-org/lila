@@ -17,8 +17,6 @@ trait DateHelper:
   private val dateTimeFormatters = scalalib.ConcurrentMap[String, DateTimeFormatter](maxLangs)
   private val dateFormatters = scalalib.ConcurrentMap[String, DateTimeFormatter](maxLangs)
 
-  private val englishDateTimeFormatter =
-    DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
   private val englishDateFormatter =
     DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
@@ -47,7 +45,6 @@ trait DateHelper:
     m.getDisplayName(TextStyle.FULL, lang.locale)
 
   def showEnglishDate(instant: Instant): String = englishDateFormatter.print(instant)
-  def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter.print(instant)
 
   def semanticDate(instant: Instant)(using t: Translate): Tag =
     timeTag(datetimeAttr := isoDateTime(instant))(showDate(instant))
