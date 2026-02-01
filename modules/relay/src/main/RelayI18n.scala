@@ -41,5 +41,5 @@ private object RelayI18n:
         case finalsRegex() => broadcast.finals.txt()
         case tiebreaksRegex() => broadcast.tiebreaks.txt()
         case knockoutsRegex() => broadcast.knockouts.txt()
-        case _ => name
+        case token => token
       .mkString(" | ")
