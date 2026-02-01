@@ -73,8 +73,8 @@ final class ModUserTableUi(helpers: Helpers, modUi: ModUi):
                 u.marks.troll.option(mark("SHADOWBAN"))
               ),
               td(u.enabled.no.option(mark("CLOSED"))),
-              td(dataSort := u.createdAt.toMillis)(momentFromNowServer(u.createdAt)),
-              td(dataSort := u.seenAt.map(_.toMillis.toString))(u.seenAt.map(momentFromNowServer)),
+              td(dataSort := u.createdAt.toMillis)(pastMomentServer(u.createdAt)),
+              td(dataSort := u.seenAt.map(_.toMillis.toString))(u.seenAt.map(pastMomentServer)),
               eraseButton.option(
                 td(
                   postForm(action := routes.Mod.gdprErase(u.username)):
