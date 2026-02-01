@@ -40,11 +40,13 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       userApi
         .extended(
           name,
-          withFollows = userWithFollows,
-          withTrophies = getBool("trophies"),
-          withCanChallenge = getBool("challenge"),
-          withProfile = getBoolOpt("profile") | true,
-          withRank = getBool("rank")
+          lila.api.UserApi.Opts(
+            withFollows = userWithFollows,
+            withTrophies = getBool("trophies"),
+            withCanChallenge = getBool("challenge"),
+            withProfile = getBoolOpt("profile") | true,
+            withRank = getBool("rank")
+          )
         )
         .map(toApiResult)
         .map(toHttp)

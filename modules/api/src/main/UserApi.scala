@@ -33,6 +33,7 @@ final class UserApi(
 )(using Executor, lila.core.i18n.Translator):
 
   export userApi.withPerfs
+  import UserApi.Opts
 
   def one(u: UserWithPerfs | LightUser, joinedAt: Option[Instant] = None): JsObject = {
     val (light, userJson) = u match
@@ -44,26 +45,16 @@ final class UserApi(
 
   def extended(
       username: UserStr,
-      withFollows: Boolean,
-      withTrophies: Boolean,
-      withCanChallenge: Boolean,
-      withProfile: Boolean,
-      withRank: Boolean
+      opts: Opts
   )(using Option[Me], Lang): Fu[Option[JsObject]] =
     userApi
       .withPerfs(username)
       .flatMapz:
-        extended(_, withFollows, withTrophies, withCanChallenge, withProfile, withRank).dmap(some)
+        extended(_, opts).dmap(some)
 
   def extended(
       u: User | UserWithPerfs,
-      withFollows: Boolean,
-      withTrophies: Boolean,
-      withCanChallenge: Boolean,
-      withProfile: Boolean = true,
-      withRank: Boolean = false,
-      withPlayban: Boolean = false,
-      forWiki: Boolean = false
+      opts: Opts
   )(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
       case u: User => userApi.withPerfs(u)
@@ -72,6 +63,7 @@ final class UserApi(
         if u.enabled.no
         then fuccess(jsonView.disabled(u.light))
         else
+          import opts.*
           (
             gameProxyRepo.urgentGames(u).dmap(_.headOption),
             as.filter(u !=).so(me => crosstableApi.nbGames(me.userId, u.id)),
@@ -155,10 +147,12 @@ final class UserApi(
 
   def mobile(user: User)(using me: Option[Me])(using Lang) = extended(
     user,
-    withFollows = false,
-    withTrophies = false,
-    withCanChallenge = me.exists(_.isnt(user)),
-    withPlayban = me.exists(_.is(user))
+    Opts(
+      withFollows = false,
+      withTrophies = false,
+      withCanChallenge = me.exists(_.isnt(user)),
+      withPlayban = me.exists(_.is(user))
+    )
   )
 
   def getTrophiesAndAwards(u: User) =
@@ -214,3 +208,13 @@ object UserApi:
       revolutions: List[lila.tournament.Revolution.Award]
   ):
     def countTrophiesAndPerfCups = trophies.size + ranks.count(_._2 <= 100)
+
+  case class Opts(
+      withFollows: Boolean,
+      withTrophies: Boolean,
+      withCanChallenge: Boolean,
+      withProfile: Boolean = true,
+      withRank: Boolean = false,
+      withPlayban: Boolean = false,
+      forWiki: Boolean = false
+  )
