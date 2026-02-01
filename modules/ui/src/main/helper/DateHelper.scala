@@ -86,7 +86,7 @@ trait DateHelper:
       alwaysRelative: Boolean = false,
       once: Boolean = false
   )(using Translate): Frag =
-    momentFromNow(instant, alwaysRelative, once)(momentFromNowServerText(instant))
+    momentFromNow(instant, alwaysRelative, once)(pastMomentServerText(instant))
 
   def absClientInstant(instant: Instant)(using Translate): Tag =
     absClientInstantEmpty(instant)(showInstant(instant))
@@ -100,9 +100,9 @@ trait DateHelper:
     momentFromNow(nowInstant.plusSeconds(seconds.value), alwaysRelative)
 
   def momentFromNowServer(instant: Instant)(using Translate): Frag =
-    timeTag(title := s"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
+    timeTag(title := s"${showInstant(instant)} UTC")(pastMomentServerText(instant))
 
-  def momentFromNowServerText(instant: Instant)(using Translate): String =
+  def pastMomentServerText(instant: Instant)(using Translate): String =
     val seconds = (nowSeconds - instant.toMillis / 1000).toInt.atLeast(0)
     val minutes = seconds / 60
     val hours = minutes / 60
@@ -119,11 +119,11 @@ trait DateHelper:
     else if years == 0 then s"${pluralize("month", months)}$preposition"
     else s"${pluralize("year", years)}$preposition"
 
-  def daysFromNow(date: LocalDate)(using Translate): String =
+  def daysAgo(date: LocalDate)(using Translate): String =
     val today = nowInstant.date
     if date == today then I18nKey.site.today.txt()
     else if date == today.minusDays(1) then I18nKey.site.yesterday.txt()
-    else momentFromNowServerText(date.atStartOfDay.instant)
+    else pastMomentServerText(date.atStartOfDay.instant)
 
   def timeRemaining(instant: Instant): Tag =
     timeTag(cls := s"timeago remaining", datetimeAttr := isoDateTime(instant))(nbsp)
