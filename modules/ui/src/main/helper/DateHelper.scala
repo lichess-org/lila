@@ -55,9 +55,6 @@ trait DateHelper:
   def semanticDate(instant: Instant)(using t: Translate): Tag =
     timeTag(datetimeAttr := isoDateTime(instant))(showDate(instant))
 
-  def semanticDate(date: LocalDate)(using t: Translate): Tag =
-    timeTag(datetimeAttr := isoDateTime(date.atStartOfDay.instant))(showDate(date))
-
   def showMinutes(minutes: Int)(using Translate): String =
     lila.core.i18n.translateDuration(Duration.ofMinutes(minutes))
 
