@@ -24,8 +24,8 @@ importers:
         specifier: 3.3.3
         version: 3.3.3
       fast-xml-parser:
-        specifier: 5.3.0
-        version: 5.3.0
+        specifier: 5.3.4
+        version: 5.3.4
       json-stringify-pretty-compact:
         specifier: 4.0.0
         version: 4.0.0
@@ -253,8 +253,8 @@ packages:
     resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
     engines: {node: '>=8.6.0'}
 
-  fast-xml-parser@5.3.0:
-    resolution: {integrity: sha512-gkWGshjYcQCF+6qtlrqBqELqNqnt4CxruY6UVAWWnqb3DQ6qaNFEIKqzYep1XzHLM/QtrHVCxyPOtTk4LTQ7Aw==}
+  fast-xml-parser@5.3.4:
+    resolution: {integrity: sha512-EFd6afGmXlCx8H8WTZHhAoDaWaGyuIBoZJ2mknrNxug+aZKjkp0a0dlars9Izl+jF+7Gu1/5f/2h68cQpe0IiA==}
     hasBin: true
 
   fastq@1.19.0:
@@ -504,7 +504,7 @@ snapshots:
       merge2: 1.4.1
       micromatch: 4.0.8
 
-  fast-xml-parser@5.3.0:
+  fast-xml-parser@5.3.4:
     dependencies:
       strnum: 2.1.1
 

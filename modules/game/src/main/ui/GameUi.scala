@@ -256,7 +256,7 @@ final class GameUi(helpers: Helpers):
           div(cls := "header", dataIcon := gameIcon(g))(
             div(cls := "header__text")(
               source(g),
-              g.pgnImport.flatMap(_.date).fold[Frag](momentFromNowWithPreload(g.createdAt))(frag(_)),
+              g.pgnImport.flatMap(_.date).fold[Frag](pastMomentWithPreload(g.createdAt))(frag(_)),
               contextLink.map(l => frag(separator, l))
             )
           ),

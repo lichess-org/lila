@@ -11,7 +11,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:
 
-  val engineFullName = "Stockfish 17.1"
+  val engineFullName = "Stockfish 18"
 
   def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
     st.nav(cls := "subnav__inner")(mods)
