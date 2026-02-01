@@ -27,14 +27,6 @@
       background: $m-primary_bg--mix-12;
     }
 
-    .anchor {
-      @extend %break-nope;
-
-      color: $c-link-dim;
-      font-weight: bold;
-      margin-inline-start: auto;
-    }
-
     &__actions {
       @extend %flex-center-nowrap;
     }

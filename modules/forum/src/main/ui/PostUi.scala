@@ -27,7 +27,6 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg).option(
             div(
-              ctx.blind.option(h2(a(cls := "anchor", href := url)(s"Post ${post.number}"))),
               bits.authorLink(
                 post = post,
                 cssClass = s"author${(topic.userId == post.userId).so(" author--op")}".some
@@ -104,9 +103,6 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                           quoteButton
                         )
                   ).some
-              ,
-              ctx.blind.not.option:
-                a(cls := "anchor", href := url)(s"#${post.number}")
             )
           )
         ),
