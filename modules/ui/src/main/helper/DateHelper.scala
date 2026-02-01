@@ -99,7 +99,7 @@ trait DateHelper:
   def secondsFromNow(seconds: Seconds, alwaysRelative: Boolean = false): Tag =
     momentFromNow(nowInstant.plusSeconds(seconds.value), alwaysRelative)
 
-  def momentFromNowServer(instant: Instant)(using Translate): Frag =
+  def pastMomentServer(instant: Instant)(using Translate): Frag =
     timeTag(title := s"${showInstant(instant)} UTC")(pastMomentServerText(instant))
 
   def pastMomentServerText(instant: Instant)(using Translate): String =

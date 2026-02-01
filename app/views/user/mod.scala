@@ -178,8 +178,8 @@ object mod:
                     )(appeal.msgs.size)
                   )
               ,
-              td(dataSort := o.createdAt.toMillis)(momentFromNowServer(o.createdAt)),
-              td(dataSort := o.seenAt.map(_.toMillis.toString))(o.seenAt.map(momentFromNowServer)),
+              td(dataSort := o.createdAt.toMillis)(pastMomentServer(o.createdAt)),
+              td(dataSort := o.seenAt.map(_.toMillis.toString))(o.seenAt.map(pastMomentServer)),
               readOnly.not.option(ModUserTableUi.userCheckboxTd(o.marks.alt))
             )
           }
@@ -227,7 +227,7 @@ object mod:
                     td(l.value.proxy.name.map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
                     td(l.value.location.region),
                     td(l.value.location.city),
-                    td(dataSort := l.date.toMillis)(momentFromNowServer(l.date))
+                    td(dataSort := l.date.toMillis)(pastMomentServer(l.date))
                   )
                 .toList
             )
@@ -257,7 +257,7 @@ object mod:
                     ),
                     td(parts(parsed.os.family.some, parsed.os.major)),
                     td(parts(parsed.userAgent.family.some, parsed.userAgent.major)),
-                    td(dataSort := date.toMillis)(momentFromNowServer(date)),
+                    td(dataSort := date.toMillis)(pastMomentServer(date)),
                     td(UserClient(ua).toString)
                   )
                 }
@@ -286,7 +286,7 @@ object mod:
                   td(dataSort := ip.alts.score)(altMarks(ip.alts)),
                   td(ip.proxy.name.map { proxy => span(cls := "proxy", title := "Proxy")(proxy) }),
                   td(ip.clients.toList.map(_.toString).sorted.mkString(", ")),
-                  td(dataSort := ip.ip.date.toMillis)(momentFromNowServer(ip.ip.date)),
+                  td(dataSort := ip.ip.date.toMillis)(pastMomentServer(ip.ip.date)),
                   canIpBan.option(
                     td(dataSort := (9999 - ip.alts.cleans))(
                       button(
@@ -322,7 +322,7 @@ object mod:
                   td(a(href := routes.Mod.print(fp.fp.value.value))(fp.fp.value)),
                   td(dataSort := fp.alts.score)(altMarks(fp.alts)),
                   td(fp.client.toString),
-                  td(dataSort := fp.fp.date.toMillis)(momentFromNowServer(fp.fp.date)),
+                  td(dataSort := fp.fp.date.toMillis)(pastMomentServer(fp.fp.date)),
                   canFpBan.option(
                     td(dataSort := (9999 - fp.alts.cleans))(
                       button(

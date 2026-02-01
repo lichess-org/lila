@@ -330,7 +330,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                 " ",
                 userIdLink(r.user.some, withOnline = false),
                 " ",
-                momentFromNowServer(atom.at),
+                pastMomentServer(atom.at),
                 ": ",
                 shorten(atom.text, 200)
               )
