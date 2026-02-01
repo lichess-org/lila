@@ -103,16 +103,14 @@ trait DateHelper:
     timeTag(title := s"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
 
   def momentFromNowServerText(instant: Instant)(using Translate): String =
-    val inFuture = false
-    val (dateSec, nowSec) = (instant.toMillis / 1000, nowSeconds)
-    val seconds = (if inFuture then dateSec - nowSec else nowSec - dateSec).toInt.atLeast(0)
+    val seconds = (nowSeconds - instant.toMillis / 1000).toInt.atLeast(0)
     val minutes = seconds / 60
     val hours = minutes / 60
     val days = hours / 24
     lazy val weeks = days / 7
     lazy val months = days / 30
     lazy val years = days / 365
-    val preposition = if inFuture then " from now" else " ago"
+    val preposition = " ago"
     if minutes == 0 then I18nKey.timeago.rightNow.txt()
     else if hours == 0 then s"${pluralize("minute", minutes)}$preposition"
     else if days < 2 then s"${pluralize("hour", hours)}$preposition"
