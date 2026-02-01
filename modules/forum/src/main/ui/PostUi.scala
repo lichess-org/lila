@@ -42,7 +42,11 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                     momentFromNow(post.createdAt)
               ),
               (!post.erased && ctx.me.soUse(post.shouldShowEditForm)).option(
-                button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := Icon.Pencil)(
+                button(
+                  cls := "forum-post__button edit button button-empty text",
+                  tpe := "button",
+                  dataIcon := Icon.Pencil
+                )(
                   "Edit"
                 )
               ),
@@ -50,7 +54,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 given Me = me
                 val quoteButton = (canReply && !post.erased).option(
                   button(
-                    cls := "mod quote button button-empty text",
+                    cls := "forum-post__button quote button button-empty text",
                     tpe := "button",
                     dataIcon := "❝"
                   )("Quote")
@@ -60,7 +64,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                   frag(
                     postForm(action := routes.ForumPost.delete(post.id))(
                       submitButton(
-                        cls := "mod delete button button-empty yes-no-confirm",
+                        cls := "forum-post__button delete button button-empty yes-no-confirm",
                         dataIcon := Icon.Trash,
                         title := "Delete"
                       )
@@ -71,7 +75,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                   frag(
                     (canModCateg && post.number == 1).option:
                       a(
-                        cls := "mod mod-relocate button button-empty",
+                        cls := "forum-post__button mod-relocate button button-empty",
                         href := routes.ForumPost.relocate(post.id),
                         dataIcon := Icon.Forward,
                         title := "Relocate"
@@ -80,7 +84,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                     if canModCateg || topic.isUblogAuthor(me) then
                       frag(
                         a(
-                          cls := "mod delete button button-empty",
+                          cls := "forum-post__button delete button button-empty",
                           href := routes.ForumPost.delete(post.id),
                           dataIcon := Icon.Trash,
                           title := "Delete"
@@ -93,7 +97,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                         span(cls := "forum-post__actions")(
                           a(
                             titleOrText(trans.site.reportXToModerators.txt(userId)),
-                            cls := "mod report button button-empty",
+                            cls := "forum-post__button report button button-empty",
                             href := addQueryParams(
                               routes.Report.form.url,
                               Map("username" -> userId.value, "postUrl" -> postUrl.value, "from" -> "forum")
