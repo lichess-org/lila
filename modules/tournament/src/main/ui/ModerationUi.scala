@@ -44,7 +44,7 @@ final class ModerationUi(helpers: Helpers, ui: TournamentUi):
                 tr(
                   td(userLink(user)),
                   td(user.count.game.localize),
-                  td(momentFromNowServer(user.createdAt)),
+                  td(pastMomentServer(user.createdAt)),
                   td(player.showRating),
                   td(player.score),
                   td(player.performance)

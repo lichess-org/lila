@@ -60,7 +60,7 @@ def communication(
                         modConvo.msgs.reverse.map: msg =>
                           val author = msg.user.is(u)
                           tr(cls := List("post" -> true, "author" -> author))(
-                            td(momentFromNowServer(msg.date)),
+                            td(pastMomentServer(msg.date)),
                             td(strong(if author then u.username else modConvo.contact.username)),
                             td(cls := "message")(Analyser.highlightBad(msg.text))
                           )
