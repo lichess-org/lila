@@ -7,6 +7,7 @@ import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.config.*
 import lila.core.perf.UserWithPerfs
+import lila.core.user.PublicFideIdOf
 import lila.rating.PerfType
 import lila.user.Trophy
 
@@ -29,6 +30,7 @@ final class UserApi(
     challengeGranter: lila.challenge.ChallengeGranter,
     playbanApi: lila.playban.PlaybanApi,
     rankingsOf: UserId => lila.core.rating.UserRankMap,
+    fideIdOf: PublicFideIdOf,
     net: NetConfig
 )(using Executor, lila.core.i18n.Translator):
 
@@ -77,7 +79,8 @@ final class UserApi(
             streamerApi.listed(u.user),
             withCanChallenge.so(challengeGranter.mayChallenge(u.user).dmap(some)),
             forWiki.optionFu(userRepo.email(u.id)),
-            withPlayban.so(playbanApi.currentBan(u))
+            withPlayban.so(playbanApi.currentBan(u)),
+            withFideId.so(fideIdOf(u.user.light))
           ).mapN:
             (
                 gameOption,
@@ -92,7 +95,8 @@ final class UserApi(
                 streamer,
                 canChallenge,
                 email,
-                playban
+                playban,
+                fideId
             ) =>
               val rankMap = withRank.option(rankingsOf(u.id))
               jsonView.full(u.user, u.perfs.some, withProfile = withProfile, rankMap) ++ {
@@ -121,6 +125,7 @@ final class UserApi(
                   .add("trophies", trophiesAndAwards.map(trophiesJson))
                   .add("canChallenge", canChallenge)
                   .add("playban", playban)
+                  .add("fideId", fideId)
                   .add(
                     "streamer",
                     streamer.map: s =>
@@ -216,5 +221,6 @@ object UserApi:
       withProfile: Boolean = true,
       withRank: Boolean = false,
       withPlayban: Boolean = false,
+      withFideId: Boolean = false,
       forWiki: Boolean = false
   )
