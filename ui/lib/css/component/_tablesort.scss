@@ -1,9 +1,9 @@
-th[role='columnheader']:not(.no-sort) {
+th[role='columnheader']:not([data-sort-method='none']) {
   @include prevent-select;
   cursor: pointer;
 }
 
-th[role='columnheader']:not(.no-sort):after {
+th[role='columnheader']:not([data-sort-method='none']):after {
   @extend %data-icon;
   @include prevent-select;
   content: $licon-UpTriangle;
@@ -15,11 +15,11 @@ th[role='columnheader']:not(.no-sort):after {
   font-size: 14px;
 }
 
-th[aria-sort='descending']:not(.no-sort):after {
+th[aria-sort='descending']:not([data-sort-method='none']):after {
   content: $licon-DownTriangle;
 }
 
-th[aria-sort]:not(.no-sort) {
+th[aria-sort]:not([data-sort-method='none']) {
   background: $m-accent--fade-85;
   color: $c-font-clear;
   &:after {
@@ -28,7 +28,7 @@ th[aria-sort]:not(.no-sort) {
   }
 }
 
-th[role='columnheader']:not(.no-sort):hover {
+th[role='columnheader']:not([data-sort-method='none']):hover {
   color: $c-font-clear;
 
   &:after {
