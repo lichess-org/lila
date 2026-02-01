@@ -63,7 +63,6 @@ export default class EditorCtrl {
       });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
-    this.enabledCastlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
     this.variant = this.cfg.embed ? 'standard' : ((params.get('variant') || 'standard') as VariantKey);
     const fenPassedIn: FEN | null = cfg.fen || params.get('fen');
@@ -126,7 +125,7 @@ export default class EditorCtrl {
 
   private computeCastlingToggles(): CastlingToggles<boolean> {
     const chess960Castling = chess960CastlingSquares(this.chess960PositionId);
-    const board = this.getSetup().board,
+    const board = this.getBoard(),
       whiteKingOnE1 = board.king.intersect(board.white).has(parseSquare(chess960Castling.white.king)!),
       blackKingOnE8 = board.king.intersect(board.black).has(parseSquare(chess960Castling.black.king)!),
       whiteRooks = board.rook.intersect(board.white),
@@ -139,12 +138,16 @@ export default class EditorCtrl {
     };
   }
 
-  private getSetup(): Setup {
+  private getBoard(): Board {
     const boardFen = this.chessground?.getFen() || this.initialFen;
-    const board = parseFen(boardFen).unwrap(
+    return parseFen(boardFen).unwrap(
       setup => setup.board,
       _ => Board.empty(),
     );
+  }
+
+  private getSetup(): Setup {
+    const board = this.getBoard();
     return {
       board,
       pockets: this.pockets,
