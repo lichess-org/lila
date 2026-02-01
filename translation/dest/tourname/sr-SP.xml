@@ -40,8 +40,8 @@
   <string name="classicalShield">Класична Штитна</string>
   <string name="xShieldArena">%s Штитна Арена</string>
   <string name="xShield">%s Штитна</string>
-  <string name="xTeamBattle">%s Борба тимова</string>
-  <string name="eliteXArena">Елитна %s арена</string>
+  <string name="xTeamBattle">%s Тимска Битка</string>
+  <string name="eliteXArena">Елитна %s Арена</string>
   <string name="eliteX">Елитни %s</string>
   <string name="xArena">%s Арена</string>
 </resources>
