@@ -70,7 +70,7 @@ trait DateHelper:
     else timeTag(cls := s"timeago${once.so(" once")}", datetimeAttr := isoDateTime(instant))(nbsp)
 
   def pastMomentWithPreload(instant: Instant)(using Translate): Frag =
-    momentFromNow(instant, false, false)(pastMomentServerText(instant))
+    momentFromNow(instant)(pastMomentServerText(instant))
 
   def absClientInstant(instant: Instant)(using Translate): Tag =
     absClientInstantEmpty(instant)(showInstant(instant))
