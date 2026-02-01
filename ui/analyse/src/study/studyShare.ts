@@ -14,10 +14,13 @@ function fromPly(ctrl: StudyShare): VNode {
     'div.ply-wrap',
     ctrl.onMainline() &&
       hl('label.ply', [
-        hl('input', {
-          attrs: { type: 'checkbox', checked: ctrl.withPly() },
-          hook: bind('change', e => ctrl.withPly((e.target as HTMLInputElement).checked), ctrl.redraw),
-        }),
+        hl('div.switch', { attrs: { role: 'button' } }, [
+          hl('input#study-share-start-position.cmn-toggle.cmn-toggle--subtle', {
+            attrs: { type: 'checkbox', checked: ctrl.withPly() },
+            hook: bind('change', e => ctrl.withPly((e.target as HTMLInputElement).checked), ctrl.redraw),
+          }),
+          hl('label', { attrs: { for: 'study-share-start-position' } }),
+        ]),
         renderedMove
           ? i18n.study.startAtX.asArray(hl('strong', renderedMove))
           : [i18n.study.startAtInitialPosition],
