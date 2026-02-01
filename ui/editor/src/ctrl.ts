@@ -69,11 +69,13 @@ export default class EditorCtrl {
     const fenPassedIn: FEN | null = cfg.fen || params.get('fen');
     this.initialFen = (fenPassedIn || INITIAL_FEN).replace(/_/g, ' ');
     this.guessCastlingToggles = false;
-    this.chess960PositionId = fenPassedIn
-      ? fenToChess960Id(fenPassedIn)
-      : params.get('position') !== null
-        ? parseInt(params.get('position')!, 10)
-        : randomPositionId();
+    if (this.variant === 'chess960') {
+      this.chess960PositionId = fenPassedIn
+        ? fenToChess960Id(fenPassedIn)
+        : params.get('position') !== null
+          ? parseInt(params.get('position')!, 10)
+          : randomPositionId();
+    }
 
     if (!this.cfg.embed) this.options.orientation = params.get('color') === 'black' ? 'black' : 'white';
 
@@ -104,7 +106,7 @@ export default class EditorCtrl {
   onChange(): void {
     this.enabledCastlingToggles = this.computeCastlingToggles();
     if (this.guessCastlingToggles) {
-      this.castlingToggles = this.enabledCastlingToggles;
+      this.castlingToggles = { ...this.enabledCastlingToggles };
     }
 
     const fen = this.fenFixedEp(this.getFen());
