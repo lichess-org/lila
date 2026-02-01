@@ -212,7 +212,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         env.relay.defaults.roundToLink
           .get(tour.id)
           .flatMap:
-            _.map(_.withTour(tour)).fold(emptyBroadcastPage(tour))(roundC.embedShow)
+            _.map(_.withTour(tour)).fold(emptyBroadcastPage(tour))(roundC.embedShow(_, none))
 
   private def emptyBroadcastPage(tour: TourModel)(using Context) = for
     owner <- env.user.lightUser(tour.ownerIds.head)
