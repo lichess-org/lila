@@ -201,9 +201,10 @@ const overview = (ctx: RelayViewContext) => {
   ];
 };
 
+export const relayIframe = (path: string) =>
+  `<iframe src="${baseUrl()}/embed${path}" style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
+
 const share = (ctx: RelayViewContext) => {
-  const iframe = (path: string) =>
-    `<iframe src="${baseUrl()}/embed${path}" style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
   const iframeHelp = hl(
     'div.form-help',
     i18n.broadcast.iframeHelp.asArray(
@@ -262,9 +263,9 @@ const share = (ctx: RelayViewContext) => {
       hl('fieldset.relay-tour__share.toggle-box.toggle-box--toggle.toggle-box--toggle-off', [
         hl('legend', i18n.broadcast.embedThisBroadcast),
         group &&
-          link('Follow ongoing tournament', iframe(`/broadcast/${group.slug}/${group.id}`), iframeHelp),
-        link('This tournament: ' + tour.name, iframe(ctx.relay.tourPath()), iframeHelp),
-        link('This round: ' + roundName, iframe(ctx.relay.roundPath()), iframeHelp),
+          link('Follow ongoing tournament', relayIframe(`/broadcast/${group.slug}/${group.id}`), iframeHelp),
+        link('This tournament: ' + tour.name, relayIframe(ctx.relay.tourPath()), iframeHelp),
+        link('This round: ' + roundName, relayIframe(ctx.relay.roundPath()), iframeHelp),
       ]),
     ],
   );
