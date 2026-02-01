@@ -188,6 +188,7 @@ export function view(ctrl: StudyCtrl): VNode {
               } else ctrl.setChapter(id);
             });
             vnode.data!.li = {};
+            ctrl.chapters.scroller.request('instant');
             onListUpdate(ctrl, vnode);
           },
           postpatch(old, vnode) {
