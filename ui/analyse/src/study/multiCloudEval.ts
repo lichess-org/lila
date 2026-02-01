@@ -5,7 +5,7 @@ import { povChances } from 'lib/ceval/winningChances';
 import { type VNode, bind, hl } from 'lib/view';
 import type { StudyChapters } from './studyChapters';
 import { debounce } from 'lib/async';
-import type { ServerNodeMsg, StudyChapter } from './interfaces';
+import type { ServerNodeMsg } from './interfaces';
 import type { ClientEval, TreeNode } from 'lib/tree/types';
 
 export interface CloudEval extends EvalHitMulti {
@@ -34,7 +34,7 @@ export class MultiCloudEval {
 
   constructor(
     readonly redraw: () => void,
-    private readonly currentChapter: StudyChapter,
+    private readonly variant: () => VariantKey,
     private readonly chapters: StudyChapters,
     private readonly send: SocketSend,
   ) {
@@ -68,7 +68,7 @@ export class MultiCloudEval {
       const worthSending = !alreadyHasAllFens || fensToRequest.size < this.lastRequestedFens.size / 1.5;
       if (worthSending) {
         this.lastRequestedFens = fensToRequest;
-        const variant = this.currentChapter.setup.variant.key; // lila-ws only supports one variant for all fens
+        const variant = this.variant(); // lila-ws only supports one variant for all fens
         this.send('evalGetMulti', {
           fens: Array.from(fensToRequest),
           ...(variant !== 'standard' ? { variant } : {}),
