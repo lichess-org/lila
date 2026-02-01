@@ -49,7 +49,7 @@ export class Engines {
         assets: {
           root: 'npm/stockfish-web',
           nnue: [`${variantMap(key)}-${nnue}.nnue`],
-          js: 'fsf14.js',
+          js: 'fsf_14.js',
         },
       },
       make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, variantMap),
@@ -66,33 +66,33 @@ export class Engines {
     const browserEngines: WithMake[] = [
       {
         info: {
-          id: '__sf17_1nnue7v2',
-          name: 'Stockfish 17.1 NNUE · 7MB v2',
-          short: 'SF 17.1 · 7MB v2',
+          id: '__sf_18_smallnet',
+          name: 'Stockfish 18 NNUE · 15MB',
+          short: 'SF 18 · 15MB',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
           cloudEval: true,
           assets: {
             root: 'npm/stockfish-web',
-            nnue: ['nn-9067e33176e8.nnue'],
-            js: 'sf171-7.js',
+            nnue: ['nn-4ca89e4b3abf.nnue'],
+            js: 'sf_18_smallnet.js',
           },
         },
         make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
       },
       {
         info: {
-          id: '__sf17_1nnue79',
-          name: 'Stockfish 17.1 NNUE · 79MB',
-          short: 'SF 17.1 · 79MB',
+          id: '__sf_18',
+          name: 'Stockfish 18 NNUE · 108MB',
+          short: 'SF 18 · 108MB',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,
           cloudEval: true,
           assets: {
             root: 'npm/stockfish-web',
-            js: 'sf171-79.js',
+            js: 'sf_18.js',
           },
         },
         make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
@@ -126,7 +126,7 @@ export class Engines {
           variants: variants.map(v => v[0]),
           assets: {
             root: 'npm/stockfish-web',
-            js: 'fsf14.js',
+            js: 'fsf_14.js',
           },
         },
         make: (e: BrowserEngineInfo) =>

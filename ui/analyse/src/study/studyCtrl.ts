@@ -166,7 +166,7 @@ export default class StudyCtrl {
       this.ctrl,
     );
     this.multiCloudEval = this.isCevalAllowed()
-      ? new MultiCloudEval(this.redraw, this.chapters.list, this.send)
+      ? new MultiCloudEval(this.redraw, () => this.ctrl.variantKey, this.chapters.list, this.send)
       : undefined;
     if (relayData) this.relay = new RelayCtrl(this, relayData);
     this.multiBoard = new MultiBoardCtrl(
