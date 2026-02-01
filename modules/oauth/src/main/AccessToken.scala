@@ -32,6 +32,8 @@ object AccessToken:
       clientOrigin: Option[String]
   )
 
+  case class Create(token: AccessToken)
+
   object BSONFields:
     val id = "_id"
     val userId = "userId"
