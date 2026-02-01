@@ -117,7 +117,9 @@ export default class EditorCtrl {
   }
 
   private castlingToggleFen(): string {
-    return CASTLING_TOGGLES.filter(toggle => this.enabledCastlingToggles[toggle] && this.castlingToggles[toggle]).join('');
+    const isCastlingToggleEnabled = (toggle: CastlingToggle) =>
+      this.enabledCastlingToggles[toggle] && this.castlingToggles[toggle];
+    return CASTLING_TOGGLES.filter(isCastlingToggleEnabled).join('');
   }
 
   private computeCastlingToggles(): CastlingToggles<boolean> {
