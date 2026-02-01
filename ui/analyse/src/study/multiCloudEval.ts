@@ -34,6 +34,7 @@ export class MultiCloudEval {
 
   constructor(
     readonly redraw: () => void,
+    private readonly variant: () => VariantKey,
     private readonly chapters: StudyChapters,
     private readonly send: SocketSend,
   ) {
@@ -67,7 +68,7 @@ export class MultiCloudEval {
       const worthSending = !alreadyHasAllFens || fensToRequest.size < this.lastRequestedFens.size / 1.5;
       if (worthSending) {
         this.lastRequestedFens = fensToRequest;
-        const variant = chapters[0].variant; // lila-ws only supports one variant for all fens
+        const variant = this.variant(); // lila-ws only supports one variant for all fens
         this.send('evalGetMulti', {
           fens: Array.from(fensToRequest),
           ...(variant !== 'standard' ? { variant } : {}),

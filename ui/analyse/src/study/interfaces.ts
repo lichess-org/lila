@@ -184,7 +184,6 @@ export interface ChapterPreviewFromServer extends ChapterPreviewBase {
   players?: PairOf<StudyPlayerFromServer>;
   thinkTime?: number; // seconds since last move
   orientation?: Color; // defaults to white
-  variant?: VariantKey; // defaults to standard
 }
 
 export interface ChapterPreview extends ChapterPreviewBase {
@@ -192,7 +191,6 @@ export interface ChapterPreview extends ChapterPreviewBase {
   players?: StudyPlayers;
   lastMoveAt?: number;
   orientation: Color;
-  variant: VariantKey;
   playing: boolean;
 }
 

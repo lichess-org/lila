@@ -94,7 +94,6 @@ site.load.then(() => {
     const post = this.closest('.forum-post')!,
       authorUsername = $(post).find('.author').attr('href')?.substring(3),
       author = authorUsername ? '@' + authorUsername : $(post).find('.author').text(),
-      anchor = $(post).find('.anchor').text(),
       reply = document.querySelector<HTMLTextAreaElement>('.reply .post-text-area')!;
 
     const lines = (
@@ -106,7 +105,7 @@ site.load.then(() => {
     if (lines.length === 0) return;
 
     const quote =
-      `${author} said in ${anchor}:\n` +
+      `${author} said:\n` +
       lines
         .map(line => `> ${line}\n`)
         .join('')
