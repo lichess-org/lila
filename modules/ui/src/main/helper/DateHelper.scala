@@ -30,12 +30,6 @@ trait DateHelper:
     dateFormatters.computeIfAbsentAlways(lang.code):
       DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(lang.toLocale)
 
-  private val englishTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-
-  def showTime(time: Instant)(using Translate): Tag =
-    timeTag(title := s"${showInstant(time)} UTC"):
-      englishTimeFormatter.format(time.dateTime)
-
   def showInstant(instant: Instant)(using t: Translate): String =
     dateTimeFormatter(using t.lang).print(instant)
 
