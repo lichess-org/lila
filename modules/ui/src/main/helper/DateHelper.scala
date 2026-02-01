@@ -62,8 +62,6 @@ trait DateHelper:
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
-  def momentFromNow(instant: Instant): Tag = momentFromNow(instant, false, false)
-
   def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
     if !alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis then
       absClientInstantEmpty(instant)(nbsp)
