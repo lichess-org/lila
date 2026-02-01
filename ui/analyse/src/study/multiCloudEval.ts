@@ -95,10 +95,13 @@ export class MultiCloudEval {
 }
 
 export const renderEvalToggle = (ctrl: MultiCloudEval): VNode =>
-  hl('input', {
-    attrs: { type: 'checkbox', checked: ctrl.showEval() },
-    hook: bind('change', e => ctrl.showEval((e.target as HTMLInputElement).checked)),
-  });
+  hl('div.switch', { attrs: { role: 'button' } }, [
+    hl('input#multiboard-toggle-eval.cmn-toggle.cmn-toggle--subtle', {
+      attrs: { type: 'checkbox' },
+      hook: bind('change', e => ctrl.showEval((e.target as HTMLInputElement).checked)),
+    }),
+    hl('label', { attrs: { for: 'multiboard-toggle-eval' } }),
+  ]);
 
 export const renderScore = (s: EvalScore) =>
   s.mate ? '#' + s.mate : defined(s.cp) ? `${s.cp >= 0 ? '+' : ''}${s.cp / 100}` : '?';
