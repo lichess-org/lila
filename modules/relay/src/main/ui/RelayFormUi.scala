@@ -231,7 +231,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
                 "Start: ",
                 source.round.startedAt
                   .orElse(source.round.startsAtTime)
-                  .fold(frag("unscheduled"))(momentFromNow),
+                  .fold(frag("unscheduled"))(momentFromNow(_)),
                 br,
                 "Last sync: ",
                 source.round.sync.log.events.lastOption.map: event =>

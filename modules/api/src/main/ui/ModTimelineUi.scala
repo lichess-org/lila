@@ -29,8 +29,8 @@ final class ModTimelineUi(helpers: Helpers)(
       .filter(Angle.filter)
       .map: e =>
         if e.at.date == today
-        then momentFromNowServerText(e.at) -> e
-        else daysFromNow(e.at.date) -> e
+        then pastMomentServerText(e.at) -> e
+        else daysAgo(e.at.date) -> e
       .groupBy(_._1)
       .view
       .mapValues(_._2F)
