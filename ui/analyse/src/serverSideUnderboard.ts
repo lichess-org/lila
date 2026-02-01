@@ -9,7 +9,7 @@ import { escapeHtml } from 'lib';
 import { storage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
 
-export const stockfishName = 'Stockfish 17.1';
+export const stockfishName = 'Stockfish 18';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);

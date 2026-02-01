@@ -106,5 +106,5 @@ final class TimelineUi(helpers: Helpers):
           )
       ,
       " ",
-      momentFromNowWithPreload(e.date)
+      pastMomentWithPreload(e.date)
     )
