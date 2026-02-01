@@ -53,7 +53,7 @@ def meta(
                   variantLink(game.variant, game.perfType, initialFen, shortName = true)
                 )
             ),
-            game.pgnImport.flatMap(_.date).fold(momentFromNowWithPreload(game.createdAt))(frag(_))
+            game.pgnImport.flatMap(_.date).fold(pastMomentWithPreload(game.createdAt))(frag(_))
           ),
           game.pgnImport
             .flatMap(_.user)
