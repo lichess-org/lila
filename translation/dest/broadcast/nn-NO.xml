@@ -83,6 +83,18 @@
   <string name="liveboard">Brett i sanntid</string>
   <string name="communityBroadcast">Fellesskapskringkasting</string>
   <string name="createdAndManagedBy">Oppretta og administrert av %s.</string>
+  <string name="automaticallyTranslated" comment="In reference to the name of a tournament round, which will be translated based on rules we hold in Lichess for e.g. &quot;Open&quot;, &quot;Quarterfinals&quot;...">Dette namnet vert automatisk omsett.</string>
   <string name="roundX">Runde %s</string>
   <string name="defaultRoundNameHelp">Om du ikkje endrar standardnamnet vil det automatisk bli oversett alle andre språk.</string>
+  <string name="openTournament">Opne</string>
+  <string name="womenTournament" comment="As in a Women's tournament.">Kvinner</string>
+  <string name="girlsTournament" comment="As in a Girls' tournament.">Jenter</string>
+  <string name="openUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Open U18&quot; will mean it is an open tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Opne U%s</string>
+  <string name="girlsUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Girls U18&quot; will mean it is an open tournament for under-18 year old girls.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Jenter U%s</string>
+  <string name="quarterfinals">Kvartfinalar</string>
+  <string name="semifinals">Semifinalar</string>
+  <string name="finals">Finalar</string>
+  <string name="tiebreaks">Tiebreak</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.">Parti %s</string>
+  <string name="knockouts" comment="As in a round of a tournament which has a knockout format.">Utslagsrundar</string>
 </resources>
