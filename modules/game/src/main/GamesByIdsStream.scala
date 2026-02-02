@@ -37,7 +37,7 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Mat
     gameSource(initialIds)
       .concat(startStream)
       .mapAsync(1)(gameRepo.withInitialFen)
-      .map(GameStream.gameWithInitialFenWriter.writes)
+      .map(GameStream.toJson(none))
 
   def addGameIds(streamId: String, gameIds: Set[GameId]) =
     Bus.publishDyn(WatchGames(gameIds), streamChan(streamId))

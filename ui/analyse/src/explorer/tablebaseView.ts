@@ -54,7 +54,7 @@ function showDtc(fen: FEN, move: TablebaseMoveStats) {
   return move.dtc
     ? h(
         'result.' + winnerOf(fen, move),
-        { attrs: { title: 'Moves to capture, promotion, or checkmate (Depth To Conversion, experimental)' } },
+        { attrs: { title: 'Moves to capture, promotion, or checkmate (Depth To Conversion)' } },
         'DTC ' + Math.abs(move.dtc),
       )
     : undefined;

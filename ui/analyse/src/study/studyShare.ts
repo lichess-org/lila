@@ -7,6 +7,7 @@ import { baseUrl } from '../view/util';
 import type { ChapterPreview, StudyData } from './interfaces';
 import type RelayCtrl from './relay/relayCtrl';
 import type { TreeNode } from 'lib/tree/types';
+import { relayIframe } from './relay/relayTourView';
 
 function fromPly(ctrl: StudyShare): VNode {
   const renderedMove = renderIndexAndMove(ctrl.currentNode(), false, false);
@@ -191,32 +192,42 @@ export function view(ctrl: StudyShare): VNode {
                 pastable && isPrivate && youCanPasteThis(),
               ]),
             ),
-            isPrivate ||
-              hl('div.form-group', [
-                hl('label.form-label', i18n.study.embedInYourWebsite),
-                copyMeInput(
-                  !isPrivate
-                    ? `<iframe ${
-                        ctrl.gamebook ? 'width="320" height="320"' : 'width="600" height="371"'
-                      } src="${baseUrl()}${addPly(
-                        `/study/embed/${studyId}/${chapter.id}`,
-                      )}" frameborder=0></iframe>`
-                    : i18n.study.onlyPublicStudiesCanBeEmbedded,
-                  { disabled: isPrivate },
-                ),
-                fromPly(ctrl),
-                hl(
-                  'a.form-help.text',
-                  {
-                    attrs: {
-                      href: '/developers#embed-study',
-                      target: '_blank',
-                      ...dataIcon(licon.InfoCircle),
+            ctrl.relay
+              ? hl('div.form-group', [
+                  hl('label.form-label', 'Embed this particular game'),
+                  copyMeInput(relayIframe(`${ctrl.relay.roundPath()}/${chapter.id}`)),
+                  hl(
+                    'a.form-help.text',
+                    { attrs: { ...dataIcon(licon.InfoCircle), href: `${ctrl.relay.roundPath()}#overview` } },
+                    'More options for embedding a broadcast',
+                  ),
+                ])
+              : isPrivate || // study embed
+                hl('div.form-group', [
+                  hl('label.form-label', i18n.study.embedInYourWebsite),
+                  copyMeInput(
+                    !isPrivate
+                      ? `<iframe ${
+                          ctrl.gamebook ? 'width="320" height="320"' : 'width="600" height="371"'
+                        } src="${baseUrl()}${addPly(
+                          `/study/embed/${studyId}/${chapter.id}`,
+                        )}" frameborder=0></iframe>`
+                      : i18n.study.onlyPublicStudiesCanBeEmbedded,
+                    { disabled: isPrivate },
+                  ),
+                  fromPly(ctrl),
+                  hl(
+                    'a.form-help.text',
+                    {
+                      attrs: {
+                        href: '/developers#embed-study',
+                        target: '_blank',
+                        ...dataIcon(licon.InfoCircle),
+                      },
                     },
-                  },
-                  i18n.study.readMoreAboutEmbedding,
-                ),
-              ]),
+                    i18n.study.readMoreAboutEmbedding,
+                  ),
+                ]),
           ]),
           hl('div.form-group', [hl('label.form-label', 'FEN'), copyMeInput(ctrl.currentNode().fen)]),
         ]

@@ -23,7 +23,7 @@ final class AccessTokenApi(
       .find($doc(F.userId -> token.userId, F.clientOrigin -> token.clientOrigin), $doc(F.id -> true).some)
       .sort($doc(F.usedAt -> -1, F.created -> -1))
       .skip(30)
-      .cursor[Bdoc]()
+      .cursor[Bdoc](ReadPref.sec)
       .listAll()
       .dmap:
         _.flatMap { _.getAsOpt[AccessTokenId](F.id) }
@@ -54,6 +54,7 @@ final class AccessTokenApi(
         expires = None
       )
       res <- createAndRotate(token)
+      _ = lila.common.Bus.pub(AccessToken.Create(res))
     yield res
 
   def create(granted: AccessTokenRequest.Granted)(using ua: UserAgent): Fu[AccessToken] =
@@ -192,6 +193,9 @@ final class AccessTokenApi(
       .mapAsyncUnordered(4)(token => revokeById(token.id))
       .run()
       .void
+
+  def userIdsByClientOrigin(clientOrigin: String): Fu[Set[UserId]] =
+    coll.distinctEasy[UserId, Set]("userId", $doc(F.clientOrigin -> clientOrigin), _.sec)
 
   def revoke(bearer: Bearer) =
     val id = AccessToken.idFrom(bearer)

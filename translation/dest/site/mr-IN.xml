@@ -525,7 +525,7 @@
   <string name="isPrivate">खाजगी</string>
   <string name="reportXToModerators">सरपरिक्षकाकडे (moderator) %s तक्रार करा</string>
   <string name="profileCompletion">प्रोफाइल पूर्णता: %s</string>
-  <string name="xRating">%s gunaankan</string>
+  <string name="xRating">%s मानांकन</string>
   <string name="ifNoneLeaveEmpty">काहीही नसल्यास रिक्त सोडा</string>
   <string name="profile">प्रोफाइल</string>
   <string name="editProfile">प्रोफाईल संपादित करा</string>
@@ -649,7 +649,7 @@
   <string name="community">समुदाय</string>
   <string name="tools">साधने</string>
   <string name="increment">वाढ</string>
-  <string name="error.unknown">अवैध मुल्य</string>
+  <string name="error.unknown">अवैध मूल्य</string>
   <string name="error.required">ही माहिती अनिवार्य आहे</string>
   <string name="error.email">हा ईमेल पत्ता अवैध आहे</string>
   <string name="error.email_acceptable">हा ईमेल पत्ता स्वीकार्य नाही. कृपया ते पुन्हा तपासा आणि पुन्हा प्रयत्न करा.</string>
@@ -659,7 +659,7 @@
   <string name="error.maxLength">कमाल लांबी %s आहे</string>
   <string name="error.min">%s यापेक्षा मोठे किंवा समान असणे आवश्यक आहे</string>
   <string name="error.max">%s यापेक्षा कमी किंवा समान असणे आवश्यक आहे</string>
-  <string name="ifRatingIsPlusMinusX">दर्जा ±%s असल्यास</string>
+  <string name="ifRatingIsPlusMinusX">मानांकन ±%s असल्यास</string>
   <string name="ifRegistered">जर नोंदणी केली असेल तर</string>
   <string name="onlyExistingConversations">केवळ विद्यमान संभाषणे</string>
   <string name="onlyFriends">फक्त मित्र</string>
@@ -742,7 +742,7 @@
   <string name="tournamentDoesNotExist">हे क्रीडासत्र उपलब्ध नाही.</string>
   <string name="tournamentMayHaveBeenCanceled">जर सर्व खेळाडू क्रीडासत्र सुरू होण्यापूर्वी निघून गेले तर क्रीडासत्र रद्द होऊ शकते.</string>
   <string name="returnToTournamentsHomepage">क्रीडासत्राच्या मुख्य पृष्ठावर जा</string>
-  <string name="weeklyPerfTypeRatingDistribution">साप्ताहिक %s रेटिंग वितरण</string>
+  <string name="weeklyPerfTypeRatingDistribution">साप्ताहिक %s मानांकन वितरण</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s या आठवड्यातील खेळाडू.</item>
     <item quantity="other">%1$s %2$s या आठवड्यातील खेळाडू.</item>

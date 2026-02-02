@@ -28,7 +28,7 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
           plan.orphans.foreach: chapter =>
             val count = ~counter.getIfPresent(chapter.id) + 1
             if rt.tour.orphanWarn && count >= notifyAfterMisses && once(chapter.id)
-            then irc.broadcastOrphanBoard(rt.round.id, rt.fullName, chapter.id, chapter.name, tier.key)
+            then irc.broadcastOrphanBoard(rt.round.id, rt.fullNameNoTrans, chapter.id, chapter.name, tier.key)
             else counter.put(chapter.id, count)
 
   object tooManyGames:
@@ -37,7 +37,11 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
 
     def apply(rt: RelayRound.WithTour, games: Int, max: Max): Funit =
       once(rt.round.id).so:
-        irc.broadcastError(rt.round.id, rt.fullName, s"Too many games from source: $games. Max is $max")
+        irc.broadcastError(
+          rt.round.id,
+          rt.fullNameNoTrans,
+          s"Too many games from source: $games. Max is $max"
+        )
 
   object missingFideIds:
     private val once = scalalib.cache.OnceEvery[RelayRoundId](1.hour)
@@ -61,4 +65,4 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
                 .map: player =>
                   (chapter.id, player.name.fold("?")(_.value))
             missing.nonEmpty.so:
-              irc.broadcastMissingFideId(rt.round.id, rt.fullName, missing)
+              irc.broadcastMissingFideId(rt.round.id, rt.fullNameNoTrans, missing)

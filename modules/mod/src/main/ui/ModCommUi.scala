@@ -62,7 +62,7 @@ final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
               div(cls := "game")(
                 sourceOf(source)(cls := "title")(
                   " – ",
-                  momentFromNowServer(lines.head.date)
+                  pastMomentServer(lines.head.date)
                 ),
                 div(cls := "chat"):
                   lines.toList.map: line =>
@@ -90,7 +90,7 @@ final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
             )(
               titleNameOrAnon(pov.opponent.userId),
               " – ",
-              momentFromNowServer(pov.game.movedAt)
+              pastMomentServer(pov.game.movedAt)
             ),
             div(cls := "chat")(
               chat.lines.map: line =>

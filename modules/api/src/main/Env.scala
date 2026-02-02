@@ -100,6 +100,8 @@ final class Env(
 
   lazy val clas = wire[ClasApi]
 
+  lazy val gameStreamByOauthOrigin = wire[GameStreamByOauthOrigin]
+
   private lazy val linkCheck = wire[LinkCheck]
   lazy val chatFreshness = wire[ChatFreshness]
 
