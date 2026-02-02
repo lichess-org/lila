@@ -51,7 +51,7 @@
   <string name="fidePlayerNotFound">Гравця FIDE не знайдено</string>
   <string name="fideProfile">Профіль FIDE</string>
   <string name="federation">Федерація</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Вік</string>
+  <string name="age">Вік</string>
   <string name="unrated">Без рейтингу</string>
   <string name="recentTournaments">Нещодавні турніри</string>
   <string name="openLichess">Відкрити в Lichess</string>
