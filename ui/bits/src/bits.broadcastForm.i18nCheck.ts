@@ -28,6 +28,7 @@ export default function initModule(): void {
     helpEl.classList.add('form-help');
     helpEl.innerHTML = `${i18n.broadcast.automaticallyTranslated}<br>`;
     helpEl.setAttribute('data-icon', Checkmark);
+    helpEl.style.visibility = 'hidden';
     nameInput.insertAdjacentElement('afterend', helpEl);
     const checkAndToggle = (name: string) => {
       const isTranslatable =
