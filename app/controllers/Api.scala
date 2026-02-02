@@ -129,18 +129,8 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
           .map(toApiResult)
       }
 
-  private def gameFlagsFromRequest(using RequestHeader) =
-    lila.api.GameApi.WithFlags(
-      analysis = getBool("with_analysis"),
-      moves = getBool("with_moves"),
-      fens = getBool("with_fens"),
-      opening = getBool("with_opening"),
-      moveTimes = getBool("with_movetimes"),
-      token = get("token")
-    )
-
   def game(id: GameId) = ApiRequest:
-    gameApi.one(id, gameFlagsFromRequest).map(toApiResult)
+    gameApi.one(id).map(toApiResult)
 
   def crosstable(name1: UserStr, name2: UserStr) = ApiRequest:
     limit.crosstable(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
