@@ -45,7 +45,7 @@
   <string name="fidePlayerNotFound">FIDE 選手が見つかりません</string>
   <string name="fideProfile">FIDE プロフィール</string>
   <string name="federation">所属協会</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">年齢</string>
+  <string name="age">年齢</string>
   <string name="unrated">レーティングなし</string>
   <string name="recentTournaments">最近のトーナメント</string>
   <string name="openLichess">Lichess で開く</string>
