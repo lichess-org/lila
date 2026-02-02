@@ -83,6 +83,11 @@
   <string name="liveboard">Live-pelilauta</string>
   <string name="communityBroadcast">Yhteisölähetys</string>
   <string name="createdAndManagedBy">Lähetyksen on luonut ja sitä hallinnoi %s.</string>
+  <string name="automaticallyTranslated" comment="In reference to the name of a tournament round, which will be translated based on rules we hold in Lichess for e.g. &quot;Open&quot;, &quot;Quarterfinals&quot;...">Tämä nimi käännetään automaattisesti eri kielille.</string>
   <string name="roundX">Kierros %s</string>
   <string name="defaultRoundNameHelp">Jos säilytät oletusnimen, se käännetään automaattisesti kaikille muille kielille.</string>
+  <string name="openTournament">Avoin</string>
+  <string name="quarterfinals">Puolivälierät</string>
+  <string name="semifinals">Välierät</string>
+  <string name="finals">Loppuottelu</string>
 </resources>
