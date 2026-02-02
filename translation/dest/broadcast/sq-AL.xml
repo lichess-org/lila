@@ -79,6 +79,16 @@
   <string name="sinceHideResults">Meqë zgjodhët të fshihen përfundimet, krejt tabelat e paraparjeve janë të zbrazëta, për të shmangur tregime.</string>
   <string name="communityBroadcast">Transmetim nga bashkësia</string>
   <string name="createdAndManagedBy">Krijuar dhe administruar nga %s.</string>
+  <string name="automaticallyTranslated" comment="In reference to the name of a tournament round, which will be translated based on rules we hold in Lichess for e.g. &quot;Open&quot;, &quot;Quarterfinals&quot;...">Ky emër do të përkthehet automatikisht.</string>
   <string name="roundX">Raundi %s</string>
   <string name="defaultRoundNameHelp">Mbajtja e emrit parazgjedhje do ta përkthejë automatikisht në krejt gjuhët e tjera.</string>
+  <string name="openTournament">I hapur</string>
+  <string name="womenTournament" comment="As in a Women's tournament.">Femra</string>
+  <string name="girlsTournament" comment="As in a Girls' tournament.">Vajza</string>
+  <string name="openUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Open U18&quot; will mean it is an open tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">I hapur për U%s</string>
+  <string name="girlsUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Girls U18&quot; will mean it is an open tournament for under-18 year old girls.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Vajzat U%s</string>
+  <string name="quarterfinals">Çerekfinale</string>
+  <string name="semifinals">Gjysmëfinale</string>
+  <string name="finals">Fiale</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.">Loja %s</string>
 </resources>
