@@ -18,7 +18,7 @@ $marker-margin-top: -14px;
     margin-bottom: 4em;
     scroll-margin-top: -$marker-margin-top;
     @include mq-sticky-header {
-      scroll-margin-top: calc(#{$site-header-outer-height} - #{$marker-margin-top});
+      scroll-margin-top: calc(#{$site-header-outer-height} - #{$marker-margin-top}) !important;
     }
 
     &__marker {
