@@ -13,17 +13,23 @@ function fromPly(ctrl: StudyShare): VNode {
   return hl(
     'div.ply-wrap',
     ctrl.onMainline() &&
-      hl('label.ply', [
-        hl('div.switch', { attrs: { role: 'button' } }, [
-          hl('input#study-share-start-position.cmn-toggle.cmn-toggle--subtle', {
-            attrs: { type: 'checkbox', checked: ctrl.withPly() },
-            hook: bind('change', e => ctrl.withPly((e.target as HTMLInputElement).checked), ctrl.redraw),
-          }),
-          hl('label', { attrs: { for: 'study-share-start-position' } }),
+      hl('div.ply', [
+        hl('div.form-check__container', [
+          hl('span.form-check__input', [
+            hl('input#study-share-start-position', {
+              attrs: { type: 'checkbox', checked: ctrl.withPly() },
+              hook: bind('change', e => ctrl.withPly((e.target as HTMLInputElement).checked), ctrl.redraw),
+            }),
+            hl('label.form-check__label', { attrs: { for: 'study-share-start-position' } }),
+          ]),
+          hl(
+            'label.form-label',
+            { attrs: { for: 'study-share-start-position' } },
+            renderedMove
+              ? i18n.study.startAtX.asArray(hl('strong', renderedMove))
+              : i18n.study.startAtInitialPosition,
+          ),
         ]),
-        renderedMove
-          ? i18n.study.startAtX.asArray(hl('strong', renderedMove))
-          : [i18n.study.startAtInitialPosition],
       ]),
   );
 }
