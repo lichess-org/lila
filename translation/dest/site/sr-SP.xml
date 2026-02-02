@@ -910,11 +910,11 @@
   <string name="rapid">Брзопотезни</string>
   <string name="classical">Класични</string>
   <string name="ultraBulletDesc">Ненормално брзе партије: мање од 30 секунди</string>
-  <string name="bulletDesc">Веома брзе партије: испод 3 минута</string>
+  <string name="bulletDesc">Веома брзе партије: мање од 3 минута</string>
   <string name="blitzDesc">Брзе партије: 3 до 8 минута</string>
-  <string name="rapidDesc">Убрзане партије: 8 до 25 минута</string>
+  <string name="rapidDesc">Брзопотезне партије: 8 до 25 минута</string>
   <string name="classicalDesc">Класичне партије: 25 минута и више</string>
-  <string name="correspondenceDesc">Дописна парија: један или више дана по потезу</string>
+  <string name="correspondenceDesc">Дописне партије: један или неколико дана по потезу</string>
   <string name="puzzleDesc">Шаховски тренер тактике</string>
   <string name="important">Важно</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваше питање можда већ има одговор %1$s</string>
