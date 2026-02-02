@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Quebra-cabeças</string>
+  <string name="puzzles">Problemas</string>
   <string name="puzzleThemes">Temas de Problemas</string>
   <string name="recommended">Recomendado</string>
   <string name="phases">Fases</string>
@@ -20,7 +20,7 @@
   <string name="findTheBestMoveForWhite">Encontre o melhor lance para as brancas.</string>
   <string name="findTheBestMoveForBlack">Encontre a melhor jogada para as pretas.</string>
   <string name="toGetPersonalizedPuzzles">Para obter desafios personalizados:</string>
-  <string name="puzzleId">Quebra-cabeça %s</string>
+  <string name="puzzleId">Problema %s</string>
   <string name="puzzleOfTheDay">Problema do dia</string>
   <string name="dailyPuzzle">Problema diário</string>
   <string name="clickToSolve">Clique para resolver</string>
