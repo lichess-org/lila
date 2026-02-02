@@ -95,6 +95,6 @@
   <string name="semifinals">Semifinais</string>
   <string name="finals">Finais</string>
   <string name="tiebreaks">Desempates</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.">Xogo %s</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.">Partida %s</string>
   <string name="knockouts" comment="As in a round of a tournament which has a knockout format.">Eliminatorias</string>
 </resources>
