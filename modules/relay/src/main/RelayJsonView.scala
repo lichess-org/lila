@@ -188,7 +188,7 @@ final class RelayJsonView(
 
   def top(active: List[RelayCard | WithLastRound], tours: Paginator[WithLastRound])(using Config, Translate) =
     Json.obj(
-      "active" -> active.map(tourWithAnyRound),
+      "active" -> active.sortBy(-_.tour.tier.so(_.v)).map(tourWithAnyRound), // sort like on /broadcast
       "upcoming" -> Json.arr(), // BC
       "past" -> paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound))
     )
