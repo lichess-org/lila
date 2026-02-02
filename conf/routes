@@ -763,6 +763,7 @@ GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: UserStr, u2: UserStr)
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
+GET   /api/stream/event                controllers.Api.eventStream
 GET   /api/stream/games/by-oauth-origin controllers.Api.gamesByOauthOriginStream
 POST  /api/stream/games/:streamId      controllers.Api.gamesByIdsStream(streamId)
 POST  /api/stream/games/:streamId/add  controllers.Api.gamesByIdsStreamAddIds(streamId)
