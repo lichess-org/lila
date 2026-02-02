@@ -195,7 +195,7 @@ export function view(ctrl: StudyShare): VNode {
             ctrl.relay
               ? hl('div.form-group', [
                   hl('label.form-label', 'Embed this particular game'),
-                  copyMeInput(relayIframe(`/embed${ctrl.relay.roundPath()}/${chapter.id}`)),
+                  copyMeInput(relayIframe(`${ctrl.relay.roundPath()}/${chapter.id}`)),
                   hl(
                     'a.form-help.text',
                     { attrs: { ...dataIcon(licon.InfoCircle), href: `${ctrl.relay.roundPath()}#overview` } },
