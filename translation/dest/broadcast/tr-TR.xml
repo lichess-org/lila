@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">FIDE oyuncusu bulunamadı</string>
   <string name="fideProfile">FIDE profili</string>
   <string name="federation">Federasyon</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Yaş</string>
+  <string name="age">Yaş</string>
   <string name="unrated">Derecelendirilmemiş</string>
   <string name="recentTournaments">Son Turnuvalar</string>
   <string name="openLichess">Lichess\'te aç</string>
