@@ -41,5 +41,6 @@
   <string name="tournDuration">स्पर्धेचा अवधी</string>
   <string name="predefinedDuration">पूर्वनिर्धारित अवधी मिनीटांत</string>
   <string name="durationUnknown">पूर्वनिर्धारित महत्तम फेऱ्या, पण अज्ञात अवधी</string>
+  <string name="numberOfGames">खेळांची संख्या</string>
   <string name="streaksAndBerserk">विजयी मालिका आणि बेभान खेळ</string>
 </resources>
