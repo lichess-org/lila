@@ -83,6 +83,18 @@
   <string name="liveboard">Échiquier en direct</string>
   <string name="communityBroadcast">Diffusion communautaire</string>
   <string name="createdAndManagedBy">Créée et gérée par %s.</string>
+  <string name="automaticallyTranslated" comment="In reference to the name of a tournament round, which will be translated based on rules we hold in Lichess for e.g. &quot;Open&quot;, &quot;Quarterfinals&quot;...">Ce nom sera automatiquement traduit.</string>
   <string name="roundX">Ronde : %s</string>
   <string name="defaultRoundNameHelp">Si le nom par défaut est conservé, il sera automatiquement traduit dans les autres langues.</string>
+  <string name="openTournament">Ouvert</string>
+  <string name="womenTournament" comment="As in a Women's tournament.">Femmes</string>
+  <string name="girlsTournament" comment="As in a Girls' tournament.">Filles</string>
+  <string name="openUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Open U18&quot; will mean it is an open tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Ouvert – moins de %s</string>
+  <string name="girlsUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Girls U18&quot; will mean it is an open tournament for under-18 year old girls.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Filles – moins de %s</string>
+  <string name="quarterfinals">Quarts de finale</string>
+  <string name="semifinals">Demi-finales</string>
+  <string name="finals">Finales</string>
+  <string name="tiebreaks">Bris d\'égalité</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.">Partie %s</string>
+  <string name="knockouts" comment="As in a round of a tournament which has a knockout format.">Éliminatoires</string>
 </resources>
