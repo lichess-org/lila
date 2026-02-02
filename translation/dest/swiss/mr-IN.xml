@@ -1,9 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">स्विस</string>
   <string name="swissTournaments">स्विस स्पर्धा</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">%s ही स्विस स्पर्धेतील फेs्यांची संख्या आहे</item>
     <item quantity="other">सर्व%s फेs पहा</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s फेऱी</item>
+    <item quantity="other">%s फेऱ्या</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s स्विस फेरी</item>
+    <item quantity="other">%s स्विस फेऱ्या</item>
+  </plurals>
+  <string name="roundsAreStartedManually">फेऱ्या स्वहस्ते सुरू कराव्या लागतील</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">फेऱ्यांमध्ये %s सेकंद</item>
+    <item quantity="other">फेऱ्यांमध्ये %s सेकंद</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">फेऱ्यांमध्ये %s मिनीट</item>
+    <item quantity="other">फेऱ्यांमध्ये %s मिनीट</item>
+  </plurals>
+  <string name="nextRound">पुढील फेरी</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">चालू खेळ</item>
+    <item quantity="other">चालू खेळ</item>
+  </plurals>
+  <string name="tournStartDate">स्पर्धा सुरू होण्याची तारीख</string>
+  <string name="numberOfRounds">फेऱ्यांची संख्या</string>
+  <string name="numberOfRoundsHelp">फेऱ्यांची संख्या विषम ठेवल्यास रंगांतील समतोल अधिक चांगला राहील.</string>
+  <string name="roundInterval">फेऱ्यांमधील अंतर</string>
+  <string name="forbiddenPairings">निषिद्ध जोड्या</string>
+  <string name="dutchSystem">डच प्रणाली</string>
+  <string name="FIDEHandbook">फिडे हस्तपुस्तिका</string>
+  <string name="nowPlaying">आता चालू</string>
+  <string name="startingSoon">लवकरच सुरू होत आहेत</string>
+  <string name="comparison">तुलना</string>
+  <string name="tournDuration">स्पर्धेचा अवधी</string>
+  <string name="predefinedDuration">पूर्वनिर्धारित अवधी मिनीटांत</string>
+  <string name="durationUnknown">पूर्वनिर्धारित महत्तम फेऱ्या, पण अज्ञात अवधी</string>
   <string name="streaksAndBerserk">विजयी मालिका आणि बेभान खेळ</string>
 </resources>
