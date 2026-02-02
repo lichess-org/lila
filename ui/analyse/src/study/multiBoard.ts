@@ -168,29 +168,29 @@ function pagerButton(icon: string, click: () => void, enable: boolean, ctrl: Mul
   });
 }
 
-const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
-  h('label.playing', [
+const renderToggle = (
+  wrapperClass: string,
+  id: string,
+  labelText: string,
+  onChange: (checked: boolean) => void,
+  redraw?: () => void,
+): MaybeVNode =>
+  h(`label.${wrapperClass}`, [
     h('div.switch', { attrs: { role: 'button' } }, [
-      h('input#multiboard-toggle-playing.cmn-toggle.cmn-toggle--subtle', {
+      h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
         attrs: { type: 'checkbox' },
-        hook: bind('change', e => ctrl.playing((e.target as HTMLInputElement).checked)),
+        hook: bind('change', e => onChange((e.target as HTMLInputElement).checked), redraw),
       }),
-      h('label', { attrs: { for: 'multiboard-toggle-playing' } }),
+      h('label', { attrs: { for: id } }),
     ]),
-    i18n.study.playing,
+    labelText,
   ]);
 
+const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
+  renderToggle('playing', 'multiboard-toggle-playing', i18n.study.playing, ctrl.playing);
+
 const renderShowResultsToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
-  h('label.results', [
-    h('div.switch', { attrs: { role: 'button' } }, [
-      h('input#multiboard-toggle-results.cmn-toggle.cmn-toggle--subtle', {
-        attrs: { type: 'checkbox' },
-        hook: bind('change', e => ctrl.showResults((e.target as HTMLInputElement).checked), ctrl.redraw),
-      }),
-      h('label', { attrs: { for: 'multiboard-toggle-results' } }),
-    ]),
-    i18n.study.showResults,
-  ]);
+  renderToggle('results', 'multiboard-toggle-results', i18n.study.showResults, ctrl.showResults, ctrl.redraw);
 
 const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
   fen: cp.fen,

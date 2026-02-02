@@ -174,18 +174,8 @@
   color: $c-font-dim;
 }
 
-.study__multiboard__options .eval {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.study__multiboard .playing {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
+.study__multiboard__options .eval,
+.study__multiboard .playing,
 .study__multiboard .results {
   display: inline-flex;
   align-items: center;
