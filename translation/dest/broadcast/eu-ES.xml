@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">FIDE jokalaria ez da aurkitu</string>
   <string name="fideProfile">FIDE profila</string>
   <string name="federation">Federazioa</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Adina</string>
+  <string name="age">Adina</string>
   <string name="unrated">Ez du sailkapenik</string>
   <string name="recentTournaments">Azken txapelketak</string>
   <string name="openLichess">Ireki Lichessen</string>
