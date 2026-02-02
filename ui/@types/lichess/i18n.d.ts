@@ -245,6 +245,10 @@ interface I18n {
     boards: string;
     /** Boards can be loaded with a source or via the %s */
     boardsCanBeLoaded: I18nFormat;
+    /** Boys */
+    boysTournament: string;
+    /** Boys U%s */
+    boysUnderXAgeTournament: I18nFormat;
     /** Broadcast calendar */
     broadcastCalendar: string;
     /** Broadcasts */
@@ -309,6 +313,8 @@ interface I18n {
     liveboard: string;
     /** Live tournament broadcasts */
     liveBroadcasts: string;
+    /** Men */
+    menTournament: string;
     /** My broadcasts */
     myBroadcasts: string;
     /** %s broadcasts */

@@ -88,9 +88,12 @@
   <string name="defaultRoundNameHelp">Keeping the default name will automatically translate it to all other languages.</string>
   <string name="openTournament">Open</string>
   <string name="womenTournament">Women</string>
+  <string name="menTournament">Men</string>
   <string name="girlsTournament">Girls</string>
+  <string name="boysTournament">Boys</string>
   <string name="openUnderXAgeTournament">Open U%s</string>
   <string name="girlsUnderXAgeTournament">Girls U%s</string>
+  <string name="boysUnderXAgeTournament">Boys U%s</string>
   <string name="quarterfinals">Quarterfinals</string>
   <string name="semifinals">Semifinals</string>
   <string name="finals">Finals</string>
