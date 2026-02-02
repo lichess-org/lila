@@ -45,7 +45,7 @@
   <string name="fidePlayerNotFound">ບໍ່ພົບຜູ້ຫຼິ້ນ FIDE</string>
   <string name="fideProfile">ໂປຣໄຟລ໌ FIDE</string>
   <string name="federation">ສະຫະພັນ</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">ອາຍຸ</string>
+  <string name="age">ອາຍຸ</string>
   <string name="unrated">ບໍ່ມີຄະແນນ (Unrated)</string>
   <string name="recentTournaments">ການແຂ່ງຂັນເມື່ອບໍ່ດົນມານີ້</string>
   <string name="openLichess">ເປີດໃນ Lichess</string>
