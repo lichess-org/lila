@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">FIDE-pelaajaa ei löytynyt</string>
   <string name="fideProfile">FIDE-profiili</string>
   <string name="federation">Kansallinen liitto</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Ikä</string>
+  <string name="age">Ikä</string>
   <string name="unrated">Pisteyttämätön</string>
   <string name="recentTournaments">Viimeisimmät turnaukset</string>
   <string name="openLichess">Avaa Lichessissä</string>
