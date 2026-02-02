@@ -406,7 +406,7 @@
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
   <string name="thisAccountViolatedTos">Użytkownik tego konta naruszył warunki korzystania z Lichess</string>
-  <string name="openingExplorerAndTablebase">Biblioteka otwarć i końcówek</string>
+  <string name="openingExplorerAndTablebase">Biblioteka debiutów i końcówek</string>
   <string name="takeback">Cofnij ruch</string>
   <string name="proposeATakeback">Poproś o cofnięcie ruchu</string>
   <string name="whiteProposesTakeback">Białe proponują cofnięcie ruchu</string>
