@@ -3,10 +3,6 @@
   border-top: $border;
   padding: 0.5rem 0 0.5rem 0;
 
-  @include mq-sticky-header {
-    scroll-margin-top: $site-header-outer-height;
-  }
-
   &__metas {
     > div {
       @extend %flex-center;
