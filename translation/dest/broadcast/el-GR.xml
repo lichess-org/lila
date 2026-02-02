@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">Δε βρέθηκε κανένας παίκτης FIDE</string>
   <string name="fideProfile">Προφίλ FIDE</string>
   <string name="federation">Ομοσπονδία</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Ηλικία</string>
+  <string name="age">Ηλικία</string>
   <string name="unrated">Μη βαθμολογημένο</string>
   <string name="recentTournaments">Πρόσφατα τουρνουά</string>
   <string name="openLichess">Άνοιγμα στο Lichess</string>
