@@ -45,7 +45,7 @@
   <string name="fidePlayerNotFound">未找到 FIDE 棋手</string>
   <string name="fideProfile">FIDE 档案</string>
   <string name="federation">所属协会</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">年龄</string>
+  <string name="age">年龄</string>
   <string name="unrated">无等级分</string>
   <string name="recentTournaments">近期锦标赛</string>
   <string name="openLichess">在 Lichess 中打开</string>
