@@ -19,7 +19,7 @@
   <string name="theBishop">Слон</string>
   <string name="itMovesDiagonally">Переміщається діагоналями</string>
   <string name="bishopIntro">Далі ми навчимося ходити слоном!</string>
-  <string name="youNeedBothBishops">Поля білого кольору контролює один слон, поля чорного кольору — інший. Вам потрібні обидва слона!</string>
+  <string name="youNeedBothBishops">Поля білого кольору контролює один слон, поля чорного кольору — інший. Вам потрібні обидва слони!</string>
   <string name="bishopComplete">Вітаємо! Ви навчилися ходити слоном.</string>
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = тура + слон</string>
