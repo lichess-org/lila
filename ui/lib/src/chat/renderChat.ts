@@ -1,5 +1,5 @@
 import * as licon from '../licon';
-import { type VNode, hl, bind } from '@/view';
+import { type VNode, hl, bind, cmnToggleProp } from '@/view';
 import type { Tab, VoiceChat } from './interfaces';
 import discussionView from './discussion';
 import { noteView } from './note';
@@ -78,22 +78,7 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
     const id = `chat-toggle-${ctrl.data.id}`;
     return [
       hl('span', ctrl.data.name),
-      ctrl.isOptional &&
-        hl('div.switch', [
-          hl(`input#${id}.cmn-toggle`, {
-            attrs: { type: 'checkbox', checked: ctrl.chatEnabled() },
-            hook: bind('change', e => {
-              ctrl.chatEnabled((e.target as HTMLInputElement).checked);
-              ctrl.redraw();
-            }),
-          }),
-          hl('label', {
-            attrs: {
-              for: id,
-              title: i18n.site.toggleTheChat,
-            },
-          }),
-        ]),
+      ctrl.isOptional && cmnToggleProp({ id, prop: ctrl.chatEnabled, redraw: ctrl.redraw }),
     ];
   }
   if (tab.key === 'note') return [hl('span', i18n.site.notes)];

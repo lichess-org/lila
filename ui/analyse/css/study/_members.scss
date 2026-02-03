@@ -112,17 +112,5 @@
     @extend %flex-between;
 
     @include padding-direction(0.4em, 0.8em, 1em, 0.8em);
-
-    .role {
-      @extend %flex-center;
-
-      label {
-        cursor: pointer;
-      }
-    }
-
-    .switch {
-      margin-inline-end: 0.5em;
-    }
   }
 }

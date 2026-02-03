@@ -12,7 +12,7 @@
 
   // [ div.switch, pearl (grow), div.engine (grow/shrink), button.show-threat, button.gear ]
 
-  .switch {
+  .cmn-toggle {
     @extend %flex-center;
     flex: 0 0 40px;
     margin-inline-start: 6px;

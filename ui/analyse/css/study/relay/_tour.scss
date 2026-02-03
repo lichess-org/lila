@@ -377,13 +377,6 @@ $hover-bg: $m-primary_bg--mix-30;
     gap: 1em;
     @include prevent-select;
   }
-  &__subscribe {
-    @extend %flex-center-nowrap;
-    gap: 1ch;
-    label {
-      cursor: pointer;
-    }
-  }
 
   &__tabs {
     @extend %flex-center;

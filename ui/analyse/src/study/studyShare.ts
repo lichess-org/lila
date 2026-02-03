@@ -13,7 +13,7 @@ function fromPly(ctrl: StudyShare): MaybeVNode {
   if (!ctrl.onMainline()) return;
   const renderedMove = renderIndexAndMove(ctrl.currentNode(), false, false);
   return hl('label.url-start-at-ply', [
-    cmnToggleProp('study-share-start-position', ctrl.withPly, ctrl.redraw),
+    cmnToggleProp({ id: 'study-share-start-position', prop: ctrl.withPly, redraw: ctrl.redraw }),
     ...(renderedMove.length
       ? i18n.study.startAtX.asArray(hl('strong', renderedMove))
       : [i18n.study.startAtInitialPosition]),

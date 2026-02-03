@@ -1,6 +1,6 @@
 import type { Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
 import * as licon from 'lib/licon';
-import { type VNode, dataIcon, onInsert, type MaybeVNode, hl } from 'lib/view';
+import { type VNode, dataIcon, onInsert, type MaybeVNode, hl, cmnToggleWrap } from 'lib/view';
 import { numberFormat } from 'lib/i18n';
 import perfIcons from 'lib/game/perfIcons';
 import { userLink } from 'lib/view/userLink';
@@ -110,20 +110,14 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
     !data.replay &&
       !ctrl.streak &&
       data.user &&
-      hl('div.puzzle__side__config__toggle', [
-        hl('div.switch', [
-          hl(`input#${ratedId}.cmn-toggle.`, {
-            attrs: {
-              type: 'checkbox',
-              checked: ctrl.rated() && !ctrl.hintHasBeenShown(),
-              disabled: ctrl.lastFeedback !== 'init' || ctrl.hintHasBeenShown(),
-            },
-            hook: onInsert(el => el.addEventListener('change', ctrl.toggleRated)),
-          }),
-          hl('label', { attrs: { for: ratedId } }),
-        ]),
-        hl('label', { attrs: { for: ratedId } }, i18n.site.rated),
-      ]),
+      cmnToggleWrap({
+        id: ratedId,
+        name: i18n.site.rated,
+        checked: ctrl.rated() && !ctrl.hintHasBeenShown(),
+        change: ctrl.toggleRated,
+        disabled: ctrl.lastFeedback !== 'init' || ctrl.hintHasBeenShown(),
+        redraw: ctrl.redraw,
+      }),
     hl(
       'div.puzzle__side__user__rating',
       ctrl.rated()
@@ -173,24 +167,16 @@ export function config(ctrl: PuzzleCtrl): MaybeVNode {
   const autoNextId = 'puzzle-toggle-autonext',
     data = ctrl.data;
   return hl('div.puzzle__side__config', [
-    hl('div.puzzle__side__config__toggle', [
-      hl('div.switch', [
-        hl(`input#${autoNextId}.cmn-toggle`, {
-          attrs: { type: 'checkbox', checked: ctrl.autoNext() },
-          hook: {
-            insert: vnode =>
-              (vnode.elm as HTMLElement).addEventListener('change', () => {
-                ctrl.autoNext(!ctrl.autoNext());
-                if (ctrl.autoNext() && ctrl.resultSent && !ctrl.streak) {
-                  ctrl.nextPuzzle();
-                }
-              }),
-          },
-        }),
-        hl('label', { attrs: { for: autoNextId } }),
-      ]),
-      hl('label', { attrs: { for: autoNextId } }, i18n.puzzle.jumpToNextPuzzleImmediately),
-    ]),
+    cmnToggleWrap({
+      id: autoNextId,
+      name: i18n.puzzle.jumpToNextPuzzleImmediately,
+      checked: ctrl.autoNext(),
+      change(v) {
+        ctrl.autoNext(v);
+        if (ctrl.autoNext() && ctrl.resultSent && !ctrl.streak) ctrl.nextPuzzle();
+      },
+      redraw: ctrl.redraw,
+    }),
     !data.user || data.replay || ctrl.streak ? null : renderDifficultyForm(ctrl),
   ]);
 }

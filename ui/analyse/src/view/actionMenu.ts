@@ -6,11 +6,11 @@ import {
   bind,
   dataIcon,
   hl,
-  toggle,
   type VNode,
   type LooseVNodes,
   type MaybeVNodes,
-  type ToggleSettings,
+  cmnToggleWrapProp,
+  cmnToggleWrap,
 } from 'lib/view';
 import type { AutoplayDelay } from '../autoplay';
 import type AnalyseCtrl from '../ctrl';
@@ -38,8 +38,6 @@ const cplSpeed: AutoplaySpeed = {
   name: 'byCPL',
   delay: 'cpl',
 };
-
-const ctrlToggle = (t: ToggleSettings, ctrl: AnalyseCtrl) => toggle(t, ctrl.redraw);
 
 function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
@@ -172,84 +170,66 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
   const cevalConfig: LooseVNodes = ctrl.study?.isCevalAllowed() !== false && [
     displayColumns() > 1 && hl('h2', i18n.site.computerAnalysis),
-    ctrlToggle(
-      {
-        name: 'Show fishnet analysis',
-        title: 'Show fishnet analysis (Hotkey: z)',
-        id: 'all',
-        checked: ctrl.showFishnetAnalysis(),
-        change: ctrl.toggleFishnetAnalysis,
-      },
-      ctrl,
-    ),
-    ctrlToggle(
-      {
-        name: i18n.site.bestMoveArrow,
-        title: 'Hotkey: a',
-        id: 'shapes',
-        checked: ctrl.showBestMoveArrowsProp(),
-        change: ctrl.showBestMoveArrowsProp,
-      },
-      ctrl,
-    ),
+    cmnToggleWrap({
+      id: 'all',
+      name: 'Show fishnet analysis',
+      title: 'Show fishnet analysis (Hotkey: z)',
+      checked: ctrl.showFishnetAnalysis(),
+      change: ctrl.toggleFishnetAnalysis,
+      redraw: ctrl.redraw,
+    }),
+    cmnToggleWrapProp({
+      id: 'shapes',
+      name: i18n.site.bestMoveArrow,
+      title: 'Hotkey: a',
+      prop: ctrl.showBestMoveArrowsProp,
+      redraw: ctrl.redraw,
+    }),
     ctrl.showBestMoveArrowsProp() &&
-      ctrlToggle(
-        {
-          name: 'Piece maneuver arrows',
-          id: 'maneuver-arrows',
-          checked: ctrl.showManeuverMoveArrowsProp(),
-          change: ctrl.showManeuverMoveArrowsProp,
-        },
-        ctrl,
-      ),
+      cmnToggleWrapProp({
+        id: 'maneuver-arrows',
+        name: 'Piece maneuver arrows',
+        prop: ctrl.showManeuverMoveArrowsProp,
+        redraw: ctrl.redraw,
+      }),
     displayColumns() > 1 &&
-      ctrlToggle(
-        {
-          name: i18n.site.evaluationGauge,
-          id: 'gauge',
-          checked: ctrl.showGauge(),
-          change: ctrl.showGauge,
-        },
-        ctrl,
-      ),
+      cmnToggleWrapProp({
+        id: 'gauge',
+        name: i18n.site.evaluationGauge,
+        prop: ctrl.showGauge,
+        redraw: ctrl.redraw,
+      }),
   ];
 
   const displayConfig = [
     displayColumns() > 1 && hl('h2', 'Display'),
-    ctrlToggle(
-      {
-        name: i18n.site.inlineNotation,
-        title: 'Shift+I',
-        id: 'inline',
-        checked: ctrl.treeView.modePreference() === 'inline',
-        change(v) {
-          ctrl.treeView.modePreference(v ? 'inline' : 'column');
-          ctrl.actionMenu.toggle();
-        },
+    cmnToggleWrap({
+      id: 'inline',
+      name: i18n.site.inlineNotation,
+      title: 'Shift+I',
+      checked: ctrl.treeView.modePreference() === 'inline',
+      change(v) {
+        ctrl.treeView.modePreference(v ? 'inline' : 'column');
+        ctrl.actionMenu.toggle();
       },
-      ctrl,
-    ),
-    ctrlToggle(
-      {
-        name: 'Disclosure buttons',
-        title: 'Show disclosure buttons to expand/collapse variations',
-        id: 'disclosure',
-        checked: ctrl.disclosureMode(),
-        change: ctrl.disclosureMode,
-      },
-      ctrl,
-    ),
+      redraw: ctrl.redraw,
+    }),
+    cmnToggleWrapProp({
+      id: 'disclosure',
+      name: 'Disclosure buttons',
+      title: 'Show disclosure buttons to expand/collapse variations',
+      prop: ctrl.disclosureMode,
+      redraw: ctrl.redraw,
+    }),
     !ctrl.ongoing &&
-      ctrlToggle(
-        {
-          name: 'Annotations on board',
-          title: 'Display analysis symbols on the board',
-          id: 'move-annotation',
-          checked: ctrl.possiblyShowMoveAnnotationsOnBoard(),
-          change: ctrl.togglePossiblyShowMoveAnnotationsOnBoard,
-        },
-        ctrl,
-      ),
+      cmnToggleWrap({
+        id: 'move-annotation',
+        name: 'Annotations on board',
+        title: 'Display analysis symbols on the board',
+        checked: ctrl.possiblyShowMoveAnnotationsOnBoard(),
+        change: ctrl.togglePossiblyShowMoveAnnotationsOnBoard,
+        redraw: ctrl.redraw,
+      }),
   ];
 
   return hl('div.action-menu', [

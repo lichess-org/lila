@@ -82,3 +82,8 @@
   opacity: 60%;
   cursor: not-allowed !important;
 }
+
+.cmn-toggle input:focus-visible:not(:disabled) + label {
+  box-shadow: 0 0 12px $c-font-dimmer;
+  border-color: $c-primary;
+}
