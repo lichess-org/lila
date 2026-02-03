@@ -358,7 +358,7 @@
     <item quantity="other">Anna %s sekuntia</item>
   </plurals>
   <string name="thisAccountViolatedTos">Tämä käyttäjätunnus rikkoi Lichessin käyttöehtoja</string>
-  <string name="openingExplorerAndTablebase">Avausselain ja -tietokanta</string>
+  <string name="openingExplorerAndTablebase">Avausselain ja loppupelitietokanta</string>
   <string name="takeback">Peruuta siirto</string>
   <string name="proposeATakeback">Pyydä siirron peruutusta</string>
   <string name="whiteProposesTakeback">Valkea ehdottaa siirron perumista</string>
