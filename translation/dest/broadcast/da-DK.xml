@@ -83,15 +83,14 @@
   <string name="liveboard">Live bræt</string>
   <string name="communityBroadcast">Fællesskabsudsendelse</string>
   <string name="createdAndManagedBy">Oprettet og administreret af %s.</string>
-  <string name="automaticallyTranslated" comment="In reference to the name of a tournament round, which will be translated based on rules we hold in Lichess for e.g. &quot;Open&quot;, &quot;Quarterfinals&quot;...">Dette navn vil blive oversat automatisk.</string>
   <string name="roundX">Runde %s</string>
   <string name="defaultRoundNameHelp">Beholdes standardnavnet, oversættes det automatisk til alle andre sprog.</string>
-  <string name="womenTournament" comment="As in a Women's tournament.">Kvinder</string>
-  <string name="girlsTournament" comment="As in a Girls' tournament.">Piger</string>
-  <string name="girlsUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Girls U18&quot; will mean it is an open tournament for under-18 year old girls.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Piger U%s</string>
+  <string name="womenTournament">Kvinder</string>
+  <string name="girlsTournament">Piger</string>
+  <string name="girlsUnderXAgeTournament">Piger U%s</string>
   <string name="quarterfinals">Kvartfinaler</string>
   <string name="semifinals">Semifinaler</string>
   <string name="finals">Finaler</string>
   <string name="tiebreaks">Tiebreaks</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.">Parti %s</string>
+  <string name="gameX">Parti %s</string>
 </resources>
