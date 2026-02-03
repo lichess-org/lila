@@ -84,4 +84,12 @@
   <string name="communityBroadcast">Közösségi közvetítés</string>
   <string name="createdAndManagedBy">Létrehozta és felügyeli: %s.</string>
   <string name="roundX">%s. forduló</string>
+  <string name="openTournament">Nyílt</string>
+  <string name="womenTournament">Nők</string>
+  <string name="menTournament">Férfiak</string>
+  <string name="girlsTournament">Lányok</string>
+  <string name="boysTournament">Fiúk</string>
+  <string name="openUnderXAgeTournament">Nyílt U%s</string>
+  <string name="girlsUnderXAgeTournament">Lány U%s</string>
+  <string name="boysUnderXAgeTournament">Fiú U%s</string>
 </resources>
