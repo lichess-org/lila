@@ -199,15 +199,15 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     coll.update.one($id(pov.gameId), $setBoolOrUnset(field, blindfold)).void
 
   def update(progress: Progress): Funit =
-    saveDiff(progress.origin, GameDiff(progress.origin, progress.game))
+    saveDiff(progress.origin.id, GameDiff(progress.origin, progress.game))
 
-  private def saveDiff(origin: Game, diff: GameDiff.Diff): Funit =
+  private def saveDiff(gameId: GameId, diff: GameDiff.Diff): Funit =
     diff match
       case (Nil, Nil) => funit
       case (sets, unsets) =>
         coll.update
           .one(
-            $id(origin.id),
+            $id(gameId),
             nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
           )
           .void
