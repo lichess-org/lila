@@ -26,7 +26,7 @@ object PuzzleHistory:
     def slice(offset: Int, length: Int): Fu[Seq[PuzzleSession]] =
       colls
         .round:
-          _.aggregateList(length, _.sec): framework =>
+          _.aggregateList(length): framework =>
             import framework.*
             Match($doc("u" -> user.id)) -> List(
               Sort(Descending("d")),

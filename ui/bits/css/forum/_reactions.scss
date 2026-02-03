@@ -39,17 +39,19 @@
     opacity: 0;
   }
 
-  .forum-post:hover &-auth button.no {
-    opacity: 0.4;
-    filter: grayscale(100%);
+  @media (hover: hover) {
+    .forum-post:hover &-auth button.no {
+      opacity: 0.4;
+      filter: grayscale(100%);
 
-    &:hover {
-      opacity: 0.7;
-      filter: grayscale(0%);
-      background: $m-primary_bg--mix-15;
+      &:hover {
+        opacity: 0.7;
+        filter: grayscale(0%);
+        background: $m-primary_bg--mix-15;
 
-      img {
-        transform: scale(1.2) !important;
+        img {
+          transform: scale(1.2) !important;
+        }
       }
     }
   }
@@ -68,5 +70,20 @@
     height: 20px;
     transition: transform 0.15s cubic-bezier(0.2, 0, 0.13, 2);
     pointer-events: none;
+  }
+
+  .forum-post &-auth:focus-within button.no {
+    opacity: 0.4;
+    filter: grayscale(100%);
+  }
+
+  &-toggle {
+    order: 2;
+    font-size: 1.5em;
+    color: $c-font !important;
+
+    @media (hover: hover) {
+      display: none !important;
+    }
   }
 }

@@ -298,6 +298,7 @@ GET   /broadcast/$tourId<\w{8}>/teams/standings controllers.RelayTour.teamLeader
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId: RelayRoundId)
 GET   /api/broadcast/:ts/:rs/$roundId<\w{8}>  controllers.RelayRound.apiShow(ts, rs, roundId: RelayRoundId)
 GET   /embed/broadcast/:ts/:rs/$roundId<\w{8}> controllers.RelayRound.embedShow(ts, rs, roundId: RelayRoundId)
+GET   /embed/broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.embedChapter(ts, rs, roundId: RelayRoundId, chapterId: StudyChapterId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId: RelayRoundId, chapterId: StudyChapterId)
 GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId: RelayRoundId)
 POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId: RelayRoundId)
@@ -762,9 +763,10 @@ GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: UserStr, u2: UserStr)
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
+GET   /api/stream/event                controllers.Api.eventStream
+GET   /api/stream/games/by-oauth-origin controllers.Api.gamesByOauthOriginStream
 POST  /api/stream/games/:streamId      controllers.Api.gamesByIdsStream(streamId)
 POST  /api/stream/games/:streamId/add  controllers.Api.gamesByIdsStreamAddIds(streamId)
-GET   /api/stream/event                controllers.Api.eventStream
 GET   /api/stream/game/:id             controllers.Api.moveStream(id: GameId)
 GET   /api/account                     controllers.Account.apiMe
 GET   /api/account/playing             controllers.Account.apiNowPlaying

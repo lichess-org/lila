@@ -68,7 +68,7 @@ final private class RelayFetch(
     else if rt.round.shouldGiveUp then
       val msg = "Finish for lack of start"
       logger.info(s"$msg ${rt.round}")
-      if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
+      if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullNameNoTrans, msg)
       api.update(rt.round)(_.finish).void
     else
       logger.info(s"Pause sync until round starts ${rt.round}")
@@ -142,7 +142,7 @@ final private class RelayFetch(
           lila.mon.relay.moves(tour.official, tour.id, tour.slug).increment(result.nbMoves)
           if tour.official then notifyAdmin.missingFideIds.schedule(round.id)
           if !round.hasStarted && !tour.official
-          then irc.broadcastStart(round.id, round.withTour(tour).fullName)
+          then irc.broadcastStart(round.id, round.withTour(tour).fullNameNoTrans)
           continueRelay(tour, updating(_.ensureStarted.resume(tour.official)))
         else continueRelay(tour, updating)
       case _ => continueRelay(tour, updating)
@@ -174,7 +174,7 @@ final private class RelayFetch(
         .filterNot(_.contains("Error parsing move"))
         .filterNot(_.contains("Error parsing PGN"))
         .filterNot(_.contains("Found an empty PGN"))
-        .foreach { irc.broadcastError(r.round.id, r.fullName, _) }
+        .foreach { irc.broadcastError(r.round.id, r.fullNameNoTrans, _) }
 
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
     val base =

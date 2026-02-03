@@ -57,7 +57,7 @@ final class PuzzleAnon(
             else if count > 2000 then 8
             else 15
           colls.path:
-            _.aggregateList(poolSize, _.sec): framework =>
+            _.aggregateList(poolSize): framework =>
               import framework.*
               Match(pathApi.select(angle, tier, ratingRange)) -> List(
                 Sample(pathSampleSize),

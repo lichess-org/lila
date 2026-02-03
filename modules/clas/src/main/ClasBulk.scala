@@ -80,7 +80,7 @@ final class ClasBulkApi(api: ClasApi)(using Executor):
   def post(clas: Clas, data: ClasBulkForm.ActionData)(using me: Me): Fu[PostResponse] =
     val moveTo = """move-to-(.+)""".r
     def studentId(id: UserId) = Student.makeId(id, clas.id)
-    data.pp.action match
+    data.action match
       case "archive" =>
         for _ <- api.student.archiveMany(clas, data.activeUserIds.map(studentId), true)
         yield PostResponse.Done

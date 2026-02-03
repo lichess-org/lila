@@ -2,6 +2,7 @@ package lila.api
 
 import chess.format.Fen
 import play.api.libs.json.*
+import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 import scalalib.Json.given
 import scalalib.paginator.Paginator
@@ -25,11 +26,11 @@ final private[api] class GameApi(
 
   import GameApi.WithFlags
 
-  def one(id: GameId, withFlags: WithFlags): Fu[Option[JsObject]] =
+  def one(id: GameId)(using RequestHeader): Fu[Option[JsObject]] =
     gameRepo
       .game(id)
       .flatMapz: g =>
-        gamesJson(withFlags)(List(g)).map(_.headOption)
+        gamesJson(GameApi.requestFlags)(List(g)).map(_.headOption)
 
   def byUsersVs(
       users: (User, User),
@@ -203,3 +204,14 @@ object GameApi:
       token: Option[String] = none
   ):
     def applyToken(validToken: String) = copy(blurs = token.has(validToken))
+
+  def requestFlags(using RequestHeader) =
+    import lila.common.HTTPRequest.*
+    WithFlags(
+      analysis = queryStringBool("with_analysis"),
+      moves = queryStringBool("with_moves"),
+      fens = queryStringBool("with_fens"),
+      opening = queryStringBool("with_opening"),
+      moveTimes = queryStringBool("with_movetimes"),
+      token = queryStringGet("token")
+    )

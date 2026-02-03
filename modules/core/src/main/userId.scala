@@ -24,6 +24,7 @@ object userId:
     val lichess4545: UserId = "lichess4545"
     val challengermode: UserId = "challengermode"
     val watcherbot: UserId = "watcherbot"
+    val ttt: UserId = "taketaketakeapp"
     val undefined: UserId = "undefined"
     def isOfficial[U: UserIdOf](user: U) = lichess.is(user) || broadcaster.is(user)
 

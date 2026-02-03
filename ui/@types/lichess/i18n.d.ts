@@ -237,6 +237,8 @@ interface I18n {
     allBroadcastsByMonth: string;
     /** All teams */
     allTeams: string;
+    /** This name will be automatically translated. */
+    automaticallyTranslated: string;
     /** Back to live move */
     backToLiveMove: string;
     /** Boards */
@@ -283,16 +285,26 @@ interface I18n {
     fideProfile: string;
     /** FIDE rating category */
     fideRatingCategory: string;
+    /** Finals */
+    finals: string;
     /** Full tournament description */
     fullDescription: string;
     /** Optional long description of the tournament. %1$s is available. Length must be less than %2$s characters. */
     fullDescriptionHelp: I18nFormat;
     /** Games in this tournament */
     gamesThisTournament: string;
+    /** Game %s */
+    gameX: I18nFormat;
+    /** Girls */
+    girlsTournament: string;
+    /** Girls U%s */
+    girlsUnderXAgeTournament: I18nFormat;
     /** How to use Lichess Broadcasts. */
     howToUseLichessBroadcasts: string;
     /** More options on the %s */
     iframeHelp: I18nFormat;
+    /** Knockouts */
+    knockouts: string;
     /** Live board */
     liveboard: string;
     /** Live tournament broadcasts */
@@ -317,12 +329,18 @@ interface I18n {
     ongoing: string;
     /** Open in Lichess */
     openLichess: string;
+    /** Open */
+    openTournament: string;
+    /** Open U%s */
+    openUnderXAgeTournament: I18nFormat;
     /** Optional details */
     optionalDetails: string;
     /** Overview */
     overview: string;
     /** Past broadcasts */
     pastBroadcasts: string;
+    /** Quarterfinals */
+    quarterfinals: string;
     /** Rating diff */
     ratingDiff: string;
     /** Recent tournaments */
@@ -337,6 +355,8 @@ interface I18n {
     roundX: I18nFormat;
     /** Score */
     score: string;
+    /** Semifinals */
+    semifinals: string;
     /** Show players scores based on game results */
     showScores: string;
     /** Since you chose to hide the results, all the preview boards are empty to avoid spoilers. */
@@ -363,6 +383,8 @@ interface I18n {
     teams: string;
     /** The new round will have the same members and contributors as the previous one. */
     theNewRoundHelp: string;
+    /** Tiebreaks */
+    tiebreaks: string;
     /** Time zone */
     timezone: string;
     /** Top 10 rating */
@@ -385,6 +407,8 @@ interface I18n {
     uploadImage: string;
     /** webmasters page */
     webmastersPage: string;
+    /** Women */
+    womenTournament: string;
   };
   challenge: {
     /** Cannot challenge due to provisional %s rating. */

@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.{ ByColor, Color, Ply }
+import chess.{ ByColor, Ply }
 import play.api.libs.json.*
 
 import lila.common.Json.given
@@ -48,18 +48,9 @@ object JsonView extends lila.tree.AnalysisJson:
 
   def bothPlayers(startedAtPly: Ply, analysis: Analysis, withAccuracy: Boolean = true) =
     val accuracy = withAccuracy.so(AccuracyPercent.gameAccuracy(startedAtPly.turn, analysis))
-    Json.obj(
-      "id" -> analysis.id.value,
-      "white" -> player(SideAndStart(Color.white, startedAtPly))(analysis, accuracy),
-      "black" -> player(SideAndStart(Color.black, startedAtPly))(analysis, accuracy)
-    )
-
-//   def bothPlayers(pov: Game.SideAndStart, analysis: Analysis, accuracy: Option[ByColor[AccuracyPercent]]) =
-//     Json.obj(
-//       "id"    -> analysis.id,
-//       "white" -> player(pov.copy(color = chess.White))(analysis, accuracy),
-//       "black" -> player(pov.copy(color = chess.Black))(analysis, accuracy)
-//     )
+    val both = ByColor[Option[JsObject]]: color =>
+      player(SideAndStart(color, startedAtPly))(analysis, accuracy)
+    Json.obj("id" -> analysis.id.value) ++ Json.toJsObject(both)
 
   def mobile(game: Game, analysis: Analysis) =
     Json.obj(

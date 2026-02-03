@@ -48,9 +48,16 @@ final class RelayJsonView(
       .add("dates" -> t.dates)
       .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
 
-  given OWrites[RelayTour.TourPreview] = Json.writes
+  given (using Translate): OWrites[RelayTour.TourPreview] = OWrites: t =>
+    Json
+      .obj(
+        "id" -> t.id,
+        "name" -> t.name.translate,
+        "active" -> t.active
+      )
+      .add("live" -> t.live)
 
-  given OWrites[RelayGroup.WithTours] = OWrites: g =>
+  given (using Translate): OWrites[RelayGroup.WithTours] = OWrites: g =>
     Json.obj(
       "id" -> g.group.id,
       "slug" -> g.group.name.toSlug,
@@ -181,7 +188,7 @@ final class RelayJsonView(
 
   def top(active: List[RelayCard | WithLastRound], tours: Paginator[WithLastRound])(using Config, Translate) =
     Json.obj(
-      "active" -> active.map(tourWithAnyRound),
+      "active" -> active.sortBy(-_.tour.tier.so(_.v)).map(tourWithAnyRound), // sort like on /broadcast
       "upcoming" -> Json.arr(), // BC
       "past" -> paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound))
     )
@@ -211,7 +218,7 @@ object RelayJsonView:
     Json
       .obj(
         "id" -> r.id,
-        "name" -> r.transName,
+        "name" -> r.name.translate,
         "slug" -> r.slug,
         "createdAt" -> r.createdAt,
         "rated" -> r.rated

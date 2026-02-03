@@ -45,7 +45,7 @@ def embed(
     socketVersion: SocketVersion
 )(using ctx: EmbedContext) =
   views.base.embed.site(
-    title = rt.transName,
+    title = rt.withTour.fullName,
     cssKeys = List("analyse.relay.embed"),
     pageModule = ui.pageModule(rt, data, none, socketVersion, embed = true).some,
     csp = _.withExternalAnalysisApis,

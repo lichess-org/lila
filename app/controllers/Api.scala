@@ -40,11 +40,14 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       userApi
         .extended(
           name,
-          withFollows = userWithFollows,
-          withTrophies = getBool("trophies"),
-          withCanChallenge = getBool("challenge"),
-          withProfile = getBoolOpt("profile") | true,
-          withRank = getBool("rank")
+          lila.api.UserApi.Opts(
+            withFollows = userWithFollows,
+            withTrophies = getBool("trophies"),
+            withCanChallenge = getBool("challenge"),
+            withProfile = getBoolOpt("profile") | true,
+            withRank = getBool("rank"),
+            withFideId = getBool("fideId")
+          )
         )
         .map(toApiResult)
         .map(toHttp)
@@ -126,18 +129,8 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
           .map(toApiResult)
       }
 
-  private def gameFlagsFromRequest(using RequestHeader) =
-    lila.api.GameApi.WithFlags(
-      analysis = getBool("with_analysis"),
-      moves = getBool("with_moves"),
-      fens = getBool("with_fens"),
-      opening = getBool("with_opening"),
-      moveTimes = getBool("with_movetimes"),
-      token = get("token")
-    )
-
   def game(id: GameId) = ApiRequest:
-    gameApi.one(id, gameFlagsFromRequest).map(toApiResult)
+    gameApi.one(id).map(toApiResult)
 
   def crosstable(name1: UserStr, name2: UserStr) = ApiRequest:
     limit.crosstable(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
@@ -268,6 +261,15 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     if ids.size > max then JsonBadRequest(jsonError(s"Too many ids: ${ids.size}, expected up to $max"))
     else f(ids)
 
+  def gamesByOauthOriginStream = Scoped():
+    val extraUsers = get("extraUsers").so(_.split(',').view.flatMap(UserStr.read).map(_.id).toSet)
+    env.api
+      .gameStreamByOauthOrigin(getTimestamp("since"), extraUsers)
+      .fold(
+        error => JsonBadRequest(error).toFuccess,
+        source => jsOptToNdJson(ndJson.addKeepAlive(source))
+      )
+
   val cloudEval =
     val rateLimit = env.security.ipTrust.rateLimit(3_000, 1.day, "cloud-eval.api.ip", _.proxyMultiplier(3))
     Anon:
@@ -320,11 +322,11 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       maxConcurrency = 8
     )
 
-  def moveStream(gameId: GameId) = Anon:
+  def moveStream(gameId: GameId) = AnonOrScoped():
     Found(env.round.proxyRepo.game(gameId)): game =>
-      ApiMoveStreamGlobalConcurrencyLimitPerIP(req.ipAddress)(
-        ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
-      )(jsOptToNdJson)
+      def source = ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
+      if ctx.is(UserId.ttt) then jsOptToNdJson(source)
+      else ApiMoveStreamGlobalConcurrencyLimitPerIP(req.ipAddress)(source)(jsOptToNdJson)
 
   def perfStat(username: UserStr, perfKey: PerfKey) = ApiRequest:
     env.perfStat.api

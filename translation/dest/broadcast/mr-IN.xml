@@ -11,7 +11,7 @@
     <item quantity="other">%s दर्शक</item>
   </plurals>
   <string name="liveBroadcasts">थेट स्पर्धा प्रसारणे</string>
-  <string name="broadcastCalendar">प्रसाराणांची दिनदर्शिका</string>
+  <string name="broadcastCalendar">प्रसारणांची दिनदर्शिका</string>
   <string name="newBroadcast">नवीन थेट प्रसारण</string>
   <string name="subscribedBroadcasts">सदस्यत्व घेतलेली प्रसारणे</string>
   <string name="aboutBroadcasts">प्रसारणांबद्दल माहिती</string>
@@ -77,7 +77,7 @@
   <string name="fideRatingCategory">FIDE मानांकन श्रेणी</string>
   <string name="optionalDetails">पर्यायी तपशील</string>
   <string name="pastBroadcasts">मागील प्रसारणे</string>
-  <string name="allBroadcastsByMonth">एका महिन्यातले सर्व प्रसाराने पहा</string>
+  <string name="allBroadcastsByMonth">एका महिन्यातील सर्व प्रसारणे पहा</string>
   <string name="backToLiveMove">परत चालू असलेल्या चाली वर या</string>
   <string name="sinceHideResults">तुम्ही निकाल लपवण्याचा निर्णय घेतल्यामुळे, सर्व पूर्वावलोकन पट रिकामे आहेत.</string>
   <string name="liveboard">सद्य पट</string>

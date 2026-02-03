@@ -909,7 +909,7 @@
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Муњевити</string>
   <string name="rapid">Брзопотезни</string>
   <string name="classical">Класични</string>
-  <string name="ultraBulletDesc">Лудо брзе партије: испод 30 секунди</string>
+  <string name="ultraBulletDesc">Ненормално брзе партије: мање од 30 секунди</string>
   <string name="bulletDesc">Веома брзе партије: испод 3 минута</string>
   <string name="blitzDesc">Брзе партије: 3 до 8 минута</string>
   <string name="rapidDesc">Убрзане партије: 8 до 25 минута</string>

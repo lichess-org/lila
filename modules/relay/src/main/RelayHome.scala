@@ -12,7 +12,7 @@ final class RelayHomeApi(listing: RelayListing, pager: RelayPager, jsonView: Rel
     using scheduler: Scheduler
 ):
 
-  def home: Fu[RelayHome] = for
+  private def home: Fu[RelayHome] = for
     active <- listing.active
     past <- pager.inactive(1)
     (recent, reallyPast) = stealRecentFromPast(past.currentPageResults)
