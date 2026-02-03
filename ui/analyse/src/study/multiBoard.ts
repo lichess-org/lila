@@ -1,7 +1,7 @@
 import * as licon from 'lib/licon';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
 import { fenColor } from 'lib/game/chess';
-import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, cmnToggle } from 'lib/view';
+import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, cmnToggleProp } from 'lib/view';
 import { opposite as cgOpposite, uciToMove } from '@lichess-org/chessground/util';
 import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
 import type StudyCtrl from './studyCtrl';
@@ -98,7 +98,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       h('div.study__multiboard__options', [
         ctrl.multiCloudEval &&
           h('label.eval', [
-            cmnToggle('multiboard-toggle-eval', ctrl.multiCloudEval.showEval, ctrl.redraw),
+            cmnToggleProp('multiboard-toggle-eval', ctrl.multiCloudEval.showEval, ctrl.redraw),
             i18n.study.showEvalBar,
           ]),
         ctrl.isRelay ? renderPlayingToggle(ctrl) : undefined,
@@ -172,11 +172,11 @@ function pagerButton(icon: string, click: () => void, enable: boolean, ctrl: Mul
 }
 
 const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
-  h('label.playing', [cmnToggle('multiboard-toggle-playing', ctrl.playing), i18n.study.playing]);
+  h('label.playing', [cmnToggleProp('multiboard-toggle-playing', ctrl.playing), i18n.study.playing]);
 
 const renderShowResultsToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
   h('label.results', [
-    cmnToggle('multiboard-toggle-results', ctrl.showResults, ctrl.redraw),
+    cmnToggleProp('multiboard-toggle-results', ctrl.showResults, ctrl.redraw),
     i18n.study.showResults,
   ]);
 
