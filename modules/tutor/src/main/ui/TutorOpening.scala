@@ -49,7 +49,8 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
             div(
               cls := "lpv lpv--todo",
               st.data("pgn") := report.family.anyOpening.pgn,
-              st.data("title") := report.family.name
+              st.data("title") := report.family.name,
+              st.data("orientation") := as.name
             ),
             div(cls := "mascot-says__content__text")(
               p(

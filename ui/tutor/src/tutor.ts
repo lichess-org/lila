@@ -9,6 +9,7 @@ site.load.then(() => {
   $('.tutor__opening .lpv').each(function (this: HTMLElement) {
     Lpv(this, {
       pgn: this.dataset['pgn']!,
+      orientation: this.dataset['orientation'] as Color,
       initialPly: 'last',
       showMoves: false,
       showClocks: false,
