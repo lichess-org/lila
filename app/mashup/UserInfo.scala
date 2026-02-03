@@ -121,7 +121,7 @@ object UserInfo:
         studyRepo.countByOwner(user.id).recoverDefault.mon(_.user.segment("nbStudies")),
         simulApi.countHostedByUser.get(user.id).mon(_.user.segment("nbSimuls")),
         relayApi.countOwnedByUser.get(user.id).mon(_.user.segment("nbBroadcasts")),
-        teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user.segment("teamIds")),
+        ctx.useMe(teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user.segment("teamIds"))),
         streamerApi.isActualStreamer(user).mon(_.user.segment("streamer")),
         coachApi.isListedCoach(user).mon(_.user.segment("coach")),
         fideIdOf(user.light),

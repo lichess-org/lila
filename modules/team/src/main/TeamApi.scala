@@ -119,18 +119,18 @@ final class TeamApi(
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.nonEmpty)
 
-  def joinedTeamIdsOfUserAsSeenBy(of: User)(using viewer: Option[Me]): Fu[List[TeamId]] =
+  def joinedTeamIdsOfUserAsSeenBy(of: User)(using me: Me): Fu[List[TeamId]] =
     cached
       .teamIdsList(of.id)
       .map(_.take(Team.maxJoin(of).value))
       .flatMap: allIds =>
-        if viewer.exists(_.is(of)) || Granter.opt(_.UserModView) then fuccess(allIds)
+        if Granter(_.UserModView) then fuccess(allIds)
         else
           allIds.nonEmpty.so:
             teamRepo.filterHideMembers(allIds).flatMap { hiddenIds =>
               if hiddenIds.isEmpty then fuccess(allIds)
               else
-                viewer.map(_.userId).fold(fuccess(Team.IdsStr.empty))(cached.teamIds).map { viewerTeamIds =>
+                cached.teamIds(me.userId).map { viewerTeamIds =>
                   allIds.filter: id =>
                     !hiddenIds(id) || viewerTeamIds.contains(id)
                 }
