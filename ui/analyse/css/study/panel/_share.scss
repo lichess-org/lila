@@ -40,6 +40,7 @@
 
 .study__share .url-start-at-ply {
   @extend %flex-center;
+  gap: 0.8ch;
   margin-top: 0.3rem;
   .cmn-toggle-wrap {
     transform: scale(0.8);
