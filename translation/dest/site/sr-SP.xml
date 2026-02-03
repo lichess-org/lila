@@ -742,7 +742,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Твој %1$s рејтинг је %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Бољи/а си него %1$s од %2$s играча.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s је бољи од %2$s играча %3$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s је бољи/а од %2$s %3$s играча.</string>
   <string name="betterThanPercentPlayers">Боље од %1$s од %2$s играча</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Немаш утврђен %s рејтинг.</string>
   <string name="yourRating">Твој рејтинг</string>
@@ -915,7 +915,7 @@
   <string name="rapidDesc">Брзопотезне партије: 8 до 25 минута</string>
   <string name="classicalDesc">Класичне партије: 25 минута и више</string>
   <string name="correspondenceDesc">Дописне партије: један или неколико дана по потезу</string>
-  <string name="puzzleDesc">Шаховски тренер тактике</string>
+  <string name="puzzleDesc">Тренер шаховских тактика</string>
   <string name="important">Важно</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваше питање можда већ има одговор %1$s</string>
   <string name="inTheFAQ">у често постављеним питањима (F.A.Q.)</string>
