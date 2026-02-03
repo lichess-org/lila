@@ -3,7 +3,8 @@ package lila.api
 import lila.core.id.ClasId
 import lila.swiss.{ Swiss, SwissApi }
 import lila.tournament.{ Tournament, TournamentApi }
-import lila.team.TeamApi
+import lila.team.{ Team, TeamApi }
+import lila.clas.Clas
 
 final class ClasApi(
     clasApi: lila.clas.ClasApi,
@@ -11,6 +12,10 @@ final class ClasApi(
     swissApi: SwissApi,
     tourApi: TournamentApi
 )(using Executor):
+
+  def teamClas(team: Team): Fu[Option[Clas]] =
+    team.isClas.so:
+      clasApi.clas.byId(team.id.into(ClasId))
 
   def onSwissCreate(swiss: Swiss): Funit =
     WithStudents(swiss.teamId): students =>

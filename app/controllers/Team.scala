@@ -32,7 +32,7 @@ final class Team(env: Env) extends LilaController(env):
 
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
-      Found(api.team(id)): team =>
+      WithTeamOrClas(id): team =>
         if !team.notable && HTTPRequest.isCrawler(req).yes
         then notFound
         else renderTeam(team, page, mod && canEnterModView)
@@ -45,7 +45,7 @@ final class Team(env: Env) extends LilaController(env):
 
   def members(id: TeamId, page: Int) = Open:
     Reasonable(page, Max(50)):
-      Found(api.teamEnabled(id)): team =>
+      WithEnabledTeamOrClas(id): team =>
         CanSeeMembers(team):
           paginator
             .teamMembersWithDate(team, page)
@@ -100,7 +100,7 @@ final class Team(env: Env) extends LilaController(env):
     }
 
   def tournaments(teamId: TeamId) = Open:
-    Found(api.teamEnabled(teamId)): team =>
+    WithEnabledTeamOrClas(teamId): team =>
       CanSeeMembers(team):
         env.teamInfo
           .tournaments(team, 30, 30)
@@ -217,7 +217,7 @@ final class Team(env: Env) extends LilaController(env):
   )
 
   def close(id: TeamId) = SecureBody(_.ManageTeam) { ctx ?=> me ?=>
-    Found(api.team(id)): team =>
+    WithTeamOrClas(id): team =>
       bindForm(forms.explain)(
         _ => funit,
         explain =>
@@ -302,7 +302,7 @@ final class Team(env: Env) extends LilaController(env):
         if _ then tooMany else f
 
   def join(id: TeamId) = AuthOrScopedBody(_.Team.Write) { ctx ?=> me ?=>
-    Found(api.teamEnabled(id)): team =>
+    WithEnabledTeamOrClas(id): team =>
       OneAtATime(me, rateLimited):
         JoinLimit(negotiate(tooManyTeamsHtml, tooManyTeamsJson)):
           negotiate(
@@ -392,7 +392,7 @@ final class Team(env: Env) extends LilaController(env):
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
-    Found(api.team(id)): team =>
+    WithEnabledTeamOrClas(id): team =>
       team.isClas.not.so:
         api
           .withLeaders(team)
@@ -480,10 +480,26 @@ final class Team(env: Env) extends LilaController(env):
         )
   }
 
+  private def WithTeamOrClas(teamId: TeamId)(f: TeamModel => Fu[Result])(using ctx: Context): Fu[Result] =
+    Found(api.team(teamId)): team =>
+      env.api.clas
+        .teamClas(team)
+        .flatMap:
+          case None => f(team)
+          case Some(clas) if ctx.useMe(clas.isTeacher) => f(team)
+          case Some(clas) => Redirect(routes.Clas.show(clas.id)).toFuccess
+
+  private def WithEnabledTeamOrClas(
+      teamId: TeamId
+  )(f: TeamModel => Fu[Result])(using ctx: Context): Fu[Result] =
+    WithTeamOrClas(teamId): team =>
+      if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
+      else notFound
+
   private def WithOwnedTeam(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
       f: (TeamModel, AsMod) => Fu[Result]
   )(using Context): Fu[Result] =
-    Found(api.team(teamId)): team =>
+    WithTeamOrClas(teamId): team =>
       ctx
         .useMe(api.hasPerm(team.id, perm))
         .flatMap: isGrantedLeader =>

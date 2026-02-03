@@ -184,7 +184,7 @@ final class TeamApi(
   def requestable(team: Team)(using me: Me): Fu[Boolean] = for
     belongs <- isMember(team.id)
     requested <- requestRepo.exists(team.id, me)
-  yield !belongs && !requested
+  yield !team.isClas && !belongs && !requested
 
   def createRequest(team: Team, msg: String)(using me: Me): Funit =
     requestable(team).flatMapz:
