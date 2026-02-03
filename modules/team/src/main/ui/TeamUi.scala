@@ -225,9 +225,9 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           cls := "team-show__subscribe form3",
           action := routes.Team.subscribe(team.id)
         )(
-          div(
-            span(form3.cmnToggle("team-subscribe", "subscribe", checked = subscribed)),
-            label(`for` := "team-subscribe")(trt.subToTeamMessages.txt())
+          form3.cmnToggleWrap(
+            form3.cmnToggle("team-subscribe", "subscribe", checked = subscribed),
+            trt.subToTeamMessages()
           )
         )
       ),

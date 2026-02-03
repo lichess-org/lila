@@ -1,8 +1,15 @@
-.cmn-toggle {
+.cmn-toggle-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8ch;
+  cursor: pointer;
+  user-select: none;
+}
+.cmn-toggle input {
   @extend %double-tap, %visually-hidden;
 }
 
-.cmn-toggle + label {
+.cmn-toggle label {
   @include prevent-select;
   display: block;
   position: relative;
@@ -14,6 +21,11 @@
   border: $border;
   border-radius: 24px;
   background-clip: padding-box;
+  background-color: $c-font-dimmer;
+
+  transition:
+    background $transition-duration,
+    box-shadow $transition-duration;
 
   &::before,
   &::after {
@@ -32,6 +44,11 @@
     z-index: 1;
     text-align: center;
     line-height: 22px;
+    content: $licon-X;
+    color: $c-font-dimmer;
+    transition:
+      margin $transition-duration,
+      color $transition-duration;
   }
 
   &::after {
@@ -39,22 +56,15 @@
     @include if-transp {
       background: linear-gradient(to bottom, hsl($site-hue, 7%, 22), hsl($site-hue, 5%, 19) 100%);
     }
-
     border-radius: 100%;
     box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
+    transition:
+      margin $transition-duration,
+      box-shadow $transition-duration;
   }
 }
 
-.cmn-toggle:not(:checked) + label {
-  background-color: $c-font-dimmer;
-
-  &::before {
-    content: $licon-X;
-    color: $c-font-dimmer;
-  }
-}
-
-.cmn-toggle:checked + label {
+.cmn-toggle input:checked + label {
   background-color: $c-good;
 
   &::before,
@@ -68,47 +78,7 @@
   }
 }
 
-.cmn-toggle:disabled + label {
+.cmn-toggle input:disabled + label {
   opacity: 60%;
   cursor: not-allowed !important;
-}
-
-@media (hover: none) {
-  .cmn-toggle:not(:disabled) + label {
-    transition:
-      background $transition-duration,
-      box-shadow $transition-duration;
-    &::before {
-      transition:
-        margin $transition-duration,
-        color $transition-duration;
-    }
-    &::after {
-      transition:
-        margin $transition-duration,
-        box-shadow $transition-duration;
-    }
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .cmn-toggle:focus-visible:not(:disabled) + label {
-    box-shadow: 0 0 12px $c-font-dimmer;
-  }
-  .cmn-toggle:hover:not(:disabled) {
-    + label {
-      box-shadow: 0 0 12px $c-font-dimmer;
-      transition: background $transition-duration;
-
-      &::before {
-        transition:
-          margin $transition-duration,
-          color $transition-duration;
-      }
-
-      &::after {
-        transition: margin $transition-duration;
-      }
-    }
-  }
 }

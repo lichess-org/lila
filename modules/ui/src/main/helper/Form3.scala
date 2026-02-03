@@ -66,20 +66,21 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       cls := List("form-control" -> true, klass -> klass.nonEmpty)
     )(validationModifiers(field))
 
+  def cmnToggleWrap = label(cls := "cmn-toggle-wrap")
+
   def cmnToggle(
       fieldId: String,
       fieldName: String,
       checked: Boolean,
-      styleClass: String = "cmn-toggle",
-      action: Option[String] = None
+      action: Option[String] = None,
+      cssClass: String = "cmn-toggle"
   ) =
-    frag(
+    span(cls := cssClass)(
       st.input(
         st.id := fieldId,
         name := fieldName,
         st.value := "true",
         tpe := "checkbox",
-        cls := s"form-control $styleClass",
         checked.option(st.checked),
         action.map(st.data("action") := _)
       ),

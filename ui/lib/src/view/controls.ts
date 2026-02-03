@@ -25,8 +25,8 @@ export const cmnToggle = (
   onChange: (checked: boolean) => void,
   redraw?: Redraw,
 ): VNode =>
-  h('span.cmn-toggle-wrap', { attrs: { role: 'button' } }, [
-    h(`input#${id}.cmn-toggle`, {
+  h('span.cmn-toggle', { attrs: { role: 'button' } }, [
+    h(`input#${id}`, {
       attrs: { type: 'checkbox', checked },
       hook: bind('change', e => onChange((e.target as HTMLInputElement).checked), redraw),
     }),
