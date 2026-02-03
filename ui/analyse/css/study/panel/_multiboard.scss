@@ -177,5 +177,7 @@
 .study__multiboard__options > label {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  .cmn-toggle-wrap {
+    transform: scale(0.7);
+  }
 }

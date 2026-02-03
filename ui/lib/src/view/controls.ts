@@ -17,7 +17,7 @@ export interface ToggleSettings {
 }
 
 export const cmnToggle = (id: string, onChange: (checked: boolean) => void, redraw?: Redraw): VNode =>
-  h('div.switch', { attrs: { role: 'button' } }, [
+  h('span.cmn-toggle-wrap', { attrs: { role: 'button' } }, [
     h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
       attrs: { type: 'checkbox' },
       hook: bind('change', e => onChange((e.target as HTMLInputElement).checked), redraw),
