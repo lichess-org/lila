@@ -112,7 +112,7 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
       data.user &&
       hl('div.puzzle__side__config__toggle', [
         hl('div.switch', [
-          hl(`input#${ratedId}.cmn-toggle.cmn-toggle--subtle.`, {
+          hl(`input#${ratedId}.cmn-toggle.`, {
             attrs: {
               type: 'checkbox',
               checked: ctrl.rated() && !ctrl.hintHasBeenShown(),
@@ -175,7 +175,7 @@ export function config(ctrl: PuzzleCtrl): MaybeVNode {
   return hl('div.puzzle__side__config', [
     hl('div.puzzle__side__config__toggle', [
       hl('div.switch', [
-        hl(`input#${autoNextId}.cmn-toggle.cmn-toggle--subtle`, {
+        hl(`input#${autoNextId}.cmn-toggle`, {
           attrs: { type: 'checkbox', checked: ctrl.autoNext() },
           hook: {
             insert: vnode =>

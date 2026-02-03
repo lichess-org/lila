@@ -46,18 +46,10 @@
 }
 
 .cmn-toggle:not(:checked) + label {
-  background-color: $c-bad;
-
-  &::before {
-    content: $licon-X;
-    color: $c-bad;
-  }
-}
-
-.cmn-toggle--subtle:not(:checked) + label {
   background-color: $c-font-dimmer;
 
   &::before {
+    content: $licon-X;
     color: $c-font-dimmer;
   }
 }

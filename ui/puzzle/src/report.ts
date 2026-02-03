@@ -81,7 +81,7 @@ export default class Report {
   private reportDialog = (puzzleId: PuzzleId, reason: string) => {
     const switchButton =
       `<div class="switch switch-report-puzzle" title="temporarily disable reporting puzzles">` +
-      `<input id="puzzle-toggle-report" class="cmn-toggle cmn-toggle--subtle" type="checkbox">` +
+      `<input id="puzzle-toggle-report" class="cmn-toggle" type="checkbox">` +
       `<label for="puzzle-toggle-report"></label></div>`;
 
     const hideButtonDiv = `<div style="display:flex; flex-flow: row nowrap; align-items: center; justify-content: center">${switchButton}<span style="padding-left: 1em"> Hide this for a week</span></div>`;

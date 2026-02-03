@@ -80,7 +80,7 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
       hl('span', ctrl.data.name),
       ctrl.isOptional &&
         hl('div.switch', [
-          hl(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
+          hl(`input#${id}.cmn-toggle`, {
             attrs: { type: 'checkbox', checked: ctrl.chatEnabled() },
             hook: bind('change', e => {
               ctrl.chatEnabled((e.target as HTMLInputElement).checked);
