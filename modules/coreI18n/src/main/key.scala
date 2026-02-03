@@ -205,7 +205,7 @@ object I18nKey:
     val `liveboard`: I18nKey = "broadcast:liveboard"
     val `communityBroadcast`: I18nKey = "broadcast:communityBroadcast"
     val `createdAndManagedBy`: I18nKey = "broadcast:createdAndManagedBy"
-    val `automaticallyTranslated`: I18nKey = "broadcast:automaticallyTranslated"
+    val `termsAutomaticallyTranslated`: I18nKey = "broadcast:termsAutomaticallyTranslated"
     val `roundX`: I18nKey = "broadcast:roundX"
     val `defaultRoundNameHelp`: I18nKey = "broadcast:defaultRoundNameHelp"
     val `openTournament`: I18nKey = "broadcast:openTournament"

@@ -29,23 +29,29 @@ export default function initModule(): void {
     ];
     const helpEl = document.createElement('small');
     helpEl.classList.add('form-help');
-    helpEl.innerHTML = `${i18n.broadcast.automaticallyTranslated}<br>`;
     helpEl.setAttribute('data-icon', Checkmark);
     helpEl.style.visibility = 'hidden';
     nameInput.insertAdjacentElement('afterend', helpEl);
     const checkAndToggle = (name: string) => {
-      const isTranslatable =
-        !!name && name.split(/\s+\|\s+/).every(token => regexes.some(re => re.test(token)));
-      isTranslatable ? (helpEl.style.visibility = 'visible') : (helpEl.style.visibility = 'hidden');
+      const translatedTokens = name
+        .split(/\s+\|\s+/)
+        .filter(token => regexes.some(re => re.test(token)))
+        .map(token => `"${token}"`);
+      if (translatedTokens.length) {
+        helpEl.innerHTML = i18n.broadcast.termsAutomaticallyTranslated(translatedTokens.join(', ')) + '<br>';
+        helpEl.style.visibility = 'visible';
+      } else helpEl.style.visibility = 'hidden';
     };
-    const getShortName = () =>
-      isRoundEdit
+    const getShortName = () => {
+      const name = isRoundEdit
         ? nameInput.value
         : groupName
           ? nameInput.value.startsWith(groupName)
             ? nameInput.value.slice(groupName.length).replace(/^[^\da-z]*/i, '')
             : nameInput.value
           : false;
+      if (name) return name.trim();
+    };
     // Initial load
     const shortName = getShortName();
     !!shortName && checkAndToggle(shortName);

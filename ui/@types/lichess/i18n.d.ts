@@ -237,8 +237,6 @@ interface I18n {
     allBroadcastsByMonth: string;
     /** All teams */
     allTeams: string;
-    /** This name will be automatically translated. */
-    automaticallyTranslated: string;
     /** Back to live move */
     backToLiveMove: string;
     /** Boards */
@@ -387,6 +385,8 @@ interface I18n {
     subscribeTitle: string;
     /** Teams */
     teams: string;
+    /** The following term(s) will be automatically translated: %s. */
+    termsAutomaticallyTranslated: I18nFormat;
     /** The new round will have the same members and contributors as the previous one. */
     theNewRoundHelp: string;
     /** Tiebreaks */
