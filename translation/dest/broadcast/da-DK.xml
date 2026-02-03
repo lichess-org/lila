@@ -83,11 +83,15 @@
   <string name="liveboard">Live bræt</string>
   <string name="communityBroadcast">Fællesskabsudsendelse</string>
   <string name="createdAndManagedBy">Oprettet og administreret af %s.</string>
+  <string name="termsAutomaticallyTranslated">Følgende udtryk vil automatisk blive oversat: %s.</string>
   <string name="roundX">Runde %s</string>
   <string name="defaultRoundNameHelp">Beholdes standardnavnet, oversættes det automatisk til alle andre sprog.</string>
   <string name="womenTournament">Kvinder</string>
+  <string name="menTournament">Mænd</string>
   <string name="girlsTournament">Piger</string>
+  <string name="boysTournament">Drenge</string>
   <string name="girlsUnderXAgeTournament">Piger U%s</string>
+  <string name="boysUnderXAgeTournament">Drenge U%s</string>
   <string name="quarterfinals">Kvartfinaler</string>
   <string name="semifinals">Semifinaler</string>
   <string name="finals">Finaler</string>
