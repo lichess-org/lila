@@ -68,9 +68,8 @@ object GameFilterMenu:
         user: User,
         nbs: Option[UserInfo.NbGames],
         filter: GameFilter,
-        me: Option[User],
         page: Int
-    )(using Request[?], FormBinding, Lang): Fu[Paginator[Game]] =
+    )(using Request[?], FormBinding, Lang)(using me: Option[Me]): Fu[Paginator[Game]] =
       val nb = cachedNbOf(user, nbs, filter)
       def std(query: Bdoc) = pagBuilder.recentlyCreated(query, nb)(page)
       filter match
@@ -84,7 +83,7 @@ object GameFilterMenu:
         case All =>
           std(Query.started(user.id)).flatMap:
             _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
-        case Me => std(Query.opponents(user, me | user))
+        case Me => std(Query.opponents(user, me.fold(user)(_.value)))
         case Rated => std(Query.rated(user.id))
         case Win => std(Query.win(user.id))
         case Loss => std(Query.loss(user.id))

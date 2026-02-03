@@ -122,19 +122,13 @@ final class User(
                 html = for
                   nbs <- env.userNbGames(u, withCrosstable = true)
                   filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
-                  pag <- env.gamePaginator(
-                    user = u,
-                    nbs = nbs.some,
-                    filter = filters.current,
-                    me = ctx.me,
-                    page = page
-                  )
+                  pag <- env.gamePaginator(user = u, nbs = nbs.some, filter = filters.current, page = page)
                   _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
                   _ <- env.tournament.cached.nameCache.preloadMany {
                     pag.currentPageResults.flatMap((_: GameModel).tournamentId).map(tid => tid -> ctx.lang)
                   }
-                  notes <- ctx.me.so: me =>
-                    env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me)
+                  notes <- ctx.useMe:
+                    env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id))
                   res <-
                     if HTTPRequest.isSynchronousHttp(ctx.req) then
                       for
@@ -236,14 +230,9 @@ final class User(
       msg = s"on ${u.username}"
     ):
       lila.mon.http.userGamesCost.increment(page.toLong)
+      val filter = lila.app.mashup.GameFilterMenu.currentOf(GameFilter.all, filterName)
       for
-        pagFromDb <- env.gamePaginator(
-          user = u,
-          nbs = none,
-          filter = lila.app.mashup.GameFilterMenu.currentOf(GameFilter.all, filterName),
-          me = ctx.me,
-          page = page
-        )
+        pagFromDb <- env.gamePaginator(user = u, nbs = none, filter = filter, page = page)
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache.preloadMany:
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
