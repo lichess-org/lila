@@ -1,7 +1,7 @@
-import { Checkmark } from 'lib/licon';
 export default function initModule(): void {
   const nameInput = document.querySelector<HTMLInputElement>('#form3-name');
   if (!nameInput) return;
+  const helpEl = document.querySelector<HTMLElement>('.relay-name-help')!;
   const isRoundEdit = !!document.querySelector('form.relay-round-form');
   const groupName = document.querySelector('.relay-form__subnav__group')?.textContent;
 
@@ -26,11 +26,6 @@ export default function initModule(): void {
     /^tie[-\s]?break(?:er)?[s]?$/i,
     /^knock[-\s]?out[s]?$/i,
   ];
-  const helpEl = document.createElement('small');
-  helpEl.classList.add('form-help', 'text');
-  helpEl.setAttribute('data-icon', Checkmark);
-  helpEl.style.visibility = 'hidden';
-  nameInput.insertAdjacentElement('afterend', helpEl);
   const checkAndToggle = (name: string) => {
     const translatedTokens = name
       .split(/\s+\|\s+/)
@@ -38,8 +33,8 @@ export default function initModule(): void {
       .map(token => `"${token}"`);
     if (translatedTokens.length) {
       helpEl.innerHTML = i18n.broadcast.termsAutomaticallyTranslated(translatedTokens.join(', ')) + '<br>';
-      helpEl.style.visibility = 'visible';
-    } else helpEl.style.visibility = 'hidden';
+      helpEl.classList.toggle('none', false);
+    } else helpEl.classList.toggle('none', true);
   };
   const getShortName = () => {
     const name = isRoundEdit

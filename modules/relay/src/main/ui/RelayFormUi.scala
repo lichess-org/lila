@@ -203,9 +203,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           )
         ,
         form3.globalError(form),
-        form3.group(form("name"), trb.roundName(), help = trb.defaultRoundNameHelp().some)(
-          form3.input(_)(autofocus)
-        ),
+        form3.group(form("name"), trb.roundName(), help = trb.defaultRoundNameHelp().some): field =>
+          frag(form3.input(field)(autofocus), nameHelp),
         form3.fieldset("Source", toggle = true.some)(cls := "box-pad")(
           form3.group(
             form("syncSource"),
@@ -513,7 +512,8 @@ Hanna Marie ; Kozul, Zdenko"""),
         (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
         form3.split(
-          form3.group(form("name"), trb.tournamentName(), half = true)(form3.input(_)(autofocus)),
+          form3.group(form("name"), trb.tournamentName(), half = true): field =>
+            frag(form3.input(field)(autofocus), nameHelp),
           form3.group(
             form("visibility"),
             trans.study.visibility(),
@@ -803,6 +803,8 @@ Team Dogs ; Scooby Doo"""),
           )(form3.textarea(_)(rows := 4))
         )
       )
+
+  private def nameHelp = small(cls := "form-help relay-name-help text", dataIcon := Icon.Checkmark)
 
   private def image(t: RelayTour)(using ctx: Context) =
     form3.fieldset("Image", toggle = true.some):
