@@ -81,18 +81,17 @@
   <string name="liveboard">現局面</string>
   <string name="communityBroadcast">コミュニティ配信</string>
   <string name="createdAndManagedBy">作成・管理者は %s です。</string>
-  <string name="automaticallyTranslated" comment="In reference to the name of a tournament round, which will be translated based on rules we hold in Lichess for e.g. &quot;Open&quot;, &quot;Quarterfinals&quot;...">この名前は自動的に翻訳されます。</string>
   <string name="roundX">ラウンド %s</string>
   <string name="defaultRoundNameHelp">デフォルトの名前のままにしておくと、他の言語に自動で翻訳されます。</string>
   <string name="openTournament">オープン</string>
-  <string name="womenTournament" comment="As in a Women's tournament.">女子</string>
-  <string name="girlsTournament" comment="As in a Girls' tournament.">年少女子</string>
-  <string name="openUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Open U18&quot; will mean it is an open tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">オープン U%s</string>
-  <string name="girlsUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Girls U18&quot; will mean it is an open tournament for under-18 year old girls.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">女子 U%s</string>
+  <string name="womenTournament">女子</string>
+  <string name="girlsTournament">年少女子</string>
+  <string name="openUnderXAgeTournament">オープン U%s</string>
+  <string name="girlsUnderXAgeTournament">女子 U%s</string>
   <string name="quarterfinals">準々決勝</string>
   <string name="semifinals">準決勝</string>
   <string name="finals">決勝</string>
   <string name="tiebreaks">タイブレーク</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.">局数 %s</string>
-  <string name="knockouts" comment="As in a round of a tournament which has a knockout format.">ノックアウト</string>
+  <string name="gameX">局数 %s</string>
+  <string name="knockouts">ノックアウト</string>
 </resources>
