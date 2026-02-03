@@ -111,7 +111,8 @@ final class User(
       WithProxy: proxy ?=>
         limit.enumeration.userProfile(rateLimited):
           EnabledUser(username): u =>
-            if filter == "search" && ctx.isAnon
+            val isSearch = filter == GameFilter.Search.name
+            if isSearch && ctx.isAnon
             then
               negotiate(
                 Unauthorized.page(views.gameSearch.login(u.count.game)),
@@ -132,7 +133,7 @@ final class User(
                   res <-
                     if HTTPRequest.isSynchronousHttp(ctx.req) then
                       for
-                        info <- env.userInfo.fetch(u, nbs, withUblog = true)
+                        info <- env.userInfo.fetch(u, nbs, withUblog = !isSearch)
                         _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
                         social <- env.socialInfo(u)
                         searchForm = (filters.current == GameFilter.Search).option(
