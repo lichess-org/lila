@@ -13,31 +13,24 @@ import lila.game.{ GameFilter, GameFilterMenu, Query }
 
 object GameFilterMenu:
 
-  import GameFilter.*
-
   def apply(user: User, nbs: UserInfo.NbGames, currentName: String, isAuth: Boolean): GameFilterMenu =
 
     val filters: NonEmptyList[GameFilter] = NonEmptyList(
-      All,
+      GameFilter.all,
       List(
-        (~nbs.withMe > 0).option(Me),
-        (user.count.rated > 0).option(Rated),
-        (user.count.win > 0).option(Win),
-        (user.count.loss > 0).option(Loss),
-        (user.count.draw > 0).option(Draw),
-        (nbs.playing > 0).option(Playing),
-        (nbs.bookmark > 0).option(Bookmark),
-        (nbs.imported > 0).option(Imported),
-        (isAuth && user.count.game > 0).option(Search)
+        (~nbs.withMe > 0).option(GameFilter.me),
+        (user.count.rated > 0).option(GameFilter.rated),
+        (user.count.win > 0).option(GameFilter.win),
+        (user.count.loss > 0).option(GameFilter.loss),
+        (user.count.draw > 0).option(GameFilter.draw),
+        (nbs.playing > 0).option(GameFilter.playing),
+        (nbs.bookmark > 0).option(GameFilter.bookmark),
+        (nbs.imported > 0).option(GameFilter.imported),
+        (isAuth && user.count.game > 0).option(GameFilter.search)
       ).flatten
     )
 
-    val current = currentOf(filters, currentName)
-
-    lila.game.GameFilterMenu(filters, current)
-
-  def currentOf(filters: NonEmptyList[GameFilter], name: String) =
-    filters.find(_.name == name) | filters.head
+    lila.game.GameFilterMenu(filters, GameFilter(currentName))
 
   private def cachedNbOf(
       user: User,
@@ -45,16 +38,16 @@ object GameFilterMenu:
       filter: GameFilter
   ): Option[Int] =
     filter match
-      case Bookmark => nbs.map(_.bookmark)
-      case Imported => nbs.map(_.imported)
-      case All => user.count.game.some
-      case Me => nbs.flatMap(_.withMe)
-      case Rated => user.count.rated.some
-      case Win => user.count.win.some
-      case Loss => user.count.loss.some
-      case Draw => user.count.draw.some
-      case Search => user.count.game.some
-      case Playing => nbs.map(_.playing)
+      case GameFilter.bookmark => nbs.map(_.bookmark)
+      case GameFilter.imported => nbs.map(_.imported)
+      case GameFilter.all => user.count.game.some
+      case GameFilter.me => nbs.flatMap(_.withMe)
+      case GameFilter.rated => user.count.rated.some
+      case GameFilter.win => user.count.win.some
+      case GameFilter.loss => user.count.loss.some
+      case GameFilter.draw => user.count.draw.some
+      case GameFilter.search => user.count.game.some
+      case GameFilter.playing => nbs.map(_.playing)
 
   final class PaginatorBuilder(
       userGameSearch: lila.gameSearch.UserGameSearch,
@@ -69,26 +62,26 @@ object GameFilterMenu:
         nbs: Option[UserInfo.NbGames],
         filter: GameFilter,
         page: Int
-    )(using Request[?], FormBinding, Lang)(using me: Option[Me]): Fu[Paginator[Game]] =
+    )(using Request[?], FormBinding, Lang)(using meOpt: Option[Me]): Fu[Paginator[Game]] =
       val nb = cachedNbOf(user, nbs, filter)
       def std(query: Bdoc) = pagBuilder.recentlyCreated(query, nb)(page)
       filter match
-        case Bookmark => bookmarkApi.gamePaginatorByUser(user, page)
-        case Imported =>
+        case GameFilter.bookmark => bookmarkApi.gamePaginatorByUser(user, page)
+        case GameFilter.imported =>
           pagBuilder(
             selector = Query.imported(user.id),
             sort = $sort.desc("pgni.ca"),
             nb = nb
           )(page)
-        case All =>
+        case GameFilter.all =>
           std(Query.started(user.id)).flatMap:
             _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
-        case Me => std(Query.opponents(user, me.fold(user)(_.value)))
-        case Rated => std(Query.rated(user.id))
-        case Win => std(Query.win(user.id))
-        case Loss => std(Query.loss(user.id))
-        case Draw => std(Query.draw(user.id))
-        case Playing =>
+        case GameFilter.me => std(Query.opponents(user, meOpt.fold(user)(_.value)))
+        case GameFilter.rated => std(Query.rated(user.id))
+        case GameFilter.win => std(Query.win(user.id))
+        case GameFilter.loss => std(Query.loss(user.id))
+        case GameFilter.draw => std(Query.draw(user.id))
+        case GameFilter.playing =>
           pagBuilder(
             selector = Query.nowPlaying(user.id),
             sort = $empty,
@@ -98,11 +91,11 @@ object GameFilterMenu:
               _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
             .addEffect: p =>
               p.currentPageResults.filter(_.finishedOrAborted).foreach(gameRepo.unsetPlayingUids)
-        case Search => userGameSearch(user, page)
+        case GameFilter.search => userGameSearch(user, page)
 
   def searchForm(
       userGameSearch: lila.gameSearch.UserGameSearch,
       filter: GameFilter
   )(using Request[?], FormBinding, Lang): play.api.data.Form[?] =
-    if filter == Search then userGameSearch.requestForm
+    if filter == GameFilter.search then userGameSearch.requestForm
     else userGameSearch.defaultForm
