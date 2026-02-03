@@ -3,7 +3,7 @@ export default function initModule(): void {
   site.load.then(() => {
     const nameInput = document.querySelector<HTMLInputElement>('#form3-name');
     if (!nameInput) return;
-    const isRoundEdit = location.pathname.startsWith('/broadcast/round/');
+    const isRoundEdit = /broadcast\/(?:round\/\w{8}\/edit|\w{8}\/new)/.test(location.pathname);
     const groupName = document.querySelector('.relay-form__subnav__group')?.textContent;
 
     // Must be in sync with file://./../../../modules/relay/src/main/RelayI18n.scala
