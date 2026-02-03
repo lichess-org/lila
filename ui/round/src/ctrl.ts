@@ -888,6 +888,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   blindfold = (v?: boolean): boolean => {
+    this.data.player.blindfold ??= false;
     if (v === undefined || v === this.data.player.blindfold) return this.data.player.blindfold ?? false;
     this.blindfoldStorage.set(v);
     this.data.player.blindfold = v;
