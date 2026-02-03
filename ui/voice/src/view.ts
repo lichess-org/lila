@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { onInsert, bind, hl, type VNode, snabDialog, type Dialog } from 'lib/view';
+import { onInsert, bind, hl, type VNode, snabDialog, type Dialog, cmnToggleProp } from 'lib/view';
 import { jsonSimple } from 'lib/xhr';
 import { onClickAway } from 'lib';
 import type { Entry, VoiceCtrl, MsgType } from './interfaces';
@@ -54,15 +54,13 @@ function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
 }
 
 function pushTalkSetting(ctrl: VoiceCtrl) {
-  return hl('div.voice-setting', { attrs: { style: 'align-self: center' } }, [
-    hl('div.switch', { attrs: { title: 'Hold the shift key while speaking' } }, [
-      hl('input#wake-mode.cmn-toggle', {
-        attrs: { type: 'checkbox', checked: ctrl.pushTalk() },
-        hook: bind('change', e => ctrl.pushTalk((e.target as HTMLInputElement).checked)),
-      }),
-      hl('label', { attrs: { for: 'wake-mode' } }),
+  return hl('div.voice-setting', [
+    hl('label.cmn-toggle-wrap', { attrs: { title: 'Hold the shift key while speaking' } }, [
+      cmnToggleProp({ id: 'wake-mode', prop: ctrl.pushTalk }),
+      'Push ',
+      hl('strong', 'shift'),
+      ' key to talk',
     ]),
-    hl('label', { attrs: { for: 'wake-mode' } }, ['Push ', hl('strong', 'shift'), ' key to talk']),
   ]);
 }
 

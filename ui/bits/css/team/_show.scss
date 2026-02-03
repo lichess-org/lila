@@ -143,17 +143,6 @@ $section-margin-more: 5vh;
     @include padding-direction(5px, 0, 5px, 25px);
   }
 
-  &__subscribe {
-    div {
-      @extend %flex-center;
-
-      label {
-        margin-inline-start: 1rem;
-        cursor: pointer;
-      }
-    }
-  }
-
   &__log {
     margin-bottom: 2em;
   }

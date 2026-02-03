@@ -26,17 +26,6 @@
       background: $c-bg-box !important;
     }
 
-    input {
-      cursor: pointer;
-      display: none;
-
-      @extend %checkbox;
-    }
-
-    &-active input {
-      display: block;
-    }
-
     span {
       @extend %nowrap-ellipsis;
     }

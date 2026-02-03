@@ -38,12 +38,6 @@
       .highlight {
         background: $m-primary_bg-page--mix-15 !important;
       }
-      .cmn-toggle + label {
-        display: inline-block;
-      }
-    }
-    .cmn-toggle:not(:checked) + label {
-      background-color: $c-bg-low;
     }
     th {
       padding-top: 1em;

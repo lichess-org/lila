@@ -1,6 +1,6 @@
 import type { AnalyseSocketSend } from '../socket';
 import * as licon from 'lib/licon';
-import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/view';
+import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl, cmnToggleWrap } from 'lib/view';
 import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
 import type { NotifCtrl } from './notif';
 import { prop, type Prop, scrollTo } from 'lib';
@@ -178,20 +178,13 @@ export function view(ctrl: StudyCtrl): VNode {
         hook: onInsert(el => scrollTo(el.closest('.study-list')!, el)),
       },
       [
-        hl('div.role', [
-          hl('div.switch', [
-            hl('input.cmn-toggle', {
-              attrs: { id: roleId, type: 'checkbox', checked: member.role === 'w' },
-              hook: bind(
-                'change',
-                e => members.setRole(member.user.id, (e.target as HTMLInputElement).checked ? 'w' : 'r'),
-                ctrl.redraw,
-              ),
-            }),
-            hl('label', { attrs: { for: roleId } }),
-          ]),
-          hl('label', { attrs: { for: roleId } }, i18n.study.contributor),
-        ]),
+        cmnToggleWrap({
+          id: roleId,
+          name: i18n.study.contributor,
+          checked: member.role === 'w',
+          change: v => members.setRole(member.user.id, v ? 'w' : 'r'),
+          redraw: ctrl.redraw,
+        }),
         hl(
           'div.kick',
           hl(

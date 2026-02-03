@@ -1,10 +1,4 @@
-import {
-  hl,
-  type LooseVNode,
-  boardMenu as menuDropdown,
-  toggle as cmnToggle,
-  boolPrefXhrToggle,
-} from 'lib/view';
+import { hl, type LooseVNode, boardMenu as menuDropdown, cmnToggleWrap, boolPrefXhrToggle } from 'lib/view';
 import type RoundController from '../ctrl';
 import { toggle } from 'lib';
 import { displayColumns, isTouchDevice } from 'lib/device';
@@ -30,25 +24,21 @@ export default function (ctrl: RoundController): LooseVNode {
           !spectator,
         ),
         'vibrate' in navigator &&
-          cmnToggle(
-            {
-              name: 'Vibration feedback',
-              id: 'haptics',
-              checked: ctrl.vibration(),
-              change: v => ctrl.vibration(v),
-            },
-            ctrl.redraw,
-          ),
+          cmnToggleWrap({
+            id: 'haptics',
+            name: 'Vibration feedback',
+            checked: ctrl.vibration(),
+            change: v => ctrl.vibration(v),
+            redraw: ctrl.redraw,
+          }),
         portraitMobile &&
-          cmnToggle(
-            {
-              name: 'Show clock on left',
-              id: 'swapClock',
-              checked: swapClockStorage.get(),
-              change: v => swapClockStorage.set(v),
-            },
-            ctrl.redraw,
-          ),
+          cmnToggleWrap({
+            id: 'swapClock',
+            name: 'Show clock on left',
+            checked: swapClockStorage.get(),
+            change: v => swapClockStorage.set(v),
+            redraw: ctrl.redraw,
+          }),
 
         menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
         !portraitMobile &&

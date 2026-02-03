@@ -252,9 +252,7 @@ final class ModInquiryUi(helpers: Helpers)(
 
   private def closeInquiry(in: Inquiry) =
     div(cls := "actions close")(
-      span(cls := "switcher", title := "Automatically open next report")(
-        span(cls := "switch")(form3.cmnToggle("auto-next", "auto-next", checked = true))
-      ),
+      form3.cmnToggle("auto-next", "auto-next", checked = true)(title := "Automatically open next report"),
       postForm(
         action := routes.Report.process(in.report.id),
         title := "Dismiss this report as processed. (Hotkey: d)",

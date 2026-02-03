@@ -98,7 +98,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       h('div.study__multiboard__options', [
         ctrl.multiCloudEval &&
           h('label.eval', [
-            cmnToggleProp('multiboard-toggle-eval', ctrl.multiCloudEval.showEval, ctrl.redraw),
+            cmnToggleProp({ id: 'multiboard-toggle-eval', prop: ctrl.multiCloudEval.showEval }),
             i18n.study.showEvalBar,
           ]),
         ctrl.isRelay ? renderPlayingToggle(ctrl) : undefined,
@@ -172,11 +172,14 @@ function pagerButton(icon: string, click: () => void, enable: boolean, ctrl: Mul
 }
 
 const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
-  h('label.playing', [cmnToggleProp('multiboard-toggle-playing', ctrl.playing), i18n.study.playing]);
+  h('label.playing', [
+    cmnToggleProp({ id: 'multiboard-toggle-playing', prop: ctrl.playing }),
+    i18n.study.playing,
+  ]);
 
 const renderShowResultsToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
   h('label.results', [
-    cmnToggleProp('multiboard-toggle-results', ctrl.showResults, ctrl.redraw),
+    cmnToggleProp({ id: 'multiboard-toggle-results', prop: ctrl.showResults, redraw: ctrl.redraw }),
     i18n.study.showResults,
   ]);
 

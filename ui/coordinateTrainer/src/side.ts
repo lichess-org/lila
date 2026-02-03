@@ -1,5 +1,5 @@
 import { h, type VNode, type VNodes } from 'snabbdom';
-import { bind, toggle } from 'lib/view';
+import { bind, cmnToggleWrapProp } from 'lib/view';
 import type CoordinateTrainerCtrl from './ctrl';
 import type { TimeControl, Mode } from './interfaces';
 import { colors, type ColorChoice } from 'lib/setup/color';
@@ -221,40 +221,33 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { redraw, showCoordinates, showCoordsOnAllSquares, showPieces } = ctrl;
   return h('div.settings', [
     ctrl.mode() === 'findSquare'
-      ? toggle(
-          {
-            name: i18n.coordinates.practiceOnlySomeFilesAndRanks,
-            id: 'enableSelection',
-            checked: ctrl.selectionEnabled(),
-            change: ctrl.selectionEnabled,
-          },
+      ? cmnToggleWrapProp({
+          id: 'enableSelection',
+          name: i18n.coordinates.practiceOnlySomeFilesAndRanks,
+          prop: ctrl.selectionEnabled,
           redraw,
-        )
+        })
       : null,
     ...filesAndRanksSelection(ctrl),
-    toggle(
-      {
-        name: i18n.coordinates.showCoordinates,
-        id: 'showCoordinates',
-        checked: showCoordinates(),
-        change: showCoordinates,
-      },
+    cmnToggleWrapProp({
+      id: 'showCoordinates',
+      name: i18n.coordinates.showCoordinates,
+      prop: showCoordinates,
       redraw,
-    ),
-    toggle(
-      {
-        name: i18n.coordinates.showCoordsOnAllSquares,
-        id: 'showCoordsOnAllSquares',
-        checked: showCoordsOnAllSquares(),
-        change: showCoordsOnAllSquares,
-        disabled: !ctrl.showCoordinates(),
-      },
+    }),
+    cmnToggleWrapProp({
+      id: 'showCoordsOnAllSquares',
+      name: i18n.coordinates.showCoordsOnAllSquares,
+      prop: showCoordsOnAllSquares,
+      disabled: !ctrl.showCoordinates(),
       redraw,
-    ),
-    toggle(
-      { name: i18n.coordinates.showPieces, id: 'showPieces', checked: showPieces(), change: showPieces },
+    }),
+    cmnToggleWrapProp({
+      id: 'showPieces',
+      name: i18n.coordinates.showPieces,
+      prop: showPieces,
       redraw,
-    ),
+    }),
   ]);
 };
 

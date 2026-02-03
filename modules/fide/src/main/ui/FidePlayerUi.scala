@@ -138,7 +138,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         fieldName = id,
         checked = p.follow,
         action = Some(routes.Fide.follow(p.player.id, p.follow).url),
-        styleClass = "cmn-favourite"
+        cssClass = "cmn-favourite"
       )
     )
 

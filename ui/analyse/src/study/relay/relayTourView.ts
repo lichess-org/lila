@@ -1,7 +1,7 @@
 import type AnalyseCtrl from '@/ctrl';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, onInsert, hl, type LooseVNode, toggle, copyMeInput } from 'lib/view';
+import { bind, dataIcon, onInsert, hl, type LooseVNode, cmnToggleWrap, copyMeInput } from 'lib/view';
 import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'lib/richText';
 import type {
@@ -485,21 +485,17 @@ const delayedUntil = (ctx: RelayViewContext) => {
 const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
   defined(relay.data.isSubscribed)
     ? [
-        toggle(
-          {
-            name: i18n.site.subscribe,
-            id: 'tour-subscribe',
-            title: i18n.broadcast.subscribeTitle,
-            cls: 'relay-tour__subscribe',
-            checked: relay.data.isSubscribed,
-            change: (v: boolean) => {
-              xhrText(`/broadcast/${relay.data.tour.id}/subscribe?set=${v}`, { method: 'post' });
-              relay.data.isSubscribed = v;
-              ctrl.redraw();
-            },
+        cmnToggleWrap({
+          id: 'tour-subscribe',
+          name: i18n.site.subscribe,
+          title: i18n.broadcast.subscribeTitle,
+          checked: relay.data.isSubscribed,
+          change(v) {
+            xhrText(`/broadcast/${relay.data.tour.id}/subscribe?set=${v}`, { method: 'post' });
+            relay.data.isSubscribed = v;
           },
-          ctrl.redraw,
-        ),
+          redraw: ctrl.redraw,
+        }),
       ]
     : [];
 

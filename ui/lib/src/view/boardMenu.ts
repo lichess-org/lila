@@ -5,7 +5,7 @@ import { type Toggle, myUserId, onClickAway } from '@/index';
 import { addPointerListeners } from '@/pointer';
 import * as licon from '@/licon';
 import { type MaybeVNode, type MaybeVNodes, type VNode, dataIcon, onInsert } from './snabbdom';
-import { type ToggleSettings, toggle } from '@/view/controls';
+import { cmnToggleWrap, cmnToggleWrapProp } from '@/view/controls';
 import { pubsub } from '@/pubsub';
 
 export const toggleButton = (toggle: Toggle, title: string): VNode =>
@@ -45,51 +45,50 @@ export class BoardMenu {
     );
 
   zenMode = (enabled = true): VNode =>
-    this.cmnToggle({
-      name: i18n.preferences.zenMode,
+    cmnToggleWrap({
       id: 'zen',
+      name: i18n.preferences.zenMode,
       checked: $('body').hasClass('zen'),
       change: () => pubsub.emit('zen'),
       disabled: !enabled,
+      redraw: this.redraw,
     });
 
   voiceInput = (toggle: Toggle, enabled = true): VNode =>
-    this.cmnToggle({
-      name: i18n.preferences.inputMovesWithVoice,
+    cmnToggleWrapProp({
       id: 'voice',
-      checked: toggle(),
-      change: toggle,
+      name: i18n.preferences.inputMovesWithVoice,
+      prop: toggle,
       title: this.anonymous ? 'Must be logged in' : '',
       disabled: this.anonymous || !enabled,
+      redraw: this.redraw,
     });
 
   keyboardInput = (toggle: Toggle, enabled = true): VNode =>
-    this.cmnToggle({
-      name: i18n.preferences.inputMovesWithTheKeyboard,
+    cmnToggleWrapProp({
       id: 'keyboard',
-      checked: toggle(),
-      change: toggle,
+      name: i18n.preferences.inputMovesWithTheKeyboard,
+      prop: toggle,
       title: this.anonymous ? 'Must be logged in' : '',
       disabled: this.anonymous || !enabled,
+      redraw: this.redraw,
     });
 
   blindfold = (toggle: Toggle, enabled = true): VNode =>
-    this.cmnToggle({
-      name: i18n.preferences.blindfold,
+    cmnToggleWrapProp({
       id: 'blindfold',
-      checked: toggle(),
-      change: toggle,
+      name: i18n.preferences.blindfold,
+      prop: toggle,
       disabled: !enabled,
+      redraw: this.redraw,
     });
 
   confirmMove = (toggle: Toggle, enabled = true): VNode =>
-    this.cmnToggle({
-      name: i18n.preferences.moveConfirmation,
+    cmnToggleWrapProp({
       id: 'confirmmove',
-      checked: toggle(),
-      change: toggle,
+      name: i18n.preferences.moveConfirmation,
+      prop: toggle,
       disabled: !enabled,
+      redraw: this.redraw,
     });
-
-  private cmnToggle = (t: ToggleSettings) => toggle(t, this.redraw);
 }

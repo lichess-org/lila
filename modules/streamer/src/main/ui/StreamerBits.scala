@@ -188,15 +188,12 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
   def subscribeButtonFor(s: Streamer.WithContext)(using ctx: Context): Option[Tag] =
     (ctx.isAuth && ctx.isnt(s.user)).option:
       val id = s"streamer-subscribe-${s.streamer.userId}"
-      label(cls := "streamer-subscribe")(
-        data("action") := s"${routes.Streamer.subscribe(s.streamer.userId, !s.subscribed)}"
-      )(
-        span(
-          form3.cmnToggle(
-            fieldId = id,
-            fieldName = id,
-            checked = s.subscribed
-          )
+      form3.cmnToggleWrap(
+        form3.cmnToggle(
+          id,
+          id,
+          s.subscribed,
+          action = routes.Streamer.subscribe(s.streamer.userId, !s.subscribed).url.some
         ),
         trans.site.subscribe()
       )
