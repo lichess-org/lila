@@ -193,7 +193,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
         ),
         p("Did you mean ", a(href := https.toString)(https.toString), "?")
       )
-      postForm(cls := "form3", action := url)(
+      postForm(cls := "form3 relay-round-form", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
           div(cls := "form-group")(
             div(cls := "form-group")(ui.howToUse),
