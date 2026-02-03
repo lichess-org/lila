@@ -83,18 +83,17 @@
   <string name="liveboard">Zuzeneko taula</string>
   <string name="communityBroadcast">Komunitatearen zuzenekoa</string>
   <string name="createdAndManagedBy">%s erabiltzaileak sortu eta kudeatua.</string>
-  <string name="automaticallyTranslated" comment="In reference to the name of a tournament round, which will be translated based on rules we hold in Lichess for e.g. &quot;Open&quot;, &quot;Quarterfinals&quot;...">Izen hau itzuli egingo da automatikoki.</string>
   <string name="roundX">%s. txanda</string>
   <string name="defaultRoundNameHelp">Defektuzko izena uzten baduzu, hizkuntza guztietan ondo itzuliko da.</string>
   <string name="openTournament">Irekia</string>
-  <string name="womenTournament" comment="As in a Women's tournament.">Emakumeena</string>
-  <string name="girlsTournament" comment="As in a Girls' tournament.">Neskena</string>
-  <string name="openUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Open U18&quot; will mean it is an open tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">%s urtez azpiko irekia</string>
-  <string name="girlsUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Girls U18&quot; will mean it is an open tournament for under-18 year old girls.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">%s urtez azpiko neskak</string>
+  <string name="womenTournament">Emakumeena</string>
+  <string name="girlsTournament">Neskena</string>
+  <string name="openUnderXAgeTournament">%s urtez azpiko irekia</string>
+  <string name="girlsUnderXAgeTournament">%s urtez azpiko neskak</string>
   <string name="quarterfinals">Final-laurdenak</string>
   <string name="semifinals">Finalerdiak</string>
   <string name="finals">Finalak</string>
   <string name="tiebreaks">Desberdinketak</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.">%s partida</string>
-  <string name="knockouts" comment="As in a round of a tournament which has a knockout format.">Kanporaketak</string>
+  <string name="gameX">%s partida</string>
+  <string name="knockouts">Kanporaketak</string>
 </resources>
