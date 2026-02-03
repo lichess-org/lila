@@ -810,7 +810,8 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="board">Sakktábla</string>
   <string name="size">Méret</string>
   <string name="opacity">Átlátszóság</string>
-  <string name="brightness">Kontraszt</string>
+  <string name="brightness">Fényerő</string>
+  <string name="contrast">Kontraszt</string>
   <string name="hue">Árnyalat</string>
   <string name="boardReset">Színek visszaállítása az alapértékre</string>
   <string name="pieceSet">Figurakészlet</string>
