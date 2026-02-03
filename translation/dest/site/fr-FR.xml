@@ -664,7 +664,7 @@
   <string name="onlyExistingConversations">Conversations en cours seulement</string>
   <string name="onlyFriends">Seulement les amis</string>
   <string name="menu">Menu</string>
-  <string name="castling">Roque</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Roque</string>
   <string name="whiteCastlingKingside">Blancs O-O</string>
   <string name="blackCastlingKingside">Noirs O-O</string>
   <plurals name="nbForumPosts">
