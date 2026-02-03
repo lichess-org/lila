@@ -81,18 +81,17 @@
   <string name="liveboard">实时棋盘</string>
   <string name="communityBroadcast">社区转播</string>
   <string name="createdAndManagedBy">由 %s 创建和管理。</string>
-  <string name="automaticallyTranslated" comment="In reference to the name of a tournament round, which will be translated based on rules we hold in Lichess for e.g. &quot;Open&quot;, &quot;Quarterfinals&quot;...">此名称将被自动翻译。</string>
   <string name="roundX">第 %s 轮</string>
   <string name="defaultRoundNameHelp">保留默认名称会将其自动翻译为其他语言。</string>
   <string name="openTournament">公开组</string>
-  <string name="womenTournament" comment="As in a Women's tournament.">女子组</string>
-  <string name="girlsTournament" comment="As in a Girls' tournament.">女子组</string>
-  <string name="openUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Open U18&quot; will mean it is an open tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">公开U%s</string>
-  <string name="girlsUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Girls U18&quot; will mean it is an open tournament for under-18 year old girls.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">女子U%s</string>
+  <string name="womenTournament">女子组</string>
+  <string name="girlsTournament">女子组</string>
+  <string name="openUnderXAgeTournament">公开U%s</string>
+  <string name="girlsUnderXAgeTournament">女子U%s</string>
   <string name="quarterfinals">四分之一决赛</string>
   <string name="semifinals">半决赛</string>
   <string name="finals">决赛</string>
   <string name="tiebreaks">加赛</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.">第 %s 局</string>
-  <string name="knockouts" comment="As in a round of a tournament which has a knockout format.">淘汰赛</string>
+  <string name="gameX">第 %s 局</string>
+  <string name="knockouts">淘汰赛</string>
 </resources>
