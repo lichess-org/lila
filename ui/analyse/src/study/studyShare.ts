@@ -1,6 +1,6 @@
 import { prop } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, hl, copyMeInput } from 'lib/view';
+import { type VNode, bind, dataIcon, hl, copyMeInput, cmnToggleProp, type MaybeVNode } from 'lib/view';
 import { writeTextClipboard, url as xhrUrl } from 'lib/xhr';
 import { renderIndexAndMove } from '../view/components';
 import { baseUrl } from '../view/util';
@@ -9,30 +9,15 @@ import type RelayCtrl from './relay/relayCtrl';
 import type { TreeNode } from 'lib/tree/types';
 import { relayIframe } from './relay/relayTourView';
 
-function fromPly(ctrl: StudyShare): VNode {
+function fromPly(ctrl: StudyShare): MaybeVNode {
+  if (!ctrl.onMainline()) return;
   const renderedMove = renderIndexAndMove(ctrl.currentNode(), false, false);
-  return hl(
-    'div.ply-wrap',
-    ctrl.onMainline() &&
-      hl('div.ply', [
-        hl('div.form-check__container', [
-          hl('span.form-check__input', [
-            hl('input#study-share-start-position', {
-              attrs: { type: 'checkbox', checked: ctrl.withPly() },
-              hook: bind('change', e => ctrl.withPly((e.target as HTMLInputElement).checked), ctrl.redraw),
-            }),
-            hl('label.form-check__label', { attrs: { for: 'study-share-start-position' } }),
-          ]),
-          hl(
-            'label.form-label',
-            { attrs: { for: 'study-share-start-position' } },
-            renderedMove
-              ? i18n.study.startAtX.asArray(hl('strong', renderedMove))
-              : i18n.study.startAtInitialPosition,
-          ),
-        ]),
-      ]),
-  );
+  return hl('label.url-start-at-ply', [
+    cmnToggleProp('study-share-start-position', ctrl.withPly, ctrl.redraw),
+    ...(renderedMove.length
+      ? i18n.study.startAtX.asArray(hl('strong', renderedMove))
+      : [i18n.study.startAtInitialPosition]),
+  ]);
 }
 
 export class StudyShare {

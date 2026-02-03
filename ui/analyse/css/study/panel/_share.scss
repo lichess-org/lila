@@ -38,6 +38,10 @@
   }
 }
 
-.study__share .ply-wrap {
+.study__share .url-start-at-ply {
+  @extend %flex-center;
   margin-top: 0.3rem;
+  .cmn-toggle-wrap {
+    transform: scale(0.8);
+  }
 }
