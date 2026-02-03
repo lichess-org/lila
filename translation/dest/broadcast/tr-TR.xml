@@ -83,18 +83,17 @@
   <string name="liveboard">Canlı tahta</string>
   <string name="communityBroadcast">Topluluk yayını</string>
   <string name="createdAndManagedBy">%s tarafından oluşturuldu ve yönetiliyor.</string>
-  <string name="automaticallyTranslated" comment="In reference to the name of a tournament round, which will be translated based on rules we hold in Lichess for e.g. &quot;Open&quot;, &quot;Quarterfinals&quot;...">Bu isim otomatik olarak çevirilecek.</string>
   <string name="roundX">Tur %s</string>
   <string name="defaultRoundNameHelp">Varsayılan adı korumak, adın otomatik olarak diğer tüm dillere çevrilmesini sağlayacaktır.</string>
   <string name="openTournament">Açık</string>
-  <string name="womenTournament" comment="As in a Women's tournament.">Kadınlar</string>
-  <string name="girlsTournament" comment="As in a Girls' tournament.">Kızlar</string>
-  <string name="openUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Open U18&quot; will mean it is an open tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Açık U%s</string>
-  <string name="girlsUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Girls U18&quot; will mean it is an open tournament for under-18 year old girls.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Kızlar U%s</string>
+  <string name="womenTournament">Kadınlar</string>
+  <string name="girlsTournament">Kızlar</string>
+  <string name="openUnderXAgeTournament">Açık U%s</string>
+  <string name="girlsUnderXAgeTournament">Kızlar U%s</string>
   <string name="quarterfinals">Çeyrek final</string>
   <string name="semifinals">Yarı final</string>
   <string name="finals">Final</string>
   <string name="tiebreaks">Beraberlik bozma</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.">Oyun %s</string>
-  <string name="knockouts" comment="As in a round of a tournament which has a knockout format.">Eleme</string>
+  <string name="gameX">Oyun %s</string>
+  <string name="knockouts">Eleme</string>
 </resources>
