@@ -83,18 +83,21 @@
   <string name="liveboard">Tablero en directo</string>
   <string name="communityBroadcast">Transmisión de la comunidad</string>
   <string name="createdAndManagedBy">Creada y administrada por %s.</string>
-  <string name="automaticallyTranslated" comment="In reference to the name of a tournament round, which will be translated based on rules we hold in Lichess for e.g. &quot;Open&quot;, &quot;Quarterfinals&quot;...">Este nombre se traducirá automáticamente.</string>
+  <string name="termsAutomaticallyTranslated">El(Los) siguiente(s) término(s) se traducirá(n) automáticamente: %s.</string>
   <string name="roundX">Ronda %s</string>
   <string name="defaultRoundNameHelp">Si mantiene el nombre predeterminado se traducirá automáticamente al resto de idiomas.</string>
   <string name="openTournament">Abierto</string>
-  <string name="womenTournament" comment="As in a Women's tournament.">Femenino</string>
-  <string name="girlsTournament" comment="As in a Girls' tournament.">Femenino</string>
-  <string name="openUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Open U18&quot; will mean it is an open tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Abierto Sub%s</string>
-  <string name="girlsUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Girls U18&quot; will mean it is an open tournament for under-18 year old girls.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Femenino Sub%s</string>
+  <string name="womenTournament">Femenino</string>
+  <string name="menTournament">Hombres</string>
+  <string name="girlsTournament">Femenino</string>
+  <string name="boysTournament">Chicos</string>
+  <string name="openUnderXAgeTournament">Abierto Sub%s</string>
+  <string name="girlsUnderXAgeTournament">Femenino Sub%s</string>
+  <string name="boysUnderXAgeTournament">Masculino sub%s</string>
   <string name="quarterfinals">Cuartos de final</string>
   <string name="semifinals">Semifinales</string>
   <string name="finals">Finales</string>
   <string name="tiebreaks">Desempates</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.">Partida %s</string>
-  <string name="knockouts" comment="As in a round of a tournament which has a knockout format.">Eliminatorias</string>
+  <string name="gameX">Partida %s</string>
+  <string name="knockouts">Eliminatorias</string>
 </resources>
