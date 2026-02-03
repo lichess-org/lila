@@ -31,7 +31,8 @@ final class Preload(
     ublogApi: lila.ublog.UblogApi,
     unreadCount: lila.msg.MsgUnreadCount,
     relayHome: lila.relay.RelayHomeApi,
-    notifyApi: lila.notify.NotifyApi
+    notifyApi: lila.notify.NotifyApi,
+    clasApi: lila.clas.ClasApi
 )(using Executor):
 
   import Preload.*
@@ -89,6 +90,8 @@ final class Preload(
         lightUserApi
           .preloadMany(entries.flatMap(_.userIds).toList)
           .mon(_.lobby.segment("lightUsers"))
+    classes <- ctx.myId.so: me =>
+      clasApi.isStudent(me).so(clasApi.clas.ofStudent(me))
   yield Homepage(
     data,
     entries,
@@ -106,6 +109,7 @@ final class Preload(
     blindGames,
     getLastUpdates(),
     ublogPosts,
+    classes,
     withPerfs,
     hasUnreadLichessMessage = lichessMsg
   )
@@ -147,6 +151,7 @@ object Preload:
       blindGames: List[Pov],
       lastUpdates: List[lila.feed.Feed.Update],
       ublogPosts: List[UblogPost.PreviewPost],
+      classes: List[lila.clas.Clas],
       me: Option[UserWithPerfs],
       hasUnreadLichessMessage: Boolean
   )

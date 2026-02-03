@@ -4,9 +4,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class ClasUi(helpers: lila.ui.Helpers)(
-    searchMenu: Context ?=> Frag
-):
+final class ClasUi(helpers: lila.ui.Helpers)(searchMenu: Context ?=> Frag):
   import helpers.{ *, given }
 
   def ClasPage(
@@ -71,6 +69,13 @@ final class ClasUi(helpers: lila.ui.Helpers)(
       " ",
       momentFromNowOnce(archived.at)
     )
+
+  def lobbyClasses(classes: List[Clas]) =
+    classes.map: clas =>
+      a(href := routes.Clas.show(clas.id))(
+        iconTag(Icon.Group),
+        clas.name
+      )
 
   private def teacherMenu(active: Either[Clas.WithStudents, String], student: Option[Student])(using
       Context

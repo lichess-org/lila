@@ -19,28 +19,19 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       ctx.me
         .match
           case _ if getBool("home") => renderHome
-          case None => renderHome
           case Some(me) if isGrantedOpt(_.Teacher) && !me.lameOrTroll =>
             Ok.async:
               env.clas.api.clas
                 .of(me)
                 .map:
                   views.clas.clas.teacherIndex(_, getBool("closed"))
-          case Some(me) =>
-            for
-              hasClas <- fuccess(env.clas.filters.student(me)) >>| couldBeTeacher.not
-              res <-
-                if hasClas
-                then
-                  for
-                    ids <- env.clas.api.student.clasIdsOfUser(me)
-                    classes <- env.clas.api.clas.byIds(ids)
-                    res <- classes match
-                      case List(single) => redirectTo(single).toFuccess
-                      case many => Ok.page(views.clas.clas.studentIndex(many))
-                  yield res
-                else renderHome
-            yield res
+          case Some(me) if env.clas.filters.student(me.userId) =>
+            env.clas.api.clas
+              .ofStudent(me.userId)
+              .flatMap:
+                case List(single) => redirectTo(single).toFuccess
+                case many => Ok.page(views.clas.clas.studentIndex(many))
+          case _ => renderHome
         .map(_.hasPersonalData)
 
   def teacher(username: UserStr) = Secure(_.Admin) { ctx ?=> _ ?=>
@@ -541,7 +532,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   private def couldBeTeacher(using ctx: Context): Fu[Boolean] = ctx.useMe: me ?=>
     if me.isBot then fuFalse
     else if ctx.kid.yes then fuFalse
-    else if env.clas.hasClas then fuTrue
+    else if env.clas.isTeacher then fuTrue
     else env.mod.logApi.wasUnteachered(me).not
 
   def invitation(id: ClasInviteId) = Auth { _ ?=> me ?=>

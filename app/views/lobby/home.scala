@@ -103,16 +103,16 @@ object home:
                 }
               )
             ,
+            classes.nonEmpty.option:
+              div(cls := "lobby__classes"):
+                views.clas.ui.lobbyClasses(classes)
+            ,
             if ctx.isAuth then
               div(cls := "lobby__timeline")(
                 ctx.blind.option(h2(trans.site.timeline())),
                 views.timeline.entries(userTimeline),
-                userTimeline.nonEmpty.option(
-                  a(cls := "more", href := routes.Timeline.home)(
-                    trans.site.more(),
-                    " »"
-                  )
-                )
+                userTimeline.nonEmpty.option:
+                  a(cls := "more", href := routes.Timeline.home)(trans.site.more(), " »")
               )
             else
               div(cls := "about-side")(

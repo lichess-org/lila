@@ -27,7 +27,7 @@ final class ClasApi(
 )(using Executor, lila.core.i18n.Translator):
 
   import BsonHandlers.given
-  import filters.{ student as isStudent, teacher as isTeacher }
+  export filters.{ student as isStudent, teacher as isTeacher }
 
   Bus.sub[lila.core.user.UserDelete]: del =>
     colls.clas.update.one($doc("created.by" -> del.id), $set("created.by" -> UserId.ghost), multi = true)
@@ -56,6 +56,8 @@ final class ClasApi(
         .sort($sort.desc("createdAt"))
         .cursor[Clas]()
         .listAll()
+
+    def ofStudent(userId: UserId): Fu[List[Clas]] = student.clasIdsOfUser(userId).flatMap(byIds)
 
     def create(data: ClasForm.ClasData)(using teacher: Me): Fu[Clas] =
       val clas = Clas.make(teacher, data.name, data.desc)
@@ -248,7 +250,7 @@ final class ClasApi(
         .cursor[Student]()
         .list(500)
 
-    def clasIdsOfUser(userId: UserId): Fu[List[ClasId]] =
+    private[ClasApi] def clasIdsOfUser(userId: UserId): Fu[List[ClasId]] =
       coll.distinctEasy[ClasId, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false))
 
     def count(clasId: ClasId): Fu[Int] = coll.countSel($doc("clasId" -> clasId))
