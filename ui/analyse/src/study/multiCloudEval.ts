@@ -2,7 +2,6 @@ import { type Prop, defined } from 'lib';
 import type { EvalHitMulti } from '../interfaces';
 import { storedBooleanPropWithEffect } from 'lib/storage';
 import { povChances } from 'lib/ceval/winningChances';
-import { type VNode, bind, hl } from 'lib/view';
 import type { StudyChapters } from './studyChapters';
 import { debounce } from 'lib/async';
 import type { ServerNodeMsg } from './interfaces';
@@ -94,15 +93,6 @@ export class MultiCloudEval {
     if (this.observedIds().has(d.p.chapterId)) this.requestNewEvals();
   };
 }
-
-export const renderEvalToggle = (ctrl: MultiCloudEval): VNode =>
-  hl('div.switch', { attrs: { role: 'button' } }, [
-    hl('input#multiboard-toggle-eval.cmn-toggle.cmn-toggle--subtle', {
-      attrs: { type: 'checkbox' },
-      hook: bind('change', e => ctrl.showEval((e.target as HTMLInputElement).checked)),
-    }),
-    hl('label', { attrs: { for: 'multiboard-toggle-eval' } }),
-  ]);
 
 export const renderScore = (s: EvalScore) =>
   s.mate ? '#' + s.mate : defined(s.cp) ? `${s.cp >= 0 ? '+' : ''}${s.cp / 100}` : '?';

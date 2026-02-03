@@ -16,6 +16,15 @@ export interface ToggleSettings {
   change(v: boolean): void;
 }
 
+export const cmnToggle = (id: string, onChange: (checked: boolean) => void, redraw?: Redraw): VNode =>
+  h('div.switch', { attrs: { role: 'button' } }, [
+    h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
+      attrs: { type: 'checkbox' },
+      hook: bind('change', e => onChange((e.target as HTMLInputElement).checked), redraw),
+    }),
+    h('label', { attrs: { for: id } }),
+  ]);
+
 export function toggle(t: ToggleSettings, redraw: () => void): VNode {
   const fullId = 'abset-' + t.id;
   return h(

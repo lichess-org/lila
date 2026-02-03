@@ -1,11 +1,11 @@
 import * as licon from 'lib/licon';
 import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
 import { fenColor } from 'lib/game/chess';
-import { type MaybeVNode, type VNode, bind, dataIcon, onInsert } from 'lib/view';
+import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, cmnToggle } from 'lib/view';
 import { opposite as cgOpposite, uciToMove } from '@lichess-org/chessground/util';
 import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
 import type StudyCtrl from './studyCtrl';
-import { type CloudEval, type MultiCloudEval, renderEvalToggle, renderScore } from './multiCloudEval';
+import { type CloudEval, type MultiCloudEval, renderScore } from './multiCloudEval';
 import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
 import type { Color } from 'chessops';
 import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
@@ -29,7 +29,7 @@ export class MultiBoardCtrl {
     readonly chapters: StudyChapters,
     readonly isRelay: boolean,
     readonly multiCloudEval: MultiCloudEval | undefined,
-    readonly redraw: () => void,
+    readonly redraw: Redraw,
   ) {
     this.playing = toggle(false, this.redraw);
     this.showResults = this.isRelay ? storedBooleanProp('study.showResults', true) : toggle(true);
@@ -97,7 +97,10 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       renderPagerNav(pager, ctrl),
       h('div.study__multiboard__options', [
         ctrl.multiCloudEval &&
-          h('label.eval', [renderEvalToggle(ctrl.multiCloudEval), i18n.study.showEvalBar]),
+          h('label.eval', [
+            cmnToggle('multiboard-toggle-eval', ctrl.multiCloudEval.showEval, ctrl.redraw),
+            i18n.study.showEvalBar,
+          ]),
         ctrl.isRelay ? renderPlayingToggle(ctrl) : undefined,
         ctrl.isRelay ? renderShowResultsToggle(ctrl) : undefined,
       ]),
@@ -168,21 +171,12 @@ function pagerButton(icon: string, click: () => void, enable: boolean, ctrl: Mul
   });
 }
 
-const renderToggle = (id: string, onChange: (checked: boolean) => void, redraw?: Redraw): MaybeVNode =>
-  h('div.switch', { attrs: { role: 'button' } }, [
-    h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
-      attrs: { type: 'checkbox' },
-      hook: bind('change', e => onChange((e.target as HTMLInputElement).checked), redraw),
-    }),
-    h('label', { attrs: { for: id } }),
-  ]);
-
 const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
-  h('label.playing', [renderToggle('multiboard-toggle-playing', ctrl.playing), i18n.study.playing]);
+  h('label.playing', [cmnToggle('multiboard-toggle-playing', ctrl.playing), i18n.study.playing]);
 
 const renderShowResultsToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
   h('label.results', [
-    renderToggle('multiboard-toggle-results', ctrl.showResults, ctrl.redraw),
+    cmnToggle('multiboard-toggle-results', ctrl.showResults, ctrl.redraw),
     i18n.study.showResults,
   ]);
 
