@@ -21,6 +21,8 @@ case class Clas(
   def isArchived = archived.isDefined
   def isActive = !isArchived
 
+  def isTeacher(using me: MyId) = teachers.toList.has(me.userId)
+
   def teamId: Option[TeamId] = Option.when(~hasTeam)(id.into(TeamId))
 
 object Clas:

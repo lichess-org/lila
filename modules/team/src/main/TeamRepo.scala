@@ -69,15 +69,12 @@ final class TeamRepo(val coll: Coll)(using Executor):
     coll.secondary.primitiveOne[Access]($id(id), "forum")
 
   def filterHideMembers(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
-    ids.nonEmpty.so(
-      coll.secondary
-        .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("hideMembers" -> true))
-    )
+    ids.nonEmpty.so:
+      coll.secondary.distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("hideMembers" -> true))
 
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
     ids.nonEmpty.so:
-      coll.secondary
-        .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum".$ne(Access.Everyone)))
+      coll.secondary.distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum".$ne(Access.Everyone)))
 
   def onUserDelete(userId: UserId): Funit = for
     _ <- coll.update.one($doc("createdBy" -> userId), $set("createdBy" -> UserId.ghost), multi = true)

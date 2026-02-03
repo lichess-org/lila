@@ -51,7 +51,7 @@ final class User(
 
   private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
-      Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
+      Ok(res ++ Json.obj("filter" -> GameFilter.all.name))
     }
 
   private val userShowHtmlRateLimit =
@@ -61,7 +61,7 @@ final class User(
     EnabledUser(username): u =>
       negotiate(
         renderShow(u),
-        apiGames(u, GameFilter.All.name, 1)
+        apiGames(u, GameFilter.all.name, 1)
       )
 
   def search(term: String) = Open: _ ?=>
@@ -104,14 +104,15 @@ final class User(
     FoundPage(user):
       views.user.download(_)
 
-  def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.All.name, page)
+  def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.all.name, page)
 
   def games(username: UserStr, filter: String, page: Int) = OpenBody:
     Reasonable(page):
       WithProxy: proxy ?=>
         limit.enumeration.userProfile(rateLimited):
           EnabledUser(username): u =>
-            if filter == "search" && ctx.isAnon
+            val isSearch = filter == GameFilter.search.name
+            if isSearch && ctx.isAnon
             then
               negotiate(
                 Unauthorized.page(views.gameSearch.login(u.count.game)),
@@ -122,26 +123,20 @@ final class User(
                 html = for
                   nbs <- env.userNbGames(u, withCrosstable = true)
                   filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
-                  pag <- env.gamePaginator(
-                    user = u,
-                    nbs = nbs.some,
-                    filter = filters.current,
-                    me = ctx.me,
-                    page = page
-                  )
+                  pag <- env.gamePaginator(user = u, nbs = nbs.some, filter = filters.current, page = page)
                   _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
                   _ <- env.tournament.cached.nameCache.preloadMany {
                     pag.currentPageResults.flatMap((_: GameModel).tournamentId).map(tid => tid -> ctx.lang)
                   }
-                  notes <- ctx.me.so: me =>
-                    env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me)
+                  notes <- ctx.useMe:
+                    env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id))
                   res <-
                     if HTTPRequest.isSynchronousHttp(ctx.req) then
                       for
-                        info <- env.userInfo.fetch(u, nbs, withUblog = true)
+                        info <- env.userInfo.fetch(u, nbs, withUblog = !isSearch)
                         _ <- env.team.cached.lightCache.preloadMany(info.teamIds)
                         social <- env.socialInfo(u)
-                        searchForm = (filters.current == GameFilter.Search).option(
+                        searchForm = (filters.current == GameFilter.search).option(
                           lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
                         )
                         res <- Ok.page:
@@ -237,13 +232,7 @@ final class User(
     ):
       lila.mon.http.userGamesCost.increment(page.toLong)
       for
-        pagFromDb <- env.gamePaginator(
-          user = u,
-          nbs = none,
-          filter = lila.app.mashup.GameFilterMenu.currentOf(GameFilter.all, filterName),
-          me = ctx.me,
-          page = page
-        )
+        pagFromDb <- env.gamePaginator(user = u, nbs = none, filter = GameFilter(filterName), page = page)
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache.preloadMany:
           pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
