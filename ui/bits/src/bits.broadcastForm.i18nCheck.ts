@@ -28,7 +28,7 @@ export default function initModule(): void {
       /^knock[-\s]?out[s]?$/i,
     ];
     const helpEl = document.createElement('small');
-    helpEl.classList.add('form-help');
+    helpEl.classList.add('form-help', 'text');
     helpEl.setAttribute('data-icon', Checkmark);
     helpEl.style.visibility = 'hidden';
     nameInput.insertAdjacentElement('afterend', helpEl);
