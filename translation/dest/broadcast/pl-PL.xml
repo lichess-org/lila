@@ -87,18 +87,17 @@
   <string name="liveboard">Na żywo</string>
   <string name="communityBroadcast">Transmisja społeczności Lichess</string>
   <string name="createdAndManagedBy">Stworzone i zarządzane przez %s.</string>
-  <string name="automaticallyTranslated" comment="In reference to the name of a tournament round, which will be translated based on rules we hold in Lichess for e.g. &quot;Open&quot;, &quot;Quarterfinals&quot;...">Ta nazwa zostanie automatycznie przetłumaczona.</string>
   <string name="roundX">Runda %s</string>
   <string name="defaultRoundNameHelp">Zachowanie domyślnej nazwy rundy automatycznie przetłumaczy ją na wszystkie inne języki.</string>
   <string name="openTournament">Otwarta</string>
-  <string name="womenTournament" comment="As in a Women's tournament.">Kobiety</string>
-  <string name="girlsTournament" comment="As in a Girls' tournament.">Dziewczęta</string>
-  <string name="openUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Open U18&quot; will mean it is an open tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Otwarta U%s</string>
-  <string name="girlsUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Girls U18&quot; will mean it is an open tournament for under-18 year old girls.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Dziewczęta U%s</string>
+  <string name="womenTournament">Kobiety</string>
+  <string name="girlsTournament">Dziewczęta</string>
+  <string name="openUnderXAgeTournament">Otwarta U%s</string>
+  <string name="girlsUnderXAgeTournament">Dziewczęta U%s</string>
   <string name="quarterfinals">Ćwierćfinały</string>
   <string name="semifinals">Półfinały</string>
   <string name="finals">Finały</string>
   <string name="tiebreaks">Dogrywki</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.">Partia %s</string>
-  <string name="knockouts" comment="As in a round of a tournament which has a knockout format.">Eliminacje</string>
+  <string name="gameX">Partia %s</string>
+  <string name="knockouts">Eliminacje</string>
 </resources>
