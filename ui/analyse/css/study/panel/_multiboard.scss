@@ -173,3 +173,11 @@
   padding: 1em;
   color: $c-font-dim;
 }
+
+.study__multiboard__options > label {
+  display: inline-flex;
+  align-items: center;
+  .cmn-toggle-wrap {
+    transform: scale(0.7);
+  }
+}

@@ -2,7 +2,7 @@
 
 import { h, type Hooks, type VNode, type Attrs } from 'snabbdom';
 import { bind } from './snabbdom';
-import { toggle as baseToggle, type Toggle } from '@/index';
+import { toggle as baseToggle, type Prop, type Toggle } from '@/index';
 import * as xhr from '@/xhr';
 import * as licon from '@/licon';
 
@@ -15,6 +15,23 @@ export interface ToggleSettings {
   cls?: string;
   change(v: boolean): void;
 }
+
+export const cmnToggleProp = (id: string, prop: Prop<boolean>, redraw?: Redraw): VNode =>
+  cmnToggle(id, prop(), prop, redraw);
+
+export const cmnToggle = (
+  id: string,
+  checked: boolean,
+  onChange: (checked: boolean) => void,
+  redraw?: Redraw,
+): VNode =>
+  h('span.cmn-toggle-wrap', { attrs: { role: 'button' } }, [
+    h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
+      attrs: { type: 'checkbox', checked },
+      hook: bind('change', e => onChange((e.target as HTMLInputElement).checked), redraw),
+    }),
+    h('label', { attrs: { for: id } }),
+  ]);
 
 export function toggle(t: ToggleSettings, redraw: () => void): VNode {
   const fullId = 'abset-' + t.id;
