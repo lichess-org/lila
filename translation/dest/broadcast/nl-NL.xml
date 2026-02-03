@@ -93,6 +93,7 @@
   <string name="boysTournament">Jongens</string>
   <string name="openUnderXAgeTournament">Open O%s</string>
   <string name="girlsUnderXAgeTournament">Meiden O%s</string>
+  <string name="boysUnderXAgeTournament">Jongens O%s</string>
   <string name="quarterfinals">Kwartfinales</string>
   <string name="semifinals">Halve finales</string>
   <string name="finals">Finale</string>
