@@ -140,6 +140,7 @@ function mirrorCheck() {
     'gamelorecollective.com',
     'joystick-astral.com',
     'orbitofavatars.com',
+    'bealive.fit',
   ];
   if (mirrors.includes(location.host)) location.href = 'https://lichess.org' + location.pathname;
 }
