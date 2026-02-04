@@ -88,6 +88,16 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
             attr("data-image-count-max") := 10
           )
         ),
+
+      // Keep the `live` field in the form for binding, but hide it. The secondary submit button will toggle
+      // this value before submit (via bits.ublogForm.ts).
+      input(
+        tpe := "hidden",
+        id := "form3-live",
+        name := form("live").name,
+        value := form("live").value.getOrElse("false")
+      ),
+
       post.toOption match
         case None =>
           form3.group(form("topics"), frag(trans.ublog.selectPostTopics()))(
@@ -110,9 +120,9 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
                 half = true
               ),
               form3.checkboxGroup(
-                form("live"),
-                trans.ublog.publishOnYourBlog(),
-                help = trans.ublog.publishHelp().some,
+                form("ads"),
+                "Includes promoted/sponsored content or referral links",
+                help = ads.some,
                 half = true
               )
             ),
@@ -121,12 +131,6 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
                 form("sticky"),
                 trans.ublog.stickyPost(),
                 help = trans.ublog.stickyPostHelp().some,
-                half = true
-              ),
-              form3.checkboxGroup(
-                form("ads"),
-                "Includes promoted/sponsored content or referral links",
-                help = ads.some,
                 half = true
               )
             )
@@ -140,7 +144,22 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
         )(
           trans.site.cancel()
         ),
-        form3.submit((if post.isRight then trans.site.apply else trans.ublog.saveDraft) ())
+        frag(
+          submitButton(cls := "button button-empty")(trans.site.save()),
+          post match
+            case Left(_) =>
+              submitButton(
+                cls := "button",
+                data("set-live") := "true"
+              )("Save and publish")
+            case Right(p) =>
+              submitButton(
+                cls := "button",
+                data("set-live") := (!p.live).toString
+              )(
+                if p.live then "Save and unpublish" else "Save and publish"
+              )
+        )
       )
     )
 

@@ -22,6 +22,11 @@ site.load.then(() => {
     selectClicks: $('.select-image, .drop-target'),
     selectDrags: $('.drop-target'),
   });
+  $('button[data-set-live]').on('click', e => {
+    const v = (e.currentTarget as HTMLButtonElement).dataset.setLive;
+    const input = document.getElementById('form3-live') as HTMLInputElement | null;
+    if (input && typeof v === 'string') input.value = v;
+  });
 });
 
 const setupTopics = (el: HTMLTextAreaElement) =>
