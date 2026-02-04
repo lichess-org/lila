@@ -30,7 +30,7 @@ private final class TeamClasSync(
 
   private def update(team: Team, cfg: ClasTeamConfig): Funit =
     for
-      _ <- team.enabled.not.so(teamRepo.enable(team))
+      _ <- team.enabled.not.so(enableTeam(team))
       _ <- syncMembers(team, cfg)
       _ <- syncPermissions(team, cfg)
     yield ()
@@ -85,3 +85,8 @@ private final class TeamClasSync(
   private def disableTeam(team: Team)(using me: Me): Funit =
     team.enabled.so:
       api.toggleEnabled(team, "Unselected from class settings").void
+
+  private def enableTeam(team: Team): Funit = for
+    _ <- teamRepo.enable(team).void
+    _ <- api.invalidateTeamIdsOfMembers(team.id)
+  yield ()

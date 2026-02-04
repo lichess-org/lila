@@ -343,14 +343,17 @@ final class TeamApi(
         if team.enabled then
           for
             _ <- teamRepo.disable(team)
-            users <- memberRepo.userIdsByTeam(team.id)
-            _ = users.foreach(cached.invalidateTeamIds)
+            _ <- invalidateTeamIdsOfMembers(team.id)
             _ <- requestRepo.removeByTeam(team.id)
           yield ()
         else
           for _ <- teamRepo.enable(team)
           yield Bus.pub(TeamUpdate(team.data, byMod = Granter(_.ManageTeam)))
       else memberRepo.setPerms(team.id, me, Set.empty)
+
+  def invalidateTeamIdsOfMembers(team: TeamId): Funit =
+    for users <- memberRepo.userIdsByTeam(team)
+    yield users.foreach(cached.invalidateTeamIds)
 
   def idAndLeaderIds(teamId: TeamId): Fu[Option[Team.IdAndLeaderIds]] =
     memberRepo
