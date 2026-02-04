@@ -20,6 +20,13 @@
   &__options {
     @extend %flex-center;
     gap: 1em;
+    .cmn-toggle-wrap {
+      font-size: 0.9em;
+      gap: 0;
+    }
+    .cmn-toggle {
+      transform: scale(0.7);
+    }
   }
 
   &__pager {
@@ -172,12 +179,4 @@
 .empty-boards-note {
   padding: 1em;
   color: $c-font-dim;
-}
-
-.study__multiboard__options > label {
-  display: inline-flex;
-  align-items: center;
-  .cmn-toggle-wrap {
-    transform: scale(0.7);
-  }
 }
