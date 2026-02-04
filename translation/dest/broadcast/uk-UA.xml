@@ -87,13 +87,17 @@
   <string name="liveboard">Наживо</string>
   <string name="communityBroadcast">Трансляція спільноти</string>
   <string name="createdAndManagedBy">Створено та адмініструється %s.</string>
+  <string name="termsAutomaticallyTranslated">Коментар(і) послідовника будуть автоматично перекладені: %s.</string>
   <string name="roundX">Раунд %s</string>
   <string name="defaultRoundNameHelp">Усталене ім\'я автоматично перекладатиметься іншими мовами.</string>
   <string name="openTournament">Відкриття</string>
   <string name="womenTournament">Жінка</string>
+  <string name="menTournament">Чоловіки</string>
   <string name="girlsTournament">Жінки</string>
+  <string name="boysTournament">Хлопці</string>
   <string name="openUnderXAgeTournament">Відкриття %s</string>
   <string name="girlsUnderXAgeTournament">Жінки %s</string>
+  <string name="boysUnderXAgeTournament">Хлопці U%s</string>
   <string name="quarterfinals">Четверть фіналів</string>
   <string name="semifinals">Півфінали</string>
   <string name="finals">Фінали</string>
