@@ -50,14 +50,15 @@ final class ClasApi(
     def countOf(teacher: User): Fu[Int] =
       coll.countSel($doc("teachers" -> teacher.id))
 
-    def byIds(clasIds: List[ClasId]): Fu[List[Clas]] =
+    private def byIds(clasIds: List[ClasId], nb: Int): Fu[List[Clas]] =
       coll
         .find($inIds(clasIds))
         .sort($sort.desc("createdAt"))
         .cursor[Clas]()
-        .listAll()
+        .list(nb)
 
-    def ofStudent(userId: UserId): Fu[List[Clas]] = student.clasIdsOfUser(userId).flatMap(byIds)
+    def ofStudent(userId: UserId, nb: Int): Fu[List[Clas]] =
+      student.clasIdsOfUser(userId).flatMap(byIds(_, nb))
 
     def create(data: ClasForm.ClasData)(using teacher: Me): Fu[Clas] =
       val clas = Clas.make(teacher, data.name, data.desc)

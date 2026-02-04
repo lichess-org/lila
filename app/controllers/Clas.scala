@@ -27,7 +27,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                   views.clas.clas.teacherIndex(_, getBool("closed"))
           case Some(me) if env.clas.filters.student(me.userId) =>
             env.clas.api.clas
-              .ofStudent(me.userId)
+              .ofStudent(me.userId, 20)
               .flatMap:
                 case List(single) => redirectTo(single).toFuccess
                 case many => Ok.page(views.clas.clas.studentIndex(many))
