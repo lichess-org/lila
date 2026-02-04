@@ -1,7 +1,6 @@
 .lobby__timeline {
   @extend %page-text;
   flex: 1 1 auto;
-  margin-top: 1em;
   margin-inline-start: $block-gap;
 
   @include hoverflow;

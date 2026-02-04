@@ -38,6 +38,7 @@ body {
 
 .lobby__side {
   @extend %flex-column;
+  gap: $block-gap;
 
   overflow: hidden;
 }
