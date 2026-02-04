@@ -13,7 +13,7 @@
 Тобто, перемога принесе 4 очки, нічия 2 очки, а поразка не принесе жодного очка.
 
 Наприклад, дві перемоги з подальшою нічиєю принесуть 6 очок: 2 + 2 + (2 х 1)</string>
-  <string name="berserk">Арена Берсерк</string>
+  <string name="berserk">Арена \"Берсерк\"</string>
   <string name="berserkAnswer">Коли гравець натискає кнопку Берсерк на початку гри, він втрачає половину часу, але перемога принесе додаткове очко турніру. 
 
 Використання Берсерку в контролі часу з приростом часу відміняє приріст (1+2 є винятком, дається 1+0)
@@ -60,7 +60,7 @@
   <string name="arenaStreaksHelp">Після двох перемог, кожна наступна перемога принесе 4 бали замість 2.</string>
   <string name="noBerserkAllowed">Берсерк не дозволений</string>
   <string name="noArenaStreaks">Немає серій Арени</string>
-  <string name="averagePerformance">Середня продуктивність</string>
+  <string name="averagePerformance">Середній перфоманс</string>
   <string name="averageScore">Середній результат</string>
   <string name="myTournaments">Мої турніри</string>
   <string name="editTournament">Редагувати турнір</string>
