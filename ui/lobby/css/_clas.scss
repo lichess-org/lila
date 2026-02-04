@@ -1,0 +1,23 @@
+.lobby__classes {
+  @extend %flex-column;
+  gap: 1em;
+  --bg-clas: linear-gradient(to right bottom, hsl(276, 29%, 49%), hsl(276, 65%, 32%), hsl(286, 37%, 21%));
+  @include if-light {
+    --bg-clas: linear-gradient(to right bottom, hsl(276, 29%, 58%), hsl(276, 65%, 44%), hsl(286, 37%, 37%));
+  }
+  a {
+    @extend %flex-center-nowrap, %nowrap-hidden, %box-neat;
+    @include transition;
+    background: var(--bg-clas);
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: bold;
+    padding: 0.8em 0.5em 0.8em 1.5em;
+    &::before {
+      font-size: 1.7em;
+      margin-inline-end: 0.5em;
+    }
+    &:hover {
+      filter: brightness(120%);
+    }
+  }
+}

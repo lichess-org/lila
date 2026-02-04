@@ -70,13 +70,6 @@ final class ClasUi(helpers: lila.ui.Helpers)(searchMenu: Context ?=> Frag):
       momentFromNowOnce(archived.at)
     )
 
-  def lobbyClasses(classes: List[Clas]) =
-    classes.map: clas =>
-      a(href := routes.Clas.show(clas.id))(
-        iconTag(Icon.Group),
-        clas.name
-      )
-
   private def teacherMenu(active: Either[Clas.WithStudents, String], student: Option[Student])(using
       Context
   ) =

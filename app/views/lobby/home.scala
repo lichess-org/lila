@@ -105,7 +105,8 @@ object home:
             ,
             classes.nonEmpty.option:
               div(cls := "lobby__classes"):
-                views.clas.ui.lobbyClasses(classes)
+                classes.map: clas =>
+                  a(href := routes.Clas.show(clas.id), dataIcon := Icon.Group)(clas.name)
             ,
             if ctx.isAuth then
               div(cls := "lobby__timeline")(
