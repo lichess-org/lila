@@ -29,7 +29,9 @@ final class AccessTokenApi(
     _ <- oldIds.nonEmpty.so:
       coll.delete.one($doc(F.id.$in(oldIds))).void
     _ <- coll.insert.one(token)
-  yield token
+  yield
+    lila.common.Bus.pub(AccessToken.Create(token))
+    token
 
   def create(setup: OAuthTokenForm.Data, isStudent: Boolean)(using me: MyId, ua: UserAgent): Fu[AccessToken] =
     for
@@ -53,7 +55,6 @@ final class AccessTokenApi(
         expires = None
       )
       res <- createAndRotate(token)
-      _ = lila.common.Bus.pub(AccessToken.Create(res))
     yield res
 
   def create(granted: AccessTokenRequest.Granted)(using ua: UserAgent): Fu[AccessToken] =
