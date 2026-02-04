@@ -36,6 +36,7 @@ final class RelayUi(helpers: Helpers)(
       .js(analyseNvuiTag)
       .js(pageModule(rt, data, chatOption, socketVersion))
       .flag(_.zoom)
+      .flag(_.noRobots, !rt.tour.isPublic)
       .graph:
         OpenGraph(
           title = rt.withTour.fullName,
