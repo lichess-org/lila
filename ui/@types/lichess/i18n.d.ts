@@ -237,14 +237,16 @@ interface I18n {
     allBroadcastsByMonth: string;
     /** All teams */
     allTeams: string;
-    /** This name will be automatically translated. */
-    automaticallyTranslated: string;
     /** Back to live move */
     backToLiveMove: string;
     /** Boards */
     boards: string;
     /** Boards can be loaded with a source or via the %s */
     boardsCanBeLoaded: I18nFormat;
+    /** Boys */
+    boysTournament: string;
+    /** Boys U%s */
+    boysUnderXAgeTournament: I18nFormat;
     /** Broadcast calendar */
     broadcastCalendar: string;
     /** Broadcasts */
@@ -309,6 +311,8 @@ interface I18n {
     liveboard: string;
     /** Live tournament broadcasts */
     liveBroadcasts: string;
+    /** Men */
+    menTournament: string;
     /** My broadcasts */
     myBroadcasts: string;
     /** %s broadcasts */
@@ -381,6 +385,8 @@ interface I18n {
     subscribeTitle: string;
     /** Teams */
     teams: string;
+    /** The following term(s) will be automatically translated: %s. */
+    termsAutomaticallyTranslated: I18nFormat;
     /** The new round will have the same members and contributors as the previous one. */
     theNewRoundHelp: string;
     /** Tiebreaks */

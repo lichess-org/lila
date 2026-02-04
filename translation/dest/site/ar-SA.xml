@@ -809,7 +809,7 @@ https://lichess. org/report.</string>
   <string name="onlyExistingConversations">المحادثات الحالية فقط</string>
   <string name="onlyFriends">الأصدقاء فقط</string>
   <string name="menu">القائمة</string>
-  <string name="castling">تبييت</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">تبييت</string>
   <string name="whiteCastlingKingside">تبييت قصير للأبيض</string>
   <string name="blackCastlingKingside">تبييت قصير للأسود</string>
   <plurals name="nbForumPosts">

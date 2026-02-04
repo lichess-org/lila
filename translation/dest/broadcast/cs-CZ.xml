@@ -51,7 +51,7 @@
   <string name="fidePlayerNotFound">FIDE hráč nenalezen</string>
   <string name="fideProfile">FIDE profil</string>
   <string name="federation">Federace</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Věk</string>
+  <string name="age">Věk</string>
   <string name="unrated">Nehodnocen</string>
   <string name="recentTournaments">Nedávné tournamenty</string>
   <string name="openLichess">Otevřít v Lichess</string>

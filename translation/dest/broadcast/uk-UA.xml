@@ -51,7 +51,7 @@
   <string name="fidePlayerNotFound">Гравця FIDE не знайдено</string>
   <string name="fideProfile">Профіль FIDE</string>
   <string name="federation">Федерація</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Вік</string>
+  <string name="age">Вік</string>
   <string name="unrated">Без рейтингу</string>
   <string name="recentTournaments">Нещодавні турніри</string>
   <string name="openLichess">Відкрити в Lichess</string>
@@ -89,4 +89,15 @@
   <string name="createdAndManagedBy">Створено та адмініструється %s.</string>
   <string name="roundX">Раунд %s</string>
   <string name="defaultRoundNameHelp">Усталене ім\'я автоматично перекладатиметься іншими мовами.</string>
+  <string name="openTournament">Відкриття</string>
+  <string name="womenTournament">Жінка</string>
+  <string name="girlsTournament">Жінки</string>
+  <string name="openUnderXAgeTournament">Відкриття %s</string>
+  <string name="girlsUnderXAgeTournament">Жінки %s</string>
+  <string name="quarterfinals">Четверть фіналів</string>
+  <string name="semifinals">Півфінали</string>
+  <string name="finals">Фінали</string>
+  <string name="tiebreaks">Тай-брейк</string>
+  <string name="gameX">Гра %s</string>
+  <string name="knockouts">Нокаути</string>
 </resources>

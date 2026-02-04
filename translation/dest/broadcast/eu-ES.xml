@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">FIDE jokalaria ez da aurkitu</string>
   <string name="fideProfile">FIDE profila</string>
   <string name="federation">Federazioa</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Adina</string>
+  <string name="age">Adina</string>
   <string name="unrated">Ez du sailkapenik</string>
   <string name="recentTournaments">Azken txapelketak</string>
   <string name="openLichess">Ireki Lichessen</string>
@@ -85,4 +85,15 @@
   <string name="createdAndManagedBy">%s erabiltzaileak sortu eta kudeatua.</string>
   <string name="roundX">%s. txanda</string>
   <string name="defaultRoundNameHelp">Defektuzko izena uzten baduzu, hizkuntza guztietan ondo itzuliko da.</string>
+  <string name="openTournament">Irekia</string>
+  <string name="womenTournament">Emakumeena</string>
+  <string name="girlsTournament">Neskena</string>
+  <string name="openUnderXAgeTournament">%s urtez azpiko irekia</string>
+  <string name="girlsUnderXAgeTournament">%s urtez azpiko neskak</string>
+  <string name="quarterfinals">Final-laurdenak</string>
+  <string name="semifinals">Finalerdiak</string>
+  <string name="finals">Finalak</string>
+  <string name="tiebreaks">Desberdinketak</string>
+  <string name="gameX">%s partida</string>
+  <string name="knockouts">Kanporaketak</string>
 </resources>

@@ -656,7 +656,7 @@
   <string name="onlyExistingConversations">Csak megkezdett csevegések</string>
   <string name="onlyFriends">Csak ismerősöktől</string>
   <string name="menu">Menü</string>
-  <string name="castling">Sáncolás</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Sáncolás</string>
   <string name="whiteCastlingKingside">Világos rövidre sáncolhat</string>
   <string name="blackCastlingKingside">Sötét rövidre sáncolhat</string>
   <plurals name="nbForumPosts">
@@ -810,7 +810,8 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="board">Sakktábla</string>
   <string name="size">Méret</string>
   <string name="opacity">Átlátszóság</string>
-  <string name="brightness">Kontraszt</string>
+  <string name="brightness">Fényerő</string>
+  <string name="contrast">Kontraszt</string>
   <string name="hue">Árnyalat</string>
   <string name="boardReset">Színek visszaállítása az alapértékre</string>
   <string name="pieceSet">Figurakészlet</string>
@@ -1020,5 +1021,5 @@ Minden működési költséget, fejlesztést és tartalmat felhasználói adomá
   <string name="search">Keresés</string>
   <string name="clearSearch">Keresési előzmények törlése</string>
   <string name="tags">Címkék</string>
-  <string name="enPassant">En passant</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.&#10;&#10;NOTE: this string used to read &quot;En passant&quot;, with &quot;rights&quot; added in 2026 for clarity.">En passant</string>
 </resources>

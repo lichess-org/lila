@@ -639,7 +639,7 @@
   <string name="onlyExistingConversations">ஏற்கனவே உள்ள உரையாடல்கள் மட்டுமே</string>
   <string name="onlyFriends">தோழர்கள் மட்டுமே</string>
   <string name="menu">பட்டியல்</string>
-  <string name="castling">கோட்டை கட்டுதல்</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">கோட்டை கட்டுதல்</string>
   <string name="whiteCastlingKingside">வெள்ளை O-O</string>
   <string name="blackCastlingKingside">கருப்பு O-O</string>
   <plurals name="nbForumPosts">

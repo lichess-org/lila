@@ -630,7 +630,7 @@
   <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
   <string name="onlyFriends">കൂട്ടുകാർ മാത്രം</string>
   <string name="menu">പട്ടിക</string>
-  <string name="castling">കേസ്‌ലിങ്</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">കേസ്‌ലിങ്</string>
   <string name="whiteCastlingKingside">വെള്ള O-O</string>
   <string name="blackCastlingKingside">കറുപ്പ് O-O</string>
   <plurals name="nbForumPosts">

@@ -548,7 +548,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="onlyExistingConversations">Hanya perbualan yang wujud</string>
   <string name="onlyFriends">Hanya rakan-rakan</string>
   <string name="menu">Menu</string>
-  <string name="castling">Castling</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Castling</string>
   <string name="whiteCastlingKingside">Putih O-O</string>
   <string name="blackCastlingKingside">Hitam O-O</string>
   <plurals name="nbForumPosts">

@@ -148,7 +148,7 @@ final class ModInquiryUi(helpers: Helpers)(
           boostOpponents(in.report, in.allReports, in.user.user).map { opponents =>
             a(
               cls := "fbt",
-              href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList.mkString(", ")}"
+              href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList.mkString(",")}"
             )("With these opponents")
           }
         )
@@ -293,6 +293,7 @@ final class ModInquiryUi(helpers: Helpers)(
         .flatMap(UserStr.read)
         .flatMap(_.validateId)
         .distinct
+        .take(6)
         .toNel
 
   private def renderAtomText(atom: Report.Atom, highlight: Boolean)(using Translate) =

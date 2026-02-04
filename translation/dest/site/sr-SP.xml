@@ -657,7 +657,7 @@
   <string name="onlyExistingConversations">Само постојећи разговори</string>
   <string name="onlyFriends">Само пријатељи</string>
   <string name="menu">Мени</string>
-  <string name="castling">Рокада</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Рокада</string>
   <string name="whiteCastlingKingside">Бели O-O</string>
   <string name="blackCastlingKingside">Црни O-O</string>
   <plurals name="nbForumPosts">
@@ -742,7 +742,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Твој %1$s рејтинг је %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Бољи/а си него %1$s од %2$s играча.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s је бољи од %2$s играча %3$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s је бољи/а од %2$s %3$s играча.</string>
   <string name="betterThanPercentPlayers">Боље од %1$s од %2$s играча</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Немаш утврђен %s рејтинг.</string>
   <string name="yourRating">Твој рејтинг</string>
@@ -910,12 +910,12 @@
   <string name="rapid">Брзопотезни</string>
   <string name="classical">Класични</string>
   <string name="ultraBulletDesc">Ненормално брзе партије: мање од 30 секунди</string>
-  <string name="bulletDesc">Веома брзе партије: испод 3 минута</string>
+  <string name="bulletDesc">Веома брзе партије: мање од 3 минута</string>
   <string name="blitzDesc">Брзе партије: 3 до 8 минута</string>
-  <string name="rapidDesc">Убрзане партије: 8 до 25 минута</string>
+  <string name="rapidDesc">Брзопотезне партије: 8 до 25 минута</string>
   <string name="classicalDesc">Класичне партије: 25 минута и више</string>
-  <string name="correspondenceDesc">Дописна парија: један или више дана по потезу</string>
-  <string name="puzzleDesc">Шаховски тренер тактике</string>
+  <string name="correspondenceDesc">Дописне партије: један или неколико дана по потезу</string>
+  <string name="puzzleDesc">Тренер шаховских тактика</string>
   <string name="important">Важно</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваше питање можда већ има одговор %1$s</string>
   <string name="inTheFAQ">у често постављеним питањима (F.A.Q.)</string>

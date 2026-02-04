@@ -22,8 +22,8 @@ final class NoteApi(coll: Coll)(using Executor):
       )
   }.void
 
-  def byGameIds(gameIds: Seq[GameId], userId: UserId): Fu[Map[GameId, String]] =
-    coll.byIds(gameIds.map(makeId(_, userId)), _.sec).map { docs =>
+  def byGameIds(gameIds: Seq[GameId])(using me: MyId): Fu[Map[GameId, String]] =
+    coll.byIds(gameIds.map(makeId(_, me)), _.sec).map { docs =>
       (for
         doc <- docs
         gameId <- doc.getAsOpt[GameId]("_id")

@@ -33,7 +33,7 @@ object GameMod:
   val emptyFilter = Filter(none, none, none, none, none)
 
   def toDbSelect(user: lila.user.User, filter: Filter): Bdoc =
-    Query.notSimul ++
+    Query.notSimul ++ Query.createdSince(nowInstant.minusMonths(2)) ++
       filter.perf.so { perf =>
         Query.clock(perf != PerfType.Correspondence.key)
       } ++ filter.arena.so { id =>

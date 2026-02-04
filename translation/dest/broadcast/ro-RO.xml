@@ -49,7 +49,7 @@
   <string name="fidePlayerNotFound">Jucătorul FIDE nu a fost găsit</string>
   <string name="fideProfile">Profil FIDE</string>
   <string name="federation">Federație</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Vârstă</string>
+  <string name="age">Vârstă</string>
   <string name="unrated">Fără rating</string>
   <string name="recentTournaments">Turnee recente</string>
   <string name="openLichess">Deschide în Lichess</string>

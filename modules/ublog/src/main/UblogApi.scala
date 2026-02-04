@@ -205,7 +205,8 @@ final class UblogApi(
     def attempt(n: Int): Fu[Option[UblogAutomod.Assessment]] =
       ublogAutomod(post, n * 0.1)
         .flatMapz: llm =>
-          val result = post.automod.foldLeft(llm)(_.updateByLLM(_))
+          val result = post.automod.foldLeft(llm): (llm, prev) =>
+            prev.updateByLLM(llm)
           for _ <- colls.post.updateField($id(post.id), "automod", result)
           yield result.some
         .recoverWith: e =>

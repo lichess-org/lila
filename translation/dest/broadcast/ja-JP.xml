@@ -45,7 +45,7 @@
   <string name="fidePlayerNotFound">FIDE 選手が見つかりません</string>
   <string name="fideProfile">FIDE プロフィール</string>
   <string name="federation">所属協会</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">年齢</string>
+  <string name="age">年齢</string>
   <string name="unrated">レーティングなし</string>
   <string name="recentTournaments">最近のトーナメント</string>
   <string name="openLichess">Lichess で開く</string>
@@ -81,6 +81,21 @@
   <string name="liveboard">現局面</string>
   <string name="communityBroadcast">コミュニティ配信</string>
   <string name="createdAndManagedBy">作成・管理者は %s です。</string>
+  <string name="termsAutomaticallyTranslated">以下の用語は自動的に翻訳されます：%s。</string>
   <string name="roundX">ラウンド %s</string>
   <string name="defaultRoundNameHelp">デフォルトの名前のままにしておくと、他の言語に自動で翻訳されます。</string>
+  <string name="openTournament">オープン</string>
+  <string name="womenTournament">女子</string>
+  <string name="menTournament">男子</string>
+  <string name="girlsTournament">年少女子</string>
+  <string name="boysTournament">年少男子</string>
+  <string name="openUnderXAgeTournament">オープン U%s</string>
+  <string name="girlsUnderXAgeTournament">女子 U%s</string>
+  <string name="boysUnderXAgeTournament">男子 U%s</string>
+  <string name="quarterfinals">準々決勝</string>
+  <string name="semifinals">準決勝</string>
+  <string name="finals">決勝</string>
+  <string name="tiebreaks">タイブレーク</string>
+  <string name="gameX">局数 %s</string>
+  <string name="knockouts">ノックアウト</string>
 </resources>

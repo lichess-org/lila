@@ -45,7 +45,7 @@
   <string name="fidePlayerNotFound">未找到 FIDE 棋手</string>
   <string name="fideProfile">FIDE 档案</string>
   <string name="federation">所属协会</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">年龄</string>
+  <string name="age">年龄</string>
   <string name="unrated">无等级分</string>
   <string name="recentTournaments">近期锦标赛</string>
   <string name="openLichess">在 Lichess 中打开</string>
@@ -83,4 +83,15 @@
   <string name="createdAndManagedBy">由 %s 创建和管理。</string>
   <string name="roundX">第 %s 轮</string>
   <string name="defaultRoundNameHelp">保留默认名称会将其自动翻译为其他语言。</string>
+  <string name="openTournament">公开组</string>
+  <string name="womenTournament">女子组</string>
+  <string name="girlsTournament">女子组</string>
+  <string name="openUnderXAgeTournament">公开U%s</string>
+  <string name="girlsUnderXAgeTournament">女子U%s</string>
+  <string name="quarterfinals">四分之一决赛</string>
+  <string name="semifinals">半决赛</string>
+  <string name="finals">决赛</string>
+  <string name="tiebreaks">加赛</string>
+  <string name="gameX">第 %s 局</string>
+  <string name="knockouts">淘汰赛</string>
 </resources>
