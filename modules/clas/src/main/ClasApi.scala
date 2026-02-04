@@ -266,9 +266,7 @@ final class ClasApi(
         userRepo
           .byId(student.created.by)
           .zip(clas.byId(student.clasId))
-          .map:
-            case (Some(teacher), Some(clas)) => Student.ManagedInfo(teacher, clas).some
-            case _ => none
+          .map(_.mapN(Student.ManagedInfo.apply))
       }
 
     def get(clas: Clas, userId: UserId): Fu[Option[Student]] =
