@@ -148,11 +148,11 @@ object RelayPlayer:
         .add("score" -> p.score)
         .add("ratingDiff" -> p.ratingDiffs.headOption._2F) // API BC grace
         .add("ratingDiffs" -> p.ratingDiffs.some.filter(_.nonEmpty))
+        .add("ratingsMap" -> p.ratingsMap.some.filter(_.nonEmpty))
         .add("performance" -> p.performances.headOption._2F) // API BC grace
         .add("performances" -> p.performances.some.filter(_.nonEmpty))
         .add("tiebreaks" -> p.tiebreaks)
-        .add("rank" -> p.rank) ++
-        Json.obj("ratingsMap" -> p.ratingsMap)
+        .add("rank" -> p.rank)
     def full(
         tour: RelayTour
     )(p: RelayPlayer, fidePlayer: Option[FidePlayer], user: Option[User], follow: Option[Boolean]): JsObject =
