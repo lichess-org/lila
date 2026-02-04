@@ -65,9 +65,9 @@ export default class RelayTeamLeaderboard {
         hl('thead', [
           hl('tr', [
             hl('th.text', { attrs: dataIcon(Group) }, `${i18n.team.team}`),
-            hl('th', 'Matches'),
-            hl('th', { attrs: { 'data-sort-default': 1, title: 'Match points' } }, 'MP'),
-            hl('th', { attrs: { title: 'Game points' } }, 'GP'),
+            hl('th', i18n.broadcast.matches),
+            hl('th', { attrs: { 'data-sort-default': 1 } }, i18n.broadcast.matchPoints),
+            hl('th', i18n.broadcast.gamePoints),
           ]),
         ]),
         hl(
@@ -89,10 +89,10 @@ export default class RelayTeamLeaderboard {
               hl('td', entry.matches.length),
               hl(
                 'td',
-                { attrs: { 'data-sort': entry.mp * 1000 + entry.gp, title: 'Match points' } },
+                { attrs: { 'data-sort': entry.mp * 1000 + entry.gp, title: i18n.broadcast.matchPoints } },
                 `${entry.mp}`,
               ),
-              hl('td', { attrs: { title: 'Game points' } }, `${entry.gp}`),
+              hl('td', { attrs: { title: i18n.broadcast.gamePoints } }, `${entry.gp}`),
             ]),
           ),
         ),
@@ -117,21 +117,26 @@ export default class RelayTeamLeaderboard {
         hl(
           'table.relay-tour__team-summary__header__stats',
           hl('tbody', [
-            hl('tr', [hl('th', 'Matches Played'), hl('td', `${foundTeam.matches.length}`)]),
-            hl('tr', [hl('th', 'Match Points'), hl('td', `${foundTeam.mp}`)]),
-            hl('tr', [hl('th', 'Game Points'), hl('td', `${foundTeam.gp}`)]),
+            hl('tr', [hl('th', i18n.broadcast.matches), hl('td', `${foundTeam.matches.length}`)]),
+            hl('tr', [hl('th', i18n.broadcast.matchPoints), hl('td', `${foundTeam.mp}`)]),
+            hl('tr', [hl('th', i18n.broadcast.gamePoints), hl('td', `${foundTeam.gp}`)]),
             foundTeam.averageRating &&
               hl('tr', [hl('th', i18n.site.averageElo), hl('td', `${foundTeam.averageRating}`)]),
           ]),
         ),
       ]),
       hl('div.relay-tour__team-summary__roster', this.rosterView(foundTeam)),
-      hl('h2.relay-tour__team-summary__matches__header', 'Match History'),
+      hl('h2.relay-tour__team-summary__matches__header', i18n.broadcast.matchHistory),
       hl('div.relay-tour__team-summary__matches', [
         hl('table.relay-tour__team-summary__table.slist.slist-pad', [
           hl(
             'thead',
-            hl('tr', [hl('th', 'Match'), hl('th', 'Opposing Team'), hl('th', 'MP'), hl('th', 'GP')]),
+            hl('tr', [
+              hl('th'),
+              hl('th', i18n.team.team),
+              hl('th', i18n.broadcast.matchPoints),
+              hl('th', i18n.broadcast.gamePoints),
+            ]),
           ),
           hl(
             'tbody',

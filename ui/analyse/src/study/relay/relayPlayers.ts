@@ -1,4 +1,4 @@
-import { type VNode, dataIcon, hl, onInsert, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
+import { type VNode, dataIcon, hl, onInsert, spinnerVdom as spinner, type LooseVNodes } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
 import type {
@@ -273,7 +273,7 @@ export const renderPlayers = (
   ctrl: RelayPlayers,
   players: RelayPlayer[],
   forceEloSort = false,
-): MaybeVNodes => {
+): LooseVNodes => {
   const withRating = players.some(p => defined(p.rating));
   const withScores = players.some(p => defined(p.score));
   const withRank = players.some(p => defined(p.rank));
@@ -283,13 +283,12 @@ export const renderPlayers = (
     attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
   });
   return [
-    withRank
-      ? hl(
-          'p.relay-tour__standings--disclaimer.text',
-          { attrs: dataIcon(licon.InfoCircle) },
-          'Standings are calculated using broadcasted games and may differ from official results.',
-        )
-      : undefined,
+    withRank &&
+      hl(
+        'p.relay-tour__standings--disclaimer.text',
+        { attrs: dataIcon(licon.InfoCircle) },
+        i18n.broadcast.standingsDisclaimer,
+      ),
     hl(
       'table.relay-tour__players__table.fide-players-table.slist.slist-invert.slist-pad',
       {
