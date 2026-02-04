@@ -144,7 +144,7 @@ function clickControl(ctrl: AnalyseCtrl, e: PointerEvent) {
   else if (action === 'opening-explorer') ctrl.toggleExplorer();
   else if (action === 'menu') ctrl.toggleActionMenu();
   else if (action === 'analysis') window.open(ctrl.study?.practice?.analysisUrl(), '_blank');
-  else if (action === 'engine-mode' && !e.target.closest<HTMLElement>('.switch')) {
+  else if (action === 'engine-mode' && !e.target.closest<HTMLElement>('.cmn-toggle')) {
     const mode = e.target.dataset.mode as EngineMode;
     if (ctrl.activeControlBarTool()) {
       ctrl.explorer.enabled(false);

@@ -2,7 +2,7 @@
 
 import { h, type Hooks, type VNode, type Attrs } from 'snabbdom';
 import { bind } from './snabbdom';
-import { toggle as baseToggle, type Prop, type Toggle } from '@/index';
+import { toggle as baseToggle, defined, type Prop, type Toggle } from '@/index';
 import * as xhr from '@/xhr';
 import * as licon from '@/licon';
 
@@ -15,6 +15,7 @@ interface CmnToggleBase {
 
 export interface CmnToggle extends CmnToggleBase {
   checked: boolean;
+  propsChecked?: boolean;
   change(v: boolean): void;
 }
 
@@ -40,7 +41,7 @@ export const cmnToggle = (opts: CmnToggle): VNode =>
   h('span.cmn-toggle', { attrs: { role: 'button' } }, [
     h(`input#cmn-tg-${opts.id}`, {
       attrs: { type: 'checkbox', checked: opts.checked, disabled: !!opts.disabled },
-      props: { checked: opts.checked },
+      props: defined(opts.propsChecked) ? { checked: opts.propsChecked } : undefined,
       hook: bind('change', e => opts.change((e.target as HTMLInputElement).checked), opts.redraw),
     }),
     h('label', { attrs: { for: `cmn-tg-${opts.id}` } }),

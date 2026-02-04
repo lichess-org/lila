@@ -126,18 +126,7 @@ button#microphone-button {
 
 .voice-setting {
   @extend %flex-center-nowrap;
-  * {
-    white-space: nowrap;
-  }
-
-  label {
-    flex: 4 1 auto;
-    cursor: pointer;
-  }
-
-  .switch + label {
-    margin-inline-start: 1ch;
-  }
+  white-space: nowrap;
 
   input[type='range'] {
     cursor: pointer;

@@ -10,7 +10,7 @@
     visibility: visible;
   }
 
-  // [ div.switch, pearl (grow), div.engine (grow/shrink), button.show-threat, button.gear ]
+  // [ div.cmn-toggle, pearl (grow), div.engine (grow/shrink), button.show-threat, button.gear ]
 
   .cmn-toggle {
     @extend %flex-center;

@@ -259,7 +259,9 @@ export const renderCevalSwitch = (ctrl: CevalHandler): VNode | false =>
   ctrl.cevalEnabled() !== 'force' &&
   cmnToggle({
     id: 'analyse-toggle-ceval',
-    checked: !ctrl.ceval.isPaused && !!ctrl.cevalEnabled(),
+    title: i18n.site.toggleLocalEvaluation + ' (L)',
+    checked: !!ctrl.cevalEnabled(),
+    propsChecked: !ctrl.ceval.isPaused && !!ctrl.cevalEnabled(),
     change: ctrl.cevalEnabled,
     disabled: !ctrl.ceval.analysable,
   });

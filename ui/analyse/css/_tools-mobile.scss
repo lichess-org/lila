@@ -15,7 +15,7 @@
     .ceval .engine {
       margin-inline-start: 12px;
     }
-    .ceval .switch,
+    .ceval .cmn-toggle,
     .ceval pearl {
       display: none;
     }
@@ -117,7 +117,7 @@
     [data-mode] .bar {
       display: none;
     }
-    [data-mode] .switch {
+    [data-mode] .cmn-toggle {
       width: 24px;
     }
     [data-mode]:not(.active) .bar {
@@ -164,18 +164,18 @@
   .analyse[data-active-mode='retro'] .analyse__fork {
     display: none;
   }
-  #analyse-toggle-ceval + label {
-    background-color: $c-font-dimmer;
+  .cmn-toggle label {
+    background-color: $c-font-dimmer !important;
     width: 24px;
     height: 33px;
+    &::before,
+    &::after {
+      top: 0;
+      margin-top: 9px;
+    }
   }
-  #analyse-toggle-ceval + label::before,
-  #analyse-toggle-ceval + label::after {
-    top: 0;
-    margin-top: 9px;
-  }
-  #analyse-toggle-ceval:checked + label::before,
-  #analyse-toggle-ceval:checked + label::after {
+  #cmn-tg-analyse-toggle-ceval:checked + label::before,
+  #cmn-tg-analyse-toggle-ceval:checked + label::after {
     margin: 0;
   }
 }
