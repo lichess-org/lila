@@ -114,11 +114,12 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
               div(cls := "clas-teachers")(
                 trans.clas.teachersX(fragList(c.teachers.toList.map(t => userIdLink(t.some))))
               ),
-              c.teamId.map: teamId =>
-                div(cls := "clas-team"):
-                  a(href := routes.Team.show(teamId), cls := "text", dataIcon := Icon.Group)(
-                    trans.team.team()
-                  )
+              div(cls := "clas-team"):
+                val url = c.teamId match
+                  case Some(teamId) => routes.Team.show(teamId).url
+                  case None => routes.Clas.edit(c.id).url + "#clas-team"
+                a(href := url, cls := "text", dataIcon := Icon.Trophy):
+                  trans.site.tournaments()
             )
           ),
           tournaments,

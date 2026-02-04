@@ -155,9 +155,9 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       ),
       form3.split(
         gatheringFormUi.allowList(form.prefix("conditions.allowList")),
-        (ctx.me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).so {
+        (ctx.me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).option:
           gatheringFormUi.titled(form.prefix("conditions.titled"))
-        },
+        ,
         gatheringFormUi.bots(form.prefix("conditions.bots"), disabledAfterStart)
       )
     )

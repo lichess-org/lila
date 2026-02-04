@@ -83,7 +83,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
   ) =
     dashUi.teacher.TeacherPage(c, students, "edit")()(
       div(cls := "box-pad")(
-        postForm(cls := "form3", action := routes.Clas.update(c.id))(
+        postForm(cls := "form3 clas-edit", action := routes.Clas.update(c.id))(
           clasForm(form, c.some),
           form3.actions(
             a(href := routes.Clas.show(c.id))(trans.site.cancel()),
@@ -129,7 +129,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
         form("hasTeam"),
         frag("Make a Lichess team for this class"),
         help = frag(
-          "Lichess teams can organize tournaments. The team members will be synchronized with the class students."
+          "Lichess teams can organize tournaments. Your class students will automatically join the team and its tournaments."
         ).some
-      )
+      )(id := "clas-team")
     )

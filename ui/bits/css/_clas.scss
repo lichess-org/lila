@@ -417,9 +417,24 @@ h1 {
   margin: $block-gap;
 }
 
+@keyframes target-fade {
+  from {
+    background: $m-accent_bg-popup--mix-80;
+  }
+  to {
+    background: $m-accent_bg-popup--mix-15;
+  }
+}
+
 .clas-edit {
   &__archive {
     text-align: right;
+  }
+  #clas-team:target {
+    @extend %box-neat;
+    padding: 1em 1em 1em 1.5em;
+    border: 1px solid $c-accent;
+    animation: target-fade 1.5s forwards;
   }
 }
 

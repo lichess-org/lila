@@ -93,7 +93,7 @@ object show:
                 )
               ),
               bits.actions(t.team, info.member, info.myRequest, info.subscribed, asMod),
-              canSeeMembers.option(bits.members(t.team, members))
+              (canSeeMembers && !t.team.isClas).option(bits.members(t.team, members))
             ),
             div(cls := "team-show__content__col2")(
               standardFlash,
