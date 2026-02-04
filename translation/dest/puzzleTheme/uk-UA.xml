@@ -9,13 +9,13 @@
   <string name="arabianMate">Арабський мат</string>
   <string name="arabianMateDescription">Кінь та тура разом ловлять короля у кутку дошки.</string>
   <string name="attackingF2F7">Атака f2 або f7</string>
-  <string name="attackingF2F7Description">Атака, спрямована на f2 або f7, наприклад, як у дебюті смаженої печінки.</string>
+  <string name="attackingF2F7Description">Атака, спрямована на f2 або f7, наприклад, як у захисті двох коней.</string>
   <string name="attraction">Заманювання</string>
   <string name="attractionDescription">Обмін або жертва, що заманює або примушує суперника зробити хід, що дозволяє проводити подальшу тактику.</string>
   <string name="backRankMate">Мат по останній горизонталі</string>
-  <string name="backRankMateDescription">Мат королю в домашньому ряду, коли він у пастці між власними фігурами.</string>
-  <string name="balestraMate">Арбалетний мат</string>
-  <string name="balestraMateDescription">Слон ставить мат королю, а ферзь блокує решта полів для відступу</string>
+  <string name="backRankMateDescription">Мат королю в останньому ряду, коли він у пастці між власними фігурами.</string>
+  <string name="balestraMate">Мат Балестри</string>
+  <string name="balestraMateDescription">Слон ставить мат королю, а ферзь блокує решту полів для відступу</string>
   <string name="blindSwineMate">Мат сліпої свині</string>
   <string name="blindSwineMateDescription">Дві тури об\'єднуються, аби поставити мат королю на полі 2 на 2.</string>
   <string name="bishopEndgame">Слоновий ендшпіль</string>
@@ -34,8 +34,8 @@
   <string name="discoveredCheckDescription">Переміщення однієї фігури відкриває іншу, яка ставить шах королю. Часто призводить до вирішальної переваги.</string>
   <string name="doubleBishopMate">Мат двома слонами</string>
   <string name="doubleBishopMateDescription">Два слони на сусідніх діагоналях ставлять мат королю, який оточений власними фігурами.</string>
-  <string name="dovetailMate">Мат \"ластів\'ячий хвіст\"</string>
-  <string name="dovetailMateDescription">Королева ставить мат королю поруч, єдині два поля для відступу якого зайняті його власними фігурами.</string>
+  <string name="dovetailMate">Мат \"ластівчин хвіст\"</string>
+  <string name="dovetailMateDescription">Ферзь ставить мат королю поруч, єдині два поля для відступу якого зайняті його власними фігурами.</string>
   <string name="equality">Рівність</string>
   <string name="equalityDescription">Повернення з програшної позиції, забезпечення нічиєї або отримання збалансованої позиції. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Атака на королівський фланг</string>
@@ -47,7 +47,7 @@
   <string name="deflection">Відволікання</string>
   <string name="deflectionDescription">Хід, що відволікає фігуру суперника від іншої виконуваної задачі, наприклад, захисту ключового поля. Деколи ще звуть \"перевантаженням\".</string>
   <string name="discoveredAttack">Відкритий напад</string>
-  <string name="discoveredAttackDescription">Хід фігурою (наприклад, конем), яка до цього блокувала атаку далекобійної фігури (наприклад, тури), геть з лінії цієї фігури.</string>
+  <string name="discoveredAttackDescription">Хід фігурою, яка до цього блокувала атаку далекобійної фігури, наприклад, виведення коня з під лінії тури.</string>
   <string name="doubleCheck">Подвійний шах</string>
   <string name="doubleCheckDescription">Шах двома фігурами одночасно, як наслідок відкриття атаки на короля, коли обидві фігури неможливо захопити.</string>
   <string name="endgame">Ендшпіль</string>
