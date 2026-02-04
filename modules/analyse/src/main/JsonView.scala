@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.{ ByColor, Ply }
+import chess.{ ByColor, Ply, Division }
 import play.api.libs.json.*
 
 import lila.common.Json.given
@@ -56,4 +56,10 @@ object JsonView extends lila.tree.AnalysisJson:
     Json.obj(
       "summary" -> bothPlayers(game.startedAtPly, analysis, withAccuracy = false),
       "moves" -> moves(analysis)
+    )
+
+  def analysisHeader(root: lila.tree.Root, division: Division, analysis: Analysis) =
+    Json.obj(
+      "division" -> division,
+      "summary" -> bothPlayers(root.ply, analysis)
     )

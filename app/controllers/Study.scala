@@ -444,9 +444,10 @@ final class Study(
                 if study.isRelay
                 then env.relay.pgnStream.ofChapter(sc).getOrElse(makeChapterPgn)
                 else makeChapterPgn
-              analysisJson <- getBool("analysisSummaryHeader").so:
-                chapterAnalysis(sc).map2: a =>
-                  Json.obj("summary" -> env.analyse.jsonView.bothPlayers(sc.chapter.root.ply, a))
+              analysisJson <- getBool("analysisHeader").so:
+                chapterAnalysis(sc).map2: analysis =>
+                  val division = env.study.serverEvalMerger.divisionOf(chapter)
+                  env.analyse.jsonView.analysisHeader(sc.chapter.root, division, analysis)
               filename = s"${env.study.pgnDump.filename(study, chapter)}.pgn"
               res = Ok(pgn.toString).as(pgnContentType).asAttachment(filename)
               resWithAnalysis = analysisJson.fold(res): a =>
