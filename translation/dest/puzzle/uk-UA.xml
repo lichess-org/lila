@@ -56,8 +56,8 @@
     <item quantity="many">%s балів нижче вашого рейтингу в задачах</item>
     <item quantity="other">На %s балів нижче за ваш рейтинг у задачах</item>
   </plurals>
-  <string name="harder">Складніше</string>
-  <string name="hardest">Найскладніший</string>
+  <string name="harder">Важчий</string>
+  <string name="hardest">Найважчий</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">Один бал вище вашого рейтингу в задачах</item>
     <item quantity="few">%s бали вище вашого рейтингу в задачах</item>
