@@ -121,7 +121,7 @@
   <string name="rookEndgameDescription">Um final com apenas torres e peões.</string>
   <string name="sacrifice">Sacrifício</string>
   <string name="sacrificeDescription">Uma tática envolvendo a entrega de material no curto prazo, com o objetivo de se obter uma vantagem após uma sequência forçada de movimentos.</string>
-  <string name="short">Quebra-cabeças curto</string>
+  <string name="short">Problema curto</string>
   <string name="shortDescription">Vitória em dois lances.</string>
   <string name="skewer">Raio X</string>
   <string name="skewerDescription">Um movimento que envolve uma peça de alto valor sendo atacada fugindo do ataque e permitindo que uma peça de menor valor seja capturada ou atacada, o inverso de cravada.</string>
@@ -142,6 +142,6 @@
   <string name="mix">Combinação saudável</string>
   <string name="mixDescription">Um pouco de tudo. Você nunca sabe o que vai encontrar, então esteja pronto para tudo! Igualzinho aos jogos em tabuleiros reais.</string>
   <string name="playerGames">Partidas de jogadores</string>
-  <string name="playerGamesDescription">Procure quebra-cabeças gerados a partir de suas partidas ou das de outro jogador.</string>
-  <string name="puzzleDownloadInformation">Esses quebra-cabeças estão em domínio público, e você pode baixá-los em %s.</string>
+  <string name="playerGamesDescription">Procure problemas gerados a partir de suas partidas ou das partidas de outro jogador.</string>
+  <string name="puzzleDownloadInformation">Esses problemas estão em domínio público, e você pode baixá-los em %s.</string>
 </resources>

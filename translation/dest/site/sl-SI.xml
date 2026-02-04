@@ -736,7 +736,7 @@
   <string name="onlyExistingConversations">Samo obstoječi pogovori</string>
   <string name="onlyFriends">Samo prijatelji</string>
   <string name="menu">Meni</string>
-  <string name="castling">Rokada</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Rokada</string>
   <string name="whiteCastlingKingside">Beli O-O</string>
   <string name="blackCastlingKingside">Črni O-O</string>
   <plurals name="nbForumPosts">
@@ -1111,5 +1111,5 @@ Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij 
   <string name="search">Išči</string>
   <string name="clearSearch">Počisti iskanje</string>
   <string name="tags">Oznake</string>
-  <string name="enPassant">En passant</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.&#10;&#10;NOTE: this string used to read &quot;En passant&quot;, with &quot;rights&quot; added in 2026 for clarity.">En passant</string>
 </resources>

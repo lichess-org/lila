@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">Fann ikkje FIDE-spelar</string>
   <string name="fideProfile">FIDE-profil</string>
   <string name="federation">Forbund</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Alder</string>
+  <string name="age">Alder</string>
   <string name="unrated">Urangert</string>
   <string name="recentTournaments">Nylegaste turneringar</string>
   <string name="openLichess">Opne i Lichess</string>
@@ -85,4 +85,15 @@
   <string name="createdAndManagedBy">Oppretta og administrert av %s.</string>
   <string name="roundX">Runde %s</string>
   <string name="defaultRoundNameHelp">Om du ikkje endrar standardnamnet vil det automatisk bli oversett alle andre språk.</string>
+  <string name="openTournament">Opne</string>
+  <string name="womenTournament">Kvinner</string>
+  <string name="girlsTournament">Jenter</string>
+  <string name="openUnderXAgeTournament">Opne U%s</string>
+  <string name="girlsUnderXAgeTournament">Jenter U%s</string>
+  <string name="quarterfinals">Kvartfinalar</string>
+  <string name="semifinals">Semifinalar</string>
+  <string name="finals">Finalar</string>
+  <string name="tiebreaks">Tiebreak</string>
+  <string name="gameX">Parti %s</string>
+  <string name="knockouts">Utslagsrundar</string>
 </resources>

@@ -45,7 +45,7 @@
   <string name="fidePlayerNotFound">Không tìm thấy kỳ thủ FIDE</string>
   <string name="fideProfile">Hồ sơ FIDE</string>
   <string name="federation">Liên đoàn</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Tuổi</string>
+  <string name="age">Tuổi</string>
   <string name="unrated">Chưa xếp hạng</string>
   <string name="recentTournaments">Các giải đấu tham gia gần đây</string>
   <string name="openLichess">Mở trên Lichess</string>

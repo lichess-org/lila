@@ -206,11 +206,11 @@ en du movoj!</string>
   <string name="learnCommonChessPositions">Lernu komunajn ŝakajn poziciojn</string>
   <string name="puzzles">Puzloj</string>
   <string name="exerciseYourTacticalSkills">Ekzerĉi viajn taktikajn kapablojn</string>
-  <string name="videos">Videoj</string>
+  <string name="videos">Filmetoj</string>
   <string name="watchInstructiveChessVideos">Spektu instruajn ŝakajn filmetojn</string>
-  <string name="playPeople">Ludu homojn</string>
+  <string name="playPeople">Ludi kontraŭ homoj</string>
   <string name="opponentsFromAroundTheWorld">Kontraŭuloj de la tuta mondo</string>
-  <string name="playMachine">Ludu maŝinon</string>
+  <string name="playMachine">Ludi kontraŭ komputilo</string>
   <string name="testYourSkillsWithTheComputer">Provu viajn kapablojn per la komputilo</string>
   <string name="letsGo">Ni iru!</string>
   <string name="stageX">Nivelo %s</string>

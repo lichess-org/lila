@@ -45,7 +45,7 @@
   <string name="fidePlayerNotFound">해당 FIDE 선수를 찾을 수 없음</string>
   <string name="fideProfile">FIDE 프로필</string>
   <string name="federation">연맹</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">나이</string>
+  <string name="age">나이</string>
   <string name="unrated">비레이팅</string>
   <string name="recentTournaments">최근 토너먼트</string>
   <string name="openLichess">Lichess에서 열기</string>

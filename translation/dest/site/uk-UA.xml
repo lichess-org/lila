@@ -131,6 +131,7 @@
   <string name="bestMoveArrow">Стрілка «Найкращий хід»</string>
   <string name="showVariationArrows">Показати стрілки для варіантів</string>
   <string name="evaluationGauge">Шкала оцінки</string>
+  <string name="visualMotifs">Візуальні підказки</string>
   <string name="undefendedPieces">Незахищені фігури</string>
   <string name="pinnedPieces">Зв\'язані фігури</string>
   <string name="checkableKing">Король, якому можна поставити шах</string>

@@ -46,7 +46,7 @@
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Vous avez aidé à étiqueter %s problèmes.</string>
 	<string name="puzzlesNone">Vous n\'avez fait aucun problème cette année.</string>
-	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Voulez-vous en faire maintenant?</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Voulez-vous en essayer un?</string>
 	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Vous avez réussi %s problèmes au premier essai!</string>
 	<string name="sourcesTitle">Où avez-vous trouvé des parties à jouer?</string>
 	<string name="perfsTitle">Quelles étaient les cadences et les variantes?</string>

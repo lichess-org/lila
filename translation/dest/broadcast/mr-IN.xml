@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">FIDE खेळाडू सापडले नाही</string>
   <string name="fideProfile">FIDE चरित्र</string>
   <string name="federation">संघराज्य</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">वय</string>
+  <string name="age">वय</string>
   <string name="unrated">अस्थित</string>
   <string name="recentTournaments">नुकतीच स्पर्धा</string>
   <string name="openLichess">Lichess मध्ये उघडा</string>

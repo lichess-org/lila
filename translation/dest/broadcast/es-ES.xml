@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">Jugador FIDE no encontrado</string>
   <string name="fideProfile">Perfil FIDE</string>
   <string name="federation">Federación</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Edad</string>
+  <string name="age">Edad</string>
   <string name="unrated">Sin puntuación</string>
   <string name="recentTournaments">Torneos recientes</string>
   <string name="openLichess">Abrir en Lichess</string>
@@ -83,6 +83,21 @@
   <string name="liveboard">Tablero en directo</string>
   <string name="communityBroadcast">Transmisión de la comunidad</string>
   <string name="createdAndManagedBy">Creada y administrada por %s.</string>
+  <string name="termsAutomaticallyTranslated">El(Los) siguiente(s) término(s) se traducirá(n) automáticamente: %s.</string>
   <string name="roundX">Ronda %s</string>
   <string name="defaultRoundNameHelp">Si mantiene el nombre predeterminado se traducirá automáticamente al resto de idiomas.</string>
+  <string name="openTournament">Abierto</string>
+  <string name="womenTournament">Femenino</string>
+  <string name="menTournament">Hombres</string>
+  <string name="girlsTournament">Femenino</string>
+  <string name="boysTournament">Chicos</string>
+  <string name="openUnderXAgeTournament">Abierto Sub%s</string>
+  <string name="girlsUnderXAgeTournament">Femenino Sub%s</string>
+  <string name="boysUnderXAgeTournament">Masculino sub%s</string>
+  <string name="quarterfinals">Cuartos de final</string>
+  <string name="semifinals">Semifinales</string>
+  <string name="finals">Finales</string>
+  <string name="tiebreaks">Desempates</string>
+  <string name="gameX">Partida %s</string>
+  <string name="knockouts">Eliminatorias</string>
 </resources>

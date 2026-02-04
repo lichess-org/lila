@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">Skákmaður Alþjóðaskáksambandsins fannst ekki</string>
   <string name="fideProfile">Fide-prófíll</string>
   <string name="federation">Ríkjasamband</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Aldur</string>
+  <string name="age">Aldur</string>
   <string name="unrated">Skák án stigagjafar</string>
   <string name="recentTournaments">Nýleg mót</string>
   <string name="openLichess">Opna í Lichess</string>

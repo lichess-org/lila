@@ -25,7 +25,7 @@
   <string name="cantChangeMore">Não podemos mudar nada além das letras maiúsculas por minúsculas e vice-versa. Por razões técnicas, é absolutamente impossível.</string>
   <string name="orCloseAccount">Contudo, você pode encerrar sua conta atual e criar uma nova.</string>
   <string name="wantClearHistory">Quero limpar meu histórico ou rating</string>
-  <string name="cantClearHistory">Não é possível limpar seu histórico de jogos, quebra-cabeças ou pontuações.</string>
+  <string name="cantClearHistory">Não é possível limpar seu histórico de jogos, histórico de problemas ou pontuações.</string>
   <string name="wantReport">Quero denunciar um jogador</string>
   <string name="toReportAPlayerUseForm">Para denunciar um jogador, use o formulário de denúncia</string>
   <string name="youCanAlsoReachReportPage">Você também pode chegar a essa página clicando no botão de denúncia %s em uma página de perfil.</string>
