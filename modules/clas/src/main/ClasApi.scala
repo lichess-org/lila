@@ -251,7 +251,7 @@ final class ClasApi(
         .list(500)
 
     private[ClasApi] def clasIdsOfUser(userId: UserId): Fu[List[ClasId]] =
-      coll.distinctEasy[ClasId, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false))
+      coll.distinctEasy[ClasId, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false), _.sec)
 
     def count(clasId: ClasId): Fu[Int] = coll.countSel($doc("clasId" -> clasId))
 
