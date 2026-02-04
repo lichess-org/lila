@@ -159,8 +159,7 @@ object RelayTeam:
         Json
           .obj(
             "roundId" -> m.roundId,
-            "opponent" -> m.opponentName,
-            "players" -> m.players.values.toList
+            "opponent" -> m.opponentName
           )
           .add("points" -> m.points)
           .add("mp" -> m.mp)
