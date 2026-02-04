@@ -30,9 +30,9 @@ object student:
     ui.show(clas, students, s, views.activity(s.withPerfs, activities))
 
 def clasTournaments(tours: PastAndNext)(using Context) =
-  tours.nonEmpty.option:
+  val allTours = tours.next ::: tours.past.take(5 - tours.next.size)
+  val recentTours = allTours.filter(_.isRecent)
+  recentTours.nonEmpty.option:
     st.section(cls := "clas-tournaments team-events"):
       table(cls := "slist"):
-        val allTours = tours.next ::: tours.past.take(5 - tours.next.size)
-        val recentTours = allTours.filter(_.isRecent)
         views.team.tournaments.renderList(recentTours)
