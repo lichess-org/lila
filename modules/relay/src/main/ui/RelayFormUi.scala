@@ -804,7 +804,7 @@ Team Dogs ; Scooby Doo"""),
         )
       )
 
-  private def nameHelp = small(cls := "form-help relay-name-help text", dataIcon := Icon.Checkmark)
+  private def nameHelp = small(cls := "form-help relay-name-help text none", dataIcon := Icon.Checkmark)
 
   private def image(t: RelayTour)(using ctx: Context) =
     form3.fieldset("Image", toggle = true.some):
