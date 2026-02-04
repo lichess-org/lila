@@ -83,13 +83,17 @@
   <string name="liveboard">Zuzeneko taula</string>
   <string name="communityBroadcast">Komunitatearen zuzenekoa</string>
   <string name="createdAndManagedBy">%s erabiltzaileak sortu eta kudeatua.</string>
+  <string name="termsAutomaticallyTranslated">Balio hau(ek) automatikoki itzuli egingo d(ir)a: %s.</string>
   <string name="roundX">%s. txanda</string>
   <string name="defaultRoundNameHelp">Defektuzko izena uzten baduzu, hizkuntza guztietan ondo itzuliko da.</string>
   <string name="openTournament">Irekia</string>
   <string name="womenTournament">Emakumeena</string>
+  <string name="menTournament">Gizonak</string>
   <string name="girlsTournament">Neskena</string>
+  <string name="boysTournament">Mutilak</string>
   <string name="openUnderXAgeTournament">%s urtez azpiko irekia</string>
   <string name="girlsUnderXAgeTournament">%s urtez azpiko neskak</string>
+  <string name="boysUnderXAgeTournament">%s urtez azpiko mutilak</string>
   <string name="quarterfinals">Final-laurdenak</string>
   <string name="semifinals">Finalerdiak</string>
   <string name="finals">Finalak</string>
