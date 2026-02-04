@@ -87,17 +87,17 @@
   <string name="liveboard">Наживо</string>
   <string name="communityBroadcast">Трансляція спільноти</string>
   <string name="createdAndManagedBy">Створено та адмініструється %s.</string>
-  <string name="termsAutomaticallyTranslated">Коментар(і) послідовника будуть автоматично перекладені: %s.</string>
+  <string name="termsAutomaticallyTranslated">Наступні терміни будуть автоматично перекладені: %s.</string>
   <string name="roundX">Раунд %s</string>
   <string name="defaultRoundNameHelp">Усталене ім\'я автоматично перекладатиметься іншими мовами.</string>
-  <string name="openTournament">Відкриття</string>
-  <string name="womenTournament">Жінка</string>
-  <string name="menTournament">Чоловіки</string>
-  <string name="girlsTournament">Жінки</string>
-  <string name="boysTournament">Хлопці</string>
+  <string name="openTournament" comment="As in an open tournament.">Відкриття</string>
+  <string name="womenTournament" comment="As in a women's-only tournament.">Жінка</string>
+  <string name="menTournament" comment="As in a men's-only tournament.">Чоловіки</string>
+  <string name="girlsTournament" comment="As in a girls-only tournament.">Жінки</string>
+  <string name="boysTournament" comment="As in a boys-only tournament.">Хлопці</string>
   <string name="openUnderXAgeTournament">Відкриття %s</string>
   <string name="girlsUnderXAgeTournament">Жінки %s</string>
-  <string name="boysUnderXAgeTournament">Хлопці U%s</string>
+  <string name="boysUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Boys U18&quot; will mean it is an open tournament for under-18 year old boys.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Хлопці U%s</string>
   <string name="quarterfinals">Четверть фіналів</string>
   <string name="semifinals">Півфінали</string>
   <string name="finals">Фінали</string>
