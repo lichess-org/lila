@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">Nem találtunk ilyen FIDE-játékost</string>
   <string name="fideProfile">FIDE-profil</string>
   <string name="federation">Ország</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Életkor</string>
+  <string name="age">Életkor</string>
   <string name="unrated">Nem értékelt</string>
   <string name="recentTournaments">Legutóbbi versenyek</string>
   <string name="openLichess">Nyisd meg a Lichess-ben</string>
@@ -84,4 +84,12 @@
   <string name="communityBroadcast">Közösségi közvetítés</string>
   <string name="createdAndManagedBy">Létrehozta és felügyeli: %s.</string>
   <string name="roundX">%s. forduló</string>
+  <string name="openTournament">Nyílt</string>
+  <string name="womenTournament">Nők</string>
+  <string name="menTournament">Férfiak</string>
+  <string name="girlsTournament">Lányok</string>
+  <string name="boysTournament">Fiúk</string>
+  <string name="openUnderXAgeTournament">Nyílt U%s</string>
+  <string name="girlsUnderXAgeTournament">Lány U%s</string>
+  <string name="boysUnderXAgeTournament">Fiú U%s</string>
 </resources>

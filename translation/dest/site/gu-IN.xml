@@ -661,7 +661,7 @@
   <string name="onlyExistingConversations">માત્ર હાલની વાતચીતો</string>
   <string name="onlyFriends">ફક્ત મિત્રો</string>
   <string name="menu">મેનુ</string>
-  <string name="castling">કેસલિંગ</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">કેસલિંગ</string>
   <string name="whiteCastlingKingside">સફેદ O-O</string>
   <string name="blackCastlingKingside">કાળો O-O</string>
   <plurals name="nbForumPosts">

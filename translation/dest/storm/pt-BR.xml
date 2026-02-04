@@ -26,7 +26,7 @@
   <string name="time">Tempo</string>
   <string name="timePerMove">Tempo por lance</string>
   <string name="highestSolved">Classificação mais alta</string>
-  <string name="puzzlesPlayed">Quebra-cabeças jogados</string>
+  <string name="puzzlesPlayed">Problemas jogados</string>
   <string name="newRun">Nova tentativa (tecla de atalho: espaço)</string>
   <string name="endRun">Finalizar tentativa (tecla de atalho: Enter)</string>
   <string name="highscores">Melhores pontuações</string>

@@ -49,8 +49,8 @@
   <string name="createStudentWarning">Искључиво правите налоге стварним ученицима. Немојте ово користите да правите више налога за себе. Добићете забрану приступа.</string>
   <string name="lichessUsername">Lichess корисничко име</string>
   <string name="generateANewUsername">Генериши ново корисничко име</string>
-  <string name="welcomeToClass">Добродошли на час: %s.
-Овде је веза за приступ часу.</string>
+  <string name="welcomeToClass">Добродошао/ла на свој час: %s.
+Овде је линк за приступ часу.</string>
   <string name="invitationToClass">Позван си да се прикључиш \"%s\" часу као ученик.</string>
   <string name="clickToViewInvitation">Притисни линк да погледаш позивницу:</string>
   <plurals name="nbPendingInvitations">

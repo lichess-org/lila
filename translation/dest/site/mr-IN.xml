@@ -818,6 +818,7 @@
   <string name="size">आकार</string>
   <string name="opacity">अपारदर्शकता</string>
   <string name="brightness">तेजस्वीपणा</string>
+  <string name="contrast">कॉन्ट्रास्ट</string>
   <string name="hue">रंग</string>
   <string name="boardReset">रंगांना परत पाहिल्यासारखे करा</string>
   <string name="pieceSet">सोंगट्या</string>
