@@ -79,12 +79,6 @@
   .comment-content {
     overflow: visible; // don't clip textarea focus ring
     position: relative;
-
-    textarea:focus-visible {
-      outline-style: solid;
-      outline-offset: -2px;
-      outline-width: 2px;
-    }
   }
   .comment-preview {
     position: absolute;
