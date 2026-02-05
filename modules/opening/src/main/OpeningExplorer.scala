@@ -45,6 +45,7 @@ final private class OpeningExplorer(
               err => fufail(s"Couldn't parse $err"),
               data => fuccess(data.some)
             )
+      .monSuccess(_.opening.explorer.stats)
       .map(Success(_))
       .recover:
         case e: Exception =>

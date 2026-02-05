@@ -668,6 +668,8 @@ object mon:
         tags("variant" -> variant.key, "hit" -> hitTag(hit))
   object opening:
     def searchTime = timer("opening.search.time").withoutTags()
+    object explorer:
+      def stats = future("opening.explorer.stats")
   object study:
     object tree:
       val read = timer("study.tree.read").withoutTags()
