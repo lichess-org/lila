@@ -27,10 +27,10 @@ def widgets(
     notes: Map[GameId, String] = Map(),
     user: Option[User] = None,
     ownerLink: Boolean = false,
-    plysAndFens: Map[GameId, (Ply, SimpleFen, String)] = Map()
+    bookmarkInfo: Map[GameId, (Ply, SimpleFen, String)] = Map()
 )(using ctx: lila.ui.Context): Frag =
   games.map: g =>
-    ui.widgets(g, notes.get(g.id), user, ownerLink, plysAndFens.get(g.id)):
+    ui.widgets(g, notes.get(g.id), user, ownerLink, bookmarkInfo.get(g.id)):
       g.tournamentId
         .map: tourId =>
           views.tournament.ui.tournamentLink(tourId)(using ctx.translate)

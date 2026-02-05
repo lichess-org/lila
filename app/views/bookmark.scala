@@ -10,7 +10,7 @@ def toggle(g: Game, bookmarked: Boolean)(using ctx: Context) =
         "bookmark" -> true,
         "bookmarked" -> bookmarked
       ),
-      href := routes.Game.bookmark(g.id, Ply(5)),
+      href := routes.Game.bookmark(g.id, Ply(0)),
       title := trans.site.bookmarkThisGame.txt()
     )(
       iconTag(Icon.Star)(cls := "on is3"),

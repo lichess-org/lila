@@ -9,6 +9,7 @@ import lila.app.{ *, given }
 import lila.core.id.GameAnyId
 import chess.Ply
 import chess.format.SimpleFen
+import chess.format.Uci
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 

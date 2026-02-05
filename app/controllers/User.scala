@@ -130,7 +130,7 @@ final class User(
                   }
                   notes <- ctx.useMe:
                     env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id))
-                  plysAndFens <-
+                  bookmarkInfo <-
                     if filter == "bookmark" then
                       ctx.useMe:
                         env.bookmark.api.bookmarkInfo(pag.currentPageResults.map(_.id))
@@ -146,10 +146,10 @@ final class User(
                         )
                         res <- Ok.page:
                           views.user.show.page
-                            .games(info, pag, filters, searchForm, social, notes, plysAndFens)
+                            .games(info, pag, filters, searchForm, social, notes, bookmarkInfo)
                       yield res
                     else
-                      Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter, notes, plysAndFens))
+                      Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter, notes, bookmarkInfo))
                         .toFuccess
                 yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
                 json = apiGames(u, filter, page)
