@@ -185,7 +185,7 @@ object Schedule:
 
       case (Unique, _, _) => 60 * 6
 
-  private val blitzIncHours = Set(1, 13)
+  private val blitzIncHours = Set(1, 7, 13, 19)
   private val rapidIncHours = Set(2)
   private def blitzInc(s: Schedule) = blitzIncHours(s.at.getHour)
   private def rapidInc(s: Schedule) = rapidIncHours(s.at.getHour)
