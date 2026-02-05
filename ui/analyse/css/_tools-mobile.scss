@@ -70,6 +70,9 @@
       padding-top: 0;
       border-bottom: none;
     }
+    .cmn-toggle label {
+      background-color: $c-font-dimmer !important;
+    }
     eval {
       font-size: 1.2em;
       pointer-events: none;
@@ -163,19 +166,5 @@
   .analyse[data-active-mode='practice'] .analyse__fork,
   .analyse[data-active-mode='retro'] .analyse__fork {
     display: none;
-  }
-  .cmn-toggle label {
-    background-color: $c-font-dimmer !important;
-    width: 24px;
-    height: 33px;
-    &::before,
-    &::after {
-      top: 0;
-      margin-top: 9px;
-    }
-  }
-  #cmn-tg-analyse-toggle-ceval:checked + label::before,
-  #cmn-tg-analyse-toggle-ceval:checked + label::after {
-    margin: 0;
   }
 }
