@@ -3,6 +3,7 @@
 
   .box__top__title {
     @extend %flex-center-nowrap;
+    gap: 0.4em;
   }
 
   h1 span {
