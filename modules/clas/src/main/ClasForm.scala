@@ -115,6 +115,13 @@ object ClasForm:
         canMsg = some(canMsg),
         hasTeam = some(hasTeam)
       )
+    def make(teacher: User) =
+      Clas
+        .make(teacher, name, desc)
+        .copy(
+          canMsg = some(canMsg),
+          hasTeam = some(hasTeam)
+        )
 
     def teacherIds = readTeacherIds(teachers)
 

@@ -61,7 +61,7 @@ final class ClasApi(
       student.clasIdsOfUser(userId).flatMap(byIds(_, nb))
 
     def create(data: ClasForm.ClasData)(using teacher: Me): Fu[Clas] =
-      val clas = Clas.make(teacher, data.name, data.desc)
+      val clas = data.make(teacher)
       for
         _ <- coll.insert.one(clas)
         _ = filters.teacher.add(teacher.userId)
