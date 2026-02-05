@@ -78,6 +78,7 @@ private final class TeamClasSync(
     for
       _ <- api.createQuietly(team)
       _ <- syncMembers(team, cfg)
+      _ <- syncPermissions(team, cfg)
     yield ()
 
   // it's a bit too easy to unselect the class team from the class settings
