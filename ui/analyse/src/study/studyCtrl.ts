@@ -269,7 +269,7 @@ export default class StudyCtrl {
   };
 
   setTab = (tab: Tab) => {
-    if (tab === 'chapters') this.chapters.scroller.request('instant');
+    if (tab === 'chapters' && this.vm.tab() !== 'chapters') this.chapters.scroller.request('instant');
     this.vm.tab(tab);
     this.redraw();
   };
