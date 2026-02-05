@@ -8,8 +8,10 @@ trait LilaException extends Exception:
   override def getMessage = message
   override def toString = message
 
+trait LilaExceptionNoStack extends LilaException with NoStackTrace
+
 case class LilaInvalid(message: String) extends LilaException
-case class LilaNoStackTrace(message: String) extends LilaException with NoStackTrace
+case class LilaNoStackTrace(message: String) extends LilaExceptionNoStack
 
 object LilaException:
 

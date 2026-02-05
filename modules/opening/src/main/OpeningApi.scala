@@ -21,12 +21,12 @@ final class OpeningApi(
   private val defaultCache = cacheApi.notLoading[Query, Option[OpeningPage]](1024, "opening.defaultCache"):
     _.maximumSize(4096).expireAfterWrite(10.minutes).buildAsync()
 
-  def index(using RequestHeader, Option[Me]): Fu[Option[OpeningPage]] =
+  def index(using RequestHeader, Option[MyId]): Fu[Option[OpeningPage]] =
     lookup(Query("", none), withWikiRevisions = false, crawler = Crawler.No, proxy = IsProxy.empty)
 
   def lookup(q: Query, withWikiRevisions: Boolean, crawler: Crawler, proxy: IsProxy)(using
       RequestHeader,
-      Option[Me]
+      Option[MyId]
   ): Fu[Option[OpeningPage]] =
     val config = if crawler.yes then OpeningConfig.default else readConfig
     def doLookup = lookup(q, config, withWikiRevisions, crawler, proxy)
@@ -45,7 +45,7 @@ final class OpeningApi(
       withWikiRevisions: Boolean,
       crawler: Crawler,
       proxy: IsProxy
-  )(using Option[Me]): Fu[Option[OpeningPage]] =
+  )(using Option[MyId]): Fu[Option[OpeningPage]] =
     OpeningQuery(q, config).so { compute(_, withWikiRevisions, crawler, proxy) }
 
   private def compute(
@@ -53,7 +53,7 @@ final class OpeningApi(
       withWikiRevisions: Boolean,
       crawler: Crawler,
       proxy: IsProxy
-  )(using Option[Me]): Fu[Option[OpeningPage]] =
+  )(using Option[MyId]): Fu[Option[OpeningPage]] =
     for
       wiki <- query.closestOpening.traverse(wikiApi(_, withWikiRevisions))
       loadStats = canLoadExpensiveStats(wiki.exists(_.hasMarkup), crawler, proxy)
@@ -82,14 +82,14 @@ final class OpeningApi(
         case (cur, all) => ((cur.toDouble / all) * 100).toFloat
 
   private val allGamesHistory =
-    cacheApi[OpeningConfig, PopularityHistoryAbsolute](32, "opening.allGamesHistory"):
+    cacheApi[OpeningConfig, PopularityHistoryAbsolute](64, "opening.allGamesHistory"):
       _.expireAfterWrite(1.hour).buildAsyncFuture: config =>
         explorer
-          .stats(Vector.empty, config, Crawler(false))
+          .stats(Vector.empty, config, Crawler(false))(using UserId.lichess.into(MyId).some)
           .map(_.toOption.flatten.so(_.popularityHistory))
 
   private def canLoadExpensiveStats(wikiMarkup: Boolean, crawler: Crawler, proxy: IsProxy)(using
-      me: Option[Me]
+      me: Option[MyId]
   ): Boolean =
     if (crawler.yes || proxy.yes) && !wikiMarkup
     then false // nothing for crawlers to index if we don't have our own text

@@ -10,9 +10,13 @@
     display: flex;
     flex-flow: row nowrap;
     gap: 4px;
-    margin-inline: 4px;
     align-items: center;
     z-index: 1;
+
+    &:has(.header-tab:first-of-type:hover) + .comment-content textarea,
+    &:has(.header-tab:first-of-type.active) + .comment-content textarea {
+      border-top-left-radius: 0;
+    }
   }
   .header-tab {
     all: unset;
@@ -20,9 +24,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 112px;
+    min-width: 112px;
     height: 40px;
-    padding-block: 8px 10px;
     border-radius: 6px 6px 0 0;
     border: 1px solid transparent;
     border-bottom: none;
@@ -37,23 +40,30 @@
     color: $c-font;
     font-weight: bold;
     cursor: default;
+
+    &.write {
+      background-color: $c-bg-input;
+    }
   }
   .header-tab.active::after {
     position: absolute;
     content: ''; // hide a bit of textarea focus ring
-    left: 1px;
-    right: 1px;
+    left: 0;
+    right: 0;
     bottom: -2px;
     height: 2px;
     background-color: $c-bg-preview;
   }
+  .header-tab.active.write::after {
+    background-color: $c-bg-input;
+  }
   &:has(textarea:focus) .write.active {
-    border-color: $m-primary--fade-40;
+    border-color: $c-primary;
     border-width: 2px;
   }
   .upload-image {
     all: unset;
-    margin: 0 16px 6px;
+    margin: 0 16px;
     width: 24px;
     height: 24px;
     background-color: $c-font-dimmer;
@@ -69,6 +79,12 @@
   .comment-content {
     overflow: visible; // don't clip textarea focus ring
     position: relative;
+
+    textarea:focus-visible {
+      outline-style: solid;
+      outline-offset: -2px;
+      outline-width: 2px;
+    }
   }
   .comment-preview {
     position: absolute;
