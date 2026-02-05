@@ -1,6 +1,7 @@
 package views.bookmark
 
 import lila.app.UiEnv.{ *, given }
+import chess.Ply
 
 def toggle(g: Game, bookmarked: Boolean)(using ctx: Context) =
   if ctx.isAuth then
@@ -9,7 +10,7 @@ def toggle(g: Game, bookmarked: Boolean)(using ctx: Context) =
         "bookmark" -> true,
         "bookmarked" -> bookmarked
       ),
-      href := routes.Game.bookmark(g.id),
+      href := routes.Game.bookmark(g.id, Ply(5)),
       title := trans.site.bookmarkThisGame.txt()
     )(
       iconTag(Icon.Star)(cls := "on is3"),

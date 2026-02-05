@@ -25,7 +25,7 @@ POST  /api/games/export/_ids           controllers.Game.exportByIds
 GET   /games/export/:username          controllers.Game.exportByUser(username: UserStr)
 
 # Bookmark
-POST  /bookmark/$gameId<\w{8}>         controllers.Game.bookmark(gameId: GameId)
+POST  /bookmark/$gameId<\w{8}>/:ply    controllers.Game.bookmark(gameId: GameId, ply: chess.Ply)
 
 # TV
 GET   /$lang<\w\w\w?>/tv               controllers.Tv.indexLang(lang: Language)

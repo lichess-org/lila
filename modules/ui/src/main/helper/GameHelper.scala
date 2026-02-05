@@ -5,6 +5,7 @@ import chess.{ Clock, Color, Rated, Outcome }
 import lila.core.LightUser
 import lila.core.game.{ Game, LightPlayer, Namer, Player }
 import lila.ui.ScalatagsTemplate.{ *, given }
+import chess.Ply
 
 trait GameHelper:
   self: I18nHelper & StringHelper & AssetHelper & UserHelper =>
@@ -163,14 +164,17 @@ trait GameHelper:
       game: Game,
       color: Color,
       ownerLink: Boolean = false,
-      tv: Boolean = false
-  )(using ctx: Context): String = {
+      tv: Boolean = false,
+      ply: Option[Ply] = Option.empty[Ply],
+  )(using ctx: Context): String = 
+    val url = {
     val owner = ownerLink.so(ctx.me.flatMap(game.player))
     if tv then routes.Tv.index
     else
       owner.fold(routes.Round.watcher(game.id, color)): o =>
         routes.Round.player(game.fullIdOf(o.color))
-  }.toString
+    }.toString
+    ply.map((ply) => s"$url#${ply}").getOrElse(url)
 
   def gameLink(pov: Pov)(using Context): String = gameLink(pov.game, pov.color)
 

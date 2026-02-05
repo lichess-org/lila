@@ -1,6 +1,8 @@
 package views.game
 
 import lila.app.UiEnv.*
+import chess.Ply
+import chess.format.SimpleFen
 
 val ui = lila.game.ui.GameUi(helpers)
 export ui.mini
@@ -24,10 +26,11 @@ def widgets(
     games: Seq[Game],
     notes: Map[GameId, String] = Map(),
     user: Option[User] = None,
-    ownerLink: Boolean = false
+    ownerLink: Boolean = false,
+    plysAndFens: Map[GameId, (Ply, SimpleFen, String)] = Map()
 )(using ctx: lila.ui.Context): Frag =
   games.map: g =>
-    ui.widgets(g, notes.get(g.id), user, ownerLink):
+    ui.widgets(g, notes.get(g.id), user, ownerLink, plysAndFens.get(g.id)):
       g.tournamentId
         .map: tourId =>
           views.tournament.ui.tournamentLink(tourId)(using ctx.translate)

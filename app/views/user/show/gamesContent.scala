@@ -3,6 +3,8 @@ package views.user.show
 import scalalib.paginator.Paginator
 
 import lila.app.UiEnv.{ *, given }
+import chess.Ply
+import chess.format.SimpleFen
 
 object gamesContent:
 
@@ -12,7 +14,8 @@ object gamesContent:
       pager: Paginator[Game],
       filters: lila.game.GameFilterMenu,
       filterName: String,
-      notes: Map[GameId, String]
+      notes: Map[GameId, String],
+      plysAndFens: Map[GameId, (Ply, SimpleFen, String)]
   )(using ctx: Context) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
@@ -36,7 +39,13 @@ object gamesContent:
               ),
               div(cls := "search__rows infinite-scroll")(
                 views.game
-                  .widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx.is(u)),
+                  .widgets(
+                    pager.currentPageResults,
+                    notes,
+                    user = u.some,
+                    ownerLink = ctx.is(u),
+                    plysAndFens = plysAndFens
+                  ),
                 pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
               )
             )
@@ -55,7 +64,13 @@ object gamesContent:
                   views.game.mini(pov)(cls := "paginated")
             else
               views.game
-                .widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx.is(u))
+                .widgets(
+                  pager.currentPageResults,
+                  notes,
+                  user = u.some,
+                  ownerLink = ctx.is(u),
+                  plysAndFens = plysAndFens
+                )
             ,
             pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
           )

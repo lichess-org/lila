@@ -4,6 +4,9 @@ import reactivemongo.api.bson.*
 
 import lila.core.game.{ Game, GameApi }
 import lila.db.dsl.{ *, given }
+import chess.Ply
+import chess.format.SimpleFen
+import chess.format.Uci
 
 case class Bookmark(game: Game, user: User)
 
@@ -35,14 +38,27 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
 
   def toggle(
       updateProxy: GameId => Update[Game] => Funit
-  )(gameId: GameId, userId: UserId, v: Option[Boolean]): Funit =
+  )(
+      gameId: GameId,
+      userId: UserId,
+      v: Option[Boolean],
+      ply: Ply,
+      fen: Option[SimpleFen],
+      uci: Option[String]
+  ): Funit =
     exists(gameId, userId)
       .flatMap: e =>
         val newValue = v.getOrElse(!e)
         if e == newValue then funit
         else
           for
-            _ <- if newValue then add(gameId, userId, nowInstant) else remove(gameId, userId)
+            _ <-
+              if newValue then
+                (for
+                  f <- fen
+                  u <- uci
+                yield add(gameId, userId, nowInstant, ply, f, u)).getOrElse(Future {})
+              else remove(gameId, userId)
             inc = if newValue then 1 else -1
             _ <- gameApi.incBookmarks(gameId, inc)
             _ <- updateProxy(gameId)(g => g.copy(bookmarks = g.bookmarks + inc))
@@ -54,16 +70,37 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
 
   def gamePaginatorByUser(user: User, page: Int) = paginator.byUser(user, page)
 
-  private def add(gameId: GameId, userId: UserId, date: Instant): Funit =
+  private def add(
+      gameId: GameId,
+      userId: UserId,
+      date: Instant,
+      ply: Ply,
+      fen: SimpleFen,
+      uci: String
+  ): Funit =
     coll.insert
       .one:
         $doc(
           "_id" -> makeId(gameId, userId),
           "g" -> gameId,
           "u" -> userId,
+          "pl" -> ply,
+          "fe" -> fen,
+          "uc" -> uci,
           "d" -> date
         )
       .void
+
+  def bookmarkInfo(gameIds: Seq[GameId])(using me: MyId): Fu[Map[GameId, (Ply, SimpleFen, String)]] =
+    coll.byIds(gameIds.map(makeId(_, me)), _.sec).map { docs =>
+      (for
+        doc <- docs
+        gameId <- doc.getAsOpt[GameId]("g")
+        ply <- doc.getAsOpt[Ply]("pl")
+        fen <- doc.getAsOpt[SimpleFen]("fe")
+        uci <- doc.getAsOpt[String]("uc")
+      yield (gameId, (ply, fen, uci))).toMap
+    }
 
   def userIdQuery(userId: UserId) = $doc("u" -> userId)
   private def makeId(gameId: GameId, userId: UserId) = s"$gameId$userId"

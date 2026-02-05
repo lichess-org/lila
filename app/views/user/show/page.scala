@@ -8,6 +8,8 @@ import lila.app.mashup.UserInfo
 import lila.core.data.SafeJsonStr
 import lila.game.GameFilter
 import lila.rating.UserWithPerfs.titleUsernameWithBestRating
+import chess.Ply
+import chess.format.SimpleFen
 
 lazy val ui = lila.user.ui.UserShow(helpers, bits)
 
@@ -52,11 +54,13 @@ object page:
       filters: lila.game.GameFilterMenu,
       searchForm: Option[Form[?]],
       social: UserInfo.Social,
-      notes: Map[GameId, String]
+      notes: Map[GameId, String],
+      plysAndFens: Map[GameId, (Ply, SimpleFen, String)]
   )(using Context) =
     val u = info.user
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
     val pageName = (games.currentPage > 1).so(s" - page ${games.currentPage}")
+    plysAndFens.foreach(pf => lila.log("RRR").info(s"${pf._1}    ${pf._2}"))
     Page(s"${u.username} $filterName$pageName")
       .js(pageModule(info))
       .js(esModules(filters.current.name == "search"))
@@ -69,7 +73,7 @@ object page:
           div(cls := "page-menu__content box user-show")(
             views.user.show.header(u, info, UserInfo.Angle.Games(searchForm), social),
             div(cls := "angle-content")(
-              gamesContent(u, info.nbs, games, filters, filters.current.name, notes)
+              gamesContent(u, info.nbs, games, filters, filters.current.name, notes, plysAndFens)
             )
           )
         )
