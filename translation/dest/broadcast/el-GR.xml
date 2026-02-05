@@ -83,13 +83,17 @@
   <string name="liveboard">Ζωντανά</string>
   <string name="communityBroadcast">Μετάδοση της κοινότητας</string>
   <string name="createdAndManagedBy">Δημιουργήθηκε και διαχειρίζεται από τον %s.</string>
+  <string name="termsAutomaticallyTranslated">Οι ακόλουθοι όροι θα μεταφραστούν αυτόματα: %s.</string>
   <string name="roundX">Γύρος %s</string>
   <string name="defaultRoundNameHelp">Διατηρώντας το προεπιλεγμένο όνομα θα μεταφραστεί αυτόματα σε όλες τις άλλες γλώσσες.</string>
-  <string name="openTournament">Ανοιχτό</string>
-  <string name="womenTournament">Γυναικείο</string>
-  <string name="girlsTournament">Κορασίδων</string>
+  <string name="openTournament" comment="As in an open tournament.">Ανοιχτό</string>
+  <string name="womenTournament" comment="As in a women's-only tournament.">Γυναικείο</string>
+  <string name="menTournament" comment="As in a men's-only tournament.">Ανδρικό</string>
+  <string name="girlsTournament" comment="As in a girls-only tournament.">Κορασίδων</string>
+  <string name="boysTournament" comment="As in a boys-only tournament.">Παίδων</string>
   <string name="openUnderXAgeTournament">Ανοιχτό Κ%s</string>
   <string name="girlsUnderXAgeTournament">Κορασίδων Κ%s</string>
+  <string name="boysUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Boys U18&quot; will mean it is an open tournament for under-18 year old boys.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Παίδων Κ%s</string>
   <string name="quarterfinals">Προημιτελικοί</string>
   <string name="semifinals">Ημιτελικοί</string>
   <string name="finals">Τελικοί</string>
