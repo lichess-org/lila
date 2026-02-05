@@ -83,13 +83,17 @@
   <string name="liveboard">Live-pelilauta</string>
   <string name="communityBroadcast">Yhteisölähetys</string>
   <string name="createdAndManagedBy">Lähetyksen on luonut ja sitä hallinnoi %s.</string>
+  <string name="termsAutomaticallyTranslated">Nämä termit käännetään automaattisesti: %s.</string>
   <string name="roundX">Kierros %s</string>
   <string name="defaultRoundNameHelp">Jos säilytät oletusnimen, se käännetään automaattisesti kaikille muille kielille.</string>
-  <string name="openTournament">Avoin</string>
-  <string name="womenTournament">Naiset</string>
-  <string name="girlsTournament">Tytöt</string>
+  <string name="openTournament" comment="As in an open tournament.">Avoin</string>
+  <string name="womenTournament" comment="As in a women's-only tournament.">Naiset</string>
+  <string name="menTournament" comment="As in a men's-only tournament.">Miehet</string>
+  <string name="girlsTournament" comment="As in a girls-only tournament.">Tytöt</string>
+  <string name="boysTournament" comment="As in a boys-only tournament.">Pojat</string>
   <string name="openUnderXAgeTournament">U%s avoin</string>
   <string name="girlsUnderXAgeTournament">U%s tytöt</string>
+  <string name="boysUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Boys U18&quot; will mean it is an open tournament for under-18 year old boys.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">U%s Pojat</string>
   <string name="quarterfinals">Puolivälierät</string>
   <string name="semifinals">Välierät</string>
   <string name="finals">Loppuottelu</string>
