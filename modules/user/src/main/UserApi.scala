@@ -250,7 +250,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           perfs = perfsRepo.aggregate.readFirst(doc, user)
         yield UserWithPerfs(user, perfs)
 
-  def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[UserWithPerfs]] =
+  private[user] def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[UserWithPerfs]] =
     perfsRepo.coll
       .aggregateList(nb, _.sec): framework =>
         import framework.*
