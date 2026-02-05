@@ -2,10 +2,11 @@
 <resources>
   <string name="faqAbbreviation">Често постављана питања</string>
   <string name="frequentlyAskedQuestions">Често Постављана Питања</string>
-  <string name="whyIsLichessCalledLichess">Зашто се Личес зове Личес?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Личес је комбинација речи live/light/libre и chess. Изговара се %1$s.</string>
+  <string name="whyIsLichessCalledLichess">Зашто се Lichess зове Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess је комбинација речи live/light/libre (уживо/лако/слободно) и chess (шах). Изговара се %1$s.</string>
   <string name="leechess">ли-чес</string>
   <string name="hearItPronouncedBySpecialist">Послушај како то стручњак изговара.</string>
+  <string name="whyLiveLightLibre">Уживо, јер се партије играју и гледају у стварном времену 24/7; лако и слободно због чињенице да је Lichess отвореног изворног кода и неоптерећен власничким смећем које мучи друге вебсајтове.</string>
   <string name="howCanIContributeToLichess">Како могу допринети Личесу?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Личес покрећу донације наших патрона, као и труд нашег тима волонтера.</string>
   <string name="findMoreAndSeeHowHelp">Можеш сазнати више о %1$s (укључујући и %2$s). Ако желиш помоћи Личесу волонтирајући своје време и вештине, постоје разни %3$s.</string>
