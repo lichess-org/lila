@@ -215,7 +215,11 @@ object user:
     def withPerfs(u: User): Fu[UserWithPerfs]
     def withPerfs[U: UserIdOf](id: U): Fu[Option[UserWithPerfs]]
     def byIdWithPerf[U: UserIdOf](id: U, pk: PerfKey): Fu[Option[WithPerf]]
-    def listWithPerfs[U: UserIdOf](us: List[U], includeClosed: Boolean): Fu[List[UserWithPerfs]]
+    def listWithPerfs[U: UserIdOf](
+        us: List[U],
+        includeClosed: Boolean,
+        fromPri: Boolean = false
+    ): Fu[List[UserWithPerfs]]
     def perfOf[U: UserIdOf](u: U, perfKey: PerfKey): Fu[Perf]
     def perfOf(ids: Iterable[UserId], perfKey: PerfKey): Fu[Map[UserId, Perf]]
     def perfOptionOf[U: UserIdOf](u: U, perfKey: PerfKey): Fu[Option[Perf]]
