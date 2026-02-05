@@ -18,6 +18,13 @@
       filter: drop-shadow(0 0 6px $c-brag);
     }
 
+    &.top50 img {
+      transform: translateY(-16px);
+    }
+    &.top100 img {
+      transform: translateY(-18px);
+    }
+
     img {
       height: 8rem;
     }
