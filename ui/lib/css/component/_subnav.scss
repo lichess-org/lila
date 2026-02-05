@@ -78,11 +78,6 @@
       &.active {
         background: $c-bg-box;
       }
-
-      &[data-icon]::before,
-      &[data-icon]::after {
-        margin-inline: 0;
-      }
     }
 
     .sep {
