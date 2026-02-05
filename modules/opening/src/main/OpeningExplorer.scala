@@ -52,7 +52,7 @@ final private class OpeningExplorer(
           logger.warn(s"Opening stats $play $config", e)
           Failure(e)
 
-  def simplePopularity(opening: Opening): Fu[Option[Long]] =
+  private[opening] def simplePopularity(opening: Opening): Fu[Option[Long]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
         "since" -> OpeningQuery.firstMonth,
