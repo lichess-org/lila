@@ -89,5 +89,6 @@ final class TeamRepo(val coll: Coll)(using Executor):
 
   private[team] val enabledSelect = $doc("enabled" -> true)
   private val clasSelect = $doc("ofClas" -> true)
+  val noClasSelect = $doc("ofClas" -> false)
 
   private[team] val sortPopular = $sort.desc("nbMembers")
