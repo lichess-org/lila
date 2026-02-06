@@ -3,7 +3,7 @@ import { Group, StudyBoard } from 'lib/licon';
 import { json as xhrJson } from 'lib/xhr';
 import type { RelayTeamName, RelayTeamStandings, TourId } from './interfaces';
 import RelayPlayers, { renderPlayers, tableAugment, type RelayPlayer } from './relayPlayers';
-import { defined, throttle } from 'lib';
+import { throttle } from 'lib';
 import type { Federations, StudyPlayerFromServer } from '../interfaces';
 import { convertPlayerFromServer } from '../studyChapters';
 import type { Tablesort } from 'tablesort';
@@ -166,18 +166,14 @@ export default class RelayTeamLeaderboard {
                     match.opponent,
                   ),
                 ),
-                defined(match.points) &&
-                  defined(match.mp) &&
-                  defined(match.gp) && [
-                    hl(
-                      'td.score',
-                      hl(
-                        `${match.points === '1' ? 'good' : match.points === '0' ? 'bad' : 'draw'}`,
-                        `${match.mp}`,
-                      ),
-                    ),
-                    hl('td.score', `${match.gp}`),
-                  ],
+                hl(
+                  'td.score',
+                  hl(
+                    `${match.points === '1' ? 'good' : match.points === '0' ? 'bad' : 'draw'}`,
+                    match.mp ?? '*',
+                  ),
+                ),
+                hl('td.score', match.gp ?? '*'),
               ]),
             ),
           ),
