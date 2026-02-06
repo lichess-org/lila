@@ -29,7 +29,7 @@ export default function (ctrl: LobbyController) {
         break;
     }
   const contentKey = ctrl.tab === 'real_time' ? `${ctrl.tab}-${ctrl.mode}` : ctrl.tab;
-  return h('div.lobby__app.lobby__app-' + ctrl.tab, [
+  return h(`div.lobby__app.lobby__app-${ctrl.tab}.lck-${contentKey}`, [
     h('div.tabs-horiz', { attrs: { role: 'tablist' } }, renderTabs(ctrl)),
     h(`div.lobby__app__content.l${redirBlock ? 'redir' : ctrl.tab}`, { key: contentKey, ...data }, body),
   ]);
