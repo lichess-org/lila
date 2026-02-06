@@ -10,14 +10,14 @@ import lila.db.dsl.{ *, given }
 
 final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: ClasColls)(using mode: Mode):
 
-  private val isHacking = false && mode == Mode.Dev
+  private val loadImmediately = true && mode == Mode.Dev
 
   val student = ClasUserCache("student")(
     colls.student,
     selector = $doc("archived".$exists(false)),
     projection = $doc("userId" -> true, "_id" -> false),
     reader = _.getAsOpt[UserId]("userId").toList,
-    initialDelay = if isHacking then 1.second else 81.seconds,
+    initialDelay = if loadImmediately then 1.second else 81.seconds,
     perSecond = 10_000
   )
   val teacher = ClasUserCache("teacher")(
@@ -25,7 +25,7 @@ final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: Clas
     selector = $doc("archived".$exists(false)),
     projection = $doc("teachers" -> true, "_id" -> false),
     reader = _.getAsOpt[List[UserId]]("teachers").orZero,
-    initialDelay = if isHacking then 1.second else 53.seconds,
+    initialDelay = if loadImmediately then 1.second else 53.seconds,
     perSecond = 2_000
   )
 
