@@ -312,6 +312,23 @@ declare namespace PowerTip {
 declare const site: Site;
 declare const fipr: Fipr;
 declare const i18n: I18n;
-declare module 'tablesort';
+declare module 'tablesort' {
+  interface TablesortInstance {
+    refresh(): void;
+  }
+
+  interface TablesortStatic {
+    (el: HTMLTableElement, options?: { descending?: boolean }): TablesortInstance;
+    extend(
+      name: string,
+      pattern: (item: string) => RegExpMatchArray | null,
+      sort: (a: string, b: string) => number,
+    ): void;
+  }
+
+  const tablesort: TablesortStatic;
+  export default tablesort;
+  export type Tablesort = TablesortInstance;
+}
 declare const $html: (s: TemplateStringsArray, ...k: any[]) => string; // file://./../../.build/src/esbuild.ts
 declare const $trim: (s: TemplateStringsArray, ...k: any[]) => string; // file://./../../.build/src/esbuild.ts

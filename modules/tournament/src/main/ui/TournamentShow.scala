@@ -141,7 +141,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
               tour.isScheduled.not.option(frag(small(trans.site.by(userIdLink(tour.createdBy.some))), br)),
               (!tour.isStarted || (tour.isScheduled && tour.position.isDefined))
                 .option(absClientInstant(tour.startsAt))
-            ).flatten.some.filter(_.nonEmpty).map(st.section(_)),
+            ).flatten.nonEmptyOption.map(st.section(_)),
             tour.startingPosition
               .map: pos =>
                 st.section(a(href := pos.url)(pos.name))

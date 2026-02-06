@@ -293,6 +293,8 @@ interface I18n {
     fullDescription: string;
     /** Optional long description of the tournament. %1$s is available. Length must be less than %2$s characters. */
     fullDescriptionHelp: I18nFormat;
+    /** Game Points */
+    gamePoints: string;
     /** Games in this tournament */
     gamesThisTournament: string;
     /** Game %s */
@@ -311,6 +313,12 @@ interface I18n {
     liveboard: string;
     /** Live tournament broadcasts */
     liveBroadcasts: string;
+    /** Matches */
+    matches: string;
+    /** Match History */
+    matchHistory: string;
+    /** Match Points */
+    matchPoints: string;
     /** Men */
     menTournament: string;
     /** My broadcasts */
@@ -371,6 +379,8 @@ interface I18n {
     sourceSingleUrl: string;
     /** URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet. */
     sourceUrlHelp: string;
+    /** Standings are calculated using broadcasted games and may differ from official results. */
+    standingsDisclaimer: string;
     /** Optional, if you know when the event starts */
     startDateHelp: string;
     /** Start date in the tournament local timezone: %s */
@@ -383,6 +393,8 @@ interface I18n {
     subscribedBroadcasts: string;
     /** Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences. */
     subscribeTitle: string;
+    /** Team Results */
+    teamResults: string;
     /** Teams */
     teams: string;
     /** The following term(s) will be automatically translated: %s. */

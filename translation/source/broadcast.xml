@@ -69,6 +69,7 @@
   <string name="ratingDiff">Rating diff</string>
   <string name="gamesThisTournament">Games in this tournament</string>
   <string name="score">Score</string>
+  <string name="standingsDisclaimer">Standings are calculated using broadcasted games and may differ from official results.</string>
   <string name="allTeams">All teams</string>
   <string name="tournamentFormat">Tournament format</string>
   <string name="tournamentLocation">Tournament Location</string>
@@ -83,6 +84,11 @@
   <string name="liveboard">Live board</string>
   <string name="communityBroadcast">Community broadcast</string>
   <string name="createdAndManagedBy">Created and managed by %s.</string>
+  <string name="matchPoints">Match Points</string>
+  <string name="gamePoints">Game Points</string>
+  <string name="matches">Matches</string>
+  <string name="matchHistory">Match History</string>
+  <string name="teamResults">Team Results</string>
   <string name="termsAutomaticallyTranslated">The following term(s) will be automatically translated: %s.</string>
   <string name="roundX">Round %s</string>
   <string name="defaultRoundNameHelp">Keeping the default name will automatically translate it to all other languages.</string>

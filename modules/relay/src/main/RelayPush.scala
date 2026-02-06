@@ -56,8 +56,7 @@ final class RelayPush(
       .flatMap(_.split("as:").headOption)
       .getOrElse(ua.value)
       .trim
-      .some
-      .filter(_.nonEmpty) | "no-UA"
+      .nonEmptyOption | "no-UA"
     lila.mon.relay.push(name = rt.path, user = me.username, client = client)(
       games = results.size,
       moves = results.collect { case Right(a) => a.moves }.sum,

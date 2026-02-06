@@ -1,4 +1,4 @@
-import { type VNode, dataIcon, hl, onInsert, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
+import { type VNode, dataIcon, hl, onInsert, spinnerVdom as spinner, type LooseVNodes } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
 import type {
@@ -29,6 +29,7 @@ import { isTouchDevice } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
 import { teamLinkData } from './relayTeamLeaderboard';
 import perfIcons from 'lib/game/perfIcons';
+import type { Tablesort } from 'tablesort';
 
 export type RelayPlayerId = FideId | string;
 
@@ -83,6 +84,7 @@ export default class RelayPlayers {
   loading = false;
   players?: RelayPlayer[];
   show?: PlayerToShow;
+  private table?: Tablesort;
 
   constructor(
     readonly tour: RelayTour,
@@ -125,6 +127,7 @@ export default class RelayPlayers {
       `/broadcast/${this.tour.id}/players`,
     );
     this.players = players.map(p => convertPlayerFromServer(p, this.federations()));
+    this.table?.refresh();
     this.redraw();
   };
 
@@ -273,7 +276,7 @@ export const renderPlayers = (
   ctrl: RelayPlayers,
   players: RelayPlayer[],
   forceEloSort = false,
-): MaybeVNodes => {
+): LooseVNodes => {
   const withRating = players.some(p => defined(p.rating));
   const withScores = players.some(p => defined(p.score));
   const withRank = players.some(p => defined(p.rank));
@@ -283,13 +286,12 @@ export const renderPlayers = (
     attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
   });
   return [
-    withRank
-      ? hl(
-          'p.relay-tour__standings--disclaimer.text',
-          { attrs: dataIcon(licon.InfoCircle) },
-          'Standings are calculated using broadcasted games and may differ from official results.',
-        )
-      : undefined,
+    withRank &&
+      hl(
+        'p.relay-tour__standings--disclaimer.text',
+        { attrs: dataIcon(licon.InfoCircle) },
+        i18n.broadcast.standingsDisclaimer,
+      ),
     hl(
       'table.relay-tour__players__table.fide-players-table.slist.slist-invert.slist-pad',
       {
@@ -551,13 +553,9 @@ const fideTCAttrs = (tc: FideTC): VNodeData => ({
   },
 });
 
-export const tableAugment = (el: HTMLTableElement) => {
+export const tableAugment = (el: HTMLTableElement): Tablesort => {
   extendTablesortNumber();
-  $(el).each(function (this: HTMLElement) {
-    sortTable(this, {
-      descending: true,
-    });
-  });
+  return sortTable(el, { descending: true });
 };
 
 const matchOrResultsTeamLink = (ctrl: RelayPlayers, teamName: RelayTeamName): VNodeData =>

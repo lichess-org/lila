@@ -12,9 +12,8 @@ object otherTrophies:
     frag(
       info.trophies.trophies
         .filter(_.kind.klass.has("fire-trophy"))
-        .some
-        .filter(_.nonEmpty)
-        .map { trophies =>
+        .nonEmptyOption
+        .map: trophies =>
           div(cls := "stacked")(
             trophies.sorted.map { trophy =>
               trophy.kind.icon.map { iconChar =>
@@ -25,8 +24,7 @@ object otherTrophies:
                 )(raw(iconChar))
               }
             }
-          )
-        },
+          ),
       info.trophies.shields.map { shield =>
         a(
           cls := "shield-trophy combo-trophy",

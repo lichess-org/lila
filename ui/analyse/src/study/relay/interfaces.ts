@@ -113,7 +113,6 @@ export interface LogEvent {
 export interface POVTeamMatch {
   roundId: RoundId;
   opponent: RelayTeamName;
-  players: RelayPlayer[];
   points?: PointsStr;
   mp?: number;
   gp?: number;

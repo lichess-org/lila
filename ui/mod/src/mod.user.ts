@@ -185,7 +185,7 @@ site.load.then(() => {
     makeReady(
       '.mz-section--identification .slist--sort',
       el => {
-        sortTable(el, { descending: true });
+        if (el instanceof HTMLTableElement) sortTable(el, { descending: true });
       },
       'ready-sort',
     );

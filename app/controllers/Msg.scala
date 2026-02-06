@@ -49,7 +49,7 @@ final class Msg(env: Env) extends LilaController(env):
 
   def search(q: String) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     JsonOk:
-      q.trim.some.filter(_.nonEmpty) match
+      q.trim.nonEmptyOption match
         case None => env.msg.json.searchResult(env.msg.search.empty)
         case Some(q) => env.msg.search(q).flatMap(env.msg.json.searchResult)
   }

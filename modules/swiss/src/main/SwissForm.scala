@@ -90,8 +90,8 @@ final class SwissForm(using mode: play.api.Mode):
         roundInterval = s.settings.roundInterval.toSeconds.toInt.some,
         password = s.settings.password,
         conditions = s.settings.conditions,
-        forbiddenPairings = s.settings.forbiddenPairings.some.filter(_.nonEmpty),
-        manualPairings = s.settings.manualPairings.some.filter(_.nonEmpty)
+        forbiddenPairings = s.settings.forbiddenPairings.nonEmptyOption,
+        manualPairings = s.settings.manualPairings.nonEmptyOption
       )
     )
 

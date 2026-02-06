@@ -165,4 +165,4 @@ object PgnDump:
       shapes.value.collect { case Shape.Arrow(brush, orig, dest) =>
         s"${brush.head.toUpper}${orig.key}${dest.key}"
       }
-    Comment.from(s"$circles$arrows".some.filter(_.nonEmpty))
+    Comment.from(s"$circles$arrows".nonEmptyOption)
