@@ -18,11 +18,9 @@ object otherTrophies:
           div(cls := "stacked")(
             trophies.sorted.map { trophy =>
               trophy.kind.icon.map { iconChar =>
-                a(
-                  awardCls(trophy),
-                  href := trophy.anyUrl,
-                  ariaTitle(s"${trophy.kind.name}")
-                )(raw(iconChar))
+                maybeLink(trophy.anyUrl, awardCls(trophy), ariaTitle(s"${trophy.kind.name}"))(
+                  raw(iconChar)
+                )
               }
             }
           )
@@ -43,22 +41,15 @@ object otherTrophies:
       },
       info.trophies.trophies.find(_.kind._id == TrophyKind.zugMiracle).map(zugMiracleTrophy),
       info.trophies.trophies.filter(_.kind.withCustomImage).map { t =>
-        a(
-          awardCls(t),
-          href := t.anyUrl,
-          ariaTitle(t.kind.name),
-          style := "width: 65px; margin: 0 3px!important;"
-        )(
+        maybeLink(t.anyUrl, awardCls(t), ariaTitle(t.kind.name), style := "width: 65px; margin: 0 3px!important;")(
           img(src := assetUrl(s"images/trophy/${t.kind._id}.png"), cssWidth := 65, cssHeight := 80)
         )
       },
       info.trophies.trophies.filter(_.kind.klass.has("icon3d")).sorted.map { trophy =>
         trophy.kind.icon.map { iconChar =>
-          a(
-            awardCls(trophy),
-            href := trophy.anyUrl,
-            ariaTitle(trophy.kind.name)
-          )(raw(iconChar))
+          maybeLink(trophy.anyUrl, awardCls(trophy), ariaTitle(trophy.kind.name))(
+            raw(iconChar)
+          )
         }
       },
       info.isCoach.option(
