@@ -3,7 +3,7 @@ import { Group, StudyBoard } from 'lib/licon';
 import { json as xhrJson } from 'lib/xhr';
 import type { RelayTeamName, RelayTeamStandings, TourId } from './interfaces';
 import RelayPlayers, { renderPlayers, tableAugment, type RelayPlayer } from './relayPlayers';
-import { defined } from 'lib';
+import { defined, throttle } from 'lib';
 import type { Federations, StudyPlayerFromServer } from '../interfaces';
 import { convertPlayerFromServer } from '../studyChapters';
 
@@ -21,7 +21,7 @@ export default class RelayTeamLeaderboard {
     if (locationTeam) this.teamToShow = decodeURIComponent(locationTeam);
   }
 
-  async loadFromXhr() {
+  loadFromXhr = throttle(3 * 1000, async () => {
     this.standings = await xhrJson(`/broadcast/${this.tourId}/teams/standings`);
     this.standings?.forEach(teamEntry => {
       teamEntry.players = teamEntry.players.map((player: RelayPlayer & StudyPlayerFromServer) =>
@@ -29,7 +29,7 @@ export default class RelayTeamLeaderboard {
       );
     });
     this.redraw();
-  }
+  });
 
   tabHash = (): string =>
     this.teamToShow ? `#team-results/${encodeURIComponent(this.teamToShow)}` : '#team-results';
@@ -58,7 +58,10 @@ export default class RelayTeamLeaderboard {
     return hl(
       'table.relay-tour__teams__standings.slist.slist-pad',
       {
-        hook: onInsert<HTMLTableElement>(tableAugment),
+        hook: onInsert<HTMLTableElement>(el => {
+          tableAugment(el);
+          this.loadFromXhr();
+        }),
       },
       [
         hl('thead', [
