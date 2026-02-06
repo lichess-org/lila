@@ -25,7 +25,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       playerList(
         players,
         order,
-        np => routes.Fide.index(np, query.some.filter(_.nonEmpty)),
+        np => routes.Fide.index(np, query.nonEmptyOption),
         sortable = query.isEmpty
       )
     )

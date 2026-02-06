@@ -18,7 +18,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   private def indexResults(page: Int, q: String)(using ctx: Context) =
     Reasonable(page, Max(20)):
-      q.trim.take(100).some.filter(_.nonEmpty) match
+      q.trim.take(100).nonEmptyOption match
         case Some(query) =>
           env.relay.pager
             .search(query, page)
@@ -253,7 +253,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def apiSearch(page: Int, q: String) = Anon:
     Reasonable(page, Max(20)):
-      q.trim.take(100).some.filter(_.nonEmpty) match
+      q.trim.take(100).nonEmptyOption match
         case Some(query) =>
           for
             tour <- env.relay.pager.search(query, page)

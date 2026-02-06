@@ -35,7 +35,7 @@ object BSONHandlers:
         case urls: Upstream.Urls => upstreamUrlsHandler.writeTry(urls).get
         case ids: Upstream.Ids => upstreamIdsHandler.writeTry(ids).get
         case users: Upstream.Users => upstreamUsersHandler.writeTry(users).get
-      doc ++ up.roundIds.some.filter(_.nonEmpty).so(ids => $doc("roundIds" -> ids))
+      doc ++ up.roundIds.nonEmptyOption.so(ids => $doc("roundIds" -> ids))
 
   import SyncLog.Event
   given BSONDocumentHandler[Event] = Macros.handler

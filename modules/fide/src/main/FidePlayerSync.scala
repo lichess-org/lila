@@ -132,7 +132,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
   6504450        Acevedo Mendez, Oscar                                        CRC M                                1779  0   40              1640  0   20 1994  i
      */
     private def parseLine(line: String): Option[FidePlayer] =
-      def string(start: Int, end: Int) = line.substring(start, end).trim.some.filter(_.nonEmpty)
+      def string(start: Int, end: Int) = line.substring(start, end).trim.nonEmptyOption
       def number(start: Int, end: Int) = string(start, end).flatMap(_.toIntOption)
       def rating(start: Int) = Elo.from(number(start, start + 4).filter(_ >= 1400))
       def kFactor(start: Int) = KFactor.from(number(start, start + 2).filter(_ > 0))
