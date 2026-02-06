@@ -6,10 +6,12 @@ import RelayPlayers, { renderPlayers, tableAugment, type RelayPlayer } from './r
 import { defined, throttle } from 'lib';
 import type { Federations, StudyPlayerFromServer } from '../interfaces';
 import { convertPlayerFromServer } from '../studyChapters';
+import type { Tablesort } from 'tablesort';
 
 export default class RelayTeamLeaderboard {
   standings: RelayTeamStandings | undefined;
   teamToShow: RelayTeamName | undefined;
+  private table?: Tablesort;
   constructor(
     private readonly tourId: TourId,
     private readonly switchToTeamResultsTab: () => void,
@@ -28,6 +30,7 @@ export default class RelayTeamLeaderboard {
         convertPlayerFromServer(player, this.federations),
       );
     });
+    this.table?.refresh();
     this.redraw();
   });
 
@@ -59,7 +62,7 @@ export default class RelayTeamLeaderboard {
       'table.relay-tour__teams__standings.slist.slist-pad',
       {
         hook: onInsert<HTMLTableElement>(el => {
-          tableAugment(el);
+          this.table = tableAugment(el);
           this.loadFromXhr();
         }),
       },

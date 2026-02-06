@@ -29,6 +29,7 @@ import { isTouchDevice } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
 import { teamLinkData } from './relayTeamLeaderboard';
 import perfIcons from 'lib/game/perfIcons';
+import type { Tablesort } from 'tablesort';
 
 export type RelayPlayerId = FideId | string;
 
@@ -83,6 +84,7 @@ export default class RelayPlayers {
   loading = false;
   players?: RelayPlayer[];
   show?: PlayerToShow;
+  private table?: Tablesort;
 
   constructor(
     readonly tour: RelayTour,
@@ -125,6 +127,7 @@ export default class RelayPlayers {
       `/broadcast/${this.tour.id}/players`,
     );
     this.players = players.map(p => convertPlayerFromServer(p, this.federations()));
+    this.table?.refresh();
     this.redraw();
   };
 
@@ -550,13 +553,9 @@ const fideTCAttrs = (tc: FideTC): VNodeData => ({
   },
 });
 
-export const tableAugment = (el: HTMLTableElement) => {
+export const tableAugment = (el: HTMLTableElement): Tablesort => {
   extendTablesortNumber();
-  $(el).each(function (this: HTMLElement) {
-    sortTable(this, {
-      descending: true,
-    });
-  });
+  return sortTable(el, { descending: true });
 };
 
 const matchOrResultsTeamLink = (ctrl: RelayPlayers, teamName: RelayTeamName): VNodeData =>
