@@ -6,7 +6,7 @@ import { TextareaEditor } from '@textcomplete/textarea';
 import type { UserCompleteResult } from 'lib/view/userComplete';
 
 site.load.then(() => {
-  $('table.sortable').each(function (this: HTMLElement) {
+  $('table.sortable').each(function (this: HTMLTableElement) {
     sortTable(this, {
       descending: false,
     });
