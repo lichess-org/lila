@@ -51,15 +51,20 @@
     left: 0;
     right: 0;
     bottom: -2px;
-    height: 2px;
+    height: 4px;
     background-color: $c-bg-preview;
   }
   .header-tab.active.write::after {
     background-color: $c-bg-input;
   }
   &:has(textarea:focus) .write.active {
-    border-color: $c-primary;
-    border-width: 2px;
+    outline: 2px solid $c-primary;
+    outline-offset: -2px;
+
+    &::after {
+      left: 1px;
+      right: 1px;
+    }
   }
   .upload-image {
     all: unset;
