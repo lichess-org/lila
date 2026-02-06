@@ -51,8 +51,7 @@ export default class RelayTeamLeaderboard {
   };
 
   standingsView = (): VNode => {
-    const standings = this.standings;
-    if (!standings) {
+    if (!this.standings) {
       this.loadFromXhr();
       return spinnerVdom();
     }
@@ -72,7 +71,7 @@ export default class RelayTeamLeaderboard {
         ]),
         hl(
           'tbody',
-          standings.map(entry =>
+          this.standings.map(entry =>
             hl('tr', [
               hl(
                 'td',
