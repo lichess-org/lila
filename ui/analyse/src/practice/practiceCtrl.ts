@@ -110,7 +110,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
           ? { cp: 0 }
           : (node.ceval as EvalScore));
       const prevEval: EvalScore = tbhitToEval(prev.tbhit) || prev.ceval!;
-      const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
+      const shift = -winningChances.povDiff(root.data.orientation, nodeEval, prevEval);
 
       best = nodeBestUci(prev);
       if (
@@ -144,7 +144,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
   }
 
   function isMyTurn(): boolean {
-    return root.turnColor() === root.bottomColor();
+    return root.turnColor() === root.data.orientation;
   }
 
   function checkCeval() {
