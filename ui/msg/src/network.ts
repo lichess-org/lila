@@ -19,7 +19,7 @@ export async function loadContacts(): Promise<MsgData> {
 }
 
 export async function loadMoreContacts(before: Date): Promise<Contact[]> {
-  const d = await json(`/inbox/contacts?before=${before.getTime()}`);
+  const d = await json(`/inbox?before=${before.getTime()}`);
   return d.contacts.map(upgradeContact);
 }
 

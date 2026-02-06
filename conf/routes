@@ -675,8 +675,7 @@ POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(sl
 # Msg compat
 POST  /inbox/new                       controllers.Msg.compatCreate
 # Msg
-GET   /inbox                           controllers.Msg.home
-GET   /inbox/contacts                  controllers.Msg.moreContacts(before: Long)
+GET   /inbox                           controllers.Msg.home(before: Option[Long] ?= None)
 GET   /inbox/search                    controllers.Msg.search(q)
 GET   /inbox/unread-count              controllers.Msg.unreadCount
 GET   /inbox/:username                 controllers.Msg.convo(username: UserStr, before: Option[Long] ?= None)
