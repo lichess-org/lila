@@ -63,7 +63,7 @@ final class RankingApi(
         maxPerPage = maxPerPage
       )
 
-    private[user] def fetchLightPerfs(perf: PerfKey, nb: Int, skip: Int = 0): Fu[List[LightPerf]] =
+    private[RankingApi] def fetchLightPerfs(perf: PerfKey, nb: Int, skip: Int = 0): Fu[List[LightPerf]] =
       lila.rating.PerfType
         .isLeaderboardable(perf)
         .so:
@@ -71,7 +71,7 @@ final class RankingApi(
             _.find($doc("perf" -> perf.id, "stable" -> true))
               .sort($doc("rating" -> -1))
               .skip(skip)
-              .cursor[Ranking]()
+              .cursor[Ranking](ReadPref.sec)
               .list(nb)
               .flatMap:
                 _.parallel: r =>
@@ -136,7 +136,7 @@ final class RankingApi(
           .result
 
     private def computeAggregate(pt: PerfType): Fu[Map[UserId, Rank]] = coll:
-      _.aggregateOne(): framework =>
+      _.aggregateOne(_.sec): framework =>
         import framework.*
         Match($doc("perf" -> pt.id, "stable" -> true)) -> List(
           Sort(Descending("rating")),
