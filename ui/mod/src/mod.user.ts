@@ -217,7 +217,7 @@ site.load.then(() => {
   const $other = $('#communication,main.appeal');
   if ($other.length) userMod($other);
 
-  const timelineFlairDateToLocal = (el?: HTMLElement | undefined) =>
+  const timelineFlairDateToLocal = (el?: HTMLElement) =>
     $(el || document.body)
       .find('.mod-timeline__event__flair img[datetime]')
       .each(function (this: HTMLImageElement) {
