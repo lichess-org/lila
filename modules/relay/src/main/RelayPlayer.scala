@@ -147,9 +147,9 @@ object RelayPlayer:
         .obj("played" -> p.games.count(_.points.isDefined))
         .add("score" -> p.score)
         .add("ratingDiff" -> p.ratingDiffs.headOption._2F) // API BC grace
-        .add("ratingDiffs" -> p.ratingDiffs.some.filter(_.nonEmpty))
+        .add("ratingDiffs" -> p.ratingDiffs.nonEmptyOption)
         .add("performance" -> p.performances.headOption._2F) // API BC grace
-        .add("performances" -> p.performances.some.filter(_.nonEmpty))
+        .add("performances" -> p.performances.nonEmptyOption)
         .add("tiebreaks" -> p.tiebreaks)
         .add("rank" -> p.rank) ++
         Json.obj("ratingsMap" -> p.ratingsMap)

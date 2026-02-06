@@ -38,7 +38,7 @@ final class Study(
             else if HTTPRequest.isCrawler(req).yes then 80
             else if ctx.isAnon then 100
             else 200
-          text.trim.some.filter(_.nonEmpty).filter(_.sizeIs > 2).filter(_.sizeIs < maxLen) match
+          text.trim.nonEmptyOption.filter(_.sizeIs > 2).filter(_.sizeIs < maxLen) match
             case None =>
               for
                 pag <- env.study.pager.all(Orders.default, page)

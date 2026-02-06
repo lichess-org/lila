@@ -81,7 +81,7 @@ object CrudForm:
           headline = headline,
           homepageHours = homepageHours.some.filterNot(0 ==),
           iconFont = none,
-          iconImg = image.some.filter(_.nonEmpty)
+          iconImg = image.nonEmptyOption
         ).some,
         teamBattle = teamBattle.option(tour.teamBattle | TeamBattle(Set.empty, 10))
       )

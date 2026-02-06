@@ -120,7 +120,7 @@ final class ActivityReadApi(
             .mon(_.user.segment("activity.tours"))
       swisses <-
         a.swisses.so: swisses =>
-          toSwissesView(swisses.value).dmap(_.some.filter(_.nonEmpty))
+          toSwissesView(swisses.value).dmap(_.nonEmptyOption)
     yield ActivityView(
       interval = a.interval,
       games = a.games,
@@ -179,4 +179,4 @@ final class ActivityReadApi(
       gameRepo.light
         .gamesFromSecondary(gameIds)
         .dmap:
-          _.flatMap { LightPov(_, userId) }.some.filter(_.nonEmpty)
+          _.flatMap { LightPov(_, userId) }.nonEmptyOption

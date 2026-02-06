@@ -29,8 +29,7 @@ final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
       .filter:
         case WithVerdict(Condition.Bots(false), Verdict.Accepted) => false
         case _ => true
-      .some
-      .filter(_.nonEmpty)
+      .nonEmptyOption
       .map: list =>
         st.section(
           dataIcon := relevant.option(if ctx.isAuth && vs.accepted then Icon.Checkmark else Icon.Padlock),

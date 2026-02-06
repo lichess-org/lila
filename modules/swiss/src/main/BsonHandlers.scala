@@ -41,7 +41,7 @@ object BsonHandlers:
         performance -> o.performance,
         score -> o.score,
         absent -> w.boolO(o.absent),
-        byes -> o.byes.some.filter(_.nonEmpty)
+        byes -> o.byes.nonEmptyOption
       )
 
   /* true = ongoing
@@ -112,8 +112,8 @@ object BsonHandlers:
         "i" -> s.roundInterval.toSeconds.toInt,
         "p" -> s.password,
         "o" -> s.conditions,
-        "fp" -> s.forbiddenPairings.some.filter(_.nonEmpty),
-        "mp" -> s.manualPairings.some.filter(_.nonEmpty)
+        "fp" -> s.forbiddenPairings.nonEmptyOption,
+        "mp" -> s.manualPairings.nonEmptyOption
       )
 
   given BSONDocumentHandler[Swiss] = Macros.handler
