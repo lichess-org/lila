@@ -170,7 +170,7 @@ export default class MsgCtrl {
   };
 
   loadMoreContacts = () => {
-    if (this.loadingContacts || !this.canGetMoreContacts || this.data.contacts.length === 0) return;
+    if (this.loadingContacts || !this.canGetMoreContacts) return;
     const lastContact = this.data.contacts[this.data.contacts.length - 1];
     if (!lastContact) return;
     this.loadingContacts = true;
