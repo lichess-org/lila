@@ -41,7 +41,12 @@ object otherTrophies:
       },
       info.trophies.trophies.find(_.kind._id == TrophyKind.zugMiracle).map(zugMiracleTrophy),
       info.trophies.trophies.filter(_.kind.withCustomImage).map { t =>
-        maybeLink(t.anyUrl, awardCls(t), ariaTitle(t.kind.name), style := "width: 65px; margin: 0 3px!important;")(
+        maybeLink(
+          t.anyUrl,
+          awardCls(t),
+          ariaTitle(t.kind.name),
+          style := "width: 65px; margin: 0 3px!important;"
+        )(
           img(src := assetUrl(s"images/trophy/${t.kind._id}.png"), cssWidth := 65, cssHeight := 80)
         )
       },

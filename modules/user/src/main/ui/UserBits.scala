@@ -105,7 +105,7 @@ final class UserBits(helpers: Helpers):
     def maybeLink(urlOpt: Option[String], attrs: Modifier*)(content: Modifier*) =
       urlOpt.filter(_.nonEmpty) match
         case Some(url) => frag(a((attrs :+ (href := url))*)(content*))
-        case None      => frag(div(attrs*)(content*))
+        case None => frag(div(attrs*)(content*))
 
     def zugMiracleTrophy(t: Trophy) = frag(
       styleTag("""
