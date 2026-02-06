@@ -105,7 +105,10 @@ export default class RelayTeamLeaderboard {
       return spinnerVdom();
     }
     const foundTeam = this.standings.find(t => t.name === this.teamToShow);
-    if (!foundTeam) return this.standingsView();
+    if (!foundTeam) {
+      this.teamToShow = undefined;
+      return this.standingsView();
+    }
     return hl('div.relay-tour__team-summary', [
       hl('div.relay-tour__team-summary', [
         hl('h2.relay-tour__team-summary__header.text', { attrs: dataIcon(Group) }, foundTeam.name),
