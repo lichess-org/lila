@@ -476,7 +476,15 @@ final class PlanApi(
   private def setDbUserPlanOnCharge(from: User, levelUp: Boolean): Funit =
     val user = from.mapPlan(p => if levelUp then p.incMonths else p.enable)
     notifier.onCharge(user)
-    setDbUserPlan(user)
+    setDbUserPlan(user) >>
+      maybeNotifyColorUnlock(from, user)
+
+  private def maybeNotifyColorUnlock(from: User, to: User): Funit =
+    (from.patronTier.map(_.color.id), to.patronTier.map(_.color.id)) match
+      case (Some(before), Some(after)) if after > before =>
+        Bus.pub(lila.core.msg.SystemMsg(to.id, "You have unlocked a new colour! https://lichess.org/patron"))
+        funit
+      case _ => funit
 
   import PlanApi.SyncResult.{ ReloadUser, Synced }
 
