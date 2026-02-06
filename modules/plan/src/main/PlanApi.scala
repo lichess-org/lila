@@ -26,7 +26,8 @@ final class PlanApi(
     monthlyGoalApi: MonthlyGoalApi,
     currencyApi: CurrencyApi,
     pricingApi: PlanPricingApi,
-    ip2proxy: lila.core.security.Ip2ProxyApi
+    ip2proxy: lila.core.security.Ip2ProxyApi,
+    routeUrl: RouteUrl
 )(using Executor, Scheduler):
 
   import BsonHandlers.given
@@ -182,8 +183,7 @@ final class PlanApi(
     def createSession(
         checkout: PlanCheckout,
         customerId: StripeCustomerId,
-        giftTo: Option[User],
-        routeUrl: RouteUrl
+        giftTo: Option[User]
     )(using ctx: Context, me: Me, lang: Lang) =
       for
         isLifetime <- pricingApi.isLifetime(checkout.money)
@@ -476,15 +476,14 @@ final class PlanApi(
   private def setDbUserPlanOnCharge(from: User, levelUp: Boolean): Funit =
     val user = from.mapPlan(p => if levelUp then p.incMonths else p.enable)
     notifier.onCharge(user)
-    setDbUserPlan(user) >>
-      maybeNotifyColorUnlock(from, user)
+    for _ <- setDbUserPlan(user)
+    yield maybeNotifyColorUnlock(from, user)
 
-  private def maybeNotifyColorUnlock(from: User, to: User): Funit =
-    (from.patronTier.map(_.color.id), to.patronTier.map(_.color.id)) match
-      case (Some(before), Some(after)) if after > before =>
-        Bus.pub(lila.core.msg.SystemMsg(to.id, "You have unlocked a new colour! https://lichess.org/patron"))
-        funit
-      case _ => funit
+  private def maybeNotifyColorUnlock(before: User, after: User): Unit =
+    (before, after).pairMap(_.patronTier.map(_.color.id)) match
+      case (Some(tierBefore), Some(tierAfter)) if tierAfter > tierBefore =>
+        Bus.pub(lila.core.msg.SystemMsg(after.id, s"New wing unlocked! ${routeUrl(routes.Plan.index())}"))
+      case _ =>
 
   import PlanApi.SyncResult.{ ReloadUser, Synced }
 
