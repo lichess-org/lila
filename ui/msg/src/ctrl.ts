@@ -23,9 +23,11 @@ export default class MsgCtrl {
   };
   pane: Pane;
   loading = false;
+  loadingContacts = false;
   connected = () => true;
   msgsPerPage = 100;
   canGetMoreSince?: Date;
+  canGetMoreContacts = true;
   typing?: Typing;
   textStore?: LichessStorage;
 
@@ -165,6 +167,23 @@ export default class MsgCtrl {
       this.search.result = undefined;
       this.redraw();
     }
+  };
+
+  loadMoreContacts = () => {
+    if (this.loadingContacts || !this.canGetMoreContacts || this.data.contacts.length === 0) return;
+    const lastContact = this.data.contacts[this.data.contacts.length - 1];
+    if (!lastContact) return;
+    this.loadingContacts = true;
+    this.redraw();
+    network.loadMoreContacts(lastContact.lastMsg.date).then(contacts => {
+      if (contacts.length === 0) {
+        this.canGetMoreContacts = false;
+      } else {
+        this.data.contacts = this.data.contacts.concat(contacts);
+      }
+      this.loadingContacts = false;
+      this.redraw();
+    });
   };
 
   setRead = () => {

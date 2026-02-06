@@ -18,6 +18,11 @@ export async function loadContacts(): Promise<MsgData> {
   return upgradeData(d);
 }
 
+export async function loadMoreContacts(before: Date): Promise<Contact[]> {
+  const d = await json(`/inbox/contacts?before=${before.getTime()}`);
+  return d.contacts.map(upgradeContact);
+}
+
 export async function search(q: string): Promise<SearchResult> {
   const res = await json(`/inbox/search?q=${q}`);
   return {

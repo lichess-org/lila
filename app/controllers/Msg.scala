@@ -39,6 +39,14 @@ final class Msg(env: Env) extends LilaController(env):
             ).map(_.hasPersonalData)
   }
 
+  def moreContacts(before: Long) = Auth { _ ?=> me ?=>
+    JsonOk:
+      for
+        threads <- env.msg.api.moreContacts(millisToInstant(before))
+        contacts <- env.msg.json.threads(threads)
+      yield Json.obj("contacts" -> contacts)
+  }
+
   def search(q: String) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     JsonOk:
       q.trim.some.filter(_.nonEmpty) match
