@@ -87,13 +87,17 @@
   <string name="liveboard">Na żywo</string>
   <string name="communityBroadcast">Transmisja społeczności Lichess</string>
   <string name="createdAndManagedBy">Stworzone i zarządzane przez %s.</string>
+  <string name="termsAutomaticallyTranslated">Następujące terminy zostaną automatycznie przetłumaczone: %s.</string>
   <string name="roundX">Runda %s</string>
   <string name="defaultRoundNameHelp">Zachowanie domyślnej nazwy rundy automatycznie przetłumaczy ją na wszystkie inne języki.</string>
-  <string name="openTournament">Otwarta</string>
-  <string name="womenTournament">Kobiety</string>
-  <string name="girlsTournament">Dziewczęta</string>
+  <string name="openTournament" comment="As in an open tournament.">Otwarta</string>
+  <string name="womenTournament" comment="As in a women's-only tournament.">Kobiety</string>
+  <string name="menTournament" comment="As in a men's-only tournament.">Mężczyźni</string>
+  <string name="girlsTournament" comment="As in a girls-only tournament.">Dziewczęta</string>
+  <string name="boysTournament" comment="As in a boys-only tournament.">Chłopcy</string>
   <string name="openUnderXAgeTournament">Otwarta U%s</string>
   <string name="girlsUnderXAgeTournament">Dziewczęta U%s</string>
+  <string name="boysUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Boys U18&quot; will mean it is an open tournament for under-18 year old boys.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Chłopcy U%s</string>
   <string name="quarterfinals">Ćwierćfinały</string>
   <string name="semifinals">Półfinały</string>
   <string name="finals">Finały</string>
