@@ -12,8 +12,8 @@ if [ "$LOWEST" != "$MIN_NODE" ]; then
   exit 1
 fi
 
-if ! yes | pnpm install --ignore-workspace >/dev/null 2>&1; then
-  pnpm install --loglevel debug --ignore-workspace
+if ! yes | pnpm install >/dev/null 2>&1; then
+  pnpm install --loglevel debug
   exit $?
 fi
 

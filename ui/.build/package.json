@@ -2,18 +2,18 @@
   "name": "build",
   "type": "module",
   "optionalDependencies": {
-    "sass-embedded-darwin-arm64": "1.93.2",
-    "sass-embedded-darwin-x64": "1.93.2",
-    "sass-embedded-linux-arm64": "1.93.2",
-    "sass-embedded-linux-x64": "1.93.2",
-    "sass-embedded-win32-arm64": "1.93.2",
-    "sass-embedded-win32-x64": "1.93.2"
+    "sass-embedded-darwin-arm64": "1.97.3",
+    "sass-embedded-darwin-x64": "1.97.3",
+    "sass-embedded-linux-arm64": "1.97.3",
+    "sass-embedded-linux-x64": "1.97.3",
+    "sass-embedded-win32-arm64": "1.97.3",
+    "sass-embedded-win32-x64": "1.97.3"
   },
   "dependencies": {
-    "@types/micromatch": "4.0.9",
+    "@types/micromatch": "4.0.10",
     "@types/node": "24.8.1",
     "@types/tinycolor2": "1.4.6",
-    "esbuild": "0.25.11",
+    "esbuild": "0.27.3",
     "fast-glob": "3.3.3",
     "fast-xml-parser": "5.3.4",
     "json-stringify-pretty-compact": "4.0.0",
