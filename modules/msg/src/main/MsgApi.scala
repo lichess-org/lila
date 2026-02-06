@@ -79,7 +79,7 @@ final class MsgApi(
     colls.thread
       .find(selectMyThreads ++ $doc("lastMsg.date".$lt(before)))
       .sort($sort.desc("lastMsg.date"))
-      .cursor[MsgThread]()
+      .cursor[MsgThread](ReadPref.sec)
       .list(contactsPerPage)
 
   def convoWithMe(username: UserStr, beforeMillis: Option[Long] = None)(using me: Me): Fu[Option[MsgConvo]] =
