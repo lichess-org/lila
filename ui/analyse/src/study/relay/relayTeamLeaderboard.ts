@@ -1,7 +1,7 @@
 import { dataIcon, hl, onInsert, requiresI18n, spinnerVdom, type VNode, type VNodeData } from 'lib/view';
 import { Group, StudyBoard } from 'lib/licon';
 import { json as xhrJson } from 'lib/xhr';
-import type { RelayTeamName, RelayTeamStandings, RelayTeamStandingsEntry, TourId } from './interfaces';
+import type { RelayTeamName, RelayTeamStandings, TourId } from './interfaces';
 import RelayPlayers, { renderPlayers, tableAugment, type RelayPlayer } from './relayPlayers';
 import { defined } from 'lib';
 import type { Federations, StudyPlayerFromServer } from '../interfaces';
@@ -100,10 +100,6 @@ export default class RelayTeamLeaderboard {
     );
   };
 
-  private rosterView(team: RelayTeamStandingsEntry) {
-    return hl('div.relay-tour__team-summary__roster', renderPlayers(this.players, team.players, true));
-  }
-
   teamView = (): VNode => {
     if (!this.standings) {
       this.loadFromXhr();
@@ -125,7 +121,7 @@ export default class RelayTeamLeaderboard {
           ]),
         ),
       ]),
-      hl('div.relay-tour__team-summary__roster', this.rosterView(foundTeam)),
+      hl('div.relay-tour__team-summary__roster', renderPlayers(this.players, foundTeam.players, true)),
       hl('h2.relay-tour__team-summary__matches__header', i18n.broadcast.matchHistory),
       hl('div.relay-tour__team-summary__matches', [
         hl('table.relay-tour__team-summary__table.slist.slist-pad', [

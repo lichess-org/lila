@@ -554,6 +554,9 @@ $hover-bg: $m-primary_bg--mix-30;
     &__matches__header {
       @extend %tour-margin-horiz;
     }
+    &__roster {
+      overflow: auto;
+    }
     &__header {
       &__stats {
         @extend %tour-margin-horiz;
