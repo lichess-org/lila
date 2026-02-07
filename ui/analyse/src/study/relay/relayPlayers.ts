@@ -68,7 +68,7 @@ interface RelayPlayerWithGames extends RelayPlayer {
 }
 
 interface FidePlayer {
-  ratings: StatByFideTC;
+  ratings: Record<FideTC, number>;
   year?: number;
   follow?: boolean;
 }
@@ -229,7 +229,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
               Object.entries(ratingCategs).map(([key, name]: [FideTC, string]) =>
                 hl(`div.fide-player__card${key === tc ? '.active' : ''}`, [
                   hl('em', fideTCAttrs(key), name),
-                  hl('span', [p.fide?.ratings?.find(r => r[0] === key)?.[1] || '-']),
+                  hl('span', [p.fide?.ratings[key] || '-']),
                 ]),
               ),
             p.score !== undefined &&
