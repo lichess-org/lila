@@ -69,6 +69,7 @@
   <string name="ratingDiff">Différence de cote</string>
   <string name="gamesThisTournament">Partie de ce tournoi</string>
   <string name="score">Résultat</string>
+  <string name="standingsDisclaimer">Les résultats sont fondés sur les parties diffusées et pourraient différer des résultats officiels.</string>
   <string name="allTeams">Toutes les équipes</string>
   <string name="tournamentFormat">Format du tournoi</string>
   <string name="tournamentLocation">Lieu du tournoi</string>
@@ -83,6 +84,11 @@
   <string name="liveboard">Échiquier en direct</string>
   <string name="communityBroadcast">Diffusion communautaire</string>
   <string name="createdAndManagedBy">Créée et gérée par %s.</string>
+  <string name="matchPoints">Points de matchs</string>
+  <string name="gamePoints">Points de parties</string>
+  <string name="matches">Matchs</string>
+  <string name="matchHistory">Historique des matchs</string>
+  <string name="teamResults">Résultats des équipes</string>
   <string name="termsAutomaticallyTranslated">Les termes suivants seront automatiquement traduits : %s.</string>
   <string name="roundX">Ronde : %s</string>
   <string name="defaultRoundNameHelp">Si le nom par défaut est conservé, il sera automatiquement traduit dans les autres langues.</string>

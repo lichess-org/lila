@@ -46,6 +46,7 @@
   <string name="pawn">sotilas</string>
   <string name="whitePawn">valkea sotilas</string>
   <string name="blackPawn">musta sotilas</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D T L R x</string>
   <string name="sanTakes" comment="x in standard notation">lyö</string>
   <string name="sanCheck" comment="+ in standard notation">shakki</string>
   <string name="sanCheckmate" comment="# in standard notation">matti</string>

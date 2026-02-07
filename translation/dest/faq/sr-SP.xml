@@ -2,14 +2,16 @@
 <resources>
   <string name="faqAbbreviation">Често постављана питања</string>
   <string name="frequentlyAskedQuestions">Често Постављана Питања</string>
-  <string name="whyIsLichessCalledLichess">Зашто се Личес зове Личес?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Личес је комбинација речи live/light/libre и chess. Изговара се %1$s.</string>
+  <string name="whyIsLichessCalledLichess">Зашто се Lichess зове Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess је комбинација речи live/light/libre (уживо/лако/слободно) и chess (шах). Изговара се %1$s.</string>
   <string name="leechess">ли-чес</string>
   <string name="hearItPronouncedBySpecialist">Послушај како то стручњак изговара.</string>
-  <string name="howCanIContributeToLichess">Како могу допринети Личесу?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Личес покрећу донације наших патрона, као и труд нашег тима волонтера.</string>
-  <string name="findMoreAndSeeHowHelp">Можеш сазнати више о %1$s (укључујући и %2$s). Ако желиш помоћи Личесу волонтирајући своје време и вештине, постоје разни %3$s.</string>
-  <string name="beingAPatron">бивању Патрона</string>
+  <string name="whyLiveLightLibre">Уживо, јер се партије играју и гледају у стварном времену 24/7; лако и слободно због чињенице да је Lichess отвореног изворног кода и неоптерећен власничким смећем које мучи друге вебсајтове.</string>
+  <string name="whyIsLilaCalledLila">Слично, изворни код за Lichess, %1$s, значи li[chess in sca]la, гледајући да је велики део Lichess-а написан у %2$s, интуитивном програмску језику.</string>
+  <string name="howCanIContributeToLichess">Како могу допринети Lichess-у?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess је покренут донацијама наших покровитеља и трудом тима волонтера.</string>
+  <string name="findMoreAndSeeHowHelp">Можеш наћи више о %1$s (укључујући %2$s). Ако желиш помоћи Lichess-у волонтирајући своје време и вештине, постоје разни %3$s.</string>
+  <string name="beingAPatron">бивању покровитеља</string>
   <string name="breakdownOfOurCosts">поделу трошкова</string>
   <string name="otherWaysToHelp">други начини да помогнеш</string>
   <string name="areThereWebsitesBasedOnLichess">Постоје ли други сајтови засновани на Личесу?</string>

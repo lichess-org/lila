@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="playAgainstComputer">कम्प्युटरसँग खेल्नु</string>
+  <string name="gameMode">खेल मोड</string>
+  <string name="createLobbyGame">खेल सिर्जना गर्नु</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कसैलाई खैलको लागी निम्तो दिनु परेमा यो लिङ्क (URL) दिनुहोला । </string>
   <string name="gameOver">खेल सक्कियो ।</string>
   <string name="waitingForOpponent">प्रतिद्वन्दी को प्रतिक्षा गर्दै</string>
   <string name="orLetYourOpponentScanQrCode">वा विपक्षिलाई यो क्यू-आर स्क्यान गर्न दिनुहोस् ।</string>
+  <string name="reusableChallengeUrl">पुन: प्रयोज्य चुनौती URL</string>
   <string name="waiting">प्रतिक्षा गर्दै</string>
   <string name="yourTurn">तपाइको पालो</string>
   <string name="aiNameLevelAiLevel">%1$s तह %2$s</string>
@@ -20,6 +24,7 @@
   <string name="asBlack">कालो बाट । </string>
   <string name="randomColor">जुन भए पनि ।</string>
   <string name="createAGame">खेल सिर्जना गर्नुहोस्</string>
+  <string name="createTheGame">खेल सिर्जना गर्नु</string>
   <string name="whiteIsVictorious">सेतोले जीत्यो</string>
   <string name="blackIsVictorious">कालो विजयी भयो</string>
   <string name="youPlayTheWhitePieces">तपाईं सेतोगट्टी खेल्नुहुनेछ ।</string>
@@ -68,6 +73,7 @@
   <string name="promoteVariation">बढुवा गर्नुहोस्</string>
   <string name="makeMainLine">मुख्य लाइन बनाउनुहोस्</string>
   <string name="deleteFromHere">यहाँबाट मेट्नुहोस्</string>
+  <string name="collapseVariations">विविधताहरू लुकाउनुहोस्</string>
   <string name="forceVariation">हांगा बनाउनुहोस्</string>
   <string name="copyVariationPgn">विचलनहरूको PGN सार्नुहोस् </string>
   <string name="move">चाल</string>
@@ -558,7 +564,7 @@
   <string name="ifRatingIsPlusMinusX">यदि रेटिंग ± %s छ भने</string>
   <string name="onlyFriends">मित्रहरु मात्र</string>
   <string name="menu">सुची</string>
-  <string name="castling">क्यस्लिंग</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">क्यस्लिंग</string>
   <string name="whiteCastlingKingside">सेतो O-O</string>
   <string name="blackCastlingKingside">कालो O-O</string>
   <plurals name="nbForumPosts">
