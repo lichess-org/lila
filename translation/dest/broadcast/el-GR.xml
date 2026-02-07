@@ -83,6 +83,7 @@
   <string name="liveboard">Ζωντανά</string>
   <string name="communityBroadcast">Μετάδοση της κοινότητας</string>
   <string name="createdAndManagedBy">Δημιουργήθηκε και διαχειρίζεται από τον %s.</string>
+  <string name="teamResults">Αποτελέσματα Ομάδας</string>
   <string name="termsAutomaticallyTranslated">Οι ακόλουθοι όροι θα μεταφραστούν αυτόματα: %s.</string>
   <string name="roundX">Γύρος %s</string>
   <string name="defaultRoundNameHelp">Διατηρώντας το προεπιλεγμένο όνομα θα μεταφραστεί αυτόματα σε όλες τις άλλες γλώσσες.</string>
