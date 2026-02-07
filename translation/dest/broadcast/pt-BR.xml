@@ -84,6 +84,8 @@
   <string name="liveboard">Tabuleiro ao vivo</string>
   <string name="communityBroadcast">Transmissão da comunidade</string>
   <string name="createdAndManagedBy">Criada e gerenciada por %s.</string>
+  <string name="matchPoints">Pontos de matches</string>
+  <string name="gamePoints">Pontos de partidas</string>
   <string name="matches">Partidas</string>
   <string name="matchHistory">Histórico de partidas</string>
   <string name="teamResults">Resultados das equipes</string>
