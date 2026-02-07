@@ -79,6 +79,11 @@
   <string name="sinceHideResults">Meqë zgjodhët të fshihen përfundimet, krejt tabelat e paraparjeve janë të zbrazëta, për të shmangur tregime.</string>
   <string name="communityBroadcast">Transmetim nga bashkësia</string>
   <string name="createdAndManagedBy">Krijuar dhe administruar nga %s.</string>
+  <string name="matchPoints">Pikë Ndeshjeje</string>
+  <string name="gamePoints">Pikë Loje</string>
+  <string name="matches">Ndeshje</string>
+  <string name="matchHistory">Historik Ndeshjesh</string>
+  <string name="teamResults">Përfundime Ekipi</string>
   <string name="termsAutomaticallyTranslated">Termi(at) vijues do të përkthehen automatikisht: %s.</string>
   <string name="roundX">Raundi %s</string>
   <string name="defaultRoundNameHelp">Mbajtja e emrit parazgjedhje do ta përkthejë automatikisht në krejt gjuhët e tjera.</string>
