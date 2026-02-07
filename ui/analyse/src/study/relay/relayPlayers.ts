@@ -476,7 +476,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           'td',
           defined(game.ratingDiff) &&
             hideResultsSinceIndex > i &&
-            ratingDiff(game, p.ratingsMap && Object.keys(p.ratingsMap).length > 1),
+            ratingDiff(game, p.ratingsMap && p.ratingsMap.length > 1),
         ),
       ]);
     }),
