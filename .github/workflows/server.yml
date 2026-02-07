@@ -80,7 +80,7 @@ jobs:
         run: |
           mkdir -p lila
           tar --zstd -xvf *.tar.zst -C lila
-      
+
       - name: Copy default conf
         run: |
           cp -r conf lila
