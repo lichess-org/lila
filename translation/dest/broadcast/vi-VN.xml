@@ -67,6 +67,7 @@
   <string name="ratingDiff">Độ thay đổi hệ số</string>
   <string name="gamesThisTournament">Các ván đấu trong giải này</string>
   <string name="score">Điểm số</string>
+  <string name="standingsDisclaimer">Bảng xếp hạng được tính toán dựa trên các trận đấu được phát sóng và có thể khác với kết quả chính thức.</string>
   <string name="allTeams">Tất cả đội</string>
   <string name="tournamentFormat">Điều lệ giải đấu</string>
   <string name="tournamentLocation">Địa điểm tổ chức giải đấu</string>
@@ -81,6 +82,11 @@
   <string name="liveboard">Bàn cờ trực tiếp</string>
   <string name="communityBroadcast">Phát sóng cộng đồng</string>
   <string name="createdAndManagedBy">Được tạo và quản lý bởi %s.</string>
+  <string name="matchPoints">Điểm trận đấu</string>
+  <string name="gamePoints">Điểm ván đấu</string>
+  <string name="matches">Trận đấu</string>
+  <string name="matchHistory">Lịch sử đấu</string>
+  <string name="teamResults">Kết quả của đội</string>
   <string name="termsAutomaticallyTranslated">Các từ sau sẽ được tự động dịch: %s.</string>
   <string name="roundX">Vòng %s</string>
   <string name="defaultRoundNameHelp">Giữ nguyên tên mặc định sẽ tự động dịch sang mọi ngôn ngữ khác.</string>
