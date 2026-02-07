@@ -309,7 +309,7 @@ $hover-bg: $m-primary_bg--mix-30;
     .mselect__list {
       left: unset;
       right: 0;
-      overflow-x: hidden;
+      overflow-x: auto;
       overflow-y: auto;
       max-height: 50vh;
       @media (max-width: at-most($medium)) {
