@@ -69,6 +69,7 @@
   <string name="ratingDiff">Vahvuuslukujen erotus</string>
   <string name="gamesThisTournament">Pelit tässä turnauksessa</string>
   <string name="score">Pisteet</string>
+  <string name="standingsDisclaimer">Sijoitukset lasketaan lähetettyjen pelien perusteella ja voivat poiketa virallisista tuloksista.</string>
   <string name="allTeams">Kaikki joukkueet</string>
   <string name="tournamentFormat">Turnauksen laji</string>
   <string name="tournamentLocation">Turnauksen sijainti</string>
@@ -83,6 +84,11 @@
   <string name="liveboard">Live-pelilauta</string>
   <string name="communityBroadcast">Yhteisölähetys</string>
   <string name="createdAndManagedBy">Lähetyksen on luonut ja sitä hallinnoi %s.</string>
+  <string name="matchPoints">Ottelupisteet</string>
+  <string name="gamePoints">Pelipisteet</string>
+  <string name="matches">Ottelut</string>
+  <string name="matchHistory">Otteluhistoria</string>
+  <string name="teamResults">Joukkueen tulokset</string>
   <string name="termsAutomaticallyTranslated">Nämä termit käännetään automaattisesti: %s.</string>
   <string name="roundX">Kierros %s</string>
   <string name="defaultRoundNameHelp">Jos säilytät oletusnimen, se käännetään automaattisesti kaikille muille kielille.</string>
