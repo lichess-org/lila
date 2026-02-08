@@ -52,6 +52,7 @@ import { plyToTurn } from 'lib/game/chess';
 import { type SocketSendOpts } from 'lib/socket';
 import type { NodeCrazy } from 'lib/tree/types';
 import Server from './server';
+import { bindBookmarkButton } from 'lib/game/bookmark';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
 
@@ -947,6 +948,10 @@ export default class RoundController implements MoveRootCtrl {
           this.blindfold(this.blindfoldStorage.get());
         }
         if (!d.local && d.game.speed !== 'correspondence') wakeLock.request();
+
+        bindBookmarkButton(() => ({
+          ply: this.ply,
+        }));
       },
 
       800,
