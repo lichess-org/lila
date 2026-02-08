@@ -4039,7 +4039,7 @@ interface I18n {
     opponent: string;
     /** Your opponent left the game. You can claim victory, call the game a draw, or wait. */
     opponentLeftChoices: string;
-    /** Your opponent left the game. You can claim victory in %s seconds. */
+    /** Your opponent left the game. You can claim victory in %s&#xA0;seconds. */
     opponentLeftCounter: I18nPlural;
     /** Or let your opponent scan this QR code */
     orLetYourOpponentScanQrCode: string;
