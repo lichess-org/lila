@@ -477,6 +477,8 @@ interface I18n {
     yourXRatingIsTooFarFromY: I18nFormat;
   };
   class: {
+    /** Active students */
+    activeStudents: string;
     /** Add Lichess usernames to invite them as teachers. One per line. */
     addLichessUsernames: string;
     /** Add student */
@@ -491,6 +493,22 @@ interface I18n {
     anInvitationHasBeenSentToX: I18nFormat;
     /** Apply to be a Lichess Teacher */
     applyToBeLichessTeacher: string;
+    /** Archive */
+    archiveAction: string;
+    /** Archived students */
+    archivedStudents: string;
+    /** Important! Make sure you understand how this works: */
+    bulkActionDisclaimer: string;
+    /** Edit the list above to keep some students selected for a bulk action. */
+    bulkActionHelpLine1: string;
+    /** All the students remaining in the list will be affected by the action. */
+    bulkActionHelpLine2: string;
+    /** The students you removed from the list will remain in the class, unchanged. */
+    bulkActionHelpLine3: string;
+    /** Choose the action to perform on the students listed above: */
+    bulkActionInstruction: string;
+    /** Bulk actions */
+    bulkActions: string;
     /** Class description */
     classDescription: string;
     /** Class name */
@@ -619,6 +637,8 @@ interface I18n {
     passwordX: I18nFormat;
     /** Pending */
     pending: string;
+    /** Pending invites */
+    pendingInvites: string;
     /** Private. Will never be shown outside the class. Helps you remember who the student is. */
     privateWillNeverBeShown: string;
     /** Progress */
@@ -645,6 +665,10 @@ interface I18n {
     releaseDesc2: string;
     /** Graduate the account so the student can manage it autonomously. */
     releaseTheAccount: string;
+    /** Remove */
+    removeAction: string;
+    /** BEWARE: removing a student with managed account will close the account permanently. */
+    removeActionWarning: string;
     /** Removed by %s */
     removedByX: I18nFormat;
     /** Removed */
@@ -655,6 +679,8 @@ interface I18n {
     reopen: string;
     /** Reset password */
     resetPassword: string;
+    /** Restore */
+    restoreAction: string;
     /** Send a message to all students. */
     sendAMessage: string;
     /** Student:  %1$s */
