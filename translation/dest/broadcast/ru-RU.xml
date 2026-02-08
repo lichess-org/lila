@@ -73,6 +73,7 @@
   <string name="ratingDiff">Разница в рейтингах</string>
   <string name="gamesThisTournament">Партии этого турнира</string>
   <string name="score">Очки</string>
+  <string name="standingsDisclaimer">Турнирная таблица рассчитывается по транслируемым партиям и может отличаться от официальных результатов.</string>
   <string name="allTeams">Все клубы</string>
   <string name="tournamentFormat">Формат турнира</string>
   <string name="tournamentLocation">Местоположение турнира</string>
@@ -87,6 +88,26 @@
   <string name="liveboard">Доска в прямом эфире</string>
   <string name="communityBroadcast">Трансляция сообщества</string>
   <string name="createdAndManagedBy">Создано и управляется %s.</string>
+  <string name="matchPoints">Турнирные очки</string>
+  <string name="gamePoints">Очки в партиях</string>
+  <string name="matches">Партии</string>
+  <string name="matchHistory">Турнирная история</string>
+  <string name="teamResults">Командный результат</string>
+  <string name="termsAutomaticallyTranslated">Следующие термины будут автоматически переведены: %s.</string>
   <string name="roundX">Раунд %s</string>
   <string name="defaultRoundNameHelp">Сохранение названия по умолчанию автоматически переведёт его на все другие языки.</string>
+  <string name="openTournament">Открытый</string>
+  <string name="womenTournament">Женщины</string>
+  <string name="menTournament">Мужчины</string>
+  <string name="girlsTournament">Девушки</string>
+  <string name="boysTournament">Юноши</string>
+  <string name="openUnderXAgeTournament">Открытый до %s</string>
+  <string name="girlsUnderXAgeTournament">Девушки до %s</string>
+  <string name="boysUnderXAgeTournament">Юноши до %s</string>
+  <string name="quarterfinals">Четвертьфиналы</string>
+  <string name="semifinals">Полуфиналы</string>
+  <string name="finals">Финалы</string>
+  <string name="tiebreaks">Тай-брейки</string>
+  <string name="gameX">%s партий</string>
+  <string name="knockouts">Нокауты</string>
 </resources>

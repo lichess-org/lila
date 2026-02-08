@@ -12,10 +12,11 @@
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess је покренут донацијама наших покровитеља и трудом тима волонтера.</string>
   <string name="findMoreAndSeeHowHelp">Можеш наћи више о %1$s (укључујући %2$s). Ако желиш помоћи Lichess-у волонтирајући своје време и вештине, постоје разни %3$s.</string>
   <string name="beingAPatron">бивању покровитеља</string>
-  <string name="breakdownOfOurCosts">поделу трошкова</string>
+  <string name="breakdownOfOurCosts">поделу наших трошкова</string>
   <string name="otherWaysToHelp">други начини да помогнеш</string>
-  <string name="areThereWebsitesBasedOnLichess">Постоје ли други сајтови засновани на Личесу?</string>
-  <string name="fairPlay">Фер плеј</string>
+  <string name="areThereWebsitesBasedOnLichess">Да ли постоје вебсајтови засновани на Lichess-у?</string>
+  <string name="fairPlay">Поштена Игра</string>
+  <string name="whenAmIEligibleRatinRefund">Када имам право за аутоматско враћање рејтинга од варалица?</string>
   <string name="ratingRefundExplanation">Један минут након што је играч означен, узима се њихових последњих 40 партија у последња 3 дана. Ако си ти био један од њихових противника у тим партијама, и изгубио си рејтинг (због пораза или ремија), то добијаш свој рејтинг назад. Повраћај рејтинга је ограничен твојим максималним рејтингом и прогресом рејтинга након те партије.
   (На пример, ако ти се рејтинг драстично повећао након тих партија, ти ћеш можда добити смањен повраћај или га нећеш уопште добити). Повраћај никада неће прећи 150 поена.</string>
   <string name="preventLeavingGameWithoutResigning">Шта је урађено поводом играча који напусте партију пре него што се предају?</string>
