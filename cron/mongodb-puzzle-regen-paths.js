@@ -40,8 +40,8 @@ const tiers = [
 ];
 
 const mixBoundaries = [
-  100, 650, 800, 900, 1000, 1100, 1200, 1270, 1340, 1410, 1480, 1550, 1620, 1690, 1760, 1830, 1900, 2000, 2100, 2200,
-  2350, 2500, 2650, 2800, 9999,
+  100, 650, 800, 900, 1000, 1100, 1200, 1270, 1340, 1410, 1480, 1550, 1620, 1690, 1760, 1830, 1900, 2000,
+  2100, 2200, 2350, 2500, 2650, 2800, 9999,
 ];
 
 const themes = puzzleColl.distinct('themes', {}).filter(t => t && t != 'checkFirst');
@@ -80,25 +80,21 @@ let anyBuggy = false;
   // ['mix'].forEach(theme => {
   const isOpening = openings.includes(theme);
   const subtleSelector = {
-    $or: [
-      { tooSubtle: { $ne: true } },
-      { 'glicko.r': { $gte: 2200 } },
-      { 'glicko.d': { $gte: 120 } },
-    ]
+    $or: [{ tooSubtle: { $ne: true } }, { 'glicko.r': { $gte: 2200 } }, { 'glicko.d': { $gte: 120 } }],
   };
   const themeSelector = isOpening
     ? { opening: theme }
     : {
-      themes:
-        theme == 'mix'
-          ? { $ne: 'equality', }
-          : theme == 'equality'
-            ? 'equality'
-            : {
-              $eq: theme,
-              $ne: 'equality',
-            },
-    };
+        themes:
+          theme == 'mix'
+            ? { $ne: 'equality' }
+            : theme == 'equality'
+              ? 'equality'
+              : {
+                  $eq: theme,
+                  $ne: 'equality',
+                },
+      };
   const selector = {
     ...{ issue: { $exists: false } },
     ...subtleSelector,
@@ -123,22 +119,22 @@ let anyBuggy = false;
   const bucketStages =
     theme == 'mix'
       ? [
-        {
-          $bucket: {
-            ...bucketBase,
-            boundaries: mixBoundaries,
+          {
+            $bucket: {
+              ...bucketBase,
+              boundaries: mixBoundaries,
+            },
           },
-        },
-        { $addFields: { _id: { min: '$_id' } } },
-      ]
+          { $addFields: { _id: { min: '$_id' } } },
+        ]
       : [
-        {
-          $bucketAuto: {
-            ...bucketBase,
-            buckets: nbRatingBuckets,
+          {
+            $bucketAuto: {
+              ...bucketBase,
+              buckets: nbRatingBuckets,
+            },
           },
-        },
-      ];
+        ];
 
   const pipeline = [
     {
@@ -295,7 +291,10 @@ let anyBuggy = false;
 
   if (!buggy) {
     pathNextColl.aggregate([{ $merge: pathCollName }]); // much faster!
-    pathColl.deleteMany({ /* theme: theme */ _id: new RegExp('^' + theme + '\\|'), gen: { $ne: generation } });
+    pathColl.deleteMany({
+      /* theme: theme */ _id: new RegExp('^' + theme + '\\|'),
+      gen: { $ne: generation },
+    });
   }
   pathNextColl.drop({});
 });

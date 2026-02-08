@@ -55,7 +55,7 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
   def existsByTree(categId: ForumCategId, slug: ForumTopicSlug): Fu[Boolean] =
     coll.exists($doc("categId" -> categId, "slug" -> slug))
 
-  def stickyByCateg(categ: ForumCategId): Fu[List[ForumTopic]] =
+  private[forum] def stickyByCateg(categ: ForumCategId): Fu[List[ForumTopic]] =
     coll.list(byCategQuery(categ) ++ "sticky".$exists(true))
 
   def nextSlug(categ: ForumCateg, name: String, it: Int = 1): Fu[ForumTopicSlug] =

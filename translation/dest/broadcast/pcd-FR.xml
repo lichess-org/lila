@@ -83,13 +83,17 @@
   <string name="liveboard">Échiquier en direct</string>
   <string name="communityBroadcast">Diffusion communautaire</string>
   <string name="createdAndManagedBy">Créée et gérée par %s.</string>
+  <string name="termsAutomaticallyTranslated">Les termes suivants seront automatiquement traduits : %s.</string>
   <string name="roundX">Ronde : %s</string>
   <string name="defaultRoundNameHelp">Si le nom par défaut est conservé, il sera automatiquement traduit dans les autres langues.</string>
   <string name="openTournament">Ouvert</string>
   <string name="womenTournament">Femmes</string>
+  <string name="menTournament">Hommes</string>
   <string name="girlsTournament">Filles</string>
+  <string name="boysTournament">Garçons</string>
   <string name="openUnderXAgeTournament">Ouvert – moins de %s</string>
   <string name="girlsUnderXAgeTournament">Filles – moins de %s</string>
+  <string name="boysUnderXAgeTournament">Garçons – moins de %s</string>
   <string name="quarterfinals">Quarts de finale</string>
   <string name="semifinals">Demi-finales</string>
   <string name="finals">Finales</string>

@@ -1,5 +1,9 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "singleQuote": true,
-  "printWidth": 110
+  "printWidth": 110,
+  "arrowParens": "avoid",
+  "endOfLine": "lf",
+  "ignorePatterns": ["**/public", "COPYING.md", "README.md"],
+  "experimentalSortPackageJson": false
 }

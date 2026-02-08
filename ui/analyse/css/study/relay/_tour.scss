@@ -554,6 +554,9 @@ $hover-bg: $m-primary_bg--mix-30;
     &__matches__header {
       @extend %tour-margin-horiz;
     }
+    &__roster {
+      overflow: auto;
+    }
     &__header {
       &__stats {
         @extend %tour-margin-horiz;
@@ -582,6 +585,7 @@ $hover-bg: $m-primary_bg--mix-30;
       td.game-link {
         width: 1%;
         white-space: nowrap;
+        padding-right: 2em;
         a.game-link {
           @extend %game-link-styles;
         }

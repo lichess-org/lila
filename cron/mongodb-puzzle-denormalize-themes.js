@@ -12,48 +12,46 @@
  */
 
 const playColl = db.puzzle2_puzzle;
-const roundColl = db.puzzle2_round;
+const _roundColl = db.puzzle2_round;
 
 const phases = new Set(['opening', 'middlegame', 'endgame']);
 
-db.puzzle2_puzzle.aggregate([
-  { $match: { dirty: true } },
-  { $project: { _id: 1, themes: 1 } },
-  {
-    $lookup: {
-      from: 'puzzle2_round',
-      let: { id: '$_id' },
-      pipeline: [
-        { $match: { $and: [{ $expr: { $eq: ['$p', '$$id'] } }, { t: { $exists: true } }] } },
-        { $project: { _id: 0, t: 1, e: 1 } },
-        { $unwind: '$t' },
-        { $group: { _id: '$t', v: { $sum: '$e' } } }
-      ],
-      as: 'rounds'
+db.puzzle2_puzzle
+  .aggregate([
+    { $match: { dirty: true } },
+    { $project: { _id: 1, themes: 1 } },
+    {
+      $lookup: {
+        from: 'puzzle2_round',
+        let: { id: '$_id' },
+        pipeline: [
+          { $match: { $and: [{ $expr: { $eq: ['$p', '$$id'] } }, { t: { $exists: true } }] } },
+          { $project: { _id: 0, t: 1, e: 1 } },
+          { $unwind: '$t' },
+          { $group: { _id: '$t', v: { $sum: '$e' } } },
+        ],
+        as: 'rounds',
+      },
+    },
+  ])
+  .forEach(p => {
+    const oldThemes = p.themes || [];
+    const themeMap = {};
+
+    p.rounds.forEach(x => {
+      const signum = x._id[0] == '+' ? 1 : -1;
+      const theme = x._id.substring(1);
+      themeMap[theme] = x.v * signum + (themeMap[theme] || 0);
+    });
+
+    const newThemes = new Set(oldThemes.filter(t => phases.has(t)));
+    Object.keys(themeMap).forEach(theme => {
+      if (themeMap[theme] > 80) newThemes.add(theme);
+    });
+
+    const update = { $unset: { dirty: true } };
+    if (oldThemes.length !== newThemes.size || oldThemes.find(t => !newThemes.has(t))) {
+      update['$set'] = { themes: Array.from(newThemes) };
     }
-  }
-]).forEach(p => {
-
-  const oldThemes = p.themes || [];
-  const themeMap = {};
-
-  p.rounds.forEach(x => {
-    const signum = x._id[0] == '+' ? 1 : -1;
-    const theme = x._id.substring(1);
-    themeMap[theme] = x.v * signum + (themeMap[theme] || 0);
+    playColl.updateOne({ _id: p._id }, update);
   });
-
-  const newThemes = new Set(oldThemes.filter(t => phases.has(t)));
-  Object.keys(themeMap).forEach(theme => {
-    if (themeMap[theme] > 80) newThemes.add(theme);
-  });
-
-  const update = { $unset: { dirty: true } };
-  if (
-    oldThemes.length !== newThemes.size ||
-    oldThemes.find(t => !newThemes.has(t))
-  ) {
-    update['$set'] = { themes: Array.from(newThemes) };
-  }
-  playColl.updateOne({ _id: p._id }, update);
-});

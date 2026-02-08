@@ -81,6 +81,21 @@
   <string name="liveboard">실시간 체스판</string>
   <string name="communityBroadcast">커뮤니티 방송</string>
   <string name="createdAndManagedBy">%s로부터 생성되고 관리됨.</string>
+  <string name="termsAutomaticallyTranslated">다음 용어가 자동으로 번역됩니다: %s.</string>
   <string name="roundX">%s라운드</string>
   <string name="defaultRoundNameHelp">기본 이름을 유지하면 자동으로 다른 모든 언어로 번역됩니다.</string>
+  <string name="openTournament">오픈</string>
+  <string name="womenTournament">여성</string>
+  <string name="menTournament">남성</string>
+  <string name="girlsTournament">소녀</string>
+  <string name="boysTournament">소년</string>
+  <string name="openUnderXAgeTournament">U-%s 오픈</string>
+  <string name="girlsUnderXAgeTournament">U-%s 소녀</string>
+  <string name="boysUnderXAgeTournament">U-%s 소년</string>
+  <string name="quarterfinals">8강전</string>
+  <string name="semifinals">준결승전</string>
+  <string name="finals">결승전</string>
+  <string name="tiebreaks">타이브레이커</string>
+  <string name="gameX">게임 %s</string>
+  <string name="knockouts">녹아웃</string>
 </resources>

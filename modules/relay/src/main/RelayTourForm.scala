@@ -176,6 +176,7 @@ object RelayTourForm:
         syncedAt = none,
         showScores = showScores,
         showRatingDiffs = showRatingDiffs,
+        showTeamScores = showTeamScores,
         tiebreaks = tiebreaks,
         teamTable = teamTable,
         players = players,

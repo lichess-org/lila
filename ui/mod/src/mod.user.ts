@@ -185,7 +185,7 @@ site.load.then(() => {
     makeReady(
       '.mz-section--identification .slist--sort',
       el => {
-        sortTable(el, { descending: true });
+        if (el instanceof HTMLTableElement) sortTable(el, { descending: true });
       },
       'ready-sort',
     );
@@ -217,7 +217,7 @@ site.load.then(() => {
   const $other = $('#communication,main.appeal');
   if ($other.length) userMod($other);
 
-  const timelineFlairDateToLocal = (el?: HTMLElement | undefined) =>
+  const timelineFlairDateToLocal = (el?: HTMLElement) =>
     $(el || document.body)
       .find('.mod-timeline__event__flair img[datetime]')
       .each(function (this: HTMLImageElement) {

@@ -11,7 +11,7 @@ console.log(`Found ${nbMarked} marked users. Starting cleanup...`);
 let inspected = 0;
 let deleted = 0;
 
-sec.user4.find(markedSelector, { _id: 1 }).forEach((u) => {
+sec.user4.find(markedSelector, { _id: 1 }).forEach(u => {
   deleted += insight.insight.deleteMany({ u: u._id }).deletedCount;
   inspected += 1;
   if (inspected % 1000 === 0) {

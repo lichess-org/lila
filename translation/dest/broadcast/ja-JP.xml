@@ -67,6 +67,7 @@
   <string name="ratingDiff">レーティングの差</string>
   <string name="gamesThisTournament">このトーナメントの対局</string>
   <string name="score">スコア</string>
+  <string name="standingsDisclaimer">順位は中継対象のゲームに基づいて計算されるため、公式の結果とは異なる場合があります。</string>
   <string name="allTeams">すべてのチーム</string>
   <string name="tournamentFormat">トーナメント形式</string>
   <string name="tournamentLocation">開催地</string>
@@ -81,6 +82,11 @@
   <string name="liveboard">現局面</string>
   <string name="communityBroadcast">コミュニティ配信</string>
   <string name="createdAndManagedBy">作成・管理者は %s です。</string>
+  <string name="matchPoints">マッチポイント</string>
+  <string name="gamePoints">ゲームポイント</string>
+  <string name="matches">マッチ</string>
+  <string name="matchHistory">マッチ履歴</string>
+  <string name="teamResults">チーム成績</string>
   <string name="termsAutomaticallyTranslated">以下の用語は自動的に翻訳されます：%s。</string>
   <string name="roundX">ラウンド %s</string>
   <string name="defaultRoundNameHelp">デフォルトの名前のままにしておくと、他の言語に自動で翻訳されます。</string>

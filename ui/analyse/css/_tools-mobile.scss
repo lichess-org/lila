@@ -70,22 +70,30 @@
       padding-top: 0;
       border-bottom: none;
     }
-    .cmn-toggle label {
-      background-color: $c-font-dimmer !important;
-    }
     eval {
-      font-size: 1.2em;
+      @media (min-width: at-least($xx-small)) {
+        font-size: 1.2em;
+      }
       pointer-events: none;
     }
     [data-mode] {
       position: relative;
       overflow-x: hidden;
-      min-width: 24vw;
-      max-width: 24vw;
+      min-width: calc(max(24vw, 80px));
       display: flex;
-      padding-inline-start: 10px;
       align-items: center;
       text-shadow: none;
+
+      .cmn-toggle {
+        margin-inline-start: 10px;
+        @media (max-width: at-most($xxx-small)) {
+          transform: scale(0.7);
+          margin-inline-start: 0;
+        }
+        label {
+          background-color: $c-font-dimmer !important;
+        }
+      }
     }
     [data-mode]::before,
     [data-mode]::after {
@@ -119,9 +127,6 @@
     }
     [data-mode] .bar {
       display: none;
-    }
-    [data-mode] .cmn-toggle {
-      width: 24px;
     }
     [data-mode]:not(.active) .bar {
       position: absolute;

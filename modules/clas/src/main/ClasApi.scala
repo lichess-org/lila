@@ -50,15 +50,15 @@ final class ClasApi(
     def countOf(teacher: User): Fu[Int] =
       coll.countSel($doc("teachers" -> teacher.id))
 
-    private def byIds(clasIds: List[ClasId], nb: Int): Fu[List[Clas]] =
+    private def activeByIds(clasIds: List[ClasId], nb: Int): Fu[List[Clas]] =
       coll
-        .find($inIds(clasIds))
+        .find($inIds(clasIds) ++ selectArchived(false))
         .sort($sort.desc("createdAt"))
         .cursor[Clas]()
         .list(nb)
 
     def ofStudent(userId: UserId, nb: Int): Fu[List[Clas]] =
-      student.clasIdsOfUser(userId).flatMap(byIds(_, nb))
+      student.clasIdsOfUser(userId).flatMap(activeByIds(_, nb))
 
     def create(data: ClasForm.ClasData)(using teacher: Me): Fu[Clas] =
       val clas = data.make(teacher)
@@ -404,9 +404,10 @@ ${clas.desc}""",
         )
         .void
 
-    private def selectArchived(v: Boolean) = $doc("archived".$exists(v))
-
   end student
+
+  // works for clas & student
+  private def selectArchived(v: Boolean) = $doc("archived".$exists(v))
 
   object invite:
 

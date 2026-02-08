@@ -239,7 +239,7 @@ private[tournament] case class TournamentSetup(
         rated = if rated.isDefined then realRated else old.rated,
         variant = newVariant,
         startsAt = startDate | old.startsAt,
-        password = password.fold(old.password)(_.some.filter(_.nonEmpty)),
+        password = password.fold(old.password)(_.nonEmptyOption),
         position = newVariant.standard.so {
           if position.isDefined && (old.isCreated || old.position.isDefined) then realPosition
           else old.position
@@ -247,7 +247,7 @@ private[tournament] case class TournamentSetup(
         noBerserk = berserkable.fold(old.noBerserk)(!_) || timeControlPreventsBerserk,
         noStreak = streakable.fold(old.noStreak)(!_),
         teamBattle = old.teamBattle,
-        description = description.fold(old.description)(_.some.filter(_.nonEmpty)),
+        description = description.fold(old.description)(_.nonEmptyOption),
         hasChat = hasChat | old.hasChat
       )
 
