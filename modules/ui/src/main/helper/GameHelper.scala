@@ -165,14 +165,15 @@ trait GameHelper:
       color: Color,
       ownerLink: Boolean = false,
       tv: Boolean = false,
-      ply: Option[Ply] = Option.empty[Ply]
+      ply: Option[Ply] = None
   )(using ctx: Context): String =
     val url = {
       val owner = ownerLink.so(ctx.me.flatMap(game.player))
       if tv then routes.Tv.index
       else
-        owner.fold(routes.Round.watcher(game.id, color)): o =>
-          routes.Round.player(game.fullIdOf(o.color))
+        val watcher = routes.Round.watcher(game.id, color)
+        owner.fold(watcher): o =>
+          if ply.isEmpty then routes.Round.player(game.fullIdOf(o.color)) else watcher
     }.toString
     ply.map((ply) => s"$url#${ply}").getOrElse(url)
 

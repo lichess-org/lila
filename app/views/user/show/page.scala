@@ -8,8 +8,7 @@ import lila.app.mashup.UserInfo
 import lila.core.data.SafeJsonStr
 import lila.game.GameFilter
 import lila.rating.UserWithPerfs.titleUsernameWithBestRating
-import chess.Ply
-import chess.format.SimpleFen
+import lila.bookmark.Bookmark
 
 lazy val ui = lila.user.ui.UserShow(helpers, bits)
 
@@ -55,12 +54,11 @@ object page:
       searchForm: Option[Form[?]],
       social: UserInfo.Social,
       notes: Map[GameId, String],
-      bookmarkInfo: Map[GameId, (Ply, SimpleFen, String)]
+      bookmarkInfo: Map[GameId, Bookmark]
   )(using Context) =
     val u = info.user
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
     val pageName = (games.currentPage > 1).so(s" - page ${games.currentPage}")
-    bookmarkInfo.foreach(pf => lila.log("RRR").info(s"${pf._1}    ${pf._2}"))
     Page(s"${u.username} $filterName$pageName")
       .js(pageModule(info))
       .js(esModules(filters.current.name == "search"))

@@ -7,8 +7,29 @@ import lila.db.dsl.{ *, given }
 import chess.Ply
 import chess.format.SimpleFen
 import chess.format.Uci
+import scala.util.Failure
 
-case class Bookmark(game: Game, user: User)
+case class Bookmark(game: Game, position: Option[BookmarkPosition] = None)
+case class BookmarkPosition(ply: Ply, fen: SimpleFen, color: Color, lastMove: Option[Uci])
+
+object BookmarkPosition:
+  def apply(
+      ply: Option[String],
+      fen: Option[String],
+      color: Option[String],
+      lastMoveUci: Option[String]
+  ): Option[BookmarkPosition] =
+    for
+      p <- ply.flatMap(_.toIntOption.map(Ply(_)))
+      f <- fen.map(SimpleFen(_))
+      c <- color.flatMap(c => Color(c.head))
+      u = lastMoveUci.flatMap(Uci(_))
+    yield BookmarkPosition(p, f, c, u)
+
+given BSONWriter[Uci] = BSONWriter { uci => BSONString(uci.uci) }
+given BSONReader[Uci] = BSONReader.collect { case BSONString(str) => Uci(str).get }
+
+given BSONDocumentHandler[BookmarkPosition] = Macros.handler[BookmarkPosition]
 
 final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBuilder)(using Executor):
 
@@ -42,9 +63,7 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
       gameId: GameId,
       userId: UserId,
       v: Option[Boolean],
-      ply: Ply,
-      fen: Option[SimpleFen],
-      uci: Option[String]
+      position: Option[BookmarkPosition]
   ): Funit =
     exists(gameId, userId)
       .flatMap: e =>
@@ -53,12 +72,7 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
         else
           for
             _ <-
-              if newValue then
-                (for
-                  f <- fen
-                  u <- uci
-                yield add(gameId, userId, nowInstant, ply, f, u)).getOrElse(Future {})
-              else remove(gameId, userId)
+              if newValue then add(gameId, userId, nowInstant, position) else remove(gameId, userId)
             inc = if newValue then 1 else -1
             _ <- gameApi.incBookmarks(gameId, inc)
             _ <- updateProxy(gameId)(g => g.copy(bookmarks = g.bookmarks + inc))
@@ -74,9 +88,7 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
       gameId: GameId,
       userId: UserId,
       date: Instant,
-      ply: Ply,
-      fen: SimpleFen,
-      uci: String
+      position: Option[BookmarkPosition]
   ): Funit =
     coll.insert
       .one:
@@ -84,23 +96,22 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
           "_id" -> makeId(gameId, userId),
           "g" -> gameId,
           "u" -> userId,
-          "pl" -> ply,
-          "fe" -> fen,
-          "uc" -> uci,
+          "p" -> position,
           "d" -> date
         )
       .void
 
-  def bookmarkInfo(gameIds: Seq[GameId])(using me: MyId): Fu[Map[GameId, (Ply, SimpleFen, String)]] =
-    coll.byIds(gameIds.map(makeId(_, me)), _.sec).map { docs =>
-      (for
-        doc <- docs
-        gameId <- doc.getAsOpt[GameId]("g")
-        ply <- doc.getAsOpt[Ply]("pl")
-        fen <- doc.getAsOpt[SimpleFen]("fe")
-        uci <- doc.getAsOpt[String]("uc")
-      yield (gameId, (ply, fen, uci))).toMap
-    }
+  def bookmarks(games: Seq[Game])(using me: MyId): Fu[Map[GameId, Bookmark]] =
+    (coll
+      .byIds(games.map(game => makeId(game.id, me)), _.sec): Fu[List[BSONDocument]])
+      .map { docs =>
+        (for
+          doc <- docs
+          gameId <- doc.getAsOpt[GameId]("g")
+          position = doc.getAsOpt[BookmarkPosition]("p")
+          game <- games.find(_.id == gameId)
+        yield (gameId, Bookmark(game, position))).toMap
+      }
 
   def userIdQuery(userId: UserId) = $doc("u" -> userId)
   private def makeId(gameId: GameId, userId: UserId) = s"$gameId$userId"
