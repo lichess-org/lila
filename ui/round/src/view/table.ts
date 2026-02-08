@@ -39,7 +39,6 @@ export const renderTableEnd = (ctrl: RoundController): LooseVNodes =>
 export const renderTableWatch = (ctrl: RoundController): LooseVNodes =>
   renderTableWith(ctrl, [
     isLoading(ctrl) ? loader() : playable(ctrl.data) ? undefined : button.watcherFollowUp(ctrl),
-    boardMenuToggleButton(ctrl.menu, i18n.site.menu),
   ]);
 
 const prompt = (ctrl: RoundController) => {
