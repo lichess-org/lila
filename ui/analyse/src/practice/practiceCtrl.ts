@@ -1,3 +1,10 @@
+/**
+ * Practice controller edits:
+ * - Made `humanColor` instead of `bottomColor` state-driven, not UI
+ * - All functions now rely on state data instead of UI values.
+ * - TODO: Verify dynamic userColor is correct for all scenarios (variants, tablebase, etc.)
+ */
+
 import { winningChances, type CustomCeval } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
 import { detectThreefold } from '../nodeFinder';
@@ -46,11 +53,20 @@ export interface PracticeCtrl {
   hint(): void;
   currentNode(): TreeNode;
   bottomColor(): Color;
+  humanColor: Color;
   customCeval: CustomCeval;
   redraw: Redraw;
 }
 
 export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): PracticeCtrl {
+  // Rely on state-based data, not the UI
+  // TODO: Ensure `root.data.player.color` correctly represents the current user's color
+  const humanColor: Color = root.data.player?.color ?? 'white';
+
+  function isMyTurn(): boolean {
+    // Compare current turn color with the human player's color
+    return root.turnColor() === humanColor;
+  }
   const playableDepth = customPlayableDepth ?? (() => 18);
   const masteryMode = storedBooleanPropWithEffect('analyse.practice-hard-mode', false, root.redraw);
   const variant = root.data.game.variant.key,
@@ -110,7 +126,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
           ? { cp: 0 }
           : (node.ceval as EvalScore));
       const prevEval: EvalScore = tbhitToEval(prev.tbhit) || prev.ceval!;
-      const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
+      const shift = -winningChances.povDiff(humanColor, nodeEval, prevEval);
 
       best = nodeBestUci(prev);
       if (
@@ -141,10 +157,6 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
           }
         : undefined,
     };
-  }
-
-  function isMyTurn(): boolean {
-    return root.turnColor() === root.bottomColor();
   }
 
   function checkCeval() {
@@ -215,6 +227,7 @@ export function make(root: AnalyseCtrl, customPlayableDepth?: () => number): Pra
       checkCevalOrTablebase();
     },
     isMyTurn,
+    humanColor,
     comment,
     running,
     hovering,
