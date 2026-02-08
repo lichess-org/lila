@@ -23,9 +23,11 @@ export default class MsgCtrl {
   };
   pane: Pane;
   loading = false;
+  loadingContacts = false;
   connected = () => true;
   msgsPerPage = 100;
   canGetMoreSince?: Date;
+  canGetMoreContacts = true;
   typing?: Typing;
   textStore?: LichessStorage;
 
@@ -46,7 +48,11 @@ export default class MsgCtrl {
       this.loading = true;
     }
     network.loadConvo(userId).then(data => {
-      this.data = data;
+      const existingIds = new Set(this.data.contacts.map(c => c.user.id));
+      this.data = {
+        ...data,
+        contacts: this.data.contacts.concat(data.contacts.filter(c => !existingIds.has(c.user.id))),
+      };
       this.search.result = undefined;
       this.loading = false;
       if (data.convo) {
@@ -167,6 +173,23 @@ export default class MsgCtrl {
     }
   };
 
+  loadMoreContacts = () => {
+    if (this.loadingContacts || !this.canGetMoreContacts) return;
+    const lastContact = this.data.contacts[this.data.contacts.length - 1];
+    if (!lastContact) return;
+    this.loadingContacts = true;
+    this.redraw();
+    network.loadMoreContacts(lastContact.lastMsg.date).then(contacts => {
+      if (contacts.length === 0) {
+        this.canGetMoreContacts = false;
+      } else {
+        this.data.contacts = this.data.contacts.concat(contacts);
+      }
+      this.loadingContacts = false;
+      this.redraw();
+    });
+  };
+
   setRead = () => {
     const msg = this.currentContact()?.lastMsg;
     if (msg && msg.user !== this.data.me.id) {
@@ -184,7 +207,8 @@ export default class MsgCtrl {
     const userId = this.data.convo?.user.id;
     if (userId)
       network.del(userId).then(data => {
-        this.data = data;
+        this.data.convo = data.convo;
+        this.data.contacts = this.data.contacts.filter(c => c.user.id !== userId);
         this.redraw();
         history.replaceState({}, '', '/inbox');
       });
