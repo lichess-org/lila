@@ -21,10 +21,6 @@
     will-change: scroll-position;
     line-height: 1.7;
     font-size: 1.1em;
-
-    &::-webkit-scrollbar {
-      width: 0px;
-    }
   }
 
   #{$index-tag} {
