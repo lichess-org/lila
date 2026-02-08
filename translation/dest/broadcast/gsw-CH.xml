@@ -69,6 +69,7 @@
   <string name="ratingDiff">Wertigs Differänz</string>
   <string name="gamesThisTournament">Schpiel i dem Turnier</string>
   <string name="score">Resultat</string>
+  <string name="standingsDisclaimer">D\'Ranglischte wird dur die übertreite Schpiel berächnet und chann vu de offizielle Resultate abwiche.</string>
   <string name="allTeams">Alli Teams</string>
   <string name="tournamentFormat">Turnier-Format</string>
   <string name="tournamentLocation">Turnier-Lokal</string>
@@ -83,6 +84,11 @@
   <string name="liveboard">Live-Brätt</string>
   <string name="communityBroadcast">Gmeinschafts-Überträgig</string>
   <string name="createdAndManagedBy">Kreiert und betreut vu %s.</string>
+  <string name="matchPoints">Matschpünkt</string>
+  <string name="gamePoints">Schpielpünkt</string>
+  <string name="matches">Mätsch</string>
+  <string name="matchHistory">Matschverlauf</string>
+  <string name="teamResults">Teamresultat</string>
   <string name="termsAutomaticallyTranslated">Folgendi Begriff werded automatisch übersetzt: %s.</string>
   <string name="roundX">Rundi %s</string>
   <string name="defaultRoundNameHelp">Wänn du de Standardname b\'haltsch, wird er automatisch i alli andere Schprache übersetzt.</string>

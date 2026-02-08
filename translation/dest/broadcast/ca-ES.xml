@@ -86,14 +86,14 @@
   <string name="termsAutomaticallyTranslated">Els termes següents es traduiran automàticament: %s.</string>
   <string name="roundX">Ronda %s</string>
   <string name="defaultRoundNameHelp">Deixant el nom per defecte el traduirà automàticament a tots els altres llenguatges.</string>
-  <string name="openTournament" comment="As in an open tournament.">Obert</string>
-  <string name="womenTournament" comment="As in a women's-only tournament.">Dones</string>
-  <string name="menTournament" comment="As in a men's-only tournament.">Home</string>
-  <string name="girlsTournament" comment="As in a girls-only tournament.">Noies</string>
-  <string name="boysTournament" comment="As in a boys-only tournament.">Nois</string>
+  <string name="openTournament">Obert</string>
+  <string name="womenTournament">Dones</string>
+  <string name="menTournament">Home</string>
+  <string name="girlsTournament">Noies</string>
+  <string name="boysTournament">Nois</string>
   <string name="openUnderXAgeTournament">Obert Sub%s</string>
   <string name="girlsUnderXAgeTournament">Noies Sub%s</string>
-  <string name="boysUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Boys U18&quot; will mean it is an open tournament for under-18 year old boys.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Nois Sub%s</string>
+  <string name="boysUnderXAgeTournament">Nois Sub%s</string>
   <string name="quarterfinals">Quarts de final</string>
   <string name="semifinals">Semifinals</string>
   <string name="finals">Finals</string>

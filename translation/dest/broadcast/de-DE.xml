@@ -69,6 +69,7 @@
   <string name="ratingDiff">Wertungsdifferenz</string>
   <string name="gamesThisTournament">Partien in diesem Turnier</string>
   <string name="score">Punktestand</string>
+  <string name="standingsDisclaimer">Die Platzierungen werden anhand der übertragenen Partien berechnet und können sich von den offiziellen Ergebnissen unterscheiden.</string>
   <string name="allTeams">Alle Teams</string>
   <string name="tournamentFormat">Turnierformat</string>
   <string name="tournamentLocation">Turnierort</string>
@@ -83,6 +84,11 @@
   <string name="liveboard">Live-Brett</string>
   <string name="communityBroadcast">Gemeinschafts-Übertragung</string>
   <string name="createdAndManagedBy">Erstellt und verwaltet von %s.</string>
+  <string name="matchPoints">Match-Punkte</string>
+  <string name="gamePoints">Partie-Punkte</string>
+  <string name="matches">Paarungen</string>
+  <string name="matchHistory">Spielverlauf</string>
+  <string name="teamResults">Teamergebnisse</string>
   <string name="termsAutomaticallyTranslated">Die folgenden Begriffe werden automatisch übersetzt: %s.</string>
   <string name="roundX">Runde %s</string>
   <string name="defaultRoundNameHelp">Wenn der Standardname beibehalten wird, wird er automatisch in alle anderen Sprachen übersetzt.</string>

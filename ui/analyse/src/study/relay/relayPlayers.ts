@@ -68,7 +68,7 @@ interface RelayPlayerWithGames extends RelayPlayer {
 }
 
 interface FidePlayer {
-  ratings: StatByFideTC;
+  ratings: Record<FideTC, number>;
   year?: number;
   follow?: boolean;
 }
@@ -240,7 +240,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
             p.performances &&
               hl('div.fide-player__card', [
                 hl('em', i18n.site.performance),
-                Object.entries(p.performances).map(([tc, value]: [FideTC, number]) =>
+                p.performances.map(([tc, value]: [FideTC, number]) =>
                   hl(
                     'div',
                     fideTCAttrs(tc),
@@ -476,7 +476,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           'td',
           defined(game.ratingDiff) &&
             hideResultsSinceIndex > i &&
-            ratingDiff(game, p.ratingsMap && Object.keys(p.ratingsMap).length > 1),
+            ratingDiff(game, p.ratingsMap && p.ratingsMap.length > 1),
         ),
       ]);
     }),
@@ -527,9 +527,9 @@ const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): V
 const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = false) => {
   if (isRelayPlayerGame(p)) return hl('div', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff));
   if (!p.ratingDiffs) return p.rating;
-  const rds = Object.entries(p.ratingDiffs);
+  const rds = p.ratingDiffs;
   return rds.map(([tc, diff]: [FideTC, number]) => {
-    const node = [p.ratingsMap?.[tc], diffNode(diff)];
+    const node = [p.ratingsMap?.find(r => r[0] === tc)?.[1], diffNode(diff)];
     return rds.length === 1 ? node : hl('div', fideTCAttrs(tc), node);
   });
 };

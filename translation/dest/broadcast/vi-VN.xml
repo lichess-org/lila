@@ -84,14 +84,14 @@
   <string name="termsAutomaticallyTranslated">Các từ sau sẽ được tự động dịch: %s.</string>
   <string name="roundX">Vòng %s</string>
   <string name="defaultRoundNameHelp">Giữ nguyên tên mặc định sẽ tự động dịch sang mọi ngôn ngữ khác.</string>
-  <string name="openTournament" comment="As in an open tournament.">Mở</string>
-  <string name="womenTournament" comment="As in a women's-only tournament.">Nữ</string>
-  <string name="menTournament" comment="As in a men's-only tournament.">Nam</string>
-  <string name="girlsTournament" comment="As in a girls-only tournament.">Nữ trẻ</string>
-  <string name="boysTournament" comment="As in a boys-only tournament.">Nam trẻ</string>
+  <string name="openTournament">Mở</string>
+  <string name="womenTournament">Nữ</string>
+  <string name="menTournament">Nam</string>
+  <string name="girlsTournament">Nữ trẻ</string>
+  <string name="boysTournament">Nam trẻ</string>
   <string name="openUnderXAgeTournament">Mở U%s</string>
   <string name="girlsUnderXAgeTournament">Nữ U%s</string>
-  <string name="boysUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Boys U18&quot; will mean it is an open tournament for under-18 year old boys.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">Nam U%s</string>
+  <string name="boysUnderXAgeTournament">Nam U%s</string>
   <string name="quarterfinals">Tứ kết</string>
   <string name="semifinals">Bán kết</string>
   <string name="finals">Chung kết</string>
