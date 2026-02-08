@@ -48,11 +48,14 @@ export default class MsgCtrl {
       this.loading = true;
     }
     network.loadConvo(userId).then(data => {
+      const existingIds = new Set(this.data.contacts.map(c => c.user.id));
+      this.data = {
+        ...data,
+        contacts: this.data.contacts.concat(data.contacts.filter(c => !existingIds.has(c.user.id))),
+      };
       this.search.result = undefined;
       this.loading = false;
       if (data.convo) {
-        this.data.convo = data.convo;
-        this.mergeContacts(data.contacts);
         history.replaceState({ contact: userId }, '', `/inbox/${data.convo.user.name}`);
         this.onLoadConvo(data.convo);
         this.redraw();
@@ -167,15 +170,6 @@ export default class MsgCtrl {
     else {
       this.search.result = undefined;
       this.redraw();
-    }
-  };
-
-  private mergeContacts = (incoming: Contact[]) => {
-    const existingIds = new Set(this.data.contacts.map(c => c.user.id));
-    for (const c of incoming) {
-      if (!existingIds.has(c.user.id)) {
-        this.data.contacts.push(c);
-      }
     }
   };
 
