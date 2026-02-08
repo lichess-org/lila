@@ -448,19 +448,6 @@ export default class AnalyseCtrl implements CevalHandler {
     }
     pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
-
-    const bookmark = document.querySelector<HTMLAnchorElement>('.game__meta .bookmark');
-
-    if (bookmark) {
-      const bookmarkUrl = bookmark.href.substring(
-        0,
-        bookmark.href.lastIndexOf('bookmark') + 'bookmark'.length + 9,
-      );
-      console.log(`Bookmark URL: ${bookmarkUrl}`);
-
-      bookmark.href = `${bookmarkUrl}/${this.node.ply}?fen=${this.node.fen}&uci=${this.node.uci}`;
-      console.log(`Bookmark URL new: ${bookmark.href}`);
-    }
   }
 
   userJump = (path: TreePath): void => {
