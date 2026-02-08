@@ -71,6 +71,7 @@
   <string name="ratingDiff">Diferență rating</string>
   <string name="gamesThisTournament">Jocuri în acest turneu</string>
   <string name="score">Scor</string>
+  <string name="standingsDisclaimer">Clasamentele sunt calculate folosind jocuri difuzate şi pot fi diferite de rezultatele oficiale.</string>
   <string name="allTeams">Toate echipele</string>
   <string name="tournamentFormat">Format turneu</string>
   <string name="tournamentLocation">Locație turneu</string>
@@ -85,6 +86,26 @@
   <string name="liveboard">Tablă live</string>
   <string name="communityBroadcast">Transmisie din comunitate</string>
   <string name="createdAndManagedBy">Creat și gestionat de %s.</string>
+  <string name="matchPoints">Puncte de meci</string>
+  <string name="gamePoints">Puncte de joc</string>
+  <string name="matches">Meciuri</string>
+  <string name="matchHistory">Istoric meciuri</string>
+  <string name="teamResults">Rezultate echipă</string>
+  <string name="termsAutomaticallyTranslated">Următorii termeni vor fi traduși automat: %s.</string>
   <string name="roundX">Runda %s</string>
   <string name="defaultRoundNameHelp">Păstrarea numelui implicit îl va traduce automat în toate celelalte limbi.</string>
+  <string name="openTournament">Open</string>
+  <string name="womenTournament">Femei</string>
+  <string name="menTournament">Bărbaţi</string>
+  <string name="girlsTournament">Fete</string>
+  <string name="boysTournament">Băieți</string>
+  <string name="openUnderXAgeTournament">Open U%s</string>
+  <string name="girlsUnderXAgeTournament">Fete U%s</string>
+  <string name="boysUnderXAgeTournament">Băieți U%s</string>
+  <string name="quarterfinals">Sferturi de finală</string>
+  <string name="semifinals">Semifinale</string>
+  <string name="finals">Finale</string>
+  <string name="tiebreaks">Departajări</string>
+  <string name="gameX">Joc %s</string>
+  <string name="knockouts">Eliminatorii</string>
 </resources>

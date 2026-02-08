@@ -115,7 +115,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       Modlog.selfCloseAccount,
       details = {
         forever.so("forever ") + openReports.map(r => s"${r.room.name} report").mkString(", ")
-      }.some.filter(_.nonEmpty)
+      }.nonEmptyOption
     )
 
   def closedByMod(user: User): Fu[Boolean] =

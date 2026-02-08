@@ -67,6 +67,7 @@
   <string name="ratingDiff">等级分差</string>
   <string name="gamesThisTournament">本锦标赛对局</string>
   <string name="score">得分</string>
+  <string name="standingsDisclaimer">数据统计基于赛事转播画面计算，可能与官方结果存在出入</string>
   <string name="allTeams">所有团队</string>
   <string name="tournamentFormat">锦标赛赛制</string>
   <string name="tournamentLocation">锦标赛地点</string>
@@ -81,17 +82,22 @@
   <string name="liveboard">实时棋盘</string>
   <string name="communityBroadcast">社区转播</string>
   <string name="createdAndManagedBy">由 %s 创建和管理。</string>
+  <string name="matchPoints">赛事分数</string>
+  <string name="gamePoints">对局分数</string>
+  <string name="matches">场次</string>
+  <string name="matchHistory">赛事历史</string>
+  <string name="teamResults">战队成绩</string>
   <string name="termsAutomaticallyTranslated">以下词语将被自动翻译：%s。</string>
   <string name="roundX">第 %s 轮</string>
   <string name="defaultRoundNameHelp">保留默认名称会将其自动翻译为其他语言。</string>
-  <string name="openTournament" comment="As in an open tournament.">公开组</string>
-  <string name="womenTournament" comment="As in a women's-only tournament.">女子组</string>
-  <string name="menTournament" comment="As in a men's-only tournament.">男子组</string>
-  <string name="girlsTournament" comment="As in a girls-only tournament.">女子组</string>
-  <string name="boysTournament" comment="As in a boys-only tournament.">男子组</string>
+  <string name="openTournament">公开组</string>
+  <string name="womenTournament">女子组</string>
+  <string name="menTournament">男子组</string>
+  <string name="girlsTournament">女子组</string>
+  <string name="boysTournament">男子组</string>
   <string name="openUnderXAgeTournament">公开U%s</string>
   <string name="girlsUnderXAgeTournament">女子U%s</string>
-  <string name="boysUnderXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament.&#10;&#10;e.g. &quot;Boys U18&quot; will mean it is an open tournament for under-18 year old boys.&#10;&#10;Please use your language's conventions in sporting activities for how the &quot;U&quot; should be translated and keep it short.">男子U%s</string>
+  <string name="boysUnderXAgeTournament">男子U%s</string>
   <string name="quarterfinals">四分之一决赛</string>
   <string name="semifinals">半决赛</string>
   <string name="finals">决赛</string>

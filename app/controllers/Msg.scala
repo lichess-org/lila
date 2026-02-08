@@ -10,24 +10,32 @@ final class Msg(env: Env) extends LilaController(env):
 
   private val newMobileApi = ApiVersion(5)
 
-  def home = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
-    negotiateApi(
-      html = Ok.async(inboxJson(none).map(views.msg.home)).map(_.hasPersonalData),
-      api = v =>
+  def home(before: Option[Long] = None) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
+    before match
+      case None =>
+        negotiateApi(
+          html = Ok.async(inboxJson(none).map(views.msg.home)).map(_.hasPersonalData),
+          api = v =>
+            JsonOk:
+              if v >= newMobileApi then inboxJson(none)
+              else env.msg.compat.inbox(getInt("page"))
+        )
+      case Some(before) =>
         JsonOk:
-          if v >= newMobileApi then inboxJson(none)
-          else env.msg.compat.inbox(getInt("page"))
-    )
+          for
+            threads <- env.msg.api.moreContacts(millisToInstant(before))
+            contacts <- env.msg.json.contacts(threads)
+          yield contacts
   }
 
   def convo(username: UserStr, before: Option[Long] = None) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     if username.is(UserStr("new"))
-    then Redirect(getUserStr("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
+    then Redirect(getUserStr("user").fold(routes.Msg.home())(routes.Msg.convo(_)))
     else
       env.msg.api
         .convoWithMe(username, before)
         .flatMap:
-          case None => negotiate(Redirect(routes.Msg.home), notFoundJson())
+          case None => negotiate(Redirect(routes.Msg.home()), notFoundJson())
           case Some(c) =>
             def newJson = inboxJson(c.contact.id.some).map { _ + ("convo" -> env.msg.json.convo(c)) }
             negotiateApi(
@@ -41,7 +49,7 @@ final class Msg(env: Env) extends LilaController(env):
 
   def search(q: String) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     JsonOk:
-      q.trim.some.filter(_.nonEmpty) match
+      q.trim.nonEmptyOption match
         case None => env.msg.json.searchResult(env.msg.search.empty)
         case Some(q) => env.msg.search(q).flatMap(env.msg.json.searchResult)
   }
@@ -95,7 +103,7 @@ final class Msg(env: Env) extends LilaController(env):
       threads <- env.msg.api.myThreads
       contactIds = withConvo.toList ::: threads.map(_.other)
       studentNames <- env.clas.api.clas.myPotentialStudentNames(contactIds)
-      contacts <- env.msg.json.threads(threads)
+      contacts <- env.msg.json.threadsJson(threads)
     yield Json.obj(
       "me" -> Json.toJsObject(me.light).add("bot" -> me.isBot),
       "contacts" -> contacts,

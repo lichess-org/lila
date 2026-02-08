@@ -204,17 +204,13 @@ final class RoundSocket(
 
   Bus.sub[lila.core.game.StartGame]:
     case lila.core.game.StartGame(game, _) if game.hasClock =>
-      game.userIds.some
-        .filter(_.nonEmpty)
-        .foreach: usersPlaying =>
-          sendForGameId(game.id).exec(Protocol.Out.startGame(usersPlaying))
+      game.userIds.nonEmptyOption.foreach: usersPlaying =>
+        sendForGameId(game.id).exec(Protocol.Out.startGame(usersPlaying))
 
   Bus.sub[lila.core.game.FinishGame]:
     case lila.core.game.FinishGame(game, _) if game.hasClock =>
-      game.userIds.some
-        .filter(_.nonEmpty)
-        .foreach: usersPlaying =>
-          sendForGameId(game.id).exec(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
+      game.userIds.nonEmptyOption.foreach: usersPlaying =>
+        sendForGameId(game.id).exec(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
 
   Bus.sub[lila.core.round.DeleteUnplayed]:
     case lila.core.round.DeleteUnplayed(gameId) => finishRound(gameId)

@@ -62,7 +62,7 @@ export interface RelayRound {
 }
 
 export type FideTC = 'standard' | 'rapid' | 'blitz';
-export type StatByFideTC = { [tc in FideTC]?: number };
+export type StatByFideTC = Array<[FideTC, number]>;
 
 export interface RelayTourInfo {
   format?: string;
@@ -113,7 +113,6 @@ export interface LogEvent {
 export interface POVTeamMatch {
   roundId: RoundId;
   opponent: RelayTeamName;
-  players: RelayPlayer[];
   points?: PointsStr;
   mp?: number;
   gp?: number;
