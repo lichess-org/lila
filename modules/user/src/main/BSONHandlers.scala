@@ -135,7 +135,7 @@ object BSONHandlers:
         username -> o.username,
         count -> o.count,
         enabled -> o.enabled,
-        roles -> o.roles.some.filter(_.nonEmpty),
+        roles -> o.roles.nonEmptyOption,
         profile -> o.profile,
         toints -> w.intO(o.toints),
         playTime -> o.playTime,

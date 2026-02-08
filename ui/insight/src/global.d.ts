@@ -19,8 +19,7 @@ interface MultipleSelect {
       | 'uncheckAll'
       | 'focus'
       | 'blur'
-      | 'refresh'
-      | 'close',
+      | 'refresh',
   ): void;
   (option: MultiSelectOpts): void;
 }

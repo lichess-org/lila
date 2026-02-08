@@ -71,18 +71,29 @@
       border-bottom: none;
     }
     eval {
-      font-size: 1.2em;
+      @media (min-width: at-least($xx-small)) {
+        font-size: 1.2em;
+      }
       pointer-events: none;
     }
     [data-mode] {
       position: relative;
       overflow-x: hidden;
-      min-width: 24vw;
-      max-width: 24vw;
+      min-width: calc(max(24vw, 80px));
       display: flex;
-      padding-inline-start: 10px;
       align-items: center;
       text-shadow: none;
+
+      .cmn-toggle {
+        margin-inline-start: 10px;
+        @media (max-width: at-most($xxx-small)) {
+          transform: scale(0.7);
+          margin-inline-start: 0;
+        }
+        label {
+          background-color: $c-font-dimmer !important;
+        }
+      }
     }
     [data-mode]::before,
     [data-mode]::after {
@@ -116,9 +127,6 @@
     }
     [data-mode] .bar {
       display: none;
-    }
-    [data-mode] .cmn-toggle {
-      width: 24px;
     }
     [data-mode]:not(.active) .bar {
       position: absolute;
@@ -163,19 +171,5 @@
   .analyse[data-active-mode='practice'] .analyse__fork,
   .analyse[data-active-mode='retro'] .analyse__fork {
     display: none;
-  }
-  .cmn-toggle label {
-    background-color: $c-font-dimmer !important;
-    width: 24px;
-    height: 33px;
-    &::before,
-    &::after {
-      top: 0;
-      margin-top: 9px;
-    }
-  }
-  #cmn-tg-analyse-toggle-ceval:checked + label::before,
-  #cmn-tg-analyse-toggle-ceval:checked + label::after {
-    margin: 0;
   }
 }

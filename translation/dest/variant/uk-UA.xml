@@ -3,7 +3,7 @@
   <string name="standard">Стандартні шахи</string>
   <string name="standardTitle">Стандартні правила шахів (FIDE)</string>
   <string name="chess960">Шахи-960</string>
-  <string name="chess960Title">Початкова позиція задніх фігур задається випадково.</string>
+  <string name="chess960Title">Початкова позиція фігур задається випадково.</string>
   <string name="kingOfTheHill">Король гори</string>
   <string name="kingOfTheHillTitle">Перемістіть свого короля до центру, щоб перемогти.</string>
   <string name="threeCheck">До трьох шахів</string>

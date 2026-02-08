@@ -627,7 +627,7 @@
   <string name="onlyExistingConversations">すでにある会話のみ</string>
   <string name="onlyFriends">友達のみ</string>
   <string name="menu">メニュー</string>
-  <string name="castling">キャスリング</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">キャスリング</string>
   <string name="whiteCastlingKingside">白　O-O</string>
   <string name="blackCastlingKingside">黒　O-O</string>
   <plurals name="nbForumPosts">
@@ -985,5 +985,5 @@
   <string name="search">検索</string>
   <string name="clearSearch">検索をクリア</string>
   <string name="tags">タグ</string>
-  <string name="enPassant">アンパッサン</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.&#10;&#10;NOTE: this string used to read &quot;En passant&quot;, with &quot;rights&quot; added in 2026 for clarity.">アンパッサン</string>
 </resources>

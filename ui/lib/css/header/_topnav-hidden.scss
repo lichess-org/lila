@@ -1,3 +1,8 @@
+@mixin topnav-button-highlight {
+  background: $c-primary;
+  color: $c-over;
+}
+
 @include mq-topnav-hidden {
   .topnav-toggle {
     display: block;
@@ -166,10 +171,14 @@
         }
       }
 
-      a:hover,
       a:active {
-        background: $c-primary;
-        color: $c-over;
+        @include topnav-button-highlight;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        a:hover {
+          @include topnav-button-highlight;
+        }
       }
     }
 

@@ -79,13 +79,17 @@
   <string name="sinceHideResults">Meqë zgjodhët të fshihen përfundimet, krejt tabelat e paraparjeve janë të zbrazëta, për të shmangur tregime.</string>
   <string name="communityBroadcast">Transmetim nga bashkësia</string>
   <string name="createdAndManagedBy">Krijuar dhe administruar nga %s.</string>
+  <string name="termsAutomaticallyTranslated">Termi(at) vijues do të përkthehen automatikisht: %s.</string>
   <string name="roundX">Raundi %s</string>
   <string name="defaultRoundNameHelp">Mbajtja e emrit parazgjedhje do ta përkthejë automatikisht në krejt gjuhët e tjera.</string>
   <string name="openTournament">I hapur</string>
   <string name="womenTournament">Femra</string>
+  <string name="menTournament">Meshkuj</string>
   <string name="girlsTournament">Vajza</string>
+  <string name="boysTournament">Djem</string>
   <string name="openUnderXAgeTournament">I hapur për U%s</string>
   <string name="girlsUnderXAgeTournament">Vajzat U%s</string>
+  <string name="boysUnderXAgeTournament">Djem U%s</string>
   <string name="quarterfinals">Çerekfinale</string>
   <string name="semifinals">Gjysmëfinale</string>
   <string name="finals">Fiale</string>

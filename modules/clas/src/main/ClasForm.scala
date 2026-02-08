@@ -115,13 +115,20 @@ object ClasForm:
         canMsg = some(canMsg),
         hasTeam = some(hasTeam)
       )
+    def make(teacher: User) =
+      Clas
+        .make(teacher, name, desc)
+        .copy(
+          canMsg = some(canMsg),
+          hasTeam = some(hasTeam)
+        )
 
     def teacherIds = readTeacherIds(teachers)
 
   val login = Form(single("code" -> nonEmptyText))
 
-  private def readTeacherIds(str: String) =
-    UserStr.from(str.linesIterator.map(_.trim).filter(_.nonEmpty)).map(_.id).distinct.toList
+  private def readTeacherIds(str: String): List[UserId] =
+    str.linesIterator.flatMap(UserStr.read).map(_.id).distinct.toList
 
   case class InviteStudent(username: UserStr, realName: RealName)
   case class CreateStudent(username: UserName, realName: RealName)

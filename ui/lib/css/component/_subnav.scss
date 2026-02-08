@@ -60,7 +60,9 @@
 
     /* active border must go over the page content */
     a {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 1ch;
       overflow: hidden;
       color: $c-font-page;
       padding: 0.7rem 2vw 0.7rem 0.8rem;

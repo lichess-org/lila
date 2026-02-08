@@ -6,7 +6,7 @@
   <string name="chess960Title">1 段目の駒の配置がランダムになります。</string>
   <string name="kingOfTheHill">キング・オブ・ザ・ヒル</string>
   <string name="kingOfTheHillTitle">キングを中央のマスに進めると勝ち。</string>
-  <string name="threeCheck">スリ―チェック</string>
+  <string name="threeCheck">スリーチェック</string>
   <string name="threeCheckTitle">先に 3 回チェックした方が勝ち。</string>
   <string name="antichess">アンチチェス</string>
   <string name="antichessTitle">すべての駒を取られる（またはステイルメイトされる）と勝ち。</string>

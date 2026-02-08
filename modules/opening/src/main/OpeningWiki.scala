@@ -94,19 +94,9 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
     OpeningDb.shortestLines.get(key).so { op =>
       explorer
         .simplePopularity(op)
-        .flatMap:
-          _.so { popularity =>
-            coll.update
-              .one(
-                $id(key),
-                $set(
-                  "popularity" -> popularity,
-                  "popularityAt" -> nowInstant
-                ),
-                upsert = true
-              )
-              .inject(popularity)
-          }
+        .flatMapz: popularity =>
+          val update = $set("popularity" -> popularity, "popularityAt" -> nowInstant)
+          coll.update.one($id(key), update, upsert = true).inject(popularity)
     }
 
 object OpeningWiki:

@@ -150,7 +150,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         JsonOk:
           env.tournament.standingApi(tour, page, withScores = getBoolOpt("scores") | true)
 
-  def player(tourId: TourId, userId: UserStr) = Anon:
+  def player(tourId: TourId, userId: UserStr) = Open:
     WithVisibleTournament(tourId): tour =>
       Found(api.playerInfo(tour, userId.id)): player =>
         JsonOk:
@@ -337,7 +337,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         err => BadRequest.page(views.tournament.teamBattle.edit(tour, err)),
         res =>
           api
-            .teamBattleUpdate(tour, res, env.team.api.filterExistingIds)
+            .teamBattleUpdate(tour, res, env.team.api.filterExistingIdsNoClas)
             .inject(Redirect(routes.Tournament.show(tour.id)))
       )
   }
@@ -348,7 +348,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         bindForm(lila.tournament.TeamBattle.DataForm.empty)(
           jsonFormError,
           res =>
-            api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) >> {
+            api.teamBattleUpdate(tour, res, env.team.api.filterExistingIdsNoClas) >> {
               cachedTour(tour.id)
                 .map(_ | tour)
                 .flatMap { tour =>

@@ -415,8 +415,8 @@ final class TeamApi(
   def withLeaders(team: Team): Fu[Team.WithLeaders] =
     memberRepo.leaders(team.id).map(Team.WithLeaders(team, _))
 
-  def filterExistingIds(ids: Set[TeamId]): Fu[Set[TeamId]] =
-    teamRepo.coll.distinctEasy[TeamId, Set]("_id", $inIds(ids), _.sec)
+  def filterExistingIdsNoClas(ids: Set[TeamId]): Fu[Set[TeamId]] =
+    teamRepo.coll.distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ teamRepo.noClasSelect, _.sec)
 
   def autocomplete(term: String, max: Int): Fu[List[Team]] =
     teamRepo.coll

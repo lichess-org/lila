@@ -664,7 +664,7 @@
   <string name="onlyExistingConversations">Vain jo aloitettuihin keskusteluihin</string>
   <string name="onlyFriends">Vain kaverit</string>
   <string name="menu">Valikko</string>
-  <string name="castling">Linnoitus</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Linnoitus</string>
   <string name="whiteCastlingKingside">Valkea O-O</string>
   <string name="blackCastlingKingside">Musta O-O</string>
   <plurals name="nbForumPosts">
@@ -732,6 +732,7 @@
   <string name="cyclePreviousOrNextVariation">Siirry edelliseen/seuraavaan muunnelmaan</string>
   <string name="toggleGlyphAnnotations">Siirtokommentit päälle/pois</string>
   <string name="togglePositionAnnotations">Aseman kommentit päälle/pois</string>
+  <string name="toggleObservationAnnotations">Symbolimuotoiset kommentit päälle/pois</string>
   <string name="variationArrowsInfo">Muunnelmanuolia napsauttamalla voit edetä muunnelmissa siirtolistaa käyttämättä.</string>
   <string name="playSelectedMove">tee valittu siirto</string>
   <string name="newTournament">Uusi turnaus</string>
@@ -1027,5 +1028,5 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="search">Hae</string>
   <string name="clearSearch">Tyhjennä haku</string>
   <string name="tags">Tunnisteet</string>
-  <string name="enPassant">Ohestalyönti</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.&#10;&#10;NOTE: this string used to read &quot;En passant&quot;, with &quot;rights&quot; added in 2026 for clarity.">Ohestalyönti</string>
 </resources>

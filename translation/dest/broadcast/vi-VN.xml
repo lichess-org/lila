@@ -81,6 +81,21 @@
   <string name="liveboard">Bàn cờ trực tiếp</string>
   <string name="communityBroadcast">Phát sóng cộng đồng</string>
   <string name="createdAndManagedBy">Được tạo và quản lý bởi %s.</string>
+  <string name="termsAutomaticallyTranslated">Các từ sau sẽ được tự động dịch: %s.</string>
   <string name="roundX">Vòng %s</string>
   <string name="defaultRoundNameHelp">Giữ nguyên tên mặc định sẽ tự động dịch sang mọi ngôn ngữ khác.</string>
+  <string name="openTournament">Mở</string>
+  <string name="womenTournament">Nữ</string>
+  <string name="menTournament">Nam</string>
+  <string name="girlsTournament">Nữ trẻ</string>
+  <string name="boysTournament">Nam trẻ</string>
+  <string name="openUnderXAgeTournament">Mở U%s</string>
+  <string name="girlsUnderXAgeTournament">Nữ U%s</string>
+  <string name="boysUnderXAgeTournament">Nam U%s</string>
+  <string name="quarterfinals">Tứ kết</string>
+  <string name="semifinals">Bán kết</string>
+  <string name="finals">Chung kết</string>
+  <string name="tiebreaks">Tiebreak</string>
+  <string name="gameX">Trận thứ %s</string>
+  <string name="knockouts">Loại trực tiếp</string>
 </resources>

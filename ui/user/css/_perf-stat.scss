@@ -3,6 +3,7 @@
 
   .box__top__title {
     @extend %flex-center-nowrap;
+    gap: 0.4em;
   }
 
   h1 span {
@@ -16,6 +17,13 @@
 
     &.top1 {
       filter: drop-shadow(0 0 6px $c-brag);
+    }
+
+    &.top50 img {
+      transform: translateY(-12px);
+    }
+    &.top100 img {
+      transform: translateY(-15px);
     }
 
     img {

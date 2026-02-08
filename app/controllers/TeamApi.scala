@@ -71,7 +71,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
             leads <- teams.mapFutureList(env.team.memberRepo.addPublicLeaderIds)
           yield leads
 
-  def teamsOf(username: UserStr) = AnonOrScoped(): ctx ?=>
+  def teamsOf(username: UserStr) = Scoped(): ctx ?=>
     Found(meOrFetch(username)): user =>
       import env.team.jsonView.given
       JsonOk:

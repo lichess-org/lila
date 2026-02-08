@@ -78,7 +78,7 @@ object ChatUi:
             "resourceType" -> resource.typeName,
             "resourceId" -> resource.resourceId
           )
-          .add("hostIds" -> hostIds.some.filter(_.nonEmpty))
+          .add("hostIds" -> hostIds.nonEmptyOption)
           .add("userId" -> ctx.userId)
           .add("loginRequired" -> chat.loginRequired)
           .add("restricted" -> restricted)

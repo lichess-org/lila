@@ -26,7 +26,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
             form3.globalError(form),
             form3.group(form("name"), trans.site.name())(form3.input(_)),
             entryFields(form, none),
-            textFields(form),
+            textFields(form, none),
             accessFields(form, none),
             renderCaptcha(form, captcha),
             form3.actions(
@@ -48,7 +48,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
             postForm(cls := "form3", action := routes.Team.update(t.id))(
               flairField(form, t.some),
               entryFields(form, t.some),
-              textFields(form),
+              textFields(form, t.some),
               accessFields(form, t.some),
               form3.actions(
                 a(href := routes.Team.show(t.id))(trans.site.cancel()),
@@ -97,19 +97,25 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
     Option.unless(team.exists(_.isClas)):
       form3.flairPickerGroup(form("flair"), Flair.from(form("flair").value))
 
-  private def textFields(form: Form[?])(using Context, Me) = frag(
-    form3.group(
-      form("intro"),
-      trans.team.introduction(),
-      help = frag(trans.team.teamIntroductionHelp()).some
-    )(
-      form3.textarea(_)(rows := 2)
-    )(cls := form("intro").value.isEmpty.option("accent")),
-    form3.group(
-      form("description"),
-      trans.site.description(),
-      help = frag(trans.team.teamDescriptionHelp(), br, markdownIsAvailable).some
-    )(f => teamDescTextarea(f)(minlength := 30)),
+  private def textFields(form: Form[?], team: Option[Team])(using Context, Me) = frag(
+    if team.exists(_.isClas)
+    then frag(form3.hidden(form("intro")), form3.hidden(form("description")))
+    else
+      frag(
+        form3.group(
+          form("intro"),
+          trans.team.introduction(),
+          help = frag(trans.team.teamIntroductionHelp()).some
+        )(
+          form3.textarea(_)(rows := 2)
+        )(cls := form("intro").value.isEmpty.option("accent")),
+        form3.group(
+          form("description"),
+          trans.site.description(),
+          help = frag(trans.team.teamDescriptionHelp(), br, markdownIsAvailable).some
+        )(f => teamDescTextarea(f)(minlength := 30))
+      )
+    ,
     form3.group(
       form("descPrivate"),
       trans.site.descPrivate(),

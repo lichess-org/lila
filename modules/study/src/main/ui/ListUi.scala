@@ -166,7 +166,6 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
         ),
       a(cls := active.active("staffPicks"), href := routes.Study.staffPicks)("Staff picks"),
       a(
-        cls := "text",
         dataIcon := Icon.InfoCircle,
         href := "/@/lichess/blog/study-chess-the-lichess-way/V0KrLSkA"
       )(trs.whatAreStudies())

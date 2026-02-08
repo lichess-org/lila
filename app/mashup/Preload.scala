@@ -90,8 +90,7 @@ final class Preload(
         lightUserApi
           .preloadMany(entries.flatMap(_.userIds).toList)
           .mon(_.lobby.segment("lightUsers"))
-    classes <- ctx.myId.so: me =>
-      clasApi.isStudent(me).so(clasApi.clas.ofStudent(me, 4))
+    classes <- ctx.kid.yes.so(ctx.myId).so(me => clasApi.isStudent(me).so(clasApi.clas.ofStudent(me, 4)))
   yield Homepage(
     data,
     entries,

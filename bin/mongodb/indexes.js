@@ -122,7 +122,10 @@ db.user4.createIndex(
 db.f_topic.createIndex({ categId: 1, troll: 1 });
 db.f_topic.createIndex({ categId: 1, updatedAt: -1, troll: 1 });
 db.f_topic.createIndex({ categId: 1, slug: 1 });
-db.f_topic.createIndex({ categId: 1 }, { partialFilterExpression: { sticky: true } });
+db.f_topic.createIndex(
+  { categId: 1, troll: 1, sticky: 1 },
+  { partialFilterExpression: { sticky: { $exists: 1 } } },
+);
 db.seek_archive.createIndex({ archivedAt: 1 }, { expireAfterSeconds: 604800 });
 db.seek_archive.createIndex({ gameId: 1 });
 db.swiss_player.createIndex({ s: 1, c: -1 });

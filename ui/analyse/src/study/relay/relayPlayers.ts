@@ -1,4 +1,4 @@
-import { type VNode, dataIcon, hl, onInsert, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
+import { type VNode, dataIcon, hl, onInsert, spinnerVdom as spinner, type LooseVNodes } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
 import type {
@@ -29,6 +29,7 @@ import { isTouchDevice } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
 import { teamLinkData } from './relayTeamLeaderboard';
 import perfIcons from 'lib/game/perfIcons';
+import type { Tablesort } from 'tablesort';
 
 export type RelayPlayerId = FideId | string;
 
@@ -67,7 +68,7 @@ interface RelayPlayerWithGames extends RelayPlayer {
 }
 
 interface FidePlayer {
-  ratings: StatByFideTC;
+  ratings: Record<FideTC, number>;
   year?: number;
   follow?: boolean;
 }
@@ -83,6 +84,7 @@ export default class RelayPlayers {
   loading = false;
   players?: RelayPlayer[];
   show?: PlayerToShow;
+  private table?: Tablesort;
 
   constructor(
     readonly tour: RelayTour,
@@ -125,6 +127,7 @@ export default class RelayPlayers {
       `/broadcast/${this.tour.id}/players`,
     );
     this.players = players.map(p => convertPlayerFromServer(p, this.federations()));
+    this.table?.refresh();
     this.redraw();
   };
 
@@ -237,7 +240,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
             p.performances &&
               hl('div.fide-player__card', [
                 hl('em', i18n.site.performance),
-                Object.entries(p.performances).map(([tc, value]: [FideTC, number]) =>
+                p.performances.map(([tc, value]: [FideTC, number]) =>
                   hl(
                     'div',
                     fideTCAttrs(tc),
@@ -273,7 +276,7 @@ export const renderPlayers = (
   ctrl: RelayPlayers,
   players: RelayPlayer[],
   forceEloSort = false,
-): MaybeVNodes => {
+): LooseVNodes => {
   const withRating = players.some(p => defined(p.rating));
   const withScores = players.some(p => defined(p.score));
   const withRank = players.some(p => defined(p.rank));
@@ -283,13 +286,12 @@ export const renderPlayers = (
     attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
   });
   return [
-    withRank
-      ? hl(
-          'p.relay-tour__standings--disclaimer.text',
-          { attrs: dataIcon(licon.InfoCircle) },
-          'Standings are calculated using broadcasted games and may differ from official results.',
-        )
-      : undefined,
+    withRank &&
+      hl(
+        'p.relay-tour__standings--disclaimer.text',
+        { attrs: dataIcon(licon.InfoCircle) },
+        i18n.broadcast.standingsDisclaimer,
+      ),
     hl(
       'table.relay-tour__players__table.fide-players-table.slist.slist-invert.slist-pad',
       {
@@ -474,7 +476,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           'td',
           defined(game.ratingDiff) &&
             hideResultsSinceIndex > i &&
-            ratingDiff(game, p.ratingsMap && Object.keys(p.ratingsMap).length > 1),
+            ratingDiff(game, p.ratingsMap && p.ratingsMap.length > 1),
         ),
       ]);
     }),
@@ -525,9 +527,9 @@ const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): V
 const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = false) => {
   if (isRelayPlayerGame(p)) return hl('div', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff));
   if (!p.ratingDiffs) return p.rating;
-  const rds = Object.entries(p.ratingDiffs);
+  const rds = p.ratingDiffs;
   return rds.map(([tc, diff]: [FideTC, number]) => {
-    const node = [p.ratingsMap?.[tc], diffNode(diff)];
+    const node = [p.ratingsMap?.find(r => r[0] === tc)?.[1], diffNode(diff)];
     return rds.length === 1 ? node : hl('div', fideTCAttrs(tc), node);
   });
 };
@@ -551,13 +553,9 @@ const fideTCAttrs = (tc: FideTC): VNodeData => ({
   },
 });
 
-export const tableAugment = (el: HTMLTableElement) => {
+export const tableAugment = (el: HTMLTableElement): Tablesort => {
   extendTablesortNumber();
-  $(el).each(function (this: HTMLElement) {
-    sortTable(this, {
-      descending: true,
-    });
-  });
+  return sortTable(el, { descending: true });
 };
 
 const matchOrResultsTeamLink = (ctrl: RelayPlayers, teamName: RelayTeamName): VNodeData =>

@@ -15,7 +15,7 @@
     }
   },
   "dependencies": {
-    "@lichess-org/chessground": "^10.0.1",
+    "@lichess-org/chessground": "^10.0.2",
     "@lichess-org/pgn-viewer": "^2.5.6",
     "@types/lichess": "workspace:*",
     "@types/node": "^24.10.0",
@@ -23,9 +23,9 @@
     "chessops": "^0.15",
     "jsdom": "^27.1.0",
     "lint-staged": "^16.2.6",
-    "oxfmt": "^0.26.0",
-    "oxlint": "^1.41.0",
-    "oxlint-tsgolint": "^0.11.1",
+    "oxfmt": "^0.28.0",
+    "oxlint": "^1.43.0",
+    "oxlint-tsgolint": "^0.11.4",
     "snabbdom": "3.5.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
@@ -35,11 +35,11 @@
     "typescript above just to allow manual tsc. ui/.build/package.json's typescript version is the truth"
   ],
   "scripts": {
-    "format": "oxfmt --config=ui/.oxfmtrc.json ui",
-    "check-format": "oxfmt --config=ui/.oxfmtrc.json --check ui",
+    "format": "oxfmt",
+    "check-format": "oxfmt --check",
     "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true",
-    "lint": "oxlint --config=ui/.oxlintrc.json --tsconfig=ui/tsconfig.base.json --type-aware ui",
+    "lint": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",

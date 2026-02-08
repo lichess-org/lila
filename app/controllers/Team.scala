@@ -486,7 +486,8 @@ final class Team(env: Env) extends LilaController(env):
         .teamClas(team)
         .flatMap:
           case None => f(team)
-          case Some(clas) if ctx.useMe(clas.isTeacher) => f(team)
+          case Some(_) if isGrantedOpt(_.ManageTeam) => f(team)
+          case Some(clas) if ctx.useMe(clas.isTeacher) && team.enabled => f(team)
           case Some(clas) => Redirect(routes.Clas.show(clas.id)).toFuccess
 
   private def WithEnabledTeamOrClas(

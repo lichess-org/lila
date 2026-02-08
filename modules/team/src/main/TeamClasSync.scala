@@ -57,14 +57,15 @@ private final class TeamClasSync(
   private def create(clasId: ClasId, cfg: ClasTeamConfig)(using me: Me): Funit =
     val id = clasId.into(TeamId)
     val intro = s"Team of class ${cfg.name}"
+    val desc = Markdown(s"""Team of class [${cfg.name}](${routes.Clas.show(clasId)})""")
     val team = Team
       .make(
         id = id,
         name = cfg.name,
         password = None,
         intro = intro.some,
-        description = Markdown(""),
-        descPrivate = Markdown(s"""Team of class [${cfg.name}](${routes.Clas.show(clasId)})""").some,
+        description = desc,
+        descPrivate = desc.some,
         open = false,
         createdBy = me.userId
       )
@@ -78,6 +79,7 @@ private final class TeamClasSync(
     for
       _ <- api.createQuietly(team)
       _ <- syncMembers(team, cfg)
+      _ <- syncPermissions(team, cfg)
     yield ()
 
   // it's a bit too easy to unselect the class team from the class settings

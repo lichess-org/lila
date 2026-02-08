@@ -80,12 +80,4 @@ export function addDomHandlers() {
         (e.target as HTMLElement)?.click();
     },
   );
-
-  $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
-    const t = $(this).toggleClass('bookmarked');
-    xhrText(this.href, { method: 'post' });
-    const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
-    t.find('span').html('' + (count > 0 ? count : ''));
-    return false;
-  });
 }

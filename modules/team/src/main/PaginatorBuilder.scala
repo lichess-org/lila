@@ -33,13 +33,14 @@ final private[team] class PaginatorBuilder(
       maxPerPage
     )
 
-  private def popularTeamsAdapter: Adapter[Team] =
+  private def popularTeamsAdapter: AdapterLike[Team] =
     Adapter[Team](
       collection = teamRepo.coll,
-      selector = teamRepo.enabledSelect,
+      selector = teamRepo.enabledSelect ++ teamRepo.noClasSelect,
       projection = none,
-      sort = teamRepo.sortPopular
-    )
+      sort = teamRepo.sortPopular,
+      readPref = _.sec
+    ).withNbResults(fuccess(500_000))
 
   def teamMembers(team: Team, page: Int): Fu[Paginator[LightUser]] =
     Paginator(

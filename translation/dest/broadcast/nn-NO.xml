@@ -83,13 +83,17 @@
   <string name="liveboard">Brett i sanntid</string>
   <string name="communityBroadcast">Fellesskapskringkasting</string>
   <string name="createdAndManagedBy">Oppretta og administrert av %s.</string>
+  <string name="termsAutomaticallyTranslated">Dei følgande vilkår(a) vert automatisk omsett: %s.</string>
   <string name="roundX">Runde %s</string>
   <string name="defaultRoundNameHelp">Om du ikkje endrar standardnamnet vil det automatisk bli oversett alle andre språk.</string>
   <string name="openTournament">Opne</string>
   <string name="womenTournament">Kvinner</string>
+  <string name="menTournament">Menn</string>
   <string name="girlsTournament">Jenter</string>
+  <string name="boysTournament">Gutar</string>
   <string name="openUnderXAgeTournament">Opne U%s</string>
   <string name="girlsUnderXAgeTournament">Jenter U%s</string>
+  <string name="boysUnderXAgeTournament">Gutar U%s</string>
   <string name="quarterfinals">Kvartfinalar</string>
   <string name="semifinals">Semifinalar</string>
   <string name="finals">Finalar</string>

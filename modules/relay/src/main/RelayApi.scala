@@ -506,7 +506,7 @@ final class RelayApi(
     yield t.copy(image = none)
 
   private[relay] def autoStart(only: Option[RelayRoundId] = none): Funit =
-    roundRepo.coll
+    roundRepo.coll.secondary
       .list[RelayRound](
         $doc(
           "startsAt"

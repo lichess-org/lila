@@ -50,6 +50,8 @@ final class GameUi(helpers: Helpers):
         else Fen.writeBoardAndColor(pov.game.position)
       dataState := s"${fen},${pov.color.name},${~pov.game.lastMoveKeys}"
 
+    private def showTimeControl(c: chess.Clock.Config) = s"${c.limitSeconds}+${c.incrementSeconds}"
+
     private def renderMini(
         pov: Pov,
         link: Option[String],
@@ -57,12 +59,11 @@ final class GameUi(helpers: Helpers):
     )(using Translate, Option[Me]): Tag =
       import pov.game
       val tag = if link.isDefined then a else span
-      def showTimeControl(c: chess.Clock.Config) = s"${c.limitSeconds}+${c.increment}"
       tag(
         href := link,
         cls := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
         dataLive := game.isBeingPlayed.option(game.id),
-        dataTimeControl := game.clock.map(_.config).fold("correspondence")(showTimeControl(_)),
+        dataTimeControl := game.clock.map(_.config).fold("correspondence")(showTimeControl),
         renderState(pov)
       )(
         renderPlayer(!pov, withRating = showRatings),

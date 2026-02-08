@@ -83,13 +83,17 @@
   <string name="liveboard">Tauler en directe</string>
   <string name="communityBroadcast">Retransmissió comunitària</string>
   <string name="createdAndManagedBy">Creada i gestionada per %s.</string>
+  <string name="termsAutomaticallyTranslated">Els termes següents es traduiran automàticament: %s.</string>
   <string name="roundX">Ronda %s</string>
   <string name="defaultRoundNameHelp">Deixant el nom per defecte el traduirà automàticament a tots els altres llenguatges.</string>
   <string name="openTournament">Obert</string>
   <string name="womenTournament">Dones</string>
+  <string name="menTournament">Home</string>
   <string name="girlsTournament">Noies</string>
+  <string name="boysTournament">Nois</string>
   <string name="openUnderXAgeTournament">Obert Sub%s</string>
   <string name="girlsUnderXAgeTournament">Noies Sub%s</string>
+  <string name="boysUnderXAgeTournament">Nois Sub%s</string>
   <string name="quarterfinals">Quarts de final</string>
   <string name="semifinals">Semifinals</string>
   <string name="finals">Finals</string>
