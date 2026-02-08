@@ -185,14 +185,16 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
                 ]),
                 p.fide &&
                   hl('label.fide-player__follow', [
-                    hl(`input#fide-follow-${p.fideId}.cmn-favourite`, {
-                      attrs: {
-                        type: 'checkbox',
-                        'data-action': `/fide/${p.fideId}/follow?follow=true`,
-                        checked: !!p.fide?.follow,
-                      },
-                    }),
-                    hl('label', { attrs: { for: `fide-follow-${p.fideId}` } }),
+                    hl('span.cmn-favourite', [
+                      hl(`input#fide-follow-${p.fideId}`, {
+                        attrs: {
+                          type: 'checkbox',
+                          'data-action': `/fide/${p.fideId}/follow?follow=true`,
+                          checked: !!p.fide?.follow,
+                        },
+                      }),
+                      hl('label', { attrs: { for: `fide-follow-${p.fideId}` } }),
+                    ]),
                     i18n.site.follow,
                   ]),
                 hl('table.fide-player__header__table', [
