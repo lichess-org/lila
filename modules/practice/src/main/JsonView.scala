@@ -3,17 +3,18 @@ package lila.practice
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
+import lila.core.i18n.Translate
 
 object JsonView:
 
   case class JsData(study: JsObject, analysis: JsObject, practice: JsObject)
 
   given Writes[PracticeProgress.NbMoves] = writeAs(_.value)
-  given Writes[PracticeStudy] = OWrites: ps =>
+  given (using Translate): Writes[PracticeStudy] = OWrites: ps =>
     Json.obj(
       "id" -> ps.id,
-      "name" -> ps.name,
-      "desc" -> ps.desc
+      "name" -> ps.name.txt(),
+      "desc" -> ps.desc.txt()
     )
   import PracticeGoal.*
   given Writes[PracticeGoal] = OWrites:
@@ -24,19 +25,19 @@ object JsonView:
     case EvalIn(cp, moves) => Json.obj("result" -> "evalIn", "cp" -> cp, "moves" -> moves)
     case Promotion(cp) => Json.obj("result" -> "promotion", "cp" -> cp)
 
-  private given Writes[PracticeSection] = OWrites: sec =>
+  private given (using Translate): Writes[PracticeSection] = OWrites: sec =>
     Json.obj(
       "id" -> sec.id,
-      "name" -> sec.name,
+      "name" -> sec.name.txt(),
       "studies" -> sec.studies.map: stu =>
         Json.obj(
           "id" -> stu.id,
           "slug" -> stu.slug,
-          "name" -> stu.name
+          "name" -> stu.name.txt()
         )
     )
 
-  def apply(us: UserStudy) =
+  def apply(us: UserStudy)(using Translate) =
     Json.obj(
       "study" -> us.practiceStudy,
       "url" -> us.url,
@@ -47,7 +48,7 @@ object JsonView:
       "structure" -> us.practice.structure.sections
     )
 
-  def api(us: UserPractice) = Json.obj(
+  def api(us: UserPractice)(using Translate) = Json.obj(
     "sections" -> us.structure.sections,
     "progress" -> us.progress.chapters
   )

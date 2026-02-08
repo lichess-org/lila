@@ -81,7 +81,7 @@ final class MobileApi(
       Json.toJsObject(user) ++
         lila.streamer.Stream.toLichessJson(picfitUrl, stream)
 
-  def profile(user: User)(using me: Option[Me])(using Lang): Fu[JsObject] =
+  def profile(user: User)(using me: Option[Me])(using Translate): Fu[JsObject] =
     for
       prof <- userApi.mobile(user)
       activities <- activityRead.recentAndPreload(user)

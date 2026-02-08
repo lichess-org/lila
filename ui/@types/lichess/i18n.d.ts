@@ -2262,6 +2262,148 @@ interface I18n {
     /** Winning streak */
     winningStreak: string;
   };
+  practice: {
+    /** makes your chess perfect */
+    makesPerfect: string;
+    /** Progress: %s */
+    progressX: I18nFormat;
+    /** Reset my progress */
+    resetMyProgress: string;
+    /** Advanced tactics */
+    secHeadAdvancedTactics: string;
+    /** Checkmates */
+    secHeadCheckmates: string;
+    /** Fundamental tactics */
+    secHeadFundamentalTactics: string;
+    /** Pawn Endgames */
+    secHeadPawnEndgames: string;
+    /** Rook Endgames */
+    secHeadRookEndgames: string;
+    /** Sign up to save your progress */
+    signUpToSaveYourProgress: string;
+    /** And Passive Rook vs Rook */
+    stDesAndPassiveRookVsRook: string;
+    /** A piece is lost, but it can still help */
+    stDesAPieceIsLostButItCanStillHelp: string;
+    /** Attacking through an enemy piece */
+    stDesAttackingThroughAnEnemyPiece: string;
+    /** A very powerful tactic */
+    stDesAVeryPowerfulTactic: string;
+    /** Basic checkmates */
+    stDesBasicCheckmates: string;
+    /** Being forced to move */
+    stDesBeingForcedToMove: string;
+    /** Broaden your knowledge */
+    stDesBroadenYourKnowledge: string;
+    /** Challenging checkmates */
+    stDesChallengingCheckmates: string;
+    /** Distracting a defender */
+    stDesDistractingADefender: string;
+    /** Get out of the way! */
+    stDesGetOutOfTheWay: string;
+    /** In-between moves */
+    stDesInBetweenMoves: string;
+    /** Including discovered checks */
+    stDesIncludingDiscoveredChecks: string;
+    /** Interactive lesson */
+    stDesInteractiveLesson: string;
+    /** Interpose a piece to great effect */
+    stDesInterposeAPieceToGreatEffect: string;
+    /** Lucena and Philidor */
+    stDesLucenaAndPhilidor: string;
+    /** Lure a piece to a bad square */
+    stDesLureAPieceToABadSquare: string;
+    /** Pin it to win it */
+    stDesPinItToWinIt: string;
+    /** Promote - but not to a queen! */
+    stDesPromoteButNotToAQueen: string;
+    /** Reach a key square */
+    stDesReachAKeySquare: string;
+    /** Recognize the patterns */
+    stDesRecognizeThePatterns: string;
+    /** Remove the defending piece */
+    stDesRemoveTheDefendingPiece: string;
+    /** Respond to a check with a check */
+    stDesRespondToACheckWithACheck: string;
+    /** Rook endings with several pawns */
+    stDesRookEndingsWithSeveralPawns: string;
+    /** Study the greek gift sacrifice */
+    stDesStudyTheGreekGiftSacrifice: string;
+    /** Take the opposition */
+    stDesTakeTheOpposition: string;
+    /** They have too much work */
+    stDesTheyHaveTooMuchWork: string;
+    /** Use the fork, Luke */
+    stDesUseTheForkLuke: string;
+    /** Versus a Queen */
+    stDesVersusAQueen: string;
+    /** Yum - skewers! */
+    stDesYumSkewers: string;
+    /** 7th-Rank Rook Pawn */
+    stNam7thRankRookPawn: string;
+    /** Attraction */
+    stNamAttraction: string;
+    /** Basic Rook Endgames */
+    stNamBasicRookEndgames: string;
+    /** Checkmate Patterns I */
+    stNamCheckmatePatternsI: string;
+    /** Checkmate Patterns II */
+    stNamCheckmatePatternsII: string;
+    /** Checkmate Patterns III */
+    stNamCheckmatePatternsIII: string;
+    /** Checkmate Patterns IV */
+    stNamCheckmatePatternsIV: string;
+    /** Clearance */
+    stNamClearance: string;
+    /** Counter Check */
+    stNamCounterCheck: string;
+    /** Deflection */
+    stNamDeflection: string;
+    /** Desperado */
+    stNamDesperado: string;
+    /** Discovered Attacks */
+    stNamDiscoveredAttacks: string;
+    /** Double Check */
+    stNamDoubleCheck: string;
+    /** Greek Gift */
+    stNamGreekGift: string;
+    /** Interference */
+    stNamInterference: string;
+    /** Intermediate Rook Endings */
+    stNamIntermediateRookEndings: string;
+    /** Key Squares */
+    stNamKeySquares: string;
+    /** Knight & Bishop Mate */
+    stNamKnightAndBishopMate: string;
+    /** Opposition */
+    stNamOpposition: string;
+    /** Overloaded Pieces */
+    stNamOverloadedPieces: string;
+    /** Piece Checkmates I */
+    stNamPieceCheckmatesI: string;
+    /** Piece Checkmates II */
+    stNamPieceCheckmatesII: string;
+    /** Practical Rook Endings */
+    stNamPracticalRookEndings: string;
+    /** The Fork */
+    stNamTheFork: string;
+    /** The Pin */
+    stNamThePin: string;
+    /** The Skewer */
+    stNamTheSkewer: string;
+    /** Undermining */
+    stNamUndermining: string;
+    /** Underpromotion */
+    stNamUnderpromotion: string;
+    /** X-Ray */
+    stNamXRay: string;
+    /** Zugzwang */
+    stNamZugzwang: string;
+    /** Zwischenzug */
+    stNamZwischenzug: string;
+    /** You will lose your practice progress! */
+    youWillLoseYourPracticeProgress: string;
+  };
   preferences: {
     /** Bell notification sound */
     bellNotificationSound: string;

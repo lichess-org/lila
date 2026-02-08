@@ -349,6 +349,7 @@ GET   /practice/:sectionId/:studySlug             controllers.Practice.showStudy
 GET   /practice/:sectionId/:studySlug/:studyId    controllers.Practice.show(sectionId, studySlug, studyId: StudyId)
 GET   /practice/:sectionId/:studySlug/:studyId/:chapterId controllers.Practice.showChapter(sectionId, studySlug, studyId: StudyId, chapterId: StudyChapterId)
 POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId: StudyChapterId, moves: Int)
+GET   /$lang<\w\w\w?>/practice                    controllers.Practice.indexLang(lang: Language)
 
 # Streamer
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
