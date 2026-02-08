@@ -102,10 +102,8 @@ final class UserBits(helpers: Helpers):
   object awards:
     def awardCls(t: Trophy) = cls := s"trophy award ${t.kind._id} ${~t.kind.klass}"
 
-    def maybeLink(urlOpt: Option[String], attrs: Modifier*)(content: Modifier*) =
-      urlOpt.filter(_.nonEmpty) match
-        case Some(url) => frag(a((attrs :+ (href := url))*)(content*))
-        case None => frag(div(attrs*)(content*))
+    def maybeLink(urlOpt: Option[String]): Tag =
+      urlOpt.filter(_.nonEmpty).fold(span)(url => a(href := url))
 
     def zugMiracleTrophy(t: Trophy) = frag(
       styleTag("""
@@ -122,7 +120,6 @@ final class UserBits(helpers: Helpers):
     transform: translateY(-9px);
     animation: psyche 0.3s ease-in-out infinite alternate;
   }"""),
-      maybeLink(t.anyUrl, awardCls(t), ariaTitle(t.kind.name))(
+      maybeLink(t.anyUrl)(awardCls(t), ariaTitle(t.kind.name)):
         img(src := assetUrl("images/trophy/zug-trophy.png"))
-      )
     )
