@@ -69,6 +69,7 @@
   <string name="ratingDiff">Diferència puntuació</string>
   <string name="gamesThisTournament">Partides en aquest torneig</string>
   <string name="score">Puntuació</string>
+  <string name="standingsDisclaimer">La classificació es calcula utilitzant les partides de la retransmissió i pot variar dels resultats oficials.</string>
   <string name="allTeams">Tots els equips</string>
   <string name="tournamentFormat">Format del torneig</string>
   <string name="tournamentLocation">Ubicació del torneig</string>
@@ -83,6 +84,11 @@
   <string name="liveboard">Tauler en directe</string>
   <string name="communityBroadcast">Retransmissió comunitària</string>
   <string name="createdAndManagedBy">Creada i gestionada per %s.</string>
+  <string name="matchPoints">Punts d\'enfentraments</string>
+  <string name="gamePoints">Punts de partides</string>
+  <string name="matches">Enfrentaments</string>
+  <string name="matchHistory">Historial d\'enfrentaments</string>
+  <string name="teamResults">Resultats per equip</string>
   <string name="termsAutomaticallyTranslated">Els termes següents es traduiran automàticament: %s.</string>
   <string name="roundX">Ronda %s</string>
   <string name="defaultRoundNameHelp">Deixant el nom per defecte el traduirà automàticament a tots els altres llenguatges.</string>
