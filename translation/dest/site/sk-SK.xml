@@ -130,6 +130,7 @@
   <string name="showVariationArrows">Zobraziť šípky variantov</string>
   <string name="evaluationGauge">Ukazovateľ hodnotenia</string>
   <string name="visualMotifs">Vizuálne motívy</string>
+  <string name="pinnedPieces">Figúrky vo väzbe</string>
   <string name="multipleLines">Počet variantov</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamäť</string>
@@ -486,6 +487,7 @@
   <string name="leaderboard">Rebríček</string>
   <string name="screenshotCurrentPosition">Odfotiť aktuálnu pozíciu</string>
   <string name="gameAsGIF">Uložiť ako GIF</string>
+  <string name="playerNames">Mená hráčov</string>
   <string name="pasteTheFenStringHere">Sem vložte FEN reťazec</string>
   <string name="pasteThePgnStringHere">Sem vložte PGN reťazec</string>
   <string name="orUploadPgnFile">Alebo nahrajte súbor PGN</string>
@@ -731,7 +733,7 @@
   <string name="onlyExistingConversations">Iba existujúce konverzácie</string>
   <string name="onlyFriends">Iba priatelia</string>
   <string name="menu">Menu</string>
-  <string name="castling">Rošáda</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Rošáda</string>
   <string name="whiteCastlingKingside">Biely O-O</string>
   <string name="blackCastlingKingside">Čierny O-O</string>
   <plurals name="nbForumPosts">
