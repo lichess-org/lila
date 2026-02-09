@@ -26,15 +26,15 @@
   <string name="isCorrespondenceDifferent">Да ли је дописни другачији од нормалног шаха?</string>
   <string name="youCanUseOpeningBookNoEngine">На Lichess-у, главна разлика у правилима за дописни шах јесте да је књига отварања дозвољена. Коришћење рачунара је још увек забрањено и резултираће тиме да играч буде означен за рачунарску помоћ. Иако ICCF дозвољава коришћење рачунара у дописном, Lichess не дозвољава.</string>
   <string name="gameplay">Ток игре</string>
-  <string name="howBulletBlitzEtcDecided">Како су муњевити, блиц и остала времена одређена?</string>
+  <string name="howBulletBlitzEtcDecided">Како су Метак-шах, Блиц и остале временске контроле одређене?</string>
   <string name="basedOnGameDuration">Личес контроле времена су засноване на процењеном трајању партије = %1$s
 На пример, процењено трајање 5+3 партије је 5 × 60 + 40 × 3 = 420 секунди.</string>
   <string name="durationFormula">(почетно време) + 40 × (инкремент сата)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Које варијанте могу играни на Личесу?</string>
-  <string name="lichessSupportChessAnd">Личес подржава стандарни шах и %1$s.</string>
-  <string name="eightVariants">8 варијанти шаха</string>
+  <string name="whatVariantsCanIplay">Које варијанте могу играти на Lichess-у?</string>
+  <string name="lichessSupportChessAnd">Lichess подржава стандардни шах и %1$s.</string>
+  <string name="eightVariants">8 шаховских варијаната</string>
   <string name="insufficientMaterial">Губљење на време, реми и недовољно материјала</string>
   <string name="lichessFollowFIDErules">У случају да играчу истекне време, тај играч најчешће губи партију. Ипак, игра се завршава ремијем ако је позиција таква да противник не може да матира играчевог краља ниједном серијум легалних потеза (%1$s).
 
