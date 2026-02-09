@@ -73,6 +73,7 @@
   <string name="ratingDiff">Різниця у рейтингу</string>
   <string name="gamesThisTournament">Ігри в цьому турнірі</string>
   <string name="score">Очки</string>
+  <string name="standingsDisclaimer">Турнірні таблиці розраховуються за допомогою трансльованих ігор та можуть відрізнятися від офіційних результатів.</string>
   <string name="allTeams">Усі команди</string>
   <string name="tournamentFormat">Формат турніру</string>
   <string name="tournamentLocation">Місце турніру</string>
@@ -87,6 +88,11 @@
   <string name="liveboard">Наживо</string>
   <string name="communityBroadcast">Трансляція спільноти</string>
   <string name="createdAndManagedBy">Створено та адмініструється %s.</string>
+  <string name="matchPoints">Бали матчів</string>
+  <string name="gamePoints">Бали ігор</string>
+  <string name="matches">Матчі</string>
+  <string name="matchHistory">Історія матчів</string>
+  <string name="teamResults">Результати команд</string>
   <string name="termsAutomaticallyTranslated">Наступні терміни будуть автоматично перекладені: %s.</string>
   <string name="roundX">Раунд %s</string>
   <string name="defaultRoundNameHelp">Усталене ім\'я автоматично перекладатиметься іншими мовами.</string>
