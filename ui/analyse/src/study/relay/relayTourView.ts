@@ -1,7 +1,8 @@
 import type AnalyseCtrl from '@/ctrl';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, onInsert, hl, type LooseVNode } from 'lib/view';
+import { bind, dataIcon, onInsert, hl, type LooseVNode, copyMeInput } from 'lib/view';
+import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'lib/richText';
 import type {
@@ -15,7 +16,6 @@ import type {
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'lib';
 import type StudyCtrl from '../studyCtrl';
-import { toggle, copyMeInput } from 'lib/view';
 import { text as xhrText } from 'lib/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
@@ -40,11 +40,13 @@ export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
       ? games(ctx)
       : tab === 'teams'
         ? teams(ctx)
-        : tab === 'stats'
-          ? stats(ctx)
-          : tab === 'players'
-            ? players(ctx)
-            : overview(ctx);
+        : tab === 'team-results'
+          ? teamResults(ctx)
+          : tab === 'stats'
+            ? stats(ctx)
+            : tab === 'players'
+              ? players(ctx)
+              : overview(ctx);
 
   return hl('div.box.relay-tour', content);
 }
@@ -136,7 +138,7 @@ const startCountdown = (relay: RelayCtrl) => {
   ]);
 };
 
-const players = (ctx: RelayViewContext) => [header(ctx), playersView(ctx.relay.players, ctx.relay.data.tour)];
+const players = (ctx: RelayViewContext) => [header(ctx), playersView(ctx.relay.players)];
 
 export const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
   const contents = [
@@ -200,9 +202,10 @@ const overview = (ctx: RelayViewContext) => {
   ];
 };
 
+export const relayIframe = (path: string) =>
+  `<iframe src="${baseUrl()}/embed${path}" style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
+
 const share = (ctx: RelayViewContext) => {
-  const iframe = (path: string) =>
-    `<iframe src="${baseUrl()}/embed${path}" style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
   const iframeHelp = hl(
     'div.form-help',
     i18n.broadcast.iframeHelp.asArray(
@@ -261,9 +264,9 @@ const share = (ctx: RelayViewContext) => {
       hl('fieldset.relay-tour__share.toggle-box.toggle-box--toggle.toggle-box--toggle-off', [
         hl('legend', i18n.broadcast.embedThisBroadcast),
         group &&
-          link('Follow ongoing tournament', iframe(`/broadcast/${group.slug}/${group.id}`), iframeHelp),
-        link('This tournament: ' + tour.name, iframe(ctx.relay.tourPath()), iframeHelp),
-        link('This round: ' + roundName, iframe(ctx.relay.roundPath()), iframeHelp),
+          link('Follow ongoing tournament', relayIframe(`/broadcast/${group.slug}/${group.id}`), iframeHelp),
+        link('This tournament: ' + tour.name, relayIframe(ctx.relay.tourPath()), iframeHelp),
+        link('This round: ' + roundName, relayIframe(ctx.relay.roundPath()), iframeHelp),
       ]),
     ],
   );
@@ -416,7 +419,12 @@ const games = (ctx: RelayViewContext) => [
 
 const teams = (ctx: RelayViewContext) => [
   header(ctx),
-  ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list, ctx.relay.players, ctx.relay.round),
+  ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list, ctx.relay.players),
+];
+
+const teamResults = (ctx: RelayViewContext) => [
+  header(ctx),
+  ctx.relay.teams && ctx.relay.teamLeaderboard.view(),
 ];
 
 const stats = (ctx: RelayViewContext) => [header(ctx), statsView(ctx.relay.stats)];
@@ -478,21 +486,17 @@ const delayedUntil = (ctx: RelayViewContext) => {
 const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
   defined(relay.data.isSubscribed)
     ? [
-        toggle(
-          {
-            name: i18n.site.subscribe,
-            id: 'tour-subscribe',
-            title: i18n.broadcast.subscribeTitle,
-            cls: 'relay-tour__subscribe',
-            checked: relay.data.isSubscribed,
-            change: (v: boolean) => {
-              xhrText(`/broadcast/${relay.data.tour.id}/subscribe?set=${v}`, { method: 'post' });
-              relay.data.isSubscribed = v;
-              ctrl.redraw();
-            },
+        cmnToggleWrap({
+          id: 'tour-subscribe',
+          name: i18n.site.subscribe,
+          title: i18n.broadcast.subscribeTitle,
+          checked: relay.data.isSubscribed,
+          change(v) {
+            xhrText(`/broadcast/${relay.data.tour.id}/subscribe?set=${v}`, { method: 'post' });
+            relay.data.isSubscribed = v;
           },
-          ctrl.redraw,
-        ),
+          redraw: ctrl.redraw,
+        }),
       ]
     : [];
 
@@ -516,6 +520,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     makeTab('boards', i18n.broadcast.boards),
     makeTab('players', i18n.site.players),
     relay.teams && makeTab('teams', i18n.broadcast.teams),
+    relay.data.tour.showTeamScores && makeTab('team-results', i18n.broadcast.teamResults),
     study.members.myMember() && !!relay.data.tour.tier
       ? makeTab('stats', i18n.site.stats)
       : ctrl.isEmbed &&

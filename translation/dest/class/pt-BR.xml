@@ -4,7 +4,7 @@
   <string name="teachClassesOfChessStudents">Ensine turmas de estudantes de xadrez com o pacote Turmas do Lichess.</string>
   <string name="features">Recursos</string>
   <string name="quicklyGenerateSafeUsernames">Gere rapidamente nomes de usuário e senhas seguras para estudantes</string>
-  <string name="trackStudentProgress">Observe o progresso dos estudantes em partidas e quebra-cabeças</string>
+  <string name="trackStudentProgress">Observe o progresso dos estudantes em partidas e problemas</string>
   <string name="messageAllStudents">Notifique todos os estudantes sobre novos materiais</string>
   <string name="freeForAllForever">100% grátis, pra sempre, sem anúncios ou trackers</string>
   <string name="applyToBeLichessTeacher">Candidate-se a se tornar um Professor Lichess</string>

@@ -32,8 +32,8 @@
     <item quantity="one">Qısa saxlayın: ən çox %s simvol</item>
     <item quantity="other">Qısa saxlayın: ən çox %s simvol</item>
   </plurals>
-  <string name="visibility">Yayımçılar səhifəsində görünsün</string>
-  <string name="whenApproved">Moderatorlar tərəfindən təsdiqlənəndə</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Yayımçılar səhifəsində görünsün</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Moderatorlar tərəfindən təsdiqlənəndə</string>
   <string name="headline">Başlıq</string>
   <string name="tellUsAboutTheStream">Bir cümlə ilə yayımınızı təsvir edin</string>
   <string name="longDescription">Uzun açıqlama</string>

@@ -2,12 +2,11 @@ package lila.coach
 
 object UrlList:
 
+  private val max = 6
+
   object youtube:
 
-    val max = 6
-
-    def apply(text: String): List[Url] =
-      text.linesIterator.toList.view.map(_.trim).filter(_.nonEmpty).flatMap(toUrl).take(max) to List
+    def apply(text: String): List[Url] = parse(text)(toUrl)
 
     private val UrlRegex = """(?:youtube\.com|youtu\.be)/(?:watch)?(?:\?v=)?([^"&?/ ]{11})""".r.unanchored
 
@@ -23,14 +22,14 @@ object UrlList:
 
   object study:
 
-    val max = 6
-
     private val UrlRegex = """(?:lichess\.org)/study/(\w{8})""".r.unanchored
 
-    def apply(text: String): List[StudyId] =
-      text.linesIterator.toList.view.map(_.trim).filter(_.nonEmpty).flatMap(toId).take(max) to List
+    def apply(text: String): List[StudyId] = parse(text)(toId)
 
     private def toId(line: String): Option[StudyId] =
       line match
         case UrlRegex(id) => StudyId(id).some
         case _ => none
+
+  private def parse[A](text: String)(read: String => Option[A]): List[A] =
+    text.linesIterator.toList.view.map(_.trim).filter(_.nonEmpty).flatMap(read).take(max) to List

@@ -17,7 +17,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
     ClasPage(trans.clas.lichessClasses.txt(), Right("classes"))(cls := "clas-index"):
       frag(
         div(cls := "box__top")(
-          h1(cls := "box__top")(trans.clas.lichessClasses()),
+          h1(trans.clas.lichessClasses()),
           a(
             href := routes.Clas.form,
             cls := "new button button-empty",
@@ -83,7 +83,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
   ) =
     dashUi.teacher.TeacherPage(c, students, "edit")()(
       div(cls := "box-pad")(
-        postForm(cls := "form3", action := routes.Clas.update(c.id))(
+        postForm(cls := "form3 clas-edit", action := routes.Clas.update(c.id))(
           clasForm(form, c.some),
           form3.actions(
             a(href := routes.Clas.show(c.id))(trans.site.cancel()),
@@ -95,11 +95,10 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
           postForm(
             action := routes.Clas.archive(c.id, v = true),
             cls := "clas-edit__archive"
-          )(
+          ):
             form3.submit(trans.clas.closeClass(), icon = none)(
               cls := "yes-no-confirm button-red button-empty"
             )
-          )
         )
       )
     )
@@ -121,9 +120,16 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
             trans.clas.teachersOfTheClass(),
             help = trans.clas.addLichessUsernames().some
           )(form3.textarea(_)(rows := 4)),
-      form3.checkbox(
+      form3.checkboxGroup(
         form("canMsg"),
         frag(trans.clas.allowMessagingBetweenStudents()),
         help = trans.clas.allowMessagingBetweenStudentsDesc().some
-      )
+      ),
+      form3.checkboxGroup(
+        form("hasTeam"),
+        frag("Make a Lichess team for this class"),
+        help = frag(
+          "Lichess teams can organize tournaments. Your class students will automatically join the team and its tournaments."
+        ).some
+      )(id := "clas-team")
     )

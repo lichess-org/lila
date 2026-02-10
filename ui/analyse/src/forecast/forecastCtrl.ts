@@ -2,9 +2,9 @@ import { prop, notEmpty, type Prop } from 'lib';
 import { json as xhrJson } from 'lib/xhr';
 import type { ForecastData, ForecastList, ForecastStep } from './interfaces';
 import type { AnalyseData } from '../interfaces';
-import { scalachessCharPair } from 'chessops/compat';
-import { parseUci } from 'chessops';
 import type { TreeWrapper } from 'lib/tree/tree';
+import { completeNode } from 'lib/tree/node';
+import type { TreePath } from 'lib/tree/types';
 
 export default class ForecastCtrl {
   forecasts: Prop<ForecastList> = prop<ForecastList>([]);
@@ -110,24 +110,18 @@ export default class ForecastCtrl {
     });
   };
 
-  showForecast = (path: string, tree: TreeWrapper, nodes: ForecastStep[]) => {
-    nodes.forEach(node => {
-      const moveId = scalachessCharPair(parseUci(node.uci)!);
-
+  showForecast = (variant: VariantKey, path: TreePath, tree: TreeWrapper, steps: ForecastStep[]) => {
+    steps.forEach(s => {
+      const node = completeNode(variant)({
+        ply: s.ply,
+        fen: s.fen,
+        uci: s.uci,
+        san: s.san,
+      });
       // this handles the case where the move isn't in the tree yet
       // if it is, it just returns
-      tree.addNode(
-        {
-          ply: node.ply,
-          fen: node.fen,
-          uci: node.uci,
-          san: node.san,
-          id: moveId,
-          children: [],
-        },
-        path, // the path before this is its parent
-      );
-      path += moveId;
+      tree.addNode(node, path); // the path before this is its parent;
+      path += node.id;
     });
     return path;
   };

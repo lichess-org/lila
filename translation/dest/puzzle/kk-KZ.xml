@@ -88,6 +88,6 @@
   </plurals>
   <string name="percentSolved">%s шешілді</string>
   <string name="noPuzzlesToShow">Мәлімет жоқ. Алдымен жұмбақ шешіп көріңіз!</string>
-  <string name="improvementAreasDescription">Жетістігіңізді жақсарту үшін осы жаттығуды көріңіз!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Жетістігіңізді жақсарту үшін осы жаттығуды көріңіз!</string>
   <string name="strengthDescription">Осы тақырыпта сізде үздік нәтиже</string>
 </resources>

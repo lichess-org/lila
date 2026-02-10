@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@lichess-org/stockfish-web": "0.0.14",
+    "@badrap/result": "^0.3.1",
+    "@lichess-org/stockfish-web": "0.2.2",
     "@lichess-org/zerofish": "^0.0.40",
     "@types/debounce-promise": "^3.1.9",
     "debounce-promise": "^3.1.2",
@@ -12,7 +13,7 @@
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0",
-    "tablesort": "5.5.0"
+    "tablesort": "5.7.0"
   },
   "build": {
     "sync": {

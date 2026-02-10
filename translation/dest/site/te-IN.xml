@@ -422,7 +422,6 @@
   <string name="pasteTheFenStringHere">FEN వచనాన్ని ఇక్కడ అతికించండి</string>
   <string name="pasteThePgnStringHere">PGN వచనాన్ని ఇక్కడ అతికించండి</string>
   <string name="orUploadPgnFile">లేదా పిజిఎన్ ఫైలును అప్ లోడ్ చేయండి</string>
-  <string name="fromPosition">స్థానం నుండి</string>
   <string name="continueFromHere">ఇక్కడ నుండి కొనసాగండి</string>
   <string name="toStudy">చదువు</string>
   <string name="importGame">దిగుమతి ఆట</string>
@@ -609,7 +608,7 @@
   <string name="error.email_different">ఇది ఇప్పటికే మీ ఈమెయిల్ అడ్రస్</string>
   <string name="onlyFriends">స్నేహితులు మాత్రమే</string>
   <string name="menu">మెనూ</string>
-  <string name="castling">కాస్లింగ్</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">కాస్లింగ్</string>
   <string name="whiteCastlingKingside">తెలుపు O-O</string>
   <string name="blackCastlingKingside">నలుపు O-O</string>
   <plurals name="nbForumPosts">

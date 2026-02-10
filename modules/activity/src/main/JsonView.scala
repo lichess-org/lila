@@ -2,7 +2,6 @@ package lila.activity
 
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import play.api.mvc.Call
 
 import lila.activity.activities.*
 import lila.common.Json.{ *, given }
@@ -16,7 +15,7 @@ import lila.core.i18n.Translate
 final class JsonView(
     getTourName: lila.core.tournament.GetTourName,
     getLightTeam: lila.core.team.LightTeam.GetterSync,
-    routeUrl: Call => Url
+    routeUrl: lila.core.config.RouteUrl
 ):
 
   private object Writers:

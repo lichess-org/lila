@@ -89,7 +89,7 @@ Paroli: %3$s</string>
   <string name="timePlaying">Oʻyin vaqti</string>
   <string name="variantXOverLastY">Oxirgi %2$s dan %1$s koʻproq</string>
   <string name="winrate">Gʻalaba uchun imkoniyat</string>
-  <string name="na">Mavjud emas</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Mavjud emas</string>
   <string name="overview">Umumiy ko‘rinish</string>
   <string name="news">Yangiliklar</string>
   <string name="classNews">Sinf yangiliklari</string>

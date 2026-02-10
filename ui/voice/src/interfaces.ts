@@ -1,4 +1,4 @@
-import type { Toggle } from 'lib';
+import type { Prop, Toggle } from 'lib';
 import type { VNode } from 'snabbdom';
 
 export type MsgType = 'full' | 'partial' | 'status' | 'error' | 'stop' | 'start';
@@ -52,7 +52,7 @@ export interface VoiceCtrl {
   toggle: () => void;
   flash: () => void;
   showHelp: (v?: boolean | 'list') => boolean | 'list';
-  pushTalk: (v?: boolean) => boolean;
+  pushTalk: Prop<boolean>;
   showPrefs: Toggle;
   module: () => VoiceModule | undefined;
   moduleId: string;

@@ -51,7 +51,7 @@
   <string name="fidePlayerNotFound">FIDE šachista sa nenašiel</string>
   <string name="fideProfile">FIDE profil</string>
   <string name="federation">Federácia</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Vek</string>
+  <string name="age">Vek</string>
   <string name="unrated">Bez hodnotenia</string>
   <string name="recentTournaments">Posledné turnaje</string>
   <string name="openLichess">Otvoriť na Lichess</string>

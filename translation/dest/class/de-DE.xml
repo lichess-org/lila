@@ -90,7 +90,7 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="timePlaying">Spielzeit</string>
   <string name="variantXOverLastY">%1$s über die letzten %2$s</string>
   <string name="winrate">Gewinnquote</string>
-  <string name="na">Nicht verfügbar</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Nicht verfügbar</string>
   <string name="overview">Übersicht</string>
   <string name="news">Neuigkeiten</string>
   <string name="classNews">Klassenneuigkeiten</string>
@@ -121,7 +121,7 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="allowMessagingBetweenStudentsDesc">Dies gilt nur für die Konten, die du für deine Schüler erstellt hast.</string>
   <string name="quickLoginCode">Schnellanmeldungs-Code</string>
   <string name="quickLoginCodes">Schnellanmeldungs-Codes</string>
-  <string name="quickLoginCodesDesc1" comment="String is a URL">Benutzen diese Codes auf %s, um deine Schüler in Lichess einzuloggen.</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Benutzen diese Codes auf %s, um deine Schüler in Lichess einzuloggen.</string>
   <string name="quickLoginCodesDesc2">Nach Ablauf der Codes bleiben deine Schüler eingeloggt, bis sie sich manuell abmelden.</string>
-  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Verfällt %s</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Verfällt %s</string>
 </resources>

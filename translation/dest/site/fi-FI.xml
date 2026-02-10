@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Pelaa tietokonetta vastaan</string>
   <string name="gameMode">Pelityyppi</string>
   <string name="createLobbyGame">Luo peli</string>
-  <string name="youPlayAs">Nappuloidesi väri</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lähetä tämä linkki kaverillesi, jonka haluat kutsua pelaamaan</string>
   <string name="gameOver">Peli ohi</string>
   <string name="waitingForOpponent">Odotetaan vastustajaa</string>
   <string name="orLetYourOpponentScanQrCode">Tai anna vastustajasi skannata tämä QR-koodi</string>
+  <string name="reusableChallengeUrl">Haasteen URL-osoite (uudestaan käytettävä)</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Pysyvä linkki, jonka kautta kuka tahansa voi haastaa sinut juuri näillä asetuksilla.</string>
   <string name="waiting">Odotetaan</string>
   <string name="yourTurn">Sinun vuorosi</string>
   <string name="aiNameLevelAiLevel">%1$s taso %2$s</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Parhaan siirron nuoli</string>
   <string name="showVariationArrows">Näytä muunnelman nuolet</string>
   <string name="evaluationGauge">Arviomittari</string>
+  <string name="visualMotifs">Visuaaliset motiivit</string>
+  <string name="undefendedPieces">Suojaamattomat nappulat</string>
+  <string name="pinnedPieces">Kiinnitetyt nappulat</string>
+  <string name="checkableKing">Kuningas, jota voi shakata</string>
   <string name="multipleLines">Muunnelmien määrä</string>
   <string name="cpus">Suorittimia</string>
   <string name="memory">Muistia</string>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Minuuttia per pelaaja</string>
   <string name="variant">Variantti</string>
   <string name="variants">Variantit</string>
+  <string name="variantsDescription">Lisää pelitapoja</string>
   <string name="timeControl">Aikajärjestelmä</string>
   <string name="realTime">Pikapeli</string>
   <string name="correspondence">Kirjeshakki</string>
@@ -299,6 +305,7 @@
   <string name="standard">Tavallinen</string>
   <string name="customPosition">Itse määritetty asema</string>
   <string name="unlimited">Rajaton</string>
+  <string name="unlimitedDescription">Käytä niin paljon aikaa kuin tarvitset</string>
   <string name="mode">Tyyppi</string>
   <string name="casual">Rento</string>
   <string name="rated">Pisteytetty</string>
@@ -351,7 +358,7 @@
     <item quantity="other">Anna %s sekuntia</item>
   </plurals>
   <string name="thisAccountViolatedTos">Tämä käyttäjätunnus rikkoi Lichessin käyttöehtoja</string>
-  <string name="openingExplorerAndTablebase">Avausselain ja -tietokanta</string>
+  <string name="openingExplorerAndTablebase">Avausselain ja loppupelitietokanta</string>
   <string name="takeback">Peruuta siirto</string>
   <string name="proposeATakeback">Pyydä siirron peruutusta</string>
   <string name="whiteProposesTakeback">Valkea ehdottaa siirron perumista</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">Pistetaulukko</string>
   <string name="screenshotCurrentPosition">Ota tämänhetkisestä asemasta kuvakaappaus</string>
   <string name="gameAsGIF">Tallenna peli GIF:nä</string>
+  <string name="playerNames">Pelaajien nimet</string>
+  <string name="moveAnnotations">Siirtokommentit</string>
   <string name="pasteTheFenStringHere">Liitä FEN-merkkijono tähän</string>
   <string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
   <string name="orUploadPgnFile">Tai lataa PGN-tiedosto</string>
-  <string name="fromPosition">Asemasta</string>
   <string name="continueFromHere">Jatka tästä</string>
   <string name="toStudy">Tutki</string>
   <string name="importGame">Tuo peli</string>
@@ -656,7 +664,7 @@
   <string name="onlyExistingConversations">Vain jo aloitettuihin keskusteluihin</string>
   <string name="onlyFriends">Vain kaverit</string>
   <string name="menu">Valikko</string>
-  <string name="castling">Linnoitus</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Linnoitus</string>
   <string name="whiteCastlingKingside">Valkea O-O</string>
   <string name="blackCastlingKingside">Musta O-O</string>
   <plurals name="nbForumPosts">
@@ -722,8 +730,9 @@
   <string name="keyNextBranch">Seuraava haara</string>
   <string name="toggleVariationArrows">Muunnelmanuolet päälle/pois</string>
   <string name="cyclePreviousOrNextVariation">Siirry edelliseen/seuraavaan muunnelmaan</string>
-  <string name="toggleGlyphAnnotations">Symbolikommentit päälle/pois</string>
+  <string name="toggleGlyphAnnotations">Siirtokommentit päälle/pois</string>
   <string name="togglePositionAnnotations">Aseman kommentit päälle/pois</string>
+  <string name="toggleObservationAnnotations">Symbolimuotoiset kommentit päälle/pois</string>
   <string name="variationArrowsInfo">Muunnelmanuolia napsauttamalla voit edetä muunnelmissa siirtolistaa käyttämättä.</string>
   <string name="playSelectedMove">tee valittu siirto</string>
   <string name="newTournament">Uusi turnaus</string>
@@ -809,6 +818,7 @@
   <string name="size">Koko</string>
   <string name="opacity">Peittävyys</string>
   <string name="brightness">Kirkkaus</string>
+  <string name="contrast">Kontrasti</string>
   <string name="hue">Värisävy</string>
   <string name="boardReset">Palauta oletusvärit</string>
   <string name="pieceSet">Nappuloiden tyyli</string>
@@ -1018,4 +1028,5 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="search">Hae</string>
   <string name="clearSearch">Tyhjennä haku</string>
   <string name="tags">Tunnisteet</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.&#10;&#10;NOTE: this string used to read &quot;En passant&quot;, with &quot;rights&quot; added in 2026 for clarity.">Ohestalyönti</string>
 </resources>

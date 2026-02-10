@@ -43,10 +43,6 @@
       }
     }
 
-    label {
-      margin-inline-end: 0.8em;
-    }
-
     select {
       text-transform: capitalize;
     }
@@ -129,10 +125,6 @@
       input {
         color: $c-font-dim;
       }
-    }
-
-    .cmn-toggle + label + label {
-      cursor: pointer;
     }
   }
 

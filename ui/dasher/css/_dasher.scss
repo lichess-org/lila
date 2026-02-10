@@ -127,7 +127,7 @@
       }
 
       &::before {
-        @include margin-inline-end(8px);
+        margin-inline: 0 8px;
         font-size: 19px;
         justify-content: center;
         align-items: center;

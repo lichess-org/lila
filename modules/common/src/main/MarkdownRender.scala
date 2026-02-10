@@ -23,14 +23,23 @@ import com.vladsch.flexmark.html.{
   HtmlWriter,
   IndependentAttributeProviderFactory
 }
-import com.vladsch.flexmark.parser.Parser
+import com.vladsch.flexmark.parser.{
+  InlineParser,
+  InlineParserExtension,
+  InlineParserExtensionFactory,
+  LightInlineParser,
+  Parser
+}
 import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor, Block }
 import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDataSet }
 import com.vladsch.flexmark.util.html.MutableAttributes
 import com.vladsch.flexmark.util.misc.Extension
 import com.vladsch.flexmark.util.sequence.BasedSequence
 
+import java.time.{ Instant, ZoneOffset }
+import java.time.format.DateTimeFormatter
 import java.util.Arrays
+import java.util.regex.Pattern
 import scala.collection.Set
 import scala.jdk.CollectionConverters.*
 import scala.util.matching.Regex
@@ -46,6 +55,7 @@ final class MarkdownRender(
     blockQuote: Boolean = false,
     list: Boolean = false,
     code: Boolean = false,
+    timestamp: Boolean = false,
     sourceMap: Boolean = false,
     pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
     assetDomain: Option[AssetDomain] = None
@@ -61,30 +71,31 @@ final class MarkdownRender(
     extensions.add(AutolinkExtension.create())
     extensions.add(MarkdownRender.WhitelistedImage.create(assetDomain))
   extensions.add(
-    pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension) { MarkdownRender.PgnEmbedExtension(_) }
+    pgnExpand.fold[Extension](MarkdownRender.LilaLinkExtension)(MarkdownRender.PgnEmbedExtension(_))
   )
+  if timestamp then extensions.add(MarkdownRender.TimestampExtension)
   if sourceMap then extensions.add(MarkdownRender.SourceMapExtension)
 
-  private val options = MutableDataSet()
-    .set(Parser.EXTENSIONS, extensions)
-    .set(HtmlRenderer.ESCAPE_HTML, true)
-    .set(HtmlRenderer.SOFT_BREAK, "<br/>")
-    // always disabled
-    .set(Parser.HTML_BLOCK_PARSER, false)
-    .set(Parser.INDENTED_CODE_BLOCK_PARSER, false)
-    .set(Parser.FENCED_CODE_BLOCK_PARSER, code)
+  private val options =
+    val o = MutableDataSet()
+      .set(Parser.EXTENSIONS, extensions)
+      .set(HtmlRenderer.ESCAPE_HTML, true)
+      .set(HtmlRenderer.SOFT_BREAK, "<br/>")
+      // always disabled
+      .set(Parser.HTML_BLOCK_PARSER, false)
+      .set(Parser.INDENTED_CODE_BLOCK_PARSER, false)
+      .set(Parser.FENCED_CODE_BLOCK_PARSER, code)
 
-  // configurable
-  if table then options.set(TablesExtension.CLASS_NAME, "slist")
-  if header then options.set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, false)
-  else options.set(Parser.HEADING_PARSER, false)
-  if !blockQuote then options.set(Parser.BLOCK_QUOTE_PARSER, false)
-  if !list then options.set(Parser.LIST_BLOCK_PARSER, false)
+    // configurable
+    if table then o.set(TablesExtension.CLASS_NAME, "slist")
+    if header then o.set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, false)
+    else o.set(Parser.HEADING_PARSER, false)
+    if !blockQuote then o.set(Parser.BLOCK_QUOTE_PARSER, false)
+    if !list then o.set(Parser.LIST_BLOCK_PARSER, false)
+    o.toImmutable
 
-  private val immutableOptions = options.toImmutable
-
-  private val parser = Parser.builder(immutableOptions).build()
-  private val renderer = HtmlRenderer.builder(immutableOptions).build()
+  private val parser = Parser.builder(options).build()
+  private val renderer = HtmlRenderer.builder(options).build()
 
   private val logger = lila.log("markdown")
 
@@ -96,7 +107,8 @@ final class MarkdownRender(
       .sync:
         try
           val saferText = MarkdownRender.preventStackOverflow(text)
-          renderer.render(parser.parse((if sourceMap then saferText else mentionsToLinks(saferText)).value))
+          val withMentions = if sourceMap then saferText else mentionsToLinks(saferText)
+          renderer.render(parser.parse(withMentions.value))
         catch
           case e: StackOverflowError =>
             logger.branch(key).error("StackOverflowError", e)
@@ -216,7 +228,7 @@ object MarkdownRender:
 
     final class PgnRegexes(val game: Regex, val chapter: Regex)
     private val pgnRegexes: PgnRegexes =
-      val quotedDomain = java.util.regex.Pattern.quote(expander.domain.value)
+      val quotedDomain = Pattern.quote(expander.domain.value)
       PgnRegexes(
         s"""^(?:https?://)?$quotedDomain/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r,
         s"""^(?:https?://)?$quotedDomain/study/(?:embed/)?(?:\\w{8}/)?(\\w{8})(?:#(last|\\d+))?$$""".r
@@ -265,7 +277,7 @@ object MarkdownRender:
       html.tag("/a")
 
     private def addProtocolIfNecessary(url: String): String =
-      if url.matches("(?i)^https?://.*") then url
+      if url.startsWith("/") || url.matches("(?i)^https?://.*") then url
       else s"https://$url"
 
     private def renderLpvEmbed(
@@ -322,6 +334,67 @@ object MarkdownRender:
         attributes.replaceValue("target", "_blank")
         attributes.replaceValue("rel", rel)
         attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href")))
+
+  private class TimestampNode(val timestamp: Long, val format: String) extends Node():
+    override def getSegments(): Array[BasedSequence] = BasedSequence.EMPTY_ARRAY
+
+  private object TimestampExtension extends Parser.ParserExtension with HtmlRenderer.HtmlRendererExtension:
+    override def parserOptions(options: MutableDataHolder) = ()
+    override def extend(parserBuilder: Parser.Builder) =
+      parserBuilder.customInlineParserExtensionFactory(new TimestampParserExtension.Factory)
+
+    override def rendererOptions(options: MutableDataHolder) = ()
+    override def extend(htmlRendererBuilder: HtmlRenderer.Builder, rendererType: String) =
+      htmlRendererBuilder.nodeRendererFactory:
+        new NodeRendererFactory:
+          override def apply(options: DataHolder) = new NodeRenderer:
+            override def getNodeRenderingHandlers() =
+              Set(
+                NodeRenderingHandler(classOf[TimestampNode], (node, _, html) => renderTimestamp(node, html))
+              ).asJava
+
+            private def renderTimestamp(node: TimestampNode, html: HtmlWriter): Unit =
+              val instant = Instant.ofEpochSecond(node.timestamp)
+              val isoDateTime = instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
+              val displayText = node.format match
+                case "d" | "D" =>
+                  instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                case "t" | "T" =>
+                  instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("HH:mm 'UTC'"))
+                case _ =>
+                  instant.atZone(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm 'UTC'"))
+              html
+                .attr("datetime", isoDateTime)
+                .attr("format", node.format)
+                .attr("title", displayText)
+                .withAttr()
+                .tag("time")
+                .text(displayText)
+                .tag("/time")
+
+  object TimestampParserExtension:
+    private val timestampPattern = Pattern.compile("<t:(\\d+):([a-zA-Z])>")
+
+    class Factory extends InlineParserExtensionFactory:
+      override def getCharacters(): CharSequence = "<"
+      override def getAfterDependents(): java.util.Set[Class[?]] = null
+      override def getBeforeDependents(): java.util.Set[Class[?]] = null
+      override def affectsGlobalScope() = false
+      override def apply(inlineParser: LightInlineParser): InlineParserExtension =
+        new InlineParserExtension:
+          override def finalizeDocument(inlineParser: InlineParser) = ()
+          override def finalizeBlock(inlineParser: InlineParser) = ()
+          override def parse(inlineParser: LightInlineParser): Boolean =
+            val groups = inlineParser.matchWithGroups(timestampPattern)
+            if groups == null then false
+            else
+              val epoch = groups(1).toString.toLong
+              val fmt = groups(2).toString
+              val node = TimestampNode(epoch, fmt)
+              node.setChars(groups(0))
+              inlineParser.flushTextNode()
+              inlineParser.appendNode(node)
+              true
 
   private val tableWrapperExtension = new HtmlRenderer.HtmlRendererExtension:
     override def rendererOptions(options: MutableDataHolder) = ()

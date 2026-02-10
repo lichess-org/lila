@@ -1,4 +1,7 @@
 .lobby__streams {
+  &:empty {
+    display: none;
+  }
   .stream {
     @extend %roboto, %nowrap-ellipsis, %page-text;
 

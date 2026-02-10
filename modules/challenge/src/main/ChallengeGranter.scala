@@ -56,7 +56,7 @@ final class ChallengeGranter(
           .map:
             case lila.core.pref.Challenge.ALWAYS => none
             case _ => YouAreAnon.some
-      case Some(from) if from.marks.isolate => fuccess(Isolated.some)
+      case Some(from) if from.marks.alt => fuccess(Isolated.some)
       case Some(from) =>
         type Res = Option[ChallengeDenied.Reason]
         given Conversion[Res, Fu[Res]] = fuccess

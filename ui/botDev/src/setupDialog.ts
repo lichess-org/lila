@@ -145,7 +145,7 @@ class SetupDialog {
         bindHotkeys: false,
       };
       this.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
-      this.editor.setRules(co.compat.lichessRules('chess960'));
+      this.editor.setVariant('chess960');
     });
   }
 
@@ -211,14 +211,14 @@ class SetupDialog {
   };
 
   clickStandard = () => {
-    this.editor.setRules(co.compat.lichessRules('standard'));
+    this.editor.setVariant('standard');
     const input = this.dialog.view.querySelector<HTMLInputElement>('.fen')!;
     input.value = '';
     this.editor.setFen(co.fen.INITIAL_FEN);
   };
 
   clickChess960 = () => {
-    this.editor.setRules(co.compat.lichessRules('chess960'));
+    this.editor.setVariant('chess960');
     const input = this.dialog.view.querySelector<HTMLInputElement>('.fen')!;
     input.value = fen960();
     this.editor.setFen(input.value);

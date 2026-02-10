@@ -416,7 +416,6 @@
   <string name="pasteTheFenStringHere">এখানে FEN স্ট্রিংটি জোড়া লাগান</string>
   <string name="pasteThePgnStringHere">এখানে PGN স্ট্রিংটি জোড়া লাগান</string>
   <string name="orUploadPgnFile">অথবা PGN আপলোড করুন</string>
-  <string name="fromPosition">অবস্থা থেকে</string>
   <string name="continueFromHere">এখান থেকে আবার শুরু করুন</string>
   <string name="toStudy">স্টাডি</string>
   <string name="importGame">খেলা আমদানী</string>
@@ -643,7 +642,7 @@
   <string name="onlyExistingConversations">বিদ্যমান কথোপকথন</string>
   <string name="onlyFriends">শুধু বন্ধুরা</string>
   <string name="menu">মেনু</string>
-  <string name="castling">কাস্টেলিং</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">কাস্টেলিং</string>
   <string name="whiteCastlingKingside">সাদা O-O</string>
   <string name="blackCastlingKingside">কালো O-O</string>
   <plurals name="nbForumPosts">

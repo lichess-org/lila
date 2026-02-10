@@ -17,8 +17,8 @@
   <string name="studyRead">Acesso a estudos privados e transmissões</string>
   <string name="studyWrite">Permitir criar, atualizar e deletar estudos e transmissões</string>
   <string name="tournamentWrite">Permitir criar, atualizar e entrar em torneios</string>
-  <string name="racerWrite">Permitir criar e entrar em corridas</string>
-  <string name="puzzleRead">Acesso à atividade de quebra-cabeças</string>
+  <string name="racerWrite">Criar e participar em corridas de problemas</string>
+  <string name="puzzleRead">Acesso à atividade de problemas</string>
   <string name="teamRead">Acesso a informações privadas da equipe</string>
   <string name="teamWrite">Permitir entrar e sair de equipes</string>
   <string name="teamLead">Administre suas equipes: envie mensagens privadas, expulse membros</string>
@@ -26,7 +26,7 @@
   <string name="followWrite">Permitir (parar de) seguir outros usuários</string>
   <string name="msgWrite">Permitir enviar mensagens privadas a outros usuários</string>
   <string name="boardPlay">Jogar com a API de tabuleiro</string>
-  <string name="botPlay">Jogar com a API de bots</string>
+  <string name="botPlay">Jogar partidas com a API de bots</string>
   <string name="engineRead">Permitir ver e usar seus softwares de assistência externos</string>
   <string name="engineWrite">Permitir criar e atualizar softwares de assistência externos</string>
   <string name="webLogin">Permitir iniciar sessões autenticadas (garante acesso completo!)</string>

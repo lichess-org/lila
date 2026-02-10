@@ -7,6 +7,7 @@ import play.api.mvc.RequestHeader
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.core.security.{ Hcaptcha, HcaptchaForm }
+import lila.clas.Student.RealName
 
 final class ClasForm(
     lightUserAsync: lila.core.LightUser.Getter,
@@ -30,7 +31,8 @@ final class ClasForm(
             ids.nonEmpty && ids.sizeIs <= 10 && ids.forall: id =>
               blockingFetchUser(id.into(UserStr)).isDefined
         ),
-        "canMsg" -> boolean
+        "canMsg" -> boolean,
+        "hasTeam" -> boolean
       )(ClasData.apply)(unapply)
 
     def create(using RequestHeader): Fu[HcaptchaForm[ClasData]] = hcaptcha.form(form)
@@ -40,7 +42,8 @@ final class ClasForm(
         name = c.name,
         desc = c.desc,
         teachers = c.teachers.toList.mkString("\n"),
-        canMsg = ~c.canMsg
+        canMsg = ~c.canMsg,
+        hasTeam = ~c.hasTeam
       )
 
     def wall = Form(single("wall" -> text(maxLength = 100_000).into[Markdown]))
@@ -52,7 +55,7 @@ final class ClasForm(
     val create: Form[CreateStudent] = Form:
       mapping(
         "create-username" -> signupForm.username,
-        "create-realName" -> cleanNonEmptyText(maxLength = 100)
+        "create-realName" -> cleanNonEmptyText(maxLength = 100).into[RealName]
       )(CreateStudent.apply)(unapply)
 
     def generate(using Lang): Fu[Form[CreateStudent]] =
@@ -60,7 +63,7 @@ final class ClasForm(
         create.fill:
           CreateStudent(
             username = username | UserName(""),
-            realName = ""
+            realName = RealName("")
           )
 
     def invite(c: Clas) = Form:
@@ -68,14 +71,14 @@ final class ClasForm(
         "username" -> lila.common.Form.username.historicalField
           .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
           .verifying("This is a teacher", u => !c.teachers.toList.contains(u.id)),
-        "realName" -> cleanNonEmptyText
+        "realName" -> cleanNonEmptyText.into[RealName]
       )(InviteStudent.apply)(unapply)
 
     val inviteAccept = Form(single("v" -> Forms.boolean))
 
     def edit(s: Student) = Form(
       mapping(
-        "realName" -> cleanNonEmptyText,
+        "realName" -> cleanNonEmptyText.into[RealName],
         "notes" -> text(maxLength = 20000)
       )(StudentData.apply)(unapply)
     ).fill(StudentData(s.realName, s.notes))
@@ -101,28 +104,37 @@ object ClasForm:
       name: String,
       desc: String,
       teachers: String,
-      canMsg: Boolean
+      canMsg: Boolean,
+      hasTeam: Boolean
   ):
     def update(c: Clas) =
       c.copy(
         name = name,
         desc = desc,
         teachers = teacherIds.toNel | c.teachers,
-        canMsg = some(canMsg)
+        canMsg = some(canMsg),
+        hasTeam = some(hasTeam)
       )
+    def make(teacher: User) =
+      Clas
+        .make(teacher, name, desc)
+        .copy(
+          canMsg = some(canMsg),
+          hasTeam = some(hasTeam)
+        )
 
     def teacherIds = readTeacherIds(teachers)
 
   val login = Form(single("code" -> nonEmptyText))
 
-  private def readTeacherIds(str: String) =
-    UserStr.from(str.linesIterator.map(_.trim).filter(_.nonEmpty)).map(_.id).distinct.toList
+  private def readTeacherIds(str: String): List[UserId] =
+    str.linesIterator.flatMap(UserStr.read).map(_.id).distinct.toList
 
-  case class InviteStudent(username: UserStr, realName: String)
-  case class CreateStudent(username: UserName, realName: String)
+  case class InviteStudent(username: UserStr, realName: RealName)
+  case class CreateStudent(username: UserName, realName: RealName)
 
   case class StudentData(
-      realName: String,
+      realName: RealName,
       notes: String
   ):
     def update(c: Student) =
@@ -132,5 +144,5 @@ object ClasForm:
       )
 
   case class ManyNewStudent(realNamesText: String):
-    def realNames =
+    def realNames = RealName.from:
       realNamesText.linesIterator.map(_.trim.take(realNameMaxSize)).filter(_.nonEmpty).distinct.toList

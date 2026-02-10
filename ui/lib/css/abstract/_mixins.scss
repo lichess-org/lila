@@ -42,14 +42,6 @@
   }
 }
 
-@mixin hide {
-  display: none;
-
-  .blind-mode & {
-    display: inherit;
-  }
-}
-
 @mixin ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -72,16 +64,6 @@
     /* prevents scroll bar flicker when dragging a piece out */
     overflow-y: scroll;
   }
-}
-
-@mixin margin-inline-start($amount) {
-  margin-inline-start: $amount;
-  margin-inline: $amount 0; // this doesn't have perfect browser support so keep the other margin as fallback
-}
-
-@mixin margin-inline-end($amount) {
-  margin-inline-end: $amount;
-  margin-inline: 0 $amount; // this doesn't have perfect browser support so keep the other margin as fallback
 }
 
 @mixin back-blur($size: 6px) {

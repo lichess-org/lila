@@ -77,6 +77,9 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def isOwnerOfAll(u: UserId, ids: List[RelayTourId]): Fu[Boolean] =
     coll.exists($doc($inIds(ids), "ownerIds".$ne(u))).not
 
+  def showTeamScores(id: RelayTourId): Fu[Boolean] =
+    coll.primitiveOne[Boolean]($id(id), "showTeamScores").map(~_)
+
   def aggregateRoundAndUnwind(
       otherColls: RelayColls,
       framework: coll.AggregationFramework.type,

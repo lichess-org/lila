@@ -10,7 +10,7 @@ final class TutorApi(
     queue: TutorQueue,
     builder: TutorBuilder,
     cacheApi: CacheApi
-)(using Executor, Scheduler):
+)(using Executor, Scheduler)(using mode: play.api.Mode):
 
   import TutorBsonHandlers.given
 
@@ -33,17 +33,18 @@ final class TutorApi(
         queue.enqueue(user).dmap(some).map { TutorFullReport.Available(report, _) }
       case availability => fuccess(availability)
 
-  LilaScheduler("TutorApi", _.Every(1.second), _.AtMost(10.seconds), _.Delay(39.seconds))(pollQueue)
+  private val initialDelay = if mode.isProd then 1.minute else 5.seconds
+  LilaScheduler("TutorApi", _.Every(1.second), _.AtMost(10.seconds), _.Delay(initialDelay))(pollQueue)
 
   private def pollQueue = queue.next.flatMap: items =>
     lila.mon.tutor.parallelism.update(items.size)
     items.sequentiallyVoid: next =>
-      next.startedAt.fold(buildThenRemoveFromQueue(next.userId)) { started =>
+      next.startedAt.fold(buildThenRemoveFromQueue(next.userId)): started =>
         val expired =
           started.isBefore(nowInstant.minusSeconds(builder.maxTime.toSeconds.toInt)) ||
             started.isBefore(Uptime.startedAt)
-        for _ <- expired.so(queue.remove(next.userId)) yield lila.mon.tutor.buildTimeout.increment()
-      }
+        for _ <- expired.so(queue.remove(next.userId))
+        yield lila.mon.tutor.buildTimeout.increment()
 
   // we only wait for queue.start
   // NOT for builder
@@ -63,12 +64,11 @@ final class TutorApi(
       queue.remove(userId)
 
   private val cache = cacheApi[UserId, Option[TutorFullReport]](256, "tutor.report"):
-    // _.expireAfterAccess(if (mode.isProd) 5 minutes else 1 second)
-    _.expireAfterAccess(3.minutes)
+    _.expireAfterAccess(if mode.isProd then 2 minutes else 1 second)
       .maximumSize(1024)
       .buildAsyncFuture(findLatest)
 
-  private def findLatest(userId: UserId) = colls.report
-    .find($doc(TutorFullReport.F.user -> userId))
-    .sort($sort.desc(TutorFullReport.F.at))
-    .one[TutorFullReport]
+  private def findLatest(userId: UserId) = colls.report:
+    _.find($doc(TutorFullReport.F.user -> userId))
+      .sort($sort.desc(TutorFullReport.F.at))
+      .one[TutorFullReport]

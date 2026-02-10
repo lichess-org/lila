@@ -7,8 +7,14 @@ import { throttle } from 'lib/async';
 import viewStatus from 'lib/game/view/status';
 import { game as gameRoute } from 'lib/game/router';
 import type { Step } from '../interfaces';
-import { toggleButton as boardMenuToggleButton } from 'lib/view';
-import { type VNode, type LooseVNodes, type LooseVNode, hl, onInsert } from 'lib/view';
+import {
+  toggleButton as boardMenuToggleButton,
+  type VNode,
+  type LooseVNodes,
+  type LooseVNode,
+  hl,
+  onInsert,
+} from 'lib/view';
 import boardMenu from './boardMenu';
 import { repeater } from 'lib';
 import { addPointerListeners } from 'lib/pointer';

@@ -183,17 +183,11 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       )
 
   def setBerserk(pairing: Pairing, userId: UserId) = {
-    if pairing.user1 == userId then "b1".some
-    else if pairing.user2 == userId then "b2".some
+    if pairing.user1.is(userId) then "b1".some
+    else if pairing.user2.is(userId) then "b2".some
     else none
-  }.so { field =>
-    coll.update
-      .one(
-        $id(pairing.id),
-        $set(field -> true)
-      )
-      .void
-  }
+  }.so: field =>
+    coll.updateField($id(pairing.id), field, true).void
 
   def sortedCursor(
       tournamentId: TourId,

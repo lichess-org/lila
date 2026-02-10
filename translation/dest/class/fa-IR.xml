@@ -90,7 +90,7 @@
   <string name="timePlaying">زمان بازی کردن</string>
   <string name="variantXOverLastY">%1$s در %2$s روز اخیر</string>
   <string name="winrate">نرخِ برد</string>
-  <string name="na">در دسترس نیست</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">در دسترس نیست</string>
   <string name="overview">نمای کلی</string>
   <string name="news">اخبار</string>
   <string name="classNews">اخبار کلاس</string>
@@ -122,7 +122,7 @@
   <string name="allowMessagingBetweenStudentsDesc">این فقط مربوط به حساب‌هایی‌ست که برای شطرنج‌آموزان‌تان ایجاد کرده‌اید.</string>
   <string name="quickLoginCode">کدِ ورودِ فوری</string>
   <string name="quickLoginCodes">کدهای ورودِ فوری</string>
-  <string name="quickLoginCodesDesc1" comment="String is a URL">از این کدها در %s برای ورود شطرنج‌آموزان‌تان به Lichess ببَهرید.</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">از این کدها در %s برای ورود شطرنج‌آموزان‌تان به Lichess ببَهرید.</string>
   <string name="quickLoginCodesDesc2">زمانی که کدها انقضا شوند، شطرنج‌آموزان‌تان در حالت ورود باقی خواهند ماند تا وقتی که دستی خارج شوند.</string>
-  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">انقضا %s</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">انقضا %s</string>
 </resources>

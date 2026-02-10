@@ -25,7 +25,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
       playerList(
         players,
         order,
-        np => routes.Fide.index(np, query.some.filter(_.nonEmpty)),
+        np => routes.Fide.index(np, query.nonEmptyOption),
         sortable = query.isEmpty
       )
     )
@@ -138,7 +138,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         fieldName = id,
         checked = p.follow,
         action = Some(routes.Fide.follow(p.player.id, p.follow).url),
-        styleClass = "cmn-favourite"
+        cssClass = "cmn-favourite"
       )
     )
 

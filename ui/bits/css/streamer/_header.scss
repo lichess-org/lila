@@ -128,15 +128,6 @@
   margin: 1.5em var(---box-padding) 1em 0;
 }
 
-.streamer-subscribe {
-  @extend %flex-center-nowrap;
-  gap: 1em;
-  align-self: flex-start;
-  font-weight: bold;
-  z-index: $z-link-overlay-2;
-  cursor: pointer;
-}
-
 .streamer-profile {
   z-index: $z-link-overlay-2;
 }

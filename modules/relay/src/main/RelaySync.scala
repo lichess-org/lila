@@ -14,6 +14,7 @@ final private class RelaySync(
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
     players: RelayPlayerApi,
+    teamLeaderboard: RelayTeamLeaderboard,
     notifier: RelayNotifier,
     tagManualOverride: RelayTagManualOverride
 )(using Executor)(using scheduler: Scheduler):
@@ -41,6 +42,7 @@ final private class RelaySync(
       preview.invalidate(study.id)
       studyApi.reloadChapters(study)
       players.invalidate(rt.tour.id)
+      teamLeaderboard.invalidate(rt.tour.id)
   yield result
 
   private def updateChapter(
@@ -128,7 +130,7 @@ final private class RelaySync(
               val node = AddNode(
                 studyId = study.id,
                 positionRef = position,
-                node = n,
+                node = _ => Right(n),
                 opts = moveOpts,
                 relay = makeRelayFor(game, position.path + n.id).some
               )(using by)
@@ -153,7 +155,7 @@ final private class RelaySync(
                     AddNode(
                       studyId = study.id,
                       positionRef = Position(chapter, gameMainlinePath.parent).ref,
-                      node = lastMainlineNode,
+                      node = _ => Right(lastMainlineNode),
                       opts = moveOpts,
                       relay = makeRelayFor(game, gameMainlinePath).some
                     )(using by)
@@ -238,7 +240,6 @@ final private class RelaySync(
   yield chapter
 
   private val moveOpts = MoveOpts(
-    write = true,
     sticky = false,
     promoteToMainline = true
   )

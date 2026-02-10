@@ -31,7 +31,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     Page(s"${tour.name()} #${tour.id}")
       .i18n(_.arena)
       .i18nOpt(tour.isTeamBattle, _.team)
-      .js(
+      .js:
         PageModule(
           "tournament",
           Json.obj(
@@ -41,11 +41,9 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
             "showRatings" -> ctx.pref.showRatings
           )
         )
-      )
-      .css(
+      .css:
         if tour.isTeamBattle then "tournament.show.team-battle"
         else "tournament.show"
-      )
       .graph(
         title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.rated.name} #${tour.id}",
         url = routeUrl(routes.Tournament.show(tour.id)),
@@ -116,8 +114,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
           variantTeamLinks
             .get(tour.variant.key)
             .filter: (team, _) =>
-              tour.createdBy.is(UserId.lichess) || tour.conditions.teamMember
-                .exists(_.teamId == team.id)
+              tour.createdBy.is(UserId.lichess) || tour.singleTeamId.has(team.id)
             .map: (team, link) =>
               st.section(
                 if isMyTeamSync(team.id) then frag(trans.team.team(), " ", link)
@@ -144,7 +141,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
               tour.isScheduled.not.option(frag(small(trans.site.by(userIdLink(tour.createdBy.some))), br)),
               (!tour.isStarted || (tour.isScheduled && tour.position.isDefined))
                 .option(absClientInstant(tour.startsAt))
-            ).flatten.some.filter(_.nonEmpty).map(st.section(_)),
+            ).flatten.nonEmptyOption.map(st.section(_)),
             tour.startingPosition
               .map: pos =>
                 st.section(a(href := pos.url)(pos.name))

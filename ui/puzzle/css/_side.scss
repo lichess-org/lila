@@ -110,18 +110,6 @@
     padding: 2vmin;
     overflow: hidden;
 
-    &__toggle {
-      @extend %flex-center-nowrap;
-
-      .switch {
-        margin-inline-end: 1em;
-      }
-
-      label {
-        cursor: pointer;
-      }
-    }
-
     &__difficulty {
       margin-top: 2vmin;
 

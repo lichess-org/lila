@@ -22,15 +22,22 @@ export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
           gameModes.map(({ key, name }) => option({ key: key, name: name }, setupCtrl.gameMode())),
         ),
       ])
-    : h('div.radio-pane', [
-        i18n.site.gameMode,
+    : h('div.config-group', [
+        h('div.label', i18n.site.gameMode),
         h(
           'group.radio',
           gameModes.map(({ key, name }) => {
             const disabled = key === 'rated' && setupCtrl.ratedModeDisabled();
             return h('div', [
               h(`input#sf_mode_${key}.checked_${key === setupCtrl.gameMode()}`, {
-                attrs: { name, type: 'radio', value: key, checked: key === setupCtrl.gameMode(), disabled },
+                attrs: {
+                  name,
+                  type: 'radio',
+                  value: key,
+                  checked: key === setupCtrl.gameMode(),
+                  disabled,
+                  tabindex: disabled ? -1 : 0,
+                },
                 on: {
                   change: (e: Event) => setupCtrl.gameMode((e.target as HTMLInputElement).value as GameMode),
                 },

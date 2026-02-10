@@ -1,6 +1,6 @@
 import * as licon from 'lib/licon';
-import { bind, bindNonPassive, type MaybeVNodes } from 'lib/view';
-import { spinnerVdom as spinner, toggle } from 'lib/view';
+import { bind, bindNonPassive, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
+import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import { h, thunk, type VNode } from 'snabbdom';
 import { richHTML } from 'lib/richText';
 import { option, plural } from '@/view/util';
@@ -82,15 +82,12 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
           h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
           pinned ? h('div.comment', { hook: richHTML(pinned) }) : null,
         ]),
-        toggle(
-          {
-            name: 'Load next exercise immediately',
-            id: 'autoNext',
-            checked: p.autoNext(),
-            change: p.autoNext,
-          },
-          ctrl.redraw,
-        ),
+        cmnToggleWrapProp({
+          id: 'autoNext',
+          name: 'Load next exercise immediately',
+          prop: p.autoNext,
+          redraw: ctrl.redraw,
+        }),
       ];
   }
 }

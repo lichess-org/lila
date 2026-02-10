@@ -9,6 +9,7 @@ import { renderContextMenu } from './contextMenu';
 import { renderColumnView } from './columnView';
 import { renderInlineView } from './inlineView';
 import { addPointerListeners } from 'lib/pointer';
+import type { TreePath } from 'lib/tree/types';
 
 export class TreeView {
   constructor(readonly ctrl: AnalyseCtrl) {}
@@ -75,7 +76,7 @@ export class TreeView {
   }
 }
 
-function eventPath(e: MouseEvent): Tree.Path | null {
+function eventPath(e: MouseEvent): TreePath | null {
   return (
     (e.target as HTMLElement).getAttribute('p') || (e.target as HTMLElement).parentElement!.getAttribute('p')
   );

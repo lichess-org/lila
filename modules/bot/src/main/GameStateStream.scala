@@ -134,7 +134,7 @@ final class GameStateStream(
 
     def onGameOver(g: Option[Game]) =
       for _ <- g.so(pushState)
-      yield
+      do
         gameOver = true
         self ! PoisonPill
 

@@ -3,7 +3,6 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Tantang teman</string>
   <string name="playAgainstComputer">Bermain lawan komputer</string>
   <string name="gameMode">Mode bermain</string>
-  <string name="youPlayAs">Anda bermain sebagai</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Undang yang lain dengan memberikan URL berikut</string>
   <string name="gameOver">Permainan Berakhir</string>
   <string name="waitingForOpponent">Menunggu lawan</string>
@@ -191,6 +190,7 @@
   <string name="minutesPerSide">Menit untuk tiap pihak</string>
   <string name="variant">Variasi permainan</string>
   <string name="variants">Variasi permainan</string>
+  <string name="variantsDescription">Cara lain untuk bermain</string>
   <string name="timeControl">Kontrol waktu</string>
   <string name="realTime">Langsung</string>
   <string name="correspondence">Korespondensi</string>
@@ -393,7 +393,6 @@
   <string name="pasteTheFenStringHere">Paste string FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste string PGN di sini</string>
   <string name="orUploadPgnFile">Atau muat berkas PGN</string>
-  <string name="fromPosition">Dari posisi</string>
   <string name="continueFromHere">Lanjutkan dari sini</string>
   <string name="toStudy">Studi</string>
   <string name="importGame">Masukkan permainan</string>
@@ -534,6 +533,7 @@
   <string name="troll">Jebakan</string>
   <string name="other">Lainnya</string>
   <string name="reportCheatBoostHelp">Tempel link permainan yang bersangkutan dan jelaskan hal tidak benar yang dilakukan pengguna ini. Jangan hanya menulis \"ia curang\", tetapi beri tahu kami mengapa Anda bisa merasa demikian.</string>
+  <string name="reportUsernameHelp">Jelaskan kenapa nama pengguna ini menyinggung. Jangan hanya mengatakan \"menyinggung/tidak pantas\", tapi katakan mengapa berkesimpulan seperti itu, khususnya apabila umpatan tersebut terselubung, bukan dalam bahasa inggris, slang, ataupun referensi sejarah/budaya.</string>
   <string name="reportProcessedFasterInEnglish">Laporan Anda akan diproses lebih cepat jika ditulis dalam bahasa Inggris.</string>
   <string name="error.provideOneCheatedGameLink">Harap berikan setidaknya satu tautan ke permainan yang curang.</string>
   <string name="by">oleh %s</string>
@@ -633,6 +633,7 @@
   <string name="really">benar-benar</string>
   <string name="contribute">Kontribusi</string>
   <string name="termsOfService">Ketentuan Layanan (ToS)</string>
+  <string name="titleVerification">Verifikasi gelar</string>
   <string name="sourceCode">Kode Sumber</string>
   <string name="simultaneousExhibitions">Eksibisi Simultan</string>
   <string name="host">Penyedia</string>
@@ -672,6 +673,13 @@
   <string name="keyNextBlunder">Blunder selanjutnya</string>
   <string name="keyNextMistake">Kesalahan berikutnya</string>
   <string name="keyNextInaccuracy">Ketidakakuratan selanjutnya</string>
+  <string name="keyPreviousBranch">Cabang sebelumnya</string>
+  <string name="keyNextBranch">Cabang selanjutnya</string>
+  <string name="toggleVariationArrows">Alihkan panah variasi</string>
+  <string name="cyclePreviousOrNextVariation">Siklus variasi sebelum/selanjutnya</string>
+  <string name="toggleGlyphAnnotations">Alihkan anotasi langkah</string>
+  <string name="togglePositionAnnotations">Alihkan anotasi posisi</string>
+  <string name="toggleObservationAnnotations">Alihkan anotasi observasi</string>
   <string name="playSelectedMove">mainkan gerakan terpilih</string>
   <string name="newTournament">Turnamen baru</string>
   <string name="tournamentHomeTitle">Turnamen catur dengan menampilkan berbagai kontrol waktu dan beberapa varian</string>
@@ -695,6 +703,9 @@
   <string name="checkYourEmail">Cek email mu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Kami telah mengirim Anda sebuah email. Buka link di dalam email untuk mengaktivasi akun Anda.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jika anda tidak melihat surel, cek tempat-tempat lain; seperti junk, spam, sosial, atau berkas lainnya</string>
+  <string name="ifYouDoNotGetTheEmail">Bila anda tidak mendapatkan dalam 5 menit:</string>
+  <string name="checkAllEmailFolders">Periksa semua folder sampah, spam, dan folder lainnya</string>
+  <string name="verifyYourAddress">Buktikan bahwa %s adalah email anda</string>
   <string name="weHaveSentYouAnEmailTo">Kami telah mengirim surel kepada %s. Klik tautan di dalam surel untuk mengubah kata sandi anda.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Dengan mendaftar, anda setuju untuk terikat dengan %s kita.</string>
   <string name="readAboutOur">Baca tentang %s kami.</string>
@@ -703,6 +714,7 @@
   <string name="downloadAnnotated">Unduh versi anotasi</string>
   <string name="downloadRaw">Unduh mentah</string>
   <string name="downloadImported">Unduh permainan yang telah dimasukkan</string>
+  <string name="downloadAllGames">Unduh semua permainan</string>
   <string name="crosstable">Napak tilas</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Anda juga bisa menggunakan scroll untuk bergerak dalam permainan.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Letakkan mouse diatas variasi komputer untuk meninjau hal tersebut.</string>
@@ -725,6 +737,7 @@
   <string name="playChessEverywhere">Bermain catur dimanapun</string>
   <string name="everybodyGetsAllFeaturesForFree">Semua pengguna mendapatkan seluruh fitur dengan gratis</string>
   <string name="viewTheSolution">Lihat jawaban</string>
+  <string name="noChallenges">Tidak ada tantangan.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">Tersedia di dalam %s bahasa!</item>
   </plurals>
@@ -736,6 +749,7 @@
   <string name="anonymous">Tanpa Nama</string>
   <string name="yourScore">Skor Anda: %s</string>
   <string name="language">Bahasa</string>
+  <string name="allLanguages">Semua bahasa</string>
   <string name="background">Latar</string>
   <string name="light">Terang</string>
   <string name="dark">Gelap</string>
@@ -764,6 +778,7 @@
   <string name="notifications">Notifikasi</string>
   <string name="notificationsX">Pemberitahuan: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
+  <string name="yourRatingIsX">Rating anda adalah %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s detik untuk memainkan langkah pertama</item>
   </plurals>
@@ -936,4 +951,13 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="lichessPatronInfo">Lichess adalah sebuah amal dan semuanya merupakan perangkat lunak sumber terbuka yang gratis/bebas.
 Semua biaya operasi, pengembangan, dan konten didanai sepenuhnya oleh donasi pengguna.</string>
   <string name="nothingToSeeHere">Tidak ada yang bisa dilihat untuk saat ini.</string>
+  <string name="stats">Statistik</string>
+  <string name="accessibility">Aksesibilitas</string>
+  <string name="copyToClipboard">Salin ke papan klip</string>
+  <string name="online" comment="status of a user">online</string>
+  <string name="offline" comment="status of a user">offline</string>
+  <string name="search">Pencarian</string>
+  <string name="clearSearch">Bersihkan pencarian</string>
+  <string name="tags">Label</string>
+  <string name="enPassant">En passant</string>
 </resources>

@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Spill mot maskinen</string>
   <string name="gameMode">Modus</string>
   <string name="createLobbyGame">Opprett lobbyparti</string>
-  <string name="youPlayAs">Dine brikker</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">For å invitere noen til å spille, gi dem denne lenken</string>
   <string name="gameOver">Partiet er avsluttet</string>
   <string name="waitingForOpponent">Venter på motstander</string>
   <string name="orLetYourOpponentScanQrCode">Eller få motstanderen din til å skanne denne QR-koden</string>
+  <string name="reusableChallengeUrl">Gjenbrukbar utfordringslenke</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">En permanent lenke som hvem som helst kan bruke til å utfordre deg med disse nøyaktige innstillingene.</string>
   <string name="waiting">Venter</string>
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
   <string name="evaluationGauge">Evalueringsmåler</string>
+  <string name="visualMotifs">Visuelle motiver</string>
+  <string name="undefendedPieces">Ubeskyttede brikker</string>
+  <string name="pinnedPieces">Bundne brikker</string>
+  <string name="checkableKing">Sjakkbar konge</string>
   <string name="multipleLines">Flere varianter</string>
   <string name="cpus">Prosessorer</string>
   <string name="memory">Minne</string>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Minutter per spiller</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianter</string>
+  <string name="variantsDescription">Flere måter å spille på</string>
   <string name="timeControl">Tidskontroll</string>
   <string name="realTime">Sanntid</string>
   <string name="correspondence">Fjernsjakk</string>
@@ -299,6 +305,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Brukerdefinert stilling</string>
   <string name="unlimited">Ubegrenset</string>
+  <string name="unlimitedDescription">Ta den tiden du trenger</string>
   <string name="mode">Modus</string>
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">Ledertabell</string>
   <string name="screenshotCurrentPosition">Skjermbilde av stillingen</string>
   <string name="gameAsGIF">Parti som gif</string>
+  <string name="playerNames">Spillernavn</string>
+  <string name="moveAnnotations">Trekk-kommentarer</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
   <string name="orUploadPgnFile">Eller last opp en PGN-fil</string>
-  <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsett herfra</string>
   <string name="toStudy">Studie</string>
   <string name="importGame">Importer parti</string>
@@ -809,6 +817,7 @@
   <string name="size">Størrelse</string>
   <string name="opacity">Ugjennomsiktighet</string>
   <string name="brightness">Lysstyrke</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Fargetone</string>
   <string name="boardReset">Tilbake til standardfarger</string>
   <string name="pieceSet">Brikkesett</string>
@@ -907,6 +916,7 @@
   <string name="agreementPolicy">Jeg lover å respektere alle Lichess\' retningslinjer.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start en ny diskusjon</string>
   <string name="edit">Rediger</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Hurtigsjakk</string>
@@ -1017,4 +1027,5 @@ Alle kostnader for drift, utvikling og innhold finansieres utelukkende av bruker
   <string name="search">Søk</string>
   <string name="clearSearch">Tøm søk</string>
   <string name="tags">Merkelapper</string>
+  <string name="enPassant">En passant</string>
 </resources>

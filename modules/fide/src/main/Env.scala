@@ -2,6 +2,7 @@ package lila.fide
 
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
+import chess.FideId
 
 import lila.core.config.CollName
 import lila.core.fide.*
@@ -48,7 +49,7 @@ final class Env(
       me: Option[Me]
   ): Fu[Either[FidePlayer.WithFollow, Paginator[FidePlayer.WithFollow]]] =
     val query = q.so(_.trim)
-    chess.FideId
+    FideId
       .from(query.toIntOption)
       .so(playerApi.fetch)
       .flatMap:
@@ -69,8 +70,10 @@ final class Env(
     case "fide" :: "player" :: "sync" :: Nil =>
       fideSync()
       fuccess("Updating the player database in the background.")
+    case "fide" :: "player" :: "delete" :: id :: Nil =>
+      FideId.from(id.toIntOption).so(playerApi.delete).inject("done")
     case "fide" :: "player" :: "rip" :: fideId :: year :: Nil =>
-      chess.FideId
+      FideId
         .from(fideId.toIntOption)
         .so(repo.player.setDeceasedYear(_, year.toIntOption))
         .inject("done")

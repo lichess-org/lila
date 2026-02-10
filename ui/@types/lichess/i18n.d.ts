@@ -243,6 +243,10 @@ interface I18n {
     boards: string;
     /** Boards can be loaded with a source or via the %s */
     boardsCanBeLoaded: I18nFormat;
+    /** Boys */
+    boysTournament: string;
+    /** Boys U%s */
+    boysUnderXAgeTournament: I18nFormat;
     /** Broadcast calendar */
     broadcastCalendar: string;
     /** Broadcasts */
@@ -283,20 +287,40 @@ interface I18n {
     fideProfile: string;
     /** FIDE rating category */
     fideRatingCategory: string;
+    /** Finals */
+    finals: string;
     /** Full tournament description */
     fullDescription: string;
     /** Optional long description of the tournament. %1$s is available. Length must be less than %2$s characters. */
     fullDescriptionHelp: I18nFormat;
+    /** Game Points */
+    gamePoints: string;
     /** Games in this tournament */
     gamesThisTournament: string;
+    /** Game %s */
+    gameX: I18nFormat;
+    /** Girls */
+    girlsTournament: string;
+    /** Girls U%s */
+    girlsUnderXAgeTournament: I18nFormat;
     /** How to use Lichess Broadcasts. */
     howToUseLichessBroadcasts: string;
     /** More options on the %s */
     iframeHelp: I18nFormat;
+    /** Knockouts */
+    knockouts: string;
     /** Live board */
     liveboard: string;
     /** Live tournament broadcasts */
     liveBroadcasts: string;
+    /** Matches */
+    matches: string;
+    /** Match History */
+    matchHistory: string;
+    /** Match Points */
+    matchPoints: string;
+    /** Men */
+    menTournament: string;
     /** My broadcasts */
     myBroadcasts: string;
     /** %s broadcasts */
@@ -317,12 +341,18 @@ interface I18n {
     ongoing: string;
     /** Open in Lichess */
     openLichess: string;
+    /** Open */
+    openTournament: string;
+    /** Open U%s */
+    openUnderXAgeTournament: I18nFormat;
     /** Optional details */
     optionalDetails: string;
     /** Overview */
     overview: string;
     /** Past broadcasts */
     pastBroadcasts: string;
+    /** Quarterfinals */
+    quarterfinals: string;
     /** Rating diff */
     ratingDiff: string;
     /** Recent tournaments */
@@ -337,6 +367,8 @@ interface I18n {
     roundX: I18nFormat;
     /** Score */
     score: string;
+    /** Semifinals */
+    semifinals: string;
     /** Show players scores based on game results */
     showScores: string;
     /** Since you chose to hide the results, all the preview boards are empty to avoid spoilers. */
@@ -347,6 +379,8 @@ interface I18n {
     sourceSingleUrl: string;
     /** URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet. */
     sourceUrlHelp: string;
+    /** Standings are calculated using broadcasted games and may differ from official results. */
+    standingsDisclaimer: string;
     /** Optional, if you know when the event starts */
     startDateHelp: string;
     /** Start date in the tournament local timezone: %s */
@@ -359,10 +393,16 @@ interface I18n {
     subscribedBroadcasts: string;
     /** Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences. */
     subscribeTitle: string;
+    /** Team Results */
+    teamResults: string;
     /** Teams */
     teams: string;
+    /** The following term(s) will be automatically translated: %s. */
+    termsAutomaticallyTranslated: I18nFormat;
     /** The new round will have the same members and contributors as the previous one. */
     theNewRoundHelp: string;
+    /** Tiebreaks */
+    tiebreaks: string;
     /** Time zone */
     timezone: string;
     /** Top 10 rating */
@@ -385,6 +425,8 @@ interface I18n {
     uploadImage: string;
     /** webmasters page */
     webmastersPage: string;
+    /** Women */
+    womenTournament: string;
   };
   challenge: {
     /** Cannot challenge due to provisional %s rating. */
@@ -1483,8 +1525,6 @@ interface I18n {
     defendYourKing: string;
     /** Don't let them take */
     dontLetThemTakeAnyUndefendedPiece: string;
-    /** En passant */
-    enPassant: string;
     /** Congratulations! You can now take en passant. */
     enPassantComplete: string;
     /** When the opponent pawn moved by two squares, you can take it like if it moved by one square. */
@@ -3327,7 +3367,7 @@ interface I18n {
     'captcha.fail': string;
     /** Capture */
     capture: string;
-    /** Castling */
+    /** Castling rights */
     castling: string;
     /** Casual */
     casual: string;
@@ -3355,6 +3395,8 @@ interface I18n {
     cheat: string;
     /** Cheat Detected */
     cheatDetected: string;
+    /** Checkable king */
+    checkableKing: string;
     /** Check all junk, spam, and other folders */
     checkAllEmailFolders: string;
     /** Checkmate */
@@ -3429,6 +3471,8 @@ interface I18n {
     congratsYouWon: string;
     /** Continue from here */
     continueFromHere: string;
+    /** Contrast */
+    contrast: string;
     /** Contribute */
     contribute: string;
     /** Copy mainline PGN */
@@ -3593,7 +3637,7 @@ interface I18n {
     endgamePositions: string;
     /** Error loading engine */
     engineFailed: string;
-    /** En passant */
+    /** En passant rights */
     enPassant: string;
     /** This email address is invalid */
     'error.email': string;
@@ -3675,8 +3719,6 @@ interface I18n {
     freeOnlineChess: string;
     /** Friends */
     friends: string;
-    /** From position */
-    fromPosition: string;
     /** Game aborted */
     gameAborted: string;
     /** Game as GIF */
@@ -3953,6 +3995,8 @@ interface I18n {
     mouseTricks: string;
     /** Move */
     move: string;
+    /** Move annotations */
+    moveAnnotations: string;
     /** Moves played */
     movesPlayed: string;
     /** Move times */
@@ -4169,8 +4213,12 @@ interface I18n {
     performance: string;
     /** Rating: %s */
     perfRatingX: I18nFormat;
+    /** A permanent link for anyone to challenge you with these exact settings. */
+    permanentLinkForAnyoneToChallengeYou: string;
     /** Piece set */
     pieceSet: string;
+    /** Pinned pieces */
+    pinnedPieces: string;
     /** Play */
     play: string;
     /** Play against computer */
@@ -4183,6 +4231,8 @@ interface I18n {
     playComputerMove: string;
     /** Player */
     player: string;
+    /** Player names */
+    playerNames: string;
     /** Players */
     players: string;
     /** Play every game you start. */
@@ -4355,6 +4405,8 @@ interface I18n {
     returnToSimulHomepage: string;
     /** Return to tournaments homepage */
     returnToTournamentsHomepage: string;
+    /** Reusable challenge URL */
+    reusableChallengeUrl: string;
     /** Review black mistakes */
     reviewBlackMistakes: string;
     /** Review white mistakes */
@@ -4633,6 +4685,8 @@ interface I18n {
     ultraBulletDesc: string;
     /** Unblock */
     unblock: string;
+    /** Undefended pieces */
+    undefendedPieces: string;
     /** Unfollow */
     unfollow: string;
     /** Unfollow %s */
@@ -4643,6 +4697,8 @@ interface I18n {
     unknownDueToRounding: string;
     /** Unlimited */
     unlimited: string;
+    /** Take all the time you need */
+    unlimitedDescription: string;
     /** Unsubscribe */
     unsubscribe: string;
     /** Until */
@@ -4681,6 +4737,8 @@ interface I18n {
     variantLoss: string;
     /** Variants */
     variants: string;
+    /** More ways to play */
+    variantsDescription: string;
     /** Variant win */
     variantWin: string;
     /** Variation arrows let you navigate without using the move list. */
@@ -4703,6 +4761,8 @@ interface I18n {
     viewTheSolution: string;
     /** View tournament */
     viewTournament: string;
+    /** Visual motifs */
+    visualMotifs: string;
     /** We will come back to you shortly to help you complete your signup. */
     waitForSignupHelp: string;
     /** Waiting */
@@ -4859,8 +4919,6 @@ interface I18n {
     youHaveJoinedTeamX: I18nFormat;
     /** You need an account to do that */
     youNeedAnAccountToDoThat: string;
-    /** You play as */
-    youPlayAs: string;
     /** You play the black pieces */
     youPlayTheBlackPieces: string;
     /** You play the white pieces */
@@ -6035,6 +6093,10 @@ interface I18n {
     crazyhouse: string;
     /** Captured pieces can be dropped back on the board instead of moving a piece. */
     crazyhouseTitle: string;
+    /** From Position */
+    fromPosition: string;
+    /** Standard chess from a custom position */
+    fromPositionTitle: string;
     /** Horde */
     horde: string;
     /** One side has a large number of pawns, the other has a normal army. */

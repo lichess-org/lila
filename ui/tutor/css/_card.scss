@@ -2,8 +2,8 @@
   &-cards {
     @extend %box-padding-horiz;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-    grid-gap: 1em;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-gap: $block-gap;
     margin: var(---box-padding) 0;
     &--triple {
       grid-template-columns: 1fr;
@@ -17,39 +17,28 @@
   }
   &-card {
     @extend %box-neat;
-    background: $c-bg-zebra;
+    background: $c-bg-box;
 
     $card-padding-w: 2em;
     $card-padding-h: 2em;
 
     &--link {
-      border-radius: 20px;
+      border-radius: 12px;
       position: relative;
-      // outline: 3px solid mix($c-link, $c-bg-box, 30%);
       cursor: pointer;
       &:hover {
-        outline: 3px solid $m-primary_bg--mix-60;
-        background: $m-primary_bg-zebra--mix-10;
-        box-shadow: 0 0 30px $m-primary_bg--mix-20;
+        outline: 1px solid $m-primary_bg--mix-60;
+        background: $m-primary_bg--mix-08;
+        box-shadow: 0 0 20px $m-primary_bg--mix-20;
       }
     }
 
     &__top {
       @extend %flex-center-nowrap;
-
-      i {
-        @extend %page-text-shadow;
-        font-size: 4em;
-        margin: 0 1rem 0 1rem;
-        color: $c-primary;
-        opacity: 0.7;
-      }
       &__title {
+        @extend %flex-column;
         &--pad {
           @include padding-direction(2rem, #{$card-padding-w}, 0, #{$card-padding-w});
-        }
-        i + & {
-          margin-top: 1em;
         }
         &__text {
           font-size: 1.7em;
@@ -61,6 +50,35 @@
         &__sub {
           margin-top: 0.3rem;
           color: $c-font-dim;
+        }
+        .tutor-icon {
+          height: 2.5em;
+        }
+      }
+    }
+    &--perf {
+      &__top {
+        @extend %flex-center-nowrap;
+
+        i {
+          @extend %page-text-shadow;
+          font-size: 4em;
+          margin: 0 1rem 0 1rem;
+          opacity: 0.7;
+        }
+        &__title {
+          @extend %flex-column;
+          i + & {
+            margin-top: 1em;
+          }
+          &__text {
+            font-size: 1.7em;
+            margin-top: 0.7rem;
+          }
+          &__sub {
+            margin-top: 0.3rem;
+            color: $c-font-dim;
+          }
         }
       }
     }

@@ -3,6 +3,7 @@ package lila.relay
 import play.api.mvc.RequestHeader
 import lila.core.security.LilaCookie
 import play.api.mvc.Result
+import lila.common.HTTPRequest
 
 enum RelayVideoEmbed:
   case No
@@ -23,7 +24,7 @@ final class RelayVideoEmbedStore(baker: LilaCookie):
       case Some("no") => No
       case Some("ps") => PinnedStream
       case _ => Auto
-    req.queryString.get("embed").flatMap(_.headOption) match
+    HTTPRequest.queryStringGet("embed") match
       case Some("no") => No
       case Some("ps") => PinnedStream
       case Some(name) => UserStr.read(name).fold(Auto)(u => Stream(u.id))

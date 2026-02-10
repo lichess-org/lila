@@ -47,6 +47,6 @@ export const setupDialog = (ctrl: SetupCtrl) => {
 };
 
 const settingsPreview = (ctrl: SetupCtrl) => {
-  const color = colors.find(c => c.key === ctrl.color())?.name!;
+  const color = colors.find(c => c.key === ctrl.color())?.name ?? 'random';
   return [color, ctrl.timeControl.isRealTime() ? ctrl.timeControl.clockStr() : 'No clock'].join(' | ');
 };

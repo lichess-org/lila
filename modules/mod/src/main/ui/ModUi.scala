@@ -123,22 +123,20 @@ final class ModUi(helpers: Helpers):
                     .map: perm =>
                       val id = s"permission-${perm.dbKey}"
                       div(
-                        cls := Granter.of(perm)(u).option("granted"),
+                        cls := List("form-check__container" -> true, "granted" -> Granter.of(perm)(u)),
                         title := Granter
                           .of(perm)(u)
                           .so:
                             findGranterPackage(Permission(u), perm).map: p =>
                               s"Granted by package: $p"
                       )(
-                        span(
-                          form3.cmnToggle(
-                            id,
-                            "permissions[]",
-                            checked = u.roles.contains(perm.dbKey),
-                            value = perm.dbKey
-                          )
+                        form3.nativeCheckbox(
+                          id,
+                          "permissions[]",
+                          checked = u.roles.contains(perm.dbKey),
+                          value = perm.dbKey
                         ),
-                        label(`for` := id)(perm.name)
+                        label(`for` := id, cls := "form-label")(perm.name)
                       )
                 )
           ),

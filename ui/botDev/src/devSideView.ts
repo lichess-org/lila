@@ -1,8 +1,7 @@
 import * as co from 'chessops';
-import { type VNode, hl, onInsert, bind } from 'lib/view';
+import { type VNode, hl, onInsert, bind, domDialog } from 'lib/view';
 import * as licon from 'lib/licon';
 import { storedBooleanProp, storedIntProp } from 'lib/storage';
-import { domDialog } from 'lib/view';
 import { EditDialog } from './editDialog';
 import { Bot } from 'lib/bot/bot';
 import { resultsString, playersWithResults, rangeTicks } from './devUtil';

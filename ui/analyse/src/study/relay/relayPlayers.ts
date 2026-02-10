@@ -1,8 +1,15 @@
-import { type VNode, dataIcon, hl, onInsert, type MaybeVNodes } from 'lib/view';
+import { type VNode, dataIcon, hl, onInsert, spinnerVdom as spinner, type LooseVNodes } from 'lib/view';
 import { json as xhrJson } from 'lib/xhr';
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/view';
-import type { Photo, RelayRound, RelayTour, RoundId, TourId } from './interfaces';
+import type {
+  FideTC,
+  Photo,
+  RelayRound,
+  RelayTeamName,
+  RelayTour,
+  RoundId,
+  StatByFideTC,
+} from './interfaces';
 import { playerColoredResult } from './customScoreStatus';
 import { playerFedFlag } from '../playerBars';
 import { userLink, userTitle } from 'lib/view/userLink';
@@ -20,6 +27,9 @@ import { type Attrs, type Hooks, init as initSnabbdom, attributesModule, type VN
 import { convertPlayerFromServer } from '../studyChapters';
 import { isTouchDevice } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
+import { teamLinkData } from './relayTeamLeaderboard';
+import perfIcons from 'lib/game/perfIcons';
+import type { Tablesort } from 'tablesort';
 
 export type RelayPlayerId = FideId | string;
 
@@ -29,11 +39,12 @@ interface Tiebreak {
   points: number;
 }
 
-interface RelayPlayer extends StudyPlayer {
+export interface RelayPlayer extends StudyPlayer {
   score?: number;
   played?: number;
-  ratingDiff?: number;
-  performance?: number;
+  ratingsMap?: StatByFideTC;
+  ratingDiffs?: StatByFideTC;
+  performances?: StatByFideTC;
   tiebreaks?: Tiebreak[];
   rank?: number;
 }
@@ -44,6 +55,7 @@ interface RelayPlayerGame {
   roundObj?: RelayRound;
   opponent: RelayPlayer;
   color: Color;
+  fideTC: FideTC;
   points?: PointsStr;
   customPoints?: number;
   ratingDiff?: number;
@@ -56,9 +68,7 @@ interface RelayPlayerWithGames extends RelayPlayer {
 }
 
 interface FidePlayer {
-  ratings: {
-    [key: string]: number;
-  };
+  ratings: StatByFideTC;
   year?: number;
   follow?: boolean;
 }
@@ -74,9 +84,10 @@ export default class RelayPlayers {
   loading = false;
   players?: RelayPlayer[];
   show?: PlayerToShow;
+  private table?: Tablesort;
 
   constructor(
-    private readonly tourId: TourId,
+    readonly tour: RelayTour,
     readonly switchToPlayerTab: () => void,
     readonly isEmbed: boolean,
     private readonly federations: () => Federations | undefined,
@@ -113,16 +124,17 @@ export default class RelayPlayers {
       this.redraw();
     }
     const players: (RelayPlayer & StudyPlayerFromServer)[] = await xhrJson(
-      `/broadcast/${this.tourId}/players`,
+      `/broadcast/${this.tour.id}/players`,
     );
     this.players = players.map(p => convertPlayerFromServer(p, this.federations()));
+    this.table?.refresh();
     this.redraw();
   };
 
   loadPlayerWithGames = async (id: RelayPlayerId) => {
     const feds = this.federations();
     const full: RelayPlayerWithGames = await xhrJson(
-      `/broadcast/${this.tourId}/players/${encodeURIComponent(id)}`,
+      `/broadcast/${this.tour.id}/players/${encodeURIComponent(id)}`,
     ).then(p => convertPlayerFromServer(p, feds));
     full.games.forEach((g: RelayPlayerGame) => {
       g.opponent = convertPlayerFromServer(g.opponent as RelayPlayer & StudyPlayerFromServer, feds);
@@ -133,16 +145,16 @@ export default class RelayPlayers {
   playerLinkConfig = (p: StudyPlayer): VNodeData | undefined => playerLinkConfig(this, p, true);
 }
 
-export const playersView = (ctrl: RelayPlayers, tour: RelayTour): VNode =>
-  ctrl.show ? playerView(ctrl, ctrl.show, tour) : playersList(ctrl);
+export const playersView = (ctrl: RelayPlayers): VNode =>
+  ctrl.show ? playerView(ctrl, ctrl.show) : playersList(ctrl);
 
-const ratingCategs = [
-  ['standard', i18n.site.classical],
-  ['rapid', i18n.site.rapid],
-  ['blitz', i18n.site.blitz],
-];
-
-const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VNode => {
+const ratingCategs: { [key in FideTC]: string } = {
+  standard: i18n.site.classical,
+  rapid: i18n.site.rapid,
+  blitz: i18n.site.blitz,
+};
+const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
+  const tour = ctrl.tour;
   const p = show.player;
   const year = (tour.dates?.[0] ? new Date(tour.dates[0]) : new Date()).getFullYear();
   const tc = tour.info.fideTc || 'standard';
@@ -173,14 +185,16 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                 ]),
                 p.fide &&
                   hl('label.fide-player__follow', [
-                    hl(`input#fide-follow-${p.fideId}.cmn-favourite`, {
-                      attrs: {
-                        type: 'checkbox',
-                        'data-action': `/fide/${p.fideId}/follow?follow=true`,
-                        checked: !!p.fide?.follow,
-                      },
-                    }),
-                    hl('label', { attrs: { for: `fide-follow-${p.fideId}` } }),
+                    hl('span.cmn-favourite', [
+                      hl(`input#fide-follow-${p.fideId}`, {
+                        attrs: {
+                          type: 'checkbox',
+                          'data-action': `/fide/${p.fideId}/follow?follow=true`,
+                          checked: !!p.fide?.follow,
+                        },
+                      }),
+                      hl('label', { attrs: { for: `fide-follow-${p.fideId}` } }),
+                    ]),
                     i18n.site.follow,
                   ]),
                 hl('table.fide-player__header__table', [
@@ -198,7 +212,14 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                         ),
                       ]),
                     p.team &&
-                      hl('tr', [hl('th', 'Team'), hl('td.text', { attrs: dataIcon(licon.Group) }, p.team)]),
+                      hl('tr', [
+                        hl('th', 'Team'),
+                        hl(
+                          'td.text',
+                          { attrs: dataIcon(licon.Group) },
+                          hl('a', matchOrResultsTeamLink(ctrl, p.team), p.team),
+                        ),
+                      ]),
                     age && hl('tr', [hl('th', i18n.broadcast.age), hl('td', age.toString())]),
                   ]),
                 ]),
@@ -207,9 +228,9 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
           ),
           hl('div.fide-player__cards', [
             p.fide?.ratings &&
-              ratingCategs.map(([key, name]) =>
+              Object.entries(ratingCategs).map(([key, name]: [FideTC, string]) =>
                 hl(`div.fide-player__card${key === tc ? '.active' : ''}`, [
-                  hl('em', name),
+                  hl('em', fideTCAttrs(key), name),
                   hl('span', [p.fide?.ratings[key] || '-']),
                 ]),
               ),
@@ -218,12 +239,18 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                 hl('em', i18n.broadcast.score),
                 hl('span', [p.score, ' / ', p.played]),
               ]),
-            !!p.performance &&
+            p.performances &&
               hl('div.fide-player__card', [
                 hl('em', i18n.site.performance),
-                hl('span', [p.performance, p.games.length < 4 ? '?' : '']),
+                Object.entries(p.performances).map(([tc, value]: [FideTC, number]) =>
+                  hl(
+                    'div',
+                    fideTCAttrs(tc),
+                    `${value}${p.games.filter(g => g.fideTC === tc).length < 4 ? '?' : ''}`,
+                  ),
+                ),
               ]),
-            p.ratingDiff !== undefined &&
+            p.ratingDiffs &&
               hl('div.fide-player__card', [hl('em', i18n.broadcast.ratingDiff), ratingDiff(p)]),
           ]),
           hl('table.relay-tour__player__games.slist.slist-pad', [
@@ -247,23 +274,26 @@ const playersList = (ctrl: RelayPlayers): VNode =>
     ctrl.players ? renderPlayers(ctrl, ctrl.players) : [spinner()],
   );
 
-const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes => {
-  const withRating = !!players.find(p => p.rating);
-  const withScores = !!players.find(p => p.score !== undefined);
-  const withRank = !!players.find(p => p.rank);
+export const renderPlayers = (
+  ctrl: RelayPlayers,
+  players: RelayPlayer[],
+  forceEloSort = false,
+): LooseVNodes => {
+  const withRating = players.some(p => defined(p.rating));
+  const withScores = players.some(p => defined(p.score));
+  const withRank = players.some(p => defined(p.rank));
   const defaultSort = { attrs: { 'data-sort-default': 1 } };
   const tbs = players?.[0]?.tiebreaks;
   const sortByBoth = (x?: number, y?: number) => ({
     attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
   });
   return [
-    withRank
-      ? hl(
-          'p.relay-tour__standings--disclaimer.text',
-          { attrs: dataIcon(licon.InfoCircle) },
-          'Standings are calculated using broadcasted games and may differ from official results.',
-        )
-      : undefined,
+    withRank &&
+      hl(
+        'p.relay-tour__standings--disclaimer.text',
+        { attrs: dataIcon(licon.InfoCircle) },
+        i18n.broadcast.standingsDisclaimer,
+      ),
     hl(
       'table.relay-tour__players__table.fide-players-table.slist.slist-invert.slist-pad',
       {
@@ -273,10 +303,10 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
         hl(
           'thead',
           hl('tr', [
-            withRank && hl('th.rank', { attrs: { 'data-sort-default': 1, ...dataIcon(licon.Trophy) } }),
-            hl('th.player-name', i18n.site.player),
-            withRating && hl('th', !withScores && !withRank && defaultSort, 'Elo'),
-            withScores && hl('th.score', !withRank && defaultSort, i18n.broadcast.score),
+            withRank && hl('th.rank', { attrs: { ...defaultSort['attrs'], ...dataIcon(licon.Trophy) } }),
+            hl('th.player-name', { attrs: { 'data-sort-reverse': true } }, i18n.site.player),
+            withRating && hl('th', ((!withScores && !withRank) || forceEloSort) && defaultSort, 'Elo'),
+            withScores && hl('th.score', !withRank && !forceEloSort && defaultSort, i18n.broadcast.score),
             hl('th', i18n.site.games),
             tbs?.map(tb =>
               hl(
@@ -298,7 +328,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): MaybeVNodes 
                 hl(
                   'td',
                   sortByBoth(player.rating, (player.score || 0) * 10),
-                  !!player.rating && [`${player.rating}`, ratingDiff(player)],
+                  player.rating && ratingDiff(player),
                 ),
               withScores &&
                 hl(
@@ -390,10 +420,10 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
     hl('div.tpp__player__info', [
       hl(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
       hl('div.tpp__player__details', [
-        p.team && hl('div.tpp__player__team', p.team),
+        p.team && hl('a.tpp__player__team', matchOrResultsTeamLink(ctrl, p.team), p.team),
         hl('div', [
           playerFedFlag(p.fed),
-          !!p.rating && [`${p.rating}`, isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p)],
+          !!p.rating && isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p),
         ]),
         isRelayPlayer(p) &&
           !ctrl.hideResultsSinceRoundId() &&
@@ -444,7 +474,12 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
         hl('td', op.rating?.toString()),
         hl('td.is.color-icon.' + game.color),
         hl('td.tpp__games__status', points !== undefined ? coloredPoint(points) : '*'),
-        hl('td', defined(game.ratingDiff) && hideResultsSinceIndex > i ? ratingDiff(game) : undefined),
+        hl(
+          'td',
+          defined(game.ratingDiff) &&
+            hideResultsSinceIndex > i &&
+            ratingDiff(game, p.ratingsMap && Object.keys(p.ratingsMap).length > 1),
+        ),
       ]);
     }),
   );
@@ -491,22 +526,39 @@ const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): V
   );
 };
 
-const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
-  const rd = p.ratingDiff;
-  return !defined(rd)
+const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = false) => {
+  if (isRelayPlayerGame(p)) return hl('div', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff));
+  if (!p.ratingDiffs) return p.rating;
+  const rds = Object.entries(p.ratingDiffs);
+  return rds.map(([tc, diff]: [FideTC, number]) => {
+    const node = [p.ratingsMap?.[tc], diffNode(diff)];
+    return rds.length === 1 ? node : hl('div', fideTCAttrs(tc), node);
+  });
+};
+
+const diffNode = (rd: number | undefined) =>
+  !defined(rd)
     ? undefined
     : rd > 0
       ? hl('good.rp', '+' + rd)
       : rd < 0
         ? hl('bad.rp', '−' + -rd)
         : hl('span.rp--same', ' ==');
+
+const isRelayPlayerGame = (p: RelayPlayer | RelayPlayerGame): p is RelayPlayerGame =>
+  'round' in p && 'opponent' in p;
+
+const fideTCAttrs = (tc: FideTC): VNodeData => ({
+  attrs: {
+    'data-icon': perfIcons[tc === 'standard' ? 'classical' : tc],
+    title: ratingCategs[tc],
+  },
+});
+
+export const tableAugment = (el: HTMLTableElement): Tablesort => {
+  extendTablesortNumber();
+  return sortTable(el, { descending: true });
 };
 
-const tableAugment = (el: HTMLTableElement) => {
-  extendTablesortNumber();
-  $(el).each(function (this: HTMLElement) {
-    sortTable(this, {
-      descending: true,
-    });
-  });
-};
+const matchOrResultsTeamLink = (ctrl: RelayPlayers, teamName: RelayTeamName): VNodeData =>
+  ctrl.tour.showTeamScores ? teamLinkData(teamName) : { attrs: { href: '#teams' } };

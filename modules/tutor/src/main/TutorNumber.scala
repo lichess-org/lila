@@ -24,15 +24,16 @@ trait TutorNumber[V]:
         iso.from((double(a.value) * a.count + double(b.value) * b.count) / (a.count + b.count)),
         a.count + b.count
       )
-  def mean(a: Option[ValueCount[V]], b: Option[ValueCount[V]]): ValueCount[V] =
-    mean(~a, ~b)
+  def mean(a: Option[ValueCount[V]], b: Option[ValueCount[V]]): ValueCount[V] = mean(~a, ~b)
+  def mean(a: V, b: V): V = iso.from((double(a) + double(b)) / 2)
+  def mean(a: Option[V], b: Option[V]): V = iso.from((a.so(double) + b.so(double)) / 2)
 
   def reverseCompare = new TutorNumber[V]:
     val iso = TutorNumber.this.iso
     override def grade(a: V, b: V) = TutorNumber.this.grade(b, a)
     override def mean(vs: Iterable[ValueCount[V]]): ValueCount[V] = TutorNumber.this.mean(vs)
 
-object TutorNumber:
+private object TutorNumber:
 
   given TutorNumber[GoodPercent] with
     val iso = summon[Iso[Double, GoodPercent]]
@@ -46,3 +47,5 @@ object TutorNumber:
   given TutorNumber[ClockPercent] with
     val iso = Iso.double[ClockPercent](ClockPercent.fromPercent(_), _.value)
     def grade(a: ClockPercent, b: ClockPercent) = Grade.percent(a, b)
+
+  def roundToInt(d: Double) = Math.round(d).toInt

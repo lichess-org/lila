@@ -24,9 +24,9 @@ final class ForumAccess(
               // when the team forum is open to everyone, you still need to belong to the team in order to post
               op match
                 case Operation.Read => fuTrue
-                case Operation.Write => me.so(teamApi.belongsTo(teamId, _))
-            case Access.Members => me.so(teamApi.belongsTo(teamId, _))
-            case Access.Leaders => me.so(teamApi.isLeader(teamId, _))
+                case Operation.Write => me.soUse(teamApi.isMember(teamId))
+            case Access.Members => me.soUse(teamApi.isMember(teamId))
+            case Access.Leaders => me.soUse(teamApi.isLeader(teamId))
 
   def isGrantedRead(categId: ForumCategId)(using me: Option[Me]): Fu[Boolean] =
     if Granter.opt(_.Shusher) then fuTrue
@@ -43,9 +43,9 @@ final class ForumAccess(
       (me.count.game > 0 && me.createdSinceDays(2)) || me.hasTitle || me.isVerified || me.isPatron
     }
 
-  def isGrantedMod(categId: ForumCategId)(using meOpt: Option[Me]): Fu[Boolean] = meOpt.so: me =>
+  def isGrantedMod(categId: ForumCategId)(using meOpt: Option[Me]): Fu[Boolean] = meOpt.soUse:
     if Granter.opt(_.ModerateForum) then fuTrue
-    else ForumCateg.toTeamId(categId).so(teamApi.hasCommPerm(_, me))
+    else ForumCateg.toTeamId(categId).so(teamApi.hasCommPerm)
 
   def isReplyBlockedOnUBlog(topic: ForumTopic, canModCateg: Boolean)(using me: Me): Fu[Boolean] =
     (topic.ublogId.isDefined && !canModCateg).so:

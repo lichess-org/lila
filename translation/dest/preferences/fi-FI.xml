@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">Kirjeshakkipelien uudet tapahtumat</string>
   <string name="notifyChallenge">Haasteet</string>
   <string name="notifyTournamentSoon">Turnaus alkamassa pian</string>
+  <string name="notifyBroadcasts">Lähetykset, jotka olet tilannut</string>
   <string name="notifyTimeAlarm">Kirjeshakkipelin aika loppumassa</string>
   <string name="notifyBell">Kilahtava ilmoitus Lichessissä</string>
   <string name="notifyPush">Laitteen ilmoitus, kun et ole Lichessissä</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">Laite</string>
   <string name="bellNotificationSound">Ilmoitusten kilahdusääni</string>
   <string name="blindfold" comment="As in Blindfold chess">Sokko</string>
+  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Näytä mobiililaitteilla kello vasemmalla puolella</string>
 </resources>

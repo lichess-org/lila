@@ -4,6 +4,7 @@ import com.softwaremill.macwire.*
 
 import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
+import lila.common.Bus
 
 @Module
 final class Env(
@@ -30,7 +31,7 @@ final class Env(
 
   lazy val paginator = wire[PaginatorBuilder]
 
-  lazy val cached: Cached = wire[Cached]
+  lazy val cached: TeamCached = wire[TeamCached]
 
   lazy val jsonView = wire[JsonView]
 
@@ -40,15 +41,17 @@ final class Env(
 
   private lazy val notifier = wire[Notifier]
 
-  export cached.lightApi as lightTeamApi
+  export cached.{ lightApi as lightTeamApi, async as lightTeam, sync as lightTeamSync }
 
-  export cached.{ async as lightTeam, sync as lightTeamSync }
+  def isBetaTester(using myId: MyId) = cached.isMember(TeamId("lichess-beta-testers"))
 
   lazy val limiter = wire[TeamLimiter]
 
   lazy val security = wire[TeamSecurity]
 
   lazy val api = wire[TeamApi]
+
+  wire[TeamClasSync]
 
   lila.common.Cli.handle:
     case "team" :: "members" :: "add" :: teamId :: members :: Nil =>
@@ -58,18 +61,18 @@ final class Env(
         _ <- api.addMembers(team, userIds)
       yield s"Added ${userIds.size} members to team ${team.name}"
 
-  lila.common.Bus.sub[lila.core.mod.Shadowban]:
+  Bus.sub[lila.core.mod.Shadowban]:
     case lila.core.mod.Shadowban(userId, true) =>
       api.deleteRequestsByUserId(userId)
 
-  lila.common.Bus.sub[lila.core.team.IsLeaderWithCommPerm]:
+  Bus.sub[lila.core.team.IsLeaderWithCommPerm]:
     case lila.core.team.IsLeaderWithCommPerm(teamId, userId, promise) =>
-      promise.completeWith(api.hasPerm(teamId, userId, _.Comm))
+      promise.completeWith(api.hasCommPerm(teamId)(using userId.into(MyId)))
 
-  lila.common.Bus.sub[lila.core.team.TeamIdsJoinedBy]:
+  Bus.sub[lila.core.team.TeamIdsJoinedBy]:
     case lila.core.team.TeamIdsJoinedBy(userId, promise) =>
       promise.completeWith(cached.teamIdsList(userId))
 
-  lila.common.Bus.sub[lila.core.team.IsLeaderOf]:
+  Bus.sub[lila.core.team.IsLeaderOf]:
     case lila.core.team.IsLeaderOf(leaderId, memberId, promise) =>
       promise.completeWith(api.isLeaderOf(leaderId, memberId))

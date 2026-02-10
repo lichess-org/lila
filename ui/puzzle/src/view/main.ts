@@ -11,6 +11,7 @@ import {
   onInsert,
   bindNonPassive,
   hl,
+  type MaybeVNode,
 } from 'lib/view';
 import { type VNode, h } from 'snabbdom';
 import { addPointerListeners } from 'lib/pointer';
@@ -146,38 +147,43 @@ export default function (ctrl: PuzzleCtrl): VNode {
   );
 }
 
-function session(ctrl: PuzzleCtrl) {
+function session(ctrl: PuzzleCtrl): MaybeVNode {
   const rounds = ctrl.session.get().rounds,
     current = ctrl.data.puzzle.id;
-  return hl('div.puzzle__session', [
-    rounds.map(round => {
-      const rd =
-        round.ratingDiff && ctrl.opts.showRatings
-          ? round.ratingDiff > 0
-            ? '+' + round.ratingDiff
-            : round.ratingDiff
-          : null;
+  return rounds.length
+    ? hl('div.puzzle__session', [
+        rounds.map(round => {
+          const rd =
+            round.ratingDiff && ctrl.opts.showRatings
+              ? round.ratingDiff > 0
+                ? '+' + round.ratingDiff
+                : round.ratingDiff
+              : null;
 
-      return h(
-        `a.result-${round.result}${rd ? '' : '.result-empty'}`,
-        {
-          key: round.id,
-          class: { current: current === round.id },
-          attrs: {
-            href: `/training/${ctrl.session.theme}/${round.id}`,
-            ...(ctrl.streak ? { target: '_blank' } : {}),
-          },
-        },
-        rd,
-      );
-    }),
-    rounds.find(r => r.id === current)
-      ? !ctrl.streak &&
-        hl('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
-      : hl(
-          'a.result-cursor.current',
-          { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
-          ctrl.streak && (ctrl.streak.data.index + 1).toString(),
-        ),
-  ]);
+          return h(
+            `a.result-${round.result}${rd ? '' : '.result-empty'}`,
+            {
+              key: round.id,
+              class: { current: current === round.id },
+              attrs: {
+                href: `/training/${ctrl.session.theme}/${round.id}`,
+                ...(ctrl.streak ? { target: '_blank' } : {}),
+              },
+            },
+            rd,
+          );
+        }),
+        rounds.find(r => r.id === current)
+          ? !ctrl.streak &&
+            hl('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
+          : hl(
+              'a.result-cursor.current',
+              {
+                key: current,
+                attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` },
+              },
+              ctrl.streak && (ctrl.streak.data.index + 1).toString(),
+            ),
+      ])
+    : undefined;
 }

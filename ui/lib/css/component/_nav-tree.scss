@@ -21,7 +21,7 @@
 
   .node .back {
     width: 1em;
-    @include margin-inline-end(0.3em);
+    margin-inline: 0 0.3em;
     display: inline-block;
     opacity: 0.6;
 

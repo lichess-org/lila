@@ -76,6 +76,6 @@ Mängi kiirmalet või klassikalist malet tõstmaks võimalusi, et lisatakse pusl
   </plurals>
   <string name="percentSolved">%s lahendatud</string>
   <string name="noPuzzlesToShow">Midagi pole näidata, lahenda ennem mõned pusled!</string>
-  <string name="improvementAreasDescription">Harjuta neid, et optimeerida oma edusamme!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Harjuta neid, et optimeerida oma edusamme!</string>
   <string name="strengthDescription">Sa lahendad kõige paremini neid teemasid</string>
 </resources>

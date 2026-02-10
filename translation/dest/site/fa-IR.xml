@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">بازی با رایانه</string>
   <string name="gameMode">حالتِ بازی</string>
   <string name="createLobbyGame">ایجاد بازی در سَرسَرا</string>
-  <string name="youPlayAs">رنگِ مُهرهٔ شما</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">در انتظار حریف</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">رشته FEN را در این قسمت قرار دهید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
   <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
-  <string name="fromPosition">از وضعیت</string>
   <string name="continueFromHere">از اینجا ادامه دهید</string>
   <string name="toStudy">مطالعه</string>
   <string name="importGame">بارگذاری بازی</string>
@@ -656,7 +654,7 @@
   <string name="onlyExistingConversations">تنها مکالمات موجود</string>
   <string name="onlyFriends">فقط دوستان</string>
   <string name="menu">نام‌چین</string>
-  <string name="castling">قلعه‌روی</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">قلعه‌روی</string>
   <string name="whiteCastlingKingside">O-O سفید</string>
   <string name="blackCastlingKingside">O-O سیاه</string>
   <plurals name="nbForumPosts">

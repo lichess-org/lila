@@ -40,8 +40,8 @@
     <item quantity="one">Maksimum %s teikn</item>
     <item quantity="other">Maksimum %s teikn</item>
   </plurals>
-  <string name="visibility">Synleg på videokanal-sida</string>
-  <string name="whenApproved">Når stadfesta av moderatorane</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Synleg på videokanal-sida</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Når stadfesta av moderatorane</string>
   <string name="headline">Overskrift</string>
   <string name="tellUsAboutTheStream">Fortel om videokanalen din i ei setning</string>
   <string name="longDescription">Lang utgreiing</string>

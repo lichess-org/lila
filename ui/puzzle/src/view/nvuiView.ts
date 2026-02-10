@@ -15,6 +15,7 @@ import { makeSquare, opposite } from 'chessops';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import type { Api } from '@lichess-org/chessground/api';
 import { nextCorrectMove } from '@/moveTree';
+import type { TreeNode } from 'lib/tree/types';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -272,10 +273,10 @@ function viewOrAdvanceSolution(ctrl: PuzzleCtrl, notify: (txt: string) => void):
   } else ctrl.viewSolution();
 }
 
-const isInSolution = (node?: Tree.Node): boolean =>
+const isInSolution = (node?: TreeNode): boolean =>
   !!node && (node.puzzle === 'good' || node.puzzle === 'win');
 
-const nextNode = (node?: Tree.Node): Tree.Node | undefined =>
+const nextNode = (node?: TreeNode): TreeNode | undefined =>
   node?.children?.length ? node.children[0] : undefined;
 
 const renderStreak = (ctrl: PuzzleCtrl): VNode[] =>

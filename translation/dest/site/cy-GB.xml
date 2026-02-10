@@ -343,7 +343,6 @@
   <string name="pasteTheFenStringHere">Gludwch FEN yma</string>
   <string name="pasteThePgnStringHere">Gludwch PGN yma</string>
   <string name="orUploadPgnFile">Neu uwchlwytho ffeil PNG</string>
-  <string name="fromPosition">O safle</string>
   <string name="continueFromHere">Parhau o fan ma</string>
   <string name="toStudy">Astudio</string>
   <string name="importGame">Mewnforio gêm</string>

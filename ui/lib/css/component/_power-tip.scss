@@ -23,7 +23,6 @@
   &__info {
     @extend %flex-column;
 
-    height: 83px;
     body.no-rating & {
       height: unset;
     }
@@ -39,9 +38,6 @@
         flex: 0 0 auto;
         display: block;
         font-size: 1.1em;
-        .line {
-          vertical-align: middle;
-        }
       }
       &__flag {
         @extend %flex-center;
@@ -55,6 +51,12 @@
       signal {
         flex: 0 0 auto;
       }
+    }
+
+    &__realname {
+      background: $c-bg-zebra;
+      padding: 0.1em 0;
+      text-align: center;
     }
 
     &__ratings {

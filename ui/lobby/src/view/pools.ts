@@ -33,7 +33,7 @@ export function render(ctrl: LobbyController) {
       const active = member?.id === pool.id,
         transp = !!member && !active;
       return h(
-        'div',
+        'div.lpool',
         {
           class: { active, transp },
           attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
@@ -50,7 +50,7 @@ export function render(ctrl: LobbyController) {
     })
     .concat(
       h(
-        'div.custom',
+        'div.lpool',
         {
           class: { transp: !!member },
           attrs: { role: 'button', 'data-id': 'custom', tabindex: '0' },

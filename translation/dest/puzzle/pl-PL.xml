@@ -105,6 +105,6 @@ Graj partie szybkie i klasyczne, aby zwiększyć swoje szanse na dodanie zadania
   </plurals>
   <string name="percentSolved">%s rozwiązanych</string>
   <string name="noPuzzlesToShow">Nic do pokazania, najpierw rozwiąż kilka zadań!</string>
-  <string name="improvementAreasDescription">Trenuj, aby zoptymalizować swoje postępy!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Trenuj, aby zoptymalizować swoje postępy!</string>
   <string name="strengthDescription">Najlepiej sobie radzisz z tymi motywami</string>
 </resources>

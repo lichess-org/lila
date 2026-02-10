@@ -9,11 +9,9 @@ import lila.jsBot.{ BotUid, AssetType, BotJson }
 
 final class JsBot(env: Env) extends LilaController(env):
 
-  private val betaTeamId = TeamId("lichess-beta-testers")
-
-  def index = Open:
+  def index = Beta:
     for
-      bots <- env.jsBot.api.playable.get(env.team.api.belongsTo(betaTeamId, _))
+      bots <- ctx.useMe(env.jsBot.api.playable.get(env.team.isBetaTester))
       res <-
         if bots.isEmpty then notFound
         else

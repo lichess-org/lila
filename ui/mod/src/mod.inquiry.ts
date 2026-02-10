@@ -62,11 +62,11 @@ site.load.then(() => {
   const nextStore = storage.boolean('inquiry-auto-next');
 
   if (!nextStore.get()) {
-    $('#inquiry .switcher input').prop('checked', false);
+    $('#inquiry #auto-next').prop('checked', false);
     $('#inquiry input.auto-next').val('0');
   }
 
-  $('#inquiry .switcher input').on('change', function (this: HTMLInputElement) {
+  $('#inquiry #auto-next').on('change', function (this: HTMLInputElement) {
     nextStore.set(this.checked);
     $('#inquiry input.auto-next').val(this.checked ? '1' : '0');
   });

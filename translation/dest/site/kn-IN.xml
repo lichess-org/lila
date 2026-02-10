@@ -400,7 +400,6 @@
   <string name="pasteTheFenStringHere">FEN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
   <string name="pasteThePgnStringHere">PGN ಅಕ್ಷರಮಾಲೆಯನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ</string>
   <string name="orUploadPgnFile">ಅಥವಾ PGN ಫೈಲ್ ಅನ್ನು ಅಪ್ಲೋಡ್ ಮಾಡಿ</string>
-  <string name="fromPosition">ಸನ್ನಿವೇಶದಿಂದ</string>
   <string name="continueFromHere">ಇಲ್ಲಿಂದ ಮುಂದುವರಿಸಿ</string>
   <string name="toStudy">ಅಧ್ಯಯನ</string>
   <string name="importGame">ಆಟವನ್ನು ಆಮದು ಮಾಡಿ</string>
@@ -613,7 +612,7 @@
   <string name="onlyExistingConversations">ಕೇವಲ ಸಧ್ಯದ ಸಂಭಾಷಣೆಗಳು ಮಾತ್ರ</string>
   <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
   <string name="menu">ಮೆನು</string>
-  <string name="castling">ಕ್ಯಾಸಲಿಂಗ್</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">ಕ್ಯಾಸಲಿಂಗ್</string>
   <string name="whiteCastlingKingside">ಬಿಳಿ ದಳ O-O</string>
   <string name="blackCastlingKingside">ಕಪ್ಪು ದಳ O-O</string>
   <plurals name="nbForumPosts">

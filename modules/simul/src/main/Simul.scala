@@ -74,6 +74,8 @@ case class Simul(
 
   def startable = isCreated && nbAccepted > 1
 
+  def teamId: Option[TeamId] = conditions.teamMember.map(_.teamId)
+
   def start =
     startable.option(
       copy(

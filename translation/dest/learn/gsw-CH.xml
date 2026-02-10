@@ -6,7 +6,7 @@
   <string name="progressX">Fortschritt: %s</string>
   <string name="resetMyProgress">De Fortschritt zruggsetze</string>
   <string name="youWillLoseAllYourProgress">Aber so verlürsch du din ganze Fortschritt!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">schpill!</string>
+  <string name="play">schpill!</string>
   <string name="chessPieces">Schachfigure</string>
   <string name="theRook">De Turm</string>
   <string name="itMovesInStraightLines">Er bewegt sich nur i grade Linie</string>
@@ -127,7 +127,6 @@ Das isch die lang Rochade \"0-0-0\"!</string>
   <string name="findAWayToCastleKingSide">Find en Wäg für die churz Rochade!</string>
   <string name="findAWayToCastleQueenSide">Find en Wäg für die lang Rochade!</string>
   <string name="castlingComplete">Gratuliere, mer sött im Schach fascht immer e Rochade mache.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De schpezielli Purezug</string>
   <string name="enPassantIntro">Isch en Pur 2 Fälder vorgschtosse, chann er gschlage werde, wie wänn er nur 1 Fäld gfahre wär.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät grad en Pur 2 Fälder vor gschobe!

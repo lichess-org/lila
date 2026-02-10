@@ -88,6 +88,6 @@ Chuga partidas rapidas y clasica pa tener mas opcions de que anyadamos un proble
   </plurals>
   <string name="percentSolved">%s resueltos</string>
   <string name="noPuzzlesToShow">No i hai cosa a amostrar, fe bel problema primero!</string>
-  <string name="improvementAreasDescription">Entrena estes temas pa optimizar lo tuyo progreso!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Entrena estes temas pa optimizar lo tuyo progreso!</string>
   <string name="strengthDescription">Estos son los temas en que yes millor</string>
 </resources>

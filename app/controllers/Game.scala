@@ -147,7 +147,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         _.fold[Fu[Result]](notFoundJson(s"No such opponent: $name")): user =>
           f(user.some)
 
-  private[controllers] def requestPgnFlags(extended: Boolean)(using RequestHeader) =
+  private[controllers] def requestPgnFlags(extended: Boolean)(using RequestHeader, Option[Me]) =
     lila.game.PgnDump.WithFlags(
       moves = getBoolOpt("moves") | true,
       tags = getBoolOpt("tags") | true,
@@ -163,8 +163,10 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       bookmark = getBool("withBookmarked")
     )
 
-  private[controllers] def delayMovesFromReq(using RequestHeader) =
-    !get("key").exists(env.web.settings.noDelaySecret.get().value.contains)
+  private[controllers] def delayMovesFromReq(using RequestHeader)(using me: Option[Me]) =
+    val trusted = get("key").exists(env.web.settings.noDelaySecret.get().value.contains) ||
+      me.exists(_.is(UserId.ttt))
+    !trusted
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =
     config.format match

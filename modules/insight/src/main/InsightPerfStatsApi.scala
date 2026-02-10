@@ -14,7 +14,7 @@ case class InsightPerfStats(
     dates: Option[TimeInterval]
 ):
   def totalNbGames = nbGames.white + nbGames.black
-  def peers = Question.Peers(rating)
+  def peers = PeersRatingRange.of(rating)
 
 object InsightPerfStats:
   case class WithGameIds(stats: InsightPerfStats, gameIds: List[GameId])
@@ -36,7 +36,7 @@ final class InsightPerfStatsApi(
         val filters = List(lila.insight.Filter(InsightDimension.Perf, perfTypes))
         Match(InsightStorage.selectUserId(user.id) ++ pipeline.gameMatcher(filters)) -> List(
           Sort(Descending(F.date)),
-          Limit(pipeline.maxGames.value),
+          Limit(maxGames.value),
           Project(
             $doc(
               F.perf -> true,

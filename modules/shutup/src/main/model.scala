@@ -1,6 +1,6 @@
 package lila.shutup
 
-import lila.core.shutup.PublicSource
+import lila.core.chat.PublicSource
 
 case class UserRecord(
     _id: UserId,

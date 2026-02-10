@@ -40,8 +40,8 @@
     <item quantity="one">Σύντομη περιγραφή: %s χαρακτήρας το πολύ</item>
     <item quantity="other">Σύντομη περιγραφή: %s χαρακτήρες το πολύ</item>
   </plurals>
-  <string name="visibility">Ορατή στη σελίδα των streamers</string>
-  <string name="whenApproved">Όταν εγκριθεί από τους διαχειριστές</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Ορατή στη σελίδα των streamers</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Όταν εγκριθεί από τους διαχειριστές</string>
   <string name="headline">Κεφαλίδα</string>
   <string name="tellUsAboutTheStream">Περιγράψτε μας τη μετάδοσή σας σε μία πρόταση</string>
   <string name="longDescription">Πλήρης περιγραφή</string>

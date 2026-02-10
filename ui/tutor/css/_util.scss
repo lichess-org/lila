@@ -1,21 +1,4 @@
 .tutor {
-  @include mq-subnav-side {
-    .subnav {
-      width: 22ch;
-      .subnav__subitem {
-        margin-left: 1em;
-      }
-      .subnav__subitem2 {
-        margin-left: 2em;
-        letter-spacing: 0px;
-      }
-    }
-  }
-
-  &__pad {
-    padding: 0 var(---box-padding) $box-padding-vert var(---box-padding);
-  }
-
   &__concept {
     @extend %flex-center-nowrap;
     i {
@@ -41,4 +24,12 @@
       }
     }
   }
+  .mascot-says {
+    @extend %box-radius-bottom;
+  }
+}
+
+.tutor-icon {
+  aspect-ratio: 1 / 1;
+  fill: currentColor;
 }

@@ -1,12 +1,11 @@
 import { renderEval, view as cevalView } from 'lib/ceval';
 import { repeater, myUserId } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, type LooseVNode, onInsert, hl } from 'lib/view';
+import { type VNode, type LooseVNode, onInsert, hl, domDialog } from 'lib/view';
 import { displayColumns, isTouchDevice } from 'lib/device';
 import { addPointerListeners } from 'lib/pointer';
 import * as control from '../control';
 import type AnalyseCtrl from '../ctrl';
-import { domDialog } from 'lib/view';
 
 type Action =
   | 'first'
@@ -145,7 +144,7 @@ function clickControl(ctrl: AnalyseCtrl, e: PointerEvent) {
   else if (action === 'opening-explorer') ctrl.toggleExplorer();
   else if (action === 'menu') ctrl.toggleActionMenu();
   else if (action === 'analysis') window.open(ctrl.study?.practice?.analysisUrl(), '_blank');
-  else if (action === 'engine-mode' && !e.target.closest<HTMLElement>('.switch')) {
+  else if (action === 'engine-mode' && !e.target.closest<HTMLElement>('.cmn-toggle')) {
     const mode = e.target.dataset.mode as EngineMode;
     if (ctrl.activeControlBarTool()) {
       ctrl.explorer.enabled(false);

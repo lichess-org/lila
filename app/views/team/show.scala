@@ -44,7 +44,7 @@ object show:
                 name = if t.isChatFor(_.Leaders) then trt.leadersChat.txt() else trans.site.chatRoom.txt(),
                 timeout = chat.timeout,
                 public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
+                resource = lila.core.chat.PublicSource.Team(t.id),
                 localMod = havePerm(_.Comm)
               ))
         )
@@ -93,7 +93,7 @@ object show:
                 )
               ),
               bits.actions(t.team, info.member, info.myRequest, info.subscribed, asMod),
-              canSeeMembers.option(bits.members(t.team, members))
+              (canSeeMembers && !t.team.isClas).option(bits.members(t.team, members))
             ),
             div(cls := "team-show__content__col2")(
               standardFlash,
@@ -116,7 +116,7 @@ object show:
                 )
               ),
               div(
-                (t.enabled && info.simuls.nonEmpty).option(
+                (t.enabled && canSeeMembers && info.simuls.nonEmpty).option(
                   frag(
                     st.section(cls := "team-show__tour team-events team-simuls")(
                       h2(trans.site.simultaneousExhibitions()),
@@ -124,14 +124,12 @@ object show:
                     )
                   )
                 ),
-                (t.enabled && info.tours.nonEmpty).option(
-                  frag(
-                    st.section(cls := "team-show__tour team-events team-tournaments")(
-                      h2(a(href := routes.Team.tournaments(t.id))(trans.site.tournaments())),
-                      table(cls := "slist")(
-                        tournaments.renderList(
-                          info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
-                        )
+                (t.enabled && canSeeMembers && info.tours.nonEmpty).option(
+                  st.section(cls := "team-show__tour team-events team-tournaments")(
+                    h2(a(href := routes.Team.tournaments(t.id))(trans.site.tournaments())),
+                    table(cls := "slist")(
+                      tournaments.renderList(
+                        info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
                       )
                     )
                   )

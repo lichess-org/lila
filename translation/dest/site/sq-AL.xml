@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Luani kundër kompjuterit</string>
   <string name="gameMode">Mënyrë loje</string>
   <string name="createLobbyGame">Krijoni lojë holli</string>
-  <string name="youPlayAs">Ju luani si</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë, jepni këtë URL</string>
   <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
   <string name="orLetYourOpponentScanQrCode">Ose lëreni kundërshtarin tuaj të skanojë këtë kod QR</string>
+  <string name="reusableChallengeUrl">URL e ripërdorshme sfide</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Një lidhje e përhershme, për këdo që dëshiron t’ju sfidojë me saktësisht këto rregullime.</string>
   <string name="waiting">Në pritje</string>
   <string name="yourTurn">Radha juaj</string>
   <string name="aiNameLevelAiLevel">%1$s niveli %2$s</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Shigjetë e lëvizjes më të mirë</string>
   <string name="showVariationArrows">Shfaq shigjeta variacionesh</string>
   <string name="evaluationGauge">Matësi i vlerësimit</string>
+  <string name="visualMotifs">Motive pamore</string>
+  <string name="undefendedPieces">Gurë të pambrojtur</string>
+  <string name="pinnedPieces">Gurë të fiksuar</string>
+  <string name="checkableKing">Mbret të cilit mund t’i jepet shah</string>
   <string name="multipleLines">Linja të shumta</string>
   <string name="cpus">Procesorë</string>
   <string name="memory">Kujtesë</string>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Minuta për palë</string>
   <string name="variant">Variant</string>
   <string name="variants">Variante</string>
+  <string name="variantsDescription">Më tepër mënyra për luajtje</string>
   <string name="timeControl">Kontroll kohe</string>
   <string name="realTime">Kohë reale</string>
   <string name="correspondence">Korrespondencë</string>
@@ -299,6 +305,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Pozicion vetjak</string>
   <string name="unlimited">E pakufizuar</string>
+  <string name="unlimitedDescription">Mendohuni aq kohë sa ju duhet</string>
   <string name="mode">Lloji</string>
   <string name="casual">Rastësore</string>
   <string name="rated">Me vlerësim</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">Tabelë klasifikimi</string>
   <string name="screenshotCurrentPosition">Bëj foto ekrani të pozicionit të tanishëm</string>
   <string name="gameAsGIF">GIF i lojës</string>
+  <string name="playerNames">Emra lojtarësh</string>
+  <string name="moveAnnotations">Shënime lëvizjesh</string>
   <string name="pasteTheFenStringHere">Ngjitni këtu tekstin FEN</string>
   <string name="pasteThePgnStringHere">Ngjitni këtu tekstin PGN</string>
   <string name="orUploadPgnFile">Ose ngarkoni një kartelë PGN</string>
-  <string name="fromPosition">Nga pozicioni</string>
   <string name="continueFromHere">Vazhdoni nga këtu</string>
   <string name="toStudy">Mësim</string>
   <string name="importGame">Importo lojën</string>
@@ -658,7 +666,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="onlyExistingConversations">Vetëm bisedat ekzistuese</string>
   <string name="onlyFriends">Vetëm shokë</string>
   <string name="menu">Menu</string>
-  <string name="castling">Rokadë</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Rokadë</string>
   <string name="whiteCastlingKingside">I bardhi O-O</string>
   <string name="blackCastlingKingside">I ziu O-O</string>
   <plurals name="nbForumPosts">
@@ -687,7 +695,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="yourPendingSimuls">Simulat tuaja në pritje</string>
   <string name="createdSimuls">Simultane të krijuara së fundi</string>
   <string name="hostANewSimul">Organizoni një simultane të re</string>
-  <string name="signUpToHostOrJoinASimul">Regjistrohu për të pritur ose bashkuar një simul</string>
+  <string name="signUpToHostOrJoinASimul">Regjistrohuni që të organizoni, ose të merrni pjesë, në një simultane</string>
   <string name="noSimulFound">S’u gjet simultane</string>
   <string name="noSimulExplanation">Kjo simultane s’ekziston.</string>
   <string name="returnToSimulHomepage">Kthehu në faqen kryesore të simultaneve</string>
@@ -807,6 +815,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="size">Madhësi</string>
   <string name="opacity">Patejdukshmëri</string>
   <string name="brightness">Ndriçim</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Ngjyrim</string>
   <string name="boardReset">Riktheji ngjyrat te parazgjedhjet</string>
   <string name="pieceSet">Figura</string>

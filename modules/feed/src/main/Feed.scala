@@ -31,7 +31,11 @@ object Feed:
     def published = public && at.isBeforeNow
     def future = at.isAfterNow
 
-  private val renderer = lila.common.MarkdownRender(autoLink = false, strikeThrough = true)
+  private val renderer = lila.common.MarkdownRender(
+    autoLink = false,
+    strikeThrough = true,
+    timestamp = true
+  )
   private val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
   given BSONDocumentHandler[Update] = Macros.handler
 

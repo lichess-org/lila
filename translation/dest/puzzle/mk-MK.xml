@@ -80,6 +80,6 @@
   </plurals>
   <string name="percentSolved">%s решени</string>
   <string name="noPuzzlesToShow">Нема што да се покаже овде, прво одиграјте неколку загатки!</string>
-  <string name="improvementAreasDescription">Вежбајте ги овие загатки за да го оптимизирате вашиот прогрес!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Вежбајте ги овие загатки за да го оптимизирате вашиот прогрес!</string>
   <string name="strengthDescription">Најдобро играте во овие теми</string>
 </resources>

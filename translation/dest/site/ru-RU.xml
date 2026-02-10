@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Сыграть с компьютером</string>
   <string name="gameMode">Режим игры</string>
   <string name="createLobbyGame">Создать запрос на игру</string>
-  <string name="youPlayAs">Вы играете за</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Чтобы пригласить друга, отправьте ему эту ссылку</string>
   <string name="gameOver">Партия окончена</string>
   <string name="waitingForOpponent">Ожидание соперника</string>
   <string name="orLetYourOpponentScanQrCode">Или позвольте вашему сопернику отсканировать этот QR-код</string>
+  <string name="reusableChallengeUrl">Постоянная ссылка на вызов на игру</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Постоянная ссылка на игру с заданными настройками.</string>
   <string name="waiting">Ожидание</string>
   <string name="yourTurn">Ваш ход</string>
   <string name="aiNameLevelAiLevel">%1$s уровня %2$s</string>
@@ -130,6 +131,10 @@
   <string name="bestMoveArrow">Показывать лучшие ходы стрелками</string>
   <string name="showVariationArrows">Показать стрелки вариантов</string>
   <string name="evaluationGauge">Шкала оценки</string>
+  <string name="visualMotifs">Шахматные мотивы</string>
+  <string name="undefendedPieces">Незащищённые фигуры</string>
+  <string name="pinnedPieces">Связанные фигуры</string>
+  <string name="checkableKing">Возможность дать шах королю</string>
   <string name="multipleLines">Множество вариантов</string>
   <string name="cpus">Потоки</string>
   <string name="memory">Память</string>
@@ -229,6 +234,7 @@
   <string name="minutesPerSide">Минут на партию</string>
   <string name="variant">Вариант</string>
   <string name="variants">Варианты</string>
+  <string name="variantsDescription">Больше способов сыграть</string>
   <string name="timeControl">Контроль времени</string>
   <string name="realTime">По часам</string>
   <string name="correspondence">Игра по переписке</string>
@@ -335,6 +341,7 @@
   <string name="standard">Классические шахматы</string>
   <string name="customPosition">Настраиваемая позиция</string>
   <string name="unlimited">Отсутствует</string>
+  <string name="unlimitedDescription">Возьмите столько времени, сколько вам нужно</string>
   <string name="mode">Режим</string>
   <string name="casual">Товарищеская</string>
   <string name="rated">Рейтинговая</string>
@@ -486,10 +493,11 @@
   <string name="leaderboard">Лучшие игроки</string>
   <string name="screenshotCurrentPosition">Сделать снимок этой позиции</string>
   <string name="gameAsGIF">Партия в формате GIF</string>
+  <string name="playerNames">Имена игроков</string>
+  <string name="moveAnnotations">Аннотации ходов</string>
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="orUploadPgnFile">Или загрузите PGN-файл</string>
-  <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с этой позиции</string>
   <string name="toStudy">Студия</string>
   <string name="importGame">Импортировать партию</string>
@@ -892,6 +900,7 @@
   <string name="size">Размер</string>
   <string name="opacity">Непрозрачность</string>
   <string name="brightness">Яркость</string>
+  <string name="contrast">Контрастность</string>
   <string name="hue">Насыщенность</string>
   <string name="boardReset">Сбросить на цвета по умолчанию</string>
   <string name="pieceSet">Оформление фигур</string>
@@ -1001,11 +1010,11 @@
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классика</string>
-  <string name="ultraBulletDesc">Безумно быстрые игры: менее 30 секунд</string>
-  <string name="bulletDesc">Очень быстрые игры: менее 3 минут</string>
-  <string name="blitzDesc">Быстрые игры: от 3 до 8 минут</string>
-  <string name="rapidDesc">Быстрые игры: от 8 до 25 минут</string>
-  <string name="classicalDesc">Классические игры: 25 минут и больше</string>
+  <string name="ultraBulletDesc">Невероятно быстрые партии: менее 30 секунд</string>
+  <string name="bulletDesc">Очень быстрые партии: меньше 3 минут</string>
+  <string name="blitzDesc">Быстрые партии: от 3 до 8 минут</string>
+  <string name="rapidDesc">Короткие партии: от 8 до 25 минут</string>
+  <string name="classicalDesc">Классические партии: 25 минут и больше</string>
   <string name="correspondenceDesc">Игры по переписке: один или несколько дней на ход</string>
   <string name="puzzleDesc">Тактический тренажёр</string>
   <string name="important">Важно</string>
@@ -1107,4 +1116,5 @@
   <string name="search">Поиск</string>
   <string name="clearSearch">Очистить поиск</string>
   <string name="tags">Теги</string>
+  <string name="enPassant">Взятие на проходе</string>
 </resources>

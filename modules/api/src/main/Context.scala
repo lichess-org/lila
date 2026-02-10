@@ -2,6 +2,7 @@ package lila.api
 
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
+import alleycats.Zero
 
 import lila.common.HTTPRequest
 import lila.core.i18n.Translate
@@ -30,6 +31,7 @@ final class LoginContext(
   def isOAuth = isAuth && oauth.isDefined
   def isMobileOauth = oauth.exists(_.has(_.Web.Mobile))
   def scopes = oauth | TokenScopes(Nil)
+  def useMe[A: Zero](f: Me ?=> A): A = me.soUse(f)
 
 object LoginContext:
   val anon = LoginContext(none, false, none, none)
@@ -104,6 +106,6 @@ object EmbedContext:
   given (using config: EmbedContext): Lang = config.lang
   def apply(ctx: Context): EmbedContext = new EmbedContext(
     ctx,
-    bg = ctx.req.queryString.get("bg").flatMap(_.headOption).filterNot("auto".==) | "system",
+    bg = HTTPRequest.queryStringGet("bg")(using ctx.req).filterNot("auto".==) | "system",
     nonce = Nonce.random
   )

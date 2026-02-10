@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">FIDE jokalaria ez da aurkitu</string>
   <string name="fideProfile">FIDE profila</string>
   <string name="federation">Federazioa</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Adina</string>
+  <string name="age">Adina</string>
   <string name="unrated">Ez du sailkapenik</string>
   <string name="recentTournaments">Azken txapelketak</string>
   <string name="openLichess">Ireki Lichessen</string>
@@ -69,6 +69,7 @@
   <string name="ratingDiff">Elo diferentzia</string>
   <string name="gamesThisTournament">Txapelketa honetako partidak</string>
   <string name="score">Emaitza</string>
+  <string name="standingsDisclaimer">Sailkapena zuzeneko emanaldian emandako partidekin kalkulatzen da eta sailkapen ofizialaren desberdina izan daiteke.</string>
   <string name="allTeams">Talde guztiak</string>
   <string name="tournamentFormat">Txapelketaren formatua</string>
   <string name="tournamentLocation">Txapelketaren kokalekua</string>
@@ -83,6 +84,26 @@
   <string name="liveboard">Zuzeneko taula</string>
   <string name="communityBroadcast">Komunitatearen zuzenekoa</string>
   <string name="createdAndManagedBy">%s erabiltzaileak sortu eta kudeatua.</string>
+  <string name="matchPoints">Neurketako puntuak</string>
+  <string name="gamePoints">Partidako puntuak</string>
+  <string name="matches">Neurketak</string>
+  <string name="matchHistory">Neurketen historikoa</string>
+  <string name="teamResults">Taldearen emaitzak</string>
+  <string name="termsAutomaticallyTranslated">Balio hau(ek) automatikoki itzuli egingo d(ir)a: %s.</string>
   <string name="roundX">%s. txanda</string>
   <string name="defaultRoundNameHelp">Defektuzko izena uzten baduzu, hizkuntza guztietan ondo itzuliko da.</string>
+  <string name="openTournament">Irekia</string>
+  <string name="womenTournament">Emakumeena</string>
+  <string name="menTournament">Gizonak</string>
+  <string name="girlsTournament">Neskena</string>
+  <string name="boysTournament">Mutilak</string>
+  <string name="openUnderXAgeTournament">%s urtez azpiko irekia</string>
+  <string name="girlsUnderXAgeTournament">%s urtez azpiko neskak</string>
+  <string name="boysUnderXAgeTournament">%s urtez azpiko mutilak</string>
+  <string name="quarterfinals">Final-laurdenak</string>
+  <string name="semifinals">Finalerdiak</string>
+  <string name="finals">Finalak</string>
+  <string name="tiebreaks">Desberdinketak</string>
+  <string name="gameX">%s partida</string>
+  <string name="knockouts">Kanporaketak</string>
 </resources>

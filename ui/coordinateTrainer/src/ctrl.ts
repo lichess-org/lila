@@ -15,9 +15,10 @@ import type {
 } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 import type { ColorChoice } from 'lib/setup/color';
+import { COLORS } from 'chessops';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
-  (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
+  (colorChoice === 'random' ? COLORS[Math.round(Math.random())] : colorChoice) as Color;
 
 const randomChoice = (max: number) => Math.floor(Math.random() * max);
 
@@ -298,7 +299,7 @@ export default class CoordinateTrainerCtrl {
   };
 
   updateCharts = () => {
-    for (const color of ['white', 'black'] as Color[]) {
+    for (const color of COLORS) {
       const svgElement = document.getElementById(`${color}-sparkline`);
       if (!svgElement) continue;
       this.updateChart(svgElement as unknown as SVGSVGElement, color);

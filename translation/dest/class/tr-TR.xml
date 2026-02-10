@@ -90,7 +90,7 @@ Sınıfa erişim linki burada.</string>
   <string name="timePlaying">Toplam oynama zamanı</string>
   <string name="variantXOverLastY">%1$s sondan %2$s</string>
   <string name="winrate">Kazanma Oranı</string>
-  <string name="na">Mevcut değil</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Mevcut değil</string>
   <string name="overview">Genel Bakış</string>
   <string name="news">Haberler</string>
   <string name="classNews">Sınıf haberleri</string>
@@ -120,4 +120,9 @@ Bu yatay bir çizgi oluşturacaktır.</string>
   <string name="moveToAnotherClass">Başka bir satrança geç</string>
   <string name="allowMessagingBetweenStudents">Öğrenciler arası mesajlaşmaya izin ver</string>
   <string name="allowMessagingBetweenStudentsDesc">Bu, yalnızca öğrencilerinize oluşturduğunuz hesaplar için geçerlidir.</string>
+  <string name="quickLoginCode">Hızlı giriş kodu</string>
+  <string name="quickLoginCodes">Hızlı giriş kodları</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Öğrencilerinizin Lichess\'e giriş yapması için bu kodları %s üzerinde kullanın.</string>
+  <string name="quickLoginCodesDesc2">Kodların süresi dolduğunda, öğrencileriniz manuel olarak çıkış yapana kadar oturum açmış olarak kalacaklardır.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Son Kullanım Tarihi: %s</string>
 </resources>

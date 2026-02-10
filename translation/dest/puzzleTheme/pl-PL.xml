@@ -16,7 +16,7 @@
   <string name="backRankMateDescription">Zamatuj króla uwięzionego w ostatnim rzędzie przez własne bierki.</string>
   <string name="balestraMate">Mat Balestra</string>
   <string name="balestraMateDescription">Goniec daje mata, a hetman blokuje pozostałe pola ucieczki</string>
-  <string name="blindSwineMate">Mat dwoma wieżami na 2. lub 7. linii</string>
+  <string name="blindSwineMate">Mat Janowskiego</string>
   <string name="blindSwineMateDescription">Dwie wieże współpracują, aby zamatować króla przeciwnika w kwadracie 2 × 2.</string>
   <string name="bishopEndgame">Końcówka gońcowa</string>
   <string name="bishopEndgameDescription">Gra końcowa wyłącznie z gońcami i pionami.</string>
@@ -26,6 +26,8 @@
   <string name="castlingDescription">Zabezpiecz swojego króla i wprowadź do gry wieżę.</string>
   <string name="capturingDefender">Zbicie obrońcy</string>
   <string name="capturingDefenderDescription">Usunięcie obrońcy, który jest kluczowy do obrony innej figury, pozwalając na zbicie niebronionej figury w następnym ruchu.</string>
+  <string name="cornerMate">Mat w narożniku szachownicy</string>
+  <string name="cornerMateDescription">Zagoń króla przeciwnika do narożnika szachownicy przy pomocy wieży lub hetmana i zamatuj skoczkiem.</string>
   <string name="crushing">Decydująca przewaga</string>
   <string name="crushingDescription">Znajdź błąd przeciwnika i zdobądź decydującą przewagę (ocena pozycji: powyżej 600cp)</string>
   <string name="discoveredCheck">Szach z odsłony</string>
@@ -69,6 +71,8 @@
   <string name="pillsburysMateDescription">Wieża daje mata, a goniec blokuje pola ucieczki.</string>
   <string name="morphysMate">Mat Morphy\'ego</string>
   <string name="morphysMateDescription">Goniec daje mata w narożniku, a wieża blokuje pola ucieczki w sąsiedniej kolumnie.</string>
+  <string name="triangleMate">Mat trójkątny</string>
+  <string name="triangleMateDescription">Hetman i wieża są ustawione na tej samej linii i matują stojąc bezpośrednio przy królu przeciwnika tworząc trójkąt.</string>
   <string name="vukovicMate">Mat Vukovic\'a</string>
   <string name="vukovicMateDescription">Para wieża i skoczek matują króla przeciwnika. Wieża wspierana przez trzecią bierkę daje mata, podczas gdy skoczek blokuje królowi przeciwnika wszystkie pola ucieczki.</string>
   <string name="knightEndgame">Końcówka skoczkowa</string>

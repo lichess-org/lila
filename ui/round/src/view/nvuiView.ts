@@ -16,7 +16,7 @@ import { renderResult } from './replay';
 import { plyStep } from '../util';
 import type { Step } from '../interfaces';
 import { next, prev } from '../keyboard';
-import { opposite } from 'chessops';
+import { COLORS, opposite } from 'chessops';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
@@ -154,9 +154,7 @@ function gameInfo(ctx: RoundNvuiContext): LooseVNodes {
   return [
     hl('h1', gameText(ctrl)),
     hl('h2', i18n.nvui.gameInfo),
-    ['white', 'black'].map((color: Color) =>
-      hl('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))]),
-    ),
+    COLORS.map(color => hl('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))])),
     hl('p', [i18n.site[d.game.rated ? 'rated' : 'casual'] + ' ' + transGamePerf(d.game.perf)]),
     d.clock ? hl('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
     hl('h2', i18n.nvui.moveList),

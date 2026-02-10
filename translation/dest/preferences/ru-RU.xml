@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">Обновления, касающиеся игры по переписке</string>
   <string name="notifyChallenge">Вызовы на игру</string>
   <string name="notifyTournamentSoon">Турнир скоро начнётся</string>
+  <string name="notifyBroadcasts">Трансляции, на которые вы подписаны</string>
   <string name="notifyTimeAlarm">В игре по переписке скоро упадёт флажок</string>
   <string name="notifyBell">Звуковое оповещение на Личесс</string>
   <string name="notifyPush">Оповещение на устройстве, когда вы не находитесь на сайте Lichess</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">Устройство</string>
   <string name="bellNotificationSound">Звук колокольчика уведомлений</string>
   <string name="blindfold" comment="As in Blindfold chess">Игра вслепую</string>
+  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Показывать слева на мобильных устройствах</string>
 </resources>

@@ -25,7 +25,7 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     userApi: lila.core.user.UserApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.core.user.LightUserApi,
@@ -45,7 +45,7 @@ final class Env(
 
   val uciMemo = wire[UciMemo]
 
-  lazy val gifExport = new GifExport(ws, lightUserApi, baseUrl, config.gifUrl)
+  lazy val gifExport = new GifExport(ws, lightUserApi, routeUrl, config.gifUrl)
 
   lazy val paginator = wire[PaginatorBuilder]
 

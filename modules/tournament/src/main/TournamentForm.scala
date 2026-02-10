@@ -18,13 +18,15 @@ final class TournamentForm:
   import TournamentForm.*
   import GatheringClock.*
 
-  def create(leaderTeams: List[LightTeam], teamBattleId: Option[TeamId] = None)(using me: Me) =
-    form(leaderTeams, none).fill(empty(teamBattleId))
+  def create(leaderTeams: List[LightTeam], teamBattleId: Option[TeamId] = None, forClas: Boolean = false)(
+      using me: Me
+  ) =
+    form(leaderTeams, none).fill(empty(teamBattleId, forClas))
 
-  private[tournament] def empty(teamBattleId: Option[TeamId] = None)(using me: Me) =
+  private[tournament] def empty(teamBattleId: Option[TeamId] = None, forClas: Boolean)(using me: Me) =
     TournamentSetup(
       name = teamBattleId.isEmpty.option(me.titleUsername),
-      clockTime = timeDefault,
+      clockTime = if forClas then 5d else timeDefault,
       clockIncrement = incrementDefault,
       minutes = minuteDefault,
       waitMinutes = waitMinuteDefault.some,
@@ -35,10 +37,10 @@ final class TournamentForm:
       rated = Rated.Yes.some,
       conditions = TournamentCondition.All.empty,
       teamBattleByTeam = teamBattleId,
-      berserkable = true.some,
-      streakable = true.some,
+      berserkable = forClas.not.some,
+      streakable = forClas.not.some,
       description = none,
-      hasChat = true.some
+      hasChat = forClas.not.some
     )
 
   def edit(leaderTeams: List[LightTeam], tour: Tournament)(using Me) =
@@ -237,7 +239,7 @@ private[tournament] case class TournamentSetup(
         rated = if rated.isDefined then realRated else old.rated,
         variant = newVariant,
         startsAt = startDate | old.startsAt,
-        password = password.fold(old.password)(_.some.filter(_.nonEmpty)),
+        password = password.fold(old.password)(_.nonEmptyOption),
         position = newVariant.standard.so {
           if position.isDefined && (old.isCreated || old.position.isDefined) then realPosition
           else old.position
@@ -245,7 +247,7 @@ private[tournament] case class TournamentSetup(
         noBerserk = berserkable.fold(old.noBerserk)(!_) || timeControlPreventsBerserk,
         noStreak = streakable.fold(old.noStreak)(!_),
         teamBattle = old.teamBattle,
-        description = description.fold(old.description)(_.some.filter(_.nonEmpty)),
+        description = description.fold(old.description)(_.nonEmptyOption),
         hasChat = hasChat | old.hasChat
       )
 

@@ -51,7 +51,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               else if r.hasStarted then Icon.DiscBig
               else Icon.DiscOutline
             )
-          )(r.transName),
+          )(r.name.translate),
         a(
           href := routes.RelayRound.create(nav.tour.id),
           cls := List(
@@ -92,6 +92,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
       Page(title)
         .css("bits.relay.form")
         .js(List(Esm("bits.flatpickr"), Esm("bits.relayForm")).map(some))
+        .js(esmInit("bits.broadcastForm.i18nCheck"))
+        .i18n(_.broadcast)
         .wrap: body =>
           main(cls := "page page-menu")(
             navigationMenu(nav),
@@ -119,16 +121,16 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
         form: Form[RelayRoundForm.Data],
         nav: FormNavigation
     )(using Context) =
-      page(r.transName, nav):
+      page(r.name.translate, nav):
         val rt = r.withTour(nav.tour)
         frag(
-          boxTop(h1(a(href := rt.path)(rt.transName))),
+          boxTop(h1(a(href := rt.path)(rt.fullName))),
           standardFlash,
           nav.targetRound.map: tr =>
             flashMessage("success")(
               "Your tournament round is officially broadcasted by Lichess!",
               br,
-              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.transName)),
+              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.fullName)),
               "."
             ),
           inner(form, routes.RelayRound.update(r.id), nav),
@@ -191,7 +193,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
         ),
         p("Did you mean ", a(href := https.toString)(https.toString), "?")
       )
-      postForm(cls := "form3", action := url)(
+      postForm(cls := "form3 relay-round-form", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
           div(cls := "form-group")(
             div(cls := "form-group")(ui.howToUse),
@@ -201,9 +203,8 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           )
         ,
         form3.globalError(form),
-        form3.group(form("name"), trb.roundName(), help = trb.defaultRoundNameHelp().some)(
-          form3.input(_)(autofocus)
-        ),
+        form3.group(form("name"), trb.roundName(), help = trb.defaultRoundNameHelp().some): field =>
+          frag(form3.input(field)(autofocus), nameHelp),
         form3.fieldset("Source", toggle = true.some)(cls := "box-pad")(
           form3.group(
             form("syncSource"),
@@ -219,7 +220,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
             nav.sourceRound.map: source =>
               flashMessage("round-push")(
                 "Getting real-time updates from ",
-                strong(a(href := source.path)(source.transName)),
+                strong(a(href := source.path)(source.fullName)),
                 br,
                 "Owner: ",
                 fragList(source.tour.ownerIds.toList.map(u => userIdLink(u.some))),
@@ -231,7 +232,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
                 "Start: ",
                 source.round.startedAt
                   .orElse(source.round.startsAtTime)
-                  .fold(frag("unscheduled"))(momentFromNow),
+                  .fold(frag("unscheduled"))(momentFromNow(_)),
                 br,
                 "Last sync: ",
                 source.round.sync.log.events.lastOption.map: event =>
@@ -320,13 +321,13 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
               help = trb.startDateHelp().some,
               half = true
             )(form3.flatpickr(_, local = true, minDate = None)),
-            form3.checkbox(
+            form3.checkboxGroup(
               form("startsAfterPrevious"),
               "When the previous round completes",
+              half = true,
               help = frag(
                 "The start date is unknown, and the round will start automatically when the previous round completes."
-              ).some,
-              half = true
+              ).some
             )
           )
         ),
@@ -373,15 +374,15 @@ Hanna Marie ; Kozul, Zdenko"""),
         (nav.tour.showScores || nav.tour.showRatingDiffs).option(
           form3.fieldset(
             "Custom scoring",
-            toggle = nav.round.exists(_.customScoring.isDefined).some
+            toggle = nav.round.exists(r => r.customScoring.isDefined || r.teamCustomScoring.isDefined).some
           )(
             nav.tour.showRatingDiffs.option(
               form3.group(form("rated"), raw("")): field =>
                 val withDefault =
                   if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
-                form3.checkbox(
+                form3.checkboxGroup(
                   withDefault,
-                  labelContent = frag("Rated round"),
+                  "Rated round",
                   help = frag("Include this round when calculating players' rating changes").some
                 )
             ),
@@ -397,7 +398,17 @@ Hanna Marie ; Kozul, Zdenko"""),
             ,
             p(
               "Optional. Affects automatic scoring. Points must be >= 0 and <=10. At most 2 decimal places. Default = 1.0 for a win and 0.5 for a draw."
-            )
+            ),
+            br,
+            nav.tour.teamTable.option:
+              form3.split:
+                List("win", "draw").map: result =>
+                  form3.group(
+                    form("teamCustomScoring")(result),
+                    raw(s"Team points for a match $result")
+                  )(
+                    form3.input(_)(tpe := "number", step := 0.01f, min := 0.0f, max := 10.0f)
+                  )
           )
         ),
         Granter
@@ -436,6 +447,8 @@ Hanna Marie ; Kozul, Zdenko"""),
       Page(title)
         .css("bits.relay.form")
         .js(Esm("bits.relayForm"))
+        .js(esmInit("bits.broadcastForm.i18nCheck"))
+        .i18n(_.broadcast)
         .wrap: body =>
           main(cls := "page page-menu")(
             menu.fold(pageMenu(_), navigationMenu),
@@ -498,7 +511,24 @@ Hanna Marie ; Kozul, Zdenko"""),
       frag(
         (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
-        form3.group(form("name"), trb.tournamentName())(form3.input(_)(autofocus)),
+        form3.split(
+          form3.group(form("name"), trb.tournamentName(), half = true): field =>
+            frag(form3.input(field)(autofocus), nameHelp),
+          form3.group(
+            form("visibility"),
+            trans.study.visibility(),
+            half = true
+          )(
+            form3.select(
+              _,
+              List(
+                Visibility.public.key -> "Public",
+                Visibility.unlisted.key -> "Unlisted (from URL only)",
+                Visibility.`private`.key -> "Private (invited members only)"
+              )
+            )
+          )
+        ),
         form3.fieldset(trb.optionalDetails(), toggle = tg.exists(_.tour.info.nonEmpty).some)(
           form3.split(
             form3.group(
@@ -583,41 +613,33 @@ Hanna Marie ; Kozul, Zdenko"""),
             toggle = tg
               .map(_.tour)
               .exists: t =>
-                !t.showScores || !t.showRatingDiffs || t.teamTable || !t.isPublic
+                !t.showScores || !t.showRatingDiffs || t.teamTable || t.showTeamScores
               .some
           )(
             form3.split(
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("showScores"),
                 trb.showScores(),
                 half = true
               ),
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("showRatingDiffs"),
                 "Show player's rating diffs",
                 half = true
               )
             ),
             form3.split(
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("teamTable"),
                 trans.team.teamTournament(),
-                help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some,
+                help = frag("Show a team table. Requires WhiteTeam and BlackTeam PGN tags.").some,
                 half = true
               ),
-              form3.group(
-                form("visibility"),
-                trans.study.visibility(),
+              form3.checkboxGroup(
+                form("showTeamScores"),
+                "Show team scores based on game results",
+                help = frag("Compute and show match points (MP) and game points (GP) for teams.").some,
                 half = true
-              )(
-                form3.select(
-                  _,
-                  List(
-                    Visibility.public.key -> "Public",
-                    Visibility.unlisted.key -> "Unlisted (from URL only)",
-                    Visibility.`private`.key -> "Private (invited members only)"
-                  )
-                )
               )
             )
           ),
@@ -697,7 +719,7 @@ Team Dogs ; Scooby Doo"""),
                 Granter
                   .opt(_.StudyAdmin)
                   .option(
-                    form3.checkbox(
+                    form3.checkboxGroup(
                       form("spotlight.enabled"),
                       "Show a homepage spotlight",
                       help = raw("As a Big Blue Button - for admins only").some,
@@ -727,7 +749,7 @@ Team Dogs ; Scooby Doo"""),
                         form3.select(_, langList.popularLanguagesForm.choices)
                     ),
                     form3.split(
-                      form3.checkbox(
+                      form3.checkboxGroup(
                         form("orphanWarn"),
                         "Warn about Orphan Boards",
                         help = raw(
@@ -781,6 +803,8 @@ Team Dogs ; Scooby Doo"""),
           )(form3.textarea(_)(rows := 4))
         )
       )
+
+  private def nameHelp = small(cls := "form-help relay-name-help text none", dataIcon := Icon.Checkmark)
 
   private def image(t: RelayTour)(using ctx: Context) =
     form3.fieldset("Image", toggle = true.some):

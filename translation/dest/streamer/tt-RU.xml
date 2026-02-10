@@ -31,8 +31,8 @@
   <plurals name="keepItShort">
     <item quantity="other">Кыскартып саклагыз: азагында %s билге</item>
   </plurals>
-  <string name="visibility">Күрсәтә алган агымчы бите</string>
-  <string name="whenApproved">Модераторлар тарафыннан расланган вакытта</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Күрсәтә алган агымчы бите</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Модераторлар тарафыннан расланган вакытта</string>
   <string name="headline">Атамасы</string>
   <string name="tellUsAboutTheStream">Агым турында бер җөмләдә сөйләгез</string>
   <string name="longDescription">Озын тасвирлау</string>

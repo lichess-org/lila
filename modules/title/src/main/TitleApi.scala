@@ -109,7 +109,7 @@ final class TitleApi(
 
     private val cache = cacheApi[UserId, Option[FideId]](8192, "title.publicFideIdOf"):
       _.expireAfterWrite(1.hour).buildAsyncFuture: id =>
-        coll
+        coll.secondary
           .find(
             $doc(
               "userId" -> id,

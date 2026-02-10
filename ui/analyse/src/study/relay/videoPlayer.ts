@@ -38,11 +38,11 @@ export class VideoPlayer {
       const position = placeholder.getBoundingClientRect();
       this.iframe.style.display = 'block';
       this.iframe.style.left = `${position.x}px`;
-      this.iframe.style.top = `${position.y}px`;
+      this.iframe.style.top = `${position.y + window.scrollY}px`;
       this.iframe.style.width = `${position.width}px`;
       this.iframe.style.height = `${position.height}px`;
       this.close.style.left = `${position.x + position.width - 16}px`;
-      this.close.style.top = `${position.y - 4}px`;
+      this.close.style.top = `${position.y + window.scrollY - 4}px`;
       if (document.body.contains(this.iframe)) return;
       document.body.appendChild(this.iframe);
       document.body.appendChild(this.close);

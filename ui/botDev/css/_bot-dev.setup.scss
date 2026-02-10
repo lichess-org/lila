@@ -60,7 +60,7 @@ body:has(.base-view.setup-view) {
     aspect-ratio: 1;
 
     &.drag-over {
-      outline: 2px solid $c-primary;
+      outline: $outline;
       outline-offset: 2px;
     }
   }

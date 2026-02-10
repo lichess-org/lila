@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">Die Lichess-Streamer-Seite richtet sich an dein Publikum mit der Sprache deiner Streaming-Plattform. Lege die richtige Standardsprache für deine Schach-Streams in der App oder dem Dienst, welchen du für die Übertragung verwenden, fest.</string>
   <string name="pleaseAllow">Es kann bis zu 72 Stunden dauern, bevor dein Streamer-Abzeichen und das Listing bestätigt wurden.</string>
   <string name="chooseYoutubeChannel">Wähle den YouTube-Kanal, den du auf Lichess verwenden wirst.</string>
-  <string name="connect">Verbinden</string>
-  <string name="disconnect">Verbindung trennen</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Verbinden</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Verbindung trennen</string>
   <string name="streamerName">Dein Streamername auf Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Kurz fassen: Maximal %s Zeichen</item>
     <item quantity="other">Kurz halten: Maximal %s Zeichen</item>
   </plurals>
-  <string name="visibility">Sichtbar auf der Streamerseite</string>
-  <string name="whenApproved">Sobald von den Moderatoren genehmigt</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Sichtbar auf der Streamerseite</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Sobald von den Moderatoren genehmigt</string>
   <string name="headline">Titel</string>
   <string name="tellUsAboutTheStream">Erzähle uns in einem Satz etwas über deinen Stream</string>
   <string name="longDescription">Ausführliche Beschreibung</string>

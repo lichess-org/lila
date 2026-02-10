@@ -2,24 +2,29 @@
 <resources>
   <string name="faqAbbreviation">Често постављана питања</string>
   <string name="frequentlyAskedQuestions">Често Постављана Питања</string>
-  <string name="whyIsLichessCalledLichess">Зашто се Личес зове Личес?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Личес је комбинација речи live/light/libre и chess. Изговара се %1$s.</string>
+  <string name="whyIsLichessCalledLichess">Зашто се Lichess зове Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess је комбинација речи live/light/libre (уживо/лако/слободно) и chess (шах). Изговара се %1$s.</string>
   <string name="leechess">ли-чес</string>
   <string name="hearItPronouncedBySpecialist">Послушај како то стручњак изговара.</string>
-  <string name="howCanIContributeToLichess">Како могу допринети Личесу?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Личес покрећу донације наших патрона, као и труд нашег тима волонтера.</string>
-  <string name="findMoreAndSeeHowHelp">Можеш сазнати више о %1$s (укључујући и %2$s). Ако желиш помоћи Личесу волонтирајући своје време и вештине, постоје разни %3$s.</string>
-  <string name="beingAPatron">бивању Патрона</string>
-  <string name="breakdownOfOurCosts">поделу трошкова</string>
+  <string name="whyLiveLightLibre">Уживо, јер се партије играју и гледају у стварном времену 24/7; лако и слободно због чињенице да је Lichess отвореног изворног кода и неоптерећен власничким смећем које мучи друге вебсајтове.</string>
+  <string name="whyIsLilaCalledLila">Слично, изворни код за Lichess, %1$s, значи li[chess in sca]la, гледајући да је велики део Lichess-а написан у %2$s, интуитивном програмску језику.</string>
+  <string name="howCanIContributeToLichess">Како могу допринети Lichess-у?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess је покренут донацијама наших покровитеља и трудом тима волонтера.</string>
+  <string name="findMoreAndSeeHowHelp">Можеш наћи више о %1$s (укључујући %2$s). Ако желиш помоћи Lichess-у волонтирајући своје време и вештине, постоје разни %3$s.</string>
+  <string name="beingAPatron">бивању покровитеља</string>
+  <string name="breakdownOfOurCosts">поделу наших трошкова</string>
   <string name="otherWaysToHelp">други начини да помогнеш</string>
-  <string name="areThereWebsitesBasedOnLichess">Постоје ли други сајтови засновани на Личесу?</string>
-  <string name="fairPlay">Фер плеј</string>
+  <string name="areThereWebsitesBasedOnLichess">Да ли постоје вебсајтови засновани на Lichess-у?</string>
+  <string name="fairPlay">Поштена Игра</string>
+  <string name="whenAmIEligibleRatinRefund">Када имам право за аутоматско враћање рејтинга од варалица?</string>
   <string name="ratingRefundExplanation">Један минут након што је играч означен, узима се њихових последњих 40 партија у последња 3 дана. Ако си ти био један од њихових противника у тим партијама, и изгубио си рејтинг (због пораза или ремија), то добијаш свој рејтинг назад. Повраћај рејтинга је ограничен твојим максималним рејтингом и прогресом рејтинга након те партије.
   (На пример, ако ти се рејтинг драстично повећао након тих партија, ти ћеш можда добити смањен повраћај или га нећеш уопште добити). Повраћај никада неће прећи 150 поена.</string>
-  <string name="preventLeavingGameWithoutResigning">Шта је урађено поводом играча који напусте партију пре него што се предају?</string>
+  <string name="preventLeavingGameWithoutResigning">Шта је урађено поводом напуштањем партија од стране играча без да предају?</string>
   <string name="leavingGameWithoutResigningExplanation">Ако твој противник често напушта партије, он ће добити привремену забрану играња партија. Ово није јавно видљиво на њиховом профилу. Ако се оваквко понашање настави, дужина забране се све више продужује - док овакво понашање може довести и до затварања налога ако је превише често.</string>
   <string name="howCanIBecomeModerator">Како могу постати модератор?</string>
-  <string name="youCannotApply">Није могуће пријавити се за посао модератора. Ако уочимо некога за кога мислимо да би ту улогу добро извршио, ми га директно контактирамо.</string>
+  <string name="youCannotApply">Није могуће пријавити се за модератора. Ако видимо некога за кога мислимо да би био добар модератор, контактираћемо га директно.</string>
+  <string name="isCorrespondenceDifferent">Да ли је дописни другачији од нормалног шаха?</string>
+  <string name="youCanUseOpeningBookNoEngine">На Lichess-у, главна разлика у правилима за дописни шах јесте да је књига отварања дозвољена. Коришћење рачунара је још увек забрањено и резултираће тиме да играч буде означен за рачунарску помоћ. Иако ICCF дозвољава коришћење рачунара у дописном, Lichess не дозвољава.</string>
   <string name="gameplay">Ток игре</string>
   <string name="howBulletBlitzEtcDecided">Како су муњевити, блиц и остала времена одређена?</string>
   <string name="basedOnGameDuration">Личес контроле времена су засноване на процењеном трајању партије = %1$s

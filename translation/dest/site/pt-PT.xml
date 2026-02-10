@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Jogar contra o computador</string>
   <string name="gameMode">Modo de jogo</string>
   <string name="createLobbyGame">Criar jogo no lobby</string>
-  <string name="youPlayAs">Jogas com</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
@@ -427,7 +426,6 @@
   <string name="pasteTheFenStringHere">Coloca a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Coloca a notação PGN aqui</string>
   <string name="orUploadPgnFile">Ou enviar um ficheiro PGN</string>
-  <string name="fromPosition">A partir de uma posição</string>
   <string name="continueFromHere">Continuar a partir daqui</string>
   <string name="toStudy">Estudo</string>
   <string name="importGame">Importar uma partida</string>

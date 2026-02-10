@@ -312,7 +312,6 @@
   <string name="leaderboard">Tabula del melior jocatores</string>
   <string name="pasteTheFenStringHere">Colla le notation FEN ci</string>
   <string name="pasteThePgnStringHere">Colla le notation PGN ci</string>
-  <string name="fromPosition">A partir del position</string>
   <string name="continueFromHere">Continuar a partir de iste position</string>
   <string name="toStudy">Studio</string>
   <string name="importGame">Importar partita</string>

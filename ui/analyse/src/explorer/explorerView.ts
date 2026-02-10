@@ -329,7 +329,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       nodes,
     );
   const playerName = explorer.config.data.playerName.value();
-  const masterDbExplanation = i18n.site.masterDbExplanation(2200, '1952', '2024-08'),
+  const masterDbExplanation = i18n.site.masterDbExplanation(2200, '1952', '2026-01'),
     lichessDbExplanation = i18n.site.lichessDbExplanation;
   const data = explorer.current();
   const queuePosition = data && isOpening(data) && data.queuePosition;

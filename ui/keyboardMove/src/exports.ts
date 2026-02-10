@@ -6,6 +6,7 @@ import { h, type VNode } from 'snabbdom';
 import { onInsert, snabDialog } from 'lib/view';
 import { promote } from 'lib/game/promotion';
 import { charToRole } from 'chessops';
+import type { NodeCrazy } from 'lib/tree/types';
 
 export interface Opts {
   input: HTMLInputElement;
@@ -53,7 +54,7 @@ export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
   handleArrowKey?: (arrowKey: ArrowKey) => void;
   submitMove?: (v: boolean) => void;
   crazyValid?: (role: Role, key: Key) => boolean;
-  getCrazyhousePockets?: () => Tree.NodeCrazy['pockets'] | undefined;
+  getCrazyhousePockets?: () => NodeCrazy['pockets'] | undefined;
   data: RootData;
 }
 
@@ -89,8 +90,8 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
   const isFocused = propWithEffect(false, root.redraw);
   const helpModalOpen = propWithEffect(false, root.redraw);
   let handler: KeyboardMoveHandler | undefined;
-  let preHandlerBuffer: string | undefined;
   let lastSelect = performance.now();
+  let lastFen: FEN | undefined;
   let cg: CgApi;
   const select = (key: Key): void => {
     if (cg.state.selected === key) cg.cancelMove();
@@ -129,11 +130,11 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
     update(up: MoveUpdate) {
       if (up.cg) cg = up.cg;
       if (handler) handler(up.fen, cg.state.movable.dests, up.canMove);
-      else preHandlerBuffer = up.fen;
+      lastFen = up.fen;
     },
     registerHandler(h: KeyboardMoveHandler) {
       handler = h;
-      if (preHandlerBuffer) handler(preHandlerBuffer, cg.state.movable.dests);
+      if (lastFen) handler(lastFen, cg.state.movable.dests);
     },
     san(orig, dest) {
       usedSan = true;

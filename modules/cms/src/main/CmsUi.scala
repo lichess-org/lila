@@ -96,9 +96,9 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
     table(cls := "cms__pages slist slist-pad")(
       thead(
         tr(
-          th(tableName),
-          th("Content"),
-          th("Lang"),
+          th(dataSortAsc)(tableName),
+          th(dataSortDisabled)("Content"),
+          th(dataSortAsc)("Lang"),
           th("Live"),
           th(dataSortDefault)("Updated")
         )
@@ -217,7 +217,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
           )
         ),
       form3.split(
-        form3.checkbox(form("live"), raw("Live"), half = true)
+        form3.checkboxGroup(form("live"), raw("Live"), half = true)
       ),
       form3.action(form3.submit("Save"))
     )

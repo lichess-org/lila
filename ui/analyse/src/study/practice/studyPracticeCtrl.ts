@@ -27,6 +27,7 @@ export default class StudyPracticeCtrl {
 
   onLoad = () => {
     this.root.showBestMoveArrowsProp = readOnlyProp(true);
+    this.root.showManeuverMoveArrowsProp = readOnlyProp(true);
     this.root.showGauge = readOnlyProp(true);
     this.root.showFishnetAnalysis = readOnlyProp(true);
     this.goal(this.root.data.practiceGoal!);

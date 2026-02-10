@@ -23,14 +23,26 @@
 		<item quantity="other">%s siirtoa</item>
 	</plurals>
 	<string name="chessFoes">Vahvimmat vastustajasi</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gramma</item>
+		<item quantity="other">%s grammaa</item>
+	</plurals>
 	<plurals name="nbKilograms">
 		<item quantity="one">%s kilogramma</item>
 		<item quantity="other">%s kilogrammaa</item>
 	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">oli avaussiirtosi %s valkeilla pelaamassasi pelissä</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Eniten pelaamasi avaus valkeilla, %s peli</item>
+		<item quantity="other">Eniten pelaamasi avaus valkeilla, %s peliä</item>
+	</plurals>
 	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
 		<item quantity="one">Eniten pelaamasi avaus mustilla, %s peli</item>
 		<item quantity="other">Eniten pelaamasi avaus valkeilla, %s peliä</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Kiitos, että arvostelit %s tehtävän.</item>
+		<item quantity="other">Kiitos, että arvostelit %s tehtävää.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Autoit myös tunnisteiden lisäämisessä %s tehtävään.</string>
 	<string name="puzzlesNone">Et ratkaissut tänä vuonna yhtään tehtävää.</string>
@@ -57,5 +69,9 @@
 	<string name="shareableMostPlayedOpponent">useimmin kohtaamani vastustaja</string>
 	<string name="shareableFavouriteVariant">suosikkivarianttini</string>
 	<string name="shareableFavouriteTimeControl">suosimani aikajärjestelmä</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s ratkaistu tehtävä</item>
+		<item quantity="other">%s ratkaistua tehtävää</item>
+	</plurals>
 	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Yhteenvetosi vuodesta %s on valmis!</string>
 </resources>

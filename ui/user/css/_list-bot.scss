@@ -1,40 +1,56 @@
 .bots {
-  .box {
-    margin-bottom: 2vh;
+  @extend %flex-column;
+  gap: $block-gap;
+
+  &__categ {
+    &.box-pad {
+      padding: 3vh var(---box-padding);
+    }
+    .box__top {
+      padding-bottom: 1.5em;
+    }
   }
 
-  &__about {
-    margin-top: 1rem;
+  --c-bot: #{$c-primary};
+  &__featured {
+    --c-bot: #{$c-brag};
   }
 
   &__list {
+    --min-card-width: 300px;
+    @media (max-width: at-most($x-small)) {
+      --min-card-width: 240px;
+    }
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--min-card-width), 1fr));
+    grid-gap: 1em;
+    user-select: none;
+
     &__entry {
-      @extend %flex-center-nowrap;
-      gap: $block-gap;
+      @extend %box-neat, %flex-column;
+      justify-content: space-between;
+      gap: 1em;
 
-      padding: 2em var(---box-padding);
-
-      &:nth-child(odd) {
-        background: $c-bg-zebra;
-      }
-
-      &__desc {
-        @extend %break-word;
-        flex: 1 1 auto;
-      }
+      background: $c-bg-box;
+      border: 1px solid var(--c-bot);
+      cursor: pointer;
 
       &__head {
-        @extend %flex-center;
-        justify-content: space-between;
-        margin-bottom: 1em;
+        @extend %flex-column;
+        padding: 1em 1.5em 0 1.5em;
+        gap: 0.5em;
 
         .user-link {
-          font-size: 1.5em;
-          .utitle {
-            @extend %roboto;
-            font-weight: normal;
-          }
+          font-size: 1.7em;
+          color: $c-font;
         }
+      }
+
+      &__bio {
+        @include line-clamp(4);
+        color: $c-font-dim;
+        font-size: 0.9em;
+        padding: 0 1.5em;
       }
 
       &__rating {
@@ -44,7 +60,14 @@
       }
 
       &__play {
-        padding: 2em;
+        @extend %flex-center, %box-radius-bottom;
+        justify-content: center;
+        padding: 1.5em 0;
+        color: $c-bot;
+        &:hover {
+          background: var(--c-bot);
+          color: $c-over;
+        }
       }
     }
   }

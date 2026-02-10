@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="freeChessVideos">Bezplatná šachová videa</string>
+  <string name="freeForAll">zdarma pro všechny</string>
+  <string name="viewMoreTags">Zobrazit více štítků</string>
+  <string name="videoNotFound">Video nenalezeno!</string>
+</resources>

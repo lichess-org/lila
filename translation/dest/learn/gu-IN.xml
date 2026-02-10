@@ -6,7 +6,7 @@
   <string name="progressX">પ્રગતિ: %s</string>
   <string name="resetMyProgress">મારી પ્રગતિ રીસેટ કરો</string>
   <string name="youWillLoseAllYourProgress">તમે તમારી બધી જ પ્રગતિ ખોઇ દેશો!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ચાલો!</string>
+  <string name="play">ચાલો!</string>
   <string name="chessPieces">ચેસના ટુકડાઓ</string>
   <string name="theRook">હાથી</string>
   <string name="itMovesInStraightLines">તે સીધી રેખામાં ચાલે છે</string>
@@ -141,7 +141,6 @@
   <string name="findAWayToCastleKingSide">રાજા-કિલ્લાનો રસ્તો શોધો!</string>
   <string name="findAWayToCastleQueenSide">રાણી-બાજુ કિલ્લાનો રસ્તો શોધો!</string>
   <string name="castlingComplete">અભિનંદન! તમારે લગભગ હંમેશા રમતમાં જોડાવું જોઈએ.</string>
-  <string name="enPassant">એન પાસન્ટ</string>
   <string name="theSpecialPawnMove">ખાસ પ્યાદા ચાલ</string>
   <string name="enPassantIntro">જ્યારે વિરોધી પ્યાદુ બે ચોરસથી આગળ વધે છે, ત્યારે તમે તેને એક ચોરસથી આગળ વધે છે તેવું લઈ શકો છો.</string>
   <string name="blackJustMovedThePawnByTwoSquares">કળા એ હમણાં જ પ્યાદાને બે ચોરસ ખસેડી!

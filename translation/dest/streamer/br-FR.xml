@@ -24,8 +24,8 @@
     <item quantity="many">E berr gomzoù: %s arouezenn d\'ar muiañ</item>
     <item quantity="other">E berr gomzoù: %s arouezenn d\'ar muiañ</item>
   </plurals>
-  <string name="visibility">Gallout a reer gwelet war bajenn ar streamerien</string>
-  <string name="whenApproved">Gant ma vo aotreet gant an habaskaerien</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Gallout a reer gwelet war bajenn ar streamerien</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Gant ma vo aotreet gant an habaskaerien</string>
   <string name="headline">Titl</string>
   <string name="tellUsAboutTheStream">Petra a vo da welet war ho stream e-korf ur frazenn</string>
   <string name="longDescription">Deskrivadur hir</string>

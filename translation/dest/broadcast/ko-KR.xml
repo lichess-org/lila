@@ -17,7 +17,7 @@
   <string name="theNewRoundHelp">새로운 라운드에는 이전 라운드와 동일한 구성원과 기여자가 있을 것입니다.</string>
   <string name="addRound">라운드 추가</string>
   <string name="ongoing">진행중</string>
-  <string name="upcoming">방영 예정</string>
+  <string name="upcoming">예정</string>
   <string name="roundName">라운드 이름</string>
   <string name="tournamentName">토너먼트 이름</string>
   <string name="tournamentDescription">짧은 토너먼트 설명</string>
@@ -45,7 +45,7 @@
   <string name="fidePlayerNotFound">해당 FIDE 선수를 찾을 수 없음</string>
   <string name="fideProfile">FIDE 프로필</string>
   <string name="federation">연맹</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">나이</string>
+  <string name="age">나이</string>
   <string name="unrated">비레이팅</string>
   <string name="recentTournaments">최근 토너먼트</string>
   <string name="openLichess">Lichess에서 열기</string>
@@ -81,6 +81,21 @@
   <string name="liveboard">실시간 체스판</string>
   <string name="communityBroadcast">커뮤니티 방송</string>
   <string name="createdAndManagedBy">%s로부터 생성되고 관리됨.</string>
+  <string name="termsAutomaticallyTranslated">다음 용어가 자동으로 번역됩니다: %s.</string>
   <string name="roundX">%s라운드</string>
   <string name="defaultRoundNameHelp">기본 이름을 유지하면 자동으로 다른 모든 언어로 번역됩니다.</string>
+  <string name="openTournament">오픈</string>
+  <string name="womenTournament">여성</string>
+  <string name="menTournament">남성</string>
+  <string name="girlsTournament">소녀</string>
+  <string name="boysTournament">소년</string>
+  <string name="openUnderXAgeTournament">U-%s 오픈</string>
+  <string name="girlsUnderXAgeTournament">U-%s 소녀</string>
+  <string name="boysUnderXAgeTournament">U-%s 소년</string>
+  <string name="quarterfinals">8강전</string>
+  <string name="semifinals">준결승전</string>
+  <string name="finals">결승전</string>
+  <string name="tiebreaks">타이브레이커</string>
+  <string name="gameX">게임 %s</string>
+  <string name="knockouts">녹아웃</string>
 </resources>

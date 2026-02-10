@@ -39,4 +39,4 @@ object RequestWithUser:
   yield RequestWithUser(req, user)
 
 enum Requesting:
-  case Joined, NeedRequest, NeedPassword, Blocklist
+  case Joined, NeedRequest, NeedPassword, Blocklist, Closed

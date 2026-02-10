@@ -78,7 +78,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
           group = main.group,
           alts = Nil
         )
-      errors <- card.errors.some.filter(_.nonEmpty)
+      errors <- card.errors.nonEmptyOption
     yield (card, errors)
     errored.nonEmpty.option:
       div(cls := "relay-index__admin")(

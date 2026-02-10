@@ -17,7 +17,7 @@ import { isIos, isWebkit, prefersLightThemeQuery } from 'lib/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'lib';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { addDomHandlers } from './domHandlers';
-import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
+import { updateTimeAgo, renderTimeAgo, renderLocalizedTimestamps } from './renderTimeAgo';
 import { pubsub } from 'lib/pubsub';
 import { once } from 'lib/storage';
 import { addExceptionListeners } from './unhandledError';
@@ -36,6 +36,7 @@ export function boot() {
     pubsub.on('content-loaded', initMiniGames);
     updateTimeAgo(1000);
     pubsub.on('content-loaded', renderTimeAgo);
+    renderLocalizedTimestamps();
     pubsub.on('content-loaded', toggleBoxInit);
   });
   requestIdleCallback(() => {
@@ -134,14 +135,12 @@ const isUnsupportedBrowser = () => isWebkit({ below: '15.4' });
 
 function mirrorCheck() {
   const mirrors: string[] = [
-    'chess.shark-stars.com',
-    'lootverse.org',
-    'phantomstride.org',
-    'raksharealm.org',
-    'ludicfrontiers.org',
     'lichess.dscs2009.com',
-    'sidequest-circus.org',
     'joystickcaravan.org',
+    'gamelorecollective.com',
+    'joystick-astral.com',
+    'orbitofavatars.com',
+    'bealive.fit',
   ];
   if (mirrors.includes(location.host)) location.href = 'https://lichess.org' + location.pathname;
 }

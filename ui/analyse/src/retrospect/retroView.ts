@@ -3,6 +3,7 @@ import type { RetroCtrl } from './retroCtrl';
 import type AnalyseCtrl from '../ctrl';
 import * as licon from 'lib/licon';
 import { bind, dataIcon, hl, type VNode, spinnerVdom as spinner } from 'lib/view';
+import type { TreeNode } from 'lib/tree/types';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return hl('div.choices', [
@@ -21,7 +22,7 @@ function jumpToNext(ctrl: RetroCtrl) {
 const minDepth = 8;
 const maxDepth = 18;
 
-function renderEvalProgress(node: Tree.Node): VNode {
+function renderEvalProgress(node: TreeNode): VNode {
   return hl(
     'div.progress',
     hl('div', {

@@ -5,8 +5,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
   if (!ctrl.me || !ctrl.data.ratingMap) return null;
 
   const { setupCtrl } = ctrl;
-  const selectedPerf = ctrl.setupCtrl.selectedPerf();
-  const isProvisional = !!ctrl.data.ratingMap[selectedPerf].prov;
+  const isProvisional = setupCtrl.isProvisional();
 
   // Get current rating values or use default values if isProvisional
   const currentRatingMin = isProvisional ? -500 : setupCtrl.ratingMin();
@@ -21,8 +20,10 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
         min: isMin ? '-500' : '0',
         max: isMin ? '0' : '500',
         step: '50',
-        value: isMin ? currentRatingMin : currentRatingMax,
         disabled: isProvisional,
+      },
+      props: {
+        value: isMin ? currentRatingMin : currentRatingMax,
       },
       on: {
         input: (e: Event) => {
@@ -44,7 +45,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
         ? {
             title: i18n.site.ratingRangeIsDisabledBecauseYourRatingIsProvisional,
             'aria-disabled': 'true',
-            tabindex: 0,
+            tabindex: -1,
           }
         : undefined,
     },

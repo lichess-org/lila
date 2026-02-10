@@ -3,6 +3,7 @@ import { hl, type VNode, bind, type MaybeVNodes } from 'lib/view';
 import type { PracticeCtrl, Comment } from './practiceCtrl';
 import type AnalyseCtrl from '../ctrl';
 import { renderNextChapter } from '../study/nextChapter';
+import { fixCrazySan } from 'lib/game/chess';
 import type { Prop } from 'lib';
 
 function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
@@ -21,7 +22,7 @@ function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
               destroy: () => ctrl.commentShape(false),
             },
           },
-          c.best.san,
+          hl('san', fixCrazySan(c.best.san)),
         ),
       )
     : [];
@@ -109,7 +110,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const comment: Comment | null = ctrl.comment();
   const isFiftyMoves = ctrl.currentNode().fen.split(' ')[4] === '100';
   const running: boolean = ctrl.running();
-  const end = ctrl.currentNode().threefold || isFiftyMoves ? { winner: undefined } : root.outcome();
+  const end = ctrl.currentNode().threefold || isFiftyMoves ? { winner: undefined } : root.node.outcome();
   return hl('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
     hl('div.title', i18n.site.practiceWithComputer),
     hl(

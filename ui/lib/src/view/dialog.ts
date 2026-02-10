@@ -1,4 +1,4 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 import { isTouchDevice } from '@/device';
@@ -305,6 +305,7 @@ function loadAssets(o: DialogOpts) {
     o.htmlUrl
       ? xhr.text(o.htmlUrl)
       : Promise.resolve(o.cash?.clone().removeClass('none')[0]?.outerHTML ?? o.htmlText),
+    site.asset.loadCssPath('bits.dialog'),
     ...(o.css ?? []).map(css =>
       'hashed' in css ? site.asset.loadCssPath(css.hashed) : site.asset.loadCss(css.url),
     ),

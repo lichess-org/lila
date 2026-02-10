@@ -94,6 +94,6 @@
   </plurals>
   <string name="percentSolved">%s حل‌شده</string>
   <string name="noPuzzlesToShow">چیزی برای نمایش نیست، نخست بروید و چند معما حل کنید!</string>
-  <string name="improvementAreasDescription">برای بهینیدن پیشرفت‌تان، این‌ها را بیاموزید!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">برای بهینیدن پیشرفت‌تان، این‌ها را بیاموزید!</string>
   <string name="strengthDescription">شما در این زمینه‌ها بهترین عملکرد را دارید</string>
 </resources>

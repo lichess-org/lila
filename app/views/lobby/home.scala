@@ -19,15 +19,11 @@ object home:
           Json
             .obj(
               "data" -> data,
-              "showRatings" -> ctx.pref.showRatings,
-              "hasUnreadLichessMessage" -> hasUnreadLichessMessage
+              "showRatings" -> ctx.pref.showRatings
             )
+            .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
             .add("bots", Granter.opt(_.Beta))
-            .add(
-              "playban",
-              playban.map: pb =>
-                Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
-            )
+            .add("playban", playban.map(lila.playban.TempBan.lobbyJson))
         )
       )
       .css("lobby")
@@ -103,16 +99,17 @@ object home:
                 }
               )
             ,
+            classes.nonEmpty.option:
+              div(cls := "lobby__classes"):
+                classes.map: clas =>
+                  a(href := routes.Clas.show(clas.id), dataIcon := Icon.Group)(clas.name)
+            ,
             if ctx.isAuth then
               div(cls := "lobby__timeline")(
                 ctx.blind.option(h2(trans.site.timeline())),
                 views.timeline.entries(userTimeline),
-                userTimeline.nonEmpty.option(
-                  a(cls := "more", href := routes.Timeline.home)(
-                    trans.site.more(),
-                    " »"
-                  )
-                )
+                userTimeline.nonEmpty.option:
+                  a(cls := "more", href := routes.Timeline.home)(trans.site.more(), " »")
               )
             else
               div(cls := "about-side")(

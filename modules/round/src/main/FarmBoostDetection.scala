@@ -11,6 +11,7 @@ import lila.core.game.reasonableMinimumNumberOfMoves
 final private class FarmBoostDetection(
     gameRepo: GameRepo,
     crosstableApi: CrosstableApi,
+    securityApi: lila.core.security.SecurityApi,
     isBotSync: IsBotSync
 )(using Executor, FutureAfter):
 
@@ -84,5 +85,4 @@ final private class FarmBoostDetection(
     else
       game.userIdPair.sequence
         .map(_.toPair)
-        .so: userIds =>
-          lila.common.Bus.ask(lila.core.security.AskAreRelated(userIds, _))
+        .so(securityApi.shareAnIpOrFp)

@@ -17,7 +17,7 @@ final class Env(
     appConfig: Configuration,
     cookieBaker: lila.core.security.LilaCookie,
     ws: StandaloneWSClient
-)(using Executor):
+)(using Scheduler, Executor):
 
   private val explorerEndpoint = appConfig.get[String]("explorer.endpoint").taggedWith[ExplorerEndpoint]
   private lazy val wikiColl = db(CollName("opening_wiki"))

@@ -81,7 +81,9 @@ export async function subfolders(folder: string, depth = 1): Promise<string[]> {
   if (depth <= 0) return [];
   return (
     await Promise.all(
-      (await fs.promises.readdir(folder).catch(() => [])).map(async f => {
+      (
+        await fs.promises.readdir(folder).catch(() => [])
+      ).map(async f => {
         const fullpath = join(folder, f);
         return (await isFolder(fullpath)) ? [fullpath, ...(await subfolders(fullpath, depth - 1))] : [];
       }),

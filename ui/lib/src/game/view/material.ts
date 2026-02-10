@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 import type { CheckCount, CheckState, MaterialDiffSide } from '../interfaces';
 import { countChecks, getMaterialDiff, getScore, NO_CHECKS } from '../material';
 import { opposite } from '@lichess-org/chessground/util';
-import { Chess } from 'chessops';
+import { type Board } from 'chessops';
 
 function renderMaterialDiff(
   material: MaterialDiffSide,
@@ -27,7 +27,7 @@ function renderMaterialDiff(
 export function renderMaterialDiffs(
   showCaptured: boolean,
   bottomColor: Color,
-  chess: FEN | Chess,
+  chess: FEN | Board,
   showChecks: boolean,
   checkStates: CheckState[],
   ply: Ply,

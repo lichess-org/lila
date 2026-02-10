@@ -87,6 +87,6 @@
   </plurals>
   <string name="percentSolved">%s ճիշտ է</string>
   <string name="noPuzzlesToShow">Ոչինչ չկա, սկսելու համար լուծե՛ք մի քանի խնդիր։</string>
-  <string name="improvementAreasDescription">Մարզե՛ք այս թեմաները՝ Ձեր առաջընթացը բարելավելու համար։</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Մարզե՛ք այս թեմաները՝ Ձեր առաջընթացը բարելավելու համար։</string>
   <string name="strengthDescription">Դուք ցուցադրում եք լավագույն արդյունքները այս թեմաներում</string>
 </resources>

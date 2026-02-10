@@ -47,6 +47,8 @@ final class GameUi(helpers: Helpers):
         else Fen.writeBoardAndColor(pov.game.position)
       dataState := s"${fen},${pov.color.name},${~pov.game.lastMoveKeys}"
 
+    private def showTimeControl(c: chess.Clock.Config) = s"${c.limitSeconds}+${c.incrementSeconds}"
+
     private def renderMini(
         pov: Pov,
         link: Option[String],
@@ -54,12 +56,11 @@ final class GameUi(helpers: Helpers):
     )(using Translate, Option[Me]): Tag =
       import pov.game
       val tag = if link.isDefined then a else span
-      def showTimeControl(c: chess.Clock.Config) = s"${c.limitSeconds}+${c.increment}"
       tag(
         href := link,
         cls := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
         dataLive := game.isBeingPlayed.option(game.id),
-        dataTimeControl := game.clock.map(_.config).fold("correspondence")(showTimeControl(_)),
+        dataTimeControl := game.clock.map(_.config).fold("correspondence")(showTimeControl),
         renderState(pov)
       )(
         renderPlayer(!pov, withRating = showRatings),
@@ -231,11 +232,10 @@ final class GameUi(helpers: Helpers):
               },
               form3.group(form("pgnFile"), trans.site.orUploadPgnFile(), klass = "upload"): f =>
                 form3.file.pgn(f.name),
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("analyse"),
                 trans.site.requestAComputerAnalysis(),
-                help = Some(analyseHelp),
-                disabled = !ctx.isAuth
+                help = analyseHelp
               ),
               form3.action(form3.submit(trans.site.importGame(), Icon.UploadCloud.some))
             )
@@ -257,7 +257,7 @@ final class GameUi(helpers: Helpers):
           div(cls := "header", dataIcon := gameIcon(g))(
             div(cls := "header__text")(
               source(g),
-              g.pgnImport.flatMap(_.date).fold[Frag](momentFromNowWithPreload(g.createdAt))(frag(_)),
+              g.pgnImport.flatMap(_.date).fold[Frag](pastMomentWithPreload(g.createdAt))(frag(_)),
               contextLink.map(l => frag(separator, l))
             )
           ),

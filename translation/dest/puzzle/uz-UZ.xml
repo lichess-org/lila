@@ -87,6 +87,6 @@
   </plurals>
   <string name="percentSolved">%s to‘g‘ri yechilgan</string>
   <string name="noPuzzlesToShow">Hech narsa yo‘q, avval bir nechta boshqotirma yeching!</string>
-  <string name="improvementAreasDescription">O‘z rivojingizga erishish uchun bu mavzularda mashq qiling!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">O‘z rivojingizga erishish uchun bu mavzularda mashq qiling!</string>
   <string name="strengthDescription">Siz bu mavzularda zo‘r natijalarga erishayabsiz</string>
 </resources>

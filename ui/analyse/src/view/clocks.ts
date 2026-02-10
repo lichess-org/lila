@@ -4,6 +4,7 @@ import { defined, notNull } from 'lib';
 import * as licon from 'lib/licon';
 import { iconTag, type MaybeVNode, type MaybeVNodes } from 'lib/view';
 import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
+import type { TreePath } from 'lib/tree/types';
 
 interface ClockOpts {
   centis: number | undefined;
@@ -13,7 +14,7 @@ interface ClockOpts {
   pause: boolean;
 }
 
-export default function renderClocks(ctrl: AnalyseCtrl, path: Tree.Path): [VNode, VNode] | undefined {
+export default function renderClocks(ctrl: AnalyseCtrl, path: TreePath): [VNode, VNode] | undefined {
   const node = ctrl.tree.nodeAtPath(path),
     whitePov = ctrl.bottomIsWhite(),
     parentClock = ctrl.tree.getParentClock(node, path),

@@ -46,7 +46,7 @@ final class PuzzleComplete(
             finisher(id, angle, data.win, data.rated).flatMapz { (round, perf) =>
               val newMe = me.value.withPerf(perf)
               for
-                _ <- session.onComplete(round, angle)
+                _ <- session.onComplete(me.userId, angle)
                 json <-
                   if mobileBc then
                     fuccess:

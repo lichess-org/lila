@@ -12,12 +12,13 @@ import lila.tutor.TutorCompare.AnyComparison
 case class TutorPerfReport(
     perf: PerfType,
     stats: InsightPerfStats,
-    accuracy: TutorBothValueOptions[AccuracyPercent],
-    awareness: TutorBothValueOptions[GoodPercent],
-    resourcefulness: TutorBothValueOptions[GoodPercent],
-    conversion: TutorBothValueOptions[GoodPercent],
-    globalClock: TutorBothValueOptions[ClockPercent],
-    clockUsage: TutorBothValueOptions[ClockPercent],
+    peers: PeersRatingRange,
+    accuracy: TutorBothOption[AccuracyPercent],
+    awareness: TutorBothOption[GoodPercent],
+    resourcefulness: TutorBothOption[GoodPercent],
+    conversion: TutorBothOption[GoodPercent],
+    globalClock: TutorBothOption[ClockPercent],
+    clockUsage: TutorBothOption[ClockPercent],
     openings: ByColor[TutorColorOpenings],
     phases: List[TutorPhase],
     flagging: TutorFlagging
@@ -126,9 +127,8 @@ private object TutorPerfReport:
     InsightMetric.ClockPercent,
     List(Filter(InsightDimension.Phase, List(Phase.Middle, Phase.End)))
   )
-  private def hasClock(p: PerfType) = p != PerfType.Correspondence
 
-  def compute(users: NonEmptyList[TutorUser])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
+  def compute(users: NonEmptyList[TutorPlayer])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
     for
       accuracy <- answerManyPerfs(accuracyQuestion, users)
       awareness <- answerManyPerfs(awarenessQuestion, users)
@@ -137,14 +137,15 @@ private object TutorPerfReport:
       clockUsers = users.filter(_.perfType != PerfType.Correspondence).toNel
       globalClock <- clockUsers.traverse(answerManyPerfs(globalClockQuestion, _))
       clockUsage <- clockUsers.traverse(TutorClockUsage.compute)
-      perfReports <- Future.sequence(users.toList.map { user =>
+      perfReports <- users.toList.sequentially: user =>
         for
           openings <- TutorOpening.compute(user)
           phases <- TutorPhases.compute(user)
-          flagging <- hasClock(user.perfType).so(TutorFlagging.compute(user))
+          flagging <- TutorFlagging.computeIfRelevant(user)
         yield TutorPerfReport(
           user.perfType,
           user.perfStats,
+          user.perfStats.peers,
           accuracy = AccuracyPercent.from(accuracy.valueMetric(user.perfType)),
           awareness = GoodPercent.from(awareness.valueMetric(user.perfType)),
           resourcefulness = GoodPercent.from(resourcefulness.valueMetric(user.perfType)),
@@ -155,5 +156,4 @@ private object TutorPerfReport:
           phases,
           flagging
         )
-      })
     yield perfReports

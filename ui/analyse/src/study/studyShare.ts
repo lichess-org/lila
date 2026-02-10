@@ -1,28 +1,24 @@
 import { prop } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, hl } from 'lib/view';
-import { copyMeInput } from 'lib/view';
+import { type VNode, bind, dataIcon, hl, copyMeInput, type MaybeVNode } from 'lib/view';
 import { writeTextClipboard, url as xhrUrl } from 'lib/xhr';
 import { renderIndexAndMove } from '../view/components';
 import { baseUrl } from '../view/util';
 import type { ChapterPreview, StudyData } from './interfaces';
 import type RelayCtrl from './relay/relayCtrl';
+import type { TreeNode } from 'lib/tree/types';
+import { relayIframe } from './relay/relayTourView';
+import { cmnToggleProp } from 'lib/view/cmn-toggle';
 
-function fromPly(ctrl: StudyShare): VNode {
+function fromPly(ctrl: StudyShare): MaybeVNode {
+  if (!ctrl.onMainline()) return;
   const renderedMove = renderIndexAndMove(ctrl.currentNode(), false, false);
-  return hl(
-    'div.ply-wrap',
-    ctrl.onMainline() &&
-      hl('label.ply', [
-        hl('input', {
-          attrs: { type: 'checkbox', checked: ctrl.withPly() },
-          hook: bind('change', e => ctrl.withPly((e.target as HTMLInputElement).checked), ctrl.redraw),
-        }),
-        renderedMove
-          ? i18n.study.startAtX.asArray(hl('strong', renderedMove))
-          : [i18n.study.startAtInitialPosition],
-      ]),
-  );
+  return hl('label.url-start-at-ply', [
+    cmnToggleProp({ id: 'study-share-start-position', prop: ctrl.withPly, redraw: ctrl.redraw }),
+    ...(renderedMove.length
+      ? i18n.study.startAtX.asArray(hl('strong', renderedMove))
+      : [i18n.study.startAtInitialPosition]),
+  ]);
 }
 
 export class StudyShare {
@@ -31,7 +27,7 @@ export class StudyShare {
   constructor(
     readonly data: StudyData,
     readonly currentChapter: () => ChapterPreview,
-    readonly currentNode: () => Tree.Node,
+    readonly currentNode: () => TreeNode,
     readonly onMainline: () => boolean,
     readonly bottomColor: () => Color,
     readonly relay: RelayCtrl | undefined,
@@ -164,6 +160,7 @@ export function view(ctrl: StudyShare): VNode {
                   href: xhrUrl(`/study/${studyId}/${chapter.id}.gif`, {
                     theme: document.body.dataset.board,
                     piece: document.body.dataset.pieceSet,
+                    showGlyphs: true,
                   }),
                   download: true,
                 },
@@ -190,32 +187,42 @@ export function view(ctrl: StudyShare): VNode {
                 pastable && isPrivate && youCanPasteThis(),
               ]),
             ),
-            isPrivate ||
-              hl('div.form-group', [
-                hl('label.form-label', i18n.study.embedInYourWebsite),
-                copyMeInput(
-                  !isPrivate
-                    ? `<iframe ${
-                        ctrl.gamebook ? 'width="320" height="320"' : 'width="600" height="371"'
-                      } src="${baseUrl()}${addPly(
-                        `/study/embed/${studyId}/${chapter.id}`,
-                      )}" frameborder=0></iframe>`
-                    : i18n.study.onlyPublicStudiesCanBeEmbedded,
-                  { disabled: isPrivate },
-                ),
-                fromPly(ctrl),
-                hl(
-                  'a.form-help.text',
-                  {
-                    attrs: {
-                      href: '/developers#embed-study',
-                      target: '_blank',
-                      ...dataIcon(licon.InfoCircle),
+            ctrl.relay
+              ? hl('div.form-group', [
+                  hl('label.form-label', 'Embed this particular game'),
+                  copyMeInput(relayIframe(`${ctrl.relay.roundPath()}/${chapter.id}`)),
+                  hl(
+                    'a.form-help.text',
+                    { attrs: { ...dataIcon(licon.InfoCircle), href: `${ctrl.relay.roundPath()}#overview` } },
+                    'More options for embedding a broadcast',
+                  ),
+                ])
+              : isPrivate || // study embed
+                hl('div.form-group', [
+                  hl('label.form-label', i18n.study.embedInYourWebsite),
+                  copyMeInput(
+                    !isPrivate
+                      ? `<iframe ${
+                          ctrl.gamebook ? 'width="320" height="320"' : 'width="600" height="371"'
+                        } src="${baseUrl()}${addPly(
+                          `/study/embed/${studyId}/${chapter.id}`,
+                        )}" frameborder=0></iframe>`
+                      : i18n.study.onlyPublicStudiesCanBeEmbedded,
+                    { disabled: isPrivate },
+                  ),
+                  fromPly(ctrl),
+                  hl(
+                    'a.form-help.text',
+                    {
+                      attrs: {
+                        href: '/developers#embed-study',
+                        target: '_blank',
+                        ...dataIcon(licon.InfoCircle),
+                      },
                     },
-                  },
-                  i18n.study.readMoreAboutEmbedding,
-                ),
-              ]),
+                    i18n.study.readMoreAboutEmbedding,
+                  ),
+                ]),
           ]),
           hl('div.form-group', [hl('label.form-label', 'FEN'), copyMeInput(ctrl.currentNode().fen)]),
         ]

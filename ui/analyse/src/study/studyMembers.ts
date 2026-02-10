@@ -11,6 +11,7 @@ import { userLink } from 'lib/view/userLink';
 import type StudyCtrl from './studyCtrl';
 import { once } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
+import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 
 interface Opts {
   initDict: StudyMemberMap;
@@ -178,20 +179,13 @@ export function view(ctrl: StudyCtrl): VNode {
         hook: onInsert(el => scrollTo(el.closest('.study-list')!, el)),
       },
       [
-        hl('div.role', [
-          hl('div.switch', [
-            hl('input.cmn-toggle', {
-              attrs: { id: roleId, type: 'checkbox', checked: member.role === 'w' },
-              hook: bind(
-                'change',
-                e => members.setRole(member.user.id, (e.target as HTMLInputElement).checked ? 'w' : 'r'),
-                ctrl.redraw,
-              ),
-            }),
-            hl('label', { attrs: { for: roleId } }),
-          ]),
-          hl('label', { attrs: { for: roleId } }, i18n.study.contributor),
-        ]),
+        cmnToggleWrap({
+          id: roleId,
+          name: i18n.study.contributor,
+          checked: member.role === 'w',
+          change: v => members.setRole(member.user.id, v ? 'w' : 'r'),
+          redraw: ctrl.redraw,
+        }),
         hl(
           'div.kick',
           hl(

@@ -150,10 +150,10 @@ final class JsonView:
       "position" -> m.position
     )
 
-  private given Writes[Chart.Xaxis] = Json.writes
-  private given Writes[Chart.Yaxis] = Json.writes
-  private given Writes[Chart.Serie] = Json.writes
-  given chartWrites: Writes[Chart] = Json.writes
+  private given Writes[InsightChart.Xaxis] = Json.writes
+  private given Writes[InsightChart.Yaxis] = Json.writes
+  private given Writes[InsightChart.Serie] = Json.writes
+  given chartWrites: Writes[InsightChart] = Json.writes
 
   def question(metric: String, dimension: String, filters: String) =
     Json.obj(

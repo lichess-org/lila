@@ -36,16 +36,22 @@ Allow: /game/export/gif/thumbnail/
       "related_applications" -> Json.arr(
         Json.obj(
           "platform" -> "play",
-          "url" -> "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
+          "url" -> mobileAndroidUrl,
+          "id" -> mobileAndroidId
         ),
         Json.obj(
           "platform" -> "itunes",
-          "url" -> "https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784"
+          "url" -> mobileIosUrl
+        ),
+        Json.obj(
+          "platform" -> "ios",
+          "url" -> mobileIosUrl
         )
       )
     )
 
-  val mobileAndroidUrl = "https://play.google.com/store/apps/details?id=org.lichess.mobileV2"
+  val mobileAndroidId = "https://play.google.com/store/apps/details?id=org.lichess.mobileV2"
+  val mobileAndroidUrl = s"https://play.google.com/store/apps/details?id=$mobileAndroidId"
   val mobileIosUrl = "https://apps.apple.com/app/lichess/id1662361230"
 
   def appStoreUrl(using req: RequestHeader) =

@@ -53,7 +53,7 @@ object PuzzleTheme:
     PuzzleTheme(i.dovetailMate, i.dovetailMateDescription)
   val equality = PuzzleTheme(i.equality, i.equalityDescription)
   val endgame = PuzzleTheme(i.endgame, i.endgameDescription)
-  val enPassant = PuzzleTheme(I18nKey.learn.enPassant, i.enPassantDescription)
+  val enPassant = PuzzleTheme(I18nKey.site.enPassant, i.enPassantDescription)
   val exposedKing = PuzzleTheme(i.exposedKing, i.exposedKingDescription)
   val fork = PuzzleTheme(i.fork, i.forkDescription)
   val hangingPiece = PuzzleTheme(i.hangingPiece, i.hangingPieceDescription)

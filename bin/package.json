@@ -4,7 +4,7 @@
   "dependencies": {
     "@types/node": "24.0.1",
     "cheerio": "^1.1.2",
-    "fast-xml-parser": "^4.5.3",
+    "fast-xml-parser": "^5.3.4",
     "mongodb": "6.16.0"
   },
   "license": "ISC"

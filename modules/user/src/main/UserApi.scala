@@ -124,13 +124,17 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def enabledWithPerf[U: UserIdOf](id: U, perfType: PerfType): Fu[Option[WithPerf]] =
     byIdWithPerf(id, perfType).dmap(_.filter(_.user.enabled.yes))
 
-  def listWithPerfs[U: UserIdOf](us: List[U]): Fu[List[UserWithPerfs]] =
+  def listWithPerfs[U: UserIdOf](
+      us: List[U],
+      includeClosed: Boolean,
+      fromPri: Boolean = false
+  ): Fu[List[UserWithPerfs]] =
     us.nonEmpty.so:
       val ids = us.map(_.id)
       userRepo.coll
-        .aggregateList(Int.MaxValue): framework =>
+        .aggregateList(Int.MaxValue, if fromPri then _.pri else _.sec): framework =>
           import framework.*
-          Match($inIds(ids) ++ userRepo.enabledSelect) -> List(
+          Match($inIds(ids) ++ includeClosed.not.so(userRepo.enabledSelect)) -> List(
             PipelineOperator(perfsRepo.aggregate.lookup),
             AddFields($sort.orderField(ids)),
             Sort(Ascending("_order"))
@@ -146,7 +150,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pk).dmap(some))
 
   def pairWithPerfs(userIds: ByColor[Option[UserId]]): Fu[ByColor[Option[UserWithPerfs]]] =
-    listWithPerfs(userIds.flatten).map: users =>
+    listWithPerfs(userIds.flatten, includeClosed = true, fromPri = true).map: users =>
       userIds.map(_.flatMap(id => users.find(_.id == id)))
 
   def listWithPerf[U: UserIdOf](
@@ -204,14 +208,15 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   def withPerfsAndEmails[U: UserIdOf](users: List[U]): Fu[List[WithPerfsAndEmails]] = for
     perfs <- perfsRepo.idsMap(users, _.sec)
+    ids = users.map(_.id)
     users <- userRepo.coll
-      .list[Bdoc]($inIds(users.map(_.id)), _.sec)
+      .list[Bdoc]($inIds(ids), _.sec)
       .map: docs =>
         for
           doc <- docs
           user <- summon[BSONReader[User]].readOpt(doc)
         yield WithPerfsAndEmails(lila.rating.UserWithPerfs(user, perfs.get(user.id)), readEmails(doc))
-  yield users
+  yield users.sortLike(ids, _.user.id)
 
   def withPerfsAndEmails[U: UserIdOf](u: U): Fu[Option[WithPerfsAndEmails]] =
     withPerfsAndEmails(List(u)).map(_.headOption)
@@ -237,7 +242,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     userRepo.coll
       .aggregateList(onlineBotVisible.value, _.sec): framework =>
         import framework.*
-        Match($inIds(ids) ++ userRepo.botWithBioSelect ++ userRepo.enabledSelect ++ userRepo.notLame) -> List(
+        val inIds = ids.nonEmpty.so($inIds(ids))
+        Match(inIds ++ userRepo.botWithBioSelect ++ userRepo.enabledSelect ++ userRepo.notLame) -> List(
           Sort(Descending(BSONFields.roles), Descending("time.human")),
           Limit(onlineBotVisible.value),
           PipelineOperator(perfsRepo.aggregate.lookup)
@@ -249,7 +255,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           perfs = perfsRepo.aggregate.readFirst(doc, user)
         yield UserWithPerfs(user, perfs)
 
-  def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[UserWithPerfs]] =
+  private[user] def byIdsSortRatingNoBot(ids: Iterable[UserId], nb: Int): Fu[List[UserWithPerfs]] =
     perfsRepo.coll
       .aggregateList(nb, _.sec): framework =>
         import framework.*

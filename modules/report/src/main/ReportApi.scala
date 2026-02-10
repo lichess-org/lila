@@ -270,7 +270,7 @@ final class ReportApi(
   // `seriousness` depends on the number of previous warnings, and number of games thrown away
   def autoBoostReport(winnerId: UserId, loserId: UserId, seriousness: Int): Funit =
     securityApi
-      .shareAnIpOrFp(winnerId, loserId)
+      .shareAnIpOrFp(winnerId -> loserId)
       .zip(userApi.pair(winnerId, loserId))
       .zip(getLichessReporter)
       .flatMap:
@@ -540,7 +540,7 @@ final class ReportApi(
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
     userApi
-      .listWithPerfs(reports.map(_.user).distinct)
+      .listWithPerfs(reports.map(_.user).distinct, includeClosed = true)
       .map: users =>
         reports
           .flatMap: r =>

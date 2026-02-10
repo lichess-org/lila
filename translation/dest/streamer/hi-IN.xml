@@ -34,8 +34,8 @@
     <item quantity="one">इसे छोटा रखें:%s अक्षर अधिकतम</item>
     <item quantity="other">इसे छोटा रखें:%s अक्षर अधिकतम</item>
   </plurals>
-  <string name="visibility">स्ट्रीमर पृष्ठ पर दिखने लगा</string>
-  <string name="whenApproved">जब मध्यस्थों द्वारा अनुमोदित किया जायेगा</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">स्ट्रीमर पृष्ठ पर दिखने लगा</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">जब मध्यस्थों द्वारा अनुमोदित किया जायेगा</string>
   <string name="headline">शीर्षक</string>
   <string name="tellUsAboutTheStream">हमें एक वाक्य में अपनी स्ट्रीम के बारे में बताएं</string>
   <string name="longDescription">लंबा वर्णन</string>

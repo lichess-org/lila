@@ -70,10 +70,8 @@ final class Pref(env: Env) extends LilaController(env):
     if name == "zoom"
     then Ok.withCookies(env.security.lilaCookie.cookie("zoom", (getInt("v") | 85).toString))
     else if name == "agreement" then
-      ctx.me
-        .so(api.agree(_))
-        .inject:
-          if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Lobby.home)
+      for _ <- ctx.me.so(api.agree(_))
+      yield if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Lobby.home)
     else
       lila.pref.PrefSingleChange.changes
         .get(name)
@@ -81,11 +79,8 @@ final class Pref(env: Env) extends LilaController(env):
           bindForm(change.form)(
             form => fuccess(BadRequest(form.errors.flatMap(_.messages).mkString("\n"))),
             v =>
-              ctx.me
-                .so(api.setPref(_, change.update(v)))
-                .inject(env.security.lilaCookie.session(name, v.toString))
-                .map: cookie =>
-                  Ok(()).withCookies(cookie)
+              for _ <- ctx.me.so(api.setPref(_, change.update(v)))
+              yield Ok(()).withCookies(env.security.lilaCookie.session(name, v.toString))
           )
 
   def apiSet(name: String) = ScopedBody(_.Web.Mobile) { ctx ?=> me ?=>

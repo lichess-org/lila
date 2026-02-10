@@ -72,7 +72,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         )
 
   def index(videos: Paginator[VideoView], count: Long, control: UserControl)(using ctx: Context) =
-    val tagString = control.filter.tags.some.filter(_.nonEmpty).so(_.mkString(" + ") + " • ")
+    val tagString = control.filter.tags.nonEmptyOption.so(_.mkString(" + ") + " • ")
     page(s"${tagString}${trv.freeChessVideos.txt()}", control)
       .graph(
         title = trv.xFreeCarefullyCurated.txt(tagString),

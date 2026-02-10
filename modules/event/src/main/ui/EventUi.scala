@@ -153,7 +153,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
           help = raw("What to redirect to when the event starts").some,
           half = true
         )(form3.input(_)),
-        form3.checkbox(
+        form3.checkboxGroup(
           form("countdown"),
           frag("Show countdown"),
           help = frag(
@@ -183,7 +183,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
           )
       ),
       form3.split(
-        form3.checkbox(form("enabled"), raw("Enabled"), help = raw("Display the event").some, half = true),
+        form3.checkboxGroup(form("enabled"), "Enabled", help = raw("Display the event").some, half = true),
         form3.group(
           form("homepageHours"),
           raw("Hours on homepage before the start (0 to 24)"),

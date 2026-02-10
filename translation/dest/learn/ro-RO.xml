@@ -6,7 +6,7 @@
   <string name="progressX">Progres: %s</string>
   <string name="resetMyProgress">Reia învățarea de la inceput</string>
   <string name="youWillLoseAllYourProgress">Vei pierde tot ce-ai făcut!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">joacă!</string>
+  <string name="play">joacă!</string>
   <string name="chessPieces">Piese de șah</string>
   <string name="theRook">Turnul</string>
   <string name="itMovesInStraightLines">Se mișcă în linii drepte</string>
@@ -152,7 +152,6 @@ prin care să faci rocada mică!</string>
   <string name="findAWayToCastleQueenSide">Găsește o cale prin care
 să faci rocada mare!</string>
   <string name="castlingComplete">Felicitări! Ar trebui să faci rocada mai mereu.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Mutarea de pion specială</string>
   <string name="enPassantIntro">Când pionul oponentului a fost mutat două pătrățele, îl poți captura ca și cum ar fi mutat doar o pătrățică.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Jucătorul cu piesele negre tocmai

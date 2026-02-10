@@ -387,7 +387,6 @@
   <string name="pasteTheFenStringHere">Вписати FEN туй</string>
   <string name="pasteThePgnStringHere">Вписати PGN туй</string>
   <string name="orUploadPgnFile">Вадь наладовати PGN файл</string>
-  <string name="fromPosition">Из позіції</string>
   <string name="continueFromHere">Продовжити из позіції</string>
   <string name="toStudy">Штудія</string>
   <string name="importGame">Перенести бавку</string>

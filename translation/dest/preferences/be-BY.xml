@@ -20,6 +20,7 @@
   <string name="displayBoardResizeHandle">Паказваць ручку змены памеру дошкі</string>
   <string name="onlyOnInitialPosition">Толькі ў пачатковым становішчы</string>
   <string name="inGameOnly">Выключна ў партыі</string>
+  <string name="exceptInGame">Не пад час гульні</string>
   <string name="chessClock">Шахматны гадзіннік</string>
   <string name="tenthsOfSeconds">Дзясятыя долі секунды</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Калі засталося менш за 10 с</string>
@@ -61,10 +62,13 @@
   <string name="notifyGameEvent">Абнаўленне ў гульні па перапісцы</string>
   <string name="notifyChallenge">Выклікі</string>
   <string name="notifyTournamentSoon">У хуткім часе пачынаецца турнір</string>
+  <string name="notifyBroadcasts">Трансляцыі, на якія вы падпісаны</string>
   <string name="notifyTimeAlarm">Час зыходзіць у гульні па перепісцы</string>
   <string name="notifyBell">Гукавое паведамленне ад Lichess</string>
   <string name="notifyPush">Паведамленне на прыладу, калі Вы не на Lichess</string>
   <string name="notifyWeb">Браўзер</string>
   <string name="notifyDevice">Прылада</string>
   <string name="bellNotificationSound">Гукавое паведамленне</string>
+  <string name="blindfold" comment="As in Blindfold chess">У сляпую</string>
+  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Паказваць слева на мабільных дэвайсах</string>
 </resources>

@@ -92,6 +92,6 @@
   </plurals>
   <string name="percentSolved">%s ઉકેલાયા</string>
   <string name="noPuzzlesToShow">દર્શાવવા માટે કંઈ નથી, પહેલા કેટલીક પઝલ રમો!</string>
-  <string name="improvementAreasDescription">તમારી પ્રગતિને શ્રેષ્ઠ બનાવવા માટે આની તાલીમ લો!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">તમારી પ્રગતિને શ્રેષ્ઠ બનાવવા માટે આની તાલીમ લો!</string>
   <string name="strengthDescription">તમે આ થીમ્સમાં શ્રેષ્ઠ પ્રદર્શન કરો છો</string>
 </resources>

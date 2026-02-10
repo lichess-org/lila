@@ -22,12 +22,13 @@ final class StudyPager(
     selectOwnerId,
     selectPrivateOrUnlisted,
     selectPublic,
+    selectUnlisted,
     selectTopic
   }
 
   def all(order: StudyOrder, page: Int)(using me: Option[Me]) =
     paginator(
-      noRelaySelect ++ accessSelect,
+      noRelaySelect ++ accessSelect(),
       order,
       page,
       fuccess(9999).some
@@ -35,7 +36,7 @@ final class StudyPager(
 
   def byOwner(owner: User, order: StudyOrder, page: Int)(using me: Option[Me]) =
     paginator(
-      selectOwnerId(owner.id) ++ accessSelect,
+      selectOwnerId(owner.id) ++ accessSelect(),
       order,
       page
     )
@@ -70,7 +71,7 @@ final class StudyPager(
 
   def mineLikes(order: StudyOrder, page: Int)(using me: Me) =
     paginator(
-      selectLiker(me) ++ accessSelect ++ $doc("ownerId".$ne(me.userId)),
+      selectLiker(me) ++ accessSelect(true) ++ $doc("ownerId".$ne(me.userId)),
       order,
       page
     )
@@ -78,15 +79,16 @@ final class StudyPager(
   def byTopic(topic: StudyTopic, order: StudyOrder, page: Int)(using me: Option[Me]) =
     val onlyMine = me.ifTrue(order == StudyOrder.mine)
     paginator(
-      selectTopic(topic) ++ onlyMine.fold(accessSelect)(selectMemberId(_)),
+      selectTopic(topic) ++ onlyMine.fold(accessSelect())(selectMemberId(_)),
       order,
       page,
       hint = onlyMine.isDefined.option($doc("uids" -> 1, "rank" -> -1))
     )
 
-  private def accessSelect(using me: Option[Me]) =
+  private def accessSelect(includeUnlisted: Boolean = false)(using me: Option[Me]) =
     me.fold(selectPublic): u =>
-      $or(selectPublic, selectMemberId(u))
+      if includeUnlisted then $or(selectPublic, selectMemberId(u), selectUnlisted)
+      else $or(selectPublic, selectMemberId(u))
 
   private val noRelaySelect = $doc("from".$ne("relay"))
 

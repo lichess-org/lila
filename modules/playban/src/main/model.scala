@@ -105,6 +105,9 @@ object TempBan:
 
   given Writes[TempBan] = Json.writes
 
+  def lobbyJson(b: TempBan) =
+    Json.obj("minutes" -> b.mins, "remainingSeconds" -> (b.remainingSeconds + 3))
+
   private def make(minutes: Int, reason: String) =
     TempBan(nowInstant, minutes.atMost(3 * 24 * 60), reason.some)
 

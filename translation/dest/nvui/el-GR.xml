@@ -23,11 +23,11 @@
   <string name="moveToPieceByType">Μετακίνηση σε τετράγωνο χρησιμοποιώντας τα ονόματα κομματιών. Για παράδειγμα, πατώντας επαναλαμβανόμενα το πλήκτρο k θα μεταβείτε διαδοχικά σε κάθε τετράγωνο στο οποίο υπάρχει ίππος. Χρησιμοποιήστε κεφαλαία γράμματα για να αλλάξετε τη σειρά μετάβασης.</string>
   <string name="moveToRank">Μετάβαση σε γραμμή από 1 ως 8.</string>
   <string name="moveToFile">Μετάβαση σε στήλη από a ως h.</string>
-  <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">Εκφώνηση των θέσεων των κομματιών. Παραδείγματα: p κεφαλαίο N για τους λευκούς ίππους, p μκρό k για τον μαύρο βασιλιά και p κεφαλαίο A για όλα τα λευκά κομμάτια.</string>
-  <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">Εκφώνηση όλων των κομματιών που βρίσκονται σε μια γραμμή ή στήλη. Παραδείγματα: s a, s 1.</string>
-  <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">Μετάβαση στη σκακιέρα. Το τετράγωνο που είναι αρχικά επιλεγμένο είναι το e-4. Μπορείτε να μεταβείτε και σε άλλα τετράγωνα. Για παράδειγμα, ο συνδυασμός board a-1 ή b a-1 θα σας μεταφέρει στο τετράγωνο a-1.</string>
+  <string name="announcePieceLocations">Εκφώνηση των θέσεων των κομματιών. Παραδείγματα: p κεφαλαίο N για τους λευκούς ίππους, p μκρό k για τον μαύρο βασιλιά και p κεφαλαίο A για όλα τα λευκά κομμάτια.</string>
+  <string name="announcePiecesOnRankOrFile">Εκφώνηση όλων των κομματιών που βρίσκονται σε μια γραμμή ή στήλη. Παραδείγματα: s a, s 1.</string>
+  <string name="goToBoard">Μετάβαση στη σκακιέρα. Το τετράγωνο που είναι αρχικά επιλεγμένο είναι το e-4. Μπορείτε να μεταβείτε και σε άλλα τετράγωνα. Για παράδειγμα, ο συνδυασμός board a-1 ή b a-1 θα σας μεταφέρει στο τετράγωνο a-1.</string>
   <string name="movePiece">Για να μετακινήσετε ένα κομμάτι, χρησιμοποιήστε τον τυπικό αλγεβρικό τρόπο γραφής.</string>
-  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">Για να προάγετε ένα πιόνι σε οτιδήποτε άλλο εκτός από βασίλισσα, χρησιμοποιήστε το σύμβολο ίσον. Για παράδειγμα, ο συνδυασμός a-8-ίσον προάγει το πιόνι σε ίππο.</string>
+  <string name="promotion">Για να προάγετε ένα πιόνι σε οτιδήποτε άλλο εκτός από βασίλισσα, χρησιμοποιήστε το σύμβολο ίσον. Για παράδειγμα, ο συνδυασμός a-8-ίσον προάγει το πιόνι σε ίππο.</string>
   <string name="king">βασιλιάς</string>
   <string name="whiteKing">λευκός βασιλιάς</string>
   <string name="blackKing">μαύρος βασιλιάς</string>
@@ -47,18 +47,18 @@
   <string name="whitePawn">λευκό πιόνι</string>
   <string name="blackPawn">μαύρο πιόνι</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
-  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">τρώει</string>
+  <string name="sanTakes" comment="x in standard notation">τρώει</string>
   <string name="sanCheck" comment="+ in standard notation">σαχ</string>
   <string name="sanCheckmate" comment="# in standard notation">ματ</string>
-  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">προάγεται σε</string>
-  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">μικρό ροκέ</string>
-  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">μεγάλο ροκέ</string>
-  <string name="sanDroppedOn" comment="Indicates a piece is dropped on a square in the Crazyhouse variant, as part of a longer sentence.&#10;&#10;In Crazyhouse, any pieces you capture are placed in your pocket. You can then drop those pieces onto any square on the board.&#10;&#10;Examples:&#10;&quot;bishop is dropped on c 4 check&quot; (B@c4+)&#10;&quot;pawn is dropped on f 7&quot; (@f7)&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'dropped on' corresponds to &quot;@&quot; in Crazyhouse's form of algebraic notation.">τοποθετείται στο</string>
+  <string name="sanPromotesTo" comment="= in standard notation">προάγεται σε</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">μικρό ροκέ</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">μεγάλο ροκέ</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">τοποθετείται στο</string>
   <string name="invalidMove">Αντικανονική κίνηση</string>
   <string name="premoveCancelled">Το premove ακυρώθηκε</string>
   <string name="premoveRecorded">Καταγράφηκε premove: %s. Πατήστε Enter για ακύρωση</string>
-  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Τσέπες</string>
-  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Αντιγραφή %s στο πρόχειρο</string>
-  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Το %s αντιγράφηκε στο πρόχειρο</string>
-  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN και FEN</string>
+  <string name="pockets" comment="Crazyhouse pockets">Τσέπες</string>
+  <string name="copyToClipboard">Αντιγραφή %s στο πρόχειρο</string>
+  <string name="copiedToClipboard">Το %s αντιγράφηκε στο πρόχειρο</string>
+  <string name="pgnAndFen">PGN και FEN</string>
 </resources>

@@ -84,5 +84,5 @@ Men protektorer kan bryste sig af et sejt, nyt profil-ikon.</string>
   <string name="paymentDetails">Betalingsoplysninger</string>
   <string name="updatePaymentMethod">Opdatér betalingsmetode</string>
   <string name="stripeManageSub">Administrer dit abonnement og download dine fakturaer og kvitteringer</string>
-  <string name="coverFees">Jeg vil tilføje %s for at hjælpe med at dække omkostningerne ved at behandle denne transaktion</string>
+  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">Jeg vil tilføje %s for at hjælpe med at dække omkostningerne ved at behandle denne transaktion</string>
 </resources>

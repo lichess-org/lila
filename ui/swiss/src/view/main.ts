@@ -1,6 +1,15 @@
 import * as licon from 'lib/licon';
-import { spinnerVdom, initMiniGames, prompt } from 'lib/view';
-import { type VNode, dataIcon, bind, onInsert, type LooseVNodes, hl } from 'lib/view';
+import {
+  spinnerVdom,
+  initMiniGames,
+  prompt,
+  type VNode,
+  dataIcon,
+  bind,
+  onInsert,
+  type LooseVNodes,
+  hl,
+} from 'lib/view';
 import { numberRow } from 'lib/view/util';
 import type SwissCtrl from '../ctrl';
 import { players, renderPager } from '../pagination';

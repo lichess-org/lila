@@ -45,7 +45,7 @@
   <string name="fidePlayerNotFound">ไม่พบผู้เล่น FIDE</string>
   <string name="fideProfile">ประวัติผู้เล่น FIDE</string>
   <string name="federation">สหพันธ์</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">อายุ</string>
+  <string name="age">อายุ</string>
   <string name="unrated">ไม่มีคะแนน</string>
   <string name="recentTournaments">ทัวร์นาเมนต์ล่าสุด</string>
   <string name="openLichess">เปิดใน Lichess</string>

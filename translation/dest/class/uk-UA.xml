@@ -96,7 +96,7 @@
   <string name="timePlaying">Часу в грі</string>
   <string name="variantXOverLastY">%1$s за останні %2$s</string>
   <string name="winrate">Відсоток перемог</string>
-  <string name="na">Недоступно</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Недоступно</string>
   <string name="overview">Огляд</string>
   <string name="news">Новини</string>
   <string name="classNews">Новини класу</string>
@@ -128,7 +128,7 @@
   <string name="allowMessagingBetweenStudentsDesc">Це стосується лише облікових записів, які ви створили своїм студентам.</string>
   <string name="quickLoginCode">Код швидкого входу</string>
   <string name="quickLoginCodes">Коди швидкого входу</string>
-  <string name="quickLoginCodesDesc1" comment="String is a URL">Використайте ці коди за %s, щоб авторизувати своїх учнів на Lichess.</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Використайте ці коди за %s, щоб авторизувати своїх учнів на Lichess.</string>
   <string name="quickLoginCodesDesc2">Коли термін кодів сплине, учні залишаться авторизованими, поки самі не вийдуть.</string>
-  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Сплине %s</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Сплине %s</string>
 </resources>

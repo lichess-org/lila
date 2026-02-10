@@ -9,7 +9,7 @@ import { escapeHtml } from 'lib';
 import { storage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
 
-export const stockfishName = 'Stockfish 17.1';
+export const stockfishName = 'Stockfish 18';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
@@ -17,7 +17,6 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
     inputFen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input'),
-    gameGifLink = document.querySelector<HTMLAnchorElement>('.game-gif a'),
     positionGifLink = document.querySelector<HTMLAnchorElement>('.position-gif a');
   let lastInputHash: string;
   let advChart: AcplChart;
@@ -34,21 +33,18 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         theme: ds.board,
         piece: ds.pieceSet,
       });
-    if (gameGifLink)
-      gameGifLink.href = xhrUrl(ds.assetUrl + `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
-        theme: ds.board,
-        piece: ds.pieceSet,
-      });
   };
 
-  pubsub.on('analysis.change', (fen: FEN, _) => {
+  const onFenChange = (fen: FEN) => {
     const nextInputHash = `${fen}${ctrl.bottomColor()}`;
     if (fen && nextInputHash !== lastInputHash) {
       if (inputFen) inputFen.value = fen;
       if (!site.blindMode) updateGifLinks(fen);
       lastInputHash = nextInputHash;
     }
-  });
+  };
+  onFenChange(ctrl.node.fen);
+  pubsub.on('analysis.change', onFenChange);
 
   if (!site.blindMode) {
     pubsub.on('board.change', () => inputFen && updateGifLinks(inputFen.value));
@@ -172,5 +168,10 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         '<br /><br />' +
         `<a class="text" data-icon="${licon.InfoCircle}" href="/developers#embed-game">Read more about embedding games</a></div>`,
     });
+  });
+
+  document.querySelector<HTMLAnchorElement>('a.game-gif')?.addEventListener('click', e => {
+    e.preventDefault();
+    site.asset.loadEsm('analyse.gifDialog', { init: ctrl });
   });
 }

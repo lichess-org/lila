@@ -17,13 +17,14 @@ final class InsightApi(
 
   private val userCache = cacheApi[UserId, InsightUser](1024, "insight.user"):
     _.expireAfterWrite(15.minutes).maximumSize(4096).buildAsyncFuture(computeUser)
+
   private def computeUser(userId: UserId): Fu[InsightUser] =
     storage
       .count(userId)
       .flatMap:
         case 0 => fuccess(InsightUser(0, Nil, Nil))
         case count =>
-          storage.openings(userId).map { case (families, openings) =>
+          storage.openings(userId).map { (families, openings) =>
             InsightUser(count, families, openings)
           }
   private given Ordering[GameId] = stringOrdering
@@ -44,7 +45,7 @@ final class InsightApi(
 
   def askPeers[X](question: Question[X], rating: MeanRating, nbGames: Max): Fu[Answer[X]] =
     pipeline
-      .aggregate(question, Right(Question.Peers(rating)), withPovs = false, nbGames = nbGames)
+      .aggregate(question, Right(PeersRatingRange.of(rating)), withPovs = false, nbGames = nbGames)
       .map: aggDocs =>
         Answer(question, AggregationClusters(question, aggDocs), Nil)
       .monSuccess(_.insight.peers)
@@ -62,8 +63,8 @@ final class InsightApi(
               case Some(entry) if entry.date.isBefore(game.createdAt) => UserStatus.Stale
               case _ => UserStatus.Fresh
 
-  def indexAll(user: User) =
-    for _ <- indexer.all(user).monSuccess(_.insight.index)
+  def indexAll(user: User, force: Boolean): Funit =
+    for _ <- indexer.all(user, force).monSuccess(_.insight.index)
     yield userCache.put(user.id, computeUser(user.id))
 
   def updateGame(g: Game) =

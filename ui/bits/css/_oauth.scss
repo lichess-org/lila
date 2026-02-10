@@ -49,7 +49,7 @@
       &::before {
         @extend %data-icon;
         font-size: 1.5em;
-        @include margin-inline-end(0.2em);
+        margin-inline: 0 0.2em;
         content: $licon-CautionTriangle;
         color: $c-over;
       }

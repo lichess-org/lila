@@ -143,16 +143,6 @@ object HTTPRequest:
       case LichobileVersionHeaderPattern(v) => ApiVersion.from(v.toIntOption)
       case _ => none
 
-  private def isAppeal(req: RequestHeader) = req.path.startsWith("/appeal")
-  private def isGameExport(req: RequestHeader) =
-    "^/@/[\\w-]{2,30}/download$".r.matches(req.path) ||
-      "^/(api/games/user|games/export)/[\\w-]{2,30}($|/.+)".r.matches(req.path)
-  private def isStudyExport(req: RequestHeader) = "^/study/by/[\\w-]{2,30}/export.pgn$".r.matches(req.path)
-  private def isAccount(req: RequestHeader) = req.path.startsWith("/account")
-
-  def isClosedLoginPath(req: RequestHeader) =
-    isAppeal(req) || isStudyExport(req) || isGameExport(req) || isAccount(req)
-
   def clientName(req: RequestHeader) =
     // lichobile sends XHR headers
     if isXhr(req) then apiVersion(req).fold("xhr")(v => s"lichobile/$v")
@@ -160,8 +150,14 @@ object HTTPRequest:
     else if isCrawler(req).yes then "crawler"
     else "browser"
 
-  def queryStringGet(req: RequestHeader, name: String): Option[String] =
+  def queryStringGet(name: String)(using req: RequestHeader): Option[String] =
     req.queryString.get(name).flatMap(_.headOption).filter(_.nonEmpty)
+
+  def queryStringBool(name: String)(using req: RequestHeader): Boolean =
+    queryStringGet(name).exists(trueish)
+
+  def queryStringBoolOpt(name: String)(using req: RequestHeader): Option[Boolean] =
+    queryStringGet(name).map(trueish)
 
   def looksLikeLichessBot(req: RequestHeader) =
     val ua = userAgent(req).value

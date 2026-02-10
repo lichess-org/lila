@@ -50,7 +50,7 @@ object replay:
         timeout = c.timeout,
         withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
         public = true,
-        resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
+        resource = lila.core.chat.PublicSource.Watcher(pov.gameId),
         voiceChat = ctx.canVoiceChat
       ) -> views.chat.frag
 

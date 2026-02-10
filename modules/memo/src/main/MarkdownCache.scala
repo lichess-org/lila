@@ -14,22 +14,11 @@ case class MarkdownOptions(
     strikeThrough: Boolean = false,
     blockQuote: Boolean = false,
     code: Boolean = false,
+    timestamp: Boolean = false,
     maxPgns: Max = Max(0),
     toastUi: Boolean = false,
     sourceMap: Boolean = false
 )
-
-object MarkdownOptions:
-  val all = MarkdownOptions(
-    autoLink = true,
-    list = true,
-    table = true,
-    header = true,
-    strikeThrough = true,
-    blockQuote = true,
-    code = true,
-    maxPgns = Max(0)
-  )
 
 final class MarkdownCache(
     cacheApi: CacheApi,
@@ -39,17 +28,19 @@ final class MarkdownCache(
 
   private val renderMap = scala.collection.concurrent.TrieMap[MarkdownOptions, MarkdownRender]()
 
-  private val cache = cacheApi[(String, Markdown, MarkdownOptions), Html](1024, "memo.markdown"):
-    _.maximumSize(8192)
+  type RenderKey = MarkdownRender.Key
+
+  private val cache = cacheApi[(RenderKey, Markdown, MarkdownOptions), Html](8_192, "memo.markdown"):
+    _.maximumSize(8_192)
       .expireAfterWrite(if mode.isProd then 20.minutes else 1.second)
       .buildAsyncFuture: (key, markdown, opts) =>
         for _ <- pgnCache.preload(key, markdown, opts.maxPgns)
         yield bodyProcessor(key, opts)(markdown)
 
-  def toHtml(key: String, markdown: Markdown, opts: MarkdownOptions) =
+  def toHtml(key: RenderKey, markdown: Markdown, opts: MarkdownOptions) =
     cache.get((key, markdown, opts))
 
-  def toHtmlSyncWithoutPgnEmbeds(key: String, markdown: Markdown, opts: MarkdownOptions): Html =
+  def toHtmlSyncWithoutPgnEmbeds(key: RenderKey, markdown: Markdown, opts: MarkdownOptions): Html =
     cache
       .getIfPresent((key, markdown, opts))
       .flatMap(_.value.collect { case scala.util.Success(html) => html })
@@ -65,10 +56,10 @@ final class MarkdownCache(
   private object pgnCache:
 
     private val cache =
-      cacheApi.notLoadingSync[String, LpvEmbed](32, "memo.markdown.pgn"):
+      cacheApi.notLoadingSync[RenderKey, LpvEmbed](32, "memo.markdown.pgn"):
         _.expireAfterWrite(2.second).build()
 
-    def preload(key: String, markdown: Markdown, max: Max): Funit = (max > 0).so:
+    def preload(key: RenderKey, markdown: Markdown, max: Max): Funit = (max > 0).so:
       Bus
         .ask(LpvBus.AllPgnsFromText(markdown.value, max, _), 3.seconds)
         .chronometer
@@ -94,18 +85,19 @@ final class MarkdownCache(
         header = opts.header,
         blockQuote = opts.blockQuote,
         code = opts.code,
+        timestamp = opts.timestamp,
         table = opts.table,
         sourceMap = opts.sourceMap,
         pgnExpand = pgnCache.expand.some,
-        assetDomain.some
+        assetDomain = assetDomain.some
       )
     )
 
-  private def bodyProcessor(key: String, opts: MarkdownOptions): Markdown => Html =
+  private def bodyProcessor(key: RenderKey, opts: MarkdownOptions): Markdown => Html =
     if opts.toastUi then toastUiProcessor(key, opts)
     else getRenderer(opts)(key)
 
-  private def toastUiProcessor(key: String, opts: MarkdownOptions): Markdown => Html =
+  private def toastUiProcessor(key: RenderKey, opts: MarkdownOptions): Markdown => Html =
     MarkdownToastUi.unescapeAtUsername.apply
       .andThen(getRenderer(opts)(key))
       .andThen(MarkdownToastUi.unescapeUnderscoreInLinks.apply)

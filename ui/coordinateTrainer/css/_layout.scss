@@ -86,9 +86,3 @@
     margin: 2em 1em 0 1em;
   }
 }
-
-@include mq-at-least-col3 {
-  .box:first-child {
-    margin-top: $block-gap;
-  }
-}

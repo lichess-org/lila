@@ -5,6 +5,13 @@ import { option } from '../view/util';
 import { looksLikeLichessGame } from './studyChapters';
 import { prop } from 'lib';
 import type StudyCtrl from './studyCtrl';
+import type { TagArray, TagMap } from './interfaces';
+
+export const tagsToMap = (tags: TagArray[]): TagMap => {
+  const map = new Map<string, string>();
+  tags.forEach(([k, v]) => map.set(k.toLowerCase(), v));
+  return map;
+};
 
 export class TagsForm {
   selectedType = prop<string | undefined>(undefined);

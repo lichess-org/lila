@@ -10,7 +10,7 @@ import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorQueue }
 
 final class Tutor(env: Env) extends LilaController(env):
 
-  def home = Secure(_.Beta) { _ ?=> me ?=>
+  def home = Beta { _ ?=> me ?=>
     Redirect(routes.Tutor.user(me.username))
   }
 
@@ -22,31 +22,32 @@ final class Tutor(env: Env) extends LilaController(env):
     Ok.page(views.tutor.perf(full.report, perf, user))
   }
 
-  def openings(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.tutor.openingUi.openings(perf, user))
-  }
+  def openings(username: UserStr, perf: PerfKey) =
+    TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
+      Ok.page(views.tutor.openingUi.openings(full.report, perf, user))
+    }
 
   def opening(username: UserStr, perf: PerfKey, color: Color, opName: String) =
-    TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+    TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
       LilaOpeningFamily
         .find(opName)
         .flatMap(perf.openings(color).find)
         .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): family =>
           env.puzzle.opening.find(family.family.key).flatMap { puzzle =>
-            Ok.page(views.tutor.opening(perf, family, color, user, puzzle))
+            Ok.page(views.tutor.opening(full.report, perf, family, color, user, puzzle))
           }
     }
 
-  def skills(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.tutor.perf.skills(perf, user))
+  def skills(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
+    Ok.page(views.tutor.perf.skills(full.report, perf, user))
   }
 
-  def phases(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.tutor.perf.phases(perf, user))
+  def phases(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
+    Ok.page(views.tutor.perf.phases(full.report, perf, user))
   }
 
-  def time(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.tutor.perf.time(perf, user))
+  def time(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
+    Ok.page(views.tutor.perf.time(full.report, perf, user))
   }
 
   def refresh(username: UserStr) = TutorPageAvailability(username) { _ ?=> user => availability =>
@@ -56,15 +57,15 @@ final class Tutor(env: Env) extends LilaController(env):
   private def TutorPageAvailability(
       username: UserStr
   )(f: Context ?=> UserModel => TutorFullReport.Availability => Fu[Result]): EssentialAction =
-    Secure(_.Beta) { ctx ?=> me ?=>
+    Auth { _ ?=> me ?=>
       def proceed(user: UserWithPerfs) = env.tutor.api.availability(user).flatMap(f(user.user))
       if me.is(username) then env.user.api.withPerfs(me.value).flatMap(proceed)
       else
         Found(env.user.api.withPerfs(username)): user =>
           if isGranted(_.SeeInsight) then proceed(user)
           else
-            (user.enabled.yes
-              .so(env.clas.api.clas.isTeacherOf(me, user.id)))
+            user.enabled.yes
+              .so(env.clas.api.clas.isTeacherOf(me, user.id))
               .flatMap:
                 if _ then proceed(user) else notFound
     }

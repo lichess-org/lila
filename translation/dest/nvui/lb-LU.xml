@@ -13,7 +13,7 @@
   <string name="boardCommandList">Befeellëscht, wann d\'Briet am Fokus ass</string>
   <string name="inputFormCommandList">Gëff dës Befeeler an de Formulaire fir Befeeler anzeginn an.</string>
   <string name="movePiece">Benotz déi üblech algebraesch Notatioun fir eng Figur ze réckelen.</string>
-  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">Fir an eppes anescht wéi eng Damm ëmzewandelen, benotzt „equals“. Zum Beispill a-8-equals-n fir an e Sprénger ëmzewandelen.</string>
+  <string name="promotion">Fir an eppes anescht wéi eng Damm ëmzewandelen, benotzt „equals“. Zum Beispill a-8-equals-n fir an e Sprénger ëmzewandelen.</string>
   <string name="king">Kinnek</string>
   <string name="whiteKing">wäisse Kinnek</string>
   <string name="blackKing">schwaarze Kinnek</string>
@@ -33,18 +33,18 @@
   <string name="whitePawn">wäisse Bauer</string>
   <string name="blackPawn">schwaarze Bauer</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K D T L S x</string>
-  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">hëlt</string>
+  <string name="sanTakes" comment="x in standard notation">hëlt</string>
   <string name="sanCheck" comment="+ in standard notation">Schach</string>
   <string name="sanCheckmate" comment="# in standard notation">Schachmatt</string>
-  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">ëmgewandelt an</string>
-  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">kuerz Rochade</string>
-  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">laang Rochade</string>
-  <string name="sanDroppedOn" comment="Indicates a piece is dropped on a square in the Crazyhouse variant, as part of a longer sentence.&#10;&#10;In Crazyhouse, any pieces you capture are placed in your pocket. You can then drop those pieces onto any square on the board.&#10;&#10;Examples:&#10;&quot;bishop is dropped on c 4 check&quot; (B@c4+)&#10;&quot;pawn is dropped on f 7&quot; (@f7)&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'dropped on' corresponds to &quot;@&quot; in Crazyhouse's form of algebraic notation.">agesat op</string>
+  <string name="sanPromotesTo" comment="= in standard notation">ëmgewandelt an</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">kuerz Rochade</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">laang Rochade</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">agesat op</string>
   <string name="invalidMove">Ongültegen Zuch</string>
   <string name="premoveCancelled">Virauszuch ofgebrach</string>
   <string name="premoveRecorded">Virauszuch enregistréiert: %s. Dréckt Enter fir ofzebriechen</string>
-  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Täschen</string>
-  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s an den Tëschespäicher kopéieren</string>
-  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s an den Tëschespäicher kopéiert</string>
-  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN an FEN</string>
+  <string name="pockets" comment="Crazyhouse pockets">Täschen</string>
+  <string name="copyToClipboard">%s an den Tëschespäicher kopéieren</string>
+  <string name="copiedToClipboard">%s an den Tëschespäicher kopéiert</string>
+  <string name="pgnAndFen">PGN an FEN</string>
 </resources>

@@ -175,7 +175,15 @@ final class ChallengeUi(helpers: Helpers):
                       div(cls := "invite__qrcode")(
                         h2(cls := "ninja-title", trans.site.orLetYourOpponentScanQrCode()),
                         qrcode(challengeLink, width = 150)
-                      )
+                      ),
+                      genericUrl(c).map: url =>
+                        div(cls := "invite__url")(
+                          h2(cls := "ninja-title", trans.site.reusableChallengeUrl()),
+                          br,
+                          copyMeInput(url.value),
+                          br,
+                          p(trans.site.permanentLinkForAnyoneToChallengeYou())
+                        )
                     )
                 },
               c.notableInitialFen.map: fen =>
@@ -297,3 +305,27 @@ final class ChallengeUi(helpers: Helpers):
               details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.site.newOpponent())
             )
+
+  private def genericUrl(c: Challenge): Option[Url] =
+    c.challengerUser.map: user =>
+      import c.{ initialFen, rated, timeControl, variant, colorChoice }
+      val params: Map[String, String] = List(
+        List(
+          "user" -> user.id.value,
+          "variant" -> variant.key.value,
+          "gameMode" -> rated.name
+        ),
+        timeControl.match
+          case Challenge.TimeControl.Clock(config) =>
+            List(
+              "minutesPerSide" -> config.limitInMinutes.toString,
+              "increment" -> config.increment.roundSeconds.toString
+            )
+          case Challenge.TimeControl.Correspondence(days) => List("days" -> days.value.toString)
+          case Challenge.TimeControl.Unlimited => List("time" -> "unlimited"),
+        initialFen.map(f => "fen" -> f.value),
+        colorChoice.match
+          case Challenge.ColorChoice.Random => Nil
+          case choice => List("color" -> choice.trans.value)
+      ).flatten.toMap
+      Url(addQueryParams(routeUrl(routes.Lobby.home).value, params) + "#friend")

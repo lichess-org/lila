@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Cześć %s</string>
-	<string name="awaitQuestion" comment="Displayed while waiting for results">Co robiłeś w tym roku?</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Co robiłeś w tym roku?</string>
 	<string name="initTitle">Cóż to był za szachowy rok!</string>
 	<string name="noGamesText">Nie rozegrałeś żadnej partii szachów w tym roku.</string>
 	<string name="noGamesCta">Chcesz zagrać?</string>
@@ -58,10 +58,10 @@
 		<item quantity="many">Dziękujemy za zagłosowanie na %s zadań szachowych.</item>
 		<item quantity="other">Dziękujemy za zagłosowanie na %s zadań szachowych.</item>
 	</plurals>
-	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">Pomogłeś/aś również oznakować %s z nich.</string>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Pomogłeś/aś również oznakować %s z nich.</string>
 	<string name="puzzlesNone">W tym roku nie rozwiązałeś żadnego zadania szachowego.</string>
-	<string name="puzzlesTryNow">Chcesz spróbować teraz?</string>
-	<string name="puzzlesYouWonOnFirstTry">Rozwiązałeś %s z nich za pierwszym razem!</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Chcesz spróbować teraz?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Rozwiązałeś %s z nich za pierwszym razem!</string>
 	<string name="sourcesTitle">Gdzie znajdowałeś przeciwników do gry?</string>
 	<string name="perfsTitle">Jakie tempo gry i warianty wybierałeś?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s reklam i trackerów</string>
@@ -69,15 +69,15 @@
 	<string name="malwareNoAbuse">Chroniliśmy Twoje konto przed potencjalnie podejrzanymi aktywnościami</string>
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Ale inne strony internetowe to robią, więc proszę %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">zachowaj ostrożność</string>
-	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s partii rozegranych na Lichess w %2$s roku</string>
-	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s z nich należało do Ciebie.</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s partii rozegranych na Lichess w %2$s roku</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s z nich należało do Ciebie.</string>
 	<string name="thanksTitle">Dziękujemy za to, że grasz na Lichess!</string>
-	<string name="thanksHaveAGreat" comment="%s is the next year">Cieszymy się, że jesteś z nami. Życzymy Ci udanego roku %s!</string>
-	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">%1$s utrzymania Lichess w tym roku to %2$s.</string>
-	<string name="patronCosts" comment="It is a link to lichess.org/costs">Koszty</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Cieszymy się, że jesteś z nami. Życzymy Ci udanego roku %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">%1$s utrzymania Lichess w tym roku to %2$s.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">Koszty</string>
 	<string name="patronCharity">Jesteśmy organizacją nie przynoszącą zysku, działającą na rzecz środowiska szachowego, wyłącznie w oparciu o darowizny.</string>
-	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">Jeśli dostarczyliśmy Ci w tym roku rozrywki, lub doceniasz naszą pracę, rozważ %s!</string>
-	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">wsparcie nas darowizną</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">Jeśli dostarczyliśmy Ci w tym roku rozrywki, lub doceniasz naszą pracę, rozważ %s!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">wsparcie nas darowizną</string>
 	<string name="shareableTitle" comment="%s is the current year">Moje podsumowanie roku %s</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">czas spędzony na grze</string>
 	<string name="shareableMostPlayedOpponent">najczęstszy przeciwnik</string>
@@ -89,5 +89,5 @@
 		<item quantity="many">%s zadań rozwiązanych</item>
 		<item quantity="other">%s zadań rozwiązanych</item>
 	</plurals>
-	<string name="recapReady" comment="%s is the year of the recap">Twoje podsumowanie roku %s jest gotowe!</string>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Twoje podsumowanie roku %s jest gotowe!</string>
 </resources>

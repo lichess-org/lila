@@ -84,4 +84,5 @@ However, Patrons get bragging rights with cool new Patron wings that show up on 
   <string name="paymentDetails">Payment details</string>
   <string name="updatePaymentMethod">Update payment method</string>
   <string name="stripeManageSub">Manage your subscription and download your invoices and receipts</string>
+  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">I\'ll add %s to help cover the cost of processing this transaction</string>
 </resources>

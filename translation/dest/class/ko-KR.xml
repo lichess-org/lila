@@ -87,7 +87,7 @@
   <string name="timePlaying">플레이 시간</string>
   <string name="variantXOverLastY">최근 %2$s 동안 %1$s 기록</string>
   <string name="winrate">승률</string>
-  <string name="na">해당없음</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">해당없음</string>
   <string name="overview">개요</string>
   <string name="news">소식</string>
   <string name="classNews">학급 소식</string>
@@ -119,7 +119,7 @@
   <string name="allowMessagingBetweenStudentsDesc">이는 귀하가 학생을 위해 생성한 계정에만 적용됩니다.</string>
   <string name="quickLoginCode">빠른 로그인 코드</string>
   <string name="quickLoginCodes">빠른 로그인 코드</string>
-  <string name="quickLoginCodesDesc1" comment="String is a URL">%s에서 이 코드를 사용하여 Lichess에 학생들을 로그인시키세요.</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">%s에서 이 코드를 사용하여 Lichess에 학생들을 로그인시키세요.</string>
   <string name="quickLoginCodesDesc2">코드가 만료되어도, 학생들은 수동으로 로그아웃하기 전까지 로그인되어 있습니다.</string>
-  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">만료: %s</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">만료: %s</string>
 </resources>

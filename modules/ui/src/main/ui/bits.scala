@@ -11,7 +11,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:
 
-  val engineFullName = "Stockfish 17.1"
+  val engineFullName = "Stockfish 18"
 
   def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
     st.nav(cls := "subnav__inner")(mods)
@@ -26,9 +26,9 @@ object bits:
         st.id := s"mselect-$id",
         autocomplete := "off"
       ),
-      label(`for` := s"mselect-$id", cls := "mselect__label")(current),
+      label(`for` := s"mselect-$id", cls := "mselect__label", role := "menu")(current),
       label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
-      st.nav(cls := "mselect__list")(items.map(_(cls := "mselect__item")))
+      st.nav(cls := "mselect__list")(items.map(_(cls := "mselect__item", role := "menuitem")))
     )
 
   // url: (year: Int, month: Int)

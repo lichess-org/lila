@@ -23,7 +23,8 @@ case class Team(
     chat: Access,
     forum: Access,
     hideMembers: Option[Boolean],
-    flair: Option[Flair]
+    flair: Option[Flair],
+    ofClas: Option[Boolean] = None
 ):
 
   inline def slug = id
@@ -49,6 +50,10 @@ case class Team(
   def notable = open && (nbMembers > 10 || (nbMembers > 1 && daysOld > 7))
 
   def automodText = s"$name\n${~intro}\n$description"
+
+  def isClas = ~ofClas
+  def acceptsMembers = !isClas
+  def doesTeamMessages = !isClas
 
 object Team:
 
@@ -81,29 +86,26 @@ object Team:
       maxJoin.map:
         _.atMost(15 + daysBetween(u.createdAt, nowInstant) / 7)
 
-  case class IdsStr(value: String) extends AnyVal:
-
-    import IdsStr.separator
-
-    def contains(teamId: TeamId) =
-      value == teamId.value ||
-        value.startsWith(s"$teamId$separator") ||
-        value.endsWith(s"$separator$teamId") ||
-        value.contains(s"$separator$teamId$separator")
-
-    def toArray: Array[TeamId] = TeamId.from(value.split(IdsStr.separator))
-    def toList = value.nonEmpty.so(toArray.toList)
-    def toSet = value.nonEmpty.so(toArray.toSet)
-    def size = value.count(_ == separator) + 1
-    def nonEmpty = value.nonEmpty
-
+  opaque type IdsStr = String
   object IdsStr:
 
     private val separator = ' '
 
-    val empty = IdsStr("")
+    val empty: IdsStr = ""
 
-    def apply(ids: Iterable[TeamId]): IdsStr = IdsStr(ids.mkString(separator.toString))
+    def apply(ids: Iterable[TeamId]): IdsStr = ids.mkString(separator.toString)
+
+    extension (idsStr: IdsStr)
+      def contains(teamId: TeamId) =
+        idsStr == teamId.value ||
+          idsStr.startsWith(s"$teamId$separator") ||
+          idsStr.endsWith(s"$separator$teamId") ||
+          idsStr.contains(s"$separator$teamId$separator")
+      def toArray: Array[TeamId] = TeamId.from(idsStr.split(IdsStr.separator))
+      def toList = idsStr.nonEmpty.so(toArray.toList)
+      def toSet = idsStr.nonEmpty.so(toArray.toSet)
+      def size = idsStr.count(_ == separator) + 1
+      def nonEmpty = idsStr.nonEmpty
 
   def make(
       id: TeamId,
@@ -113,7 +115,7 @@ object Team:
       description: Markdown,
       descPrivate: Option[Markdown],
       open: Boolean,
-      createdBy: User
+      createdBy: UserId
   ): Team = new Team(
     id = id,
     name = name,
@@ -125,9 +127,9 @@ object Team:
     enabled = true,
     open = open,
     createdAt = nowInstant,
-    createdBy = createdBy.id,
-    chat = Access.Members,
-    forum = Access.Members,
+    createdBy = createdBy,
+    chat = Access.None,
+    forum = Access.None,
     hideMembers = none,
     flair = none
   )

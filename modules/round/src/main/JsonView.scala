@@ -7,7 +7,6 @@ import play.api.libs.json.*
 import scala.math
 
 import lila.common.Json.given
-import lila.core.LightUser
 import scalalib.data.Preload
 import lila.core.game.Player as GamePlayer
 import lila.core.net.ApiVersion
@@ -19,7 +18,6 @@ import lila.pref.Pref
 import lila.round.RoundGame.*
 
 final class JsonView(
-    lightUserGet: LightUser.Getter,
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
     getSocketStatus: Game => Fu[SocketStatus],
@@ -221,33 +219,6 @@ final class JsonView(
         .add("userTv" -> tv.collect { case OnTv.User(userId) =>
           Json.obj("id" -> userId)
         })
-
-  def replayJson(pov: Pov, pref: Pref, initialFen: Option[Fen.Full]) =
-    pov.game.whitePlayer.userId
-      .so(lightUserGet)
-      .zip(pov.game.blackPlayer.userId.so(lightUserGet))
-      .map:
-        case (white, black) =>
-          import pov.*
-          Json
-            .obj(
-              "game" -> {
-                gameJsonView.baseWithChessDenorm(game, initialFen) ++ Json.obj(
-                  "pgn" -> pov.game.sans.mkString(" ")
-                )
-              },
-              "white" -> Json.obj("user" -> white),
-              "black" -> Json.obj("user" -> black),
-              "orientation" -> pov.color.name,
-              "pref" -> Json
-                .obj(
-                  "animationDuration" -> animationMillis(pov, pref),
-                  "coords" -> pref.coords
-                )
-                .add("highlight" -> pref.highlight)
-            )
-            .add("clock", game.clock.map(clockJson))
-            .add("correspondence", game.correspondenceClock)
 
   def userAnalysisJson(
       pov: Pov,

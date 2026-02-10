@@ -17,7 +17,7 @@
   <string name="balestraMate">Chiếu hết kiểu Nỏ thần</string>
   <string name="balestraMateDescription">Một tượng đưa ra nước chiếu hết, trong khi một hậu chặn các ô thoát còn lại</string>
   <string name="blindSwineMate">Chiếu hết kiểu Chú lợn mù</string>
-  <string name="blindSwineMateDescription">Hai quân xe cùng nhau chiếu hết vua trong một vùng có kích thước 2 x 2 ô vuông.</string>
+  <string name="blindSwineMateDescription">Hai quân xe cùng nhau chiếu hết vua trong một vùng có kích thước 2 x 2.</string>
   <string name="bishopEndgame">Cờ tàn tượng</string>
   <string name="bishopEndgameDescription">Một thế cờ tàn chỉ có tượng và tốt.</string>
   <string name="bodenMate">Chiếu hết kiểu Boden</string>

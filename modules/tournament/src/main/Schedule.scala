@@ -185,8 +185,10 @@ object Schedule:
 
       case (Unique, _, _) => 60 * 6
 
-  private val standardIncHours = Set(1, 7, 13, 19)
-  private def standardInc(s: Schedule) = standardIncHours(s.at.getHour)
+  private val blitzIncHours = Set(1, 7, 13, 19)
+  private val rapidIncHours = Set(2)
+  private def blitzInc(s: Schedule) = blitzIncHours(s.at.getHour)
+  private def rapidInc(s: Schedule) = rapidIncHours(s.at.getHour)
   private def bottomOfHour(s: Schedule) = s.at.getMinute > 29
 
   private given Conversion[Int, LimitSeconds] = LimitSeconds(_)
@@ -200,7 +202,8 @@ object Schedule:
 
     (s.freq, s.variant, s.speed) match
       // Special cases.
-      case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2)
+      case (Hourly, Standard, Blitz) if blitzInc(s) => TC(3 * 60, 2)
+      case (Hourly, Standard, Rapid) if rapidInc(s) => TC(8 * 60, 2)
       case (Hourly, Standard, Bullet) if s.hasMaxRating && bottomOfHour(s) => TC(60, 1)
       case (_, Chess960, ChillBlitz) => TC(5 * 60, 3)
       case (_, Chess960, Rapid) => TC(10 * 60, 2)

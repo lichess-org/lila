@@ -28,18 +28,6 @@
     }
   }
 
-  .switcher {
-    @extend %flex-center;
-
-    label {
-      cursor: pointer;
-    }
-
-    .switch {
-      margin-inline-start: 10px;
-    }
-  }
-
   .now-playing {
     @extend %page-text;
   }

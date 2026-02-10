@@ -6,14 +6,14 @@ import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 import chess.rating.IntRatingDiff
 
 import lila.core.LightUser
-import lila.core.config.BaseUrl
+import lila.core.config.RouteUrl
 import lila.core.game.PgnDump.WithFlags
 import lila.core.game.{ Game, Player }
 import lila.game.GameExt.perfType
 import lila.game.Player.nameSplit
 
 final class PgnDump(
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     lightUserApi: lila.core.user.LightUserApiMinimal,
     fideIdOf: lila.core.user.PublicFideIdOf
 )(using Executor)
@@ -52,7 +52,7 @@ final class PgnDump(
         )
       Pgn(ts, InitialComments.empty, tree, ply.next)
 
-  private def gameUrl(id: GameId) = s"$baseUrl/$id"
+  private def gameUrl(id: GameId) = routeUrl(routes.Round.watcher(id, Color.White))
 
   private type GameUsers = ByColor[Option[LightUser]]
 
@@ -121,8 +121,12 @@ final class PgnDump(
       fideIds.black.map(Tag(_.BlackFideId, _)),
       teams.map(t => Tag("WhiteTeam", t.white)),
       teams.map(t => Tag("BlackTeam", t.black)),
+      game.whitePlayer.berserk.option(Tag("WhiteBerserk", game.whitePlayer.berserk)),
+      game.blackPlayer.berserk.option(Tag("BlackBerserk", game.blackPlayer.berserk)),
       Tag(_.Variant, game.variant.name.capitalize).some,
-      Tag.timeControl(game.clock.map(_.config)).some,
+      game.daysPerTurn
+        .map(dpt => Tag(_.TimeControl, s"$dpt day${if dpt.value > 1 then "s" else ""} per move"))
+        .orElse(Tag.timeControl(game.clock.map(_.config)).some),
       Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
       withOpening.option(Tag(_.Opening, game.opening.fold("?")(_.opening.name))),
       Tag(

@@ -96,7 +96,7 @@ Slaptažodis: %3$s</string>
   <string name="timePlaying">Žaista laiko</string>
   <string name="variantXOverLastY">%1$s per paskutines %2$s</string>
   <string name="winrate">Laimėjimo dažnumas</string>
-  <string name="na">Neprieinama</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Neprieinama</string>
   <string name="overview">Apžvalga</string>
   <string name="news">Naujienos</string>
   <string name="classNews">Klasės naujienos</string>

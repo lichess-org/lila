@@ -1,8 +1,8 @@
 import { opposite } from '@lichess-org/chessground/util';
 import type { CheckCount, CheckState, MaterialDiff } from './interfaces';
-import { charToRole, ROLES, type Chess } from 'chessops';
+import { charToRole, ROLES, type Board } from 'chessops';
 
-export function getMaterialDiff(chess: FEN | Chess): MaterialDiff {
+export function getMaterialDiff(chess: FEN | Board): MaterialDiff {
   const diff: MaterialDiff = {
     white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
     black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
@@ -22,9 +22,8 @@ export function getMaterialDiff(chess: FEN | Chess): MaterialDiff {
       else if (ch === '/') part++;
     }
   } else {
-    const b = chess.board;
     for (const role of ROLES) {
-      const c = [b.pieces('white', role).size(), b.pieces('black', role).size()];
+      const c = [chess.pieces('white', role).size(), chess.pieces('black', role).size()];
       diff.white[role] = c[0] > c[1] ? c[0] - c[1] : 0;
       diff.black[role] = c[1] > c[0] ? c[1] - c[0] : 0;
     }
@@ -51,7 +50,7 @@ export function countChecks(steps: CheckState[], ply: Ply): CheckCount {
   const checks: CheckCount = { ...NO_CHECKS };
   for (const step of steps) {
     if (ply < step.ply) break;
-    if (step.check) {
+    if (step.check === true || (step.check !== false && step.check !== undefined && step.check())) {
       if (step.ply % 2 === 1) checks.white++;
       else checks.black++;
     }
@@ -59,6 +58,6 @@ export function countChecks(steps: CheckState[], ply: Ply): CheckCount {
   return checks;
 }
 
-function isFen(chess: FEN | Chess): chess is FEN {
+function isFen(chess: FEN | Board): chess is FEN {
   return typeof chess === 'string';
 }

@@ -1,3 +1,5 @@
+$marker-margin-top: -14px;
+
 .daily-feed {
   &__updates {
     margin: 3em 3em 0 3em;
@@ -14,13 +16,19 @@
   &__update {
     padding-inline-start: 45px;
     margin-bottom: 4em;
+    scroll-margin-top: -$marker-margin-top;
+    @include mq-sticky-header {
+      &:target {
+        scroll-margin-top: calc(#{$site-header-outer-height} - #{$marker-margin-top});
+      }
+    }
 
     &__marker {
       float: inline-start;
       width: 54px;
       height: 54px;
       padding: 7px;
-      margin-top: -14px;
+      margin-top: $marker-margin-top;
       margin-inline-start: -74px;
       background-color: $c-contours;
       border: 3px solid $c-bg-box;

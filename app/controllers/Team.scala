@@ -32,25 +32,24 @@ final class Team(env: Env) extends LilaController(env):
 
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
-      Found(api.team(id)): team =>
+      WithTeamOrClas(id): team =>
         if !team.notable && HTTPRequest.isCrawler(req).yes
         then notFound
         else renderTeam(team, page, mod && canEnterModView)
 
+  private def CanSeeMembers(team: TeamModel)(f: => Fu[lila.ui.Page])(using ctx: Context): Fu[Result] =
+    val canSee = fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>|
+      ctx.useMe(api.isMember(team.id))
+    canSee.flatMap:
+      if _ then Ok.async(f) else authorizationFailed
+
   def members(id: TeamId, page: Int) = Open:
     Reasonable(page, Max(50)):
-      Found(api.teamEnabled(id)): team =>
-        val canSee =
-          fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>|
-            ctx.userId.so(api.belongsTo(team.id, _))
-        canSee.flatMap:
-          if _ then
-            Ok.async:
-              paginator
-                .teamMembersWithDate(team, page)
-                .map:
-                  views.team.membersPage(team, _)
-          else authorizationFailed
+      WithEnabledTeamOrClas(id): team =>
+        CanSeeMembers(team):
+          paginator
+            .teamMembersWithDate(team, page)
+            .map(views.team.membersPage(team, _))
 
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
@@ -66,7 +65,7 @@ final class Team(env: Env) extends LilaController(env):
 
   private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for
     team <- api.withLeaders(team)
-    info <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team.team, asMod))
+    info <- env.teamInfo(team, withForum = canHaveForum(team.team, asMod))
     members <- paginator.teamMembers(team.team, page)
     log <- (asMod && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(info, asMod)
@@ -101,11 +100,11 @@ final class Team(env: Env) extends LilaController(env):
     }
 
   def tournaments(teamId: TeamId) = Open:
-    FoundPage(api.teamEnabled(teamId)): team =>
-      env.teamInfo
-        .tournaments(team, 30, 30)
-        .map:
-          views.team.tournaments.page(team, _)
+    WithEnabledTeamOrClas(teamId): team =>
+      CanSeeMembers(team):
+        env.teamInfo
+          .tournaments(team, 30, 30)
+          .map(views.team.tournaments.page(team, _))
 
   private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: Context) = for
     member <- env.team.memberRepo.get(team.id, me)
@@ -218,7 +217,7 @@ final class Team(env: Env) extends LilaController(env):
   )
 
   def close(id: TeamId) = SecureBody(_.ManageTeam) { ctx ?=> me ?=>
-    Found(api.team(id)): team =>
+    WithTeamOrClas(id): team =>
       bindForm(forms.explain)(
         _ => funit,
         explain =>
@@ -234,8 +233,10 @@ final class Team(env: Env) extends LilaController(env):
       bindForm(forms.explain)(
         _ => redirect.flashFailure,
         explain =>
-          (api.toggleEnabled(team, explain) >>
-            env.mod.logApi.toggleTeam(team.id, team.enabled, explain)).inject(redirect.flashSuccess)
+          for
+            _ <- api.toggleEnabled(team, explain)
+            _ <- env.mod.logApi.toggleTeam(team.id, team.enabled, explain)
+          yield redirect.flashSuccess
       )
   }
 
@@ -244,7 +245,6 @@ final class Team(env: Env) extends LilaController(env):
       val allow =
         isGrantedOpt(_.ManageTeam) ||
           (isGrantedOpt(_.Verified) && count < 100) ||
-          (isGrantedOpt(_.Teacher) && count < 10) ||
           count < 3
       if allow then a
       else Forbidden.page(views.site.message.teamCreateLimit)
@@ -271,7 +271,7 @@ final class Team(env: Env) extends LilaController(env):
             err => BadRequest.page(views.team.form.create(err, anyCaptcha)),
             data =>
               for
-                team <- api.create(data, me)
+                team <- api.create(data)
                 url = routes.Team.show(team.id).url
                 _ <- env.memo.picfitApi.addRef(Markdown(team.automodText), ref(team.id), url.some)
               yield
@@ -302,7 +302,7 @@ final class Team(env: Env) extends LilaController(env):
         if _ then tooMany else f
 
   def join(id: TeamId) = AuthOrScopedBody(_.Team.Write) { ctx ?=> me ?=>
-    Found(api.teamEnabled(id)): team =>
+    WithEnabledTeamOrClas(id): team =>
       OneAtATime(me, rateLimited):
         JoinLimit(negotiate(tooManyTeamsHtml, tooManyTeamsJson)):
           negotiate(
@@ -314,9 +314,9 @@ final class Team(env: Env) extends LilaController(env):
                   .join(team, setup.message, setup.password)
                   .flatMap:
                     case Requesting.Joined => jsonOkResult
-                    case Requesting.NeedRequest => BadRequest(jsonError("This team requires confirmation."))
-                    case Requesting.NeedPassword => BadRequest(jsonError("This team requires a password."))
-                    case Requesting.Blocklist => BadRequest(jsonError("You cannot join this team."))
+                    case Requesting.NeedRequest => JsonBadRequest("This team requires confirmation.")
+                    case Requesting.NeedPassword => JsonBadRequest("This team requires a password.")
+                    case _ => JsonBadRequest("You cannot join this team.")
             )
           )
   }
@@ -364,15 +364,14 @@ final class Team(env: Env) extends LilaController(env):
           Redirect(env.web.referrerRedirect.fromReq | routes.Team.show(team.id).url).flashSuccess
         case Requesting.NeedRequest | Requesting.NeedPassword =>
           Redirect(routes.Team.requestForm(team.id)).flashSuccess
-        case Requesting.Blocklist =>
-          Redirect(routes.Team.show(team.id)).flashFailure("You cannot join this team.")
+        case _ => Redirect(routes.Team.show(team.id)).flashFailure("You cannot join this team.")
 
   def requestProcess(requestId: String) = AuthBody { ctx ?=> me ?=>
     Found(for
       requestOption <- api.request(requestId)
       teamOption <- requestOption.so(req => env.team.teamRepo.byId(req.team))
       isGranted <- teamOption.so: team =>
-        api.isGranted(team.id, me, _.Request)
+        api.isGranted(team.id, _.Request)
     yield (teamOption.ifTrue(isGranted), requestOption).tupled): (team, request) =>
       bindForm(forms.processRequest)(
         _ => Redirect(routes.Team.show(team.id)),
@@ -393,24 +392,25 @@ final class Team(env: Env) extends LilaController(env):
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
-    Found(api.team(id)): team =>
-      api
-        .withLeaders(team)
-        .flatMap: t =>
-          val admins = t.leaders.filter(_.hasPerm(_.Admin))
-          if admins.nonEmpty && admins.forall(_.is(me))
-          then
-            val msg = lila.core.i18n.I18nKey.team.onlyLeaderLeavesTeam.txt()
-            negotiate(
-              html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
-              json = JsonBadRequest(msg)
-            )
-          else
-            api.cancelRequestOrQuit(team) >>
+    WithEnabledTeamOrClas(id): team =>
+      team.isClas.not.so:
+        api
+          .withLeaders(team)
+          .flatMap: t =>
+            val admins = t.leaders.filter(_.hasPerm(_.Admin))
+            if admins.nonEmpty && admins.forall(_.is(me))
+            then
+              val msg = lila.core.i18n.I18nKey.team.onlyLeaderLeavesTeam.txt()
               negotiate(
-                html = Redirect(routes.Team.mine).flashSuccess,
-                json = jsonOkResult
+                html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
+                json = JsonBadRequest(msg)
               )
+            else
+              api.cancelRequestOrQuit(team) >>
+                negotiate(
+                  html = Redirect(routes.Team.mine).flashSuccess,
+                  json = jsonOkResult
+                )
   }
 
   def autocomplete = Anon:
@@ -480,12 +480,29 @@ final class Team(env: Env) extends LilaController(env):
         )
   }
 
+  private def WithTeamOrClas(teamId: TeamId)(f: TeamModel => Fu[Result])(using ctx: Context): Fu[Result] =
+    Found(api.team(teamId)): team =>
+      env.api.clas
+        .teamClas(team)
+        .flatMap:
+          case None => f(team)
+          case Some(_) if isGrantedOpt(_.ManageTeam) => f(team)
+          case Some(clas) if ctx.useMe(clas.isTeacher) && team.enabled => f(team)
+          case Some(clas) => Redirect(routes.Clas.show(clas.id)).toFuccess
+
+  private def WithEnabledTeamOrClas(
+      teamId: TeamId
+  )(f: TeamModel => Fu[Result])(using ctx: Context): Fu[Result] =
+    WithTeamOrClas(teamId): team =>
+      if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
+      else notFound
+
   private def WithOwnedTeam(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
       f: (TeamModel, AsMod) => Fu[Result]
   )(using Context): Fu[Result] =
-    Found(api.team(teamId)): team =>
-      ctx.userId
-        .so(api.hasPerm(team.id, _, perm))
+    WithTeamOrClas(teamId): team =>
+      ctx
+        .useMe(api.hasPerm(team.id, perm))
         .flatMap: isGrantedLeader =>
           val asMod = !isGrantedLeader && isGrantedOpt(_.ManageTeam)
           if isGrantedLeader || asMod then f(team, asMod)

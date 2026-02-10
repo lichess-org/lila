@@ -330,7 +330,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                 " ",
                 userIdLink(r.user.some, withOnline = false),
                 " ",
-                momentFromNowServer(atom.at),
+                pastMomentServer(atom.at),
                 ": ",
                 shorten(atom.text, 200)
               )
@@ -465,7 +465,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                     .pov(result)
                     .map: p =>
                       a(href := routes.Round.watcher(p.gameId, p.color), cls := "glpt")(
-                        momentFromNowServerText(p.game.movedAt)
+                        pastMomentServerText(p.game.movedAt)
                       )
                 ),
                 td(

@@ -5,4 +5,5 @@
   <string name="kingsideCastle">राजाकडील किल्लेकोट</string>
   <string name="queensideCastle">वझिराकडील किल्लेकोट</string>
   <string name="promoteC8ToQueen">c8 प्याद्याला वझीर बनवा</string>
+  <string name="ifItIsLegalToCastleBothWays">जर दोन्ही बाजूला किल्लेकोट शक्य असेल तर राजाच्या बाजूच्या किल्लेकोटासाठी enter कळ वापरा</string>
 </resources>

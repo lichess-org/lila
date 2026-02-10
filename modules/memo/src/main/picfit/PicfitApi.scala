@@ -24,11 +24,7 @@ final class PicfitApi(
 
   import PicfitApi.{ *, given }
 
-  Bus.sub[lila.core.user.UserDelete]: del =>
-    for
-      ids <- coll.primitive[ImageId]($doc("user" -> del.id), "_id")
-      _ <- deleteByIds(ids)
-    yield ()
+  Bus.sub[lila.core.user.UserDelete](del => deleteByUser(del.id))
 
   def uploadFile(
       file: FilePart,
@@ -153,11 +149,11 @@ final class PicfitApi(
         )
         .void
 
-  private def deleteByIds(ids: Seq[ImageId]): Funit =
-    ids.toList.sequentiallyVoid: id =>
-      coll
-        .findAndRemove($id(id))
-        .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
+  def deleteByUser(userId: UserId): Funit =
+    for
+      ids <- coll.primitive[ImageId]($doc("user" -> userId), "_id")
+      _ <- ids.toList.sequentiallyVoid(deleteById)
+    yield ()
 
   private val imageIdRe =
     raw"""(?i)!\[(?:[^\n\]]*+)\]\(${quote(

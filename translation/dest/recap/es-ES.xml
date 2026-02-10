@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Hola, %s</string>
-	<string name="awaitQuestion" comment="Displayed while waiting for results">¿Qué has estado haciendo este año?</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">¿Qué has estado haciendo este año?</string>
 	<string name="initTitle">¡Qué año ajedrecístico has tenido!</string>
 	<string name="noGamesText">No has jugado ninguna partida este año.</string>
 	<string name="noGamesCta">¿Quieres jugar ahora?</string>
@@ -44,10 +44,10 @@
 		<item quantity="one">Gracias por votar en %s ejercicios.</item>
 		<item quantity="other">Gracias por votar en %s ejercicios.</item>
 	</plurals>
-	<string name="puzzlesHelpedTagging" comment="%s is a number e.g. 5">También ayudaste a etiquetar %s de ellos.</string>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">También ayudaste a etiquetar %s de ellos.</string>
 	<string name="puzzlesNone">No has resuelto ningún ejercicio este año.</string>
-	<string name="puzzlesTryNow">¿Quieres intentarlo ahora?</string>
-	<string name="puzzlesYouWonOnFirstTry">¡Has resuelto %s en el primer intento!</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">¿Quieres intentarlo ahora?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">¡Has resuelto %s en el primer intento!</string>
 	<string name="sourcesTitle">¿Dónde encontraste partidas?</string>
 	<string name="perfsTitle">¿Qué controles de tiempo y modalidades jugaste?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s anuncios y rastreadores cargados</string>
@@ -55,15 +55,15 @@
 	<string name="malwareNoAbuse">No infectamos tu dispositivo</string>
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Pero otros sitios lo hacen, así que por favor %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">ten cuidado</string>
-	<string name="lichessGamesPlayedIn" comment="%1$s is the number of games, %2$s is the year">%1$s partidas jugadas en Lichess en %2$s</string>
-	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours">%s de ellas fueron tuyas.</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s partidas jugadas en Lichess en %2$s</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s de ellas fueron tuyas.</string>
 	<string name="thanksTitle">¡Gracias por jugar en Lichess!</string>
-	<string name="thanksHaveAGreat" comment="%s is the next year">Nos alegra que estés aquí. ¡Que tengas un gran año %s!</string>
-	<string name="patronCostsThisYear" comment="%1$s is 'costs'. %2$s is the cost with currency symbol e.g. '$750,000'">El %1$s de este año fue %2$s.</string>
-	<string name="patronCosts" comment="It is a link to lichess.org/costs">costes</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Nos alegra que estés aquí. ¡Que tengas un gran año %s!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">El %1$s de este año fue %2$s.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">costes</string>
 	<string name="patronCharity">Somos una organización sin ánimo de lucro, que funciona exclusivamente con donaciones.</string>
-	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'">¡Si te hemos ayudado a entretenerte este año, o crees en nuestro trabajo, por favor considera %s!</string>
-	<string name="patronMakeDonation" comment="It is a link to https://lichess.org/patron">apoyándonos con una donación</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">¡Si te hemos ayudado a entretenerte este año, o crees en nuestro trabajo, por favor considera %s!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">apoyándonos con una donación</string>
 	<string name="shareableTitle" comment="%s is the current year">Mi resumen del %s</string>
 	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">tiempo jugado</string>
 	<string name="shareableMostPlayedOpponent">oponente más frecuente</string>
@@ -73,5 +73,5 @@
 		<item quantity="one">%s ejercicio resuelto</item>
 		<item quantity="other">%s ejercicios resueltos</item>
 	</plurals>
-	<string name="recapReady" comment="%s is the year of the recap">¡Tu resumen del %s está listo!</string>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">¡Tu resumen del %s está listo!</string>
 </resources>

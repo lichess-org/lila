@@ -2,20 +2,21 @@ import { winningChances } from 'lib/ceval';
 import { fenToEpd } from 'lib/game/chess';
 import { defined } from 'lib';
 import { zip } from 'lib/algo';
+import type { TreeNode } from 'lib/tree/types';
 
-const hasCompChild = (node: Tree.Node): boolean => !!node.children.find(c => !!c.comp);
+const hasCompChild = (node: TreeNode): boolean => !!node.children.find(c => !!c.comp);
 
 export const nextGlyphSymbol = (
   color: Color,
   symbol: string,
-  mainline: Tree.Node[],
-  fromPly: number,
-): Tree.Node | undefined =>
+  mainline: TreeNode[],
+  fromPly: Ply,
+): TreeNode | undefined =>
   mainline
     .map((_, i) => mainline[(fromPly - mainline[0].ply + i + 1) % mainline.length])
     .find(n => n.ply % 2 === (color === 'white' ? 1 : 0) && n.glyphs?.some(g => g.symbol === symbol));
 
-export const evalSwings = (mainline: Tree.Node[], nodeFilter: (node: Tree.Node) => boolean): Tree.Node[] =>
+export const evalSwings = (mainline: TreeNode[], nodeFilter: (node: TreeNode) => boolean): TreeNode[] =>
   mainline.slice(1).filter((curr, i) => {
     const prev = mainline[i];
     return (
@@ -28,14 +29,14 @@ export const evalSwings = (mainline: Tree.Node[], nodeFilter: (node: Tree.Node) 
     );
   });
 
-export function detectThreefold(nodeList: Tree.Node[], node: Tree.Node): void {
+export function detectThreefold(nodeList: TreeNode[], node: TreeNode): void {
   if (defined(node.threefold)) return;
   const currentEpd = fenToEpd(node.fen);
   node.threefold = nodeList.filter(n => fenToEpd(n.fen) === currentEpd).length > 2;
 }
 
 // can be 3fold or 5fold
-export function add3or5FoldGlyphs(mainlineNodes: Tree.Node[]): boolean {
+export function add3or5FoldGlyphs(mainlineNodes: TreeNode[]): boolean {
   // only the last positition can be source of three/five-fold
   const lastEpd = fenToEpd(mainlineNodes[mainlineNodes.length - 1].fen);
   const repetitions = mainlineNodes.filter(n => fenToEpd(n.fen) === lastEpd);

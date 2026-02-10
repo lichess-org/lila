@@ -28,8 +28,8 @@ final private class TutorQueue(
 
   private val durationCache = cacheApi.unit[FiniteDuration]:
     _.refreshAfterWrite(1.minutes).buildAsyncFuture: _ =>
-      colls.report
-        .aggregateOne(_.sec): framework =>
+      colls.report:
+        _.aggregateOne(): framework =>
           import framework.*
           Sort(Descending(TutorFullReport.F.at)) -> List(
             Limit(100),
@@ -42,15 +42,16 @@ final private class TutorQueue(
   def status(user: User): Fu[Status] = workQueue { fetchStatus(user) }
 
   def enqueue(user: User): Fu[Status] = workQueue:
-    colls.queue.insert
-      .one($doc(F.id -> user.id, F.requestedAt -> nowInstant))
-      .recover(lila.db.ignoreDuplicateKey)
-      .void >> fetchStatus(user)
+    colls.queue:
+      _.insert
+        .one($doc(F.id -> user.id, F.requestedAt -> nowInstant))
+        .recover(lila.db.ignoreDuplicateKey)
+        .void >> fetchStatus(user)
 
   def next: Fu[List[Next]] =
-    colls.queue.find($empty).sort($sort.asc(F.requestedAt)).cursor[Next]().list(parallelism.get())
-  def start(userId: UserId): Funit = colls.queue.updateField($id(userId), F.startedAt, nowInstant).void
-  def remove(userId: UserId): Funit = colls.queue.delete.one($id(userId)).void
+    colls.queue(_.find($empty).sort($sort.asc(F.requestedAt)).cursor[Next]().list(parallelism.get()))
+  def start(userId: UserId): Funit = colls.queue(_.updateField($id(userId), F.startedAt, nowInstant).void)
+  def remove(userId: UserId): Funit = colls.queue(_.delete.one($id(userId)).void)
 
   def waitingGames(user: User): Fu[List[(Pov, PgnStr)]] = for
     all <- gameRepo.recentPovsByUserFromSecondary(
@@ -71,15 +72,14 @@ final private class TutorQueue(
   }
 
   private def fetchStatus(user: User): Fu[Status] =
-    colls.queue
-      .primitiveOne[Instant]($id(user.id), F.requestedAt)
-      .flatMap:
-        _.fold(fuccess(NotInQueue)) { at =>
-          for
-            position <- colls.queue.countSel($doc(F.requestedAt.$lte(at)))
-            avgDuration <- durationCache.get({})
-          yield InQueue(position, avgDuration)
-        }
+    colls.queue:
+      _.primitiveOne[Instant]($id(user.id), F.requestedAt)
+        .flatMap:
+          _.fold(fuccess(NotInQueue)): at =>
+            for
+              position <- colls.queue(_.countSel($doc(F.requestedAt.$lte(at))))
+              avgDuration <- durationCache.get({})
+            yield InQueue(position, avgDuration)
 
 object TutorQueue:
 

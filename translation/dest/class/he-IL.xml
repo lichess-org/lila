@@ -96,7 +96,7 @@
   <string name="timePlaying">זמן ששיחק/ה</string>
   <string name="variantXOverLastY">%1$s לאורך %2$s הימים האחרונים</string>
   <string name="winrate">שיעור ניצחונות</string>
-  <string name="na">N/A</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
   <string name="overview">מבט על</string>
   <string name="news">חדשות</string>
   <string name="classNews">חדשות הכיתה</string>

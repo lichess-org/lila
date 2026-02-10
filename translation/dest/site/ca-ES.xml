@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Juga contra l\'ordinador</string>
   <string name="gameMode">Tipus de partida</string>
   <string name="createLobbyGame">Crea una sala de joc</string>
-  <string name="youPlayAs">Juga com a</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant a l\'oponent</string>
   <string name="orLetYourOpponentScanQrCode">O deixeu que el vostre oponent escanegi aquest codi QR</string>
+  <string name="reusableChallengeUrl">URL repte reutilitzable</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Un enllaç permanent perquè qualsevol et pugui reptar amb aquestes configuracions exactes.</string>
   <string name="waiting">Esperant</string>
   <string name="yourTurn">El teu torn</string>
   <string name="aiNameLevelAiLevel">%1$s nivell %2$s</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Fletxa de la millor jugada</string>
   <string name="showVariationArrows">Mostrar fletxes de les variants</string>
   <string name="evaluationGauge">Indicador d\'avaluació</string>
+  <string name="visualMotifs">Motius visuals</string>
+  <string name="undefendedPieces">Peces indefenses</string>
+  <string name="pinnedPieces">Peces clavades</string>
+  <string name="checkableKing">Rei exposat a escac</string>
   <string name="multipleLines">Múltiples línies</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memòria</string>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Minuts per jugador</string>
   <string name="variant">Variant</string>
   <string name="variants">Variants</string>
+  <string name="variantsDescription">Més formes de jugar</string>
   <string name="timeControl">Control de temps</string>
   <string name="realTime">En temps real</string>
   <string name="correspondence">Correspondència</string>
@@ -299,6 +305,7 @@
   <string name="standard">Estàndard</string>
   <string name="customPosition">Posició personalitzada</string>
   <string name="unlimited">Il·limitat</string>
+  <string name="unlimitedDescription">Preneu-se tot el temps que necessiteu</string>
   <string name="mode">Mode</string>
   <string name="casual">Amistosa</string>
   <string name="rated">Puntuat</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">Tauló de líders</string>
   <string name="screenshotCurrentPosition">Fes una captura de pantalla de la posició actual</string>
   <string name="gameAsGIF">Partida com a GIF</string>
+  <string name="playerNames">Noms dels jugadors</string>
+  <string name="moveAnnotations">Anotacions de les jugades</string>
   <string name="pasteTheFenStringHere">Enganxa el text FEN aquí</string>
   <string name="pasteThePgnStringHere">Enganxa el text PGN aquí</string>
   <string name="orUploadPgnFile">O penja un arxiu PGN</string>
-  <string name="fromPosition">Des d\'una posició</string>
   <string name="continueFromHere">Continua des d\'aquí</string>
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importa una partida</string>
@@ -809,6 +817,7 @@
   <string name="size">Mida</string>
   <string name="opacity">Opacitat</string>
   <string name="brightness">Brillantor</string>
+  <string name="contrast">Contrast</string>
   <string name="hue">Tonalitat</string>
   <string name="boardReset">Restableix els colors per defecte</string>
   <string name="pieceSet">Conjunt de peces</string>

@@ -148,7 +148,7 @@ Today's date is [current date]""")
         )(form3.input(_))
       ),
       form3.split(
-        form3.checkbox(
+        form3.checkboxGroup(
           form("public"),
           frag("Public account"),
           help = frag(
@@ -156,7 +156,7 @@ Today's date is [current date]""")
           ).some,
           half = true
         ),
-        form3.checkbox(
+        form3.checkboxGroup(
           form("coach"),
           frag("Create a coach profile"),
           help = frag(

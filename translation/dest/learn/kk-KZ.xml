@@ -6,7 +6,7 @@
   <string name="progressX">Жетістік: %s</string>
   <string name="resetMyProgress">Өшіріп қайта санау</string>
   <string name="youWillLoseAllYourProgress">Бүкіл жетістігіңізден айырыласыз!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ойнаңыз!</string>
+  <string name="play">ойнаңыз!</string>
   <string name="chessPieces">Шахмат тастары</string>
   <string name="theRook">Тура</string>
   <string name="itMovesInStraightLines">Ол түзу жолмен жүреді</string>
@@ -153,7 +153,6 @@
   <string name="findAWayToCastleQueenSide">Уәзір жаққа бекінудің
 жолын табыңыз!</string>
   <string name="castlingComplete">Құтты болсын! Ойында ылғи бекініп жүріңіз.</string>
-  <string name="enPassant">Жолай басу</string>
   <string name="theSpecialPawnMove">Сарбаздың ерекше жүрісі</string>
   <string name="enPassantIntro">Егер қарсыластың сарбазы екі шаршы жүрсе, ол бір шаршы жүргендей оны басып ала аласыз.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Қара сарбаз жаңа ғана

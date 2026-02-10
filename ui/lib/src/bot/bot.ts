@@ -1,8 +1,16 @@
 import * as co from 'chessops';
 import { zip } from '../algo';
 import { clockToSpeed } from '@/game';
-import type { FilterFacetValue, FilterSpec, FilterName, Filters } from './filter';
-import { quantizeFilter, evaluateFilter, filterFacetKeys, combine } from './filter';
+import {
+  type FilterFacetValue,
+  type FilterSpec,
+  type FilterName,
+  type Filters,
+  quantizeFilter,
+  evaluateFilter,
+  filterFacetKeys,
+  combine,
+} from './filter';
 import type { SearchResult } from '@lichess-org/zerofish';
 import type { OpeningBook } from '../game/polyglot';
 import { movetime as getMovetime } from './movetime';

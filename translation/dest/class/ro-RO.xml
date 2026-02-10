@@ -93,7 +93,7 @@ Aici este link-ul pentru a accesa clasa.</string>
   <string name="timePlaying">Timp jucat</string>
   <string name="variantXOverLastY">%1$s peste ultimele %2$s</string>
   <string name="winrate">Rată de câștig</string>
-  <string name="na">N/A</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
   <string name="overview">General</string>
   <string name="news">Noutăți</string>
   <string name="classNews">Noutățile clasei</string>

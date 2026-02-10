@@ -25,6 +25,7 @@ final class Env(
     analysisRepo: lila.analyse.AnalysisRepo,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
+    userJsonView: lila.user.JsonView,
     perfsRepo: lila.user.UserPerfsRepo,
     chatApi: lila.chat.ChatApi,
     notifyApi: lila.core.notify.NotifyApi,

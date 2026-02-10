@@ -2,6 +2,8 @@
 <resources>
   <string name="community">Topluluk</string>
   <string name="byMonth">Aya göre</string>
+  <string name="byTopic">Konuya göre</string>
+  <string name="byLichess">Lichess\'ten</string>
   <string name="myFriends">Arkadaşlarım</string>
   <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Beğenilerim</string>
   <string name="myBlog">Bloğum</string>

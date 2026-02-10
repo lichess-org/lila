@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Νέα παρτίδα εναντίον μηχανής</string>
   <string name="gameMode">Τύπος παιχνιδιού</string>
   <string name="createLobbyGame">Νέα παρτίδα</string>
-  <string name="youPlayAs">Παίζετε με τα</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Για να προσκαλέσετε κάποιον σε ένα παιχνίδι, στείλτε του αυτήν τη διεύθυνση</string>
   <string name="gameOver">Τέλος παρτίδας</string>
   <string name="waitingForOpponent">Αναμονή για αντίπαλο</string>
   <string name="orLetYourOpponentScanQrCode">Ή ζητήστε από τον αντίπαλό σας να σαρώσει αυτόν τον κωδικό QR</string>
+  <string name="reusableChallengeUrl">Επαναχρησιμοποιήσιμος σύνδεσμος πρόκλησης</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Μόνιμος σύνδεσμος που επιτρέπει σε κάποιον να σας προκαλέσει χρησιμοποιώντας τις επιλεγμένες ρυθμίσεις.</string>
   <string name="waiting">Αναμονή</string>
   <string name="yourTurn">Η σειρά σας</string>
   <string name="aiNameLevelAiLevel">%1$s επιπέδου %2$s</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Βέλτιστη κίνηση βέλους</string>
   <string name="showVariationArrows">Εμφάνιση βελών για βαριάντες</string>
   <string name="evaluationGauge">Δείκτης αξιολόγησης</string>
+  <string name="visualMotifs">Οπτικά μοτίβα</string>
+  <string name="undefendedPieces">Ανυπεράσπιστα κομμάτια</string>
+  <string name="pinnedPieces">Καρφωμένα κομμάτια</string>
+  <string name="checkableKing">Βασιλιάς που μπορεί να δεχθεί σαχ</string>
   <string name="multipleLines">Πολλαπλές γραμμές</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Μνήμη</string>
@@ -144,7 +149,7 @@
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s λάθος</item>
-    <item quantity="other">%s λάθη</item>
+    <item quantity="other">%s Λάθη</item>
   </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Λάθος</item>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Λεπτά ανά πλευρά</string>
   <string name="variant">Εκδοχή</string>
   <string name="variants">Εκδοχές</string>
+  <string name="variantsDescription">Περισσότεροι τρόποι για να παίξετε</string>
   <string name="timeControl">Χρονόμετρο</string>
   <string name="realTime">Πραγματικού χρόνου</string>
   <string name="correspondence">Αλληλογραφία</string>
@@ -299,6 +305,7 @@
   <string name="standard">Κανονικό</string>
   <string name="customPosition">Προσαρμοσμένη θέση</string>
   <string name="unlimited">Απεριόριστου χρόνου</string>
+  <string name="unlimitedDescription">Χρησιμοποιήστε όσο χρόνο χρειάζεστε</string>
   <string name="mode">Τύπος παιχνιδιού</string>
   <string name="casual">Φιλικό</string>
   <string name="rated">Βαθμολογημένο</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">Πίνακας βαθμολογίας</string>
   <string name="screenshotCurrentPosition">Λήψη στιγμιότυπου τρέχουσας θέσης</string>
   <string name="gameAsGIF">Αποθήκευση ως GIF</string>
+  <string name="playerNames">Ονόματα παικτών</string>
+  <string name="moveAnnotations">Σχολιασμός κινήσεων</string>
   <string name="pasteTheFenStringHere">Επικολλήστε τον κώδικα FEN εδώ</string>
   <string name="pasteThePgnStringHere">Επικολλήστε το κείμενο του PGN εδώ</string>
   <string name="orUploadPgnFile">Ή μεταφορτώστε ένα αρχείο PGN</string>
-  <string name="fromPosition">Από συγκεκριμένη θέση</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="toStudy">Μελέτη</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
@@ -448,7 +456,7 @@
   <string name="noNetwork">Εκτός σύνδεσης</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s φίλος/η συνδεδεμένος/η</item>
-    <item quantity="other">%s φίλοι συνδεδεμένοι</item>
+    <item quantity="other">%s Φίλοι συνδεδεμένοι</item>
   </plurals>
   <string name="favoriteOpponents">Αγαπημένοι αντίπαλοι</string>
   <string name="follow">Ακολουθήστε</string>
@@ -656,7 +664,7 @@
   <string name="onlyExistingConversations">Μόνο σε υπάρχουσες συνομιλίες</string>
   <string name="onlyFriends">Μόνο φίλοι</string>
   <string name="menu">Κατάλογος</string>
-  <string name="castling">Pοκέ</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Pοκέ</string>
   <string name="whiteCastlingKingside">Λευκά O-O</string>
   <string name="blackCastlingKingside">Μαύρα O-O</string>
   <plurals name="nbForumPosts">
@@ -766,7 +774,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Κάντε κύλιση με τη ροδέλα του ποντικιού πάνω στη σκακιέρα για να μετακινηθείτε στην παρτίδα.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Μετακινήστε το ποντίκι σας πάνω στις βαριάντες του υπολογιστή για την προεπισκόπησή τους.</string>
   <string name="analysisShapesHowTo">Πατήστε Shift + κλικ ή δεξί κλικ για να σχεδιάσετε κύκλους και βέλη στην σκακιέρα.</string>
-  <string name="primaryColorArrowsHowTo">Ctrl = κόκκινο, shift = κίτρινο, command ή alt = μπλε.</string>
+  <string name="primaryColorArrowsHowTo">Το Ctrl ή το Shift εμφανίζει χρώμα κόκκινο. Τα Command, Alt ή Meta εμφανίζουν χρώμα μπλε. Ένα πλήκτρο από κάθε ομάδα εμφανίζει χρώμα κίτρινο.</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
   <string name="receiveForumNotifications">Λήψη ειδοποιήσεων όταν γίνεται αναφορά σας στο φόρουμ</string>
   <string name="shareYourInsightsData">Κοινή χρήση των δεδομένων σας</string>
@@ -810,6 +818,7 @@
   <string name="size">Μέγεθος</string>
   <string name="opacity">Αδιαφάνεια</string>
   <string name="brightness">Φωτεινότητα</string>
+  <string name="contrast">Αντίθεση</string>
   <string name="hue">Χροιά</string>
   <string name="boardReset">Επαναφορά χρωμάτων στα προκαθορισμένα</string>
   <string name="pieceSet">Επιλογή κομματιών</string>
@@ -1018,5 +1027,5 @@
   <string name="search">Αναζήτηση</string>
   <string name="clearSearch">Εκκαθάριση πεδίου αναζήτησης</string>
   <string name="tags">Ετικέτες</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">En passant</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.&#10;&#10;NOTE: this string used to read &quot;En passant&quot;, with &quot;rights&quot; added in 2026 for clarity.">En passant</string>
 </resources>

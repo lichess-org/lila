@@ -390,7 +390,6 @@
   <string name="pasteTheFenStringHere">在此處貼上 FEN 棋譜</string>
   <string name="pasteThePgnStringHere">在此處貼上 PGN 棋譜</string>
   <string name="orUploadPgnFile">或者上傳一個PGN文件</string>
-  <string name="fromPosition">自定義局面</string>
   <string name="continueFromHere">從此處繼續</string>
   <string name="toStudy">研究</string>
   <string name="importGame">導入棋局</string>

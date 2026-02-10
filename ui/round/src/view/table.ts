@@ -5,8 +5,7 @@ import renderExpiration from './expiration';
 import { userHtml } from './user';
 import * as button from './button';
 import type RoundController from '../ctrl';
-import { type LooseVNodes, hl, bind } from 'lib/view';
-import { toggleButton as boardMenuToggleButton } from 'lib/view';
+import { type LooseVNodes, hl, bind, toggleButton as boardMenuToggleButton } from 'lib/view';
 import { anyClockView } from './clock';
 
 function renderPlayer(ctrl: RoundController, position: TopOrBottom) {

@@ -363,7 +363,6 @@
   <string name="pasteTheFenStringHere">Өргийн байрлалын тэмдэглэлээ (FEN) энд хуулж оруулна уу</string>
   <string name="pasteThePgnStringHere">Өргийн тоглолтын тэмдэглэлээ (PGN) энд хуулж оруулна уу</string>
   <string name="orUploadPgnFile">Эсвэл PGN файл байршуулах</string>
-  <string name="fromPosition">Энэ байрлалаас үргэлжлүүлэн тоглох</string>
   <string name="continueFromHere">Энэ байрлалаас үргэлжлүүлэх</string>
   <string name="toStudy">Дугуйлан</string>
   <string name="importGame">Өрөг импортлох</string>

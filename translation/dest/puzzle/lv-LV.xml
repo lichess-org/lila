@@ -94,6 +94,6 @@ Spēlējiet ātrās vai klasiskajās spēlēs, lai paaugstinātu varbūtību, ka
   </plurals>
   <string name="percentSolved">%s atrisinātas</string>
   <string name="noPuzzlesToShow">Nav ko parādīt; vispirms izspēlējiet kādu uzdevumu!</string>
-  <string name="improvementAreasDescription">Apgūstiet šīs tēmas, lai ātrāk uzlabotu prasmes!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Apgūstiet šīs tēmas, lai ātrāk uzlabotu prasmes!</string>
   <string name="strengthDescription">Vislabāk jums padodas šīs prasmes</string>
 </resources>

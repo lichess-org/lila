@@ -84,18 +84,20 @@ object StudyForm:
     ):
 
       def toChapterDatas: List[ChapterMaker.Data] =
-        val pgns = MultiPgn.split(pgn, max = Study.maxChapters).value
-        pgns.mapWithIndex: (onePgn, index) =>
-          ChapterMaker.Data(
-            // only the first chapter can be named
-            name = StudyChapterName((index == 0).so(~name)),
-            variant = variant,
-            pgn = onePgn.some,
-            orientation = orientation | ChapterMaker.Orientation.Auto,
-            mode = mode,
-            initial = initial && index == 0,
-            isDefaultName = index > 0 || name.isEmpty || isDefaultName
-          )
+        MultiPgn
+          .split(pgn, max = Study.maxChapters)
+          .value
+          .mapWithIndex: (onePgn, index) =>
+            ChapterMaker.Data(
+              // only the first chapter can be named
+              name = StudyChapterName((index == 0).so(~name)),
+              variant = variant,
+              pgn = onePgn.some,
+              orientation = orientation | ChapterMaker.Orientation.Auto,
+              mode = mode,
+              initial = initial && index == 0,
+              isDefaultName = index > 0 || name.isEmpty || isDefaultName
+            )
 
   def topicsForm = Form(single("topics" -> text))
 

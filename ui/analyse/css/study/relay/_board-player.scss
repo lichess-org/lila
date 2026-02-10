@@ -96,6 +96,9 @@
     flex: 2;
     color: $c-font-dim;
   }
+  a.team:hover {
+    color: $c-link;
+  }
   .mini-game__flag {
     width: 1em;
     margin: 0;

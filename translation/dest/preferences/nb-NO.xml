@@ -62,6 +62,7 @@
   <string name="notifyGameEvent">Oppdateringer for fjernsjakkpartier</string>
   <string name="notifyChallenge">Utfordringer</string>
   <string name="notifyTournamentSoon">Turnering starter snart</string>
+  <string name="notifyBroadcasts">Overføringer du abonnerer på</string>
   <string name="notifyTimeAlarm">Fjernsjakkur i ferd med å løpe ut</string>
   <string name="notifyBell">Bjellevarsel innenfor Lichess</string>
   <string name="notifyPush">Enhetsvarsel utenfor Lichess</string>
@@ -69,4 +70,5 @@
   <string name="notifyDevice">Enhet</string>
   <string name="bellNotificationSound">Bjellevarsel med lyd</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindsjakk</string>
+  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Vis til venstre på mobile enheter</string>
 </resources>

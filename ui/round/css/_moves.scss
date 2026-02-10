@@ -1,15 +1,11 @@
 $buttons-height: 2.5rem;
 
-#{$moves-tag} > :not(.result-wrap) {
-  @extend %zen;
-}
-
 #{$index-tag} {
-  @extend %roboto;
+  @extend %roboto, %zen;
 }
 
 #{$move-tag} {
-  @extend %san;
+  @extend %san, %zen;
 }
 
 #{$rmoves-tag} {

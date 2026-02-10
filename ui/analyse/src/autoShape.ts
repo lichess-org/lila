@@ -1,11 +1,14 @@
 import { parseUci, makeSquare } from 'chessops/util';
-import { isDrop } from 'chessops/types';
+import { isDrop, type Square } from 'chessops/types';
 import { winningChances } from 'lib/ceval';
 import { opposite } from '@lichess-org/chessground/util';
 import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
-import { annotationShapes } from 'lib/game/glyphs';
+import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
 import type AnalyseCtrl from './ctrl';
 import { isUci } from 'lib/game/chess';
+import { parseFen } from 'chessops/fen';
+import type { ServerEval } from 'lib/tree/types';
+import { between, ray, knightAttacks } from 'chessops/attacks';
 
 const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
   orig: key,
@@ -16,6 +19,59 @@ const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
   },
   brush: 'green',
 });
+
+const MAX_MANEUVER_ARROWS = 3;
+
+function interferingArrow(from: Square, to: Square, occupied: Uint8Array): boolean {
+  if (from === to) return true; // Ignore null moves
+  occupied[from] = 1;
+
+  // Knight: check only the destination
+  if (knightAttacks(from).has(to)) {
+    if (occupied[to]) return true;
+    occupied[to] = 1;
+    return false;
+  }
+
+  // Sliding piece: check every square along the path
+  const line = ray(from, to);
+  if (line.has(to)) {
+    for (const sq of between(from, to)) {
+      if (occupied[sq]) return true;
+      occupied[sq] = 1;
+    }
+    if (occupied[to]) return true;
+    occupied[to] = 1;
+    return false;
+  }
+
+  return true;
+}
+
+function drawManeuver(ctrl: AnalyseCtrl, color: Color, moves: Uci[], brush: string, shapes: DrawShape[]) {
+  if (ctrl.showManeuverMoveArrowsProp()) {
+    const maxPairs = Math.min(moves.length, MAX_MANEUVER_ARROWS * 2);
+    const occupied = new Uint8Array(64);
+
+    for (let i = 0; i < maxPairs; i += 2) {
+      const uci = moves[i];
+      const move = parseUci(uci);
+      if (!move) break;
+
+      if (i > 0) {
+        const prevMove = parseUci(moves[i - 2])!;
+        if (prevMove.to !== (isDrop(move) ? -1 : move.from)) break;
+      }
+
+      if (isDrop(move)) {
+        if (occupied[move.to]) break;
+        occupied[move.to] = 1;
+      } else if (interferingArrow(move.from, move.to, occupied)) break;
+
+      makeShapesFromUci(color, uci, brush).forEach(s => shapes.push(s));
+    }
+  } else if (moves[0]) makeShapesFromUci(color, moves[0], brush).forEach(s => shapes.push(s));
+}
 
 export function makeShapesFromUci(
   color: Color,
@@ -52,12 +108,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     }
     return [];
   }
-  const {
-    eval: nEval = {} as Partial<Tree.ServerEval>,
-    fen: nFen,
-    ceval: nCeval,
-    threat: nThreat,
-  } = ctrl.node;
+  const { eval: nEval = {} as Partial<ServerEval>, fen: nFen, ceval: nCeval, threat: nThreat } = ctrl.node;
 
   let hovering = ctrl.explorer.hovering();
 
@@ -79,12 +130,16 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   if (ctrl.showBestMoveArrows() && ctrl.showAnalysis()) {
     if (isUci(nEval.best)) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && ctrl.ceval.search.multiPv) {
-      const nextBest = ctrl.isCevalAllowed() && nCeval ? nCeval.pvs[0]?.moves[0] : ctrl.nextNodeBest();
-      if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
+      const bestPvMoves = ctrl.isCevalAllowed() && nCeval ? nCeval.pvs[0]?.moves : undefined;
+      const nextBest = bestPvMoves?.[0] || ctrl.nextNodeBest();
+
+      if (nextBest) {
+        drawManeuver(ctrl, color, bestPvMoves || [nextBest], 'paleBlue', shapes);
+      }
+
       if (
         ctrl.isCevalAllowed() &&
-        nCeval &&
-        nCeval.pvs[1] &&
+        nCeval?.pvs[1] &&
         !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)
       ) {
         nCeval.pvs.forEach(function (pv) {
@@ -103,8 +158,9 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   }
   if (ctrl.isCevalAllowed() && ctrl.threatMode() && nThreat) {
     const [pv0, ...pv1s] = nThreat.pvs;
+    const brush = pv1s.length > 0 ? 'paleRed' : 'red';
 
-    shapes = shapes.concat(makeShapesFromUci(rcolor, pv0.moves[0], pv1s.length > 0 ? 'paleRed' : 'red'));
+    drawManeuver(ctrl, rcolor, pv0.moves, brush, shapes);
 
     pv1s.forEach(function (pv) {
       const shift = winningChances.povDiff(rcolor, pv0, pv);
@@ -119,6 +175,31 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   }
   if (ctrl.showMoveAnnotationsOnBoard()) shapes = shapes.concat(annotationShapes(ctrl.node));
   if (ctrl.showVariationArrows()) hiliteVariations(ctrl, shapes);
+
+  if (ctrl.isCevalAllowed()) {
+    const parsed = parseFen(nFen);
+    if ('error' in parsed) return shapes;
+    const { board, epSquare, castlingRights } = parsed.value;
+
+    const addAnalysis = (orig: Key, type: keyof typeof analysisGlyphs) => {
+      const idx = shapes.filter(s => s.orig === orig && s.customSvg).length;
+      shapes.push({
+        orig,
+        customSvg: { html: analysisGlyphs[type](idx) },
+      });
+    };
+
+    if (ctrl.motifEnabled()) {
+      ctrl.motif.detectPins(board).forEach(p => addAnalysis(makeSquare(p.pinned) as Key, 'pin'));
+      ctrl.motif
+        .detectUndefended(board, epSquare)
+        .forEach(u => addAnalysis(makeSquare(u.square) as Key, 'undefended'));
+      ctrl.motif
+        .detectCheckable(board, epSquare, castlingRights)
+        .forEach(s => addAnalysis(makeSquare(s.king) as Key, 'checkable'));
+    }
+  }
+
   return shapes;
 }
 

@@ -59,8 +59,7 @@ object TournamentCondition:
     def removedFromAllowList(prev: All): Set[UserId] =
       allowList
         .so(_.userIds)
-        .some
-        .filter(_.nonEmpty)
+        .nonEmptyOption
         .so: current =>
           prev.allowList.so(_.userIds.diff(current))
 

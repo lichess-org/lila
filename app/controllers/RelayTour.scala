@@ -18,7 +18,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   private def indexResults(page: Int, q: String)(using ctx: Context) =
     Reasonable(page, Max(20)):
-      q.trim.take(100).some.filter(_.nonEmpty) match
+      q.trim.take(100).nonEmptyOption match
         case Some(query) =>
           env.relay.pager
             .search(query, page)
@@ -151,6 +151,10 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
     WithTour(id): tour =>
       env.relay.playerApi.jsonList(tour.id).map(JsonStrOk)
 
+  def teamLeaderboard(id: RelayTourId) = Open:
+    WithTour(id): tour =>
+      env.relay.teamLeaderboard.leaderboardJson(tour.id).map(JsonStrOk)
+
   def subscribe(id: RelayTourId, isSubscribed: Boolean) = AuthOrScoped(_.Web.Mobile) { _ ?=> me ?=>
     for _ <- env.relay.api.subscribe(id, me.userId, isSubscribed)
     yield jsonOkResult
@@ -179,8 +183,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
               .get(tour.id)
               .flatMap:
                 case None =>
-                  ctx.me
-                    .soUse(env.relay.api.canUpdate(tour))
+                  ctx
+                    .useMe(env.relay.api.canUpdate(tour))
                     .flatMap:
                       if _ then Redirect(routes.RelayRound.form(tour.id))
                       else emptyBroadcastPage(tour)
@@ -208,7 +212,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         env.relay.defaults.roundToLink
           .get(tour.id)
           .flatMap:
-            _.map(_.withTour(tour)).fold(emptyBroadcastPage(tour))(roundC.embedShow)
+            _.map(_.withTour(tour)).fold(emptyBroadcastPage(tour))(roundC.embedShow(_, none))
 
   private def emptyBroadcastPage(tour: TourModel)(using Context) = for
     owner <- env.user.lightUser(tour.ownerIds.head)
@@ -249,7 +253,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def apiSearch(page: Int, q: String) = Anon:
     Reasonable(page, Max(20)):
-      q.trim.take(100).some.filter(_.nonEmpty) match
+      q.trim.take(100).nonEmptyOption match
         case Some(query) =>
           for
             tour <- env.relay.pager.search(query, page)

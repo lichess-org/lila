@@ -1,15 +1,52 @@
+import debounce from 'debounce-promise';
 import { load as loadDasher } from 'dasher';
 import { domDialog, alert } from 'lib/view';
-import { escapeHtml } from 'lib';
-import { userComplete } from 'lib/view/userComplete';
+import { defined, escapeHtml } from 'lib';
+import { complete, type CompleteOpts } from 'lib/view/complete';
+import { checkDebouncedResultAgainstTerm, fetchUsers, renderUserEntry } from 'lib/view/userComplete';
+
+type Entry = LightUserOnline | HTMLAnchorElement;
 
 export function initModule({ input }: { input: HTMLInputElement }) {
-  userComplete({
+  const menuLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('#topnav a')).filter(
+    a => a.href != '/',
+  );
+
+  const fetchLinks = (term: string): HTMLAnchorElement[] => {
+    const all = menuLinks
+      .filter(a => a.textContent && a.textContent.toLowerCase().includes(term.toLowerCase()))
+      .map(a => a.cloneNode(true) as HTMLAnchorElement)
+      .map(a => {
+        a.classList.add('complete-result', 'complete-result--menu');
+        if (!!a.querySelector('.home')) a.innerHTML = i18n.site.play;
+        return a;
+      });
+    // distinct by href
+    const seen = new Set<string>();
+    for (let i = all.length - 1; i >= 0; i--) {
+      if (seen.has(all[i].href)) all.splice(i, 1);
+      else seen.add(all[i].href);
+    }
+    return all;
+  };
+
+  const debouncedXhr = debounce((t: string) => fetchUsers(t, { friend: true }), 150);
+
+  const completeOpts: CompleteOpts<Entry> = {
     input,
-    friend: true,
-    focus: true,
-    onSelect: r => execute(r.name),
-  });
+    fetch: async t => {
+      const users = await debouncedXhr(t).then(checkDebouncedResultAgainstTerm(t));
+      return [...fetchLinks(t), ...users];
+    },
+    render: o => (isLink(o) ? o : renderUserEntry(o)),
+    populate: r => r.name,
+    onSelect: r => execute(r),
+    regex: /^[a-z][\w-]{2,29}$/i,
+  };
+
+  complete<Entry>(completeOpts);
+  setTimeout(() => input.focus());
+
   $(input).on('keydown', (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       execute(input.value);
@@ -18,14 +55,22 @@ export function initModule({ input }: { input: HTMLInputElement }) {
   });
 }
 
-function execute(q: string) {
-  if (!q) return;
-  if (q[0] === '/') return command(q.replace(/\//g, ''));
+function execute(e: string | Entry) {
+  if (!e) return;
+  if (typeof e != 'string' && isLink(e)) location.href = e.href;
+  else if (isUser(e)) location.href = '/@/' + e.name;
+  else if (e[0] === '/') command(e.replace(/\//g, ''));
   // 5kr1/p1p2p2/2b2Q2/3q2r1/2p4p/2P4P/P2P1PP1/1R1K3R b - - 1 23
-  if (q.match(/^([1-8pnbrqk]+\/){7}.*/i))
-    return (location.href = '/analysis/standard/' + q.replace(/ /g, '_'));
-  if (q.match(/^[a-zA-Z0-9_-]{2,30}$/)) location.href = '/@/' + q;
-  else location.href = '/player/search/' + q;
+  else if (e.match(/^([1-8pnbrqk]+\/){7}.*/i)) location.href = '/analysis/standard/' + e.replace(/ /g, '_');
+  else if (e.match(/^[a-zA-Z0-9_-]{2,30}$/)) location.href = '/@/' + e;
+  else location.href = '/player/search/' + e;
+}
+
+function isLink(e: Entry): e is HTMLAnchorElement {
+  return e instanceof HTMLAnchorElement;
+}
+function isUser(e: string | LightUserOnline): e is LightUserOnline {
+  return defined((e as LightUserOnline).name);
 }
 
 function command(q: string) {

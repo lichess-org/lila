@@ -90,7 +90,7 @@ Aquí está a ligazón para acceder.</string>
   <string name="timePlaying">Tempo xogado</string>
   <string name="variantXOverLastY">%1$s nos últimos %2$s</string>
   <string name="winrate">Porcentaxe de vitorias</string>
-  <string name="na">Non dispoñible</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Non dispoñible</string>
   <string name="overview">Visión de conxunto</string>
   <string name="news">Novas</string>
   <string name="classNews">Novidades da clase</string>

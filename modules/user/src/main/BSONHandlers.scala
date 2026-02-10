@@ -73,23 +73,7 @@ object BSONHandlers:
       "color" -> o.color
     )
 
-  private[user] given BSONDocumentHandler[Count] = new BSON[Count]:
-    def reads(r: BSON.Reader): Count =
-      lila.core.user.Count(
-        draw = r.nInt("draw"),
-        game = r.nInt("game"),
-        loss = r.nInt("loss"),
-        rated = r.nInt("rated"),
-        win = r.nInt("win")
-      )
-    def writes(w: BSON.Writer, o: Count) =
-      $doc(
-        "draw" -> w.int(o.draw),
-        "game" -> w.int(o.game),
-        "loss" -> w.int(o.loss),
-        "rated" -> w.int(o.rated),
-        "win" -> w.int(o.win)
-      )
+  private[user] given BSONDocumentHandler[Count] = Macros.handler[Count]
 
   private[user] given BSONHandler[HashedPassword] = quickHandler[HashedPassword](
     { case v: BSONBinary => HashedPassword(v.byteArray) },
@@ -104,8 +88,9 @@ object BSONHandlers:
     import BSONFields.*
 
     def reads(r: BSON.Reader): User =
+      val userId = r.get[UserId](id)
       new User(
-        id = r.get[UserId](id),
+        id = userId,
         username = r.get[UserName](username),
         count = r.get[lila.core.user.Count](count),
         enabled = r.get[UserEnabled](enabled),
@@ -120,7 +105,10 @@ object BSONHandlers:
         title = r.getO[chess.PlayerTitle](title),
         plan = r.getO[Plan](plan) | lila.user.Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
-        flair = r.getO[Flair](flair).filter(FlairApi.exists),
+        flair = r.getO[Flair](flair) match
+          case Some(f) if FlairApi.exists(f) => Some(f)
+          case Some(f) => FlairApi.badFlairs.add(userId, f); None
+          case None => None,
         marks = r.getO[UserMarks](marks) | UserMarks(Nil),
         hasEmail = r.contains(email)
       )
@@ -131,7 +119,7 @@ object BSONHandlers:
         username -> o.username,
         count -> o.count,
         enabled -> o.enabled,
-        roles -> o.roles.some.filter(_.nonEmpty),
+        roles -> o.roles.nonEmptyOption,
         profile -> o.profile,
         toints -> w.intO(o.toints),
         playTime -> o.playTime,

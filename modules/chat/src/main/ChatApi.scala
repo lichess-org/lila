@@ -2,11 +2,10 @@ package lila.chat
 
 import lila.common.Bus
 import lila.common.String.{ fullCleanUp, noShouting }
-import lila.core.chat.{ OnReinstate, OnTimeout }
+import lila.core.chat.{ PublicSource, OnReinstate, OnTimeout }
 import lila.core.config.NetDomain
 import lila.core.perm.Granter
 import lila.core.security.{ FloodApi, FloodSource, SpamApi }
-import lila.core.shutup.PublicSource
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
@@ -332,7 +331,7 @@ final class ChatApi(
       val out1 = multiline:
         spam.replace(noShouting(noPrivateUrl(fullCleanUp(in))))
       val out2 = username.fold(out1) { removeSelfMention(out1, _) }
-      out2.take(Line.textMaxSize).some.filter(_.nonEmpty)
+      out2.take(Line.textMaxSize).nonEmptyOption
 
     private def removeSelfMention(in: String, username: UserName) =
       if in.contains('@') then

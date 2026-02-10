@@ -102,11 +102,13 @@ final class Account(
         env.api.userApi
           .extended(
             me.value,
-            withFollows = apiC.userWithFollows,
-            withTrophies = false,
-            withCanChallenge = false,
-            withPlayban = getBool("playban"),
-            forWiki = wikiGranted
+            lila.api.UserApi.Opts(
+              withFollows = apiC.userWithFollows,
+              withTrophies = false,
+              withCanChallenge = false,
+              withPlayban = getBool("playban"),
+              forWiki = wikiGranted
+            )
           )
           .dmap { JsonOk(_) }
   }

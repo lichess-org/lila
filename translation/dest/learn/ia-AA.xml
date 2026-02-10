@@ -6,7 +6,7 @@
   <string name="progressX">Progresso: %s</string>
   <string name="resetMyProgress">Reinitiar mi progresso</string>
   <string name="youWillLoseAllYourProgress">Tu perdera omne progresso!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">joca!</string>
+  <string name="play">joca!</string>
   <string name="chessPieces">Le pecias de chacos</string>
   <string name="theRook">Le turre</string>
   <string name="itMovesInStraightLines">Illo move se in lineas recte</string>
@@ -153,7 +153,6 @@ facer le roc curte!</string>
   <string name="findAWayToCastleQueenSide">Trova un modo pro
 facer le roc longe!</string>
   <string name="castlingComplete">Congratulationes! Tu debe roccar in quasi tote le partitas.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Le movimento special del pedon</string>
   <string name="enPassantIntro">Quando le pedon del adversario move se duo quadratos, tu pote capturar lo como si illo habeva movite un sol quadrato.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Le nigro ha movite le pedon duo quadratos!

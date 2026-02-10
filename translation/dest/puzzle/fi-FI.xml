@@ -93,6 +93,6 @@ Kun pelaat lisää nopeita ja klassisia pelejä, on suurempi mahdollisuus, että
   </plurals>
   <string name="percentSolved">%s ratkaistu</string>
   <string name="noPuzzlesToShow">Täällä ei ole vielä mitään nähtävää – tee ensin joitakin tehtäviä!</string>
-  <string name="improvementAreasDescription">Harjoittele näitä tehostaaksesi edistymistäsi!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Harjoittele näitä tehostaaksesi edistymistäsi!</string>
   <string name="strengthDescription">Suoriudut parhaiten näissä aiheissa</string>
 </resources>

@@ -59,7 +59,7 @@ object PuzzleRound:
     val weight = "e"
     val user = "u"
     val date = "d" // date of first playing the puzzle
-    val theme = "h"
+    val angle = "h"
 
   import lila.db.dsl.*
   def puzzleLookup(colls: PuzzleColls, pipeline: List[Bdoc] = Nil) =

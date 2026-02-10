@@ -132,12 +132,13 @@ trait UserHelper:
       withPowerTip: Boolean = true,
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
-      name: Option[Frag] = None
+      name: Option[Frag] = None,
+      withFlair: Boolean = true
   )(using Translate): Tag =
     span(
       cls := userClass(user.id, cssClass, withOnline, withPowerTip),
       dataHref := userUrl(user.username)
-    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name))
+    )(userLinkContent(user, withOnline, withTitle, withPerfRating, name, withFlair))
 
   def userLinkContent(
       user: User,

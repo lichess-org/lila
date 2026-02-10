@@ -36,8 +36,8 @@
     <item quantity="one">Behåll kort: max %s tecken</item>
     <item quantity="other">Behåll kort: max %s tecken</item>
   </plurals>
-  <string name="visibility">Synlig på videokanal-sidan</string>
-  <string name="whenApproved">Efter godkännande från moderatorer</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Synlig på videokanal-sidan</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Efter godkännande från moderatorer</string>
   <string name="headline">Rubrik</string>
   <string name="tellUsAboutTheStream">I en mening, berätta om din videokanal</string>
   <string name="longDescription">Lång beskrivning</string>

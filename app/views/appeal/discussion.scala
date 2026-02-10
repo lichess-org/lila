@@ -106,7 +106,7 @@ object discussion:
             div(cls := "appeal__msg__header")(
               ui.renderUser(appeal, msg.by, as.isLeft),
               if as.isRight then momentFromNowOnce(msg.at)
-              else momentFromNowServer(msg.at)
+              else pastMomentServer(msg.at)
             ),
             div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
           ),

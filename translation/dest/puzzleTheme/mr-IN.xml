@@ -41,7 +41,7 @@
   <string name="kingsideAttack">राजाच्या बाजुचा हल्ला</string>
   <string name="kingsideAttackDescription">विरोधकाच्या राजाने किल्लेकोट केल्यावर त्याच राजाच्या बाजुने हल्ला चढवणे.</string>
   <string name="clearance">जागा मोकळी करणे</string>
-  <string name="clearanceDescription">एक चाल, जी एखाद्या उपलब्द्धतेनंतर, जेव्हा एक घर, पंक्ति किंवा कर्ण रिकामे होईल जेणेकरून पुढील डावपेच रचता येईल.</string>
+  <string name="clearanceDescription">अशी चाल जी एखादे घर, पंक्ती किंवा कर्ण रिकामे करते, जेणेकरून पुढील डावपेच सुलभ होतात.</string>
   <string name="defensiveMove">बचावात्मक चाल</string>
   <string name="defensiveMoveDescription">एक अचूक चाल किंवा चालींचा क्रम जो सोंगट्या वाचवायला उपयोगी ठरेल आणि पुढे फायदा मिळवायला उपयोगी ठरेल.</string>
   <string name="deflection">विक्षेपण</string>

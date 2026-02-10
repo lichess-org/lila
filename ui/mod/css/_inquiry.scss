@@ -393,12 +393,8 @@ body.no-inquiry {
     padding: 6px 0;
   }
 
-  .switcher {
-    margin-inline-start: -10px;
-
-    label {
-      transform: scale(0.7);
-    }
+  .cmn-toggle {
+    transform: scale(0.7);
   }
 
   .notes {

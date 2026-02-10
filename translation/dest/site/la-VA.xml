@@ -362,7 +362,6 @@
   <string name="screenshotCurrentPosition">Depingere currens situm</string>
   <string name="pasteTheFenStringHere">Huc FEN catenam addere</string>
   <string name="pasteThePgnStringHere">Huc PGN catenam addere</string>
-  <string name="fromPosition">A statu</string>
   <string name="continueFromHere">Hinc persequi</string>
   <string name="toStudy">Stude</string>
   <string name="importGame">Lusionem imponere</string>

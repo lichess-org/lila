@@ -394,7 +394,6 @@
   <string name="pasteTheFenStringHere">I-paste ang FEN na sulat dito</string>
   <string name="pasteThePgnStringHere">I-paste ang PGN na sulat dito</string>
   <string name="orUploadPgnFile">O mag upload ng PGN file</string>
-  <string name="fromPosition">Mula sa posisyon</string>
   <string name="continueFromHere">Magpatuloy mula dito</string>
   <string name="toStudy">Pagaralan</string>
   <string name="importGame">Magluwas ng laro</string>

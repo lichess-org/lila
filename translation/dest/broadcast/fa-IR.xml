@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">بازیکن فیده پیدا نشد</string>
   <string name="fideProfile">رُخ‌نمای فیده</string>
   <string name="federation">کشورگان</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">سن</string>
+  <string name="age">سن</string>
   <string name="unrated">بی‌درجه‌بندی</string>
   <string name="recentTournaments">مسابقاتِ اخیر</string>
   <string name="openLichess">آزاد در Lichess</string>

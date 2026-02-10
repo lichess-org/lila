@@ -2,7 +2,6 @@ package lila.relay
 
 import scala.collection.immutable.SeqMap
 import play.api.libs.json.*
-import scalalib.Json.writeAs
 import scalalib.Debouncer
 import chess.{ ByColor, Color, FideId, FideTC, Outcome, PlayerName, IntRating }
 import chess.rating.{ Elo, IntRatingDiff }
@@ -18,15 +17,22 @@ import lila.relay.RelayGroup.ScoreGroup
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
     player: StudyPlayer.WithFed,
+    ratingsMap: Map[FideTC, IntRating],
     score: Option[Float],
-    ratingDiff: Option[IntRatingDiff],
-    performance: Option[IntRating],
+    ratingDiffs: Map[FideTC, IntRatingDiff],
+    performances: Map[FideTC, IntRating],
     tiebreaks: Option[Seq[(Tiebreak, TiebreakPoint)]],
     rank: Option[RelayPlayer.Rank],
     games: Vector[RelayPlayer.Game]
 ):
   export player.player.*
-  def withGame(game: RelayPlayer.Game) = copy(games = games :+ game)
+  def withGame(game: RelayPlayer.Game, player: StudyPlayer.WithFed) =
+    copy(
+      games = games :+ game,
+      ratingsMap = player.rating
+        .ifFalse(ratingsMap.contains(game.fideTC))
+        .fold(ratingsMap)(r => ratingsMap + (game.fideTC -> r))
+    )
   def eloGames: Vector[Elo.Game] = games.flatMap(_.eloGame)
   def toTieBreakPlayer: Option[Tiebreak.Player] = player.id.map: id =>
     Tiebreak.Player(id = id.toString, rating = player.rating.map(_.into(Elo)))
@@ -73,8 +79,10 @@ object RelayPlayer:
   opaque type Rank = Int
   object Rank extends OpaqueInt[Rank]
 
+  type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
+
   def empty(player: StudyPlayer.WithFed) =
-    RelayPlayer(player, None, None, None, None, None, Vector.empty)
+    RelayPlayer(player, Map.empty, None, Map.empty, Map.empty, None, None, Vector.empty)
 
   case class Game(
       round: RelayRoundId,
@@ -83,6 +91,7 @@ object RelayPlayer:
       color: Color,
       points: Option[Outcome.GamePoints],
       rated: chess.Rated,
+      fideTC: FideTC,
       customScoring: Option[ByColor[RelayRound.CustomScoring]] = None,
       unplayed: Boolean
   ):
@@ -116,11 +125,11 @@ object RelayPlayer:
     yield Elo.Game(pp, opRating.into(Elo))
 
   object json:
-    import RelayJsonView.given
+    import scalalib.Json.writeAs
     given Writes[Outcome] = Json.writes
     given Writes[Outcome.Points] = writeAs(_.show)
     given Writes[Outcome.GamePoints] = writeAs(points => Outcome.showPoints(points.some))
-    given Writes[RelayPlayer.Game] = Json.writes
+    given Writes[FideTC] = writeAs(_.toString)
     given Writes[Seq[(Tiebreak, TiebreakPoint)]] = Writes: tbs =>
       Json.toJson:
         tbs.map: (tb, tbv) =>
@@ -129,33 +138,35 @@ object RelayPlayer:
             "description" -> tb.description,
             "points" -> tbv.value
           )
+    given KeyWrites[FideTC] = _.toString // required by ratingDiffs & performances
+
     given OWrites[RelayPlayer] = OWrites: p =>
       Json.toJsObject(p.player) ++ Json
         .obj("played" -> p.games.count(_.points.isDefined))
         .add("score" -> p.score)
-        .add("ratingDiff" -> p.ratingDiff)
-        .add("performance" -> p.performance)
+        .add("ratingDiff" -> p.ratingDiffs.headOption._2F) // API BC grace
+        .add("ratingsMap" -> p.ratingsMap.nonEmptyOption)
+        .add("ratingDiffs" -> p.ratingDiffs.nonEmptyOption)
+        .add("performance" -> p.performances.headOption._2F) // API BC grace
+        .add("performances" -> p.performances.nonEmptyOption)
         .add("tiebreaks" -> p.tiebreaks)
         .add("rank" -> p.rank)
     def full(
         tour: RelayTour
     )(p: RelayPlayer, fidePlayer: Option[FidePlayer], user: Option[User], follow: Option[Boolean]): JsObject =
-      val tc = tour.info.fideTcOrGuess
-      lazy val eloPlayer = p.rating
-        .map(_.into(Elo))
-        .orElse(fidePlayer.flatMap(_.ratingOf(tc)))
-        .map:
-          Elo.Player(_, fidePlayer.fold(chess.rating.KFactor.default)(_.kFactorOf(tc)))
+      lazy val tcPlayerMap: Map[FideTC, Elo.Player] = p.ratingsMap.map: (tc, tcRating) =>
+        tc -> Elo.Player(tcRating.into(Elo), fidePlayer.fold(chess.rating.KFactor.default)(_.kFactorOf(tc)))
       val gamesJson = p.games.map: g =>
         val rd = tour.showRatingDiffs.so:
-          (eloPlayer, g.eloGame).tupled.map: (ep, eg) =>
-            Elo.computeRatingDiff(tc)(ep, List(eg))
+          (tcPlayerMap.get(g.fideTC), g.eloGame).mapN: (ep, eg) =>
+            Elo.computeRatingDiff(g.fideTC)(ep, List(eg))
         Json
           .obj(
             "round" -> g.round,
             "id" -> g.id,
             "opponent" -> g.opponent,
-            "color" -> g.color
+            "color" -> g.color,
+            "fideTC" -> g.fideTC
           )
           .add("points" -> g.playerPoints)
           .add("customPoints" -> g.customPlayerPoints)
@@ -166,25 +177,20 @@ object RelayPlayer:
         .add("fide", fidePlayer.map(Json.toJsObject).map(_.add("follow", follow))) ++
         Json.obj("games" -> gamesJson)
     given OWrites[FidePlayer] = OWrites: p =>
-      Json.obj("ratings" -> p.ratingsMap.mapKeys(_.toString), "year" -> p.year)
+      Json
+        .obj("year" -> p.year)
+        .add("ratings" -> p.ratingsMap.nonEmptyOption)
 
 private final class RelayPlayerApi(
     tourRepo: RelayTourRepo,
     roundRepo: RelayRoundRepo,
-    groupRepo: RelayGroupRepo,
+    relayGroupApi: RelayGroupApi,
     chapterRepo: lila.study.ChapterRepo,
     cacheApi: CacheApi,
     fidePlayerGet: lila.core.fide.GetPlayer,
     photosJson: PhotosJson.Get
 )(using Executor)(using scheduler: Scheduler):
   import RelayPlayer.*
-
-  type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
-
-  private val scoreGroupCache = cacheApi[RelayTourId, ScoreGroup](128, "relay.players.scoreGroup"):
-    _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
-      for group <- groupRepo.byTour(tourId)
-      yield group.flatMap(_.scoreGroupOf(tourId)) | NonEmptyList.of(tourId)
 
   private val cache = cacheApi[ScoreGroup, RelayPlayers](128, "relay.players.data"):
     _.expireAfterWrite(1.minute).buildAsyncFuture(computeScoreGroup)
@@ -196,15 +202,15 @@ private final class RelayPlayerApi(
       yield JsonStr(Json.stringify(Json.toJson(players.values.toList)))
 
   def get(tourId: RelayTourId): Fu[RelayPlayers] =
-    scoreGroupCache.get(tourId).flatMap(cache.get)
+    relayGroupApi.scoreGroupOf(tourId).flatMap(cache.get)
 
   def jsonList(tourId: RelayTourId): Fu[JsonStr] =
-    scoreGroupCache.get(tourId).flatMap(jsonCache.get)
+    relayGroupApi.scoreGroupOf(tourId).flatMap(jsonCache.get)
 
   private val photosJsonCache = cacheApi[RelayTourId, PhotosJson](64, "relay.players.photos.json"):
     _.expireAfterWrite(15.seconds).buildAsyncFuture: tourId =>
       for
-        sg <- scoreGroupCache.get(tourId)
+        sg <- relayGroupApi.scoreGroupOf(tourId)
         studyIds <- sg.toList.flatTraverse(roundRepo.studyIdsOf)
         fideIds <- chapterRepo.fideIdsOf(studyIds)
         photos <- photosJson(fideIds)
@@ -223,8 +229,8 @@ private final class RelayPlayerApi(
 
   private val invalidateDebouncer = Debouncer[RelayTourId](scheduler.scheduleOnce(3.seconds, _), 32): id =>
     import lila.memo.CacheApi.invalidate
-    scoreGroupCache
-      .get(id)
+    relayGroupApi
+      .scoreGroupOf(id)
       .foreach: key =>
         cache.invalidate(key)
         jsonCache.invalidate(key)
@@ -238,7 +244,7 @@ private final class RelayPlayerApi(
           players <- readGamesAndPlayers(sg.toList)
           withScore = if tour.showScores then computeScores(players) else players
           withRatingDiff <-
-            if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
+            if tour.showRatingDiffs then computeRatingDiffs(withScore)
             else fuccess(withScore)
           withTiebreaks <- tour.tiebreaks.fold(fuccess(withRatingDiff)): tiebreaks =>
             roundRepo
@@ -247,9 +253,19 @@ private final class RelayPlayerApi(
               .map(computeTiebreaks(withRatingDiff, tiebreaks, _))
         yield withTiebreaks
 
-  private def readGamesAndPlayers(tourIds: Seq[RelayTourId]): Fu[RelayPlayers] =
+  private def sgIsParallel(tours: List[RelayTour]): Boolean =
+    tours.headOption
+      .flatMap(_.dates.map(_.start))
+      .exists: firstStart =>
+        tours.tailOption.exists(_.forall(_.dates.map(_.start).exists(_.isBefore(firstStart.plusMinutes(20)))))
+
+  private def readGamesAndPlayers(tourIds: List[RelayTourId]): Fu[RelayPlayers] =
     for
-      rounds <- roundRepo.byToursOrdered(tourIds)
+      tours <- tourRepo.byIds(tourIds)
+      toursById = tours.mapBy(_.id)
+      rounds <-
+        if sgIsParallel(tours) then roundRepo.byToursOrdered(tourIds)
+        else tourIds.flatTraverse(roundRepo.byTourOrdered)
       roundsById = rounds.mapBy(_.id)
       chapters <- chapterRepo.tagsByStudyIds(rounds.map(_.studyId))
       allFideIds = chapters.flatMap(_._2.flatMap((_, tags) => tags.fideIds.flatten)).toList.distinct
@@ -279,6 +295,7 @@ private final class RelayPlayerApi(
                           color,
                           tags.points,
                           round.rated,
+                          toursById.get(round.tourId).flatMap(_.info.fideTc).getOrElse(FideTC.standard),
                           round.customScoring,
                           unplayed = tags.value.contains(RelayGame.unplayedTag)
                         )
@@ -286,7 +303,7 @@ private final class RelayPlayerApi(
                           playerId,
                           playersAcc
                             .getOrElse(playerId, RelayPlayer.empty(player))
-                            .withGame(game)
+                            .withGame(game, player)
                         )
 
   private def computeScores(players: RelayPlayers): RelayPlayers =
@@ -294,11 +311,16 @@ private final class RelayPlayerApi(
       .mapValues: p =>
         p.copy(
           score = p.games.foldMap(_.playerScore),
-          performance = Elo.computePerformanceRating(p.eloGames).map(_.into(IntRating))
+          performances = p.games
+            .groupBy(_.fideTC)
+            .foldLeft(Map.empty):
+              case (acc, (gameTC, tcGames)) =>
+                val performanceRating = Elo.computePerformanceRating(tcGames.flatMap(_.eloGame))
+                performanceRating.fold(acc)(r => acc + (gameTC -> r.into(IntRating)))
         )
       .to(SeqMap)
 
-  private def computeRatingDiffs(tc: FideTC, players: RelayPlayers): Fu[RelayPlayers] =
+  private def computeRatingDiffs(players: RelayPlayers): Fu[RelayPlayers] =
     players.toList
       .traverse: (id, player) =>
         val eloGames = player.eloGames
@@ -307,13 +329,21 @@ private final class RelayPlayerApi(
           player.fideId
             .so(fidePlayerGet)
             .map: fidePlayerOpt =>
-              for
-                fidePlayer <- fidePlayerOpt
-                r <- player.rating.map(_.into(Elo)).orElse(fidePlayer.ratingOf(tc))
-                p = Elo.Player(r, fidePlayer.kFactorOf(tc))
-              yield player.copy(ratingDiff = Elo.computeRatingDiff(tc)(p, eloGames).some)
-            .map: newPlayer =>
-              id -> (newPlayer | player)
+              val newPlayer = fidePlayerOpt.fold(player): fidePlayer =>
+                val newRatingDiffs = player.games
+                  .groupBy(_.fideTC)
+                  .foldLeft(Map.empty[FideTC, IntRatingDiff]):
+                    case (diffs, (gameTC, tcGames)) =>
+                      player.ratingsMap
+                        .get(gameTC)
+                        .map(_.into(Elo))
+                        .orElse(fidePlayer.ratingOf(gameTC))
+                        .fold(diffs): rating =>
+                          val p = Elo.Player(rating, fidePlayer.kFactorOf(gameTC))
+                          val newDiff = Elo.computeRatingDiff(gameTC)(p, tcGames.flatMap(_.eloGame))
+                          diffs + (gameTC -> newDiff)
+                player.copy(ratingDiffs = newRatingDiffs)
+              id -> newPlayer
       .map(_.to(SeqMap))
 
   private def computeTiebreaks(

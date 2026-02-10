@@ -4,7 +4,11 @@ export interface MsgOpts {
 export interface MsgData {
   me: Me;
   contacts: Contact[];
+  names: RealNames;
   convo?: Convo;
+}
+export interface RealNames {
+  [id: UserId]: string;
 }
 export interface Contact {
   user: User;

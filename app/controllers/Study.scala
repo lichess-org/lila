@@ -10,7 +10,6 @@ import lila.app.{ *, given }
 import lila.common.{ Bus, HTTPRequest }
 import lila.core.id.RelayRoundId
 import lila.core.misc.lpv.LpvEmbed
-import lila.core.net.IpAddress
 import lila.core.socket.Sri
 import lila.core.study.StudyOrder
 import lila.core.data.ErrorMsg
@@ -19,7 +18,7 @@ import lila.study.PgnDump.WithFlags
 import lila.study.Study.WithChapter
 import lila.study.{ BecomeStudyAdmin, Who }
 import lila.study.{ Chapter, Orders, Settings, Study as StudyModel, StudyForm }
-import lila.tree.Node.partitionTreeJsonWriter
+import lila.tree.Node.partitionTreeWriter
 import com.fasterxml.jackson.core.JsonParseException
 import lila.ui.Page
 
@@ -39,7 +38,7 @@ final class Study(
             else if HTTPRequest.isCrawler(req).yes then 80
             else if ctx.isAnon then 100
             else 200
-          text.trim.some.filter(_.nonEmpty).filter(_.sizeIs > 2).filter(_.sizeIs < maxLen) match
+          text.trim.nonEmptyOption.filter(_.sizeIs > 2).filter(_.sizeIs < maxLen) match
             case None =>
               for
                 pag <- env.study.pager.all(Orders.default, page)
@@ -207,9 +206,7 @@ final class Study(
       _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
       fedNames <- env.study.preview.federations.get(sc.study.id)
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
-      analysis <- chapter.serverEval
-        .exists(_.done)
-        .so(env.analyse.analyser.byId(Analysis.Id(study.id, chapter.id)))
+      analysis <- chapterAnalysis(sc)
       division = analysis.isDefined.option(env.study.serverEvalMerger.divisionOf(chapter))
       baseData <- env.analyse.externalEngine.withExternalEngines(
         env.round.jsonView.userAnalysisJson(
@@ -223,16 +220,18 @@ final class Study(
       )
       withMembers = !study.isRelay || isGrantedOpt(_.StudyAdmin) || ctx.me.exists(study.isMember)
       studyJson <- env.study.jsonView.full(study, chapter, previews, fedNames.some, withMembers = withMembers)
+      lichobile = HTTPRequest.isLichobile(ctx.req)
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData
-        .add(
-          "treeParts" -> partitionTreeJsonWriter.writes {
-            lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-          }.some
-        )
+        .add("treeParts" -> partitionTreeWriter(chapter.root, lichobile = lichobile).some)
         .add("analysis" -> analysis.map { env.analyse.jsonView.bothPlayers(chapter.root.ply, _) })
     )
+
+  private def chapterAnalysis(sc: WithChapter) =
+    sc.chapter.serverEval
+      .exists(_.done)
+      .so(env.analyse.analyser.byId(Analysis.Id(sc.study.id, sc.chapter.id)))
 
   def show(id: StudyId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id):
@@ -433,25 +432,31 @@ final class Study(
       studyNotFound: => Fu[Result],
       studyUnauthorized: StudyModel => Fu[Result],
       studyForbidden: StudyModel => Fu[Result]
-  )(using ctx: Context) =
+  )(using Context) =
     env.study.api
       .byIdWithChapter(id, chapterId)
       .flatMap:
         _.fold(studyNotFound) { case sc @ WithChapter(study, chapter) =>
           CanView(study) {
             def makeChapterPgn = env.study.pgnDump.ofChapter(study, requestPgnFlags)(chapter)
-            val pgnFu =
-              if study.isRelay
-              then env.relay.pgnStream.ofChapter(sc).getOrElse(makeChapterPgn)
-              else makeChapterPgn
-            pgnFu.map: pgn =>
-              Ok(pgn.toString)
-                .asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn")
-                .as(pgnContentType)
+            for
+              pgn <-
+                if study.isRelay
+                then env.relay.pgnStream.ofChapter(sc).getOrElse(makeChapterPgn)
+                else makeChapterPgn
+              analysisJson <- getBool("analysisHeader").so:
+                chapterAnalysis(sc).map2: analysis =>
+                  val division = env.study.serverEvalMerger.divisionOf(chapter)
+                  env.analyse.jsonView.analysisHeader(sc.chapter.root, division, analysis)
+              filename = s"${env.study.pgnDump.filename(study, chapter)}.pgn"
+              res = Ok(pgn.toString).as(pgnContentType).asAttachment(filename)
+              resWithAnalysis = analysisJson.fold(res): a =>
+                res.withHeaders("X-Lichess-Analysis" -> Json.stringify(a))
+            yield resWithAnalysis
           }(studyUnauthorized(study), studyForbidden(study))
         }
 
-  def exportPgn(username: UserStr) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
+  def apiExportPgn(username: UserStr) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
     val name =
       if username.value == "me"
       then ctx.me.fold(UserName("me"))(_.username)
@@ -461,7 +466,7 @@ final class Study(
     val makeStream = env.study.studyRepo
       .sourceByOwner(userId, isMe)
       .flatMapConcat(env.study.pgnDump.chaptersOf(_, _ => requestPgnFlags))
-      .throttle(16, 1.second)
+      .throttle(if isMe then 20 else 10, 1.second)
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(userId.some)(makeStream): source =>
       Ok.chunked(source)
         .asAttachmentStream(s"${name}-${if isMe then "all" else "public"}-studies.pgn")
@@ -483,12 +488,18 @@ final class Study(
       orientation = getBool("orientation")
     )
 
-  def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) = Open:
+  def chapterGif(
+      id: StudyId,
+      chapterId: StudyChapterId,
+      theme: Option[String],
+      piece: Option[String],
+      showGlyphs: Boolean
+  ) = Open:
     Found(env.study.api.byIdWithChapter(id, chapterId)):
       case WithChapter(study, chapter) =>
         CanView(study) {
           env.study.gifExport
-            .ofChapter(chapter, theme, piece)
+            .ofChapter(chapter, theme, piece, showGlyphs)
             .map: stream =>
               Ok.chunked(stream)
                 .asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif")

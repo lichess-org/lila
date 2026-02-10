@@ -173,13 +173,25 @@
   <string name="studyChaptersTitle">ศึกษาบทต่างๆ</string>
   <string name="studyChaptersText">การศึกษาหนึ่งๆ สามารถประกอบด้วยหลายบท &lt;br&gt;แต่ละบทมีตำแหน่งเริ่มต้นและแผนผังการเคลื่อนไหวที่แตกต่างกัน</string>
   <string name="commentPositionTitle">วิจารณ์ตำแหน่งนี้</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">กดปุ่ม %s หรือคลิกขวาที่ตารางที่แสดงตาเดินที่อยู่ฝั่งขวา &lt;br&gt; คอมเมนต์จะถูกแชร์และบันทึก</string>
   <string name="annotatePositionTitle">ระบุตำแหน่งบนกระดาน</string>
+  <string name="annotatePositionText">กดปุ่ม !? หรือคลิกขวาที่ตารางที่แสดงตาเดินที่อยู่ฝั่งขวา &lt;br&gt; อักษรคำอธิบายประกอบ
+จะถูกแชร์และบันทึก</string>
   <string name="conclusionTitle">ขอบคุณสำหรับเวลาของคุณ</string>
+  <string name="conclusionText">คุณสามารถเจอ&lt;a href=\'/study/mine/hot\'&gt;การศึกษาก่อนหน้า&lt;/a&gt;จากหน้าโปรไฟล์ &lt;br&gt;นอกจากนั้นยังมี &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt; บล็อกเกี่ยวกับกรณีศึกษา&lt;/a&gt; &lt;br&gt;ผู้ใช้งานขั้นสูงอาจต้องการกด \"?\" เพื่อดูแป้นพิมพ์ลัด&lt;br&gt;ขอให้สนุกน้า!</string>
   <string name="createChapterTitle">มาสร้างบทเรียนกันเถอะ</string>
+  <string name="createChapterText">กรณีศึกษาหนึ่งสามารถมีได้หลายบท&lt;br&gt;แต่ละบทจะมีตาเดินหลายแขนง&lt;br&gt;และและสามารถสร้างขึ้นได้หลายวิธี</string>
   <string name="fromInitialPositionTitle">จากตำแหน่งเริ่มต้น</string>
+  <string name="fromInitialPositionText">แค่จัดวางกระดานเพื่อเตรียมเล่นเกมใหม่&lt;br&gt;ให้เหมาะสำหรับการสำรวจช่วงท้ายเกม</string>
   <string name="customPositionTitle">ตำแหน่งที่กำหนดเอง</string>
+  <string name="customPositionText">ตั้งค่ากระดานตามที่คุณต้องการ&lt;br&gt;ให้เหมาะสำหรับการสำรวจช่วงท้ายเกม</string>
   <string name="loadExistingLichessGameTitle">โหลดเกมบน Lichess ที่มีอยู่แล้ว</string>
+  <string name="loadExistingLichessGameText">วาง URL ของเกมบน Lichess&lt;br&gt;(เช่น lichess.org/7fHIU0XI)&lt;br&gt;เพื่อโหลดตาเดินของเกมในบทนั้น</string>
+  <string name="fromFenStringTitle">จากสตริง FEN</string>
+  <string name="fromFenStringText">วางตำแหน่งในรูปแบบของ FEN &lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;เพื่อเริ่มบทจากตำแหน่งนั้นๆ</string>
   <string name="fromPgnGameTitle">จากเกม PGN</string>
+  <string name="fromPgnGameText">วางเกมในรูปแบบของ PGN&lt;br&gt;เพื่อโหลดตาเดิน คอมเมนต์และตาเดินอื่นๆ ในบท</string>
+  <string name="variantsAreSupportedTitle">กรณีศึกษารองรับตัวแปรกติกา</string>
   <string name="variantsAreSupportedText">ใช่ คุณสามารถศึกษาบ้านอลเวง&lt;br&gt; และตัวแปรกติกา lichess ทั้งหมดได้</string>
   <string name="chapterConclusionText">บทต่างๆ จะถูกบันทึกไว้ตลอดไป &lt;br&gt;ขอให้สนุกกับการจัดระเบียบเนื้อหาหมากรุกของคุณ!</string>
   <string name="doubleDefeat">แพ้ทั้งสองฝ่าย</string>

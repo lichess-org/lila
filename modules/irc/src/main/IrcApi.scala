@@ -94,6 +94,19 @@ final class IrcApi(
       zulip(_.mod.commsPublic, "forum-log"):
         s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
 
+  def ublogPost(
+      user: LightUser,
+      id: UblogPostId,
+      slug: String,
+      title: String,
+      intro: String,
+      topic: String,
+      automod: Option[String]
+  ): Funit =
+    zulip(_.blog, topic):
+      val link = markdown.lichessLink(s"/@/${user.name}/blog/$slug/$id", title)
+      s":note: $link $intro - by ${markdown.userLink(user)}${~automod.map(n => s"\n$n")}"
+
   def ublogBlog(userId: UserId, mod: UserName, tier: Option[String], note: Option[String]): Funit =
     lightUser(userId).flatMapz: user =>
       zulip(_.blog, "Tier and plagiarism checks"):
@@ -156,6 +169,15 @@ final class IrcApi(
   def nameClosePreset(name: UserName): Funit =
     zulip(_.mod.adminGeneral, "name 48h closure"):
       s"@**remind** here in 48h to close ${markdown.userLink(name)}"
+
+  def fidePhoto(playerPath: String, picUrl: Url)(using me: Me): Funit =
+    zulip(_.content, "/fide player photos"):
+      s":camera: $playerPath by ${markdown.modLink(me.username)}\n" +
+        s"${markdown.fixImageUrl(picUrl.value)}"
+
+  def fidePhotoCredits(playerPath: String, credits: String)(using me: Me): Funit =
+    zulip(_.content, "/fide player photos"):
+      s":note: $playerPath by ${markdown.modLink(me.username)}\n> $credits"
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 

@@ -69,6 +69,11 @@
   @extend %image-preview-and-upload;
 }
 
+.relay-name-help {
+  margin-top: 1em;
+  display: block;
+}
+
 @include mq-subnav-side {
   .relay-form__subnav__group {
     display: block;

@@ -13,8 +13,10 @@
   <string name="youHaveThirtySeconds">У вас ёсць 30 секунд, каб правільна суаднесці як мага больш клетак!</string>
   <string name="goAsLongAsYouWant">Спрабуйце так доўга, як хочаце, час неабмежаваны!</string>
   <string name="showCoordinates">Паказваць каардынаты</string>
+  <string name="showCoordsOnAllSquares">Паказваць каардынаты на кожнай клетцы</string>
   <string name="showPieces">Паказваць фігуры</string>
   <string name="startTraining">Пачаць трэніроўку</string>
   <string name="findSquare">Знайдзіце клетку</string>
   <string name="nameSquare">Назавіце клетку</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Трэніравацца толькі з некаторымі слупкамі і радкамі</string>
 </resources>

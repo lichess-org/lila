@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">컴퓨터와 대국하기</string>
   <string name="gameMode">게임 모드</string>
   <string name="createLobbyGame">로비 게임 만들기</string>
-  <string name="youPlayAs">당신은 다음 색으로 플레이합니다:</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
   <string name="gameOver">대국 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
   <string name="orLetYourOpponentScanQrCode">상대방에게 이 QR 코드를 스캔하라고 하셔도 됩니다.</string>
+  <string name="reusableChallengeUrl">재사용 가능 도전 URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">누구나 동일한 설정으로 당신에게 도전할 수 있는 영구적인 링크입니다.</string>
   <string name="waiting">기다리는 중</string>
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
@@ -124,6 +125,10 @@
   <string name="bestMoveArrow">최선의 수 화살표</string>
   <string name="showVariationArrows">라인을 화살표로 표시하기</string>
   <string name="evaluationGauge">평가 게이지</string>
+  <string name="visualMotifs">전술 시각화</string>
+  <string name="undefendedPieces">수비가 없는 기물들</string>
+  <string name="pinnedPieces">핀에 걸린 기물들</string>
+  <string name="checkableKing">체크할 수 있는 킹</string>
   <string name="multipleLines">다중 라인 수</string>
   <string name="cpus">CPU 수</string>
   <string name="memory">메모리</string>
@@ -193,6 +198,7 @@
   <string name="minutesPerSide">제한 시간 (분)</string>
   <string name="variant">변형</string>
   <string name="variants">변형</string>
+  <string name="variantsDescription">더 많은 플레이 방법</string>
   <string name="timeControl">시간 제한</string>
   <string name="realTime">실시간</string>
   <string name="correspondence">통신 대국</string>
@@ -281,6 +287,7 @@
   <string name="standard">스탠다드</string>
   <string name="customPosition">커스텀 포지션</string>
   <string name="unlimited">무제한</string>
+  <string name="unlimitedDescription">필요한 만큼 시간을 쓰세요</string>
   <string name="mode">모드</string>
   <string name="casual">캐주얼</string>
   <string name="rated">레이팅</string>
@@ -393,10 +400,11 @@
   <string name="leaderboard">리더보드</string>
   <string name="screenshotCurrentPosition">스크린샷 찍기</string>
   <string name="gameAsGIF">GIF로 저장하기</string>
+  <string name="playerNames">플레이어명</string>
+  <string name="moveAnnotations">수 주석</string>
   <string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
   <string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
   <string name="orUploadPgnFile">또는 PGN 파일을 업로드하세요</string>
-  <string name="fromPosition">정해진 보드판에서 시작</string>
   <string name="continueFromHere">여기서부터 시작</string>
   <string name="toStudy">연구</string>
   <string name="importGame">대국 불러오기</string>
@@ -769,6 +777,7 @@
   <string name="size">크기</string>
   <string name="opacity">투명도</string>
   <string name="brightness">명도</string>
+  <string name="contrast">대비</string>
   <string name="hue">색상</string>
   <string name="boardReset">기본 색상으로 되돌리기</string>
   <string name="pieceSet">기물 세트</string>
@@ -974,5 +983,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="search">검색</string>
   <string name="clearSearch">검색 초기화</string>
   <string name="tags">태그</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.">앙파상</string>
+  <string name="enPassant">앙파상</string>
 </resources>

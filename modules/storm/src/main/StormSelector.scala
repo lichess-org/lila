@@ -43,7 +43,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
     2349 -> 19,
     2499 -> 21
   )
-  private val setSize = ratingBuckets._2F.sum
+  private val setSize = ratingBuckets._2F.sum // 137
 
   private val batchProvider =
     BatchProvider[PuzzleSet]("stormSelector", timeout = 15.seconds): () =>
@@ -83,19 +83,22 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
             Sort(Ascending("rating")),
             Limit(setSize * nbSets)
           )
-        .map:
-          _.flatMap(puzzleReader.readOpt)
-        .map:
-          _.grouped(nbSets).toList.map(ThreadLocalRandom.shuffle).transpose
+        .flatMap: docs =>
+          val puzzles = docs.flatMap(puzzleReader.readOpt)
+          val setsToMake = (puzzles.size / setSize).atLeast(1)
+          val groups = puzzles.grouped(setsToMake).toList.take(setSize).map(ThreadLocalRandom.shuffle)
+          Future(groups.transpose).addFailureEffect: _ =>
+            val showGroups = groups.map(_.size)
+            logger.warn:
+              s"selector: $setSize x $nbSets. ${docs.size} docs, ${puzzles.size} puzzles, ${setsToMake} sets, ${groups.size} groups: $showGroups"
       .logTimeIfGt(s"storm selector x$nbSets", 8.seconds)
-      .mon(_.storm.selector.time)
+      .monSuccess(_.storm.selector.time)
       .recoverWith:
         case e: IllegalArgumentException if nbSets > 1 =>
-          logger.warn(s"Storm selector x$nbSets failed, retrying with x1", e)
-          aggregateMultipleSets(1)
-      .addEffect:
-        _.foreach: puzzles =>
-          monitor(puzzles.toVector)
+          val retryNbSets = nbSets / 2
+          logger.warn(s"selector x$nbSets failed, retrying with x$retryNbSets", e)
+          aggregateMultipleSets(retryNbSets)
+      .addEffect(monitor)
 
   private def withPuzzlePipeline(color: chess.Color) =
     $lookup.pipelineFull(
@@ -125,18 +128,22 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
       )
     )
 
-  private def monitor(puzzles: Vector[StormPuzzle]): Unit =
-    val nb = puzzles.size
-    lila.mon.storm.selector.count.record(nb)
-    if nb < setSize * 0.9 then logger.warn(s"Selector wanted $setSize puzzles, only got $nb")
-    if nb > 1 then
-      val rest = puzzles.toVector.drop(1)
-      scalalib.Maths.mean(IntRating.raw(rest.map(_.rating))).foreach { r =>
-        lila.mon.storm.selector.rating.record(r.toInt)
-      }
-      (0 to setSize by 10).foreach { i =>
-        val slice = rest.drop(i).take(10)
-        scalalib.Maths.mean(IntRating.raw(slice.map(_.rating))).foreach { r =>
-          lila.mon.storm.selector.ratingSlice(i).record(r.toInt)
-        }
-      }
+  private def monitor(sets: List[List[StormPuzzle]]): Unit =
+    lila.mon.storm.selector.sets.record(sets.size)
+    sets
+      .map(_.toVector)
+      .foreach: puzzles =>
+        val nb = puzzles.size
+        lila.mon.storm.selector.count.record(nb)
+        if nb < setSize * 0.9 then logger.warn(s"Selector wanted $setSize puzzles, only got $nb")
+        if nb > 1 then
+          val rest = puzzles.toVector.drop(1)
+          scalalib.Maths.mean(IntRating.raw(rest.map(_.rating))).foreach { r =>
+            lila.mon.storm.selector.rating.record(r.toInt)
+          }
+          (0 to setSize by 10).foreach { i =>
+            val slice = rest.drop(i).take(10)
+            scalalib.Maths.mean(IntRating.raw(slice.map(_.rating))).foreach { r =>
+              lila.mon.storm.selector.ratingSlice(i).record(r.toInt)
+            }
+          }

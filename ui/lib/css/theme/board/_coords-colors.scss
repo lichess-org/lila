@@ -6,20 +6,10 @@ coords {
 }
 
 /** Alternating colors in rank/file/square labels */
-.orientation-white .ranks :nth-child(even),
-.orientation-white .files :nth-child(odd),
-.orientation-black .ranks :nth-child(odd),
-.orientation-black .files :nth-child(even),
-coords.squares:nth-of-type(odd) :nth-child(odd),
-coords.squares:nth-of-type(even) :nth-child(even) {
-  color: var(---cg-ccw, $coord-color-default);
+coords .coord-light {
+  color: var(---cg-ccb, $coord-color-default);
 }
 
-.orientation-white .ranks :nth-child(odd),
-.orientation-white .files :nth-child(even),
-.orientation-black .ranks :nth-child(even),
-.orientation-black .files :nth-child(odd),
-coords.squares:nth-of-type(odd) :nth-child(even),
-coords.squares:nth-of-type(even) :nth-child(odd) {
-  color: var(---cg-ccb, $coord-color-default);
+coords .coord-dark {
+  color: var(---cg-ccw, $coord-color-default);
 }

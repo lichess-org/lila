@@ -90,7 +90,7 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="timePlaying">Pelattu aika</string>
   <string name="variantXOverLastY">%1$s, viimeiset %2$s</string>
   <string name="winrate">Voittoprosentti</string>
-  <string name="na">Ei saatavilla</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Ei saatavilla</string>
   <string name="overview">Pääsivu</string>
   <string name="news">Uutiset</string>
   <string name="classNews">Luokan uutiset</string>
@@ -122,7 +122,7 @@ Se luo vaakasuoran erotinviivan.</string>
   <string name="allowMessagingBetweenStudentsDesc">Tämä koskee vain käyttäjätunnuksia, jotka olet luonut oppilaillesi.</string>
   <string name="quickLoginCode">Nopean kirjautumisen koodi</string>
   <string name="quickLoginCodes">Nopean kirjautumisen koodit</string>
-  <string name="quickLoginCodesDesc1" comment="String is a URL">Näitä koodeja käyttämällä voit kirjata oppilaasi sisään Lichessiin täältä: %s</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Näitä koodeja käyttämällä voit kirjata oppilaasi sisään Lichessiin täältä: %s</string>
   <string name="quickLoginCodesDesc2">Kun koodit vanhentuvat, oppilaasi pysyvät sisäänkirjautuneina siihen asti, kunnes he kirjautuvat itse ulos.</string>
-  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Vanhentuu %s</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Vanhentuu %s</string>
 </resources>

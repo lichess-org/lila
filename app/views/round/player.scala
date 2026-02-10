@@ -28,7 +28,7 @@ def player(
           timeout = false,
           withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
           public = false,
-          resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
+          resource = lila.core.chat.PublicSource.Player(pov.gameId),
           voiceChat = ctx.canVoiceChat,
           opponentId = pov.opponent.userId
         )
@@ -39,7 +39,7 @@ def player(
           name = trans.site.chatRoom.txt(),
           timeout = c.timeout,
           public = true,
-          resourceId = res,
+          resource = res,
           opponentId = pov.opponent.userId
         )
 

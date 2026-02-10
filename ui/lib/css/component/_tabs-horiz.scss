@@ -11,7 +11,8 @@ $c-tabs-active: $c-accent !default;
     font-size: 0.9em;
   }
 
-  span {
+  span,
+  button {
     @extend %roboto, %nowrap-hidden;
 
     flex: 1 1 auto;
@@ -19,6 +20,8 @@ $c-tabs-active: $c-accent !default;
     padding: 0.5em 0.2em;
     cursor: pointer;
     position: relative;
+    border: 0;
+    background: none;
     border-bottom: 2px solid transparent;
 
     transition:
@@ -47,6 +50,10 @@ $c-tabs-active: $c-accent !default;
       padding-right: 0;
       flex: 0 3 auto;
       min-width: 10%;
+    }
+
+    &:focus-visible {
+      outline: $outline;
     }
   }
 

@@ -37,10 +37,6 @@
   .box {
     padding: $block-gap;
 
-    &:not(:first-child) {
-      margin-top: $block-gap;
-    }
-
     h1 {
       margin-bottom: 1rem;
     }
@@ -68,15 +64,6 @@
         height: 60px;
       }
     }
-  }
-
-  form.mode,
-  form.color,
-  form.timeControl {
-    margin-top: $block-gap;
-  }
-  form.files {
-    margin-top: 1em;
   }
 
   .mode_option,
@@ -197,16 +184,13 @@
     }
   }
 
-  .setting {
-    @extend %flex-center;
-    @include prevent-select;
-    flex: 0 0 auto;
-    gap: 1em;
-    margin-top: $block-gap;
+  .side {
+    @extend %flex-column;
+    gap: $block-gap;
+  }
 
-    label {
-      flex: 4 1 auto;
-      cursor: pointer;
-    }
+  .settings {
+    @extend %flex-column;
+    gap: $block-gap;
   }
 }
