@@ -166,7 +166,7 @@ object RelayPlayer:
             "id" -> g.id,
             "opponent" -> g.opponent,
             "color" -> g.color,
-            "fideTC" -> g.fideTC
+            "fideTc" -> g.fideTC
           )
           .add("points" -> g.playerPoints)
           .add("customPoints" -> g.customPlayerPoints)

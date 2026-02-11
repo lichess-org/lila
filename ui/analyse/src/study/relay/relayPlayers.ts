@@ -55,7 +55,7 @@ interface RelayPlayerGame {
   roundObj?: RelayRound;
   opponent: RelayPlayer;
   color: Color;
-  fideTC: FideTC;
+  fideTc: FideTC;
   points?: PointsStr;
   customPoints?: number;
   ratingDiff?: number;
@@ -246,7 +246,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
                   hl(
                     'div',
                     fideTCAttrs(tc),
-                    `${value}${p.games.filter(g => g.fideTC === tc).length < 4 ? '?' : ''}`,
+                    `${value}${p.games.filter(g => g.fideTc === tc).length < 4 ? '?' : ''}`,
                   ),
                 ),
               ]),
@@ -527,7 +527,7 @@ const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): V
 };
 
 const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = false) => {
-  if (isRelayPlayerGame(p)) return hl('div', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff));
+  if (isRelayPlayerGame(p)) return hl('div', showIcons && fideTCAttrs(p.fideTc), diffNode(p.ratingDiff));
   if (!p.ratingDiffs) return p.rating;
   const rds = Object.entries(p.ratingDiffs);
   return rds.map(([tc, diff]: [FideTC, number]) => {
