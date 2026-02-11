@@ -54,11 +54,11 @@
   <string name="lichessTraining">Lichess тренинг</string>
   <string name="threefoldRepetition">Троструко поновљена позиција</string>
   <string name="threefoldRepetitionExplanation">Ако се иста позиција појави три пута, играчи могу прогласити реми %1$s. Личес прихвата званична FIDE правилам као што је опсано у Article 9.2 %2$s.</string>
-  <string name="threefoldRepetitionLowerCase">троструким понављањем</string>
-  <string name="notRepeatedMoves">Ми нисмо поновили потезе. Како је игра завршена ремијем понављањем?</string>
-  <string name="repeatedPositionsThatMatters">Троструко понављање је засновано на поновљеним %1$s, не потезима. Понављања не морају да се догоде узастопно.</string>
+  <string name="threefoldRepetitionLowerCase">троструким понављањем позиције</string>
+  <string name="notRepeatedMoves">Ми нисмо поновили потезе. Зашто је партија још увек ремизирана понављањем?</string>
+  <string name="repeatedPositionsThatMatters">Троструко понављање позиције је засновано на %1$s, не потезима. Понављање не мора да се догоди узастопно.</string>
   <string name="positions">позицијама</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Поновили смо позиције три пута. Зашто партија није завршена ремијем?</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Поновили смо позицију три пута. Зашто партија није била ремизирана?</string>
   <string name="threeFoldHasToBeClaimed">Играч треба најпре да укаже на понављање. Ово можеш урадити притиском на дугме које се појави, или тако што понудиш реми пре играња свог последњег понављајућег потеза. Небитно је да ли противник одбија понуду ремија јер се реми троструког понављања свеједно проглашава. Такође можеш %1$s Личес да аутоматски проглашава понављања за тебе. Такође, петострука понављања увек аутоматски забршавају партију.</string>
   <string name="configure">подесити</string>
   <string name="accounts">Налози</string>
