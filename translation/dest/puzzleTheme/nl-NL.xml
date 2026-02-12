@@ -71,6 +71,7 @@
   <string name="pillsburysMateDescription">De toren geeft mat, terwijl de loper helpt met opsluiten.</string>
   <string name="morphysMate">Morphy\'s mat</string>
   <string name="morphysMateDescription">Gebruik de loper om de koning te mat te zetten, terwijl je toren helpt om hem te de pas af te snijden.</string>
+  <string name="swallowstailMate">Zwaluwstaartmat</string>
   <string name="triangleMate">Driehoeksmat</string>
   <string name="triangleMateDescription">De toren en koningin, een vakje verwijderd van de vijandelijke koning, staan op dezelfde rij of kolom, gescheiden door een vakje, en vormen samen een driehoek.</string>
   <string name="vukovicMate">Vukovic-mat</string>
