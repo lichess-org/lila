@@ -53,6 +53,8 @@
   <string name="endgame">Finais</string>
   <string name="endgameDescription">Tática durante a última fase do jogo.</string>
   <string name="enPassantDescription">Uma tática envolvendo a regra do en passant, onde um peão pode capturar um peão do oponente que passou por ele usando seu movimento inicial de duas casas.</string>
+  <string name="epauletteMate">Mate de Epaulette</string>
+  <string name="epauletteMateDescription">Duas casas de fuga adjacentes ao rei em xeque são ocupadas por outras peças.</string>
   <string name="exposedKing">Rei exposto</string>
   <string name="exposedKingDescription">Uma tática que envolve um rei com poucos defensores ao seu redor, muitas vezes levando a xeque-mate.</string>
   <string name="fork">Garfo (ou duplo)</string>
@@ -71,6 +73,8 @@
   <string name="pillsburysMateDescription">A torre realiza o checkmate, enquanto o bispo ajuda a prender o rei.</string>
   <string name="morphysMate">Mate de Morphy</string>
   <string name="morphysMateDescription">Use o bispo para dar xeque no rei, enquanto sua torre ajuda a confiná-lo.</string>
+  <string name="swallowstailMate">Mate da cauda de andorinha</string>
+  <string name="swallowstailMateDescription">Uma padrão de xeque-mate que visualmente se assemelha à cauda de uma andorinha, em formato de V.</string>
   <string name="triangleMate">Mate do triângulo</string>
   <string name="triangleMateDescription">A dama e a torre, há uma casa de distância do rei inimigo, estão na mesma fila ou coluna, separadas por uma casa, formando um triângulo.</string>
   <string name="vukovicMate">Mate de Vukovic</string>
