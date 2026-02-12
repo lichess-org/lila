@@ -53,6 +53,8 @@
   <string name="endgame">Ändschpil</string>
   <string name="endgameDescription">E Taktik für die letscht Fase vum Schpiel.</string>
   <string name="enPassantDescription">E Taktik wo \"En-Passant\" beinhaltet - e Regle wo en Pur cha en gägnerische Pur schlaa, wänn de ihn mit em \"Zwei-Fälder-Zug\" übergange hät.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Epaulette Matt</string>
+  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Zwei benachbarti Fluchtfälder, für en schach-g\'schtellte König, sind vu andere Figure b\'setzt.</string>
   <string name="exposedKing">Exponierte König</string>
   <string name="exposedKingDescription">E Taktik wo de König nu vu wenige Figure verteidigt wird und oft zu Schachmatt fühert.</string>
   <string name="fork">Gable</string>
@@ -71,6 +73,8 @@
   <string name="pillsburysMateDescription">Schachmatt mit em Turm, wobi de Läufer hilft, de König z\'fange.</string>
   <string name="morphysMate">Morphy Matt</string>
   <string name="morphysMateDescription">Schachmatt mit em Läufer, wobi de Turm hilft, de König z\'fange.</string>
+  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Schwalbeschwanz Matt</string>
+  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Es Schachmattmuschter - optisch inere V-Form, ähnlich wie en Schwalbeschwanz.</string>
   <string name="triangleMate">Drüeck-Matt</string>
   <string name="triangleMateDescription">Es Matt vu Turm und Dame, wo zämme mit em gägnerische König es Drüegg bilded.</string>
   <string name="vukovicMate">Vuković-Matt</string>
