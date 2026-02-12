@@ -53,6 +53,8 @@
   <string name="endgame">Final</string>
   <string name="endgameDescription">Táctica durante a derradeira fase do xogo.</string>
   <string name="enPassantDescription">Táctica que involucra a captura ao paso, onde un peón pode capturar a un peón opoñente que o deixou atrás usando o seu movemento inicial de dúas casas.</string>
+  <string name="epauletteMate">Mate da xarreteira</string>
+  <string name="epauletteMateDescription">As dúas casas de escape a ámbolos dous lados do rei en xaque están ocupadas.</string>
   <string name="exposedKing">Rei exposto</string>
   <string name="exposedKingDescription">Táctica que involucra a un rei con pouca defensa ó seu redor, a miúdo conducindo a xaque mate.</string>
   <string name="fork">Garfo</string>
