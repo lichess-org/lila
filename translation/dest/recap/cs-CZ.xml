@@ -35,6 +35,7 @@
 		<item quantity="many">%s kilogramů</item>
 		<item quantity="other">%s kilogramů</item>
 	</plurals>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Chcete to zkusit nyní?</string>
 	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Vyhráli jste z nich %s na první pokus!</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s reklam a trackerů načteno</string>
 	<string name="malwareNoSell">Neprodávali jsme vaše osobní údaje</string>
