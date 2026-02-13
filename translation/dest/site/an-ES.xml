@@ -691,7 +691,6 @@
   <string name="keyShowOrHideComments">amostrar/amagar comentarios</string>
   <string name="keyEnterOrExitVariation">dentrar/salir d\'a variant</string>
   <string name="keyRequestComputerAnalysis">Demanda una analisi d\'ordinador, aprende d\'as tuyas errors</string>
-  <string name="keyNextLearnFromYourMistakes">Siguient (Aprende d\'as tuyas errors)</string>
   <string name="keyNextBlunder">Siguient error grieu</string>
   <string name="keyNextMistake">Siguient error</string>
   <string name="keyNextInaccuracy">Siguient imprecisión</string>
