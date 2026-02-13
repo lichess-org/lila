@@ -801,7 +801,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="keyShowOrHideComments">rodyti/slėpti komentarus</string>
   <string name="keyEnterOrExitVariation">įeiti/išeiti iš variacijos</string>
   <string name="keyRequestComputerAnalysis">Paprašyti kompiuterio analizės, pasimokykite iš savo klaidų</string>
-  <string name="keyNextLearnFromYourMistakes">Toliau (pasimokyti iš savo klaidų)</string>
   <string name="keyNextBlunder">Kita šiurkšti klaida</string>
   <string name="keyNextMistake">Kita klaida</string>
   <string name="keyNextInaccuracy">Kitas netiklsumas</string>
