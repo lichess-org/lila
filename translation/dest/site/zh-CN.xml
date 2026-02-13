@@ -683,7 +683,6 @@
   <string name="keyShowOrHideComments">显示/隐藏评论</string>
   <string name="keyEnterOrExitVariation">进入/退出变着</string>
   <string name="keyRequestComputerAnalysis">请求电脑分析，并从失误中学习</string>
-  <string name="keyNextLearnFromYourMistakes">下一个（从失误中学习）</string>
   <string name="keyNextBlunder">下一个败着</string>
   <string name="keyNextMistake">下一个错着</string>
   <string name="keyNextInaccuracy">下一个失准</string>
