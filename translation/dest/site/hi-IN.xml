@@ -675,7 +675,6 @@
   <string name="keyShowOrHideComments">टिपण्णी दिखाएँ/छिपाएँ</string>
   <string name="keyEnterOrExitVariation">अंदर बाहर करे</string>
   <string name="keyRequestComputerAnalysis">कंप्यूटर विश्लेषण का अनुरोध करें, अपनी गलतियों से सीखें</string>
-  <string name="keyNextLearnFromYourMistakes">आगे (अपनी गलतियों से सीखें)</string>
   <string name="keyNextBlunder">अगली बड़ी गलती</string>
   <string name="keyNextMistake">अगली गलती</string>
   <string name="newTournament">नया टूर्नमेंट बनायें</string>
