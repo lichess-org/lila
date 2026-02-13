@@ -666,7 +666,6 @@
   <string name="keyShowOrHideComments">კომენტარების ჩვენება/დამალვა</string>
   <string name="keyEnterOrExitVariation">ვარიაციაში შესვლა/გამოსვლა</string>
   <string name="keyRequestComputerAnalysis">მოითხოვეთ კომპიუტერული ანალიზი, ისწავლეთ თქვენს შეცდომებზე</string>
-  <string name="keyNextLearnFromYourMistakes">შემდეგი (ისწავლეთ თქვენს შეცდომებზე)</string>
   <string name="keyNextBlunder">შემდეგი შეცდომა</string>
   <string name="keyNextMistake">შემდეგი შეცდომა</string>
   <string name="keyNextInaccuracy">შემდეგი უზუსტობა</string>
