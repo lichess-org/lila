@@ -661,7 +661,6 @@
   <string name="keyShowOrHideComments">покажи/скриј ги коментарите</string>
   <string name="keyEnterOrExitVariation">отвори/затвори ја варијантата</string>
   <string name="keyRequestComputerAnalysis">Побарајте компјутерска анализа, Учете од Вашите грешки</string>
-  <string name="keyNextLearnFromYourMistakes">Следно (учете од Вашите грешки)</string>
   <string name="keyNextBlunder">Следен превид</string>
   <string name="keyNextMistake">Следна грешка</string>
   <string name="keyNextInaccuracy">Следна непрецизност</string>
