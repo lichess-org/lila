@@ -752,7 +752,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="keyShowOrHideComments">pokaži/sakrij komentare</string>
   <string name="keyEnterOrExitVariation">otvori/zatvori varijaciju</string>
   <string name="keyRequestComputerAnalysis">Zatražite računarsku analizu, učite na svojim greškama</string>
-  <string name="keyNextLearnFromYourMistakes">Sljedeće (Učite na svojim greškama)</string>
   <string name="keyNextBlunder">Sljedeći grubi previd</string>
   <string name="keyNextMistake">Sljedeća greška</string>
   <string name="keyNextInaccuracy">Sljedeća nepreciznost</string>
