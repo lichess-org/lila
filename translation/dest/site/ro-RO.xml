@@ -702,7 +702,7 @@
   <string name="onlyExistingConversations">Doar conversații existente</string>
   <string name="onlyFriends">Doar prieteni</string>
   <string name="menu">Meniu</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Rocadă</string>
+  <string name="castling">Rocadă</string>
   <string name="whiteCastlingKingside">Alb O-O</string>
   <string name="blackCastlingKingside">Negru O-O</string>
   <plurals name="nbForumPosts">
@@ -761,7 +761,6 @@
   <string name="keyShowOrHideComments">arată/ascunde comentarii</string>
   <string name="keyEnterOrExitVariation">acceptă/respinge variație</string>
   <string name="keyRequestComputerAnalysis">Solicită analiza calculatorului, Învață din greșelile tale</string>
-  <string name="keyNextLearnFromYourMistakes">Următorul (Învață din greșelile tale)</string>
   <string name="keyNextBlunder">Următoarea greșeală gravă</string>
   <string name="keyNextMistake">Următoarea greșeală</string>
   <string name="keyNextInaccuracy">Următoarea neacuratețe</string>
@@ -1072,5 +1071,5 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="search">Căutare</string>
   <string name="clearSearch">Șterge căutarea</string>
   <string name="tags">Etichete</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.&#10;&#10;NOTE: this string used to read &quot;En passant&quot;, with &quot;rights&quot; added in 2026 for clarity.">En passant legale</string>
+  <string name="enPassant">En passant legale</string>
 </resources>
