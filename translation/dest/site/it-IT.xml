@@ -713,7 +713,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="keyShowOrHideComments">mostra/nascondi i commenti</string>
   <string name="keyEnterOrExitVariation">entra/esci dalla variante</string>
   <string name="keyRequestComputerAnalysis">Richiedi analisi del computer, Impara dai tuoi errori</string>
-  <string name="keyNextLearnFromYourMistakes">Prossimo (Impara dai tuoi errori)</string>
   <string name="keyNextBlunder">Prossimo grave errore</string>
   <string name="keyNextMistake">Prossimo errore</string>
   <string name="keyNextInaccuracy">Prossima imprecisione</string>
