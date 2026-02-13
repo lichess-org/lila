@@ -729,7 +729,7 @@
   <string name="onlyExistingConversations">Pouze existující konverzace</string>
   <string name="onlyFriends">Jenom přátelé</string>
   <string name="menu">Menu</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Rošáda</string>
+  <string name="castling">Rošáda</string>
   <string name="whiteCastlingKingside">Bílá O-O</string>
   <string name="blackCastlingKingside">Černá O-O</string>
   <plurals name="nbForumPosts">
@@ -789,7 +789,6 @@
   <string name="keyShowOrHideComments">zobrazte/skryjte komentáře</string>
   <string name="keyEnterOrExitVariation">Zobraz variantu</string>
   <string name="keyRequestComputerAnalysis">Vyžádejte si počítačovou analýzu, poučte se ze svých chyb</string>
-  <string name="keyNextLearnFromYourMistakes">Další (poučit se z chyb)</string>
   <string name="keyNextBlunder">Další hrubá chyba</string>
   <string name="keyNextMistake">Další chyba</string>
   <string name="keyNextInaccuracy">Další nepřesnost</string>
@@ -1101,5 +1100,5 @@ Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z př�
   <string name="search">Hledat</string>
   <string name="clearSearch">Vymazat vyhledávání</string>
   <string name="tags">Štítky</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.&#10;&#10;NOTE: this string used to read &quot;En passant&quot;, with &quot;rights&quot; added in 2026 for clarity.">Braní mimochodem</string>
+  <string name="enPassant">Braní mimochodem</string>
 </resources>
