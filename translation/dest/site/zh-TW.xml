@@ -666,7 +666,6 @@
   <string name="keyShowOrHideComments">顯示/隱藏評論</string>
   <string name="keyEnterOrExitVariation">進入/退出變體</string>
   <string name="keyRequestComputerAnalysis">請求引擎分析，從你的失誤中學習</string>
-  <string name="keyNextLearnFromYourMistakes">下一個 (從你的失誤中學習)</string>
   <string name="keyNextBlunder">下一個漏著</string>
   <string name="keyNextMistake">下一個錯誤</string>
   <string name="keyNextInaccuracy">下一個輕微失誤</string>
