@@ -53,6 +53,8 @@
   <string name="endgame">Sluttspel</string>
   <string name="endgameDescription">Taktikk i den siste fasen av partiet.</string>
   <string name="enPassantDescription">Ein taktikk som inneber at en-passant-regelen blir tatt i bruk. Det betyr at ein bonde kan slå ut ein motspelar-bonde som har passert den etter å ha starta med å flytte to felt, på samme måte som om den hadde starta med å flytte ett felt.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Epålettmatt</string>
+  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">To fluktfelt er blokkert for ein konge som står i sjakk.</string>
   <string name="exposedKing">Eksponert konge</string>
   <string name="exposedKingDescription">Taktikk retta mot ein konge med få forsvarar rundt seg, noko som ofte leier til sjakk matt.</string>
   <string name="fork">Gaffel</string>
