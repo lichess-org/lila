@@ -53,6 +53,7 @@
   <string name="endgame">Końcówka</string>
   <string name="endgameDescription">Taktyka w ostatniej fazie gry.</string>
   <string name="enPassantDescription">Taktyka wykorzystująca bicie w przelocie, gdzie pion może zbić piona przeciwnika, który minął go wykonawszy swoje początkowe posuniecie o dwa pola.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Mat naramiennikowy</string>
   <string name="exposedKing">Odsłonięty król</string>
   <string name="exposedKingDescription">Taktyka z udziałem króla z kilkoma jego obrońcami, często prowadząca do mata.</string>
   <string name="fork">Widełki</string>
