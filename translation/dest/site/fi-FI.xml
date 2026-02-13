@@ -664,7 +664,7 @@
   <string name="onlyExistingConversations">Vain jo aloitettuihin keskusteluihin</string>
   <string name="onlyFriends">Vain kaverit</string>
   <string name="menu">Valikko</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Linnoitus</string>
+  <string name="castling">Linnoitus</string>
   <string name="whiteCastlingKingside">Valkea O-O</string>
   <string name="blackCastlingKingside">Musta O-O</string>
   <plurals name="nbForumPosts">
@@ -722,7 +722,6 @@
   <string name="keyShowOrHideComments">näytä/piilota kommentit</string>
   <string name="keyEnterOrExitVariation">lisää/poista muunnelma</string>
   <string name="keyRequestComputerAnalysis">Pyydä tietokoneanalyysiä, opi virheistäsi</string>
-  <string name="keyNextLearnFromYourMistakes">Seuraava (Opi virheistäsi)</string>
   <string name="keyNextBlunder">Seuraava vakava virhe</string>
   <string name="keyNextMistake">Seuraava virhe</string>
   <string name="keyNextInaccuracy">Seuraava epätarkkuus</string>
@@ -1028,5 +1027,5 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="search">Hae</string>
   <string name="clearSearch">Tyhjennä haku</string>
   <string name="tags">Tunnisteet</string>
-  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.&#10;&#10;NOTE: this string used to read &quot;En passant&quot;, with &quot;rights&quot; added in 2026 for clarity.">Ohestalyönti</string>
+  <string name="enPassant">Ohestalyönti</string>
 </resources>
