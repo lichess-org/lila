@@ -34,7 +34,7 @@
   <string name="discoveredCheckDescription">Переміщення однієї фігури відкриває іншу, яка ставить шах королю. Часто призводить до вирішальної переваги.</string>
   <string name="doubleBishopMate">Мат двома слонами</string>
   <string name="doubleBishopMateDescription">Два слони на сусідніх діагоналях ставлять мат королю, який оточений власними фігурами.</string>
-  <string name="dovetailMate">Мат \"ластівчин хвіст\"</string>
+  <string name="dovetailMate">Мат Козіо</string>
   <string name="dovetailMateDescription">Ферзь ставить мат королю поруч, єдині два поля для відступу якого зайняті його власними фігурами.</string>
   <string name="equality">Рівність</string>
   <string name="equalityDescription">Повернення з програшної позиції, забезпечення нічиєї або отримання збалансованої позиції. (eval ≤ 200cp)</string>
@@ -79,7 +79,7 @@
   <string name="triangleMateDescription">Ферзь і тура на відстані одного поля від ворожого короля перебувають на одній горизонталі чи вертикалі та формують трикутник.</string>
   <string name="vukovicMate">Мат Вуковіча</string>
   <string name="vukovicMateDescription">Тура й кінь об\'єднуються, аби поставити мат королю. Тура, яку захищає третя фігура, ставить мат, а кінь блокує всі поля, через які король може втекти.</string>
-  <string name="knightEndgame">Коньовий ендшпіль</string>
+  <string name="knightEndgame">Кіньовий ендшпіль</string>
   <string name="knightEndgameDescription">Ендшпіль лише з конями та пішаками.</string>
   <string name="long">Багатоходова задача</string>
   <string name="longDescription">Перемога за три ходи.</string>
@@ -91,8 +91,8 @@
   <string name="mateDescription">Виграйте гру красиво.</string>
   <string name="mateIn1">Мат в 1 хід</string>
   <string name="mateIn1Description">Поставте мат в один хід.</string>
-  <string name="mateIn2">Мат в 2 ходи</string>
-  <string name="mateIn2Description">Поставте мат в два ходи.</string>
+  <string name="mateIn2">Мат у 2 ходи</string>
+  <string name="mateIn2Description">Поставте мат у два ходи.</string>
   <string name="mateIn3">Мат в 3 ходи</string>
   <string name="mateIn3Description">Поставте мат в три ходи.</string>
   <string name="mateIn4">Мат в 4 ходи</string>
