@@ -593,7 +593,6 @@
   <string name="keyGoToStartOrEnd">ire initium/finem</string>
   <string name="keyShowOrHideComments">aperire/operire commentarios</string>
   <string name="keyEnterOrExitVariation">inire/exire variationem</string>
-  <string name="keyNextLearnFromYourMistakes">Proximus (Disce ex errata tua)</string>
   <string name="keyNextBlunder">Mendum proximum</string>
   <string name="keyNextMistake">Erratum proximum</string>
   <string name="keyNextInaccuracy">Indiligentia proxima</string>
