@@ -28,6 +28,7 @@ export interface HasLine {
 export interface AnyUser extends HasRating, HasFlair, HasTitle, HasLine {
   name: string;
   online?: boolean; // light up .line
+  playing?: boolean; // light up .line in red
   attrs?: Attrs;
 }
 
@@ -36,7 +37,7 @@ export const userLink = (u: AnyUser): VNode =>
 
 export const userLinkData = (u: AnyUser): VNodeData => ({
   // can't be inlined because of thunks
-  class: { 'user-link': true, ulpt: u.name !== 'ghost', online: !!u.online },
+  class: { 'user-link': true, ulpt: u.name !== 'ghost', online: !!u.online, playing: !!u.playing },
   attrs: { href: `/@/${u.name}`, ...u.attrs },
 });
 

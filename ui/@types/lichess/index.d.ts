@@ -212,6 +212,7 @@ interface LightUser extends LightUserNoId {
 
 interface LightUserOnline extends LightUser {
   online: boolean;
+  playing?: boolean;
 }
 
 interface Navigator {

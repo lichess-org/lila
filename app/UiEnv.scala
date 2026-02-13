@@ -39,6 +39,7 @@ object UiEnv
   protected val ratingApi = lila.rating.ratingApi
   protected lazy val flairApi = env.user.flairApi
   def isOnline = env.socket.isOnline
+  def isPlaying = u => env.round.playing(u)
   def lightUserSync = env.user.lightUserSync
   def manifest = env.web.manifest
   def analyseEndpoints = env.web.analyseEndpoints

@@ -15,6 +15,7 @@ trait UserHelper:
 
   protected val ratingApi: RatingApi
   def isOnline: IsOnline
+  def isPlaying: UserId => Boolean
   def lightUserSync: LightUser.GetterSync
 
   given Conversion[UserWithPerfs, User] = _.user
@@ -202,7 +203,12 @@ trait UserHelper:
   ): List[(String, Boolean)] =
     if userId.isGhost then List("user-link" -> true, ~cssClass -> cssClass.isDefined)
     else
-      (withOnline.so(List((if isOnline.exec(userId) then "online" else "offline") -> true))) ::: List(
+      (withOnline.so(
+        List(
+          (if isOnline.exec(userId) then "online" else "offline") -> true,
+          "playing" -> isPlaying(userId)
+        )
+      )) ::: List(
         "user-link" -> true,
         ~cssClass -> cssClass.isDefined,
         "ulpt" -> withPowerTip
