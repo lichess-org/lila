@@ -131,6 +131,8 @@
   <string name="evaluationGauge">Indicator de evaluare</string>
   <string name="visualMotifs">Motive vizuale</string>
   <string name="undefendedPieces">Piese neapărate</string>
+  <string name="pinnedPieces">Piese țintuite</string>
+  <string name="checkableKing">Rege expus la șah</string>
   <string name="multipleLines">Mutări multiple</string>
   <string name="cpus">Procesoare</string>
   <string name="memory">Memorie</string>
@@ -700,7 +702,7 @@
   <string name="onlyExistingConversations">Doar conversații existente</string>
   <string name="onlyFriends">Doar prieteni</string>
   <string name="menu">Meniu</string>
-  <string name="castling">Rocadă</string>
+  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Rocadă</string>
   <string name="whiteCastlingKingside">Alb O-O</string>
   <string name="blackCastlingKingside">Negru O-O</string>
   <plurals name="nbForumPosts">
@@ -769,6 +771,7 @@
   <string name="cyclePreviousOrNextVariation">Ciclu de variație precedentă/următoare</string>
   <string name="toggleGlyphAnnotations">Comută comentarii la mutări</string>
   <string name="togglePositionAnnotations">Activează/Dezactivează adnotările pozițiilor</string>
+  <string name="toggleObservationAnnotations">Comută adnotări observaționale</string>
   <string name="variationArrowsInfo">Săgețile de variație vă permit să navigați fără a utiliza lista mutărilor.</string>
   <string name="playSelectedMove">joacă mutarea selectată</string>
   <string name="newTournament">Turneu nou</string>
@@ -1069,4 +1072,5 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="search">Căutare</string>
   <string name="clearSearch">Șterge căutarea</string>
   <string name="tags">Etichete</string>
+  <string name="enPassant" comment="Appears in the board editor (https://lichess.org/editor).&#10;&#10;It is for a setting to determine if en passant will be available for that current position.&#10;&#10;If it is selected, then it will be added to the FEN for that position - meaning that if you play the game from that exact position, it will be possible to capture en passant.&#10;&#10;NOTE: this string used to read &quot;En passant&quot;, with &quot;rights&quot; added in 2026 for clarity.">En passant legale</string>
 </resources>
