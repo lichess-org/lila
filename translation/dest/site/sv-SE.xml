@@ -705,7 +705,6 @@
   <string name="keyShowOrHideComments">visa/göm kommentarer</string>
   <string name="keyEnterOrExitVariation">påbörja/avsluta variant</string>
   <string name="keyRequestComputerAnalysis">Begär datoranalys, lär av dina misstag</string>
-  <string name="keyNextLearnFromYourMistakes">Nästa (Lär av dina misstag)</string>
   <string name="keyNextBlunder">Nästa blunder</string>
   <string name="keyNextMistake">Nästa misstag</string>
   <string name="keyNextInaccuracy">Nästa felaktighet</string>
