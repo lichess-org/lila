@@ -52,6 +52,8 @@
   <string name="endgame">Final</string>
   <string name="endgameDescription">Una tàctica durant la última fase del joc.</string>
   <string name="enPassantDescription">Una tàctica que involucra la regla de captura de pas, on un peó pot capturar el peó d\'un oponent que l\'ha passat utilitzant el seu moviment inicial de dues caselles.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Mat de l\'espatllera</string>
+  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Dues caselles adjacents al rei escaquejat estan ocupades per altres peces.</string>
   <string name="exposedKing">Rei exposat</string>
   <string name="exposedKingDescription">Una tàctica que involucra un rei amb alguns defensors al seu voltant, sovint acabant amb escac i mat.</string>
   <string name="fork">Doble</string>
@@ -70,6 +72,8 @@
   <string name="pillsburysMateDescription">La torre fa escac i mat mentre l\'alfil ajuda a confinar el rei.</string>
   <string name="morphysMate">Mat de Morphy</string>
   <string name="morphysMateDescription">Utilitza l\'alfil per fer escac al rei mentre la torre ajuda a confinar-lo.</string>
+  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Mat de la cua d\'oreneta</string>
+  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Un mat que visualment ens recorda la forma de la cua d\'una oreneta, similar a una forma de V.</string>
   <string name="triangleMate">Mat del triangle</string>
   <string name="triangleMateDescription">La dama i la torre, a una distància del rei enemic, estan a la mateixa fila o columna separats per una casella formant un triangle.</string>
   <string name="vukovicMate">Mat de Vukovic</string>
