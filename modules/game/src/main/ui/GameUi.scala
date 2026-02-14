@@ -284,15 +284,17 @@ final class GameUi(helpers: Helpers):
       )
 
     def miniBoard(pov: Pov, position: Option[BookmarkPosition] = None)(using ctx: Context): Tag => Tag =
-      chessgroundMini(
-        if ctx.me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.playable
-        then Fen.Board("8/8/8/8/8/8/8/8")
-        else position.map(_.fen.board).getOrElse(Fen.writeBoard(pov.game.position)),
-        position
-          .map(_.color)
-          .getOrElse(if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color),
-        position.flatMap(_.lastMove).orElse(if position.isEmpty then pov.game.history.lastMove else None)
-      )
+      position match
+        case Some(BookmarkPosition(_, fen, color, lastMove)) =>
+          chessgroundMini(fen.board, color, lastMove)
+        case None =>
+          chessgroundMini(
+            if ctx.me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.playable
+            then Fen.Board("8/8/8/8/8/8/8/8")
+            else Fen.writeBoard(pov.game.position),
+            if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color,
+            pov.game.history.lastMove
+          )
 
     def content(g: Game, note: Option[String], as: Option[Player])(using Context) = frag(
       div(cls := "versus")(
