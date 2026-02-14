@@ -1,4 +1,4 @@
-import { defined } from './index';
+import { defined, notNull } from './index';
 
 export const jsonHeader = {
   Accept: 'application/web.lichess+json',
@@ -67,9 +67,11 @@ export const script = (src: string): Promise<void> =>
   });
 
 /* produce HTTP form data from a JS object */
-export const form = (data: Record<string, string | string[] | boolean | number | undefined>): FormData => {
+export const form = (
+  data: Record<string, string | string[] | boolean | number | null | undefined>,
+): FormData => {
   const formData = new FormData();
-  for (const k of Object.keys(data)) if (defined(data[k])) formData.append(k, data[k].toString());
+  for (const k of Object.keys(data)) if (notNull(data[k])) formData.append(k, data[k].toString());
   return formData;
 };
 
