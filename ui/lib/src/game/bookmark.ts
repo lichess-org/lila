@@ -20,11 +20,13 @@ async function bookmarkOptions(gameURL: string, positionURL: string, t: HTMLAnch
   }
 
   await domDialog({
-    class: 'continue-with',
+    class: 'dialog-content',
     show: true,
     htmlText: `
+      <div class="continue-with">
       <a class="button" rel="nofollow">${i18n.site.bookmarkThisGame}</a>
       <a class="button" rel="nofollow">${i18n.site.bookmarkThisPosition}</a>
+      </div>
     `,
     actions: [
       {
