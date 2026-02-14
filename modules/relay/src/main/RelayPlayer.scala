@@ -126,12 +126,10 @@ object RelayPlayer:
 
   object json:
     import scalalib.Json.writeAs
-    import RelayJsonView.given
     given Writes[Outcome] = Json.writes
     given Writes[Outcome.Points] = writeAs(_.show)
     given Writes[Outcome.GamePoints] = writeAs(points => Outcome.showPoints(points.some))
     given Writes[FideTC] = writeAs(_.toString)
-    given Writes[RelayPlayer.Game] = Json.writes
     given Writes[Seq[(Tiebreak, TiebreakPoint)]] = Writes: tbs =>
       Json.toJson:
         tbs.map: (tb, tbv) =>
@@ -156,16 +154,12 @@ object RelayPlayer:
     def full(
         tour: RelayTour
     )(p: RelayPlayer, fidePlayer: Option[FidePlayer], user: Option[User], follow: Option[Boolean]): JsObject =
-      val tc = tour.info.fideTcOrGuess
-      lazy val eloPlayer = p.rating
-        .map(_.into(Elo))
-        .orElse(fidePlayer.flatMap(_.ratingOf(tc)))
-        .map:
-          Elo.Player(_, fidePlayer.fold(chess.rating.KFactor.default)(_.kFactorOf(tc)))
+      lazy val tcPlayerMap: Map[FideTC, Elo.Player] = p.ratingsMap.map: (tc, tcRating) =>
+        tc -> Elo.Player(tcRating.into(Elo), fidePlayer.fold(chess.rating.KFactor.default)(_.kFactorOf(tc)))
       val gamesJson = p.games.map: g =>
         val rd = tour.showRatingDiffs.so:
-          (eloPlayer, g.eloGame).tupled.map: (ep, eg) =>
-            Elo.computeRatingDiff(tc)(ep, List(eg))
+          (tcPlayerMap.get(g.fideTC), g.eloGame).mapN: (ep, eg) =>
+            Elo.computeRatingDiff(g.fideTC)(ep, List(eg))
         Json
           .obj(
             "round" -> g.round,
@@ -183,7 +177,9 @@ object RelayPlayer:
         .add("fide", fidePlayer.map(Json.toJsObject).map(_.add("follow", follow))) ++
         Json.obj("games" -> gamesJson)
     given OWrites[FidePlayer] = OWrites: p =>
-      Json.obj("ratings" -> p.ratingsMap, "year" -> p.year)
+      Json
+        .obj("year" -> p.year)
+        .add("ratings" -> p.ratingsMap.nonEmptyOption)
 
 private final class RelayPlayerApi(
     tourRepo: RelayTourRepo,
@@ -299,7 +295,7 @@ private final class RelayPlayerApi(
                           color,
                           tags.points,
                           round.rated,
-                          toursById.get(round.tourId).flatMap(_.info.fideTc).getOrElse(FideTC.standard),
+                          toursById.get(round.tourId).flatMap(_.info.fideTC).getOrElse(FideTC.standard),
                           round.customScoring,
                           unplayed = tags.value.contains(RelayGame.unplayedTag)
                         )

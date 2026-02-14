@@ -341,6 +341,6 @@ object RelayTeamTable:
       Json
         .obj(
           "name" -> t.name,
-          "players" -> Json.toJson(t.players.values.toList)
+          "players" -> Json.toJson(t.players.values.toList),
+          "points" -> Json.toJson(t.points.orZero)
         )
-        .add("points" -> t.points)

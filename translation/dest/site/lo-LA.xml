@@ -673,7 +673,6 @@
   <string name="keyShowOrHideComments">ສະແດງ/ຊ່ອນ ຄຳຄິດເຫັນ</string>
   <string name="keyEnterOrExitVariation">ເຂົ້າ/ອອກ ຈາກຮູບແບບການເດີນ (Variation)</string>
   <string name="keyRequestComputerAnalysis">ຂໍການວິເຄາະດ້ວຍຄອມພິວເຕີ, ຮຽນຮູ້ຈາກຂໍ້ຜິດພາດຂອງທ່ານ</string>
-  <string name="keyNextLearnFromYourMistakes">ຕໍ່ໄປ (ຮຽນຮູ້ຈາກຂໍ້ຜິດພາດຂອງທ່ານ)</string>
   <string name="keyNextBlunder">ຂໍ້ຜິດພາດຮ້າຍແຮງ (Blunder) ຖັດໄປ</string>
   <string name="keyNextMistake">ຂໍ້ຜິດພາດຖັດໄປ</string>
   <string name="keyNextInaccuracy">ຈຸດທີ່ບໍ່ແມ່ນຍຳ (Inaccuracy) ຖັດໄປ</string>

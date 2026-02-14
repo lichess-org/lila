@@ -73,23 +73,7 @@ object BSONHandlers:
       "color" -> o.color
     )
 
-  private[user] given BSONDocumentHandler[Count] = new BSON[Count]:
-    def reads(r: BSON.Reader): Count =
-      lila.core.user.Count(
-        draw = r.nInt("draw"),
-        game = r.nInt("game"),
-        loss = r.nInt("loss"),
-        rated = r.nInt("rated"),
-        win = r.nInt("win")
-      )
-    def writes(w: BSON.Writer, o: Count) =
-      $doc(
-        "draw" -> w.int(o.draw),
-        "game" -> w.int(o.game),
-        "loss" -> w.int(o.loss),
-        "rated" -> w.int(o.rated),
-        "win" -> w.int(o.win)
-      )
+  private[user] given BSONDocumentHandler[Count] = Macros.handler[Count]
 
   private[user] given BSONHandler[HashedPassword] = quickHandler[HashedPassword](
     { case v: BSONBinary => HashedPassword(v.byteArray) },

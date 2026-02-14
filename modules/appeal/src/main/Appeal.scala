@@ -21,6 +21,7 @@ case class Appeal(
   def isMuted = status == Appeal.Status.Muted
   def isUnread = status == Appeal.Status.Unread
   def isRecent = updatedAt.isAfter(nowInstant.minusWeeks(1))
+  def isOld = updatedAt.isBefore(nowInstant.minusMonths(6))
 
   def isAbout(userId: UserId) = id.is(userId)
 

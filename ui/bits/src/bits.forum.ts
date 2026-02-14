@@ -91,7 +91,7 @@ site.load.then(() => {
   const quoted = new Set<string>();
 
   $('.quote.button').on('click', function (this: HTMLButtonElement) {
-    const post = this.closest('.forum-post')!,
+    const post = this.closest<HTMLElement>('.forum-post')!,
       authorUsername = $(post).find('.author').attr('href')?.substring(3),
       author = authorUsername ? '@' + authorUsername : $(post).find('.author').text(),
       reply = document.querySelector<HTMLTextAreaElement>('.reply .post-text-area')!;
@@ -100,12 +100,12 @@ site.load.then(() => {
       quotedMarkdown(this.closest('article')) ??
       post.querySelector('.forum-post__message-source')!.textContent
     ).split('\n');
-    if (lines[0].match(/^(?:> )*@.+ said in #\d+:$/)) lines.shift();
+    if (lines[0].match(/^(?:> )*@.+ said (?:in #\d+:$|\[\^\]\()/)) lines.shift();
 
     if (lines.length === 0) return;
 
     const quote =
-      `${author} said:\n` +
+      `${author} said [^](/forum/redirect/post/${post.dataset.postId})\n` +
       lines
         .map(line => `> ${line}\n`)
         .join('')

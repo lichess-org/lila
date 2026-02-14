@@ -1,18 +1,22 @@
 .copy-me {
   @extend %box-radius, %flex-center-nowrap;
-  border: $border;
 }
 .copy-me__target {
-  @extend %ellipsis;
+  @extend %ellipsis, %box-radius-left;
   flex: 1 1 auto;
   white-space: nowrap;
-  border-radius: 0;
   padding: 0.8em 1em;
   border: 0;
   outline: 0;
   background: none;
+  border: $border;
+  border-right: 0;
+  min-height: 44px;
 }
 .copy-me__button {
+  @extend %box-radius-right;
   flex: 0 0 auto;
-  border-radius: 0;
+  border: $border;
+  border-left: 0;
+  min-height: 44px;
 }

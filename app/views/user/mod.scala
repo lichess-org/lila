@@ -171,10 +171,11 @@ object mod:
                       cls := List(
                         "text" -> true,
                         "appeal-recent" -> appeal.isRecent,
+                        "appeal-old" -> appeal.isOld,
                         "appeal-muted" -> appeal.isMuted
                       ),
                       dataIcon := Icon.InkQuill,
-                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted.so(" [MUTED]")}"
+                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted.so(" [MUTED]")}\nLast message: ${pastMomentServerText(appeal.updatedAt)}"
                     )(appeal.msgs.size)
                   )
               ,

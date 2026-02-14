@@ -67,7 +67,6 @@
   }
 
   .show-threat {
-    @extend %button-none;
     flex: 0 0 18px;
     color: $c-font-dim;
     font-size: 16px;
@@ -87,7 +86,6 @@
   }
 
   .settings-gear {
-    @extend %button-none;
     color: $c-font-dim;
     font-size: 16px;
     padding: 0 6px;

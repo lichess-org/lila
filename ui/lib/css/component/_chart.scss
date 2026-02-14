@@ -100,7 +100,6 @@
   }
   .noUi-state-tap .noUi-connect,
   .noUi-state-tap .noUi-origin {
-    -webkit-transition: transform 0.3s;
     transition: transform 0.3s;
   }
   .noUi-state-drag * {
@@ -117,11 +116,11 @@
   .noUi-horizontal .noUi-handle {
     width: 5px;
     height: 21px;
-    right: 0px;
+    right: 0;
     top: -6px;
   }
   .noUi-txt-dir-rtl.noUi-horizontal .noUi-handle {
-    left: 0px;
+    left: 0;
     right: auto;
   }
   /* Styling;

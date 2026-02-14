@@ -363,8 +363,7 @@ POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
 POST  /streamer/subscribe/:streamer    controllers.Streamer.subscribe(streamer: UserStr, set: Boolean ?= true)
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
-GET   /streamer/:username              controllers.Streamer.show(username: UserStr)
-GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: UserStr)
+GET   /streamer/:username              controllers.Streamer.show(username: UserStr, redirect: Boolean ?= false)
 POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
 GET   /streamer/twitch/oauth/link      controllers.Streamer.oauthLinkTwitch
 GET   /streamer/twitch/oauth/redirect  controllers.Streamer.oauthTwitchRedirect
@@ -675,7 +674,7 @@ POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(sl
 # Msg compat
 POST  /inbox/new                       controllers.Msg.compatCreate
 # Msg
-GET   /inbox                           controllers.Msg.home
+GET   /inbox                           controllers.Msg.home(before: Option[Long] ?= None)
 GET   /inbox/search                    controllers.Msg.search(q)
 GET   /inbox/unread-count              controllers.Msg.unreadCount
 GET   /inbox/:username                 controllers.Msg.convo(username: UserStr, before: Option[Long] ?= None)
@@ -857,11 +856,8 @@ GET   /tutor                           controllers.Tutor.home()
 GET   /tutor/:username                 controllers.Tutor.user(username: UserStr)
 POST  /tutor/:username/refresh         controllers.Tutor.refresh(username: UserStr)
 GET   /tutor/:username/:perf           controllers.Tutor.perf(username: UserStr, perf: PerfKey)
-GET   /tutor/:username/:perf/skill     controllers.Tutor.skills(username: UserStr, perf: PerfKey)
-GET   /tutor/:username/:perf/opening   controllers.Tutor.openings(username: UserStr, perf: PerfKey)
+GET   /tutor/:username/:perf/:angle    controllers.Tutor.angle(username: UserStr, perf: PerfKey, angle)
 GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(username: UserStr, perf: PerfKey, color: Color, opening)
-GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username: UserStr, perf: PerfKey)
-GET   /tutor/:username/:perf/time      controllers.Tutor.time(username: UserStr, perf: PerfKey)
 
 # Recap
 GET   /recap                           controllers.Recap.home

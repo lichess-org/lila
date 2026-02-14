@@ -134,7 +134,8 @@ disposable test msumain.edu.ph
 disposable reload msumain.edu.ph
 video sheet
 puzzle issue {id} {longer-win | ambiguous | ...}
-fide player sync
 cache clear security.session.info
+fide player sync
 fide player rip 2026961 2025
+fide player delete 2026961
 """

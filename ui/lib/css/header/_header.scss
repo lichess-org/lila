@@ -20,9 +20,7 @@ body > header {
     width: 100%;
     padding: 0 var(---site-header-sticky-padding);
     border-bottom: 1px solid transparent;
-    transition:
-      transform $transition-duration ease-in-out,
-      border-color $transition-duration ease-in-out;
+    @include transition(transform border-color, $transition-duration, ease-in-out);
 
     &.scrolled {
       background-image: linear-gradient(to bottom, $c-body-gradient, $m-body-gradient_bg-page--mix-50 60px);

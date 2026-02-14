@@ -21,7 +21,6 @@
   }
 
   > button {
-    @extend %button-none;
     color: $c-font-dim;
     font-size: 16px;
     padding: 0 6px;

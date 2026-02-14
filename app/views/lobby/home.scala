@@ -23,11 +23,7 @@ object home:
             )
             .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
             .add("bots", Granter.opt(_.Beta))
-            .add(
-              "playban",
-              playban.map: pb =>
-                Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
-            )
+            .add("playban", playban.map(lila.playban.TempBan.lobbyJson))
         )
       )
       .css("lobby")
@@ -71,17 +67,7 @@ object home:
           ,
           div(cls := "lobby__side")(
             ctx.blind.option(h2(trans.nvui.featuredEvents())),
-            ctx.kid.no.option(
-              st.section(cls := "lobby__streams")(
-                views.streamer.bits.liveStreams(streams),
-                streams.live.streams.nonEmpty.option(
-                  a(href := routes.Streamer.index(), cls := "more")(
-                    trans.site.streamersMenu(),
-                    " »"
-                  )
-                )
-              )
-            ),
+            ctx.kid.no.option(views.streamer.bits.liveStreams(streams)),
             div(cls := "lobby__spotlights"):
               val eventTags = events.map(bits.spotlight)
               val relayTags = views.relay.ui.spotlight(relays)

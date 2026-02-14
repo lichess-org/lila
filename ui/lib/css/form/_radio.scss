@@ -39,4 +39,9 @@ group.radio {
   input:checked + label {
     @extend %active;
   }
+
+  input:focus-visible + label {
+    outline: $outline;
+    outline-offset: -2px;
+  }
 }

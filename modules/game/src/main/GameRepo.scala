@@ -278,18 +278,6 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .one[Bdoc]
       .dmap { _.flatMap(_.getAsOpt[GameId](F.id)) }
 
-  def lastFinishedRatedNotFromPosition(user: User): Fu[Option[Game]] =
-    coll
-      .find(
-        Query.user(user.id) ++
-          Query.rated ++
-          Query.finished ++
-          Query.turnsGt(2) ++
-          Query.notFromPosition
-      )
-      .sort(Query.sortAntiChronological)
-      .one[Game]
-
   def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, nowInstant)
 
   def setAnalysed(id: GameId, v: Boolean): Funit = coll.updateField($id(id), F.analysed, v).void

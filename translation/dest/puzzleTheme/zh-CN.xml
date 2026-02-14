@@ -53,6 +53,8 @@
   <string name="endgame">残局</string>
   <string name="endgameDescription">对局最后阶段的战术。</string>
   <string name="enPassantDescription">涉及吃过路兵规则的战术，兵可以吃掉利用初始两格移动越过它的对方兵。</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">肩章将杀</string>
+  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">被将杀的王有两个相邻的逃逸格，但均被其他棋子占据。</string>
   <string name="exposedKing">暴露的王</string>
   <string name="exposedKingDescription">针对周围防御子稀少的王的战术，通常会导致将杀。</string>
   <string name="fork">捉双</string>
@@ -71,6 +73,8 @@
   <string name="pillsburysMateDescription">车执行将杀，而象协助限制王移动。</string>
   <string name="morphysMate">摩菲将杀</string>
   <string name="morphysMateDescription">利用象来将军，同时您的车协助限制王移动。</string>
+  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">燕尾杀王</string>
+  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">一种呈 V 字形、视觉上形似燕尾的将杀模式。</string>
   <string name="triangleMate">三角将杀</string>
   <string name="triangleMateDescription">后和车距离对方王一格，且位于同一横线或直线，中间相隔一格，形成一个三角形。</string>
   <string name="vukovicMate">瓦科维奇将杀</string>

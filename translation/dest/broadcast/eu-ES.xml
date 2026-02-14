@@ -69,6 +69,7 @@
   <string name="ratingDiff">Elo diferentzia</string>
   <string name="gamesThisTournament">Txapelketa honetako partidak</string>
   <string name="score">Emaitza</string>
+  <string name="standingsDisclaimer">Sailkapena zuzeneko emanaldian emandako partidekin kalkulatzen da eta sailkapen ofizialaren desberdina izan daiteke.</string>
   <string name="allTeams">Talde guztiak</string>
   <string name="tournamentFormat">Txapelketaren formatua</string>
   <string name="tournamentLocation">Txapelketaren kokalekua</string>
@@ -83,6 +84,11 @@
   <string name="liveboard">Zuzeneko taula</string>
   <string name="communityBroadcast">Komunitatearen zuzenekoa</string>
   <string name="createdAndManagedBy">%s erabiltzaileak sortu eta kudeatua.</string>
+  <string name="matchPoints">Neurketako puntuak</string>
+  <string name="gamePoints">Partidako puntuak</string>
+  <string name="matches">Neurketak</string>
+  <string name="matchHistory">Neurketen historikoa</string>
+  <string name="teamResults">Taldearen emaitzak</string>
   <string name="termsAutomaticallyTranslated">Balio hau(ek) automatikoki itzuli egingo d(ir)a: %s.</string>
   <string name="roundX">%s. txanda</string>
   <string name="defaultRoundNameHelp">Defektuzko izena uzten baduzu, hizkuntza guztietan ondo itzuliko da.</string>

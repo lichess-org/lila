@@ -55,6 +55,8 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="endgame">Končnica</string>
   <string name="endgameDescription">Taktika v zadnji fazi partije.</string>
   <string name="enPassantDescription">Taktika, ki vključuje pravilo en passant, kjer lahko kmet zajame nasprotnega kmeta, ki ga je z napredovanjem za dve polji zaobšel.</string>
+  <string name="epauletteMate">Epoleta mat</string>
+  <string name="epauletteMateDescription">Dve sosednji polji za pobeg pri šahovskem kralju sta zasedeni z drugimi figurami.</string>
   <string name="exposedKing">Izpostavljeni kralj</string>
   <string name="exposedKingDescription">Taktika, ki vključuje kralja s premalo obrambe, kar pogosto vodi v mat.</string>
   <string name="fork">Dvojni napad (vilice)</string>
@@ -73,6 +75,8 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="pillsburysMateDescription">Top daje mat, lovec pa pomaga omejiti mat.</string>
   <string name="morphysMate">Morphyjev mat</string>
   <string name="morphysMateDescription">S lovcem šahiraj kralja, medtem ko ti trdnjava pomaga omejiti napad.</string>
+  <string name="swallowstailMate">Mat lastovičinega repa</string>
+  <string name="swallowstailMateDescription">Vzorec šaha in mata, ki vizualno spominja na lastovičji rep, podoben obliki črke V.</string>
   <string name="triangleMate">Trikotni mat</string>
   <string name="triangleMateDescription">Kraljica in trdnjava, eno polje stran od sovražnega kralja, sta v isti vrsti ali liniji, ločeni z enim poljem in tvorita trikotnik.</string>
   <string name="vukovicMate">Vukovic mat</string>

@@ -708,7 +708,6 @@
   <string name="keyShowOrHideComments">izohlarni ko\'rsatish/yashirish</string>
   <string name="keyEnterOrExitVariation">kirish/chiqishni almashtirish</string>
   <string name="keyRequestComputerAnalysis">Kompyuter tahlilini so‘rash, o‘z xatolaringizdan o‘rganing</string>
-  <string name="keyNextLearnFromYourMistakes">Keyingi (O‘z xatolaringizdan o‘rganing)</string>
   <string name="keyNextBlunder">Navbatdagi qo‘pol xato</string>
   <string name="keyNextMistake">Navbatdagi xatolik</string>
   <string name="keyNextInaccuracy">Navbatdagi noaniqlik</string>

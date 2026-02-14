@@ -219,7 +219,7 @@ export default class RacerCtrl implements PuzCtrl {
     pubsub.emit('ply', this.run.moves);
   };
 
-  private makeVehicles = (raceId: String): Vehicle[] => {
+  private makeVehicles = (raceId: string): Vehicle[] => {
     const vehicle = [];
     for (let c = 0; c < 10; c++) {
       let h = 0;

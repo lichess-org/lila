@@ -841,11 +841,11 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   activeControlMode = () =>
-    !!this.study?.practice
+    this.study?.practice
       ? 'learn-practice'
-      : !!this.practice
+      : this.practice
         ? 'practice'
-        : !!this.retro
+        : this.retro
           ? 'retro'
           : this.showCevalProp()
             ? 'ceval'

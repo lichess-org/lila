@@ -20,8 +20,10 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
         min: isMin ? '-500' : '0',
         max: isMin ? '0' : '500',
         step: '50',
-        value: isMin ? currentRatingMin : currentRatingMax,
         disabled: isProvisional,
+      },
+      props: {
+        value: isMin ? currentRatingMin : currentRatingMax,
       },
       on: {
         input: (e: Event) => {
@@ -43,7 +45,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
         ? {
             title: i18n.site.ratingRangeIsDisabledBecauseYourRatingIsProvisional,
             'aria-disabled': 'true',
-            tabindex: 0,
+            tabindex: -1,
           }
         : undefined,
     },

@@ -3,12 +3,6 @@
     color: $c-brag;
     font-size: 0.75em;
   }
-  &__home {
-    .tutor__mascot-says h2 {
-      font-size: 1.5em;
-      line-height: 2em;
-    }
-  }
   &__perfs {
     &__perf {
       .slist tr td {
@@ -19,10 +13,17 @@
   &__empty {
     &__cta {
       text-align: center;
-      margin: 10vh 0 5vh 0;
+      margin: 5vh 0;
     }
     .spinner {
       margin: 10vh auto;
+    }
+    ol {
+      margin-bottom: 1em;
+      li {
+        list-style: number;
+        list-style-position: inside;
+      }
     }
   }
   &__queued {

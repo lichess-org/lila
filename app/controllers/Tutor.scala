@@ -10,7 +10,7 @@ import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorQueue }
 
 final class Tutor(env: Env) extends LilaController(env):
 
-  def home = Beta { _ ?=> me ?=>
+  def home = Auth { _ ?=> me ?=>
     Redirect(routes.Tutor.user(me.username))
   }
 
@@ -22,33 +22,27 @@ final class Tutor(env: Env) extends LilaController(env):
     Ok.page(views.tutor.perf(full.report, perf, user))
   }
 
-  def openings(username: UserStr, perf: PerfKey) =
-    TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
-      Ok.page(views.tutor.openingUi.openings(full.report, perf, user))
-    }
+  def angle(username: UserStr, perf: PerfKey, angle: String) = TutorPerfPage(username, perf) {
+    _ ?=> user => full => perf =>
+      angle match
+        case "skills" => Ok.page(views.tutor.perf.skills(full.report, perf, user))
+        case "phases" => Ok.page(views.tutor.perf.phases(full.report, perf, user))
+        case "time" => Ok.page(views.tutor.perf.time(full.report, perf, user))
+        case "pieces" => Ok.page(views.tutor.perf.pieces(full.report, perf, user))
+        case "opening" => Ok.page(views.tutor.openingUi.openings(full.report, perf, user))
+        case _ => notFound
+  }
 
   def opening(username: UserStr, perf: PerfKey, color: Color, opName: String) =
     TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
       LilaOpeningFamily
         .find(opName)
         .flatMap(perf.openings(color).find)
-        .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): family =>
+        .fold(Redirect(routes.Tutor.angle(user.username, perf.perf.key, "openings")).toFuccess): family =>
           env.puzzle.opening.find(family.family.key).flatMap { puzzle =>
             Ok.page(views.tutor.opening(full.report, perf, family, color, user, puzzle))
           }
     }
-
-  def skills(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
-    Ok.page(views.tutor.perf.skills(full.report, perf, user))
-  }
-
-  def phases(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
-    Ok.page(views.tutor.perf.phases(full.report, perf, user))
-  }
-
-  def time(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
-    Ok.page(views.tutor.perf.time(full.report, perf, user))
-  }
 
   def refresh(username: UserStr) = TutorPageAvailability(username) { _ ?=> user => availability =>
     env.tutor.api.request(user, availability).inject(redirHome(user))
@@ -57,7 +51,7 @@ final class Tutor(env: Env) extends LilaController(env):
   private def TutorPageAvailability(
       username: UserStr
   )(f: Context ?=> UserModel => TutorFullReport.Availability => Fu[Result]): EssentialAction =
-    Beta { _ ?=> me ?=>
+    Auth { _ ?=> me ?=>
       def proceed(user: UserWithPerfs) = env.tutor.api.availability(user).flatMap(f(user.user))
       if me.is(username) then env.user.api.withPerfs(me.value).flatMap(proceed)
       else

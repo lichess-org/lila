@@ -31,8 +31,6 @@
     text-align: center;
 
     button {
-      @extend %button-none;
-
       margin-inline-start: 1em;
       color: $c-link;
 

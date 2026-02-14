@@ -9,15 +9,14 @@ import { type LooseVNodes, hl, bind, toggleButton as boardMenuToggleButton } fro
 import { anyClockView } from './clock';
 
 function renderPlayer(ctrl: RoundController, position: TopOrBottom) {
+  if (ctrl.nvui) return undefined;
   const player = ctrl.playerAt(position);
-  return ctrl.nvui
-    ? undefined
-    : player.ai
-      ? hl('div.user-link.online.ruser.ruser-' + position, [
-          hl('i.line'),
-          hl('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
-        ])
-      : userHtml(ctrl, player, position);
+  return player.ai
+    ? hl('div.user-link.online.ruser.ruser-' + position, [
+        hl('i.line'),
+        hl('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
+      ])
+    : userHtml(ctrl, player, position);
 }
 
 const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;
@@ -39,7 +38,6 @@ export const renderTableEnd = (ctrl: RoundController): LooseVNodes =>
 export const renderTableWatch = (ctrl: RoundController): LooseVNodes =>
   renderTableWith(ctrl, [
     isLoading(ctrl) ? loader() : playable(ctrl.data) ? undefined : button.watcherFollowUp(ctrl),
-    boardMenuToggleButton(ctrl.menu, i18n.site.menu),
   ]);
 
 const prompt = (ctrl: RoundController) => {
@@ -79,7 +77,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
                   'takeback-yes',
                   ctrl.takebackYes,
                 ),
-            !!ctrl.drawConfirm
+            ctrl.drawConfirm
               ? button.drawConfirm(ctrl)
               : ctrl.data.game.threefold
                 ? button.claimThreefold(ctrl, d => {
@@ -100,7 +98,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
                     'draw-yes',
                     () => ctrl.offerDraw(true),
                   ),
-            !!ctrl.resignConfirm
+            ctrl.resignConfirm
               ? button.resignConfirm(ctrl)
               : button.standard(
                   ctrl,

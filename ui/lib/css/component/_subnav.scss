@@ -2,6 +2,10 @@
   a {
     @extend %page-text;
     white-space: nowrap;
+
+    &:focus-visible {
+      outline: $outline;
+    }
   }
 
   @include mq-subnav-top {

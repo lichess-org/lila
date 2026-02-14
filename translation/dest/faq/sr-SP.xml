@@ -12,27 +12,30 @@
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess је покренут донацијама наших покровитеља и трудом тима волонтера.</string>
   <string name="findMoreAndSeeHowHelp">Можеш наћи више о %1$s (укључујући %2$s). Ако желиш помоћи Lichess-у волонтирајући своје време и вештине, постоје разни %3$s.</string>
   <string name="beingAPatron">бивању покровитеља</string>
-  <string name="breakdownOfOurCosts">поделу трошкова</string>
+  <string name="breakdownOfOurCosts">поделу наших трошкова</string>
   <string name="otherWaysToHelp">други начини да помогнеш</string>
-  <string name="areThereWebsitesBasedOnLichess">Постоје ли други сајтови засновани на Личесу?</string>
-  <string name="fairPlay">Фер плеј</string>
+  <string name="areThereWebsitesBasedOnLichess">Да ли постоје вебсајтови засновани на Lichess-у?</string>
+  <string name="fairPlay">Поштена Игра</string>
+  <string name="whenAmIEligibleRatinRefund">Када имам право за аутоматско враћање рејтинга од варалица?</string>
   <string name="ratingRefundExplanation">Један минут након што је играч означен, узима се њихових последњих 40 партија у последња 3 дана. Ако си ти био један од њихових противника у тим партијама, и изгубио си рејтинг (због пораза или ремија), то добијаш свој рејтинг назад. Повраћај рејтинга је ограничен твојим максималним рејтингом и прогресом рејтинга након те партије.
   (На пример, ако ти се рејтинг драстично повећао након тих партија, ти ћеш можда добити смањен повраћај или га нећеш уопште добити). Повраћај никада неће прећи 150 поена.</string>
-  <string name="preventLeavingGameWithoutResigning">Шта је урађено поводом играча који напусте партију пре него што се предају?</string>
+  <string name="preventLeavingGameWithoutResigning">Шта је урађено поводом напуштањем партија од стране играча без да предају?</string>
   <string name="leavingGameWithoutResigningExplanation">Ако твој противник често напушта партије, он ће добити привремену забрану играња партија. Ово није јавно видљиво на њиховом профилу. Ако се оваквко понашање настави, дужина забране се све више продужује - док овакво понашање може довести и до затварања налога ако је превише често.</string>
   <string name="howCanIBecomeModerator">Како могу постати модератор?</string>
-  <string name="youCannotApply">Није могуће пријавити се за посао модератора. Ако уочимо некога за кога мислимо да би ту улогу добро извршио, ми га директно контактирамо.</string>
+  <string name="youCannotApply">Није могуће пријавити се за модератора. Ако видимо некога за кога мислимо да би био добар модератор, контактираћемо га директно.</string>
+  <string name="isCorrespondenceDifferent">Да ли је дописни другачији од нормалног шаха?</string>
+  <string name="youCanUseOpeningBookNoEngine">На Lichess-у, главна разлика у правилима за дописни шах јесте да је књига отварања дозвољена. Коришћење рачунара је још увек забрањено и резултираће тиме да играч буде означен за рачунарску помоћ. Иако ICCF дозвољава коришћење рачунара у дописном, Lichess не дозвољава.</string>
   <string name="gameplay">Ток игре</string>
-  <string name="howBulletBlitzEtcDecided">Како су муњевити, блиц и остала времена одређена?</string>
+  <string name="howBulletBlitzEtcDecided">Како су Метак-шах, Блиц и остале временске контроле одређене?</string>
   <string name="basedOnGameDuration">Личес контроле времена су засноване на процењеном трајању партије = %1$s
 На пример, процењено трајање 5+3 партије је 5 × 60 + 40 × 3 = 420 секунди.</string>
   <string name="durationFormula">(почетно време) + 40 × (инкремент сата)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Које варијанте могу играни на Личесу?</string>
-  <string name="lichessSupportChessAnd">Личес подржава стандарни шах и %1$s.</string>
-  <string name="eightVariants">8 варијанти шаха</string>
-  <string name="insufficientMaterial">Губљење на време, реми и недовољно материјала</string>
+  <string name="whatVariantsCanIplay">Које варијанте могу играти на Lichess-у?</string>
+  <string name="lichessSupportChessAnd">Lichess подржава стандардни шах и %1$s.</string>
+  <string name="eightVariants">8 шаховских варијаната</string>
+  <string name="insufficientMaterial">Губљење на време, ремизирање и недовољан материјал</string>
   <string name="lichessFollowFIDErules">У случају да играчу истекне време, тај играч најчешће губи партију. Ипак, игра се завршава ремијем ако је позиција таква да противник не може да матира играчевог краља ниједном серијум легалних потеза (%1$s).
 
 У ретким случајевима, ово може бити тешко за одлучити аутоматски (форсиране линије, тврђаве). Ми смо аутоматски на страни играча којем није истекло време.
@@ -48,27 +51,30 @@
 
 Погледај %3$s о овом потезу како би га даље провежбао.</string>
   <string name="goodIntroduction">добар увод</string>
-  <string name="lichessTraining">Личес тренинг</string>
-  <string name="threefoldRepetition">Троструко понављање</string>
+  <string name="lichessTraining">Lichess тренинг</string>
+  <string name="threefoldRepetition">Троструко поновљена позиција</string>
   <string name="threefoldRepetitionExplanation">Ако се иста позиција појави три пута, играчи могу прогласити реми %1$s. Личес прихвата званична FIDE правилам као што је опсано у Article 9.2 %2$s.</string>
-  <string name="threefoldRepetitionLowerCase">троструким понављањем</string>
-  <string name="notRepeatedMoves">Ми нисмо поновили потезе. Како је игра завршена ремијем понављањем?</string>
-  <string name="repeatedPositionsThatMatters">Троструко понављање је засновано на поновљеним %1$s, не потезима. Понављања не морају да се догоде узастопно.</string>
+  <string name="threefoldRepetitionLowerCase">троструким понављањем позиције</string>
+  <string name="notRepeatedMoves">Ми нисмо поновили потезе. Зашто је партија још увек ремизирана понављањем?</string>
+  <string name="repeatedPositionsThatMatters">Троструко понављање позиције је засновано на %1$s, не потезима. Понављање не мора да се догоди узастопно.</string>
   <string name="positions">позицијама</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Поновили смо позиције три пута. Зашто партија није завршена ремијем?</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Поновили смо позицију три пута. Зашто партија није била ремизирана?</string>
   <string name="threeFoldHasToBeClaimed">Играч треба најпре да укаже на понављање. Ово можеш урадити притиском на дугме које се појави, или тако што понудиш реми пре играња свог последњег понављајућег потеза. Небитно је да ли противник одбија понуду ремија јер се реми троструког понављања свеједно проглашава. Такође можеш %1$s Личес да аутоматски проглашава понављања за тебе. Такође, петострука понављања увек аутоматски забршавају партију.</string>
   <string name="configure">подесити</string>
   <string name="accounts">Налози</string>
-  <string name="titlesAvailableOnLichess">Које све титуле постоје на Личесу?</string>
-  <string name="canIbecomeLM">Могу ли добити Личес Мастер (ЛМ) титулу?</string>
+  <string name="titlesAvailableOnLichess">Које титуле постоје на Lichess-у?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess препознаје све ФИДЕ титуле стечене игром партија преко табле, као и %1$s. Овде је листа ФИДЕ титула:</string>
+  <string name="asWellAsManyNMtitles">много титула националног мајстора</string>
+  <string name="verificationForm">образац за потврду</string>
+  <string name="canIbecomeLM">Могу ли добити Lichess Мајстор (LM) титулу?</string>
   <string name="noUpperCaseDot">Не.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Ова титула је незванична и постоји само на Личесу.
 
 Ретко је додељујемо знаменитим играчима који су добри корисници Личеса, нашом вољом. Ти не добијеш ЛМ титулу, ЛМ титула нађе тебе. Ако си квалификован, добићеш поруку од нас у вез ње, где добијаш избор да је прихватиш или одбијеш.
 
 Немој тражити ЛМ титулу.</string>
-  <string name="whatUsernameCanIchoose">Шта моје корисничко име може бити?</string>
-  <string name="usernamesNotOffensive">Генерално, корисничко име не сме: бити увредљиво, представљати неког другог или бити реклама. Можеш више прочитати о %1$s.</string>
+  <string name="whatUsernameCanIchoose">Шта може бити моје корисничко име?</string>
+  <string name="usernamesNotOffensive">Генерално, корисничка имена не требају бити: увредљива, лажно представљати неког другог или рекламе. Можеш прочитати више о %1$s.</string>
   <string name="guidelines">смерницама</string>
   <string name="canIChangeMyUsername">Могу ли променити своје корисничко име?</string>
   <string name="uniqueTrophies">Уникатни трофеји</string>

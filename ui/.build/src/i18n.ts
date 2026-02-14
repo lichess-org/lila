@@ -110,7 +110,7 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
         .readFile(join(env.i18nDestDir, cat, `${locale}.xml`), 'utf-8')
         .catch(() => '')
         .then(parseXml)
-    : new Map<String, String | Plural>();
+    : new Map<string, string | Plural>();
 
   const translations = new Map([...dicts.get(cat)!, ...localeSpecific]);
   const lang = locale?.split('-')[0];

@@ -94,7 +94,7 @@ trait ResponseBuilder(using Executor)
   def authenticationFailed(using ctx: Context): Fu[Result] =
     negotiate(
       html = Redirect(
-        if HTTPRequest.isClosedLoginPath(ctx.req)
+        if lila.web.ClosedLogin.acceptsPath(ctx.req)
         then routes.Auth.login.url
         else
           HTTPRequest.queryStringGet("login") match

@@ -81,10 +81,7 @@ export class PushCtrl {
     await Promise.all(clears);
   }
 
-  private postFile(
-    { type, key, name, blob }: AssetBlob,
-    progress?: (e: ProgressEvent, key: string) => void,
-  ): Promise<any> {
+  private postFile({ type, key, name, blob }: AssetBlob, progress?: (e: ProgressEvent, key: string) => void) {
     return new Promise((resolve, reject) =>
       blob
         .then(file => {

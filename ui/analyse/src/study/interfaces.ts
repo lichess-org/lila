@@ -203,6 +203,7 @@ export type FederationId = string;
 export interface Federation {
   id: FederationId;
   name: string;
+  i18nName?: string;
 }
 export interface StudyPlayerBase {
   name?: string;

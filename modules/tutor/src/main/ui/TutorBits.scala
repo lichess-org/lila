@@ -5,6 +5,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
+import lila.core.userId.UserName
 
 final class TutorBits(helpers: Helpers)(
     val openingUrl: chess.opening.Opening => Call
@@ -49,13 +50,13 @@ final class TutorBits(helpers: Helpers)(
     a(href := routes.Tutor.user(user.username), cls := report.isEmpty.option("active"))("Tutor"),
     full.report.perfs.map: p =>
       a(
-        cls := List("text" -> true, "active" -> report.exists(_.perf === p.perf)),
+        cls := List("active" -> report.exists(_.perf === p.perf)),
         dataIcon := p.perf.icon,
         href := routes.Tutor.perf(user.username, p.perf.key)
       )(p.perf.trans)
   )
 
-  def perfSelector(full: TutorFullReport, current: PerfType)(routing: (UserStr, PerfKey) => Call)(using
+  def perfSelector(full: TutorFullReport, current: PerfType, angle: Option[Angle])(using
       Context
   ) =
     lila.ui.bits.mselect(
@@ -63,26 +64,31 @@ final class TutorBits(helpers: Helpers)(
       span(cls := "text", dataIcon := current.icon)(current.trans),
       full.perfs.toList.map: r =>
         a(
-          href := routing(usernameOrId(full.user), r.perf.key),
+          href := urlOf(usernameOrId(full.user), r.perf.key, angle),
           cls := List("text" -> true, "current" -> (current == r.perf)),
           dataIcon := r.perf.icon
         )(r.perf.trans)
     )
 
-  def reportSelector(report: TutorPerfReport, current: String, user: User) =
+  def reportSelector(report: TutorPerfReport, current: Angle, user: User) =
     lila.ui.bits.mselect(
       "tutor-report-select",
       span(reportAngles.find(_._1 == current).map(_._2) | current),
-      reportAngles.map: (key, name, route) =>
+      reportAngles.map: (angle, name) =>
         a(
-          href := route(user.username, report.perf.key),
-          cls := (current == key).option("current")
+          href := urlOf(user.username, report.perf.key, angle.some),
+          cls := (current == angle).option("current")
         )(name)
     )
 
-  val reportAngles: List[(String, String, (UserStr, PerfKey) => Call)] = List(
-    ("skills", "Skills", routes.Tutor.skills),
-    ("openings", "Openings", routes.Tutor.openings),
-    ("time", "Time management", routes.Tutor.time),
-    ("phases", "Game phases", routes.Tutor.phases)
+  def urlOf(user: UserName, perf: PerfType, angle: Option[Angle]) = angle match
+    case None => routes.Tutor.perf(user, perf.key)
+    case Some(a) => routes.Tutor.angle(user, perf.key, a)
+
+  val reportAngles: List[(Angle, String)] = List(
+    ("skills", "Skills"),
+    ("opening", "Openings"),
+    ("time", "Time management"),
+    ("phases", "Game phases"),
+    ("pieces", "Pieces")
   )

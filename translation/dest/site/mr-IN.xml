@@ -722,7 +722,6 @@
   <string name="keyShowOrHideComments">प्रतिक्रिया दाखवा/लपवा</string>
   <string name="keyEnterOrExitVariation">variation च्या आत/बाहेर</string>
   <string name="keyRequestComputerAnalysis">संगणक विश्लेषणासाठी विनतंती करा, तुमच्या चुकांपासून शिका</string>
-  <string name="keyNextLearnFromYourMistakes">पुढील (तुमच्या चुकांपासून शिका)</string>
   <string name="keyNextBlunder">पुढील घोडचूक</string>
   <string name="keyNextMistake">पुढील चूक</string>
   <string name="keyNextInaccuracy">पुढील अयोग्य चाल</string>

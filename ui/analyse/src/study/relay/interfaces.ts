@@ -62,12 +62,12 @@ export interface RelayRound {
 }
 
 export type FideTC = 'standard' | 'rapid' | 'blitz';
-export type StatByFideTC = Array<[FideTC, number]>;
+export type StatByFideTC = Record<FideTC, number>;
 
 export interface RelayTourInfo {
   format?: string;
   tc?: string;
-  fideTc?: FideTC;
+  fideTC?: FideTC;
   location?: string;
   players?: string;
   website?: string;

@@ -204,7 +204,6 @@ final class Study(
       study <- env.relay.api.reconfigureStudy(studyFromDb, chapter)
       previews <- withChapters.optionFu(env.study.preview.jsonList(study.id))
       _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
-      fedNames <- env.study.preview.federations.get(sc.study.id)
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
       analysis <- chapterAnalysis(sc)
       division = analysis.isDefined.option(env.study.serverEvalMerger.divisionOf(chapter))
@@ -219,7 +218,7 @@ final class Study(
         )
       )
       withMembers = !study.isRelay || isGrantedOpt(_.StudyAdmin) || ctx.me.exists(study.isMember)
-      studyJson <- env.study.jsonView.full(study, chapter, previews, fedNames.some, withMembers = withMembers)
+      studyJson <- env.study.jsonView.full(study, chapter, previews, withMembers = withMembers)
       lichobile = HTTPRequest.isLichobile(ctx.req)
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,

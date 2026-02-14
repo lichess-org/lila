@@ -21,7 +21,6 @@ final class Env(
     explorer: lila.core.game.Explorer,
     notifyApi: lila.core.notify.NotifyApi,
     federations: lila.core.fide.Federation.FedsOf,
-    federationNames: lila.core.fide.Federation.NamesOf,
     prefApi: lila.core.pref.PrefApi,
     relationApi: lila.core.relation.RelationApi,
     socketKit: lila.core.socket.SocketKit,

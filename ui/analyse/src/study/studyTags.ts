@@ -1,4 +1,4 @@
-import { onInsert } from 'lib/view';
+import { enter, onInsert } from 'lib/view';
 import { throttle } from 'lib/async';
 import { type Attrs, h, thunk, type VNode } from 'snabbdom';
 import { option } from '../view/util';
@@ -54,9 +54,7 @@ const editable = (
     attrs: { spellcheck: 'false', ...(inputAttrs[name] ?? {}), maxlength: 140, value },
     hook: onInsert<HTMLInputElement>(el => {
       el.onblur = () => submit(name, el.value, el);
-      el.onkeydown = e => {
-        if (e.key === 'Enter') el.blur();
-      };
+      el.onkeydown = enter(() => el.blur());
     }),
   });
 

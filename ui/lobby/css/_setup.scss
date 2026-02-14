@@ -53,6 +53,7 @@ $c-slider: $c-setup;
       opacity: 1;
       display: table-row;
       cursor: pointer;
+      visibility: visible;
 
       td {
         padding: 0.5em 0.8em;
@@ -182,7 +183,7 @@ $c-slider: $c-setup;
       border-bottom: $border;
       margin-bottom: 1rem;
       width: 100%;
-      span {
+      button {
         &.active,
         &:hover {
           border-color: $c-setup;
@@ -204,7 +205,7 @@ $c-slider: $c-setup;
         gap: 0.3rem;
 
         .preset-btn {
-          @extend %button-none, %box-radius;
+          @extend %box-radius;
           color: $c-font-dim;
           padding: 0.2rem 0.5rem;
           font-size: 0.9rem;
@@ -212,6 +213,9 @@ $c-slider: $c-setup;
           &:hover {
             background: $c-bg-zebra2;
             color: $c-font-clear;
+          }
+          &:focus-visible {
+            outline: $outline;
           }
           &.active {
             background: $c-setup;

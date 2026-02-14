@@ -1,5 +1,6 @@
 import { h, type VNode, type VNodes } from 'snabbdom';
-import { bind, cmnToggleWrapProp } from 'lib/view';
+import { bind } from 'lib/view';
+import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import type CoordinateTrainerCtrl from './ctrl';
 import type { TimeControl, Mode } from './interfaces';
 import { colors, type ColorChoice } from 'lib/setup/color';

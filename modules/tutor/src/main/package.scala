@@ -15,3 +15,5 @@ private given Ordering[IntRating] = intOrdering
 private given Ordering[GoodPercent] = doubleOrdering
 
 private given Conversion[UserWithPerfs, User] = _.user
+
+type Angle = "skills" | "opening" | "time" | "phases" | "pieces"

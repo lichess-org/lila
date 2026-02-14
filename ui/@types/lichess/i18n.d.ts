@@ -2659,6 +2659,10 @@ interface I18n {
     endgameDescription: string;
     /** A tactic involving the en passant rule, where a pawn can capture an opponent pawn that has bypassed it using its initial two-square move. */
     enPassantDescription: string;
+    /** Epaulette mate */
+    epauletteMate: string;
+    /** Two adjacent escape squares for a checked king are occupied by other pieces. */
+    epauletteMateDescription: string;
     /** Equality */
     equality: string;
     /** Come back from a losing position, and secure a draw or a balanced position. (eval ≤ 200cp) */
@@ -2821,6 +2825,10 @@ interface I18n {
     superGM: string;
     /** Puzzles from games played by the best players in the world. */
     superGMDescription: string;
+    /** Swallow's tail mate */
+    swallowstailMate: string;
+    /** A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape. */
+    swallowstailMateDescription: string;
     /** Trapped piece */
     trappedPiece: string;
     /** A piece is unable to escape capture as it has limited moves. */
@@ -3717,8 +3725,6 @@ interface I18n {
     keyNextBranch: string;
     /** Next inaccuracy */
     keyNextInaccuracy: string;
-    /** Next (Learn from your mistakes) */
-    keyNextLearnFromYourMistakes: string;
     /** Next mistake */
     keyNextMistake: string;
     /** Previous branch */

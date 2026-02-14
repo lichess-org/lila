@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { prop } from 'lib';
+import { toggle } from 'lib';
 import { snabDialog, confirm, prompt, type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/view';
 import flairPickerLoader from 'bits/flairPicker';
 import { emptyRedButton } from '../view/util';
@@ -30,7 +30,7 @@ type Choice = [string, string];
 
 export class StudyForm {
   initAt = Date.now();
-  open = prop(false);
+  open = toggle(false);
 
   constructor(
     private readonly doSave: (data: FormData, isNew: boolean) => void,

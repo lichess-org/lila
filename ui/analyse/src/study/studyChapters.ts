@@ -14,7 +14,6 @@ import type {
   ServerNodeMsg,
   ChapterPreviewFromServer,
   ChapterId,
-  Federations,
   StudyPlayerFromServer,
   StudyPlayer,
   ChapterSelect,
@@ -25,6 +24,7 @@ import { opposite } from 'chessops/util';
 import { fenColor } from 'lib/game/chess';
 import type Sortable from 'sortablejs';
 import { INITIAL_FEN } from 'chessops/fen';
+import { federations, localizedName } from './fideFeds';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -57,7 +57,6 @@ export default class StudyChaptersCtrl {
     readonly isBroadcast: boolean,
     setTab: () => void,
     chapterConfig: (id: string) => Promise<StudyChapterConfig>,
-    private readonly federations: () => Federations | undefined,
     root: AnalyseCtrl,
   ) {
     this.list = new StudyChapters(this.store);
@@ -83,8 +82,7 @@ export default class StudyChaptersCtrl {
       })),
     );
   private convertPlayersFromServer = (players: PairOf<StudyPlayerFromServer>) => {
-    const feds = this.federations(),
-      conv: StudyPlayer[] = players.map(p => convertPlayerFromServer(p, feds));
+    const conv: StudyPlayer[] = players.map(convertPlayerFromServer);
     return { white: conv[0], black: conv[1] };
   };
 
@@ -116,13 +114,14 @@ export default class StudyChaptersCtrl {
   hasPlayingChapter = () => this.list.all().some(c => c.playing);
 }
 
-export const convertPlayerFromServer = <A extends StudyPlayerFromServer>(
-  player: A,
-  federations?: Federations,
-) => ({
-  ...player,
-  fed: player.fed ? { id: player.fed, name: federations?.[player.fed] || player.fed } : undefined,
-});
+export const convertPlayerFromServer = <A extends StudyPlayerFromServer>(player: A) => {
+  const i18nName = player.fed && localizedName(player.fed);
+  const fedName = player.fed && federations?.[player.fed][0];
+  return {
+    ...player,
+    fed: player.fed && fedName ? { id: player.fed, name: fedName, i18nName } : undefined,
+  };
+};
 
 export function isFinished(c: StudyChapter) {
   const result = findTag(c.tags, 'result');

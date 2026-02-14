@@ -1,6 +1,7 @@
 import { debounce } from 'lib/async';
 import type { TreeNode } from 'lib/tree/types';
 import { storedBooleanPropWithEffect } from 'lib/storage';
+import { enter } from 'lib/view';
 
 export type WikiTheory = (nodes: TreeNode[]) => void;
 
@@ -16,10 +17,7 @@ export function wikiToggleBox() {
 
     if (!state()) box.classList.add('toggle-box--toggle-off');
 
-    $(box)
-      .children('legend')
-      .on('click', toggle)
-      .on('keypress', e => e.key === 'Enter' && toggle());
+    $(box).children('legend').on('click', toggle).on('keypress', enter(toggle));
   });
 }
 

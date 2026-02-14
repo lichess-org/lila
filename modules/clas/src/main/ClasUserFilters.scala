@@ -4,6 +4,7 @@ import akka.stream.Materializer
 import akka.stream.scaladsl.*
 import bloomfilter.mutable.BloomFilter
 import reactivemongo.akkastream.cursorProducer
+import reactivemongo.api.bson.BSONNull
 import play.api.Mode
 
 import lila.db.dsl.{ *, given }
@@ -13,29 +14,51 @@ final class ClasUserFilters(using Executor, Materializer, Scheduler)(colls: Clas
   private val loadImmediately = false && mode == Mode.Dev
 
   val student = ClasUserCache("student")(
-    colls.student,
-    selector = $doc("archived".$exists(false)),
-    projection = $doc("userId" -> true, "_id" -> false),
-    reader = _.getAsOpt[UserId]("userId").toList,
-    initialDelay = if loadImmediately then 1.second else 81.seconds,
-    perSecond = 10_000
+    estimatedCount = if mode == Mode.Dev then 1_000 else 100_000,
+    source = colls.clas
+      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
+        import framework.*
+        List(
+          Match("archived".$exists(false)),
+          PipelineOperator:
+            $lookup.simple(
+              from = colls.student,
+              as = "s",
+              local = "_id",
+              foreign = "clasId",
+              pipe = List(
+                $doc("$match" -> $doc("archived".$exists(false))),
+                $doc("$project" -> $doc("_id" -> false, "userId" -> true))
+              )
+            )
+          ,
+          Project($doc("_id" -> false, "s.userId" -> true)),
+          UnwindField("s"),
+          Group(BSONNull)("u" -> AddFieldToSet("s.userId")),
+          UnwindField("u"),
+          Project($doc("_id" -> false, "u" -> true))
+        )
+      .documentSource()
+      .mapConcat(_.getAsOpt[UserId]("u").toList)
+      .throttle(5_000, 1.second),
+    initialDelay = if loadImmediately then 1.second else 41.seconds
   )
+
   val teacher = ClasUserCache("teacher")(
-    colls.clas,
-    selector = $doc("archived".$exists(false)),
-    projection = $doc("teachers" -> true, "_id" -> false),
-    reader = _.getAsOpt[List[UserId]]("teachers").orZero,
-    initialDelay = if loadImmediately then 1.second else 53.seconds,
-    perSecond = 2_000
+    estimatedCount = if mode == Mode.Dev then 50 else 8_000,
+    source = colls.clas
+      .find($doc("archived".$exists(false)), $doc("teachers" -> true, "_id" -> false).some)
+      .cursor[Bdoc](ReadPref.sec)
+      .documentSource()
+      .mapConcat(_.getAsOpt[List[UserId]]("teachers").orZero)
+      .throttle(2_000, 1.second),
+    initialDelay = if loadImmediately then 1.second else 33.seconds
   )
 
 private final class ClasUserCache(name: String)(
-    coll: Coll,
-    selector: Bdoc,
-    projection: Bdoc,
-    reader: Bdoc => List[UserId],
-    initialDelay: FiniteDuration,
-    perSecond: Int
+    estimatedCount: Int,
+    source: Source[UserId, ?],
+    initialDelay: FiniteDuration
 )(using scheduler: Scheduler)(using Executor, Materializer):
 
   private val falsePositiveRate = 0.00003
@@ -48,25 +71,20 @@ private final class ClasUserCache(name: String)(
   def add(userId: UserId): Unit = bloomFilter.add(userId.value)
 
   private def rebuildBloomFilter(): Unit =
-    coll.secondary
-      .countSel(selector)
-      .foreach: count =>
-        val nextBloom = BloomFilter[String](count + 1, falsePositiveRate)
-        coll
-          .find(selector, projection.some)
-          .cursor[Bdoc](ReadPref.sec)
-          .documentSource()
-          .throttle(perSecond, 1.second)
-          .runWith:
-            Sink.fold[Int, Bdoc](0): (counter, doc) =>
-              if counter % perSecond == 0 then logger.info(s"ClasUserCache.$name.rebuild $counter")
-              UserId.raw(reader(doc)).foreach(nextBloom.add)
-              counter + 1
-          .addEffect: nb =>
-            lila.mon.clas.bloomFilter(name).count.update(nb)
-            bloomFilter.dispose()
-            bloomFilter = nextBloom
-          .monSuccess(_.clas.bloomFilter(name).fu)
+    val nextBloom = BloomFilter[String](estimatedCount + 100, falsePositiveRate)
+    def logNb(nb: Int) = logger.info(s"ClasUserCache.$name.rebuild $nb")
+    source
+      .runWith:
+        Sink.fold[Int, UserId](0): (counter, userId) =>
+          if counter % 10_000 == 0 then logNb(counter)
+          nextBloom.add(userId.value)
+          counter + 1
+      .addEffect: nb =>
+        logNb(nb)
+        lila.mon.clas.bloomFilter(name).count.update(nb)
+        bloomFilter.dispose()
+        bloomFilter = nextBloom
+      .monSuccess(_.clas.bloomFilter(name).fu)
 
   scheduler.scheduleWithFixedDelay(initialDelay, 7.days): () =>
     rebuildBloomFilter()

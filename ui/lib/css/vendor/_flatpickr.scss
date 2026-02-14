@@ -242,7 +242,6 @@
 }
 .flatpickr-months .flatpickr-prev-month svg path,
 .flatpickr-months .flatpickr-next-month svg path {
-  -webkit-transition: fill 0.1s;
   transition: fill 0.1s;
   fill: inherit;
 }
@@ -263,7 +262,7 @@
 .numInputWrapper input::-webkit-outer-spin-button,
 .numInputWrapper input::-webkit-inner-spin-button {
   margin: 0;
-  -webkit-appearance: none;
+  appearance: none;
 }
 .numInputWrapper span {
   position: absolute;

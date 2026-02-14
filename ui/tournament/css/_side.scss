@@ -2,7 +2,6 @@
   @extend %flex-column;
 
   .disclosure {
-    @extend %button-none;
     position: absolute;
     right: 1em;
     bottom: 1em;

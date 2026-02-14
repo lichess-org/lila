@@ -27,6 +27,7 @@ final class MsgApi(
 
   val msgsPerPage = MaxPerPage(100)
   val inboxSize = 50
+  val contactsPerPage = 30
 
   import BsonHandlers.{ *, given }
 
@@ -73,6 +74,13 @@ final class MsgApi(
       .find(_.isPriority)
       .fold(threads): found =>
         found :: threads.filterNot(_.isPriority)
+
+  def moreContacts(before: Instant)(using me: Me): Fu[List[MsgThread]] =
+    colls.thread
+      .find(selectMyThreads ++ $doc("lastMsg.date".$lt(before)))
+      .sort($sort.desc("lastMsg.date"))
+      .cursor[MsgThread](ReadPref.sec)
+      .list(contactsPerPage)
 
   def convoWithMe(username: UserStr, beforeMillis: Option[Long] = None)(using me: Me): Fu[Option[MsgConvo]] =
     val userId = username.id

@@ -6,8 +6,6 @@
   },
   "ignorePatterns": ["**/bin/", "**/dist/", "**/public"],
   "rules": {
-    "prefer-spread": "off",
-    "prefer-rest-params": "off",
     "no-useless-escape": "off",
     "no-control-regex": "off",
     "no-var": "warn",
@@ -188,8 +186,6 @@
       "webkitResolveLocalFileSystemURL",
       "webkitStorageInfo"
     ],
-    "no-empty-function": "off",
-    "no-extra-boolean-cast": "off",
     "no-unused-expressions": "off",
     "no-unused-vars": [
       "warn",
@@ -199,19 +195,14 @@
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
-    "typescript/explicit-module-boundary-types": "off",
     "typescript/no-base-to-string": "off",
     "typescript/no-duplicate-type-constituents": "off",
     "typescript/no-empty-interface": "off",
-    "typescript/no-explicit-any": "off",
     "typescript/no-floating-promises": "off",
-    "typescript/no-for-in-array": "off",
     "typescript/no-misused-spread": "off",
-    "typescript/no-non-null-assertion": "off",
     "typescript/no-redundant-type-constituents": "off",
     "typescript/no-this-alias": "off",
     "typescript/triple-slash-reference": "off",
-    "typescript/no-wrapper-object-types": "off",
     "typescript/require-array-sort-compare": "off",
     "typescript/restrict-template-expressions": "off",
     "typescript/unbound-method": "off"

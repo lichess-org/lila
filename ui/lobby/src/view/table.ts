@@ -96,7 +96,7 @@ export default function table(ctrl: LobbyController) {
       {
         class: { active: ctrl.setupCtrl.gameType === gameType, disabled: !!disabled },
         attrs: { type: 'button', title: title ?? '', 'aria-disabled': disabled ? 'true' : 'false' },
-        hook: !!disabled
+        hook: disabled
           ? {}
           : bind(
               'click',

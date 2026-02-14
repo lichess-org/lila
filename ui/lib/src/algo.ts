@@ -93,8 +93,6 @@ export function isContained(o: any, sub: any): boolean {
   return subKeys.every(key => aKeys.includes(key) && isContained(o[key], sub[key]));
 }
 
-export function shallowSort(obj: { [key: string]: any }): { [key: string]: any } {
-  const sorted: { [key: string]: any } = {};
-  for (const key of Object.keys(obj).sort()) sorted[key] = obj[key];
-  return sorted;
+export function shallowSort(obj: Record<string, any>): Record<string, any> {
+  return Object.fromEntries(Object.entries(obj).sort(([a], [b]) => a.localeCompare(b)));
 }

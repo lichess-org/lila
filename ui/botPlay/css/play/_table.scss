@@ -42,10 +42,6 @@
   line-height: 1.7;
   font-size: 1.1em;
 
-  &::-webkit-scrollbar {
-    width: 0px;
-  }
-
   turn {
     flex: 0 0 16.666%;
     display: flex;
@@ -93,9 +89,6 @@
 }
 .bot-game__actions {
   @extend %flex-between;
-  button {
-    @extend %button-none;
-  }
   .bot-game__close,
   .bot-game__restart {
     font-size: 0.9em;

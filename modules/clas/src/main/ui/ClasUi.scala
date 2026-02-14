@@ -63,11 +63,13 @@ final class ClasUi(helpers: lila.ui.Helpers)(searchMenu: Context ?=> Frag):
             )
         )
 
-  def showArchived(archived: Clas.Recorded)(using Translate) =
-    div(
-      trans.clas.removedByX(userIdLink(archived.by.some)),
-      " ",
-      momentFromNowOnce(archived.at)
+  def showArchived(archived: Clas.Recorded)(using Translate): Tag =
+    div(cls := "clas-show__archived")(
+      div(
+        trans.clas.removedByX(userIdLink(archived.by.some)),
+        " ",
+        momentFromNowOnce(archived.at)
+      )
     )
 
   private def teacherMenu(active: Either[Clas.WithStudents, String], student: Option[Student])(using
@@ -80,15 +82,11 @@ final class ClasUi(helpers: lila.ui.Helpers)(searchMenu: Context ?=> Frag):
       active.left.toOption.map { clas =>
         frag(
           a(cls := "active", href := routes.Clas.show(clas.clas.id))(clas.clas.name),
-          clas.students.map { s =>
+          clas.students.map: s =>
             a(
               cls := List("student" -> true, "active" -> student.exists(s.is)),
               href := routes.Clas.studentShow(clas.clas.id, s.userId)
-            )(
-              titleNameOrId(s.userId),
-              em(s.realName)
-            )
-          }
+            )(s.realName)
         )
       } | {
         a(cls := active.toOption.map(_.active("newClass")), href := routes.Clas.form)(

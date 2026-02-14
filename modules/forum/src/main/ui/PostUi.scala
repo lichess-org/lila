@@ -10,6 +10,8 @@ import ScalatagsTemplate.{ *, given }
 final class PostUi(helpers: Helpers, bits: ForumBits):
   import helpers.{ *, given }
 
+  private val postId = attrData("post-id")
+
   def show(
       topic: ForumTopic,
       postWithFrag: ForumPost.WithFrag,
@@ -23,7 +25,11 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
         if post.erased then "<Comment deleted by user>"
         else body
       )
-      st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
+      st.article(
+        cls := List("forum-post" -> true, "erased" -> post.erased),
+        id := post.number,
+        postId := post.id
+      )(
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg).option(
             div(

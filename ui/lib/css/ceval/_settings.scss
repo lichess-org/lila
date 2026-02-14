@@ -53,7 +53,6 @@
     }
 
     button.delete {
-      @extend %button-none;
       width: 20px;
       height: 20px;
       border-radius: 100%;
@@ -62,7 +61,7 @@
       margin-inline-start: 1.5ch;
 
       &:focus {
-        outline: 2px solid $c-primary;
+        outline: $outline;
       }
 
       &:hover {

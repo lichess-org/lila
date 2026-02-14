@@ -28,8 +28,16 @@
   }
 }
 
-@mixin transition($prop: all, $dur: $transition-duration) {
-  transition: $prop $dur;
+@mixin transition($prop: all, $dur: $transition-duration, $timing: ease) {
+  @if type-of($prop) == 'list' and length($prop) > 1 {
+    $out: ();
+    @for $i from 1 through length($prop) {
+      $out: append($out, nth($prop, $i) $dur $timing, comma);
+    }
+    transition: $out;
+  } @else {
+    transition: $prop $dur $timing;
+  }
 }
 
 @mixin hoverflow {
@@ -39,14 +47,6 @@
     &:not(:hover) {
       overflow: hidden;
     }
-  }
-}
-
-@mixin hide {
-  display: none;
-
-  .blind-mode & {
-    display: inherit;
   }
 }
 

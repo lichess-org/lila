@@ -162,7 +162,6 @@ export default class StudyCtrl {
       defined(relayData),
       () => this.setTab('chapters'),
       chapterId => xhr.chapterConfig(data.id, chapterId),
-      () => this.data.federations,
       this.ctrl,
     );
     this.multiCloudEval = this.isCevalAllowed()

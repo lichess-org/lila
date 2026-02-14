@@ -661,7 +661,7 @@
   <string name="onlyExistingConversations">માત્ર હાલની વાતચીતો</string>
   <string name="onlyFriends">ફક્ત મિત્રો</string>
   <string name="menu">મેનુ</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">કેસલિંગ</string>
+  <string name="castling">કેસલિંગ</string>
   <string name="whiteCastlingKingside">સફેદ O-O</string>
   <string name="blackCastlingKingside">કાળો O-O</string>
   <plurals name="nbForumPosts">
@@ -720,7 +720,6 @@
   <string name="keyShowOrHideComments">ટિપ્પણીઓ બતાવો/છુપાવો</string>
   <string name="keyEnterOrExitVariation">દાખલ/બહાર નીકળવાની વિવિધતા</string>
   <string name="keyRequestComputerAnalysis">કમ્પ્યુટર વિશ્લેષણની વિનંતી કરો, તમારી ભૂલોમાંથી શીખો</string>
-  <string name="keyNextLearnFromYourMistakes">આગળ (તમારી ભૂલોમાંથી શીખો)</string>
   <string name="keyNextBlunder">આગામી મોટું ભૂલ</string>
   <string name="keyNextMistake">આગામી ભૂલ</string>
   <string name="keyNextInaccuracy">આગામી અચોક્કસતા</string>

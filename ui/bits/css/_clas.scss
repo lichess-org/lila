@@ -20,11 +20,10 @@ body {
 }
 
 %archived {
-  @extend %box-radius, %flex-between;
+  @extend %flex-between;
 
   background: $c-bg-zebra2;
   padding: 1em 2em;
-  margin-bottom: 2em;
 }
 
 .page-menu__content.box {
@@ -48,21 +47,9 @@ body {
   }
 
   &.student {
-    em {
-      @extend %roboto;
-
-      display: none;
-    }
-
-    @include mq-subnav-side {
-      font-weight: bold;
-      padding: 0.4rem 2vw 0.4rem 0.8rem;
-
-      em {
-        font-weight: normal;
-        display: block;
-      }
-    }
+    @extend %roboto;
+    padding: 0.4rem 2vw 0.4rem 2rem;
+    line-height: 1.2em;
   }
 }
 

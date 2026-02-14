@@ -723,7 +723,6 @@
   <string name="keyShowOrHideComments">show/hide comments</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
   <string name="keyRequestComputerAnalysis">Request computer analysis, Learn from your mistakes</string>
-  <string name="keyNextLearnFromYourMistakes">Next (Learn from your mistakes)</string>
   <string name="keyNextBlunder">Next blunder</string>
   <string name="keyNextMistake">Next mistake</string>
   <string name="keyNextInaccuracy">Next inaccuracy</string>

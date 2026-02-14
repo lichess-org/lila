@@ -125,7 +125,7 @@ object UserInfo:
         streamerApi.isActualStreamer(user).mon(_.user.segment("streamer")),
         coachApi.isListedCoach(user).mon(_.user.segment("coach")),
         fideIdOf(user.light),
-        (user.count.rated >= 10).so(insightShare.grant(user))
+        (user.count.rated >= 50).so(insightShare.grant(user))
       ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _, _))
 
     def preloadTeams(info: UserInfo) = teamCache.lightCache.preloadMany(info.teamIds)

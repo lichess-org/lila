@@ -82,8 +82,6 @@
     }
 
     button {
-      @extend %button-none;
-
       text-align: start;
 
       &.hint {
@@ -116,7 +114,7 @@
   }
 
   .feedback {
-    @extend %flex-column, %box-radius, %button-none;
+    @extend %flex-column, %box-radius;
 
     flex: 1 1 100%;
     height: 8rem;
@@ -200,7 +198,7 @@
       font-size: 0.8em;
 
       button {
-        @extend %flex-column, %button-none;
+        @extend %flex-column;
 
         flex: 1 1 100%;
         background: $m-primary_bg--mix-80;

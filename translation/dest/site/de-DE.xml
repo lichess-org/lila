@@ -722,7 +722,6 @@
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
   <string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
   <string name="keyRequestComputerAnalysis">Hole dir eine Computer-Analyse, lerne aus deinen Fehlern</string>
-  <string name="keyNextLearnFromYourMistakes">Als Nächstes (Lerne aus deinen Fehlern)</string>
   <string name="keyNextBlunder">Der nächste grobe Patzer</string>
   <string name="keyNextMistake">Der nächste Fehler</string>
   <string name="keyNextInaccuracy">Die nächste Ungenauigkeit</string>

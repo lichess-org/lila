@@ -84,8 +84,8 @@ export class Engines {
       {
         info: {
           id: '__sf_dev',
-          name: 'Stockfish dev-20260204-fac506bd · 95MB SFNNv11',
-          short: 'SF dev · 95MB',
+          name: 'Stockfish 18+ dev-20260213-77d46ff6 · 88MB SFNNv12',
+          short: 'SF dev · 88MB',
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,

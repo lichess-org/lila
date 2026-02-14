@@ -132,7 +132,10 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val tourCreate = RateLimit[UserId](credits = 240, duration = 1.day, key = "tournament.user")
 
-  val streamerOnlineCheck = RateLimit[UserId](1, 1.minutes, "streamer.checkOnline")
+  val streamerOnlineCheck: RateLimiter[(UserId, IpAddress)] = combine(
+    RateLimit[UserId](1, 1.minute, "streamer.checkOnline.user"),
+    RateLimit[IpAddress](1, 1.minute, "streamer.checkOnline.ip")
+  )
 
   val studyPgnImport = RateLimit[UserId](credits = 1000, duration = 24.hour, key = "study.import-pgn.user")
 

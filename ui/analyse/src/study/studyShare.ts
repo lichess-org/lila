@@ -1,6 +1,6 @@
 import { prop } from 'lib';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, hl, copyMeInput, cmnToggleProp, type MaybeVNode } from 'lib/view';
+import { type VNode, bind, dataIcon, hl, copyMeInput, type MaybeVNode } from 'lib/view';
 import { writeTextClipboard, url as xhrUrl } from 'lib/xhr';
 import { renderIndexAndMove } from '../view/components';
 import { baseUrl } from '../view/util';
@@ -8,6 +8,7 @@ import type { ChapterPreview, StudyData } from './interfaces';
 import type RelayCtrl from './relay/relayCtrl';
 import type { TreeNode } from 'lib/tree/types';
 import { relayIframe } from './relay/relayTourView';
+import { cmnToggleProp } from 'lib/view/cmn-toggle';
 
 function fromPly(ctrl: StudyShare): MaybeVNode {
   if (!ctrl.onMainline()) return;

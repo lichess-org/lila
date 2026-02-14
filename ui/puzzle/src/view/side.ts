@@ -1,6 +1,7 @@
 import type { Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
 import * as licon from 'lib/licon';
-import { type VNode, dataIcon, onInsert, type MaybeVNode, hl, cmnToggleWrap } from 'lib/view';
+import { type VNode, dataIcon, onInsert, type MaybeVNode, hl } from 'lib/view';
+import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import { numberFormat } from 'lib/i18n';
 import perfIcons from 'lib/game/perfIcons';
 import { userLink } from 'lib/view/userLink';

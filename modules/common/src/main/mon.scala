@@ -536,7 +536,8 @@ object mon:
     val crazyGlicko = counter("puzzle.crazyGlicko").withoutTags()
   object storm:
     object selector:
-      val time = timer("storm.selector.time").withoutTags()
+      val time = future("storm.selector.time")
+      val sets = histogram("storm.selector.sets").withoutTags()
       val count = histogram("storm.selector.count").withoutTags()
       val rating = histogram("storm.selector.rating").withoutTags()
       def ratingSlice(index: Int) = histogram("storm.selector.ratingSlice").withTag("index", index)

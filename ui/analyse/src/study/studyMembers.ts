@@ -1,6 +1,6 @@
 import type { AnalyseSocketSend } from '../socket';
 import * as licon from 'lib/licon';
-import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl, cmnToggleWrap } from 'lib/view';
+import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/view';
 import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
 import type { NotifCtrl } from './notif';
 import { prop, type Prop, scrollTo } from 'lib';
@@ -11,6 +11,7 @@ import { userLink } from 'lib/view/userLink';
 import type StudyCtrl from './studyCtrl';
 import { once } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
+import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 
 interface Opts {
   initDict: StudyMemberMap;

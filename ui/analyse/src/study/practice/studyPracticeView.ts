@@ -1,5 +1,6 @@
 import * as licon from 'lib/licon';
-import { bind, bindNonPassive, type MaybeVNodes, spinnerVdom as spinner, cmnToggleWrapProp } from 'lib/view';
+import { bind, bindNonPassive, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
+import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import { h, thunk, type VNode } from 'snabbdom';
 import { richHTML } from 'lib/richText';
 import { option, plural } from '@/view/util';

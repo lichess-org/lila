@@ -22,10 +22,7 @@
   border-radius: 24px;
   background-clip: padding-box;
   background-color: $c-font-dimmer;
-
-  transition:
-    background $transition-duration,
-    box-shadow $transition-duration;
+  @include transition(background box-shadow);
 
   &::before,
   &::after {
@@ -46,9 +43,7 @@
     line-height: 22px;
     content: $licon-X;
     color: $c-font-dimmer;
-    transition:
-      margin $transition-duration,
-      color $transition-duration;
+    @include transition(margin color);
   }
 
   &::after {
@@ -58,9 +53,7 @@
     }
     border-radius: 100%;
     box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
-    transition:
-      margin $transition-duration,
-      box-shadow $transition-duration;
+    @include transition(margin box-shadow);
   }
 }
 

@@ -58,7 +58,7 @@
     background-color: $c-bg-input;
   }
   &:has(textarea:focus) .write.active {
-    outline: 2px solid $c-primary;
+    outline: $outline;
     outline-offset: -2px;
 
     &::after {

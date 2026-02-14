@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
-import { copyMeInput, dataIcon, domDialog } from 'lib/view';
+import { copyMeInput, dataIcon, domDialog, enter } from 'lib/view';
 import type { MouchEvent, NumberPair } from '@lichess-org/chessground/types';
 import { dragNewPiece } from '@lichess-org/chessground/drag';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
@@ -114,9 +114,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   if (!isValidPositionId(candidateId)) return;
                   ctrl.set960Position(candidateId);
                 },
-                keydown(e) {
-                  if (e.key === 'Enter') (e.target as HTMLElement).blur();
-                },
+                keydown: enter(target => target.blur()),
               },
             }),
             h('button.button.button-empty', {
@@ -345,16 +343,13 @@ function inputs(ctrl: EditorCtrl, fen: FEN): VNode | undefined {
             el.value = ctrl.getFen();
             el.setCustomValidity('');
           },
-          keypress(e) {
-            const el = e.target as HTMLInputElement;
-            if (e.key === 'Enter') {
-              const candidateChess960Id = fenToChess960Id(el.value.trim());
-              if (candidateChess960Id !== undefined) {
-                ctrl.chess960PositionId = candidateChess960Id;
-              }
-              el.blur();
+          keypress: enter<HTMLInputElement>(el => {
+            const candidateChess960Id = fenToChess960Id(el.value.trim());
+            if (candidateChess960Id !== undefined) {
+              ctrl.chess960PositionId = candidateChess960Id;
             }
-          },
+            el.blur();
+          }),
         },
       }),
     ]),

@@ -46,6 +46,8 @@ trait LilaLibraryExtensions extends CoreExports:
       self.fold(f)(_.raise)
 
   extension (self: String) def nonEmptyOption: Option[String] = if self.nonEmpty then Some(self) else None
+  extension [K, V](self: Map[K, V])
+    def nonEmptyOption: Option[Map[K, V]] = if self.nonEmpty then Some(self) else None
   extension [A, M <: Iterable](self: M[A])
     def nonEmptyOption: Option[M[A]] = if self.nonEmpty then Some(self) else None
 

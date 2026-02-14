@@ -96,8 +96,6 @@ export default class CoordinateTrainerCtrl {
     $('#zentog').on('click', () => pubsub.emit('zen'));
     site.mousetrap.bind('z', () => pubsub.emit('zen'));
 
-    site.mousetrap.bind('enter', () => (this.playing ? null : this.start()));
-
     window.addEventListener('resize', () => requestAnimationFrame(this.updateCharts), true);
     this.voice = makeVoice({ redraw: this.redraw, tpe: 'coords' });
     this.voice.mic.initRecognizer([...'abcdefgh', ...Object.keys(rankWords), 'start', 'stop'], {
@@ -301,8 +299,8 @@ export default class CoordinateTrainerCtrl {
   updateCharts = () => {
     for (const color of COLORS) {
       const svgElement = document.getElementById(`${color}-sparkline`);
-      if (!svgElement) continue;
-      this.updateChart(svgElement as unknown as SVGSVGElement, color);
+      if (!svgElement || !(svgElement instanceof SVGSVGElement)) continue;
+      this.updateChart(svgElement, color);
     }
   };
 
@@ -312,7 +310,7 @@ export default class CoordinateTrainerCtrl {
     const tooltip = svgElement.nextElementSibling as HTMLSpanElement;
     svgElement.setAttribute('width', `${parent.offsetWidth}px`);
     const options = {
-      onmousemove(_event: any, datapoint: any) {
+      onmousemove(_: MouseEvent, datapoint: any) {
         tooltip.hidden = false;
         tooltip.textContent = scoreValues[datapoint.index].toString();
         tooltip.style.top = `${datapoint.y}px`;

@@ -51,8 +51,8 @@ final class InsightApi(
       .monSuccess(_.insight.peers)
 
   def userStatus(user: User): Fu[UserStatus] =
-    gameRepo
-      .lastFinishedRatedNotFromPosition(user)
+    indexer
+      .lastIndexableGame(user)
       .flatMap:
         case None => fuccess(UserStatus.NoGame)
         case Some(game) =>
@@ -60,7 +60,8 @@ final class InsightApi(
             .fetchLast(user.id)
             .map:
               case None => UserStatus.Empty
-              case Some(entry) if entry.date.isBefore(game.createdAt) => UserStatus.Stale
+              case Some(entry) if entry.date.isBefore(game.createdAt) =>
+                UserStatus.Stale
               case _ => UserStatus.Fresh
 
   def indexAll(user: User, force: Boolean): Funit =

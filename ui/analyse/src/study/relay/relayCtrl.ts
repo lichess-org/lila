@@ -20,8 +20,8 @@ export default class RelayCtrl {
   log: LogEvent[] = [];
   cooldown = false;
   tourShow: Toggle;
-  roundSelectShow = toggle(false);
-  groupSelectShow = toggle(false);
+  roundSelectShow: Toggle;
+  tourSelectShow: Toggle;
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
   players: RelayPlayers;
@@ -40,6 +40,8 @@ export default class RelayCtrl {
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3, v =>
       v ? study.ctrl.ceval.stop() : study.ctrl.startCeval(),
     );
+    this.tourSelectShow = toggle(false, this.study.ctrl.redraw);
+    this.roundSelectShow = toggle(false, this.study.ctrl.redraw);
     if (study.ctrl.opts.chat) {
       const showLiveboard = () => this.tourShow() || !study.multiBoard.showResults();
       this.liveboardPlugin = new LiveboardPlugin(study.ctrl, showLiveboard, study.chapterSelect.get());
@@ -67,7 +69,6 @@ export default class RelayCtrl {
       data.tour,
       () => this.openTab('players'),
       study.ctrl.isEmbed,
-      () => study.data.federations,
       () => (study.multiBoard.showResults() ? undefined : this.round.id),
       fideId => data.photos[fideId],
       this.redraw,
@@ -75,7 +76,6 @@ export default class RelayCtrl {
     this.teamLeaderboard = new RelayTeamLeaderboard(
       this.data.tour.id,
       () => this.openTab('team-results'),
-      this.study.data.federations,
       this.redraw,
       this.players,
     );

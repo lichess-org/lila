@@ -11,7 +11,8 @@ $c-tabs-active: $c-accent !default;
     font-size: 0.9em;
   }
 
-  span {
+  span,
+  button {
     @extend %roboto, %nowrap-hidden;
 
     flex: 1 1 auto;
@@ -20,13 +21,9 @@ $c-tabs-active: $c-accent !default;
     cursor: pointer;
     position: relative;
     border-bottom: 2px solid transparent;
-
-    transition:
-      color 0.25s,
-      border-color 0.25s;
-
     min-width: 15%;
     letter-spacing: -0.5px;
+    @include transition(color border-color, 0.25s);
 
     @media (min-width: at-least($xx-small)) {
       letter-spacing: inherit;
@@ -47,6 +44,10 @@ $c-tabs-active: $c-accent !default;
       padding-right: 0;
       flex: 0 3 auto;
       min-width: 10%;
+    }
+
+    &:focus-visible {
+      outline: $outline;
     }
   }
 

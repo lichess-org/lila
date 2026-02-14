@@ -1,6 +1,6 @@
 import type { VNode } from 'snabbdom';
 
-export interface NotifyOpts {
+export type NotifyOpts = {
   el: Element;
   data?: NotifyData;
   incoming: boolean;
@@ -9,35 +9,35 @@ export interface NotifyOpts {
   show(): void;
   setNotified(): void;
   pulse(): void;
-}
+};
 
-export interface NotifyData {
+export type NotifyData = {
   pager: Paginator<Notification>;
   unread: number;
-}
+};
 
-export interface BumpUnread {}
+export type BumpUnread = {};
 
-interface NotificationUser {
+type NotificationUser = {
   id: string;
   name: string;
   patron?: boolean;
-}
+};
 
-interface NotificationContent {
+type NotificationContent = {
   text: string;
   user?: NotificationUser;
   [key: string]: any;
-}
+};
 
-export interface Notification {
+export type Notification = {
   content: NotificationContent;
   type: string;
   read: boolean;
   date: number;
-}
+};
 
-export interface Ctrl {
+export type Ctrl = {
   data(): NotifyData | undefined;
   initiating(): boolean;
   scrolling(): boolean;
@@ -50,15 +50,13 @@ export interface Ctrl {
   setMsgRead(user: string): void;
   setAllRead(): void;
   clear(): void;
-}
+};
 
 export type Redraw = () => void;
 
-export interface Renderers {
-  [key: string]: Renderer;
-}
+export type Renderers = Record<string, Renderer>;
 
-export interface Renderer {
+export type Renderer = {
   html(n: Notification): VNode;
   text(n: Notification): string;
-}
+};

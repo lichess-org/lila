@@ -87,41 +87,41 @@ final class ActivityUi(helpers: Helpers)(
   private def renderPuzzles(u: UserWithPerfs)(p: Puzzles)(using ctx: Context) =
     entryTag(
       iconTag(Icon.ArcheryTarget),
-      scoreFrag(p.value),
       div(
         trans.activity.solvedNbPuzzles.pluralSame(p.value.size),
         p.value.rp.filterNot(_.isEmpty || (u.perfs.dubiousPuzzle && ctx.isnt(u))).map(ratingProgFrag)
-      )
+      ),
+      scoreFrag(p.value)
     )
 
   private def renderStorm(s: Storm)(using Context) =
     entryTag(
       iconTag(Icon.Storm),
-      scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
           .plural(s.runs, s.runs.localize, a(href := routes.Storm.home)("Puzzle Storm"))
-      )
+      ),
+      scoreTag(winTag(trans.storm.highscoreX(strong(s.score))))
     )
 
   private def renderRacer(s: Racer)(using Context) =
     entryTag(
       iconTag(Icon.FlagChessboard),
-      scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
           .plural(s.runs, s.runs.localize, a(href := routes.Racer.home)("Puzzle Racer"))
-      )
+      ),
+      scoreTag(winTag(trans.storm.highscoreX(strong(s.score))))
     )
 
   private def renderStreak(s: Streak)(using Context) =
     entryTag(
       iconTag(Icon.ArrowThruApple),
-      scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
           .plural(s.runs, s.runs.localize, a(href := routes.Puzzle.streak)("Puzzle Streak"))
-      )
+      ),
+      scoreTag(winTag(trans.storm.highscoreX(strong(s.score))))
     )
 
   private def renderGames(games: Games)(using Context) =
@@ -129,11 +129,11 @@ final class ActivityUi(helpers: Helpers)(
       val pt = lila.rating.PerfType(pk)
       entryTag(
         iconTag(pt.icon),
-        scoreFrag(score),
         div(
           trans.activity.playedNbGames.plural(score.size, score.size, pt.trans),
           score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
-        )
+        ),
+        scoreFrag(score)
       )
     }
 
@@ -353,7 +353,7 @@ final class ActivityUi(helpers: Helpers)(
     ctx.kid.no.option(
       entryTag(
         iconTag(Icon.Mic),
-        a(href := routes.Streamer.redirect(u.username))(trans.activity.hostedALiveStream())
+        a(href := routes.Streamer.show(u.username, true))(trans.activity.hostedALiveStream())
       )
     )
 

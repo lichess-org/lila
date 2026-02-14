@@ -10,7 +10,7 @@
   }
 
   button {
-    @extend %flex-center-nowrap, %button-none;
+    @extend %flex-center-nowrap;
 
     height: 2.3em;
     line-height: 2.3em;

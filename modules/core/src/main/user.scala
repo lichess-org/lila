@@ -164,13 +164,7 @@ object user:
     given UserIdOf[User] = _.id
     given AtInstant[User] = _.createdAt
 
-  case class Count(
-      draw: Int,
-      game: Int,
-      loss: Int,
-      rated: Int,
-      win: Int
-  )
+  case class Count(draw: Int, game: Int, loss: Int, rated: Int, win: Int)
 
   case class WithPerf(user: User, perf: Perf):
     export user.{ id, createdAt, hasTitle, light }

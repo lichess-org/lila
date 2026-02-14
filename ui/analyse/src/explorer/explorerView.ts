@@ -212,7 +212,7 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
     openingTitle(ctrl, data),
     hl('div.message', [
       hl('strong', isTooDeep ? i18n.site.maxDepthReached : i18n.site.noGameFound),
-      !!data?.queuePosition
+      data?.queuePosition
         ? hl('p.explanation', `Indexing ${data.queuePosition} other players first ...`)
         : !(ctrl.explorer.config.fullHouse() || isTooDeep) &&
           hl('p.explanation', i18n.site.maybeIncludeMoreGamesFromThePreferencesMenu),

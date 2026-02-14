@@ -42,7 +42,7 @@ async function handleNotificationClick(e: NotificationEvent) {
   if (data.fullId) url = '/' + data.fullId;
   else if (data.threadId) url = '/inbox/' + data.threadId;
   else if (data.challengeId) url = '/' + data.challengeId;
-  else if (data.streamerId) url = `/streamer/${data.streamerId}/redirect`;
+  else if (data.streamerId) url = `/streamer/${data.streamerId}?redirect=1`;
   else if (data.mentionedBy) url = `/forum/redirect/post/${data.postId}`;
   else if (data.invitedBy) url = `/study/${data.studyId}`;
 

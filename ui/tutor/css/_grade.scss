@@ -1,7 +1,3 @@
-$c-grade-bad: $m-bad_font--mix-80;
-$c-grade-avg: $m-brag_font-dim--mix-60;
-$c-grade-good: $m-good_bg--mix-90;
-
 .tutor {
   &-grades {
     @extend %flex-column;
@@ -11,8 +7,6 @@ $c-grade-good: $m-good_bg--mix-90;
     display: flex;
     align-items: stretch;
     gap: 1.2em;
-    .tutor-icon {
-    }
     &__content {
       @extend %flex-column;
       gap: 0.4em;
@@ -63,12 +57,16 @@ $c-grade-good: $m-good_bg--mix-90;
     }
     &--detail {
       gap: var(---box-padding);
+      align-items: center;
       &:not(:last-child) {
         padding-bottom: 2em;
         border-bottom: $border;
       }
+      $icon-size: max(5em, min(11em, 17vw));
       .tutor-icon {
-        flex: 0 1 8em;
+        flex: 0 0 $icon-size;
+        width: $icon-size;
+        height: $icon-size;
       }
     }
     &__detail {

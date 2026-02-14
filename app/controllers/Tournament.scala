@@ -336,9 +336,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       bindForm(lila.tournament.TeamBattle.DataForm.empty)(
         err => BadRequest.page(views.tournament.teamBattle.edit(tour, err)),
         res =>
-          api
-            .teamBattleUpdate(tour, res, env.team.api.filterExistingIdsNoClas)
-            .inject(Redirect(routes.Tournament.show(tour.id)))
+          for _ <- api.teamBattleUpdate(tour, res, env.team.api.filterExistingIdsNoClas)
+          yield Redirect(routes.Tournament.show(tour.id))
       )
   }
 

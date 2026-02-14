@@ -69,6 +69,7 @@
   <string name="ratingDiff">Rangeringsdiff</string>
   <string name="gamesThisTournament">Spel i denne turneringa</string>
   <string name="score">Poengskår</string>
+  <string name="standingsDisclaimer">Plasseringar vert berekna på grunnlag av kringkasta parti og kan avvike frå offisielle resultat.</string>
   <string name="allTeams">Alle lag</string>
   <string name="tournamentFormat">Turneringsformat</string>
   <string name="tournamentLocation">Turneringsstad</string>
@@ -83,6 +84,11 @@
   <string name="liveboard">Brett i sanntid</string>
   <string name="communityBroadcast">Fellesskapskringkasting</string>
   <string name="createdAndManagedBy">Oppretta og administrert av %s.</string>
+  <string name="matchPoints">Match-poeng</string>
+  <string name="gamePoints">Parti-poeng</string>
+  <string name="matches">Matchar</string>
+  <string name="matchHistory">Match-historikk</string>
+  <string name="teamResults">Lagresultat</string>
   <string name="termsAutomaticallyTranslated">Dei følgande vilkår(a) vert automatisk omsett: %s.</string>
   <string name="roundX">Runde %s</string>
   <string name="defaultRoundNameHelp">Om du ikkje endrar standardnamnet vil det automatisk bli oversett alle andre språk.</string>

@@ -15,9 +15,13 @@ final class MsgJson(
   private given relationsWrites: OWrites[Relations] = Json.writes
   private given modDetailsWrites: OWrites[ContactDetailsForMods] = Json.writes
 
-  def threads(threads: List[MsgThread])(using me: Me): Fu[JsArray] =
+  def threadsJson(threads: List[MsgThread])(using me: Me): Fu[JsArray] =
     withContacts(threads).map: threads =>
       JsArray(threads.map(renderThread))
+
+  def contacts(threads: List[MsgThread])(using me: Me): Fu[JsObject] =
+    threadsJson(threads).map: threads =>
+      Json.obj("contacts" -> threads)
 
   def convo(c: MsgConvo): JsObject =
     Json

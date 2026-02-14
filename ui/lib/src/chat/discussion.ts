@@ -10,6 +10,7 @@ import type { ChatCtrl } from './chatCtrl';
 import { tempStorage } from '../storage';
 import { pubsub } from '../pubsub';
 import { alert } from '../view/dialogs';
+import { enter } from '@/view';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 const scrollState = { pinToBottom: true, lastScrollTop: 0 };
@@ -137,31 +138,32 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
     if (!ctrl.opts.public && previousText.match(whisperRegex)) chatEl.classList.add('whisper');
   } else if (ctrl.vm.autofocus) chatEl.focus();
 
-  chatEl.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key !== 'Enter') return;
+  chatEl.addEventListener(
+    'keydown',
+    enter(target => {
+      setTimeout(() => {
+        const el = target as HTMLInputElement,
+          txt = el.value,
+          pub = ctrl.opts.public;
 
-    setTimeout(() => {
-      const el = e.target as HTMLInputElement,
-        txt = el.value,
-        pub = ctrl.opts.public;
-
-      if (txt === '')
-        $('.input-move input').each(function (this: HTMLInputElement) {
-          this.focus();
-        });
-      else {
-        if (!ctrl.opts.kobold) spam.selfReport(txt);
-        if (pub && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
+        if (txt === '')
+          $('.input-move input').each(function (this: HTMLInputElement) {
+            this.focus();
+          });
         else {
-          scrollState.pinToBottom = true;
-          ctrl.post(txt);
+          if (!ctrl.opts.kobold) spam.selfReport(txt);
+          if (pub && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
+          else {
+            scrollState.pinToBottom = true;
+            ctrl.post(txt);
+          }
+          el.value = '';
+          storage.inner.remove();
+          if (!pub) el.classList.remove('whisper');
         }
-        el.value = '';
-        storage.inner.remove();
-        if (!pub) el.classList.remove('whisper');
-      }
-    });
-  });
+      });
+    }),
+  );
 
   chatEl.addEventListener('input', (e: KeyboardEvent) =>
     setTimeout(() => {

@@ -206,3 +206,4 @@ final class GifExport(
       .add("delay", delay.map(_.centis))
       .add("glyph", glyph.map(_.symbol))
       .add("clock", clock)
+      .add("pockets", position.crazyData.map(_.pockets))

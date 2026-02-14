@@ -53,6 +53,8 @@
   <string name="endgame">Loppupeli</string>
   <string name="endgameDescription">Taktiikka pelin viimeisessä vaiheessa.</string>
   <string name="enPassantDescription">Taktiikka, jossa sovelletaan ohestalyöntisääntöä, eli jossa sotilas voi lyödä sellaisen vastustajan sotilaan, joka on juuri ensimmäisellä kahden ruudun siirrollaan ohittanut sen.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Epolettimatti</string>
+  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Kahdessa ruudussa shakatun kuninkaan molemmin puolin on kussakin pakoruudun vievä nappula.</string>
   <string name="exposedKing">Suojaton kuningas</string>
   <string name="exposedKingDescription">Taktiikka, jossa kuninkaan ympärillä on vain vähän puolustajia, ja joka usein johtaa mattiin.</string>
   <string name="fork">Haarukka</string>
@@ -71,6 +73,8 @@
   <string name="pillsburysMateDescription">Torni matittaa kuninkaan samalla kun lähetti vie kuninkaalta pakoruudut.</string>
   <string name="morphysMate">Morphyn matti</string>
   <string name="morphysMateDescription">Matita vastustajan kuningas lähetilläsi samalla kun torni vie kuninkaalta pakoruudut.</string>
+  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Pääskynpyrstömatti</string>
+  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Mattikuvio, jonka V-muoto muistuttaa pääskyn pyrstön muotoa.</string>
   <string name="triangleMate">Kolmiomatti</string>
   <string name="triangleMateDescription">Daami ja torni ovat kumpikin ruudun päässä vastustajan kuninkaasta sekä samalla rivillä tai linjalla siten, että niiden väliin jää yksi tyhjä ruutu, ja ne muodostavat yhdessä kuninkaan kanssa kolmion.</string>
   <string name="vukovicMate">Vukovićin matti</string>

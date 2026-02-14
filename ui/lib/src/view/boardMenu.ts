@@ -5,7 +5,7 @@ import { type Toggle, myUserId, onClickAway } from '@/index';
 import { addPointerListeners } from '@/pointer';
 import * as licon from '@/licon';
 import { type MaybeVNode, type MaybeVNodes, type VNode, dataIcon, onInsert } from './snabbdom';
-import { cmnToggleWrap, cmnToggleWrapProp } from '@/view/controls';
+import { cmnToggleWrap, cmnToggleWrapProp } from '@/view/cmn-toggle';
 import { pubsub } from '@/pubsub';
 
 export const toggleButton = (toggle: Toggle, title: string): VNode =>

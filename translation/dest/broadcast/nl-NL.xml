@@ -69,6 +69,7 @@
   <string name="ratingDiff">Ratingverschil</string>
   <string name="gamesThisTournament">Partijen in dit toernooi</string>
   <string name="score">Score</string>
+  <string name="standingsDisclaimer">Standen worden berekend aan de hand van uitgezonden partijen en kunnen verschillen van de officiële resultaten.</string>
   <string name="allTeams">Alle teams</string>
   <string name="tournamentFormat">Toernooivorm</string>
   <string name="tournamentLocation">Toernooilocatie</string>
@@ -83,6 +84,11 @@
   <string name="liveboard">Live-bord</string>
   <string name="communityBroadcast">Gemeenschapsuitzending</string>
   <string name="createdAndManagedBy">Aangemaakt en beheerd door %s.</string>
+  <string name="matchPoints">Wedstrijdpunten</string>
+  <string name="gamePoints">Partijpunten</string>
+  <string name="matches">Wedstrijden</string>
+  <string name="matchHistory">Wedstrijdgeschiedenis</string>
+  <string name="teamResults">Teamresultaten</string>
   <string name="termsAutomaticallyTranslated">De volgende termen worden automatisch vertaald: %s.</string>
   <string name="roundX">Ronde %s</string>
   <string name="defaultRoundNameHelp">Laat de standaardnaam intact voor automatische vertaling naar alle andere talen.</string>

@@ -44,7 +44,7 @@ object TutorResourcefulness:
       )
       compute(coll)(
         aggregateMine = mineSelect =>
-          Match(select ++ mineSelect ++ $doc(F.perf.$in(perfs))) -> List(
+          Match(select ++ mineSelect ++ F.perf.$in(perfs)) -> List(
             Sort(Descending(F.date)),
             Limit(maxGamesPerPerf.value),
             groupByPerf

@@ -27,11 +27,8 @@ export function initModule(opts: LobbyOpts) {
     receive: (t: string, d: any) => lobbyCtrl.socket.receive(t, d),
     events: {
       n(_: string, msg: any) {
-        lobbyCtrl.spreadPlayersNumber && lobbyCtrl.spreadPlayersNumber(msg.d);
-        setTimeout(
-          () => lobbyCtrl.spreadGamesNumber && lobbyCtrl.spreadGamesNumber(msg.r),
-          wsPingInterval() / 2,
-        );
+        lobbyCtrl.spreadPlayersNumber?.(msg.d);
+        setTimeout(() => lobbyCtrl.spreadGamesNumber?.(msg.r), wsPingInterval() / 2);
       },
       reload_timeline() {
         xhr.text('/timeline').then(html => {

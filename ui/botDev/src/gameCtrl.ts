@@ -32,7 +32,7 @@ export class GameCtrl {
     this.proxy = new RoundProxy(opts.pref);
   }
 
-  load(game: LocalSetup | undefined): void {
+  load(game?: LocalSetup): void {
     this.stop();
     this.rewind = undefined;
     this.live = new LocalGame({ ...this.live?.setup, ...game });

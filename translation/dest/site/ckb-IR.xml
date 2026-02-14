@@ -704,7 +704,6 @@
   <string name="keyShowOrHideComments">پێشاندان/شاردنەوەی کۆمێنتەکان</string>
   <string name="keyEnterOrExitVariation">داخڵکردن/دەرچوون لە گۆڕاوەکان</string>
   <string name="keyRequestComputerAnalysis">داواکردنی شیکاری کۆمپیوتەری، لە هەڵەکانتەوە فێربە</string>
-  <string name="keyNextLearnFromYourMistakes">دواتر (لە هەڵەکانتەوە فێرببە)</string>
   <string name="keyNextBlunder">بڵەندەر(هەڵە) ی دواتر</string>
   <string name="keyNextMistake">میستەیک(هەڵە) ی دواتر</string>
   <string name="keyNextInaccuracy">جووڵەی ناپێویستی دواتر</string>

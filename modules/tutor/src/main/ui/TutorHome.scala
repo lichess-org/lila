@@ -22,21 +22,61 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
               p(
                 strong(
                   cls := "tutor__intro",
-                  "Hello, I have examined ",
+                  "Analysis complete on ",
                   full.report.nbGames.localize,
                   " recent rated games of yours."
                 )
               ),
-              p("Let's compare your play style to your peers: players with a rating very similar to yours."),
               p(
-                "It should give us some idea about what your strengths are, and where you have room for improvement."
+                "Each aspect of your playstyle is compared to other players of similar rating, called \"peers\"."
+              ),
+              p(
+                "It should give you some idea about what your strengths are, and where you have room for improvement."
               )
             )
         ),
+        tutorConcepts,
         div(cls := "tutor__perfs tutor-cards")(
           full.report.perfs.toList.map { perfReportCard(full.report, _, user) }
         )
       )
+
+  private def tutorConcept(icon: Frag, name: Frag, desc: Frag) =
+    div(cls := "tutor-concept")(
+      div(cls := "tutor-concept__icon")(icon),
+      div(cls := "tutor-concept__content")(
+        h3(cls := "tutor-concept__name")(name),
+        div(cls := "tutor-concept__desc")(desc)
+      )
+    )
+
+  private def tutorConcepts =
+    fieldset(cls := "tutor__concepts toggle-box toggle-box--toggle toggle-box--toggle-off")(
+      legend("Tutor concepts"),
+      div(cls := "tutor-concepts")(
+        tutorConcept(
+          iconTag(Icon.Group),
+          "Peers",
+          frag(
+            strong("Players with a rating similar to yours, in a given time control."),
+            p(
+              "Each aspect of your playstyle is compared to that of your peers, giving you a concrete idea of how you perform in each area compared to players of similar strength."
+            )
+          )
+        ),
+        List(
+          concept.accuracy,
+          concept.tacticalAwareness,
+          concept.resourcefulness,
+          concept.conversion,
+          concept.performance,
+          concept.speed,
+          concept.clockFlagVictory,
+          concept.clockTimeUsage
+        ).map: c =>
+          tutorConcept(c.icon.frag, concept.show(c), frag(strong(c.descShort), c.descLong.map(p(_))))
+      )
+    )
 
   private def waitGame(game: (Pov, PgnStr)) =
     div(
@@ -44,18 +84,6 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
       st.data("pgn") := game._2.value,
       st.data("pov") := game._1.color.name
     )
-
-  private def nbGames(user: UserWithPerfs)(using Translate) =
-    val nb = lila.rating.PerfType.standardWithUltra.foldLeft(0): (nb, pt) =>
-      nb + user.perfs(pt).nb
-    p(s"Looks like you have ", strong(nb.atMost(10_000).localize), " rated games to look at, excellent!")
-
-  private def examinationMethod = p(
-    "Using the best chess engine: ",
-    lila.ui.bits.engineFullName,
-    ", ",
-    "and comparing your playstyle to thousands of other players with similar rating."
-  )
 
   private def perfReportCard(report: TutorFullReport, perfReport: TutorPerfReport, user: User)(using
       Context
@@ -86,7 +114,7 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
         grade.peerGrade(concept.speed, perfReport.globalClock),
         grade.peerGrade(concept.clockFlagVictory, perfReport.flagging.win),
         grade.peerGrade(concept.clockTimeUsage, perfReport.clockUsage),
-        perfReport.phases.map: phase =>
+        perfReport.phases.list.map: phase =>
           grade.peerGrade(concept.phase(phase.phase), phase.mix),
         bits.seeMore
       )
@@ -94,34 +122,58 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi):
 
   object empty:
 
+    private def whatTutorIsAbout = frag(
+      h2("What are your strengths and weaknesses?"),
+      p("Lichess can examine your games and compare your playstyle to other players with similar rating."),
+      br,
+      p(
+        "Tutor is all about statistical analysis and comparison to peers.",
+        br,
+        "No AI nonsense and no gimmicks; just concrete data about key metrics of your playstyle."
+      )
+    )
+
+    private def nbGames(user: UserWithPerfs)(using Translate): String =
+      lila.rating.PerfType.standardWithUltra
+        .foldLeft(0)((nb, pt) => nb + user.perfs(pt).nb)
+        .atMost(10_000)
+        .localize
+
+    private def examinationMethod = ol(
+      li("Analyse many of your games with ", lila.ui.bits.engineFullName),
+      li("Build detailed insight reports for each of your games"),
+      li("Compare these insights to other players with the same rating")
+    )
+
     def start(user: User)(using Context) =
       bits.page(menu = emptyFrag, pageSmall = true)(cls := "tutor__empty box"):
         frag(
           boxTop(h1("Lichess Tutor", bits.beta, bits.otherUser(user))),
-          bits.mascotSays("Explain what tutor is about here."),
-          postForm(cls := "tutor__empty__cta", action := routes.Tutor.refresh(user.username))(
-            submitButton(cls := "button button-fat button-no-upper")("Analyse my games and help me improve")
-          )
+          bits.mascotSays(
+            whatTutorIsAbout
+          ),
+          postForm(cls := "tutor__empty__cta", action := routes.Tutor.refresh(user.username)):
+            submitButton(cls := "button button-fat button-no-upper")("Compute my tutor report")
         )
 
-    def queued(in: TutorQueue.InQueue, user: UserWithPerfs, waitGames: List[(Pov, PgnStr)])(using
-        Context
-    ) =
+    def queued(in: TutorQueue.InQueue, user: UserWithPerfs, waitGames: List[(Pov, PgnStr)])(using Context) =
       bits.page(menu = emptyFrag, title = "Lichess Tutor - Examining games...", pageSmall = true)(
         cls := "tutor__empty tutor__queued box"
       ):
         frag(
           boxTop(h1("Lichess Tutor", bits.beta, bits.otherUser(user))),
           bits.mascotSays(
-            p(strong(cls := "tutor__intro")("I'm examining your games.")),
-            examinationMethod,
-            nbGames(user),
+            whatTutorIsAbout,
+            br,
             p(
-              "There are ",
-              (in.position - 1),
-              " players in the queue before you.",
-              br,
-              "You will get your results in about ",
+              strong(cls := "tutor__intro")("You have ", nbGames(user), " games to look at. Here's the plan:")
+            ),
+            examinationMethod,
+            p(
+              (in.position > 10).option:
+                frag("There are ", (in.position - 1), " players in the queue before you.", br)
+              ,
+              "Your report should be ready in about ",
               showMinutes(in.eta.toMinutes.toInt.atLeast(1)),
               "."
             )

@@ -61,8 +61,6 @@
   }
 
   &-link {
-    @extend %button-none;
-
     color: $c-link;
 
     &:hover,

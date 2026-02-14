@@ -105,8 +105,6 @@ export const bind = (ctrl: AnalyseCtrl) => {
     'click',
     '.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button',
   );
-  //'Next' button ("in Learn From Your Mistake")
-  keyToMouseEvent('enter', 'click', '.analyse__tools .training-box a.continue');
 
   //First explorer move
   kbd.bind('shift+space', () => {

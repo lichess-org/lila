@@ -53,6 +53,8 @@
   <string name="endgame">엔드게임</string>
   <string name="endgameDescription">게임 종반부에서의 전략</string>
   <string name="enPassantDescription">앙파상 규칙을 포함한 전술입니다. 상대 폰이 처음에 두 칸 이동해서 내 폰을 지나쳤을 경우, 그 폰을 잡을 수 있습니다.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">에팔레트 메이트</string>
+  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">체크된 킹의 두 인접한 탈출로가 다른 기물에 의해 막혀 있습니다.</string>
   <string name="exposedKing">노출된 킹</string>
   <string name="exposedKingDescription">주변에 방어자가 얼마 없는 킹에 대한 전술입니다. 종종 체크메이트가 되기도 합니다.</string>
   <string name="fork">포크</string>
@@ -71,6 +73,8 @@
   <string name="pillsburysMateDescription">비숍이 킹을 가두어두는 동안 룩을 이용해 메이트를 합니다.</string>
   <string name="morphysMate">모피 메이트</string>
   <string name="morphysMateDescription">룩으로 킹의 퇴로를 차단하고, 비숍으로 킹에게 체크합니다.</string>
+  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">스왈로우테일 메이트</string>
+  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">V자 모양인 제비의 꼬리를 시각적으로 닮은 체크메이트 패턴입니다.</string>
   <string name="triangleMate">트라이앵글 메이트</string>
   <string name="triangleMateDescription">퀸과 룩이 적 킹과 한 칸 떨어진 상태에서, 같은 랭크 혹은 파일에 있으며, 서로 한 칸을 사이에 두어 세 기물이 삼각형을 형성합니다.</string>
   <string name="vukovicMate">부코비치 메이트</string>

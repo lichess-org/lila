@@ -49,9 +49,7 @@ export interface Api {
     prompt: typeof prompt;
     domDialog: typeof domDialog;
   };
-  overrides: {
-    [key: string]: (...args: any[]) => unknown;
-  };
+  overrides: Record<string, (...args: any[]) => unknown>;
   analysis?: any;
 }
 

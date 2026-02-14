@@ -16,8 +16,7 @@ private case class ValueCount[V](value: V, count: Int):
 private case class TutorBothValues[A](mine: ValueCount[A], peer: A)(using o: Ordering[A]):
   def map[B: Ordering](f: A => B) = TutorBothValues(mine.map(f), f(peer))
   def higher = o.compare(mine.value, peer) >= 0
-  def mix(other: TutorBothValues[A])(using number: TutorNumber[A]): TutorBothValues[A] =
-    TutorBothValues(number.mean(mine, other.mine), number.mean(peer, other.peer))
+  def peerWithCount = ValueCount(peer, mine.count)
   def grade(using number: TutorNumber[A]): Grade = number.grade(mine.value, peer)
 
 private type TutorBothOption[A] = Option[TutorBothValues[A]]
@@ -32,7 +31,7 @@ private object TutorBothValues:
       .some
       .filter(_.count > 0)
       .map: mine =>
-        TutorBothValues[A](mine, number.mean(a.map(_.peer), b.map(_.peer)))
+        TutorBothValues[A](mine, number.mean(a.map(_.peerWithCount), b.map(_.peerWithCount)).value)
 
 private enum TutorMetric[V](val metric: InsightMetric):
   case GlobalClock extends TutorMetric[ClockPercent](InsightMetric.ClockPercent)
@@ -51,7 +50,8 @@ private object GoodPercent extends OpaqueDouble[GoodPercent]:
   given Percent[GoodPercent] = Percent.of(GoodPercent)
   given lila.db.NoDbHandler[GoodPercent] with {}
   extension (a: GoodPercent) def toInt = Percent.toInt(a)
-  def apply(a: Double, b: Double): GoodPercent = GoodPercent(100 * a / b)
+  def apply(a: Double, b: Double): GoodPercent =
+    if b > 0 then GoodPercent(100 * a / b) else GoodPercent(0)
 
 // value from -1 (worse) to +1 (best)
 private case class Grade private (value: Double):

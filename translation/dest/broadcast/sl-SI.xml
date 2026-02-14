@@ -73,6 +73,7 @@
   <string name="ratingDiff">Razlika v ratingu</string>
   <string name="gamesThisTournament">Igre v tem turnirju</string>
   <string name="score">Rezultat</string>
+  <string name="standingsDisclaimer">Lestvice se izračunajo na podlagi predvajanih tekem in se lahko razlikujejo od uradnih rezultatov.</string>
   <string name="allTeams">Vse ekipe</string>
   <string name="tournamentFormat">Oblika turnirja</string>
   <string name="tournamentLocation">Lokacija turnirja</string>
@@ -87,6 +88,11 @@
   <string name="liveboard">Živa deska</string>
   <string name="communityBroadcast">Skupnostna oddaja</string>
   <string name="createdAndManagedBy">Ustvaril in upravlja %s.</string>
+  <string name="matchPoints">Točke s tekme</string>
+  <string name="gamePoints">Točke igre</string>
+  <string name="matches">Tekme</string>
+  <string name="matchHistory">Zgodovina tekem</string>
+  <string name="teamResults">Rezultati ekip</string>
   <string name="termsAutomaticallyTranslated">Naslednji izraz(i) bodo samodejno prevedeni: %s.</string>
   <string name="roundX">Krog %s</string>
   <string name="defaultRoundNameHelp">Če ohranite privzeto ime, se bo samodejno prevedlo v vse druge jezike.</string>

@@ -1,5 +1,6 @@
 import * as licon from '../licon';
-import { type VNode, hl, bind, cmnToggleProp } from '@/view';
+import { type VNode, hl, bind } from '@/view';
+import { cmnToggleProp } from '@/view/cmn-toggle';
 import type { Tab, VoiceChat } from './interfaces';
 import discussionView from './discussion';
 import { noteView } from './note';

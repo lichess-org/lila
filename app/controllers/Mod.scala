@@ -382,8 +382,11 @@ final class Mod(
       env.mod.queueStats(period).map(views.mod.ui.queueStats(_))
   }
 
-  def search = SecureBody(_.UserSearch) { ctx ?=> me ?=>
-    bindForm(ModUserSearch.form)(err => BadRequest.page(views.mod.search(err, none)), searchTerm)
+  def search = SecureOrScopedBody(_.UserSearch) { ctx ?=> me ?=>
+    negotiate(
+      bindForm(ModUserSearch.form)(err => BadRequest.page(views.mod.search(err, none)), searchTerm),
+      get("q").so(q => JsonOk(env.mod.search.apiSearch(q)))
+    )
   }
 
   def notes(page: Int, q: String) = Secure(_.Admin) { _ ?=> _ ?=>
@@ -410,8 +413,7 @@ final class Mod(
     val hash = FingerHash(fh)
     for
       uids <- env.security.api.recentUserIdsByFingerHash(hash)
-      users <- env.user.repo.usersFromSecondary(uids.reverse)
-      withEmails <- env.user.api.withPerfsAndEmails(users)
+      withEmails <- env.user.api.withPerfsAndEmails(uids.reverse)
       uas <- env.security.api.printUas(hash)
       page <- renderPage(views.mod.search.print(hash, withEmails, uas, env.security.printBan.blocks(hash)))
     yield Ok(page)
@@ -427,8 +429,7 @@ final class Mod(
     env.mod.ipRender.decrypt(ip).so { address =>
       for
         uids <- env.security.api.recentUserIdsByIp(address)
-        users <- env.user.repo.usersFromSecondary(uids.reverse)
-        withEmails <- env.user.api.withPerfsAndEmails(users)
+        withEmails <- env.user.api.withPerfsAndEmails(uids.reverse)
         data <- env.security.ipTrust.ipData(address)
         blocked = env.security.firewall.blocksIp(address)
         page <- renderPage(views.mod.search.ip(address, withEmails, data, blocked))

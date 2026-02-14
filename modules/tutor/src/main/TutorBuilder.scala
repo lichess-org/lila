@@ -26,7 +26,7 @@ final private class TutorBuilder(
   import TutorBsonHandlers.given
   private given InsightApi = insightApi
 
-  val maxTime = fishnet.maxTime + 5.minutes
+  val maxTime = fishnet.maxTime + 3.minutes
 
   def apply(userId: UserId): Fu[Option[TutorFullReport]] = for
     user <- userApi.withPerfs(userId).orFail(s"No such user $userId")

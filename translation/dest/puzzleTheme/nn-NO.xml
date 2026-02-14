@@ -53,6 +53,8 @@
   <string name="endgame">Sluttspel</string>
   <string name="endgameDescription">Taktikk i den siste fasen av partiet.</string>
   <string name="enPassantDescription">Ein taktikk som inneber at en-passant-regelen blir tatt i bruk. Det betyr at ein bonde kan slå ut ein motspelar-bonde som har passert den etter å ha starta med å flytte to felt, på samme måte som om den hadde starta med å flytte ett felt.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Epålettmatt</string>
+  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">To fluktfelt er blokkert for ein konge som står i sjakk.</string>
   <string name="exposedKing">Eksponert konge</string>
   <string name="exposedKingDescription">Taktikk retta mot ein konge med få forsvarar rundt seg, noko som ofte leier til sjakk matt.</string>
   <string name="fork">Gaffel</string>
@@ -71,6 +73,8 @@
   <string name="pillsburysMateDescription">Tårnet set sjakkmatt medan løparen sperrar av.</string>
   <string name="morphysMate">Morphys matt</string>
   <string name="morphysMateDescription">Bruk løparen til å sjakke kongen, medan tårnet avgrensar rørslene til kongen.</string>
+  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Svalehalematt (Swallow\'s tail mate)</string>
+  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Eit sjakkmatt-motiv som visuelt liknar på en svalehale, dvs. ein V-form.</string>
   <string name="triangleMate">Trekantmatt</string>
   <string name="triangleMateDescription">Dronning og tårn, eit felt frå motspelarkongen, står på samme rad eller linje med ett felt mellom, slik at dei tre brikkene dannea ein trekant.</string>
   <string name="vukovicMate">Vuković-matt</string>

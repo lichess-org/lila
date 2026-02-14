@@ -70,7 +70,7 @@ export class LocalDb {
     this.lastId = lite.status === status['started'] ? data.id : undefined;
   }
 
-  delete(ids?: string[] | string): Promise<any> {
+  delete(ids?: string[] | string): Promise<void[]> {
     if (!ids) return Promise.all([this.store?.clear(), this.liteStore?.clear()]);
     else
       return Promise.all(

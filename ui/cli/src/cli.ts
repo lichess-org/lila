@@ -1,6 +1,6 @@
 import debounce from 'debounce-promise';
 import { load as loadDasher } from 'dasher';
-import { domDialog, alert } from 'lib/view';
+import { domDialog, alert, enter } from 'lib/view';
 import { defined, escapeHtml } from 'lib';
 import { complete, type CompleteOpts } from 'lib/view/complete';
 import { checkDebouncedResultAgainstTerm, fetchUsers, renderUserEntry } from 'lib/view/userComplete';
@@ -18,7 +18,7 @@ export function initModule({ input }: { input: HTMLInputElement }) {
       .map(a => a.cloneNode(true) as HTMLAnchorElement)
       .map(a => {
         a.classList.add('complete-result', 'complete-result--menu');
-        if (!!a.querySelector('.home')) a.innerHTML = i18n.site.play;
+        if (a.querySelector('.home')) a.innerHTML = i18n.site.play;
         return a;
       });
     // distinct by href
@@ -47,12 +47,13 @@ export function initModule({ input }: { input: HTMLInputElement }) {
   complete<Entry>(completeOpts);
   setTimeout(() => input.focus());
 
-  $(input).on('keydown', (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
+  $(input).on(
+    'keydown',
+    enter(() => {
       execute(input.value);
       input.blur();
-    }
-  });
+    }),
+  );
 }
 
 function execute(e: string | Entry) {

@@ -119,7 +119,7 @@ object Query:
   def variant(v: chess.variant.Variant) =
     $doc(F.variant -> (if v.standard then $exists(false) else $int(v.id)))
 
-  lazy val variantStandard = variant(chess.variant.Standard)
+  val variantStandard = variant(chess.variant.Standard)
 
   val notFromPosition: Bdoc =
     F.variant.$ne(chess.variant.FromPosition.id)

@@ -122,13 +122,12 @@
         text-transform: none;
       }
       .remove {
-        @extend %button-none;
         $remove-button-diameter: 1.75em;
+        @include inline-end(-0.65em);
         margin-inline-start: -$remove-button-diameter;
         width: $remove-button-diameter;
         height: $remove-button-diameter;
         top: -1.5em;
-        @include inline-end(-0.65em);
         background-color: $c-bg-popup;
         position: relative;
         border-radius: 50%;

@@ -8,12 +8,10 @@
   }
 
   .list button {
+    @extend %flex-center;
+
     flex: 0 0 33%;
     height: 40px;
-
-    @extend %flex-center;
-    @extend %button-none;
-
     justify-content: center;
   }
 
@@ -39,7 +37,6 @@
   }
 
   .reset {
-    @extend %button-none;
     padding: 0.5rem 1rem;
     &:hover {
       color: $c-primary;

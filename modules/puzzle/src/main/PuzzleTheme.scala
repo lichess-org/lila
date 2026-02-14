@@ -53,6 +53,7 @@ object PuzzleTheme:
     PuzzleTheme(i.dovetailMate, i.dovetailMateDescription)
   val equality = PuzzleTheme(i.equality, i.equalityDescription)
   val endgame = PuzzleTheme(i.endgame, i.endgameDescription)
+  val epauletteMate = PuzzleTheme(i.epauletteMate, i.epauletteMateDescription)
   val enPassant = PuzzleTheme(I18nKey.site.enPassant, i.enPassantDescription)
   val exposedKing = PuzzleTheme(i.exposedKing, i.exposedKingDescription)
   val fork = PuzzleTheme(i.fork, i.forkDescription)
@@ -93,6 +94,7 @@ object PuzzleTheme:
   val short = PuzzleTheme(i.short, i.shortDescription)
   val skewer = PuzzleTheme(i.skewer, i.skewerDescription)
   val superGM = PuzzleTheme(i.superGM, i.superGMDescription)
+  val swallowstailMate = PuzzleTheme(i.swallowstailMate, i.swallowstailMateDescription)
   val trappedPiece = PuzzleTheme(i.trappedPiece, i.trappedPieceDescription)
   val underPromotion = PuzzleTheme(i.underPromotion, i.underPromotionDescription)
   val veryLong = PuzzleTheme(i.veryLong, i.veryLongDescription)
@@ -161,11 +163,13 @@ object PuzzleTheme:
       cornerMate,
       doubleBishopMate,
       dovetailMate,
+      epauletteMate,
       hookMate,
       killBoxMate,
       pillsburysMate,
       morphysMate,
       operaMate,
+      swallowstailMate,
       triangleMate,
       vukovicMate,
       smotheredMate

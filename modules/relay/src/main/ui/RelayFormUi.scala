@@ -566,7 +566,7 @@ Hanna Marie ; Kozul, Zdenko"""),
               half = true
             )(form3.input(_)),
             form3.group(
-              form("info.fideTc"),
+              form("info.fideTC"),
               trb.fideRatingCategory(),
               help = frag("Which FIDE ratings to use").some,
               half = true

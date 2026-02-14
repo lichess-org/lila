@@ -45,6 +45,13 @@ a {
   }
 }
 
+button {
+  appearance: none;
+  background: none;
+  border: none;
+  color: $c-font;
+}
+
 p {
   margin-bottom: 1em;
   unicode-bidi: plaintext;

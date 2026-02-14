@@ -725,7 +725,6 @@
   <string name="keyShowOrHideComments">slēpt/rādīt komentārus</string>
   <string name="keyEnterOrExitVariation">ieiet/iziet variācijā</string>
   <string name="keyRequestComputerAnalysis">Pieprasi datora analīzi, Mācies no savām kļūdām</string>
-  <string name="keyNextLearnFromYourMistakes">Nākamais (Mācies no savām kļūdām)</string>
   <string name="keyNextBlunder">Nākamā rupjā kļūda</string>
   <string name="keyNextMistake">Nākamā kļūda</string>
   <string name="keyNextInaccuracy">Nākamā neprecizitāte</string>

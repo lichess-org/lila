@@ -130,6 +130,7 @@
   <string name="showVariationArrows">Zobraziť šípky variantov</string>
   <string name="evaluationGauge">Ukazovateľ hodnotenia</string>
   <string name="visualMotifs">Vizuálne motívy</string>
+  <string name="pinnedPieces">Figúrky vo väzbe</string>
   <string name="multipleLines">Počet variantov</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamäť</string>
@@ -486,6 +487,7 @@
   <string name="leaderboard">Rebríček</string>
   <string name="screenshotCurrentPosition">Odfotiť aktuálnu pozíciu</string>
   <string name="gameAsGIF">Uložiť ako GIF</string>
+  <string name="playerNames">Mená hráčov</string>
   <string name="pasteTheFenStringHere">Sem vložte FEN reťazec</string>
   <string name="pasteThePgnStringHere">Sem vložte PGN reťazec</string>
   <string name="orUploadPgnFile">Alebo nahrajte súbor PGN</string>
@@ -791,7 +793,6 @@
   <string name="keyShowOrHideComments">zobraziť/skryť komentáre</string>
   <string name="keyEnterOrExitVariation">zvoliť/opustiť variant</string>
   <string name="keyRequestComputerAnalysis">Požadujte analýzu počítačom, Poučte sa zo svojich chýb</string>
-  <string name="keyNextLearnFromYourMistakes">Ďalej (Poučte sa zo svojich chýb)</string>
   <string name="keyNextBlunder">Ďalšia hrubá chyba</string>
   <string name="keyNextMistake">Ďalšia chyba</string>
   <string name="keyNextInaccuracy">Ďalšia nepresnosť</string>

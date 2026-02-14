@@ -1,4 +1,4 @@
-import { hl, bind } from 'lib/view';
+import { enter, hl } from 'lib/view';
 import type LobbyController from '@/ctrl';
 import { variants, variantsForGameType } from '@/options';
 import { option } from 'lib/setup/option';
@@ -26,16 +26,24 @@ export const variantPicker = (ctrl: LobbyController) => {
 
   const currentVariant = variants.find(v => v.key === setupCtrl.variant()) || variants[0];
   const isOpen = setupCtrl.variantMenuOpen();
-  const toggleAction = () => {
-    setupCtrl.toggleVariantMenu();
-    setupCtrl.root.redraw();
+  const inputId = 'mselect-variant';
+
+  const toggleVariant = () => setupCtrl.toggleVariantMenu();
+  const updateCheckboxAndToggle = () => {
+    const checkbox = document.querySelector<HTMLInputElement>(`#${inputId}`);
+    if (checkbox) checkbox.checked = false;
+    toggleVariant();
   };
 
-  const children: (VNode | string | undefined | null)[] = [
+  const children: (VNode | string)[] = [
+    hl('input.mselect__toggle', {
+      attrs: { type: 'checkbox', id: inputId },
+      on: { change: toggleVariant },
+    }),
     hl(
       'label.mselect__label',
       {
-        hook: bind('click', toggleAction),
+        attrs: { for: inputId },
       },
       [
         hl('span.icon', { attrs: { 'data-icon': currentVariant.icon } }),
@@ -45,7 +53,7 @@ export const variantPicker = (ctrl: LobbyController) => {
   ];
 
   if (isOpen) {
-    children.push(hl('label.fullscreen-mask', { hook: bind('click', toggleAction) }));
+    children.push(hl('label.fullscreen-mask', { on: { click: updateCheckboxAndToggle } }));
     children.push(
       hl(
         'div.mselect__list',
@@ -58,11 +66,17 @@ export const variantPicker = (ctrl: LobbyController) => {
                 'tr.mselect__item',
                 {
                   class: { current: v.key === setupCtrl.variant() },
-                  hook: bind('click', () => {
-                    setupCtrl.variant(v.key);
-                    setupCtrl.toggleVariantMenu();
-                    setupCtrl.root.redraw();
-                  }),
+                  attrs: { tabindex: '0' },
+                  on: {
+                    click: () => {
+                      setupCtrl.variant(v.key);
+                      updateCheckboxAndToggle();
+                    },
+                    keydown: enter(() => {
+                      setupCtrl.variant(v.key);
+                      updateCheckboxAndToggle();
+                    }),
+                  },
                 },
                 [
                   hl('td.icon', hl('span', { attrs: { 'data-icon': v.icon } })),

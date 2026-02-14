@@ -53,6 +53,8 @@
   <string name="endgame">Final de partidă</string>
   <string name="endgameDescription">O tactică în ultima etapă a jocului.</string>
   <string name="enPassantDescription">O tactică cu regula en passant, unde un pion poate captura un pion adversar care l-a întrecut folosind mutarea sa inițială de două pătrate.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Mat cu epoleți</string>
+  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Două pătrate de evacuare adiacente pentru un rege în șah sunt ocupate de alte piese.</string>
   <string name="exposedKing">Rege expus</string>
   <string name="exposedKingDescription">O tactică ce implică un rege cu puțini apărători în jurul său, adeseori rezultând în șah mat.</string>
   <string name="fork">Bifurcare</string>
@@ -67,6 +69,12 @@
   <string name="intermezzoDescription">În loc să faci mutarea așteptată, mai întâi intervii cu o altă mutare care e o amenințare imediată, căreia adversarul trebuie să-i răspundă. Cunoscut și ca \"Zwischenzug\" sau \"In between\".</string>
   <string name="killBoxMate">Mat în casetă mortală</string>
   <string name="killBoxMateDescription">O tură este lingă regele inamic și susținută de o regină care de asemenea blochează pătratele pe unde ar putea evada regele. Tura și regina îl prind pe rege într-o \"casetă mortală\" de 3x3.</string>
+  <string name="pillsburysMate">Mat Pillsbury</string>
+  <string name="pillsburysMateDescription">Tura dă mat, iar nebunul ajută la constrângerea regelui.</string>
+  <string name="morphysMate">Mat Morphy</string>
+  <string name="morphysMateDescription">Folosește nebunul ca să dai șah regelui, în timp ce tura îl constrânge.</string>
+  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Mat coadă de rândunică</string>
+  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Un fel de mat care se aseamănă vizual cu o coadă de rândunică, similar cu o formă de V.</string>
   <string name="triangleMate">Mat în triunghi</string>
   <string name="triangleMateDescription">Regina și tura, la un pătrat de regele inamic, sunt pe același linie sau coloană, separate de un singur pătrat, formând un triunghi.</string>
   <string name="vukovicMate">Mat Vukovic</string>
@@ -97,6 +105,8 @@
   <string name="oneMoveDescription">Un puzzle care are doar o mutare.</string>
   <string name="opening">Deschidere</string>
   <string name="openingDescription">O tactică în prima etapă a jocului.</string>
+  <string name="operaMate">Mat Opera</string>
+  <string name="operaMateDescription">Dă șah la rege cu o tură si folosește un nebun ca sa aperi tura.</string>
   <string name="pawnEndgame">Final cu pioni</string>
   <string name="pawnEndgameDescription">Un final de partidă doar cu pioni.</string>
   <string name="pin">Blocare</string>

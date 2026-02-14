@@ -6,7 +6,10 @@
       align-items: flex-start;
       gap: 2em;
       .lpv {
-        flex: 0 0 240px;
+        max-width: 240px;
+      }
+      @media (max-width: at-most($xx-small)) {
+        flex-direction: column;
       }
     }
     &__buttons {

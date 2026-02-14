@@ -35,9 +35,9 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
                   : p == 'late'
                     ? h(p, title('Late'), '½')
                     : h(
-                        'a.glpt.' + (p.o ? 'ongoing' : !!p.w ? 'win' : p.w === false ? 'loss' : 'draw'),
+                        'a.glpt.' + (p.o ? 'ongoing' : p.w ? 'win' : p.w === false ? 'loss' : 'draw'),
                         { attrs: { key: p.g, href: `/${p.g}` }, hook: onInsert(site.powertip.manualGame) },
-                        p.o ? '*' : !!p.w ? '1' : p.w === false ? '0' : '½',
+                        p.o ? '*' : p.w ? '1' : p.w === false ? '0' : '½',
                       ),
             )
             .concat([...Array(Math.max(0, ctrl.data.nbRounds - player.sheet.length))].map(_ => h('r'))),

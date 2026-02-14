@@ -34,7 +34,6 @@ function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
   const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'] as const;
   const isArrowKey = (v: string): v is ArrowKey => arrowKeys.includes(v as ArrowKey);
 
-  site.mousetrap.bind('enter', () => opts.input.focus());
   /* keypress doesn't cut it here;
    * at the time it fires, the last typed char
    * is not available yet. Reported by:

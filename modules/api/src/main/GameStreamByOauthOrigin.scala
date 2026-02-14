@@ -28,6 +28,9 @@ final class GameStreamByOauthOrigin(
         case Some(s) if s.isAfter(nowInstant) => Left("`since` is in the future")
         case Some(s) if s.isBefore(nowInstant.minusHours(3)) => Left("`since` is older than 3 hours")
         case s => Right(s)
+      _ = since.foreach: s =>
+        logger.info:
+          s"$origin game stream with ${s.toNow.toMinutes}m history and ${extraUsers.size} extra users"
     yield Source.futureSource:
       for
         tokenUsers <- tokenApi.userIdsByClientOrigin(origin)

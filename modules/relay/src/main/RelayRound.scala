@@ -166,6 +166,7 @@ object RelayRound:
           case lccRegex(id, round) => round.toIntOption.map(Lcc(id, _))
           case _ => none
         def looksLikeLcc = url.host.toString.endsWith("livechesscloud.com")
+        def looksLikeIdChess = url.host.toString.endsWith("idchess.com")
     import url.*
 
     enum Upstream:
@@ -181,6 +182,10 @@ object RelayRound:
       def hasLcc = this match
         case Url(url) => url.looksLikeLcc
         case Urls(urls) => urls.exists(_.looksLikeLcc)
+        case _ => false
+      def hasIdChess = this match
+        case Url(url) => url.looksLikeIdChess
+        case Urls(urls) => urls.exists(_.looksLikeIdChess)
         case _ => false
       def hasUnsafeHttp: Option[URL] = this match
         case Url(url) => Option.when(url.scheme == "http")(url)

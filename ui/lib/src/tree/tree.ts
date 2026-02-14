@@ -52,9 +52,9 @@ export function makeTree(root: TreeNode): TreeWrapper {
     return child ? nodeAtPathFrom(child, treePath.tail(path)) : node;
   }
 
-  const nodeAtPathOrNull = (path: TreePath): TreeNode | undefined => nodeAtPathOrNullFrom(root, path);
+  const nodeAtPathOrNull = (path: TreePath): MaybeNode => nodeAtPathOrNullFrom(root, path);
 
-  function nodeAtPathOrNullFrom(node: TreeNode, path: TreePath): TreeNode | undefined {
+  function nodeAtPathOrNullFrom(node: TreeNode, path: TreePath): MaybeNode {
     if (path === '') return node;
     const child = ops.childById(node, treePath.head(path));
     return child ? nodeAtPathOrNullFrom(child, treePath.tail(path)) : undefined;
@@ -111,7 +111,7 @@ export function makeTree(root: TreeNode): TreeWrapper {
     return path;
   };
 
-  function updateAt(path: TreePath, update: (node: TreeNode) => void): TreeNode | undefined {
+  function updateAt(path: TreePath, update: (node: TreeNode) => void): MaybeNode {
     const node = nodeAtPathOrNull(path);
     if (node) update(node);
     return node;

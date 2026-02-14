@@ -53,6 +53,7 @@
   <string name="endgame">Эндшпиль</string>
   <string name="endgameDescription">Тактика в последней стадии игры.</string>
   <string name="enPassantDescription">Тактика с применением правила «взятие на проходе», где своя пешка может взять пешку противника, сходившую на две клетки из своего начального положения, и при этом пропущенное поле было под боем своей пешки.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Эполетный мат</string>
   <string name="exposedKing">Открытый король</string>
   <string name="exposedKingDescription">Незащищённый или слабо защищённый король часто становится жертвой матовой атаки.</string>
   <string name="fork">Вилка</string>

@@ -12,14 +12,60 @@
 	<string name="timeALot">E o grămadă de șah.</string>
 	<string name="timeReasonable">Pare să fie o cantitate rezonabilă de șah.</string>
 	<string name="timeHowManyMoves">Câte mutări ai jucat în tot timpul acela?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">o mutare jucată</item>
+		<item quantity="few">%s mutări jucate</item>
+		<item quantity="other">%s mutări jucate</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Asta înseamnă %s de lemn ridicat!</string>
+	<string name="movesStandardPiecesWeight">Piesele standard cântăresc aproximativ 40g fiecare</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s mutare</item>
+		<item quantity="few">%s mutări</item>
+		<item quantity="other">%s de mutări</item>
+	</plurals>
+	<string name="chessFoes">Cei mai buni adversari ai tăi la șah</string>
+	<plurals name="nbGrams">
+		<item quantity="one">un gram</item>
+		<item quantity="few">%s grame</item>
+		<item quantity="other">%s de grame</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">un kilogram</item>
+		<item quantity="few">%s kilograme</item>
+		<item quantity="other">%s de kilograme</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">așa ai început %s din jocurile tale ca alb</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">Cea mai jucată deschidere a ta ca alb într-un singur joc</item>
+		<item quantity="few">Cea mai jucată deschidere a ta ca alb în %s jocuri</item>
+		<item quantity="other">Cea mai jucată deschidere a ta ca alb în %s de jocuri</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">Cea mai jucată deschidere a ta ca negru într-un singur joc</item>
+		<item quantity="few">Cea mai jucată deschidere a ta ca negru în %s jocuri</item>
+		<item quantity="other">Cea mai jucată deschidere a ta ca negru în %s de jocuri</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Îți mulțumim ca ai votat o problemă de șah.</item>
+		<item quantity="few">Îți mulțumim ca ai votat %s probleme de șah.</item>
+		<item quantity="other">Îți mulțumim ca ai votat %s de probleme de șah.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">De asemenea, ai ajutat la etichetarea a %s din ele.</string>
+	<string name="puzzlesNone">Nu ai rezolvat nici o problemă de șah anul acesta.</string>
 	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Vrei să încerci câteva acum?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Ai câștigat %s din ele la prima încercare!</string>
+	<string name="sourcesTitle">Unde ai găsit jocuri?</string>
+	<string name="perfsTitle">Ce controale de timp și variante ai jucat?</string>
 	<string name="malwareNoneLoaded" comment="%s is 0">%s reclame și instrumente de urmărire încărcate</string>
 	<string name="malwareNoSell">Noi nu ți-am vândut datele personale</string>
 	<string name="malwareNoAbuse">Noi nu ți-am folosit dispozitivul împotriva ta</string>
 	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Dar alte site-uri o fac, deci te rugăm %s.</string>
 	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">ai grijă</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">%1$s partide jucate pe Lichess în %2$s</string>
 	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">%s dintre ele au fost ale tale.</string>
 	<string name="thanksTitle">Îți mulțumim că ai jucat pe Lichess!</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Ne bucurăm că ești aici. Să ai un %s grozav!</string>
 	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">%1$sle de la Lichess din acest an au fost %2$s.</string>
 	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">costuri</string>
 	<string name="patronCharity">Suntem o organizație caritabilă care funcționează doar din donații.</string>

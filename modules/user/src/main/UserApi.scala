@@ -208,14 +208,15 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   def withPerfsAndEmails[U: UserIdOf](users: List[U]): Fu[List[WithPerfsAndEmails]] = for
     perfs <- perfsRepo.idsMap(users, _.sec)
+    ids = users.map(_.id)
     users <- userRepo.coll
-      .list[Bdoc]($inIds(users.map(_.id)), _.sec)
+      .list[Bdoc]($inIds(ids), _.sec)
       .map: docs =>
         for
           doc <- docs
           user <- summon[BSONReader[User]].readOpt(doc)
         yield WithPerfsAndEmails(lila.rating.UserWithPerfs(user, perfs.get(user.id)), readEmails(doc))
-  yield users
+  yield users.sortLike(ids, _.user.id)
 
   def withPerfsAndEmails[U: UserIdOf](u: U): Fu[Option[WithPerfsAndEmails]] =
     withPerfsAndEmails(List(u)).map(_.headOption)

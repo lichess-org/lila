@@ -12,11 +12,16 @@
     padding: 0.5em 1.5em;
     text-align: right;
     font-size: 1.2em;
+    line-height: 26px;
+    &:focus-visible {
+      outline: $outline;
+    }
   }
 }
 .toggle-box--toggle {
   legend {
-    border-top: $border;
+    border: 1px solid transparent;
+    border-top-color: $c-border;
     cursor: pointer;
     &::after {
       content: '▲';
@@ -26,7 +31,9 @@
 }
 .toggle-box--toggle-off {
   background: none;
-  border-width: 1px 0 0 0;
+  border-color: transparent;
+  border-top-color: $c-border;
+  border-radius: 0;
   padding-top: 0;
   legend {
     border: $border;

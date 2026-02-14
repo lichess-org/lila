@@ -5,7 +5,7 @@ $c-op-panels: $c-brag;
     gap: 1em;
     margin-bottom: 3em;
     &__tab {
-      @extend %button-none, %box-radius;
+      @extend %box-radius;
       color: $c-op-panels;
       @include mq-col-many {
         font-size: 1.3em;

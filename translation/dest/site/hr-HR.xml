@@ -731,7 +731,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="keyShowOrHideComments">pokaži/sakrij komentare</string>
   <string name="keyEnterOrExitVariation">otvori/zatvori varijantu</string>
   <string name="keyRequestComputerAnalysis">Zatraži računalnu analizu, Uči na svojim greškama</string>
-  <string name="keyNextLearnFromYourMistakes">Sljedeće (Uči na svojim greškama)</string>
   <string name="keyNextBlunder">Sljedeća velika pogreška</string>
   <string name="keyNextMistake">Sljedeća pogreška</string>
   <string name="keyNextInaccuracy">Sljedeća sitna pogreška</string>

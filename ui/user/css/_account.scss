@@ -159,6 +159,15 @@
   section a {
     text-decoration: none;
     color: inherit;
+
+    &:focus-visible {
+      outline: none;
+      h2 {
+        outline: $outline;
+        outline-offset: 2px;
+        border-radius: 3px;
+      }
+    }
   }
 
   h2 {

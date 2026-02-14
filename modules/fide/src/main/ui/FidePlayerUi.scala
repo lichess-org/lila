@@ -114,7 +114,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
                   player.fed.map: fed =>
                     span(cls := "player-intro__fed")(
                       fideUi.federation.flag(fed, none),
-                      Federation.names.get(fed)
+                      Federation.i18nName(fed)
                     )
                 )
               )
@@ -179,7 +179,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
                       href := routes.Fide.federation(Federation.idToSlug(fed))
                     )(
                       fideUi.federation.flag(fed, none),
-                      Federation.name(fed)
+                      Federation.i18nName(fed)
                     )
                   )
                 ),

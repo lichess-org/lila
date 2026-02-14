@@ -1,7 +1,6 @@
 package lila.app
 package mashup
 import lila.core.forum.ForumPostMiniView
-import lila.simul.{ Simul, SimulApi }
 import lila.swiss.{ Swiss, SwissApi }
 import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRepo, TeamRequestRepo }
 import lila.tournament.{ Tournament, TournamentApi }
@@ -15,8 +14,7 @@ case class TeamInfo(
     subscribed: Boolean,
     requests: List[RequestWithUser],
     forum: Option[List[ForumPostMiniView]],
-    tours: TeamInfo.PastAndNext,
-    simuls: Seq[Simul]
+    tours: TeamInfo.PastAndNext
 ):
   export withLeaders.{ team, leaders, publicLeaders }
 
@@ -47,7 +45,6 @@ final class TeamInfoApi(
     forumRecent: lila.forum.RecentTeamPosts,
     tourApi: TournamentApi,
     swissApi: SwissApi,
-    simulApi: SimulApi,
     teamRepo: TeamRepo,
     requestRepo: TeamRequestRepo
 )(using Executor):
@@ -64,7 +61,6 @@ final class TeamInfoApi(
     subscribed <- member.so(api.isSubscribed(team.team, _))
     forumPosts <- withForum(member).optionFu(forumRecent(team.id))
     tours <- tournaments(team.team, 5, 5)
-    simuls <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
   yield TeamInfo(
     withLeaders = team,
     member = member,
@@ -72,8 +68,7 @@ final class TeamInfoApi(
     subscribed = subscribed,
     requests = requests,
     forum = forumPosts,
-    tours = tours,
-    simuls = simuls
+    tours = tours
   )
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
@@ -91,5 +86,5 @@ final class TeamInfoApi(
         )
 
   def clasTournaments(clas: Clas): Fu[PastAndNext] =
-    clas.hasTeam.orZero.so:
+    (clas.isActive && clas.hasTeam.orZero).so:
       teamRepo.byClasId(clas.id.into(TeamId)).flatMapz(tournaments(_, 1, 1))

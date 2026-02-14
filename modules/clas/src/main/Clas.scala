@@ -11,7 +11,7 @@ case class Clas(
     wall: Markdown = Markdown(""),
     teachers: NonEmptyList[UserId], // first is owner
     created: Clas.Recorded,
-    viewedAt: Instant,
+    viewedAt: Instant, // updated when a teacher views the class
     archived: Option[Clas.Recorded],
     canMsg: Option[Boolean],
     hasTeam: Option[Boolean]

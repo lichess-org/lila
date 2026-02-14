@@ -53,6 +53,8 @@
   <string name="endgame">Endgame</string>
   <string name="endgameDescription">A tactic during the last phase of the game.</string>
   <string name="enPassantDescription">A tactic involving the en passant rule, where a pawn can capture an opponent pawn that has bypassed it using its initial two-square move.</string>
+  <string name="epauletteMate">Epaulette mate</string>
+  <string name="epauletteMateDescription">Two adjacent escape squares for a checked king are occupied by other pieces.</string>
   <string name="exposedKing">Exposed king</string>
   <string name="exposedKingDescription">A tactic involving a king with few defenders around it, often leading to checkmate.</string>
   <string name="fork">Fork</string>
@@ -71,6 +73,8 @@
   <string name="pillsburysMateDescription">The rook delivers checkmate, while the bishop helps to confine it.</string>
   <string name="morphysMate">Morphy's mate</string>
   <string name="morphysMateDescription">Use the bishop to check the king, while your rook helps to confine it.</string>
+  <string name="swallowstailMate">Swallow's tail mate</string>
+  <string name="swallowstailMateDescription">A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.</string>
   <string name="triangleMate">Triangle mate</string>
   <string name="triangleMateDescription">The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.</string>
   <string name="vukovicMate">Vukovic mate</string>

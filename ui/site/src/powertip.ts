@@ -93,7 +93,9 @@ interface WithTooltip extends HTMLElement {
   forcedOpen: boolean;
 }
 
-const session: { [key: string]: any; scoped: { [key: string]: any } } = {
+type ScopedData = Record<string, any>;
+
+const session: { scoped: ScopedData } & Record<string, any> = {
   // for each popupId
   scoped: {
     // isTipOpen: false,
@@ -238,7 +240,7 @@ function cssCoordinates(): Coords {
 // displaycontroller.js
 
 class DisplayController {
-  scoped: { [key: string]: any } = {};
+  scoped: ScopedData = {};
   hoverTimer?: Timeout;
   el: WithTooltip;
 
@@ -421,7 +423,7 @@ function placementCalculator() {
 // tooltipcontroller.js
 
 class TooltipController {
-  scoped: { [key: string]: any };
+  scoped: ScopedData;
   tipElement: Cash;
   placementCalculator = placementCalculator();
 

@@ -21,15 +21,15 @@
       }
     }
     &__opening {
-      .no-square {
-        flex: 0 0 6em;
-        height: 6em;
-
-        piece {
-          position: inherit;
-          display: block;
-          width: 100%;
-          height: 100%;
+      .tutor-card__top {
+        gap: 1em;
+        &__board {
+          flex: 0 0 9em;
+          aspect-ratio: 1;
+          margin: 0.6em 0 0 0.8em;
+          cg-container {
+            left: 0;
+          }
         }
       }
       .slist tr td {

@@ -1,17 +1,8 @@
 import { isEmpty } from 'lib';
 import * as licon from 'lib/licon';
 import { displayColumns } from 'lib/device';
-import {
-  domDialog,
-  bind,
-  dataIcon,
-  hl,
-  type VNode,
-  type LooseVNodes,
-  type MaybeVNodes,
-  cmnToggleWrapProp,
-  cmnToggleWrap,
-} from 'lib/view';
+import { domDialog, bind, dataIcon, hl, type VNode, type LooseVNodes, type MaybeVNodes } from 'lib/view';
+import { cmnToggleWrapProp, cmnToggleWrap } from 'lib/view/cmn-toggle';
 import type { AutoplayDelay } from '../autoplay';
 import type AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'lib/game/router';

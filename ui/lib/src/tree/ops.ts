@@ -11,8 +11,7 @@ export function findInMainline(
   fromNode: TreeNode,
   predicate: (node: TreeNode) => boolean,
 ): TreeNode | undefined {
-  const findFrom = (node: TreeNode): TreeNode | undefined =>
-    predicate(node) ? node : withMainlineChild(node, findFrom);
+  const findFrom = (node: TreeNode) => (predicate(node) ? node : withMainlineChild<TreeNode>(node, findFrom));
   return findFrom(fromNode);
 }
 
@@ -69,17 +68,11 @@ export function countChildrenAndComments(node: TreeNode): {
 export function merge(n1: TreeNode, n2: TreeNode): void {
   if (n2.eval) n1.eval = n2.eval;
   if (n2.glyphs) n1.glyphs = n2.glyphs;
-  n2.comments &&
-    n2.comments.forEach(function (c) {
-      if (!n1.comments) n1.comments = [c];
-      else if (
-        !n1.comments.some(function (d) {
-          return d.text === c.text;
-        })
-      )
-        n1.comments.push(c);
-    });
-  n2.children.forEach(function (c) {
+  n2.comments?.forEach(c => {
+    if (!n1.comments) n1.comments = [c];
+    else if (!n1.comments.some(d => d.text === c.text)) n1.comments.push(c);
+  });
+  n2.children.forEach(c => {
     const existing = childById(n1, c.id);
     if (existing) merge(existing, c);
     else n1.children.push(c);

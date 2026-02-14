@@ -103,7 +103,6 @@ object help:
           row(kbd("a"), trans.site.bestMoveArrow()),
           row(kbd("v"), trans.site.toggleVariationArrows()),
           row(kbd("r"), trans.site.keyRequestComputerAnalysis()),
-          row(kbd("enter"), trans.site.keyNextLearnFromYourMistakes()),
           row(kbd("b"), trans.site.keyNextBlunder()),
           row(kbd("m"), trans.site.keyNextMistake()),
           row(kbd("i"), trans.site.keyNextInaccuracy()),

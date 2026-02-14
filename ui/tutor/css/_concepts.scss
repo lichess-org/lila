@@ -1,0 +1,58 @@
+$c-tutor-concept: $c-good;
+
+.tutor__concepts {
+  @extend %flex-column;
+  gap: 2em;
+  h2 {
+    margin-bottom: 1em;
+  }
+  margin: 1rem 0;
+}
+
+.tutor-concept {
+  display: flex;
+  align-items: stretch;
+  gap: 2em;
+  align-items: center;
+  padding: 2em 0 2em 1em;
+  border-bottom: $border;
+
+  &:first-child {
+    padding-top: 0;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__icon {
+    flex: 0 0 8em;
+    @media (max-width: at-most($xx-small)) {
+      display: none;
+    }
+  }
+
+  $icon-size: 7em;
+  .tutor-icon {
+    flex: 0 0 $icon-size;
+    width: $icon-size;
+    height: $icon-size;
+    color: $c-tutor-concept;
+  }
+  i[data-icon] {
+    font-size: 6em;
+    color: $c-tutor-concept;
+  }
+
+  &__content,
+  &__desc {
+    @extend %flex-column;
+    gap: 0.4em;
+    flex: 1 1 auto;
+  }
+  &__name {
+    @extend %flex-center-nowrap;
+    font-weight: normal;
+    font-size: 1.7em;
+    color: $c-tutor-concept;
+  }
+}

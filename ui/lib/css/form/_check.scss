@@ -28,9 +28,7 @@
   cursor: pointer;
   height: 24px;
   width: 24px;
-  transition:
-    border-color 0.1s ease-in-out,
-    background-color 0.1s ease-in-out;
+  @include transition(background-color border-color, 0.1s ease-in-out);
   &:hover {
     border-color: $c-good;
   }

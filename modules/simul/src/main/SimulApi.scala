@@ -40,7 +40,7 @@ final class SimulApi(
     lila.log.asyncActorMonitor.full
   )
 
-  export repo.{ find, byIds, byTeamLeaders }
+  export repo.{ find, byIds }
 
   def currentHostIds: Fu[Set[UserId]] = currentHostIdsCache.get {}
 

@@ -67,16 +67,16 @@ export const script = (src: string): Promise<void> =>
   });
 
 /* produce HTTP form data from a JS object */
-export const form = (data: any): FormData => {
+export const form = (data: Record<string, string | string[] | boolean | number | undefined>): FormData => {
   const formData = new FormData();
-  for (const k of Object.keys(data)) if (defined(data[k])) formData.append(k, data[k]);
+  for (const k of Object.keys(data)) if (defined(data[k])) formData.append(k, data[k].toString());
   return formData;
 };
 
 /* constructs a url with escaped parameters */
-export const url = (path: string, params: { [k: string]: string | number | boolean | undefined }): string => {
+export const url = (path: string, params: Record<string, string | number | boolean | undefined>): string => {
   const searchParams = new URLSearchParams();
-  for (const k of Object.keys(params)) if (defined(params[k])) searchParams.append(k, params[k] as string);
+  for (const k of Object.keys(params)) if (defined(params[k])) searchParams.append(k, params[k].toString());
   const query = searchParams.toString();
   return query ? `${path}?${query}` : path;
 };
@@ -117,10 +117,7 @@ export const readNdJson = async <T>(response: Response, processLine: ProcessLine
   } while (!done);
 };
 
-export async function writeTextClipboard(
-  url: string,
-  callbackOnSuccess: (() => void) | undefined = undefined,
-): Promise<void> {
+export async function writeTextClipboard(url: string, callbackOnSuccess?: () => void): Promise<void> {
   // Ancient browsers may not support `ClipboardItem`
   if (typeof ClipboardItem === 'undefined') {
     const t = await text(url);

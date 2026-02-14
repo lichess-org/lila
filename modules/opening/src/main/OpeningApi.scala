@@ -85,7 +85,7 @@ final class OpeningApi(
     cacheApi[OpeningConfig, PopularityHistoryAbsolute](64, "opening.allGamesHistory"):
       _.expireAfterWrite(1.hour).buildAsyncFuture: config =>
         explorer
-          .stats(Vector.empty, config, Crawler(false))(using UserId.lichess.into(MyId).some)
+          .stats(Vector.empty, config, Crawler(false))(using UserId.lichessAsMe.some)
           .map(_.toOption.flatten.so(_.popularityHistory))
 
   private def canLoadExpensiveStats(wikiMarkup: Boolean, crawler: Crawler, proxy: IsProxy)(using

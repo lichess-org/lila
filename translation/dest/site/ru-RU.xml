@@ -800,7 +800,6 @@
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
   <string name="keyEnterOrExitVariation">ввести/закрыть вариант</string>
   <string name="keyRequestComputerAnalysis">Запросите компьютерный анализ, Учитесь над своими ошибками</string>
-  <string name="keyNextLearnFromYourMistakes">Далее (Разобрать свои ошибки)</string>
   <string name="keyNextBlunder">Следующий зевок</string>
   <string name="keyNextMistake">Следующая ошибка</string>
   <string name="keyNextInaccuracy">Следующая неточность</string>

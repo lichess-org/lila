@@ -74,11 +74,13 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
 
   const makeTab = (key: Tab, name: string) =>
     hl(
-      `span.${key}`,
+      `button.${key}`,
       {
         class: { active: activeTab === key },
         attrs: { role: 'tab' },
-        hook: bind('mousedown', () => ctrl.setTab(key)),
+        on: {
+          click: () => ctrl.setTab(key),
+        },
       },
       name,
     );
@@ -91,14 +93,21 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
     chaptersTab,
     ctrl.members.size() > 0 && makeTab('members', i18n.study.nbMembers(ctrl.members.size())),
     withSearch &&
-      hl('span.search.narrow', {
+      hl('button.search.narrow', {
         attrs: { ...dataIcon(licon.Search) },
-        hook: bind('click', () => ctrl.search.open(true)),
+        on: {
+          click: () => ctrl.search.open(true),
+        },
       }),
     ctrl.members.isOwner() &&
-      hl('span.more.narrow', {
+      hl('button.more.narrow', {
         attrs: { ...dataIcon(licon.Hamburger), title: i18n.study.editStudy },
-        hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
+        on: {
+          click: () => {
+            ctrl.form.open.toggle();
+            ctrl.redraw();
+          },
+        },
       }),
   ]);
 

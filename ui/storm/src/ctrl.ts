@@ -98,7 +98,7 @@ export default class StormCtrl implements PuzCtrl {
     if (!this.promotion.start(orig, dest, { submit: this.playUserMove })) this.playUserMove(orig, dest);
   };
 
-  playUserMove = (orig: Key, dest: Key, promotion?: Role): any => {
+  playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
     const now = getNow();
     const puzzle = this.run.current;
     if (puzzle.startAt + config.minFirstMoveTime > now) console.log('reverted!');

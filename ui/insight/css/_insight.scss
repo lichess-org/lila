@@ -306,8 +306,7 @@
   }
 
   .box {
-    @extend %box-neat;
-
+    @extend %box-radius-bottom;
     .top {
       @extend %metal, %box-radius-top;
 
@@ -342,6 +341,21 @@
     .share a {
       text-decoration: underline;
     }
+  }
+
+  .tutor-link {
+    @extend %flex-center, %box-neat;
+    padding: 0.5em 1em;
+    gap: 1em;
+    img {
+      height: 3em;
+    }
+    > span {
+      @extend %flex-column;
+    }
+    background: $m-primary_bg--mix-10;
+    border: 1px solid $c-primary;
+    margin-bottom: 1em;
   }
 
   .help.box {

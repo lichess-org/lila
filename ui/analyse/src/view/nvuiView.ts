@@ -1,4 +1,4 @@
-import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/view';
+import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans, enter } from 'lib/view';
 import { defined } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
@@ -226,12 +226,13 @@ export function clickHook(main?: (el: HTMLElement) => void, post?: () => void) {
           main?.(el);
           post?.();
         });
-        el.addEventListener('keydown', (e: KeyboardEvent) => {
-          if (e.key === 'Enter') {
+        el.addEventListener(
+          'keydown',
+          enter(() => {
             main?.(el);
             post?.();
-          }
-        });
+          }),
+        );
       },
     },
   };
@@ -582,7 +583,9 @@ function renderStudyPlayer(ctrl: AnalyseCtrl, color: Color): VNode | undefined {
       keys
         .reduce<string[]>(
           (strs, [key, i18n]) =>
-            player[key] ? strs.concat(`${i18n}: ${key === 'fed' ? player[key].name : player[key]}`) : strs,
+            player[key]
+              ? strs.concat(`${i18n}: ${key === 'fed' ? player[key].i18nName : player[key]}`)
+              : strs,
           [],
         )
         .join(' '),

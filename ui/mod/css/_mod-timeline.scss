@@ -71,9 +71,6 @@
 .mod-timeline__report-form--open .button {
   background: $c-bad;
 }
-.mod-timeline__report-form:not(.mod-timeline__report-form--open) .button {
-  @extend %button-none;
-}
 .mod-timeline__text {
   @extend %break-word-hard;
   font-size: 0.9em;

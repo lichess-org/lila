@@ -57,11 +57,9 @@ final private class TutorQueue(
     all <- gameRepo.recentPovsByUserFromSecondary(
       user,
       60,
-      $doc(lila.core.game.BSONFields.turns.$gt(10))
+      lila.game.Query.turnsGt(10) ++ lila.game.Query.variantStandard ++ lila.game.Query.rated
     )
-    (rated, casual) = all.partition(_.game.rated.yes)
-    many = rated ::: casual.take(30 - rated.size)
-    povs = scalalib.ThreadLocalRandom.shuffle(many).take(30)
+    povs = scalalib.ThreadLocalRandom.shuffle(all).take(30)
     _ <- lightUserApi.preloadMany(povs.flatMap(_.game.userIds))
   yield povs.map { pov =>
     import chess.format.pgn.*

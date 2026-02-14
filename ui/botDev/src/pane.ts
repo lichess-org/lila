@@ -190,7 +190,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     return kids.every(x => x.enabled || x.isOptional) && this.requirementsAllow;
   }
 
-  private evaluate(requirement: Requirement | undefined): boolean {
+  private evaluate(requirement?: Requirement): boolean {
     if (typeof requirement === 'string') {
       const req = requirement.trim();
       if (req.startsWith('!')) {

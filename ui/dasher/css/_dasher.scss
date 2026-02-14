@@ -41,8 +41,6 @@
   }
 
   .head {
-    @extend %button-none;
-
     display: block;
     padding: 1rem;
     border-bottom: $border;
@@ -67,8 +65,6 @@
       button {
         display: block;
         padding: 0.7rem 0.7rem 0.7rem 1rem;
-        border: none;
-        background: none;
         width: 100%;
         text-align: left;
 
@@ -106,8 +102,6 @@
     margin: 0.5rem 0;
 
     button {
-      @extend %button-none;
-
       display: block;
       padding: 0.7rem 1rem;
       width: 100%;

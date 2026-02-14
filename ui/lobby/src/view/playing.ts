@@ -18,7 +18,7 @@ export default function (ctrl: LobbyController) {
           hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
         }),
         hl('span.meta', [
-          !!pov.opponent.ai
+          pov.opponent.ai
             ? i18n.site.aiNameLevelAiLevel('Stockfish', pov.opponent.ai)
             : pov.opponent.username,
           hl(

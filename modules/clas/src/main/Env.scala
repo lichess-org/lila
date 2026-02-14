@@ -21,7 +21,9 @@ final class Env(
     markdownCache: lila.memo.MarkdownCache,
     hcaptcha: lila.core.security.Hcaptcha,
     baseUrl: BaseUrl
-)(using Executor, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator, play.api.Mode):
+)(using Executor, akka.stream.Materializer, lila.core.i18n.Translator, play.api.Mode)(using
+    scheduler: Scheduler
+):
 
   lazy val nameGenerator: NameGenerator = wire[NameGenerator]
 
@@ -48,6 +50,8 @@ final class Env(
 
   def hasClas(using me: Me) =
     filters.student(me) || isTeacher
+
+  scheduler.scheduleWithFixedDelay(44.minutes, 1.hour)(() => api.clas.archiveAllInactive)
 
   lila.common.Bus.sub[lila.core.game.FinishGame]: finish =>
     progressApi.onFinishGame(finish.game)

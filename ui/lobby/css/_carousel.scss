@@ -26,7 +26,6 @@
     pointer-events: none;
 
     button {
-      @extend %button-none;
       padding: 0;
       font-size: 3em;
       pointer-events: auto;

@@ -5,6 +5,7 @@ import { json as xhrJson } from 'lib/xhr';
 import { Editor } from '@toast-ui/editor';
 import { currentTheme } from 'lib/device';
 import { wireMarkdownImgResizers, wrapImg, naturalSize } from 'lib/view/markdownImgResizer';
+import { enter } from 'lib/view';
 
 export function makeToastEditor(el: HTMLTextAreaElement, text: string = '', height: string = '60vh'): Editor {
   const rewire = () =>
@@ -18,14 +19,14 @@ export function makeToastEditor(el: HTMLTextAreaElement, text: string = '', heig
   rewire();
 
   // in a modal, <Enter> should complete the action, not submit the post form
-  $(el).on('keypress', event => {
-    if (event.key != 'Enter') return;
-    const okButton = $(event.target)
-      .parents('.toastui-editor-popup-body')
-      .find('.toastui-editor-ok-button')[0];
-    if (okButton) $(okButton).trigger('click');
-    return !okButton;
-  });
+  $(el).on(
+    'keypress',
+    enter(target => {
+      const okButton = $(target).parents('.toastui-editor-popup-body').find('.toastui-editor-ok-button')[0];
+      if (okButton) $(okButton).trigger('click');
+      return !okButton;
+    }),
+  );
   $(el)
     .find('button.link')
     .on('click', () => $('#toastuiLinkUrlInput')[0]?.focus());

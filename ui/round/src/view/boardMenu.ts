@@ -1,4 +1,5 @@
-import { hl, type LooseVNode, boardMenu as menuDropdown, cmnToggleWrap, boolPrefXhrToggle } from 'lib/view';
+import { hl, type LooseVNode, boardMenu as menuDropdown, boolPrefXhrToggle } from 'lib/view';
+import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 import type RoundController from '../ctrl';
 import { toggle } from 'lib';
 import { displayColumns, isTouchDevice } from 'lib/device';

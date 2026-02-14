@@ -68,10 +68,9 @@
       padding: 0;
       background: transparent;
       font-size: 1.5rem;
+      box-shadow: none;
 
       @include transition;
-
-      box-shadow: none;
     }
 
     button,

@@ -38,7 +38,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
           for
             obj <- objs
             code <- obj.getAsOpt[Federation.Id]("_id")
-            name <- lila.fide.Federation.names.get(code)
+            name <- lila.fide.Federation.names.get(code).map(_._1)
             nbPlayers <- obj.int("count")
             if nbPlayers >= 5
           yield (code, name, nbPlayers)

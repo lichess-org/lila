@@ -121,4 +121,10 @@
       }
     }
   }
+
+  &__contacts__loading {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+  }
 }

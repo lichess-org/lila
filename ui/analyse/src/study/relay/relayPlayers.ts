@@ -13,14 +13,7 @@ import type {
 import { playerColoredResult } from './customScoreStatus';
 import { playerFedFlag } from '../playerBars';
 import { userLink, userTitle } from 'lib/view/userLink';
-import type {
-  ChapterId,
-  Federations,
-  FideId,
-  PointsStr,
-  StudyPlayer,
-  StudyPlayerFromServer,
-} from '../interfaces';
+import type { ChapterId, FideId, PointsStr, StudyPlayer, StudyPlayerFromServer } from '../interfaces';
 import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { defined } from 'lib';
 import { type Attrs, type Hooks, init as initSnabbdom, attributesModule, type VNodeData } from 'snabbdom';
@@ -68,7 +61,7 @@ interface RelayPlayerWithGames extends RelayPlayer {
 }
 
 interface FidePlayer {
-  ratings: Record<FideTC, number>;
+  ratings: StatByFideTC;
   year?: number;
   follow?: boolean;
 }
@@ -90,7 +83,6 @@ export default class RelayPlayers {
     readonly tour: RelayTour,
     readonly switchToPlayerTab: () => void,
     readonly isEmbed: boolean,
-    private readonly federations: () => Federations | undefined,
     readonly hideResultsSinceRoundId: () => RoundId | undefined,
     readonly fidePhoto: (id: FideId) => Photo | undefined,
     private readonly redraw: Redraw,
@@ -126,18 +118,17 @@ export default class RelayPlayers {
     const players: (RelayPlayer & StudyPlayerFromServer)[] = await xhrJson(
       `/broadcast/${this.tour.id}/players`,
     );
-    this.players = players.map(p => convertPlayerFromServer(p, this.federations()));
+    this.players = players.map(convertPlayerFromServer);
     this.table?.refresh();
     this.redraw();
   };
 
   loadPlayerWithGames = async (id: RelayPlayerId) => {
-    const feds = this.federations();
     const full: RelayPlayerWithGames = await xhrJson(
       `/broadcast/${this.tour.id}/players/${encodeURIComponent(id)}`,
-    ).then(p => convertPlayerFromServer(p, feds));
+    ).then(convertPlayerFromServer);
     full.games.forEach((g: RelayPlayerGame) => {
-      g.opponent = convertPlayerFromServer(g.opponent as RelayPlayer & StudyPlayerFromServer, feds);
+      g.opponent = convertPlayerFromServer(g.opponent as RelayPlayer & StudyPlayerFromServer);
     });
     return full;
   };
@@ -157,7 +148,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
   const tour = ctrl.tour;
   const p = show.player;
   const year = (tour.dates?.[0] ? new Date(tour.dates[0]) : new Date()).getFullYear();
-  const tc = tour.info.fideTc || 'standard';
+  const tc = tour.info.fideTC || 'standard';
   const age: number | undefined = p?.fide?.year && year - p.fide.year;
   const fidePageAttrs = p ? fidePageLinkAttrs(p, ctrl.isEmbed) : {};
   const photo = p?.fideId ? ctrl.fidePhoto(p.fideId) : undefined;
@@ -185,14 +176,16 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
                 ]),
                 p.fide &&
                   hl('label.fide-player__follow', [
-                    hl(`input#fide-follow-${p.fideId}.cmn-favourite`, {
-                      attrs: {
-                        type: 'checkbox',
-                        'data-action': `/fide/${p.fideId}/follow?follow=true`,
-                        checked: !!p.fide?.follow,
-                      },
-                    }),
-                    hl('label', { attrs: { for: `fide-follow-${p.fideId}` } }),
+                    hl('span.cmn-favourite', [
+                      hl(`input#fide-follow-${p.fideId}`, {
+                        attrs: {
+                          type: 'checkbox',
+                          'data-action': `/fide/${p.fideId}/follow?follow=true`,
+                          checked: !!p.fide?.follow,
+                        },
+                      }),
+                      hl('label', { attrs: { for: `fide-follow-${p.fideId}` } }),
+                    ]),
                     i18n.site.follow,
                   ]),
                 hl('table.fide-player__header__table', [
@@ -205,7 +198,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
                           hl(
                             'a.fide-player__federation',
                             { attrs: { href: `/fide/federation/${p.fed.name}` } },
-                            [playerFedFlag(p.fed), p.fed.name],
+                            [playerFedFlag(p.fed), p.fed.i18nName],
                           ),
                         ),
                       ]),
@@ -240,7 +233,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
             p.performances &&
               hl('div.fide-player__card', [
                 hl('em', i18n.site.performance),
-                p.performances.map(([tc, value]: [FideTC, number]) =>
+                Object.entries(p.performances).map(([tc, value]: [FideTC, number]) =>
                   hl(
                     'div',
                     fideTCAttrs(tc),
@@ -476,7 +469,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           'td',
           defined(game.ratingDiff) &&
             hideResultsSinceIndex > i &&
-            ratingDiff(game, p.ratingsMap && p.ratingsMap.length > 1),
+            ratingDiff(game, p.ratingsMap && Object.keys(p.ratingsMap).length > 1),
         ),
       ]);
     }),
@@ -517,7 +510,7 @@ const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): V
             hl('img.mini-game__flag', {
               attrs: { src: site.asset.fideFedSrc(player.fed.id) },
             }),
-            player.fed.name,
+            player.fed.i18nName,
           ]),
       ]),
     ]),
@@ -527,9 +520,9 @@ const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): V
 const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = false) => {
   if (isRelayPlayerGame(p)) return hl('div', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff));
   if (!p.ratingDiffs) return p.rating;
-  const rds = p.ratingDiffs;
+  const rds = Object.entries(p.ratingDiffs);
   return rds.map(([tc, diff]: [FideTC, number]) => {
-    const node = [p.ratingsMap?.find(r => r[0] === tc)?.[1], diffNode(diff)];
+    const node = [p.ratingsMap?.[tc], diffNode(diff)];
     return rds.length === 1 ? node : hl('div', fideTCAttrs(tc), node);
   });
 };

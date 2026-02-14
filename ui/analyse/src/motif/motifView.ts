@@ -1,6 +1,7 @@
 import type AnalyseCtrl from '@/ctrl';
 import { displayColumns } from 'lib/device';
-import { hl, cmnToggleWrap, type LooseVNodes } from 'lib/view';
+import { hl, type LooseVNodes } from 'lib/view';
+import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 
 export const config = (ctrl: AnalyseCtrl): LooseVNodes => [
   displayColumns() > 1 && hl('h2', i18n.site.visualMotifs),
