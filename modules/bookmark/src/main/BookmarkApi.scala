@@ -22,7 +22,7 @@ object BookmarkPosition:
     for
       p <- ply.flatMap(_.toIntOption.map(Ply(_)))
       f <- fen.map(SimpleFen(_))
-      c <- color.flatMap(c => Color(c.head))
+      c <- color.flatMap(Color.fromName)
       u = lastMoveUci.flatMap(Uci(_))
     yield BookmarkPosition(p, f, c, u)
 
