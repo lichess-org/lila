@@ -12,13 +12,13 @@ case class Bookmark(game: Game, position: Option[BookmarkPosition] = None)
 object BookmarkApi:
 
   def readPosition(
-      ply: Option[String],
+      ply: Option[Int],
       fen: Option[String],
       color: Option[String],
       lastMoveUci: Option[String]
   ): Option[BookmarkPosition] =
     for
-      p <- ply.flatMap(_.toIntOption.map(Ply(_)))
+      p <- Ply.from(ply)
       f <- fen.map(SimpleFen(_))
       c <- color.flatMap(Color.fromName)
       u = lastMoveUci.flatMap(Uci(_))
