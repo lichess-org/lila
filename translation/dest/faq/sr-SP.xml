@@ -77,10 +77,11 @@
   <string name="usernamesNotOffensive">Генерално, корисничка имена не требају бити: увредљива, лажно представљати неког другог или рекламе. Можеш прочитати више о %1$s.</string>
   <string name="guidelines">смерницама</string>
   <string name="canIChangeMyUsername">Могу ли променити своје корисничко име?</string>
-  <string name="uniqueTrophies">Уникатни трофеји</string>
-  <string name="ownerUniqueTrophies">Овај трофеј је уникатан у историји Личеса, нико осим %1$s га неће имати.</string>
+  <string name="uniqueTrophies">Јединствени трофеји</string>
+  <string name="ownerUniqueTrophies">Тај трофеј је јединствен у историји Lichess-а, нико осим %1$s га никад неће имати.</string>
   <string name="aHourlyBulletTournament">сатни муњевити турнир</string>
-  <string name="lichessRatings">Личес рејтинзи</string>
+  <string name="goldenZeeExplanation">ZuggAddict је стримовао и за последња 2 сата покушавао да порази вештачку интелингецију нивоа 8 у 1+0 партији, без успеха. Thibault му је рекао да ако то успешно уради на стриму, добиће јединствени трофеј. Сат времена касније, победио је Стокфиш и обећање је испоштовано.</string>
+  <string name="lichessRatings">Lichess рејтинзи</string>
   <string name="whichRatingSystemUsedByLichess">Који рејтинг систем користи Личес?</string>
   <string name="ratingSystemUsedByLichess">Рејтинзи се рачунају помоћо Глико-2 рејтинг методе коју је осмислио Марк Гликман. Ово је врло популарна метода и користи се у значајном броју шаховских организација (ФИДЕ је знаменит супротан пример јер и даље користе застарели Ело рејтинг систем).
 
