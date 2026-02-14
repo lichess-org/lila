@@ -26,10 +26,10 @@ object BookmarkPosition:
       u = lastMoveUci.flatMap(Uci(_))
     yield BookmarkPosition(p, f, c, u)
 
-given BSONWriter[Uci] = BSONWriter { uci => BSONString(uci.uci) }
-given BSONReader[Uci] = BSONReader.collect { case BSONString(str) => Uci(str).get }
+  given BSONWriter[Uci] = BSONWriter { uci => BSONString(uci.uci) }
+  given BSONReader[Uci] = BSONReader.collect { case BSONString(str) => Uci(str).get }
 
-given BSONDocumentHandler[BookmarkPosition] = Macros.handler[BookmarkPosition]
+  given BSONDocumentHandler[BookmarkPosition] = Macros.handler[BookmarkPosition]
 
 final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBuilder)(using Executor):
 
