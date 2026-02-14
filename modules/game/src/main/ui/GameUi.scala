@@ -1,18 +1,16 @@
 package lila.game
 package ui
 
-import chess.format.Fen
+import chess.Ply
+import chess.format.{ Fen, SimpleFen }
 import chess.format.pgn.PgnStr
 
-import lila.core.game.{ Game, Player }
+import lila.core.game.{ Game, Player, BookmarkPosition }
 import lila.game.GameExt.*
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 import lila.game.Player.nameSplit
-import chess.Ply
-import chess.format.SimpleFen
-import lila.bookmark.BookmarkPosition
 
 final class GameUi(helpers: Helpers):
   import helpers.{ *, given }

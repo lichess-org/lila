@@ -1,19 +1,17 @@
 package lila.bookmark
 
 import reactivemongo.api.bson.*
-
-import lila.core.game.{ Game, GameApi }
-import lila.db.dsl.{ *, given }
 import chess.Ply
-import chess.format.SimpleFen
-import chess.format.Uci
-import scala.util.Failure
+import chess.format.{ Uci, SimpleFen }
+
+import lila.core.game.{ Game, GameApi, BookmarkPosition }
+import lila.db.dsl.{ *, given }
 
 case class Bookmark(game: Game, position: Option[BookmarkPosition] = None)
-case class BookmarkPosition(ply: Ply, fen: SimpleFen, color: Color, lastMove: Option[Uci])
 
-object BookmarkPosition:
-  def apply(
+object BookmarkApi:
+
+  def readPosition(
       ply: Option[String],
       fen: Option[String],
       color: Option[String],
@@ -32,6 +30,8 @@ object BookmarkPosition:
   given BSONDocumentHandler[BookmarkPosition] = Macros.handler[BookmarkPosition]
 
 final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBuilder)(using Executor):
+
+  import BookmarkApi.given
 
   private def exists(gameId: GameId, userId: UserId): Fu[Boolean] =
     coll.exists(selectId(gameId, userId))

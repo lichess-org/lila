@@ -240,7 +240,7 @@ lazy val user = module("user",
 )
 
 lazy val game = module("game",
-  Seq(tree, rating, memo, bookmark),
+  Seq(tree, rating, memo),
   Seq(compression) ++ tests.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 )
 

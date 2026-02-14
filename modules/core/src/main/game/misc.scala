@@ -1,7 +1,7 @@
 package lila.core
 package game
 
-import _root_.chess.format.Fen
+import _root_.chess.format.{ Fen, SimpleFen, Uci }
 import _root_.chess.format.pgn.{ Pgn, SanStr, Tags }
 import _root_.chess.variant.Variant
 import _root_.chess.{ ByColor, Centis, Clock, Color, Division, Ply, Speed, Status }
@@ -56,6 +56,8 @@ case class WithInitialFen(game: Game, fen: Option[Fen.Full])
 opaque type Blurs = Long
 object Blurs extends OpaqueLong[Blurs]:
   extension (bits: Blurs) def nb: Int = java.lang.Long.bitCount(bits.value)
+
+case class BookmarkPosition(ply: Ply, fen: SimpleFen, color: Color, lastMove: Option[Uci])
 
 enum Source(val id: Int) derives Eq:
   def name = toString.toLowerCase

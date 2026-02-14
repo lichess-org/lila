@@ -7,12 +7,12 @@ import java.time.format.DateTimeFormatter
 import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.core.id.GameAnyId
-import lila.bookmark.BookmarkPosition
+import lila.bookmark.BookmarkApi
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def bookmark(gameId: GameId) = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
-    val position = BookmarkPosition(get("ply"), get("fen"), get("col"), get("uci"))
+    val position = BookmarkApi.readPosition(get("ply"), get("fen"), get("col"), get("uci"))
     env.bookmark.api
       .toggle(env.round.gameProxy.updateIfPresent)(gameId, me, getBoolOpt("v"), position)
       .inject(NoContent)
