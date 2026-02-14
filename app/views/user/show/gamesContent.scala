@@ -16,7 +16,6 @@ object gamesContent:
       notes: Map[GameId, String],
       bookmarks: Map[GameId, Bookmark]
   )(using ctx: Context) =
-    bookmarks.pp("Bookmark info")
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
         filters.list.map: f =>

@@ -49,14 +49,11 @@ export function bindBookmarkButton(getData: () => BookmarkData): void {
   $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
     const isBookmarked = $(this).hasClass('bookmarked');
     const data = getData();
-    console.log('bookmarking', data);
 
     const gameURL = this.href;
-    console.log(`GameURL: ${gameURL}`);
 
     if (!isBookmarked) {
       const positionURL = `${gameURL}?ply=${data.ply}&fen=${data.fen}&col=${data.color}${data.uci ? '&uci=' + data.uci : ''}`;
-      console.log(`PositionURL: ${positionURL}`);
       bookmarkOptions(gameURL, positionURL, this);
     } else {
       xhrText(gameURL, { method: 'post' });
