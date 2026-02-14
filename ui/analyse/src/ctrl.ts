@@ -64,6 +64,7 @@ import { makeSanAndPlay } from 'chessops/san';
 import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import { completeNode } from 'lib/tree/node';
 import { Result } from '@badrap/result';
+import { bindBookmarkButton } from 'lib/game/bookmark';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;
@@ -268,6 +269,13 @@ export default class AnalyseCtrl implements CevalHandler {
     this.fork = new ForkCtrl(this);
 
     site.sound.preloadBoardSounds();
+
+    bindBookmarkButton(() => ({
+      ply: this.node.ply,
+      fen: this.node.fen,
+      color: this.bottomColor(),
+      uci: this.node.uci,
+    }));
   }
 
   get variantKey(): VariantKey {

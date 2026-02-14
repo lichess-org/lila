@@ -951,6 +951,9 @@ export default class RoundController implements MoveRootCtrl {
 
         bindBookmarkButton(() => ({
           ply: this.ply,
+          fen: this.chessground.getFen(),
+          color: boardOrientation(this.data, this.flip),
+          uci: this.stepAt(this.ply).uci,
         }));
       },
 
