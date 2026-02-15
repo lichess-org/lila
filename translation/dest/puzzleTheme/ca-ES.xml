@@ -15,6 +15,7 @@
   <string name="backRankMate">Mat del passadís</string>
   <string name="backRankMateDescription">Fes escac i mat al rei a la primera fila, quan està atrapat per les seves pròpies peces.</string>
   <string name="balestraMate">Mat de la balestra</string>
+  <string name="balestraMateDescription">Un alfil fa el mat, mentre una dama bloqueja les caselles d\'escapada restants</string>
   <string name="blindSwineMate">Mat del porc cec</string>
   <string name="blindSwineMateDescription">Dues torres treballen en equip per tal de fer mat al rei en una àrea de 2x2 caselles.</string>
   <string name="bishopEndgame">Final d’alfils</string>
