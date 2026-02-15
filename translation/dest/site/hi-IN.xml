@@ -224,7 +224,6 @@
   <string name="changeUsernameNotSame">केवल अक्षरों का मामला बदल सकता है। उदाहरण के लिए \"johndoe\" से \"JohnDoe\"।</string>
   <string name="changeUsernameDescription">अपना उपयोगकर्ता नाम बदलें। यह केवल एक बार किया जा सकता है और आपको केवल अपने उपयोगकर्ता नाम के केस को बदलने की अनुमति है।</string>
   <string name="signupUsernameHint">कृपया उचित यूज़रनेम ही चुनें। आप इसे बाद में बदल नहीं पाएंगे और अनुचित यूज़रनेम वाले कोई भी खाते बंद कर दिए जाएंगे।</string>
-  <string name="signupEmailHint">हम इस का इस्तेमाल सिर्फ़ पासवर्ड रीसेट के लिए करेंगे।</string>
   <string name="password">पासवर्ड</string>
   <string name="changePassword">पासवर्ड बदलें</string>
   <string name="changeEmail">अपना इ-मेल बदलो</string>
