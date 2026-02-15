@@ -204,7 +204,6 @@
   <string name="changeUsernameNotSame">अक्षरलाई सानो ठुलो मात्र पार्न सकिनेछ। जस्तै: \"johndoe\" बाट \"JohnDoe\"</string>
   <string name="changeUsernameDescription">तपाइको \"युजर नेम\" परिवर्तन गर्नुहोस्। यो एकपटक मात्र गर्न सक्नुहुनेछ र अक्षरलाई सानो ठुलो मात्र पार्न सकिनेछ।</string>
   <string name="signupUsernameHint">क्रिपया प्रयोगकर्ता नाम राख्दा पारिवारीक शब्द चयन गर्नुहोला। यसलाई पछि बदल्न मिल्ने छैन र अनुपयुक्त नाम भएका खाताहरू बन्द गरिने छन्।</string>
-  <string name="signupEmailHint">यसलाई हामी पासवर्ड रिसेट गर्न मात्र प्रयोग गर्ने छौँ ।</string>
   <string name="password">पासवर्ड</string>
   <string name="changePassword">पासवर्ड बदल्नुहोस्</string>
   <string name="changeEmail">इमेल बदल्नुहोस्</string>
