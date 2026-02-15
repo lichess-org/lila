@@ -1,4 +1,4 @@
-import { text as xhrText } from 'lib/xhr';
+import { text as xhrText } from '../xhr';
 import { domDialog, type Dialog } from '@/view';
 
 interface BookmarkData {
