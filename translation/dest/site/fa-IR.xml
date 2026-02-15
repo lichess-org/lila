@@ -9,6 +9,8 @@
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">در انتظار حریف</string>
   <string name="orLetYourOpponentScanQrCode">یا از حریف‌تان بخواهید این کدِ QR را بِپویَد</string>
+  <string name="reusableChallengeUrl">وب‌نشانیِ بازاستفاده‌پذیرِ چالش</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">پیوندِ دائمی برای اینکه هر کسی با همین تنظیمات، به شما پیشنهاد بازی دهد.</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
@@ -125,6 +127,8 @@
   <string name="bestMoveArrow">پیکانِ بهترین حرکت</string>
   <string name="showVariationArrows">نمایش پیکان‌های وَرتِش</string>
   <string name="evaluationGauge">میله ارزیابی</string>
+  <string name="visualMotifs">بُن‌مایه‌های بصری</string>
+  <string name="undefendedPieces">مُهره‌های بی‌دفاع</string>
   <string name="multipleLines">شاخه های متعدد</string>
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
