@@ -259,7 +259,6 @@
   <string name="changeUsernameNotSame">באותיות לועזיות ניתן להחליף אותיות קטנות בגדולות, למשל מ־\"johndoe\" ל־\"JohnDoe\".</string>
   <string name="changeUsernameDescription">שינוי שם המשתמש. ניתן לעשותו פעם אחת בלבד, ורק על ידי החלפת אותיות גדולות בקטנות ולהיפך.</string>
   <string name="signupUsernameHint">ודאו ששם המשתמש שלכם מתאים גם לילדים. לא תוכלו לשנות אותו מאוחר יותר וחשבונות עם שמות משתמש לא הולמים יסגרו!</string>
-  <string name="signupEmailHint">רק לצורך איפוס הסיסמה.</string>
   <string name="password">סיסמה</string>
   <string name="changePassword">שינוי סיסמה</string>
   <string name="changeEmail">שינוי דוא״ל</string>
