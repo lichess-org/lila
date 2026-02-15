@@ -214,7 +214,6 @@
   <string name="changeUsernameNotSame">Hanya dapat mengubah ke huruf besar atau kecil. Contohnya \"johndoe\" ke \"JohnDoe\"</string>
   <string name="changeUsernameDescription">Ganti nama pengguna Anda. Ini hanya diperbolehkan mengubah huruf besar-kecil nama pengguna Anda.</string>
   <string name="signupUsernameHint">Pastikan username Anda senonoh. Anda tidak dapat menggantinya lagi dan akun dengan username tidak senonoh akan di tutup!</string>
-  <string name="signupEmailHint">Ini hanya akan digunakan untuk setel ulang password.</string>
   <string name="password">Kata sandi</string>
   <string name="changePassword">Ganti kata sandi</string>
   <string name="changeEmail">Ubah email</string>
