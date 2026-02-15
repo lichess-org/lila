@@ -201,7 +201,6 @@
   <string name="changeUsername">Кулланучы исемен үзгәртү</string>
   <string name="changeUsernameNotSame">Хәрефләр регистрын гына үзгәртеп була. Мәсәлән, \"johndoe\"ны \"JohnDoe\"га.</string>
   <string name="changeUsernameDescription">Кулланучы исемегезне үзгәртегез. Сез моны бер тапкыр гына ясый аласыз һәм хәрефләрнен зурлыгын гына үзгәртә аласыз.</string>
-  <string name="signupEmailHint">Без аны серсүзне яңарту өчен генә кулланырбыз.</string>
   <string name="password">Серсүз</string>
   <string name="changePassword">Серсүзне үзгәртү</string>
   <string name="changeEmail">Emailны үзгәртү</string>
