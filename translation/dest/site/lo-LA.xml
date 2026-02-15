@@ -215,7 +215,6 @@
   <string name="changeUsernameNotSame">ສາມາດປ່ຽນໄດ້ສະເພາະຕົວພິມໃຫຍ່ ຫຼື ຕົວພິມນ້ອຍເທົ່ານັ້ນ. ຕົວຢ່າງ: ຈາກ \"johndoe\" ເປັນ \"JohnDoe\".</string>
   <string name="changeUsernameDescription">ປ່ຽນຊື່ຜູ້ໃຊ້ຂອງທ່ານ. ສາມາດເຮັດໄດ້ພຽງຄັ້ງດຽວ ແລະ ອະນຸຍາດໃຫ້ປ່ຽນໄດ້ສະເພາະຕົວພິມໃຫຍ່ ຫຼື ຕົວພິມນ້ອຍໃນຊື່ຜູ້ໃຊ້ຂອງທ່ານເທົ່ານັ້ນ.</string>
   <string name="signupUsernameHint">ກະລຸນາເລືອກຊື່ຜູ້ໃຊ້ທີ່ເໝາະສົມກັບທຸກເພດທຸກໄວ. ທ່ານບໍ່ສາມາດປ່ຽນໄດ້ໃນພາຍຫຼັງ ແລະ ບັນຊີໃດທີ່ມີຊື່ຜູ້ໃຊ້ບໍ່ເໝາະສົມຈະຖືກປິດ!</string>
-  <string name="signupEmailHint">ພວກເຮົາຈະໃຊ້ມັນເພື່ອຕັ້ງລະຫັດຜ່ານໃໝ່ ແລະ ເປີດໃຊ້ບັນຊີເທົ່ານັ້ນ.</string>
   <string name="password">ລະຫັດຜ່ານ</string>
   <string name="changePassword">ປ່ຽນລະຫັດຜ່ານ</string>
   <string name="changeEmail">ປ່ຽນອີເມວ</string>
