@@ -166,16 +166,18 @@ trait GameHelper:
       ownerLink: Boolean = false,
       tv: Boolean = false,
       ply: Option[Ply] = None
-  )(using ctx: Context): String =
-    val url = {
-      val owner = ownerLink.so(ctx.me.flatMap(game.player))
-      if tv then routes.Tv.index
-      else
-        val watcher = routes.Round.watcher(game.id, color)
-        owner.fold(watcher): o =>
-          if ply.isEmpty then routes.Round.player(game.fullIdOf(o.color)) else watcher
-    }.toString
-    ply.map((ply) => s"$url#${ply}").getOrElse(url)
+  )(using ctx: Context): String = {
+    if tv then routes.Tv.index
+    else
+      val watcher = routes.Round.watcher(game.id, color)
+      ply match
+        case Some(p) =>
+          s"${watcher}#${p}"
+        case None =>
+          val owner = ownerLink.so(ctx.me.flatMap(game.player))
+          owner.fold(watcher): o =>
+            routes.Round.player(game.fullIdOf(o.color))
+  }.toString
 
   def gameLink(pov: Pov)(using Context): String = gameLink(pov.game, pov.color)
 

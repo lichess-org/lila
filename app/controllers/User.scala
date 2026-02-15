@@ -131,7 +131,7 @@ final class User(
                   notes <- ctx.useMe:
                     env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id))
                   bookmarks <-
-                    if filter == "bookmark" then
+                    if GameFilter(filter) == GameFilter.bookmark then
                       ctx.useMe:
                         env.bookmark.api.bookmarks(pag.currentPageResults)
                     else Future(Map())
