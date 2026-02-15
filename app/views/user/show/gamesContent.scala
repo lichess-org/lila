@@ -3,7 +3,7 @@ package views.user.show
 import scalalib.paginator.Paginator
 
 import lila.app.UiEnv.{ *, given }
-import lila.bookmark.Bookmark
+import lila.core.game.BookmarkPosition
 
 object gamesContent:
 
@@ -14,7 +14,7 @@ object gamesContent:
       filters: lila.game.GameFilterMenu,
       filterName: String,
       notes: Map[GameId, String],
-      bookmarks: Map[GameId, Bookmark]
+      bookmarkedPositions: Map[GameId, BookmarkPosition]
   )(using ctx: Context) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
@@ -43,7 +43,7 @@ object gamesContent:
                     notes,
                     user = u.some,
                     ownerLink = ctx.is(u),
-                    bookmarks = bookmarks
+                    bookmarkedPositions = bookmarkedPositions
                   ),
                 pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
               )
@@ -68,7 +68,7 @@ object gamesContent:
                   notes,
                   user = u.some,
                   ownerLink = ctx.is(u),
-                  bookmarks = bookmarks
+                  bookmarkedPositions = bookmarkedPositions
                 )
             ,
             pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)

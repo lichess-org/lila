@@ -8,7 +8,7 @@ import lila.app.mashup.UserInfo
 import lila.core.data.SafeJsonStr
 import lila.game.GameFilter
 import lila.rating.UserWithPerfs.titleUsernameWithBestRating
-import lila.bookmark.Bookmark
+import lila.core.game.BookmarkPosition
 
 lazy val ui = lila.user.ui.UserShow(helpers, bits)
 
@@ -54,7 +54,7 @@ object page:
       searchForm: Option[Form[?]],
       social: UserInfo.Social,
       notes: Map[GameId, String],
-      bookmarkInfo: Map[GameId, Bookmark]
+      bookmarkedPositions: Map[GameId, BookmarkPosition]
   )(using Context) =
     val u = info.user
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
@@ -71,7 +71,7 @@ object page:
           div(cls := "page-menu__content box user-show")(
             views.user.show.header(u, info, UserInfo.Angle.Games(searchForm), social),
             div(cls := "angle-content")(
-              gamesContent(u, info.nbs, games, filters, filters.current.name, notes, bookmarkInfo)
+              gamesContent(u, info.nbs, games, filters, filters.current.name, notes, bookmarkedPositions)
             )
           )
         )

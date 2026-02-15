@@ -7,8 +7,6 @@ import chess.format.{ Uci, SimpleFen }
 import lila.core.game.{ Game, GameApi, BookmarkPosition }
 import lila.db.dsl.{ *, given }
 
-case class Bookmark(position: Option[BookmarkPosition] = None)
-
 object BookmarkApi:
 
   def readPosition(
@@ -98,15 +96,15 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
         )
       .void
 
-  def bookmarks(games: Seq[Game])(using me: MyId): Fu[Map[GameId, Bookmark]] =
+  def bookmarkedPositions(games: Seq[Game])(using me: MyId): Fu[Map[GameId, BookmarkPosition]] =
     (coll
       .byIds(games.map(game => makeId(game.id, me)), _.sec): Fu[List[BSONDocument]])
       .map { docs =>
         (for
           doc <- docs
           gameId <- doc.getAsOpt[GameId]("g")
-          position = doc.getAsOpt[BookmarkPosition]("p")
-        yield (gameId, Bookmark(position))).toMap
+          position <- doc.getAsOpt[BookmarkPosition]("p")
+        yield (gameId, position)).toMap
       }
 
   def userIdQuery(userId: UserId) = $doc("u" -> userId)
