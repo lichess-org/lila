@@ -221,7 +221,6 @@
   <string name="changeUsernameNotSame">Tenê halê hûrdekî - girdekiya tîpan dikare were guherandin. Mîsalen \"mihemedronî\" li \"MihemedRonî\".</string>
   <string name="changeUsernameDescription">Navê xwe yê bikarhêneriyê biguherîne. Ev tenê carekê dikare were kirin û tu tenê ji bo guherandina girdekî - hûrdekiya tîpên di navê te yê bikarhêneriyê de destûrdayî yî.</string>
   <string name="signupUsernameHint">Jê emîn be ku te navekî bikarhênerîyê ya malbat-dost bijartîye. Tu nikarî paşê wê biguherînî û her hesabê bi navekî bikarhênerîyê ya neminasîb wê werin girtin!</string>
-  <string name="signupEmailHint">Em ê wî tenê ji bo resetkirina şîfreyê biemilînin.</string>
   <string name="password">Pêborîn</string>
   <string name="changePassword">Pêborînê biguherîne</string>
   <string name="changeEmail">Epeyamê biguherîne</string>
