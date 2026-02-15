@@ -252,7 +252,6 @@
   <string name="changeUsernameNotSame">Ní féidir ach cás na litreacha a athrú. Mar shampla ó \"seanog\" go \"SeanOg\".</string>
   <string name="changeUsernameDescription">Athraigh d\'ainm úsáideora. Ní féidir é seo a dhéanamh ach uair amháin agus ní cheadaítear duit ach cás na litreacha i d’ainm úsáideora a athrú.</string>
   <string name="signupUsernameHint">Déan cinnte ainm úsáideora a oireann don teaghlach a roghnú. Ní féidir leat é a athrú ina dhiaidh agus dúnfar aon chuntais a bhfuil ainmneacha úsáideora míchuí orthu!</string>
-  <string name="signupEmailHint">Ní úsáidfimid é ach le haghaidh athshocrú pasfhocail.</string>
   <string name="password">Pasfhocal</string>
   <string name="changePassword">Athraigh pasfhocal</string>
   <string name="changeEmail">Athraigh do sheoladh ríomhphoist</string>
