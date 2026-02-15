@@ -8,7 +8,7 @@
 @import 'games';
 
 @mixin hamburger-visible {
-  border-radius: $box-radius-size $box-radius-size 0 0;
+  @include box-radius-top;
   background: $c-bg-header-dropdown;
   color: $c-font-clear;
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
@@ -116,8 +116,7 @@
               border-top-left-radius: $box-radius-size;
             }
             &:last-child {
-              border-bottom-left-radius: $box-radius-size;
-              border-bottom-right-radius: $box-radius-size;
+              @extend %box-radius-bottom;
             }
           }
         }
@@ -218,7 +217,7 @@
   }
 
   &__blog {
-    border-top: 1px solid $c-border;
+    border-top: $border;
     padding: 2vh 2.5%;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-gap: 0 3%;

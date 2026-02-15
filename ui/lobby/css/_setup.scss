@@ -126,9 +126,9 @@ $c-slider: $c-setup;
   }
 
   .failure {
+    @extend %box-radius;
     background: $m-bad_bg--mix-20;
     box-shadow: 0 0 13px 6px $m-bad_bg--mix-20;
-    border-radius: $box-radius-size;
   }
 
   .footer {

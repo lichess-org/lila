@@ -160,7 +160,7 @@
     }
 
     .selector a {
-      border-radius: $box-radius-size 0 0 $box-radius-size;
+      @extend %box-radius-left;
     }
 
     input[type='range'] {

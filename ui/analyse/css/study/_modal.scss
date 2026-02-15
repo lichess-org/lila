@@ -68,7 +68,7 @@
   &.chapter-new {
     .tabs-horiz {
       margin: -1em 0 1.6em 0;
-      border-bottom: 1px solid $c-border;
+      border-bottom: $border;
     }
     .import-from__chapter {
       @extend %break-word-hard, %ellipsis;

@@ -25,12 +25,12 @@ $col2-panel-height: 240px;
       cursor: pointer;
       position: relative;
       white-space: nowrap;
+      border-bottom: $border;
 
       &:hover {
         background: $c-body-gradient;
       }
 
-      border-bottom: 1px solid $c-border;
       &.active {
         border-color: $c-accent;
       }
