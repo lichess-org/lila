@@ -221,7 +221,6 @@
   <string name="changeUsernameNotSame">Nomás ye posible cambiar mayusclas per minusclas y viceversa. Per eixemplo, de \"juanperez\" a \"JuanPerez\".</string>
   <string name="changeUsernameDescription">Cambiar lo tuyo nombre d\'usuario. Esto nomás puede fer-se una vegada, y nomás se puede cambiar mayusclas per minusclas y viceversa.</string>
   <string name="signupUsernameHint">Tría un nombre d\'usuario amigable. No lo podrás cambiar dimpués y cualsequier cuenta con nombre d\'usuario inapropiau se zarrará.</string>
-  <string name="signupEmailHint">Nomás se fará servir pa reiniciar la clau.</string>
   <string name="password">Clau</string>
   <string name="changePassword">Cambiar clau</string>
   <string name="changeEmail">Cambiar correu</string>
