@@ -12,6 +12,10 @@
 	<string name="timeALot">Això són molts escacs.</string>
 	<string name="timeReasonable">Sembla un bona dosi d\'escacs.</string>
 	<string name="timeHowManyMoves">Quants moviments has fet durat aquest temps?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s moviment jugat</item>
+		<item quantity="other">%s moviments jugats</item>
+	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Això són %s de fusta moguda!</string>
 	<string name="movesStandardPiecesWeight">Les peces estàndard pesen normalment 40g cada una</string>
 	<string name="chessFoes">Els teus millors rivals dels escacs</string>
