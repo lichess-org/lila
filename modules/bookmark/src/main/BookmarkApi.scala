@@ -7,7 +7,7 @@ import chess.format.{ Uci, SimpleFen }
 import lila.core.game.{ Game, GameApi, BookmarkPosition }
 import lila.db.dsl.{ *, given }
 
-case class Bookmark(game: Game, position: Option[BookmarkPosition] = None)
+case class Bookmark(position: Option[BookmarkPosition] = None)
 
 object BookmarkApi:
 
@@ -106,8 +106,7 @@ final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBu
           doc <- docs
           gameId <- doc.getAsOpt[GameId]("g")
           position = doc.getAsOpt[BookmarkPosition]("p")
-          game <- games.find(_.id == gameId)
-        yield (gameId, Bookmark(game, position))).toMap
+        yield (gameId, Bookmark(position))).toMap
       }
 
   def userIdQuery(userId: UserId) = $doc("u" -> userId)
