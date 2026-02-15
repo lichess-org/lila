@@ -252,7 +252,6 @@
   <string name="changeUsernameNotSame">Se poate interschimba doar din minuscule în majuscule. De exemplu: „johndoe” în „JohnDoe”.</string>
   <string name="changeUsernameDescription">Schimbă-ți numele de utilizator. Această operație poate fi efectuată o singură dată și presupune doar schimbarea literelor din minuscule în majuscule și invers.</string>
   <string name="signupUsernameHint">Asigurați-vă că alegeți un nume de utilizator decent. Nu îl puteți schimba mai târziu și orice cont cu nume de utilizator indecent va fi închis!</string>
-  <string name="signupEmailHint">Îl vom folosi doar pentru resetarea parolei.</string>
   <string name="password">Parolă</string>
   <string name="changePassword">Schimbă parola</string>
   <string name="changeEmail">Schimbă emailul</string>
