@@ -27,8 +27,9 @@ final private class RelaySync(
     _ <- plan.reorder.so(studyApi.sortChapters(study.id, _)(who(study.ownerId)))
     updates <- plan.update.sequentially: (chapter, game) =>
       updateChapter(rt, study, chapter, game)
-    appends <- plan.append.toList.sequentially: game =>
-      createChapter(rt, study, game)
+    allowedNbChapters <- plan.append.nonEmpty.so:
+      chapterRepo.countByStudyId(study.id).map(RelayFetch.maxChaptersToShow.value - _)
+    appends <- plan.append.take(allowedNbChapters).toList.sequentially(createChapter(rt, study, _))
     result = SyncResult.Ok(updates ::: appends.flatten, plan)
     _ = lila.common.Bus.publishDyn(result, SyncResult.busChannel(rt.round.id))
     _ <- tourRepo.setSyncedNow(rt.tour)

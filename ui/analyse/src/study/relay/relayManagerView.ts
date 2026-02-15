@@ -54,10 +54,10 @@ function renderLog(ctrl: RelayCtrl) {
 function stateOn(ctrl: RelayCtrl) {
   const sync = ctrl.data.sync;
   return hl(
-    'div.state.on.clickable',
+    'button.state.on.clickable',
     { hook: bind('click', _ => ctrl.setSync(false)), attrs: dataIcon(licon.ChasingArrows) },
     [
-      hl('div', [
+      hl('span', [
         'Connected ',
         sync && [
           !!sync.delay && `with ${sync.delay}s delay `,
@@ -82,14 +82,14 @@ function stateOn(ctrl: RelayCtrl) {
 
 const stateOff = (ctrl: RelayCtrl) =>
   hl(
-    'div.state.off.clickable',
+    'button.state.off.clickable',
     { hook: bind('click', _ => ctrl.setSync(true)), attrs: dataIcon(licon.PlayTriangle) },
-    [hl('div.fat', 'Connect to source')],
+    [hl('span.fat', 'Connect to source')],
   );
 
 const statePush = (ctrl: RelayCtrl) =>
   hl('div.state.push', { attrs: dataIcon(licon.UploadCloud) }, [
-    hl('div', [
+    hl('span', [
       'Listening to ',
       hl('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
       hl('br'),
