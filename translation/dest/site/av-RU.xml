@@ -221,7 +221,6 @@
   <string name="changeUsernameNotSame">ЦохӀо хӀарпазул регистер хисизе бегьула. Масала \"johndoe\"-ги \"JohnDoe\"-ги.</string>
   <string name="changeUsernameDescription">ХӀалтизабулесда цӀар хисизе. Гьеб цохӀо нухалъ гьабизе бегьула, дуе бегьула цохӀо дур цӀаралда хӀарпазул регистер хисизе.</string>
   <string name="signupUsernameHint">Адаб бугеб цӀар бище. Дуда хадуб гьеб хисизе кӀоларо, киналго аккаунтал адаб гьечӀел цӀарал ругел къазе руго!</string>
-  <string name="signupEmailHint">Нижеца гьеб гӀицӀго парол цӀидасан чӀезабизе хӀалтӀизабизе буго.</string>
   <string name="password">Парол</string>
   <string name="changePassword">Парол хисизе</string>
   <string name="changeEmail">Электронияб поч хисизе</string>
