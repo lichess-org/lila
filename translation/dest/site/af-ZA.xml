@@ -222,7 +222,6 @@
   <string name="changeUsernameNotSame">Slegs die hoof-/kleinletters kan verander. Byvoorbeeld \"pietsmit\" na \"PietSmit\".</string>
   <string name="changeUsernameDescription">Verander jou gebruikersnaam. Dit kan slegs een keer gedoen word, en jy kan net die hoof-/kleinletters in die gebruikersnaam verander.</string>
   <string name="signupUsernameHint">Kies asseblief \'n aanvaarbare gebruikersnaam. Dit kan nie later verander word nie, en enige onaanvaarbare gebruikersname sal gesluit word!</string>
-  <string name="signupEmailHint">Dit sal slegs gebruik word om wagwoorde te herstel.</string>
   <string name="password">Wagwoord</string>
   <string name="changePassword">Verander wagwoord</string>
   <string name="changeEmail">Verander e-pos</string>
