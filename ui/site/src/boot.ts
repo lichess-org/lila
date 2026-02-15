@@ -25,7 +25,6 @@ import { eventuallySetupDefaultConnection } from 'lib/socket';
 
 export function boot() {
   addExceptionListeners();
-  $('#user_tag').removeAttr('href');
   const setBlind = location.hash === '#blind';
   const showDebug = location.hash.startsWith('#debug');
 

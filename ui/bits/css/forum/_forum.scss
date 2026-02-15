@@ -12,6 +12,11 @@
     @extend %break-word-hard;
   }
 
+  h1 {
+    display: inline-flex;
+    align-items: center;
+  }
+
   .slist .subject {
     unicode-bidi: plaintext;
   }

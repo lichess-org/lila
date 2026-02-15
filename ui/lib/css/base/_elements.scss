@@ -43,6 +43,11 @@ a {
   &:focus {
     color: $c-link-hover;
   }
+
+  &:focus-visible {
+    outline: $outline;
+    border-radius: $box-radius-size / 2;
+  }
 }
 
 button {

@@ -118,7 +118,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   def dasher(me: User) =
     div(cls := "dasher")(
-      a(id := "user_tag", cls := "toggle link", href := routes.Auth.logoutGet)(me.username),
+      button(id := "user_tag", cls := "toggle link")(me.username),
       div(id := "dasher_app", cls := "dropdown")
     )
 

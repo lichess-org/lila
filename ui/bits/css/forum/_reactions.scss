@@ -8,7 +8,7 @@
   }
 
   button {
-    @extend %flex-center;
+    @extend %flex-center, %box-radius;
     @include transition;
 
     padding: 0.3em 0.6em;
