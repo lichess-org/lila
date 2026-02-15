@@ -230,7 +230,6 @@
   <string name="changeUsernameNotSame">Só te é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Altera o teu nome de utilizador. Isso só pode ser feito uma vez e só poderás trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="signupUsernameHint">Certifique-se que escolhe um nome de utilizador decoroso. Não poderá alterá-lo mais tarde e quaisquer contas com nomes de utilizador inapropriados serão fechadas!</string>
-  <string name="signupEmailHint">Só o usaremos para redefinir a palavra-passe.</string>
   <string name="password">Palavra-passe</string>
   <string name="changePassword">Alterar a palavra-passe</string>
   <string name="changeEmail">Alterar email</string>
