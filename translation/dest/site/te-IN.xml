@@ -227,7 +227,6 @@
   <string name="changeUsernameNotSame">అక్షరాల పరిమాణం మాత్రమే మారొచ్చు. ఉదాహరణకి \"johndoe\" నుంచి \"JohnDoe\".</string>
   <string name="changeUsernameDescription">ఆటగాడి పేరు మార్చండి. దీనిని ఒకేసారి చెయ్యగలరు తర్వాత అక్షరాల పరిమాణం మాత్రమే మారొచ్చు.</string>
   <string name="signupUsernameHint">కుటుంబ స్నేహపూర్వక వినియోగదారు పేరును ఎంచుకోండి. మీరు దీన్ని తర్వాత మార్చలేరు మరియు అనుచితమైన వినియోగదారు పేర్లతో ఉన్న ఖాతాలు మూసివేయబడతాయి!</string>
-  <string name="signupEmailHint">మేము దానిని పాస్‌వర్డ్ రీసెట్ కోసం మాత్రమే ఉపయోగిస్తాము.</string>
   <string name="password">పాస్వర్డ్</string>
   <string name="changePassword">పాస్వర్డ్ మార్చండి</string>
   <string name="changeEmail">ఇమెయిల్మా ర్చండి</string>
