@@ -23,7 +23,7 @@ async function bookmarkOptions(gameURL: string, positionURL: string, t: HTMLAnch
     class: 'dialog-content',
     show: true,
     htmlText: `
-      <div class="continue-with">
+      <div class="bookmark">
       <button class="button bookmark-game">${i18n.site.bookmarkThisGame}</button>
       <button class="button bookmark-position">${i18n.site.bookmarkThisPosition}</button>
       </div>
