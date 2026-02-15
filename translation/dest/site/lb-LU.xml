@@ -230,7 +230,6 @@
   <string name="changeUsernameNotSame">Just Grouss-/Klengschreiwung kann geännert ginn. Zum Beispill \"johndoe\" zu \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Änner däin Benotzernumm. Dat kann just eemol gemaach ginn an just d\'Grouss-/Klengschreiwung vun den Buschtawen am Benotzernumm kann geännert ginn.</string>
   <string name="signupUsernameHint">Wiel wgl. e familljefrëndleche Benotzernumm. Den Numm kann duerno net méi geännert ginn a Konte mat onubruechte Benotzernimm ginn zougemaach!</string>
-  <string name="signupEmailHint">Mir benotzen se just fir Passwierder zeréckzesetzen.</string>
   <string name="password">Passwuert</string>
   <string name="changePassword">Passwuert änneren</string>
   <string name="changeEmail">Email änneren</string>
