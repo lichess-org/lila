@@ -218,7 +218,6 @@
   <string name="changeUsernameNotSame">เฉพาะตัวอักษรพิมพ์ใหญ่พิมพ์เล็กที่เปลี่ยนได้ เช่น \"johndoe\" เป็น \"JohnDoe\"</string>
   <string name="changeUsernameDescription">เปลี่ยนชื่อผู้ใช้ของคุณ สามารถทำได้เพียงครั้งเดียวเท่านั้น และอนุญาตให้เปลี่ยนได้เฉพาะตัวอักษรพิมพ์ใหญ่พิมพ์เล็ก</string>
   <string name="signupUsernameHint">กรุณาใช้ชื่อที่สุภาพและเป็นมิตรต่อทุกวัย คุณไม่สามารถเปลี่ยนมันได้หลังจากนี้ ชื่อบัญชีที่ไม่มีความเหมาะสมจะถูกปิด</string>
-  <string name="signupEmailHint">เราจะใช้อีเมลนี้เพื่อการรีเซทรหัสผ่านเท่านั้น</string>
   <string name="password">รหัสผ่าน</string>
   <string name="changePassword">เปลี่ยนรหัสผ่าน</string>
   <string name="changeEmail">เปลี่ยนอีเมล</string>
