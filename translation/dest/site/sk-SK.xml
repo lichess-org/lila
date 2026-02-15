@@ -262,7 +262,6 @@
   <string name="changeUsernameNotSame">Je možné zmeniť iba veľké a malé písmená. Napríklad \"miskomrkvicka\" na MiskoMrkvicka\".</string>
   <string name="changeUsernameDescription">Zmena užívateľského mena. Tento úkon je možné vykonať len raz a je povolené zmeniť iba veľké a malé písmená.</string>
   <string name="signupUsernameHint">Uistite sa, že si vyberáte rodinne prijateľné používateľské meno! Neskôr ho už nemôžete zmeniť a akýkoľvek účet s nevhodným užívateľským menom bude uzavretý.</string>
-  <string name="signupEmailHint">Použijeme ho iba pri znovunastavení hesla.</string>
   <string name="password">Heslo</string>
   <string name="changePassword">Zmeniť heslo</string>
   <string name="changeEmail">Zmeniť email</string>
