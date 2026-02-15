@@ -230,7 +230,6 @@
   <string name="changeUsernameNotSame">වෙනස් විය හැක්කේ අක්ෂරවල සිද්ධිය පමණි. උදාහරණයක් ලෙස \"ජොන්ඩෝ\" සිට \"ජෝන්ඩෝ\".</string>
   <string name="changeUsernameDescription">ඔබගේ පරිශීලක නාමය වෙනස් කරන්න. මෙය කළ හැක්කේ එක් වරක් පමණක් වන අතර ඔබේ පරිශීලක නාමයේ ඇති අකුරු වෙනස් කිරීමට ඔබට අවසර ඇත.</string>
   <string name="signupUsernameHint">සංවර නමක් යොදන්න. පසුව ඔබට නම මාරු කර නොහැක. අසංවර නම් සහිත ගිණුම් වසා දමනු ලැබේ!</string>
-  <string name="signupEmailHint">අපි එය බාවිතා කරන්නේ මුරපදය අලුත් කරන්න පමණී.</string>
   <string name="password">මුරපදය</string>
   <string name="changePassword">මුරපදය වෙනස් කරන්න</string>
   <string name="changeEmail">විද්‍යුත් තැපෑල වෙනස් කරන්න</string>
