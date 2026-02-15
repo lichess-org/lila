@@ -218,7 +218,6 @@
   <string name="changeUsernameNotSame">Само величина слова може да се промени. На пример \"johndoe\" у \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промени своје корисничко име. Ово се може урадити само једном и само ти је дозвољено да промениш величину слова у свом корисничком имену.</string>
   <string name="signupUsernameHint">Постарај се да одабереш пристојно корисничко име. Касније га нећеш моћи променити, а налози са непристојним корисничким именима биће затворени!</string>
-  <string name="signupEmailHint">Биће коришћено само аз ресетовање лозинке.</string>
   <string name="password">Лозинка</string>
   <string name="changePassword">Промени лозинку</string>
   <string name="changeEmail">Промени имејл</string>
