@@ -221,7 +221,6 @@
   <string name="changeUsernameNotSame">Կարելի է փոխել միայն նշանների ստեղնաշարքը։ Օրինակ, «hayktadevosyan»-ը դարձնել «HaykTadevosyan»։</string>
   <string name="changeUsernameDescription">Փոխել օգտանունը։ Սա կարող է արվել ընդամենը մեկ անգամ, միայն թույլատրվում է օգտանվան փոքրատառերը դարձնել մեծատառ և հակառակը։</string>
   <string name="signupUsernameHint">Համոզվեք, որ ընտրել եք պարկեշտ մասնակցային անուն։ Հետագայում այն փոխել չեք կարողանա, ընդ որում, անպարկեշտ անուններով մասնակցային հաշիվները կփակվեն։</string>
-  <string name="signupEmailHint">Մենք այն օգտագործելու ենք միայն գաղտնաբառը չեղարկելու համար։</string>
   <string name="password">Գաղտնաբառ</string>
   <string name="changePassword">Փոխել գաղտնաբառը</string>
   <string name="changeEmail">Փոխել էլ. փոստը</string>
