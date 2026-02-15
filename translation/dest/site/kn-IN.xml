@@ -216,7 +216,6 @@
   <string name="changeUsernameNotSame">ಖಾತೆಯ ಹೆಸರಿನಲ್ಲಿ ಕೇವಲ \"case\" ಮಾತ್ರ ಬದಲಾಯಿಸಬಹುದಾಗಿದೆ. ಉದಾಹರಣೆಗೆ, \"johndoe\" ದಿಂದ \"JohnDoe\" ಕ್ಕೆ ಬದಲಾಯಿಸಬಹುದು.</string>
   <string name="changeUsernameDescription">ನಿಮ್ಮ ಖಾತೆಯ ಹೆಸರು, ಅಂದರೆ username, ಅನ್ನು ಬದಲಾಯಿಸಿ. ಈ ಬದಲಾವಣೆಯನ್ನು ಕೇವಲ ಒಂದೇ ಬಾರಿ ಮಾಡಲು ಅವಕಾಶವಿದೆಯಷ್ಟೆ. ಹಾಗೂ, ಈ ಅವಕಾಶ ಕೇವಲ ನಿಮ್ಮ \"username\" ನಲ್ಲಿರುವ \"case\" ಬದಲಾವಣೆಗಷ್ಟೇ ಸೀಮಿತಗೊಳಿಸಲಾಗಿದೆ.</string>
   <string name="signupUsernameHint">ಕುಟುಂಬ ಸ್ನೇಹಿತ ಬಳಕೆದಾರ ಹೆಸರನ್ನು ಆರಿಸರಿ. ನೀವು ನಂತರ ಅದನ್ನು ಬದಲಾಯಿಸಲಾಗುವುದಿಲ್ಲ ಮತ್ತು ಅನವಶ್ಯಕ ಹೆಸರುಗಳನ್ನು ಹೊಂದಿರುವ ಖಾತೆಗಳು ಮುಚ್ಚಲ್ಪಡುವುವು!</string>
-  <string name="signupEmailHint">ನಾವು ಅದನ್ನು ಪಾಸ್ವರ್ಡ್ ಮರುಹೊಂದಿಸುವಲ್ಲಿ ಮಾತ್ರ ಬಳಸುತ್ತೇವೆ.</string>
   <string name="password">ಗುಪ್ತಪದ</string>
   <string name="changePassword">ಗುಪ್ತಪದವನ್ನು ಬದಲಾಯಿಸಿ</string>
   <string name="changeEmail">ಇಮೇಲ್ ವಿಳಾಸ ಬದಲಿಸಿ</string>
