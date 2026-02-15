@@ -225,7 +225,6 @@
   <string name="changeUsernameNotSame">Bara storleken på bokstäver kan ändras. Till exempel \"anderssvensson\" till \"AndersSvenson\".</string>
   <string name="changeUsernameDescription">Ändra ditt användarnamn. Detta kan bara göras en gång och det är endast tillåtet att ändra skiftläget för bokstäverna i ditt användarnamn.</string>
   <string name="signupUsernameHint">Se till att välja ett familjevänligt användarnamn. Du kan inte ändra det senare och alla konton med olämpliga användarnamn kommer att stängas!</string>
-  <string name="signupEmailHint">Vi kommer endast att använda den för att återställa lösenordet.</string>
   <string name="password">Lösenord</string>
   <string name="changePassword">Byt lösenord</string>
   <string name="changeEmail">Ändra e-postadress</string>
