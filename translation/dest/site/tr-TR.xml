@@ -237,7 +237,6 @@
   <string name="changeUsernameNotSame">Sadece kullanıcı adınızdaki büyük/küçük harfleri değiştirebilirsiniz. Örneğin \"johndoe\" den \"JohnDoe\" gibi.</string>
   <string name="changeUsernameDescription">Kullanıcı adınızı değiştirin. Bu işlemi sadece 1 (bir) kez gerçekleştirebilirsiniz ve sadece mevcut kullanıcı adınızdaki harfleri (\"johndoe\", \"JohnDoe\") değiştirebilirsiniz.</string>
   <string name="signupUsernameHint">Aile dostu bir kullanıcı adı seçtiğinizden emin olun. Kullanıcı adı daha sonra değiştirilemez ve uygunsuz kullanıcı adına sahip hesaplar kapatılır!</string>
-  <string name="signupEmailHint">Bunu yalnızca şifre sıfırlaması için kullanacağız.</string>
   <string name="password">Şifre</string>
   <string name="changePassword">Şifre değiştir</string>
   <string name="changeEmail">E-posta adresini değiştir</string>
