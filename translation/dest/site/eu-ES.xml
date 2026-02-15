@@ -237,7 +237,6 @@
   <string name="changeUsernameNotSame">Hizkien izaera bakarrik aldatu daiteke (larriak vs. xeheak). Adibidez: jatorrizko \"urlia\" \"UrLiA\" bihurtu daiteke.</string>
   <string name="changeUsernameDescription">Zure erabiltzaile-izena aldatu. Hau behin bakarrik egin daiteke eta hizkien izaera bakarrik aldatu dezakezu (hizki larriak vs. xeheak).</string>
   <string name="signupUsernameHint">Edonorentzako bezalako erabiltzaile-izena aukeratu. Ezingo duzu aldatu. Desegokiak diren erabiltzaile-izenak dituzten kontuak itxi egingo ditugu!</string>
-  <string name="signupEmailHint">Pasahitza berrezartzeko erabiliko dugu bakarrik.</string>
   <string name="password">Pasahitza</string>
   <string name="changePassword">Pasahitza aldatu</string>
   <string name="changeEmail">Posta elektronikoa aldatu</string>
