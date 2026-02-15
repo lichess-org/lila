@@ -24,17 +24,17 @@ async function bookmarkOptions(gameURL: string, positionURL: string, t: HTMLAnch
     show: true,
     htmlText: `
       <div class="continue-with">
-      <a class="button" rel="nofollow">${i18n.site.bookmarkThisGame}</a>
-      <a class="button" rel="nofollow">${i18n.site.bookmarkThisPosition}</a>
+      <button class="button bookmark-game">${i18n.site.bookmarkThisGame}</button>
+      <button class="button bookmark-position">${i18n.site.bookmarkThisPosition}</button>
       </div>
     `,
     actions: [
       {
-        selector: 'a:first-child',
+        selector: 'button.bookmark-game',
         listener: getListener(gameURL),
       },
       {
-        selector: 'a:last-child',
+        selector: 'button.bookmark-position',
         listener: getListener(positionURL),
       },
     ],
