@@ -230,7 +230,6 @@
   <string name="changeUsernameNotSame">تنها اندازه حروف میتوانند تغییر کنند. برای مثال \"johndoe\" به \"JohnDoe\".</string>
   <string name="changeUsernameDescription">نام کاربری خود را تغییر دهید. این تنها یک بار انجام پذیر است و شما تنها مجازید اندازه حروف نام کاربری‌تان را تغییر دهید.</string>
   <string name="signupUsernameHint">مطمئن شوید که یک نام کاربری مناسب انتخاب میکنید. بعداً نمی توانید آن را تغییر دهید و هر حسابی با نام کاربری نامناسب بسته می شود!</string>
-  <string name="signupEmailHint">ما فقط برای بازنشاندن گذرواژه، از آن استفاده خواهیم کرد.</string>
   <string name="password">گذرواژه</string>
   <string name="changePassword">تغییر گذرواژه</string>
   <string name="changeEmail">تغییرِ رایانامه</string>
