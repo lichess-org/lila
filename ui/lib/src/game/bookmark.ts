@@ -55,7 +55,7 @@ export function bindBookmarkButton(getData: () => BookmarkData): void {
     const gameURL = this.href;
 
     if (!isBookmarked) {
-      const positionURL = `${gameURL}?ply=${data.ply}&fen=${data.fen}&col=${data.color}${data.uci ? '&uci=' + data.uci : ''}`;
+      const positionURL = `${gameURL}?ply=${data.ply}&fen=${data.fen}&color=${data.color}${data.uci ? '&uci=' + data.uci : ''}`;
       bookmarkOptions(gameURL, positionURL, this);
     } else {
       xhrText(gameURL, { method: 'post' });
