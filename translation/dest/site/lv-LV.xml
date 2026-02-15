@@ -236,7 +236,6 @@
   <string name="changeUsernameNotSame">Drīkst mainīt tikai burtu lielumu. Piemēram \"jānisbērziņš\" var mainīt uz \"JānisBērziņš\".</string>
   <string name="changeUsernameDescription">Mainīt lietotājvārdu. To var izdarīt tikai vienreiz, un ir atļauts mainīt tikai lielo burtu lietojumu lietotājvārdā.</string>
   <string name="signupUsernameHint">Atcerieties izvēlēties pieklājīgu lietotājvārdu. To nav iespējams mainīt, un konti ar nepiedienīgiem lietotājvārdiem tiks slēgti!</string>
-  <string name="signupEmailHint">Mēs to izmantosim tikai paroles atiestatīšanai.</string>
   <string name="password">Parole</string>
   <string name="changePassword">Mainīt paroli</string>
   <string name="changeEmail">Mainīt e-pasta adresi</string>
