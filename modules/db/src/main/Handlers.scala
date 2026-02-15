@@ -189,6 +189,12 @@ trait Handlers:
     pos => BSONString(pos.key)
   )
 
+  import chess.format.Uci
+  given BSONHandler[Uci] = tryHandler[Uci](
+    { case BSONString(v) => Uci(v).toTry(s"Bad UCI: $v") },
+    x => BSONString(x.uci)
+  )
+
   val minutesHandler = BSONIntegerHandler.as[FiniteDuration](_.minutes, _.toMinutes.toInt)
 
   val variantByKeyHandler: BSONHandler[Variant] = quickHandler[Variant](

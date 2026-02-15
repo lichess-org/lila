@@ -42,11 +42,6 @@ object BSONHandlers:
     x => BSONString(x.forsyth.toString)
   )
 
-  given BSONHandler[Uci] = tryHandler[Uci](
-    { case BSONString(v) => Uci(v).toTry(s"Bad UCI: $v") },
-    x => BSONString(x.uci)
-  )
-
   given BSONHandler[UciCharPair] = tryHandler[UciCharPair](
     { case BSONString(v) =>
       v.toArray match
