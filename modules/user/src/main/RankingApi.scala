@@ -66,7 +66,7 @@ def pager(perf: PerfKey, page: Int, isApi: Boolean = false): Fu[Paginator[LightP
     maxPerPage = cap
   )
 
-  private[RankingApi] def fetchLightPerfs(perf: PerfKey, nb: Int, skip: Int = 0): Fu[List[LightPerf]] =
+private[RankingApi] def fetchLightPerfs(perf: PerfKey, nb: Int, skip: Int = 0): Fu[List[LightPerf]] =
       lila.rating.PerfType
         .isLeaderboardable(perf)
         .so:
