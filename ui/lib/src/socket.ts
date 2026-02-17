@@ -124,7 +124,7 @@ class WsSocket {
       autoReconnectDelay: 3500,
       protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
       isAuth: !!myUserId(),
-      ...(settings.options || {}),
+      ...settings.options,
       pingDelay: 2500,
     };
     this.settings = {
@@ -133,7 +133,7 @@ class WsSocket {
       params: {
         sri: site.sri,
         from: 'website',
-        ...(settings.params || {}),
+        ...settings.params,
       },
     };
     this.version = version;

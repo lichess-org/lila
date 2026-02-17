@@ -237,7 +237,7 @@
   <string name="changeUsernameNotSame">Pode-se apenas trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"fulanodetal\" para \"FulanoDeTal\".</string>
   <string name="changeUsernameDescription">Altere seu nome de usuário. Isso só pode ser feito uma vez e você poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="signupUsernameHint">Escolha um nome de usuário apropriado. Não será possível mudá-lo, e qualquer conta que tiver um nome ofensivo ou inapropriado será excluída!</string>
-  <string name="signupEmailHint">Vamos usar apenas para redefinir a sua senha.</string>
+  <string name="signupEmailPromise">Apenas vamos enviar e-mails relacionados a sua conta e jamais vamos compartilhar o seu email.</string>
   <string name="password">Senha</string>
   <string name="changePassword">Alterar senha</string>
   <string name="changeEmail">Alterar email</string>

@@ -8,13 +8,11 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Bus
-import lila.common.autoconfig.{ *, given }
+import lila.common.autoconfig.*
 import lila.core.config.*
 
 @Module
 private class FishnetConfig(
-    @ConfigName("collection.analysis") val analysisColl: CollName,
-    @ConfigName("collection.client") val clientColl: CollName,
     @ConfigName("offline_mode") val offlineMode: Boolean,
     @ConfigName("client_min_version") val clientMinVersion: String,
     @ConfigName("redis.uri") val redisUri: String,
@@ -41,7 +39,7 @@ final class Env(
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(using AutoConfig.loader)
 
-  private lazy val analysisColl = db(config.analysisColl)
+  private lazy val analysisColl = db(CollName("fishnet_analysis"))
 
   private lazy val redis = FishnetRedis(
     RedisClient.create(RedisURI.create(config.redisUri)),
@@ -54,7 +52,7 @@ final class Env(
 
   private lazy val repo = new FishnetRepo(
     analysisColl = analysisColl,
-    clientColl = db(config.clientColl),
+    clientColl = db(CollName("fishnet_client")),
     cacheApi = cacheApi
   )
 

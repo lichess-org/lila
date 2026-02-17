@@ -236,7 +236,6 @@
   <string name="changeUsernameNotSame">Jedino se veličina slova može promijeniti. Primjerice, \'\'johndoe\'\' u \'\'JohnDoe\'\'.</string>
   <string name="changeUsernameDescription">Promijeni korisničko ime. Ovo možeš učiniti samo jednom i samo možeš promijeniti veličinu slova svog korisničkog imena.</string>
   <string name="signupUsernameHint">Obavezno odaberi obiteljsko korisničko ime. Ne možeš ga kasnije promijeniti i svi računi s neprikladnim korisničkim imenima bit će zatvoreni!</string>
-  <string name="signupEmailHint">Koristiti ćemo ga samo za ponovno postavljanje lozinke.</string>
   <string name="password">Lozinka</string>
   <string name="changePassword">Promijeni lozinku</string>
   <string name="changeEmail">Promijeni email</string>

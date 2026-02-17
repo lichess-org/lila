@@ -33,7 +33,7 @@ body.no-inquiry {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  border-bottom: 1px solid $c-border;
+  border-bottom: $border;
   box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
@@ -128,7 +128,7 @@ body.no-inquiry {
     @extend %box-radius-bottom, %dropdown-shadow;
 
     z-index: 2;
-    border-bottom: 1px solid $c-border;
+    border-bottom: $border;
     max-height: 500px;
     overflow-y: auto;
   }
@@ -215,7 +215,7 @@ body.no-inquiry {
   .actions:not(.close),
   .links {
     padding-inline-end: 10px;
-    border-inline-end: 1px solid $c-border;
+    border-inline-end: $border;
   }
 
   .actions > form {
@@ -246,7 +246,7 @@ body.no-inquiry {
 
   .links {
     padding: 0 10px;
-    border-inline-start: 1px solid $c-border;
+    border-inline-start: $border;
   }
 
   .links a {

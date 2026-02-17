@@ -237,7 +237,7 @@
   <string name="changeUsernameNotSame">Du kan berre bytte små til store bokstavar, eller store til små. Til dømes \"olanormann\" til \"OlaNormann\".</string>
   <string name="changeUsernameDescription">Endre brukarnamnet. Det kan berre gjerast ein gong, og du kan berre endre store bokstavar til små eller små til store.</string>
   <string name="signupUsernameHint">Gå for eit familievenleg brukarnamn. Namnet kan ikkje endrast seinare og kontoar med upassande brukarnamn vert stengde!</string>
-  <string name="signupEmailHint">Vi vil berre bruka den dersom det vert naudsynt å nullstilla passordet.</string>
+  <string name="signupEmailPromise">Vi vil berre sende deg epost om kontoen din og deler aldri epostadressa di.</string>
   <string name="password">Passord</string>
   <string name="changePassword">Endre passord</string>
   <string name="changeEmail">Endre e-postadresse</string>

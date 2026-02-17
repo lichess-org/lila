@@ -109,7 +109,7 @@ async function execute(t: Task, firstRun = false): Promise<void> {
     if (t.globListOnly && !(t.fileTimes.size === files.size && keys.every(f => t.fileTimes.has(f)))) {
       modified.push(...keys);
     } else if (!t.globListOnly) {
-      for (const [fullpath, time] of [...files]) {
+      for (const [fullpath, time] of files) {
         if (!isClose(t.fileTimes.get(fullpath), time)) modified.push(fullpath);
       }
     }

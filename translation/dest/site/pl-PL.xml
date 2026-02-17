@@ -267,7 +267,6 @@
   <string name="changeUsernameNotSame">Można zmienić tylko wielkość liter, np. „JanNowak” zamiast „jannowak”.</string>
   <string name="changeUsernameDescription">Zmiana nazwy użytkownika może być wykonana tylko raz i dotyczy tylko wielkości liter w nazwie.</string>
   <string name="signupUsernameHint">Pamiętaj, aby wybrać nazwę użytkownika odpowiednią dla osób w każdym wieku. Nie będziesz mógł jej później zmienić, a nieodpowiednia nazwa użytkownika spowoduje zamknięcie konta!</string>
-  <string name="signupEmailHint">Użyjemy go tylko do resetowania hasła.</string>
   <string name="password">Hasło</string>
   <string name="changePassword">Zmień hasło</string>
   <string name="changeEmail">Zmień adres e-mail</string>

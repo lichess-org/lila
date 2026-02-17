@@ -232,7 +232,6 @@
   <string name="changeUsernameNotSame">Csak a kis- és nagybetűket cserélheted a névben. Például: \"gipszjakab\" - \"GipszJakab\".</string>
   <string name="changeUsernameDescription">Változtasd meg a felhasználó nevet. Ezt csak egyszer teheted meg és csak a kis- és nagybetű váltás engedélyezett a felhasználónévben.</string>
   <string name="signupUsernameHint">Mindenképpen családbarát felhasználónevet válassz. Később már nem tudod megváltoztatni, a nem helyénvaló felhasználónevek fiókját zároljuk!</string>
-  <string name="signupEmailHint">Csak jelszó-visszaállításhoz használjuk.</string>
   <string name="password">Jelszó</string>
   <string name="changePassword">Jelszó megváltoztatása</string>
   <string name="changeEmail">E-mail cím megváltoztatása</string>

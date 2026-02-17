@@ -222,7 +222,6 @@
   <string name="changeUsernameNotSame">글자의 대소문자 변경만 가능합니다 예: \"chulsoo\"에서 \"ChulSoo\"로.</string>
   <string name="changeUsernameDescription">사용자명 변경하기: 대/소문자만의 변경이 허용되며, 단 한번만 가능합니다.</string>
   <string name="signupUsernameHint">사용자 이름이 어린이를 포함해 모두에게 적절한지 확인하세요. 나중에 변경할 수 없으며 부적절한 사용자 이름을 가진 계정은 폐쇄됩니다!</string>
-  <string name="signupEmailHint">비밀번호 초기화를 위해서만 사용됩니다.</string>
   <string name="password">비밀번호</string>
   <string name="changePassword">비밀번호 변경</string>
   <string name="changeEmail">이메일 주소 변경</string>

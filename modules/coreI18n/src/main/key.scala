@@ -1735,7 +1735,7 @@ object I18nKey:
     val `changeUsernameNotSame`: I18nKey = "changeUsernameNotSame"
     val `changeUsernameDescription`: I18nKey = "changeUsernameDescription"
     val `signupUsernameHint`: I18nKey = "signupUsernameHint"
-    val `signupEmailHint`: I18nKey = "signupEmailHint"
+    val `signupEmailPromise`: I18nKey = "signupEmailPromise"
     val `password`: I18nKey = "password"
     val `changePassword`: I18nKey = "changePassword"
     val `changeEmail`: I18nKey = "changeEmail"

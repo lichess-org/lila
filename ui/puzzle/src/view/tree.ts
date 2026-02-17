@@ -34,10 +34,6 @@ const autoScroll = throttle(150, (ctrl: PuzzleCtrl, el: HTMLElement) => {
   cont.scrollTop = targetOffset - cont.offsetHeight / 2 + target.offsetHeight;
 });
 
-function pathContains(ctx: Ctx, path: TreePath): boolean {
-  return treePath.contains(ctx.ctrl.path, path);
-}
-
 export function renderIndex(ply: number, withDots: boolean): VNode {
   return hl('index', plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 }
@@ -129,8 +125,7 @@ function renderMove(node: TreeNode): LooseVNodes {
 function renderVariationMoveOf(ctx: Ctx, node: TreeNode, opts: RenderOpts): VNode {
   const withIndex = opts.withIndex || node.ply % 2 === 1;
   const path = opts.parentPath + node.id;
-  const active = path === ctx.ctrl.path;
-  const classes: Classes = { active, parent: !active && pathContains(ctx, path) };
+  const classes: Classes = { active: path === ctx.ctrl.path };
   if (node.puzzle) classes[node.puzzle] = true;
   return hl('move', { attrs: { p: path }, class: classes }, [
     withIndex && renderIndex(node.ply, true),

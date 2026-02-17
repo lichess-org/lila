@@ -213,6 +213,7 @@ export default class LobbyController {
         this.data.hooks = [];
       }
       this.tab = this.stores.tab.set(tab);
+      this.redraw();
     }
     this.filter.open = false;
   };

@@ -230,7 +230,6 @@
   <string name="changeUsernameNotSame">Aðeins er hægt að víxla á hástöfum og lágstöfum. Til dæmis „ómarragnarsson” í „ÓmarraGNARsson”.</string>
   <string name="changeUsernameDescription">Skiptu um notendanafn. Þú getur aðeins gert þetta einu sinni og þú mátt bara víxla á hástöfum og lágstöfum.</string>
   <string name="signupUsernameHint">Veldu notandanafn sem er viðeigandi fyrir alla, jafnvel börn. Ekki er hægt að breyta því síðar og allir aðgangar með óviðeigandi notendanöfn verða lokaðir!</string>
-  <string name="signupEmailHint">Við munum eingöngu nota það til að endursetja lykilorð.</string>
   <string name="password">Lykilorð</string>
   <string name="changePassword">Breyta lykilorði</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>

@@ -62,7 +62,6 @@ export function initModule(opts: LobbyOpts) {
       },
     );
     lobbyCtrl.setTab('real_time');
-    lobbyCtrl.redraw();
     history.replaceState(null, '', '/');
   });
 

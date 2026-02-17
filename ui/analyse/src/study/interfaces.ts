@@ -39,8 +39,6 @@ export interface StudyVm {
   gamebookOverride: GamebookOverride;
 }
 
-export type Federations = { [key: string]: string };
-
 export interface StudyData {
   id: string;
   name: string;
@@ -62,7 +60,6 @@ export interface StudyData {
   topics?: Topic[];
   admin: boolean;
   showRatings: boolean;
-  federations?: Federations;
 }
 
 export interface StudyDataFromServer extends StudyData {

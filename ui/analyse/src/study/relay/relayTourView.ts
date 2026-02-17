@@ -392,8 +392,8 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                   'tr.mselect__item',
                   {
                     class: {
-                      ['current-round']: round.id === study.data.id,
-                      ['ongoing-round']: !!round.ongoing,
+                      'current-round': round.id === study.data.id,
+                      'ongoing-round': !!round.ongoing,
                     },
                     attrs: {
                       tabindex: 0,

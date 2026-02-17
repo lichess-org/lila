@@ -222,7 +222,6 @@
   <string name="changeUsernameNotSame">sina ken ante e suli taso pi sitelen lili. pana lukin la nimi \"sonjalang\" li ken kama \"SonjaLang\".</string>
   <string name="changeUsernameDescription">o ante e nimi sina. sina ken pali e ni lon tenpo wan taso. sina ken ante e suli taso pi sitelen lili pi nimi sina.</string>
   <string name="signupUsernameHint">nimi o pona. sina ken ala ante e nimi sina lon tenpo kama. nimi ni li ike tawa jan ante la lipu sina li kama weka a!</string>
-  <string name="signupEmailHint">mi mute li kepeken ni tawa sin pi nimi awen sina taso.</string>
   <string name="password">nimi open len</string>
   <string name="changePassword">o ante e nimi open len</string>
   <string name="changeEmail">o ante e nimi pi lipu toki linluwi</string>

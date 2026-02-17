@@ -376,7 +376,7 @@ h1 {
           color: $c-over;
         }
 
-        border-inline-end: 1px solid $c-border;
+        border-inline-end: $border;
 
         &:last-child {
           border: 0;

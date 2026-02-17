@@ -121,7 +121,13 @@
     height: 8rem;
     text-align: center;
     justify-content: center;
+    align-items: center;
     outline: none;
+
+    kbd {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
 
     &.info {
       font-size: 1.6em;

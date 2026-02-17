@@ -15,7 +15,7 @@ function buildCostMap(
   const costMax = 0.9;
   const subCostMin = 0.4;
 
-  const costs = [...subMap.entries()]
+  const costs = Array.from(subMap.entries())
     .filter(([_, e]) => e.freq >= freqThreshold && e.count >= countThreshold)
     .sort((a, b) => b[1].freq - a[1].freq);
 
@@ -130,8 +130,8 @@ function validOps(h: string, x: string, pos: number, mode: SubRestriction) {
 }
 
 function makeLexEntry(entry: CrowdvData): LexEntry | undefined {
-  const xset = new Set([...builder.encode(entry.exact)]);
-  const hunique = [...new Set([...builder.encode(entry.heard)])];
+  const xset = new Set(builder.encode(entry.exact));
+  const hunique = Array.from(new Set(builder.encode(entry.heard)));
   if (hunique.filter(h => xset.has(h)).length < xset.size - 2) return undefined;
   if (entry.heard.endsWith(' next')) entry.heard = entry.heard.slice(0, -5);
   builder.addOccurrence(entry.heard); // for token frequency
@@ -304,7 +304,7 @@ class Builder {
     }
   }
   addOccurrence(phrase: string) {
-    [...this.encode(phrase)].forEach(token =>
+    Array.from(this.encode(phrase)).forEach(token =>
       this.occurrences.set(token, (this.occurrences.get(token) ?? 0) + 1),
     );
   }
@@ -332,11 +332,13 @@ class Builder {
           .join('');
   }
   decode(tokens: string) {
-    return [...tokens].map(token => this.fromToken(token)).join(' ');
+    return Array.from(tokens)
+      .map(token => this.fromToken(token))
+      .join(' ');
   }
   wordsOf(tokens: string) {
-    return [...tokens]
-      .map(token => [...this.wordTok.entries()].find(([_, tok]) => tok === token)?.[0])
+    return Array.from(tokens)
+      .map(token => Array.from(this.wordTok.entries()).find(([_, tok]) => tok === token)?.[0])
       .join(' ');
   }
   stringify() {

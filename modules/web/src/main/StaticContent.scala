@@ -50,7 +50,7 @@ Allow: /game/export/gif/thumbnail/
       )
     )
 
-  val mobileAndroidId = "https://play.google.com/store/apps/details?id=org.lichess.mobileV2"
+  val mobileAndroidId = "org.lichess.mobileV2"
   val mobileAndroidUrl = s"https://play.google.com/store/apps/details?id=$mobileAndroidId"
   val mobileIosUrl = "https://apps.apple.com/app/lichess/id1662361230"
 

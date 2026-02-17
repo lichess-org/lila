@@ -192,7 +192,6 @@
   <string name="changeUsernameNotSame">Зөвхөн үсэг нь зөвхөн өөрчлөгдөж болно. Жишээ нь \"johndoe\" нь \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Хэрэглэгчийн нэрээ өөрчил. Энэ нь зөвхөн нэг удаа хийгдэж болох ба зөвхөн хэрэглэгчийн нэр дээр үсгээ засах боломжтой.</string>
   <string name="signupUsernameHint">Та өөрийнхөө нэрийг зохистой зохиогоорой. Та дараа нь нэрээ сольж болохгүй бөгөөд, зүй бус, зохисгүй нэрстэй хэрэглэгчдийн бүртгэлийг хаах болно!</string>
-  <string name="signupEmailHint">Би зөвхөн нууц үг сэргээхэд ашиглана.</string>
   <string name="password">Нууц үг</string>
   <string name="changePassword">Нэвтрэх үгээ өөрчлөх</string>
   <string name="changeEmail">Электрон шуудангийн хаягаа өөрчлөх</string>

@@ -158,8 +158,9 @@
     overflow: hidden;
     vertical-align: middle;
     background-clip: padding-box;
-    border: 0 solid $m-font--fade-83;
     border-width: 1px 0;
+    border-style: solid;
+    border-color: $m-font--fade-83;
     height: 16px;
     line-height: 14px;
     font-size: 0.9em;
@@ -178,7 +179,7 @@
     }
 
     &[style*='width: 100%'] {
-      border-radius: $box-radius-size;
+      @extend %box-radius;
     }
   }
 

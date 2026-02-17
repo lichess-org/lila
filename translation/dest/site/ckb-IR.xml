@@ -225,7 +225,6 @@
   <string name="changeUsernameNotSame">تەنها دەتوانی گەورە و بچوکی پیتەکان بگۆڕیت.</string>
   <string name="changeUsernameDescription">ناوی بەکارهێنەر بگۆڕە. بۆت هەیە تەنها یەکجار ناوی بەکارهێنەر بگۆڕیت، دواتر تەنها دەتوانی شێوازی گەورە و بچوکی پیتەکان دەستکاری بکەی.</string>
   <string name="signupUsernameHint">هەوڵدە ناوێکی شیاو هەڵبژێریت. داواتر لە هیچ هەژمارێک ڕێگەت پێنادرێ ناوەکە بگۆڕیت و هەرناوێکی نەشیاو هەبێت هەژمارەکەت دادەخرێت!</string>
-  <string name="signupEmailHint">ئێمە تەنها بۆ دووبارە نوێکردنەوەی ووشەی نهێنی بەکاری دەهێنین.</string>
   <string name="password">وشەی نهێنی</string>
   <string name="changePassword">گۆڕینی وشەی نهێنی</string>
   <string name="changeEmail">گۆڕینی ئیمێڵ</string>

@@ -1,10 +1,10 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { bind, onInsert } from 'lib/view';
-import type TournamentController from './ctrl';
+import type SwissCtrl from './ctrl';
 import { userComplete } from 'lib/view/userComplete';
 
-export function button(ctrl: TournamentController): VNode {
+export function button(ctrl: SwissCtrl): VNode {
   return h('button.fbt', {
     class: { active: ctrl.searching },
     attrs: { 'data-icon': ctrl.searching ? licon.X : licon.Search, title: 'Search tournament players' },
@@ -12,7 +12,7 @@ export function button(ctrl: TournamentController): VNode {
   });
 }
 
-export function input(ctrl: TournamentController): VNode {
+export function input(ctrl: SwissCtrl): VNode {
   return h(
     'div.search',
     h('input', {

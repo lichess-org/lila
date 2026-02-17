@@ -27,8 +27,9 @@ final private class RelaySync(
     _ <- plan.reorder.so(studyApi.sortChapters(study.id, _)(who(study.ownerId)))
     updates <- plan.update.sequentially: (chapter, game) =>
       updateChapter(rt, study, chapter, game)
-    appends <- plan.append.toList.sequentially: game =>
-      createChapter(rt, study, game)
+    allowedNbChapters <- plan.append.nonEmpty.so:
+      chapterRepo.countByStudyId(study.id).map(RelayFetch.maxChaptersToShow.value - _)
+    appends <- plan.append.take(allowedNbChapters).toList.sequentially(createChapter(rt, study, _))
     result = SyncResult.Ok(updates ::: appends.flatten, plan)
     _ = lila.common.Bus.publishDyn(result, SyncResult.busChannel(rt.round.id))
     _ <- tourRepo.setSyncedNow(rt.tour)
@@ -40,7 +41,7 @@ final private class RelaySync(
     reloadChapters = updates.exists(_.newEnd) || plan.isJustInitialChapterUpdate
     _ = if reloadChapters then
       preview.invalidate(study.id)
-      studyApi.reloadChapters(study)
+      studyApi.sendChaperPreviews(study)
       players.invalidate(rt.tour.id)
       teamLeaderboard.invalidate(rt.tour.id)
   yield result
@@ -52,7 +53,7 @@ final private class RelaySync(
       game: RelayGame
   ): Fu[SyncResult.ChapterResult] = for
     chapter <- updateInitialPosition(study.id, chapter, game)
-    chapter <- updateFideIds(chapter, game)(using rt.tour)
+    chapter <- ensureChapterRelayField(chapter, game)(using rt.tour)
     (newTags, newEnd) <- updateChapterTags(rt.tour, study, chapter, game)
     nbMoves <- updateChapterTree(study, chapter, game)(using rt.tour)
     _ = if nbMoves > 0 then notifier.onUpdate(rt, newTags.foldLeft(chapter)(_.withTags(_)))
@@ -82,15 +83,12 @@ final private class RelaySync(
   // because a study always has at least one chapter,
   // the first chapter is updated when the board data arrives, instead of created.
   // make sure it has the chapter.relay field set.
-  private def updateFideIds(chapter: Chapter, game: RelayGame)(using RelayTour): Fu[Chapter] =
-    chapterFideIds(game)
-      .so: fideIds =>
-        val missing = !chapter.relay.flatMap(_.fideIds).contains(fideIds)
-        missing.so:
-          val newRelayField = chapter.relay.|(Chapter.relayInit).copy(fideIds = fideIds.some)
-          for _ <- chapterRepo.setRelay(chapter.id, newRelayField)
-          yield chapter.copy(relay = newRelayField.some).some
-      .map(_ | chapter)
+  private def ensureChapterRelayField(chapter: Chapter, game: RelayGame)(using RelayTour): Fu[Chapter] =
+    val desiredRelay = makeRelayFor(game, chapter.relay.fold(game.root.mainlinePath)(_.path))
+    if chapter.relay.exists(_.fideIds == desiredRelay.fideIds) then fuccess(chapter)
+    else
+      for _ <- chapterRepo.setRelay(chapter.id, desiredRelay)
+      yield chapter.copy(relay = desiredRelay.some)
 
   private type NbMoves = Int
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame)(using

@@ -225,7 +225,6 @@
   <string name="changeUsernameNotSame">எழுத்துகளின் வழக்கு மட்டும்தான் மாறலாம். உதாரணமாக: \"johndoe\" இலிருந்து \"JohnDoe\".</string>
   <string name="changeUsernameDescription">உங்கள் பேரை மாற்றுங்கள். எழுத்துக்களின் வழக்கு மட்டும்தான் மாறலாம்.</string>
   <string name="signupUsernameHint">குடும்ப-நட்புறவான பயனர் பெயரைத் தேர்ந்தெடுப்பதை உறுதிப்படுத்துங்கள். இந்தப் பெயரைப் பின்னர் மாற்ற முடியாது என்பதுடன் பொருத்தமில்லாத பயனர்பெயர்கள் நீக்கப்படும்!</string>
-  <string name="signupEmailHint">கடவுச்சொல்லை மாற்றுவதற்கு மட்டுமே மின்னஞ்சல் முகவரியைப் பயன்படுத்துவோம்.</string>
   <string name="password">கடவுச்சொல்</string>
   <string name="changePassword">இரகசிய இலக்கத்தை மாற்று</string>
   <string name="changeEmail">மின்னஞ்சலை மாற்று</string>

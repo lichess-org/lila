@@ -222,7 +222,6 @@
   <string name="changeUsernameNotSame">শুধুমাত্র লেটারগুলোর কেইস পরিবর্তন করা সম্ভব। উদাহরণস্বরূপ \"johndoe\" থেকে \"JohnDoe\"।</string>
   <string name="changeUsernameDescription">আপনার ইউসারনেম পরিবর্তন করুন। এটি মাত্র একবারই পরিবর্তন করা যাবে এবং আপনি শুধুমাত্র বড়ো-ছোট হাতের অক্ষরে রূপান্তরকরণ করতে পারবেন।</string>
   <string name="signupUsernameHint">পছন্দ অনুযায়ী নিজের ইউজারনেম তৈরি করুন কারন পরে এটি পরিবর্তন করতে পারবেন না এবং অনুপযুক্ত ইউজারনেমের যেকোনো অ্যাকাউন্ট পরবর্বতিতে বন্ধ করা হতে পারে!</string>
-  <string name="signupEmailHint">আমরা এটি শুধুমাত্র পাসওয়ার্ড রিসেটের জন্য ব্যবহার করব.</string>
   <string name="password">পাসওয়ার্ড</string>
   <string name="changePassword">পাসওয়ার্ড পরিবর্তন</string>
   <string name="changeEmail">ই-মেইল পরিবর্তন করুন</string>

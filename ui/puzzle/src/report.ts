@@ -9,7 +9,7 @@ import { plyToTurn, pieceCount } from 'lib/game/chess';
 import type { ClientEval, PvData, TreeNode } from 'lib/tree/types';
 
 // bump when logic is changed, to distinguish cached clients from new ones
-const version = 10;
+const version = 11;
 
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
@@ -58,9 +58,13 @@ export default class Report {
       const [bestEval, secondBestEval] = [ev.pvs[0], ev.pvs[1]];
       // stricter than lichess-puzzler v49 check in how it defines similar moves
       if (
+        ev.depth >= 18 &&
         (ev.depth > 50 || ev.nodes > 25_000_000) &&
         bestEval &&
         secondBestEval &&
+        // filter out incomplete searches
+        bestEval.moves.length > 1 &&
+        secondBestEval.moves.length > 1 &&
         winningChances.hasMultipleSolutions(ctrl.pov, bestEval, secondBestEval)
       ) {
         this.evalsWithMultipleSolutions += 1;

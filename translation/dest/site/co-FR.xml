@@ -209,7 +209,6 @@
   <string name="changeUsernameNotSame">Solu per cambià e lettere. Per esempiu \"julianmoris\" diventa \'JulianMoris\".</string>
   <string name="changeUsernameDescription">Cambià u vostru nome d\' utilizatore. Pudete cambià lu solu una volta è ùn pudete cambià chè a forma di a lettera dighjà scritta in u vostru nome d\' utilizatore.</string>
   <string name="signupUsernameHint">Siate sicuru di sceglie un cugnome curtesu. Ùn lu puderete cambià pi tardu è i tutti i conti cù un nome seranu chjosi!</string>
-  <string name="signupEmailHint">Ùn l\' adupreremu soltantu pà riinizializà a vostra parolla d\' accessu.</string>
   <string name="password">Parolla d\'intesa</string>
   <string name="changePassword">Cambià a vostra parolla d\'intesa</string>
   <string name="changeEmail">Cambià u vostru currieru elettronicu</string>

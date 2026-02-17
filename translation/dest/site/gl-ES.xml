@@ -237,7 +237,7 @@
   <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
   <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
   <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario axeitado pra todas as idades. Non poderás cambialo máis tarde e calquera conta con nome de usuario inadecuado será pechada!</string>
-  <string name="signupEmailHint">Usarémolo só pra o restablecemento do contrasinal e a activación da conta.</string>
+  <string name="signupEmailPromise">Só che enviaremos correos relacionados coa túa conta e nunca compartiremos o teu enderezo electrónico.</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>

@@ -223,7 +223,6 @@
   <string name="changeUsernameNotSame">Мож поміняти лем реґістр. Приміром \"johndoe\" на \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Перемінити своє имня. Мож учинити лем раз, при тум перемінити мож лем реґістр.</string>
   <string name="signupUsernameHint">Пересвідчіт ся ож убрали сьте статочноє имня. Вы не зможете перемінити го пак ай вшыткі акаунты из провокативными именами будут закрыті!</string>
-  <string name="signupEmailHint">Мы будеме хосновати почту лем про зверженя паролы.</string>
   <string name="password">Парола</string>
   <string name="changePassword">Поміняти паролу</string>
   <string name="changeEmail">Перемінити адрес почты</string>

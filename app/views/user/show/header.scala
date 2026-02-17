@@ -169,15 +169,17 @@ object header:
                 div(cls := "stats")(
                   profile.officialRating.map: r =>
                     div(r.name.toUpperCase, " rating: ", strong(r.rating)),
-                  profile.nonEmptyLocation.ifTrue(showProfile).map { l =>
-                    span(cls := List("location" -> true, "muted" -> hideTroll))(l)
-                  },
-                  profile.flagInfo.map: c =>
-                    span(cls := "flag")(
-                      img(src := assetUrl(s"flags/${c.code}.png")),
-                      " ",
-                      c.name
-                    ),
+                  div(cls := "location")(
+                    profile.nonEmptyLocation
+                      .ifTrue(showProfile)
+                      .map: l =>
+                        span(cls := List("muted" -> hideTroll))(l),
+                    profile.flagInfo.map: c =>
+                      frag(
+                        img(cls := "flag", src := assetUrl(s"flags/${c.code}.png")),
+                        c.name
+                      )
+                  ),
                   p(cls := "thin")(trans.site.memberSince(), " ", showDate(u.createdAt)),
                   u.seenAt.map: seen =>
                     p(cls := "thin")(trans.site.lastSeenActive(momentFromNow(seen))),

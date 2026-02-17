@@ -9,6 +9,8 @@
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">در انتظار حریف</string>
   <string name="orLetYourOpponentScanQrCode">یا از حریف‌تان بخواهید این کدِ QR را بِپویَد</string>
+  <string name="reusableChallengeUrl">وب‌نشانیِ بازاستفاده‌پذیرِ چالش</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">پیوندِ دائمی برای اینکه هر کسی با همین تنظیمات، به شما پیشنهاد بازی دهد.</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
@@ -125,6 +127,10 @@
   <string name="bestMoveArrow">پیکانِ بهترین حرکت</string>
   <string name="showVariationArrows">نمایش پیکان‌های وَرتِش</string>
   <string name="evaluationGauge">میله ارزیابی</string>
+  <string name="visualMotifs">بُن‌مایه‌های بصری</string>
+  <string name="undefendedPieces">مُهره‌های بی‌دفاع</string>
+  <string name="pinnedPieces">مهره‌های آچمز</string>
+  <string name="checkableKing">شاهِ کیش‌پذیر</string>
   <string name="multipleLines">شاخه های متعدد</string>
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
@@ -204,6 +210,7 @@
   <string name="minutesPerSide">هر بازیکن چند دقیقه</string>
   <string name="variant">وَرتا</string>
   <string name="variants">وَرتا</string>
+  <string name="variantsDescription">شیوه‌های بیشتر برای بازی</string>
   <string name="timeControl">زمان</string>
   <string name="realTime">زمان محدود</string>
   <string name="correspondence">مکاتبه ای</string>
@@ -230,7 +237,7 @@
   <string name="changeUsernameNotSame">تنها اندازه حروف میتوانند تغییر کنند. برای مثال \"johndoe\" به \"JohnDoe\".</string>
   <string name="changeUsernameDescription">نام کاربری خود را تغییر دهید. این تنها یک بار انجام پذیر است و شما تنها مجازید اندازه حروف نام کاربری‌تان را تغییر دهید.</string>
   <string name="signupUsernameHint">مطمئن شوید که یک نام کاربری مناسب انتخاب میکنید. بعداً نمی توانید آن را تغییر دهید و هر حسابی با نام کاربری نامناسب بسته می شود!</string>
-  <string name="signupEmailHint">ما فقط برای بازنشاندن گذرواژه، از آن استفاده خواهیم کرد.</string>
+  <string name="signupEmailPromise">ما فقط رایانامه‌هایی دربارهٔ حساب کاربری‌تان را برای‌تان خواهیم فرستاد و هرگز رایانامه‌تان را نمی‌همرسانیم.</string>
   <string name="password">گذرواژه</string>
   <string name="changePassword">تغییر گذرواژه</string>
   <string name="changeEmail">تغییرِ رایانامه</string>
@@ -298,6 +305,7 @@
   <string name="standard">معیار</string>
   <string name="customPosition">وضعیت به‌دلخواه</string>
   <string name="unlimited">نامحدود</string>
+  <string name="unlimitedDescription">کل زمان برای شماست</string>
   <string name="mode">حالت</string>
   <string name="casual">نارسمی</string>
   <string name="rated">رسمی</string>
@@ -423,6 +431,8 @@
   <string name="leaderboard">جدول رده‌بندی</string>
   <string name="screenshotCurrentPosition">نماگرفت از وضعیت فعلی</string>
   <string name="gameAsGIF">بارگیری GIF بازی</string>
+  <string name="playerNames">نام‌های بازیکن</string>
+  <string name="moveAnnotations">حرکت‌نویسی</string>
   <string name="pasteTheFenStringHere">رشته FEN را در این قسمت قرار دهید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
   <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
@@ -808,6 +818,7 @@
   <string name="size">اندازه</string>
   <string name="opacity">کدری</string>
   <string name="brightness">درخشندگی</string>
+  <string name="contrast">تَبایُن</string>
   <string name="hue">فام</string>
   <string name="boardReset">بازنشاندن به رنگ‌های پیش‌فرض</string>
   <string name="pieceSet">نوع مهره</string>
@@ -1017,4 +1028,5 @@
   <string name="search">جستجو</string>
   <string name="clearSearch">پاکیدنِ جستجو</string>
   <string name="tags">برچسب‌ها</string>
+  <string name="enPassant">اجازهٔ آن‌پاسان</string>
 </resources>

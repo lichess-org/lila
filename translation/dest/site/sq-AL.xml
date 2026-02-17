@@ -237,7 +237,7 @@
   <string name="changeUsernameNotSame">Mund të bëhet vetëm ndryshim nga shkronjë e madhe në të vogël dhe anasjelltas. Për shembull, “neshatbishti” në “NeshatBishti”.</string>
   <string name="changeUsernameDescription">Ndryshoni emrin tuaj të përdoruesit. Kjo mund të bëhet vetëm një herë edhe ju lejohet vetëm të ndryshoni shkronja të vogla në të mëdha dhe anasjelltas te emri juaj i përdoruesit.</string>
   <string name="signupUsernameHint">Sigurohuni se zgjidhni një emër përdoruesi të përshtatshëm për familje. S’mund ta ndryshoni më vonë dhe cilado llogari me emra përdoruesish të papërshtatshëm do të mbyllet!</string>
-  <string name="signupEmailHint">Do ta përdorim vetëm për ricaktim fjalëkalimi.</string>
+  <string name="signupEmailPromise">Do t’ju dërgojmë email-e vetëm rreth llogarisë tuaj dhe s’do ta japim kurrë email-in tuaj gjetkë.</string>
   <string name="password">Fjalëkalim</string>
   <string name="changePassword">Ndryshoni fjalëkalimin</string>
   <string name="changeEmail">Ndryshoni email-in</string>

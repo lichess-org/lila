@@ -1,14 +1,10 @@
 import { type Attrs, hl, type VNode, bind } from 'lib/view';
 import * as licon from 'lib/licon';
-import { type Mode, type DasherCtrl, PaneCtrl } from './interfaces';
+import { type Mode, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 import { userLine } from 'lib/view/userLink';
 
 export class LinksCtrl extends PaneCtrl {
-  constructor(root: DasherCtrl) {
-    super(root);
-  }
-
   render = (): VNode => {
     const modeCfg = this.modeCfg;
     return hl('div', [
@@ -78,6 +74,6 @@ export class LinksCtrl extends PaneCtrl {
   });
 
   private linkCfg = (href: string, icon: string, more?: Attrs) => ({
-    attrs: { href, 'data-icon': icon, ...(more || {}) },
+    attrs: { href, 'data-icon': icon, ...more },
   });
 }

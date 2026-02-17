@@ -60,6 +60,7 @@
 
     /* active border must go over the page content */
     a {
+      @include box-radius;
       display: flex;
       align-items: center;
       gap: 1ch;
@@ -67,7 +68,6 @@
       color: $c-font-page;
       padding: 0.7rem 2vw 0.7rem 0.8rem;
       position: relative;
-      border-radius: $box-radius-size;
 
       &.active,
       &:hover {

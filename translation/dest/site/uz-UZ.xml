@@ -228,7 +228,6 @@
   <string name="changeUsernameNotSame">Faqat harflar registrlari o\'zgarishi mumkin. Masalan, \"lobarpardaboyeva\" dan \"LobarPardaboyeva\"ga.</string>
   <string name="changeUsernameDescription">Foydalanuvchi nomini almashtiring. Bu faqat bir marta amalga oshirilishi mumkin va faqat harflar registrlarini almashtirishga imkon bor.</string>
   <string name="signupUsernameHint">Oilangizga yaqin foydalanuvchi nomini berishga harakat qiling. Siz uni keyin o‘zgartira olmaysiz va nomaqbul foydalanuvchi nomlari yopiladi!</string>
-  <string name="signupEmailHint">Biz buni faqat kalit so‘zni o‘zgartirish uchun ishlatamiz.</string>
   <string name="password">Parol</string>
   <string name="changePassword">Parolni almashtirish</string>
   <string name="changeEmail">Emailni almashtirish</string>

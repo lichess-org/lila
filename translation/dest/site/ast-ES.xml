@@ -230,7 +230,6 @@
   <string name="changeUsernameNotSame">Namás ye posible camudar mayúscules por minúscules y viceversa. Por exemplu, de \"nelálvarez\" a \"NelÁlvarez\".</string>
   <string name="changeUsernameDescription">Camuda\'l to nome d\'usuariu. Esto sólo pue facese una vegada, y sólo puédese camudar mayúscules por minúscules y viceversa.</string>
   <string name="signupUsernameHint">Asegúrate d\'escoyer un nome d\'usuariu aptu pa tolos públicos. ¡Nun vas poder camudalo más tarde y va zarrase cualquier cuenta con un nome d\'usuariu desaveniente!</string>
-  <string name="signupEmailHint">Solo usaremoslo pa la reaniciu de la to contraseña.</string>
   <string name="password">Contraseña</string>
   <string name="changePassword">Camudar contraseña</string>
   <string name="changeEmail">Camudar email</string>

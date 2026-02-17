@@ -237,7 +237,7 @@
   <string name="changeUsernameNotSame">Nur die Groß-/Kleinschreibung kann geändert werden, z.B. \"jondoe\" zu \"JonDoe\".</string>
   <string name="changeUsernameDescription">Ändere deinen Benutzernamen. Dies ist nur einmalig möglich und bezieht sich lediglich auf Anpassungen der Groß- und Kleinschreibung deines Benutzernamens.</string>
   <string name="signupUsernameHint">Bitte wähle einen familienfreundlichen Benutzernamen. Du kannst ihn später nicht mehr ändern und Konten mit unpassenden Benutzernamen werden geschlossen!</string>
-  <string name="signupEmailHint">Wir werden sie nur zum Zurücksetzen deines Passworts verwenden.</string>
+  <string name="signupEmailPromise">Wir werden dir nur E-Mails bezüglich deines Kontos senden und niemals deine E-Mail-Adresse weitergeben.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail-Adresse ändern</string>

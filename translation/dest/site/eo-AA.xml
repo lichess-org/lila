@@ -234,7 +234,6 @@
   <string name="changeUsernameNotSame">Nur la uskleco de la literoj povas ŝanĝiĝi. Ekzemple de \"johndoe\" al \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Ŝanĝu ĉiam uzantnomon. Vi rajtas fari tion nur unufoje kaj vi rajtas ŝanĝi nur la usklecon de la literoj en via nomo.</string>
   <string name="signupUsernameHint">Certigi, ke vi elektas uzantnomon, ke estas adekvata por ĉiu-aĝaj spektantoj. Vi ne povas ŝanĝi ĝin poste, kaj la administrantoj fermas ĉiujn ajn kontojn, kiuj havas malbonimpresajn uzantnomojn!</string>
-  <string name="signupEmailHint">Ni nur uzos ĝin por pasvorta restarigo.</string>
   <string name="password">Pasvorto</string>
   <string name="changePassword">Ŝanĝi pasvorton</string>
   <string name="changeEmail">Ŝanĝi retadreson</string>

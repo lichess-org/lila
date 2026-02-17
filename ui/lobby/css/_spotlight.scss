@@ -32,6 +32,10 @@
     opacity: 1;
   }
 
+  &:focus-visible {
+    outline-offset: -2px;
+  }
+
   .img {
     flex: 0 0 42px;
     width: 44px;

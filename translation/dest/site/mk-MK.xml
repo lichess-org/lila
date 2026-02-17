@@ -211,7 +211,6 @@
   <string name="changeUsernameNotSame">Може да се промени само големината на буквите. На пример: \"johndoe\" во \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промени го корисничкото име. Ова може да се направи само еднаш и дозволено Ви е само да ја промените големината на буквите.</string>
   <string name="signupUsernameHint">Бидете сигурни дека корисничкото име не е навредливо или вулгарно, бидејќи негова промена подоцна е невозможна. Сите профили со несоодветно корисничко име ќе бидат затворени!</string>
-  <string name="signupEmailHint">Ќе го користиме само за ресетирање на лозинката.</string>
   <string name="password">Лозинка</string>
   <string name="changePassword">Променете ја шифрата</string>
   <string name="changeEmail">Променете ја е-поштата</string>

@@ -15,6 +15,7 @@
   <string name="backRankMate">Mat del passadís</string>
   <string name="backRankMateDescription">Fes escac i mat al rei a la primera fila, quan està atrapat per les seves pròpies peces.</string>
   <string name="balestraMate">Mat de la balestra</string>
+  <string name="balestraMateDescription">Un alfil fa el mat, mentre una dama bloqueja les caselles d\'escapada restants</string>
   <string name="blindSwineMate">Mat del porc cec</string>
   <string name="blindSwineMateDescription">Dues torres treballen en equip per tal de fer mat al rei en una àrea de 2x2 caselles.</string>
   <string name="bishopEndgame">Final d’alfils</string>
@@ -33,7 +34,7 @@
   <string name="discoveredCheckDescription">Mou una peça per revelar un escac d\'una peça atacant amagada que normalment porta a un avantatge decisiu.</string>
   <string name="doubleBishopMate">Mat dels dos alfils</string>
   <string name="doubleBishopMateDescription">Dos alfils atacant en diagonals adjacents fan mat a un rei que queda obstruït per peces amigues.</string>
-  <string name="dovetailMate">Mat de la coça</string>
+  <string name="dovetailMate">Mat de la cua de colom</string>
   <string name="dovetailMateDescription">Una dama fa mat a un rei adjacent que té les dues caselles adjacents ocupades per peces amigues.</string>
   <string name="equality">Igualtat</string>
   <string name="equalityDescription">Remunta des d\'una posició perduda i assegura unes taules o una posició balancejada. (eval ≤ 200cp)</string>

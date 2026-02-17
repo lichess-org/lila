@@ -259,7 +259,6 @@
   <string name="changeUsernameNotSame">Můžete změnit pouze velikost písmen. Např. z \"petrnovak\" na \"PetrNovak\".</string>
   <string name="changeUsernameDescription">Změňte své uživatelské jméno. To lze provést pouze jednou, a můžete změnit pouze velikost písmen.</string>
   <string name="signupUsernameHint">Zvolte si vhodné a nezávadné uživatelské jméno. Později ho nelze změnit a účty s nevhodnými uživatelskými jmény budou uzavřeny!</string>
-  <string name="signupEmailHint">Bude použit pouze pro obnovení hesla.</string>
   <string name="password">Heslo</string>
   <string name="changePassword">Změnit heslo</string>
   <string name="changeEmail">Změnit email</string>

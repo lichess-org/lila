@@ -290,7 +290,6 @@
   <string name="changeUsernameNotSame">يمكن تغيير حساسية الأحرف فقط.</string>
   <string name="changeUsernameDescription">غير إسم المستخدم. يمكنك تغيير إسم المستخدم الخاص بك مرة واحدة فقط, ويمكنك فقط تغيير حساسية الاحرف.</string>
   <string name="signupUsernameHint">تأكد من اختيار اسم مستخدم صديق للعائلة. لا يمكنك تغييره لاحقًا وأي حسابات تحتوي على أسماء مستخدمين غير ملائمة سيتم إغلاقها!</string>
-  <string name="signupEmailHint">سوف نستخدمه فقط لإعادة تعيين كلمة المرور.</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>

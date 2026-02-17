@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@lichess-org/chessground": "^10.0.2",
-    "@lichess-org/pgn-viewer": "^2.5.7",
+    "@lichess-org/pgn-viewer": "^2.5.9",
     "@types/lichess": "workspace:*",
     "@types/node": "^24.10.0",
     "ab": "github:lichess-org/ab-stub",

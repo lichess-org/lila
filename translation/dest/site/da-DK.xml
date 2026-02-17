@@ -237,7 +237,7 @@
   <string name="changeUsernameNotSame">Kun størrelsen af bogstaverne kan ændres. For eksempel \"bentlarsen\" til \"BentLarsen\".</string>
   <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang, og du kan kun ændre størrelsen på bogstaverne i dit brugernavn.</string>
   <string name="signupUsernameHint">Sørg for at vælge et familievenligt brugernavn. Du kan ikke ændre det senere, og alle konti med upassende brugernavne vil blive lukket!</string>
-  <string name="signupEmailHint">Vi vil kun bruge den til nulstilling af adgangskode.</string>
+  <string name="signupEmailPromise">Vi vil kun sende dig e-mails angående din konto og vil aldrig dele din e-mail.</string>
   <string name="password">Adgangskode</string>
   <string name="changePassword">Skift adgangskode</string>
   <string name="changeEmail">Skift e-mail</string>

@@ -107,24 +107,24 @@ final class TitleApi(
 
   object publicFideIdOf:
 
-    private val cache = cacheApi[UserId, Option[FideId]](8192, "title.publicFideIdOf"):
+    private val cache = cacheApi[UserId, Option[FideId]](8_192, "title.publicFideIdOf"):
       _.expireAfterWrite(1.hour).buildAsyncFuture: id =>
         coll.secondary
           .find(
             $doc(
               "userId" -> id,
-              "data.public" -> true,
-              "data.fideId".$exists(true),
               s"$statusField.n" -> Status.approved.toString
             ),
-            $doc("data.fideId" -> true).some
+            $doc("data.fideId" -> true, "data.public" -> true).some
           )
+          .sort($sort.desc("createdAt"))
           .one[Bdoc]
           .dmap: docOpt =>
             for
               doc <- docOpt
               data <- doc.child("data")
               fideId <- data.getAsOpt[FideId]("fideId")
+              if ~data.booleanLike("public")
             yield fideId
 
     def apply(user: LightUser): Fu[Option[FideId]] =

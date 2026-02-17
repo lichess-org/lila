@@ -71,7 +71,7 @@ interface Handlers {
   chapters(d: ChapterPreviewFromServer[]): void;
   reload(d: { reason?: 'overweight' }): void;
   changeChapter(d: WithWhoAndPos): void;
-  updateChapter(d: WithWhoAndChap): void;
+  reloadStudy(d: WithWho): void;
   descChapter(d: WithWhoAndChap & { desc?: string }): void;
   descStudy(d: WithWho & { desc?: string }): void;
   setTopics(d: WithWho & { topics: string[] }): void;
@@ -748,7 +748,7 @@ export default class StudyCtrl {
         this.redraw();
       }
     },
-    updateChapter: d => {
+    reloadStudy: d => {
       this.setMemberActive(d.w);
       this.xhrReload();
     },

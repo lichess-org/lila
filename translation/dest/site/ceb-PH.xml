@@ -193,7 +193,6 @@
   <string name="changeUsernameNotSame">Mga dagkong letra lang ang mailisan. Pananglita. \"johndoe\" mahimong \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Ilisan ang imong username. Mahimo lang kina kaisa ug dili naka pwede mag ilis sa dagkong letra sa imong username.</string>
   <string name="signupUsernameHint">Panigurado na pagpili ug Family-Friendly na username. Dili ko kina pwede ma ilisan sa sunod ug ang mga account na may mga way tarong na username kay ma closed!</string>
-  <string name="signupEmailHint">Gamiton lang namo kini para sa pag password reset.</string>
   <string name="password">Password</string>
   <string name="changePassword">Ilisan ang password</string>
   <string name="changeEmail">Ilisan ang email</string>

@@ -77,11 +77,12 @@
   <string name="usernamesNotOffensive">Генерално, корисничка имена не требају бити: увредљива, лажно представљати неког другог или рекламе. Можеш прочитати више о %1$s.</string>
   <string name="guidelines">смерницама</string>
   <string name="canIChangeMyUsername">Могу ли променити своје корисничко име?</string>
-  <string name="uniqueTrophies">Уникатни трофеји</string>
-  <string name="ownerUniqueTrophies">Овај трофеј је уникатан у историји Личеса, нико осим %1$s га неће имати.</string>
+  <string name="uniqueTrophies">Јединствени трофеји</string>
+  <string name="ownerUniqueTrophies">Тај трофеј је јединствен у историји Lichess-а, нико осим %1$s га никад неће имати.</string>
   <string name="aHourlyBulletTournament">сатни муњевити турнир</string>
-  <string name="lichessRatings">Личес рејтинзи</string>
-  <string name="whichRatingSystemUsedByLichess">Који рејтинг систем користи Личес?</string>
+  <string name="goldenZeeExplanation">ZuggAddict је стримовао и за последња 2 сата покушавао да порази вештачку интелингецију нивоа 8 у 1+0 партији, без успеха. Thibault му је рекао да ако то успешно уради на стриму, добиће јединствени трофеј. Сат времена касније, победио је Стокфиш и обећање је испоштовано.</string>
+  <string name="lichessRatings">Lichess рејтинзи</string>
+  <string name="whichRatingSystemUsedByLichess">Који рејтинг систем користи Lichess?</string>
   <string name="ratingSystemUsedByLichess">Рејтинзи се рачунају помоћо Глико-2 рејтинг методе коју је осмислио Марк Гликман. Ово је врло популарна метода и користи се у значајном броју шаховских организација (ФИДЕ је знаменит супротан пример јер и даље користе застарели Ело рејтинг систем).
 
 У суштини, Глико рејтинг користи \"интервале поузданости\" када рачуна и преставља твој рејтинг. Када тек почнеш користити сајт, твој рејтинг започиње на 1500 ± 700. Тбој рејтинг је 1500, а 700 представља твој интервал поузданости.
@@ -90,8 +91,8 @@
 
 Такође је битно напоменути да се, како време пролази, твој интервал поузданости повећава. Ово ти омогућава да добијаш/губиш поене брже како би у том периоду боље пратио промене у свом нивоу игре.</string>
   <string name="whatIsProvisionalRating">Зашто упитник (?) стоји поред рејтинга?</string>
-  <string name="provisionalRatingExplanation">Упитник означава рејтинге који су привремени. Ово може бити из следећих разлога:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Играч није завршио довољно рангираних партија против %1$s у рангираној категорији.</string>
+  <string name="provisionalRatingExplanation">Упитник значи да је рејтинг пробни. Разлози укључују:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Играч још увек није завршио довољно рангираних партија против %1$s у рангираној категорији.</string>
   <string name="similarOpponents">противника сличне јачине</string>
   <string name="notPlayedRecently">Играч није одиграо довољно скоријих партија. Узев у обзир број одиграних партија, може бити потребно око годину дана неактивности како би твој рејтинг поново постао привремени.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Конкретно, то значи да је Глико-2 девијација већа од 110. Девијација је ниво поузданости коју систем има у рејтинг. Што је мања девијација, то је рејтинг стабилнији.</string>

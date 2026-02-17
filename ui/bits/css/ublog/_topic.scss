@@ -32,10 +32,9 @@
     }
   }
   &__topic {
-    @extend %flex-column;
+    @extend %flex-column, %box-radius;
     gap: 1em;
     padding: 1em 1.5em 1.5em;
-    border-radius: $box-radius-size;
     @include transition(background);
     &:hover {
       background: $m-primary_bg--mix-18;

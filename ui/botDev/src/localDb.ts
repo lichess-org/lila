@@ -8,8 +8,6 @@ export class LocalDb {
   store: ObjectStorage<LocalGameData> | undefined;
   liteStore: ObjectStorage<LiteGame> | undefined;
 
-  constructor() {}
-
   async init(): Promise<this> {
     if (!hasFeature('structuredClone')) globalThis.structuredClone = obj => JSON.parse(JSON.stringify(obj));
 

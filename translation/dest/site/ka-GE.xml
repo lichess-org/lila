@@ -216,7 +216,6 @@
   <string name="changeUsernameNotSame">იცვლება მხოლოდ დიდ და პატარა ასოებზე. მაგალითად \"johndoe\" \"JohnDoe\" - ზე.</string>
   <string name="changeUsernameDescription">შეცვალე სახელი. ცვლილება შეიძლება მხოლოდ ერთხელ, პატარა ასოების დიდებზე თქვენს სახელში.</string>
   <string name="signupUsernameHint">აირჩიეთ მისაღები-ზრდილობიანი სახელი. ვერ შეძლებთ შემდგომში სახელის შეცვლას და ყველა ექაუნთი მიუღებელი სახელით დაიხურება!</string>
-  <string name="signupEmailHint">გამოვიყენებთ მხოლოდ პაროლის აღსადგენად.</string>
   <string name="password">პაროლი</string>
   <string name="changePassword">პაროლის შეცვლა</string>
   <string name="changeEmail">ელ. ფოსტის შეცვლა</string>

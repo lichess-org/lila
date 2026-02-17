@@ -12,9 +12,25 @@
 	<string name="timeALot">Això són molts escacs.</string>
 	<string name="timeReasonable">Sembla un bona dosi d\'escacs.</string>
 	<string name="timeHowManyMoves">Quants moviments has fet durat aquest temps?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s moviment jugat</item>
+		<item quantity="other">%s moviments jugats</item>
+	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Això són %s de fusta moguda!</string>
 	<string name="movesStandardPiecesWeight">Les peces estàndard pesen normalment 40g cada una</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s moviment</item>
+		<item quantity="other">%s moviments</item>
+	</plurals>
 	<string name="chessFoes">Els teus millors rivals dels escacs</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gram</item>
+		<item quantity="other">%s grams</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s quilogram</item>
+		<item quantity="other">%s quilograms</item>
+	</plurals>
 	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">és com has començat el %s de les teves partides amb blanques</string>
 	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
 		<item quantity="one">La teva obertura més jugada amb blanques amb %s partida</item>
@@ -23,6 +39,10 @@
 	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
 		<item quantity="one">La teva obertura més jugada amb negres amb %s partida</item>
 		<item quantity="other">La teva obertura més jugada amb negres amb %s partides</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">Gràcies per votar %s problema.</item>
+		<item quantity="other">Gràcies per votar %s problemes.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">També has ajudat a etiquetar %s d\'ells.</string>
 	<string name="puzzlesNone">No has resolt cap problema aquest any.</string>

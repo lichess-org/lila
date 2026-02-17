@@ -173,10 +173,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       )
     .void
 
-  def updateNow(s: Study): Funit =
-    updateNow(s.id)
-
-  def updateNow(id: StudyId): Funit =
+  def setUpdatedNow(id: StudyId): Funit =
     coll.map(_.updateFieldUnchecked($id(id), "updatedAt", nowInstant))
 
   def addMember(study: Study, member: StudyMember): Funit =

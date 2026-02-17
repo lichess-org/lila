@@ -53,6 +53,8 @@
   <string name="endgame">Oyunsonu</string>
   <string name="endgameDescription">Oyunun son aşamasında hayat kurtarıcı taktikler.</string>
   <string name="enPassantDescription">Başlangıçta iki kare ileri giden kurnaz piyonun, rakip piyon ile yan yana geldikten sonra geçerken alma kuralı sebebiyle helvasının yendiği taktikler.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Apolet matı</string>
+  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Şahın kaçabileceği iki bitişik kare, diğer taşlar tarafından kullanılmaktadır.</string>
   <string name="exposedKing">Savunmasız şah</string>
   <string name="exposedKingDescription">Şahın defansa gelin diye feryat ettiği, çoğu zaman mata giden taktikler.</string>
   <string name="fork">Çatal</string>
@@ -71,6 +73,7 @@
   <string name="pillsburysMateDescription">Fil şahı sınırlarken, kale matı gerçekleştirir.</string>
   <string name="morphysMate">Morphy matı</string>
   <string name="morphysMateDescription">Kale şahı sınırlarken, fil matı gerçekleştirir.</string>
+  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Kırlangıç kuyruğu matı</string>
   <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Görsel olarak V şekline benzer bir kırlangıç kuyruğu görünümünü andıran bir şah mat deseni.</string>
   <string name="triangleMate">Üçgen matı</string>
   <string name="triangleMateDescription">Rakip şahtan bir kare uzakta olan vezir veya kale, aynı sıra veya sütunda yer alır ve aralarında bir karelik boşluk bulunur; bu da bir üçgen oluşturur.</string>

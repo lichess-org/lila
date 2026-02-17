@@ -252,7 +252,6 @@
   <string name="changeUsername">Cheñch anv implijer</string>
   <string name="changeUsernameNotSame">Ment al lizherennoù a c\'hall cheñch hepken. Lakaomp \"yannc\'hoarier\" a ya da \"YannC\'hoarier\".</string>
   <string name="changeUsernameDescription">Cheñchit hoc\'h anv implijer. Gallout a rit hen ober ur wech hepken ha ne c\'hallit kemm nemet ment al lizherennoù.</string>
-  <string name="signupEmailHint">Arveret e vo gant m\'ho peus ezhomm da cheñch ho ker-kuzh.</string>
   <string name="password">Ger-kuzh</string>
   <string name="changePassword">Kemm ar ger-tremen</string>
   <string name="changeEmail">Kemm ar postel</string>

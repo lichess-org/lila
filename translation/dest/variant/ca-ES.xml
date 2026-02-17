@@ -13,6 +13,7 @@
   <string name="atomic">Atòmic</string>
   <string name="atomicTitle">Explota el rei del teu oponent per guanyar la partida.</string>
   <string name="horde">Horda</string>
+  <string name="hordeTitle">Un jugador té un gran nombre de peons, l\'altre té un exèrcit normal.</string>
   <string name="racingKings">Carrera de reis</string>
   <string name="racingKingsTitle">Fes arribar el teu rei a l\'altre costat del tauler per guanyar.</string>
   <string name="crazyhouse">Passa peces</string>

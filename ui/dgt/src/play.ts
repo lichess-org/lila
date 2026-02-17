@@ -457,15 +457,6 @@ export default function (token: string): void {
     //Determine new value for currentGameId. First create an array with only the started games
     //So then there is none or more than one started game
     const playableGames = playableGamesArray();
-    //If there is only one started game, then it's easy
-    /*
-    if (playableGames.length === 1) {
-      currentGameId = playableGames[0].gameId;
-      attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
-      console.log('Active game updated. currentGameId: ' + currentGameId);
-    }
-    else
-    */
     if (playableGames.length === 0) {
       console.log(
         'No started playable games, challenges or games are disconnected. Please start a new game or fix connection.',
@@ -655,14 +646,10 @@ export default function (token: string): void {
       'Last Move': string;
     }> = [];
     const keys = Array.from(gameConnectionMap.keys());
-    //The for each iterator is not used since we don't want to continue execution. We want a synchronous result
-    //for (let [gameId, networkState] of gameConnectionMap) {
-    //    if (gameConnectionMap.get(gameId).connected && gameStateMap.get(gameId).status == "started") {
     for (let i = 0; i < keys.length; i++) {
       if (gameConnectionMap.get(keys[i])?.connected && gameStateMap.get(keys[i])?.status == 'started') {
         //Game is good for commands
         const gameInfo = gameInfoMap.get(keys[i]);
-        //var gameState = gameStateMap.get(keys[i]);
         const lastMove = getLastUCIMove(keys[i]);
         const versus =
           gameInfo.black.id == me.id
@@ -696,16 +683,7 @@ export default function (token: string): void {
       const gameInfo = gameInfoMap.get(gameId);
       const gameState = gameStateMap.get(gameId);
       const lastMove = getLastUCIMove(gameId);
-      console.log(''); //process.stdout.write("\n"); Changed to support browser
-      /* Log before migrating to browser
-      if (verbose) console.table({
-        'Title': { white: ((gameInfo.white.title) ? gameInfo.white.title : '@'), black: ((gameInfo.black.title) ? gameInfo.black.title : '@'), game: 'Id: ' + gameInfo.id },
-        'Username': { white: gameInfo.white.name, black: gameInfo.black.name, game: 'Status: ' + gameState.status },
-        'Rating': { white: gameInfo.white.rating, black: gameInfo.black.rating, game: gameInfo.variant.short + ' ' + (gameInfo.rated ? 'rated' : 'unrated') },
-        'Timer': { white: formattedTimer(gameState.wtime), black: formattedTimer(gameState.btime), game: gameInfo.speed + ' ' + ((gameInfo.clock) ? (String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''") : '∞') },
-        'Last Move': { white: (lastMove.player == 'white' ? lastMove.move : '?'), black: (lastMove.player == 'black' ? lastMove.move : '?'), game: lastMove.player },
-      });
-      */
+      console.log('');
       const innerTable =
         `<table class="dgt-table"><tr><th> - </th><th>Title</th><th>Username</th><th>Rating</th><th>Timer</th><th>Last Move</th><th>gameId: ${gameInfo.id}</th></tr>` +
         `<tr><td>White</td><td>${gameInfo.white.title ? gameInfo.white.title : '@'}</td><td>${
@@ -808,9 +786,9 @@ export default function (token: string): void {
       ttsSay(padBeforeNumbers(lastMove.move));
     }
     if (lastMove.player === 'white') {
-      console.log('<span class="dgt-white-move">' + moveText + ' by White' + '</span>');
+      console.log(`<span class="dgt-white-move">${moveText} by White</span>`);
     } else {
-      console.log('<span class="dgt-black-move">' + moveText + ' by Black' + '</span>');
+      console.log(`<span class="dgt-black-move">${moveText} by Black</span>`);
     }
     //TODO
     //Give feedback on running out of time
@@ -1260,16 +1238,6 @@ export default function (token: string): void {
     }
     return false;
   }
-
-  /*
-  function opponent(): { color: string, id: string, name: string } {
-    //"white":{"id":"godking666","name":"Godking666","title":null,"rating":1761},"black":{"id":"andrescavallin","name":"andrescavallin","title":null
-    if (gameInfoMap.get(currentGameId).white.id == me.id)
-      return { color: 'black', id: gameInfoMap.get(currentGameId).black.id, name: gameInfoMap.get(currentGameId).black.name };
-    else
-      return { color: 'white', id: gameInfoMap.get(currentGameId).white.id, name: gameInfoMap.get(currentGameId).white.name };
-  }
-  */
 
   function start() {
     console.log('');

@@ -212,7 +212,6 @@
   <string name="changeUsernameNotSame">只能更改字母大小字。例如，將「johndoe」變成「JohnDoe」。</string>
   <string name="changeUsernameDescription">更改使用者名稱。您最多可以更改一次字母大小寫。</string>
   <string name="signupUsernameHint">請選擇一個妥當的使用者名稱。請注意使用者名稱無法再次更改，並且不妥當的名稱會導致帳號被封禁！</string>
-  <string name="signupEmailHint">僅用於密碼重置</string>
   <string name="password">密碼</string>
   <string name="changePassword">更改密碼</string>
   <string name="changeEmail">更改電子郵件</string>

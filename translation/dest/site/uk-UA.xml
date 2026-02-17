@@ -267,7 +267,7 @@
   <string name="changeUsernameNotSame">Можна змінити лише регістр літер. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Змініть своє ім\'я користувача. Це може бути зроблено лише один раз і вам дозволено лише змінити регістр літер вашого імені користувача.</string>
   <string name="signupUsernameHint">Переконайтесь, що ви вибрали хороше ім\'я. Ви не можете змінити його потім, а профілі з непристойними іменами будуть заблоковані!</string>
-  <string name="signupEmailHint">Ми використаємо її лише для скидання пароля.</string>
+  <string name="signupEmailPromise">Ми лише будемо надсилати вам листи про ваш обліковий запис та ніколи не будемо ділитися вашою електронною поштою.</string>
   <string name="password">Пароль</string>
   <string name="changePassword">Змінити пароль</string>
   <string name="changeEmail">Змінити адресу електронної пошти</string>

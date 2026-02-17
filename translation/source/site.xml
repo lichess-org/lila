@@ -237,7 +237,7 @@
   <string name="changeUsernameNotSame">Only the case of the letters can change. For example "johndoe" to "JohnDoe".</string>
   <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
   <string name="signupUsernameHint">Make sure to choose a username that's appropriate for all ages. You cannot change it later and any accounts with inappropriate usernames will get closed!</string>
-  <string name="signupEmailHint">We will only use it for password reset and account activation.</string>
+  <string name="signupEmailPromise">We will only send you emails about your account and never share your email.</string>
   <string name="password">Password</string>
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>

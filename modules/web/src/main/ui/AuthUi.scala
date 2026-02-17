@@ -347,7 +347,7 @@ final class AuthUi(helpers: Helpers):
       ),
       register.option(form3.passwordComplexityMeter(trans.site.newPasswordStrength())),
       email.map: email =>
-        form3.group(email, trans.site.email(), help = trans.site.signupEmailHint().some)(
+        form3.group(email, trans.site.email(), help = trans.site.signupEmailPromise().some)(
           form3.input(_, typ = "email")(required)
         )
     )

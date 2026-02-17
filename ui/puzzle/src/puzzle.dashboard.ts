@@ -6,22 +6,13 @@ import {
   RadialLinearScale,
   Tooltip,
   Filler,
+  type ChartData,
 } from 'chart.js';
 import { currentTheme } from 'lib/device';
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Tooltip, Filler);
 
-interface RadarData {
-  radar: {
-    labels: string[];
-    datasets: {
-      label: 'Performance';
-      data: number[];
-    }[];
-  };
-}
-
-export function initModule(data: RadarData) {
+export function initModule(data: { radar: ChartData<'radar', number, 'Performance'> }) {
   const canvas = document.querySelector('.puzzle-dashboard__radar') as HTMLCanvasElement;
   const d = data.radar;
 
@@ -29,11 +20,9 @@ export function initModule(data: RadarData) {
 
   d.datasets[0] = {
     ...d.datasets[0],
-    ...{
-      backgroundColor: 'rgba(189,130,35,0.2)',
-      borderColor: 'rgba(189,130,35,1)',
-      pointBackgroundColor: 'rgba(189,130,35,1)',
-    },
+    backgroundColor: 'rgba(189,130,35,0.2)',
+    borderColor: 'rgba(189,130,35,1)',
+    pointBackgroundColor: 'rgba(189,130,35,1)',
   };
   const fontColor = currentTheme() === 'dark' ? '#bababa' : '#4d4d4d';
   const lineColor = 'rgba(127, 127, 127, .3)';
@@ -46,7 +35,7 @@ export function initModule(data: RadarData) {
       scales: {
         r: {
           beginAtZero: false,
-          suggestedMin: Math.min(...d.datasets[0].data) - 100,
+          suggestedMin: Math.min(d.datasets[0].data) - 100,
           ticks: {
             color: fontColor,
             showLabelBackdrop: false, // hide square behind text

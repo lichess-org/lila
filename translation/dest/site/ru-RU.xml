@@ -267,7 +267,7 @@
   <string name="changeUsernameNotSame">Можно изменить только регистр символов. Например, поменять «Johndoe» на «JohnDoe».</string>
   <string name="changeUsernameDescription">Изменить имя пользователя. Это можно сделать только один раз, при этом можно изменить только регистр символов.</string>
   <string name="signupUsernameHint">Убедитесь, что вы выбрали благопристойное имя пользователя. Вы не сможете изменить его позже, при этом все учётные записи с неприличными именами будут закрыты!</string>
-  <string name="signupEmailHint">Мы будем использовать его только для сброса пароля.</string>
+  <string name="signupEmailPromise">Мы будем только отправлять вам письма, касающиеся вашей учётной записи, и никогда не передадим ваш адрес кому-либо.</string>
   <string name="password">Пароль</string>
   <string name="changePassword">Сменить пароль</string>
   <string name="changeEmail">Сменить адрес электронной почты</string>

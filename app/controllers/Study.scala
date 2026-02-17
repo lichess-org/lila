@@ -183,8 +183,7 @@ final class Study(
                 oldSc,
                 withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
               )
-              loadChat = !HTTPRequest.isXhr(ctx.req)
-              chatOpt <- loadChat.so(chatOf(sc.study))
+              chatOpt <- HTTPRequest.isXhr(ctx.req).not.so(chatOf(sc.study))
               jsChat <- chatOpt.traverse: c =>
                 env.chat.json.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
             yield Ok:

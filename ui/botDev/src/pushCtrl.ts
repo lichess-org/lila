@@ -6,8 +6,6 @@ import { env } from './devEnv';
 // not sure why this is a class yet
 
 export class PushCtrl {
-  constructor() {}
-
   async pushBot(
     bot: BotInfo,
     progress?: (e: ProgressEvent, key: string) => void,

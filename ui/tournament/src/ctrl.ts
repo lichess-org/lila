@@ -75,7 +75,7 @@ export default class TournamentController {
     const willChangeJoinStatus = !!this.data.me !== !!data.me || this.data.me?.withdraw !== data.me?.withdraw;
     // we joined a private tournament! Reload the page to load the chat
     if (!this.data.me && data.me && this.data.private) site.reload();
-    this.data = { ...this.data, ...data, ...{ me: data.me } }; // to account for removal on withdraw
+    this.data = { ...this.data, ...data, me: data.me }; // to account for removal on withdraw
     if (data.playerInfo?.player.id === this.playerInfo.id) this.playerInfo.data = data.playerInfo!;
     this.loadPage(data.standing);
     if (this.focusOnMe) this.scrollToMe();

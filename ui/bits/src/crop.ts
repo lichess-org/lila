@@ -16,7 +16,7 @@ export function wireCropDialog(
 
   if (!init.onCropped) init.onCropped = () => site.reload();
 
-  init.max = { ...(init.max || {}), megabytes: 6 }; // nginx `client_max_body_size`
+  init.max = { ...init.max, megabytes: 6 }; // nginx `client_max_body_size`
 
   init.selectClicks?.on('click', () => site.asset.loadEsm('bits.cropDialog', { init }));
 

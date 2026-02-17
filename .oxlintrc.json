@@ -1,13 +1,11 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript"],
+  "plugins": ["typescript", "unicorn"],
   "env": {
     "builtin": true
   },
   "ignorePatterns": ["**/bin/", "**/dist/", "**/public"],
   "rules": {
-    "no-useless-escape": "off",
-    "no-control-regex": "off",
     "no-var": "warn",
     "no-constant-condition": [
       "warn",
@@ -16,6 +14,18 @@
       }
     ],
     "no-duplicate-imports": "error",
+    "no-useless-computed-key": "error",
+    "no-useless-concat": "error",
+    "no-useless-constructor": "error",
+    "no-useless-spread": "error",
+    "no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
     "no-restricted-globals": [
       "error",
       "addEventListener",
@@ -186,18 +196,12 @@
       "webkitResolveLocalFileSystemURL",
       "webkitStorageInfo"
     ],
+
+    "no-useless-escape": "off",
+    "no-control-regex": "off",
     "no-unused-expressions": "off",
-    "no-unused-vars": [
-      "warn",
-      {
-        "varsIgnorePattern": "^_",
-        "argsIgnorePattern": "^_",
-        "caughtErrorsIgnorePattern": "^_"
-      }
-    ],
     "typescript/no-base-to-string": "off",
     "typescript/no-duplicate-type-constituents": "off",
-    "typescript/no-empty-interface": "off",
     "typescript/no-floating-promises": "off",
     "typescript/no-misused-spread": "off",
     "typescript/no-redundant-type-constituents": "off",

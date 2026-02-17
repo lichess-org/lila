@@ -4321,8 +4321,8 @@ interface I18n {
     signIn: string;
     /** Register */
     signUp: string;
-    /** We will only use it for password reset and account activation. */
-    signupEmailHint: string;
+    /** We will only send you emails about your account and never share your email. */
+    signupEmailPromise: string;
     /** Sign up to host or join a simul */
     signUpToHostOrJoinASimul: string;
     /** Make sure to choose a username that's appropriate for all ages. You cannot change it later and any accounts with inappropriate usernames will get closed! */

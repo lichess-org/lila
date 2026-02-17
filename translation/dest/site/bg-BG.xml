@@ -237,7 +237,6 @@
   <string name="changeUsernameNotSame">Единствено могат да се заменят малки с главни букви. Например, \"johndoe\" с \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промяна на потребителско име. Може да се извърши само веднъж и можете да сменяте единствено малки и главни букви.</string>
   <string name="signupUsernameHint">Изберете прилично потребителско име. Няма да можете да го смените по-късно и всички регистрации с нецензурни имена биват затворени!</string>
-  <string name="signupEmailHint">Ще го използваме само за възстановяване на паролата.</string>
   <string name="password">Парола</string>
   <string name="changePassword">Промяна на паролата</string>
   <string name="changeEmail">Промяна на имейла</string>

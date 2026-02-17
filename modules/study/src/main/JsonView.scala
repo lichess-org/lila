@@ -50,6 +50,7 @@ final class JsonView(
         "chapter" -> Json
           .obj(
             "id" -> chapter.id,
+            "name" -> chapter.name,
             "ownerId" -> chapter.ownerId,
             "setup" -> chapter.setup,
             "tags" -> chapter.tagsExport,

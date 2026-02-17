@@ -237,7 +237,6 @@
   <string name="changeUsernameNotSame">Només es pot canviar entre majúscules i minúscules. Per exemple, de \"perecullera\" a \"PereCullera\".</string>
   <string name="changeUsernameDescription">Canvia el teu nom d\'usuari. Això es pot fer una única vegada i només només se\'t permet canviar lletres entre majúscules i minúscules.</string>
   <string name="signupUsernameHint">Assegureu-vos d\'escollir un nom d\'usuari amigable. No el podreu canviar més tard i qualsevol compte amb nom d\'usuaris inapropiats es tancarà!</string>
-  <string name="signupEmailHint">Només s\'utilitzarà per restablir la contrasenya.</string>
   <string name="password">Contrasenya</string>
   <string name="changePassword">Canvia la contrasenya</string>
   <string name="changeEmail">Canvia el correu electrònic</string>
@@ -773,6 +772,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">També pots desplaçar-te sobre el tauler per moure en el joc.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantingueu el ratolí sobre les variants d\'anàlisi per a previsualitzar-les.</string>
   <string name="analysisShapesHowTo">Pitja la tecla Shift + clic o feu clic dret per dibuixar cercles i fletxes al tauler.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl o majúscules = vermell; comandament, alt o meta = blau; una tecla de cada = groc.</string>
   <string name="letOtherPlayersMessageYou">Deixa que altres jugadors t\'envïin missatges</string>
   <string name="receiveForumNotifications">Rebre notificacions quan et mencionin al fòrum</string>
   <string name="shareYourInsightsData">Comparteix les teves dades d\'estadístiques</string>

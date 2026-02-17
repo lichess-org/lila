@@ -237,7 +237,6 @@
   <string name="changeUsernameNotSame">Voit muuttaa vain pieniä kirjaimia isoiksi tai toisinpäin. Esimerkiksi \"mattimeikäläinen\" voidaan muuttaa muotoon \"MattiMeikäläinen\".</string>
   <string name="changeUsernameDescription">Muuta käyttäjänimeä. Tämän voi tehdä vain kerran. Voit muuttaa vain pieniä kirjaimia isoiksi kirjaimiksi ja toisinpäin.</string>
   <string name="signupUsernameHint">Nimeä käyttäjätunnuksesi niin, että se sopii kaikenikäisten nähtäväksi. Et voi muuttaa tunnusta myöhemmin. Kaikki epäasiallisesti nimetyt käyttäjätunnukset suljetaan!</string>
-  <string name="signupEmailHint">Käytämme sitä vain, jos pyydät uutta salasanaa.</string>
   <string name="password">Salasana</string>
   <string name="changePassword">Vaihda salasana</string>
   <string name="changeEmail">Vaihda sähköpostiosoitetta</string>

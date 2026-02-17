@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import { header } from './util';
-import { type DasherCtrl, PaneCtrl } from './interfaces';
+import { PaneCtrl } from './interfaces';
 import { onInsert } from 'lib/view';
 
 type Code = string;
@@ -16,10 +16,6 @@ export interface LangsData {
 }
 
 export class LangsCtrl extends PaneCtrl {
-  constructor(root: DasherCtrl) {
-    super(root);
-  }
-
   render = (): VNode =>
     h('div.sub.langs', [
       header(i18n.site.language, this.close),

@@ -96,7 +96,7 @@ let anyBuggy = false;
                 },
       };
   const selector = {
-    ...{ issue: { $exists: false } },
+    issue: { $exists: false },
     ...subtleSelector,
     ...themeSelector,
   };
@@ -165,52 +165,24 @@ let anyBuggy = false;
       $facet: tiers.reduce(
         (facets, [name, ratio]) => ({
           ...facets,
-          ...{
-            [name]: [
-              {
-                $project: {
-                  total: 1,
-                  puzzles: {
-                    $slice: [
-                      '$puzzles',
-                      {
-                        $round: {
-                          $multiply: ['$total', ratio],
-                        },
-                      },
-                    ],
-                  },
-                },
+          [name]: [
+            {
+              $project: {
+                total: 1,
+                puzzles: { $slice: ['$puzzles', { $round: { $multiply: ['$total', ratio] } }] },
               },
-              {
-                $unwind: '$puzzles',
+            },
+            { $unwind: '$puzzles' },
+            { $sample: { size: 10 * 1e3 * 1e3 } },
+            {
+              $group: {
+                _id: '$_id',
+                puzzles: { $addToSet: '$puzzles' },
               },
-              {
-                $sample: {
-                  // shuffle
-                  size: 10 * 1000 * 1000,
-                },
-              },
-              {
-                $group: {
-                  _id: '$_id',
-                  puzzles: {
-                    $addToSet: '$puzzles',
-                  },
-                },
-              },
-              {
-                $sort: {
-                  '_id.min': 1,
-                },
-              },
-              {
-                $addFields: {
-                  tier: name,
-                },
-              },
-            ],
-          },
+            },
+            { $sort: { '_id.min': 1 } },
+            { $addFields: { tier: name } },
+          ],
         }),
         {},
       ),

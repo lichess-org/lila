@@ -5,11 +5,11 @@ import type { Tab } from '../interfaces';
 
 function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes) {
   return h(
-    'span',
+    'button',
     {
       attrs: { role: 'tab' },
       class: { active: key === active, glowing: key !== active && key === 'pools' && !!ctrl.poolMember },
-      hook: bind('mousedown', _ => ctrl.setTab(key), ctrl.redraw),
+      hook: bind('click', _ => ctrl.setTab(key)),
     },
     content,
   );

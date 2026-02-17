@@ -15,8 +15,8 @@
       &-toolbar {
         @extend %metal, %box-radius-top;
         border-radius: 3px 3px 0 0 !important;
-        border: 1px solid $c-border;
-        border-width: 1px 1px 0 1px;
+        border: $border;
+        border-bottom: 0;
         flex-flow: row wrap;
       }
     }
@@ -72,8 +72,8 @@
     }
     &-ww-container,
     &-md-container {
-      border: 1px solid $c-border;
-      border-width: 0 1px 1px 1px;
+      border: $border;
+      border-top: 0;
       border-radius: 0 0 3px 3px;
     }
     &.ww-mode,
