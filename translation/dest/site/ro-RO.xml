@@ -131,6 +131,8 @@
   <string name="evaluationGauge">Indicator de evaluare</string>
   <string name="visualMotifs">Motive vizuale</string>
   <string name="undefendedPieces">Piese neapărate</string>
+  <string name="pinnedPieces">Piese țintuite</string>
+  <string name="checkableKing">Rege expus la șah</string>
   <string name="multipleLines">Mutări multiple</string>
   <string name="cpus">Procesoare</string>
   <string name="memory">Memorie</string>
@@ -759,7 +761,6 @@
   <string name="keyShowOrHideComments">arată/ascunde comentarii</string>
   <string name="keyEnterOrExitVariation">acceptă/respinge variație</string>
   <string name="keyRequestComputerAnalysis">Solicită analiza calculatorului, Învață din greșelile tale</string>
-  <string name="keyNextLearnFromYourMistakes">Următorul (Învață din greșelile tale)</string>
   <string name="keyNextBlunder">Următoarea greșeală gravă</string>
   <string name="keyNextMistake">Următoarea greșeală</string>
   <string name="keyNextInaccuracy">Următoarea neacuratețe</string>
@@ -769,6 +770,7 @@
   <string name="cyclePreviousOrNextVariation">Ciclu de variație precedentă/următoare</string>
   <string name="toggleGlyphAnnotations">Comută comentarii la mutări</string>
   <string name="togglePositionAnnotations">Activează/Dezactivează adnotările pozițiilor</string>
+  <string name="toggleObservationAnnotations">Comută adnotări observaționale</string>
   <string name="variationArrowsInfo">Săgețile de variație vă permit să navigați fără a utiliza lista mutărilor.</string>
   <string name="playSelectedMove">joacă mutarea selectată</string>
   <string name="newTournament">Turneu nou</string>
@@ -1069,4 +1071,5 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="search">Căutare</string>
   <string name="clearSearch">Șterge căutarea</string>
   <string name="tags">Etichete</string>
+  <string name="enPassant">En passant legale</string>
 </resources>

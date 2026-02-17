@@ -309,9 +309,6 @@ const tourSelect = (ctx: RelayViewContext, group: RelayGroup) => {
                   current: tour.id === relay.data.tour.id,
                 },
                 attrs: { href: study.embeddablePath(`/broadcast/-/${tour.id}`) },
-                on: {
-                  keydown: enter(target => target.click()),
-                },
               },
               [tour.name, tourStateIcon(tour, false)],
             ),

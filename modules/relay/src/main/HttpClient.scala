@@ -81,6 +81,9 @@ private final class HttpClient(
           .flatMap: res =>
             if res.status == 200 || res.status == 304 then fuccess(res)
             else fufail(Status(res.status, url))
+          .recoverWith:
+            case _: java.util.concurrent.TimeoutException =>
+              fufail(SourceTimeout(url.host.toString))
 
   private def decodeResponseBody(res: StandaloneWSResponse): Body =
     val charset = Option(extractContentTypeCharsetAttribute(res.contentType))
@@ -92,7 +95,7 @@ private final class HttpClient(
   private def toRequest(url: URL)(using CanProxy): StandaloneWSRequest =
     val req = ws
       .url(url.toString)
-      .withRequestTimeout(5.seconds)
+      .withRequestTimeout(6.seconds)
       .withFollowRedirects(false)
     proxySelector(url).foldLeft(req)(_ withProxyServer _)
 
@@ -109,3 +112,6 @@ private object HttpClient:
   type Body = String
   case class Status(code: Int, url: URL) extends LilaException:
     override val message = s"$code: $url"
+
+  case class SourceTimeout(host: String) extends Exception with util.control.NoStackTrace:
+    override def getMessage = s"$host is not responding"

@@ -695,7 +695,6 @@
   <string name="keyShowOrHideComments">пікірлерді көрсету/жасыру</string>
   <string name="keyEnterOrExitVariation">тармаққа кіру/шығу</string>
   <string name="keyRequestComputerAnalysis">Компьютерлік талдауды бастаңыз, Әр қателіктен сабақ алыңыз</string>
-  <string name="keyNextLearnFromYourMistakes">Келесі (Қателіктен сабақ алыңыз)</string>
   <string name="keyNextBlunder">Келесі өрескел қателік</string>
   <string name="keyNextMistake">Келесі қателік</string>
   <string name="keyNextInaccuracy">Келесі ағаттық</string>

@@ -34,7 +34,7 @@
   <string name="discoveredCheckDescription">Movimente uma peça para revelar um xeque de uma peça atacante escondida, que costuma levar a uma vantagem decisiva.</string>
   <string name="doubleBishopMate">Mate de dois bispos</string>
   <string name="doubleBishopMateDescription">Dois bispos atacantes em diagonais adjacentes dão um mate em um rei obstruído por peças amigas.</string>
-  <string name="dovetailMate">Mate da cauda de andorinha</string>
+  <string name="dovetailMate">Mate de Cozio</string>
   <string name="dovetailMateDescription">Uma dama dá um mate em um rei adjacente, cujos únicos dois quadrados de fuga estão obstruídos por peças amigas.</string>
   <string name="equality">Igualdade</string>
   <string name="equalityDescription">Saia de uma posição perdida, e assegure um empate ou uma posição equilibrada. (aval ≤ 200cp)</string>
@@ -53,6 +53,8 @@
   <string name="endgame">Finais</string>
   <string name="endgameDescription">Tática durante a última fase do jogo.</string>
   <string name="enPassantDescription">Uma tática envolvendo a regra do en passant, onde um peão pode capturar um peão do oponente que passou por ele usando seu movimento inicial de duas casas.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Mate epaulette</string>
+  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Duas casas de fuga adjacentes ao rei em xeque são ocupadas por outras peças.</string>
   <string name="exposedKing">Rei exposto</string>
   <string name="exposedKingDescription">Uma tática que envolve um rei com poucos defensores ao seu redor, muitas vezes levando a xeque-mate.</string>
   <string name="fork">Garfo (ou duplo)</string>
@@ -71,6 +73,8 @@
   <string name="pillsburysMateDescription">A torre realiza o checkmate, enquanto o bispo ajuda a prender o rei.</string>
   <string name="morphysMate">Mate de Morphy</string>
   <string name="morphysMateDescription">Use o bispo para dar xeque no rei, enquanto sua torre ajuda a confiná-lo.</string>
+  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Mate gueridon</string>
+  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Uma padrão de xeque-mate que se assemelha visualmente à cauda de uma andorinha, em formato de V.</string>
   <string name="triangleMate">Mate do triângulo</string>
   <string name="triangleMateDescription">A dama e a torre, há uma casa de distância do rei inimigo, estão na mesma fila ou coluna, separadas por uma casa, formando um triângulo.</string>
   <string name="vukovicMate">Mate de Vukovic</string>

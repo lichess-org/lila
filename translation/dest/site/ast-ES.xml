@@ -712,7 +712,6 @@
   <string name="keyShowOrHideComments">amosar/esconder comentarios</string>
   <string name="keyEnterOrExitVariation">entrar/salir de la variante</string>
   <string name="keyRequestComputerAnalysis">Solicitar análisis del ordenador, apriende de los tos fallos</string>
-  <string name="keyNextLearnFromYourMistakes">Siguiente (Apriende de los tos fallos)</string>
   <string name="keyNextBlunder">Siguiente error grave</string>
   <string name="keyNextMistake">Siguiente error</string>
   <string name="keyNextInaccuracy">Siguiente imprecisión</string>

@@ -723,7 +723,6 @@
   <string name="keyShowOrHideComments">покажи/скрий коментарите</string>
   <string name="keyEnterOrExitVariation">влез/излез от вариацията</string>
   <string name="keyRequestComputerAnalysis">Поискайте компютърен анализ, Учете се от грешките си</string>
-  <string name="keyNextLearnFromYourMistakes">Продължи (Учете се от грешките си)</string>
   <string name="keyNextBlunder">Следваща груба грешка</string>
   <string name="keyNextMistake">Следваща грешка</string>
   <string name="keyNextInaccuracy">Следваща неточност</string>

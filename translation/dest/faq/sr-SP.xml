@@ -62,16 +62,19 @@
   <string name="threeFoldHasToBeClaimed">Играч треба најпре да укаже на понављање. Ово можеш урадити притиском на дугме које се појави, или тако што понудиш реми пре играња свог последњег понављајућег потеза. Небитно је да ли противник одбија понуду ремија јер се реми троструког понављања свеједно проглашава. Такође можеш %1$s Личес да аутоматски проглашава понављања за тебе. Такође, петострука понављања увек аутоматски забршавају партију.</string>
   <string name="configure">подесити</string>
   <string name="accounts">Налози</string>
-  <string name="titlesAvailableOnLichess">Које све титуле постоје на Личесу?</string>
-  <string name="canIbecomeLM">Могу ли добити Личес Мастер (ЛМ) титулу?</string>
+  <string name="titlesAvailableOnLichess">Које титуле постоје на Lichess-у?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess препознаје све ФИДЕ титуле стечене игром партија преко табле, као и %1$s. Овде је листа ФИДЕ титула:</string>
+  <string name="asWellAsManyNMtitles">много титула националног мајстора</string>
+  <string name="verificationForm">образац за потврду</string>
+  <string name="canIbecomeLM">Могу ли добити Lichess Мајстор (LM) титулу?</string>
   <string name="noUpperCaseDot">Не.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Ова титула је незванична и постоји само на Личесу.
 
 Ретко је додељујемо знаменитим играчима који су добри корисници Личеса, нашом вољом. Ти не добијеш ЛМ титулу, ЛМ титула нађе тебе. Ако си квалификован, добићеш поруку од нас у вез ње, где добијаш избор да је прихватиш или одбијеш.
 
 Немој тражити ЛМ титулу.</string>
-  <string name="whatUsernameCanIchoose">Шта моје корисничко име може бити?</string>
-  <string name="usernamesNotOffensive">Генерално, корисничко име не сме: бити увредљиво, представљати неког другог или бити реклама. Можеш више прочитати о %1$s.</string>
+  <string name="whatUsernameCanIchoose">Шта може бити моје корисничко име?</string>
+  <string name="usernamesNotOffensive">Генерално, корисничка имена не требају бити: увредљива, лажно представљати неког другог или рекламе. Можеш прочитати више о %1$s.</string>
   <string name="guidelines">смерницама</string>
   <string name="canIChangeMyUsername">Могу ли променити своје корисничко име?</string>
   <string name="uniqueTrophies">Уникатни трофеји</string>

@@ -30,14 +30,13 @@ export default function moveTest(ctrl: PuzzleCtrl): MoveTestReturn {
     checkmate: node.san!.endsWith('#'),
   }));
 
-  nodes.forEach((node, i) => {
-    if (node.checkmate) return (ctrl.node.puzzle = 'win');
-    const uci = node.uci!;
+  for (let i = 0; i < nodes.length; i++) {
+    if (nodes[i].checkmate) return (ctrl.node.puzzle = 'win');
+    const uci = nodes[i].uci!;
     const solUci = ctrl.data.puzzle.solution[i];
-    if (uci !== solUci && (!node.castle || !isAltCastle(uci) || altCastles[uci] !== solUci))
+    if (uci !== solUci && (!nodes[i].castle || !isAltCastle(uci) || altCastles[uci] !== solUci))
       return (ctrl.node.puzzle = 'fail');
-    return;
-  });
+  }
 
   const nextUci = ctrl.data.puzzle.solution[nodes.length];
   if (!nextUci) return (ctrl.node.puzzle = 'win');

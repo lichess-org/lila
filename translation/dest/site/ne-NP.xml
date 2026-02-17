@@ -564,7 +564,7 @@
   <string name="ifRatingIsPlusMinusX">यदि रेटिंग ± %s छ भने</string>
   <string name="onlyFriends">मित्रहरु मात्र</string>
   <string name="menu">सुची</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">क्यस्लिंग</string>
+  <string name="castling">क्यस्लिंग</string>
   <string name="whiteCastlingKingside">सेतो O-O</string>
   <string name="blackCastlingKingside">कालो O-O</string>
   <plurals name="nbForumPosts">

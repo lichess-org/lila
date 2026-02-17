@@ -26,7 +26,7 @@
   <string name="asWhite">khi chơi quân trắng</string>
   <string name="asBlack">khi chơi quân đen</string>
   <string name="randomColor">Chọn màu quân ngẫu nhiên</string>
-  <string name="createAGame">Tạo một ván cờ</string>
+  <string name="createAGame">Tạo ván cờ mới</string>
   <string name="createTheGame">Khởi tạo ván cờ</string>
   <string name="whiteIsVictorious">Bên Trắng thắng</string>
   <string name="blackIsVictorious">Bên Đen thắng</string>
@@ -684,7 +684,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
   <string name="keyEnterOrExitVariation">vào/thoát biến</string>
   <string name="keyRequestComputerAnalysis">Yêu cầu máy tính phân tích, Học từ sai lầm của bạn</string>
-  <string name="keyNextLearnFromYourMistakes">Tiếp theo (Học từ sai lầm của bạn)</string>
   <string name="keyNextBlunder">Nước đi sai nghiêm trọng tiếp theo</string>
   <string name="keyNextMistake">Nước đi sai lầm tiếp theo</string>
   <string name="keyNextInaccuracy">Nước đi không chính xác tiếp theo</string>

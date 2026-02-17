@@ -657,7 +657,7 @@
   <string name="onlyExistingConversations">Само постојећи разговори</string>
   <string name="onlyFriends">Само пријатељи</string>
   <string name="menu">Мени</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Рокада</string>
+  <string name="castling">Рокада</string>
   <string name="whiteCastlingKingside">Бели O-O</string>
   <string name="blackCastlingKingside">Црни O-O</string>
   <plurals name="nbForumPosts">
@@ -715,7 +715,6 @@
   <string name="keyShowOrHideComments">покажи/сакриј коментаре</string>
   <string name="keyEnterOrExitVariation">уђи/изађи из варијације</string>
   <string name="keyRequestComputerAnalysis">Затражите компјутерску анализу, научите из својих грешака</string>
-  <string name="keyNextLearnFromYourMistakes">Даље (Учите из својих грешака)</string>
   <string name="keyNextBlunder">Следећа тешка грешка</string>
   <string name="keyNextMistake">Следећа грешка</string>
   <string name="keyNextInaccuracy">Следећа непрецизност</string>

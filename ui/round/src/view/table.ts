@@ -9,7 +9,7 @@ import { type LooseVNodes, hl, bind, toggleButton as boardMenuToggleButton } fro
 import { anyClockView } from './clock';
 
 function renderPlayer(ctrl: RoundController, position: TopOrBottom) {
-  if (!ctrl.nvui) return undefined;
+  if (ctrl.nvui) return undefined;
   const player = ctrl.playerAt(position);
   return player.ai
     ? hl('div.user-link.online.ruser.ruser-' + position, [

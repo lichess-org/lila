@@ -683,7 +683,6 @@
   <string name="keyShowOrHideComments">댓글 표시/숨기기</string>
   <string name="keyEnterOrExitVariation">라인 들어가기/나오기</string>
   <string name="keyRequestComputerAnalysis">컴퓨터 분석 요청, 실수에서 배우기</string>
-  <string name="keyNextLearnFromYourMistakes">다음 (실수에서 배우기)</string>
   <string name="keyNextBlunder">다음 블런더</string>
   <string name="keyNextMistake">다음 실수</string>
   <string name="keyNextInaccuracy">다음 부정확한 수</string>

@@ -722,7 +722,6 @@
   <string name="keyShowOrHideComments">vis/skjul kommentar</string>
   <string name="keyEnterOrExitVariation">Start/slut variant</string>
   <string name="keyRequestComputerAnalysis">Anmod om computeranalyse, Lær af dine fejl</string>
-  <string name="keyNextLearnFromYourMistakes">Næste (Lær af dine fejl)</string>
   <string name="keyNextBlunder">Næste brøler</string>
   <string name="keyNextMistake">Næste fejl</string>
   <string name="keyNextInaccuracy">Næste unøjagtighed</string>

@@ -22,7 +22,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
   private val authCache = cacheApi[SessionId, Option[AuthInfo]](65_536, "security.session.info"):
     _.expireAfterAccess(5.minutes).buildAsyncFuture[SessionId, Option[AuthInfo]]: id =>
       coll
-        .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)
+        .find($doc("_id" -> id, "up" -> true))
         .one[Bdoc]
         .map:
           _.flatMap: doc =>
@@ -32,8 +32,7 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
 
   def authInfo(sessionId: SessionId) = authCache.get(sessionId)
 
-  private val authInfoProjection = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
-  private def uncache(sessionId: SessionId) =
+  private def uncache(sessionId: SessionId): Unit =
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: UserId): Funit =
     coll.distinctEasy[SessionId, Seq]("_id", $doc("user" -> userId)).map { ids =>
@@ -45,36 +44,40 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
     authCache.underlying.synchronous.invalidate(sessionId)
 
   private[security] def save(
-      signupSessionId: Option[SessionId], // none to reuse if possible, some for signup
+      isSignup: Boolean,
       userId: UserId,
       req: RequestHeader,
       apiVersion: Option[ApiVersion],
-      up: Boolean,
       fp: Option[FingerPrint],
       proxy: lila.core.security.IsProxy,
       pwned: IsPwned
   ): Fu[SessionId] =
-    val prevSelector = $doc(
+    val sessionId = SessionId(scalalib.SecureRandom.nextString(22))
+    val baseDoc = $doc(
       "user" -> userId,
       "ip" -> HTTPRequest.ipAddress(req),
-      "ua" -> HTTPRequest.userAgent(req).some.filter(_ != UserAgent.zero),
-      "up" -> false
+      "ua" -> HTTPRequest.userAgent(req).some.filter(_ != UserAgent.zero)
     )
-    val update = $doc(
-      "up" -> up,
+    val newDoc = baseDoc ++ $doc(
+      "_id" -> sessionId,
       "date" -> nowInstant,
       "api" -> apiVersion, // lichobile
       "fp" -> fp.flatMap(lila.security.FingerHash.from),
       "proxy" -> proxy.yes.option(proxy),
       "pwned" -> pwned.yes.option(true)
     )
-    signupSessionId.isEmpty
-      .so(coll.primitiveOne[SessionId](prevSelector, "_id"))
-      .flatMap:
-        case Some(prev) => coll.update.one($id(prev), $set(update)).inject(prev)
-        case None =>
-          val sid = signupSessionId | SessionId(scalalib.SecureRandom.nextString(22))
-          coll.insert.one($id(sid) ++ prevSelector ++ update).inject(sid)
+    val updateDb =
+      if isSignup then
+        val doc = newDoc ++ $doc("signup" -> true, "up" -> false)
+        coll.insert.one(doc).void
+      else
+        val prevSelector = baseDoc ++ $doc("up" -> false, "signup".$ne(true))
+        for
+          _ <- coll.delete.one(prevSelector)
+          doc = newDoc ++ $doc("up" -> true)
+          _ <- coll.insert.one(doc)
+        yield ()
+    for _ <- updateDb yield sessionId
 
   private[security] def upsertOAuth(
       userId: UserId,
@@ -160,9 +163,8 @@ final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Exe
       .find(
         $doc(
           "user" -> user.id,
-          "date".$gt(user.createdAt.atLeast(nowInstant.minusYears(1)))
-        ),
-        $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true).some
+          "date".$gt(nowInstant.minusYears(1))
+        )
       )
       .sort($sort.desc("date"))
       .cursor[Info](ReadPref.sec)

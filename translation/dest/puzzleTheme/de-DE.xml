@@ -53,6 +53,8 @@
   <string name="endgame">Endspiel</string>
   <string name="endgameDescription">Eine Taktik in der letzten Phase der Partie.</string>
   <string name="enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigegangen ist.</string>
+  <string name="epauletteMate">Epaulette-Matt</string>
+  <string name="epauletteMateDescription">Zwei benachbarte Fluchtfelder für einen im Schach stehenden König werden von anderen Figuren besetzt.</string>
   <string name="exposedKing">Exponierter König</string>
   <string name="exposedKingDescription">Eine Taktik, bei der der König nur von wenigen Figuren verteidigt wird, was oft zum Matt führt.</string>
   <string name="fork">Gabel</string>
@@ -71,6 +73,8 @@
   <string name="pillsburysMateDescription">Der Turm setzt Matt, während der Läufer hilft, ihn zu beschränken.</string>
   <string name="morphysMate">Morphys Matt</string>
   <string name="morphysMateDescription">Benutze den Läufer, um den König ins Schach zu stellen, während dein Turm ihn weiter beschränkt.</string>
+  <string name="swallowstailMate">Schwalbenschwanz-Matt</string>
+  <string name="swallowstailMateDescription">Ein Mattmuster, das dem Erscheinungsbild eines Schwalbenschwanzes ähnelt, ähnlich einer V-Form.</string>
   <string name="triangleMate">Dreiecks-Matt</string>
   <string name="triangleMateDescription">Die Dame und der Turm bilden auf derselben Reihe oder Linie und im Abstand von einem Feld mit dem gegnerischen König ein Dreieck.</string>
   <string name="vukovicMate">Vukovic-Matt</string>

@@ -53,6 +53,8 @@
   <string name="endgame">Final</string>
   <string name="endgameDescription">Una táctica durante la última fase de la partida.</string>
   <string name="enPassantDescription">Una táctica que involucra la captura al paso, donde un peón puede capturar a un peón oponente que lo ha pasado por alto usando su movimiento inicial de dos casillas.</string>
+  <string name="epauletteMate">Mate de las hombreras</string>
+  <string name="epauletteMateDescription">Las dos casillas de escape adyacentes al rey en jaque están ocupadas por otras piezas.</string>
   <string name="exposedKing">Rey expuesto</string>
   <string name="exposedKingDescription">Una táctica que involucra a un rey con poca defensa a su alrededor, a menudo conduce a jaque mate.</string>
   <string name="fork">Ataque doble</string>
@@ -71,6 +73,8 @@
   <string name="pillsburysMateDescription">La torre da jaque mate, al tiempo que el alfil ayuda a confinar al rey enemigo.</string>
   <string name="morphysMate">Mate de Morphy</string>
   <string name="morphysMateDescription">Utiliza el alfil para dar jaque al rey, mientras que tu torre ayuda a mantenerlo confinado.</string>
+  <string name="swallowstailMate">Mate cola de golondrina</string>
+  <string name="swallowstailMateDescription">Un patrón de mate que se asemeja visualmente a la cola de una golondrina, en forma de V.</string>
   <string name="triangleMate">Mate del triángulo</string>
   <string name="triangleMateDescription">La dama y la torre, a una casilla de distancia del rey rival, están en la misma fila o columna, separadas por una casilla, formando un triángulo.</string>
   <string name="vukovicMate">Mate de Vukovic</string>

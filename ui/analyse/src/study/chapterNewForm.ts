@@ -126,18 +126,14 @@ export function view(ctrl: StudyChapterNewForm): VNode {
   const activeTab = ctrl.tab();
   const makeTab = (key: ChapterTab, name: string, title: string) =>
     hl(
-      'span.' + key,
+      'button.' + key,
       {
         class: { active: activeTab === key },
         attrs: { role: 'tab', title, tabindex: '0' },
         hook: onInsert(el => {
-          const select = (e: Event) => {
+          el.addEventListener('click', (e: Event) => {
             ctrl.setTab(key);
             e.preventDefault();
-          };
-          el.addEventListener('click', select);
-          el.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') select(e);
           });
         }),
       },

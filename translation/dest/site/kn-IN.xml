@@ -612,7 +612,7 @@
   <string name="onlyExistingConversations">ಕೇವಲ ಸಧ್ಯದ ಸಂಭಾಷಣೆಗಳು ಮಾತ್ರ</string>
   <string name="onlyFriends">ಗೆಳೆಯ/ತಿಯರು ಮಾತ್ರ</string>
   <string name="menu">ಮೆನು</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">ಕ್ಯಾಸಲಿಂಗ್</string>
+  <string name="castling">ಕ್ಯಾಸಲಿಂಗ್</string>
   <string name="whiteCastlingKingside">ಬಿಳಿ ದಳ O-O</string>
   <string name="blackCastlingKingside">ಕಪ್ಪು ದಳ O-O</string>
   <plurals name="nbForumPosts">
@@ -666,7 +666,6 @@
   <string name="keyShowOrHideComments">ಅಭಿಪ್ರಾಯಗಳನ್ನು ತೋರಿಸಿ/ಅಡಗಿಸಿ</string>
   <string name="keyEnterOrExitVariation">ಕವಲುದಾರಿ ಪ್ರವೇಶಿಸಿ/ನಿರ್ಗಮಿಸಿ</string>
   <string name="keyRequestComputerAnalysis">ಕಂಪ್ಯೂಟರ್ ವಿಶ್ಲೇಷಣೆಯನ್ನು ವಿನಂತಿಸಿ, ನಿಮ್ಮ ತಪ್ಪುಗಳಿಂದ ಕಲಿಯಿರಿ</string>
-  <string name="keyNextLearnFromYourMistakes">ಮುಂದೆ (ನಿಮ್ಮ ತಪ್ಪುಗಳಿಂದ ಕಲಿಯಿರಿ)</string>
   <string name="keyNextBlunder">ಮುಂದಿನ ಪ್ರಮಾದ</string>
   <string name="keyNextMistake">ಮುಂದಿನ ತಪ್ಪು</string>
   <string name="keyNextInaccuracy">ಮುಂದಿನ ಅಚಾತುರ್ಯ</string>

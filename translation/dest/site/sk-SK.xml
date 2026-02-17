@@ -733,7 +733,7 @@
   <string name="onlyExistingConversations">Iba existujúce konverzácie</string>
   <string name="onlyFriends">Iba priatelia</string>
   <string name="menu">Menu</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Rošáda</string>
+  <string name="castling">Rošáda</string>
   <string name="whiteCastlingKingside">Biely O-O</string>
   <string name="blackCastlingKingside">Čierny O-O</string>
   <plurals name="nbForumPosts">
@@ -793,7 +793,6 @@
   <string name="keyShowOrHideComments">zobraziť/skryť komentáre</string>
   <string name="keyEnterOrExitVariation">zvoliť/opustiť variant</string>
   <string name="keyRequestComputerAnalysis">Požadujte analýzu počítačom, Poučte sa zo svojich chýb</string>
-  <string name="keyNextLearnFromYourMistakes">Ďalej (Poučte sa zo svojich chýb)</string>
   <string name="keyNextBlunder">Ďalšia hrubá chyba</string>
   <string name="keyNextMistake">Ďalšia chyba</string>
   <string name="keyNextInaccuracy">Ďalšia nepresnosť</string>

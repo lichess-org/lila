@@ -51,6 +51,8 @@
   <string name="endgame">Fund loje</string>
   <string name="endgameDescription">Një taktikë gjatë fazës së fundit të lojës.</string>
   <string name="enPassantDescription">Një taktikë që përfshin rregullin “me prerje”, ku një ushtar mund të marrë një ushtar kundërshtar që e ka kaluar atë duke përdorur lëvizjen e vet fillestare të dy kuadrateve.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Mat spaletë</string>
+  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Dy katrorë shpëtimi ngjitur njëri me tjetrin, për një mbret nën shah, janë të zënë nga gurë të tjerë.</string>
   <string name="exposedKing">Mbreti i ekspozuar</string>
   <string name="exposedKingDescription">Një taktikë që përfshin një mbret me pak mbrojtës rreth tij, që shpesh çon në shah mat.</string>
   <string name="fork">Sfurk</string>
@@ -67,6 +69,8 @@
   <string name="pillsburysMateDescription">Torreja jep shahmat, teksa oficeri ndihmon të kufizohet ai.</string>
   <string name="morphysMate">Mati i Morfit</string>
   <string name="morphysMateDescription">Përdorni oficerin për t’i dhënë shah mbretit, teksa torreja juaj ndihmon të kufohet ai.</string>
+  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Mat bisht harabeli</string>
+  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Një model shah-mati që nga ana pamore ngjan me bishtin e një harabeli, e ngjashme me një formë V.</string>
   <string name="triangleMate">Mat trekëndësh</string>
   <string name="triangleMateDescription">Mbretëresha dhe torra, një kuadrat larg nga mbreti armik, gjenden në të njëjtin rresht ose shtyllë, një kuadrat larg njëri-tjetrit, duke formuar një trekëndësh.</string>
   <string name="vukovicMate">Mat Vukoviç</string>

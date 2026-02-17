@@ -7,6 +7,7 @@ $c-mselect: $c-primary;
   &__toggle {
     position: absolute;
     z-index: -1;
+    opacity: 0;
   }
 
   &__label {

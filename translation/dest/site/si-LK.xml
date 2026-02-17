@@ -621,7 +621,7 @@
   <string name="onlyExistingConversations">පවතින සංවාද පමණි</string>
   <string name="onlyFriends">මිතුරන් පමණි</string>
   <string name="menu">මෙනු</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">කාසල් කිරීම​</string>
+  <string name="castling">කාසල් කිරීම​</string>
   <string name="whiteCastlingKingside">සුදු O-O</string>
   <string name="blackCastlingKingside">කළු O-O</string>
   <string name="watch">නරඹන්න</string>
@@ -655,7 +655,6 @@
   <string name="keyGoToStartOrEnd">පටන් ගැනීමට/අවසානයට යන්න</string>
   <string name="keyShowOrHideComments">අදහස් පෙන්වන්න/සඟවන්න</string>
   <string name="keyRequestComputerAnalysis">විශ්ලේෂණය ඉල්ලුම් කරන්න</string>
-  <string name="keyNextLearnFromYourMistakes">ඊලඟට (ඔබේ වැරදීම්වලින් ඉගෙන ගන්න)</string>
   <string name="keyNextBlunder">ඊලඟ වරද</string>
   <string name="keyNextMistake">ඊලඟ වැරැද්ද</string>
   <string name="keyNextInaccuracy">ඊලඟ අතපසු වීම</string>

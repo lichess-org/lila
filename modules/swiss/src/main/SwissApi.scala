@@ -571,8 +571,11 @@ final class SwissApi(
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
       .flatMap:
         _.sequentiallyVoid: id =>
-          Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
-            if swiss.round.value >= swiss.settings.nbRounds then doFinish(swiss)
+          Sequencing(id)(cache.swissCache.byId) { swiss =>
+            if swiss.isFinished then
+              logger.info(s"Swiss ${swiss.id} is finished but still has a pending round, cleaning up.")
+              mongo.swiss.update.one($id(swiss.id), $unset("nextRoundAt")).void
+            else if swiss.round.value >= swiss.settings.nbRounds then doFinish(swiss)
             else if swiss.nbPlayers >= 2 then
               countPresentPlayers(swiss).flatMap { nbPresent =>
                 if nbPresent < 2 then

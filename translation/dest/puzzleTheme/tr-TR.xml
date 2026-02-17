@@ -71,6 +71,7 @@
   <string name="pillsburysMateDescription">Fil şahı sınırlarken, kale matı gerçekleştirir.</string>
   <string name="morphysMate">Morphy matı</string>
   <string name="morphysMateDescription">Kale şahı sınırlarken, fil matı gerçekleştirir.</string>
+  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Görsel olarak V şekline benzer bir kırlangıç kuyruğu görünümünü andıran bir şah mat deseni.</string>
   <string name="triangleMate">Üçgen matı</string>
   <string name="triangleMateDescription">Rakip şahtan bir kare uzakta olan vezir veya kale, aynı sıra veya sütunda yer alır ve aralarında bir karelik boşluk bulunur; bu da bir üçgen oluşturur.</string>
   <string name="vukovicMate">Vukovic matı</string>

@@ -654,7 +654,7 @@
   <string name="onlyExistingConversations">Eingöngu samtöl sem eru þegar til</string>
   <string name="onlyFriends">Eingöngu vinir</string>
   <string name="menu">Valmynd</string>
-  <string name="castling" comment="Label for a box on the right side of the board editor, where the user can select castling rights. Noun.&#10;&#10;NOTE: this string used to read &quot;Castling&quot;, with &quot;rights&quot; added in 2026 for clarity.">Hrókering</string>
+  <string name="castling">Hrókering</string>
   <string name="whiteCastlingKingside">Hvítur O-O</string>
   <string name="blackCastlingKingside">Svartur O-O</string>
   <plurals name="nbForumPosts">
@@ -712,7 +712,6 @@
   <string name="keyShowOrHideComments">sýna/fela athugasemd</string>
   <string name="keyEnterOrExitVariation">fara í/úr afbrigði</string>
   <string name="keyRequestComputerAnalysis">Biðja um tölvugreiningu, Lærðu af mistökum þínum</string>
-  <string name="keyNextLearnFromYourMistakes">Næst (Lærðu af mistökum þínum)</string>
   <string name="keyNextBlunder">Næsti afleikur</string>
   <string name="keyNextMistake">Næstu mistök</string>
   <string name="keyNextInaccuracy">Næsta ónákvæmni</string>

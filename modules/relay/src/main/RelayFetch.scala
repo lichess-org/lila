@@ -179,6 +179,7 @@ final private class RelayFetch(
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
     val base =
       if upstream.isInternal then 1
+      else if upstream.hasIdChess then 3
       else if upstream.hasLcc then 4
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
