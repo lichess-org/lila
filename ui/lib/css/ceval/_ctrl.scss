@@ -73,6 +73,7 @@
     margin-top: -3px; // bar
     overflow: hidden;
     visibility: hidden;
+    outline: none;
 
     &:hover:not(.hidden),
     &.active {
@@ -91,6 +92,7 @@
     padding: 0 6px;
     margin-inline-end: 6px;
     margin-top: -3px; // bar
+    outline: none;
 
     &:hover {
       color: $c-font;

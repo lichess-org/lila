@@ -83,6 +83,7 @@
 
     button {
       text-align: start;
+      outline: none;
 
       &.hint {
         padding: 0.8em 1em;
@@ -120,6 +121,7 @@
     height: 8rem;
     text-align: center;
     justify-content: center;
+    outline: none;
 
     &.info {
       font-size: 1.6em;
@@ -210,6 +212,7 @@
         padding: 0.5em;
         border-inline-start: 1px solid rgba(255, 255, 255, 0.3);
         line-height: 1.2em;
+        outline: none;
 
         @include transition;
 

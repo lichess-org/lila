@@ -131,6 +131,7 @@
         background-color: $c-bg-popup;
         position: relative;
         border-radius: 50%;
+        outline: none;
         &:hover {
           background-color: $c-error;
         }

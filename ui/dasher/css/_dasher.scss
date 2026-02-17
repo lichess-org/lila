@@ -46,6 +46,7 @@
     border-bottom: $border;
     width: 100%;
     text-align: start;
+    outline: none;
   }
 
   .head::before {
@@ -106,6 +107,7 @@
       padding: 0.7rem 1rem;
       width: 100%;
       text-align: start;
+      outline: none;
 
       @include transition(background);
 

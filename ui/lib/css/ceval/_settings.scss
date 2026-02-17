@@ -59,6 +59,7 @@
       background-color: $c-bad;
       color: $c-bg-page;
       margin-inline-start: 1.5ch;
+      outline: none;
 
       &:focus {
         outline: $outline;

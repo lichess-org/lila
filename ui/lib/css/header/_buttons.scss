@@ -36,6 +36,10 @@
     @extend %top-icon;
   }
 
+  button.toggle {
+    outline: none;
+  }
+
   .initiating {
     @extend %flex-center;
 

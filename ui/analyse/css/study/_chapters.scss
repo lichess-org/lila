@@ -17,6 +17,7 @@ $span-width: 1.7em;
   .study-list > button,
   > button {
     width: 100%;
+    outline: none;
 
     &.active,
     &:active {

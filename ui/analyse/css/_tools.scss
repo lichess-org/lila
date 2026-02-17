@@ -33,6 +33,7 @@
     button {
       margin-inline-start: 1em;
       color: $c-link;
+      outline: none;
 
       &:hover {
         color: $c-link-hover;

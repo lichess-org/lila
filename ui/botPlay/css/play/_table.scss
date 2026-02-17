@@ -89,6 +89,9 @@
 }
 .bot-game__actions {
   @extend %flex-between;
+  button {
+    outline: none;
+  }
   .bot-game__close,
   .bot-game__restart {
     font-size: 0.9em;

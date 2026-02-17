@@ -7,6 +7,7 @@ $c-op-panels: $c-brag;
     &__tab {
       @extend %box-radius;
       color: $c-op-panels;
+      outline: none;
       @include mq-col-many {
         font-size: 1.3em;
       }

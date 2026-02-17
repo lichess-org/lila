@@ -30,6 +30,7 @@
       font-size: 3em;
       pointer-events: auto;
       height: 100%;
+      outline: none;
       &:hover {
         color: $c-primary;
       }

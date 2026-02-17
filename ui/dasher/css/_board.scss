@@ -13,6 +13,7 @@
     flex: 0 0 33%;
     height: 40px;
     justify-content: center;
+    outline: none;
   }
 
   .list span {
@@ -38,6 +39,7 @@
 
   .reset {
     padding: 0.5rem 1rem;
+    outline: none;
     &:hover {
       color: $c-primary;
     }

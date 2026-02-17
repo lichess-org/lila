@@ -16,6 +16,7 @@
     line-height: 2.3em;
     align-items: stretch;
     width: 100%;
+    outline: none;
 
     &::before {
       @extend %flex-center;

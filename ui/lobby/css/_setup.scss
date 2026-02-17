@@ -210,6 +210,7 @@ $c-slider: $c-setup;
           padding: 0.2rem 0.5rem;
           font-size: 0.9rem;
           background: $c-bg-low;
+          outline: none;
           &:hover {
             background: $c-bg-zebra2;
             color: $c-font-clear;
