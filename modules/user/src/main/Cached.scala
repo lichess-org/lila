@@ -27,7 +27,7 @@ final class Cached(
     _.refreshAfterWrite(2.minutes).buildAsyncTimeout(2.minutes): _ =>
       rankingApi.fetchLeaderboard(10).monSuccess(_.user.leaderboardCompute)
 
-  private val topPerfFirstPage = mongoCache[PerfKey, Seq[LightPerf]](
+  private def topPerfFirstPage(isApi: Boolean) = mongoCache[PerfKey, Seq[LightPerf]](
     PerfType.leaderboardable.size,
     "user:top:perf:firstPage",
     10.minutes,
@@ -35,13 +35,14 @@ final class Cached(
   ): loader =>
     _.refreshAfterWrite(10.minutes).buildAsyncFuture:
       loader: perf =>
-        rankingApi.topPerf.pager(perf, 1).map(_.currentPageResults)
+        rankingApi.topPerf.pager(perf, 1, isApi = isApi).map(_.currentPageResults)
 
-  export topPerfFirstPage.get as firstPageOf
+  def firstPageOf(perf: PerfKey, isApi: Boolean = false): Fu[Seq[LightPerf]] =
+    topPerfFirstPage(isApi).get(perf)
 
   def topPerfPager(perf: PerfKey, page: Int): Fu[Paginator[LightPerf]] =
     if page == 1 then
-      for users <- firstPageOf(perf)
+      for users <- firstPageOf(perf, isApi = false)
       yield Paginator.fromResults(
         users,
         nbResults = 500_000,

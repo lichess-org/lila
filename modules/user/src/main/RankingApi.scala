@@ -53,15 +53,18 @@ final class RankingApi(
   private[user] object topPerf:
     val maxPerPage = MaxPerPage(100)
 
-    def pager(perf: PerfKey, page: Int): Fu[Paginator[LightPerf]] =
-      Paginator(
-        adapter = new:
-          def nbResults = fuccess(500_000)
-          def slice(offset: Int, length: Int): Fu[List[LightPerf]] = fetchLightPerfs(perf, length, offset)
-        ,
-        currentPage = page,
-        maxPerPage = maxPerPage
-      )
+def pager(perf: PerfKey, page: Int, isApi: Boolean = false): Fu[Paginator[LightPerf]] =
+  val cap = if isApi then MaxPerPage(200) else MaxPerPage(100)
+
+  Paginator(
+    adapter = new:
+      def nbResults = fuccess(500_000)
+      def slice(offset: Int, length: Int): Fu[List[LightPerf]] =
+        fetchLightPerfs(perf, length, offset)
+    ,
+    currentPage = page,
+    maxPerPage = cap
+  )
 
     private[RankingApi] def fetchLightPerfs(perf: PerfKey, nb: Int, skip: Int = 0): Fu[List[LightPerf]] =
       lila.rating.PerfType
