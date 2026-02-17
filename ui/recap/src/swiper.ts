@@ -31,7 +31,10 @@ export const makeSwiper =
       cssMode: false,
       grabCursor: true,
       keyboard: { enabled: true },
-      mousewheel: true,
+      mousewheel: {
+        thresholdDelta: 50,
+        thresholdTime: 800,
+      },
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
