@@ -3,6 +3,7 @@ import { writeTextClipboard, text as xhrText } from 'lib/xhr';
 import topBar from './topBar';
 import { userComplete } from 'lib/view/userComplete';
 import { confirm } from 'lib/view';
+import menuKeyboardInteractions from 'lib/menuKeyboardInteractions';
 
 export function addWindowHandlers() {
   let animFrame: number;
@@ -20,6 +21,7 @@ export function addWindowHandlers() {
 
 export function addDomHandlers() {
   topBar();
+  menuKeyboardInteractions();
 
   $('#main-wrap').on('click', '.copy-me__button', function (this: HTMLElement) {
     const showCheckmark = () => {

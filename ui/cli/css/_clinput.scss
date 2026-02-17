@@ -23,6 +23,16 @@
   input:focus {
     outline: none;
   }
+
+  a {
+    @include transition(color);
+  }
+
+  &:has(input:focus) {
+    a {
+      color: $c-primary;
+    }
+  }
 }
 
 body.clinput #top {

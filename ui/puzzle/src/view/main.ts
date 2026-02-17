@@ -33,7 +33,7 @@ function dataAct(e: Event): string | null {
 }
 
 function jumpButton(icon: string, effect: string, disabled: boolean, glowing = false): VNode {
-  return hl('button.fbt', { class: { disabled, glowing }, attrs: { 'data-act': effect, 'data-icon': icon } });
+  return hl('button.fbt', { class: { glowing }, attrs: { disabled, 'data-act': effect, 'data-icon': icon } });
 }
 
 function controls(ctrl: PuzzleCtrl): VNode {

@@ -30,6 +30,10 @@
     span::before {
       vertical-align: top;
     }
+
+    &:focus-visible {
+      border-radius: $box-radius-size / 2;
+    }
   }
 
   .toggle {

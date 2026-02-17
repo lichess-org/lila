@@ -41,7 +41,7 @@
     }
   }
   @media (hover: hover) {
-    .jumps .fbt:hover:not(.disabled) {
+    .jumps .fbt:hover:not(.disabled, :disabled) {
       background-color: $m-primary_bg--mix-30;
     }
   }

@@ -3523,7 +3523,7 @@ interface I18n {
     'error.minLength': I18nFormat;
     /** Please don't use your username as your password. */
     'error.namePassword': string;
-    /** Please provide at least one link to a game with suspected cheating. */
+    /** Please provide at least one link to a game for review. */
     'error.provideOneCheatedGameLink': string;
     /** This field is required */
     'error.required': string;

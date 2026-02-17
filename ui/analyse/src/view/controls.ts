@@ -175,7 +175,7 @@ function scrubControl(ctrl: AnalyseCtrl, dx: number | 'pointerup') {
 }
 
 const jumpButton = (icon: string, effect: string, enabled: boolean): VNode =>
-  hl('button.fbt.move', { class: { disabled: !enabled }, attrs: { 'data-act': effect, 'data-icon': icon } });
+  hl('button.fbt.move', { attrs: { disabled: !enabled, 'data-act': effect, 'data-icon': icon } });
 
 function isMobileUi() {
   return displayColumns() === 1 && isTouchDevice();

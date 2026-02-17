@@ -6,12 +6,10 @@
   }
 
   #topnav {
-    ---nav-section: 26px;
-    ---nav-section-hover: 35px;
+    ---nav-section: 35px;
 
     @include mq-site-header-tall {
-      ---nav-section: 48px;
-      ---nav-section-hover: 53px;
+      ---nav-section: 53px;
     }
 
     display: flex;
@@ -29,11 +27,15 @@
         }
         color: $c-font-page;
         display: block;
-        height: var(---nav-section);
+        height: 100%;
         line-height: $site-header-height;
         padding: 0 0.7rem;
         text-transform: uppercase;
         border-inline-start: 2px solid transparent;
+
+        &:focus-visible {
+          outline-offset: -2px;
+        }
       }
 
       .home {
@@ -75,6 +77,10 @@
         &:last-child {
           border-radius: 0 0 3px 1px;
         }
+
+        &:focus-visible {
+          outline-offset: -2px;
+        }
       }
     }
 
@@ -84,9 +90,9 @@
     }
 
     &.hover section:hover,
-    section:active {
+    section:active,
+    section.active {
       > a {
-        height: var(---nav-section-hover);
         background: $c-bg-header-dropdown;
         color: $c-header-dropdown;
         border-color: $c-primary;
