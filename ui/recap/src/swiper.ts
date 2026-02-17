@@ -33,7 +33,7 @@ export const makeSwiper =
       keyboard: { enabled: true },
       mousewheel: {
         thresholdDelta: 50,
-        thresholdTime: 800,
+        thresholdTime: 750,
       },
       pagination: {
         el: '.swiper-pagination',
