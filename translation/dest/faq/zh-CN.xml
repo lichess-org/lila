@@ -158,13 +158,13 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
 4. 允许“播放声音”</string>
   <string name="enableAutoplayForSoundsSafari">1. 访问 lichess.org
 2. 点击 Safari 浏览器菜单栏
-3. 点击“lichness.org 的设置”
+3. 点击“lichess.org 的设置”
 4. 允许“所有自动播放”</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge">1. 点击右上角的三个点
-2. 点击“设置”
-3. 点击“Cookie 和网站权限”
-4. 向下滚动并点击“媒体自动播放”
-5. 将 lichess.org 添加到“允许”列表中</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Click the three dots in the top right corner
+2. Click Settings
+3. Click Cookies and Site Permissions
+4. Scroll down and click Media autoplay
+5. Add lichess.org to Allow</string>
   <string name="stopMyselfFromPlaying">如何预防自己过度沉迷于对弈？</string>
   <string name="mentalHealthCondition">独立的精神/心理健康状况</string>
   <string name="lichessUserstyles">Lichess 用户样式</string>
