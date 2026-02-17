@@ -286,8 +286,8 @@ final class User(
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
         JsonOk(leaderboards)
-      } 
-      else env.user.cached.firstPageOf(perfKey, isApi = true).dmap(_.take(nb)).map(topNbJson)
+      }
+    else env.user.cached.firstPageOf(perfKey, isApi = true).dmap(_.take(nb)).map(topNbJson)
 
   private def topNbJson(users: Seq[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
