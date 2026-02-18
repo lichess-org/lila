@@ -684,9 +684,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
   <string name="keyEnterOrExitVariation">vào/thoát biến</string>
   <string name="keyRequestComputerAnalysis">Yêu cầu máy tính phân tích, Học từ sai lầm của bạn</string>
-  <string name="keyNextBlunder">Nước đi sai nghiêm trọng tiếp theo</string>
-  <string name="keyNextMistake">Nước đi sai lầm tiếp theo</string>
-  <string name="keyNextInaccuracy">Nước đi không chính xác tiếp theo</string>
   <string name="keyPreviousBranch">Nhánh trước</string>
   <string name="keyNextBranch">Nhánh tiếp theo</string>
   <string name="toggleVariationArrows">Đổi mũi tên của từng biến</string>
