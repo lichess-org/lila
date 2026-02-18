@@ -686,9 +686,6 @@
   <string name="keyShowOrHideComments">അഭിപ്രായ പ്രകടനം കാണിക്കുക/മറയ്ക്കുക</string>
   <string name="keyEnterOrExitVariation">വേരിയേഷനിലേക്ക് കടക്കുക / പുറത്തുപോകുക</string>
   <string name="keyRequestComputerAnalysis">ഗണനികവിശകലനം ആവശ്യപെടൂ, താങ്ങളുടെ തെറ്റുകൾ നിന്നു് പഠിക്കുക</string>
-  <string name="keyNextBlunder">അടുത്ത അബദ്ധം</string>
-  <string name="keyNextMistake">അടുത്ത തെറ്റ്</string>
-  <string name="keyNextInaccuracy">അടുത്ത കൃത്യമില്ലായ്മ</string>
   <string name="keyPreviousBranch">മുമ്പുള്ള വിഭാഗം</string>
   <string name="keyNextBranch">അടുത്ത വിഭാഗം</string>
   <string name="toggleVariationArrows">വ്യതിയാനം അമ്പുകൾ ടോഗിൾ ചെയ്യുക</string>
