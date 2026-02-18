@@ -593,9 +593,6 @@
   <string name="keyGoToStartOrEnd">ire initium/finem</string>
   <string name="keyShowOrHideComments">aperire/operire commentarios</string>
   <string name="keyEnterOrExitVariation">inire/exire variationem</string>
-  <string name="keyNextBlunder">Mendum proximum</string>
-  <string name="keyNextMistake">Erratum proximum</string>
-  <string name="keyNextInaccuracy">Indiligentia proxima</string>
   <string name="newTournament">Certamen novum</string>
   <string name="tournamentHomeTitle">Certamen latruncularium moderaminibus temporalibus et variationibus ornatum</string>
   <string name="tournamentHomeDescription">Ludere certamina velocia latruncularia! Iungere certaminibus officialibus, aut unum tibi creare. Bullet, Blitz, Classical,   Scacci960, Rex Collis, Tres scacci, atque varationes plures sunt!</string>
