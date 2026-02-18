@@ -756,9 +756,6 @@
   <string name="keyGoToStartOrEnd">mont d\'an deroù/d\'ar fin</string>
   <string name="keyShowOrHideComments">diskouez/skoachañ an evezhiadennoù</string>
   <string name="keyEnterOrExitVariation">mont ebarzh/kuitaat an eilstumm</string>
-  <string name="keyNextBlunder">Blunder nesañ</string>
-  <string name="keyNextMistake">Fazi nesañ</string>
-  <string name="keyNextInaccuracy">Diresisted nesañ</string>
   <string name="newTournament">Tournamant nevez</string>
   <string name="tournamentHomeTitle">Tournamantoù echedoù o zizh hag o variantoù liesseurt</string>
   <string name="tournamentHomeDescription">C\'hoariit tournamantoù echedoù fonnus! Kemerit perzh en un tournamant ofisiel raktreset, pe krouit hoc\'h hini. Bullet, Blitz, Klasel, Echedoù960, Roue d\'ar c\'hreiz, Tribec\'h, ha dibaboù all evit ur blijadur beurbadus gant an echedoù.</string>
