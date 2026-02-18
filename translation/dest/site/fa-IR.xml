@@ -722,9 +722,6 @@
   <string name="keyShowOrHideComments">نمایش/پنهان کردن نظرها</string>
   <string name="keyEnterOrExitVariation">ورود/خروج به وَرتِش</string>
   <string name="keyRequestComputerAnalysis">درخواست تحلیل رایانه‌ای، از اشتباه‌های‌تان بیاموزید</string>
-  <string name="keyNextBlunder">اشتباه فاحش بعدی</string>
-  <string name="keyNextMistake">اشتباه بعدی</string>
-  <string name="keyNextInaccuracy">بی‌دقتی بعدی</string>
   <string name="keyPreviousBranch">شاخه پیشین</string>
   <string name="keyNextBranch">شاخه بعدی</string>
   <string name="toggleVariationArrows">کلید پیکان‌های وَرتِش</string>
