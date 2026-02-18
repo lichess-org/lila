@@ -719,9 +719,6 @@
   <string name="keyShowOrHideComments">ટિપ્પણીઓ બતાવો/છુપાવો</string>
   <string name="keyEnterOrExitVariation">દાખલ/બહાર નીકળવાની વિવિધતા</string>
   <string name="keyRequestComputerAnalysis">કમ્પ્યુટર વિશ્લેષણની વિનંતી કરો, તમારી ભૂલોમાંથી શીખો</string>
-  <string name="keyNextBlunder">આગામી મોટું ભૂલ</string>
-  <string name="keyNextMistake">આગામી ભૂલ</string>
-  <string name="keyNextInaccuracy">આગામી અચોક્કસતા</string>
   <string name="keyPreviousBranch">પાછલી શાખા</string>
   <string name="keyNextBranch">આગામી શાખા</string>
   <string name="toggleVariationArrows">ભિન્નતા તીરો ટૉગલ કરો</string>
