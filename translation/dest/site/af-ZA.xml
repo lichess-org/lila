@@ -687,9 +687,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="keyShowOrHideComments">vertoon/versteek kommentaar</string>
   <string name="keyEnterOrExitVariation">betree/verlaat variasie</string>
   <string name="keyRequestComputerAnalysis">Vra rekenaaranalise aan, Leer uit jou foute</string>
-  <string name="keyNextBlunder">Volgende flater</string>
-  <string name="keyNextMistake">Volgende fout</string>
-  <string name="keyNextInaccuracy">Volgende onakkuraatheid</string>
   <string name="keyPreviousBranch">Vorige tak</string>
   <string name="keyNextBranch">Volgende tak</string>
   <string name="toggleVariationArrows">Wissel variasie pyle</string>
