@@ -713,9 +713,6 @@
   <string name="keyShowOrHideComments">kommentek megjelenítése/elrejtése</string>
   <string name="keyEnterOrExitVariation">ki/belépés változatba</string>
   <string name="keyRequestComputerAnalysis">Kérelmezz számítógépes elemzést és tanulj a hibáidból</string>
-  <string name="keyNextBlunder">Következő baklövés</string>
-  <string name="keyNextMistake">Következő hiba</string>
-  <string name="keyNextInaccuracy">Következő pontatlanság</string>
   <string name="keyPreviousBranch">Előző elágazás</string>
   <string name="keyNextBranch">Következő elágazás</string>
   <string name="toggleVariationArrows">Változatnyilak ki-be</string>
