@@ -616,9 +616,6 @@
   <string name="keyGoToStartOrEnd">эхлэл/төгсгөл рүү хүргэх</string>
   <string name="keyShowOrHideComments">сэтгэгдлийг ил эсвэл далд болгох</string>
   <string name="keyEnterOrExitVariation">хувилбараас гарах/орох</string>
-  <string name="keyNextBlunder">Дараагийн том алдаа</string>
-  <string name="keyNextMistake">Дараагийн алдаа</string>
-  <string name="keyNextInaccuracy">Дараагийн жижиг алдаа</string>
   <string name="keyPreviousBranch">Өмнөх салаа нүүдлүүд</string>
   <string name="keyNextBranch">Дараагийн салаа нүүдлүүд</string>
   <string name="toggleVariationArrows">Хувилбаруудыг сумаар харуулах</string>
