@@ -723,9 +723,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyShowOrHideComments">syn/gøym kommentarar</string>
   <string name="keyEnterOrExitVariation">gå inn i/gå ut av varianten</string>
   <string name="keyRequestComputerAnalysis">Be om maskinanalyse. Lær av feila dine</string>
-  <string name="keyNextBlunder">Neste store mistak (\"bukk\")</string>
-  <string name="keyNextMistake">Neste mistak</string>
-  <string name="keyNextInaccuracy">Neste upresise trekk</string>
   <string name="keyPreviousBranch">Førre grein</string>
   <string name="keyNextBranch">Neste grein</string>
   <string name="toggleVariationArrows">Slå variantpilar på/av</string>
