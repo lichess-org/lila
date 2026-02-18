@@ -761,9 +761,6 @@
   <string name="keyShowOrHideComments">arată/ascunde comentarii</string>
   <string name="keyEnterOrExitVariation">acceptă/respinge variație</string>
   <string name="keyRequestComputerAnalysis">Solicită analiza calculatorului, Învață din greșelile tale</string>
-  <string name="keyNextBlunder">Următoarea greșeală gravă</string>
-  <string name="keyNextMistake">Următoarea greșeală</string>
-  <string name="keyNextInaccuracy">Următoarea neacuratețe</string>
   <string name="keyPreviousBranch">Ramura precedentă</string>
   <string name="keyNextBranch">Ramura următoare</string>
   <string name="toggleVariationArrows">Comută săgețile de variație</string>
