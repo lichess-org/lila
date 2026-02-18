@@ -683,9 +683,6 @@
   <string name="keyShowOrHideComments">コメントを表示する/隠す</string>
   <string name="keyEnterOrExitVariation">変化に入る/出る</string>
   <string name="keyRequestComputerAnalysis">コンピュータ解析の要請、自分の悪手に学ぶ</string>
-  <string name="keyNextBlunder">次の大悪手</string>
-  <string name="keyNextMistake">次の悪手</string>
-  <string name="keyNextInaccuracy">次のやや悪手</string>
   <string name="keyPreviousBranch">前の変化手順</string>
   <string name="keyNextBranch">次の変化手順</string>
   <string name="toggleVariationArrows">変化手順の矢印を切り替え</string>
