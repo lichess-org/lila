@@ -685,9 +685,6 @@
   <string name="keyShowOrHideComments">ցույց տալ/թաքցնել մեկնաբանությունները</string>
   <string name="keyEnterOrExitVariation">բացել/փակել տարբերակը</string>
   <string name="keyRequestComputerAnalysis">Պատվիրեք համակարգչային վերլուծություն, սովորեք սեփական սխալներից</string>
-  <string name="keyNextBlunder">Հաջորդ վրիպումը</string>
-  <string name="keyNextMistake">Հաջորդ սխալը</string>
-  <string name="keyNextInaccuracy">Հաջորդ անճշտությունը</string>
   <string name="keyPreviousBranch">Նախորդ ճյուղ</string>
   <string name="keyNextBranch">Հաջորդ ճյուղ</string>
   <string name="newTournament">Նոր մրցաշար</string>
