@@ -649,8 +649,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="keyGoToStartOrEnd">mine algusesse/lõppu</string>
   <string name="keyShowOrHideComments">näita/peida kommentaarid</string>
   <string name="keyEnterOrExitVariation">lisa/eemalda variatsioon</string>
-  <string name="keyNextMistake">Järgmine viga</string>
-  <string name="keyNextInaccuracy">Järgmine ebatäpsus</string>
   <string name="newTournament">Uus turniir</string>
   <string name="tournamentHomeTitle">Maleturniirid koos erinevate ajakontrollide ja variantidega</string>
   <string name="tournamentHomeDescription">Mängi kiireid turniire males! Liitu ametliku turniiriga või loo oma turniir. Võimalik on valida supervälkmale, välkmale, kiirmale, klassikalise male, Chess960, King of the Hill, Threecheck ja teiste mängutüüpide vahel, et rõõm malest kunagi ei lõpeks!</string>
