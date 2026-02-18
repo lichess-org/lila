@@ -1,6 +1,7 @@
 package views.game
 
 import lila.app.UiEnv.*
+import lila.core.game.BookmarkPosition
 
 val ui = lila.game.ui.GameUi(helpers)
 export ui.mini
@@ -24,10 +25,11 @@ def widgets(
     games: Seq[Game],
     notes: Map[GameId, String] = Map(),
     user: Option[User] = None,
-    ownerLink: Boolean = false
+    ownerLink: Boolean = false,
+    bookmarkedPositions: Map[GameId, BookmarkPosition] = Map()
 )(using ctx: lila.ui.Context): Frag =
   games.map: g =>
-    ui.widgets(g, notes.get(g.id), user, ownerLink):
+    ui.widgets(g, notes.get(g.id), user, ownerLink, bookmarkedPositions.get(g.id)):
       g.tournamentId
         .map: tourId =>
           views.tournament.ui.tournamentLink(tourId)(using ctx.translate)

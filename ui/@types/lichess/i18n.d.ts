@@ -3207,6 +3207,8 @@ interface I18n {
     boardReset: string;
     /** Bookmark this game */
     bookmarkThisGame: string;
+    /** Bookmark this position */
+    bookmarkThisPosition: string;
     /** Brightness */
     brightness: string;
     /** Bullet */

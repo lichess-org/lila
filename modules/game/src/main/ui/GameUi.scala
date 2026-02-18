@@ -1,10 +1,11 @@
 package lila.game
 package ui
 
-import chess.format.Fen
+import chess.Ply
+import chess.format.{ Fen, SimpleFen }
 import chess.format.pgn.PgnStr
 
-import lila.core.game.{ Game, Player }
+import lila.core.game.{ Game, Player, BookmarkPosition }
 import lila.game.GameExt.*
 import lila.ui.*
 
@@ -245,14 +246,29 @@ final class GameUi(helpers: Helpers):
 
     val separator = " • "
 
-    def apply(g: Game, note: Option[String], user: Option[User], ownerLink: Boolean)(
+    def apply(
+        g: Game,
+        note: Option[String],
+        user: Option[User],
+        ownerLink: Boolean,
+        position: Option[BookmarkPosition] = None
+    )(
         contextLink: Option[Tag]
     )(using Context): Frag =
       val fromPlayer = user.flatMap(g.player)
       val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
       st.article(cls := "game-row paginated")(
-        a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
-        div(cls := "game-row__board")(miniBoard(Pov(g, firstPlayer))(span)),
+        a(
+          cls := "game-row__overlay",
+          href := gameLink(
+            g,
+            position.map(_.color).getOrElse(firstPlayer.color),
+            ownerLink,
+            false,
+            position.map(_.ply)
+          )
+        ),
+        div(cls := "game-row__board")(miniBoard(Pov(g, firstPlayer), position)(span)),
         div(cls := "game-row__infos")(
           div(cls := "header", dataIcon := gameIcon(g))(
             div(cls := "header__text")(
@@ -265,14 +281,18 @@ final class GameUi(helpers: Helpers):
         )
       )
 
-    def miniBoard(pov: Pov)(using ctx: Context): Tag => Tag =
-      chessgroundMini(
-        if ctx.me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.playable
-        then Fen.Board("8/8/8/8/8/8/8/8")
-        else Fen.writeBoard(pov.game.position),
-        if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color,
-        pov.game.history.lastMove
-      )
+    def miniBoard(pov: Pov, position: Option[BookmarkPosition] = None)(using ctx: Context): Tag => Tag =
+      position match
+        case Some(BookmarkPosition(_, fen, color, lastMove)) =>
+          chessgroundMini(fen.board, color, lastMove)
+        case None =>
+          chessgroundMini(
+            if ctx.me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.playable
+            then Fen.Board("8/8/8/8/8/8/8/8")
+            else Fen.writeBoard(pov.game.position),
+            if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color,
+            pov.game.history.lastMove
+          )
 
     def content(g: Game, note: Option[String], as: Option[Player])(using Context) = frag(
       div(cls := "versus")(

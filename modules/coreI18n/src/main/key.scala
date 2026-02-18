@@ -1834,6 +1834,7 @@ object I18nKey:
     val `blackCancelsTakeback`: I18nKey = "blackCancelsTakeback"
     val `yourOpponentProposesATakeback`: I18nKey = "yourOpponentProposesATakeback"
     val `bookmarkThisGame`: I18nKey = "bookmarkThisGame"
+    val `bookmarkThisPosition`: I18nKey = "bookmarkThisPosition"
     val `tournament`: I18nKey = "tournament"
     val `tournaments`: I18nKey = "tournaments"
     val `tournamentPoints`: I18nKey = "tournamentPoints"
