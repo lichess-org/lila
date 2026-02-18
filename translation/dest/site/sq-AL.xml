@@ -723,9 +723,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="keyShowOrHideComments">shfaq/fshih komentet</string>
   <string name="keyEnterOrExitVariation">hyr/dil nga varianti</string>
   <string name="keyRequestComputerAnalysis">Kërkoni analizim nga kompjuteri, Mësoni nga gabimet tuaja</string>
-  <string name="keyNextBlunder">Gafa pasuese</string>
-  <string name="keyNextMistake">Gabimi pasues</string>
-  <string name="keyNextInaccuracy">Pasaktësia pasuese</string>
   <string name="keyPreviousBranch">Dega e mëparshme</string>
   <string name="keyNextBranch">Dega pasuese</string>
   <string name="toggleVariationArrows">Shfaq/fshih shigjeta variantesh</string>
