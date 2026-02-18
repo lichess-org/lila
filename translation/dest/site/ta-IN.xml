@@ -696,9 +696,6 @@
   <string name="keyShowOrHideComments">கருத்துகளை காட்டு/மறை</string>
   <string name="keyEnterOrExitVariation">மாறுபட்ட வரி உள்ளீடு/வெளியேறு</string>
   <string name="keyRequestComputerAnalysis">கணினி பகுப்பாய்வைக் கோருங்கள், உங்கள் தவறுகளிலிருந்து கற்றுக்கொள்ளுங்கள்</string>
-  <string name="keyNextBlunder">அடுத்த பெருந்தவறு</string>
-  <string name="keyNextMistake">அடுத்த தவறு</string>
-  <string name="keyNextInaccuracy">அடுத்த செவ்வைப்பிழை</string>
   <string name="keyPreviousBranch">முந்தைய கிளை</string>
   <string name="keyNextBranch">அடுத்த கிளை</string>
   <string name="toggleVariationArrows">மாறுபட்ட வரிகளின் அம்புகளை நிலைமாற்று</string>
