@@ -677,9 +677,6 @@
   <string name="keyShowOrHideComments">แสดง/ซ่อนความคิดเห็น</string>
   <string name="keyEnterOrExitVariation">เข้าสู่/ออกจากตัวแปรกติกา</string>
   <string name="keyRequestComputerAnalysis">ข้อการวิเคราะห์ด้วยคอมพิวเตอร์</string>
-  <string name="keyNextBlunder">ตาเดินที่ผิดมหันต์ต่อไป</string>
-  <string name="keyNextMistake">ตาเดินที่ผิดพลาดต่อไป</string>
-  <string name="keyNextInaccuracy">ตาเดินที่ไม่แม่นยำต่อไป</string>
   <string name="keyPreviousBranch">แขนงก่อนหน้า</string>
   <string name="keyNextBranch">แขนงต่อไป</string>
   <string name="toggleVariationArrows">ควบคุมศรตาเดินแขนงอื่น</string>
