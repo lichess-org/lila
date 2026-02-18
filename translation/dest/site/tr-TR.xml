@@ -721,9 +721,6 @@
   <string name="keyShowOrHideComments">yorumları gizle/göster</string>
   <string name="keyEnterOrExitVariation">varyasyona gir/çık</string>
   <string name="keyRequestComputerAnalysis">Bilgisayar analizi talep et, Hatalarından ders al</string>
-  <string name="keyNextBlunder">Sonraki vahim hata</string>
-  <string name="keyNextMistake">Sonraki hata</string>
-  <string name="keyNextInaccuracy">Sonraki kusurlu hamle</string>
   <string name="keyPreviousBranch">Önceki dal</string>
   <string name="keyNextBranch">Sıradaki dal</string>
   <string name="toggleVariationArrows">Varyasyon oklarını aç/kapat</string>
