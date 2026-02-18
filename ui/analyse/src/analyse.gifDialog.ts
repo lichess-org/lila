@@ -74,7 +74,7 @@ export function initModule(ctrl: AnalyseCtrl): void {
           <button class="button button-metal text gif-copy" data-icon="${licon.Clipboard}">
             ${i18n.site.copyToClipboard}
           </button>
-          <a class="button button-green text gif-download" data-icon="${licon.Download}" href="${buildGifUrl()}" target="_blank">
+          <a class="button button-green text gif-download" data-icon="${licon.Download}" href="${buildGifUrl()}" download>
             ${i18n.site.download}
           </a>
         </div>
