@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">嗨 %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">這一年您過得如何？</string>
+	<plurals name="nbMoves">
+		<item quantity="other">%s 棋步</item>
+	</plurals>
+	<string name="chessFoes">您最佳棋友</string>
+</resources>
