@@ -711,9 +711,6 @@
   <string name="keyShowOrHideComments">sýna/fela athugasemd</string>
   <string name="keyEnterOrExitVariation">fara í/úr afbrigði</string>
   <string name="keyRequestComputerAnalysis">Biðja um tölvugreiningu, Lærðu af mistökum þínum</string>
-  <string name="keyNextBlunder">Næsti afleikur</string>
-  <string name="keyNextMistake">Næstu mistök</string>
-  <string name="keyNextInaccuracy">Næsta ónákvæmni</string>
   <string name="keyPreviousBranch">Fyrri grein</string>
   <string name="keyNextBranch">Næsta grein</string>
   <string name="toggleVariationArrows">Víxla afbrigðisörvum</string>
