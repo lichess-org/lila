@@ -792,9 +792,6 @@
   <string name="keyShowOrHideComments">zobraziť/skryť komentáre</string>
   <string name="keyEnterOrExitVariation">zvoliť/opustiť variant</string>
   <string name="keyRequestComputerAnalysis">Požadujte analýzu počítačom, Poučte sa zo svojich chýb</string>
-  <string name="keyNextBlunder">Ďalšia hrubá chyba</string>
-  <string name="keyNextMistake">Ďalšia chyba</string>
-  <string name="keyNextInaccuracy">Ďalšia nepresnosť</string>
   <string name="keyPreviousBranch">Predchádzajúca vetva</string>
   <string name="keyNextBranch">Nasledujúca vetva</string>
   <string name="toggleVariationArrows">Prepnúť šípky variantov</string>
