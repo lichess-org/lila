@@ -53,6 +53,10 @@
   <string name="endgame">Tàn cuộc</string>
   <string name="endgameDescription">Chiến thuật trong phần kết thúc của ván cờ.</string>
   <string name="enPassantDescription">Một đòn chiến thuật bao gồm luật bắt tốt qua đường, khi một quân tốt có thể ăn một quân tốt đối phương đi qua mặt nó khi đi 2 ô từ vị trí ban đầu của nó.</string>
+  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">\"Epaulette\" không phải là danh từ riêng, mà là thuật ngữ chỉ phần trang trí trên vai áo quân phục: https://en.wikipedia.org/wiki/Epaulette
+
+Mô tả cho kiểu chiếu tướng này (có thể dịch riêng):
+Hai ô thoát hiểm liền kề của vua bị chiếu đều bị các quân cờ khác chiếm giữ.</string>
   <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Hai ô trốn thoát liền kề của vua bị chiếu bị các quân cờ khác chiếm kiểm soát.</string>
   <string name="exposedKing">Vua bị hở</string>
   <string name="exposedKingDescription">Một đòn chiến thuật bao gồm một quân vua với ít quân bảo vệ quanh quân vua đó, thường dẫn tới chiếu hết.</string>
