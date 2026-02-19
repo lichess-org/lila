@@ -54,7 +54,9 @@ export const cmnToggle = (opts: CmnToggle): VNode =>
       props: defined(opts.propsChecked) ? { checked: opts.propsChecked } : undefined,
       hook: onInsert((input: HTMLInputElement) => {
         input.addEventListener('keydown', () => markKeyboard(input), { passive: true });
-        const innerLabel = input.parentElement?.querySelector<HTMLLabelElement>(`label[for="cmn-tg-${opts.id}"]`);
+        const innerLabel = input.parentElement?.querySelector<HTMLLabelElement>(
+          `label[for="cmn-tg-${opts.id}"]`,
+        );
         innerLabel?.addEventListener('pointerdown', () => markPointer(input), { passive: true });
         input.addEventListener(
           'change',
