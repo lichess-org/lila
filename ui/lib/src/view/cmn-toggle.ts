@@ -35,7 +35,7 @@ const markKeyboard = (input: HTMLInputElement) => {
 };
 
 const blurIfPointer = (input: HTMLInputElement) => {
-  // Blur only for pointer toggles, so Mousetrap hotkeys keep working.
+  // Blur only for pointer toggles, so that analysis keybinds still work.
   if (input.dataset.pointer === '1') input.blur();
   delete input.dataset.pointer;
 };
