@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Do\'stinggizni o\'yinga taklif qilish</string>
+  <string name="gameSetup">Oʻyin sozlamalari</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Doʻstinggizni oʻyinga chorlang</string>
   <string name="playAgainstComputer">Kompyuterga qarshi o\'ynash</string>
   <string name="gameMode">O\'yin rejimi</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir o\'yinga taklif qilish uchun ushbu URL ni olib unga bering</string>
@@ -16,7 +17,7 @@
   <string name="chat">Suhbat</string>
   <string name="resign">Taslim bo\'lish</string>
   <string name="checkmate">Mot</string>
-  <string name="stalemate">Pat, durrang</string>
+  <string name="stalemate">Pat</string>
   <string name="white">Oq</string>
   <string name="black">Qora</string>
   <string name="asWhite">oqlar sifatida</string>
@@ -29,36 +30,36 @@
   <string name="youPlayTheWhitePieces">Siz oqlarda o\'ynaysiz</string>
   <string name="youPlayTheBlackPieces">Siz qoralarda o\'ynaysiz</string>
   <string name="itsYourTurn">Sizning yurishingiz!</string>
-  <string name="cheatDetected">Girromlik topildi</string>
+  <string name="cheatDetected">Gʻirromlik aniqlandi</string>
   <string name="kingInTheCenter">Qirol markazga kelguncha</string>
   <string name="threeChecks">Uch marta shox berishgacha</string>
   <string name="raceFinished">Musobaqa yakunlandi</string>
   <string name="variantEnding">Variant tugayabdi</string>
   <string name="newOpponent">Yangi sherik topish</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Sizni sherigingiz siz bilan yana boshidan o\'ynamoqchi</string>
-  <string name="joinTheGame">O\'yinga rozi bo\'lish</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Raqibingiz sizni yangi oʻyinga chorlamoqda</string>
+  <string name="joinTheGame">Oʻyinga qoʻshilish</string>
   <string name="whitePlays">Oqlar yurishi</string>
   <string name="blackPlays">Qoralar yurishi</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Sizning sherigingiz o\'yinni tark etdi. Siz %s sekunddan keyin g\'alabani belgilashingiz mumkin bo\'ladi.</item>
-    <item quantity="other">Sizning sherigingiz o\'yinni tark etdi. Siz %s sekundlardan keyin g\'alabani belgilashingiz mumkin bo\'ladi.</item>
+    <item quantity="one">Raqibingiz oʻyinni tark etdi. %s soniyadan soʻng gʻalabani talab etishingiz mumkin.</item>
+    <item quantity="other">Raqibingiz oʻyinni tark etdi. %s soniyadan soʻng gʻalabani talab etishingiz mumkin.</item>
   </plurals>
-  <string name="opponentLeftChoices">Sizni sherigingiz o\'yinni tashlab ketgan ko\'rinadi. Siz o\'yinni go\'libi sifatida yoki durrang natija bilan yo bo\'lmasam sherigingizni qaytishini kutib turishingiz mumkin.</string>
-  <string name="forceResignation">G\'oliblikka harakat</string>
-  <string name="forceDraw">Durrang deb belgilash</string>
+  <string name="opponentLeftChoices">Raqibingiz oʻyinni tark etdi. Gʻalaba yoki durrang talab etishingiz mumkin yoki yana kutishingiz mumkin.</string>
+  <string name="forceResignation">Gʻalaba talab qilish</string>
+  <string name="forceDraw">Durrang talab qilish</string>
   <string name="talkInChat">Iltimos suhbatda xushmuomalali bo\'ling!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Kim birinchi ushbu URL ga kirsa o\'sha sizga o\'yinda sherik bo\'ladi.</string>
   <string name="whiteResigned">Oqlar taslim bo\'ldi</string>
   <string name="blackResigned">Qoralar taslim bo\'ldi</string>
-  <string name="whiteLeftTheGame">Oqlar o\'yinni tashlab ketdi</string>
-  <string name="blackLeftTheGame">Qoralar o\'yinni tashlab ketdi</string>
+  <string name="whiteLeftTheGame">Oqlar oʻyinni tark etdi</string>
+  <string name="blackLeftTheGame">Qoralar oʻyinni tark etdi</string>
   <string name="whiteDidntMove">Oqlar yurmadi</string>
   <string name="blackDidntMove">Qoralar yurmadi</string>
   <string name="requestAComputerAnalysis">Kompyuter tahlili uchun so\'rov</string>
   <string name="computerAnalysis">Kompyuter tahlili</string>
   <string name="computerAnalysisAvailable">Kompyuter tahlili mavjud</string>
   <string name="computerAnalysisDisabled">Kompyuter tahlili o‘chirilgan</string>
-  <string name="analysis">Tahlil doskasi</string>
+  <string name="analysis">Tahlil taxtasi</string>
   <string name="depthX">Fikrlash chuqurligi %s</string>
   <string name="usingServerAnalysis">Server tahlili qo\'llanilayabdi</string>
   <string name="loadingEngine">Mexanizmni yuklash ...</string>
@@ -123,6 +124,7 @@
   <string name="bestMoveArrow">Yaxshi yo\'l ko\'rsatmasi</string>
   <string name="showVariationArrows">Variantlar strelkalarini koʻrsatish</string>
   <string name="evaluationGauge">Baholash ko\'rsatkichi</string>
+  <string name="undefendedPieces">Himoyalanmagan donalar</string>
   <string name="multipleLines">Bir nechta chiziqlar</string>
   <string name="cpus">Markaziy protsessorlar soni</string>
   <string name="memory">Xotira</string>
@@ -418,6 +420,7 @@
   <string name="leaderboard">Sardorlar ro\'yhati</string>
   <string name="screenshotCurrentPosition">Joriy holatni skrinshot qilish</string>
   <string name="gameAsGIF">O‘yin GIF sifatida</string>
+  <string name="playerNames">Oʻyinchilar ismlari</string>
   <string name="pasteTheFenStringHere">FEN matnini shu yerga qo\'ying</string>
   <string name="pasteThePgnStringHere">PGN matnini shu yerga qo\'ying</string>
   <string name="orUploadPgnFile">Yoki PGN fayl yuklang</string>
@@ -797,6 +800,7 @@
   <string name="size">Hajmi</string>
   <string name="opacity">Shaffoflik</string>
   <string name="brightness">Yorqinlik</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Hue</string>
   <string name="boardReset">Ranglarni asl holatiga qaytaring</string>
   <string name="pieceSet">Sipohlarni sozlash</string>
@@ -867,6 +871,7 @@
   <string name="playVariationToCreateConditionalPremoves">Shartli avvaldan yurishlarni yaratish uchun variatsiyani o\'ynash</string>
   <string name="noConditionalPremoves">Shartli avvaldan yurish emas</string>
   <string name="playX">%s ni o\'ynang</string>
+  <string name="challengeX">%sʼni chorlash</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">va %s avvaldan yurishni saqlash</item>
     <item quantity="other">va %s avvaldan yurishlarni saqlash</item>
@@ -894,6 +899,7 @@
   <string name="agreementPolicy">Men Lichess tartib qoidalariga amal qilishga roziman.</string>
   <string name="searchOrStartNewDiscussion">Qidirish yoki yangi fikr almashinuv</string>
   <string name="edit">Tahrirlash</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">O\'q</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blits</string>
   <string name="rapid">Tez</string>
