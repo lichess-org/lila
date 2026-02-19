@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Зашто се Lichess зове Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess је комбинација речи live/light/libre (уживо/лако/слободно) и chess (шах). Изговара се %1$s.</string>
   <string name="leechess">ли-чес</string>
-  <string name="hearItPronouncedBySpecialist">Послушај како то стручњак изговара.</string>
+  <string name="hearItPronouncedBySpecialist">Послушај како то изговара стручњак.</string>
   <string name="whyLiveLightLibre">Уживо, јер се партије играју и гледају у стварном времену 24/7; лако и слободно због чињенице да је Lichess отвореног изворног кода и неоптерећен власничким смећем које мучи друге вебсајтове.</string>
   <string name="whyIsLilaCalledLila">Слично, изворни код за Lichess, %1$s, значи li[chess in sca]la, гледајући да је велики део Lichess-а написан у %2$s, интуитивном програмску језику.</string>
   <string name="howCanIContributeToLichess">Како могу допринети Lichess-у?</string>
@@ -15,6 +15,7 @@
   <string name="breakdownOfOurCosts">поделу наших трошкова</string>
   <string name="otherWaysToHelp">други начини да помогнеш</string>
   <string name="areThereWebsitesBasedOnLichess">Да ли постоје вебсајтови засновани на Lichess-у?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Да. Lichess је заиста инспирисао друге сајтове отвореног изворног кода који користе наш %1$s, %2$s или нашу %3$s.</string>
   <string name="fairPlay">Поштена Игра</string>
   <string name="whenAmIEligibleRatinRefund">Када имам право за аутоматско враћање рејтинга од варалица?</string>
   <string name="ratingRefundExplanation">Један минут након што је играч означен, узима се њихових последњих 40 партија у последња 3 дана. Ако си ти био један од њихових противника у тим партијама, и изгубио си рејтинг (због пораза или ремија), то добијаш свој рејтинг назад. Повраћај рејтинга је ограничен твојим максималним рејтингом и прогресом рејтинга након те партије.
@@ -35,6 +36,7 @@
   <string name="whatVariantsCanIplay">Које варијанте могу играти на Lichess-у?</string>
   <string name="lichessSupportChessAnd">Lichess подржава стандардни шах и %1$s.</string>
   <string name="eightVariants">8 шаховских варијаната</string>
+  <string name="whatIsACPL">Шта је просечан центипешачки губитак (ACPL)?</string>
   <string name="insufficientMaterial">Губљење на време, ремизирање и недовољан материјал</string>
   <string name="lichessFollowFIDErules">У случају да играчу истекне време, тај играч најчешће губи партију. Ипак, игра се завршава ремијем ако је позиција таква да противник не може да матира играчевог краља ниједном серијум легалних потеза (%1$s).
 
@@ -113,7 +115,8 @@
   <string name="connexionLostCanIGetMyRatingBack">Изгубио/ла сам партију због кочења/прекида везе. Да ли могу вратити своје рејтинг бодове?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Нажалост, не можемо вратити рејтинг бодове за партије изгубљене због споре или прекинуте конекције, без обзира да ли је проблем био на твојој или нашој страни. Ово последње је веома ретко, додуше. Такође имај на уму да када се Lichess рестартује и ти изгубиш на времену због тога, ми прекидамо партију како бисмо спречили неправедан пораз.</string>
   <string name="howToThreeDots">Како...</string>
-  <string name="enableDisableNotificationPopUps">Укључити или искључити поп-ап обавештења?</string>
+  <string name="enableDisableNotificationPopUps">Укључити или искључити искочуће прозоре са обавештењима?</string>
+  <string name="viewSiteInformationPopUp">Погледај искачући прозор са информацијама сајта</string>
   <string name="lichessCanOptionnalySendPopUps">Личес може да шаље поп-ап обавештења, на пример када је твој потез у партији или када примиш приватну поруку.
 
 Притисни икону катанца поред lichess.org адресе у URL бару свог претраживача.
