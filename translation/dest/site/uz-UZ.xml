@@ -897,7 +897,7 @@
   <string name="resignLostGames">Boy berilgan o\'yinda taslim bo\'ling (vaqt ketishiga yo\'l qo\'ymang).</string>
   <string name="temporaryInconvenience">Vaqtinchalik noqulaylik uchun uzr so\'raymiz</string>
   <string name="wishYouGreatGames">va lichess.org dagi o\'yinlarda muvaffaqiyat tilaymiz.</string>
-  <string name="thankYouForReading">O\'qiganingiz uchun rahmat!</string>
+  <string name="thankYouForReading">Eʻtiboringiz uchun rahmat!</string>
   <string name="lifetimeScore">Hisoblar solishtirilganda</string>
   <string name="currentMatchScore">Joriy o\'yin holati</string>
   <string name="agreementAssistance">Men o\'yin davomida hech qanday (kompyuter shahmatidan, kitobdan, qandaydir ma\'lumotlar omboridan va boshqa odamlardan) yordam olmaslikka roziman.</string>
@@ -907,18 +907,18 @@
   <string name="searchOrStartNewDiscussion">Qidirish yoki yangi fikr almashinuv</string>
   <string name="edit">Tahrirlash</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
-  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">O\'q</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blits</string>
-  <string name="rapid">Tez</string>
+  <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
-  <string name="ultraBulletDesc">O\'ta tez o\'yinlar: 30 sekunddan kamlar</string>
-  <string name="bulletDesc">Juda tez o\'yinlar: 3 minutdan kam bo\'lganlar</string>
-  <string name="blitzDesc">Tez o\'yinlar: 3 dan 8 minut oralig\'idagilar</string>
-  <string name="rapidDesc">Tezkorroq o\'yinlar: 8 dan 25 minutga qadar bo\'lganlar</string>
-  <string name="classicalDesc">Klassik o\'yinlar: 25 minut va undan yuqori bo\'lganlar</string>
-  <string name="correspondenceDesc">Yozishmali o\'yinlar: bir yoki bir necha kunli yurishli o\'yinlar</string>
+  <string name="ultraBulletDesc">Oʻta tez oʻyinlar: 30 soniyadan kam</string>
+  <string name="bulletDesc">Juda tez oʻyinlar: 3 daqiqadan kam</string>
+  <string name="blitzDesc">Tez oʻyinlar: 3–8 daqiqa</string>
+  <string name="rapidDesc">Rapid oʻyinlar: 8–25 daqiqa</string>
+  <string name="classicalDesc">Klassik oʻyinlar: 25 va undan ortiq daqiqa</string>
+  <string name="correspondenceDesc">Yozishmali oʻyinlar: har bir yurish uchun bir yoki bir necha kun</string>
   <string name="puzzleDesc">Shaxmat taktikalarini o\'rgatuvchi murabbiy</string>
-  <string name="important">Muxim</string>
+  <string name="important">Muhim</string>
   <string name="yourQuestionMayHaveBeenAnswered">Sizni savolingiz balki javobini topgandir %1$s</string>
   <string name="inTheFAQ">F.A.Q. ichida.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Foydalanuvchini aldamchi yoki yomon xulq-atvori haqida xabar berish uchun %1$s</string>
