@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">hozirgina</string>
+  <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">hozir</string>
   <plurals name="inNbSeconds">
-    <item quantity="one">%s soniyada</item>
-    <item quantity="other">%s soniyada</item>
+    <item quantity="one">%s soniyada soʻng</item>
+    <item quantity="other">%s soniyada soʻng</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">%s daqiqada</item>
-    <item quantity="other">%s daqiqada</item>
+    <item quantity="one">%s daqiqadan soʻng</item>
+    <item quantity="other">%s daqiqadan soʻng</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">%s soatda</item>
-    <item quantity="other">%s soatda</item>
+    <item quantity="one">%s soatda soʻng</item>
+    <item quantity="other">%s soatda soʻng</item>
   </plurals>
   <plurals name="inNbDays">
-    <item quantity="one">%s kunda</item>
-    <item quantity="other">%s kunda</item>
+    <item quantity="one">%s kundan keyin</item>
+    <item quantity="other">%s kundan keyin</item>
   </plurals>
   <plurals name="inNbWeeks">
-    <item quantity="one">%s haftada</item>
-    <item quantity="other">%s haftada</item>
+    <item quantity="one">%s haftadan keyin</item>
+    <item quantity="other">%s haftadan keyin</item>
   </plurals>
   <plurals name="inNbMonths">
-    <item quantity="one">%s oyda</item>
-    <item quantity="other">%s oyda</item>
+    <item quantity="one">%s oydan keyin</item>
+    <item quantity="other">%s oydan keyin</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">%s yilda</item>
-    <item quantity="other">%s yilda</item>
+    <item quantity="one">%s yildan keyin</item>
+    <item quantity="other">%s yildan keyin</item>
   </plurals>
-  <string name="rightNow" comment="This string refers to an event that has started in the last few milliseconds-to-seconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for just before events that have begun, which reads &quot;just now&quot;.">ayni vaqtda</string>
+  <string name="rightNow" comment="This string refers to an event that has started in the last few milliseconds-to-seconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for just before events that have begun, which reads &quot;just now&quot;.">hozirgina</string>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s daqiqa avval</item>
     <item quantity="other">%s daqiqa avval</item>
@@ -62,5 +62,5 @@
     <item quantity="one">%s soat qoldi</item>
     <item quantity="other">%s soat qoldi</item>
   </plurals>
-  <string name="completed">tugallangan</string>
+  <string name="completed">tugagan</string>
 </resources>
