@@ -33,7 +33,9 @@
     <item quantity="other">Davom etayotgan o\'yinlar</item>
   </plurals>
   <string name="tournStartDate">Turnir boshlanish sanasi</string>
+  <string name="numberOfRounds">Turlar soni</string>
   <string name="numberOfRoundsHelp">Turlarning g\'alati soni optimal rang muvozanatini ta\'minlaydi.</string>
+  <string name="roundInterval">Turlar orasidagi tanaffus</string>
   <string name="manualPairingsHelp">Keyingi turning barcha juftliklarini qo\'lda belgilang. Har bir chiziqda bitta o\'yinchi juftligi. Misol:
 O\'yinchiA O\'yinchiB
 PlayerC PlayerD
@@ -88,4 +90,8 @@ Round Robinga onlayn tarzda erishishingiz mumkin bo\'lgan eng yaqin narsa bu Shv
   <string name="otherSystemsQ">Boshqa turnir tizimlari haqida nima deyish mumkin?</string>
   <string name="otherSystemsA">Biz hozircha Lichessga boshqa turnir tizimlarini qo‘shishni rejalashtirmayapmiz.</string>
   <string name="swissDescription">Shveytsariyadagi %1$s turnirida har bir ishtirokchi boshqa barcha ishtirokchilar bilan o‘ynashi shart emas. Musobaqa ishtirokchilari har bir raundda yakkama-yakka uchrashadilar va har bir raqib bir xil raqib bilan bir necha marta o‘ynamasligini ta’minlash uchun mo‘ljallangan qoidalar to‘plamidan foydalangan holda juftlashtiriladi. G\'olib, barcha raundlarda eng ko\'p umumiy ball to\'plagan ishtirokchi hisoblanadi. Agar o\'yinchilar soni toq bo\'lmasa, barcha raqiblar har bir turda o\'ynaydi.</string>
+  <string name="joinOrCreateTeam">Jamoaga qoʻshiling yoki yangi yarating</string>
+  <string name="startingSoon">Tez orada boshlanadi</string>
+  <string name="tournDuration">Turnir uzunligi</string>
+  <string name="pause">Pauza</string>
 </resources>
