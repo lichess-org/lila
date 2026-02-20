@@ -85,4 +85,13 @@
   <string name="createdAndManagedBy">Criado e administrado por %s.</string>
   <string name="roundX">Ronda %s</string>
   <string name="defaultRoundNameHelp">Manter o nome padrão irá traduzi-lo automaticamente para todas as outras línguas.</string>
+  <string name="openTournament">Absoluto</string>
+  <string name="womenTournament">Feminino</string>
+  <string name="menTournament">Masculino</string>
+  <string name="girlsTournament">Feminino</string>
+  <string name="boysTournament">Rapazes</string>
+  <string name="openUnderXAgeTournament">Absoluto Sub%s</string>
+  <string name="girlsUnderXAgeTournament">Feminino Sub%s</string>
+  <string name="boysUnderXAgeTournament">Rapazes Sub%s</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Jogo %s</string>
 </resources>
