@@ -8,6 +8,7 @@
   <string name="advanced">Yuqori mavqeili</string>
   <string name="lengths">Uzunliklar</string>
   <string name="mates">Motlar</string>
+  <string name="mateThemes">Mot mavzulari</string>
   <string name="goals">Maqsadlar</string>
   <string name="origin">Kelib chiqish</string>
   <string name="specialMoves">Maxsus yurishlar</string>
@@ -76,6 +77,10 @@
   <string name="lookupOfPlayer">O‘yinchilarning o‘yinlaridan boshqotirmalarni qidirish</string>
   <string name="searchPuzzles">Boshqotirmalarni qidirish</string>
   <string name="fromMyGamesNone">Ma‘lumotlar omborida sizning o‘yinlaringizdan boshqotirmalar yo‘q ammo Lichess sizga ishonadi. Rapid va klassik o‘yinlarni o‘ynang va sizning o‘yinlaringizdan olingan boshqotirmalar paydo bo‘lish ehtimolligi ortadi!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="one">%2$sʼni oʻyinlari orasida bitta boshqotirma topildi</item>
+    <item quantity="other">%2$sʼni oʻyinlari orasida %1$s ta boshqotirma topildi</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Shug‘ullaning, tahlil qiling, yaxshilang</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s yechilgan</item>
