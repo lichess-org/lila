@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">Klaviatura bilan buyruqlarni kiritish</string>
+  <string name="performAMove">Yurish</string>
+  <string name="movePieceFromE2ToE4">Donani e2ʼdan e4ʼga yurish</string>
+  <string name="moveKnightToC3">Otni c3ʼga yurish</string>
+  <string name="kingsideCastle">Qisqa rokirovka</string>
+  <string name="queensideCastle">Uzun rokirovka</string>
+  <string name="promoteC8ToQueen">c8ʼda farzinga aylantirish</string>
+  <string name="dropARookAtB4">Ruxni b4ʼga qoʻyish (faqat Crazyhouse variantida)</string>
+  <string name="offerOrAcceptDraw">Durrang taklif qilish yoki taklifni qabul qilish</string>
+  <string name="readOutClocks">Vaqtni ovozli oʻqish</string>
+  <string name="readOutOpponentName">Raqib ismini ovozli oʻqish</string>
+  <string name="otherCommands">Boshqa buyruqlar</string>
+  <string name="tips">Maslahatlar</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">Yuqoridaki yurish notatsiyasi bilmasangiz, bu yerdan bilib oling:</string>
+  <string name="includingAXToIndicateACapture">Donani olish uchun \"x\" belgilash ixtiyoriy</string>
+  <string name="bothTheLetterOAndTheDigitZero">Rokirovka uchun \"o\" harfi hamda \"0\" nol raqami ishlatilishi mumkin</string>
+  <string name="ifItIsLegalToCastleBothWays">Agar ikki tomonga ham rokirovka ochiq boʻlsa, qisqa rokirovka uchun enter bosing</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">Katta va kichik harflar fil va b ustundagi piyodani farqlash uchun oʻrinlidir</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">Oldindan yurish uchun shunchaki navbatingizdan oldin yurishingizni kiriting</string>
+</resources>
