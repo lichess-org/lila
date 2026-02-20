@@ -1,2 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Salom, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Bu yilingiz qanday oʻtdi?</string>
+	<string name="initTitle">Naqadar shaxmatga boy yil boʻldi!</string>
+	<string name="noGamesText">Bu yil hech qanday oʻyin oʻynamadingiz.</string>
+	<string name="noGamesCta">Hozir oʻynamoqchimisiz?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">Va siz %s tasini yutdingiz!</string>
+	<string name="gamesNextQuestion">Bunga erishish uchun nimalar ketdi?</string>
+	<string name="timeSpentPlayingExclam" comment="%s is the time spent playing animated from 0 e.g. '1 day, 17 hours'. The time is also translated">%s oʻynadingiz!</string>
+	<string name="timeTooMuch">Bu juda ham koʻp shaxmat.</string>
+	<string name="timeALot">Bu ancha koʻp shaxmat.</string>
+	<string name="timeReasonable">Meʼyorida shaxmat oʻynabsiz.</string>
+	<string name="timeHowManyMoves">Shuncha vaqt mobaynida nechta yurish qildingiz?</string>
+	<plurals name="nbMovesPlayed">
+		<item quantity="one">%s ta yurish qildingiz</item>
+		<item quantity="other">%s ta yurish qildingiz</item>
+	</plurals>
+	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Bu %s yogʻoch surgandek!</string>
+	<string name="movesStandardPiecesWeight">Standart shaxmat donasini ogʻirligi taxminan 40 gramm</string>
+	<plurals name="nbMoves">
+		<item quantity="one">%s ta yurish</item>
+		<item quantity="other">%s ta yurish</item>
+	</plurals>
+	<string name="chessFoes">Sizning eng yaxshi raqiblaringiz</string>
+	<plurals name="nbGrams">
+		<item quantity="one">%s gramm</item>
+		<item quantity="other">%s gramm</item>
+	</plurals>
+	<plurals name="nbKilograms">
+		<item quantity="one">%s kilogramm</item>
+		<item quantity="other">%s kilogramm</item>
+	</plurals>
+	<string name="firstMoveStats" comment="Subtitle to your most played move e.g. '1. e4'. %s is the number of games played and its percentage in parentheses. e.g. '50 (67%)'">bilan %s ta oʻyinda oqlar sifatida boshladingiz</string>
+	<plurals name="openingsMostPlayedAsWhite" comment="%s is the number of games">
+		<item quantity="one">%s ta oʻyinda oqlar sifatida eng ko′p oʻynalgan debyutingiz</item>
+		<item quantity="other">%s ta oʻyinda oqlar sifatida eng ko′p oʻynalgan debyutingiz</item>
+	</plurals>
+	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
+		<item quantity="one">%s ta oʻyinda qoralar sifatida eng ko′p oʻynalgan debyutingiz</item>
+		<item quantity="other">%s ta oʻyinda qoralar sifatida eng ko′p oʻynalgan debyutingiz</item>
+	</plurals>
+	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
+		<item quantity="one">%s ta boshqotirmani baholaganingiz uchun rahmat.</item>
+		<item quantity="other">%s ta boshqotirmani baholaganingiz uchun rahmat.</item>
+	</plurals>
+	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Siz shuningdek, ulardan %s tasiga teg qoʻyishga yordam berdingiz.</string>
+	<string name="puzzlesNone">Bu yil siz hech qancha boshqotirma yechmadingiz.</string>
+	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Hozir yechib koʻrmoqchimisiz?</string>
+	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Ulardan %s tasini birinchi urunishda yechdingiz!</string>
+	<string name="sourcesTitle">Qayerda oʻynadingiz?</string>
+	<string name="perfsTitle">Qaysi vaqt nazorati va variantlarni oʻynadingiz?</string>
+	<string name="malwareNoneLoaded" comment="%s is 0">%s ta reklama va treker yuklandi</string>
+	<string name="malwareNoSell">Biz sizni shaxsiy maʼlumotlaringizni sotmadik</string>
+	<string name="malwareNoAbuse">Biz sizni qurilmangizni sizga qarshi ishlatmadik</string>
+	<string name="malwareWarningPrefix" comment="%s is 'be careful'">Lekin boshqa veb-saytlar buni qilishadi, iltimos %s.</string>
+	<string name="malwareWarningCta" comment="It is a link to https://lichess.org/ads">ogoh boʻling</string>
+	<string name="lichessGamesPlayedIn" comment="lichessGamesPlayedIn&#10;%1$s is the number of games, %2$s is the year of the recap.">Lichessʼda %2$s-yilda %1$s ta oʻyin oʻynaldi</string>
+	<string name="lichessGamesOfThemYours" comment="%s is the percentage of games that are yours, out of all Lichess games.">Ulardan %s sizniki edi.</string>
+	<string name="thanksTitle">Lichessʼda oʻynaganingiz uchun rahmat!</string>
+	<string name="thanksHaveAGreat" comment="thanksHaveAGreat&#10;%s is the next year as a numeral (e.g. in 2025, the next year was 2026, so 2026 was displayed on this screen)">Bu yerda ekanligingiz bilan mamnunmiz. %s-yilingiz maroqli oʻtsin!</string>
+	<string name="patronCostsThisYear" comment="%1$s is 'costs', translatable separately.&#10;%2$s is a monetary amount with a currency symbol e.g. &quot;$750,000&quot;.&#10;The amount is localised automatically according to language and location, e.g. in France it would be rendered &quot;678 750 €&quot;, and in the UK as &quot;£589,539&quot;">Lichessʼni bu yilgi %1$s %2$s tashkil topdi.</string>
+	<string name="patronCosts" comment="Part of a longer sentence &quot;Lichess's costs this year were &lt;monetary amount in local currency&gt;.&quot;&#10;&#10;The text links to lichess.org/costs">xarajatlari</string>
+	<string name="patronCharity">Biz xayriya tashkilotimiz va faqat ehsonlar hisobiga ishlaymiz.</string>
+	<string name="patronConsiderDonating" comment="%s is 'supporting us with a donation'. Appears if you are not currently a Patron (donor).">Dasturimiz sizga manzur kelgan bo‘lsa yoki faoliyatimizni qo‘llasangiz, %s!</string>
+	<string name="patronMakeDonation" comment="Part of a longer sentence, translatable separately:&#10;&quot;If we helped entertain you this year, or you believe in our work, please consider supporting us with a donation!&quot;&#10;&#10;The text links to https://lichess.org/patron - so it should ideally be phrased as a call to action.&#10;&#10;Appears if you are not currently a Patron (donor).">ehson qilib bizga yordam bering</string>
+	<string name="shareableTitle" comment="%s is the current year">%s-yil sarhisobi</string>
+	<string name="shareableSpentPlaying" comment="subtitle to the translated time they have spent playing">vaqt oʻynadingiz</string>
+	<string name="shareableMostPlayedOpponent">ga qarshi eng koʻp oʻynadingiz</string>
+	<string name="shareableFavouriteVariant">sevimli variant</string>
+	<string name="shareableFavouriteTimeControl">sevimli vaqt nazorati</string>
+	<plurals name="shareableNbPuzzlesSolved">
+		<item quantity="one">%s ta boshqotirma yechdingiz</item>
+		<item quantity="other">%s ta boshqotirma yechdingiz</item>
+	</plurals>
+	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Sizning %s-yil sarhisobingiz tayyor!</string>
+</resources>
