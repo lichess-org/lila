@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">Koʻp beriladigan savollar</string>
+  <string name="frequentlyAskedQuestions">Koʻp beriladigan savollar</string>
+  <string name="whyIsLichessCalledLichess">Lichess nimaga Lichess deb nomlangan?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess bu live/light/libre va chess soʻzlarining kombinatsiyasi. %1$s deb talaffuz qilinadi.</string>
+  <string name="leechess">li-ches</string>
+  <string name="hearItPronouncedBySpecialist">Mutaxassis talaffuzini eshiting.</string>
+  <string name="whyLiveLightLibre">Jonli (live) — chunki oʻyinlar haftasiga 7 kun kuniga 24 soat real vaqt rejimida oʻynaladi va kuzatiladi; yengil (light) va erkin (libre) — chunki Lichess ochiq kodli loyiha boʻlib, boshqa saytlarga xos boʻlgan xususiy va keraksiz chiqindilardan xolidir.</string>
+  <string name="whyIsLilaCalledLila">Shuningdek, Lichessʼning ochiq kodi — \'%1$s\' nomi ham li[chess in sca]la soʻzlaridan olingan. Buning sababi, Lichessʼning asosiy qismi intuitiv tushunarli dasturlash tili boʻlmish %2$sʼda yozilgan.</string>
+  <string name="howCanIContributeToLichess">Lichessʼga qanday qilib hissa qoʻshishim mumkin?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess homiylar tomonidan beriladigan ehsonlar va koʻngillilar jamoasining saʼy-harakatlari asosida faoliyat yuritadi.</string>
+  <string name="findMoreAndSeeHowHelp">%1$s haqida (shu jumladan, %2$s bilan) koʻproq maʼlumot olishingiz mumkin. Agar oʻz vaqtingiz va mahoratingiz bilan Lichessʼga koʻngilli sifatida yordam bermoqchi boʻlsangiz, koʻmaklashishning yana koʻplab %3$s ham mavjud.</string>
+  <string name="beingAPatron">Homiy boʻlish</string>
+  <string name="breakdownOfOurCosts">xarajatlarimizning batafsil hisoboti</string>
+  <string name="otherWaysToHelp">boshqa usullari</string>
+  <string name="areThereWebsitesBasedOnLichess">Lichessʼga asoslangan boshqa veb-saytlar bormi?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">\"Ha. Haqiqatan ham Lichess bizning %1$s, %2$s yoki %3$s foydalanadigan boshqa ochiq kodli saytlarni ilhomlantirgan.</string>
+  <string name="keyboardShortcuts">Qanday klaviatura yorliqlari mavjud?</string>
+  <string name="keyboardShortcutsExplanation">Lichessʻning ayrim sahifalarida klaviatura yorliqlarini ishlatsangiz boʻladi. Mavjud klaviatura yorliqlarini koʻrish uchun oʻrganish, tahlil, boshqotirma yoki oʻyin sahifasida \'?\' tugmasini bosing.</string>
+  <string name="accounts">Hisoblar</string>
+  <string name="whatUsernameCanIchoose">Foydalanuvchi nomi qanday boʻlishi kerak?</string>
+</resources>
