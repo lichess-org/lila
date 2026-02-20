@@ -422,6 +422,7 @@
   <string name="leaderboard">Tabela de liderança</string>
   <string name="screenshotCurrentPosition">Posição atual da captura de ecrã</string>
   <string name="gameAsGIF">Jogo como GIF</string>
+  <string name="playerNames">Nomes dos jogadores</string>
   <string name="pasteTheFenStringHere">Coloca a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Coloca a notação PGN aqui</string>
   <string name="orUploadPgnFile">Ou enviar um ficheiro PGN</string>
@@ -804,6 +805,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="size">Tamanho</string>
   <string name="opacity">Opacidade</string>
   <string name="brightness">Brilho</string>
+  <string name="contrast">Contraste</string>
   <string name="hue">Tonalidade</string>
   <string name="boardReset">Redefinir cores para o padrão</string>
   <string name="pieceSet">Peças</string>
