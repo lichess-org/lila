@@ -69,6 +69,7 @@
   <string name="ratingDiff">اختلاف درجه‌بندی</string>
   <string name="gamesThisTournament">بازی‌های این مسابقات</string>
   <string name="score">امتیاز</string>
+  <string name="standingsDisclaimer">Persian</string>
   <string name="allTeams">همهٔ یَران‌ها</string>
   <string name="tournamentFormat">ساختار مسابقات</string>
   <string name="tournamentLocation">مکان مسابقات</string>
@@ -83,6 +84,8 @@
   <string name="liveboard">میزِ زنده</string>
   <string name="communityBroadcast">پخشِ همدارگان</string>
   <string name="createdAndManagedBy">ایجاد و مدیریت‌شده توسط %s.</string>
+  <string name="gamePoints">Persian</string>
+  <string name="matches">Persian</string>
   <string name="roundX">دورِ %s</string>
   <string name="defaultRoundNameHelp">حفظِ نامِ پیش‌فرض، خودکار آن را به همهٔ زبان‌های دیگر می‌تَرجُمد.</string>
 </resources>
