@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Shvetsariya</string>
-  <string name="swissTournaments">Tezkor turnirlar</string>
+  <string name="swiss">Shveysarcha</string>
+  <string name="swissTournaments">Shveysarcha turnir</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
-    <item quantity="one">Raundni koʻrish</item>
-    <item quantity="other">%s barcha raunlarini koʻrish</item>
+    <item quantity="one">Turni koʻrish</item>
+    <item quantity="other">Barcha %s ta turni koʻrish</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
-    <item quantity="one">%s saund</item>
-    <item quantity="other">%s raundlar</item>
+    <item quantity="one">%s ta tur</item>
+    <item quantity="other">%s ta tur</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="one">%s Shveytsariya raundi</item>
-    <item quantity="other">%s Shveytsariya raundlari</item>
+    <item quantity="one">%s ta Shveysarcha tur</item>
+    <item quantity="other">%s ta Shveysarcha tur</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Kuniga bitta tur</item>
@@ -20,12 +20,12 @@
   </plurals>
   <string name="roundsAreStartedManually">Turlar qo\'lda boshlanadi</string>
   <plurals name="xSecondsBetweenRounds">
-    <item quantity="one">Davralar orasida %s soniya</item>
-    <item quantity="other">Davralar orasida %s soniya</item>
+    <item quantity="one">Turlar orasida %s soniya</item>
+    <item quantity="other">Turlar orasida %s soniya</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="one">Davralar orasidagi %s daqiqa</item>
-    <item quantity="other">Davralar orasida %s daqiqa</item>
+    <item quantity="one">Turlar orasida %s daqiqa</item>
+    <item quantity="other">Turlar orasida %s daqiqa</item>
   </plurals>
   <string name="nextRound">Keyingi tur</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
@@ -34,33 +34,32 @@
   </plurals>
   <string name="tournStartDate">Turnir boshlanish sanasi</string>
   <string name="numberOfRounds">Turlar soni</string>
-  <string name="numberOfRoundsHelp">Turlarning g\'alati soni optimal rang muvozanatini ta\'minlaydi.</string>
+  <string name="numberOfRoundsHelp">Toq son boʻlsa oʻyinchilar orasidagi rang muvozanati optimal boʻladi.</string>
   <string name="roundInterval">Turlar orasidagi tanaffus</string>
-  <string name="manualPairingsHelp">Keyingi turning barcha juftliklarini qo\'lda belgilang. Har bir chiziqda bitta o\'yinchi juftligi. Misol:
-O\'yinchiA O\'yinchiB
-PlayerC PlayerD
-Juftlik o‘rniga o‘yinchiga xayrlashish (1 ball) uchun quyidagi qatorni qo‘shing:
-O\'yinchi E 1
-Yo\'qotilgan o\'yinchilar ishtirok etmagan deb hisoblanadi va nol ball oladi.
-Lichess avtomatik ravishda juftlik yaratishiga ruxsat berish uchun bu maydonni bo\'sh qoldiring.</string>
-  <string name="mustHavePlayedTheirLastSwissGame">Shveytsariyadagi so\'nggi o\'yinini o\'tkazgan bo\'lishi kerak</string>
-  <string name="mustHavePlayedTheirLastSwissGameHelp">O\'yinchilarga faqat oxirgi Shveytsariya o\'yinini o\'ynagan bo\'lsalar qo\'shilishga ruxsat bering. Agar ular yaqinda Shveytsariyadagi tadbirda ishtirok eta olmasalar, ular siznikiga kira olmaydi. Bu aslida paydo bo\'lgan o\'yinchilar uchun yaxshi Shveytsariya tajribasiga olib keladi.</string>
-  <string name="newSwiss">Yangi Shveytsariya turniri</string>
-  <string name="swissVsArenaQ">Arenalar o\'rniga Shveytsariya turnirlaridan qachon foydalanish kerak?</string>
-  <string name="swissVsArenaA">Shveytsariya turnirida barcha ishtirokchilar bir xil miqdordagi o\'yin o\'ynashadi va faqat bir marta o\'ynashlari mumkin.
-Bu klublar va rasmiy turnirlar uchun yaxshi variant bo\'lishi mumkin.</string>
-  <string name="pointsCalculationQ">Ballar qanday hisoblanadi?</string>
-  <string name="pointsCalculationA">G\'alaba - bir ochko, durang - yarim ochko, mag\'lubiyat - nol ball.
-Agar o\'yinchini raund davomida juftlashtirib bo\'lmasa, ular bir ochkoga teng bo\'lgan xayrlashadi.</string>
-  <string name="tiebreaksCalculationQ">Bog\'lanishlar qanday hisoblanadi?</string>
-  <string name="sonnebornBergerScore">Sonneborn-Berger balli</string>
-  <string name="tiebreaksCalculationA">%s bilan.
-O\'yinchi urgan har bir raqibning ochkolarini va o\'yinchi durang qilgan har bir raqibning ballining yarmini qo\'shing.</string>
-  <string name="pairingsQ">Juftliklar qanday aniqlanadi?</string>
+  <string name="manualPairingsHelp">Keyingi turning barcha juftliklarini qoʻlda belgilang. Har bir satrda bir juftlik boʻlsin. Masalan:
+OʻyinchiA OʻyinchiB
+OʻyinchiC OʻyinchiD
+Raqib tanlash oʻrniga oʻyinchiga \"bye\" (1 ochko) berish uchun quyidagicha qator qoʻshing:
+OʻyinchiE 1
+Roʻyxatda boʻlmagan oʻyinchilar qatnashmayotgan deb hisoblanadi va ularga nol ochko beriladi.
+Lichess juftliklarni avtomatik tarzda yaratishi uchun bu maydonni boʻsh qoldiring.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Oxirgi shveysarcha turnirda oʻynagan boʻlishi kerak</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Faqat oxirgi shveysarcha oʻyinda qatnashgan oʻyinchilarga qoʻshilishga ruxsat berish. Agar oʻyinchi yaqindagi shveytsarcha turnirlardan birida qatnashmagan boʻlsa, u sizning turniringizga kira olmaydi. Bu turnirga chin dildan qatnashadigan o‘yinchilar uchun sifatliroq turnir muhitini yaratadi.</string>
+  <string name="newSwiss">Yangi shveysarcha turnir</string>
+  <string name="swissVsArenaQ">Qay hollarda arena oʻrniga shveysarcha turnir ishlatish kerak?</string>
+  <string name="swissVsArenaA">Shveysarcha turnirda barcha ishtirokchilar bir xil miqdorda oʻyin oʻynashadi va bir-biri bilan faqat bir marta oʻynashadi. Bu klublar va rasmiy tadbirlar uchun yaxshiroq tanlovdir.</string>
+  <string name="pointsCalculationQ">Ochkolar qanday hisoblanadi?</string>
+  <string name="pointsCalculationA">Gʻalaba — bir ochko, durrang — yarim ochko, magʻlubiyat — nol ochko.
+Tur davomida oʻyinchi uchun raqib topilmasa, unga bir ochkolik “bye” beriladi.</string>
+  <string name="tiebreaksCalculationQ">Tay-breyk qanday hisoblanadi?</string>
+  <string name="sonnebornBergerScore">Sonneborn-Berger tizimi</string>
+  <string name="tiebreaksCalculationA">%s orqali.
+Bunda oʻyinchi yutgan barcha raqiblarning toʻplagan ochkolari hamda durang oʻynagan raqiblarining toʻplagan ochkolarining yarmi qoʻshib hisoblanadi.</string>
+  <string name="pairingsQ">Qura qanday aniqlanadi?</string>
   <string name="dutchSystem">Gollandiya tizimi</string>
-  <string name="FIDEHandbook">FIDE qo\'llanma</string>
-  <string name="pairingsA">%1$s bilan, %2$s tomonidan %3$sga muvofiq amalga oshirilgan.</string>
-  <string name="moreRoundsThanPlayersQ">Turnirda o\'yinchilardan ko\'ra ko\'proq turlar bo\'lsa nima bo\'ladi?</string>
+  <string name="FIDEHandbook">FIDE qoʻllanmasi</string>
+  <string name="pairingsA">%3$sga muvofiq, %2$s tomonidan joriy etilgan %1$s asosida.</string>
+  <string name="moreRoundsThanPlayersQ">Agar turnirda turlar soni oʻyinchilar sonidan koʻp boʻlsa nima boʻladi?</string>
   <string name="moreRoundsThanPlayersA">Barcha mumkin bo\'lgan juftliklar o\'ynalgach, turnir yakunlanadi va g\'olib e\'lon qilinadi.</string>
   <string name="restrictedToTeamsQ">Nima uchun u jamoalar bilan cheklangan?</string>
   <string name="restrictedToTeamsA">Shveytsariya turnirlari onlayn shaxmat uchun mo\'ljallanmagan. Ular o\'yinchilardan aniqlik, fidoyilik va sabr-toqatni talab qilishadi.
