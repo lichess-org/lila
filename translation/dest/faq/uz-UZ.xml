@@ -20,4 +20,8 @@
   <string name="keyboardShortcutsExplanation">Lichessʻning ayrim sahifalarida klaviatura yorliqlarini ishlatsangiz boʻladi. Mavjud klaviatura yorliqlarini koʻrish uchun oʻrganish, tahlil, boshqotirma yoki oʻyin sahifasida \'?\' tugmasini bosing.</string>
   <string name="accounts">Hisoblar</string>
   <string name="whatUsernameCanIchoose">Foydalanuvchi nomi qanday boʻlishi kerak?</string>
+  <string name="usernamesNotOffensive">Umuman olganda, foydalanuvchi nomlari haqoratli boʻlmasligi, boshqa birovning nomidan ochilgan boʻlmasligi yoki reklama xarakterida boʻlmasligi lozim. %1$s haqida batafsil maʼlumot olishingiz mumkin.</string>
+  <string name="guidelines">Qoidalar</string>
+  <string name="canIChangeMyUsername">Foydalanuvchi nomimni oʻzgartirsam boʻladimi?</string>
+  <string name="usernamesCannotBeChanged">Yoʻq, texnik va amaliy sabablarga koʻra foydalanuvchi nomlarini oʻzgartirib boʻlmaydi. Foydalanuvchi nomlari juda koʻp joylarda muhrlanib qolgan: maʻlumotlar bazalari, eksportlar, tizim jurnallari (loglar) va odamlarning xotirasida. Faqat bir marta katta-kichik harflar koʻrinishini (capitalization) sozlashingiz mumkin.</string>
 </resources>
