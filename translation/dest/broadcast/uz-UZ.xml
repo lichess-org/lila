@@ -3,20 +3,20 @@
   <string name="broadcasts">Translyatsiyalar</string>
   <string name="myBroadcasts">Mening translyatsiyalarim</string>
   <plurals name="nbBroadcasts">
-    <item quantity="one">%s translyatsiyasi</item>
-    <item quantity="other">%s translyatsiya</item>
+    <item quantity="one">%s ta translyatsiya</item>
+    <item quantity="other">%s ta translyatsiya</item>
   </plurals>
   <plurals name="nbViewers">
-    <item quantity="one">%s kuzatuvchi</item>
-    <item quantity="other">%s kuzatuvchi</item>
+    <item quantity="one">%s ta tomoshabin</item>
+    <item quantity="other">%s ta tomoshabin</item>
   </plurals>
   <string name="liveBroadcasts">Jonli turnir translyatsiyalari</string>
-  <string name="broadcastCalendar">Efir kalendar</string>
+  <string name="broadcastCalendar">Translyatsiyalar taqvimi</string>
   <string name="newBroadcast">Yangi jonli translyatsiya</string>
   <string name="subscribedBroadcasts">Obuna bo\'lgan translyatsiyalar</string>
   <string name="aboutBroadcasts">Translyatsiyalar haqida</string>
-  <string name="howToUseLichessBroadcasts">Lichess eshittirishlaridan qanday foydalanish kerak.</string>
-  <string name="theNewRoundHelp">Yangi turda avvalgisiga o\'xshash a\'zolar va hissa qo\'shuvchilar bo\'ladi.</string>
+  <string name="howToUseLichessBroadcasts">Lichess translyatsiyalaridan qanday foydalaniladi.</string>
+  <string name="theNewRoundHelp">Yangi raundda oldingi raunddagi aʼzolar va redaktorlar qatnashadi.</string>
   <string name="addRound">Bir tur qo\'shing</string>
   <string name="ongoing">Joriy</string>
   <string name="upcoming">Yaqinlashayotgan</string>
@@ -47,6 +47,7 @@
   <string name="fidePlayerNotFound">FIDE o\'yinchisi topilmadi</string>
   <string name="fideProfile">FIDE profili</string>
   <string name="federation">Federatsiya</string>
+  <string name="age">Yoshi</string>
   <string name="unrated">Baholanmagan</string>
   <string name="recentTournaments">Oxirgi turnirlar</string>
   <string name="openLichess">Lichessda oching</string>
@@ -68,6 +69,7 @@
   <string name="ratingDiff">Reyting farqi</string>
   <string name="gamesThisTournament">Ushbu turnirdagi o\'yinlar</string>
   <string name="score">Xol</string>
+  <string name="standingsDisclaimer">Turnir jadvali translyatsiya qilingan oʻyinlar yordamida hisoblanadi va rasmiy natijalardan farq qilishi mumkin.</string>
   <string name="allTeams">Barcha jamoalar</string>
   <string name="tournamentFormat">Turnir formati</string>
   <string name="tournamentLocation">Turnir joyi</string>
@@ -80,4 +82,28 @@
   <string name="backToLiveMove">Jonli efirdagi yurishga qaytish</string>
   <string name="sinceHideResults">Natijalarni yashirishni tanlaganingiz sababli spoiler bermaslik uchun barcha obzor taxtalari boʻsh.</string>
   <string name="liveboard">Jonli efirdagi doskasi</string>
+  <string name="communityBroadcast">Jamoatchilik translyatsiyasi</string>
+  <string name="createdAndManagedBy">%s tomonidan yaratilgan va boshqariladi.</string>
+  <string name="matchPoints">Match ballari</string>
+  <string name="gamePoints">Oʻyin ballari</string>
+  <string name="matches">Matchlar</string>
+  <string name="matchHistory">Match tarixi</string>
+  <string name="teamResults">Jamoa natijalari</string>
+  <string name="termsAutomaticallyTranslated">Quyidagi atama(lar) avtomatik tarzda tarjima qilinadi: %s.</string>
+  <string name="roundX">%s-raund</string>
+  <string name="defaultRoundNameHelp">Birlamchi nomni saqlasangiz, avtomatik tarzda boshqa tillarga tarjima qilinadi.</string>
+  <string name="openTournament">Ochiq</string>
+  <string name="womenTournament">Ayollar</string>
+  <string name="menTournament">Erkaklar</string>
+  <string name="girlsTournament">Qizlar</string>
+  <string name="boysTournament">Yosh yigitlar</string>
+  <string name="openUnderXAgeTournament">Ochiq U%s</string>
+  <string name="girlsUnderXAgeTournament">Qizlar U%s</string>
+  <string name="boysUnderXAgeTournament">Yosh yigitlar U%s</string>
+  <string name="quarterfinals">Chorak final</string>
+  <string name="semifinals">Yarim final</string>
+  <string name="finals">Final</string>
+  <string name="tiebreaks">Tay-breyk</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">%s-oʻyin</string>
+  <string name="knockouts">Nokaut</string>
 </resources>
