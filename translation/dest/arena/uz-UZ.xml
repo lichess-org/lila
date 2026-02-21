@@ -72,19 +72,19 @@ Koʻproq oʻyin oʻtkazish va koʻproq ochko jamlash uchun tez oʻynang va lobbi
   <string name="recentlyPlayed">Yaqinda o\'ynadi</string>
   <string name="bestResults">Eng yaxshi natijalar</string>
   <string name="tournamentStats">Turnir statistikasi</string>
-  <string name="rankAvgHelp">O\'rtacha daraja sizning reytingingizning foizidir. Pastroq - yaxshiroq.
+  <string name="rankAvgHelp">Oʻrtacha oʻrin — bu sizning turnirdagi oʻrningizning foizdagi ifodasidir. Pastroq qiymat — yaxshiroq degani.
 
-Masalan, 100 nafar o\'yinchidan iborat turnirda 3-o\'rinni egallash = 3%. 1000 nafar o\'yinchi ishtirok etgan turnirda 10-o\'rinni egallash = 1%.</string>
-  <string name="medians">medianlar</string>
-  <string name="allAveragesAreX">Bu sahifadagi barcha oʻrtacha koʻrsatkichlar %s.</string>
+Masalan, 100 kishilik turnirda 3-oʻrinni egallash — 3% oʻrtacha oʻrin beradi. 1000 kishilik turnirda 10-oʻrinni egallash — 1% oʻrtacha oʻrin beradi.</string>
+  <string name="medians">medianalar</string>
+  <string name="allAveragesAreX">Bu sahifadagi barcha oʻrtacha koʻrsatkichlar %sdir.</string>
   <string name="total">Jami</string>
-  <string name="pointsAvg">O\'rtacha ball</string>
-  <string name="pointsSum">Ballar yig\'indisi</string>
-  <string name="rankAvg">O\'rtacha daraja</string>
+  <string name="pointsAvg">Oʻrtacha ochko</string>
+  <string name="pointsSum">Jami ochkolar</string>
+  <string name="rankAvg">Oʻrtacha oʻrin</string>
   <string name="tournamentWinners">Turnir g\'oliblari</string>
   <string name="tournamentShields">Turnir qalqonlari</string>
-  <string name="onlyTitled">Faqat nomli o\'yinchilar</string>
+  <string name="onlyTitled">Faqat unvonli oʻyinchilar</string>
   <string name="onlyTitledHelp">Turnirga qo\'shilish uchun rasmiy unvon talab qilinadi</string>
-  <string name="tournamentPairingsAreNowClosed">Turnirda raqib topish muddati tugadi.</string>
-  <string name="berserkRate">Berserk qilingan oʻyinlar nisbati</string>
+  <string name="tournamentPairingsAreNowClosed">Turnir uchun qura tashlash toʻxtatildi.</string>
+  <string name="berserkRate">Berserk</string>
 </resources>
