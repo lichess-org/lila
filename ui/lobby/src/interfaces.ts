@@ -140,3 +140,8 @@ export interface ForceSetupOptions {
   mode?: GameMode;
   color?: ColorChoice;
 }
+
+export interface CustomSetup {
+  gameType: GameType;
+  settings: SetupStore;
+}

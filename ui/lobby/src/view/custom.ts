@@ -1,6 +1,7 @@
 import { h } from 'snabbdom';
-import { spinnerVdom } from 'lib/view';
 import type LobbyController from '../ctrl';
+import type { CustomSetup, GameType, SetupStore } from '../interfaces';
+import { storage } from 'lib/storage';
 
 export const handler = (ctrl: LobbyController, e: Event) => {
   if (ctrl.redirecting) return;
@@ -18,35 +19,31 @@ export const handler = (ctrl: LobbyController, e: Event) => {
 };
 
 export function render(ctrl: LobbyController) {
-  const member = ctrl.poolMember;
   return ctrl.pools
     .map(pool => {
-      const active = member?.id === pool.id,
-        transp = !!member && !active;
       return h(
         'div.lpool',
         {
-          class: { active, transp },
           attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
         },
-        [
-          h('div.clock', `${pool.lim}+${pool.inc}`),
-          active
-            ? member.range && ctrl.opts.showRatings
-              ? h('div.range', member.range.replace('-', '–'))
-              : spinnerVdom()
-            : h('div.perf', 'custom'),
-        ],
+        [h('div.perf', 'custom')],
       );
     })
     .concat(
       h(
         'div.lpool',
         {
-          class: { transp: !!member },
           attrs: { role: 'button', 'data-id': 'custom', tabindex: '0' },
         },
         i18n.site.quickPairing,
       ),
     );
+}
+
+export function saveSettings(gameType: GameType, storeKey: string, settings: SetupStore, storeLimit: number = 11) {
+  const ret = JSON.parse(storage.get(storeKey)!);
+  const customSetups: CustomSetup[] = ret || [];
+  customSetups.unshift({ gameType, settings });
+  if (customSetups.length > storeLimit) customSetups.pop();
+  storage.set(storeKey, JSON.stringify(customSetups));
 }

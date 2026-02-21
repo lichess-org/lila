@@ -14,6 +14,7 @@ import {
   type TimeControl,
 } from 'lib/setup/timeControl';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
+import { saveSettings } from './view/custom';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
@@ -53,7 +54,7 @@ export default class SetupController {
   }
 
   // Namespace the store by username for user specific modal settings
-  private storeKey = (gameType: GameType) => `lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`;
+  private storeKey = (gameType: GameType | 'custom') => `lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`;
 
   makeSetupStore = (gameType: GameType) =>
     storedJsonProp<SetupStore>(this.storeKey(gameType), () => ({
@@ -287,6 +288,12 @@ export default class SetupController {
   minimumTimeIfReal = (): number => (this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0);
 
   submit = async () => {
+    if (this.root.poolMode === 'custom') {
+      saveSettings(this.gameType!, this.storeKey('custom'), this.store[this.gameType!](), this.root.pools.length);
+      this.closeModal?.();
+      return;
+    }
+
     const color = this.color();
     const poolMember = this.hookToPoolMember(color);
     if (poolMember) {
