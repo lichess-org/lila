@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="activity">Amallar</string>
-  <string name="hostedALiveStream">Jonli ijro hostlandi</string>
+  <string name="activity">Faoliyat</string>
+  <string name="hostedALiveStream">Jonli efir qildi</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">%1$s oy uchun %2$s tarzida lichess.org qo\'llab quvvatlanadi</item>
-    <item quantity="other">%1$s oylar uchun %2$s tarzida lichess.org qo\'llab quvvatlanadi</item>
+    <item quantity="one">%2$s sifatida lichess.orgʼni %1$s oy davomida qoʻllab-quvvatladi</item>
+    <item quantity="other">%2$s sifatida lichess.orgʼni %1$s oy davomida qoʻllab-quvvatladi</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Amaliyot %2$s dan %1$s o\'rinda</item>
-    <item quantity="other">Amaliyot %2$s dan %1$s o\'rinlarda</item>
+    <item quantity="one">%2$s boʻlimida %1$s ta pozitsiyani mashq qildi</item>
+    <item quantity="other">%2$s boʻlimida %1$s ta pozitsiyani mashq qildi</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Taktik %s boshqotirma yechildi</item>
-    <item quantity="other">Taktik %s boshqotirmalar yechildi</item>
+    <item quantity="one">%s ta taktik boshqotirma yechdi</item>
+    <item quantity="other">%s ta taktik boshqotirma yechdi</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">%2$s o\'yindan %1$s tasi o\'ynaldi</item>
-    <item quantity="other">%2$s o\'yinlardan %1$s tasi o\'ynaldi</item>
+    <item quantity="one">%1$s ta %2$s oʻyin oʻynadi</item>
+    <item quantity="other">%1$s ta %2$s oʻyin oʻynadi</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">%2$s habardan %1$s tasi post qilindi</item>
-    <item quantity="other">%2$s habarlardan %1$s tasi post qilindi</item>
+    <item quantity="one">%2$s mavzusida %1$s ta xabar qoldirdi</item>
+    <item quantity="other">%2$s mavzusida %1$s ta xabar qoldirdi</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">%1$s yurish qilindi</item>
-    <item quantity="other">%1$s yurishlar qilindi</item>
+    <item quantity="one">%1$s ta yurish qildi</item>
+    <item quantity="other">%1$s ta yurish qildi</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">%1$s yozishmali o\'yinda</item>
-    <item quantity="other">%1$s yozishmali o\'yinlarda</item>
+    <item quantity="one">%1$s ta yozishmali oʻyinda</item>
+    <item quantity="other">%1$s ta yozishmali oʻyinda</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">%s yozishmali o\'yin yakunlandi</item>
-    <item quantity="other">%s yozishmali o\'yinlar yakunlandi</item>
+    <item quantity="one">%s ta yozishmali oʻyin tugatdi</item>
+    <item quantity="other">%s ta yozishmali oʻyin tugatdi</item>
   </plurals>
   <plurals name="completedNbVariantGames">
-    <item quantity="one">%1$s %2$s yozishma oʻyini tugallandi</item>
-    <item quantity="other">%1$s %2$s yozishma oʻyinlari tugallandi</item>
+    <item quantity="one">%1$s ta yozishmali %2$s oʻyinini tugatdi</item>
+    <item quantity="other">%1$s ta yozishmali %2$s oʻyinini tugatdi</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">%s o\'yinchini kuzatishga yozilgan</item>
-    <item quantity="other">%s o\'yinchilarni kuzatishga yozilgan</item>
+    <item quantity="one">%s ta oʻyinchini kuzatishni boshladi</item>
+    <item quantity="other">%s ta oʻyinchini kuzatishni boshladi</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">%s yangi kuzatuvchini olish</item>
-    <item quantity="other">%s yangi kuzatuvchilarni olish</item>
+    <item quantity="one">%s ta yangi kuzatuvchiga ega boʻldi</item>
+    <item quantity="other">%s ta yangi kuzatuvchiga ega boʻldi</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">%s bir vaqtdagi namoyish hostlandi</item>
-    <item quantity="other">%s bir vaqtdagi namoyishlar hostlandi</item>
+    <item quantity="one">%s ta biryoʻla seans oʻtkazdi</item>
+    <item quantity="other">%s ta biryoʻla seans oʻtkazdi</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">%s birvaqtdagi namoyishda ishtirok etildi</item>
-    <item quantity="other">%s birvaqtdagi namoyishlarda ishtirok etildi</item>
+    <item quantity="one">%s ta biryoʻla seansda qatnashdi</item>
+    <item quantity="other">%s ta biryoʻla seansda qatnashdi</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">%s ta yangi ta\'lim yaratildi</item>
-    <item quantity="other">%s ta yangi ta\'limlar yaratildi</item>
+    <item quantity="one">%s ta oʻquv qoʻllanmasini yaratdi</item>
+    <item quantity="other">%s ta oʻquv qoʻllanmasini yaratdi</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">%s turnirda ishtirok etilgan</item>
-    <item quantity="other">%s turnirlarda ishtirok etilgan</item>
+    <item quantity="one">%s ta arena turnirida qatnashdi</item>
+    <item quantity="other">%s ta arena turnirida qatnashdi</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Reyting #%1$s (eng balandi %2$s%%) %4$s dan %3$s ta o\'yin</item>
-    <item quantity="other">Reyting #%1$s (eng balandi %2$s%%) %4$s dan %3$s ta o\'yinlar</item>
+    <item quantity="one">%4$s turnirida %3$s ta oʻyin oʻynab %1$s-oʻrin egalladi (top %2$s%%)</item>
+    <item quantity="other">%4$s turnirida %3$s ta oʻyin oʻynab %1$s-oʻrin egalladi (top %2$s%%)</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">%s shveytsarcha turnirda yakunlangan</item>
-    <item quantity="other">%s turnirlar shveytsarcha tizimda yakunlangan</item>
+    <item quantity="one">%s ta shveysarcha turnirda qatnashdi</item>
+    <item quantity="other">%s ta shveysarcha turnirda qatnashdi</item>
   </plurals>
-  <string name="rankedInSwissTournament">O‘rin: #%1$s ishtirok etgan %2$s lar ichidan</string>
-  <string name="signedUp">Lichess.org dan chiqildi</string>
+  <string name="rankedInSwissTournament">%2$s turnirida %1$s-oʻrin egalladi</string>
+  <string name="signedUp">Lichess.orgʼda roʻyxatdan oʻtdi</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">%s jamoaga qo\'shildi</item>
-    <item quantity="other">%s jamoalarga qo\'shildi</item>
+    <item quantity="one">%s ta jamoaga qoʻshildi</item>
+    <item quantity="other">%s ta jamoaga qoʻshildi</item>
   </plurals>
 </resources>
