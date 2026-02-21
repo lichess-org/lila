@@ -52,7 +52,7 @@ Lichess juftliklarni avtomatik tarzda yaratishi uchun bu maydonni boʻsh qoldiri
   <string name="swissVsArenaQ">Qay hollarda arena oʻrniga shveysarcha turnir ishlatish kerak?</string>
   <string name="swissVsArenaA">Shveysarcha turnirda barcha ishtirokchilar bir xil miqdorda oʻyin oʻynashadi va bir-biri bilan faqat bir marta oʻynashadi. Bu klublar va rasmiy tadbirlar uchun yaxshiroq tanlovdir.</string>
   <string name="pointsCalculationQ">Ochkolar qanday hisoblanadi?</string>
-  <string name="pointsCalculationA">Gʻalaba — bir ochko, durrang — yarim ochko, magʻlubiyat — nol ochko.
+  <string name="pointsCalculationA">Gʻalaba — bir ochko, durang — yarim ochko, magʻlubiyat — nol ochko.
 Tur davomida oʻyinchi uchun raqib topilmasa, unga bir ochkolik “bye” beriladi.</string>
   <string name="tiebreaksCalculationQ">Tay-breyk qanday hisoblanadi?</string>
   <string name="sonnebornBergerScore">Sonneborn-Berger tizimi</string>
