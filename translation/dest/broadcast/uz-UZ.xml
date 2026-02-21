@@ -68,7 +68,7 @@
   <string name="embedThisBroadcast">Ushbu translyatsiyani veb-saytingizga joylashtiring</string>
   <string name="ratingDiff">Reyting farqi</string>
   <string name="gamesThisTournament">Ushbu turnirdagi o\'yinlar</string>
-  <string name="score">Ballar</string>
+  <string name="score">Ochkolar</string>
   <string name="standingsDisclaimer">Turnir jadvali translyatsiya qilingan oʻyinlar yordamida hisoblanadi va rasmiy natijalardan farq qilishi mumkin.</string>
   <string name="allTeams">Barcha jamoalar</string>
   <string name="tournamentFormat">Turnir formati</string>
@@ -84,8 +84,8 @@
   <string name="liveboard">Jonli efirdagi taxta</string>
   <string name="communityBroadcast">Jamoatchilik translyatsiyasi</string>
   <string name="createdAndManagedBy">%s tomonidan yaratilgan va boshqariladi.</string>
-  <string name="matchPoints">Match ballari</string>
-  <string name="gamePoints">Oʻyin ballari</string>
+  <string name="matchPoints">Match ochkolari</string>
+  <string name="gamePoints">Oʻyin ochkolari</string>
   <string name="matches">Matchlar</string>
   <string name="matchHistory">Match tarixi</string>
   <string name="teamResults">Jamoa natijalari</string>
