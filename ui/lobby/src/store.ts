@@ -1,4 +1,4 @@
-import type { Tab, Mode, Sort } from './interfaces';
+import type { Tab, Mode, Sort, PoolMode } from './interfaces';
 import { storage } from 'lib/storage';
 
 interface Store<A> {
@@ -10,6 +10,7 @@ export interface Stores {
   tab: Store<Tab>;
   mode: Store<Mode>;
   sort: Store<Sort>;
+  poolMode: Store<PoolMode>;
 }
 
 interface Config<A> {
@@ -38,6 +39,13 @@ const sort: Config<Sort> = {
     return 'rating';
   },
 };
+const poolMode: Config<PoolMode> = {
+  key: 'lobby.poolMode',
+  fix(m: string | null): PoolMode {
+    if (<PoolMode>m) return m as PoolMode;
+    return 'quick_pairing';
+  },
+};
 
 function makeStore<A>(conf: Config<A>, userId?: string): Store<A> {
   const fullKey = conf.key + ':' + (userId || '-');
@@ -57,6 +65,7 @@ export function make(userId?: string): Stores {
   return {
     tab: makeStore<Tab>(tab, userId),
     mode: makeStore<Mode>(mode, userId),
+    poolMode: makeStore<PoolMode>(poolMode, userId),
     sort: makeStore<Sort>(sort, userId),
   };
 }

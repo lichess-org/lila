@@ -4,6 +4,7 @@ import type { ColorChoice } from 'lib/setup/color';
 
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
+export type PoolMode = 'quick_pairing' | 'custom';
 export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';
 export type GameType = 'hook' | 'friend' | 'ai';
 export type GameMode = 'casual' | 'rated';

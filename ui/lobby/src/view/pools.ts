@@ -1,20 +1,25 @@
 import { h, type Hooks } from 'snabbdom';
 import { spinnerVdom, onInsert } from 'lib/view';
 import type LobbyController from '../ctrl';
+import * as renderCustom from './custom';
 
 const createHandler = (ctrl: LobbyController) => (e: Event) => {
   if (ctrl.redirecting) return;
 
-  if (e instanceof KeyboardEvent) {
-    if (e.key !== 'Enter' && e.key !== ' ') return;
-    e.preventDefault(); // Prevent page scroll on space
-  }
+  if (ctrl.poolMode !== 'custom') {
+    if (e instanceof KeyboardEvent) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault(); // Prevent page scroll on space
+    }
 
-  const id =
-    (e.target as HTMLElement).dataset['id'] ||
-    ((e.target as HTMLElement).parentNode as HTMLElement).dataset['id'];
-  if (id === 'custom') ctrl.setupCtrl.openModal('hook');
-  else if (id) ctrl.clickPool(id);
+    const id =
+      (e.target as HTMLElement).dataset['id'] ||
+      ((e.target as HTMLElement).parentNode as HTMLElement).dataset['id'];
+    if (id === 'custom') ctrl.setPoolMode('custom');
+    else if (id) ctrl.clickPool(id);
+  } else {
+    renderCustom.handler(ctrl, e);
+  }
 
   ctrl.redraw();
 };
@@ -27,6 +32,10 @@ export const hooks = (ctrl: LobbyController): Hooks =>
   });
 
 export function render(ctrl: LobbyController) {
+  return ctrl.poolMode !== 'custom' ? renderQuickPairings(ctrl) : renderCustom.render(ctrl);
+}
+
+function renderQuickPairings(ctrl: LobbyController) {
   const member = ctrl.poolMember;
   return ctrl.pools
     .map(pool => {

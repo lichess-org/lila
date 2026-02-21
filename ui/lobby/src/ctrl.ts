@@ -17,6 +17,7 @@ import type {
   GameType,
   ForceSetupOptions,
   LobbyMe,
+  PoolMode,
 } from './interfaces';
 import LobbySocket from './socket';
 import Filter from './filter';
@@ -35,6 +36,7 @@ export default class LobbyController {
   tab: Tab;
   mode: Mode;
   sort: Sort;
+  poolMode: PoolMode;
   stepHooks: Hook[] = [];
   stepping = false;
   redirecting = false;
@@ -72,6 +74,7 @@ export default class LobbyController {
     this.tab = this.me?.isBot ? 'now_playing' : this.stores.tab.get();
     this.mode = this.stores.mode.get();
     this.sort = this.me ? this.stores.sort.get() : 'time';
+    this.poolMode = this.stores.poolMode.get();
 
     const locationHash = location.hash.replace('#', '');
     if (['ai', 'friend', 'hook'].includes(locationHash)) {
@@ -221,6 +224,10 @@ export default class LobbyController {
   setMode = (mode: Mode) => {
     this.mode = this.stores.mode.set(mode);
     this.filter.open = false;
+  };
+
+  setPoolMode = (poolMode: PoolMode) => {
+    this.poolMode = this.stores.poolMode.set(poolMode);
   };
 
   setSort = (sort: Sort) => {
