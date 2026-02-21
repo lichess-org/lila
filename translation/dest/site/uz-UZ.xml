@@ -246,10 +246,10 @@
   <string name="forgotPassword">Parolni unutdingizmi?</string>
   <string name="error.weakPassword">Ushbu parol juda oddiy va uni taxmin qilish oson.</string>
   <string name="error.namePassword">Foydalanuvchi nomini parol sifatida ishlatmang.</string>
-  <string name="blankedPassword">Siz boshqa saytda ishlatgan parolingizni ishlatdingiz, u sayt bilan esa munozara qilingan. Lichess hisobingiz xavfsizligini ta‘minlash uchun biz sizni yangi kalit so‘z kiritishingizni istaymiz. Bizni to‘g‘ri tushunganingiz uchun rahmat.</string>
-  <string name="youAreLeavingLichess">Siz Lichess ni tark etayabsiz</string>
-  <string name="neverTypeYourPassword">Hech qachon Lichess parolini boshqa saytlarda yozmang!</string>
-  <string name="proceedToX">%s ga o‘tish</string>
+  <string name="blankedPassword">Siz boshqa saytda ham aynan shu paroldan foydalangansiz va oʻsha sayt xavfsizligiga putur yetgan. Lichess hisobingiz xavfsizligini taʼminlash uchun yangi parol oʻrnatishingizni soʻraymiz. Toʻgʻri tushunasiz degan umiddamiz.</string>
+  <string name="youAreLeavingLichess">Lichessʼni tark etmoqdasiz</string>
+  <string name="neverTypeYourPassword">Lichess parolingizni boshqa saytlarda hech qachon kiritmang!</string>
+  <string name="proceedToX">%sʼga oʻtish</string>
   <string name="passwordSuggestion">Boshqalar tomonidan taklif qilingan parolni ishlatmang. Ular sizni hisobingizni o‘g‘irlash uchun ishlatishi mumkin uni.</string>
   <string name="emailSuggestion">Boshqalar tomonidan taklif qilingan email manzilni ishlatmang. Ular sizni hisobingizni o‘g‘irlash uchun ishlatmang mumkin uni.</string>
   <string name="emailConfirmHelp">Email tasdiq bilan yordam</string>
@@ -267,13 +267,13 @@
   <string name="accountConfirmed">%s foydalanuvchi muvaffaqiyatli tasdiqlandi.</string>
   <string name="accountCanLogin">Siz xoziroq %s nomidan kirishingiz mumkin.</string>
   <string name="accountConfirmationEmailNotNeeded">Sizdan emailni tasdiqlash talab etilmaydi.</string>
-  <string name="accountClosed">%s hisob yopilgan.</string>
-  <string name="accountRegisteredWithoutEmail">%s hisob emailsiz ro‘yhatga olingan.</string>
-  <string name="rank">Rank</string>
-  <string name="rankX">Rank: %s</string>
+  <string name="accountClosed">%s hisobi yopilgan.</string>
+  <string name="accountRegisteredWithoutEmail">%s hisobi e-pochtasiz roʻyhatdan oʻtgan.</string>
+  <string name="rank">Oʻrin</string>
+  <string name="rankX">%s-oʻrin</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Rank har bir daqiqada almashtirildi</item>
-    <item quantity="other">Rank har bir %s minutlarda almashtirildi</item>
+    <item quantity="one">Oʻrin har daqiqa yangilanadi</item>
+    <item quantity="other">Oʻrin har %s daqiqa yangilanadi</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ta boshqotirma</item>
@@ -284,17 +284,17 @@
     <item quantity="one">Siz bilan %s ta oʻyin oʻynagan</item>
     <item quantity="other">Siz bilan %s ta oʻyin oʻynagan</item>
   </plurals>
-  <string name="ok">Xo\'p</string>
+  <string name="ok">OK</string>
   <string name="cancel">Bekor qilish</string>
   <string name="whiteTimeOut">Oqlar vaqti tugadi</string>
   <string name="blackTimeOut">Qoralar vaqti tugadi</string>
-  <string name="drawOfferSent">Durrang uchun taklif yuborildi</string>
-  <string name="drawOfferAccepted">Durrang taklifi qabul qilindi</string>
-  <string name="whiteOffersDraw">Oqlar durrang taklif qilishdi</string>
-  <string name="blackOffersDraw">Qoralar durrang taklif qilishdi</string>
-  <string name="whiteDeclinesDraw">Oqlar durrang taklifini rad etdi</string>
-  <string name="blackDeclinesDraw">Qoralar durrang taklifini rad etdi</string>
-  <string name="yourOpponentOffersADraw">Raqibingiz durrang taklif qilmoqda</string>
+  <string name="drawOfferSent">Durang taklifi yuborildi</string>
+  <string name="drawOfferAccepted">Durang taklifi qabul qilindi</string>
+  <string name="whiteOffersDraw">Oqlar durang taklif qilishdi</string>
+  <string name="blackOffersDraw">Qoralar durang taklif qilishdi</string>
+  <string name="whiteDeclinesDraw">Oqlar durang taklifini rad etdi</string>
+  <string name="blackDeclinesDraw">Qoralar durang taklifini rad etdi</string>
+  <string name="yourOpponentOffersADraw">Raqibingiz durang taklif qilmoqda</string>
   <string name="accept">Qabul qilish</string>
   <string name="decline">Rad etish</string>
   <string name="playingRightNow">Hozir oʻynamoqda</string>
@@ -303,34 +303,34 @@
   <string name="abortGame">O\'yinni bekor qilish</string>
   <string name="gameAborted">O\'yin bekor qilindi</string>
   <string name="standard">Standart</string>
-  <string name="customPosition">Foydalanuvchi joyidan</string>
-  <string name="unlimited">Chegaralanmagan</string>
+  <string name="customPosition">Maxsus pozitsiyadan</string>
+  <string name="unlimited">Limitsiz</string>
   <string name="unlimitedDescription">Hohlaganingizcha vaqt oling</string>
-  <string name="mode">Holat</string>
+  <string name="mode">Rejim</string>
   <string name="casual">Reytingsiz</string>
-  <string name="rated">Rating uchun</string>
+  <string name="rated">Reytingli</string>
   <string name="casualTournament">Reytingsiz</string>
-  <string name="ratedTournament">Rating uchun</string>
+  <string name="ratedTournament">Reytingli</string>
   <string name="thisGameIsRated">Ushbu o\'yin raytingli</string>
   <string name="rematch">Revansh</string>
   <string name="rematchOfferSent">Revansh taklifi yuborildi</string>
   <string name="rematchOfferAccepted">Revansh taklifi qabul qilindi</string>
   <string name="rematchOfferCanceled">Revansh taklifi bekor qilindi</string>
   <string name="rematchOfferDeclined">Revansh taklifi rad etildi</string>
-  <string name="cancelRematchOffer">Revansh taklifini rad etish</string>
+  <string name="cancelRematchOffer">Revansh taklifini bekor qilish</string>
   <string name="viewRematch">Revansh oʻyinini koʻrish</string>
   <string name="confirmMove">Yurishni tasdiqlash</string>
   <string name="play">O\'yin</string>
-  <string name="inbox">Kelgan Xatlar</string>
-  <string name="chatRoom">Chat xonalari</string>
+  <string name="inbox">Xabarlar</string>
+  <string name="chatRoom">Chat</string>
   <string name="loginToChat">Chatda yozish uchun hisobingizga kiring</string>
-  <string name="youHaveBeenTimedOut">Siz ma\'lum bir vaqtga qadar chegaralandingiz.</string>
-  <string name="spectatorRoom">Kuzatuvchi xonasi</string>
-  <string name="composeMessage">Xat yuborish</string>
+  <string name="youHaveBeenTimedOut">Siz vaqtinchalik bloklandingiz.</string>
+  <string name="spectatorRoom">Kuzatuvchilar xonasi</string>
+  <string name="composeMessage">Xabar yuborish</string>
   <string name="subject">Mavzu</string>
-  <string name="send">Jo\'natish</string>
-  <string name="incrementInSeconds">Sekundlarda oshirish</string>
-  <string name="freeOnlineChess">Bepul online shahmat</string>
+  <string name="send">Joʻnatish</string>
+  <string name="incrementInSeconds">Qoʻshimcha vaqt, soniyalarda</string>
+  <string name="freeOnlineChess">Bepul onlayn shaxmat</string>
   <plurals name="nbRated">
     <item quantity="one">%s ta reytingli</item>
     <item quantity="other">%s ta reytingli</item>
@@ -344,8 +344,8 @@
     <item quantity="other">%s ta magʻlubiyat</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s ta durrang</item>
-    <item quantity="other">%s ta durrang</item>
+    <item quantity="one">%s ta durang</item>
+    <item quantity="other">%s ta durang</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s ta oʻynalmoqda</item>
@@ -357,8 +357,8 @@
     <item quantity="one">%s soniya berish</item>
     <item quantity="other">%s soniya berish</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Ushbu hisob Lichess xizmatlari shartlarini buzgan</string>
-  <string name="openingExplorerAndTablebase">Sharhni ochish</string>
+  <string name="thisAccountViolatedTos">Ushbu hisob Lichess foydalanish shartlarini buzdi</string>
+  <string name="openingExplorerAndTablebase">Debyutlar va endshpillar bazasi</string>
   <string name="takeback">Yurishni qaytarish</string>
   <string name="proposeATakeback">Yurishni qaytarishni soʻrash</string>
   <string name="whiteProposesTakeback">Oqlar yurishni qaytarishni soʻramoqda</string>
@@ -371,25 +371,25 @@
   <string name="whiteCancelsTakeback">Oqlar yurishni qaytarishdan voz kechdi</string>
   <string name="blackCancelsTakeback">Qoralar yurishni qaytarishdan voz kechdi</string>
   <string name="yourOpponentProposesATakeback">Raqibingiz yurishni qaytarishni soʻramoqda</string>
-  <string name="bookmarkThisGame">Ushbu o\'yinni xatcho\'pga qo\'shish</string>
+  <string name="bookmarkThisGame">Ushbu oʻyinni saqlab qoʻyish</string>
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turnirlar</string>
-  <string name="tournamentPoints">Turnir ballari</string>
+  <string name="tournamentPoints">Turnir ochkolari</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s turnir bali</item>
-    <item quantity="other">%s turnir ballari</item>
+    <item quantity="one">%s turnir ochko</item>
+    <item quantity="other">%s turnir ochko</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s ta dars</item>
-    <item quantity="other">%s ta dars</item>
+    <item quantity="one">%s ta oʻquv qoʻllanmasi</item>
+    <item quantity="other">%s ta oʻquv qoʻllanmasi</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="one">%s seans</item>
-    <item quantity="other">%s seanslar</item>
+    <item quantity="one">%s ta biryoʻla seans</item>
+    <item quantity="other">%s ta biryoʻla seans</item>
   </plurals>
   <string name="viewTournament">Turnirni ko\'rish</string>
   <string name="backToTournament">Turnirga qaytish</string>
-  <string name="noDrawBeforeSwissLimit">Shveytsariya tizimiga binoan siz 30 ta yurishgacha durrang taklif qila olmaysiz.</string>
+  <string name="noDrawBeforeSwissLimit">Shveysarcha tizimdagi turnirlarda 30 ta yurish amalga oshirilmaguncha durangga kelishib boʻlmaydi.</string>
   <string name="thematic">Tematik</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s ta reytingli oʻyin</item>
@@ -400,18 +400,18 @@
     <item quantity="other">≥ %1$s ta reytingli %2$s oʻyin</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">%1$s ta reytingli %2$s oʻyin oʻynashingiz kerak</item>
-    <item quantity="other">%1$s ta reytingli %2$s oʻyin oʻynashingiz kerak</item>
+    <item quantity="one">Yana %1$s ta reytingli %2$s oʻyin oʻynashingiz kerak</item>
+    <item quantity="other">Yana %1$s ta reytingli %2$s oʻyin oʻynashingiz kerak</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">%s ta reytingli oʻyin oʻynashingiz kerak</item>
-    <item quantity="other">%s ta reytingli oʻyin oʻynashingiz kerak</item>
+    <item quantity="one">Yana %s ta reytingli oʻyin oʻynashingiz kerak</item>
+    <item quantity="other">Yana %s ta reytingli oʻyin oʻynashingiz kerak</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">%s reytingingiz muvaqqatdir</string>
+  <string name="yourPerfRatingIsProvisional">Sizning %s reytingingiz hali aniqlanmagan</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Reytingingiz barqaror boʻlmagani sababli, reyting filtrlari bloklangan. Reytingli oʻyinlarni o\'ynash reyting barqarorligini oshiradi.</string>
-  <string name="yourPerfRatingIsTooHigh">%1$s reytingingiz (%2$s) juda yuqori</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Hafatlik %1$s reytingingiz (%2$s) juda yuqori</string>
-  <string name="yourPerfRatingIsTooLow">%1$s reytingingiz (%2$s) ancha past</string>
+  <string name="yourPerfRatingIsTooHigh">Sizning %1$s reytingingiz (%2$s) juda yuqori</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Sizning hafatlik %1$s reytingingiz (%2$s) juda yuqori</string>
+  <string name="yourPerfRatingIsTooLow">Sizning %1$s reytingingiz (%2$s) ancha past</string>
   <string name="ratedMoreThanInPerf">%2$s reytingi ≥ %1$s boʻlishi kerak</string>
   <string name="ratedLessThanInPerf">Oxirgi haftadagi %2$s reytingingiz ≤ %1$s boʻlishi kerak</string>
   <string name="mustBeInTeam">%s jamoasida boʻlishingiz kerak</string>
@@ -428,7 +428,7 @@
   <string name="reset">Qayta tiklash</string>
   <string name="apply">Saqlash</string>
   <string name="save">Saqlash</string>
-  <string name="leaderboard">Peshqadamlar jadvali</string>
+  <string name="leaderboard">Liderlar jadvali</string>
   <string name="screenshotCurrentPosition">Joriy pozitsiyani skrinshot qilish</string>
   <string name="gameAsGIF">Oʻyin GIF formatida</string>
   <string name="playerNames">Oʻyinchilar ismlari</string>
@@ -437,7 +437,7 @@
   <string name="pasteThePgnStringHere">PGN matnini shu yerga qo\'ying</string>
   <string name="orUploadPgnFile">Yoki PGN fayl yuklang</string>
   <string name="continueFromHere">Shu pozitsiyadan davom etish</string>
-  <string name="toStudy">O\'rganish</string>
+  <string name="toStudy">Oʻrganish</string>
   <string name="importGame">O\'yinni import qilish</string>
   <string name="importGameExplanation">PGN o\'yinni qo\'ying va qayta o\'ynashlar, kompyuter tahlili, o\'yin chati va ulashish linkiga ega bo\'ling.</string>
   <string name="importGameDataPrivacyWarning">Ushbu PGN ommaga ochiq boʻladi. Oʻyinni yopiq holatda import qilish uchun study - oʻrganish boʻlimidan foydalaning.</string>
@@ -445,7 +445,7 @@
     <item quantity="one">%s ta oʻyin import qilindi</item>
     <item quantity="other">%s ta oʻyin import qilindi</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Bu shahmat CAPTCHA si.</string>
+  <string name="thisIsAChessCaptcha">Bu shaxmat CAPTCHAʼsi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Taxta ustiga bosib yurishni amalga oshiring va kompyuter emas inson ekanligingizni tasdiqlang.</string>
   <string name="captcha.fail">Iltimos shaxmat captchaʼsini yeching.</string>
   <string name="notACheckmate">Shoh mot bo\'lmadi</string>
