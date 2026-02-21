@@ -28,8 +28,37 @@
   <string name="goToBoard">보드로 이동합니다. 기본 칸은 e-4이며, 칸을 특정할 수 있습니다. board a-1 또는 b a-1을 입력함으로써 a-1칸으로 이동할 수 있습니다.</string>
   <string name="movePiece">기물을 움직일려면, 기본 대수 기보 표기법을 사용하세요.</string>
   <string name="promotion">퀸 이외에 다른 기물로 승진하기 위해서, 등호 기호를 사용하세요. 예를 들어, a-8-등호-n 을 입력하여 나이트로 승진할 수 있습니다.</string>
+  <string name="king">킹</string>
+  <string name="whiteKing">백 킹</string>
+  <string name="blackKing">흑 킹</string>
+  <string name="queen">퀸</string>
+  <string name="whiteQueen">백 퀸</string>
+  <string name="blackQueen">흑 퀸</string>
+  <string name="rook">룩</string>
+  <string name="whiteRook">백 룩</string>
+  <string name="blackRook">흑 룩</string>
+  <string name="bishop">비숍</string>
+  <string name="whiteBishop">백 비숍</string>
+  <string name="blackBishop">흑 비숍</string>
+  <string name="knight">나이트</string>
+  <string name="whiteKnight">백 나이트</string>
+  <string name="blackKnight">흑 나이트</string>
+  <string name="pawn">폰</string>
+  <string name="whitePawn">백 폰</string>
+  <string name="blackPawn">흑 폰</string>
+  <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
+  <string name="sanTakes" comment="x in standard notation">잡음</string>
+  <string name="sanCheck" comment="+ in standard notation">체크</string>
+  <string name="sanCheckmate" comment="# in standard notation">체크메이트</string>
+  <string name="sanPromotesTo" comment="= in standard notation">승진</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">짧은 캐슬링</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">긴 캐슬링</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">놓음</string>
+  <string name="invalidMove">잘못된 수</string>
   <string name="premoveCancelled">미리두기 취소됨</string>
+  <string name="premoveRecorded">미리두기 기록됨: %s. 취소하려면 Enter를 누릅니다</string>
   <string name="pockets" comment="Crazyhouse pockets">포켓</string>
   <string name="copyToClipboard">%s를 클립보드를 복사</string>
   <string name="copiedToClipboard">%s 클립보드에 복사됨</string>
+  <string name="pgnAndFen">PGN과 FEN</string>
 </resources>
