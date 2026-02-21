@@ -9,7 +9,7 @@
   <string name="youCannotChallengeX">Siz %s ni chorlay olmaysiz.</string>
   <string name="xDoesNotAcceptChallenges">%s chorlovlarni qabul qilmaydi.</string>
   <string name="yourXRatingIsTooFarFromY">Sizning %1$s reytingingiz %2$s reytingidan ancha farq qiladi.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Muvaqqat %s reyting sababli chorlab boʻlmaydi.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s reyting hali aniqlanmaganligi sababli chorlab boʻlmaydi.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s faqat doʻstlardan chorlovni qabul qiladi.</string>
   <string name="declineGeneric">Ayni damda chorlovni qabul qila olmayman.</string>
   <string name="declineLater">Ayni dam men uchun qulay emas, iltimos keyinroq soʻrang.</string>
