@@ -7,6 +7,7 @@ import { type MaybeVNode, type LooseVNodes, hl } from 'lib/view';
 import type PuzzleCtrl from '../ctrl';
 import { plyToTurn } from 'lib/game/chess';
 import type { TreeNode, TreePath } from 'lib/tree/types';
+import { formatSanString } from 'lib/game';
 
 interface Ctx {
   ctrl: PuzzleCtrl;
@@ -116,7 +117,7 @@ function puzzleGlyph(node: TreeNode): MaybeVNode {
 function renderMove(node: TreeNode): LooseVNodes {
   const ev = node.eval || node.ceval;
   return [
-    node.san,
+    node.san ? formatSanString(node.san) : node.san,
     ev && (defined(ev.cp) ? renderEval(normalizeEval(ev.cp)) : defined(ev.mate) && renderEval('#' + ev.mate)),
     puzzleGlyph(node),
   ];
@@ -129,7 +130,7 @@ function renderVariationMoveOf(ctx: Ctx, node: TreeNode, opts: RenderOpts): VNod
   if (node.puzzle) classes[node.puzzle] = true;
   return hl('move', { attrs: { p: path }, class: classes }, [
     withIndex && renderIndex(node.ply, true),
-    node.san,
+    node.san ? formatSanString(node.san) : node.san,
     puzzleGlyph(node),
   ]);
 }

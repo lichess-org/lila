@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { finished, aborted, userAnalysable, playable } from 'lib/game';
+import { finished, aborted, userAnalysable, playable, formatSanString } from 'lib/game';
 import * as util from '../util';
 import { displayColumns } from 'lib/device';
 import type RoundController from '../ctrl';
@@ -54,7 +54,7 @@ const renderDrawOffer = () => hl('draw', { attrs: { title: 'Draw offer' } }, '½
 const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) =>
   step
     ? hl(moveTag, { class: { a1t: step.ply === curPly } }, [
-        step.san[0] === 'P' ? step.san.slice(1) : step.san,
+        step.san[0] === 'P' ? step.san.slice(1) : formatSanString(step.san),
         drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
       ])
     : orEmpty && hl(moveTag, '…');

@@ -14,7 +14,7 @@ import {
   spinnerVdom as spinner,
   stepwiseScroll,
 } from 'lib/view';
-import { playable } from 'lib/game';
+import { formatSanString, playable } from 'lib/game';
 import { isMobile } from 'lib/device';
 import * as materialView from 'lib/game/view/material';
 import { path as treePath } from 'lib/tree/tree';
@@ -313,7 +313,7 @@ export function renderMoveNodes(
       : ev?.mate !== undefined
         ? `#${ev.mate}`
         : '';
-  const nodes = [h('san', fixCrazySan(node.san!))];
+  const nodes = [h('san', formatSanString(fixCrazySan(node.san!)))];
   if (withGlyphs && node.glyphs)
     node.glyphs.forEach(g => nodes.push(h('glyph', { attrs: { title: g.name } }, g.symbol)));
   if (withEval && node.shapes?.length) nodes.push(h('shapes'));

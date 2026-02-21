@@ -199,3 +199,7 @@ export function speakable(san?: San): string {
         .replace(/(\d) H (\d)/, '$1H$2');
   return text;
 }
+
+export function formatSanString(san: string): string {
+  return san.replace(/^(?!O-O)([A-Z])/, '$1 ').replace(/\s*x/g, ' × ');
+}
