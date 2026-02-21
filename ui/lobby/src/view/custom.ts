@@ -32,7 +32,17 @@ export function render(ctrl: LobbyController) {
         {
           attrs: { role: 'button', 'data-id': i++, tabindex: '0' },
         },
-        [h('div.perf', setting.gameType)],
+        [
+          h('div.perf', setting.settings.variant),
+          h('div.perf', setting.settings.gameMode),
+          h('div.perf', setting.gameType),
+          h(
+            'div.perf',
+            setting.settings.timeMode === 'realTime'
+              ? setting.settings.time + '+' + setting.settings.increment
+              : setting.settings.timeMode,
+          ),
+        ],
       );
     })
     .concat(padding.map(() => h('div.lpool')))
