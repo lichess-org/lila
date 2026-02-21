@@ -194,9 +194,9 @@
   <string name="logOut">Chiqish</string>
   <string name="signIn">Kirish</string>
   <string name="rememberMe">Meni eslab qol</string>
-  <string name="youNeedAnAccountToDoThat">Buning uchun sizga hisob kerak</string>
+  <string name="youNeedAnAccountToDoThat">Buning uchun sizga akkaunt kerak</string>
   <string name="signUp">Roʻyhatdan oʻtish</string>
-  <string name="computersAreNotAllowedToPlay">Kompyuterlar va kompyuter yordamidan foydalanadigan oʻyinchilarning oʻynashi taqiqlanadi. Iltimos, oʻyin davomida shaxmat dvijoklari, maʼlumotlar bazalari yoki boshqa oʻyinchilar yordamidan foydalanmang. Shuningdek, bir nechta hisoblarni ochish tavsiya etilmaydi va meʼyordan ortiq hisoblarga ega boʻlish chetlatilishga (ban) olib keladi.</string>
+  <string name="computersAreNotAllowedToPlay">Kompyuterlar va kompyuter yordamidan foydalanadigan oʻyinchilarning oʻynashi taqiqlanadi. Iltimos, oʻyin davomida shaxmat dvijoklari, maʼlumotlar bazalari yoki boshqa oʻyinchilar yordamidan foydalanmang. Shuningdek, bir nechta akkaunt ochish tavsiya etilmaydi va meʼyordan ortiq akkauntlarga ega boʻlish chetlatilishga (ban) olib keladi.</string>
   <string name="games">O\'yinlar</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s %2$s mavzuda post joyladi</string>
@@ -236,8 +236,8 @@
   <string name="changeUsername">Foydalanuvchi nomini oʻzgartirish</string>
   <string name="changeUsernameNotSame">Faqat harflar katta-kichikligini oʻzgartirish mumkin. Masalan, \"johndoe\"dan \"JohnDoe\"ga.</string>
   <string name="changeUsernameDescription">Foydalanuvchi nomini oʻzgartiring. Bu faqat bir marta amalga oshirilishi mumkin va faqat harflar katta-kichikligini oʻzgartirishingiz mumkin.</string>
-  <string name="signupUsernameHint">Barcha yoshdagilarga mos keladigan foydalanuvchi nomi tanlaganingizga ishonch hosil qiling. Uni keyinchalik oʻzgartirib boʻlmaydi, nomaqbul nomga ega hisoblar esa yopib qoʻyiladi!</string>
-  <string name="signupEmailPromise">Faqat hisobingiz haqida elektron pochta xabarlarini yuboramiz va elektron pochtangizni hech qachon boshqalarga ulashmaymiz.</string>
+  <string name="signupUsernameHint">Barcha yoshdagilarga mos keladigan foydalanuvchi nomi tanlaganingizga ishonch hosil qiling. Uni keyinchalik oʻzgartirib boʻlmaydi, nomaqbul nomga ega akkauntlar esa yopib qoʻyiladi!</string>
+  <string name="signupEmailPromise">Faqat akkauntingiz haqida elektron pochta xabarlarini yuboramiz va elektron pochtangizni hech qachon boshqalarga ulashmaymiz.</string>
   <string name="password">Parol</string>
   <string name="changePassword">Parolni oʻzgartirish</string>
   <string name="changeEmail">E-pochta manzilini oʻzgartirish</string>
@@ -246,7 +246,7 @@
   <string name="forgotPassword">Parolni unutdingizmi?</string>
   <string name="error.weakPassword">Ushbu parol juda oddiy va uni taxmin qilish oson.</string>
   <string name="error.namePassword">Foydalanuvchi nomini parol sifatida ishlatmang.</string>
-  <string name="blankedPassword">Siz boshqa saytda ham aynan shu paroldan foydalangansiz va oʻsha sayt xavfsizligiga putur yetgan. Lichess hisobingiz xavfsizligini taʼminlash uchun yangi parol oʻrnatishingizni soʻraymiz. Toʻgʻri tushunasiz degan umiddamiz.</string>
+  <string name="blankedPassword">Siz boshqa saytda ham aynan shu paroldan foydalangansiz va oʻsha sayt xavfsizligiga putur yetgan. Lichess akkauntingiz xavfsizligini taʼminlash uchun yangi parol oʻrnatishingizni soʻraymiz. Toʻgʻri tushunasiz degan umiddamiz.</string>
   <string name="youAreLeavingLichess">Lichessʼni tark etmoqdasiz</string>
   <string name="neverTypeYourPassword">Lichess parolingizni boshqa saytlarda hech qachon kiritmang!</string>
   <string name="proceedToX">%sʼga oʻtish</string>
@@ -267,8 +267,8 @@
   <string name="accountConfirmed">Foydalanuvchi %s muvaffaqiyatli tasdiqlandi.</string>
   <string name="accountCanLogin">Hozirning oʻzidayoq %s sifatida tizimga kirishingiz mumkin.</string>
   <string name="accountConfirmationEmailNotNeeded">Tasdiqlash xati talab qilinmaydi.</string>
-  <string name="accountClosed">%s hisobi yopilgan.</string>
-  <string name="accountRegisteredWithoutEmail">%s hisobi e-pochtasiz roʻyhatdan oʻtgan.</string>
+  <string name="accountClosed">%s akkaunti yopilgan.</string>
+  <string name="accountRegisteredWithoutEmail">%s akkaunti e-pochtasiz roʻyhatdan oʻtgan.</string>
   <string name="rank">Oʻrin</string>
   <string name="rankX">%s-oʻrin</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -357,7 +357,7 @@
     <item quantity="one">%s soniya berish</item>
     <item quantity="other">%s soniya berish</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Ushbu hisob Lichess foydalanish shartlarini buzdi</string>
+  <string name="thisAccountViolatedTos">Ushbu akkaunt Lichess foydalanish shartlarini buzdi</string>
   <string name="openingExplorerAndTablebase">Debyutlar va endshpillar bazasi</string>
   <string name="takeback">Yurishni qaytarish</string>
   <string name="proposeATakeback">Yurishni qaytarishni soʻrash</string>
@@ -492,12 +492,12 @@
   <string name="conditionOfEntry">Ishtirok etish shartlari:</string>
   <string name="advancedSettings">Kengaytirilgan sozlashlar</string>
   <string name="safeTournamentName">Turnir uchun juda ham xavfsiz nom tanlash.</string>
-  <string name="inappropriateNameWarning">Sal noqulayku lekin so\'rashimiz joiz, balkim sizni akkountingizni yopish kerak.</string>
+  <string name="inappropriateNameWarning">Har qanday nomunosib xatti-harakat akkauntingiz yopilishiga olib kelishi mumkin.</string>
   <string name="emptyTournamentName">Turnir nomini tasodifiy Grassmeyster nomiga moslab qo\'yish uchun ochiq qoldiring.</string>
   <string name="makePrivateTournament">Yopiq turnir yarating va ishtirokchilarga parol yordamida kirishga huquq bering</string>
   <string name="join">Qo\'shilish</string>
   <string name="withdraw">Tark etish</string>
-  <string name="points">Ballar</string>
+  <string name="points">Ochkolar</string>
   <string name="wins">Gʻalabalar</string>
   <string name="losses">Mag\'lubiyatlar</string>
   <string name="startingIn" comment="Displayed above a timer">Boshlanguncha</string>
@@ -733,10 +733,10 @@
   <string name="playSelectedMove">tanlangan harakatni o\'ynang</string>
   <string name="newTournament">Yangi turnir</string>
   <string name="tournamentHomeTitle">Turli xil vaqtlar va variantlar bilan yaratilgan shahmat turnirlari</string>
-  <string name="tournamentHomeDescription">Dinamik shahmat turnirlarini o\'ynang! Rasmiy rejalashtirilgan turnirlarda qatnashing yoki o\'zingiz shaxsiy turnir yarating. Tezkor, Blitz, Klassik, Shahmat960, Tepalik qiroli, Uchtashoh va boshqa opsiyalardan foydalangan holatda o\'zingizga qiziqarli shahmat musobaqalarini uyushtirishingiz mumkin.</string>
+  <string name="tournamentHomeDescription">Tezkor shaxmat turnirlarida ishtirok eting! Rasmiy turnirlarga qoʻshiling yoki oʻz turniringizni yarating. Bullet, Blits, Klassika, Chess960, King of the Hill, Uch shoh va boshqa ko‘plab variantlar mavjud.</string>
   <string name="tournamentNotFound">Turnir topilmadi</string>
   <string name="tournamentDoesNotExist">Bu turnir mavjud emas.</string>
-  <string name="tournamentMayHaveBeenCanceled">Ehtimol, u bekor qilingan, agar xamma ishtirokchilar turnir boshlanmasdan uni tark erishgan bo\'lsa.</string>
+  <string name="tournamentMayHaveBeenCanceled">Agar turnir boshlanishidan oldin barcha oʻyinchilar chiqib ketgan boʻlsa, turnir bekor qilingan boʻlishi mumkin.</string>
   <string name="returnToTournamentsHomepage">Turnirlar bosh sahifasiga qaytish</string>
   <string name="weeklyPerfTypeRatingDistribution">Haftalik %s reyting taqsimoti</string>
   <plurals name="nbPerfTypePlayersThisWeek">
@@ -752,7 +752,7 @@
   <string name="cumulative">To\'plangani</string>
   <string name="glicko2Rating">Glicko-2 reytingi</string>
   <string name="checkYourEmail">E-pochtangizni tekshiring</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Sizga e-pochta joʻnatdik. E-pochtadagi havolani bosib hisobingizni faollashtiring.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Sizga e-pochta joʻnatdik. E-pochtadagi havolani bosib akkauntingizni faollashtiring.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Agar e-pochtani koʻrmasangiz, boshqa jildlarni tekshirib koʻring, masalan, spam, chiqindi, ijtimoiy yoki boshqa jildlar.</string>
   <string name="ifYouDoNotGetTheEmail">Agar 5 daqiqa ichida e-pochta olmasangiz:</string>
   <string name="checkAllEmailFolders">Barcha keraksiz, spam va boshqa e-pochta jildlarni tekshiring</string>
@@ -781,7 +781,7 @@
   <string name="kidModeIsEnabled">Bola rejimi yoqilgan.</string>
   <string name="kidModeExplanation">Bu ximoya uchun. Bola rejimida hamma saytlar bog\'liqligi o\'chiriladi. Buni o\'zingizni studentlaringiz va bolalaringiz uchun yoqib qo\'ying. Shunda Internetdagi boshqa foydalanuvchilardan ximoyalagan bo\'lasiz.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Bola rejimida lichess logosi %s belgini oladi, shundan siz bola rejimi ekanligini.</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode">Sizning akkountingiz boshqarilayabdi. Shaxmat o‘qituvchingizdan sizni bolalar rejimidan ko‘tarishini so‘rang.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Akkauntingiz nazorat ostida. Bola rejimini oʻchirish uchun shaxmat murabbiyingizga murojaat qiling.</string>
   <string name="enableKidMode">Bola rejimini yoqish</string>
   <string name="disableKidMode">Bola rejimini o\'chirish</string>
   <string name="security">Xavfsizlik</string>
@@ -909,7 +909,7 @@
   <string name="currentMatchScore">Joriy o\'yin holati</string>
   <string name="agreementAssistance">Men o\'yin davomida hech qanday (kompyuter shahmatidan, kitobdan, qandaydir ma\'lumotlar omboridan va boshqa odamlardan) yordam olmaslikka roziman.</string>
   <string name="agreementNice">Boshqa o\'yinchilarga hurmat bilan munosabatda bo\'lishga roziman.</string>
-  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Men bir nechta akkount ochmaslikka roziman (faqat %s da ko‘rsatilgan sabablardan tashqari holatda).</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Men bir nechta akkaunt yaratmaslikka roziman (bundan %sdagi holatlar mustasno).</string>
   <string name="agreementPolicy">Men Lichess tartib qoidalariga amal qilishga roziman.</string>
   <string name="searchOrStartNewDiscussion">Qidirish yoki yangi fikr almashinuv</string>
   <string name="edit">Tahrirlash</string>
@@ -950,8 +950,8 @@
   <string name="congratsYouWon">Tabriklaymiz siz yutdingiz!</string>
   <string name="gameVsX">%1$s ga qarshi o‘yin</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="lostAgainstTOSViolator">Siz Lichessdan foydalanish qoidalarini buzganligingiz uchun reyting ballarini yo‘qotdingiz</string>
-  <string name="refundXpointsTimeControlY">Qaytarish: %1$s %2$s reyting ballarini.</string>
+  <string name="lostAgainstTOSViolator">Siz Lichess foydalanish shartlarini buzgan oʻyinchiga reyting ochkolarini yutqazdingiz</string>
+  <string name="refundXpointsTimeControlY">%1$s %2$s reyting ochko qaytarildi.</string>
   <string name="timeAlmostUp">Vaqt deyarli yakunlandi!</string>
   <string name="clickToRevealEmailAddress">[E-pochta manzilini koʻrish uchun bosing]</string>
   <string name="download">Yuklab olish</string>
@@ -992,9 +992,9 @@ Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
   <string name="analysisOptions">Tahlil parametrlari</string>
   <string name="focusChat">Chatga oʻtish</string>
   <string name="showHelpDialog">Ushbu yordam oynasini koʻrsatish</string>
-  <string name="reopenYourAccount">Hisobingizni qaytadan oching</string>
-  <string name="reopenYourAccountDescription">Hisobingizni yopgan boʻlsangiz, lekin fikringizdan qaytgan boʻlsangiz, hisobingizni qaytarib olishga imkoniyatingiz bor.</string>
-  <string name="emailAssociatedToaccount">Hisobingizga bogʻlangan e-pochta manzili</string>
+  <string name="reopenYourAccount">Akkauntingizni qayta tiklang</string>
+  <string name="reopenYourAccountDescription">Agar siz akkauntingizni yopgan boʻlsangiz-u, lekin keyinchalik fikringizdan qaytgan boʻlsangiz, uni qayta tiklash imkoniyati bor.</string>
+  <string name="emailAssociatedToaccount">Akkauntingizga bogʻlangan e-pochta manzili</string>
   <string name="sentEmailWithLink">Sizga ichida havolasi bor e-pochta yubordik.</string>
   <string name="tournamentEntryCode">Turnirga kirish kodi</string>
   <string name="hangOn">Toʻxtang!</string>
@@ -1006,7 +1006,7 @@ Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
   <string name="until">Toki</string>
   <string name="lichessDbExplanation">Lichessʼdagi reytingli oʻyinlar</string>
   <string name="switchSides">Tomonlarni almashtirish</string>
-  <string name="closingAccountWithdrawAppeal">Akkountingizni yopishingiz sizni murojaatlaringizni bekor qiladi</string>
+  <string name="closingAccountWithdrawAppeal">Akkauntingizni yopsangiz appelyatsiyangiz bekor qilinadi.</string>
   <string name="ourEventTips">Tadbirlarni oʻtkazish borasida bizning maslahatlarimiz</string>
   <string name="instructions">Ko\'rsatmalar</string>
   <string name="showMeEverything">Menga hamma narsani ko\'rsat</string>
