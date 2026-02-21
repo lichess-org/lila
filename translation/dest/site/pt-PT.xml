@@ -125,6 +125,9 @@
   <string name="bestMoveArrow">Seta de melhor movimento</string>
   <string name="showVariationArrows">Ver setas de variação</string>
   <string name="evaluationGauge">Medidor da avaliação</string>
+  <string name="undefendedPieces">Peças não defendidas</string>
+  <string name="pinnedPieces">Peças pregadas</string>
+  <string name="checkableKing">Rei checável</string>
   <string name="multipleLines">Múltiplas continuações</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memória</string>
@@ -423,6 +426,7 @@
   <string name="screenshotCurrentPosition">Posição atual da captura de ecrã</string>
   <string name="gameAsGIF">Jogo como GIF</string>
   <string name="playerNames">Nomes dos jogadores</string>
+  <string name="moveAnnotations">Anotação de movimentos</string>
   <string name="pasteTheFenStringHere">Coloca a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Coloca a notação PGN aqui</string>
   <string name="orUploadPgnFile">Ou enviar um ficheiro PGN</string>
