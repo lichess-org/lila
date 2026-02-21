@@ -15,20 +15,27 @@ export const handler = (ctrl: LobbyController, e: Event) => {
     (e.target as HTMLElement).dataset['id'] ||
     ((e.target as HTMLElement).parentNode as HTMLElement).dataset['id'];
   if (id === 'custom') ctrl.setPoolMode('quick_pairing');
-  else if (id) ctrl.clickPool(id);
+  else if (id) openModalWithSettings(Number(id), ctrl);
 };
 
 export function render(ctrl: LobbyController) {
-  return ctrl.pools
-    .map(pool => {
+  const ret = JSON.parse(storage.get(ctrl.setupCtrl.storeKey('custom'))!);
+  const customSetups: CustomSetup[] = ret || [];
+  const poolNumber = ctrl.pools.length;
+  const padding =
+    customSetups.length < poolNumber ? new Array(poolNumber - customSetups.length).fill(null) : [];
+  let i = 0;
+  return customSetups
+    .map(setting => {
       return h(
         'div.lpool',
         {
-          attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
+          attrs: { role: 'button', 'data-id': i++, tabindex: '0' },
         },
-        [h('div.perf', 'custom')],
+        [h('div.perf', setting.gameType)],
       );
     })
+    .concat(padding.map(() => h('div.lpool')))
     .concat(
       h(
         'div.lpool',
@@ -40,10 +47,27 @@ export function render(ctrl: LobbyController) {
     );
 }
 
-export function saveSettings(gameType: GameType, storeKey: string, settings: SetupStore, storeLimit: number = 11) {
+export function saveSettings(
+  gameType: GameType,
+  storeKey: string,
+  settings: SetupStore,
+  poolNumber: number = 11,
+) {
   const ret = JSON.parse(storage.get(storeKey)!);
   const customSetups: CustomSetup[] = ret || [];
   customSetups.unshift({ gameType, settings });
-  if (customSetups.length > storeLimit) customSetups.pop();
+  if (customSetups.length > poolNumber) customSetups.pop();
   storage.set(storeKey, JSON.stringify(customSetups));
+}
+
+function openModalWithSettings(settingId: number, ctrl: LobbyController) {
+  const ret = JSON.parse(storage.get(ctrl.setupCtrl.storeKey('custom'))!);
+  const customSetups: CustomSetup[] = ret || [];
+  const setting = customSetups[settingId];
+  if (setting) {
+    const storeKey = ctrl.setupCtrl.storeKey(setting.gameType);
+    storage.set(storeKey, JSON.stringify(setting.settings));
+    ctrl.setupCtrl.openModal(setting.gameType);
+    ctrl.redraw();
+  }
 }

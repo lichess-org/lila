@@ -40,7 +40,7 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
               class: { disabled },
               on: { click: ctrl.setupCtrl.submit },
             },
-            ctrl.poolMode !== 'custom' ? buttonText : i18n.site.save,
+            ctrl.setupCtrl.saveToStore ? i18n.site.save : buttonText,
           ),
           setupCtrl.loading && spinnerVdom(),
         ]),

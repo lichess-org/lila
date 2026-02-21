@@ -29,6 +29,7 @@ export default class SetupController {
   loading = false;
   color: ColorProp;
   forced?: ForceSetupOptions;
+  saveToStore = false;
 
   // Store props
   variant: Prop<VariantKey>;
@@ -54,7 +55,8 @@ export default class SetupController {
   }
 
   // Namespace the store by username for user specific modal settings
-  private storeKey = (gameType: GameType | 'custom') => `lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`;
+  public storeKey = (gameType: GameType | 'custom') =>
+    `lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`;
 
   makeSetupStore = (gameType: GameType) =>
     storedJsonProp<SetupStore>(this.storeKey(gameType), () => ({
@@ -170,6 +172,7 @@ export default class SetupController {
     gameType: Exclude<GameType, 'local'>,
     forceOptions?: ForceSetupOptions,
     friendUser?: string,
+    saveToStore = false,
   ) => {
     this.root.leavePool();
     this.gameType = gameType;
@@ -180,6 +183,7 @@ export default class SetupController {
     this.variantMenuOpen(false);
     this.forced = forceOptions;
     this.loadPropsFromStore(forceOptions);
+    this.saveToStore = saveToStore;
   };
 
   closeModal?: () => void; // managed by view/setup/modal.ts
@@ -288,8 +292,13 @@ export default class SetupController {
   minimumTimeIfReal = (): number => (this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0);
 
   submit = async () => {
-    if (this.root.poolMode === 'custom') {
-      saveSettings(this.gameType!, this.storeKey('custom'), this.store[this.gameType!](), this.root.pools.length);
+    if (this.saveToStore) {
+      saveSettings(
+        this.gameType!,
+        this.storeKey('custom'),
+        this.store[this.gameType!](),
+        this.root.pools.length,
+      );
       this.closeModal?.();
       return;
     }

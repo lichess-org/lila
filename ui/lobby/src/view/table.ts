@@ -103,7 +103,7 @@ export default function table(ctrl: LobbyController) {
               () => {
                 if (gameType === 'bots') location.href = '/bots';
                 else if (gameType === 'dev') location.href = '/bots/dev';
-                else ctrl.setupCtrl.openModal(gameType);
+                else ctrl.setupCtrl.openModal(gameType, undefined, undefined, ctrl.poolMode === 'custom');
               },
               ctrl.redraw,
             ),
