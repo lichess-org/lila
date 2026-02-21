@@ -122,9 +122,9 @@ Yuring va yulduzlarni tering!</string>
   <string name="enPassantOnlyWorksOnFifthRank">Yo\'lakda yurib olish faqat agar sizni piyodangiz beshinchi katakda turgan bo\'lsa ishlaydi.</string>
   <string name="takeAllThePawnsEnPassant">Barcha piyodalarni yo\'lakda yurib olish bilan oling!</string>
   <string name="enPassantComplete">Tabriklaymiz! Siz xozir yo\'lakda yurib olish usuli bilan olishni bildingiz.</string>
-  <string name="stalemate">Pat, durrang</string>
-  <string name="theGameIsADraw">O\'yin - durrang</string>
-  <string name="stalemateIntro">Qachonki shoh berilmagan bo\'lsa va o\'yinchining yurish yo\'llari qolmagan bo\'lsa o\'yin pat hisoblanadi. Durrang natija: g\'olib ham mag\'lub ham yo\'q.</string>
+  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Oʻyin — durang</string>
+  <string name="stalemateIntro">Agar oʻyinchiga shoh berilmagan boʻlsa va yurishga yoʻllari qolmagan boʻlsa — bu pat hisoblanadi. Oʻyin durang bilan tugaydi: gʻolib ham magʻlub ham yoʻq.</string>
   <string name="stalemateGoal">Qoralar uchun pat:
 - Qoralarda yurish uchun yo\'l yo\'q
 - Shoh ham olishmagan.</string>
