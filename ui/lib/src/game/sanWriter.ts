@@ -200,6 +200,9 @@ export function speakable(san?: San): string {
   return text;
 }
 
+const LEADING_PIECE_RE = /^(?!O-O)([A-Z])/;
+const TAKES_RE = /\s*x/g;
+
 export function formatSanString(san: string): string {
-  return san.replace(/^(?!O-O)([A-Z])/, '$1 ').replace(/\s*x/g, ' × ');
+  return san.replace(LEADING_PIECE_RE, '$1 ').replace(TAKES_RE, ' × ');
 }
