@@ -179,16 +179,16 @@
   <string name="currentGames">Joriy oʻyinlar</string>
   <string name="joinedX">%s qoʻshildi</string>
   <plurals name="nbGames">
-    <item quantity="one">%s ta oʻyin</item>
-    <item quantity="other">%s ta oʻyin</item>
+    <item quantity="one">%s oʻyin</item>
+    <item quantity="other">%s oʻyin</item>
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="one">%2$s ta oʻyin uchun %1$s reyting</item>
     <item quantity="other">%2$s ta oʻyin uchun %1$s reyting</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s ta xatchoʻp</item>
-    <item quantity="other">%s ta xatchoʻp</item>
+    <item quantity="one">%s saqlangan</item>
+    <item quantity="other">%s saqlangan</item>
   </plurals>
   <string name="viewInFullSize">To\'liq o\'lchamda ko\'rish</string>
   <string name="logOut">Chiqish</string>
@@ -332,24 +332,24 @@
   <string name="incrementInSeconds">Qoʻshimcha vaqt, soniyalarda</string>
   <string name="freeOnlineChess">Bepul onlayn shaxmat</string>
   <plurals name="nbRated">
-    <item quantity="one">%s ta reytingli</item>
-    <item quantity="other">%s ta reytingli</item>
+    <item quantity="one">%s reytingli</item>
+    <item quantity="other">%s reytingli</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s ta gʻalaba</item>
-    <item quantity="other">%s ta gʻalaba</item>
+    <item quantity="one">%s gʻalaba</item>
+    <item quantity="other">%s gʻalaba</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s ta magʻlubiyat</item>
-    <item quantity="other">%s ta magʻlubiyat</item>
+    <item quantity="one">%s magʻlubiyat</item>
+    <item quantity="other">%s magʻlubiyat</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s ta durang</item>
-    <item quantity="other">%s ta durang</item>
+    <item quantity="one">%s durang</item>
+    <item quantity="other">%s durang</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s ta oʻynalmoqda</item>
-    <item quantity="other">%s ta oʻynalmoqda</item>
+    <item quantity="one">%s oʻynalmoqda</item>
+    <item quantity="other">%s oʻynalmoqda</item>
   </plurals>
   <string name="exportGames">O\'yinlarni eksport qilish</string>
   <string name="ratingFilter">Reyting filtri</string>
@@ -380,12 +380,12 @@
     <item quantity="other">%s turnir ochko</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s ta oʻquv qoʻllanmasi</item>
-    <item quantity="other">%s ta oʻquv qoʻllanmasi</item>
+    <item quantity="one">%s oʻquv qoʻllanmasi</item>
+    <item quantity="other">%s oʻquv qoʻllanmasi</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="one">%s ta biryoʻla seans</item>
-    <item quantity="other">%s ta biryoʻla seans</item>
+    <item quantity="one">%s biryoʻla seans</item>
+    <item quantity="other">%s biryoʻla seans</item>
   </plurals>
   <string name="viewTournament">Turnirni ko\'rish</string>
   <string name="backToTournament">Turnirga qaytish</string>
@@ -469,12 +469,12 @@
   <string name="unblock">Blokdan chiqarish</string>
   <string name="xStartedFollowingY">%1$s %2$sʼni kuzatishni boshladi</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s ta kuzatuvchi</item>
-    <item quantity="other">%s ta kuzatuvchi</item>
+    <item quantity="one">%s kuzatuvchi</item>
+    <item quantity="other">%s kuzatuvchi</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s tasini kuzatmoqda</item>
-    <item quantity="other">%s tasini kuzatmoqda</item>
+    <item quantity="one">%s kuzatmoqda</item>
+    <item quantity="other">%s kuzatmoqda</item>
   </plurals>
   <string name="more">Batafsil</string>
   <string name="memberSince">Roʻyxatdan oʻtgan kuni</string>
@@ -668,8 +668,8 @@
   <string name="whiteCastlingKingside">Oqlar O-O</string>
   <string name="blackCastlingKingside">Qoralar O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s ta forum post</item>
-    <item quantity="other">%s ta forum post</item>
+    <item quantity="one">%s forum post</item>
+    <item quantity="other">%s forum post</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Jami %s oʻynagan</string>
   <string name="watchGames">O\'yinlarni tomosha qilish</string>
