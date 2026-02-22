@@ -4,12 +4,12 @@
   <string name="standardTitle">Standart shaxmat qoidalari (FIDE)</string>
   <string name="chess960">Chess960</string>
   <string name="chess960Title">Donalarni boshlangʻich pozitsiyasi tasodifiy ravishda aniqlanadi.</string>
-  <string name="kingOfTheHill">Tepalik qiroli</string>
+  <string name="kingOfTheHill">King of the Hill</string>
   <string name="kingOfTheHillTitle">Gʻalaba qozonish uchun shohni taxtani markaziga olib keling.</string>
-  <string name="threeCheck">Uch-kisht</string>
-  <string name="threeCheckTitle">Gʻalaba qozonish uchun raqibingizga 3 marta kisht bering.</string>
+  <string name="threeCheck">Uchta shoh</string>
+  <string name="threeCheckTitle">Gʻalaba qozonish uchun raqibingizga 3 marta shoh bering.</string>
   <string name="antichess">Antishaxmat</string>
-  <string name="antichessTitle">Gʻalaba qozonish uchun barcha donalaringizni boy bering (yoki pot oling).</string>
+  <string name="antichessTitle">Gʻalaba qozonish uchun barcha donalaringizni boy bering (yoki pat oling).</string>
   <string name="atomic">Atomik</string>
   <string name="atomicTitle">Gʻalaba qozonish uchun raqibni shohini portlating.</string>
   <string name="horde">Oʻrda</string>
