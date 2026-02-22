@@ -213,7 +213,7 @@
   <string name="variantsDescription">Oʻynashni boshqa usullari</string>
   <string name="timeControl">Vaqt nazorati</string>
   <string name="realTime">Jonli</string>
-  <string name="correspondence">Sirtqi</string>
+  <string name="correspondence">Yozishmali oʻyin</string>
   <string name="daysPerTurn">Har bir yurish uchun kunlar soni</string>
   <string name="oneDay">Bir kun</string>
   <plurals name="nbDays">
@@ -320,7 +320,7 @@
   <string name="cancelRematchOffer">Revansh taklifini bekor qilish</string>
   <string name="viewRematch">Revansh oʻyinini koʻrish</string>
   <string name="confirmMove">Yurishni tasdiqlash</string>
-  <string name="play">O\'yin</string>
+  <string name="play">Oʻynash</string>
   <string name="inbox">Xabarlar</string>
   <string name="chatRoom">Chat</string>
   <string name="loginToChat">Chatda yozish uchun hisobingizga kiring</string>
