@@ -7,7 +7,7 @@
   <string name="anastasiaMate">Anastasiya moti</string>
   <string name="anastasiaMateDescription">Ot va rux (yoki farzin) raqib shohini taxta cheti va oʻzining donasi orasida qisib qo‘yish uchun birlashadi.</string>
   <string name="arabianMate">Arabcha mot</string>
-  <string name="arabianMateDescription">Ot va to‘ra raqib shoxini doska burchagida mot qilishi.</string>
+  <string name="arabianMateDescription">Ot va rux raqib shohini taxta burchagida mot qiladi.</string>
   <string name="attackingF2F7">f2 yoki f7 hujum</string>
   <string name="attackingF2F7Description">F2 va f7 piyodalarga qaratilgan hujum, masalan Fegatello hujumi.</string>
   <string name="attraction">Jozibasi</string>
@@ -30,7 +30,7 @@
   <string name="hangingPieceDescription">Raqib piyodasini himoyasiz qolishga yoki etarli darajada himoyasi bo\'lmasligiga jalb qiladigan taktika.</string>
   <string name="knightEndgame">Ot endshpili</string>
   <string name="knightEndgameDescription">Faqat otlar va piyodalar bilan endshpil.</string>
-  <string name="long">Uzun boshqotirma</string>
+  <string name="long">Uzun masala</string>
   <string name="mate">Mot</string>
   <string name="mateIn1">1 yurishda mot</string>
   <string name="mateIn1Description">Bitta yurishda mot qiling.</string>
@@ -42,8 +42,8 @@
   <string name="mateIn4Description">Toʻrtta yurishda mot qiling.</string>
   <string name="middlegame">Oʻyin oʻrtasi</string>
   <string name="middlegameDescription">Oʻyinning ikkinchi pallasidagi taktikalar.</string>
-  <string name="oneMove">Bir yurishli boshqotirma</string>
-  <string name="oneMoveDescription">Faqat bir yurishdan iborat boshqotirma.</string>
+  <string name="oneMove">Bir yurishli masala</string>
+  <string name="oneMoveDescription">Faqat bir yurishdan iborat masala.</string>
   <string name="opening">Debut</string>
   <string name="openingDescription">Oʻyinning birinchi pallasidagi taktikalar.</string>
   <string name="pawnEndgame">Piyoda endshpili</string>
@@ -55,18 +55,18 @@
   <string name="queenRookEndgameDescription">Faqat farzinlar, ruxlar va piyodalar bilan endshpil.</string>
   <string name="rookEndgame">Rux endshpili</string>
   <string name="rookEndgameDescription">Faqat ruxlar va piyodalar bilan endshpil.</string>
-  <string name="short">Qisqa boshqotirma</string>
+  <string name="short">Qisqa masala</string>
   <string name="shortDescription">Yutish uchun ikkita yurish talab qilinadi.</string>
   <string name="smotheredMateDescription">Oʻz donalari orasida qamalgan shoh hech qayerga yurish qila olmaydigan vaziyatda ot mot qiladi.</string>
   <string name="superGM">Super grossmeysterlar oʻyinlari</string>
-  <string name="superGMDescription">Dunyoning eng yaxshi o\'yinchilar o\'yinlaridan olingan boshqotirmalar.</string>
+  <string name="superGMDescription">Dunyoning eng kuchli shaxmatchilari oʻyinlaridan olingan masalalar.</string>
   <string name="trappedPiece">Tuzoqqa tushgan dona</string>
   <string name="underPromotionDescription">Ot, fil, yoki ruxga aylantirish.</string>
-  <string name="veryLong">Juda uzun boshqotirma</string>
+  <string name="veryLong">Juda uzun masala</string>
   <string name="veryLongDescription">Yutish uchun toʻrt yoki undan koʻproq yurish talab qilinadi.</string>
   <string name="xRayAttack">Rentgen</string>
   <string name="mix">Bir undan bir bundan</string>
   <string name="mixDescription">Hammasidan oz-ozdan. Kutmagan joydan keladi, hamma narsaga tayyor turing! Haqiqiy oʻyinlardagidek.</string>
   <string name="playerGames">Oʻyinchilardan</string>
-  <string name="puzzleDownloadInformation">Ushbu boshqotirmalar ochiq domenda va %s dan yuklab olinishi mumkin.</string>
+  <string name="puzzleDownloadInformation">Ushbu masalalar jamoat mulki hisoblanadi va ularni %s manzilidan yuklab olish mumkin.</string>
 </resources>
