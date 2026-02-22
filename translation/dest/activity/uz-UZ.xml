@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="activity">Faoliyat</string>
-  <string name="hostedALiveStream">Jonli efir qildi</string>
+  <string name="activity">Faollik</string>
+  <string name="hostedALiveStream">Jonli efir oʻtkazdi</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">%2$s sifatida lichess.orgʼni %1$s oy davomida qoʻllab-quvvatladi</item>
     <item quantity="other">%2$s sifatida lichess.orgʼni %1$s oy davomida qoʻllab-quvvatladi</item>
