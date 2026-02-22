@@ -34,7 +34,7 @@
   <string name="discoveredCheckDescription">移动一个棋子，露出隐藏的攻击性子力进行将军，这通常能带来决定性的优势。</string>
   <string name="doubleBishopMate">双象杀王</string>
   <string name="doubleBishopMateDescription">两条相邻斜线上的两个进攻象，在己方棋子阻挡下将杀对方的王。</string>
-  <string name="dovetailMate">燕尾杀王</string>
+  <string name="dovetailMate">鸽尾杀王</string>
   <string name="dovetailMateDescription">后将军紧邻的对方王，而对方王仅有的两个逃跑格被己方棋子阻挡。</string>
   <string name="equality">均势</string>
   <string name="equalityDescription">从劣势局面回到和棋或平衡局面（评估 ≤ 200 厘兵）</string>
