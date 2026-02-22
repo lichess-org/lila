@@ -488,7 +488,7 @@
   <string name="winner">G\'olib</string>
   <string name="standings">Turnir jadvali</string>
   <string name="createANewTournament">Yangi turnir yaratish</string>
-  <string name="tournamentCalendar">Turnir taqvimi</string>
+  <string name="tournamentCalendar">Turnirlar taqvimi</string>
   <string name="conditionOfEntry">Ishtirok etish shartlari:</string>
   <string name="advancedSettings">Kengaytirilgan sozlashlar</string>
   <string name="safeTournamentName">Turnir uchun juda ham xavfsiz nom tanlash.</string>
@@ -640,7 +640,7 @@
   <string name="listBlockedPlayers">Siz bloklagan oʻyinchilar roʻyxati</string>
   <string name="human">Odam</string>
   <string name="computer">Kompyuter</string>
-  <string name="side">Taraf</string>
+  <string name="side">Rang</string>
   <string name="clock">Soat</string>
   <string name="opponent">Raqib</string>
   <string name="learnMenu">Oʻrganish</string>
