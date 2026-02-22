@@ -641,7 +641,7 @@
   <string name="mobileApp">모바일 앱</string>
   <string name="webmasters">웹마스터</string>
   <string name="about">Lichess 개요</string>
-  <string name="aboutX">%s에 대해</string>
+  <string name="aboutX">%s 정보</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s는 무료(%2$s)이고, 자유로우며, 광고가 없는 오픈 소스 체스 서버입니다.</string>
   <string name="really">정말입니다!</string>
   <string name="contribute">기여하기</string>
