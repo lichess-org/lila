@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">Shaxsiy sozlanmalar</string>
-  <string name="display">Displey</string>
+  <string name="preferences">Sozlamalar</string>
+  <string name="display">Koʻrinish</string>
   <string name="privacy">Maxfiylik</string>
   <string name="notifications">Bildirishnomalar</string>
-  <string name="pieceAnimation">Qism animatsiyalar</string>
-  <string name="materialDifference">Materiallar farqi</string>
-  <string name="boardHighlights">Doskadagi rang bila ajratsih (oxirgi yurish va shoh)</string>
-  <string name="pieceDestinations">Mumkin bo\'lgan yurishlani ko\'rsatish</string>
+  <string name="pieceAnimation">Dona animatsiyalari</string>
+  <string name="materialDifference">Material farqi</string>
+  <string name="boardHighlights">Oxirgi yurishni va shoh berishni taxtada belgilash</string>
+  <string name="pieceDestinations">Mumkin boʻlgan yurishlani koʻrsatish</string>
   <string name="boardCoordinates">Doska koordinatalari (A-H, 1-8)</string>
-  <string name="moveListWhilePlaying">O\'yin davomida yurishlar ro\'yhatini ko\'rsatish</string>
-  <string name="pgnPieceNotation">Yurishlarni qayd qilib borish</string>
-  <string name="chessPieceSymbol">Sipoh belgisi</string>
+  <string name="moveListWhilePlaying">Oʻyin davomida yurishlar roʻyxatini koʻrsatish</string>
+  <string name="pgnPieceNotation">Yurish notatsiyasi</string>
+  <string name="chessPieceSymbol">Shaxmat dona simvoli</string>
   <string name="pgnLetter">Harflar (K, Q, R, B, N)</string>
-  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen rejimi (faqat doska va soat)</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen rejimi</string>
   <string name="showPlayerRatings">Oʻyinchi reytinglarini koʻrsatish</string>
   <string name="explainShowPlayerRatings">Bu barcha reytinglarni websiteda yashirib fokusni faqat shaxmatga qaratish imkonini beradi. O‘yinlar reytingli bo‘lishi saqlanib qoladi. Bu faqat siz nimani ko‘rishingiz mumkinligi haqida.</string>
   <string name="displayBoardResizeHandle">Doskani o\'lchamini o\'gartiruvchi uskunani namoyishi</string>
