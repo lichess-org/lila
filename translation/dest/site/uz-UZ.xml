@@ -974,10 +974,10 @@ Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
   <string name="simulHostcolor">Har bir oʻyin uchun biryoʻla seans oʻtkazuvchining rangi</string>
   <string name="estimatedStart">Taxminiy boshlanish vaqti</string>
   <string name="simulFeatured">%s mazilida koʻrsatish</string>
-  <string name="simulFeaturedHelp">%s dagi hammaga sizning seansingizni ko‘rsatish. Shaxsiy seanslaringiz uchun uni o‘chirib qo‘ying.</string>
+  <string name="simulFeaturedHelp">Biryoʻla seansingizni %sʼdagi barchaga koʻrsatish. Shaxsiy biryoʻla seanslar uchun buni oʻchirib qoʻying.</string>
   <string name="simulDescription">Seans tavsifi</string>
   <string name="simulDescriptionHelp">Ishtirokchilarga aytadigan gapingiz bormi?</string>
-  <string name="markdownIsAvailable">Formatlash uchun %s qoʻllay olasiz</string>
+  <string name="markdownIsAvailable">Matnni formatlash uchun %sʼdan foydalanishingiz mumkin.</string>
   <string name="embedsAvailable">Biriktirish uchun oʻyin yoki dars bobi havolasini qoʻying.</string>
   <string name="inYourLocalTimezone">Mahalliy vaqtingiz boʻyicha</string>
   <string name="tournChat">Turnir chati</string>
@@ -998,30 +998,30 @@ Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
   <string name="sentEmailWithLink">Sizga ichida havolasi bor e-pochta yubordik.</string>
   <string name="tournamentEntryCode">Turnirga kirish kodi</string>
   <string name="hangOn">Toʻxtang!</string>
-  <string name="gameInProgress">%sʼga qarshi oʻyiningiz davom etayapti.</string>
+  <string name="gameInProgress">Sizni %s bilan tugallanmagan oʻyiningiz bor.</string>
   <string name="abortTheGame">O‘yinni bekor qilish</string>
   <string name="resignTheGame">Taslim bo‘lish</string>
-  <string name="youCantStartNewGame">Joriy oʻyinni yakunlamasangiz yangi oʻyin boshlay olmaysiz.</string>
-  <string name="since">Dan beri</string>
-  <string name="until">Toki</string>
-  <string name="lichessDbExplanation">Lichessʼdagi reytingli oʻyinlar</string>
-  <string name="switchSides">Tomonlarni almashtirish</string>
+  <string name="youCantStartNewGame">Ushbu oʻyin tugamaguncha yangisini boshlay olmaysiz.</string>
+  <string name="since">Shu sanadan</string>
+  <string name="until">Shu sanagacha</string>
+  <string name="lichessDbExplanation">Lichessʼda oʻynalgan reytingli oʻyinlar</string>
+  <string name="switchSides">Rangni almashtirish</string>
   <string name="closingAccountWithdrawAppeal">Akkauntingizni yopsangiz appelyatsiyangiz bekor qilinadi.</string>
-  <string name="ourEventTips">Tadbirlarni oʻtkazish borasida bizning maslahatlarimiz</string>
+  <string name="ourEventTips">Tadbirlarni tashkillashtirish boʻyicha tavsiyalarimiz</string>
   <string name="instructions">Ko\'rsatmalar</string>
-  <string name="showMeEverything">Menga hamma narsani ko\'rsat</string>
-  <string name="lichessPatronInfo">Lichess - bu xayriyali va ochiq kodli bepul dasturiy ta‘minot.
-Ishlab chiqish, saytni ma‘lumotlar bilan to‘ldirish kabi barcha boshqa amallar harajatlari xayriya jamg‘armasi hisobidan bajariladi.</string>
+  <string name="showMeEverything">Hammasini koʻrsat</string>
+  <string name="lichessPatronInfo">Lichess — bu xayriya loyihasi boʻlib, mutlaqo bepul va ochiq kodli dasturdir.
+Loyiha faoliyati, uni rivojlantirish va barcha xarajatlar faqat foydalanuvchilarning ixtiyoriy xayriyalari orqali qoplanadi.</string>
   <string name="nothingToSeeHere">Ayni paytda bu yerda hech nima yoʻq.</string>
   <string name="stats">Statistika</string>
-  <string name="accessibility">Maxsus imkoniyatlar</string>
-  <string name="enableBlindMode">Koʻzi ojizlar uchun rejimni yoqing</string>
-  <string name="disableBlindMode">Koʻzi ojizlar uchun rejimni oʻchiring</string>
-  <string name="copyToClipboard">Nusxalash</string>
+  <string name="accessibility">Maxsus qulayliklar</string>
+  <string name="enableBlindMode">Koʻzi ojizlar rejimini yoqish</string>
+  <string name="disableBlindMode">Koʻzi ojizlar rejimini oʻchirish</string>
+  <string name="copyToClipboard">Nusxa olish</string>
   <string name="online" comment="status of a user">onlayn</string>
   <string name="offline" comment="status of a user">oflayn</string>
   <string name="search">Qidirish</string>
   <string name="clearSearch">Qidiruvni tozalash</string>
   <string name="tags">Teglar</string>
-  <string name="enPassant">Kesib oʻtish</string>
+  <string name="enPassant">“En passant” huquqi</string>
 </resources>
