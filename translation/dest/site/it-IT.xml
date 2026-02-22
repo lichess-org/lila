@@ -1011,4 +1011,5 @@ Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivament
   <string name="search">Cerca</string>
   <string name="clearSearch">Cancella ricerca</string>
   <string name="tags">Tag</string>
+  <string name="enPassant">Regole En passant</string>
 </resources>
