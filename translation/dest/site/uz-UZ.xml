@@ -684,7 +684,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s bu (%2$s) bepul, erkin, reklamasiz, ochiq manbali shaxmat serveri.</string>
   <string name="really">haqiqatan ham</string>
   <string name="contribute">Hissa qo‘shish</string>
-  <string name="termsOfService">Xizmat shartlari</string>
+  <string name="termsOfService">Foydalanish shartlari</string>
   <string name="titleVerification">Unvonni tasdiqlash</string>
   <string name="sourceCode">Manba kodi</string>
   <string name="simultaneousExhibitions">Biryoʻla seanslar</string>
@@ -747,9 +747,9 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Siz %2$s oʻyinchilarining %1$s dan yaxshiroqsiz.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s oʻyinchilarining %2$s dan yaxshiroq.</string>
   <string name="betterThanPercentPlayers">%2$s oʻyinchilarining %1$s dan yaxshiroq</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sizda muayyan bir %s reyting mavjud emas.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sizni %s reytingingiz hali aniqlanmagan.</string>
   <string name="yourRating">Sizning reytingingiz</string>
-  <string name="cumulative">To\'plangani</string>
+  <string name="cumulative">Kumulyativ</string>
   <string name="glicko2Rating">Glicko-2 reytingi</string>
   <string name="checkYourEmail">E-pochtangizni tekshiring</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Sizga e-pochta joʻnatdik. E-pochtadagi havolani bosib akkauntingizni faollashtiring.</string>
@@ -758,11 +758,11 @@
   <string name="checkAllEmailFolders">Barcha keraksiz, spam va boshqa e-pochta jildlarni tekshiring</string>
   <string name="verifyYourAddress">%s e-pochta manzili sizniki ekanligini tasdiqlang</string>
   <string name="weHaveSentYouAnEmailTo">Biz %s ga xat yubordik. Parolni qayta tiklash uchun xattagi havolani bosing.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Ro\'yhatdan o\'tib bizning %s shartlarimizga roziligingizni bildirasiz.</string>
-  <string name="readAboutOur">Biz haqimizda oʻqing: %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Lichess va sizning o\'rtangizdagi tarmoq kechikishi</string>
-  <string name="timeToProcessAMoveOnLichessServer">Lichess serverida yurishni amalga oshirish uchun vaqt</string>
-  <string name="downloadAnnotated">Annotatsiya holatda yuklash</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Roʻyxatdan oʻtish orqali siz %sga rozilik bildirasiz.</string>
+  <string name="readAboutOur">%smiz bilan tanishib chiqing.</string>
+  <string name="networkLagBetweenYouAndLichess">Siz va Lichess oʻrtasidagi tarmoq kechikishi (lag)</string>
+  <string name="timeToProcessAMoveOnLichessServer">Lichess serverida yurishga ketadigan vaqt</string>
+  <string name="downloadAnnotated">Annotatsiyalar bilan yuklab olish</string>
   <string name="downloadRaw">Boricha yuklash</string>
   <string name="downloadImported">Import qilinganni yuklash</string>
   <string name="downloadAllGames">Barcha oʻyinlarni yuklab olish</string>
