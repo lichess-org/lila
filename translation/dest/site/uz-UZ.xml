@@ -842,10 +842,10 @@
   <string name="anotherWasX">Boshqasi esa %s edi</string>
   <string name="bestWasX">Eng yaxshisi %s edi</string>
   <string name="youBrowsedAway">Uzoqlashib kettingiz</string>
-  <string name="resumePractice">Mashgʻulotni davom ettirish</string>
+  <string name="resumePractice">Mashqni davom ettirish</string>
   <string name="drawByFiftyMoves">Ellikta yurish qoidasiga koʻra durang qayd etildi.</string>
   <string name="theGameIsADraw">Oʻyin — durang.</string>
-  <string name="computerThinking">Kompyuter o\'ylayabdi...</string>
+  <string name="computerThinking">Kompyuter oʻylamoqda...</string>
   <string name="seeBestMove">Eng yaxshi yurishni koʻrish</string>
   <string name="hideBestMove">Eng yaxshi yurishni yashirish</string>
   <string name="getAHint">Yordam olish</string>
@@ -860,16 +860,16 @@
   <string name="findBetterMoveForWhite">Oqlar uchun yaxshiroq yurishni toping</string>
   <string name="findBetterMoveForBlack">Qoralar uchun eng yaxshiroq yurishni toping</string>
   <string name="resumeLearning">Oʻrganishni davom ettirish</string>
-  <string name="youCanDoBetter">Qoʻlingizdan keladi</string>
-  <string name="tryAnotherMoveForWhite">Oqlar uchun boshqa yurishni sinab koʻring</string>
-  <string name="tryAnotherMoveForBlack">Qoralar uchun boshqa yurishni sinab koʻring</string>
+  <string name="youCanDoBetter">Bundan ham yaxshiroq yurish bor</string>
+  <string name="tryAnotherMoveForWhite">Oqlar bilan boshqa yurish qilib koʻring</string>
+  <string name="tryAnotherMoveForBlack">Qoralar bilan boshqa yurish qilib koʻring</string>
   <string name="solution">Yechim</string>
   <string name="waitingForAnalysis">Tahlil kutilmoqda</string>
   <string name="noMistakesFoundForWhite">Oqlar uchun xatolar topilmadi</string>
   <string name="noMistakesFoundForBlack">Qoralar uchun xatolar topilmadi</string>
-  <string name="doneReviewingWhiteMistakes">Oqlar xatolari koʻrib chiqildi</string>
-  <string name="doneReviewingBlackMistakes">Qoralar xatolari koʻrib chiqildi</string>
-  <string name="doItAgain">Qayta koʻrib chiqish</string>
+  <string name="doneReviewingWhiteMistakes">Oqlarning xatolari koʻrib chiqildi</string>
+  <string name="doneReviewingBlackMistakes">Qoralarning xatolari koʻrib chiqildi</string>
+  <string name="doItAgain">Qayta boshlash</string>
   <string name="reviewWhiteMistakes">Oqlar xatolarini ko\'rib chiqish</string>
   <string name="reviewBlackMistakes">Qoralar xatolarini koʻrib chiqish</string>
   <string name="advantage">Ustunlik</string>
@@ -880,15 +880,15 @@
   <string name="opening">Debyut</string>
   <string name="middlegame">Mittelshpil</string>
   <string name="endgame">Endshpil</string>
-  <string name="conditionalPremoves">Avvaldan shartli yurishlar</string>
-  <string name="addCurrentVariation">Joriy yurishlarni qo\'sh</string>
-  <string name="playVariationToCreateConditionalPremoves">Shartli avvaldan yurishlarni yaratish uchun variatsiyani o\'ynash</string>
-  <string name="noConditionalPremoves">Shartli avvaldan yurish emas</string>
-  <string name="playX">%s ni o\'ynang</string>
+  <string name="conditionalPremoves">Shartli oldindan yurishlar</string>
+  <string name="addCurrentVariation">Joriy variantni qoʻshish</string>
+  <string name="playVariationToCreateConditionalPremoves">Shartli yurish yaratish uchun variantni oʻynab koʻring</string>
+  <string name="noConditionalPremoves">Shartli oldindan yurishlar yoʻq</string>
+  <string name="playX">%s yurish</string>
   <string name="challengeX">%sʼni chorlash</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">va %s avvaldan yurishni saqlash</item>
-    <item quantity="other">va %s avvaldan yurishlarni saqlash</item>
+    <item quantity="one">va %s ta oldindan yurish variantini saqlash</item>
+    <item quantity="other">va %s ta oldindan yurish variantini saqlash</item>
   </plurals>
   <string name="showUnreadLichessMessage">Sizga Lichessdan shaxsiy xabar keldi.</string>
   <string name="clickHereToReadIt">Uni oʻqish uchun shu yerga bosing</string>
@@ -905,13 +905,13 @@
   <string name="temporaryInconvenience">Vaqtinchalik noqulaylik uchun uzr so\'raymiz</string>
   <string name="wishYouGreatGames">va lichess.org dagi o\'yinlarda muvaffaqiyat tilaymiz.</string>
   <string name="thankYouForReading">Eʻtiboringiz uchun rahmat!</string>
-  <string name="lifetimeScore">Hisoblar solishtirilganda</string>
-  <string name="currentMatchScore">Joriy o\'yin holati</string>
-  <string name="agreementAssistance">Men o\'yin davomida hech qanday (kompyuter shahmatidan, kitobdan, qandaydir ma\'lumotlar omboridan va boshqa odamlardan) yordam olmaslikka roziman.</string>
-  <string name="agreementNice">Boshqa o\'yinchilarga hurmat bilan munosabatda bo\'lishga roziman.</string>
-  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Men bir nechta akkaunt yaratmaslikka roziman (bundan %sdagi holatlar mustasno).</string>
-  <string name="agreementPolicy">Men Lichess tartib qoidalariga amal qilishga roziman.</string>
-  <string name="searchOrStartNewDiscussion">Qidirish yoki yangi fikr almashinuv</string>
+  <string name="lifetimeScore">Umumiy hisob</string>
+  <string name="currentMatchScore">Joriy match hisobi</string>
+  <string name="agreementAssistance">Oʻyinlarim davomida hech qachon (shaxmat kompyuteri, kitob, maʼlumotlar bazasi yoki boshqa shaxsdan) yordam olmaslikka vaʼda beraman.</string>
+  <string name="agreementNice">Boshqa oʻyinchilarga nisbatan har doim hurmatli munosabatda boʻlishga vaʼda beraman.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Men bir nechta akkaunt yaratmaslikka vaʼda beraman (bundan %sdagi holatlar mustasno).</string>
+  <string name="agreementPolicy">Lichessʼning barcha qoidalariga amal qilishga vaʼda beraman.</string>
+  <string name="searchOrStartNewDiscussion">Qidirish yoki yangi suhbat boshlash</string>
   <string name="edit">Tahrirlash</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
@@ -924,58 +924,58 @@
   <string name="rapidDesc">Rapid oʻyinlar: 8–25 daqiqa</string>
   <string name="classicalDesc">Klassik oʻyinlar: 25 va undan ortiq daqiqa</string>
   <string name="correspondenceDesc">Yozishmali oʻyinlar: har bir yurish uchun bir yoki bir necha kun</string>
-  <string name="puzzleDesc">Shaxmat taktikalarini o\'rgatuvchi murabbiy</string>
+  <string name="puzzleDesc">Shaxmat taktikalari trenajyori</string>
   <string name="important">Muhim</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Balki savolingiz javobi %1$s bordir</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Savolingizga javob allaqachon %1$s boʻlishi mumkin</string>
   <string name="inTheFAQ">koʻp beriladigan savollar ichida</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">Foydalanuvchini gʻirromlikda yoki qoʻpollikda haqida xabar berish uchun %1$s</string>
-  <string name="useTheReportForm">hisobot shaklidan toʻldiring</string>
-  <string name="toRequestSupport">Yordam soʻrash uchun, %1$s</string>
-  <string name="tryTheContactPage">aloqa sahifasini koʻring</string>
-  <string name="makeSureToRead">%1$sni oʻqishni yoddan chiqarmang</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Foydalanuvchi ustidan firibgarlik yoki yomon xulq-atvor boʻyicha shikoyat qilish uchun %1$s</string>
+  <string name="useTheReportForm">shikoyat shaklidan foydalaning</string>
+  <string name="toRequestSupport">Qoʻllab-quvvatlash xizmatiga murojaat qilish uchun, %1$s</string>
+  <string name="tryTheContactPage">aloqa sahifasiga oʻting</string>
+  <string name="makeSureToRead">%1$s bilan tanishib chiqqaningizga ishonch hosil qiling</string>
   <string name="theForumEtiquette">Forum odob-axloq qoidalari</string>
-  <string name="thisTopicIsArchived">Ushbu mavzu arxivlangan va endi unga javob qaytarib boʻlmaydi.</string>
+  <string name="thisTopicIsArchived">Bu mavzu arxivlangan, unga endi javob yozib boʻlmaydi.</string>
   <string name="joinTheTeamXToPost">Ushbu forumda post qoldirish uchun %1$sga qoʻshiling</string>
   <string name="teamNamedX">%1$s jamoasi</string>
-  <string name="youCannotPostYetPlaySomeGames">Ushbu formuda hali yoza olmaysiz. Bir necha oʻyin oʻynang!</string>
+  <string name="youCannotPostYetPlaySomeGames">Siz hali forumlarda xabar yozolmaysiz. Bir nechta oʻyin oʻynang!</string>
   <string name="subscribe">Obuna bo‘lish</string>
   <string name="unsubscribe">Obunani bekor qilish</string>
-  <string name="mentionedYouInX">siz \"%1$s\" da eslab o‘tilgansiz.</string>
-  <string name="xMentionedYouInY">%1$s sizni \"%2$s\" da qayd etgan.</string>
+  <string name="mentionedYouInX">\"%1$s\" mavzusida sizni eslab oʻtdi.</string>
+  <string name="xMentionedYouInY">%1$s sizni \"%2$s\" mavzusida eslab oʻtdi.</string>
   <string name="invitedYouToX">sizni \"%1$s\"ga taklif qildi.</string>
   <string name="xInvitedYouToY">%1$s sizni \"%2$s\"ga taklif qildi.</string>
   <string name="youAreNowPartOfTeam">Siz endi jamoa a‘zosisiz.</string>
   <string name="youHaveJoinedTeamX">Siz \"%1$s\" ga qo‘shildingiz.</string>
   <string name="someoneYouReportedWasBanned">Siz shikoyat qilgan odam ban qilindi</string>
   <string name="congratsYouWon">Tabriklaymiz siz yutdingiz!</string>
-  <string name="gameVsX">%1$s ga qarshi o‘yin</string>
+  <string name="gameVsX">%1$sga qarshi o‘yin</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="lostAgainstTOSViolator">Siz Lichess foydalanish shartlarini buzgan oʻyinchiga reyting ochkolarini yutqazdingiz</string>
   <string name="refundXpointsTimeControlY">%1$s %2$s reyting ochko qaytarildi.</string>
-  <string name="timeAlmostUp">Vaqt deyarli yakunlandi!</string>
+  <string name="timeAlmostUp">Vaqt tugashiga oz qoldi!</string>
   <string name="clickToRevealEmailAddress">[E-pochta manzilini koʻrish uchun bosing]</string>
   <string name="download">Yuklab olish</string>
-  <string name="coachManager">Murabbiylarga</string>
-  <string name="streamerManager">Strimmerlarga</string>
+  <string name="coachManager">Murabbiy boshqaruvi</string>
+  <string name="streamerManager">Strimer boshqaruvi</string>
   <string name="cancelTournament">Turnirni bekor qilish</string>
-  <string name="tournDescription">Turnir izohi</string>
-  <string name="tournDescriptionHelp">Ishtirokchilarga nimadir demoqchimisiz? Qisqaroq yozishga harakat qiling. Havolalarni Markdown formatida yoza olasiz: [nom](https://url)</string>
+  <string name="tournDescription">Turnir tavsifi</string>
+  <string name="tournDescriptionHelp">Ishtirokchilarga aytmoqchi boʻlgan biror muhim gapingiz bormi? Qisqa yozishga harakat qiling. Markdown havolalaridan foydalanish mumkin: [nom](https://url)</string>
   <string name="ratedFormHelp">Oʻyinlar reytingli va oʻyinchilar reytingiga taʼsir qiladi</string>
   <string name="onlyMembersOfTeam">Faqat jamoa aʼzloari</string>
-  <string name="noRestriction">Cheklov yo‘q</string>
-  <string name="minimumRatedGames">Reytingli oʻyinlar minimal miqdori</string>
-  <string name="minimumRating">Minimal reyting</string>
+  <string name="noRestriction">Hech qanday cheklov yoʻq</string>
+  <string name="minimumRatedGames">Reytingli oʻyinlar minimal soni</string>
+  <string name="minimumRating">Minimum reyting</string>
   <string name="maximumWeeklyRating">Haftalik maksimal reyting</string>
-  <string name="positionInputHelp">O‘yinni kelgan joyidan boshlash uchun xatosiz FEN ni qo‘ying.
-Bu faqat standart o‘yinlarga ishlaydi, boshqa varinatlar bilan emas.
-Siz %s dan foydalanib FEN ni generatsiya qilishingiz va keyin bu yerga qo‘yishingiz mumkin.
-Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
-  <string name="cancelSimul">Seansni yakunlash</string>
-  <string name="simulHostcolor">Seanschining har bir o‘yindagi rangi</string>
-  <string name="estimatedStart">Boshlanish vaqti</string>
-  <string name="simulFeatured">%s da ko‘rsatish</string>
+  <string name="positionInputHelp">Har bir oʻyinni berilgan pozitsiyadan boshlash uchun haqiqiy FEN kodini joylashtiring.
+Bu faqat standart oʻyinlar uchun amal qiladi, variantlar uchun ishlamaydi.
+FEN pozitsiyani yaratish uchun %s boʻlimidan foydalanishingiz mumkin.
+Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
+  <string name="cancelSimul">Biryoʻla seansni bekor qilish</string>
+  <string name="simulHostcolor">Har bir oʻyin uchun biryoʻla seans oʻtkazuvchining rangi</string>
+  <string name="estimatedStart">Taxminiy boshlanish vaqti</string>
+  <string name="simulFeatured">%s mazilida koʻrsatish</string>
   <string name="simulFeaturedHelp">%s dagi hammaga sizning seansingizni ko‘rsatish. Shaxsiy seanslaringiz uchun uni o‘chirib qo‘ying.</string>
-  <string name="simulDescription">Seans izohi</string>
+  <string name="simulDescription">Seans tavsifi</string>
   <string name="simulDescriptionHelp">Ishtirokchilarga aytadigan gapingiz bormi?</string>
   <string name="markdownIsAvailable">Formatlash uchun %s qoʻllay olasiz</string>
   <string name="embedsAvailable">Biriktirish uchun oʻyin yoki dars bobi havolasini qoʻying.</string>
