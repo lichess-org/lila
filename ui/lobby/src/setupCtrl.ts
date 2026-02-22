@@ -308,6 +308,7 @@ export default class SetupController {
     if (poolMember) {
       this.root.enterPool(poolMember);
       this.closeModal?.();
+      this.root.poolMode = 'quick_pairing';
       return;
     }
 
