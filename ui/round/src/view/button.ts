@@ -18,6 +18,12 @@ function analysisBoardOrientation(data: RoundData) {
   return data.game.variant.key === 'racingKings' ? 'white' : data.player.color;
 }
 
+function rematchColor(d: RoundData) {
+  if (d.game.variant.key === 'fromPosition' && (d.player.user?.title === 'BOT') !== (d.opponent.user?.title === 'BOT'))
+    return d.player.color;
+  return d.opponent.color;
+}
+
 function poolUrl(clock: ClockData, blocking?: PlayerUser) {
   return '/#pool/' + clock.initial / 60 + '+' + clock.increment + (blocking ? '/' + blocking.id : '');
 }
@@ -286,7 +292,7 @@ export function watcherFollowUp(ctrl: RoundController): LooseVNode {
       d.game.rematch &&
         hl(
           'a.fbt.text',
-          { attrs: { href: `/${d.game.rematch}/${d.opponent.color}` } },
+          { attrs: { href: `/${d.game.rematch}/${rematchColor(d)}` } },
           i18n.site.viewRematch,
         ),
       d.tournament &&
