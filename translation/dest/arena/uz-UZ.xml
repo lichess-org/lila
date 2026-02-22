@@ -44,7 +44,7 @@ Koʻproq oʻyin oʻtkazish va koʻproq ochko jamlash uchun tez oʻynang va lobbi
   <string name="drawStreakVariants">Durang oʻyinlar uchun ochko beriladigan minimal yurishlar soni shaxmat variantiga qarab farq qiladi. Quyidagi jadvalda har bir variant uchun belgilangan qiymatlar koʻrsatilgan.</string>
   <string name="variant">Variant</string>
   <string name="minimumGameLength">Minimum yurishlar soni</string>
-  <string name="history">Arena jurnali</string>
+  <string name="history">Arenalar jurnali</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Jamoani koʻrish</item>
     <item quantity="other">Barcha %s ta jamoani koʻrish</item>
