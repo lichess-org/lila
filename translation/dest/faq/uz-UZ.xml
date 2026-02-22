@@ -17,7 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">Lichessʼga asoslangan boshqa veb-saytlar bormi?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">\"Ha. Haqiqatan ham Lichess bizning %1$s, %2$s yoki %3$s foydalanadigan boshqa ochiq kodli saytlarni ilhomlantirgan.</string>
   <string name="keyboardShortcuts">Qanday klaviatura yorliqlari mavjud?</string>
-  <string name="keyboardShortcutsExplanation">Lichessʻning ayrim sahifalarida klaviatura yorliqlarini ishlatsangiz boʻladi. Mavjud klaviatura yorliqlarini koʻrish uchun oʻrganish, tahlil, boshqotirma yoki oʻyin sahifasida \'?\' tugmasini bosing.</string>
+  <string name="keyboardShortcutsExplanation">Lichessʻning ayrim sahifalarida klaviatura yorliqlarini ishlatsangiz boʻladi. Mavjud klaviatura yorliqlarini koʻrish uchun oʻrganish, tahlil, masala yoki oʻyin sahifasida \'?\' tugmasini bosing.</string>
   <string name="accounts">Hisoblar</string>
   <string name="whatUsernameCanIchoose">Foydalanuvchi nomi qanday boʻlishi kerak?</string>
   <string name="usernamesNotOffensive">Umuman olganda, foydalanuvchi nomlari haqoratli boʻlmasligi, boshqa birovning nomidan ochilgan boʻlmasligi yoki reklama xarakterida boʻlmasligi lozim. %1$s haqida batafsil maʼlumot olishingiz mumkin.</string>
