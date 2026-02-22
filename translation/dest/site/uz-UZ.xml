@@ -276,8 +276,8 @@
     <item quantity="other">Oʻrin har %s daqiqa yangilanadi</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s ta boshqotirma</item>
-    <item quantity="other">%s ta boshqotirma</item>
+    <item quantity="one">%s masala</item>
+    <item quantity="other">%s masala</item>
   </plurals>
   <string name="gamesPlayed">O\'ynalgan o\'yinlar</string>
   <plurals name="nbGamesWithYou">
@@ -552,7 +552,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Yurishdan so\'ng avtomatik tarzda keyingi o\'yinga o\'tish</string>
   <string name="autoSwitch">Avtomatik oʻtish</string>
-  <string name="puzzles">Boshqotirmalar</string>
+  <string name="puzzles">Masalalar</string>
   <string name="onlineBots">Onlayn botlar</string>
   <string name="name">Ism</string>
   <string name="description">Izoh</string>
