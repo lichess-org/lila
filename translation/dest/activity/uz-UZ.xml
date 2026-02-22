@@ -11,8 +11,8 @@
     <item quantity="other">%2$s boʻlimida %1$s ta pozitsiyani mashq qildi</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">%s ta taktik boshqotirma yechdi</item>
-    <item quantity="other">%s ta taktik boshqotirma yechdi</item>
+    <item quantity="one">%s ta masala mashq qildi</item>
+    <item quantity="other">%s ta masala mashq qildi</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">%1$s ta %2$s oʻyin oʻynadi</item>
