@@ -41,11 +41,11 @@
 		<item quantity="other">%s ta oʻyinda qoralar sifatida eng ko′p oʻynalgan debyutingiz</item>
 	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
-		<item quantity="one">%s ta boshqotirmani baholaganingiz uchun rahmat.</item>
-		<item quantity="other">%s ta boshqotirmani baholaganingiz uchun rahmat.</item>
+		<item quantity="one">%s ta masalani baholaganingiz uchun rahmat.</item>
+		<item quantity="other">%s ta masalani baholaganingiz uchun rahmat.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Siz shuningdek, ulardan %s tasiga teg qoʻyishga yordam berdingiz.</string>
-	<string name="puzzlesNone">Bu yil siz hech qancha boshqotirma yechmadingiz.</string>
+	<string name="puzzlesNone">Bu yil siz hech qancha masala yechmadingiz.</string>
 	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Hozir yechib koʻrmoqchimisiz?</string>
 	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Ulardan %s tasini birinchi urunishda yechdingiz!</string>
 	<string name="sourcesTitle">Qayerda oʻynadingiz?</string>
@@ -70,8 +70,8 @@
 	<string name="shareableFavouriteVariant">sevimli variant</string>
 	<string name="shareableFavouriteTimeControl">sevimli vaqt nazorati</string>
 	<plurals name="shareableNbPuzzlesSolved">
-		<item quantity="one">%s ta boshqotirma yechdingiz</item>
-		<item quantity="other">%s ta boshqotirma yechdingiz</item>
+		<item quantity="one">%s masala yechdingiz</item>
+		<item quantity="other">%s masala yechdingiz</item>
 	</plurals>
 	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Sizning %s-yil sarhisobingiz tayyor!</string>
 </resources>
