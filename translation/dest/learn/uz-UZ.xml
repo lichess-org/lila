@@ -171,7 +171,7 @@ Piyoda = 1</string>
   <string name="getAFreeLichessAccount">Lichessda bepull hisob ochish</string>
   <string name="practice">Amaliyot</string>
   <string name="learnCommonChessPositions">Umumiy shahmat qoidalarini o\'rganish</string>
-  <string name="puzzles">Boshqotirmalar</string>
+  <string name="puzzles">Masalalar</string>
   <string name="exerciseYourTacticalSkills">O\'zingizni taktik bilimlaringizni rivojlantiring</string>
   <string name="videos">Videolar</string>
   <string name="watchInstructiveChessVideos">O\'rgatuvchi shahmat videolarini tomosha qiling</string>
@@ -195,6 +195,6 @@ Piyoda = 1</string>
   <string name="next">Keyingi</string>
   <string name="nextX">Navbatdagi: %s</string>
   <string name="backToMenu">Menuga qaytish</string>
-  <string name="puzzleFailed">Boshqotirma yechilmadi!</string>
+  <string name="puzzleFailed">Xato yechim!</string>
   <string name="retry">Qayta urinish</string>
 </resources>
