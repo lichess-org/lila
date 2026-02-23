@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="coordinates">Koordinatalar</string>
-  <string name="coordinateTraining">Kordinatalar bilan shug\'ullanish</string>
-  <string name="averageScoreAsWhiteX">Oqlarda o\'rtacha baho: %s</string>
-  <string name="averageScoreAsBlackX">Qorada o\'rtacha baho: %s</string>
-  <string name="knowingTheChessBoard">Shahmat doskasini koordinatalarini bilish shahmatda muhim:</string>
-  <string name="mostChessCourses">Ko\'pchilik shahmat kurslari va mashqlarida algebraik ifoda ishlatiladi.</string>
-  <string name="talkToYourChessFriends">Sizning shahmatdagi do\'stlaringiz bilan gaplashish onson, chunki ikkalangiz ham shahmat tilini bilasiz.</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Agar sizga kataklar nomlarini bilsangiz, ularni qidirmasdan o\'yinni yanada chuqurroq tahlil qilishingiz mumkin.</string>
-  <string name="startTraining">Shug\'ullanishni boshlash</string>
+  <string name="coordinateTraining">Koordinatalarni mashq qilish</string>
+  <string name="averageScoreAsWhiteX">Oq donalarda oʻrtacha ball: %s</string>
+  <string name="averageScoreAsBlackX">Qora donalarda oʻrtacha ball: %s</string>
+  <string name="knowingTheChessBoard">Shaxmat taxtasi koordinatalarini bilish bir necha sabablarga koʻra juda muhim mahoratdir:</string>
+  <string name="mostChessCourses">Aksariyat shaxmat kurslari va mashqlari algebraik notatsiyadan keng foydalanadi.</string>
+  <string name="talkToYourChessFriends">Bu shaxmatdagi doʻstlaringiz bilan muloqot qilishni osonlashtiradi, chunki ikkingiz ham bitta \"shaxmat tilini\" tushunasiz.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Agar koordinatalarni tezda aniqlay olsangiz, oʻyinni samaraliroq tahlil qila olasiz.</string>
+  <string name="aCoordinateAppears">Taxtada koordinata paydo boʻladi va siz unga mos keladigan katakchani bosishingiz kerak.</string>
+  <string name="aSquareIsHighlightedExplanation">Taxtada biror katakcha rang bilan ajratiladi va siz uning koordinatasini kiritishingiz kerak (masalan, \"e4\").</string>
+  <string name="youHaveThirtySeconds">30 soniya ichida imkon qadar koʻp katakchalarni toʻgʻri toping!</string>
+  <string name="goAsLongAsYouWant">Xohlaganingizcha davom eting, vaqt cheklanmagan!</string>
+  <string name="showCoordinates">Koordinatalarni koʻrsatish</string>
+  <string name="showCoordsOnAllSquares">Har katakda koordinatani koʻrsatish</string>
+  <string name="showPieces">Donalarni koʻrsatish</string>
+  <string name="startTraining">Mashqni boshlash</string>
+  <string name="findSquare">Katakchani toping</string>
+  <string name="nameSquare">Katakchani nomlang</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Faqat maʼlum vertikal va gorizontallar boʻyicha mashq qilish</string>
 </resources>
