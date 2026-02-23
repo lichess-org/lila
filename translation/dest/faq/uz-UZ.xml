@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">Koʻp beriladigan savollar</string>
-  <string name="frequentlyAskedQuestions">Koʻp beriladigan savollar</string>
+  <string name="faqAbbreviation">TTSS</string>
+  <string name="frequentlyAskedQuestions">Tez-tez soʻraladigan savollar</string>
   <string name="whyIsLichessCalledLichess">Lichess nimaga Lichess deb nomlangan?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess bu live/light/libre va chess soʻzlarining kombinatsiyasi. %1$s deb talaffuz qilinadi.</string>
   <string name="leechess">li-ches</string>
@@ -19,10 +19,22 @@
   <string name="keyboardShortcuts">Qanday klaviatura yorliqlari mavjud?</string>
   <string name="keyboardShortcutsExplanation">Lichessʻning ayrim sahifalarida klaviatura yorliqlarini ishlatsangiz boʻladi. Mavjud klaviatura yorliqlarini koʻrish uchun oʻrganish, tahlil, masala yoki oʻyin sahifasida \'?\' tugmasini bosing.</string>
   <string name="fairPlay">Halol oʻyin</string>
-  <string name="accounts">Hisoblar</string>
+  <string name="whenAmIEligibleRatinRefund">Qachon gʻirromchilar sababli yoʻqotilgan reytingim avtomatik ravishda qaytariladi?</string>
+  <string name="ratingRefundExplanation">Oʻyinchi gʻirromlik qilgani uchun belgilanganidan bir daqiqa oʻtgach, uning soʻnggi 5 kun ichidagi 40 ta reytingli oʻyini tahlil qilinadi. Agar siz oʻsha oʻyinlarning birida unga raqib boʻlgan boʻlsangiz va (magʻlubiyat yoki durang sababli) reyting yoʻqotgan boʻlsangiz va reytingingiz aniq boʻlsa, sizga reytingingiz qaytarib beriladi. Qaytariladigan reyting miqdori oʻsha oʻyindan keyingi reytingingiz va sizning eng yuqori reytingingizga qarab cheklanishi mumkin. (Masalan, agar oʻsha oʻyindan keyin reytingingiz sezilarli darajada oshgan boʻlsa, sizga ball qaytarilmasligi yoki faqat qisman qaytarilishi mumkin.) Qaytariladigan reyting miqdori hech qachon 150 ochkodan oshmaydi.</string>
+  <string name="preventLeavingGameWithoutResigning">Oʻyinni taslim boʻlmasdan tashlab ketadigan oʻyinchilarga nisbatan qanday choralar koʻriladi?</string>
+  <string name="leavingGameWithoutResigningExplanation">Agar raqibingiz oʻyinlarni tez-tez bekor qilsa yoki oxiriga yetkazmasdan tashlab ketsa, unga \"oʻyin taqiqi\" beriladi — ya’ni u maʼlum muddat oʻyin oʻynay olmaydi. Bu cheklov foydalanuvchi profilida ommaga koʻrsatilmaydi. Agar bunday holat takrorlanaversa, taqiq muddati uzayib boradi. Tartibni muntazam buzish esa akkauntning butunlay yopilishiga olib kelishi mumkin.</string>
+  <string name="howCanIBecomeModerator">Qanday qilib moderator boʻlishim mumkin?</string>
+  <string name="youCannotApply">Moderatorlikka ariza topshirishning iloji yoʻq. Agar biz kimnidir bu vazifaga munosib deb bilsak, u bilan shaxsan oʻzimiz bogʻlanamiz.</string>
+  <string name="isCorrespondenceDifferent">Yozishmali oʻyin normal shaxmatdan qanday farqlanadi?</string>
+  <string name="pleaseReadFairPlayPage">Batafsil maʼlumot uchun %s sahifamizni oʻqing</string>
+  <string name="fairPlayPage">halol oʻyin</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichessʼda yozishmali shaxmat qoidalari uchun asosiy farqi — debyut kitoblaridan foydalanishga ruxsat berilganidir. Dvijoklardan foydalanish esa hamon qatʼiyan taqiqlangan va bu \"dvijok yordami\" uchun profilga gʻirromlik tamgʻasi bosilishiga olib keladi. Garchi ICCF yozishmali shaxmatda dvijoklardan foydalanishga ruxsat bersa-da, Lichessʼda bu mumkin emas.</string>
+  <string name="gameplay">Oʻyin jarayoni</string>
+  <string name="accounts">Akkauntlar</string>
   <string name="whatUsernameCanIchoose">Foydalanuvchi nomi qanday boʻlishi kerak?</string>
   <string name="usernamesNotOffensive">Umuman olganda, foydalanuvchi nomlari haqoratli boʻlmasligi, boshqa birovning nomidan ochilgan boʻlmasligi yoki reklama xarakterida boʻlmasligi lozim. %1$s haqida batafsil maʼlumot olishingiz mumkin.</string>
   <string name="guidelines">Qoidalar</string>
   <string name="canIChangeMyUsername">Foydalanuvchi nomimni oʻzgartirsam boʻladimi?</string>
   <string name="usernamesCannotBeChanged">Yoʻq, texnik va amaliy sabablarga koʻra foydalanuvchi nomlarini oʻzgartirib boʻlmaydi. Foydalanuvchi nomlari juda koʻp joylarda muhrlanib qolgan: maʻlumotlar bazalari, eksportlar, tizim jurnallari (loglar) va odamlarning xotirasida. Faqat bir marta katta-kichik harflar koʻrinishini (capitalization) sozlashingiz mumkin.</string>
+  <string name="howToThreeDots">Qanday qilib...</string>
 </resources>
