@@ -35,5 +35,5 @@
     <item quantity="one">%s ta oʻyin topildi</item>
     <item quantity="other">%s ta oʻyin topildi</item>
   </plurals>
-  <string name="ratingExplanation">Ikkala o‘yinchining o‘rtacha ballari</string>
+  <string name="ratingExplanation">Ikkala oʻyinchining oʻrtacha reytingi</string>
 </resources>
