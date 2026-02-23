@@ -84,8 +84,27 @@
   <string name="liveboard">میزِ زنده</string>
   <string name="communityBroadcast">پخشِ همدارگان</string>
   <string name="createdAndManagedBy">ایجاد و مدیریت‌شده توسط %s.</string>
+  <string name="matchPoints">امتیاز نهایی</string>
   <string name="gamePoints">Persian</string>
   <string name="matches">Persian</string>
+  <string name="matchHistory">تاریخچه بازی</string>
+  <string name="teamResults">نتایج تیمی</string>
+  <string name="termsAutomaticallyTranslated">عباراتی که در ادامه آمده‌اند به طور خودکار ترجمه خواهند شد:
+%s.</string>
   <string name="roundX">دورِ %s</string>
   <string name="defaultRoundNameHelp">حفظِ نامِ پیش‌فرض، خودکار آن را به همهٔ زبان‌های دیگر می‌تَرجُمد.</string>
+  <string name="openTournament">آزاد</string>
+  <string name="womenTournament">زنان</string>
+  <string name="menTournament">مردان</string>
+  <string name="girlsTournament">دختران</string>
+  <string name="boysTournament">پسران</string>
+  <string name="openUnderXAgeTournament">آزاد زیر %s سال</string>
+  <string name="girlsUnderXAgeTournament">آزاد دختران زیر %s سال</string>
+  <string name="boysUnderXAgeTournament">آزاد پسران زیر %s سال</string>
+  <string name="quarterfinals">یک چهارم نهایی</string>
+  <string name="semifinals">نیمه نهایی</string>
+  <string name="finals">نهایی</string>
+  <string name="tiebreaks">پوئن شکنی‌ها</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">بازی %s</string>
+  <string name="knockouts">ناک اوت</string>
 </resources>
