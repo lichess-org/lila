@@ -15,10 +15,12 @@
   <string name="pgnLetter">Harflar (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen rejimi</string>
   <string name="showPlayerRatings">Oʻyinchilar reytingini koʻrsatish</string>
+  <string name="showFlairs">Oʻyinchilar hisbelgilarini koʻrsatish</string>
   <string name="explainShowPlayerRatings">Ushbu sozlama butun Lichess boʻylab barcha reytinglarni yashiradi va bor eʼtiboringizni shaxmatga qaratishga yordam beradi. Reytingli oʻyinlar reytingingizga baribir taʼsir qiladi, bu sozlama faqat reytinglarni yashiradi.</string>
   <string name="displayBoardResizeHandle">Taxta oʻlchamini oʻzgartirish tutqichini koʻrsatish</string>
   <string name="onlyOnInitialPosition">Faqat boshlangʻich pozitsiyada</string>
   <string name="inGameOnly">Faqat oʻyin davomida</string>
+  <string name="exceptInGame">Oʻyindan tashqarida</string>
   <string name="chessClock">Shaxmat soati</string>
   <string name="tenthsOfSeconds">Soniyaning oʻndan birini koʻrsatish</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">10 soniyadan kam vaqt qolganda</string>
@@ -34,10 +36,12 @@
   <string name="takebacksWithOpponentApproval">Yurishni qaytarish (raqib roziligi bilan)</string>
   <string name="inCasualGamesOnly">Faqat reytingsiz oʻyinlarda</string>
   <string name="promoteToQueenAutomatically">Piyoda avtomatik ravishda farzinga aylanadi</string>
+  <string name="explainPromoteToQueenAutomatically">Piyodani avtomatik almashtirishni vaqtinchalik oʻchirib turish uchun yurish vaqtida &lt;ctrl&gt; tugmasini bosib turing</string>
   <string name="whenPremoving">Oldindan yurilganda</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Yurish uch marta takrorlanganda avtomatik tarzda durang talab qilish</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">30 soniyadan kam vaqt qolganda</string>
   <string name="moveConfirmation">Yurishni tasdiqlash</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Oʻyin vaqtida taxta menyusi orqali vaqtinchalik oʻchirib turish mumkin</string>
   <string name="inCorrespondenceGames">Yozishmali oʻyinlarda</string>
   <string name="correspondenceAndUnlimited">Yozishmali va vaqti chegaralanmagan oʻyinlarda</string>
   <string name="confirmResignationAndDrawOffers">Taslim boʻlish va durang takliflarini tasdiqlash</string>
@@ -45,13 +49,26 @@
   <string name="castleByMovingTwoSquares">Shohni ikki katakka surish</string>
   <string name="castleByMovingOntoTheRook">Shohni rux ustiga surish</string>
   <string name="inputMovesWithTheKeyboard">Klaviatura yordamida yurish</string>
+  <string name="inputMovesWithVoice">Yurishni ovoz orqali kiritish</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Faqat mumkin boʻlgan yurishlarga strelka chizish</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Magʻlubiyat yoki durangdan keyin \"Good game, well played\" deb chatda yozish</string>
   <string name="yourPreferencesHaveBeenSaved">Sozlamalaringiz saqlandi.</string>
+  <string name="scrollOnTheBoardToReplayMoves">Yurishlarni koʻrish uchun taxta ustida sichqonchani aylantirish</string>
+  <string name="correspondenceEmailNotification">Yozishmali oʻyinlar haqida hisobotni e-pochta orqali har kuni joʻnatish</string>
+  <string name="notifyStreamStart">Strimer translyatsiya boshlaganida</string>
+  <string name="notifyInboxMsg">Yangi kiruvchi xabar</string>
+  <string name="notifyForumMention">Forumdagi izohlarda sizni eslatishganda</string>
+  <string name="notifyInvitedStudy">Oʻquv qoʻllanmasiga taklif olganda</string>
+  <string name="notifyGameEvent">Yozishmali oʻyinlardagi yangilanishlar</string>
   <string name="notifyChallenge">Chorlovlar</string>
+  <string name="notifyTournamentSoon">Turnir boshlanishigacha oz vaqt qolganda</string>
+  <string name="notifyBroadcasts">Siz obuna boʻlgan translyatsiyalar</string>
+  <string name="notifyTimeAlarm">Yozishmali oʻyin vaqti oz qolganda</string>
   <string name="notifyBell">Lichess ichida qoʻngʻiroq tovushli bildirishnoma</string>
   <string name="notifyPush">Lichessʼdan tashqarida boʻlganingizda qurilma bildirishnomalari</string>
   <string name="notifyWeb">Brauzer</string>
   <string name="notifyDevice">Qurilma</string>
   <string name="bellNotificationSound">Qongʻiroq bildirishnoma tovushi</string>
+  <string name="blindfold" comment="As in Blindfold chess">Koʻzi bogʻlangan shaxmat</string>
+  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Mobil qurilmalarda chap tomonda koʻrsatish</string>
 </resources>
