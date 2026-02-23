@@ -73,6 +73,11 @@
   <string name="accounts">Налози</string>
   <string name="titlesAvailableOnLichess">Које титуле постоје на Lichess-у?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess препознаје све ФИДЕ титуле стечене игром партија преко табле, као и %1$s. Овде је листа ФИДЕ титула:</string>
+  <string name="showYourTitle">Ако имаш титулу игром преко табле, можеш се пријавити да ти буде приказана на твом налогу попуњавајући %1$s, укључујући чисту слику идентификационог документа/карте и селфи тебе како држиш исту документ/карту.
+
+Потврђивање као играч са титулом на Lichess-у даје приступ играња у Титулована Арена догађајима.
+
+Коначно постоји и почасна %2$s титула.</string>
   <string name="asWellAsManyNMtitles">много титула националног мајстора</string>
   <string name="verificationForm">образац за потврду</string>
   <string name="canIbecomeLM">Могу ли добити Lichess Мајстор (LM) титулу?</string>
