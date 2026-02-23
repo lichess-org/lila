@@ -49,7 +49,7 @@ Koʻproq oʻyin oʻtkazish va koʻproq ochko jamlash uchun tez oʻynang va lobbi
     <item quantity="one">Jamoani koʻrish</item>
     <item quantity="other">Barcha %s ta jamoani koʻrish</item>
   </plurals>
-  <string name="newTeamBattle">Yangi jamoalararo turnir</string>
+  <string name="newTeamBattle">Yangi jamoalar jangi</string>
   <string name="customStartDate">Boshlanish sanasini tanlash</string>
   <string name="customStartDateHelp">Mahalliy vaqtingiz boʻyicha. Bu \"Turnir boshlanishigacha bo‘lgan vaqt\" sozlashini oʻzgartiradi</string>
   <string name="allowBerserk">Berserkka ruhsat berish</string>
@@ -63,10 +63,10 @@ Koʻproq oʻyin oʻtkazish va koʻproq ochko jamlash uchun tez oʻynang va lobbi
   <string name="averageScore">O‘rtacha to‘plangan bal</string>
   <string name="myTournaments">Mening turnirlarim</string>
   <string name="editTournament">Turnirni tahrirlash</string>
-  <string name="editTeamBattle">Jamoa jangini tahrirlash</string>
+  <string name="editTeamBattle">Jamoalar jangini tahrirlash</string>
   <string name="defender">Himoyachi</string>
   <string name="pickYourTeam">Jamoangizni tanlang</string>
-  <string name="whichTeamWillYouRepresentInThisBattle">Ushbu jangda qaysi jamoa vakili bo\'lasiz?</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Ushbu jangda qaysi jamoa nomidan qatnashasiz?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Ishtirok etish uchun siz ushbu jamoalardan biriga qo\'shilishingiz kerak!</string>
   <string name="created">Yaratilgan</string>
   <string name="recentlyPlayed">Yaqinda o\'ynadi</string>
