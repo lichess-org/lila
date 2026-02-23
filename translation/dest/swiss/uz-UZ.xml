@@ -81,7 +81,7 @@ Oʻyinchi istalgan vaqtda turnirga qaytadan qoʻshilishi mumkin.</string>
 Ushbu muammoning oldini olish uchun, Lichess oʻyinda qatnashmagan oʻyinchilarni maʻlum vaqt davomida yangi shveysarcha turnirlarga kirishini cheklaydi.
 Shunga qaramay, turnir tashkilotchisi bunday oʻyinchilarga oʻz musobaqasiga kirishga ruxsat berish-bermaslikni oʻzi hal qilishi ham mumkin.</string>
   <string name="lateJoinQ">Oʻyinchilar turnirga kechikib qoʻshila oladilarmi?</string>
-  <string name="lateJoinA">Ha, turlarning yarmidan koʻpi boshlanmaguncha qoʻshilish mumkin. Masalan, 11 turdan iborat shveysarcha turnirda oʻyinchilar 6-tur boshlanguncha, 12 turdan iborat turnirda esa 7-tur boshlanguncha qoʻshila oladilar.
+  <string name="lateJoinA">Ha, turlarning yarimi yakunlanmagan boʻlsa qoʻshilish mumkin. Masalan, 11 turdan iborat shveysarcha turnirda oʻyinchilar 6-tur boshlanguncha, 12 turdan iborat turnirda esa 7-tur boshlanguncha qoʻshila oladilar.
 Kechikib qoʻshilganlarga, hatto bir nechta turni oʻtkazib yuborgan boʻlsalar ham, faqat bir marta “bye” (oʻyinsiz ochko) beriladi.</string>
   <string name="willSwissReplaceArenasQ">Arena turnirlari shveysarcha turnirlar bilan almashtiriladimi?</string>
   <string name="willSwissReplaceArenasA">Yoʻq. Ular bir-birini toʻldiruvchi funksiyalardir.</string>
@@ -91,7 +91,7 @@ Buning sababi — turnirni barvaqt tark etadigan oʻyinchilar masalasini adolatl
 Onlayn formatda round-robin tizimiga eng yaqin narsa — turlar soni juda koʻp boʻlgan shveysarcha turnir oʻtkazishdir. Bunda turnir yakunlangunga qadar barcha mumkin boʻlgan juftliklar oʻzaro oʻynab boʻlishadi.</string>
   <string name="otherSystemsQ">Boshqa turnir tizimlari-chi?</string>
   <string name="otherSystemsA">Biz hozircha Lichessga boshqa turnir tizimlarini qo‘shishni rejalashtirmayapmiz.</string>
-  <string name="swissDescription">Shveysarcha turnirda %1$s har bir ishtirokchi barcha qatnashchilar bilan oʻynashi shart emas. Ishtirokchilar har bir turda yakkama-yakka tartibda oʻynashadi. Bunda qoidalar shunday tuzilganki, oʻyinchilar oʻziga oʻxshash ochko toʻplab borayotgan raqiblar bilan roʻbaroʻ kelishadi, lekin bitta raqib bilan ikki marta oʻynamaydilar. Barcha turlar yakuniga koʻra eng koʻp umumiy ochko toʻplagan ishtirokchi gʻolib deb topiladi. Agar oʻyinchilar soni toq boʻlmasa, barcha ishtirokchilar har bir turda qatnashadilar.</string>
+  <string name="swissDescription">Shveysarcha turnirda %1$s har bir ishtirokchi barcha qatnashchilar bilan oʻynashi shart emas. Ishtirokchilar har bir turda yakkama-yakka tartibda oʻynashadi. Bunda qoidalar shunday tuzilganki, oʻyinchilar oʻziga oʻxshash ochko toʻplab borayotgan raqiblar bilan roʻbaroʻ kelishadi, lekin bitta raqib bilan ikki marta oʻynamaydilar. Barcha turlar yakuniga koʻra eng koʻp umumiy ochko toʻplagan ishtirokchi gʻolib deb topiladi. Agar oʻyinchilar soni juft son boʻlsa barcha ishtirokchilar har bir turda qatnashadilar.</string>
   <string name="teamOnly">Shveysarcha turnirlar faqat jamoa yetakchilari tomonidan yaratilishi mumkin va ularda faqat jamoa aʼzolari oʻynashi mumkin.
 Shveysarcha turnirlarda qatnashish uchun %1$s.</string>
   <string name="joinOrCreateTeam">biron bir jamoaga qoʻshiling yoki yangi jamoa yarating</string>
@@ -114,7 +114,7 @@ Shveysarcha turnirlarda qatnashish uchun %1$s.</string>
   <string name="possibleButNotConsecutive">Mumkin, lekin ketma-ket emas</string>
   <string name="identicalForbidden">Taqiqlangan</string>
   <string name="lateJoin">Kech qoʻshilish mumkinmi</string>
-  <string name="lateJoinUntil">Mumkin, agar ketma-ket boʻlmasa</string>
+  <string name="lateJoinUntil">Ha, lekin turlarning yarimi yakunlanmagan boʻlsa</string>
   <string name="pause">Tanaffusga chiqish mumkinmi</string>
   <string name="pauseSwiss">Mumkin, lekin turlar sonini kamaytirib yuborishi mumkin</string>
   <string name="streaksAndBerserk">Gʻalabalar seriyasi va Berserk bormi</string>
