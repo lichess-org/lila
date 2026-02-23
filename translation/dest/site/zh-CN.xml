@@ -404,7 +404,7 @@
   <string name="moveAnnotations">着法评注</string>
   <string name="pasteTheFenStringHere">在此处粘贴 FEN 文本</string>
   <string name="pasteThePgnStringHere">在此处粘贴 PGN 文本</string>
-  <string name="orUploadPgnFile">或上传 PGN 文件</string>
+  <string name="orUploadPgnFile">或者上传 PGN 文件</string>
   <string name="continueFromHere">从此处继续</string>
   <string name="toStudy">研习</string>
   <string name="importGame">导入对局</string>
