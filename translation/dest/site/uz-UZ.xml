@@ -701,7 +701,7 @@
   <string name="aboutSimulImage">Fisher 50 ta raqibdan 47 tasini magʻlub qilgan, 2 ta oʻyinda durang oʻynagan va bittasiga magʻlub boʻlgan.</string>
   <string name="aboutSimulRealLife">Ushbu tushuncha hayotiy voqealardan olingan. Real hayotda seans oʻtkazuvchisi stoldan-stolga yurib bittadan yurish amalga oshiradi.</string>
   <string name="aboutSimulRules">Seans boshlanganda, har bir ishtirokchi seans oʻtkazuvchi bilan oʻyinni boshlaydi. Seans hamma oʻyinlar tugaganda yakunlanadi.</string>
-  <string name="aboutSimulSettings">Seanslar doim norasmiy. Qayta o\'ynashlar, ortga qaytarishlar va \"ko\'pmarta\"liklar barchasi o\'chirilgan.</string>
+  <string name="aboutSimulSettings">Seanslar reytingsiz oʻynaladi. Revanshlar, yurishni ortga qaytarish va vaqt qoʻshib berish imkoniyatlari oʻchirilgan.</string>
   <string name="create">Yaratish</string>
   <string name="whenCreateSimul">Biryoʻla seans yaratganingizda bir vaqtni oʻzida bir nechta oʻyinchilar bilan oʻynaysiz.</string>
   <string name="simulVariantsHint">Bir nechta variant tanlasangiz, har bir oʻyinchi qaysi variantda oʻynashni oʻzi tanlaydi.</string>
@@ -711,7 +711,7 @@
   <string name="simulAddExtraTimePerPlayer">Seansga qoʻshilgan har bir oʻyinchi uchun soatingizga boshlangʻich vaqt qoʻshing.</string>
   <string name="simulHostExtraTimePerPlayer">Har bir oʻyinchi uchun qoʻshimcha vaqt (seans oʻtkazuvchi uchun)</string>
   <string name="lichessTournaments">Lichess turnirlar</string>
-  <string name="tournamentFAQ">Arena turnirlari haqida koʻp beriladigan savollar</string>
+  <string name="tournamentFAQ">Arena turnirlari haqida TTSS</string>
   <string name="timeBeforeTournamentStarts">Turnir boshlangunicha</string>
   <string name="averageCentipawnLoss">Oʻrtacha sentipiyoda yoʻqotilishi</string>
   <string name="accuracy">Aniqlik</string>
@@ -895,14 +895,14 @@
   <string name="sorry">Kechirasiz :(</string>
   <string name="weHadToTimeYouOutForAWhile">Biz sizni oʻyinlardan vaqtinchalik chetlashtirishga majbur boʻldik.</string>
   <string name="why">Nima uchun?</string>
-  <string name="pleasantChessExperience">Biz har bir kishiga shahmat malakasini oshirishni maqsad qilganmiz.</string>
+  <string name="pleasantChessExperience">Biz barcha uchun yoqimli shaxmat muhitini yaratishni maqsad qilganmiz.</string>
   <string name="goodPractice">Buning uchun biz barcha o\'yinchilar yaxshi amaliyot ortidan ketishi uchun imkoniyat yaratishimiz kerak.</string>
   <string name="potentialProblem">Qachon qandaydir jiddiy muammo aniqlansa biz bu habarni chiqaramiz.</string>
   <string name="howToAvoidThis">Buni qanday qilib oldini olish mumkin?</string>
   <string name="playEveryGame">Har bir boshlagan o\'yiningizni oxirigacha o\'ynang.</string>
   <string name="tryToWin">Har bir oʻyinda yutishga uchun harakat qiling (yoki hech boʻlmaganda duranga).</string>
   <string name="resignLostGames">Boy berilgan o\'yinda taslim bo\'ling (vaqt ketishiga yo\'l qo\'ymang).</string>
-  <string name="temporaryInconvenience">Vaqtinchalik noqulaylik uchun uzr so\'raymiz</string>
+  <string name="temporaryInconvenience">Vaqtinchalik noqulayliklar uchun uzr soʻraymiz</string>
   <string name="wishYouGreatGames">va lichess.org dagi o\'yinlarda muvaffaqiyat tilaymiz.</string>
   <string name="thankYouForReading">Eʻtiboringiz uchun rahmat!</string>
   <string name="lifetimeScore">Umumiy hisob</string>
@@ -927,7 +927,7 @@
   <string name="puzzleDesc">Shaxmat taktikalari trenajyori</string>
   <string name="important">Muhim</string>
   <string name="yourQuestionMayHaveBeenAnswered">Savolingizga javob allaqachon %1$s boʻlishi mumkin</string>
-  <string name="inTheFAQ">koʻp beriladigan savollar ichida</string>
+  <string name="inTheFAQ">TTSS boʻlimida</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Foydalanuvchi ustidan firibgarlik yoki yomon xulq-atvor boʻyicha shikoyat qilish uchun %1$s</string>
   <string name="useTheReportForm">shikoyat shaklidan foydalaning</string>
   <string name="toRequestSupport">Qoʻllab-quvvatlash xizmatiga murojaat qilish uchun, %1$s</string>
