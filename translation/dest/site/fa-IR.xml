@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">بَرپایشِ بازی</string>
+  <string name="gameSetup">ایجاد بازی</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">دعوت به بازی</string>
   <string name="playAgainstComputer">بازی با رایانه</string>
   <string name="gameMode">حالتِ بازی</string>
-  <string name="createLobbyGame">ایجاد بازی در سَرسَرا</string>
+  <string name="createLobbyGame">ایجاد بازی در لابی</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">در انتظار حریف</string>
   <string name="orLetYourOpponentScanQrCode">یا از حریف‌تان بخواهید این کدِ QR را بِپویَد</string>
-  <string name="reusableChallengeUrl">وب‌نشانیِ بازاستفاده‌پذیرِ چالش</string>
+  <string name="reusableChallengeUrl">پیوند بازی قابل استفاده مجدد</string>
   <string name="permanentLinkForAnyoneToChallengeYou">پیوندِ دائمی برای اینکه هر کسی با همین تنظیمات، به شما پیشنهاد بازی دهد.</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
