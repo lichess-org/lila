@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="xBlog">%s ning Blogi</string>
+  <string name="xBlog">%s blogi</string>
   <string name="newPost">Yangi post</string>
   <string name="editYourBlogPost">Blog postingizni tahrirlang</string>
   <string name="saveDraft">Qoralamani saqlash</string>
