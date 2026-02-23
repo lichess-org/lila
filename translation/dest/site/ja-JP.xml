@@ -222,6 +222,7 @@
   <string name="changeUsernameNotSame">大文字・小文字の変更だけができます（johndoe を JohnDoeに、など）</string>
   <string name="changeUsernameDescription">ユーザー名を変更します。これは一回限りで、行なえるのは大文字・小文字の変更だけです。</string>
   <string name="signupUsernameHint">ユーザー名は無難なものにしてください。後で変えることはできないし、ユーザー名が不適切だとアカウントが閉鎖されます！</string>
+  <string name="signupEmailPromise">送信されるのはあなたのアカウントについてのメールだけで、メールアドレスを他と共有することはありません。</string>
   <string name="password">パスワード</string>
   <string name="changePassword">パスワードの変更</string>
   <string name="changeEmail">メールアドレスの変更</string>
