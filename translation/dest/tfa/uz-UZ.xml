@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">Ikki Faktorli Autentifikatsiya</string>
+  <string name="twoFactorAuth">Ikki bosqishli autentifikatsiya</string>
   <string name="twoFactorHelp">Ikki bosqishli autentifikatsiya akkauntingiz xavfsizligini yanada oshiradi.</string>
   <string name="twoFactorAppRecommend">Ikki bosqichli autentifikatsiya uchun ilova yuklab oling. Quyidagi ilovalarni tavsiya qilamiz:</string>
   <string name="scanTheCode">Ilova yordamida QR-kodni skanerlang.</string>
