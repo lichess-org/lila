@@ -31,7 +31,7 @@
   <string name="beingReviewed">Aʻzo boʻlish soʻrovingiz jamoa sardori tomonidan koʻrib chiqilmoqda.</string>
   <string name="requestDeclined">Aʻzo boʻlish soʻrovingiz jamoa sardori tomonidan rad etildi.</string>
   <string name="subToTeamMessages">Jamoa xabarlariga obuna boʻlish</string>
-  <string name="teamBattle">Jamoaviy jang</string>
+  <string name="teamBattle">Jamoalar jangi</string>
   <string name="teamBattleOverview">Jamoalar oʻrtasidagi jang, unda har bir oʻyinchi oʻz jamoasi uchun ochko yigʻadi</string>
   <string name="teamTournament">Jamoa turniri</string>
   <string name="teamTournamentOverview">Faqat jamoangiz aʻzolari ishtirok eta oladigan Arena turniri</string>
@@ -44,13 +44,34 @@ Xabarlaringizni olishni yoqtirmaydigan oʻyinchilar jamoani tark etishlari mumki
   <string name="teamsIlead">Men boshqaradigan jamoalar</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Kelgusi turnirlardan biriga havola qoʻshasizmi?</string>
   <string name="leadersChat">Sardorlar chati</string>
+  <string name="introduction">Kirish</string>
+  <string name="teamIntroductionHelp">Jamoalar roʻyxatida koʻrinadigan qisqa tavsif. 200 ta belgigacha.</string>
+  <string name="teamDescriptionHelp">Jamoa sahifasida koʻrinadigan toʻliq tavsif.</string>
   <string name="closeTeam">Jamoani yopish</string>
   <string name="closeTeamDescription">Jamoani butunlay yopish.</string>
   <string name="entryCode">Jamoaga kirish kodi</string>
   <string name="entryCodeDescriptionForLeader">(Ixtiyoriy) Jamoaga qoʻshilish uchun yangi aʼzolari bilishi kerak boʻlgan kirish kodi.</string>
   <string name="incorrectEntryCode">Kirish kodi notoʻgʻri.</string>
   <string name="teamAlreadyExists">Ushbu jamoa allaqachon mavjud.</string>
+  <string name="upcomingTournaments">Kelgusi turnirlar</string>
   <string name="completedTourns">Yakunlangan turnirlar</string>
   <string name="declinedRequests">Rad etilgan soʻrovlar</string>
-  <string name="joinLichessVariantTeam">Yangilik va voqeiliklarda bahramand bo‘lish uchun %s rasmiy jamoaga qo‘shiling</string>
+  <string name="joinLichessVariantTeam">Yangiliklar va tadbirlardan xabardor boʻlish uchun rasmiy %s jamoasiga qoʻshiling</string>
+  <string name="thisTeamBattleIsOver">Bu turnir yakunlangan, endi jamoalarni oʻzgartirib boʻlmaydi.</string>
+  <string name="listTheTeamsThatWillCompete">Ushbu jangda ishtirok etadigan jamoalar roʻyxatini tuzing.</string>
+  <string name="oneTeamPerLine">Har bir qatorga bittadan jamoa kiriting. Avtomatik toʻldirish ishlatishingiz mumkin.</string>
+  <string name="oneTeamPerLineHelp">Ushbu roʻyxatni bir turnirdan boshqasiga koʻchirishingiz mumkin!
+
+Agar biror oʻyinchi ushbu bilan turnirga qoʻshilgan boʻlsa, oʻsha jamoani roʻyxatdan oʻchira olmaysiz.</string>
+  <string name="numberOfLeadsPerTeam">Har bir jamoadagi peshqadamlar soni. Peshqadamlar ochkolar yigʻindisi jamoaning umumiy ochkosini belgilaydi.</string>
+  <string name="numberOfLeadsPerTeamHelp">Turnir boshlanganidan keyin bu qiymatni oʻzgartirmaslikni qatʼiy tavsiya qilamiz!</string>
+  <string name="innerTeam">Ichki jamoa</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">%s ta jamoa jangi</item>
+    <item quantity="other">%s ta jamoalar jangi</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Har bir bitta jamoadan bitta peshqadam</item>
+    <item quantity="other">Har bir bitta jamoadan %s ta peshqadam</item>
+  </plurals>
 </resources>
