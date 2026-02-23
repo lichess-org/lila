@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">Lichess qotib ishlayaptimi?</string>
+  <string name="measurementInProgressThreeDot">Oʻlchanmoqda...</string>
+  <string name="noAndYourNetworkIsGood">Yoʻq. Internet aloqangiz yaxshi.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Yoʻq. Lekin Internet aloqangiz yomon.</string>
+  <string name="yesItWillBeFixedSoon">Ha. Tez orada tuzatiladi!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Endi esa batafsilroq! Oʻyindagi kechikish (lag) bir-biriga bogʻliq boʻlmagan ikki koʻrsatkichdan iborat (qancha past boʻlsa, shuncha yaxshi):</string>
+  <string name="lichessServerLatency">Lichess serverining javob berish vaqti</string>
+  <string name="lichessServerLatencyExplanation">Serverning yurishni qayta ishlash vaqti. Bu koʻrsatkich hamma uchun bir xil va faqat serverning yuklamasiga bogʻliq. Oʻyinchilar koʻpaygani sari bu koʻrsatgich ham ortadi, lekin dasturchilarimiz uni doim past darajada ushlab turishga harakat qilishadi. Odatda bu koʻrsatkich 10 millisekunddan oshmaydi.</string>
+  <string name="networkBetweenLichessAndYou">Lichess va sizning orangizdagi aloqa sifati</string>
+  <string name="networkBetweenLichessAndYouExplanation">Yurish sizning kompyuteringizdan Lichess serveriga yetib borishi va javob qaytib kelishi uchun ketadigan vaqt. Bu koʻrsatkich Fransiyadagi Lichess serverigacha boʻlgan masofaga va internetingiz sifatiga bogʻliq. Lichess dasturchilari bu borada hech nima qila olishmaydi: sizning Wi-Fi qurilmangizni tuzata olmaydilar yoki yorugʻlik tezligini oshira olmaydilar.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Ushbu koʻrsatkichlarni istalgan vaqtda yuqori paneldagi foydalanuvchi ismingiz ustiga bosib bilib olishingiz mumkin.</string>
+  <string name="lagCompensation">Lag kompensatsiyasi</string>
+  <string name="lagCompensationExplanation">Lichess internetdagi kechikishlarni (lag) avtomatik tarzda kompensatsiya qiladi. Bu ham doimiy sekinlashuvga, ham kutilmagan qisqa uzilishlarga taalluqli. Oʻyin har ikki tomon uchun ham adolatli boʻlishi uchun bizda maxsus tizim bor. U vaqt nazorati va yuzaga kelgan lagni hisoblab, vaqtni muvozanatga soladi. Shuning uchun, internetingiz raqibingiznikidan sekinroq boʻlsa ham, bu sizga zarar qilmaydi!</string>
+</resources>
