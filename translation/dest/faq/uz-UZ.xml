@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">TTSS</string>
+  <string name="faqAbbreviation">TSS</string>
   <string name="frequentlyAskedQuestions">Tez-tez soʻraladigan savollar</string>
   <string name="whyIsLichessCalledLichess">Lichess nimaga Lichess deb nomlangan?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess bu live/light/libre va chess soʻzlarining kombinatsiyasi. %1$s deb talaffuz qilinadi.</string>
@@ -30,11 +30,42 @@
   <string name="fairPlayPage">halol oʻyin</string>
   <string name="youCanUseOpeningBookNoEngine">Lichessʼda yozishmali shaxmat qoidalari uchun asosiy farqi — debyut kitoblaridan foydalanishga ruxsat berilganidir. Dvijoklardan foydalanish esa hamon qatʼiyan taqiqlangan va bu \"dvijok yordami\" uchun profilga gʻirromlik tamgʻasi bosilishiga olib keladi. Garchi ICCF yozishmali shaxmatda dvijoklardan foydalanishga ruxsat bersa-da, Lichessʼda bu mumkin emas.</string>
   <string name="gameplay">Oʻyin jarayoni</string>
+  <string name="howBulletBlitzEtcDecided">Bullet, Blits va boshqa vaqt nazoratlari qanday belgilanadi?</string>
+  <string name="basedOnGameDuration">Lichessʼda vaqt nazorati oʻyinning taxminiy davomiyligiga qarab belgilanadi. Bu quyidagi formula boʻyicha hisoblanadi:
+taxminiy davomiylik = %1$s
+
+Masalan, 5+3 vaqt nazoratidagi oʻyinning taxminiy davomiyligi: 5 × 60 + 40 × 3 = 420 soniyani tashkil qiladi.</string>
+  <string name="durationFormula">(soatdagi boshlangʻich vaqt, soniyalarda) + 40 × (qoʻshimcha vaqt)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
+  <string name="whatVariantsCanIplay">Lichessʼda shaxmatning qanday variantlarini oʻynay olaman?</string>
+  <string name="lichessSupportChessAnd">Lichess standart shaxmatni va yana %1$s qoʻllab-quvvatlaydi.</string>
+  <string name="eightVariants">8 ta shaxmat variantini</string>
   <string name="accounts">Akkauntlar</string>
+  <string name="titlesAvailableOnLichess">Lichessʼda qanday unvonlar bor?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess yuzma-yuz (OTB) oʻyinlarda qoʻlga kiritilgan barcha FIDE unvonlarini, shuningdek, %1$s tan oladi. Quyida FIDE unvonlari roʻyxati keltirilgan:</string>
+  <string name="showYourTitle">Agar sizda rasmiy FIDE unvoningiz boʻlsa, %1$sni toʻldirish orqali uni profilingizda koʻrsatishni soʻrashingiz mumkin. Bunda shaxsingizni tasdiqlovchi hujjat/kartaning tasviri va ushbu hujjatni ushlab tushgan selfi-suratingiz talab qilinadi.
+
+Tasdiqlangan unvonli oʻyinchilar \"Titled Arena\" (Unvonli oʻyinchilar arenasi) musobaqalarida qatnashish huquqiga ega boʻladi.
+
+Shuningdek, faxriy %2$s unvoni ham mavjud.</string>
+  <string name="asWellAsManyNMtitles">koʻplab milliy master unvonlarini</string>
+  <string name="verificationForm">tasdiqlash formasi</string>
+  <string name="canIbecomeLM">Lichess Master (LM) unvonini ololamanmi?</string>
+  <string name="noUpperCaseDot">Yoʻq.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Ushbu faxriy unvon norasmiy boʻlib, u faqat Lichess platformasidagina mavjud.
+
+Biz bu unvonni kamdan-kam hollarda — hamjamiyatda oʻzini namunali tutgan va platforma rivojiga hissa qoʻshgan oʻyinchilarga, oʻz xohishimizga koʻra beramiz. LM unvoniga ariza topshirib boʻlmaydi, aksincha, u sizni oʻzi topadi. Agar siz ushbu unvonga munosib deb topilsangiz, bizdan taklif xabar olasiz va unvonni qabul qilish yoki rad etish oʻzingizga bogʻliq boʻladi.
+
+Iltimos, LM unvonini berishni soʻrab murojaat qilmang.</string>
   <string name="whatUsernameCanIchoose">Foydalanuvchi nomi qanday boʻlishi kerak?</string>
   <string name="usernamesNotOffensive">Umuman olganda, foydalanuvchi nomlari haqoratli boʻlmasligi, boshqa birovning nomidan ochilgan boʻlmasligi yoki reklama xarakterida boʻlmasligi lozim. %1$s haqida batafsil maʼlumot olishingiz mumkin.</string>
   <string name="guidelines">Qoidalar</string>
   <string name="canIChangeMyUsername">Foydalanuvchi nomimni oʻzgartirsam boʻladimi?</string>
   <string name="usernamesCannotBeChanged">Yoʻq, texnik va amaliy sabablarga koʻra foydalanuvchi nomlarini oʻzgartirib boʻlmaydi. Foydalanuvchi nomlari juda koʻp joylarda muhrlanib qolgan: maʻlumotlar bazalari, eksportlar, tizim jurnallari (loglar) va odamlarning xotirasida. Faqat bir marta katta-kichik harflar koʻrinishini (capitalization) sozlashingiz mumkin.</string>
+  <string name="uniqueTrophies">Noyob kuboklar</string>
+  <string name="ownerUniqueTrophies">Ushbu kubok Lichess tarixida yagonadir — u faqat %1$s ismli foydalanuvchiga tegishli va boshqa hech kimda boʻlmaydi.</string>
+  <string name="aHourlyBulletTournament">bir soatlik Bullet turniri</string>
+  <string name="goldenZeeExplanation">Gap shundaki, ZugAddict strim paytida 2 soat davomida 1+0 vaqt nazoratida S.I. 8-darajasini magʻlub etishga harakat qiladi, biroq urinishlari besamar ketadi. Shunda Thibault unga agar buni strim davomida uddalasa, noyob kubok berishini vaʼda qiladi. Oradan bir soat oʻtgach, ZugAddict Stockfishʼni magʻlub etadi va vaʼda qilingan mukofot oʻz egasiga topshiriladi.</string>
   <string name="howToThreeDots">Qanday qilib...</string>
 </resources>
