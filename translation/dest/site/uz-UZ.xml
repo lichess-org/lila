@@ -584,7 +584,7 @@
   <string name="reportUsernameHelp">Ushbu foydalanuvchi nomi nima uchun haqoratli ekanligini tushuntiring. Shunchaki “bu haqoratomuz/nooʻrin” deb qoʻya qolmasdan, nima sababdan bunday deb oʻylashingizni asoslab bering. Ayniqsa, haqorat yashirin boʻlsa, ingliz tilida boʻlmasa, jargon (sleng) boʻlsa yoki tarixiy/madaniy mazmunga ega boʻlsa.</string>
   <string name="reportProcessedFasterInEnglish">Ingliz tilida shikoyat joʻnatsangiz, tezroq koʻrib chiqiladi.</string>
   <string name="error.provideOneCheatedGameLink">Iltimos kamida bitta o\'yinga havolani keltiring.</string>
-  <string name="by">%s tomonidan</string>
+  <string name="by">%s tomonidan yaratildi</string>
   <string name="importedByX">%s tomonidan import qilindi</string>
   <string name="thisTopicIsNowClosed">Ushbu mavzu yopiq.</string>
   <string name="blog">Blog</string>
