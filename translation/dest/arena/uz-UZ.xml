@@ -6,7 +6,7 @@
   <string name="willBeNotified">Turnir boshlanganda sizga xabar beriladi, shuning uchun ushbu sahifani ochiq holda qoldirib, boshqa ishlar bilan shugʻullanishingiz mumkin.</string>
   <string name="isRated">Bu turnir reytingli va sizni reytingingizga ta\'sir etadi.</string>
   <string name="isNotRated">Bu turnir reytingli *emas* va sizni reytingingizga taʼsir *qilmaydi*.</string>
-  <string name="someRated">Baʼzi turnirlar reytingli va sizni reytingingizga tasir etadi.</string>
+  <string name="someRated">Baʼzi turnirlar reytingli va sizni reytingingizga taʼsir qiladi.</string>
   <string name="howAreScoresCalculated">Ochkolar qanday hisoblanadi?</string>
   <string name="howAreScoresCalculatedAnswer">Gʻalaba uchun 2 ochko, durang uchun 1 ochko beriladi, magʻlubiyat uchun esa ochko berilmaydi.
 Agar ketma-ket ikki marta gʻalaba qozonsangiz, sizda olov belgisi bilan koʻrsatiladigan “ikki karrali ochkolar seriyasi” boshlanadi.
