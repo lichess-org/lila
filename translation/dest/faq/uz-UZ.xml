@@ -41,9 +41,26 @@ Masalan, 5+3 vaqt nazoratidagi oʻyinning taxminiy davomiyligi: 5 × 60 + 40 × 
   <string name="whatVariantsCanIplay">Lichessʼda shaxmatning qanday variantlarini oʻynay olaman?</string>
   <string name="lichessSupportChessAnd">Lichess standart shaxmatni va yana %1$s qoʻllab-quvvatlaydi.</string>
   <string name="eightVariants">8 ta shaxmat variantini</string>
+  <string name="whatIsACPL">Oʻrtacha santipiyoda yoʻqotish (ACPL) nima?</string>
+  <string name="acplExplanation">Santipiyoda — shaxmatda ustunlikni oʻlchash uchun ishlatiladigan birlikdir. Bir santipiyoda piyodaning 1/100 qismiga teng. Demak, 100 santipiyoda = 1 piyoda. Bu qiymatlar oʻyinda rasmiy rol oʻynamaydi, ammo vaziyatni baholashda shaxmatchilar uchun foydali va kompyuter shaxmati uchun zarurdir.
+
+Kompyuter koʻrsatgan eng kuchli yurish nol santipiyoda yoʻqotadi. Undan kuchsizroq yurishlar esa pozitsiyaning yomonlashishiga olib keladi va bu santipiyodalar bilan oʻlchanadi.
+
+Ushbu qiymat oʻyin sifatining koʻrsatkichi sifatida ishlatilishi mumkin. Har bir yurishda qancha kam santipiyoda yoʻqotilsa, oʻyin shunchalik kuchli hisoblanadi.
+
+Lichess saytidagi kompyuter tahlillari Stockfish dvijogi yordamida amalga oshiriladi.</string>
+  <string name="insufficientMaterial">Vaqt boy berilishi, durang va material yetmasligi</string>
+  <string name="lichessFollowFIDErules">Agarda oʻyinchining vaqti tugab qolsa, odatda u magʻlub boʻladi. Biroq, agarda yuzaga kelgan vaziyatda raqib oʻyinchisi har qanday qonuniy yurishlar ketma-ketligi bilan ham shohga mot qoʻya olmasa, oʻyin durang bilan yakunlanadi (%1$s).
+
+Ayrim hollarda buni avtomatik tarzda aniqlash qiyin boʻlishi mumkin (majburiy yurishlar yoki \"qalʼa\" taktikasi). Bunday holatlarda, qoida tariqasida, vaqti tugamagan o‘yinchining foydasiga qaror qabul qilinadi.
+
+Shuni bilingki, agar raqibning oʻz donalari shohini yoʻlini toʻsib qoʻysa, bitta ot yoki bitta fil bilan ham mot qilish imkoni bor.</string>
+  <string name="fideHandbook">FIDE qoʻllanmasi</string>
+  <string name="fideHandbookX">FIDE qoʻllanmasi %s</string>
+  <string name="discoveringEnPassant">Nima uchun piyoda yonidan oʻtib ketgan boshqa bir piyodani urib olishi mumkin? (en passant)</string>
   <string name="accounts">Akkauntlar</string>
   <string name="titlesAvailableOnLichess">Lichessʼda qanday unvonlar bor?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess yuzma-yuz (OTB) oʻyinlarda qoʻlga kiritilgan barcha FIDE unvonlarini, shuningdek, %1$s tan oladi. Quyida FIDE unvonlari roʻyxati keltirilgan:</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess barcha FIDE unvonlarini va %1$s tan oladi. Quyida FIDE unvonlari roʻyxati keltirilgan:</string>
   <string name="showYourTitle">Agar sizda rasmiy FIDE unvoningiz boʻlsa, %1$sni toʻldirish orqali uni profilingizda koʻrsatishni soʻrashingiz mumkin. Bunda shaxsingizni tasdiqlovchi hujjat/kartaning tasviri va ushbu hujjatni ushlab tushgan selfi-suratingiz talab qilinadi.
 
 Tasdiqlangan unvonli oʻyinchilar \"Titled Arena\" (Unvonli oʻyinchilar arenasi) musobaqalarida qatnashish huquqiga ega boʻladi.
