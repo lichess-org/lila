@@ -33,13 +33,18 @@ export const remove = (username: string | undefined, id: string) => {
   storage.make(custoStoreKey(username)).set(JSON.stringify(all));
 };
 
-export const overrideStoredLobbySetup = (poolId: string, username: string | undefined) => {
+export const overrideStoredLobbySetup = (
+  poolId: string,
+  username: string | undefined,
+): Customisation | undefined => {
   const customisation = get(username, poolId);
-  if (!customisation) return;
+  if (!customisation) return undefined;
 
   storage
     .make(lobbySetupStoreKey(username, customisation.gameType))
     .set(JSON.stringify(customisation.settings));
+
+  return customisation;
 };
 
 export const renderCustomisedButton = (

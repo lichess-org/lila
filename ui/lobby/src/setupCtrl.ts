@@ -348,4 +348,10 @@ export default class SetupController {
       this.closeModal?.();
     }
   };
+
+  headlessSubmit = (gameType: GameType) => {
+    this.gameType = gameType as Exclude<GameType, 'local'>;
+    this.loadPropsFromStore();
+    this.submit();
+  };
 }

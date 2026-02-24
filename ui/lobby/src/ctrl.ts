@@ -26,7 +26,7 @@ import { pubsub } from 'lib/pubsub';
 import { wsPingInterval } from 'lib/socket';
 import { colors, type ColorChoice } from 'lib/setup/color';
 import { toggle } from 'lib';
-import { overrideStoredLobbySetup } from './customiser';
+import * as customiser from './customiser';
 
 export default class LobbyController {
   data: LobbyData;
@@ -257,12 +257,17 @@ export default class LobbyController {
   };
 
   clickPool = (id: string) => {
+    const customisation = customiser.overrideStoredLobbySetup(id, this.me?.username);
     if (this.isEditingPoolButtons()) {
       this.selectedPoolButton = id;
-      overrideStoredLobbySetup(id, this.me?.username);
       this.redraw();
       return;
     }
+    if (customisation) {
+      this.setupCtrl.headlessSubmit(customisation.gameType);
+      return;
+    }
+
     if (!this.me) {
       xhr.anonPoolSeek(this.pools.find(p => p.id === id)!);
       this.setTab('real_time');
