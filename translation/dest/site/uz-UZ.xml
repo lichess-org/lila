@@ -97,7 +97,7 @@
   <string name="averageRatingX">O\'rtacha reyting: %s</string>
   <string name="recentGames">So\'nggi o\'yinlar</string>
   <string name="topGames">Eng yaxshi o\'yinlar</string>
-  <string name="masterDbExplanation">%2$s yildan %3$s yilgacha boʻlgan, FIDE reytingi %1$s+ boʻlgan oʻyinchilarning yuzma-yuz oʻyinlari</string>
+  <string name="masterDbExplanation">%2$s yildan %3$s yilgacha boʻlgan, FIDE reytingi %1$s+ boʻlgan oʻyinchilarning oʻyinlari</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s ta yarim-yurishda mot</item>
     <item quantity="other">%s ta yarim-yurishda mot</item>
@@ -615,7 +615,7 @@
   <string name="slow">Sekin</string>
   <string name="insideTheBoard">Taxta ichida</string>
   <string name="outsideTheBoard">Taxta tashqarisida</string>
-  <string name="allSquaresOfTheBoard">Taxtaning barcha kataklari</string>
+  <string name="allSquaresOfTheBoard">Taxtaning barcha kataklarida</string>
   <string name="onSlowGames">Sekin oʻyinlarda</string>
   <string name="always">Har doim</string>
   <string name="never">Hech qachon</string>
@@ -711,7 +711,7 @@
   <string name="simulAddExtraTimePerPlayer">Seansga qoʻshilgan har bir oʻyinchi uchun soatingizga boshlangʻich vaqt qoʻshing.</string>
   <string name="simulHostExtraTimePerPlayer">Har bir oʻyinchi uchun qoʻshimcha vaqt (seans oʻtkazuvchi uchun)</string>
   <string name="lichessTournaments">Lichess turnirlar</string>
-  <string name="tournamentFAQ">Arena turnirlari haqida TTSS</string>
+  <string name="tournamentFAQ">Arena turnirlari haqida TSS</string>
   <string name="timeBeforeTournamentStarts">Turnir boshlangunicha</string>
   <string name="averageCentipawnLoss">Oʻrtacha sentipiyoda yoʻqotilishi</string>
   <string name="accuracy">Aniqlik</string>
@@ -927,7 +927,7 @@
   <string name="puzzleDesc">Shaxmat taktikalari trenajyori</string>
   <string name="important">Muhim</string>
   <string name="yourQuestionMayHaveBeenAnswered">Savolingizga javob allaqachon %1$s boʻlishi mumkin</string>
-  <string name="inTheFAQ">TTSS boʻlimida</string>
+  <string name="inTheFAQ">TSS boʻlimida</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Foydalanuvchi ustidan firibgarlik yoki yomon xulq-atvor boʻyicha shikoyat qilish uchun %1$s</string>
   <string name="useTheReportForm">shikoyat shaklidan foydalaning</string>
   <string name="toRequestSupport">Qoʻllab-quvvatlash xizmatiga murojaat qilish uchun, %1$s</string>
