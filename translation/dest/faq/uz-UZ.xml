@@ -58,6 +58,25 @@ Shuni bilingki, agar raqibning oʻz donalari shohini yoʻlini toʻsib qoʻysa, b
   <string name="fideHandbook">FIDE qoʻllanmasi</string>
   <string name="fideHandbookX">FIDE qoʻllanmasi %s</string>
   <string name="discoveringEnPassant">Nima uchun piyoda yonidan oʻtib ketgan boshqa bir piyodani urib olishi mumkin? (en passant)</string>
+  <string name="explainingEnPassant">Bu \"en passant\" (kesib oʻtish) deb nomlangan qonuniy yurishdir. Vikipediyadagi ushbu maqolada bu haqida %1$s berilgan.
+
+Ushbu qoida %2$sning 3.7.3.1 va 3.7.3.2‑bandlarida quyidagicha tavsiflanadi:
+
+\"Raqib piyodasi boshlangʻich katagidan ikki katak oldinga yurib, sizning piyodangiz bilan bir xil gorizontalga va qoʻshni vertikalga kelib qolsa, siz ushbu piyodani goʻyoki u bir katak yurganidek urib olishingiz mumkin. Bunday urib olish faqat raqib piyodasi ikki katak yurganidan keyingi birinchi yurishdayoq amalga oshirilishi mumkin va bu ‘en passant’ (kesib oʻtish) deb ataladi.\"
+
+Ushbu yurishni mashq qilish uchun %3$s sahifasiga oʻting.</string>
+  <string name="goodIntroduction">yaxshi maʼlumot</string>
+  <string name="lichessTraining">Lichess mashq</string>
+  <string name="watchIMRosenCheckmate">Xalqaro usta Erik Rozen %s orqali qanday mot qoʻyganini tomosha qiling.</string>
+  <string name="threefoldRepetition">Uch marta takrorlanish</string>
+  <string name="threefoldRepetitionExplanation">Agar bir xil pozitsiya uch marta takrorlansa, oʻyinchilar %1$s qoidasiga koʻra durang talab qilishlari mumkin. Lichess platformasida %2$sning 9.2-moddasida koʻrsatilgan rasmiy FIDE qoidalari amal qiladi.</string>
+  <string name="threefoldRepetitionLowerCase">uch marta takrorlanish</string>
+  <string name="notRepeatedMoves">Biz yurishlarni takrorlamadik-ku. Nega oʻyin baribir takrorlanish tufayli durang bilan tugadi?</string>
+  <string name="repeatedPositionsThatMatters">Uch marta takrorlanish qoidasi yurishlarga emas, balki takrorlangan %1$sga asoslanadi. Pozitsiyalar birin‑ketin takrorlanishi shart emas.</string>
+  <string name="positions">pozitsiyalar</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Pozitsiyani uch marta takrorladik. Nega oʻyin durang boʻlmadi?</string>
+  <string name="threeFoldHasToBeClaimed">Uch marta takrorlanishda oʻyinchilardan biri durang talab qilishi kerak. Buning uchun ekranda paydo boʻladigan tugmani bosish yoki pozitsiyani takrorlaydigan soʻnggi yurishingizdan oldin durang taklif qilish kifoya. Raqibingiz taklifni rad etsa ham, baribir uch marta takrorlanish qoidasi boʻyicha durang qayd etiladi. Shuningdek, Lichess platformasini takrorlanishlarni avtomatik ravishda qayd etadigan qilib %1$s mumkin. Bundan tashqari, besh marta takrorlanish yuz bersa, oʻyin darhol va oʻz-oʻzidan yakunlanadi.</string>
+  <string name="configure">sozlashingiz</string>
   <string name="accounts">Akkauntlar</string>
   <string name="titlesAvailableOnLichess">Lichessʼda qanday unvonlar bor?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess barcha FIDE unvonlarini va %1$s tan oladi. Quyida FIDE unvonlari roʻyxati keltirilgan:</string>
@@ -85,4 +104,38 @@ Iltimos, LM unvonini berishni soʻrab murojaat qilmang.</string>
   <string name="aHourlyBulletTournament">bir soatlik Bullet turniri</string>
   <string name="goldenZeeExplanation">Gap shundaki, ZugAddict strim paytida 2 soat davomida 1+0 vaqt nazoratida S.I. 8-darajasini magʻlub etishga harakat qiladi, biroq urinishlari besamar ketadi. Shunda Thibault unga agar buni strim davomida uddalasa, noyob kubok berishini vaʼda qiladi. Oradan bir soat oʻtgach, ZugAddict Stockfishʼni magʻlub etadi va vaʼda qilingan mukofot oʻz egasiga topshiriladi.</string>
   <string name="howToThreeDots">Qanday qilib...</string>
+  <string name="enableDisableNotificationPopUps">Bildirishnomalarni yoqish yoki oʻchirish mumkin?</string>
+  <string name="viewSiteInformationPopUp">Sayt haqida maʼlumot olish oynasini koʻrish</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess ixtiyoriy ravishda qalqib chiquvchi bildirishnomalarni yuborishi mumkin. Masalan, navbat sizga kelganda yoki shaxsiy xabar olganingizda.
+
+Buning uchun brauzeringizning manzillar satridagi lichess.org manzili yonidagi joylashgan qulf belgisini bosing.
+
+Soʻngra, Lichessʼdan keladigan bildirishnomalarga ruxsat berish yoki ularni bloklashni tanlang.</string>
+  <string name="enableAutoplayForSoundsQ">Ovozlar avtomatik ijro etilsinmi?</string>
+  <string name="enableAutoplayForSoundsA">Koʻpgina brauzerlar foydalanuvchilarni himoya qilish maqsadida yangi ochilgan sahifada ovozlarni oʻz-oʻzidan yangrashini cheklab qoʻyadi. Tasavvur qiling, agar har bir sayt ochilishi bilan sizga birdaniga audio-reklamalar bilan \"hujum\" qilsa, qanchalik noqulay boʻlardi.
+
+Brauzeringiz lichess.org saytiga ovoz chiqarishga ruxsat bermasa, ekranda qizil rangli ovozsiz (mute) belgisi paydo boʻladi. Odatda, biror tugmani bosishingiz bilan bu cheklov olib tashlanadi. Ayrim mobil brauzerlarida donani surish \"bosish\" hisobiga oʻtmaydi. Bunday holda, har bir oʻyin boshida ovozlar ishlashi uchun shunchaki taxta ustiga bir marta tegib qoʻyish kifoya.
+
+Bunday holat yuz berganda sizni ogohlantirish uchun biz oʻsha qizil belgini koʻrsatamiz. Brauzer sozlamalarida lichess.org saytiga ovoz chiqarishga ruxsat berib qoʻyishingiz mumkin. Quyida eng ommabop brauzerlarning soʻnggi versiyalarida buni amalga oshirish boʻyicha koʻrsatmalar berilgan.</string>
+  <string name="desktop">kompyuter versiyasi</string>
+  <string name="enableAutoplayForSoundsFirefox">1. lichess.org saytiga kiring.
+2. Linux/Windowsʼda Ctrl-i yoki MacOSʼda cmd-i tugmalarini bosing.
+3. Ruxsatlar (Permissions) boʻlimiga oʻting
+4. lichess.org uchun Audio va Video uzatishga ruxsat bering</string>
+  <string name="enableAutoplayForSoundsChrome">1. lichess.org saytiga kiring
+2. Manzillar satridagi qulf belgisini bosing
+3. Sayt sozlamalari (Site Settings) boʻlimiga kiring
+4. Ovoz chiqarishga ruxsat bering</string>
+  <string name="enableAutoplayForSoundsSafari">1. lichess.org saytiga kiring
+2. Menyular satridagi Safari tugmasini bosing
+3. lichess.org uchun sozlamalar... (Settings for lichess.org) boʻlimini tanlang
+4. Barchasini avtomatik ijro etish (Allow All Auto-Play) bandiga ruxsat bering</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Yuqori oʻng burchakdagi uch nuqtani bosing
+2. Sozlamalar boʻlimiga kiring
+3. Cookie-fayllar va sayt ruxsatlari (Cookies and Site Permissions) bandini tanlang
+4. Pastga tushib, Media kontentni avtomatik ijro etish (Media autoplay) qismini bosing
+5. Ruxsat berish (Allow) roʻyxatiga lichess.org saytini qoʻshing</string>
+  <string name="stopMyselfFromPlaying">Oʻyinni bas qila olmayapman, nima qilsam boʻladi?</string>
+  <string name="mentalHealthCondition">alohida ruhiy kasallik</string>
+  <string name="lichessUserstyles">foydalanuvchi Lichess CSS stillari</string>
 </resources>
