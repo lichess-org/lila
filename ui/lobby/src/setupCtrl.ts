@@ -14,6 +14,7 @@ import {
   type TimeControl,
 } from 'lib/setup/timeControl';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
+import * as customiser from './customiser';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();
@@ -287,6 +288,15 @@ export default class SetupController {
   minimumTimeIfReal = (): number => (this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0);
 
   submit = async () => {
+    if (this.root.selectedPoolButton) {
+      customiser.set(this.root.me?.username, this.root.selectedPoolButton, {
+        gameType: this.gameType!,
+        settings: this.store[this.gameType!](),
+      });
+      this.closeModal?.();
+      return;
+    }
+
     const color = this.color();
     const poolMember = this.hookToPoolMember(color);
     if (poolMember) {

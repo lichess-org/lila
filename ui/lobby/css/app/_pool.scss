@@ -80,4 +80,9 @@
   &.transp {
     opacity: 0.35;
   }
+
+  &.selected {
+    background: $m-accent--fade-80 !important;
+    color: $c-font;
+  }
 }

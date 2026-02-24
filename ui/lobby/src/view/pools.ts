@@ -1,6 +1,7 @@
 import { h, type Hooks } from 'snabbdom';
 import { spinnerVdom, onInsert } from 'lib/view';
 import type LobbyController from '../ctrl';
+import * as customiser from '../customiser';
 
 const createHandler = (ctrl: LobbyController) => (e: Event) => {
   if (ctrl.redirecting) return;
@@ -13,8 +14,10 @@ const createHandler = (ctrl: LobbyController) => (e: Event) => {
   const id =
     (e.target as HTMLElement).dataset['id'] ||
     ((e.target as HTMLElement).parentNode as HTMLElement).dataset['id'];
-  if (id === 'custom') ctrl.setupCtrl.openModal('hook');
-  else if (id) ctrl.clickPool(id);
+  if (id === 'custom') {
+    ctrl.isEditingPoolButtons.toggle();
+    ctrl.selectedPoolButton = undefined;
+  } else if (id) ctrl.clickPool(id);
 
   ctrl.redraw();
 };
@@ -27,26 +30,31 @@ export const hooks = (ctrl: LobbyController): Hooks =>
   });
 
 export function render(ctrl: LobbyController) {
+  const customisations = customiser.getAll(ctrl.me?.username);
   const member = ctrl.poolMember;
   return ctrl.pools
     .map(pool => {
-      const active = member?.id === pool.id,
-        transp = !!member && !active;
-      return h(
-        'div.lpool',
-        {
-          class: { active, transp },
-          attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
-        },
-        [
-          h('div.clock', `${pool.lim}+${pool.inc}`),
-          active
-            ? member.range && ctrl.opts.showRatings
-              ? h('div.range', member.range.replace('-', '–'))
-              : spinnerVdom()
-            : h('div.perf', pool.perf),
-        ],
-      );
+      const active = member?.id === pool.id;
+      const transp = !!member && !active;
+      const selected = ctrl.isEditingPoolButtons() && ctrl.selectedPoolButton === pool.id;
+      const renderCustomised = customiser.renderCustomisedButton(customisations[pool.id], selected);
+      if (renderCustomised) return renderCustomised;
+      else
+        return h(
+          'div.lpool',
+          {
+            class: { active, transp },
+            attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
+          },
+          [
+            h('div.clock', `${pool.lim}+${pool.inc}`),
+            active
+              ? member.range && ctrl.opts.showRatings
+                ? h('div.range', member.range.replace('-', '–'))
+                : spinnerVdom()
+              : h('div.perf', pool.perf),
+          ],
+        );
     })
     .concat(
       h(
@@ -55,7 +63,7 @@ export function render(ctrl: LobbyController) {
           class: { transp: !!member },
           attrs: { role: 'button', 'data-id': 'custom', tabindex: '0' },
         },
-        i18n.site.custom,
+        ctrl.isEditingPoolButtons() ? 'Done' : 'Customise',
       ),
     );
 }
