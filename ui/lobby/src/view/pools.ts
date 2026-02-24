@@ -37,13 +37,13 @@ export function render(ctrl: LobbyController) {
       const active = member?.id === pool.id;
       const transp = !!member && !active;
       const selected = ctrl.isEditingPoolButtons() && ctrl.selectedPoolButton === pool.id;
-      const renderCustomised = customiser.renderCustomisedButton(customisations[pool.id], selected);
+      const renderCustomised = customiser.renderCustomisedButton(pool.id, customisations[pool.id], selected);
       if (renderCustomised) return renderCustomised;
       else
         return h(
           'div.lpool',
           {
-            class: { active, transp },
+            class: { active, transp, selected },
             attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
           },
           [
@@ -60,10 +60,10 @@ export function render(ctrl: LobbyController) {
       h(
         'div.lpool',
         {
-          class: { transp: !!member },
+          class: { transp: !!member, selected: ctrl.isEditingPoolButtons()  },
           attrs: { role: 'button', 'data-id': 'custom', tabindex: '0' },
         },
-        ctrl.isEditingPoolButtons() ? 'Done' : 'Customise',
+        i18n.site.custom,
       ),
     );
 }

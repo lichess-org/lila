@@ -31,6 +31,7 @@ export const remove = (username: string | undefined, id: string) => {
 };
 
 export const renderCustomisedButton = (
+  poolId: string,
   customisation: Customisation | undefined,
   selected: boolean,
 ): VNode | undefined => {
@@ -45,8 +46,8 @@ export const renderCustomisedButton = (
   return h(
     'div.lpool',
     {
-      class: { selected, custom },
-      attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
+      class: { selected, custom: true },
+      attrs: { role: 'button', 'data-id': poolId, tabindex: '0' },
     },
     [
       h('div.clock', [icon ? h('span', { attrs: { 'data-icon': icon } }) : null, label]),
