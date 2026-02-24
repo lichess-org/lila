@@ -26,6 +26,7 @@ import { pubsub } from 'lib/pubsub';
 import { wsPingInterval } from 'lib/socket';
 import { colors, type ColorChoice } from 'lib/setup/color';
 import { toggle } from 'lib';
+import { overrideStoredLobbySetup } from './customiser';
 
 export default class LobbyController {
   data: LobbyData;
@@ -258,6 +259,7 @@ export default class LobbyController {
   clickPool = (id: string) => {
     if (this.isEditingPoolButtons()) {
       this.selectedPoolButton = id;
+      overrideStoredLobbySetup(id, this.me?.username);
       this.redraw();
       return;
     }

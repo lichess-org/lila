@@ -1,13 +1,15 @@
 import { storage } from 'lib/storage';
 import { variants } from './options';
-import type { Customisation } from './interfaces';
+import type { Customisation, GameType } from './interfaces';
 import { type VNode, h } from 'snabbdom';
 import * as licon from 'lib/licon';
 
-const makeKey = (username?: string) => `lobby.customisation.${username || 'anon'}`;
+const custoStoreKey = (username?: string) => `lobby.customisation.${username || 'anon'}`;
+const lobbySetupStoreKey = (username: string | undefined, gameType: GameType) =>
+  `lobby.setup.${username || 'anon'}.${gameType}`;
 
 export const getAll = (username?: string): Record<string, Customisation> => {
-  const raw = storage.make(makeKey(username)).get();
+  const raw = storage.make(custoStoreKey(username)).get();
   if (!raw) return {};
   try {
     return JSON.parse(raw);
@@ -22,13 +24,22 @@ export const get = (username: string | undefined, id: string): Customisation | u
 export const set = (username: string | undefined, id: string, pool: Customisation) => {
   const all = getAll(username);
   all[id] = pool;
-  storage.make(makeKey(username)).set(JSON.stringify(all));
+  storage.make(custoStoreKey(username)).set(JSON.stringify(all));
 };
 
 export const remove = (username: string | undefined, id: string) => {
   const all = getAll(username);
   delete all[id];
-  storage.make(makeKey(username)).set(JSON.stringify(all));
+  storage.make(custoStoreKey(username)).set(JSON.stringify(all));
+};
+
+export const overrideStoredLobbySetup = (poolId: string, username: string | undefined) => {
+  const customisation = get(username, poolId);
+  if (!customisation) return;
+
+  storage
+    .make(lobbySetupStoreKey(username, customisation.gameType))
+    .set(JSON.stringify(customisation.settings));
 };
 
 export const renderCustomisedButton = (
