@@ -46,6 +46,7 @@ export default class LobbyController {
   setupCtrl: SetupController;
   isEditingPoolButtons = toggle(false);
   selectedPoolButton?: string;
+  isHeadlessSubmission = false;
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
