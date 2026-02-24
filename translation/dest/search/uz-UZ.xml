@@ -12,8 +12,8 @@
   </plurals>
   <string name="opponentName">Raqib ismi</string>
   <string name="loser">Magʻlub</string>
-  <string name="from">…dan</string>
-  <string name="to">…gacha</string>
+  <string name="from">Shundan</string>
+  <string name="to">Shungacha</string>
   <string name="humanOrComputer">Oʻyinchining raqibi odam yoki kompyutermidi</string>
   <string name="aiLevel">S.I. darajasi</string>
   <string name="source">Manba</string>
