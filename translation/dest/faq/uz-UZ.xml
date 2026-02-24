@@ -118,6 +118,7 @@ Yana bir muhim jihati: agar maʼlum vaqt oʻyin oʻynamasangiz, ishonch oraligʻ
   <string name="similarOpponents">darajasi yaqin boʻlgan raqiblar</string>
   <string name="notPlayedRecently">Oʻyinchi yaqin orada deyarli oʻyin oʻynamagan. Oʻynalgan oʻyinlar soniga qarab, reyting qaytadan aniqlanmagan holatga oʻtishi uchun taxminan bir yillik tanaffus kifoya qiladi.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Aniqroq aytganda, bu Glicko-2 tizimidagi ogʻish (deviation) koʻrsatkichi 110 dan yuqori ekanini anglatadi. Ogʻish — bu tizimning reytingga boʻlgan ishonch darajasidir. Ogʻish koʻrsatkichi qanchalik past boʻlsa, reyting shunchalik barqaror hisoblanadi.</string>
+  <string name="whyAreRatingHigher">Nega Lichess reytingi FIDE, USCF yoki ICC kabi tashkilotlarnikidan yuqoriroq?</string>
   <string name="howToHideRatingWhilePlaying">Oʻyin paytida reytingni qanday yashirish mumkin?</string>
   <string name="enableZenMode">Buning uchun %1$s boʻlimidan “Zen rejimi”ni yoqing yoki oʻyin paytida klaviaturadagi %2$s tugmasini bosing.</string>
   <string name="displayPreferences">koʻrinish sozlamalaridagi</string>
