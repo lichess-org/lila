@@ -9,7 +9,7 @@
   <string name="whyLiveLightLibre">Jonli (live) — chunki oʻyinlar haftasiga 7 kun kuniga 24 soat real vaqt rejimida oʻynaladi va kuzatiladi; yengil (light) va erkin (libre) — chunki Lichess ochiq kodli loyiha boʻlib, boshqa saytlarga xos boʻlgan xususiy va keraksiz chiqindilardan xolidir.</string>
   <string name="whyIsLilaCalledLila">Shuningdek, Lichessʼning ochiq kodi — \'%1$s\' nomi ham li[chess in sca]la soʻzlaridan olingan. Buning sababi, Lichessʼning asosiy qismi intuitiv tushunarli dasturlash tili boʻlmish %2$sʼda yozilgan.</string>
   <string name="howCanIContributeToLichess">Lichessʼga qanday qilib hissa qoʻshishim mumkin?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess homiylar tomonidan beriladigan ehsonlar va koʻngillilar jamoasining saʼy-harakatlari asosida faoliyat yuritadi.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess homiylar tomonidan beriladigan xayriyalar va koʻngillilar jamoasining saʼy-harakatlari asosida faoliyat yuritadi.</string>
   <string name="findMoreAndSeeHowHelp">%1$s haqida (shu jumladan, %2$s bilan) koʻproq maʼlumot olishingiz mumkin. Agar oʻz vaqtingiz va mahoratingiz bilan Lichessʼga koʻngilli sifatida yordam bermoqchi boʻlsangiz, koʻmaklashishning yana koʻplab %3$s ham mavjud.</string>
   <string name="beingAPatron">Homiy boʻlish</string>
   <string name="breakdownOfOurCosts">xarajatlarimizning batafsil hisoboti</string>
@@ -103,6 +103,26 @@ Iltimos, LM unvonini berishni soʻrab murojaat qilmang.</string>
   <string name="ownerUniqueTrophies">Ushbu kubok Lichess tarixida yagonadir — u faqat %1$s ismli foydalanuvchiga tegishli va boshqa hech kimda boʻlmaydi.</string>
   <string name="aHourlyBulletTournament">bir soatlik Bullet turniri</string>
   <string name="goldenZeeExplanation">Gap shundaki, ZugAddict strim paytida 2 soat davomida 1+0 vaqt nazoratida S.I. 8-darajasini magʻlub etishga harakat qiladi, biroq urinishlari besamar ketadi. Shunda Thibault unga agar buni strim davomida uddalasa, noyob kubok berishini vaʼda qiladi. Oradan bir soat oʻtgach, ZugAddict Stockfishʼni magʻlub etadi va vaʼda qilingan mukofot oʻz egasiga topshiriladi.</string>
+  <string name="lichessRatings">Lichess reytinglari</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess qaysi reyting tizimidan foydalanadi?</string>
+  <string name="ratingSystemUsedByLichess">Reytinglar Mark Glikman tomonidan ishlab chiqilgan Glicko-2 uslubi asosida hisoblanadi. Bu hozirda juda ommabop usul boʻlib, koʻplab shaxmat tashkilotlari undan foydalanadi (faqat FIDE hali ham eskirgan Elo tizimida qolmoqda).
+
+Glicko tizimining asosiy farqi — reytingni hisoblashda \"ishonch oraligʻi\" (confidence interval) tushunchasidan foydalanishidir. Saytda yangi roʻyxatdan oʻtganingizda, reytingingiz 1500 ± 1000 koʻrinishida boʻladi. Bu yerda 1500 — sizning reytingingiz, 1000 esa oʻsha ishonch oraligʻini bildiradi.
+
+Sodda qilib aytganda, tizim sizning haqiqiy reytingingiz 500 va 2500 reyting oʻrtasida ekanligiga 95% ishonadi. Yaʼni, tizimda hozircha siz haqingizda aniq maʼlumot yoʻq. Shu sababli, endi boshlagan oʻyinchilarning reytingi har bir oʻyindan soʻng keskin oʻzgaradi (bir necha yuz ballgacha). Biroq, reytinglari aniqlangan oʻyinchilarga qarshi bir nechta oʻyin oʻynaganingizdan soʻng, ishonch oraligʻi torayib boradi va har bir oʻyindan keyin qoʻshiladigan yoki ayriladigan ochkolar miqdori kamayadi.
+
+Yana bir muhim jihati: agar maʼlum vaqt oʻyin oʻynamasangiz, ishonch oraligʻi qayta kengaya boshlaydi. Bu esa uzoq tanaffusdan keyin qaytganingizda, mahoratingizdagi oʻzgarishlarga qarab reytingingiz tezroq moslashishiga (koʻproq ochqa berish yoki ayirishga) yordam beradi.</string>
+  <string name="whatIsProvisionalRating">Nega reyting yonida soʻroq belgisi (?) turibdi?</string>
+  <string name="provisionalRatingExplanation">Soʻroq belgisi reytingningiz aniqlanmaganini bildiradi. Bunga quyidagilar sabab boʻlishi mumkin:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Oʻyinchi ushbu reyting toifasida hali %1$s bilan yetarlicha oʻyin oʻtkazmagan.</string>
+  <string name="similarOpponents">darajasi yaqin boʻlgan raqiblar</string>
+  <string name="notPlayedRecently">Oʻyinchi yaqin orada deyarli oʻyin oʻynamagan. Oʻynalgan oʻyinlar soniga qarab, reyting qaytadan aniqlanmagan holatga oʻtishi uchun taxminan bir yillik tanaffus kifoya qiladi.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Aniqroq aytganda, bu Glicko-2 tizimidagi ogʻish (deviation) koʻrsatkichi 110 dan yuqori ekanini anglatadi. Ogʻish — bu tizimning reytingga boʻlgan ishonch darajasidir. Ogʻish koʻrsatkichi qanchalik past boʻlsa, reyting shunchalik barqaror hisoblanadi.</string>
+  <string name="howToHideRatingWhilePlaying">Oʻyin paytida reytingni qanday yashirish mumkin?</string>
+  <string name="enableZenMode">Buning uchun %1$s boʻlimidan “Zen rejimi”ni yoqing yoki oʻyin paytida klaviaturadagi %2$s tugmasini bosing.</string>
+  <string name="displayPreferences">koʻrinish sozlamalaridagi</string>
+  <string name="connexionLostCanIGetMyRatingBack">Internet uzilishi yoki qotib qolishi (lag) sababli yutqazib qoʻydim. Reytingimni qaytarib olsam boʻladimi?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Afsuski, internet sustligi yoki aloqa uzilishi sababli yoʻqotilgan ochkolar qaytarib berilmaydi. Muammo siz tomonda boʻladimi yoki bizning serverda — buning ahamiyati yoʻq (garchi bizda bunday nosozliklar juda kam uchrasa-da). Faqat bir holatda istisno boʻlishi mumkin: agar Lichess serveri qayta ishga tushishi natijasida vaqtingiz tugab yutqazsangiz, adolatsizlikka yoʻl qoʻymaslik uchun oʻyin natijasi biz tomondan bekor qilinadi.</string>
   <string name="howToThreeDots">Qanday qilib...</string>
   <string name="enableDisableNotificationPopUps">Bildirishnomalarni yoqish yoki oʻchirish mumkin?</string>
   <string name="viewSiteInformationPopUp">Sayt haqida maʼlumot olish oynasini koʻrish</string>
@@ -138,4 +158,10 @@ Bunday holat yuz berganda sizni ogohlantirish uchun biz oʻsha qizil belgini ko�
   <string name="stopMyselfFromPlaying">Oʻyinni bas qila olmayapman, nima qilsam boʻladi?</string>
   <string name="mentalHealthCondition">alohida ruhiy kasallik</string>
   <string name="lichessUserstyles">foydalanuvchi Lichess CSS stillari</string>
+  <string name="fewerLobbyPools">tez raqibni topish roʻyxati qisqartirilgan</string>
+  <string name="adviceOnMitigatingAddiction">Bizga koʻpincha oʻyin oʻynashga haddan tashqari ruju qoʻygan va oʻzini toʻxtata olmayotgan foydalanuvchilar yordam soʻrab murojaat qilishadi.
+
+Lichess faqat foydalanish shartlari buzilgan holatlardagina oʻyinchilarni cheklaydi, xolos. Shuning uchun biz oʻyin vaqtini nazorat qilishda maxsus dasturlardan foydalanishni tavsiya etamiz. Saytlarga kirishni cheklovchi %1$s, %2$s va %3$s kabi vositalar shular jumlasidandir. Agar saytga kirishni xohlasangiz-u, lekin tez oʻyinlar (bullet/blits) sizni oʻziga tortaverishidan qochmoqchi boʻlsangiz, %4$sdan foydalanib koʻring, masalan, mana bu variantda %5$s.
+
+Ba\'zi oʻyinchilar shaxmatga mukkasidan ketayotganlarini yoki bu odat qaramlikka aylanayotganini payqashlari mumkin. Darhaqiqat, Jahon sogʻliqni saqlash tashkiloti ham oʻyinga qaramlikni %6$s sifatida tan olgan. Uning asosiy belgilari: 1) oʻyinni toʻxtata olmaslik, 2) hayotdagi boshqa ishlarni chetga surib, bor eʼtiborni faqat oʻyinga qaratish va 3) salbiy oqibatlarga qaramay oʻyinni davom ettirishdir. Agar oʻzingizda shunday holatni kuzatayotgan boʻlsangiz, bu haqida doʻstlaringiz, yaqinlaringiz yoki mutaxassis bilan maslahatlashishingizni soʻraymiz.</string>
 </resources>
