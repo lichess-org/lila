@@ -2,6 +2,7 @@ import { storage } from 'lib/storage';
 import { variants } from './options';
 import type { Customisation } from './interfaces';
 import { type VNode, h } from 'snabbdom';
+import * as licon from 'lib/licon';
 
 const makeKey = (username?: string) => `lobby.customisation.${username || 'anon'}`;
 
@@ -40,6 +41,14 @@ export const renderCustomisedButton = (
   const display = getDisplayData(customisation);
   const label = display.timeLabel;
   const icon = display.icon;
+  const typeIconAttrs =
+    customisation.gameType === 'hook'
+      ? { 'data-icon': licon.Group }
+      : customisation.gameType === 'friend'
+        ? { 'data-icon': licon.User }
+        : customisation.gameType === 'ai'
+          ? { 'data-icon': licon.Cpu }
+          : undefined;
 
   const subLabel = customisation.settings.gameMode === 'rated' ? i18n.site.rated : i18n.site.casual;
 
@@ -50,7 +59,11 @@ export const renderCustomisedButton = (
       attrs: { role: 'button', 'data-id': poolId, tabindex: '0' },
     },
     [
-      h('div.clock', [icon ? h('span', { attrs: { 'data-icon': icon } }) : null, label]),
+      h('div.clock', [
+        h('span', { attrs: typeIconAttrs }),
+        icon ? h('span', { attrs: { 'data-icon': icon } }) : null,
+        label,
+      ]),
       h('div.perf', subLabel),
     ],
   );

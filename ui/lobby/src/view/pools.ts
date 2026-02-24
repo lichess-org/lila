@@ -60,7 +60,7 @@ export function render(ctrl: LobbyController) {
       h(
         'div.lpool',
         {
-          class: { transp: !!member, selected: ctrl.isEditingPoolButtons()  },
+          class: { transp: !!member, selected: ctrl.isEditingPoolButtons() },
           attrs: { role: 'button', 'data-id': 'custom', tabindex: '0' },
         },
         i18n.site.custom,
