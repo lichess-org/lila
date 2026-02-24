@@ -264,7 +264,7 @@ export default class LobbyController {
       this.redraw();
       return;
     }
-    if (customisation) {
+    if (id != this.poolMember?.id && customisation) {
       this.setupCtrl.headlessSubmit(customisation.gameType);
       return;
     }

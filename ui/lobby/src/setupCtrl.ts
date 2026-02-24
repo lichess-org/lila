@@ -354,5 +354,6 @@ export default class SetupController {
     this.loadPropsFromStore();
     this.root.isHeadlessSubmission = true;
     this.submit();
+    this.gameType = null;
   };
 }
