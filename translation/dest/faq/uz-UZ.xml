@@ -119,6 +119,9 @@ Yana bir muhim jihati: agar maʼlum vaqt oʻyin oʻynamasangiz, ishonch oraligʻ
   <string name="notPlayedRecently">Oʻyinchi yaqin orada deyarli oʻyin oʻynamagan. Oʻynalgan oʻyinlar soniga qarab, reyting qaytadan aniqlanmagan holatga oʻtishi uchun taxminan bir yillik tanaffus kifoya qiladi.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Aniqroq aytganda, bu Glicko-2 tizimidagi ogʻish (deviation) koʻrsatkichi 110 dan yuqori ekanini anglatadi. Ogʻish — bu tizimning reytingga boʻlgan ishonch darajasidir. Ogʻish koʻrsatkichi qanchalik past boʻlsa, reyting shunchalik barqaror hisoblanadi.</string>
   <string name="whyAreRatingHigher">Nega Lichess reytingi FIDE, USCF yoki ICC kabi tashkilotlarnikidan yuqoriroq?</string>
+  <string name="whyAreRatingHigherExplanation">Reyting raqamlariga absolyut bir qiymat deb qaramaslik kerak, ularni turli tashkilotlar bilan solishtirish ham unchalik toʻgʻri emas. Chunki har bir platformaning oʻz oʻyinchilari va oʻziga xos hisoblash usullari (Elo, Glicko-1 yoki Glicko-2) bor. Aynan mana shu farqlar yakuniy raqamlarning (reytinglarning) turlicha chiqishiga sabab boʻladi.
+
+Reyting — bu shunchaki \"nisbiy\" koʻrsatkich. U faqat bir guruh oʻyinchilar ichida kim kuchliroq ekanini va kimning g\'alaba qozonish imkoniyati yuqoriligini taxmin qilish uchun xizmat qiladi. Atrofdagi boshqa oʻyinchilarning darajasi bilan solishtirilmasa, “mening reytingim faloncha” degan gapning hech qanday maʼnosi qolmaydi.</string>
   <string name="howToHideRatingWhilePlaying">Oʻyin paytida reytingni qanday yashirish mumkin?</string>
   <string name="enableZenMode">Buning uchun %1$s boʻlimidan “Zen rejimi”ni yoqing yoki oʻyin paytida klaviaturadagi %2$s tugmasini bosing.</string>
   <string name="displayPreferences">koʻrinish sozlamalaridagi</string>
