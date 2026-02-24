@@ -51,6 +51,7 @@ export const renderCustomisedButton = (
   poolId: string,
   customisation: Customisation | undefined,
   selected: boolean,
+  transp: boolean,
 ): VNode | undefined => {
   if (!customisation) return undefined;
 
@@ -71,7 +72,7 @@ export const renderCustomisedButton = (
   return h(
     'div.lpool',
     {
-      class: { selected, custom: true },
+      class: { selected, custom: true, transp },
       attrs: { role: 'button', 'data-id': poolId, tabindex: '0' },
     },
     [

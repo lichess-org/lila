@@ -37,7 +37,7 @@ export function render(ctrl: LobbyController) {
       const active = member?.id === pool.id;
       const transp = !!member && !active;
       const selected = ctrl.isEditingPoolButtons() && ctrl.selectedPoolButton === pool.id;
-      const renderCustomised = customiser.renderCustomisedButton(pool.id, customisations[pool.id], selected);
+      const renderCustomised = customiser.renderCustomisedButton(pool.id, customisations[pool.id], selected, transp);
       if (renderCustomised) return renderCustomised;
       else
         return h(
