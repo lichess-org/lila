@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Hamjamiyat</string>
+  <string name="byMonth">Oyma-oy</string>
+  <string name="byTopic">Mavzu boʻyicha</string>
+  <string name="byLichess">Lichess tomonidan</string>
+  <string name="myFriends">Doʻstlarim</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Menga yoqqanlar</string>
+  <string name="myBlog">Mening blogim</string>
+  <string name="likedBlogs">Menga yoqqan blog postlar</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s blog post</item>
+    <item quantity="other">%s blog post</item>
+  </plurals>
+  <string name="continueReadingPost">Davomini oʻqish</string>
+  <string name="lichessBlogPostsFromXYear">%s-yildagi Lichess blog postlari</string>
+  <string name="previousBlogPosts">Oldingi blog postlar</string>
   <string name="xBlog">%s blogi</string>
   <string name="newPost">Yangi post</string>
   <string name="editYourBlogPost">Blog postingizni tahrirlang</string>
@@ -9,36 +24,40 @@
   <string name="postBody">Post asosiy qismi</string>
   <string name="drafts">Qarolamalar</string>
   <string name="published">Chop etildi</string>
-  <string name="createBlogDiscussion">Izohlashga ruhsat berish</string>
-  <string name="createBlogDiscussionHelp">Forum mavzusi unda odamlar izoh qoldirish uchun yaratiladi</string>
-  <string name="publishOnYourBlog">O‘z blogingizda nashr eting</string>
-  <string name="publishHelp">Agar belgilangan bo‘lsa, xabar sizni blogingizda namoyish etiladi. Agar yo‘q bo‘lsa, u yopiq bo‘lib, sizning qoralama xabarlaringiz ichida bo‘ladi</string>
+  <string name="createBlogDiscussion">Izohlarni yoqish</string>
+  <string name="createBlogDiscussionHelp">Postingizni muhokama qilish uchun forumda yangi mavzu ochiladi</string>
+  <string name="publishOnYourBlog">Blogda chop etish</string>
+  <string name="publishHelp">Agar belgilansa, post blogingizda eʼlon qilinadi. Aks holda, u maxfiy qoladi va qoralamalaringiz orasida saqlanadi</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Postni qadab qoʻyish</string>
+  <string name="stickyPostHelp">Agar belgilansa, ushbu post profilingizdagi soʻnggi xabarlar roʻyxatida va blogingizda birinchi boʻlib koʻrsatiladi.</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="one">Blog xabari nashr etildi</item>
-    <item quantity="other">%s blog xabarlari nashr etildi</item>
+    <item quantity="one">Blog post chop etdi</item>
+    <item quantity="other">%s ta blog post chop etdi</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">Bir marta koʻrilgan</item>
-    <item quantity="other">%s marta ko\'rilgan</item>
+    <item quantity="other">%s marta koʻrilgan</item>
   </plurals>
-  <string name="xPublishedY">%1$s %2$s\'ni chop etdi</string>
+  <string name="xPublishedY">%1$s %2$sʼni chop etdi</string>
   <string name="thisPostIsPublished">Ushbu post chop etilgan</string>
   <string name="thisIsADraft">Bu qoralama</string>
   <string name="noPostsInThisBlogYet">Ushbu blogda hozircha postlar yoʻq.</string>
-  <string name="noDrafts">Ko‘rsatish uchun qoralamalar yo‘q.</string>
-  <string name="latestBlogPosts">Eng soʻnggi nlog postlar</string>
+  <string name="noDrafts">Qoralamalar yoʻq.</string>
+  <string name="latestBlogPosts">Soʻnggi blog postlar</string>
   <plurals name="viewAllNbPosts">
-    <item quantity="one">Bitta postni ko‘rish</item>
+    <item quantity="one">Bitta postni koʻrish</item>
     <item quantity="other">Barcha %s ta postni koʻrish</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Postingiz uchun rasm yuklang</string>
-  <string name="imageAlt">Rasm o‘rniga matn</string>
-  <string name="imageCredit">Rasm uchun imkon</string>
-  <string name="deleteBlog">Ushbu blog postini butunlay o\'chirib tashlash</string>
+  <string name="imageAlt">Rasm uchun muqobil matn</string>
+  <string name="imageCredit">Rasm manbasi</string>
+  <string name="deleteBlog">Ushbu blog postini butunlay oʻchirib tashlash</string>
   <string name="safeToUseImages">Quyidagi veb-saytlardagi rasmlardan foydalanish xavfsiz: </string>
-  <string name="selectPostTopics">Blog postingizda muhokama qiladigan mavzularni tanlang</string>
-  <string name="useImagesYouMadeYourself">Siz shuningdek o‘zgalarning mualliflik huquqi bilan ximoyalanmagan barcha narsalardan tashqari yana o‘zingizning shaxsiy rasmlaringizni, sur‘atlaringizni va Lichess skrinshotlarini ishlatishingiz mumkin.</string>
-  <string name="safeAndRespectfulContent">Iltimos faqat xavfsiz va \"hurmat\"li ma‘qolalarni nashr eting. Boshqalarning ma‘lumotlarini nusxalamang.</string>
-  <string name="inappropriateContentAccountClosed">Mumkin bo‘lmagan ma‘lumotlar joylanishi sizning hisobingizni yopilishiga sabab bo‘lishi mumkin.</string>
-  <string name="blogTips">Blogda yaxshi postlar yozish uchun bizning oddiy maslahatlarimiz</string>
+  <string name="selectPostTopics">Postingiz qaysi mavzular haqida ekanligini tanlang</string>
+  <string name="useImagesYouMadeYourself">Oʻzingiz yaratgan yoki olgan rasm va suratlar yoki Lichess skrinshotlaridan foydalanishingiz mumkin. Faqat ular boshqa birovning mualliflik huquqi ostida boʻlmasa kifoya.</string>
+  <string name="safeAndRespectfulContent">Iltimos, faqat xavfsiz va odob doirasidagi kontentlarni joylang. Birovning ishini koʻchirib olmang.</string>
+  <string name="inappropriateContentAccountClosed">Har qanday nomunosib kontent profilingiz yopilishiga sabab boʻlishi mumkin.</string>
+  <string name="blogTips">Sifatli post yozish boʻyicha foydali tavsiyalar</string>
+  <string name="discussThisBlogPostInTheForum">Ushbu postni forumda muhokama qilish</string>
+  <string name="youBlockedByBlogAuthor">Blog muallifi sizni bloklagan.</string>
 </resources>
