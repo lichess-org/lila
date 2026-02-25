@@ -41,7 +41,7 @@
   <string name="youAreNowASpectator">Siz xozir kuzatuvchisiz</string>
   <string name="pgnTags">PGN yorliqlar</string>
   <string name="like">Yoqdi</string>
-  <string name="unlike">O‘xshamagan</string>
+  <string name="unlike">Yoqmadi</string>
   <string name="newTag">Yangi yorliq</string>
   <string name="commentThisPosition">Ushbu holatga izoh berish</string>
   <string name="commentThisMove">Ushbu yurishga izoh berish</string>
