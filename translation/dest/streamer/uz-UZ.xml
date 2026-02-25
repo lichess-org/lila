@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessStreamers">Lichess strimerlari</string>
+  <string name="lichessStreamer">Lichess strimeri</string>
   <string name="live">EFIRDA!</string>
-  <string name="offline">OFFLINE</string>
+  <string name="offline">OFLAYN</string>
+  <string name="currentlyStreaming">Jonli efirda: %s</string>
+  <string name="lastStream">Oxirgi efir: %s</string>
+  <string name="becomeStreamer">Lichess strimeriga aylaning</string>
+  <string name="doYouHaveStream">Twitch yoki YouTube kanalingiz bormi?</string>
+  <string name="hereWeGo">Ketdik!</string>
+  <string name="allStreamers">Barcha strimerlar</string>
+  <string name="editPage">Strimer sahifasini tahrirlash</string>
+  <string name="yourPage">Sizning strimer sahifangiz</string>
+  <string name="downloadKit">Strimer toʻplamini yuklab olish</string>
+  <string name="xIsStreaming">%s efirda</string>
+  <string name="rules">Strim qilish qoidalari</string>
+  <string name="rule1">Lichessʼda strim qilayotganingizda, efir sarlavhasiga \"lichess.org\" kalit soʻzini kiriting va \"Chess\" (Shaxmat) turkumidan foydalaning.</string>
+  <string name="rule2">Lichessʼga aloqador boʻlmagan kontentni efirga uzatganingizda, ushbu kalit soʻzni sarlavhadan olib tashlang.</string>
+  <string name="rule3">Lichess efiringizni avtomatik ravishda aniqlaydi va quyidagi imkoniyatlarni faollashtiradi:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Efir davomida barcha uchun halol oʻyin muhitini taʼminlash maqsadida %s bo‘limi bilan tanishib chiqing.</string>
+  <string name="streamingFairplayFAQ">halol oʻyin boʻyicha tez-tez beriladigan savollar</string>
+  <string name="perks">Kalit soʻzi bilan strim qilishning afzalliklari</string>
+  <string name="perk1">Lichess profilingizda yonayotgan strimer belgisiga paydo boʻladi.</string>
+  <string name="perk2">Strimerlar roʻyxatining eng yuqori qismiga koʻtarilasiz.</string>
+  <string name="perk3">Lichessʼdagi obunachilaringizga bildirishnoma yuboriladi.</string>
+  <string name="perk4">Striming qilayotganingiz haqida oʻyinlaringizda, turnirlarda va oʻquv qoʻllanmalarida koʻrsatiladi.</string>
+  <string name="approved">Strimingiz tasdiqlandi.</string>
+  <string name="pendingReview">Strimingiz moderatorlar tomonidan koʻrib chiqilmoqda.</string>
+  <string name="pleaseFillIn">Iltimos, strimer haqidagi maʼlumotlaringizni toʻldiring va rasm yuklang.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess strimerlari roʻyxatiga kirishga tayyor boʻlsangiz, %s</string>
+  <string name="submitForReview">Koʻrib chiqish uchun yuborish</string>
+  <string name="streamerLanguageSettings">Lichess strimerlar sahifasi auditoriyangizni efir platformangizda koʻrsatilgan tilga qarab aniqlaydi. Shaxmat efirlaringiz uchun foydalanayotgan ilova yoki efir xizmatingiz sozlamalarida asosiy tilni toʻgʻri belgilang.</string>
+  <string name="pleaseAllow">Strimer belgisi va roʻyxatga olinishingiz tasdiqlanishi uchun 72 soatgacha vaqt ketishi mumkin.</string>
+  <string name="chooseYoutubeChannel">Lichessʼda foydalanmoqchi boʻlgan YouTube kanalingizni tanlang.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Ulash</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Uzish</string>
+  <string name="streamerName">Lichessʼdagi strimer ismingiz</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Qisqaroq yozing: koʻpi bilan %s ta belgi</item>
+    <item quantity="other">Qisqaroq yozing: koʻpi bilan %s ta belgi</item>
+  </plurals>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Strimerlar sahifasida koʻrinsin</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Moderatorlar tomonidan tasdiqlanganidan soʻng</string>
+  <string name="headline">Sarlavha</string>
+  <string name="tellUsAboutTheStream">Strimingiz haqida bir jumla bilan soʻzlab bering</string>
+  <string name="longDescription">Batafsil tavsif</string>
+  <string name="xStreamerPicture">%s strimer rasmi</string>
+  <string name="changePicture">Rasmni oʻzgartirish/oʻchirish</string>
+  <string name="uploadPicture">Rasm yuklash</string>
+  <string name="maxSize">Maksimal hajmi: %s</string>
 </resources>
