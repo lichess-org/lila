@@ -43,7 +43,7 @@
   <string name="moveConfirmation">Yurishni tasdiqlash</string>
   <string name="explainCanThenBeTemporarilyDisabled">Oʻyin vaqtida taxta menyusi orqali vaqtinchalik oʻchirib turish mumkin</string>
   <string name="inCorrespondenceGames">Yozishmali oʻyinlarda</string>
-  <string name="correspondenceAndUnlimited">Yozishmali va vaqti chegaralanmagan oʻyinlarda</string>
+  <string name="correspondenceAndUnlimited">Yozishmali va vaqti cheksiz oʻyinlarda</string>
   <string name="confirmResignationAndDrawOffers">Taslim boʻlish va durang takliflarini tasdiqlash</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokirovka usuli</string>
   <string name="castleByMovingTwoSquares">Shohni ikki katakka surish</string>
