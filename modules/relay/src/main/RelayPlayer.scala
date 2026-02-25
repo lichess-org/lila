@@ -37,42 +37,20 @@ case class RelayPlayer(
   def toTieBreakPlayer: Option[Tiebreak.Player] = player.id.map: id =>
     Tiebreak.Player(id = id.toString, rating = player.rating.map(_.into(Elo)))
 
-given Ordering[List[TiebreakPoint]] = new:
-  def compare(a: List[TiebreakPoint], b: List[TiebreakPoint]): Int =
-    @scala.annotation.tailrec
-    def loop(a: List[TiebreakPoint], b: List[TiebreakPoint]): Int = (a, b) match
-      case (Nil, Nil) => 0
-      case (Nil, _) => -1 // a is empty, b is not
-      case (_, Nil) => 1 // b is empty, a is not
-      case (ah :: at, bh :: bt) =>
-        val cmp = bh.value.compare(ah.value)
-        if cmp != 0 then cmp else loop(at, bt)
-    loop(a, b)
+given Ordering[(Tiebreak, TiebreakPoint)] = Ordering.by: (tb, tbv) =>
+  if tb == chess.tiebreak.DirectEncounter then tbv.value else -tbv.value
 
-given Ordering[Option[List[TiebreakPoint]]] = new Ordering[Option[List[TiebreakPoint]]]:
-  def compare(a: Option[List[TiebreakPoint]], b: Option[List[TiebreakPoint]]): Int =
-    (a, b) match
-      case (Some(ta), Some(tb)) => Ordering[List[TiebreakPoint]].compare(ta, tb)
-      case (Some(_), None) => 1 // a is defined, b is not
-      case (None, Some(_)) => -1 // b is defined, a is not
-      case (None, None) => 0
-
-given Ordering[RelayPlayer] = new Ordering[RelayPlayer]:
-  /* Sort players by:
-      1. Score (Descending)
-      2. Tiebreak points (compare each tiebreak in order, higher is better)
-      3. Player rating (Descending)
-      4. Player name (Alphabetical, ascending)
-   */
-  def compare(a: RelayPlayer, b: RelayPlayer): Int =
-    val scoreComparison = b.score.compare(a.score)
-    lazy val tiebreakComparison = Ordering[Option[List[TiebreakPoint]]]
-      .compare(a.tiebreaks.map(_._2F.toList), b.tiebreaks.map(_._2F.toList))
-    lazy val ratingComparison = b.rating.map(_.value).compare(a.rating.map(_.value))
-    if scoreComparison != 0 then scoreComparison
-    else if tiebreakComparison != 0 then tiebreakComparison
-    else if ratingComparison != 0 then ratingComparison
-    else a.player.name.map(_.value).compare(b.player.name.map(_.value))
+/* Sort players by:
+    1. Score (Descending)
+    2. Tiebreak points - compare each tiebreak in order,
+        higher is better, except for Direct Encounter where lower (rank) is better
+    3. Player rating (Descending)
+    4. Player name (Alphabetical, ascending)
+ */
+given Ordering[RelayPlayer] =
+  import scala.math.Ordering.Implicits.seqOrdering
+  Ordering.by: p =>
+    (p.score.map(-_), p.tiebreaks, p.player.rating.map(-_.value), p.player.name.map(_.value))
 
 object RelayPlayer:
 
