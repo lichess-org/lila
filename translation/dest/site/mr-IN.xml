@@ -720,7 +720,6 @@
   <string name="keyCycleSelectedVariation">निवडलेल्या भिन्नतेचे रुपांतर करा</string>
   <string name="keyShowOrHideComments">प्रतिक्रिया दाखवा/लपवा</string>
   <string name="keyEnterOrExitVariation">variation च्या आत/बाहेर</string>
-  <string name="keyRequestComputerAnalysis">संगणक विश्लेषणासाठी विनतंती करा, तुमच्या चुकांपासून शिका</string>
   <string name="keyPreviousBranch">मागील शाखा</string>
   <string name="keyNextBranch">पुढील शाखा</string>
   <string name="toggleVariationArrows">भिन्नतेंचे बाण निवडा</string>
