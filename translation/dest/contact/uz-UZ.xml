@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Aloqa</string>
-  <string name="contactLichess">Lichess bilan aloqa</string>
+  <string name="contactLichess">Lichess bilan bogʻlanish</string>
   <string name="whatCanWeHelpYouWith">Sizga qanday yordam bera olamiz?</string>
-  <string name="visitThisPage">Muammoni hal qilish uchun ushbu sahifaga tashrif buyuring</string>
+  <string name="visitThisPage">Muammoni hal qilish uchun ushbu sahifaga oʻting</string>
   <string name="iCantLogIn">Men kira olmayabman</string>
   <string name="noConfirmationEmail">Elektron manzilimga tasdiq xati kelmadi</string>
   <string name="forgotPassword">Men parolimni unutib qo\'ydim</string>
