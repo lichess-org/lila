@@ -85,4 +85,8 @@
     background: $m-accent--fade-80 !important;
     color: $c-font;
   }
+
+  [data-icon] {
+    pointer-events: none;
+  }
 }
