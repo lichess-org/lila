@@ -3,8 +3,8 @@
   <string name="broadcasts">Translyatsiyalar</string>
   <string name="myBroadcasts">Mening translyatsiyalarim</string>
   <plurals name="nbBroadcasts">
-    <item quantity="one">%s ta translyatsiya</item>
-    <item quantity="other">%s ta translyatsiya</item>
+    <item quantity="one">%s translyatsiya</item>
+    <item quantity="other">%s translyatsiya</item>
   </plurals>
   <plurals name="nbViewers">
     <item quantity="one">%s ta tomoshabin</item>
