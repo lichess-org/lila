@@ -705,7 +705,6 @@
   <string name="keyGoToStartOrEnd">bei Start/Schluss goen</string>
   <string name="keyShowOrHideComments">Kommentarer weisen/verstoppen</string>
   <string name="keyEnterOrExitVariation">Variant wielen/verloossen</string>
-  <string name="keyRequestComputerAnalysis">Computeranalys ufroen, léier aus denge Feeler</string>
   <string name="playSelectedMove">den ausgewielten Zuch spillen</string>
   <string name="newTournament">Neien Turnéier</string>
   <string name="tournamentHomeTitle">Schachturnéiere mat verschiddene Kadenzen a Schachvarianten</string>
