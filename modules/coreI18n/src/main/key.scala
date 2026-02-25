@@ -2124,6 +2124,7 @@ object I18nKey:
     val `keyShowOrHideComments`: I18nKey = "keyShowOrHideComments"
     val `keyEnterOrExitVariation`: I18nKey = "keyEnterOrExitVariation"
     val `keyRequestComputerAnalysis`: I18nKey = "keyRequestComputerAnalysis"
+    val `keyRequestComputerAnalysisStudyVersion`: I18nKey = "keyRequestComputerAnalysisStudyVersion"
     val `keyPreviousBranch`: I18nKey = "keyPreviousBranch"
     val `keyNextBranch`: I18nKey = "keyNextBranch"
     val `toggleVariationArrows`: I18nKey = "toggleVariationArrows"

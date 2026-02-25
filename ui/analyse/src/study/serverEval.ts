@@ -31,6 +31,14 @@ export default class ServerEval {
   };
 
   request = () => {
+    if (
+      !longEnoughForAnalysis(this) ||
+      !userHasAnalysisRequestPermission(this) ||
+      !this.root.showFishnetAnalysis() ||
+      this.root.data.analysis ||
+      this.requested
+    )
+      return;
     this.root.socket.send('requestAnalysis', this.chapterId());
     this.requested = true;
   };
@@ -66,24 +74,26 @@ const disabled = () => h('div.study__server-eval.disabled.padded', 'You disabled
 
 const requested = () => h('div.study__server-eval.requested.padded', spinnerVdom());
 
-function requestButton(ctrl: ServerEval) {
-  const root = ctrl.root;
-  return h(
+const longEnoughForAnalysis = (ctrl: ServerEval) => ctrl.root.mainline.length >= 5;
+
+const userHasAnalysisRequestPermission = (ctrl: ServerEval) => ctrl.root.study!.members.canContribute();
+
+const requestButton = (ctrl: ServerEval) =>
+  h(
     'div.study__message',
-    root.mainline.length < 5
+    !longEnoughForAnalysis(ctrl)
       ? h('p', i18n.study.theChapterIsTooShortToBeAnalysed)
-      : !root.study!.members.canContribute()
+      : !userHasAnalysisRequestPermission(ctrl)
         ? [i18n.study.onlyContributorsCanRequestAnalysis]
         : [
             h('p', [i18n.study.getAFullComputerAnalysis, h('br'), i18n.study.makeSureTheChapterIsComplete]),
             h(
               'a.button.text',
               {
-                attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
-                hook: bind('click', ctrl.request, root.redraw),
+                attrs: { 'data-icon': licon.BarChart },
+                hook: bind('click', ctrl.request, ctrl.root.redraw),
               },
               i18n.site.requestAComputerAnalysis,
             ),
           ],
   );
-}

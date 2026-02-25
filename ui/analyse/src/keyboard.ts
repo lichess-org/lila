@@ -5,10 +5,10 @@ import { snabDialog } from 'lib/view';
 import type { VNode } from 'snabbdom';
 import { pubsub } from 'lib/pubsub';
 
-export const keyToMouseEvent = (key: string, eventName: string, selector: string) =>
+export const keyToMouseEvent = (key: string, eventName: string, selector: string, bubbles?: boolean) =>
   window.site.mousetrap.bind(key, () =>
     $(selector).each(function (this: HTMLElement) {
-      this.dispatchEvent(new MouseEvent(eventName));
+      this.dispatchEvent(new MouseEvent(eventName, { bubbles }));
     }),
   );
 
@@ -99,14 +99,23 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     });
 
-  //'Request computer analysis' & 'Learn From Your Mistakes' (mutually exclusive)
-  keyToMouseEvent(
-    'r',
-    'click',
-    '.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button',
-  );
+  if (ctrl.study)
+    kbd.bind('r', () => {
+      ctrl.study?.vm.toolTab('serverEval');
+      ctrl.study?.serverEval.request();
+      ctrl.redraw();
+    });
+  else {
+    keyToMouseEvent('r', 'click', '.analyse__underboard__menu .computer-analysis', true);
+    keyToMouseEvent(
+      'r',
+      'click',
+      // 'request computer analysis' & 'learn From your mistakes' use cases are mutually exclusive:
+      '.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button',
+    );
+  }
 
-  //First explorer move
+  // First explorer move
   kbd.bind('shift+space', () => {
     const move = document
       .querySelector('.explorer-box:not(.loading) tbody tr[data-uci]')

@@ -722,6 +722,7 @@
   <string name="keyShowOrHideComments">show/hide comments</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
   <string name="keyRequestComputerAnalysis">Request computer analysis, Learn from your mistakes</string>
+  <string name="keyRequestComputerAnalysisStudyVersion">Request computer analysis</string>
   <string name="keyPreviousBranch">Previous branch</string>
   <string name="keyNextBranch">Next branch</string>
   <string name="toggleVariationArrows">Toggle variation arrows</string>
