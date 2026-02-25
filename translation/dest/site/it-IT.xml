@@ -711,7 +711,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="keyCycleSelectedVariation">Cicla tra le varianti</string>
   <string name="keyShowOrHideComments">mostra/nascondi i commenti</string>
   <string name="keyEnterOrExitVariation">entra/esci dalla variante</string>
-  <string name="keyRequestComputerAnalysis">Richiedi analisi del computer, Impara dai tuoi errori</string>
   <string name="keyPreviousBranch">Variante precedente</string>
   <string name="keyNextBranch">Variante successiva</string>
   <string name="toggleVariationArrows">Mostra le frecce delle varianti</string>
