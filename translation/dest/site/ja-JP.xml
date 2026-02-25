@@ -683,7 +683,6 @@
   <string name="keyCycleSelectedVariation">選択した手順を切り替え</string>
   <string name="keyShowOrHideComments">コメントを表示する/隠す</string>
   <string name="keyEnterOrExitVariation">変化に入る/出る</string>
-  <string name="keyRequestComputerAnalysis">コンピュータ解析の要請、自分の悪手に学ぶ</string>
   <string name="keyPreviousBranch">前の変化手順</string>
   <string name="keyNextBranch">次の変化手順</string>
   <string name="toggleVariationArrows">変化手順の矢印を切り替え</string>
