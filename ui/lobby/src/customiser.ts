@@ -55,9 +55,9 @@ export const renderCustomisedButton = (
 ): VNode | undefined => {
   if (!customisation) return undefined;
 
-  const display = getDisplayData(customisation);
-  const label = display.timeLabel;
-  const icon = display.icon;
+  const variantDef = variants.find(v => v.key === customisation.settings.variant);
+  const variantIcon =
+    customisation.settings.variant !== 'standard' || customisation ? variantDef?.icon : undefined;
   const typeIconAttrs =
     customisation.gameType === 'hook'
       ? { 'data-icon': licon.Group }
@@ -66,7 +66,12 @@ export const renderCustomisedButton = (
         : customisation.gameType === 'ai'
           ? { 'data-icon': licon.Cpu }
           : undefined;
-
+  const timeLabel =
+    customisation.settings.timeMode === 'realTime'
+      ? `${customisation.settings.time}+${customisation.settings.increment}`
+      : customisation.settings.timeMode === 'correspondence'
+        ? `${customisation.settings.days}d`
+        : '∞';
   const subLabel = customisation.settings.gameMode === 'rated' ? i18n.site.rated : i18n.site.casual;
 
   return h(
@@ -78,26 +83,10 @@ export const renderCustomisedButton = (
     [
       h('div.clock', [
         h('span', { attrs: typeIconAttrs }),
-        icon ? h('span', { attrs: { 'data-icon': icon } }) : null,
-        label,
+        variantIcon ? h('span', { attrs: { 'data-icon': variantIcon } }) : null,
+        timeLabel,
       ]),
       h('div.perf', subLabel),
     ],
   );
-};
-
-export const getDisplayData = (p: Customisation) => {
-  const timeLabel =
-    p.settings.timeMode === 'realTime'
-      ? `${p.settings.time}+${p.settings.increment}`
-      : p.settings.timeMode === 'correspondence'
-        ? `${p.settings.days}d`
-        : '∞';
-
-  const variantDef = variants.find(v => v.key === p.settings.variant);
-
-  return {
-    timeLabel,
-    icon: p.settings.variant !== 'standard' ? variantDef?.icon : undefined,
-  };
 };
