@@ -118,6 +118,12 @@ Yana bir muhim jihati: agar maʼlum vaqt oʻyin oʻynamasangiz, ishonch oraligʻ
   <string name="similarOpponents">darajasi yaqin boʻlgan raqiblar</string>
   <string name="notPlayedRecently">Oʻyinchi yaqin orada deyarli oʻyin oʻynamagan. Oʻynalgan oʻyinlar soniga qarab, reyting qaytadan aniqlanmagan holatga oʻtishi uchun taxminan bir yillik tanaffus kifoya qiladi.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Aniqroq aytganda, bu Glicko-2 tizimidagi ogʻish (deviation) koʻrsatkichi 110 dan yuqori ekanini anglatadi. Ogʻish — bu tizimning reytingga boʻlgan ishonch darajasidir. Ogʻish koʻrsatkichi qanchalik past boʻlsa, reyting shunchalik barqaror hisoblanadi.</string>
+  <string name="howDoLeaderoardsWork">Reyting va peshqadamlar jadvali qanday ishlaydi?</string>
+  <string name="inOrderToAppearsYouMust">Reyting boʻyicha %1$sga kirish uchun siz quyidagi talablarga javob berishingiz kerak:</string>
+  <string name="ratingLeaderboards">peshqadamlar jadvali</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">ushbu yoʻnalishda kamida 30 ta reytingli oʻyin oʻynagan boʻlishingiz,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">ushbu yoʻnalishda oxirgi bir hafta ichida kamida bitta reytingli oʻyin oʻynagan boʻlishingiz,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">reyting ogʻishi (rating deviation) koʻrsatkichi standart shaxmatda %1$s dan, variantlarda esa %2$s dan past boʻlishi,</string>
   <string name="whyAreRatingHigher">Nega Lichess reytingi FIDE, USCF yoki ICC kabi tashkilotlarnikidan yuqoriroq?</string>
   <string name="whyAreRatingHigherExplanation">Reyting raqamlariga absolyut bir qiymat deb qaramaslik kerak, ularni turli tashkilotlar bilan solishtirish ham unchalik toʻgʻri emas. Chunki har bir platformaning oʻz oʻyinchilari va oʻziga xos hisoblash usullari (Elo, Glicko-1 yoki Glicko-2) bor. Aynan mana shu farqlar yakuniy raqamlarning (reytinglarning) turlicha chiqishiga sabab boʻladi.
 
