@@ -683,7 +683,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="keyCycleSelectedVariation">Biến được chọn theo chu kỳ</string>
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
   <string name="keyEnterOrExitVariation">vào/thoát biến</string>
-  <string name="keyRequestComputerAnalysis">Yêu cầu máy tính phân tích, Học từ sai lầm của bạn</string>
   <string name="keyPreviousBranch">Nhánh trước</string>
   <string name="keyNextBranch">Nhánh tiếp theo</string>
   <string name="toggleVariationArrows">Đổi mũi tên của từng biến</string>
