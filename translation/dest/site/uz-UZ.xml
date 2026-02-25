@@ -297,7 +297,7 @@
   <string name="yourOpponentOffersADraw">Raqibingiz durang taklif qilmoqda</string>
   <string name="accept">Qabul qilish</string>
   <string name="decline">Rad etish</string>
-  <string name="playingRightNow">Hozir oʻynamoqda</string>
+  <string name="playingRightNow">Hozir oʻynalyapti</string>
   <string name="eventInProgress">Hozir oʻynamoqda</string>
   <string name="finished">Tugadi</string>
   <string name="abortGame">O\'yinni bekor qilish</string>
