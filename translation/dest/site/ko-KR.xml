@@ -682,7 +682,6 @@
   <string name="keyCycleSelectedVariation">선택된 라인 순환하기</string>
   <string name="keyShowOrHideComments">댓글 표시/숨기기</string>
   <string name="keyEnterOrExitVariation">라인 들어가기/나오기</string>
-  <string name="keyRequestComputerAnalysis">컴퓨터 분석 요청, 실수에서 배우기</string>
   <string name="keyPreviousBranch">이전 부</string>
   <string name="keyNextBranch">다음 부</string>
   <string name="toggleVariationArrows">라인 화살표 켜기/끄기</string>
