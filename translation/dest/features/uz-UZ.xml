@@ -8,7 +8,7 @@
     <item quantity="one">Kuniga %s ta oʻyin</item>
     <item quantity="other">Kuniga %s ta oʻyin</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Taxta redaktori va %s bilan tahlil taxtasi</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Taxta muharriri va %s bilan tahlil taxtasi</string>
   <string name="cloudEngineAnalysis">Bulutdagi tahlil</string>
   <string name="studies">Oʻquv qoʻllanmalari (ulashish mumkin va saqlanib qoladi)</string>
   <string name="chessInsights">Shaxmat analitikasi (oʻyiningizning batafsil tahlili)</string>
