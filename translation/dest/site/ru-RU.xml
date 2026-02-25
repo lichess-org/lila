@@ -799,7 +799,6 @@
   <string name="keyCycleSelectedVariation">Прокручивать выбранный вариант</string>
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
   <string name="keyEnterOrExitVariation">ввести/закрыть вариант</string>
-  <string name="keyRequestComputerAnalysis">Запросите компьютерный анализ, Учитесь над своими ошибками</string>
   <string name="keyPreviousBranch">Предыдущая ветка</string>
   <string name="keyNextBranch">Следующая ветка</string>
   <string name="toggleVariationArrows">Переключить стрелки вариантов</string>
