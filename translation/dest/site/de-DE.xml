@@ -721,7 +721,6 @@
   <string name="keyCycleSelectedVariation">Durch die ausgewählte Variante schalten</string>
   <string name="keyShowOrHideComments">zeige/verberge Kommentare</string>
   <string name="keyEnterOrExitVariation">Variante wählen/verlassen</string>
-  <string name="keyRequestComputerAnalysis">Hole dir eine Computer-Analyse, lerne aus deinen Fehlern</string>
   <string name="keyPreviousBranch">Vorherige Verzweigung</string>
   <string name="keyNextBranch">Nächste Verzweigung</string>
   <string name="toggleVariationArrows">Varianten-Pfeile ein-/auschalten</string>
