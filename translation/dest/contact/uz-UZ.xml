@@ -10,7 +10,7 @@
   <string name="forgotUsername">Foydalanuvchi nomimni unutib qoʻydim</string>
   <string name="youCanLoginWithEmail">Roʻyxatdan oʻtgan e-pochta manzilingiz orqali ham tizimga kirishingiz mumkin</string>
   <string name="lost2FA">Ikki bosqichli autentifikatsiya (2FA) kodlarimni yoʻqotib qoʻydim</string>
-  <string name="doPasswordReset">Ikki bosqichli autentifikatsiyani oʻchirish uchun parolningizni qayta tiklang</string>
+  <string name="doPasswordReset">Ikki bosqichli autentifikatsiyani oʻchirish uchun parolningizni boshqattan oʻrnating</string>
   <string name="accountSupport">Akkaunt boʻyicha yordam kerak</string>
   <string name="wantTitle">Lichessʼda unvonim koʻrinishini xohlayman</string>
   <string name="visitTitleConfirmation">Lichess profilingizda unvoningizni koʻrsatish va unvonli oʻyinchilar arenalarida (Titled Arenas) qatnashish uchun unvonni tasdiqlash sahifasiga oʻting</string>
