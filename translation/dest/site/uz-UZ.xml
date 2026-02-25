@@ -4,7 +4,7 @@
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Doʻstinggizni oʻyinga chorlang</string>
   <string name="playAgainstComputer">Kompyuterga qarshi o\'ynash</string>
   <string name="gameMode">O\'yin rejimi</string>
-  <string name="createLobbyGame">Lobbi oʻyin yaratish</string>
+  <string name="createLobbyGame">Kutish zalida oʻyin yaratish</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir oʻyinga taklif qilish uchun ushbu havolani unga yuboring</string>
   <string name="gameOver">O‘yin tugadi</string>
   <string name="waitingForOpponent">Raqib kutilmoqda</string>
@@ -242,7 +242,7 @@
   <string name="changePassword">Parolni oʻzgartirish</string>
   <string name="changeEmail">E-pochta manzilini oʻzgartirish</string>
   <string name="email">E-pochta</string>
-  <string name="passwordReset">Parolni tiklash</string>
+  <string name="passwordReset">Parolni boshqattan oʻrnatish</string>
   <string name="forgotPassword">Parolni unutdingizmi?</string>
   <string name="error.weakPassword">Ushbu parol juda oddiy va uni taxmin qilish oson.</string>
   <string name="error.namePassword">Foydalanuvchi nomini parol sifatida ishlatmang.</string>
@@ -425,7 +425,7 @@
   <string name="averageElo">O\'rtacha reyting</string>
   <string name="location">Lokatsiya</string>
   <string name="filterGames">O\'yinlarni filtrlash</string>
-  <string name="reset">Qayta tiklash</string>
+  <string name="reset">Asl holatiga qaytarish</string>
   <string name="apply">Saqlash</string>
   <string name="save">Saqlash</string>
   <string name="leaderboard">Eng kuchli oʻyinchilar</string>
@@ -757,7 +757,7 @@
   <string name="ifYouDoNotGetTheEmail">Agar 5 daqiqa ichida e-pochta olmasangiz:</string>
   <string name="checkAllEmailFolders">Barcha keraksiz, spam va boshqa e-pochta jildlarni tekshiring</string>
   <string name="verifyYourAddress">%s e-pochta manzili sizniki ekanligini tasdiqlang</string>
-  <string name="weHaveSentYouAnEmailTo">Biz %s ga xat yubordik. Parolni qayta tiklash uchun xattagi havolani bosing.</string>
+  <string name="weHaveSentYouAnEmailTo">Biz %s ga xat yubordik. Parolni boshqattan oʻrnatish uchun xattagi havolani bosing.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Roʻyxatdan oʻtish orqali siz %sga rozilik bildirasiz.</string>
   <string name="readAboutOur">%smiz bilan tanishib chiqing.</string>
   <string name="networkLagBetweenYouAndLichess">Siz va Lichess oʻrtasidagi tarmoq kechikishi (lag)</string>
@@ -799,7 +799,7 @@
   <string name="xJoinsY">%1$s %2$sʼga qatnashdi</string>
   <string name="xLikesY">%1$sʼga %2$s yoqdi</string>
   <string name="quickPairing">Raqibni tez topish</string>
-  <string name="lobby">Lobbi</string>
+  <string name="lobby">Kutish zali</string>
   <string name="anonymous">Anonim</string>
   <string name="yourScore">Hisob: %s</string>
   <string name="language">Til</string>
