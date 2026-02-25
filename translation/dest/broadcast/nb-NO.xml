@@ -83,6 +83,7 @@
   <string name="liveboard">Brett i sanntid</string>
   <string name="communityBroadcast">Fellesskapsoverføring</string>
   <string name="createdAndManagedBy">Opprettet og forvaltet av %s.</string>
+  <string name="teamResults">Lagresultater</string>
   <string name="roundX">Runde %s</string>
   <string name="defaultRoundNameHelp">Å beholde standardnavnet vil automatisk oversette det til alle andre språk.</string>
   <string name="openTournament">Åpen</string>
@@ -96,6 +97,7 @@
   <string name="quarterfinals">Kvartfinaler</string>
   <string name="semifinals">Semifinaler</string>
   <string name="finals">Finaler</string>
-  <string name="gameX">Parti %s</string>
+  <string name="tiebreaks">Kvalitet</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Parti %s</string>
   <string name="knockouts">Utslagsrunder</string>
 </resources>
