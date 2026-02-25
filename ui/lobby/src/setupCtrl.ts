@@ -349,11 +349,16 @@ export default class SetupController {
     }
   };
 
-  headlessSubmit = (gameType: GameType) => {
+  headlessSubmit = async (gameType: GameType) => {
     this.gameType = gameType as Exclude<GameType, 'local'>;
     this.loadPropsFromStore();
     this.root.isHeadlessSubmission = true;
-    this.submit();
-    this.gameType = null;
+    try {
+      await this.submit();
+    } finally {
+      this.root.isHeadlessSubmission = false;
+      this.root.redraw();
+      this.gameType = null;
+    }
   };
 }

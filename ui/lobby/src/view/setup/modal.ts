@@ -47,7 +47,7 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
       ],
       onInsert: dlg => {
         setupCtrl.closeModal = dlg.close;
-        if(!ctrl.isHeadlessSubmission) dlg.show();
+        if (!ctrl.isHeadlessSubmission) dlg.show();
       },
     }),
   ].filter(v => v !== null);
