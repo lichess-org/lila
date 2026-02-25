@@ -721,7 +721,6 @@
   <string name="keyCycleSelectedVariation">Tanlangan variatsiyani aylantirish</string>
   <string name="keyShowOrHideComments">izohlarni ko\'rsatish/yashirish</string>
   <string name="keyEnterOrExitVariation">variatsiyaga kirish/chiqish</string>
-  <string name="keyRequestComputerAnalysis">Kompyuter tahlilini soʻrash. Xatolaringiz ustida ishlang</string>
   <string name="keyPreviousBranch">Oldingi tarmoq</string>
   <string name="keyNextBranch">Keyingi tarmoq</string>
   <string name="toggleVariationArrows">Variatsiya strelkalarini almashtirish</string>
