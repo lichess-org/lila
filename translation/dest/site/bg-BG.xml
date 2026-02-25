@@ -721,7 +721,6 @@
   <string name="keyCycleSelectedVariation">Превключи избрания вариант</string>
   <string name="keyShowOrHideComments">покажи/скрий коментарите</string>
   <string name="keyEnterOrExitVariation">влез/излез от вариацията</string>
-  <string name="keyRequestComputerAnalysis">Поискайте компютърен анализ, Учете се от грешките си</string>
   <string name="keyPreviousBranch">Предишно разклонение</string>
   <string name="keyNextBranch">Следващо разклонение</string>
   <string name="toggleVariationArrows">Превключване на стрелките за варианти</string>
