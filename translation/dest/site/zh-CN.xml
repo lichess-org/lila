@@ -682,7 +682,6 @@
   <string name="keyCycleSelectedVariation">选择变着</string>
   <string name="keyShowOrHideComments">显示/隐藏评论</string>
   <string name="keyEnterOrExitVariation">进入/退出变着</string>
-  <string name="keyRequestComputerAnalysis">请求电脑分析，并从失误中学习</string>
   <string name="keyPreviousBranch">上一个分支</string>
   <string name="keyNextBranch">下一个分支</string>
   <string name="toggleVariationArrows">开启变着箭头</string>
