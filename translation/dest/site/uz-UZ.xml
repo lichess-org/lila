@@ -201,9 +201,9 @@
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s %2$s mavzuda post joyladi</string>
   <string name="latestForumPosts">Forumdagi oxirgi postlari</string>
-  <string name="players">O\'yinchilar</string>
+  <string name="players">Oʻyinchilar</string>
   <string name="friends">Doʻstlar</string>
-  <string name="otherPlayers">boshqa o\'yinchilar</string>
+  <string name="otherPlayers">boshqa oʻyinchilar</string>
   <string name="discussions">Suhbatlar</string>
   <string name="today">Bugun</string>
   <string name="yesterday">Kecha</string>
@@ -428,7 +428,7 @@
   <string name="reset">Asl holatiga qaytarish</string>
   <string name="apply">Saqlash</string>
   <string name="save">Saqlash</string>
-  <string name="leaderboard">Eng kuchli oʻyinchilar</string>
+  <string name="leaderboard">Peshqadamlar jadvali</string>
   <string name="screenshotCurrentPosition">Joriy pozitsiyani skrinshot qilish</string>
   <string name="gameAsGIF">Oʻyin GIF formatida</string>
   <string name="playerNames">Oʻyinchilar ismlari</string>
@@ -479,7 +479,7 @@
   <string name="more">Batafsil</string>
   <string name="memberSince">Roʻyxatdan oʻtgan kuni</string>
   <string name="lastSeenActive">%s onlayn edi</string>
-  <string name="player">O\'yinchi</string>
+  <string name="player">Oʻyinchi</string>
   <string name="list">Ro‘yxat</string>
   <string name="graph">Grafik</string>
   <string name="required">Talab qilinadi.</string>
@@ -543,7 +543,7 @@
   <string name="clearSavedMoves">Yurishlarni tozalash</string>
   <string name="previouslyOnLichessTV">Lichess TVdagi avvalgi koʻrsatuvlar</string>
   <string name="onlinePlayers">Onlayn oʻyinchilar</string>
-  <string name="activePlayers">Faol o\'yinchilar</string>
+  <string name="activePlayers">Faol oʻyinchilar</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Diqqat qiling: oʻyin reytingli, biroq vaqt nazorati oʻrnatilmagan!</string>
   <string name="success">Muvaffaqiyat</string>
   <plurals name="nbGamesInPlay">
