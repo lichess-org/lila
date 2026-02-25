@@ -664,7 +664,6 @@
   <string name="keyGoToStartOrEnd">დასაწყისი/დასასრული</string>
   <string name="keyShowOrHideComments">კომენტარების ჩვენება/დამალვა</string>
   <string name="keyEnterOrExitVariation">ვარიაციაში შესვლა/გამოსვლა</string>
-  <string name="keyRequestComputerAnalysis">მოითხოვეთ კომპიუტერული ანალიზი, ისწავლეთ თქვენს შეცდომებზე</string>
   <string name="newTournament">ახალი ტურნირი</string>
   <string name="tournamentHomeTitle">ჭადრაკის ტურნირი სხვადასხვა დროითი კონტროლითა და ვარიანტებით</string>
   <string name="tournamentHomeDescription">ითამაშეთ სწრაფი ტემპით საჭადრაკო ტურნირები! შეუერთდით ოფიციალურ დაგეგმილ ტურნირს, ან შექმენით საკუთარი. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck და სხვა ვარიანტები ხელმისაწვდომია ჭადრაკის სათამაშოდ.</string>
