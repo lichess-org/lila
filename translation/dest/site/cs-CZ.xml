@@ -787,7 +787,6 @@
   <string name="keyCycleSelectedVariation">Projdi zkrze vybranou variaci</string>
   <string name="keyShowOrHideComments">zobrazte/skryjte komentáře</string>
   <string name="keyEnterOrExitVariation">Zobraz variantu</string>
-  <string name="keyRequestComputerAnalysis">Vyžádejte si počítačovou analýzu, poučte se ze svých chyb</string>
   <string name="keyPreviousBranch">Předchozí větev</string>
   <string name="keyNextBranch">Další větev</string>
   <string name="toggleVariationArrows">Přepnout šipky variant</string>
