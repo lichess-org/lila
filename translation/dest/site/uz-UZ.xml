@@ -202,7 +202,7 @@
   <string name="xPostedInForumY">%1$s %2$s mavzuda post joyladi</string>
   <string name="latestForumPosts">Forumdagi oxirgi postlari</string>
   <string name="players">O\'yinchilar</string>
-  <string name="friends">Do\'stlar</string>
+  <string name="friends">Doʻstlar</string>
   <string name="otherPlayers">boshqa o\'yinchilar</string>
   <string name="discussions">Suhbatlar</string>
   <string name="today">Bugun</string>
@@ -298,7 +298,7 @@
   <string name="accept">Qabul qilish</string>
   <string name="decline">Rad etish</string>
   <string name="playingRightNow">Hozir oʻynalyapti</string>
-  <string name="eventInProgress">Hozir oʻynamoqda</string>
+  <string name="eventInProgress">Hozir ketmoqda</string>
   <string name="finished">Tugadi</string>
   <string name="abortGame">O\'yinni bekor qilish</string>
   <string name="gameAborted">O\'yin bekor qilindi</string>
@@ -662,7 +662,7 @@
   <string name="ifRatingIsPlusMinusX">Agar reyting ± %s boʻlsa</string>
   <string name="ifRegistered">Roʻyxatdan oʻtgan boʻlsa</string>
   <string name="onlyExistingConversations">Faqat mavjud suhbatlar</string>
-  <string name="onlyFriends">Faqat do\'stlar</string>
+  <string name="onlyFriends">Faqat doʻstlar</string>
   <string name="menu">Menyu</string>
   <string name="castling">Rokirovka</string>
   <string name="whiteCastlingKingside">Oqlar O-O</string>
