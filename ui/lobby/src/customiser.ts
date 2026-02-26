@@ -3,7 +3,7 @@ import { variants } from './options';
 import type { Customisation, GameType } from './interfaces';
 import * as licon from 'lib/licon';
 import type LobbyController from './ctrl';
-import { hl, type VNode, snabDialog } from 'lib/view';
+import { hl, type VNode } from 'lib/view';
 
 const custoStoreKey = (username?: string) => `lobby.customisation.${username || 'anon'}`;
 const lobbySetupStoreKey = (username: string | undefined, gameType: GameType) =>
@@ -102,7 +102,6 @@ export function renderCustomiserModalContent(ctrl: LobbyController): VNode[] | n
   if (!ctrl.isEditingPoolButtons() || !ctrl.selectedPoolButton) return null;
   const customisation = get(ctrl.me?.username, ctrl.selectedPoolButton);
   return [
-    hl('h2#lobby-setup-modal-title', 'Customise button ' + ctrl.selectedPoolButton),
     hl('div.setup-content', [
       hl('div.lobby__table', [
         hl('div.lobby__start', [
@@ -111,39 +110,6 @@ export function renderCustomiserModalContent(ctrl: LobbyController): VNode[] | n
         ]),
       ]),
     ]),
-  ];
-}
-
-export function renderCustomiserModal(ctrl: LobbyController): VNode[] | null {
-  if (!ctrl.isEditingPoolButtons() || !ctrl.selectedPoolButton) return null;
-  const customisation = get(ctrl.me?.username, ctrl.selectedPoolButton);
-
-  return [
-    snabDialog({
-      attrs: { dialog: { 'aria-labelledBy': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
-      class: 'game-setup',
-      css: [{ hashed: 'lobby.setup' }],
-      onClose: () => {
-        ctrl.selectedPoolButton = undefined;
-        ctrl.redraw();
-      },
-      modal: true,
-      vnodes: [
-        hl('h2#lobby-setup-modal-title', 'Customise button ' + ctrl.selectedPoolButton),
-        hl('div.setup-content', [
-          hl('div.lobby__table', [
-            hl('div.lobby__start', [
-              makeRestoreButton(ctrl, customisation),
-              ...lobbyButtons.map(b => makeCustomiserButton(ctrl, customisation, b)),
-            ]),
-          ]),
-        ]),
-      ],
-      onInsert: dlg => {
-        //ctrl.closeCustomiserModal = dlg.close;
-        dlg.show();
-      },
-    }),
   ];
 }
 
