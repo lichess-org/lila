@@ -86,6 +86,21 @@
     color: $c-font;
   }
 
+  &.customisable {
+    position: relative;
+    background: $m-accent--fade-80 !important;
+    color: $c-font;
+    &::after {
+      @extend %data-icon;
+      content: $licon-Pencil;
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em;
+      font-size: 1.2em;
+      color: $c-font-dimmer;
+    }
+  }
+
   [data-icon] {
     pointer-events: none;
   }

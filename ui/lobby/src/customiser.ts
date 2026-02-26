@@ -53,6 +53,7 @@ export const renderCustomisedButton = (
   customisation: Customisation | undefined,
   selected: boolean,
   transp: boolean,
+  customisable: boolean,
 ): VNode | undefined => {
   if (!customisation) return undefined;
 
@@ -73,12 +74,17 @@ export const renderCustomisedButton = (
       : customisation.settings.timeMode === 'correspondence'
         ? `${customisation.settings.days}d`
         : '∞';
-  const subLabel = customisation.gameType !== 'ai' ? customisation.settings.gameMode === 'rated' ? i18n.site.rated : i18n.site.casual : '';
+  const subLabel =
+    customisation.gameType !== 'ai'
+      ? customisation.settings.gameMode === 'rated'
+        ? i18n.site.rated
+        : i18n.site.casual
+      : '';
 
   return hl(
     'div.lpool',
     {
-      class: { selected, custom: true, transp },
+      class: { selected, custom: true, transp, customisable },
       attrs: { role: 'button', 'data-id': poolId, tabindex: '0' },
     },
     [
@@ -184,7 +190,7 @@ function makeCustomiserButton(
     {
       on: {
         click: () => {
-          if(customisation) overrideStoredLobbySetup(customisation.gameType, ctrl.me?.username);
+          if (customisation) overrideStoredLobbySetup(customisation.gameType, ctrl.me?.username);
           ctrl.setupCtrl.gameType = buttonInfo.gameType;
           ctrl.setupCtrl.loadPropsFromStore();
           ctrl.redraw();

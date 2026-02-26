@@ -42,13 +42,14 @@ export function render(ctrl: LobbyController) {
         customisations[pool.id],
         selected,
         transp,
+        ctrl.isEditingPoolButtons(),
       );
       if (!active && renderCustomised) return renderCustomised;
       else
         return h(
           'div.lpool',
           {
-            class: { active, transp, selected },
+            class: { active, transp, selected, customisable: ctrl.isEditingPoolButtons() },
             attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
           },
           [
