@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Xayriya qiling</string>
+  <string name="donate">Xayriya qilish</string>
   <string name="donateAsX">%s sifatida xayriya qilish</string>
   <string name="lichessPatron">Lichess homiysi</string>
   <string name="patronSince" comment="string is a date">%s dan beri homiy</string>
