@@ -73,7 +73,7 @@ export const renderCustomisedButton = (
       : customisation.settings.timeMode === 'correspondence'
         ? `${customisation.settings.days}d`
         : '∞';
-  const subLabel = customisation.settings.gameMode === 'rated' ? i18n.site.rated : i18n.site.casual;
+  const subLabel = customisation.gameType !== 'ai' ? customisation.settings.gameMode === 'rated' ? i18n.site.rated : i18n.site.casual : '';
 
   return hl(
     'div.lpool',
@@ -166,7 +166,6 @@ function makeRestoreButton(ctrl: LobbyController, customisation: Customisation |
       on: {
         click: () => {
           remove(ctrl.me?.username, ctrl.selectedPoolButton!);
-          //ctrl.closeCustomiserModal?.();
           ctrl.redraw();
         },
       },
@@ -185,7 +184,7 @@ function makeCustomiserButton(
     {
       on: {
         click: () => {
-          overrideStoredLobbySetup(ctrl.selectedPoolButton!, ctrl.me?.username);
+          overrideStoredLobbySetup(customisation!.gameType, ctrl.me?.username);
           ctrl.setupCtrl.gameType = buttonInfo.gameType;
           ctrl.redraw();
         },
