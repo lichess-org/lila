@@ -53,6 +53,8 @@
   <string name="endgame">Finale</string>
   <string name="endgameDescription">Une tactique lors de la dernière phase du jeu.</string>
   <string name="enPassantDescription">Une tactique impliquant la règle de la prise en passant, où un pion peut capturer un pion adverse qui l\'a croisé lors de son déplacement initial de deux cases.</string>
+  <string name="epauletteMate">Mat des épaulettes</string>
+  <string name="epauletteMateDescription">Deux cases de fuite des deux côtés du roi en échec sont occupées par des pièces.</string>
   <string name="exposedKing">Roi exposé</string>
   <string name="exposedKingDescription">Une tactique impliquant un Roi avec peu de défenseurs autour de lui, menant souvent à l\'échec et mat.</string>
   <string name="fork">Fourchette</string>
@@ -71,6 +73,8 @@
   <string name="pillsburysMateDescription">La tour met le roi adverse mat avec l\'aide du fou.</string>
   <string name="morphysMate">Mat de Morphy</string>
   <string name="morphysMateDescription">Le fou met le roi adverse échec et mat avec l\'aide de la tour.</string>
+  <string name="swallowstailMate">Mat du guéridon</string>
+  <string name="swallowstailMateDescription">Motif de mat qui ressemble visuellement à un guéridon (une petite table soutenue par un pied central).</string>
   <string name="triangleMate">Mat du triangle</string>
   <string name="triangleMateDescription">La dame et la tour, à une case de distance du roi adverse, sont sur la même rangée ou colonne et donnent mat en formant un triangle.</string>
   <string name="vukovicMate">Mat de Vukovic</string>
