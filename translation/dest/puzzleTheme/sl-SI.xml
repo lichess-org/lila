@@ -28,6 +28,8 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="castlingDescription">Umik kralja na varno in razporeditev trdnjave za napad.</string>
   <string name="capturingDefender">Zajem branilca</string>
   <string name="capturingDefenderDescription">Odstranitev figure, ki je ključna za obrambo druge figure, kar omogoča, da se nezaščitena figura zajame z naslednjo potezo.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Kolinearna poteza</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Dve nasprotni figuri se soočita druga z drugo, ena pa drsi vzdolž napadalne linije, ne da bi zajela sovražnikovo figuro.</string>
   <string name="cornerMate">Mat v kotu</string>
   <string name="cornerMateDescription">Kralja omejite v kot z uporabo trdnjave ali dame in skakača, da se spopadete z matom.</string>
   <string name="crushing">Odločilna prednost</string>
