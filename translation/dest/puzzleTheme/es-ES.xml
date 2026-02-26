@@ -26,6 +26,8 @@
   <string name="castlingDescription">Lleva al rey a un lugar seguro y despliega la torre para atacar.</string>
   <string name="capturingDefender">Capturar al defensor</string>
   <string name="capturingDefenderDescription">Eliminar una pieza fundamental para la defensa de otra, permitiendo capturar la pieza, ahora indefensa, en el futuro.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Movimiento colinear</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Dos piezas opuestas se enfrentan entre sí, y una se desliza a lo largo de la línea de ataque sin capturar la pieza enemiga.</string>
   <string name="cornerMate">Mate de la esquina</string>
   <string name="cornerMateDescription">Encierra al rey en una esquina usando una torre o dama y un caballo para dar mate.</string>
   <string name="crushing">Aplastante</string>
