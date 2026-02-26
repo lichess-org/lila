@@ -3,7 +3,7 @@
   <string name="gameSetup">Oʻyin sozlamalari</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Doʻstinggizni oʻyinga chorlang</string>
   <string name="playAgainstComputer">Kompyuterga qarshi o\'ynash</string>
-  <string name="gameMode">O\'yin rejimi</string>
+  <string name="gameMode">Oʻyin rejimi</string>
   <string name="createLobbyGame">Kutish zalida oʻyin yaratish</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir oʻyinga taklif qilish uchun ushbu havolani unga yuboring</string>
   <string name="gameOver">O‘yin tugadi</string>
@@ -95,15 +95,15 @@
   <string name="database">Maʼlumotlar bazasi</string>
   <string name="whiteDrawBlack">Oqlar / Durang / Qoralar</string>
   <string name="averageRatingX">O\'rtacha reyting: %s</string>
-  <string name="recentGames">So\'nggi o\'yinlar</string>
-  <string name="topGames">Eng yaxshi o\'yinlar</string>
+  <string name="recentGames">Soʻnggi oʻyinlar</string>
+  <string name="topGames">Eng yaxshi oʻyinlar</string>
   <string name="masterDbExplanation">%2$s yildan %3$s yilgacha boʻlgan, FIDE reytingi %1$s+ boʻlgan oʻyinchilarning oʻyinlari</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s ta yarim-yurishda mot</item>
     <item quantity="other">%s ta yarim-yurishda mot</item>
   </plurals>
   <string name="dtzWithRounding">Navbatdagi donani urish, piyoda yurishi yoki motgacha boʻlgan yarim-yurishlar soniga asoslangan, yaxlitlangan DTZ50\'\'</string>
-  <string name="noGameFound">O\'yin topilmadi</string>
+  <string name="noGameFound">Oʻyin topilmadi</string>
   <string name="maxDepthReached">Maksimal chuqurlikka yetdi!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Balkim sozlamalar menyusidan boshqa oʻyinlarni yuklash kerakdir?</string>
   <string name="openings">Debyutlar</string>
@@ -197,7 +197,7 @@
   <string name="youNeedAnAccountToDoThat">Buning uchun sizga akkaunt kerak</string>
   <string name="signUp">Roʻyhatdan oʻtish</string>
   <string name="computersAreNotAllowedToPlay">Kompyuterlar va kompyuter yordamidan foydalanadigan oʻyinchilarning oʻynashi taqiqlanadi. Iltimos, oʻyin davomida shaxmat dvijoklari, maʼlumotlar bazalari yoki boshqa oʻyinchilar yordamidan foydalanmang. Shuningdek, bir nechta akkaunt ochish tavsiya etilmaydi va meʼyordan ortiq akkauntlarga ega boʻlish chetlatilishga (ban) olib keladi.</string>
-  <string name="games">O\'yinlar</string>
+  <string name="games">Oʻyinlar</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s %2$s mavzuda post joyladi</string>
   <string name="latestForumPosts">Forumdagi oxirgi postlari</string>
@@ -279,7 +279,7 @@
     <item quantity="one">%s masala</item>
     <item quantity="other">%s masala</item>
   </plurals>
-  <string name="gamesPlayed">O\'ynalgan o\'yinlar</string>
+  <string name="gamesPlayed">Oʻynalgan oʻyinlar</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">Siz bilan %s ta oʻyin oʻynagan</item>
     <item quantity="other">Siz bilan %s ta oʻyin oʻynagan</item>
@@ -300,8 +300,8 @@
   <string name="playingRightNow">Hozir oʻynalyapti</string>
   <string name="eventInProgress">Hozir ketmoqda</string>
   <string name="finished">Tugadi</string>
-  <string name="abortGame">O\'yinni bekor qilish</string>
-  <string name="gameAborted">O\'yin bekor qilindi</string>
+  <string name="abortGame">Oʻyinni bekor qilish</string>
+  <string name="gameAborted">Oʻyin bekor qilindi</string>
   <string name="standard">Standart</string>
   <string name="customPosition">Maxsus pozitsiyadan</string>
   <string name="unlimited">Cheksiz</string>
@@ -311,7 +311,7 @@
   <string name="rated">Reytingli</string>
   <string name="casualTournament">Reytingsiz</string>
   <string name="ratedTournament">Reytingli</string>
-  <string name="thisGameIsRated">Ushbu o\'yin raytingli</string>
+  <string name="thisGameIsRated">Ushbu oʻyin reytingli</string>
   <string name="rematch">Revansh</string>
   <string name="rematchOfferSent">Revansh taklifi yuborildi</string>
   <string name="rematchOfferAccepted">Revansh taklifi qabul qilindi</string>
@@ -351,7 +351,7 @@
     <item quantity="one">%s oʻynalmoqda</item>
     <item quantity="other">%s oʻynalmoqda</item>
   </plurals>
-  <string name="exportGames">O\'yinlarni eksport qilish</string>
+  <string name="exportGames">Oʻyinlarni eksport qilish</string>
   <string name="ratingFilter">Reyting filtri</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s soniya berish</item>
@@ -416,7 +416,7 @@
   <string name="ratedLessThanInPerf">Oxirgi haftadagi %2$s reytingingiz ≤ %1$s boʻlishi kerak</string>
   <string name="mustBeInTeam">%s jamoasida boʻlishingiz kerak</string>
   <string name="youAreNotInTeam">Siz %s jamoasida emassiz</string>
-  <string name="backToGame">O\'yinga qaytish</string>
+  <string name="backToGame">Oʻyinga qaytish</string>
   <string name="siteDescription">Bepul onlayn shaxmat serveri. Reklamalarsiz qulay interfeysda shaxmat oʻynang. Roʻyxatdan oʻtish yoki plagin oʻrnatish shart emas. Kompyuter, doʻstlaringiz yoki tasodifiy raqib bilan shaxmat oʻynang.</string>
   <string name="xJoinedTeamY">%1$s %2$s jamoasiga qoʻshildi</string>
   <string name="xCreatedTeamY">%1$s %2$s jamoasini yaratdi</string>
@@ -424,7 +424,7 @@
   <string name="xStartedStreaming">%s strim boshladi</string>
   <string name="averageElo">O\'rtacha reyting</string>
   <string name="location">Lokatsiya</string>
-  <string name="filterGames">O\'yinlarni filtrlash</string>
+  <string name="filterGames">Oʻyinlarni filtrlash</string>
   <string name="reset">Asl holatiga qaytarish</string>
   <string name="apply">Saqlash</string>
   <string name="save">Saqlash</string>
@@ -438,7 +438,7 @@
   <string name="orUploadPgnFile">Yoki PGN fayl yuklang</string>
   <string name="continueFromHere">Shu pozitsiyadan davom etish</string>
   <string name="toStudy">Oʻrganish</string>
-  <string name="importGame">O\'yinni import qilish</string>
+  <string name="importGame">Oʻyinni import qilish</string>
   <string name="importGameExplanation">PGN o\'yinni qo\'ying va qayta o\'ynashlar, kompyuter tahlili, o\'yin chati va ulashish linkiga ega bo\'ling.</string>
   <string name="importGameDataPrivacyWarning">Ushbu PGN ommaga ochiq boʻladi. Oʻyinni yopiq holatda import qilish uchun study - oʻrganish boʻlimidan foydalaning.</string>
   <plurals name="nbImportedGames">
@@ -504,7 +504,7 @@
   <string name="standByX">%s kuting, raqib topilayabdi, tayyor turing!</string>
   <string name="pause">Pauza</string>
   <string name="resume">Davom etish</string>
-  <string name="youArePlaying">Siz o\'yindasiz!</string>
+  <string name="youArePlaying">Siz oʻyindasiz!</string>
   <string name="winRate">Gʻalabalar foizi</string>
   <string name="performance">Performans</string>
   <string name="tournamentComplete">Turnir yakunlandi</string>
