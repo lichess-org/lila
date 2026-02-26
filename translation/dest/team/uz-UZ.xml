@@ -68,7 +68,7 @@ Agar biror oʻyinchi ushbu bilan turnirga qoʻshilgan boʻlsa, oʻsha jamoani ro
   <string name="innerTeam">Ichki jamoa</string>
   <plurals name="battleOfNbTeams">
     <item quantity="one">%s ta jamoa jangi</item>
-    <item quantity="other">%s ta jamoalar jangi</item>
+    <item quantity="other">%s ta jamoa jangi</item>
   </plurals>
   <plurals name="nbLeadersPerTeam">
     <item quantity="one">Har bir bitta jamoadan bitta peshqadam</item>
