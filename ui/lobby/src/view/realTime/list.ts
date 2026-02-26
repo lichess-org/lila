@@ -41,10 +41,10 @@ const isMine = (hook: Hook) => hook.action === 'cancel';
 const isNotMine = (hook: Hook) => !isMine(hook);
 
 export const toggle = (ctrl: LobbyController) =>
-  h('i.toggle', {
+  h('button.toggle', {
     key: 'set-mode-chart',
     attrs: { title: i18n.site.graph, 'data-icon': licon.LineGraph },
-    hook: bind('mousedown', _ => ctrl.setMode('chart'), ctrl.redraw),
+    hook: bind('click', _ => ctrl.setMode('chart'), ctrl.redraw),
   });
 
 export const render = (ctrl: LobbyController, allHooks: Hook[]) => {

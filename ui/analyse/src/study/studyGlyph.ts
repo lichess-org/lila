@@ -21,7 +21,7 @@ const renderGlyph = (ctrl: GlyphForm, node: TreeNode) => (glyph: Glyph) =>
         blurIfPrimaryClick(e);
       }),
       attrs: { 'data-symbol': glyph.symbol, type: 'button' },
-      class: { active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id) },
+      class: { active: !!node.glyphs && node.glyphs.some(g => g.id === glyph.id) },
     },
     [glyph.name],
   );

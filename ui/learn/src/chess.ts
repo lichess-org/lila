@@ -152,7 +152,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
       const maybeCapture = findCaptures(pos).find(capture => {
         const clone = cloneWithCtx(pos);
         clone.play({ from: capture.from, to: capture.to });
-        return !findCaptures(clone).find(m => m.to === capture.to);
+        return !findCaptures(clone).some(m => m.to === capture.to);
       });
       return maybeCapture ? moveToCgMove(maybeCapture) : undefined;
     },

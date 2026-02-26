@@ -795,7 +795,6 @@
   <string name="keyCycleSelectedVariation">Preglej izbrano varianto</string>
   <string name="keyShowOrHideComments">pokaži/skrij komentarje</string>
   <string name="keyEnterOrExitVariation">vstopi/izstopi v varianto</string>
-  <string name="keyRequestComputerAnalysis">Zahtevajte računalniško analizo, učite se iz svojih napak</string>
   <string name="keyPreviousBranch">Prejšnja veja</string>
   <string name="keyNextBranch">Naslednja veja</string>
   <string name="toggleVariationArrows">Preklopi prikaz variant s puščicami</string>

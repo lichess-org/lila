@@ -81,7 +81,7 @@ export default class StudyPracticeCtrl {
 
   onJump = () => {
     // reset failure state if no failed move found in mainline history
-    if (this.success() === false && !this.root.nodeList.find(n => !!n.fail)) this.success(null);
+    if (this.success() === false && !this.root.nodeList.some(n => !!n.fail)) this.success(null);
     this.checkSuccess();
   };
   onCeval = this.checkSuccess;

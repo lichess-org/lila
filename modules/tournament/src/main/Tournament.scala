@@ -83,8 +83,10 @@ case class Tournament(
 
   def pairingsClosed = secondsToFinish < Seconds(math.max(30, math.min(clock.limitSeconds.value / 2, 120)))
 
-  def isStillWorthEntering = isMarathon || isUnique || {
-    secondsToFinish > Seconds((minutes * 60 / 3).atMost(20 * 60))
+  def isStillWorthEntering = isEnterable && {
+    isMarathon || isUnique || {
+      secondsToFinish > Seconds((minutes * 60 / 3).atMost(20 * 60))
+    }
   }
 
   def finishedSinceSeconds: Option[Long] = isFinished.option(nowSeconds - finishesAt.toSeconds)
@@ -151,6 +153,18 @@ case class Tournament(
     // add 15 seconds for pairing delay
     val estimatedGameSeconds: Double = clock.estimateTotalSeconds * 2 * 0.8 + 15
     (minutes * 60) / estimatedGameSeconds
+
+  def homepageSince: Option[Instant] = scheduleFreq.map: freq =>
+    startsAt.minusMinutes:
+      import Schedule.Freq.*
+      val base = freq match
+        case Unique => spotlight.flatMap(_.homepageHours).|(24) * 60
+        case Yearly | Marathon => 24 * 60
+        case Monthly | Shield => 6 * 60
+        case Weekly | Weekend => 3 * 45
+        case Daily => 1 * 30
+        case _ => 20
+      if variant.exotic && freq != Unique then base / 3 else base
 
   override def toString =
     s"$id $startsAt $name $minutes minutes, $clock, $nbPlayers players"

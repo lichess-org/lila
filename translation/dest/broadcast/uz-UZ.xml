@@ -3,8 +3,8 @@
   <string name="broadcasts">Translyatsiyalar</string>
   <string name="myBroadcasts">Mening translyatsiyalarim</string>
   <plurals name="nbBroadcasts">
-    <item quantity="one">%s ta translyatsiya</item>
-    <item quantity="other">%s ta translyatsiya</item>
+    <item quantity="one">%s translyatsiya</item>
+    <item quantity="other">%s translyatsiya</item>
   </plurals>
   <plurals name="nbViewers">
     <item quantity="one">%s ta tomoshabin</item>
@@ -43,8 +43,8 @@
   <string name="replacePlayerTags">Majburiy emas: o\'yinchi ismlari, reytinglari va unvonlarini almashtiring</string>
   <string name="fideFederations">FIDE federatsiyalari</string>
   <string name="top10Rating">Top 10 reyting</string>
-  <string name="fidePlayers">FIDE o\'yinchilari</string>
-  <string name="fidePlayerNotFound">FIDE o\'yinchisi topilmadi</string>
+  <string name="fidePlayers">FIDE oʻyinchilari</string>
+  <string name="fidePlayerNotFound">FIDE oʻyinchisi topilmadi</string>
   <string name="fideProfile">FIDE profili</string>
   <string name="federation">Federatsiya</string>
   <string name="age">Yoshi</string>

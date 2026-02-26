@@ -5,10 +5,9 @@ import type { GameMode } from '@/interfaces';
 import { gameModes } from '@/options';
 import { option } from 'lib/setup/option';
 
-export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
-  if (!ctrl.me) return null;
+export const gameModeButtons = ({ setupCtrl, me }: LobbyController): MaybeVNode => {
+  if (!me) return null;
 
-  const { setupCtrl } = ctrl;
   return site.blindMode
     ? h('div', [
         h('label', { attrs: { for: 'sf_mode' } }, i18n.site.mode),
@@ -19,7 +18,7 @@ export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
               change: (e: Event) => setupCtrl.gameMode((e.target as HTMLSelectElement).value as GameMode),
             },
           },
-          gameModes.map(({ key, name }) => option({ key: key, name: name }, setupCtrl.gameMode())),
+          gameModes.map(({ key, name }) => option({ key, name }, setupCtrl.gameMode())),
         ),
       ])
     : h('div.config-group', [

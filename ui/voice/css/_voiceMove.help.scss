@@ -38,9 +38,8 @@
 
   .big-table {
     td {
+      @extend %nowrap-ellipsis;
       padding: 0 1em;
-      white-space: nowrap;
-      text-overflow: ellipsis;
     }
     tr {
       td:nth-child(even) {

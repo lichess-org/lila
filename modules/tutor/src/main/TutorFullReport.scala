@@ -4,16 +4,20 @@ import lila.rating.PerfType
 import lila.tutor.TutorCompare.AnyComparison
 
 case class TutorFullReport(
-    user: UserId,
+    config: TutorConfig,
     at: Instant,
     perfs: List[TutorPerfReport]
 ):
   def apply(perfType: PerfType) = perfs.find(_.perf == perfType)
-  def isFresh = at.isAfter(nowInstant.minusMinutes(TutorFullReport.freshness.toMinutes.toInt))
 
-  lazy val nbGames = perfs.toList.map(_.stats.totalNbGames).sum
+  export config.{ user, id, url }
+
+  def stats = perfs.map(_.stats)
+
+  lazy val nbGames = stats.totalNbGames
+
   lazy val totalTime: FiniteDuration =
-    perfs.toList.flatMap(_.estimateTotalTime).foldLeft(0.minutes)(_ + _)
+    perfs.flatMap(_.estimateTotalTime).foldLeft(0.minutes)(_ + _)
 
   def favouritePerfs: List[TutorPerfReport] = perfs.headOption.so:
     _ :: perfs.tailSafe.takeWhile: perf =>
@@ -40,21 +44,16 @@ case class TutorFullReport(
       .sortBy(-_._1.grade.abs)
       .take(nb)
 
-  override def toString = s"Report($user, $at, ${perfs.map(_.perf.key).mkString("+")})"
+  override def toString = s"Report($config, $at, ${perfs.map(_.perf.key).mkString("+")})"
 
 object TutorFullReport:
 
-  val freshness = 1.day
-
-  enum Availability:
-    case Available(report: TutorFullReport, fresher: Option[TutorQueue.Status])
-    case Empty(status: TutorQueue.Status)
-    case InsufficientGames
-
-  export Availability.*
+  case class Preview(config: TutorConfig, at: Instant, perfs: List[TutorPerfReport.Preview]):
+    def stats = perfs.map(_.stats)
 
   object F:
-    val user = "user"
+    val config = "config"
+    val user = s"$config.user"
     val at = "at"
     val millis = "millis"
     val perfs = "perfs"

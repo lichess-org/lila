@@ -5,15 +5,14 @@
 }
 
 .ms-choice {
+  @extend %nowrap-hidden;
   display: block;
   width: 100%;
   height: 26px;
   padding: 0;
-  overflow: hidden;
   cursor: pointer;
   border: $border;
   text-align: left;
-  white-space: nowrap;
   line-height: 26px;
   text-decoration: none;
   border-radius: 2px;
@@ -27,13 +26,11 @@
 }
 
 .ms-choice > span {
+  @extend %nowrap-ellipsis;
   position: absolute;
   top: 0;
   left: 0;
   right: 20px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   display: block;
   padding-left: 8px;
 }
@@ -126,11 +123,9 @@
 }
 
 .ms-drop ul > li.multiple label {
-  @extend %nowrap-hidden;
-
+  @extend %nowrap-ellipsis;
   width: 100%;
   display: block;
-  text-overflow: ellipsis;
 }
 
 .ms-drop ul > li label {

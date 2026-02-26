@@ -39,7 +39,8 @@ final class Env(
     lightUserSync: lila.core.LightUser.GetterSync,
     langList: lila.core.i18n.LangList,
     baker: lila.core.security.LilaCookie,
-    markdownCache: lila.memo.MarkdownCache
+    markdownCache: lila.memo.MarkdownCache,
+    viewerCount: lila.memo.ViewerCountApi
 )(using Executor, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
 
   lazy val roundForm = wire[RelayRoundForm]
@@ -114,8 +115,7 @@ final class Env(
   export delay.delayedUntil
 
   // eager init to start the scheduler
-  private val stats = wire[RelayStatsApi]
-  export stats.getJson as statsJson
+  val stats = wire[RelayStatsApi]
 
   import SettingStore.CredentialsOption.given
   val proxyCredentials = settingStore[Option[Credentials]](

@@ -8,15 +8,26 @@ private object RelayStats:
   type Graph = List[(Minute, Crowd)]
   case class RoundStats(viewers: Graph)
 
-private final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)(using
-    Executor
-):
+final class RelayStatsApi(colls: RelayColls, viewerCount: lila.memo.ViewerCountApi)(using
+    scheduler: Scheduler
+)(using Executor):
   import RelayStats.*
+
+  object viewers:
+    private def estimatedViewers(tour: RelayTour) = tour.tier.map:
+      case RelayTour.Tier.normal => 1_000
+      case RelayTour.Tier.high => 10_000
+      case RelayTour.Tier.best => 100_000
+    def hit(rt: RelayRound.WithTour)(using ctx: lila.ui.Context): Unit =
+      estimatedViewers(rt.tour).foreach: maxCount =>
+        viewerCount.hit(rt.round.id.value, maxCount)(ctx.req, ctx.userId)
+    def get(rt: RelayRound.WithTour): Fu[Int] =
+      rt.tour.official.so(viewerCount.get(rt.round.id.value))
 
   // one measurement by minute at most; the storage depends on it.
   scheduler.scheduleWithFixedDelay(2.minutes, 2.minutes)(() => record())
 
-  def get(id: RelayRoundId): Fu[RoundStats] =
+  private def get(id: RelayRoundId): Fu[RoundStats] =
     colls.stats
       .primitiveOne[List[Int]]($id(id), "d")
       .mapz:
@@ -26,7 +37,10 @@ private final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)
           .toList
       .map(RoundStats.apply)
 
-  def getJson(id: RelayRoundId) = get(id).map(RelayJsonView.statsJson)
+  def getJson(rt: RelayRound.WithTour) = for
+    stats <- get(rt.round.id)
+    unique <- viewers.get(rt)
+  yield RelayJsonView.statsJson(stats, unique)
 
   private def record(): Funit = for
     crowds <- fetchRoundCrowds

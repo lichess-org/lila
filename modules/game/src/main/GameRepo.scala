@@ -76,7 +76,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .dmap:
         _.flatMap(Pov(_, user))
 
-  def recentPovsByUserFromSecondary(user: User, nb: Int, select: Bdoc = $empty): Fu[List[Pov]] =
+  def recentPovsByUserFromSecondary[U: UserIdOf](user: U, nb: Int, select: Bdoc = $empty): Fu[List[Pov]] =
     recentGamesFromSecondaryCursor(Query.user(user) ++ select)
       .list(nb)
       .map { _.flatMap(Pov(_, user)) }

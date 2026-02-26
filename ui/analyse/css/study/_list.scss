@@ -21,13 +21,12 @@
   }
 
   .act {
-    @extend %flex-center;
+    @extend %flex-center-center;
 
     color: $c-font;
     cursor: pointer;
     border-radius: 99px;
     align-self: center;
-    justify-content: center;
     font-size: 0.9em;
     opacity: 0.15;
     padding: 0.3em;
@@ -54,9 +53,8 @@
 
 %study-list-ongoing {
   ongoing {
-    @extend %flex-center;
+    @extend %flex-center-center;
     align-self: center;
-    justify-content: center;
     font-size: 0.7em;
     color: $c-bad;
     margin-inline-end: 0.7rem;

@@ -7,7 +7,7 @@
   <string name="kingsideCastle">Qisqa rokirovka</string>
   <string name="queensideCastle">Uzun rokirovka</string>
   <string name="promoteC8ToQueen">c8ʼda farzinga aylantirish</string>
-  <string name="dropARookAtB4">Ruxni b4ʼga qoʻyish (faqat Crazyhouse variantida)</string>
+  <string name="dropARookAtB4">Ruxni b4ʼga qoʻyish (faqat Kreyzihaus variantida)</string>
   <string name="offerOrAcceptDraw">Durang taklif qilish yoki qabul qilish</string>
   <string name="readOutClocks">Vaqtni ovozli oʻqish</string>
   <string name="readOutOpponentName">Raqib ismini ovozli oʻqish</string>

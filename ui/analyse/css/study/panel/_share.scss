@@ -27,9 +27,7 @@
   }
 
   .downloads {
-    @extend %flex-center;
-
-    justify-content: center;
+    @extend %flex-center-center;
     margin-bottom: 1.5em;
 
     .button {

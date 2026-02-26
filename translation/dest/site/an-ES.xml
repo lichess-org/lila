@@ -689,7 +689,6 @@
   <string name="keyCycleSelectedVariation">Cambia la variant seleccionada</string>
   <string name="keyShowOrHideComments">amostrar/amagar comentarios</string>
   <string name="keyEnterOrExitVariation">dentrar/salir d\'a variant</string>
-  <string name="keyRequestComputerAnalysis">Demanda una analisi d\'ordinador, aprende d\'as tuyas errors</string>
   <string name="keyPreviousBranch">Branca anterior</string>
   <string name="keyNextBranch">Siguient branca</string>
   <string name="toggleVariationArrows">Amuestra/amaga las flechas d\'as variants</string>

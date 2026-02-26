@@ -88,7 +88,7 @@ export async function runTask(key: TaskKey): Promise<any> {
 
 export function taskOk(ctx?: Context): boolean {
   const all = [...tasks.values()].filter(w => (ctx ? w.ctx === ctx : true));
-  return all.filter(w => !w.monitorOnly).length > 0 && all.every(w => w.status === 'ok');
+  return all.some(w => !w.monitorOnly) && all.every(w => w.status === 'ok');
 }
 
 export const tasksIdle = (): boolean => activeTaskCount === 0;

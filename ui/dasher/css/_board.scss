@@ -8,11 +8,10 @@
   }
 
   .list button {
-    @extend %flex-center;
+    @extend %flex-center-center;
 
     flex: 0 0 33%;
     height: 40px;
-    justify-content: center;
   }
 
   .list span {

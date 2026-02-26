@@ -1,6 +1,6 @@
 import { hl, onInsert, initMiniBoard } from 'lib/view';
-import type LobbyController from '../ctrl';
-import type { NowPlaying } from '../interfaces';
+import type LobbyController from '@/ctrl';
+import type { NowPlaying } from '@/interfaces';
 import { timeago } from 'lib/i18n';
 
 function timer(pov: NowPlaying) {

@@ -317,7 +317,7 @@ final class ModUi(helpers: Helpers):
       Granter(_.ManageTournament)
         .option(a(cls := itemCls(active, "tour"), href := routes.TournamentCrud.index(1))("Tournaments")),
       Granter(_.ManageEvent)
-        .option(a(cls := itemCls(active, "event"), href := routes.Event.manager)("Events")),
+        .option(a(cls := itemCls(active, "event"), href := routes.Event.manager())("Events")),
       Granter(_.ModerateBlog)
         .option(a(cls := itemCls(active, "carousel"), href := routes.Ublog.modShowCarousel)("Blog carousel")),
       Granter(_.MarkEngine)

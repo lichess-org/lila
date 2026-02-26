@@ -27,15 +27,15 @@ site.load.then(() => {
         id: 'teacher',
         match: /(^|\s)(.+)$/,
         index: 2,
-        search(term: string, callback: (res: any[]) => void) {
-          if (term.length < 3) callback([]);
+        search(term: string, searchCallback: (res: any[]) => void) {
+          if (term.length < 3) searchCallback([]);
           else
             xhr.json(xhr.url('/api/player/autocomplete', { object: 1, teacher: 1, term })).then(
               (res: UserCompleteResult) => {
                 const current = currentUserIds();
-                callback(res.result.filter(t => !current.includes(t.id)));
+                searchCallback(res.result.filter(t => !current.includes(t.id)));
               },
-              _ => callback([]),
+              _ => searchCallback([]),
             );
         },
         template: (o: LightUserOnline) =>

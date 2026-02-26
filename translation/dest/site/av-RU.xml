@@ -678,7 +678,6 @@
   <string name="keyGoToStartOrEnd">авалалде/ахиралде ине</string>
   <string name="keyShowOrHideComments">комментал рихьизе/рахчизе</string>
   <string name="keyEnterOrExitVariation">лъугьине варианталде/варианталдаса ине</string>
-  <string name="keyRequestComputerAnalysis">Компутералъул анализ тӀалаб гьабизе, гъалатӀаздаса лъазе</string>
   <string name="toggleVariationArrows">Риччазе/свинаризе вариантазул чӀорал</string>
   <string name="playSelectedMove">бищараб хъурши гьабе</string>
   <string name="newTournament">ЦӀияб турнир</string>

@@ -40,6 +40,8 @@ final class Env(
 
   lazy val automaticEmail = wire[AutomaticEmail]
 
+  wire[MailerCli]
+
   Bus.sub[lila.core.fishnet.NewKey]:
     case lila.core.fishnet.NewKey(userId, key) =>
       automaticEmail.onFishnetKey(userId, key)

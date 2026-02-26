@@ -23,13 +23,10 @@
       @extend %flex-between-nowrap;
     }
     &__name {
-      @extend %roboto;
+      @extend %roboto, %nowrap-ellipsis;
       flex: 1 1 auto;
       font-size: 1.3em;
       margin: 0 0 0.2em 0.5em;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
     }
     &__san {
       flex: 0 1 auto;

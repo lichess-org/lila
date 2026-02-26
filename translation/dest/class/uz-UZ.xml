@@ -24,7 +24,7 @@
   <string name="visibleByBothStudentsAndTeachers">Sinf oʻquvchilari va oʻqituvchilariga ham koʻrinarli</string>
   <string name="teachersOfTheClass">Sinf oʻqituvchilari</string>
   <string name="addLichessUsernames">Oʻqituvchi sifatida qoʻshmoqchi boʻlgan Lichess foydalanuvchilar nomlarini qatorma qator kiriting.</string>
-  <string name="resetPassword">Parolni qayta tiklash</string>
+  <string name="resetPassword">Parolni boshqattan oʻrnatish</string>
   <string name="makeSureToCopy">Parolingizni nushalang yoki toʻgʻriligini tekshiring. Uni siz boshqa koʻrmaysiz!</string>
   <string name="passwordX">Parol: %s</string>
   <string name="generateANewPassword">Oʻquvchiga yangi parol generatsiya qilish</string>

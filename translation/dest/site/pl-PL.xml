@@ -799,7 +799,6 @@
   <string name="keyCycleSelectedVariation">Powtarzaj wybrany wariant</string>
   <string name="keyShowOrHideComments">pokaż/ukryj komentarze</string>
   <string name="keyEnterOrExitVariation">wejdź/opuść wariant</string>
-  <string name="keyRequestComputerAnalysis">Poproś o analizę komputerową, ucz się na swoich błędach</string>
   <string name="keyPreviousBranch">Poprzedni wariant</string>
   <string name="keyNextBranch">Następny wariant</string>
   <string name="toggleVariationArrows">Pokaż strzałki wariantów</string>

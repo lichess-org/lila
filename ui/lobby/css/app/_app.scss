@@ -44,6 +44,9 @@
   }
 
   .toggle {
+    @extend %box-radius;
+    @include transition;
+
     position: absolute;
     padding: 0.6em;
     cursor: pointer;
@@ -53,8 +56,6 @@
     &.toggle-filter {
       @include inline-end(0);
     }
-
-    @include transition;
 
     &:hover {
       color: $c-accent;

@@ -107,10 +107,10 @@ function renderYAxis() {
 }
 
 export function toggle(ctrl: LobbyController) {
-  return h('i.toggle', {
+  return h('button.toggle', {
     key: 'set-mode-list',
     attrs: { title: i18n.site.list, 'data-icon': licon.List },
-    hook: bind('mousedown', _ => ctrl.setMode('list'), ctrl.redraw),
+    hook: bind('click', _ => ctrl.setMode('list'), ctrl.redraw),
   });
 }
 

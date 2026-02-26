@@ -750,7 +750,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="keyCycleSelectedVariation">Ciklus odabrane varijacije</string>
   <string name="keyShowOrHideComments">pokaži/sakrij komentare</string>
   <string name="keyEnterOrExitVariation">otvori/zatvori varijaciju</string>
-  <string name="keyRequestComputerAnalysis">Zatražite računarsku analizu, učite na svojim greškama</string>
   <string name="keyPreviousBranch">Prethodna grana</string>
   <string name="keyNextBranch">Sljedeća grana</string>
   <string name="toggleVariationArrows">Uključi/isključi strelice za varijacije</string>

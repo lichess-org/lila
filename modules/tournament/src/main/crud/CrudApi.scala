@@ -16,14 +16,14 @@ final class CrudApi(tournamentRepo: TournamentRepo, tourApi: TournamentApi, crud
   def editForm(tour: Tournament)(using Me) =
     crudForm.edit(tour)
 
-  def update(old: Tournament, data: CrudForm.Data) =
+  def update(old: Tournament, data: CrudForm.Data)(using MyId) =
     tourApi.updateTour(old, data.setup, data.update(old)).void
 
   def createForm(using Me) = crudForm(none)
 
   def create(data: CrudForm.Data)(using Me): Fu[Tournament] =
     val tour = data.toTour
-    tournamentRepo.insert(tour).inject(tour)
+    tourApi.createTour(tour).inject(tour)
 
   def clone(old: Tournament) =
     old.copy(

@@ -1,7 +1,7 @@
 .game-row {
   display: flex;
   align-items: stretch;
-  height: 17rem;
+  min-height: 17rem;
   padding: 0.5em 1em;
   border-bottom: $border;
   position: relative;
@@ -38,9 +38,7 @@
     overflow: hidden;
 
     .notes {
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
+      @extend %nowrap-ellipsis;
     }
   }
 
@@ -69,15 +67,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    column-gap: 1.5em;
 
     .swords {
-      width: 2.5em;
       text-align: center;
       font-size: 2em;
       opacity: 0.7;
     }
 
     .player {
+      width: 100%;
       font-size: 1.3em;
       text-align: right;
     }
@@ -94,6 +93,14 @@
 
     .anon {
       line-height: 2em;
+    }
+
+    @media (width <= $xxx-small) {
+      column-gap: 1em;
+
+      .swords {
+        font-size: 1.5em;
+      }
     }
   }
 

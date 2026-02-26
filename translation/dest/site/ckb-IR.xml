@@ -702,7 +702,6 @@
   <string name="keyGoToStartOrEnd">برۆ بۆ کۆتا/سەرەتا</string>
   <string name="keyShowOrHideComments">پێشاندان/شاردنەوەی کۆمێنتەکان</string>
   <string name="keyEnterOrExitVariation">داخڵکردن/دەرچوون لە گۆڕاوەکان</string>
-  <string name="keyRequestComputerAnalysis">داواکردنی شیکاری کۆمپیوتەری، لە هەڵەکانتەوە فێربە</string>
   <string name="keyPreviousBranch">لقی پێشوو</string>
   <string name="keyNextBranch">لقی دواتر</string>
   <string name="playSelectedMove">یاری بە جووڵەی ھەڵبژێردراو بکە</string>

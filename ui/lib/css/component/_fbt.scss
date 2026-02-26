@@ -14,7 +14,7 @@
 
   &.active {
     background: $c-secondary !important;
-    color: #fff;
+    color: $c-over;
   }
 
   &.disabled,

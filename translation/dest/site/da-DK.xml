@@ -721,7 +721,6 @@
   <string name="keyCycleSelectedVariation">Gennemgå den valgte variant</string>
   <string name="keyShowOrHideComments">vis/skjul kommentar</string>
   <string name="keyEnterOrExitVariation">Start/slut variant</string>
-  <string name="keyRequestComputerAnalysis">Anmod om computeranalyse, Lær af dine fejl</string>
   <string name="keyPreviousBranch">Forrige gren</string>
   <string name="keyNextBranch">Næste gren</string>
   <string name="toggleVariationArrows">Slå variantpile til/fra</string>

@@ -70,8 +70,7 @@ object CrudForm:
       )
     def update(old: Tournament) =
       withCrud(
-        setup
-          .updateAll(old)
+        setup.updateAll(old)
       )
 
     private def withCrud(tour: Tournament) =

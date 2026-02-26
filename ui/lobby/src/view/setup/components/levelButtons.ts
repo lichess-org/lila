@@ -1,22 +1,19 @@
 import { h } from 'snabbdom';
-import type LobbyController from '@/ctrl';
 import { option } from 'lib/setup/option';
+import type SetupController from '@/setupCtrl';
 
 const levels = [1, 2, 3, 4, 5, 6, 7, 8];
 
-export const levelButtons = (ctrl: LobbyController) => {
-  const { setupCtrl } = ctrl;
+export const levelButtons = ({ aiLevel }: SetupController) => {
   return site.blindMode
     ? [
         h('label', { attrs: { for: 'sf_level' } }, i18n.site.strength),
         h(
           'select#sf_level',
           {
-            on: { change: (e: Event) => setupCtrl.aiLevel(parseInt((e.target as HTMLSelectElement).value)) },
+            on: { change: (e: Event) => aiLevel(parseInt((e.target as HTMLSelectElement).value)) },
           },
-          levels
-            .map(l => l.toString())
-            .map(key => option({ key, name: key }, setupCtrl.aiLevel().toString())),
+          levels.map(l => l.toString()).map(key => option({ key, name: key }, aiLevel().toString())),
         ),
       ]
     : h('div.config-group', [
@@ -31,10 +28,10 @@ export const levelButtons = (ctrl: LobbyController) => {
                     name: 'level',
                     type: 'radio',
                     value: level,
-                    checked: level === setupCtrl.aiLevel(),
+                    checked: level === aiLevel(),
                   },
                   on: {
-                    change: (e: Event) => setupCtrl.aiLevel(parseInt((e.target as HTMLInputElement).value)),
+                    change: (e: Event) => aiLevel(parseInt((e.target as HTMLInputElement).value)),
                   },
                 }),
                 h('label', { attrs: { for: `sf_level_${level}` } }, level),

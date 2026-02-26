@@ -230,11 +230,13 @@ object RelayJsonView:
       .add("startsAfterPrevious" -> r.startsAfterPrevious)
       .add("customScoring" -> r.customScoring)
 
-  def statsJson(stats: RelayStats.RoundStats) =
-    Json.obj(
-      "viewers" -> stats.viewers.map: (minute, crowd) =>
-        Json.arr(minute * 60, crowd)
-    )
+  private[relay] def statsJson(stats: RelayStats.RoundStats, unique: Int) =
+    Json
+      .obj(
+        "viewers" -> stats.viewers.map: (minute, crowd) =>
+          Json.arr(minute * 60, crowd)
+      )
+      .add("unique" -> Option.when(unique > 0)(unique))
 
   import RelayRound.Sync
 

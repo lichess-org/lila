@@ -2,6 +2,7 @@ import { next, prev, view } from '../keyboard';
 import crazyView from '../crazy/crazyView';
 import type RoundController from '../ctrl';
 import { stepwiseScroll, type VNode, hl, bind } from 'lib/view';
+import { renderBlindfoldToggle } from 'lib/view/blindfold';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
@@ -34,6 +35,7 @@ export function main(ctrl: RoundController): VNode {
           },
         },
         [
+          renderBlindfoldToggle(ctrl.blindfold),
           hl(
             'div.round__app__board.main-board' + (hideBoard ? '.blindfold' : ''),
             {

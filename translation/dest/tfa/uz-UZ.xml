@@ -7,7 +7,7 @@
   <string name="enterPassword">Sozlashni yakunlash uchun parolingizni va ilova tomonidan yaratilgan autentifikatsiya kodini kiriting. Tizimga har gal kirganingizda sizdan autentifikatsiya kodi soʻraladi.</string>
   <string name="ifYouCannotScanEnterX">Agar kodni skanerlay olmasangiz, ilovangizga mana bu %s maxfiy kalitini kiriting.</string>
   <string name="authenticationCode">Autentifikatsiya kodi</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Eslatma: Agar ikki bosqichli autentifikatsiya kodlariga kirish imkonini yoʻqotsangiz, e-pochta orqali %s qilishingiz mumkin.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Eslatma: Agar ikki bosqichli autentifikatsiya kodlariga kirish imkonini yoʻqotsangiz, e-pochta orqali %singiz mumkin.</string>
   <string name="enableTwoFactor">Ikki bosqichli autentifikatsiyani yoqish</string>
   <string name="disableTwoFactor">Ikki bosqichli autentifikatsiyani oʻchirish</string>
   <string name="twoFactorEnabled">Ikki bosqichli autentifikatsiya yoqilgan</string>

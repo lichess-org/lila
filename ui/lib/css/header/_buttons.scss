@@ -42,9 +42,7 @@
   }
 
   .initiating {
-    @extend %flex-center;
-
-    justify-content: center;
+    @extend %flex-center-center;
     height: 300px;
     width: 225px;
   }

@@ -869,7 +869,6 @@ https://lichess. org/report.</string>
   <string name="keyCycleSelectedVariation">التفريع المحدد</string>
   <string name="keyShowOrHideComments">أظهر/أخفِ التعليقات</string>
   <string name="keyEnterOrExitVariation">متغير دخول/خروج</string>
-  <string name="keyRequestComputerAnalysis">اطلب تحليل الحاسوب وتعلم من أخطائك</string>
   <string name="keyPreviousBranch">التفريع السابق</string>
   <string name="keyNextBranch">التفريع القادم</string>
   <string name="toggleVariationArrows">تبديل أسهم النقلات المرشحة</string>

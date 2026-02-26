@@ -2,9 +2,8 @@
   @extend %box-radius, %flex-center-nowrap;
 
   &__target {
-    @extend %ellipsis, %box-radius-left;
+    @extend %nowrap-ellipsis, %box-radius-left;
     flex: 1 1 auto;
-    white-space: nowrap;
     padding: 0 1em;
     outline: 0;
     background: none;

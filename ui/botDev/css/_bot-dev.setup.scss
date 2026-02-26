@@ -32,8 +32,7 @@ body:has(.base-view.setup-view) {
   .from-position {
     position: relative;
     .resets {
-      @extend %flex-center;
-      justify-content: center;
+      @extend %flex-center-center;
       padding: 2em;
       gap: 2em;
     }
@@ -80,8 +79,7 @@ body:has(.base-view.setup-view) {
   }
 
   .chin {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
     padding: 1em;
     border-radius: 5px;
     border-top: 1px solid $c-border;
@@ -91,8 +89,7 @@ body:has(.base-view.setup-view) {
       gap: 0.5em;
     }
     span {
-      @extend %flex-center;
-      justify-content: center;
+      @extend %flex-center-center;
     }
     input {
       min-height: 32px;
@@ -130,8 +127,7 @@ body:has(.base-view.setup-view) {
     gap: 0.5em;
   }
   .actions {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
   }
   @include mq-is-col1 {
     .fen {

@@ -24,8 +24,9 @@
   }
 
   &__content {
-    @extend %flex-column, %break-word;
+    @extend %flex-column;
 
+    overflow-wrap: anywhere;
     flex: 0 0 auto;
     padding: 3em 3vw 1em 3vw;
   }

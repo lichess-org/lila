@@ -5,8 +5,7 @@
 }
 
 .bot-setup__title {
-  @extend %flex-center;
-  justify-content: center;
+  @extend %flex-center-center;
   .beta {
     @extend %box-radius;
     font-family: monospace;

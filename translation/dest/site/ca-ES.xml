@@ -721,7 +721,6 @@
   <string name="keyCycleSelectedVariation">Canvia la variació seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentaris</string>
   <string name="keyEnterOrExitVariation">entrar/sortir variació</string>
-  <string name="keyRequestComputerAnalysis">Demana una anàlisi computeritzada, aprèn dels teus errors</string>
   <string name="keyPreviousBranch">Branca anterior</string>
   <string name="keyNextBranch">Branca següent</string>
   <string name="toggleVariationArrows">Mostra/amaga les fletxes de les variants</string>

@@ -487,6 +487,10 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
         Firewall:
           consumingToken(token) { authenticateUser(_, remember = true, pwned = IsPwned.No) }
 
+  def check = OpenOrScoped() { ctx ?=>
+    if ctx.isAuth then NoContent else Unauthorized
+  }
+
   private def consumingToken(token: String)(f: UserModel => Fu[Result])(using Context) =
     env.security.loginToken
       .consume(token)

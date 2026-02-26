@@ -1,4 +1,5 @@
 $c-tabs-active: $c-accent !default;
+$c-tabs-hover: $m-accent--fade-50 !default;
 
 .tabs-horiz {
   @extend %flex-center-nowrap, %page-text;
@@ -30,14 +31,13 @@ $c-tabs-active: $c-accent !default;
       letter-spacing: inherit;
     }
 
-    &.active,
     &:hover {
-      color: $c-font-clear;
-      border-color: $c-tabs-active;
+      border-color: $c-tabs-hover;
     }
 
     &.active {
       color: $c-tabs-active;
+      border-color: $c-tabs-active;
     }
 
     &.narrow {

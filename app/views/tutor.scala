@@ -4,7 +4,10 @@ import lila.app.UiEnv.{ *, given }
 
 val bits = lila.tutor.ui.TutorBits(helpers)(views.opening.bits.openingUrl)
 val perf = lila.tutor.ui.TutorPerfUi(helpers, bits)
-val home = lila.tutor.ui.TutorHome(helpers, bits, perf)
+val queue = lila.tutor.ui.TutorQueueUi(helpers, bits)
+val reports = lila.tutor.ui.TutorReportsUi(helpers, bits)
+val report = lila.tutor.ui.TutorReportUi(helpers, bits, perf)
+val home = lila.tutor.ui.TutorHomeUi(helpers, bits, queue, reports)
 val openingUi = lila.tutor.ui.TutorOpening(helpers, bits, perf)
 
 def opening(
@@ -12,7 +15,6 @@ def opening(
     perfReport: lila.tutor.TutorPerfReport,
     report: lila.tutor.TutorOpeningFamily,
     as: Color,
-    user: User,
     puzzle: Option[lila.puzzle.PuzzleOpening.FamilyWithCount]
 )(using Context) =
   val puzzleFrag = puzzle.map: p =>
@@ -21,4 +23,4 @@ def opening(
       dataIcon := Icon.ArcheryTarget,
       href := routes.Puzzle.angleAndColor(p.family.key.value, as.name)
     )("Train with puzzles")
-  openingUi.opening(full, perfReport, report, as, user, puzzleFrag)
+  openingUi.opening(full, perfReport, report, as, puzzleFrag)

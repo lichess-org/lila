@@ -696,7 +696,6 @@
   <string name="keyGoToStartOrEnd">শুরু করতে যান/শেষ</string>
   <string name="keyShowOrHideComments">দেখুন/মন্তব্য লুকান</string>
   <string name="keyEnterOrExitVariation">প্রবেশ করান/বেরিয়ে যান</string>
-  <string name="keyRequestComputerAnalysis">কম্পিউটার বিশ্লেষণের জন্য অনুরোধ করুন, আপনার ভুলগুলো থেকে শিখুন</string>
   <string name="keyPreviousBranch">আগের শাখা</string>
   <string name="keyNextBranch">পরবর্তী শাখা</string>
   <string name="variationArrowsInfo">ভ্যারিয়েসন অ্যারোঁগুলি আপনাকে চাল তালিকা ব্যবহার না করেই নেভিগেট করতে দেয়.</string>

@@ -19,17 +19,35 @@ class BigFileStorage {
 
     const fetched = await new Promise<U8>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
+      let settled = false;
+
+      const settle = (value: U8) => {
+        if (settled) return;
+        settled = true;
+        resolve(value);
+      };
+      const fail = (message: string) => {
+        if (settled) return;
+        settled = true;
+        reject(new Error(message));
+      };
+
       xhr.open('GET', assetUrl, true);
       xhr.responseType = 'arraybuffer';
+
       if (onProgress) xhr.onprogress = e => onProgress(e.loaded, e.total);
-      xhr.onerror = () => reject(new Error(`fetch '${assetUrl}' failed: ${xhr.status}`));
-      xhr.onload = () =>
-        xhr.status / 100 === 2
-          ? resolve(new Uint8Array(xhr.response))
-          : reject(new Error(`fetch '${assetUrl}' failed: ${xhr.status}`));
+
+      xhr.onerror = () => fail(`fetch '${assetUrl}' failed: ${xhr.status}`);
+      xhr.onabort = () => fail(`fetch '${assetUrl}' aborted`);
+      xhr.onload = () => {
+        if (Math.floor(xhr.status / 100) === 2) settle(new Uint8Array(xhr.response));
+        else fail(`fetch '${assetUrl}' failed: ${xhr.status}`);
+      };
+
       xhr.send();
     });
-    this.writeFile(assetUrl, fetched);
+
+    await this.writeFile(assetUrl, fetched);
     return fetched;
   }
 

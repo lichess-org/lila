@@ -86,8 +86,7 @@ dialog {
 
 // applied to dialog wrapper div so we can fake HTMLDialogElement.showModal() in a snab render loop
 .snab-modal-mask {
-  @extend %fullscreen-mask, %flex-center;
-  justify-content: center;
+  @extend %fullscreen-mask, %flex-center-center;
 }
 
 .dialog-content {

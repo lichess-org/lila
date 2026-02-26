@@ -2617,6 +2617,10 @@ interface I18n {
     clearance: string;
     /** A move, often with tempo, that clears a square, file or diagonal for a follow-up tactical idea. */
     clearanceDescription: string;
+    /** Collinear move */
+    collinearMove: string;
+    /** Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece. */
+    collinearMoveDescription: string;
     /** Corner mate */
     cornerMate: string;
     /** Confine the king to the corner using a rook or queen and a knight to engage the checkmate. */
@@ -3721,8 +3725,6 @@ interface I18n {
     keyNextBranch: string;
     /** Previous branch */
     keyPreviousBranch: string;
-    /** Request computer analysis, Learn from your mistakes */
-    keyRequestComputerAnalysis: string;
     /** show/hide comments */
     keyShowOrHideComments: string;
     /** Kid mode */

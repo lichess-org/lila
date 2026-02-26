@@ -54,6 +54,10 @@ export const bind = (ctrl: AnalyseCtrl) => {
   if (ctrl.study?.practice) return;
 
   kbd
+    .bind('h', () => {
+      ctrl.toggleActionMenu();
+      ctrl.redraw();
+    })
     .bind('f', ctrl.flip)
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
@@ -98,13 +102,6 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.userJumpIfCan(ctrl.idbTree.stepLine(ctrl.path, 'prev'), true);
       ctrl.redraw();
     });
-
-  //'Request computer analysis' & 'Learn From Your Mistakes' (mutually exclusive)
-  keyToMouseEvent(
-    'r',
-    'click',
-    '.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button',
-  );
 
   //First explorer move
   kbd.bind('shift+space', () => {

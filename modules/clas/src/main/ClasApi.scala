@@ -94,7 +94,7 @@ final class ClasApi(
     def teachers(clas: Clas): Fu[List[User]] =
       userRepo.byOrderedIds(clas.teachers.toList, readPref = _.sec)
 
-    def isTeacherOf(teacher: User, clasId: ClasId): Fu[Boolean] =
+    def isTeacherIn(teacher: User, clasId: ClasId): Fu[Boolean] =
       Granter
         .of(_.Teacher)(teacher)
         .so:

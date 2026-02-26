@@ -9,8 +9,8 @@
   <string name="boosterMarkedInfo">Oʻyinlarda ataylab yutqazish yoki ataylab yutqazib berayotganlar bilan oʻynash orqali reytingni soxtalashtirish gʻirromlik hisoblanadi.</string>
   <string name="accountMuted">Chatdan foydalana olmaysiz.</string>
   <string name="accountMutedInfo">%s bilan tanishib chiqing. Muloqot qoidalariga amal qilmaslik chat imkoniyatining cheklanishiga olib kelishi mumkin.</string>
-  <string name="excludedFromLeaderboards">Akkauntingiz liderlar jadvalidan chiqarilgan.</string>
-  <string name="excludedFromLeaderboardsInfo">Biz buni peshqadamlar roʻyxatiga kirish uchun har qanday gʻirrom yoʻllardan foydalanish deb hisoblaymiz.</string>
+  <string name="excludedFromLeaderboards">Akkauntingiz peshqadamlar jadvalidan chiqarilgan.</string>
+  <string name="excludedFromLeaderboardsInfo">Biz buni peshqadamlar jadvaliga kirish uchun har qanday gʻirrom yoʻllardan foydalanish deb hisoblaymiz.</string>
   <string name="closedByModerators">Akkauntingiz moderatorlar tomonidan yopildi.</string>
   <string name="hiddenBlog">Bloglaringiz moderatorlar tomonidan yashirib qoʻyildi.</string>
   <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">%s bilan qayta tanishib chiqishingizni soʻraymiz.</string>

@@ -1,10 +1,9 @@
 import { hl } from 'lib/view';
 import type LobbyController from '@/ctrl';
 
-export const ratingDifferenceSliders = (ctrl: LobbyController) => {
-  if (!ctrl.me || !ctrl.data.ratingMap) return null;
+export const ratingDifferenceSliders = ({ setupCtrl, me, data }: LobbyController) => {
+  if (!me || !data.ratingMap) return null;
 
-  const { setupCtrl } = ctrl;
   const isProvisional = setupCtrl.isProvisional();
 
   // Get current rating values or use default values if isProvisional

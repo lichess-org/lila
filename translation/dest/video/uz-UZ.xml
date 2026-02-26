@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="chessVideos">Shaxmat videolari</string>
+  <string name="allVideosAreFree">Barcha videolar hamma uchun bepul.</string>
+  <string name="selectTagsToFilter">Videolarni saralash uchun teglarni tanlang.</string>
+  <string name="weHaveCarefullySelectedX">Hozirgacha biz %s ta videoni sinchiklab saralab oldik!</string>
+  <string name="freeChessVideos">Bepul shaxmat videolari</string>
+  <string name="xFreeCarefullyCurated">%s ta bepul, sinchiklab saralangan shaxmat videolari</string>
+  <string name="xCuratedChessVideos">%s ta saralangan shaxmat videolari</string>
+  <string name="xWithTagsY">%2$s teglari boʻyicha %1$s ta video topildi</string>
+  <string name="freeForAll">mutlaqo bepul</string>
+  <plurals name="nbVideosFound">
+    <item quantity="one">%s ta video topildi</item>
+    <item quantity="other">%s ta video topildi</item>
+  </plurals>
+  <string name="noVideosForTheseTags">Ushbu teglar boʻyicha videolar topilmadi:</string>
+  <string name="thatsAllWeGotForTheseTags">Ushbu teglar boʻyicha bor-yoʻgʻi shularni topdik:</string>
+  <string name="thatsAllWeGotForThisSearchX">“%s” soʻrovi boʻyicha barcha natijalar shulardan iborat:</string>
+  <string name="thereAreNoResultsForX">“%s” soʻrovi boʻyicha hech qanday natija topilmadi</string>
+  <string name="viewMoreTags">Barcha teglarni koʻrish</string>
+  <string name="videoNotFound">Video topilmadi!</string>
+  <string name="xByY">%2$sdan: %1$s</string>
+  <string name="allNbVideoTags">Barcha %s ta video teglari</string>
+</resources>

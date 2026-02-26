@@ -112,33 +112,30 @@ export function side(ctrl: StudyCtrl): VNode {
           return false;
         }),
       },
-      ctrl.chapters.list
-        .all()
-        .map(chapter => {
-          const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-            active = !ctrl.vm.loading && current && current.id === chapter.id,
-            completion = data.completion[chapter.id] >= 0 ? 'done' : 'ongoing';
-          return [
-            h(
-              'a.ps__chapter',
-              {
-                key: chapter.id,
-                attrs: { href: data.url + '/' + chapter.id, 'data-id': chapter.id },
-                class: { active, loading },
-              },
-              [
-                h('span.status.' + completion, {
-                  attrs: {
-                    'data-icon':
-                      (loading || active) && completion === 'ongoing' ? licon.PlayTriangle : licon.Checkmark,
-                  },
-                }),
-                h('h3', chapter.name),
-              ],
-            ),
-          ];
-        })
-        .reduce((a, b) => a.concat(b), []),
+      ctrl.chapters.list.all().flatMap(chapter => {
+        const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
+          active = !ctrl.vm.loading && current && current.id === chapter.id,
+          completion = data.completion[chapter.id] >= 0 ? 'done' : 'ongoing';
+        return [
+          h(
+            'a.ps__chapter',
+            {
+              key: chapter.id,
+              attrs: { href: data.url + '/' + chapter.id, 'data-id': chapter.id },
+              class: { active, loading },
+            },
+            [
+              h('span.status.' + completion, {
+                attrs: {
+                  'data-icon':
+                    (loading || active) && completion === 'ongoing' ? licon.PlayTriangle : licon.Checkmark,
+                },
+              }),
+              h('h3', chapter.name),
+            ],
+          ),
+        ];
+      }),
     ),
     h('div.finally', [
       h('a.back', { attrs: { 'data-icon': licon.LessThan, href: '/practice', title: 'More practice' } }),

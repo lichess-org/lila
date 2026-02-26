@@ -20,7 +20,10 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
   return ctrl.streak
     ? null
     : ctrl.isDaily
-      ? hl('div.puzzle__side__theme.puzzle__side__theme--daily', backToTheme({}, [i18n.puzzle.dailyPuzzle]))
+      ? hl(
+          'div.puzzle__side__theme.puzzle__side__theme--daily',
+          backToTheme({}, ['« ', i18n.puzzle.dailyPuzzle]),
+        )
       : hl('div.puzzle__side__theme', [
           backToTheme({ class: { long: angle.name.length > 20 } }, ['« ', angle.name]),
           angle.opening

@@ -713,7 +713,6 @@
   <string name="keyCycleSelectedVariation">Излистај одабрану варијанту</string>
   <string name="keyShowOrHideComments">покажи/сакриј коментаре</string>
   <string name="keyEnterOrExitVariation">уђи/изађи из варијације</string>
-  <string name="keyRequestComputerAnalysis">Затражите компјутерску анализу, научите из својих грешака</string>
   <string name="keyPreviousBranch">Претходна грана</string>
   <string name="keyNextBranch">Следећа грана</string>
   <string name="toggleVariationArrows">Приказивање стрелица за варијације</string>

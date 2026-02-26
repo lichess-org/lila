@@ -15,7 +15,7 @@ site.load.then(() => {
 
   function streamLoad() {
     const source = new EventSource($toggle.attr('href') + '?nbOthers=' + nbOthers),
-      callback = debounce(() => userMod($zone), 300);
+      streamDebounce = debounce(() => userMod($zone), 300);
     source.addEventListener('message', e => {
       if (!e.data) return;
       const html = $('<output>').append($.parseHTML(e.data));
@@ -24,7 +24,7 @@ site.load.then(() => {
         if (prev.length) prev.replaceWith($(this));
         else $zone.append($(this).clone());
       });
-      callback();
+      streamDebounce();
     });
     source.onerror = () => source.close();
   }

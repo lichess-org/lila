@@ -217,6 +217,8 @@ async function buildColorMixes() {
             return clr.mix(c2, c1, clamp(mix.val, { min: 0, max: 100 }));
           case 'lighten':
             return c1.lighten(clamp(mix.val, { min: 0, max: 100 }));
+          case 'darken':
+            return c1.darken(clamp(mix.val, { min: 0, max: 100 }));
           case 'alpha':
             return c1.setAlpha(clamp(mix.val / 100, { min: 0, max: 1 }));
           case 'fade':
@@ -268,7 +270,7 @@ function parseColor(colorMix: string) {
   const validColor = (c: string) => themeColorMap.get('default')?.has(c) || clr(c).isValid();
   return validColor(c1) &&
     (op !== 'mix' || validColor(c2)) &&
-    ['mix', 'lighten', 'alpha', 'fade'].includes(op) &&
+    ['mix', 'lighten', 'darken', 'alpha', 'fade'].includes(op) &&
     val >= 0 &&
     val <= 100
     ? { c1, c2, op, val }

@@ -270,7 +270,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           a(
             cls := "link",
             title := "Content",
-            href := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager.some),
+            href := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager().some),
             dataIcon := Icon.InkQuill
           )
         )

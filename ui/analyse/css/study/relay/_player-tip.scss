@@ -20,6 +20,7 @@
     gap: 1em;
     .fide-players__photo {
       width: 150px;
+      height: fit-content;
     }
     &__info {
       @extend %flex-column;

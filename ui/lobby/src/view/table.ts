@@ -1,6 +1,6 @@
 import { bind, onInsert, hl, thunk } from 'lib/view';
-import type LobbyController from '../ctrl';
-import type { GameType } from '../interfaces';
+import type LobbyController from '@/ctrl';
+import type { GameType } from '@/interfaces';
 import renderSetupModal from './setup/modal';
 import { numberFormat } from 'lib/i18n';
 
@@ -44,16 +44,16 @@ export default function table(ctrl: LobbyController) {
   return hl('div.lobby__table', [
     hl('div.lobby__start', [site.blindMode && hl('h2', i18n.site.play), lobbyButtons.map(makeLobbyButton)]),
     renderSetupModal(ctrl),
-    // Use a thunk here so that snabbdom does not rerender; we will do so manually after insert
     site.blindMode
       ? undefined
-      : thunk(
+      : // Use a thunk here so that snabbdom does not rerender; we will do so manually after insert
+        thunk(
           'div.lobby__counters',
           () =>
             hl('div.lobby__counters', [
               hl(
                 'a',
-                { attrs: site.blindMode ? {} : { href: '/player' } },
+                { attrs: { href: '/player' } },
                 i18n.site.nbPlayers.asArray(
                   members,
                   hl(
@@ -70,7 +70,7 @@ export default function table(ctrl: LobbyController) {
               ),
               hl(
                 'a',
-                site.blindMode ? {} : { attrs: { href: '/games' } },
+                { attrs: { href: '/games' } },
                 i18n.site.nbGamesInPlay.asArray(
                   rounds,
                   hl(

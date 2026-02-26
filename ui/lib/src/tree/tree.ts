@@ -86,7 +86,7 @@ export function makeTree(root: TreeNode): TreeWrapper {
 
   const pathExists = (path: TreePath): boolean => !!nodeAtPathOrNull(path);
 
-  const pathIsForcedVariation = (path: TreePath): boolean => !!getNodeList(path).find(n => n.forceVariation);
+  const pathIsForcedVariation = (path: TreePath): boolean => getNodeList(path).some(n => n.forceVariation);
 
   function lastMainlineNodeFrom(node: TreeNode, path: TreePath): TreeNode {
     if (path === '') return node;

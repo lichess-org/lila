@@ -203,18 +203,16 @@ export function view(ctrl: StudyCtrl): VNode {
   return hl('div.study__members', [
     hl(
       'div.study-list',
-      ordered
-        .map(member => {
-          const confing = members.confing() === member.user.id;
-          return [
-            hl('div', { key: member.user.id, class: { editing: !!confing } }, [
-              hl('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
-              configButton(ctrl, member),
-            ]),
-            confing && memberConfig(member),
-          ];
-        })
-        .reduce((a, b) => a.concat(b), []),
+      ordered.flatMap(member => {
+        const confing = members.confing() === member.user.id;
+        return [
+          hl('div', { key: member.user.id, class: { editing: !!confing } }, [
+            hl('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
+            configButton(ctrl, member),
+          ]),
+          confing && memberConfig(member),
+        ];
+      }),
     ),
     isOwner &&
       ordered.length < members.max &&

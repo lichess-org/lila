@@ -238,9 +238,8 @@
       transition: 0.13s ease-out;
 
       > * {
+        @extend %ellipsis;
         white-space: pre-wrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         display: inline-block;
         vertical-align: top;
         min-width: var(--tag--min-width, $tag-min-width);

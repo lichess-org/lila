@@ -7,11 +7,10 @@ body {
   box-shadow: none;
 }
 .not-found {
-  @extend %flex-center;
+  @extend %flex-center-center;
 
   position: fixed;
   inset: 0;
-  justify-content: center;
   height: 100%;
   background: radial-gradient(circle, #484848, #2f3031);
 

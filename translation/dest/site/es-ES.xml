@@ -721,7 +721,6 @@
   <string name="keyCycleSelectedVariation">Alterna la variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">entrar/salir de la variante</string>
-  <string name="keyRequestComputerAnalysis">Solicitar análisis del ordenador, aprende de tus errores</string>
   <string name="keyPreviousBranch">Rama anterior</string>
   <string name="keyNextBranch">Rama siguiente</string>
   <string name="toggleVariationArrows">Activa o desactiva flechas de variantes</string>

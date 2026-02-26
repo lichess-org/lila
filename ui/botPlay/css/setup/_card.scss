@@ -68,8 +68,7 @@
   }
 
   &__header {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
     gap: 1ch;
   }
   &__name {

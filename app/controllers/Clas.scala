@@ -121,7 +121,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       orDefault: Context => Fu[Result] = notFound(using _)
   )(using ctx: Context, me: Me): Fu[Result] =
     env.clas.api.clas
-      .isTeacherOf(me, id)
+      .isTeacherIn(me, id)
       .flatMap:
         if _ then forTeacher
         else

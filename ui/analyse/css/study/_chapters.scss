@@ -25,10 +25,9 @@ $span-width: 1.7em;
     }
 
     > span {
-      @extend %flex-center;
+      @extend %flex-center-center;
 
       flex: 0 0 $span-width;
-      justify-content: center;
       color: $c-link;
       font-weight: bold;
       height: auto;

@@ -127,8 +127,7 @@
   position: relative;
   aspect-ratio: $aspect-ratio;
   &::after {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
     content: attr(alt);
     position: absolute;
     top: 0;

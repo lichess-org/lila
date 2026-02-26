@@ -65,6 +65,7 @@ export class StudyChapterNewForm {
     this.isOpen(true);
     this.loadVariants();
     this.initial(false);
+    this.isDefaultName(true);
   };
 
   toggle = () => (this.isOpen() ? this.isOpen(false) : this.open());

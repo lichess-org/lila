@@ -13,6 +13,7 @@ import {
   hl,
   type MaybeVNode,
 } from 'lib/view';
+import { renderBlindfoldToggle } from 'lib/view/blindfold';
 import { type VNode, h } from 'snabbdom';
 import { addPointerListeners } from 'lib/pointer';
 import { render as treeView } from './tree';
@@ -94,6 +95,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
       },
     },
     [
+      renderBlindfoldToggle(ctrl.blindfold),
       hl('aside.puzzle__side', [
         replay(ctrl),
         puzzleBox(ctrl),
@@ -173,7 +175,7 @@ function session(ctrl: PuzzleCtrl): MaybeVNode {
             rd,
           );
         }),
-        rounds.find(r => r.id === current)
+        rounds.some(r => r.id === current)
           ? !ctrl.streak &&
             hl('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
           : hl(

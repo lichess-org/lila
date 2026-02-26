@@ -200,9 +200,7 @@
     border-top: $border;
 
     .nm-item {
-      @extend %flex-center;
-
-      justify-content: center;
+      @extend %flex-center-center;
     }
 
     .unread {

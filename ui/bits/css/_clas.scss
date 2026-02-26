@@ -444,9 +444,7 @@ h1 {
   }
 
   &__actions {
-    @extend %flex-center;
-
-    justify-content: center;
+    @extend %flex-center-center;
     margin-top: 4em;
 
     .button {
@@ -649,8 +647,7 @@ h1 {
   }
 
   &__login {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
     form {
       @extend %flex-center;
       align-items: stretch;

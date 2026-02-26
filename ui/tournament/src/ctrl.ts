@@ -136,12 +136,13 @@ export default class TournamentController {
   jumpToRank = (rank: number) => {
     const page = 1 + Math.floor((rank - 1) / maxPerPage);
     const row = (rank - 1) % maxPerPage;
-    xhr.loadPage(this, page, () => {
+    xhr.loadPage(this, page).then(() => {
       if (!this.pages[page] || row >= this.pages[page].length) return;
       this.page = page;
       this.searching = false;
       this.focusOnMe = false;
       this.showPlayerInfo(this.pages[page][row]);
+      this.redraw();
     });
   };
 

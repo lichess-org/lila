@@ -4,7 +4,7 @@ import { defined } from 'lib';
 import { zip } from 'lib/algo';
 import type { TreeNode } from 'lib/tree/types';
 
-const hasCompChild = (node: TreeNode): boolean => !!node.children.find(c => !!c.comp);
+const hasCompChild = (node: TreeNode): boolean => node.children.some(c => !!c.comp);
 
 export const nextGlyphSymbol = (
   color: Color,

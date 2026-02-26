@@ -242,16 +242,21 @@ private final class RelayPlayerApi(
       .flatMapz: tour =>
         for
           players <- readGamesAndPlayers(sg.toList)
-          withScore = if tour.showScores then computeScores(players) else players
-          withRatingDiff <-
-            if tour.showRatingDiffs then computeRatingDiffs(withScore)
-            else fuccess(withScore)
-          withTiebreaks <- tour.tiebreaks.fold(fuccess(withRatingDiff)): tiebreaks =>
-            roundRepo
-              .idsByTourOrdered(sg.last)
-              .map(_.lastOption)
-              .map(computeTiebreaks(withRatingDiff, tiebreaks, _))
-        yield withTiebreaks
+          atLeastOneGameFinished = players.exists(_._2.games.exists(_.points.isDefined))
+          result <-
+            if !atLeastOneGameFinished then fuccess(players)
+            else
+              val withScore = if tour.showScores then computeScores(players) else players
+              for
+                withRatingDiff <-
+                  if tour.showRatingDiffs then computeRatingDiffs(withScore) else fuccess(withScore)
+                withTiebreaks <- tour.tiebreaks.fold(fuccess(withRatingDiff)): tiebreaks =>
+                  roundRepo
+                    .idsByTourOrdered(sg.last)
+                    .map(_.lastOption)
+                    .map(computeTiebreaks(withRatingDiff, tiebreaks, _))
+              yield withTiebreaks
+        yield result
 
   private def sgIsParallel(tours: List[RelayTour]): Boolean =
     tours.headOption

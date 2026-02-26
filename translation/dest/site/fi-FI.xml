@@ -721,7 +721,6 @@
   <string name="keyCycleSelectedVariation">Vaihda valittu muunnelma</string>
   <string name="keyShowOrHideComments">näytä/piilota kommentit</string>
   <string name="keyEnterOrExitVariation">lisää/poista muunnelma</string>
-  <string name="keyRequestComputerAnalysis">Pyydä tietokoneanalyysiä, opi virheistäsi</string>
   <string name="keyPreviousBranch">Edellinen haara</string>
   <string name="keyNextBranch">Seuraava haara</string>
   <string name="toggleVariationArrows">Muunnelmanuolet päälle/pois</string>

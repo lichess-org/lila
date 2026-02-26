@@ -6,8 +6,6 @@ $vp-max-width: 1200px;
 
   background: $c-bg-box;
 
-  @include fluid-size('---box-padding', 15px, 50px);
-
   &-pad {
     @extend %box-padding;
 
@@ -48,5 +46,6 @@ $vp-max-width: 1200px;
 @media (min-width: at-least($small)) {
   .box {
     @include box-radius;
+    overflow: hidden;
   }
 }

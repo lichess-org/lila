@@ -46,8 +46,9 @@ case class Appeal(
       case (acc, msg) if msg.at.isAfter(nowInstant.minusWeeks(1)) => acc :+ msg
       case (acc, _) => acc
 
+    val recentCount = recentWithoutMod.size
     val recentSize = recentWithoutMod.foldLeft(0)(_ + _.text.size)
-    recentSize < Appeal.maxLength
+    recentSize < Appeal.maxLength || recentCount < 3
 
   def unread = copy(status = Appeal.Status.Unread)
   def read = copy(status = Appeal.Status.Read)

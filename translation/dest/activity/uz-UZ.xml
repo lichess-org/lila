@@ -39,12 +39,12 @@
     <item quantity="other">%1$s ta yozishmali %2$s oʻyinini tugatdi</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">%s ta oʻyinchini kuzatishni boshladi</item>
-    <item quantity="other">%s ta oʻyinchini kuzatishni boshladi</item>
+    <item quantity="one">%s ta oʻyinchiga obuna boʻldi</item>
+    <item quantity="other">%s ta oʻyinchiga obuna boʻldi</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">%s ta yangi kuzatuvchiga ega boʻldi</item>
-    <item quantity="other">%s ta yangi kuzatuvchiga ega boʻldi</item>
+    <item quantity="one">%s ta yangi obunachi qoʻshildi</item>
+    <item quantity="other">%s ta yangi obunachi qoʻshildi</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">%s ta biryoʻla seans oʻtkazdi</item>

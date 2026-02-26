@@ -337,9 +337,8 @@ $hover-bg: $m-primary_bg--mix-30;
       }
     }
     .name {
+      @include ellipsis;
       padding: 0.3em 0 0.3em 1em;
-      overflow: hidden;
-      text-overflow: ellipsis;
       width: 100%;
     }
     .time,
@@ -399,15 +398,16 @@ $hover-bg: $m-primary_bg--mix-30;
 
   &__info {
     @extend %box-neat, %flex-between, %tour-margin-horiz;
-    gap: 1em;
+    gap: 1ch;
     background: $c-bg-zebra;
     padding: 1em 2vw;
     > div {
       @extend %flex-center-nowrap;
-      gap: 1em;
+      gap: 1ch;
     }
     img {
-      height: 2em;
+      height: 1.7em;
+      aspect-ratio: 1;
     }
   }
 
@@ -630,8 +630,7 @@ $hover-bg: $m-primary_bg--mix-30;
       display: none;
     }
     .player-intro__name {
-      overflow: hidden;
-      text-overflow: ellipsis;
+      @include ellipsis;
     }
   }
 }
@@ -699,7 +698,6 @@ $hover-bg: $m-primary_bg--mix-30;
   }
   .mini-game__gauge {
     order: 0;
-    @extend %box-radius;
     tick {
       top: 1.5px;
       border-bottom-width: 3px;
@@ -708,8 +706,15 @@ $hover-bg: $m-primary_bg--mix-30;
 }
 
 .relay-tour__stats {
+  @extend %flex-column;
+  gap: 1em;
   .spinner {
     margin: 10em auto;
+  }
+  &__unique {
+    @extend %tour-margin-horiz;
+    background: $c-bg-zebra;
+    padding: 1em 2vw;
   }
   canvas {
     min-height: 50vh;

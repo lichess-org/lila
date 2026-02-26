@@ -27,9 +27,8 @@
   }
 
   &__actions {
-    @extend %flex-center;
+    @extend %flex-center-center;
     padding: 2em;
-    justify-content: center;
     gap: 2em;
   }
 }

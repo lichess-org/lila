@@ -15,10 +15,9 @@ group.radio {
 
   label,
   .label {
-    @extend %metal, %flex-center;
+    @extend %metal, %flex-center-center;
     @include prevent-select;
 
-    justify-content: center;
     padding: 10px;
     height: 100%;
     cursor: pointer;

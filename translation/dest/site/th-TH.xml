@@ -676,7 +676,6 @@
   <string name="keyCycleSelectedVariation">กู้คืน ตาเดินที่ถูกเลือก</string>
   <string name="keyShowOrHideComments">แสดง/ซ่อนความคิดเห็น</string>
   <string name="keyEnterOrExitVariation">เข้าสู่/ออกจากตัวแปรกติกา</string>
-  <string name="keyRequestComputerAnalysis">ข้อการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="keyPreviousBranch">แขนงก่อนหน้า</string>
   <string name="keyNextBranch">แขนงต่อไป</string>
   <string name="toggleVariationArrows">ควบคุมศรตาเดินแขนงอื่น</string>

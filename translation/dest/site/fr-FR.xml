@@ -721,7 +721,6 @@
   <string name="keyCycleSelectedVariation">Changer de variante</string>
   <string name="keyShowOrHideComments">montrer/cacher les annotations</string>
   <string name="keyEnterOrExitVariation">entrer dans/sortir d\'une variante</string>
-  <string name="keyRequestComputerAnalysis">Demandez une analyse informatique, apprenez de vos erreurs</string>
   <string name="keyPreviousBranch">Branche précédente</string>
   <string name="keyNextBranch">Branche suivante</string>
   <string name="toggleVariationArrows">Activer/désactiver les flèches de variantes</string>

@@ -164,6 +164,7 @@ final class RelayRound(
           )
           sVersion <- NoCrawlers(env.study.version(sc.study.id))
           embed <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
+          _ = env.relay.stats.viewers.hit(rt)
         yield Ok(embed).enforceCrossSiteIsolation
       )(
         studyC.privateUnauthorizedFu(sc.study),
@@ -183,6 +184,7 @@ final class RelayRound(
           isSubscribed <- ctx.userId.traverse(env.relay.api.isSubscribed(rt.tour.id, _))
           sVersion <- HTTPRequest.isLichessMobile(ctx.req).optionFu(env.study.version(study.id))
           photos <- env.relay.playerApi.photosJson(rt.tour.id)
+          _ = env.relay.stats.viewers.hit(rt)
         yield JsonOk:
           env.relay.jsonView
             .withUrlAndPreviews(
@@ -255,7 +257,8 @@ final class RelayRound(
       }(Unauthorized, Forbidden)
 
   def stats(id: RelayRoundId) = Open:
-    env.relay.statsJson(id).map(JsonOk)
+    Found(env.relay.api.byIdWithTour(id)): rt =>
+      env.relay.stats.getJson(rt).map(JsonOk)
 
   private def WithRoundAndTour(
       @nowarn ts: String,
@@ -329,6 +332,7 @@ final class RelayRound(
         page <- renderPage:
           views.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
       yield
+        env.relay.stats.viewers.hit(rt)
         if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation
         else Ok(page).withHeaders(crossOriginPolicy.unsafe*)
     )(

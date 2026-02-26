@@ -207,7 +207,7 @@ export default class LobbyController {
     this.flushHooksTimeout = this.flushHooksSchedule();
   };
 
-  private flushHooksSchedule = (): number => setTimeout(this.flushHooks, 8000);
+  private flushHooksSchedule = () => setTimeout(this.flushHooks, 8000);
 
   setTab = (tab: Tab) => {
     if (tab !== this.tab) {
@@ -297,10 +297,10 @@ export default class LobbyController {
   };
 
   hasOngoingRealTimeGame = () =>
-    !!this.data.nowPlaying.find(nowPlaying => nowPlaying.isMyTurn && nowPlaying.speed !== 'correspondence');
+    this.data.nowPlaying.some(nowPlaying => nowPlaying.isMyTurn && nowPlaying.speed !== 'correspondence');
 
   gameActivity = (gameId: string) => {
-    if (this.data.nowPlaying.find(p => p.gameId === gameId))
+    if (this.data.nowPlaying.some(p => p.gameId === gameId))
       xhr.nowPlaying().then(povs => {
         this.data.nowPlaying = povs;
         this.startWatching();

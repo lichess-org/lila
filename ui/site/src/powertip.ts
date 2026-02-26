@@ -515,6 +515,11 @@ class TooltipController {
 
     // fade out
     this.tipElement.css('visibility', 'hidden');
+    // move outside of viewport to hide `position: absolute` elements it contains
+    const coords = cssCoordinates();
+    coords.top = -9999;
+    coords.left = -9999;
+    this.tipElement.css(coords);
 
     // reset session and tooltip element
     this.scoped.isClosing = false;
@@ -551,11 +556,6 @@ class TooltipController {
       tipWidth,
       tipHeight,
       coords = cssCoordinates();
-
-    // set the tip to 0,0 to get the full expanded width
-    coords.top = 0;
-    coords.left = 0;
-    this.tipElement.css(coords);
 
     // to support elastic tooltips we need to check for a change in the
     // rendered dimensions after the tooltip has been positioned

@@ -721,7 +721,6 @@
   <string name="keyCycleSelectedVariation">Bekijk geselecteerde variant</string>
   <string name="keyShowOrHideComments">toon/verberg opmerkingen</string>
   <string name="keyEnterOrExitVariation">vermeld/stop variant</string>
-  <string name="keyRequestComputerAnalysis">Verzoek om computeranalyse, Leer van je fouten</string>
   <string name="keyPreviousBranch">Vorige vertakking</string>
   <string name="keyNextBranch">Volgende vertakking</string>
   <string name="toggleVariationArrows">Variatiepijlen in/uitschakelen</string>

@@ -73,6 +73,8 @@ trait LilaLibraryExtensions extends CoreExports:
 
     inline def raiseIfLeft: FuRaise[A, B] = v.fold(_.raise, fuccess)
 
+  extension [A](v: Try[A]) def toFuture: Fu[A] = Future.fromTry(v)
+
   extension [A, B](v: (A, B)) def map2[C](f: B => C): (A, C) = (v._1, f(v._2))
 
   extension (d: FiniteDuration)

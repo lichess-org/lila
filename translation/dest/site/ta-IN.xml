@@ -695,7 +695,6 @@
   <string name="keyCycleSelectedVariation">தேர்ந்தெடுக்கப்பட்ட மாறுபட்ட வரி சுழற்சி</string>
   <string name="keyShowOrHideComments">கருத்துகளை காட்டு/மறை</string>
   <string name="keyEnterOrExitVariation">மாறுபட்ட வரி உள்ளீடு/வெளியேறு</string>
-  <string name="keyRequestComputerAnalysis">கணினி பகுப்பாய்வைக் கோருங்கள், உங்கள் தவறுகளிலிருந்து கற்றுக்கொள்ளுங்கள்</string>
   <string name="keyPreviousBranch">முந்தைய கிளை</string>
   <string name="keyNextBranch">அடுத்த கிளை</string>
   <string name="toggleVariationArrows">மாறுபட்ட வரிகளின் அம்புகளை நிலைமாற்று</string>

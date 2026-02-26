@@ -20,8 +20,7 @@
       row-gap: 2em;
 
       > span {
-        @extend %flex-center;
-        justify-content: center;
+        @extend %flex-center-center;
         column-gap: 1em;
       }
     }

@@ -2,10 +2,10 @@ package lila.event
 package ui
 
 import play.api.data.Form
+import scalalib.paginator.Paginator
 
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
   import helpers.{ *, given }
@@ -16,6 +16,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
     Page(title)
       .css(css)
       .js(Esm("bits.flatpickr"))
+      .js(infiniteScrollEsmInit)
       .wrap: body =>
         main(cls := "page-menu")(modMenu, body)
 
@@ -72,7 +73,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
                 li(span(cls := t.toLowerCase), t)
         )
 
-  def manager(events: List[Event])(using Context) =
+  def manager(pager: Paginator[Event])(using Context) =
     val title = "Event manager"
     page(title = title):
       div(cls := "crud page-menu__content box")(
@@ -91,8 +92,8 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
               th
             )
           ),
-          tbody:
-            events.map: e =>
+          tbody(cls := "infinite-scroll")(
+            pager.currentPageResults.map: e =>
               tr(
                 td(
                   a(href := routes.Event.edit(e.id))(
@@ -109,7 +110,9 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag):
                   momentFromNow(e.finishesAt)
                 ),
                 td(a(cls := "text", href := routes.Event.show(e.id), dataIcon := Icon.Eye))
-              )
+              ),
+            pagerNextTable(pager, p => routes.Event.manager(p).url)
+          )
         )
       )
 

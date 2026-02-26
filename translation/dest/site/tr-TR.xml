@@ -721,7 +721,6 @@
   <string name="keyCycleSelectedVariation">Seçilen varyasyonu değiştir</string>
   <string name="keyShowOrHideComments">yorumları gizle/göster</string>
   <string name="keyEnterOrExitVariation">varyasyona gir/çık</string>
-  <string name="keyRequestComputerAnalysis">Bilgisayar analizi talep et, Hatalarından ders al</string>
   <string name="keyPreviousBranch">Önceki dal</string>
   <string name="keyNextBranch">Sıradaki dal</string>
   <string name="toggleVariationArrows">Varyasyon oklarını aç/kapat</string>

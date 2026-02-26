@@ -66,8 +66,9 @@ private final class HttpClient(
         if etag.startsWith("W/\"") then etag.drop(3).dropRight(1) else etag
 
   private def fetchResponse(req: StandaloneWSRequest): Fu[StandaloneWSResponse] =
-    Future
-      .fromTry(lila.common.url.parse(req.url))
+    lila.common.url
+      .parse(req.url)
+      .toFuture
       .flatMap: url =>
         req
           .get()

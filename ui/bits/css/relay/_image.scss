@@ -1,7 +1,6 @@
 .relay-image {
   &--fallback {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
     width: 100%;
     aspect-ratio: 2 / 1;
     background: linear-gradient(to bottom, $m-primary--alpha-70, $m-brag--alpha-70);

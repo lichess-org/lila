@@ -129,8 +129,7 @@
     }
   }
   &__actions {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
     font-size: 2em;
     margin: 0 0 2rem 0;
     .button {

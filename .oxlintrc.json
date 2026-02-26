@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript", "unicorn"],
+  "plugins": ["promise", "typescript", "unicorn"],
   "env": {
     "builtin": true
   },
@@ -27,9 +27,16 @@
       }
     ],
     "prefer-promise-reject-errors": "error",
+    "promise/no-callback-in-promise": "error",
+    "promise/no-multiple-resolved": "error",
+    "typescript/no-confusing-non-null-assertion": "error",
+    "typescript/no-extra-non-null-assertion": "error",
     "typescript/no-unnecessary-type-arguments": "error",
     "typescript/no-unnecessary-type-assertion": "error",
     "typescript/no-unnecessary-type-constraint": "error",
+    "unicorn/prefer-array-flat": "error",
+    "unicorn/prefer-array-flat-map": "error",
+    "unicorn/prefer-array-some": "error",
     "no-restricted-globals": [
       "error",
       "addEventListener",
@@ -217,9 +224,10 @@
   },
   "overrides": [
     {
-      "files": ["bin/**"],
+      "files": ["bin/**", "cron/**"],
       "rules": {
-        "no-unused-vars": "off"
+        "no-unused-vars": "off",
+        "unicorn/prefer-array-some": "off"
       }
     }
   ]

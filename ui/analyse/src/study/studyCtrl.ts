@@ -407,7 +407,7 @@ export default class StudyCtrl {
 
   xhrReload = throttlePromiseDelay(
     () => 400,
-    (withChapters: boolean = false, callback: () => void = () => {}) => {
+    (withChapters: boolean = false) => {
       this.vm.loading = true;
       return xhr
         .reload(
@@ -416,8 +416,7 @@ export default class StudyCtrl {
           this.vm.mode.sticky ? undefined : this.vm.chapterId,
           withChapters,
         )
-        .then(this.onReload, site.reload)
-        .then(callback);
+        .then(this.onReload, site.reload);
     },
   );
 
@@ -510,7 +509,7 @@ export default class StudyCtrl {
       this.vm.chapterId = id;
       this.chapters.scroller.request('smooth'); // sticky scroll request is set in `changeChapter`
       this.relay?.liveboardPlugin?.reset();
-      await this.xhrReload(false, () => componentCallbacks(id));
+      await this.xhrReload(false).then(() => componentCallbacks(id));
     }
     if (displayColumns() > 2) window.scrollTo(0, 0);
     return true;

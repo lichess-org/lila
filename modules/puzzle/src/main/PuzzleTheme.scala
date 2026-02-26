@@ -37,6 +37,7 @@ object PuzzleTheme:
   val bodenMate = PuzzleTheme(i.bodenMate, i.bodenMateDescription)
   val capturingDefender =
     PuzzleTheme(i.capturingDefender, i.capturingDefenderDescription)
+  val collinearMove = PuzzleTheme(i.collinearMove, i.collinearMoveDescription)
   val castling = PuzzleTheme(i.castling, i.castlingDescription)
   val clearance = PuzzleTheme(i.clearance, i.clearanceDescription)
   val cornerMate = PuzzleTheme(i.cornerMate, i.cornerMateDescription)
@@ -136,6 +137,7 @@ object PuzzleTheme:
     I18nKey.puzzle.advanced -> List(
       attraction,
       clearance,
+      collinearMove,
       discoveredCheck,
       defensiveMove,
       deflection,
@@ -245,6 +247,7 @@ object PuzzleTheme:
     attraction -> "3arGcr8n",
     backRankMate -> "VVzwe5vV",
     capturingDefender -> "2s7CaC2h",
+    collinearMove -> "lRxwUFY2",
     castling -> "edXPYM70",
     discoveredAttack -> "DYcrqEPt",
     doubleCheck -> "EXAQJVNm",

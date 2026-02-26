@@ -1,12 +1,9 @@
 import { enter, hl } from 'lib/view';
-import type LobbyController from '@/ctrl';
 import { variants, variantsForGameType } from '@/options';
 import { option } from 'lib/setup/option';
-import type { VNode } from 'snabbdom';
+import type SetupController from '@/setupCtrl';
 
-export const variantPicker = (ctrl: LobbyController) => {
-  const { setupCtrl } = ctrl;
-
+export const variantPicker = (setupCtrl: SetupController) => {
   if (site.blindMode) {
     return hl('div.variant.label-select', [
       hl('label', { attrs: { for: 'sf_variant' } }, i18n.site.variant),
@@ -35,7 +32,7 @@ export const variantPicker = (ctrl: LobbyController) => {
     toggleVariant();
   };
 
-  const children: (VNode | string)[] = [
+  const children = [
     hl('input.mselect__toggle', {
       attrs: { type: 'checkbox', id: inputId },
       on: { change: toggleVariant },

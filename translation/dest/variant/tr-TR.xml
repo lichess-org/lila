@@ -4,7 +4,7 @@
   <string name="standardTitle">Satrancın standart kuralları (FIDE)</string>
   <string name="chess960">Satranç960</string>
   <string name="chess960Title">Kendi sıranızdaki taşlarınızın başlangıç ​​pozisyonu rastgele belirlenir.</string>
-  <string name="kingOfTheHill">Tepenin Şahı</string>
+  <string name="kingOfTheHill">Merkezin Şahı</string>
   <string name="kingOfTheHillTitle">Oyunu kazanmak için şahınızı merkeze getirin.</string>
   <string name="threeCheck">Üç-Şah</string>
   <string name="threeCheckTitle">Oyunu kazanmak için rakibinize 3 kez şah çekin.</string>

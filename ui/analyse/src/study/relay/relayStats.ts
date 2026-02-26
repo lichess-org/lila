@@ -2,9 +2,15 @@ import { spinnerVdom as spinner } from 'lib/view';
 import type { RelayRound } from './interfaces';
 import { json as xhrJson } from 'lib/xhr';
 import { h } from 'snabbdom';
+import { numberFormat } from 'lib/i18n';
+
+type Data = {
+  viewers: any;
+  unique?: number;
+};
 
 export default class RelayStats {
-  data?: any;
+  data?: Data;
 
   constructor(
     readonly round: RelayRound,
@@ -34,5 +40,15 @@ export const statsView = (ctrl: RelayStats) =>
         },
       },
     },
-    ctrl.data ? h('canvas') : [spinner()],
+    ctrl.data
+      ? [
+          ctrl.data.unique
+            ? h('div.relay-tour__stats__unique.box', [
+                'Round unique viewers: ',
+                h('strong', numberFormat(ctrl.data.unique)),
+              ])
+            : null,
+          h('div', [h('canvas')]),
+        ]
+      : [spinner()],
   );

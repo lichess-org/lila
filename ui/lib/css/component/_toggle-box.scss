@@ -3,7 +3,7 @@
   border: $border;
   background: $c-bg-zebra;
   margin: 1rem 0 3rem 0;
-  padding: 2rem 2rem 0 2rem;
+  padding: 2rem var(---box-padding) 0 var(---box-padding);
 
   legend {
     @extend %box-radius;

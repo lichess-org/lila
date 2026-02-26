@@ -5,7 +5,7 @@ import com.softwaremill.tagging.*
 
 import lila.core.config
 import lila.core.fishnet.{ AnalysisAwaiter, FishnetRequest }
-import lila.memo.CacheApi
+import lila.memo.{ RateLimit, CacheApi }
 import lila.game.core.insight.InsightDb
 import lila.db.AsyncColl
 
@@ -23,20 +23,20 @@ final class Env(
     lightUserApi: lila.core.user.LightUserApi,
     msgApi: lila.core.msg.MsgApi,
     routeUrl: config.RouteUrl
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler, play.api.Mode, config.RateLimit):
 
   private val colls =
     TutorColls(insightDb(config.CollName("tutor_report")), insightDb(config.CollName("tutor_queue")))
 
   lazy val nbAnalysisSetting = settingStore[Int](
     "tutorNbAnalysis",
-    default = 30,
+    default = 100,
     text = "Number of fishnet analysis per tutor build".some
   ).taggedWith[NbAnalysis]
 
   lazy val parallelismSetting = settingStore[Int](
     "tutorParallelism",
-    default = 3,
+    default = 20,
     text = "Number of tutor reports to build in parallel".some
   ).taggedWith[Parallelism]
 
@@ -45,6 +45,8 @@ final class Env(
   val queue = wire[TutorQueue]
 
   val api = wire[TutorApi]
+
+  val limit = RateLimit[UserId](credits = 3, duration = 24.hour, key = "tutor.user")
 
 final private class TutorColls(val report: AsyncColl, val queue: AsyncColl)
 trait NbAnalysis

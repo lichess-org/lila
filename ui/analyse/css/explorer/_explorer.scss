@@ -1,22 +1,21 @@
 @import './config';
 
 .explorer-box {
-  position: relative;
-  flex: 3 1 0px;
-  white-space: nowrap;
-
   @include transition;
 
+  position: relative;
+  flex: 3 1 0;
+  white-space: nowrap;
   transition-delay: 0.3s;
   overflow-x: hidden;
   overflow-y: auto;
   font-size: 0.9em;
 
   &.reduced {
-    flex: 0.3 3 0px;
+    flex: 0.3 3 0;
 
     &:hover {
-      flex: 1 2 0px;
+      flex: 1 2 0;
     }
   }
 
@@ -39,8 +38,7 @@
   }
 
   .title {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @extend %ellipsis;
     user-select: text;
   }
   .explorer-title {

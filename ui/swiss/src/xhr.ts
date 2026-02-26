@@ -18,10 +18,9 @@ const join = (ctrl: SwissCtrl, password?: string) =>
 const withdraw = (ctrl: SwissCtrl) =>
   json(`/api/swiss/${ctrl.data.id}/withdraw`, { method: 'post' }).catch(onFail);
 
-const loadPage = (ctrl: SwissCtrl, p: number, callback?: () => void) =>
+const loadPage = (ctrl: SwissCtrl, p: number) =>
   json(`/swiss/${ctrl.data.id}/standing/${p}`).then(data => {
     ctrl.loadPage(data);
-    callback?.();
     ctrl.redraw();
   });
 

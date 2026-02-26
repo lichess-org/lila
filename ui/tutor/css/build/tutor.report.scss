@@ -11,14 +11,17 @@ $c-grade-avg: $m-brag_font-dim--mix-60;
 $c-grade-good: $m-good_bg--mix-90;
 
 @import '../util';
+@import '../waiting';
 @import '../layout';
 @import '../title';
 @import '../card';
 @import '../angles';
 @import '../concepts';
 @import '../grade';
-@import '../home';
+@import '../badge';
+@import '../report';
 @import '../openings';
 @import '../opening';
 @import '../phases';
 @import '../pieces';
+@import '../beta';

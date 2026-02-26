@@ -1,10 +1,11 @@
 .tutor {
   &-cards {
-    @extend %box-padding-horiz;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    @media (width < $xxx-small) {
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
     gap: $block-gap;
-    margin: var(---box-padding) 0;
     &--triple {
       grid-template-columns: 1fr;
       @media (min-width: at-least($medium)) {

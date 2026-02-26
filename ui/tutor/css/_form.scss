@@ -1,0 +1,18 @@
+.tutor__report-form {
+  .toggle-box {
+    margin-bottom: $block-gap;
+  }
+  .form-split {
+    padding-bottom: 2em;
+    gap: 1em;
+  }
+  .form-group {
+    margin: 0;
+  }
+  &__limit {
+    display: block;
+    margin: 0 0 0.5em 0;
+    font-size: 0.9em;
+    color: $c-font-dim;
+  }
+}

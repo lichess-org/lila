@@ -60,8 +60,7 @@
       }
 
       &__play {
-        @extend %flex-center, %box-radius-bottom;
-        justify-content: center;
+        @extend %flex-center-center, %box-radius-bottom;
         padding: 1.5em 0;
         color: $c-bot;
         &:hover {

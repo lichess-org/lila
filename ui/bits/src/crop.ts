@@ -49,7 +49,8 @@ export const mimeAccept: string = imageTypes.map(t => `image/${t}`).join(',');
 
 export function supported(src: string): boolean {
   const ext = src.split('.').pop()?.toLowerCase();
-  return Boolean(ext && imageTypes.find(t => ext.startsWith(t.split('+')[0])));
+  if (!ext) return false;
+  return imageTypes.some(t => ext.startsWith(t.split('+')[0]));
 }
 
 if (isSafari()) wireCropDialog(); // preload

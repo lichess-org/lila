@@ -693,7 +693,6 @@
   <string name="keyCycleSelectedVariation">Тандалған тармақтан шықпау</string>
   <string name="keyShowOrHideComments">пікірлерді көрсету/жасыру</string>
   <string name="keyEnterOrExitVariation">тармаққа кіру/шығу</string>
-  <string name="keyRequestComputerAnalysis">Компьютерлік талдауды бастаңыз, Әр қателіктен сабақ алыңыз</string>
   <string name="keyPreviousBranch">Алдынғы тармақ</string>
   <string name="keyNextBranch">Келесі тармақ</string>
   <string name="toggleVariationArrows">Тармақ нұсқағышты көрсету</string>

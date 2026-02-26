@@ -247,20 +247,23 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
 
   private val dataEnableTime = attr("data-enable-time")
   private val dataMinDate = attr("data-min-date")
+  private val dataMaxDate = attr("data-max-date")
   private val dataLocal = attr("data-local")
 
   def flatpickr(
       field: Field,
       withTime: Boolean = true,
       local: Boolean = false,
-      minDate: Option[String] = Some("today")
+      minDate: Option[String] = Some("today"),
+      maxDate: Option[String] = None
   ): Tag =
     input(field, klass = s"flatpickr")(
       withTime.option(dataEnableTime := true),
       local.option(dataLocal := true),
       dataMinDate := minDate.map:
         case "today" if local => "yesterday"
-        case d => d
+        case d => d,
+      dataMaxDate := maxDate
     )
 
   private lazy val exceptEmojis = data("except-emojis") := flairApi.adminFlairs.mkString(" ")

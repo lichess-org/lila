@@ -12,6 +12,7 @@ import lila.insight.{
   Question
 }
 import lila.rating.PerfType
+import lila.common.LilaFuture
 
 final private class TutorBuilder(
     colls: TutorColls,
@@ -21,34 +22,32 @@ final private class TutorBuilder(
     fishnet: TutorFishnet,
     messenger: lila.core.msg.MsgApi,
     routeUrl: lila.core.config.RouteUrl
-)(using Executor):
+)(using Executor, Scheduler):
 
   import TutorBsonHandlers.given
   private given InsightApi = insightApi
 
   val maxTime = fishnet.maxTime + 3.minutes
 
-  def apply(userId: UserId): Fu[Option[TutorFullReport]] = for
-    user <- userApi.withPerfs(userId).orFail(s"No such user $userId")
-    hasFresh <- hasFreshReport(user)
-    report <- (!hasFresh).so:
-      val chrono = lila.common.Chronometer.lapTry(produce(user))
-      chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
-      for
-        lap <- chrono.lap
-        report <- Future.fromTry(lap.result)
-        doc = bsonWriteObjTry(report).get ++ $doc(
-          "_id" -> s"${report.user}:${dateFormatter.print(report.at)}",
-          "millis" -> lap.millis
-        )
-        _ <- colls.report(_.insert.one(doc).void)
-        _ <- messenger.postPreset(userId, doneMsg).void
-      yield report.some
+  def apply(config: TutorConfig): Fu[TutorFullReport] = for
+    user <- userApi.withPerfs(config.user).orFail(s"No such user ${config.user}")
+    chrono = lila.common.Chronometer.lapTry(produce(user, config))
+    _ = chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
+    lap <- chrono.lap
+    report <- lap.result.toFuture
+    doc = bsonWriteObjTry(report).get ++ $doc("_id" -> report.id, "millis" -> lap.millis)
+    _ <- colls.report(_.insert.one(doc).void)
+    _ <- messenger.postPreset(config.user, doneMsg(report)).void
   yield report
 
-  private def produce(user: UserWithPerfs): Fu[TutorFullReport] = for
+  private def produce(user: UserWithPerfs, config: TutorConfig): Fu[TutorFullReport] = for
     _ <- insightApi.indexAll(user, force = false).monSuccess(_.tutor.buildSegment("insight-index"))
-    perfStats <- perfStatsApi(user, eligiblePerfKeysOf(user).map(PerfType(_)), fishnet.maxGamesToConsider)
+    perfStats <- perfStatsApi(
+      user,
+      config.period,
+      eligiblePerfKeysOf(user).map(PerfType(_)),
+      fishnet.maxGamesToConsider
+    )
       .monSuccess(_.tutor.buildSegment("perf-stats"))
     peerMatches <- findPeerMatches(perfStats.view.mapValues(_.stats.rating).toMap)
       .monSuccess(_.tutor.buildSegment("peer-matches"))
@@ -57,19 +56,14 @@ final private class TutorBuilder(
       .toList
       .sortBy(-_.perfStats.totalNbGames)
     _ <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor.buildSegment("fishnet-analysis"))
+    _ <- LilaFuture.sleep(1.second) // ensure fishnet analyses are indexed before asking questions
     perfs <- (tutorUsers.toNel.so(TutorPerfReport.compute)).monSuccess(_.tutor.buildSegment("perf-reports"))
-  yield TutorFullReport(user.id, nowInstant, perfs)
+  yield TutorFullReport(config, nowInstant, perfs)
 
   private[tutor] def eligiblePerfKeysOf(user: UserWithPerfs): List[PerfKey] =
-    lila.rating.PerfType.standardWithUltra.filter: pt =>
-      user.perfs(pt).latest.exists(_.isAfter(nowInstant.minusMonths(12)))
-
-  private def hasFreshReport(user: User): Fu[Boolean] = colls.report:
-    _.exists:
-      $doc(
-        TutorFullReport.F.user -> user.id,
-        TutorFullReport.F.at.$gt(nowInstant.minusMinutes(TutorFullReport.freshness.toMinutes.toInt))
-      )
+    supportedPerfs.filter: pt =>
+      val perf = user.perfs(pt)
+      perf.nb >= 30 && perf.latest.exists(_.isAfter(lila.insight.minDate))
 
   private def findPeerMatches(
       perfs: Map[PerfType, lila.insight.MeanRating]
@@ -103,10 +97,8 @@ final private class TutorBuilder(
         perfs.keys.foreach: pt =>
           lila.mon.tutor.peerMatch(matches.exists(_.perf == pt), pt.key).increment()
 
-  private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd")
-
-  lazy private val doneMsg =
-    lila.core.msg.MsgPreset("Tutor complete", s"Your tutor report is ready! ${routeUrl(routes.Tutor.home())}")
+  private def doneMsg(report: TutorFullReport) =
+    lila.core.msg.MsgPreset("Tutor complete", s"Your tutor report is ready! ${routeUrl(report.url.root)}")
 
 private object TutorBuilder:
 

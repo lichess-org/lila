@@ -26,9 +26,7 @@
   }
 
   .complete {
-    @extend %flex-center;
-
-    justify-content: center;
+    @extend %flex-center-center;
     flex: 1 1 50%;
     font-size: 1.3em;
     white-space: nowrap;
@@ -105,9 +103,7 @@
   }
 
   .vote {
-    @extend %flex-center;
-
-    justify-content: center;
+    @extend %flex-center-center;
     flex: 0 0 50%;
     cursor: pointer;
     color: $c-good;

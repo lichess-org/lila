@@ -41,7 +41,8 @@ final class TournamentApi(
     pause: Pause,
     waitingUsers: WaitingUsersApi,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.core.user.LightUserApi
+    lightUserApi: lila.core.user.LightUserApi,
+    ircApi: lila.irc.IrcApi
 )(using scheduler: Scheduler)(using
     Executor,
     akka.actor.ActorSystem,
@@ -59,7 +60,7 @@ final class TournamentApi(
   )(using me: Me): Fu[Tournament] =
     val tour = Tournament.fromSetup(setup)
     for
-      _ <- tournamentRepo.insert(tour)
+      _ <- createTour(tour)
       _ <- setup.teamBattleByTeam
         .orElse(tour.singleTeamId)
         .so: teamId =>
@@ -69,17 +70,21 @@ final class TournamentApi(
         join(tour.id, req, asLeader = false)(using _ => fuccess(leaderTeams.map(_.id)))
     yield tour
 
-  def update(old: Tournament, data: TournamentSetup): Fu[Tournament] =
+  private[tournament] def createTour(tour: Tournament)(using MyId) =
+    for _ <- tournamentRepo.insert(tour)
+    yield notifyBBB(tour, none)
+
+  def update(old: Tournament, data: TournamentSetup)(using MyId): Fu[Tournament] =
     updateTour(old, data, data.updateAll(old))
 
-  def apiUpdate(old: Tournament, data: TournamentSetup): Fu[Tournament] =
+  def apiUpdate(old: Tournament, data: TournamentSetup)(using MyId): Fu[Tournament] =
     updateTour(old, data, data.updatePresent(old))
 
   private[tournament] def updateTour(
       old: Tournament,
       data: TournamentSetup,
       tour: Tournament
-  ): Fu[Tournament] =
+  )(using MyId): Fu[Tournament] =
     val finalized = tour.copy(
       conditions = data.conditions
         .copy(teamMember = old.conditions.teamMember), // can't change that
@@ -90,6 +95,7 @@ final class TournamentApi(
       _ <- ejectPlayersNonLongerOnAllowList(old, finalized)
       _ <- ejectBotPlayersNonLongerAllowed(old, finalized)
       _ = cached.tourCache.clear(tour.id)
+      _ = notifyBBB(finalized, old.some)
     yield finalized
 
   private def ejectPlayersNonLongerOnAllowList(old: Tournament, tour: Tournament): Funit =
@@ -763,6 +769,18 @@ final class TournamentApi(
       .flatMap(gameRepo.light.gamesFromPrimary)
       .map:
         _.flatMap { LightPov(_, userId) }
+
+  private def notifyBBB(next: Tournament, prev: Option[Tournament])(using me: MyId) =
+    next.homepageSince.map: start =>
+      if prev.forall(_.homepageSince != start.some) then
+        ircApi.bbb(
+          me,
+          "arena",
+          next.name,
+          routes.Tournament.show(next.id),
+          start,
+          next.finishesAt.some
+        )
 
   private def Parallel[A: Zero](tourId: TourId, action: String)(
       fetch: TourId => Fu[Option[Tournament]]

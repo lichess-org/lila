@@ -137,12 +137,11 @@ button#microphone-button {
   }
 
   select {
+    @extend %ellipsis;
     flex: 1 4 auto;
     min-width: 0;
     margin-inline-start: 1ch;
     padding: 4px;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .range_value {

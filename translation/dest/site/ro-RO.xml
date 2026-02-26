@@ -760,7 +760,6 @@
   <string name="keyCycleSelectedVariation">Următoarea variație</string>
   <string name="keyShowOrHideComments">arată/ascunde comentarii</string>
   <string name="keyEnterOrExitVariation">acceptă/respinge variație</string>
-  <string name="keyRequestComputerAnalysis">Solicită analiza calculatorului, Învață din greșelile tale</string>
   <string name="keyPreviousBranch">Ramura precedentă</string>
   <string name="keyNextBranch">Ramura următoare</string>
   <string name="toggleVariationArrows">Comută săgețile de variație</string>

@@ -24,10 +24,12 @@ site.load.then(() => {
     });
   });
 
+  const tutorUser = $('.tutor__waiting__games').data('tutor-user');
   const waitingGames = Array.from($('.tutor__waiting-game')),
     nbWaitingGames = waitingGames.length;
-  if (nbWaitingGames) {
-    setTimeout(site.reload, 60 * 1000);
+  if (tutorUser && nbWaitingGames) {
+    setTimeout(() => location.assign(`/tutor/${tutorUser}?waiting=1`), 60 * 1000);
+
     waitingGames.forEach((el: HTMLElement, index: number) => {
       const lpv = Lpv(el, {
         pgn: el.dataset['pgn']!,

@@ -201,8 +201,7 @@
     }
 
     .gift {
-      @extend %flex-center;
-      justify-content: center;
+      @extend %flex-center-center;
       margin: -1em 0 1em 0;
     }
   }

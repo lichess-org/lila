@@ -18,9 +18,7 @@
     width: 100%;
 
     &::before {
-      @extend %flex-center;
-
-      justify-content: center;
+      @extend %flex-center-center;
       content: attr(data-symbol);
       font-size: 1.2em;
       font-weight: bold;

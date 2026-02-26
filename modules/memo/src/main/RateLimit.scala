@@ -53,6 +53,8 @@ final class RateLimit[K](
   def zero[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(using default: Zero[A]): A =
     apply[A](k, default.zero, cost, msg)(op)
 
+  def status(k: K) = Status(storage.getIfPresent(k).so(_._1), credits)
+
   def isLimited(k: K): Option[Instant] =
     enforce.yes
       .so(storage.getIfPresent(k))
@@ -74,6 +76,9 @@ object RateLimit:
     case Through, Limited
 
   case class Limited(key: String, msg: String, until: Instant)
+
+  case class Status(used: Int, max: Int):
+    def reached = used >= max
 
   trait RateLimiter[K]:
     def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A

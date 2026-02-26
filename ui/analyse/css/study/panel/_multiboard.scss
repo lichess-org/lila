@@ -118,17 +118,22 @@
     flex: 1 1 auto;
   }
   &__gauge {
+    @extend %box-radius;
     order: 1;
-    @extend %box-radius-right;
     position: relative;
     flex: 0 0 4%;
     max-width: 1.5em;
-    border: $border;
-    border-left: 0;
-    margin-top: -1px;
     overflow: hidden;
     opacity: 0.4;
+    margin-left: 4px;
     background: linear-gradient(to top, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      inset: 0;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset;
+    }
 
     &__black {
       display: none;
@@ -151,13 +156,6 @@
       .mini-game__gauge__black {
         display: block;
       }
-      &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        inset: 0;
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset;
-      }
       tick {
         position: absolute;
         width: 100%;
@@ -167,9 +165,6 @@
         height: 50%;
       }
     }
-  }
-  .mini-game__gauge ~ .mini-game__board cg-board {
-    border-radius: 4px 0 0 4px;
   }
 }
 

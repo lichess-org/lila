@@ -9,6 +9,7 @@ body {
   ---main-margin: 0px;
   ---sticky-gap: 0px;
   ---block-gap: 10px;
+  @include fluid-size('---box-padding', 15px, 50px);
 
   @include mq-site-header-tall {
     ---site-header-height: #{$site-header-tall-height};

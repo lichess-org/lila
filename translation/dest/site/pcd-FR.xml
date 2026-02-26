@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">Paramètres de la partie</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Défi</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Défier un ami</string>
   <string name="playAgainstComputer">Jouer contre l\'ordinateur</string>
   <string name="gameMode">Mode de jeu</string>
   <string name="createLobbyGame">Créer une partie dans le salon</string>
@@ -721,7 +721,6 @@
   <string name="keyCycleSelectedVariation">Changer de variante</string>
   <string name="keyShowOrHideComments">montrer/cacher les annotations</string>
   <string name="keyEnterOrExitVariation">entrer dans/sortir d\'une variante</string>
-  <string name="keyRequestComputerAnalysis">Demandez une analyse informatique, apprenez de vos erreurs</string>
   <string name="keyPreviousBranch">Branche précédente</string>
   <string name="keyNextBranch">Branche suivante</string>
   <string name="toggleVariationArrows">Activer/désactiver les flèches de variantes</string>
@@ -1024,4 +1023,5 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="search">Rechercher</string>
   <string name="clearSearch">Réinitialiser la recherche</string>
   <string name="tags">Étiquettes</string>
+  <string name="enPassant">Prise en passant ?</string>
 </resources>

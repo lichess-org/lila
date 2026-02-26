@@ -212,7 +212,7 @@ export default class SetupController {
       );
   }, 300);
 
-  ratedModeDisabled = (): boolean =>
+  ratedModeDisabled = () =>
     // anonymous games cannot be rated
     !this.root.me ||
     this.timeControl.mode() === 'unlimited' ||
@@ -235,7 +235,7 @@ export default class SetupController {
       this.gameMode() === 'rated' &&
       this.timeControl.isRealTime();
     const id = this.timeControl.clockStr();
-    return valid && this.root.pools.find(p => p.id === id)
+    return valid && this.root.pools.some(p => p.id === id)
       ? {
           id,
           range: this.ratingRange(),
@@ -243,7 +243,7 @@ export default class SetupController {
       : null;
   };
 
-  propsToFormData = (color: ColorChoice): FormData =>
+  propsToFormData = (color: ColorChoice) =>
     xhr.form({
       variant: keyToId(this.variant(), variants).toString(),
       fen: this.variant() === 'fromPosition' ? this.fen() : undefined,
@@ -269,25 +269,29 @@ export default class SetupController {
     !this.gameType ||
     (this.validFen() && this.timeControl.valid(this.minimumTimeIfReal()) && this.validConstraints());
 
-  private validConstraints = (): boolean => {
+  private invalid = <A>(forced: A | undefined, current: A) => forced !== undefined && forced !== current;
+
+  private validConstraints = () => {
     if (this.forced) {
-      const invalid = <A>(forced: A | undefined, current: A) => forced !== undefined && forced !== current;
-      if (invalid(this.forced.variant, this.variant())) return false;
-      if (invalid(this.forced.mode, this.gameMode())) return false;
-      if (invalid(this.forced.timeMode, this.timeControl.mode())) return false;
-      if (invalid(this.forced.color, this.color())) return false;
-      if (this.timeControl.mode() === 'correspondence' && invalid(this.forced.days, this.timeControl.days()))
+      if (this.invalid(this.forced.variant, this.variant())) return false;
+      if (this.invalid(this.forced.mode, this.gameMode())) return false;
+      if (this.invalid(this.forced.timeMode, this.timeControl.mode())) return false;
+      if (this.invalid(this.forced.color, this.color())) return false;
+      if (
+        this.timeControl.mode() === 'correspondence' &&
+        this.invalid(this.forced.days, this.timeControl.days())
+      )
         return false;
       if (this.timeControl.mode() === 'realTime') {
-        if (invalid(this.forced.time, this.timeControl.time())) return false;
-        if (invalid(this.forced.increment, this.timeControl.increment())) return false;
+        if (this.invalid(this.forced.time, this.timeControl.time())) return false;
+        if (this.invalid(this.forced.increment, this.timeControl.increment())) return false;
       }
-      if (invalid(this.forced.fen?.replace(/_/g, ' '), this.fen())) return false;
+      if (this.invalid(this.forced.fen?.replace(/_/g, ' '), this.fen())) return false;
     }
     return true;
   };
 
-  minimumTimeIfReal = (): number => (this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0);
+  minimumTimeIfReal = () => (this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0);
 
   submit = async () => {
     if (this.root.selectedPoolButton) {
@@ -324,14 +328,14 @@ export default class SetupController {
     } catch (_) {
       this.loading = false;
       this.root.redraw();
-      alert('Sorry, we encountered an error while creating your game. Please try again.');
+      await alert('Sorry, we encountered an error while creating your game. Please try again.');
       return;
     }
 
     const { ok, redirected, url } = response;
 
     if (!ok) {
-      const errs: { [key: string]: string } = await response.json();
+      const errs: Record<string, string> = await response.json();
       await alert(
         errs
           ? Object.keys(errs)

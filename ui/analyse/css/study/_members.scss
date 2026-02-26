@@ -21,9 +21,7 @@
   }
 
   .status {
-    @extend %flex-center;
-
-    justify-content: center;
+    @extend %flex-center-center;
     width: 2.4em;
     margin-inline-end: 0.1em;
     transition: 2.5s;

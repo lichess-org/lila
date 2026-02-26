@@ -78,9 +78,7 @@
       min-height: 3.5em;
 
       & > * {
-        @extend %flex-center;
-
-        justify-content: center;
+        @extend %flex-center-center;
         flex: 0 0 2em;
         text-align: center;
       }

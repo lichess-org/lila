@@ -131,10 +131,9 @@
 
   .resultStreak .streak,
   .playStreak .streak {
-    @extend %ellipsis;
+    @extend %nowrap-ellipsis;
 
     margin: 1em 0 1em 1.5em;
-    white-space: nowrap;
   }
 
   .playStreak {

@@ -37,8 +37,7 @@ $c-slider: $c-setup;
         }
 
         .desc {
-          overflow: hidden;
-          text-overflow: ellipsis;
+          @extend %ellipsis;
         }
       }
     }
@@ -131,9 +130,8 @@ $c-slider: $c-setup;
   }
 
   .footer {
-    @extend %flex-center;
+    @extend %flex-center-center;
     position: relative;
-    justify-content: center;
     padding: 1.5rem;
   }
 

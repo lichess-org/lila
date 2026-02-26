@@ -26,6 +26,7 @@ final class InsightPerfStatsApi(
 
   def apply(
       user: User,
+      period: PairOf[Instant],
       perfTypes: List[PerfType],
       gameIdsPerPerf: Max
   ): Fu[Map[PerfType, InsightPerfStats.WithGameIds]] =
@@ -34,7 +35,10 @@ final class InsightPerfStatsApi(
         import framework.*
         import InsightEntry.BSONFields as F
         val filters = List(lila.insight.Filter(InsightDimension.Perf, perfTypes))
-        Match(InsightStorage.selectUserId(user.id) ++ pipeline.gameMatcher(filters)) -> List(
+        val gameSelector = InsightStorage.selectUserId(user.id) ++
+          pipeline.gameMatcher(filters) ++
+          dateBetween(F.date, period._1.some, period._2.some)
+        Match(gameSelector) -> List(
           Sort(Descending(F.date)),
           Limit(maxGames.value),
           Project(

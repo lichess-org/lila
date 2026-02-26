@@ -67,7 +67,7 @@ export default class ForecastCtrl {
   isCandidate = (fc: ForecastStep[]): boolean => {
     fc = this.truncate(fc);
     if (!this.isLongEnough(fc)) return false;
-    return !this.forecasts().find(f => this.contains(f, fc));
+    return !this.forecasts().some(f => this.contains(f, fc));
   };
 
   save = () => {

@@ -89,8 +89,7 @@ $player-height: 1.6rem;
 
     .team,
     .name {
-      overflow: hidden;
-      text-overflow: ellipsis;
+      @extend %ellipsis;
       max-width: fit-content;
       flex: 1;
     }

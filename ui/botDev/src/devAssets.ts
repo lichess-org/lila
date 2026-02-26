@@ -83,7 +83,7 @@ export class DevAssets {
   }
 
   isLocalOnly(key: string): boolean {
-    return Boolean(this.find(k => k === key, 'local') && !this.find(k => k === key, 'server'));
+    return Boolean(this.findAsset(k => k === key, 'local') && !this.findAsset(k => k === key, 'server'));
   }
 
   isDeleted(key: string): boolean {
@@ -94,7 +94,7 @@ export class DevAssets {
   }
 
   nameOf(key: string): string | undefined {
-    return this.find(k => k === key)?.[1];
+    return this.findAsset(k => k === key)?.[1];
   }
 
   assetBlob(type: AssetType, key: string): AssetBlob | undefined {
@@ -228,7 +228,7 @@ export class DevAssets {
     pubsub.emit('botdev.import.book', key, oldKey);
   };
 
-  private find(
+  private findAsset(
     fn: (key: string, name: string, type: AssetType) => boolean,
     maps: 'local' | 'server' | 'both' = 'both',
   ): [key: string, name: string, type: AssetType] | undefined {
