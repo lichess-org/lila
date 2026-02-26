@@ -26,6 +26,7 @@
   <string name="castlingDescription">Ασφαλίστε τον βασιλιά και αναπτύξτε τον πύργο για επίθεση.</string>
   <string name="capturingDefender">Αιχμαλώτιση αμυνόμενου κομματιού</string>
   <string name="capturingDefenderDescription">Απομάκρυνση κομματιού που είναι σημαντικό για την υπεράσπιση άλλου κομματιού, επιτρέποντας την αιχμαλώτιση του πλέον ανυπεράσπιστου κομματιού στην επόμενη κίνηση.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Συγγραμμική κίνηση</string>
   <string name="cornerMate">Ματ στη γωνία</string>
   <string name="cornerMateDescription">Ο πύργος ή η βασίλισσα περιορίζουν τον αντίπαλο βασιλιά στη γωνία, με τον ίππο να δίνει ματ.</string>
   <string name="crushing">Σαρωτική επίθεση</string>
