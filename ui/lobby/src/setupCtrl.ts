@@ -262,8 +262,7 @@ export default class SetupController {
       color,
     });
 
-  validFen = () =>
-    !this.gameType || this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
+  validFen = () => !this.gameType || this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
 
   valid = () =>
     !this.gameType ||

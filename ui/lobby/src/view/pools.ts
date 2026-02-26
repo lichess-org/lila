@@ -29,7 +29,14 @@ export const hooks = (ctrl: LobbyController): Hooks =>
     el.addEventListener('keydown', handler);
   });
 
-export function render({ pools, poolMember, opts, isEditingPoolButtons, selectedPoolButton, me }: LobbyController) {
+export function render({
+  pools,
+  poolMember,
+  opts,
+  isEditingPoolButtons,
+  selectedPoolButton,
+  me,
+}: LobbyController) {
   const customisations = customiser.getAll(me?.username);
   const member = poolMember;
   return pools
