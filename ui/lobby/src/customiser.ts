@@ -79,7 +79,7 @@ export const renderCustomisedButton = (
       ? customisation.settings.gameMode === 'rated'
         ? i18n.site.rated
         : i18n.site.casual
-      : '';
+      : 'Level ' + customisation.settings.aiLevel;
 
   return hl(
     'div.lpool',
