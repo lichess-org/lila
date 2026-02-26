@@ -356,7 +356,7 @@ export default class SetupController {
   };
 
   headlessSubmit = async (gameType: GameType) => {
-    this.gameType = gameType as Exclude<GameType, 'local'>;
+    this.gameType = gameType;
     this.loadPropsFromStore();
     this.root.isHeadlessSubmission = true;
     await this.submit();
