@@ -53,8 +53,8 @@
   <string name="endgame">Endshpil</string>
   <string name="endgameDescription">Oʻyinning yakuniy bosqichidagi taktik usul.</string>
   <string name="enPassantDescription">\"En passant\" qoidasiga asoslangan taktika; raqib piyodasi ikki qadam yurib sizning piyodangiz bilan yonma-yon kelib qolsa, uni goʻyo bir qadam yurganidek urib olishingiz mumkin.</string>
-  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Epolet moti</string>
-  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Shohga shoh berilganda, uning ikki yonidagi kataklarni oʻzining donalari toʻsib turgan boʻladi.</string>
+  <string name="epauletteMate">Epolet moti</string>
+  <string name="epauletteMateDescription">Shohga shoh berilganda, uning ikki yonidagi kataklarni oʻzining donalari toʻsib turgan boʻladi.</string>
   <string name="exposedKing">Ochiq qolgan shoh</string>
   <string name="exposedKingDescription">Atrofida himoyachilari kam qolgan shohga qarshi taktik zarba; bu holat koʻpincha mot bilan yakunlanadi.</string>
   <string name="fork">Vilka</string>
@@ -73,8 +73,8 @@
   <string name="pillsburysMateDescription">Rux bilan beriladigan mot; bunda fil raqib shohini burchakka siqib chiqarishga va qochish yoʻllarini yopishga yordam beradi.</string>
   <string name="morphysMate">Morphy moti</string>
   <string name="morphysMateDescription">Fil bilan shohga mot berish; bunda rux shohning qochish yoʻllarini toʻsib, uning harakatini cheklab turadi.</string>
-  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Qaldirgʻoch dumi moti</string>
-  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Tashqi koʻrinishi qaldirgʻoch dumiga yoki \"V\" shakliga oʻxshash boʻlgan mot turi.</string>
+  <string name="swallowstailMate">Qaldirgʻoch dumi moti</string>
+  <string name="swallowstailMateDescription">Tashqi koʻrinishi qaldirgʻoch dumiga yoki \"V\" shakliga oʻxshash boʻlgan mot turi.</string>
   <string name="triangleMate">Uchburchak mot</string>
   <string name="triangleMateDescription">Farzin va rux bitta gorizontal yoki vertikalda raqib shohidan bir katak uzoqlikda joylashadi. Ular oʻzaro bir katak masofa bilan ajralib, shoh bilan birga uchburchak shaklini hosil qiladi.</string>
   <string name="vukovicMate">Vukovich moti</string>
