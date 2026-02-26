@@ -184,8 +184,9 @@ function makeCustomiserButton(
     {
       on: {
         click: () => {
-          overrideStoredLobbySetup(customisation!.gameType, ctrl.me?.username);
+          if(customisation) overrideStoredLobbySetup(customisation.gameType, ctrl.me?.username);
           ctrl.setupCtrl.gameType = buttonInfo.gameType;
+          ctrl.setupCtrl.loadPropsFromStore();
           ctrl.redraw();
         },
       },

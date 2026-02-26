@@ -70,7 +70,7 @@ export default class SetupController {
       aiLevel: 1,
     }));
 
-  private loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
+  loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
     const storeProps = this.store[this.gameType!]();
     // Load props from the store, but override any store values with values found in forceOptions
     this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onDropdownChange);
