@@ -38,6 +38,9 @@
       &--ai.button::before {
         content: $licon-Cpu;
       }
+      &--restore.button::before {
+        content: $licon-Back;
+      }
       &--friend-user.button::before {
         content: $licon-Swords;
       }
