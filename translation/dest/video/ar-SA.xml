@@ -3,6 +3,7 @@
   <string name="chessVideos">فيديوهات شطرنج</string>
   <string name="allVideosAreFree">كل الفيديوهات مجانية للجميع</string>
   <string name="selectTagsToFilter">أدخل تصنيفات لتصفية الفيديوهات </string>
+  <string name="weHaveCarefullySelectedX">لقد اخترنا %s فيديوهات مختارة بحذر لحد الآن!</string>
   <string name="freeChessVideos">فيديوهات شطرنج مجانية</string>
   <string name="freeForAll">مجاني للجميع</string>
   <string name="noVideosForTheseTags">لا يوجد فيديوهات لهذا التصنيف</string>
