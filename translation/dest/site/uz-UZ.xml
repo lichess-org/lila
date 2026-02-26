@@ -469,7 +469,7 @@
   <string name="unblock">Blokdan chiqarish</string>
   <string name="xStartedFollowingY">%1$s %2$sga obuna boʻldi</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s kuzatuvchi</item>
+    <item quantity="one">%s obunachi</item>
     <item quantity="other">%s obunachi</item>
   </plurals>
   <plurals name="nbFollowing">
@@ -1022,5 +1022,5 @@ Loyiha faoliyati, uni rivojlantirish va barcha xarajatlar faqat foydalanuvchilar
   <string name="search">Qidirish</string>
   <string name="clearSearch">Qidiruvni tozalash</string>
   <string name="tags">Teglar</string>
-  <string name="enPassant">“En passant” huquqi</string>
+  <string name="enPassant">Kesib oʻtish</string>
 </resources>
