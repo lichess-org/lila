@@ -29,33 +29,33 @@ export const hooks = (ctrl: LobbyController): Hooks =>
     el.addEventListener('keydown', handler);
   });
 
-export function render(ctrl: LobbyController) {
-  const customisations = customiser.getAll(ctrl.me?.username);
-  const member = ctrl.poolMember;
-  return ctrl.pools
+export function render({ pools, poolMember, opts, isEditingPoolButtons, selectedPoolButton, me }: LobbyController) {
+  const customisations = customiser.getAll(me?.username);
+  const member = poolMember;
+  return pools
     .map(pool => {
       const active = member?.id === pool.id;
       const transp = !!member && !active;
-      const selected = ctrl.isEditingPoolButtons() && ctrl.selectedPoolButton === pool.id;
+      const selected = isEditingPoolButtons() && selectedPoolButton === pool.id;
       const renderCustomised = customiser.renderCustomisedButton(
         pool.id,
         customisations[pool.id],
         selected,
         transp,
-        ctrl.isEditingPoolButtons(),
+        isEditingPoolButtons(),
       );
       if (!active && renderCustomised) return renderCustomised;
       else
         return h(
           'div.lpool',
           {
-            class: { active, transp, selected, customisable: ctrl.isEditingPoolButtons() },
+            class: { active, transp, selected, customisable: isEditingPoolButtons() },
             attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
           },
           [
             h('div.clock', `${pool.lim}+${pool.inc}`),
             active
-              ? member.range && ctrl.opts.showRatings
+              ? member.range && opts.showRatings
                 ? h('div.range', member.range.replace('-', '–'))
                 : spinnerVdom()
               : h('div.perf', pool.perf),
@@ -66,7 +66,7 @@ export function render(ctrl: LobbyController) {
       h(
         'div.lpool',
         {
-          class: { transp: !!member, selected: ctrl.isEditingPoolButtons() },
+          class: { transp: !!member, selected: isEditingPoolButtons() },
           attrs: { role: 'button', 'data-id': 'custom', tabindex: '0' },
         },
         i18n.site.custom,

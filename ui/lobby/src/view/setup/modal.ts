@@ -44,7 +44,7 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
                 {
                   attrs: { disabled },
                   class: { disabled },
-                  on: { click: ctrl.setupCtrl.submit },
+                  on: { click: setupCtrl.submit },
                 },
                 ctrl.selectedPoolButton
                   ? i18n.site.save

@@ -262,10 +262,10 @@ export default class SetupController {
       color,
     });
 
-  validFen = (): boolean =>
+  validFen = () =>
     !this.gameType || this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
 
-  valid = (): boolean =>
+  valid = () =>
     !this.gameType ||
     (this.validFen() && this.timeControl.valid(this.minimumTimeIfReal()) && this.validConstraints());
 
