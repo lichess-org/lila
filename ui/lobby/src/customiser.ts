@@ -1,8 +1,9 @@
 import { storage } from 'lib/storage';
 import { variants } from './options';
 import type { Customisation, GameType } from './interfaces';
-import { type VNode, h } from 'snabbdom';
 import * as licon from 'lib/licon';
+import type LobbyController from './ctrl';
+import { hl, type VNode, snabDialog } from 'lib/view';
 
 const custoStoreKey = (username?: string) => `lobby.customisation.${username || 'anon'}`;
 const lobbySetupStoreKey = (username: string | undefined, gameType: GameType) =>
@@ -74,19 +75,122 @@ export const renderCustomisedButton = (
         : '∞';
   const subLabel = customisation.settings.gameMode === 'rated' ? i18n.site.rated : i18n.site.casual;
 
-  return h(
+  return hl(
     'div.lpool',
     {
       class: { selected, custom: true, transp },
       attrs: { role: 'button', 'data-id': poolId, tabindex: '0' },
     },
     [
-      h('div.clock', [
-        h('span', { attrs: typeIconAttrs }),
-        variantIcon ? h('span', { attrs: { 'data-icon': variantIcon } }) : null,
+      hl('div.clock', [
+        hl('span', { attrs: typeIconAttrs }),
+        variantIcon ? hl('span', { attrs: { 'data-icon': variantIcon } }) : null,
         timeLabel,
       ]),
-      h('div.perf', subLabel),
+      hl('div.perf', subLabel),
     ],
   );
 };
+
+export function renderCustomiserModalContent(ctrl: LobbyController): VNode[] | null {
+  if (!ctrl.isEditingPoolButtons() || !ctrl.selectedPoolButton) return null;
+  const customisation = get(ctrl.me?.username, ctrl.selectedPoolButton);
+  return [
+    hl('h2#lobby-setup-modal-title', 'Customise button ' + ctrl.selectedPoolButton),
+    hl('div.setup-content', [
+      hl('div.lobby__table', [
+        hl('div.lobby__start', [
+          makeRestoreButton(ctrl, customisation),
+          ...lobbyButtons.map(b => makeCustomiserButton(ctrl, customisation, b)),
+        ]),
+      ]),
+    ]),
+  ];
+}
+
+export function renderCustomiserModal(ctrl: LobbyController): VNode[] | null {
+  if (!ctrl.isEditingPoolButtons() || !ctrl.selectedPoolButton) return null;
+  const customisation = get(ctrl.me?.username, ctrl.selectedPoolButton);
+
+  return [
+    snabDialog({
+      attrs: { dialog: { 'aria-labelledBy': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
+      class: 'game-setup',
+      css: [{ hashed: 'lobby.setup' }],
+      onClose: () => {
+        ctrl.selectedPoolButton = undefined;
+        ctrl.redraw();
+      },
+      modal: true,
+      vnodes: [
+        hl('h2#lobby-setup-modal-title', 'Customise button ' + ctrl.selectedPoolButton),
+        hl('div.setup-content', [
+          hl('div.lobby__table', [
+            hl('div.lobby__start', [
+              makeRestoreButton(ctrl, customisation),
+              ...lobbyButtons.map(b => makeCustomiserButton(ctrl, customisation, b)),
+            ]),
+          ]),
+        ]),
+      ],
+      onInsert: dlg => {
+        //ctrl.closeCustomiserModal = dlg.close;
+        dlg.show();
+      },
+    }),
+  ];
+}
+
+type ButtonInfo = { gameType: GameType; label: string; title?: string };
+const lobbyButtons: ButtonInfo[] = [
+  {
+    gameType: 'hook',
+    label: i18n.site.createLobbyGame,
+  },
+  {
+    gameType: 'friend',
+    label: i18n.site.challengeAFriend,
+  },
+  {
+    gameType: 'ai',
+    label: i18n.site.playAgainstComputer,
+  },
+];
+
+function makeRestoreButton(ctrl: LobbyController, customisation: Customisation | undefined) {
+  if (!customisation) return null;
+
+  return hl(
+    'button.button.button-metal.lobby__start__button.lobby__start__button--restore',
+    {
+      on: {
+        click: () => {
+          remove(ctrl.me?.username, ctrl.selectedPoolButton!);
+          //ctrl.closeCustomiserModal?.();
+          ctrl.redraw();
+        },
+      },
+    },
+    'Restore quick pairing',
+  );
+}
+
+function makeCustomiserButton(
+  ctrl: LobbyController,
+  customisation: Customisation | undefined,
+  buttonInfo: ButtonInfo,
+) {
+  return hl(
+    `button.button.button-metal.lobby__start__button.lobby__start__button--${buttonInfo.gameType}`,
+    {
+      on: {
+        click: () => {
+          overrideStoredLobbySetup(ctrl.selectedPoolButton!, ctrl.me?.username);
+          ctrl.setupCtrl.gameType = buttonInfo.gameType;
+          ctrl.redraw();
+        },
+      },
+    },
+    buttonInfo.label + (customisation && customisation.gameType === buttonInfo.gameType ? ' *' : ''),
+  );
+}

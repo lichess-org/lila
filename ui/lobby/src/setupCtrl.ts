@@ -265,7 +265,8 @@ export default class SetupController {
   validFen = (): boolean => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
 
   valid = (): boolean =>
-    this.validFen() && this.timeControl.valid(this.minimumTimeIfReal()) && this.validConstraints();
+    !this.gameType ||
+    (this.validFen() && this.timeControl.valid(this.minimumTimeIfReal()) && this.validConstraints());
 
   private validConstraints = (): boolean => {
     if (this.forced) {
@@ -301,6 +302,7 @@ export default class SetupController {
     const poolMember = this.hookToPoolMember(color);
     if (poolMember) {
       this.root.enterPool(poolMember);
+      this.gameType = null;
       this.closeModal?.();
       return;
     }
@@ -353,12 +355,9 @@ export default class SetupController {
     this.gameType = gameType as Exclude<GameType, 'local'>;
     this.loadPropsFromStore();
     this.root.isHeadlessSubmission = true;
-    try {
-      await this.submit();
-    } finally {
-      this.root.isHeadlessSubmission = false;
-      this.root.redraw();
-      this.gameType = null;
-    }
+    await this.submit();
+    this.root.isHeadlessSubmission = false;
+    this.gameType = null;
+    this.root.redraw();
   };
 }

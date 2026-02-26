@@ -8,16 +8,17 @@ import { ratingView } from './components/ratingView';
 import { fenInput } from './components/fenInput';
 import { levelButtons } from './components/levelButtons';
 import { timePickerAndSliders } from 'lib/setup/view/timeControl';
+import { renderCustomiserModalContent } from '@/customiser';
 
 export default function setupModal(ctrl: LobbyController): VNode[] | null {
   const { setupCtrl } = ctrl;
-  if (!setupCtrl.gameType) return null;
-  const buttonText = {
-    hook: i18n.site.createLobbyGame,
-    friend: setupCtrl.friendUser ? i18n.site.challengeX(setupCtrl.friendUser) : i18n.site.challengeAFriend,
-    ai: i18n.site.playAgainstComputer,
-  }[setupCtrl.gameType];
+  if (ctrl.isHeadlessSubmission) return null;
+  if (!setupCtrl.gameType && !ctrl.selectedPoolButton) return null;
+
   const disabled = !setupCtrl.valid() || setupCtrl.loading;
+
+  const content = !setupCtrl.gameType ? renderCustomiserModalContent(ctrl) : views[setupCtrl.gameType](ctrl);
+
   return [
     snabDialog({
       attrs: { dialog: { 'aria-labelledBy': 'lobby-setup-modal-title', 'aria-modal': 'true' } },
@@ -26,24 +27,35 @@ export default function setupModal(ctrl: LobbyController): VNode[] | null {
       onClose: () => {
         setupCtrl.closeModal = undefined;
         setupCtrl.gameType = null;
+        ctrl.selectedPoolButton = undefined;
         setupCtrl.root.redraw();
       },
       modal: true,
       vnodes: [
         hl('h2#lobby-setup-modal-title', i18n.site.gameSetup),
-        hl('div.setup-content', views[setupCtrl.gameType](ctrl)),
-        hl('div.footer', [
-          hl(
-            `button.button.button-metal.lobby__start__button.lobby__start__button--${setupCtrl.friendUser ? 'friend-user' : setupCtrl.gameType}`,
-            {
-              attrs: { disabled },
-              class: { disabled },
-              on: { click: ctrl.setupCtrl.submit },
-            },
-            ctrl.selectedPoolButton ? i18n.site.save : buttonText,
-          ),
-          setupCtrl.loading && spinnerVdom(),
-        ]),
+        hl('div.setup-content', content),
+        setupCtrl.gameType
+          ? hl('div.footer', [
+              hl(
+                `button.button.button-metal.lobby__start__button.lobby__start__button--${setupCtrl.friendUser ? 'friend-user' : setupCtrl.gameType}`,
+                {
+                  attrs: { disabled },
+                  class: { disabled },
+                  on: { click: ctrl.setupCtrl.submit },
+                },
+                ctrl.selectedPoolButton
+                  ? i18n.site.save
+                  : {
+                      hook: i18n.site.createLobbyGame,
+                      friend: setupCtrl.friendUser
+                        ? i18n.site.challengeX(setupCtrl.friendUser)
+                        : i18n.site.challengeAFriend,
+                      ai: i18n.site.playAgainstComputer,
+                    }[setupCtrl.gameType],
+              ),
+              setupCtrl.loading && spinnerVdom(),
+            ])
+          : null,
       ],
       onInsert: dlg => {
         setupCtrl.closeModal = dlg.close;
