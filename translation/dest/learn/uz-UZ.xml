@@ -101,7 +101,7 @@ shoh bermoqda!</string>
   <string name="attackYourOpponentsKing">Raqib shohiga shunday hujum qilingki, undan himoyalanishning iloji boʻlmasin!</string>
   <string name="mateInOneComplete">Barakalla! Shaxmatda aynan shunday gʻalaba qozoniladi!</string>
   <string name="intermediate">Oʻrta daraja</string>
-  <string name="boardSetup">Doska sozlashlari</string>
+  <string name="boardSetup">Taxtani terish</string>
   <string name="howTheGameStarts">O\'yin qanday boshlanadi</string>
   <string name="boardSetupIntro">Ikki qoʻshin jangga shay holatda bir-biriga roʻbaro turibdi.</string>
   <string name="thisIsTheInitialPosition">Bu — har bir shaxmat oʻyinining boshlangʻich holati!
@@ -120,13 +120,16 @@ Uni farzinning yoniga qoʻying.</string>
 Davom etish uchun ixtiyoriy yurishni amalga oshiring.</string>
   <string name="boardSetupComplete">Barakalla! Endi siz shaxmat taxtasini terishni bilasiz.</string>
   <string name="castling">Rokirovka</string>
-  <string name="theSpecialKingMove">Qirol maxsus yurishi</string>
-  <string name="castlingIntro">Qirolingizni xavfsiz joyga o\'tkazing va to\'rangizni hujumga shaylang!</string>
-  <string name="castleKingSide">Qirol tomondan rakorivkani amalga oshirish uchun qirolingizni ikki katakga yuring!</string>
-  <string name="castleQueenSide">Farzin tomondan rakorivkani amalga oshirish uchun qirolingizni ikki katakga yuring!</string>
-  <string name="theKnightIsInTheWay">Ot yo\'limizda! Uni yuring va qirol tomondan rokirovka qiling.</string>
-  <string name="castleKingSideMovePiecesFirst">Rakirovka qirol tomondan! Siz avval sipohlarni olishingiz kerak.</string>
-  <string name="castleQueenSideMovePiecesFirst">Farzin tomondan rakirovka! Siz avval sipohlarni olishingiz kerak.</string>
+  <string name="theSpecialKingMove">Shohning maxsus yurishi</string>
+  <string name="castlingIntro">Shohingizni xavfsiz joyga oʻtkazing, ruxingizni esa hujumga shaylang!</string>
+  <string name="castleKingSide">Qisqa rokirovka qilish uchun shohingizni ikki katak suring!</string>
+  <string name="castleQueenSide">Uzun rokirovka qilish uchun shohingizni ikki katak suring!</string>
+  <string name="theKnightIsInTheWay">Ot yoʻlingizga toʻgʻanoq boʻlyapti!
+Uni suring va qisqa rokirovka qiling.</string>
+  <string name="castleKingSideMovePiecesFirst">Qisqa rokirovka qiling!
+Avval donalarni olib chiqishingiz kerak.</string>
+  <string name="castleQueenSideMovePiecesFirst">Uzun rokirovka qiling!
+Avval donalarni olib chiqishingiz kerak.</string>
   <string name="youCannotCastleIfMoved">Siz rakirovka qila olmaysiz agarda shohingiz yoki to\'rangiz bundan oldin yurish qilgan bo\'lsa.</string>
   <string name="youCannotCastleIfAttacked">Siz rakirovka qila olmaysiz agarda ayni damda shohga hujum bo\'lib turgan bo\'lsa! Avval shohdan qutuling keyin rakirovka qiling!</string>
   <string name="findAWayToCastleKingSide">Qirol tomondan rakirovka qilish yo\'lini toping!</string>
