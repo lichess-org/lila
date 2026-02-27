@@ -26,6 +26,8 @@
   <string name="castlingDescription">Shohni xavfsiz joyga oʻtkazing va ruxni hujumga tayyorlang.</string>
   <string name="capturingDefender">Himoyachini yoʻq qilish</string>
   <string name="capturingDefenderDescription">Boshqa bir donani himoya qilayotgan muhim donani urib olish. Bu esa oʻsha himoyasiz qolgan donani keyingi yurishda qoʻlga kiritish imkonini beradi.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Chiziqli yurish</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Ikki donasi bir-biriga roʻbaroʻ kelgan holatda, bir dona dushman donasini urmasdan hujum chizigʻi boʻylab harakatlanadi.</string>
   <string name="cornerMate">Burchak moti</string>
   <string name="cornerMateDescription">Rux yoki farzin yordamida shohni burchakka qamab, ot bilan mot qilish.</string>
   <string name="crushing">Mutlaq ustunlik</string>
