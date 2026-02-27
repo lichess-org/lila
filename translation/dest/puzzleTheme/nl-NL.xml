@@ -27,6 +27,7 @@
   <string name="capturingDefender">De verdediger slaan</string>
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk een volgende zet kan worden geslagen.</string>
   <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Collineaire zet</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Twee vijandige stukken staan tegenover elkaar, en één glipt langs de lijn van aanval zonder het stuk van de vijand te slaan.</string>
   <string name="cornerMate">Mat in een hoek</string>
   <string name="cornerMateDescription">Dring de koning met behulp van een toren of dame en een paard een hoek in om hem schaakmat te zetten.</string>
   <string name="crushing">Verpletteren</string>
