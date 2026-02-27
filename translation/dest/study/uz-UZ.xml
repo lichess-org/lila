@@ -10,25 +10,25 @@
   <string name="allStudies">Barcha ta\'limlar</string>
   <string name="studiesCreatedByX">%s tomonidan yaratilgan ta\'limlar</string>
   <string name="noneYet">Xozircha yo\'q.</string>
-  <string name="hot">Qaynoq</string>
-  <string name="dateAddedNewest">Qo\'shilgan vaqt (yangiroq)</string>
-  <string name="dateAddedOldest">Qo\'shilgan vaqt (eskiroq)</string>
+  <string name="hot">Trendda</string>
+  <string name="dateAddedNewest">Avval yangilari</string>
+  <string name="dateAddedOldest">Avval eskilari</string>
   <string name="recentlyUpdated">Yaqinda yangilangan</string>
-  <string name="mostPopular">Eng ommabop</string>
-  <string name="alphabetical">Alfavitli</string>
-  <string name="addNewChapter">Yangi bo\'lim qo\'shish</string>
+  <string name="mostPopular">Eng mashhur</string>
+  <string name="alphabetical">Alifbo tartibida</string>
+  <string name="addNewChapter">Yangi bob qoʻshish</string>
   <plurals name="nbChapters">
-    <item quantity="one">%s bo\'lim</item>
-    <item quantity="other">%s bo\'limlar</item>
+    <item quantity="one">%s ta bob</item>
+    <item quantity="other">%s ta bob</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s o\'yin</item>
-    <item quantity="other">%s o\'yinlar</item>
+    <item quantity="one">%s ta oʻyin</item>
+    <item quantity="other">%s ta oʻyin</item>
   </plurals>
-  <string name="addMembers">A’zo qo‘shish</string>
+  <string name="addMembers">Aʼzo qoʻshish</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s a\'zo</item>
-    <item quantity="other">%s a\'zolar</item>
+    <item quantity="one">%s ta aʼzo</item>
+    <item quantity="other">%s ta aʼzo</item>
   </plurals>
   <string name="inviteToTheStudy">Ta\'lim uchun chorlash</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Iltimos faqat o\'zingiz taniydigan odamlarni va haqiqatdan ham qo\'shilishni xohlayotganlarni ta\'limga qo\'shing.</string>
