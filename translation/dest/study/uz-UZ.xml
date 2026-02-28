@@ -168,5 +168,15 @@
   <string name="perPage">Har bir sahifada %s ta</string>
   <string name="getTheTour">Yordam kerakmi? Platforma bilan tanishing!</string>
   <string name="welcomeToLichessStudyTitle">Lichess saboqlariga xush kelibsiz!</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Ulashildi va saqlandi</string>
+  <string name="sharedAndSavedText">Boshqa aʼzolar yurishlaringizni real vaqtda koʻrib turishadi!&lt;br&gt;Bundan tashqari, hamma narsa abadiy saqlab qolinadi.</string>
   <string name="studyMembersTitle">Saboq aʼzolari</string>
+  <string name="studyChaptersTitle">Saboq boblari</string>
+  <string name="studyChaptersText">Saboq bir nechta bobdan iborat boʻlishi mumkin.&lt;br&gt;Har bir bob oʻzining boshlangʻich pozitsiyasi va yurishlar iyerarxiyasiga ega.</string>
+  <string name="commentPositionTitle">Pozitsiyani sharhlash</string>
+  <string name="annotatePositionTitle">Pozitsiyaga belgilar qoʻshish</string>
+  <string name="conclusionTitle">Vaqt ajratganingiz uchun rahmat</string>
+  <string name="fromInitialPositionTitle">Boshlangʻich pozitsiyadan</string>
+  <string name="customPositionTitle">Maxsus pozitsiya</string>
+  <string name="loadExistingLichessGameTitle">Mavjud Lichess oʻyinini yuklash</string>
 </resources>
