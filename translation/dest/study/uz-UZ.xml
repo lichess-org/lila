@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="private">Yashirin</string>
-  <string name="myStudies">Mening ta\'limlarim</string>
-  <string name="studiesIContributeTo">Men ishtirok etayotgan ta\'limlar</string>
-  <string name="myPublicStudies">Mening ochiq ta\'limlarim</string>
-  <string name="myPrivateStudies">Mening yashirin ta\'limlarim</string>
-  <string name="myFavoriteStudies">Mening yoqtirgan ta\'limlarim</string>
-  <string name="whatAreStudies">Ta\'limlar nima o\'zi?</string>
-  <string name="allStudies">Barcha ta\'limlar</string>
-  <string name="studiesCreatedByX">%s tomonidan yaratilgan ta\'limlar</string>
+  <string name="private">Maxfiy</string>
+  <string name="myStudies">Saboqlarim</string>
+  <string name="studiesIContributeTo">Men hammuallif boʻlgan saboqlar</string>
+  <string name="myPublicStudies">Ochiq saboqlarim</string>
+  <string name="myPrivateStudies">Maxfiy saboqlarim</string>
+  <string name="myFavoriteStudies">Saralangan saboqlarim</string>
+  <string name="whatAreStudies">Saboqlar oʻzi nima?</string>
+  <string name="allStudies">Barcha saboqlar</string>
+  <string name="studiesCreatedByX">%s tomonidan yaratilgan saboqlar</string>
   <string name="noneYet">Xozircha yo\'q.</string>
   <string name="hot">Trendda</string>
   <string name="dateAddedNewest">Avval yangilari</string>
@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Yaqinda yangilangan</string>
   <string name="mostPopular">Eng mashhur</string>
   <string name="alphabetical">Alifbo tartibida</string>
+  <string name="relevant">Aloqador</string>
   <string name="addNewChapter">Yangi bob qoʻshish</string>
   <plurals name="nbChapters">
     <item quantity="one">%s ta bob</item>
