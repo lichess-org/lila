@@ -13,8 +13,8 @@
 	<string name="timeReasonable">Meʼyorida shaxmat oʻynabsiz.</string>
 	<string name="timeHowManyMoves">Shuncha vaqt mobaynida nechta yurish qildingiz?</string>
 	<plurals name="nbMovesPlayed">
-		<item quantity="one">%s ta yurish qildingiz</item>
-		<item quantity="other">%s ta yurish qildingiz</item>
+		<item quantity="one">%s yurish qildingiz</item>
+		<item quantity="other">%s yurish qildingiz</item>
 	</plurals>
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Bu %s yogʻoch surgandek!</string>
 	<string name="movesStandardPiecesWeight">Standart shaxmat donasini ogʻirligi taxminan 40 gramm</string>
