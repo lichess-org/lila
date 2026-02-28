@@ -26,6 +26,8 @@
   <string name="castlingDescription">Traga o seu rei para a segurança, e prepare sua torre para o ataque.</string>
   <string name="capturingDefender">Capture o defensor</string>
   <string name="capturingDefenderDescription">Remover uma peça que seja importante na defesa de outra, permitindo que agora a peça indefesa seja capturada na jogada seguinte.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Lance colinear</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Duas peças opostas se encaram, e uma desliza ao longo da linha de ataque sem capturar a peça inimiga.</string>
   <string name="cornerMate">Mate de canto</string>
   <string name="cornerMateDescription">Confine o rei no canto usando uma torre ou dama e um cavalo para executar o xeque-mate.</string>
   <string name="crushing">Punindo</string>
