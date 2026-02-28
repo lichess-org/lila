@@ -88,11 +88,11 @@ export const renderCustomisedButton = (
       attrs: { role: 'button', 'data-id': poolId, tabindex: '0' },
     },
     [
-      hl('div.clock', [
+      hl('div.icons', [
         hl('span', { attrs: typeIconAttrs }),
         variantIcon ? hl('span', { attrs: { 'data-icon': variantIcon } }) : null,
-        timeLabel,
       ]),
+      hl('div.clock', timeLabel),
       hl('div.perf', subLabel),
     ],
   );
