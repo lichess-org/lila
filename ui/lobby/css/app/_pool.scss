@@ -101,6 +101,19 @@
     }
   }
 
+  &.custom {
+    position: relative;
+
+    .icons {
+      position: absolute;
+      top: 0.2em;
+      left: 0.2em;
+      display: flex;
+      gap: 0.2em;
+      flex-direction: column; 
+    }
+  }
+
   [data-icon] {
     pointer-events: none;
   }
