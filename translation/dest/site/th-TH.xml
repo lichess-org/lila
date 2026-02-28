@@ -125,6 +125,10 @@
   <string name="bestMoveArrow">ศรตาเดินที่ดีที่สุด</string>
   <string name="showVariationArrows">แสดงศรการเดินอื่นๆ</string>
   <string name="evaluationGauge">แถบประเมิน</string>
+  <string name="visualMotifs">แสดงสัญลักษณ์</string>
+  <string name="undefendedPieces">หมากไร้ตัวป้องกัน</string>
+  <string name="pinnedPieces">หมากที่โดนกด</string>
+  <string name="checkableKing">คิงที่โดนรุกได้</string>
   <string name="multipleLines">จำนวนเส้นทางการเดิน</string>
   <string name="cpus">จำนวนซีพียูที่ใช้</string>
   <string name="memory">หน่วยความจำที่ใช้</string>
@@ -218,6 +222,7 @@
   <string name="changeUsernameNotSame">เฉพาะตัวอักษรพิมพ์ใหญ่พิมพ์เล็กที่เปลี่ยนได้ เช่น \"johndoe\" เป็น \"JohnDoe\"</string>
   <string name="changeUsernameDescription">เปลี่ยนชื่อผู้ใช้ของคุณ สามารถทำได้เพียงครั้งเดียวเท่านั้น และอนุญาตให้เปลี่ยนได้เฉพาะตัวอักษรพิมพ์ใหญ่พิมพ์เล็ก</string>
   <string name="signupUsernameHint">กรุณาใช้ชื่อที่สุภาพและเป็นมิตรต่อทุกวัย คุณไม่สามารถเปลี่ยนมันได้หลังจากนี้ ชื่อบัญชีที่ไม่มีความเหมาะสมจะถูกปิด</string>
+  <string name="signupEmailPromise">เราจะส่งอีเมลเฉพาะเรื่องที่เกี่ยวข้องกับบัญชีของคุณเท่านั้น และจะไม่เปิดเผยอีเมลของคุณให้ผู้อื่นทราบโดยเด็ดขาด</string>
   <string name="password">รหัสผ่าน</string>
   <string name="changePassword">เปลี่ยนรหัสผ่าน</string>
   <string name="changeEmail">เปลี่ยนอีเมล</string>
@@ -396,6 +401,7 @@
   <string name="screenshotCurrentPosition">จับภาพหน้าจอตำแหน่งปัจจุบัน</string>
   <string name="gameAsGIF">เกมเป็น GIF</string>
   <string name="playerNames">ชื่อผู้เล่น</string>
+  <string name="moveAnnotations">สัญกรณ์การเดิน</string>
   <string name="pasteTheFenStringHere">วางสตริง FEN ที่นี่</string>
   <string name="pasteThePgnStringHere">วางสตริง PGN ที่นี่</string>
   <string name="orUploadPgnFile">หรืออัปโหลดไฟล์ PGN</string>
