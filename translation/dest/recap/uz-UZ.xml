@@ -19,8 +19,8 @@
 	<string name="movesOfWoodPushed" comment="%s is a weight in grams or kilograms">Bu %s yogʻoch surgandek!</string>
 	<string name="movesStandardPiecesWeight">Standart shaxmat donasini ogʻirligi taxminan 40 gramm</string>
 	<plurals name="nbMoves">
-		<item quantity="one">%s ta yurish</item>
-		<item quantity="other">%s ta yurish</item>
+		<item quantity="one">%s yurish</item>
+		<item quantity="other">%s yurish</item>
 	</plurals>
 	<string name="chessFoes">Sizning eng yaxshi raqiblaringiz</string>
 	<plurals name="nbGrams">
@@ -37,8 +37,8 @@
 		<item quantity="other">%s ta oʻyinda oqlar sifatida eng ko′p oʻynalgan debyutingiz</item>
 	</plurals>
 	<plurals name="openingsMostPlayedAsBlack" comment="%s is the number of games">
-		<item quantity="one">%s ta oʻyinda qoralar sifatida eng ko′p oʻynalgan debyutingiz</item>
-		<item quantity="other">%s ta oʻyinda qoralar sifatida eng ko′p oʻynalgan debyutingiz</item>
+		<item quantity="one">%s ta oʻyinda qoralar sifatida eng koʻp oʻynalgan debyutingiz</item>
+		<item quantity="other">%s ta oʻyinda qoralar sifatida eng koʻp oʻynalgan debyutingiz</item>
 	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
 		<item quantity="one">%s ta masalani baholaganingiz uchun rahmat.</item>
