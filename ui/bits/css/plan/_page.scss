@@ -279,12 +279,15 @@
     }
 
     h2 {
-      margin: 300px 0 0.4em 0;
+      margin: 188px 0 0.4em 0;
       border-bottom: $border;
     }
 
     a {
       color: $c-font-page;
+      &:hover {
+        color: $c-link;
+      }
     }
   }
 }
