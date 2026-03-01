@@ -39,7 +39,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
       menu = perfUi.menu(perfReport, "opening".some)(using full.config)
     )(cls := "tutor__opening tutor-layout"):
       frag(
-        div(cls := "box")(
+        div(cls := "tutor-header box")(
           boxTop(
             h1(
               a(href := full.url.angle(perfReport.perf, "opening"), dataIcon := Icon.LessThan),
@@ -97,7 +97,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
       cls := "tutor__openings tutor-layout"
     ):
       frag(
-        div(cls := "box")(
+        div(cls := "tutor-header box")(
           boxTop(
             h1(
               a(href := full.config.url.perf(report.perf), dataIcon := Icon.LessThan),
