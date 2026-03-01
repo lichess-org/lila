@@ -55,8 +55,8 @@
     <item quantity="other">%s ta biryoʻla seansda qatnashdi</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">%s ta oʻquv qoʻllanmasini yaratdi</item>
-    <item quantity="other">%s ta oʻquv qoʻllanmasini yaratdi</item>
+    <item quantity="one">%s ta saboq yaratdi</item>
+    <item quantity="other">%s ta saboq yaratdi</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">%s ta arena turnirida qatnashdi</item>
