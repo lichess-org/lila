@@ -117,4 +117,11 @@ bilan ajrating, u gorizontal chiziqni tasvirlaydi.</string>
   <string name="xIsAKidAccountWarning">%1$s bola akkounti, shu sababli sizning xabaringizni qabul qila olmaydi. Siz ularga taklif URL ini qo‘lingiz bilan yetkazishingiz kerak: %2$s</string>
   <string name="moveToClass">%s ga oʻtish</string>
   <string name="moveToAnotherClass">Boshqa sinfga o\'ting</string>
+  <string name="allowMessagingBetweenStudents">Oʻquvchilar oʻzaro xabar almashishiga ruxsat berish</string>
+  <string name="allowMessagingBetweenStudentsDesc">Bu faqat siz oʻquvchilaringiz uchun yaratgan akkauntlarga tegishli.</string>
+  <string name="quickLoginCode">Tez kirish kodi</string>
+  <string name="quickLoginCodes">Tez kirish kodlari</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Oʻquvchilaringizni Lichessʼga kiritish uchun %s sahifasida ushbu kodlardan foydalaning.</string>
+  <string name="quickLoginCodesDesc2">Kodlarning amal qilish muddati tugasa ham, oʻquvchilar tizimdan oʻzlari chiqib ketmagunlaricha tizimda qoladilar.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">%s muddati tugaydi</string>
 </resources>
