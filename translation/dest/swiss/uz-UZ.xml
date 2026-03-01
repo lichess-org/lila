@@ -11,8 +11,8 @@
     <item quantity="other">%s ta tur</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="one">%s ta Shveysarcha tur</item>
-    <item quantity="other">%s ta Shveysarcha tur</item>
+    <item quantity="one">%s turdan iborat shveysarcha</item>
+    <item quantity="other">%s turdan iborat shveysarcha</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Kuniga bitta tur</item>
