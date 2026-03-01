@@ -58,7 +58,7 @@
   <string name="notifyStreamStart">Strimer translyatsiya boshlaganida</string>
   <string name="notifyInboxMsg">Yangi kiruvchi xabar</string>
   <string name="notifyForumMention">Forumdagi izohlarda sizni eslatishganda</string>
-  <string name="notifyInvitedStudy">Oʻquv qoʻllanmasiga taklif olganda</string>
+  <string name="notifyInvitedStudy">Saboqqa taklif olganda</string>
   <string name="notifyGameEvent">Yozishmali oʻyinlardagi yangilanishlar</string>
   <string name="notifyChallenge">Chorlovlar</string>
   <string name="notifyTournamentSoon">Turnir boshlanishigacha oz vaqt qolganda</string>
