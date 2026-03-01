@@ -1,15 +1,46 @@
 const tcs = ['standard', 'rapid', 'blitz'];
 
-const encodePlayer = player => {
-  tcs.forEach(tc => {
-    if (player[tc]) player[tc] = player[tc].map(encodePoint);
-  });
-};
-
 // [ '2025-12', 1828 ] -> 2025121828
-const encodePoint = ([date, elo]) => Number.parseInt(date.replace('-', '') + elo.toString().padStart(4, '0'));
-
-db.fide_player_rating.find().forEach(player => {
-  encodePlayer(player);
-  db.fide_player_rating.updateOne({ _id: player._id }, { $set: player });
+const encodePointExpr = pointExpr => ({
+  $add: [
+    {
+      $multiply: [
+        {
+          $toInt: {
+            $replaceAll: {
+              input: { $arrayElemAt: [pointExpr, 0] },
+              find: '-',
+              replacement: '',
+            },
+          },
+        },
+        10000,
+      ],
+    },
+    { $arrayElemAt: [pointExpr, 1] },
+  ],
 });
+
+const setStage = tcs.reduce((acc, tc) => {
+  acc[tc] = {
+    $cond: [
+      { $isArray: `$${tc}` },
+      {
+        $map: {
+          input: `$${tc}`,
+          as: 'point',
+          in: {
+            $cond: [{ $isArray: '$$point' }, encodePointExpr('$$point'), '$$point'],
+          },
+        },
+      },
+      `$${tc}`,
+    ],
+  };
+  return acc;
+}, {});
+
+db.fide_player_rating.updateMany(
+  { $or: tcs.map(tc => ({ [tc]: { $elemMatch: { $type: 'array' } } })) },
+  [{ $set: setStage }],
+);
