@@ -155,24 +155,21 @@ export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewConte
           : bindNonPassive(
               'wheel',
               stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                if (ctrl.gamebookPlay()) return;
                 const target = e.target as HTMLElement;
                 if (
-                  target.tagName !== 'PIECE' &&
-                  target.tagName !== 'SQUARE' &&
-                  target.tagName !== 'CG-BOARD'
+                  ctrl.gamebookPlay() ||
+                  !scroll ||
+                  !['PIECE', 'SQUARE', 'CG-BOARD'].includes(target.tagName)
                 )
                   return;
-                if (scroll) {
-                  e.preventDefault();
-                  console.log(e.deltaMode);
-                  accumulatedDelta += e.deltaY;
-                  if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
-                  accumulatedDelta = 0;
-                  if (e.deltaY > 0) control.next(ctrl);
-                  else if (e.deltaY < 0) control.prev(ctrl);
-                  ctrl.redraw();
-                }
+                e.preventDefault();
+                console.log(e.deltaMode);
+                accumulatedDelta += e.deltaY;
+                if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
+                accumulatedDelta = 0;
+                if (e.deltaY > 0) control.next(ctrl);
+                else if (e.deltaY < 0) control.prev(ctrl);
+                ctrl.redraw();
               }),
             ),
     },

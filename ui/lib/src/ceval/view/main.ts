@@ -379,17 +379,16 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
             'wheel',
             stepwiseScroll((e: WheelEvent, scroll: boolean) => {
               if (scroll) e.preventDefault();
-              if (pvIndex !== null) {
-                accumulatedDelta += e.deltaY;
-                if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
-                accumulatedDelta = 0;
-                if (e.deltaY < 0 && pvIndex > 0 && scroll) pvIndex -= 1;
-                else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1 && scroll) pvIndex += 1;
-                const pvBoard = pvMoves[pvIndex];
-                if (pvBoard) {
-                  const [fen, uci] = pvBoard.split('|');
-                  ctrl.ceval.setPvBoard({ fen, uci });
-                }
+              if (pvIndex === null) return;
+              accumulatedDelta += e.deltaY;
+              if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
+              accumulatedDelta = 0;
+              if (e.deltaY < 0 && pvIndex > 0 && scroll) pvIndex -= 1;
+              else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1 && scroll) pvIndex += 1;
+              const pvBoard = pvMoves[pvIndex];
+              if (pvBoard) {
+                const [fen, uci] = pvBoard.split('|');
+                ctrl.ceval.setPvBoard({ fen, uci });
               }
             }),
           );

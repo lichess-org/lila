@@ -115,21 +115,14 @@ export default function (ctrl: PuzzleCtrl): VNode {
                   'wheel',
                   stepwiseScroll((e: WheelEvent, scroll: boolean) => {
                     const target = e.target as HTMLElement;
-                    if (
-                      target.tagName !== 'PIECE' &&
-                      target.tagName !== 'SQUARE' &&
-                      target.tagName !== 'CG-BOARD'
-                    )
-                      return;
-                    if (scroll) {
-                      e.preventDefault();
-                      accumulatedDelta += e.deltaY;
-                      if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
-                      accumulatedDelta = 0;
-                      if (e.deltaY > 0) control.next(ctrl);
-                      else if (e.deltaY < 0) control.prev(ctrl);
-                      ctrl.redraw();
-                    }
+                    if (!scroll || !['PIECE', 'SQUARE', 'CG-BOARD'].includes(target.tagName)) return;
+                    e.preventDefault();
+                    accumulatedDelta += e.deltaY;
+                    if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
+                    accumulatedDelta = 0;
+                    if (e.deltaY > 0) control.next(ctrl);
+                    else if (e.deltaY < 0) control.prev(ctrl);
+                    ctrl.redraw();
                   }),
                 ),
         },

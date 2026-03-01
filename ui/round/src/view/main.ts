@@ -46,15 +46,14 @@ export function main(ctrl: RoundController): VNode {
                   : bind(
                       'wheel',
                       stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                        if (scroll && !ctrl.isPlaying()) {
-                          e.preventDefault();
-                          accumulatedDelta += e.deltaY;
-                          if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
-                          accumulatedDelta = 0;
-                          if (e.deltaY > 0) next(ctrl);
-                          else if (e.deltaY < 0) prev(ctrl);
-                          ctrl.redraw();
-                        }
+                        if (!scroll || ctrl.isPlaying()) return;
+                        e.preventDefault();
+                        accumulatedDelta += e.deltaY;
+                        if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
+                        accumulatedDelta = 0;
+                        if (e.deltaY > 0) next(ctrl);
+                        else if (e.deltaY < 0) prev(ctrl);
+                        ctrl.redraw();
                       }),
                       undefined,
                       false,
