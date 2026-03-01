@@ -404,22 +404,16 @@ export const playerLinkConfig = (ctrl: RelayPlayers, player: StudyPlayer, withTi
 export const fidePageLinkAttrs = (p: StudyPlayer, blank?: boolean): Attrs | undefined =>
   p.fideId ? { href: `/fide/${p.fideId}/redirect`, ...(blank ? { target: '_blank' } : {}) } : undefined;
 
-const isRelayPlayer = (p: StudyPlayer | RelayPlayer): p is RelayPlayer => 'score' in p;
-
-const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): VNode =>
+const renderPlayerTipHead = (ctrl: RelayPlayers, p: RelayPlayer): VNode =>
   hl('div.tpp__player', [
     playerPhoto(p, ctrl, 'medium'),
     hl('div.tpp__player__info', [
       hl(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
       hl('div.tpp__player__details', [
         p.team && hl('a.tpp__player__team', matchOrResultsTeamLink(ctrl, p.team), p.team),
-        hl('div', [
-          playerFedFlag(p.fed),
-          !!p.rating && isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p),
-        ]),
-        isRelayPlayer(p) &&
-          !ctrl.hideResultsSinceRoundId() &&
-          p.score !== undefined &&
+        hl('div', [playerFedFlag(p.fed), !!p.rating && !ctrl.hideResultsSinceRoundId() && ratingDiff(p)]),
+        !ctrl.hideResultsSinceRoundId() &&
+          defined(p.score) &&
           hl('span', [i18n.broadcast.score, ' ', hl('strong', p.score)]),
       ]),
     ]),
