@@ -40,7 +40,6 @@ const setStage = tcs.reduce((acc, tc) => {
   return acc;
 }, {});
 
-db.fide_player_rating.updateMany(
-  { $or: tcs.map(tc => ({ [tc]: { $elemMatch: { $type: 'array' } } })) },
-  [{ $set: setStage }],
-);
+db.fide_player_rating.updateMany({ $or: tcs.map(tc => ({ [tc]: { $elemMatch: { $type: 'array' } } })) }, [
+  { $set: setStage },
+]);
