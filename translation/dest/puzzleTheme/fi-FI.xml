@@ -26,6 +26,8 @@
   <string name="castlingDescription">Vie kuninkaasi turvaan ja tuo tornisi mukaan hyökkäykseen.</string>
   <string name="capturingDefender">Lyö puolustava nappula</string>
   <string name="capturingDefenderDescription">Lyö toisen nappulan suojelemiseen käytetty nappula, jotta voit seuraavilla siirroilla lyödä toisen nappulan, joka ei ole enää suojeltu.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Kollineraarinen siirto</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Kun kaksi eriväristä nappulaa tuijottavat toisiaan ja toinen niistä liikkuu hyökkäyslinjan suuntaisesti kuitenkaan lyömättä vastustajan nappulaa.</string>
   <string name="cornerMate">Kulmamatti</string>
   <string name="cornerMateDescription">Kahlitse kuningas laudan nurkkaan tornilla tai daamilla ja tee sitten matti ratsulla.</string>
   <string name="crushing">Murskaava etu</string>
