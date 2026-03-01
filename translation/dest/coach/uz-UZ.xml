@@ -2,11 +2,24 @@
 <resources>
   <string name="lichessCoaches">Lichess murabbiylari</string>
   <string name="lichessCoach">Lichess murabbiyi</string>
-  <string name="areYouCoach">Siz %s da ajoyib shaxmat murabbiyimisiz?</string>
+  <string name="areYouCoach">Siz %s unvoniga ega tajribali shaxmat murabbiyimisiz?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM yoki FIDE</string>
-  <string name="confirmTitle">Oʻz reytingingizni kiriting va biz sizni ariznagizni koʻrib chiqamiz.</string>
+  <string name="confirmTitle">Unvoningizni bu yerda tasdiqlang va biz arizangizni koʻrib chiqamiz.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">Bizga %s manziliga xat yuboring va biz arizangizni koʻrib chiqamiz.</string>
+  <string name="location">Manzil</string>
   <string name="languages">Tillar</string>
   <string name="rating">Reyting</string>
-  <string name="hourlyRate">Soatli reyting</string>
-  <string name="availability">Mavjudligi</string>
+  <string name="hourlyRate">Soatbay toʻlov</string>
+  <string name="availability">Bandlik holati</string>
+  <string name="accepting">Oʻquvchilarni qabul qilmoqda</string>
+  <string name="notAccepting">Hozirgi vaqtda oʻquvchi qabul qilmayapti</string>
+  <string name="xCoachesStudents">%s shaxmatdan dars beradi</string>
+  <string name="viewXProfile">%s Lichess profilini koʻrish</string>
+  <string name="sendPM">Shaxsiy xabar joʻnatish</string>
+  <string name="aboutMe">Men haqimda</string>
+  <string name="playingExperience">Oʻyin tajribasi</string>
+  <string name="teachingExperience">Dars berish tajribasi</string>
+  <string name="otherExperiences">Boshqa tajribalar</string>
+  <string name="bestSkills">Asosiy mahoratlar</string>
+  <string name="teachingMethod">Oʻqitish metodikasi</string>
 </resources>
