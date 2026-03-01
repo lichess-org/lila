@@ -10,7 +10,7 @@
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Taxta muharriri va %s bilan tahlil taxtasi</string>
   <string name="cloudEngineAnalysis">Bulutdagi tahlil</string>
-  <string name="studies">Oʻquv qoʻllanmalari (ulashish mumkin va saqlanib qoladi)</string>
+  <string name="studies">Saboqlar (ulashish mumkin va saqlanib qoladi)</string>
   <string name="chessInsights">Shaxmat analitikasi (oʻyiningizning batafsil tahlili)</string>
   <string name="allChessBasicsLessons">Barcha shaxmat asoslari darslari</string>
   <string name="tacticalPuzzlesFromUserGames">Foydalanuvchilar oʻyinlaridan olingan taktik masalalar</string>
