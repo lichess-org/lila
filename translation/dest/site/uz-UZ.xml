@@ -195,7 +195,7 @@
   <string name="signIn">Kirish</string>
   <string name="rememberMe">Meni eslab qol</string>
   <string name="youNeedAnAccountToDoThat">Buning uchun sizga akkaunt kerak</string>
-  <string name="signUp">Roʻyhatdan oʻtish</string>
+  <string name="signUp">Roʻyxatdan oʻtish</string>
   <string name="computersAreNotAllowedToPlay">Kompyuterlar va kompyuter yordamidan foydalanadigan oʻyinchilarning oʻynashi taqiqlanadi. Iltimos, oʻyin davomida shaxmat dvijoklari, maʼlumotlar bazalari yoki boshqa oʻyinchilar yordamidan foydalanmang. Shuningdek, bir nechta akkaunt ochish tavsiya etilmaydi va meʼyordan ortiq akkauntlarga ega boʻlish chetlatilishga (ban) olib keladi.</string>
   <string name="games">Oʻyinlar</string>
   <string name="forum">Forum</string>
@@ -263,12 +263,12 @@
   <string name="checkSpamFolder">Shuningdek, spam jildini ham tekshiring, xat u yerga tushib qolgan boʻlishi mumkin. Agar shunday boʻlsa, uni “Spam emas” deb belgilang.</string>
   <string name="emailForSignupHelp">Agar bularning hech biri yordam bermasa, u holda bizni e-pochtamizga ushbu xatni yuboring:</string>
   <string name="copyTextToEmail">Yuqoridagi matndan nusxa oling va %s manziliga yuboring</string>
-  <string name="waitForSignupHelp">Roʻyhatdan oʻtishga yordam berish uchun siz bilan tez orada bogʻlanamiz.</string>
+  <string name="waitForSignupHelp">Roʻyxatdan oʻtishga yordam berish uchun siz bilan tez orada bogʻlanamiz.</string>
   <string name="accountConfirmed">Foydalanuvchi %s muvaffaqiyatli tasdiqlandi.</string>
   <string name="accountCanLogin">Hozirning oʻzidayoq %s sifatida tizimga kirishingiz mumkin.</string>
   <string name="accountConfirmationEmailNotNeeded">Tasdiqlash xati talab qilinmaydi.</string>
   <string name="accountClosed">%s akkaunti yopilgan.</string>
-  <string name="accountRegisteredWithoutEmail">%s akkaunti e-pochtasiz roʻyhatdan oʻtgan.</string>
+  <string name="accountRegisteredWithoutEmail">%s akkaunti e-pochtasiz roʻyxatdan oʻtgan.</string>
   <string name="rank">Oʻrin</string>
   <string name="rankX">%s-oʻrin</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
