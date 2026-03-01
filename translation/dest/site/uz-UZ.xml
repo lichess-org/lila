@@ -2,7 +2,7 @@
 <resources>
   <string name="gameSetup">Oʻyin sozlamalari</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Doʻstinggizni oʻyinga chorlang</string>
-  <string name="playAgainstComputer">Kompyuterga qarshi o\'ynash</string>
+  <string name="playAgainstComputer">Kompyuterga qarshi oʻynash</string>
   <string name="gameMode">Oʻyin rejimi</string>
   <string name="createLobbyGame">Kutish zalida oʻyin yaratish</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir oʻyinga taklif qilish uchun ushbu havolani unga yuboring</string>
@@ -18,7 +18,7 @@
   <string name="strength">Qiyinligi</string>
   <string name="toggleTheChat">Chatni ochish/yopish</string>
   <string name="chat">Chat</string>
-  <string name="resign">Taslim bo\'lish</string>
+  <string name="resign">Taslim boʻlish</string>
   <string name="checkmate">Mot</string>
   <string name="stalemate">Pat</string>
   <string name="white">Oqlar</string>
@@ -52,8 +52,8 @@
   <string name="forceDraw">Durang talab qilish</string>
   <string name="talkInChat">Chatda odob saqlang!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Ushbu havolaga boʻyicha birinchi kelgan odam siz bilan oʻynaydi.</string>
-  <string name="whiteResigned">Oqlar taslim bo\'ldi</string>
-  <string name="blackResigned">Qoralar taslim bo\'ldi</string>
+  <string name="whiteResigned">Oqlar taslim boʻldi</string>
+  <string name="blackResigned">Qoralar taslim boʻldi</string>
   <string name="whiteLeftTheGame">Oqlar oʻyinni tark etdi</string>
   <string name="blackLeftTheGame">Qoralar oʻyinni tark etdi</string>
   <string name="whiteDidntMove">Oqlar yurmadi</string>
@@ -61,7 +61,7 @@
   <string name="requestAComputerAnalysis">Kompyuter tahlilini soʻrash</string>
   <string name="computerAnalysis">Kompyuter tahlili</string>
   <string name="computerAnalysisAvailable">Kompyuter tahlili mavjud</string>
-  <string name="computerAnalysisDisabled">Kompyuter tahlili o‘chirilgan</string>
+  <string name="computerAnalysisDisabled">Kompyuter tahlili oʻchirilgan</string>
   <string name="analysis">Tahlil taxtasi</string>
   <string name="depthX">Fikrlash chuqurligi %s</string>
   <string name="usingServerAnalysis">Server tahlili qoʻllanilmoqda</string>
@@ -75,7 +75,7 @@
   <string name="toggleLocalEvaluation">Brauzer tahlilini yoqish</string>
   <string name="promoteVariation">Variantni koʻtarish</string>
   <string name="makeMainLine">Asosiy variant deb belgilash</string>
-  <string name="deleteFromHere">Bu yerdan o\'chirish</string>
+  <string name="deleteFromHere">Bu yerdan oʻchirish</string>
   <string name="collapseVariations">Variantlarni yashirish</string>
   <string name="expandVariations">Variantlarni koʻrsatish</string>
   <string name="forceVariation">Variant deb belgilash</string>
@@ -94,7 +94,7 @@
   <string name="unknown">Noaniq</string>
   <string name="database">Maʼlumotlar bazasi</string>
   <string name="whiteDrawBlack">Oqlar / Durang / Qoralar</string>
-  <string name="averageRatingX">O\'rtacha reyting: %s</string>
+  <string name="averageRatingX">Oʻrtacha reyting: %s</string>
   <string name="recentGames">Soʻnggi oʻyinlar</string>
   <string name="topGames">Eng yaxshi oʻyinlar</string>
   <string name="masterDbExplanation">%2$s yildan %3$s yilgacha boʻlgan, FIDE reytingi %1$s+ boʻlgan oʻyinchilarning oʻyinlari</string>
@@ -176,7 +176,7 @@
   </plurals>
   <string name="drawByMutualAgreement">O\'zaro kelishuv asosida durang natija qayd etildi</string>
   <string name="fiftyMovesWithoutProgress">Progressiz ellikta yurish</string>
-  <string name="currentGames">Joriy oʻyinlar</string>
+  <string name="currentGames">Hozirgi oʻyinlar</string>
   <string name="joinedX">%s qoʻshildi</string>
   <plurals name="nbGames">
     <item quantity="one">%s oʻyin</item>
@@ -199,7 +199,7 @@
   <string name="computersAreNotAllowedToPlay">Kompyuterlar va kompyuter yordamidan foydalanadigan oʻyinchilarning oʻynashi taqiqlanadi. Iltimos, oʻyin davomida shaxmat dvijoklari, maʼlumotlar bazalari yoki boshqa oʻyinchilar yordamidan foydalanmang. Shuningdek, bir nechta akkaunt ochish tavsiya etilmaydi va meʼyordan ortiq akkauntlarga ega boʻlish chetlatilishga (ban) olib keladi.</string>
   <string name="games">Oʻyinlar</string>
   <string name="forum">Forum</string>
-  <string name="xPostedInForumY">%1$s %2$s mavzuda post joyladi</string>
+  <string name="xPostedInForumY">%1$s %2$s mavzusida xabar qoldirdi</string>
   <string name="latestForumPosts">Forumdagi oxirgi postlari</string>
   <string name="players">Oʻyinchilar</string>
   <string name="friends">Doʻstlar</string>
@@ -569,7 +569,7 @@
   <string name="lastPost">Oxirgi post</string>
   <string name="views">Koʻrishlar soni</string>
   <string name="replies">Javoblar soni</string>
-  <string name="replyToThisTopic">Ushbu mavzuga javob berish</string>
+  <string name="replyToThisTopic">Ushbu mavzu haqida javob yozish</string>
   <string name="reply">Javob qaytarish</string>
   <string name="message">Habar</string>
   <string name="createTheTopic">Mavzuni yaratish</string>
@@ -644,7 +644,7 @@
   <string name="clock">Soat</string>
   <string name="opponent">Raqib</string>
   <string name="learnMenu">Oʻrganish</string>
-  <string name="studyMenu">O\'rganish</string>
+  <string name="studyMenu">Saboq</string>
   <string name="practice">Mashq</string>
   <string name="community">Hamjamiyat</string>
   <string name="tools">Asboblar</string>
@@ -672,9 +672,9 @@
     <item quantity="other">%s forum post</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Jami %s oʻynagan</string>
-  <string name="watchGames">O\'yinlarni tomosha qilish</string>
+  <string name="watchGames">Oʻyinlarni kuzatish</string>
   <string name="tpTimeSpentOnTV">TVʼdagi vaqti: %s</string>
-  <string name="watch">Tomosha qilish</string>
+  <string name="watch">Kuzatish</string>
   <string name="videoLibrary">Video kutubxona</string>
   <string name="streamersMenu">Strimerlar</string>
   <string name="mobileApp">Mobil ilova</string>
