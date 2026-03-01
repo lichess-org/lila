@@ -179,4 +179,7 @@
   <string name="fromInitialPositionTitle">Boshlangʻich pozitsiyadan</string>
   <string name="customPositionTitle">Maxsus pozitsiya</string>
   <string name="loadExistingLichessGameTitle">Mavjud Lichess oʻyinini yuklash</string>
+  <string name="doubleDefeat">Ikki tomonlama magʻlubiyat</string>
+  <string name="blackDefeatWhiteCanNotWin">Qoralar magʻlubiyati, ammo oqlar gʻalaba qozona olmaydi</string>
+  <string name="whiteDefeatBlackCanNotWin">Oqlar magʻlubiyati, ammo qoralar gʻalaba qozona olmaydi</string>
 </resources>
