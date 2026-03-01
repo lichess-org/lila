@@ -44,4 +44,10 @@
   <string name="apiAccessTokens">API kirish tokenlari</string>
   <string name="created">%s yaratildi</string>
   <string name="lastUsed">Oxirgi marta %s ishlatildi</string>
+  <string name="alreadyHavePlayedGames">Siz oʻynagansiz!</string>
+  <string name="attentionOfDevelopers">Dasturchilar diqqatiga:</string>
+  <string name="possibleToPrefill">URL manzili soʻrov parametrlarini (query parameters) oʻzgartirish orqali ushbu formani oldindan toʻldirish imkoniyati mavjud.</string>
+  <string name="forExample">Masalan: %s</string>
+  <string name="ticksTheScopes">%1$s hamda %2$s ruxsatlarini belgilaydi va tokenga tavsif beradi.</string>
+  <string name="givingPrefilledUrls">Foydalanuvchilaringizga shunday oldindan to‘ldirilgan URL manzillarini berish, ularga kerakli token ruxsatlarini tanlashda yordam beradi.</string>
 </resources>
