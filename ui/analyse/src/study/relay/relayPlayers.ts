@@ -524,10 +524,12 @@ const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = false
   if (isRelayPlayerGame(p)) return hl('div.diff', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff));
   if (!p.ratingDiffs) return p.rating;
   const rds = Object.entries(p.ratingDiffs);
-  return rds.map(([tc, diff]: [FideTC, number]) => {
-    const node = hl('div.diff', [p.ratingsMap?.[tc], diffNode(diff)]);
-    return rds.length === 1 ? node : hl('div.diff', fideTCAttrs(tc), node);
+  const isMultiTc = rds.length > 1;
+  const diffNodes = rds.map(([tc, diff]: [FideTC, number]) => {
+    const node = [p.ratingsMap?.[tc], diffNode(diff)];
+    return isMultiTc ? hl('div.diff', fideTCAttrs(tc), node) : node;
   });
+  return isMultiTc ? hl('div.diffs', diffNodes) : hl('div.diff', diffNodes[0]);
 };
 
 const diffNode = (rd?: number) =>

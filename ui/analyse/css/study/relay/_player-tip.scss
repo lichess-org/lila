@@ -51,6 +51,9 @@
           @extend %flex-center;
           gap: 0.5em;
         }
+        .diffs {
+          @extend %flex-column;
+        }
       }
     }
   }
