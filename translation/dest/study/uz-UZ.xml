@@ -168,17 +168,35 @@
   <string name="perPage">Har bir sahifada %s ta</string>
   <string name="getTheTour">Yordam kerakmi? Platforma bilan tanishing!</string>
   <string name="welcomeToLichessStudyTitle">Lichess saboqlariga xush kelibsiz!</string>
+  <string name="welcomeToLichessStudyText">Bu birgalikda tahlil qilish taxtasi.&lt;br&gt;&lt;br&gt;Undan oʻyinlarni tahlil qilish va izohlash,&lt;br&gt;doʻstlar bilan pozitsiyalarni muhokama qilish&lt;br&gt;va albatta, shaxmat darslari uchun foydalanishingiz mumkin!&lt;br&gt;&lt;br&gt;Bu juda keng imkoniyatli vosita, keling, uning qanday ishlashini koʻrib chiqamiz.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Ulashildi va saqlandi</string>
   <string name="sharedAndSavedText">Boshqa aʼzolar yurishlaringizni real vaqtda koʻrib turishadi!&lt;br&gt;Bundan tashqari, hamma narsa abadiy saqlab qolinadi.</string>
   <string name="studyMembersTitle">Saboq aʼzolari</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Kuzatuvchilar saboqni koʻrishlari va chatda gaplashishlari mumkin.&lt;br&gt;&lt;br&gt;%2$s Hammualliflar yurishlar qilishlari va saboqni yangilashlari mumkin.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">%s tugmasini bosing.&lt;br&gt;Keyin kim hammuallif boʻlishi yoki boʻlmasligini belgilang.</string>
   <string name="studyChaptersTitle">Saboq boblari</string>
   <string name="studyChaptersText">Saboq bir nechta bobdan iborat boʻlishi mumkin.&lt;br&gt;Har bir bob oʻzining boshlangʻich pozitsiyasi va yurishlar iyerarxiyasiga ega.</string>
-  <string name="commentPositionTitle">Pozitsiyani sharhlash</string>
+  <string name="commentPositionTitle">Pozitsiyaga izoh berish</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">%s tugmasini bosing yoki oʻng tarafdagi yurishlar roʻyxati ustiga sichqonchaning oʻng tugmasini bosing.&lt;br&gt;Izohlar saqlanadi va hamma uchun koʻrinadi.</string>
   <string name="annotatePositionTitle">Pozitsiyaga belgilar qoʻshish</string>
+  <string name="annotatePositionText">!? tugmasini bosing yoki oʻng tarafdagi yurishlar roʻyxati ustiga sichqonchani oʻng tugmasini bosing.&lt;br&gt;Tahlil belgilari saqlanadi va hamma uchun koʻrinadi.</string>
   <string name="conclusionTitle">Vaqt ajratganingiz uchun rahmat</string>
+  <string name="conclusionText">Siz &lt;a href=\'/study/mine/hot\'&gt;avvalgi saboqlaringizni&lt;/a&gt; profil sahifangizdan topishingiz mumkin.&lt;br&gt;Shuningdek, &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;saboqlar haqidagi blog-post&lt;/a&gt; bilan ham tanishib chiqishingiz mumkin.&lt;br&gt;Tajribali foydalanuvchilar klaviatura yorliqlarini koʻrish uchun \"?\" belgisini bosishlari mumkin.&lt;br&gt;Omad tilaymiz!</string>
+  <string name="createChapterTitle">Saboq uchun bob yaratamiz</string>
+  <string name="createChapterText">Saboq bir nechta bobdan iborat boʻlishi mumkin.&lt;br&gt;Har bir bobda alohida yurishlar varianti mavjud&lt;br&gt;va ularni turli usullar bilan yaratish mumkin.</string>
   <string name="fromInitialPositionTitle">Boshlangʻich pozitsiyadan</string>
+  <string name="fromInitialPositionText">Yangi oʻyin uchun tayyorlangan pozitsiya.&lt;br&gt;Debyutlarni oʻrganish uchun qulay.</string>
   <string name="customPositionTitle">Maxsus pozitsiya</string>
+  <string name="customPositionText">Pozitsiyani oʻzingiz xohlagancha tering.&lt;br&gt;Endshpillarni oʻrganish uchun qulay.</string>
   <string name="loadExistingLichessGameTitle">Mavjud Lichess oʻyinini yuklash</string>
+  <string name="loadExistingLichessGameText">Bobga oʻyinni yuklash uchun&lt;br&gt;Lichess oʻyini havolasini (URL) kiriting&lt;br&gt;(masalan: lichess.org/7fHIU0XI).</string>
+  <string name="fromFenStringTitle">FEN satridan</string>
+  <string name="fromFenStringText">Bobni maʼlum bir pozitsiyadan boshlash uchun&lt;br&gt;FEN formatidagi pozitsiyani kiriting:&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;</string>
+  <string name="fromPgnGameTitle">PGN oʻyinidan</string>
+  <string name="fromPgnGameText">Bobga yurishlar, izohlar va variantlarni yuklash uchun&lt;br&gt;PGN formatidagi oʻyinni kiriting.</string>
+  <string name="variantsAreSupportedTitle">Saboqlarda shaxmat variantlari ham mavjud</string>
+  <string name="variantsAreSupportedText">Ha, siz Kreyzihaus va boshqa&lt;br&gt;Lichess variantlarini oʻrganishingiz mumkin!</string>
+  <string name="chapterConclusionText">Boblar abadiy saqlanadi.&lt;br&gt;Shaxmat materiallaringizni zavq bilan tartiblang!</string>
   <string name="doubleDefeat">Ikki tomonlama magʻlubiyat</string>
   <string name="blackDefeatWhiteCanNotWin">Qoralar magʻlubiyati, ammo oqlar gʻalaba qozona olmaydi</string>
   <string name="whiteDefeatBlackCanNotWin">Oqlar magʻlubiyati, ammo qoralar gʻalaba qozona olmaydi</string>
