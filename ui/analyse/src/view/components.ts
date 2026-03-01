@@ -163,7 +163,6 @@ export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewConte
                 )
                   return;
                 e.preventDefault();
-                console.log(e.deltaMode);
                 accumulatedDelta += e.deltaY;
                 if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
                 accumulatedDelta = 0;
