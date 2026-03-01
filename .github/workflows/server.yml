@@ -53,7 +53,7 @@ jobs:
       - run: cd target/universal/stage && tar --zstd -cvpf ../../../lila-3.0.tar.zst . && cd -
         env:
           ZSTD_LEVEL: 1 # most files are already zipped
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         if: ${{ matrix.java-version == 21 }}
         with:
           name: lila-server
