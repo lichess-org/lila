@@ -501,7 +501,7 @@
   <string name="wins">Gʻalabalar</string>
   <string name="losses">Mag\'lubiyatlar</string>
   <string name="startingIn" comment="Displayed above a timer">Boshlanguncha</string>
-  <string name="standByX">%s kuting, raqib topilayabdi, tayyor turing!</string>
+  <string name="standByX">Tayyor turing, %s, qurʼa tashlanmoqda!</string>
   <string name="pause">Pauza</string>
   <string name="resume">Davom etish</string>
   <string name="youArePlaying">Siz oʻyindasiz!</string>
