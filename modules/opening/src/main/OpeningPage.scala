@@ -14,7 +14,7 @@ case class OpeningPage(
 
   def exploredOption = explored.toOption.flatten
 
-  def nameParts: NamePart.NamePartList =
+  lazy val nameParts: NamePart.NamePartList =
     val (op, moves) = openingAndExtraMoves
     (op.so(NamePart.from)) ::: NamePart.from(moves)
 
