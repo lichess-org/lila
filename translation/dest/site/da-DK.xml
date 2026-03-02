@@ -132,6 +132,10 @@
   <string name="pinnedPieces">Bundne brikker</string>
   <string name="checkableKing">Konge der kan sættes i skak</string>
   <string name="multipleLines">Flere linjer</string>
+  <string name="multipleLinesDescription">Angiv antal evalueringslinjer og trækpile på brættet</string>
+  <string name="searchTime">Søgetid</string>
+  <string name="searchTimeDescription">Indstil tid til evaluering af friske positioner</string>
+  <string name="threads">Tråde</string>
   <string name="cpus">CPU\'er</string>
   <string name="memory">Hukommelse</string>
   <string name="infiniteAnalysis">Uendelig analyse</string>
