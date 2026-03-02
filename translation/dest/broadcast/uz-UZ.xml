@@ -61,11 +61,11 @@
   <string name="startsAfter">%sdan keyin boshlanadi</string>
   <string name="startVerySoon">Translyatsiya tez orada boshlanadi.</string>
   <string name="notYetStarted">Translyatsiya hali boshlanmadi.</string>
-  <string name="officialWebsite">Rasmiy veb-sayt</string>
+  <string name="officialWebsite">Rasmiy veb‑sayt</string>
   <string name="officialStandings">Rasmiy turnir jadvali</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%s sahifasida qoʻshimcha imkoniyatlar mavjud</string>
-  <string name="webmastersPage">veb-ustalar sahifasi</string>
-  <string name="embedThisBroadcast">Ushbu translyatsiyani veb-saytingizga joylashtiring</string>
+  <string name="webmastersPage">veb‑ustalar sahifasi</string>
+  <string name="embedThisBroadcast">Ushbu translyatsiyani veb‑saytingizga joylashtiring</string>
   <string name="ratingDiff">Reyting farqi</string>
   <string name="gamesThisTournament">Ushbu turnirdagi oʻyinlar</string>
   <string name="score">Ochkolar</string>
@@ -78,7 +78,7 @@
   <string name="fideRatingCategory">FIDE reyting toifasi</string>
   <string name="optionalDetails">Ixtiyoriy tafsilotlar</string>
   <string name="pastBroadcasts">Oʻtgan translyatsiyalar</string>
-  <string name="allBroadcastsByMonth">Barcha translyatsiyalarni oyma-oy koʻring</string>
+  <string name="allBroadcastsByMonth">Barcha translyatsiyalarni oyma‑oy koʻring</string>
   <string name="backToLiveMove">Jonli efirdagi yurishga qaytish</string>
   <string name="sinceHideResults">Natijalarni yashirishni tanlaganingiz sababli spoiler bermaslik uchun barcha obzor taxtalari boʻsh.</string>
   <string name="liveboard">Jonli efirdagi taxta</string>
@@ -90,7 +90,7 @@
   <string name="matchHistory">Match tarixi</string>
   <string name="teamResults">Jamoa natijalari</string>
   <string name="termsAutomaticallyTranslated">Quyidagi atama(lar) avtomatik tarzda tarjima qilinadi: %s.</string>
-  <string name="roundX">%s-raund</string>
+  <string name="roundX">%s‑raund</string>
   <string name="defaultRoundNameHelp">Birlamchi nomni saqlasangiz, avtomatik tarzda boshqa tillarga tarjima qilinadi.</string>
   <string name="openTournament">Ochiq</string>
   <string name="womenTournament">Ayollar</string>
@@ -103,7 +103,7 @@
   <string name="quarterfinals">Chorak final</string>
   <string name="semifinals">Yarim final</string>
   <string name="finals">Final</string>
-  <string name="tiebreaks">Tay-breyk</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">%s-oʻyin</string>
+  <string name="tiebreaks">Tay‑breyk</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">%s‑oʻyin</string>
   <string name="knockouts">Nokaut</string>
 </resources>
