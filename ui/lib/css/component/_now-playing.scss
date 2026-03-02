@@ -11,6 +11,10 @@
   > a {
     color: $c-font;
     padding: 0.3em;
+
+    &:focus-visible {
+      outline-offset: -2px;
+    }
   }
 
   .indicator {

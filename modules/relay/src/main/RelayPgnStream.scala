@@ -2,6 +2,7 @@ package lila.relay
 
 import akka.stream.scaladsl.*
 import akka.stream.Materializer
+import play.api.mvc.RequestHeader
 import reactivemongo.akkastream.cursorProducer
 import chess.format.pgn.{ Tag, PgnStr }
 
@@ -19,23 +20,23 @@ final class RelayPgnStream(
     routeUrl: lila.core.config.RouteUrl
 )(using Executor, Materializer):
 
-  def ofGame(rt: RelayRound.WithTourAndStudy, chapter: Chapter): Fu[PgnStr] =
-    studyPgnDump.ofChapter(rt.study, flagsFor(rt.withTour, chapter))(chapter)
+  def ofGame(rt: RelayRound.WithTourAndStudy, chapter: Chapter, flags: PgnDump.WithFlags): Fu[PgnStr] =
+    studyPgnDump.ofChapter(rt.study, flagsFor(rt.withTour, chapter, flags))(chapter)
 
-  def ofGames(rt: RelayRound.WithTourAndStudy): Source[PgnStr, ?] =
-    studyPgnDump.chaptersOf(rt.study, flagsFor(rt.withTour, _))
+  def ofGames(rt: RelayRound.WithTourAndStudy, flags: PgnDump.WithFlags): Source[PgnStr, ?] =
+    studyPgnDump.chaptersOf(rt.study, flagsFor(rt.withTour, _, flags))
 
-  def ofChapter(sc: Study.WithChapter): Fu[Option[PgnStr]] =
+  def ofChapter(sc: Study.WithChapter, flags: PgnDump.WithFlags = defaultFlags): Fu[Option[PgnStr]] =
     roundRepo
       .byIdWithTour(sc.study.id.into(RelayRoundId))
       .flatMapz: rt =>
-        ofGame(rt.withStudy(sc.study), sc.chapter).map(_.some)
+        ofGame(rt.withStudy(sc.study), sc.chapter, flags).map(_.some)
 
-  def ofStudy(s: Study): Fu[Option[Source[PgnStr, ?]]] =
+  def ofStudy(s: Study)(using RequestHeader): Fu[Option[Source[PgnStr, ?]]] =
     roundRepo
       .byIdWithTour(s.id.into(RelayRoundId))
       .map2: rt =>
-        ofGames(rt.withStudy(s))
+        ofGames(rt.withStudy(s), requestPgnFlags)
 
   def ofFirstChapter(s: Study): Fu[Option[PgnStr]] =
     studyChapterRepo
@@ -43,26 +44,30 @@ final class RelayPgnStream(
       .flatMapz: chapter =>
         ofChapter(Study.WithChapter(s, chapter))
 
-  def exportFullTourAs(tour: RelayTour, me: Option[User]): Source[PgnStr, ?] = Source.futureSource:
-    for
-      rounds <- roundRepo.byTourOrdered(tour.id)
-      studies <- studyRepo.byOrderedIds(rounds.map(_.studyId))
-      visible = studies.filter(_.canView(me.map(_.id)))
-      withStudy =
-        for
-          r <- rounds
-          s <- visible.find(_.id == r.studyId)
-        yield r.withTour(tour).withStudy(s)
-    yield Source(withStudy).flatMapConcat(ofGames).throttle(20, 1.second)
+  def exportFullTourAs(tour: RelayTour, me: Option[User])(using RequestHeader): Source[PgnStr, ?] =
+    Source.futureSource:
+      for
+        rounds <- roundRepo.byTourOrdered(tour.id)
+        studies <- studyRepo.byOrderedIds(rounds.map(_.studyId))
+        visible = studies.filter(_.canView(me.map(_.id)))
+        withStudy =
+          for
+            r <- rounds
+            s <- visible.find(_.id == r.studyId)
+          yield r.withTour(tour).withStudy(s)
+      yield Source(withStudy).flatMapConcat(ofGames(_, requestPgnFlags)).throttle(20, 1.second)
 
-  private val baseFlags = PgnDump.WithFlags(
+  private val defaultFlags = PgnDump.WithFlags(
     comments = true, // analysis
     variations = false,
     clocks = true,
     orientation = false
   )
-  private def flagsFor(rt: RelayRound.WithTour, chapter: Chapter) =
-    baseFlags.copy(
+  private def requestPgnFlags(using RequestHeader): PgnDump.WithFlags =
+    studyPgnDump.requestPgnFlags(defaultFlags)
+
+  private def flagsFor(rt: RelayRound.WithTour, chapter: Chapter, flags: PgnDump.WithFlags) =
+    flags.copy(
       updateTags = tags =>
         val gameUrl = routeUrl(rt.call(chapter.id))
         val site = tags(_.Site)
@@ -129,31 +134,33 @@ final class RelayPgnStream(
       .mapAsync(4): rt =>
         studyRepo.publicById(rt.round.studyId).map2(rt.withStudy)
       .mapConcat(_.toList)
-      .flatMapConcat(ofGames)
+      .flatMapConcat(ofGames(_, defaultFlags))
       .throttle(100, 1.second)
 
-  def streamRoundGames(rs: RelayRound.WithStudy): Source[PgnStr, ?] = Source.futureSource:
-    tourRepo
-      .byId(rs.relay.tourId)
-      .orFail(s"Missing tour for round ${rs.relay.id}")
-      .map(rs.withTour)
-      .map: rt =>
-        val initial =
-          if rt.relay.hasStarted
-          then ofGames(rt).throttle(32, 1.second)
-          else Source.empty[PgnStr]
-        initial.concat:
-          Source
-            .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
-            .mapMaterializedValue: queue =>
-              val chan = SyncResult.busChannel(rt.relay.id)
-              val sub = Bus.subscribeFunDyn(chan) { case SyncResult.Ok(chapters, _) =>
-                queue.offer(chapters.view.filter(c => c.tagUpdate || c.newMoves > 0).map(_.id).toSet)
-              }
-              queue
-                .watchCompletion()
-                .addEffectAnyway:
-                  Bus.unsubscribeDyn(sub, List(chan))
-            .flatMapConcat(studyChapterRepo.byIdsSource)
-            .throttle(16, 1.second)
-            .mapAsync(1)(ofGame(rt, _))
+  def streamRoundGames(rs: RelayRound.WithStudy)(using RequestHeader): Source[PgnStr, ?] =
+    val flags = requestPgnFlags
+    Source.futureSource:
+      tourRepo
+        .byId(rs.relay.tourId)
+        .orFail(s"Missing tour for round ${rs.relay.id}")
+        .map(rs.withTour)
+        .map: rt =>
+          val initial =
+            if rt.relay.hasStarted
+            then ofGames(rt, flags).throttle(32, 1.second)
+            else Source.empty[PgnStr]
+          initial.concat:
+            Source
+              .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
+              .mapMaterializedValue: queue =>
+                val chan = SyncResult.busChannel(rt.relay.id)
+                val sub = Bus.subscribeFunDyn(chan) { case SyncResult.Ok(chapters, _) =>
+                  queue.offer(chapters.view.filter(c => c.tagUpdate || c.newMoves > 0).map(_.id).toSet)
+                }
+                queue
+                  .watchCompletion()
+                  .addEffectAnyway:
+                    Bus.unsubscribeDyn(sub, List(chan))
+              .flatMapConcat(studyChapterRepo.byIdsSource)
+              .throttle(16, 1.second)
+              .mapAsync(1)(ofGame(rt, _, flags))

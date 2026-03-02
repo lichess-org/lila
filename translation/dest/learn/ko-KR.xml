@@ -6,7 +6,7 @@
   <string name="progressX">진행도: %s</string>
   <string name="resetMyProgress">진행도 초기화</string>
   <string name="youWillLoseAllYourProgress">모든 진행도가 사라집니다!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">시작!</string>
+  <string name="play">시작!</string>
   <string name="chessPieces">체스 기물</string>
   <string name="theRook">룩</string>
   <string name="itMovesInStraightLines">직선으로 움직입니다</string>
@@ -141,7 +141,6 @@
   <string name="findAWayToCastleKingSide">킹 사이드 캐슬링을 할 방법을 찾아내세요!</string>
   <string name="findAWayToCastleQueenSide">퀸 사이드 캐슬링을 할 방법을 찾아내세요!</string>
   <string name="castlingComplete">축하합니다! 이제 거의 모든 게임에서 캐슬링을 하겠네요!</string>
-  <string name="enPassant">앙파상</string>
   <string name="theSpecialPawnMove">폰의 특별한 수</string>
   <string name="enPassantIntro">상대 폰이 두 칸씩 움직였다 하더라도 폰이 한 칸만 움직인 상황처럼 잡을 수 있습니다.</string>
   <string name="blackJustMovedThePawnByTwoSquares">방금 흑이 폰을 두 칸

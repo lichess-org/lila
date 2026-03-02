@@ -6,8 +6,8 @@
   <string name="dgtBoardLimitations">Llimitaciones de los tableros DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Esta páxina déxate conectar el to tableru DGT a Lichess y usalo pa les tos partíes.</string>
   <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Pa conectar el tableru electrónicu DGT precises instalar %s.</string>
-  <string name="downloadHere">Pues descargar el programa equí: %s.</string>
-  <string name="ifLiveChessRunningOnThisComputer">Si %1$s ta executándose nel to ordenador, pues comprobar la to conexón %2$s.</string>
+  <string name="downloadHere">Puedes descargar el programa equí: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Si %1$s ta executándose nel to ordenador, puedes comprobar la to conexón %2$s.</string>
   <string name="openingThisLink">abriendo esti enllaz</string>
   <string name="ifLiveChessRunningElsewhere">Si %1$s executar nun ordenador o puertu distintu, vas precisar establecer la dirección IP y el puertu equí na %2$s.</string>
   <string name="configurationSection">Sección de configuración</string>

@@ -55,8 +55,3 @@
     margin-bottom: $bottom;
   }
 }
-
-html[dir='rtl'] .force-ltr {
-  direction: ltr;
-  text-align: left;
-}

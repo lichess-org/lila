@@ -34,10 +34,10 @@
   <string name="blackPawn">سەربازی ڕەش</string>
   <string name="sanCheck" comment="+ in standard notation">کش</string>
   <string name="sanCheckmate" comment="# in standard notation">کشومات</string>
-  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">بەرز دەبێتەوە بۆ</string>
-  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">ماڵکردنی کورت</string>
-  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">ماڵکردنی درێژ</string>
-  <string name="sanDroppedOn" comment="Indicates a piece is dropped on a square in the Crazyhouse variant, as part of a longer sentence.&#10;&#10;In Crazyhouse, any pieces you capture are placed in your pocket. You can then drop those pieces onto any square on the board.&#10;&#10;Examples:&#10;&quot;bishop is dropped on c 4 check&quot; (B@c4+)&#10;&quot;pawn is dropped on f 7&quot; (@f7)&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'dropped on' corresponds to &quot;@&quot; in Crazyhouse's form of algebraic notation.">نزم دەبێتەوە بۆ</string>
+  <string name="sanPromotesTo" comment="= in standard notation">بەرز دەبێتەوە بۆ</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">ماڵکردنی کورت</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">ماڵکردنی درێژ</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">نزم دەبێتەوە بۆ</string>
   <string name="invalidMove">جووڵەی نادروست</string>
   <string name="premoveCancelled">جووڵەی لەوەپێش ڕەتکرایەوە</string>
   <string name="premoveRecorded">جووڵەی لەوەپێش تۆمارکرا: %s. ئینتەر بکە بۆ ھەڵوەشاندنەوە</string>

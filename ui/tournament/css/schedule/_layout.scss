@@ -15,7 +15,7 @@
     display: none;
   }
 
-  grid-gap: $block-gap;
+  gap: $block-gap;
   grid-template-areas: 'schedule' 'side';
 
   @media (min-width: at-least($medium)) {

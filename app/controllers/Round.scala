@@ -208,11 +208,11 @@ final class Round(
   private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(using
       ctx: Context
   ): Fu[Option[Chat.GameOrEvent]] =
-    def toEventChat(resource: String)(c: lila.chat.UserChat.Mine) =
+    import lila.core.chat.PublicSource
+    def toEventChat(source: PublicSource)(c: lila.chat.UserChat.Mine) =
       Chat
         .GameOrEvent:
-          Right:
-            (c.truncate(100), lila.chat.Chat.ResourceId(resource))
+          Right(c.truncate(100) -> source)
         .some
     (game.tournamentId, game.simulId, game.swissId) match
       case (Some(tid), _, _) =>
@@ -220,10 +220,10 @@ final class Round(
         hasChat.so(
           env.chat.api.userChat.cached
             .findMine(tid.into(ChatId))
-            .dmap(toEventChat(s"tournament/$tid"))
+            .dmap(toEventChat(PublicSource.Tournament(tid)))
         )
       case (_, Some(sid), _) =>
-        env.chat.api.userChat.cached.findMine(sid.into(ChatId)).dmap(toEventChat(s"simul/$sid"))
+        env.chat.api.userChat.cached.findMine(sid.into(ChatId)).dmap(toEventChat(PublicSource.Simul(sid)))
       case (_, _, Some(sid)) =>
         env.swiss.api
           .roundInfo(sid)
@@ -231,7 +231,7 @@ final class Round(
           .flatMapz:
             env.chat.api.userChat.cached
               .findMine(sid.into(ChatId))
-              .dmap(toEventChat(s"swiss/$sid"))
+              .dmap(toEventChat(PublicSource.Swiss(sid)))
       case _ =>
         game.hasChat.so:
           for

@@ -1,5 +1,5 @@
-var user = db.user4.findOne({ _id: 'thibault' });
-var connections = [];
+const user = db.user4.findOne({ _id: 'thibault' });
+const connections = [];
 db.security
   .find({
     user: user._id,

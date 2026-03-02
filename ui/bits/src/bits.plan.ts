@@ -28,9 +28,10 @@ export function stripeStart(publicKey: string): void {
             sessionId: data.session.id,
           })
           .then((result: any) => showError(result.error.message))
-          .catch((e: any) => {
+          .catch((e: unknown) => {
             log('Stripe.redirectToCheckout', e);
-            showError('message' in e ? e.message : e);
+            if (e instanceof Error) showError(e.message);
+            else if (typeof e === 'string') showError(e);
           });
       } else {
         location.assign('/patron');

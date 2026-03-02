@@ -61,7 +61,7 @@ final class Cached(
           .dmap(_.map(u => LightCount(u.light, u.count.game)))
 
   private val top50OnlineCache = cacheApi.unit[List[UserWithPerfs]]:
-    _.refreshAfterWrite(1.minute).buildAsyncTimeout(): _ =>
+    _.refreshAfterWrite(2.minute).buildAsyncTimeout(): _ =>
       userApi.byIdsSortRatingNoBot(onlineUserIds.exec(), 50)
 
   def getTop50Online: Fu[List[UserWithPerfs]] = top50OnlineCache.getUnit

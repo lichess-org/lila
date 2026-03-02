@@ -1,6 +1,6 @@
 import { type Prop, type Toggle, escapeHtml, propWithEffect, toggle } from 'lib';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, onInsert, snabDialog } from 'lib/view';
+import { bind, dataIcon, enter, onInsert, snabDialog } from 'lib/view';
 import { h, type VNode } from 'snabbdom';
 import type { ChapterPreview } from './interfaces';
 import type { StudyChapters } from './studyChapters';
@@ -57,7 +57,7 @@ export function view(ctrl: SearchCtrl) {
           el.addEventListener('input', (e: KeyboardEvent) =>
             ctrl.query((e.target as HTMLInputElement).value.trim()),
           );
-          el.addEventListener('keydown', (e: KeyboardEvent) => e.key === 'Enter' && ctrl.setFirstChapter());
+          el.addEventListener('keydown', enter(ctrl.setFirstChapter));
         }),
       }),
       h(

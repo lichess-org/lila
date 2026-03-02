@@ -12,18 +12,17 @@ object blindLobby:
     )
 
   private def ongoingGames(games: List[Pov])(using Context) =
-    games.partition(_.isMyTurn) match
-      case (myTurn, opTurn) =>
-        frag(
-          h3(trans.site.yourTurn(), " : ", trans.site.nbGames.plural(myTurn.size, myTurn.size.localize)),
-          ul(myTurn.map(renderGame)),
-          h3(
-            trans.site.waitingForOpponent(),
-            " : ",
-            trans.site.nbGames.plural(opTurn.size, opTurn.size.localize)
-          ),
-          ul(opTurn.map(renderGame))
-        )
+    val (myTurn, opTurn) = games.partition(_.isMyTurn)
+    frag(
+      h3(trans.site.yourTurn(), " : ", trans.site.nbGames.plural(myTurn.size, myTurn.size.localize)),
+      ul(myTurn.map(renderGame)),
+      h3(
+        trans.site.waitingForOpponent(),
+        " : ",
+        trans.site.nbGames.plural(opTurn.size, opTurn.size.localize)
+      ),
+      ul(opTurn.map(renderGame))
+    )
 
   private def renderGame(pov: Pov)(using Context) =
     li(

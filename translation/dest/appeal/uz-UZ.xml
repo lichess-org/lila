@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">Akkauntingizda hech qanday cheklov yoki belgi yoʻq. Hammasi joyida!</string>
+  <string name="engineMarked">Akkauntingiz tashqi yordamdan foydalanganlikda gumon qilinmoqda.</string>
+  <string name="engineMarkedInfo">Raqibingizdan ustun kelish maqsadida har qanday tashqi yordamdan foydalanib, bilimingiz yoki hisoblash qobiliyatingizni sunʼiy oshirishni biz gʻirromlik deb hisoblaymiz. Batafsil maʼlumot %s sahifasida.</string>
+  <string name="arenaBanned">Akkauntingiz arenalarga qoʻshilishdan bloklangan.</string>
+  <string name="prizeBanned">Akkauntingiz qimmatbaho sovrinli turnirlarda qatnashish huquqidan mahrum qilingan.</string>
+  <string name="boosterMarked">Akkauntingiz reytingni sunʼiy oʻzgartirganlik uchun belgilangan.</string>
+  <string name="boosterMarkedInfo">Oʻyinlarda ataylab yutqazish yoki ataylab yutqazib berayotganlar bilan oʻynash orqali reytingni soxtalashtirish gʻirromlik hisoblanadi.</string>
+  <string name="accountMuted">Chatdan foydalana olmaysiz.</string>
+  <string name="accountMutedInfo">%s bilan tanishib chiqing. Muloqot qoidalariga amal qilmaslik chat imkoniyatining cheklanishiga olib kelishi mumkin.</string>
+  <string name="excludedFromLeaderboards">Akkauntingiz peshqadamlar jadvalidan chiqarilgan.</string>
+  <string name="excludedFromLeaderboardsInfo">Biz buni peshqadamlar jadvaliga kirish uchun har qanday gʻirrom yoʻllardan foydalanish deb hisoblaymiz.</string>
+  <string name="closedByModerators">Akkauntingiz moderatorlar tomonidan yopildi.</string>
+  <string name="hiddenBlog">Bloglaringiz moderatorlar tomonidan yashirib qoʻyildi.</string>
+  <string name="hiddenBlogInfo" comment="%s is &quot;blog rules&quot;, a separately translateable string (key: blogRules).&#10;&#10;Full sentence: &quot;Make sure to read again our blog rules.&quot;">%s bilan qayta tanishib chiqishingizni soʻraymiz.</string>
+  <string name="playTimeout">Oʻyinlardan vaqtinchalik chetlatildingiz.</string>
+  <string name="communicationGuidelines">Muloqot qoidalari</string>
+  <string name="blogRules" comment="This text links to https://lichess.org/page/blog-etiquette&#10;&#10;Part of longer sentence, &quot;Make sure to read again our blog rules.&quot; (key: hiddenBlogInfo)">Blog yuritish qoidalari</string>
+  <string name="fairPlay">Halol oʻyin</string>
+</resources>

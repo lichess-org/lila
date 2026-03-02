@@ -14,8 +14,8 @@ const renderVote = (ctrl: PuzzleCtrl): VNode =>
           hl('p', i18n.puzzle.voteToLoadNextOne),
         ]),
       hl('div.puzzle__vote__buttons', { class: { enabled: !ctrl.voteDisabled } }, [
-        hl('div.vote.vote-up', { hook: bind('click', () => ctrl.vote(true)) }),
-        hl('div.vote.vote-down', { hook: bind('click', () => ctrl.vote(false)) }),
+        hl('button.vote.vote-up', { hook: bind('click', () => ctrl.vote(true)) }),
+        hl('button.vote.vote-down', { hook: bind('click', () => ctrl.vote(false)) }),
       ]),
     ],
   );

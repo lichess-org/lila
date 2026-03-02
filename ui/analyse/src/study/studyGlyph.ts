@@ -1,23 +1,27 @@
-import { prop } from 'lib';
+import { blurIfPrimaryClick, prop } from 'lib';
 import { bind, spinnerVdom } from 'lib/view';
 import { throttle } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import { glyphs as xhrGlyphs } from './studyXhr';
+import type { Glyph, GlyphId, TreeNode } from 'lib/tree/types';
 
 interface AllGlyphs {
-  move: Tree.Glyph[];
-  observation: Tree.Glyph[];
-  position: Tree.Glyph[];
+  move: Glyph[];
+  observation: Glyph[];
+  position: Glyph[];
 }
 
-const renderGlyph = (ctrl: GlyphForm, node: Tree.Node) => (glyph: Tree.Glyph) =>
+const renderGlyph = (ctrl: GlyphForm, node: TreeNode) => (glyph: Glyph) =>
   h(
     'button',
     {
-      hook: bind('click', () => ctrl.toggleGlyph(glyph.id)),
+      hook: bind('click', e => {
+        ctrl.toggleGlyph(glyph.id);
+        blurIfPrimaryClick(e);
+      }),
       attrs: { 'data-symbol': glyph.symbol, type: 'button' },
-      class: { active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id) },
+      class: { active: !!node.glyphs && node.glyphs.some(g => g.id === glyph.id) },
     },
     [glyph.name],
   );
@@ -35,7 +39,7 @@ export class GlyphForm {
       });
   };
 
-  toggleGlyph = throttle(500, (id: Tree.GlyphId) => {
+  toggleGlyph = throttle(500, (id: GlyphId) => {
     this.root.study!.makeChange('toggleGlyph', this.root.study!.withPosition({ id }));
     this.root.redraw();
   });

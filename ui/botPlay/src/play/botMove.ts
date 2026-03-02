@@ -31,7 +31,7 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
       const waitTime = Math.max(0, res.movetime * 1000 - (performance.now() - now));
       setTimeout(() => resolve(uci), waitTime);
     });
-  else return Promise.reject('no move');
+  else return Promise.reject(new Error('no move'));
 };
 
 const makeUcisAndHashes = (game: Game): [Uci[], bigint[], Chess] => {

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="community">Comunidá</string>
+  <string name="byMonth">Per mes</string>
+  <string name="byTopic">Por tema</string>
+  <string name="byLichess">Por Lichess</string>
+  <string name="myFriends">Mis amigos</string>
+  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Los mios \"Gústame\"</string>
   <string name="myBlog">El mio blog</string>
   <string name="likedBlogs">Entraes de blog preferíos</string>
   <plurals name="blogPosts">

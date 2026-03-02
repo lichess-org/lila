@@ -14,7 +14,7 @@
 .pss__colors {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-  grid-gap: 1em;
+  gap: 1em;
 }
 .pss__color {
   @extend %box-neat, %flex-column;
@@ -30,7 +30,7 @@
 
   &--selectable {
     cursor: pointer;
-    @include transition();
+    @include transition;
     &:hover {
       background: $c-bg-zebra;
     }

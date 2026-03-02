@@ -23,7 +23,7 @@ $c-bg-position-y: 2px;
     z-index: 0;
     width: 130%;
     height: 100%;
-    background-image: url(../images/racer/road1.webp);
+    background-image: url('../images/racer/road1.webp');
     background-repeat: repeat;
     background-position-y: 7px;
     .racer--racing & {
@@ -67,7 +67,7 @@ $c-bg-position-y: 2px;
   &__score {
     @extend %flex-center;
     direction: ltr;
-    font-family: 'storm';
+    font-family: storm;
     font-size: 20px;
     justify-content: flex-end;
     position: absolute;
@@ -107,14 +107,14 @@ $c-bg-position-y: 2px;
     &__car {
       position: relative;
       flex: 0 0 $car-width;
-      font-family: 'racer-car';
+      font-family: racer-car;
       height: #{$car-width * $car-ratio};
       font-size: $car-width;
       line-height: 0;
       text-shadow: -1px 1px 2px #000;
-      transform: scaleX(1) translateX(0px);
+      transform: scaleX(1) translateX(0);
       @include if-rtl {
-        transform: scaleX(-1) translateX(0px);
+        transform: scaleX(-1) translateX(0);
       }
       transition: all 0.9s ease-out;
 

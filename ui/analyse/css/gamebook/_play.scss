@@ -1,7 +1,7 @@
 @import 'common';
 
-@keyframes rubberBand {
-  from {
+@keyframes rubber-band {
+  0% {
     transform: scale3d(1, 1, 1);
   }
 
@@ -37,7 +37,7 @@
   justify-content: flex-end;
 
   @include mq-is-col1 {
-    padding-top: 1rem;
+    margin: 2rem $block-gap 0 $block-gap;
     justify-content: start;
   }
 
@@ -82,8 +82,6 @@
     }
 
     button {
-      @extend %button-none;
-
       text-align: start;
 
       &.hint {
@@ -116,12 +114,18 @@
   }
 
   .feedback {
-    @extend %flex-column, %box-radius, %button-none;
+    @extend %flex-column, %box-radius;
 
     flex: 1 1 100%;
     height: 8rem;
     text-align: center;
     justify-content: center;
+    align-items: center;
+
+    kbd {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
 
     &.info {
       font-size: 1.6em;
@@ -135,7 +139,7 @@
       @extend %box-neat;
 
       font-size: 2em;
-      color: #fff;
+      color: $c-over;
       cursor: pointer;
       opacity: 0.85;
 
@@ -146,7 +150,7 @@
       }
 
       &.com span {
-        animation: rubberBand 7s infinite;
+        animation: rubber-band 7s infinite;
       }
     }
 
@@ -198,9 +202,10 @@
     &.end {
       flex-flow: row;
       font-size: 0.8em;
+      align-items: stretch;
 
       button {
-        @extend %flex-column, %button-none;
+        @extend %flex-column;
 
         flex: 1 1 100%;
         background: $m-primary_bg--mix-80;
@@ -226,6 +231,9 @@
 
         &:last-child {
           @extend %box-radius-right;
+          &:first-child {
+            @extend %box-radius;
+          }
         }
 
         &:hover {

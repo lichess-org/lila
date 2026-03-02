@@ -38,8 +38,7 @@
   }
 
   .name {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @extend %ellipsis;
   }
 
   .rating {

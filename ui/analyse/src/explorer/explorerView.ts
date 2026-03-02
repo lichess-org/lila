@@ -212,7 +212,7 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
     openingTitle(ctrl, data),
     hl('div.message', [
       hl('strong', isTooDeep ? i18n.site.maxDepthReached : i18n.site.noGameFound),
-      !!data?.queuePosition
+      data?.queuePosition
         ? hl('p.explanation', `Indexing ${data.queuePosition} other players first ...`)
         : !(ctrl.explorer.config.fullHouse() || isTooDeep) &&
           hl('p.explanation', i18n.site.maybeIncludeMoreGamesFromThePreferencesMenu),
@@ -329,7 +329,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       nodes,
     );
   const playerName = explorer.config.data.playerName.value();
-  const masterDbExplanation = i18n.site.masterDbExplanation(2200, '1952', '2024-08'),
+  const masterDbExplanation = i18n.site.masterDbExplanation(2200, '1952', '2026-01'),
     lichessDbExplanation = i18n.site.lichessDbExplanation;
   const data = explorer.current();
   const queuePosition = data && isOpening(data) && data.queuePosition;
@@ -363,17 +363,16 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
   ]);
 };
 
-function showTitle(variant: Variant) {
-  if (variant.key === 'standard' || variant.key === 'fromPosition') return i18n.site.openingExplorer;
-  return i18n.site.xOpeningExplorer(variant.name);
-}
+const showTitle = (variant: Variant) =>
+  ['standard', 'fromPosition'].includes(variant.key)
+    ? i18n.site.openingExplorer
+    : i18n.site.xOpeningExplorer(variant.name);
 
-function showConfig(ctrl: AnalyseCtrl): VNode {
-  return hl('div.config', [explorerTitle(ctrl.explorer), renderConfig(ctrl.explorer.config)]);
-}
+const showConfig = (ctrl: AnalyseCtrl): VNode =>
+  hl('div.config', [explorerTitle(ctrl.explorer), renderConfig(ctrl.explorer.config)]);
 
-function showFailing(ctrl: AnalyseCtrl) {
-  return hl('div.data.empty', [
+const showFailing = (ctrl: AnalyseCtrl) =>
+  hl('div.data.empty', [
     hl('div.title', showTitle(ctrl.data.game.variant)),
     hl('div.failing.message', [
       hl('h3', 'Oops, sorry!'),
@@ -381,7 +380,6 @@ function showFailing(ctrl: AnalyseCtrl) {
       closeButton(ctrl),
     ]),
   ]);
-}
 
 let lastFen: FEN = '';
 

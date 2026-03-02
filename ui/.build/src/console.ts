@@ -70,7 +70,7 @@ export async function jsLogger(): Promise<string> {
             return;
           Object.assign(console, o);
         }
-        r('log', (window as any).navigator.userAgent);
+        r('log', window.navigator.userAgent);
       }.toString(),
       { loader: 'ts', minify: true, target: 'es2018' },
     )

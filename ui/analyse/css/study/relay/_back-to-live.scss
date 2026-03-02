@@ -1,6 +1,5 @@
 .relay-back-to-live {
-  @extend %flex-center;
-  justify-content: center;
+  @extend %flex-center-center;
   padding: 0.5em 0;
   background: $c-accent;
   color: $c-over;

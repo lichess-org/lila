@@ -1,15 +1,15 @@
 // db.puzzle_round2.drop();
 
-var shift = 60000,
+let shift = 60000,
   o = {},
   m = 0,
   n = 0,
   total = db.puzzle_round.count();
 
-var noWin = (1 << 30) - 1;
+const noWin = (1 << 30) - 1;
 
 Number.prototype.pad = function (size) {
-  var s = String(this);
+  let s = String(this);
   while (s.length < (size || 2)) {
     s = '0' + s;
   }
@@ -29,9 +29,9 @@ db.puzzle_round
       a: r.a,
       m: NumberInt(m),
     };
-    var win = !!(m >>> 31);
-    var rating = (m << 16) >>> 16;
-    var diff = ((m & noWin) >> 16) * (win ? 1 : -1);
+    const win = !!(m >>> 31);
+    const rating = (m << 16) >>> 16;
+    const diff = ((m & noWin) >> 16) * (win ? 1 : -1);
     // printjson(r);
     // printjson(o);
     // print(win, rating, diff);

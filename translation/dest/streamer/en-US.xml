@@ -40,8 +40,8 @@
     <item quantity="one">Keep it short: %s character max</item>
     <item quantity="other">Keep it short: %s characters max</item>
   </plurals>
-  <string name="visibility">Visible on the streamers page</string>
-  <string name="whenApproved">When approved by moderators</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Visible on the streamers page</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">When approved by moderators</string>
   <string name="headline">Headline</string>
   <string name="tellUsAboutTheStream">Tell us about your stream in one sentence</string>
   <string name="longDescription">Long description</string>

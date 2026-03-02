@@ -15,7 +15,7 @@
 }
 
 .trophy.award {
-  font-family: 'lichess';
+  font-family: lichess;
   speak: none;
   line-height: 100%;
 }
@@ -24,6 +24,7 @@
   display: flex;
   align-items: flex-end;
   height: 40px;
+  user-select: none;
 
   img {
     height: 80px;
@@ -160,13 +161,13 @@
   height: 60px;
   background-size: contain;
   background-repeat: no-repeat;
-  font-family: 'lichess';
+  font-family: lichess;
   text-align: center;
 }
 
 .shield-trophy {
   width: 50px;
-  background-image: url(../images/trophy/shield-gold.png);
+  background-image: url('../images/trophy/shield-gold.png');
   font-size: 30px;
   line-height: 60px;
   color: #333 !important;
@@ -176,7 +177,7 @@
 }
 
 .revol_trophy {
-  background-image: url(../images/trophy/round-star.png);
+  background-image: url('../images/trophy/round-star.png');
   font-size: 24px;
   line-height: 68px;
   color: #fff !important;

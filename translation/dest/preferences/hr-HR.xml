@@ -19,10 +19,10 @@
   <string name="displayBoardResizeHandle">Prikaži ručicu za promjenu veličine ploče</string>
   <string name="onlyOnInitialPosition">Samo na početku partije</string>
   <string name="inGameOnly">Samo unutar igre</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Osim za vrijeme partije</string>
+  <string name="exceptInGame">Osim za vrijeme partije</string>
   <string name="chessClock">Sat</string>
   <string name="tenthsOfSeconds">Desetinke sekundi</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kad je ostalo manje od 10 sekundi</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kad je ostalo manje od 10 sekundi</string>
   <string name="horizontalGreenProgressBars">Vodoravna zelena linija napretka</string>
   <string name="soundWhenTimeGetsCritical">Zvuk kada je vrijeme kritično</string>
   <string name="giveMoreTime">Daj više vremena</string>
@@ -38,7 +38,7 @@
   <string name="explainPromoteToQueenAutomatically">Držite &lt;ctrl&gt; tipku prilikom promocije pješaka da bi privremeno onemogućili automatsku promociju u damu</string>
   <string name="whenPremoving">Kada odigraš pretpotez</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatski proglasi remi po trostrukom ponavljanju pozicije</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kada je vrijeme &lt; 30 sekundi</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kada je vrijeme &lt; 30 sekundi</string>
   <string name="moveConfirmation">Potvrda poteza</string>
   <string name="explainCanThenBeTemporarilyDisabled">Može biti isključeno tijekom partije u izborniku ploče</string>
   <string name="inCorrespondenceGames">U dopisnim partijama</string>
@@ -67,5 +67,5 @@
   <string name="notifyWeb">Preglednik</string>
   <string name="notifyDevice">Uređaj</string>
   <string name="bellNotificationSound">Obavijest kao zvuk</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Slijepo</string>
+  <string name="blindfold" comment="As in Blindfold chess">Slijepo</string>
 </resources>

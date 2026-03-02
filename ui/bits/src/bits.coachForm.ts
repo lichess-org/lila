@@ -91,7 +91,7 @@ site.load.then(() => {
     $editor.find('div.status').removeClass('saved');
   });
   const submit = debounce(() => {
-    const form = document.querySelector('form.async') as HTMLFormElement;
+    const form = document.querySelector<HTMLFormElement>('form.async');
     if (!form) return;
     xhr.formToXhr(form).then(() => {
       $editor.find('div.status').addClass('saved');

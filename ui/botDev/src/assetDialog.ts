@@ -1,5 +1,4 @@
-import { domDialog, type Dialog } from 'lib/view';
-import { alert, confirm } from 'lib/view';
+import { domDialog, type Dialog, alert, confirm } from 'lib/view';
 import { frag } from 'lib';
 import * as licon from 'lib/licon';
 import { renderRemoveButton } from './devUtil';
@@ -8,7 +7,7 @@ import { env } from './devEnv';
 
 export type AssetType = 'image' | 'book' | 'sound';
 
-const mimeTypes: { [type in AssetType]?: string[] } = {
+const mimeTypes: Record<AssetType, string[]> = {
   image: ['image/jpeg', 'image/png', 'image/webp'],
   book: ['application/x-chess-pgn', 'application/vnd.chess-pgn', 'application/octet-stream', '.pgn'],
   sound: ['audio/mpeg', 'audio/aac'],
@@ -210,7 +209,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
   private addItem = () => {
     const fileInputEl = document.createElement('input');
     fileInputEl.type = 'file';
-    fileInputEl.accept = mimeTypes[this.type]!.join(',');
+    fileInputEl.accept = mimeTypes[this.type].join(',');
     fileInputEl.style.display = 'none';
     const onchange = () => {
       fileInputEl.removeEventListener('change', onchange);
@@ -354,7 +353,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
       preview: (key: string) => {
         const soundEl = document.createElement('span');
         const audioEl = frag<HTMLAudioElement>(`<audio src="${env.bot.getSoundUrl(key)}"></audio>`);
-        const buttonEl = frag<Node>(
+        const buttonEl = frag(
           `<button class="button button-empty preview-sound" data-icon="${licon.PlayTriangle}" data-play="${key}">0.00s</button>`,
         );
         buttonEl.addEventListener('click', e => {

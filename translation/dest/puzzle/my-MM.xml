@@ -73,5 +73,5 @@
   </plurals>
   <string name="percentSolved">%s ပုဒ် ဖြေရှင်းခဲ့သည်</string>
   <string name="noPuzzlesToShow">ပြစရာဘာမှမရှိ၊ ရှာကွက်ပုစ္ဆာများ သွား၍ဖြေရှင်းပါ!</string>
-  <string name="improvementAreasDescription">တိုးတက်ဖို့ ဤအရာများလေ့ကျင့်ပါ!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">တိုးတက်ဖို့ ဤအရာများလေ့ကျင့်ပါ!</string>
 </resources>

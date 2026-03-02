@@ -92,7 +92,7 @@ export class DevBotCtrl extends BotLoader {
     return this.bots.keys().next()?.value;
   }
 
-  storeBot(bot: BotInfo): Promise<any> {
+  storeBot(bot: BotInfo): Promise<void | IDBValidKey> {
     delete this.localBots[bot.uid];
     this.bots.set(bot.uid, new Bot(bot, this));
     if (botEquals(this.serverBots[bot.uid], bot)) return this.store.remove(bot.uid);

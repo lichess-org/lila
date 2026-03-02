@@ -11,10 +11,11 @@ import { userLink } from 'lib/view/userLink';
 import type StudyCtrl from './studyCtrl';
 import { once } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
+import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 
 interface Opts {
   initDict: StudyMemberMap;
-  myId: string | undefined;
+  myId?: string;
   ownerId: string;
   send: AnalyseSocketSend;
   tab: Prop<Tab>;
@@ -40,7 +41,7 @@ export class StudyMemberCtrl {
   confing = prop<string | null>(null);
   inviteForm: StudyInviteFormCtrl;
   readonly active: Map<string, () => void> = new Map();
-  online: { [id: string]: boolean } = {};
+  online: Record<string, boolean> = {};
   spectatorIds: string[] = [];
   max = 30;
 
@@ -178,20 +179,13 @@ export function view(ctrl: StudyCtrl): VNode {
         hook: onInsert(el => scrollTo(el.closest('.study-list')!, el)),
       },
       [
-        hl('div.role', [
-          hl('div.switch', [
-            hl('input.cmn-toggle', {
-              attrs: { id: roleId, type: 'checkbox', checked: member.role === 'w' },
-              hook: bind(
-                'change',
-                e => members.setRole(member.user.id, (e.target as HTMLInputElement).checked ? 'w' : 'r'),
-                ctrl.redraw,
-              ),
-            }),
-            hl('label', { attrs: { for: roleId } }),
-          ]),
-          hl('label', { attrs: { for: roleId } }, i18n.study.contributor),
-        ]),
+        cmnToggleWrap({
+          id: roleId,
+          name: i18n.study.contributor,
+          checked: member.role === 'w',
+          change: v => members.setRole(member.user.id, v ? 'w' : 'r'),
+          redraw: ctrl.redraw,
+        }),
         hl(
           'div.kick',
           hl(
@@ -209,18 +203,16 @@ export function view(ctrl: StudyCtrl): VNode {
   return hl('div.study__members', [
     hl(
       'div.study-list',
-      ordered
-        .map(member => {
-          const confing = members.confing() === member.user.id;
-          return [
-            hl('div', { key: member.user.id, class: { editing: !!confing } }, [
-              hl('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
-              configButton(ctrl, member),
-            ]),
-            confing && memberConfig(member),
-          ];
-        })
-        .reduce((a, b) => a.concat(b), []),
+      ordered.flatMap(member => {
+        const confing = members.confing() === member.user.id;
+        return [
+          hl('div', { key: member.user.id, class: { editing: !!confing } }, [
+            hl('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
+            configButton(ctrl, member),
+          ]),
+          confing && memberConfig(member),
+        ];
+      }),
     ),
     isOwner &&
       ordered.length < members.max &&

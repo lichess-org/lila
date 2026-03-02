@@ -67,7 +67,6 @@ final class Analyse(
                   movetimes = true,
                   clocks = true,
                   division = true,
-                  opening = true,
                   rating = ctx.pref.showRatings,
                   lichobileCompat = HTTPRequest.isLichobile(ctx.req),
                   puzzles = true

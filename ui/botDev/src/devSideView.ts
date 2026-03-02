@@ -1,8 +1,7 @@
 import * as co from 'chessops';
-import { type VNode, hl, onInsert, bind } from 'lib/view';
+import { type VNode, hl, onInsert, bind, domDialog } from 'lib/view';
 import * as licon from 'lib/licon';
 import { storedBooleanProp, storedIntProp } from 'lib/storage';
-import { domDialog } from 'lib/view';
 import { EditDialog } from './editDialog';
 import { Bot } from 'lib/bot/bot';
 import { resultsString, playersWithResults, rangeTicks } from './devUtil';
@@ -364,7 +363,7 @@ function showBotSelector(clickedEl: HTMLElement) {
 
   document.querySelectorAll<HTMLElement>('main .player')?.forEach(el => {
     const selected = uidToDomId(env.bot[el.dataset.color as Color]?.uid);
-    drops.push({ el: el as HTMLElement, selected });
+    drops.push({ el, selected });
   });
   botSelector = handOfCards({
     viewEl: main,

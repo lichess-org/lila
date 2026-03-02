@@ -93,6 +93,6 @@ Spill partier i hurtigsjakk og klassisk sjakk for å øke sjansen for å få med
   </plurals>
   <string name="percentSolved">%s løst</string>
   <string name="noPuzzlesToShow">Ingenting å vise, løs noen sjakknøtter først!</string>
-  <string name="improvementAreasDescription">Øv på disse for å optimalisere framgangen din!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Øv på disse for å optimalisere framgangen din!</string>
   <string name="strengthDescription">Du gjør det best i disse temaene</string>
 </resources>

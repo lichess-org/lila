@@ -4,19 +4,20 @@
 }
 
 .context-streamer {
-  @extend %nowrap-hidden, %box-radius-bottom, %box-shadow, %flex-center-nowrap;
+  @extend %nowrap-hidden, %box-radius, %flex-center-nowrap;
+  @include transition;
 
   height: 2em;
   padding-inline-start: 0.2em;
   background: $c-bg-box;
   color: $c-font-dim;
+  margin-top: 2px;
+
   strong {
     color: $c-brag;
     font-weight: normal;
     padding-inline-end: 0.7ch;
   }
-
-  @include transition;
 
   &::before {
     font-size: 1.3em;
@@ -24,6 +25,7 @@
   }
 
   &:hover {
-    color: $c-brag;
+    color: $c-font-dim;
+    background: $c-bg-zebra;
   }
 }

@@ -34,6 +34,8 @@ import { verticalResize } from 'lib/view/verticalResize';
 import { displayColumns, shareIcon } from 'lib/device';
 import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } from '../view/components';
 import { renderControls } from '../view/controls';
+import type { TreeNode, TreePath } from 'lib/tree/types';
+import { blurIfPrimaryClick } from 'lib';
 
 export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
@@ -52,7 +54,7 @@ export function studyView(ctrl: AnalyseCtrl, study: StudyCtrl, deps: typeof stud
     ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
     trainingView(ctrl),
     ctrl.study?.practice
-      ? deps?.studyPracticeView.side(study!)
+      ? deps?.studyPracticeView.side(study)
       : hl(
           'aside.analyse__side',
           {
@@ -73,11 +75,16 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
 
   const makeTab = (key: Tab, name: string) =>
     hl(
-      `span.${key}`,
+      `button.${key}`,
       {
         class: { active: activeTab === key },
         attrs: { role: 'tab' },
-        hook: bind('mousedown', () => ctrl.setTab(key)),
+        on: {
+          click: e => {
+            ctrl.setTab(key);
+            blurIfPrimaryClick(e);
+          },
+        },
       },
       name,
     );
@@ -90,14 +97,18 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
     chaptersTab,
     ctrl.members.size() > 0 && makeTab('members', i18n.study.nbMembers(ctrl.members.size())),
     withSearch &&
-      hl('span.search.narrow', {
+      hl('button.search.narrow', {
         attrs: { ...dataIcon(licon.Search) },
-        hook: bind('click', () => ctrl.search.open(true)),
+        on: {
+          click: () => ctrl.search.open(true),
+        },
       }),
     ctrl.members.isOwner() &&
-      hl('span.more.narrow', {
+      hl('button.more.narrow', {
         attrs: { ...dataIcon(licon.Hamburger), title: i18n.study.editStudy },
-        hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
+        on: {
+          click: () => ctrl.toggleStudyFormIfAllowed(),
+        },
       }),
   ]);
 
@@ -109,8 +120,8 @@ export function studySideNodes(ctrl: StudyCtrl, withSearch: boolean): LooseVNode
   ];
 }
 
-export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {
-  return ctrl.vm.mode.write
+export const contextMenu = (ctrl: StudyCtrl, path: TreePath, node: TreeNode): VNode[] =>
+  ctrl.vm.mode.write
     ? [
         hl(
           'a',
@@ -135,7 +146,6 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
         ),
       ]
     : [];
-}
 
 export const overboard = (ctrl: StudyCtrl) =>
   ctrl.chapters.newForm.isOpen()
@@ -153,7 +163,7 @@ export const overboard = (ctrl: StudyCtrl) =>
               : undefined;
 
 export function underboard(ctrl: AnalyseCtrl): LooseVNodes {
-  if (ctrl.study?.practice) return practiceView.underboard(ctrl.study!);
+  if (ctrl.study?.practice) return practiceView.underboard(ctrl.study);
   const study = ctrl.study!,
     toolTab = study.vm.toolTab();
   if (study.gamebookPlay)
@@ -203,26 +213,27 @@ interface ToolButtonOpts {
   icon: VNode;
   onClick?: () => void;
   count?: number | string;
+  shouldBlurIfPrimaryClick?: boolean;
 }
 
-function toolButton(opts: ToolButtonOpts): VNode {
-  return hl(
-    'span.' + opts.tab,
+const toolButton = (opts: ToolButtonOpts): VNode =>
+  hl(
+    'button.' + opts.tab,
     {
       attrs: { role: 'tab', title: opts.hint },
       class: { active: opts.tab === opts.ctrl.vm.toolTab() },
       hook: bind(
-        'mousedown',
-        () => {
+        'click',
+        e => {
           if (opts.onClick) opts.onClick();
           opts.ctrl.vm.toolTab(opts.tab);
+          if (opts.shouldBlurIfPrimaryClick) blurIfPrimaryClick(e);
         },
         opts.ctrl.redraw,
       ),
     },
     [!!opts.count && hl('count.data-count', { attrs: { 'data-count': opts.count } }), opts.icon],
   );
-}
 
 function buttons(root: AnalyseCtrl): VNode {
   const ctrl: StudyCtrl = root.study!,
@@ -252,7 +263,13 @@ function buttons(root: AnalyseCtrl): VNode {
           },
           [hl('i.is'), 'REC'],
         ),
-      toolButton({ ctrl, tab: 'tags', hint: i18n.study.pgnTags, icon: iconTag(licon.Tag) }),
+      toolButton({
+        ctrl,
+        tab: 'tags',
+        hint: i18n.study.pgnTags,
+        icon: iconTag(licon.Tag),
+        shouldBlurIfPrimaryClick: true,
+      }),
       canContribute &&
         toolButton({
           ctrl,
@@ -271,6 +288,7 @@ function buttons(root: AnalyseCtrl): VNode {
           hint: i18n.study.annotateWithGlyphs,
           icon: hl('i.glyph-icon'),
           count: (root.node.glyphs || []).length,
+          shouldBlurIfPrimaryClick: true,
         }),
       (canContribute || root.data.analysis) &&
         toolButton({
@@ -279,9 +297,22 @@ function buttons(root: AnalyseCtrl): VNode {
           hint: i18n.site.computerAnalysis,
           icon: iconTag(licon.BarChart),
           count: root.data.analysis && '✓',
+          shouldBlurIfPrimaryClick: true,
         }),
-      toolButton({ ctrl, tab: 'multiBoard', hint: 'Multiboard', icon: iconTag(licon.Multiboard) }),
-      toolButton({ ctrl, tab: 'share', hint: i18n.study.shareAndExport, icon: iconTag(shareIcon()) }),
+      toolButton({
+        ctrl,
+        tab: 'multiBoard',
+        hint: 'Multiboard',
+        icon: iconTag(licon.Multiboard),
+        shouldBlurIfPrimaryClick: true,
+      }),
+      toolButton({
+        ctrl,
+        tab: 'share',
+        hint: i18n.study.shareAndExport,
+        icon: iconTag(shareIcon()),
+        shouldBlurIfPrimaryClick: true,
+      }),
       !ctrl.relay &&
         !ctrl.data.chapter.gamebook &&
         hl('span.help', {

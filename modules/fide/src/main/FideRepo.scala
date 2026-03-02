@@ -41,9 +41,6 @@ final private class FideRepo(
       playerColl.updateOrUnsetField($id(id), "deceasedYear", year).void
 
   object rating:
-    private given BSONHandler[YearMonth] =
-      quickHandler({ case BSONString(s) => YearMonth.parse(s) }, ym => BSONString(ym.toString))
-    given BSONHandler[FideRatingHistory.RatingPoint] = tupleHandler
     given BSONDocumentHandler[FideRatingHistory] = Macros.handler
     def get(id: FideId): Fu[FideRatingHistory] =
       ratingColl.byId[FideRatingHistory](id).map(_ | FideRatingHistory.empty(id))

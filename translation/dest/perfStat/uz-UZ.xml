@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="perfStats">%sнинг натижалари</string>
+  <string name="perfStats">%s statistikasi</string>
+  <string name="viewTheGames">Oʻyinlarni koʻrish</string>
+  <string name="provisional">aniqlanmagan</string>
+  <string name="notEnoughRatedGames">Aniq reytingni belgilash uchun reytingli oʻyinlar soni yetarli emas.</string>
+  <string name="progressOverLastXGames">Oxirgi %s ta oʻyindagi oʻsish:</string>
+  <string name="ratingDeviation">Reyting ogʻishi: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Qiymat qanchalik past bo‘lsa, reyting shunchalik barqaror hisoblanadi. %1$s dan yuqori boʻlsa, reyting aniqlanmagan hisoblanadi. Reytinglar roʻyxatiga kiritilish uchun bu qiymat %2$s (klassik) yoki %3$s dan (variantlar) pastroq boʻlishi kerak.</string>
+  <string name="totalGames">Jami oʻyinlar</string>
+  <string name="ratedGames">Reytingli oʻyinlar</string>
+  <string name="tournamentGames">Turnir oʻyinlari</string>
+  <string name="berserkedGames">Berserk oʻyinlar</string>
+  <string name="timeSpentPlaying">Jami oʻynagan vaqti</string>
+  <string name="averageOpponent">Raqiblarning oʻrtacha reytingi</string>
+  <string name="victories">Gʻalabalar</string>
+  <string name="defeats">Magʻlubiyatlar</string>
+  <string name="disconnections">Aloqa uzilishlari</string>
+  <string name="notEnoughGames">Oʻyinlar soni yetarli emas</string>
+  <string name="highestRating">Eng yuqori reyting: %s</string>
+  <string name="lowestRating">Eng past reyting: %s</string>
+  <string name="fromXToY">%1$s dan %2$s gacha</string>
+  <string name="winningStreak">Gʻalabalar seriyasi</string>
+  <string name="losingStreak">Magʻlubiyatlar seriyasi</string>
+  <string name="longestStreak">Eng uzun seriya: %s</string>
+  <string name="currentStreak">Joriy seriya: %s</string>
+  <string name="bestRated">Eng yuqori reytingli gʻalabalar</string>
+  <string name="gamesInARow">Ketma-ket oʻynalgan oʻyinlar</string>
+  <string name="lessThanOneHour">Oʻyinlar oraligʻi bir soatdan kam</string>
+  <string name="maxTimePlaying">Eng uzun oʻyin sessiyasi</string>
+  <string name="now">hozir</string>
 </resources>

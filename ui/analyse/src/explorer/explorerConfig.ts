@@ -20,9 +20,7 @@ type ByDbSetting = {
   since: StoredProp<Month>;
   until: StoredProp<Month>;
 };
-type ByDbSettings = {
-  [key in ExplorerDb]: ByDbSetting;
-};
+type ByDbSettings = Record<ExplorerDb, ByDbSetting>;
 
 export interface ExplorerConfigData {
   open: Prop<boolean>;
@@ -67,12 +65,7 @@ export class ExplorerConfigCtrl {
     const prevData = previous?.data;
     this.data = {
       open: prevData?.open || prop(false),
-      db: storedProp<ExplorerDb>(
-        'explorer.db2.' + variant,
-        this.allDbs[0],
-        str => str as ExplorerDb,
-        v => v,
-      ),
+      db: storedProp<ExplorerDb>('explorer.db2.' + variant, this.allDbs[0], str => str as ExplorerDb),
       rating: storedJsonProp('analyse.explorer.rating', () => allRatings.slice(1)),
       speed: storedJsonProp<ExplorerSpeed[]>('explorer.speed', () => allSpeeds.slice(1)),
       mode: storedJsonProp<ExplorerMode[]>('explorer.mode', () => allModes),
@@ -146,23 +139,21 @@ export class ExplorerConfigCtrl {
     (this.data.db() !== 'player' || this.data.mode().length === allModes.length);
 }
 
-export function view(ctrl: ExplorerConfigCtrl): VNode[] {
-  return [
-    ctrl.data.db() === 'masters'
-      ? masterDb(ctrl)
-      : ctrl.data.db() === 'lichess'
-        ? lichessDb(ctrl)
-        : playerDb(ctrl),
+export const view = (ctrl: ExplorerConfigCtrl): VNode[] => [
+  ctrl.data.db() === 'masters'
+    ? masterDb(ctrl)
+    : ctrl.data.db() === 'lichess'
+      ? lichessDb(ctrl)
+      : playerDb(ctrl),
+  h(
+    'section.save',
     h(
-      'section.save',
-      h(
-        'button.button.button-green.text',
-        { attrs: dataIcon(licon.Checkmark), hook: bind('click', ctrl.toggleOpen) },
-        i18n.site.allSet,
-      ),
+      'button.button.button-green.text',
+      { attrs: dataIcon(licon.Checkmark), hook: bind('click', ctrl.toggleOpen) },
+      i18n.site.allSet,
     ),
-  ];
-}
+  ),
+];
 
 const selectText = 'Select a Lichess player';
 

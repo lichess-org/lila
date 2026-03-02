@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Jugar contra el ordenador</string>
   <string name="gameMode">Tipo de partida</string>
   <string name="createLobbyGame">Crear partida en la sala de espera</string>
-  <string name="youPlayAs">Juegas con</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguien a jugar, comparte este enlace</string>
   <string name="gameOver">Fin de la partida</string>
   <string name="waitingForOpponent">Esperando al oponente</string>
   <string name="orLetYourOpponentScanQrCode">O dile a tu oponente que escanee este código QR</string>
+  <string name="reusableChallengeUrl">Enlace reutilizable del desafío</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Enlace permanente para que cualquiera pueda desafiarte con estos ajustes concretos.</string>
   <string name="waiting">Esperando</string>
   <string name="yourTurn">Tu turno</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Indicar la mejor jugada</string>
   <string name="showVariationArrows">Mostrar flechas de variantes</string>
   <string name="evaluationGauge">Indicador de evaluación</string>
+  <string name="visualMotifs">Complementos visuales</string>
+  <string name="undefendedPieces">Piezas no defendidas</string>
+  <string name="pinnedPieces">Piezas clavadas</string>
+  <string name="checkableKing">Rey en peligro</string>
   <string name="multipleLines">Múltiples líneas</string>
   <string name="cpus">Procesadores</string>
   <string name="memory">Memoria</string>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Minutos por jugador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
+  <string name="variantsDescription">Más formas de jugar</string>
   <string name="timeControl">Control de tiempo</string>
   <string name="realTime">Tiempo real</string>
   <string name="correspondence">Correspondencia</string>
@@ -231,7 +237,7 @@
   <string name="changeUsernameNotSame">Sólo es posible cambiar mayúsculas por minúsculas y viceversa. Por ejemplo, de \"juanperez\" a \"JuanPerez\".</string>
   <string name="changeUsernameDescription">Cambiar tu nombre de usuario. Esto sólo puede hacerse una vez, y sólo se puede cambiar mayúsculas por minúsculas y viceversa.</string>
   <string name="signupUsernameHint">Asegúrate de elegir un nombre de usuario apto para todos los públicos. ¡No podrás cambiarlo más tarde y se cerrará cualquier cuenta con un nombre de usuario inapropiado!</string>
-  <string name="signupEmailHint">Sólo lo usaremos para restablecer tu contraseña.</string>
+  <string name="signupEmailPromise">Solo te enviaremos correos sobre tu cuenta y nunca compartiremos el tuyo.</string>
   <string name="password">Contraseña</string>
   <string name="changePassword">Cambiar contraseña</string>
   <string name="changeEmail">Cambiar correo</string>
@@ -299,6 +305,7 @@
   <string name="standard">Estándar</string>
   <string name="customPosition">Posición personalizada</string>
   <string name="unlimited">Ilimitado</string>
+  <string name="unlimitedDescription">Tómate tu tiempo</string>
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
   <string name="rated">Por puntos</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">Clasificación</string>
   <string name="screenshotCurrentPosition">Hacer captura de pantalla de la posición actual</string>
   <string name="gameAsGIF">Guardar partida en formato GIF</string>
+  <string name="playerNames">Nombres de jugadores</string>
+  <string name="moveAnnotations">Anotación de los movimientos</string>
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
   <string name="orUploadPgnFile">o sube un archivo PGN</string>
-  <string name="fromPosition">Desde posición</string>
   <string name="continueFromHere">Continuar desde aquí</string>
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>
@@ -713,11 +721,6 @@
   <string name="keyCycleSelectedVariation">Alterna la variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">entrar/salir de la variante</string>
-  <string name="keyRequestComputerAnalysis">Solicitar análisis del ordenador, aprende de tus errores</string>
-  <string name="keyNextLearnFromYourMistakes">Siguiente (Aprende de tus errores)</string>
-  <string name="keyNextBlunder">Siguiente error grave</string>
-  <string name="keyNextMistake">Siguiente error</string>
-  <string name="keyNextInaccuracy">Siguiente imprecisión</string>
   <string name="keyPreviousBranch">Rama anterior</string>
   <string name="keyNextBranch">Rama siguiente</string>
   <string name="toggleVariationArrows">Activa o desactiva flechas de variantes</string>
@@ -810,6 +813,7 @@
   <string name="size">Tamaño</string>
   <string name="opacity">Opacidad</string>
   <string name="brightness">Brillo</string>
+  <string name="contrast">Contraste</string>
   <string name="hue">Tono</string>
   <string name="boardReset">Restablecer los colores predeterminados</string>
   <string name="pieceSet">Estilo de piezas</string>
@@ -1019,4 +1023,5 @@ Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusi
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar búsqueda</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant">Al paso</string>
 </resources>

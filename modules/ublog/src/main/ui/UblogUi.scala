@@ -387,10 +387,6 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
             href := langHref(routes.Ublog.communityAll())
           )(trans.ublog.community()),
           a(
-            cls := isActive("search"),
-            href := langHref(routes.Ublog.search())
-          )("Search"),
-          a(
             cls := isActive("by-month"),
             href := langHref(routes.Ublog.thisMonth())
           )(trans.ublog.byMonth()),

@@ -1,22 +1,16 @@
 import { hl } from 'lib/view';
-import type LobbyController from '@/ctrl';
 import { variantsWhereWhiteIsBetter } from '@/options';
 import { blindModeColorPicker, colorButtons as renderButtons } from 'lib/setup/view/color';
+import type SetupController from '@/setupCtrl';
 
-export const colorButtons = (ctrl: LobbyController) => {
-  const { setupCtrl } = ctrl;
-
+export const colorButtons = ({ gameMode, gameType, variant, color }: SetupController) => {
   const randomColorOnly =
-    setupCtrl.gameType === 'hook' ||
-    (setupCtrl.gameType !== 'ai' &&
-      setupCtrl.gameMode() === 'rated' &&
-      variantsWhereWhiteIsBetter.includes(setupCtrl.variant()));
+    gameType === 'hook' ||
+    (gameType !== 'ai' && gameMode() === 'rated' && variantsWhereWhiteIsBetter.includes(variant()));
 
   return randomColorOnly
     ? undefined
     : site.blindMode
-      ? setupCtrl.gameType !== 'hook'
-        ? hl('div', blindModeColorPicker(setupCtrl.color))
-        : undefined
-      : renderButtons(setupCtrl.color);
+      ? hl('div', blindModeColorPicker(color))
+      : renderButtons(color);
 };

@@ -26,6 +26,8 @@
   <string name="castlingDescription">Pon o teu rei a salvo e desprega a túa torre para o ataque.</string>
   <string name="capturingDefender">Captura ao defensor</string>
   <string name="capturingDefenderDescription">Eliminar unha peza fundamental para a defensa doutra, permitindo capturar a peza, agora indefensa, no seguinte movemento.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Movemento colineal</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Dúas pezas rivais enfróntanse entre si e unha delas desprázase pola liña de ataque sen capturar á rival.</string>
   <string name="cornerMate">Mate do curruncho</string>
   <string name="cornerMateDescription">Confina o rei nun recuncho usando unha torre ou unha dama e un cabalo para facer xaque mate.</string>
   <string name="crushing">Vantaxe decisiva</string>
@@ -53,6 +55,8 @@
   <string name="endgame">Final</string>
   <string name="endgameDescription">Táctica durante a derradeira fase do xogo.</string>
   <string name="enPassantDescription">Táctica que involucra a captura ao paso, onde un peón pode capturar a un peón opoñente que o deixou atrás usando o seu movemento inicial de dúas casas.</string>
+  <string name="epauletteMate">Mate das xarreteiras</string>
+  <string name="epauletteMateDescription">As dúas casas de escape a ámbolos dous lados do rei en xaque están ocupadas.</string>
   <string name="exposedKing">Rei exposto</string>
   <string name="exposedKingDescription">Táctica que involucra a un rei con pouca defensa ó seu redor, a miúdo conducindo a xaque mate.</string>
   <string name="fork">Garfo</string>
@@ -71,6 +75,8 @@
   <string name="pillsburysMateDescription">A torre dá xaque mate mentres o alfil confina ó rei rival.</string>
   <string name="morphysMate">Mate de Morphy</string>
   <string name="morphysMateDescription">Usa o bispo para dar xaque mentres a torre axuda a confinar ó rei.</string>
+  <string name="swallowstailMate">Mate da cola de anduriña</string>
+  <string name="swallowstailMateDescription">É un patrón de mate que semella a cola en forma de V dunha anduriña.</string>
   <string name="triangleMate">Mate do triángulo</string>
   <string name="triangleMateDescription">Un triángulo fórmase do seguinte xeito: a dama e a torre atópanse na mesma fila ou columna, a unha casa de distancia entre si e do rei do opoñente.</string>
   <string name="vukovicMate">Mate de Vuković</string>

@@ -18,7 +18,7 @@ export class RunCtrl {
   stageCompleted: Prop<boolean> = prop(false);
 
   get stage(): Stage {
-    return stageById[this.opts.stageId ?? 1]!;
+    return stageById[this.opts.stageId ?? 1];
   }
 
   constructor(
@@ -43,7 +43,7 @@ export class RunCtrl {
       this.stage.levels[Number(this.opts.levelId) - 1],
       {
         onCompleteImmediate: () => {
-          this.opts.storage.saveScore(this.stage, this.levelCtrl!.blueprint, this.levelCtrl!.vm.score);
+          this.opts.storage.saveScore(this.stage, this.levelCtrl.blueprint, this.levelCtrl.vm.score);
         },
         onComplete: () => {
           if (this.levelCtrl.blueprint.id < this.stage.levels.length) {

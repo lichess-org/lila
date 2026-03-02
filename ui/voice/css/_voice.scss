@@ -21,7 +21,6 @@
   }
 
   > button {
-    @extend %button-none;
     color: $c-font-dim;
     font-size: 16px;
     padding: 0 6px;
@@ -45,7 +44,7 @@
       background-color: $c-bg-zebra2;
     }
     50% {
-      background-color: #cc333388;
+      background-color: #c338;
     }
     100% {
       background-color: $c-bg-zebra2;
@@ -77,7 +76,7 @@ button#microphone-button {
   }
 
   &.listening {
-    animation: pulseListening 2s;
+    animation: pulse-listening 2s;
     animation-iteration-count: infinite;
     color: $c-primary;
 
@@ -90,7 +89,7 @@ button#microphone-button {
     color: $c-bad;
   }
 
-  @keyframes pulseListening {
+  @keyframes pulse-listening {
     0% {
       border-color: transparent;
     }
@@ -126,18 +125,7 @@ button#microphone-button {
 
 .voice-setting {
   @extend %flex-center-nowrap;
-  * {
-    white-space: nowrap;
-  }
-
-  label {
-    flex: 4 1 auto;
-    cursor: pointer;
-  }
-
-  .switch + label {
-    margin-inline-start: 1ch;
-  }
+  white-space: nowrap;
 
   input[type='range'] {
     cursor: pointer;
@@ -149,12 +137,11 @@ button#microphone-button {
   }
 
   select {
+    @extend %ellipsis;
     flex: 1 4 auto;
     min-width: 0;
     margin-inline-start: 1ch;
     padding: 4px;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .range_value {

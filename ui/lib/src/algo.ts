@@ -13,13 +13,11 @@ export function randomId(len = 8): string {
   return Array.from(buffer, byte => charSet32[byte % 32]).join('');
 }
 
-export function clamp(value: number, bounds: { min?: number; max?: number }): number {
-  return Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
-}
+export const clamp = (value: number, bounds: { min?: number; max?: number }): number =>
+  Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
 
-export function quantize(n: number | undefined, factor: number): number {
-  return Math.round((n ?? 0) / factor) * factor;
-}
+export const quantize = (n: number | undefined, factor: number): number =>
+  Math.round((n ?? 0) / factor) * factor;
 
 export function shuffle<T>(arr: T[]): T[] {
   const shuffled = arr.slice();
@@ -93,8 +91,5 @@ export function isContained(o: any, sub: any): boolean {
   return subKeys.every(key => aKeys.includes(key) && isContained(o[key], sub[key]));
 }
 
-export function shallowSort(obj: { [key: string]: any }): { [key: string]: any } {
-  const sorted: { [key: string]: any } = {};
-  for (const key of Object.keys(obj).sort()) sorted[key] = obj[key];
-  return sorted;
-}
+export const shallowSort = (obj: Record<string, any>): Record<string, any> =>
+  Object.fromEntries(Object.entries(obj).sort(([a], [b]) => a.localeCompare(b)));

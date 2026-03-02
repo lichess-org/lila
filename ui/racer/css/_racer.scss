@@ -8,8 +8,8 @@
   }
 
   display: grid;
-  grid-row-gap: $block-gap;
-  grid-column-gap: $block-gap;
+  row-gap: $block-gap;
+  column-gap: $block-gap;
   grid-template-areas: 'board' 'race' 'side' 'history';
 
   @include mq-at-least-col2 {
@@ -45,7 +45,7 @@
   }
 
   .puz-side__top::before {
-    background-image: url(../images/racer/checkered-flag.svg);
+    background-image: url('../images/racer/checkered-flag.svg');
   }
 
   .puz-side__start {
@@ -68,7 +68,7 @@
     }
     &::before {
       content: '';
-      background-image: url(../images/racer/gear-stick.svg);
+      background-image: url('../images/racer/gear-stick.svg');
       width: 4ch;
       height: 4ch;
       margin-bottom: 0.6ch;

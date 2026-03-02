@@ -17,7 +17,7 @@ import { isIos, isWebkit, prefersLightThemeQuery } from 'lib/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'lib';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { addDomHandlers } from './domHandlers';
-import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
+import { updateTimeAgo, renderTimeAgo, renderLocalizedTimestamps } from './renderTimeAgo';
 import { pubsub } from 'lib/pubsub';
 import { once } from 'lib/storage';
 import { addExceptionListeners } from './unhandledError';
@@ -25,7 +25,6 @@ import { eventuallySetupDefaultConnection } from 'lib/socket';
 
 export function boot() {
   addExceptionListeners();
-  $('#user_tag').removeAttr('href');
   const setBlind = location.hash === '#blind';
   const showDebug = location.hash.startsWith('#debug');
 
@@ -36,13 +35,14 @@ export function boot() {
     pubsub.on('content-loaded', initMiniGames);
     updateTimeAgo(1000);
     pubsub.on('content-loaded', renderTimeAgo);
+    renderLocalizedTimestamps();
     pubsub.on('content-loaded', toggleBoxInit);
   });
   requestIdleCallback(() => {
     const friendsEl = document.getElementById('friend_box');
     if (friendsEl) new OnlineFriends(friendsEl);
 
-    const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
+    const chatMembers = document.querySelector<HTMLElement>('.chat__members');
     if (chatMembers) watchers(chatMembers);
 
     $('.subnav__inner').each(function (this: HTMLElement) {
@@ -55,8 +55,8 @@ export function boot() {
 
     // prevent zoom when keyboard shows on iOS
     if (isIos() && !('MSStream' in window)) {
-      const el = document.querySelector('meta[name=viewport]') as HTMLElement;
-      el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
+      const el = document.querySelector<HTMLMetaElement>('meta[name=viewport]');
+      el?.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
     toggleBoxInit();
@@ -133,15 +133,6 @@ export function boot() {
 const isUnsupportedBrowser = () => isWebkit({ below: '15.4' });
 
 function mirrorCheck() {
-  const mirrors: string[] = [
-    'chess.shark-stars.com',
-    'lootverse.org',
-    'phantomstride.org',
-    'raksharealm.org',
-    'ludicfrontiers.org',
-    'lichess.dscs2009.com',
-    'sidequest-circus.org',
-    'joystickcaravan.org',
-  ];
+  const mirrors: string[] = ['orbitofavatars.com', 'bealive.fit'];
   if (mirrors.includes(location.host)) location.href = 'https://lichess.org' + location.pathname;
 }

@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Žaiskite prieš kompiuterį</string>
   <string name="gameMode">Žaidimo režimas</string>
   <string name="createLobbyGame">Sukurti žaidimą laukimo salėje</string>
-  <string name="youPlayAs">Jūs žaidžiate kaip</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norėdami pakviesti varžovą, pasidalinkite šiuo adresu</string>
   <string name="gameOver">Partija baigta</string>
   <string name="waitingForOpponent">Laukiama varžovo</string>
   <string name="orLetYourOpponentScanQrCode">Arba leiskite priešininkui nuskenuoti šį QR kodą</string>
+  <string name="reusableChallengeUrl">Pakartotino iššūkio URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Nuolatinė nuoroda bet kuriam jums iššūkį teikiančiam pagal šiuos tikslius nustatymus.</string>
   <string name="waiting">Laukiama</string>
   <string name="yourTurn">Jūsų ėjimas</string>
   <string name="aiNameLevelAiLevel">%1$s lygis Nr. %2$s</string>
@@ -130,6 +131,10 @@
   <string name="bestMoveArrow">Geriausio ėjimo rodyklė</string>
   <string name="showVariationArrows">Rodyti variacijų rodykles</string>
   <string name="evaluationGauge">Vertinimo matuoklis</string>
+  <string name="visualMotifs">Vizualiniai motyvai</string>
+  <string name="undefendedPieces">Neapsaugotos figūros</string>
+  <string name="pinnedPieces">Surištos figūros</string>
+  <string name="checkableKing">Šachuojamas karalius</string>
   <string name="multipleLines">Keletas linijų</string>
   <string name="cpus">Procesoriai</string>
   <string name="memory">Atmintinė</string>
@@ -229,6 +234,7 @@
   <string name="minutesPerSide">Minučių žaidėjui</string>
   <string name="variant">Variantas</string>
   <string name="variants">Variantai</string>
+  <string name="variantsDescription">Daugiau žaidimo variantų</string>
   <string name="timeControl">Laiko kontrolė</string>
   <string name="realTime">Realiu laiku</string>
   <string name="correspondence">Korespondencija</string>
@@ -261,7 +267,6 @@
   <string name="changeUsernameNotSame">Galima keisti tik raidžių dydį. Pvz., „vardaspav“ į „VardasPav“.</string>
   <string name="changeUsernameDescription">Pasikeiskite naudotojo vardą. Tai gali būti atlikta tik kartą, ir keisti galite tik raidžių dydį.</string>
   <string name="signupUsernameHint">Įsitikinkite, kad jūsų vartotojo vardas yra tinkamas visų amžių auditorijai. Jo vėliau pasikeisti negalėsite. Bet kokie netinkami vartotojų vardai bus uždaryti!</string>
-  <string name="signupEmailHint">Jį naudosime tik atkurti slaptažodžiui.</string>
   <string name="password">Slaptažodis</string>
   <string name="changePassword">Keisti slaptažodį</string>
   <string name="changeEmail">Keisti el. pašto adresą</string>
@@ -335,6 +340,7 @@
   <string name="standard">Standartinis</string>
   <string name="customPosition">Pasirinkta pozicija</string>
   <string name="unlimited">Neribota</string>
+  <string name="unlimitedDescription">Galvokite tiek laiko, kiek jums reikalinga</string>
   <string name="mode">Tipas</string>
   <string name="casual">Nevertinamas</string>
   <string name="rated">Vertinamas</string>
@@ -486,10 +492,11 @@
   <string name="leaderboard">Lyderiai</string>
   <string name="screenshotCurrentPosition">Nufotografuoti esamą poziciją</string>
   <string name="gameAsGIF">Žaidimas kaip GIF animacija</string>
+  <string name="playerNames">Žaidėjų vardai</string>
+  <string name="moveAnnotations">Ėjimų žymėjimas</string>
   <string name="pasteTheFenStringHere">FEN tekstą įrašykite čia</string>
   <string name="pasteThePgnStringHere">PGN tekstą įrašykite čia</string>
   <string name="orUploadPgnFile">Arba įkelkite PGN failą</string>
-  <string name="fromPosition">Nuo pozicijos</string>
   <string name="continueFromHere">Tęsti nuo čia</string>
   <string name="toStudy">Studijuoti</string>
   <string name="importGame">Importuoti partiją</string>
@@ -792,17 +799,13 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="keyCycleSelectedVariation">Praeiti pasirinktą variantą</string>
   <string name="keyShowOrHideComments">rodyti/slėpti komentarus</string>
   <string name="keyEnterOrExitVariation">įeiti/išeiti iš variacijos</string>
-  <string name="keyRequestComputerAnalysis">Paprašyti kompiuterio analizės, pasimokykite iš savo klaidų</string>
-  <string name="keyNextLearnFromYourMistakes">Toliau (pasimokyti iš savo klaidų)</string>
-  <string name="keyNextBlunder">Kita šiurkšti klaida</string>
-  <string name="keyNextMistake">Kita klaida</string>
-  <string name="keyNextInaccuracy">Kitas netiklsumas</string>
   <string name="keyPreviousBranch">Praeita atšaka</string>
   <string name="keyNextBranch">Sekanti atšaka</string>
   <string name="toggleVariationArrows">Rodyti variacijų rodykles</string>
   <string name="cyclePreviousOrNextVariation">Eiti į ankstesnį/sekantį variantą</string>
   <string name="toggleGlyphAnnotations">Įjungti ėjimų komentarus</string>
   <string name="togglePositionAnnotations">Įjungti pozicijos komentarus</string>
+  <string name="toggleObservationAnnotations">Perjungti stebėjimo anotacijas</string>
   <string name="variationArrowsInfo">Variacijų rodyklės leidžia jums naviguoti nenaudojant ėjimų sarašo.</string>
   <string name="playSelectedMove">padaryti pasirinktą ėjimą</string>
   <string name="newTournament">Naujas turnyras</string>
@@ -892,6 +895,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="size">Dydis</string>
   <string name="opacity">Skaidrumas</string>
   <string name="brightness">Ryškumas</string>
+  <string name="contrast">Kontrastas</string>
   <string name="hue">Atspalvis</string>
   <string name="boardReset">Atstatyti spalvas į pradines</string>
   <string name="pieceSet">Figūrų rinkinys</string>
@@ -996,6 +1000,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="agreementPolicy">Pasižadu laikytis visų „Lichess“ nuostatų.</string>
   <string name="searchOrStartNewDiscussion">Ieškokite, arba pradėkite naują diskusiją</string>
   <string name="edit">Keisti</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ultra-kulka</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Kulka</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Žaibas</string>
   <string name="rapid">Greitieji</string>
@@ -1060,6 +1065,7 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="simulFeaturedHelp">Rodyti simultaną visiems %s. Neįjungta privatiems simultanams.</string>
   <string name="simulDescription">Simultano aprašymas</string>
   <string name="simulDescriptionHelp">Ar norite ką nors pranešti dalyviams?</string>
+  <string name="markdownIsAvailable">%s galima formatuoti.</string>
   <string name="embedsAvailable">Įklijuokite partijos adresą arba studijos skyriaus adresą norėdami juos įterpti.</string>
   <string name="inYourLocalTimezone">Jūsų laiko zonoje</string>
   <string name="tournChat">Turnyro pokalbis</string>
@@ -1105,4 +1111,5 @@ Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik 
   <string name="search">Ieškoti</string>
   <string name="clearSearch">Išvalyti paiešką</string>
   <string name="tags">Žymos</string>
+  <string name="enPassant">Kirsti prasilenkiant</string>
 </resources>

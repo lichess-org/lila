@@ -4,6 +4,10 @@
     white-space: nowrap;
   }
 
+  &__inner {
+    @include backdrop-blur-if-transparent;
+  }
+
   @include mq-subnav-top {
     display: flex;
     flex-direction: row;
@@ -15,6 +19,7 @@
       align-items: center;
       gap: 3px;
       overflow: auto clip;
+
       &::-webkit-scrollbar {
         display: none;
         width: 0 !important;
@@ -22,7 +27,7 @@
     }
 
     a {
-      font-family: 'Roboto', Sans-Serif;
+      font-family: Roboto, sans-serif;
       display: flex;
       align-items: center;
       color: $c-font;
@@ -58,9 +63,16 @@
     margin-right: 10px;
     z-index: $z-subnav-side-2;
 
+    &__inner {
+      @include box-radius;
+    }
+
     /* active border must go over the page content */
     a {
-      display: block;
+      @include box-radius;
+      display: flex;
+      align-items: center;
+      gap: 1ch;
       overflow: hidden;
       color: $c-font-page;
       padding: 0.7rem 2vw 0.7rem 0.8rem;
@@ -69,10 +81,10 @@
       &.active,
       &:hover {
         color: $c-font-clear;
+        background: rgba(128, 128, 128, 0.07);
       }
 
       &.active {
-        border-radius: $box-radius-size;
         background: $c-bg-box;
       }
     }

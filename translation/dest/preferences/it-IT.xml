@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Mostra l\'icona di ridimensionamento della scacchiera</string>
   <string name="onlyOnInitialPosition">Solo sulla posizione iniziale</string>
   <string name="inGameOnly">Solamente durante la partita</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Tranne quando in gioco</string>
+  <string name="exceptInGame">Tranne quando in gioco</string>
   <string name="chessClock">Orologio</string>
   <string name="tenthsOfSeconds">Decimi di secondo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando il tempo rimanente è &lt; 10 secondi</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando il tempo rimanente è &lt; 10 secondi</string>
   <string name="horizontalGreenProgressBars">Barra verde orizzontale del tempo</string>
   <string name="soundWhenTimeGetsCritical">Suono quando sei a corto di tempo</string>
   <string name="giveMoreTime">Dai più tempo</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Tieni premuto il tasto &lt;ctrl&gt; durante la promozione per disabilitare temporaneamente la promozione automatica</string>
   <string name="whenPremoving">Quando preseleziono una mossa</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclama patta automaticamente dopo triplice ripetizione</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando il tempo rimanente è &lt; 30 secondi</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quando il tempo rimanente è &lt; 30 secondi</string>
   <string name="moveConfirmation">Conferma della mossa</string>
   <string name="explainCanThenBeTemporarilyDisabled">Può essere disabilitato durante una partita dal menu della scacchiera</string>
   <string name="inCorrespondenceGames">Partite per corrispondenza</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Dispositivo</string>
   <string name="bellNotificationSound">Tono notifica</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Alla cieca</string>
+  <string name="blindfold" comment="As in Blindfold chess">Alla cieca</string>
 </resources>

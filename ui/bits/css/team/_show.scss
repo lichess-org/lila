@@ -7,7 +7,7 @@ $section-margin-more: 5vh;
   overflow: hidden;
 
   h1 {
-    @extend %break-word-hard, %zalgoverflow, %flex-center;
+    @extend %break-word, %zalgoverflow, %flex-center;
 
     unicode-bidi: plaintext;
 
@@ -68,7 +68,7 @@ $section-margin-more: 5vh;
   &__actions {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
-    grid-gap: 1vmin;
+    gap: 1vmin;
     margin-bottom: $section-margin;
 
     .button {
@@ -141,17 +141,6 @@ $section-margin-more: 5vh;
   .userlist > li,
   .userlist > div.paginated {
     @include padding-direction(5px, 0, 5px, 25px);
-  }
-
-  &__subscribe {
-    div {
-      @extend %flex-center;
-
-      label {
-        margin-inline-start: 1rem;
-        cursor: pointer;
-      }
-    }
   }
 
   &__log {

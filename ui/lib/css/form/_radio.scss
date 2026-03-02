@@ -1,4 +1,4 @@
-$c-border: hsl(37deg, 5%, 13%) !default;
+$c-border: hsl(37, 5%, 13%) !default;
 group.radio {
   @extend %box-neat, %flex-wrap;
 
@@ -10,16 +10,14 @@ group.radio {
   }
 
   input {
-    position: absolute;
-    left: -99999px;
+    @extend %visually-hidden;
   }
 
   label,
   .label {
-    @extend %metal, %flex-center;
+    @extend %metal, %flex-center-center;
     @include prevent-select;
 
-    justify-content: center;
     padding: 10px;
     height: 100%;
     cursor: pointer;
@@ -39,5 +37,10 @@ group.radio {
 
   input:checked + label {
     @extend %active;
+  }
+
+  input:focus-visible + label {
+    outline: $outline;
+    outline-offset: -2px;
   }
 }

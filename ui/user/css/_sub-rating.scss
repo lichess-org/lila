@@ -16,10 +16,7 @@
       font-size: 3em;
       opacity: 0.5;
       margin-inline-end: 0.2em;
-
-      transition:
-        opacity $transition-duration,
-        color $transition-duration;
+      @include transition(opacity color);
     }
 
     &[href=''] {

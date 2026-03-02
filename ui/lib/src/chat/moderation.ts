@@ -130,27 +130,25 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         ])
       : h('div.timeout.block', [
           h('strong', 'Moderation'),
-          ...[
-            h(
-              'a.text',
-              {
-                attrs: { 'data-icon': licon.Clock },
-                hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
-              },
-              'Timeout 15 minutes',
-            ),
-            h(
-              'a.text',
-              {
-                attrs: { 'data-icon': licon.Clock },
-                hook: bind('click', async () => {
-                  await reportUserText(ctrl.opts.resourceId, data.name, data.text);
-                  ctrl.timeout(ctrl.opts.reasons[0], data.text);
-                }),
-              },
-              'Timeout and report to Lichess',
-            ),
-          ],
+          h(
+            'a.text',
+            {
+              attrs: { 'data-icon': licon.Clock },
+              hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
+            },
+            'Timeout 15 minutes',
+          ),
+          h(
+            'a.text',
+            {
+              attrs: { 'data-icon': licon.Clock },
+              hook: bind('click', async () => {
+                await reportUserText(ctrl.opts.resourceId, data.name, data.text);
+                ctrl.timeout(ctrl.opts.reasons[0], data.text);
+              }),
+            },
+            'Timeout and report to Lichess',
+          ),
         ]);
 
   const history = data.history

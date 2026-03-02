@@ -181,7 +181,7 @@ final class JsonView(
       "lines" -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")): (acc, move) =>
         Json.obj(move.uci -> acc),
       "vote" -> 0,
-      "branch" -> makeTree(puzzle).map(NewTree.defaultNodeJsonWriter.writes)
+      "branch" -> makeTree(puzzle).map(NewTree.lichobileNodeJsonWriter.writes)
     )
 
 object JsonView:
@@ -207,11 +207,9 @@ object JsonView:
         .fold(err => sys.error(s"puzzle ${puzzle.id} $err"), identity)
       game -> chess.Node(
         NewBranch(
-          id = UciCharPair(move.toUci),
           move = Uci.WithSan(move.toUci, game.sans.last),
           metas = Metas(
             fen = Fen.write(game),
-            check = game.position.check,
             ply = game.ply,
             crazyData = none
           )

@@ -20,7 +20,6 @@ final class JsonView(
       study: Study,
       chapter: Chapter,
       previews: Option[ChapterPreview.AsJsons],
-      fedNames: Option[JsObject],
       withMembers: Boolean
   )(using me: Option[Me], pref: Pref) =
 
@@ -51,6 +50,7 @@ final class JsonView(
         "chapter" -> Json
           .obj(
             "id" -> chapter.id,
+            "name" -> chapter.name,
             "ownerId" -> chapter.ownerId,
             "setup" -> chapter.setup,
             "tags" -> chapter.tagsExport,
@@ -66,7 +66,6 @@ final class JsonView(
       )
       .add("chapters", previews)
       .add("description", study.description)
-      .add("federations", fedNames)
       .add("showRatings", pref.showRatings)
 
   def chapterConfig(c: Chapter) =

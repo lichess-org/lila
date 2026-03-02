@@ -1,4 +1,3 @@
-import * as licon from 'lib/licon';
 import { onInsert, spinnerHtml } from 'lib/view';
 import { numberFormat } from 'lib/i18n';
 import { userLink } from 'lib/view/userLink';
@@ -8,7 +7,22 @@ import { registerFormHandler } from './insight';
 
 const shareStates = ['nobody', 'friends only', 'everybody'];
 
-export default function (ctrl: Ctrl) {
+export function tutor() {
+  return h(
+    'a.tutor-link',
+    {
+      attrs: { href: '/tutor' },
+    },
+    [
+      h('img', {
+        attrs: { src: site.asset.flairSrc('nature.octopus-howard') },
+      }),
+      h('span', [h('strong', 'Try out Tutor'), h('em', 'Compare to your peers!')]),
+    ],
+  );
+}
+
+export function info(ctrl: Ctrl) {
   const shareText = 'Shared with ' + shareStates[ctrl.user.shareId] + '.';
   return h('div.info.box', [
     h('div.top', userLink(ctrl.user)),
@@ -42,10 +56,10 @@ export default function (ctrl: Ctrl) {
                   action: `/insights/refresh/${ctrl.env.user.id}`,
                   method: 'post',
                 },
-                hook: onInsert(_el => registerFormHandler()),
+                hook: onInsert(registerFormHandler),
               },
               [
-                h('button.button.text', { attrs: { 'data-icon': licon.Checkmark } }, 'Update insights'),
+                h('button.button.button-thin', 'Update insights'),
                 h(
                   'div.crunching.none',
                   {

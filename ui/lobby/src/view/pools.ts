@@ -26,23 +26,21 @@ export const hooks = (ctrl: LobbyController): Hooks =>
     el.addEventListener('keydown', handler);
   });
 
-export function render(ctrl: LobbyController) {
-  const member = ctrl.poolMember;
-  return ctrl.pools
+export function render({ pools, poolMember, opts }: LobbyController) {
+  return pools
     .map(pool => {
-      const active = member?.id === pool.id,
-        transp = !!member && !active;
+      const active = poolMember?.id === pool.id;
       return h(
-        'div',
+        'div.lpool',
         {
-          class: { active, transp },
+          class: { active, transp: !!poolMember && !active },
           attrs: { role: 'button', 'data-id': pool.id, tabindex: '0' },
         },
         [
           h('div.clock', `${pool.lim}+${pool.inc}`),
           active
-            ? member.range && ctrl.opts.showRatings
-              ? h('div.range', member.range.replace('-', '–'))
+            ? poolMember.range && opts.showRatings
+              ? h('div.range', poolMember.range.replace('-', '–'))
               : spinnerVdom()
             : h('div.perf', pool.perf),
         ],
@@ -50,9 +48,9 @@ export function render(ctrl: LobbyController) {
     })
     .concat(
       h(
-        'div.custom',
+        'div.lpool',
         {
-          class: { transp: !!member },
+          class: { transp: !!poolMember },
           attrs: { role: 'button', 'data-id': 'custom', tabindex: '0' },
         },
         i18n.site.custom,

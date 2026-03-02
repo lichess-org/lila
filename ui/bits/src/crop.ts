@@ -16,7 +16,7 @@ export function wireCropDialog(
 
   if (!init.onCropped) init.onCropped = () => site.reload();
 
-  init.max = { ...(init.max || {}), megabytes: 6 }; // nginx `client_max_body_size`
+  init.max = { ...init.max, megabytes: 6 }; // nginx `client_max_body_size`
 
   init.selectClicks?.on('click', () => site.asset.loadEsm('bits.cropDialog', { init }));
 
@@ -49,7 +49,8 @@ export const mimeAccept: string = imageTypes.map(t => `image/${t}`).join(',');
 
 export function supported(src: string): boolean {
   const ext = src.split('.').pop()?.toLowerCase();
-  return Boolean(ext && imageTypes.find(t => ext.startsWith(t.split('+')[0])));
+  if (!ext) return false;
+  return imageTypes.some(t => ext.startsWith(t.split('+')[0]));
 }
 
 if (isSafari()) wireCropDialog(); // preload

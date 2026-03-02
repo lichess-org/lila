@@ -6,7 +6,7 @@
   <string name="progressX">Haladás: %s</string>
   <string name="resetMyProgress">Haladásom nullázása</string>
   <string name="youWillLoseAllYourProgress">Az összes eddigi haladásod el fog veszni!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">játssz!</string>
+  <string name="play">játssz!</string>
   <string name="chessPieces">Sakkfigurák</string>
   <string name="theRook">A bástya</string>
   <string name="itMovesInStraightLines">Egyenes vonalban mozog</string>
@@ -153,7 +153,6 @@ hogy királyszárnyra sáncolj!</string>
   <string name="findAWayToCastleQueenSide">Találd meg a módját,
 hogy vezérszárnyra sáncolj!</string>
   <string name="castlingComplete">Gratulálunk! Szinte minden partiban érdemes sáncolnod.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">A gyalog különleges lépése</string>
   <string name="enPassantIntro">Amikor az ellenfél gyalogja két mezőt lép, leütheted úgy, mintha csak egyet lépett volna.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Sötét most lépett

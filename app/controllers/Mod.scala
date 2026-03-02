@@ -111,6 +111,7 @@ final class Mod(
         _ <- env.forum.delete.allByUser(sus.user)
         _ <- env.msg.api.deleteAllBy(sus.user)
         _ <- env.mod.logApi.deleteComms(sus)
+        _ <- env.memo.picfitApi.deleteByUser(sus.user.id)
       yield ().some
   }(actionResult(username))
 
@@ -381,8 +382,11 @@ final class Mod(
       env.mod.queueStats(period).map(views.mod.ui.queueStats(_))
   }
 
-  def search = SecureBody(_.UserSearch) { ctx ?=> me ?=>
-    bindForm(ModUserSearch.form)(err => BadRequest.page(views.mod.search(err, none)), searchTerm)
+  def search = SecureOrScopedBody(_.UserSearch) { ctx ?=> me ?=>
+    negotiate(
+      bindForm(ModUserSearch.form)(err => BadRequest.page(views.mod.search(err, none)), searchTerm),
+      get("q").so(q => JsonOk(env.mod.search.apiSearch(q)))
+    )
   }
 
   def notes(page: Int, q: String) = Secure(_.Admin) { _ ?=> _ ?=>
@@ -409,8 +413,7 @@ final class Mod(
     val hash = FingerHash(fh)
     for
       uids <- env.security.api.recentUserIdsByFingerHash(hash)
-      users <- env.user.repo.usersFromSecondary(uids.reverse)
-      withEmails <- env.user.api.withPerfsAndEmails(users)
+      withEmails <- env.user.api.withPerfsAndEmails(uids.reverse)
       uas <- env.security.api.printUas(hash)
       page <- renderPage(views.mod.search.print(hash, withEmails, uas, env.security.printBan.blocks(hash)))
     yield Ok(page)
@@ -426,8 +429,7 @@ final class Mod(
     env.mod.ipRender.decrypt(ip).so { address =>
       for
         uids <- env.security.api.recentUserIdsByIp(address)
-        users <- env.user.repo.usersFromSecondary(uids.reverse)
-        withEmails <- env.user.api.withPerfsAndEmails(users)
+        withEmails <- env.user.api.withPerfsAndEmails(uids.reverse)
         data <- env.security.ipTrust.ipData(address)
         blocked = env.security.firewall.blocksIp(address)
         page <- renderPage(views.mod.search.ip(address, withEmails, data, blocked))
@@ -467,9 +469,11 @@ final class Mod(
       env.chat.api.userChat.userModInfo(username).map2(env.chat.json.userModInfo)
   }
 
-  def permissions(username: UserStr) = Secure(_.ChangePermission) { _ ?=> _ ?=>
-    FoundPage(env.user.repo.byId(username)):
-      views.mod.permissions(_)
+  def permissions(username: UserStr) = Secure(_.LichessTeam) { _ ?=> me ?=>
+    Found(env.user.repo.byId(username)): user =>
+      if user.is(me) || isGranted(_.ChangePermission)
+      then Ok.page(views.mod.permissions(user))
+      else notFound
   }
 
   def savePermissions(username: UserStr) = SecureBody(_.ChangePermission) { ctx ?=> me ?=>

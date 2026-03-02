@@ -211,7 +211,6 @@
   <string name="changeUsernameNotSame">Може да се промени само големината на буквите. На пример: \"johndoe\" во \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промени го корисничкото име. Ова може да се направи само еднаш и дозволено Ви е само да ја промените големината на буквите.</string>
   <string name="signupUsernameHint">Бидете сигурни дека корисничкото име не е навредливо или вулгарно, бидејќи негова промена подоцна е невозможна. Сите профили со несоодветно корисничко име ќе бидат затворени!</string>
-  <string name="signupEmailHint">Ќе го користиме само за ресетирање на лозинката.</string>
   <string name="password">Лозинка</string>
   <string name="changePassword">Променете ја шифрата</string>
   <string name="changeEmail">Променете ја е-поштата</string>
@@ -395,7 +394,6 @@
   <string name="pasteTheFenStringHere">Пастирај го FEN стрингот овде</string>
   <string name="pasteThePgnStringHere">Пастирај го PGN стрингот овде</string>
   <string name="orUploadPgnFile">Или закачете PGN датотека</string>
-  <string name="fromPosition">Од позиција</string>
   <string name="continueFromHere">Продолжи од овде</string>
   <string name="toStudy">Студија</string>
   <string name="importGame">Внеси игра</string>
@@ -661,11 +659,6 @@
   <string name="keyGoToStartOrEnd">оди на почеток/крај</string>
   <string name="keyShowOrHideComments">покажи/скриј ги коментарите</string>
   <string name="keyEnterOrExitVariation">отвори/затвори ја варијантата</string>
-  <string name="keyRequestComputerAnalysis">Побарајте компјутерска анализа, Учете од Вашите грешки</string>
-  <string name="keyNextLearnFromYourMistakes">Следно (учете од Вашите грешки)</string>
-  <string name="keyNextBlunder">Следен превид</string>
-  <string name="keyNextMistake">Следна грешка</string>
-  <string name="keyNextInaccuracy">Следна непрецизност</string>
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шаховски турнир со различни временски контроли и варијанти</string>
   <string name="tournamentHomeDescription">Играј брзи турнири! Придружи се на официјален турнир, или започни свој. Стрела, Блиц, Класичен, Шах 960, Кралот на средина, Три шаха, и многу други варијанти за бескрајна забава.</string>

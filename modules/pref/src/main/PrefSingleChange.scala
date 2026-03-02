@@ -58,6 +58,8 @@ object PrefSingleChange:
       _.copy(message = v),
     changing(_.board.brightness): v =>
       _.focus(_.board.brightness).replace(v),
+    changing(_.board.contrast): v =>
+      _.focus(_.board.contrast).replace(v),
     changing(_.board.opacity): v =>
       _.focus(_.board.opacity).replace(v),
     changing(_.board.hue): v =>

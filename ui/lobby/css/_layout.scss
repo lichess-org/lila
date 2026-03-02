@@ -3,7 +3,7 @@
   grid-area: main;
   display: grid;
   grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'feed' 'tv' 'puzzle' 'tours' 'timeline' 'about';
-  grid-gap: $block-gap;
+  gap: $block-gap;
 
   &__tournaments,
   &__simuls {
@@ -31,7 +31,7 @@
     &__support {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-gap: 2%;
+      gap: 2%;
     }
     &__start {
       margin-inline-end: $block-gap;
@@ -63,7 +63,7 @@
     }
 
     &__blog {
-      margin: 1.2em 0;
+      padding: 1.2em 0;
     }
 
     &__support {

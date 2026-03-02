@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights">%sni shaxmat analitikasi</string>
+  <string name="xHasNoChessInsights">%sda hali shaxmat analitikasi yoʻq!</string>
+  <string name="insightsAreProtected">%sni shaxmat analitikasi yopiq</string>
+  <string name="cantSeeInsights">Uzr, %sni shaxmat analitikasini koʻra olmaysiz.</string>
+  <string name="generateInsights" comment="%s is a player's username.&#10;&#10;Clicking this will scan data on Lichess to create insights for player %s.&#10;&#10;Example:&#10;&#10;Generate DrNykterstein's chess insights.">%sni shaxmat analitikasini yaratish.</string>
+  <string name="crunchingData">Faqat siz uchun shaxmat analitikasi tayyorlanmoqda!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Balkim ularni %sni oʻzgartirishlarini soʻrarsiz?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">analitika sozlamalari</string>
+</resources>

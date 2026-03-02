@@ -31,7 +31,8 @@ export const init = (ctrl: RoundController): LichessMousetrap =>
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
       ctrl.redraw();
-    });
+    })
+    .bind('h', ctrl.menu.toggle);
 
 export const view = (ctrl: RoundController): VNode =>
   snabDialog({

@@ -53,7 +53,9 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
             video.title
           ),
           div(cls := "meta box__pad")(
-            div(cls := "target")(video.targets.map(Target.name).mkString(", ")),
+            div(cls := "target__wrapper")(
+              video.targets.map { t => div(cls := "target__box")(Target.name(t)) }
+            ),
             a(
               cls := "author",
               href := s"${langHref(routes.Video.author(video.author))}?${control.queryString}"
@@ -72,7 +74,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         )
 
   def index(videos: Paginator[VideoView], count: Long, control: UserControl)(using ctx: Context) =
-    val tagString = control.filter.tags.some.filter(_.nonEmpty).so(_.mkString(" + ") + " • ")
+    val tagString = control.filter.tags.nonEmptyOption.so(_.mkString(" + ") + " • ")
     page(s"${tagString}${trv.freeChessVideos.txt()}", control)
       .graph(
         title = trv.xFreeCarefullyCurated.txt(tagString),
@@ -167,7 +169,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       span(cls := "reveal")(
         span(cls := "full-title")(vv.video.title),
         span(cls := "author")(vv.video.author),
-        span(cls := "target")(vv.video.targets.map(Target.name).mkString(", "))
+        span(cls := "target")(vv.video.targets.map { t => div(cls := "target__box")(Target.name(t)) })
       )
     )
 

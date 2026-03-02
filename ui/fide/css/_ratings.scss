@@ -4,7 +4,7 @@
   @media (min-width: at-least($x-small)) {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
-  grid-gap: 1rem;
+  gap: 1rem;
   @include fluid-size('font-size', 14px, 24px);
 }
 .fide-player__rating {

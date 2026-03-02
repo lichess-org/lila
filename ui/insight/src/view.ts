@@ -7,7 +7,7 @@ import presets from './presets';
 import chart from './chart';
 import { vert } from './table';
 import help from './help';
-import info from './info';
+import { info, tutor } from './info';
 import boards from './boards';
 import type Ctrl from './ctrl';
 import type { ViewTab } from './interfaces';
@@ -86,6 +86,7 @@ function landscapeView(ctrl: Ctrl) {
     hl('div', { attrs: { class: ctrl.vm.loading ? 'loading' : 'ready' } }, [
       hl('div', widthStyle(sideW()), [
         info(ctrl),
+        tutor(),
         hl('div.panel-tabs', [
           hl('a.tab.preset', panelTabData(ctrl, 'preset'), 'Presets'),
           hl('a.tab.filter', panelTabData(ctrl, 'filter'), 'Filters'),

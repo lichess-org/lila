@@ -7,26 +7,24 @@ interface Command {
   help: VNode | string;
   apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined;
 }
-type Commands = {
-  [name: string]: Command;
-};
+type Commands = Record<string, Command>;
 
 export const commands: () => Commands = memoize(() => ({
   piece: {
     help: i18n.nvui.announcePieceLocations,
-    apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined {
+    apply(c: string, pieces: Pieces, style: MoveStyle) {
       return tryC(c, /^\/?p ([apnbrqk])$/i, p => renderPieceKeys(pieces, p, style));
     },
   },
   scan: {
     help: i18n.nvui.announcePiecesOnRankOrFile,
-    apply(c: string, pieces: Pieces, style: MoveStyle): string | undefined {
+    apply(c: string, pieces: Pieces, style: MoveStyle) {
       return tryC(c, /^\/?s ([a-h1-8])$/i, p => renderPiecesOn(pieces, p, style));
     },
   },
   board: {
     help: i18n.nvui.goToBoard,
-    apply(c: string, _pieces: Pieces, _style: MoveStyle): string {
+    apply(c: string, _pieces: Pieces, _style: MoveStyle) {
       const words = c.split(' ');
       const file = words[1]?.charAt(0) || 'e';
       const rank = words[1]?.charAt(1) || '4';

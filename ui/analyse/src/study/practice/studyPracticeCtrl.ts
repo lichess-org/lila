@@ -27,6 +27,7 @@ export default class StudyPracticeCtrl {
 
   onLoad = () => {
     this.root.showBestMoveArrowsProp = readOnlyProp(true);
+    this.root.showManeuverMoveArrowsProp = readOnlyProp(true);
     this.root.showGauge = readOnlyProp(true);
     this.root.showFishnetAnalysis = readOnlyProp(true);
     this.goal(this.root.data.practiceGoal!);
@@ -80,7 +81,7 @@ export default class StudyPracticeCtrl {
 
   onJump = () => {
     // reset failure state if no failed move found in mainline history
-    if (this.success() === false && !this.root.nodeList.find(n => !!n.fail)) this.success(null);
+    if (this.success() === false && !this.root.nodeList.some(n => !!n.fail)) this.success(null);
     this.checkSuccess();
   };
   onCeval = this.checkSuccess;

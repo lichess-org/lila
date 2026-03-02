@@ -5,7 +5,6 @@ import header from './header';
 import tourTable from './table';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
-import { players } from '../pagination';
 import type TournamentController from '../ctrl';
 import type { MaybeVNodes } from 'lib/view';
 
@@ -26,14 +25,13 @@ function notice(ctrl: TournamentController): VNode {
 export const name = 'started';
 
 export function main(ctrl: TournamentController): MaybeVNodes {
-  const gameId = ctrl.myGameId(),
-    pag = players(ctrl);
+  const gameId = ctrl.myGameId();
   return [
     header(ctrl),
     gameId ? joinTheGame(gameId) : ctrl.isIn() ? notice(ctrl) : null,
     teamStanding(ctrl, 'started'),
-    controls(ctrl, pag),
-    standing(ctrl, pag, 'started'),
+    controls(ctrl),
+    standing(ctrl, 'started'),
   ];
 }
 

@@ -40,8 +40,8 @@
     <item quantity="one">Bjerini shkurt: %s shenjë e shumta</item>
     <item quantity="other">Bjerini shkurt: %s shenja e shumta</item>
   </plurals>
-  <string name="visibility">E dukshme në faqen e transmetuesve</string>
-  <string name="whenApproved">Kur miratohet nga moderatorët</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">E dukshme në faqen e transmetuesve</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Kur miratohet nga moderatorët</string>
   <string name="headline">Titulli</string>
   <string name="tellUsAboutTheStream">Tregonani për transmetimin tuaj, me një fjali</string>
   <string name="longDescription">Përshkrimi i gjatë</string>

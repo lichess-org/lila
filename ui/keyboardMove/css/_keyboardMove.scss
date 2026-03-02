@@ -20,6 +20,10 @@
   em {
     color: $c-font-dim;
   }
+
+  kbd {
+    margin-inline: 3px;
+  }
 }
 
 .keyboard-move-help {

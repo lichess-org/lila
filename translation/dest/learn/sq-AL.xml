@@ -6,7 +6,7 @@
   <string name="progressX">Përparim: %s</string>
   <string name="resetMyProgress">Rivendos përparimin tim</string>
   <string name="youWillLoseAllYourProgress">Ju do të humbni të gjithë përparimin tuaj!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">luaj!</string>
+  <string name="play">luaj!</string>
   <string name="chessPieces">Figurat e shahut</string>
   <string name="theRook">Torra</string>
   <string name="itMovesInStraightLines">Ajo lëviz në vija të drejta</string>
@@ -155,7 +155,6 @@ për të bërë rokadë të vogël!</string>
   <string name="findAWayToCastleQueenSide">Gjeni një mënyrë
 për të bërë rokadë të madhe!</string>
   <string name="castlingComplete">Urime! Duhet, thuajse përherë, të bëni rokadë në një lojë.</string>
-  <string name="enPassant">Në kalim</string>
   <string name="theSpecialPawnMove">Lëvizja e veçantë e ushtarit</string>
   <string name="enPassantIntro">Nëse ushtari i kundërshtarit lëvizi dy kuti, mund ta hani njësoj sikur të kish lëvizur vetëm një kuti.</string>
   <string name="blackJustMovedThePawnByTwoSquares">I ziu sapo lëvizi ushtarin

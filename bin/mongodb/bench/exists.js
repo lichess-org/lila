@@ -1,16 +1,16 @@
-var limit = 50 * 1000;
-var coll = db.relation;
-var query = {
+const limit = 50 * 1000;
+const coll = db.relation;
+const query = {
   _id: 'thibault/legendary22bcloud',
 };
-var expected = false;
+const expected = false;
 
 function timer(name, f) {
   print('Start ' + name);
-  var start = new Date().getTime();
+  const start = new Date().getTime();
   if (f() !== expected) print('FAILS');
   else {
-    for (var i = 0; i < limit; i++) f();
+    for (let i = 0; i < limit; i++) f();
     print(name + ': ' + (new Date().getTime() - start));
   }
 }

@@ -1,6 +1,6 @@
-var userIds = ['sasha'].map(u => u.toLowerCase());
-var perfTypes = ['bullet', 'blitz', 'rapid', 'classical'];
-var perf = {
+const userIds = ['sasha'].map(u => u.toLowerCase());
+const perfTypes = ['bullet', 'blitz', 'rapid', 'classical'];
+const perf = {
   gl: {
     r: 2700,
     d: 150,
@@ -9,10 +9,10 @@ var perf = {
   nb: NumberInt(0),
   re: [],
 };
-var updateTournaments = false;
+const updateTournaments = false;
 
 userIds.forEach(id => {
-  var user = db.user4.findOne({ _id: id });
+  const user = db.user4.findOne({ _id: id });
   perfTypes.forEach(pt => {
     if (user && (!user.perfs[pt] || !user.perfs[pt].nb))
       db.user4.update({ _id: id }, { $set: { ['perfs.' + pt]: perf } });

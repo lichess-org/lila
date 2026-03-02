@@ -18,9 +18,7 @@ export class BooksPane extends Pane {
     this.template = {
       type: 'range',
       class: ['setting', 'book'],
-      ...Object.fromEntries(
-        [...Object.entries((p.info as BooksInfo).template)].map(([k, v]) => [k, v.weight]),
-      ),
+      ...Object.fromEntries(Object.entries((p.info as BooksInfo).template).map(([k, v]) => [k, v.weight])),
     } as RangeInfo;
     if (!this.value) this.setProperty([]);
     this.value.forEach((_, index) => this.makeBook(index));

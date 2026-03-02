@@ -1,12 +1,13 @@
 import type { Line } from '@/chat/interfaces';
 import type { Data as WatchersData } from '@/view/watchers';
+import type { TreePath } from './tree/types';
 
 export type PubsubEventKey = keyof PubsubEvents;
 
 export interface PubsubEvents {
   'ab.rep': (data: 'kbc') => void;
   'analysis.closeAll': () => void;
-  'analysis.change': (fen: FEN, path: string) => void;
+  'analysis.change': (fen: FEN, path: TreePath) => void;
   'analysis.chart.click': (index: number) => void;
   'analysis.comp.toggle': (enabled: boolean) => void;
   'analysis.server.progress': (analyseData: any) => void;
@@ -104,7 +105,7 @@ export class Pubsub {
     if (found) return found.promise as Promise<OneTimeEvents[K]>;
 
     const handler = {} as OneTimeHandler<OneTimeEvents[K]>;
-    handler.promise = new Promise<OneTimeEvents[K]>(resolve => (handler!.resolve = resolve));
+    handler.promise = new Promise<OneTimeEvents[K]>(resolve => (handler.resolve = resolve));
     this.oneTimeEvents.set(event, handler);
 
     return handler.promise;

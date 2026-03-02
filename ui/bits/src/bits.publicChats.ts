@@ -16,19 +16,13 @@ site.load.then(() => {
     });
 
   const onPageReload = () => {
-    $('#communication').append(
-      $('<a class="auto-refresh button">Auto refresh</a>').on('click', () => {
-        autoRefreshEnabled = !autoRefreshEnabled;
-        renderButton();
-      }),
-    );
-    renderButton();
-
-    $('#communication .chat').each(function () {
-      this.scrollTop = 99999;
-    });
-
     $('#communication')
+      .append(
+        $('<a class="auto-refresh button">Auto refresh</a>').on('click', () => {
+          autoRefreshEnabled = !autoRefreshEnabled;
+          renderButton();
+        }),
+      )
       .on('mouseenter', '.chat', () => {
         autoRefreshOnHold = true;
         $('.auto-refresh').addClass('hold');
@@ -36,30 +30,35 @@ site.load.then(() => {
       .on('mouseleave', '.chat', () => {
         autoRefreshOnHold = false;
         $('.auto-refresh').removeClass('hold');
+      })
+      .on('click', '.line:not(.lichess)', function (this: HTMLDivElement) {
+        const $l = $(this);
+        domDialog({ cash: $('.timeout-modal'), modal: true }).then(dlg => {
+          $('.username', dlg.view).text($l.find('.user-link').text());
+          $('.text', dlg.view).text($l.text().split(' ').slice(1).join(' '));
+          $('.button', dlg.view).on('click', function (this: HTMLButtonElement) {
+            const roomId = $l.parents('.game').data('room');
+            const chan = $l.parents('.game').data('chan');
+            text('/mod/public-chat/timeout', {
+              method: 'post',
+              body: form({
+                roomId,
+                chan,
+                userId: $('.username', dlg.view).text().toLowerCase(),
+                reason: this.value,
+                text: $('.text', dlg.view).text(),
+              }),
+            }).then(_ => setTimeout(reloadNow, 1000));
+            dlg.close();
+          });
+          dlg.show();
+        });
       });
 
-    $('#communication').on('click', '.line:not(.lichess)', function (this: HTMLDivElement) {
-      const $l = $(this);
-      domDialog({ cash: $('.timeout-modal'), modal: true }).then(dlg => {
-        $('.username', dlg.view).text($l.find('.user-link').text());
-        $('.text', dlg.view).text($l.text().split(' ').slice(1).join(' '));
-        $('.button', dlg.view).on('click', function (this: HTMLButtonElement) {
-          const roomId = $l.parents('.game').data('room');
-          const chan = $l.parents('.game').data('chan');
-          text('/mod/public-chat/timeout', {
-            method: 'post',
-            body: form({
-              roomId,
-              chan,
-              userId: $('.username', dlg.view).text().toLowerCase(),
-              reason: this.value,
-              text: $('.text', dlg.view).text(),
-            }),
-          }).then(_ => setTimeout(reloadNow, 1000));
-          dlg.close();
-        });
-        dlg.show();
-      });
+    renderButton();
+
+    $('#communication .chat').each(function () {
+      this.scrollTop = 99999;
     });
   };
   onPageReload();

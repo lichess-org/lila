@@ -11,27 +11,29 @@
   }
   .toastui-editor {
     &-defaultUI {
+      @extend %base-font;
       border: none;
       &-toolbar {
-        @extend %metal, %box-radius-top;
-        border-radius: 3px 3px 0 0 !important;
-        border: 1px solid $c-border;
-        border-width: 1px 1px 0 1px;
+        @extend %metal;
+        border-radius: $box-radius-size $box-radius-size 0 0 !important;
+        border: $border;
         flex-flow: row wrap;
       }
     }
     &-toolbar {
+      height: auto;
       &-icons {
         border-color: $c-border;
         &:not(:disabled) {
+          background-color: $c-bg-zebra;
           &:hover {
             background-color: $c-bg-box;
           }
-          &.active {
-            background-color: $c-bg-zebra;
-          }
         }
       }
+    }
+    &-toolbar-group button {
+      margin: 6px 3px;
     }
     &-dropdown {
       &-toolbar {
@@ -50,10 +52,7 @@
       }
     }
     &-md-tab-container {
-      background: none;
-      /* preview is not accurate to what lichess shows */
       display: none;
-      width: 0;
     }
     &-tabs {
       @extend %flex-center;
@@ -68,13 +67,27 @@
       }
     }
     &-popup {
+      @extend %box-radius;
+      border: $border;
+      background-color: $c-bg-page;
       margin-left: 0;
+
+      @include if-light {
+        background-color: $c-bg;
+      }
+
+      button {
+        text-align: center;
+      }
+    }
+    &-ok-button {
+      background-color: $c-primary !important;
     }
     &-ww-container,
     &-md-container {
-      border: 1px solid $c-border;
-      border-width: 0 1px 1px 1px;
-      border-radius: 0 0 3px 3px;
+      @extend %box-radius-bottom;
+      border: $border;
+      border-top: 0;
     }
     &.ww-mode,
     &.md-mode,
@@ -107,11 +120,18 @@
       background: none;
       border: none;
     }
-    &-popup-body li[data-type='Heading'] {
-      &[data-level='1'],
-      &[data-level='5'],
-      &[data-level='6'] {
-        display: none;
+    &-popup-body {
+      li[data-type='Heading'] {
+        &[data-level='1'],
+        &[data-level='5'],
+        &[data-level='6'] {
+          display: none;
+        }
+      }
+      input {
+        width: 100%;
+        border: $border;
+        border-radius: $box-radius-size !important;
       }
     }
   }

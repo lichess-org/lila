@@ -21,8 +21,8 @@
   }
   .board-menu {
     @include mq-at-least-col2 {
+      @include box-radius-top;
       bottom: $buttons-height;
-      border-radius: $box-radius-size $box-radius-size 0 0;
       border-bottom: 2px solid $c-secondary;
     }
   }
@@ -41,10 +41,6 @@
   will-change: scroll-position;
   line-height: 1.7;
   font-size: 1.1em;
-
-  &::-webkit-scrollbar {
-    width: 0px;
-  }
 
   turn {
     flex: 0 0 16.666%;
@@ -93,9 +89,6 @@
 }
 .bot-game__actions {
   @extend %flex-between;
-  button {
-    @extend %button-none;
-  }
   .bot-game__close,
   .bot-game__restart {
     font-size: 0.9em;

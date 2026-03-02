@@ -34,11 +34,10 @@ final class Env(
     env = config.influxEventEnv
   )
   if mode.isProd then scheduler.scheduleOnce(5.seconds)(influxEvent.start())
-  private lazy val pagerDuty = wire[PagerDuty]
 
-  lila.common.Bus.sub[lila.core.socket.Announce]:
-    case lila.core.socket.Announce(msg, date, _) if msg.contains("will restart") =>
-      pagerDuty.lilaRestart(date)
+  wire[PagerDuty]
+
+  AnnounceApi.setupPeriodicUpdate()
 
   object settings:
     import lila.core.data.{ Strings, UserIds }
@@ -65,9 +64,4 @@ final class Env(
       "apiExplorerGamesPerSecond",
       default = 300,
       text = "Opening explorer games per second".some
-    )
-    val sitewideCoepCredentiallessHeader = settingStore[Boolean](
-      "sitewideCoepCredentiallessHeader",
-      default = true,
-      text = "Enable COEP:credentialless header site-wide in supported browsers (Chromium)".some
     )

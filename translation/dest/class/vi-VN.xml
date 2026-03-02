@@ -87,7 +87,7 @@ Mật khẩu: %3$s</string>
   <string name="timePlaying">Thời gian chơi</string>
   <string name="variantXOverLastY">%1$s qua %2$s qua</string>
   <string name="winrate">Tỉ lệ thắng</string>
-  <string name="na">Không xác định</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Không xác định</string>
   <string name="overview">Tổng quan</string>
   <string name="news">Tin tức</string>
   <string name="classNews">Tin tức mới về lớp học</string>

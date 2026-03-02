@@ -40,7 +40,7 @@
     <item quantity="other">Để tên ngắn gọn: tối đa %s ký tự</item>
   </plurals>
   <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Hiện lên ở trang các Streamer</string>
-  <string name="whenApproved">Khi được điều hành viên chấp thuận</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Khi được điều hành viên chấp thuận</string>
   <string name="headline">Tiêu đề</string>
   <string name="tellUsAboutTheStream">Giới thiệu về luồng của bạn trong một câu</string>
   <string name="longDescription">Miêu tả dài</string>

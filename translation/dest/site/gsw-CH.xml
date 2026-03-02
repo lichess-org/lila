@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Schpill gäge de Computer</string>
   <string name="gameMode">Schpielart</string>
   <string name="createLobbyGame">Es Schpiel erschtelle</string>
-  <string name="youPlayAs">Du schpillsch mit</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Wottsch öpper zum Schpille ilade - schick die URL</string>
   <string name="gameOver">Schpiel verbi</string>
   <string name="waitingForOpponent">Uf de Gägner warte</string>
   <string name="orLetYourOpponentScanQrCode">Oder lass din Gägner de QR-Code skänne</string>
+  <string name="reusableChallengeUrl">Wieder verwändbari Forderigs-URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">En permanänte Link, für jedermann - um mit genau dene Istellige z\'fordere.</string>
   <string name="waiting">Am Warte</string>
   <string name="yourTurn">Du bisch dra</string>
   <string name="aiNameLevelAiLevel">%1$s Schtufe %2$s</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Pfil für de bescht Zug</string>
   <string name="showVariationArrows">Pfil für Variante azeige</string>
   <string name="evaluationGauge">Bewertigs-Massschtab</string>
+  <string name="visualMotifs">Visuelli Motiv</string>
+  <string name="undefendedPieces">Ung\'schützti Figure</string>
+  <string name="pinnedPieces">G\'fessleti Figure</string>
+  <string name="checkableKing">Agrifbare König</string>
   <string name="multipleLines">Mehreri Variantä</string>
   <string name="cpus">Prozässore</string>
   <string name="memory">Arbetsschpeicher</string>
@@ -206,6 +211,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="minutesPerSide">Minute pro Schpiller</string>
   <string name="variant">Variante</string>
   <string name="variants">Variante</string>
+  <string name="variantsDescription">Meh Schpielvariante</string>
   <string name="timeControl">Bedänkzit</string>
   <string name="realTime">Ächtzit</string>
   <string name="correspondence">Fernschach</string>
@@ -232,7 +238,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="changeUsernameNotSame">Me chann nur d\'Gross-/Chlischriibig verändere, z. B. \"grosspatzer\" in \"GrossPatzer\".</string>
   <string name="changeUsernameDescription">Korrigier din Benutzername: Das gaht aber nur eimal und mer chann nur d\'Gros- und d\'Chlischribig verändere.</string>
   <string name="signupUsernameHint">Wähl bitte en aschtändige Benutzername. Du chasch en nachträglich nöd ändere und jedes Konto mit untolerierbarem Name wird gschlosse!</string>
-  <string name="signupEmailHint">Mir benutzed sie nur zum s\'Passwort zruggsetze.</string>
+  <string name="signupEmailPromise">Mir schicked dir nur E-Mail, wo dis Konto beträffed und gänd dini E-Mail-Adrässe niemals und niemerem witer.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändere</string>
   <string name="changeEmail">E-Mail-Adrässe ändere</string>
@@ -300,6 +306,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="standard">Standard</string>
   <string name="customPosition">Benutzerdefinierti Schtellig</string>
   <string name="unlimited">Unbegränzt</string>
+  <string name="unlimitedDescription">Nimm dir sovill Zit, wie du bruchsch</string>
   <string name="mode">Modus</string>
   <string name="casual">Ungwertet</string>
   <string name="rated">Gwertet</string>
@@ -425,10 +432,11 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="leaderboard">Ranglischte</string>
   <string name="screenshotCurrentPosition">En Screenshot vu de aktuelle Schtellig mache</string>
   <string name="gameAsGIF">Schpiel als GIF</string>
+  <string name="playerNames">Schpiller Näme</string>
+  <string name="moveAnnotations">Zugs-Notatione</string>
   <string name="pasteTheFenStringHere">Füeg de FEN-Tegscht da i</string>
   <string name="pasteThePgnStringHere">Füeg de PGN-Tegscht da i</string>
   <string name="orUploadPgnFile">Oder lad e PGN-Datei ufe</string>
-  <string name="fromPosition">Ab Schtellig</string>
   <string name="continueFromHere">Vu da us witer schpille</string>
   <string name="toStudy">Schtudie</string>
   <string name="importGame">Schpiel importiere</string>
@@ -722,11 +730,6 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="keyCycleSelectedVariation">Usgwählti Zyklusvariante</string>
   <string name="keyShowOrHideComments">zeig/verschteck d\'Kommentär</string>
   <string name="keyEnterOrExitVariation">Variante ischtige/verlah</string>
-  <string name="keyRequestComputerAnalysis">Computeranalyse afordere, Lern us dine Fähler</string>
-  <string name="keyNextLearnFromYourMistakes">Nächschts (Lern vu dine Fähler)</string>
-  <string name="keyNextBlunder">Nächschte Patzer</string>
-  <string name="keyNextMistake">Nächschte Fähler</string>
-  <string name="keyNextInaccuracy">Nächschti Ungnauigkeit</string>
   <string name="keyPreviousBranch">Vorherige Variante</string>
   <string name="keyNextBranch">Nächschti Variante</string>
   <string name="toggleVariationArrows">Variatione-Pfil umschalte</string>
@@ -819,6 +822,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="size">Grössi</string>
   <string name="opacity">OpaStadt</string>
   <string name="brightness">Helligkeit</string>
+  <string name="contrast">Kontrascht</string>
   <string name="hue">Farbton</string>
   <string name="boardReset">Farbe zruggstelle</string>
   <string name="pieceSet">Figureart</string>
@@ -1029,4 +1033,5 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="search">Suechi</string>
   <string name="clearSearch">Suechi lösche</string>
   <string name="tags">Tags</string>
+  <string name="enPassant">En passant</string>
 </resources>

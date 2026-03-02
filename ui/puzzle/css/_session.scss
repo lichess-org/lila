@@ -4,7 +4,7 @@
   margin-top: -0.4em;
 
   a {
-    @extend %box-radius, %flex-center;
+    @extend %box-radius, %flex-center-center;
 
     flex: 0 0 2.3em;
     height: 1.6em;
@@ -13,7 +13,6 @@
     opacity: 0.85;
     font-size: 0.85em;
     font-weight: bold;
-    justify-content: center;
 
     &.result-empty::before {
       @extend %data-icon;

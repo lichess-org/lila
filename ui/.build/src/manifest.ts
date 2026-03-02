@@ -18,7 +18,7 @@ let writeTimer: NodeJS.Timeout;
 
 type SplitAsset = { hash?: string; path?: string; imports?: string[]; inline?: string; omit?: boolean };
 
-export type Manifest = { [key: string]: SplitAsset };
+export type Manifest = Record<string, SplitAsset>;
 export type ManifestUpdate = Partial<Omit<typeof manifest, 'dirty'>>;
 
 export function stopManifest(clear = false): void {

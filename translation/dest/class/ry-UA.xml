@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="aLinkToTheClassWillBeAdded">Одкликованя на клас буде автоматічно придано у кінцьови уповісткы, завто вам не треба придавати ї самому.</string>
-  <string name="na">Не приступно</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Не приступно</string>
   <string name="news">Новості</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">вадь</string>
 </resources>

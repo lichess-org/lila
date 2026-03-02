@@ -6,7 +6,7 @@
   <string name="progressX">Progress: %s</string>
   <string name="resetMyProgress">Reset my progress</string>
   <string name="youWillLoseAllYourProgress">You will lose all your progress!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">play!</string>
+  <string name="play">play!</string>
   <string name="chessPieces">Chess pieces</string>
   <string name="theRook">The rook</string>
   <string name="itMovesInStraightLines">It moves in straight lines</string>
@@ -155,7 +155,6 @@ castle king-side!</string>
   <string name="findAWayToCastleQueenSide">Find a way to
 castle queen-side!</string>
   <string name="castlingComplete">Congratulations! You should almost always castle in a game.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">The special pawn move</string>
   <string name="enPassantIntro">When the opponent pawn moved by two squares, you can take it like if it moved by one square.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Black just moved the pawn

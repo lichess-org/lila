@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Khel ka shuruaat</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">दोस्त को चुनौती</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">इस खेल में किसी को आमंत्रित करने के लिए उन्हें ये पता दें</string>
   <string name="gameOver">खेल समाप्त</string>
   <string name="waitingForOpponent">आप प्रतिद्वंदी की प्रतीक्षा कर रहे हैं</string>
@@ -222,7 +224,6 @@
   <string name="changeUsernameNotSame">केवल अक्षरों का मामला बदल सकता है। उदाहरण के लिए \"johndoe\" से \"JohnDoe\"।</string>
   <string name="changeUsernameDescription">अपना उपयोगकर्ता नाम बदलें। यह केवल एक बार किया जा सकता है और आपको केवल अपने उपयोगकर्ता नाम के केस को बदलने की अनुमति है।</string>
   <string name="signupUsernameHint">कृपया उचित यूज़रनेम ही चुनें। आप इसे बाद में बदल नहीं पाएंगे और अनुचित यूज़रनेम वाले कोई भी खाते बंद कर दिए जाएंगे।</string>
-  <string name="signupEmailHint">हम इस का इस्तेमाल सिर्फ़ पासवर्ड रीसेट के लिए करेंगे।</string>
   <string name="password">पासवर्ड</string>
   <string name="changePassword">पासवर्ड बदलें</string>
   <string name="changeEmail">अपना इ-मेल बदलो</string>
@@ -406,7 +407,6 @@
   <string name="pasteTheFenStringHere">FEN को यहा रखें (paste)</string>
   <string name="pasteThePgnStringHere">PGN को यहा रखें (paste)</string>
   <string name="orUploadPgnFile">या PGN अपलोड करे|</string>
-  <string name="fromPosition">स्थिति से</string>
   <string name="continueFromHere">यहा से जारी करें</string>
   <string name="toStudy">पढ़े</string>
   <string name="importGame">खेल आयात (इम्पोर्ट) करे</string>
@@ -673,10 +673,6 @@
   <string name="keyGoToStartOrEnd">शुरूआत मे हिलाए</string>
   <string name="keyShowOrHideComments">टिपण्णी दिखाएँ/छिपाएँ</string>
   <string name="keyEnterOrExitVariation">अंदर बाहर करे</string>
-  <string name="keyRequestComputerAnalysis">कंप्यूटर विश्लेषण का अनुरोध करें, अपनी गलतियों से सीखें</string>
-  <string name="keyNextLearnFromYourMistakes">आगे (अपनी गलतियों से सीखें)</string>
-  <string name="keyNextBlunder">अगली बड़ी गलती</string>
-  <string name="keyNextMistake">अगली गलती</string>
   <string name="newTournament">नया टूर्नमेंट बनायें</string>
   <string name="tournamentHomeTitle">शतरंज का टूर्नमेंट, अलग अलग खेल समय और प्रकार के साथ</string>
   <string name="tournamentHomeDescription">तेज़ रफ़्तार वाले शतरंज टूर्नमेंट खेलिए! आधिकारिक अन्यूसशीट टूर्नमेंट मे भाग लें, या खुद का टूर्नमेंट बनायें! Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck और अधिक प्रकार के मज़ेदार शतरंज के किस्म खेलिए!</string>

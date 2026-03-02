@@ -170,7 +170,7 @@ private final class RelayPlayerEnrich(
         def show(p: RelayPlayerLine): String = p.fideId.map(_.toString) | p.name.fold("?")(_.value)
         val players = ambiguous.map: a =>
           (a.name.value, a.players.map(show))
-        irc.broadcastAmbiguousPlayers(rt.round.id, rt.fullName, players)
+        irc.broadcastAmbiguousPlayers(rt.round.id, rt.fullNameNoTrans, players)
       updated
 
   /* When the players replacement text of a tournament is updated,

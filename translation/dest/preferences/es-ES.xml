@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Mostrar el control de tamaño del tablero</string>
   <string name="onlyOnInitialPosition">Sólo en posición inicial</string>
   <string name="inGameOnly">Solo durante la partida</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Excepto en la partida</string>
+  <string name="exceptInGame">Excepto en la partida</string>
   <string name="chessClock">Reloj de ajedrez</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando queden menos de 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando queden menos de 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progreso horizontales verdes</string>
   <string name="soundWhenTimeGetsCritical">Alerta cuando quede poco tiempo</string>
   <string name="giveMoreTime">Dar más tiempo</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Mantén pulsada la tecla &lt;ctrl&gt; al promocionar para desactivar temporalmente la promoción automática</string>
   <string name="whenPremoving">Con anticipadas</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tablas por triple repetición</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando el tiempo restante sea de &lt; 30 segundos</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Cuando el tiempo restante sea de &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmación de movimiento</string>
   <string name="explainCanThenBeTemporarilyDisabled">Se puede desactivar durante una partida con el menú del tablero</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
@@ -62,11 +62,13 @@
   <string name="notifyGameEvent">Actualizaciones de partida por correspondencia</string>
   <string name="notifyChallenge">Desafíos</string>
   <string name="notifyTournamentSoon">El torneo empieza pronto</string>
+  <string name="notifyBroadcasts">Transmisiones suscritas</string>
   <string name="notifyTimeAlarm">Poco tiempo restante en la partida por correspondencia</string>
   <string name="notifyBell">Notificación de campana dentro del Lichess</string>
   <string name="notifyPush">Notificación de dispositivo cuando no estés en Lichess</string>
   <string name="notifyWeb">Navegador</string>
   <string name="notifyDevice">Dispositivo</string>
   <string name="bellNotificationSound">Sonido de notificación</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">A ciegas</string>
+  <string name="blindfold" comment="As in Blindfold chess">A ciegas</string>
+  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Aparece a la izquierda en dispositivos móviles</string>
 </resources>

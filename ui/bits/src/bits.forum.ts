@@ -45,6 +45,23 @@ site.load.then(() => {
       const form = $(this).parent().toggleClass('on off')[0] as HTMLFormElement;
       xhr.text(`${form.action}?unsub=${this.dataset.unsub}`, { method: 'post' });
       return false;
+    })
+    .on('click', '.reactions-auth button', e => {
+      const href = e.target.getAttribute('data-href');
+      if (href) {
+        const $rels = $(e.target).parent();
+        if ($rels.hasClass('loading')) return;
+        $rels.addClass('loading');
+        xhr.text(href, { method: 'post' }).then(
+          html => {
+            $rels.replaceWith(html);
+            $rels.removeClass('loading');
+          },
+          _ => {
+            site.announce({ msg: 'Failed to send forum post reaction' });
+          },
+        );
+      }
     });
   $('.forum-post__blocked button').on('click', e => {
     const el = (e.target as HTMLElement).parentElement!;
@@ -91,22 +108,21 @@ site.load.then(() => {
   const quoted = new Set<string>();
 
   $('.quote.button').on('click', function (this: HTMLButtonElement) {
-    const post = this.closest('.forum-post')!,
+    const post = this.closest<HTMLElement>('.forum-post')!,
       authorUsername = $(post).find('.author').attr('href')?.substring(3),
       author = authorUsername ? '@' + authorUsername : $(post).find('.author').text(),
-      anchor = $(post).find('.anchor').text(),
       reply = document.querySelector<HTMLTextAreaElement>('.reply .post-text-area')!;
 
     const lines = (
       quotedMarkdown(this.closest('article')) ??
       post.querySelector('.forum-post__message-source')!.textContent
     ).split('\n');
-    if (lines[0].match(/^(?:> )*@.+ said in #\d+:$/)) lines.shift();
+    if (lines[0].match(/^(?:> )*@.+ said (?:in #\d+:$|\[\^\]\()/)) lines.shift();
 
     if (lines.length === 0) return;
 
     const quote =
-      `${author} said in ${anchor}:\n` +
+      `${author} said [^](/forum/redirect/post/${post.dataset.postId})\n` +
       lines
         .map(line => `> ${line}\n`)
         .join('')
@@ -140,7 +156,7 @@ site.load.then(() => {
       {
         index: 2,
         match: /(^|\s)@([a-zA-Z_-][\w-]{0,19})$/,
-        search: function (term: string, callback: (names: string[]) => void) {
+        search: function (term: string, searchCallback: (names: string[]) => void) {
           // Initially we only autocomplete by participants in the thread. As the user types more,
           // we can autocomplete against all users on the site.
           threadParticipants.then(function (participants) {
@@ -148,43 +164,25 @@ site.load.then(() => {
 
             if (forumParticipantCandidates.length !== 0) {
               // We always prefer a match on the forum thread participants' usernames
-              callback(forumParticipantCandidates);
+              searchCallback(forumParticipantCandidates);
             } else if (term.length >= 3) {
               // We fall back to every site user after 3 letters of the username have been entered
               // and there are no matches in the forum thread participants
               xhr
                 .json(xhr.url('/api/player/autocomplete', { term }), { cache: 'default' })
-                .then(candidateUsers => callback(searchCandidates(term, candidateUsers)))
+                .then(candidateUsers => searchCallback(searchCandidates(term, candidateUsers)))
                 .catch(error => {
                   console.error('Autocomplete request failed:', error);
-                  callback([]);
+                  searchCallback([]);
                 });
             } else {
-              callback([]);
+              searchCallback([]);
             }
           });
         },
         replace: (mention: string) => '$1@' + mention + ' ',
       },
     ]);
-  });
-
-  $('.forum').on('click', '.reactions-auth button', e => {
-    const href = e.target.getAttribute('data-href');
-    if (href) {
-      const $rels = $(e.target).parent();
-      if ($rels.hasClass('loading')) return;
-      $rels.addClass('loading');
-      xhr.text(href, { method: 'post' }).then(
-        html => {
-          $rels.replaceWith(html);
-          $rels.removeClass('loading');
-        },
-        _ => {
-          site.announce({ msg: 'Failed to send forum post reaction' });
-        },
-      );
-    }
   });
 
   const replyStorage = tempStorage.make('forum.reply' + location.pathname);
@@ -204,6 +202,7 @@ site.load.then(() => {
   });
 
   $('form.reply').on('submit', () => {
+    if (submittingReply) return false;
     replyStorage.remove();
     submittingReply = true;
   });

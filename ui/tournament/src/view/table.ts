@@ -1,11 +1,10 @@
 import { opposite } from '@lichess-org/chessground/util';
 import * as licon from 'lib/licon';
-import { type VNode, bind, onInsert, hl } from 'lib/view';
+import { type VNode, bind, onInsert, hl, initMiniGames } from 'lib/view';
 import { player as renderPlayer } from './util';
 import type { Duel, DuelPlayer, FeaturedGame, TournamentOpts } from '../interfaces';
 import { teamName } from './battle';
 import type TournamentController from '../ctrl';
-import { initMiniGames } from 'lib/view';
 
 function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) {
   const player = game[color];

@@ -93,6 +93,6 @@ Spil hurtige (rapid) og klassiske (classical) partier for at forøge chancerne f
   </plurals>
   <string name="percentSolved">%s løst</string>
   <string name="noPuzzlesToShow">Intet at vise, løs først nogle opgaver!</string>
-  <string name="improvementAreasDescription">Træn disse for at optimere dine fremskridt!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Træn disse for at optimere dine fremskridt!</string>
   <string name="strengthDescription">Du klarer dig bedst i disse temaer</string>
 </resources>

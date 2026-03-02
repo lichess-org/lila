@@ -1,2 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">ຫ້ອງຮຽນ</string>
+  <string name="teachClassesOfChessStudents">ສອນຫ້ອງຮຽນໝາກຮຸກດ້ວຍຊຸດເຄື່ອງມືຫ້ອງຮຽນຂອງ Lichess.</string>
+  <string name="features">ຄຸນສົມບັດ</string>
+  <string name="quicklyGenerateSafeUsernames">ສ້າງຊື່ຜູ້ໃຊ້ ແລະ ລະຫັດຜ່ານທີ່ປອດໄພໃຫ້ນັກຮຽນໄດ້ຢ່າງວ່ອງໄວ</string>
+  <string name="trackStudentProgress">ຕິດຕາມຄວາມຄືບໜ້າຂອງນັກຮຽນໃນການຫຼິ້ນເກມ ແລະ ແກ້ໄຂປິດສະໜາ</string>
+  <string name="messageAllStudents">ສົ່ງຂໍ້ຄວາມຫາລູກສິດທຸກຄົນກ່ຽວກັບບົດຮຽນໃໝ່</string>
+  <string name="freeForAllForever">ຟຣີ 100% ສຳລັບທຸກຄົນ ຕະຫຼອດໄປ, ບໍ່ມີໂຄສະນາ ຫຼື ການຕິດຕາມຂໍ້ມູນ</string>
+  <string name="applyToBeLichessTeacher">ສະໝັກເປັນຄູສອນຂອງ Lichess</string>
+  <string name="noClassesYet">ຍັງບໍ່ມີຫ້ອງຮຽນ.</string>
+  <string name="teachersX">ຄູສອນ: %s</string>
+  <string name="newClass">ຫ້ອງຮຽນໃໝ່</string>
+  <string name="closeClass">ປິດຫ້ອງຮຽນ</string>
+  <string name="removedByX">ຖືກລຶບອອກໂດຍ %s</string>
+  <string name="reopen">ເປີດຄືນໃໝ່</string>
+  <string name="removeStudent">ລຶບນັກຮຽນອອກ</string>
+  <string name="removedStudents">ລຶບອອກແລ້ວ</string>
+  <string name="inviteTheStudentBack">ເຊີນນັກຮຽນກັບຄືນມາ</string>
+  <string name="sendAMessage">ສົ່ງຂໍ້ຄວາມຫາລູກສິດທຸກຄົນ.</string>
+  <string name="aLinkToTheClassWillBeAdded">ລິ້ງໄປຫາຫ້ອງຮຽນຈະຖືກເພີ່ມເຂົ້າໃນຕອນທ້າຍຂອງຂໍ້ຄວາມໂດຍອັດຕະໂນມັດ, ດັ່ງນັ້ນທ່ານບໍ່ຈຳເປັນຕ້ອງໃສ່ລິ້ງດ້ວຍຕົນເອງ.</string>
+  <string name="className">ຊື່ຫ້ອງຮຽນ</string>
+  <string name="classDescription">ຄຳອະທິບາຍຫ້ອງຮຽນ</string>
+  <string name="visibleByBothStudentsAndTeachers">ຄູສອນ ແລະ ນັກຮຽນພາຍໃນຫ້ອງຮຽນສາມາດເຫັນໄດ້</string>
+  <string name="teachersOfTheClass">ຄູສອນຂອງຫ້ອງຮຽນ</string>
+  <string name="addLichessUsernames">ເພີ່ມຊື່ຜູ້ໃຊ້ Lichess ເພື່ອເຊີນມາເປັນຄູສອນ. ໜຶ່ງຊື່ຕໍ່ແຖວ.</string>
+  <string name="resetPassword">ຕັ້ງລະຫັດຜ່ານໃໝ່</string>
+  <string name="makeSureToCopy">ກະລຸນາກ່າຍ ຫຼື ບັນທຶກລະຫັດຜ່ານໄວ້ໃນຕອນນີ້. ທ່ານຈະບໍ່ສາມາດເຫັນມັນໄດ້ອີກ!</string>
+  <string name="passwordX">ລະຫັດຜ່ານ: %s</string>
+  <string name="generateANewPassword">ສ້າງລະຫັດຜ່ານໃໝ່ໃຫ້ນັກຮຽນ</string>
+  <string name="invitedToXByY">ຖືກເຊີນເຂົ້າຮ່ວມ %1$s ໂດຍ %2$s</string>
+  <string name="realName">ຊື່ແທ້</string>
+  <string name="privateWillNeverBeShown">ສ່ວນຕົວ. ຈະບໍ່ຖືກສະແດງອອກນອກຫ້ອງຮຽນ. ຊ່ວຍໃຫ້ທ່ານຈື່ຈຳໄດ້ວ່ານັກຮຽນແມ່ນໃຜ.</string>
+  <string name="addStudent">ເພີ່ມນັກຮຽນ</string>
+  <string name="lichessProfileXCreatedForY">ໂປຣໄຟລ໌ Lichess %1$s ຖືກສ້າງຂຶ້ນໃຫ້ %2$s ແລ້ວ.</string>
+  <string name="studentCredentials">ນັກຮຽນ: %1$s
+ຊື່ຜູ້ໃຊ້: %2$s
+ລະຫັດຜ່ານ: %3$s</string>
+  <string name="inviteALichessAccount">ເຊີນບັນຊີ Lichess</string>
+  <string name="inviteDesc1">ຫາກນັກຮຽນມີບັນຊີ Lichess ຢູ່ແລ້ວ, ທ່ານສາມາດເຊີນພວກເຂົາເຂົ້າຮ່ວມຫ້ອງຮຽນໄດ້.</string>
+  <string name="inviteDesc2">ພວກເຂົາຈະໄດ້ຮັບຂໍ້ຄວາມໃນ Lichess ພ້ອມລິ້ງເພື່ອເຂົ້າຮ່ວມຫ້ອງຮຽນ.</string>
+  <string name="inviteDesc3">ສຳຄັນ: ເຊີນສະເພາະນັກຮຽນທີ່ທ່ານຮູ້ຈັກ ແລະ ຜູ້ທີ່ຕ້ອງການເຂົ້າຮ່ວມຫ້ອງຮຽນແທ້ໆເທົ່ານັ້ນ.</string>
+  <string name="inviteDesc4">ຫ້າມສົ່ງຄຳເຊີນໄປຫາຜູ້ຫຼິ້ນຄົນອື່ນຊາຊາຍໂດຍທີ່ພວກເຂົາບໍ່ຕ້ອງການ.</string>
+  <string name="createANewLichessAccount">ສ້າງບັນຊີ Lichess ໃໝ່</string>
+  <string name="createDesc1">ຫາກນັກຮຽນຍັງບໍ່ມີບັນຊີ Lichess, ທ່ານສາມາດສ້າງໃຫ້ພວກເຂົາໄດ້ຢູ່ບ່ອນນີ້.</string>
+  <string name="createDesc2">ບໍ່ຈຳເປັນຕ້ອງມີທີ່ຢູ່ອີເມວ. ລະຫັດຜ່ານຈະຖືກສ້າງຂຶ້ນໂດຍອັດຕະໂນມັດ ແລະ ທ່ານຕ້ອງສົ່ງໃຫ້ພວກເຂົາເພື່ອເຂົ້າສູ່ລະບົບ.</string>
+  <string name="createDesc3">ສຳຄັນ: ນັກຮຽນຄົນໜຶ່ງບໍ່ຄວນມີຫຼາຍບັນຊີ.</string>
+  <string name="createDesc4">ຫາກພວກເຂົາມີຢູ່ແລ້ວ, ໃຫ້ໃຊ້ແບບຟອມຄຳເຊີນແທນ.</string>
+  <string name="createStudentWarning">ສ້າງບັນຊີໃຫ້ສະເພາະນັກຮຽນແທ້ໆເທົ່ານັ້ນ. ຢ່າໃຊ້ສິ່ງນີ້ເພື່ອສ້າງຫຼາຍບັນຊີໃຫ້ຕົນເອງ, ບໍ່ດັ່ງນັ້ນທ່ານອາດຈະຖືກແບນ.</string>
+  <string name="lichessUsername">ຊື່ຜູ້ໃຊ້ Lichess</string>
+  <string name="generateANewUsername">ສ້າງຊື່ຜູ້ໃຊ້ໃໝ່</string>
+  <string name="welcomeToClass">ຍິນດີຕ້ອນຮັບເຂົ້າສູ່ຫ້ອງຮຽນຂອງທ່ານ: %s.
+ນີ້ແມ່ນລິ້ງສຳລັບເຂົ້າຫາຫ້ອງຮຽນ.</string>
+  <string name="invitationToClass">ທ່ານຖືກເຊີນໃຫ້ເຂົ້າຮ່ວມຫ້ອງຮຽນ \"%s\" ໃນນາມນັກຮຽນ.</string>
+  <string name="clickToViewInvitation">ຄລິກລິ້ງເພື່ອເບິ່ງຄຳເຊີນ:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="other">ຄຳເຊີນທີ່ກຳລັງລໍຖ້າ %s ລາຍການ</item>
+  </plurals>
+  <string name="pending">ກຳລັງລໍຖ້າ</string>
+  <string name="declined">ປະຕິເສດແລ້ວ</string>
+  <string name="onlyVisibleToTeachers">ເຫັນໄດ້ສະເພາະຄູສອນໃນຫ້ອງຮຽນເທົ່ານັ້ນ</string>
+  <string name="lastActiveDate">ເຄື່ອນໄຫວ</string>
+  <string name="managed">ຖືກຈັດການໂດຍຄູ</string>
+  <string name="thisStudentAccountIsManaged">ບັນຊີນັກຮຽນນີ້ຖືກຈັດການໂດຍຄູສອນ</string>
+  <string name="upgradeFromManaged">ປ່ຽນຈາກບັນຊີທີ່ຖືກຈັດການ ເປັນບັນຊີທີ່ຄຸ້ມຄອງດ້ວຍຕົນເອງ</string>
+  <string name="release">ຮຽນຈົບ</string>
+  <string name="releaseTheAccount">ປ່ຽນສະຖານະບັນຊີໃຫ້ຮຽນຈົບ ເພື່ອນັກຮຽນຈະສາມາດຈັດການບັນຊີດ້ວຍຕົນເອງໄດ້.</string>
+  <string name="releaseDesc1">ບັນຊີທີ່ຮຽນຈົບແລ້ວຈະບໍ່ສາມາດຖືກຈັດການໂດຍຄູໄດ້ອີກ. ນັກຮຽນຈະສາມາດເປີດໂໝດເດັກນ້ອຍ ແລະ ຕັ້ງລະຫັດຜ່ານໃໝ່ດ້ວຍຕົນເອງ.</string>
+  <string name="releaseDesc2">ນັກຮຽນຈະຍັງຢູ່ໃນຫ້ອງຮຽນຄືເກົ່າ ຫຼັງຈາກທີ່ຮຽນຈົບແລ້ວ.</string>
+  <string name="realUniqueEmail">ອີເມວແທ້ທີ່ບໍ່ຊ້ຳໃຜຂອງນັກຮຽນ. ພວກເຮົາຈະສົ່ງອີເມວຢືນຢັນໄປໃຫ້ ພ້ອມລິ້ງເພື່ອປ່ຽນສະຖານະບັນຊີໃຫ້ຮຽນຈົບ.</string>
+  <string name="closeStudent">ປິດບັນຊີ</string>
+  <string name="closeTheAccount">ປິດບັນຊີນັກຮຽນແບບຖາວອນ.</string>
+  <string name="closeDesc1">ນັກຮຽນຈະບໍ່ສາມາດໃຊ້ບັນຊີນີ້ໄດ້ອີກ. ການປິດບັນຊີແມ່ນສິ້ນສຸດເລີຍ. ກະລຸນາກວດສອບໃຫ້ນັກຮຽນເຂົ້າໃຈ ແລະ ຍິນຍອມ.</string>
+  <string name="closeDesc2">ທ່ານອາດຈະຢາກມອບສິດການຄວບຄຸມບັນຊີໃຫ້ນັກຮຽນແທນ ເພື່ອໃຫ້ພວກເຂົາສາມາດໃຊ້ງານຕໍ່ໄປໄດ້.</string>
+  <string name="teachers">ຄູສອນ</string>
+  <plurals name="nbTeachers">
+    <item quantity="other">ຄູສອນ %s ຄົນ</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="other">ນັກຮຽນ %s ຄົນ</item>
+  </plurals>
+  <string name="students">ນັກຮຽນ</string>
+  <string name="progress">ຄວາມຄືບໜ້າ</string>
+  <string name="noStudents">ຍັງບໍ່ມີນັກຮຽນໃນຫ້ອງຮຽນ.</string>
+  <string name="noRemovedStudents">ບໍ່ມີນັກຮຽນທີ່ຖືກລຶບອອກ</string>
+  <string name="overDays">ໃນຊ່ວງຫຼາຍວັນທີ່ຜ່ານມາ</string>
+  <string name="timePlaying">ເວລາທີ່ໃຊ້ຫຼິ້ນ</string>
+  <string name="variantXOverLastY">%1$s ໃນຊ່ວງ %2$s ທີ່ຜ່ານມາ</string>
+  <string name="winrate">ອັດຕາການຊະນະ</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">ບໍ່ມີຂໍ້ມູນ</string>
+  <string name="overview">ພາບລວມ</string>
+  <string name="news">ຂ່າວສານ</string>
+  <string name="classNews">ຂ່າວສານໃນຫ້ອງຮຽນ</string>
+  <string name="editNews">ແກ້ໄຂຂ່າວສານ</string>
+  <string name="notifyAllStudents">ແຈ້ງເຕືອນນັກຮຽນທຸກຄົນ</string>
+  <string name="nothingHere">ຍັງບໍ່ມີຫຍັງຢູ່ນີ້.</string>
+  <string name="newsEdit1">ລວມຂ່າວສານຫ້ອງຮຽນທັງໝົດໄວ້ໃນບ່ອນດຽວ.</string>
+  <string name="newsEdit2">ເພີ່ມຂ່າວໃໝ່ໄວ້ທາງເທິງ. ຢ່າລຶບຂ່າວເກົ່າອອກ.</string>
+  <string name="newsEdit3">ແຍກຂ່າວສານດ້ວຍ --- ມັນຈະສະແດງເປັນເສັ້ນນອນ.</string>
+  <string name="invite">ເຊີນ</string>
+  <string name="youHaveBeenInvitedByX">ທ່ານໄດ້ຖືກເຊີນໂດຍ %s.</string>
+  <string name="youAcceptedThisInvitation">ທ່ານໄດ້ຍອມຮັບຄຳເຊີນນີ້ແລ້ວ.</string>
+  <string name="youDeclinedThisInvitation">ທ່ານໄດ້ປະຕິເສດຄຳເຊີນນີ້ແລ້ວ.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ຫຼື</string>
+  <string name="createMultipleAccounts">ສ້າງຫຼາຍບັນຊີ Lichess ພ້ອມກັນໃນຄັ້ງດຽວ</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">ທ່ານຍັງສາມາດ %s ເພື່ອສ້າງຫຼາຍບັນຊີ Lichess ຈາກລາຍຊື່ນັກຮຽນ.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">ໃຊ້ແບບຟອມນີ້</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">ໝາຍເຫດ: ຫ້ອງຮຽນໜຶ່ງສາມາດມີນັກຮຽນໄດ້ສູງສຸດ %1$s ຄົນ. ເພື່ອຈັດການນັກຮຽນໃຫ້ໄດ້ຫຼາຍກວ່ານີ້, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">ສ້າງຫ້ອງຮຽນເພີ່ມ</string>
+  <string name="studentsRealNamesOnePerLine">ຊື່ແທ້ຂອງນັກຮຽນ, ໜຶ່ງຊື່ຕໍ່ແຖວ</string>
+  <string name="xisNowAStudentOfTheClass">%s ເປັນນັກຮຽນໃນຫ້ອງຮຽນນີ້ແລ້ວ</string>
+  <string name="anInvitationHasBeenSentToX">ສົ່ງຄຳເຊີນຫາ %s ແລ້ວ</string>
+  <string name="xAlreadyHasAPendingInvitation">%s ມີຄຳເຊີນທີ່ກຳລັງລໍຖ້າຢູ່ແລ້ວ</string>
+  <string name="xIsAKidAccountWarning">%1$s ແມ່ນບັນຊີເດັກນ້ອຍ ແລະ ບໍ່ສາມາດຮັບຂໍ້ຄວາມຂອງທ່ານໄດ້. ທ່ານຕ້ອງມອບ URL ຄຳເຊີນໃຫ້ພວກເຂົາດ້ວຍຕົນເອງ: %2$s</string>
+  <string name="moveToClass">ຍ້າຍໄປ %s</string>
+  <string name="moveToAnotherClass">ຍ້າຍໄປຫ້ອງຮຽນອື່ນ</string>
+  <string name="allowMessagingBetweenStudents">ອະນຸຍາດໃຫ້ມີການສົ່ງຂໍ້ຄວາມລະຫວ່າງນັກຮຽນ</string>
+  <string name="allowMessagingBetweenStudentsDesc">ສິ່ງນີ້ຈະໃຊ້ໄດ້ສະເພາະກັບບັນຊີທີ່ທ່ານສ້າງໃຫ້ນັກຮຽນເທົ່ານັ້ນ.</string>
+  <string name="quickLoginCode">ລະຫັດເຂົ້າສູ່ລະບົບດ່ວນ</string>
+  <string name="quickLoginCodes">ລະຫັດເຂົ້າສູ່ລະບົບດ່ວນ</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">ໃຊ້ລະຫັດເຫຼົ່ານີ້ຢູ່ %s ເພື່ອໃຫ້ນັກຮຽນຂອງທ່ານເຂົ້າສູ່ລະບົບ Lichess.</string>
+  <string name="quickLoginCodesDesc2">ເມື່ອລະຫັດໝົດອາຍຸ, ນັກຮຽນຂອງທ່ານຈະຍັງຄົງຢູ່ໃນລະບົບ ຈົນກວ່າພວກເຂົາຈະອອກຈາກລະບົບດ້ວຍຕົນເອງ.</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">ໝົດອາຍຸ %s</string>
+</resources>

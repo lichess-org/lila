@@ -63,12 +63,8 @@
   --loader-size: 0.8em;
 
   @mixin firefox {
-    @at-root {
-      @-moz-document url-prefix() {
-        & {
-          @content;
-        }
-      }
+    @supports (-moz-appearance: none) {
+      @content;
     }
   }
 
@@ -80,7 +76,7 @@
       transform: none;
     } @else {
       opacity: 0;
-      transform: translatex(6px);
+      transform: translateX(6px);
     }
   }
 
@@ -94,10 +90,10 @@
     border: 3px solid;
     border-color: #eee #bbb #888 transparent;
     border-radius: 50%;
-    animation: rotateLoader 0.4s infinite linear;
+    animation: rotate-loader 0.4s infinite linear;
   }
 
-  @mixin tagReadonlyBG {
+  @mixin tag-readonly-bg {
     background: linear-gradient(
         45deg,
         var(--tag-bg) 25%,
@@ -113,13 +109,13 @@
     filter: brightness(0.95);
   }
 
-  @keyframes tags--bump {
+  @keyframes tags-bump {
     30% {
       transform: scale(1.2);
     }
   }
 
-  @keyframes rotateLoader {
+  @keyframes rotate-loader {
     to {
       transform: rotate(1turn);
     }
@@ -174,7 +170,7 @@
         padding: var(--tag-pad);
 
         &::before {
-          @include tagReadonlyBG;
+          @include tag-readonly-bg;
         }
       }
     }
@@ -242,9 +238,8 @@
       transition: 0.13s ease-out;
 
       > * {
+        @extend %ellipsis;
         white-space: pre-wrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         display: inline-block;
         vertical-align: top;
         min-width: var(--tag--min-width, $tag-min-width);
@@ -270,14 +265,11 @@
         content: '';
         position: absolute;
         border-radius: inherit;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
+        inset: 0;
         z-index: -1;
         pointer-events: none;
         transition: 120ms ease;
-        animation: tags--bump 0.3s ease-out 1;
+        animation: tags-bump 0.3s ease-out 1;
 
         box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-bg, $tag-bg) inset;
       }
@@ -288,10 +280,7 @@
         &::before {
           $size: -$tagMargin / 2;
           $size: -2px;
-          top: $size;
-          left: $size;
-          bottom: $size;
-          right: $size;
+          inset: $size;
           box-shadow: 0 0 0 $tag-inset-shadow-size $tag-hover inset;
           box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-hover, $tag-hover)
             inset;
@@ -367,7 +356,7 @@
       > div {
         // padding: $tag-pad;
         &::before {
-          @include tagReadonlyBG;
+          @include tag-readonly-bg;
         }
       }
     }

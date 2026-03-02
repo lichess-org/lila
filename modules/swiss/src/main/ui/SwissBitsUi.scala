@@ -29,40 +29,6 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
         a(href := routes.Swiss.home)(trans.site.returnToTournamentsHomepage())
       )
 
-  def forTeam(swisses: List[Swiss])(using Context) =
-    table(cls := "slist")(
-      tbody(
-        swisses.map { s =>
-          tr(
-            cls := List(
-              "enterable" -> s.isNotFinished,
-              "soon" -> s.isNowOrSoon
-            )
-          )(
-            td(cls := "icon")(iconTag(s.perfType.icon)),
-            td(cls := "header")(
-              a(href := routes.Swiss.show(s.id))(
-                span(cls := "name")(s.name),
-                span(cls := "setup")(
-                  s.clock.show,
-                  " • ",
-                  if s.variant.exotic then s.variant.name else s.perfType.trans,
-                  " • ",
-                  lila.gathering.ui.translateRated(s.settings.rated),
-                  " • ",
-                  s.estimatedDurationString
-                )
-              )
-            ),
-            td(cls := "infos")(
-              momentFromNowOnce(s.startsAt)
-            ),
-            td(cls := "text", dataIcon := Icon.User)(s.nbPlayers.localize)
-          )
-        }
-      )
-    )
-
   def showInterval(s: Swiss)(using Translate): Frag =
     s.settings.dailyInterval match
       case Some(d) => trans.swiss.oneRoundEveryXDays.pluralSame(d)
@@ -72,7 +38,7 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
           trans.swiss.xSecondsBetweenRounds.pluralSame(s.settings.intervalSeconds)
         else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
 
-  def homepageSpotlight(s: Swiss)(using Context) =
+  def homepageSpotlight(s: Swiss)(using Translate) =
     a(href := routes.Swiss.show(s.id), cls := "tour-spotlight little")(
       iconTag(s.perfType.icon)(cls := "img icon"),
       span(cls := "content")(
@@ -83,4 +49,34 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
           if s.isStarted then trans.site.eventInProgress() else momentFromNow(s.startsAt)
         )
       )
+    )
+
+  def teamSwissRow(s: Swiss)(using Translate) =
+    tr(
+      cls := List(
+        "enterable" -> s.isNotFinished,
+        "soon" -> s.isNowOrSoon
+      )
+    )(
+      td(cls := "icon")(iconTag(s.perfType.icon)),
+      td(cls := "header")(
+        a(href := routes.Swiss.show(s.id))(
+          span(cls := "name")(s.name),
+          span(cls := "setup")(
+            s.clock.show,
+            " • ",
+            if s.variant.exotic then s.variant.name else s.perfType.trans,
+            " • ",
+            lila.gathering.ui.translateRated(s.settings.rated),
+            " • ",
+            s.estimatedDurationString
+          )
+        )
+      ),
+      td(cls := "infos")(
+        trans.swiss.xRoundsSwiss.plural(s.settings.nbRounds, s.settings.nbRounds.localize),
+        br,
+        if s.isStarted then trans.site.eventInProgress() else momentFromNow(s.startsAt)
+      ),
+      td(cls := "text", dataIcon := Icon.User)(s.nbPlayers.localize)
     )

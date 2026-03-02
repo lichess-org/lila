@@ -97,7 +97,7 @@ Seo an nasc le dul isteach sa rang.</string>
   <string name="timePlaying">Am ag imirt</string>
   <string name="variantXOverLastY">%1$s le %2$s lá anuas</string>
   <string name="winrate">Ráta buaite</string>
-  <string name="na">N/B</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/B</string>
   <string name="overview">Forbhreathnú</string>
   <string name="news">Nuacht</string>
   <string name="classNews">Nuacht an ranga</string>

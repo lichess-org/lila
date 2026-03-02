@@ -1,4 +1,5 @@
 @import 'cmn-toggle';
+@import 'check';
 @import '../component/flash';
 @import '../component/toggle-box';
 
@@ -76,24 +77,6 @@ textarea.form-control {
   padding: 0.2em 1em;
   margin: 0.2em 0;
   background: $c-bg-page;
-}
-
-.form-check {
-  @extend %flex-column;
-  // justify-content: center;
-  div {
-    display: flex;
-  }
-}
-
-.form-check-input {
-  margin-inline-end: 0.5rem;
-}
-
-.form-check .form-label {
-  margin-bottom: 0;
-  cursor: pointer;
-  unicode-bidi: plaintext;
 }
 
 .form-actions {

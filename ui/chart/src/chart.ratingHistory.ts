@@ -258,22 +258,23 @@ export function initModule({ data, singlePerfName }: Opts): void {
       { t: '1y', duration: dayjs.duration(1, 'y') },
       { t: 'all', duration: dayjs.duration(endDate.diff(startDate, 'd'), 'd') },
     ];
-    $('.time-selector-buttons').html(
-      buttons
-        .filter(b => startDate.isBefore(endDate.subtract(b.duration)) || b.t === 'all')
-        .map(b => timeBtn(b))
-        .join(''),
-    );
     const btnClick = (min: number) => {
       $('.time-selector-buttons .button').removeClass('active');
       slider.set([min, endDate.valueOf()]);
       chart.zoomScale('x', { min: min, max: endDate.valueOf() });
     };
-    $('.time-selector-buttons').on('mousedown', 'button', function (this: HTMLButtonElement) {
-      const min = buttons.find(b => b.t === this.textContent);
-      if (min) btnClick(Math.max(startDate.valueOf(), endDate.subtract(min.duration).valueOf()));
-      this.classList.add('active');
-    });
+    $('.time-selector-buttons')
+      .html(
+        buttons
+          .filter(b => startDate.isBefore(endDate.subtract(b.duration)) || b.t === 'all')
+          .map(b => timeBtn(b))
+          .join(''),
+      )
+      .on('mousedown', 'button', function (this: HTMLButtonElement) {
+        const min = buttons.find(b => b.t === this.textContent);
+        if (min) btnClick(Math.max(startDate.valueOf(), endDate.subtract(min.duration).valueOf()));
+        this.classList.add('active');
+      });
     chart.zoomScale('x', { min: initial.valueOf(), max: endDate.valueOf() });
   }
 }

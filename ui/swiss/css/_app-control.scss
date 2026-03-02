@@ -1,7 +1,7 @@
 .swiss__controls {
   @extend %metal, %flex-between, %box-shadow;
 
-  padding: 0 0px;
+  padding: 0 0;
   position: relative;
 
   .fbt {
@@ -27,14 +27,14 @@
     border-bottom: 5px solid #759900;
     text-shadow: 0 -1px #759900;
     transition: all 0.1s;
-    transform: translate(0px, 0px);
+    transform: translate(0, 0);
 
     &:hover {
       filter: brightness(1.06);
     }
 
     &:active {
-      transform: translate(0px, 5px);
+      transform: translate(0, 5px);
       border-bottom-width: 1px;
       text-shadow: 0 0 #759900;
       filter: brightness(1);

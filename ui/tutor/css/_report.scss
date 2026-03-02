@@ -1,0 +1,13 @@
+.tutor__report {
+  &__header {
+    @extend %flex-center;
+    gap: 1em;
+    margin-bottom: 2em;
+  }
+  &__delete {
+    font-size: 0.9em;
+    button {
+      color: $c-bad;
+    }
+  }
+}

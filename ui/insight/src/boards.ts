@@ -1,5 +1,5 @@
 import type Ctrl from './ctrl';
-import { h } from 'snabbdom';
+import { h, type VNodeData } from 'snabbdom';
 import type { Game } from './interfaces';
 import { initMiniBoard } from 'lib/view';
 
@@ -28,7 +28,7 @@ const miniGame = (game: Game) =>
     ]),
   ]);
 
-export default function (ctrl: Ctrl, attrs: any = null) {
+export default function (ctrl: Ctrl, attrs: VNodeData | null = null) {
   if (!ctrl.vm.answer) return;
 
   return h('div.game-sample.box.hscroll', attrs, [

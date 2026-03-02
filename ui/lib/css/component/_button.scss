@@ -3,6 +3,7 @@
 
   @include prevent-select;
   @include transition;
+  @include backdrop-blur-if-transparent;
 
   font-weight: 500;
   background: $c-primary;
@@ -61,8 +62,6 @@
   }
 
   &-link {
-    @extend %button-none;
-
     color: $c-link;
 
     &:hover,
@@ -113,11 +112,6 @@
     &.button-dim,
     &.button-dim:hover {
       color: $c-font-dim;
-    }
-
-    &.button-clas,
-    &.button-clas:hover {
-      color: $c-clas;
     }
   }
 

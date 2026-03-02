@@ -3,26 +3,25 @@ import type { RetroCtrl } from './retroCtrl';
 import type AnalyseCtrl from '../ctrl';
 import * as licon from 'lib/licon';
 import { bind, dataIcon, hl, type VNode, spinnerVdom as spinner } from 'lib/view';
+import type { TreeNode } from 'lib/tree/types';
 
-function skipOrViewSolution(ctrl: RetroCtrl) {
-  return hl('div.choices', [
+const skipOrViewSolution = (ctrl: RetroCtrl): VNode =>
+  hl('div.choices', [
     hl('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw) }, i18n.site.viewTheSolution),
     hl('a', { hook: bind('click', ctrl.skip) }, i18n.site.skipThisMove),
   ]);
-}
 
-function jumpToNext(ctrl: RetroCtrl) {
-  return hl('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
+const jumpToNext = (ctrl: RetroCtrl): VNode =>
+  hl('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
     hl('i', { attrs: dataIcon(licon.PlayTriangle) }),
     i18n.site.next,
   ]);
-}
 
 const minDepth = 8;
 const maxDepth = 18;
 
-function renderEvalProgress(node: Tree.Node): VNode {
-  return hl(
+const renderEvalProgress = (node: TreeNode): VNode =>
+  hl(
     'div.progress',
     hl('div', {
       attrs: {
@@ -32,7 +31,6 @@ function renderEvalProgress(node: Tree.Node): VNode {
       },
     }),
   );
-}
 
 const feedback = {
   find(ctrl: RetroCtrl): VNode[] {

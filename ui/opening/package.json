@@ -4,7 +4,7 @@
   "type": "module",
   "dependencies": {
     "@types/debounce-promise": "^3.1.9",
-    "chart.js": "4.4.8",
+    "chart.js": "4.5.1",
     "chartjs-adapter-dayjs-4": "^1.0.4",
     "dayjs": "^1.11.19",
     "debounce-promise": "^3.1.2",

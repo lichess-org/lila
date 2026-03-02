@@ -7,7 +7,8 @@ import lila.core.user.{ Emails, PlayTime }
 
 case class WithPerfsAndEmails(user: UserWithPerfs, emails: Emails)
 
-case class TotpToken(value: String) extends AnyVal
+opaque type TotpToken = String
+object TotpToken extends OpaqueString[TotpToken]
 
 case class UserDelete(requested: Instant, done: Boolean = false)
 

@@ -1,5 +1,4 @@
 import type RoundController from './ctrl';
-import { throttlePromiseDelay } from 'lib/async';
 import { text, json, form } from 'lib/xhr';
 import type { RoundData } from './interfaces';
 
@@ -18,12 +17,3 @@ export const challengeRematch = (gameId: string): Promise<unknown> =>
   json('/challenge/rematch-of/' + gameId, {
     method: 'post',
   });
-
-export const setZen: (zen: boolean) => Promise<void> = throttlePromiseDelay(
-  () => 1000,
-  zen =>
-    text('/pref/zen', {
-      method: 'post',
-      body: form({ zen: zen ? 1 : 0 }),
-    }),
-);

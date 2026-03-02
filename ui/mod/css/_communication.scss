@@ -82,7 +82,7 @@
   }
 
   .user_marks i {
-    @include user_marks;
+    @include user-marks;
   }
 
   .player_chats .line,

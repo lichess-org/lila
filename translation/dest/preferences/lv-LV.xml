@@ -20,7 +20,7 @@
   <string name="onlyOnInitialPosition">Tikai sākotnējajā pozīcijā</string>
   <string name="chessClock">Šaha pulkstenis</string>
   <string name="tenthsOfSeconds">Sekunžu desmitdaļas</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Ja atlicis &lt; 10 sekundēm</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Ja atlicis &lt; 10 sekundēm</string>
   <string name="horizontalGreenProgressBars">Zaļā horizontālā izpildes josla</string>
   <string name="soundWhenTimeGetsCritical">Signalizēt, kad laika pavisam maz</string>
   <string name="giveMoreTime">Dot vairāk laika</string>
@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Turiet nospiestu taustiņu &lt;ctrl&gt;, kad paaugstinat bandinieku, lai īslaicīgi atspējotu automātisko paaugstināšanu</string>
   <string name="whenPremoving">Tikai priekšgājienos</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automātiski pieprasīt trīskāršās atkārtošanās neizšķirtu</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Ja atlicis &lt; 30 sekundēm</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Ja atlicis &lt; 30 sekundēm</string>
   <string name="moveConfirmation">Gājiena apstiprināšana</string>
   <string name="explainCanThenBeTemporarilyDisabled">Izslēdzams spēles laikā no galdiņa izvēlnes</string>
   <string name="inCorrespondenceGames">Korespondencšaha spēlēs</string>

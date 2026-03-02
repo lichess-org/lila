@@ -6,7 +6,7 @@
   <string name="progressX">คืบหน้า: %s</string>
   <string name="resetMyProgress">คืนค่าความคืบหน้าของฉัน</string>
   <string name="youWillLoseAllYourProgress">คุณจะสูญเสียความคืบหน้าของคุณทั้งหมด!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">เล่น!</string>
+  <string name="play">เล่น!</string>
   <string name="chessPieces">ตัวหมากรุก</string>
   <string name="theRook">เรือ</string>
   <string name="itMovesInStraightLines">มันเดินตามแนวตรง</string>
@@ -154,7 +154,6 @@
   <string name="findAWayToCastleQueenSide">จงหาทาง
 เพื่อเข้าป้อมด้านควีน!</string>
   <string name="castlingComplete">ยินดีด้วย! โดยส่วนใหญ่คุณควรเข้าป้อมในเกมเสมอ</string>
-  <string name="enPassant">การกินผ่าน</string>
   <string name="theSpecialPawnMove">การเดินเบี้ยแบบพิเศษ</string>
   <string name="enPassantIntro">เมื่อเบี้ยฝ่ายตรงข้ามเดินครั้งนั้นสองช่อง คุณสามารถปฏิบัติต่อมันเหมือนดั่งมันเดินเพียงช่องเดียว</string>
   <string name="blackJustMovedThePawnByTwoSquares">ดำเพิ่งเดินเบี้ยสองช่อง!

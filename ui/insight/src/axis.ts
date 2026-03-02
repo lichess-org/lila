@@ -33,7 +33,7 @@ const option = (ctrl: Ctrl, item: Metric | Dimension, axis: 'metric' | 'dimensio
     item.name,
   );
 
-export default function (ctrl: Ctrl, attrs: any = null) {
+export default function (ctrl: Ctrl, attrs: VNodeData | null = null) {
   return h('div.axis-form', attrs, [
     h(
       'select.ms.metric',

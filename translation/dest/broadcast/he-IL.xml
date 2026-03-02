@@ -45,7 +45,7 @@
   <string name="fidePlayerNotFound">לא נמצא שחקן FIDE</string>
   <string name="fideProfile">פרופיל FIDE</string>
   <string name="federation">איגוד</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">גיל</string>
+  <string name="age">גיל</string>
   <string name="unrated">לא מדורג</string>
   <string name="recentTournaments">טורנירים אחרונים</string>
   <string name="openLichess">פתיחה ב־Lichess</string>

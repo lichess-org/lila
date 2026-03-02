@@ -12,7 +12,6 @@ import {
 } from 'chart.js';
 import {
   type MovePoint,
-  animation,
   blackFill,
   fontColor,
   fontFamily,
@@ -27,6 +26,7 @@ import {
 import type { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
 import { pubsub } from 'lib/pubsub';
+import { COLORS } from 'chessops';
 
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, BarElement, BarController);
 
@@ -50,7 +50,6 @@ export default async function (
   };
   const labels: string[] = [];
   const blueLineColor = '#3893e8';
-  const colors = ['white', 'black'] as const;
   const pointStyles: { white: PointStyle[]; black: PointStyle[] } = { white: [], black: [] };
   const pointRadius: { white: number[]; black: number[] } = { white: [], black: [] };
 
@@ -116,12 +115,12 @@ export default async function (
   });
 
   const colorSeriesMax = (series: PlotSeries) =>
-    Math.max(...colors.flatMap(color => series[color].map(point => Math.abs(point.y))));
+    Math.max(...COLORS.flatMap(color => series[color].map(point => Math.abs(point.y))));
   const totalSeriesMax = colorSeriesMax(totalSeries);
   const moveSeriesMax = colorSeriesMax(moveSeries);
 
   const lineBuilder = (series: PlotSeries, moveSeries: boolean): ChartDataset[] =>
-    colors.map(color => ({
+    COLORS.map(color => ({
       type: 'line',
       data: series[color].map(point => ({
         x: point.x,
@@ -145,7 +144,7 @@ export default async function (
     }));
 
   const moveSeriesSet: ChartDataset[] = showTotal
-    ? colors.map(color => ({
+    ? COLORS.map(color => ({
         type: 'bar',
         data: moveSeries[color].map(point => ({ x: point.x, y: point.y / moveSeriesMax })),
         backgroundColor: color,
@@ -175,7 +174,7 @@ export default async function (
     options: {
       maintainAspectRatio: false,
       responsive: true,
-      animations: animation(800 / labels.length - 1),
+      animation: false,
       scales: axisOpts(
         firstPly + 1,
         // Omit game-ending action to sync acpl and movetime charts
@@ -192,7 +191,9 @@ export default async function (
           displayColors: false,
           callbacks: {
             title: items =>
-              labels[items[0].dataset.label === 'bar' ? items[0].parsed.x * 2 : items[0].parsed.x],
+              items[0].parsed.x
+                ? labels[items[0].dataset.label === 'bar' ? items[0].parsed.x * 2 : items[0].parsed.x]
+                : '',
             label: () => '',
           },
         },

@@ -19,15 +19,11 @@ object home:
           Json
             .obj(
               "data" -> data,
-              "showRatings" -> ctx.pref.showRatings,
-              "hasUnreadLichessMessage" -> hasUnreadLichessMessage
+              "showRatings" -> ctx.pref.showRatings
             )
+            .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
             .add("bots", Granter.opt(_.Beta))
-            .add(
-              "playban",
-              playban.map: pb =>
-                Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))
-            )
+            .add("playban", playban.map(lila.playban.TempBan.lobbyJson))
         )
       )
       .css("lobby")
@@ -47,41 +43,9 @@ object home:
             "lobby-nope" -> (playban.isDefined || currentGame.isDefined || homepage.hasUnreadLichessMessage)
           )
         )(
-          div(cls := "lobby__table")(
-            div(cls := "lobby__start")(
-              button(cls := "button button-metal lobby__start__button lobby__start__button--hook")(
-                trans.site.createLobbyGame()
-              ),
-              button(cls := "button button-metal lobby__start__button lobby__start__button--friend")(
-                trans.site.challengeAFriend()
-              ),
-              button(cls := "button button-metal lobby__start__button lobby__start__button--ai")(
-                trans.site.playAgainstComputer()
-              )
-            )
-          ),
-          currentGame
-            .map(bits.currentGameInfo)
-            .orElse:
-              hasUnreadLichessMessage.option(bits.showUnreadLichessMessage)
-            .orElse:
-              playban.map(bits.playbanInfo)
-            .getOrElse:
-              if ctx.blind then blindLobby(blindGames) else bits.lobbyApp
-          ,
           div(cls := "lobby__side")(
             ctx.blind.option(h2(trans.nvui.featuredEvents())),
-            ctx.kid.no.option(
-              st.section(cls := "lobby__streams")(
-                views.streamer.bits.liveStreams(streams),
-                streams.live.streams.nonEmpty.option(
-                  a(href := routes.Streamer.index(), cls := "more")(
-                    trans.site.streamersMenu(),
-                    " »"
-                  )
-                )
-              )
-            ),
+            ctx.kid.no.option(views.streamer.bits.liveStreams(streams)),
             div(cls := "lobby__spotlights"):
               val eventTags = events.map(bits.spotlight)
               val relayTags = views.relay.ui.spotlight(relays)
@@ -103,16 +67,17 @@ object home:
                 }
               )
             ,
+            classes.nonEmpty.option:
+              div(cls := "lobby__classes"):
+                classes.map: clas =>
+                  a(href := routes.Clas.show(clas.id), dataIcon := Icon.Group)(clas.name)
+            ,
             if ctx.isAuth then
               div(cls := "lobby__timeline")(
                 ctx.blind.option(h2(trans.site.timeline())),
                 views.timeline.entries(userTimeline),
-                userTimeline.nonEmpty.option(
-                  a(cls := "more", href := routes.Timeline.home)(
-                    trans.site.more(),
-                    " »"
-                  )
-                )
+                userTimeline.nonEmpty.option:
+                  a(cls := "more", href := routes.Timeline.home)(trans.site.more(), " »")
               )
             else
               div(cls := "about-side")(
@@ -125,20 +90,31 @@ object home:
                 a(href := "/about")(trans.site.aboutX("Lichess"), "...")
               )
           ),
-          featured.map: g =>
-            div(cls := "lobby__tv"):
-              views.game.mini(Pov.naturalOrientation(g), tv = true)
+          currentGame
+            .map(bits.currentGameInfo)
+            .orElse:
+              hasUnreadLichessMessage.option(bits.showUnreadLichessMessage)
+            .orElse:
+              playban.map(bits.playbanInfo)
+            .getOrElse:
+              if ctx.blind then blindLobby(blindGames) else bits.lobbyApp
           ,
-          puzzle.map: p =>
-            views.puzzle.bits.dailyLink(p)(cls := "lobby__puzzle"),
-          div(cls := "lobby__blog carousel")(
-            ublogPosts.map:
-              views.ublog.ui
-                .card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false, strictDate = false)
+          div(cls := "lobby__table")(
+            div(cls := "lobby__start")(
+              button(cls := "button button-metal lobby__start__button lobby__start__button--hook")(
+                trans.site.createLobbyGame()
+              ),
+              button(cls := "button button-metal lobby__start__button lobby__start__button--friend")(
+                trans.site.challengeAFriend()
+              ),
+              button(cls := "button button-metal lobby__start__button lobby__start__button--ai")(
+                trans.site.playAgainstComputer()
+              )
+            )
           ),
-          ctx.noBot.option(bits.underboards(tours, simuls)),
-          div(cls := "lobby__feed"):
-            views.feed.lobbyUpdates(lastUpdates)
+          div(cls := "lobby__tv"):
+            featured.map: g =>
+              views.game.mini(Pov.naturalOrientation(g), tv = true)
           ,
           div(cls := "lobby__support")(
             a(href := routes.Plan.index())(
@@ -156,6 +132,17 @@ object home:
               )
             )
           ),
+          puzzle.map: p =>
+            views.puzzle.bits.dailyLink(p)(cls := "lobby__puzzle"),
+          div(cls := "lobby__blog carousel")(
+            ublogPosts.map:
+              views.ublog.ui
+                .card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false, strictDate = false)
+          ),
+          div(cls := "lobby__feed"):
+            views.feed.lobbyUpdates(lastUpdates)
+          ,
+          ctx.noBot.option(bits.underboards(tours, simuls)),
           div(cls := "lobby__about")(
             ctx.blind.option(h2(trans.site.about())),
             a(href := "/about")(trans.site.aboutX("Lichess")),

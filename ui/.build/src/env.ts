@@ -43,7 +43,7 @@ export const env = new (class {
   workspaceDeps: Map<string, string[]> = new Map();
   building: Package[] = [];
 
-  private status: { [key in Context]?: number | false } = {};
+  private status = {} as Record<Context, number | false | undefined>;
 
   manifestOk(): boolean {
     return (
@@ -100,7 +100,7 @@ export const env = new (class {
   done(ctx: Context, code: number | undefined): void {
     if (code !== undefined && code !== this.status[ctx] && ['tsc', 'esbuild', 'sass', 'i18n'].includes(ctx)) {
       this.log(
-        `${code === 0 ? 'Done' : c.red('Failed')}` + (this.watch ? ` - ${c.grey('Watching')}...` : ''),
+        `${code === 0 ? 'Done' : c.red('Failed')}${this.watch ? ` - ${c.grey('Watching')}...` : ''}`,
         ctx,
       );
     }
@@ -141,9 +141,7 @@ export const env = new (class {
   }
 })();
 
-export function trimLines(s: string): string[] {
-  return s.split(/[\n\r\f]+/).filter(x => x.trim());
-}
+export const trimLines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x => x.trim());
 
 export type Context = 'sass' | 'tsc' | 'esbuild' | 'sync' | 'hash' | 'i18n' | 'web';
 

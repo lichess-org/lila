@@ -95,7 +95,7 @@ export function initModule({
     if (isGift) {
       if ($monthly.is(':checked')) $('#freq_onetime').trigger('click');
       $checkout.find('.gift input').trigger('focus');
-    } else if (hasLifetime && $lifetime.is(':checked')) $('#freq_monthly').trigger('click');
+    } else if (hasLifetime && $lifetime.is(':checked')) $monthly.trigger('click');
     toggleCheckout();
   });
 
@@ -174,14 +174,14 @@ export function initModule({
 
   const $currencyForm = $('form.currency');
   $('.currency-toggle').one('click', () => $currencyForm.toggleClass('none'));
-  $currencyForm.find('select').on('change', () => {
-    ['freq', 'dest'].forEach(name =>
-      $('<input type="hidden">')
-        .attr('name', name)
-        .val($(`input[name=${name}]:checked`).val())
-        .appendTo($currencyForm),
-    );
-    ($currencyForm[0] as HTMLFormElement).submit();
+  $currencyForm.find('select').on('change', function (this: HTMLSelectElement) {
+    const params = new URLSearchParams();
+    params.set('currency', this.value);
+    ['freq', 'dest'].forEach(name => {
+      const val = $(`input[name=${name}]:checked`).val();
+      if (val) params.set(name, val as string);
+    });
+    location.assign(`/patron?${params.toString()}`);
   });
 
   const queryParams = new URLSearchParams(location.search);

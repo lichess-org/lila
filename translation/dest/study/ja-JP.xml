@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">更新順</string>
   <string name="mostPopular">人気順</string>
   <string name="alphabetical">アルファベット順</string>
+  <string name="relevant">関連度順</string>
   <string name="addNewChapter">新たな章を追加</string>
   <plurals name="nbChapters">
     <item quantity="other">%s 章</item>

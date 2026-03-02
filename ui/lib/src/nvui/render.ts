@@ -2,8 +2,9 @@ import { h, type VNode, type VNodeChildren } from 'snabbdom';
 import { type Pieces, files } from '@lichess-org/chessground/types';
 import { COLORS, RANK_NAMES, ROLES, type FileName } from 'chessops/types';
 import { charToRole, roleToChar } from 'chessops/util';
-import { plyToTurn } from '../game/chess';
+import { plyToTurn, sanToWords } from '@/game';
 import type { MoveStyle, PieceStyle, PositionStyle, PrefixStyle, BoardStyle } from './setting';
+import type { CrazyPocket, NodeCrazy, TreeComment, TreeNode, TreePath } from '@/tree/types';
 
 export const renderPieceStyle = (ch: string, pieceStyle: PieceStyle): string =>
   pieceStyle === 'letter'
@@ -32,7 +33,7 @@ export const renderSan = (san: San | undefined, uci: Uci | undefined, style: Mov
       ? (uci ?? '')
       : style === 'san'
         ? san
-        : transSanToWords(san)
+        : sanToWords(san)
             .split(' ')
             .map(f =>
               files.includes(f.toLowerCase() as FileName)
@@ -52,15 +53,15 @@ export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
     ),
   );
 
-export const renderPockets = (pockets: Tree.NodeCrazy['pockets']): VNode =>
+export const renderPockets = (pockets: NodeCrazy['pockets']): VNode =>
   h(
     'div.pieces',
     COLORS.map((color, i) =>
-      h(`div.${color}-pieces`, [h('h3', i18n.site[color]), `${pocketsStr(pockets[i])}` || '0']),
+      h(`div.${color}-pieces`, [h('h3', i18n.site[color]), pocketsStr(pockets[i]) ?? '0']),
     ),
   );
 
-export const pocketsStr = (pocket: Tree.CrazyPocket): string =>
+export const pocketsStr = (pocket: CrazyPocket): string =>
   Object.entries(pocket)
     .map(([role, count]) => `${i18n.nvui[role as Role]}: ${count}`)
     .join(', ');
@@ -204,13 +205,13 @@ export function castlingFlavours(input: string): string {
 }
 
 export function renderMainline(
-  nodes: Tree.Node[],
-  currentPath: Tree.Path,
+  nodes: TreeNode[],
+  currentPath: TreePath,
   style: MoveStyle,
   withComments = true,
 ): VNodeChildren {
   const res: VNodeChildren = [];
-  let path: Tree.Path = '';
+  let path: TreePath = '';
   nodes.forEach(node => {
     if (!node.san || !node.uci) return;
     path += node.id;
@@ -226,7 +227,7 @@ export function renderMainline(
   return res;
 }
 
-export const renderComments = (node: Tree.Node, style: MoveStyle): string =>
+export const renderComments = (node: TreeNode, style: MoveStyle): string =>
   node.comments?.map(c => ` ${augmentLichessComment(c, style)}`).join('.') ?? '';
 
 export const isKey = (maybeKey: string): maybeKey is Key => !!maybeKey.match(/^[a-h][1-8]$/);
@@ -276,7 +277,7 @@ const keysWithPiece = (pieces: Pieces, role?: Role, color?: Color): Key[] =>
     [],
   );
 
-const augmentLichessComment = (comment: Tree.Comment, style: MoveStyle): string =>
+const augmentLichessComment = (comment: TreeComment, style: MoveStyle): string =>
   comment.by === 'lichess'
     ? comment.text.replace(
         /([^\s]+) was best\./,
@@ -284,29 +285,10 @@ const augmentLichessComment = (comment: Tree.Comment, style: MoveStyle): string 
       )
     : comment.text;
 
-const transSanToWords = (san: string): string =>
-  san
-    .split('')
-    .map(c => {
-      if (c === 'x') return i18n.nvui.sanTakes;
-      if (c === '+') return i18n.nvui.sanCheck;
-      if (c === '#') return i18n.nvui.sanCheckmate;
-      if (c === '=') return i18n.nvui.sanPromotesTo;
-      if (c === '@') return i18n.nvui.sanDroppedOn;
-      const code = c.charCodeAt(0);
-      if (code > 48 && code < 58) return c; // 1-8
-      if (code > 96 && code < 105) return c.toUpperCase(); // a-h
-      const role = charToRole(c);
-      return role ? transRole(role) : c;
-    })
-    .join(' ')
-    .replace('O - O - O', i18n.nvui.sanLongCastling)
-    .replace('O - O', i18n.nvui.sanShortCastling);
-
 const transRole = (role: Role): string =>
   (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
 
-const nato: { [file in Files]: string } = {
+const nato: Record<Files, string> = {
   a: 'alpha',
   b: 'bravo',
   c: 'charlie',
@@ -316,7 +298,7 @@ const nato: { [file in Files]: string } = {
   g: 'golf',
   h: 'hotel',
 };
-const anna: { [file in Files]: string } = {
+const anna: Record<Files, string> = {
   a: 'anna',
   b: 'bella',
   c: 'cesar',

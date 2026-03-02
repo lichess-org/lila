@@ -17,17 +17,17 @@ type Sri = string;
 type Tpe = string;
 type Payload = any;
 type Version = number;
-interface MsgBase {
+type MsgBase = {
   t: Tpe;
   d?: Payload;
-}
-interface MsgIn extends MsgBase {
+};
+type MsgIn = MsgBase & {
   v?: Version;
-}
-interface MsgOut extends MsgBase {}
-interface MsgAck extends MsgOut {
+};
+type MsgOut = MsgBase;
+type MsgAck = MsgOut & {
   at: number;
-}
+};
 
 interface Options {
   idle: boolean;
@@ -46,9 +46,7 @@ interface Params extends Record<string, any> {
 
 interface Settings {
   receive?: (t: Tpe, d: Payload) => void;
-  events: {
-    [tpe: string]: (d: Payload | null, msg: MsgIn) => any;
-  };
+  events: Record<string, (d: Payload | null, msg: MsgIn) => any>;
   params?: Partial<Params>;
   options?: Partial<Options>;
 }
@@ -124,7 +122,7 @@ class WsSocket {
       autoReconnectDelay: 3500,
       protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
       isAuth: !!myUserId(),
-      ...(settings.options || {}),
+      ...settings.options,
       pingDelay: 2500,
     };
     this.settings = {
@@ -133,7 +131,7 @@ class WsSocket {
       params: {
         sri: site.sri,
         from: 'website',
-        ...(settings.params || {}),
+        ...settings.params,
       },
     };
     this.version = version;
@@ -306,7 +304,7 @@ class WsSocket {
         // return true in a receive handler to prevent pubsub and events
         if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
           const sentAsEvent = this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m);
-          if (!sentAsEvent) pubsub.emit(('socket.in.' + m.t) as PubsubEventKey, m.d as any, m as any);
+          if (!sentAsEvent) pubsub.emit(('socket.in.' + m.t) as PubsubEventKey, m.d, m);
         }
     }
   };

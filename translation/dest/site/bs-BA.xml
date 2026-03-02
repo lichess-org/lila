@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Igraj protiv računara</string>
   <string name="gameMode">Način igre</string>
   <string name="createLobbyGame">Kreiraj igru u lobiju</string>
-  <string name="youPlayAs">Igrate kao</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Da bi ste pozvali nekoga na partiju, pošaljite ovaj link</string>
   <string name="gameOver">Partija je gotova</string>
   <string name="waitingForOpponent">Čekanje na protivnika</string>
@@ -246,7 +245,6 @@
   <string name="changeUsernameNotSame">Jedino se veličina slova može promijeniti. Na primjer, \'\'johndoe\'\' u \'\'JohnDoe\'\'.</string>
   <string name="changeUsernameDescription">Promijenite korisničko ime. Ovo možete učiniti samo jednom i samo možete promijeniti veličinu slova svog korisničkog imena.</string>
   <string name="signupUsernameHint">Odaberite pristojno korisničko ime. Kasnije ga ne možete promijeniti, a bilo koji račun s neprimjerenim korisničkim imenom bit će zatvoren!</string>
-  <string name="signupEmailHint">Koristit ćemo ga samo za ponovno postavljanje lozinke.</string>
   <string name="password">Lozinka</string>
   <string name="changePassword">Promijeni lozinku</string>
   <string name="changeEmail">Promijenite e-mail</string>
@@ -458,7 +456,6 @@
   <string name="pasteTheFenStringHere">Zalijepi FEN tekst ovdje</string>
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>
   <string name="orUploadPgnFile">Ili postavite PGN datoteku</string>
-  <string name="fromPosition">Od pozicije</string>
   <string name="continueFromHere">Nastavite odavde</string>
   <string name="toStudy">Prostudiraj</string>
   <string name="importGame">Unesite partiju</string>
@@ -753,11 +750,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="keyCycleSelectedVariation">Ciklus odabrane varijacije</string>
   <string name="keyShowOrHideComments">pokaži/sakrij komentare</string>
   <string name="keyEnterOrExitVariation">otvori/zatvori varijaciju</string>
-  <string name="keyRequestComputerAnalysis">Zatražite računarsku analizu, učite na svojim greškama</string>
-  <string name="keyNextLearnFromYourMistakes">Sljedeće (Učite na svojim greškama)</string>
-  <string name="keyNextBlunder">Sljedeći grubi previd</string>
-  <string name="keyNextMistake">Sljedeća greška</string>
-  <string name="keyNextInaccuracy">Sljedeća nepreciznost</string>
   <string name="keyPreviousBranch">Prethodna grana</string>
   <string name="keyNextBranch">Sljedeća grana</string>
   <string name="toggleVariationArrows">Uključi/isključi strelice za varijacije</string>

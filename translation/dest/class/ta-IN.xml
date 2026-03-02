@@ -90,7 +90,7 @@
   <string name="timePlaying">விளையாடும் நேரம்</string>
   <string name="variantXOverLastY">கடந்த %2$s இல் %1$s</string>
   <string name="winrate">வெற்றி விகிதம்</string>
-  <string name="na">பொருந்தாது</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">பொருந்தாது</string>
   <string name="overview">மேலோட்டம்</string>
   <string name="news">செய்தி</string>
   <string name="classNews">வகுப்புச் செய்திகள்</string>

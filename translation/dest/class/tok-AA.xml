@@ -64,7 +64,7 @@ nimi awen: %3$s</string>
   <string name="timePlaying">tenpo musi</string>
   <string name="variantXOverLastY">%1$s lon tenpo %2$s</string>
   <string name="winrate">nanpa pi pini pona</string>
-  <string name="na">jo ken ala</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">jo ken ala</string>
   <string name="editNews">ante e kama sin</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">anu</string>
 </resources>

@@ -3,12 +3,12 @@ import type { Chess } from 'chessops';
 import type { Filters } from './filter';
 
 export type Sound = { key: string; chance: number; delay: Seconds; mix: number };
-export type SoundEvents = { [key in SoundEvent]?: Sound[] };
+export type SoundEvents = Partial<Record<SoundEvent, Sound[]>>;
 export type ZeroSearch = { multipv: number; net: string; nodes?: number };
 export type FishSearch = { multipv: number; depth: number };
 export type Book = { key: string; weight: number; color?: Color };
 export type LocalSpeed = Exclude<Speed, 'correspondence'>;
-export type Ratings = { [speed in LocalSpeed]?: number };
+export type Ratings = Partial<Record<LocalSpeed, number>>;
 export type AssetType = 'image' | 'book' | 'sound' | 'net';
 export type BotUid = string;
 

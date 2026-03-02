@@ -24,6 +24,7 @@
         opacity: 0.2;
       }
       &::before {
+        @include transition(color);
         @extend %data-icon;
         font-size: 32px;
         color: $c-font-dimmer;
@@ -71,9 +72,15 @@
     }
   }
 
-  .lobby__tournaments-simuls .timeago {
-    @media (max-width: at-most($x-small)) {
-      display: none;
+  .lobby__tournaments-simuls {
+    .lobby__box__top {
+      border-bottom: $border;
+    }
+
+    .timeago {
+      @media (max-width: at-most($x-small)) {
+        display: none;
+      }
     }
   }
 }

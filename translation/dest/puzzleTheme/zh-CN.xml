@@ -26,6 +26,8 @@
   <string name="castlingDescription">将王转移到安全位置，并出动车参与进攻。</string>
   <string name="capturingDefender">消除保护</string>
   <string name="capturingDefenderDescription">消除保护另一个棋子的防御子，使得接下来可以吃掉那个失去保护的棋子。</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">共线移动</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">两枚对立的棋子彼此面对，其中一枚棋子沿攻击线移动但不吃子。</string>
   <string name="cornerMate">角落将杀</string>
   <string name="cornerMateDescription">用车或后与马配合，将对方的王困在角落并将其将杀。</string>
   <string name="crushing">压倒性优势</string>
@@ -34,7 +36,7 @@
   <string name="discoveredCheckDescription">移动一个棋子，露出隐藏的攻击性子力进行将军，这通常能带来决定性的优势。</string>
   <string name="doubleBishopMate">双象杀王</string>
   <string name="doubleBishopMateDescription">两条相邻斜线上的两个进攻象，在己方棋子阻挡下将杀对方的王。</string>
-  <string name="dovetailMate">燕尾杀王</string>
+  <string name="dovetailMate">鸽尾杀王</string>
   <string name="dovetailMateDescription">后将军紧邻的对方王，而对方王仅有的两个逃跑格被己方棋子阻挡。</string>
   <string name="equality">均势</string>
   <string name="equalityDescription">从劣势局面回到和棋或平衡局面（评估 ≤ 200 厘兵）</string>
@@ -53,6 +55,8 @@
   <string name="endgame">残局</string>
   <string name="endgameDescription">对局最后阶段的战术。</string>
   <string name="enPassantDescription">涉及吃过路兵规则的战术，兵可以吃掉利用初始两格移动越过它的对方兵。</string>
+  <string name="epauletteMate">肩章将杀</string>
+  <string name="epauletteMateDescription">被将杀的王有两个相邻的逃逸格，但均被其他棋子占据。</string>
   <string name="exposedKing">暴露的王</string>
   <string name="exposedKingDescription">针对周围防御子稀少的王的战术，通常会导致将杀。</string>
   <string name="fork">捉双</string>
@@ -71,6 +75,8 @@
   <string name="pillsburysMateDescription">车执行将杀，而象协助限制王移动。</string>
   <string name="morphysMate">摩菲将杀</string>
   <string name="morphysMateDescription">利用象来将军，同时您的车协助限制王移动。</string>
+  <string name="swallowstailMate">燕尾杀王</string>
+  <string name="swallowstailMateDescription">一种呈 V 字形、视觉上形似燕尾的将杀模式。</string>
   <string name="triangleMate">三角将杀</string>
   <string name="triangleMateDescription">后和车距离对方王一格，且位于同一横线或直线，中间相隔一格，形成一个三角形。</string>
   <string name="vukovicMate">瓦科维奇将杀</string>

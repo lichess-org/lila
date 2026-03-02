@@ -43,6 +43,7 @@
     @extend %flex-center-nowrap;
     flex: 1 1 100%;
     gap: 1em;
+    overflow: hidden;
   }
 
   @extend %result-box;
@@ -67,6 +68,7 @@
   .info-split {
     @extend %flex-column;
     line-height: 1.2;
+    overflow: hidden;
   }
   .info-secondary {
     @extend %flex-center-nowrap;
@@ -76,8 +78,7 @@
 
   .team,
   .name {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @extend %ellipsis;
     max-width: fit-content;
     flex: 1;
   }
@@ -94,8 +95,12 @@
     flex: 2;
     color: $c-font-dim;
   }
+  a.team:hover {
+    color: $c-link;
+  }
   .mini-game__flag {
     width: 1em;
+    height: 1em;
     margin: 0;
   }
 

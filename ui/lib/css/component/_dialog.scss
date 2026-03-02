@@ -50,7 +50,7 @@ dialog {
     background: $c-bg-high;
     color: $c-font;
     border-radius: 6px;
-    border: 1px solid $c-border;
+    border: $border;
     font-size: 20px;
     text-align: center;
 
@@ -86,8 +86,7 @@ dialog {
 
 // applied to dialog wrapper div so we can fake HTMLDialogElement.showModal() in a snab render loop
 .snab-modal-mask {
-  @extend %fullscreen-mask, %flex-center;
-  justify-content: center;
+  @extend %fullscreen-mask, %flex-center-center;
 }
 
 .dialog-content {

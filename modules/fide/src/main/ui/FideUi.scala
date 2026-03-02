@@ -58,7 +58,9 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
           tbody(cls := "infinite-scroll")(
             feds.currentPageResults.map: fed =>
               tr(cls := "paginated")(
-                td(a(href := routes.Fide.federation(fed.slug))(flag(fed.id, none), fed.name)),
+                td(
+                  a(href := routes.Fide.federation(fed.slug))(flag(fed.id, none), Federation.i18nName(fed.id))
+                ),
                 td(fed.nbPlayers.localize),
                 ratingCell(fed.standard),
                 ratingCell(fed.rapid),
@@ -74,7 +76,10 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         cls := "fide-federation",
         div(cls := "box__top fide-federation__head")(
           flag(fed.id, none),
-          div(h1(fed.name), p(trs.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))),
+          div(
+            h1(Federation.i18nName(fed.id)),
+            p(trs.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))
+          ),
           (fed.id.value == "KOS").option(p(cls := "fide-federation__kosovo")(kosovoText))
         ),
         div(cls := "fide-cards fide-federation__cards box__pad")(
@@ -106,63 +111,3 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
 
     private def card(name: Frag, value: Frag) =
       div(cls := "fide-card fide-federation__card")(name, div(value))
-
-  object player:
-
-    private def card(name: Frag, value: Frag, icon: Option[Icon] = None) =
-      div(cls := "fide-card fide-player__card")(
-        em(dataIcon := icon, cls := List("text" -> icon.isDefined))(name),
-        strong(value)
-      )
-
-    private def followButton(p: FidePlayer.WithFollow) =
-      val id = s"fide-player-follow-${p.player.id}"
-      label(cls := "fide-player__follow")(
-        form3.cmnToggle(
-          fieldId = id,
-          fieldName = id,
-          checked = p.follow,
-          action = Some(routes.Fide.follow(p.player.id, p.follow).url),
-          styleClass = "cmn-favourite"
-        )
-      )
-
-    def show(player: FidePlayer, user: Option[User], tours: Option[Frag], isFollowing: Boolean)(using
-        ctx: Context
-    ) =
-      page(s"${player.name} - FIDE player ${player.id}", "players")(
-        cls := "box-pad fide-player",
-        div(cls := "fide-player__header")(
-          h1(
-            span(titleTag(player.title), player.name),
-            user.map(userLink(_, withTitle = false)(cls := "fide-player__user"))
-          ),
-          ctx.isAuth.option(followButton(FidePlayer.WithFollow(player, isFollowing))(trans.site.follow()))
-        ),
-        div(cls := "fide-cards fide-player__cards")(
-          player.fed.map: fed =>
-            card(
-              trb.federation(),
-              a(cls := "fide-player__federation", href := routes.Fide.federation(Federation.idToSlug(fed)))(
-                federation.flag(fed, none),
-                Federation.name(fed)
-              )
-            ),
-          card(
-            trb.fideProfile(),
-            a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id)
-          ),
-          card(
-            trb.age(),
-            player.age
-          ),
-          tcTrans.map: (tc, name, icon) =>
-            card(
-              name(),
-              player.ratingOf(tc).fold(trb.unrated())(_.toString),
-              icon.some
-            )
-        ),
-        tours.map: tours =>
-          div(cls := "fide-player__tours")(h2(trb.recentTournaments()), tours)
-      )

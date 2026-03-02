@@ -1,3 +1,8 @@
+@mixin topnav-button-highlight {
+  background: $c-primary;
+  color: $c-over;
+}
+
 @include mq-topnav-hidden {
   .topnav-toggle {
     display: block;
@@ -102,7 +107,7 @@
 
   #topnav {
     @include if-transp {
-      @include back-blur();
+      @include back-blur;
     }
     display: flex;
     flex-flow: row wrap;
@@ -167,8 +172,13 @@
       }
 
       a:active {
-        background: $c-primary;
-        color: $c-over;
+        @include topnav-button-highlight;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        a:hover {
+          @include topnav-button-highlight;
+        }
       }
     }
 

@@ -11,7 +11,7 @@ import { type Prop, prop } from 'lib';
 
 const defaultMode: Mode = 'links';
 
-type ModeIndexed = { [key in Mode]: PaneCtrl };
+type ModeIndexed = Record<Mode, PaneCtrl>;
 
 export class DasherCtrl implements ModeIndexed {
   ping: PingCtrl;

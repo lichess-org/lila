@@ -129,8 +129,8 @@ final class GameApiV2(
         gameRepo
           .sortedCursor(
             playerSelect ++
-              Query.createdBetween(config.since, config.until) ++ ((!config.ongoing)
-                .so(Query.finished)),
+              Query.createdBetween(config.since, config.until) ++
+              (!config.ongoing).so(Query.finished),
             config.sort.bson,
             batchSize = config.perSecond.value
           )

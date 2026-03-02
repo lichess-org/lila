@@ -1,6 +1,5 @@
 import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/view';
-import { type VNode, bind, dataIcon, hl } from 'lib/view';
+import { spinnerVdom as spinner, type VNode, bind, dataIcon, hl } from 'lib/view';
 import { player as renderPlayer } from './util';
 import { fullName } from 'lib/view/userLink';
 import { numberRow } from 'lib/view/util';
@@ -9,9 +8,11 @@ import { status } from 'lib/game';
 import type TournamentController from '../ctrl';
 import type { Player } from '../interfaces';
 
-const playerTitle = (player: Player) =>
+const playerTitle = (player: Player, tourId: string) =>
   hl('h2', [
-    player.rank ? hl('span.rank', `${player.rank}. `) : '',
+    player.rank
+      ? hl('a.rank', { attrs: { href: `/tournament/${tourId}?player=${player.id}` } }, `${player.rank}. `)
+      : '',
     renderPlayer(player, true, false, false),
   ]);
 
@@ -26,19 +27,19 @@ export default function (ctrl: TournamentController): VNode {
   const data = ctrl.playerInfo.data;
   const tag = 'div.tour__player-info.tour__actor-info';
   if (!data || data.player.id !== ctrl.playerInfo.id)
-    return hl(tag, [hl('div.stats', [playerTitle(ctrl.playerInfo.player!), spinner()])]);
+    return hl(tag, [hl('div.stats', [playerTitle(ctrl.playerInfo.player!, ctrl.data.id), spinner()])]);
   const nb = data.player.nb,
     pairingsLen = data.pairings.length,
     avgOp = pairingsLen
       ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen)
       : undefined;
   return hl(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
-    hl('a.close', {
+    hl('button.close', {
       attrs: dataIcon(licon.X),
       hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw),
     }),
     hl('div.stats', [
-      playerTitle(data.player),
+      playerTitle(data.player, ctrl.data.id),
       data.player.team &&
         hl('team', { hook: bind('click', () => ctrl.showTeamInfo(data.player.team!), ctrl.redraw) }, [
           teamName(ctrl.data.teamBattle!, data.player.team),
@@ -67,7 +68,7 @@ export default function (ctrl: TournamentController): VNode {
         data.pairings.map((p, i) => {
           const score = p.status < status.mate ? '*' : p.score;
           const streak = p.win == null ? p.score === 2 : p.win ? p.score > 3 : false;
-          const cls = p.win == null ? '' : streak ? 'streak' : p.win == false ? 'loss' : 'win';
+          const cls = p.win == null ? '' : streak ? 'streak' : !p.win ? 'loss' : 'win';
           return hl(
             'tr.glpt.' + cls,
             {

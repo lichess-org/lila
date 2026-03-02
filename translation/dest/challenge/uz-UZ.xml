@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challengesX">Chorlovlar: %1$s</string>
-  <string name="challengeToPlay" comment="Appears as a button on profiles and on a challenge modal; lets you challenge that player to a game.&#10;&quot;Challenge&quot; is used as a verb.&#10;&#10;This text used to state &quot;Challenge to a game&quot;. Please shorten to just &quot;Challenge&quot; if you see a translation of the old version of the string.">O\'yinga chorlov</string>
-  <string name="challengeDeclined">Chorlovni rad etildi</string>
+  <string name="challengesX">%1$s ta chorlov</string>
+  <string name="challengeToPlay" comment="Appears as a button on profiles and on a challenge modal; lets you challenge that player to a game.&#10;&quot;Challenge&quot; is used as a verb.&#10;&#10;This text used to state &quot;Challenge to a game&quot;. Please shorten to just &quot;Challenge&quot; if you see a translation of the old version of the string.">Chorlash</string>
+  <string name="challengeDeclined">Chorlov rad etildi.</string>
   <string name="challengeAccepted">Chorlov qabul qilindi!</string>
   <string name="challengeCanceled">Chorlov bekor qilindi.</string>
   <string name="registerToSendChallenges">Iltimos o\'yinga chorlash uchun ro\'yhatdan o\'ting.</string>
   <string name="youCannotChallengeX">Siz %s ni chorlay olmaysiz.</string>
-  <string name="xDoesNotAcceptChallenges">%s chorlovni qabul qilmadi.</string>
-  <string name="yourXRatingIsTooFarFromY">Sizning %1$s reytingingiz %2$s dan ancha uzoq.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">%s taxminiy belgilangan reyting bilan bellashib bo\'lmaydi.</string>
+  <string name="xDoesNotAcceptChallenges">%s chorlovlarni qabul qilmaydi.</string>
+  <string name="yourXRatingIsTooFarFromY">Sizning %1$s reytingingiz %2$s reytingidan ancha farq qiladi.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s reyting hali aniqlanmaganligi sababli chorlab boʻlmaydi.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s faqat doʻstlardan chorlovni qabul qiladi.</string>
   <string name="declineGeneric">Ayni damda chorlovni qabul qila olmayman.</string>
   <string name="declineLater">Ayni dam men uchun qulay emas, iltimos keyinroq soʻrang.</string>

@@ -1,21 +1,21 @@
-var historyToMigrate = db.user_history.find();
-var max = historyToMigrate.count();
-var batchSize = 1000;
-var collection = db.history;
-var games = db.game4;
-var dat = new Date().getTime() / 1000,
+const historyToMigrate = db.user_history.find();
+const max = historyToMigrate.count();
+const batchSize = 1000;
+const collection = db.history;
+const games = db.game4;
+let dat = new Date().getTime() / 1000,
   it = 0;
 
 print('Migrating ' + max + ' user histories');
 
 collection.drop();
 
-var game;
+let game;
 historyToMigrate.forEach(function (h) {
-  var h2 = { _id: h._id, entries: [] };
+  const h2 = { _id: h._id, entries: [] };
   for (ts in h.entries) {
-    var e = h.entries[ts];
-    var e2 = [parseInt(ts), parseInt(e.e)];
+    const e = h.entries[ts];
+    const e2 = [parseInt(ts), parseInt(e.e)];
     if (e.g) {
       game = games.findOne({ _id: e.g }, { 'p.elo': true, 'p.uid': true });
       if (game) {
@@ -28,9 +28,9 @@ historyToMigrate.forEach(function (h) {
   collection.update({ _id: h2._id }, { $set: h2 }, { upsert: true });
   ++it;
   if (it % batchSize == 0) {
-    var percent = Math.round((it / max) * 100);
-    var dat2 = new Date().getTime() / 1000;
-    var perSec = Math.round(batchSize / (dat2 - dat));
+    const percent = Math.round((it / max) * 100);
+    const dat2 = new Date().getTime() / 1000;
+    const perSec = Math.round(batchSize / (dat2 - dat));
     dat = dat2;
     print(it / 1000 + 'k ' + percent + '% ' + perSec + '/s');
   }

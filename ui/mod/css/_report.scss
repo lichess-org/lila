@@ -13,7 +13,7 @@ $c-report-high-over: white;
     .icon {
       flex: 1 1 auto;
       margin: 0.4rem 0.8rem;
-      background: no-repeat url(../images/icons/octopus.svg) left center;
+      background: no-repeat url('../images/icons/octopus.svg') left center;
       opacity: 0.6;
     }
   }
@@ -139,11 +139,11 @@ $c-report-high-over: white;
   }
 
   .user_marks i {
-    @include user_marks;
+    @include user-marks;
   }
 
   .marked-by-me {
-    @include user_marks;
+    @include user-marks;
     background: $m-brag_bg--mix-60;
   }
 

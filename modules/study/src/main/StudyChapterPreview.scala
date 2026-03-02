@@ -31,7 +31,6 @@ case class ChapterPreview(
 final class ChapterPreviewApi(
     chapterRepo: ChapterRepo,
     federationsOf: Federation.FedsOf,
-    federationNamesOf: Federation.NamesOf,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
@@ -100,15 +99,6 @@ final class ChapterPreviewApi(
       check = denorm.flatMap(_.check),
       points = tags.points.isDefined.option(tags.points)
     )
-
-  object federations:
-    private val cache = cacheApi[StudyId, JsObject](512, "study.chapterPreview.federations"):
-      _.expireAfterWrite(1.minute).buildAsyncFuture: studyId =>
-        for
-          chapters <- dataList(studyId)
-          fedNames <- federationNamesOf(chapters.flatMap(_.fideIds))
-        yield JsObject(fedNames.map((id, name) => id.value -> JsString(name)))
-    export cache.get
 
   def invalidate(studyId: StudyId): Unit =
     jsonList.cache.synchronous().invalidate(studyId)

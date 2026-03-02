@@ -218,7 +218,6 @@
   <string name="changeUsernameNotSame">Само величина слова може да се промени. На пример \"johndoe\" у \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промени своје корисничко име. Ово се може урадити само једном и само ти је дозвољено да промениш величину слова у свом корисничком имену.</string>
   <string name="signupUsernameHint">Постарај се да одабереш пристојно корисничко име. Касније га нећеш моћи променити, а налози са непристојним корисничким именима биће затворени!</string>
-  <string name="signupEmailHint">Биће коришћено само аз ресетовање лозинке.</string>
   <string name="password">Лозинка</string>
   <string name="changePassword">Промени лозинку</string>
   <string name="changeEmail">Промени имејл</string>
@@ -410,7 +409,7 @@
   <string name="xJoinedTeamY">%1$s се придружио/ла тиму %2$s</string>
   <string name="xCreatedTeamY">%1$s је основао/ла тим %2$s</string>
   <string name="startedStreaming">стриминг започет</string>
-  <string name="xStartedStreaming">%s је почео са приказивањем</string>
+  <string name="xStartedStreaming">%s је почео/ла стримовати</string>
   <string name="averageElo">Просечни рејтинг</string>
   <string name="location">Локација</string>
   <string name="filterGames">Филтрирај партије</string>
@@ -423,7 +422,6 @@
   <string name="pasteTheFenStringHere">Налепи FEN текст овде</string>
   <string name="pasteThePgnStringHere">Налепи PGN текст овде</string>
   <string name="orUploadPgnFile">Или учитај PGN фајл</string>
-  <string name="fromPosition">Од позиције</string>
   <string name="continueFromHere">Настави одавде</string>
   <string name="toStudy">Проучи</string>
   <string name="importGame">Увези партију</string>
@@ -715,11 +713,6 @@
   <string name="keyCycleSelectedVariation">Излистај одабрану варијанту</string>
   <string name="keyShowOrHideComments">покажи/сакриј коментаре</string>
   <string name="keyEnterOrExitVariation">уђи/изађи из варијације</string>
-  <string name="keyRequestComputerAnalysis">Затражите компјутерску анализу, научите из својих грешака</string>
-  <string name="keyNextLearnFromYourMistakes">Даље (Учите из својих грешака)</string>
-  <string name="keyNextBlunder">Следећа тешка грешка</string>
-  <string name="keyNextMistake">Следећа грешка</string>
-  <string name="keyNextInaccuracy">Следећа непрецизност</string>
   <string name="keyPreviousBranch">Претходна грана</string>
   <string name="keyNextBranch">Следећа грана</string>
   <string name="toggleVariationArrows">Приказивање стрелица за варијације</string>
@@ -727,7 +720,7 @@
   <string name="toggleGlyphAnnotations">Анотација потеза</string>
   <string name="togglePositionAnnotations">Анотација позиције</string>
   <string name="variationArrowsInfo">Стрелице за варијације вам омогућавају да се крећете без коришћења листе за померање.</string>
-  <string name="playSelectedMove">игра изабрани потез</string>
+  <string name="playSelectedMove">одиграј одабрани потез</string>
   <string name="newTournament">Нови турнир</string>
   <string name="tournamentHomeTitle">Шаховски турнири са разним временским контролама и варијантама</string>
   <string name="tournamentHomeDescription">Играј брзе шаховске турнире! Придружи се званичном организованом турниру или направи свој. Метак-шах, Блиц, Класични, Шах960, Краљ брда, Три шаха и више доступних опција за неограничену шаховску забаву.</string>
@@ -743,7 +736,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Твој %1$s рејтинг је %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Бољи/а си него %1$s од %2$s играча.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s је бољи од %2$s играча %3$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s је бољи/а од %2$s %3$s играча.</string>
   <string name="betterThanPercentPlayers">Боље од %1$s од %2$s играча</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Немаш утврђен %s рејтинг.</string>
   <string name="yourRating">Твој рејтинг</string>
@@ -908,15 +901,15 @@
   <string name="searchOrStartNewDiscussion">Претражи или започни нови разговор</string>
   <string name="edit">Уреди</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Муњевити</string>
-  <string name="rapid">Брзопотез</string>
-  <string name="classical">Класична</string>
-  <string name="ultraBulletDesc">Лудо брзе партије: испод 30 секунди</string>
-  <string name="bulletDesc">Веома брзе партије: испод 3 минута</string>
+  <string name="rapid">Брзопотезни</string>
+  <string name="classical">Класични</string>
+  <string name="ultraBulletDesc">Ненормално брзе партије: мање од 30 секунди</string>
+  <string name="bulletDesc">Веома брзе партије: мање од 3 минута</string>
   <string name="blitzDesc">Брзе партије: 3 до 8 минута</string>
-  <string name="rapidDesc">Убрзане партије: 8 до 25 минута</string>
+  <string name="rapidDesc">Брзопотезне партије: 8 до 25 минута</string>
   <string name="classicalDesc">Класичне партије: 25 минута и више</string>
-  <string name="correspondenceDesc">Дописна парија: један или више дана по потезу</string>
-  <string name="puzzleDesc">Шаховски тренер тактике</string>
+  <string name="correspondenceDesc">Дописне партије: један или неколико дана по потезу</string>
+  <string name="puzzleDesc">Тренер шаховских тактика</string>
   <string name="important">Важно</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваше питање можда већ има одговор %1$s</string>
   <string name="inTheFAQ">у често постављеним питањима (F.A.Q.)</string>

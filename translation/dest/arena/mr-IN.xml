@@ -2,11 +2,11 @@
 <resources>
   <string name="arena">आखाडा</string>
   <string name="arenaTournaments">आखाडे</string>
-  <string name="isItRated">ही स्पर्धा गुणांकित आहे का?</string>
+  <string name="isItRated">ही स्पर्धा मानांकित आहे का?</string>
   <string name="willBeNotified">स्पर्धा सुरू झाल्यावर तुम्हाला सुचित करण्यात येईल, तोवर दुसऱ्या टॅबमध्ये तुम्ही काहीही खेळू शकता.</string>
-  <string name="isRated">ही स्पर्धा गुणांकित आहे आणि तुमच्या गुणांकनावर परिणाम करते.</string>
-  <string name="isNotRated">ही स्पर्धा गुणांकित नाही आणि तुमच्या गुणांकनावर परिणाम होणार नाही.</string>
-  <string name="someRated">काही स्पर्धा गुणांकित असतात आणि तुमच्या गुणांकनावर परिणाम करतात.</string>
+  <string name="isRated">ही स्पर्धा मानांकित आहे आणि तुमच्या मानांकनावर परिणाम करते.</string>
+  <string name="isNotRated">ही स्पर्धा मानांकित नाही आणि तुमच्या मानांकनावर परिणाम होणार नाही.</string>
+  <string name="someRated">काही स्पर्धा मानांकित असतात आणि तुमच्या मानांकनावर परिणाम करतात.</string>
   <string name="howAreScoresCalculated">गुण कसे मोजले जातात?</string>
   <string name="howAreScoresCalculatedAnswer">विजयाला मूळ २ गुण मिळतात, बरोबरीसाठी १ गुण आणि पराभवासाठी काहीच गुण मिळत नाहीत.
 तुम्ही सलग दोन खेळ जिंकल्यास तुम्हास दुप्पट गुण मिळू लागतील. हे ज्योत चिन्हाने दर्शवीले जाईल.
@@ -80,7 +80,7 @@
   <string name="allAveragesAreX">ह्या पानावरचे सर्व सरासरी %s आहेत.</string>
   <string name="total">एकूण</string>
   <string name="pointsAvg">गुणांची सरासरी</string>
-  <string name="pointsSum">गुणांचे एकूण</string>
+  <string name="pointsSum">एकूण गुण</string>
   <string name="rankAvg">पदांची सरासरी</string>
   <string name="tournamentWinners">आखाड्याचे विजेते</string>
   <string name="tournamentShields">आखाड्याची ढाल</string>

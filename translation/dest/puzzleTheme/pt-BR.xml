@@ -26,6 +26,8 @@
   <string name="castlingDescription">Traga o seu rei para a segurança, e prepare sua torre para o ataque.</string>
   <string name="capturingDefender">Capture o defensor</string>
   <string name="capturingDefenderDescription">Remover uma peça que seja importante na defesa de outra, permitindo que agora a peça indefesa seja capturada na jogada seguinte.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Lance colinear</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Duas peças opostas se encaram, e uma desliza ao longo da linha de ataque sem capturar a peça inimiga.</string>
   <string name="cornerMate">Mate de canto</string>
   <string name="cornerMateDescription">Confine o rei no canto usando uma torre ou dama e um cavalo para executar o xeque-mate.</string>
   <string name="crushing">Punindo</string>
@@ -34,7 +36,7 @@
   <string name="discoveredCheckDescription">Movimente uma peça para revelar um xeque de uma peça atacante escondida, que costuma levar a uma vantagem decisiva.</string>
   <string name="doubleBishopMate">Mate de dois bispos</string>
   <string name="doubleBishopMateDescription">Dois bispos atacantes em diagonais adjacentes dão um mate em um rei obstruído por peças amigas.</string>
-  <string name="dovetailMate">Mate da cauda de andorinha</string>
+  <string name="dovetailMate">Mate de Cozio</string>
   <string name="dovetailMateDescription">Uma dama dá um mate em um rei adjacente, cujos únicos dois quadrados de fuga estão obstruídos por peças amigas.</string>
   <string name="equality">Igualdade</string>
   <string name="equalityDescription">Saia de uma posição perdida, e assegure um empate ou uma posição equilibrada. (aval ≤ 200cp)</string>
@@ -53,6 +55,8 @@
   <string name="endgame">Finais</string>
   <string name="endgameDescription">Tática durante a última fase do jogo.</string>
   <string name="enPassantDescription">Uma tática envolvendo a regra do en passant, onde um peão pode capturar um peão do oponente que passou por ele usando seu movimento inicial de duas casas.</string>
+  <string name="epauletteMate">Mate epaulette</string>
+  <string name="epauletteMateDescription">Duas casas de fuga adjacentes ao rei em xeque são ocupadas por outras peças.</string>
   <string name="exposedKing">Rei exposto</string>
   <string name="exposedKingDescription">Uma tática que envolve um rei com poucos defensores ao seu redor, muitas vezes levando a xeque-mate.</string>
   <string name="fork">Garfo (ou duplo)</string>
@@ -71,18 +75,20 @@
   <string name="pillsburysMateDescription">A torre realiza o checkmate, enquanto o bispo ajuda a prender o rei.</string>
   <string name="morphysMate">Mate de Morphy</string>
   <string name="morphysMateDescription">Use o bispo para dar xeque no rei, enquanto sua torre ajuda a confiná-lo.</string>
+  <string name="swallowstailMate">Mate gueridon</string>
+  <string name="swallowstailMateDescription">Uma padrão de xeque-mate que se assemelha visualmente à cauda de uma andorinha, em formato de V.</string>
   <string name="triangleMate">Mate do triângulo</string>
   <string name="triangleMateDescription">A dama e a torre, há uma casa de distância do rei inimigo, estão na mesma fila ou coluna, separadas por uma casa, formando um triângulo.</string>
   <string name="vukovicMate">Mate de Vukovic</string>
   <string name="vukovicMateDescription">Uma torre e um cavalo colocam o rei em xeque. A torre dá xeque-mate protegida por outra peça, e o cavalo bloqueia as casas de fuga do rei.</string>
   <string name="knightEndgame">Finais de Cavalo</string>
   <string name="knightEndgameDescription">Um final jogado apenas com cavalos e peões.</string>
-  <string name="long">Quebra-cabeças longo</string>
+  <string name="long">Problema longo</string>
   <string name="longDescription">Vitória em três movimentos.</string>
   <string name="master">Partidas de mestres</string>
-  <string name="masterDescription">Quebra-cabeças de partidas jogadas por jogadores titulados.</string>
+  <string name="masterDescription">Problemas de partidas jogadas por jogadores titulados.</string>
   <string name="masterVsMaster">Partidas de Mestre vs Mestre</string>
-  <string name="masterVsMasterDescription">Quebra-cabeças de partidas entre dois jogadores titulados.</string>
+  <string name="masterVsMasterDescription">Problemas de partidas entre dois jogadores titulados.</string>
   <string name="mate">Xeque-mate</string>
   <string name="mateDescription">Vença o jogo com estilo.</string>
   <string name="mateIn1">Mate em 1</string>
@@ -97,8 +103,8 @@
   <string name="mateIn5Description">Descubra uma longa sequência de mate.</string>
   <string name="middlegame">Meio-jogo</string>
   <string name="middlegameDescription">Tática durante a segunda fase do jogo.</string>
-  <string name="oneMove">Quebra-cabeças de um movimento</string>
-  <string name="oneMoveDescription">Quebra-cabeças de um movimento.</string>
+  <string name="oneMove">Problema de um lance</string>
+  <string name="oneMoveDescription">Um problema que é resolvido com apenas um movimento.</string>
   <string name="opening">Abertura</string>
   <string name="openingDescription">Tática durante a primeira fase do jogo.</string>
   <string name="operaMate">Mate da ópera</string>
@@ -121,19 +127,19 @@
   <string name="rookEndgameDescription">Um final com apenas torres e peões.</string>
   <string name="sacrifice">Sacrifício</string>
   <string name="sacrificeDescription">Uma tática envolvendo a entrega de material no curto prazo, com o objetivo de se obter uma vantagem após uma sequência forçada de movimentos.</string>
-  <string name="short">Quebra-cabeças curto</string>
+  <string name="short">Problema curto</string>
   <string name="shortDescription">Vitória em dois lances.</string>
   <string name="skewer">Raio X</string>
   <string name="skewerDescription">Um movimento que envolve uma peça de alto valor sendo atacada fugindo do ataque e permitindo que uma peça de menor valor seja capturada ou atacada, o inverso de cravada.</string>
   <string name="smotheredMate">Mate de Philidor (mate sufocado)</string>
   <string name="smotheredMateDescription">Um xeque-mate dado por um cavalo onde o rei é incapaz de mover-se porque está cercado (ou sufocado) pelas próprias peças.</string>
   <string name="superGM">Super partidas de GMs</string>
-  <string name="superGMDescription">Quebra-cabeças de partidas jogadas pelos melhores jogadores do mundo.</string>
+  <string name="superGMDescription">Problemas de partidas jogadas pelos melhores jogadores do mundo.</string>
   <string name="trappedPiece">Peça presa</string>
   <string name="trappedPieceDescription">Uma peça é incapaz de escapar da captura, pois tem movimentos limitados.</string>
   <string name="underPromotion">Subpromoção</string>
   <string name="underPromotionDescription">Promover para cavalo, bispo ou torre.</string>
-  <string name="veryLong">Quebra-cabeças muito longo</string>
+  <string name="veryLong">Problema muito longo</string>
   <string name="veryLongDescription">Quatro movimentos ou mais para vencer.</string>
   <string name="xRayAttack">Ataque em raio X</string>
   <string name="xRayAttackDescription">Uma peça ataca ou defende uma casa indiretamente, através de uma peça adversária.</string>
@@ -142,6 +148,6 @@
   <string name="mix">Combinação saudável</string>
   <string name="mixDescription">Um pouco de tudo. Você nunca sabe o que vai encontrar, então esteja pronto para tudo! Igualzinho aos jogos em tabuleiros reais.</string>
   <string name="playerGames">Partidas de jogadores</string>
-  <string name="playerGamesDescription">Procure quebra-cabeças gerados a partir de suas partidas ou das de outro jogador.</string>
-  <string name="puzzleDownloadInformation">Esses quebra-cabeças estão em domínio público, e você pode baixá-los em %s.</string>
+  <string name="playerGamesDescription">Procure problemas gerados a partir de suas partidas ou das partidas de outro jogador.</string>
+  <string name="puzzleDownloadInformation">Esses problemas estão em domínio público, e você pode baixá-los em %s.</string>
 </resources>

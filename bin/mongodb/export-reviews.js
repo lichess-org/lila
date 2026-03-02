@@ -6,7 +6,7 @@ const text = () =>
     print('===================================');
     print();
     coach.reviews.forEach(review => {
-      print(review.score + '/5' + ' by https://lichess.org/' + review.from);
+      print(`${review.score}/5 by https://lichess.org/${review.from}`);
       print('       ' + review.text);
       print('-----------------------------------');
     });

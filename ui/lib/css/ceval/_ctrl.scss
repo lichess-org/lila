@@ -10,9 +10,9 @@
     visibility: visible;
   }
 
-  // [ div.switch, pearl (grow), div.engine (grow/shrink), button.show-threat, button.gear ]
+  // [ div.cmn-toggle, pearl (grow), div.engine (grow/shrink), button.show-threat, button.gear ]
 
-  .switch {
+  .cmn-toggle {
     @extend %flex-center;
     flex: 0 0 40px;
     margin-inline-start: 6px;
@@ -67,7 +67,6 @@
   }
 
   .show-threat {
-    @extend %button-none;
     flex: 0 0 18px;
     color: $c-font-dim;
     font-size: 16px;
@@ -87,7 +86,6 @@
   }
 
   .settings-gear {
-    @extend %button-none;
     color: $c-font-dim;
     font-size: 16px;
     padding: 0 6px;
@@ -116,7 +114,7 @@
     position: absolute;
     width: 100%;
     height: 3px;
-    top: 0px;
+    top: 0;
   }
 
   @keyframes bar-anim {
@@ -142,7 +140,7 @@
   }
 
   &.computing .bar span {
-    background-image: url(../images/bar-highlight.png);
+    background-image: url('../images/bar-highlight.png');
     animation: bar-anim 1000s linear infinite;
   }
 }
@@ -179,6 +177,6 @@
     padding: 1em;
     margin-bottom: 1em;
     white-space: pre-wrap;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }

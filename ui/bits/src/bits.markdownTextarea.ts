@@ -53,7 +53,7 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
   });
   if (!markdown.dataset.imageUploadUrl) return;
 
-  markdown.querySelector<HTMLElement>('.upload-image')?.addEventListener('click', () => {
+  uploadBtn?.addEventListener('click', () => {
     const input = frag<HTMLInputElement>('<input type="file" accept="image/*" multiple />');
     input.onchange = () => {
       if (!input.files) return;

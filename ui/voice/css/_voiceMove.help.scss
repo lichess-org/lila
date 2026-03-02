@@ -26,7 +26,7 @@
     }
     display: flex;
     flex-direction: row;
-    @media (max-width: 600px) {
+    @media (width <= 600px) {
       flex-direction: column;
     }
   }
@@ -38,9 +38,8 @@
 
   .big-table {
     td {
+      @extend %nowrap-ellipsis;
       padding: 0 1em;
-      white-space: nowrap;
-      text-overflow: ellipsis;
     }
     tr {
       td:nth-child(even) {

@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">הצג סמן להגדלת הלוח</string>
   <string name="onlyOnInitialPosition">רק בעמדה ההתחלתית</string>
   <string name="inGameOnly">רק במהלך המשחק</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">למעט בזמן משחק</string>
+  <string name="exceptInGame">למעט בזמן משחק</string>
   <string name="chessClock">שעון השחמט</string>
   <string name="tenthsOfSeconds">הצג עשיריות שניה</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">כאשר הזמן שנותר קטן מעשר שניות</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">כאשר הזמן שנותר קטן מעשר שניות</string>
   <string name="horizontalGreenProgressBars">שורות התקדמות ירוקות אופקיות</string>
   <string name="soundWhenTimeGetsCritical">השמעת צליל כאשר הזמן עומד להיגמר</string>
   <string name="giveMoreTime">לתת עוד זמן</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">לחצו על מקש &lt;ctrl&gt; בזמן הקידום כדי להשבית זמנית את ההכתרה האוטומטית</string>
   <string name="whenPremoving">כאשר מבצעים קדם-מהלך</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">הכרז על תיקו בחזרה משולשת באופן אוטומטי</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">כשהזמן הנותר קטן מ־30 שניות</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">כשהזמן הנותר קטן מ־30 שניות</string>
   <string name="moveConfirmation">אישור המהלכים</string>
   <string name="explainCanThenBeTemporarilyDisabled">ניתן לביטול במהלך המשחק באמצעות תפריט הלוח</string>
   <string name="inCorrespondenceGames">במשחקים בהתכתבות</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">דפדפן</string>
   <string name="notifyDevice">מכשיר</string>
   <string name="bellNotificationSound">השמעת צליל עבור התראות פעמון</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">משחק עיוור</string>
+  <string name="blindfold" comment="As in Blindfold chess">משחק עיוור</string>
 </resources>

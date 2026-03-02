@@ -224,7 +224,6 @@
   <string name="changeUsernameNotSame">Ang laki o liit lang ng mga letra ang pwedeng baguhin. Halimbawa, pwedeng gawing \"JohnDoe\" ang \"johndoe\".</string>
   <string name="changeUsernameDescription">Palitan ang iyong pangalan. Maaari mo lang itong gawin ng isang beses at maaari mo lang baguhin ang laki o liit ng mga letra sa pangalan mo.</string>
   <string name="signupUsernameHint">Tiyaking pumili ng pampamilyang username. Hindi mo ito mababago sa ibang pagkakataon at ang anumang mga account na may hindi naaangkop na mga username ay isasara!</string>
-  <string name="signupEmailHint">Gagamitin lang namin ito para sa pag-reset ng password.</string>
   <string name="password">Password</string>
   <string name="changePassword">Palitan ang password</string>
   <string name="changeEmail">Palitan ang email</string>
@@ -394,7 +393,6 @@
   <string name="pasteTheFenStringHere">I-paste ang FEN na sulat dito</string>
   <string name="pasteThePgnStringHere">I-paste ang PGN na sulat dito</string>
   <string name="orUploadPgnFile">O mag upload ng PGN file</string>
-  <string name="fromPosition">Mula sa posisyon</string>
   <string name="continueFromHere">Magpatuloy mula dito</string>
   <string name="toStudy">Pagaralan</string>
   <string name="importGame">Magluwas ng laro</string>
@@ -670,10 +668,6 @@
   <string name="keyGoToStartOrEnd">pumunta sa simula/huli</string>
   <string name="keyShowOrHideComments">ipakita/itago ang mga komento</string>
   <string name="keyEnterOrExitVariation">pumasok/lumabas na pagkakaiba-iba</string>
-  <string name="keyNextLearnFromYourMistakes">Sunod (Matuto sa iyong pagkakamali)</string>
-  <string name="keyNextBlunder">Susunod na malaking pagkakamali</string>
-  <string name="keyNextMistake">Susunod na pagkakamali</string>
-  <string name="keyNextInaccuracy">Susunod na di-pagkakatama</string>
   <string name="keyPreviousBranch">Nakaraang sangay</string>
   <string name="keyNextBranch">Susunod na sangay</string>
   <string name="playSelectedMove">laruin ang napiling galaw</string>

@@ -15,7 +15,7 @@
   <string name="onlyOnInitialPosition">Dim ond yn y safle cychwynol</string>
   <string name="chessClock">Cloc gwyddbwyll</string>
   <string name="tenthsOfSeconds">Degfedau eiliad</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Gyda llai na 10 eiliad ar ôl</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Gyda llai na 10 eiliad ar ôl</string>
   <string name="horizontalGreenProgressBars">Bâr cynydd gwyrdd llorweddol</string>
   <string name="soundWhenTimeGetsCritical">Sain cyn redeg allan o amser</string>
   <string name="giveMoreTime">Rhoi mwy o amser</string>
@@ -30,7 +30,7 @@
   <string name="promoteToQueenAutomatically">Troi yn Frenhines yn awtomatig</string>
   <string name="whenPremoving">Wrth symud o flaen</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Dewis gem gyfartal yn awtomatig ar ol ailadrodd tair gwaith</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Gyda llai na 30 eiliad</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Gyda llai na 30 eiliad</string>
   <string name="moveConfirmation">Cadarnháu symudiad</string>
   <string name="inCorrespondenceGames">Gêmau drwy\'r post</string>
   <string name="correspondenceAndUnlimited">Gohebol ac anghyfyngedig</string>

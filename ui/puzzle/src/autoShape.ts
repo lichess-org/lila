@@ -4,6 +4,7 @@ import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, parseUci, makeSquare } from 'chessops/util';
 import type { NormalMove } from 'chessops/types';
 import type PuzzleCtrl from './ctrl';
+import type { Glyph, TreeNode } from 'lib/tree/types';
 
 function makeAutoShapesFromUci(
   color: Color,
@@ -73,8 +74,8 @@ export default function (ctrl: PuzzleCtrl): DrawShape[] {
   ];
 }
 
-function feedbackAnnotation(n: Tree.Node): Tree.Node | undefined {
-  let glyph: Tree.Glyph | undefined;
+function feedbackAnnotation(n: TreeNode): TreeNode | undefined {
+  let glyph: Glyph | undefined;
   switch (n.puzzle) {
     case 'good':
     case 'win':

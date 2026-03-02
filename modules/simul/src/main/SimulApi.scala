@@ -40,7 +40,7 @@ final class SimulApi(
     lila.log.asyncActorMonitor.full
   )
 
-  export repo.{ find, byIds, byTeamLeaders }
+  export repo.{ find, byIds }
 
   def currentHostIds: Fu[Set[UserId]] = currentHostIdsCache.get {}
 
@@ -165,10 +165,9 @@ final class SimulApi(
       }
 
   def setText(simulId: SimulId, text: String): Funit =
-    workQueue(simulId):
-      repo.find(simulId).flatMapz { simul =>
-        for _ <- repo.setText(simul, text) yield socket.reload(simulId)
-      }
+    repo.find(simulId).flatMapz { simul =>
+      for _ <- repo.setText(simul, text) yield socket.reload(simulId)
+    }
 
   private[simul] def finishGame(game: Game): Funit =
     game.simulId.so:

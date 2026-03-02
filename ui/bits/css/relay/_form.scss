@@ -69,6 +69,11 @@
   @extend %image-preview-and-upload;
 }
 
+.relay-name-help {
+  margin-top: 1em;
+  display: block;
+}
+
 @include mq-subnav-side {
   .relay-form__subnav__group {
     display: block;
@@ -77,7 +82,7 @@
     color: $c-font-dimmer;
   }
   .relay-form__subnav__tour-parent {
-    border-radius: $box-radius-size;
+    @include box-radius;
     background: $c-bg-box;
     margin-bottom: 5px;
   }
@@ -91,7 +96,7 @@
     }
     .subnav__subitem2 {
       margin-left: 2em;
-      letter-spacing: 0px;
+      letter-spacing: 0;
     }
     .button {
       margin-inline-end: 1em;

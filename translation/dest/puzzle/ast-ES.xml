@@ -8,6 +8,7 @@
   <string name="advanced">Avanzáu</string>
   <string name="lengths">Duración</string>
   <string name="mates">Mates</string>
+  <string name="mateThemes">Temes de mate</string>
   <string name="goals">Oxetivos</string>
   <string name="origin">Orixe</string>
   <string name="specialMoves">Movimientos especiales</string>
@@ -67,9 +68,9 @@
   <string name="history">Historial d\'exercicios</string>
   <string name="solved">resueltu</string>
   <string name="failed">fallíu</string>
-  <string name="streakDescription">Resuelve exercicios cada vez más difíciles pa consiguir la racha más llarga posible. Nun hai tiempu, asina que tomatelo con calma. Un movimientu erróneu y ¡acabóse!, aunque pues omitir un movimientu en cada sesión.</string>
+  <string name="streakDescription">Resuelve exercicios cada vez más difíciles pa consiguir la racha más llarga posible. Nun hai tiempu, asina que tomatelo con calma. Un movimientu erróneu y ¡acabóse!, aunque puedes omitir un movimientu en cada sesión.</string>
   <string name="yourStreakX">La to racha: %s</string>
-  <string name="streakSkipExplanation">Pues omitir esti movimientu pa mantener la to racha, pero solo una vegada por sesión.</string>
+  <string name="streakSkipExplanation">Puedes omitir esti movimientu pa mantener la to racha, pero solo una vegada por sesión.</string>
   <string name="continueTheStreak">Siguir la racha</string>
   <string name="newStreak">Nueva racha</string>
   <string name="fromMyGames">De les mios partíes</string>
@@ -92,6 +93,6 @@
   </plurals>
   <string name="percentSolved">%s correctos</string>
   <string name="noPuzzlesToShow">Entá nun hai na qu\'amosar equí. ¡Ve y fai dellos exercicios!</string>
-  <string name="improvementAreasDescription">¡Entrena estes áreas pa progresar!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">¡Entrena estes áreas pa progresar!</string>
   <string name="strengthDescription">Estes son les áreas nes que yes más fuerte</string>
 </resources>

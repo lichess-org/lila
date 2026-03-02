@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 import scala.util.Try
 
 import lila.common.Bus
-import lila.core.socket.Announce
+import lila.core.socket.{ Announce, AnnounceUpdate }
 
 object AnnounceApi:
 
@@ -47,3 +47,8 @@ object AnnounceApi:
     get
 
   def cancel = Announce("", nowInstant, Json.obj())
+
+  private[web] def setupPeriodicUpdate()(using scheduler: Scheduler)(using Executor): Unit =
+    import scala.concurrent.duration.*
+    scheduler.scheduleAtFixedRate(7.seconds, 3.seconds): () =>
+      Bus.pub(AnnounceUpdate(get))

@@ -3,7 +3,7 @@ $user-list-width: 30ch;
 
 .community {
   display: grid;
-  grid-gap: 2rem;
+  gap: 2rem;
   grid-template-areas: 'online' 'leaders';
 
   @media (min-width: at-least($xx-small)) {

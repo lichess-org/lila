@@ -93,6 +93,6 @@
   </plurals>
   <string name="percentSolved">%s λυμένα</string>
   <string name="noPuzzlesToShow">Δεν υπάρχουν δεδομένα για εμφάνιση — δοκιμάστε να λύσετε μερικά τακτικά πρώτα!</string>
-  <string name="improvementAreasDescription">Εξασκηθείτε στους ακόλουθους τομείς για να βελτιώσετε την απόδοσή σας!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Εξασκηθείτε στους ακόλουθους τομείς για να βελτιώσετε την απόδοσή σας!</string>
   <string name="strengthDescription">Τα πάτε καλύτερα στις εξής κατηγορίες</string>
 </resources>

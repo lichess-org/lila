@@ -221,7 +221,6 @@
   <string name="changeUsernameNotSame">Nomás ye posible cambiar mayusclas per minusclas y viceversa. Per eixemplo, de \"juanperez\" a \"JuanPerez\".</string>
   <string name="changeUsernameDescription">Cambiar lo tuyo nombre d\'usuario. Esto nomás puede fer-se una vegada, y nomás se puede cambiar mayusclas per minusclas y viceversa.</string>
   <string name="signupUsernameHint">Tría un nombre d\'usuario amigable. No lo podrás cambiar dimpués y cualsequier cuenta con nombre d\'usuario inapropiau se zarrará.</string>
-  <string name="signupEmailHint">Nomás se fará servir pa reiniciar la clau.</string>
   <string name="password">Clau</string>
   <string name="changePassword">Cambiar clau</string>
   <string name="changeEmail">Cambiar correu</string>
@@ -407,7 +406,6 @@
   <string name="pasteTheFenStringHere">Apega lo texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Apega lo texto PGN aquí</string>
   <string name="orUploadPgnFile">U penchar un fichero PGN</string>
-  <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Continar dende aquí</string>
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>
@@ -691,11 +689,6 @@
   <string name="keyCycleSelectedVariation">Cambia la variant seleccionada</string>
   <string name="keyShowOrHideComments">amostrar/amagar comentarios</string>
   <string name="keyEnterOrExitVariation">dentrar/salir d\'a variant</string>
-  <string name="keyRequestComputerAnalysis">Demanda una analisi d\'ordinador, aprende d\'as tuyas errors</string>
-  <string name="keyNextLearnFromYourMistakes">Siguient (Aprende d\'as tuyas errors)</string>
-  <string name="keyNextBlunder">Siguient error grieu</string>
-  <string name="keyNextMistake">Siguient error</string>
-  <string name="keyNextInaccuracy">Siguient imprecisión</string>
   <string name="keyPreviousBranch">Branca anterior</string>
   <string name="keyNextBranch">Siguient branca</string>
   <string name="toggleVariationArrows">Amuestra/amaga las flechas d\'as variants</string>

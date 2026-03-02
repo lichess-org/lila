@@ -25,7 +25,6 @@ $hover-bg: $m-primary_bg--mix-30;
       flex: 0 0 $player-height;
       button {
         @extend %flex-center-nowrap, %metal;
-        border: none;
         outline: none;
         &:hover {
           background: $hover-bg;
@@ -309,7 +308,7 @@ $hover-bg: $m-primary_bg--mix-30;
     .mselect__list {
       left: unset;
       right: 0;
-      overflow-x: hidden;
+      overflow-x: auto;
       overflow-y: auto;
       max-height: 50vh;
       @media (max-width: at-most($medium)) {
@@ -320,37 +319,39 @@ $hover-bg: $m-primary_bg--mix-30;
         min-width: unset;
       }
     }
-    tr {
-      display: table-row;
+    a {
+      display: flex;
+      padding: 0 1em 0 0;
+      align-items: center;
+      border-left: 3px solid transparent;
       &.current-round {
-        background: $m-primary_bg--mix-15;
-        border: 1px solid $m-primary_bg--mix-40;
-        border-width: 1px 0;
+        background: $c-bg-zebra;
+        border-left-color: $c-primary;
       }
-      &:hover *,
-      &:hover .round-state::before {
+      &:hover {
         background: $c-primary;
-        color: $c-over;
+        *,
+        .round-state::before {
+          color: $c-over;
+        }
       }
-    }
-    td {
-      cursor: pointer;
     }
     .name {
-      padding: 0.3em 1em;
+      @include ellipsis;
+      padding: 0.3em 0 0.3em 1em;
+      width: 100%;
     }
     .time,
     .status {
+      @extend %roboto;
       font-size: 0.9rem;
       color: $c-font-dim;
-    }
-    .time {
-      @extend %roboto;
-      padding: 0.5em 1em;
+      margin-left: auto;
     }
     .status {
-      padding: 0.5em 1.5rem 0.5em 0;
-      text-align: end;
+      &:empty {
+        display: none;
+      }
     }
   }
 
@@ -377,18 +378,11 @@ $hover-bg: $m-primary_bg--mix-30;
     gap: 1em;
     @include prevent-select;
   }
-  &__subscribe {
-    @extend %flex-center-nowrap;
-    gap: 1ch;
-    label {
-      cursor: pointer;
-    }
-  }
 
   &__tabs {
     @extend %flex-center;
     gap: 1em;
-    span {
+    button {
       @extend %box-radius;
       cursor: pointer;
       padding: 0.6em 1.5em;
@@ -404,15 +398,16 @@ $hover-bg: $m-primary_bg--mix-30;
 
   &__info {
     @extend %box-neat, %flex-between, %tour-margin-horiz;
-    gap: 1em;
+    gap: 1ch;
     background: $c-bg-zebra;
     padding: 1em 2vw;
     > div {
       @extend %flex-center-nowrap;
-      gap: 1em;
+      gap: 1ch;
     }
     img {
-      height: 2em;
+      height: 1.7em;
+      aspect-ratio: 1;
     }
   }
 
@@ -499,13 +494,16 @@ $hover-bg: $m-primary_bg--mix-30;
     color: $c-font-dim;
   }
 
-  .fide-player {
+  .fide-player,
+  &__teams__standings {
     a {
       color: $c-font;
       &:hover {
         color: $c-primary;
       }
     }
+  }
+  .fide-player {
     &__photo {
       @extend %box-neat;
       aspect-ratio: 1;
@@ -518,7 +516,7 @@ $hover-bg: $m-primary_bg--mix-30;
       @extend %tour-margin-horiz;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      grid-gap: 1em;
+      gap: 1em;
       @media (min-width: at-least($medium)) {
         grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
         font-size: 1.1em;
@@ -526,6 +524,7 @@ $hover-bg: $m-primary_bg--mix-30;
     }
     &__card {
       @extend %box-neat, %flex-column;
+      font-family: monospace;
       align-items: center;
       gap: 0.5em;
       background: $c-bg-zebra;
@@ -535,13 +534,20 @@ $hover-bg: $m-primary_bg--mix-30;
         font-weight: bold;
       }
       em {
-        @extend %roboto;
+        @extend %roboto, %flex-center;
         text-transform: uppercase;
+        gap: 0.5ch;
         color: $c-font-dim;
+      }
+      .performance,
+      .diff {
+        @extend %flex-center;
+        gap: 0.5ch;
       }
     }
     .mini-game__flag {
       width: 1em;
+      height: 1em;
     }
   }
 
@@ -550,10 +556,63 @@ $hover-bg: $m-primary_bg--mix-30;
       margin: 0 0.5em;
     }
   }
-}
 
-.fide-players-table {
-  .game-link {
+  &__team-summary {
+    @extend %flex-column;
+    gap: 3vh;
+    &__header,
+    &__matches__header {
+      @extend %tour-margin-horiz;
+    }
+    &__roster {
+      overflow: auto;
+    }
+    &__header {
+      &__stats {
+        @extend %tour-margin-horiz;
+        tr {
+          font-size: 1.1em;
+          th {
+            width: 1%;
+            white-space: nowrap;
+          }
+          th + td {
+            padding-left: 3em;
+          }
+        }
+        border-collapse: separate;
+        border-spacing: 0 0.5em;
+        td {
+          padding-left: 1em;
+        }
+      }
+    }
+    .score {
+      font-weight: bold;
+    }
+    &__table {
+      th:first-child,
+      td.game-link {
+        width: 1%;
+        white-space: nowrap;
+        padding-right: 2em;
+        a.game-link {
+          @extend %game-link-styles;
+        }
+      }
+      .team-name {
+        font-size: 1.1em;
+      }
+      a {
+        color: $c-font;
+        &:hover {
+          color: $c-primary;
+        }
+      }
+    }
+  }
+
+  %game-link-styles {
     @extend %flex-center-nowrap, %box-radius;
     @media (min-width: at-least($medium)) {
       padding: 0.4em 0.5em;
@@ -562,6 +621,25 @@ $hover-bg: $m-primary_bg--mix-30;
     &:hover {
       background: $m-primary_bg--mix-20;
       color: $c-font-clearer;
+    }
+  }
+
+  .fide-players-table {
+    .game-link {
+      @extend %game-link-styles;
+    }
+
+    td:has(.game-link) {
+      width: 0;
+    }
+
+    td:not(.player-intro-td) {
+      font-family: monospace;
+      text-align: end;
+
+      a {
+        @extend %base-font;
+      }
     }
   }
   @media (max-width: at-most($medium)) {
@@ -573,8 +651,7 @@ $hover-bg: $m-primary_bg--mix-30;
       display: none;
     }
     .player-intro__name {
-      overflow: hidden;
-      text-overflow: ellipsis;
+      @include ellipsis;
     }
   }
 }
@@ -642,7 +719,6 @@ $hover-bg: $m-primary_bg--mix-30;
   }
   .mini-game__gauge {
     order: 0;
-    @extend %box-radius;
     tick {
       top: 1.5px;
       border-bottom-width: 3px;
@@ -651,8 +727,15 @@ $hover-bg: $m-primary_bg--mix-30;
 }
 
 .relay-tour__stats {
+  @extend %flex-column;
+  gap: 1em;
   .spinner {
     margin: 10em auto;
+  }
+  &__unique {
+    @extend %tour-margin-horiz;
+    background: $c-bg-zebra;
+    padding: 1em 2vw;
   }
   canvas {
     min-height: 50vh;

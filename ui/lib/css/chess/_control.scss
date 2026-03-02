@@ -1,9 +1,10 @@
 .analyse-controls {
   @extend %double-tap;
+  @include backdrop-blur-if-transparent;
+
   display: flex;
   justify-content: space-between;
   align-items: stretch;
-  font-size: 1.3rem;
 
   .fbt {
     @extend %box-radius-bottom;
@@ -17,6 +18,7 @@
   }
 
   .jumps {
+    font-size: 1.3rem;
     display: flex;
     padding: 4px;
 
@@ -41,7 +43,7 @@
     }
   }
   @media (hover: hover) {
-    .jumps .fbt:hover:not(.disabled) {
+    .jumps .fbt:hover:not(.disabled, :disabled) {
       background-color: $m-primary_bg--mix-30;
     }
   }

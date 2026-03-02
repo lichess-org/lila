@@ -23,7 +23,8 @@ cg-board::before {
   box-shadow: inherit;
 
   body:not(.simple-board) & {
-    filter: brightness(calc(var(---board-brightness) / 100)) hue-rotate(calc(var(---board-hue) * 3.6deg));
+    filter: brightness(calc(var(---board-brightness) / 100)) contrast(calc(var(---board-contrast) / 100))
+      hue-rotate(calc(var(---board-hue) * 3.6deg));
 
     @include if-transp {
       opacity: calc(var(---board-opacity) / 100);
@@ -41,21 +42,21 @@ square {
   pointer-events: none;
 
   &.move-dest {
-    background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
+    background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) calc(20% + 1px));
     pointer-events: auto;
   }
 
   &.premove-dest {
-    background: radial-gradient(rgba(20, 30, 85, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
+    background: radial-gradient(rgba(20, 30, 85, 0.5) 19%, rgba(0, 0, 0, 0) calc(20% + 1px));
     pointer-events: auto;
   }
 
   &.oc.move-dest {
-    background: radial-gradient(transparent 0%, transparent 79%, rgba(20, 85, 0, 0.3) 80%);
+    background: radial-gradient(transparent 0%, transparent 79%, rgba(20, 85, 0, 0.3) calc(80% + 1px));
   }
 
   &.oc.premove-dest {
-    background: radial-gradient(transparent 0%, transparent 79%, rgba(20, 30, 85, 0.2) 80%);
+    background: radial-gradient(transparent 0%, transparent 79%, rgba(20, 30, 85, 0.2) calc(80% + 1px));
   }
 
   body[data-board='green'] .is2d &.last-move,
@@ -69,7 +70,7 @@ square {
     background-color: rgba(155, 199, 0, 0.41);
 
     body[data-board='horsey'] .is2d &:not(.move-dest) {
-      background: url(../images/board/horsey.last-move.png);
+      background: url('../images/board/horsey.last-move.png');
       background-size: cover;
     }
   }
@@ -88,7 +89,7 @@ square {
     background-color: rgba(20, 85, 30, 0.5);
 
     body[data-board='horsey'] .is2d & {
-      background: url(../images/board/horsey.selected.png);
+      background: url('../images/board/horsey.selected.png');
       background-size: cover;
     }
   }
@@ -97,7 +98,7 @@ square {
     background-color: rgba(20, 30, 85, 0.5) !important;
 
     body[data-board='horsey'] .is2d & {
-      background: url(../images/board/horsey.current-premove.png);
+      background: url('../images/board/horsey.current-premove.png');
       background-size: cover;
     }
   }
@@ -107,7 +108,7 @@ square {
       background: rgba(20, 85, 30, 0.3);
 
       body[data-board='horsey'] .is2d & {
-        background: url(../images/board/horsey.move-dest.png);
+        background: url('../images/board/horsey.move-dest.png');
         background-size: cover;
       }
     }
@@ -168,8 +169,8 @@ cg-container .cg-custom-below,
 cg-auto-pieces {
   overflow: visible;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;

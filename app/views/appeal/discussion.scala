@@ -106,7 +106,7 @@ object discussion:
             div(cls := "appeal__msg__header")(
               ui.renderUser(appeal, msg.by, as.isLeft),
               if as.isRight then momentFromNowOnce(msg.at)
-              else momentFromNowServer(msg.at)
+              else pastMomentServer(msg.at)
             ),
             div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
           ),
@@ -143,7 +143,7 @@ object discussion:
         form("text"),
         if isNew then "Create an appeal" else "Add something to the appeal",
         help = (!isGranted(_.Appeals)).option(frag("Please be concise. Maximum 1000 chars."))
-      )(f => form3.textarea(f.copy(constraints = Seq.empty))(rows := 6, maxlength := Appeal.maxLengthClient)),
+      )(f => form3.textarea(f.copy(constraints = Seq.empty))(rows := 6, maxlength := Appeal.maxLengthForMe)),
       presets
         .map: ps =>
           form3.actions(

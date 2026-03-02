@@ -23,6 +23,12 @@
   input:focus {
     outline: none;
   }
+
+  &:has(input:focus) {
+    > a {
+      color: $c-primary;
+    }
+  }
 }
 
 body.clinput #top {
@@ -46,6 +52,23 @@ body.clinput #top {
 
     #clinput {
       width: 75vw;
+    }
+  }
+}
+
+#clinput {
+  .complete-result--menu {
+    &::before {
+      @extend %data-icon;
+      content: $licon-GreaterThan;
+      display: inline-block;
+      text-align: center;
+      width: 1.5em;
+      color: $c-link;
+      opacity: 0.5;
+    }
+    &:has(+ .user-link) {
+      border-bottom: $border;
     }
   }
 }

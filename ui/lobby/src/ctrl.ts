@@ -24,6 +24,7 @@ import SetupController from './setupCtrl';
 import { storage, type LichessStorage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
 import { wsPingInterval } from 'lib/socket';
+import { colors, type ColorChoice } from 'lib/setup/color';
 
 export default class LobbyController {
   data: LobbyData;
@@ -77,32 +78,50 @@ export default class LobbyController {
       const forceOptions: ForceSetupOptions = {};
       const urlParams = new URLSearchParams(location.search);
       const friendUser = urlParams.get('user') ?? undefined;
-      const minutesPerSide = urlParams.get('minutesPerSide');
-      const increment = urlParams.get('increment');
       const variant = urlParams.get('variant');
-      const time = urlParams.get('time');
 
       if (variant) forceOptions.variant = variant as VariantKey;
-
-      if (minutesPerSide) {
-        forceOptions.time = parseInt(minutesPerSide);
-      }
-
-      if (increment) {
-        forceOptions.increment = parseInt(increment);
-      }
-
-      if (time === 'realTime') {
-        if (locationHash === 'hook') this.tab = 'real_time';
-        forceOptions.timeMode = 'realTime';
-      } else if (time === 'correspondence') {
-        if (locationHash === 'hook') this.tab = 'seeks';
-        forceOptions.timeMode = 'correspondence';
-      }
 
       if (locationHash !== 'hook' && urlParams.get('fen')) {
         forceOptions.fen = urlParams.get('fen')!;
         forceOptions.variant = 'fromPosition';
+      }
+
+      let timeMode = urlParams.get('time');
+      const days = urlParams.get('days');
+      const minutesPerSide = urlParams.get('minutesPerSide');
+      const increment = urlParams.get('increment');
+
+      if (!timeMode) {
+        if (days) timeMode = 'correspondence';
+        else if (minutesPerSide || increment) timeMode = 'realTime';
+      }
+
+      if (timeMode === 'correspondence') {
+        forceOptions.timeMode = 'correspondence';
+        if (days) forceOptions.days = parseInt(days);
+        if (locationHash === 'hook') this.tab = 'seeks';
+      } else if (timeMode === 'realTime') {
+        forceOptions.timeMode = 'realTime';
+        if (minutesPerSide) forceOptions.time = parseFloat(minutesPerSide);
+        if (increment) forceOptions.increment = parseInt(increment);
+        if (locationHash === 'hook') this.tab = 'real_time';
+      } else if (timeMode === 'unlimited') {
+        if (locationHash === 'hook') this.tab = 'seeks';
+        forceOptions.timeMode = 'unlimited';
+        forceOptions.mode = 'casual';
+      }
+
+      if (locationHash === 'hook' || locationHash === 'friend') {
+        const gameMode = urlParams.get('gameMode');
+        if (gameMode === 'casual' || gameMode === 'rated') {
+          forceOptions.mode = gameMode;
+        }
+      }
+
+      const color = urlParams.get('color');
+      if (color && colors.some(c => c.key === color)) {
+        forceOptions.color = color as ColorChoice;
       }
 
       pubsub.after('polyfill.dialog').then(() => {
@@ -183,7 +202,7 @@ export default class LobbyController {
     this.flushHooksTimeout = this.flushHooksSchedule();
   };
 
-  private flushHooksSchedule = (): number => setTimeout(this.flushHooks, 8000);
+  private flushHooksSchedule = () => setTimeout(this.flushHooks, 8000);
 
   setTab = (tab: Tab) => {
     if (tab !== this.tab) {
@@ -194,6 +213,7 @@ export default class LobbyController {
         this.data.hooks = [];
       }
       this.tab = this.stores.tab.set(tab);
+      this.redraw();
     }
     this.filter.open = false;
   };
@@ -261,10 +281,10 @@ export default class LobbyController {
   };
 
   hasOngoingRealTimeGame = () =>
-    !!this.data.nowPlaying.find(nowPlaying => nowPlaying.isMyTurn && nowPlaying.speed !== 'correspondence');
+    this.data.nowPlaying.some(nowPlaying => nowPlaying.isMyTurn && nowPlaying.speed !== 'correspondence');
 
   gameActivity = (gameId: string) => {
-    if (this.data.nowPlaying.find(p => p.gameId === gameId))
+    if (this.data.nowPlaying.some(p => p.gameId === gameId))
       xhr.nowPlaying().then(povs => {
         this.data.nowPlaying = povs;
         this.startWatching();
@@ -307,7 +327,7 @@ export default class LobbyController {
     if (location.hash.startsWith('#pool/')) {
       const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
         match = regex.exec(location.hash),
-        member: any = { id: match![1], blocking: match![2] },
+        member: PoolMember = { id: match![1], blocking: match![2] },
         range = poolRangeStorage.get(this.me?.username, member.id);
       if (range) member.range = range;
       if (match) {

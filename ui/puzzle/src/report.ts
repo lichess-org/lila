@@ -6,9 +6,10 @@ import * as licon from 'lib/licon';
 import { type StoredProp, storedIntProp } from 'lib/storage';
 import { domDialog } from 'lib/view';
 import { plyToTurn, pieceCount } from 'lib/game/chess';
+import type { ClientEval, PvData, TreeNode } from 'lib/tree/types';
 
 // bump when logic is changed, to distinguish cached clients from new ones
-const version = 10;
+const version = 11;
 
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
@@ -25,7 +26,7 @@ export default class Report {
 
   // (?)take the eval as arg instead of taking it from the node to be sure it's the most up to date
   // All non-mates puzzle should have one and only one solution, if that is not the case, report it back to backend
-  checkForMultipleSolutions(ev: Tree.ClientEval, ctrl: PuzzleCtrl, threatMode: boolean): void {
+  checkForMultipleSolutions(ev: ClientEval, ctrl: PuzzleCtrl, threatMode: boolean): void {
     // first, make sure we're in view mode so we know the solution is the mainline
     // do not check, checkmate puzzles
     if (
@@ -52,14 +53,18 @@ export default class Report {
     if (
       nextMoveInSolution(node) &&
       nodeTurn === ctrl.pov &&
-      ctrl.mainline.some((n: Tree.Node) => n.id === node.id)
+      ctrl.mainline.some((n: TreeNode) => n.id === node.id)
     ) {
       const [bestEval, secondBestEval] = [ev.pvs[0], ev.pvs[1]];
       // stricter than lichess-puzzler v49 check in how it defines similar moves
       if (
+        ev.depth >= 18 &&
         (ev.depth > 50 || ev.nodes > 25_000_000) &&
         bestEval &&
         secondBestEval &&
+        // filter out incomplete searches
+        bestEval.moves.length > 1 &&
+        secondBestEval.moves.length > 1 &&
         winningChances.hasMultipleSolutions(ctrl.pov, bestEval, secondBestEval)
       ) {
         this.evalsWithMultipleSolutions += 1;
@@ -80,7 +85,7 @@ export default class Report {
   private reportDialog = (puzzleId: PuzzleId, reason: string) => {
     const switchButton =
       `<div class="switch switch-report-puzzle" title="temporarily disable reporting puzzles">` +
-      `<input id="puzzle-toggle-report" class="cmn-toggle cmn-toggle--subtle" type="checkbox">` +
+      `<input id="puzzle-toggle-report" class="cmn-toggle" type="checkbox">` +
       `<label for="puzzle-toggle-report"></label></div>`;
 
     const hideButtonDiv = `<div style="display:flex; flex-flow: row nowrap; align-items: center; justify-content: center">${switchButton}<span style="padding-left: 1em"> Hide this for a week</span></div>`;
@@ -124,11 +129,11 @@ export default class Report {
 
 // since we check the nodes of the opposite side, to know if we're
 // in the solution we need to check the following move
-const nextMoveInSolution = (before: Tree.Node) => {
+const nextMoveInSolution = (before: TreeNode) => {
   const node = before.children[0];
   return node && (node.puzzle === 'good' || node.puzzle === 'win');
 };
 
-const pvEvalToStr = (pv: Tree.PvData): string => {
+const pvEvalToStr = (pv: PvData): string => {
   return pv.mate ? `#${pv.mate}` : `${pv.cp}`;
 };

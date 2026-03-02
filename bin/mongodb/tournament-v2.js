@@ -1,9 +1,9 @@
-var orig = db.tournament;
-var dest = db.tournament2;
-var pairings = db.tournament_pairing;
-var players = db.tournament_player;
-var batchSize = 5;
-var pause = 500;
+const orig = db.tournament;
+const dest = db.tournament2;
+const pairings = db.tournament_pairing;
+const players = db.tournament_player;
+const batchSize = 5;
+const pause = 500;
 
 // dest.drop();
 // pairings.drop();
@@ -36,7 +36,7 @@ players.ensureIndex({
   m: -1,
 });
 
-var cursor = orig
+const cursor = orig
   .find({
     status: 30,
   })
@@ -48,15 +48,15 @@ function int(i) {
   return NumberInt(i);
 }
 
-var uidIt = 0;
+let uidIt = 0;
 
 function uid() {
   return 'i' + uidIt++;
 }
 
-var it = 0;
-var max = cursor.count();
-var dat = new Date().getTime() / 1000;
+let it = 0;
+const max = cursor.count();
+let dat = new Date().getTime() / 1000;
 
 cursor.forEach(function (o) {
   dest.insert(mkTour(o));
@@ -65,10 +65,10 @@ cursor.forEach(function (o) {
 
   ++it;
   if (it % batchSize == 0) {
-    var percent = Math.round((it / max) * 100);
-    var dat2 = new Date().getTime() / 1000;
-    var ms = Math.round(1000 * (dat2 - dat - pause / 1000));
-    var perSec = Math.round(batchSize / ms);
+    const percent = Math.round((it / max) * 100);
+    const dat2 = new Date().getTime() / 1000;
+    const ms = Math.round(1000 * (dat2 - dat - pause / 1000));
+    const perSec = Math.round(batchSize / ms);
     dat = dat2;
     print(it + ' ' + percent + '% ' + ms + 'ms');
     sleep(pause);
@@ -76,10 +76,10 @@ cursor.forEach(function (o) {
 });
 
 function insertPlayers(o) {
-  var bulk = players.initializeUnorderedBulkOp();
-  for (var i in o.players) {
-    var p = o.players[i];
-    var n = {
+  const bulk = players.initializeUnorderedBulkOp();
+  for (let i in o.players) {
+    const p = o.players[i];
+    const n = {
       _id: uid(),
       tid: o._id,
       uid: p.id,
@@ -96,10 +96,10 @@ function insertPlayers(o) {
 }
 
 function insertPairings(o) {
-  var bulk = pairings.initializeUnorderedBulkOp();
-  for (var i in o.pairings) {
-    var p = o.pairings[i];
-    var n = {
+  const bulk = pairings.initializeUnorderedBulkOp();
+  for (let i in o.pairings) {
+    const p = o.pairings[i];
+    const n = {
       _id: p.g,
       tid: o._id,
       s: int(p.s),
@@ -115,8 +115,8 @@ function insertPairings(o) {
 }
 
 function mkTour(o) {
-  var nbPlayers = o.players.length;
-  var n = {
+  const nbPlayers = o.players.length;
+  const n = {
     _id: o._id,
     name: o.name,
     status: int(o.status),

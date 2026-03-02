@@ -28,8 +28,8 @@ export function showTablebase(
   ];
 }
 
-function showDtm(fen: FEN, move: TablebaseMoveStats) {
-  return move.dtm
+const showDtm = (fen: FEN, move: TablebaseMoveStats) =>
+  move.dtm
     ? h(
         'result.' + winnerOf(fen, move),
         {
@@ -38,27 +38,24 @@ function showDtm(fen: FEN, move: TablebaseMoveStats) {
         'DTM ' + Math.abs(move.dtm),
       )
     : undefined;
-}
 
-function showDtw(fen: FEN, move: TablebaseMoveStats) {
-  return move.dtw
+const showDtw = (fen: FEN, move: TablebaseMoveStats) =>
+  move.dtw
     ? h(
         'result.' + winnerOf(fen, move),
         { attrs: { title: 'Half-moves to win (Depth To Win)' } },
         'DTW ' + Math.abs(move.dtw),
       )
     : undefined;
-}
 
-function showDtc(fen: FEN, move: TablebaseMoveStats) {
-  return move.dtc
+const showDtc = (fen: FEN, move: TablebaseMoveStats) =>
+  move.dtc
     ? h(
         'result.' + winnerOf(fen, move),
-        { attrs: { title: 'Moves to capture, promotion, or checkmate (Depth To Conversion, experimental)' } },
+        { attrs: { title: 'Moves to capture, promotion, or checkmate (Depth To Conversion)' } },
         'DTC ' + Math.abs(move.dtc),
       )
     : undefined;
-}
 
 function showDtz(fen: FEN, move: TablebaseMoveStats): VNode | undefined {
   if (move.checkmate) return h('result.' + winnerOf(fen, move), i18n.site.checkmate);

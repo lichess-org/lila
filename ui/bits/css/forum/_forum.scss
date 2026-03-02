@@ -9,7 +9,12 @@
 .forum {
   h1,
   .slist .subject {
-    @extend %break-word-hard;
+    @extend %break-word;
+  }
+
+  h1 {
+    display: inline-flex;
+    align-items: center;
   }
 
   .slist .subject {

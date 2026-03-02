@@ -2,8 +2,8 @@
   border: none;
 
   .player {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 0;
+    padding-right: 0;
 
     .user-link {
       @extend %flex-center-nowrap;
@@ -33,7 +33,7 @@
   tr.long .user-link .rating {
     display: block;
     direction: ltr;
-    padding-inline-start: 0px;
+    padding-inline-start: 0;
   }
 
   tr {
@@ -47,7 +47,7 @@
     @include transition(opacity, 0.3s);
   }
 
-  &:not(.created):not(.loading) tbody tr:hover {
+  &:not(.created, .loading) tbody tr:hover {
     background: $m-primary_bg--mix-30;
     cursor: pointer;
   }

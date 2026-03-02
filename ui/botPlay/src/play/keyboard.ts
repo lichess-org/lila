@@ -8,5 +8,6 @@ export default function keyboard(ctrl: PlayCtrl): void {
     .bind(['up', '0', 'home'], () => ctrl.goTo(0))
     .bind(['down', '$', 'end'], () => ctrl.goToLast())
     .bind('z', () => pubsub.emit('zen'))
-    .bind('f', ctrl.flip);
+    .bind('f', ctrl.flip)
+    .bind('h', () => ctrl.menu.toggle());
 }

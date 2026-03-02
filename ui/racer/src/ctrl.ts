@@ -1,7 +1,6 @@
 import config from './config';
 import CurrentPuzzle from 'lib/puz/current';
-import { throttle, throttlePromiseDelay } from 'lib/async';
-import { text as xhrText, form as xhrForm } from 'lib/xhr';
+import { throttle } from 'lib/async';
 import { Boost } from './boost';
 import { Clock } from 'lib/puz/clock';
 import { Combo } from 'lib/puz/combo';
@@ -27,6 +26,7 @@ import { PromotionCtrl } from 'lib/game/promotion';
 import { wsConnect, wsSend } from 'lib/socket';
 import { pubsub } from 'lib/pubsub';
 import { type WithGround } from 'lib/game/ground';
+import { toggleZenMode } from 'lib/view/zen';
 
 export default class RacerCtrl implements PuzCtrl {
   private data: RacerData;
@@ -91,11 +91,7 @@ export default class RacerCtrl implements PuzCtrl {
         },
       },
     }).sign(this.sign);
-    pubsub.on('zen', () => {
-      const zen = $('body').toggleClass('zen').hasClass('zen');
-      window.dispatchEvent(new Event('resize'));
-      this.setZen(zen);
-    });
+    pubsub.on('zen', () => toggleZenMode({ unconditional: true }));
     $('#zentog').on('click', this.toggleZen);
     this.redrawInterval = setInterval(this.redraw, 1000);
     setTimeout(this.hotkeys, 1000);
@@ -219,7 +215,7 @@ export default class RacerCtrl implements PuzCtrl {
     pubsub.emit('ply', this.run.moves);
   };
 
-  private makeVehicles = (raceId: String): Vehicle[] => {
+  private makeVehicles = (raceId: string): Vehicle[] => {
     const vehicle = [];
     for (let c = 0; c < 10; c++) {
       let h = 0;
@@ -274,15 +270,6 @@ export default class RacerCtrl implements PuzCtrl {
     tpe: K,
     data: K extends 'racerScore' ? number : undefined,
   ) => wsSend(tpe, data, { sign: this.sign, ackable: false });
-
-  private setZen = throttlePromiseDelay(
-    () => 1000,
-    zen =>
-      xhrText('/pref/zen', {
-        method: 'post',
-        body: xhrForm({ zen: zen ? 1 : 0 }),
-      }),
-  );
 
   private toggleZen = () => pubsub.emit('zen');
 

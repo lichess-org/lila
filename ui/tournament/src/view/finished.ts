@@ -2,7 +2,6 @@ import { h, type VNode } from 'snabbdom';
 import * as licon from 'lib/licon';
 import type TournamentController from '../ctrl';
 import type { TournamentData } from '../interfaces';
-import { players } from '../pagination';
 import { controls, standing, podium } from './arena';
 import { teamStanding } from './battle';
 import header from './header';
@@ -98,11 +97,10 @@ function stats(ctrl: TournamentController): VNode | undefined {
 export const name = 'finished';
 
 export function main(ctrl: TournamentController): MaybeVNodes {
-  const pag = players(ctrl);
   return [
     h('div.podium-wrap', [confetti(ctrl.data), header(ctrl), teamStanding(ctrl, 'finished') || podium(ctrl)]),
-    controls(ctrl, pag),
-    standing(ctrl, pag),
+    controls(ctrl),
+    standing(ctrl),
   ];
 }
 

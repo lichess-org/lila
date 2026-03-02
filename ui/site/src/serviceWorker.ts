@@ -8,7 +8,6 @@ export default async function () {
   workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url')!);
   let newSub: PushSubscription | undefined = undefined;
   try {
-    // eslint-disable-next-line compat/compat
     const reg = await navigator.serviceWorker.register(workerUrl.href, { scope: '/', updateViaCache: 'all' });
 
     const store = storage.make('push-subscribed');

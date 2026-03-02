@@ -18,7 +18,7 @@
   .list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    grid-gap: $block-gap;
+    gap: $block-gap;
     margin-bottom: 2em;
   }
 
@@ -40,6 +40,7 @@
       @extend %video;
 
       background-size: cover;
+      background-position: center;
 
       @include transition;
     }
@@ -65,6 +66,8 @@
 
     .reveal {
       @extend %metal;
+      @include transition;
+      @include backdrop-blur-if-transparent;
 
       position: absolute;
       top: 100%;
@@ -74,8 +77,6 @@
       z-index: 1;
       padding: 10px 10px 0 10px;
       opacity: 0;
-
-      @include transition;
     }
 
     &:hover .reveal {
@@ -129,13 +130,19 @@
     }
 
     .meta {
-      padding: 0 25px 10px 25px;
+      @extend %box-padding-horiz;
+      padding-bottom: 10px;
 
-      .target {
-        display: block;
-        text-align: center;
+      .target__wrapper {
+        display: flex;
+      }
+
+      .target__box {
         text-transform: uppercase;
-        margin-bottom: 1em;
+        margin: 0.4em 0 0.6em;
+        padding: 2px 0.5em;
+        border-radius: 4px;
+        background: $c-bg-zebra;
       }
 
       .author {
@@ -147,7 +154,13 @@
       .tag {
         color: $c-font-dim;
         font-weight: bold;
-        margin-right: 5px;
+        margin-right: 0.75em;
+        display: inline-flex;
+        align-items: center;
+
+        &::before {
+          margin-right: 0.25em;
+        }
       }
 
       .author:hover,

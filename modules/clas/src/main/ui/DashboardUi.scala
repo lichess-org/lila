@@ -31,23 +31,23 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
       frag(
         div(cls := "clas-show__top")(
           h1(dataIcon := Icon.Group, cls := "text")(c.name),
-          st.nav(cls := "dashboard-nav")(
-            a(cls := active.active("overview"), href := routes.Clas.show(c.id))(trans.clas.overview()),
-            a(cls := active.active("wall"), href := routes.Clas.wall(c.id))(trans.clas.news()),
-            a(
-              cls := active.active("progress"),
-              href := routes.Clas.progress(c.id, PerfKey.blitz, Days(7))
-            )(trans.clas.progress()),
-            a(cls := active.active("edit"), href := routes.Clas.edit(c.id))(trans.site.edit()),
-            a(cls := active.active("students"), href := routes.Clas.students(c.id))(
-              trans.clas.students()
+          c.isActive.option:
+            st.nav(cls := "dashboard-nav")(
+              a(cls := active.active("overview"), href := routes.Clas.show(c.id))(trans.clas.overview()),
+              a(cls := active.active("wall"), href := routes.Clas.wall(c.id))(trans.clas.news()),
+              a(
+                cls := active.active("progress"),
+                href := routes.Clas.progress(c.id, PerfKey.blitz, Days(7))
+              )(trans.clas.progress()),
+              a(cls := active.active("edit"), href := routes.Clas.edit(c.id))(trans.site.edit()),
+              a(cls := active.active("students"), href := routes.Clas.students(c.id))(
+                trans.clas.students()
+              )
             )
-          )
         ),
         standardFlash,
         c.archived.map: archived =>
-          div(cls := "clas-show__archived archived")(
-            ui.showArchived(archived),
+          ui.showArchived(archived)(
             postForm(action := routes.Clas.archive(c.id, v = false)):
               form3.submit(trans.clas.reopen(), icon = none)(cls := "yes-no-confirm button-empty")
           )
@@ -105,15 +105,25 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             )
           )
 
-    def overview(c: Clas, students: List[Student.WithUserPerfs])(using Context) =
+    def overview(c: Clas, students: List[Student.WithUserPerfs], tournaments: Option[Frag])(using Context) =
       TeacherPage(c, students, "overview")():
         frag(
           div(cls := "clas-show__overview")(
             c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc))),
             div(cls := "clas-show__overview__manage")(
-              ui.teachers(c)
+              div(cls := "clas-teachers")(
+                trans.clas.teachersX(fragList(c.teachers.toList.map(t => userIdLink(t.some))))
+              ),
+              c.isActive.option:
+                div(cls := "clas-team"):
+                  val url = c.teamId match
+                    case Some(teamId) => routes.Team.show(teamId).url
+                    case None => routes.Clas.edit(c.id).url + "#clas-team"
+                  a(href := url, cls := "text", dataIcon := Icon.Trophy):
+                    trans.site.tournaments()
             )
           ),
+          tournaments,
           if students.isEmpty
           then p(cls := "box__pad students__empty")(trans.clas.noStudents())
           else studentList(c, students)
@@ -285,7 +295,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             table(cls := "slist slist-pad sortable")(
               thead(
                 tr(
-                  th(dataSortDefault)(
+                  th(dataSortDefault)(dataSortAsc)(
                     trans.clas
                       .variantXOverLastY(progress.perfType.trans, trans.site.nbDays.txt(progress.days)),
                     thSortNumber(trans.site.rating()),
@@ -340,7 +350,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             table(cls := "slist slist-pad sortable")(
               thead(
                 tr(
-                  th(dataSortDefault)(
+                  th(dataSortDefault)(dataSortAsc)(
                     trans.clas.nbStudents.pluralSame(students.size),
                     thSortNumber(trans.site.chessBasics()),
                     thSortNumber(trans.site.practice()),
@@ -452,7 +462,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         table(cls := "slist slist-pad sortable")(
           thead:
             tr(
-              th(dataSortDefault)(trans.clas.nbStudents(students.size)),
+              th(dataSortDefault)(dataSortAsc)(trans.clas.nbStudents(students.size)),
               thSortNumber(trans.site.rating()),
               thSortNumber(trans.site.games()),
               thSortNumber(trans.site.puzzles()),
@@ -492,7 +502,8 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         c: Clas,
         wall: Html,
         teachers: List[User],
-        students: List[Student.WithUserPerfs]
+        students: List[Student.WithUserPerfs],
+        tournaments: Option[Frag]
     )(using Context) =
       ClasPage(c.name, Left(c.withStudents(Nil)))(cls := "clas-show dashboard dashboard-student"):
         frag(
@@ -501,11 +512,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc)))
           ),
           standardFlash,
-          c.archived.map { archived =>
-            div(cls := "box__pad")(
-              div(cls := "clas-show__archived archived")(ui.showArchived(archived))
-            )
-          },
+          c.archived.map(ui.showArchived),
           table(cls := "slist slist-pad teachers")(
             thead:
               tr(
@@ -534,6 +541,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                   challengeTd(user)
                 )
           ),
+          tournaments,
           c.wall.value.nonEmpty.option(div(cls := "box__pad clas-wall")(wall)),
           div(cls := "students")(studentList(students))
         )
@@ -542,7 +550,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
       table(cls := "slist slist-pad sortable")(
         thead:
           tr(
-            th(dataSortDefault)(trans.clas.nbStudents(students.size)),
+            th(dataSortDefault)(dataSortAsc)(trans.clas.nbStudents(students.size)),
             thSortNumber(trans.site.rating()),
             thSortNumber(trans.site.games()),
             thSortNumber(trans.site.puzzles()),

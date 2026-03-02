@@ -6,7 +6,7 @@
   <string name="progressX">Pokrok %s</string>
   <string name="resetMyProgress">Vynulovat postup ve hře</string>
   <string name="youWillLoseAllYourProgress">Obnovíte vše, co jste se doposud naučil/a!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">hrát!</string>
+  <string name="play">hrát!</string>
   <string name="chessPieces">Šachové figurky</string>
   <string name="theRook">Věž</string>
   <string name="itMovesInStraightLines">Pohybuje se v rovných řadách</string>
@@ -116,7 +116,6 @@ Zabraňte šachu, a pak udělejte rošádu!</string>
   <string name="findAWayToCastleKingSide">Najděte cestu k malé rošádě!</string>
   <string name="findAWayToCastleQueenSide">Najděte cestu k velké rošádě!</string>
   <string name="castlingComplete">Blahopřejeme! V reálné hře byste téměř vždy měli dělat rošádu.</string>
-  <string name="enPassant">Braní mimochodem</string>
   <string name="theSpecialPawnMove">Speciální tah pěšcem</string>
   <string name="enPassantIntro">Když soupeř táhne pěšcem o dvě pole, můžete ho sebrat tak, jakoby táhl jen o jedno.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Černý právě pohl pěšcem

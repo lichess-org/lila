@@ -24,7 +24,8 @@ trait IrcApi:
       id: RelayRoundId,
       name: String,
       chapter: StudyChapterId,
-      boardName: StudyChapterName
+      boardName: StudyChapterName,
+      tier: String
   ): Funit
   def monitorMod(icon: String, text: String, tpe: ModDomain)(using MyId): Funit
   def permissionsLog(user: LightUser, details: String)(using mod: LightUser.Me): Funit

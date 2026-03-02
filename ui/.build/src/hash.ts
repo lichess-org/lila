@@ -124,9 +124,8 @@ async function hashAndLink(name: string) {
   return hash;
 }
 
-function hashLog(src: string, hashName: string, pkgName?: string) {
+const hashLog = (src: string, hashName: string, pkgName?: string): void =>
   env.log(
     `${pkgName ? c.grey(pkgName) + ' ' : ''}'${c.cyan(src)}' -> '${c.cyan(join('public', 'hashed', hashName))}'`,
     'hash',
   );
-}

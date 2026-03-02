@@ -64,9 +64,10 @@ function renderHome(ctrl: SideCtrl) {
         },
       }),
     ]),
-    h('div.actions', [
-      progress > 0
-        ? h(
+    progress > 0
+      ? h(
+          'div.actions',
+          h(
             'a.confirm',
             {
               hook: bind('click', async () => {
@@ -74,8 +75,8 @@ function renderHome(ctrl: SideCtrl) {
               }),
             },
             i18n.learn.resetMyProgress,
-          )
-        : null,
-    ]),
+          ),
+        )
+      : null,
   ]);
 }

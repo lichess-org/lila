@@ -47,6 +47,7 @@
   <string name="fidePlayerNotFound">Fant ikke FIDE-spiller</string>
   <string name="fideProfile">FIDE-profil</string>
   <string name="federation">Forbund</string>
+  <string name="age">Alder</string>
   <string name="unrated">Uratet</string>
   <string name="recentTournaments">Nylige turneringer</string>
   <string name="openLichess">Åpne i Lichess</string>
@@ -82,6 +83,21 @@
   <string name="liveboard">Brett i sanntid</string>
   <string name="communityBroadcast">Fellesskapsoverføring</string>
   <string name="createdAndManagedBy">Opprettet og forvaltet av %s.</string>
+  <string name="teamResults">Lagresultater</string>
   <string name="roundX">Runde %s</string>
   <string name="defaultRoundNameHelp">Å beholde standardnavnet vil automatisk oversette det til alle andre språk.</string>
+  <string name="openTournament">Åpen</string>
+  <string name="womenTournament">Kvinner</string>
+  <string name="menTournament">Menn</string>
+  <string name="girlsTournament">Jenter</string>
+  <string name="boysTournament">Gutter</string>
+  <string name="openUnderXAgeTournament">Åpen U%s</string>
+  <string name="girlsUnderXAgeTournament">Jenter U%s</string>
+  <string name="boysUnderXAgeTournament">Gutter U%s</string>
+  <string name="quarterfinals">Kvartfinaler</string>
+  <string name="semifinals">Semifinaler</string>
+  <string name="finals">Finaler</string>
+  <string name="tiebreaks">Kvalitet</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Parti %s</string>
+  <string name="knockouts">Utslagsrunder</string>
 </resources>

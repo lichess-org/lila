@@ -1,22 +1,21 @@
 @import './config';
 
 .explorer-box {
-  position: relative;
-  flex: 3 1 0px;
-  white-space: nowrap;
-
   @include transition;
 
+  position: relative;
+  flex: 3 1 0;
+  white-space: nowrap;
   transition-delay: 0.3s;
   overflow-x: hidden;
   overflow-y: auto;
   font-size: 0.9em;
 
   &.reduced {
-    flex: 0.3 3 0px;
+    flex: 0.3 3 0;
 
     &:hover {
-      flex: 1 2 0px;
+      flex: 1 2 0;
     }
   }
 
@@ -39,8 +38,7 @@
   }
 
   .title {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @extend %ellipsis;
     user-select: text;
   }
   .explorer-title {
@@ -158,8 +156,9 @@
     overflow: hidden;
     vertical-align: middle;
     background-clip: padding-box;
-    border: 0 solid $m-font--fade-83;
     border-width: 1px 0;
+    border-style: solid;
+    border-color: $m-font--fade-83;
     height: 16px;
     line-height: 14px;
     font-size: 0.9em;
@@ -167,7 +166,7 @@
 
     &:first-child,
     /* draw radius when white is at 0% */
-    &[style='width: 0%'] + span:not(:last-child):not([style*='width: 100%']) {
+    &[style='width: 0%'] + span:not(:last-child, [style*='width: 100%']) {
       @extend %box-radius-inline-start-only;
     }
 
@@ -178,7 +177,7 @@
     }
 
     &[style*='width: 100%'] {
-      border-radius: $box-radius-size;
+      @extend %box-radius;
     }
   }
 

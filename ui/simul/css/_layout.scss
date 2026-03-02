@@ -14,7 +14,7 @@
   }
 
   grid-template-areas: 'main' 'side' 'uchat';
-  grid-gap: $block-gap;
+  gap: $block-gap;
 
   @include mq-at-least-col2 {
     &:not(.simul-created) {

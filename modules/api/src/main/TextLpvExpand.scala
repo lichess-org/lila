@@ -99,7 +99,10 @@ final class TextLpvExpand(
           .byId(Analysis.Id(id))
           .flatMap: analysis =>
             pgnDump(g.game, g.fen, analysis, pgnFlags).map: pgn =>
-              LpvEmbed.PublicPgn(pgn.render).some
+              val gameUrl = net.routeUrl(routes.Round.watcher(id, Color.White)).value
+              val siteTag = chess.format.pgn.Tag(_.Site, gameUrl)
+              val fixedSiteTag = pgn.copy(tags = pgn.tags + siteTag)
+              LpvEmbed.PublicPgn(fixedSiteTag.render).some
 
   private def studyChapterIdToPgn(id: StudyChapterId): Fu[Option[LpvEmbed]] =
     import lila.study.PgnDump.fullFlags

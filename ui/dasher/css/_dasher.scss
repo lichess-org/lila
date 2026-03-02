@@ -41,8 +41,6 @@
   }
 
   .head {
-    @extend %button-none;
-
     display: block;
     padding: 1rem;
     border-bottom: $border;
@@ -67,8 +65,6 @@
       button {
         display: block;
         padding: 0.7rem 0.7rem 0.7rem 1rem;
-        border: none;
-        background: none;
         width: 100%;
         text-align: left;
 
@@ -106,8 +102,6 @@
     margin: 0.5rem 0;
 
     button {
-      @extend %button-none;
-
       display: block;
       padding: 0.7rem 1rem;
       width: 100%;
@@ -127,7 +121,7 @@
       }
 
       &::before {
-        @include margin-inline-end(8px);
+        margin-inline: 0 8px;
         font-size: 19px;
         justify-content: center;
         align-items: center;
@@ -166,7 +160,7 @@
     }
 
     .selector a {
-      border-radius: $box-radius-size 0 0 $box-radius-size;
+      @extend %box-radius-left;
     }
 
     input[type='range'] {
@@ -189,11 +183,14 @@
   }
 
   .background {
-    .image label {
-      display: block;
-      font-size: 0.9em;
-      padding: 5px;
-      margin-bottom: 1em;
+    .image {
+      padding: 12px;
+
+      label {
+        display: block;
+        font-size: 0.9em;
+        padding: 0 5px 5px 5px;
+      }
     }
 
     input {
@@ -222,10 +219,12 @@
     $thumb-w: 160px; // see bin/make-gallery
     $thumb-h: 90px;
 
+    @include inline-end(0);
+    @include backdrop-blur-if-transparent;
+
     position: absolute;
     top: 100%;
-    @include inline-end(0);
-    background-color: #000000bb;
+    background-color: #000b;
 
     #images-viewport {
       max-height: 30vh;

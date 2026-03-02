@@ -11,7 +11,9 @@ import {
   onInsert,
   bindNonPassive,
   hl,
+  type MaybeVNode,
 } from 'lib/view';
+import { renderBlindfoldToggle } from 'lib/view/blindfold';
 import { type VNode, h } from 'snabbdom';
 import { addPointerListeners } from 'lib/pointer';
 import { render as treeView } from './tree';
@@ -32,7 +34,7 @@ function dataAct(e: Event): string | null {
 }
 
 function jumpButton(icon: string, effect: string, disabled: boolean, glowing = false): VNode {
-  return hl('button.fbt', { class: { disabled, glowing }, attrs: { 'data-act': effect, 'data-icon': icon } });
+  return hl('button.fbt', { class: { glowing }, attrs: { disabled, 'data-act': effect, 'data-icon': icon } });
 }
 
 function controls(ctrl: PuzzleCtrl): VNode {
@@ -93,12 +95,13 @@ export default function (ctrl: PuzzleCtrl): VNode {
       },
     },
     [
+      renderBlindfoldToggle(ctrl.blindfold),
       hl('aside.puzzle__side', [
         replay(ctrl),
         puzzleBox(ctrl),
         ctrl.streak ? streakBox(ctrl) : userBox(ctrl),
-        config(ctrl),
         theme(ctrl),
+        config(ctrl),
       ]),
       hl(
         'div.puzzle__board.main-board' + (ctrl.blindfold() ? '.blindfold' : ''),
@@ -146,38 +149,43 @@ export default function (ctrl: PuzzleCtrl): VNode {
   );
 }
 
-function session(ctrl: PuzzleCtrl) {
+function session(ctrl: PuzzleCtrl): MaybeVNode {
   const rounds = ctrl.session.get().rounds,
     current = ctrl.data.puzzle.id;
-  return hl('div.puzzle__session', [
-    rounds.map(round => {
-      const rd =
-        round.ratingDiff && ctrl.opts.showRatings
-          ? round.ratingDiff > 0
-            ? '+' + round.ratingDiff
-            : round.ratingDiff
-          : null;
+  return rounds.length
+    ? hl('div.puzzle__session', [
+        rounds.map(round => {
+          const rd =
+            round.ratingDiff && ctrl.opts.showRatings
+              ? round.ratingDiff > 0
+                ? '+' + round.ratingDiff
+                : round.ratingDiff
+              : null;
 
-      return h(
-        `a.result-${round.result}${rd ? '' : '.result-empty'}`,
-        {
-          key: round.id,
-          class: { current: current === round.id },
-          attrs: {
-            href: `/training/${ctrl.session.theme}/${round.id}`,
-            ...(ctrl.streak ? { target: '_blank' } : {}),
-          },
-        },
-        rd,
-      );
-    }),
-    rounds.find(r => r.id === current)
-      ? !ctrl.streak &&
-        hl('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
-      : hl(
-          'a.result-cursor.current',
-          { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
-          ctrl.streak && (ctrl.streak.data.index + 1).toString(),
-        ),
-  ]);
+          return h(
+            `a.result-${round.result}${rd ? '' : '.result-empty'}`,
+            {
+              key: round.id,
+              class: { current: current === round.id },
+              attrs: {
+                href: `/training/${ctrl.session.theme}/${round.id}`,
+                ...(ctrl.streak ? { target: '_blank' } : {}),
+              },
+            },
+            rd,
+          );
+        }),
+        rounds.some(r => r.id === current)
+          ? !ctrl.streak &&
+            hl('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
+          : hl(
+              'a.result-cursor.current',
+              {
+                key: current,
+                attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` },
+              },
+              ctrl.streak && (ctrl.streak.data.index + 1).toString(),
+            ),
+      ])
+    : undefined;
 }

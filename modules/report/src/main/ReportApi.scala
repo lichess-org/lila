@@ -270,7 +270,7 @@ final class ReportApi(
   // `seriousness` depends on the number of previous warnings, and number of games thrown away
   def autoBoostReport(winnerId: UserId, loserId: UserId, seriousness: Int): Funit =
     securityApi
-      .shareAnIpOrFp(winnerId, loserId)
+      .shareAnIpOrFp(winnerId -> loserId)
       .zip(userApi.pair(winnerId, loserId))
       .zip(getLichessReporter)
       .flatMap:
@@ -328,9 +328,7 @@ final class ReportApi(
       userText: String,
       url: String,
       onlyIfFlaggedImages: Boolean = false // if true, will not create an automod report based on text alone
-  )(using
-      me: Me
-  ): Funit =
+  )(using me: Me): Funit =
     val assessText = automodApi
       .text(
         userText,
@@ -338,26 +336,27 @@ final class ReportApi(
         model = commsModelSetting.get()
       )
       .monSuccess(_.mod.report.automod.request)
-    for
+    val candidate = for
       (images, textResponse) <- automodApi.markdownImages(Markdown(userText)).zip(assessText)
       flaggedImages = images.flatMap(_.automod).flatMap(_.flagged)
       suspectOpt <- getSuspect(me)
       reporter <- automodReporter
-    yield
-      for
-        res <- textResponse
-        fromLlm <- res.str("assessment")
-        hasFlaggedImages = flaggedImages.nonEmpty
-        kamonTag = if hasFlaggedImages then "image" else if fromLlm == "pass" then "ok" else fromLlm
-        _ = lila.mon.mod.report.automod.assessment(kamonTag).increment()
-        reason <- fromLlm match
-          case "pass" if hasFlaggedImages => Reason("comm")
-          case "other" => Reason("comm") // llm knows "other"
-          case r => Reason(r)
-        suspect <- suspectOpt
-        summary = (flaggedImages ++ res.str("reason")).mkString(", ")
-        if hasFlaggedImages || !onlyIfFlaggedImages
-      yield create(
+      fromLlm <- textResponse
+        .str("assessment")
+        .toTry(s"missing assessment in automod response: $textResponse")
+        .toFuture
+      hasFlaggedImages = flaggedImages.nonEmpty
+      kamonTag = if hasFlaggedImages then "image" else if fromLlm == "pass" then "ok" else fromLlm
+      _ = lila.mon.mod.report.automod.assessment(kamonTag).increment()
+      reason = fromLlm match
+        case "pass" if hasFlaggedImages => Reason("comm")
+        case "other" => Reason("comm") // llm knows "other"
+        case r => Reason(r)
+      suspect <- suspectOpt.toTry(s"suspect $me not found").toFuture
+      summary = (flaggedImages ++ textResponse.str("reason")).mkString(", ")
+    yield reason
+      .ifTrue(hasFlaggedImages || !onlyIfFlaggedImages)
+      .map: reason =>
         Candidate(
           reporter = reporter,
           suspect = suspect,
@@ -366,7 +365,9 @@ final class ReportApi(
             .mkString("/") +
             s"]: $summary $url"
         )
-      ).recoverWith: e =>
+    candidate
+      .flatMapz(create(_))
+      .recoverWith: e =>
         logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)
         funit
 
@@ -540,7 +541,7 @@ final class ReportApi(
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
     userApi
-      .listWithPerfs(reports.map(_.user).distinct)
+      .listWithPerfs(reports.map(_.user).distinct, includeClosed = true)
       .map: users =>
         reports
           .flatMap: r =>

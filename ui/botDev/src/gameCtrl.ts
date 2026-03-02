@@ -32,7 +32,7 @@ export class GameCtrl {
     this.proxy = new RoundProxy(opts.pref);
   }
 
-  load(game: LocalSetup | undefined): void {
+  load(game?: LocalSetup): void {
     this.stop();
     this.rewind = undefined;
     this.live = new LocalGame({ ...this.live?.setup, ...game });
@@ -237,7 +237,7 @@ export class GameCtrl {
   }
 
   private triggerStart(inProgress = false) {
-    for (const c of ['white', 'black'] as const) {
+    for (const c of co.COLORS) {
       if (!env.bot[c]) continue;
       env.bot.bots.get(env.bot[c].uid)?.playSound(['greeting']);
     }
@@ -264,7 +264,7 @@ export class GameCtrl {
   }
 
   private resetClock() {
-    const initial = this.live.initial as number;
+    const initial = this.live.initial;
     this.clock = Number.isFinite(initial)
       ? {
           initial: initial,

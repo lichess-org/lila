@@ -92,6 +92,6 @@
   </plurals>
   <string name="percentSolved">%s شیکارکراو</string>
   <string name="noPuzzlesToShow">هیچشتێک نییە بۆ نیشاندان، سەرەتا هەندێک مەتەڵ شیکاربکە!</string>
-  <string name="improvementAreasDescription">ڕاهێنانی ئەمانە بکە بۆ باشتر بەرەوپێشچوونت!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">ڕاهێنانی ئەمانە بکە بۆ باشتر بەرەوپێشچوونت!</string>
   <string name="strengthDescription">تۆ باشترینت ئەنجامدا لەم بابەتەدا</string>
 </resources>

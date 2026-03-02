@@ -90,7 +90,7 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="timePlaying">Jokatzen emandako denbora</string>
   <string name="variantXOverLastY">%1$s azken %2$s-n</string>
   <string name="winrate">Garaipen ratioa</string>
-  <string name="na">Ezezaguna</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Ezezaguna</string>
   <string name="overview">Laburpena</string>
   <string name="news">Albisteak</string>
   <string name="classNews">Klaseko berriak</string>
@@ -121,7 +121,7 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="allowMessagingBetweenStudentsDesc">Hau zure ikasleentzat sortutako kontuen artekoa da bakarrik.</string>
   <string name="quickLoginCode">Azkar sartzeko kodea</string>
   <string name="quickLoginCodes">Azkar sartzeko kodeak</string>
-  <string name="quickLoginCodesDesc1" comment="String is a URL">Erabili kode hauek %s zure ikasleak Lichessen sartzeko.</string>
+  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Erabili kode hauek %s zure ikasleak Lichessen sartzeko.</string>
   <string name="quickLoginCodesDesc2">Kodeak iraungitzen direnean zure ikasleek sartuta jarraituko dute eskuz irteten diren arte.</string>
-  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Iraungitzea %s</string>
+  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">Iraungitzea %s</string>
 </resources>

@@ -19,10 +19,10 @@
   <string name="displayBoardResizeHandle">Regeler fir Brietgréisst ze änneren weisen</string>
   <string name="onlyOnInitialPosition">Just an Startpositioun</string>
   <string name="inGameOnly">Nëmme wärend der Partie</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Ausser an der Partie</string>
+  <string name="exceptInGame">Ausser an der Partie</string>
   <string name="chessClock">Schachauer</string>
   <string name="tenthsOfSeconds">Zéngtelsekonnen</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wa &lt; 10 Sekonnen iwwreg bleiwen</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wa &lt; 10 Sekonnen iwwreg bleiwen</string>
   <string name="horizontalGreenProgressBars">Horizontale grénge Fortschrëttsbalken</string>
   <string name="soundWhenTimeGetsCritical">Toun wann Zäit kritesch gëtt</string>
   <string name="giveMoreTime">Zäit bäiginn</string>
@@ -38,7 +38,7 @@
   <string name="explainPromoteToQueenAutomatically">Hal wärend der Ëmwandlung d\'&lt;ctrl&gt;-Tast gedréckt fir déi automatesch Ëmwandlung temporär ze desaktivéieren</string>
   <string name="whenPremoving">Wann Virauszuch</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Remis duerch dräifach Stellungswidderhuelung reklaméieren</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wa &lt; 30 Sekonnen iwwereg bleiwen</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Wa &lt; 30 Sekonnen iwwereg bleiwen</string>
   <string name="moveConfirmation">Zich confirméieren</string>
   <string name="explainCanThenBeTemporarilyDisabled">Ka wärend der Partie iwwert de Brietmenü desaktivéiert ginn</string>
   <string name="inCorrespondenceGames">Fernschachpartien</string>
@@ -67,5 +67,5 @@
   <string name="notifyWeb">Web-Browser</string>
   <string name="notifyDevice">Gerät</string>
   <string name="bellNotificationSound">Glacken-Notifikatiounstoun</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Blann</string>
+  <string name="blindfold" comment="As in Blindfold chess">Blann</string>
 </resources>

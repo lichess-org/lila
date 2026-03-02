@@ -106,12 +106,7 @@ object perf:
   trait PerfStatApi:
     def highestRating(user: UserId, perfKey: PerfKey): Fu[Option[IntRating]]
 
-  case class Perf(
-      glicko: Glicko,
-      nb: Int,
-      recent: List[IntRating],
-      latest: Option[Instant]
-  ):
+  case class Perf(glicko: Glicko, nb: Int, recent: List[IntRating], latest: Option[Instant]):
     export glicko.{ intRating, intDeviation, provisional }
     export latest.{ isEmpty, nonEmpty }
 

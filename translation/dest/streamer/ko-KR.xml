@@ -39,8 +39,8 @@
   <plurals name="keepItShort">
     <item quantity="other">짧게 유지하세요: 최대 %s자</item>
   </plurals>
-  <string name="visibility">스트리머 페이지에 표시할까요?</string>
-  <string name="whenApproved">운영진이 승인한 경우</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">스트리머 페이지에 표시할까요?</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">운영진이 승인한 경우</string>
   <string name="headline">헤드라인</string>
   <string name="tellUsAboutTheStream">당신의 스트리밍을 한 문장으로 요약해주세요</string>
   <string name="longDescription">상세설명</string>

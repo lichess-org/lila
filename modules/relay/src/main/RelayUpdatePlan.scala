@@ -74,15 +74,17 @@ object RelayUpdatePlan:
     )
 
   private[relay] def isSameGame(game: RelayGame, chapter: Chapter): Boolean =
-    isSameGameBasedOnTags(game.tags, chapter.tags) || isSameGameBasedOnSomeTagsAndFirstMoves(game, chapter)
+    isSameGameId(game.tags, chapter.tags).getOrElse:
+      isSameGameBasedOnTags(game.tags, chapter.tags) || isSameGameBasedOnSomeTagsAndFirstMoves(game, chapter)
+
+  private def isSameGameId(gameTags: Tags, chapterTags: Tags): Option[Boolean] =
+    (gameTags(_.GameId), chapterTags(_.GameId)).mapN(_ == _)
 
   private[relay] def isSameGameBasedOnTags(gameTags: Tags, chapterTags: Tags): Boolean =
-    ~(gameTags(_.GameId), chapterTags(_.GameId)).mapN(_ == _) || {
-      allSame(RelayGame.eventTags)(gameTags, chapterTags) &&
+    allSame(RelayGame.eventTags)(gameTags, chapterTags) &&
       gameTags.roundNumber == chapterTags.roundNumber &&
       gameTags.boardNumber == chapterTags.boardNumber &&
       playerTagsMatch(gameTags, chapterTags)
-    }
 
   // if the board number or event has changed, but most moves look similar,
   // then probably it's the same game but the source changed the order and board numbers

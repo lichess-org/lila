@@ -6,7 +6,7 @@
   <string name="progressX">Framsteg: %s</string>
   <string name="resetMyProgress">Attendestill framsteget</string>
   <string name="youWillLoseAllYourProgress">Du kjem til å miste alle framstega dine!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">spel!</string>
+  <string name="play">spel!</string>
   <string name="chessPieces">Sjakkbrikker</string>
   <string name="theRook">Tårnet</string>
   <string name="itMovesInStraightLines">Blir flytta i rette liner</string>
@@ -121,7 +121,6 @@ Det er inga grunn til omvandling.</string>
   <string name="findAWayToCastleKingSide">Finn eit vis å rokere kort på!</string>
   <string name="findAWayToCastleQueenSide">Finn eit vis å rokere langt på!</string>
   <string name="castlingComplete">Gratulerar! Du bør nesten alltid rokere.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Det særeigne bondetrekket</string>
   <string name="enPassantIntro">Om motspelaren sin bonde hoppar to felt fram, kan du slå den ut som om den flytta eitt felt.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Svart flytta bonden to felt fram! Ta han \"en passant\" (i forbifarta).</string>

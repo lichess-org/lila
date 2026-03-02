@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Tefla á móti tölvu</string>
   <string name="gameMode">Gerð</string>
   <string name="createLobbyGame">Hefja skák í salnum</string>
-  <string name="youPlayAs">Þú ert</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gefðu upp þessa vefslóð til að bjóða einhverjum að tefla</string>
   <string name="gameOver">Búið spil</string>
   <string name="waitingForOpponent">Bið eftir andstæðingi</string>
@@ -231,7 +230,6 @@
   <string name="changeUsernameNotSame">Aðeins er hægt að víxla á hástöfum og lágstöfum. Til dæmis „ómarragnarsson” í „ÓmarraGNARsson”.</string>
   <string name="changeUsernameDescription">Skiptu um notendanafn. Þú getur aðeins gert þetta einu sinni og þú mátt bara víxla á hástöfum og lágstöfum.</string>
   <string name="signupUsernameHint">Veldu notandanafn sem er viðeigandi fyrir alla, jafnvel börn. Ekki er hægt að breyta því síðar og allir aðgangar með óviðeigandi notendanöfn verða lokaðir!</string>
-  <string name="signupEmailHint">Við munum eingöngu nota það til að endursetja lykilorð.</string>
   <string name="password">Lykilorð</string>
   <string name="changePassword">Breyta lykilorði</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
@@ -427,7 +425,6 @@
   <string name="pasteTheFenStringHere">Límdu FEN strenginn hér</string>
   <string name="pasteThePgnStringHere">Límdu inn PGN-strenginn hér</string>
   <string name="orUploadPgnFile">Eða hlaða upp PGN-skrá</string>
-  <string name="fromPosition">Frá stöðu</string>
   <string name="continueFromHere">Halda áfram héðan</string>
   <string name="toStudy">Stúdera</string>
   <string name="importGame">Hlaða inn skák</string>
@@ -713,11 +710,6 @@
   <string name="keyCycleSelectedVariation">Fletta í gegnum valda afbrigðið</string>
   <string name="keyShowOrHideComments">sýna/fela athugasemd</string>
   <string name="keyEnterOrExitVariation">fara í/úr afbrigði</string>
-  <string name="keyRequestComputerAnalysis">Biðja um tölvugreiningu, Lærðu af mistökum þínum</string>
-  <string name="keyNextLearnFromYourMistakes">Næst (Lærðu af mistökum þínum)</string>
-  <string name="keyNextBlunder">Næsti afleikur</string>
-  <string name="keyNextMistake">Næstu mistök</string>
-  <string name="keyNextInaccuracy">Næsta ónákvæmni</string>
   <string name="keyPreviousBranch">Fyrri grein</string>
   <string name="keyNextBranch">Næsta grein</string>
   <string name="toggleVariationArrows">Víxla afbrigðisörvum</string>
@@ -950,7 +942,7 @@
   <string name="timeAlmostUp">Tíminn er næstum því liðinn!</string>
   <string name="clickToRevealEmailAddress">[Smelltu til að sýna netfang]</string>
   <string name="download">Sækja</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Stýringar þjálfara</string>
+  <string name="coachManager">Stýringar þjálfara</string>
   <string name="streamerManager">Stýringar streymara</string>
   <string name="cancelTournament">Aflýsa mótinu</string>
   <string name="tournDescription">Lýsing móts</string>

@@ -1,3 +1,4 @@
+import type { TreeNode } from 'lib/tree/types';
 import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import {
   attributesModule,
@@ -15,10 +16,10 @@ export const emptyRedButton = 'button.button.button-red.button-empty';
 
 export const baseUrl = () => `${window.location.protocol}//${window.location.host}`;
 
-export function nodeFullName(node: Tree.Node) {
-  if (node.san) return plyToTurn(node.ply) + (node.ply % 2 === 1 ? '.' : '...') + ' ' + fixCrazySan(node.san);
-  return 'Initial position';
-}
+export const nodeFullName = (node: TreeNode): string =>
+  node.san
+    ? plyToTurn(node.ply) + (node.ply % 2 === 1 ? '.' : '...') + ' ' + fixCrazySan(node.san)
+    : 'Initial position';
 
 export const plural = (noun: string, nb: number): string => nb + ' ' + (nb === 1 ? noun : noun + 's');
 

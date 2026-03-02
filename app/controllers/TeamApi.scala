@@ -28,7 +28,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         .teamEnabled(id)
         .flatMapz: team =>
           for
-            joined <- ctx.userId.so { api.belongsTo(id, _) }
+            joined <- ctx.useMe(api.isMember(id))
             requested <- ctx.userId.ifFalse(joined).so { env.team.requestRepo.exists(id, _) }
             withLeaders <- env.team.memberRepo.addPublicLeaderIds(team)
             _ <- env.user.lightUserApi.preloadMany(withLeaders.publicLeaders)
@@ -46,7 +46,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
     Found(api.teamEnabled(teamId)): team =>
       val canView: Fu[Boolean] =
         if team.publicMembers then fuccess(true)
-        else ctx.me.so(api.belongsTo(team.id, _))
+        else ctx.useMe(api.isMember(team.id))
       canView.map:
         if _ then
           val full = getBool("full")
@@ -71,12 +71,12 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
             leads <- teams.mapFutureList(env.team.memberRepo.addPublicLeaderIds)
           yield leads
 
-  def teamsOf(username: UserStr) = AnonOrScoped(): ctx ?=>
+  def teamsOf(username: UserStr) = Scoped(): ctx ?=>
     Found(meOrFetch(username)): user =>
       import env.team.jsonView.given
       JsonOk:
         for
-          ids <- api.joinedTeamIdsOfUserAsSeenBy(user)
+          ids <- ctx.useMe(api.joinedTeamIdsOfUserAsSeenBy(user))
           teams <- api.teamsByIds(ids)
           teams <- env.team.memberRepo.addPublicLeaderIds(teams)
           _ <- env.user.lightUserApi.preloadMany(teams.flatMap(_.publicLeaders))
@@ -138,11 +138,10 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
     api
       .teamEnabled(teamId)
       .flatMap:
-        case Some(team) =>
+        _.fold(fuccess(ApiResult.NoData)): team =>
           api
-            .isGranted(team.id, me.value, perm)
+            .isGranted(team.id, perm)
             .flatMap:
               if _ then f(team)
               else fuccess(ApiResult.ClientError("Insufficient team permissions"))
-        case None => fuccess(ApiResult.NoData)
       .map(apiC.toHttp)

@@ -13,7 +13,6 @@ object Federation:
 
   type Name = String
   type ByFideIds = Map[FideId, Id]
-  type NamesOf = List[FideId] => Fu[Map[Federation.Id, Federation.Name]]
   type FedsOf = List[FideId] => Fu[Federation.ByFideIds]
 
   case class Stats(rank: Int, nbPlayers: Int, top10Rating: Int)

@@ -63,7 +63,7 @@ function appeal() {
 }
 
 function autoForm({ selector, ops }: { selector: string; ops: string }) {
-  const el = document.querySelector(selector) as HTMLElement;
+  const el = document.querySelector<HTMLElement>(selector);
   const oplist = ops.split(' ');
   if (!el || oplist.length === 0) return;
   if (oplist.includes('focus')) el.focus();
@@ -247,7 +247,7 @@ function thanksReport() {
   const $button = $('button.report-block');
   $button.one('click', function () {
     $button.find('span').text('Blocking...');
-    fetch($button.data('action')!, { method: 'post' }).then(async res =>
+    fetch($button.data('action'), { method: 'post' }).then(async res =>
       $button.find('span').text(res.ok ? 'Blocked!' : 'Block error'),
     );
   });

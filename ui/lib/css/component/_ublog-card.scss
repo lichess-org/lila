@@ -1,7 +1,7 @@
 .ublog-post-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
-  grid-gap: 1em;
+  gap: 1em;
 }
 .ublog-post-card {
   @extend %box-neat-force;
@@ -65,7 +65,7 @@
     width: 100%;
     height: auto;
     &.ublog-post-image-default {
-      background-image: url(../images/placeholder-margin.png);
+      background-image: url('../images/placeholder-margin.png');
       background-size: cover;
       background-position: center;
     }

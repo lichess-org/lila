@@ -15,7 +15,7 @@
   <string name="breakdownOfOurCosts">költségeink lebontása</string>
   <string name="otherWaysToHelp">még így segíthetsz</string>
   <string name="areThereWebsitesBasedOnLichess">Vannak Lichess-en alapuló weboldalak?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Igen. Lichess valóban inspirált más nyílt forrású oldalakat amik használják a %1$s, %2$s vagy %3$s-t.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Igen. A Lichess valóban inspirált más nyílt forráskódú oldalakat, amelyek használják a %1$sját, %2$sját vagy %3$sát.</string>
   <string name="keyboardShortcuts">Melyek az elérhető gyorsbilllentyűk?</string>
   <string name="keyboardShortcutsExplanation">A Lichess oldalain gyorsbillentyűket is használhatsz. Nyomd meg a \'?\' billentyűt a tanulmány, elemzés, feladvány és játszma oldalakon az elérhető gyorsbillentyűk listájához.</string>
   <string name="fairPlay">Sportszerűség</string>

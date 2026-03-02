@@ -4,16 +4,16 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONDocument
 
-import lila.core.shutup.{ PublicSource, ShutupApi }
+import lila.core.shutup.ShutupApi
 import lila.core.timeline as tl
 import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.memo.CacheApi.buildAsyncTimeout
-import lila.core.user.KidMode
 import lila.core.ublog.{ BlogsBy, Quality }
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.common.LilaFuture.delay
+import lila.core.user.KidMode
 
 final class UblogApi(
     colls: UblogColls,
@@ -64,7 +64,7 @@ final class UblogApi(
   yield
     triggerAutomod(post).foreach: res =>
       if isFirstPublish && blog.visible
-      then sendPostToZulip(author.light, post, blog.modTier.getOrElse(blog.tier), res)
+      then sendPostToZulip(author.light, post, res)
     post
 
   private def onFirstPublish(author: LightUser, blog: UblogBlog, post: UblogPost) =
@@ -73,7 +73,7 @@ final class UblogApi(
       lila.common.Bus.pub:
         tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
           .toFollowersOf(post.created.by)
-      shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
+      shutupApi.publicText(author.id, post.allText, lila.core.chat.PublicSource.Ublog(post.id))
 
   def getUserBlogOption(user: User): Fu[Option[UblogBlog]] =
     getBlog(UblogBlog.Id.User(user.id))
@@ -145,11 +145,21 @@ final class UblogApi(
       .map: results =>
         ids.flatMap(results.mapBy(_.id).get) // lila-search order
 
-  def recommend(blog: UblogBlog.Id, post: UblogPost)(using kid: KidMode): Fu[List[UblogPost.PreviewPost]] =
+  def recommend(blog: UblogBlog.Id, post: UblogPost)(using
+      kid: KidMode,
+      me: Option[MyId]
+  ): Fu[List[UblogPost.PreviewPost]] =
+    val postFilter = me.so: myId =>
+      $nor(likedBdoc(myId), authoredBdoc(myId))
     for
       sameAuthor <- colls.post
         .find(
-          $doc("blog" -> blog, "live" -> true, "_id".$ne(post.id), "automod.evergreen".$ne(false)),
+          $doc(
+            "blog" -> blog,
+            "live" -> true,
+            "_id".$ne(post.id),
+            "automod.evergreen".$ne(false)
+          ) ++ postFilter,
           previewPostProjection.some
         )
         .sort($doc("lived.at" -> -1))
@@ -158,7 +168,7 @@ final class UblogApi(
       similarIds = post.similar.so(_.filterNot(s => s.count < 4 || sameAuthor.exists(_.id == s.id)).map(_.id))
       similar <- colls.post
         .find(
-          $inIds(similarIds) ++ $doc("live" -> true, "automod.evergreen".$ne(false)),
+          $inIds(similarIds) ++ $doc("live" -> true, "automod.evergreen".$ne(false)) ++ postFilter,
           previewPostProjection.some
         )
         .cursor[UblogPost.PreviewPost](ReadPref.sec)
@@ -169,20 +179,17 @@ final class UblogApi(
   private def sendPostToZulip(
       user: LightUser,
       post: UblogPost,
-      tier: Tier,
       assessment: Option[UblogAutomod.Assessment]
   ): Funit =
-    val source =
-      if tier == Tier.UNLISTED then "unlisted tier"
-      else assessment.fold(Tier.name(tier).toLowerCase + " tier")(_.quality.name + " quality")
+    val source = assessment.fold("unknown")(_.quality.name) + " quality"
     val emdashes = post.markdown.value.count(_ == '—')
     val automodNotes = assessment.map: r =>
       ~r.flagged.map("Flagged: " + _ + "\n") +
         ~r.commercial.map("Commercial: " + _ + "\n") +
-        (emdashes match
+        emdashes.match
           case 0 => ""
           case 1 => s"#### 1 emdash found\n"
-          case n => s"#### $n emdashes found\n")
+          case n => s"#### $n emdashes found\n"
     irc.ublogPost(
       user,
       id = post.id,
@@ -198,7 +205,8 @@ final class UblogApi(
     def attempt(n: Int): Fu[Option[UblogAutomod.Assessment]] =
       ublogAutomod(post, n * 0.1)
         .flatMapz: llm =>
-          val result = post.automod.foldLeft(llm)(_.updateByLLM(_))
+          val result = post.automod.foldLeft(llm): (llm, prev) =>
+            prev.updateByLLM(llm)
           for _ <- colls.post.updateField($id(post.id), "automod", result)
           yield result.some
         .recoverWith: e =>
@@ -236,10 +244,14 @@ final class UblogApi(
   yield ()
 
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
-    colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.sec)
+    colls.post.find(authoredBdoc(user.id)).cursor[UblogPost](ReadPref.sec)
+
+  def authoredBdoc(userId: UserId): Bdoc = $doc("blog" -> s"user:${userId}")
+
+  def likedBdoc(userId: UserId): Bdoc = $doc("likers" -> userId)
 
   def liked(post: UblogPost)(user: User): Fu[Boolean] =
-    colls.post.exists($id(post.id) ++ $doc("likers" -> user.id))
+    colls.post.exists($id(post.id) ++ likedBdoc(user.id))
 
   def like(postId: UblogPostId, v: Boolean)(using me: Me): Fu[UblogPost.Likes] = for
     res <- colls.post.update.one($id(postId), $addOrPull("likers", me.userId, v))

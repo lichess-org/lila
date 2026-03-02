@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="standard" comment="As in standard chess (not a variant)">Standard</string>
-  <string name="standardTitle" comment="Description for standard chess (it has to have a description, just like all variants of the game).">Reguli de șah standard (FIDE)</string>
-  <string name="chess960" comment="A chess variant where the setup of the back rank is randomised into up to 960 positions. Also known as Fischerandom and freestyle chess.&#10;&#10;Consider checking for already accepted names for this variant in your language through Wikidata: https://w.wiki/FkdK">Şah960</string>
-  <string name="chess960Title" comment="Description for the Chess960 variant.&#10;&#10;The &quot;home rank&quot; here is the back rank of each side (1 for white and 8 for blank) - which has the rooks, knights, bishops, king and queen.">Poziţia de început a pieselor din prima linie este randomizată.</string>
-  <string name="kingOfTheHill" comment="The name of a chess variant which follows standard rule, with the additional option that you can bring your king to the centre to win the game.&#10;&#10;The four centre tiles (e4, d4, e5, d5) appear to be visually elevated, like a hill.">Regele Dealului</string>
-  <string name="kingOfTheHillTitle" comment="Description for the King of the Hill chess variant">Adu-ți regele în centru pentru a câștiga jocul.</string>
-  <string name="threeCheck" comment="The name of a chess variant. The rules are the same as standard chess, with one addition: you may also win by checking the opponent's king three times.">Șah triplu</string>
-  <string name="threeCheckTitle" comment="Description for the Three-Check Chess variant">Dă-i șah de 3 ori adversarului pentru a câștiga jocul.</string>
-  <string name="antichess" comment="The name of a chess variant where you must lose your pieces or get stalemated to win. Basically, the opposite of chess (hence being &quot;anti&quot; chess).">Antișah</string>
-  <string name="antichessTitle" comment="Description for the Antichess variant">Pierde-ți toate piesele (sau intră în pat) pentru a câștiga jocul.</string>
-  <string name="atomic" comment="The name of a chess variant where pieces explode when captured. Named after nuclear explosions.">Atomic</string>
-  <string name="atomicTitle" comment="Description for the Atomic Chess variant. Alternatives to nuke could be &quot;blow up&quot; or &quot;explode&quot;.">Spulberă regele adversarului pentru a câștiga.</string>
-  <string name="horde" comment="The name of a chess variant where one side has a regular chess army but the other has dozens of pawns, resembling a horde.">Hoardă</string>
-  <string name="hordeTitle" comment="Description for the Horde chess variant">O parte are un număr mare de pioni, cealaltă parte are o armată normală.</string>
-  <string name="racingKings" comment="The name of a chess variant where both sides start on the same rank, and need to reach the other side of the board win.&#10;&#10;No need to translate literally. Focus on making it fun, capturing the spirit of the variant.">Cursa Regilor</string>
-  <string name="racingKingsTitle" comment="Description for the Racing Kings chess variant">Adu-ți regele în cealaltă parte a tablei pentru a câștiga.</string>
-  <string name="crazyhouse" comment="The name of a chess variant where pieces you capture can be put on the board (similar to shogi).">Crazyhouse</string>
-  <string name="crazyhouseTitle" comment="Description for the Crazyhouse chess variant">Piesele capturate pot fi așezate înapoi pe tablă în loc de a mișca o piesă.</string>
+  <string name="standard">Standard</string>
+  <string name="standardTitle">Reguli de șah standard (FIDE)</string>
+  <string name="chess960">Şah960</string>
+  <string name="chess960Title">Poziţia de început a pieselor din prima linie este randomizată.</string>
+  <string name="kingOfTheHill">Regele Dealului</string>
+  <string name="kingOfTheHillTitle">Adu-ți regele în centru pentru a câștiga jocul.</string>
+  <string name="threeCheck">Șah triplu</string>
+  <string name="threeCheckTitle">Dă-i șah de 3 ori adversarului pentru a câștiga jocul.</string>
+  <string name="antichess">Antișah</string>
+  <string name="antichessTitle">Pierde-ți toate piesele (sau intră în pat) pentru a câștiga jocul.</string>
+  <string name="atomic">Atomic</string>
+  <string name="atomicTitle">Spulberă regele adversarului pentru a câștiga.</string>
+  <string name="horde">Hoardă</string>
+  <string name="hordeTitle">O parte are un număr mare de pioni, cealaltă parte are o armată normală.</string>
+  <string name="racingKings">Cursa Regilor</string>
+  <string name="racingKingsTitle">Adu-ți regele în cealaltă parte a tablei pentru a câștiga.</string>
+  <string name="crazyhouse">Crazyhouse</string>
+  <string name="crazyhouseTitle">Piesele capturate pot fi așezate înapoi pe tablă în loc de a mișca o piesă.</string>
+  <string name="fromPosition" comment="An option that lets you create a standard chess game from a custom position.">Din poziția</string>
+  <string name="fromPositionTitle" comment="Description for when looking to start a game 'From position'">Șah standard dintr-o poziție personalizată</string>
 </resources>

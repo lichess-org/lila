@@ -6,7 +6,7 @@
   <string name="progressX">Pag-unlad: %s</string>
   <string name="resetMyProgress">Ibalik ang aking pag-unlad</string>
   <string name="youWillLoseAllYourProgress">Mawawala ang lahat ng iyong pag-unlad!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">maglaro!</string>
+  <string name="play">maglaro!</string>
   <string name="chessPieces">Mga piraso ng chess</string>
   <string name="theRook">Ang rook</string>
   <string name="itMovesInStraightLines">Ito ay gumagalaw sa tuwid na mga linya</string>
@@ -138,7 +138,6 @@ Kailangan mo muna maglabas ng mga piraso.</string>
   <string name="findAWayToCastleKingSide">Humanap ng paraan para maka-enrook sa panig ng hari!</string>
   <string name="findAWayToCastleQueenSide">Humanap ng paraan para maka-enrook sa panig ng reyna!</string>
   <string name="castlingComplete">Binabati kita! Ikaw ay palaging nag-enrook sa isang laro.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Ang espesyal na galaw ng pawn</string>
   <string name="enPassantIntro">Kapag ang pawn nga iyong kalaban ay gumalaw ng dalawang kwadrado, pwede mo itong kunin gaya ng ito ay gumalaw ng isang kwadrado.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Ang itim na pawn ay gumalaw paibaba na dalawang kwadrado!

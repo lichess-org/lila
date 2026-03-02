@@ -1,5 +1,4 @@
 import { dragNewPiece } from '@lichess-org/chessground/drag';
-import { readDrops } from 'lib/game/chess';
 import type AnalyseCtrl from '../ctrl';
 import type { MouchEvent } from '@lichess-org/chessground/types';
 
@@ -15,19 +14,8 @@ export function drag(ctrl: AnalyseCtrl, color: Color, e: MouchEvent): void {
   dragNewPiece(ctrl.chessground.state, { color, role }, e);
 }
 
-export function valid(
-  chessground: CgApi,
-  possibleDrops: string | undefined | null,
-  piece: Piece,
-  pos: Key,
-): boolean {
+export function valid(chessground: CgApi, possibleDrops: Key[] | undefined, piece: Piece, pos: Key): boolean {
   if (piece.color !== chessground.state.movable.color) return false;
-
   if (piece.role === 'pawn' && (pos[1] === '1' || pos[1] === '8')) return false;
-
-  const drops = readDrops(possibleDrops);
-
-  if (drops === null) return true;
-
-  return drops.includes(pos);
+  return !possibleDrops || possibleDrops.includes(pos);
 }

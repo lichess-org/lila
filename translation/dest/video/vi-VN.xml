@@ -3,21 +3,21 @@
   <string name="chessVideos">Các video cờ vua</string>
   <string name="allVideosAreFree">Tất cả video đều miễn phí cho mọi người.</string>
   <string name="selectTagsToFilter">Chọn thẻ để lọc video.</string>
-  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">Cho đến nay chúng tôi đã lựa chọn cẩn thận %s video!</string>
+  <string name="weHaveCarefullySelectedX">Cho đến nay chúng tôi đã lựa chọn cẩn thận %s video!</string>
   <string name="freeChessVideos">Video cờ vua miễn phí</string>
-  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s video cờ vua miễn phí, được tuyển chọn kỹ lưỡng</string>
-  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s video được tuyển chọn</string>
-  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s video với thẻ %2$s</string>
-  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">miễn phí hoàn toàn</string>
-  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+  <string name="xFreeCarefullyCurated">%s video cờ vua miễn phí, được tuyển chọn kỹ lưỡng</string>
+  <string name="xCuratedChessVideos">%s video được tuyển chọn</string>
+  <string name="xWithTagsY">%1$s video với thẻ %2$s</string>
+  <string name="freeForAll">miễn phí hoàn toàn</string>
+  <plurals name="nbVideosFound">
     <item quantity="other">%s video được tìm thấy</item>
   </plurals>
   <string name="noVideosForTheseTags">Không có video nào cho các thẻ này:</string>
   <string name="thatsAllWeGotForTheseTags">Đó là tất cả những gì chúng tôi có cho các thẻ này:</string>
-  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Đó là tất cả những gì chúng tôi có cho tìm kiếm này: \"%s\"</string>
-  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">Không có kết quả nào cho \"%s\"</string>
-  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">Xem thêm các thẻ</string>
+  <string name="thatsAllWeGotForThisSearchX">Đó là tất cả những gì chúng tôi có cho tìm kiếm này: \"%s\"</string>
+  <string name="thereAreNoResultsForX">Không có kết quả nào cho \"%s\"</string>
+  <string name="viewMoreTags">Xem thêm các thẻ</string>
   <string name="videoNotFound">Không tìm thấy video!</string>
-  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">%1$s bởi %2$s</string>
-  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">Tất cả %s thẻ video</string>
+  <string name="xByY">%1$s bởi %2$s</string>
+  <string name="allNbVideoTags">Tất cả %s thẻ video</string>
 </resources>

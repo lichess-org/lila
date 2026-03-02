@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Átméretező sarok mutatása</string>
   <string name="onlyOnInitialPosition">Csak kezdőállásnál</string>
   <string name="inGameOnly">Csak játék közben</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Kivéve játék közben</string>
+  <string name="exceptInGame">Kivéve játék közben</string>
   <string name="chessClock">Sakkóra</string>
   <string name="tenthsOfSeconds">Tizedmásodpercek</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Amikor a hátralévő idő &lt; 10 másodperc</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Amikor a hátralévő idő &lt; 10 másodperc</string>
   <string name="horizontalGreenProgressBars">Vízszintes zöld folyamatjelző</string>
   <string name="soundWhenTimeGetsCritical">Figyelmeztető hang, ha nagyon kevés idő maradt</string>
   <string name="giveMoreTime">Több idő adása</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Gyalogátváltozáskor tartsd lenyomva a &lt;ctrl&gt; billentyűt, hogy a gyalog ne változzon át automatikusan</string>
   <string name="whenPremoving">Előre meghatározott lépés esetén</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Háromszori ismétlés esetén automatikus döntetlenigénylés</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Ha a hátralévő idő &lt; 30 másodperc</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Ha a hátralévő idő &lt; 30 másodperc</string>
   <string name="moveConfirmation">Lépés jóváhagyatása</string>
   <string name="explainCanThenBeTemporarilyDisabled">Játék közben a tábla melletti menüvel kikapcsolható</string>
   <string name="inCorrespondenceGames">Levelező játszmák</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">Böngésző</string>
   <string name="notifyDevice">Eszköz</string>
   <string name="bellNotificationSound">Hangjelzés</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Vakjátszma mód</string>
+  <string name="blindfold" comment="As in Blindfold chess">Vakjátszma mód</string>
 </resources>

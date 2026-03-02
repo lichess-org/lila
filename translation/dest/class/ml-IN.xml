@@ -37,7 +37,7 @@
   <string name="overDays">ദിവസങ്ങൾ തോറും</string>
   <string name="variantXOverLastY">%1$s %2$s വഴിനീളെ</string>
   <string name="winrate">വിജയനിരക്കു്</string>
-  <string name="na">ലഭ്യമല്ല</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">ലഭ്യമല്ല</string>
   <string name="overview">അവലോകനം</string>
   <string name="news">വാർത്ത</string>
   <string name="invite">ക്ഷണിക്കുക</string>

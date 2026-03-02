@@ -6,7 +6,7 @@
   <string name="progressX">Progreso: %s</string>
   <string name="resetMyProgress">Reiniciar o meu progreso</string>
   <string name="youWillLoseAllYourProgress">Perderás todo o teu progreso!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">xogar!</string>
+  <string name="play">xogar!</string>
   <string name="chessPieces">Pezas de xadrez</string>
   <string name="theRook">A torre</string>
   <string name="itMovesInStraightLines">Move en liña recta</string>
@@ -153,7 +153,6 @@ Bloquea o xaque e despois enroca!</string>
   <string name="findAWayToCastleKingSide">Atopa o xeito de enrocar en curto!</string>
   <string name="findAWayToCastleQueenSide">Atopa o xeito de enrocar en longo!</string>
   <string name="castlingComplete">Parabéns! Case sempre deberías enrocar nas túas partidas.</string>
-  <string name="enPassant">Captura ao paso</string>
   <string name="theSpecialPawnMove">O movemento especial do peón</string>
   <string name="enPassantIntro">Cando o peón rival moveu dúas casas, podes tomalo como se tivese movido unha casa.</string>
   <string name="blackJustMovedThePawnByTwoSquares">As negras moveron o peón

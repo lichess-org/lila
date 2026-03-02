@@ -16,12 +16,12 @@
   .node:target {
     height: auto;
     opacity: 1;
-    transform: translateX(0px);
+    transform: translateX(0);
   }
 
   .node .back {
     width: 1em;
-    @include margin-inline-end(0.3em);
+    margin-inline: 0 0.3em;
     display: inline-block;
     opacity: 0.6;
 

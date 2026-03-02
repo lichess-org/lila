@@ -158,12 +158,16 @@
   }
 
   .analysis,
-  .board-menu-toggle {
+  .board-menu-toggle-btn {
     display: none;
 
     @include mq-is-col1 {
       display: block;
       margin-inline-start: 2em;
+    }
+
+    @media (width <= $xxx-small) {
+      margin-inline-start: 0;
     }
   }
 
@@ -182,7 +186,7 @@
     }
 
     @keyframes rubber-band {
-      from {
+      0% {
         transform: scale3d(1, 1, 1);
       }
 
@@ -230,10 +234,7 @@
       &::before {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0;
         pointer-events: none;
         background: $c-primary;
         opacity: 0;

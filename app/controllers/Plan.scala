@@ -165,7 +165,7 @@ final class Plan(env: Env) extends LilaController(env):
       giftTo: Option[lila.user.User]
   )(using Context, Me) =
     env.plan.api.stripe
-      .createSession(checkout, customerId, giftTo, routeUrl)
+      .createSession(checkout, customerId, giftTo)
       .fold(badStripeApiCall, JsonOk)
 
   def switchStripePlan(money: Money)(using me: Me) =

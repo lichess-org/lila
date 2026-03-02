@@ -70,7 +70,7 @@
         background-color: $m-primary_bg--mix-40;
       }
       &:focus:not([disabled]) {
-        background-color: $c-bg-page; //$m-primary_bg--mix-60;
+        background-color: $c-bg-page; // $m-primary_bg--mix-60;
         outline: 1px solid;
       }
     }

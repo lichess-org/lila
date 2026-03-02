@@ -3,13 +3,16 @@
     td {
       padding: 0.5rem 1rem;
 
+      &.icon {
+        padding-right: 0;
+      }
+
       &.duration {
         white-space: nowrap;
       }
     }
 
     .header {
-      cursor: pointer;
       padding: 0;
 
       a {
@@ -53,6 +56,38 @@
 
     .soon {
       border: 1px solid $c-brag;
+    }
+
+    &.slist-resp {
+      @media (max-width: at-most($x-small)) {
+        td {
+          justify-content: flex-start;
+          border-top: 0;
+          gap: 8px;
+
+          &:first-child,
+          &:last-child {
+            display: none;
+          }
+
+          &::before {
+            content: unset;
+          }
+
+          &.header a {
+            padding-bottom: 0;
+          }
+
+          &.text {
+            padding-bottom: 1em;
+
+            &::before {
+              content: attr(data-icon);
+              margin-right: 0;
+            }
+          }
+        }
+      }
     }
   }
 }

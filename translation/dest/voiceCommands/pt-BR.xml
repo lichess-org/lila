@@ -18,5 +18,5 @@
   <string name="playPreferredMoveOrConfirmSomething">Fazer lance preferido ou confirmar algo</string>
   <string name="sleep">Dormir (se a palavra-chave estiver ativada)</string>
   <string name="turnOffVoiceRecognition">Desligar o reconhecimento de voz</string>
-  <string name="showPuzzleSolution">Mostrar solução do quebra-cabeça</string>
+  <string name="showPuzzleSolution">Mostrar solução do problema</string>
 </resources>

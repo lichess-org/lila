@@ -6,7 +6,7 @@
   <string name="progressX">Progression : %s</string>
   <string name="resetMyProgress">Réinitialiser ma progression</string>
   <string name="youWillLoseAllYourProgress">Vous perdrez toute votre progression !</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">jouer !</string>
+  <string name="play">jouer !</string>
   <string name="chessPieces">Les pièces</string>
   <string name="theRook">La tour</string>
   <string name="itMovesInStraightLines">Elle se déplace sur une ligne droite</string>
@@ -138,7 +138,6 @@ Parez l\'échec puis roquez !</string>
   <string name="findAWayToCastleKingSide">Trouvez un moyen d\'effectuer le petit roque !</string>
   <string name="findAWayToCastleQueenSide">Trouvez un moyen d\'effectuer le grand roque !</string>
   <string name="castlingComplete">Félicitations ! Vous devriez presque toujours roquer durant une partie.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Le coup spécial du pion</string>
   <string name="enPassantIntro">Lorsque le pion adverse avance de deux cases, on peut le prendre comme si il n\'avait avancé que d\'une case.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Les Noirs viennent juste de bouger

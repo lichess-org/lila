@@ -3,12 +3,12 @@
   <string name="perfStats">%s सांख्यिकी</string>
   <string name="viewTheGames">खेळ पाहा</string>
   <string name="provisional">तात्पुरते</string>
-  <string name="notEnoughRatedGames">विश्वसनीय गुणांकन ठरवण्यासाठी पुरसे औपचारीक खेळ नाहीत.</string>
+  <string name="notEnoughRatedGames">विश्वसनीय मानांकन ठरवण्यासाठी पुरसे मानांकित खेळ नाहीत.</string>
   <string name="progressOverLastXGames">गेल्या %s खेळांतील प्रगती:</string>
-  <string name="ratingDeviation">गुणांकनातील विचलन: %s.</string>
-  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">हे जेवढे कमी, तेवढे गुणांकन जास्त स्थिर. %1$s पेक्षा जास्त असेल तर गुणांकन तात्पुरते समजले जाते. मानांकनात वापरण्यासाठी हे %2$s पेक्षा कमी (साधारण बुद्धिबळासाठी) किंवा %3$s पेक्षा कमी (इतर प्रकारांसाठी) असावे लागते.</string>
+  <string name="ratingDeviation">मानांकनातील विचलन: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">हे जेवढे कमी, तेवढे मानांकन जास्त स्थिर. %1$s पेक्षा जास्त असेल तर मानांकन तात्पुरते समजले जाते. क्रमवारीत वापरण्यासाठी हे %2$s पेक्षा कमी (पारंपारिक बुद्धिबळासाठी) किंवा %3$s पेक्षा कमी (इतर प्रकारांसाठी) असावे लागते.</string>
   <string name="totalGames">एकूण खेळ</string>
-  <string name="ratedGames">गुणांकित खेळ</string>
+  <string name="ratedGames">मानांकित खेळ</string>
   <string name="tournamentGames">स्पर्धेतील खेळ</string>
   <string name="berserkedGames">बेभान खेळ</string>
   <string name="timeSpentPlaying">खेळण्यात घालवलेला वेळ</string>
@@ -17,14 +17,14 @@
   <string name="defeats">पराभव</string>
   <string name="disconnections">‍डिस्कनेक्षन्स</string>
   <string name="notEnoughGames">पुरेसे खेळ नाहीत</string>
-  <string name="highestRating">सर्वोच्च गुणांकन: %s</string>
-  <string name="lowestRating">सर्वात कमी गुणांकन: %s</string>
+  <string name="highestRating">सर्वोच्च मानांकन: %s</string>
+  <string name="lowestRating">सर्वात कमी मानांकन: %s</string>
   <string name="fromXToY">%1$s पासून %2$s पर्यंत</string>
   <string name="winningStreak">विजयाची मालिका</string>
   <string name="losingStreak">पराभवांची मालिका</string>
   <string name="longestStreak">सर्वात लांब मालिका: %s</string>
   <string name="currentStreak">सद्य मालिका: %s</string>
-  <string name="bestRated">गुणांनुसार सर्वोच्च विजय</string>
+  <string name="bestRated">मानांकनानुसार सर्वोच्च विजय</string>
   <string name="gamesInARow">सलग खेळ</string>
   <string name="lessThanOneHour">दोन डावांमध्ये एका तासापेक्षा कमी वेळ</string>
   <string name="maxTimePlaying">खेळण्यात घालवलेला सर्वाधिक वेळ</string>

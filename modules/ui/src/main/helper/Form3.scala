@@ -66,39 +66,35 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       cls := List("form-control" -> true, klass -> klass.nonEmpty)
     )(validationModifiers(field))
 
-  def checkbox(
-      field: Field,
-      labelContent: Frag,
-      half: Boolean = false,
-      help: Option[Frag] = None,
-      disabled: Boolean = false
-  ): Frag =
-    div(
-      cls := List(
-        "form-check form-group" -> true,
-        "form-half" -> half
-      )
-    )(
-      div(
-        span(cls := "form-check-input")(
-          cmnToggle(id(field), field.name, field.value.has("true"), disabled)
-        ),
-        groupLabel(field)(labelContent)
-      ),
-      help.map { helper(_) }
-    )
+  def cmnToggleWrap = label(cls := "cmn-toggle-wrap")
 
-  def cmnToggle[Value: Show](
+  def cmnToggle(
       fieldId: String,
       fieldName: String,
       checked: Boolean,
-      disabled: Boolean = false,
-      value: Value = "true",
-      styleClass: String = "cmn-toggle",
-      title: Option[String] = None,
-      action: Option[String] = None
+      action: Option[String] = None,
+      cssClass: String = "cmn-toggle"
   ) =
-    frag(
+    span(cls := cssClass)(
+      st.input(
+        st.id := fieldId,
+        name := fieldName,
+        st.value := "true",
+        tpe := "checkbox",
+        checked.option(st.checked),
+        action.map(st.data("action") := _)
+      ),
+      label(`for` := fieldId)
+    )
+
+  def nativeCheckbox[Value: Show](
+      fieldId: String,
+      fieldName: String,
+      checked: Boolean,
+      value: Value = "true",
+      disabled: Boolean = false
+  ) =
+    span(cls := "form-check__input")(
       (disabled && checked).option: // disabled checkboxes don't submit; need an extra hidden field
         hidden(fieldName, value)
       ,
@@ -107,27 +103,36 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         name := fieldName,
         st.value := value.show,
         tpe := "checkbox",
-        cls := s"form-control $styleClass",
         checked.option(st.checked),
-        disabled.option(st.disabled),
-        action.map(st.data("action") := _)
+        disabled.option(st.disabled)
       ),
-      label(`for` := fieldId, title.map(st.title := _))
+      label(cls := "form-check__label", `for` := fieldId)
     )
 
-  def nativeCheckbox[Value: Show](
-      fieldId: String,
-      fieldName: String,
-      checked: Boolean,
-      value: Value = "true"
-  ) =
-    st.input(
-      st.id := fieldId,
-      name := fieldName,
-      st.value := value.show,
-      tpe := "checkbox",
-      checked.option(st.checked)
+  def checkboxGroup(
+      field: Field,
+      labelContent: Frag,
+      half: Boolean = false,
+      help: Option[Frag] = None,
+      value: String = "true",
+      disabled: Boolean = false
+  ): Tag =
+    div(cls := List("form-check form-group" -> true, "form-half" -> half))(
+      div(cls := "form-check__container")(
+        nativeCheckbox(
+          id(field),
+          field.name,
+          checked = isChecked(field),
+          value = value,
+          disabled = disabled
+        ),
+        groupLabel(field)(labelContent)
+      ),
+      help.map { helper(_) }
     )
+
+  def isChecked(field: Field): Boolean =
+    field.value.exists(v => v == "true" || v == "1")
 
   def select(
       field: Field,
@@ -230,31 +235,35 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
     form.globalError.map: err =>
       div(cls := "form-group is-invalid")(error(err))
 
-  def fieldset(legend: Frag, toggle: Option[Boolean] = none): Tag =
+  def fieldset(legend: Frag, toggle: Option[Boolean] = none, disabled: Boolean = false): Tag =
     st.fieldset(
       cls := List(
         "toggle-box" -> true,
         "toggle-box--toggle" -> toggle.isDefined,
         "toggle-box--toggle-off" -> toggle.has(false)
-      )
+      ),
+      disabled.option(st.disabled)
     )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 
   private val dataEnableTime = attr("data-enable-time")
   private val dataMinDate = attr("data-min-date")
+  private val dataMaxDate = attr("data-max-date")
   private val dataLocal = attr("data-local")
 
   def flatpickr(
       field: Field,
       withTime: Boolean = true,
       local: Boolean = false,
-      minDate: Option[String] = Some("today")
+      minDate: Option[String] = Some("today"),
+      maxDate: Option[String] = None
   ): Tag =
     input(field, klass = s"flatpickr")(
       withTime.option(dataEnableTime := true),
       local.option(dataLocal := true),
       dataMinDate := minDate.map:
         case "today" if local => "yesterday"
-        case d => d
+        case d => d,
+      dataMaxDate := maxDate
     )
 
   private lazy val exceptEmojis = data("except-emojis") := flairApi.adminFlairs.mkString(" ")

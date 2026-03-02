@@ -10,7 +10,6 @@
 }
 
 body:has(.base-view.setup-view) {
-  -webkit-user-select: none !important;
   user-select: none !important;
 }
 
@@ -33,8 +32,7 @@ body:has(.base-view.setup-view) {
   .from-position {
     position: relative;
     .resets {
-      @extend %flex-center;
-      justify-content: center;
+      @extend %flex-center-center;
       padding: 2em;
       gap: 2em;
     }
@@ -60,7 +58,7 @@ body:has(.base-view.setup-view) {
     aspect-ratio: 1;
 
     &.drag-over {
-      outline: 2px solid $c-primary;
+      outline: $outline;
       outline-offset: 2px;
     }
   }
@@ -81,8 +79,7 @@ body:has(.base-view.setup-view) {
   }
 
   .chin {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
     padding: 1em;
     border-radius: 5px;
     border-top: 1px solid $c-border;
@@ -92,8 +89,7 @@ body:has(.base-view.setup-view) {
       gap: 0.5em;
     }
     span {
-      @extend %flex-center;
-      justify-content: center;
+      @extend %flex-center-center;
     }
     input {
       min-height: 32px;
@@ -114,13 +110,13 @@ body:has(.base-view.setup-view) {
       }
 
       &.white i {
-        background-image: url(../images/buttons/play-as-white.svg);
+        background-image: url('../images/buttons/play-as-white.svg');
       }
       &.black i {
-        background-image: url(../images/buttons/play-as-black.svg);
+        background-image: url('../images/buttons/play-as-black.svg');
       }
       &.random i {
-        background-image: url(../images/buttons/play-as-random.svg);
+        background-image: url('../images/buttons/play-as-random.svg');
       }
     }
   }
@@ -131,8 +127,7 @@ body:has(.base-view.setup-view) {
     gap: 0.5em;
   }
   .actions {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
   }
   @include mq-is-col1 {
     .fen {

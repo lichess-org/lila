@@ -74,7 +74,7 @@
 #hook {
   @extend %box-radius-force, %popup-shadow;
 
-  display: none;
+  visibility: hidden;
   background: $c-bg-box;
   position: absolute;
   z-index: $z-powertip-120;

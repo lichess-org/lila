@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">แสดงตัวปรับขนาดกระดาน</string>
   <string name="onlyOnInitialPosition">เฉพาะก่อนเริ่มเดินหมาก</string>
   <string name="inGameOnly">ในเกมเท่านั้น</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">ไม่โชว์ในเกม</string>
+  <string name="exceptInGame">ไม่โชว์ในเกม</string>
   <string name="chessClock">นาฬิกาหมากรุก</string>
   <string name="tenthsOfSeconds">ทศนิยมของวินาที</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">เมื่อเหลือเวลา &lt; 10 วินาที</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">เมื่อเหลือเวลา &lt; 10 วินาที</string>
   <string name="horizontalGreenProgressBars">แถบแนวนอนสีเขียวแสดงความคืบหน้า</string>
   <string name="soundWhenTimeGetsCritical">เสียงเมื่อเวลาถึงจุดวิกฤต</string>
   <string name="giveMoreTime">ให้เวลาเพิ่ม</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">กด&lt;ctrl&gt; ค้างไว้เพื่องดการเลื่อนขั้นเบี้ยแบบอัตโนมัติชั่วคราว</string>
   <string name="whenPremoving">เมื่อกำลังเดินล่วงหน้า</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">อ้างสิทธิ์การเสมอโดยอัตโนมัติเมื่อเดินซ้ำ 3 รอบ</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">เมื่อเหลือเวลา &lt; 30 วินาที</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">เมื่อเหลือเวลา &lt; 30 วินาที</string>
   <string name="moveConfirmation">ยืนยันการเดิน</string>
   <string name="explainCanThenBeTemporarilyDisabled">สามารถปิดการใช้งานระหว่างเกมได้ด้วยเมนูกระดาน</string>
   <string name="inCorrespondenceGames">เกมแบบยาวนาน</string>
@@ -62,11 +62,13 @@
   <string name="notifyGameEvent">อัพเดตใหม่ๆของเกมยาวนาน</string>
   <string name="notifyChallenge">การประลอง</string>
   <string name="notifyTournamentSoon">ทัวร์นาเมนต์จะเริ่มเร็วๆนี้</string>
+  <string name="notifyBroadcasts">รายการออกอากาศที่ติดตามไว้</string>
   <string name="notifyTimeAlarm">นาฬิกาเกมยาวนานหมดเวลา</string>
   <string name="notifyBell">กระดิ่งแจ้งเตือนภายใน Lichess</string>
   <string name="notifyPush">การแจ้งเตือนบนอุปกรณ์เมื่อคุณไม่อยู่ใน Lichess</string>
   <string name="notifyWeb">บราวเซอร์</string>
   <string name="notifyDevice">อุปกรณ์</string>
   <string name="bellNotificationSound">เสียงกระดิ่งแจ้งเตือน</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">หมากล่องหล</string>
+  <string name="blindfold" comment="As in Blindfold chess">หมากล่องหล</string>
+  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">แสดงที่ฝั่งซ้ายของอุปกรณ์เคลื่อนที่</string>
 </resources>

@@ -20,7 +20,6 @@ $col3-uniboard-width: calc(#{$col3-uniboard-max-size} * var(---board-scale));
 // default zoom setting is 85% which gives a board-scale of 0.85*0.75+0.25 = 0,8875 ≈ 0.9
 // this is used for 3-col pages that don't actually have a board, e.g. tournament pages
 // on these pages, the height is irrelevant, so we just use the width
-//
 // currently, this is still calculated using the old/fallback formular
 $uniboard-default-scale: 0.9;
 $col3-uniboard-default-min-width: 500px;

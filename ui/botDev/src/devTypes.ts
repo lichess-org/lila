@@ -8,7 +8,7 @@ export type Sound = Omit<NamedSound, 'key'>;
 
 export type { Requirement };
 
-export interface Template<T extends object = any> {
+export interface Template<T extends object> {
   min: Record<keyof T, number>;
   max: Record<keyof T, number>;
   step: Record<keyof T, number>;
@@ -72,9 +72,7 @@ interface BaseSoundsInfo extends PaneInfo {
   template: Template<Sound>;
 }
 
-export type SoundsInfo = BaseSoundsInfo & {
-  [key in SoundEvent]: SoundEventInfo;
-};
+export type SoundsInfo = BaseSoundsInfo & Record<SoundEvent, SoundEventInfo>;
 
 export interface FilterInfo extends PaneInfo {
   type: 'filter';
@@ -113,7 +111,7 @@ type SchemaValue = Schema | AnyInfo | PropertyValue | Requirement | string[];
 
 export interface Schema extends PaneInfo {
   [key: string]: SchemaValue;
-  type?: undefined | 'group' | 'radioGroup';
+  type?: 'group' | 'radioGroup';
 }
 
 export type PaneArgs = { host: EditDialog; info: PaneInfo & Record<string, any>; parent?: Pane };

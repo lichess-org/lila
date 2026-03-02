@@ -201,7 +201,6 @@
   <string name="changeUsername">Кулланучы исемен үзгәртү</string>
   <string name="changeUsernameNotSame">Хәрефләр регистрын гына үзгәртеп була. Мәсәлән, \"johndoe\"ны \"JohnDoe\"га.</string>
   <string name="changeUsernameDescription">Кулланучы исемегезне үзгәртегез. Сез моны бер тапкыр гына ясый аласыз һәм хәрефләрнен зурлыгын гына үзгәртә аласыз.</string>
-  <string name="signupEmailHint">Без аны серсүзне яңарту өчен генә кулланырбыз.</string>
   <string name="password">Серсүз</string>
   <string name="changePassword">Серсүзне үзгәртү</string>
   <string name="changeEmail">Emailны үзгәртү</string>
@@ -349,7 +348,6 @@
   <string name="gameAsGIF">GIF итеп саклау</string>
   <string name="pasteTheFenStringHere">FEN текстын монда кертегез</string>
   <string name="pasteThePgnStringHere">PGN текстын монда кертегез</string>
-  <string name="fromPosition">Позициядән</string>
   <string name="continueFromHere">Бу җирдән дәвам итү</string>
   <string name="toStudy">Өйрәнү</string>
   <string name="importGame">Уенны импортлау</string>

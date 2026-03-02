@@ -34,7 +34,7 @@ function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
   const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'] as const;
   const isArrowKey = (v: string): v is ArrowKey => arrowKeys.includes(v as ArrowKey);
 
-  site.mousetrap.bind('enter', () => opts.input.focus());
+  site.mousetrap.bind('m', () => opts.input.focus());
   /* keypress doesn't cut it here;
    * at the time it fires, the last typed char
    * is not available yet. Reported by:
@@ -55,15 +55,22 @@ function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
       });
     }
   });
-  opts.input.addEventListener('focus', () => opts.ctrl.isFocused(true));
-  opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));
-  // prevent default on arrow keys: they only replay moves
+  opts.input.addEventListener('keypress', (e: KeyboardEvent) => {
+    const v = (e.target as HTMLInputElement).value;
+    // If UCI/ICCF and the user starts typing the dest before releasing the second key for orig,
+    // submit orig now (before the dest key is added to the input field):
+    if (e.isTrusted && v.length === 2 && /^\w$/.test(e.key) && !opts.ctrl.hasSelected())
+      submit(v, { isTrusted: true });
+  });
   opts.input.addEventListener('keydown', (e: KeyboardEvent) => {
     if (isArrowKey(e.key)) {
       opts.ctrl.arrowNavigate(e.key);
       e.preventDefault();
     }
   });
+  opts.input.addEventListener('focus', () => opts.ctrl.isFocused(true));
+  opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));
+  // prevent default on arrow keys: they only replay moves
 }
 
 function focusChat() {

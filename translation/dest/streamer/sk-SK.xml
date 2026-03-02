@@ -42,8 +42,8 @@
     <item quantity="many">Buďte struční: maximálne %s znakov</item>
     <item quantity="other">Buďte struční: maximálne %s znakov</item>
   </plurals>
-  <string name="visibility">Viditeľnosť na streamerskej stránke</string>
-  <string name="whenApproved">Ak budete schválený moderátormi</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Viditeľnosť na streamerskej stránke</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Ak budete schválený moderátormi</string>
   <string name="headline">Titulok</string>
   <string name="tellUsAboutTheStream">Povedzte nám o Vašom streame v jednej vete</string>
   <string name="longDescription">Dlhý popis</string>

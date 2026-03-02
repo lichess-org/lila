@@ -19,9 +19,8 @@ $span-width: 1.7em;
   }
 
   finished {
-    @extend %flex-center;
+    @extend %flex-center-center;
     align-self: center;
-    justify-content: center;
     font-size: 0.7em;
     color: $c-good;
     margin-inline-end: 0.7rem;

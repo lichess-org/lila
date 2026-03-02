@@ -3,7 +3,7 @@
   &.forum-categ {
     .slist {
       thead,
-      td:not(.subject):not(.right) {
+      td:not(.subject, .right) {
         display: none;
 
         @media (min-width: at-least($xx-small)) {

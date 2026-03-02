@@ -1,7 +1,7 @@
 import { pubsub } from 'lib/pubsub';
 
 site.load.then(() => {
-  const form = document.querySelector('.search__form') as HTMLFormElement,
+  const form = document.querySelector<HTMLFormElement>('.search__form'),
     $form = $(form),
     $usernames = $form.find('.usernames input'),
     $userRows = $form.find('.user-row'),
@@ -65,8 +65,8 @@ site.load.then(() => {
 
   function serialize() {
     const params = new URLSearchParams();
-    for (const [k, v] of new FormData(form).entries()) {
-      if (v != '') params.set(k, v as string);
+    for (const [k, v] of new FormData(form ?? undefined).entries()) {
+      if (v != '') params.set(k, v.toString());
     }
     return params.toString();
   }

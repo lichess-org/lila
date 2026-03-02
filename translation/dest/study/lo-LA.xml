@@ -1,2 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">ສ່ວນຕົວ</string>
+  <string name="myStudies">ບົດສຶກສາຂອງຂ້ອຍ</string>
+  <string name="studiesIContributeTo">ບົດສຶກສາທີ່ຂ້ອຍມີສ່ວນຮ່ວມ</string>
+  <string name="myPublicStudies">ບົດສຶກສາສາທາລະນະຂອງຂ້ອຍ</string>
+  <string name="myPrivateStudies">ບົດສຶກສາສ່ວນຕົວຂອງຂ້ອຍ</string>
+  <string name="myFavoriteStudies">ບົດສຶກສາທີ່ຂ້ອຍມັກ</string>
+  <string name="whatAreStudies">ບົດສຶກສາແມ່ນຫຍັງ?</string>
+  <string name="allStudies">ບົດສຶກສາທັງໝົດ</string>
+  <string name="studiesCreatedByX">ບົດສຶກສາທີ່ສ້າງໂດຍ %s</string>
+  <string name="noneYet">ຍັງບໍ່ມີ.</string>
+  <string name="hot">ຍອດນິຍົມ</string>
+  <string name="dateAddedNewest">ວັນທີເພີ່ມ (ໃໝ່ສຸດ)</string>
+  <string name="dateAddedOldest">ວັນທີເພີ່ມ (ເກົ່າສຸດ)</string>
+  <string name="recentlyUpdated">ອັບເດດຫຼ້າສຸດ</string>
+  <string name="mostPopular">ຍອດນິຍົມທີ່ສຸດ</string>
+  <string name="alphabetical">ຕາມລຳດັບຕົວອັກສອນ</string>
+  <string name="relevant">ທີ່ກ່ຽວຂ້ອງ</string>
+  <string name="addNewChapter">ເພີ່ມບົດໃໝ່</string>
+  <plurals name="nbChapters">
+    <item quantity="other">%s ບົດ</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="other">%s ເກມ</item>
+  </plurals>
+  <string name="addMembers">ເພີ່ມສະມາຊິກ</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s ສະມາຊິກ</item>
+  </plurals>
+  <string name="inviteToTheStudy">ເຊີນເຂົ້າຮ່ວມບົດສຶກສາ</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">ກະລຸນາເຊີນສະເພາະຄົນທີ່ຮູ້ຈັກທ່ານ ແລະ ຜູ້ທີ່ຕ້ອງການເຂົ້າຮ່ວມບົດສຶກສານີ້ແທ້ໆ.</string>
+  <string name="searchByUsername">ຄົ້ນຫາດ້ວຍຊື່ຜູ້ໃຊ້</string>
+  <string name="spectator">ຜູ້ຊົມ</string>
+  <string name="contributor">ຜູ້ມີສ່ວນຮ່ວມ</string>
+  <string name="kick">ເຕະອອກ</string>
+  <string name="leaveTheStudy">ອອກຈາກບົດສຶກສາ</string>
+  <string name="youAreNowAContributor">ຕອນນີ້ທ່ານເປັນຜູ້ມີສ່ວນຮ່ວມແລ້ວ</string>
+  <string name="youAreNowASpectator">ຕອນນີ້ທ່ານເປັນຜູ້ຊົມແລ້ວ</string>
+  <string name="pgnTags">ແທັກ PGN</string>
+  <string name="like">ມັກ</string>
+  <string name="unlike">ຍົກເລີກການມັກ</string>
+  <string name="newTag">ແທັກໃໝ່</string>
+  <string name="commentThisPosition">ສະແດງຄວາມຄິດເຫັນກ່ຽວກັບຕຳແໜ່ງນີ້</string>
+  <string name="commentThisMove">ສະແດງຄວາມຄິດເຫັນກ່ຽວກັບການເດີນນີ້</string>
+  <string name="annotateWithGlyphs">ໃສ່ສັນຍະລັກວິເຄາະ (Glyphs)</string>
+  <string name="theChapterIsTooShortToBeAnalysed">ບົດນີ້ສັ້ນເກີນໄປທີ່ຈະວິເຄາະ.</string>
+  <string name="onlyContributorsCanRequestAnalysis">ສະເພາະຜູ້ມີສ່ວນຮ່ວມໃນບົດສຶກສາເທົ່ານັ້ນທີ່ສາມາດຮ້ອງຂໍການວິເຄາະດ້ວຍຄອມພິວເຕີ.</string>
+  <string name="getAFullComputerAnalysis">ຮັບການວິເຄາະດ້ວຍຄອມພິວເຕີແບບເຕັມຮູບແບບຈາກເຊີເວີສຳລັບສາຍຫຼັກ.</string>
+  <string name="makeSureTheChapterIsComplete">ກວດສອບໃຫ້ແນ່ໃຈວ່າບົດນີ້ສຳເລັດແລ້ວ. ທ່ານສາມາດຮ້ອງຂໍການວິເຄາະໄດ້ພຽງແຕ່ຄັ້ງດຽວ.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">ສະມາຊິກທີ່ຊິງໂຄໄນ (Sync) ທັງໝົດຈະຢູ່ໃນຕຳແໜ່ງດຽວກັນ</string>
+  <string name="shareChanges">ແບ່ງປັນການປ່ຽນແປງໃຫ້ຜູ້ຊົມ ແລະ ບັນທຶກລົງໃນເຊີເວີ</string>
+  <string name="playing">ກຳລັງຫຼິ້ນ</string>
+  <string name="showResults">ຜົນການແຂ່ງຂັນ</string>
+  <string name="showEvalBar">ແຖບສະແດງການປະເມີນ (Evaluation bars)</string>
+  <string name="next">ຕໍ່ໄປ</string>
+  <string name="shareAndExport">ແບ່ງປັນ &amp; ສົ່ງອອກ</string>
+  <string name="cloneStudy">ຄັດລອກ (Clone)</string>
+  <string name="studyPgn">PGN ຂອງບົດສຶກສາ</string>
+  <string name="chapterPgn">PGN ຂອງບົດ</string>
+  <string name="copyChapterPgn">ຄັດລອກ PGN</string>
+  <string name="copyRawChapterPgn">ຄັດລອກ PGN ດິບ</string>
+  <string name="downloadGame">ດາວໂຫຼດເກມ</string>
+  <string name="studyUrl">URL ຂອງບົດສຶກສາ</string>
+  <string name="currentChapterUrl">URL ຂອງບົດປັດຈຸບັນ</string>
+  <string name="youCanPasteThisInTheForumToEmbed">ທ່ານສາມາດວາງລິ້ງນີ້ໃນຟໍຣຳ ຫຼື ບລັອກ Lichess ຂອງທ່ານເພື່ອຝັງ (Embed)</string>
+  <string name="startAtInitialPosition">ເລີ່ມຈາກຕຳແໜ່ງເລີ່ມຕົ້ນ</string>
+  <string name="startAtX">ເລີ່ມທີ່ %s</string>
+  <string name="embedInYourWebsite">ຝັງໃນເວັບໄຊຂອງທ່ານ</string>
+  <string name="readMoreAboutEmbedding">ອ່ານເພີ່ມເຕີມກ່ຽວກັບການຝັງ (Embedding)</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">ສະເພາະບົດສຶກສາສາທາລະນະເທົ່ານັ້ນທີ່ສາມາດຝັງໄດ້!</string>
+  <string name="open">ເປີດ</string>
+  <string name="xBroughtToYouByY">%1$s, ນຳສະເໜີໂດຍ %2$s</string>
+  <string name="studyNotFound">ບໍ່ພົບບົດສຶກສາ</string>
+  <string name="editChapter">ແກ້ໄຂບົດ</string>
+  <string name="newChapter">ບົດໃໝ່</string>
+  <string name="importFromChapterX">ນຳເຂົ້າຈາກ %s</string>
+  <string name="orientation">ມຸມເບິ່ງກະດານ (Orientation)</string>
+  <string name="analysisMode">ໂໝດວິເຄາະ</string>
+  <string name="pinnedChapterComment">ປັກໝຸດຄວາມຄິດເຫັນຂອງບົດ</string>
+  <string name="saveChapter">ບັນທຶກບົດ</string>
+  <string name="clearAnnotations">ລຶບຄຳວິເຄາະ (Annotations)</string>
+  <string name="clearVariations">ລຶບຮູບແບບແຍກ (Variations)</string>
+  <string name="deleteChapter">ລຶບບົດ</string>
+  <string name="deleteThisChapter">ລຶບບົດນີ້. ບໍ່ສາມາດກູ້ຄືນໄດ້!</string>
+  <string name="clearAllCommentsInThisChapter">ລຶບຄວາມຄິດເຫັນ, ສັນຍະລັກ ແລະ ຮູບແຕ້ມທັງໝົດໃນບົດນີ້</string>
+  <string name="rightUnderTheBoard">ຢູ່ລຸ່ມກະດານພໍດີ</string>
+  <string name="noPinnedComment">ບໍ່ມີ</string>
+  <string name="normalAnalysis">ວິເຄາະແບບປົກກະຕີ</string>
+  <string name="hideNextMoves">ເຊື່ອງການເດີນຕໍ່ໄປ</string>
+  <string name="interactiveLesson">ບົດຮຽນແບບໂຕ້ຕອບ</string>
+  <string name="chapterX">ບົດທີ %s</string>
+  <string name="empty">ຫວ່າງເປົ່າ</string>
+  <string name="startFromInitialPosition">ເລີ່ມຈາກຕຳແໜ່ງເລີ່ມຕົ້ນ</string>
+  <string name="editor">ຕົວແກ້ໄຂ</string>
+  <string name="startFromCustomPosition">ເລີ່ມຈາກຕຳແໜ່ງທີ່ກຳນົດເອງ</string>
+  <string name="loadAGameByUrl">ໂຫຼດເກມດ້ວຍ URL</string>
+  <string name="loadAPositionFromFen">ໂຫຼດຕຳແໜ່ງຈາກ FEN</string>
+  <string name="loadAGameFromPgn">ໂຫຼດເກມຈາກ PGN</string>
+  <string name="automatic">ອັດຕະໂນມັດ</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
+    <item quantity="other">ວາງເກມເປັນຂໍ້ຄວາມ PGN ຢູ່ນີ້. ແຕ່ລະເກມຈະຖືກສ້າງເປັນບົດໃໝ່. ບົດສຶກສາສາມາດມີໄດ້ສູງສຸດ %s ບົດ.</item>
+  </plurals>
+  <string name="urlOfTheGame">URL ຂອງເກມ, ໜຶ່ງ URL ຕໍ່ແຖວ</string>
+  <string name="createChapter">ສ້າງບົດ</string>
+  <string name="createStudy">ສ້າງບົດສຶກສາ</string>
+  <string name="editStudy">ແກ້ໄຂບົດສຶກສາ</string>
+  <string name="visibility">ການເບິ່ງເຫັນ</string>
+  <string name="public">ສາທາລະນະ</string>
+  <string name="unlisted">ບໍ່ຢູ່ໃນລາຍການ (Unlisted)</string>
+  <string name="inviteOnly">ສະເພາະຜູ້ທີ່ຖືກເຊີນ</string>
+  <string name="allowCloning">ອະນຸຍາດໃຫ້ຄັດລອກ (Cloning)</string>
+  <string name="nobody">ບໍ່ມີໃຜ</string>
+  <string name="onlyMe">ສະເພາະຂ້ອຍ</string>
+  <string name="contributors">ຜູ້ມີສ່ວນຮ່ວມ</string>
+  <string name="members">ສະມາຊິກ</string>
+  <string name="everyone">ທຸກຄົນ</string>
+  <string name="enableSync">ເປີດການຊິງໂຄໄນ (Sync)</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">ແມ່ນ: ໃຫ້ທຸກຄົນຢູ່ໃນຕຳແໜ່ງດຽວກັນ</string>
+  <string name="noLetPeopleBrowseFreely">ບໍ່: ໃຫ້ທຸກຄົນເບິ່ງໄດ້ຢ່າງອິດສະຫຼະ</string>
+  <string name="pinnedStudyComment">ປັກໝຸດຄວາມຄິດເຫັນຂອງບົດສຶກສາ</string>
+  <string name="start">ເລີ່ມ</string>
+  <string name="save">ບັນທຶກ</string>
+  <string name="clearChat">ລຶບການສົນທະນາ</string>
+  <string name="deleteTheStudyChatHistory">ລຶບປະຫວັດການສົນທະນາຂອງບົດສຶກສານີ້ບໍ? ບໍ່ສາມາດກູ້ຄືນໄດ້!</string>
+  <string name="deleteStudy">ລຶບບົດສຶກສາ</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">ລຶບບົດສຶກສາທັງໝົດບໍ? ບໍ່ສາມາດກູ້ຄືນໄດ້! ພິມຊື່ຂອງບົດສຶກສາເພື່ອຢືນຢັນ: %s</string>
+  <string name="whereDoYouWantToStudyThat">ທ່ານຕ້ອງການສຶກສາຢູ່ໃສ?</string>
+  <string name="goodMove">ການເດີນທີ່ດີ</string>
+  <string name="mistake">ການເດີນທີ່ຜິດພາດ</string>
+  <string name="brilliantMove">ການເດີນທີ່ຍອດຢ້ຽມ</string>
+  <string name="blunder">ການເດີນທີ່ຜິດພາດຮ້າຍແຮງ (Blunder)</string>
+  <string name="interestingMove">ການເດີນທີ່ໜ້າສົນໃຈ</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ການເດີນທີ່ໜ້າສົງໄສ</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ການເດີນດຽວທີ່ເປັນໄປໄດ້</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">ຊຸກຊະວັງ (Zugzwang)</string>
+  <string name="equalPosition">ຕຳແໜ່ງສະເໝີກັນ</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">ຕຳແໜ່ງທີ່ບໍ່ຊັດເຈນ</string>
+  <string name="whiteIsSlightlyBetter">ຝ່າຍຂາວໄດ້ປຽບເລັກນ້ອຍ</string>
+  <string name="blackIsSlightlyBetter">ຝ່າຍດຳໄດ້ປຽບເລັກນ້ອຍ</string>
+  <string name="whiteIsBetter">ຝ່າຍຂາວໄດ້ປຽບກວ່າ</string>
+  <string name="blackIsBetter">ຝ່າຍດຳໄດ້ປຽບກວ່າ</string>
+  <string name="whiteIsWinning">ຝ່າຍຂາວກຳລັງຈະຊະນະ</string>
+  <string name="blackIsWinning">ຝ່າຍດຳກຳລັງຈະຊະນະ</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">ການເດີນແບບໃໝ່ (Novelty)</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">ການພັດທະນາຕົວໝາກ</string>
+  <string name="initiative">ການເປັນຝ່າຍບຸກ (Initiative)</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">ການໂຈມຕີ</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">ການສວນກັບ (Counterplay)</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">ວິກິດເລື່ອງເວລາ</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">ມີສິ່ງທົດແທນ (With compensation)</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">ດ້ວຍແນວຄິດ</string>
+  <string name="nextChapter">ບົດຕໍ່ໄປ</string>
+  <string name="prevChapter">ບົດກ່ອນໜ້ານີ້</string>
+  <string name="studyActions">ຄຳສັ່ງຈັດການບົດສຶກສາ</string>
+  <string name="topics">ຫົວຂໍ້</string>
+  <string name="myTopics">ຫົວຂໍ້ຂອງຂ້ອຍ</string>
+  <string name="popularTopics">ຫົວຂໍ້ຍອດນິຍົມ</string>
+  <string name="manageTopics">ຈັດການຫົວຂໍ້</string>
+  <string name="back">ກັບຄືນ</string>
+  <string name="playAgain">ຫຼິ້ນອີກຄັ້ງ</string>
+  <string name="whatWouldYouPlay">ທ່ານຈະເດີນແນວໃດໃນຕຳແໜ່ງນີ້?</string>
+  <string name="youCompletedThisLesson">ຂໍສະແດງຄວາມຍິນດີ! ທ່ານໄດ້ຮຽນຈົບຊຸດນີ້ແລ້ວ.</string>
+  <string name="perPage">%s ຕໍ່ໜ້າ</string>
+  <string name="getTheTour">ຕ້ອງການຄວາມຊ່ວຍເຫຼືອບໍ? ເບິ່ງຄຳແນະນຳການໃຊ້ງານ!</string>
+  <string name="welcomeToLichessStudyTitle">ຍິນດີຕ້ອນຮັບເຂົ້າສູ່ບົດສຶກສາ Lichess!</string>
+  <string name="welcomeToLichessStudyText">ນີ້ຄືກະດານວິເຄາະທີ່ແບ່ງປັນກັນໄດ້.&lt;br&gt;&lt;br&gt;ໃຊ້ເພື່ອວິເຄາະ ແລະ ຂຽນຄຳອະທິບາຍໃຫ້ເກມ,&lt;br&gt;ສົນທະນາກ່ຽວກັບຕຳແໜ່ງຕ່າງໆກັບໝູ່ເພື່ອນ,&lt;br&gt;ແລະ ແນ່ນອນວ່າມັນໃຊ້ສຳລັບການຮຽນໝາກຮຸກໄດ້ນຳ!&lt;br&gt;&lt;br&gt;ມັນເປັນເຄື່ອງມືທີ່ມີປະສິດທິພາບ, ລອງໃຊ້ເວລາສຶກສາເບິ່ງວ່າມັນເຮັດວຽກແນວໃດ.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">ແບ່ງປັນ ແລະ ບັນທຶກແລ້ວ</string>
+  <string name="sharedAndSavedText">ສະມາຊິກຄົນອື່ນສາມາດເຫັນການເດີນໝາກຂອງທ່ານໄດ້ແບບສົດໆ!&lt;br&gt;ນອກຈາກນັ້ນ, ທຸກຢ່າງຈະຖືກບັນທຶກໄວ້ຕະຫຼອດໄປ.</string>
+  <string name="studyMembersTitle">ສະມາຊິກໃນບົດສຶກສາ</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s ຜູ້ຊົມສາມາດເບິ່ງບົດສຶກສາ ແລະ ສົນທະນາໃນແຊັດໄດ້.&lt;br&gt;&lt;br&gt;%2$s ຜູ້ມີສ່ວນຮ່ວມສາມາດເດີນໝາກ ແລະ ອັບເດດບົດສຶກສາໄດ້.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">ຄລິກປຸ່ມ %s.&lt;br&gt;ຈາກນັ້ນກຳນົດວ່າໃຜສາມາດມີສ່ວນຮ່ວມໄດ້ແດ່.</string>
+  <string name="studyChaptersTitle">ບົດຕ່າງໆໃນບົດສຶກສາ</string>
+  <string name="studyChaptersText">ບົດສຶກສາໜຶ່ງສາມາດມີໄດ້ຫຼາຍບົດ.&lt;br&gt;ແຕ່ລະບົດຈະມີຕຳແໜ່ງເລີ່ມຕົ້ນ ແລະ ຮູບແບບການເດີນທີ່ຕ່າງກັນ.</string>
+  <string name="commentPositionTitle">ສະແດງຄວາມຄິດເຫັນກ່ຽວກັບຕຳແໜ່ງ</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">ຄລິກປຸ່ມ %s ຫຼື ຄລິກຂວາໃສ່ລາຍການການເດີນທາງເບື້ອງຂວາ.&lt;br&gt;ຄວາມຄິດເຫັນຈະຖືກແບ່ງປັນ ແລະ ບັນທຶກໄວ້.</string>
+  <string name="annotatePositionTitle">ວິເຄາະຕຳແໜ່ງ</string>
+  <string name="annotatePositionText">ຄລິກປຸ່ມ !? ຫຼື ຄລິກຂວາໃສ່ລາຍການການເດີນທາງເບື້ອງຂວາ.&lt;br&gt;ສັນຍະລັກວິເຄາະຈະຖືກແບ່ງປັນ ແລະ ບັນທຶກໄວ້.</string>
+  <string name="conclusionTitle">ຂອບໃຈສຳລັບເວລາຂອງທ່ານ</string>
+  <string name="conclusionText">ທ່ານສາມາດຊອກຫາ &lt;a href=\'/study/mine/hot\'&gt;ບົດສຶກສາກ່ອນໜ້ານີ້&lt;/a&gt; ໄດ້ຈາກໜ້າໂປຣໄຟລ໌ຂອງທ່ານ.&lt;br&gt;ນອກຈາກນັ້ນຍັງມີ &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;ບົດຄວາມກ່ຽວກັບບົດສຶກສາ&lt;/a&gt;.&lt;br&gt;ສຳລັບຜູ້ໃຊ້ຂັ້ນສູງອາດຈະລອງກົດ \"?\" ເພື່ອເບິ່ງຄີລັດຄີບອດ.&lt;br&gt;ຂໍໃຫ້ມີຄວາມສຸກ!</string>
+  <string name="createChapterTitle">ມາສ້າງບົດໃໝ່ໃນບົດສຶກສານໍາກັນ</string>
+  <string name="createChapterText">ບົດສຶກສາໜຶ່ງສາມາດມີໄດ້ຫຼາຍບົດ.&lt;br&gt;ແຕ່ລະບົດຈະມີຮູບແບບການເດີນຂອງຕົນເອງ&lt;br&gt;ແລະ ສາມາດສ້າງໄດ້ຫຼາຍວິທີ.</string>
+  <string name="fromInitialPositionTitle">ຈາກຕຳແໜ່ງເລີ່ມຕົ້ນ</string>
+  <string name="fromInitialPositionText">ພຽງແຕ່ການຕັ້ງກະດານສຳລັບເກມໃໝ່.&lt;br&gt;ເໝາະສຳລັບການສຶກສາຮູບແບບການເປີດເກມ.</string>
+  <string name="customPositionTitle">ກຳນົດຕຳແໜ່ງເອງ</string>
+  <string name="customPositionText">ຕັ້ງກະດານຕາມແບບຂອງທ່ານ.&lt;br&gt;ເໝາະສຳລັບການສຶກສາໄລຍະທ້າຍເກມ (Endgames).</string>
+  <string name="loadExistingLichessGameTitle">ໂຫຼດເກມ Lichess ທີ່ມີຢູ່ແລ້ວ</string>
+  <string name="loadExistingLichessGameText">ວາງ URL ຂອງເກມ Lichess&lt;br&gt;(ເຊັ່ນ lichess.org/7fHIU0XI)&lt;br&gt;ເພື່ອໂຫຼດການເດີນໝາກເຂົ້າໃນບົດນີ້.</string>
+  <string name="fromFenStringTitle">ຈາກ FEN string</string>
+  <string name="fromFenStringText">ວາງຕຳແໜ່ງໃນຮູບແບບ FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;ເພື່ອເລີ່ມຕົ້ນບົດຈາກຕຳແໜ່ງນັ້ນ.</string>
+  <string name="fromPgnGameTitle">ຈາກເກມ PGN</string>
+  <string name="fromPgnGameText">ວາງເກມໃນຮູບແບບ PGN.&lt;br&gt;ເພື່ອໂຫຼດການເດີນ, ຄວາມຄິດເຫັນ ແລະ ຮູບແບບແຍກເຂົ້າໃນບົດນີ້.</string>
+  <string name="variantsAreSupportedTitle">ບົດສຶກສາຮອງຮັບຮູບແບບໝາກຮຸກອື່ນໆ</string>
+  <string name="variantsAreSupportedText">ແມ່ນແລ້ວ, ທ່ານສາມາດສຶກສາ crazyhouse&lt;br&gt;ແລະ ຮູບແບບອື່ນໆທັງໝົດໃນ Lichess ໄດ້!</string>
+  <string name="chapterConclusionText">ບົດຕ່າງໆຈະຖືກບັນທຶກໄວ້ຕະຫຼອດໄປ.&lt;br&gt;ຂໍໃຫ້ມີຄວາມສຸກກັບການຈັດການເນື້ອຫາໝາກຮຸກຂອງທ່ານ!</string>
+  <string name="doubleDefeat">ເສຍທັງສອງຝ່າຍ</string>
+  <string name="blackDefeatWhiteCanNotWin">ຝ່າຍດຳເສຍ, ແຕ່ຝ່າຍຂາວບໍ່ສາມາດຊະນະໄດ້</string>
+  <string name="whiteDefeatBlackCanNotWin">ຝ່າຍຂາວເສຍ, ແຕ່ຝ່າຍດຳບໍ່ສາມາດຊະນະໄດ້</string>
+</resources>

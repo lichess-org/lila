@@ -50,7 +50,7 @@ export function scanDirectionsHandler(pov: Color, pieces: Pieces, style: MoveSty
   return (ev: KeyboardEvent): void => {
     const target = ev.target as HTMLElement;
     const originKey = keyFromAttrs(target) as Key;
-    const currentDirection: Direction | null = target.getAttribute('ray') as Direction | null;
+    const currentDirection: Direction | null = target.getAttribute('ray');
 
     let nextRay: Key[] = [];
     let nextDirectionIndex = 0;

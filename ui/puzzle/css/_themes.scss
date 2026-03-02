@@ -2,12 +2,15 @@
   h2 {
     @extend %box-padding-horiz, %roboto;
 
-    margin-top: 1em;
+    &:not(:first-child) {
+      margin-block: 1em 0.5em;
+    }
   }
 
   &__list {
     display: grid;
-    margin-inline-start: var(---box-padding);
+    column-gap: 0.5em;
+    margin-inline: calc(var(---box-padding) / 2);
     grid-template-columns: repeat(auto-fill, minmax(50ch, 1fr));
 
     @media (max-width: at-most($xx-small)) {
@@ -20,15 +23,21 @@
   }
 
   &__link {
+    @include transition(background-color color);
     @extend %box-radius;
 
+    color: $c-font;
     display: flex;
+    align-items: center;
     padding: 1.5em 1em 1.5em 0;
 
     img {
-      flex: 0 0 8em;
+      @include transition(opacity filter);
+
+      flex: 0 0 7.5em;
       height: 4.5em;
       opacity: 0.8;
+      align-self: flex-start;
     }
 
     &:hover {
@@ -36,6 +45,11 @@
 
       img {
         opacity: 1;
+        filter: brightness(1.4);
+
+        @include if-light {
+          filter: brightness(0.8);
+        }
       }
     }
 
@@ -57,7 +71,7 @@
       font-size: 1.7em;
       display: block;
       line-height: 1em;
-      margin: 0.1em 0 0.25em 0;
+      margin-bottom: 0.2em;
 
       em {
         @extend %roboto;
@@ -75,7 +89,7 @@
       font-size: 1.2em;
       background: $m-secondary_bg--mix-20;
       color: $c-good;
-      margin: 2em 4em;
+      margin: 2em 0;
 
       &::before {
         color: $c-good;

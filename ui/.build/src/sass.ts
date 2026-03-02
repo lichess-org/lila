@@ -26,7 +26,7 @@ export function stopSass(): void {
   themeColorMap.clear();
 }
 
-export async function sass(): Promise<any> {
+export async function sass(): Promise<string | undefined> {
   if (!env.begin('sass')) return;
 
   await Promise.allSettled([
@@ -214,9 +214,11 @@ async function buildColorMixes() {
       const mixed = (() => {
         switch (mix.op) {
           case 'mix':
-            return clr.mix(c2!, c1, clamp(mix.val, { min: 0, max: 100 }));
+            return clr.mix(c2, c1, clamp(mix.val, { min: 0, max: 100 }));
           case 'lighten':
             return c1.lighten(clamp(mix.val, { min: 0, max: 100 }));
+          case 'darken':
+            return c1.darken(clamp(mix.val, { min: 0, max: 100 }));
           case 'alpha':
             return c1.setAlpha(clamp(mix.val / 100, { min: 0, max: 1 }));
           case 'fade':
@@ -268,7 +270,7 @@ function parseColor(colorMix: string) {
   const validColor = (c: string) => themeColorMap.get('default')?.has(c) || clr(c).isValid();
   return validColor(c1) &&
     (op !== 'mix' || validColor(c2)) &&
-    ['mix', 'lighten', 'alpha', 'fade'].includes(op) &&
+    ['mix', 'lighten', 'darken', 'alpha', 'fade'].includes(op) &&
     val >= 0 &&
     val <= 100
     ? { c1, c2, op, val }
@@ -343,18 +345,10 @@ function resolvePartial(partial: string): string {
   return `${partial.slice(0, nameBegin)}_${partial.slice(nameBegin)}.scss`;
 }
 
-function absTempCss(scss: string) {
-  return join(env.cssTempDir, `${basename(scss, '.scss')}.css`);
-}
+const absTempCss = (scss: string): string => join(env.cssTempDir, `${basename(scss, '.scss')}.css`);
 
-function isConcrete(src: string) {
-  return src.startsWith('ui/') && !basename(src).startsWith('_');
-}
+const isConcrete = (src: string): boolean => src.startsWith('ui/') && !basename(src).startsWith('_');
 
-function isPartial(src: string) {
-  return src.startsWith('ui/') && basename(src).startsWith('_');
-}
+const isPartial = (src: string): boolean => src.startsWith('ui/') && basename(src).startsWith('_');
 
-function isUrlTarget(src: string) {
-  return src.startsWith('public/');
-}
+const isUrlTarget = (src: string): boolean => src.startsWith('public/');

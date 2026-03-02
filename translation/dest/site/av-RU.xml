@@ -221,7 +221,6 @@
   <string name="changeUsernameNotSame">ЦохӀо хӀарпазул регистер хисизе бегьула. Масала \"johndoe\"-ги \"JohnDoe\"-ги.</string>
   <string name="changeUsernameDescription">ХӀалтизабулесда цӀар хисизе. Гьеб цохӀо нухалъ гьабизе бегьула, дуе бегьула цохӀо дур цӀаралда хӀарпазул регистер хисизе.</string>
   <string name="signupUsernameHint">Адаб бугеб цӀар бище. Дуда хадуб гьеб хисизе кӀоларо, киналго аккаунтал адаб гьечӀел цӀарал ругел къазе руго!</string>
-  <string name="signupEmailHint">Нижеца гьеб гӀицӀго парол цӀидасан чӀезабизе хӀалтӀизабизе буго.</string>
   <string name="password">Парол</string>
   <string name="changePassword">Парол хисизе</string>
   <string name="changeEmail">Электронияб поч хисизе</string>
@@ -415,7 +414,6 @@
   <string name="pasteTheFenStringHere">FEN текст гьаниб лъе</string>
   <string name="pasteThePgnStringHere">PGN текст гьаниб лъе</string>
   <string name="orUploadPgnFile">Яги гьанибе PNG файл рещтӀинабе</string>
-  <string name="fromPosition">Ругеб бакӀалдаса</string>
   <string name="continueFromHere">Гьаниса хӀазе</string>
   <string name="toStudy">ЦӀех-рех</string>
   <string name="importGame">ХӀай жаниб лъезе</string>
@@ -680,11 +678,6 @@
   <string name="keyGoToStartOrEnd">авалалде/ахиралде ине</string>
   <string name="keyShowOrHideComments">комментал рихьизе/рахчизе</string>
   <string name="keyEnterOrExitVariation">лъугьине варианталде/варианталдаса ине</string>
-  <string name="keyRequestComputerAnalysis">Компутералъул анализ тӀалаб гьабизе, гъалатӀаздаса лъазе</string>
-  <string name="keyNextLearnFromYourMistakes">Хадусеб (гъалатӀаздаса лъазе)</string>
-  <string name="keyNextBlunder">Хадусеб кӀудияб гъалатӀ</string>
-  <string name="keyNextMistake">Хадусеб гъалатӀ</string>
-  <string name="keyNextInaccuracy">Хадусеб гьитӀинаб гъалатӀ</string>
   <string name="toggleVariationArrows">Риччазе/свинаризе вариантазул чӀорал</string>
   <string name="playSelectedMove">бищараб хъурши гьабе</string>
   <string name="newTournament">ЦӀияб турнир</string>

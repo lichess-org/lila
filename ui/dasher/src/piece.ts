@@ -2,18 +2,18 @@ import { h, type VNode } from 'snabbdom';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 import { header, elementScrollBarWidthSlowGuess, moreButton } from './util';
 import { bind } from 'lib/view';
-import { type DasherCtrl, PaneCtrl } from './interfaces';
+import { type DasherCtrl, type Dimension, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 import { type Toggle, toggle } from 'lib';
 
 export class PieceCtrl extends PaneCtrl {
-  featured: { [key in 'd2' | 'd3']: string[] } = { d2: [], d3: [] };
+  featured: Record<Dimension, string[]> = { d2: [], d3: [] };
   more: Toggle;
 
   constructor(root: DasherCtrl) {
     super(root);
     this.more = toggle(false, root.redraw);
-    for (const dim of ['d2', 'd3'] as const) {
+    for (const dim of ['d2', 'd3'] as Dimension[]) {
       this.featured[dim] = this.root.data.piece[dim].list.filter(t => t.featured).map(t => t.name);
     }
   }

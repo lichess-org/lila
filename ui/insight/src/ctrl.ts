@@ -36,14 +36,8 @@ export default class {
     this.domElement = domElement;
     this.redraw = redraw;
 
-    this.dimensions = Array.prototype.concat.apply(
-      [],
-      env.ui.dimensionCategs.map(c => c.items),
-    );
-    this.metrics = Array.prototype.concat.apply(
-      [],
-      env.ui.metricCategs.map(c => c.items),
-    );
+    this.dimensions = env.ui.dimensionCategs.flatMap(c => c.items);
+    this.metrics = env.ui.metricCategs.flatMap(c => c.items);
 
     this.vm = {
       metric: this.findMetric(this.env.initialQuestion.metric)!,

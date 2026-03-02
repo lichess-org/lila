@@ -1,8 +1,8 @@
 package lila.study
 
 import chess.format.pgn.*
-import chess.format.{ Fen, Uci, UciCharPair }
-import chess.{ Check, Ply, variant }
+import chess.format.{ Fen, Uci }
+import chess.{ Ply, variant }
 
 import lila.tree.{ Branch, Branches, Root }
 
@@ -14,11 +14,9 @@ class PgnDumpTest extends munit.FunSuite:
 
   def node(ply: Ply, uci: String, san: String, children: Branches = Branches.empty) =
     Branch(
-      id = UciCharPair(Uci(uci).get),
       ply = ply,
       move = Uci.WithSan(Uci(uci).get, SanStr(san)),
       fen = Fen.Full("<fen>"),
-      check = Check.No,
       clock = None,
       crazyData = None,
       children = children,

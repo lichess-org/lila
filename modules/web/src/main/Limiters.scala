@@ -132,7 +132,10 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val tourCreate = RateLimit[UserId](credits = 240, duration = 1.day, key = "tournament.user")
 
-  val streamerOnlineCheck = RateLimit[UserId](1, 1.minutes, "streamer.checkOnline")
+  val streamerOnlineCheck: RateLimiter[(UserId, IpAddress)] = combine(
+    RateLimit[UserId](1, 1.minute, "streamer.checkOnline.user"),
+    RateLimit[IpAddress](1, 1.minute, "streamer.checkOnline.ip")
+  )
 
   val studyPgnImport = RateLimit[UserId](credits = 1000, duration = 24.hour, key = "study.import-pgn.user")
 
@@ -163,6 +166,9 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
     private val cloudEvalLimiter = RateLimit[IsProxy](30 * maxCost, 1.minute, "cloudEval.proxy")
     def cloudEval[A]: ProxyLimit[A] = proxyLimit(cloudEvalLimiter)
+
+    private val fidePlayerLimiter = RateLimit[IsProxy](60 * maxCost, 1.minute, "fide.player.proxy")
+    def fidePlayer[A]: ProxyLimit[A] = proxyLimit(fidePlayerLimiter)
 
     private val signupLimiter = RateLimit[IsProxy](20 * maxCost, 1.minute, "user.signup.proxy")
     def signup[A]: ProxyLimit[A] = proxyLimit(signupLimiter, flatCost(maxCost))

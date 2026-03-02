@@ -35,6 +35,7 @@ final class RelayApi(
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     players: RelayPlayerApi,
+    teamLeaderboard: RelayTeamLeaderboard,
     studyPropagation: RelayStudyPropagation,
     preview: ChapterPreviewApi,
     picfitApi: PicfitApi
@@ -232,10 +233,12 @@ final class RelayApi(
           "teamTable" -> tour.teamTable.some,
           "players" -> tour.players,
           "teams" -> tour.teams,
+          "showTeamScores" -> tour.showTeamScores.some,
           "spotlight" -> tour.spotlight,
           "ownerIds" -> tour.ownerIds.some,
           "pinnedStream" -> tour.pinnedStream,
-          "note" -> tour.note
+          "note" -> tour.note,
+          "orphanWarn" -> tour.orphanWarn.some
         )
       )
       _ <- data.grouping.so(updateGrouping(tour, _))
@@ -246,13 +249,17 @@ final class RelayApi(
       studyIds <- roundRepo.studyIdsOf(tour.id)
     yield
       players.invalidate(tour.id)
+      teamLeaderboard.invalidate(tour.id)
       studyIds.foreach(preview.invalidate)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
 
   private def updateGrouping(tour: RelayTour, data: RelayGroupData)(using me: Me): Funit =
-    (Granter(_.Relay) || !tour.official).so:
-      val canGroup = fuccess(Granter(_.StudyAdmin)) >>| tourRepo.isOwnerOfAll(me.userId, data.tourIds)
-      canGroup.flatMapz(groupRepo.update(tour.id, data))
+    for
+      isOwner <- fuccess(Granter(_.StudyAdmin)) >>| tourRepo.isOwnerOfAll(me.userId, data.tourIds)
+      hasOfficial <- tourRepo.hasOfficial(data.tourIds)
+      canGroup = isOwner && (!hasOfficial || Granter(_.Relay))
+      _ <- canGroup.so(groupRepo.update(tour.id, data))
+    yield ()
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] = for
     last <- roundRepo.lastByTour(tour)
@@ -339,7 +346,8 @@ final class RelayApi(
           ("startsAt", _.startsAt),
           ("startedAt", _.startedAt),
           ("finishedAt", _.finishedAt),
-          ("customScoring", _.customScoring)
+          ("customScoring", _.customScoring),
+          ("teamCustomScoring", _.teamCustomScoring)
         )
         _ <- roundRepo.coll.update.one($id(round.id), $set(setters) ++ unsets).void
         _ <- (round.sync.playing != from.sync.playing)
@@ -382,7 +390,9 @@ final class RelayApi(
         _ <- old.hasStartedEarly.so:
           roundRepo.coll.unsetField($id(relay.id), "startedAt").void
         _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
-      yield players.invalidate(relay.tourId)
+      yield
+        teamLeaderboard.invalidate(relay.tourId)
+        players.invalidate(relay.tourId)
     } >> requestPlay(old.id, v = true, "reset")
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
@@ -420,7 +430,8 @@ final class RelayApi(
       ownerIds = NonEmptyList.one(me.userId),
       createdAt = nowInstant,
       syncedAt = none,
-      visibility = if from.official then lila.core.study.Visibility.`private` else from.visibility
+      visibility = if from.official then lila.core.study.Visibility.`private` else from.visibility,
+      spotlight = from.spotlight.map(_.copy(enabled = false))
     )
     for
       _ <- tourRepo.coll.insert.one(tour)
@@ -499,7 +510,7 @@ final class RelayApi(
     yield t.copy(image = none)
 
   private[relay] def autoStart(only: Option[RelayRoundId] = none): Funit =
-    roundRepo.coll
+    roundRepo.coll.secondary
       .list[RelayRound](
         $doc(
           "startsAt"
@@ -507,6 +518,7 @@ final class RelayApi(
             .$lt(nowInstant.plusSeconds(RelayDelay.maxSeconds.value))
             .$gt(nowInstant.minusDays(1)), // bit late now
           "startedAt".$exists(false),
+          "finishedAt".$exists(false),
           "sync.upstream".$exists(true),
           $or("sync.until".$exists(false), "sync.until".$lt(nowInstant))
         ) ++ only.so($id(_))

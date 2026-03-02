@@ -20,7 +20,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
     site.powertip.manualUserIn(vnode.elm as HTMLElement);
   };
   return h(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
-    h('a.close', {
+    h('button.close', {
       attrs: dataIcon(licon.X),
       hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw),
     }),

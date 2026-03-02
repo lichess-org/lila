@@ -8,7 +8,6 @@
   .links button,
   .subs .sub {
     @extend %nowrap-hidden;
-    @extend %button-none;
 
     display: block;
     padding: 0.5rem 1rem;
@@ -50,8 +49,6 @@
   .links button {
     width: 100%;
     text-align: start;
-    border: 0;
-    background: none;
   }
 
   .subs:not(:first-child) {

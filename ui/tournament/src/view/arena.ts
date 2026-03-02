@@ -5,11 +5,11 @@ import { numberRow } from 'lib/view/util';
 import type TournamentController from '../ctrl';
 import { player as renderPlayer } from './util';
 import { teamName } from './battle';
-import type { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
+import type { PodiumPlayer, StandingPlayer } from '../interfaces';
 import { joinWithdraw } from './button';
-import { renderPager } from '../pagination';
 import { userLink } from 'lib/view/userLink';
 import { defined } from 'lib';
+import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
 
 const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));
@@ -107,11 +107,15 @@ export function podium(ctrl: TournamentController) {
   ]);
 }
 
-export function controls(ctrl: TournamentController, pag: Pagination): VNode {
-  return h('div.tour__controls', [h('div.pager', renderPager(ctrl, pag)), joinWithdraw(ctrl)]);
+export function controls(ctrl: TournamentController): VNode {
+  return h('div.tour__controls', [
+    h('div.pager', renderPager(ctrl, searchButton(ctrl), searchInput(ctrl, { tour: ctrl.data.id }))),
+    joinWithdraw(ctrl),
+  ]);
 }
 
-export function standing(ctrl: TournamentController, pag: Pagination, klass?: string): VNode {
+export function standing(ctrl: TournamentController, klass?: string): VNode {
+  const pag = ctrl.pager();
   const tableBody = pag.currentPageResults
     ? pag.currentPageResults.map(res => playerTr(ctrl, res))
     : lastBody;

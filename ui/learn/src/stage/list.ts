@@ -117,9 +117,9 @@ export const categs: Categ[] = rawCategs.map(c => ({
 
 const stages: Stage[] = categs.reduce<Stage[]>((prev, c) => prev.concat(c.stages), []);
 
-const stagesByKey: { [K in string]: Stage } = Object.fromEntries(stages.map(s => [s.key, s]));
+const stagesByKey: Record<string, Stage> = Object.fromEntries(stages.map(s => [s.key, s]));
 
-const stagesById: { [K in number]: Stage } = Object.fromEntries(stages.map(s => [s.id, s]));
+const stagesById: Record<number, Stage> = Object.fromEntries(stages.map(s => [s.id, s]));
 
 export const list = stages;
 export const byId = stagesById;

@@ -1,4 +1,4 @@
-import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/view';
+import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans, enter } from 'lib/view';
 import { defined } from 'lib';
 import { text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
@@ -51,6 +51,8 @@ import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
 import type { AnalyseNvuiContext } from '../analyse.nvui';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
+import type { ClientEval, PvData } from 'lib/tree/types';
+import { COLORS } from 'chessops';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -82,9 +84,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
     hl('div.nvui', [
       studyDetails(ctrl),
       hl('h2', i18n.nvui.gameInfo),
-      ...['white', 'black'].map((color: Color) =>
-        hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))]),
-      ),
+      ...COLORS.map(color => hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))])),
       hl('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
       d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
       hl('h2', i18n.nvui.moveList),
@@ -109,7 +109,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       !ctrl.retro && liveText(renderCurrentNode(ctx), 'polite', 'p.position.lastMove'),
       clocks &&
         hl('div.clocks', [
-          hl('h2', `${i18n.site.clock}`),
+          hl('h2', i18n.site.clock),
           hl('div.clocks', [hl('div.topc', clocks[0]), hl('div.botc', clocks[1])]),
         ]),
       hl('h2', i18n.nvui.inputForm),
@@ -166,11 +166,12 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
               });
             });
             root.find('.copy-fen').on('click', function (this: HTMLElement) {
-              const inputFen = document.querySelector('.analyse__underboard__fen input') as HTMLInputElement;
-              const fen = inputFen.value;
-              navigator.clipboard.writeText(fen).then(() => {
-                notify.set(i18n.nvui.copiedToClipboard('FEN'));
-              });
+              const fen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input')?.value;
+              if (fen) {
+                navigator.clipboard.writeText(fen).then(() => {
+                  notify.set(i18n.nvui.copiedToClipboard('FEN'));
+                });
+              }
             });
           },
         },
@@ -226,12 +227,13 @@ export function clickHook(main?: (el: HTMLElement) => void, post?: () => void) {
           main?.(el);
           post?.();
         });
-        el.addEventListener('keydown', (e: KeyboardEvent) => {
-          if (e.key === 'Enter') {
+        el.addEventListener(
+          'keydown',
+          enter(() => {
             main?.(el);
             post?.();
-          }
-        });
+          }),
+        );
       },
     },
   };
@@ -288,7 +290,7 @@ const evalInfo = (bestEv: EvalScore | undefined): string =>
       ? `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`
       : '';
 
-const depthInfo = (clientEv: Tree.ClientEval | undefined, isCloud: boolean): string =>
+const depthInfo = (clientEv: ClientEval | undefined, isCloud: boolean): string =>
   clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
 
 const noEvalStr = (ctrl: AnalyseCtrl) =>
@@ -303,7 +305,7 @@ function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
   if (noEvalMsg) return noEvalMsg;
   const node = ctrl.node,
     setup = parseFen(node.fen).unwrap();
-  let pvs: Tree.PvData[] = [];
+  let pvs: PvData[] = [];
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     setup.turn = opposite(setup.turn);
@@ -345,7 +347,7 @@ function onSubmit(ctx: AnalyseNvuiContext, $input: Cash) {
     if (command && !command.invalid?.(ctrl)) command.cb(ctx, input);
     else {
       const move = inputToMove(input, ctrl.node.fen, ctrl.chessground);
-      const isDrop = (u: undefined | string | DropMove) => !!(u && typeof u !== 'string');
+      const isDrop = (u?: string | DropMove) => !!(u && typeof u !== 'string');
       const isInvalidDrop = (d: DropMove) =>
         !ctrl.crazyValid(d.role, d.key) || ctrl.chessground.state.pieces.has(d.key);
       const isInvalidCrazy = isDrop(move) && isInvalidDrop(move);
@@ -460,7 +462,7 @@ function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
   const analysisGlyphs = ['?!', '?', '??'];
   const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
-  ['white', 'black'].forEach((color: Color) => {
+  COLORS.forEach(color => {
     res.push(hl('h3', `${color} player: ${analysis[color].acpl} ${i18n.site.averageCentipawnLoss}`));
     res.push(
       hl(
@@ -480,7 +482,7 @@ function renderAcpl({ ctrl, moveStyle }: AnalyseNvuiContext): LooseVNodes {
               { attrs: { value: node.ply, selected: node.ply === ctrl.node.ply } },
               [
                 plyToTurn(node.ply),
-                renderSan(node.san!, node.uci, moveStyle.get()),
+                renderSan(node.san, node.uci, moveStyle.get()),
                 renderComments(node, moveStyle.get()),
               ].join(' '),
             ),
@@ -580,9 +582,13 @@ function renderStudyPlayer(ctrl: AnalyseCtrl, color: Color): VNode | undefined {
     hl(
       'span',
       keys
-        .reduce<
-          string[]
-        >((strs, [key, i18n]) => (player[key] ? strs.concat(`${i18n}: ${key === 'fed' ? player[key].name : player[key]}`) : strs), [])
+        .reduce<string[]>(
+          (strs, [key, i18n]) =>
+            player[key]
+              ? strs.concat(`${i18n}: ${key === 'fed' ? player[key].i18nName : player[key]}`)
+              : strs,
+          [],
+        )
         .join(' '),
     )
   );
@@ -626,7 +632,7 @@ function tourDetails({ ctrl, deps }: AnalyseNvuiContext): VNode[] {
       clickHook(() => ctx.relay.tab('players'), ctrl.redraw),
       'Load player list',
     ),
-    hl('div', ctx.relay.tab() === 'players' && playersView(ctx.relay.players, ctx.relay.data.tour)),
+    hl('div', ctx.relay.tab() === 'players' && playersView(ctx.relay.players)),
   ];
 }
 

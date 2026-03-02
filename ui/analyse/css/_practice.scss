@@ -15,6 +15,10 @@
       margin-inline-start: 5px;
       color: $c-link;
       transition: 0.3s;
+
+      san {
+        @extend %san;
+      }
     }
     .next {
       border: 0;

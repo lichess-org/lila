@@ -93,6 +93,6 @@
   </plurals>
   <string name="percentSolved">%s correctos</string>
   <string name="noPuzzlesToShow">Aún no hay nada que mostrar aquí. ¡Ve y haz algunos ejercicios!</string>
-  <string name="improvementAreasDescription">¡Entrena estas áreas para progresar!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">¡Entrena estas áreas para progresar!</string>
   <string name="strengthDescription">Estas son las áreas en las que eres más fuerte</string>
 </resources>

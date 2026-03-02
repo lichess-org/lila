@@ -10,7 +10,7 @@ import lila.core.i18n.Translate
 case class ClasInvite(
     @Key("_id") id: ClasInviteId, // random
     userId: UserId,
-    realName: String,
+    realName: Student.RealName,
     clasId: ClasId,
     created: Clas.Recorded,
     accepted: Option[Boolean] = None
@@ -18,7 +18,7 @@ case class ClasInvite(
 
 object ClasInvite:
 
-  def make(clas: Clas, user: User, realName: String)(using teacher: Me) =
+  def make(clas: Clas, user: User, realName: Student.RealName)(using teacher: Me) =
     ClasInvite(
       id = ClasInviteId(ThreadLocalRandom.nextString(8)),
       userId = user.id,

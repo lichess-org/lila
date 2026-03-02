@@ -10,7 +10,7 @@
   <string name="ifLiveChessRunningOnThisComputer">Se o %1$s estiver rodando neste computador, você pode verificar sua conexão %2$s.</string>
   <string name="openingThisLink">abrindo este link</string>
   <string name="ifLiveChessRunningElsewhere">Se o %1$s estiver rodando em outra máquina ou outra porta, é preciso definir o endereço de IP e a porta aqui, na %2$s.</string>
-  <string name="configurationSection">Seção de configurações</string>
+  <string name="configurationSection">Seção de Configurações</string>
   <string name="keepPlayPageOpen">A página de configurações precisa ficar aberta em seu navegador. Ela não precisa estar visível. Você pode minimizá-la ou colocá-la ao lado da página Lichess da partida, mas não a feche, senão o tabuleiro não funcionará.</string>
   <string name="boardWillAutoConnect">O tabuleiro se conecta automaticamente a qualquer partida já iniciada ou que começar. Em breve será possível escolher a partida.</string>
   <string name="timeControlsForCasualGames">Controles de tempo para jogos casuais: apenas Clássico, Por Correspondência e Rápido.</string>

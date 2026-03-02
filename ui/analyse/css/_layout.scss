@@ -99,7 +99,7 @@ body {
       'under      .     side'
       'chat       .     side'
       'uchat      .     side';
-    grid-row-gap: 0;
+    row-gap: 0;
 
     &__side {
       margin: $analyse-block-gap 0 0 0;

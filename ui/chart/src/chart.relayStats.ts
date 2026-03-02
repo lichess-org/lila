@@ -1,8 +1,8 @@
 import type { RoundStats } from './interface';
 import * as chart from 'chart.js';
 import 'chartjs-adapter-dayjs-4';
-import { hoverBorderColor, gridColor, tooltipBgColor, fontColor, fontFamily, animation } from './index';
-import { memoize } from 'lib';
+import { hoverBorderColor, gridColor, tooltipBgColor, fontColor, fontFamily } from './index';
+import { memoize, notNull } from 'lib';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 chart.Chart.register(
@@ -51,7 +51,7 @@ const makeDataset = (data: RoundStats, el: HTMLCanvasElement): chart.ChartDatase
       indexAxis: 'x',
       type: 'line',
       data: fillData(data.viewers),
-      label: `${data.round.name}`,
+      label: data.round.name,
       pointBorderColor: '#fff',
       pointBackgroundColor: blue,
       backgroundColor: gradient,
@@ -131,7 +131,7 @@ const makeChart = ($el: Cash, data: RoundStats) => {
       locale: document.documentElement.lang,
       maintainAspectRatio: false,
       responsive: true,
-      animations: animation(500 / ds[0].data.length),
+      animation: false,
       scales: {
         x: {
           type: 'time',
@@ -190,7 +190,7 @@ const makeChart = ($el: Cash, data: RoundStats) => {
           caretPadding: 5,
           usePointStyle: true,
           callbacks: {
-            title: items => (items.length ? dateFormat()(items[0].parsed.x) : ''),
+            title: items => (items.length && items[0].parsed.x ? dateFormat()(items[0].parsed.x) : ''),
           },
         },
         title: {
@@ -205,7 +205,6 @@ const makeChart = ($el: Cash, data: RoundStats) => {
   relayChart.updateData = (data: RoundStats) => {
     relayChart.data.datasets = makeDataset(data, $el[0] as HTMLCanvasElement);
     relayChart.options.plugins!.title!.text = titleText(data);
-    relayChart.options.animations = updateAnimations(data);
     relayChart.update();
   };
   return relayChart;
@@ -213,9 +212,6 @@ const makeChart = ($el: Cash, data: RoundStats) => {
 
 const titleText = (data: RoundStats): string =>
   `${data.round.name} • Start - ${dateFormat()(data.round.startsAt)}`;
-
-const updateAnimations = (data?: RoundStats) =>
-  data && data.viewers.length > 30 ? animation(1000 / data.viewers.length) : undefined;
 
 const fillData = (viewers: RoundStats['viewers']) => {
   const points: chart.Point[] = [];
@@ -226,10 +222,10 @@ const fillData = (viewers: RoundStats['viewers']) => {
     .slice(0, viewers.length - 2)
     .reverse()
     .forEach(([behind, v]) => {
-      const minuteGap = points.find(({ x }) => x - behind <= 60);
+      const minuteGap = points.find(({ x }) => notNull(x) && x - behind <= 60);
       if (!minuteGap) {
-        for (let i = behind; i < points[points.length - 1].x; i += 60) points.push({ x: i, y: v });
+        for (let i = behind; i < points[points.length - 1].x!; i += 60) points.push({ x: i, y: v });
       } else points.push({ x: behind, y: v });
     });
-  return points.map(p => ({ x: p.x * 1000, y: p.y })).reverse();
+  return points.map(p => ({ x: notNull(p.x) ? p.x * 1000 : null, y: p.y })).reverse();
 };

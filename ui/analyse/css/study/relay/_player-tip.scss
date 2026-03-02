@@ -1,6 +1,6 @@
 #tour-player-tip {
   @extend %box-radius-force, %popup-shadow;
-  display: none;
+  visibility: hidden;
   background: $c-bg-box;
   position: absolute;
   z-index: $z-powertip-120;
@@ -20,6 +20,7 @@
     gap: 1em;
     .fide-players__photo {
       width: 150px;
+      height: fit-content;
     }
     &__info {
       @extend %flex-column;
@@ -34,9 +35,23 @@
         color: $c-primary;
       }
     }
+    &__team {
+      &:hover {
+        color: $c-primary;
+      }
+    }
     &__details {
       @extend %flex-column;
       gap: 0.5em;
+
+      > div {
+        @extend %flex-center;
+
+        .diff {
+          @extend %flex-center;
+          gap: 0.5em;
+        }
+      }
     }
   }
   &__preload {

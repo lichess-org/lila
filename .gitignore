@@ -60,8 +60,5 @@ instance.lock
 /docker-compose.yml
 /?
 
-# eslint cache
-/ui/.eslintcache
-
 # deploy bearer
 .lila-cli

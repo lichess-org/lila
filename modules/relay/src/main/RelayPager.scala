@@ -174,7 +174,7 @@ final class RelayPager(
   ): Fu[Paginator[WithLastRound]] =
     Paginator(
       adapter = new:
-        def nbResults: Fu[Int] = tourRepo.coll.countSel(selector)
+        def nbResults: Fu[Int] = tourRepo.coll.secondary.countSel(selector)
         def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
           tourRepo.coll
             .aggregateList(length, _.sec): framework =>

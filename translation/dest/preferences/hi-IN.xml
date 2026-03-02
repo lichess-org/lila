@@ -21,7 +21,7 @@
   <string name="inGameOnly">केवल खेल में</string>
   <string name="chessClock">शतरंज की घड़ी</string>
   <string name="tenthsOfSeconds">सेकेंड का दसवाँ हिस्सा</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">जब बचा हुआ समय &lt; 10 सेकेंड</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">जब बचा हुआ समय &lt; 10 सेकेंड</string>
   <string name="horizontalGreenProgressBars">क्षैतिज(horizontal) हरी प्रगति सलाखें(bars)</string>
   <string name="soundWhenTimeGetsCritical">ध्वनि जब समय महत्वपूर्ण (कम) हो जाता है</string>
   <string name="giveMoreTime">अधिक समय दें</string>
@@ -37,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; ऑटो-प्रमोशन को अस्थायी रूप से अक्षम करने के लिए प्रचार करते समय कुंजी</string>
   <string name="whenPremoving">पहले से चाल चलते समय</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">दावा तीन बार दोहराव पर स्वचालित रूप से ड्रा</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">जब बचा हुआ समय &lt; 30 सेकेंड</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">जब बचा हुआ समय &lt; 30 सेकेंड</string>
   <string name="moveConfirmation">चाल की पुष्टि करें</string>
   <string name="explainCanThenBeTemporarilyDisabled">बोर्ड मेनू के साथ गेम के दौरान अक्षम किया जा सकता है</string>
   <string name="inCorrespondenceGames">लम्बे खेलों में</string>

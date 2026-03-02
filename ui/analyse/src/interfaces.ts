@@ -12,6 +12,7 @@ import type { Coords, MoveEvent } from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
 
 import type * as studyDeps from './study/studyDeps';
+import type { PvDataServer, ServerEval, TreeNode, TreeNodeIncomplete, TreePath } from 'lib/tree/types';
 
 export interface NvuiPlugin {
   render(deps?: typeof studyDeps): VNode;
@@ -19,7 +20,7 @@ export interface NvuiPlugin {
 
 export interface AnalyseApi {
   socketReceive(type: string, data: any): boolean;
-  path(): Tree.Path;
+  path(): TreePath;
   setChapter(id: string): void;
 }
 
@@ -41,8 +42,8 @@ export interface AnalyseData {
   analysis?: Analysis;
   userAnalysis: boolean;
   forecast?: ForecastData;
-  sidelines?: Tree.Node[][];
-  treeParts: Tree.NodeOptionalChildren[];
+  sidelines?: TreeNode[][];
+  treeParts: TreeNodeIncomplete[];
   practiceGoal?: PracticeGoal;
   clock?: Clock;
   pref: AnalysePref;
@@ -69,7 +70,7 @@ export interface AnalysePref {
 export interface ServerEvalData {
   ch: string;
   analysis?: Analysis;
-  tree: Tree.Node;
+  tree: TreeNodeIncomplete;
   division?: Division;
 }
 
@@ -77,7 +78,7 @@ export interface EvalHit {
   fen: FEN;
   knodes: number;
   depth: number;
-  pvs: Tree.PvDataServer[];
+  pvs: PvDataServer[];
   path: string;
 }
 
@@ -114,7 +115,7 @@ export interface Game {
 export interface Opening {
   name: string;
   eco: string;
-  ply: number;
+  ply: Ply;
 }
 
 export interface Division {
@@ -175,9 +176,9 @@ export interface EvalGetData {
   up?: boolean;
 }
 
-export interface EvalPutData extends Tree.ServerEval {
+export interface EvalPutData extends ServerEval {
   variant?: VariantKey;
 }
 
 export type Conceal = false | 'conceal' | 'hide' | null;
-export type ConcealOf = (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
+export type ConcealOf = (isMainline: boolean) => (path: TreePath, node: TreeNode) => Conceal;

@@ -67,7 +67,7 @@ final class OpeningBits(helpers: Helpers):
       ),
       postForm(
         cls := "opening__config__form",
-        action := routes.Opening.config(thenTo.some.filter(_.nonEmpty) | "index")
+        action := routes.Opening.config(thenTo.nonEmptyOption | "index")
       )(
         checkboxes(form("speeds"), speedChoices, config.speeds.map(_.id)),
         checkboxes(form("ratings"), ratingChoices, config.ratings),

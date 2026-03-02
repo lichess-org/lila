@@ -1,4 +1,4 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 import { type Dialog, domDialog } from './dialog';
 import { escapeHtml } from '../index';
@@ -26,7 +26,7 @@ export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
     htmlText: escapeHtmlAddBreaks(msg),
     noCloseButton: true,
   });
-  if (!!autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
+  if (autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
   return dlg.show();
 }
 

@@ -170,7 +170,7 @@ object Study:
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref(StudyChapterId(""), UciPath.root),
       ownerId = user.id,
-      visibility = Visibility.public,
+      visibility = Visibility.unlisted,
       settings = settings | Settings.init,
       from = from,
       likes = Likes(1),

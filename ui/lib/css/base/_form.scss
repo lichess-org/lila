@@ -5,7 +5,10 @@ select,
 textarea {
   font: inherit;
   color: $c-font;
-  outline-color: $c-primary;
+  &:focus-visible {
+    outline: $outline;
+    outline-offset: -2px;
+  }
 }
 
 option,
@@ -32,6 +35,7 @@ textarea {
 }
 
 button,
+select:enabled,
 a {
   cursor: pointer;
 }
@@ -45,5 +49,5 @@ textarea:-webkit-autofill,
 select:-webkit-autofill {
   border: $border;
   -webkit-text-fill-color: $c-font;
-  -webkit-box-shadow: 0 0 0px 1000px $m-secondary_bg--mix-10 inset;
+  box-shadow: 0 0 0 1000px $m-secondary_bg--mix-10 inset;
 }

@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Nazadnje objavljeno</string>
   <string name="mostPopular">Najbolj popularno</string>
   <string name="alphabetical">Po abecednem redu</string>
+  <string name="relevant">Pomembno</string>
   <string name="addNewChapter">Dodaj poglavje</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Poglavje</item>

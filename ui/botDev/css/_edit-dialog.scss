@@ -26,10 +26,9 @@
     min-height: 300px;
   }
   fieldset {
-    @extend %flex-column;
+    @extend %flex-column, %box-radius;
     align-items: stretch;
     border: 1px solid $c-border;
-    border-radius: $box-radius-size;
     padding: 0.75em 0 1em;
     row-gap: 0.5em;
     > div {
@@ -146,7 +145,7 @@
       ---scale-factor: 0.8;
       aspect-ratio: 1/1;
       cursor: pointer;
-      //background-color: $c-bg-zebra2;
+      // background-color: $c-bg-zebra2;
     }
     .placard {
       padding: 0;
@@ -292,8 +291,7 @@
     grid-area: filters;
   }
   .filter {
-    @extend %flex-column;
-    border-radius: $box-radius-size;
+    @extend %flex-column, %box-radius;
     label {
       flex-flow: row nowrap;
       height: 32px;
@@ -318,7 +316,7 @@
       border: none;
     }
     .facet {
-      @extend %flex-center-nowrap;
+      @extend %flex-center-nowrap, %box-radius-top;
       z-index: $z-above-dialog-12;
       justify-content: center;
       background: $m-paper_dimmer--mix-50;
@@ -330,7 +328,6 @@
       gap: 0.5em;
       border: 1px solid $c-border-light;
       border-bottom: none;
-      border-radius: $box-radius-size $box-radius-size 0 0;
       margin-inline-end: -1px;
 
       input {
@@ -350,12 +347,12 @@
       }
 
       &:hover {
-        //:not(.active) {
+        // :not(.active) {
         cursor: pointer;
-        //&:has(input:checked) {
+        // &:has(input:checked) {
         background: $m-paper_dimmer--mix-75;
         color: $c-font-clearer;
-        //}
+        // }
       }
     }
   }

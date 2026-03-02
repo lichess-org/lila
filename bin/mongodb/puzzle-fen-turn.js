@@ -1,4 +1,4 @@
-var puzzles = db.puzzle;
+const puzzles = db.puzzle;
 
 function fullMoveNumber(p) {
   return Math.floor(1 + (p.history.split(' ').length - 1) / 2);
@@ -17,8 +17,8 @@ puzzles
     },
   })
   .forEach(function (p) {
-    var newMoveNumber = fullMoveNumber(p);
-    var newFen = changeFenMoveNumber(p.fen, newMoveNumber);
+    const newMoveNumber = fullMoveNumber(p);
+    const newFen = changeFenMoveNumber(p.fen, newMoveNumber);
     puzzles.update(
       {
         _id: p._id,

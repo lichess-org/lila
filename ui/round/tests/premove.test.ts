@@ -63,7 +63,7 @@ const testPosition = (
   }
 
   assert.strictEqual(
-    util.allKeys.filter(sq => !expectedPremoves.has(sq)).every(sq => !premove(state, sq as cg.Key).length),
+    util.allKeys.filter(sq => !expectedPremoves.has(sq)).every(sq => !premove(state, sq).length),
     true,
   );
 

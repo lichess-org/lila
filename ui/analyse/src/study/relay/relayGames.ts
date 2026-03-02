@@ -69,7 +69,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                             hl('span.name', [userTitle(p), p.name]),
                           ]),
                           coloredResult
-                            ? hl(`${coloredResult.tag}`, [coloredResult.points])
+                            ? hl(coloredResult.tag, [coloredResult.points])
                             : showResults && hl('span', clocks[i]),
                         ]
                       : [hl('span.mini-game__user', hl('span.name', 'Unknown player'))],

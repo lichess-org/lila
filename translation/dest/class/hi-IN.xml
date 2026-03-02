@@ -88,7 +88,7 @@
   <string name="timePlaying">समय के साथ खेल</string>
   <string name="variantXOverLastY">%1$s अंतिम %2$s पर</string>
   <string name="winrate">जीत दर</string>
-  <string name="na">N/A</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N/A</string>
   <string name="overview">विहंगावलोकन</string>
   <string name="news">खबर</string>
   <string name="classNews">कक्षा की खबर</string>

@@ -1,4 +1,7 @@
 .lobby__streams {
+  &:empty {
+    display: none;
+  }
   .stream {
     @extend %roboto, %nowrap-ellipsis, %page-text;
 
@@ -15,13 +18,13 @@
       color: $c-brag;
     }
 
-    strong:before {
+    strong::before {
       font-size: 1.5em;
       margin-inline-end: 0.1rem;
     }
   }
 
   .more {
-    @extend %lobby__side__more;
+    @extend %lobby-side-more;
   }
 }

@@ -1,4 +1,5 @@
-import type { FideId } from '../interfaces';
+import type { FideId, PointsStr } from '../interfaces';
+import type { RelayPlayer } from './relayPlayers';
 
 export interface RelayData {
   tour: RelayTour;
@@ -14,9 +15,7 @@ export interface RelayData {
   photos: Photos;
 }
 
-export interface Photos {
-  [id: FideId]: Photo;
-}
+export type Photos = Record<FideId, Photo>;
 
 export interface Photo {
   small: string;
@@ -60,10 +59,13 @@ export interface RelayRound {
   customScoring?: CustomScoring;
 }
 
+export type FideTC = 'standard' | 'rapid' | 'blitz';
+export type StatByFideTC = Record<FideTC, number>;
+
 export interface RelayTourInfo {
   format?: string;
   tc?: string;
-  fideTc?: string;
+  fideTC?: FideTC;
   location?: string;
   players?: string;
   website?: string;
@@ -80,9 +82,10 @@ export interface RelayTour {
   info: RelayTourInfo;
   image?: string;
   teamTable?: boolean;
+  showTeamScores?: boolean;
   tier?: number;
   dates?: RelayTourDates;
-  tc?: 'standard' | 'rapid' | 'blitz';
+  tc?: FideTC;
   communityOwner?: LightUser;
 }
 
@@ -104,3 +107,24 @@ export interface LogEvent {
   error?: string;
   at: number;
 }
+
+export interface POVTeamMatch {
+  roundId: RoundId;
+  opponent: RelayTeamName;
+  points?: PointsStr;
+  mp?: number;
+  gp?: number;
+}
+
+export type RelayTeamName = string;
+
+export interface RelayTeamStandingsEntry {
+  name: RelayTeamName;
+  mp: number;
+  gp: number;
+  matches: POVTeamMatch[];
+  players: RelayPlayer[];
+  averageRating?: number;
+}
+
+export type RelayTeamStandings = RelayTeamStandingsEntry[];

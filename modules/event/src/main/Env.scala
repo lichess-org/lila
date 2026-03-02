@@ -11,7 +11,8 @@ final class Env(
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     markdownCache: lila.memo.MarkdownCache,
-    langList: lila.core.i18n.LangList
+    langList: lila.core.i18n.LangList,
+    ircApi: lila.irc.IrcApi
 )(using Executor, Scheduler):
 
   private lazy val eventColl = db(appConfig.get[CollName]("event.collection.event"))

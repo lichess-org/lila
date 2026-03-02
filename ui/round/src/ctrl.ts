@@ -50,7 +50,9 @@ import { pubsub } from 'lib/pubsub';
 import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
 import { plyToTurn } from 'lib/game/chess';
 import { type SocketSendOpts } from 'lib/socket';
+import type { NodeCrazy } from 'lib/tree/types';
 import Server from './server';
+import { toggleZenMode } from 'lib/view/zen';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
 
@@ -143,13 +145,7 @@ export default class RoundController implements MoveRootCtrl {
       this.redraw();
     });
 
-    pubsub.on('zen', () => {
-      const zen = $('body').toggleClass('zen').hasClass('zen');
-      window.dispatchEvent(new Event('resize'));
-      if (!$('body').hasClass('zen-auto')) {
-        xhr.setZen(zen);
-      }
-    });
+    pubsub.on('zen', toggleZenMode);
 
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
   }
@@ -201,7 +197,7 @@ export default class RoundController implements MoveRootCtrl {
     site.sound.move();
   };
 
-  private onPredrop = (role: Role | undefined, _?: Key) => {
+  private onPredrop = (role: Role | undefined) => {
     this.preDrop = role;
     this.redraw();
   };
@@ -384,7 +380,7 @@ export default class RoundController implements MoveRootCtrl {
         let txt = i18n.site.yourTurn;
         if (this.ply < 1) txt = `${joined}\n${txt}`;
         else {
-          let move = d.steps[d.steps.length - 1].san;
+          let move = util.lastStep(this.data).san;
           const turn = plyToTurn(this.ply);
           move = `${turn}${this.ply % 2 === 1 ? '.' : '...'} ${move}`;
           txt = `${opponent}\nplayed ${move}.\n${txt}`;
@@ -511,7 +507,7 @@ export default class RoundController implements MoveRootCtrl {
 
   crazyValid = (role: Role, key: Key): boolean => crazyValid(this.data, role, key);
 
-  getCrazyhousePockets = (): Tree.NodeCrazy['pockets'] | undefined => this.data.crazyhouse?.pockets;
+  getCrazyhousePockets = (): NodeCrazy['pockets'] | undefined => this.data.crazyhouse?.pockets;
 
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {
@@ -526,7 +522,8 @@ export default class RoundController implements MoveRootCtrl {
   }
 
   reload = (d: RoundData): void => {
-    if (d.steps.length !== this.data.steps.length) this.ply = d.steps[d.steps.length - 1].ply;
+    const posChanged = d.steps.length !== this.data.steps.length;
+    if (posChanged) this.ply = util.lastPly(d);
     util.upgradeServerData(d);
     this.data = d;
     this.clearJust();
@@ -540,6 +537,7 @@ export default class RoundController implements MoveRootCtrl {
       });
     if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
     if (!this.replaying()) groundReload(this);
+    if (posChanged) this.chessground.cancelPremove();
     this.setTitle();
     this.moveOn.next();
     this.setQuietMode();
@@ -547,7 +545,7 @@ export default class RoundController implements MoveRootCtrl {
     this.autoScroll();
     this.onChange();
     this.setLoading(false);
-    this.pluginUpdate(d.steps[d.steps.length - 1].fen);
+    this.pluginUpdate(util.lastStep(this.data).fen);
   };
 
   endWithData = (o: ApiEnd): void => {
@@ -557,7 +555,7 @@ export default class RoundController implements MoveRootCtrl {
     d.game.boosted = o.boosted;
     d.player.blindfold = false;
     this.userJump(this.lastPly());
-    d.game.fen = d.steps[d.steps.length - 1].fen;
+    d.game.fen = util.lastStep(this.data).fen;
     // If losing/drawing on time but locally it is the opponent's turn, move did not reach server before the end
     if (
       o.status.name === 'outoftime' &&
@@ -887,6 +885,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   blindfold = (v?: boolean): boolean => {
+    this.data.player.blindfold ??= false;
     if (v === undefined || v === this.data.player.blindfold) return this.data.player.blindfold ?? false;
     this.blindfoldStorage.set(v);
     this.data.player.blindfold = v;

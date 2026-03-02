@@ -90,7 +90,7 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="timePlaying">Tijd gespeeld</string>
   <string name="variantXOverLastY">%1$s over laatste %2$s</string>
   <string name="winrate">Winratio</string>
-  <string name="na">N.v.t.</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">N.v.t.</string>
   <string name="overview">Overzicht</string>
   <string name="news">Nieuws</string>
   <string name="classNews">Nieuws voor de klas</string>

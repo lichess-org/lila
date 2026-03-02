@@ -130,14 +130,15 @@ if (env.watch && 'setRawMode' in ps.stdin) {
 
 build(argv.filter(x => !x.startsWith('-')));
 
-function getArg(longForm: string) {
+function getArg(longForm: string): string | undefined {
   return argv.find(
     arg => arg.startsWith(longForm) || (args[longForm] && oneDashRe.exec(arg)?.[1]?.includes(args[longForm])),
   );
 }
+
 function stringArg(longForm: string): string | boolean {
   const it = getArg(longForm);
-  return it?.split('=')[1] ?? (it ? true : false);
+  return it?.split('=')[1] ?? !!it;
 }
 
 function boolArg(longForm: string): boolean {

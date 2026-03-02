@@ -1,2 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="preferences">ການຕັ້ງຄ່າ</string>
+  <string name="display">ການສະແດງຜົນ</string>
+  <string name="privacy">ຄວາມເປັນສ່ວນຕົວ</string>
+  <string name="notifications">ການແຈ້ງເຕືອນ</string>
+  <string name="pieceAnimation">ການເຄື່ອນໄຫວຂອງໝາກ</string>
+  <string name="materialDifference">ຄວາມແຕກຕ່າງຂອງກຳລັງໝາກ</string>
+  <string name="boardHighlights">ເນັ້ນຕາໝາກຮຸກ (ຕາລາງສຸດທ້າຍ ແລະ ການລຸກ)</string>
+  <string name="pieceDestinations">ຈຸດໝາຍການເດີນໝາກ (ຕາທີ່ເດີນໄດ້ ແລະ ການເດີນລ່ວງໜ້າ)</string>
+  <string name="boardCoordinates">ພິກັດກະດານ (A-H, 1-8)</string>
+  <string name="moveListWhilePlaying">ລາຍການເດີນໝາກຂະນະຫຼິ້ນ</string>
+  <string name="pgnPieceNotation">ຮູບແບບການບັນທຶກການເດີນໝາກ</string>
+  <string name="chessPieceSymbol">ສັນຍະລັກຕົວໝາກຮຸກ</string>
+  <string name="pgnLetter">ຕົວອັກສອນ (K, Q, R, B, N)</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">ໂໝດສະມາທິ</string>
+  <string name="showPlayerRatings">ສະແດງລະດັບຄະແນນຜູ້ຫຼິ້ນ</string>
+  <string name="showFlairs">ສະແດງປ້າຍສັນຍະລັກຜູ້ຫຼິ້ນ</string>
+  <string name="explainShowPlayerRatings">ສິ່ງນີ້ຈະເຊື່ອງຄະແນນທັງໝົດໃນ Lichess ເພື່ອຊ່ວຍໃຫ້ທ່ານມີສະມາທິກັບການຫຼິ້ນ. ເກມທີ່ມີການນັບຄະແນນຍັງຄົງມີຜົນຕໍ່ຄະແນນຂອງທ່ານຄືເກົ່າ, ແຕ່ວ່າທ່ານຈະບໍ່ເຫັນມັນໃນຂະນະຫຼິ້ນເທົ່ານັ້ນ.</string>
+  <string name="displayBoardResizeHandle">ສະແດງປຸ່ມປັບຂະໜາດກະດານ</string>
+  <string name="onlyOnInitialPosition">ສະເພາະຕອນເລີ່ມຕົ້ນເທົ່ານັ້ນ</string>
+  <string name="inGameOnly">ສະເພາະຕອນຢູ່ໃນເກມເທົ່ານັ້ນ</string>
+  <string name="exceptInGame">ຍົກເວັ້ນຕອນຢູ່ໃນເກມ</string>
+  <string name="chessClock">ໂມງຈັບເວລາໝາກຮຸກ</string>
+  <string name="tenthsOfSeconds">ເສດສ່ວນສິບຂອງວິນາທີ</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ເມື່ອເວລາເຫຼືອໜ້ອຍກວ່າ 10 ວິນາທີ</string>
+  <string name="horizontalGreenProgressBars">ແຖບສະແດງຄວາມຄືບໜ້າສີຂຽວແນວນອນ</string>
+  <string name="soundWhenTimeGetsCritical">ສຽງເຕືອນເມື່ອເວລາໃກ້ຈະໝົດ</string>
+  <string name="giveMoreTime">ເພີ່ມເວລາໃຫ້</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">ພຶດຕິກຳການຫຼິ້ນເກມ</string>
+  <string name="howDoYouMovePieces">ທ່ານຕ້ອງການເດີນໝາກແນວໃດ?</string>
+  <string name="clickTwoSquares">ຄລິກສອງຕາລາງ</string>
+  <string name="dragPiece">ລາກຕົວໝາກ</string>
+  <string name="bothClicksAndDrag">ໄດ້ທັງສອງແບບ</string>
+  <string name="premovesPlayingDuringOpponentTurn">ການເດີນລ່ວງໜ້າ (ຫຼິ້ນໃນຂະນະທີ່ຕາຂອງຄູ່ຕໍ່ສູ້)</string>
+  <string name="takebacksWithOpponentApproval">ຂໍເດີນໃໝ່ (ໂດຍການຍອມຮັບຈາກຄູ່ຕໍ່ສູ້)</string>
+  <string name="inCasualGamesOnly">ສະເພາະໃນເກມທົ່ວໄປເທົ່ານັ້ນ</string>
+  <string name="promoteToQueenAutomatically">ປ່ຽນເປັນລາຊິນີ (Queen) ໂດຍອັດຕະໂນມັດ</string>
+  <string name="explainPromoteToQueenAutomatically">ກົດປຸ່ມ &lt;ctrl&gt; ຄ້າງໄວ້ຂະນະປ່ຽນຕົວໝາກ ເພື່ອປິດການປ່ຽນອັດຕະໂນມັດຊົ່ວຄາວ</string>
+  <string name="whenPremoving">ເມື່ອເດີນລ່ວງໜ້າ</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">ຂໍສະເໝີອັດຕະໂນມັດເມື່ອມີການເດີນຊ້ຳກັນສາມຄັ້ງ</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">ເມື່ອເວລາເຫຼືອໜ້ອຍກວ່າ 30 ວິນາທີ</string>
+  <string name="moveConfirmation">ການຢືນຢັນການເດີນໝາກ</string>
+  <string name="explainCanThenBeTemporarilyDisabled">ສາມາດປິດໄດ້ຊົ່ວຄາວໃນເມນູກະດານຂະນະຫຼິ້ນເກມ</string>
+  <string name="inCorrespondenceGames">ເກມແບບ Correspondence</string>
+  <string name="correspondenceAndUnlimited">ເກມແບບ Correspondence ແລະ ບໍ່ຈຳກັດເວລາ</string>
+  <string name="confirmResignationAndDrawOffers">ຢືນຢັນການຍອມແພ້ ແລະ ການຂໍສະເໝີ</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">ວິທີການເຂົ້າປ້ອມ (Castling)</string>
+  <string name="castleByMovingTwoSquares">ເລື່ອນຂຸນໄປສອງຕາລາງ</string>
+  <string name="castleByMovingOntoTheRook">ເລື່ອນຂຸນໄປທັບເຮືອ</string>
+  <string name="inputMovesWithTheKeyboard">ປ້ອນການເດີນໝາກດ້ວຍຄີບອດ</string>
+  <string name="inputMovesWithVoice">ປ້ອນການເດີນໝາກດ້ວຍສຽງ</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">ໃຫ້ລູກສອນຊີ້ໄປຫາຕາທີ່ເດີນໄດ້ເທົ່ານັ້ນ</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">ສົ່ງຂໍ້ຄວາມ \"Good game, well played\" ເມື່ອແພ້ ຫຼື ສະເໝີ (ຂໍ້ຄວາມຈະຖືກສົ່ງເປັນພາສາອັງກິດ)</string>
+  <string name="yourPreferencesHaveBeenSaved">ບັນທຶກການຕັ້ງຄ່າຂອງທ່ານແລ້ວ.</string>
+  <string name="scrollOnTheBoardToReplayMoves">ເລື່ອນເທິງກະດານເພື່ອເບິ່ງການເດີນໝາກຍ້ອນຫຼັງ</string>
+  <string name="correspondenceEmailNotification">ອີເມວແຈ້ງເຕືອນລາຍການເກມ Correspondence ລາຍວັນ</string>
+  <string name="notifyStreamStart">ສະຕຣີມເມີເລີ່ມໄລ້ສົດ</string>
+  <string name="notifyInboxMsg">ມີຂໍ້ຄວາມໃໝ່ໃນກ່ອງຂໍ້ຄວາມ</string>
+  <string name="notifyForumMention">ມີຄົນກ່າວເຖິງທ່ານໃນຟໍຣຳ</string>
+  <string name="notifyInvitedStudy">ຄຳເຊີນເຂົ້າຮ່ວມການສຶກສາ (Study)</string>
+  <string name="notifyGameEvent">ການເຄື່ອນໄຫວໃນເກມ Correspondence</string>
+  <string name="notifyChallenge">ຄຳທ້າດວນ</string>
+  <string name="notifyTournamentSoon">ການແຂ່ງຂັນກຳລັງຈະເລີ່ມໃນໄວໆນີ້</string>
+  <string name="notifyTimeAlarm">ເວລາໃນເກມ Correspondence ໃກ້ຈະໝົດ</string>
+  <string name="notifyBell">ການແຈ້ງເຕືອນຮູບກະດິ່ງພາຍໃນ Lichess</string>
+  <string name="notifyPush">ການແຈ້ງເຕືອນເທິງອຸປະກອນເມື່ອບໍ່ໄດ້ເປີດ Lichess</string>
+  <string name="notifyWeb">ບຣາວເຊີ</string>
+  <string name="notifyDevice">ອຸປະກອນ</string>
+  <string name="bellNotificationSound">ສຽງແຈ້ງເຕືອນຮູບກະດິ່ງ</string>
+  <string name="blindfold" comment="As in Blindfold chess">ປິດຕາຫຼິ້ນ (ເຊື່ອງຕົວໝາກທັງໝົດ)</string>
+</resources>

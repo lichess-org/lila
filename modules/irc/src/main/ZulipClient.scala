@@ -88,6 +88,7 @@ private object ZulipClient:
     val broadcast = "content-broadcast"
     val blog = "content-blog"
     val content = "content-site"
+    val bbb = "pub-org-bbb"
     type Selector = ZulipClient.stream.type => String
 
 private case class ZulipMessage(

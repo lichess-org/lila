@@ -20,7 +20,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
     ? Math.round(data.sheet.reduce((r, p) => r + (!isOutcome(p) ? p.rating : 1), 0) / games)
     : undefined;
   return hl(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
-    hl('a.close', {
+    hl('button.close', {
       attrs: dataIcon(licon.X),
       hook: bind('click', () => ctrl.showPlayerInfo(data), ctrl.redraw),
     }),

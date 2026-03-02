@@ -24,7 +24,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     grid-auto-flow: dense;
-    grid-gap: 3em;
+    gap: 3em;
     margin: var(---box-padding);
 
     section {

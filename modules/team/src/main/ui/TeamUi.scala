@@ -204,7 +204,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
     def hasPerm(perm: TeamSecurity.Permission.Selector) = member.exists(_.hasPerm(perm))
     val canManage = asMod && Granter.opt(_.ManageTeam)
     div(cls := "team-show__actions")(
-      (team.enabled && member.isEmpty).option(
+      (team.enabled && team.acceptsMembers && member.isEmpty).option(
         frag(
           if myRequest.exists(_.declined) then
             frag(
@@ -220,36 +220,40 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           else (ctx.isAuth && !asMod).option(joinButton(team))
         )
       ),
-      (team.enabled && member.isDefined).option(
+      (team.enabled && team.doesTeamMessages && member.isDefined).option(
         postForm(
           cls := "team-show__subscribe form3",
           action := routes.Team.subscribe(team.id)
         )(
-          div(
-            span(form3.cmnToggle("team-subscribe", "subscribe", checked = subscribed)),
-            label(`for` := "team-subscribe")(trt.subToTeamMessages.txt())
+          form3.cmnToggleWrap(
+            form3.cmnToggle("team-subscribe", "subscribe", checked = subscribed),
+            trt.subToTeamMessages()
           )
         )
       ),
-      (member.isDefined && !hasPerm(_.Admin)).option(
+      (member.isDefined && !team.isClas && !hasPerm(_.Admin)).option(
         postForm(cls := "quit", action := routes.Team.quit(team.id))(
           submitButton(cls := "button button-empty button-red yes-no-confirm")(trt.quitTeam.txt())
         )
       ),
       (team.enabled && hasPerm(_.Tour)).option(
         frag(
-          a(
-            href := routes.Tournament.teamBattleForm(team.id),
-            cls := "button button-empty text",
-            dataIcon := Icon.Trophy
-          ):
-            span(
-              strong(trt.teamBattle()),
-              em(trt.teamBattleOverview())
-            )
+          team.isClas.not.option:
+            a(
+              href := routes.Tournament.teamBattleForm(team.id),
+              cls := "button button-empty text",
+              dataIcon := Icon.Trophy
+            ):
+              span(
+                strong(trt.teamBattle()),
+                em(trt.teamBattleOverview())
+              )
           ,
           a(
-            href := s"${routes.Tournament.form}?team=${team.id}",
+            href := addQueryParams(
+              routes.Tournament.form.url,
+              Map("team" -> team.id.value) ++ team.isClas.so(Map("clas" -> "1"))
+            ),
             cls := "button button-empty text",
             dataIcon := Icon.Trophy
           ):

@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Gioca contro il computer</string>
   <string name="gameMode">Modalità di gioco</string>
   <string name="createLobbyGame">Crea una partita nella lobby</string>
-  <string name="youPlayAs">Giochi come</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
   <string name="waitingForOpponent">In attesa dell\'avversario</string>
@@ -231,7 +230,6 @@
   <string name="changeUsernameNotSame">Puoi cambiare solamente il maiuscolo/minuscolo delle lettere (per esempio da \"mariorossi\" a \"MarioRossi\").</string>
   <string name="changeUsernameDescription">Cambia il tuo nome utente. Questa operazione può essere effettuata una sola volta e consente di modificare solamente il maiuscolo/minuscolo del tuo nome utente.</string>
   <string name="signupUsernameHint">Assicurati di scegliere un nome utente appropriato. Non potrai cambiarlo successivamente e gli account con nomi inappropriati saranno cancellati!</string>
-  <string name="signupEmailHint">Lo useremo solamente per reimpostare la tua password.</string>
   <string name="password">Password</string>
   <string name="changePassword">Cambia password</string>
   <string name="changeEmail">Cambia email</string>
@@ -427,7 +425,6 @@
   <string name="pasteTheFenStringHere">Incolla qui la stringa FEN</string>
   <string name="pasteThePgnStringHere">Incolla qui il testo PGN</string>
   <string name="orUploadPgnFile">O carica un file PGN</string>
-  <string name="fromPosition">Da una posizione</string>
   <string name="continueFromHere">Continua da qui</string>
   <string name="toStudy">Studia</string>
   <string name="importGame">Importa partita</string>
@@ -714,11 +711,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="keyCycleSelectedVariation">Cicla tra le varianti</string>
   <string name="keyShowOrHideComments">mostra/nascondi i commenti</string>
   <string name="keyEnterOrExitVariation">entra/esci dalla variante</string>
-  <string name="keyRequestComputerAnalysis">Richiedi analisi del computer, Impara dai tuoi errori</string>
-  <string name="keyNextLearnFromYourMistakes">Prossimo (Impara dai tuoi errori)</string>
-  <string name="keyNextBlunder">Prossimo grave errore</string>
-  <string name="keyNextMistake">Prossimo errore</string>
-  <string name="keyNextInaccuracy">Prossima imprecisione</string>
   <string name="keyPreviousBranch">Variante precedente</string>
   <string name="keyNextBranch">Variante successiva</string>
   <string name="toggleVariationArrows">Mostra le frecce delle varianti</string>
@@ -1018,4 +1010,5 @@ Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivament
   <string name="search">Cerca</string>
   <string name="clearSearch">Cancella ricerca</string>
   <string name="tags">Tag</string>
+  <string name="enPassant">Regole En passant</string>
 </resources>

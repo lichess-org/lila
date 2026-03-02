@@ -98,10 +98,10 @@
     width: 100%;
     height: auto;
     &-credit {
+      @extend %break-word;
       font-size: 0.9em;
       color: $c-font-dim;
       text-align: right;
-      word-break: break-word;
     }
   }
   &__intro {
@@ -129,8 +129,7 @@
     }
   }
   &__actions {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
     font-size: 2em;
     margin: 0 0 2rem 0;
     .button {
@@ -154,9 +153,6 @@
     &.followed .ublog-post__follow__yes {
       display: block;
     }
-  }
-  .ublog-post-card--link:hover {
-    box-shadow: none;
   }
 }
 

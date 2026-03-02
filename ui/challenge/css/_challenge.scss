@@ -41,6 +41,7 @@
     }
 
     &:hover .buttons,
+    &:focus-within .buttons,
     .blind-mode & .buttons {
       display: flex;
     }
@@ -68,10 +69,9 @@
       padding: 0;
       background: transparent;
       font-size: 1.5rem;
+      box-shadow: none;
 
       @include transition;
-
-      box-shadow: none;
     }
 
     button,

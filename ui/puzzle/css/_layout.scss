@@ -57,7 +57,7 @@ $puzzle-block-gap: $block-gap;
   }
 
   grid-template-areas: 'board' 'controls' 'tools' 'session' 'side' 'kb-move';
-  grid-row-gap: $puzzle-block-gap;
+  row-gap: $puzzle-block-gap;
 
   &__moves {
     display: none;
@@ -94,7 +94,7 @@ $puzzle-block-gap: $block-gap;
 
   &__side {
     display: grid;
-    grid-gap: $puzzle-block-gap;
+    gap: $puzzle-block-gap;
     grid-template-areas: 'user' 'theme' 'metas' 'config';
 
     .puzzle-replay & {

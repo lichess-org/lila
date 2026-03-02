@@ -3,22 +3,22 @@
   <string name="chessVideos">Sakkvideók</string>
   <string name="allVideosAreFree">Az összes videó ingyenes mindenkinek.</string>
   <string name="selectTagsToFilter">Szűrés címkékkel.</string>
-  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">Idáig %s igényesen válogatott videó!</string>
+  <string name="weHaveCarefullySelectedX">Idáig %s igényesen válogatott videó!</string>
   <string name="freeChessVideos">Ingyenes sakkvideók</string>
-  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s ingyenes, igényesen válogatott sakkvideó</string>
-  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s igényesen válogatott sakkvideó</string>
-  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s címkékkel %2$s</string>
-  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">ingyenes mindenkinek</string>
-  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+  <string name="xFreeCarefullyCurated">%s ingyenes, igényesen válogatott sakkvideó</string>
+  <string name="xCuratedChessVideos">%s igényesen válogatott sakkvideó</string>
+  <string name="xWithTagsY">%1$s címkékkel %2$s</string>
+  <string name="freeForAll">ingyenes mindenkinek</string>
+  <plurals name="nbVideosFound">
     <item quantity="one">%s videót találtunk</item>
     <item quantity="other">%s videót találtunk</item>
   </plurals>
   <string name="noVideosForTheseTags">Nincs videó ilyen címkékkel:</string>
   <string name="thatsAllWeGotForTheseTags">Ez minden, amit találtunk ezekkel a címkékkel:</string>
-  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">Ez minden, amit találtunk erre a keresésre: \"%s\"</string>
-  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">Nincs eredmény erre: \"%s\"</string>
-  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">Több címke megtekintése</string>
+  <string name="thatsAllWeGotForThisSearchX">Ez minden, amit találtunk erre a keresésre: \"%s\"</string>
+  <string name="thereAreNoResultsForX">Nincs eredmény erre: \"%s\"</string>
+  <string name="viewMoreTags">Több címke megtekintése</string>
   <string name="videoNotFound">Nem találtunk videókat!</string>
-  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">%1$s %2$s által</string>
-  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">Minden %s videó címke</string>
+  <string name="xByY">%1$s %2$s által</string>
+  <string name="allNbVideoTags">Minden %s videó címke</string>
 </resources>

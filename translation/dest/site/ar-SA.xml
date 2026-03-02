@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">لعب ضد الحاسوب</string>
   <string name="gameMode">نمط اللعب</string>
   <string name="createLobbyGame">إنشاء ساحة لعب</string>
-  <string name="youPlayAs">لعب ك</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
   <string name="gameOver">انتهت المباراة</string>
   <string name="waitingForOpponent">في انتظار المنافس</string>
@@ -291,7 +290,6 @@
   <string name="changeUsernameNotSame">يمكن تغيير حساسية الأحرف فقط.</string>
   <string name="changeUsernameDescription">غير إسم المستخدم. يمكنك تغيير إسم المستخدم الخاص بك مرة واحدة فقط, ويمكنك فقط تغيير حساسية الاحرف.</string>
   <string name="signupUsernameHint">تأكد من اختيار اسم مستخدم صديق للعائلة. لا يمكنك تغييره لاحقًا وأي حسابات تحتوي على أسماء مستخدمين غير ملائمة سيتم إغلاقها!</string>
-  <string name="signupEmailHint">سوف نستخدمه فقط لإعادة تعيين كلمة المرور.</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
@@ -551,7 +549,6 @@
   <string name="pasteTheFenStringHere">ألصق الـFEN هنا</string>
   <string name="pasteThePgnStringHere">ألصق الـPGN هنا</string>
   <string name="orUploadPgnFile">أو حمل مِلف PGN</string>
-  <string name="fromPosition">من وضع</string>
   <string name="continueFromHere">تابع من هنا</string>
   <string name="toStudy">دراسة</string>
   <string name="importGame">استورد مباراة</string>
@@ -872,11 +869,6 @@ https://lichess. org/report.</string>
   <string name="keyCycleSelectedVariation">التفريع المحدد</string>
   <string name="keyShowOrHideComments">أظهر/أخفِ التعليقات</string>
   <string name="keyEnterOrExitVariation">متغير دخول/خروج</string>
-  <string name="keyRequestComputerAnalysis">اطلب تحليل الحاسوب وتعلم من أخطائك</string>
-  <string name="keyNextLearnFromYourMistakes">التالي (تعلم من أخطائك)</string>
-  <string name="keyNextBlunder">الخطأ الفادح التالي</string>
-  <string name="keyNextMistake">الخطأ التالي</string>
-  <string name="keyNextInaccuracy">النقلة غير الدقيقة التالية</string>
   <string name="keyPreviousBranch">التفريع السابق</string>
   <string name="keyNextBranch">التفريع القادم</string>
   <string name="toggleVariationArrows">تبديل أسهم النقلات المرشحة</string>

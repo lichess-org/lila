@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">コンピュータと対戦</string>
   <string name="gameMode">対局モード</string>
   <string name="createLobbyGame">ロビー対局を作成</string>
-  <string name="youPlayAs">色（白/黒）</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
   <string name="orLetYourOpponentScanQrCode">または相手にこの QR コードをスキャンさせてください</string>
+  <string name="reusableChallengeUrl">再利用可能なチャレンジ URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">誰でもこのとおりの設定であなたにチャレンジできる恒久的リンク。</string>
   <string name="waiting">待機中</string>
   <string name="yourTurn">あなたの手番です</string>
   <string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
@@ -43,7 +44,7 @@
   <string name="whitePlays">白の手番</string>
   <string name="blackPlays">黒の手番</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">相手がいなくなりました。後 %s 秒で勝ちにできます。</item>
+    <item quantity="other">相手がいなくなりました。あと %s 秒で勝ちにできます。</item>
   </plurals>
   <string name="opponentLeftChoices">相手が退席したようです。投了させる、引き分けにする、相手を待つ、のどれかを選んでください。</string>
   <string name="forceResignation">投了させる</string>
@@ -124,6 +125,10 @@
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="showVariationArrows">変化手順の矢印を表示</string>
   <string name="evaluationGauge">評価値を表示</string>
+  <string name="visualMotifs">形のパターン</string>
+  <string name="undefendedPieces">浮き駒</string>
+  <string name="pinnedPieces">ピンされた駒</string>
+  <string name="checkableKing">チェックできるキング</string>
   <string name="multipleLines">解析ライン数</string>
   <string name="cpus">スレッド数</string>
   <string name="memory">メモリ</string>
@@ -193,6 +198,7 @@
   <string name="minutesPerSide">持ち時間</string>
   <string name="variant">バリアント</string>
   <string name="variants">変則チェス</string>
+  <string name="variantsDescription">さまざまな遊び方</string>
   <string name="timeControl">持時間</string>
   <string name="realTime">実時間</string>
   <string name="correspondence">通信チェス</string>
@@ -216,7 +222,7 @@
   <string name="changeUsernameNotSame">大文字・小文字の変更だけができます（johndoe を JohnDoeに、など）</string>
   <string name="changeUsernameDescription">ユーザー名を変更します。これは一回限りで、行なえるのは大文字・小文字の変更だけです。</string>
   <string name="signupUsernameHint">ユーザー名は無難なものにしてください。後で変えることはできないし、ユーザー名が不適切だとアカウントが閉鎖されます！</string>
-  <string name="signupEmailHint">この情報はパスワードのリセットにのみ使用します。</string>
+  <string name="signupEmailPromise">送信されるのはあなたのアカウントについてのメールだけで、メールアドレスを他と共有することはありません。</string>
   <string name="password">パスワード</string>
   <string name="changePassword">パスワードの変更</string>
   <string name="changeEmail">メールアドレスの変更</string>
@@ -281,6 +287,7 @@
   <string name="standard">スタンダード</string>
   <string name="customPosition">自由配置局面</string>
   <string name="unlimited">無制限</string>
+  <string name="unlimitedDescription">しっかり時間をかけて</string>
   <string name="mode">モード</string>
   <string name="casual">非レート戦</string>
   <string name="rated">レート戦</string>
@@ -393,10 +400,11 @@
   <string name="leaderboard">ランキング</string>
   <string name="screenshotCurrentPosition">現局面のスクリーンショット</string>
   <string name="gameAsGIF">GIF 形式の棋譜</string>
+  <string name="playerNames">プレイヤー名</string>
+  <string name="moveAnnotations">移動の注釈</string>
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="orUploadPgnFile">または PGN ファイルをアップロード</string>
-  <string name="fromPosition">特定の局面から</string>
   <string name="continueFromHere">この局面から対局</string>
   <string name="toStudy">研究</string>
   <string name="importGame">棋譜をインポート</string>
@@ -675,17 +683,13 @@
   <string name="keyCycleSelectedVariation">選択した手順を切り替え</string>
   <string name="keyShowOrHideComments">コメントを表示する/隠す</string>
   <string name="keyEnterOrExitVariation">変化に入る/出る</string>
-  <string name="keyRequestComputerAnalysis">コンピュータ解析の要請、自分の悪手に学ぶ</string>
-  <string name="keyNextLearnFromYourMistakes">次（自分の悪手に学ぶ）</string>
-  <string name="keyNextBlunder">次の大悪手</string>
-  <string name="keyNextMistake">次の悪手</string>
-  <string name="keyNextInaccuracy">次のやや悪手</string>
   <string name="keyPreviousBranch">前の変化手順</string>
   <string name="keyNextBranch">次の変化手順</string>
   <string name="toggleVariationArrows">変化手順の矢印を切り替え</string>
   <string name="cyclePreviousOrNextVariation">ひとつ前/次の手順を切り替え</string>
   <string name="toggleGlyphAnnotations">記号での注釈を切り替え</string>
   <string name="togglePositionAnnotations">わからん</string>
+  <string name="toggleObservationAnnotations">注釈の表示切替</string>
   <string name="variationArrowsInfo">変化手順の矢印があれば棋譜記録を使わずにナビゲーションできます。</string>
   <string name="playSelectedMove">選択した手をプレイ</string>
   <string name="newTournament">新しいトーナメント</string>
@@ -726,6 +730,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
   <string name="scrollOverComputerVariationsToPreviewThem">手順の上にカーソルを移動させるとプレビューが表示されます。</string>
   <string name="analysisShapesHowTo">Shift + クリックや右クリックで盤上に丸や矢印が描けます。</string>
+  <string name="primaryColorArrowsHowTo">Ctrl（またはShift）を押しながら描くと赤色に、Alt（またはCommandかMeta）を押しながら描くと青色になります。各色のキーを同時に押しながら描くと黄色になります。</string>
   <string name="letOtherPlayersMessageYou">他のプレイヤーからのメッセージを受け付ける</string>
   <string name="receiveForumNotifications">フォーラムで自分の名前が出たときに通知を受け取る</string>
   <string name="shareYourInsightsData">Insights のデータを共有する</string>
@@ -768,6 +773,7 @@
   <string name="size">サイズ</string>
   <string name="opacity">透明度</string>
   <string name="brightness">明るさ</string>
+  <string name="contrast">コントラスト</string>
   <string name="hue">色</string>
   <string name="boardReset">色をデフォルトに戻す</string>
   <string name="pieceSet">駒のデザイン</string>
@@ -974,4 +980,5 @@
   <string name="search">検索</string>
   <string name="clearSearch">検索をクリア</string>
   <string name="tags">タグ</string>
+  <string name="enPassant">アンパッサン</string>
 </resources>

@@ -30,8 +30,9 @@ final private class RatingRefund(
   def schedule(sus: Suspect): Unit = scheduler.scheduleOnce(delay)(apply(sus))
 
   private def apply(sus: Suspect): Funit =
+    val refundDateLimit = nowInstant.minusDays(5)
     logApi
-      .wasUnengined(sus)
+      .wasUnengined(sus, refundDateLimit.some)
       .flatMap:
         if _ then funit
         else
@@ -39,7 +40,7 @@ final private class RatingRefund(
             gameRepo.coll
               .find:
                 Query.user(sus.user.id) ++ Query.rated ++ Query
-                  .createdSince(nowInstant.minusDays(5)) ++ Query.finished
+                  .createdSince(refundDateLimit) ++ Query.finished
               .sort(Query.sortCreated)
               .cursor[Game](ReadPref.sec)
               .list(40)

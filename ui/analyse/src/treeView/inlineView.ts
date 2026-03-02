@@ -9,6 +9,7 @@ import { playable } from 'lib/game';
 import type { Conceal } from '../interfaces';
 import type { DiscloseState } from '../idbTree';
 import { renderMoveNodes, renderIndex } from '../view/components';
+import type { TreeComment, TreeNode, TreePath } from 'lib/tree/types';
 
 export function renderInlineView(ctrl: AnalyseCtrl): VNode {
   const renderer = new InlineView(ctrl);
@@ -31,8 +32,8 @@ export function renderInlineView(ctrl: AnalyseCtrl): VNode {
 
 export interface Args {
   isMainline: boolean;
-  parentPath: Tree.Path;
-  parentNode: Tree.Node;
+  parentPath: TreePath;
+  parentNode: TreeNode;
   parentDisclose?: DiscloseState;
   parenthetical?: boolean;
   conceal?: Conceal;
@@ -44,7 +45,7 @@ export class InlineView {
 
   constructor(readonly ctrl: AnalyseCtrl) {}
 
-  renderNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
+  renderNodes([child, ...siblings]: TreeNode[], args: Args): LooseVNodes {
     if (!child) return;
     const { isMainline, parentDisclose } = args;
     return child.forceVariation && isMainline
@@ -59,7 +60,7 @@ export class InlineView {
         ];
   }
 
-  commentNodes(node: Tree.Node, classes: Classes = {}): LooseVNodes[] {
+  commentNodes(node: TreeNode, classes: Classes = {}): LooseVNodes[] {
     if (!this.ctrl.showComments || !node.comments) return [];
     return node.comments
       .map(comment =>
@@ -83,11 +84,11 @@ export class InlineView {
       .filter(Boolean);
   }
 
-  private isFishnetComment(comment: Tree.Comment): boolean {
+  private isFishnetComment(comment: TreeComment): boolean {
     return comment.by === 'lichess' && comment.text.endsWith(' was best.');
   }
 
-  protected lines(lines: Tree.Node[], args: Args): LooseVNodes {
+  protected lines(lines: TreeNode[], args: Args): LooseVNodes {
     const { parentDisclose, parentPath, parentNode, isMainline } = args;
     if (!lines.length || parentDisclose === 'collapsed') return;
     const anchor = parentDisclose === 'expanded' && (this.inline || !isMainline);
@@ -103,7 +104,7 @@ export class InlineView {
         ]);
   }
 
-  private sidelineNodes([child, ...siblings]: Tree.Node[], args: Args): LooseVNodes {
+  private sidelineNodes([child, ...siblings]: TreeNode[], args: Args): LooseVNodes {
     if (!child) return;
     const childArgs = this.childArgs(child, args, false);
     const sideline = [
@@ -120,7 +121,7 @@ export class InlineView {
       : sideline;
   }
 
-  private childArgs(child: Tree.Node, args: Args, isMainline = false) {
+  private childArgs(child: TreeNode, args: Args, isMainline = false) {
     return {
       isMainline,
       parentPath: args.parentPath + child.id,
@@ -130,12 +131,12 @@ export class InlineView {
     };
   }
 
-  private parenthetical(node: Tree.Node): boolean {
+  private parenthetical(node: TreeNode): boolean {
     const [, second, third] = node.children;
     return !third && second && !treeOps.hasBranching(second, 6);
   }
 
-  protected moveNode(node: Tree.Node, args: Args): LooseVNodes {
+  protected moveNode(node: TreeNode, args: Args): LooseVNodes {
     const { conceal, isMainline, parentPath, parentNode, parentDisclose, parenthetical } = args;
     const { ctrl } = this;
     const path = parentPath + node.id;
@@ -150,7 +151,7 @@ export class InlineView {
           parentNode.children.length > 1 &&
           (!parenthetical || parentNode.children[0] !== node))); // ugh
     const classes: Classes = {
-      mainline: isMainline,
+      mainline: isMainline && this.inline,
       conceal: conceal === 'conceal',
       hide: conceal === 'hide',
       active: path === ctrl.path,
@@ -178,7 +179,7 @@ export class InlineView {
     ]);
   }
 
-  protected disclosureConnector(parentPath: Tree.Path): LooseVNodes {
+  protected disclosureConnector(parentPath: TreePath): LooseVNodes {
     const callback = (vnode: VNode) => this.connectToDisclosureBtn(vnode, parentPath);
     const hook: Hooks = { insert: callback, update: v => setTimeout(() => callback(v)) };
     return (
@@ -187,7 +188,7 @@ export class InlineView {
     );
   }
 
-  private disclosureBtn(node: Tree.Node, path: Tree.Path): LooseVNodes {
+  private disclosureBtn(node: TreeNode, path: TreePath): LooseVNodes {
     return (
       this.ctrl.disclosureMode() &&
       hl('a.disclosure', {
@@ -198,7 +199,7 @@ export class InlineView {
     );
   }
 
-  private connectToDisclosureBtn(v: VNode, path: Tree.Path): void {
+  private connectToDisclosureBtn(v: VNode, path: TreePath): void {
     const [el, btn] = [v.elm as HTMLElement, this.findDisclosureBtn(v.elm, path)];
     if (!el || !btn || isSafari({ below: '16' })) return;
 
@@ -220,7 +221,7 @@ export class InlineView {
     (el.firstElementChild as HTMLElement).style.display = isFirstOnRow ? 'none' : 'block';
   }
 
-  private findDisclosureBtn(el: Node | null | undefined, path: Tree.Path): HTMLElement | undefined {
+  private findDisclosureBtn(el: Node | null | undefined, path: TreePath): HTMLElement | undefined {
     while (el && (el.nodeName !== 'A' || (el as HTMLElement).dataset.path !== path)) {
       if (!el.previousSibling) el = el.parentNode;
       else {

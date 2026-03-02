@@ -33,7 +33,7 @@ body.no-inquiry {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  border-bottom: 1px solid $c-border;
+  border-bottom: $border;
   box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
@@ -46,7 +46,7 @@ body.no-inquiry {
     height: 160px;
     width: 160px;
     margin: -80px 0 0 -80px;
-    background: $c-bg-zebra no-repeat url(../images/icons/octopus.svg);
+    background: $c-bg-zebra no-repeat url('../images/icons/octopus.svg');
     background-size: 35% 35%;
     background-position: 81% 81%;
     border-radius: 0 0 50% 0;
@@ -128,7 +128,7 @@ body.no-inquiry {
     @extend %box-radius-bottom, %dropdown-shadow;
 
     z-index: 2;
-    border-bottom: 1px solid $c-border;
+    border-bottom: $border;
     max-height: 500px;
     overflow-y: auto;
   }
@@ -215,7 +215,7 @@ body.no-inquiry {
   .actions:not(.close),
   .links {
     padding-inline-end: 10px;
-    border-inline-end: 1px solid $c-border;
+    border-inline-end: $border;
   }
 
   .actions > form {
@@ -246,7 +246,7 @@ body.no-inquiry {
 
   .links {
     padding: 0 10px;
-    border-inline-start: 1px solid $c-border;
+    border-inline-start: $border;
   }
 
   .links a {
@@ -393,12 +393,8 @@ body.no-inquiry {
     padding: 6px 0;
   }
 
-  .switcher {
-    margin-inline-start: -10px;
-
-    label {
-      transform: scale(0.7);
-    }
+  .cmn-toggle {
+    transform: scale(0.7);
   }
 
   .notes {
@@ -406,11 +402,11 @@ body.no-inquiry {
       transition: all 1s ease-out;
       &.note-flash {
         background: $c-primary;
-        box-shadow: 0 0px 15px $c-primary;
+        box-shadow: 0 0 15px $c-primary;
         transition: none;
         &.warning {
           background: $c-warn;
-          box-shadow: 0 0px 15px $c-warn;
+          box-shadow: 0 0 15px $c-warn;
         }
       }
     }

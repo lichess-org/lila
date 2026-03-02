@@ -2,6 +2,10 @@
   border-radius: $box-radius-size;
 }
 
+@mixin box-radius-top {
+  border-radius: $box-radius-size $box-radius-size 0 0;
+}
+
 @mixin box-shadow {
   box-shadow:
     0 2px 2px 0 rgba(0, 0, 0, 0.14),
@@ -28,8 +32,16 @@
   }
 }
 
-@mixin transition($prop: all, $dur: $transition-duration) {
-  transition: $prop $dur;
+@mixin transition($prop: all, $dur: $transition-duration, $timing: ease) {
+  @if type-of($prop) == 'list' and length($prop) > 1 {
+    $out: ();
+    @for $i from 1 through length($prop) {
+      $out: append($out, nth($prop, $i) $dur $timing, comma);
+    }
+    transition: $out;
+  } @else {
+    transition: $prop $dur $timing;
+  }
 }
 
 @mixin hoverflow {
@@ -39,14 +51,6 @@
     &:not(:hover) {
       overflow: hidden;
     }
-  }
-}
-
-@mixin hide {
-  display: none;
-
-  .blind-mode & {
-    display: inherit;
   }
 }
 
@@ -74,16 +78,6 @@
   }
 }
 
-@mixin margin-inline-start($amount) {
-  margin-inline-start: $amount;
-  margin-inline: $amount 0; // this doesn't have perfect browser support so keep the other margin as fallback
-}
-
-@mixin margin-inline-end($amount) {
-  margin-inline-end: $amount;
-  margin-inline: 0 $amount; // this doesn't have perfect browser support so keep the other margin as fallback
-}
-
 @mixin back-blur($size: 6px) {
   &::before {
     content: '';
@@ -94,7 +88,12 @@
     height: 100%;
     z-index: -1;
     backdrop-filter: blur($size);
-    -webkit-backdrop-filter: blur($size);
+  }
+}
+
+@mixin backdrop-blur-if-transparent($size: 6px) {
+  @include if-transp {
+    backdrop-filter: blur($size);
   }
 }
 
@@ -106,9 +105,9 @@
     padding: 0;
     width: unset;
     background: unset;
-    border-bottom: unset;
+    border-bottom-color: transparent;
     transform: unset;
-    ---site-header-sticky-padding: 0px;
+    ---site-header-sticky-padding: 0;
 
     #topnav,
     .dropdown {
@@ -119,7 +118,7 @@
     }
   }
   #main-wrap {
-    margin-top: $site-header-margin;
+    margin-top: var(---sticky-gap);
   }
 }
 
@@ -128,8 +127,7 @@
   position: relative;
   aspect-ratio: $aspect-ratio;
   &::after {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
     content: attr(alt);
     position: absolute;
     top: 0;
@@ -142,10 +140,10 @@
 }
 
 @mixin gradient-border($c, $ltr-dir, $rtl-dir) {
-  background: linear-gradient($ltr-dir, $c 0px, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient($ltr-dir, $c 0, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
 
   @include if-rtl {
-    background: linear-gradient($rtl-dir, $c 0px, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient($rtl-dir, $c 0, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
   }
 }
 
@@ -159,5 +157,4 @@
 
 @mixin prevent-select {
   user-select: none;
-  -webkit-user-select: none;
 }

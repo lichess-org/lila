@@ -91,9 +91,8 @@ export function renderStreamerMenu(relay: RelayCtrl): VNode {
   );
 }
 
-export function allowVideo(): boolean {
-  return window.getComputedStyle(document.body).getPropertyValue('---allow-video') === 'true';
-}
+export const allowVideo = (): boolean =>
+  window.getComputedStyle(document.body).getPropertyValue('---allow-video') === 'true';
 
 function renderBoardView(ctx: RelayViewContext) {
   const { ctrl, deps, study, gaugeOn, relay } = ctx;

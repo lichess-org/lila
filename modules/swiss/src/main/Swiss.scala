@@ -137,3 +137,6 @@ object Swiss:
   enum Status:
     case created, started, finished
   def status(str: String) = scala.util.Try(Status.valueOf(str)).toOption
+
+  object Fields:
+    val nbPlayers = "nbPlayers"

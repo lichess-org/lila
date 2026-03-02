@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">Jogador FIDE não encontrado</string>
   <string name="fideProfile">Perfil FIDE</string>
   <string name="federation">Federação</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">Idade</string>
+  <string name="age">Idade</string>
   <string name="unrated">Sem classificação</string>
   <string name="recentTournaments">Torneio recentes</string>
   <string name="openLichess">Abrir no Lichess</string>
@@ -69,6 +69,7 @@
   <string name="ratingDiff">Diferença de Elo</string>
   <string name="gamesThisTournament">Jogos deste torneio</string>
   <string name="score">Pontuação</string>
+  <string name="standingsDisclaimer">As classificações são calculadas com base nos jogos transmitidos e podem diferir dos resultados oficiais.</string>
   <string name="allTeams">Todas as equipas</string>
   <string name="tournamentFormat">Formato do torneio</string>
   <string name="tournamentLocation">Localização do Torneio</string>
@@ -83,6 +84,26 @@
   <string name="liveboard">Tabuleiro em direto</string>
   <string name="communityBroadcast">Transmissão comunitária</string>
   <string name="createdAndManagedBy">Criado e administrado por %s.</string>
+  <string name="matchPoints">Pontos de jogo</string>
+  <string name="gamePoints">Pontos do Jogo</string>
+  <string name="matches">Partidas</string>
+  <string name="matchHistory">Histórico de Jogos</string>
+  <string name="teamResults">Resultados das Equipas</string>
+  <string name="termsAutomaticallyTranslated">O(s) seguinte(s) termo(s) será(ão) traduzido(s) automaticamente: %s.</string>
   <string name="roundX">Ronda %s</string>
   <string name="defaultRoundNameHelp">Manter o nome padrão irá traduzi-lo automaticamente para todas as outras línguas.</string>
+  <string name="openTournament">Absoluto</string>
+  <string name="womenTournament">Feminino</string>
+  <string name="menTournament">Masculino</string>
+  <string name="girlsTournament">Feminino</string>
+  <string name="boysTournament">Rapazes</string>
+  <string name="openUnderXAgeTournament">Absoluto Sub%s</string>
+  <string name="girlsUnderXAgeTournament">Feminino Sub%s</string>
+  <string name="boysUnderXAgeTournament">Rapazes Sub%s</string>
+  <string name="quarterfinals">Quartos de final</string>
+  <string name="semifinals">Meias-finais</string>
+  <string name="finals">Finais</string>
+  <string name="tiebreaks">Desempates</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Jogo %s</string>
+  <string name="knockouts">Eliminatórias</string>
 </resources>

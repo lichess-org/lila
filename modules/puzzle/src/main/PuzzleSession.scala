@@ -1,11 +1,13 @@
 package lila.puzzle
 
 import lila.memo.CacheApi
+import chess.IntRating
 
 private case class PuzzleSession(
     settings: PuzzleSettings,
     path: PuzzlePath.Id,
     positionInPath: Int,
+    rating: IntRating,
     previousPaths: Set[PuzzlePath.Id] = Set.empty
 ):
   def switchTo(pathId: PuzzlePath.Id) = copy(
@@ -13,7 +15,8 @@ private case class PuzzleSession(
     previousPaths = previousPaths + pathId,
     positionInPath = 0
   )
-  def next = copy(positionInPath = positionInPath + 1)
+  def forward(nb: Int) = copy(positionInPath = positionInPath + nb)
+  def next = forward(1)
 
   def brandNew = positionInPath == 0
 
@@ -34,14 +37,14 @@ object PuzzleSettings:
 
 final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using Executor):
 
-  def onComplete(round: PuzzleRound, angle: PuzzleAngle): Funit =
+  def onComplete(userId: UserId, angle: PuzzleAngle, nb: Int = 1): Funit =
     sessions
-      .getIfPresent(round.userId)
+      .getIfPresent(userId)
       .so:
         _.map: session =>
           // yes, even if the completed puzzle was not the current session puzzle
           // in that case we just skip a puzzle on the path, which doesn't matter
-          if session.path.angle == angle then sessions.put(round.userId, fuccess(session.next))
+          if session.path.angle == angle then sessions.put(userId, fuccess(session.forward(nb)))
 
   def getSettings(user: User): Fu[PuzzleSettings] =
     sessions
@@ -102,7 +105,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
 
   // renew the session often for provisional players
   private def shouldFlushSession(session: PuzzleSession)(using perf: Perf) = !session.brandNew && {
-    perf.glicko.clueless || (perf.provisional.yes && perf.nb % 5 == 0)
+    Math.abs((perf.intRating - session.rating).value) > 100
   }
 
   private def createSessionFor(reason: String)(angle: PuzzleAngle, settings: PuzzleSettings)(using
@@ -115,4 +118,4 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
     pathApi
       .nextFor(s"session.$reason")(angle, PuzzleTier.top, validSettings.difficulty, Set.empty)
       .orFail(s"No puzzle path found for ${me.username}, angle: $angle")
-      .map(pathId => PuzzleSession(validSettings, pathId, 0))
+      .map(pathId => PuzzleSession(validSettings, pathId, 0, perf.intRating))

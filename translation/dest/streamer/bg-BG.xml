@@ -28,8 +28,13 @@
   <string name="approved">Вашият стрийм е одобрен.</string>
   <string name="pendingReview">Вашият стрийм се преглежда от модератори.</string>
   <string name="pleaseFillIn">Моля, попълнете информацията за своя стрийм и качете снимка.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Когато сте готови да бъдете включени като стриймър в Lichess, %s</string>
   <string name="submitForReview">Изпратете за преглед</string>
   <string name="streamerLanguageSettings">Страницата за стрийминг на Lichess е насочена към вашата аудитория с езика, предоставен от вашата платформа за стрийминг. Задайте правилния език по подразбиране за вашите шахматни стриймове в приложението или услугата, която използвате за излъчване.</string>
+  <string name="pleaseAllow">Моля, предвидете до 72 часа за одобряване на вашата значка на стриймър и включване в списъка.</string>
+  <string name="chooseYoutubeChannel">Изберете YouTube канала, който ще използвате в Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Свързване</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Прекъсване</string>
   <string name="streamerName">Име на вашата стрийм страница в Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Накратко: най-много %s знак</item>
@@ -40,6 +45,7 @@
   <string name="headline">Заглавие</string>
   <string name="tellUsAboutTheStream">Разкажете ни за вашия поток с едно изречение</string>
   <string name="longDescription">Дълго описание</string>
+  <string name="xStreamerPicture">Снимка на стриймъра %s</string>
   <string name="changePicture">Промяна/изтриване на снимката ви</string>
   <string name="uploadPicture">Качване на снимка</string>
   <string name="maxSize">Максимална големина: %s</string>

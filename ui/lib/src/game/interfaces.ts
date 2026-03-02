@@ -1,4 +1,4 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 import type { Status } from './status';
 
@@ -127,9 +127,7 @@ export interface PlayerUser {
   patronColor?: PatronColor;
   title?: string;
   flair?: Flair;
-  perfs: {
-    [key: string]: Perf;
-  };
+  perfs: Record<string, Perf>;
 }
 
 export interface Perf {
@@ -154,13 +152,9 @@ export interface Hold {
 
 export type ContinueMode = 'friend' | 'ai';
 
-export interface GameView {
-  status(data: GameData): string;
-}
-
 export interface CheckState {
   ply: Ply;
-  check?: boolean | Key;
+  check?: boolean | (() => boolean);
 }
 
 export interface CheckCount {
@@ -168,9 +162,7 @@ export interface CheckCount {
   black: number;
 }
 
-export type MaterialDiffSide = {
-  [role in Role]: number;
-};
+export type MaterialDiffSide = Record<Role, number>;
 
 export interface MaterialDiff {
   white: MaterialDiffSide;

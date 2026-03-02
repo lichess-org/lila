@@ -1,6 +1,5 @@
 import { type TournamentSocket, makeSocket } from './socket';
 import * as xhr from './xhr';
-import { maxPerPage, myPage, players } from './pagination';
 import * as sound from './sound';
 import type {
   TournamentData,
@@ -11,10 +10,12 @@ import type {
   Standing,
   Player,
 } from './interfaces';
-import { storage, storedMapAsProp } from 'lib/storage';
+import { storedMapAsProp } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
 import { alerts, prompt } from 'lib/view';
 import type { Prop } from 'lib';
+import { maxPerPage, myPage, pagerData } from 'lib/view/pagination';
+import { redirectFirst } from 'lib/tournament';
 
 interface CtrlTeamInfo {
   requested?: string;
@@ -39,8 +40,6 @@ export default class TournamentController {
   nbWatchers = 0;
   collapsedDescription: Prop<boolean>;
 
-  private lastStorage = storage.make('last-redirect');
-
   constructor(opts: TournamentOpts, redraw: () => void) {
     this.opts = opts;
     this.data = opts.data;
@@ -56,7 +55,10 @@ export default class TournamentController {
     );
     setTimeout(() => (this.disableClicks = false), 1500);
     this.loadPage(this.data.standing);
-    this.scrollToMe();
+    const playerInfo = opts.data.playerInfo;
+    if (playerInfo) {
+      this.playerInfo = { id: playerInfo.player.id, player: playerInfo.player, data: playerInfo };
+    } else this.scrollToMe();
     sound.end(this.data);
     sound.countDown(this.data);
     this.setupBattle();
@@ -75,7 +77,7 @@ export default class TournamentController {
     const willChangeJoinStatus = !!this.data.me !== !!data.me || this.data.me?.withdraw !== data.me?.withdraw;
     // we joined a private tournament! Reload the page to load the chat
     if (!this.data.me && data.me && this.data.private) site.reload();
-    this.data = { ...this.data, ...data, ...{ me: data.me } }; // to account for removal on withdraw
+    this.data = { ...this.data, ...data, me: data.me }; // to account for removal on withdraw
     if (data.playerInfo?.player.id === this.playerInfo.id) this.playerInfo.data = data.playerInfo!;
     this.loadPage(data.standing);
     if (this.focusOnMe) this.scrollToMe();
@@ -103,25 +105,17 @@ export default class TournamentController {
 
   private redirectToMyGame() {
     const gameId = this.myGameId();
-    if (gameId) this.redirectFirst(gameId);
+    if (gameId) redirectFirst(gameId);
   }
 
-  redirectFirst = (gameId: string, rightNow?: boolean) => {
-    const delay = rightNow || document.hasFocus() ? 10 : 1000 + Math.random() * 500;
-    setTimeout(() => {
-      if (this.lastStorage.get() !== gameId) {
-        this.lastStorage.set(gameId);
-        site.redirect('/' + gameId, true);
-      }
-    }, delay);
-  };
+  pager = () => pagerData(this);
 
   loadPage = (data: Standing) => {
     if (!data.failed || !this.pages[data.page]) this.pages[data.page] = data.players;
   };
 
   setPage = (page: number | undefined) => {
-    if (page && page !== this.page && page >= 1 && page <= players(this).nbPages) {
+    if (page && page !== this.page && page >= 1 && page <= this.pager().nbPages) {
       this.page = page;
       xhr.loadPage(this, page);
     }
@@ -142,12 +136,13 @@ export default class TournamentController {
   jumpToRank = (rank: number) => {
     const page = 1 + Math.floor((rank - 1) / maxPerPage);
     const row = (rank - 1) % maxPerPage;
-    xhr.loadPage(this, page, () => {
+    xhr.loadPage(this, page).then(() => {
       if (!this.pages[page] || row >= this.pages[page].length) return;
       this.page = page;
       this.searching = false;
       this.focusOnMe = false;
       this.showPlayerInfo(this.pages[page][row]);
+      this.redraw();
     });
   };
 
@@ -158,7 +153,7 @@ export default class TournamentController {
 
   userNextPage = () => this.userSetPage(this.page + 1);
   userPrevPage = () => this.userSetPage(this.page - 1);
-  userLastPage = () => this.userSetPage(players(this).nbPages);
+  userLastPage = () => this.userSetPage(this.pager().nbPages);
 
   withdraw = () => {
     xhr.withdraw(this);

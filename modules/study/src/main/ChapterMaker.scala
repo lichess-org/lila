@@ -63,9 +63,10 @@ final private class ChapterMaker(
     yield s"$white - $black"
     data.name.some
       .ifFalse(data.isDefaultName)
+      .orElse(parsed.chapterNameHint)
       .orElse:
         StudyChapterName.from:
-          vsFromPgnTags.orElse(parsed.tags("Event")).filter(_.nonEmpty)
+          vsFromPgnTags.orElse(parsed.tags("Event")).map(_.trim).filter(_.nonEmpty)
       .getOrElse(data.name)
 
   private def resolveOrientation(data: Data, root: Root, userId: UserId, tags: Tags = Tags.empty): Color =
@@ -91,7 +92,6 @@ final private class ChapterMaker(
           Root(
             ply = game.ply,
             fen = Fen.write(game),
-            check = game.position.check,
             clock = none,
             crazyData = game.position.crazyData,
             children = Branches.empty

@@ -1,6 +1,6 @@
 .puzzle-openings {
   &__mine {
-    border-bottom: 1px solid $c-border;
+    border-bottom: $border;
     background: $c-bg-zebra;
     padding-top: 3vh;
     h2 {

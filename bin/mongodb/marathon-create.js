@@ -1,7 +1,7 @@
-var id = 'spring26';
-var copyFromId = 'spring25';
+const id = 'spring26';
+const copyFromId = 'spring25';
 
-var t = db.tournament2.findOne({ _id: copyFromId });
+const t = db.tournament2.findOne({ _id: copyFromId });
 
 // overrides
 t._id = id;

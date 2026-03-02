@@ -1,16 +1,17 @@
 import { parseUci, makeSquare, squareRank } from 'chessops/util';
 import type { DrawShape } from '@lichess-org/chessground/draw';
+import type { Glyph, TreeNode } from '@/tree/types';
 
 // maximum number of glyphs to show for a given move
 const maxGlyphs = 4;
 
-export function annotationShapes(node: Tree.Node): DrawShape[] {
+export function annotationShapes(node: TreeNode): DrawShape[] {
   const { uci, glyphs, san } = node;
   if (uci && san && glyphs) {
     return (
       glyphs
         .slice(0, maxGlyphs)
-        .map((glyph: Tree.Glyph, idx: number) => {
+        .map((glyph: Glyph, idx: number) => {
           const move = parseUci(uci)!;
           const destSquare = san.startsWith('O-O') // castle, short or long
             ? squareRank(move.to) === 0 // white castle
@@ -247,4 +248,16 @@ const glyphToSvg: Dictionary<(stackedNumber: number) => string> = {
     '#c8c831',
     '<path fill="#fff" d="M22.95 85.7v-5.5l22.5-65.9h9l22.6 66v5.4h-54.1m9.6-7.9h34.6l-12.5-37.2q-3.3-9.9-4.8-16.5-1.3 4.9-2.4 8.9-1.1 4-2.2 7.2l-12.7 37.6"/>',
   ),
+};
+
+export const analysisGlyphs: Record<string, (stackedNumber: number) => string> = {
+  pin: composeGlyph(
+    '#333',
+    '<path fill="#fff" d="M31 21V28L37 30 34 47 27 50V57H45V77L50 86 55 77V57H73V50L66 47 63 30 69 28V21Z"/>',
+  ),
+  undefended: composeGlyph(
+    '#df5353',
+    '<path fill="#fff" d="M50 17 80 27v25c0 25-30 36-30 36S20 77 20 52V27ZM44 51 34 61 40 67 50 57 60 67 66 61 56 51 66 41 60 35 50 45 40 35 34 41Z"/>',
+  ),
+  checkable: composeGlyph('#2660a4', '<path fill="#fff" d="M46 28H54V46H72V54H54V72H46V54H28V46H46Z"/>'),
 };

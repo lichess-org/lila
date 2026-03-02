@@ -43,7 +43,6 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   display: inline-block;
   color: var(--c-base);
   padding: 0.25em 0.17em;
-  white-space: nowrap;
   font-size: 1.092em;
   cursor: pointer;
 
@@ -65,19 +64,8 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
       background-color: $c-font-dimmer;
     }
   }
-  &.parent {
-    color: $c-primary;
-  }
   &.current {
     border: 1px solid $c-accent;
-  }
-  &.pending-deletion {
-    border-radius: unset;
-    background: color-mix(in srgb, $c-bad 30%, transparent) !important;
-  }
-  &.pending-copy {
-    border-radius: unset;
-    background: color-mix(in srgb, $c-good 30%, transparent) !important;
   }
   &.nongame {
     font-style: italic;
@@ -94,6 +82,14 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     index {
       color: $c-over;
     }
+  }
+  &.pending-deletion {
+    border-radius: unset;
+    background: color-mix(in srgb, $c-bad 30%, transparent) !important;
+  }
+  &.pending-copy {
+    border-radius: unset;
+    background: color-mix(in srgb, $c-good 30%, transparent) !important;
   }
 }
 
@@ -140,7 +136,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   }
 
   inline lines {
-    margin-inline-start: 0px;
+    margin-inline-start: 0;
   }
 }
 
@@ -247,7 +243,6 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   align-self: center;
   width: $disclosure-btn-size;
   height: $disclosure-btn-size;
-  -webkit-mask: url('/assets/images/buttons/plus-button-mask.webp') 0 0 / contain no-repeat;
   mask: url('/assets/images/buttons/plus-button-mask.webp') 0 0 / contain no-repeat;
 
   + san::before,
@@ -258,7 +253,6 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 }
 
 .tview2 .disclosure.expanded {
-  -webkit-mask: url('/assets/images/buttons/minus-button-mask.webp') 0 0 / contain no-repeat;
   mask: url('/assets/images/buttons/minus-button-mask.webp') 0 0 / contain no-repeat;
 
   + san::before,
@@ -338,7 +332,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   comment {
     display: inline;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
     padding: 0 5px 0 3px;
     vertical-align: 7px;
   }
@@ -389,7 +383,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   }
   comment {
     vertical-align: 45%;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
     margin: 0 0.2em 0 0.1em;
     font-size: 0.9em;
   }

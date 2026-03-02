@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">Ikki Faktorli Autentifikatsiya</string>
-  <string name="twoFactorHelp">Ikki faktorli autentifikatsiya sizning akkountingizga ximoyalanishning yana bir qatlamini qoʻshadi.</string>
-  <string name="scanTheCode">QR kodni app yordamida skanerdan oʻtkazing.</string>
-  <string name="enterPassword">Sozlashlarni yakunlash uchun app tomonidan generatsiya qilingan autentifikatsiya kodi va parolni kiriting. Siz har safar (login) kirishni amalga oshirganingizda autentifikatsiya kodini kiritishingiz kerak boʻladi.</string>
-  <string name="ifYouCannotScanEnterX">Agar siz kodni skanerdan oʻtkazmasangiz, sirli %s ni appga kiriting.</string>
+  <string name="twoFactorAuth">Ikki bosqishli autentifikatsiya</string>
+  <string name="twoFactorHelp">Ikki bosqishli autentifikatsiya akkauntingiz xavfsizligini yanada oshiradi.</string>
+  <string name="twoFactorAppRecommend">Ikki bosqichli autentifikatsiya uchun ilova yuklab oling. Quyidagi ilovalarni tavsiya qilamiz:</string>
+  <string name="scanTheCode">Ilova yordamida QR-kodni skanerlang.</string>
+  <string name="enterPassword">Sozlashni yakunlash uchun parolingizni va ilova tomonidan yaratilgan autentifikatsiya kodini kiriting. Tizimga har gal kirganingizda sizdan autentifikatsiya kodi soʻraladi.</string>
+  <string name="ifYouCannotScanEnterX">Agar kodni skanerlay olmasangiz, ilovangizga mana bu %s maxfiy kalitini kiriting.</string>
   <string name="authenticationCode">Autentifikatsiya kodi</string>
-  <string name="enableTwoFactor">Ikki faktorli autentifikatsiyani yoqish</string>
-  <string name="disableTwoFactor">Ikki faktorli autentifikatsiyani oʻchirish</string>
-  <string name="twoFactorEnabled">Ikki faktorli autentifikatsiya yoqilgan</string>
-  <string name="openTwoFactorApp">Identifikatsiyalashdan oʻtish va autentifikatsiya kodini koʻrish uchun ikki faktorli autentifikatsiya appini qurilmangizda oching.</string>
-  <string name="setupReminder">Iltimos o‘z hisobingizni ximoyalash uchun ikki-bosqichli autentifikatsiyalash imkonini https://lichess.org/account/twofactor da yoqing. 
-Siz ushbu xabarni sizda jamoa rahbarligi, murabbiylik yoki strimmerlik kabi ma‘suliyatli javobgarliklar bor bo‘lgani uchun oldingiz</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Eslatma: Agar ikki bosqichli autentifikatsiya kodlariga kirish imkonini yoʻqotsangiz, e-pochta orqali %singiz mumkin.</string>
+  <string name="enableTwoFactor">Ikki bosqichli autentifikatsiyani yoqish</string>
+  <string name="disableTwoFactor">Ikki bosqichli autentifikatsiyani oʻchirish</string>
+  <string name="twoFactorEnabled">Ikki bosqichli autentifikatsiya yoqilgan</string>
+  <string name="twoFactorToDisable">Ikki bosqichli autentifikatsiyani oʻchirish uchun parolingiz va autentifikatsiya kodini kiriting.</string>
+  <string name="openTwoFactorApp">Autentifikatsiya kodini koʻrish va shaxsingizni tasdiqlash uchun qurilmangizdagi ikki bosqichli autentifikatsiya ilovasini oching.</string>
+  <string name="setupReminder">Akkauntingiz xavfsizligini ta’minlash uchun https://lichess.org/account/twofactor sahifasida ikki bosqichli autentifikatsiyani yoqing.
+Siz bu xabarni akkauntingizda maxsus masʼuliyatlar (unvonli oʻyinchi, jamoa sardori, murabbiy, oʻqituvchi yoki strimer) boʻlgani uchun oldingiz.</string>
 </resources>

@@ -15,7 +15,7 @@ site.load.then(() => {
 
   function streamLoad() {
     const source = new EventSource($toggle.attr('href') + '?nbOthers=' + nbOthers),
-      callback = debounce(() => userMod($zone), 300);
+      streamDebounce = debounce(() => userMod($zone), 300);
     source.addEventListener('message', e => {
       if (!e.data) return;
       const html = $('<output>').append($.parseHTML(e.data));
@@ -24,7 +24,7 @@ site.load.then(() => {
         if (prev.length) prev.replaceWith($(this));
         else $zone.append($(this).clone());
       });
-      callback();
+      streamDebounce();
     });
     source.onerror = () => source.close();
   }
@@ -48,7 +48,7 @@ site.load.then(() => {
   }
 
   function scrollTo(selector: string) {
-    const target = document.querySelector(selector) as HTMLElement | null;
+    const target = document.querySelector<HTMLElement>(selector);
     if (target) {
       const offset = $('#inquiry').length ? -50 : 50;
       window.scrollTo(0, target.offsetTop + offset);
@@ -185,7 +185,7 @@ site.load.then(() => {
     makeReady(
       '.mz-section--identification .slist--sort',
       el => {
-        sortTable(el, { descending: true });
+        if (el instanceof HTMLTableElement) sortTable(el, { descending: true });
       },
       'ready-sort',
     );
@@ -217,7 +217,7 @@ site.load.then(() => {
   const $other = $('#communication,main.appeal');
   if ($other.length) userMod($other);
 
-  const timelineFlairDateToLocal = (el?: HTMLElement | undefined) =>
+  const timelineFlairDateToLocal = (el?: HTMLElement) =>
     $(el || document.body)
       .find('.mod-timeline__event__flair img[datetime]')
       .each(function (this: HTMLImageElement) {

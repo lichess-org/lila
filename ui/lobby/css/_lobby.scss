@@ -4,6 +4,7 @@
 @import 'table';
 @import 'stream';
 @import 'spotlight';
+@import 'clas';
 @import 'timeline';
 @import 'box';
 @import 'support';
@@ -21,7 +22,7 @@ body {
   ---main-max-width: 1400px;
 }
 
-%lobby__side__more {
+%lobby-side-more {
   @extend %roboto;
 
   font-size: 0.9em;
@@ -37,7 +38,9 @@ body {
 
 .lobby__side {
   @extend %flex-column;
+  @include backdrop-blur-if-transparent;
 
+  gap: $block-gap;
   overflow: hidden;
 }
 
@@ -100,7 +103,8 @@ body {
   .ublog-post-card {
     background: $c-bg-box;
     &:hover {
-      box-shadow: none;
+      @extend %box-shadow;
+      background: $c-bg-zebra;
     }
     .user-link {
       border-radius: $box-radius-size 0 0 0;

@@ -1,5 +1,5 @@
 rs.slaveOk();
-var depth,
+let depth,
   maxDepth = 900;
 
 function depthOf(branch) {
@@ -7,7 +7,7 @@ function depthOf(branch) {
 }
 
 function urlOf(chap) {
-  var study = db.study.findOne({ _id: chap.studyId });
+  const study = db.study.findOne({ _id: chap.studyId });
   return `https://lichess.org/study/${study._id}/${chap._id} by ${study.ownerId}`;
 }
 

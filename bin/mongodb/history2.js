@@ -1,13 +1,13 @@
-var batchSize = 20000;
-var collection = db.history;
-var games = db.game4
+const batchSize = 20000;
+const collection = db.history;
+const games = db.game4
   .find({ 'p.ed': { $exists: true } }, { 'p.elo': true, 'p.ed': true, 'p.uid': true, ca: true })
   .sort({ ca: 1 });
-var dat = new Date().getTime() / 1000,
+let dat = new Date().getTime() / 1000,
   it = 0;
 
 print('Counting games...');
-var max = games.count();
+const max = games.count();
 print('Migrating ' + max + ' games to user histories');
 
 collection.drop();
@@ -18,13 +18,13 @@ function flush(cache) {
   }
 }
 
-var cache = {};
+let cache = {};
 games.forEach(function (game) {
   for (pi in game.p) {
     try {
-      var p = game.p[pi],
+      const p = game.p[pi],
         op = game.p[1 - pi];
-      var entry = [parseInt(game.ca.getTime() / 1000), parseInt(p.elo + p.ed), parseInt(op.elo)];
+      const entry = [parseInt(game.ca.getTime() / 1000), parseInt(p.elo + p.ed), parseInt(op.elo)];
       if (typeof cache[p.uid] == 'undefined') cache[p.uid] = [entry];
       else cache[p.uid].push(entry);
     } catch (e) {
@@ -38,9 +38,9 @@ games.forEach(function (game) {
       flush(cache);
       cache = {};
     }
-    var percent = Math.round((it / max) * 100);
-    var dat2 = new Date().getTime() / 1000;
-    var perSec = Math.round(batchSize / (dat2 - dat));
+    const percent = Math.round((it / max) * 100);
+    const dat2 = new Date().getTime() / 1000;
+    const perSec = Math.round(batchSize / (dat2 - dat));
     dat = dat2;
     print(it / 1000 + 'k ' + percent + '% ' + perSec + '/s');
   }

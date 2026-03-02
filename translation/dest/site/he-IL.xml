@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">משחק נגד המחשב</string>
   <string name="gameMode">מצב משחק</string>
   <string name="createLobbyGame">יצירת משחק במבואה</string>
-  <string name="youPlayAs">לשחק בתור</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתפו את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
@@ -260,7 +259,6 @@
   <string name="changeUsernameNotSame">באותיות לועזיות ניתן להחליף אותיות קטנות בגדולות, למשל מ־\"johndoe\" ל־\"JohnDoe\".</string>
   <string name="changeUsernameDescription">שינוי שם המשתמש. ניתן לעשותו פעם אחת בלבד, ורק על ידי החלפת אותיות גדולות בקטנות ולהיפך.</string>
   <string name="signupUsernameHint">ודאו ששם המשתמש שלכם מתאים גם לילדים. לא תוכלו לשנות אותו מאוחר יותר וחשבונות עם שמות משתמש לא הולמים יסגרו!</string>
-  <string name="signupEmailHint">רק לצורך איפוס הסיסמה.</string>
   <string name="password">סיסמה</string>
   <string name="changePassword">שינוי סיסמה</string>
   <string name="changeEmail">שינוי דוא״ל</string>
@@ -487,7 +485,6 @@
   <string name="pasteTheFenStringHere">הדביקו מחרוזת FEN כאן</string>
   <string name="pasteThePgnStringHere">הדביקו מחרוזת PGN כאן</string>
   <string name="orUploadPgnFile">או העלו קובץ PGN</string>
-  <string name="fromPosition">מעמדה מסוימת</string>
   <string name="continueFromHere">המשיכו מכאן</string>
   <string name="toStudy">לוח למידה</string>
   <string name="importGame">ייבוא משחק</string>
@@ -788,11 +785,6 @@
   <string name="keyCycleSelectedVariation">מחזור הוריאציה שנבחרה </string>
   <string name="keyShowOrHideComments">הצג/הסתר הערות</string>
   <string name="keyEnterOrExitVariation">כנס לגרסה או צא ממנה</string>
-  <string name="keyRequestComputerAnalysis">בקשו ניתוח ממוחשב, למדו מטעויותיכם</string>
-  <string name="keyNextLearnFromYourMistakes">הבא (למדו מטעויותיכם)</string>
-  <string name="keyNextBlunder">הטעות הגסה הבאה</string>
-  <string name="keyNextMistake">הטעות הבאה</string>
-  <string name="keyNextInaccuracy">אי־הדיוק הבא</string>
   <string name="keyPreviousBranch">הענף הקודם</string>
   <string name="keyNextBranch">הענף הבא</string>
   <string name="toggleVariationArrows">הפעלת חיצים בנגזרות שחמט</string>
@@ -1032,7 +1024,7 @@
   <string name="timeAlmostUp">הזמן הולך ואוזל!</string>
   <string name="clickToRevealEmailAddress">לחץ/י כדי לחשוף את כתובת הדוא\"ל</string>
   <string name="download">הורדה</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">הגדרות עבור מאמנים</string>
+  <string name="coachManager">הגדרות עבור מאמנים</string>
   <string name="streamerManager">אזור ניהול משדר</string>
   <string name="cancelTournament">ביטול הטורניר</string>
   <string name="tournDescription">תיאור הטורניר</string>

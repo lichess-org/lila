@@ -216,7 +216,6 @@
   <string name="changeUsernameNotSame">იცვლება მხოლოდ დიდ და პატარა ასოებზე. მაგალითად \"johndoe\" \"JohnDoe\" - ზე.</string>
   <string name="changeUsernameDescription">შეცვალე სახელი. ცვლილება შეიძლება მხოლოდ ერთხელ, პატარა ასოების დიდებზე თქვენს სახელში.</string>
   <string name="signupUsernameHint">აირჩიეთ მისაღები-ზრდილობიანი სახელი. ვერ შეძლებთ შემდგომში სახელის შეცვლას და ყველა ექაუნთი მიუღებელი სახელით დაიხურება!</string>
-  <string name="signupEmailHint">გამოვიყენებთ მხოლოდ პაროლის აღსადგენად.</string>
   <string name="password">პაროლი</string>
   <string name="changePassword">პაროლის შეცვლა</string>
   <string name="changeEmail">ელ. ფოსტის შეცვლა</string>
@@ -400,7 +399,6 @@
   <string name="pasteTheFenStringHere">ჩასვით FEN ტექსტი</string>
   <string name="pasteThePgnStringHere">ჩასვით PGN ტექსტი</string>
   <string name="orUploadPgnFile">ან გადმოწერე PGN ფაილი</string>
-  <string name="fromPosition">პოზიციიდან</string>
   <string name="continueFromHere">ამ პოზიციიდან გაგრძელება</string>
   <string name="toStudy">კვლევად გადაკეთება</string>
   <string name="importGame">თამაშის იმპორტი</string>
@@ -666,11 +664,6 @@
   <string name="keyGoToStartOrEnd">დასაწყისი/დასასრული</string>
   <string name="keyShowOrHideComments">კომენტარების ჩვენება/დამალვა</string>
   <string name="keyEnterOrExitVariation">ვარიაციაში შესვლა/გამოსვლა</string>
-  <string name="keyRequestComputerAnalysis">მოითხოვეთ კომპიუტერული ანალიზი, ისწავლეთ თქვენს შეცდომებზე</string>
-  <string name="keyNextLearnFromYourMistakes">შემდეგი (ისწავლეთ თქვენს შეცდომებზე)</string>
-  <string name="keyNextBlunder">შემდეგი შეცდომა</string>
-  <string name="keyNextMistake">შემდეგი შეცდომა</string>
-  <string name="keyNextInaccuracy">შემდეგი უზუსტობა</string>
   <string name="newTournament">ახალი ტურნირი</string>
   <string name="tournamentHomeTitle">ჭადრაკის ტურნირი სხვადასხვა დროითი კონტროლითა და ვარიანტებით</string>
   <string name="tournamentHomeDescription">ითამაშეთ სწრაფი ტემპით საჭადრაკო ტურნირები! შეუერთდით ოფიციალურ დაგეგმილ ტურნირს, ან შექმენით საკუთარი. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck და სხვა ვარიანტები ხელმისაწვდომია ჭადრაკის სათამაშოდ.</string>

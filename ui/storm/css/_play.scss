@@ -2,8 +2,8 @@
   &--play {
     display: grid;
 
-    grid-row-gap: $block-gap;
-    grid-column-gap: $block-gap;
+    row-gap: $block-gap;
+    column-gap: $block-gap;
     grid-template-areas: 'board' 'side';
 
     @include mq-at-least-col2 {

@@ -4,8 +4,10 @@ export interface MsgOpts {
 export interface MsgData {
   me: Me;
   contacts: Contact[];
+  names: RealNames;
   convo?: Convo;
 }
+export type RealNames = Record<UserId, string>;
 export interface Contact {
   user: User;
   lastMsg: LastMsg;

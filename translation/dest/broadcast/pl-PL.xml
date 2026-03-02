@@ -51,7 +51,7 @@
   <string name="fidePlayerNotFound">Nie znaleziono zawodnika FIDE</string>
   <string name="fideProfile">Profil FIDE</string>
   <string name="federation">Federacja</string>
-  <string name="age" comment="Label for the age of a player. Appears on players' FIDE profiles.">Wiek</string>
+  <string name="age">Wiek</string>
   <string name="unrated">Bez rankingu</string>
   <string name="recentTournaments">Najnowsze turnieje</string>
   <string name="openLichess">Otwórz w Lichess</string>
@@ -73,6 +73,7 @@
   <string name="ratingDiff">Różnica rankingu</string>
   <string name="gamesThisTournament">Partie w tym turnieju</string>
   <string name="score">Wynik</string>
+  <string name="standingsDisclaimer">Klasyfikacja obliczana jest na podstawie nadawanych partii i może różnić się od oficjalnych wyników.</string>
   <string name="allTeams">Wszystkie kluby</string>
   <string name="tournamentFormat">Format turnieju</string>
   <string name="tournamentLocation">Lokalizacja turnieju</string>
@@ -87,6 +88,26 @@
   <string name="liveboard">Na żywo</string>
   <string name="communityBroadcast">Transmisja społeczności Lichess</string>
   <string name="createdAndManagedBy">Stworzone i zarządzane przez %s.</string>
+  <string name="matchPoints">Punkty meczowe</string>
+  <string name="gamePoints">Punkty gry</string>
+  <string name="matches">Mecze</string>
+  <string name="matchHistory">Historia meczu</string>
+  <string name="teamResults">Wyniki zespołu</string>
+  <string name="termsAutomaticallyTranslated">Następujące terminy zostaną automatycznie przetłumaczone: %s.</string>
   <string name="roundX">Runda %s</string>
   <string name="defaultRoundNameHelp">Zachowanie domyślnej nazwy rundy automatycznie przetłumaczy ją na wszystkie inne języki.</string>
+  <string name="openTournament">Otwarta</string>
+  <string name="womenTournament">Kobiety</string>
+  <string name="menTournament">Mężczyźni</string>
+  <string name="girlsTournament">Dziewczęta</string>
+  <string name="boysTournament">Chłopcy</string>
+  <string name="openUnderXAgeTournament">Otwarta U%s</string>
+  <string name="girlsUnderXAgeTournament">Dziewczęta U%s</string>
+  <string name="boysUnderXAgeTournament">Chłopcy U%s</string>
+  <string name="quarterfinals">Ćwierćfinały</string>
+  <string name="semifinals">Półfinały</string>
+  <string name="finals">Finały</string>
+  <string name="tiebreaks">Dogrywki</string>
+  <string name="gameX">Partia %s</string>
+  <string name="knockouts">Eliminacje</string>
 </resources>

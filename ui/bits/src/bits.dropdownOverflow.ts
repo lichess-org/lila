@@ -25,12 +25,10 @@ site.load.then(() => {
   }
 
   function render() {
-    containers.forEach(container => {
-      renderMenu(container);
-      listenToReload(container);
-    });
+    containers.forEach(container => renderMenu(container));
   }
 
+  containers.forEach(container => listenToReload(container));
   render();
   window.addEventListener('resize', render);
 });

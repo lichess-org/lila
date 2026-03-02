@@ -5,7 +5,7 @@ opaque type LichessDay = Int
 
 object LichessDay extends OpaqueInt[LichessDay]:
 
-  extension (day: LichessDay) def toDate = genesis.plusDays(day).withTimeAtStartOfDay
+  extension (day: LichessDay) def toInstant: Instant = genesis.plusDays(day).withTimeAtStartOfDay
 
   val genesis: Instant = instantOf(2010, 1, 1, 0, 0).withTimeAtStartOfDay
 

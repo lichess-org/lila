@@ -8,14 +8,17 @@ import lila.ui.ScalatagsTemplate.*
 
 object compare:
 
-  def show(comp: TutorCompare.AnyComparison)(using Translate) = showWithPerf(comp, none)
+  def show(comp: TutorCompare.AnyComparison, in: String = "in")(using Translate) =
+    showWithPerf(comp, none, in)
 
-  def showWithPerf(comp: TutorCompare.AnyComparison, perf: Option[PerfType] = None)(using Translate) =
+  def showWithPerf(comp: TutorCompare.AnyComparison, perf: Option[PerfType] = None, in: String = "in")(using
+      Translate
+  ) =
     li(
       "Your ",
       perf.map(p => frag(p.trans, " ")),
       showMetric(comp),
-      " in ",
+      s" $in ",
       strong(showDimension(comp.dimension)),
       comp.color.map { color =>
         frag(" as ", color.name)
@@ -24,8 +27,8 @@ object compare:
       showQuality(comp.grade),
       " ",
       comp.reference match
-        case TutorCompare.DimAvg(_) => frag("in ", otherDims(comp.dimensionType))
-        case TutorCompare.Peers(_) => frag("your peers'")
+        case TutorCompare.Reference.DimAvg(_) => frag("in ", otherDims(comp.dimensionType))
+        case TutorCompare.Reference.Peers(_) => frag("your peers'")
       ,
       "."
     )

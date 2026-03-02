@@ -110,7 +110,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               "giveMoreTime"
             ),
             setting(
-              "Show on the left of mobile devices",
+              trp.showClockOnTheLeft(),
               radios(form("clock.swapClock"), booleanChoices),
               "swapClock"
             )
@@ -251,7 +251,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
                     trp.notifyInboxMsg() -> "privateMessage",
                     trp.notifyChallenge() -> "challenge",
                     trp.notifyTournamentSoon() -> "tournamentSoon",
-                    frag("Broadcasts") -> "broadcastRound",
+                    trp.notifyBroadcasts() -> "broadcastRound",
                     trp.notifyGameEvent() -> "gameEvent"
                   ).map(makeRow(form))
                 )
@@ -281,7 +281,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
           val checked = form.data(name).contains("true")
           td(
             if !hiddenFields(s"$filterName.$allow") then
-              div(cls := "toggle", form3.cmnToggle(name, name, checked))
+              div(cls := "toggle", form3.nativeCheckbox(name, name, checked))
             else if !checked then div(iconTag(Icon.X))
             else
               div(

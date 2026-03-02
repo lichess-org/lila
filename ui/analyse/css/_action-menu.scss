@@ -3,28 +3,24 @@
 }
 
 .action-menu {
-  @extend %border-bottom-active;
-
+  @extend %border-bottom-active, %flex-column;
   position: absolute;
   z-index: $z-action-menu-99;
   inset: 0;
   background: $c-bg-opaque;
-  display: flex;
-  flex-flow: column;
   overflow: auto;
   padding: $analyse-block-gap;
+  gap: $analyse-block-gap;
 
   h2 {
     font-size: 1em;
     text-transform: uppercase;
     text-align: center;
     white-space: nowrap;
-    margin: $analyse-block-gap 0 3px 0;
     display: table;
-    padding: 0 10px;
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
       border-top: $border;
       content: '';
       display: table-cell;
@@ -33,11 +29,11 @@
       width: 45%;
     }
 
-    &:before {
+    &::before {
       @include inline-end(8px);
     }
 
-    &:after {
+    &::after {
       @include inline-start(8px);
     }
   }
@@ -49,7 +45,7 @@
 
     button,
     > a {
-      @extend %button-none;
+      color: $c-font;
       display: flex;
       align-items: center;
       line-height: 1.2em;
@@ -89,11 +85,10 @@
     }
   }
 
-  .setting {
+  .cmn-toggle-wrap {
     @extend %flex-center-nowrap;
 
     flex: 0 0 auto;
-    margin-top: $analyse-block-gap;
 
     label {
       flex: 4 1 auto;
@@ -101,16 +96,12 @@
       white-space: nowrap;
     }
 
-    .switch + label {
-      margin-inline-start: 1ch;
-    }
-
     input[type='range'] {
       flex: 1 4 auto;
-      padding: 0;
       height: 1.6em;
       width: 100%;
       margin: 0 1ch;
+      padding: 0;
     }
 
     .range_value {

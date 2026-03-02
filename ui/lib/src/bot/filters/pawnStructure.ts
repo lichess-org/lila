@@ -28,7 +28,7 @@ Bot.registerFilter('pawnStructure', {
 });
 
 function score(moves: SearchMove[], args: MoveArgs, limiter: number): FilterResult {
-  const rawScores: { [uci: Uci]: number } = {};
+  const rawScores: Record<Uci, number> = {};
   for (const { uci } of moves) {
     const chess = args.chess.clone();
     chess.play(normalMove(chess, uci)!.move);

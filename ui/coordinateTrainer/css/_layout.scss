@@ -55,7 +55,7 @@
   }
 
   grid-template-areas: 'board' 'progress' 'co-input' 'table' 'side';
-  grid-row-gap: $block-gap;
+  row-gap: $block-gap;
 
   @include mq-at-least-col2 {
     grid-template-columns: var(---col2-uniboard-width) $block-gap $col2-uniboard-table;
@@ -84,11 +84,5 @@
   .explanation {
     order: 2;
     margin: 2em 1em 0 1em;
-  }
-}
-
-@include mq-at-least-col3 {
-  .box:first-child {
-    margin-top: $block-gap;
   }
 }

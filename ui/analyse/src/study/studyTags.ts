@@ -1,10 +1,17 @@
-import { onInsert } from 'lib/view';
+import { enter, onInsert } from 'lib/view';
 import { throttle } from 'lib/async';
 import { type Attrs, h, thunk, type VNode } from 'snabbdom';
 import { option } from '../view/util';
 import { looksLikeLichessGame } from './studyChapters';
 import { prop } from 'lib';
 import type StudyCtrl from './studyCtrl';
+import type { TagArray, TagMap } from './interfaces';
+
+export const tagsToMap = (tags: TagArray[]): TagMap => {
+  const map = new Map<string, string>();
+  tags.forEach(([k, v]) => map.set(k.toLowerCase(), v));
+  return map;
+};
 
 export class TagsForm {
   selectedType = prop<string | undefined>(undefined);
@@ -44,12 +51,10 @@ const editable = (
 ): VNode =>
   h('input', {
     key: value, // force to redraw on change, to visibly update the input value
-    attrs: { spellcheck: 'false', ...(inputAttrs[name] ?? {}), maxlength: 140, value },
+    attrs: { spellcheck: 'false', ...inputAttrs[name], maxlength: 140, value },
     hook: onInsert<HTMLInputElement>(el => {
       el.onblur = () => submit(name, el.value, el);
-      el.onkeydown = e => {
-        if (e.key === 'Enter') el.blur();
-      };
+      el.onkeydown = enter(() => el.blur());
     }),
   });
 
@@ -57,7 +62,7 @@ const editable = (
 const titles = 'GM|WGM|IM|WIM|FM|WFM|CM|WCM|NM|WNM|LM|BOT';
 const acceptableTitlePattern = `${titles}|${titles.toLowerCase()}`;
 
-const inputAttrs: { [name: string]: Attrs } = (() => {
+const inputAttrs: Record<string, Attrs> = (() => {
   const elo = { pattern: '\\d{3,4}' };
   const fideId = { pattern: '\\d{2,9}' };
   const title = { pattern: acceptableTitlePattern };
@@ -92,15 +97,13 @@ const inputAttrs: { [name: string]: Attrs } = (() => {
   };
 })();
 
-type TagRow = (string | VNode)[];
-
 const fixed = ([key, value]: [string, string]) =>
   key.endsWith('FideId') ? h('a', { attrs: { href: `/fide/${value}/redirect` } }, value) : fixedValue(value);
 
 const fixedValue = (value: string) => h('span', value);
 
 function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
-  let rows: TagRow[] = [];
+  let rows = [];
   const chapter = tags.getChapter();
   if (chapter.setup.variant.key !== 'standard')
     rows.push(['Variant', fixedValue(chapter.setup.variant.name)]);

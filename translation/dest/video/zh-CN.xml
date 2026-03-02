@@ -3,21 +3,21 @@
   <string name="chessVideos">国际象棋视频</string>
   <string name="allVideosAreFree">所有视频对所有人免费。</string>
   <string name="selectTagsToFilter">选择标签以筛选视频。</string>
-  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">截至目前，我们已精心挑选了 %s 个视频！</string>
+  <string name="weHaveCarefullySelectedX">截至目前，我们已精心挑选了 %s 个视频！</string>
   <string name="freeChessVideos">免费国际象棋视频</string>
-  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s 个精心策划的免费国象视频</string>
-  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s 个精心策划的国象视频</string>
-  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s 个带 %2$s 标签的视频</string>
-  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">完全免费</string>
-  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+  <string name="xFreeCarefullyCurated">%s 个精心策划的免费国象视频</string>
+  <string name="xCuratedChessVideos">%s 个精心策划的国象视频</string>
+  <string name="xWithTagsY">%1$s 个带 %2$s 标签的视频</string>
+  <string name="freeForAll">完全免费</string>
+  <plurals name="nbVideosFound">
     <item quantity="other">找到 %s 个视频</item>
   </plurals>
   <string name="noVideosForTheseTags">没有符合这些标签的视频：</string>
   <string name="thatsAllWeGotForTheseTags">这些标签的全部内容：</string>
-  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">搜索\"%s\"的全部内容</string>
-  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">没有\"%s\"的搜索结果</string>
-  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">查看更多标签</string>
+  <string name="thatsAllWeGotForThisSearchX">搜索\"%s\"的全部内容</string>
+  <string name="thereAreNoResultsForX">没有\"%s\"的搜索结果</string>
+  <string name="viewMoreTags">查看更多标签</string>
   <string name="videoNotFound">未找到视频！</string>
-  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">%1$s，作者： %2$s</string>
-  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">所有 %s 个视频标签</string>
+  <string name="xByY">%1$s，作者： %2$s</string>
+  <string name="allNbVideoTags">所有 %s 个视频标签</string>
 </resources>

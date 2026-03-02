@@ -28,14 +28,15 @@
       text-align: right;
     }
 
-    .date td {
-      padding: 0.1em 0;
-    }
-
     input[type='text'],
+    input[type='date'],
     select {
       padding: 0.3em 1em;
       width: 100%;
+    }
+
+    input[type='date'] {
+      padding-right: 0.3em;
     }
 
     label {
@@ -45,6 +46,12 @@
 
     .action {
       text-align: right;
+    }
+
+    span.help {
+      color: $c-secondary;
+      text-decoration: underline $c-secondary;
+      cursor: help;
     }
   }
 

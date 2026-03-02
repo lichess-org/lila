@@ -1,0 +1,15 @@
+.tutor-badge {
+  @extend %box-radius;
+  display: inline-flex;
+  flex-flow: column;
+  padding: 0.5em 1em;
+  &--time {
+    background: $m-brag_bg--mix-20;
+  }
+  &--meta {
+    background: $m-good_bg--mix-20;
+    &:is(bad) {
+      background: $m-bad_bg--mix-20;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import scala.annotation.nowarn
 
 import lila.chat.UserLine
 import lila.core.config.NetDomain
-import lila.core.shutup.PublicSource
+import lila.core.chat.PublicSource
 import lila.simul.{ Simul, SimulApi }
 import lila.study.{ Study, StudyRepo }
 import lila.swiss.{ Swiss, SwissApi }
@@ -60,7 +60,7 @@ final private class LinkCheck(
     tournamentRepo.byId(TourId(tourId)).flatMapz { tour =>
       fuccess(tour.isScheduled) >>| {
         source.teamId.so: sourceTeamId =>
-          fuccess(tour.conditions.teamMember.exists(_.teamId == sourceTeamId)) >>|
+          fuccess(tour.singleTeamId.has(sourceTeamId)) >>|
             tournamentRepo.isForTeam(tour.id, sourceTeamId)
       }
     }
@@ -91,10 +91,8 @@ final private class LinkCheck(
 private object LinkCheck:
 
   enum FullSource(val owners: Set[UserId], val teamId: Option[TeamId]):
-    case TournamentSource(value: Tournament)
-        extends FullSource(Set(value.createdBy), value.conditions.teamMember.map(_.teamId))
-    case SimulSource(value: Simul)
-        extends FullSource(Set(value.hostId), value.conditions.teamMember.map(_.teamId))
+    case TournamentSource(value: Tournament) extends FullSource(Set(value.createdBy), value.singleTeamId)
+    case SimulSource(value: Simul) extends FullSource(Set(value.hostId), value.teamId)
     case SwissSource(value: Swiss) extends FullSource(Set(value.createdBy), value.teamId.some)
     case TeamSource(value: Team.IdAndLeaderIds) extends FullSource(value.leaderIds, value.id.some)
     case StudySource(value: Study) extends FullSource(value.members.idSet, none)

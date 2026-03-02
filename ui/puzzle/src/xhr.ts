@@ -1,6 +1,5 @@
-import { json as xhrJson, form as xhrForm, text as xhrText } from 'lib/xhr';
+import { json as xhrJson, form as xhrForm } from 'lib/xhr';
 import type PuzzleStreak from './streak';
-import { throttlePromiseDelay } from 'lib/async';
 import { defined } from 'lib';
 import type { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
 
@@ -44,12 +43,3 @@ export const report = (puzzleId: string, reason: string): Promise<void> =>
     method: 'POST',
     body: xhrForm({ reason: reason.slice(0, maxReportLength) }),
   });
-
-export const setZen = throttlePromiseDelay(
-  () => 1000,
-  zen =>
-    xhrText('/pref/zen', {
-      method: 'post',
-      body: xhrForm({ zen: zen ? 1 : 0 }),
-    }),
-);

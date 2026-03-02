@@ -40,7 +40,7 @@
     background-image: none;
   }
 
-  @keyframes rankGlow {
+  @keyframes rank-glow {
     50% {
       background-color: rgba(255, 255, 255, 0.5);
       box-shadow: 0 0 40px rgba(255, 255, 255, 0.7);
@@ -58,7 +58,7 @@
     @include inline-start(0);
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
     background-color: rgba(255, 255, 255, 0.2);
-    animation: 1s rankGlow ease-in-out infinite;
+    animation: 1s rank-glow ease-in-out infinite;
   }
 
   .highlight-7th-rank & cg-board::after {

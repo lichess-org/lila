@@ -39,8 +39,8 @@
   <plurals name="keepItShort">
     <item quantity="other">短めに、最大 %s 字まで</item>
   </plurals>
-  <string name="visibility">配信者ページに表示</string>
-  <string name="whenApproved">（モデレーターに承認されれば）</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">配信者ページに表示</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">（モデレーターに承認されれば）</string>
   <string name="headline">見出し</string>
   <string name="tellUsAboutTheStream">動画の内容を一行で説明してください</string>
   <string name="longDescription">詳しい説明</string>

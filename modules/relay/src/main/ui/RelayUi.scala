@@ -27,7 +27,7 @@ final class RelayUi(helpers: Helpers)(
       socketVersion: SocketVersion
   )(using ctx: Context) =
     val imageUrl = rt.tour.image.map(thumbnail.url(_, _.Size.Large))
-    Page(rt.transName)
+    Page(rt.withTour.fullName)
       .css("analyse.relay")
       .css(ctx.blind.option("round.nvui"))
       .i18n(_.study, _.broadcast)
@@ -36,9 +36,10 @@ final class RelayUi(helpers: Helpers)(
       .js(analyseNvuiTag)
       .js(pageModule(rt, data, chatOption, socketVersion))
       .flag(_.zoom)
+      .flag(_.noRobots, !rt.tour.isPublic)
       .graph:
         OpenGraph(
-          title = rt.transName,
+          title = rt.withTour.fullName,
           url = routeUrl(rt.call),
           description = shorten(rt.tour.info.toString, 152),
           image = imageUrl
@@ -78,7 +79,7 @@ final class RelayUi(helpers: Helpers)(
             div(cls := "relay-tour__header__selectors"):
               div(cls := "mselect relay-tour__mselect"):
                 label(cls := "mselect__label"):
-                  span(cls := "relay-tour__round-select__name")(rt.relay.transName)
+                  span(cls := "relay-tour__round-select__name")(rt.relay.name.translate)
           ),
           div(cls := "relay-tour__header__image"):
             rt.tour.image.map: imgId =>
@@ -116,7 +117,7 @@ final class RelayUi(helpers: Helpers)(
       span(cls := "content")(
         span(cls := "name")(tr.tour.spotlight.flatMap(_.title) | tr.tour.name.value),
         span(cls := "more")(
-          tr.display.caption.fold(tr.display.transName)(_.value),
+          tr.display.caption.fold(tr.display.name.translate)(_.value),
           " • ",
           if tr.display.hasStarted
           then trans.site.eventInProgress()

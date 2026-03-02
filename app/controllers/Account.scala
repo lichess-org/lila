@@ -102,11 +102,13 @@ final class Account(
         env.api.userApi
           .extended(
             me.value,
-            withFollows = apiC.userWithFollows,
-            withTrophies = false,
-            withCanChallenge = false,
-            withPlayban = getBool("playban"),
-            forWiki = wikiGranted
+            lila.api.UserApi.Opts(
+              withFollows = apiC.userWithFollows,
+              withTrophies = false,
+              withCanChallenge = false,
+              withPlayban = getBool("playban"),
+              forWiki = wikiGranted
+            )
           )
           .dmap { JsonOk(_) }
   }
@@ -168,7 +170,8 @@ final class Account(
     else
       for
         f <- emailForm
-        res <- Ok.page(pages.email(f))
+        managed <- env.clas.api.student.isManaged(me)
+        res <- Ok.page(pages.email(f, managed))
       yield res.hasPersonalData
   }
 
@@ -182,14 +185,18 @@ final class Account(
 
   def emailApply = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
-      env.security.forms.preloadEmailDns() >> emailForm.flatMap: form =>
-        FormFuResult(form)(err => renderPage(pages.email(err))): data =>
+      for
+        _ <- env.security.forms.preloadEmailDns()
+        form <- emailForm
+        managed <- env.clas.api.student.isManaged(me)
+        res <- FormFuResult(form)(err => renderPage(pages.email(err, managed))): data =>
           val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.email)
           auth.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
             env.security.emailChange
               .send(me, newUserEmail.email)
               .inject(Redirect(routes.Account.email).flashSuccess:
                 lila.core.i18n.I18nKey.site.checkYourEmail.txt())
+      yield res
   }
 
   def emailConfirm(token: String) = Open:

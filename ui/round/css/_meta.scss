@@ -55,10 +55,6 @@
     z-index: $z-game-bookmark-2;
     color: $c-font-dim;
 
-    ::before {
-      font-size: 1.3em;
-    }
-
     &:not(.bookmarked) .on,
     &.bookmarked .off {
       display: none;

@@ -1,3 +1,26 @@
+body.blind-mode {
+  @include topnav-unsticky;
+  .is::before,
+  .is::after,
+  [data-icon]::before {
+    content: none;
+    display: none;
+    visibility: hidden;
+  }
+
+  .uflair {
+    display: none;
+  }
+}
+
+#blind-mode {
+  position: static;
+  text-align: center;
+  padding: 5px 0;
+  background: #888;
+  height: auto;
+}
+
 #topnav div {
   visibility: visible;
   font-size: 0.8em;
@@ -19,4 +42,12 @@
   input {
     width: auto;
   }
+}
+
+#nvui-button {
+  font-size: 2em;
+  background-color: black;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 10px;
 }

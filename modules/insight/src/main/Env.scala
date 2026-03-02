@@ -5,6 +5,7 @@ import com.softwaremill.tagging.*
 import play.api.Configuration
 
 import lila.core.config.*
+import lila.common.Bus
 
 @Module
 final class Env(
@@ -41,4 +42,10 @@ final class Env(
 
   lazy val api = wire[InsightApi]
 
-  lila.common.Bus.sub[lila.analyse.actorApi.AnalysisReady](analysis => api.updateGame(analysis.game))
+  Bus.sub[lila.analyse.actorApi.AnalysisReady](analysis => api.updateGame(analysis.game))
+
+  Bus.sub[lila.core.mod.MarkCheater]: m =>
+    if m.value then storage.removeAll(m.userId)
+
+  Bus.sub[lila.core.mod.MarkBooster]: m =>
+    storage.removeAll(m.userId)

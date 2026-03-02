@@ -21,18 +21,7 @@
 
   .setting {
     @extend %flex-center-nowrap;
-
-    * {
-      white-space: nowrap;
-    }
-
-    label {
-      cursor: pointer;
-    }
-
-    .switch + label {
-      margin-inline-start: 1ch;
-    }
+    white-space: nowrap;
 
     input[type='range'],
     span {
@@ -45,12 +34,11 @@
     }
 
     select {
+      @extend %ellipsis;
       flex: 1 4 auto;
       min-width: 0;
       margin-inline-start: 1ch;
       padding: 4px;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     #select-engine {
@@ -64,7 +52,6 @@
     }
 
     button.delete {
-      @extend %button-none;
       width: 20px;
       height: 20px;
       border-radius: 100%;
@@ -73,7 +60,7 @@
       margin-inline-start: 1.5ch;
 
       &:focus {
-        outline: 2px solid $c-primary;
+        outline: $outline;
       }
 
       &:hover {

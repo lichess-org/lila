@@ -3,11 +3,10 @@ import 'chartjs-adapter-dayjs-4';
 import dayjs from 'dayjs';
 
 interface FideRatingChartOpts {
-  standard: Point[];
-  rapid: Point[];
-  blitz: Point[];
+  standard: number[];
+  rapid: number[];
+  blitz: number[];
 }
-type Point = [string, number];
 
 export function initModule(opts: FideRatingChartOpts): void {
   chart.Chart.register(
@@ -19,7 +18,7 @@ export function initModule(opts: FideRatingChartOpts): void {
     chart.Filler,
     chart.TimeScale,
   );
-  const ratings = [...opts.standard, ...opts.rapid, ...opts.blitz].map(a => a[1]);
+  const ratings = [...opts.standard, ...opts.rapid, ...opts.blitz].map(decodeElo);
   const minRating = Math.min(...ratings, 2000);
   const maxRating = Math.max(...ratings, 2800);
   for (const [tc, points] of Object.entries(opts)) {
@@ -29,13 +28,23 @@ export function initModule(opts: FideRatingChartOpts): void {
   }
 }
 
-export const renderRatingChart = (
+const decodeElo = (point: number) => point % 10000;
+// 2025121828 -> [ '2025-12', 1828 ]
+const decodeRatingPoint = (point: number) => {
+  const elo = decodeElo(point);
+  const dateNum = Math.floor(point / 10000);
+  const year = Math.floor(dateNum / 100);
+  const month = dateNum % 100;
+  return [`${year}-${month.toString().padStart(2, '0')}`, elo];
+};
+
+const renderRatingChart = (
   canvas: HTMLCanvasElement,
-  data: Point[],
+  data: number[],
   minRating: number,
   maxRating: number,
 ): void => {
-  const chartData = data.map(([date, elo]) => ({ x: dayjs(date).valueOf(), y: elo }));
+  const chartData = data.map(decodeRatingPoint).map(([date, elo]) => ({ x: dayjs(date).valueOf(), y: elo }));
   new chart.Chart(canvas, {
     type: 'line',
     data: {

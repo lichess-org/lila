@@ -25,23 +25,20 @@
   }
 
   .entry {
-    @extend %button-none, %flex-center-nowrap;
-    width: 100%;
+    @extend %flex-center-nowrap;
+    @include padding-direction(0.7em, 0.1em, 0.7em, 0.6em);
+    @include transition;
 
+    width: 100%;
     cursor: pointer;
+    position: relative;
+    border-bottom: $border;
+    margin-inline-start: -0.1em;
+
     &:hover {
       background: $c-primary;
       color: $c-over;
     }
-
-    @include padding-direction(0.7em, 0.1em, 0.7em, 0.6em);
-
-    margin-inline-start: -0.1em;
-
-    @include transition;
-
-    position: relative;
-    border-bottom: $border;
 
     &::before {
       margin-inline-start: -0.6em;
@@ -50,22 +47,18 @@
 
     .del {
       @extend %button-shadow;
-      @extend %button-none;
+      @include inline-end(8px);
+      @include transition;
 
       position: absolute;
-      @include inline-end(8px);
       width: 1.5em;
       height: 1.5em;
       line-height: 1;
       opacity: 0;
-
       display: flex;
       justify-content: center;
       align-items: center;
       padding-inline-end: 0.5px;
-
-      @include transition;
-
       background: $c-bad;
       color: $c-over;
       border-radius: 50%;
@@ -86,7 +79,7 @@
   }
 
   .add {
-    @extend %button-none, %flex-center-nowrap;
+    @extend %flex-center-nowrap;
 
     width: 100%;
     padding: 0.7em;
@@ -101,11 +94,10 @@
 
     &.enabled {
       @extend %metal;
+      @include transition;
 
       cursor: pointer;
       color: $c-font;
-
-      @include transition;
 
       &::before {
         opacity: 0.7;

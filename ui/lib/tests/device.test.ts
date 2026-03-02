@@ -21,6 +21,6 @@ describe('test isVersionCompatible', () => {
     assert.equal(isVersionCompatible('1'), true);
     assert.equal(isVersionCompatible('', { below: '6' }), false);
     assert.equal(isVersionCompatible('', {}), false);
-    assert.equal(isVersionCompatible(false as any, {}), false);
+    assert.equal(isVersionCompatible(false, {}), false);
   });
 });

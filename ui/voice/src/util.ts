@@ -1,8 +1,6 @@
 import { squareDist, type Board } from 'lib/game';
 import { charToRole } from 'chessops';
 
-// findTransforms & validOps also found in .build/src/makeGrammar.ts
-
 const mode = { del: true, sub: 2 };
 
 export function findTransforms(

@@ -1,14 +1,14 @@
 // Courtesy of Issac Levy
 function getTc(g) {
   if (g.c) {
-    var h = g.c.hex();
-    var lim = parseInt(h.substr(0, 2), 16);
+    const h = g.c.hex();
+    const lim = parseInt(h.substr(0, 2), 16);
     return [lim < 181 ? lim * 60 : (lim - 180) * 15, parseInt(h.substr(2, 2), 16)];
   }
 }
 function getPerf(tc) {
   if (!tc) return false;
-  var totalTime = tc[0] + tc[1] * 40;
+  const totalTime = tc[0] + tc[1] * 40;
   if (totalTime < 480) return false;
   if (totalTime < 1500) return 'rapid';
   return 'classical';
@@ -26,28 +26,28 @@ function copyPerf(p) {
   };
 }
 
-var initialGlicko = {
+const initialGlicko = {
   r: 1500,
   v: 0.06,
   d: 350,
 };
 
 // var query = {_id:{$in:['thibault', 'neio']}};
-var query = {
+const query = {
   'perfs.classical.nb': { $gte: 1 },
   v: { $exists: false },
 };
 
-var done = 0;
+let done = 0;
 db.user4.find(query).forEach(u => {
   if (u.v) return;
   print(done + ' ' + u._id + ' - ' + u.count.game + ' games');
-  var classicalPerf = u.perfs.classical;
+  const classicalPerf = u.perfs.classical;
   classicalPerf.la = undefined;
   classicalPerf.nb = NumberInt(0);
   classicalPerf.re = [];
-  var rapidPerf = copyPerf(classicalPerf);
-  var gameQuery = {
+  const rapidPerf = copyPerf(classicalPerf);
+  const gameQuery = {
     us: u._id,
     s: { $gte: 30 },
     ra: true,
@@ -80,7 +80,7 @@ db.user4.find(query).forEach(u => {
     perf.nb = NumberInt(perf.nb);
   });
 
-  var update = {
+  const update = {
     $set: {
       v: 2, // user version 2
     },

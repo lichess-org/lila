@@ -5,12 +5,11 @@ body {
 }
 
 #impersonate {
-  @extend %flex-center, %popup-shadow;
+  @extend %flex-center-center, %popup-shadow;
 
   height: 40px;
   background: #7f1010;
   color: #fff;
-  justify-content: center;
   border-bottom: 1px solid #666;
   position: fixed;
   top: 0;

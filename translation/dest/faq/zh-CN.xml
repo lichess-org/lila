@@ -158,7 +158,7 @@ Lichess 的电脑分析由 Stockfish 引擎驱动。</string>
 4. 允许“播放声音”</string>
   <string name="enableAutoplayForSoundsSafari">1. 访问 lichess.org
 2. 点击 Safari 浏览器菜单栏
-3. 点击“lichness.org 的设置”
+3. 点击“lichess.org 的设置”
 4. 允许“所有自动播放”</string>
   <string name="enableAutoplayForSoundsMicrosoftEdge">1. 点击右上角的三个点
 2. 点击“设置”

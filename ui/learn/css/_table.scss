@@ -29,20 +29,17 @@
   }
 
   .goal {
-    @extend %flex-center;
+    @extend %flex-center-center;
 
     background: $c-bg-box;
     border: $border;
     border-top: none;
     padding: $block-gap;
     text-align: center;
-    justify-content: center;
   }
 
   .result {
-    @extend %flex-center;
-
-    justify-content: center;
+    @extend %flex-center-center;
     flex-flow: column nowrap;
     border: $border;
     border-top: none;
@@ -97,7 +94,6 @@
       font-weight: bold;
       text-transform: uppercase;
       background: #fff;
-      border: none;
       border-radius: 5px;
       padding: 5px 10px;
       box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.5);

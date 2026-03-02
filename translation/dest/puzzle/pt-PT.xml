@@ -8,6 +8,7 @@
   <string name="advanced">Avançado</string>
   <string name="lengths">Comprimentos</string>
   <string name="mates">Xeque-mates</string>
+  <string name="mateThemes">Temas de mate</string>
   <string name="goals">Objetivos</string>
   <string name="origin">Origem</string>
   <string name="specialMoves">Movimentos especiais</string>
@@ -93,6 +94,6 @@ Joga partidas semi-rápidas e clássicas para aumentares a probabilidade de tere
   </plurals>
   <string name="percentSolved">%s resolvido</string>
   <string name="noPuzzlesToShow">Nada para mostrar, joga alguns problemas primeiro!</string>
-  <string name="improvementAreasDescription">Treine estes para otimizar o seu progresso!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Treine estes para otimizar o seu progresso!</string>
   <string name="strengthDescription">Você tem melhor desempenho nestes temas</string>
 </resources>

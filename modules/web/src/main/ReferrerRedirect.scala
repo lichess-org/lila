@@ -40,5 +40,5 @@ final class ReferrerRedirect(baseUrl: BaseUrl):
         .filterNot(url => isForbiddenPath(url.path))
         .map(_.toString)
 
-  def fromReq(using req: RequestHeader) =
-    HTTPRequest.queryStringGet(req, "referrer").flatMap(valid)
+  def fromReq(using RequestHeader) =
+    HTTPRequest.queryStringGet("referrer").flatMap(valid)

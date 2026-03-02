@@ -5,8 +5,6 @@ import reactivemongo.api.bson.*
 import lila.core.game.{ Game, GameApi }
 import lila.db.dsl.{ *, given }
 
-case class Bookmark(game: Game, user: User)
-
 final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBuilder)(using Executor):
 
   private def exists(gameId: GameId, userId: UserId): Fu[Boolean] =

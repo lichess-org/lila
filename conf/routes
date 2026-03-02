@@ -101,6 +101,7 @@ GET   /fide/federation/:name           controllers.Fide.federation(name, page: I
 GET   /fide/:fideId/:name              controllers.Fide.show(fideId: chess.FideId, name, page: Int ?= 1)
 POST  /fide/:fideId/follow             controllers.Fide.follow(fideId: chess.FideId, follow: Boolean)
 GET   /api/fide/player/:id             controllers.Fide.apiShow(id: chess.FideId)
+GET   /api/fide/player/:id/ratings     controllers.Fide.apiRatings(id: chess.FideId)
 GET   /api/fide/player                 controllers.Fide.apiSearch(q: String)
 POST  /upload/image/fide/player/:id    controllers.Fide.playerPhoto(id: chess.FideId)
 POST  /fide/player/:id                 controllers.Fide.playerUpdate(id: chess.FideId)
@@ -237,7 +238,6 @@ GET   /study/public/:order             controllers.Study.minePublic(order: Study
 GET   /study/private/:order            controllers.Study.minePrivate(order: StudyOrder, page: Int ?= 1)
 GET   /study/likes/:order              controllers.Study.mineLikes(order: StudyOrder, page: Int ?= 1)
 GET   /study/by/:username              controllers.Study.byOwnerDefault(username: UserStr, page: Int ?= 1)
-GET   /study/by/:username/export.pgn   controllers.Study.exportPgn(username: UserStr)
 GET   /study/by/:username/:order       controllers.Study.byOwner(username: UserStr, order: StudyOrder, page: Int ?= 1)
 GET   /study/search                    controllers.Study.search(q ?= "", page: Int ?= 1, order: Option[StudyOrder] ?= None)
 GET   /study/$id<\w{8}>                controllers.Study.show(id: StudyId)
@@ -245,7 +245,7 @@ POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
 GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: StudyId)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.chapterPgn(id: StudyId, chapterId: StudyChapterId)
-GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String])
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String], showGlyphs: Boolean ?= false)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: StudyId)
 GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id: StudyId)
 POST  /study/$id<\w{8}>/cloneApply     controllers.Study.cloneApply(id: StudyId)
@@ -265,6 +265,7 @@ GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id: StudyId)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id: StudyId, chapterId: StudyChapterId)
 DELETE /api/study/$id<\w{8}>/$chapterId<\w{8}>    controllers.Study.apiChapterDelete(id: StudyId, chapterId: StudyChapterId)
 GET   /api/study/by/:user              controllers.Study.apiListByOwner(user: UserStr)
+GET   /api/study/by/:username/export.pgn controllers.Study.apiExportPgn(username: UserStr)
 POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id: StudyId)
 POST  /api/study/$id<\w{8}>/$chapterId<\w{8}>/tags controllers.Study.apiChapterTagsUpdate(id: StudyId, chapterId: StudyChapterId)
 
@@ -294,9 +295,11 @@ GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId: RelayTourId)
 GET   /broadcast/$tourId<\w{8}>/players       controllers.RelayTour.playersView(tourId: RelayTourId)
 GET   /broadcast/$tourId<\w{8}>/players/:id   controllers.RelayTour.player(tourId: RelayTourId, id:  String)
+GET   /broadcast/$tourId<\w{8}>/teams/standings controllers.RelayTour.teamLeaderboard(tourId: RelayTourId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId: RelayRoundId)
 GET   /api/broadcast/:ts/:rs/$roundId<\w{8}>  controllers.RelayRound.apiShow(ts, rs, roundId: RelayRoundId)
 GET   /embed/broadcast/:ts/:rs/$roundId<\w{8}> controllers.RelayRound.embedShow(ts, rs, roundId: RelayRoundId)
+GET   /embed/broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.embedChapter(ts, rs, roundId: RelayRoundId, chapterId: StudyChapterId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId: RelayRoundId, chapterId: StudyChapterId)
 GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId: RelayRoundId)
 POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId: RelayRoundId)
@@ -361,8 +364,7 @@ POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
 POST  /streamer/subscribe/:streamer    controllers.Streamer.subscribe(streamer: UserStr, set: Boolean ?= true)
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
-GET   /streamer/:username              controllers.Streamer.show(username: UserStr)
-GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: UserStr)
+GET   /streamer/:username              controllers.Streamer.show(username: UserStr, redirect: Boolean ?= false)
 POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
 GET   /streamer/twitch/oauth/link      controllers.Streamer.oauthLinkTwitch
 GET   /streamer/twitch/oauth/redirect  controllers.Streamer.oauthTwitchRedirect
@@ -504,7 +506,7 @@ GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.e
 GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.legacyGameThumbnail(gameId: GameId, theme: Option[String], piece: Option[String])
 GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: GameId, theme: Option[String], piece: Option[String])
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: GameId, color: Color = Color.white, theme: Option[String], piece: Option[String])
-GET   /game/export/gif/:color/$gameId<\w{8}>.gif controllers.Export.gif(gameId: GameId, color: Color, theme: Option[String], piece: Option[String])
+GET   /game/export/gif/:color/$gameId<\w{8}>.gif              controllers.Export.gif(gameId: GameId, color: Color, theme: Option[String], piece: Option[String])
 GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen, color: Option[Color], lastMove: Option[Uci], variant: Option[chess.variant.Variant.LilaKey], theme: Option[String], piece: Option[String])
 
 # Fishnet
@@ -582,6 +584,7 @@ POST  /auth/token/:token               controllers.Auth.loginWithTokenPost(token
 GET   /auth/magic-link                 controllers.Auth.magicLink
 POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
 GET   /auth/magic-link/sent            controllers.Auth.magicLinkSent
+GET   /auth/check                      controllers.Auth.check
 
 # Mod
 POST  /mod/:username/alt/:v            controllers.Mod.alt(username: UserStr, v: Boolean)
@@ -673,7 +676,7 @@ POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(sl
 # Msg compat
 POST  /inbox/new                       controllers.Msg.compatCreate
 # Msg
-GET   /inbox                           controllers.Msg.home
+GET   /inbox                           controllers.Msg.home(before: Option[Long] ?= None)
 GET   /inbox/search                    controllers.Msg.search(q)
 GET   /inbox/unread-count              controllers.Msg.unreadCount
 GET   /inbox/:username                 controllers.Msg.convo(username: UserStr, before: Option[Long] ?= None)
@@ -761,9 +764,10 @@ GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: UserStr, u2: UserStr)
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
+GET   /api/stream/event                controllers.Api.eventStream
+GET   /api/stream/games/by-oauth-origin controllers.Api.gamesByOauthOriginStream
 POST  /api/stream/games/:streamId      controllers.Api.gamesByIdsStream(streamId)
 POST  /api/stream/games/:streamId/add  controllers.Api.gamesByIdsStreamAddIds(streamId)
-GET   /api/stream/event                controllers.Api.eventStream
 GET   /api/stream/game/:id             controllers.Api.moveStream(id: GameId)
 GET   /api/account                     controllers.Account.apiMe
 GET   /api/account/playing             controllers.Account.apiNowPlaying
@@ -851,14 +855,13 @@ POST  /account/signout/:sessionId      controllers.Account.signout(sessionId)
 GET   /account/now-playing             controllers.Account.nowPlaying
 
 GET   /tutor                           controllers.Tutor.home()
-GET   /tutor/:username                 controllers.Tutor.user(username: UserStr)
-POST  /tutor/:username/refresh         controllers.Tutor.refresh(username: UserStr)
-GET   /tutor/:username/:perf           controllers.Tutor.perf(username: UserStr, perf: PerfKey)
-GET   /tutor/:username/:perf/skill     controllers.Tutor.skills(username: UserStr, perf: PerfKey)
-GET   /tutor/:username/:perf/opening   controllers.Tutor.openings(username: UserStr, perf: PerfKey)
-GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(username: UserStr, perf: PerfKey, color: Color, opening)
-GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username: UserStr, perf: PerfKey)
-GET   /tutor/:username/:perf/time      controllers.Tutor.time(username: UserStr, perf: PerfKey)
+GET   /tutor/:user                     controllers.Tutor.user(user: UserStr)
+POST  /tutor/:user/compute             controllers.Tutor.compute(user: UserStr)
+GET   /tutor/:user/:range              controllers.Tutor.report(user: UserStr, range)
+POST  /tutor/:user/delete              controllers.Tutor.delete(user: UserStr, range)
+GET   /tutor/:user/:range/:perf        controllers.Tutor.perf(user: UserStr, range, perf: PerfKey)
+GET   /tutor/:user/:range/:perf/:angle controllers.Tutor.angle(user: UserStr, range, perf: PerfKey, angle)
+GET   /tutor/:user/:range/:perf/opening/:color/:opening controllers.Tutor.opening(user: UserStr, range, perf: PerfKey, color: Color, opening: String)
 
 # Recap
 GET   /recap                           controllers.Recap.home
@@ -881,7 +884,7 @@ POST   /api/token/test                 controllers.OAuth.testTokens
 
 # Events
 GET   /event/$id<\w{8}>                controllers.Event.show(id)
-GET   /event/manager                   controllers.Event.manager
+GET   /event/manager                   controllers.Event.manager(page: Int ?= 1)
 GET   /event/manager/$id<\w{8}>        controllers.Event.edit(id)
 POST  /event/manager/$id<\w{8}>        controllers.Event.update(id)
 GET   /event/manager/clone/$id<\w{8}>  controllers.Event.cloneE(id)

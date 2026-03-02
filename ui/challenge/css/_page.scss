@@ -4,6 +4,10 @@
     gap: $block-gap;
     grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
 
+    h2 {
+      font-weight: bold;
+    }
+
     > div {
       @extend %box-neat;
       padding: $block-gap;
@@ -16,10 +20,6 @@
     }
 
     &__user {
-      @media (min-width: at-least($x-small)) {
-        grid-area: 1 / 2 / 3 / 2;
-      }
-
       &__recent {
         @extend %flex-center;
         margin-top: 1em;
@@ -141,13 +141,12 @@
   }
 
   .mobile-instructions {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
     font-size: 1.5rem;
   }
 
   .mobile-instructions::before {
-    font-family: 'lichess';
+    font-family: lichess;
     font-size: 3rem;
     padding-inline-end: 1rem;
     content: $licon-ShareAndroid;

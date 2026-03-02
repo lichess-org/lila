@@ -5,6 +5,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.id.AppealId
 import lila.core.user.UserMark
 import lila.ui.Icon
+import lila.core.perm.Granter
 
 case class Appeal(
     @Key("_id") id: AppealId,
@@ -21,6 +22,7 @@ case class Appeal(
   def isMuted = status == Appeal.Status.Muted
   def isUnread = status == Appeal.Status.Unread
   def isRecent = updatedAt.isAfter(nowInstant.minusWeeks(1))
+  def isOld = updatedAt.isBefore(nowInstant.minusMonths(6))
 
   def isAbout(userId: UserId) = id.is(userId)
 
@@ -44,8 +46,9 @@ case class Appeal(
       case (acc, msg) if msg.at.isAfter(nowInstant.minusWeeks(1)) => acc :+ msg
       case (acc, _) => acc
 
+    val recentCount = recentWithoutMod.size
     val recentSize = recentWithoutMod.foldLeft(0)(_ + _.text.size)
-    recentSize < Appeal.maxLength
+    recentSize < Appeal.maxLength || recentCount < 3
 
   def unread = copy(status = Appeal.Status.Unread)
   def read = copy(status = Appeal.Status.Read)
@@ -70,6 +73,7 @@ object Appeal:
 
   val maxLength = 1100
   val maxLengthClient = 1000
+  def maxLengthForMe(using Option[Me]) = if Granter.opt(_.Appeals) then 10_000 else maxLengthClient
 
   import play.api.data.*
   import play.api.data.Forms.*

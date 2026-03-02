@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Hrať proti počítaču</string>
   <string name="gameMode">Herný režim</string>
   <string name="createLobbyGame">Vytvoriť výzvu</string>
-  <string name="youPlayAs">Hráte ako</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Zdieľaním tejto adresy môžete niekoho pozvať k partii</string>
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
@@ -130,6 +129,8 @@
   <string name="bestMoveArrow">Šípka pre najlepší ťah</string>
   <string name="showVariationArrows">Zobraziť šípky variantov</string>
   <string name="evaluationGauge">Ukazovateľ hodnotenia</string>
+  <string name="visualMotifs">Vizuálne motívy</string>
+  <string name="pinnedPieces">Figúrky vo väzbe</string>
   <string name="multipleLines">Počet variantov</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamäť</string>
@@ -261,7 +262,6 @@
   <string name="changeUsernameNotSame">Je možné zmeniť iba veľké a malé písmená. Napríklad \"miskomrkvicka\" na MiskoMrkvicka\".</string>
   <string name="changeUsernameDescription">Zmena užívateľského mena. Tento úkon je možné vykonať len raz a je povolené zmeniť iba veľké a malé písmená.</string>
   <string name="signupUsernameHint">Uistite sa, že si vyberáte rodinne prijateľné používateľské meno! Neskôr ho už nemôžete zmeniť a akýkoľvek účet s nevhodným užívateľským menom bude uzavretý.</string>
-  <string name="signupEmailHint">Použijeme ho iba pri znovunastavení hesla.</string>
   <string name="password">Heslo</string>
   <string name="changePassword">Zmeniť heslo</string>
   <string name="changeEmail">Zmeniť email</string>
@@ -486,10 +486,10 @@
   <string name="leaderboard">Rebríček</string>
   <string name="screenshotCurrentPosition">Odfotiť aktuálnu pozíciu</string>
   <string name="gameAsGIF">Uložiť ako GIF</string>
+  <string name="playerNames">Mená hráčov</string>
   <string name="pasteTheFenStringHere">Sem vložte FEN reťazec</string>
   <string name="pasteThePgnStringHere">Sem vložte PGN reťazec</string>
   <string name="orUploadPgnFile">Alebo nahrajte súbor PGN</string>
-  <string name="fromPosition">Z pozície</string>
   <string name="continueFromHere">Pokračujte odtiaľto</string>
   <string name="toStudy">Štúdia</string>
   <string name="importGame">Importovať partiu</string>
@@ -791,11 +791,6 @@
   <string name="keyCycleSelectedVariation">Vybrať variant</string>
   <string name="keyShowOrHideComments">zobraziť/skryť komentáre</string>
   <string name="keyEnterOrExitVariation">zvoliť/opustiť variant</string>
-  <string name="keyRequestComputerAnalysis">Požadujte analýzu počítačom, Poučte sa zo svojich chýb</string>
-  <string name="keyNextLearnFromYourMistakes">Ďalej (Poučte sa zo svojich chýb)</string>
-  <string name="keyNextBlunder">Ďalšia hrubá chyba</string>
-  <string name="keyNextMistake">Ďalšia chyba</string>
-  <string name="keyNextInaccuracy">Ďalšia nepresnosť</string>
   <string name="keyPreviousBranch">Predchádzajúca vetva</string>
   <string name="keyNextBranch">Nasledujúca vetva</string>
   <string name="toggleVariationArrows">Prepnúť šípky variantov</string>

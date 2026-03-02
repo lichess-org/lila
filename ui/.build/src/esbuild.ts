@@ -8,7 +8,7 @@ import { definedMap } from './algo.ts';
 
 let esbuildCtx: es.BuildContext | undefined;
 
-export async function esbuild(): Promise<any> {
+export async function esbuild(): Promise<[string, string] | undefined> {
   if (!env.begin('esbuild')) return;
 
   const options: es.BuildOptions = {
@@ -48,7 +48,7 @@ export async function esbuild(): Promise<any> {
         await esbuildCtx?.dispose();
         entryPoints.sort();
         esbuildCtx = await es.context({ ...options, entryPoints });
-        if (env.watch) esbuildCtx.watch();
+        if (env.watch) await esbuildCtx.watch();
         else {
           await esbuildCtx.rebuild();
           await esbuildCtx.dispose();
@@ -173,7 +173,7 @@ const plugins = [
         esbuildLog(result.warnings);
         env.begin('esbuild');
         env.done('esbuild', result.errors.length > 0 ? -3 : 0);
-        if (result.errors.length === 0) bundleManifest(result.metafile!);
+        if (result.errors.length === 0) bundleManifest(result.metafile);
       });
     },
   },

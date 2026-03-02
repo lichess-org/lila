@@ -13,7 +13,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mode</string>
   <string name="chessClock">Orasan ng Chess</string>
   <string name="tenthsOfSeconds">Pangsampu ng isang segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kapag ang natitirang oras &lt; 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kapag ang natitirang oras &lt; 10 segundos</string>
   <string name="horizontalGreenProgressBars">Pahalang na berdeng pag-unlad na mga bar</string>
   <string name="soundWhenTimeGetsCritical">Tutunog kapag ang oras ay naging kritikal</string>
   <string name="giveMoreTime">Magbigay ng maraming oras</string>
@@ -27,7 +27,7 @@
   <string name="promoteToQueenAutomatically">Awtomatikong gawing Queen</string>
   <string name="whenPremoving">Kapag bago gumalaw</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Awtomatikong magkuha sa tatlong beses na pag-uulit</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kapag ang natitirang oras &lt; 30 segundo</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kapag ang natitirang oras &lt; 30 segundo</string>
   <string name="moveConfirmation">Kompirmasyon ng galaw</string>
   <string name="inCorrespondenceGames">Mga laro ng pagsusulatan</string>
   <string name="correspondenceAndUnlimited">Pagsusulatan at walang katapusan</string>

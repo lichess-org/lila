@@ -3,12 +3,13 @@ import { throttle } from 'lib/async';
 import type { EvalHit, EvalGetData, EvalPutData } from './interfaces';
 import type { AnalyseSocketSend } from './socket';
 import { pubsub } from 'lib/pubsub';
+import type { ClientEval, PvData, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 
 export interface EvalCacheOpts {
   variant: VariantKey;
-  receive(ev: Tree.ClientEval, path: Tree.Path): void;
+  receive(ev: ClientEval, path: TreePath): void;
   send: AnalyseSocketSend;
-  getNode(): Tree.Node;
+  getNode(): TreeNode;
   canPut(): boolean;
   canGet(): boolean;
   upgradable: boolean;
@@ -18,7 +19,7 @@ const evalPutMinDepth = 20;
 const evalPutMinNodes = 3e6;
 const evalPutMaxMoves = 10;
 
-function qualityCheck(ev: Tree.ClientEval): boolean {
+function qualityCheck(ev: ClientEval): boolean {
   // quick mates may never reach the minimum nodes or depth
   if (Math.abs(ev.mate ?? 99) < 15) return true;
   // below 500k nodes, the eval might come from an imminent threefold repetition
@@ -27,7 +28,7 @@ function qualityCheck(ev: Tree.ClientEval): boolean {
 }
 
 // from client eval to server eval
-function toPutData(variant: VariantKey, ev: Tree.ClientEval): EvalPutData {
+function toPutData(variant: VariantKey, ev: ClientEval): EvalPutData {
   const data: EvalPutData = {
     fen: ev.fen,
     knodes: Math.round(ev.nodes / 1000),
@@ -45,13 +46,13 @@ function toPutData(variant: VariantKey, ev: Tree.ClientEval): EvalPutData {
 }
 
 // from server eval to client eval
-function toCeval(e: Tree.ServerEval): Tree.ClientEval {
-  const res: Tree.ClientEval = {
+function toCeval(e: ServerEval): ClientEval {
+  const res: ClientEval = {
     fen: e.fen,
     nodes: e.knodes * 1000,
     depth: e.depth,
     pvs: e.pvs.map(from => {
-      const to: Tree.PvData = {
+      const to: PvData = {
         moves: from.moves.split(' '), // moves come from the server as a single string
       };
       if (defined(from.cp)) to.cp = from.cp;
@@ -94,7 +95,7 @@ export default class EvalCache {
     }
   });
 
-  fetch = (path: Tree.Path, multiPv: number): void => {
+  fetch = (path: TreePath, multiPv: number): void => {
     if (document.visibilityState === 'hidden') return;
     const node = this.opts.getNode();
     if ((node.ceval && node.ceval.cloud) || !this.opts.canGet()) return;

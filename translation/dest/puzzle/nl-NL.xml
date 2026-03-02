@@ -93,6 +93,6 @@ Speel rapid en klassieke partijen om de kans te vergroten dat een puzzel uit jou
   </plurals>
   <string name="percentSolved">%s opgelost</string>
   <string name="noPuzzlesToShow">Niets te tonen, speel eerst wat puzzels!</string>
-  <string name="improvementAreasDescription">Train deze om je voortgang te optimaliseren!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Train deze om je voortgang te optimaliseren!</string>
   <string name="strengthDescription">Je presteert het beste in deze thema\'s</string>
 </resources>

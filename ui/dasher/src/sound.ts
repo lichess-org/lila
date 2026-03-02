@@ -112,7 +112,7 @@ export class SoundCtrl extends PaneCtrl {
                 {
                   hook: bind('click', event => {
                     const target = event.target as HTMLElement;
-                    site.sound.setVoice(voiceMap.get(target.textContent!)!);
+                    site.sound.setVoice(voiceMap.get(target.textContent)!);
                     site.sound.say('Speech synthesis ready');
                     this.redraw();
                   }),

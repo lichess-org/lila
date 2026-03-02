@@ -1,3 +1,4 @@
+import type { LocalEval } from '@/tree/types';
 import { defined } from '../index';
 import type { Work } from './types';
 
@@ -5,7 +6,7 @@ export class Protocol {
   public engineName: string | undefined;
 
   private work: Work | undefined;
-  private currentEval: Tree.LocalEval | undefined;
+  private currentEval: LocalEval | undefined;
   private gameId: string | undefined;
   private expectedPvs = 1;
 

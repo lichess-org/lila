@@ -45,7 +45,12 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   def confirm(token: String): Fu[Option[Me]] =
-    tokener.read(token).flatMapz(userRepo.me).map(_.filter(Granter.canFullyLogin))
+    tokener
+      .read(token)
+      .flatMapz(userRepo.me)
+      .map(_.filter(Granter.canFullyLogin))
+      .recover:
+        case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none
 
   val limiter: RateLimit.RateLimiter[(EmailAddress, IpAddress)] = RateLimit.combine(
     RateLimit[EmailAddress](credits = 3, duration = 1.day, key = "password.reset.email"),

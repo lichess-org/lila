@@ -66,7 +66,7 @@ const updateChapterRoot = (oldChapter, newRoot) => {
   if (dry) return;
   try {
     db.study_chapter_castling_backup.insertOne(oldChapter);
-  } catch (e) {}
+  } catch {}
   db.study_chapter_flat.updateOne({ _id: oldChapter._id }, { $set: { root: newRoot } });
   db[diagColl].updateOne({ _id: oldChapter._id }, { $set: { repairedAt: new Date() } });
 };
@@ -88,7 +88,7 @@ const findCorruptedChapters = selector => {
   db.study_chapter_flat.aggregate([
     {
       $match: {
-        ...(selector || {}),
+        ...selector,
         // 'setup.variant': { $nin: [2, 3] }, // chess960, from position. The later contains chess960 games.
         // createdAt: { $gte: new Date('2025-09-19') }
       },

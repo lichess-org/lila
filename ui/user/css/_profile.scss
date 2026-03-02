@@ -27,15 +27,19 @@
     @extend %flex-column;
 
     flex: 1 0 300px;
-    height: 332px;
+    height: 350px;
     border-inline-start: $border;
     overflow: hidden;
   }
 
-  .flag img {
-    vertical-align: text-bottom;
-    margin: 0 0.3em;
-    aspect-ratio: 1;
+  .location {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+
+    img {
+      aspect-ratio: 1;
+    }
   }
 
   .user-infos {
@@ -44,7 +48,6 @@
     flex: 1 1 auto;
     padding: 0.8em;
     overflow: auto;
-
     unicode-bidi: plaintext;
     text-align: start;
 
@@ -85,6 +88,24 @@
     }
   }
 
+  .tutor-link {
+    @extend %flex-center;
+    padding: 0.3em 1em;
+    border-top: $border;
+    gap: 1em;
+    img {
+      height: 2.5em;
+    }
+    strong {
+      font-weight: normal;
+      font-size: 1.5em;
+    }
+    > span {
+      @extend %flex-column;
+    }
+    background: $m-primary_bg--mix-10;
+  }
+
   .col2 {
     display: flex;
     flex-flow: row wrap;
@@ -110,9 +131,8 @@
       max-width: 100%;
       max-height: 300px;
     }
-
-    &.muted {
-      color: $c-font-dimmer;
-    }
+  }
+  .muted {
+    color: $c-font-dimmer;
   }
 }

@@ -30,6 +30,12 @@
       }
     }
     &__team {
+      a {
+        color: $c-font;
+        &:hover {
+          color: $c-primary;
+        }
+      }
       padding: 0.5em 1em;
       &__points {
         @extend %flex-around;
@@ -85,11 +91,11 @@
 }
 
 .eval-gauge-horiz {
-  $white: #a0a0a0;
-  $black: #606060;
+  $white: #c0c0c0;
+  $black: #444;
   @include if-light {
     $white: #fff;
-    $black: #888;
+    $black: #606060;
   }
   @extend %box-neat-force;
   display: block;

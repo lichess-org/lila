@@ -6,7 +6,7 @@
   <string name="progressX">进度：%s</string>
   <string name="resetMyProgress">重置我的进度</string>
   <string name="youWillLoseAllYourProgress">您将丢失所有进度！</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">开始玩！</string>
+  <string name="play">开始玩！</string>
   <string name="chessPieces">棋子</string>
   <string name="theRook">车</string>
   <string name="itMovesInStraightLines">它沿直线移动</string>
@@ -146,7 +146,6 @@
   <string name="findAWayToCastleKingSide">请设法进行王翼易位！</string>
   <string name="findAWayToCastleQueenSide">请设法进行后翼易位！</string>
   <string name="castlingComplete">恭喜！在对局中，您几乎总是应该进行易位。</string>
-  <string name="enPassant">吃过路兵</string>
   <string name="theSpecialPawnMove">兵的特殊走法</string>
   <string name="enPassantIntro">当对方的兵移动了两格时，您可以像它只移动了一格那样吃掉它。</string>
   <string name="blackJustMovedThePawnByTwoSquares">黑方刚刚将兵移动了两格！

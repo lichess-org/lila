@@ -35,7 +35,7 @@ export default function (div?: Division): ChartDataset<'line'>[] {
       offset: -5,
       align: 45,
       rotation: 90,
-      formatter: (val: Point) => (val.y > 0 ? line.div : ''),
+      formatter: (val: Point) => (val.y && val.y > 0 ? line.div : ''),
     },
   }));
 }

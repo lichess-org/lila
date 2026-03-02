@@ -190,7 +190,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     return kids.every(x => x.enabled || x.isOptional) && this.requirementsAllow;
   }
 
-  private evaluate(requirement: Requirement | undefined): boolean {
+  private evaluate(requirement?: Requirement): boolean {
     if (typeof requirement === 'string') {
       const req = requirement.trim();
       if (req.startsWith('!')) {
@@ -345,7 +345,7 @@ export class RangeSetting<Info extends RangeInfo = RangeInfo> extends NumberSett
 function getRequirementIds(r: Requirement | undefined): string[] {
   if (typeof r === 'string') {
     const req = r.trim();
-    if (req.startsWith('!')) return [`${req.slice(1).trim()}`];
+    if (req.startsWith('!')) return [req.slice(1).trim()];
     const [left, right] = req.split(requiresOpRe).map(x => x.trim());
     const ids = [];
     if (left && isNaN(Number(left))) ids.push(left);

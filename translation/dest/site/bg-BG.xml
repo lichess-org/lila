@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Игра срещу компютъра</string>
   <string name="gameMode">Режим на игра</string>
   <string name="createLobbyGame">Създаване на игра</string>
-  <string name="youPlayAs">Играете с</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканите някого на игра, дайте му този адрес</string>
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
   <string name="orLetYourOpponentScanQrCode">Или дайте на противника си да сканира този QR код</string>
+  <string name="reusableChallengeUrl">Връзка за многократна употреба</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Постоянна връзка, чрез която всеки може да ви предизвика с точно тези настройки.</string>
   <string name="waiting">Изчакване</string>
   <string name="yourTurn">Вашият ход</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Показване на най-добър ход</string>
   <string name="showVariationArrows">Показване на стрелки за вариациите</string>
   <string name="evaluationGauge">Показване на оценка</string>
+  <string name="visualMotifs">Визуални мотиви</string>
+  <string name="undefendedPieces">Незащитени фигури</string>
+  <string name="pinnedPieces">Вързани фигури</string>
+  <string name="checkableKing">Цар, изложен на шах</string>
   <string name="multipleLines">Множество ходове</string>
   <string name="cpus">Процесори</string>
   <string name="memory">Памет</string>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Време в минути</string>
   <string name="variant">Вариант</string>
   <string name="variants">Варианти</string>
+  <string name="variantsDescription">Още начини за игра</string>
   <string name="timeControl">Времева контрола</string>
   <string name="realTime">Определено време</string>
   <string name="correspondence">Кореспондентски</string>
@@ -231,7 +237,6 @@
   <string name="changeUsernameNotSame">Единствено могат да се заменят малки с главни букви. Например, \"johndoe\" с \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промяна на потребителско име. Може да се извърши само веднъж и можете да сменяте единствено малки и главни букви.</string>
   <string name="signupUsernameHint">Изберете прилично потребителско име. Няма да можете да го смените по-късно и всички регистрации с нецензурни имена биват затворени!</string>
-  <string name="signupEmailHint">Ще го използваме само за възстановяване на паролата.</string>
   <string name="password">Парола</string>
   <string name="changePassword">Промяна на паролата</string>
   <string name="changeEmail">Промяна на имейла</string>
@@ -299,6 +304,7 @@
   <string name="standard">Обикновен</string>
   <string name="customPosition">От позиция</string>
   <string name="unlimited">Неограничено</string>
+  <string name="unlimitedDescription">Мислете колкото ви е необходимо</string>
   <string name="mode">Начин</string>
   <string name="casual">Приятелски</string>
   <string name="rated">С рейтинг</string>
@@ -424,10 +430,11 @@
   <string name="leaderboard">Табло с водачите</string>
   <string name="screenshotCurrentPosition">Снимане на екрана на текущата позиция</string>
   <string name="gameAsGIF">Запазване на партията като гифче</string>
+  <string name="playerNames">Имена на играчите</string>
+  <string name="moveAnnotations">Преместване на анотациите</string>
   <string name="pasteTheFenStringHere">Постави FEN низа тук</string>
   <string name="pasteThePgnStringHere">Постави PGN низа тук</string>
   <string name="orUploadPgnFile">Или качете PGN файл</string>
-  <string name="fromPosition">От позиция</string>
   <string name="continueFromHere">Продължаване от тук</string>
   <string name="toStudy">Разучи</string>
   <string name="importGame">Добави игра</string>
@@ -714,11 +721,6 @@
   <string name="keyCycleSelectedVariation">Превключи избрания вариант</string>
   <string name="keyShowOrHideComments">покажи/скрий коментарите</string>
   <string name="keyEnterOrExitVariation">влез/излез от вариацията</string>
-  <string name="keyRequestComputerAnalysis">Поискайте компютърен анализ, Учете се от грешките си</string>
-  <string name="keyNextLearnFromYourMistakes">Продължи (Учете се от грешките си)</string>
-  <string name="keyNextBlunder">Следваща груба грешка</string>
-  <string name="keyNextMistake">Следваща грешка</string>
-  <string name="keyNextInaccuracy">Следваща неточност</string>
   <string name="keyPreviousBranch">Предишно разклонение</string>
   <string name="keyNextBranch">Следващо разклонение</string>
   <string name="toggleVariationArrows">Превключване на стрелките за варианти</string>
@@ -811,6 +813,7 @@
   <string name="size">Размер</string>
   <string name="opacity">Прозрачност</string>
   <string name="brightness">Яркост</string>
+  <string name="contrast">Контраст</string>
   <string name="hue">Цветови тон</string>
   <string name="boardReset">Възстановяване на стандартните цветовете</string>
   <string name="pieceSet">Дизайн на фигури</string>
@@ -951,7 +954,7 @@
   <string name="timeAlmostUp">Времето почти изтече!</string>
   <string name="clickToRevealEmailAddress">[Щракнете, за да видите имейл адреса]</string>
   <string name="download">Изтегли</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Настройки за треньори</string>
+  <string name="coachManager">Настройки за треньори</string>
   <string name="streamerManager">Настройки за стриймъри</string>
   <string name="cancelTournament">Отмяна на турнира</string>
   <string name="tournDescription">Описание на турнира</string>
@@ -1017,4 +1020,5 @@
   <string name="search">Търсене</string>
   <string name="clearSearch">Изчистване на търсенето</string>
   <string name="tags">Етикети</string>
+  <string name="enPassant">Ан пасан</string>
 </resources>

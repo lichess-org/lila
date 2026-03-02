@@ -40,9 +40,7 @@
     @include prevent-select;
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -ms-touch-action: none;
     touch-action: none;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
   .noUi-target {
@@ -55,8 +53,7 @@
     position: relative;
     z-index: 1;
   }
-  /* Wrapper for all connect elements.
-     */
+  /* Wrapper for all connect elements. */
   .noUi-connects {
     overflow: hidden;
     z-index: 0;
@@ -70,14 +67,10 @@
     right: 0;
     height: 100%;
     width: 100%;
-    -ms-transform-origin: 0 0;
-    -webkit-transform-origin: 0 0;
-    -webkit-transform-style: preserve-3d;
     transform-origin: 0 0;
-    transform-style: flat;
+    transform-style: preserve-3d;
   }
-  /* Offset direction
-     */
+  /* Offset direction */
   .noUi-txt-dir-rtl.noUi-horizontal .noUi-origin {
     left: 0;
     right: auto;
@@ -89,7 +82,6 @@
     height: 0;
   }
   .noUi-handle {
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     position: absolute;
   }
@@ -100,7 +92,6 @@
   }
   .noUi-state-tap .noUi-connect,
   .noUi-state-tap .noUi-origin {
-    -webkit-transition: transform 0.3s;
     transition: transform 0.3s;
   }
   .noUi-state-drag * {
@@ -117,11 +108,11 @@
   .noUi-horizontal .noUi-handle {
     width: 5px;
     height: 21px;
-    right: 0px;
+    right: 0;
     top: -6px;
   }
   .noUi-txt-dir-rtl.noUi-horizontal .noUi-handle {
-    left: 0px;
+    left: 0;
     right: auto;
   }
   /* Styling;
@@ -159,8 +150,8 @@
   }
   /* Handle stripes;
      */
-  .noUi-handle:before,
-  .noUi-handle:after {
+  .noUi-handle::before,
+  .noUi-handle::after {
     left: 17px;
   }
   /* Base;
@@ -168,7 +159,6 @@
      */
   .noUi-pips,
   .noUi-pips * {
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
   .noUi-pips {
@@ -210,11 +200,9 @@
     width: 100%;
   }
   .noUi-value-horizontal {
-    -webkit-transform: translate(-50%, 50%);
     transform: translate(-50%, 50%);
   }
   .noUi-rtl .noUi-value-horizontal {
-    -webkit-transform: translate(50%, 50%);
     transform: translate(50%, 50%);
   }
   .noUi-marker-horizontal.noUi-marker {

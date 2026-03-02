@@ -208,9 +208,8 @@ final private class PovToEntry(
     )
 
   private def findOpening(from: RichPov): Option[SimpleOpening] =
-    from.pov.game.variant.standard.so(
+    from.pov.game.variant.standard.so:
       OpeningDb
         .searchInPositions(from.boards)
         .map(_.opening)
         .flatMap(SimpleOpening.apply)
-    )

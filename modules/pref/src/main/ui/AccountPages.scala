@@ -31,7 +31,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             div(cls := "form-group")(trs.closeAccountAreYouSure()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             myUsernamePasswordFields(form),
-            form3.checkbox(
+            form3.checkboxGroup(
               form("forever"),
               raw("Forever close: make it impossible to reopen"),
               help = raw(
@@ -69,7 +69,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
               " instead?"
             ),
             myUsernamePasswordFields(form),
-            form3.checkbox(form("understand"), "I understand that deleted accounts aren't recoverable"),
+            form3.checkboxGroup(form("understand"), "I understand that deleted accounts aren't recoverable"),
             form3.errors(form("understand")),
             me.marks.dirty.option:
               div(cls := "form-group")(
@@ -248,16 +248,20 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
         )
       )
 
-  def email(form: Form[?])(using Context) =
+  def email(form: Form[?], managed: Boolean)(using Context) =
     AccountPage(trans.site.changeEmail.txt(), "email"):
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.site.changeEmail()),
-        standardFlash | flashMessage("warning")(trans.site.emailSuggestion()),
-        postForm(cls := "form3", action := routes.Account.emailApply)(
-          form3.passwordModified(form("passwd"), trans.site.password())(autofocus),
-          form3.group(form("email"), trans.site.email())(form3.input(_, typ = "email")(required)),
-          form3.action(form3.submit(trans.site.apply()))
-        )
+        if managed then p("Your account is managed. Ask your teacher to graduate it.")
+        else
+          frag(
+            standardFlash | flashMessage("warning")(trans.site.emailSuggestion()),
+            postForm(cls := "form3", action := routes.Account.emailApply)(
+              form3.passwordModified(form("passwd"), trans.site.password())(autofocus),
+              form3.group(form("email"), trans.site.email())(form3.input(_, typ = "email")(required)),
+              form3.action(form3.submit(trans.site.apply()))
+            )
+          )
       )
 
   def data(u: User)(using Context) =

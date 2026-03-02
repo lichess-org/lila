@@ -3,6 +3,7 @@ import { writeTextClipboard, text as xhrText } from 'lib/xhr';
 import topBar from './topBar';
 import { userComplete } from 'lib/view/userComplete';
 import { confirm } from 'lib/view';
+import menuKeyboardInteractions from 'lib/menuKeyboardInteractions';
 
 export function addWindowHandlers() {
   let animFrame: number;
@@ -20,23 +21,45 @@ export function addWindowHandlers() {
 
 export function addDomHandlers() {
   topBar();
+  menuKeyboardInteractions();
 
-  $('#main-wrap').on('click', '.copy-me__button', function (this: HTMLElement) {
-    const showCheckmark = () => {
-      $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
-      setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
-    };
-    const fetchContent = $(this).parent().hasClass('fetch-content');
-    $(this.parentElement!.firstElementChild!).each(function (this: any) {
-      try {
-        if (fetchContent) writeTextClipboard(this.href, showCheckmark);
-        else navigator.clipboard.writeText(this.value || this.href).then(showCheckmark);
-      } catch (e) {
-        console.error(e);
-      }
+  $('#main-wrap')
+    .on('click', '.copy-me__button', function (this: HTMLElement) {
+      const showCheckmark = () => {
+        $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
+        setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
+      };
+      const fetchContent = $(this).parent().hasClass('fetch-content');
+      $(this.parentElement!.firstElementChild).each(function (this: HTMLInputElement | HTMLAnchorElement) {
+        try {
+          if (this instanceof HTMLAnchorElement) {
+            if (fetchContent) writeTextClipboard(this.href, showCheckmark);
+            else navigator.clipboard.writeText(this.href).then(showCheckmark);
+          } else if (this instanceof HTMLInputElement) {
+            navigator.clipboard.writeText(this.value).then(showCheckmark);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      });
+      return false;
+    })
+    .on('click', '.yes-no-confirm, .ok-cancel-confirm', async function (this: HTMLElement, e: Event) {
+      if (!e.isTrusted) return;
+      e.preventDefault();
+      const [confirmText, cancelText] = this.classList.contains('yes-no-confirm')
+        ? [i18n.site.yes, i18n.site.no]
+        : [i18n.site.ok, i18n.site.cancel];
+      if (await confirm(this.title || 'Confirm this action?', confirmText, cancelText))
+        (e.target as HTMLElement)?.click();
+    })
+    .on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
+      const t = $(this).toggleClass('bookmarked');
+      xhrText(this.href, { method: 'post' });
+      const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
+      t.find('span').html('' + (count > 0 ? count : ''));
+      return false;
     });
-    return false;
-  });
 
   $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
     const $a = $(this).addClass('processing').css('opacity', 0.3);
@@ -65,27 +88,5 @@ export function addDomHandlers() {
 
     if (focus) start();
     else $(this).one('focus', start);
-  });
-
-  $('#main-wrap').on(
-    'click',
-    '.yes-no-confirm, .ok-cancel-confirm',
-    async function (this: HTMLElement, e: Event) {
-      if (!e.isTrusted) return;
-      e.preventDefault();
-      const [confirmText, cancelText] = this.classList.contains('yes-no-confirm')
-        ? [i18n.site.yes, i18n.site.no]
-        : [i18n.site.ok, i18n.site.cancel];
-      if (await confirm(this.title || 'Confirm this action?', confirmText, cancelText))
-        (e.target as HTMLElement)?.click();
-    },
-  );
-
-  $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
-    const t = $(this).toggleClass('bookmarked');
-    xhrText(this.href, { method: 'post' });
-    const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
-    t.find('span').html('' + (count > 0 ? count : ''));
-    return false;
   });
 }

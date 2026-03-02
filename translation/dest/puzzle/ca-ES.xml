@@ -93,6 +93,6 @@ Juga partides ràpides i clàssiques per augmentar les possibilitats que se n\'h
   </plurals>
   <string name="percentSolved">%s resolts</string>
   <string name="noPuzzlesToShow">Encara no hi ha res per mostrar aquí. Resol alguns problemes primer!</string>
-  <string name="improvementAreasDescription">Entreneu aquestes temàtiques per a progressar!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Entreneu aquestes temàtiques per a progressar!</string>
   <string name="strengthDescription">Aquestes són les temàtiques en que ets millor</string>
 </resources>

@@ -94,6 +94,6 @@ Play rapid and classical games to increase your chances of having a puzzle of yo
   </plurals>
   <string name="percentSolved">%s solved</string>
   <string name="noPuzzlesToShow">Nothing to show, go play some puzzles first!</string>
-  <string name="improvementAreasDescription">Train these to optimize your progress!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Train these to optimize your progress!</string>
   <string name="strengthDescription">You perform the best in these themes</string>
 </resources>

@@ -5,7 +5,9 @@ $c-mselect: $c-primary;
   white-space: nowrap;
 
   &__toggle {
-    @include hide;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
   }
 
   &__label {
@@ -25,7 +27,11 @@ $c-mselect: $c-primary;
       content: $licon-MoreTriangle;
       font-size: 70%;
       color: $c-mselect;
-      @include margin-inline-start(0.4em);
+      margin-inline: 0.4em 0;
+    }
+
+    &:focus-visible {
+      outline: $outline;
     }
   }
 
@@ -33,6 +39,10 @@ $c-mselect: $c-primary;
     @include transition(opacity);
 
     opacity: 0;
+  }
+
+  &__toggle:focus-visible ~ .mselect__label {
+    outline: $outline;
   }
 
   &__list {
@@ -58,10 +68,17 @@ $c-mselect: $c-primary;
         position: fixed;
         top: 50%;
         transform: translateY(-50%) scale(1, 1);
+
+        dialog & {
+          position: absolute;
+          top: 0;
+          transform: scale(1, 1);
+        }
       }
 
-      > * {
+      * {
         opacity: 1;
+        visibility: visible;
         transition: opacity 125ms ease-in-out 125ms;
       }
     }
@@ -70,11 +87,11 @@ $c-mselect: $c-primary;
     white-space: nowrap;
     display: block;
     padding: 0.3em 1em;
-
-    @include transition;
-
+    visibility: hidden;
+    opacity: 0;
     color: $c-mselect;
     border-left: 3px solid transparent;
+    @include transition(background-color border-color);
 
     &.current {
       background: $c-bg-zebra;
@@ -84,10 +101,12 @@ $c-mselect: $c-primary;
       background: $c-mselect;
       color: $c-over;
     }
+    &:focus-visible {
+      outline: $outline;
+      outline-offset: -2px;
+    }
     &::before {
       margin-inline-end: 0.4em;
     }
-
-    opacity: 0;
   }
 }

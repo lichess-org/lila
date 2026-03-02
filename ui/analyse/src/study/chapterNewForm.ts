@@ -1,7 +1,17 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, type Prop, toggle } from 'lib';
-import type { Dialog, VNode } from 'lib/view';
-import { snabDialog, alert, bind, bindSubmit, onInsert, hl, dataIcon, spinnerVdom } from 'lib/view';
+import {
+  snabDialog,
+  alert,
+  bind,
+  bindSubmit,
+  onInsert,
+  hl,
+  dataIcon,
+  spinnerVdom,
+  type Dialog,
+  type VNode,
+} from 'lib/view';
 import * as licon from 'lib/licon';
 import { storedProp } from 'lib/storage';
 import { json as xhrJson, text as xhrText } from 'lib/xhr';
@@ -13,7 +23,6 @@ import { importPgn, variants as xhrVariants } from './studyXhr';
 import type { StudyChapters } from './studyChapters';
 import type { LichessEditor } from 'editor';
 import { pubsub } from 'lib/pubsub';
-import { lichessRules } from 'chessops/compat';
 
 export const modeChoices = [
   ['normal', i18n.study.normalAnalysis],
@@ -33,12 +42,7 @@ export class StudyChapterNewForm {
     if (!val) this.dialog?.close();
   });
   initial = toggle(false);
-  tab = storedProp<ChapterTab>(
-    'analyse.study.form.tab',
-    'init',
-    str => str as ChapterTab,
-    v => v,
-  );
+  tab = storedProp<ChapterTab>('analyse.study.form.tab', 'init', str => str as ChapterTab);
   editor: LichessEditor | null = null;
   editorFen: Prop<FEN | null> = prop(null);
   isDefaultName = toggle(true);
@@ -61,6 +65,7 @@ export class StudyChapterNewForm {
     this.isOpen(true);
     this.loadVariants();
     this.initial(false);
+    this.isDefaultName(true);
   };
 
   toggle = () => (this.isOpen() ? this.isOpen(false) : this.open());
@@ -117,18 +122,14 @@ export function view(ctrl: StudyChapterNewForm): VNode {
   const activeTab = ctrl.tab();
   const makeTab = (key: ChapterTab, name: string, title: string) =>
     hl(
-      'span.' + key,
+      'button.' + key,
       {
         class: { active: activeTab === key },
         attrs: { role: 'tab', title, tabindex: '0' },
         hook: onInsert(el => {
-          const select = (e: Event) => {
+          el.addEventListener('click', (e: Event) => {
             ctrl.setTab(key);
             e.preventDefault();
-          };
-          el.addEventListener('click', select);
-          el.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') select(e);
           });
         }),
       },
@@ -224,7 +225,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                       };
                       ctrl.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
                       ctrl.editorFen(ctrl.editor.getFen());
-                      ctrl.editor.setRules(lichessRules(currentChapter.setup.variant.key));
+                      ctrl.editor.setVariant(currentChapter.setup.variant.key);
                     });
                   },
                   destroy: () => (ctrl.editor = null),
@@ -331,7 +332,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   attrs: { disabled: gameOrPgn },
                   hook: bind('change', e => {
-                    ctrl.editor?.setRules(lichessRules((e.target as HTMLSelectElement).value as VariantKey));
+                    ctrl.editor?.setVariant((e.target as HTMLSelectElement).value as VariantKey);
                   }),
                 },
                 gameOrPgn

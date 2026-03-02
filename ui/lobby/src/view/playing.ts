@@ -1,6 +1,6 @@
 import { hl, onInsert, initMiniBoard } from 'lib/view';
-import type LobbyController from '../ctrl';
-import type { NowPlaying } from '../interfaces';
+import type LobbyController from '@/ctrl';
+import type { NowPlaying } from '@/interfaces';
 import { timeago } from 'lib/i18n';
 
 function timer(pov: NowPlaying) {
@@ -18,7 +18,7 @@ export default function (ctrl: LobbyController) {
           hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
         }),
         hl('span.meta', [
-          !!pov.opponent.ai
+          pov.opponent.ai
             ? i18n.site.aiNameLevelAiLevel('Stockfish', pov.opponent.ai)
             : pov.opponent.username,
           hl(

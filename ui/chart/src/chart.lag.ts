@@ -13,7 +13,7 @@ import { pubsub } from 'lib/pubsub';
 import { wsSend, wsAverageLag } from 'lib/socket';
 
 declare module 'chart.js' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // oxlint-disable-next-line no-unused-vars
   interface PluginOptionsByType<TType extends ChartType> {
     needle?: {
       value: number;
@@ -75,7 +75,7 @@ export async function initModule(): Promise<void> {
             const ctx = chart.ctx;
             ctx.save();
             const data = chart.getDatasetMeta(0).data[0] as ArcElement;
-            const first = chart.data.datasets[0].data[0] as number;
+            const first = chart.data.datasets[0].data[0];
             let dest = data.circumference / Math.PI / first;
             dest = dest * (chart.options.plugins?.needle?.value ?? 1);
             const outer = data.outerRadius;
@@ -83,11 +83,11 @@ export async function initModule(): Promise<void> {
             ctx.rotate(Math.PI * (dest + 1.5));
             ctx.beginPath();
             ctx.fillStyle = '#838382';
-            ctx.moveTo(0 - 10, 0);
+            ctx.moveTo(-10, 0);
             ctx.lineWidth = 1;
             ctx.lineTo(0, -outer);
-            ctx.lineTo(0 + 10, 0);
-            ctx.lineTo(0 - 10, 0);
+            ctx.lineTo(10, 0);
+            ctx.lineTo(-10, 0);
             ctx.fill();
 
             ctx.beginPath();

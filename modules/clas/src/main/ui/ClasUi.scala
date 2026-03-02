@@ -4,9 +4,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class ClasUi(helpers: lila.ui.Helpers)(
-    searchMenu: Context ?=> Frag
-):
+final class ClasUi(helpers: lila.ui.Helpers)(searchMenu: Context ?=> Frag):
   import helpers.{ *, given }
 
   def ClasPage(
@@ -65,16 +63,13 @@ final class ClasUi(helpers: lila.ui.Helpers)(
             )
         )
 
-  def showArchived(archived: Clas.Recorded)(using Translate) =
-    div(
-      trans.clas.removedByX(userIdLink(archived.by.some)),
-      " ",
-      momentFromNowOnce(archived.at)
-    )
-
-  def teachers(clas: Clas)(using Translate) =
-    div(cls := "clas-teachers")(
-      trans.clas.teachersX(fragList(clas.teachers.toList.map(t => userIdLink(t.some))))
+  def showArchived(archived: Clas.Recorded)(using Translate): Tag =
+    div(cls := "clas-show__archived")(
+      div(
+        trans.clas.removedByX(userIdLink(archived.by.some)),
+        " ",
+        momentFromNowOnce(archived.at)
+      )
     )
 
   private def teacherMenu(active: Either[Clas.WithStudents, String], student: Option[Student])(using
@@ -87,15 +82,11 @@ final class ClasUi(helpers: lila.ui.Helpers)(
       active.left.toOption.map { clas =>
         frag(
           a(cls := "active", href := routes.Clas.show(clas.clas.id))(clas.clas.name),
-          clas.students.map { s =>
+          clas.students.map: s =>
             a(
               cls := List("student" -> true, "active" -> student.exists(s.is)),
               href := routes.Clas.studentShow(clas.clas.id, s.userId)
-            )(
-              titleNameOrId(s.userId),
-              em(s.realName)
-            )
-          }
+            )(s.realName)
         )
       } | {
         a(cls := active.toOption.map(_.active("newClass")), href := routes.Clas.form)(
@@ -137,11 +128,11 @@ final class ClasUi(helpers: lila.ui.Helpers)(
               table(cls := "slist slist-pad")(
                 thead(
                   tr(
-                    th("Id"),
-                    th("Name"),
+                    th(dataSortAsc)("Id"),
+                    th(dataSortAsc)("Name"),
                     th("Created"),
                     th("Archived"),
-                    th("Teachers (first is owner)")
+                    th(dataSortAsc)("Teachers (first is owner)")
                   )
                 ),
                 tbody(

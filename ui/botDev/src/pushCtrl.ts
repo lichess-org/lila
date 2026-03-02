@@ -6,8 +6,6 @@ import { env } from './devEnv';
 // not sure why this is a class yet
 
 export class PushCtrl {
-  constructor() {}
-
   async pushBot(
     bot: BotInfo,
     progress?: (e: ProgressEvent, key: string) => void,
@@ -81,10 +79,7 @@ export class PushCtrl {
     await Promise.all(clears);
   }
 
-  private postFile(
-    { type, key, name, blob }: AssetBlob,
-    progress?: (e: ProgressEvent, key: string) => void,
-  ): Promise<any> {
+  private postFile({ type, key, name, blob }: AssetBlob, progress?: (e: ProgressEvent, key: string) => void) {
     return new Promise((resolve, reject) =>
       blob
         .then(file => {
@@ -101,11 +96,11 @@ export class PushCtrl {
             if (xhr.status === 200) resolve(JSON.parse(xhr.responseText));
             else {
               console.error('upload failed');
-              reject(`${xhr.status} ${xhr.statusText}`);
+              reject(new Error(`${xhr.status} ${xhr.statusText}`));
             }
           };
 
-          xhr.onerror = () => reject('network error');
+          xhr.onerror = () => reject(new Error('network error'));
           xhr.send(formData);
         })
         .catch(x => {

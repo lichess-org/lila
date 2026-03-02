@@ -16,7 +16,7 @@
   </plurals>
   <string name="progress">Alğa kiteş</string>
   <string name="winrate">Җиңүләр</string>
-  <string name="na">Юк</string>
+  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">Юк</string>
   <string name="news">Яңалыклар</string>
   <string name="invite">Чакыру</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">яки</string>

@@ -1,13 +1,13 @@
 %base-font-fallback {
-  font-family: 'Noto Sans', Sans-Serif;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 %base-font {
-  font-family: 'Noto Sans', Sans-Serif;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 %roboto {
-  font-family: 'Roboto', Sans-Serif;
+  font-family: Roboto, sans-serif;
   font-weight: 300;
 }
 
@@ -137,14 +137,14 @@
 
 %dropdown-shadow {
   @include if-transp {
-    @include back-blur();
+    @include back-blur;
   }
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
 }
 
 %popup-shadow {
   @include if-transp {
-    @include back-blur();
+    @include back-blur;
   }
   box-shadow:
     0 14px 28px rgba(0, 0, 0, 0.25),
@@ -156,21 +156,13 @@
 }
 
 %button-raised-shadow {
-  box-shadow: 0 4px 10px 0px hsla(0, 0, 0, 0.225);
-}
-
-%button-none {
-  background: none;
-  border: none;
-  outline: none;
-  color: $c-font;
-  align-items: normal;
+  box-shadow: 0 4px 10px 0 hsla(0, 0, 0, 0.225);
 }
 
 %checkbox {
   @extend %box-radius;
 
-  -webkit-appearance: none;
+  appearance: none;
   background: $c-bg-page;
   border: 1px solid $c-bg-low;
   display: inline-block;
@@ -216,15 +208,12 @@
 
 %break-word {
   overflow-wrap: break-word;
-  word-break: break-word;
+  word-break: normal;
 }
 
 %break-word-hard {
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   word-break: break-all;
-
-  /* support: firefox */
-  word-break: break-word;
 }
 
 %break-nope {
@@ -264,7 +253,7 @@
 %data-icon {
   font-size: 1.2em;
   vertical-align: middle;
-  font-family: 'lichess';
+  font-family: lichess;
   font-style: normal;
   font-weight: normal;
   text-transform: none;
@@ -282,10 +271,10 @@
 
 %fullscreen-mask {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw; // escape from bounding box of any fixed position parent
-  height: 100vh;
+  top: -100vh;
+  left: -100vw;
+  width: 300vw;
+  height: 300vh;
   background: $c-page-mask;
   z-index: $z-fullscreen-mask-110;
 }
@@ -308,4 +297,10 @@
 %double-tap {
   // prevent iPad safari from zooming in on double tap
   touch-action: manipulation;
+}
+
+// hide an input element while keeping it accessible to screen readers
+%visually-hidden {
+  position: absolute;
+  left: -99999px;
 }

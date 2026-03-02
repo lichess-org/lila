@@ -47,6 +47,7 @@ const gamePowertip = (el: HTMLElement) =>
     .powerTip({
       preRender: onPowertipPreRender('miniGame', () => spinnerHtml),
       placement: inCrosstable(el) ? 'n' : 'w',
+      defaultSize: [264, 264],
       popupId: 'miniGame',
     });
 
@@ -93,7 +94,9 @@ interface WithTooltip extends HTMLElement {
   forcedOpen: boolean;
 }
 
-const session: { [key: string]: any; scoped: { [key: string]: any } } = {
+type ScopedData = Record<string, any>;
+
+const session: { scoped: ScopedData } & Record<string, any> = {
   // for each popupId
   scoped: {
     // isTipOpen: false,
@@ -133,8 +136,8 @@ $.fn.powerTip = function (opts) {
   const options = Object.assign({}, defaults, opts) as Options,
     tipController = new TooltipController(options);
 
-  // hook mouse and viewport dimension tracking
-  initTracking();
+  // hook mouse and viewport dimension tracking, causes layout reflow
+  requestIdleCallback(() => initTracking());
 
   // setup the elements
   this.each((_, el: WithTooltip) => {
@@ -164,9 +167,7 @@ $.fn.powerTip = function (opts) {
   return this;
 };
 
-interface Options extends PowerTip.Options {
-  defaultSize: [number, number];
-}
+type Options = PowerTip.Options & Required<Pick<PowerTip.Options, 'defaultSize'>>;
 
 const defaults: Options = {
   popupId: 'powerTip',
@@ -179,7 +180,7 @@ const defaults: Options = {
   offset: 10,
 };
 
-const smartPlacementLists: { [key: string]: string[] } = {
+const smartPlacementLists: Record<PowerTip.BasePlacement, string[]> = {
   n: ['n', 'ne', 'nw', 's', 'se', 'sw', 'e', 'w'],
   e: ['e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's'],
   s: ['s', 'se', 'sw', 'n', 'ne', 'nw', 'e', 'w'],
@@ -238,7 +239,7 @@ function cssCoordinates(): Coords {
 // displaycontroller.js
 
 class DisplayController {
-  scoped: { [key: string]: any } = {};
+  scoped: ScopedData = {};
   hoverTimer?: Timeout;
   el: WithTooltip;
 
@@ -421,7 +422,7 @@ function placementCalculator() {
 // tooltipcontroller.js
 
 class TooltipController {
-  scoped: { [key: string]: any };
+  scoped: ScopedData;
   tipElement: Cash;
   placementCalculator = placementCalculator();
 
@@ -479,20 +480,19 @@ class TooltipController {
       return;
     }
 
-    this.tipElement.empty();
+    // set tooltip position
+    this.resetPosition(element);
 
     // trigger powerTipPreRender event
     if (this.options.preRender) {
+      this.tipElement.empty();
       this.options.preRender($as(element));
     }
 
     this.scoped.activeHover = element;
     this.scoped.isTipOpen = true;
 
-    // set tooltip position
-    this.resetPosition(element);
-
-    this.tipElement.show();
+    this.tipElement.css('visibility', 'visible');
 
     // start desync polling
     if (!this.scoped.desyncTimeout) {
@@ -514,42 +514,43 @@ class TooltipController {
     $as<WithTooltip>(element).forcedOpen = false;
 
     // fade out
-    this.tipElement.hide();
+    this.tipElement.css('visibility', 'hidden');
+    // move outside of viewport to hide `position: absolute` elements it contains
     const coords = cssCoordinates();
+    coords.top = -9999;
+    coords.left = -9999;
+    this.tipElement.css(coords);
 
     // reset session and tooltip element
     this.scoped.isClosing = false;
     this.tipElement.removeClass();
-
-    // support mouse-follow and fixed position tips at the same time by
-    // moving the tooltip to the last cursor location after it is hidden
-    coords.top = session.currentY + this.options.offset!;
-    coords.left = session.currentX + this.options.offset!;
-    this.tipElement.css(coords);
   }
 
+  isBasePlacement = (p: string): p is PowerTip.BasePlacement => p in smartPlacementLists;
+
   resetPosition(element: Cash) {
-    if (this.options.smartPlacement) {
-      let priorityList = smartPlacementLists[this.options.placement!];
+    const { placement, defaultSize } = this.options;
+
+    if (this.options.smartPlacement && placement && this.isBasePlacement(placement)) {
+      let priorityList = smartPlacementLists[placement];
       if ($as<WithTooltip>(element).classList.contains('mobile-powertip'))
         priorityList = [...priorityList, 's']; // so that 's' is used in case all are incorrectly judged as collisions on phones
       // iterate over the priority list and use the first placement option
       // that does not collide with the view port. If they all collide
       // then the last placement in the list will be used.
-      $.each(priorityList, (_, pos: PowerTip.Placement) => {
+      $.each(priorityList, (_, pos: PowerTip.BasePlacement) => {
         // place tooltip and find collisions
         const collisions = getViewportCollisions(
           this.placeTooltip(element, pos),
-          this.tipElement.outerWidth() || this.options.defaultSize[0],
-          this.tipElement.outerHeight() || this.options.defaultSize[1],
+          this.tipElement.outerWidth() || defaultSize[0],
+          this.tipElement.outerHeight() || defaultSize[1],
         );
         // continue/break if there were/weren't collisions (cash loop mechanism):
         return collisions !== Collision.none;
       });
     } else {
-      // if we're not going to use the smart placement feature then just
-      // compute the coordinates and do it
-      this.placeTooltip(element, this.options.placement!);
+      // if placement is not a base placement (or smartPlacement is off), use regular (non-smart) logic
+      this.placeTooltip(element, placement!);
     }
   }
 
@@ -558,11 +559,6 @@ class TooltipController {
       tipWidth,
       tipHeight,
       coords = cssCoordinates();
-
-    // set the tip to 0,0 to get the full expanded width
-    coords.top = 0;
-    coords.left = 0;
-    this.tipElement.css(coords);
 
     // to support elastic tooltips we need to check for a change in the
     // rendered dimensions after the tooltip has been positioned

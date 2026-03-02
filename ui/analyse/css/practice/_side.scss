@@ -72,10 +72,9 @@
   }
 
   .status {
-    @extend %flex-center;
+    @extend %flex-center-center;
 
     flex: 0 0 2.5rem;
-    justify-content: center;
     opacity: 1;
     font-size: 1.25em;
     color: $c-shade;

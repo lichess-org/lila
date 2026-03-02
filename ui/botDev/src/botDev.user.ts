@@ -18,7 +18,7 @@ export default async function initModule(opts: LocalPlayOpts): Promise<void> {
     redraw: () => {},
     bot: new DevBotCtrl(),
     db: new LocalDb(),
-    game: new GameCtrl(opts as LocalPlayOpts),
+    game: new GameCtrl(opts),
     assets: new DevAssets(),
   });
   await Promise.all([env.db.init(), env.bot.init()]);

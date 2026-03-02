@@ -1,6 +1,6 @@
 import QRCode from 'qrcode';
 
-const qrs = document.querySelectorAll('canvas.qrcode') as NodeListOf<HTMLCanvasElement>;
+const qrs = document.querySelectorAll<HTMLCanvasElement>('canvas.qrcode');
 
 for (const qr of qrs) {
   if (!qr.dataset.qrUrl) continue;

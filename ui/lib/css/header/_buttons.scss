@@ -9,6 +9,7 @@
   position: relative;
 
   .link {
+    @include transition(color);
     @extend %top-icon;
     color: $c-font;
     @include if-transp {
@@ -30,20 +31,18 @@
     span::before {
       vertical-align: top;
     }
+
+    &:focus-visible {
+      border-radius: $box-radius-size / 2;
+    }
   }
 
   .toggle {
     @extend %top-icon;
   }
 
-  button.toggle {
-    @extend %button-none;
-  }
-
   .initiating {
-    @extend %flex-center;
-
-    justify-content: center;
+    @extend %flex-center-center;
     height: 300px;
     width: 225px;
   }
@@ -131,10 +130,15 @@
   gap: 0.5rem;
 
   &::after {
+    @include transition(color);
     @extend %data-icon;
     color: $m-font_dimmer--mix-85;
     content: $licon-AccountCircle;
     font-size: 2rem;
+  }
+
+  &:hover::after {
+    color: $c-font-clearer;
   }
 }
 

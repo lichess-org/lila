@@ -6,6 +6,7 @@ import { path as treePath } from 'lib/tree/tree';
 import { type MaybeVNode, type LooseVNodes, hl } from 'lib/view';
 import type PuzzleCtrl from '../ctrl';
 import { plyToTurn } from 'lib/game/chess';
+import type { TreeNode, TreePath } from 'lib/tree/types';
 
 interface Ctx {
   ctrl: PuzzleCtrl;
@@ -24,7 +25,7 @@ interface Glyph {
 
 const autoScroll = throttle(150, (ctrl: PuzzleCtrl, el: HTMLElement) => {
   const cont = el.parentNode as HTMLElement;
-  const target = el.querySelector('.active') as HTMLElement | null;
+  const target = el.querySelector<HTMLElement>('.active');
   if (!target) {
     cont.scrollTop = ctrl.path === treePath.root ? 0 : 99999;
     return;
@@ -33,15 +34,11 @@ const autoScroll = throttle(150, (ctrl: PuzzleCtrl, el: HTMLElement) => {
   cont.scrollTop = targetOffset - cont.offsetHeight / 2 + target.offsetHeight;
 });
 
-function pathContains(ctx: Ctx, path: Tree.Path): boolean {
-  return treePath.contains(ctx.ctrl.path, path);
-}
-
 export function renderIndex(ply: number, withDots: boolean): VNode {
   return hl('index', plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 }
 
-function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): LooseVNodes {
+function renderChildrenOf(ctx: Ctx, node: TreeNode, opts: RenderOpts): LooseVNodes {
   const cs = node.children,
     main = cs[0];
   if (!main) return [];
@@ -69,7 +66,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): LooseVNo
   return cs[1] ? [renderLines(ctx, cs, opts)] : renderMoveAndChildrenOf(ctx, main, opts);
 }
 
-function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: RenderOpts): VNode {
+function renderLines(ctx: Ctx, nodes: TreeNode[], opts: RenderOpts): VNode {
   return hl(
     'lines',
     { class: { single: !!nodes[1] } },
@@ -82,11 +79,11 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: RenderOpts): VNode {
   );
 }
 
-function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
+function renderMoveOf(ctx: Ctx, node: TreeNode, opts: RenderOpts): VNode {
   return opts.isMainline ? renderMainlineMoveOf(ctx, node, opts) : renderVariationMoveOf(ctx, node, opts);
 }
 
-function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
+function renderMainlineMoveOf(ctx: Ctx, node: TreeNode, opts: RenderOpts): VNode {
   const path = opts.parentPath + node.id;
   const classes: Classes = {
     active: path === ctx.ctrl.path,
@@ -99,7 +96,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNod
 
 const renderGlyph = (glyph: Glyph): VNode => hl('glyph', { attrs: { title: glyph.name } }, glyph.symbol);
 
-function puzzleGlyph(node: Tree.Node): MaybeVNode {
+function puzzleGlyph(node: TreeNode): MaybeVNode {
   switch (node.puzzle) {
     case 'good':
     case 'win':
@@ -116,7 +113,7 @@ function puzzleGlyph(node: Tree.Node): MaybeVNode {
   }
 }
 
-function renderMove(node: Tree.Node): LooseVNodes {
+function renderMove(node: TreeNode): LooseVNodes {
   const ev = node.eval || node.ceval;
   return [
     node.san,
@@ -125,11 +122,10 @@ function renderMove(node: Tree.Node): LooseVNodes {
   ];
 }
 
-function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
+function renderVariationMoveOf(ctx: Ctx, node: TreeNode, opts: RenderOpts): VNode {
   const withIndex = opts.withIndex || node.ply % 2 === 1;
   const path = opts.parentPath + node.id;
-  const active = path === ctx.ctrl.path;
-  const classes: Classes = { active, parent: !active && pathContains(ctx, path) };
+  const classes: Classes = { active: path === ctx.ctrl.path };
   if (node.puzzle) classes[node.puzzle] = true;
   return hl('move', { attrs: { p: path }, class: classes }, [
     withIndex && renderIndex(node.ply, true),
@@ -138,7 +134,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNo
   ]);
 }
 
-function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): LooseVNodes {
+function renderMoveAndChildrenOf(ctx: Ctx, node: TreeNode, opts: RenderOpts): LooseVNodes {
   return [
     renderMoveOf(ctx, node, opts),
     renderChildrenOf(ctx, node, { parentPath: opts.parentPath + node.id, isMainline: opts.isMainline }),
@@ -153,7 +149,7 @@ function renderEval(e: string): VNode {
   return hl('eval', e);
 }
 
-function eventPath(e: Event): Tree.Path | null {
+function eventPath(e: Event): TreePath | null {
   const target = e.target as HTMLElement;
   return target.getAttribute('p') || (target.parentNode as HTMLElement).getAttribute('p');
 }

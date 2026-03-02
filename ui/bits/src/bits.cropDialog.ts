@@ -138,7 +138,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
       input.onchange = () => {
         const file = input.files?.[0];
         if (file) resolve(file);
-        else reject();
+        else reject(new Error('Invalid image file'));
       };
       input.click();
     });

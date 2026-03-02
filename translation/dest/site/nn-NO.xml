@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Spel mot datamaskin</string>
   <string name="gameMode">Spelmodus</string>
   <string name="createLobbyGame">Opprett lobbyparti</string>
-  <string name="youPlayAs">Du spelar som</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Send denne lekkja til den du utfordrar</string>
   <string name="gameOver">Partiet er avslutta</string>
   <string name="waitingForOpponent">Ventar på motspelar</string>
   <string name="orLetYourOpponentScanQrCode">Eller la motspelaren din skanna denne QR-koden</string>
+  <string name="reusableChallengeUrl">Ombrukeleg utfordrings-URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Ei permanent lenke der kven som helst kan utfordra deg med eksakt desse innstillingane.</string>
   <string name="waiting">Ventar</string>
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
   <string name="evaluationGauge">Syn evaluering</string>
+  <string name="visualMotifs">Visuelt motiv</string>
+  <string name="undefendedPieces">Hengande konge</string>
+  <string name="pinnedPieces">Spidda brikker</string>
+  <string name="checkableKing">Konge som kan setjas i sjakk</string>
   <string name="multipleLines">Fleire variantar</string>
   <string name="cpus">Prosessorar</string>
   <string name="memory">Minne</string>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Minutt per spelar</string>
   <string name="variant">Variant</string>
   <string name="variants">Variantar</string>
+  <string name="variantsDescription">Fleire spelemåtar</string>
   <string name="timeControl">Tidskontroll</string>
   <string name="realTime">Sanntid</string>
   <string name="correspondence">Fjernsjakk</string>
@@ -231,7 +237,7 @@
   <string name="changeUsernameNotSame">Du kan berre bytte små til store bokstavar, eller store til små. Til dømes \"olanormann\" til \"OlaNormann\".</string>
   <string name="changeUsernameDescription">Endre brukarnamnet. Det kan berre gjerast ein gong, og du kan berre endre store bokstavar til små eller små til store.</string>
   <string name="signupUsernameHint">Gå for eit familievenleg brukarnamn. Namnet kan ikkje endrast seinare og kontoar med upassande brukarnamn vert stengde!</string>
-  <string name="signupEmailHint">Vi vil berre bruka den dersom det vert naudsynt å nullstilla passordet.</string>
+  <string name="signupEmailPromise">Vi vil berre sende deg epost om kontoen din og deler aldri epostadressa di.</string>
   <string name="password">Passord</string>
   <string name="changePassword">Endre passord</string>
   <string name="changeEmail">Endre e-postadresse</string>
@@ -299,6 +305,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Brukardefinert stilling</string>
   <string name="unlimited">Uavgrensa</string>
+  <string name="unlimitedDescription">Ta den tida du treng</string>
   <string name="mode">Modus</string>
   <string name="casual">Urangert</string>
   <string name="rated">Rangert</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">Leiartabell</string>
   <string name="screenshotCurrentPosition">Ta eit skjermbilete av gjeldande stilling</string>
   <string name="gameAsGIF">Parti som GIF</string>
+  <string name="playerNames">Namn på spelarane</string>
+  <string name="moveAnnotations">Trekknotasjon</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-koden her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-koden her</string>
   <string name="orUploadPgnFile">Eller last opp ei PGN-fil</string>
-  <string name="fromPosition">Frå stilling</string>
   <string name="continueFromHere">Fortsett herfrå</string>
   <string name="toStudy">Studér</string>
   <string name="importGame">Importér parti</string>
@@ -714,11 +722,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyCycleSelectedVariation">Gå gjennom den valde varianten</string>
   <string name="keyShowOrHideComments">syn/gøym kommentarar</string>
   <string name="keyEnterOrExitVariation">gå inn i/gå ut av varianten</string>
-  <string name="keyRequestComputerAnalysis">Be om maskinanalyse. Lær av feila dine</string>
-  <string name="keyNextLearnFromYourMistakes">Neste (lær av feila dine)</string>
-  <string name="keyNextBlunder">Neste store mistak (\"bukk\")</string>
-  <string name="keyNextMistake">Neste mistak</string>
-  <string name="keyNextInaccuracy">Neste upresise trekk</string>
   <string name="keyPreviousBranch">Førre grein</string>
   <string name="keyNextBranch">Neste grein</string>
   <string name="toggleVariationArrows">Slå variantpilar på/av</string>
@@ -811,6 +814,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="size">Storleik</string>
   <string name="opacity">Opasitet</string>
   <string name="brightness">Lysstyrke</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Fargetone</string>
   <string name="boardReset">Sttendestill til standardfargar</string>
   <string name="pieceSet">Brikkesett</string>
@@ -1020,4 +1024,5 @@ Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine a
   <string name="search">Søk</string>
   <string name="clearSearch">Nytt søk</string>
   <string name="tags">Etikettar</string>
+  <string name="enPassant">En passant</string>
 </resources>

@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Montri la grandecregilon de la ŝaktabulo</string>
   <string name="onlyOnInitialPosition">Nur sur komenca pozicio</string>
   <string name="inGameOnly">Nur en ludo</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Krom dum ludo</string>
+  <string name="exceptInGame">Krom dum ludo</string>
   <string name="chessClock">Ŝakhorloĝo</string>
   <string name="tenthsOfSeconds">Dekonoj da sekundoj</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kiam restas malpli ol 10 sekundoj</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kiam restas malpli ol 10 sekundoj</string>
   <string name="horizontalGreenProgressBars">Horizontalaj verdaj progreso-strioj</string>
   <string name="soundWhenTimeGetsCritical">Sono, kiam tempo iĝas tre malmulta</string>
   <string name="giveMoreTime">Doni pli da tempo</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Premu la &lt;ctrl&gt; klavon dum rangaltigo por momente malŝalti memagan rangaltiĝon</string>
   <string name="whenPremoving">Ĉe antaŭmovoj</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Memage postuli egalvenkon post trifoja ripetado</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kiam restas malpli ol 30 sekundoj</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Kiam restas malpli ol 30 sekundoj</string>
   <string name="moveConfirmation">Konfirmo de movo</string>
   <string name="explainCanThenBeTemporarilyDisabled">Povas esti malebligita dum ludo kun la tabulo menuo</string>
   <string name="inCorrespondenceGames">Korespondaj ludoj</string>

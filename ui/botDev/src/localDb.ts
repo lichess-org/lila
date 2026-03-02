@@ -8,8 +8,6 @@ export class LocalDb {
   store: ObjectStorage<LocalGameData> | undefined;
   liteStore: ObjectStorage<LiteGame> | undefined;
 
-  constructor() {}
-
   async init(): Promise<this> {
     if (!hasFeature('structuredClone')) globalThis.structuredClone = obj => JSON.parse(JSON.stringify(obj));
 
@@ -70,7 +68,7 @@ export class LocalDb {
     this.lastId = lite.status === status['started'] ? data.id : undefined;
   }
 
-  delete(ids?: string[] | string): Promise<any> {
+  delete(ids?: string[] | string): Promise<void[]> {
     if (!ids) return Promise.all([this.store?.clear(), this.liteStore?.clear()]);
     else
       return Promise.all(

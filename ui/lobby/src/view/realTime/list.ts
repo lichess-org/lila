@@ -41,10 +41,10 @@ const isMine = (hook: Hook) => hook.action === 'cancel';
 const isNotMine = (hook: Hook) => !isMine(hook);
 
 export const toggle = (ctrl: LobbyController) =>
-  h('i.toggle', {
+  h('button.toggle', {
     key: 'set-mode-chart',
     attrs: { title: i18n.site.graph, 'data-icon': licon.LineGraph },
-    hook: bind('mousedown', _ => ctrl.setMode('chart'), ctrl.redraw),
+    hook: bind('click', _ => ctrl.setMode('chart'), ctrl.redraw),
   });
 
 export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
@@ -74,31 +74,29 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
       'thead',
       h('tr', [
         h('th'),
-        ...[
+        ctrl.me
+          ? h(
+              'th',
+              {
+                class: { sortable: true, sort: ctrl.sort === 'rating' },
+                hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
+              },
+              [h('i.is'), i18n.site.rating],
+            )
+          : null,
+        h(
+          'th',
           ctrl.me
-            ? h(
-                'th',
-                {
-                  class: { sortable: true, sort: ctrl.sort === 'rating' },
-                  hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
-                },
-                [h('i.is'), i18n.site.rating],
-              )
-            : null,
-          h(
-            'th',
-            ctrl.me
-              ? {
-                  key: 'time-header-with-rating',
-                  class: { sortable: true, sort: ctrl.sort === 'time' },
-                  hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
-                }
-              : {
-                  key: 'time-header-without-rating',
-                },
-            [h('i.is'), i18n.site.time],
-          ),
-        ],
+            ? {
+                key: 'time-header-with-rating',
+                class: { sortable: true, sort: ctrl.sort === 'time' },
+                hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
+              }
+            : {
+                key: 'time-header-without-rating',
+              },
+          [h('i.is'), i18n.site.time],
+        ),
         h('th', [h('i.is'), i18n.site.mode]),
       ]),
     ),

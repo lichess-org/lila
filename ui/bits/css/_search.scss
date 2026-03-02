@@ -12,9 +12,14 @@
 
     select,
     input[type='text'],
-    input[type='number'] {
+    input[type='number'],
+    input[type='date'] {
       padding: 0.3em 1em;
       width: 100%;
+    }
+
+    input[type='date'] {
+      padding-right: 0.3em;
     }
 
     #dl-button {
@@ -43,10 +48,6 @@
       }
     }
 
-    label {
-      margin-inline-end: 0.8em;
-    }
-
     select {
       text-transform: capitalize;
     }
@@ -62,6 +63,7 @@
     span.help {
       color: $c-secondary;
       text-decoration: underline $c-secondary;
+      cursor: help;
     }
 
     .error {
@@ -129,10 +131,6 @@
       input {
         color: $c-font-dim;
       }
-    }
-
-    .cmn-toggle + label + label {
-      cursor: pointer;
     }
   }
 

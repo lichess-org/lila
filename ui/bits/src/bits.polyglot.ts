@@ -10,8 +10,9 @@ import type {
   PolyglotResult,
   PolyglotOpts,
 } from 'lib/game/polyglot';
+import type { Board } from 'chessops';
 
-export async function initModule(o: PolyglotOpts): Promise<any> {
+export async function initModule(o: PolyglotOpts): Promise<PolyglotResult | ((board: Board) => bigint)> {
   if (!o) return hashBoard;
   const book =
     'bytes' in o
@@ -250,7 +251,7 @@ function normalMove(chess: co.Chess, unsafeUci: Uci): { uci: Uci; move: co.Norma
 
 const promotes = ['', 'n', 'b', 'r', 'q', '?', '?', '?'];
 
-const pieces: { [color in Color]: { [role in co.Role]: HTMLImageElement } } = {
+const pieces: Record<Color, Record<co.Role, HTMLImageElement>> = {
   black: {
     bishop: makeImage(
       '<g fill="none" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><g fill="#000" stroke-linecap="butt"><path d="M9 36c3.4-1 10.1.4 13.5-2 3.4 2.4 10.1 1 13.5 2 0 0 1.6.5 3 2-.7 1-1.6 1-3 .5-3.4-1-10.1.5-13.5-1-3.4 1.5-10.1 0-13.5 1-1.4.5-2.3.5-3-.5 1.4-2 3-2 3-2z"/><path d="M15 32c2.5 2.5 12.5 2.5 15 0 .5-1.5 0-2 0-2 0-2.5-2.5-4-2.5-4 5.5-1.5 6-11.5-5-15.5-11 4-10.5 14-5 15.5 0 0-2.5 1.5-2.5 4 0 0-.5.5 0 2z"/><path d="M25 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 1 1 5 0z"/></g><path stroke="#ececec" stroke-linejoin="miter" d="M17.5 26h10M15 30h15m-7.5-14.5v5M20 18h5"/></g>',

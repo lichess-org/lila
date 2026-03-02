@@ -1,2 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Boshlash uchun yurish qiling</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Barcha oʻyinlarda oqlar bilan oʻynaysiz</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Barcha oʻyinlarda qoralar bilan oʻynaysiz</string>
+  <string name="puzzlesSolved">masala yechildi</string>
+  <string name="newDailyHighscore">Bugungi yangi rekord!</string>
+  <string name="newWeeklyHighscore">Bu haftadagi yangi rekord!</string>
+  <string name="newMonthlyHighscore">Bu oydagi yangi rekord!</string>
+  <string name="newAllTimeHighscore">Mutlaqo yangi rekord!</string>
+  <string name="previousHighscoreWasX">Oldingi rekord %s edi</string>
+  <string name="playAgain">Boshqattan oʻynash</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 urunish</item>
+    <item quantity="other">%s ta urunish</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Bir marta %2$s oʻynadi</item>
+    <item quantity="other">%1$s marta %2$s oʻynadi</item>
+  </plurals>
+  <string name="highscoreX">Rekord: %s</string>
+  <string name="score">Natija</string>
+  <string name="moves">Yurishlar soni</string>
+  <string name="accuracy">Aniqlik</string>
+  <string name="combo">Kombo</string>
+  <string name="time">Vaqt</string>
+  <string name="timePerMove">Yurish uchun vaqt</string>
+  <string name="highestSolved">Eng qiyin masala reytingi</string>
+  <string name="puzzlesPlayed">Oʻynalgan masalalar</string>
+  <string name="newRun">Yangi urinish (qisqa tugma: boʻshliq)</string>
+  <string name="endRun">Urunishni tugatish (qisqa tugma: Enter)</string>
+  <string name="highscores">Rekordlar</string>
+  <string name="viewBestRuns">Eng yaxshi urunishlarni koʻrish</string>
+  <string name="bestRunOfDay">Kunning eng yaxshi urunishi</string>
+  <string name="runs">Urunishlar soni</string>
+  <string name="getReady">Tayyorlaning!</string>
+  <string name="waitingForMorePlayers">Boshqa oʻyinchilar qoʻshilishini kuting...</string>
+  <string name="raceComplete">Poyga tugadi!</string>
+  <string name="spectating">Tomosha qilmoqdasiz</string>
+  <string name="joinTheRace">Poygaga qoʻshiling!</string>
+  <string name="startTheRace">Poygani boshlash</string>
+  <string name="yourRankX">Sizning oʻrningiz: %s</string>
+  <string name="waitForRematch">Revanshni kutish</string>
+  <string name="nextRace">Keyingi poyga</string>
+  <string name="joinRematch">Revanshga qoʻshilish</string>
+  <string name="waitingToStart">Boshlanishi kutilmoqda</string>
+  <string name="createNewGame">Yangi oʻyin yaratish</string>
+  <string name="joinPublicRace">Ochiq poygaga qoʻshilish</string>
+  <string name="raceYourFriends">Doʻstlaringiz bilan poyga qiling</string>
+  <string name="skip">oʻtkaz</string>
+  <string name="skipHelp">Har bir poygada bitta yurishni oʻtkazib yuborishingiz mumkin:</string>
+  <string name="skipExplanation">Komboni saqlab qolish uchun bu yurishni oʻtkazib yuboring! Poyga davomida faqat bir marta foydalanish mumkin.</string>
+  <string name="failedPuzzles">Xato qilingan masalalar</string>
+  <string name="slowPuzzles">Koʻp vaqt olgan masalalar</string>
+  <string name="skippedPuzzle">Oʻtkazib yuborilgan masalalar</string>
+  <string name="thisWeek">Bu hafta</string>
+  <string name="thisMonth">Bu oy</string>
+  <string name="allTime">Mutlaq rekord</string>
+  <string name="clickToReload">Yangilash uchun bosing</string>
+  <string name="thisRunHasExpired">Ushbu urinish muddati tugadi!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Ushbu urinish boshqa varaqda ochilgan!</string>
+</resources>

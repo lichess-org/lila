@@ -1,5 +1,6 @@
 import * as licon from '../licon';
 import { type VNode, hl, bind } from '@/view';
+import { cmnToggleProp } from '@/view/cmn-toggle';
 import type { Tab, VoiceChat } from './interfaces';
 import discussionView from './discussion';
 import { noteView } from './note';
@@ -21,7 +22,7 @@ function renderVoiceChat(ctrl: ChatCtrl) {
   if (!p.enabled()) return;
   return p.instance
     ? p.instance.render()
-    : hl('div.mchat__tab.voicechat.voicechat-slot', {
+    : hl('button.mchat__tab.voicechat.voicechat-slot', {
         attrs: { 'data-icon': licon.Handset, title: 'Voice chat' },
         hook: bind('click', () => {
           if (!p.loaded) {
@@ -59,7 +60,7 @@ function normalView(ctrl: ChatCtrl) {
 
 const renderTab = (ctrl: ChatCtrl, tab: Tab, active: Tab) =>
   hl(
-    'div.mchat__tab.' + tab.key,
+    'button.mchat__tab.' + tab.key,
     {
       attrs: { role: 'tab' },
       class: { 'mchat__tab-active': tab.key === active.key },
@@ -78,22 +79,7 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
     const id = `chat-toggle-${ctrl.data.id}`;
     return [
       hl('span', ctrl.data.name),
-      ctrl.isOptional &&
-        hl('div.switch', [
-          hl(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
-            attrs: { type: 'checkbox', checked: ctrl.chatEnabled() },
-            hook: bind('change', e => {
-              ctrl.chatEnabled((e.target as HTMLInputElement).checked);
-              ctrl.redraw();
-            }),
-          }),
-          hl('label', {
-            attrs: {
-              for: id,
-              title: i18n.site.toggleTheChat,
-            },
-          }),
-        ]),
+      ctrl.isOptional && cmnToggleProp({ id, prop: ctrl.chatEnabled, redraw: ctrl.redraw }),
     ];
   }
   if (tab.key === 'note') return [hl('span', i18n.site.notes)];

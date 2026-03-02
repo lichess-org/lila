@@ -195,7 +195,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
       const connections = allOpenConnections();
       return devices
         ? hl(
-            'div.mchat__tab.voicechat.data-count.voicechat-' + state,
+            'button.mchat__tab.voicechat.data-count.voicechat-' + state,
             {
               attrs: {
                 'data-icon': licon.Handset,

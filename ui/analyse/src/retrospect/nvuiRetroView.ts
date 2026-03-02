@@ -104,7 +104,6 @@ const retroStateView = {
         i18n.site.viewTheSolution,
       ),
       hl('button.retro-skip', focusFriendlyHook(ctrl.retro.skip), i18n.site.skipThisMove),
-      ,
     ];
   },
   eval({ ctrl }: RetroContext) {

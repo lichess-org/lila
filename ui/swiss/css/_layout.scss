@@ -30,7 +30,7 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
   }
 
   grid-template-areas: 'main' 'side' 'uchat' 'table';
-  grid-gap: $block-gap;
+  gap: $block-gap;
 
   @include mq-at-least-col2 {
     grid-template-columns: $col2-uniboard-default-width $col2-uniboard-table;

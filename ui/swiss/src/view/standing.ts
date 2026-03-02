@@ -3,7 +3,7 @@ import * as licon from 'lib/licon';
 import { bind, type MaybeVNodes, onInsert } from 'lib/view';
 import type SwissCtrl from '../ctrl';
 import { player as renderPlayer } from './util';
-import type { Player, Pager } from '../interfaces';
+import type { Player } from '../interfaces';
 
 function playerTr(ctrl: SwissCtrl, player: Player) {
   const userId = player.user.id;
@@ -35,9 +35,9 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
                   : p == 'late'
                     ? h(p, title('Late'), '½')
                     : h(
-                        'a.glpt.' + (p.o ? 'ongoing' : !!p.w ? 'win' : p.w === false ? 'loss' : 'draw'),
+                        'a.glpt.' + (p.o ? 'ongoing' : p.w ? 'win' : p.w === false ? 'loss' : 'draw'),
                         { attrs: { key: p.g, href: `/${p.g}` }, hook: onInsert(site.powertip.manualGame) },
-                        p.o ? '*' : !!p.w ? '1' : p.w === false ? '0' : '½',
+                        p.o ? '*' : p.w ? '1' : p.w === false ? '0' : '½',
                       ),
             )
             .concat([...Array(Math.max(0, ctrl.data.nbRounds - player.sheet.length))].map(_ => h('r'))),
@@ -55,7 +55,8 @@ let lastBody: MaybeVNodes | undefined;
 
 const preloadUserTips = (vn: VNode) => site.powertip.manualUserIn(vn.elm as HTMLElement);
 
-export default function standing(ctrl: SwissCtrl, pag: Pager, klass?: string): VNode {
+export default function standing(ctrl: SwissCtrl, klass?: string): VNode {
+  const pag = ctrl.pager();
   const tableBody = pag.currentPageResults
     ? pag.currentPageResults.map(res => playerTr(ctrl, res))
     : lastBody;

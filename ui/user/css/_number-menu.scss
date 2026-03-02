@@ -25,8 +25,9 @@
     margin-top: 0.7em;
     padding-bottom: 0.8em;
 
-    @include transition;
+    @include transition(background);
 
+    border: 1px solid transparent;
     border-bottom: $border;
 
     &:first-child {
@@ -47,7 +48,7 @@
     &.active {
       color: $c-font-clear;
       border: $border;
-      border-bottom: 0;
+      border-bottom-color: transparent;
       background: $c-bg-box;
     }
   }

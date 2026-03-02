@@ -93,29 +93,6 @@ export function selectPly(this: Chart, ply: number, onMainline: boolean): void {
   this.update('none');
 }
 
-// Modified from https://www.chartjs.org/docs/master/samples/animations/progressive-line.html
-export function animation(duration: number): ChartOptions<'line'>['animations'] {
-  return {
-    x: {
-      type: 'number',
-      easing: 'easeOutQuad',
-      duration: duration,
-      from: NaN, // the point is initially skipped
-      delay: ctx => (ctx.mode === 'resize' ? 0 : ctx.dataIndex * duration),
-    },
-    y: {
-      type: 'number',
-      easing: 'easeOutQuad',
-      duration: duration,
-      from: ctx =>
-        !ctx.dataIndex
-          ? ctx.chart.scales.y.getPixelForValue(100)
-          : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.dataIndex - 1].getProps(['y'], true).y,
-      delay: ctx => (ctx.mode === 'resize' ? 0 : ctx.dataIndex * duration),
-    },
-  };
-}
-
 export const colorSeries: string[] = [
   '#2b908f',
   '#90ee7e',

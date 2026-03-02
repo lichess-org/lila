@@ -1,0 +1,20 @@
+.tutor {
+  h1 {
+    @extend %flex-center;
+    justify-content: flex-start;
+    gap: 1ch;
+    .user-link {
+      color: $c-good;
+      font-size: 0.6em;
+    }
+    .mselect__label {
+      height: 1.5em;
+    }
+  }
+  @media (max-width: at-most($xx-small)) {
+    gap: 0.5ch;
+    .mselect {
+      font-size: 0.8em;
+    }
+  }
+}

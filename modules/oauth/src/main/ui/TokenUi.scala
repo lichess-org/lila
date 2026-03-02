@@ -118,18 +118,26 @@ final class TokenUi(helpers: Helpers)(
                   val hidden = scope == OAuthScope.Web.Mod && !OAuthScope.canUseWebMod
                   val id = s"oauth-scope-${scope.key.replace(":", "_")}"
                   (!hidden).option(
-                    div(cls := List("danger" -> OAuthScope.dangerList.has(scope)))(
-                      span(
-                        form3.cmnToggle(
-                          id,
-                          s"${form("scopes").name}[]",
-                          value = scope.key,
-                          checked = !disabled && form.data.valuesIterator.contains(scope.key),
-                          disabled = disabled,
-                          title = disabled.option(ot.alreadyHavePlayedGames.txt())
-                        )
+                    div(
+                      cls := List(
+                        "form-check__container" -> true,
+                        "danger" -> OAuthScope.dangerList.has(scope)
+                      )
+                    )(
+                      form3.nativeCheckbox(
+                        id,
+                        s"${form("scopes").name}[]",
+                        value = scope.key,
+                        checked = !disabled && form.data.valuesIterator.contains(scope.key),
+                        disabled = disabled
+                      )(
+                        title := disabled.option(ot.alreadyHavePlayedGames.txt())
                       ),
-                      label(`for` := id, st.title := disabled.option(ot.alreadyHavePlayedGames.txt()))(
+                      label(
+                        `for` := id,
+                        cls := "form-label",
+                        st.title := disabled.option(ot.alreadyHavePlayedGames.txt())
+                      )(
                         scope.name(),
                         em(scope.key)
                       )

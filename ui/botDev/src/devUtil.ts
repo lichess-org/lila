@@ -90,7 +90,7 @@ function pathToKeys({ path, obj }: ObjectPath): string[] {
   return keys[0] in obj ? keys : keys.slice(1);
 }
 
-export const rangeTicks: { [type: string]: [number, string][] } = {
+export const rangeTicks: Record<string, [number, string][]> = {
   initial: [
     [15, '15 seconds'],
     [30, '30 seconds'],

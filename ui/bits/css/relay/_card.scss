@@ -1,7 +1,7 @@
 .relay-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 1em;
+  gap: 1em;
   margin-bottom: 1em;
 
   &--tier-best {

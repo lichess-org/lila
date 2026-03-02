@@ -24,24 +24,22 @@ svg.coords-svg {
   g.current {
     transform: translate3d($current-x, $current-y, 0);
     opacity: $current-opacity;
-    animation: slideInCurrent $timing;
+    animation: slide-in-current $timing;
 
     text {
       fill: #fff;
       font-size: $current-font-size;
-      animation: enlargeCurrent $timing;
+      animation: enlarge-current $timing;
     }
 
     // for animating the removal of this element
-    transition:
-      opacity $timing,
-      transform $timing;
+    @include transition(opacity transform, $timing);
   }
 
   g.next {
     transform: translate3d($next-x, $next-y, 0);
     opacity: $next-opacity;
-    animation: slideInNext $timing;
+    animation: slide-in-next $timing;
 
     text {
       fill: #eee;
@@ -49,7 +47,7 @@ svg.coords-svg {
     }
   }
 
-  @keyframes slideInCurrent {
+  @keyframes slide-in-current {
     from {
       transform: translate3d($next-x, $next-y, 0);
       opacity: $next-opacity;
@@ -59,7 +57,7 @@ svg.coords-svg {
       opacity: $current-opacity;
     }
   }
-  @keyframes enlargeCurrent {
+  @keyframes enlarge-current {
     from {
       font-size: $next-font-size;
     }
@@ -67,7 +65,7 @@ svg.coords-svg {
       font-size: $current-font-size;
     }
   }
-  @keyframes slideInNext {
+  @keyframes slide-in-next {
     from {
       transform: translate3d($next-x + 20px, $next-y, 0);
       opacity: 0;
@@ -84,11 +82,11 @@ rect.next-target {
 }
 
 rect.current-target {
-  animation: expandAndShrink 175ms linear;
+  animation: expand-and-shrink 175ms linear;
   stroke: $c-secondary;
 }
 
-@keyframes expandAndShrink {
+@keyframes expand-and-shrink {
   0% {
     transform: scale(1);
   }

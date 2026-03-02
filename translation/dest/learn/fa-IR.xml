@@ -6,7 +6,7 @@
   <string name="progressX">پیشرفت: %s</string>
   <string name="resetMyProgress">پیشروی را از نو می‌آغازم</string>
   <string name="youWillLoseAllYourProgress">پیشروی‌تان صفر خواهد شد!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">بازی کن!</string>
+  <string name="play">بازی کن!</string>
   <string name="chessPieces">مُهره‌های شطرنج</string>
   <string name="theRook">رُخ</string>
   <string name="itMovesInStraightLines">در خط‌های راست حرکت می‌کند</string>
@@ -154,7 +154,6 @@
   <string name="findAWayToCastleQueenSide">برای قلعه‌ی بزرگ
 راهی بیابید!</string>
   <string name="castlingComplete">شادباش! تقریبا همیشه، بهتر است در بازی قلعه روید.</string>
-  <string name="enPassant">گرفتن هنگامِ عبور</string>
   <string name="theSpecialPawnMove">حرکت ویژه پیاده</string>
   <string name="enPassantIntro">هنگامی که پیاده حریف دو خانه حرکت می‌کند، می‌توانید آن را بزنید، مانند آن است که یک خانه رفته است.</string>
   <string name="blackJustMovedThePawnByTwoSquares">سیاه پیاده را

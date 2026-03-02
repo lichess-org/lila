@@ -8,7 +8,7 @@ import type { PaneInfo, InfoKey } from './devTypes';
 import type { ActionListener, Action } from 'lib/view';
 
 export class Panes {
-  byId: { [id: string]: Pane } = {};
+  byId: Record<string, Pane> = {};
 
   byEl(el: Element): Pane | undefined {
     while (el && this.byId[el.id] === undefined) el = el.parentElement!;

@@ -4,8 +4,7 @@ import { frag } from 'lib';
 import { deepFreeze, definedMap } from 'lib/algo';
 import { buildFromSchema, Panes } from './panes';
 import { deadStrip } from './devUtil';
-import { domDialog, type Dialog, type Action } from 'lib/view';
-import { confirm, alert } from 'lib/view';
+import { domDialog, type Dialog, type Action, confirm, alert } from 'lib/view';
 import type { BotInfo } from 'lib/bot/types';
 import { Bot } from 'lib/bot/bot';
 import { AssetDialog, type AssetType } from './assetDialog';
@@ -155,12 +154,14 @@ export class EditDialog {
   }
 
   private async save() {
-    const behaviorScroll = this.view.querySelector('.behavior')!.scrollTop;
-    const filtersScroll = this.view.querySelector('.filters')!.scrollTop;
+    const behaviorEl = this.view.querySelector('.behavior')!;
+    const filtersEl = this.view.querySelector('.filters')!;
+    const behaviorScroll = behaviorEl.scrollTop;
+    const filtersScroll = filtersEl.scrollTop;
     await env.bot.storeBot(deadStrip(this.editing()));
     this.update();
-    this.view.querySelector('.behavior')!.scrollTop = behaviorScroll ?? 0;
-    this.view.querySelector('.filters')!.scrollTop = filtersScroll ?? 0;
+    behaviorEl.scrollTop = behaviorScroll ?? 0;
+    filtersEl.scrollTop = filtersScroll ?? 0;
   }
 
   private selectBot(uid: string | null = this.uid): void {
@@ -394,12 +395,10 @@ export class EditDialog {
   }
 }
 
-interface ReadableBot extends BotInfo {
-  readonly [key: string]: any;
-}
+type ReadableBot = BotInfo & Record<string, any>;
 
-interface WritableBot extends Bot {
-  [key: string]: any;
-  disabled: Set<string>;
-  viewing: Map<string, string>;
-}
+type WritableBot = Bot &
+  Record<string, any> & {
+    disabled: Set<string>;
+    viewing: Map<string, string>;
+  };

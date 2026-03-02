@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">بَرپایشِ بازی</string>
+  <string name="gameSetup">ایجاد بازی</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">دعوت به بازی</string>
   <string name="playAgainstComputer">بازی با رایانه</string>
   <string name="gameMode">حالتِ بازی</string>
-  <string name="createLobbyGame">ایجاد بازی در سَرسَرا</string>
-  <string name="youPlayAs">رنگِ مُهرهٔ شما</string>
+  <string name="createLobbyGame">ایجاد بازی در لابی</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">در انتظار حریف</string>
   <string name="orLetYourOpponentScanQrCode">یا از حریف‌تان بخواهید این کدِ QR را بِپویَد</string>
+  <string name="reusableChallengeUrl">پیوند بازی قابل استفاده مجدد</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">پیوندِ دائمی برای اینکه هر کسی با همین تنظیمات، به شما پیشنهاد بازی دهد.</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
@@ -35,7 +36,7 @@
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
   <string name="kingInTheCenter">شاه روی تپه</string>
   <string name="threeChecks">سه‌کیش</string>
-  <string name="raceFinished">پایان تاخت</string>
+  <string name="raceFinished">پایانِ دو</string>
   <string name="variantEnding">پایان وَرتا</string>
   <string name="newOpponent">حریف جدید</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">حریفتان می‌خواهد یک بازی جدید با شما انجام دهد</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">پیکانِ بهترین حرکت</string>
   <string name="showVariationArrows">نمایش پیکان‌های وَرتِش</string>
   <string name="evaluationGauge">میله ارزیابی</string>
+  <string name="visualMotifs">بُن‌مایه‌های بصری</string>
+  <string name="undefendedPieces">مُهره‌های بی‌دفاع</string>
+  <string name="pinnedPieces">مهره‌های آچمز</string>
+  <string name="checkableKing">شاهِ کیش‌پذیر</string>
   <string name="multipleLines">شاخه های متعدد</string>
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
@@ -133,7 +138,7 @@
   <string name="removesTheDepthLimit">محدودیت عمق را برمی‌دارد و رایانه‌تان داغ می‌ماند</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="mistake">اشتباه</string>
-  <string name="inaccuracy">بی دقتی</string>
+  <string name="inaccuracy">نادقیق</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s اشتباه بزرگ</item>
     <item quantity="other">%s اشتباه بزرگ</item>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">هر بازیکن چند دقیقه</string>
   <string name="variant">وَرتا</string>
   <string name="variants">وَرتا</string>
+  <string name="variantsDescription">شیوه‌های بیشتر برای بازی</string>
   <string name="timeControl">زمان</string>
   <string name="realTime">زمان محدود</string>
   <string name="correspondence">مکاتبه ای</string>
@@ -231,7 +237,7 @@
   <string name="changeUsernameNotSame">تنها اندازه حروف میتوانند تغییر کنند. برای مثال \"johndoe\" به \"JohnDoe\".</string>
   <string name="changeUsernameDescription">نام کاربری خود را تغییر دهید. این تنها یک بار انجام پذیر است و شما تنها مجازید اندازه حروف نام کاربری‌تان را تغییر دهید.</string>
   <string name="signupUsernameHint">مطمئن شوید که یک نام کاربری مناسب انتخاب میکنید. بعداً نمی توانید آن را تغییر دهید و هر حسابی با نام کاربری نامناسب بسته می شود!</string>
-  <string name="signupEmailHint">ما فقط برای بازنشاندن گذرواژه، از آن استفاده خواهیم کرد.</string>
+  <string name="signupEmailPromise">ما فقط رایانامه‌هایی دربارهٔ حساب کاربری‌تان را برای‌تان خواهیم فرستاد و هرگز رایانامه‌تان را نمی‌همرسانیم.</string>
   <string name="password">گذرواژه</string>
   <string name="changePassword">تغییر گذرواژه</string>
   <string name="changeEmail">تغییرِ رایانامه</string>
@@ -299,6 +305,7 @@
   <string name="standard">معیار</string>
   <string name="customPosition">وضعیت به‌دلخواه</string>
   <string name="unlimited">نامحدود</string>
+  <string name="unlimitedDescription">کل زمان برای شماست</string>
   <string name="mode">حالت</string>
   <string name="casual">نارسمی</string>
   <string name="rated">رسمی</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">جدول رده‌بندی</string>
   <string name="screenshotCurrentPosition">نماگرفت از وضعیت فعلی</string>
   <string name="gameAsGIF">بارگیری GIF بازی</string>
+  <string name="playerNames">نام‌های بازیکن</string>
+  <string name="moveAnnotations">حرکت‌نویسی</string>
   <string name="pasteTheFenStringHere">رشته FEN را در این قسمت قرار دهید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
   <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
-  <string name="fromPosition">از وضعیت</string>
   <string name="continueFromHere">از اینجا ادامه دهید</string>
   <string name="toStudy">مطالعه</string>
   <string name="importGame">بارگذاری بازی</string>
@@ -622,8 +630,8 @@
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
   <string name="biographyDescription">درباره ی خودتان بگویید - به چه چیزی در شطرنج علاقه داریدو گشایش ها - بازی ها و بازیکنان مورد علاقه تان…</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">حداکثر: %s حرف</item>
-    <item quantity="other">حداکثر: %s حرف</item>
+    <item quantity="one">حداکثر: %s نویسه.</item>
+    <item quantity="other">حداکثر: %s نویسه.</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s مسدود شده</item>
@@ -647,7 +655,7 @@
   <string name="error.email_acceptable">این نشانی رایانامه پذیرفتنی نیست. لطفا باز به آن سر زنید و دوباره بکوشید.</string>
   <string name="error.email_unique">نشانیِ رایانامه نامعتبر یا قبلاً گرفته شده است</string>
   <string name="error.email_different">اکنون، این نشانیِ رایانامه‌تان است</string>
-  <string name="error.minLength">باید حداقل %s حرف داشته باشد</string>
+  <string name="error.minLength">باید حداقل %s نویسه داشته باشد</string>
   <string name="error.maxLength">باید حداکثر %s نویسه داشته باشد</string>
   <string name="error.min">باید حداقل %s باشد</string>
   <string name="error.max">باید حداکثر %s باشد</string>
@@ -713,11 +721,6 @@
   <string name="keyCycleSelectedVariation">چرخاندن وَرتِش گزیده</string>
   <string name="keyShowOrHideComments">نمایش/پنهان کردن نظرها</string>
   <string name="keyEnterOrExitVariation">ورود/خروج به وَرتِش</string>
-  <string name="keyRequestComputerAnalysis">درخواست تحلیل رایانه‌ای، از اشتباه‌های‌تان بیاموزید</string>
-  <string name="keyNextLearnFromYourMistakes">بعدی (از اشتباه‌های‌تان بیاموزید)</string>
-  <string name="keyNextBlunder">اشتباه فاحش بعدی</string>
-  <string name="keyNextMistake">اشتباه بعدی</string>
-  <string name="keyNextInaccuracy">بی‌دقتی بعدی</string>
   <string name="keyPreviousBranch">شاخه پیشین</string>
   <string name="keyNextBranch">شاخه بعدی</string>
   <string name="toggleVariationArrows">کلید پیکان‌های وَرتِش</string>
@@ -811,6 +814,7 @@
   <string name="size">اندازه</string>
   <string name="opacity">کدری</string>
   <string name="brightness">درخشندگی</string>
+  <string name="contrast">تَبایُن</string>
   <string name="hue">فام</string>
   <string name="boardReset">بازنشاندن به رنگ‌های پیش‌فرض</string>
   <string name="pieceSet">نوع مهره</string>
@@ -951,7 +955,7 @@
   <string name="timeAlmostUp">زمان نزدیک به پایان است!</string>
   <string name="clickToRevealEmailAddress">[برای آشکارسازی نشانیِ رایانامه بتِلیکید]</string>
   <string name="download">بارگیری</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">تنظیمات مربی</string>
+  <string name="coachManager">تنظیمات مربی</string>
   <string name="streamerManager">مدیریت جریان‌سازی</string>
   <string name="cancelTournament">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
@@ -1020,4 +1024,5 @@
   <string name="search">جستجو</string>
   <string name="clearSearch">پاکیدنِ جستجو</string>
   <string name="tags">برچسب‌ها</string>
+  <string name="enPassant">اجازهٔ آن‌پاسان</string>
 </resources>

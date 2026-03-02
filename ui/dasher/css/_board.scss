@@ -8,13 +8,10 @@
   }
 
   .list button {
+    @extend %flex-center-center;
+
     flex: 0 0 33%;
     height: 40px;
-
-    @extend %flex-center;
-    @extend %button-none;
-
-    justify-content: center;
   }
 
   .list span {
@@ -39,7 +36,6 @@
   }
 
   .reset {
-    @extend %button-none;
     padding: 0.5rem 1rem;
     &:hover {
       color: $c-primary;
@@ -52,6 +48,7 @@
   }
   .zoom,
   .board-brightness,
+  .board-contrast,
   .board-opacity,
   .board-hue {
     display: grid;

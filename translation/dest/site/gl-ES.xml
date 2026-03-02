@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Xogar contra a máquina</string>
   <string name="gameMode">Modo de xogo</string>
   <string name="createLobbyGame">Crear unha partida na sala de espera</string>
-  <string name="youPlayAs">Xogas coas</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
   <string name="waitingForOpponent">Agardando polo rival</string>
   <string name="orLetYourOpponentScanQrCode">Ou deixa que o teu rival escanee este código QR</string>
+  <string name="reusableChallengeUrl">URL de desafío reutilizable</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Unha ligazón permanente para quen desexe desafiarte con estes precisos axustes.</string>
   <string name="waiting">Agardando</string>
   <string name="yourTurn">A túa quenda</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Frecha coa mellor xogada</string>
   <string name="showVariationArrows">Amosar as frechas das variantes</string>
   <string name="evaluationGauge">Indicador de avaliación</string>
+  <string name="visualMotifs">Motivos visuais</string>
+  <string name="undefendedPieces">Pezas non defendidas</string>
+  <string name="pinnedPieces">Pezas cravadas</string>
+  <string name="checkableKing">Rei exposto a xaque</string>
   <string name="multipleLines">Liñas múltiples</string>
   <string name="cpus">Procesadores</string>
   <string name="memory">Memoria</string>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Minutos por bando</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
+  <string name="variantsDescription">Máis formas de xogar</string>
   <string name="timeControl">Control de tempo</string>
   <string name="realTime">Cronometrado</string>
   <string name="correspondence">Postal</string>
@@ -231,7 +237,7 @@
   <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
   <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
   <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario axeitado pra todas as idades. Non poderás cambialo máis tarde e calquera conta con nome de usuario inadecuado será pechada!</string>
-  <string name="signupEmailHint">Usarémolo só pra o restablecemento do contrasinal e a activación da conta.</string>
+  <string name="signupEmailPromise">Só che enviaremos correos relacionados coa túa conta e nunca compartiremos o teu enderezo electrónico.</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
@@ -299,6 +305,7 @@
   <string name="standard">Estándar</string>
   <string name="customPosition">Posición á medida</string>
   <string name="unlimited">Ilimitado</string>
+  <string name="unlimitedDescription">Emprega todo o tempo que precises</string>
   <string name="mode">Modo</string>
   <string name="casual">Amigable</string>
   <string name="rated">Puntuada</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">Listaxe de líderes</string>
   <string name="screenshotCurrentPosition">Fai unha captura de pantalla da posición actual</string>
   <string name="gameAsGIF">Gardar a partida en formato GIF</string>
+  <string name="playerNames">Nomes das xogadoras/es</string>
+  <string name="moveAnnotations">Mover anotacións</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega o texto PGN aquí</string>
   <string name="orUploadPgnFile">Ou sube un ficheiro PGN</string>
-  <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Continuar dende aquí</string>
   <string name="toStudy">Estudar</string>
   <string name="importGame">Importar partida</string>
@@ -575,7 +583,7 @@
   <string name="reportCheatBoostHelp">Pega a ligazón á(s) partida(s) e explica que ten de malo o comportamento deste usuario. Non digas soamente \"fai trampas\", mais cóntanos como chegaches a esta conclusión.</string>
   <string name="reportUsernameHelp">Explica que ten de ofensivo este nome de usuario. Non digas soamente \"é ofensivo/inadecuado\". Cóntanos como chegaches a esta conclusión, especialmente se o insulto está camuflado, non está en inglés, é xerga ou é unha referencia histórica ou cultural.</string>
   <string name="reportProcessedFasterInEnglish">A túa denuncia será procesada máis rápido se está escrita en Inglés.</string>
-  <string name="error.provideOneCheatedGameLink">Por favor, proporciona cando menos unha ligazón a unha partida na que sospeites que se fixeron trampas.</string>
+  <string name="error.provideOneCheatedGameLink">Por favor, proporciona cando menos unha ligazón a unha partida para a súa revisión.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
   <string name="thisTopicIsNowClosed">Este tema xa está pechado.</string>
@@ -713,11 +721,6 @@
   <string name="keyCycleSelectedVariation">Cambia a variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">Entrar/saír da variante</string>
-  <string name="keyRequestComputerAnalysis">Solicitar unha análise por computador, Aprende dos teus erros</string>
-  <string name="keyNextLearnFromYourMistakes">Seguinte (Aprende dos teus erros)</string>
-  <string name="keyNextBlunder">Seguinte metida de zoca</string>
-  <string name="keyNextMistake">Seguinte erro</string>
-  <string name="keyNextInaccuracy">Seguinte imprecisión</string>
   <string name="keyPreviousBranch">Rama anterior</string>
   <string name="keyNextBranch">Rama seguinte</string>
   <string name="toggleVariationArrows">Activar/desactivar as frechas das variantes</string>
@@ -810,6 +813,7 @@
   <string name="size">Tamaño</string>
   <string name="opacity">Opacidade</string>
   <string name="brightness">Brillo</string>
+  <string name="contrast">Contraste</string>
   <string name="hue">Matiz</string>
   <string name="boardReset">Restaurar ás cores por defecto</string>
   <string name="pieceSet">Estilo das pezas</string>
@@ -950,7 +954,7 @@
   <string name="timeAlmostUp">Quédache pouco tempo!</string>
   <string name="clickToRevealEmailAddress">[Pincha para ver o correo electrónico]</string>
   <string name="download">Descarga</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page (http://lichess.org/coach/edit)&#10;It leads to coach-specific settings, and is only visible to coaches.">Adestrador</string>
+  <string name="coachManager">Adestrador</string>
   <string name="streamerManager">Administrador de presentadores</string>
   <string name="cancelTournament">Cancelar o torneo</string>
   <string name="tournDescription">Descrición do torneo</string>
@@ -1018,4 +1022,5 @@ Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicam
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar a procura</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant">Captura ao paso</string>
 </resources>

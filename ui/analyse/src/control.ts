@@ -1,3 +1,4 @@
+import type { TreeNode } from 'lib/tree/types';
 import type AnalyseCtrl from './ctrl';
 
 import { path as treePath } from 'lib/tree/tree';
@@ -19,7 +20,7 @@ function exitVariation(ctrl: AnalyseCtrl): void {
   if (ctrl.onMainline) return;
   let found,
     path = treePath.root;
-  ctrl.nodeList.slice(1, -1).forEach(function (n: Tree.Node) {
+  ctrl.nodeList.slice(1, -1).forEach(function (n: TreeNode) {
     path += n.id;
     if (n.children[1]) found = path;
   });

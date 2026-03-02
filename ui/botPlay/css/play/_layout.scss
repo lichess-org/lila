@@ -71,7 +71,7 @@ $col1-moves-height: 4em;
       'kb-move .';
     grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
     grid-template-rows: 0 auto; // 0 to prevent `voice` from moving the table off center
-    grid-column-gap: $block-gap;
+    column-gap: $block-gap;
 
     &__opponent {
       position: relative;

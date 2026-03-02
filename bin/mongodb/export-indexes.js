@@ -6,7 +6,7 @@ colls.forEach(function (coll) {
     print('//Indexes for ' + coll + ':');
   }
   indexes.forEach(function (index) {
-    var options = {};
+    let options = {};
     if (index.unique) {
       options.unique = index.unique;
     }
@@ -18,7 +18,7 @@ colls.forEach(function (coll) {
     }
     // options.background = true;
     options = JSON.stringify(options);
-    var key = JSON.stringify(index.key);
+    const key = JSON.stringify(index.key);
     if (key !== '{"_id":1}') {
       print('db.' + coll + '.createIndex(' + key + ', ' + options + ');');
     }

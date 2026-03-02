@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { h, type VNodeData } from 'snabbdom';
 import type Ctrl from './ctrl';
 
 export function formatNumber(dt: string, n: number) {
@@ -13,7 +13,7 @@ export function formatNumber(dt: string, n: number) {
 const formatSerieName = (dt: string, n: number) =>
   dt === 'date' ? new Date(n * 1000).toLocaleDateString() : n;
 
-export function vert(ctrl: Ctrl, attrs: any = null) {
+export function vert(ctrl: Ctrl, attrs: VNodeData | null = null) {
   const answer = ctrl.vm.answer;
   if (!answer) return null;
   return h(

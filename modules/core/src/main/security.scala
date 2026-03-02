@@ -31,7 +31,7 @@ object LilaCookie:
   def sid(req: RequestHeader): Option[String] = req.session.get(sessionId)
 
 trait SecurityApi:
-  def shareAnIpOrFp(u1: UserId, u2: UserId): Fu[Boolean]
+  def shareAnIpOrFp(users: PairOf[UserId]): Fu[Boolean]
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]]
 
 case class HcaptchaPublicConfig(key: String, enabled: Boolean)
@@ -115,8 +115,6 @@ opaque type UserTrust = Boolean
 object UserTrust extends YesNo[UserTrust]
 trait UserTrustApi:
   def get(id: UserId): Fu[UserTrust]
-
-case class AskAreRelated(users: PairOf[UserId], promise: Promise[Boolean])
 
 def canUploadImages(toRel: String)(using me: Me) = !me.marks.troll && me.kid.no && {
   me.isVerified ||

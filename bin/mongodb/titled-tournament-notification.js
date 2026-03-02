@@ -1,7 +1,7 @@
-var tournamentId = 'qkdW41M2';
-var text = 'With a prize pool of $3200!';
+const tournamentId = 'qkdW41M2';
+const text = 'With a prize pool of $3200!';
 
-var userIds = db.user4.distinct('_id', {
+const userIds = db.user4.distinct('_id', {
   enabled: true,
   title: {
     $exists: true,
@@ -12,7 +12,7 @@ var userIds = db.user4.distinct('_id', {
 
 print('Inviting ' + userIds.join(', '));
 
-var invited = 0;
+let invited = 0;
 
 userIds.forEach(userId => {
   if (

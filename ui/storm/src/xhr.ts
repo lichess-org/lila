@@ -1,5 +1,4 @@
-import { text as xhrText, json as xhrJson, form as xhrForm } from 'lib/xhr';
-import { throttlePromiseDelay } from 'lib/async';
+import { json as xhrJson, form as xhrForm } from 'lib/xhr';
 import type { RunResponse, StormRecap } from './interfaces';
 
 export function record(run: StormRecap): Promise<RunResponse> {
@@ -13,12 +12,3 @@ export function record(run: StormRecap): Promise<RunResponse> {
     }),
   });
 }
-
-export const setZen: (zen: any) => Promise<void> = throttlePromiseDelay(
-  () => 1000,
-  zen =>
-    xhrText('/pref/zen', {
-      method: 'post',
-      body: xhrForm({ zen: zen ? 1 : 0 }),
-    }),
-);

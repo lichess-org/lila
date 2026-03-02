@@ -19,8 +19,8 @@
     grid-area: play;
   }
 
-  grid-row-gap: $block-gap;
-  grid-column-gap: $block-gap;
+  row-gap: $block-gap;
+  column-gap: $block-gap;
   grid-template-areas: 'high' 'score' 'play' 'stats' 'history';
 
   @include mq-at-least-col2 {
@@ -48,7 +48,7 @@
           width: 7em;
           height: 7em;
           margin: 3em;
-          background-image: url(../images/icons/tornado-white.svg);
+          background-image: url('../images/icons/tornado-white.svg');
           background-size: cover;
         }
       }
@@ -82,7 +82,7 @@
 
         number {
           font-size: 2em;
-          font-family: 'storm';
+          font-family: storm;
         }
       }
     }
@@ -102,7 +102,7 @@
     }
 
     &__number {
-      font-family: 'storm';
+      font-family: storm;
       width: 3ch;
       text-align: center;
       font-size: 11em;

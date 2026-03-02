@@ -26,7 +26,7 @@
     display: block;
     width: 200px;
     height: 200px;
-    background: url(../images/learn/brutal-helm.svg);
+    background: url('../images/learn/brutal-helm.svg');
     margin: auto;
     opacity: 0.8;
   }
@@ -46,7 +46,7 @@
     overflow: hidden;
   }
 
-  @keyframes animatedBackground {
+  @keyframes animated-background {
     from {
       background-position: 0 0;
     }
@@ -56,13 +56,13 @@
     }
   }
 
-  @keyframes animatedBar {
+  @keyframes animated-bar {
     from {
       transform: translateX(-100px);
     }
 
     to {
-      transform: translateX(0px);
+      transform: translateX(0);
     }
   }
 
@@ -70,11 +70,11 @@
     height: 100%;
     background: #1566b2;
     border-radius: 0 5px 5px 0;
-    background-image: url(../images/grain.png);
+    background-image: url('../images/grain.png');
     transform: translateX(-100px);
     animation:
-      animatedBackground 50s linear infinite,
-      animatedBar 1s forwards;
+      animated-background 50s linear infinite,
+      animated-bar 1s forwards;
   }
 
   .progress .text {
@@ -88,7 +88,6 @@
 
   .actions {
     padding: 20px 10px;
-    text-align: left;
   }
 
   a {

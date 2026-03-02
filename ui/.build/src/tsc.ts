@@ -24,7 +24,7 @@ export async function tsc(): Promise<void> {
     .filter(x => env.building.some(pkg => x.startsWith(`${pkg.root}/`)));
 
   const logicalCores = os.cpus().length;
-  const workBuckets: { [T in 'noCheck' | 'noEmit']: SplitConfig[][] } = {
+  const workBuckets: Record<'noCheck' | 'noEmit', SplitConfig[][]> = {
     noCheck: Array.from({ length: clamp(logicalCores / 4, { min: 1, max: 4 }) }, () => []),
     noEmit: Array.from({ length: clamp(logicalCores / 2, { min: 1, max: 8 }) }, () => []),
   };
@@ -157,7 +157,7 @@ function tscError({ code, text, file, line, col }: ErrorMessage['data']): void {
   const key = `${code}:${text}:${file}`;
   if (performance.now() > (spamGuard.get(key) ?? -Infinity)) {
     const prelude = `${errorMark} ts${code} `;
-    const message = `${ts.flattenDiagnosticMessageText(text, '\n', 0)}`;
+    const message = ts.flattenDiagnosticMessageText(text, '\n', 0);
     let location = '';
     if (file) {
       location = `${c.grey('in')} '${c.cyan(relative(env.uiDir, file))}`;

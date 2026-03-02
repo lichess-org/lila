@@ -6,7 +6,7 @@
   <string name="progressX">التقدم: %s</string>
   <string name="resetMyProgress">أعد ضبط تقدمي</string>
   <string name="youWillLoseAllYourProgress">سيتم محو كل سجلات تقييمك!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">اِلعب!</string>
+  <string name="play">اِلعب!</string>
   <string name="chessPieces">قطع الشطرنج</string>
   <string name="theRook">الرخ</string>
   <string name="itMovesInStraightLines">تتحرك في خطوط مستقيمة</string>
@@ -119,7 +119,6 @@
   <string name="findAWayToCastleKingSide">جد طريقة للتبييت في جناح-الملك!</string>
   <string name="findAWayToCastleQueenSide">جد طريقة للتبييت في جناح-الملكة!</string>
   <string name="castlingComplete">تهانينا! يفضل أن تبيت في كل مباراة.</string>
-  <string name="enPassant">الأخذ بالتجاوز</string>
   <string name="theSpecialPawnMove">نقلة البيدق المميزة</string>
   <string name="enPassantIntro">عند تحرك بيدق الخصم مربعين، يمكنك أن تأخذه كما لو أنه تحرك مربع واحد فقط.</string>
   <string name="blackJustMovedThePawnByTwoSquares">الأسود للتو حرك البيدق مربعين! التقطه بالمرور.</string>

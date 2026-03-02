@@ -79,7 +79,7 @@ pnpm test
 # Watch mode for tests
 pnpm test:watch
 
-# Check code formatting (Prettier)
+# Check code formatting (Oxfmt)
 pnpm check-format
 
 # Auto-format code
@@ -187,7 +187,8 @@ pnpm lint [path]
 - **pnpm-workspace.yaml**: Defines workspace packages
 - **ui/.build/**: Custom frontend build system
 - **.scalafmt.conf**: Scala formatting rules
-- **ui/.prettierrc.json**: TypeScript/CSS formatting rules
+- **ui/.oxlint.json**: TypeScript formatting rules (Oxlint)
+- **ui/.oxfmt.json**: TypeScript/CSS/JSON/MD formatting rules (Oxfmt)
 - **conf/routes**: HTTP route definitions
 - **conf/application.conf.default**: Main application configuration template
 

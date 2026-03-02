@@ -1,0 +1,18 @@
+.tutor__pieces {
+  .tutor-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: $block-gap;
+  }
+  .tutor-card__top {
+    justify-content: center;
+    padding-top: 1em;
+    gap: 1em;
+    &__title {
+      text-transform: capitalize;
+    }
+    .tutor-icon {
+      width: 5em;
+      color: $c-font-dim;
+    }
+  }
+}

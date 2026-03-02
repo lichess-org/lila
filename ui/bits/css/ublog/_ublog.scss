@@ -104,12 +104,12 @@
 
   .descending::after {
     margin-inline-start: 1ch;
-    font-family: 'lichess';
+    font-family: lichess;
     content: $licon-DownTriangle;
   }
   .ascending::after {
     margin-inline-start: 1ch;
-    font-family: 'lichess';
+    font-family: lichess;
     content: $licon-UpTriangle;
   }
 
@@ -133,7 +133,7 @@
 .ublog-mod-carousel {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-  grid-gap: 3rem;
+  gap: 3rem;
   div {
     @extend %flex-column;
     gap: 1rem;
@@ -147,8 +147,7 @@
     gap: 4px;
   }
   .pull {
-    padding: 2px;
-    font-family: 'lichess';
+    font-family: lichess;
     font-size: 1rem;
     color: $c-bad;
     padding: 1.5px;

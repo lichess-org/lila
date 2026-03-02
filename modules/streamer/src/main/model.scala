@@ -28,6 +28,12 @@ trait Stream:
 
   lazy val cleanStatus = status.map(s => removeMultibyteSymbols(s).trim)
 
+  def redirectToLiveUrl: Option[Url] = Url.from:
+    streamer.twitch
+      .ifTrue(twitch)
+      .map(_.fullUrl)
+      .orElse(streamer.youtube.ifTrue(youtube).map(_.fullUrl))
+
 object Stream:
 
   case class Keyword(value: String) extends AnyRef with StringValue:
@@ -172,13 +178,7 @@ object Streamer:
       user: User,
       stream: Option[Stream],
       subscribed: Boolean = false
-  ) extends WithContext:
-    def redirectToLiveUrl: Option[String] =
-      stream.so: s =>
-        streamer.twitch
-          .ifTrue(s.twitch)
-          .map(_.fullUrl)
-          .orElse(streamer.youtube.ifTrue(s.youtube).map(_.fullUrl))
+  ) extends WithContext
 
   case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean, reason: Option[String])
 

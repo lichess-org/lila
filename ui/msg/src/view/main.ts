@@ -1,5 +1,5 @@
 import { h, type VNode } from 'snabbdom';
-import { spinnerVdom as spinner } from 'lib/view';
+import { spinnerVdom as spinner, onInsert } from 'lib/view';
 import type MsgCtrl from '../ctrl';
 import renderConvo from './convo';
 import renderContact from './contact';
@@ -14,7 +14,19 @@ export default function (ctrl: MsgCtrl): VNode {
         ? search.renderResults(ctrl, ctrl.search.result)
         : h(
             'div.msg-app__contacts.msg-app__side__content',
-            ctrl.data.contacts.map(t => renderContact(ctrl, t, activeId)),
+            {
+              hook: onInsert((el: HTMLElement) => {
+                el.addEventListener('scroll', () => {
+                  if (el.scrollTop + el.clientHeight >= el.scrollHeight - 100) {
+                    ctrl.loadMoreContacts();
+                  }
+                });
+              }),
+            },
+            [
+              ...ctrl.data.contacts.map(t => renderContact(ctrl, t, activeId)),
+              ctrl.loadingContacts ? h('div.msg-app__contacts__loading', spinner()) : null,
+            ],
           ),
     ]),
     ctrl.data.convo

@@ -4,8 +4,7 @@ import play.api.libs.json.*
 import scalalib.actor.{ SyncActor, SyncActorMap }
 
 import lila.common.Json.given
-import lila.core.chat.{ BusChan, ChatApi, TimeoutScope }
-import lila.core.shutup.PublicSource
+import lila.core.chat.{ PublicSource, BusChan, ChatApi, TimeoutScope }
 import lila.core.socket.*
 import lila.core.socket.protocol as P
 import lila.log.Logger

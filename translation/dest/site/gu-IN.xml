@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">કમ્પ્યુટર સામે રમો</string>
   <string name="gameMode">રમતની રિત</string>
   <string name="createLobbyGame">રમત બનાવો</string>
-  <string name="youPlayAs">તમે આ રીતે રમો છો</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">રમવા માટે કોઈને આમંત્રણ આપવા, આ URL આપો</string>
   <string name="gameOver">રમત પુરી</string>
   <string name="waitingForOpponent">વિરોધી માટે રાહ જોઈ રહ્યા છો</string>
@@ -234,7 +233,6 @@
   <string name="changeUsernameNotSame">માત્ર અક્ષરોની સ્થિતી અપર/લોઅર કેસમાં બદલી શકાય. ઉદાહણરૂપે \"johndoe\" થી \"JohnDoe\".</string>
   <string name="changeUsernameDescription">તમારું વપરાશકર્તા નામ બદલો. આ માત્ર એક જ વાર થઈ શકે અને તમને ફક્ત વપરાશકર્તા નામ ના અક્ષરોની સ્થિતી અપર/લોઅર કેસમાં બદલવાની મંજૂરી છે.</string>
   <string name="signupUsernameHint">કૃપા કરીને પારિવારિક નામ જ પસંદ કરો. એકાઉન્ટ બન્યા પછી નામ બદલી શકાશે નહી અને અયોગ્ય નામ વાળા એકાઉન્ટ બન્ધ કરવા માં આવશે!</string>
-  <string name="signupEmailHint">અમે ફક્ત પાસવર્ડ બદલવા ખાતર આનો ઉપયોગ કરીશું.</string>
   <string name="password">પાસવર્ડ</string>
   <string name="changePassword">પાસવર્ડ બદલો</string>
   <string name="changeEmail">ઇમેઇલ બદલો</string>
@@ -433,7 +431,6 @@
   <string name="pasteTheFenStringHere">અહીંયા FEN લખાણ Paste કરો</string>
   <string name="pasteThePgnStringHere">અહીંયા PGN લખાણ Paste કરો</string>
   <string name="orUploadPgnFile">અથવા PGN ફાઇલ અપલોડ કરો</string>
-  <string name="fromPosition">આ જગ્યાએથી</string>
   <string name="continueFromHere">અંહિયાથી ચાલુ કરો</string>
   <string name="toStudy">અભ્યાસ</string>
   <string name="importGame">રમત દાખલ કરો</string>
@@ -721,11 +718,6 @@
   <string name="keyCycleSelectedVariation">ચક્ર પસંદ કરેલ ભિન્નતા</string>
   <string name="keyShowOrHideComments">ટિપ્પણીઓ બતાવો/છુપાવો</string>
   <string name="keyEnterOrExitVariation">દાખલ/બહાર નીકળવાની વિવિધતા</string>
-  <string name="keyRequestComputerAnalysis">કમ્પ્યુટર વિશ્લેષણની વિનંતી કરો, તમારી ભૂલોમાંથી શીખો</string>
-  <string name="keyNextLearnFromYourMistakes">આગળ (તમારી ભૂલોમાંથી શીખો)</string>
-  <string name="keyNextBlunder">આગામી મોટું ભૂલ</string>
-  <string name="keyNextMistake">આગામી ભૂલ</string>
-  <string name="keyNextInaccuracy">આગામી અચોક્કસતા</string>
   <string name="keyPreviousBranch">પાછલી શાખા</string>
   <string name="keyNextBranch">આગામી શાખા</string>
   <string name="toggleVariationArrows">ભિન્નતા તીરો ટૉગલ કરો</string>

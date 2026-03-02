@@ -3,21 +3,21 @@
   <string name="chessVideos">チェス動画</string>
   <string name="allVideosAreFree">すべての動画が無料です。</string>
   <string name="selectTagsToFilter">タグを選んで動画を絞り込めます。</string>
-  <string name="weHaveCarefullySelectedX" comment="%s is the number of videos.&#10;&#10;Appears on https://lichess.org/video">%s 本の動画を厳選しました！</string>
+  <string name="weHaveCarefullySelectedX">%s 本の動画を厳選しました！</string>
   <string name="freeChessVideos">無料チェス動画</string>
-  <string name="xFreeCarefullyCurated" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s 本の厳選された無料チェス動画</string>
-  <string name="xCuratedChessVideos" comment="%s is the number of videos. Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos.">%s 本の厳選チェス動画</string>
-  <string name="xWithTagsY" comment="%1$s is the number of videos found.&#10;&#10;%2$s is a list of tags.&#10;&#10;Appears when filtering for videos by tag.">%1$s 本（タグ %2$s）</string>
-  <string name="freeForAll" comment="Appears in social media embeds (i.e. OpenGraph information) when linking Lichess videos. Part of a longer piece of text.&#10;&#10;The full text will be something like &quot;%s carefully curated chess videos • free for all&quot;">誰でも無料</string>
-  <plurals name="nbVideosFound" comment="%s is the number of videos found when searching on https://lichess.org/video">
+  <string name="xFreeCarefullyCurated">%s 本の厳選された無料チェス動画</string>
+  <string name="xCuratedChessVideos">%s 本の厳選チェス動画</string>
+  <string name="xWithTagsY">%1$s 本（タグ %2$s）</string>
+  <string name="freeForAll">誰でも無料</string>
+  <plurals name="nbVideosFound">
     <item quantity="other">%s 本の動画が見つかりました</item>
   </plurals>
   <string name="noVideosForTheseTags">このタグの動画はありません：</string>
   <string name="thatsAllWeGotForTheseTags">このタグの動画はこれで全部です：</string>
-  <string name="thatsAllWeGotForThisSearchX" comment="%s is the search term that the user entered.&#10;&#10;Appears at the end of a list of search results on https://lichess.org/video">検索語「%s」の動画はこれで全部です</string>
-  <string name="thereAreNoResultsForX" comment="%s is the search term that the user entered.">「%s」の検索結果はありません</string>
-  <string name="viewMoreTags" comment="Appears as a link on https://lichess.org/video&#10;&#10;The link leads to https://lichess.org/video/tags">他のタグを表示</string>
+  <string name="thatsAllWeGotForThisSearchX">検索語「%s」の動画はこれで全部です</string>
+  <string name="thereAreNoResultsForX">「%s」の検索結果はありません</string>
+  <string name="viewMoreTags">他のタグを表示</string>
   <string name="videoNotFound">動画が見つかりません！</string>
-  <string name="xByY" comment="%1$s is the video's title.&#10;&#10;%2$s is the video's author. This will be the author's display name on YouTube.&#10;&#10;Appears in embeds on social media platform, when a Lichess video is linked.&#10;&#10;Examples:&#10;&quot;Chess Fundamentals #1: Undefended Pieces by IM John Bartholomew&quot;&#10;&quot;Chess Traps: Halosar Trap by thechesswebsite&quot;">「%1$s」作成者：%2$s</string>
-  <string name="allNbVideoTags" comment="%s is the number of video tags. Appears on https://lichess.org/video/tags">動画のタグ（全 %s 種）</string>
+  <string name="xByY">「%1$s」作成者：%2$s</string>
+  <string name="allNbVideoTags">動画のタグ（全 %s 種）</string>
 </resources>

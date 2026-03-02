@@ -41,11 +41,11 @@
 		<item quantity="other">Sua abertura mais jogada de pretas com %s partidas</item>
 	</plurals>
 	<plurals name="puzzlesThanksVoting" comment="%s is the number of puzzles. It is also translated.">
-		<item quantity="one">Obrigado por votar em %s quebra-cabeça.</item>
-		<item quantity="other">Obrigado por votar em %s quebra-cabeças.</item>
+		<item quantity="one">Obrigado por votar em %s problema.</item>
+		<item quantity="other">Obrigado por votar em %s problemas.</item>
 	</plurals>
 	<string name="puzzlesHelpedTagging" comment="To tag in this context is to categorise the themes the puzzles fit into.&#10;%s is a number e.g. 5">Você também ajudou a etiquetar %s deles.</string>
-	<string name="puzzlesNone">Você não resolveu nenhum quebra-cabeça desse ano.</string>
+	<string name="puzzlesNone">Você não resolveu nenhum problema nesse ano.</string>
 	<string name="puzzlesTryNow" comment="This is context of a user who did not solve any puzzles in the past year. This is a call to action, inviting them to try Lichess puzzles.">Quer tentar alguns agora?</string>
 	<string name="puzzlesYouWonOnFirstTry" comment="%s is the number of puzzles the user successfully solved that year.">Você venceu %s deles na primeira tentativa!</string>
 	<string name="sourcesTitle">Onde você encontrou partidas?</string>
@@ -70,8 +70,8 @@
 	<string name="shareableFavouriteVariant">variante favorita</string>
 	<string name="shareableFavouriteTimeControl">controle de tempo favorito</string>
 	<plurals name="shareableNbPuzzlesSolved">
-		<item quantity="one">%s quebra-cabeça resolvido</item>
-		<item quantity="other">%s quebra-cabeças resolvidos</item>
+		<item quantity="one">%s problema resolvido</item>
+		<item quantity="other">%s problemas resolvidos</item>
 	</plurals>
 	<string name="recapReady" comment="%s is the year of the recap&#10;&#10;Appears as a notification.">Sua recapitulação de %s está pronta!</string>
 </resources>

@@ -81,7 +81,7 @@ export async function wireMarkdownImgResizers({
 
         const { imageUrl } = await xhrJson(`/image-url/${link[3]}?width=${img.dataset.resizeWidth}`);
         const before = markdown.slice(0, link.index);
-        const after = markdown.slice(link.index! + link[0].length);
+        const after = markdown.slice(link.index + link[0].length);
         const newMarkdown = before + `![${link[1]}](${imageUrl})` + after;
         update.markdown(newMarkdown);
       };
@@ -141,7 +141,7 @@ async function urlUpdate(img: HTMLImageElement, update: Extract<UpdateImageHook,
   const preloadImg = new Image();
   preloadImg.src = imageUrl;
   await preloadImg.decode();
-  update.url(img, imageUrl, Number(img.dataset.widthRatio)!);
+  update.url(img, imageUrl, Number(img.dataset.widthRatio));
   return;
 }
 

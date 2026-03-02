@@ -1,6 +1,6 @@
-fromId = 'lic-king-of-the-hill';
-id = 'lichess-king-of-the-hill';
-name = 'Lichess King of the Hill';
+const fromId = 'lic-king-of-the-hill';
+const id = 'lichess-king-of-the-hill';
+const name = 'Lichess King of the Hill';
 
 team = db.team.findOne({ _id: fromId });
 

@@ -1,5 +1,5 @@
-var unset;
-var count = 0;
+let unset;
+let count = 0;
 db.game5.find({ $or: [{ p0: {} }, { p1: {} }] }).forEach(g => {
   unset = {};
   if (g.p0 && !Object.keys(g.p0).length) unset.p0 = true;

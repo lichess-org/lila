@@ -83,6 +83,6 @@
   </plurals>
   <string name="percentSolved">%s li pini pona</string>
   <string name="noPuzzlesToShow">mi ken ala toki e ijo. o musi e musi lili!</string>
-  <string name="improvementAreasDescription">sina o kama sona pona tan musi ni!</string>
+  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">sina o kama sona pona tan musi ni!</string>
   <string name="strengthDescription">sina pali wawa e nasin ni</string>
 </resources>

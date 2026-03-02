@@ -4,20 +4,20 @@ import { debounce } from 'lib/async';
 import * as licon from 'lib/licon';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 import { bind, hl, type VNode } from 'lib/view';
-import { type DasherCtrl, PaneCtrl } from './interfaces';
+import { type DasherCtrl, type Dimension, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
 
 type Range = { min: number; max: number; step: number };
 
 export class BoardCtrl extends PaneCtrl {
   sliderKey: number = Date.now(); // changing the value attribute doesn't always flush to DOM.
-  featured: { [key in 'd2' | 'd3']: string[] } = { d2: [], d3: [] };
+  featured: Record<Dimension, string[]> = { d2: [], d3: [] };
   more: Toggle;
 
   constructor(root: DasherCtrl) {
     super(root);
     this.more = toggle(false, root.redraw);
-    for (const dim of ['d2', 'd3'] as const) {
+    for (const dim of ['d2', 'd3'] as Dimension[]) {
       this.featured[dim] = this.data[dim].list.filter(t => t.featured).map(t => t.name);
     }
   }
@@ -157,6 +157,7 @@ export class BoardCtrl extends PaneCtrl {
   private defaults: [string, number][] = [
     ['board-opacity', 100],
     ['board-brightness', 100],
+    ['board-contrast', 100],
     ['board-hue', 0],
   ];
 
@@ -171,6 +172,7 @@ export class BoardCtrl extends PaneCtrl {
       sliders.push(this.propSlider('board-opacity', i18n.site.opacity, { min: 0, max: 100, step: 1 }));
     else
       sliders.push(this.propSlider('board-brightness', i18n.site.brightness, { min: 20, max: 140, step: 1 }));
+    sliders.push(this.propSlider('board-contrast', i18n.site.contrast, { min: 40, max: 200, step: 2 }));
     sliders.push(
       this.propSlider(
         'board-hue',

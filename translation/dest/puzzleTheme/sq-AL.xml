@@ -51,6 +51,8 @@
   <string name="endgame">Fund loje</string>
   <string name="endgameDescription">Një taktikë gjatë fazës së fundit të lojës.</string>
   <string name="enPassantDescription">Një taktikë që përfshin rregullin “me prerje”, ku një ushtar mund të marrë një ushtar kundërshtar që e ka kaluar atë duke përdorur lëvizjen e vet fillestare të dy kuadrateve.</string>
+  <string name="epauletteMate">Mat spaletë</string>
+  <string name="epauletteMateDescription">Dy katrorë shpëtimi ngjitur njëri me tjetrin, për një mbret nën shah, janë të zënë nga gurë të tjerë.</string>
   <string name="exposedKing">Mbreti i ekspozuar</string>
   <string name="exposedKingDescription">Një taktikë që përfshin një mbret me pak mbrojtës rreth tij, që shpesh çon në shah mat.</string>
   <string name="fork">Sfurk</string>
@@ -67,6 +69,8 @@
   <string name="pillsburysMateDescription">Torreja jep shahmat, teksa oficeri ndihmon të kufizohet ai.</string>
   <string name="morphysMate">Mati i Morfit</string>
   <string name="morphysMateDescription">Përdorni oficerin për t’i dhënë shah mbretit, teksa torreja juaj ndihmon të kufohet ai.</string>
+  <string name="swallowstailMate">Mat bisht harabeli</string>
+  <string name="swallowstailMateDescription">Një model shah-mati që nga ana pamore ngjan me bishtin e një harabeli, e ngjashme me një formë V.</string>
   <string name="triangleMate">Mat trekëndësh</string>
   <string name="triangleMateDescription">Mbretëresha dhe torra, një kuadrat larg nga mbreti armik, gjenden në të njëjtin rresht ose shtyllë, një kuadrat larg njëri-tjetrit, duke formuar një trekëndësh.</string>
   <string name="vukovicMate">Mat Vukoviç</string>

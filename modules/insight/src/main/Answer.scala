@@ -14,7 +14,6 @@ case class Cluster[X](
     size: Int, // sample size
     insightIds: List[String]
 ):
-
   def gameIds = insightIds.map(GameId.take)
 
 enum Insight:

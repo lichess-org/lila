@@ -5,6 +5,8 @@ import type { VNode } from 'lib/view';
 
 export { DasherCtrl };
 
+export type Dimension = 'd2' | 'd3';
+
 export abstract class PaneCtrl {
   constructor(readonly root: DasherCtrl) {}
   get redraw(): Redraw {
@@ -13,7 +15,7 @@ export abstract class PaneCtrl {
   get close(): () => void {
     return this.root.close;
   }
-  get dimension(): 'd2' | 'd3' {
+  get dimension(): Dimension {
     return this.root.data.board.is3d ? 'd3' : 'd2';
   }
   get is3d(): boolean {
@@ -24,7 +26,7 @@ export abstract class PaneCtrl {
 }
 
 type BoardAsset = { name: string; file?: string; featured: boolean };
-type AssetData = { [key in 'd2' | 'd3']: { current: string; list: BoardAsset[] } };
+type AssetData = Record<Dimension, { current: string; list: BoardAsset[] }>;
 
 export interface DasherData {
   user?: LightUser;

@@ -16,6 +16,7 @@ body.zenable.zen {
 
 #friend_box,
 .site-title-nav,
-.site-buttons {
+.site-buttons,
+.opponent-left-counter {
   @extend %zen;
 }

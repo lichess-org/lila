@@ -37,6 +37,7 @@ object PuzzleTheme:
   val bodenMate = PuzzleTheme(i.bodenMate, i.bodenMateDescription)
   val capturingDefender =
     PuzzleTheme(i.capturingDefender, i.capturingDefenderDescription)
+  val collinearMove = PuzzleTheme(i.collinearMove, i.collinearMoveDescription)
   val castling = PuzzleTheme(i.castling, i.castlingDescription)
   val clearance = PuzzleTheme(i.clearance, i.clearanceDescription)
   val cornerMate = PuzzleTheme(i.cornerMate, i.cornerMateDescription)
@@ -53,7 +54,8 @@ object PuzzleTheme:
     PuzzleTheme(i.dovetailMate, i.dovetailMateDescription)
   val equality = PuzzleTheme(i.equality, i.equalityDescription)
   val endgame = PuzzleTheme(i.endgame, i.endgameDescription)
-  val enPassant = PuzzleTheme(I18nKey.learn.enPassant, i.enPassantDescription)
+  val epauletteMate = PuzzleTheme(i.epauletteMate, i.epauletteMateDescription)
+  val enPassant = PuzzleTheme(I18nKey.site.enPassant, i.enPassantDescription)
   val exposedKing = PuzzleTheme(i.exposedKing, i.exposedKingDescription)
   val fork = PuzzleTheme(i.fork, i.forkDescription)
   val hangingPiece = PuzzleTheme(i.hangingPiece, i.hangingPieceDescription)
@@ -93,6 +95,7 @@ object PuzzleTheme:
   val short = PuzzleTheme(i.short, i.shortDescription)
   val skewer = PuzzleTheme(i.skewer, i.skewerDescription)
   val superGM = PuzzleTheme(i.superGM, i.superGMDescription)
+  val swallowstailMate = PuzzleTheme(i.swallowstailMate, i.swallowstailMateDescription)
   val trappedPiece = PuzzleTheme(i.trappedPiece, i.trappedPieceDescription)
   val underPromotion = PuzzleTheme(i.underPromotion, i.underPromotionDescription)
   val veryLong = PuzzleTheme(i.veryLong, i.veryLongDescription)
@@ -134,6 +137,7 @@ object PuzzleTheme:
     I18nKey.puzzle.advanced -> List(
       attraction,
       clearance,
+      collinearMove,
       discoveredCheck,
       defensiveMove,
       deflection,
@@ -161,11 +165,13 @@ object PuzzleTheme:
       cornerMate,
       doubleBishopMate,
       dovetailMate,
+      epauletteMate,
       hookMate,
       killBoxMate,
       pillsburysMate,
       morphysMate,
       operaMate,
+      swallowstailMate,
       triangleMate,
       vukovicMate,
       smotheredMate
@@ -241,6 +247,7 @@ object PuzzleTheme:
     attraction -> "3arGcr8n",
     backRankMate -> "VVzwe5vV",
     capturingDefender -> "2s7CaC2h",
+    collinearMove -> "lRxwUFY2",
     castling -> "edXPYM70",
     discoveredAttack -> "DYcrqEPt",
     doubleCheck -> "EXAQJVNm",

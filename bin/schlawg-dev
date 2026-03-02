@@ -1,8 +1,0 @@
-#!/bin/bash
-
-journalctl --user -fu lila -o cat | grep -vE fishnet &
-JOURNALCTL_PID=$!
-
-trap "kill $JOURNALCTL_PID" EXIT SIGINT SIGTERM
-
-"$(dirname "${BASH_SOURCE[0]:-$0}")/../ui/build" -${1:-'wdk'}

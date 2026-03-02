@@ -64,7 +64,7 @@
   <string name="downloadGame">Descargar partida</string>
   <string name="studyUrl">URL del estudiu</string>
   <string name="currentChapterUrl">URL del capítulu actual</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Pues pegar esto nel foru o el to blog de Lichess pa ensertar la partida</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Puedes pegar esto nel foru o el to blog de Lichess pa ensertar la partida</string>
   <string name="startAtInitialPosition">Empezar dende la posición inicial</string>
   <string name="startAtX">Empezar en %s</string>
   <string name="embedInYourWebsite">Ensertar na to páxina o blog</string>

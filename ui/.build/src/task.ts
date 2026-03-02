@@ -79,21 +79,19 @@ export function stopTask(keys?: TaskKey | TaskKey[]) {
   }
 }
 
-export async function runTask(key: TaskKey): Promise<any> {
+export async function runTask(key: TaskKey): Promise<void> {
   const t = tasks.get(key);
-  if (!t || !t.status) return;
+  if (!t?.status) return;
   clearTimeout(t.debounce.timer);
   return execute(t, true);
 }
 
 export function taskOk(ctx?: Context): boolean {
   const all = [...tasks.values()].filter(w => (ctx ? w.ctx === ctx : true));
-  return all.filter(w => !w.monitorOnly).length > 0 && all.every(w => w.status === 'ok');
+  return all.some(w => !w.monitorOnly) && all.every(w => w.status === 'ok');
 }
 
-export function tasksIdle(): boolean {
-  return activeTaskCount === 0;
-}
+export const tasksIdle = (): boolean => activeTaskCount === 0;
 
 async function execute(t: Task, firstRun = false): Promise<void> {
   const makeRelative = (files: AbsPath[]) => (t.root ? files.map(f => relative(t.root!, f)) : files);
@@ -109,7 +107,7 @@ async function execute(t: Task, firstRun = false): Promise<void> {
     if (t.globListOnly && !(t.fileTimes.size === files.size && keys.every(f => t.fileTimes.has(f)))) {
       modified.push(...keys);
     } else if (!t.globListOnly) {
-      for (const [fullpath, time] of [...files]) {
+      for (const [fullpath, time] of files) {
         if (!isClose(t.fileTimes.get(fullpath), time)) modified.push(fullpath);
       }
     }
@@ -144,7 +142,7 @@ async function execute(t: Task, firstRun = false): Promise<void> {
   }
 }
 
-async function watchGlob({ cwd, path: globPath }: CwdPath, key: TaskKey): Promise<any> {
+async function watchGlob({ cwd, path: globPath }: CwdPath, key: TaskKey): Promise<void> {
   if (!(await isFolder(cwd))) return;
   const [head, ...tail] = globPath.split('/');
   const path = tail.join('/');

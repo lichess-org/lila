@@ -3,6 +3,13 @@
     &__phase {
       .tutor-card__top {
         justify-content: center;
+        &__title {
+          @extend %flex-center-nowrap;
+          gap: 1em;
+          .tutor-icon {
+            height: 3.5em;
+          }
+        }
       }
       .tutor-card__content {
         @extend %flex-column;
@@ -12,6 +19,7 @@
         gap: 1em;
         a {
           text-align: start;
+          white-space: normal;
         }
       }
     }

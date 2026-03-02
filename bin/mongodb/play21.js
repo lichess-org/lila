@@ -69,10 +69,10 @@ db.f_topic.ensureIndex({ categId: 1, updatedAt: -1, troll: 1 });
 print('user.settings.{chat,sound} should be a string');
 ['settings.chat', 'settings.sound'].forEach(function (name) {
   [true, false].forEach(function (value) {
-    var sel = {};
+    const sel = {};
     sel[name] = value;
     db.user2.find(sel).forEach(function (user) {
-      var up = {};
+      const up = {};
       up[name] = value.toString();
       db.user2.update({ _id: user['_id'] }, { $set: up });
     });

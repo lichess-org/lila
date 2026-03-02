@@ -5,7 +5,7 @@ import { env, c } from './env.ts';
 import { isGlob, isFolder, isClose } from './parse.ts';
 import { isEquivalent } from './algo.ts';
 
-export async function sync(): Promise<any> {
+export async function sync(): Promise<void[] | undefined> {
   if (!env.begin('sync')) return;
   return Promise.all(
     [...env.tasks('sync')].map(async ([pkg, sync]) => {

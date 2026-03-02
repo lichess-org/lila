@@ -43,10 +43,9 @@ export const withdraw = throttlePromiseDelay(
 
 export const loadPage = throttlePromiseDelay(
   () => 1000,
-  (ctrl: TournamentController, p: number, callback?: () => void) =>
+  (ctrl: TournamentController, p: number) =>
     xhr.json(`/tournament/${ctrl.data.id}/standing/${p}`).then(data => {
       ctrl.loadPage(data);
-      callback?.();
       ctrl.redraw();
     }, onFail),
 );

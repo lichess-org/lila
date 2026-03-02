@@ -23,6 +23,10 @@
     }
   }
 
+  &:focus-visible {
+    outline-offset: -2px;
+  }
+
   .site-name {
     display: none;
   }

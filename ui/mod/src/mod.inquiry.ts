@@ -62,11 +62,11 @@ site.load.then(() => {
   const nextStore = storage.boolean('inquiry-auto-next');
 
   if (!nextStore.get()) {
-    $('#inquiry .switcher input').prop('checked', false);
+    $('#inquiry #auto-next').prop('checked', false);
     $('#inquiry input.auto-next').val('0');
   }
 
-  $('#inquiry .switcher input').on('change', function (this: HTMLInputElement) {
+  $('#inquiry #auto-next').on('change', function (this: HTMLInputElement) {
     nextStore.set(this.checked);
     $('#inquiry input.auto-next').val(this.checked ? '1' : '0');
   });
@@ -88,16 +88,17 @@ site.load.then(() => {
   );
   autolinkAtoms();
 
-  $('#communication').on('click', '.line.author, .post.author', function (this: HTMLElement) {
-    // Need to take username from the communication page so that when being in inquiry for user A and checking communication of user B
-    // the notes cannot be mistakenly attributed to user A.
-    const username = $('#communication').find('.title').text().split(' ')[0];
-    const message = $(this).find('.message').text();
-    addToNote(`${username}: "${message}"`);
-  });
-  $('#communication').on('click', '.mod-timeline__event .message', function (this: HTMLElement) {
-    addToNote(`${username}: "${$(this).text()}"`);
-  });
+  $('#communication')
+    .on('click', '.line.author, .post.author', function (this: HTMLElement) {
+      // Need to take username from the communication page so that when being in inquiry for user A and checking communication of user B
+      // the notes cannot be mistakenly attributed to user A.
+      const username = $('#communication').find('.title').text().split(' ')[0];
+      const message = $(this).find('.message').text();
+      addToNote(`${username}: "${message}"`);
+    })
+    .on('click', '.mod-timeline__event .message', function (this: HTMLElement) {
+      addToNote(`${username}: "${$(this).text()}"`);
+    });
 
   $('.user-show, .appeal').on('click', '.mz-section--others .add-to-note', function (this: HTMLElement) {
     const userRow = $(this).parents('tr');

@@ -236,7 +236,6 @@
   <string name="changeUsernameNotSame">Jedino se veličina slova može promijeniti. Primjerice, \'\'johndoe\'\' u \'\'JohnDoe\'\'.</string>
   <string name="changeUsernameDescription">Promijeni korisničko ime. Ovo možeš učiniti samo jednom i samo možeš promijeniti veličinu slova svog korisničkog imena.</string>
   <string name="signupUsernameHint">Obavezno odaberi obiteljsko korisničko ime. Ne možeš ga kasnije promijeniti i svi računi s neprikladnim korisničkim imenima bit će zatvoreni!</string>
-  <string name="signupEmailHint">Koristiti ćemo ga samo za ponovno postavljanje lozinke.</string>
   <string name="password">Lozinka</string>
   <string name="changePassword">Promijeni lozinku</string>
   <string name="changeEmail">Promijeni email</string>
@@ -438,7 +437,6 @@
   <string name="pasteTheFenStringHere">Zalijepi FEN niz ovdje</string>
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>
   <string name="orUploadPgnFile">Ili učitaj PGN datoteku</string>
-  <string name="fromPosition">Od pozicije</string>
   <string name="continueFromHere">Nastavi odavde</string>
   <string name="toStudy">Prouči</string>
   <string name="importGame">Uvezi partiju</string>
@@ -731,11 +729,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="keyCycleSelectedVariation">Promijeni odabranu varijaciju</string>
   <string name="keyShowOrHideComments">pokaži/sakrij komentare</string>
   <string name="keyEnterOrExitVariation">otvori/zatvori varijantu</string>
-  <string name="keyRequestComputerAnalysis">Zatraži računalnu analizu, Uči na svojim greškama</string>
-  <string name="keyNextLearnFromYourMistakes">Sljedeće (Uči na svojim greškama)</string>
-  <string name="keyNextBlunder">Sljedeća velika pogreška</string>
-  <string name="keyNextMistake">Sljedeća pogreška</string>
-  <string name="keyNextInaccuracy">Sljedeća sitna pogreška</string>
   <string name="keyPreviousBranch">Prethodna grana</string>
   <string name="keyNextBranch">Sljedeća grana</string>
   <string name="toggleVariationArrows">Uključi/Isključi strelice za varijacije</string>

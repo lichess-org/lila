@@ -46,7 +46,7 @@
       @extend %nowrap-ellipsis;
 
       padding: 0.5em 0.4em;
-      border-top: $border;
+      border-bottom: $border;
       max-width: 21ch;
       @media (max-width: at-most($x-small)) {
         max-width: 18ch;
@@ -62,6 +62,10 @@
           color: $c-link;
         }
       }
+    }
+
+    tr:last-child td {
+      border-bottom: none;
     }
 
     tr:nth-child(even) {
