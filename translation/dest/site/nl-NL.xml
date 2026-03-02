@@ -132,8 +132,13 @@
   <string name="pinnedPieces">Gepende stukken</string>
   <string name="checkableKing">Schaakbare koning</string>
   <string name="multipleLines">Meerdere varianten</string>
+  <string name="multipleLinesDescription">Stel het aantal evaluatievariaties en zetpijlen in op het bord</string>
+  <string name="searchTime">Zoektijd</string>
+  <string name="searchTimeDescription">Stel tijd in om nieuwe posities te evalueren</string>
+  <string name="threads">Threads</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Geheugen</string>
+  <string name="memoryDescription">Hogere waarden kunnen de prestaties verbeteren</string>
   <string name="infiniteAnalysis">Oneindige analyse</string>
   <string name="removesTheDepthLimit">Verwijdert de dieptelimiet, en houdt je computer warm</string>
   <string name="blunder">Blunder</string>
