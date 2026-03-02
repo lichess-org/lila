@@ -31,8 +31,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
       full: TutorFullReport,
       perfReport: TutorPerfReport,
       report: TutorOpeningFamily,
-      as: Color,
-      puzzle: Option[Frag]
+      as: Color
   )(using Context) =
     bits.page(
       title = s"Lichess Tutor • ${perfReport.perf.trans} • ${as.name} • ${report.family.name.value}",
@@ -79,7 +78,11 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: TutorPerfUi)
                   href := s"${routes.UserAnalysis
                       .pgn(report.family.anyOpening.pgn.value.replace(" ", "_"))}#explorer/${full.user}"
                 )("Personal opening explorer"),
-                puzzle
+                a(
+                  cls := "button button-no-upper text",
+                  dataIcon := Icon.ArcheryTarget,
+                  href := routes.Puzzle.angleAndColor(report.family.key.value, as.name)
+                )("Train with puzzles")
               )
             )
           )
