@@ -3,8 +3,6 @@ package lila.explorer
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-case class InternalEndpoint(value: String) extends AnyVal with StringValue
-
 @Module
 final class Env(
     appConfig: Configuration,
@@ -13,7 +11,6 @@ final class Env(
     ws: play.api.libs.ws.StandaloneWSClient
 )(using Executor):
 
-  private val internalEndpoint = InternalEndpoint:
-    appConfig.get[String]("explorer.internal_endpoint")
+  private val internalEndpoint = Url(appConfig.get[String]("explorer.internal_endpoint"))
 
   val importer = wire[ExplorerImporter]

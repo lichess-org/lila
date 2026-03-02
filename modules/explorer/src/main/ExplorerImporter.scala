@@ -4,7 +4,7 @@ import chess.format.pgn.PgnStr
 import play.api.libs.ws.DefaultBodyReadables.*
 
 final class ExplorerImporter(
-    endpoint: InternalEndpoint,
+    endpoint: Url,
     gameRepo: lila.core.game.GameRepo,
     gameImporter: lila.game.importer.Importer,
     ws: play.api.libs.ws.StandaloneWSClient
