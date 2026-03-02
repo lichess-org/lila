@@ -18,7 +18,7 @@
     <item quantity="one">Kuniga bitta tur</item>
     <item quantity="other">Har %s kunda bitta tur</item>
   </plurals>
-  <string name="roundsAreStartedManually">Turlar qo\'lda boshlanadi</string>
+  <string name="roundsAreStartedManually">Turlar qoʻlda boshlanadi</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">Turlar orasida %s soniya</item>
     <item quantity="other">Turlar orasida %s soniya</item>
@@ -29,8 +29,8 @@
   </plurals>
   <string name="nextRound">Keyingi tur</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
-    <item quantity="one">Davom etayotgan o\'yin</item>
-    <item quantity="other">Davom etayotgan o\'yinlar</item>
+    <item quantity="one">Davom etayotgan oʻyin</item>
+    <item quantity="other">Davom etayotgan oʻyinlar</item>
   </plurals>
   <string name="tournStartDate">Turnir boshlanish sanasi</string>
   <string name="numberOfRounds">Turlar soni</string>
@@ -63,7 +63,7 @@ Bunda oʻyinchi yutgan barcha raqiblarning toʻplagan ochkolari hamda durang oʻ
   <string name="FIDEHandbook">FIDE qoʻllanmasi</string>
   <string name="pairingsA">%3$sga muvofiq, %2$s tomonidan joriy etilgan %1$s asosida.</string>
   <string name="moreRoundsThanPlayersQ">Agar turnirda turlar soni oʻyinchilar sonidan koʻp boʻlsa nima boʻladi?</string>
-  <string name="moreRoundsThanPlayersA">Barcha mumkin bo\'lgan juftliklar o\'ynalgach, turnir yakunlanadi va g\'olib e\'lon qilinadi.</string>
+  <string name="moreRoundsThanPlayersA">Barcha mumkin boʻlgan juftliklar oʻynab boʻlingach, turnir yakunlanadi va gʻolib eʼlon qilinadi.</string>
   <string name="restrictedToTeamsQ">Nima uchun u jamoalar bilan cheklangan?</string>
   <string name="restrictedToTeamsA">Shveysarcha turnirlar onlayn shaxmat uchun moʻljallanmagan. Oʻyinchilardan punktuallik, masʼuliyat va sabr-toqatni talab qiladi.
 Bizningcha, bu shartlarga global turnirlarga qaraganda jamoa ichida amal qilinishi ehtimoli yuqoriroq.</string>
