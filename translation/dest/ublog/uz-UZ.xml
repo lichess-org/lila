@@ -32,11 +32,11 @@
   <string name="stickyPostHelp">Agar belgilansa, ushbu post profilingizdagi soʻnggi xabarlar roʻyxatida va blogingizda birinchi boʻlib koʻrsatiladi.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Blog post chop etdi</item>
-    <item quantity="other">%s ta blog post chop etdi</item>
+    <item quantity="other">%s ta blog post chop etdi</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">Bir marta koʻrilgan</item>
-    <item quantity="other">%s marta koʻrilgan</item>
+    <item quantity="other">%s marta koʻrilgan</item>
   </plurals>
   <string name="xPublishedY">%1$s %2$sʼni chop etdi</string>
   <string name="thisPostIsPublished">Ushbu post chop etilgan</string>
@@ -46,7 +46,7 @@
   <string name="latestBlogPosts">Soʻnggi blog postlar</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Bitta postni koʻrish</item>
-    <item quantity="other">Barcha %s ta postni koʻrish</item>
+    <item quantity="other">Barcha %s ta postni koʻrish</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Postingiz uchun rasm yuklang</string>
   <string name="imageAlt">Rasm uchun muqobil matn</string>
