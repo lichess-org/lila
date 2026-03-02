@@ -3823,6 +3823,8 @@ interface I18n {
     memberSince: string;
     /** Memory */
     memory: string;
+    /** Higher values may improve performance */
+    memoryDescription: string;
     /** mentioned you in "%1$s". */
     mentionedYouInX: I18nFormat;
     /** Menu */
@@ -3863,6 +3865,8 @@ interface I18n {
     moveTimes: string;
     /** Multiple lines */
     multipleLines: string;
+    /** Set number of evaluation lines and move arrows on the board */
+    multipleLinesDescription: string;
     /** Must be in team %s */
     mustBeInTeam: I18nFormat;
     /** Name */
@@ -4285,6 +4289,10 @@ interface I18n {
     search: string;
     /** Search or start new conversation */
     searchOrStartNewDiscussion: string;
+    /** Search time */
+    searchTime: string;
+    /** Set time to evaluate fresh positions */
+    searchTimeDescription: string;
     /** Security */
     security: string;
     /** See best move */
@@ -4441,6 +4449,12 @@ interface I18n {
     thisTopicIsArchived: string;
     /** This topic is now closed. */
     thisTopicIsNowClosed: string;
+    /** Threads */
+    threads: string;
+    /** Set this below your CPU's thread count, the ticks mark a good safe choice */
+    threadsDescription: string;
+    /** More threads will use more battery for better analysis */
+    threadsDescriptionMobile: string;
     /** Three checks */
     threeChecks: string;
     /** Threefold repetition */
