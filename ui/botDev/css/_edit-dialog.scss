@@ -145,7 +145,6 @@
       ---scale-factor: 0.8;
       aspect-ratio: 1/1;
       cursor: pointer;
-      // background-color: $c-bg-zebra2;
     }
     .placard {
       padding: 0;
@@ -347,12 +346,9 @@
       }
 
       &:hover {
-        // :not(.active) {
         cursor: pointer;
-        // &:has(input:checked) {
         background: $m-paper_dimmer--mix-75;
         color: $c-font-clearer;
-        // }
       }
     }
   }
