@@ -99,8 +99,8 @@
   <string name="topGames">Eng yaxshi oʻyinlar</string>
   <string name="masterDbExplanation">%2$s yildan %3$s yilgacha boʻlgan, FIDE reytingi %1$s+ boʻlgan oʻyinchilarning oʻyinlari</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">%s ta yarim‑yurishda mot</item>
-    <item quantity="other">%s ta yarim‑yurishda mot</item>
+    <item quantity="one">%s ta yarim‑yurishda mot</item>
+    <item quantity="other">%s ta yarim‑yurishda mot</item>
   </plurals>
   <string name="dtzWithRounding">Navbatdagi donani urish, piyoda yurishi yoki motgacha boʻlgan yarim-yurishlar soniga asoslangan, yaxlitlangan DTZ50\'\'</string>
   <string name="noGameFound">Oʻyin topilmadi</string>
@@ -281,8 +281,8 @@
   </plurals>
   <string name="gamesPlayed">Oʻynalgan oʻyinlar</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">Siz bilan %s ta oʻyin oʻynagan</item>
-    <item quantity="other">Siz bilan %s ta oʻyin oʻynagan</item>
+    <item quantity="one">Siz bilan %s ta oʻyin oʻynagan</item>
+    <item quantity="other">Siz bilan %s ta oʻyin oʻynagan</item>
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Bekor qilish</string>
@@ -392,8 +392,8 @@
   <string name="noDrawBeforeSwissLimit">Shveysarcha tizimdagi turnirlarda 30 ta yurish amalga oshirilmaguncha durangga kelishib boʻlmaydi.</string>
   <string name="thematic">Tematik</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s ta reytingli oʻyin</item>
-    <item quantity="other">≥ %s ta reytingli oʻyin</item>
+    <item quantity="one">≥ %s ta reytingli oʻyin</item>
+    <item quantity="other">≥ %s ta reytingli oʻyin</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s ta reytingli %2$s oʻyin</item>
@@ -404,8 +404,8 @@
     <item quantity="other">Yana %1$s ta reytingli %2$s oʻyin oʻynashingiz kerak</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Yana %s ta reytingli oʻyin oʻynashingiz kerak</item>
-    <item quantity="other">Yana %s ta reytingli oʻyin oʻynashingiz kerak</item>
+    <item quantity="one">Yana %s ta reytingli oʻyin oʻynashingiz kerak</item>
+    <item quantity="other">Yana %s ta reytingli oʻyin oʻynashingiz kerak</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Sizning %s reytingingiz hali aniqlanmagan</string>
   <string name="ratingRangeIsDisabledBecauseYourRatingIsProvisional" comment="Tooltip to explain why the control is disabled">Reytingingiz barqaror boʻlmagani sababli, reyting filtrlari bloklangan. Reytingli oʻyinlarni o\'ynash reyting barqarorligini oshiradi.</string>
@@ -442,8 +442,8 @@
   <string name="importGameExplanation">Asosiy variantni koʻrish, kompyuter tahlili, oʻyin chati va hamma bilan ulashish mumkin boʻlgan URL manzilini olish uchun oʻyin PGN matnini joylashtiring.</string>
   <string name="importGameDataPrivacyWarning">Ushbu PGN ommaga ochiq boʻladi. Oʻyinni yopiq holatda import qilish uchun saboq ishlating.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s ta oʻyin import qilindi</item>
-    <item quantity="other">%s ta oʻyin import qilindi</item>
+    <item quantity="one">%s ta oʻyin import qilindi</item>
+    <item quantity="other">%s ta oʻyin import qilindi</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Bu shaxmat CAPTCHAʼsi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Taxta ustiga bosib yurishni amalga oshiring va kompyuter emas inson ekanligingizni tasdiqlang.</string>
@@ -455,8 +455,8 @@
   <string name="reconnecting">Qaytadan ulanmoqda</string>
   <string name="noNetwork">Oflayn</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s ta doʻst onlayn</item>
-    <item quantity="other">%s ta doʻst onlayn</item>
+    <item quantity="one">%s ta doʻst onlayn</item>
+    <item quantity="other">%s ta doʻst onlayn</item>
   </plurals>
   <string name="favoriteOpponents">Sevimli raqiblar</string>
   <string name="follow">Obuna boʻlish</string>
@@ -524,7 +524,7 @@
   <string name="loadPosition">Pozitsiyani yuklash</string>
   <string name="isPrivate">Yopiq</string>
   <string name="reportXToModerators">%s haqida moderatorlarga shikoyat bildirish</string>
-  <string name="profileCompletion">Profil %s ga toʻldirilgan</string>
+  <string name="profileCompletion">Profil %s ga toʻldirilgan</string>
   <string name="xRating">%s reyting</string>
   <string name="ifNoneLeaveEmpty">Agar yoʻq boʻlsa boʻsh qoldiring</string>
   <string name="profile">Profil</string>
@@ -547,8 +547,8 @@
   <string name="bewareTheGameIsRatedButHasNoClock">Diqqat qiling: oʻyin reytingli, biroq vaqt nazorati oʻrnatilmagan!</string>
   <string name="success">Muvaffaqiyat</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s ta oʻyin oʻynalmoqda</item>
-    <item quantity="other">%s ta oʻyin oʻynalmoqda</item>
+    <item quantity="one">%s ta oʻyin oʻynalmoqda</item>
+    <item quantity="other">%s ta oʻyin oʻynalmoqda</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Yurishdan soʻng avtomatik tarzda keyingi oʻyinga oʻtish</string>
   <string name="autoSwitch">Avtomatik oʻtish</string>
@@ -630,12 +630,12 @@
   <string name="allInformationIsPublicAndOptional">Barcha maʼlumotlar ommaga ochiq va ixtiyoriy.</string>
   <string name="biographyDescription">Oʻzingiz haqingizda gapirib bering, oʻzingizni qiziqishlaringiz, sizga shaxmatda nima yoqadi, sizning yoqtirgan debyutlaringiz, siz yoqtirgan oʻyinchilar, ...</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maksimum: %s ta belgi.</item>
-    <item quantity="other">Maksimum: %s ta belgi.</item>
+    <item quantity="one">Maksimum: %s ta belgi.</item>
+    <item quantity="other">Maksimum: %s ta belgi.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s ta bloklangan</item>
-    <item quantity="other">%s ta bloklangan</item>
+    <item quantity="one">%s ta bloklangan</item>
+    <item quantity="other">%s ta bloklangan</item>
   </plurals>
   <string name="listBlockedPlayers">Siz bloklagan oʻyinchilar roʻyxati</string>
   <string name="human">Odam</string>
@@ -655,8 +655,8 @@
   <string name="error.email_acceptable">Ushbu e‑pochta manzili qabul qilinmaydi. Iltimos, qaytadan tekshiring va urinib koʻring.</string>
   <string name="error.email_unique">Ushbu e‑pochta manzili yaroqsiz yoki band etilgan</string>
   <string name="error.email_different">Bu allaqachon sizni e‑pochta manzilingiz</string>
-  <string name="error.minLength">Kamida %s ta belgidan iborat boʻlishi kerak</string>
-  <string name="error.maxLength">Koʻpi bilan %s ta belgi boʻlishi kerak</string>
+  <string name="error.minLength">Kamida %s ta belgidan iborat boʻlishi kerak</string>
+  <string name="error.maxLength">Koʻpi bilan %s ta belgi boʻlishi kerak</string>
   <string name="error.min">Kamida %s bo‘lishi kerak</string>
   <string name="error.max">Ko‘pi bilan %s bo‘lishi kerak</string>
   <string name="ifRatingIsPlusMinusX">Agar reyting ± %s boʻlsa</string>
@@ -756,7 +756,7 @@
   <string name="ifYouDoNotGetTheEmail">Agar 5 daqiqa ichida e‑pochta olmasangiz:</string>
   <string name="checkAllEmailFolders">Barcha keraksiz, spam va boshqa e‑pochta jildlarni tekshiring</string>
   <string name="verifyYourAddress">%s e‑pochta manzili sizniki ekanligini tasdiqlang</string>
-  <string name="weHaveSentYouAnEmailTo">Biz %s ga xat yubordik. Parolni boshqattan oʻrnatish uchun xattagi havolani bosing.</string>
+  <string name="weHaveSentYouAnEmailTo">Biz %s manziliga xat yubordik. Parolni boshqattan oʻrnatish uchun xattagi havolani bosing.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Roʻyxatdan oʻtish orqali siz %sga rozilik bildirasiz.</string>
   <string name="readAboutOur">%smiz bilan tanishib chiqing.</string>
   <string name="networkLagBetweenYouAndLichess">Siz va Lichess oʻrtasidagi tarmoq kechikishi (lag)</string>
@@ -791,8 +791,8 @@
   <string name="viewTheSolution">Yechimni koʻrish</string>
   <string name="noChallenges">Chorlovlar yoʻq.</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">%s ta tilda mavjud!</item>
-    <item quantity="other">%s ta tilda mavjud!</item>
+    <item quantity="one">%s ta tilda mavjud!</item>
+    <item quantity="other">%s ta tilda mavjud!</item>
   </plurals>
   <string name="xHostsY">%1$s %2$s biryoʻla seansini qildi</string>
   <string name="xJoinsY">%1$s %2$sʼga qatnashdi</string>
@@ -886,8 +886,8 @@
   <string name="playX">%s yurish</string>
   <string name="challengeX">%sʼni chorlash</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">va %s ta oldindan yurish variantini saqlash</item>
-    <item quantity="other">va %s ta oldindan yurish variantini saqlash</item>
+    <item quantity="one">va %s ta oldindan yurish variantini saqlash</item>
+    <item quantity="other">va %s ta oldindan yurish variantini saqlash</item>
   </plurals>
   <string name="showUnreadLichessMessage">Sizga Lichessdan shaxsiy xabar keldi.</string>
   <string name="clickHereToReadIt">Uni oʻqish uchun shu yerga bosing</string>
