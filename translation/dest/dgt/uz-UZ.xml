@@ -9,7 +9,7 @@
   <string name="downloadHere">Dasturni bu yerdan yuklab olishingiz mumkin: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Agar ushbu kompyuterda %1$s ishlayotgan boʻlsa, ulanishni %2$s orqali tekshirishingiz mumkin.</string>
   <string name="openingThisLink">ushbu havolani ochish</string>
-  <string name="ifLiveChessRunningElsewhere">Agar %1$s boshqa qurilmada yoki boshqa portda ishlayotgan boʻlsa, IP-manzil va portni %2$s sozlashingiz kerak boʻladi.</string>
+  <string name="ifLiveChessRunningElsewhere">Agar %1$s boshqa qurilmada yoki boshqa portda ishlayotgan boʻlsa, IP‑manzil va portni %2$s sozlashingiz kerak boʻladi.</string>
   <string name="configurationSection">sozlash boʻlimida</string>
   <string name="keepPlayPageOpen">Oʻyin sahifasi brauzeringizda ochiq turishi kerak. Sahifa koʻrinib turishi shart emas — uni pastga tushirib (minimize) qoʻyishingiz mumkin yoki Lichess oʻyin sahifasi bilan yonma-yon joylashtirishingiz mumkin, biroq uni yopmang, aks holda taxta ishlamay qoladi.</string>
   <string name="boardWillAutoConnect">Taxta hozir davom etayotgan yoki yangi boshlanadigan har qanday oʻyinga avtomatik ravishda ulanadi. Qaysi oʻyinni oʻynashni tanlash imkoniyati tez kunda qoʻshiladi.</string>
