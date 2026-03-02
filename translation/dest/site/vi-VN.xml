@@ -130,8 +130,15 @@
   <string name="pinnedPieces">Quân cờ bị ghim</string>
   <string name="checkableKing">Có thể chiếu tướng</string>
   <string name="multipleLines">Số hàng phân tích</string>
+  <string name="multipleLinesDescription">Đặt số dòng tính toán và các mũi tên nước đi trên bàn cờ</string>
+  <string name="searchTime">Thời gian tìm kiếm</string>
+  <string name="searchTimeDescription">Dành thời gian để tính toán các thế cờ mới</string>
+  <string name="threads">Số luồng</string>
+  <string name="threadsDescription">Hãy đặt giá trị này thấp hơn số luồng của CPU, giá trị có dấu tick là một lựa chọn an toàn và hợp lý</string>
+  <string name="threadsDescriptionMobile">Càng nhiều luồng xử lý sẽ càng tiêu hao nhiều pin để phân tích tốt hơn</string>
   <string name="cpus">CPU</string>
   <string name="memory">Bộ nhớ</string>
+  <string name="memoryDescription">Giá trị cao hơn có thể cải thiện hiệu suất</string>
   <string name="infiniteAnalysis">Phân tích vô hạn</string>
   <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu và giữ máy tính của bạn mượt hơn</string>
   <string name="blunder">Sai lầm nghiêm trọng</string>
