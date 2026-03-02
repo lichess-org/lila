@@ -137,6 +137,10 @@ piece {
   &.dragging {
     cursor: move;
     z-index: $z-cg__piece_dragging-204 !important;
+    // Safari: force pointer-events through so the square under the piece receives
+    // events and destination highlights work (see https://github.com/lichess-org/lila/issues/17811)
+    pointer-events: none !important;
+    opacity: 0.92; // allow square highlight to show through while dragging
   }
 
   &.anim {
