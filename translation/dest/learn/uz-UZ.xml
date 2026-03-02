@@ -73,7 +73,8 @@ Va oʻzingiznikilarni yoʻqotmang.</string>
   <string name="protectionIntro">Raqib qaysi donangizga hujum qilayotganini toping va uni himoyalang!</string>
   <string name="protectionComplete">Barakalla! Boy berilmagan dona — yutilgan dona bilan teng!</string>
   <string name="escape">Qochishga joy yoʻq, lekin himoyalansa boʻladi!</string>
-  <string name="noEscape">Qochishga imkon yo\'q lekin ximoyalanishingiz mumkin!</string>
+  <string name="noEscape">Qochib qutulishning iloji yoʻq,
+ammo himoyalanish mumkin!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Birorta ham himoyasiz donani boy bermang!</string>
   <string name="combat">Jang</string>
   <string name="captureAndDefendPieces">Donalarni urib olish va himoya qilish</string>
