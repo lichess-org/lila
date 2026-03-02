@@ -1,12 +1,12 @@
 package lila.opening
 
 import com.softwaremill.macwire.*
-import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.config.CollName
 import lila.memo.CacheApi
+import lila.core.config.{ CollName, Secret }
+import lila.common.config.given
 
 @Module
 final class Env(
@@ -19,7 +19,9 @@ final class Env(
     ws: StandaloneWSClient
 )(using Scheduler, Executor):
 
-  private val explorerEndpoint = appConfig.get[String]("explorer.endpoint").taggedWith[ExplorerEndpoint]
+  private val explorerEndpoint = Url(appConfig.get[String]("explorer.endpoint"))
+  private val oauthToken = appConfig.get[Secret]("explorer.oauth_token")
+
   private lazy val wikiColl = db(CollName("opening_wiki"))
 
   private lazy val explorer = wire[OpeningExplorer]
@@ -31,5 +33,3 @@ final class Env(
   lazy val api = wire[OpeningApi]
 
   lazy val search = wire[OpeningSearch]
-
-trait ExplorerEndpoint

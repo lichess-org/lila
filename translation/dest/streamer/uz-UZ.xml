@@ -19,12 +19,12 @@
   <string name="rule2">Lichessʼga aloqador boʻlmagan kontentni efirga uzatganingizda, ushbu kalit soʻzni sarlavhadan olib tashlang.</string>
   <string name="rule3">Lichess efiringizni avtomatik ravishda aniqlaydi va quyidagi imkoniyatlarni faollashtiradi:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Efir davomida barcha uchun halol oʻyin muhitini taʼminlash maqsadida %s bo‘limi bilan tanishib chiqing.</string>
-  <string name="streamingFairplayFAQ">halol oʻyin boʻyicha tez-tez beriladigan savollar</string>
+  <string name="streamingFairplayFAQ">halol oʻyin boʻyicha tez‑tez beriladigan savollar</string>
   <string name="perks">Kalit soʻzi bilan strim qilishning afzalliklari</string>
   <string name="perk1">Lichess profilingizda yonayotgan strimer belgisiga paydo boʻladi.</string>
   <string name="perk2">Strimerlar roʻyxatining eng yuqori qismiga koʻtarilasiz.</string>
   <string name="perk3">Lichessʼdagi obunachilaringizga bildirishnoma yuboriladi.</string>
-  <string name="perk4">Striming qilayotganingiz haqida oʻyinlaringizda, turnirlarda va oʻquv qoʻllanmalarida koʻrsatiladi.</string>
+  <string name="perk4">Striming qilayotganingiz haqida oʻyinlaringizda, turnirlarda va saboqlarda koʻrsatiladi.</string>
   <string name="approved">Strimingiz tasdiqlandi.</string>
   <string name="pendingReview">Strimingiz moderatorlar tomonidan koʻrib chiqilmoqda.</string>
   <string name="pleaseFillIn">Iltimos, strimer haqidagi maʼlumotlaringizni toʻldiring va rasm yuklang.</string>

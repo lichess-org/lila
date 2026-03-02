@@ -39,19 +39,20 @@
   ],
   "scripts": {
     "format": "oxfmt",
+    "format:scala": "./lila.sh scalafmtAll",
     "check-format": "oxfmt --check",
-    "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
-    "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true",
     "lint": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json && stylelint \"**/*.scss\"",
     "lint:fix": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json --fix && stylelint \"**/*.scss\" --fix",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
     "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
-    "multilog": "pnpm serverlog & ui/build -w"
+    "multilog": "pnpm serverlog & ui/build -w",
+    "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
+    "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true"
   },
   "lint-staged": {
-    "*.{json,scss,ts,mts,mjs}": "pnpm lint --fix && pnpm format"
+    "*.{json,scss,ts,mts,mjs,scss}": "pnpm lint:fix && pnpm format"
   },
   "browserslist": [
     "defaults",

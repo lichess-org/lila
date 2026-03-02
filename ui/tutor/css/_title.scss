@@ -11,6 +11,9 @@
       height: 1.5em;
     }
   }
+  .tutor-header {
+    overflow: visible;
+  }
   @media (max-width: at-most($xx-small)) {
     gap: 0.5ch;
     .mselect {

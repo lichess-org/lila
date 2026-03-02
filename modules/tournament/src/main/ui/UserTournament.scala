@@ -25,11 +25,12 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
         if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
         else
           div(cls := "tournament-list")(
+            div(cls := "box__top")(h1(frag(userLink(u, withOnline = true), " • ", trans.site.tournaments()))),
             table(cls := "slist")(
               thead(
                 tr(
                   th(cls := "count")(pager.nbResults),
-                  th(colspan := 2)(h1(frag(userLink(u, withOnline = true), " • ", trans.site.tournaments()))),
+                  th(colspan := 2)(trans.site.tournaments()),
                   th(trans.site.winner()),
                   th(trans.site.players())
                 )
@@ -56,13 +57,14 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
       if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
       else
         div(cls := "tournament-list")(
+          div(cls := "box__top")(
+            h1(frag(userLink(u, withOnline = true)), " • ", trans.team.upcomingTournaments())
+          ),
           table(cls := "slist")(
             thead(
               tr(
                 th(cls := "count")(pager.nbResults),
-                th(colspan := 2)(
-                  h1(frag(userLink(u, withOnline = true)), " • ", trans.team.upcomingTournaments())
-                ),
+                th(colspan := 2)(trans.team.upcomingTournaments()),
                 th(trans.site.players())
               )
             ),
@@ -126,11 +128,12 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
     if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
     else
       div(cls := "tournament-list")(
+        div(cls := "box__top")(h1(frag(userLink(u, withOnline = true), " • ", trans.site.tournaments()))),
         table(cls := "slist")(
           thead(
             tr(
               th(cls := "count")(count),
-              th(h1(frag(userLink(u, withOnline = true), " • ", trans.site.tournaments()))),
+              th(trans.site.tournaments()),
               th(trans.site.games()),
               th(trans.site.points()),
               th(trans.site.rank())

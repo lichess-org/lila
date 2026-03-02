@@ -357,6 +357,9 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
             if ((e.target as HTMLElement).closest('.pv-wrap-toggle')) return;
             if (isTouchDevice()) pvIndex = getElPvIndex(e);
             if (uciList.length > (pvIndex ?? 0) && !ctrl.threatMode()) {
+              try {
+                el.setPointerCapture(e.pointerId);
+              } catch {}
               ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
               resetPvIndexAndBoard();
               e.preventDefault();

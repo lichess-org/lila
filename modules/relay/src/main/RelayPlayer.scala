@@ -246,7 +246,7 @@ private final class RelayPlayerApi(
           result <-
             if !atLeastOneGameFinished then fuccess(players)
             else
-              val withScore = if tour.showScores then computeScores(players) else players
+              val withScore = computeScoresAndPerformances(players, tour.showScores)
               for
                 withRatingDiff <-
                   if tour.showRatingDiffs then computeRatingDiffs(withScore) else fuccess(withScore)
@@ -311,11 +311,11 @@ private final class RelayPlayerApi(
                             .withGame(game, player)
                         )
 
-  private def computeScores(players: RelayPlayers): RelayPlayers =
+  private def computeScoresAndPerformances(players: RelayPlayers, computeScores: Boolean): RelayPlayers =
     players.view
       .mapValues: p =>
         p.copy(
-          score = p.games.foldMap(_.playerScore),
+          score = computeScores.so(p.games.foldMap(_.playerScore)),
           performances = p.games
             .groupBy(_.fideTC)
             .foldLeft(Map.empty):

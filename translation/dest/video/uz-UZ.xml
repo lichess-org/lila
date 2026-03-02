@@ -14,7 +14,7 @@
     <item quantity="other">%s ta video topildi</item>
   </plurals>
   <string name="noVideosForTheseTags">Ushbu teglar boʻyicha videolar topilmadi:</string>
-  <string name="thatsAllWeGotForTheseTags">Ushbu teglar boʻyicha bor-yoʻgʻi shularni topdik:</string>
+  <string name="thatsAllWeGotForTheseTags">Ushbu teglar boʻyicha bor‑yoʻgʻi shularni topdik:</string>
   <string name="thatsAllWeGotForThisSearchX">“%s” soʻrovi boʻyicha barcha natijalar shulardan iborat:</string>
   <string name="thereAreNoResultsForX">“%s” soʻrovi boʻyicha hech qanday natija topilmadi</string>
   <string name="viewMoreTags">Barcha teglarni koʻrish</string>

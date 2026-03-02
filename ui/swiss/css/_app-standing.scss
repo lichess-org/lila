@@ -87,7 +87,6 @@
     .ongoing {
       color: $c-link;
 
-      // background: mix($c-link, $c-bg-box, 15%);
       &:hover {
         background: $m-primary_bg--mix-35;
       }
@@ -96,7 +95,6 @@
     .win {
       color: $c-good;
 
-      // background: mix($c-good, $c-bg-box, 15%);
       &:hover {
         background: $m-secondary_bg--mix-35;
       }
@@ -105,7 +103,6 @@
     .loss {
       color: $m-bad_bg--mix-60;
 
-      // background: mix($c-bad, $c-bg-box, 10%);
       &:hover {
         background: $m-bad_bg--mix-20;
       }

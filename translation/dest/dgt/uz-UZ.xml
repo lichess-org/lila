@@ -1,2 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="dgtBoard">DGT taxtasi</string>
+  <string name="lichessAndDgt">Lichess va DGT</string>
+  <string name="dgtBoardRequirements">DGT taxtasi uchun talablar</string>
+  <string name="dgtBoardLimitations">DGT taxtasining cheklovlari</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Ushbu sahifa orqali DGT taxtangizni Lichessʼga ulashingiz va undan oʻyinlarda foydalanishingiz mumkin.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">DGT elektron taxtasini ulash uchun %s dasturini oʻrnatishingiz kerak boʻladi.</string>
+  <string name="downloadHere">Dasturni bu yerdan yuklab olishingiz mumkin: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Agar ushbu kompyuterda %1$s ishlayotgan boʻlsa, ulanishni %2$s orqali tekshirishingiz mumkin.</string>
+  <string name="openingThisLink">ushbu havolani ochish</string>
+  <string name="ifLiveChessRunningElsewhere">Agar %1$s boshqa qurilmada yoki boshqa portda ishlayotgan boʻlsa, IP‑manzil va portni %2$s sozlashingiz kerak boʻladi.</string>
+  <string name="configurationSection">sozlash boʻlimida</string>
+  <string name="keepPlayPageOpen">Oʻyin sahifasi brauzeringizda ochiq turishi kerak. Sahifa koʻrinib turishi shart emas — uni pastga tushirib (minimize) qoʻyishingiz mumkin yoki Lichess oʻyin sahifasi bilan yonma-yon joylashtirishingiz mumkin, biroq uni yopmang, aks holda taxta ishlamay qoladi.</string>
+  <string name="boardWillAutoConnect">Taxta hozir davom etayotgan yoki yangi boshlanadigan har qanday oʻyinga avtomatik ravishda ulanadi. Qaysi oʻyinni oʻynashni tanlash imkoniyati tez kunda qoʻshiladi.</string>
+  <string name="timeControlsForCasualGames">Reytingsiz oʻyinlar uchun vaqt nazorati: faqat klassik, yozishmali va Rapid.</string>
+  <string name="timeControlsForRatedGames">Reytingli oʻyinlar uchun vaqt nazorati: klassik, yozishmali va baʼzi Rapid turlari (jumladan, 15+10 va 20+0)</string>
+  <string name="whenReadySetupBoard">Tayyor boʻlganingizda, taxtani sozlang va soʻngra %s tugmasini bosing.</string>
+  <string name="ifMoveNotDetected">Agar yurish aniqlanmasa</string>
+  <string name="checkYouHaveMadeOpponentsMove">Dastlab raqibingizning yurishini DGT taxtasida ham amalga oshirganingizni tekshiring. Yurishingizni ortga qaytaring. Uni qaytadan amalga oshiring.</string>
+  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Oxirgi chora sifatida, taxtadagi donalarni Lichessʼdagi bilan bir xil qilib tering, soʻng %s</string>
+  <string name="reloadThisPage">ushbu sahifani yangilang</string>
+  <string name="dgtConfigure">DGT sozlash</string>
+  <string name="lichessConnectivity">Lichess bilan ulanish</string>
+  <string name="validDgtOauthToken">Sizda DGT orqali oʻynash uchun mos keladigan OAuth tokeni mavjud.</string>
+  <string name="dgtPlayMenuEntryAdded">Yuqoridagi \"OʻYNASH\" menyusiga %s yozuvi qoʻshildi.</string>
+  <string name="noSuitableOauthToken">Hech qanday mos keladigan OAuth tokeni yaratilmagan.</string>
+  <string name="dgtBoardConnectivity">DGT taxtasi ulanishi</string>
+  <string name="clickToGenerateOne">Yaratish uchun bosing</string>
+  <string name="webSocketUrl">%s WebSocket URLʼi</string>
+  <string name="useWebSocketUrl">Agar %2$s boshqa qurilmada yoki boshqa portda ishlatilmayotgan boʻlsa, \"%1$s\" manzilidan foydalaning.</string>
+  <string name="textToSpeech">Nutq sintezatori</string>
+  <string name="configureVoiceNarration">Koʻzingizni shaxmat taxtasidan uzmasligingiz uchun amalga oshirilgan yurishlarni ovozli aytib berishni sozlang.</string>
+  <string name="enableSpeechSynthesis">Nutq sintezini yoqish</string>
+  <string name="speechSynthesisVoice">Nutq sintezi ovozi</string>
+  <string name="announceAllMoves">Barcha yurishlarni eʼlon qilish</string>
+  <string name="selectAnnouncePreference">Sizning ham, raqibingizning ham yurishlarini eshitish uchun HA variantini tanlang. Faqat raqibingizning yurishlarini eshitish uchun esa YOʻQ variantini tanlang.</string>
+  <string name="announceMoveFormat">Yurishlarni eʼlon qilish formati</string>
+  <string name="moveFormatDescription">SAN — bu Lichessʼdagi standart format (masalan, \"Nf6\"). UCI — odatda shaxmat dvijoklarida qoʻllaniladi (masalan, \"g8f6\").</string>
+  <string name="keywords">Kalit soʻzlar</string>
+  <string name="keywordFormatDescription">Kalit soʻzlar JSON formatida berilgan. Ular yurishlar va oʻyin natijalarini oʻz tilingizga tarjima qilish uchun ishlatiladi. Standart holatda ingliz tili oʻrnatilgan, ammo uni xohishingizga koʻra oʻzgartirishingiz mumkin.</string>
+  <string name="debug">Nosozliklarni aniqlash (Debug)</string>
+  <string name="verboseLogging">Batafsil xatoliklar hisoboti (Verbose debugging)</string>
+  <string name="toSeeConsoleMessage">Konsol xabarlarini koʻrish uchun Macʼda Command + Option + C, Windows, Linux yoki Chrome OS tizimlarida esa Control + Shift + C tugmalarini bosing</string>
+  <string name="playWithDgtBoard">DGT taxtasida oʻynash</string>
+  <string name="configure">Sozlash</string>
+</resources>

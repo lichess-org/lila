@@ -4,17 +4,18 @@ import chess.format.Uci
 import chess.format.pgn.SanStr
 import chess.opening.Opening
 import chess.IntRating
-import com.softwaremill.tagging.*
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import scala.util.{ Failure, Success, Try }
 
 import lila.core.net.Crawler
+import lila.core.config.Secret
 
 final private class OpeningExplorer(
     ws: StandaloneWSClient,
-    explorerEndpoint: String @@ ExplorerEndpoint
+    explorerEndpoint: Url,
+    oauthToken: Secret
 )(using Scheduler, Executor):
   import OpeningExplorer.*
 
@@ -32,6 +33,7 @@ final private class OpeningExplorer(
     then fuccess(Failure(AnonRateLimit))
     else
       ws.url(s"$explorerEndpoint/lichess")
+        .withHttpHeaders("Authorization" -> s"Bearer ${oauthToken.value}")
         .withQueryStringParameters(
           "since" -> OpeningQuery.firstMonth,
           "play" -> play.map(_.uci).mkString(","),
@@ -63,6 +65,7 @@ final private class OpeningExplorer(
 
   private[opening] def simplePopularity(opening: Opening): Fu[Option[Long]] =
     ws.url(s"$explorerEndpoint/lichess")
+      .withHttpHeaders("Authorization" -> s"Bearer ${oauthToken.value}")
       .withQueryStringParameters(
         "since" -> OpeningQuery.firstMonth,
         "play" -> opening.uci.value.replace(" ", ","),

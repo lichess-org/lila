@@ -29,7 +29,6 @@
       }
       @include if-transp {
         backdrop-filter: blur(6px);
-        // -webkit-backdrop-filter: blur(6px);
 
         &.white {
           background-color: $m-paper--fade-40;
