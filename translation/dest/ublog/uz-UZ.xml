@@ -24,8 +24,8 @@
   <string name="postBody">Post asosiy qismi</string>
   <string name="drafts">Qarolamalar</string>
   <string name="published">Chop etildi</string>
-  <string name="createBlogDiscussion">Izohlarni yoqish</string>
-  <string name="createBlogDiscussionHelp">Postingizni muhokama qilish uchun forumda yangi mavzu ochiladi</string>
+  <string name="createBlogDiscussion">Kommentariylarga ruxsat berish</string>
+  <string name="createBlogDiscussionHelp">Postingizni muhokama qilish uchun forumda yangi mavzu yaratiladi</string>
   <string name="publishOnYourBlog">Blogda chop etish</string>
   <string name="publishHelp">Agar belgilansa, post blogingizda eʼlon qilinadi. Aks holda, u maxfiy qoladi va qoralamalaringiz orasida saqlanadi</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Postni qadab qoʻyish</string>
