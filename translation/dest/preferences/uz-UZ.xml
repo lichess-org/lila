@@ -57,7 +57,7 @@
   <string name="correspondenceEmailNotification">Yozishmali oʻyinlar haqida hisobotni e-pochta orqali har kuni joʻnatish</string>
   <string name="notifyStreamStart">Strimer translyatsiya boshlaganida</string>
   <string name="notifyInboxMsg">Yangi kiruvchi xabar</string>
-  <string name="notifyForumMention">Forumdagi izohlarda sizni eslatishganda</string>
+  <string name="notifyForumMention">Forumdagi kommentariylarda sizni eslatishganda</string>
   <string name="notifyInvitedStudy">Saboqqa taklif olganda</string>
   <string name="notifyGameEvent">Yozishmali oʻyinlardagi yangilanishlar</string>
   <string name="notifyChallenge">Chorlovlar</string>
