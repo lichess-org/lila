@@ -116,7 +116,7 @@ bilan ajrating, u gorizontal chiziqni tasvirlaydi.</string>
   <string name="xAlreadyHasAPendingInvitation">%s ga taklif yuborilgan</string>
   <string name="xIsAKidAccountWarning">%1$s bola akkounti, shu sababli sizning xabaringizni qabul qila olmaydi. Siz ularga taklif URL ini qo‘lingiz bilan yetkazishingiz kerak: %2$s</string>
   <string name="moveToClass">%s ga oʻtish</string>
-  <string name="moveToAnotherClass">Boshqa sinfga o\'ting</string>
+  <string name="moveToAnotherClass">Boshqa sinfga koʻchirish</string>
   <string name="allowMessagingBetweenStudents">Oʻquvchilar oʻzaro xabar almashishiga ruxsat berish</string>
   <string name="allowMessagingBetweenStudentsDesc">Bu faqat siz oʻquvchilaringiz uchun yaratgan akkauntlarga tegishli.</string>
   <string name="quickLoginCode">Tez kirish kodi</string>
