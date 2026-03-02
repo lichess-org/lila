@@ -66,9 +66,9 @@ Sinfga kirish uchun havola quyidagicha.</string>
   <string name="upgradeFromManaged">Boshqariladigan holatdan mustaqil holatga oʻtkazish</string>
   <string name="release">Bitirtirish</string>
   <string name="releaseTheAccount">Oʻquvchi oʻz akkauntini mustaqil boshqarishi uchun uni bitirtiring.</string>
-  <string name="releaseDesc1">Bitirgan akkauntni qayta boshqarib boʻlmaydi. Oʻquvchi bola rejimini oʻzi yoqib-oʻchirishi va parolini mustaqil oʻrnatishi mumkin boʻladi.</string>
+  <string name="releaseDesc1">Bitirgan akkauntni qayta boshqarib boʻlmaydi. Oʻquvchi bola rejimini oʻzi yoqib‑oʻchirishi va parolini mustaqil oʻrnatishi mumkin boʻladi.</string>
   <string name="releaseDesc2">Oʻquvchi akkaunti bitirgandan soʻng ham sinfda qoladi.</string>
-  <string name="realUniqueEmail">Oʻquvchining haqiqiy va takrorlanmas e-pochta manzili. Biz ushbu manzilga akkauntni bitirtirish havolasi koʻrsatilgan tasdiqlash xatini yuboramiz.</string>
+  <string name="realUniqueEmail">Oʻquvchining haqiqiy va takrorlanmas e‑pochta manzili. Biz ushbu manzilga akkauntni bitirtirish havolasi koʻrsatilgan tasdiqlash xatini yuboramiz.</string>
   <string name="closeStudent">Akkauntni yopish</string>
   <string name="closeTheAccount">Oʻquvchi akkauntini butunlay yopish.</string>
   <string name="closeDesc1">Oʻquvchi bu akkauntdan boshqa hech qachon foydalana olmaydi. Akkauntni yopish — qaytarib boʻlmas jarayon. Oʻquvchi buni tushunganiga va bunga rozi ekanligiga ishonch hosil qiling.</string>
