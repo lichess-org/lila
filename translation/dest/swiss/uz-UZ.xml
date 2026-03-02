@@ -4,11 +4,11 @@
   <string name="swissTournaments">Shveysarcha turnirlar</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Turni koʻrish</item>
-    <item quantity="other">Barcha %s ta turni koʻrish</item>
+    <item quantity="other">Barcha %s ta turni koʻrish</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
-    <item quantity="one">%s ta tur</item>
-    <item quantity="other">%s ta tur</item>
+    <item quantity="one">%s ta tur</item>
+    <item quantity="other">%s ta tur</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s turdan iborat shveysarcha</item>
