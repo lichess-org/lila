@@ -80,12 +80,10 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
                     case Left(move) => span(cls := "opening__name__move")((i > 0).option(", "), move)
                     case Right((name, key)) =>
                       val className = s"opening__name__section opening__name__section--${i + 1}"
+                      val tag = key.ifFalse(isLast).fold(span)(k => a(href := openingKeyUrl(k)))
                       frag(
                         if i == 0 then emptyFrag else if i == 1 then ": " else ", ",
-                        (key, isLast) match
-                          case (_, true) => span(cls := className)(name)
-                          case (None, false) => span(cls := className)(name)
-                          case (Some(k), false) => a(href := openingKeyUrl(k))(cls := className)(name)
+                        tag(cls := className)(name)
                       )
                 )
             )
