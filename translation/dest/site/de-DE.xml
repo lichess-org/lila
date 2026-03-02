@@ -136,7 +136,7 @@
   <string name="searchTime">Suchzeit</string>
   <string name="searchTimeDescription">Zeit für die Bewertung neuer Positionen</string>
   <string name="threads">Threads</string>
-  <string name="threadsDescription">Setze sie unterhalb deiner CPU-Anzahl fest, die Ticks markieren eine gute und sichere Wahl</string>
+  <string name="threadsDescription">Setze sie unterhalb deiner CPU-Kernanzahl fest, die Ticks markieren eine gute und sichere Wahl</string>
   <string name="threadsDescriptionMobile">Mehr Threads verbrauchen mehr Akku für eine bessere Analyse</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Arbeitsspeicher</string>
