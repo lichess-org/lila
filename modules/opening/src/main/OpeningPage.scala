@@ -14,8 +14,9 @@ case class OpeningPage(
 
   def exploredOption = explored.toOption.flatten
 
-  def nameParts: NamePart.NamePartList = openingAndExtraMoves match
-    case (op, moves) => (op.so(NamePart.from)) ::: NamePart.from(moves)
+  def nameParts: NamePart.NamePartList =
+    val (op, moves) = openingAndExtraMoves
+    (op.so(NamePart.from)) ::: NamePart.from(moves)
 
 case object NamePart:
   type NamePartList = List[Either[SanStr, (NameSection, Option[OpeningKey])]]
