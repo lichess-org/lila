@@ -196,7 +196,7 @@
   <string name="rememberMe">Meni eslab qol</string>
   <string name="youNeedAnAccountToDoThat">Buning uchun sizga akkaunt kerak</string>
   <string name="signUp">Roʻyxatdan oʻtish</string>
-  <string name="computersAreNotAllowedToPlay">Kompyuterlar va kompyuter yordamidan foydalanadigan oʻyinchilarning oʻynashi taqiqlanadi. Iltimos, oʻyin davomida shaxmat dvijoklari, maʼlumotlar bazalari yoki boshqa oʻyinchilar yordamidan foydalanmang. Shuningdek, bir nechta akkaunt ochish tavsiya etilmaydi va meʼyordan ortiq akkauntlarga ega boʻlish chetlatilishga (ban) olib keladi.</string>
+  <string name="computersAreNotAllowedToPlay">Kompyuter yordamida oʻynash taqiqlanadi. Oʻyin davomida shaxmat dvijoklari, maʼlumotlar bazalari yoki boshqa oʻyinchilar yordamidan foydalanmang. Shuningdek, bir nechta akkaunt ochish tavsiya etilmaydi — bu qoidani muntazam buzish bloklanishga olib keladi.</string>
   <string name="games">Oʻyinlar</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s %2$s mavzusida xabar qoldirdi</string>
