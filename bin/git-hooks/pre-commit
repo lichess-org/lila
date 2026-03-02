@@ -4,7 +4,7 @@
 # when no files match, and we execute lint-stage directly, it still delays
 # the commit by .15s or so, which is annoying.
 if \git --no-pager diff-index -z --name-only --no-renames --cached HEAD | \
-  \grep -qzE '\.(json|scss|ts)$'; then
+  \grep -qzE '\.(json|ts|mts|mjs|scss)$'; then
   # NOTE! grep must be kept in sync with lint-staged config (ui/lint-staged-config.mjs)
 
   ROOT_DIR="$(dirname -- $0)/../.."
