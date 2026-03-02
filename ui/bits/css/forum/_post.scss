@@ -40,6 +40,10 @@
     border-bottom: $border;
   }
 
+  &__message a {
+    overflow-wrap: anywhere;
+  }
+
   &.erased {
     color: $c-font-dimmer;
 
