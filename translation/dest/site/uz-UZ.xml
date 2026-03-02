@@ -236,8 +236,8 @@
   <string name="changeUsername">Foydalanuvchi nomini oʻzgartirish</string>
   <string name="changeUsernameNotSame">Faqat harflar katta-kichikligini oʻzgartirish mumkin. Masalan, \"johndoe\"dan \"JohnDoe\"ga.</string>
   <string name="changeUsernameDescription">Foydalanuvchi nomini oʻzgartiring. Bu faqat bir marta amalga oshirilishi mumkin va faqat harflar katta-kichikligini oʻzgartirishingiz mumkin.</string>
-  <string name="signupUsernameHint">Barcha yoshdagilarga mos keladigan foydalanuvchi nomi tanlaganingizga ishonch hosil qiling. Uni keyinchalik oʻzgartirib boʻlmaydi, nomaqbul nomga ega akkauntlar esa yopib qoʻyiladi!</string>
-  <string name="signupEmailPromise">Faqat akkauntingiz haqida elektron pochta xabarlarini yuboramiz va elektron pochtangizni hech qachon boshqalarga ulashmaymiz.</string>
+  <string name="signupUsernameHint">Foydalanuvchi nomi barcha yoshdagilarga mos boʻlishi shart. Uni keyinchalik oʻzgartirib boʻlmaydi. Nooʻrin nom tanlagan akkauntlar bloklanadi!</string>
+  <string name="signupEmailPromise">Biz sizga faqat akkauntizga oid xabarlarni yuboramiz va elektron pochtangizni hech kimga bermaymiz.</string>
   <string name="password">Parol</string>
   <string name="changePassword">Parolni oʻzgartirish</string>
   <string name="changeEmail">E-pochta manzilini oʻzgartirish</string>
