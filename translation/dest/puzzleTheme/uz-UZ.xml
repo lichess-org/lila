@@ -27,7 +27,7 @@
   <string name="capturingDefender">Himoyachini yoʻq qilish</string>
   <string name="capturingDefenderDescription">Boshqa bir donani himoya qilayotgan muhim donani urib olish. Bu esa oʻsha himoyasiz qolgan donani keyingi yurishda qoʻlga kiritish imkonini beradi.</string>
   <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Chiziqli yurish</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Ikki donasi bir-biriga roʻbaroʻ kelgan holatda, bir dona dushman donasini urmasdan hujum chizigʻi boʻylab harakatlanadi.</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Ikki donasi bir‑biriga roʻbaroʻ kelgan holatda, bir dona dushman donasini urmasdan hujum chizigʻi boʻylab harakatlanadi.</string>
   <string name="cornerMate">Burchak moti</string>
   <string name="cornerMateDescription">Rux yoki farzin yordamida shohni burchakka qamab, ot bilan mot qilish.</string>
   <string name="crushing">Mutlaq ustunlik</string>
@@ -35,7 +35,7 @@
   <string name="discoveredCheck">Ochiq shoh</string>
   <string name="discoveredCheckDescription">Bir donani surish orqali boshqa bir katakdagi dona bilan shoh bering. Bu usul koʻpincha hal qiluvchi ustunlikka olib keladi.</string>
   <string name="doubleBishopMate">Ikki fil moti</string>
-  <string name="doubleBishopMateDescription">Ikkita hujumchi fil yonma-yon diagonallar boʻylab oʻz donalari bilan qamalib qolgan shohga mot beradi.</string>
+  <string name="doubleBishopMateDescription">Ikkita hujumchi fil yonma‑yon diagonallar boʻylab oʻz donalari bilan qamalib qolgan shohga mot beradi.</string>
   <string name="dovetailMate">Koziyo moti</string>
   <string name="dovetailMateDescription">Farzin yordamida beriladigan mot; bunda farzin shohga yopishib turadi, shohning yagona ikkita qochish katagi esa oʻz donalari bilan toʻsilib qolgan boʻladi.</string>
   <string name="equality">Tenglik</string>
@@ -51,7 +51,7 @@
   <string name="discoveredAttack">Ochiq hujum</string>
   <string name="discoveredAttackDescription">Uzoq masofaga zarba beruvchi dona (masalan, rux) yoʻlini toʻsib turgan boshqa bir donani (masalan, otni) surish orqali hujum uyushtirish.</string>
   <string name="doubleCheck">Qoʻshaloq shoh berish</string>
-  <string name="doubleCheckDescription">Ochildi-shoh berish natijasida bir vaqtning oʻzida ikkita dona bilan shoh berish; bunda ham joyidan qoʻzgʻalgan, ham yoʻli ochilgan dona raqib shohiga hujum qiladi.</string>
+  <string name="doubleCheckDescription">Ochildi‑shoh berish natijasida bir vaqtning oʻzida ikkita dona bilan shoh berish; bunda ham joyidan qoʻzgʻalgan, ham yoʻli ochilgan dona raqib shohiga hujum qiladi.</string>
   <string name="endgame">Endshpil</string>
   <string name="endgameDescription">Oʻyinning yakuniy bosqichidagi taktik usul.</string>
   <string name="enPassantDescription">\"En passant\" qoidasiga asoslangan taktika; raqib piyodasi ikki qadam yurib sizning piyodangiz bilan yonma-yon kelib qolsa, uni goʻyo bir qadam yurganidek urib olishingiz mumkin.</string>
@@ -100,7 +100,7 @@
   <string name="mateIn4">4 yurishda mot</string>
   <string name="mateIn4Description">Toʻrtta yurishda mot qiling.</string>
   <string name="mateIn5">5 yurishda mot</string>
-  <string name="mateIn5Description">Koʻp yurishli mot ketma-ketligini yeching.</string>
+  <string name="mateIn5Description">Koʻp yurishli mot ketma‑ketligini yeching.</string>
   <string name="middlegame">Mittelshpil</string>
   <string name="middlegameDescription">Oʻyinning ikkinchi bosqichidagi taktik usullar.</string>
   <string name="oneMove">Bir yurishli masala</string>
@@ -126,7 +126,7 @@
   <string name="rookEndgame">Rux endshpili</string>
   <string name="rookEndgameDescription">Faqat ruxlar va piyodalardan iborat endshpil.</string>
   <string name="sacrifice">Qurbon qilish</string>
-  <string name="sacrificeDescription">Vaqtinchalik moddiy yoʻqotish evaziga, majburiy yurishlar ketma-ketligi orqali kattaroq ustunlikka erishish taktikasi.</string>
+  <string name="sacrificeDescription">Vaqtinchalik moddiy yoʻqotish evaziga, majburiy yurishlar ketma‑ketligi orqali kattaroq ustunlikka erishish taktikasi.</string>
   <string name="short">Qisqa masala</string>
   <string name="shortDescription">Yutish uchun ikkita yurish talab qilinadi.</string>
   <string name="skewer">Shampur</string>
