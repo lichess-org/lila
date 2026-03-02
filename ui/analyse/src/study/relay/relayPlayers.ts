@@ -404,22 +404,16 @@ export const playerLinkConfig = (ctrl: RelayPlayers, player: StudyPlayer, withTi
 export const fidePageLinkAttrs = (p: StudyPlayer, blank?: boolean): Attrs | undefined =>
   p.fideId ? { href: `/fide/${p.fideId}/redirect`, ...(blank ? { target: '_blank' } : {}) } : undefined;
 
-const isRelayPlayer = (p: StudyPlayer | RelayPlayer): p is RelayPlayer => 'score' in p;
-
-const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): VNode =>
+const renderPlayerTipHead = (ctrl: RelayPlayers, p: RelayPlayer): VNode =>
   hl('div.tpp__player', [
     playerPhoto(p, ctrl, 'medium'),
     hl('div.tpp__player__info', [
       hl(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
       hl('div.tpp__player__details', [
         p.team && hl('a.tpp__player__team', matchOrResultsTeamLink(ctrl, p.team), p.team),
-        hl('div', [
-          playerFedFlag(p.fed),
-          !!p.rating && isRelayPlayer(p) && !ctrl.hideResultsSinceRoundId() && ratingDiff(p),
-        ]),
-        isRelayPlayer(p) &&
-          !ctrl.hideResultsSinceRoundId() &&
-          p.score !== undefined &&
+        hl('div', [playerFedFlag(p.fed), !!p.rating && !ctrl.hideResultsSinceRoundId() && ratingDiff(p)]),
+        !ctrl.hideResultsSinceRoundId() &&
+          defined(p.score) &&
           hl('span', [i18n.broadcast.score, ' ', hl('strong', p.score)]),
       ]),
     ]),
@@ -524,10 +518,12 @@ const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = false
   if (isRelayPlayerGame(p)) return hl('div.diff', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff));
   if (!p.ratingDiffs) return p.rating;
   const rds = Object.entries(p.ratingDiffs);
-  return rds.map(([tc, diff]: [FideTC, number]) => {
-    const node = hl('div.diff', [p.ratingsMap?.[tc], diffNode(diff)]);
-    return rds.length === 1 ? node : hl('div.diff', fideTCAttrs(tc), node);
+  const isMultiTc = rds.length > 1;
+  const diffNodes = rds.map(([tc, diff]: [FideTC, number]) => {
+    const node = [p.ratingsMap?.[tc], diffNode(diff)];
+    return isMultiTc ? hl('div.diff', fideTCAttrs(tc), node) : node;
   });
+  return isMultiTc ? hl('div.diffs', diffNodes) : hl('div.diff', diffNodes[0]);
 };
 
 const diffNode = (rd?: number) =>
