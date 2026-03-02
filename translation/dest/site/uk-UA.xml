@@ -136,8 +136,15 @@
   <string name="pinnedPieces">Зв\'язані фігури</string>
   <string name="checkableKing">Король, якому можна поставити шах</string>
   <string name="multipleLines">Кількість стрілок</string>
+  <string name="multipleLinesDescription">Укажіть кількість стрілок аналізу на дошці</string>
+  <string name="searchTime">Час пошуку</string>
+  <string name="searchTimeDescription">Установити час для оцінки нових позицій</string>
+  <string name="threads">Потоки</string>
+  <string name="threadsDescription">Установіть значення нижче за вашу кількість потоків процесора. Галочки позначають безпечний вибір</string>
+  <string name="threadsDescriptionMobile">Більше потоків буде споживати більше заряду акумулятора, але надаватиме кращий аналіз</string>
   <string name="cpus">Потоки</string>
   <string name="memory">Пам\'ять</string>
+  <string name="memoryDescription">Вищі значення можуть підвищити продуктивність</string>
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
   <string name="removesTheDepthLimit">Знімає обмеження на глибину аналізу - ваш комп’ютер стане теплішим</string>
   <string name="blunder">Груба помилка</string>
