@@ -766,7 +766,7 @@
   <string name="webmasters">Webmasterzy</string>
   <string name="about">Informacje o</string>
   <string name="aboutX">Informacje o %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest darmowym (%2$s), wolnym, bez reklam, otwartym serwerem szachowym.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest %2$s darmowym, wolnym, pozbawionym reklam, otwartym serwisem szachowym.</string>
   <string name="really">naprawdę</string>
   <string name="contribute">Wsparcie</string>
   <string name="termsOfService">Regulamin</string>
