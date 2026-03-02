@@ -381,11 +381,25 @@ const showFailing = (ctrl: AnalyseCtrl) =>
     ]),
   ]);
 
+const showAnon = (ctrl: AnalyseCtrl) =>
+  hl(
+    'section.explorer-box.sub-box',
+    hl('div.data.empty', [
+      hl('div.title', i18n.site.openingExplorer),
+      hl('div.failing.message', [
+        hl('p.explanation', i18n.site.youNeedAnAccountToDoThat),
+        hl('a.button.button-empty', { attrs: { href: '/signup' } }, i18n.site.signUp),
+        closeButton(ctrl),
+      ]),
+    ]),
+  );
+
 let lastFen: FEN = '';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const explorer = ctrl.explorer;
   if (!explorer.enabled()) return;
+  if (!explorer.isAuth()) return showAnon(ctrl);
   const data = explorer.current(),
     config = explorer.config,
     configOpened = config.data.open(),
