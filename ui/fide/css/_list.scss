@@ -13,7 +13,6 @@
         @extend %box-radius-left;
 
         flex: 1 1 100%;
-        // height: $top-height;
         font-size: 1.1em;
 
         @media (min-width: at-least($xx-small)) {
