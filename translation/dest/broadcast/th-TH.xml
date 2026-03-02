@@ -67,6 +67,7 @@
   <string name="ratingDiff">ความแตกต่างของเรดติ้ง</string>
   <string name="gamesThisTournament">เกมในทัวร์นาเมนต์นี้</string>
   <string name="score">คะแนน</string>
+  <string name="standingsDisclaimer">อันดับในตารางคำนวณจากผลการแข่งขันที่ถ่ายทอดสด และอาจแตกต่างจากผลการแข่งขันอย่างเป็นทางการ</string>
   <string name="allTeams">ทีมทั้งหมด</string>
   <string name="tournamentFormat">รูปแบบทัวร์นาเมนต์</string>
   <string name="tournamentLocation">ตำแหน่งของทัวร์นาเมนต์</string>
@@ -81,6 +82,26 @@
   <string name="liveboard">กระดานสด</string>
   <string name="communityBroadcast">การออกอากาศในชุมชน</string>
   <string name="createdAndManagedBy">สร้างและจัดการโดย %s</string>
+  <string name="matchPoints">แต้มการแข่ง</string>
+  <string name="gamePoints">แต้มเกม</string>
+  <string name="matches">การแข่งขัน</string>
+  <string name="matchHistory">ประวัติการแข่งขัน</string>
+  <string name="teamResults">ผลลัพธ์ของทีม</string>
+  <string name="termsAutomaticallyTranslated">ระบบจะแปลคำต่อไปนี้โดยอัตโนมัติ: %s</string>
   <string name="roundX">รอบ %s</string>
   <string name="defaultRoundNameHelp">การใช้ชื่อตามค่าเริ่มต้น จะทำให้ระบบแปลชื่อนั้นเป็นภาษาอื่นๆ โดยอัตโนมัติ</string>
+  <string name="openTournament">เปิด</string>
+  <string name="womenTournament">ผู้หญิง</string>
+  <string name="menTournament">ผู้ชาย</string>
+  <string name="girlsTournament">เด็กหญิง</string>
+  <string name="boysTournament">เด็กชาย</string>
+  <string name="openUnderXAgeTournament">รุ่น U%s</string>
+  <string name="girlsUnderXAgeTournament">เด็กหญิงรุ่น U%s</string>
+  <string name="boysUnderXAgeTournament">เด็กชายรุ่น U%s</string>
+  <string name="quarterfinals">รอบก่อนรองชนะเลิศ</string>
+  <string name="semifinals">รอบรองชนะเลิศ</string>
+  <string name="finals">ชิงชนะเลิศ</string>
+  <string name="tiebreaks">การตัดสินผลเสมอ</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">เกม %s</string>
+  <string name="knockouts">น็อคเอาท์</string>
 </resources>

@@ -3,8 +3,8 @@
   <string name="activity">Faollik</string>
   <string name="hostedALiveStream">Jonli efir oʻtkazdi</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">%2$s sifatida lichess.orgʼni %1$s oy davomida qoʻllab-quvvatladi</item>
-    <item quantity="other">%2$s sifatida lichess.orgʼni %1$s oy davomida qoʻllab-quvvatladi</item>
+    <item quantity="one">%2$s sifatida lichess.orgʼni %1$s oy davomida qoʻllab‑quvvatladi</item>
+    <item quantity="other">%2$s sifatida lichess.orgʼni %1$s oy davomida qoʻllab‑quvvatladi</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">%2$s boʻlimida %1$s ta pozitsiyani mashq qildi</item>
@@ -55,22 +55,22 @@
     <item quantity="other">%s ta biryoʻla seansda qatnashdi</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">%s ta oʻquv qoʻllanmasini yaratdi</item>
-    <item quantity="other">%s ta oʻquv qoʻllanmasini yaratdi</item>
+    <item quantity="one">%s ta saboq yaratdi</item>
+    <item quantity="other">%s ta saboq yaratdi</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">%s ta arena turnirida qatnashdi</item>
     <item quantity="other">%s ta arena turnirida qatnashdi</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">%4$s turnirida %3$s ta oʻyin oʻynab %1$s-oʻrin egalladi (top %2$s%%)</item>
-    <item quantity="other">%4$s turnirida %3$s ta oʻyin oʻynab %1$s-oʻrin egalladi (top %2$s%%)</item>
+    <item quantity="one">%4$s turnirida %3$s ta oʻyin oʻynab %1$s‑oʻrin egalladi (top %2$s%%)</item>
+    <item quantity="other">%4$s turnirida %3$s ta oʻyin oʻynab %1$s‑oʻrin egalladi (top %2$s%%)</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
     <item quantity="one">%s ta shveysarcha turnirda qatnashdi</item>
     <item quantity="other">%s ta shveysarcha turnirda qatnashdi</item>
   </plurals>
-  <string name="rankedInSwissTournament">%2$s turnirida %1$s-oʻrin egalladi</string>
+  <string name="rankedInSwissTournament">%2$s turnirida %1$s‑oʻrin egalladi</string>
   <string name="signedUp">Lichess.orgʼda roʻyxatdan oʻtdi</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s ta jamoaga qoʻshildi</item>
