@@ -571,7 +571,7 @@
   <string name="replies">Javoblar soni</string>
   <string name="replyToThisTopic">Ushbu mavzuda javob qoldirish</string>
   <string name="reply">Javob yozish</string>
-  <string name="message">Habar</string>
+  <string name="message">Xabar</string>
   <string name="createTheTopic">Mavzuni yaratish</string>
   <string name="reportAUser">Foydalanuvchi haqida shikoyat qilish</string>
   <string name="user">Foydalanuvchi</string>
@@ -999,7 +999,7 @@ Oʻyinlarni boshlangʻich pozitsiyadan boshlash uchun boʻsh qoldiring.</string>
   <string name="hangOn">Toʻxtang!</string>
   <string name="gameInProgress">Sizni %s bilan tugallanmagan oʻyiningiz bor.</string>
   <string name="abortTheGame">O‘yinni bekor qilish</string>
-  <string name="resignTheGame">Taslim bo‘lish</string>
+  <string name="resignTheGame">Taslim boʻlish</string>
   <string name="youCantStartNewGame">Ushbu oʻyin tugamaguncha yangisini boshlay olmaysiz.</string>
   <string name="since">Shu sanadan</string>
   <string name="until">Shu sanagacha</string>
