@@ -132,8 +132,15 @@
   <string name="pinnedPieces">Pezas cravadas</string>
   <string name="checkableKing">Rei exposto a xaque</string>
   <string name="multipleLines">Liñas múltiples</string>
+  <string name="multipleLinesDescription">Indica o número de liñas analizadas e de frechas das variantes no taboleiro</string>
+  <string name="searchTime">Tempo de procura</string>
+  <string name="searchTimeDescription">Indica o tempo de análise de posicións novas</string>
+  <string name="threads">Fíos</string>
+  <string name="threadsDescription">Axusta este valor por debaixo do número de fíos do teu procesador. A marca indica unha elección segura</string>
+  <string name="threadsDescriptionMobile">Cantos máis fíos, maior uso de batería para unha mellor análise</string>
   <string name="cpus">Procesadores</string>
   <string name="memory">Memoria</string>
+  <string name="memoryDescription">Os valores altos poden mellorar o rendemento</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Elimina o límite de profundidade, e mantén o teu ordenador quente</string>
   <string name="blunder">Metida de zoca</string>
