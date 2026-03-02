@@ -22,7 +22,7 @@ Vaqt qoʻshilishi bor (inkrementli) oʻyinlarda “Berserk” qilsangiz vaqt ort
 Boshlangʻich vaqti nolga teng boʻlgan (0+1, 0+2) oʻyinlarda “Berserk” qilib boʻlmaydi.
 
 “Berserk” rejimida qoʻshimcha ochko olish uchun kamida 7 ta yurish amalga oshirishingiz kerak boʻladi.</string>
-  <string name="howIsTheWinnerDecided">G\'olib qanday aniqlanadi?</string>
+  <string name="howIsTheWinnerDecided">Gʻolib qanday aniqlanadi?</string>
   <string name="howIsTheWinnerDecidedAnswer">Turnirda belgilangan vaqt davomida eng ko\'p bal to\'plagan o\'yinchi(lar) g\'olib(lar) deb topiladi.
 
 Kamida ikkita oʻyinchi bir xil natija qayd etsa turnir natijalari tay-breyk vazifasini oʻtaydi.</string>
@@ -67,9 +67,9 @@ Tezroq gʻalaba qozonib, kutish zaliga qayting — koʻproq oʻyin oʻynang va k
   <string name="defender">Himoyachi</string>
   <string name="pickYourTeam">Jamoangizni tanlang</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Ushbu jangda qaysi jamoa nomidan qatnashasiz?</string>
-  <string name="youMustJoinOneOfTheseTeamsToParticipate">Ishtirok etish uchun siz ushbu jamoalardan biriga qo\'shilishingiz kerak!</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Ishtirok etish uchun ushbu jamoalardan biriga qoʻshilishingiz kerak!</string>
   <string name="created">Yaratilgan</string>
-  <string name="recentlyPlayed">Yaqinda o\'ynadi</string>
+  <string name="recentlyPlayed">Yaqinda oʻynadi</string>
   <string name="bestResults">Eng yaxshi natijalar</string>
   <string name="tournamentStats">Turnir statistikasi</string>
   <string name="rankAvgHelp">Oʻrtacha oʻrin — bu sizning turnirdagi oʻrningizning foizdagi ifodasidir. Pastroq qiymat — yaxshiroq degani.
@@ -81,10 +81,10 @@ Masalan, 100 kishilik turnirda 3-oʻrinni egallash — 3% oʻrtacha oʻrin berad
   <string name="pointsAvg">Oʻrtacha ochko</string>
   <string name="pointsSum">Jami ochkolar</string>
   <string name="rankAvg">Oʻrtacha oʻrin</string>
-  <string name="tournamentWinners">Turnir g\'oliblari</string>
+  <string name="tournamentWinners">Turnir gʻoliblari</string>
   <string name="tournamentShields">Turnir qalqonlari</string>
   <string name="onlyTitled">Faqat unvonli oʻyinchilar</string>
-  <string name="onlyTitledHelp">Turnirga qo\'shilish uchun rasmiy unvon talab qilinadi</string>
+  <string name="onlyTitledHelp">Turnirga qoʻshilish uchun rasmiy unvon talab qilish</string>
   <string name="tournamentPairingsAreNowClosed">Turnir uchun qura tashlash toʻxtatildi.</string>
   <string name="berserkRate">Berserk</string>
 </resources>
