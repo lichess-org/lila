@@ -3,7 +3,7 @@
   <string name="donate">Xayriya qilish</string>
   <string name="donateAsX">%s sifatida xayriya qilish</string>
   <string name="lichessPatron">Lichess homiysi</string>
-  <string name="patronSince" comment="string is a date">%s dan beri homiy</string>
+  <string name="patronSince" comment="string is a date">%s dan beri homiy</string>
   <string name="freeAccount">Bepul akkaunt</string>
   <string name="becomePatron">Lichess homiysiga aylaning</string>
   <string name="xBecamePatron">%s Lichess homiysiga aylandi</string>
@@ -16,7 +16,7 @@
   <string name="noAdsNoSubs">Reklamalar yoʻq, obunalar yoʻq; faqat ochiq kod va ishtiyoq.</string>
   <string name="thankYou">Xayriyangiz uchun rahmat!</string>
   <string name="youHaveLifetime">Siz — umrbod homiysiz. Bu juda ajoyib!</string>
-  <string name="patronUntil">Sizning homiylik maqomingiz %s gacha amal qiladi.</string>
+  <string name="patronUntil">Sizning homiylik maqomingiz %s gacha amal qiladi.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Agar homiylik yangilanmasa, hisobingiz oddiy foydalanuvchi holatiga qaytadi.</string>
   <string name="weAreNonProfit">Bizning tashkilotimiz notijorat hisoblanadi, chunki jahon darajasidagi shaxmat hamma uchun bepul va ochiq boʻlishi kerak deb hisoblaymiz.</string>
   <string name="weRelyOnSupport">Lichessʼning mavjudligi siz kabi insonlarning qoʻllab‑quvvatlashiga bogʻliq. Agar platformamizdan foydalanish sizga yoqayotgan boʻlsa, xayriya qilish orqali homiylarimiz qatoriga qoʻshilishingizni iltimos qilib qolamiz!</string>
