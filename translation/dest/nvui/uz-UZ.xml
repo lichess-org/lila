@@ -20,12 +20,12 @@
   <string name="announcePossibleMoves">Tanlangan dona uchun mumkin boʻlgan yurishlarni aytish.</string>
   <string name="announcePossibleCaptures">Tanlangan dona bilan amalga oshirish mumkin boʻlgan urishlarni (donani olishni) aytish.</string>
   <string name="moveWithArrows">Chapga, oʻngga, yuqoriga yoki pastdagi qoʻshni katakka oʻtish.</string>
-  <string name="moveToPieceByType">Dona nomlari yordamida kataklarga oʻtish. Masalan: \"k\" harfini qayta-qayta bosish ot turgan barcha kataklarga navbat bilan olib oʻtadi. Tartibni teskari qilish uchun bosh harfdan foydalaning.</string>
-  <string name="moveToRank">1-dan 8-gacha boʻlgan gorizontallarga oʻtish.</string>
-  <string name="moveToFile">a-dan h-gacha boʻlgan vertikallarga oʻtish.</string>
+  <string name="moveToPieceByType">Dona nomlari yordamida kataklarga oʻtish. Masalan: \"k\" harfini qayta‑qayta bosish ot turgan barcha kataklarga navbat bilan olib oʻtadi. Tartibni teskari qilish uchun bosh harfdan foydalaning.</string>
+  <string name="moveToRank">1‑dan 8‑gacha boʻlgan gorizontallarga oʻtish.</string>
+  <string name="moveToFile">A‑dan h‑gacha boʻlgan vertikallarga oʻtish.</string>
   <string name="announcePieceLocations">Donalar joylashgan oʻrinlarni aytish. Masalan: oq otlar uchun \"p\" va bosh harf \"N\", qora shoh uchun \"p\" va kichik harf \"k\", barcha oq donalar uchun esa \"p\" va bosh harf \"A\".</string>
   <string name="announcePiecesOnRankOrFile">Gorizontal yoki vertikaldagi donalarni aytish. Masalan: \"s a\", \"s 1\".</string>
-  <string name="goToBoard">Taxtaga oʻtish. Standart katak — e4. Muayyan katakni belgilashingiz mumkin: \"board a-1\" yoki \"b a-1\" buyrugʻi sizni a1 katagiga olib oʻtadi.</string>
+  <string name="goToBoard">Taxtaga oʻtish. Standart katak — e4. Muayyan katakni belgilashingiz mumkin: \"board a‑1\" yoki \"b a‑1\" buyrugʻi sizni a1 katagiga olib oʻtadi.</string>
   <string name="movePiece">Donani surish uchun standart algebraik notatsiyadan foydalaning.</string>
   <string name="promotion">Donani farzindan boshqa donaga almashtirish uchun tenglik belgisidan foydalaning. Masalan: \"a8=n\" buyrugʻi piyodani otga almashtiradi.</string>
   <string name="king">shoh</string>
