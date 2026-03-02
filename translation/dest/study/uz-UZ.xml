@@ -44,9 +44,9 @@
   <string name="like">Yoqdi</string>
   <string name="unlike">Yoqmadi</string>
   <string name="newTag">Yangi teg</string>
-  <string name="commentThisPosition">Ushbu pozitsiyaga izoh berish</string>
-  <string name="commentThisMove">Ushbu yurishga izoh berish</string>
-  <string name="annotateWithGlyphs">Gliflar bilan izohlash</string>
+  <string name="commentThisPosition">Ushbu pozitsiyaga sharh berish</string>
+  <string name="commentThisMove">Ushbu yurishga sharh berish</string>
+  <string name="annotateWithGlyphs">Gliflar bilan belgilash</string>
   <string name="theChapterIsTooShortToBeAnalysed">Tahlil qilish uchun ushbu bob juda qisqa.</string>
   <string name="onlyContributorsCanRequestAnalysis">Kompyuter tahlilini faqat saboq hammualliflari soʻrashi mumkin.</string>
   <string name="getAFullComputerAnalysis">Asosiy variantni server yordamida toʻliq kompyuter tahlilidan oʻtkazish.</string>
@@ -168,7 +168,7 @@
   <string name="perPage">Har bir sahifada %s ta</string>
   <string name="getTheTour">Yordam kerakmi? Platforma bilan tanishing!</string>
   <string name="welcomeToLichessStudyTitle">Lichess saboqlariga xush kelibsiz!</string>
-  <string name="welcomeToLichessStudyText">Bu birgalikda tahlil qilish taxtasi.&lt;br&gt;&lt;br&gt;Undan oʻyinlarni tahlil qilish va izohlash,&lt;br&gt;doʻstlar bilan pozitsiyalarni muhokama qilish&lt;br&gt;va albatta, shaxmat darslari uchun foydalanishingiz mumkin!&lt;br&gt;&lt;br&gt;Bu juda keng imkoniyatli vosita, keling, uning qanday ishlashini koʻrib chiqamiz.</string>
+  <string name="welcomeToLichessStudyText">Bu birgalikda tahlil qilish taxtasi.&lt;br&gt;&lt;br&gt;Undan oʻyinlarni tahlil qilish va sharh berish,&lt;br&gt;doʻstlar bilan pozitsiyalarni muhokama qilish&lt;br&gt;va albatta, shaxmat darslari uchun foydalanishingiz mumkin!&lt;br&gt;&lt;br&gt;Bu juda keng imkoniyatli vosita, keling, uning qanday ishlashini koʻrib chiqamiz.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Ulashildi va saqlandi</string>
   <string name="sharedAndSavedText">Boshqa aʼzolar yurishlaringizni real vaqtda koʻrib turishadi!&lt;br&gt;Bundan tashqari, hamma narsa abadiy saqlab qolinadi.</string>
   <string name="studyMembersTitle">Saboq aʼzolari</string>
@@ -176,8 +176,8 @@
   <string name="addMembersText" comment="%s is an icon that will added at runtime">%s tugmasini bosing.&lt;br&gt;Keyin kim hammuallif boʻlishi yoki boʻlmasligini belgilang.</string>
   <string name="studyChaptersTitle">Saboq boblari</string>
   <string name="studyChaptersText">Saboq bir nechta bobdan iborat boʻlishi mumkin.&lt;br&gt;Har bir bob oʻzining boshlangʻich pozitsiyasi va yurishlar iyerarxiyasiga ega.</string>
-  <string name="commentPositionTitle">Pozitsiyaga izoh berish</string>
-  <string name="commentPositionText" comment="%s is an icon that will added at runtime">%s tugmasini bosing yoki oʻng tarafdagi yurishlar roʻyxati ustiga sichqonchaning oʻng tugmasini bosing.&lt;br&gt;Izohlar saqlanadi va hamma uchun koʻrinadi.</string>
+  <string name="commentPositionTitle">Pozitsiyaga sharh berish</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">%s tugmasini bosing yoki oʻng tarafdagi yurishlar roʻyxati ustiga sichqonchaning oʻng tugmasini bosing.&lt;br&gt;Sharhlar saqlanadi va hamma uchun koʻrinadi.</string>
   <string name="annotatePositionTitle">Pozitsiyaga belgilar qoʻshish</string>
   <string name="annotatePositionText">!? tugmasini bosing yoki oʻng tarafdagi yurishlar roʻyxati ustiga sichqonchani oʻng tugmasini bosing.&lt;br&gt;Tahlil belgilari saqlanadi va hamma uchun koʻrinadi.</string>
   <string name="conclusionTitle">Vaqt ajratganingiz uchun rahmat</string>
@@ -193,7 +193,7 @@
   <string name="fromFenStringTitle">FEN satridan</string>
   <string name="fromFenStringText">Bobni maʼlum bir pozitsiyadan boshlash uchun&lt;br&gt;FEN formatidagi pozitsiyani kiriting:&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;</string>
   <string name="fromPgnGameTitle">PGN oʻyinidan</string>
-  <string name="fromPgnGameText">Bobga yurishlar, izohlar va variantlarni yuklash uchun&lt;br&gt;PGN formatidagi oʻyinni kiriting.</string>
+  <string name="fromPgnGameText">Bobga yurishlar, sharhlar va variantlarni yuklash uchun&lt;br&gt;PGN formatidagi oʻyinni kiriting.</string>
   <string name="variantsAreSupportedTitle">Saboqlarda shaxmat variantlari ham mavjud</string>
   <string name="variantsAreSupportedText">Ha, siz Kreyzihaus va boshqa&lt;br&gt;Lichess variantlarini oʻrganishingiz mumkin!</string>
   <string name="chapterConclusionText">Boblar abadiy saqlanadi.&lt;br&gt;Shaxmat materiallaringizni zavq bilan tartiblang!</string>
