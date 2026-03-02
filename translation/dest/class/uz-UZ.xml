@@ -55,7 +55,7 @@ Sinfga kirish uchun havola quyidagicha.</string>
   <string name="clickToViewInvitation">Taklifni koʻrish uchun havolani bosing:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">Bitta kutilayotgan taklifnoma</item>
-    <item quantity="other">%s ta kutilayotgan taklifnoma</item>
+    <item quantity="other">%s ta kutilayotgan taklifnoma</item>
   </plurals>
   <string name="pending">Kutilmoqda</string>
   <string name="declined">Rad etildi</string>
@@ -76,11 +76,11 @@ Sinfga kirish uchun havola quyidagicha.</string>
   <string name="teachers">Oʻqituvchilar</string>
   <plurals name="nbTeachers">
     <item quantity="one">Oʻqituvchi</item>
-    <item quantity="other">%s ta oʻqituvchi</item>
+    <item quantity="other">%s ta oʻqituvchi</item>
   </plurals>
   <plurals name="nbStudents">
     <item quantity="one">Oʻquvchi</item>
-    <item quantity="other">%s ta oʻquvchi</item>
+    <item quantity="other">%s ta oʻquvchi</item>
   </plurals>
   <string name="students">Oʻquvchilar</string>
   <string name="progress">Progress</string>
