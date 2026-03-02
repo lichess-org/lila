@@ -53,7 +53,7 @@ export async function opening(
   const res = await fetch(url.href, {
     cache: 'default',
     headers: {}, // avoid default headers for cors
-    credentials: 'omit',
+    credentials: 'include',
     signal,
   });
 
