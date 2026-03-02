@@ -31,7 +31,7 @@ final class ModUserSearch(userRepo: UserRepo, userApi: UserApi, jsonView: JsonVi
 
   def apiSearch(regex: String): Fu[JsObject] =
     for
-      ids <- userRepo.idLikeCanBeVeryExpensive("^" + regex.toLowerCase)
+      ids <- userRepo.idLikeCanBeVeryExpensive(regex.toLowerCase)
       withPerfs <- userApi.withPerfsAndEmails(ids)
       jsons = withPerfs.map(userJson)
     yield Json.obj("users" -> jsons)
