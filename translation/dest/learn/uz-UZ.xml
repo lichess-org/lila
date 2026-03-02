@@ -104,7 +104,7 @@ shoh bermoqda!</string>
   <string name="intermediate">Oʻrta daraja</string>
   <string name="boardSetup">Taxtani terish</string>
   <string name="howTheGameStarts">Oʻyin qanday boshlanadi</string>
-  <string name="boardSetupIntro">Ikki qoʻshin jangga shay holatda bir-biriga roʻbaro turibdi.</string>
+  <string name="boardSetupIntro">Ikki qoʻshin jangga shay holatda bir‑biriga roʻbaro turibdi.</string>
   <string name="thisIsTheInitialPosition">Bu — har bir shaxmat oʻyinining boshlangʻich holati!
 Davom etish uchun ixtiyoriy yurishni amalga oshiring.</string>
   <string name="firstPlaceTheRooks">Avval ruxlarni joylashtiring!
@@ -140,7 +140,7 @@ Avval donalarni olib chiqishingiz kerak.</string>
   <string name="enPassantIntro">Raqib piyodasi ikki katak yurganida, siz uni goʻyoki bir katak yurganidek urib olishingiz mumkin.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Qoralar piyodani ikki katak yurdi! Uni kesib oʻtib urib oling.</string>
   <string name="enPassantOnlyWorksImmediately">Kesib oʻtish qoidasi faqat raqib piyoda surganidan soʻng darhol ishlatilishi kerak.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Kesib oʻtish qoidasi faqat piyodangiz 5-gorizontalda boʻlgandagina amal qiladi.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Kesib oʻtish qoidasi faqat piyodangiz 5‑gorizontalda boʻlgandagina amal qiladi.</string>
   <string name="takeAllThePawnsEnPassant">Barcha piyodalarni kesib oʻtish qoidasi bilan urib oling!</string>
   <string name="enPassantComplete">Barakalla! Endi siz kesib oʻtish qoidasini qoʻllashni bilasiz.</string>
   <string name="stalemate">Pat</string>
@@ -193,7 +193,7 @@ Piyoda = 1</string>
   <string name="playMachine">Kompyuter bilan oʻynash</string>
   <string name="testYourSkillsWithTheComputer">Mahoratingizni kompyuterga qarshi sinab koʻring</string>
   <string name="letsGo">Olgʻa!</string>
-  <string name="stageX">%s-bosqich</string>
+  <string name="stageX">%s‑bosqich</string>
   <string name="awesome">Ajoyib!</string>
   <string name="excellent">Zoʻr!</string>
   <string name="greatJob">Barakalla!</string>
@@ -203,8 +203,8 @@ Piyoda = 1</string>
   <string name="yesYesYes">Mana bu boshqa gap!</string>
   <string name="youreGoodAtThis">Qoyil!</string>
   <string name="nailedIt">Ofarin!</string>
-  <string name="rightOn">Toʻppa-toʻgʻri!</string>
-  <string name="stageXComplete">%s-bosqich tugadi</string>
+  <string name="rightOn">Toʻppa‑toʻgʻri!</string>
+  <string name="stageXComplete">%s‑bosqich tugadi</string>
   <string name="next">Keyingisi</string>
   <string name="nextX">Keyingisi: %s</string>
   <string name="backToMenu">Menyuga qaytish</string>
