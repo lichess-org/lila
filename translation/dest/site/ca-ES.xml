@@ -132,6 +132,7 @@
   <string name="pinnedPieces">Peces clavades</string>
   <string name="checkableKing">Rei exposat a escac</string>
   <string name="multipleLines">Múltiples línies</string>
+  <string name="multipleLinesDescription">Estableix el nombre de línies i moviments avaluar al tauler</string>
   <string name="searchTime">Temps de cerca</string>
   <string name="searchTimeDescription">Estableix un temps per avaluar les posicions fresques</string>
   <string name="threads">Fils</string>
