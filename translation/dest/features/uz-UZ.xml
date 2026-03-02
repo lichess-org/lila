@@ -5,8 +5,8 @@
   <string name="standardChessAndX" comment="%s is 8 variants">Standart shaxmat va %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Chuqur %s server tahlili</string>
   <plurals name="gamesPerDay">
-    <item quantity="one">Kuniga %s ta oʻyin</item>
-    <item quantity="other">Kuniga %s ta oʻyin</item>
+    <item quantity="one">Kuniga %s ta oʻyin</item>
+    <item quantity="other">Kuniga %s ta oʻyin</item>
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Taxta muharriri va %s bilan tahlil taxtasi</string>
   <string name="cloudEngineAnalysis">Bulutdagi tahlil</string>
@@ -16,7 +16,7 @@
   <string name="tacticalPuzzlesFromUserGames">Foydalanuvchilar oʻyinlaridan olingan taktik masalalar</string>
   <string name="personalOpeningExplorerX">%1$s (shuningdek %2$s uchun ham ishlaydi)</string>
   <string name="personalOpeningExplorer">Shaxsiy debyutlar bazasi</string>
-  <string name="globalOpeningExplorerInNbGames">Global debyutlar bazasi (%s ta oʻyin!)</string>
+  <string name="globalOpeningExplorerInNbGames">Global debyutlar bazasi (%s ta oʻyin!)</string>
   <string name="endgameTablebase">7 donali endshpillar bazasi</string>
   <string name="downloadOrUploadAnyGameAsPgn">Istalgan oʻyinni PGN formatida yuklab olish/yuklash</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, forum, jamoalar, TV, xabarlar, doʻstlar, chorlovlar</string>
