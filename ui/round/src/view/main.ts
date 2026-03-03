@@ -44,14 +44,14 @@ export function main(ctrl: RoundController): VNode {
                   ? undefined
                   : bind(
                       'wheel',
-                      stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                        if (scroll && !ctrl.isPlaying()) {
-                          e.preventDefault();
+                      stepwiseScroll(
+                        e => {
                           if (e.deltaY > 0) next(ctrl);
                           else if (e.deltaY < 0) prev(ctrl);
                           ctrl.redraw();
-                        }
-                      }),
+                        },
+                        () => ctrl.isPlaying(),
+                      ),
                       undefined,
                       false,
                     ),
