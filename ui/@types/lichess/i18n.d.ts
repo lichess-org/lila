@@ -2401,8 +2401,6 @@ interface I18n {
     stNamZugzwang: string;
     /** Zwischenzug */
     stNamZwischenzug: string;
-    /** You will lose your practice progress! */
-    youWillLoseYourPracticeProgress: string;
   };
   preferences: {
     /** Bell notification sound */
