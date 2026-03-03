@@ -38,6 +38,7 @@ final class RelationApi(
     following as fetchFollowing,
     freshFollowersFromSecondary,
     filterBlocked,
+    filterBlocking,
     removeAllFollowers
   }
 

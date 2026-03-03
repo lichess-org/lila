@@ -23,6 +23,7 @@ abstract class RelationApi(val coll: reactivemongo.api.bson.collection.BSONColle
   def fetchBlocks(u1: UserId, u2: UserId): Fu[Boolean]
   def fetchBlocking(userId: UserId): Fu[Set[UserId]]
   def filterBlocked(by: UserId, candidates: Iterable[UserId]): Fu[Set[UserId]]
+  def filterBlocking(candidates: Iterable[UserId], blocked: UserId): Fu[Set[UserId]]
   def searchFollowedBy(u: UserId, term: UserSearch, max: Int): Fu[List[UserId]]
   def freshFollowersFromSecondary(userId: UserId): Fu[List[UserId]]
 
