@@ -8,6 +8,7 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Bus
+import lila.common.config.given
 import lila.common.autoconfig.*
 import lila.core.config.*
 
@@ -16,7 +17,8 @@ private class FishnetConfig(
     @ConfigName("offline_mode") val offlineMode: Boolean,
     @ConfigName("client_min_version") val clientMinVersion: String,
     @ConfigName("redis.uri") val redisUri: String,
-    val explorerEndpoint: String
+    val explorerEndpoint: String,
+    val explorerOauthToken: Secret
 )
 
 @Module
