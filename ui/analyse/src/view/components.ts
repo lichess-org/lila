@@ -153,22 +153,16 @@ export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewConte
           ? undefined
           : bindNonPassive(
               'wheel',
-              stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                if (ctrl.gamebookPlay()) return;
-                const target = e.target as HTMLElement;
-                if (
-                  target.tagName !== 'PIECE' &&
-                  target.tagName !== 'SQUARE' &&
-                  target.tagName !== 'CG-BOARD'
-                )
-                  return;
-                if (scroll) {
-                  e.preventDefault();
+              stepwiseScroll(
+                e => {
                   if (e.deltaY > 0) control.next(ctrl);
                   else if (e.deltaY < 0) control.prev(ctrl);
                   ctrl.redraw();
-                }
-              }),
+                },
+                e =>
+                  !!ctrl.gamebookPlay() ||
+                  !['PIECE', 'SQUARE', 'CG-BOARD'].includes((e.target as HTMLElement).tagName),
+              ),
             ),
     },
     [

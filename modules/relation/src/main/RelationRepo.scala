@@ -102,3 +102,6 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
 
   def filterBlocked(by: UserId, candidates: Iterable[UserId]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("u2", $doc("u2".$in(candidates), "u1" -> by, "r" -> Block))
+
+  def filterBlocking(candidates: Iterable[UserId], blocked: UserId): Fu[Set[UserId]] =
+    coll.distinctEasy[UserId, Set]("u1", $doc("u1".$in(candidates), "u2" -> blocked, "r" -> Block))

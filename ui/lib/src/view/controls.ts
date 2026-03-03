@@ -4,6 +4,7 @@ import { h, type Hooks, type VNode, type Attrs } from 'snabbdom';
 import { toggle as baseToggle, type Toggle } from '@/index';
 import * as xhr from '@/xhr';
 import * as licon from '@/licon';
+import { isMac } from '@/device';
 
 export function enter<E extends HTMLElement>(effect: (target: E) => void) {
   return (e: Event): void => {
@@ -38,8 +39,24 @@ export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => v
     effect();
   });
 
-export function stepwiseScroll(inner: (e: WheelEvent, scroll: boolean) => void): (e: WheelEvent) => void {
-  return (e: WheelEvent) => inner(e, !e.ctrlKey); // if touchpad zooming, e.ctrlKey is true
+export function stepwiseScroll(
+  scrollAction: (e: WheelEvent) => void,
+  shouldSkip: (e: WheelEvent) => boolean,
+  ifSkipShouldStillPreventDefault?: boolean,
+): (e: WheelEvent) => void {
+  let accumulatedDelta = 0;
+  return (e: WheelEvent) => {
+    if (e.ctrlKey) return; // if touchpad zooming, e.ctrlKey is true
+    if (shouldSkip(e)) {
+      if (ifSkipShouldStillPreventDefault) e.preventDefault();
+      return;
+    }
+    e.preventDefault();
+    accumulatedDelta += e.deltaY;
+    if (e.deltaMode === 0 && isMac() && Math.abs(accumulatedDelta) < 10) return;
+    accumulatedDelta = 0;
+    scrollAction(e);
+  };
 }
 
 export function copyMeInput(content: string, inputAttrs: Attrs = {}): VNode {

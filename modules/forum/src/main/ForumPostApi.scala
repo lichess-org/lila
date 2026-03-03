@@ -19,7 +19,8 @@ final class ForumPostApi(
     promotion: lila.core.security.PromotionApi,
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage,
-    picfitApi: lila.memo.PicfitApi
+    picfitApi: lila.memo.PicfitApi,
+    relationApi: lila.core.relation.RelationApi
 )(using Executor)(using scheduler: Scheduler)
     extends lila.core.forum.ForumPostApi:
 
@@ -29,54 +30,56 @@ final class ForumPostApi(
       categ: ForumCateg,
       topic: ForumTopic,
       data: ForumForm.PostData
-  )(using me: Me): Fu[ForumPost] =
-    detectLanguage(data.text).zip(recentUserIds(topic, topic.nbPosts)).flatMap { (lang, topicUserIds) =>
-      val publicMod = MasterGranter(_.PublicMod)
-      val modIcon = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
-      val anonMod = modIcon && !publicMod
-      val post = ForumPost.make(
-        topicId = topic.id,
-        userId = (!anonMod).option(me),
-        text = spam.replace(data.text),
-        number = topic.nbPosts + 1,
-        lang = lang.map(_.language),
-        troll = me.marks.troll,
-        categId = categ.id,
-        modIcon = modIcon.option(true)
-      )
-      postRepo
-        .findDuplicate(post)
-        .flatMap:
-          case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
-          case _ =>
-            for
-              _ <- postRepo.coll.insert.one(post)
-              _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
-              _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
-            yield
-              promotion.save(me, post.text)
-              if post.isTeam
-              then shutupApi.teamForumMessage(me, post.text)
-              else shutupApi.publicText(me, post.text, PublicSource.Forum(post.id))
-              if anonMod
-              then logAnonPost(post, edit = false)
-              else if !post.troll && !categ.quiet then
-                lila.common.Bus.pub:
-                  Propagate(TimelinePost(me, topic.id, topic.name, post.id))
-                    .toFollowersOf(me)
-                    .toUsers(topicUserIds)
-                    .exceptUser(me)
-                    .withTeam(categ.team)
-              else if categ.id == ForumCateg.diagnosticId then
-                lila.common.Bus.pub:
-                  Propagate(TimelinePost(me, topic.id, topic.name, post.id))
-                    .toUsers(topicUserIds)
-                    .exceptUser(me)
-              lila.mon.forum.post.create.increment()
-              mentionNotifier.notifyMentionedUsers(post, topic)
-              Bus.pub(BusForum.CreatePost(post.mini))
-              post
-    }
+  )(using me: Me): Fu[ForumPost] = for
+    lang <- detectLanguage(data.text)
+    publicMod = MasterGranter(_.PublicMod)
+    modIcon = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
+    anonMod = modIcon && !publicMod
+    post = ForumPost.make(
+      topicId = topic.id,
+      userId = (!anonMod).option(me),
+      text = spam.replace(data.text),
+      number = topic.nbPosts + 1,
+      lang = lang.map(_.language),
+      troll = me.marks.troll,
+      categId = categ.id,
+      modIcon = modIcon.option(true)
+    )
+    dup <- postRepo.findDuplicate(post)
+    post <- dup match
+      case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
+      case _ =>
+        for
+          _ <- postRepo.coll.insert.one(post)
+          _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
+          _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+          recentUsers <- recentUserIds(topic, topic.nbPosts)
+          blockingUsers <- relationApi.filterBlocking(recentUsers, me.userId)
+          interestedUsers = recentUsers.filterNot(blockingUsers.contains)
+        yield
+          promotion.save(me, post.text)
+          if post.isTeam
+          then shutupApi.teamForumMessage(me, post.text)
+          else shutupApi.publicText(me, post.text, PublicSource.Forum(post.id))
+          if anonMod
+          then logAnonPost(post, edit = false)
+          else if !post.troll && !categ.quiet then
+            lila.common.Bus.pub:
+              Propagate(TimelinePost(me, topic.id, topic.name, post.id))
+                .toFollowersOf(me)
+                .toUsers(interestedUsers)
+                .exceptUser(me)
+                .withTeam(categ.team)
+          else if categ.id == ForumCateg.diagnosticId then
+            lila.common.Bus.pub:
+              Propagate(TimelinePost(me, topic.id, topic.name, post.id))
+                .toUsers(interestedUsers)
+                .exceptUser(me)
+          lila.mon.forum.post.create.increment()
+          mentionNotifier.notifyMentionedUsers(post, topic)
+          Bus.pub(BusForum.CreatePost(post.mini))
+          post
+  yield post
 
   def editPost(postId: ForumPostId, newText: String)(using me: Me): Fu[ForumPost] =
     get(postId).flatMap: post =>

@@ -379,18 +379,20 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
           });
           el.addEventListener(
             'wheel',
-            stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-              if (scroll) e.preventDefault();
-              if (pvIndex !== null) {
-                if (e.deltaY < 0 && pvIndex > 0 && scroll) pvIndex -= 1;
-                else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1 && scroll) pvIndex += 1;
+            stepwiseScroll(
+              e => {
+                if (pvIndex === null) return; // should never be true, just for type inference
+                if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1;
+                else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1) pvIndex += 1;
                 const pvBoard = pvMoves[pvIndex];
                 if (pvBoard) {
                   const [fen, uci] = pvBoard.split('|');
                   ctrl.ceval.setPvBoard({ fen, uci });
                 }
-              }
-            }),
+              },
+              () => pvIndex === null,
+              true,
+            ),
           );
           el.addEventListener('mouseout', () => setHovering(ceval, null));
           el.addEventListener('mouseleave', resetPvIndexAndBoard);

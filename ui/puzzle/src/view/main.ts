@@ -111,19 +111,14 @@ export default function (ctrl: PuzzleCtrl): VNode {
               ? undefined
               : bindNonPassive(
                   'wheel',
-                  stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                    const target = e.target as HTMLElement;
-                    if (
-                      target.tagName !== 'PIECE' &&
-                      target.tagName !== 'SQUARE' &&
-                      target.tagName !== 'CG-BOARD'
-                    )
-                      return;
-                    e.preventDefault();
-                    if (e.deltaY > 0 && scroll) control.next(ctrl);
-                    else if (e.deltaY < 0 && scroll) control.prev(ctrl);
-                    ctrl.redraw();
-                  }),
+                  stepwiseScroll(
+                    e => {
+                      if (e.deltaY > 0) control.next(ctrl);
+                      else if (e.deltaY < 0) control.prev(ctrl);
+                      ctrl.redraw();
+                    },
+                    e => !['PIECE', 'SQUARE', 'CG-BOARD'].includes((e.target as HTMLElement).tagName),
+                  ),
                 ),
         },
         [chessground(ctrl), ctrl.promotion.view()],
