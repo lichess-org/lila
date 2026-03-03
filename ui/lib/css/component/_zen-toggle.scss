@@ -21,9 +21,6 @@
     @media (height >= $tall) {
       transform: translateY(-3px);
     }
-    @media (width < $topnav-visible) {
-      margin-left: 0.5em;
-    }
     &:hover {
       opacity: 1;
     }
