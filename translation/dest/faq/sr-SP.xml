@@ -93,7 +93,7 @@
   <string name="canIChangeMyUsername">Могу ли променити своје корисничко име?</string>
   <string name="uniqueTrophies">Јединствени трофеји</string>
   <string name="ownerUniqueTrophies">Тај трофеј је јединствен у историји Lichess-а, нико осим %1$s га никад неће имати.</string>
-  <string name="aHourlyBulletTournament">сатни муњевити турнир</string>
+  <string name="aHourlyBulletTournament">часовни Метак-шах турнир</string>
   <string name="goldenZeeExplanation">ZuggAddict је стримовао и за последња 2 сата покушавао да порази вештачку интелингецију нивоа 8 у 1+0 партији, без успеха. Thibault му је рекао да ако то успешно уради на стриму, добиће јединствени трофеј. Сат времена касније, победио је Стокфиш и обећање је испоштовано.</string>
   <string name="lichessRatings">Lichess рејтинзи</string>
   <string name="whichRatingSystemUsedByLichess">Који рејтинг систем користи Lichess?</string>
