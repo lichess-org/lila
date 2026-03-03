@@ -91,7 +91,6 @@ export default class ExplorerCtrl {
 
   private fetch = debounce(
     () => {
-      console.log(this.isAuth(), myUserId());
       const fen = this.root.node.fen;
       const processData = (res: ExplorerData) => {
         this.cache[fen] = res;
