@@ -25,7 +25,6 @@ import { Coords } from 'lib/prefs';
 import type PuzzleCtrl from '../ctrl';
 import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import { storage } from 'lib/storage';
-import { requiresMoreDeltaForStepwiseScroll } from 'lib/device';
 
 const renderAnalyse = (ctrl: PuzzleCtrl): VNode => hl('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
@@ -79,7 +78,6 @@ export default function (ctrl: PuzzleCtrl): VNode {
     if (!cevalShown) ctrl.autoScrollNow = true;
     cevalShown = ctrl.showAnalysis();
   }
-  let accumulatedDelta = 0;
   return hl(
     `main.puzzle.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
     {
@@ -113,17 +111,14 @@ export default function (ctrl: PuzzleCtrl): VNode {
               ? undefined
               : bindNonPassive(
                   'wheel',
-                  stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                    const target = e.target as HTMLElement;
-                    if (!scroll || !['PIECE', 'SQUARE', 'CG-BOARD'].includes(target.tagName)) return;
-                    e.preventDefault();
-                    accumulatedDelta += e.deltaY;
-                    if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
-                    accumulatedDelta = 0;
-                    if (e.deltaY > 0) control.next(ctrl);
-                    else if (e.deltaY < 0) control.prev(ctrl);
-                    ctrl.redraw();
-                  }),
+                  stepwiseScroll(
+                    e => {
+                      if (e.deltaY > 0) control.next(ctrl);
+                      else if (e.deltaY < 0) control.prev(ctrl);
+                      ctrl.redraw();
+                    },
+                    e => !['PIECE', 'SQUARE', 'CG-BOARD'].includes((e.target as HTMLElement).tagName),
+                  ),
                 ),
         },
         [chessground(ctrl), ctrl.promotion.view()],

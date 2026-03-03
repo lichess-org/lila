@@ -10,7 +10,7 @@ import { renderMaterialDiffs } from 'lib/game/view/material';
 import { renderVoiceBar } from 'voice';
 import { playable } from 'lib/game';
 import { storage } from 'lib/storage';
-import { displayColumns, isTouchDevice, requiresMoreDeltaForStepwiseScroll } from 'lib/device';
+import { displayColumns, isTouchDevice } from 'lib/device';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
@@ -25,7 +25,6 @@ export function main(ctrl: RoundController): VNode {
       ctrl.ply,
     );
   const hideBoard = ctrl.data.player.blindfold && playable(ctrl.data);
-  let accumulatedDelta = 0;
   return ctrl.nvui
     ? ctrl.nvui.render()
     : hl(
@@ -45,16 +44,14 @@ export function main(ctrl: RoundController): VNode {
                   ? undefined
                   : bind(
                       'wheel',
-                      stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                        if (!scroll || ctrl.isPlaying()) return;
-                        e.preventDefault();
-                        accumulatedDelta += e.deltaY;
-                        if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
-                        accumulatedDelta = 0;
-                        if (e.deltaY > 0) next(ctrl);
-                        else if (e.deltaY < 0) prev(ctrl);
-                        ctrl.redraw();
-                      }),
+                      stepwiseScroll(
+                        e => {
+                          if (e.deltaY > 0) next(ctrl);
+                          else if (e.deltaY < 0) prev(ctrl);
+                          ctrl.redraw();
+                        },
+                        () => ctrl.isPlaying(),
+                      ),
                       undefined,
                       false,
                     ),

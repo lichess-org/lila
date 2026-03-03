@@ -193,11 +193,13 @@ const boardScroll = (ctrl: PlayCtrl) =>
     ? undefined
     : bind(
         'wheel',
-        stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-          e.preventDefault();
-          if (e.deltaY > 0 && scroll) ctrl.goDiff(1);
-          else if (e.deltaY < 0 && scroll) ctrl.goDiff(-1);
-        }),
+        stepwiseScroll(
+          e => {
+            if (e.deltaY > 0) ctrl.goDiff(1);
+            else if (e.deltaY < 0) ctrl.goDiff(-1);
+          },
+          () => false,
+        ),
         undefined,
         false,
       );

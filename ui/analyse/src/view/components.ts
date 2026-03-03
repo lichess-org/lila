@@ -15,7 +15,7 @@ import {
   stepwiseScroll,
 } from 'lib/view';
 import { playable } from 'lib/game';
-import { isMobile, requiresMoreDeltaForStepwiseScroll } from 'lib/device';
+import { isMobile } from 'lib/device';
 import * as materialView from 'lib/game/view/material';
 import { path as treePath } from 'lib/tree/tree';
 import { view as actionMenu } from './actionMenu';
@@ -144,9 +144,8 @@ export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, 
   ]);
 }
 
-export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewContext): VNode => {
-  let accumulatedDelta = 0;
-  return hl(
+export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewContext): VNode =>
+  hl(
     addChapterId(study, 'div.analyse__board.main-board'),
     {
       hook:
@@ -154,22 +153,16 @@ export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewConte
           ? undefined
           : bindNonPassive(
               'wheel',
-              stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                const target = e.target as HTMLElement;
-                if (
-                  ctrl.gamebookPlay() ||
-                  !scroll ||
-                  !['PIECE', 'SQUARE', 'CG-BOARD'].includes(target.tagName)
-                )
-                  return;
-                e.preventDefault();
-                accumulatedDelta += e.deltaY;
-                if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
-                accumulatedDelta = 0;
-                if (e.deltaY > 0) control.next(ctrl);
-                else if (e.deltaY < 0) control.prev(ctrl);
-                ctrl.redraw();
-              }),
+              stepwiseScroll(
+                e => {
+                  if (e.deltaY > 0) control.next(ctrl);
+                  else if (e.deltaY < 0) control.prev(ctrl);
+                  ctrl.redraw();
+                },
+                e =>
+                  !!ctrl.gamebookPlay() ||
+                  !['PIECE', 'SQUARE', 'CG-BOARD'].includes((e.target as HTMLElement).tagName),
+              ),
             ),
     },
     [
@@ -180,7 +173,6 @@ export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewConte
       ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess'),
     ],
   );
-};
 
 export const renderUnderboard = ({ ctrl, deps, study }: ViewContext): VNode =>
   hl(

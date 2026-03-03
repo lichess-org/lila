@@ -150,6 +150,3 @@ export function isVersionCompatible(version: string | undefined | false, vc?: Ve
     return false;
   }
 }
-
-export const requiresMoreDeltaForStepwiseScroll = (accumulatedDelta: number, deltaMode: number): boolean =>
-  deltaMode === 0 && isMac() && Math.abs(accumulatedDelta) < 10;

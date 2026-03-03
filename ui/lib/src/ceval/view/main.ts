@@ -17,7 +17,7 @@ import { uciToMove } from '@lichess-org/chessground/util';
 import { renderCevalSettings } from './settings';
 import type CevalCtrl from '../ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { isTouchDevice, requiresMoreDeltaForStepwiseScroll } from '@/device';
+import { isTouchDevice } from '@/device';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
@@ -377,23 +377,22 @@ export function renderPvs(ctrl: CevalHandler): VNode | undefined {
               ceval.setPvBoard({ fen, uci });
             }
           });
-          let accumulatedDelta = 0;
           el.addEventListener(
             'wheel',
-            stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-              if (scroll) e.preventDefault();
-              if (pvIndex === null) return;
-              accumulatedDelta += e.deltaY;
-              if (requiresMoreDeltaForStepwiseScroll(accumulatedDelta, e.deltaMode)) return;
-              accumulatedDelta = 0;
-              if (e.deltaY < 0 && pvIndex > 0 && scroll) pvIndex -= 1;
-              else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1 && scroll) pvIndex += 1;
-              const pvBoard = pvMoves[pvIndex];
-              if (pvBoard) {
-                const [fen, uci] = pvBoard.split('|');
-                ctrl.ceval.setPvBoard({ fen, uci });
-              }
-            }),
+            stepwiseScroll(
+              e => {
+                if (pvIndex === null) return; // should never be true, just for type inference
+                if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1;
+                else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1) pvIndex += 1;
+                const pvBoard = pvMoves[pvIndex];
+                if (pvBoard) {
+                  const [fen, uci] = pvBoard.split('|');
+                  ctrl.ceval.setPvBoard({ fen, uci });
+                }
+              },
+              () => pvIndex === null,
+              true,
+            ),
           );
           el.addEventListener('mouseout', () => setHovering(ceval, null));
           el.addEventListener('mouseleave', resetPvIndexAndBoard);
