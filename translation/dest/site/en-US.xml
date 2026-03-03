@@ -129,8 +129,14 @@
   <string name="evaluationGauge">Evaluation gauge</string>
   <string name="checkableKing">Checkable king</string>
   <string name="multipleLines">Multiple lines</string>
+  <string name="multipleLinesDescription">Set number of evaluation lines and move arrows on the board</string>
+  <string name="searchTime">Search time</string>
+  <string name="searchTimeDescription">Set time to evaluate fresh positions</string>
+  <string name="threads">Threads</string>
+  <string name="threadsDescriptionMobile">More threads will use more battery for better analysis</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memory</string>
+  <string name="memoryDescription">Higher values may improve performance</string>
   <string name="infiniteAnalysis">Infinite analysis</string>
   <string name="removesTheDepthLimit">Removes the depth limit, and keeps your computer warm</string>
   <string name="blunder">Blunder</string>

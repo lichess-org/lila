@@ -132,8 +132,15 @@
   <string name="pinnedPieces">Iltzatutako piezak</string>
   <string name="checkableKing">Xake egin dakiokeen erregea</string>
   <string name="multipleLines">Linea anitz</string>
+  <string name="multipleLinesDescription">Ezarri zenbat ebaluazio linea, eta taulan mugimendu geziak erakutsiko diren</string>
+  <string name="searchTime">Bilaketa denbora</string>
+  <string name="searchTimeDescription">Ezarri posizio berriak ebaluatzeko denbora</string>
+  <string name="threads">Hari-kopurua</string>
+  <string name="threadsDescription">Ezarri hau zure ordenagailuaren PUZaren hari kopurua baino balio txikiagoan, markatxoak balio egokia adierazten du</string>
+  <string name="threadsDescriptionMobile">Hari kopuru gehiagok analisi hobea lortzeko bateria gehiago erabiliko du</string>
   <string name="cpus">CPU</string>
   <string name="memory">Memoria</string>
+  <string name="memoryDescription">Balio handiagoek agian errendimendua hobetu dezakete</string>
   <string name="infiniteAnalysis">Analisi infinitua</string>
   <string name="removesTheDepthLimit">Sakonera muga ezabatzendu eta zure ordenagailua epel mantentzen du</string>
   <string name="blunder">Hanka-sartzea</string>

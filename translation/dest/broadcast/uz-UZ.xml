@@ -7,8 +7,8 @@
     <item quantity="other">%s translyatsiya</item>
   </plurals>
   <plurals name="nbViewers">
-    <item quantity="one">%s ta tomoshabin</item>
-    <item quantity="other">%s ta tomoshabin</item>
+    <item quantity="one">%s ta kuzatuvchi</item>
+    <item quantity="other">%s ta kuzatuvchi</item>
   </plurals>
   <string name="liveBroadcasts">Jonli turnir translyatsiyalari</string>
   <string name="broadcastCalendar">Translyatsiyalar taqvimi</string>

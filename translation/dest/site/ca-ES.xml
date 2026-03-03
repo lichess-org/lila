@@ -132,8 +132,15 @@
   <string name="pinnedPieces">Peces clavades</string>
   <string name="checkableKing">Rei exposat a escac</string>
   <string name="multipleLines">Múltiples línies</string>
+  <string name="multipleLinesDescription">Estableix el nombre de línies i moviments avaluar al tauler</string>
+  <string name="searchTime">Temps de cerca</string>
+  <string name="searchTimeDescription">Estableix un temps per avaluar les posicions fresques</string>
+  <string name="threads">Fils</string>
+  <string name="threadsDescription">Establiu el valor per sota del vostre nombre de fils del CPUs. La marca és un bon valor segur</string>
+  <string name="threadsDescriptionMobile">Més fils utilitzarà més bateria per millors anàlisis</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memòria</string>
+  <string name="memoryDescription">Valors més alts pot millorar el rendiment</string>
   <string name="infiniteAnalysis">Anàlisi il·limitada</string>
   <string name="removesTheDepthLimit">Treu el límit de profunditat i escalfa el teu ordinador</string>
   <string name="blunder">Errada greu</string>

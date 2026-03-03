@@ -3,12 +3,12 @@
   <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">Qidirish</string>
   <string name="advancedSearch">Kengaytirilgan qidiruv</string>
   <plurals name="searchInXGames">
-    <item quantity="one">%s ta shaxmat oʻyinidan qidirish</item>
-    <item quantity="other">%s ta shaxmat oʻyinidan qidirish</item>
+    <item quantity="one">%s ta shaxmat oʻyinidan qidirish</item>
+    <item quantity="other">%s ta shaxmat oʻyinidan qidirish</item>
   </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Bitta oʻyin topildi</item>
-    <item quantity="other">%s ta oʻyin topildi</item>
+    <item quantity="other">%s ta oʻyin topildi</item>
   </plurals>
   <string name="opponentName">Raqib ismi</string>
   <string name="loser">Magʻlub</string>
@@ -32,8 +32,8 @@
   <string name="descending">Kamayish tartibida</string>
   <string name="ascending">Oʻsish tartibida</string>
   <plurals name="gamesFound">
-    <item quantity="one">%s ta oʻyin topildi</item>
-    <item quantity="other">%s ta oʻyin topildi</item>
+    <item quantity="one">%s ta oʻyin topildi</item>
+    <item quantity="other">%s ta oʻyin topildi</item>
   </plurals>
   <string name="ratingExplanation">Ikkala oʻyinchining oʻrtacha reytingi</string>
 </resources>

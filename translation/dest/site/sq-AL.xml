@@ -132,8 +132,15 @@
   <string name="pinnedPieces">Gurë të fiksuar</string>
   <string name="checkableKing">Mbret të cilit mund t’i jepet shah</string>
   <string name="multipleLines">Linja të shumta</string>
+  <string name="multipleLinesDescription">Caktoni numër rreshtash vleftësimi dhe kalojini shigjetat te fusha</string>
+  <string name="searchTime">Kohë kërkimi</string>
+  <string name="searchTimeDescription">Caktoni kohën për vleftësim pozicionesh të freskëta</string>
+  <string name="threads">Rrjedha</string>
+  <string name="threadsDescription">Vëreni këtë nën numër rrjedhash të CPU-së tuaj, shenjat tregojnë një zgjedhje të mirë të parrezik</string>
+  <string name="threadsDescriptionMobile">Më tepër rrjedha do të përdorin më tepër bateri për analizim më të mirë</string>
   <string name="cpus">Procesorë</string>
   <string name="memory">Kujtesë</string>
+  <string name="memoryDescription">Vlera më të mëdha mund të përmirësojnë funksionimin</string>
   <string name="infiniteAnalysis">Analizë e pafundme</string>
   <string name="removesTheDepthLimit">Heq kufirin e thellësisë dhe e mban të ngrohtë kompjuterin tuaj</string>
   <string name="blunder">Gafë</string>

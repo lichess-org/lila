@@ -132,8 +132,15 @@
   <string name="pinnedPieces">Bundne brikker</string>
   <string name="checkableKing">Konge der kan sættes i skak</string>
   <string name="multipleLines">Flere linjer</string>
+  <string name="multipleLinesDescription">Angiv antal evalueringslinjer og trækpile på brættet</string>
+  <string name="searchTime">Søgetid</string>
+  <string name="searchTimeDescription">Indstil tid til evaluering af friske positioner</string>
+  <string name="threads">Tråde</string>
+  <string name="threadsDescription">Indstil dette til under din CPU\'s trådantal, afkrydsningerne markerer er et godt og sikkert valg</string>
+  <string name="threadsDescriptionMobile">Flere tråde vil bruge mere batteri til bedre analyse</string>
   <string name="cpus">CPU\'er</string>
   <string name="memory">Hukommelse</string>
+  <string name="memoryDescription">Højere værdier kan forbedre ydeevnen</string>
   <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="removesTheDepthLimit">Fjerner dybdegrænsen, og holder din computer varm</string>
   <string name="blunder">Brøler</string>
