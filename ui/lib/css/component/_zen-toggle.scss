@@ -1,10 +1,10 @@
 #zenzone {
   display: none;
-  flex-flow: row nowrap;
   align-items: center;
   z-index: $z-zen-toggle-111;
-  margin: 0 auto;
   justify-content: flex-start;
+  max-width: unset;
+  padding: 0;
 
   body.zenable.zen & {
     display: flex;
@@ -14,10 +14,9 @@
     font-size: 30px;
     opacity: 0.5;
     color: $c-font;
-    margin: 0 0.5em 0 0.75em;
+    margin: 0 0.5em;
     @media (height < $tall) {
       font-size: 24px;
-      margin-left: 21px;
     }
     @media (height >= $tall) {
       transform: translateY(-3px);
