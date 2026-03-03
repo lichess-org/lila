@@ -29,9 +29,12 @@ site.load.then(() => {
     source.onerror = () => source.close();
   }
 
+  const syncToggleActive = () => $toggle.toggleClass('active', !$zone.hasClass('none'));
+  window.addEventListener('resize', syncToggleActive);
   function loadZone() {
     $zone.html(spinnerHtml).removeClass('none');
     $('#main-wrap').addClass('full-screen-force');
+    syncToggleActive();
     $zone.html('');
     streamLoad();
     window.addEventListener('scroll', onScroll);
@@ -39,6 +42,7 @@ site.load.then(() => {
   }
   function unloadZone() {
     $zone.addClass('none');
+    syncToggleActive();
     $('#main-wrap').removeClass('full-screen-force');
     window.removeEventListener('scroll', onScroll);
     scrollTo('#top');
