@@ -26,14 +26,18 @@ final class RelayRoundForm(using mode: Mode):
 
   import RelayRoundForm.*
 
-  private given (using Me): Formatter[Upstream.Url] =
-    formatter.stringTryFormatter(str => validateUpstreamUrl(str).map(Upstream.Url.apply), _.url.toString)
+  private def urlFormatter(prev: Option[RelayRound])(using Me): Formatter[Upstream.Url] =
+    val prevUrl = prev.flatMap(_.sync.upstream).flatMap(_.asUrl)
+    formatter.stringTryFormatter(
+      str => validateUpstreamUrl(str, prevUrl).map(Upstream.Url.apply),
+      _.url.toString
+    )
 
   private given (using Me): Formatter[Upstream.Urls] = formatter.stringTryFormatter(
     _.linesIterator.toList
       .map(_.trim)
       .filter(_.nonEmpty)
-      .traverse(validateUpstreamUrl)
+      .traverse(validateUpstreamUrl(_, none))
       .map(_.distinct)
       .map(Upstream.Urls.apply),
     _.urls.mkString("\n")
@@ -61,7 +65,7 @@ final class RelayRoundForm(using mode: Mode):
     _.users.mkString(" ")
   )
 
-  def roundMapping(tour: RelayTour)(using Me): Mapping[Data] =
+  def roundMapping(tour: RelayTour, prev: Option[RelayRound])(using Me): Mapping[Data] =
     import RelayRound.{ CustomPoints, CustomScoring }
     val customPointMapping: Mapping[CustomPoints] =
       bigDecimal(5, 2)
@@ -76,7 +80,7 @@ final class RelayRoundForm(using mode: Mode):
       "name" -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
       "caption" -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
       "syncSource" -> optional(stringIn(sourceTypes._1F.toSet)),
-      "syncUrl" -> optional(of[Upstream.Url]),
+      "syncUrl" -> optional(of[Upstream.Url](using urlFormatter(prev))),
       "syncUrls" -> optional(of[Upstream.Urls]),
       "syncIds" -> optional(of[Upstream.Ids]),
       "syncUsers" -> optional(of[Upstream.Users]),
@@ -98,7 +102,7 @@ final class RelayRoundForm(using mode: Mode):
     )(Data.apply)(unapply)
 
   def create(trs: RelayTour.WithRounds)(using Me) = Form(
-    roundMapping(trs.tour)
+    roundMapping(trs.tour, none)
       .verifying(
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
         _ => trs.rounds.sizeIs < RelayTour.maxRelays.value
@@ -106,7 +110,7 @@ final class RelayRoundForm(using mode: Mode):
   ).fill(fillFromPrevRounds(trs.rounds))
 
   def edit(t: RelayTour, r: RelayRound)(using Me) = Form(
-    roundMapping(t)
+    roundMapping(t, r.some)
       .verifying(
         "The round source cannot be itself",
         d => d.syncSource.forall(_ != "url") || d.syncUrl.forall(_.roundId.forall(_ != r.id))
@@ -186,18 +190,20 @@ object RelayRoundForm:
         .startsWith("https://www.chess.com/events/v1/api")
     yield url
 
-  private def validateUpstreamUrl(s: String)(using Me, Mode): Either[String, URL] = for
-    url <- cleanUrl(s).toRight("Invalid source URL")
-    url <- if !validSourcePort(url) then Left("The source URL cannot specify a port") else Right(url)
-    url <-
-      if url.looksLikeLcc && !url.lcc.isDefined
-      then Left("LCC URLs must end with /{round-number}, e.g. /5 for round 5")
-      else Right(url)
-    url <-
-      if url.host.toString.endsWith("lichess.org") && !Granter(_.Relay)
-      then Left("Invalid source URL")
-      else Right(url)
-  yield url
+  private def validateUpstreamUrl(s: String, prev: Option[URL])(using Me, Mode): Either[String, URL] =
+    for
+      url <- cleanUrl(s).toRight("Invalid source URL")
+      url <- if !validSourcePort(url) then Left("The source URL cannot specify a port") else Right(url)
+      url <-
+        if url.looksLikeLcc && !url.lcc.isDefined
+        then Left("LCC URLs must end with /{round-number}, e.g. /5 for round 5")
+        else Right(url)
+      sameAsBefore = prev.exists(_ == url)
+      url <-
+        if !sameAsBefore && url.host.toString.endsWith("lichess.org") && !Granter(_.Relay)
+        then Left("Invalid source URL")
+        else Right(url)
+    yield url
 
   private val validPorts = Set(-1, 80, 443, 8080, 8491)
   private def validSourcePort(url: URL)(using mode: Mode): Boolean = mode.notProd || validPorts(url.port)
