@@ -28,7 +28,7 @@ final class PlayApi(env: Env) extends LilaController(env):
           else
             {
               for
-                _ <- env.tournament.api.withdrawAll(me)
+                _ <- env.tournament.api.withdrawAll(me, forceDelete = true)
                 teamIds <- env.team.cached.teamIdsList(me)
                 _ <- env.swiss.api.withdrawAll(me, teamIds)
                 _ <- env.user.api.setBot(me)

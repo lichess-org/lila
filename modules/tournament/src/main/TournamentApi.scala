@@ -380,16 +380,17 @@ final class TournamentApi(
       tourId: TourId,
       userId: UserId,
       isPause: Boolean,
-      isStalling: Boolean
+      isStalling: Boolean,
+      forceDelete: Boolean = false
   ): Funit =
-    Parallel(tourId, "withdraw")(cached.tourCache.enterable):
-      case tour if tour.isCreated =>
+    Parallel(tourId, "withdraw")(cached.tourCache.enterable): tour =>
+      if tour.isCreated || forceDelete then
         for _ <- playerRepo.remove(tour.id, userId)
         yield
           updateNbPlayers(tour.id)
           socket.reload(tour.id)
           publish()
-      case tour if tour.isStarted =>
+      else if tour.isStarted then
         for
           _ <- playerRepo.withdraw(tour.id, userId)
           pausable <-
@@ -400,14 +401,14 @@ final class TournamentApi(
           if pausable then pause.add(userId)
           socket.reload(tour.id)
           publish()
-      case _ => funit
+      else funit
 
-  def withdrawAll(user: User): Funit =
+  def withdrawAll(user: User, forceDelete: Boolean = false): Funit =
     tournamentRepo
       .withdrawableIds(user.id, reason = "withdrawAll")
       .flatMap:
         _.sequentiallyVoid:
-          withdraw(_, user.id, isPause = false, isStalling = false)
+          withdraw(_, user.id, isPause = false, isStalling = false, forceDelete = forceDelete)
 
   private[tournament] def berserk(gameId: GameId, userId: UserId): Funit =
     gameProxy
