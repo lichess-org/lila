@@ -246,6 +246,7 @@ export const clearLastShow = () => {
 function show(ctrl: AnalyseCtrl): MaybeVNode {
   const data = ctrl.explorer.current();
   if (data && isOpening(data)) {
+    if (!ctrl.explorer.isAuth()) return showAnon(ctrl);
     const moveTable = showMoveTable(ctrl, data),
       recentTable = showGameTable(ctrl, data.fen, i18n.site.recentGames, data.recentGames || []),
       topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);
@@ -374,7 +375,7 @@ const showConfig = (ctrl: AnalyseCtrl): VNode =>
 const showFailing = (ctrl: AnalyseCtrl) =>
   hl('div.data.empty', [
     hl('div.title', showTitle(ctrl.data.game.variant)),
-    hl('div.failing.message', [
+    hl('div.message', [
       hl('h3', 'Oops, sorry!'),
       hl('p.explanation', ctrl.explorer.failing()?.toString()),
       closeButton(ctrl),
@@ -382,24 +383,24 @@ const showFailing = (ctrl: AnalyseCtrl) =>
   ]);
 
 const showAnon = (ctrl: AnalyseCtrl) =>
-  hl(
-    'section.explorer-box.sub-box',
-    hl('div.data.empty', [
-      hl('div.title', i18n.site.openingExplorer),
-      hl('div.failing.message', [
-        hl('p.explanation', i18n.site.youNeedAnAccountToDoThat),
-        hl('a.button.button-empty', { attrs: { href: '/signup' } }, i18n.site.signUp),
-        closeButton(ctrl),
-      ]),
+  hl('div.data.empty', [
+    hl('div.title', i18n.site.openingExplorer),
+    hl('div.message', [
+      hl('p.explanation', i18n.site.youNeedAnAccountToDoThat),
+      hl(
+        'a.button.button-empty.text',
+        { attrs: { ...dataIcon(licon.Checkmark), href: '/signup' } },
+        i18n.site.signUp,
+      ),
+      closeButton(ctrl),
     ]),
-  );
+  ]);
 
 let lastFen: FEN = '';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const explorer = ctrl.explorer;
   if (!explorer.enabled()) return;
-  if (!explorer.isAuth()) return showAnon(ctrl);
   const data = explorer.current(),
     config = explorer.config,
     configOpened = config.data.open(),

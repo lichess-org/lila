@@ -152,10 +152,10 @@ export default class ExplorerCtrl {
     pieceCount(fen) - 1 <= tablebasePieces(variant) && this.root.isCevalAllowed();
 
   setNode = () => {
-    if (!this.isAuth() || !this.enabled()) return;
+    if (!this.enabled()) return;
     this.gameMenu(null);
     const node = this.root.node;
-    if (node.ply >= MAX_DEPTH && !this.tablebaseRelevant(this.effectiveVariant, node.fen))
+    if ((!this.isAuth() || node.ply >= MAX_DEPTH) && !this.tablebaseRelevant(this.effectiveVariant, node.fen))
       this.cache[node.fen] = this.empty;
     const cached = this.cache[node.fen];
     if (cached) {
