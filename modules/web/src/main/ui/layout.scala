@@ -113,11 +113,11 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   def zenZone(using Translate) = spaceless:
     s"""
-<header id="zenzone">
-  <a data-icon="${Icon.Logo}" href="/" class="zen-home" />
+<div id="zenzone">
+  <a href="/" class="zen-home"></a>
   <a data-icon="${Icon.Checkmark}" id="zentog" class="text fbt active">${trans.preferences.zenMode
         .txt()}</a>
-</header>"""
+</div>"""
 
   def dasher(me: User) =
     div(cls := "dasher")(
