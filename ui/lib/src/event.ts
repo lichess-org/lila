@@ -39,35 +39,6 @@ export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => voi
   }, 10000);
 }
 
-export function browserTaskQueueMonitor(interval = 1000): { wasSuspended: boolean; reset: () => void } {
-  let lastTime: number;
-  let timeout: Timeout;
-  let suspended = false;
-
-  start();
-
-  return {
-    get wasSuspended() {
-      return suspended;
-    },
-    reset() {
-      suspended = false;
-      clearTimeout(timeout);
-      start();
-    },
-  };
-
-  function monitor() {
-    if (performance.now() - lastTime > interval + 400) suspended = true;
-    else start();
-  }
-
-  function start() {
-    lastTime = performance.now();
-    timeout = setTimeout(monitor, interval);
-  }
-}
-
 export class Janitor {
   private cleanupTasks: (() => void)[] = [];
 

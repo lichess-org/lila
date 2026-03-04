@@ -132,6 +132,9 @@
   <string name="pinnedPieces">G\'fessleti Figure</string>
   <string name="checkableKing">Agrifbare König</string>
   <string name="multipleLines">Mehreri Variantä</string>
+  <string name="multipleLinesDescription">Beschtimm d\'Anzahl Bewertigslinie und verschieb d\'Pfil uf em Brätt</string>
+  <string name="searchTime">Suech Zit</string>
+  <string name="searchTimeDescription">De Zitpunkt für d\'Bewertig vu neue Positione bestimme</string>
   <string name="cpus">Prozässore</string>
   <string name="memory">Arbetsschpeicher</string>
   <string name="infiniteAnalysis">Unändlichi Analyse</string>

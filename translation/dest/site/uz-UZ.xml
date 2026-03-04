@@ -132,8 +132,15 @@
   <string name="pinnedPieces">Bogʻlangan sipohlar</string>
   <string name="checkableKing">Kisht qilib boʻladigan shoh</string>
   <string name="multipleLines">Bir nechta variant</string>
+  <string name="multipleLinesDescription">Tahlil variantlar sonini va taxtadagi yurish strelkalarni sonini sozlash</string>
+  <string name="searchTime">Qidiruv vaqti</string>
+  <string name="searchTimeDescription">Yangi pozitsiyalarni tahlil qilish vaqtini belgilash</string>
+  <string name="threads">Oqimlar (Threads)</string>
+  <string name="threadsDescription">Buni protsessoringiz oqimlari sonidan kamroq qilib sozlang; belgilangan chiziqlar xavfsiz tanlovni koʻrsatadi</string>
+  <string name="threadsDescriptionMobile">Koʻproq oqimlar tahlilni kuchaytiradi, ammo batareyani tezroq sarflaydi</string>
   <string name="cpus">Protsessorlar</string>
   <string name="memory">Xotira</string>
+  <string name="memoryDescription">Yuqori qiymat unumdorlikni oshirishi mumkin</string>
   <string name="infiniteAnalysis">Cheksiz tahlil</string>
   <string name="removesTheDepthLimit">Chuqurlik cheagarasini olib tashlaydi lekin kompyuteringiz maksimal quvvatda ishlatadi</string>
   <string name="blunder">Qoʻpol xato</string>
@@ -242,7 +249,7 @@
   <string name="changePassword">Parolni oʻzgartirish</string>
   <string name="changeEmail">E‑pochta manzilini oʻzgartirish</string>
   <string name="email">E‑pochta</string>
-  <string name="passwordReset">Parolni boshqattan oʻrnatish</string>
+  <string name="passwordReset">Parolni tiklash</string>
   <string name="forgotPassword">Parolni unutdingizmi?</string>
   <string name="error.weakPassword">Ushbu parol juda oddiy va uni taxmin qilish oson.</string>
   <string name="error.namePassword">Foydalanuvchi nomini parol sifatida ishlatmang.</string>
@@ -554,7 +561,7 @@
   <string name="autoSwitch">Avtomatik oʻtish</string>
   <string name="puzzles">Masalalar</string>
   <string name="onlineBots">Onlayn botlar</string>
-  <string name="name">Ism</string>
+  <string name="name">Nomi</string>
   <string name="description">Izoh</string>
   <string name="descPrivate">Yopiq tavsif</string>
   <string name="descPrivateHelp">Faqat jamoa aʻzolari koʻra oladigan matn. Agar uni kiritsangiz, jamoa aʼzolari uchun ommaviy tavsif oʻrniga koʻrsatiladi.</string>
