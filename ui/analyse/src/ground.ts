@@ -7,6 +7,7 @@ import * as Prefs from 'lib/prefs';
 import { storage } from 'lib/storage';
 
 import type AnalyseCtrl from './ctrl';
+import { isSafari } from 'lib/device';
 
 export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
@@ -25,7 +26,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
   const d = ctrl.data,
     pref = d.pref,
     opts = ctrl.makeCgOpts();
-  const config = {
+  const config: CgConfig = {
     turnColor: opts.turnColor,
     fen: opts.fen,
     check: opts.check,
@@ -37,6 +38,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     addDimensionsCssVarsTo: document.body,
     touchIgnoreRadius: 0,
     viewOnly: false,
+    jsHover: isSafari(),
     movable: {
       free: false,
       color: opts.movable!.color,

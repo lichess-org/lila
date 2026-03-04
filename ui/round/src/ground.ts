@@ -10,6 +10,7 @@ import { onInsert } from 'lib/view';
 import type RoundController from './ctrl';
 import type { RoundData } from './interfaces';
 import { Premove } from './premove';
+import { isSafari } from 'lib/device';
 import * as util from './util';
 import { plyStep } from './util';
 
@@ -30,6 +31,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     addPieceZIndex: ctrl.data.pref.is3d,
     addDimensionsCssVarsTo: document.body,
     touchIgnoreRadius: data.correspondence ? 0 : 1,
+    jsHover: isSafari(),
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,

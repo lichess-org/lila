@@ -6,6 +6,7 @@ import { Coords, ShowResizeHandle } from 'lib/prefs';
 import { storage } from 'lib/storage';
 
 import type PuzzleCtrl from '../ctrl';
+import { isSafari } from 'lib/device';
 
 export default function (ctrl: PuzzleCtrl): VNode {
   return h('div.cg-wrap.cgv' + ctrl.cgVersion, {
@@ -28,6 +29,7 @@ export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
     coordinatesOnSquares: ctrl.pref.coords === Coords.All,
     addPieceZIndex: ctrl.pref.is3d,
     addDimensionsCssVarsTo: document.body,
+    jsHover: isSafari(),
     movable: {
       free: false,
       color: opts.movable!.color,

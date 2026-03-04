@@ -9,6 +9,7 @@ import { pubsub } from 'lib/pubsub';
 import { storage } from 'lib/storage';
 
 import type EditorCtrl from './ctrl';
+import { isSafari } from 'lib/device';
 
 export default function (ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
@@ -122,6 +123,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     coordinates: ctrl.options.coordinates !== false,
     autoCastle: false,
     addPieceZIndex: ctrl.cfg.is3d,
+    jsHover: isSafari(),
     movable: {
       free: true,
       color: 'both',

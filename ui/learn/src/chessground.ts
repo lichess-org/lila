@@ -4,6 +4,7 @@ import { h, type VNode } from 'snabbdom';
 import { Coords } from 'lib/prefs';
 
 import type { RunCtrl } from './run/runCtrl';
+import { isSafari } from 'lib/device';
 
 export interface Shape {
   orig: Key;
@@ -34,6 +35,7 @@ const makeConfig = (ctrl: RunCtrl): CgConfig => ({
   blockTouchScroll: true,
   coordinates: true,
   coordinatesOnSquares: ctrl.pref.coords === Coords.All,
+  jsHover: isSafari(),
   movable: { free: false, color: undefined, showDests: ctrl.pref.destination },
   drawable: { enabled: false },
   draggable: { enabled: true },

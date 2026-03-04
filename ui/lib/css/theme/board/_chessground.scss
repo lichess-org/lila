@@ -104,6 +104,7 @@ square {
   }
 
   @media (hover: hover) {
+    &.move-dest:hover,
     &.move-dest.hover {
       background: rgba(20, 85, 30, 0.3);
 
@@ -113,6 +114,7 @@ square {
       }
     }
 
+    &.premove-dest:hover,
     &.premove-dest.hover {
       background: rgba(20, 30, 85, 0.2);
     }
