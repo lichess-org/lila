@@ -383,8 +383,11 @@ final class User(
             .zip(env.playban.api.bans(user.id))
             .map(ui.showRageSitAndPlaybans)
 
-        val actions = env.user.repo.isDeleted(user).map { deleted =>
-          ui.actions(user, emails, deleted, env.mod.presets.getPmPresets)
+        val actions = for {  
+          deleted <- env.user.repo.isDeleted(user)  
+          foreverClosed <- env.user.repo.isForeverClosed(user)  
+        } yield {  
+          ui.actions(user, emails, deleted, foreverClosed, env.mod.presets.getPmPresets)  
         }
 
         val userLoginsFu = env.security.userLogins(user, nbOthers)
@@ -453,12 +456,16 @@ final class User(
       .orFail(s"No such user $username")
       .flatMap:
         case WithPerfsAndEmails(user, emails) =>
-          env.user.repo.isDeleted(user).flatMap { deleted =>
+          for {
+            deleted       <- env.user.repo.isDeleted(user)
+            foreverClosed <- env.user.repo.isForeverClosed(user)
+          } yield {
             Ok.snip:
               views.mod.user.actions(
                 user,
                 emails,
                 deleted,
+                foreverClosed,
                 env.mod.presets.getPmPresets
               )
           }

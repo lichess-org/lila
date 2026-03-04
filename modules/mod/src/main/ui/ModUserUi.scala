@@ -44,6 +44,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       u: User,
       emails: lila.core.user.Emails,
       deleted: Boolean,
+      foreverClosed: Boolean,
       pmPresets: ModPresets
   )(using Context, Me): Frag =
     mzSection("actions")(
@@ -208,6 +209,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
               )(
                 submitButton(cls := "btn-rack__btn")("Close")
               )
+            else if foreverClosed then "Forever closed"
             else if deleted then "Deleted"
             else
               frag(
