@@ -36,7 +36,7 @@
   <string name="authorizationCodeFlow">avtorizatsiya kodi jarayonidan</string>
   <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">Buning oʻrniga, API soʻrovlaridan bevosita foydalanish mumkin boʻlgan %s.</string>
   <string name="generatePersonalToken">shaxsiy kirish tokenini yarating</string>
-  <string name="guardTokensCarefully">Ushbu tokenlarni ehtiyot qiling! Ular xuddi parollardek gap. Skriptga parolingizni yozgandan koʻra tokendan foydalanish xavfsizroq — chunki tokenni istalgancha yaratish yoki kerak boʻlmaganda bekor qilish mumkin.</string>
+  <string name="guardTokensCarefully">Ushbu tokenlarni ehtiyot qiling! Ular xuddi parollardek gap. Skriptga parolingizni yozgandan koʻra tokendan foydalanish xavfsizroq — chunki tokenni istalgancha yaratish mumkin va token kerak boʻlmaganda uni bekor qilish mumkin.</string>
   <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">%1$s va %2$s bilan tanishing.</string>
   <string name="personalTokenAppExample">Shaxsiy token ilovasi namunasi</string>
   <string name="apiDocumentation">API dokumentatsiyasi</string>
