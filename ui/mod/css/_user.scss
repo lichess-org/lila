@@ -1,6 +1,9 @@
 .user-show .mod-zone {
   margin: 0 20px 1em 20px;
 }
+.user-show:has(.mod-zone-full:not(.none)) .mod-zone-toggle {
+  @extend %active;
+}
 .mod-zone {
   @extend %flex-wrap;
   gap: 0.5em;
