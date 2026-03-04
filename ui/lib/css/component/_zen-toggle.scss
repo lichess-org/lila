@@ -1,24 +1,26 @@
 #zenzone {
-  position: absolute;
   display: none;
-  flex-flow: row nowrap;
   align-items: center;
   z-index: $z-zen-toggle-111;
+  justify-content: flex-start;
+  max-width: unset;
+  padding: 0;
 
   body.zenable.zen & {
     display: flex;
   }
 
   .zen-home {
-    flex: 0 0 4em;
-    height: 4em;
-    padding: 1em 1em;
-    background: center no-repeat url('../logo/lichess-white.svg');
-    @include if-light {
-      background-image: url('../logo/lichess.svg');
-    }
-    background-size: 2em;
+    font-size: 30px;
     opacity: 0.5;
+    color: $c-font;
+    margin: 0 0.5em;
+    @media (height < $tall) {
+      font-size: 24px;
+    }
+    @media (height >= $tall) {
+      transform: translateY(-3px);
+    }
     &:hover {
       opacity: 1;
     }
@@ -29,6 +31,9 @@
   flex: 0 0 auto;
   padding: 0.2em 1em;
   opacity: 0.5;
+  @media (height < $tall) {
+    margin-top: 0.125em;
+  }
   &:hover {
     opacity: 1;
   }

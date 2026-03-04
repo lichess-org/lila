@@ -130,8 +130,15 @@
   <string name="pinnedPieces">핀에 걸린 기물들</string>
   <string name="checkableKing">체크할 수 있는 킹</string>
   <string name="multipleLines">다중 라인 수</string>
+  <string name="multipleLinesDescription">평가 라인과 보드에 그릴 화살표의 개수 설정</string>
+  <string name="searchTime">검색 시간</string>
+  <string name="searchTimeDescription">새로운 포지션을 평가할 시간 설정</string>
+  <string name="threads">스레드</string>
+  <string name="threadsDescription">이 값을 CPU 스레드 수보다 낮게 설정하세요. 안전하고 적절한 값을 표시해 두었습니다</string>
+  <string name="threadsDescriptionMobile">스레드가 많을수록 더 나은 분석을 위해 배터리를 많이 소모합니다</string>
   <string name="cpus">CPU 수</string>
   <string name="memory">메모리</string>
+  <string name="memoryDescription">값이 클수록 성능이 개선될 수 있습니다</string>
   <string name="infiniteAnalysis">무한 분석</string>
   <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다</string>
   <string name="blunder">블런더</string>

@@ -134,7 +134,7 @@
   <string name="multipleLines">Meerdere varianten</string>
   <string name="multipleLinesDescription">Stel het aantal evaluatievariaties en zetpijlen in op het bord</string>
   <string name="searchTime">Zoektijd</string>
-  <string name="searchTimeDescription">Stel tijd in om nieuwe posities te evalueren</string>
+  <string name="searchTimeDescription">Stel tijd in om nieuwe stellingen te evalueren</string>
   <string name="threads">Threads</string>
   <string name="threadsDescription">Stel dit in onder het aantal threads van uw CVE, de pijltjes markeren een goede veilige keuze</string>
   <string name="threadsDescriptionMobile">Meer threads zullen meer accu gebruiken voor een betere analyse</string>

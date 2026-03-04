@@ -132,8 +132,13 @@
   <string name="pinnedPieces">Peças cravadas</string>
   <string name="checkableKing">Rei possível de xeque</string>
   <string name="multipleLines">Linhas de análise</string>
+  <string name="multipleLinesDescription">Definir o número de linhas de análise e mover setas no tabuleiro</string>
+  <string name="searchTime">Tempo de busca</string>
+  <string name="searchTimeDescription">Definir tempo para avaliar novas posições</string>
+  <string name="threads">Temas</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memória</string>
+  <string name="memoryDescription">Valores mais altos podem melhorar o desempenho</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade, o que aquece seu computador</string>
   <string name="blunder">Capivarada</string>
