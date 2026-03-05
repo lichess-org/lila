@@ -113,6 +113,11 @@
         background: $m-accent_bg--mix-10;
       }
     }
+
+    &::-webkit-scrollbar,
+    &::-webkit-scrollbar-corner {
+      background: unset;
+    }
   }
 
   &__say {
