@@ -56,14 +56,17 @@
           @extend %flex-between;
         }
 
-        label,
-        input {
-          display: inline-block;
-          margin: 3px;
-          vertical-align: middle;
+        --form-check-scale: 0.7;
+
+        .form-check__label {
+          height: calc(24px * var(--form-check-scale));
+          width: calc(24px * var(--form-check-scale));
         }
-        input.not-allowed {
-          visibility: hidden;
+
+        .form-check__label::after {
+          width: calc(12px * var(--form-check-scale));
+          height: calc(6px * var(--form-check-scale));
+          border-width: calc(2.5px * var(--form-check-scale));
         }
       }
 

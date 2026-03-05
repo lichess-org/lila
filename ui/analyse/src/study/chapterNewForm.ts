@@ -217,7 +217,6 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                       data.fen = ctrl.root.node.fen;
                       data.embed = true;
                       data.options = {
-                        inlineCastling: true,
                         orientation: ctrl.orientation,
                         onChange: ctrl.editorFen,
                         coordinates: true,

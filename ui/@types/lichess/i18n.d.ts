@@ -3159,8 +3159,6 @@ interface I18n {
     blackAcceptsTakeback: string;
     /** Black cancels takeback */
     blackCancelsTakeback: string;
-    /** Black O-O */
-    blackCastlingKingside: string;
     /** Black to checkmate in one move */
     blackCheckmatesInOneMove: string;
     /** Black declines draw */
@@ -4673,8 +4671,6 @@ interface I18n {
     whiteAcceptsTakeback: string;
     /** White cancels takeback */
     whiteCancelsTakeback: string;
-    /** White O-O */
-    whiteCastlingKingside: string;
     /** White to checkmate in one move */
     whiteCheckmatesInOneMove: string;
     /** White declines draw */

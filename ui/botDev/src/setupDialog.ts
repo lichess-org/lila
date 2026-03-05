@@ -135,7 +135,6 @@ class SetupDialog {
       data.fen = this.setup.setupFen ?? co.fen.INITIAL_FEN;
       data.embed = true;
       data.options = {
-        inlineCastling: true,
         orientation: 'white',
         onChange: (fen: string) => {
           this.setup.setupFen = fen;

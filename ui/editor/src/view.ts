@@ -14,21 +14,25 @@ import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPos
 import { fenToEpd } from 'lib/game/chess';
 import { fenToChess960Id, isValidPositionId } from './chess960';
 
-function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
-  const input = h('input', {
-    class: { 'not-allowed': !ctrl.enabledCastlingToggles[id] },
-    attrs: { type: 'checkbox' },
-    props: {
-      checked: ctrl.castlingToggles[id] && ctrl.enabledCastlingToggles[id],
-      disabled: !ctrl.enabledCastlingToggles[id],
-    },
-    on: {
-      change(e) {
-        ctrl.setCastlingToggle(id, (e.target as HTMLInputElement).checked);
-      },
-    },
-  });
-  return h('label', reversed ? [input, label] : [label, input]);
+function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string): VNode {
+  const inputId = `castle-${id}`;
+  return h('div.form-check__container', [
+    h('span.form-check__input', [
+      h(`input#${inputId}`, {
+        attrs: { type: 'checkbox', disabled: !ctrl.enabledCastlingToggles[id] },
+        props: {
+          checked: ctrl.castlingToggles[id] && ctrl.enabledCastlingToggles[id],
+        },
+        on: {
+          change(e) {
+            ctrl.setCastlingToggle(id, (e.target as HTMLInputElement).checked);
+          },
+        },
+      }),
+      h('label.form-check__label', { attrs: { for: inputId } }),
+    ]),
+    h('label.form-label', { attrs: { for: inputId } }, label),
+  ]);
 }
 
 function optgroup(name: string, opts: VNode[]): VNode {
@@ -156,14 +160,8 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
       ),
       h('div.castling', [
         h('strong', i18n.site.castling),
-        h('div', [
-          castleCheckBox(ctrl, 'K', i18n.site.whiteCastlingKingside, !!ctrl.options.inlineCastling),
-          castleCheckBox(ctrl, 'Q', 'O-O-O', true),
-        ]),
-        h('div', [
-          castleCheckBox(ctrl, 'k', i18n.site.blackCastlingKingside, !!ctrl.options.inlineCastling),
-          castleCheckBox(ctrl, 'q', 'O-O-O', true),
-        ]),
+        h('div', [castleCheckBox(ctrl, 'K', 'O-O'), i18n.site.white, castleCheckBox(ctrl, 'Q', 'O-O-O')]),
+        h('div', [castleCheckBox(ctrl, 'k', 'O-O'), i18n.site.black, castleCheckBox(ctrl, 'q', 'O-O-O')]),
       ]),
       h('div.enpassant', [
         h('label', { attrs: { for: 'enpassant-select' } }, i18n.site.enPassant),

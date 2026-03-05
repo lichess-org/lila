@@ -36,7 +36,6 @@ export interface Config {
 export interface Options {
   orientation?: Color;
   onChange?: (fen: string) => void;
-  inlineCastling?: boolean;
   coordinates?: boolean;
   bindHotkeys?: boolean; // defaults to true
 }
