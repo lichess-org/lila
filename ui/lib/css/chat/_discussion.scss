@@ -21,6 +21,7 @@
       line-height: 1.2em;
       overflow-y: hidden;
       user-select: text;
+      overflow-wrap: anywhere;
 
       &.me {
         border-inline-start: 3px solid $c-secondary-dim;
@@ -111,6 +112,11 @@
       li:hover {
         background: $m-accent_bg--mix-10;
       }
+    }
+
+    &::-webkit-scrollbar,
+    &::-webkit-scrollbar-corner {
+      background: unset;
     }
   }
 
