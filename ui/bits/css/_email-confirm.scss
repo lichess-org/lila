@@ -16,8 +16,8 @@
     background: $c-error;
     flex-flow: column;
     code {
-      word-break: break-word;
       font-size: 1rem;
+      overflow-wrap: anywhere;
     }
   }
 }
