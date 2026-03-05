@@ -118,7 +118,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   private def streakJsonAndPuzzle(using Context) =
     given Perf = lila.rating.Perf.default
     env.puzzle.streak.apply.flatMapz { case PuzzleStreak(ids, puzzle) =>
-      env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none).map { puzzleJson =>
+      env.puzzle.jsonView.analysis(puzzle = puzzle, PuzzleAngle.mix).map { puzzleJson =>
         (puzzleJson ++ Json.obj("streak" -> ids), puzzle).some
       }
     }
