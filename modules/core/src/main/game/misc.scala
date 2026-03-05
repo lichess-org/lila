@@ -106,7 +106,6 @@ abstract class GameRepo(val coll: BSONCollection):
   def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]]
   def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]]
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])]
-  def initialFen(gameId: GameId): Fu[Option[Fen.Full]]
   def initialFen(game: Game): Fu[Option[Fen.Full]]
   def withInitialFen(game: Game): Fu[WithInitialFen]
   def gameWithInitialFen(gameId: GameId): Fu[Option[WithInitialFen]]

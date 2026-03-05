@@ -175,7 +175,7 @@ final class Round(
                   yield Ok(page)
                 else
                   for // web crawlers don't need the full thing
-                    initialFen <- env.game.gameRepo.initialFen(pov.gameId)
+                    initialFen <- env.game.gameRepo.initialFen(pov.game)
                     pgn <- env.api
                       .pgnDump(pov.game, initialFen, none, lila.game.PgnDump.WithFlags(clocks = false))
                     page <- renderPage(views.round.crawler(pov, initialFen, pgn))
