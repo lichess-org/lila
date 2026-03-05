@@ -36,13 +36,6 @@
         white-space: nowrap;
       }
     }
-
-    &.lpv:hover {
-      @extend %popup-shadow;
-
-      transform: scale(1.2);
-      z-index: 50;
-    }
   }
 
   @keyframes marquee {
