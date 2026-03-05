@@ -325,7 +325,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   def moveStream(gameId: GameId) = AnonOrScoped():
     Found(env.round.proxyRepo.game(gameId)): game =>
       def source = ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
-      if ctx.is(UserId.ttt) then jsOptToNdJson(source)
+      if ctx.is(UserId.t3) then jsOptToNdJson(source)
       else ApiMoveStreamGlobalConcurrencyLimitPerIP(req.ipAddress)(source)(jsOptToNdJson)
 
   def perfStat(username: UserStr, perfKey: PerfKey) = ApiRequest:

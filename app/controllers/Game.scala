@@ -165,7 +165,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private[controllers] def delayMovesFromReq(using RequestHeader)(using me: Option[Me]) =
     val trusted = get("key").exists(env.web.settings.noDelaySecret.get().value.contains) ||
-      me.exists(_.is(UserId.ttt))
+      me.exists(_.is(UserId.t3))
     !trusted
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =
