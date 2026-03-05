@@ -59,6 +59,9 @@
               nodejs_24
               nodePackages.pnpm
               esbuild
+              oxlint
+              oxfmt
+              stylelint
 
               java
               scala
