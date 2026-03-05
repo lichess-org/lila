@@ -492,6 +492,7 @@
   <string name="required">Required.</string>
   <string name="openTournaments">Open tournaments</string>
   <string name="duration">Duration</string>
+  <string name="timeLeft">Time left</string>
   <string name="winner">Winner</string>
   <string name="standings">Standings</string>
   <string name="createANewTournament">Create a new tournament</string>
