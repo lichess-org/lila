@@ -10,6 +10,8 @@ import ScalatagsTemplate.{ *, given }
 final class CategUi(helpers: Helpers, bits: ForumBits):
   import helpers.{ *, given }
 
+  private val dataDedup = attr("data-dedup")
+
   def index(categs: List[CategView])(using Context) =
     Page(trans.site.forum.txt())
       .css("bits.forum")
@@ -42,7 +44,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
   )(using Context) =
 
     def showTopic(sticky: Boolean)(topic: TopicView) =
-      tr(cls := List("sticky" -> sticky))(
+      tr(cls := List("sticky" -> sticky), dataDedup := topic.id)(
         td(cls := "subject")(
           a(href := routes.ForumTopic.show(categ.id, topic.slug))(topic.name)
         ),
@@ -179,7 +181,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
             thead(tr(th("User"), th("Topic"), th("Post"), th("Date"))),
             tbody(cls := "infinite-scroll")(
               posts.currentPageResults.map: p =>
-                tr(cls := "paginated")(
+                tr(cls := "paginated", dataDedup := p.post.id)(
                   td(userIdLink(p.post.userId)),
                   td(a(href := routes.ForumTopic.show(p.categ.id, p.topic.slug))(p.topic.name)),
                   td(shorten(Markdown(p.post.text).unlink, 400)),

@@ -15,6 +15,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
 ):
   import helpers.{ *, given }
 
+  private val dataDedup = attr("data-dedup")
+
   def thumbnail(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
     img(
       cls := "ublog-post-image",
@@ -40,7 +42,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
   )(using Context) =
     a(
       cls := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}",
-      href := makeUrl(post)
+      href := makeUrl(post),
+      dataDedup := post.id
     )(
       span(
         cls := s"ublog-post-card__top",

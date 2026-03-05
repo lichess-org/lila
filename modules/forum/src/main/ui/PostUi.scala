@@ -10,6 +10,7 @@ import ScalatagsTemplate.{ *, given }
 final class PostUi(helpers: Helpers, bits: ForumBits):
   import helpers.{ *, given }
 
+  private val dataDedup = attr("data-dedup")
   private val postId = attrData("post-id")
 
   def show(
@@ -28,7 +29,8 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       st.article(
         cls := List("forum-post" -> true, "erased" -> post.erased),
         id := post.number,
-        postId := post.id
+        postId := post.id,
+        dataDedup := post.id
       )(
         div(cls := "forum-post__metas")(
           (!post.erased || canModCateg).option(
@@ -206,7 +208,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                       br,
                       bits.authorLink(view.post)
                     )
-                  tr(cls := "paginated stack-row")(
+                  tr(cls := "paginated stack-row", dataDedup := view.post.id)(
                     if viewWithRead.canRead then
                       frag(
                         td(
