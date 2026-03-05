@@ -4467,8 +4467,6 @@ interface I18n {
     timeBeforeTournamentStarts: string;
     /** Time control */
     timeControl: string;
-    /** Time left */
-    timeLeft: string;
     /** Timeline */
     timeline: string;
     /** Time to process a move on Lichess's server */

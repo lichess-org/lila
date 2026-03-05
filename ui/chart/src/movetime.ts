@@ -105,7 +105,7 @@ export default async function (
       }
     }
     if (clock) {
-      label.push(`${i18n.site.timeLeft}: ${formatClock(clock)}`);
+      label.push(`${i18n.site.clock}: ${formatClock(clock)}`);
       totalSeries[colorName].push({
         x: node ? node.ply : tree[x].ply + 1,
         y: color ? clock : -clock,
