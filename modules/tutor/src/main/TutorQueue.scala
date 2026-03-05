@@ -1,6 +1,5 @@
 package lila.tutor
 
-import chess.format.Fen
 import chess.format.pgn.PgnStr
 import com.softwaremill.tagging.*
 import reactivemongo.api.*
