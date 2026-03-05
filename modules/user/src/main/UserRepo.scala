@@ -566,13 +566,12 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def byIdAs[A: BSONDocumentReader](id: String, proj: Bdoc): Fu[Option[A]] =
     coll.one[A]($id(id), proj)
 
-  def isDeleted(user: User): Fu[Boolean] =
+  def closedFlags(user: User): Fu[Option[ClosedFlags]] =
     user.enabled.no.so:
-      coll.exists($id(user.id) ++ $doc(s"${F.delete}.done" -> true))
-
-  def isForeverClosed(user: User): Fu[Boolean] =
-    user.enabled.no.so:
-      coll.exists($id(user.id) ++ $doc(F.foreverClosed -> true))
+      coll
+        .exists($id(user.id) ++ $doc(F.foreverClosed -> true))
+        .zip(coll.exists($id(user.id) ++ $doc(s"${F.delete}.done" -> true)))
+        .map(ClosedFlags(_, _).some)
 
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](F.id, $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)), _.sec)
