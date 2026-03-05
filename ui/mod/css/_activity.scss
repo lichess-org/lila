@@ -1,6 +1,7 @@
 .mod-activity,
 .mod-queues {
   overflow: hidden;
+
   h1 {
     .mselect {
       display: inline-block;
@@ -11,26 +12,33 @@
       }
     }
   }
+
   .slist {
     white-space: nowrap;
+
     td {
       @extend %roboto;
+
       text-align: right;
     }
   }
+
   .chart,
   .chart-grid {
     padding: 4vh 4vw;
     background: $c-bg-zebra;
   }
+
   .chart {
     min-height: 40vh;
     max-width: 100%;
     overflow: hidden;
+
     &:last-child {
       border-top: 1px solid white;
     }
   }
+
   .chart-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));

@@ -94,6 +94,7 @@
 
   &__rules {
     @extend %box-radius;
+
     margin-top: 3em;
     padding: 2em 3em;
     background: $c-bg-zebra;
@@ -109,6 +110,7 @@
     95% {
       opacity: 0;
     }
+
     100% {
       opacity: 1;
     }
@@ -117,6 +119,7 @@
   #help-engine-deny form {
     opacity: 0;
   }
+
   #help-engine-deny:target form {
     animation: 20s reveal forwards !important; // play even with "prefers-reduced-motion: reduce"
   }

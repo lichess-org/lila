@@ -1,11 +1,13 @@
 th[role='columnheader']:not([data-sort-method='none']) {
   @include prevent-select;
+
   cursor: pointer;
 }
 
 th[role='columnheader']:not([data-sort-method='none'])::after {
   @extend %data-icon;
   @include prevent-select;
+
   content: $licon-UpTriangle;
   display: inline;
   margin-inline-start: 0.5em;
@@ -22,6 +24,7 @@ th[aria-sort='descending']:not([data-sort-method='none'])::after {
 th[aria-sort]:not([data-sort-method='none']) {
   background: $m-accent--fade-85;
   color: $c-font-clear;
+
   &::after {
     visibility: visible;
     opacity: 0.7;

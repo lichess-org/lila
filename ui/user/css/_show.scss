@@ -9,12 +9,15 @@
 
 @mixin hamburger-visible {
   @include box-radius-top;
+
   background: $c-bg-header-dropdown;
   color: $c-font-clear;
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
 }
+
 @mixin dropdown-action-highlight {
   background: $c-primary;
+
   &,
   &::after {
     color: $c-over;
@@ -37,8 +40,8 @@
 
   &__social {
     @extend %flex-between-nowrap;
-    gap: 1vw;
 
+    gap: 1vw;
     background: $c-bg-zebra;
 
     .number-menu {
@@ -48,6 +51,7 @@
 
     .user-actions {
       @extend %flex-center-nowrap;
+
       flex: 1 0 auto;
       justify-content: flex-end;
       margin: 0 1em 0 0.3em;
@@ -61,6 +65,7 @@
           button {
             padding: 0.2em 0.6em;
             color: $c-header-dropdown;
+
             &::before {
               margin-inline: 0 1rem;
               font-size: 1.4em;
@@ -76,6 +81,7 @@
         color: $c-font-dim;
         padding: 0 0.7em;
       }
+
       .dropdown:not(.btn-rack__btn) .dropdown-window {
         top: 3rem;
       }
@@ -85,60 +91,74 @@
 
         .dropdown-window {
           @extend %dropdown-shadow;
+
           z-index: $z-link-overlay-2;
           visibility: hidden;
           background: $c-bg-header-dropdown;
           border-radius: $box-radius-size 0 $box-radius-size $box-radius-size;
           position: absolute;
           top: 2.4rem;
+
           @include inline-end(0);
+
           body.blind-mode & {
             visibility: visible;
           }
+
           a,
           button {
             @extend %flex-center-nowrap, %break-word;
+
             width: 20em;
             padding: 0.6rem 1rem;
             line-height: normal;
             white-space: normal;
             text-align: start;
             color: $c-header-dropdown;
+
             &::before {
               margin-inline: 0 1rem;
               font-size: 1.4em;
             }
           }
+
           > a {
             &:first-child {
               border-top-left-radius: $box-radius-size;
             }
+
             &:last-child {
               @extend %box-radius-bottom;
             }
           }
         }
       }
+
       .dropdown.visible {
         .dropdown-window {
           visibility: visible;
         }
+
         > a {
           @include hamburger-visible;
         }
       }
+
       .dropdown .dropdown-window a:active,
       .dropdown .dropdown-window button:active {
         @include dropdown-action-highlight;
       }
+
       @media (hover: hover) and (pointer: fine) {
         .dropdown:not(.btn-rack__btn):hover > a {
           @include hamburger-visible;
         }
+
         .dropdown .dropdown-window a:hover,
         .dropdown .dropdown-window button:hover {
           @include dropdown-action-highlight;
         }
+
         .dropdown:hover .dropdown-window,
         .dropdown:focus-within .dropdown-window {
           visibility: visible;

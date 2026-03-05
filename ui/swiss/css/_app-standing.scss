@@ -48,12 +48,12 @@
 
   tr.active td:last-child {
     $c-active-border: $m-primary_bg--mix-70;
+
     @include gradient-border($c-active-border, to left, to right);
   }
 
   td.rank {
     @extend %roboto;
-
     @include padding-direction(1em, 0.5em, 1em, 10px);
 
     width: 1px;
@@ -79,6 +79,7 @@
 
       & > * {
         @extend %flex-center-center;
+
         flex: 0 0 2em;
         text-align: center;
       }

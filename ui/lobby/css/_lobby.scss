@@ -95,17 +95,23 @@ body {
 .lobby__blog {
   gap: $block-gap;
   font-size: 0.9em;
+
   h2 {
     @extend %page-text-shadow !optional;
     @include line-clamp(4);
+
     font-size: 1.3em;
   }
+
   .ublog-post-card {
     background: $c-bg-box;
+
     &:hover {
       @extend %box-shadow;
+
       background: $c-bg-zebra;
     }
+
     .user-link {
       border-radius: $box-radius-size 0 0 0;
     }

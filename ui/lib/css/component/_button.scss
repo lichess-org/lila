@@ -1,6 +1,5 @@
 .button {
   @extend %roboto, %button-shadow, %box-radius;
-
   @include prevent-select;
   @include transition;
   @include backdrop-blur-if-transparent;
@@ -153,7 +152,9 @@
     color: #fff;
   }
 }
+
 .button-set {
   @extend %flex-center;
+
   gap: 1.5em;
 }

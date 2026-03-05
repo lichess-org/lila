@@ -62,6 +62,7 @@
           margin: 3px;
           vertical-align: middle;
         }
+
         input.not-allowed {
           visibility: hidden;
         }
@@ -69,10 +70,13 @@
 
       .enpassant {
         @extend %flex-between;
+
         margin-top: 1em;
+
         label {
           font-weight: bold;
         }
+
         select {
           width: 9ch;
         }
@@ -80,6 +84,7 @@
 
       .chess960-position-row {
         @extend %flex-center-nowrap;
+
         gap: 0.5rem;
       }
 

@@ -1,5 +1,6 @@
 .simul-list {
   overflow: hidden;
+
   .count {
     @extend %roboto;
 
@@ -19,8 +20,10 @@
 
   .name {
     @extend %break-word;
+
     font-size: 1.7em;
   }
+
   time {
     white-space: nowrap;
   }

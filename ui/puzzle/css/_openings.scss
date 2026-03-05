@@ -3,6 +3,7 @@
     border-bottom: $border;
     background: $c-bg-zebra;
     padding-top: 3vh;
+
     h2 {
       margin: 0 0 1em 0;
     }
@@ -31,6 +32,7 @@
     &.opening-mine {
       color: $c-brag;
       font-weight: bold;
+
       &:hover {
         background: $m-brag_bg--mix-20;
       }

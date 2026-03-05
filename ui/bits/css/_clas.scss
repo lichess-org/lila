@@ -6,6 +6,7 @@ $c-clas-light: mix($c-clas, #fff, 86%);
 body {
   --bg-clas: linear-gradient(to right bottom, hsl(276, 29%, 49%), hsl(276, 65%, 32%), hsl(286, 37%, 21%));
   --bg-clas-title: linear-gradient(to right, hsl(252, 97%, 80%), hsl(276, 97%, 79%), hsl(234, 81%, 78%));
+
   @include if-light {
     --bg-clas: linear-gradient(to right bottom, hsl(276, 29%, 52%), hsl(276, 65%, 38%), hsl(286, 37%, 30%));
     --bg-clas-title: linear-gradient(to right, hsl(252, 97%, 86%), hsl(276, 97%, 84%), hsl(234, 81%, 83%));
@@ -48,6 +49,7 @@ body {
 
   &.student {
     @extend %roboto;
+
     padding: 0.4rem 2vw 0.4rem 2rem;
     line-height: 1.2em;
   }
@@ -55,6 +57,7 @@ body {
 
 h1 {
   @extend %base-font;
+
   background-image: var(--bg-clas-title);
   background-clip: text;
   color: transparent;
@@ -64,6 +67,7 @@ h1 {
 .clas-index {
   .box__top {
     background: var(--bg-clas);
+
     & a {
       color: $c-bg-clas-over;
     }
@@ -73,9 +77,11 @@ h1 {
 
   .button.new {
     opacity: 0.8;
+
     &:hover {
       color: $c-over;
     }
+
     &::before {
       font-size: 3em;
     }
@@ -88,19 +94,19 @@ h1 {
 
     .clas-widget {
       @extend %flex-center-nowrap, %break-word;
+      @include transition;
 
       border-bottom: $border;
       padding: 2em var(---box-padding);
       position: relative;
 
-      @include transition;
-
       &::before {
+        @include transition;
+
         color: $m-clas_bg--mix-80;
         font-size: 5em;
         margin-inline-end: 0.4em;
 
-        @include transition;
         @media (max-width: at-most($xx-small)) {
           display: none;
         }
@@ -172,6 +178,7 @@ h1 {
 
   &__body {
     @extend %box-padding, %flex-column;
+
     gap: 3em;
   }
 
@@ -183,12 +190,15 @@ h1 {
     &__helps {
       margin-top: -2em;
     }
+
     &__help {
       @extend %box-radius;
+
       display: block;
       background: $c-bg-zebra2;
       margin-bottom: 1em;
       padding: 0.5em 1em;
+
       strong {
         color: $c-font-clear;
         line-height: 2em;
@@ -408,6 +418,7 @@ h1 {
   from {
     background: $m-accent_bg-popup--mix-80;
   }
+
   to {
     background: $m-accent_bg-popup--mix-15;
   }
@@ -417,8 +428,10 @@ h1 {
   &__archive {
     text-align: right;
   }
+
   #clas-team:target {
     @extend %box-neat;
+
     padding: 1em 1em 1em 1.5em;
     border: 1px solid $c-accent;
     animation: target-fade 1.5s forwards;
@@ -427,6 +440,7 @@ h1 {
 
 .button-clas {
   background: $m-clas_bg--mix-75;
+
   &:hover {
     background: $m-clas_bg--mix-90 !important;
   }
@@ -445,6 +459,7 @@ h1 {
 
   &__actions {
     @extend %flex-center-center;
+
     margin-top: 4em;
 
     .button {
@@ -501,10 +516,12 @@ h1 {
 
     &__meta {
       @extend %flex-between;
+
       justify-items: center;
 
       .button-empty {
         color: rgba(255, 255, 255, 0.7);
+
         &:hover {
           background: rgba(255, 255, 255, 0.1) !important;
           color: inherit;
@@ -616,6 +633,7 @@ h1 {
     }
   }
 }
+
 .student-add-many {
   form {
     margin-top: 2em;
@@ -648,9 +666,12 @@ h1 {
 
   &__login {
     @extend %flex-center-center;
+
     form {
       @extend %flex-center;
+
       align-items: stretch;
+
       input {
         @extend %box-radius-inline-start;
 
@@ -660,6 +681,7 @@ h1 {
 
       .button {
         @extend %box-radius-inline-end;
+
         background: $c-clas-light;
         padding: 0 1.5em;
         border-inline-start: 0;
@@ -674,38 +696,49 @@ h1 {
 
 .clas-login {
   @extend %flex-column;
+
   gap: 2em;
+
   &__title {
     @extend %flex-between;
   }
+
   &__expiration {
     @extend %box-radius;
+
     background: $c-bg-zebra;
     font-size: 1.2em;
     padding: 0.3em 1em;
+
     .timeago {
       font-weight: bold;
       color: $c-font-clear;
     }
   }
+
   &__cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1em;
   }
+
   &__card {
     @extend %box-neat, %flex-column;
+
     padding: 1em;
     background: $c-bg-zebra;
     border: $border;
     font-size: 1.5em;
+
     h3 {
       color: $c-font-clear;
     }
+
     a {
       font-size: 0.7em;
       color: $c-font-dim;
     }
+
     code {
       font-size: 1.8em;
       text-align: center;
@@ -713,6 +746,7 @@ h1 {
       margin-top: 1rem;
       color: $c-font-dim;
     }
+
     i {
       font-size: 0.8em;
       color: $c-bad;

@@ -8,6 +8,7 @@ $c-fork: $c-primary;
   move {
     @include prevent-select;
     @extend %san, %flex-center;
+
     background: $m-primary_bg--mix-25;
     color: $c-font-clear;
     flex: 0 0 50%;
@@ -19,9 +20,11 @@ $c-fork: $c-primary;
     &:nth-child(odd) {
       border-inline-end: 1px solid $c-bg-box;
     }
+
     &.correct {
       background: $m-secondary_bg--mix-25;
     }
+
     &.wrong {
       background: $m-bad_bg--mix-25;
     }
@@ -34,6 +37,7 @@ $c-fork: $c-primary;
       font-size: 1.5em;
       border: 1px solid $c-bg-box;
       flex: 1 1 auto;
+
       index,
       eval {
         display: none;
@@ -60,9 +64,11 @@ $c-fork: $c-primary;
     &:not(:hover) move.selected {
       background: $c-fork;
       color: #fff;
+
       &.correct {
         background: $c-secondary;
       }
+
       &.wrong {
         background: $c-bad;
       }

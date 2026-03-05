@@ -38,7 +38,9 @@
       height: 2px;
       position: absolute;
       width: 96%;
+
       @include inline-start(2%);
+
       bottom: -2px;
 
       @include transition(all, 0.25s);
@@ -69,9 +71,9 @@
 
     .spinner {
       @extend %abs-100, %flex-center;
+      @include inline-start(0);
 
       top: 0;
-      @include inline-start(0);
       height: var(---chart-height);
       opacity: 0.7;
 
@@ -125,10 +127,12 @@
   header {
     @extend %box-radius-top;
     @extend %flex-between;
+
     padding: 0 1vw;
     flex-wrap: nowrap;
     height: var(---header-height);
     background: $c-bg-zebra;
+
     h2 {
       line-height: var(---header-height);
     }
@@ -161,6 +165,7 @@
 
   .axis-form .by {
     margin: 0 8px;
+
     @media (max-width: at-most(400px)) {
       display: none;
     }
@@ -168,10 +173,12 @@
 
   .axis-form .ms-choice {
     padding: calc(var(---header-height) / 2) 10px;
+
     @media (max-width: at-most($xx-small)) {
       padding-left: 2px;
       padding-right: 2px;
     }
+
     border-width: 0 1px;
     border-radius: 0;
     transition: 0.15s;
@@ -307,13 +314,16 @@
 
   .box {
     @extend %box-radius-bottom;
+
     overflow: visible;
+
     .top {
       @extend %metal, %box-radius-top;
 
       padding: 1rem $block-gap;
       font-weight: bold;
       border-bottom: $border;
+
       .utitle {
         margin-right: 3px;
       }
@@ -346,14 +356,18 @@
 
   .tutor-link {
     @extend %flex-center, %box-neat;
+
     padding: 0.5em 1em;
     gap: 1em;
+
     img {
       height: 3em;
     }
+
     > span {
       @extend %flex-column;
     }
+
     background: $m-primary_bg--mix-10;
     border: 1px solid $c-primary;
     margin-bottom: 1em;
@@ -392,7 +406,6 @@
 
     a {
       @extend %box-radius;
-
       @include transition(background);
 
       color: $c-font;

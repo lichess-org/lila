@@ -150,6 +150,7 @@ body.no-inquiry {
 
   .doc.note {
     margin-top: 1em;
+
     p {
       margin: 0;
     }
@@ -194,6 +195,7 @@ body.no-inquiry {
 
   form.note {
     padding-top: 1em;
+
     textarea {
       width: 100%;
       resize: vertical;
@@ -300,7 +302,9 @@ body.no-inquiry {
       display: none;
       position: absolute;
       top: 100%;
+
       @include inline-end(0);
+
       background: $c-bg-zebra2;
       overflow: scroll;
       max-height: 80vh;
@@ -361,7 +365,9 @@ body.no-inquiry {
     &.counter > div,
     &.warn > div {
       width: 360px;
+
       @include inline-end(-155px);
+
       max-height: 500px;
       overflow-y: auto;
     }
@@ -377,6 +383,7 @@ body.no-inquiry {
     flex-flow: column;
     justify-content: center;
     text-align: center;
+
     .view-games-dropdown {
       a {
         display: block;
@@ -400,10 +407,12 @@ body.no-inquiry {
   .notes {
     span {
       transition: all 1s ease-out;
+
       &.note-flash {
         background: $c-primary;
         box-shadow: 0 0 15px $c-primary;
         transition: none;
+
         &.warning {
           background: $c-warn;
           box-shadow: 0 0 15px $c-warn;

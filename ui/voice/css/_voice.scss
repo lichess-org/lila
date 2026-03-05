@@ -1,5 +1,6 @@
 #voice-bar {
   @include prevent-select;
+
   position: relative;
   flex: 1 1 auto;
   grid-area: voice;
@@ -7,6 +8,7 @@
 
 #voice-status-row {
   @extend %box-neat, %flex-center-nowrap;
+
   font-size: 1rem;
   align-items: stretch;
   background: $c-bg-box;
@@ -43,9 +45,11 @@
     0% {
       background-color: $c-bg-zebra2;
     }
+
     50% {
       background-color: #c338;
     }
+
     100% {
       background-color: $c-bg-zebra2;
     }
@@ -54,6 +58,7 @@
 
 #voice-status {
   @extend %flex-center-nowrap;
+
   flex: 1 1 auto;
 }
 
@@ -65,6 +70,7 @@ button#microphone-button {
   border: 1px solid transparent;
   border-radius: 4px;
   background-color: transparent;
+
   @include if-light {
     &:hover {
       background-color: $c-font-dimmer;
@@ -93,9 +99,11 @@ button#microphone-button {
     0% {
       border-color: transparent;
     }
+
     50% {
       border-color: $c-primary;
     }
+
     100% {
       border-color: transparent;
     }
@@ -111,6 +119,7 @@ button#microphone-button {
 
 #voice-settings {
   @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+
   position: absolute;
   border-top: 2px solid $c-primary;
   z-index: $z-mz-menu-4;
@@ -118,6 +127,7 @@ button#microphone-button {
   background: $c-bg-high;
   gap: 1.5em;
   padding: 1.5em;
+
   > hr {
     margin: 5px;
   }
@@ -125,6 +135,7 @@ button#microphone-button {
 
 .voice-setting {
   @extend %flex-center-nowrap;
+
   white-space: nowrap;
 
   input[type='range'] {
@@ -138,6 +149,7 @@ button#microphone-button {
 
   select {
     @extend %ellipsis;
+
     flex: 1 4 auto;
     min-width: 0;
     margin-inline-start: 1ch;
@@ -153,6 +165,7 @@ button#microphone-button {
 
 .voice-choices {
   @extend %flex-between;
+
   gap: 1em;
 
   .active {

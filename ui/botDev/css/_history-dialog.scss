@@ -9,40 +9,51 @@
 
   .versions {
     @extend %flex-column;
+
     overflow: auto;
     background: $c-bg-zebra;
     border: $c-border 1px solid;
     border-right: none;
     border-radius: 10px 0 0 10px;
   }
+
   .version {
     @extend %flex-center-nowrap;
+
     border-bottom: 1px solid $c-border;
     padding: 0.5em;
     gap: 1em;
     cursor: pointer;
+
     .author {
       @extend %flex-between-nowrap;
+
       width: 65%;
       font-size: 1em;
       color: $c-font;
     }
+
     .version-number {
       @extend %flex-center-nowrap;
+
       width: 20%;
       font-size: 1.2em;
       font-weight: bold;
     }
+
     span {
       pointer-events: none;
     }
+
     &:hover {
       background-color: $m-primary--alpha-30;
     }
+
     &.selected {
       background-color: $m-clas--alpha-30;
     }
   }
+
   .json {
     display: block;
     text-align: left;
@@ -62,19 +73,24 @@
       all: unset;
       display: inline;
     }
+
     .selected {
       background-color: $m-clas--alpha-30;
     }
+
     .hovered {
       background-color: $m-primary--alpha-30;
     }
+
     .selected + .hovered,
     .hovered + .selected {
       margin-left: 5px;
     }
   }
+
   .actions {
     @extend %flex-center;
+
     height: 64px;
     justify-content: end;
   }

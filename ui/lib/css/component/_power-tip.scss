@@ -26,12 +26,14 @@
     body.no-rating & {
       height: unset;
     }
+
     padding: 0.4em 0.5em 0.3em 0.5em;
     border-bottom: $border;
     overflow: hidden;
 
     &__top {
       @extend %flex-between-nowrap, %ellipsis;
+
       gap: 0.6ch;
 
       .user-link {
@@ -39,8 +41,10 @@
         display: block;
         font-size: 1.1em;
       }
+
       &__flag {
         @extend %flex-center;
+
         margin-inline-start: 0.5ch;
         gap: 0.5ch;
         flex: 1 1 auto;
@@ -48,6 +52,7 @@
         font-size: 0.9em;
         color: $c-font-dim;
       }
+
       signal {
         flex: 0 0 auto;
       }
@@ -70,6 +75,7 @@
         padding: 2px 3px;
         text-align: left;
       }
+
       body.no-rating & {
         display: none;
       }
@@ -110,6 +116,7 @@
 
   &__details {
     @extend %flex-between;
+
     white-space: nowrap;
 
     &__marks {

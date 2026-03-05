@@ -22,6 +22,7 @@
 
   .status {
     @extend %flex-center-center;
+
     width: 2.4em;
     margin-inline-end: 0.1em;
     transition: 2.5s;
@@ -106,7 +107,6 @@
 
   m-config {
     @extend %flex-between;
-
     @include padding-direction(0.4em, 0.8em, 1em, 0.8em);
   }
 }

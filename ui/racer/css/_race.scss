@@ -5,17 +5,18 @@ $c-bg-position-y: 2px;
 
 .racer__race {
   @extend %box-neat;
-  overflow: hidden;
 
+  overflow: hidden;
   position: relative;
   background: $c-bg-box;
   font-size: 0.9em;
 
   &::before,
   &__tracks {
+    @include inline-start(0);
+
     position: absolute;
     top: 0;
-    @include inline-start(0);
   }
 
   &::before {
@@ -26,6 +27,7 @@ $c-bg-position-y: 2px;
     background-image: url('../images/racer/road1.webp');
     background-repeat: repeat;
     background-position-y: 7px;
+
     .racer--racing & {
       animation: road-scroll 1s linear infinite;
 
@@ -39,14 +41,17 @@ $c-bg-position-y: 2px;
     from {
       transform: translateX(0);
     }
+
     to {
       transform: translateX(-101px);
     }
   }
+
   @keyframes road-scroll-rtl {
     from {
       transform: translateX(0);
     }
+
     to {
       transform: translateX(101px);
     }
@@ -66,13 +71,14 @@ $c-bg-position-y: 2px;
 
   &__score {
     @extend %flex-center;
+    @include inline-end(-140px);
+
     direction: ltr;
     font-family: storm;
     font-size: 20px;
     justify-content: flex-end;
     position: absolute;
     top: 0;
-    @include inline-end(-140px);
     color: #bbb;
     width: 3.8ch;
     padding-right: 0.8ch;
@@ -80,13 +86,16 @@ $c-bg-position-y: 2px;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     transition: color ease-out 0.5s;
+
     .racer__race__track--boost & {
       transition: none;
       color: #fff;
     }
+
     .racer__race__track--first & {
       color: $c-brag;
     }
+
     .racer__race__track--boost.racer__race__track--first & {
       color: $c-racer-boost;
     }
@@ -112,18 +121,22 @@ $c-bg-position-y: 2px;
       font-size: $car-width;
       line-height: 0;
       text-shadow: -1px 1px 2px #000;
+      transition: all 0.9s ease-out;
       transform: scaleX(1) translateX(0);
+
       @include if-rtl {
         transform: scaleX(-1) translateX(0);
       }
-      transition: all 0.9s ease-out;
 
       .racer__race__track--boost & {
         transform: translateX(6px) scaleX(0.95) skewX(7deg) rotate(-3deg);
+
         @include if-rtl {
           transform: translateX(6px) scaleX(-0.95) skewX(7deg) rotate(-3deg);
         }
+
         transition: all 0.15s ease-out;
+
         &::before {
           content: 'A';
           position: absolute;
@@ -131,12 +144,15 @@ $c-bg-position-y: 2px;
           font-size: 0.4em;
           animation: boost 0.1s ease-in infinite;
         }
+
         &.vehicle3::before {
           left: -0.1em;
         }
+
         &.vehicle2::before {
           left: -0.6em;
         }
+
         &.vehicle0::before,
         &.vehicle1::before {
           left: -0.9em;
@@ -147,10 +163,12 @@ $c-bg-position-y: 2px;
     .user-link,
     anonymous {
       color: #ddd;
+
       .racer__race__track--me & {
         color: #efab3e;
       }
     }
+
     .utitle {
       margin-right: 0.6ch;
     }
@@ -162,6 +180,7 @@ $c-bg-position-y: 2px;
     transform: translateX(0%);
     opacity: 1;
   }
+
   to {
     transform: translateX(-3px);
     opacity: 0.6;
@@ -180,6 +199,7 @@ $car-colors: (
   8: #daa520,
   9: hsl(32, 75%, 47%),
 );
+
 @each $index, $color in $car-colors {
   .car-#{$index} {
     color: #{$color};

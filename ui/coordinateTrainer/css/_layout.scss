@@ -27,9 +27,12 @@
 .trainer {
   grid-area: main;
   display: grid;
+  grid-template-areas: 'board' 'progress' 'co-input' 'table' 'side';
+  row-gap: $block-gap;
 
   .side {
     @extend %zen;
+
     grid-area: side;
   }
 
@@ -47,15 +50,13 @@
 
   .progress {
     @extend %zen;
+
     grid-area: progress;
   }
 
   .coordinate-input {
     grid-area: co-input;
   }
-
-  grid-template-areas: 'board' 'progress' 'co-input' 'table' 'side';
-  row-gap: $block-gap;
 
   @include mq-at-least-col2 {
     grid-template-columns: var(---col2-uniboard-width) $block-gap $col2-uniboard-table;

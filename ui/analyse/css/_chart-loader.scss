@@ -3,12 +3,12 @@
 }
 
 #acpl-chart-container-loader {
+  @include padding-direction(7px, 10px, 7px, 0);
+
   font-size: 0.9em;
   position: absolute;
   top: 91px;
   background: $c-bg-box;
-  @include padding-direction(7px, 10px, 7px, 0);
-
   line-height: 20px;
   box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
   display: flex;

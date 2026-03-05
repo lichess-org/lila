@@ -15,9 +15,9 @@
     font-size: 0.9em;
 
     li {
-      position: relative;
       @include padding-direction(0.5em, 5px, 0.5em, 10px);
 
+      position: relative;
       line-height: 1.2em;
       overflow-y: hidden;
       user-select: text;
@@ -77,10 +77,11 @@
     }
 
     action {
+      @include inline-end(0);
+
       display: none;
       position: absolute;
       top: 5px;
-      @include inline-end(0);
       cursor: pointer;
       margin-inline-end: 3px;
       padding: 1px 5px;
@@ -121,11 +122,12 @@
   }
 
   &__say {
+    @include padding-direction(3px, 20px, 3px, 4px);
+
     flex: 0 0 auto;
     border: 0;
     border-top: $border;
     border-radius: 0;
-    @include padding-direction(3px, 20px, 3px, 4px);
 
     &:focus {
       outline: 1px solid $c-primary;

@@ -31,6 +31,7 @@
     0% {
       background-position: 180% 0;
     }
+
     100% {
       background-position: -90% 0;
     }
@@ -49,19 +50,17 @@
 
 .lpool {
   @extend %flex-column, %box-radius, %break-word;
+  @include transition;
 
   justify-content: center;
   align-items: center;
   cursor: pointer;
-
+  color: $c-font-dim;
   background: $c-pool-button;
+
   @include if-light {
     background: $m-bg--fade-50;
   }
-
-  color: $c-font-dim;
-
-  @include transition;
 
   &:hover {
     color: $c-font;

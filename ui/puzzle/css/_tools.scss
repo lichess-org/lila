@@ -14,6 +14,7 @@
 
 .puzzle__moves {
   @include prevent-select;
+
   flex: 2 1 auto;
   overflow: auto;
   border-bottom: $border;
@@ -141,9 +142,11 @@
     position: relative;
     flex: 1 1 auto;
   }
+
   .board-menu {
     @include mq-at-least-col2 {
       @include box-radius-top;
+
       bottom: $col3-uniboard-controls;
       border-bottom: 2px solid $c-secondary;
     }

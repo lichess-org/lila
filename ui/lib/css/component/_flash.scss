@@ -1,5 +1,6 @@
 .flash {
   @extend %flex-center-nowrap, %box-radius;
+
   margin: 1em 0 2em 0;
   padding: 1em 2em;
   background: $c-good;
@@ -43,12 +44,15 @@
 
   &-quiet {
     @extend %box-neat;
+
     background: $c-bg-zebra;
   }
 
   &-box {
     @extend %box-neat;
+
     background: $c-bg-zebra;
+
     a {
       color: $c-primary;
     }

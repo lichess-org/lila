@@ -2,9 +2,11 @@
   overflow: visible; // don't clip textarea focus ring
 
   $c-bg-preview: $c-bg-input;
+
   @include if-transp {
     $c-bg-preview: $c-bg-opaque;
   }
+
   .comment-header {
     position: relative;
     display: flex;
@@ -18,6 +20,7 @@
       border-top-left-radius: 0;
     }
   }
+
   .header-tab {
     all: unset;
     font-family: Roboto, sans-serif;
@@ -33,6 +36,7 @@
     color: $c-font-dimmer;
     cursor: pointer;
   }
+
   .header-tab.active {
     position: relative;
     background: $c-bg-preview;
@@ -45,6 +49,7 @@
       background-color: $c-bg-input;
     }
   }
+
   .header-tab.active::after {
     position: absolute;
     content: ''; // hide a bit of textarea focus ring
@@ -54,9 +59,11 @@
     height: 4px;
     background-color: $c-bg-preview;
   }
+
   .header-tab.active.write::after {
     background-color: $c-bg-input;
   }
+
   &:has(textarea:focus) .write.active {
     outline: $outline;
     outline-offset: -2px;
@@ -66,6 +73,7 @@
       right: 1px;
     }
   }
+
   .upload-image {
     all: unset;
     margin: 0 16px;
@@ -75,6 +83,7 @@
     cursor: pointer;
     mask: url('../images/buttons/add-photo-outline-material.svg') 0 0 / contain no-repeat;
   }
+
   .upload-image.disabled {
     background-color: $c-border;
     cursor: default;
@@ -84,6 +93,7 @@
     overflow: visible; // don't clip textarea focus ring
     position: relative;
   }
+
   .comment-preview {
     position: absolute;
     inset: 1px;
@@ -93,22 +103,27 @@
     border-radius: 6px 6px 24px 6px;
     background: $c-bg-preview;
   }
+
   .comment-preview img {
     max-width: 100%;
     margin: 0 auto;
     height: auto;
   }
+
   &:has(.uploading) {
     .comment-preview {
       background: $m-bg--alpha-50;
     }
+
     button {
       pointer-events: none;
     }
+
     .spinner {
       margin: 24px 0 0;
     }
   }
+
   .comment-preview .uploading {
     width: 100%;
     height: 100%;
@@ -125,6 +140,7 @@
     border-color: $m-border--fade-60;
     color: $c-font;
   }
+
   .markdown-textarea .upload-image:hover:not(.disabled) {
     background-color: $c-primary;
   }
