@@ -17,6 +17,7 @@
       line-height: 1.9em;
       background: $m-secondary_bg--mix-40;
       padding: 0 7px;
+
       a {
         font-weight: bold;
       }
@@ -43,6 +44,7 @@
 
 .analyse__moves {
   @include prevent-select;
+
   flex: 2 1 0;
   display: flex;
   flex-direction: column;
@@ -51,7 +53,6 @@
   // 0 size forces vertical scrollbar
   overflow-y: auto;
   overflow-x: hidden;
-
   position: relative;
 
   /* required so line::before scrolls along the moves! */

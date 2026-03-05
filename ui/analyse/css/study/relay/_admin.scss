@@ -16,11 +16,10 @@
 
   .state {
     @extend %flex-center-nowrap;
+    @include transition;
 
     border-bottom: $border;
     min-height: 3.5em;
-
-    @include transition;
 
     &::before {
       @extend %flex-center;
@@ -31,6 +30,7 @@
 
     > span {
       @extend %ellipsis;
+
       overflow-wrap: anywhere;
     }
 
@@ -48,6 +48,7 @@
       color: $c-over;
     }
   }
+
   button.clickable:hover {
     cursor: pointer;
     background: $c-primary;
@@ -88,6 +89,7 @@
     }
   }
 }
+
 .relay-admin__container {
   .study__chapters {
     max-height: 25vh;

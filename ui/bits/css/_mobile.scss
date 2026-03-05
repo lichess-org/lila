@@ -1,12 +1,14 @@
 .mobile {
   .sides {
     @extend %flex-wrap;
+
     justify-content: space-around;
   }
 
   .left-side {
     .stores {
       @extend %flex-center-center;
+
       gap: 1em;
     }
 
@@ -38,7 +40,6 @@
   .right-side {
     flex: 0 0 33%;
     text-align: center;
-
     margin-left: 2em;
 
     @media (max-width: at-most($x-small)) {

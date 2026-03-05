@@ -25,6 +25,7 @@ $c-tabs-hover: $m-accent--fade-50 !default;
     border-bottom: 2px solid transparent;
     min-width: 15%;
     letter-spacing: -0.5px;
+
     @include transition(color border-color, 0.25s);
 
     @media (min-width: at-least($xx-small)) {

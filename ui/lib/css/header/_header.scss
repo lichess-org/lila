@@ -5,6 +5,7 @@
 
 body > header {
   @include prevent-select;
+
   height: $site-header-height;
   display: flex;
   justify-content: space-between;
@@ -14,17 +15,19 @@ body > header {
   margin: 0 auto;
 
   @include mq-sticky-header {
+    @include transition(transform border-color, $transition-duration, ease-in-out);
+
     max-width: unset;
     position: fixed;
     top: 0;
     width: 100%;
     padding: 0 var(---site-header-sticky-padding);
     border-bottom: 1px solid transparent;
-    @include transition(transform border-color, $transition-duration, ease-in-out);
 
     &.scrolled {
       background-image: linear-gradient(to bottom, $c-body-gradient, $m-body-gradient_bg-page--mix-50 60px);
       border-color: black;
+
       @include if-light {
         border-color: hsl(0, 0%, 70%);
       }
@@ -32,6 +35,7 @@ body > header {
 
     @include if-transp {
       @include back-blur(6px);
+
       border: none;
       background: hsla(0, 0, 60%, 0.14);
     }
@@ -63,6 +67,7 @@ body > header {
 
 body.zen {
   @include topnav-unsticky;
+
   header::before {
     display: none;
   }
@@ -70,13 +75,18 @@ body.zen {
 
 #topnav .community-patron {
   @extend %flex-center;
+
   &::after {
     @extend %data-icon;
+
     content: $licon-Wings;
     font-size: 1.3em;
     color: $c-brag;
+
     @include margin-direction(0, 0, 0.08ch, 0.3ch);
+
     transform: scaleX(-1);
+
     @include if-rtl {
       transform: none;
     }
@@ -89,10 +99,12 @@ body.zen {
 
   &__donate {
     @extend %flex-center;
+
     color: $c-brag;
     padding: 0 1rem;
     text-transform: uppercase;
     line-height: $site-header-height;
+
     @media (max-width: at-most($xx-small)) {
       display: none;
     }

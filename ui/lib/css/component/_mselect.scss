@@ -50,7 +50,9 @@ $c-mselect: $c-primary;
 
     position: absolute;
     top: 0;
+
     @include inline-start(0);
+
     min-width: 100%;
     max-height: 60vh;
     overflow-y: auto;
@@ -83,6 +85,7 @@ $c-mselect: $c-primary;
       }
     }
   }
+
   &__item {
     white-space: nowrap;
     display: block;
@@ -91,20 +94,24 @@ $c-mselect: $c-primary;
     opacity: 0;
     color: $c-mselect;
     border-left: 3px solid transparent;
+
     @include transition(background-color border-color);
 
     &.current {
       background: $c-bg-zebra;
       border-color: $c-mselect;
     }
+
     &:hover {
       background: $c-mselect;
       color: $c-over;
     }
+
     &:focus-visible {
       outline: $outline;
       outline-offset: -2px;
     }
+
     &::before {
       margin-inline-end: 0.4em;
     }

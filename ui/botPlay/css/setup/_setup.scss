@@ -1,13 +1,16 @@
 .bot-setup {
   @extend %flex-column;
+
   gap: 2vmin;
   margin-top: 2vh;
 }
 
 .bot-setup__title {
   @extend %flex-center-center;
+
   .beta {
     @extend %box-radius;
+
     font-family: monospace;
     font-size: 0.5em;
     margin-inline-start: 0.5em;
@@ -19,9 +22,11 @@
 
 .bot-setup__bots {
   --min-card-width: 200px;
+
   @media (max-width: at-most($x-small)) {
     --min-card-width: 140px;
   }
+
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--min-card-width), 1fr));
   gap: 3vmin;
@@ -30,10 +35,12 @@
 
   &--tier-best {
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+
     @media (max-width: at-most($xx-small)) {
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     }
   }
+
   &--tier-high {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }

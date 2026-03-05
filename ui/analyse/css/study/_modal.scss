@@ -70,10 +70,13 @@
       margin: -1em 0 1.6em 0;
       border-bottom: $border;
     }
+
     .import-from__chapter {
       @extend %break-word-hard, %ellipsis;
+
       max-width: 100%;
     }
+
     .preview-in-editor {
       float: right;
       margin-top: 0.2em;
@@ -82,9 +85,11 @@
 
   &.study-edit .flair-and-name {
     gap: 4%;
+
     .form-group:last-child {
       flex: 1 1 auto;
     }
+
     .uflair {
       margin: 0;
       font-size: 1.3em;

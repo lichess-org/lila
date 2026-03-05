@@ -3,6 +3,7 @@
 
   &__target {
     @extend %nowrap-ellipsis, %box-radius-left;
+
     flex: 1 1 auto;
     padding: 0 1em;
     outline: 0;
@@ -16,6 +17,7 @@
 
       &:focus-visible {
         @extend %box-radius-left;
+
         outline-offset: -2px;
       }
     }
@@ -23,6 +25,7 @@
 
   &__button {
     @extend %box-radius-right;
+
     flex: 0 0 auto;
     border: $border;
     border-left: 0;

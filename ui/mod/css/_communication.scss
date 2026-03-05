@@ -3,6 +3,7 @@
 
 #communication {
   @extend %flex-column;
+
   gap: 2vh;
 
   h1 {
@@ -22,6 +23,7 @@
       margin-inline-start: 1em;
       font-weight: normal;
     }
+
     .comms-export {
       margin-inline-start: 1em;
     }
@@ -98,6 +100,7 @@
     cursor: pointer;
     border-bottom: 1px dashed $m-accent--fade-50;
     min-width: 6ch;
+
     &:hover {
       background: $m-accent--fade-80;
     }
@@ -109,12 +112,14 @@
     max-height: 300px;
     border-bottom: $border;
   }
+
   .thread td {
     padding: 0.3em 1em;
   }
 
   .thread .title {
     margin-bottom: 20px;
+
     strong {
       font-size: 1.2em;
       margin-right: 1em;

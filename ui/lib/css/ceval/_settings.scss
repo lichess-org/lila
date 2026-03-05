@@ -4,6 +4,7 @@
 
 #ceval-settings {
   @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+
   position: absolute;
   border-top: 2px solid $c-primary;
   z-index: $z-mz-menu-4;
@@ -14,6 +15,7 @@
 
   @media (max-width: at-most($small)) {
     gap: 1em;
+
     br {
       display: none;
     }
@@ -21,6 +23,7 @@
 
   .setting {
     @extend %flex-center-nowrap;
+
     white-space: nowrap;
 
     input[type='range'],
@@ -35,6 +38,7 @@
 
     select {
       @extend %ellipsis;
+
       flex: 1 4 auto;
       min-width: 0;
       margin-inline-start: 1ch;

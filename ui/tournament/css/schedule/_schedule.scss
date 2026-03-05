@@ -13,6 +13,7 @@ $c-tour-variant: #7c5133;
 
 .tour-chart {
   @include prevent-select;
+
   min-height: 400px;
   position: relative;
 
@@ -59,11 +60,14 @@ $c-tour-variant: #7c5133;
       height: calc(100% - 2em);
       margin-inline-start: 1px;
       border-inline-start: 3px dashed $c-accent;
+
       &::after {
         content: '';
         position: absolute;
         top: -24px;
+
         @include inline-start(-10px);
+
         width: 0;
         height: 0;
         border-left: 8px solid transparent;

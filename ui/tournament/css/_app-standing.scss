@@ -15,6 +15,7 @@
       display: inline-block;
       padding-inline-end: 5px;
       max-width: 140px;
+
       @media (min-width: at-least($x-large)) {
         max-width: 200px;
       }
@@ -62,6 +63,7 @@
 
   td.rank {
     @include padding-direction(1em, 0.5em, 1em, 10px);
+
     width: 1px;
 
     /* helps keeping it as small as possible */

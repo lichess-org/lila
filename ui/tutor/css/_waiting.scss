@@ -1,18 +1,20 @@
 .tutor {
   &__waiting__games {
     overflow: hidden;
-    @media (prefers-reduced-motion: reduce) {
-      display: none;
-    }
     min-height: 255px;
     padding: $box-padding-vert 0;
-
     position: relative;
+
     ---move-initial: calc(0%);
     ---move-final: calc(-200px * 30);
 
+    @media (prefers-reduced-motion: reduce) {
+      display: none;
+    }
+
     &__carousel {
       @extend %flex-center-nowrap;
+
       gap: 2em;
       width: fit-content;
       position: relative;
@@ -21,22 +23,28 @@
       animation-play-state: running;
     }
   }
+
   &__waiting-game {
     flex: 0 0 200px;
     transition: 0.5s;
+
     .lpv__player {
       overflow: hidden;
+
       &__name {
         font-size: 1.5em;
         white-space: nowrap;
       }
     }
+
     &.lpv:hover {
       @extend %popup-shadow;
+
       transform: scale(1.2);
       z-index: 50;
     }
   }
+
   @keyframes marquee {
     0% {
       transform: translate3d(var(---move-initial), 0, 0);

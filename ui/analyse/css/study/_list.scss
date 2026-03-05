@@ -1,6 +1,7 @@
 %study-list {
   @extend %box-neat;
   @include prevent-select;
+
   background: $c-bg-box;
 
   .study-list > div,
@@ -54,6 +55,7 @@
 %study-list-ongoing {
   ongoing {
     @extend %flex-center-center;
+
     align-self: center;
     font-size: 0.7em;
     color: $c-bad;

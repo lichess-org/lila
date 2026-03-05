@@ -3,8 +3,9 @@
 $clock-height: 20px;
 
 .analyse__player_strip {
-  position: absolute;
   @include inline-end(0);
+
+  position: absolute;
   display: flex;
 
   &.top {
@@ -66,6 +67,7 @@ $clock-height: 20px;
       margin-inline-start: -10px;
     }
   }
+
   score {
     margin-top: -2px;
   }

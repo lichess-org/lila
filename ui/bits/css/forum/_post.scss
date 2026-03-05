@@ -6,6 +6,7 @@
   &__metas {
     > div {
       @extend %flex-center;
+
       flex: 1;
     }
 
@@ -18,6 +19,7 @@
 
     a.author--op {
       @extend %box-radius;
+
       padding: 0.2em;
       padding-inline-end: 0.8em;
       background: $m-primary_bg--mix-12;
@@ -52,6 +54,7 @@
       text-align: center;
       margin-bottom: 2em;
     }
+
     .forum-post__metas {
       justify-content: flex-end;
     }
@@ -61,6 +64,7 @@
     .forum-post__message {
       display: none;
     }
+
     > button {
       margin: 2em;
     }
@@ -95,6 +99,7 @@
 
   &:hover {
     color: $c-primary;
+
     &.delete {
       color: $c-bad;
     }
@@ -121,7 +126,6 @@
 
   margin-top: 1em;
   margin-bottom: 1em;
-
   text-align: start;
 
   .lpv {

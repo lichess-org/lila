@@ -1,6 +1,5 @@
 html {
   @extend %base-font-fallback;
-
   @include fluid-size('font-size', 12px, 14px);
 
   -webkit-font-smoothing: antialiased;

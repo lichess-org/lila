@@ -22,9 +22,9 @@ $player-height: 1.6rem;
 
 .study__player {
   @extend %flex-between-nowrap, %metal, %box-shadow;
+  @include inline-end(0);
 
   position: absolute;
-  @include inline-end(0);
   font-weight: bold;
   width: var(---cg-width, 100%);
   height: $player-height;
@@ -84,17 +84,21 @@ $player-height: 1.6rem;
 
   .info {
     @extend %flex-center-nowrap;
+
     margin-inline-start: 10px;
     overflow: hidden;
 
     .team,
     .name {
       @extend %ellipsis;
+
       max-width: fit-content;
       flex: 1;
     }
+
     a.name {
       color: $c-font;
+
       &:hover {
         color: $c-link;
       }
@@ -105,13 +109,16 @@ $player-height: 1.6rem;
     margin-inline-start: 0.5ch;
     flex: 3;
   }
+
   .team {
     @extend %roboto;
+
     margin-inline-end: 1ch;
     padding: 0 1ch;
     flex: 2;
     color: $c-font-dim;
   }
+
   .mini-game__flag {
     height: 1em;
     width: 1em;
