@@ -383,9 +383,9 @@ final class User(
             .zip(env.playban.api.bans(user.id))
             .map(ui.showRageSitAndPlaybans)
 
-        val actions = env.user.repo.isDeleted(user).map { deleted =>
-          ui.actions(user, emails, deleted, env.mod.presets.getPmPresets)
-        }
+        val actions =
+          for flags <- env.user.repo.closedFlags(user)
+          yield ui.actions(user, emails, flags, env.mod.presets.getPmPresets)
 
         val userLoginsFu = env.security.userLogins(user, nbOthers)
         val othersAndLogins = for
@@ -453,15 +453,9 @@ final class User(
       .orFail(s"No such user $username")
       .flatMap:
         case WithPerfsAndEmails(user, emails) =>
-          env.user.repo.isDeleted(user).flatMap { deleted =>
-            Ok.snip:
-              views.mod.user.actions(
-                user,
-                emails,
-                deleted,
-                env.mod.presets.getPmPresets
-              )
-          }
+          for flags <- env.user.repo.closedFlags(user)
+          yield Ok.snip:
+            views.mod.user.actions(user, emails, flags, env.mod.presets.getPmPresets)
 
   def writeNote(username: UserStr) = AuthBody { ctx ?=> me ?=>
     bindForm(lila.user.UserForm.note)(
