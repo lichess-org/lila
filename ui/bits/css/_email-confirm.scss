@@ -1,22 +1,28 @@
 .email-confirm-banner {
+  @extend %flex-center-center;
+  flex-wrap: nowrap;
+  gap: 0.6em;
   padding: 1em;
-  background: #3893e8;
-  color: #fff !important;
+  background: $c-primary;
+  color: $c-over !important;
   font-size: 1.3em;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #666;
-  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.3);
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 107;
+  &.error {
+    background: $c-error;
+    flex-flow: column;
+    code {
+      word-break: break-word;
+      font-size: 1rem;
+    }
+  }
 }
 .email-confirm-banner a {
-  color: #fff !important;
+  color: $c-over !important;
   text-decoration: underline;
   margin-left: 1em;
 }

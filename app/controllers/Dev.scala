@@ -1,6 +1,6 @@
 package controllers
 
-import lila.app.*
+import lila.app.{ *, given }
 
 final class Dev(env: Env) extends LilaController(env):
 
@@ -54,6 +54,15 @@ final class Dev(env: Env) extends LilaController(env):
         v => env.security.ipTiers.writeToFile(v).inject(Redirect(routes.Dev.ipTiers).flashSuccess)
       )
   }
+
+  def emailErrorPost = SecuredScopedBody(_.SetEmail)():
+    if env.web.emailError.setFromReq().isDefined then NoContent else BadRequest
+
+  def emailErrorGet = Open: ctx ?=>
+    ctx.isAnon
+      .so(lila.security.EmailConfirm.cookie.get(ctx.req))
+      .flatMap(u => env.web.emailError.get(u.email))
+      .fold(NoContent)(Ok(_))
 
   private def runCommand(command: String)(using Me): Fu[String] =
     for
