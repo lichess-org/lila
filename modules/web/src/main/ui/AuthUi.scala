@@ -143,8 +143,10 @@ final class AuthUi(helpers: Helpers):
                     required,
                     name := "email",
                     value := form.flatMap(_("email").value).getOrElse(email.value),
-                    pattern := s"^((?!^${email.value}$$).)*$$"
+                    pattern := s"^((?!^${email.value}$$).)*$$",
+                    size := 40
                   ),
+                  " ",
                   submitButton(cls := "button")("Change it"),
                   form.map: f =>
                     errMsg(f("email"))
@@ -292,7 +294,7 @@ final class AuthUi(helpers: Helpers):
 
   def checkYourEmailBanner(user: UserName, email: EmailAddress) =
     div(cls := "email-confirm-banner")(
-      s"Almost there, ${user}! Now check your email (${email.conceal}) for signup confirmation.",
+      span(s"Almost there, ${user}! Now check your email (${email.conceal}) for signup confirmation."),
       a(href := routes.Auth.checkYourEmail)("Need help?")
     )
 

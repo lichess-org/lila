@@ -938,6 +938,8 @@ GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id)
 GET   /dev/ip-tiers                    controllers.Dev.ipTiers
 POST  /dev/ip-tiers                    controllers.Dev.ipTiersPost
+GET   /dev/email-error                 controllers.Dev.emailErrorGet
+POST  /dev/email-error                 controllers.Dev.emailErrorPost
 
 GET   /prometheus-metrics/:key         controllers.Main.prometheusMetrics(key: String)
 

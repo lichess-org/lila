@@ -40,6 +40,8 @@ export function initModule(args: { fn: string } & any): void {
       return titleRequest();
     case 'validEmail':
       return validateEmail();
+    case 'emailErrorCheck':
+      return emailErrorCheck();
     default:
       console.error('Unknown bits function', args.fn);
   }
@@ -260,4 +262,17 @@ function validateEmail() {
   email.addEventListener('input', function () {
     email.setCustomValidity(email.validity.patternMismatch ? currentError : '');
   });
+}
+
+function emailErrorCheck() {
+  const fetchError = async (backoff: number) => {
+    const error = await text('/dev/email-error');
+    if (error) {
+      $('.email-confirm-banner')
+        .addClass('error')
+        .html(`<a href="/signup/check-your-email">We sent the email, but it was rejected.</a><code></code>`);
+      $('.email-confirm-banner code').text(error);
+    } else setTimeout(() => fetchError(backoff * 1.5), backoff);
+  };
+  fetchError(3000);
 }
