@@ -144,21 +144,10 @@ const feedback = {
             ],
           ),
           hl('div.choices.end', [
-            !nothing &&
-              hl(
-                'a',
-                {
-                  key: 'reset',
-                  hook: bind('click', ctrl.reset),
-                },
-                i18n.site.doItAgain,
-              ),
+            !nothing && hl('a', { key: 'reset', hook: bind('click', ctrl.reset) }, i18n.site.doItAgain),
             hl(
               'a',
-              {
-                key: 'flip',
-                hook: bind('click', ctrl.flip),
-              },
+              { key: 'flip', hook: bind('click', ctrl.flip) },
               i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
             ),
           ]),
@@ -183,8 +172,16 @@ export default function (root: AnalyseCtrl): VNode | undefined {
     completion = ctrl.completion();
   return hl('div.retro-box.training-box.sub-box', [
     hl('div.title', [
-      hl('span', i18n.site.learnFromYourMistakes),
-      hl('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
+      hl('span.label', i18n.site.learnFromYourMistakes),
+      hl('span.count', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
+      hl('label.retro-inaccuracies', [
+        hl('input', {
+          attrs: { type: 'checkbox' },
+          props: { checked: ctrl.includeInaccuracies() },
+          hook: bind('change', ctrl.toggleIncludeInaccuracies, root.redraw),
+        }),
+        hl('span', 'Include inaccuracies'),
+      ]),
       hl('button.fbt', {
         hook: bind('click', root.toggleRetro, root.redraw),
         attrs: { 'data-icon': licon.X, 'aria-label': 'Close learn window' },

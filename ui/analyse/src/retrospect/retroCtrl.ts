@@ -3,6 +3,7 @@ import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
 import { isEmpty, type Prop, prop } from 'lib';
+import { storedBooleanProp } from 'lib/storage';
 import type { OpeningData } from '../explorer/interfaces';
 import type AnalyseCtrl from '../ctrl';
 import type { TreeNode } from 'lib/tree/types';
@@ -29,6 +30,8 @@ export interface RetroCtrl {
   node(): TreeNode;
   redraw: Redraw;
   forceCeval(): boolean;
+  includeInaccuracies: Prop<boolean>;
+  toggleIncludeInaccuracies(): void;
 }
 
 interface NodeWithPath {
@@ -52,6 +55,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   let solvedPlies: number[] = [];
   const current = prop<Retrospection | null>(null);
   const feedback = prop<Feedback>('find');
+  const includeInaccuracies = storedBooleanProp('retro.includeInaccuracies', false);
 
   function safeRedraw() {
     if (!site.blindMode) root.redraw();
@@ -64,6 +68,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     candidateNodes = evalSwings(
       root.mainline,
       n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply),
+      includeInaccuracies() ? 0.05 : 0.1,
     );
     return candidateNodes.find(n => !isPlySolved(n.ply));
   }
@@ -204,6 +209,13 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
 
   const isSolving = (): boolean => ['find', 'fail'].includes(feedback());
 
+  function toggleIncludeInaccuracies(): void {
+    includeInaccuracies(!includeInaccuracies());
+    root.toggleRetro();
+    root.toggleRetro();
+    root.redraw();
+  }
+
   jumpToNext();
 
   function onMergeAnalysisData() {
@@ -244,5 +256,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     node: () => root.node,
     redraw: root.redraw,
     forceCeval: () => feedback() === 'eval',
+    includeInaccuracies,
+    toggleIncludeInaccuracies,
   };
 }
