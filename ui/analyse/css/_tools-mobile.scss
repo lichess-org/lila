@@ -3,23 +3,28 @@
     .sub-box {
       order: 0;
     }
+
     .ceval,
     .pv_box,
     .analyse__fork,
     .gamebook-edit {
       order: 1;
     }
+
     .analyse__moves {
       order: 2;
     }
+
     .ceval .engine {
       margin-inline-start: 12px;
     }
+
     .ceval .cmn-toggle,
     .ceval pearl {
       display: none;
     }
   }
+
   .analyse__controls {
     padding-top: 6px;
     height: 5rem;
@@ -28,9 +33,11 @@
     .jumps {
       order: 1;
     }
+
     [data-act='opening-explorer'] {
       order: 2;
     }
+
     [data-act='menu'] {
       order: 3;
     }
@@ -43,6 +50,7 @@
       border-radius: 6px 6px 0 0;
       background: $m-bg_bg-page--mix-50;
     }
+
     .scrub-help {
       margin-inline: 3px;
       align-self: center;
@@ -50,32 +58,40 @@
       font-size: 1.1em;
       color: $c-border;
     }
+
     .jumps {
       flex: 40%;
     }
+
     .jumps:has([data-act='first']) {
       padding-inline: 8px;
       flex: 50%;
     }
+
     .jumps .fbt {
       margin: 5px 2px;
       background: $m-bg_bg-page--mix-50;
       border: 1px solid $m-clearer--fade-95;
     }
+
     .jumps .fbt[data-act='first'],
     .jumps .fbt[data-act='last'] {
       flex: 1.6;
     }
+
     .fbt.active {
       padding-top: 0;
       border-bottom: none;
     }
+
     eval {
       @media (min-width: at-least($xx-small)) {
         font-size: 1.2em;
       }
+
       pointer-events: none;
     }
+
     [data-mode] {
       position: relative;
       overflow-x: hidden;
@@ -86,28 +102,34 @@
 
       .cmn-toggle {
         margin-inline-start: 10px;
+
         @media (max-width: at-most($xxx-small)) {
           transform: scale(0.7);
           margin-inline-start: 0;
         }
+
         label {
           background-color: $c-font-dimmer !important;
         }
       }
     }
+
     [data-mode]::before,
     [data-mode]::after {
       font-size: 1.3em;
       font-family: lichess;
     }
+
     [data-mode='practice']::before {
       content: $licon-Bullseye;
       padding-inline-end: 8px;
     }
+
     [data-mode='retro']::before {
       font-size: 1.5em;
       content: $licon-GraduateCap;
     }
+
     [data-mode='practice'].active::after,
     [data-mode='retro'].active::after {
       position: absolute;
@@ -117,17 +139,21 @@
       color: $m-bg_secondary--mix-50;
       content: $licon-X;
     }
+
     [data-mode='ceval']::after {
       content: $licon-Cogs;
       color: $c-font-dimmer;
       padding-inline-end: 10px;
     }
+
     [data-mode='ceval']:has(eval)::after {
       content: '';
     }
+
     [data-mode] .bar {
       display: none;
     }
+
     [data-mode]:not(.active) .bar {
       position: absolute;
       display: block;
@@ -145,10 +171,12 @@
           no-repeat,
         linear-gradient(45deg, transparent, $m-good--fade-30, transparent) -100% 0 / 200% 100% no-repeat;
     }
+
     [data-mode].computing:not([data-mode='ceval'].active) .bar {
       opacity: 1;
       animation-play-state: running;
     }
+
     @keyframes computing {
       to {
         background-position:
@@ -157,17 +185,21 @@
       }
     }
   }
+
   .analyse[data-active-tool] .analyse__tools,
   .analyse[data-active-mode] .analyse__tools {
     border-radius: 0 0 $box-radius-size $box-radius-size;
   }
+
   .analyse[data-active-tool] .analyse__tools,
   .analyse[data-active-mode='retro'] .analyse__tools {
     border-top: 3px solid $c-secondary;
   }
+
   .analyse[data-active-mode='practice'] .analyse__tools .ceval {
     order: 0;
   }
+
   .analyse[data-active-mode='practice'] .analyse__fork,
   .analyse[data-active-mode='retro'] .analyse__fork {
     display: none;

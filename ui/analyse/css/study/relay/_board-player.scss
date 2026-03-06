@@ -8,9 +8,10 @@
 
 .relay-board-player {
   @extend %flex-between-nowrap, %metal, %box-shadow;
+  @include inline-end(0);
+
   overflow: hidden;
   position: absolute;
-  @include inline-end(0);
   font-weight: bold;
   width: var(---cg-width, 100%);
   height: $player-height;
@@ -41,6 +42,7 @@
 
   .left {
     @extend %flex-center-nowrap;
+
     flex: 1 1 100%;
     gap: 1em;
     overflow: hidden;
@@ -67,11 +69,14 @@
 
   .info-split {
     @extend %flex-column;
+
     line-height: 1.2;
     overflow: hidden;
   }
+
   .info-secondary {
     @extend %flex-center-nowrap;
+
     gap: 0.5em;
     font-size: 0.9em;
   }
@@ -79,12 +84,15 @@
   .team,
   .name {
     @extend %ellipsis;
+
     max-width: fit-content;
     flex: 1;
   }
+
   a.name {
     color: $c-font;
     font-size: 1.1em;
+
     &:hover {
       color: $c-link;
     }
@@ -92,12 +100,15 @@
 
   .team {
     @extend %roboto;
+
     flex: 2;
     color: $c-font-dim;
   }
+
   a.team:hover {
     color: $c-link;
   }
+
   .mini-game__flag {
     width: 1em;
     height: 1em;

@@ -1,14 +1,17 @@
 .swiss__form {
   summary {
     cursor: pointer;
+
     &:hover {
       color: $c-link;
     }
   }
+
   details[open] summary {
     margin-bottom: 3rem;
     color: $c-accent;
   }
+
   details,
   details * {
     box-sizing: border-box;

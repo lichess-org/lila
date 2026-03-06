@@ -3,32 +3,41 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
 .tview2 {
   white-space: normal;
+
   --c-base: var(--c-font);
 
   .active {
     --c-base: var(--c-primary);
   }
+
   .inaccuracy {
     --c-base: var(--c-inaccuracy);
   }
+
   .mistake {
     --c-base: var(--c-mistake);
   }
+
   .blunder {
     --c-base: var(--c-blunder);
   }
+
   .good {
     --c-base: var(--c-good);
   }
+
   .brilliant {
     --c-base: var(--c-brilliant);
   }
+
   .interesting {
     --c-base: var(--c-interesting);
   }
+
   .anchor {
     position: relative;
   }
+
   * {
     overflow: visible;
   }
@@ -40,6 +49,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
 .tview2 move {
   @extend %san, %nowrap-hidden;
+
   display: inline-block;
   color: var(--c-base);
   padding: 0.25em 0.17em;
@@ -60,20 +70,25 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     index {
       color: white;
     }
+
     .disclosure {
       background-color: $c-font-dimmer;
     }
   }
+
   &.current {
     border: 1px solid $c-accent;
   }
+
   &.nongame {
     font-style: italic;
   }
+
   &.empty {
     pointer-events: none;
     color: $c-font-dimmer;
   }
+
   &.context-menu {
     border: 0;
     background: $c-accent !important;
@@ -83,10 +98,12 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
       color: $c-over;
     }
   }
+
   &.pending-deletion {
     border-radius: unset;
     background: color-mix(in srgb, $c-bad 30%, transparent) !important;
   }
+
   &.pending-copy {
     border-radius: unset;
     background: color-mix(in srgb, $c-good 30%, transparent) !important;
@@ -95,6 +112,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
 .tview2 eval {
   @extend %roboto;
+
   margin-inline-start: auto;
   font-size: 0.8em;
   color: $c-font-dim;
@@ -110,8 +128,10 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 .tview2 shapes {
   margin-inline-start: 0.4em;
   color: $c-good;
+
   &::before {
     @extend %data-icon;
+
     vertical-align: baseline;
     font-size: 13px;
     content: $licon-DiscBigOutline;
@@ -210,6 +230,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   move {
     margin-inline-start: 0;
   }
+
   &::before,
   &::after {
     vertical-align: 7px;
@@ -272,7 +293,9 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 .tview2 .disclosure-connector.riser {
   inset-inline: unset;
   inset-inline-end: 0;
+
   $riser-height: calc((10px - var(---button-size-pointer-adjust, 0px)) / 2);
+
   top: calc(-2px - $riser-height);
   height: $riser-height;
   width: 2px;
@@ -296,16 +319,19 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   index {
     padding-inline-start: 5px;
+
     &:first-child {
       padding-inline-start: 0;
     }
   }
+
   glyph {
     flex: 0 1 auto;
     text-align: center;
     overflow: hidden;
     font-size: 0.82em;
   }
+
   &.active {
     font-weight: bold;
   }
@@ -357,6 +383,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   > comment {
     @extend %break-word;
+
     color: var(--c-base);
     display: block;
     padding: 3px 5px;
@@ -371,22 +398,27 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
     font-weight: bold;
     background: color-mix(in srgb, $c-clearer 4%, transparent);
   }
+
   move {
     @extend %box-radius;
+
     margin-inline-end: 2px;
     font-size: 13px;
     font-weight: bold;
   }
+
   move index {
     padding-inline-end: 0.2em;
     line-height: 111.11%;
   }
+
   comment {
     vertical-align: 45%;
     overflow-wrap: break-word;
     margin: 0 0.2em 0 0.1em;
     font-size: 0.9em;
   }
+
   inline::before,
   inline::after {
     vertical-align: 0.7em;
@@ -403,14 +435,17 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
   .tview2 move:not(.active):hover {
     background: color-mix(in srgb, var(--c-base) 15%, transparent);
     color: $c-font-clear;
+
     eval,
     index {
       color: $c-font;
     }
+
     .disclosure {
       background-color: $c-font-dimmer;
     }
   }
+
   .tview2 move.active:hover {
     cursor: default;
 
@@ -418,6 +453,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
       background-color: #ddd;
     }
   }
+
   .tview2 move:hover .disclosure:hover {
     background-color: $c-font-dim;
     cursor: pointer;

@@ -53,7 +53,7 @@ object TutorFullReport:
 
   object F:
     val config = "config"
-    val user = s"$config.user"
+    val user = "config.user"
     val at = "at"
     val millis = "millis"
     val perfs = "perfs"

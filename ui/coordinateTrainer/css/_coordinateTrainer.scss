@@ -57,8 +57,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     &--color {
       flex-flow: row;
+
       i {
         width: 60px;
         height: 60px;
@@ -96,6 +98,7 @@
 
   .back {
     @extend %flex-column;
+
     align-items: center;
     margin-top: $block-gap;
   }
@@ -107,9 +110,12 @@
 
   .progress {
     @extend %box-radius;
+
     background-color: $c-bg-zebra;
+
     &__bar {
       @extend %box-radius;
+
       width: 100%;
       height: 10px;
       background-color: $c-secondary;
@@ -118,6 +124,7 @@
 
   .table {
     @extend %flex-column;
+
     align-items: center;
     justify-content: space-around;
     gap: 1em;
@@ -154,15 +161,19 @@
 
   .keyboard-container {
     @extend %flex-between;
+
     grid-area: keyboard;
     width: 100%;
+
     a {
       margin-right: 2vw;
     }
+
     input.keyboard {
       width: 4em;
       margin-inline-end: 1em;
     }
+
     &.hidden {
       display: none;
     }
@@ -177,6 +188,7 @@
     display: grid;
     width: 100%;
     grid-template-columns: repeat(8, 1fr);
+
     button.file-rank {
       height: 3em;
       border-width: 3px;
@@ -186,11 +198,13 @@
 
   .side {
     @extend %flex-column;
+
     gap: $block-gap;
   }
 
   .settings {
     @extend %flex-column;
+
     gap: $block-gap;
   }
 }

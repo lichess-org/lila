@@ -33,19 +33,20 @@
   .branch {
     .content {
       @extend %box-radius;
+
       background: $c-bg-zebra;
       margin: 3em 0;
       padding: 2em 3em;
     }
+
     .links a {
       @extend %box-radius;
+      @include transition;
 
       font-size: 1.2em;
       display: block;
       padding: 1em;
       padding-inline-start: 30px;
-
-      @include transition;
 
       &:hover {
         color: $c-over;

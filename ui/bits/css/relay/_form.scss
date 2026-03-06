@@ -1,19 +1,24 @@
 .relay-form {
   &__actions {
     @extend %flex-between;
+
     margin: 2em 0;
     border-top: $border;
     padding-top: 3em;
+
     form {
       flex: 0 0 50%;
+
       .button {
         @extend %flex-column;
+
         text-align: left;
         width: 100%;
 
         strong {
           display: block;
         }
+
         em {
           color: $c-font-dim;
           text-transform: none;
@@ -22,6 +27,7 @@
       }
     }
   }
+
   &__image {
     padding: 4vh var(---box-padding) 0;
     background: $c-bg-zebra;
@@ -81,23 +87,30 @@
     font-weight: bold;
     color: $c-font-dimmer;
   }
+
   .relay-form__subnav__tour-parent {
     @include box-radius;
+
     background: $c-bg-box;
     margin-bottom: 5px;
   }
+
   .subnav {
     width: 30ch;
+
     a {
       white-space: wrap;
     }
+
     .subnav__subitem {
       margin-left: 1em;
     }
+
     .subnav__subitem2 {
       margin-left: 2em;
       letter-spacing: 0;
     }
+
     .button {
       margin-inline-end: 1em;
     }

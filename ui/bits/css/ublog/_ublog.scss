@@ -4,6 +4,7 @@
 
 .ublog-index {
   @extend %flex-column;
+
   gap: 2rem;
   padding-top: 2rem;
   padding-bottom: 3rem;
@@ -42,6 +43,7 @@
     .atom {
       font-size: 2.6em;
       color: $c-font-dimmer;
+
       &:hover {
         color: $c-accent;
       }
@@ -58,12 +60,14 @@
 
       input {
         @extend %box-radius-inline-start;
+
         flex: auto;
         font-size: 1.2em;
       }
 
       .button {
         @extend %box-radius-inline-end;
+
         padding: 0 1rem;
         border-inline-start: 0;
       }
@@ -94,9 +98,11 @@
     flex: auto;
     padding: 0.2em;
     gap: 0;
+
     div {
       gap: 0.5em;
     }
+
     label {
       padding: 0.2em;
     }
@@ -107,6 +113,7 @@
     font-family: lichess;
     content: $licon-DownTriangle;
   }
+
   .ascending::after {
     margin-inline-start: 1ch;
     font-family: lichess;
@@ -117,6 +124,7 @@
     h1.collapsible {
       display: none;
     }
+
     .filter-and-sort,
     .search-sort,
     .box__top__actions {
@@ -127,6 +135,7 @@
 
 .column-gap {
   @extend %flex-column;
+
   gap: 4rem;
 }
 
@@ -134,18 +143,24 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
   gap: 3rem;
+
   div {
     @extend %flex-column;
+
     gap: 1rem;
   }
+
   span {
     @extend %flex-between;
+
     font-size: 0.9em;
   }
+
   label {
     display: flex;
     gap: 4px;
   }
+
   .pull {
     font-family: lichess;
     font-size: 1rem;
@@ -154,10 +169,12 @@
     border-radius: 50%;
     border: 2px solid $c-bad;
     cursor: pointer;
+
     &:hover {
       filter: brightness(1.2);
     }
   }
+
   .user-link {
     display: flex;
     color: $c-primary;
@@ -166,7 +183,9 @@
 
 .ublog-mod-note-dlg {
   @extend %flex-column;
+
   gap: 2em;
+
   span {
     display: flex;
     justify-content: end;

@@ -2,10 +2,11 @@
   width: $block-gap;
   position: relative;
   background: #c0c0c0;
+  overflow: hidden;
+
   @include if-light {
     background: #fff;
   }
-  overflow: hidden;
 
   @include mq-is-col1 {
     display: none;
@@ -14,6 +15,7 @@
   &.empty {
     opacity: 0.5;
   }
+
   &.reverse {
     transform: rotateX(180deg);
   }
@@ -27,15 +29,17 @@
   }
 
   tick {
+    @include inline-start(0);
+
     position: absolute;
     top: 0;
-    @include inline-start(0);
     width: 100%;
+    opacity: 0.4;
     border-bottom: 2px ridge #888;
+
     @include if-light {
       border-bottom-color: #ccc;
     }
-    opacity: 0.4;
   }
 
   tick.zero {
@@ -48,10 +52,11 @@
   .black {
     width: 100%;
     height: 50%;
+    transition: height 1s;
     background: #444;
+
     @include if-light {
       background: #606060;
     }
-    transition: height 1s;
   }
 }

@@ -33,23 +33,29 @@ $col1-moves-height: 4em;
       'moves moves'
       'voice voice'
       'kb-move kb-move';
+
     &__opponent {
       display: flex;
       align-items: flex-end;
+
       &__header {
         flex: 1;
       }
+
       &__image {
         max-height: calc($col1-player-clock-height + 6vh) !important;
         margin-right: $block-gap !important;
       }
     }
+
     &__clock--top {
       min-width: 30vw;
     }
+
     &__mat--bottom {
       padding: 0.3em 0 0 1em;
     }
+
     &__table {
       display: none;
     }
@@ -110,27 +116,35 @@ $col1-moves-height: 4em;
 .bot-game__opponent {
   grid-area: opponent;
 }
+
 .bot-game__moves {
   grid-area: moves;
 }
+
 .bot-game__nav {
   grid-area: nav;
 }
+
 .bot-game__actions {
   grid-area: actions;
 }
+
 .bot-game__board {
   grid-area: board;
 }
+
 .bot-game__mat--top {
   grid-area: mat-top;
 }
+
 .bot-game__clock--top {
   grid-area: clock-top;
 }
+
 .bot-game__clock--bottom {
   grid-area: clock-bottom;
 }
+
 .bot-game__mat--bottom {
   grid-area: mat-bottom;
 }

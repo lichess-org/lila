@@ -25,10 +25,10 @@
   }
 
   .ms-choice {
+    @include transition;
+
     padding: 15px 10px;
     border-width: 0 0 1px 0;
-
-    @include transition;
 
     &.selected {
       background: $m-primary_bg--mix-20;
@@ -37,9 +37,11 @@
 
     span {
       text-align: right;
+
       @media (max-width: at-most($x-small)) {
         text-align: left;
       }
+
       line-height: 30px;
       background: none;
     }
@@ -55,11 +57,13 @@
   }
 
   .ms-drop {
+    top: 0;
     margin-inline-start: 99%;
+
     @media (max-width: at-most($x-small)) {
       margin-inline-start: 50%;
     }
-    top: 0;
+
     @include inline-start(0);
   }
 }

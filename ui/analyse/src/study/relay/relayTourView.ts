@@ -240,7 +240,7 @@ const share = (ctx: RelayViewContext) => {
           'To synchronize ongoing games, use ',
           hl(
             'a',
-            { attrs: { href: '/api#tag/broadcasts/get/apistreambroadcastroundbroadcastroundidpgn' } },
+            { attrs: { href: '/api#tag/broadcasts/GET/api/stream/broadcast/round/{broadcastRoundId}.pgn' } },
             'our free streaming API',
           ),
           ' for stupendous speed and efficiency.',

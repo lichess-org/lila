@@ -1,5 +1,6 @@
 .number-menu {
   @include prevent-select;
+
   display: flex;
 
   .nm-item {

@@ -37,6 +37,7 @@ $span-width: 1.7em;
 
     res {
       @extend %flex-center;
+
       align-self: center;
       font-size: 0.9em;
       white-space: nowrap;

@@ -44,7 +44,7 @@ export function stepwiseScroll(
   shouldSkip: (e: WheelEvent) => boolean,
   ifSkipShouldStillPreventDefault?: boolean,
 ): (e: WheelEvent) => void {
-  let accumulatedDelta = 0;
+  let accumulatedDeltaPixelMode = 0;
   return (e: WheelEvent) => {
     if (e.ctrlKey) return; // if touchpad zooming, e.ctrlKey is true
     if (shouldSkip(e)) {
@@ -52,9 +52,11 @@ export function stepwiseScroll(
       return;
     }
     e.preventDefault();
-    accumulatedDelta += e.deltaY;
-    if (e.deltaMode === 0 && isMac() && Math.abs(accumulatedDelta) < 10) return;
-    accumulatedDelta = 0;
+    if (e.deltaMode === 0) {
+      accumulatedDeltaPixelMode += e.deltaY;
+      if (isMac() && Math.abs(accumulatedDeltaPixelMode) < 10) return;
+    }
+    accumulatedDeltaPixelMode = 0;
     scrollAction(e);
   };
 }

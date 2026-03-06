@@ -10,7 +10,7 @@ import lila.core.id.GameAnyId
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
-  def bookmark(gameId: GameId) = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
+  def bookmark(gameId: GameId) = AuthOrScopedBody(_.Web.Mobile, _.Preference.Write) { _ ?=> me ?=>
     env.bookmark.api
       .toggle(env.round.gameProxy.updateIfPresent)(gameId, me, getBoolOpt("v"))
       .inject(NoContent)
@@ -165,7 +165,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private[controllers] def delayMovesFromReq(using RequestHeader)(using me: Option[Me]) =
     val trusted = get("key").exists(env.web.settings.noDelaySecret.get().value.contains) ||
-      me.exists(_.is(UserId.ttt))
+      me.exists(_.is(UserId.t3))
     !trusted
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =

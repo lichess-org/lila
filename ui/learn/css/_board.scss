@@ -9,6 +9,7 @@
     0% {
       scale: 1;
     }
+
     50% {
       scale: 1.08;
     }
@@ -55,7 +56,9 @@
     content: '';
     position: absolute;
     bottom: 12.5%;
+
     @include inline-start(0);
+
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
     background-color: rgba(255, 255, 255, 0.2);
     animation: 1s rank-glow ease-in-out infinite;
@@ -75,7 +78,9 @@
     background: $c-bg-popup;
     position: absolute;
     top: 25%;
+
     @include inline-start(25%);
+
     width: 50%;
     height: 50%;
     padding: 20px;
@@ -91,9 +96,10 @@
   }
 
   .piece-values cg-board piece::before {
+    @include inline-end(4px);
+
     position: absolute;
     top: 14px;
-    @include inline-end(4px);
     color: #fff;
     text-shadow:
       0 0 9px rgba(0, 0, 0, 1),

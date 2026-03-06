@@ -413,7 +413,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       else if g2.sourceIs(_.Api) then some(24 * 7)
       else if g2.hasClock then 1.some
       else some(24 * 10)
-    val bson = (gameHandler.write(g2)) ++ $doc(
+    val bson = gameHandler.write(g2) ++ $doc(
       F.initialFen -> fen,
       F.checkAt -> checkInHours.map(nowInstant.plusHours(_)),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
@@ -458,12 +458,12 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def unsetPlayingUids(g: Game): Unit =
     coll.update(ordered = false, WriteConcern.Unacknowledged).one($id(g.id), $unset(F.playingUids))
 
-  def initialFen(gameId: GameId): Fu[Option[Fen.Full]] =
-    coll.primitiveOne[Fen.Full]($id(gameId), F.initialFen)
+  private def initialFen(gameId: GameId, readPref: ReadPref): Fu[Option[Fen.Full]] =
+    coll.withReadPreference(readPref).primitiveOne[Fen.Full]($id(gameId), F.initialFen)
 
   def initialFen(game: Game): Fu[Option[Fen.Full]] =
     if game.sourceIs(_.Import) || !game.variant.standardInitialPosition then
-      initialFen(game.id).dmap:
+      initialFen(game.id, if game.finished then _.sec else _.pri).dmap:
         case None if game.variant == chess.variant.Chess960 => Fen.initial.some
         case fen => fen
     else fuccess(none)

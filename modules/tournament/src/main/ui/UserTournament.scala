@@ -144,7 +144,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
               tr(cls := List("paginated" -> true, "scheduled" -> e.tour.isScheduled))(
                 td(cls := "icon")(iconTag(ui.tournamentIcon(e.tour))),
                 td(cls := "header")(
-                  a(href := routes.Tournament.show(e.tour.id))(
+                  a(href := addQueryParam(routes.Tournament.show(e.tour.id).url, "player", u.username.value))(
                     span(cls := "name")(e.tour.name()),
                     span(cls := "setup")(
                       e.tour.clock.show,

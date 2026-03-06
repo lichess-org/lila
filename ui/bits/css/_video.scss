@@ -24,12 +24,10 @@
 
   .card {
     @extend %box-radius, %button-shadow;
+    @include transition;
 
     position: relative;
     overflow: hidden;
-
-    @include transition;
-
     color: $c-font;
 
     &:hover {
@@ -131,6 +129,7 @@
 
     .meta {
       @extend %box-padding-horiz;
+
       padding-bottom: 10px;
 
       .target__wrapper {

@@ -12,7 +12,9 @@
 
   &__number {
     @extend %flex-center-nowrap;
+
     margin-inline-end: 1ch;
+
     &::before {
       font-size: 1em;
       color: $c-font-dim;

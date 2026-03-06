@@ -59,6 +59,7 @@
   h1 small {
     font-size: 70%;
   }
+
   textarea {
     width: 100%;
   }
@@ -71,5 +72,6 @@
 
 .user-note__text {
   @extend %break-word-hard;
+
   font-size: 0.9em;
 }

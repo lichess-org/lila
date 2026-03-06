@@ -8,11 +8,13 @@
   i {
     @extend %data-icon;
   }
+
   i::before {
     content: $licon-Wings !important;
     background-clip: text;
     color: transparent;
   }
+
   @each $id, $color in $patron-colors-dark {
     &--#{$id} {
       i::before {
@@ -20,6 +22,7 @@
       }
     }
   }
+
   @each $id, $color in $patron-colors-light {
     html.light &--#{$id} {
       i::before {

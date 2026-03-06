@@ -23,7 +23,7 @@ final class TutorQueueUi(helpers: Helpers, bits: TutorBits):
         a.games.map: (pov, pgn) =>
           div(
             cls := "tutor__waiting-game is2d lpv lpv--todo lpv--moves-false lpv--controls-false",
-            st.data("pgn") := pgn.value,
+            st.data("pgn") := pgn,
             st.data("pov") := pov.color.name
           )
 

@@ -5,6 +5,7 @@ select,
 textarea {
   font: inherit;
   color: $c-font;
+
   &:focus-visible {
     outline: $outline;
     outline-offset: -2px;

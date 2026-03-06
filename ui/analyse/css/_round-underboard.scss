@@ -78,6 +78,7 @@ $col2-panel-height: 240px;
   .computer-analysis {
     position: relative;
   }
+
   .future-game-analysis {
     text-align: center;
     margin-top: 2em;
@@ -91,8 +92,8 @@ $col2-panel-height: 240px;
 
     > div {
       @extend %flex-center-nowrap;
-      gap: 1em;
 
+      gap: 1em;
       margin-bottom: 1em;
     }
 
@@ -161,6 +162,7 @@ $col2-panel-height: 240px;
 
   .gif-actions {
     @extend %flex-center-nowrap;
+
     gap: 1em;
   }
 }

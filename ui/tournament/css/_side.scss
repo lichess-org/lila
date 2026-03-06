@@ -13,6 +13,7 @@
       font-family: lichess;
       font-size: 1em;
     }
+
     &:hover {
       color: $c-primary;
     }
@@ -22,9 +23,11 @@
     .disclosure::before {
       content: $licon-DownTriangle;
     }
+
     .tour__meta > * {
       display: none;
     }
+
     .tour__meta__head,
     .disclosure {
       display: flex;
@@ -44,14 +47,15 @@
 
 .tour__meta {
   @extend %flex-column, %box-neat-force;
+
   gap: $block-gap;
   position: relative;
-
   background: $c-bg-box;
   padding: $block-gap 0;
 
   .scrollable-content {
     @extend %flex-column;
+
     gap: $block-gap;
     overflow-y: scroll;
   }
@@ -116,6 +120,7 @@
 
   .description {
     @extend %break-word;
+
     height: fit-content;
   }
 
@@ -128,6 +133,7 @@
 
 .tour__bots-warning {
   @extend %box-neat, %flex-center-nowrap;
+
   gap: 1em;
   margin-top: 1em;
   background: $m-accent_bg--mix-10;

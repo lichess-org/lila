@@ -11,18 +11,22 @@
       }
     }
   }
+
   @media (min-width: at-least($xx-small)) {
     .relay-card {
       grid-column: span 1;
       grid-row: span 2;
+
       &--tier-3 {
         grid-row: span 1;
       }
+
       &--tier-5 {
         display: flex;
         flex-flow: column;
         grid-column: span 2;
         grid-row: span 4;
+
         .relay-card__body {
           display: flex;
           flex-flow: column;
