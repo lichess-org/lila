@@ -93,6 +93,7 @@ export default class StudyCtrl {
   nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
   arrowHistory: Shape[][] = [];
+  clockEdit: { slot: 'top' | 'bottom'; path: string; value: string; error?: boolean } | null = null;
   data: StudyData;
   vm: StudyVm;
   notif: NotifCtrl;
@@ -318,6 +319,31 @@ export default class StudyCtrl {
     ...req,
     ch: this.vm.chapterId,
   });
+
+  openClockEdit = (slot: 'top' | 'bottom', path: string, value: string) => {
+    this.ctrl.autoplay.stop();
+    this.clockEdit = { slot, path, value };
+    this.ctrl.redraw();
+  };
+
+  setClockEditValue = (value: string) => {
+    if (this.clockEdit) {
+      this.clockEdit = { ...this.clockEdit, value, error: false };
+      this.ctrl.redraw();
+    }
+  };
+
+  setClockEditError = (error: boolean) => {
+    if (this.clockEdit) {
+      this.clockEdit = { ...this.clockEdit, error };
+      this.ctrl.redraw();
+    }
+  };
+
+  closeClockEdit = () => {
+    this.clockEdit = null;
+    this.ctrl.redraw();
+  };
 
   isGamebookPlay = () =>
     this.data.chapter.gamebook &&
@@ -865,7 +891,7 @@ export default class StudyCtrl {
       this.setMemberActive(who);
       if (d.relayClocks) this.relay?.setClockToChapterPreview(d, d.relayClocks);
       if (this.wrongChapter(d)) return;
-      this.ctrl.tree.setClockAt(d.c, position.path);
+      this.ctrl.tree.setClockAt(d.c ?? undefined, position.path);
       this.redraw();
     },
     forceVariation: d => {

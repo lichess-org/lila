@@ -126,17 +126,19 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def setClockAndDenorm(
       chapter: Chapter,
       path: UciPath,
-      clock: Clock,
+      clock: Option[Clock],
       denorm: Option[Chapter.BothClocks]
   ) =
-    val updateNode = $doc(pathToField(path, F.clock) -> clock)
-    val updateDenorm = denorm.map(clocks => $doc("denorm.clocks" -> clocks))
+    val modifier = clock match
+      case None =>
+        $unset(pathToField(path, F.clock)) ++ denorm.fold($empty)(clocks => $set("denorm.clocks" -> clocks))
+      case Some(c) =>
+        val updateNode = $doc(pathToField(path, F.clock) -> c)
+        val updateDenorm = denorm.map(clocks => $doc("denorm.clocks" -> clocks))
+        $set(updateDenorm.foldLeft(updateNode)(_ ++ _))
     coll:
       _.update
-        .one(
-          $id(chapter.id) ++ $doc(path.toDbField.$exists(true)),
-          $set(updateDenorm.foldLeft(updateNode)(_ ++ _))
-        )
+        .one($id(chapter.id) ++ $doc(path.toDbField.$exists(true)), modifier)
         .void
 
   def forceVariation(force: Boolean) = setNodeValue(F.forceVariation, force.option(true))

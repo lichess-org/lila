@@ -5037,6 +5037,8 @@ interface I18n {
     addMembersText: I18nFormat;
     /** Add a new chapter */
     addNewChapter: string;
+    /** Add or edit clock time */
+    addOrEditClockTime: string;
     /** Allow cloning */
     allowCloning: string;
     /** All studies */
@@ -5085,6 +5087,10 @@ interface I18n {
     clearChat: string;
     /** Clear variations */
     clearVariations: string;
+    /** Time format: H:MM:SS (e.g. 1:03:40), MM:SS (3:40), or seconds (40). Optional tenths or hundredths: 40.5, 40.55, 3:40.25. Leave empty to clear. */
+    clockTimeFormat: string;
+    /** H:MM:SS */
+    clockTimePlaceholder: string;
     /** Clone */
     cloneStudy: string;
     /** Click the %s button, or right click on the move list on the right.<br>Comments are shared and saved. */
@@ -5357,6 +5363,8 @@ interface I18n {
     timeTrouble: string;
     /** Topics */
     topics: string;
+    /** Turn on REC (record button below the board) to save clock times. */
+    turnOnRecToSaveClockTimes: string;
     /** Unclear position */
     unclearPosition: string;
     /** Unlike */

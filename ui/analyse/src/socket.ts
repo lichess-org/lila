@@ -32,6 +32,7 @@ export interface StudySocketSendParams {
   shapes: (d: ReqPosition & { shapes: Shape[] }) => void;
   setComment: (d: ReqPosition & { id?: string; text: string }) => void;
   deleteComment: (d: ReqPosition & { id: string }) => void;
+  setClock: (d: ReqPosition & { centis?: number; clear?: boolean }) => void;
   setGamebook: (d: ReqPosition & { gamebook: { deviation?: string; hint?: string } }) => void;
   toggleGlyph: (d: ReqPosition & { id: number }) => void;
   explorerGame: (d: ReqPosition & { gameId: string; insert: boolean }) => void;
