@@ -1,7 +1,19 @@
-import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval';
 import { parseFen } from 'chessops/fen';
+import { h } from 'snabbdom';
+
 import { defined } from 'lib';
+import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval';
+import { dispatchChessgroundResize } from 'lib/chessgroundResize';
+import { isMobile } from 'lib/device';
+import { playable } from 'lib/game';
+import { fixCrazySan, plyToTurn } from 'lib/game/chess';
+import * as materialView from 'lib/game/view/material';
+import statusView from 'lib/game/view/status';
 import * as licon from 'lib/licon';
+import * as Prefs from 'lib/prefs';
+import { storage } from 'lib/storage';
+import { path as treePath } from 'lib/tree/tree';
+import type { ClientEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import {
   type VNode,
   type LooseVNode,
@@ -14,36 +26,26 @@ import {
   spinnerVdom as spinner,
   stepwiseScroll,
 } from 'lib/view';
-import { playable } from 'lib/game';
-import { isMobile } from 'lib/device';
-import * as materialView from 'lib/game/view/material';
-import { path as treePath } from 'lib/tree/tree';
-import { view as actionMenu } from './actionMenu';
-import retroView from '../retrospect/retroView';
-import practiceView from '../practice/practiceView';
+
+import * as control from '../control';
+import type AnalyseCtrl from '../ctrl';
 import explorerView from '../explorer/explorerView';
 import { view as forkView } from '../fork';
-import renderClocks from './clocks';
-import * as control from '../control';
 import * as chessground from '../ground';
-import type AnalyseCtrl from '../ctrl';
 import type { ConcealOf } from '../interfaces';
 import * as pgnExport from '../pgnExport';
-import * as Prefs from 'lib/prefs';
-import statusView from 'lib/game/view/status';
-import { renderNextChapter } from '../study/nextChapter';
-import { dispatchChessgroundResize } from 'lib/chessgroundResize';
-import serverSideUnderboard from '../serverSideUnderboard';
-import type StudyCtrl from '../study/studyCtrl';
-import type RelayCtrl from '../study/relay/relayCtrl';
-import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
-import { storage } from 'lib/storage';
+import practiceView from '../practice/practiceView';
+import retroView from '../retrospect/retroView';
+import serverSideUnderboard from '../serverSideUnderboard';
+import { renderNextChapter } from '../study/nextChapter';
+import type RelayCtrl from '../study/relay/relayCtrl';
 import { backToLiveView } from '../study/relay/relayView';
 import { findTag } from '../study/studyChapters';
-import { fixCrazySan, plyToTurn } from 'lib/game/chess';
-import type { ClientEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
-import { h } from 'snabbdom';
+import type StudyCtrl from '../study/studyCtrl';
+import type * as studyDeps from '../study/studyDeps';
+import { view as actionMenu } from './actionMenu';
+import renderClocks from './clocks';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;

@@ -1,7 +1,8 @@
+import { pubsub } from 'lib/pubsub';
+import { json, form } from 'lib/xhr';
+
 import type MsgCtrl from './ctrl';
 import type { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
-import { json, form } from 'lib/xhr';
-import { pubsub } from 'lib/pubsub';
 
 export async function loadConvo(userId: string): Promise<MsgData> {
   const d = await json(`/inbox/${userId}`);

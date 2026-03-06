@@ -1,10 +1,11 @@
 import es from 'esbuild';
 import fs from 'node:fs';
 import { join, basename } from 'node:path';
+
+import { definedMap } from './algo.ts';
 import { env, errorMark, warnMark, c } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { makeTask, stopTask } from './task.ts';
-import { definedMap } from './algo.ts';
 
 let esbuildCtx: es.BuildContext | undefined;
 

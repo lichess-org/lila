@@ -1,8 +1,10 @@
-import { beforeEach, describe, test } from 'node:test';
 import assert from 'node:assert/strict';
-import { type Prop, propWithEffect } from 'lib/index';
-import { makeSubmit } from '../src/keyboardSubmit.js';
+import { beforeEach, describe, test } from 'node:test';
+
 import { destsToUcis, sanWriter } from 'lib/game';
+import { type Prop, propWithEffect } from 'lib/index';
+
+import { makeSubmit } from '../src/keyboardSubmit.js';
 
 function spy() {
   const f: any = (...args: any[]) => {

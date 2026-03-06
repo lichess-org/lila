@@ -1,6 +1,6 @@
+import { memoize, type Toggle } from 'lib';
 import * as licon from 'lib/licon';
 import { bind, hl, type VNode } from 'lib/view';
-import { memoize, type Toggle } from 'lib';
 
 export const header = (name: string, close: () => void): VNode =>
   hl(

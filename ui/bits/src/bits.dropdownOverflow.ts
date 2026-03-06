@@ -1,6 +1,6 @@
 import { frag } from 'lib';
-import { json as xhrJson } from 'lib/xhr';
 import { isTouchDevice } from 'lib/device';
+import { json as xhrJson } from 'lib/xhr';
 
 type HttpMethod = 'GET' | 'POST';
 

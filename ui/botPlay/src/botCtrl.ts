@@ -1,18 +1,20 @@
-import SetupCtrl from './setup/setupCtrl';
-import PlayCtrl from './play/playCtrl';
-import type { BotOpts, LocalBridge } from './interfaces';
-import { type BotInfo } from 'lib/bot/types';
-import { BotLoader } from 'lib/bot/botLoader';
-import { setupView } from './setup/view/setupView';
-import { playView } from './play/view/playView';
-import { alert } from 'lib/view';
 import { opposite } from 'chessops';
-import { Game } from './game';
-import { debugCli } from './debug';
-import { pubsub } from 'lib/pubsub';
-import { loadCurrentGame, saveCurrentGame } from './storage';
+
+import { BotLoader } from 'lib/bot/botLoader';
+import { type BotInfo } from 'lib/bot/types';
 import type { ClockConfig } from 'lib/game/clock/clockCtrl';
+import { pubsub } from 'lib/pubsub';
 import type { ColorChoice } from 'lib/setup/color';
+import { alert } from 'lib/view';
+
+import { debugCli } from './debug';
+import { Game } from './game';
+import type { BotOpts, LocalBridge } from './interfaces';
+import PlayCtrl from './play/playCtrl';
+import { playView } from './play/view/playView';
+import SetupCtrl from './setup/setupCtrl';
+import { setupView } from './setup/view/setupView';
+import { loadCurrentGame, saveCurrentGame } from './storage';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;

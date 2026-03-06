@@ -1,4 +1,9 @@
+import flatpickr from 'flatpickr';
+
+import standaloneChat from 'lib/chat/standalone';
+import { use24h } from 'lib/i18n';
 import * as licon from 'lib/licon';
+import { once } from 'lib/storage';
 import {
   spinnerVdom,
   initMiniGames,
@@ -10,20 +15,17 @@ import {
   type LooseVNodes,
   hl,
 } from 'lib/view';
+import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
 import { numberRow } from 'lib/view/util';
+import { watchers } from 'lib/view/watchers';
+
 import type SwissCtrl from '../ctrl';
 import type { SwissData } from '../interfaces';
-import header from './header';
-import standing from './standing';
 import * as boards from './boards';
-import podium from './podium';
+import header from './header';
 import playerInfo from './playerInfo';
-import flatpickr from 'flatpickr';
-import { use24h } from 'lib/i18n';
-import { once } from 'lib/storage';
-import { watchers } from 'lib/view/watchers';
-import standaloneChat from 'lib/chat/standalone';
-import { renderPager, searchButton, searchInput } from 'lib/view/pagination';
+import podium from './podium';
+import standing from './standing';
 
 export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;

@@ -1,15 +1,16 @@
 import { propWithEffect, toggle as commonToggle } from 'lib';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
-import type { VoiceCtrl, VoiceModule } from './interfaces';
-import type { VoiceMove } from './move/interfaces';
-import { Mic } from './mic';
-import { flash } from './view';
 import {
   once,
   storedBooleanProp,
   storedStringPropWithEffect,
   storedBooleanPropWithEffect,
 } from 'lib/storage';
+
+import type { VoiceCtrl, VoiceModule } from './interfaces';
+import { Mic } from './mic';
+import type { VoiceMove } from './move/interfaces';
+import { flash } from './view';
 
 export * from './interfaces';
 export * from './move/interfaces';

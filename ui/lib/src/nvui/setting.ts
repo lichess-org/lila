@@ -1,4 +1,5 @@
 import { h, type VNode } from 'snabbdom';
+
 import { type LichessStorage, storage } from '../storage';
 import { renderSan, renderPieceStyle, renderPrefixStyle } from './render';
 

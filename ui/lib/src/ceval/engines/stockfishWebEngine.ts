@@ -1,3 +1,8 @@
+import type StockfishWeb from '@lichess-org/stockfish-web';
+
+import { bigFileStorage } from '@/bigFileStorage';
+
+import { Protocol } from '../protocol';
 import {
   CevalState,
   type Work,
@@ -5,10 +10,7 @@ import {
   type BrowserEngineInfo,
   type EngineNotifier,
 } from '../types';
-import { Protocol } from '../protocol';
 import { sharedWasmMemory } from '../util';
-import type StockfishWeb from '@lichess-org/stockfish-web';
-import { bigFileStorage } from '@/bigFileStorage';
 
 export class StockfishWebEngine implements CevalEngine {
   failed: Error;

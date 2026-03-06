@@ -1,13 +1,15 @@
+import { Result } from '@badrap/result';
 import { Chess, normalizeMove, Position } from 'chessops/chess';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
-import { makeUci, parseUci } from 'chessops/util';
-import { type TreeWrapper, path as pathOps } from 'lib/tree/tree';
 import { isNormal, type Move, type NormalMove } from 'chessops/types';
-import type PuzzleCtrl from './ctrl';
-import type { TreeNode, TreePath } from '../../lib/src/tree/types';
+import { makeUci, parseUci } from 'chessops/util';
+
 import { completeNode } from 'lib/tree/node';
-import { Result } from '@badrap/result';
+import { type TreeWrapper, path as pathOps } from 'lib/tree/tree';
+
+import type { TreeNode, TreePath } from '../../lib/src/tree/types';
+import type PuzzleCtrl from './ctrl';
 
 export function pgnToTree(pgn: San[]): TreeNode {
   const pos = Chess.default();

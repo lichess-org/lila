@@ -1,5 +1,7 @@
 import { h } from 'snabbdom';
+
 import { option } from 'lib/setup/option';
+
 import type SetupController from '@/setupCtrl';
 
 const levels = [1, 2, 3, 4, 5, 6, 7, 8];

@@ -1,14 +1,16 @@
+import { COLORS } from 'chessops';
+
+import { shuffle } from 'lib/algo';
+import perfIcons from 'lib/game/perfIcons';
+import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
+import * as licon from 'lib/licon';
+import { onInsert, hl, type LooseVNodes, type VNode, dataIcon, spinnerVdom } from 'lib/view';
+import { fullName, userFlair, userTitle } from 'lib/view/userLink';
+
 import { pieceGrams, totalGames } from './constants';
 import type { Counted, Opening, Recap, Sources, RecapPerf, Opts } from './interfaces';
-import { onInsert, hl, type LooseVNodes, type VNode, dataIcon, spinnerVdom } from 'lib/view';
 import { loadOpeningLpv } from './ui';
-import { shuffle } from 'lib/algo';
-import { fullName, userFlair, userTitle } from 'lib/view/userLink';
 import { formatDuration, perfIsSpeed, perfLabel } from './util';
-import perfIcons from 'lib/game/perfIcons';
-import * as licon from 'lib/licon';
-import { currencyFormat, numberFormat, percentFormat } from 'lib/i18n';
-import { COLORS } from 'chessops';
 
 const confettiCanvas = (): VNode =>
   hl('canvas#confetti', {

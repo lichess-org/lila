@@ -1,5 +1,6 @@
 import { Chess, opposite, parseUci, san } from 'chessops';
 import { parseFen } from 'chessops/fen';
+
 import type { Puzzle } from './interfaces';
 import { getNow } from './util';
 

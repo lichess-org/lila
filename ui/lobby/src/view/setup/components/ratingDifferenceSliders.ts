@@ -1,4 +1,5 @@
 import { hl } from 'lib/view';
+
 import type LobbyController from '@/ctrl';
 
 export const ratingDifferenceSliders = ({ setupCtrl, me, data }: LobbyController) => {

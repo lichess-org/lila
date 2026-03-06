@@ -1,23 +1,25 @@
-import * as licon from 'lib/licon';
-import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { opposite as cgOpposite, uciToMove } from '@lichess-org/chessground/util';
+import type { Color } from 'chessops';
+import { EMPTY_BOARD_FEN } from 'chessops/fen';
+import { h } from 'snabbdom';
+
+import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
 import { fenColor } from 'lib/game/chess';
+import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
+import * as licon from 'lib/licon';
+import { storage, storedBooleanProp } from 'lib/storage';
 import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
-import { opposite as cgOpposite, uciToMove } from '@lichess-org/chessground/util';
-import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
-import type StudyCtrl from './studyCtrl';
-import { type CloudEval, type MultiCloudEval, renderScore } from './multiCloudEval';
-import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
-import type { Color } from 'chessops';
-import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
-import { playerFedFlag } from './playerBars';
 import { userTitle } from 'lib/view/userLink';
-import { h } from 'snabbdom';
-import { storage, storedBooleanProp } from 'lib/storage';
-import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { EMPTY_BOARD_FEN } from 'chessops/fen';
+
+import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
+import { type CloudEval, type MultiCloudEval, renderScore } from './multiCloudEval';
+import { playerFedFlag } from './playerBars';
 import { playerColoredResult } from './relay/customScoreStatus';
 import type { RelayRound } from './relay/interfaces';
+import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
+import type StudyCtrl from './studyCtrl';
 
 export class MultiBoardCtrl {
   playing: Toggle = toggle(false);

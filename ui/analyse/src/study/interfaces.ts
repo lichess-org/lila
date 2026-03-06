@@ -1,9 +1,10 @@
 import type { Prop } from 'lib';
+import type { TreeNodeIncomplete, TreePath } from 'lib/tree/types';
+
+import type AnalyseCtrl from '../ctrl';
+import type { Opening } from '../explorer/interfaces';
 import type { AnalyseData } from '../interfaces';
 import type { GamebookOverride } from './gamebook/interfaces';
-import type { Opening } from '../explorer/interfaces';
-import type AnalyseCtrl from '../ctrl';
-import type { TreeNodeIncomplete, TreePath } from 'lib/tree/types';
 
 export type Tab = 'intro' | 'members' | 'chapters';
 export type ChapterTab = 'init' | 'edit' | 'game' | 'fen' | 'pgn';

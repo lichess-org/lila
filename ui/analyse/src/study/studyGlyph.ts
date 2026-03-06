@@ -1,10 +1,12 @@
-import { blurIfPrimaryClick, prop } from 'lib';
-import { bind, spinnerVdom } from 'lib/view';
-import { throttle } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
+
+import { blurIfPrimaryClick, prop } from 'lib';
+import { throttle } from 'lib/async';
+import type { Glyph, GlyphId, TreeNode } from 'lib/tree/types';
+import { bind, spinnerVdom } from 'lib/view';
+
 import type AnalyseCtrl from '../ctrl';
 import { glyphs as xhrGlyphs } from './studyXhr';
-import type { Glyph, GlyphId, TreeNode } from 'lib/tree/types';
 
 interface AllGlyphs {
   move: Glyph[];

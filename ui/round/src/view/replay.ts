@@ -1,12 +1,11 @@
-import * as licon from 'lib/licon';
-import { finished, aborted, userAnalysable, playable } from 'lib/game';
-import * as util from '../util';
-import { displayColumns } from 'lib/device';
-import type RoundController from '../ctrl';
+import { blurIfPrimaryClick, repeater } from 'lib';
 import { throttle } from 'lib/async';
-import viewStatus from 'lib/game/view/status';
+import { displayColumns } from 'lib/device';
+import { finished, aborted, userAnalysable, playable } from 'lib/game';
 import { game as gameRoute } from 'lib/game/router';
-import type { Step } from '../interfaces';
+import viewStatus from 'lib/game/view/status';
+import * as licon from 'lib/licon';
+import { addPointerListeners } from 'lib/pointer';
 import {
   toggleButton as boardMenuToggleButton,
   type VNode,
@@ -15,9 +14,11 @@ import {
   hl,
   onInsert,
 } from 'lib/view';
+
+import type RoundController from '../ctrl';
+import type { Step } from '../interfaces';
+import * as util from '../util';
 import boardMenu from './boardMenu';
-import { blurIfPrimaryClick, repeater } from 'lib';
-import { addPointerListeners } from 'lib/pointer';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',

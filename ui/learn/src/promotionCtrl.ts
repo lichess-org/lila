@@ -1,6 +1,8 @@
 import type { PiecesDiff } from '@lichess-org/chessground/types';
-import type { PromotionRole } from './util';
+
 import { type WithGround } from 'lib/game/ground';
+
+import type { PromotionRole } from './util';
 
 type PromotionCallback = (orig: Key, dest: Key, role: PromotionRole) => void;
 

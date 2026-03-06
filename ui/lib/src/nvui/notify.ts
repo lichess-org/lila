@@ -1,6 +1,7 @@
 import { h, type VNode, type VNodeData } from 'snabbdom';
-import { requestIdleCallback } from '../index';
+
 import { isMac } from '../device';
+import { requestIdleCallback } from '../index';
 
 export class Notify {
   text = '';

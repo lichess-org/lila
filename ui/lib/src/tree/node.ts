@@ -1,9 +1,11 @@
-import { chessgroundDests, lichessRules, scalachessCharPair } from 'chessops/compat';
-import type { PositionResult, TreeNode, TreeNodeIncomplete } from './types';
 import { type Position, parseUci, makeSquare } from 'chessops';
-import { memoize } from '@/common';
+import { chessgroundDests, lichessRules, scalachessCharPair } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
+
+import { memoize } from '@/common';
+
+import type { PositionResult, TreeNode, TreeNodeIncomplete } from './types';
 
 // mutates and returns the node
 export const completeNode =

@@ -1,7 +1,9 @@
+import { h, type VNode } from 'snabbdom';
+
 import { type Prop, type Toggle, propWithEffect, toggle } from 'lib';
 import * as licon from 'lib/licon';
 import { bind, dataIcon, enter, onInsert, snabDialog } from 'lib/view';
-import { h, type VNode } from 'snabbdom';
+
 import type { ChapterPreview } from './interfaces';
 import type { StudyChapters } from './studyChapters';
 

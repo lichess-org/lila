@@ -1,10 +1,11 @@
 import { prop, notEmpty, type Prop } from 'lib';
-import { json as xhrJson } from 'lib/xhr';
-import type { ForecastData, ForecastList, ForecastStep } from './interfaces';
-import type { AnalyseData } from '../interfaces';
-import type { TreeWrapper } from 'lib/tree/tree';
 import { completeNode } from 'lib/tree/node';
+import type { TreeWrapper } from 'lib/tree/tree';
 import type { TreePath } from 'lib/tree/types';
+import { json as xhrJson } from 'lib/xhr';
+
+import type { AnalyseData } from '../interfaces';
+import type { ForecastData, ForecastList, ForecastStep } from './interfaces';
 
 export default class ForecastCtrl {
   forecasts: Prop<ForecastList> = prop<ForecastList>([]);

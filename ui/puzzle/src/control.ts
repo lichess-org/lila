@@ -1,4 +1,5 @@
 import { path as treePath } from 'lib/tree/tree';
+
 import type PuzzleCtrl from './ctrl';
 
 export function canGoForward(ctrl: PuzzleCtrl): boolean {

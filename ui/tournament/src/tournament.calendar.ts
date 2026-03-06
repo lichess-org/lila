@@ -1,7 +1,7 @@
-import view from './view/calendarView';
-
 import { init, type VNode, classModule, attributesModule } from 'snabbdom';
+
 import type { Tournament } from './interfaces';
+import view from './view/calendarView';
 
 const patch = init([classModule, attributesModule]);
 

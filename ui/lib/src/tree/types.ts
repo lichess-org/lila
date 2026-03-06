@@ -1,5 +1,5 @@
-import type { Outcome, Position } from 'chessops';
 import type { Result } from '@badrap/result';
+import type { Outcome, Position } from 'chessops';
 
 export type TreeNodeId = string;
 export type TreePath = string;

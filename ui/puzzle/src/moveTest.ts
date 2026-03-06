@@ -1,7 +1,9 @@
 import { parseUci } from 'chessops/util';
+
 import { path as pathOps } from 'lib/tree/tree';
-import type { MoveTest } from './interfaces';
+
 import type PuzzleCtrl from './ctrl';
+import type { MoveTest } from './interfaces';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 const altCastles = {

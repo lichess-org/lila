@@ -1,10 +1,11 @@
-import { loadCssPath, loadEsm } from './asset';
 import { memoize } from 'lib';
-import { spinnerHtml } from 'lib/view';
 import { clamp } from 'lib/algo';
+import { isTouchDevice } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
 import { wsSend } from 'lib/socket';
-import { isTouchDevice } from 'lib/device';
+import { spinnerHtml } from 'lib/view';
+
+import { loadCssPath, loadEsm } from './asset';
 
 export default function () {
   const top = document.getElementById('top')!;

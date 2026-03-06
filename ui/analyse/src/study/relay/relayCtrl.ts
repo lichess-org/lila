@@ -1,15 +1,18 @@
-import type { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
-import type { BothClocks, ChapterId, ServerClockMsg } from '@/study/interfaces';
-import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
-import RelayTeams from './relayTeams';
-import RelayPlayers from './relayPlayers';
-import type StudyCtrl from '@/study/studyCtrl';
-import { VideoPlayer } from './videoPlayer';
-import RelayStats from './relayStats';
-import { LiveboardPlugin } from './liveboardPlugin';
-import { pubsub } from 'lib/pubsub';
 import { COLORS } from 'chessops';
+
+import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
+import { pubsub } from 'lib/pubsub';
+
+import type { BothClocks, ChapterId, ServerClockMsg } from '@/study/interfaces';
+import type StudyCtrl from '@/study/studyCtrl';
+
+import type { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
+import { LiveboardPlugin } from './liveboardPlugin';
+import RelayPlayers from './relayPlayers';
+import RelayStats from './relayStats';
 import RelayTeamLeaderboard from './relayTeamLeaderboard';
+import RelayTeams from './relayTeams';
+import { VideoPlayer } from './videoPlayer';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats', 'team-results'] as const;
 export type RelayTab = (typeof relayTabs)[number];

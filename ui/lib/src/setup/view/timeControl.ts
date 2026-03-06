@@ -1,6 +1,8 @@
 import type { Prop } from '@/index';
 import { hl, type VNode } from '@/view';
+
 import type { InputValue } from '../interfaces';
+import { option } from '../option';
 import {
   timeModes,
   sliderTimes,
@@ -11,7 +13,6 @@ import {
   type TimeControl,
   type TimeMode,
 } from '../timeControl';
-import { option } from '../option';
 
 const showTime = (v: number) => {
   if (v === 1 / 4) return '¼';

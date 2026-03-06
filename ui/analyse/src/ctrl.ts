@@ -1,24 +1,16 @@
-import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
-import * as keyboard from './keyboard';
-import { treeReconstruct, addCrazyData } from './util';
-import { plural } from './view/util';
-import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
-import type StudyCtrl from './study/studyCtrl';
-import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
+import { Result } from '@badrap/result';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
-import { Autoplay, type AutoplayDelay } from './autoplay';
-import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
-import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
-import {
-  CevalCtrl,
-  isEvalBetter,
-  sanIrreversible,
-  type CevalHandler,
-  type EvalMeta,
-  type CevalOpts,
-} from 'lib/ceval';
-import { TreeView } from './treeView/treeView';
+import type { DrawShape } from '@lichess-org/chessground/draw';
+import { uciToMove } from '@lichess-org/chessground/util';
+import { makeFen } from 'chessops/fen';
+import type { PgnError } from 'chessops/pgn';
+import { makeSanAndPlay } from 'chessops/san';
+import { isNormal, type Move } from 'chessops/types';
+import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from 'chessops/util';
+import { normalizeMove } from 'chessops/variant';
+import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
+
 import {
   defined,
   prop,
@@ -30,40 +22,50 @@ import {
   type Prop,
   type Toggle,
 } from 'lib';
+import {
+  CevalCtrl,
+  isEvalBetter,
+  sanIrreversible,
+  type CevalHandler,
+  type EvalMeta,
+  type CevalOpts,
+} from 'lib/ceval';
+import { ChatCtrl } from 'lib/chat/chatCtrl';
+import { displayColumns } from 'lib/device';
+import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
+import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
-import type { DrawShape } from '@lichess-org/chessground/draw';
+import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
+import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
+import { completeNode } from 'lib/tree/node';
+import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
+import { confirm } from 'lib/view';
+
+import api from './api';
+import { Autoplay, type AutoplayDelay } from './autoplay';
+import { compute as computeAutoShapes } from './autoShape';
+import * as control from './control';
+import { valid as crazyValid } from './crazy/crazyCtrl';
 import EvalCache from './evalCache';
+import ExplorerCtrl from './explorer/explorerCtrl';
+import ForecastCtrl from './forecast/forecastCtrl';
 import { ForkCtrl } from './fork';
+import { IdbTree } from './idbTree';
+import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
+import * as keyboard from './keyboard';
+import MotifCtrl from './motif/motifCtrl';
+import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
+import pgnImport from './pgnImport';
 import { make as makePractice, type PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeRetro, type RetroCtrl } from './retrospect/retroCtrl';
 import { make as makeSocket, type Socket } from './socket';
-import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
-import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from 'chessops/util';
-import { isNormal, type Move } from 'chessops/types';
-import { makeFen } from 'chessops/fen';
-import { normalizeMove } from 'chessops/variant';
-import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
+import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type { AnaMove } from './study/interfaces';
-import { valid as crazyValid } from './crazy/crazyCtrl';
-import { PromotionCtrl } from 'lib/game/promotion';
+import type StudyCtrl from './study/studyCtrl';
+import { TreeView } from './treeView/treeView';
+import { treeReconstruct, addCrazyData } from './util';
+import { plural } from './view/util';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
-import ExplorerCtrl from './explorer/explorerCtrl';
-import { uciToMove } from '@lichess-org/chessground/util';
-import { IdbTree } from './idbTree';
-import pgnImport from './pgnImport';
-import ForecastCtrl from './forecast/forecastCtrl';
-import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
-import * as control from './control';
-import type { PgnError } from 'chessops/pgn';
-import { ChatCtrl } from 'lib/chat/chatCtrl';
-import { confirm } from 'lib/view';
-import api from './api';
-import { displayColumns } from 'lib/device';
-import MotifCtrl from './motif/motifCtrl';
-import { makeSanAndPlay } from 'chessops/san';
-import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
-import { completeNode } from 'lib/tree/node';
-import { Result } from '@badrap/result';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;

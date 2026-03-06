@@ -1,8 +1,10 @@
-import { hl, type VNode, getChessground, initMiniBoardWith, spinnerVdom } from 'lib/view';
-import { fenColor, uciToMove } from 'lib/game/chess';
 import { type ChatPlugin } from 'lib/chat/interfaces';
-import type AnalyseCtrl from '@/ctrl';
+import { fenColor, uciToMove } from 'lib/game/chess';
 import { mainlineNodeList } from 'lib/tree/ops';
+import { hl, type VNode, getChessground, initMiniBoardWith, spinnerVdom } from 'lib/view';
+
+import type AnalyseCtrl from '@/ctrl';
+
 import { type ChapterId } from '../interfaces';
 
 type BoardConfig = CgConfig & { lastUci?: Uci };

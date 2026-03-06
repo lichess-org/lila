@@ -1,8 +1,9 @@
-import { h, type VNode } from 'snabbdom';
-import type { CheckCount, CheckState, MaterialDiffSide } from '../interfaces';
-import { countChecks, getMaterialDiff, getScore, NO_CHECKS } from '../material';
 import { opposite } from '@lichess-org/chessground/util';
 import { type Board } from 'chessops';
+import { h, type VNode } from 'snabbdom';
+
+import type { CheckCount, CheckState, MaterialDiffSide } from '../interfaces';
+import { countChecks, getMaterialDiff, getScore, NO_CHECKS } from '../material';
 
 function renderMaterialDiff(
   material: MaterialDiffSide,

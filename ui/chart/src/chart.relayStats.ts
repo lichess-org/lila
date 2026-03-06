@@ -1,9 +1,11 @@
-import type { RoundStats } from './interface';
-import * as chart from 'chart.js';
 import 'chartjs-adapter-dayjs-4';
-import { hoverBorderColor, gridColor, tooltipBgColor, fontColor, fontFamily } from './index';
-import { memoize, notNull } from 'lib';
+import * as chart from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+import { memoize, notNull } from 'lib';
+
+import { hoverBorderColor, gridColor, tooltipBgColor, fontColor, fontFamily } from './index';
+import type { RoundStats } from './interface';
 
 chart.Chart.register(
   chart.PointElement,

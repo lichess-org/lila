@@ -1,4 +1,14 @@
+import { Chessground } from '@lichess-org/chessground';
+
+import { repeater } from 'lib';
+import { type BotInfo, Bot } from 'lib/bot/bot';
+import { botAssetUrl } from 'lib/bot/botLoader';
+import { type TopOrBottom } from 'lib/game';
+import { renderClock } from 'lib/game/clock/clockView';
+import { renderMaterialDiffs } from 'lib/game/view/material';
+import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
 import * as licon from 'lib/licon';
+import { addPointerListeners } from 'lib/pointer';
 import {
   bind,
   hl,
@@ -9,20 +19,13 @@ import {
   stepwiseScroll,
   toggleButton as boardMenuToggleButton,
 } from 'lib/view';
-import { Chessground } from '@lichess-org/chessground';
-import type PlayCtrl from '../playCtrl';
-import { initialGround } from '@/ground';
-import { botAssetUrl } from 'lib/bot/botLoader';
-import { type BotInfo, Bot } from 'lib/bot/bot';
-import { autoScroll } from './autoScroll';
-import { repeater } from 'lib';
-import { addPointerListeners } from 'lib/pointer';
-import { type StatusData, statusOf as viewStatus } from 'lib/game/view/status';
-import boardMenu from './boardMenu';
-import { renderMaterialDiffs } from 'lib/game/view/material';
-import { type TopOrBottom } from 'lib/game';
-import { renderClock } from 'lib/game/clock/clockView';
 import { renderBlindfoldToggle } from 'lib/view/blindfold';
+
+import { initialGround } from '@/ground';
+
+import type PlayCtrl from '../playCtrl';
+import { autoScroll } from './autoScroll';
+import boardMenu from './boardMenu';
 
 export const playView = (ctrl: PlayCtrl) =>
   hl(`main.bot-app.bot-game.unique-game-${ctrl.game.id}.bot-color--${ctrl.opts.bot.key}`, [

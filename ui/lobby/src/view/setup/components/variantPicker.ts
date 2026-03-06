@@ -1,6 +1,7 @@
-import { enter, hl } from 'lib/view';
-import { variants, variantsForGameType } from '@/options';
 import { option } from 'lib/setup/option';
+import { enter, hl } from 'lib/view';
+
+import { variants, variantsForGameType } from '@/options';
 import type SetupController from '@/setupCtrl';
 
 export const variantPicker = (setupCtrl: SetupController) => {

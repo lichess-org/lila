@@ -1,16 +1,24 @@
-import config from './config';
-import CurrentPuzzle from 'lib/puz/current';
+import { parseUci } from 'chessops/util';
+
+import { type Prop, defined, prop } from 'lib';
 import { throttle } from 'lib/async';
-import { Boost } from './boost';
+import { type WithGround } from 'lib/game/ground';
+import { PromotionCtrl } from 'lib/game/promotion';
+import { pubsub } from 'lib/pubsub';
 import { Clock } from 'lib/puz/clock';
 import { Combo } from 'lib/puz/combo';
-import { Countdown } from './countdown';
-import { getNow, puzzlePov, sound } from 'lib/puz/util';
-import { makeCgOpts } from 'lib/puz/run';
-import { parseUci } from 'chessops/util';
-import type { PuzCtrl, Run } from 'lib/puz/interfaces';
+import CurrentPuzzle from 'lib/puz/current';
 import { PuzFilters } from 'lib/puz/filters';
-import { type Prop, defined, prop } from 'lib';
+import type { PuzCtrl, Run } from 'lib/puz/interfaces';
+import { makeCgOpts } from 'lib/puz/run';
+import { getNow, puzzlePov, sound } from 'lib/puz/util';
+import { wsConnect, wsSend } from 'lib/socket';
+import { storedBooleanProp } from 'lib/storage';
+import { toggleZenMode } from 'lib/view/zen';
+
+import { Boost } from './boost';
+import config from './config';
+import { Countdown } from './countdown';
 import type {
   RacerOpts,
   RacerData,
@@ -21,12 +29,6 @@ import type {
   RaceStatus,
   Vehicle,
 } from './interfaces';
-import { storedBooleanProp } from 'lib/storage';
-import { PromotionCtrl } from 'lib/game/promotion';
-import { wsConnect, wsSend } from 'lib/socket';
-import { pubsub } from 'lib/pubsub';
-import { type WithGround } from 'lib/game/ground';
-import { toggleZenMode } from 'lib/view/zen';
 
 export default class RacerCtrl implements PuzCtrl {
   private data: RacerData;

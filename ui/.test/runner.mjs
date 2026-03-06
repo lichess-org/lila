@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { readdirSync } from 'node:fs';
 import { spawn } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { readdirSync } from 'node:fs';
 import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 process.chdir(dirname(dirname(fileURLToPath(import.meta.url))));
 

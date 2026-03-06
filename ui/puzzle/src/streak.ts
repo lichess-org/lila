@@ -1,5 +1,6 @@
 import type { Prop } from 'lib';
 import { storedJsonProp } from 'lib/storage';
+
 import type { PuzzleData, Puzzle, PuzzleId, PuzzleGame } from './interfaces';
 
 interface Current {

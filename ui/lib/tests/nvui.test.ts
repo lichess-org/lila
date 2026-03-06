@@ -1,7 +1,8 @@
-import { describe, test } from 'node:test';
-import assert from 'node:assert/strict';
-import { inputToMove } from '../src/nvui/chess';
 import { Chessground } from '@lichess-org/chessground';
+import assert from 'node:assert/strict';
+import { describe, test } from 'node:test';
+
+import { inputToMove } from '../src/nvui/chess';
 
 describe('nvui move inputs', () => {
   test('mixed case bishop or pawn takes', async () => {

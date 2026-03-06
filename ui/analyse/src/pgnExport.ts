@@ -1,10 +1,12 @@
-import type AnalyseCtrl from './ctrl';
-import { h } from 'snabbdom';
-import { fixCrazySan, plyToTurn } from 'lib/game/chess';
-import { type MaybeVNodes } from 'lib/view';
 import { INITIAL_FEN } from 'chessops/fen';
-import type { Game } from './interfaces';
+import { h } from 'snabbdom';
+
+import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import type { TreeNode } from 'lib/tree/types';
+import { type MaybeVNodes } from 'lib/view';
+
+import type AnalyseCtrl from './ctrl';
+import type { Game } from './interfaces';
 
 interface PgnNode {
   ply: Ply;

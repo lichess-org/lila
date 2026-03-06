@@ -1,11 +1,14 @@
 import type { VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
-import { displayLocale, numberFormat } from 'lib/i18n';
+
 import perfIcons from 'lib/game/perfIcons';
+import { displayLocale, numberFormat } from 'lib/i18n';
+import * as licon from 'lib/licon';
 import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl } from 'lib/view';
-import { view as renderConfig } from './explorerConfig';
-import { moveArrowAttributes, ucfirst } from './explorerUtil';
+
 import type AnalyseCtrl from '../ctrl';
+import { view as renderConfig } from './explorerConfig';
+import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
+import { moveArrowAttributes, ucfirst } from './explorerUtil';
 import {
   isOpening,
   isTablebase,
@@ -15,7 +18,6 @@ import {
   type OpeningGame,
   type ExplorerDb,
 } from './interfaces';
-import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
 import { showTablebase } from './tablebaseView';
 
 function resultBar(move: OpeningMoveStats): VNode {

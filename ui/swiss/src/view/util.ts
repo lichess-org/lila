@@ -1,6 +1,8 @@
 import { h } from 'snabbdom';
-import type { BasePlayer } from '../interfaces';
+
 import { fullName, userLine, userRating } from 'lib/view/userLink';
+
+import type { BasePlayer } from '../interfaces';
 
 export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
   return h(

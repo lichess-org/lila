@@ -1,9 +1,9 @@
+import { defaultSetup, fen, makeUci, parseUci } from 'chessops';
 import { Chess, normalizeMove, castlingSide } from 'chessops/chess';
+import { board } from 'chessops/debug';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
 import type { NormalMove } from 'chessops/types';
-import { board } from 'chessops/debug';
-import { defaultSetup, fen, makeUci, parseUci } from 'chessops';
 
 export default function (token: string): void {
   const root = document.getElementById('dgt-play-zone') as HTMLDivElement;

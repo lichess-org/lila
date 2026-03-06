@@ -1,7 +1,8 @@
-import type { LangsData } from './langs';
+import type { VNode } from 'lib/view';
+
 import type { BackgroundData } from './background';
 import { DasherCtrl } from './ctrl';
-import type { VNode } from 'lib/view';
+import type { LangsData } from './langs';
 
 export { DasherCtrl };
 

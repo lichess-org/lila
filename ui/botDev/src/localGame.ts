@@ -1,9 +1,10 @@
 import * as co from 'chessops';
-import { normalMove } from 'lib/game/chess';
-import { type Status, type RoundStep, statusOf } from 'lib/game';
+
 import { deepFreeze, randomId } from 'lib/algo';
-import { hashBoard } from 'lib/game/hash';
 import type { LocalSetup } from 'lib/bot/types';
+import { type Status, type RoundStep, statusOf } from 'lib/game';
+import { normalMove } from 'lib/game/chess';
+import { hashBoard } from 'lib/game/hash';
 
 type LocalMove = {
   uci: Uci;

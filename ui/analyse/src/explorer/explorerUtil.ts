@@ -1,8 +1,10 @@
-import type { TablebaseMoveStats } from './interfaces';
 import { opposite } from 'chessops/util';
-import { fenColor } from 'lib/game/chess';
 import type { VNode } from 'snabbdom';
+
+import { fenColor } from 'lib/game/chess';
+
 import type AnalyseCtrl from '../ctrl';
+import type { TablebaseMoveStats } from './interfaces';
 
 export function winnerOf(fen: FEN, move: TablebaseMoveStats): Color | undefined {
   const stm = fenColor(fen);

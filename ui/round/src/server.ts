@@ -1,7 +1,8 @@
-import { pubsub } from 'lib/pubsub';
-import * as xhr from './xhr';
 import { isPlayerPlaying, isPlayerTurn } from 'lib/game';
+import { pubsub } from 'lib/pubsub';
+
 import type { RoundData } from './interfaces';
+import * as xhr from './xhr';
 
 export default class Server {
   scheduledCheck: Timeout | undefined;

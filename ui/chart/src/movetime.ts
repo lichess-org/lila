@@ -10,6 +10,11 @@ import {
   type PointStyle,
   Tooltip,
 } from 'chart.js';
+import { COLORS } from 'chessops';
+
+import { pubsub } from 'lib/pubsub';
+
+import division from './division';
 import {
   type MovePoint,
   blackFill,
@@ -24,9 +29,6 @@ import {
   axisOpts,
 } from './index';
 import type { AnalyseData, Player, PlyChart } from './interface';
-import division from './division';
-import { pubsub } from 'lib/pubsub';
-import { COLORS } from 'chessops';
 
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, BarElement, BarController);
 

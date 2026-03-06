@@ -1,8 +1,9 @@
-import { hl, type VNode } from 'lib/view';
 import type { TopOrBottom } from 'lib/game';
-import type { CorresClockController } from './corresClockCtrl';
-import { moretime } from '../view/button';
 import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
+import { hl, type VNode } from 'lib/view';
+
+import { moretime } from '../view/button';
+import type { CorresClockController } from './corresClockCtrl';
 
 const prefixInteger = (num: number, length: number): string =>
   (num / Math.pow(10, length)).toFixed(length).slice(2);

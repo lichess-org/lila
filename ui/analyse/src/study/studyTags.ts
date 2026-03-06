@@ -1,11 +1,13 @@
-import { enter, onInsert } from 'lib/view';
-import { throttle } from 'lib/async';
 import { type Attrs, h, thunk, type VNode } from 'snabbdom';
-import { option } from '../view/util';
-import { looksLikeLichessGame } from './studyChapters';
+
 import { prop } from 'lib';
-import type StudyCtrl from './studyCtrl';
+import { throttle } from 'lib/async';
+import { enter, onInsert } from 'lib/view';
+
+import { option } from '../view/util';
 import type { TagArray, TagMap } from './interfaces';
+import { looksLikeLichessGame } from './studyChapters';
+import type StudyCtrl from './studyCtrl';
 
 export const tagsToMap = (tags: TagArray[]): TagMap => {
   const map = new Map<string, string>();

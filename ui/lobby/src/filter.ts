@@ -1,4 +1,6 @@
-import type { Hook } from './interfaces';
+import type { LichessStorage } from 'lib/storage';
+
+import type LobbyController from './ctrl';
 import {
   type FormLines,
   type FormObject,
@@ -7,8 +9,7 @@ import {
   toFormObject,
   makeStore,
 } from './form';
-import type LobbyController from './ctrl';
-import type { LichessStorage } from 'lib/storage';
+import type { Hook } from './interfaces';
 
 interface FilterData {
   form: FormLines;

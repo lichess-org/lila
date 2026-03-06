@@ -1,6 +1,7 @@
-import { script as xhrScript } from 'lib/xhr';
-import { memoize } from 'lib';
 import { COLORS } from 'chessops';
+
+import { memoize } from 'lib';
+import { script as xhrScript } from 'lib/xhr';
 
 export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
 

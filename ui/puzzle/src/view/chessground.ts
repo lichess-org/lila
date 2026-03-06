@@ -1,9 +1,11 @@
-import resizeHandle from 'lib/chessgroundResize';
-import { h, type VNode } from 'snabbdom';
-import { Coords, ShowResizeHandle } from 'lib/prefs';
-import type PuzzleCtrl from '../ctrl';
-import { storage } from 'lib/storage';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { h, type VNode } from 'snabbdom';
+
+import resizeHandle from 'lib/chessgroundResize';
+import { Coords, ShowResizeHandle } from 'lib/prefs';
+import { storage } from 'lib/storage';
+
+import type PuzzleCtrl from '../ctrl';
 
 export default function (ctrl: PuzzleCtrl): VNode {
   return h('div.cg-wrap.cgv' + ctrl.cgVersion, {

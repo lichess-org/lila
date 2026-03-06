@@ -1,8 +1,9 @@
-import type { Ctrl, NotifyData, Notification } from './interfaces';
-import { hl, type VNode, type LooseVNodes, spinnerVdom as spinner } from 'lib/view';
 import * as licon from 'lib/licon';
-import makeRenderers from './renderers';
 import { pubsub } from 'lib/pubsub';
+import { hl, type VNode, type LooseVNodes, spinnerVdom as spinner } from 'lib/view';
+
+import type { Ctrl, NotifyData, Notification } from './interfaces';
+import makeRenderers from './renderers';
 
 const renderers = makeRenderers();
 

@@ -1,10 +1,17 @@
+import { INITIAL_FEN } from 'chessops/fen';
+import { opposite } from 'chessops/util';
+import type Sortable from 'sortablejs';
+
 import { blurIfPrimaryClick, defined, prop, type Prop, scrollToInnerSelector } from 'lib';
+import { fenColor } from 'lib/game/chess';
 import * as licon from 'lib/licon';
 import { type VNode, bind, dataIcon, iconTag, hl, alert } from 'lib/view';
+
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
+import { federations, localizedName } from './fideFeds';
 import type {
   LocalPaths,
   StudyChapter,
@@ -20,11 +27,6 @@ import type {
   StatusStr,
 } from './interfaces';
 import type StudyCtrl from './studyCtrl';
-import { opposite } from 'chessops/util';
-import { fenColor } from 'lib/game/chess';
-import type Sortable from 'sortablejs';
-import { INITIAL_FEN } from 'chessops/fen';
-import { federations, localizedName } from './fideFeds';
 
 /* read-only interface for external use */
 export class StudyChapters {

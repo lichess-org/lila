@@ -1,14 +1,16 @@
-import type { StudyCtrl } from '../studyDeps';
-import type RelayCtrl from './relayCtrl';
-import { userTitle } from 'lib/view/userLink';
-import { defined, scrollToInnerSelector } from 'lib';
-import { renderClock, verticalEvalGauge } from '../multiBoard';
-import type { ChapterPreview } from '../interfaces';
-import { gameLinkAttrs } from '../studyChapters';
-import { playerFedFlag } from '../playerBars';
-import { hl } from 'lib/view';
-import { playerColoredResult } from './customScoreStatus';
 import { COLORS } from 'chessops';
+
+import { defined, scrollToInnerSelector } from 'lib';
+import { hl } from 'lib/view';
+import { userTitle } from 'lib/view/userLink';
+
+import type { ChapterPreview } from '../interfaces';
+import { renderClock, verticalEvalGauge } from '../multiBoard';
+import { playerFedFlag } from '../playerBars';
+import { gameLinkAttrs } from '../studyChapters';
+import type { StudyCtrl } from '../studyDeps';
+import { playerColoredResult } from './customScoreStatus';
+import type RelayCtrl from './relayCtrl';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();

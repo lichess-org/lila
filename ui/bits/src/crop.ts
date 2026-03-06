@@ -1,4 +1,5 @@
 import { isSafari, isFirefox } from 'lib/device';
+
 import { type CropOpts } from './bits.cropDialog';
 export { type CropOpts } from './bits.cropDialog';
 

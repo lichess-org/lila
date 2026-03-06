@@ -1,9 +1,11 @@
-import { h, type VNode } from 'snabbdom';
-import type { Elements } from '@lichess-org/chessground/types';
-import resizeHandle from 'lib/chessgroundResize';
-import type CoordinateTrainerCtrl from './ctrl';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import type { Elements } from '@lichess-org/chessground/types';
+import { h, type VNode } from 'snabbdom';
+
+import resizeHandle from 'lib/chessgroundResize';
 import { pubsub } from 'lib/pubsub';
+
+import type CoordinateTrainerCtrl from './ctrl';
 
 export default function (ctrl: CoordinateTrainerCtrl): VNode {
   return h('div.cg-wrap', {

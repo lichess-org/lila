@@ -1,7 +1,8 @@
-import { patch } from './view/util';
+import { wsConnect } from 'lib/socket';
+
 import makeBoot from './boot';
 import makeStart from './start';
-import { wsConnect } from 'lib/socket';
+import { patch } from './view/util';
 
 export { patch };
 

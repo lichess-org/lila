@@ -1,6 +1,7 @@
 import { throttle } from 'lib/async';
-import PlayCtrl from '../playCtrl';
 import { displayColumns } from 'lib/device';
+
+import PlayCtrl from '../playCtrl';
 
 const scrollMax = 99999;
 

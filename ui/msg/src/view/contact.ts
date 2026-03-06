@@ -1,11 +1,13 @@
 import { h, type VNode } from 'snabbdom';
-import type { Contact, LastMsg, User } from '../interfaces';
-import type MsgCtrl from '../ctrl';
-import * as licon from 'lib/licon';
+
 import { hookMobileMousedown } from 'lib/device';
-import { fullName, userLine } from 'lib/view/userLink';
 import { timeago } from 'lib/i18n';
+import * as licon from 'lib/licon';
 import type { MaybeVNodes } from 'lib/view/snabbdom';
+import { fullName, userLine } from 'lib/view/userLink';
+
+import type MsgCtrl from '../ctrl';
+import type { Contact, LastMsg, User } from '../interfaces';
 
 export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: string): VNode {
   const user = contact.user,

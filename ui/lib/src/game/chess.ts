@@ -1,8 +1,9 @@
 // no side effects allowed due to re-export by index.ts
 
-import { shuffle } from '../algo';
-import { normalizeMove } from 'chessops/chess';
 import { type Chess, type NormalMove, parseUci, makeUci } from 'chessops';
+import { normalizeMove } from 'chessops/chess';
+
+import { shuffle } from '../algo';
 
 export const fixCrazySan = (san: San): San => (san[0] === 'P' ? san.slice(1) : san);
 

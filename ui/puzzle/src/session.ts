@@ -1,5 +1,6 @@
 import { prop } from 'lib';
 import { storedJsonProp } from 'lib/storage';
+
 import type { ThemeKey } from './interfaces';
 
 interface SessionRound {

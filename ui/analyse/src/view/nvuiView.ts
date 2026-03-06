@@ -1,10 +1,17 @@
-import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans, enter } from 'lib/view';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { COLORS } from 'chessops';
+import { lichessRules } from 'chessops/compat';
+import { parseFen } from 'chessops/fen';
+import { makeSan } from 'chessops/san';
+import { charToRole, opposite, parseUci } from 'chessops/util';
+import { setupPosition } from 'chessops/variant';
+
 import { defined } from 'lib';
-import { text as xhrText } from 'lib/xhr';
-import type AnalyseCtrl from '../ctrl';
-import { makeConfig as makeCgConfig } from '../ground';
-import type { AnalyseData } from '../interfaces';
+import { throttle } from 'lib/async';
+import { view as cevalView, renderEval } from 'lib/ceval';
+import { renderChat } from 'lib/chat/renderChat';
 import type { Player } from 'lib/game';
+import { plyToTurn } from 'lib/game/chess';
 import {
   renderSan,
   renderPieces,
@@ -25,34 +32,29 @@ import {
   pocketsStr,
   leaveSquareHandler,
 } from 'lib/nvui/chess';
+import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { liveText } from 'lib/nvui/notify';
 import { renderSetting } from 'lib/nvui/setting';
-import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import explorerView from '../explorer/explorerView';
-import { ops, path as treePath } from 'lib/tree/tree';
-import { view as cevalView, renderEval } from 'lib/ceval';
-import { next, prev } from '../control';
-import { lichessRules } from 'chessops/compat';
-import { makeSan } from 'chessops/san';
-import { charToRole, opposite, parseUci } from 'chessops/util';
-import { parseFen } from 'chessops/fen';
-import { setupPosition } from 'chessops/variant';
-import { plyToTurn } from 'lib/game/chess';
-import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
-import { renderResult, viewContext, type RelayViewContext } from '../view/components';
-import { view as chapterNewFormView } from '../study/chapterNewForm';
-import { view as chapterEditFormView } from '../study/chapterEditForm';
-import renderClocks from '../view/clocks';
-import { renderChat } from 'lib/chat/renderChat';
-import { throttle } from 'lib/async';
+import { ops, path as treePath } from 'lib/tree/tree';
+import type { ClientEval, PvData } from 'lib/tree/types';
+import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans, enter } from 'lib/view';
+import { text as xhrText } from 'lib/xhr';
+
+import type { AnalyseNvuiContext } from '../analyse.nvui';
+import { next, prev } from '../control';
+import type AnalyseCtrl from '../ctrl';
+import explorerView from '../explorer/explorerView';
+import { makeConfig as makeCgConfig } from '../ground';
+import type { AnalyseData } from '../interfaces';
 import { renderRetro } from '../retrospect/nvuiRetroView';
+import { view as chapterEditFormView } from '../study/chapterEditForm';
+import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
-import type { AnalyseNvuiContext } from '../analyse.nvui';
-import { scanDirectionsHandler } from 'lib/nvui/directionScan';
-import type { ClientEval, PvData } from 'lib/tree/types';
-import { COLORS } from 'chessops';
+import renderClocks from '../view/clocks';
+import { renderResult, viewContext, type RelayViewContext } from '../view/components';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');

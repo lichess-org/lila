@@ -1,24 +1,26 @@
 // no side effects allowed due to re-export by index.ts
 
-import { povChances } from '../winningChances';
-import * as licon from '@/licon';
-import { stepwiseScroll, type VNode, type LooseVNodes, bind, hl } from '@/view';
-import { cmnToggle } from '@/view/cmn-toggle';
-import { blurIfPrimaryClick, defined, notNull, requestIdleCallback } from '@/index';
-import { type CevalHandler, type NodeEvals, CevalState } from '../types';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { uciToMove } from '@lichess-org/chessground/util';
 import type { Position } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
+import { parseFen, makeBoardFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
-import { parseFen, makeBoardFen } from 'chessops/fen';
-import { renderEval } from '../util';
 import { setupPosition } from 'chessops/variant';
-import { uciToMove } from '@lichess-org/chessground/util';
-import { renderCevalSettings } from './settings';
-import type CevalCtrl from '../ctrl';
-import { Chessground as makeChessground } from '@lichess-org/chessground';
+
 import { isTouchDevice } from '@/device';
+import { blurIfPrimaryClick, defined, notNull, requestIdleCallback } from '@/index';
+import * as licon from '@/licon';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
+import { stepwiseScroll, type VNode, type LooseVNodes, bind, hl } from '@/view';
+import { cmnToggle } from '@/view/cmn-toggle';
+
+import type CevalCtrl from '../ctrl';
+import { type CevalHandler, type NodeEvals, CevalState } from '../types';
+import { renderEval } from '../util';
+import { povChances } from '../winningChances';
+import { renderCevalSettings } from './settings';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
 

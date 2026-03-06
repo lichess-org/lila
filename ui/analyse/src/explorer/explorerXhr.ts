@@ -1,7 +1,8 @@
-import type { ExplorerDb, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'lib/xhr';
 import { readNdJson } from 'lib/xhr';
+
 import type { ExplorerConfigData } from './explorerConfig';
+import type { ExplorerDb, OpeningData, TablebaseData } from './interfaces';
 
 interface OpeningXhrOpts {
   endpoint: string;

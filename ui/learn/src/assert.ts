@@ -1,4 +1,5 @@
 import { charToRole, type SquareName } from 'chessops';
+
 import type { AssertData } from './levelCtrl';
 import { readKeys } from './util';
 

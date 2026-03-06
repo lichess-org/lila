@@ -1,14 +1,16 @@
-import { winningChances, type CustomCeval } from 'lib/ceval';
-import { path as treePath } from 'lib/tree/tree';
-import { detectThreefold } from '../nodeFinder';
-import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
-import type AnalyseCtrl from '../ctrl';
-import { defined, prop, type Prop, requestIdleCallback } from 'lib';
-import { parseUci } from 'chessops/util';
 import { makeSan } from 'chessops/san';
+import { parseUci } from 'chessops/util';
+
+import { defined, prop, type Prop, requestIdleCallback } from 'lib';
+import { winningChances, type CustomCeval } from 'lib/ceval';
 import { storedBooleanPropWithEffect } from 'lib/storage';
-import { renderCustomPearl, renderCustomStatus } from './practiceView';
+import { path as treePath } from 'lib/tree/tree';
 import type { TablebaseHit, TreeNode, TreePath } from 'lib/tree/types';
+
+import type AnalyseCtrl from '../ctrl';
+import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
+import { detectThreefold } from '../nodeFinder';
+import { renderCustomPearl, renderCustomStatus } from './practiceView';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 

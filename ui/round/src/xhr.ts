@@ -1,5 +1,6 @@
-import type RoundController from './ctrl';
 import { text, json, form } from 'lib/xhr';
+
+import type RoundController from './ctrl';
 import type { RoundData } from './interfaces';
 
 export const reload = (d: RoundData): Promise<RoundData> => {

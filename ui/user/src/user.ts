@@ -1,8 +1,8 @@
-import * as xhr from 'lib/xhr';
-import * as licon from 'lib/licon';
-import { alert, makeLinkPopups } from 'lib/view';
-import { pubsub } from 'lib/pubsub';
 import { myUserId } from 'lib';
+import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { alert, makeLinkPopups } from 'lib/view';
+import * as xhr from 'lib/xhr';
 
 const gamesAngle = document.querySelector<HTMLElement>('.games');
 if (gamesAngle) gamesAngle.style.visibility = 'hidden'; // FOUC

@@ -1,21 +1,24 @@
+import { Chessground as makeChessground } from '@lichess-org/chessground';
+import type { Api } from '@lichess-org/chessground/api';
+import { makeSquare, opposite } from 'chessops';
 import { h, type VNode } from 'snabbdom';
+
+import { throttle } from 'lib/async';
+import * as nv from 'lib/nvui/chess';
+import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
+import { renderSetting } from 'lib/nvui/setting';
+import type { TreeNode } from 'lib/tree/types';
+import { bind, onInsert, requiresI18n } from 'lib/view';
+
+import { nextCorrectMove } from '@/moveTree';
+
+import { next as controlNext, prev } from '../control';
+import type PuzzleCtrl from '../ctrl';
+import type { PuzzleNvuiContext } from '../puzzle.nvui';
+import { makeConfig } from '../view/chessground';
 import { puzzleBox, renderDifficultyForm, userBox } from '../view/side';
 import theme from '../view/theme';
-import * as nv from 'lib/nvui/chess';
-import { makeConfig } from '../view/chessground';
-import { renderSetting } from 'lib/nvui/setting';
-import type { PuzzleNvuiContext } from '../puzzle.nvui';
-import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import { next as controlNext, prev } from '../control';
-import { bind, onInsert, requiresI18n } from 'lib/view';
-import { throttle } from 'lib/async';
-import type PuzzleCtrl from '../ctrl';
-import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { makeSquare, opposite } from 'chessops';
-import { scanDirectionsHandler } from 'lib/nvui/directionScan';
-import type { Api } from '@lichess-org/chessground/api';
-import { nextCorrectMove } from '@/moveTree';
-import type { TreeNode } from 'lib/tree/types';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');

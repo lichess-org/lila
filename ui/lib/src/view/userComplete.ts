@@ -1,5 +1,7 @@
-import * as xhr from '@/xhr';
 import debounce from 'debounce-promise';
+
+import * as xhr from '@/xhr';
+
 import { complete } from './complete';
 
 export interface UserCompleteResult {

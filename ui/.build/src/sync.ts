@@ -1,9 +1,10 @@
 import fs from 'node:fs';
 import { join, dirname } from 'node:path';
-import { makeTask } from './task.ts';
+
+import { isEquivalent } from './algo.ts';
 import { env, c } from './env.ts';
 import { isGlob, isFolder, isClose } from './parse.ts';
-import { isEquivalent } from './algo.ts';
+import { makeTask } from './task.ts';
 
 export async function sync(): Promise<void[] | undefined> {
   if (!env.begin('sync')) return;

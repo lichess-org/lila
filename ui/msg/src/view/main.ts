@@ -1,8 +1,10 @@
 import { h, type VNode } from 'snabbdom';
+
 import { spinnerVdom as spinner, onInsert } from 'lib/view';
+
 import type MsgCtrl from '../ctrl';
-import renderConvo from './convo';
 import renderContact from './contact';
+import renderConvo from './convo';
 import * as search from './search';
 
 export default function (ctrl: MsgCtrl): VNode {

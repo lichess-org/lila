@@ -1,9 +1,11 @@
 import * as co from 'chessops';
+
 import { clamp } from 'lib/algo';
-import { botScore } from './devUtil';
 import type { BotInfo, MoveSource, MoveResult, MoveArgs, Book, Ratings } from 'lib/bot/types';
+
 import type { Result, Matchup, Glicko } from './devCtrl';
 import { env } from './devEnv';
+import { botScore } from './devUtil';
 
 // ratings in context of classical Computer Chess Rating Lists (CCRL) where goldfish 1.13 = 2000
 // goldfish is an intentionally weakened Stockfish derivative for an approximate bridge to FIDE Elo.

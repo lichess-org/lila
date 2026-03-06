@@ -1,17 +1,19 @@
 import { thunk } from 'snabbdom';
+
 import { debounce } from 'lib/async';
 import * as licon from 'lib/licon';
+import { bind, hl } from 'lib/view';
+
 import axis from './axis';
-import filters from './filters';
-import presets from './presets';
+import boards from './boards';
 import chart from './chart';
-import { vert } from './table';
+import type Ctrl from './ctrl';
+import filters from './filters';
 import help from './help';
 import { info, tutor } from './info';
-import boards from './boards';
-import type Ctrl from './ctrl';
 import type { ViewTab } from './interfaces';
-import { bind, hl } from 'lib/view';
+import presets from './presets';
+import { vert } from './table';
 
 let forceRender = false;
 

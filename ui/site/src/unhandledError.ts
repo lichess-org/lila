@@ -1,6 +1,6 @@
+import { escapeHtml } from 'lib';
 import { log } from 'lib/permalog';
 import { domDialog } from 'lib/view';
-import { escapeHtml } from 'lib';
 
 function terseHref(): string {
   return window.location.href.replace(/^(https:\/\/)?(?:lichess|lichess1)\.org\//, '/');

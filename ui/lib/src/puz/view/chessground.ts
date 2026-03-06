@@ -1,7 +1,8 @@
 import resizeHandle from '@/chessgroundResize';
-import type { PuzPrefs, UserMove } from '../interfaces';
 import { ShowResizeHandle, Coords } from '@/prefs';
 import { storage } from '@/storage';
+
+import type { PuzPrefs, UserMove } from '../interfaces';
 
 export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): CgConfig {
   return {

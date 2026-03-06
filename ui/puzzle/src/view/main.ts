@@ -1,10 +1,13 @@
-import * as control from '../control';
-import { view as keyboardView } from '../keyboard';
-import { replay, puzzleBox, userBox, streakBox, config } from './side';
-import theme from './theme';
-import chessground from './chessground';
-import feedbackView from './feedback';
+import { render as renderKeyboardMove } from 'keyboardMove';
+import { type VNode, h } from 'snabbdom';
+import { renderVoiceBar } from 'voice';
+
+import { view as cevalView } from 'lib/ceval';
+import { dispatchChessgroundResize } from 'lib/chessgroundResize';
 import * as licon from 'lib/licon';
+import { addPointerListeners } from 'lib/pointer';
+import { Coords } from 'lib/prefs';
+import { storage } from 'lib/storage';
 import {
   stepwiseScroll,
   toggleButton as boardMenuToggleButton,
@@ -14,17 +17,16 @@ import {
   type MaybeVNode,
 } from 'lib/view';
 import { renderBlindfoldToggle } from 'lib/view/blindfold';
-import { type VNode, h } from 'snabbdom';
-import { addPointerListeners } from 'lib/pointer';
-import { render as treeView } from './tree';
-import { view as cevalView } from 'lib/ceval';
-import { renderVoiceBar } from 'voice';
-import { render as renderKeyboardMove } from 'keyboardMove';
-import boardMenu from './boardMenu';
-import { Coords } from 'lib/prefs';
+
+import * as control from '../control';
 import type PuzzleCtrl from '../ctrl';
-import { dispatchChessgroundResize } from 'lib/chessgroundResize';
-import { storage } from 'lib/storage';
+import { view as keyboardView } from '../keyboard';
+import boardMenu from './boardMenu';
+import chessground from './chessground';
+import feedbackView from './feedback';
+import { replay, puzzleBox, userBox, streakBox, config } from './side';
+import theme from './theme';
+import { render as treeView } from './tree';
 
 const renderAnalyse = (ctrl: PuzzleCtrl): VNode => hl('div.puzzle__moves.areplay', [treeView(ctrl)]);
 

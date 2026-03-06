@@ -1,35 +1,37 @@
 /// <reference types="../types/ab" />
 
+import { opposite, uciToMove } from '@lichess-org/chessground/util';
 import * as ab from 'ab';
-import * as game from 'lib/game';
-import { game as gameRoute } from 'lib/game/router';
-import { playing } from 'lib/game/status';
-import { boardOrientation, reload as groundReload } from './ground';
-import * as licon from 'lib/licon';
-import notify from 'lib/notification';
-import { make as makeSocket, type RoundSocket } from './socket';
-import * as title from './title';
-import * as blur from './blur';
-import viewStatus from 'lib/game/view/status';
-import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
-import { CorresClockController } from './corresClock/corresClockCtrl';
-import MoveOn from './moveOn';
-import TransientMove from './transientMove';
-import * as atomic from './atomic';
-import * as util from './util';
-import * as xhr from './xhr';
-import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import type { MoveRootCtrl } from 'lib/game/moveRootCtrl';
 import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboardMove';
 import { makeVoiceMove, type VoiceMove } from 'voice';
-import { userTxt } from './view/user';
-import * as cevalSub from './cevalSub';
-import { init as keyboardInit } from './keyboard';
+
+import { defined, type Toggle, type Prop, toggle, requestIdleCallback, memoize } from 'lib';
+import * as game from 'lib/game';
+import { plyToTurn } from 'lib/game/chess';
+import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
+import type { MoveRootCtrl } from 'lib/game/moveRootCtrl';
 import { PromotionCtrl, promote } from 'lib/game/promotion';
-import * as wakeLock from 'lib/wakeLock';
-import { opposite, uciToMove } from '@lichess-org/chessground/util';
+import { game as gameRoute } from 'lib/game/router';
+import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
+import { playing } from 'lib/game/status';
+import viewStatus from 'lib/game/view/status';
+import * as licon from 'lib/licon';
+import notify from 'lib/notification';
+import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { Replay } from 'lib/prefs';
-import { endGameView } from './view/main';
+import { pubsub } from 'lib/pubsub';
+import { type SocketSendOpts } from 'lib/socket';
+import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
+import type { NodeCrazy } from 'lib/tree/types';
+import { toggleZenMode } from 'lib/view/zen';
+import * as wakeLock from 'lib/wakeLock';
+
+import * as atomic from './atomic';
+import * as blur from './blur';
+import * as cevalSub from './cevalSub';
+import { CorresClockController } from './corresClock/corresClockCtrl';
+import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
+import { boardOrientation, reload as groundReload } from './ground';
 import type {
   Step,
   RoundOpts,
@@ -43,16 +45,16 @@ import type {
   ApiEnd,
   EventsWithPayload,
 } from './interfaces';
-import { defined, type Toggle, type Prop, toggle, requestIdleCallback, memoize } from 'lib';
-import { storage, once, storedBooleanProp, type LichessBooleanStorage } from 'lib/storage';
-import * as poolRangeStorage from 'lib/poolRangeStorage';
-import { pubsub } from 'lib/pubsub';
-import { readFen, almostSanOf, speakable } from 'lib/game/sanWriter';
-import { plyToTurn } from 'lib/game/chess';
-import { type SocketSendOpts } from 'lib/socket';
-import type { NodeCrazy } from 'lib/tree/types';
+import { init as keyboardInit } from './keyboard';
+import MoveOn from './moveOn';
 import Server from './server';
-import { toggleZenMode } from 'lib/view/zen';
+import { make as makeSocket, type RoundSocket } from './socket';
+import * as title from './title';
+import TransientMove from './transientMove';
+import * as util from './util';
+import { endGameView } from './view/main';
+import { userTxt } from './view/user';
+import * as xhr from './xhr';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
 

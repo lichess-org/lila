@@ -1,4 +1,3 @@
-import { winningChances } from 'lib/ceval';
 import {
   type ChartConfiguration,
   type ChartDataset,
@@ -11,6 +10,14 @@ import {
   PointElement,
   Tooltip,
 } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+import { winningChances } from 'lib/ceval';
+import { plyToTurn } from 'lib/game/chess';
+import { pubsub } from 'lib/pubsub';
+import type { TreeNode, TreeNodeIncomplete } from 'lib/tree/types';
+
+import division from './division';
 import {
   blackFill,
   fontColor,
@@ -23,12 +30,7 @@ import {
   whiteFill,
   axisOpts,
 } from './index';
-import division from './division';
 import type { AcplChart, AnalyseData, Player } from './interface';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { pubsub } from 'lib/pubsub';
-import { plyToTurn } from 'lib/game/chess';
-import type { TreeNode, TreeNodeIncomplete } from 'lib/tree/types';
 
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 export default async function (

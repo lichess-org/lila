@@ -1,7 +1,9 @@
-import { drag } from './crazyCtrl';
 import { h } from 'snabbdom';
+
 import { onInsert } from 'lib/view';
+
 import type AnalyseCtrl from '../ctrl';
+import { drag } from './crazyCtrl';
 
 const eventNames = ['mousedown', 'touchstart'] as const;
 const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'] as const;

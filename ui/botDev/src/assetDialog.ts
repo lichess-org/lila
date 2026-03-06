@@ -1,9 +1,11 @@
-import { domDialog, type Dialog, alert, confirm } from 'lib/view';
+import { wireCropDialog } from 'bits/crop';
+
 import { frag } from 'lib';
 import * as licon from 'lib/licon';
-import { renderRemoveButton } from './devUtil';
-import { wireCropDialog } from 'bits/crop';
+import { domDialog, type Dialog, alert, confirm } from 'lib/view';
+
 import { env } from './devEnv';
+import { renderRemoveButton } from './devUtil';
 
 export type AssetType = 'image' | 'book' | 'sound';
 

@@ -1,5 +1,6 @@
-import type { RoundSocket } from './socket';
 import { text as xhrText } from 'lib/xhr';
+
+import type { RoundSocket } from './socket';
 
 /* Tracks moves that were played on the board,
  * sent to the server, possibly acked,

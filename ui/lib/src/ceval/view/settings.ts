@@ -1,11 +1,12 @@
-import type { CevalHandler } from '../types';
-import type CevalCtrl from '../ctrl';
-import { fewerCores } from '../util';
-import { isChrome } from '@/device';
-import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm } from '@/view';
-import * as Licon from '@/licon';
-import { onClickAway } from '@/index';
 import { clamp } from '@/algo';
+import { isChrome } from '@/device';
+import { onClickAway } from '@/index';
+import * as Licon from '@/licon';
+import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm } from '@/view';
+
+import type CevalCtrl from '../ctrl';
+import type { CevalHandler } from '../types';
+import { fewerCores } from '../util';
 
 const allSearchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30, Number.POSITIVE_INFINITY];
 
