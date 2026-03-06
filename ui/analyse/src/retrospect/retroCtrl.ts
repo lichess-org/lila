@@ -211,9 +211,9 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
 
   function toggleIncludeInaccuracies(): void {
     includeInaccuracies(!includeInaccuracies());
+    // todo - probably a better way than toggling twice...
     root.toggleRetro();
     root.toggleRetro();
-    root.redraw();
   }
 
   jumpToNext();
