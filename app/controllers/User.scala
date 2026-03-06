@@ -128,8 +128,6 @@ final class User(
                   _ <- env.tournament.cached.nameCache.preloadMany {
                     pag.currentPageResults.flatMap((_: GameModel).tournamentId).map(tid => tid -> ctx.lang)
                   }
-                  notes <- ctx.useMe:
-                    env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id))
                   res <-
                     if HTTPRequest.isSynchronousHttp(ctx.req) then
                       for
@@ -140,9 +138,9 @@ final class User(
                           lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
                         )
                         res <- Ok.page:
-                          views.user.show.page.games(info, pag, filters, searchForm, social, notes)
+                          views.user.show.page.games(info, pag, filters, searchForm, social)
                       yield res
-                    else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter, notes)).toFuccess
+                    else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
                 yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
                 json = apiGames(u, filter, page)
               )

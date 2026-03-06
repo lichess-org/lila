@@ -11,8 +11,7 @@ object gamesContent:
       nbs: lila.app.mashup.UserInfo.NbGames,
       pager: Paginator[Game],
       filters: lila.game.GameFilterMenu,
-      filterName: String,
-      notes: Map[GameId, String]
+      filterName: String
   )(using ctx: Context) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
@@ -36,7 +35,7 @@ object gamesContent:
               ),
               div(cls := "search__rows infinite-scroll")(
                 views.game
-                  .widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx.is(u)),
+                  .widgets(pager.currentPageResults, user = u.some, ownerLink = ctx.is(u)),
                 pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
               )
             )
@@ -53,10 +52,7 @@ object gamesContent:
                 .flatMap { Pov(_, u) }
                 .map: pov =>
                   views.game.mini(pov)(cls := "paginated")
-            else
-              views.game
-                .widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx.is(u))
-            ,
+            else views.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx.is(u)),
             pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
           )
       )
