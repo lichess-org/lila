@@ -6,14 +6,14 @@
   gap: $block-gap;
   position: relative;
 
-  .track {
+  &__track {
     display: flex;
     flex-flow: row nowrap;
     width: fit-content;
     align-items: stretch;
   }
 
-  .controls {
+  &__controls {
     @extend %flex-between;
     @include transition(opacity);
 
@@ -39,7 +39,7 @@
   }
 
   &:hover {
-    .controls {
+    .carousel__controls {
       opacity: 1;
     }
   }

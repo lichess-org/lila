@@ -134,11 +134,7 @@ object home:
           ),
           puzzle.map: p =>
             views.puzzle.bits.dailyLink(p)(cls := "lobby__puzzle"),
-          div(cls := "lobby__blog carousel")(
-            ublogPosts.map:
-              views.ublog.ui
-                .card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false, strictDate = false)
-          ),
+          views.ublog.ui.homeCarousel(ublogPosts),
           div(cls := "lobby__feed"):
             views.feed.lobbyUpdates(lastUpdates)
           ,
