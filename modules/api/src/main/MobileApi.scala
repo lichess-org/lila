@@ -57,7 +57,7 @@ final class MobileApi(
       .add("inbox", inbox)
       .add("challenges", challenges.map(challengeJson.all))
 
-  def tournaments(using me: Option[Me], oauth: Option[TokenScopes])(using Translate): Fu[JsObject] =
+  def tournaments(using me: Option[Me])(using Translate): Fu[JsObject] =
     for
       perfs <- me.so(userApi.withPerfs)
       teamIds <- me.so(teamCached.teamIdsList)

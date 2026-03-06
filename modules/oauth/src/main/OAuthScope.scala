@@ -84,7 +84,6 @@ object OAuthScope:
     case object Write extends OAuthScope("engine:write", trans.engineWrite)
 
   object Web:
-    case object Login extends OAuthScope("web:login", trans.webLogin)
     case object Mobile extends OAuthScope("web:mobile", I18nKey("Official Lichess mobile app"))
     case object Polygon extends OAuthScope("web:polygon", I18nKey("Polygon client"))
     case object Mod extends OAuthScope("web:mod", trans.webMod)
@@ -120,7 +119,6 @@ object OAuthScope:
     Bot.Play,
     Engine.Read,
     Engine.Write,
-    Web.Login,
     Web.Mobile,
     Web.Polygon,
     Web.Mod
@@ -139,7 +137,6 @@ object OAuthScope:
 
   val dangerList: OAuthScopes = OAuthScope.select(
     _.Team.Lead,
-    _.Web.Login,
     _.Web.Mod,
     _.Web.Mobile,
     _.Web.Polygon,
@@ -148,7 +145,6 @@ object OAuthScope:
 
   val relevantToMods: OAuthScopes = OAuthScope.select(
     _.Team.Lead,
-    _.Web.Login,
     _.Web.Mobile,
     _.Web.Polygon,
     _.Msg.Write,
