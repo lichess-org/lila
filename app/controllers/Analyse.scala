@@ -37,7 +37,7 @@ final class Analyse(
     if HTTPRequest.isCrawler(ctx.req).yes then replayForCrawler(pov)
     else
       for
-        initialFen <- env.game.gameRepo.initialFen(pov.gameId)
+        initialFen <- env.game.gameRepo.initialFen(pov.game)
         users <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfKey)
         _ = gameC.preloadUsers(users)
         res <- RedirectAtFen(pov, initialFen):
@@ -131,7 +131,7 @@ final class Analyse(
         )
 
   private def replayForCrawler(pov: Pov)(using Context) = for
-    initialFen <- env.game.gameRepo.initialFen(pov.gameId)
+    initialFen <- env.game.gameRepo.initialFen(pov.game)
     analysis <- env.analyse.analyser.get(pov.game)
     simul <- pov.game.simulId.so(env.simul.repo.find)
     crosstable <- env.game.crosstableApi.withMatchup(pov.game)
