@@ -1,19 +1,21 @@
-import type { RoundData, RoundOpts } from './interfaces';
 import { attributesModule, classModule, init } from 'snabbdom';
-import menuHover from 'lib/menuHover';
-import RoundController from './ctrl';
-import { main as view } from './view/main';
-import { text as xhrText } from 'lib/xhr';
-import type MoveOn from './moveOn';
+
+import { myUserId } from 'lib';
+import standaloneChat from 'lib/chat/standalone';
 import type { TourPlayer } from 'lib/game';
-import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
+import { setClockWidget } from 'lib/game/clock/clockWidget';
+import menuHover from 'lib/menuHover';
+import { pubsub } from 'lib/pubsub';
 import { wsConnect, wsDestroy } from 'lib/socket';
 import { storage } from 'lib/storage';
-import { setClockWidget } from 'lib/game/clock/clockWidget';
-import standaloneChat from 'lib/chat/standalone';
-import { pubsub } from 'lib/pubsub';
-import { myUserId } from 'lib';
 import { alert } from 'lib/view';
+import { text as xhrText } from 'lib/xhr';
+
+import RoundController from './ctrl';
+import type { RoundData, RoundOpts } from './interfaces';
+import type MoveOn from './moveOn';
+import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
+import { main as view } from './view/main';
 
 const patch = init([classModule, attributesModule]);
 

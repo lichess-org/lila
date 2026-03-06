@@ -1,6 +1,8 @@
-import type Ctrl from './ctrl';
-import type { MaybeVNode } from 'lib/view';
 import { h, type VNodeData } from 'snabbdom';
+
+import type { MaybeVNode } from 'lib/view';
+
+import type Ctrl from './ctrl';
 import type { Categ, Dimension, Metric } from './interfaces';
 
 const selectData = (onClick: (v: { value: string }) => void, getValue: () => string): VNodeData => ({

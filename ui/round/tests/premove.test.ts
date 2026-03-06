@@ -1,11 +1,11 @@
-import { describe, test } from 'node:test';
-import assert from 'node:assert/strict';
-
-import { premove } from '@lichess-org/chessground/premove';
-import * as cg from '@lichess-org/chessground/types';
-import { defaults, type HeadlessState } from '@lichess-org/chessground/state';
 import * as fen from '@lichess-org/chessground/fen';
+import { premove } from '@lichess-org/chessground/premove';
+import { defaults, type HeadlessState } from '@lichess-org/chessground/state';
+import * as cg from '@lichess-org/chessground/types';
 import * as util from '@lichess-org/chessground/util';
+import assert from 'node:assert/strict';
+import { describe, test } from 'node:test';
+
 import { Premove } from '../src/premove';
 
 const diagonallyOpposite = (square: cg.Key): cg.Key =>

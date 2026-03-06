@@ -1,5 +1,3 @@
-import type { TreeNode } from 'lib/tree/types';
-import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import {
   attributesModule,
   classModule,
@@ -9,6 +7,9 @@ import {
   h,
   type VNodeData,
 } from 'snabbdom';
+
+import { fixCrazySan, plyToTurn } from 'lib/game/chess';
+import type { TreeNode } from 'lib/tree/types';
 
 export const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 

@@ -1,13 +1,14 @@
-import config from '../config';
-import type RacerCtrl from '../ctrl';
+import * as licon from 'lib/licon';
+import { povMessage } from 'lib/puz/run';
 import renderClock from 'lib/puz/view/clock';
 import renderHistory from 'lib/puz/view/history';
-import * as licon from 'lib/licon';
-import { copyMeInput, type VNode, type MaybeVNodes, bind, hl } from 'lib/view';
 import { playModifiers, renderCombo } from 'lib/puz/view/util';
-import { renderRace } from './race';
+import { copyMeInput, type VNode, type MaybeVNodes, bind, hl } from 'lib/view';
+
+import config from '../config';
+import type RacerCtrl from '../ctrl';
 import { renderBoard } from './board';
-import { povMessage } from 'lib/puz/run';
+import { renderRace } from './race';
 
 export default function (ctrl: RacerCtrl): VNode {
   return hl(

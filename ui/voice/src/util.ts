@@ -1,5 +1,6 @@
-import { squareDist, type Board } from 'lib/game';
 import { charToRole } from 'chessops';
+
+import { squareDist, type Board } from 'lib/game';
 
 const mode = { del: true, sub: 2 };
 

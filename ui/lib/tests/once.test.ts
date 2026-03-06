@@ -1,5 +1,6 @@
-import { describe, test, mock } from 'node:test';
 import assert from 'node:assert/strict';
+import { describe, test, mock } from 'node:test';
+
 import { once } from '../src/storage';
 
 describe('test once', () => {

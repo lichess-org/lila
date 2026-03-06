@@ -1,11 +1,13 @@
 import { opposite } from '@lichess-org/chessground/util';
-import { evalSwings } from '../nodeFinder';
+
+import { isEmpty, type Prop, prop } from 'lib';
 import { winningChances } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
-import { isEmpty, type Prop, prop } from 'lib';
-import type { OpeningData } from '../explorer/interfaces';
-import type AnalyseCtrl from '../ctrl';
 import type { TreeNode } from 'lib/tree/types';
+
+import type AnalyseCtrl from '../ctrl';
+import type { OpeningData } from '../explorer/interfaces';
+import { evalSwings } from '../nodeFinder';
 
 export interface RetroCtrl {
   isSolving(): boolean;

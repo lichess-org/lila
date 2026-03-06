@@ -1,8 +1,10 @@
+import { numberFormat } from 'lib/i18n';
 import { bind, onInsert, hl, thunk } from 'lib/view';
+
 import type LobbyController from '@/ctrl';
 import type { GameType } from '@/interfaces';
+
 import renderSetupModal from './setup/modal';
-import { numberFormat } from 'lib/i18n';
 
 type ButtonInfo = { gameType: GameType | 'dev' | 'bots'; label: string; disabled?: boolean; title?: string };
 

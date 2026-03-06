@@ -1,8 +1,9 @@
-import type { Book, SoundEvent, Sound as NamedSound } from 'lib/bot/types';
 import type { Requirement, Filter } from 'lib/bot/filter';
-import type { Pane } from './pane';
+import type { Book, SoundEvent, Sound as NamedSound } from 'lib/bot/types';
+
 import type { AssetType } from './devAssets';
 import type { EditDialog } from './editDialog';
+import type { Pane } from './pane';
 
 export type Sound = Omit<NamedSound, 'key'>;
 

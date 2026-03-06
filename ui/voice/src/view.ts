@@ -1,8 +1,9 @@
+import { onClickAway } from 'lib';
 import * as licon from 'lib/licon';
 import { onInsert, bind, hl, type VNode, snabDialog, type Dialog } from 'lib/view';
 import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { jsonSimple } from 'lib/xhr';
-import { onClickAway } from 'lib';
+
 import type { Entry, VoiceCtrl, MsgType } from './interfaces';
 import { supportedLangs } from './voice';
 

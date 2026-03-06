@@ -1,4 +1,5 @@
 import { h, type VNodeData } from 'snabbdom';
+
 import type Ctrl from './ctrl';
 
 export function formatNumber(dt: string, n: number) {

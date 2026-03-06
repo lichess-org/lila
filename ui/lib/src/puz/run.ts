@@ -1,7 +1,8 @@
-import type { Run } from './interfaces';
 import { opposite, uciToMove } from '@lichess-org/chessground/util';
-import { makeFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
+import { makeFen } from 'chessops/fen';
+
+import type { Run } from './interfaces';
 
 export const makeCgOpts = (run: Run, canMove: boolean, flipped: boolean): CgConfig => {
   const cur = run.current;

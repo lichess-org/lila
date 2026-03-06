@@ -1,10 +1,12 @@
 import type { Outcome } from 'chessops/types';
+
+import type { Prop } from 'lib';
+import { fixCrazySan } from 'lib/game/chess';
 import { hl, type VNode, bind, type MaybeVNodes } from 'lib/view';
-import type { PracticeCtrl, Comment } from './practiceCtrl';
+
 import type AnalyseCtrl from '../ctrl';
 import { renderNextChapter } from '../study/nextChapter';
-import { fixCrazySan } from 'lib/game/chess';
-import type { Prop } from 'lib';
+import type { PracticeCtrl, Comment } from './practiceCtrl';
 
 const commentBest = (c: Comment, ctrl: PracticeCtrl): MaybeVNodes =>
   c.best

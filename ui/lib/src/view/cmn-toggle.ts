@@ -1,5 +1,7 @@
-import { defined, type Prop } from '@/common';
 import { h, type VNode } from 'snabbdom';
+
+import { defined, type Prop } from '@/common';
+
 import { bind } from './snabbdom';
 
 interface CmnToggleBase {

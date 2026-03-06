@@ -1,7 +1,8 @@
-import { text, formToXhr } from 'lib/xhr';
-import flairPickerLoader from './flairPicker';
 import { spinnerHtml } from 'lib/view';
+import { text, formToXhr } from 'lib/xhr';
+
 import { wireCropDialog } from './crop';
+import flairPickerLoader from './flairPicker';
 
 // avoid node_modules and pay attention to imports here. we don't want to force people
 // to download the entire toastui editor library just to do some light form processing.

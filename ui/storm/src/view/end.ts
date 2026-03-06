@@ -1,8 +1,9 @@
-import type StormCtrl from '../ctrl';
+import { numberSpread } from 'lib/i18n';
 import { getNow } from 'lib/puz/util';
 import renderHistory from 'lib/puz/view/history';
-import { numberSpread } from 'lib/i18n';
 import { onInsert, type LooseVNodes, hl } from 'lib/view';
+
+import type StormCtrl from '../ctrl';
 
 const renderEnd = (ctrl: StormCtrl): LooseVNodes => [renderSummary(ctrl), renderHistory(ctrl)];
 

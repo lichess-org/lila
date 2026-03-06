@@ -1,6 +1,6 @@
-import * as xhr from 'lib/xhr';
-import { alert } from 'lib/view';
 import { log } from 'lib/permalog';
+import { alert } from 'lib/view';
+import * as xhr from 'lib/xhr';
 
 const showError = (error: string) => alert(error);
 

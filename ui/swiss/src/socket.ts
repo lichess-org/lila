@@ -1,5 +1,6 @@
-import type SwissCtrl from './ctrl';
 import { redirectFirst } from 'lib/tournament';
+
+import type SwissCtrl from './ctrl';
 
 export interface SwissSocket {
   send: SocketSend;

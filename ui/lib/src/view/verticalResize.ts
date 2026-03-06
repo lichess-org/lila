@@ -1,8 +1,9 @@
-import { hl, type VNode } from './snabbdom';
 import { clamp } from '@/algo';
-import { storedMap } from '@/storage';
-import { myUserId } from '@/index';
 import { isSafari } from '@/device';
+import { myUserId } from '@/index';
+import { storedMap } from '@/storage';
+
+import { hl, type VNode } from './snabbdom';
 
 interface Opts {
   selector?: string; // selector for element to resize, defaults to the previous sibling

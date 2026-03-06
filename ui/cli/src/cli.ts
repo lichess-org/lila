@@ -1,7 +1,8 @@
-import debounce from 'debounce-promise';
 import { load as loadDasher } from 'dasher';
-import { domDialog, alert, enter } from 'lib/view';
+import debounce from 'debounce-promise';
+
 import { defined, escapeHtml } from 'lib';
+import { domDialog, alert, enter } from 'lib/view';
 import { complete, type CompleteOpts } from 'lib/view/complete';
 import { checkDebouncedResultAgainstTerm, fetchUsers, renderUserEntry } from 'lib/view/userComplete';
 

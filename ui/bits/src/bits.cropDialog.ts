@@ -1,6 +1,8 @@
+import Cropper from 'cropperjs';
+
 import { defined } from 'lib';
 import { domDialog, spinnerHtml } from 'lib/view';
-import Cropper from 'cropperjs';
+
 import { supported, mimeAccept } from './crop';
 
 export interface CropOpts {

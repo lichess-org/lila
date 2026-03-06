@@ -1,8 +1,10 @@
-import * as xhr from 'lib/xhr';
-import { domDialog } from 'lib/view';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
+
 import { tempStorage } from 'lib/storage';
+import { domDialog } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
 import { setMode } from './markdownTextarea';
 
 site.load.then(() => {

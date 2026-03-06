@@ -1,6 +1,6 @@
 import { memoize } from './index';
-import { bind, type Hooks } from './view';
 import * as licon from './licon';
+import { bind, type Hooks } from './view';
 
 export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);

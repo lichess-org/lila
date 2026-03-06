@@ -1,7 +1,8 @@
-import { test } from 'node:test';
-import assert from 'node:assert/strict';
-import { commands } from '../src/nvui/command';
 import type { Pieces } from '@lichess-org/chessground/types';
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+
+import { commands } from '../src/nvui/command';
 
 const pieces: Pieces = new Map();
 pieces.set('a1', { color: 'white', role: 'king' });

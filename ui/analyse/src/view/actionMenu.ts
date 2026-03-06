@@ -1,14 +1,15 @@
 import { isEmpty } from 'lib';
-import * as licon from 'lib/licon';
+import { clamp } from 'lib/algo';
 import { displayColumns } from 'lib/device';
+import { cont as contRoute } from 'lib/game/router';
+import * as licon from 'lib/licon';
 import { domDialog, bind, dataIcon, hl, type VNode, type LooseVNodes, type MaybeVNodes } from 'lib/view';
 import { cmnToggleWrapProp, cmnToggleWrap } from 'lib/view/cmn-toggle';
+
 import type { AutoplayDelay } from '../autoplay';
 import type AnalyseCtrl from '../ctrl';
-import { cont as contRoute } from 'lib/game/router';
-import * as pgnExport from '../pgnExport';
-import { clamp } from 'lib/algo';
 import { config as motifConfig } from '../motif/motifView';
+import * as pgnExport from '../pgnExport';
 
 interface AutoplaySpeed {
   name: keyof I18n['site'];

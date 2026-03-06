@@ -1,9 +1,11 @@
 import * as co from 'chessops';
-import type { SearchMove, MoveArgs } from '../types';
-import type { FilterResult } from '../filter';
-import { Bot } from '../bot';
+
 import { clamp } from '@/algo';
 import { normalMove } from '@/game';
+
+import { Bot } from '../bot';
+import type { FilterResult } from '../filter';
+import type { SearchMove, MoveArgs } from '../types';
 
 Bot.registerFilter('pawnStructure', {
   score,

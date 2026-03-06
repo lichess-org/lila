@@ -1,11 +1,13 @@
-import { practiceComplete } from '../studyXhr';
 import { type Prop, prop } from 'lib';
 import { storedBooleanProp } from 'lib/storage';
-import makeSuccess from './studyPracticeSuccess';
-import { readOnlyProp } from '@/util';
-import type { StudyPracticeData, Goal } from './interfaces';
-import type { StudyData } from '../interfaces';
+
 import type AnalyseCtrl from '@/ctrl';
+import { readOnlyProp } from '@/util';
+
+import type { StudyData } from '../interfaces';
+import { practiceComplete } from '../studyXhr';
+import type { StudyPracticeData, Goal } from './interfaces';
+import makeSuccess from './studyPracticeSuccess';
 
 export default class StudyPracticeCtrl {
   goal: Prop<Goal>;

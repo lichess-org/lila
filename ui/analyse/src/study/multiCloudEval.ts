@@ -1,11 +1,12 @@
 import { type Prop, defined } from 'lib';
-import type { EvalHitMulti } from '../interfaces';
-import { storedBooleanPropWithEffect } from 'lib/storage';
-import { povChances } from 'lib/ceval/winningChances';
-import type { StudyChapters } from './studyChapters';
 import { debounce } from 'lib/async';
-import type { ServerNodeMsg } from './interfaces';
+import { povChances } from 'lib/ceval/winningChances';
+import { storedBooleanPropWithEffect } from 'lib/storage';
 import type { ClientEval, TreeNode } from 'lib/tree/types';
+
+import type { EvalHitMulti } from '../interfaces';
+import type { ServerNodeMsg } from './interfaces';
+import type { StudyChapters } from './studyChapters';
 
 export interface CloudEval extends EvalHitMulti {
   chances: number;

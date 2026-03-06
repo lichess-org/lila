@@ -1,11 +1,12 @@
-import { schema, infoKeys } from './schema';
-import { Pane, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './pane';
-import { FilterPane } from './filterPane';
-import { SoundEventPane } from './soundEventPane';
-import { BooksPane } from './booksPane';
-import type { EditDialog } from './editDialog';
-import type { PaneInfo, InfoKey } from './devTypes';
 import type { ActionListener, Action } from 'lib/view';
+
+import { BooksPane } from './booksPane';
+import type { PaneInfo, InfoKey } from './devTypes';
+import type { EditDialog } from './editDialog';
+import { FilterPane } from './filterPane';
+import { Pane, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './pane';
+import { schema, infoKeys } from './schema';
+import { SoundEventPane } from './soundEventPane';
 
 export class Panes {
   byId: Record<string, Pane> = {};

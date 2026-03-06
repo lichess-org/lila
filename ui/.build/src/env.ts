@@ -1,9 +1,10 @@
-import type { Package } from './parse.ts';
 import fs from 'node:fs';
-import ps from 'node:process';
 import { join, resolve, dirname } from 'node:path';
+import ps from 'node:process';
+
 import { definedUnique, isEquivalent } from './algo.ts';
 import { updateManifest } from './manifest.ts';
+import type { Package } from './parse.ts';
 import { taskOk } from './task.ts';
 
 // state, logging, status

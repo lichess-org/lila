@@ -1,7 +1,7 @@
 // no side effects allowed due to re-export by index.ts
 
-import { type Dialog, domDialog } from './dialog';
 import { escapeHtml } from '../index';
+import { type Dialog, domDialog } from './dialog';
 
 // non-blocking window.alert-alike
 export async function alert(msg: string): Promise<void> {

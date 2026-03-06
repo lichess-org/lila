@@ -2,9 +2,10 @@ import fg from 'fast-glob';
 import mm from 'micromatch';
 import fs from 'node:fs';
 import { join, relative, basename } from 'node:path';
-import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
+
 import { randomToken, definedUnique } from './algo.ts';
 import { type Context, env, c, errorMark } from './env.ts';
+import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
 
 const fsWatches = new Map<AbsPath, FSWatch>();
 const tasks = new Map<TaskKey, Task>();

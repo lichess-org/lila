@@ -1,3 +1,10 @@
+import { isContained } from '@/algo';
+import { isMobile } from '@/device';
+
+import { prop, type Prop } from '../index';
+import { pubsub, type PubsubEvents } from '../pubsub';
+import { storedStringProp, storedBooleanProp } from '../storage';
+import { alert } from '../view/dialogs';
 import type {
   ChatOpts,
   Line,
@@ -10,15 +17,9 @@ import type {
   VoiceChatData,
   ChatPlugin,
 } from './interfaces';
-import { type PresetCtrl, presetCtrl } from './preset';
-import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
-import { prop, type Prop } from '../index';
-import { storedStringProp, storedBooleanProp } from '../storage';
-import { pubsub, type PubsubEvents } from '../pubsub';
-import { alert } from '../view/dialogs';
-import { isContained } from '@/algo';
-import { isMobile } from '@/device';
+import { noteCtrl } from './note';
+import { type PresetCtrl, presetCtrl } from './preset';
 
 type SubPair = { [K in keyof PubsubEvents]: [K, PubsubEvents[K]] }[keyof PubsubEvents];
 

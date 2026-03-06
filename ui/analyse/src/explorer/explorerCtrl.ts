@@ -1,15 +1,17 @@
-import { type Prop, prop, defined, myUserId } from 'lib';
-import { storedBooleanProp } from 'lib/storage';
-import { pieceCount, fenColor } from 'lib/game/chess';
-import { debounce, defer, sync, type Sync } from 'lib/async';
 import { opposite } from '@lichess-org/chessground/util';
-import * as xhr from './explorerXhr';
-import { winnerOf } from './explorerUtil';
+
+import { type Prop, prop, defined, myUserId } from 'lib';
+import { debounce, defer, sync, type Sync } from 'lib/async';
 import { replayable } from 'lib/game';
+import { pieceCount, fenColor } from 'lib/game/chess';
+import { storedBooleanProp } from 'lib/storage';
+
 import type AnalyseCtrl from '../ctrl';
-import type { Hovering, ExplorerData, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 import { ExplorerConfigCtrl } from './explorerConfig';
+import { winnerOf } from './explorerUtil';
 import { clearLastShow } from './explorerView';
+import * as xhr from './explorerXhr';
+import type { Hovering, ExplorerData, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 
 export const MAX_DEPTH = 50;
 

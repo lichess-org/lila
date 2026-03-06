@@ -1,6 +1,7 @@
-import type { OpeningBook } from '../game/polyglot';
 import * as co from 'chessops';
+
 import { clamp } from '../algo';
+import type { OpeningBook } from '../game/polyglot';
 
 export function makeLichessBook(): OpeningBook {
   // todo, timeout cancel and probably don't even bother below bullet

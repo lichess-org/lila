@@ -1,9 +1,9 @@
-import { sortTable, extendTablesortNumber } from 'lib/tablesort';
-import * as xhr from 'lib/xhr';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 
+import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import type { UserCompleteResult } from 'lib/view/userComplete';
+import * as xhr from 'lib/xhr';
 
 site.load.then(() => {
   $('table.sortable').each(function (this: HTMLTableElement) {

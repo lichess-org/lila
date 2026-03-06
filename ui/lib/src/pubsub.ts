@@ -1,5 +1,6 @@
 import type { Line } from '@/chat/interfaces';
 import type { Data as WatchersData } from '@/view/watchers';
+
 import type { TreePath } from './tree/types';
 
 export type PubsubEventKey = keyof PubsubEvents;

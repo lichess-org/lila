@@ -1,10 +1,12 @@
-import type { AnalyseNvuiContext } from '../analyse.nvui';
-import { type LooseVNodes, hl } from 'lib/view';
 import { type VNodeData } from 'snabbdom';
-import type AnalyseCtrl from '../ctrl';
-import type { RetroCtrl } from '../retrospect/retroCtrl';
+
 import { renderSan } from 'lib/nvui/chess';
 import { liveText } from 'lib/nvui/notify';
+import { type LooseVNodes, hl } from 'lib/view';
+
+import type { AnalyseNvuiContext } from '../analyse.nvui';
+import type AnalyseCtrl from '../ctrl';
+import type { RetroCtrl } from '../retrospect/retroCtrl';
 import { clickHook, renderCurrentNode } from '../view/nvuiView';
 
 export function renderRetro(nvuiCtx: AnalyseNvuiContext): LooseVNodes {

@@ -1,10 +1,26 @@
-import type AnalyseCtrl from '@/ctrl';
-import RelayCtrl, { type RelayTab } from './relayCtrl';
+import type { VNode } from 'snabbdom';
+
+import { defined, memoize } from 'lib';
+import { renderChat } from 'lib/chat/renderChat';
+import { displayColumns } from 'lib/device';
+import { commonDateFormat, timeago } from 'lib/i18n';
 import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { innerHTML, richHTML } from 'lib/richText';
 import { bind, dataIcon, onInsert, hl, type LooseVNode, copyMeInput } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
-import type { VNode } from 'snabbdom';
-import { innerHTML, richHTML } from 'lib/richText';
+import { userLink } from 'lib/view/userLink';
+import { verticalResize } from 'lib/view/verticalResize';
+import { watchers } from 'lib/view/watchers';
+import { text as xhrText } from 'lib/xhr';
+
+import type AnalyseCtrl from '@/ctrl';
+import { type RelayViewContext } from '@/view/components';
+import { baseUrl } from '@/view/util';
+
+import { view as multiBoardView } from '../multiBoard';
+import { gameLinksListener } from '../studyChapters';
+import type StudyCtrl from '../studyCtrl';
 import type {
   RelayData,
   RelayGroup,
@@ -13,25 +29,12 @@ import type {
   RelayTourInfo,
   RelayTourPreview,
 } from './interfaces';
-import { view as multiBoardView } from '../multiBoard';
-import { defined, memoize } from 'lib';
-import type StudyCtrl from '../studyCtrl';
-import { text as xhrText } from 'lib/xhr';
-import { teamsView } from './relayTeams';
-import { statsView } from './relayStats';
-import { type RelayViewContext } from '@/view/components';
+import RelayCtrl, { type RelayTab } from './relayCtrl';
 import { gamesList } from './relayGames';
-import { renderStreamerMenu } from './relayView';
 import { playersView } from './relayPlayers';
-import { gameLinksListener } from '../studyChapters';
-import { baseUrl } from '@/view/util';
-import { commonDateFormat, timeago } from 'lib/i18n';
-import { renderChat } from 'lib/chat/renderChat';
-import { displayColumns } from 'lib/device';
-import { verticalResize } from 'lib/view/verticalResize';
-import { watchers } from 'lib/view/watchers';
-import { userLink } from 'lib/view/userLink';
-import { pubsub } from 'lib/pubsub';
+import { statsView } from './relayStats';
+import { teamsView } from './relayTeams';
+import { renderStreamerMenu } from './relayView';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();

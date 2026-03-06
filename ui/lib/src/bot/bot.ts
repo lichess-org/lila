@@ -1,6 +1,11 @@
+import type { SearchResult } from '@lichess-org/zerofish';
 import * as co from 'chessops';
-import { zip } from '../algo';
+
 import { clockToSpeed } from '@/game';
+
+import { zip } from '../algo';
+import type { OpeningBook } from '../game/polyglot';
+import type { BotLoader } from './botLoader';
 import {
   type FilterFacetValue,
   type FilterSpec,
@@ -11,10 +16,7 @@ import {
   filterFacetKeys,
   combine,
 } from './filter';
-import type { SearchResult } from '@lichess-org/zerofish';
-import type { OpeningBook } from '../game/polyglot';
 import { movetime as getMovetime } from './movetime';
-import type { BotLoader } from './botLoader';
 import type {
   BotInfo,
   FishSearch,

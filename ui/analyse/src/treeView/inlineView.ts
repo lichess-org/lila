@@ -1,15 +1,17 @@
-import type AnalyseCtrl from '../ctrl';
-import { type VNode, type LooseVNodes, hl } from 'lib/view';
 import type { Classes, Hooks } from 'snabbdom';
-import { ops as treeOps, path as treePath } from 'lib/tree/tree';
+
 import { isSafari } from 'lib/device';
-import { enrichText, innerHTML } from 'lib/richText';
-import { authorText } from '../study/studyComments';
 import { playable } from 'lib/game';
-import type { Conceal } from '../interfaces';
-import type { DiscloseState } from '../idbTree';
-import { renderMoveNodes, renderIndex } from '../view/components';
+import { enrichText, innerHTML } from 'lib/richText';
+import { ops as treeOps, path as treePath } from 'lib/tree/tree';
 import type { TreeComment, TreeNode, TreePath } from 'lib/tree/types';
+import { type VNode, type LooseVNodes, hl } from 'lib/view';
+
+import type AnalyseCtrl from '../ctrl';
+import type { DiscloseState } from '../idbTree';
+import type { Conceal } from '../interfaces';
+import { authorText } from '../study/studyComments';
+import { renderMoveNodes, renderIndex } from '../view/components';
 
 export function renderInlineView(ctrl: AnalyseCtrl): VNode {
   const renderer = new InlineView(ctrl);

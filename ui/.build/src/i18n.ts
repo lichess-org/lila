@@ -1,14 +1,15 @@
+import { transform } from 'esbuild';
+import fg from 'fast-glob';
+import { XMLParser } from 'fast-xml-parser';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
-import fg from 'fast-glob';
 import { join, basename } from 'node:path';
-import { XMLParser } from 'fast-xml-parser';
+
+import { zip } from './algo.ts';
 import { env } from './env.ts';
+import { type Manifest, updateManifest } from './manifest.ts';
 import { readable, isClose } from './parse.ts';
 import { makeTask } from './task.ts';
-import { type Manifest, updateManifest } from './manifest.ts';
-import { zip } from './algo.ts';
-import { transform } from 'esbuild';
 
 type PluralMode = 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
 type Plural = Record<PluralMode, string>;

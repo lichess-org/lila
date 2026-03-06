@@ -1,10 +1,12 @@
-import { h, type VNode } from 'snabbdom';
-import type { Elements } from '@lichess-org/chessground/types';
-import resizeHandle from 'lib/chessgroundResize';
-import { storage } from 'lib/storage';
-import type AnalyseCtrl from './ctrl';
-import * as Prefs from 'lib/prefs';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import type { Elements } from '@lichess-org/chessground/types';
+import { h, type VNode } from 'snabbdom';
+
+import resizeHandle from 'lib/chessgroundResize';
+import * as Prefs from 'lib/prefs';
+import { storage } from 'lib/storage';
+
+import type AnalyseCtrl from './ctrl';
 
 export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {

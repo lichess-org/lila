@@ -1,9 +1,11 @@
-import { getLevelRank } from './score';
-import type { Level } from './stage/list';
 import { h } from 'snabbdom';
+
+import * as licon from 'lib/licon';
+
 import { hashHref } from './hashRouting';
 import type { RunCtrl } from './run/runCtrl';
-import * as licon from 'lib/licon';
+import { getLevelRank } from './score';
+import type { Level } from './stage/list';
 
 const star = h('i', { attrs: { 'data-icon': licon.Star } });
 

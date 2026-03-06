@@ -1,7 +1,8 @@
 import { finallyDelay, throttlePromiseDelay } from 'lib/async';
-import * as xhr from 'lib/xhr';
-import type TournamentController from './ctrl';
 import { alert } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
+import type TournamentController from './ctrl';
 
 // when the tournament no longer exists
 // randomly delay reloads in case of massive tournament to avoid ddos

@@ -1,9 +1,10 @@
 import * as licon from 'lib/licon';
-import { writeTextClipboard, text as xhrText } from 'lib/xhr';
-import topBar from './topBar';
-import { userComplete } from 'lib/view/userComplete';
-import { confirm } from 'lib/view';
 import menuKeyboardInteractions from 'lib/menuKeyboardInteractions';
+import { confirm } from 'lib/view';
+import { userComplete } from 'lib/view/userComplete';
+import { writeTextClipboard, text as xhrText } from 'lib/xhr';
+
+import topBar from './topBar';
 
 export function addWindowHandlers() {
   let animFrame: number;

@@ -1,6 +1,6 @@
-import * as xhr from 'lib/xhr';
-import { pubsub } from 'lib/pubsub';
 import { api } from 'lib/api';
+import { pubsub } from 'lib/pubsub';
+import * as xhr from 'lib/xhr';
 
 interface ReplacementResponse {
   id: string;

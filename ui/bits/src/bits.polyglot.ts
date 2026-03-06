@@ -1,7 +1,9 @@
+import type { Board } from 'chessops';
 import * as co from 'chessops';
-import { hashBoard, hashChess } from 'lib/game/hash';
-import { deepFreeze } from 'lib/algo';
 import { normalizeMove } from 'chessops/chess';
+
+import { deepFreeze } from 'lib/algo';
+import { hashBoard, hashChess } from 'lib/game/hash';
 import type {
   OpeningMove,
   OpeningBook,
@@ -10,7 +12,6 @@ import type {
   PolyglotResult,
   PolyglotOpts,
 } from 'lib/game/polyglot';
-import type { Board } from 'chessops';
 
 export async function initModule(o: PolyglotOpts): Promise<PolyglotResult | ((board: Board) => bigint)> {
   if (!o) return hashBoard;

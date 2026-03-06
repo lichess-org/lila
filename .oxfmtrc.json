@@ -5,5 +5,21 @@
   "arrowParens": "avoid",
   "endOfLine": "lf",
   "ignorePatterns": ["**/public", "COPYING.md", "README.md"],
-  "experimentalSortPackageJson": false
+  "sortPackageJson": false,
+  "sortImports": {
+    "customGroups": [
+      {
+        "groupName": "libs",
+        "elementNamePattern": ["lib", "lib/**"]
+      }
+    ],
+    "groups": [
+      ["builtin", "external"],
+      ["libs"],
+      ["internal", "subpath"],
+      ["parent", "sibling", "index"],
+      "style",
+      "unknown"
+    ]
+  }
 }

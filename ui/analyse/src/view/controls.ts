@@ -1,9 +1,10 @@
-import { renderEval, view as cevalView } from 'lib/ceval';
 import { repeater, myUserId, blurIfPrimaryClick } from 'lib';
-import * as licon from 'lib/licon';
-import { type VNode, type LooseVNode, onInsert, hl, domDialog } from 'lib/view';
+import { renderEval, view as cevalView } from 'lib/ceval';
 import { displayColumns, isTouchDevice } from 'lib/device';
+import * as licon from 'lib/licon';
 import { addPointerListeners } from 'lib/pointer';
+import { type VNode, type LooseVNode, onInsert, hl, domDialog } from 'lib/view';
+
 import * as control from '../control';
 import type AnalyseCtrl from '../ctrl';
 

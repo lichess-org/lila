@@ -1,8 +1,10 @@
 import { h, type VNode } from 'snabbdom';
+
+import { defined } from 'lib';
+import { userLink } from 'lib/view/userLink';
+
 import type SwissCtrl from '../ctrl';
 import type { PodiumPlayer } from '../interfaces';
-import { userLink } from 'lib/view/userLink';
-import { defined } from 'lib';
 
 const podiumStats = (p: PodiumPlayer, ctrl: SwissCtrl): VNode =>
   h('table.stats', [

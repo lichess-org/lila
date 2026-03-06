@@ -1,8 +1,9 @@
+import { idleTimer } from 'lib/event';
+import { storage } from 'lib/storage';
+
+import type { SimulData, SimulOpts } from './interfaces';
 import { makeSocket, type SimulSocket } from './socket';
 import xhr from './xhr';
-import type { SimulData, SimulOpts } from './interfaces';
-import { storage } from 'lib/storage';
-import { idleTimer } from 'lib/event';
 
 export default class SimulCtrl {
   data: SimulData;

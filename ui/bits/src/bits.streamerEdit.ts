@@ -1,6 +1,7 @@
-import { wireCropDialog } from './crop';
-import { prompt, choose, alert } from 'lib/view';
 import { scopedQuery, frag } from 'lib';
+import { prompt, choose, alert } from 'lib/view';
+
+import { wireCropDialog } from './crop';
 
 type Platform = 'youtube' | 'twitch';
 type MaybeEl = HTMLElement | null;

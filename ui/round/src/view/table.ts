@@ -1,12 +1,13 @@
-import * as licon from 'lib/licon';
 import { abortable, playable, drawableSwiss, resignable, takebackable, type TopOrBottom } from 'lib/game';
-import { render as renderReplay, analysisButton } from './replay';
-import renderExpiration from './expiration';
-import { userHtml } from './user';
-import * as button from './button';
-import type RoundController from '../ctrl';
+import * as licon from 'lib/licon';
 import { type LooseVNodes, hl, bind, toggleButton as boardMenuToggleButton } from 'lib/view';
+
+import type RoundController from '../ctrl';
+import * as button from './button';
 import { anyClockView } from './clock';
+import renderExpiration from './expiration';
+import { render as renderReplay, analysisButton } from './replay';
+import { userHtml } from './user';
 
 function renderPlayer(ctrl: RoundController, position: TopOrBottom) {
   if (ctrl.nvui) return undefined;

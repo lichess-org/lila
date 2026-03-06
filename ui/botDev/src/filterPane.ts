@@ -1,5 +1,7 @@
-import { Pane } from './pane';
 import { Chart, PointElement, LinearScale, LineController, LineElement } from 'chart.js';
+
+import { frag } from 'lib';
+import { clamp } from 'lib/algo';
 import {
   addPoint,
   asData,
@@ -10,9 +12,9 @@ import {
   type FilterBy,
   type FilterFacetKey,
 } from 'lib/bot/filter';
-import { frag } from 'lib';
-import { clamp } from 'lib/algo';
+
 import type { PaneArgs, FilterInfo } from './devTypes';
+import { Pane } from './pane';
 
 type FacetToggle = { el: HTMLElement; input: HTMLInputElement };
 

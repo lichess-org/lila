@@ -1,22 +1,24 @@
+import { COLORS } from 'chessops';
 import type { VNode } from 'snabbdom';
+
+import { defined } from 'lib';
+import { intersection } from 'lib/tree/path';
+import type { TreePath } from 'lib/tree/types';
 import { hl } from 'lib/view';
-import renderClocks from '../view/clocks';
+import { userTitle } from 'lib/view/userLink';
+
 import type AnalyseCtrl from '../ctrl';
+import renderClocks from '../view/clocks';
 import { renderMaterialDiffs } from '../view/components';
 import type { StudyPlayers, Federation, StudyPlayer, StatusStr, TagMap } from './interfaces';
-import { looksLikeLichessGame } from './studyChapters';
-import { userTitle } from 'lib/view/userLink';
-import RelayPlayers, { fidePageLinkAttrs, playerId, playerPhotoOrFallback } from './relay/relayPlayers';
-import { StudyCtrl } from './studyDeps';
-import { intersection } from 'lib/tree/path';
-import { defined } from 'lib';
-import { resultTag } from './studyView';
-import type { RelayRound } from './relay/interfaces';
 import { playerColoredResult } from './relay/customScoreStatus';
-import type { TreePath } from 'lib/tree/types';
-import { tagsToMap } from './studyTags';
-import { COLORS } from 'chessops';
+import type { RelayRound } from './relay/interfaces';
+import RelayPlayers, { fidePageLinkAttrs, playerId, playerPhotoOrFallback } from './relay/relayPlayers';
 import RelayTeamLeaderboard from './relay/relayTeamLeaderboard';
+import { looksLikeLichessGame } from './studyChapters';
+import { StudyCtrl } from './studyDeps';
+import { tagsToMap } from './studyTags';
+import { resultTag } from './studyView';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;

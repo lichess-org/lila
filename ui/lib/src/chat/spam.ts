@@ -1,5 +1,5 @@
-import * as xhr from '../xhr';
 import { storage } from '../storage';
+import * as xhr from '../xhr';
 
 export const skip = (txt: string): boolean => (suspLink(txt) || followMe(txt)) && !isKnownSpammer();
 

@@ -1,6 +1,6 @@
+import type { ColorChoice } from 'lib/setup/color';
 import type { ClockConfig } from 'lib/setup/interfaces';
 import type { TimeMode } from 'lib/setup/timeControl';
-import type { ColorChoice } from 'lib/setup/color';
 
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';

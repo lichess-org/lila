@@ -1,11 +1,13 @@
+import { h, type Hooks, type VNode } from 'snabbdom';
+
+import { requestIdleCallback } from 'lib';
+import { throttle } from 'lib/async';
+import * as licon from 'lib/licon';
+import type { Gamebook, TreeNode } from 'lib/tree/types';
+import { iconTag, bind, type MaybeVNodes } from 'lib/view';
+
 import { prev } from '@/control';
 import type AnalyseCtrl from '@/ctrl';
-import { requestIdleCallback } from 'lib';
-import * as licon from 'lib/licon';
-import { throttle } from 'lib/async';
-import { iconTag, bind, type MaybeVNodes } from 'lib/view';
-import { h, type Hooks, type VNode } from 'snabbdom';
-import type { Gamebook, TreeNode } from 'lib/tree/types';
 
 export const running = (ctrl: AnalyseCtrl): boolean =>
   !!ctrl.study &&

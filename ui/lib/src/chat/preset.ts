@@ -1,4 +1,5 @@
 import { h, type VNode } from 'snabbdom';
+
 import { bind } from '@/view';
 
 export interface PresetCtrl {

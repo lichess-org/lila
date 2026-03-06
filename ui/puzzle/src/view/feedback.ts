@@ -1,7 +1,9 @@
-import { bind, requiresI18n, type MaybeVNode } from 'lib/view';
 import { h, type VNode } from 'snabbdom';
-import afterView from './after';
+
+import { bind, requiresI18n, type MaybeVNode } from 'lib/view';
+
 import type PuzzleCtrl from '../ctrl';
+import afterView from './after';
 
 const viewSolution = (ctrl: PuzzleCtrl): VNode =>
   ctrl.streak

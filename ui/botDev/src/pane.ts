@@ -1,7 +1,5 @@
-import { removeObjectProperty, setObjectProperty, maxChars } from './devUtil';
 import { frag } from 'lib';
-import { getSchemaDefault, requiresOpRe } from './schema';
-import type { EditDialog } from './editDialog';
+
 import { env } from './devEnv';
 import type {
   PaneArgs,
@@ -15,6 +13,9 @@ import type {
   PropertyValue,
   Requirement,
 } from './devTypes';
+import { removeObjectProperty, setObjectProperty, maxChars } from './devUtil';
+import type { EditDialog } from './editDialog';
+import { getSchemaDefault, requiresOpRe } from './schema';
 
 export class Pane<Info extends PaneInfo = PaneInfo> {
   input?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;

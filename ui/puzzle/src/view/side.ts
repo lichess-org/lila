@@ -1,12 +1,13 @@
-import type { Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
+import perfIcons from 'lib/game/perfIcons';
+import { numberFormat } from 'lib/i18n';
 import * as licon from 'lib/licon';
 import { type VNode, dataIcon, onInsert, type MaybeVNode, hl } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
-import { numberFormat } from 'lib/i18n';
-import perfIcons from 'lib/game/perfIcons';
 import { userLink } from 'lib/view/userLink';
-import type PuzzleStreak from '../streak';
+
 import type PuzzleCtrl from '../ctrl';
+import type { Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
+import type PuzzleStreak from '../streak';
 
 export function puzzleBox(ctrl: PuzzleCtrl): VNode {
   const data = ctrl.data;

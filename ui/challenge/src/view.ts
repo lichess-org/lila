@@ -1,10 +1,12 @@
-import type { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
+import { opposite } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
+
 import * as licon from 'lib/licon';
 import { spinnerVdom, initMiniBoard } from 'lib/view';
 import { userLink } from 'lib/view/userLink';
-import { opposite } from '@lichess-org/chessground/util';
+
 import type ChallengeCtrl from './ctrl';
+import type { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 
 export const loaded = (ctrl: ChallengeCtrl): VNode =>
   ctrl.redirecting

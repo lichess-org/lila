@@ -1,12 +1,13 @@
 // no side effects allowed due to re-export by index.ts
 
-import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 import { isTouchDevice } from '@/device';
-import { blurIfPrimaryClick, frag } from '@/index';
 import { Janitor } from '@/event';
-import * as xhr from '@/xhr';
+import { blurIfPrimaryClick, frag } from '@/index';
 import * as licon from '@/licon';
 import { pubsub } from '@/pubsub';
+import * as xhr from '@/xhr';
+
+import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 
 export interface Dialog {
   readonly view: HTMLElement; // your content div

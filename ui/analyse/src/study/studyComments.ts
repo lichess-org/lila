@@ -1,7 +1,9 @@
 import { h, type VNode } from 'snabbdom';
+
 import * as licon from 'lib/licon';
-import { bind, confirm } from 'lib/view';
 import { richHTML } from 'lib/richText';
+import { bind, confirm } from 'lib/view';
+
 import type AnalyseCtrl from '../ctrl';
 import { nodeFullName } from '../view/util';
 import type StudyCtrl from './studyCtrl';

@@ -1,16 +1,18 @@
-import config from '../config';
-import renderClock from 'lib/puz/view/clock';
-import renderEnd from './end';
-import type StormCtrl from '../ctrl';
-import type { VNode } from 'snabbdom';
-import { makeCgOpts, povMessage } from 'lib/puz/run';
-import { makeConfig as makeCgConfig } from 'lib/puz/view/chessground';
-import { getNow } from 'lib/puz/util';
-import { playModifiers, renderCombo } from 'lib/puz/view/util';
-import * as licon from 'lib/licon';
-import { onInsert, hl } from 'lib/view';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import type { VNode } from 'snabbdom';
+
+import * as licon from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
+import { makeCgOpts, povMessage } from 'lib/puz/run';
+import { getNow } from 'lib/puz/util';
+import { makeConfig as makeCgConfig } from 'lib/puz/view/chessground';
+import renderClock from 'lib/puz/view/clock';
+import { playModifiers, renderCombo } from 'lib/puz/view/util';
+import { onInsert, hl } from 'lib/view';
+
+import config from '../config';
+import type StormCtrl from '../ctrl';
+import renderEnd from './end';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload(i18n.storm.thisRunWasOpenedInAnotherTab);

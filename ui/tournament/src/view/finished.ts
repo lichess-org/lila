@@ -1,5 +1,10 @@
 import { h, type VNode } from 'snabbdom';
+
 import * as licon from 'lib/licon';
+import { once } from 'lib/storage';
+import { type MaybeVNodes } from 'lib/view';
+import { numberRow } from 'lib/view/util';
+
 import type TournamentController from '../ctrl';
 import type { TournamentData } from '../interfaces';
 import { controls, standing, podium } from './arena';
@@ -7,9 +12,6 @@ import { teamStanding } from './battle';
 import header from './header';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
-import { numberRow } from 'lib/view/util';
-import { type MaybeVNodes } from 'lib/view';
-import { once } from 'lib/storage';
 
 function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && once('tournament.end.canvas.' + data.id))

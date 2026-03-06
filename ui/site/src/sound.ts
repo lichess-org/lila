@@ -1,8 +1,8 @@
-import { storage } from 'lib/storage';
-import { isIos } from 'lib/device';
-import { throttle } from 'lib/async';
 import { defined } from 'lib';
+import { throttle } from 'lib/async';
+import { isIos } from 'lib/device';
 import { speakable } from 'lib/game/sanWriter';
+import { storage } from 'lib/storage';
 
 type Name = string;
 type Path = string;

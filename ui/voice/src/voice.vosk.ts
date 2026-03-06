@@ -5,6 +5,7 @@ import {
   type ServerMessagePartialResult,
   createVoskClient,
 } from '@lichess-org/vosk-browser';
+
 import type { RecognizerOpts, VoskModule } from './interfaces';
 import { type Selectable, Switch } from './switch';
 

@@ -1,8 +1,10 @@
-import type { Prop } from '../index';
-import type { Feature } from '../device';
-import type CevalCtrl from './ctrl';
 import type { VNode } from 'snabbdom';
+
 import type { ClientEval, LocalEval, ServerEval, TreeNode } from '@/tree/types';
+
+import type { Feature } from '../device';
+import type { Prop } from '../index';
+import type CevalCtrl from './ctrl';
 
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };

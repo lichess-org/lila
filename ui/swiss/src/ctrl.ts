@@ -1,9 +1,10 @@
+import { throttlePromiseDelay } from 'lib/async';
+import { redirectFirst } from 'lib/tournament';
+import { maxPerPage, myPage, pagerData } from 'lib/view/pagination';
+
+import type { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 import { makeSocket, type SwissSocket } from './socket';
 import xhr from './xhr';
-import { throttlePromiseDelay } from 'lib/async';
-import type { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
-import { maxPerPage, myPage, pagerData } from 'lib/view/pagination';
-import { redirectFirst } from 'lib/tournament';
 
 export default class SwissCtrl {
   data: SwissData;

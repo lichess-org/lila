@@ -1,4 +1,5 @@
 import type { TreeNode } from 'lib/tree/types';
+
 import type AnalyseCtrl from './ctrl';
 
 export type AutoplayDelay = number | 'realtime' | 'cpl';

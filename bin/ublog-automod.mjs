@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import { MongoClient } from 'mongodb';
-import { setTimeout as sleep } from 'node:timers/promises';
-import fs from 'node:fs';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
+import { setTimeout as sleep } from 'node:timers/promises';
 
 // consider a wrapper script to provide common options (like the together.ai api key).
 // bin/ublog-automod (with no extension) is .gitignored for this purpose.

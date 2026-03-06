@@ -1,9 +1,10 @@
 import { init, classModule, attributesModule, eventListenersModule, propsModule } from 'snabbdom';
-import type { LobbyOpts } from './interfaces';
+
 import makeCtrl from './ctrl';
+import type { LobbyOpts } from './interfaces';
+import { makeCarousel } from './view/carousel';
 import appView from './view/main';
 import tableView from './view/table';
-import { makeCarousel } from './view/carousel';
 
 export const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 

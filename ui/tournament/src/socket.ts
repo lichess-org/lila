@@ -1,5 +1,6 @@
-import type TournamentController from './ctrl';
 import { redirectFirst } from 'lib/tournament';
+
+import type TournamentController from './ctrl';
 
 export interface TournamentSocket {
   send: SocketSend;

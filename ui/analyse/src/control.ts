@@ -1,7 +1,7 @@
-import type { TreeNode } from 'lib/tree/types';
-import type AnalyseCtrl from './ctrl';
-
 import { path as treePath } from 'lib/tree/tree';
+import type { TreeNode } from 'lib/tree/types';
+
+import type AnalyseCtrl from './ctrl';
 
 export function next(ctrl: AnalyseCtrl): void {
   if (ctrl.retro?.preventGoingToNextMove()) return;

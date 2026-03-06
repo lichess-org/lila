@@ -1,8 +1,9 @@
-import { type ObjectStorage, objectStorage, range } from 'lib/objectStorage';
-import { type LocalGame, LocalGameData } from './localGame';
-import { type StatusId, clockToSpeed, status } from 'lib/game';
 import { myUserId } from 'lib';
 import { hasFeature } from 'lib/device';
+import { type StatusId, clockToSpeed, status } from 'lib/game';
+import { type ObjectStorage, objectStorage, range } from 'lib/objectStorage';
+
+import { type LocalGame, LocalGameData } from './localGame';
 
 export class LocalDb {
   store: ObjectStorage<LocalGameData> | undefined;

@@ -1,3 +1,18 @@
+import { type Result } from '@badrap/result';
+import type { Api as CgApi } from '@lichess-org/chessground/api';
+import { opposite } from '@lichess-org/chessground/util';
+import { parseSquare } from 'chessops';
+import { Board } from 'chessops/board';
+import { lichessRules } from 'chessops/compat';
+import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
+import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
+import type { Rules, Square } from 'chessops/types';
+import { Castles, defaultPosition, Position, setupPosition } from 'chessops/variant';
+
+import { defined, prop, type Prop } from 'lib';
+import { prompt } from 'lib/view';
+
+import { chess960CastlingSquares, chess960IdToFEN, fenToChess960Id, randomPositionId } from './chess960';
 import {
   type EditorState,
   type Selected,
@@ -8,19 +23,6 @@ import {
   type CastlingToggles,
   CASTLING_TOGGLES,
 } from './interfaces';
-import { type Result } from '@badrap/result';
-import type { Api as CgApi } from '@lichess-org/chessground/api';
-import type { Rules, Square } from 'chessops/types';
-import { Board } from 'chessops/board';
-import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
-import { Castles, defaultPosition, Position, setupPosition } from 'chessops/variant';
-import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
-import { lichessRules } from 'chessops/compat';
-import { defined, prop, type Prop } from 'lib';
-import { prompt } from 'lib/view';
-import { opposite } from '@lichess-org/chessground/util';
-import { parseSquare } from 'chessops';
-import { chess960CastlingSquares, chess960IdToFEN, fenToChess960Id, randomPositionId } from './chess960';
 
 export default class EditorCtrl {
   options: Options;

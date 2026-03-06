@@ -1,5 +1,6 @@
 import type { Position } from '@lichess-org/zerofish';
 import type { Chess } from 'chessops';
+
 import type { Filters } from './filter';
 
 export type Sound = { key: string; chance: number; delay: Seconds; mix: number };

@@ -1,15 +1,16 @@
-import { boot } from './boot';
-import Mousetrap from './mousetrap';
 import { randomToken } from 'lib/algo';
-import powertip from './powertip';
-import * as assets from './asset';
-import { unload, redirect, reload } from './reload';
-import { display as announceDisplay } from './announce';
-import { displayLocale } from 'lib/i18n';
-import sound from './sound';
 import { api } from 'lib/api';
-import { loadPolyfills } from './polyfill';
+import { displayLocale } from 'lib/i18n';
+
+import { display as announceDisplay } from './announce';
+import * as assets from './asset';
+import { boot } from './boot';
 import { addWindowHandlers } from './domHandlers';
+import Mousetrap from './mousetrap';
+import { loadPolyfills } from './polyfill';
+import powertip from './powertip';
+import { unload, redirect, reload } from './reload';
+import sound from './sound';
 
 const site = window.site;
 // site.load is initialized in site.inline.ts (body script)
