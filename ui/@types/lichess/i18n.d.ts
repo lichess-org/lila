@@ -6015,8 +6015,6 @@ interface I18n {
     thatsAllWeGotForTheseTags: string;
     /** That's all we got for this search: "%s" */
     thatsAllWeGotForThisSearchX: I18nFormat;
-    /** There are no results for "%s" */
-    thereAreNoResultsForX: I18nFormat;
     /** Video not found! */
     videoNotFound: string;
     /** View more tags */
