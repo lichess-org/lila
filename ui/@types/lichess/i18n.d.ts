@@ -4439,6 +4439,8 @@ interface I18n {
     theGameIsADraw: string;
     /** Thematic */
     thematic: string;
+    /** No results for "%s" */
+    thereAreNoResultsForX: I18nFormat;
     /** This account violated the Lichess Terms of Service */
     thisAccountViolatedTos: string;
     /** This game is rated */

@@ -1,4 +1,4 @@
-import { type Prop, type Toggle, escapeHtml, propWithEffect, toggle } from 'lib';
+import { type Prop, type Toggle, propWithEffect, toggle } from 'lib';
 import * as licon from 'lib/licon';
 import { bind, dataIcon, enter, onInsert, snabDialog } from 'lib/view';
 import { h, type VNode } from 'snabbdom';
@@ -49,43 +49,49 @@ export function view(ctrl: SearchCtrl) {
     onClose() {
       ctrl.open(false);
     },
+    noScrollable: true,
     modal: true,
     vnodes: [
-      h('input', {
-        attrs: { autofocus: 1, placeholder: `Search in ${ctrl.studyName}`, value: ctrl.query() },
-        hook: onInsert((el: HTMLInputElement) => {
-          el.addEventListener('input', (e: KeyboardEvent) =>
-            ctrl.query((e.target as HTMLInputElement).value.trim()),
-          );
-          el.addEventListener('keydown', enter(ctrl.setFirstChapter));
+      h('h2', `Search chapters`),
+      h(
+        'div.search-wrapper',
+        h('input', {
+          attrs: { autofocus: 1, placeholder: `Search in ${ctrl.studyName}`, value: ctrl.query() },
+          hook: onInsert((el: HTMLInputElement) => {
+            el.addEventListener('input', (e: KeyboardEvent) =>
+              ctrl.query((e.target as HTMLInputElement).value.trim()),
+            );
+            el.addEventListener('keydown', enter(ctrl.setFirstChapter));
+          }),
         }),
-      }),
+      ),
       h(
         // dynamic extra class necessary to fully redraw the results and produce innerHTML
-        `div.study-search__results.search-query-${cleanQuery}`,
+        `div.study-search__results.search-query-${encodeURIComponent(cleanQuery)}`,
         { attrs: { tabindex: -1 } },
-        ctrl.results().map(c =>
-          h('button', { hook: bind('click', () => ctrl.setChapter(c.id)) }, [
-            h(
-              'h3',
-              {
-                hook: highlightRegex
-                  ? {
-                      insert(vnode: VNode) {
-                        if (c.name !== escapeHtml(c.name)) return;
-                        const el = vnode.elm as HTMLElement;
-                        el.innerHTML = c.name.replace(highlightRegex, `<high>$&</high>`);
-                      },
-                    }
-                  : {},
-              },
-              c.name,
-            ),
-            c.playing
-              ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
-              : c.status && h('res', c.status),
-          ]),
-        ),
+        ctrl.results().length > 0
+          ? ctrl.results().map(c =>
+              h('button', { hook: bind('click', () => ctrl.setChapter(c.id)) }, [
+                h(
+                  'h3',
+                  {
+                    hook: highlightRegex
+                      ? {
+                          insert(vnode: VNode) {
+                            const el = vnode.elm as HTMLElement;
+                            el.innerHTML = c.name.replace(highlightRegex, `<high>$&</high>`);
+                          },
+                        }
+                      : {},
+                  },
+                  c.name,
+                ),
+                c.playing
+                  ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
+                  : c.status && h('res', c.status),
+              ]),
+            )
+          : h('p.no-results', i18n.site.thereAreNoResultsForX(cleanQuery)),
       ),
     ],
   });

@@ -2408,6 +2408,7 @@ object I18nKey:
     val `offline`: I18nKey = "offline"
     val `search`: I18nKey = "search"
     val `clearSearch`: I18nKey = "clearSearch"
+    val `thereAreNoResultsForX`: I18nKey = "thereAreNoResultsForX"
     val `tags`: I18nKey = "tags"
     val `enPassant`: I18nKey = "enPassant"
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
