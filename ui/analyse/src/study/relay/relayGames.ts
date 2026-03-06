@@ -4,9 +4,10 @@ import { defined, scrollToInnerSelector } from 'lib';
 import { hl } from 'lib/view';
 import { userTitle } from 'lib/view/userLink';
 
+import { playerFedFlag } from '@/view/util';
+
 import type { ChapterPreview } from '../interfaces';
 import { renderClock, verticalEvalGauge } from '../multiBoard';
-import { playerFedFlag } from '../playerBars';
 import { gameLinkAttrs } from '../studyChapters';
 import type { StudyCtrl } from '../studyDeps';
 import { playerColoredResult } from './customScoreStatus';

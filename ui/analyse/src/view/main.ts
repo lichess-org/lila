@@ -9,17 +9,19 @@ import * as licon from 'lib/licon';
 import { type VNode, onInsert, hl } from 'lib/view';
 import { watchers } from 'lib/view/watchers';
 
-import crazyView from '../crazy/crazyView';
-import type AnalyseCtrl from '../ctrl';
-import forecastView from '../forecast/forecastView';
-import { view as keyboardView } from '../keyboard';
-import { relayView } from '../study/relay/relayView';
-import type * as studyDeps from '../study/studyDeps';
-import { studyView } from '../study/studyView';
-import { wikiToggleBox } from '../wiki';
-import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } from './components';
+import crazyView from '@/crazy/crazyView';
+import type AnalyseCtrl from '@/ctrl';
+import forecastView from '@/forecast/forecastView';
+import { view as keyboardView } from '@/keyboard';
+import { relayView } from '@/study/relay/relayView';
+import type * as studyDeps from '@/study/studyDeps';
+import { studyView } from '@/study/studyView';
+import { wikiToggleBox } from '@/wiki';
+
+import { viewContext, renderBoard, renderMain, renderUnderboard } from './components';
 import { renderControls } from './controls';
 import { render as trainingView } from './roundTraining';
+import { renderTools } from './tools';
 
 let resizeCache: {
   columns: number;

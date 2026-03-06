@@ -6,7 +6,9 @@ import * as licon from 'lib/licon';
 import { bind, dataIcon, snabDialog } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
-import { type DasherCtrl, PaneCtrl } from './interfaces';
+import type { DasherCtrl } from '@/ctrl';
+
+import { PaneCtrl } from './interfaces';
 import { header } from './util';
 
 type Key = string;

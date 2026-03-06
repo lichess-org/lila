@@ -5,7 +5,9 @@ import { pubsub } from 'lib/pubsub';
 import { bind, hl, type VNode } from 'lib/view';
 import { text as xhrText, form as xhrForm } from 'lib/xhr';
 
-import { type DasherCtrl, type Dimension, PaneCtrl } from './interfaces';
+import type { DasherCtrl } from '@/ctrl';
+
+import { type Dimension, PaneCtrl } from './interfaces';
 import { header, moreButton } from './util';
 
 type Range = { min: number; max: number; step: number };

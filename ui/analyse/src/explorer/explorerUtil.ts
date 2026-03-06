@@ -6,6 +6,8 @@ import { fenColor } from 'lib/game/chess';
 import type AnalyseCtrl from '../ctrl';
 import type { TablebaseMoveStats } from './interfaces';
 
+export const MAX_ANALYSE_DEPTH = 50;
+
 export function winnerOf(fen: FEN, move: TablebaseMoveStats): Color | undefined {
   const stm = fenColor(fen);
   if (move.checkmate || move.variant_loss || (move.dtz && move.dtz < 0) || (move.dtc && move.dtc < 0))
