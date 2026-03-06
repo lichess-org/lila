@@ -10,8 +10,8 @@
   }
 
   .search-wrapper {
-    border-block: 1px solid var(--c-border);
-    background: var(--c-bg-zebra);
+    border-block: $border;
+    background: $c-bg-zebra;
     padding: 1em;
 
     input {
