@@ -419,8 +419,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
 
   def homeCarousel(posts: List[PreviewPost])(using Context) =
     div(cls := "lobby__blog carousel")(
-      posts.map:
-        card(_, showAuthor = ShowAt.bottom, showIntro = false, strictDate = false)
+      div(cls := "track"):
+        posts.map:
+          card(_, showAuthor = ShowAt.bottom, showIntro = false, strictDate = false)
     )
 
   private def list(

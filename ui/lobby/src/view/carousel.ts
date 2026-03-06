@@ -15,10 +15,7 @@ export function makeCarousel({ selector, itemWidth, pauseFor, slideFor = 0.6 }: 
     const el = document.querySelector<HTMLElement>(selector)!;
     if (!el) return;
 
-    const track = frag<HTMLElement>('<div class="track"></div>');
-    track.append(...el.children);
-    el.innerHTML = '';
-    el.append(track);
+    const track = el?.querySelector<HTMLElement>('.track')!;
     const controls = frag<HTMLElement>('<div class="controls"></div>');
     const prevButton = frag<HTMLElement>(`<button class="prev" data-icon="${LessThan}"></button>`);
     const nextButton = frag<HTMLElement>(`<button class="next" data-icon="${GreaterThan}"></button>`);
