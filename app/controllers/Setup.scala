@@ -96,7 +96,7 @@ final class Setup(
         )
     case HookResult.Refused => JsonBadRequest(("Game was not created"))
 
-  def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(_.Web.Mobile): ctx ?=>
+  def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(_.Web.Mobile, _.Web.Polygon): ctx ?=>
     NoBot:
       NoPlaybanOrCurrent:
         bindForm(forms.hook)(
@@ -189,7 +189,7 @@ final class Setup(
   private def WithBoardApiHookAuthor(
       f: (Either[Sri, lila.user.User], Option[Sri]) => BodyContext[?] ?=> Fu[Result]
   ): EssentialAction =
-    AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile): ctx ?=>
+    AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile, _.Web.Polygon): ctx ?=>
       NoBot:
         val reqSri = getAs[Sri]("sri")
         ctx.me match
@@ -207,17 +207,18 @@ final class Setup(
       case None => BadRequest
       case Some(v) => Ok.snip(views.analyse.ui.miniSpan(v.fen.board, v.color))
 
-  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
-    limit.setupBotAi(me, rateLimited, cost = me.isBot.so(1)):
-      limit.setupPost(req.ipAddress, rateLimited):
-        bindForm(forms.api.ai)(
-          doubleJsonFormError,
-          config =>
-            processor.apiAi(config).map { pov =>
-              val json = env.game.jsonView.apiAiNewGame(pov, config.fen)
-              Created(json).as(JSON)
-            }
-        )
+  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile, _.Web.Polygon) {
+    ctx ?=> me ?=>
+      limit.setupBotAi(me, rateLimited, cost = me.isBot.so(1)):
+        limit.setupPost(req.ipAddress, rateLimited):
+          bindForm(forms.api.ai)(
+            doubleJsonFormError,
+            config =>
+              processor.apiAi(config).map { pov =>
+                val json = env.game.jsonView.apiAiNewGame(pov, config.fen)
+                Created(json).as(JSON)
+              }
+          )
   }
 
   private[controllers] def redirectPov(pov: Pov)(using ctx: Context) =
