@@ -8,6 +8,7 @@ import lila.common.Json.given
 import lila.core.i18n.Translate
 import lila.core.user.KidMode
 import lila.core.net.UserAgent
+import lila.oauth.TokenScopes
 
 final class MobileApi(
     userApi: UserApi,
@@ -33,7 +34,11 @@ final class MobileApi(
 
   private given (using trans: Translate): Lang = trans.lang
 
-  def home(using me: Option[Me], ua: UserAgent)(using RequestHeader, Translate, KidMode): Fu[JsObject] =
+  def home(using
+      me: Option[Me],
+      ua: UserAgent,
+      oauth: Option[TokenScopes]
+  )(using RequestHeader, Translate, KidMode): Fu[JsObject] =
     val myUser = me.map(_.value)
     for
       tours <- tournaments
@@ -51,7 +56,7 @@ final class MobileApi(
       .add("inbox", inbox)
       .add("challenges", challenges.map(challengeJson.all))
 
-  def tournaments(using me: Option[Me])(using Translate): Fu[JsObject] =
+  def tournaments(using me: Option[Me], oauth: Option[TokenScopes])(using Translate): Fu[JsObject] =
     for
       perfs <- me.so(userApi.withPerfs)
       teamIds <- me.so(teamCached.teamIdsList)
