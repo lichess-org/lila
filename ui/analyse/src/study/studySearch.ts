@@ -1,6 +1,6 @@
 import { type Prop, type Toggle, propWithEffect, toggle } from 'lib';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, enter, onInsert, requiresI18n, snabDialog } from 'lib/view';
+import { bind, dataIcon, enter, onInsert, snabDialog } from 'lib/view';
 import { h, type VNode } from 'snabbdom';
 import type { ChapterPreview } from './interfaces';
 import type { StudyChapters } from './studyChapters';
@@ -91,9 +91,7 @@ export function view(ctrl: SearchCtrl) {
                   : c.status && h('res', c.status),
               ]),
             )
-          : requiresI18n('video', ctrl.redraw, cat =>
-              h('p.no-results', cat.thereAreNoResultsForX(cleanQuery)),
-            ),
+          : h('p.no-results', i18n.site.thereAreNoResultsForX(cleanQuery)),
       ),
     ],
   });
