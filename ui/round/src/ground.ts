@@ -3,6 +3,7 @@ import { uciToMove } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
+import { isSafari } from 'lib/device';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { onInsert } from 'lib/view';
@@ -10,7 +11,6 @@ import { onInsert } from 'lib/view';
 import type RoundController from './ctrl';
 import type { RoundData } from './interfaces';
 import { Premove } from './premove';
-import { isSafari } from 'lib/device';
 import * as util from './util';
 import { plyStep } from './util';
 

@@ -1,10 +1,10 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { h, type VNode } from 'snabbdom';
 
+import { isSafari } from 'lib/device';
 import { Coords } from 'lib/prefs';
 
 import type { RunCtrl } from './run/runCtrl';
-import { isSafari } from 'lib/device';
 
 export interface Shape {
   orig: Key;

@@ -4,12 +4,12 @@ import { eventPosition, opposite } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
+import { isSafari } from 'lib/device';
 import { ShowResizeHandle } from 'lib/prefs';
 import { pubsub } from 'lib/pubsub';
 import { storage } from 'lib/storage';
 
 import type EditorCtrl from './ctrl';
-import { isSafari } from 'lib/device';
 
 export default function (ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {

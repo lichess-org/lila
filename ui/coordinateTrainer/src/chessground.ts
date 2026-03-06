@@ -3,8 +3,8 @@ import type { Elements } from '@lichess-org/chessground/types';
 import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
-import { pubsub } from 'lib/pubsub';
 import { isSafari } from 'lib/device';
+import { pubsub } from 'lib/pubsub';
 
 import type CoordinateTrainerCtrl from './ctrl';
 

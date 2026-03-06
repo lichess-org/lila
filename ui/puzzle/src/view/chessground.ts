@@ -2,11 +2,11 @@ import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
+import { isSafari } from 'lib/device';
 import { Coords, ShowResizeHandle } from 'lib/prefs';
 import { storage } from 'lib/storage';
 
 import type PuzzleCtrl from '../ctrl';
-import { isSafari } from 'lib/device';
 
 export default function (ctrl: PuzzleCtrl): VNode {
   return h('div.cg-wrap.cgv' + ctrl.cgVersion, {

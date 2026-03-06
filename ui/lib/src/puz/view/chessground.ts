@@ -1,7 +1,7 @@
 import resizeHandle from '@/chessgroundResize';
+import { isSafari } from '@/device';
 import { ShowResizeHandle, Coords } from '@/prefs';
 import { storage } from '@/storage';
-import { isSafari } from '@/device';
 
 import type { PuzPrefs, UserMove } from '../interfaces';
 
