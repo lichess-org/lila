@@ -422,6 +422,11 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
       div(cls := "track"):
         posts.map:
           card(_, showAuthor = ShowAt.bottom, showIntro = false, strictDate = false)
+      ,
+      div(cls := "controls")(
+        button(cls := "prev", dataIcon := Icon.LessThan),
+        button(cls := "next", dataIcon := Icon.GreaterThan)
+      )
     )
 
   private def list(

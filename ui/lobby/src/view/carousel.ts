@@ -1,5 +1,4 @@
 import { frag, requestIdleCallback } from 'lib';
-import { LessThan, GreaterThan } from 'lib/licon';
 
 type CarouselOpts = {
   selector: string;
@@ -15,12 +14,9 @@ export function makeCarousel({ selector, itemWidth, pauseFor, slideFor = 0.6 }: 
     const el = document.querySelector<HTMLElement>(selector)!;
     if (!el) return;
 
-    const track = el?.querySelector<HTMLElement>('.track')!;
-    const controls = frag<HTMLElement>('<div class="controls"></div>');
-    const prevButton = frag<HTMLElement>(`<button class="prev" data-icon="${LessThan}"></button>`);
-    const nextButton = frag<HTMLElement>(`<button class="next" data-icon="${GreaterThan}"></button>`);
-    controls.append(prevButton, nextButton);
-    el.append(controls);
+    const track = el.querySelector<HTMLElement>('.track')!;
+    const nextButton = el.querySelector<HTMLElement>('.next')!;
+    const prevButton = el.querySelector<HTMLElement>('.prev')!;
     el.style.visibility = 'visible';
 
     onResize();
