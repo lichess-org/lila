@@ -14,9 +14,7 @@ export function makeCarousel({ selector, itemWidth, pauseFor, slideFor = 0.6 }: 
     const el = document.querySelector<HTMLElement>(selector)!;
     if (!el) return;
 
-    const track = el.querySelector<HTMLElement>('.track')!;
-    const nextButton = el.querySelector<HTMLElement>('.next')!;
-    const prevButton = el.querySelector<HTMLElement>('.prev')!;
+    const track = el.querySelector<HTMLElement>('.carousel__track')!;
     el.style.visibility = 'visible';
 
     onResize();
@@ -40,14 +38,14 @@ export function makeCarousel({ selector, itemWidth, pauseFor, slideFor = 0.6 }: 
           fix(false);
         }, slideFor * 1000);
       };
-      prevButton.onclick = () => {
+      $(el).on('click', '.carousel__prev', () => {
         track.prepend(track.lastChild!);
         fix();
-      };
-      nextButton.onclick = () => {
+      });
+      $(el).on('click', '.carousel__next', () => {
         track.append(track.firstChild!);
         fix();
-      };
+      });
       const fix = (killTimer = true) => {
         kids.forEach(k => (k.style.transition = ''));
         kids.forEach(k => (k.style.transform = ''));

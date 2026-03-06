@@ -419,13 +419,13 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
 
   def homeCarousel(posts: List[PreviewPost])(using Context) =
     div(cls := "lobby__blog carousel")(
-      div(cls := "track"):
+      div(cls := "carousel__track"):
         posts.map:
           card(_, showAuthor = ShowAt.bottom, showIntro = false, strictDate = false)
       ,
-      div(cls := "controls")(
-        button(cls := "prev", dataIcon := Icon.LessThan),
-        button(cls := "next", dataIcon := Icon.GreaterThan)
+      div(cls := "carousel__controls")(
+        button(cls := "carousel__prev", dataIcon := Icon.LessThan),
+        button(cls := "carousel__next", dataIcon := Icon.GreaterThan)
       )
     )
 
