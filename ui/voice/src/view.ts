@@ -5,7 +5,7 @@ import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { jsonSimple } from 'lib/xhr';
 
 import type { Entry, VoiceCtrl, MsgType } from './interfaces';
-import { supportedLangs } from './voice';
+import { supportedLangs } from './languages';
 
 export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string): VNode {
   return hl(`div#voice-bar${cls ? '.' + cls : ''}`, [
@@ -35,12 +35,6 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
       ]),
     ctrl.showHelp() && renderHelpModal(ctrl),
   ]);
-}
-
-export function flash(): void {
-  const div = document.querySelector<HTMLElement>('#voice-status-row')!;
-  div.classList.add('flash');
-  div.onanimationend = () => div.classList.remove('flash');
 }
 
 function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {

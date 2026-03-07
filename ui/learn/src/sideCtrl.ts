@@ -1,6 +1,6 @@
 import { type Prop, propWithEffect } from 'lib';
 
-import { LearnCtrl } from './ctrl';
+import type { LearnCtrl } from './ctrl';
 import type { LearnProgress, LearnOpts } from './learn';
 import * as scoring from './score';
 import { stageIdToCategId, byKey as stageByKey, list as stageList } from './stage/list';

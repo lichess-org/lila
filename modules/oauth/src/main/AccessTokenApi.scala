@@ -47,7 +47,7 @@ final class AccessTokenApi(
           setup.scopes
             .flatMap(OAuthScope.byKey.get)
             .filterNot(_ == OAuthScope.Bot.Play && noBot)
-            .filterNot(_ == OAuthScope.Web.Mobile)
+            .filterNot(OAuthScope.concealedScopes)
             .toList
         ,
         clientOrigin = None,

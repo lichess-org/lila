@@ -1,6 +1,6 @@
 import type { VNode } from 'snabbdom';
 
-import { defined, memoize } from 'lib';
+import { defined, memoize, onClickAway } from 'lib';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns } from 'lib/device';
 import { commonDateFormat, timeago } from 'lib/i18n';
@@ -34,7 +34,6 @@ import { gamesList } from './relayGames';
 import { playersView } from './relayPlayers';
 import { statsView } from './relayStats';
 import { teamsView } from './relayTeams';
-import { renderStreamerMenu } from './relayView';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -601,3 +600,31 @@ const broadcastImageOrStream = (ctx: RelayViewContext) => {
           : undefined,
   );
 };
+
+function renderStreamerMenu(relay: RelayCtrl): VNode {
+  const makeUrl = (id: string) => {
+    const url = new URL(location.href);
+    url.searchParams.set('embed', id);
+    return url.toString();
+  };
+  return hl(
+    'div.streamer-menu-anchor',
+    hl(
+      'div.streamer-menu',
+      {
+        hook: onInsert(
+          onClickAway(() => {
+            relay.showStreamerMenu(false);
+            relay.redraw();
+          }),
+        ),
+      },
+      relay.streams.map(([id, info]) =>
+        hl('a.streamer.text', { attrs: { 'data-icon': licon.Mic, href: makeUrl(id) } }, [
+          info.name,
+          hl('i', info.lang),
+        ]),
+      ),
+    ),
+  );
+}

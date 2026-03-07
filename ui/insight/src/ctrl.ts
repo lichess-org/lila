@@ -13,7 +13,7 @@ import type {
   Filters,
   ViewTab,
 } from './interfaces';
-import { isLandscapeLayout } from './view';
+import { isLandscapeLayout } from './util';
 
 export default class {
   env: Env;

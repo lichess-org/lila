@@ -73,10 +73,13 @@ final class OAuthServer(
     tokenApi
       .get(bearer)
       .mapz: token =>
-        if token.scopes.has(_.Web.Mobile) && !signed then
+        if token.scopes.mobile && !signed then
           logger.warn(s"Web:Mobile token requested but not signed: $token")
           mode.isDev.option(token)
-        else if token.scopes.has(_.Web.Mobile) && !token.clientOrigin.has("org.lichess.mobile://") then
+        else if token.scopes.polygon && !signed then
+          logger.warn(s"Web:Polygon token requested but not signed: $token")
+          mode.isDev.option(token)
+        else if token.scopes.mobile && !token.clientOrigin.has("org.lichess.mobile://") then
           logger.warn(s"Web:Mobile token requested but invalid origin: $token")
           mode.isDev.option(token)
         else token.some
