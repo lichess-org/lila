@@ -105,8 +105,6 @@ object Study:
   val previewNbMembers = 4
   val previewNbChapters = 4
 
-  def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str).take(100))
-
   opaque type Likes = Int
   object Likes extends OpaqueInt[Likes]
 
@@ -126,21 +124,6 @@ object Study:
     case Game(id: GameId)
     case Study(id: StudyId)
     case Relay(clonedFrom: Option[StudyId])
-
-  case class Data(
-      name: String,
-      flair: Option[String],
-      visibility: Visibility,
-      computer: Settings.UserSelection,
-      explorer: Settings.UserSelection,
-      cloneable: Settings.UserSelection,
-      shareable: Settings.UserSelection,
-      chat: Settings.UserSelection,
-      sticky: String,
-      description: String
-  ):
-    def settings =
-      Settings(computer, explorer, cloneable, shareable, chat, sticky == "true", description == "true")
 
   case class WithChapter(study: Study, chapter: Chapter)
 

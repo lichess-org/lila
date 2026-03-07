@@ -291,6 +291,15 @@ final class Study(
     Found(env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings)): sc =>
       Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
 
+  def apiCreate = ScopedBody(_.Study.Write) { _ ?=> _ ?=>
+    bindForm(StudyForm.form)(
+      jsonFormError,
+      data =>
+        for sc <- env.study.api.create(data)
+        yield JsonOk(Json.obj("id" -> sc.study.id))
+    )
+  }
+
   def delete(id: StudyId) = Auth { _ ?=> me ?=>
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
       for

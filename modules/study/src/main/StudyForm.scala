@@ -7,7 +7,8 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
 
-import lila.common.Form.{ cleanNonEmptyText, defaulting, formatter, into, given }
+import lila.common.Form.{ cleanNonEmptyText, defaulting, formatter, into, typeIn, stringIn, given }
+import lila.core.study.Visibility
 
 object StudyForm:
 
@@ -16,6 +17,45 @@ object StudyForm:
 
   private given Formatter[ChapterMaker.Orientation] =
     formatter.stringFormatter(_.key, ChapterMaker.Orientation.apply)
+
+  given Formatter[Visibility] =
+    formatter.stringOptionFormatter[Visibility](_.key, Visibility.byKey.get)
+
+  private given Formatter[Settings.UserSelection] =
+    formatter.stringOptionFormatter[Settings.UserSelection](_.key, Settings.UserSelection.byKey.get)
+
+  // also bound by JSON read from websocket message
+  case class FormData(
+      name: String,
+      flair: Option[String],
+      visibility: Visibility,
+      computer: Settings.UserSelection,
+      explorer: Settings.UserSelection,
+      cloneable: Settings.UserSelection,
+      shareable: Settings.UserSelection,
+      chat: Settings.UserSelection,
+      sticky: String,
+      description: Option[String]
+  ):
+    def studyName = StudyName(lila.common.String.fullCleanUp(name).take(100))
+    def settings =
+      Settings(computer, explorer, cloneable, shareable, chat, sticky == "true", description.has("true"))
+
+  val form: Form[FormData] = Form:
+    val userSelectionField = typeIn(Settings.UserSelection.values.toSet)
+    val boolStrField = stringIn(Set("true", "false"))
+    mapping(
+      "name" -> nonEmptyText(minLength = 1, maxLength = 100),
+      "flair" -> optional(nonEmptyText(maxLength = 100)),
+      "visibility" -> typeIn(Visibility.values.toSet),
+      "computer" -> userSelectionField,
+      "explorer" -> userSelectionField,
+      "cloneable" -> userSelectionField,
+      "shareable" -> userSelectionField,
+      "chat" -> userSelectionField,
+      "sticky" -> boolStrField,
+      "description" -> optional(boolStrField)
+    )(FormData.apply)(unapply)
 
   object importGame:
 
