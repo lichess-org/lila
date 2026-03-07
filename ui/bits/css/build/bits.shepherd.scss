@@ -1,43 +1,57 @@
 @use '../../node_modules/shepherd.js/dist/css/shepherd.css';
+@import '../../../lib/css/plugin';
 
 .shepherd {
   &-element {
-    border: 1px solid var(--c-border);
-    background-color: rgb(from var(--c-bg) r g b / 0.92);
+    border: $border;
+    background-color: $m-bg--alpha-92;
     backdrop-filter: blur(6px);
-  }
 
-  html.light &,
-  html.transp & {
-    &-element {
-      background-color: rgb(from var(--c-bg) r g b / 0.84);
+    @include if-light {
+      background-color: $m-bg--alpha-84;
+    }
+
+    @include if-transp {
+      background-color: $m-bg--alpha-82;
     }
   }
 
   &-has-title &-content &-header {
-    background: linear-gradient(to bottom, var(--c-metal-top), var(--c-metal-bottom));
-    text-shadow: 0 1px 0 var(--c-font-shadow);
-    border-bottom: 1px solid var(--c-border);
+    @extend %metal;
+
+    border-bottom: $border;
 
     h3 {
       font-size: 1.2em;
       font-weight: bold;
-      color: var(--c-font);
+      color: $c-font;
+    }
+
+    .shepherd-cancel-icon:hover {
+      color: $c-bad;
     }
   }
 
   &-text {
-    color: var(--c-font);
+    color: $c-font;
   }
 
   &-button {
-    background-color: var(--c-primary);
+    @extend %roboto;
+
+    background-color: $c-primary;
+    color: $c-over;
     font-weight: bold;
+
+    &:not(:disabled):hover {
+      color: $c-over;
+      background: $m-primary--lighten-7;
+    }
   }
 
   &-arrow::before {
-    background-color: var(--c-bg);
-    border: 1px solid var(--c-border);
+    background-color: $c-bg;
+    border: $border;
   }
 
   &-element[data-popper-placement^='top'] > &-arrow {
