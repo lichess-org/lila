@@ -1,1 +1,74 @@
 @use '../../node_modules/shepherd.js/dist/css/shepherd.css';
+
+.shepherd {
+  &-element {
+    border: 1px solid var(--c-border);
+    background-color: rgb(from var(--c-bg) r g b / 0.92);
+    backdrop-filter: blur(6px);
+  }
+
+  html.light &,
+  html.transp & {
+    &-element {
+      background-color: rgb(from var(--c-bg) r g b / 0.84);
+    }
+  }
+
+  &-has-title &-content &-header {
+    background: linear-gradient(to bottom, var(--c-metal-top), var(--c-metal-bottom));
+    text-shadow: 0 1px 0 var(--c-font-shadow);
+    border-bottom: 1px solid var(--c-border);
+
+    h3 {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: var(--c-font);
+    }
+  }
+
+  &-text {
+    color: var(--c-font);
+  }
+
+  &-button {
+    background-color: var(--c-primary);
+    font-weight: bold;
+  }
+
+  &-arrow::before {
+    background-color: var(--c-bg);
+    border: 1px solid var(--c-border);
+  }
+
+  &-element[data-popper-placement^='top'] > &-arrow {
+    clip-path: polygon(-20% 50%, 120% 50%, 50% 120%);
+
+    &::before {
+      border-width: 0 1px 1px 0;
+    }
+  }
+
+  &-element[data-popper-placement^='bottom'] > &-arrow {
+    clip-path: polygon(-20% 50%, 120% 50%, 50% -20%);
+
+    &::before {
+      border-width: 1px 0 0 1px;
+    }
+  }
+
+  &-element[data-popper-placement^='left'] > &-arrow {
+    clip-path: polygon(49% -20%, 49% 120%, 120% 50%);
+
+    &::before {
+      border-width: 1px 1px 0 0;
+    }
+  }
+
+  &-element[data-popper-placement^='right'] > &-arrow {
+    clip-path: polygon(51% -20%, 51% 120%, -20% 50%);
+
+    &::before {
+      border-width: 0 0 1px 1px;
+    }
+  }
+}
