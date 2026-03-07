@@ -13,9 +13,10 @@ import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl } from 'lib/v
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
 import { userTitle } from 'lib/view/userLink';
 
+import { playerFedFlag } from '@/view/util';
+
 import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
 import { type CloudEval, type MultiCloudEval, renderScore } from './multiCloudEval';
-import { playerFedFlag } from './playerBars';
 import { playerColoredResult } from './relay/customScoreStatus';
 import type { RelayRound } from './relay/interfaces';
 import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';

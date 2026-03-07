@@ -1018,7 +1018,6 @@ object I18nKey:
     val `botPlay`: I18nKey = "oauthScope:botPlay"
     val `engineRead`: I18nKey = "oauthScope:engineRead"
     val `engineWrite`: I18nKey = "oauthScope:engineWrite"
-    val `webLogin`: I18nKey = "oauthScope:webLogin"
     val `webMod`: I18nKey = "oauthScope:webMod"
     val `personalAccessTokens`: I18nKey = "oauthScope:personalAccessTokens"
     val `canMakeOauthRequests`: I18nKey = "oauthScope:canMakeOauthRequests"

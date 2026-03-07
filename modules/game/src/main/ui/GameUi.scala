@@ -245,7 +245,7 @@ final class GameUi(helpers: Helpers):
 
     val separator = " • "
 
-    def apply(g: Game, note: Option[String], user: Option[User], ownerLink: Boolean)(
+    def apply(g: Game, user: Option[User], ownerLink: Boolean)(
         contextLink: Option[Tag]
     )(using Context): Frag =
       val fromPlayer = user.flatMap(g.player)
@@ -261,7 +261,19 @@ final class GameUi(helpers: Helpers):
               contextLink.map(l => frag(separator, l))
             )
           ),
-          content(g, note, fromPlayer)
+          div(cls := "versus")(
+            gamePlayer(g.whitePlayer),
+            div(cls := "swords", dataIcon := Icon.Swords),
+            gamePlayer(g.blackPlayer)
+          ),
+          result(g, fromPlayer),
+          if g.playedPlies > 0 then opening(g) else frag(br, br),
+          g.metadata.analysed.option(
+            div(cls := "metadata text", dataIcon := Icon.BarChart)(trans.site.computerAnalysisAvailable())
+          ),
+          g.pgnImport.flatMap(_.user).map { user =>
+            div(cls := "metadata")("PGN import by ", userIdLink(user.some))
+          }
         )
       )
 
@@ -273,24 +285,6 @@ final class GameUi(helpers: Helpers):
         if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color,
         pov.game.history.lastMove
       )
-
-    def content(g: Game, note: Option[String], as: Option[Player])(using Context) = frag(
-      div(cls := "versus")(
-        gamePlayer(g.whitePlayer),
-        div(cls := "swords", dataIcon := Icon.Swords),
-        gamePlayer(g.blackPlayer)
-      ),
-      result(g, as),
-      if g.playedPlies > 0 then opening(g) else frag(br, br),
-      note.map: note =>
-        div(cls := "notes")(strong("Notes: "), note),
-      g.metadata.analysed.option(
-        div(cls := "metadata text", dataIcon := Icon.BarChart)(trans.site.computerAnalysisAvailable())
-      ),
-      g.pgnImport.flatMap(_.user).map { user =>
-        div(cls := "metadata")("PGN import by ", userIdLink(user.some))
-      }
-    )
 
     def source(g: Game)(using Context) =
       strong(

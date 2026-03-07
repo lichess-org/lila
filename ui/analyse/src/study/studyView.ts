@@ -10,14 +10,16 @@ import { type VNode, iconTag, bind, dataIcon, type LooseVNodes, onInsert, hl } f
 import { verticalResize } from 'lib/view/verticalResize';
 import { watchers } from 'lib/view/watchers';
 
+import { viewContext, renderBoard, renderMain, renderUnderboard } from '@/view/components';
+import { renderControls } from '@/view/controls';
+import { renderTools } from '@/view/tools';
+import { wikiToggleBox } from '@/wiki';
+
 import crazyView from '../crazy/crazyView';
 import type AnalyseCtrl from '../ctrl';
 import { view as keyboardView } from '../keyboard';
 import type * as studyDeps from '../study/studyDeps';
-import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } from '../view/components';
-import { renderControls } from '../view/controls';
 import { render as trainingView } from '../view/roundTraining';
-import { wikiToggleBox } from '../wiki';
 import { view as chapterEditFormView } from './chapterEditForm';
 import { view as chapterNewFormView } from './chapterNewForm';
 import * as commentForm from './commentForm';

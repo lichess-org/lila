@@ -5,7 +5,7 @@ import { onInsert, spinnerHtml } from 'lib/view';
 import { userLink } from 'lib/view/userLink';
 
 import type Ctrl from './ctrl';
-import { registerFormHandler } from './insight';
+import { registerFormHandler } from './insight.refresh';
 
 const shareStates = ['nobody', 'friends only', 'everybody'];
 

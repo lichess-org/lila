@@ -7,7 +7,9 @@ import { pubsub } from 'lib/pubsub';
 import { bind } from 'lib/view';
 import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'lib/xhr';
 
-import { type DasherCtrl, PaneCtrl } from './interfaces';
+import type { DasherCtrl } from '@/ctrl';
+
+import { PaneCtrl } from './interfaces';
 import { elementScrollBarWidthSlowGuess, header } from './util';
 
 export interface BackgroundData {

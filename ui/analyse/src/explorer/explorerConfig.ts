@@ -8,7 +8,7 @@ import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'l
 import { type Dialog, snabDialog, bind, dataIcon, iconTag, onInsert } from 'lib/view';
 import { userComplete } from 'lib/view/userComplete';
 
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import { ucfirst } from './explorerUtil';
 import type { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 

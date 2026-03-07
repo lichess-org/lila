@@ -14,6 +14,7 @@ import { info, tutor } from './info';
 import type { ViewTab } from './interfaces';
 import presets from './presets';
 import { vert } from './table';
+import { isAtLeastSmall, isAtLeastXSmall, isAtLeastXXSmall, isLandscapeLayout } from './util';
 
 let forceRender = false;
 
@@ -30,10 +31,6 @@ export function view(ctrl: Ctrl) {
     ctrl.vm.view = 'insights';
   }
   return portraitView(ctrl);
-}
-
-export function isLandscapeLayout() {
-  return isAtLeastXSmall() || window.innerWidth > window.innerHeight;
 }
 
 // Key that determines whether or not renderMain needs to get rerendered
@@ -177,7 +174,3 @@ const containerStyle = () => ({
       ` ---chart-height: ${Math.max(300, Math.min(600, window.innerHeight - 100))}px;`,
   },
 });
-
-const isAtLeastXXSmall = (w = window.innerWidth) => w >= 500; // $mq-xx-small
-const isAtLeastXSmall = (w = window.innerWidth) => w >= 650; // $mq-x-small
-const isAtLeastSmall = (w = window.innerWidth) => w >= 800; // $mq-small
