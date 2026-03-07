@@ -11,10 +11,12 @@ import { type VNode, dataIcon, hl, onInsert, spinnerVdom as spinner, type LooseV
 import { userLink, userTitle } from 'lib/view/userLink';
 import { json as xhrJson } from 'lib/xhr';
 
+import { playerFedFlag } from '@/view/util';
+
 import type { ChapterId, FideId, PointsStr, StudyPlayer, StudyPlayerFromServer } from '../interfaces';
-import { playerFedFlag } from '../playerBars';
 import { convertPlayerFromServer } from '../studyChapters';
 import { playerColoredResult } from './customScoreStatus';
+import { teamLinkData } from './deepLink';
 import type {
   FideTC,
   Photo,
@@ -24,7 +26,6 @@ import type {
   RoundId,
   StatByFideTC,
 } from './interfaces';
-import { teamLinkData } from './relayTeamLeaderboard';
 
 export type RelayPlayerId = FideId | string;
 

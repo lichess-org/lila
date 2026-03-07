@@ -7,8 +7,8 @@ import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl } from 'lib/view'
 
 import type AnalyseCtrl from '../ctrl';
 import { view as renderConfig } from './explorerConfig';
-import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
-import { moveArrowAttributes, ucfirst } from './explorerUtil';
+import type ExplorerCtrl from './explorerCtrl';
+import { MAX_ANALYSE_DEPTH, moveArrowAttributes, ucfirst } from './explorerUtil';
 import {
   isOpening,
   isTablebase,
@@ -208,7 +208,7 @@ const closeButton = (ctrl: AnalyseCtrl): VNode =>
   );
 
 const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
-  const isTooDeep = ctrl.explorer.root.node.ply >= MAX_DEPTH;
+  const isTooDeep = ctrl.explorer.root.node.ply >= MAX_ANALYSE_DEPTH;
   return hl('div.data.empty', [
     explorerTitle(ctrl.explorer),
     openingTitle(ctrl, data),

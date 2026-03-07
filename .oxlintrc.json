@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["promise", "typescript", "unicorn"],
+  "plugins": ["import", "promise", "typescript", "unicorn"],
   "env": {
     "builtin": true
   },
@@ -26,6 +26,7 @@
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
+    "import/no-cycle": "error",
     "prefer-promise-reject-errors": "error",
     "promise/no-callback-in-promise": "error",
     "promise/no-multiple-resolved": "error",
@@ -232,6 +233,12 @@
       "rules": {
         "no-unused-vars": "off",
         "unicorn/prefer-array-some": "off"
+      }
+    },
+    {
+      "files": ["ui/.build/**"],
+      "rules": {
+        "import/no-cycle": "off"
       }
     }
   ]

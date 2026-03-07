@@ -12,7 +12,7 @@ import * as licon from 'lib/licon';
 import { type LooseVNode, hl, bind } from 'lib/view';
 
 import renderCorresClock from '../corresClock/corresClockView';
-import RoundController from '../ctrl';
+import type RoundController from '../ctrl';
 import { justIcon } from '../util';
 import { moretime } from './button';
 

@@ -8,12 +8,10 @@ import { storedBooleanProp } from 'lib/storage';
 
 import type AnalyseCtrl from '../ctrl';
 import { ExplorerConfigCtrl } from './explorerConfig';
-import { winnerOf } from './explorerUtil';
+import { MAX_ANALYSE_DEPTH, winnerOf } from './explorerUtil';
 import { clearLastShow } from './explorerView';
 import * as xhr from './explorerXhr';
 import type { Hovering, ExplorerData, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
-
-export const MAX_DEPTH = 50;
 
 function tablebasePieces(variant: VariantKey) {
   switch (variant) {
@@ -157,7 +155,10 @@ export default class ExplorerCtrl {
     if (!this.enabled()) return;
     this.gameMenu(null);
     const node = this.root.node;
-    if ((!this.isAuth() || node.ply >= MAX_DEPTH) && !this.tablebaseRelevant(this.effectiveVariant, node.fen))
+    if (
+      (!this.isAuth() || node.ply >= MAX_ANALYSE_DEPTH) &&
+      !this.tablebaseRelevant(this.effectiveVariant, node.fen)
+    )
       this.cache[node.fen] = this.empty;
     const cached = this.cache[node.fen];
     if (cached) {

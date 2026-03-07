@@ -7,16 +7,18 @@ import type { TreePath } from 'lib/tree/types';
 import { hl } from 'lib/view';
 import { userTitle } from 'lib/view/userLink';
 
-import type AnalyseCtrl from '../ctrl';
-import renderClocks from '../view/clocks';
-import { renderMaterialDiffs } from '../view/components';
-import type { StudyPlayers, Federation, StudyPlayer, StatusStr, TagMap } from './interfaces';
+import type AnalyseCtrl from '@/ctrl';
+import renderClocks from '@/view/clocks';
+import { renderMaterialDiffs } from '@/view/materialDiffs';
+import { playerFedFlag } from '@/view/util';
+
+import type { StudyPlayers, StudyPlayer, StatusStr, TagMap } from './interfaces';
 import { playerColoredResult } from './relay/customScoreStatus';
 import type { RelayRound } from './relay/interfaces';
 import RelayPlayers, { fidePageLinkAttrs, playerId, playerPhotoOrFallback } from './relay/relayPlayers';
 import RelayTeamLeaderboard from './relay/relayTeamLeaderboard';
 import { looksLikeLichessGame } from './studyChapters';
-import { StudyCtrl } from './studyDeps';
+import type { StudyCtrl } from './studyDeps';
 import { tagsToMap } from './studyTags';
 import { resultTag } from './studyView';
 
@@ -158,12 +160,3 @@ function resultOf(tags: TagMap, isWhite: boolean): string | undefined {
   const mine = both?.length === 2 ? both[isWhite ? 0 : 1] : undefined;
   return mine === '1/2' ? '½' : mine;
 }
-
-export const playerFedFlag = (fed?: Federation): VNode | undefined =>
-  fed &&
-  hl('img.mini-game__flag', {
-    attrs: {
-      src: site.asset.fideFedSrc(fed.id),
-      title: `Federation: ${fed.i18nName}`,
-    },
-  });
