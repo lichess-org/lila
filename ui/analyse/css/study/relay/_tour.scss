@@ -626,6 +626,10 @@ $hover-bg: $m-primary_bg--mix-30;
       @extend %tour-margin-horiz;
     }
 
+    &__games-wrap {
+      overflow: auto;
+    }
+
     &__cards {
       @extend %tour-margin-horiz;
 

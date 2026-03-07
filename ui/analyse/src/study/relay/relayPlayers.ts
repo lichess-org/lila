@@ -247,9 +247,11 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
             p.ratingDiffs &&
               hl('div.fide-player__card', [hl('em', i18n.broadcast.ratingDiff), ratingDiff(p)]),
           ]),
-          hl('table.relay-tour__player__games.slist.slist-pad', [
-            hl('thead', hl('tr', hl('td', { attrs: { colspan: 69 } }, i18n.broadcast.gamesThisTournament))),
-            renderPlayerGames(ctrl, p, true),
+          hl('div.fide-player__games-wrap', [
+            hl('table.relay-tour__player__games.slist.slist-pad', [
+              hl('thead', hl('tr', hl('td', { attrs: { colspan: 69 } }, i18n.broadcast.gamesThisTournament))),
+              renderPlayerGames(ctrl, p, true),
+            ]),
           ]),
         ]
       : [spinner()],
