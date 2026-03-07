@@ -59,7 +59,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     if (!site.blindMode) root.redraw();
   }
 
-  // todo - technically these functions aren't fully correct (consider variation plies)
+  // TODO these functions return false positives for variation plies.
   const isPlySolved = (ply: Ply): boolean => solvedPlies.includes(ply);
   const isPlyLearnCandidate = (ply: Ply): boolean => candidateNodes.some(n => n.ply === ply);
 
