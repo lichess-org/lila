@@ -1,4 +1,5 @@
 import resizeHandle from '@/chessgroundResize';
+import { isSafari } from '@/device';
 import { ShowResizeHandle, Coords } from '@/prefs';
 import { storage } from '@/storage';
 
@@ -15,6 +16,7 @@ export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): 
     coordinatesOnSquares: pref.coords === Coords.All,
     addPieceZIndex: pref.is3d,
     addDimensionsCssVarsTo: document.body,
+    jsHover: isSafari(),
     movable: {
       free: false,
       color: opts.movable!.color,

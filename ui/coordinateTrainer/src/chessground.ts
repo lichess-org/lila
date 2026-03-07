@@ -3,6 +3,7 @@ import type { Elements } from '@lichess-org/chessground/types';
 import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
+import { isSafari } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
 
 import type CoordinateTrainerCtrl from './ctrl';
@@ -31,6 +32,7 @@ function makeConfig(ctrl: CoordinateTrainerCtrl): CgConfig {
     coordinates: ctrl.showCoordinates(),
     coordinatesOnSquares: ctrl.showCoordsOnAllSquares(),
     addPieceZIndex: ctrl.config.is3d,
+    jsHover: isSafari(),
     movable: { free: false, color: undefined },
     drawable: { enabled: false },
     draggable: { enabled: false },

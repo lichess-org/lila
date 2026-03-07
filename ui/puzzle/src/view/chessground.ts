@@ -2,6 +2,7 @@ import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
+import { isSafari } from 'lib/device';
 import { Coords, ShowResizeHandle } from 'lib/prefs';
 import { storage } from 'lib/storage';
 
@@ -28,6 +29,7 @@ export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
     coordinatesOnSquares: ctrl.pref.coords === Coords.All,
     addPieceZIndex: ctrl.pref.is3d,
     addDimensionsCssVarsTo: document.body,
+    jsHover: isSafari(),
     movable: {
       free: false,
       color: opts.movable!.color,

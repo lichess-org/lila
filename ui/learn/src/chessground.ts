@@ -1,6 +1,7 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { h, type VNode } from 'snabbdom';
 
+import { isSafari } from 'lib/device';
 import { Coords } from 'lib/prefs';
 
 import type { RunCtrl } from './run/runCtrl';
@@ -34,6 +35,7 @@ const makeConfig = (ctrl: RunCtrl): CgConfig => ({
   blockTouchScroll: true,
   coordinates: true,
   coordinatesOnSquares: ctrl.pref.coords === Coords.All,
+  jsHover: isSafari(),
   movable: { free: false, color: undefined, showDests: ctrl.pref.destination },
   drawable: { enabled: false },
   draggable: { enabled: true },

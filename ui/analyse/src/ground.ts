@@ -3,6 +3,7 @@ import type { Elements } from '@lichess-org/chessground/types';
 import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
+import { isSafari } from 'lib/device';
 import * as Prefs from 'lib/prefs';
 import { storage } from 'lib/storage';
 
@@ -25,7 +26,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
   const d = ctrl.data,
     pref = d.pref,
     opts = ctrl.makeCgOpts();
-  const config = {
+  const config: CgConfig = {
     turnColor: opts.turnColor,
     fen: opts.fen,
     check: opts.check,
@@ -37,6 +38,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     addDimensionsCssVarsTo: document.body,
     touchIgnoreRadius: 0,
     viewOnly: false,
+    jsHover: isSafari(),
     movable: {
       free: false,
       color: opts.movable!.color,

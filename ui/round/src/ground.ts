@@ -3,6 +3,7 @@ import { uciToMove } from '@lichess-org/chessground/util';
 import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
+import { isSafari } from 'lib/device';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { onInsert } from 'lib/view';
@@ -30,6 +31,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     addPieceZIndex: ctrl.data.pref.is3d,
     addDimensionsCssVarsTo: document.body,
     touchIgnoreRadius: data.correspondence ? 0 : 1,
+    jsHover: isSafari(),
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,

@@ -448,14 +448,16 @@ export default class StudyCtrl {
     return undefined;
   };
 
-  mutateCgConfig = (config: Required<Pick<CgConfig, 'drawable'>>) => {
-    config.drawable.onChange = (shapes: Shape[]) => {
-      if (this.vm.mode.write) {
-        this.arrowHistory.push(this.ctrl.node.shapes?.slice() ?? []);
-        this.updateShapes(shapes);
-      }
-      this.gamebookPlay?.onShapeChange(shapes);
-    };
+  mutateCgConfig = (config: CgConfig) => {
+    if (config.drawable) {
+      config.drawable.onChange = (shapes: Shape[]) => {
+        if (this.vm.mode.write) {
+          this.arrowHistory.push(this.ctrl.node.shapes?.slice() ?? []);
+          this.updateShapes(shapes);
+        }
+        this.gamebookPlay?.onShapeChange(shapes);
+      };
+    }
   };
 
   wrongChapter = (serverData: WithPosition & { s?: boolean }): boolean => {
