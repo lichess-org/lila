@@ -144,6 +144,11 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
     RateLimit[IpAddress](credits = 20 * 3, duration = 24.hour, key = "study.clone.ip")
   )
 
+  val studyCreate: RateLimiter[(UserId, IpAddress)] = combine(
+    RateLimit[UserId](credits = 30 * 2, duration = 24.hour, key = "study.create.user"),
+    RateLimit[IpAddress](credits = 50 * 2, duration = 24.hour, key = "study.create.ip")
+  )
+
   val studyPgn = RateLimit[IpAddress](credits = 31, duration = 1.minute, key = "export.study.pgn.ip")
 
   val relayPgn = RateLimit[IpAddress](credits = 61, duration = 1.minute, key = "export.relay.pgn.ip")

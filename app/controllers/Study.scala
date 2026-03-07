@@ -288,17 +288,21 @@ final class Study(
   }
 
   private def createStudy(data: StudyForm.importGame.Data)(using ctx: Context, me: Me) =
-    Found(env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings)): sc =>
-      Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
+    limit.studyCreate(me.userId -> ctx.ip, rateLimited, if coachOrTitled then 1 else 2):
+      Found(env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me, ctx.pref.showRatings)): sc =>
+        Redirect(routes.Study.chapter(sc.study.id, sc.chapter.id))
 
-  def apiCreate = ScopedBody(_.Study.Write) { _ ?=> _ ?=>
+  def apiCreate = ScopedBody(_.Study.Write) { _ ?=> me ?=>
     bindForm(StudyForm.form)(
       jsonFormError,
       data =>
-        for sc <- env.study.api.create(data)
-        yield JsonOk(Json.obj("id" -> sc.study.id))
+        limit.studyCreate(me.userId -> ctx.ip, rateLimited, if coachOrTitled then 1 else 2):
+          for sc <- env.study.api.create(data)
+          yield JsonOk(Json.obj("id" -> sc.study.id))
     )
   }
+
+  private def coachOrTitled(using me: Me) = isGranted(_.Coach) || me.hasTitle
 
   def delete(id: StudyId) = Auth { _ ?=> me ?=>
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
@@ -383,8 +387,7 @@ final class Study(
   }
 
   def cloneApply(id: StudyId) = Auth { ctx ?=> me ?=>
-    val cost = if isGranted(_.Coach) || me.hasTitle then 1 else 3
-    limit.studyClone(me.userId -> ctx.ip, rateLimited, cost):
+    limit.studyClone(me.userId -> ctx.ip, rateLimited, if coachOrTitled then 1 else 3):
       Found(env.study.api.byId(id)) { prev =>
         CanView(prev, prev.settings.cloneable.some) {
           env.study.api
