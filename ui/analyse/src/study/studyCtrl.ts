@@ -48,6 +48,7 @@ import type { RelayData } from './relay/interfaces';
 import RelayCtrl from './relay/relayCtrl';
 import ServerEval from './serverEval';
 import StudyChaptersCtrl, { isFinished } from './studyChapters';
+import StudyClockEdit from './studyClockEdit';
 import { StudyForm } from './studyForm';
 import { GlyphForm } from './studyGlyph';
 import studyKeyboard from './studyKeyboard';
@@ -93,7 +94,6 @@ export default class StudyCtrl {
   nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
   arrowHistory: Shape[][] = [];
-  clockEdit: { slot: 'top' | 'bottom'; path: string; value: string; error?: boolean } | null = null;
   data: StudyData;
   vm: StudyVm;
   notif: NotifCtrl;
@@ -114,6 +114,7 @@ export default class StudyCtrl {
   search: SearchCtrl;
   practice?: StudyPracticeCtrl;
   gamebookPlay?: GamebookPlayCtrl;
+  clockEdit?: StudyClockEdit;
 
   constructor(
     data: StudyDataFromServer,
@@ -320,28 +321,14 @@ export default class StudyCtrl {
     ch: this.vm.chapterId,
   });
 
-  openClockEdit = (slot: 'top' | 'bottom', path: string, value: string) => {
+  openClockEdit = (slot: 'top' | 'bottom', path: TreePath, value: string) => {
     this.ctrl.autoplay.stop();
-    this.clockEdit = { slot, path, value };
+    this.clockEdit = new StudyClockEdit(slot, path, value, this.ctrl.redraw);
     this.ctrl.redraw();
   };
 
-  setClockEditValue = (value: string) => {
-    if (this.clockEdit) {
-      this.clockEdit = { ...this.clockEdit, value, error: false };
-      this.ctrl.redraw();
-    }
-  };
-
-  setClockEditError = (error: boolean) => {
-    if (this.clockEdit) {
-      this.clockEdit = { ...this.clockEdit, error };
-      this.ctrl.redraw();
-    }
-  };
-
   closeClockEdit = () => {
-    this.clockEdit = null;
+    this.clockEdit = undefined;
     this.ctrl.redraw();
   };
 
