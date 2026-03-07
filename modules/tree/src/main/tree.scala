@@ -279,6 +279,7 @@ object Root:
       crazyData = variant.crazyhouse.option(Crazyhouse.Data.init)
     )
 
+/* trust is false when centirs was estimated using TC and EMT */
 case class Clock(centis: Centis, trust: Option[Boolean] = none):
   def positive = centis >= Centis(0)
 

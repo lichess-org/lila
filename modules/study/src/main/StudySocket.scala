@@ -200,14 +200,15 @@ final private class StudySocket(
 
         case "setClock" =>
           reading[AtPosition](o): position =>
-            if (o \ "d" \ "clear").asOpt[Boolean].contains(true) then
-              applyWho(api.setClock(studyId, position.ref, None)(_))
+            if ~(o \ "d" \ "clear").asOpt[Boolean]
+            then applyWho(api.setClock(studyId, position.ref, None)(_))
             else
               (o \ "d" \ "centis")
-                .asOpt[Int]
-                .filter(_ >= 0)
-                .foreach: centis =>
-                  applyWho(api.setClock(studyId, position.ref, Clock(Centis(centis), false.some).some)(_))
+                .asOpt[Centis]
+                .map(Clock(_, true.some))
+                .filter(_.positive)
+                .foreach: clock =>
+                  applyWho(api.setClock(studyId, position.ref, clock.some)(_))
 
         case "setGamebook" =>
           reading[AtPosition](o): position =>

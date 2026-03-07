@@ -131,7 +131,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   ) =
     val modifier = clock match
       case None =>
-        $unset(pathToField(path, F.clock)) ++ denorm.fold($empty)(clocks => $set("denorm.clocks" -> clocks))
+        $unset(pathToField(path, F.clock)) ++ denorm.so(clocks => $set("denorm.clocks" -> clocks))
       case Some(c) =>
         val updateNode = $doc(pathToField(path, F.clock) -> c)
         val updateDenorm = denorm.map(clocks => $doc("denorm.clocks" -> clocks))
