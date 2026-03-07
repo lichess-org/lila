@@ -2009,8 +2009,6 @@ interface I18n {
     tokenGrantsPermission: string;
     /** Create, update, and join tournaments */
     tournamentWrite: string;
-    /** Create authenticated website sessions (grants full access!) */
-    webLogin: string;
     /** Use moderator tools (within bounds of your permission) */
     webMod: string;
     /** What the token can do on your behalf: */
