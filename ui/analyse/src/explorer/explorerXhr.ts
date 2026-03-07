@@ -22,7 +22,7 @@ export async function opening(
 ): Promise<void> {
   const conf = opts.config;
   const confByDb = conf.byDb();
-  const url = new URL(`/li/${opts.db}`, opts.endpoint);
+  const url = new URL(`/${opts.db}`, opts.endpoint);
   const params = url.searchParams;
   params.set('variant', opts.variant || 'standard');
   params.set('fen', opts.rootFen);
