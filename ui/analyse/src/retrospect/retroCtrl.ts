@@ -59,7 +59,9 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     if (!site.blindMode) root.redraw();
   }
 
+  // todo - technically these functions aren't fully correct (consider variation plies)
   const isPlySolved = (ply: Ply): boolean => solvedPlies.includes(ply);
+  const isPlyLearnCandidate = (ply: Ply): boolean => candidateNodes.some(n => n.ply === ply);
 
   function findNextNode(): TreeNode | undefined {
     const colorModulo = color === 'white' ? 1 : 0;
@@ -197,7 +199,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   const hideComputerLine = (node: TreeNode): boolean =>
-    (node.ply % 2 === 0) !== (color === 'white') && !isPlySolved(node.ply);
+    isPlyLearnCandidate(node.ply) && !isPlySolved(node.ply);
 
   function showBadNode(): TreeNode | undefined {
     const cur = current();
