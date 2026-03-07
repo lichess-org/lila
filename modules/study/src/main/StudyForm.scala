@@ -34,12 +34,20 @@ object StudyForm:
       cloneable: Settings.UserSelection,
       shareable: Settings.UserSelection,
       chat: Settings.UserSelection,
-      sticky: String,
+      sticky: Option[String],
       description: Option[String]
   ):
     def studyName = StudyName(lila.common.String.fullCleanUp(name).take(100))
     def settings =
-      Settings(computer, explorer, cloneable, shareable, chat, sticky == "true", description.has("true"))
+      Settings(
+        computer,
+        explorer,
+        cloneable,
+        shareable,
+        chat,
+        sticky.forall(_ == "true"),
+        description.has("true")
+      )
 
   val form: Form[FormData] = Form:
     val userSelectionField = typeIn(Settings.UserSelection.values.toSet)
@@ -53,7 +61,7 @@ object StudyForm:
       "cloneable" -> userSelectionField,
       "shareable" -> userSelectionField,
       "chat" -> userSelectionField,
-      "sticky" -> boolStrField,
+      "sticky" -> optional(boolStrField),
       "description" -> optional(boolStrField)
     )(FormData.apply)(unapply)
 
