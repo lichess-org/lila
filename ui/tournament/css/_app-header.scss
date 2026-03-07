@@ -129,11 +129,10 @@
       letter-spacing: 2px;
 
       .shield-trophy {
+        @include inline-start(24px);
+
         position: absolute;
-        top: -8px;
-
-        @include inline-start(12px);
-
+        top: 16px;
         display: block;
         width: 67px;
         height: 80px;
@@ -145,6 +144,10 @@
         text-align: center;
         color: #333 !important;
         text-shadow: 0 0 6px #fff;
+
+        @media (width <= $small) {
+          top: 10px;
+        }
       }
     }
   }
