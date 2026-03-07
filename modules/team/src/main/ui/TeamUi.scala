@@ -61,7 +61,7 @@ final class TeamUi(helpers: Helpers, markdownCache: lila.memo.MarkdownCache):
           t.flair.map(teamFlair),
           t.amLeader.option(em("leader"))
         ),
-        ~t.intro: String
+        t.intro.map(intro => span(intro))
       ),
       td(cls := "info")(
         p(trt.nbMembers.plural(t.nbMembers, t.nbMembers.localize)),
