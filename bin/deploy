@@ -293,6 +293,7 @@ def deploy_script(profile, session, run, url):
             f"echo '\n# git -C {deploy_dir} checkout {commit}'",
             f"git -C {deploy_dir} checkout {commit}",
             f"git -C {deploy_dir} lfs pull",
+            f"make -C {deploy_dir}/public/lifat/nnue -j4",
             f"echo '\n# rsync -a {artifact_unzipped}/d/public {deploy_dir}/'",
             f"rsync -a {artifact_unzipped}/d/public {deploy_dir}/",
         ]
