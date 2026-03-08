@@ -17,7 +17,7 @@ final class Env(
     appConfig: Configuration,
     cookieBaker: lila.core.security.LilaCookie,
     ws: StandaloneWSClient
-)(using Scheduler, Executor):
+)(using Executor, lila.core.config.RateLimit):
 
   private val explorerEndpoint = Url(appConfig.get[String]("explorer.endpoint"))
   private val oauthToken = appConfig.get[Secret]("explorer.oauth_token")
