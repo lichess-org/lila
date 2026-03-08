@@ -1,12 +1,8 @@
+import { INITIAL_FEN } from 'chessops/fen';
+
 import { type Prop, propWithEffect, toggle } from 'lib';
 import { debounce } from 'lib/async';
-import * as xhr from 'lib/xhr';
-import { storedJsonProp } from 'lib/storage';
-import { alert } from 'lib/view';
-import { INITIAL_FEN } from 'chessops/fen';
-import type LobbyController from './ctrl';
-import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
-import { keyToId, variants } from './options';
+import type { ColorChoice, ColorProp } from 'lib/setup/color';
 import {
   allTimeModeKeys,
   timeControlFromStoredValues,

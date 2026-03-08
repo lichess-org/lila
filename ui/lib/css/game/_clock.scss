@@ -1,5 +1,6 @@
 .rclock {
   @include prevent-select;
+
   position: relative;
   display: flex;
   justify-content: flex-end;
@@ -157,6 +158,7 @@
     &.low {
       opacity: 0.15;
     }
+
     @media (prefers-reduced-motion: reduce) {
       &.low {
         opacity: 0.5;

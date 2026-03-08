@@ -5,10 +5,10 @@
   <string name="whatCanWeHelpYouWith">Sizga qanday yordam bera olamiz?</string>
   <string name="visitThisPage">Muammoni hal qilish uchun ushbu sahifaga oʻting</string>
   <string name="iCantLogIn">Akkauntimga kira olmayapman</string>
-  <string name="noConfirmationEmail">E-pochtamga tasdiq xati kelmadi</string>
+  <string name="noConfirmationEmail">E‑pochtamga tasdiq xati kelmadi</string>
   <string name="forgotPassword">Parolimni unutib qoʻydim</string>
   <string name="forgotUsername">Foydalanuvchi nomimni unutib qoʻydim</string>
-  <string name="youCanLoginWithEmail">Roʻyxatdan oʻtgan e-pochta manzilingiz orqali ham tizimga kirishingiz mumkin</string>
+  <string name="youCanLoginWithEmail">Roʻyxatdan oʻtgan e‑pochta manzilingiz orqali ham tizimga kirishingiz mumkin</string>
   <string name="lost2FA">Ikki bosqichli autentifikatsiya (2FA) kodlarimni yoʻqotib qoʻydim</string>
   <string name="doPasswordReset">Ikki bosqichli autentifikatsiyani oʻchirish uchun parolningizni boshqattan oʻrnating</string>
   <string name="accountSupport">Akkaunt boʻyicha yordam kerak</string>
@@ -16,7 +16,7 @@
   <string name="visitTitleConfirmation">Lichess profilingizda unvoningizni koʻrsatish va unvonli oʻyinchilar arenalarida (Titled Arenas) qatnashish uchun unvonni tasdiqlash sahifasiga oʻting</string>
   <string name="wantCloseAccount">Akkauntimni yopmoqchiman</string>
   <string name="closeYourAccount">Akkauntingizni ushbu sahifada yopishingiz mumkin</string>
-  <string name="doNotAskByEmail">Akkauntingizni yopishni e-pochta orqali soʻramang, biz buni bajara olmaymiz.</string>
+  <string name="doNotAskByEmail">Akkauntingizni yopishni e‑pochta orqali soʻramang, biz buni bajara olmaymiz.</string>
   <string name="wantReopen">Akkauntimni qayta faollashtirmoqchiman</string>
   <string name="reopenOnThisPage">Akkauntingizni ushbu sahifada qayta ochishingiz mumkin.</string>
   <string name="doNotAskByEmailToReopen">Akkauntingizni qayta ochishni elektron pochta orqali soʻramang, biz buni bajara olmaymiz.</string>
@@ -30,11 +30,11 @@
   <string name="toReportAPlayerUseForm">Oʻyinchi ustidan shikoyat qilish uchun maxsus formani toʻldiring</string>
   <string name="youCanAlsoReachReportPage">Shuningdek, ushbu sahifaga foydalanuvchi profilidagi %s tugmasini bosish orqali ham oʻtishingiz mumkin.</string>
   <string name="doNotReportInForum">Oʻyinchilar haqida shikoyatni forumda yozmang.</string>
-  <string name="doNotSendReportEmails">Bizga shikoyat mazmunidagi e-pochta xatlar yubormang.</string>
-  <string name="doNotMessageModerators">Moderatorlarga toʻgʻridan-toʻgʻri shaxsiy xabarlarlar yubormang.</string>
+  <string name="doNotSendReportEmails">Bizga shikoyat mazmunidagi e‑pochta xatlar yubormang.</string>
+  <string name="doNotMessageModerators">Moderatorlarga toʻgʻridan‑toʻgʻri shaxsiy xabarlarlar yubormang.</string>
   <string name="onlyReports">Faqatgina maxsus forma orqali yuborilgan shikoyatlar koʻrib chiqiladi va natija beradi.</string>
   <string name="wantReportBug">Men xato haqida xabar bermoqchiman</string>
-  <string name="reportBugInForum">Forumning “Lichess Feedback” (Lichess fikr-mulohaza) boʻlimida</string>
+  <string name="reportBugInForum">Forumning “Lichess Feedback” (Lichess fikr‑mulohaza) boʻlimida</string>
   <string name="reportWebsiteIssue">GitHubʼdagi \"Lichess website issue\" (sayt muammolari) sahifasiga</string>
   <string name="reportMobileIssue">GitHubʼdagi \"Lichess mobile app issue\" (mobil ilova muammolari) sahifasiga</string>
   <string name="reportBugInDiscord">Lichessʼning Discord serveriga</string>
@@ -48,7 +48,7 @@
   <string name="tryCastling">Buni mashq qilish uchun ushbu interaktiv oʻyinni sinab koʻring</string>
   <string name="castlingImported">Agar siz oʻyinni boshqa joydan import qilgan boʻlsangiz yoki maʼlum bir pozitsiyadan boshlagan boʻlsangiz, rokirovka huquqlari toʻgʻri sozlanganini tekshirib koʻring.</string>
   <string name="insufficientMaterial">Mot qilish uchun donalar yetarli emas</string>
-  <string name="fideMate">FIDE shaxmat qoidalarining 6.9-moddasiga koʻra, agar oʻyinda har qanday qonuniy yurishlar ketma-ketligi orqali mot qilishning nazariy imkoniyati boʻlsa, oʻyin durang deb hisoblanmaydi</string>
+  <string name="fideMate">FIDE shaxmat qoidalarining 6.9‑moddasiga koʻra, agar oʻyinda har qanday qonuniy yurishlar ketma‑ketligi orqali mot qilishning nazariy imkoniyati boʻlsa, oʻyin durang deb hisoblanmaydi</string>
   <string name="knightMate">Masalan, taxtada faqat bitta ot yoki bitta fil qolgan boʻlsa ham, agar raqibda shohdan tashqari boshqa donalar (masalan, piyoda) bor boʻlsa, mot qilish imkoniyati mavjud deb hisoblanadi.</string>
   <string name="noRatingPoints">Reyting ochkolari berilmadi</string>
   <string name="ratedGame">Oʻyin reytingli ekanini tekshirib koʻring. Reytingsiz oʻyinlar natijasi reytingga taʼsir qilmaydi.</string>

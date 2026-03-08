@@ -1,6 +1,6 @@
 import { debounce } from 'lib/async';
-import { text } from 'lib/xhr';
 import { pubsub } from 'lib/pubsub';
+import { text } from 'lib/xhr';
 
 export function initModule(): void {
   fidePlayerFollow();

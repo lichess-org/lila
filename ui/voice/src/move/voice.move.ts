@@ -1,13 +1,12 @@
-import { jsonSimple } from 'lib/xhr';
-import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
-import * as licon from 'lib/licon';
-import { readFen, destsToUcis, square, type Board } from 'lib/game';
 import { charToRole } from 'chessops';
-import { type PromotionCtrl, promote } from 'lib/game/promotion';
+
+import { readFen, destsToUcis, square, type Board } from 'lib/game';
 import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
-import type { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
-import { coloredArrows, numberedArrows, brushes } from './arrows';
-import { settingNodes } from './view';
+import { type PromotionCtrl, promote } from 'lib/game/promotion';
+import * as licon from 'lib/licon';
+import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'lib/storage';
+import { jsonSimple } from 'lib/xhr';
+
 import type { MsgType } from '../interfaces';
 import {
   spread,
@@ -24,6 +23,9 @@ import {
   type Transform,
   type SparseMap,
 } from '../util';
+import type { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
+import { coloredArrows, numberedArrows, brushes } from './arrows';
+import { settingNodes } from './view';
 
 export function initModule({
   root,
@@ -60,7 +62,7 @@ export function initModule({
 
   const listenHandlers = [handleConfirm, handleCommand, handleAmbiguity, handleMove];
 
-  const commands: { [_: string]: () => ListenResult[] } = {
+  const commands: Record<string, () => ListenResult[]> = {
     no: as(['ok', 'clear'], () => (voice.showHelp() ? voice.showHelp(false) : clearMoveProgress())),
     help: as(['ok'], () => voice.showHelp(true)),
     vocabulary: as(['ok'], () => voice.showHelp('list')),
@@ -453,7 +455,7 @@ export function initModule({
           if ((nsrc & 7) === (other & 7)) rank = uci[1];
           else file = uci[0];
         }
-        for (const piece of [`${srole}${file}${rank}`, `${srole}`]) {
+        for (const piece of [`${srole}${file}${rank}`, srole]) {
           if (dp) addToks(`${piece}x${udest}`, uci);
           addToks(`${piece}${udest}`, uci);
         }

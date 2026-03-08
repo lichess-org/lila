@@ -28,7 +28,9 @@ final class Env(
 
   val github = wire[GitHub]
 
-  private lazy val influxEvent = new InfluxEvent(
+  lazy val emailError = wire[EmailError]
+
+  private lazy val influxEvent = InfluxEvent(
     ws = ws,
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv

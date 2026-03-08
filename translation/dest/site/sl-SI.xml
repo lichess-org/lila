@@ -134,8 +134,15 @@
   <string name="pinnedPieces">Pripete figure</string>
   <string name="checkableKing">Kralj, ki ga je mogoče šahirati</string>
   <string name="multipleLines">Več variant</string>
+  <string name="multipleLinesDescription">Nastavite število vrstic za ocenjevanje in premaknite puščice na tabli</string>
+  <string name="searchTime">Čas iskanja</string>
+  <string name="searchTimeDescription">Določite čas za oceno novih pozicij</string>
+  <string name="threads">Teme</string>
+  <string name="threadsDescription">Nastavite to pod število niti vašega procesorja, kljukice označujejo dobro in varno izbiro</string>
+  <string name="threadsDescriptionMobile">Več niti bo porabilo več baterije za boljšo analizo</string>
   <string name="cpus">CPU-ji</string>
   <string name="memory">Spomin</string>
+  <string name="memoryDescription">Višje vrednosti lahko izboljšajo delovanje</string>
   <string name="infiniteAnalysis">Neskončna analiza</string>
   <string name="removesTheDepthLimit">Odstrani omejitev globine in ohrani računalnik topel</string>
   <string name="blunder">Spodrsljaj</string>

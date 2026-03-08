@@ -1,9 +1,9 @@
-import * as xhr from './xhr';
-import { idleTimer, browserTaskQueueMonitor } from './event';
-import { storage, once, type LichessStorage } from './storage';
-import { pubsub, type PubsubEventKey } from './pubsub';
+import { idleTimer } from './event';
 import { defined, myUserId } from './index';
 import { log } from './permalog';
+import { pubsub, type PubsubEventKey } from './pubsub';
+import { storage, once, type LichessStorage } from './storage';
+import * as xhr from './xhr';
 
 let siteSocket: WsSocket | undefined;
 
@@ -17,17 +17,17 @@ type Sri = string;
 type Tpe = string;
 type Payload = any;
 type Version = number;
-interface MsgBase {
+type MsgBase = {
   t: Tpe;
   d?: Payload;
-}
-interface MsgIn extends MsgBase {
+};
+type MsgIn = MsgBase & {
   v?: Version;
-}
-interface MsgOut extends MsgBase {}
-interface MsgAck extends MsgOut {
+};
+type MsgOut = MsgBase;
+type MsgAck = MsgOut & {
   at: number;
-}
+};
 
 interface Options {
   idle: boolean;
@@ -46,9 +46,7 @@ interface Params extends Record<string, any> {
 
 interface Settings {
   receive?: (t: Tpe, d: Payload) => void;
-  events: {
-    [tpe: string]: (d: Payload | null, msg: MsgIn) => any;
-  };
+  events: Record<string, (d: Payload | null, msg: MsgIn) => any>;
   params?: Partial<Params>;
   options?: Partial<Options>;
 }
@@ -110,7 +108,6 @@ class WsSocket {
   private baseUrls = document.body.dataset.socketDomains!.split(',');
 
   private lastUrl?: string;
-  private heartbeat = browserTaskQueueMonitor(1000);
 
   constructor(
     readonly url: string,
@@ -332,15 +329,12 @@ class WsSocket {
   };
 
   private onError = (e: unknown): void => {
-    if (this.heartbeat.wasSuspended) return;
     this.options.debug = true;
     this.debug(`error: ${e} ${JSON.stringify(e)}`); // e not always from lila
   };
 
   private onClose = (e: CloseEvent): void => {
     pubsub.emit('socket.close');
-
-    if (this.heartbeat.wasSuspended) return this.onSuspended();
 
     if (this.ws) {
       this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
@@ -370,13 +364,6 @@ class WsSocket {
       },
     );
   };
-
-  private onSuspended() {
-    this.heartbeat.reset(); // not a networking error, just get our connection back
-    clearTimeout(this.pingSchedule);
-    clearTimeout(this.connectSchedule);
-    this.connect();
-  }
 
   private nextBaseUrl = (): string => {
     let url = this.storage.get();

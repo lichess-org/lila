@@ -1,7 +1,8 @@
 import { objectStorage } from 'lib/objectStorage';
-import { Switch, type Selectable } from './switch';
 import { storedStringProp } from 'lib/storage';
+
 import type { VoskModule, Listener, Microphone, MsgType } from './interfaces';
+import { Switch, type Selectable } from './switch';
 
 export class Mic implements Microphone {
   recId = 'default';
@@ -205,7 +206,7 @@ export class Mic implements Microphone {
   }
 
   private async downloadModel(emscriptenPath: string): Promise<void> {
-    const voskStore = await objectStorage<any>({
+    const voskStore = await objectStorage({
       db: '/vosk',
       store: 'FILE_DATA',
       version: 21,

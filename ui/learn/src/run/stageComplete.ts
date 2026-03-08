@@ -1,11 +1,13 @@
-import { withLinebreaks } from '../util';
-import { getStageRank } from '../score';
-import { numberSpread } from 'lib/i18n';
-import type { RunCtrl } from './runCtrl';
 import { h } from 'snabbdom';
-import { bind } from 'lib/view';
-import { hashNavigate } from '../hashRouting';
+
+import { numberSpread } from 'lib/i18n';
 import * as licon from 'lib/licon';
+import { bind } from 'lib/view';
+
+import { hashNavigate } from '../hashRouting';
+import { getStageRank } from '../score';
+import { withLinebreaks } from '../util';
+import type { RunCtrl } from './runCtrl';
 
 function makeStars(rank: number) {
   const stars = [];

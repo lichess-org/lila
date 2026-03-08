@@ -116,7 +116,9 @@ private object TutorPerfReport:
     List(Filter(InsightDimension.Phase, List(Phase.Middle, Phase.End)))
   )
 
-  def compute(users: NonEmptyList[TutorPlayer])(using InsightApi, Executor): Fu[List[TutorPerfReport]] =
+  def compute(
+      users: NonEmptyList[TutorPlayer]
+  )(using TutorConfig, InsightApi, Executor): Fu[List[TutorPerfReport]] =
     for
       accuracy <- answerManyPerfs(accuracyQuestion, users)
       awareness <- answerManyPerfs(awarenessQuestion, users)

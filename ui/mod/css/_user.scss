@@ -1,8 +1,14 @@
 .user-show .mod-zone {
   margin: 0 20px 1em 20px;
 }
+
+.user-show:has(.mod-zone-full:not(.none)) .mod-zone-toggle {
+  @extend %active;
+}
+
 .mod-zone {
   @extend %flex-wrap;
+
   gap: 0.5em;
 
   > * {
@@ -48,6 +54,7 @@
 
   .mz-section > strong {
     display: block;
+
     &.inline {
       display: inline;
     }
@@ -143,9 +150,6 @@
     bottom: 0;
     background: $c-brag;
     z-index: $z-mz-menu-4;
-
-    // border-top: 1px solid $c-brag;
-    // border-width: 3px 2px 0 2px;
     padding: 0;
 
     a {
@@ -180,9 +184,11 @@
     > form {
       margin: 1em 1em 0 0;
     }
+
     select {
       max-width: 8em;
     }
+
     .inquiry {
       height: 2em;
       width: 2em;
@@ -191,6 +197,7 @@
       vertical-align: top;
       background: #484541;
       border-radius: 4px 0 0 4px;
+
       i {
         display: block;
         height: 30px;
@@ -268,6 +275,7 @@
             background: $m-brag_bg--mix-15;
             cursor: pointer;
           }
+
           &.selected {
             background: $m-brag_bg--mix-40;
           }
@@ -336,15 +344,18 @@
     .appeal-recent {
       color: $c-brag;
     }
+
     .appeal-old {
       color: $c-font-dim;
     }
+
     .appeal-muted {
       color: $c-bad;
     }
 
     .add-to-note {
       cursor: pointer;
+
       &:hover {
         background: $m-accent--fade-80;
       }
@@ -367,6 +378,7 @@
         font-size: 0.9em;
         padding: 0.1em 0.5em;
         border-radius: 0.3em;
+
         &.green {
           /* actually blue */
           background-color: rgba(32, 119, 192, 0.4);
@@ -426,6 +438,7 @@
       text-align: center;
       font-weight: bold;
       margin-bottom: 10px;
+
       span {
         padding: 10px;
       }
@@ -516,6 +529,7 @@
         font-size: 1.4em;
         text-transform: uppercase;
         letter-spacing: 3px;
+
         img {
           height: 50px;
           width: 50px;
@@ -574,6 +588,7 @@
 
     .moves {
       padding: 0;
+
       a {
         width: 400px;
         height: 48px;
@@ -585,6 +600,7 @@
         flex: 0 1 10px;
         margin-inline-start: 3px;
       }
+
       .green {
         /* actually blue */
         background-color: #2077c0;

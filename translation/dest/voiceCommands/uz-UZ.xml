@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Ovozli buyruqlar</string>
+  <string name="watchTheVideoTutorial">Video yoʻriqnomani koʻrish</string>
+  <string name="instructions1">Ovozni aniqlashni yoqish yoki oʻchirish uchun %1$s tugmasini bosing; ushbu yordam oynasini ochish uchun %2$s tugmasini bosing; nutq sozlamalarini oʻzgartirish uchun esa %3$s tugmasini bosing.</string>
+  <string name="instructions2">Qaysi yurish ekanligi aniq boʻlmasa, bir nechta strelkalar chiqadi. Kerakli yurishni tanlash uchun tegishli koʻrsatkichning rangi yoki raqamini ayting.</string>
+  <string name="instructions3">Agar strelkada radar aylanayotgan boʻlsa, doira toʻlishi bilan oʻsha yurish amalga oshadi. Bu vaqt ichida yurishni darhol bajarish uchun %1$s, bekorqilish uchun %2$s deb ayting yoki boshqa strelkaning rangi/raqamini ayting. Bu taymerni sozlamalarda oʻzgartirish yoki oʻchirib qoʻyish mumkin.</string>
+  <string name="instructions4">Shovqinli joylarda %s funksiyasini yoqing. Bu funksiya yoniq boʻlganda, buyruqlarni aytish vaqtida \"Shift\" tugmasini bosib turing.</string>
+  <string name="instructions5">Vertikallarni (a–h) aniqroq tanib olish uchun fonetik alifbodan foydalaning. </string>
+  <string name="instructions6">Ovozli yurish sozlamalari haqida batafsil maʼlumot %s berilgan.</string>
+  <string name="thisBlogPost">ushbu blogpostda</string>
+  <string name="moveToE4OrSelectE4Piece">e4 katagiga yurish yoki e4 dagi donani tanlash</string>
+  <string name="selectOrCaptureABishop">Filni tanlash yoki filni urib olish</string>
+  <string name="takeRookWithQueen">Farzin bilan ruxni urib olish</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rokirovka (qisqa yoki uzun)</string>
+  <string name="phoneticAlphabetIsBest">Fonetik alifbodan foydalanish eng ishonchli usuldir</string>
+  <string name="cancelTimerOrDenyARequest">Taymerni toʻxtatish yoki soʻrovni rad etish</string>
+  <string name="playPreferredMoveOrConfirmSomething">Tanlangan yurishni bajarish yoki amalni tasdiqlash</string>
+  <string name="sleep">Kutish rejimi (agar faollashtiruvchi soʻz yoqilgan boʻlsa)</string>
+  <string name="turnOffVoiceRecognition">Ovozni aniqlashni oʻchirish</string>
+  <string name="showPuzzleSolution">Masala yechimini koʻrsatish</string>
+</resources>

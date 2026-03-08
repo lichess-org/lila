@@ -1,5 +1,6 @@
 .simul-list {
   overflow: hidden;
+
   &__help {
     @extend %page-text-shadow !optional;
 
@@ -61,6 +62,7 @@
 
     .name {
       @extend %break-word;
+
       font-size: 1.7em;
       display: block;
     }

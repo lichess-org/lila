@@ -6,6 +6,7 @@ import play.api.mvc.RequestHeader
 
 import lila.common.{ Bus, HTTPRequest }
 import lila.core.game.{ FinishGame, Game, StartGame, WithInitialFen }
+import lila.core.net.UserAgent
 import lila.oauth.AccessToken
 
 final class GameStreamByOauthOrigin(
@@ -15,17 +16,28 @@ final class GameStreamByOauthOrigin(
     lightUserGet: lila.core.LightUser.GetterSync
 )(using akka.stream.Materializer, Executor):
 
-  private val origins = Map(
-    UserId.ttt -> "https://auth.taketaketake.com"
-  )
+  private val streamUserId = UserId.t3
+  private val origin = "https://auth.taketaketake.com"
+
   private def mon = lila.mon.game.streamByOauthOrigin
+
+  private type MutableUserSet = collection.mutable.Set[UserId]
+  private val tokenUsersFu: Fu[MutableUserSet] =
+    tokenApi.userIdsByClientOrigin(origin).map(_.to(collection.mutable.Set))
+
+  Bus.sub[AccessToken.Create]: tc =>
+    if tc.token.clientOrigin.has(origin) then
+      tokenUsersFu.foreach: us =>
+        us.add(tc.token.userId)
+        mon.users("newToken").update(us.size)
 
   def apply(since: Option[Instant], extraUsers: Set[UserId])(using
       me: Me,
       req: RequestHeader
   ): Either[String, Source[JsValue, ?]] =
     for
-      origin <- origins.get(me.userId).toRight("Invalid authenticated user")
+      _ <-
+        if me.userId == streamUserId then Right(()) else Left("Invalid authenticated user")
       since <- since match
         case Some(s) if s.isAfter(nowInstant) => Left("`since` is in the future")
         case Some(s) if s.isBefore(nowInstant.minusHours(3)) => Left("`since` is older than 3 hours")
@@ -36,30 +48,30 @@ final class GameStreamByOauthOrigin(
       request = s"$ip ${req.uri} $ua"
       logMsg = s"$randomName $origin $request ${since.so(_.toNow.toMinutes)}m"
     yield Source.futureSource:
-      logger.branch("gameStream").info(s"OPEN  $logMsg")
       for
-        tokenUsers <- tokenApi.userIdsByClientOrigin(origin)
-        allUsers = tokenUsers ++ extraUsers
-        recentlySeenUsers <- userRepo.filterSeenSince((since | nowInstant).minusMinutes(30))(allUsers)
-      yield run(since, origin, allUsers, recentlySeenUsers, logMsg)
+        tokenUsers <- tokenUsersFu
+        _ = extraUsers.foreach(tokenUsers.add)
+        recentlySeenUsers <- userRepo.filterSeenSince((since | nowInstant).minusMinutes(20))(tokenUsers)
+      yield run(since, ua, tokenUsers, recentlySeenUsers, logMsg)
 
   private def run(
       since: Option[Instant],
-      origin: String,
-      initialUserIds: Set[UserId],
-      recentlySeenUserIds: List[UserId],
+      ua: UserAgent,
+      tokenUsers: MutableUserSet,
+      recentlySeenUsers: List[UserId],
       logMsg: String
   ): Source[JsObject, ?] =
     var nbGames = 0
     val startedAt = nowInstant
     val startStream =
       Source.queue[Game](300, akka.stream.OverflowStrategy.dropHead).mapMaterializedValue { queue =>
-        var userIds = initialUserIds
-        mon.users("initial").update(userIds.size)
-        mon.users("recentlySeen").update(recentlySeenUserIds.size)
+        streams.open(ua)
+        logger.branch("gameStream").info(s"OPEN  $logMsg")
+        mon.users("initial").update(tokenUsers.size)
+        mon.users("recentlySeen").update(recentlySeenUsers.size)
 
         def matches(game: Game) = game.nonAi &&
-          game.players.exists(_.userId.exists(userIds))
+          game.players.exists(_.userId.exists(tokenUsers))
 
         val subStart = Bus.sub[StartGame]: e =>
           if matches(e.game) then queue.offer(e.game)
@@ -67,22 +79,17 @@ final class GameStreamByOauthOrigin(
         val subFinish = Bus.sub[FinishGame]: e =>
           if matches(e.game) then queue.offer(e.game)
 
-        val subToken = Bus.sub[AccessToken.Create]: tc =>
-          if tc.token.clientOrigin.has(origin) then
-            userIds = userIds + tc.token.userId
-            mon.users("newToken").update(userIds.size)
-
         queue
           .watchCompletion()
           .addEffectAnyway:
             Bus.unsub[StartGame](subStart)
             Bus.unsub[FinishGame](subFinish)
-            Bus.unsub[AccessToken.Create](subToken)
+            streams.close(ua)
             val seconds = nowSeconds - startedAt.toSeconds
-            logger.branch("gameStream").info(s"CLOSE $logMsg ($seconds seconds, $nbGames games sent)")
+            logger.branch("gameStream").info(s"CLOSE $logMsg ($seconds seconds, $nbGames games)")
       }
-    pastGamesSource(recentlySeenUserIds, since)
-      .concat(currentGamesSource(recentlySeenUserIds))
+    pastGamesSource(recentlySeenUsers, since)
+      .concat(currentGamesSource(recentlySeenUsers))
       .concat(startStream)
       .mapAsync(1)(gameRepo.withInitialFen)
       .map: wif =>
@@ -102,3 +109,11 @@ final class GameStreamByOauthOrigin(
 
   private def currentGamesSource(userIds: Iterable[UserId]): Source[Game, ?] =
     gameRepo.ongoingByOneOfUserIdsCursor(userIds).documentSource().throttle(100, 1.second)
+
+  private object streams:
+    private val count = scala.collection.mutable.Map[UserAgent, Int]()
+    private def inc(v: Int)(ua: UserAgent) =
+      val nb = count.updateWith(ua)(_.fold(v)(_ + v).atLeast(0).some) | 0
+      mon.streams(ua).update(nb)
+    def open = inc(1)
+    def close = inc(-1)

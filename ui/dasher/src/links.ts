@@ -1,8 +1,9 @@
-import { type Attrs, hl, type VNode, bind } from 'lib/view';
 import * as licon from 'lib/licon';
-import { type Mode, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
+import { type Attrs, hl, type VNode, bind } from 'lib/view';
 import { userLine } from 'lib/view/userLink';
+
+import { type Mode, PaneCtrl } from './interfaces';
 
 export class LinksCtrl extends PaneCtrl {
   render = (): VNode => {
@@ -68,7 +69,7 @@ export class LinksCtrl extends PaneCtrl {
       : null;
   }
 
-  private modeCfg = (m: Mode): any => ({
+  private modeCfg = (m: Mode) => ({
     hook: bind('click', () => this.root.setMode(m)),
     attrs: { 'data-icon': licon.GreaterThan, type: 'button' },
   });

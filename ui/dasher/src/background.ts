@@ -1,12 +1,16 @@
 import { h, type VNode } from 'snabbdom';
-import { elementScrollBarWidthSlowGuess, header } from './util';
+
 import { debounce, throttlePromiseDelay } from 'lib/async';
 import { prefersLightThemeQuery } from 'lib/device';
 import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
 import { bind } from 'lib/view';
 import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'lib/xhr';
-import { type DasherCtrl, PaneCtrl } from './interfaces';
-import { pubsub } from 'lib/pubsub';
+
+import type { DasherCtrl } from '@/ctrl';
+
+import { PaneCtrl } from './interfaces';
+import { elementScrollBarWidthSlowGuess, header } from './util';
 
 export interface BackgroundData {
   current: string;

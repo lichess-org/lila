@@ -1,4 +1,5 @@
 import ApexCharts from 'apexcharts';
+
 import { currentTheme } from 'lib/device';
 
 const light = currentTheme() === 'light';

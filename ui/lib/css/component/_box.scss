@@ -16,6 +16,7 @@ $vp-max-width: 1200px;
 
   &__top {
     @extend %box-padding, %flex-between;
+
     gap: 1rem;
 
     &__actions {
@@ -29,16 +30,13 @@ $vp-max-width: 1200px;
     }
   }
 
-  // &:not(.box-pad) > h1 {
-  //   @extend %box-padding;
-  // }
-
   &__pad {
     @extend %box-padding-horiz;
   }
 
   @include if-transp {
     position: relative;
+
     @include back-blur;
   }
 }
@@ -46,6 +44,7 @@ $vp-max-width: 1200px;
 @media (min-width: at-least($small)) {
   .box {
     @include box-radius;
+
     overflow: hidden;
   }
 }

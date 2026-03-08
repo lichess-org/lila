@@ -1,6 +1,4 @@
-interface UciChar {
-  [p: string]: Key;
-}
+type UciChar = Record<string, Key>;
 
 export const uciChar: UciChar = {
   a: 'a1',

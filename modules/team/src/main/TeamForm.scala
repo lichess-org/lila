@@ -30,6 +30,8 @@ final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: 
       Fields.description,
       Fields.descPrivate,
       Fields.request,
+      Fields.chat,
+      Fields.forum,
       "flair" -> flairApi.formField(),
       Fields.gameId,
       Fields.move
@@ -123,6 +125,8 @@ private case class TeamSetup(
     description: Markdown,
     descPrivate: Option[Markdown],
     request: Boolean,
+    chat: Access,
+    forum: Access,
     flair: Option[Flair],
     gameId: GameId,
     move: String

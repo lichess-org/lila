@@ -28,7 +28,7 @@ final class StudyPager(
 
   def all(order: StudyOrder, page: Int)(using me: Option[Me]) =
     paginator(
-      noRelaySelect ++ accessSelect(),
+      accessSelect(),
       order,
       page,
       fuccess(9999).some
@@ -101,7 +101,7 @@ final class StudyPager(
   )(using Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
     val adapter = Adapter[Study](
       collection = coll,
-      selector = selector,
+      selector = selector ++ noRelaySelect,
       projection = studyRepo.projection.some,
       sort = order match
         case StudyOrder.hot => $sort.desc("rank")

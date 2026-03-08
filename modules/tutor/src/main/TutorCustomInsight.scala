@@ -3,7 +3,6 @@ package lila.tutor
 import lila.db.AggregationPipeline
 import lila.db.dsl.*
 import lila.insight.*
-import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
 final private class TutorCustomInsight[A: TutorNumber](
@@ -11,7 +10,7 @@ final private class TutorCustomInsight[A: TutorNumber](
     question: Question[PerfType],
     monitoringKey: String,
     peerMatch: TutorPerfReport.PeerMatch => TutorBothOption[A]
-)(clusterParser: List[Bdoc] => List[Cluster[PerfType]]):
+)(clusterParser: List[Bdoc] => List[Cluster[PerfType]])(using config: TutorConfig):
 
   def apply(insightColl: Coll)(
       aggregateMine: Bdoc => AggregationPipeline[insightColl.PipelineOperator],
@@ -20,7 +19,9 @@ final private class TutorCustomInsight[A: TutorNumber](
     for
       mine <- insightColl
         .aggregateList(maxDocs = Int.MaxValue): _ =>
-          aggregateMine(InsightStorage.selectUserId(users.head.user.id))
+          aggregateMine:
+            InsightStorage.selectUserId(users.head.user.id) ++
+              InsightStorage.gameMatcher(question.timeFilter(config).filters)
         .map { docs => TutorBuilder.AnswerMine(Answer(question, clusterParser(docs), Nil)) }
         .monSuccess(_.tutor.askMine(monitoringKey, "all"))
       peerDocs <- users.toList.map { u =>
@@ -29,7 +30,7 @@ final private class TutorCustomInsight[A: TutorNumber](
             val peerValue = summon[TutorNumber[A]].double(cached)
             fuccess(List(Cluster(u.perfType, Insight.Single(Point(peerValue)), maxGames.value, Nil)))
           case None =>
-            val peerSelect = $doc(lila.insight.InsightEntry.BSONFields.perf -> u.perfType) ++
+            val peerSelect = InsightStorage.gameMatcher(question.filters) ++
               InsightStorage.selectPeers(u.perfStats.peers)
             insightColl
               .aggregateList(maxDocs = Int.MaxValue)(_ => aggregatePeer(peerSelect))

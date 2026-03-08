@@ -1,5 +1,7 @@
-import type { MaybeVNode } from 'lib/view';
 import { h } from 'snabbdom';
+
+import type { MaybeVNode } from 'lib/view';
+
 import type LobbyController from '@/ctrl';
 import { speeds, variants } from '@/options';
 

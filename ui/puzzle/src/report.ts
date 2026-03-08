@@ -1,12 +1,13 @@
-import { report as xhrReport } from './xhr';
-import type PuzzleCtrl from './ctrl';
-import type { PuzzleId, ThemeKey } from './interfaces';
 import { winningChances } from 'lib/ceval';
+import { plyToTurn, pieceCount } from 'lib/game/chess';
 import * as licon from 'lib/licon';
 import { type StoredProp, storedIntProp } from 'lib/storage';
-import { domDialog } from 'lib/view';
-import { plyToTurn, pieceCount } from 'lib/game/chess';
 import type { ClientEval, PvData, TreeNode } from 'lib/tree/types';
+import { domDialog } from 'lib/view';
+
+import type PuzzleCtrl from './ctrl';
+import type { PuzzleId, ThemeKey } from './interfaces';
+import { report as xhrReport } from './xhr';
 
 // bump when logic is changed, to distinguish cached clients from new ones
 const version = 11;

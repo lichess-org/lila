@@ -1,12 +1,14 @@
-import type { SanToUci } from 'lib/game';
-import { type Prop, propWithEffect } from 'lib';
-import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
-import KeyboardChecker from '@/keyboardChecker';
-import { h, type VNode } from 'snabbdom';
-import { onInsert, snabDialog } from 'lib/view';
-import { promote } from 'lib/game/promotion';
 import { charToRole } from 'chessops';
+import { h, type VNode } from 'snabbdom';
+
+import { type Prop, propWithEffect } from 'lib';
+import type { SanToUci } from 'lib/game';
+import type { MoveRootCtrl, MoveUpdate } from 'lib/game/moveRootCtrl';
+import { promote } from 'lib/game/promotion';
 import type { NodeCrazy } from 'lib/tree/types';
+import { onInsert, snabDialog } from 'lib/view';
+
+import KeyboardChecker from '@/keyboardChecker';
 
 export interface Opts {
   input: HTMLInputElement;

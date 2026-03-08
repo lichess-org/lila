@@ -10,18 +10,21 @@
 
     > div {
       @extend %box-neat;
+
       padding: $block-gap;
       background: $c-bg-zebra;
     }
 
     &__qrcode {
       @extend %flex-between-nowrap;
+
       gap: $block-gap;
     }
 
     &__user {
       &__recent {
         @extend %flex-center;
+
         margin-top: 1em;
         gap: 0.5em;
 
@@ -90,6 +93,7 @@
 
       > div {
         flex: 0 1 auto;
+
         @extend %flex-center, %roboto;
 
         &::before {
@@ -125,6 +129,7 @@
 
       > div {
         @extend %flex-center;
+
         gap: 1em;
         margin-top: 1em;
 
@@ -142,6 +147,7 @@
 
   .mobile-instructions {
     @extend %flex-center-center;
+
     font-size: 1.5rem;
   }
 

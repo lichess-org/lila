@@ -1,15 +1,16 @@
-import { RateBot, rateBotMatchup } from './rateBot';
-import type { BotInfo, LocalSpeed } from 'lib/bot/types';
-import { statusOf } from 'lib/game';
 import { defined, type Prop } from 'lib';
 import { shuffle } from 'lib/algo';
+import type { BotInfo, LocalSpeed } from 'lib/bot/types';
+import { statusOf } from 'lib/game';
 import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
-import { storedBooleanProp } from 'lib/storage';
-import type { GameStatus, GameContext } from './localGame';
-import { env } from './devEnv';
-import { pubsub } from 'lib/pubsub';
 import { type PermaLog, makeLog } from 'lib/permalog';
+import { pubsub } from 'lib/pubsub';
+import { storedBooleanProp } from 'lib/storage';
+
+import { env } from './devEnv';
 import type { GameObserver } from './gameCtrl';
+import type { GameStatus, GameContext } from './localGame';
+import { RateBot, rateBotMatchup } from './rateBot';
 
 export type Result = {
   winner?: Color;
@@ -34,7 +35,7 @@ interface Script extends Test {
 
 export type Glicko = { r: number; rd: number };
 
-type DevRatings = { [speed in LocalSpeed]?: Glicko };
+type DevRatings = Record<LocalSpeed, Glicko>;
 
 export class DevCtrl implements GameObserver {
   hurryProp: Prop<boolean> = storedBooleanProp('botdev.hurry', false);
@@ -43,7 +44,7 @@ export class DevCtrl implements GameObserver {
   log: Result[];
   private traceDb: PermaLog;
   private trace: string[] = [];
-  ratings: { [uid: string]: DevRatings } = {};
+  ratings: Record<string, DevRatings> = {};
   private localRatings: ObjectStorage<DevRatings>;
 
   async init(): Promise<void> {
@@ -147,7 +148,6 @@ export class DevCtrl implements GameObserver {
 
   setRating(uid: string | undefined, speed: LocalSpeed, rating: Glicko): Promise<void | IDBValidKey> {
     if (!uid || !env.bot.bots.has(uid)) return Promise.resolve();
-    this.ratings[uid] ??= {};
     this.ratings[uid][speed] = rating;
     return this.localRatings.put(uid, this.ratings[uid]);
   }

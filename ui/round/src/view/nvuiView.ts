@@ -1,22 +1,24 @@
-import type { RoundNvuiContext } from '../round.nvui';
-import type RoundController from '../ctrl';
-import { type LooseVNodes, type VNode, bind, hl, noTrans, onInsert } from 'lib/view';
-import { renderClock } from 'lib/game/clock/clockView';
-import { type Player, type TopOrBottom, playable } from 'lib/game';
-import { renderTableWatch, renderTablePlay, renderTableEnd } from './table';
-import { scanDirectionsHandler } from 'lib/nvui/directionScan';
-import { commands, boardCommands } from 'lib/nvui/command';
-import { plyToTurn } from 'lib/game/chess';
-import { renderSetting } from 'lib/nvui/setting';
-import * as nv from 'lib/nvui/chess';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { makeConfig as makeCgConfig } from '../ground';
+import { COLORS, opposite } from 'chessops';
+
+import { type Player, type TopOrBottom, playable } from 'lib/game';
+import { plyToTurn } from 'lib/game/chess';
+import { renderClock } from 'lib/game/clock/clockView';
+import * as nv from 'lib/nvui/chess';
+import { commands, boardCommands } from 'lib/nvui/command';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
+import { renderSetting } from 'lib/nvui/setting';
+import { type LooseVNodes, type VNode, bind, hl, noTrans, onInsert } from 'lib/view';
+
 import renderCorresClock from '../corresClock/corresClockView';
-import { renderResult } from './replay';
-import { plyStep } from '../util';
+import type RoundController from '../ctrl';
+import { makeConfig as makeCgConfig } from '../ground';
 import type { Step } from '../interfaces';
 import { next, prev } from '../keyboard';
-import { COLORS, opposite } from 'chessops';
+import type { RoundNvuiContext } from '../round.nvui';
+import { plyStep } from '../util';
+import { renderResult } from './replay';
+import { renderTableWatch, renderTablePlay, renderTableEnd } from './table';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');

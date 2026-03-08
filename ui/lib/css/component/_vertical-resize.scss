@@ -1,6 +1,7 @@
 .vertical-resize {
   @extend %flex-column;
   @include transition;
+
   position: relative;
   display: none;
   justify-content: center;
@@ -28,11 +29,13 @@
 
   hr {
     @include transition;
+
     margin: 0;
     width: 14px;
     height: 1px;
     pointer-events: none;
   }
+
   .chat__members {
     position: absolute;
     top: 0;

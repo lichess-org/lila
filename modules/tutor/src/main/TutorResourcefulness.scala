@@ -14,7 +14,7 @@ object TutorResourcefulness:
 
   private[tutor] def compute(
       users: NonEmptyList[TutorPlayer]
-  )(using insightApi: InsightApi, ec: Executor): Fu[TutorBuilder.Answers[PerfType]] =
+  )(using config: TutorConfig, insightApi: InsightApi, ec: Executor): Fu[TutorBuilder.Answers[PerfType]] =
     val perfs = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,
@@ -44,7 +44,7 @@ object TutorResourcefulness:
       )
       compute(coll)(
         aggregateMine = mineSelect =>
-          Match(select ++ mineSelect ++ F.perf.$in(perfs)) -> List(
+          Match(select ++ mineSelect) -> List(
             Sort(Descending(F.date)),
             Limit(maxGamesPerPerf.value),
             groupByPerf

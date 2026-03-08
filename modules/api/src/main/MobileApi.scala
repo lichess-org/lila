@@ -8,6 +8,7 @@ import lila.common.Json.given
 import lila.core.i18n.Translate
 import lila.core.user.KidMode
 import lila.core.net.UserAgent
+import lila.oauth.TokenScopes
 
 final class MobileApi(
     userApi: UserApi,
@@ -33,18 +34,23 @@ final class MobileApi(
 
   private given (using trans: Translate): Lang = trans.lang
 
-  def home(using me: Option[Me], ua: UserAgent)(using RequestHeader, Translate, KidMode): Fu[JsObject] =
+  def home(oauth: Option[TokenScopes])(using
+      me: Option[Me],
+      ua: UserAgent
+  )(using RequestHeader, Translate, KidMode): Fu[JsObject] =
     val myUser = me.map(_.value)
+    val polygon = oauth.exists(_.polygon)
     for
-      tours <- tournaments
+      tours <- polygon.not.option(tournaments).sequence
       account <- myUser.traverse(userApi.mobile)
       recentGames <- myUser.traverse(gameApi.mobileRecent)
       ongoingGames <- myUser.traverse: u =>
         gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
-      inbox <- me.traverse(unreadCount.mobile)
+      inbox <- me.ifFalse(polygon).traverse(unreadCount.mobile)
       challenges <- me.traverse(challengeApi.allFor(_))
     yield Json
-      .obj("tournaments" -> tours, "version" -> webMobile.json)
+      .obj("version" -> webMobile.json)
+      .add("tournaments", tours)
       .add("account", account)
       .add("recentGames", recentGames)
       .add("ongoingGames", ongoingGames)

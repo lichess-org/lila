@@ -8,11 +8,11 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
-export interface Prop<T> {
+export type Prop<T> = {
   (): T;
   (v: T): T;
-}
-export interface PropWithEffect<T> extends Prop<T> {}
+};
+export type PropWithEffect<T> = Prop<T>;
 
 // like mithril prop but with type safety
 export const prop = <A>(initialValue: A): Prop<A> => {
@@ -116,7 +116,6 @@ export const requestIdleCallback = (f: () => void, timeout?: number): void => {
 };
 
 export function escapeHtml(str: string): string {
-  if (typeof str !== 'string') str = JSON.stringify(str); // throws
   return /[&<>"']/.test(str)
     ? str
         .replace(/&/g, '&amp;')
@@ -158,7 +157,8 @@ export function repeater(f: () => void, additionalStopCond?: () => boolean): voi
 
 // Prevents the clicked element from acquiring focus on primary mouse clicks.
 export function blurIfPrimaryClick(e: Event): void {
+  if (!(e instanceof MouseEvent)) return;
   const target = document.activeElement;
-  if (target instanceof HTMLElement && e instanceof MouseEvent && e.button === 0 && (e.clientX || e.clientY))
+  if (target instanceof HTMLElement && e.button === 0 && (e.clientX || e.clientY))
     requestAnimationFrame(() => target.blur());
 }

@@ -1,22 +1,32 @@
 .email-confirm-banner {
+  @extend %flex-center-center;
+
+  flex-wrap: nowrap;
+  gap: 0.6em;
   padding: 1em;
-  background: #3893e8;
-  color: #fff !important;
+  background: $c-primary;
+  color: $c-over !important;
   font-size: 1.3em;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #666;
-  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.3);
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 107;
+
+  &.error {
+    background: $c-error;
+    flex-flow: column;
+
+    code {
+      font-size: 1rem;
+      overflow-wrap: anywhere;
+    }
+  }
 }
+
 .email-confirm-banner a {
-  color: #fff !important;
+  color: $c-over !important;
   text-decoration: underline;
   margin-left: 1em;
 }
@@ -49,18 +59,23 @@
     5% {
       transform: translateY(0);
     }
+
     10% {
       opacity: 1;
     }
+
     20% {
       opacity: 0.4;
     }
+
     50% {
       opacity: 1;
     }
+
     70% {
       opacity: 0.4;
     }
+
     100% {
       opacity: 1;
       transform: translateY(0);
@@ -125,8 +140,10 @@
 
 .signup-confirm {
   text-align: center;
+
   form {
     margin: 6em 0 4em 0;
+
     .button-fat {
       border: 10px solid $m-primary_bg--mix-30;
     }

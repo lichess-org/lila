@@ -11,8 +11,8 @@
   <string name="previousHighscoreWasX">Oldingi rekord %s edi</string>
   <string name="playAgain">Boshqattan oʻynash</string>
   <plurals name="xRuns">
-    <item quantity="one">1 urunish</item>
-    <item quantity="other">%s ta urunish</item>
+    <item quantity="one">1 urunish</item>
+    <item quantity="other">%s ta urunish</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Bir marta %2$s oʻynadi</item>

@@ -91,6 +91,7 @@ team {
 
   tr.active td:last-child {
     $c-active-border: $m-primary_bg--mix-70;
+
     @include gradient-border($c-active-border, to left, to right);
   }
 

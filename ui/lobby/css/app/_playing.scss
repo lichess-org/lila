@@ -7,9 +7,11 @@
 
   .local {
     position: relative;
+
     .mini-board-wrapper {
       padding: 12px;
     }
+
     img {
       pointer-events: none;
       position: absolute;
@@ -24,21 +26,24 @@
       &.white {
         background-color: $c-paper;
       }
+
       &.black {
         background-color: $c-dark;
       }
+
       @include if-transp {
         backdrop-filter: blur(6px);
-        // -webkit-backdrop-filter: blur(6px);
 
         &.white {
           background-color: $m-paper--fade-40;
         }
+
         &.black {
           background-color: $m-dark--fade-40;
         }
       }
     }
+
     button {
       position: absolute;
       background: center / contain url('../flair/img/symbols.cancel.webp') $c-bg-page;
@@ -49,12 +54,14 @@
       z-index: $z-above-pieces-9;
       width: 24px;
       height: 24px;
+
       @include mq-is-col1 {
         top: 2px;
         right: 2px;
         width: 32px; // fat fingers
         height: 32px;
       }
+
       &:hover {
         filter: brightness(140%);
       }

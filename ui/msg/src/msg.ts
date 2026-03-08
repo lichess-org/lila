@@ -1,10 +1,9 @@
-import view from './view/main';
-
 import { init, classModule, attributesModule } from 'snabbdom';
 
+import MsgCtrl from './ctrl';
 import type { MsgOpts } from './interfaces';
 import { upgradeData } from './network';
-import MsgCtrl from './ctrl';
+import view from './view/main';
 
 export function initModule(opts: MsgOpts) {
   const element = document.querySelector('.msg-app') as HTMLElement,

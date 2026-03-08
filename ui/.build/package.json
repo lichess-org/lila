@@ -15,7 +15,7 @@
     "@types/tinycolor2": "1.4.6",
     "esbuild": "0.27.3",
     "fast-glob": "3.3.3",
-    "fast-xml-parser": "5.3.6",
+    "fast-xml-parser": "5.3.8",
     "json-stringify-pretty-compact": "4.0.0",
     "micromatch": "4.0.8",
     "tinycolor2": "1.6.0",

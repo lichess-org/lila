@@ -9,6 +9,7 @@ import lila.ui.*
 import lila.core.ublog.{ BlogsBy, QualityFilter }
 
 import ScalatagsTemplate.{ *, given }
+import lila.ublog.UblogPost.PreviewPost
 
 final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)(
     picfitUrl: lila.memo.PicfitUrl
@@ -413,6 +414,18 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
               a(cls := mine.option("active"), href := routes.Ublog.index(me.username))(trans.ublog.myBlog())
             )
         )
+      )
+    )
+
+  def homeCarousel(posts: List[PreviewPost])(using Context) =
+    div(cls := "lobby__blog carousel")(
+      div(cls := "carousel__track"):
+        posts.map:
+          card(_, showAuthor = ShowAt.bottom, showIntro = false, strictDate = false)
+      ,
+      div(cls := "carousel__controls")(
+        button(cls := "carousel__prev", dataIcon := Icon.LessThan),
+        button(cls := "carousel__next", dataIcon := Icon.GreaterThan)
       )
     )
 

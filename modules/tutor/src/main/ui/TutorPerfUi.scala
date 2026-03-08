@@ -13,7 +13,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
     given TutorConfig = full.config
     bits.page(menu = menu(report, none))(cls := "tutor__perf tutor-layout"):
       frag(
-        div(cls := "box")(
+        div(cls := "tutor-header box")(
           boxTop(
             h1(
               a(href := full.url.root, dataIcon := Icon.LessThan),
@@ -143,7 +143,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
     given TutorConfig = full.config
     bits.page(menu = menu(report, "phases".some))(cls := "tutor__phases tutor-layout"):
       frag(
-        div(cls := "box")(
+        div(cls := "tutor-header box")(
           frag(
             angleTop(full, report, "phases"),
             bits.mascotSays(ul(report.phases.highlights(3).map(compare.show(_))))
@@ -192,7 +192,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
     given TutorConfig = full.config
     bits.page(menu = menu(report, "pieces".some))(cls := "tutor__pieces tutor-layout"):
       frag(
-        div(cls := "box")(
+        div(cls := "tutor-header box")(
           frag(
             angleTop(full, report, "pieces"),
             bits.mascotSays(ul(report.pieces.highlights(3).map(compare.show(_, "with"))))
@@ -222,7 +222,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
     given TutorConfig = full.config
     bits.page(menu = menu(report, "skills".some))(cls := "tutor__skills tutor-layout"):
       frag(
-        div(cls := "box")(
+        div(cls := "tutor-header box")(
           angleTop(full, report, "skills"),
           bits.mascotSays(
             ul(report.skillHighlights(3).map(compare.show(_)))
@@ -240,7 +240,7 @@ final class TutorPerfUi(helpers: Helpers, bits: TutorBits):
     given TutorConfig = full.config
     bits.page(menu = menu(report, "time".some))(cls := "tutor__time tutor-layout"):
       frag(
-        div(cls := "box")(
+        div(cls := "tutor-header box")(
           angleTop(full, report, "time"),
           bits.mascotSays(
             ul(report.timeHighlights(5).map(compare.show(_)))

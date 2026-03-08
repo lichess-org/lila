@@ -136,8 +136,15 @@
   <string name="pinnedPieces">Связанные фигуры</string>
   <string name="checkableKing">Возможность дать шах королю</string>
   <string name="multipleLines">Множество вариантов</string>
+  <string name="multipleLinesDescription">Задаёт число строк вариантов и стрелок ходов на доске</string>
+  <string name="searchTime">Время поиска</string>
+  <string name="searchTimeDescription">Задаёт время для оценки новой позиции</string>
+  <string name="threads">Потоки</string>
+  <string name="threadsDescription">Установите количество не больше числа потоков процессора, лучше на предлагаемой отметке</string>
+  <string name="threadsDescriptionMobile">Больше потоков быстрее расходует заряд батареи, но лучше для анализа</string>
   <string name="cpus">Потоки</string>
   <string name="memory">Память</string>
+  <string name="memoryDescription">Более высокие значения могут повысить производительность</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
   <string name="blunder">Зевок</string>

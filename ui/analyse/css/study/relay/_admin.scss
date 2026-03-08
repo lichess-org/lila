@@ -16,11 +16,10 @@
 
   .state {
     @extend %flex-center-nowrap;
+    @include transition;
 
     border-bottom: $border;
     min-height: 3.5em;
-
-    @include transition;
 
     &::before {
       @extend %flex-center;
@@ -30,7 +29,9 @@
     }
 
     > span {
-      @extend %break-word, %ellipsis;
+      @extend %ellipsis;
+
+      overflow-wrap: anywhere;
     }
 
     .fat {
@@ -47,6 +48,7 @@
       color: $c-over;
     }
   }
+
   button.clickable:hover {
     cursor: pointer;
     background: $c-primary;
@@ -58,11 +60,11 @@
   }
 
   .log {
-    @extend %break-word;
     overflow-x: hidden;
     overflow-y: auto;
     padding: 0.3em 0.7em;
     max-height: 20vh;
+    overflow-wrap: anywhere;
 
     > div {
       @extend %flex-center-nowrap;
@@ -87,6 +89,7 @@
     }
   }
 }
+
 .relay-admin__container {
   .study__chapters {
     max-height: 25vh;

@@ -132,8 +132,15 @@
   <string name="pinnedPieces">Piezas clavadas</string>
   <string name="checkableKing">Rey en peligro</string>
   <string name="multipleLines">Múltiples líneas</string>
+  <string name="multipleLinesDescription">Establece la cantidad de líneas de evaluación y de flechas de movimiento en el tablero</string>
+  <string name="searchTime">Tiempo de búsqueda</string>
+  <string name="searchTimeDescription">Establece el tiempo para evaluar posiciones nuevas</string>
+  <string name="threads">Hilos</string>
+  <string name="threadsDescription">Establecer número inferior de hilos de la CPU; las marcas dan una elección segura</string>
+  <string name="threadsDescriptionMobile">Más hilos darán un mejor análisis, aunque usará más batería</string>
   <string name="cpus">Procesadores</string>
   <string name="memory">Memoria</string>
+  <string name="memoryDescription">Valores más altos pueden mejorar el rendimiento</string>
   <string name="infiniteAnalysis">Análisis infinito</string>
   <string name="removesTheDepthLimit">Elimina el límite de profundidad del análisis y hace trabajar a tu ordenador</string>
   <string name="blunder">Error grave</string>

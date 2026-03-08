@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="community">Hamjamiyat</string>
-  <string name="byMonth">Oyma-oy</string>
+  <string name="byMonth">Oyma‑oy</string>
   <string name="byTopic">Mavzu boʻyicha</string>
   <string name="byLichess">Lichess tomonidan</string>
   <string name="myFriends">Doʻstlarim</string>
@@ -13,7 +13,7 @@
     <item quantity="other">%s blog post</item>
   </plurals>
   <string name="continueReadingPost">Davomini oʻqish</string>
-  <string name="lichessBlogPostsFromXYear">%s-yildagi Lichess blog postlari</string>
+  <string name="lichessBlogPostsFromXYear">%s‑yildagi Lichess blog postlari</string>
   <string name="previousBlogPosts">Oldingi blog postlar</string>
   <string name="xBlog">%s blogi</string>
   <string name="newPost">Yangi post</string>
@@ -24,19 +24,19 @@
   <string name="postBody">Post asosiy qismi</string>
   <string name="drafts">Qarolamalar</string>
   <string name="published">Chop etildi</string>
-  <string name="createBlogDiscussion">Izohlarni yoqish</string>
-  <string name="createBlogDiscussionHelp">Postingizni muhokama qilish uchun forumda yangi mavzu ochiladi</string>
+  <string name="createBlogDiscussion">Kommentlarga ruxsat berish</string>
+  <string name="createBlogDiscussionHelp">Postingizni muhokama qilish uchun forumda yangi mavzu yaratiladi</string>
   <string name="publishOnYourBlog">Blogda chop etish</string>
   <string name="publishHelp">Agar belgilansa, post blogingizda eʼlon qilinadi. Aks holda, u maxfiy qoladi va qoralamalaringiz orasida saqlanadi</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Postni qadab qoʻyish</string>
   <string name="stickyPostHelp">Agar belgilansa, ushbu post profilingizdagi soʻnggi xabarlar roʻyxatida va blogingizda birinchi boʻlib koʻrsatiladi.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Blog post chop etdi</item>
-    <item quantity="other">%s ta blog post chop etdi</item>
+    <item quantity="other">%s ta blog post chop etdi</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="one">Bir marta koʻrilgan</item>
-    <item quantity="other">%s marta koʻrilgan</item>
+    <item quantity="other">%s marta koʻrilgan</item>
   </plurals>
   <string name="xPublishedY">%1$s %2$sʼni chop etdi</string>
   <string name="thisPostIsPublished">Ushbu post chop etilgan</string>
@@ -46,13 +46,13 @@
   <string name="latestBlogPosts">Soʻnggi blog postlar</string>
   <plurals name="viewAllNbPosts">
     <item quantity="one">Bitta postni koʻrish</item>
-    <item quantity="other">Barcha %s ta postni koʻrish</item>
+    <item quantity="other">Barcha %s ta postni koʻrish</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Postingiz uchun rasm yuklang</string>
   <string name="imageAlt">Rasm uchun muqobil matn</string>
   <string name="imageCredit">Rasm manbasi</string>
   <string name="deleteBlog">Ushbu blog postini butunlay oʻchirib tashlash</string>
-  <string name="safeToUseImages">Quyidagi veb-saytlardagi rasmlardan foydalanish xavfsiz: </string>
+  <string name="safeToUseImages">Quyidagi veb‑saytlardagi rasmlardan foydalanish xavfsiz: </string>
   <string name="selectPostTopics">Postingiz qaysi mavzular haqida ekanligini tanlang</string>
   <string name="useImagesYouMadeYourself">Oʻzingiz yaratgan yoki olgan rasm va suratlar yoki Lichess skrinshotlaridan foydalanishingiz mumkin. Faqat ular boshqa birovning mualliflik huquqi ostida boʻlmasa kifoya.</string>
   <string name="safeAndRespectfulContent">Iltimos, faqat xavfsiz va odob doirasidagi kontentlarni joylang. Birovning ishini koʻchirib olmang.</string>

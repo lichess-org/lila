@@ -4,6 +4,7 @@
   a {
     font-weight: bold;
   }
+
   &__search {
     &-form {
       flex: 2 1 auto;
@@ -13,7 +14,6 @@
         @extend %box-radius-left;
 
         flex: 1 1 100%;
-        // height: $top-height;
         font-size: 1.1em;
 
         @media (min-width: at-least($xx-small)) {
@@ -34,13 +34,16 @@
 .fide-players-table--sortable {
   th {
     padding: 0;
+
     a {
       color: $c-font-dim;
       font-weight: normal;
       padding: 0.5em 0.8em;
+
       &:hover {
         color: $c-brag;
       }
+
       &.active {
         font-weight: bold;
         color: $c-brag;

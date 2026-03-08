@@ -58,16 +58,18 @@ final class TeamApi(
     for
       exists <- chatApi.exists(bestId.into(ChatId))
       id = if exists then Team.randomId() else bestId
-      team = Team.make(
-        id = id,
-        name = setup.name,
-        password = setup.password,
-        intro = setup.intro,
-        description = setup.description,
-        descPrivate = setup.descPrivate.filter(_.value.nonEmpty),
-        open = setup.isOpen,
-        createdBy = me
-      )
+      team = Team
+        .make(
+          id = id,
+          name = setup.name,
+          password = setup.password,
+          intro = setup.intro,
+          description = setup.description,
+          descPrivate = setup.descPrivate.filter(_.value.nonEmpty),
+          open = setup.isOpen,
+          createdBy = me
+        )
+        .copy(chat = setup.chat, forum = setup.forum)
       _ <- teamRepo.coll.insert.one(team)
       _ <- memberRepo.add(team.id, me.userId, TeamSecurity.Permission.values.toSet)
     yield

@@ -1,9 +1,11 @@
+import type { VNode } from 'snabbdom';
+
+import { pubsub } from 'lib/pubsub';
+import { snabDialog } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
 import * as control from './control';
 import type AnalyseCtrl from './ctrl';
-import * as xhr from 'lib/xhr';
-import { snabDialog } from 'lib/view';
-import type { VNode } from 'snabbdom';
-import { pubsub } from 'lib/pubsub';
 
 export const keyToMouseEvent = (key: string, eventName: string, selector: string) =>
   window.site.mousetrap.bind(key, () =>

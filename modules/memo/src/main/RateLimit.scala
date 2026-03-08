@@ -50,9 +50,6 @@ final class RateLimit[K](
         case _ =>
           op
 
-  def zero[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(using default: Zero[A]): A =
-    apply[A](k, default.zero, cost, msg)(op)
-
   def status(k: K) = Status(storage.getIfPresent(k).so(_._1), credits)
 
   def isLimited(k: K): Option[Instant] =
@@ -83,7 +80,9 @@ object RateLimit:
   trait RateLimiter[K]:
     def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A
     def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A): A
-    def test[A](k: K, cost: Cost = 1, msg: => String = ""): Boolean = apply(k, false, cost, msg)(true)
+    def hit[A](k: K, cost: Cost = 1, msg: => String = ""): Boolean = apply(k, false, cost, msg)(true)
+    def zero[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(using default: Zero[A]): A =
+      apply[A](k, default.zero, cost, msg)(op)
 
   val logger = lila.log("ratelimit")
 

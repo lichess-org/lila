@@ -1,16 +1,18 @@
 import * as co from 'chessops';
-import { type VNode, hl, onInsert, bind, domDialog } from 'lib/view';
+
+import { definedMap } from 'lib/algo';
+import { Bot } from 'lib/bot/bot';
+import type { LocalSpeed, LocalSetup } from 'lib/bot/types';
 import * as licon from 'lib/licon';
 import { storedBooleanProp, storedIntProp } from 'lib/storage';
-import { EditDialog } from './editDialog';
-import { Bot } from 'lib/bot/bot';
+import { type VNode, hl, onInsert, bind, domDialog } from 'lib/view';
+
+import { domIdToUid, uidToDomId } from './devBotCtrl';
+import { env } from './devEnv';
 import { resultsString, playersWithResults, rangeTicks } from './devUtil';
+import { EditDialog } from './editDialog';
 import { type Drop, type HandOfCards, handOfCards } from './handOfCards';
 import { showSetupDialog } from './setupDialog';
-import { domIdToUid, uidToDomId } from './devBotCtrl';
-import { definedMap } from 'lib/algo';
-import type { LocalSpeed, LocalSetup } from 'lib/bot/types';
-import { env } from './devEnv';
 
 export function renderDevSide(): VNode {
   return hl('div.dev-side.dev-view', [

@@ -1,5 +1,7 @@
 import { h } from 'snabbdom';
+
 import { type LooseVNode, boardMenu as menuDropdown } from 'lib/view';
+
 import type PlayCtrl from '../playCtrl';
 // import { toggle } from 'lib';
 // import { boolPrefXhrToggle } from 'lib/view';

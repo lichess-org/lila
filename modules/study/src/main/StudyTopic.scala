@@ -120,7 +120,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     lila.log.asyncActorMonitor.unhandled
   )
 
-  def recompute(): Unit =
+  private[study] def recompute(): Unit =
     recomputeWorkQueue(LilaFuture.makeItLast(60.seconds)(recomputeNow)).recover:
       case _: scalalib.actor.AsyncActorBounded.EnqueueException => ()
       case e: Exception => logger.warn("Can't recompute study topics!", e)
@@ -133,7 +133,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           List(
             Match(
               $doc(
-                "topics".$exists(true),
+                "topics" -> $doc("$exists" -> true, "$ne" -> StudyTopic.broadcast),
                 "visibility" -> "public"
               )
             ),

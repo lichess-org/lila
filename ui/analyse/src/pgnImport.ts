@@ -1,12 +1,14 @@
-import type { AnalyseData, Game } from './interfaces';
-import { makeFen } from 'chessops/fen';
-import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { makeUci } from 'chessops';
-import { makeVariant, parsePgn, startingPosition, type ChildNode, type PgnNodeData } from 'chessops/pgn';
 import { IllegalSetup, type Position } from 'chessops/chess';
+import { makeFen } from 'chessops/fen';
+import { makeVariant, parsePgn, startingPosition, type ChildNode, type PgnNodeData } from 'chessops/pgn';
+import { makeSanAndPlay, parseSan } from 'chessops/san';
+
 import type { Player } from 'lib/game';
-import type { TreeNode } from 'lib/tree/types';
 import { completeNode } from 'lib/tree/node';
+import type { TreeNode } from 'lib/tree/types';
+
+import type { AnalyseData, Game } from './interfaces';
 
 const readNode = (
   variant: VariantKey,
@@ -77,7 +79,7 @@ export default function (pgn: string): Partial<AnalyseData> {
   };
 }
 
-const rulesToVariantKey: { [key: string]: VariantKey } = {
+const rulesToVariantKey: Record<string, VariantKey> = {
   chess: 'standard',
   kingofthehill: 'kingOfTheHill',
   '3check': 'threeCheck',

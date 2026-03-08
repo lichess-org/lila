@@ -152,9 +152,16 @@ final class StudyApi(
   ): Fu[Option[Study.WithChapter]] = for
     pre <- studyMaker(data, user, withRatings)
     sc = pre.copy(study = transform(pre.study))
-    _ <- studyRepo.insert(sc.study)
     _ <- chapterRepo.insert(sc.chapter)
+    _ <- studyRepo.insert(sc.study)
   yield sc.some
+
+  def create(data: StudyForm.FormData)(using Me): Fu[Study.WithChapter] =
+    for
+      sc = studyMaker(data).focus(_.study.flair).replace(data.flair.flatMap(flairApi.find))
+      _ <- chapterRepo.insert(sc.chapter)
+      _ <- studyRepo.insert(sc.study)
+    yield sc
 
   def cloneWithChat(me: User, prev: Study, update: Study => Study = identity): Fu[Option[Study]] = for
     study <- justCloneNoChecks(me, prev, update)
@@ -768,7 +775,7 @@ final class StudyApi(
     sequenceStudy(studyId): study =>
       studyRepo.updateTopics(study.addTopics(StudyTopics.fromStrs(topics, StudyTopics.studyMax)))
 
-  def editStudy(studyId: StudyId, data: Study.Data)(who: Who) =
+  def editStudy(studyId: StudyId, data: StudyForm.FormData)(who: Who) =
     sequenceStudy(studyId): study =>
       canActAsOwner(study, who.u).flatMap: asOwner =>
         asOwner
@@ -776,7 +783,7 @@ final class StudyApi(
           .so: settings =>
             val newStudy = study
               .copy(
-                name = Study.toName(data.name),
+                name = data.studyName,
                 flair = data.flair.flatMap(flairApi.find),
                 settings = settings,
                 visibility = data.visibility,

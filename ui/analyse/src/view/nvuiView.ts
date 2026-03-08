@@ -1,10 +1,17 @@
-import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans, enter } from 'lib/view';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { COLORS } from 'chessops';
+import { lichessRules } from 'chessops/compat';
+import { parseFen } from 'chessops/fen';
+import { makeSan } from 'chessops/san';
+import { charToRole, opposite, parseUci } from 'chessops/util';
+import { setupPosition } from 'chessops/variant';
+
 import { defined } from 'lib';
-import { text as xhrText } from 'lib/xhr';
-import type AnalyseCtrl from '../ctrl';
-import { makeConfig as makeCgConfig } from '../ground';
-import type { AnalyseData } from '../interfaces';
+import { throttle } from 'lib/async';
+import { view as cevalView, renderEval } from 'lib/ceval';
+import { renderChat } from 'lib/chat/renderChat';
 import type { Player } from 'lib/game';
+import { plyToTurn } from 'lib/game/chess';
 import {
   renderSan,
   renderPieces,
@@ -25,34 +32,30 @@ import {
   pocketsStr,
   leaveSquareHandler,
 } from 'lib/nvui/chess';
+import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { liveText } from 'lib/nvui/notify';
 import { renderSetting } from 'lib/nvui/setting';
-import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
-import explorerView from '../explorer/explorerView';
-import { ops, path as treePath } from 'lib/tree/tree';
-import { view as cevalView, renderEval } from 'lib/ceval';
-import { next, prev } from '../control';
-import { lichessRules } from 'chessops/compat';
-import { makeSan } from 'chessops/san';
-import { charToRole, opposite, parseUci } from 'chessops/util';
-import { parseFen } from 'chessops/fen';
-import { setupPosition } from 'chessops/variant';
-import { plyToTurn } from 'lib/game/chess';
-import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { pubsub } from 'lib/pubsub';
-import { renderResult, viewContext, type RelayViewContext } from '../view/components';
-import { view as chapterNewFormView } from '../study/chapterNewForm';
-import { view as chapterEditFormView } from '../study/chapterEditForm';
-import renderClocks from '../view/clocks';
-import { renderChat } from 'lib/chat/renderChat';
-import { throttle } from 'lib/async';
+import { ops, path as treePath } from 'lib/tree/tree';
+import type { ClientEval, PvData } from 'lib/tree/types';
+import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } from 'lib/view';
+import { text as xhrText } from 'lib/xhr';
+
+import type { AnalyseNvuiContext } from '../analyse.nvui';
+import { next, prev } from '../control';
+import type AnalyseCtrl from '../ctrl';
+import explorerView from '../explorer/explorerView';
+import { makeConfig as makeCgConfig } from '../ground';
+import type { AnalyseData } from '../interfaces';
+import { clickHook, currentLineIndex, renderCurrentNode } from '../nvuiUtil';
 import { renderRetro } from '../retrospect/nvuiRetroView';
+import { view as chapterEditFormView } from '../study/chapterEditForm';
+import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
-import type { AnalyseNvuiContext } from '../analyse.nvui';
-import { scanDirectionsHandler } from 'lib/nvui/directionScan';
-import type { ClientEval, PvData } from 'lib/tree/types';
-import { COLORS } from 'chessops';
+import renderClocks from '../view/clocks';
+import { renderResult, viewContext, type RelayViewContext } from '../view/components';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -109,7 +112,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       !ctrl.retro && liveText(renderCurrentNode(ctx), 'polite', 'p.position.lastMove'),
       clocks &&
         hl('div.clocks', [
-          hl('h2', `${i18n.site.clock}`),
+          hl('h2', i18n.site.clock),
           hl('div.clocks', [hl('div.topc', clocks[0]), hl('div.botc', clocks[1])]),
         ]),
       hl('h2', i18n.nvui.inputForm),
@@ -214,29 +217,6 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       deps && ctrl.study?.relay && tourDetails(ctx),
     ]),
   ]);
-}
-
-export function clickHook(main?: (el: HTMLElement) => void, post?: () => void) {
-  return {
-    // put unique identifying props on the button container (such as class)
-    // because snabbdom WILL mix plain adjacent buttons up.
-    hook: {
-      insert: (vnode: VNode) => {
-        const el = vnode.elm as HTMLElement;
-        el.addEventListener('click', () => {
-          main?.(el);
-          post?.();
-        });
-        el.addEventListener(
-          'keydown',
-          enter(() => {
-            main?.(el);
-            post?.();
-          }),
-        );
-      },
-    },
-  };
 }
 
 function boardEventsHook(
@@ -511,38 +491,6 @@ const requestAnalysisBtn = ({ ctrl, notify, analysisInProgress }: AnalyseNvuiCon
         i18n.site.requestAComputerAnalysis,
       );
 };
-
-function currentLineIndex(ctrl: AnalyseCtrl): { i: number; of: number } {
-  if (ctrl.path === treePath.root) return { i: 1, of: 1 };
-  const prevNode = ctrl.tree.parentNode(ctrl.path);
-  return {
-    i: prevNode.children.findIndex(node => node.id === ctrl.node.id),
-    of: prevNode.children.length,
-  };
-}
-
-function renderLineIndex(ctrl: AnalyseCtrl): string {
-  const { i, of } = currentLineIndex(ctrl);
-  return of > 1 ? `, line ${i + 1} of ${of} ,` : '';
-}
-
-export function renderCurrentNode({
-  ctrl,
-  moveStyle,
-}: Pick<AnalyseNvuiContext, 'ctrl' | 'moveStyle'>): string {
-  const node = ctrl.node;
-  if (!node.san || !node.uci) return i18n.nvui.gameStart;
-  return [
-    plyToTurn(node.ply),
-    node.ply % 2 === 1 ? i18n.site.white : i18n.site.black,
-    renderSan(node.san, node.uci, moveStyle.get()),
-    renderLineIndex(ctrl),
-    !ctrl.retro && renderComments(node, moveStyle.get()),
-  ]
-    .filter(x => x)
-    .join(' ')
-    .trim();
-}
 
 const renderPlayer = (ctrl: AnalyseCtrl, player: Player): LooseVNodes =>
   player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);

@@ -14,15 +14,23 @@ final class RelayStatsApi(colls: RelayColls, viewerCount: lila.memo.ViewerCountA
   import RelayStats.*
 
   object viewers:
-    private def estimatedViewers(tour: RelayTour) = tour.tier.map:
-      case RelayTour.Tier.normal => 1_000
-      case RelayTour.Tier.high => 10_000
-      case RelayTour.Tier.best => 100_000
+
     def hit(rt: RelayRound.WithTour)(using ctx: lila.ui.Context): Unit =
-      estimatedViewers(rt.tour).foreach: maxCount =>
+      maxCountIfRecent(rt).foreach: maxCount =>
         viewerCount.hit(rt.round.id.value, maxCount)(ctx.req, ctx.userId)
+
     def get(rt: RelayRound.WithTour): Fu[Int] =
       rt.tour.official.so(viewerCount.get(rt.round.id.value))
+
+    private def maxCountIfRecent(rt: RelayRound.WithTour) =
+      rt.tour.tier
+        .map:
+          case RelayTour.Tier.normal => 1_000
+          case RelayTour.Tier.high => 10_000
+          case RelayTour.Tier.best => 100_000
+        .ifTrue(rt.tour.daysSinceFinished.forall(_ <= 1))
+        .ifTrue(rt.round.daysSinceFinished.forall(_ <= 3))
+        .ifTrue(rt.round.hasStarted || rt.round.startsSoonOrAfterPrevious)
 
   // one measurement by minute at most; the storage depends on it.
   scheduler.scheduleWithFixedDelay(2.minutes, 2.minutes)(() => record())

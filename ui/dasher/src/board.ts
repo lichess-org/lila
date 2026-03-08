@@ -1,23 +1,26 @@
-import { header, moreButton } from './util';
 import { hyphenToCamel, type Toggle, toggle } from 'lib';
 import { debounce } from 'lib/async';
 import * as licon from 'lib/licon';
-import { text as xhrText, form as xhrForm } from 'lib/xhr';
-import { bind, hl, type VNode } from 'lib/view';
-import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
+import { bind, hl, type VNode } from 'lib/view';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
+
+import type { DasherCtrl } from '@/ctrl';
+
+import { type Dimension, PaneCtrl } from './interfaces';
+import { header, moreButton } from './util';
 
 type Range = { min: number; max: number; step: number };
 
 export class BoardCtrl extends PaneCtrl {
   sliderKey: number = Date.now(); // changing the value attribute doesn't always flush to DOM.
-  featured: { [key in 'd2' | 'd3']: string[] } = { d2: [], d3: [] };
+  featured: Record<Dimension, string[]> = { d2: [], d3: [] };
   more: Toggle;
 
   constructor(root: DasherCtrl) {
     super(root);
     this.more = toggle(false, root.redraw);
-    for (const dim of ['d2', 'd3'] as const) {
+    for (const dim of ['d2', 'd3'] as Dimension[]) {
       this.featured[dim] = this.data[dim].list.filter(t => t.featured).map(t => t.name);
     }
   }

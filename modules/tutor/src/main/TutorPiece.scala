@@ -49,7 +49,7 @@ private object TutorPieces:
 
   private type RoleGet = Role => Option[Double]
 
-  def compute(user: TutorPlayer)(using InsightApi, Executor): Fu[TutorPieces] =
+  def compute(user: TutorPlayer)(using TutorConfig, InsightApi, Executor): Fu[TutorPieces] =
 
     def cachedOrComputedPeerRoleGet[V](
         question: Question[Role],

@@ -9,14 +9,17 @@
   ul {
     margin: 25px;
   }
+
   li {
     list-style: disc outside;
   }
 
   strong {
     @extend %break-word;
+
     color: $c-brag;
   }
+
   code {
     overflow-wrap: anywhere;
   }
@@ -33,6 +36,7 @@
 
   h1 {
     @extend %break-word;
+
     margin: 1rem 0 1.5rem 0;
   }
 
@@ -40,14 +44,18 @@
     li {
       margin: 0.7em 0;
     }
+
     .danger {
       @extend %box-neat;
+
       font-weight: bold;
       color: $c-over;
       background: $c-bad;
       padding: 0.3em 0.8em;
+
       &::before {
         @extend %data-icon;
+
         font-size: 1.5em;
         margin-inline: 0 0.2em;
         content: $licon-CautionTriangle;
@@ -78,12 +86,15 @@
   #main-wrap {
     margin-top: 0;
   }
+
   .oauth__top {
     margin-bottom: 3vh;
   }
+
   .oauth {
     padding-block: 3vh;
   }
+
   p {
     overflow-wrap: break-word;
     word-break: normal;

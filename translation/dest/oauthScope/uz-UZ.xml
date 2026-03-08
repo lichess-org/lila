@@ -1,4 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="newAccessToken">Yangi shaxsiy API kirish tokeni</string>
+  <string name="tokenGrantsPermission">Token boshqa shaxslarga sizning hisobingizdan foydalanish huquqini beradi.</string>
+  <string name="carefullySelect">Unga qanday vakolatlar berishni diqqat bilan belgilang.</string>
+  <string name="tokenDescription">Token tavsifi</string>
+  <string name="rememberTokenUse">Bu tokendan nima maqsadda foydalanishingizni eslab qolish uchun</string>
+  <string name="whatTheTokenCanDo">Token sizning nomingizdan nimalar qila oladi:</string>
+  <string name="doNotShareIt">Ushbu token hisobingizga kirish huquqini beradi. Uni HECH KIMGA bermang!</string>
+  <string name="copyTokenNow">Yangi shaxsiy tokeningizni hoziroq nusxalab oling. Uni keyin qayta koʻra olmaysiz!</string>
+  <string name="preferenceRead">Sozlamalarni oʻqish</string>
+  <string name="preferenceWrite">Sozlamalarni oʻzgartirish</string>
+  <string name="emailRead">E‑pochta manzilini oʻqish</string>
+  <string name="challengeRead">Kiruvchi chorlovlarni koʻrish</string>
+  <string name="challengeWrite">Chorlovlarni yuborish, qabul qilish va rad etish</string>
+  <string name="challengeBulk">Boshqa oʻyinchilar uchun bir vaqtning oʻzida koʻplab oʻyinlar yaratish</string>
+  <string name="studyRead">Shaxsiy saboqlar va translyatsiyalarni koʻrish</string>
+  <string name="studyWrite">Saboqlarni va translyatsiyalarni yaratish, yangilash hamda oʻchirish</string>
+  <string name="tournamentWrite">Turnirlar yaratish, yangilash va ularga qoʻshilish</string>
+  <string name="racerWrite">Puzzle race yaratish va unga qoʻshilish</string>
+  <string name="puzzleRead">Masalalar boʻyicha faollikni koʻrish</string>
+  <string name="teamRead">Jamoalarning yopiq maʼlumotlarini koʻrish</string>
+  <string name="teamWrite">Jamoalarga qoʻshilish va ulardan chiqish</string>
+  <string name="teamLead">Oʻzingiz sardor boʻlgan jamoalarni boshqarish: xabarlar yuborish, aʼzolarni chetlatish</string>
+  <string name="followRead">Obuna boʻlingan oʻyinchilarni koʻrish</string>
+  <string name="followWrite">Boshqa oʻyinchilarga obuna boʻlish yoki obunani bekor qilish</string>
+  <string name="msgWrite">Boshqa oʻyinchilarga shaxsiy xabarlar yuborish</string>
+  <string name="boardPlay">Elektron taxta API orqali oʻynash</string>
+  <string name="botPlay">Bot API orqali oʻynash</string>
+  <string name="engineRead">Tashqi dvijoklarni koʻrish va ulardan foydalanish</string>
+  <string name="engineWrite">Tashqi dvijoklarni qoʻshish va yangilash</string>
+  <string name="webLogin">Tizimga avtorizatsiyadan oʻtgan seanslar yaratish (toʻliq kirish huquqini beradi!)</string>
+  <string name="webMod">Moderator asboblaridan foydalanish (sizga berilgan vakolatlar doirasida)</string>
+  <string name="personalAccessTokens">Shaxsiy API kirish tokenlari</string>
+  <string name="canMakeOauthRequests">Siz %s oʻtmasdan OAuth soʻrovlarini amalga oshirishingiz mumkin.</string>
+  <string name="authorizationCodeFlow">avtorizatsiya kodi jarayonidan</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">Buning oʻrniga, API soʻrovlaridan bevosita foydalanish mumkin boʻlgan %s.</string>
+  <string name="generatePersonalToken">shaxsiy kirish tokenini yarating</string>
+  <string name="guardTokensCarefully">Ushbu tokenlarni ehtiyot qiling! Ular xuddi parollardek gap. Skriptga parolingizni yozgandan koʻra tokendan foydalanish xavfsizroq — chunki tokenni istalgancha yaratish mumkin va token kerak boʻlmaganda uni bekor qilish mumkin.</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">%1$s va %2$s bilan tanishing.</string>
+  <string name="personalTokenAppExample">Shaxsiy token ilovasi namunasi</string>
+  <string name="apiDocumentation">API dokumentatsiyasi</string>
+  <string name="newToken">Yangi kirish tokeni</string>
+  <string name="apiAccessTokens">API kirish tokenlari</string>
+  <string name="created">%s yaratildi</string>
+  <string name="lastUsed">Oxirgi marta %s ishlatildi</string>
+  <string name="alreadyHavePlayedGames">Siz oʻynagansiz!</string>
+  <string name="attentionOfDevelopers">Dasturchilar diqqatiga:</string>
+  <string name="possibleToPrefill">URL manzili soʻrov parametrlarini (query parameters) oʻzgartirish orqali ushbu formani oldindan toʻldirish imkoniyati mavjud.</string>
+  <string name="forExample">Masalan: %s</string>
+  <string name="ticksTheScopes">%1$s hamda %2$s ruxsatlarini belgilaydi va tokenga tavsif beradi.</string>
+  <string name="givingPrefilledUrls">Foydalanuvchilaringizga shunday oldindan to‘ldirilgan URL manzillarini berish, ularga kerakli token ruxsatlarini tanlashda yordam beradi.</string>
 </resources>

@@ -144,6 +144,7 @@ $c-report-high-over: white;
 
   .marked-by-me {
     @include user-marks;
+
     background: $m-brag_bg--mix-60;
   }
 

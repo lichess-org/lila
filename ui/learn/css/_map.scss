@@ -14,35 +14,42 @@
   .categ_stages {
     ---min-width: 100vw;
 
-    @media (min-width: at-least($xx-small)) {
+    @media (width >= $xx-small) {
       ---min-width: 400px;
     }
 
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(---min-width), 1fr));
     gap: 1em;
-    margin: 0.8em 0 3em 0;
+    margin: 1.5em 0 3em 0;
   }
 
   .stage {
     @extend %box-radius, %flex-center-nowrap;
-
     @include transition;
 
     position: relative;
     height: 90px;
     color: #fff;
-    margin-top: 13px;
     box-shadow:
       0 3px 5px 0 rgba(0, 0, 0, 0.3),
       0 1px 1px 0 rgba(0, 0, 0, 0.2);
     font-size: 1.2em;
 
+    @media (width < $xx-small) {
+      height: fit-content;
+    }
+
     img {
       width: 80px;
       height: 80px;
-      margin: 0 13px;
+      margin: 0 1em;
       opacity: 0.9;
+
+      @media (width < $xx-small) {
+        width: 50px;
+        height: 64px;
+      }
     }
 
     h3 {
@@ -103,6 +110,7 @@
       overflow: hidden;
       position: absolute;
       top: -3px;
+
       @include inline-end(-3px);
     }
   }
@@ -114,12 +122,16 @@
     text-align: center;
     text-shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
     transform: rotate(45deg);
+
     @include if-rtl {
       transform: rotate(-45deg);
     }
+
     position: relative;
     padding: 7px 0;
+
     @include inline-start(-5px);
+
     top: 15px;
     width: 120px;
     color: #6a6340;
@@ -177,9 +189,10 @@
 
   .what_next > p {
     @extend %page-text-shadow !optional;
+
     width: 100%;
     text-align: center;
-    margin: 20px 0;
+    margin: 0.5em 0 1.5em;
     font-size: 1.2em;
   }
 }

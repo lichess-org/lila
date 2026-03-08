@@ -1,9 +1,9 @@
 .json-dialog {
   @extend %flex-column;
+
   width: 1080px;
   height: 800px;
   padding-bottom: 0;
-  // gap: 0;
 
   .json {
     display: block;
@@ -20,8 +20,10 @@
     font-size: 11px;
     white-space: pre;
   }
+
   .actions {
     @extend %flex-center;
+
     height: 64px;
     justify-content: end;
   }

@@ -1,3 +1,7 @@
+import { throttle } from 'lib/async';
+import { pubsub } from 'lib/pubsub';
+import { storage, type LichessStorage } from 'lib/storage';
+
 import type {
   MsgData,
   Contact,
@@ -10,11 +14,8 @@ import type {
   Pane,
   Redraw,
 } from './interfaces';
-import { throttle } from 'lib/async';
 import * as network from './network';
 import { scroller } from './view/scroller';
-import { storage, type LichessStorage } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
 
 export default class MsgCtrl {
   data: MsgData;

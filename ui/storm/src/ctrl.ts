@@ -1,22 +1,24 @@
-import * as xhr from './xhr';
-import config from './config';
-import CurrentPuzzle from 'lib/puz/current';
-import sign from 'lib/puz/sign';
 import type { Api as CgApi } from '@lichess-org/chessground/api';
+import { parseUci } from 'chessops/util';
+
+import { prop, type Prop } from 'lib';
+import type { WithGround } from 'lib/game/ground';
+import { PromotionCtrl } from 'lib/game/promotion';
+import { pubsub } from 'lib/pubsub';
 import { Clock } from 'lib/puz/clock';
 import { Combo } from 'lib/puz/combo';
-import { getNow, puzzlePov, sound } from 'lib/puz/util';
-import { makeCgOpts } from 'lib/puz/run';
-import { parseUci } from 'chessops/util';
-import { PromotionCtrl } from 'lib/game/promotion';
-import { prop, type Prop } from 'lib';
-import type { PuzCtrl, Run } from 'lib/puz/interfaces';
+import CurrentPuzzle from 'lib/puz/current';
 import { PuzFilters } from 'lib/puz/filters';
-import type { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
+import type { PuzCtrl, Run } from 'lib/puz/interfaces';
+import { makeCgOpts } from 'lib/puz/run';
+import sign from 'lib/puz/sign';
+import { getNow, puzzlePov, sound } from 'lib/puz/util';
 import { storage } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
-import type { WithGround } from 'lib/game/ground';
 import { toggleZenMode } from 'lib/view/zen';
+
+import config from './config';
+import type { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
+import * as xhr from './xhr';
 
 export default class StormCtrl implements PuzCtrl {
   private data: StormData;

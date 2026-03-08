@@ -1,9 +1,10 @@
 import { ops as treeOps } from 'lib/tree/tree';
+import type { Shape } from 'lib/tree/types';
+
 import type AnalyseCtrl from './ctrl';
 import type { EvalGetData, EvalPutData, Opening, ServerEvalData } from './interfaces';
 import type { AnaDrop, AnaMove, ChapterData, EditChapterData } from './study/interfaces';
 import type { FormData as StudyFormData } from './study/studyForm';
-import type { Shape } from 'lib/tree/types';
 
 interface MoveOpts {
   write?: false;

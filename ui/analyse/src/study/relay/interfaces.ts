@@ -15,9 +15,7 @@ export interface RelayData {
   photos: Photos;
 }
 
-export interface Photos {
-  [id: FideId]: Photo;
-}
+export type Photos = Record<FideId, Photo>;
 
 export interface Photo {
   small: string;

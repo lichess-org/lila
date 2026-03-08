@@ -4,6 +4,7 @@ import java.time.{ LocalDate, LocalTime }
 import java.time.format.DateTimeFormatter
 import play.api.mvc.Call
 import lila.common.LilaOpeningFamily
+import lila.insight.{ Question, Filter, InsightDimension }
 
 case class TutorConfig(user: UserId, from: Instant, to: Instant):
 
@@ -20,6 +21,9 @@ case class TutorConfig(user: UserId, from: Instant, to: Instant):
     def angle(pk: PerfKey, a: Option[Angle]): Call = a.fold(perf(pk))(angle(pk, _))
     def opening(pk: PerfKey, color: Color, opening: LilaOpeningFamily): Call =
       routes.Tutor.opening(user, rangeStr, pk, color, opening.key.value)
+
+  def addFilter[A](question: Question[A]): Question[A] =
+    question.filter(Filter(InsightDimension.Date, List(lila.insight.DateRange(from, to))))
 
 object TutorConfig:
 

@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import ps from 'node:process';
 import clr from 'tinycolor2';
+
 import { clamp, isEquivalent } from './algo.ts';
 import { c, env, errorMark, trimLines } from './env.ts';
 import { hashedBasename, symlinkTargetHashes } from './hash.ts';
@@ -26,7 +27,7 @@ export function stopSass(): void {
   themeColorMap.clear();
 }
 
-export async function sass(): Promise<any> {
+export async function sass(): Promise<string | undefined> {
   if (!env.begin('sass')) return;
 
   await Promise.allSettled([

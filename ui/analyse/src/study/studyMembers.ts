@@ -1,21 +1,22 @@
-import type { AnalyseSocketSend } from '../socket';
-import * as licon from 'lib/licon';
-import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/view';
-import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
-import type { NotifCtrl } from './notif';
 import { prop, type Prop, scrollTo } from 'lib';
+import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { once } from 'lib/storage';
+import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, hl } from 'lib/view';
+import { cmnToggleWrap } from 'lib/view/cmn-toggle';
+import { userLink } from 'lib/view/userLink';
+import { textRaw as xhrTextRaw } from 'lib/xhr';
+
+import type { AnalyseSocketSend } from '../socket';
 import { titleNameToId } from '../view/util';
 import type { StudyMember, StudyMemberMap, Tab } from './interfaces';
-import { textRaw as xhrTextRaw } from 'lib/xhr';
-import { userLink } from 'lib/view/userLink';
+import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
+import type { NotifCtrl } from './notif';
 import type StudyCtrl from './studyCtrl';
-import { once } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
-import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 
 interface Opts {
   initDict: StudyMemberMap;
-  myId: string | undefined;
+  myId?: string;
   ownerId: string;
   send: AnalyseSocketSend;
   tab: Prop<Tab>;
@@ -41,7 +42,7 @@ export class StudyMemberCtrl {
   confing = prop<string | null>(null);
   inviteForm: StudyInviteFormCtrl;
   readonly active: Map<string, () => void> = new Map();
-  online: { [id: string]: boolean } = {};
+  online: Record<string, boolean> = {};
   spectatorIds: string[] = [];
   max = 30;
 

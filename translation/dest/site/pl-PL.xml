@@ -136,8 +136,15 @@
   <string name="pinnedPieces">Związane bierki</string>
   <string name="checkableKing">Groźba szacha</string>
   <string name="multipleLines">Analizowane warianty</string>
+  <string name="multipleLinesDescription">Ustaw liczbę linii ewaluacji i przesuń strzałki na szachownicy</string>
+  <string name="searchTime">Czas wyszukiwania</string>
+  <string name="searchTimeDescription">Ustaw czas dla ewaluacji nowych pozycji</string>
+  <string name="threads">Wątki</string>
+  <string name="threadsDescription">Ustaw to na wartość mniejszą od liczby wątków Twojego procesora, wskazana wartość oznacza bezpieczny wybór</string>
+  <string name="threadsDescriptionMobile">Więcej wątków zużyje więcej baterii, ale analiza będzie głębsza</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamięć RAM</string>
+  <string name="memoryDescription">Wyższe wartości mogą poprawić wydajność</string>
   <string name="infiniteAnalysis">Nieskończona analiza</string>
   <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i zachowuje kontrolę komputera</string>
   <string name="blunder">Błąd</string>
@@ -759,7 +766,7 @@
   <string name="webmasters">Webmasterzy</string>
   <string name="about">Informacje o</string>
   <string name="aboutX">Informacje o %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest darmowym (%2$s), wolnym, bez reklam, otwartym serwerem szachowym.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest %2$s darmowym, wolnym, pozbawionym reklam, otwartym serwisem szachowym.</string>
   <string name="really">naprawdę</string>
   <string name="contribute">Wsparcie</string>
   <string name="termsOfService">Regulamin</string>

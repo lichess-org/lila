@@ -2,9 +2,10 @@ import fg from 'fast-glob';
 import mm from 'micromatch';
 import fs from 'node:fs';
 import { join, relative, basename } from 'node:path';
-import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
+
 import { randomToken, definedUnique } from './algo.ts';
 import { type Context, env, c, errorMark } from './env.ts';
+import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
 
 const fsWatches = new Map<AbsPath, FSWatch>();
 const tasks = new Map<TaskKey, Task>();
@@ -79,7 +80,7 @@ export function stopTask(keys?: TaskKey | TaskKey[]) {
   }
 }
 
-export async function runTask(key: TaskKey): Promise<any> {
+export async function runTask(key: TaskKey): Promise<void> {
   const t = tasks.get(key);
   if (!t?.status) return;
   clearTimeout(t.debounce.timer);
@@ -142,7 +143,7 @@ async function execute(t: Task, firstRun = false): Promise<void> {
   }
 }
 
-async function watchGlob({ cwd, path: globPath }: CwdPath, key: TaskKey): Promise<any> {
+async function watchGlob({ cwd, path: globPath }: CwdPath, key: TaskKey): Promise<void> {
   if (!(await isFolder(cwd))) return;
   const [head, ...tail] = globPath.split('/');
   const path = tail.join('/');

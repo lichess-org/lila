@@ -63,9 +63,3 @@ final class Env(
       promise.completeWith(api.clas.canKidsUseMessages(kid1, kid2))
     case ClasBus.ClasMatesAndTeachers(kid, promise) =>
       promise.completeWith(mates.get(kid.id))
-
-private final class ClasColls(db: lila.db.Db):
-  val clas = db(CollName("clas_clas"))
-  val student = db(CollName("clas_student"))
-  val invite = db(CollName("clas_invite"))
-  val login = db(CollName("clas_login"))

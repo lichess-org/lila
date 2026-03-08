@@ -8,6 +8,7 @@
 
   &__start {
     @extend %flex-column;
+
     flex: 1 1 auto;
     justify-content: stretch;
     gap: 9px; // grid gap in app/_pool.scss
@@ -20,21 +21,27 @@
       padding-inline: 2em 3em;
       height: 3.2em;
       text-transform: none;
+
       &.disabled {
         opacity: 0.2;
       }
+
       &::before {
         @include transition(color);
         @extend %data-icon;
+
         font-size: 32px;
         color: $c-font-dimmer;
       }
+
       &--hook.button::before {
         content: $licon-Group;
       }
+
       &--friend.button::before {
         content: $licon-User;
       }
+
       &--ai.button::before {
         content: $licon-Cpu;
       }
@@ -44,12 +51,15 @@
       &--friend-user.button::before {
         content: $licon-Swords;
       }
+
       @media (hover: hover) {
         &:hover.disabled {
           cursor: default;
         }
+
         &:hover:not(.disabled) {
           color: $c-font-clear !important;
+
           &::before {
             color: $c-accent;
           }
@@ -60,11 +70,13 @@
 
   &__counters {
     @extend %flex-between-nowrap, %page-text;
+
     margin-top: 1rem;
     display: none;
 
     a {
       @extend %nowrap-ellipsis;
+
       color: $c-font-page;
 
       @include transition(color);

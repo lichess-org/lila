@@ -18,6 +18,7 @@
     display: block;
     width: 64px;
     height: 32px;
+
     body:not(.simple-board) & {
       filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
     }
@@ -37,6 +38,7 @@
 
   .reset {
     padding: 0.5rem 1rem;
+
     &:hover {
       color: $c-primary;
     }
@@ -46,6 +48,7 @@
     display: flex;
     justify-content: stretch;
   }
+
   .zoom,
   .board-brightness,
   .board-contrast,
@@ -55,6 +58,7 @@
     grid-template-columns: 45% 55%;
     align-items: center;
     padding: 0.5rem 1rem;
+
     label {
       white-space: nowrap;
     }

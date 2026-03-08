@@ -1,12 +1,13 @@
 // no side effects allowed due to re-export by index.ts
 
 import { charToRole, makeSquare, type Square } from 'chessops';
+
 import { fixCrazySan } from './chess';
 
 type AlmostSan = string;
 
-export type Board = { pieces: { [key: number]: string }; turn: boolean };
-export type SanToUci = { [key: AlmostSan]: Uci };
+export type Board = { pieces: Record<number, string>; turn: boolean };
+export type SanToUci = Record<AlmostSan, Uci>;
 
 function decomposeUci(uci: string) {
   return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];

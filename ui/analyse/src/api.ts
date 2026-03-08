@@ -1,5 +1,5 @@
-import AnalyseCtrl from './ctrl';
 import * as control from './control';
+import type AnalyseCtrl from './ctrl';
 
 export default function (ctrl: AnalyseCtrl) {
   return {

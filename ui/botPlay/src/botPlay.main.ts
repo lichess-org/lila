@@ -1,7 +1,7 @@
 import { init, classModule, attributesModule, eventListenersModule } from 'snabbdom';
 
-import type { BotOpts } from './interfaces';
 import { BotCtrl } from './botCtrl';
+import type { BotOpts } from './interfaces';
 
 export async function initModule(opts: BotOpts) {
   const element = document.querySelector('main.bot-play') as HTMLElement,

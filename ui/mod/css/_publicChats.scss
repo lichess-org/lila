@@ -4,11 +4,11 @@
   position: relative;
 
   .auto-refresh {
+    @include inline-end(20px);
+    @include transition;
+
     position: absolute;
     top: 30px;
-    @include inline-end(20px);
-
-    @include transition;
 
     &.active.hold {
       opacity: 0.4;
@@ -26,6 +26,7 @@
 
   .line:not(.lichess) {
     cursor: pointer;
+
     &:hover {
       background: $m-accent--fade-80;
     }
@@ -34,11 +35,13 @@
   .player_chats .game {
     .title-time {
       @extend %flex-between;
+
       overflow: hidden;
       padding: 0.5em 1em;
       border-bottom: $border;
       margin-bottom: 0.3em;
     }
+
     .title {
       padding: 0;
     }

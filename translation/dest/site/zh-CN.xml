@@ -130,8 +130,15 @@
   <string name="pinnedPieces">被牵制的棋子</string>
   <string name="checkableKing">可将军的王</string>
   <string name="multipleLines">多线分析</string>
+  <string name="multipleLinesDescription">设置棋盘上评估线路的数量并移动箭头</string>
+  <string name="searchTime">搜索时间</string>
+  <string name="searchTimeDescription">设置评估新局面的时间</string>
+  <string name="threads">线程数</string>
+  <string name="threadsDescription">请将该值设置为低于 CPU 线程数，勾选标记处为安全选择</string>
+  <string name="threadsDescriptionMobile">更多线程将消耗更多电量以提升分析能力</string>
   <string name="cpus">CPU</string>
   <string name="memory">内存</string>
+  <string name="memoryDescription">较高的数值可能提升性能</string>
   <string name="infiniteAnalysis">无限分析</string>
   <string name="removesTheDepthLimit">移除深度限制（暂时增加电脑能耗）</string>
   <string name="blunder">败着</string>

@@ -1,4 +1,5 @@
 import { describe, test } from 'node:test';
+
 import { pubsub as typed } from '../src/pubsub';
 
 const pubsub = typed as any;

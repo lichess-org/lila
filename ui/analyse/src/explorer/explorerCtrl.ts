@@ -1,17 +1,17 @@
-import { type Prop, prop, defined } from 'lib';
-import { storedBooleanProp } from 'lib/storage';
-import { pieceCount, fenColor } from 'lib/game/chess';
-import { debounce, defer, sync, type Sync } from 'lib/async';
 import { opposite } from '@lichess-org/chessground/util';
-import * as xhr from './explorerXhr';
-import { winnerOf } from './explorerUtil';
-import { replayable } from 'lib/game';
-import type AnalyseCtrl from '../ctrl';
-import type { Hovering, ExplorerData, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
-import { ExplorerConfigCtrl } from './explorerConfig';
-import { clearLastShow } from './explorerView';
 
-export const MAX_DEPTH = 50;
+import { type Prop, prop, defined, myUserId } from 'lib';
+import { debounce, defer, sync, type Sync } from 'lib/async';
+import { replayable } from 'lib/game';
+import { pieceCount, fenColor } from 'lib/game/chess';
+import { storedBooleanProp } from 'lib/storage';
+
+import type AnalyseCtrl from '../ctrl';
+import { ExplorerConfigCtrl } from './explorerConfig';
+import { MAX_ANALYSE_DEPTH, winnerOf } from './explorerUtil';
+import { clearLastShow } from './explorerView';
+import * as xhr from './explorerXhr';
+import type { Hovering, ExplorerData, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 
 function tablebasePieces(variant: VariantKey) {
   switch (variant) {
@@ -73,6 +73,8 @@ export default class ExplorerCtrl {
       if (e) this.reload();
     }
   };
+
+  isAuth = () => defined(myUserId());
 
   reload = () => {
     this.cache = {};
@@ -153,7 +155,10 @@ export default class ExplorerCtrl {
     if (!this.enabled()) return;
     this.gameMenu(null);
     const node = this.root.node;
-    if (node.ply >= MAX_DEPTH && !this.tablebaseRelevant(this.effectiveVariant, node.fen))
+    if (
+      (!this.isAuth() || node.ply >= MAX_ANALYSE_DEPTH) &&
+      !this.tablebaseRelevant(this.effectiveVariant, node.fen)
+    )
       this.cache[node.fen] = this.empty;
     const cached = this.cache[node.fen];
     if (cached) {

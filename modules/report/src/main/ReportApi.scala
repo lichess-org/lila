@@ -341,8 +341,10 @@ final class ReportApi(
       flaggedImages = images.flatMap(_.automod).flatMap(_.flagged)
       suspectOpt <- getSuspect(me)
       reporter <- automodReporter
-      res <- textResponse.toTry("missing automod response").toFuture
-      fromLlm <- res.str("assessment").toTry("missing assessment in automod response").toFuture
+      fromLlm <- textResponse
+        .str("assessment")
+        .toTry(s"missing assessment in automod response: $textResponse")
+        .toFuture
       hasFlaggedImages = flaggedImages.nonEmpty
       kamonTag = if hasFlaggedImages then "image" else if fromLlm == "pass" then "ok" else fromLlm
       _ = lila.mon.mod.report.automod.assessment(kamonTag).increment()
@@ -351,7 +353,7 @@ final class ReportApi(
         case "other" => Reason("comm") // llm knows "other"
         case r => Reason(r)
       suspect <- suspectOpt.toTry(s"suspect $me not found").toFuture
-      summary = (flaggedImages ++ res.str("reason")).mkString(", ")
+      summary = (flaggedImages ++ textResponse.str("reason")).mkString(", ")
     yield reason
       .ifTrue(hasFlaggedImages || !onlyIfFlaggedImages)
       .map: reason =>

@@ -1,5 +1,4 @@
 import { hl, type VNode, onInsert } from 'lib/view';
-import { allowVideo } from './relayView';
 
 export class VideoPlayer {
   private iframe: HTMLIFrameElement;
@@ -121,3 +120,6 @@ export class VideoPlayer {
     window.location.href = urlWithEmbed.toString();
   };
 }
+
+export const allowVideo = (): boolean =>
+  window.getComputedStyle(document.body).getPropertyValue('---allow-video') === 'true';

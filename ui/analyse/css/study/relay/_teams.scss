@@ -1,4 +1,5 @@
 @import './result-box';
+
 .relay-tour {
   &__team-table {
     &.loading {
@@ -9,61 +10,82 @@
       padding: 2em;
     }
   }
+
   &__team-match {
     border-top: $border;
+
     &__teams,
     &__game {
       @extend %flex-center-nowrap;
+
       > * {
         flex: 0 1 43%;
+
         &:nth-child(2) {
           flex: 1 0 14%;
         }
       }
     }
+
     &__teams {
       @extend %metal;
+
       border-bottom: $border;
       padding: 0.5em 1em;
+
       > * {
         text-align: center;
       }
     }
+
     &__team {
       a {
         color: $c-font;
+
         &:hover {
           color: $c-primary;
         }
       }
+
       padding: 0.5em 1em;
+
       &__points {
         @extend %flex-around;
+
         flex-flow: row nowrap;
+
         @extend %result-box;
+
         points {
           font-weight: bold;
         }
+
         vs {
           font-style: italic;
         }
       }
     }
+
     &__game {
       @extend %roboto;
+
+      color: $c-font;
+      border: 1px solid transparent;
+
       &:nth-child(even) {
         background: $c-bg-zebra;
       }
-      color: $c-font;
-      border: 1px solid transparent;
+
       &:hover {
         background: $m-primary_bg--mix-12;
         border-color: $m-primary_bg--mix-50;
         color: $c-font-clearer;
+
         .mini-game__flag {
           opacity: 1;
         }
       }
+
       &__status {
         padding: 0.4em 1em;
         text-align: center;
@@ -72,10 +94,13 @@
         font-weight: bold;
         white-space: nowrap;
       }
+
       &__player {
         @extend %flex-between-nowrap;
+
         padding: 0.4em 2em;
         container-type: inline-size;
+
         .name {
           @extend %nowrap-ellipsis;
         }
@@ -93,11 +118,14 @@
 .eval-gauge-horiz {
   $white: #c0c0c0;
   $black: #444;
+
   @include if-light {
     $white: #fff;
     $black: #606060;
   }
+
   @extend %box-neat-force;
+
   display: block;
   position: relative;
   height: 1em;
@@ -113,12 +141,15 @@
 
   opacity: 0.7;
   background: linear-gradient(to left, $white, $black);
+
   &--set {
     opacity: 1;
     background: $white !important;
+
     .eval-gauge-horiz__black {
       display: block;
     }
+
     tick {
       position: absolute;
       height: 100%;
@@ -128,8 +159,10 @@
       width: 50%;
     }
   }
+
   &.pov-white {
     background: linear-gradient(to right, $white, $black);
+
     .eval-gauge-horiz__black {
       right: 0;
     }

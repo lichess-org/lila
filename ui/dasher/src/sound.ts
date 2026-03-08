@@ -1,11 +1,15 @@
-import * as licon from 'lib/licon';
-import { text as xhrText, form as xhrForm } from 'lib/xhr';
-import { throttle, throttlePromiseDelay } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
-import { header } from './util';
-import { bind, dataIcon, snabDialog } from 'lib/view';
-import { type DasherCtrl, PaneCtrl } from './interfaces';
+
+import { throttle, throttlePromiseDelay } from 'lib/async';
 import { isSafari } from 'lib/device';
+import * as licon from 'lib/licon';
+import { bind, dataIcon, snabDialog } from 'lib/view';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
+
+import type { DasherCtrl } from '@/ctrl';
+
+import { PaneCtrl } from './interfaces';
+import { header } from './util';
 
 type Key = string;
 

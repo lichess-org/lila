@@ -1,10 +1,12 @@
 #blindfoldzone {
   @extend %flex-center-nowrap;
+
   position: fixed;
   bottom: 20px;
   inset-inline-end: 6px;
   height: 4em;
   z-index: $z-above-link-overlay-3;
+
   @include mq-topnav-hidden {
     bottom: auto;
     top: 0;
@@ -13,6 +15,7 @@
     justify-content: center;
     z-index: $z-zen-toggle-111;
   }
+
   @media (max-width: at-most($xx-small)) {
     bottom: 10px;
     top: auto;
@@ -21,6 +24,7 @@
 
 #blindfoldtog {
   @extend %box-radius;
+
   flex: 0 0 auto;
   padding: 0.2em 1em;
   opacity: 0.9;
@@ -29,6 +33,7 @@
   font-weight: bold;
   text-transform: uppercase;
   line-height: 1.2;
+
   &:hover {
     opacity: 1;
   }

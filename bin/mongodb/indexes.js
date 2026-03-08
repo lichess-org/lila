@@ -329,6 +329,7 @@ db.kaladin_queue.createIndex(
 );
 db.tutor_queue.createIndex({ requestedAt: 1 });
 db.tutor_report.createIndex({ 'config.user': 1, at: -1 });
+db.tutor_report.createIndex({ at: -1 }); // for duration estimation
 
 // you may want to run these on the puzzle database
 db.puzzle2_round.createIndex({ p: 1 }, { partialFilterExpression: { t: { $exists: true } } });

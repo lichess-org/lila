@@ -1,5 +1,6 @@
-import { squareDist, type Board } from 'lib/game';
 import { charToRole } from 'chessops';
+
+import { squareDist, type Board } from 'lib/game';
 
 const mode = { del: true, sub: 2 };
 
@@ -122,3 +123,9 @@ export function dest(uci: Uci) {
 }
 
 export const promo = (uci: Uci): Role | undefined => charToRole(uci.slice(4, 5));
+
+export function flash(): void {
+  const div = document.querySelector<HTMLElement>('#voice-status-row')!;
+  div.classList.add('flash');
+  div.onanimationend = () => div.classList.remove('flash');
+}

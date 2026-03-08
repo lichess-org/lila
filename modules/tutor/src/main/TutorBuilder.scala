@@ -20,8 +20,7 @@ final private class TutorBuilder(
     perfStatsApi: InsightPerfStatsApi,
     userApi: lila.core.user.UserApi,
     fishnet: TutorFishnet,
-    messenger: lila.core.msg.MsgApi,
-    routeUrl: lila.core.config.RouteUrl
+    notifyApi: lila.core.notify.NotifyApi
 )(using Executor, Scheduler):
 
   import TutorBsonHandlers.given
@@ -31,16 +30,16 @@ final private class TutorBuilder(
 
   def apply(config: TutorConfig): Fu[TutorFullReport] = for
     user <- userApi.withPerfs(config.user).orFail(s"No such user ${config.user}")
-    chrono = lila.common.Chronometer.lapTry(produce(user, config))
+    chrono = lila.common.Chronometer.lapTry(produce(user)(using config))
     _ = chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
     lap <- chrono.lap
     report <- lap.result.toFuture
     doc = bsonWriteObjTry(report).get ++ $doc("_id" -> report.id, "millis" -> lap.millis)
     _ <- colls.report(_.insert.one(doc).void)
-    _ <- messenger.postPreset(config.user, doneMsg(report)).void
+    _ <- notifyOf(report)
   yield report
 
-  private def produce(user: UserWithPerfs, config: TutorConfig): Fu[TutorFullReport] = for
+  private def produce(user: UserWithPerfs)(using config: TutorConfig): Fu[TutorFullReport] = for
     _ <- insightApi.indexAll(user, force = false).monSuccess(_.tutor.buildSegment("insight-index"))
     perfStats <- perfStatsApi(
       user,
@@ -57,7 +56,9 @@ final private class TutorBuilder(
       .sortBy(-_.perfStats.totalNbGames)
     _ <- fishnet.ensureSomeAnalysis(perfStats).monSuccess(_.tutor.buildSegment("fishnet-analysis"))
     _ <- LilaFuture.sleep(1.second) // ensure fishnet analyses are indexed before asking questions
-    perfs <- (tutorUsers.toNel.so(TutorPerfReport.compute)).monSuccess(_.tutor.buildSegment("perf-reports"))
+    perfs <- tutorUsers.toNel
+      .so(TutorPerfReport.compute)
+      .monSuccess(_.tutor.buildSegment("perf-reports"))
   yield TutorFullReport(config, nowInstant, perfs)
 
   private[tutor] def eligiblePerfKeysOf(user: UserWithPerfs): List[PerfKey] =
@@ -97,8 +98,19 @@ final private class TutorBuilder(
         perfs.keys.foreach: pt =>
           lila.mon.tutor.peerMatch(matches.exists(_.perf == pt), pt.key).increment()
 
-  private def doneMsg(report: TutorFullReport) =
-    lila.core.msg.MsgPreset("Tutor complete", s"Your tutor report is ready! ${routeUrl(report.url.root)}")
+  private def notifyOf(report: TutorFullReport) =
+    notifyApi.notifyOne(
+      report.config.user,
+      lila.core.notify.NotificationContent.GenericLink(
+        url = report.url.root.url,
+        title = "Tutor report ready".some,
+        text =
+          if report.nbGames > 0
+          then s"${report.nbGames} games analyzed".some
+          else "Not enough games in the time range".some,
+        icon = lila.ui.Icon.Checkmark.value
+      )
+    )
 
 private object TutorBuilder:
 
@@ -109,10 +121,11 @@ private object TutorBuilder:
   val peerNbGames = Max(5_000)
 
   def answerMine[Dim](question: Question[Dim], user: TutorPlayer)(using
+      config: TutorConfig,
       insightApi: InsightApi,
       ec: Executor
   ): Fu[AnswerMine[Dim]] = insightApi
-    .ask(question.filter(Filter(user.perfType)), user.user, withPovs = false)
+    .ask(question.timeFilter(config).filter(Filter(user.perfType)), user.user, withPovs = false)
     .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key))
     .map(AnswerMine.apply)
 
@@ -124,13 +137,17 @@ private object TutorBuilder:
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key))
     .map(AnswerPeer.apply)
 
-  def answerManyPerfs[Dim](question: Question[Dim], tutorUsers: NonEmptyList[TutorPlayer])(using
+  def answerManyPerfs[Dim](
+      question: Question[Dim],
+      tutorUsers: NonEmptyList[TutorPlayer]
+  )(using
+      config: TutorConfig,
       insightApi: InsightApi,
       ec: Executor
   ): Fu[Answers[Dim]] = for
     mine <- insightApi
       .ask(
-        question.filter(Filter(tutorUsers.toList.map(_.perfType))),
+        question.timeFilter(config).filter(Filter(tutorUsers.toList.map(_.perfType))),
         tutorUsers.head.user,
         withPovs = false
       )

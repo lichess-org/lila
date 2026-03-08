@@ -1,5 +1,5 @@
-import { type Prop, frag } from '@/index';
 import { clamp } from '@/algo';
+import { type Prop, frag } from '@/index';
 import { json as xhrJson } from '@/xhr';
 
 export type UpdateImageHook =

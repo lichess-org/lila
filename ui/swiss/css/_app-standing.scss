@@ -48,12 +48,12 @@
 
   tr.active td:last-child {
     $c-active-border: $m-primary_bg--mix-70;
+
     @include gradient-border($c-active-border, to left, to right);
   }
 
   td.rank {
     @extend %roboto;
-
     @include padding-direction(1em, 0.5em, 1em, 10px);
 
     width: 1px;
@@ -79,6 +79,7 @@
 
       & > * {
         @extend %flex-center-center;
+
         flex: 0 0 2em;
         text-align: center;
       }
@@ -87,7 +88,6 @@
     .ongoing {
       color: $c-link;
 
-      // background: mix($c-link, $c-bg-box, 15%);
       &:hover {
         background: $m-primary_bg--mix-35;
       }
@@ -96,7 +96,6 @@
     .win {
       color: $c-good;
 
-      // background: mix($c-good, $c-bg-box, 15%);
       &:hover {
         background: $m-secondary_bg--mix-35;
       }
@@ -105,7 +104,6 @@
     .loss {
       color: $m-bad_bg--mix-60;
 
-      // background: mix($c-bad, $c-bg-box, 10%);
       &:hover {
         background: $m-bad_bg--mix-20;
       }

@@ -1,5 +1,6 @@
-import { updateElements, formatClockTimeVerbal } from './clockView';
 import { ShowClockTenths } from '@/prefs';
+
+import { updateElements, formatClockTimeVerbal } from './clockView';
 
 export interface ClockOpts {
   onFlag(): void;

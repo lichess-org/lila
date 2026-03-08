@@ -30,6 +30,7 @@ final class LoginContext(
   def isWebAuth = isAuth && oauth.isEmpty
   def isOAuth = isAuth && oauth.isDefined
   def isMobileOauth = oauth.exists(_.has(_.Web.Mobile))
+  def isPolygon = oauth.exists(_.has(_.Web.Polygon))
   def scopes = oauth | TokenScopes(Nil)
   def useMe[A: Zero](f: Me ?=> A): A = me.soUse(f)
 

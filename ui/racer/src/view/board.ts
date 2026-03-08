@@ -1,10 +1,12 @@
-import type RacerCtrl from '../ctrl';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { INITIAL_BOARD_FEN } from 'chessops/fen';
+import { h, type VNode } from 'snabbdom';
+
+import { pubsub } from 'lib/pubsub';
 import { makeCgOpts } from 'lib/puz/run';
 import { makeConfig as makeCgConfig } from 'lib/puz/view/chessground';
-import { h, type VNode } from 'snabbdom';
-import { INITIAL_BOARD_FEN } from 'chessops/fen';
-import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { pubsub } from 'lib/pubsub';
+
+import type RacerCtrl from '../ctrl';
 
 export const renderBoard = (ctrl: RacerCtrl) => {
   const secs = ctrl.countdownSeconds();

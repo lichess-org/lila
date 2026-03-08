@@ -39,8 +39,8 @@
   <string name="ratingX">Reyting: %s</string>
   <string name="hidden">yashirilgan</string>
   <plurals name="playedXTimes">
-    <item quantity="one">%s marta oʻynalgan</item>
-    <item quantity="other">%s marta oʻynalgan</item>
+    <item quantity="one">%s marta oʻynalgan</item>
+    <item quantity="other">%s marta oʻynalgan</item>
   </plurals>
   <string name="fromGameLink">%s oʻyinidan</string>
   <string name="continueTraining">Mashgʻulotni davom ettirish</string>

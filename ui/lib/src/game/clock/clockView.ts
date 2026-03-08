@@ -1,7 +1,8 @@
-import type { ClockElements, ClockCtrl } from './clockCtrl';
-import { hl, type VNode, type LooseVNodes, type Hooks } from '@/view';
-import type { TopOrBottom } from '../index';
 import { displayColumns } from '@/device';
+import { hl, type VNode, type LooseVNodes, type Hooks } from '@/view';
+
+import type { TopOrBottom } from '../index';
+import type { ClockElements, ClockCtrl } from './clockCtrl';
 
 export function renderClock(
   ctrl: ClockCtrl,

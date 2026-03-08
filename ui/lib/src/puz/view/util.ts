@@ -1,4 +1,5 @@
 import { h, type VNode } from 'snabbdom';
+
 import type { Config, Run } from '@/puz/interfaces';
 import { getNow } from '@/puz/util';
 

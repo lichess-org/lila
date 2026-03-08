@@ -99,24 +99,8 @@ final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFil
 
   /* Find student that shares a class with me */
   def findMateStudent(studentId: UserId)(using me: Me): Fu[Option[Student]] =
-    colls.student
-      .aggregateOne(_.sec): framework =>
-        import framework.*
-        Match($doc("userId" -> me.userId)) -> List(
-          Project($doc("mateId" -> $doc("$concat" -> $arr(s"$studentId${Student.idSeparator}", "$clasId")))),
-          Group(BSONNull)("mates" -> PushField("mateId")),
-          PipelineOperator(
-            $lookup.pipelineFull(
-              from = colls.student.name,
-              as = "mates",
-              let = $doc("ids" -> "$mates"),
-              pipe = List(
-                $doc("$match" -> $expr($doc("$in" -> $arr("$_id", "$$ids")))),
-                $doc("$limit" -> 1)
-              )
-            )
-          ),
-          Unwind("mates")
-        )
-      .map:
-        _.flatMap(_.getAsOpt[Student]("mates"))
+    for
+      myClasIds <- colls.clasIdsOfStudent(me.userId)
+      mate <- myClasIds.nonEmpty.so:
+        colls.student.one[Student]($inIds(myClasIds.map(Student.makeId(studentId, _))))
+    yield mate

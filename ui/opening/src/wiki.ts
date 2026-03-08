@@ -1,5 +1,6 @@
-import type { OpeningPage } from './interfaces';
 import { wikiBooksUrl, apiArgs, transformWikiHtml } from 'lib/wikiBooks';
+
+import type { OpeningPage } from './interfaces';
 
 export default function wikiTheory(data: OpeningPage): void {
   $('.opening__wiki__markup__placeholder').each(function (this: HTMLDivElement) {

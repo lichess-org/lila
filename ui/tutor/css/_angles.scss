@@ -1,19 +1,24 @@
 .tutor__perf__angle {
   @extend %flex-column;
+
   &--pieces {
     @media (min-width: at-least($medium)) {
       grid-column: span 2;
     }
+
     .tutor-grades {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
     }
   }
+
   .tutor-grades {
     flex: 1 1 100%;
   }
+
   &--na {
     @extend %flex-center-center;
+
     color: $c-font-dim;
   }
 }

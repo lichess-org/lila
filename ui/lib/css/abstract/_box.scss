@@ -5,6 +5,7 @@
 /* helps with clipping background into border-radius */
 %box-radius-force {
   @extend %box-radius;
+
   overflow: hidden;
 }
 

@@ -43,7 +43,6 @@ $c-dimmer: #000;
 $c-clearer: #fff;
 $c-mv-branch-white: #fff;
 $c-mv-branch-black: #000;
-
 $patron-colors: $patron-colors-dark;
 
 // shared-color-defs lists theme colors that share definitions. the assigned values usually depend on
@@ -75,20 +74,17 @@ $patron-colors: $patron-colors-dark;
   --c-metal-bottom: #{hsl($site-hue, 5%, 19%)};
   --c-metal-top-hover: #{hsl($site-hue, 7%, 25%)};
   --c-metal-bottom-hover: #{hsl($site-hue, 5%, 22%)};
-
   --c-font-dim: #{$c-font-dim};
   --c-font-dimmer: #{change-color($c-font, $lightness: 42%)};
   --c-font-clear: #{change-color($c-font, $lightness: 80%)};
   --c-font-clearer: #{change-color($c-font, $lightness: 89%)};
   --c-font-page: var(--c-font-dim);
   --c-font-shadow: hsla(0, 0, 0%, 0);
-
   --c-primary-dim: #{dim($c-primary, 15%)};
   --c-link-hover: #{clear(saturate($c-primary, 100%), 25%)};
   --c-chat-host-bg: rgba(78, 122, 29, 0.4);
   --c-chat-mention-bg: rgba(59, 92, 22, 0.4);
   --c-fancy: hsl(294, 62%, 48%);
-
   --c-border: #{$c-border};
   --c-border-page: hsl(0, 0%, 22%);
   --c-border-tour: #{mix(hsl(0, 0%, 22%), $c-bg-page, 50)};
@@ -108,7 +104,6 @@ $patron-colors: $patron-colors-dark;
   --c-accent-dim: #{dim($c-accent)};
   --c-accent-faint: hsla(22, 100%, 42%, 0.4);
   --c-accent-clear: #{dim($c-accent)};
-
   --c-dasher: #{$c-secondary};
   --c-bot: var(--c-fancy);
   --c-good: #{$c-secondary};
@@ -116,7 +111,6 @@ $patron-colors: $patron-colors-dark;
   --c-bad: #{$c-bad};
   --c-error: #{$c-bad};
   --c-live: #{$c-bad};
-
   --c-dasher-light: #{mix($c-secondary, $c-bg-low, 40%)};
   --c-racer-boost: #{adjust-color($c-brag, $saturation: 50%, $lightness: 70%)};
   --c-marathon: #{adjust-color($c-primary, $hue: -190deg, $saturation: -70%)};
@@ -131,7 +125,6 @@ $patron-colors: $patron-colors-dark;
   --c-mv-branch-black: #{$c-mv-branch-black};
   --c-pool-button: #{hsla($site-hue, 7%, 19%, 66%)};
   --c-paper: #{$c-paper};
-
   --c-paco1: #{map-get($patron-colors, 1)};
   --c-paco2: #{map-get($patron-colors, 2)};
   --c-paco3: #{map-get($patron-colors, 3)};

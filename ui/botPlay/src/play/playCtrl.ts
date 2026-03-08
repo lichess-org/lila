@@ -1,17 +1,19 @@
 import { opposite, parseSquare } from 'chessops';
-import type { Bot, LocalBridge, Move, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
+
+import { prop, toggle, type Toggle } from 'lib';
+import type { TopOrBottom } from 'lib/game';
+import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
+import type { WithGround } from 'lib/game/ground';
+import { PromotionCtrl } from 'lib/game/promotion';
+
 import type { Board } from '../chess';
+import { Game } from '../game';
+import { initialGround, updateGround } from '../ground';
+import type { Bot, LocalBridge, Move, Pref } from '../interfaces';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
-import { initialGround, updateGround } from '../ground';
-import { Game } from '../game';
-import { prop, toggle, type Toggle } from 'lib';
 import { playMoveSounds } from './sound';
-import { PromotionCtrl } from 'lib/game/promotion';
-import type { WithGround } from 'lib/game/ground';
-import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
-import type { TopOrBottom } from 'lib/game';
 
 export interface PlayOpts {
   pref: Pref;

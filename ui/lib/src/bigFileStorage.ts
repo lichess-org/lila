@@ -1,6 +1,6 @@
-import { objectStorage } from './objectStorage';
-import { memoize } from './index';
 import { randomToken } from './algo';
+import { memoize } from './index';
+import { objectStorage } from './objectStorage';
 import { log } from './permalog';
 
 // url keyed storage for very large assets

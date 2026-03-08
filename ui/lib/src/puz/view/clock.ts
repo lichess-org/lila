@@ -1,7 +1,9 @@
-import { defined } from '@/index';
-import { getNow } from '../util';
 import { h, type VNode } from 'snabbdom';
+
+import { defined } from '@/index';
+
 import type { Run, TimeMod } from '../interfaces';
+import { getNow } from '../util';
 
 type OnFlag = () => void;
 

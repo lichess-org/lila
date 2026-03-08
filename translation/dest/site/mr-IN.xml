@@ -237,6 +237,7 @@
   <string name="changeUsernameNotSame">केवळ अक्षरे छोटी मोठी करता येतील. उदाहरणार्थ \"johndoe\" ते \"JohnDoe\".</string>
   <string name="changeUsernameDescription">नाव बदला. केवळ अक्षरे छोटी मोठी करता येतील.</string>
   <string name="signupUsernameHint">तुमचं वापरकर्तानाव छोट्या मुलांसाठी अनुकूल असलेलं पाहिजे. तुम्ही ते नंतर बदलू शकत नाही, आणि अयोग्य वापरकर्तानाव बंद होतील!</string>
+  <string name="signupEmailPromise">आम्ही तुम्हाला फक्त तुमच्या खात्याबद्दल ई-मेल तुम्हाला पाठवणार व तुमचा ई-मेल कधीही प्रसारित करणार नाही.</string>
   <string name="password">परवलीचा शब्द</string>
   <string name="changePassword">परवलीचा शब्द बदला</string>
   <string name="changeEmail">ई-मेल बदला</string>

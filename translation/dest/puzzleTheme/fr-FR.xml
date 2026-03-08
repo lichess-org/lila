@@ -26,6 +26,8 @@
   <string name="castlingDescription">Mettez votre Roi en sécurité et développez vos Tours pour attaquer.</string>
   <string name="capturingDefender">Capturez le défenseur</string>
   <string name="capturingDefenderDescription">Retire une pièce essentielle à la défense d\'une autre pièce, permettant à la pièce non protégée d\'être capturée au coup suivant.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Coup colinéaire</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Deux pièces opposées se font face et l\'une des deux se déplace sur la même ligne sans capturer l\'autre pièce.</string>
   <string name="cornerMate">Mat en coin</string>
   <string name="cornerMateDescription">Le roi adverse est confiné dans un coin de l\'échiquier par une tour ou la dame, puis un cavalier le met mat.</string>
   <string name="crushing">Écrasant</string>
@@ -53,8 +55,8 @@
   <string name="endgame">Finale</string>
   <string name="endgameDescription">Une tactique lors de la dernière phase du jeu.</string>
   <string name="enPassantDescription">Une tactique impliquant la règle de la prise en passant, où un pion peut capturer un pion adverse qui l\'a croisé lors de son déplacement initial de deux cases.</string>
-  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Mat des épaulettes</string>
-  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Deux cases de fuite des deux côtés du roi en échec sont occupées par des pièces.</string>
+  <string name="epauletteMate">Mat des épaulettes</string>
+  <string name="epauletteMateDescription">Deux cases de fuite des deux côtés du roi en échec sont occupées par des pièces.</string>
   <string name="exposedKing">Roi exposé</string>
   <string name="exposedKingDescription">Une tactique impliquant un Roi avec peu de défenseurs autour de lui, menant souvent à l\'échec et mat.</string>
   <string name="fork">Fourchette</string>
@@ -73,8 +75,8 @@
   <string name="pillsburysMateDescription">La tour met le roi adverse mat avec l\'aide du fou.</string>
   <string name="morphysMate">Mat de Morphy</string>
   <string name="morphysMateDescription">Le fou met le roi adverse échec et mat avec l\'aide de la tour.</string>
-  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Mat du guéridon</string>
-  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Motif de mat qui ressemble visuellement à un guéridon (une petite table soutenue par un pied central).</string>
+  <string name="swallowstailMate">Mat du guéridon</string>
+  <string name="swallowstailMateDescription">Motif de mat qui ressemble visuellement à un guéridon (une petite table soutenue par un pied central).</string>
   <string name="triangleMate">Mat du triangle</string>
   <string name="triangleMateDescription">La dame et la tour, à une case de distance du roi adverse, sont sur la même rangée ou colonne et donnent mat en formant un triangle.</string>
   <string name="vukovicMate">Mat de Vukovic</string>

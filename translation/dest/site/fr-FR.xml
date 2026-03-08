@@ -132,8 +132,15 @@
   <string name="pinnedPieces">Pièces clouées</string>
   <string name="checkableKing">Roi pouvant être mis en échec</string>
   <string name="multipleLines">Lignes d\'analyse</string>
+  <string name="multipleLinesDescription">Définir le nombre de lignes d\'analyse et de flèches sur l\'échiquier</string>
+  <string name="searchTime">Temps d\'analyse</string>
+  <string name="searchTimeDescription">Établir le temps d\'analyse des nouvelles positions</string>
+  <string name="threads">Coeurs</string>
+  <string name="threadsDescription">Sélectionnez une valeur en dessous du nombre de coeurs de votre processeur. Les flèches indiquent le choix optimal.</string>
+  <string name="threadsDescriptionMobile">Utiliser plus de coeurs consomme plus d\'énergie, mais permet une meilleure analyse.</string>
   <string name="cpus">Processeurs</string>
   <string name="memory">Mémoire</string>
+  <string name="memoryDescription">Des valeurs plus élevées pourraient améliorer les performances.</string>
   <string name="infiniteAnalysis">Analyse infinie</string>
   <string name="removesTheDepthLimit">Désactive la profondeur limitée et fait chauffer votre ordinateur</string>
   <string name="blunder">Gaffe</string>

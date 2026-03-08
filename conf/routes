@@ -261,6 +261,7 @@ GET   /study/topic/:topic/:order       controllers.Study.byTopic(topic, order: S
 GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 GET   /study/glyphs/:lang.json         controllers.Study.glyphs(lang: String)
 GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang: Language)
+POST  /api/study                       controllers.Study.apiCreate
 GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id: StudyId)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id: StudyId, chapterId: StudyChapterId)
 DELETE /api/study/$id<\w{8}>/$chapterId<\w{8}>    controllers.Study.apiChapterDelete(id: StudyId, chapterId: StudyChapterId)
@@ -938,6 +939,8 @@ GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id)
 GET   /dev/ip-tiers                    controllers.Dev.ipTiers
 POST  /dev/ip-tiers                    controllers.Dev.ipTiersPost
+GET   /dev/email-error                 controllers.Dev.emailErrorGet
+POST  /dev/email-error                 controllers.Dev.emailErrorPost
 
 GET   /prometheus-metrics/:key         controllers.Main.prometheusMetrics(key: String)
 

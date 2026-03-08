@@ -1,9 +1,10 @@
 import * as co from 'chessops';
-import { normalMove } from 'lib/game/chess';
-import { type Status, type RoundStep, statusOf } from 'lib/game';
+
 import { deepFreeze, randomId } from 'lib/algo';
-import { hashBoard } from 'lib/game/hash';
 import type { LocalSetup } from 'lib/bot/types';
+import { type Status, type RoundStep, statusOf } from 'lib/game';
+import { normalMove } from 'lib/game/chess';
+import { hashBoard } from 'lib/game/hash';
 
 type LocalMove = {
   uci: Uci;
@@ -23,7 +24,7 @@ export interface GameContext extends GameStatus {
   move?: co.NormalMove;
   fen: string;
   ply: number;
-  dests: { [from: string]: string };
+  dests: Record<string, string>;
   threefold: boolean;
   check: boolean;
   fiftyMoves: boolean;
@@ -40,7 +41,7 @@ export class LocalGameData implements LocalSetup {
   increment: Seconds;
   white?: string;
   black?: string;
-  finished: GameStatus | undefined;
+  finished?: GameStatus;
 }
 
 export class LocalGame extends LocalGameData {
@@ -154,7 +155,7 @@ export class LocalGame extends LocalGameData {
     return this.setupFen ?? co.fen.INITIAL_FEN;
   }
 
-  get dests(): { [from: string]: string } {
+  get dests(): Record<string, string> {
     return Object.fromEntries([...this.cgDests].map(([src, dests]) => [src, dests.join('')]));
   }
 

@@ -1,14 +1,11 @@
 import { hl } from 'lib/view';
+
 import type LobbyController from '@/ctrl';
 
 export const ratingDifferenceSliders = ({ setupCtrl, me, data }: LobbyController) => {
   if (!me || !data.ratingMap) return null;
 
   const isProvisional = setupCtrl.isProvisional();
-
-  // Get current rating values or use default values if isProvisional
-  const currentRatingMin = isProvisional ? -500 : setupCtrl.ratingMin();
-  const currentRatingMax = isProvisional ? 500 : setupCtrl.ratingMax();
 
   const ratingInput = (type: 'min' | 'max') => {
     const isMin = type === 'min';
@@ -22,7 +19,7 @@ export const ratingDifferenceSliders = ({ setupCtrl, me, data }: LobbyController
         disabled: isProvisional,
       },
       props: {
-        value: isMin ? currentRatingMin : currentRatingMax,
+        value: isMin ? setupCtrl.ratingMin() : setupCtrl.ratingMax(),
       },
       on: {
         input: (e: Event) => {
@@ -40,25 +37,20 @@ export const ratingDifferenceSliders = ({ setupCtrl, me, data }: LobbyController
     'div',
     {
       class: { disabled: isProvisional },
-      attrs: isProvisional
-        ? {
-            title: i18n.site.ratingRangeIsDisabledBecauseYourRatingIsProvisional,
-            'aria-disabled': 'true',
-            tabindex: -1,
-          }
-        : undefined,
     },
-    [
-      i18n.site.ratingFilter,
-      hl('div.rating-range', [
-        ratingInput('min'),
-        !site.blindMode && [
-          hl('span.rating-min', '-' + Math.abs(currentRatingMin)),
-          '/',
-          hl('span.rating-max', '+' + currentRatingMax),
+    isProvisional
+      ? hl('span', i18n.site.ratingRangeIsDisabledBecauseYourRatingIsProvisional)
+      : [
+          i18n.site.ratingFilter,
+          hl('div.rating-range', [
+            ratingInput('min'),
+            !site.blindMode && [
+              hl('span.rating-min', '-' + Math.abs(setupCtrl.ratingMin())),
+              '/',
+              hl('span.rating-max', '+' + setupCtrl.ratingMax()),
+            ],
+            ratingInput('max'),
+          ]),
         ],
-        ratingInput('max'),
-      ]),
-    ],
   );
 };

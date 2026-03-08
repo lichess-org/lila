@@ -19,12 +19,12 @@
   <string name="rule2">Lichessʼga aloqador boʻlmagan kontentni efirga uzatganingizda, ushbu kalit soʻzni sarlavhadan olib tashlang.</string>
   <string name="rule3">Lichess efiringizni avtomatik ravishda aniqlaydi va quyidagi imkoniyatlarni faollashtiradi:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Efir davomida barcha uchun halol oʻyin muhitini taʼminlash maqsadida %s bo‘limi bilan tanishib chiqing.</string>
-  <string name="streamingFairplayFAQ">halol oʻyin boʻyicha tez-tez beriladigan savollar</string>
+  <string name="streamingFairplayFAQ">halol oʻyin boʻyicha tez‑tez beriladigan savollar</string>
   <string name="perks">Kalit soʻzi bilan strim qilishning afzalliklari</string>
   <string name="perk1">Lichess profilingizda yonayotgan strimer belgisiga paydo boʻladi.</string>
   <string name="perk2">Strimerlar roʻyxatining eng yuqori qismiga koʻtarilasiz.</string>
   <string name="perk3">Lichessʼdagi obunachilaringizga bildirishnoma yuboriladi.</string>
-  <string name="perk4">Striming qilayotganingiz haqida oʻyinlaringizda, turnirlarda va oʻquv qoʻllanmalarida koʻrsatiladi.</string>
+  <string name="perk4">Striming qilayotganingiz haqida oʻyinlaringizda, turnirlarda va saboqlarda koʻrsatiladi.</string>
   <string name="approved">Strimingiz tasdiqlandi.</string>
   <string name="pendingReview">Strimingiz moderatorlar tomonidan koʻrib chiqilmoqda.</string>
   <string name="pleaseFillIn">Iltimos, strimer haqidagi maʼlumotlaringizni toʻldiring va rasm yuklang.</string>
@@ -37,8 +37,8 @@
   <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Uzish</string>
   <string name="streamerName">Lichessʼdagi strimer ismingiz</string>
   <plurals name="keepItShort">
-    <item quantity="one">Qisqaroq yozing: koʻpi bilan %s ta belgi</item>
-    <item quantity="other">Qisqaroq yozing: koʻpi bilan %s ta belgi</item>
+    <item quantity="one">Qisqaroq yozing: koʻpi bilan %s ta belgi</item>
+    <item quantity="other">Qisqaroq yozing: koʻpi bilan %s ta belgi</item>
   </plurals>
   <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Strimerlar sahifasida koʻrinsin</string>
   <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Moderatorlar tomonidan tasdiqlanganidan soʻng</string>

@@ -1,5 +1,6 @@
 .diagnostic {
   @extend %flex-column;
+
   align-items: center;
   padding: 1em 2em 2em;
   row-gap: 1em;
@@ -18,6 +19,7 @@
 
   h2 {
     @extend %base-font;
+
     font-size: 1.3em;
   }
 

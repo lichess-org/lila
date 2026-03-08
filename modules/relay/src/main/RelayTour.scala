@@ -65,6 +65,10 @@ case class RelayTour(
 
   def canView(using me: Option[Me]) = !isPrivate || me.so(isOwnedBy)
 
+  def daysSinceFinished =
+    import java.time.temporal.ChronoUnit
+    dates.flatMap(_.end).map(ChronoUnit.DAYS.between(_, nowInstant))
+
 object RelayTour:
 
   val maxRelays = Max(64)

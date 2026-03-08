@@ -1,12 +1,14 @@
+import { h, type VNode } from 'snabbdom';
+
+import { hookMobileMousedown } from 'lib/device';
+import * as licon from 'lib/licon';
+import { userLine, userLink, userLinkData } from 'lib/view/userLink';
+
 import type MsgCtrl from '../ctrl';
+import type { Convo, User } from '../interfaces';
 import renderActions from './actions';
 import renderInteract from './interact';
 import renderMsgs from './msgs';
-import type { Convo, User } from '../interfaces';
-import { h, type VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
-import { hookMobileMousedown } from 'lib/device';
-import { userLine, userLink, userLinkData } from 'lib/view/userLink';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.user;

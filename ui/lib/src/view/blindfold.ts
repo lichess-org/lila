@@ -1,4 +1,5 @@
 import type { Prop } from '@/common';
+
 import * as licon from '../licon';
 import { bind, hl, type MaybeVNode } from './index';
 

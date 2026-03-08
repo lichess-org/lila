@@ -1,14 +1,15 @@
-import { schema, infoKeys } from './schema';
-import { Pane, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './pane';
-import { FilterPane } from './filterPane';
-import { SoundEventPane } from './soundEventPane';
-import { BooksPane } from './booksPane';
-import type { EditDialog } from './editDialog';
-import type { PaneInfo, InfoKey } from './devTypes';
 import type { ActionListener, Action } from 'lib/view';
 
+import { BooksPane } from './booksPane';
+import type { PaneInfo, InfoKey } from './devTypes';
+import type { EditDialog } from './editDialog';
+import { FilterPane } from './filterPane';
+import { Pane, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './pane';
+import { schema, infoKeys } from './schema';
+import { SoundEventPane } from './soundEventPane';
+
 export class Panes {
-  byId: { [id: string]: Pane } = {};
+  byId: Record<string, Pane> = {};
 
   byEl(el: Element): Pane | undefined {
     while (el && this.byId[el.id] === undefined) el = el.parentElement!;

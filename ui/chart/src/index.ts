@@ -1,4 +1,5 @@
 import { Chart, type ChartDataset, type ChartOptions } from 'chart.js';
+
 import { currentTheme } from 'lib/device';
 
 export interface MovePoint {

@@ -2,6 +2,7 @@ package lila.web
 
 import akka.stream.Materializer
 import play.api.mvc.*
+import play.api.http.Status.*
 
 import lila.common.HTTPRequest
 import lila.core.config.NetConfig
@@ -57,10 +58,13 @@ final class HttpFilter(
   private def addContextualResponseHeaders(req: RequestHeader)(result: Result) =
     if HTTPRequest.isApiOrApp(req)
     then result.withHeaders(headersForApiOrApp(using req)*)
-    else result.withHeaders(permissionsPolicyHeader)
+    else if result.header.status == OK
+    then result.withHeaders(permissionsPolicyHeader)
+    else result
 
   private def addEmbedderPolicyHeaders(req: RequestHeader)(result: Result) =
-    if !crossOriginPolicy.isSet(result)
+    if result.header.status != NO_CONTENT
+      && !crossOriginPolicy.isSet(result)
       && crossOriginPolicy.supportsCredentiallessIFrames(req)
     then result.withHeaders(crossOriginPolicy.credentialless*)
     else result

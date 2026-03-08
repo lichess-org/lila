@@ -59,13 +59,16 @@
 
   &__skip {
     @extend %flex-column;
-    align-items: center;
     @include transition;
+
+    align-items: center;
     outline: none;
+
     &.disabled {
       opacity: 0;
       cursor: default;
     }
+
     &::before {
       content: '';
       background-image: url('../images/racer/gear-stick.svg');
@@ -73,10 +76,12 @@
       height: 4ch;
       margin-bottom: 0.6ch;
     }
+
     &:hover::before {
       transform: scaleX(-1);
     }
   }
+
   &--pre .racer__skip {
     cursor: not-allowed;
   }
@@ -88,11 +93,14 @@
   &__pre__message {
     &--with-skip {
       @extend %flex-center-nowrap;
+
       justify-content: space-between;
     }
+
     &__pov {
       color: $c-brag;
       margin: 1em 0;
+
       @include mq-at-least-col2 {
         margin: 1em 0 0 0;
       }
@@ -107,6 +115,7 @@
     &__new {
       margin: 2em 0 1em 0;
     }
+
     &__button {
       width: 100%;
     }

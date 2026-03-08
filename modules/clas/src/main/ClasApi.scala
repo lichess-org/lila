@@ -28,6 +28,7 @@ final class ClasApi(
 )(using Executor, lila.core.i18n.Translator):
 
   import BsonHandlers.given
+  import colls.selectArchived
   export filters.{ student as isStudent, teacher as isTeacher }
 
   Bus.sub[lila.core.user.UserDelete]: del =>
@@ -59,7 +60,7 @@ final class ClasApi(
         .list(nb)
 
     def ofStudent(userId: UserId, nb: Int): Fu[List[Clas]] =
-      student.clasIdsOfUser(userId).flatMap(activeByIds(_, nb))
+      colls.clasIdsOfStudent(userId).flatMap(activeByIds(_, nb))
 
     def create(data: ClasForm.ClasData)(using teacher: Me): Fu[Clas] =
       val clas = data.make(teacher)
@@ -269,9 +270,6 @@ final class ClasApi(
         .cursor[Student]()
         .list(500)
 
-    private[ClasApi] def clasIdsOfUser(userId: UserId): Fu[List[ClasId]] =
-      coll.distinctEasy[ClasId, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false), _.sec)
-
     def count(clasId: ClasId): Fu[Int] = coll.countSel($doc("clasId" -> clasId))
 
     def isManaged(user: User): Fu[Boolean] =
@@ -423,9 +421,6 @@ ${clas.desc}""",
         .void
 
   end student
-
-  // works for clas & student
-  private def selectArchived(v: Boolean) = $doc("archived".$exists(v))
 
   object invite:
 

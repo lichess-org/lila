@@ -1,5 +1,6 @@
 import { throttle } from 'lib/async';
 import { sortTable } from 'lib/tablesort';
+
 import { makeToastEditor, getSanitizedMarkdown } from './toastEditor';
 
 site.load.then(() => {

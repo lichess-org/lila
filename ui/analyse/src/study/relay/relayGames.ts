@@ -1,14 +1,17 @@
-import type { StudyCtrl } from '../studyDeps';
-import type RelayCtrl from './relayCtrl';
-import { userTitle } from 'lib/view/userLink';
-import { defined, scrollToInnerSelector } from 'lib';
-import { renderClock, verticalEvalGauge } from '../multiBoard';
-import type { ChapterPreview } from '../interfaces';
-import { gameLinkAttrs } from '../studyChapters';
-import { playerFedFlag } from '../playerBars';
-import { hl } from 'lib/view';
-import { playerColoredResult } from './customScoreStatus';
 import { COLORS } from 'chessops';
+
+import { defined, scrollToInnerSelector } from 'lib';
+import { hl } from 'lib/view';
+import { userTitle } from 'lib/view/userLink';
+
+import { playerFedFlag } from '@/view/util';
+
+import type { ChapterPreview } from '../interfaces';
+import { renderClock, verticalEvalGauge } from '../multiBoard';
+import { gameLinkAttrs } from '../studyChapters';
+import type { StudyCtrl } from '../studyDeps';
+import { playerColoredResult } from './customScoreStatus';
+import type RelayCtrl from './relayCtrl';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();
@@ -69,7 +72,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                             hl('span.name', [userTitle(p), p.name]),
                           ]),
                           coloredResult
-                            ? hl(`${coloredResult.tag}`, [coloredResult.points])
+                            ? hl(coloredResult.tag, [coloredResult.points])
                             : showResults && hl('span', clocks[i]),
                         ]
                       : [hl('span.mini-game__user', hl('span.name', 'Unknown player'))],

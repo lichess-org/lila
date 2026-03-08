@@ -1,12 +1,13 @@
 // no side effects allowed due to re-export by index.ts
 
-import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 import { isTouchDevice } from '@/device';
-import { blurIfPrimaryClick, frag } from '@/index';
 import { Janitor } from '@/event';
-import * as xhr from '@/xhr';
+import { blurIfPrimaryClick, frag } from '@/index';
 import * as licon from '@/licon';
 import { pubsub } from '@/pubsub';
+import * as xhr from '@/xhr';
+
+import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 
 export interface Dialog {
   readonly view: HTMLElement; // your content div
@@ -85,9 +86,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   (o.parent ?? document.body).appendChild(dialog);
 
   const wrapper = new DialogWrapper(dialog, view, o, false);
-  if (o.show) return wrapper.show();
-
-  return wrapper;
+  return o.show ? wrapper.show() : wrapper;
 }
 
 export function snabDialog(o: SnabDialogOpts): VNode {
@@ -165,10 +164,7 @@ class DialogWrapper implements Dialog {
     const justThen = Date.now();
     const cancelOnInterval = (e: PointerEvent) => {
       if (!this.dialog.isConnected) console.trace('likely zombie dialog. Always Be Close()ing');
-      if (Date.now() - justThen < 200) return;
-      const r = dialog.getBoundingClientRect();
-      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
-        this.close('cancel');
+      if (Date.now() - justThen >= 200 && !dialog.contains(e.target as Node | null)) this.close('cancel');
     };
     this.observer.observe(document.body, { childList: true, subtree: true });
     document.body.style.setProperty('---viewport-height', `${window.innerHeight}px`);
@@ -176,16 +172,16 @@ class DialogWrapper implements Dialog {
 
     this.dialogEvents.addListener(dialog, 'cancel', e => {
       if (o.noClickAway && o.noCloseButton && o.class !== 'alert') return e.preventDefault();
-      if (!this.returnValue) this.returnValue = 'cancel';
+      this.returnValue ||= 'cancel';
     });
     this.dialogEvents.addListener(dialog, 'close', this.onRemove);
     if (!o.noCloseButton)
       this.dialogEvents.addListener(
-        dialog.querySelector('.close-button-anchor > .close-button')!,
+        dialog.querySelector<HTMLButtonElement>('.close-button-anchor > .close-button')!,
         'click',
         e => {
           this.close('cancel');
-          // If closed with a primary click, blur the element that was used to open the dialog before:
+          // If closed with a primary click, blur the element that was used to open the dialog before
           blurIfPrimaryClick(e);
         },
       );

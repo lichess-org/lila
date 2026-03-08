@@ -1,10 +1,12 @@
-import { h, type VNode, type VNodeChildren } from 'snabbdom';
 import { type Pieces, files } from '@lichess-org/chessground/types';
 import { COLORS, RANK_NAMES, ROLES, type FileName } from 'chessops/types';
 import { charToRole, roleToChar } from 'chessops/util';
+import { h, type VNode, type VNodeChildren } from 'snabbdom';
+
 import { plyToTurn, sanToWords } from '@/game';
-import type { MoveStyle, PieceStyle, PositionStyle, PrefixStyle, BoardStyle } from './setting';
 import type { CrazyPocket, NodeCrazy, TreeComment, TreeNode, TreePath } from '@/tree/types';
+
+import type { MoveStyle, PieceStyle, PositionStyle, PrefixStyle, BoardStyle } from './setting';
 
 export const renderPieceStyle = (ch: string, pieceStyle: PieceStyle): string =>
   pieceStyle === 'letter'
@@ -57,7 +59,7 @@ export const renderPockets = (pockets: NodeCrazy['pockets']): VNode =>
   h(
     'div.pieces',
     COLORS.map((color, i) =>
-      h(`div.${color}-pieces`, [h('h3', i18n.site[color]), `${pocketsStr(pockets[i])}` || '0']),
+      h(`div.${color}-pieces`, [h('h3', i18n.site[color]), pocketsStr(pockets[i]) ?? '0']),
     ),
   );
 
@@ -288,7 +290,7 @@ const augmentLichessComment = (comment: TreeComment, style: MoveStyle): string =
 const transRole = (role: Role): string =>
   (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
 
-const nato: { [file in Files]: string } = {
+const nato: Record<Files, string> = {
   a: 'alpha',
   b: 'bravo',
   c: 'charlie',
@@ -298,7 +300,7 @@ const nato: { [file in Files]: string } = {
   g: 'golf',
   h: 'hotel',
 };
-const anna: { [file in Files]: string } = {
+const anna: Record<Files, string> = {
   a: 'anna',
   b: 'bella',
   c: 'cesar',

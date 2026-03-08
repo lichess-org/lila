@@ -16,7 +16,7 @@
   <string name="backRankMateDescription">Kendi taşları arkasında sıkışıp kalmış şahı, kendi sırasında mat edin.</string>
   <string name="balestraMate">Balestra matı</string>
   <string name="balestraMateDescription">Fil matı gerçekleştirirken, vezir kalan kareleri kontrol eder.</string>
-  <string name="blindSwineMate">Blind Swine matı</string>
+  <string name="blindSwineMate">Kör Dana matı</string>
   <string name="blindSwineMateDescription">İki kale, şahı mat etmek için 2x2 bir alanda işbirliği yapıyorlar.</string>
   <string name="bishopEndgame">Fil oyunsonu</string>
   <string name="bishopEndgameDescription">Sadece fil ve piyon içeren oyunsonu.</string>
@@ -26,6 +26,8 @@
   <string name="castlingDescription">Şahı güvene alırken kaleni saldırıya hazırla.</string>
   <string name="capturingDefender">Savunmayı baltala</string>
   <string name="capturingDefenderDescription">Bir taşı savunan diğer bir taşı ortadan kaldırarak savunmasız kalan taşı sonraki hamlede ele geçir.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Doğrusal hamle</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Karşılıklı duran iki taştan biri, düşman taşını ele geçirmeden saldırı hattı boyunca kayar.</string>
   <string name="cornerMate">Köşe matı</string>
   <string name="cornerMateDescription">Kale veya vezir ve at kullanarak şahı köşeye çekin ve mat girişiminde bulunun.</string>
   <string name="crushing">Ezici üstünlük</string>
@@ -53,8 +55,8 @@
   <string name="endgame">Oyunsonu</string>
   <string name="endgameDescription">Oyunun son aşamasında hayat kurtarıcı taktikler.</string>
   <string name="enPassantDescription">Başlangıçta iki kare ileri giden kurnaz piyonun, rakip piyon ile yan yana geldikten sonra geçerken alma kuralı sebebiyle helvasının yendiği taktikler.</string>
-  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Apolet matı</string>
-  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Şahın kaçabileceği iki bitişik kare, diğer taşlar tarafından kullanılmaktadır.</string>
+  <string name="epauletteMate">Apolet matı</string>
+  <string name="epauletteMateDescription">Şahın kaçabileceği iki bitişik kare, diğer taşlar tarafından kullanılmaktadır.</string>
   <string name="exposedKing">Savunmasız şah</string>
   <string name="exposedKingDescription">Şahın defansa gelin diye feryat ettiği, çoğu zaman mata giden taktikler.</string>
   <string name="fork">Çatal</string>
@@ -73,8 +75,8 @@
   <string name="pillsburysMateDescription">Fil şahı sınırlarken, kale matı gerçekleştirir.</string>
   <string name="morphysMate">Morphy matı</string>
   <string name="morphysMateDescription">Kale şahı sınırlarken, fil matı gerçekleştirir.</string>
-  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Kırlangıç kuyruğu matı</string>
-  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Görsel olarak V şekline benzer bir kırlangıç kuyruğu görünümünü andıran bir şah mat deseni.</string>
+  <string name="swallowstailMate">Kırlangıç kuyruğu matı</string>
+  <string name="swallowstailMateDescription">Görsel olarak V şekline benzer bir kırlangıç kuyruğu görünümünü andıran bir şah mat deseni.</string>
   <string name="triangleMate">Üçgen matı</string>
   <string name="triangleMateDescription">Rakip şahtan bir kare uzakta olan vezir veya kale, aynı sıra veya sütunda yer alır ve aralarında bir karelik boşluk bulunur; bu da bir üçgen oluşturur.</string>
   <string name="vukovicMate">Vukovic matı</string>

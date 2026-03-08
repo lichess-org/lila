@@ -1,8 +1,10 @@
-import type TournamentController from '../ctrl';
+import { h, type VNode } from 'snabbdom';
+
 import { shuffle } from 'lib/algo';
 import { bind, type MaybeVNode, snabDialog } from 'lib/view';
 import { fullName, userFlair } from 'lib/view/userLink';
-import { h, type VNode } from 'snabbdom';
+
+import type TournamentController from '../ctrl';
 import type { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {

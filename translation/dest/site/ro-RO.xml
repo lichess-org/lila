@@ -134,8 +134,15 @@
   <string name="pinnedPieces">Piese țintuite</string>
   <string name="checkableKing">Rege expus la șah</string>
   <string name="multipleLines">Mutări multiple</string>
+  <string name="multipleLinesDescription">Setaţi numărul de linii de evaluare şi de săgeţi pe tablă</string>
+  <string name="searchTime">Timp de căutare</string>
+  <string name="searchTimeDescription">Setează timpul pentru evaluarea pozițiilor noi</string>
+  <string name="threads">Fire de execuție</string>
+  <string name="threadsDescription">Setați această valoare sub numărul maxim de fire de execuție al procesorului, bifele marchează o alegere sigură</string>
+  <string name="threadsDescriptionMobile">Mai multe fire de execuţie vor folosi mai multă baterie pentru o analiză mai bună</string>
   <string name="cpus">Procesoare</string>
   <string name="memory">Memorie</string>
+  <string name="memoryDescription">Valorile mai mari pot îmbunătăți performanța</string>
   <string name="infiniteAnalysis">Analiză infinită</string>
   <string name="removesTheDepthLimit">Elimină limita de adâncime (și încălzește computerul)</string>
   <string name="blunder">Gafă</string>

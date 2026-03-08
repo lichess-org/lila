@@ -1,13 +1,15 @@
-import { domDialog, type Dialog, alert, confirm } from 'lib/view';
+import { wireCropDialog } from 'bits/crop';
+
 import { frag } from 'lib';
 import * as licon from 'lib/licon';
-import { renderRemoveButton } from './devUtil';
-import { wireCropDialog } from 'bits/crop';
+import { domDialog, type Dialog, alert, confirm } from 'lib/view';
+
 import { env } from './devEnv';
+import { renderRemoveButton } from './devUtil';
 
 export type AssetType = 'image' | 'book' | 'sound';
 
-const mimeTypes: { [type in AssetType]?: string[] } = {
+const mimeTypes: Record<AssetType, string[]> = {
   image: ['image/jpeg', 'image/png', 'image/webp'],
   book: ['application/x-chess-pgn', 'application/vnd.chess-pgn', 'application/octet-stream', '.pgn'],
   sound: ['audio/mpeg', 'audio/aac'],
@@ -209,7 +211,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
   private addItem = () => {
     const fileInputEl = document.createElement('input');
     fileInputEl.type = 'file';
-    fileInputEl.accept = mimeTypes[this.type]!.join(',');
+    fileInputEl.accept = mimeTypes[this.type].join(',');
     fileInputEl.style.display = 'none';
     const onchange = () => {
       fileInputEl.removeEventListener('change', onchange);

@@ -292,7 +292,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   val eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
       def limited = rateLimited:
-        "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/bot/get/apibotgamestreamgameid."
+        "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/board/GET/api/board/game/stream/{gameId}."
       HTTPRequest.bearer(ctx.req).so { bearer =>
         limit.eventStream(bearer, limited, msg = s"${me.username} ${HTTPRequest.printClient(req)}"):
           for
@@ -325,7 +325,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
   def moveStream(gameId: GameId) = AnonOrScoped():
     Found(env.round.proxyRepo.game(gameId)): game =>
       def source = ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
-      if ctx.is(UserId.ttt) then jsOptToNdJson(source)
+      if ctx.is(UserId.t3) then jsOptToNdJson(source)
       else ApiMoveStreamGlobalConcurrencyLimitPerIP(req.ipAddress)(source)(jsOptToNdJson)
 
   def perfStat(username: UserStr, perfKey: PerfKey) = ApiRequest:
@@ -334,7 +334,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       .map:
         _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
 
-  def mobileGames = Scoped(_.Web.Mobile) { _ ?=> _ ?=>
+  def mobileGames = Scoped(_.Web.Mobile, _.Web.Polygon) { _ ?=> _ ?=>
     val ids = get("ids").so(_.split(',').take(50).toList).map(GameId.take)
     ids.nonEmpty.so:
       env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.online).map(JsonOk)
@@ -348,9 +348,9 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    * /inbox/unread-count
    * /api/challenge
    */
-  def mobileHome = AnonOrScoped(_.Web.Mobile) { ctx ?=>
+  def mobileHome = AnonOrScoped(_.Web.Mobile, _.Web.Polygon) { ctx ?=>
     limit.apiMobileHome(ctx.userId | ctx.ip, rateLimited):
-      JsonOk(env.api.mobile.home)
+      JsonOk(env.api.mobile.home(ctx.oauth))
   }
 
   /* aggregates, for the new mobile app:
@@ -370,7 +370,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    * /api/user/:id/current-game
    * /api/crosstable/:id1/:id2
    */
-  def mobileProfile(username: UserStr) = AnonOrScoped(_.Web.Mobile) { _ ?=>
+  def mobileProfile(username: UserStr) = AnonOrScoped(_.Web.Mobile, _.Web.Polygon) { _ ?=>
     Found(meOrFetch(username)): user =>
       JsonOk(env.api.mobile.profile(user))
   }

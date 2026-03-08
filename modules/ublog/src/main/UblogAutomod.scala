@@ -80,8 +80,8 @@ private final class UblogAutomod(
           model = modelSetting.get(),
           temperature = temperature
         )
-        .map:
-          _.flatMap(normalize).so: res =>
+        .map: res =>
+          normalize(res).so: res =>
             lila.mon.ublog.automod.quality(res.quality.toString).increment()
             lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
             res.copy(hash = Algo.sha256(userText).hex.take(12).some).some // match bin/ublog-automod.mjs hash

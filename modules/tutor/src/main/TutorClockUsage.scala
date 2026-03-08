@@ -13,7 +13,7 @@ private object TutorClockUsage:
 
   def compute(
       users: NonEmptyList[TutorPlayer]
-  )(using insightApi: InsightApi, ec: Executor): Fu[TutorBuilder.Answers[PerfType]] =
+  )(using config: TutorConfig, insightApi: InsightApi, ec: Executor): Fu[TutorBuilder.Answers[PerfType]] =
     val perfs = users.toList.map(_.perfType)
     val question = Question(
       InsightDimension.Perf,
@@ -40,7 +40,7 @@ private object TutorClockUsage:
       )
       insightRunner(coll)(
         aggregateMine = mineSelect =>
-          Match(mineSelect ++ select ++ $doc(F.perf.$in(perfs))) -> List(
+          Match(mineSelect ++ select) -> List(
             Sort(Descending(F.date)),
             Limit(maxGamesPerPerf.value)
           ).appendedAll(sharedPipeline),

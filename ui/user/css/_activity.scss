@@ -28,6 +28,7 @@
 
   .entry {
     @extend %flex-center;
+
     min-height: 64px;
     position: relative;
     padding: 6px 0;
@@ -70,6 +71,7 @@
 
   .sub {
     @extend %zalgoverflow;
+
     margin: 1px 0 3px;
     font-size: 1rem;
     direction: ltr;

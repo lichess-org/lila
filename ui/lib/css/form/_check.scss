@@ -1,10 +1,13 @@
 .form-check__container {
   @extend %flex-center-nowrap;
+
   user-select: none;
+
   .form-label {
     margin-bottom: 0;
     cursor: pointer;
   }
+
   &:has(.form-label:hover) .form-check__label {
     border-color: $c-good;
   }
@@ -14,12 +17,14 @@
   position: relative;
   cursor: pointer;
 }
+
 .form-check__input + .form-label {
   margin-inline-start: 0.5rem;
 }
 
 .form-check__label {
   @extend %box-radius;
+
   position: relative;
   display: block;
   margin-bottom: 0;
@@ -28,10 +33,13 @@
   cursor: pointer;
   height: 24px;
   width: 24px;
+
   @include transition(background-color border-color, 0.1s ease-in-out);
+
   &:hover {
     border-color: $c-good;
   }
+
   &::after {
     border: 2.5px solid #fff;
     border-top: none;
@@ -49,22 +57,29 @@
 
 .form-check__input input {
   @extend %visually-hidden;
+
   position: absolute;
+
   &:disabled + .form-check__label {
     opacity: 0.6;
     cursor: not-allowed !important;
   }
+
   &:not(:disabled):focus-visible + .form-check__label {
     @extend %focus-shadow;
+
     border-color: $c-font;
   }
+
   &:checked + .form-check__label {
     background-color: $c-good;
     border-color: $c-good;
   }
+
   &:checked:hover + .form-check__label {
     background-color: $m-good--fade-20;
   }
+
   &:checked + .form-check__label::after {
     opacity: 1;
   }

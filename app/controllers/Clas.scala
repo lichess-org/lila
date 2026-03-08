@@ -19,7 +19,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       ctx.me
         .match
           case _ if getBool("home") => renderHome
-          case Some(me) if isGrantedOpt(_.Teacher) && !me.lameOrTroll =>
+          case Some(me) if isGrantedOpt(_.Teacher) =>
             Ok.async:
               env.clas.api.clas
                 .of(me)
@@ -585,7 +585,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       Found(env.clas.api.student.get(clas, user))(f).map(_.hasPersonalData)
 
   private def SafeTeacher(f: => Fu[Result])(using Context): Fu[Result] =
-    if ctx.me.exists(!_.lameOrTroll) && ctx.noBot then f
+    if ctx.me.exists(!_.marks.isolate) && ctx.noBot then f
     else Redirect(routes.Clas.index)
 
   private def redirectTo(c: lila.clas.Clas): Result = redirectTo(c.id)

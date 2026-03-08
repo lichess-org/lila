@@ -1,5 +1,6 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { test } from 'node:test';
+
 import { broadcasterDeepLink } from '../src/study/relay/deepLink';
 
 test('creates deep link from URL', () => {

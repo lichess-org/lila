@@ -1,6 +1,8 @@
 import { init, classModule, attributesModule } from 'snabbdom';
-import type { TournamentOpts } from './interfaces';
+
 import { wsConnect } from 'lib/socket';
+
+import type { TournamentOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 

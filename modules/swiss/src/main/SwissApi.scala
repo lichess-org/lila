@@ -186,7 +186,7 @@ final class SwissApi(
           .updateField($id(SwissPlayer.makeId(swiss.id, me)), SwissPlayer.Fields.absent, false)
           .flatMap: rejoin =>
             if rejoin.n == 1 then fuccess(none) // if the match failed (not the update!), try a join
-            else if !initialJoin.test(me.userId) then fuccess("You are joining too many tournaments".some)
+            else if !initialJoin.hit(me.userId) then fuccess("You are joining too many tournaments".some)
             else
               for
                 user <- userApi.withPerf(me.value, swiss.perfType)

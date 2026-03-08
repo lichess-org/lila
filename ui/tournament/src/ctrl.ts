@@ -1,6 +1,10 @@
-import { type TournamentSocket, makeSocket } from './socket';
-import * as xhr from './xhr';
-import * as sound from './sound';
+import type { Prop } from 'lib';
+import { pubsub } from 'lib/pubsub';
+import { storedMapAsProp } from 'lib/storage';
+import { redirectFirst } from 'lib/tournament';
+import { alerts, prompt } from 'lib/view';
+import { maxPerPage, myPage, pagerData } from 'lib/view/pagination';
+
 import type {
   TournamentData,
   TournamentOpts,
@@ -10,12 +14,9 @@ import type {
   Standing,
   Player,
 } from './interfaces';
-import { storedMapAsProp } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
-import { alerts, prompt } from 'lib/view';
-import type { Prop } from 'lib';
-import { maxPerPage, myPage, pagerData } from 'lib/view/pagination';
-import { redirectFirst } from 'lib/tournament';
+import { type TournamentSocket, makeSocket } from './socket';
+import * as sound from './sound';
+import * as xhr from './xhr';
 
 interface CtrlTeamInfo {
   requested?: string;

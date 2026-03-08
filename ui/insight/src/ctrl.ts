@@ -1,5 +1,6 @@
 import { throttlePromiseDelay } from 'lib/async';
 import { json as xhrJson } from 'lib/xhr';
+
 import type {
   InsightData,
   Dimension,
@@ -12,7 +13,7 @@ import type {
   Filters,
   ViewTab,
 } from './interfaces';
-import { isLandscapeLayout } from './view';
+import { isLandscapeLayout } from './util';
 
 export default class {
   env: Env;

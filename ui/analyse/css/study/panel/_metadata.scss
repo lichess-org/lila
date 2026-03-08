@@ -47,6 +47,7 @@
     font-weight: bold;
     color: $c-font-dim;
     width: 1px;
+
     @include padding-direction(0, 0.3em, 0, 1em, true);
   }
 
@@ -58,8 +59,9 @@
   input,
   span,
   a {
-    display: block;
     @include padding-direction(0.6em, 1em, 0.6em, 0.7em);
+
+    display: block;
     line-height: 1.7;
   }
 

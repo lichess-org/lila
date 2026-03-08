@@ -7,9 +7,7 @@ export interface MsgData {
   names: RealNames;
   convo?: Convo;
 }
-export interface RealNames {
-  [id: UserId]: string;
-}
+export type RealNames = Record<UserId, string>;
 export interface Contact {
   user: User;
   lastMsg: LastMsg;

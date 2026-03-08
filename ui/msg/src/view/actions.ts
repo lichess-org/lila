@@ -1,8 +1,10 @@
 import { h, type VNode } from 'snabbdom';
+
 import * as licon from 'lib/licon';
 import { bind, confirm } from 'lib/view';
-import type { Convo } from '../interfaces';
+
 import type MsgCtrl from '../ctrl';
+import type { Convo } from '../interfaces';
 
 export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
   if (convo.user.id === 'lichess') return [];

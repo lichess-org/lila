@@ -1,19 +1,21 @@
-import { domIdToUid, uidToDomId, botEquals } from './devBotCtrl';
-import { handOfCards, type HandOfCards } from './handOfCards';
+import stringify from 'json-stringify-pretty-compact';
+
 import { frag } from 'lib';
 import { deepFreeze, definedMap } from 'lib/algo';
-import { buildFromSchema, Panes } from './panes';
-import { deadStrip } from './devUtil';
-import { domDialog, type Dialog, type Action, confirm, alert } from 'lib/view';
-import type { BotInfo } from 'lib/bot/types';
 import { Bot } from 'lib/bot/bot';
-import { AssetDialog, type AssetType } from './assetDialog';
-import { historyDialog } from './historyDialog';
-import { env } from './devEnv';
-import { pubsub } from 'lib/pubsub';
+import type { BotInfo } from 'lib/bot/types';
 import { Janitor } from 'lib/event';
-import stringify from 'json-stringify-pretty-compact';
 import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { domDialog, type Dialog, type Action, confirm, alert } from 'lib/view';
+
+import { AssetDialog, type AssetType } from './assetDialog';
+import { domIdToUid, uidToDomId, botEquals } from './devBotCtrl';
+import { env } from './devEnv';
+import { deadStrip } from './devUtil';
+import { handOfCards, type HandOfCards } from './handOfCards';
+import { historyDialog } from './historyDialog';
+import { buildFromSchema, Panes } from './panes';
 
 export class EditDialog {
   static default: ReadableBot = deepFreeze<ReadableBot>({
@@ -395,12 +397,10 @@ export class EditDialog {
   }
 }
 
-interface ReadableBot extends BotInfo {
-  readonly [key: string]: any;
-}
+type ReadableBot = BotInfo & Record<string, any>;
 
-interface WritableBot extends Bot {
-  [key: string]: any;
-  disabled: Set<string>;
-  viewing: Map<string, string>;
-}
+type WritableBot = Bot &
+  Record<string, any> & {
+    disabled: Set<string>;
+    viewing: Map<string, string>;
+  };

@@ -1,5 +1,7 @@
-import { Pane } from './pane';
 import { Chart, PointElement, LinearScale, LineController, LineElement } from 'chart.js';
+
+import { frag } from 'lib';
+import { clamp } from 'lib/algo';
 import {
   addPoint,
   asData,
@@ -10,9 +12,9 @@ import {
   type FilterBy,
   type FilterFacetKey,
 } from 'lib/bot/filter';
-import { frag } from 'lib';
-import { clamp } from 'lib/algo';
+
 import type { PaneArgs, FilterInfo } from './devTypes';
+import { Pane } from './pane';
 
 type FacetToggle = { el: HTMLElement; input: HTMLInputElement };
 
@@ -20,7 +22,7 @@ export class FilterPane extends Pane {
   info: FilterInfo;
   graphEl: HTMLElement;
   graph: Chart;
-  facets = {} as { [key in FilterFacetKey]: FacetToggle };
+  facets = {} as Record<FilterFacetKey, FacetToggle>;
 
   constructor(p: PaneArgs) {
     super(p);
@@ -225,7 +227,7 @@ const ticks: Record<number, string> = {
   8: '4m',
 };
 
-const tooltips: { [key in FilterFacetKey]: string } = {
+const tooltips: Record<FilterFacetKey, string> = {
   move: 'vary the filter parameter by number of full moves since start of game',
   score: `vary the filter parameter by current outcome expectancy for bot`,
   time: 'vary the filter parameter by think time in seconds per move',

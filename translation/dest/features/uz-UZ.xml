@@ -5,18 +5,18 @@
   <string name="standardChessAndX" comment="%s is 8 variants">Standart shaxmat va %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Chuqur %s server tahlili</string>
   <plurals name="gamesPerDay">
-    <item quantity="one">Kuniga %s ta oʻyin</item>
-    <item quantity="other">Kuniga %s ta oʻyin</item>
+    <item quantity="one">Kuniga %s ta oʻyin</item>
+    <item quantity="other">Kuniga %s ta oʻyin</item>
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Taxta muharriri va %s bilan tahlil taxtasi</string>
   <string name="cloudEngineAnalysis">Bulutdagi tahlil</string>
-  <string name="studies">Oʻquv qoʻllanmalari (ulashish mumkin va saqlanib qoladi)</string>
+  <string name="studies">Saboqlar (ulashish mumkin va saqlanib qoladi)</string>
   <string name="chessInsights">Shaxmat analitikasi (oʻyiningizning batafsil tahlili)</string>
   <string name="allChessBasicsLessons">Barcha shaxmat asoslari darslari</string>
   <string name="tacticalPuzzlesFromUserGames">Foydalanuvchilar oʻyinlaridan olingan taktik masalalar</string>
   <string name="personalOpeningExplorerX">%1$s (shuningdek %2$s uchun ham ishlaydi)</string>
   <string name="personalOpeningExplorer">Shaxsiy debyutlar bazasi</string>
-  <string name="globalOpeningExplorerInNbGames">Global debyutlar bazasi (%s ta oʻyin!)</string>
+  <string name="globalOpeningExplorerInNbGames">Global debyutlar bazasi (%s ta oʻyin!)</string>
   <string name="endgameTablebase">7 donali endshpillar bazasi</string>
   <string name="downloadOrUploadAnyGameAsPgn">Istalgan oʻyinni PGN formatida yuklab olish/yuklash</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, forum, jamoalar, TV, xabarlar, doʻstlar, chorlovlar</string>
@@ -28,5 +28,5 @@
   <string name="weBelieveEveryChessPlayerDeservesTheBest">Biz har bir shaxmatchi eng yaxshisiga loyiq deb ishonamiz, shuning uchun:</string>
   <string name="allFeaturesAreFreeForEverybody">Barcha imkoniyatlar hamma uchun hamisha bepul!</string>
   <string name="ifYouLoveLichess">Agar Lichess sizga manzur kelgan boʻlsa,</string>
-  <string name="supportUsWithAPatronAccount">Homiy sifatida bizni qoʻllab-quvvatlang!</string>
+  <string name="supportUsWithAPatronAccount">Homiy sifatida bizni qoʻllab‑quvvatlang!</string>
 </resources>

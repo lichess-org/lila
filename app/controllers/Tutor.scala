@@ -58,9 +58,7 @@ final class Tutor(env: Env) extends LilaController(env):
         .find(opName)
         .flatMap(perf.openings(color).find)
         .fold(Redirect(full.url.angle(perf.perf, "opening")).toFuccess): family =>
-          env.puzzle.opening.find(family.family.key).flatMap { puzzle =>
-            Ok.page(views.tutor.opening(full, perf, family, color, puzzle))
-          }
+          Ok.page(views.tutor.openingUi.opening(full, perf, family, color))
     }
 
   def compute(username: UserStr) = AuthBody { _ ?=> _ ?=>

@@ -1,14 +1,16 @@
-import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '../types';
+import { lichessRules } from 'chessops/compat';
+
+import { isAndroid, isIos, isIPad, features as browserSupport } from '@/device';
+import { log } from '@/permalog';
+import { storedStringProp, type StoredProp } from '@/storage';
+import { xhrHeader } from '@/xhr';
+
 import type CevalCtrl from '../ctrl';
+import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '../types';
+import { ExternalEngine } from './externalEngine';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
-import { ExternalEngine } from './externalEngine';
-import { storedStringProp, type StoredProp } from '@/storage';
-import { isAndroid, isIos, isIPad, features as browserSupport } from '@/device';
-import { xhrHeader } from '@/xhr';
-import { lichessRules } from 'chessops/compat';
-import { log } from '@/permalog';
 
 export class Engines {
   private activeEngine: EngineInfo | undefined = undefined;

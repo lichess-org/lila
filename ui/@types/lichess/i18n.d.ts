@@ -2009,8 +2009,6 @@ interface I18n {
     tokenGrantsPermission: string;
     /** Create, update, and join tournaments */
     tournamentWrite: string;
-    /** Create authenticated website sessions (grants full access!) */
-    webLogin: string;
     /** Use moderator tools (within bounds of your permission) */
     webMod: string;
     /** What the token can do on your behalf: */
@@ -3823,6 +3821,8 @@ interface I18n {
     memberSince: string;
     /** Memory */
     memory: string;
+    /** Higher values may improve performance */
+    memoryDescription: string;
     /** mentioned you in "%1$s". */
     mentionedYouInX: I18nFormat;
     /** Menu */
@@ -3863,6 +3863,8 @@ interface I18n {
     moveTimes: string;
     /** Multiple lines */
     multipleLines: string;
+    /** Set number of evaluation lines and move arrows on the board */
+    multipleLinesDescription: string;
     /** Must be in team %s */
     mustBeInTeam: I18nFormat;
     /** Name */
@@ -4285,6 +4287,10 @@ interface I18n {
     search: string;
     /** Search or start new conversation */
     searchOrStartNewDiscussion: string;
+    /** Search time */
+    searchTime: string;
+    /** Set time to evaluate fresh positions */
+    searchTimeDescription: string;
     /** Security */
     security: string;
     /** See best move */
@@ -4431,6 +4437,8 @@ interface I18n {
     theGameIsADraw: string;
     /** Thematic */
     thematic: string;
+    /** No results for "%s" */
+    thereAreNoResultsForX: I18nFormat;
     /** This account violated the Lichess Terms of Service */
     thisAccountViolatedTos: string;
     /** This game is rated */
@@ -4441,6 +4449,12 @@ interface I18n {
     thisTopicIsArchived: string;
     /** This topic is now closed. */
     thisTopicIsNowClosed: string;
+    /** Threads */
+    threads: string;
+    /** Set this below your CPU's thread count, the ticks mark a good safe choice */
+    threadsDescription: string;
+    /** More threads will use more battery for better analysis */
+    threadsDescriptionMobile: string;
     /** Three checks */
     threeChecks: string;
     /** Threefold repetition */

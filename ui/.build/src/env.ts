@@ -1,9 +1,10 @@
-import type { Package } from './parse.ts';
 import fs from 'node:fs';
-import ps from 'node:process';
 import { join, resolve, dirname } from 'node:path';
+import ps from 'node:process';
+
 import { definedUnique, isEquivalent } from './algo.ts';
 import { updateManifest } from './manifest.ts';
+import type { Package } from './parse.ts';
 import { taskOk } from './task.ts';
 
 // state, logging, status
@@ -43,7 +44,7 @@ export const env = new (class {
   workspaceDeps: Map<string, string[]> = new Map();
   building: Package[] = [];
 
-  private status: { [key in Context]?: number | false } = {};
+  private status = {} as Record<Context, number | false | undefined>;
 
   manifestOk(): boolean {
     return (
@@ -100,7 +101,7 @@ export const env = new (class {
   done(ctx: Context, code: number | undefined): void {
     if (code !== undefined && code !== this.status[ctx] && ['tsc', 'esbuild', 'sass', 'i18n'].includes(ctx)) {
       this.log(
-        `${code === 0 ? 'Done' : c.red('Failed')}` + (this.watch ? ` - ${c.grey('Watching')}...` : ''),
+        `${code === 0 ? 'Done' : c.red('Failed')}${this.watch ? ` - ${c.grey('Watching')}...` : ''}`,
         ctx,
       );
     }

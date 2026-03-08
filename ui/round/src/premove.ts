@@ -1,5 +1,5 @@
-import * as util from '@lichess-org/chessground/util';
 import * as cg from '@lichess-org/chessground/types';
+import * as util from '@lichess-org/chessground/util';
 
 export class Premove {
   readonly unrestrictedPremoves: boolean;

@@ -1,16 +1,18 @@
-import { next, prev, view } from '../keyboard';
-import crazyView from '../crazy/crazyView';
-import type RoundController from '../ctrl';
+import { render as renderKeyboardMove } from 'keyboardMove';
+import { renderVoiceBar } from 'voice';
+
+import { displayColumns, isTouchDevice } from 'lib/device';
+import { playable } from 'lib/game';
+import { renderMaterialDiffs } from 'lib/game/view/material';
+import { storage } from 'lib/storage';
 import { stepwiseScroll, type VNode, hl, bind } from 'lib/view';
 import { renderBlindfoldToggle } from 'lib/view/blindfold';
-import { render as renderKeyboardMove } from 'keyboardMove';
+
+import crazyView from '../crazy/crazyView';
+import type RoundController from '../ctrl';
 import { render as renderGround } from '../ground';
+import { next, prev, view } from '../keyboard';
 import { renderTable } from './table';
-import { renderMaterialDiffs } from 'lib/game/view/material';
-import { renderVoiceBar } from 'voice';
-import { playable } from 'lib/game';
-import { storage } from 'lib/storage';
-import { displayColumns, isTouchDevice } from 'lib/device';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
@@ -44,14 +46,14 @@ export function main(ctrl: RoundController): VNode {
                   ? undefined
                   : bind(
                       'wheel',
-                      stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                        if (scroll && !ctrl.isPlaying()) {
-                          e.preventDefault();
+                      stepwiseScroll(
+                        e => {
                           if (e.deltaY > 0) next(ctrl);
                           else if (e.deltaY < 0) prev(ctrl);
                           ctrl.redraw();
-                        }
-                      }),
+                        },
+                        () => ctrl.isPlaying(),
+                      ),
                       undefined,
                       false,
                     ),

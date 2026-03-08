@@ -150,9 +150,7 @@ interface AssetUrlOpts {
   pathVersion?: true | string;
 }
 
-interface Dictionary<T> {
-  [key: string]: T | undefined;
-}
+type Dictionary<T> = Record<string, T | undefined>;
 
 type SocketHandlers = Dictionary<(d: any) => void>;
 
@@ -244,7 +242,7 @@ type Seconds = number;
 type Centis = number;
 type Millis = number;
 
-type ByColor<T> = { [C in Color]: T };
+type ByColor<T> = Record<Color, T>;
 
 interface Variant {
   key: VariantKey;
@@ -277,20 +275,8 @@ interface Cash {
 }
 
 declare namespace PowerTip {
-  type Placement =
-    | 'n'
-    | 'e'
-    | 's'
-    | 'w'
-    | 'nw'
-    | 'ne'
-    | 'sw'
-    | 'se'
-    | 'nw-alt'
-    | 'ne-alt'
-    | 'sw-alt'
-    | 'se-alt';
-
+  type BasePlacement = 'n' | 'e' | 's' | 'w' | 'nw' | 'ne' | 'sw' | 'se';
+  type Placement = BasePlacement | 'n-alt' | 'e-alt' | 's-alt' | 'w-alt';
   interface Options {
     preRender?: (el: HTMLElement) => void;
     placement?: Placement;

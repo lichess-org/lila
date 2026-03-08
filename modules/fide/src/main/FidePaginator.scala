@@ -39,7 +39,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
             .find(repo.player.selectActive ++ repo.player.selectFed(fed.id))
             .sort(repo.player.sortStandard)
             .skip(offset)
-            .cursor[FidePlayer]()
+            .cursor[FidePlayer](ReadPref.sec)
             .list(length)
       ,
       currentPage = page,

@@ -1,35 +1,46 @@
 .tutor {
   &-grades {
     @extend %flex-column;
+
     gap: 2em;
   }
+
   &-grade {
     display: flex;
     align-items: stretch;
     gap: 1.2em;
+
     &__content {
       @extend %flex-column;
+
       gap: 0.4em;
       flex: 1 1 auto;
     }
+
     &__name {
       @extend %flex-center-nowrap;
+
       font-weight: normal;
       font-size: 1.3em;
     }
+
     &--detail .tutor-grade__name {
       text-transform: uppercase;
       font-size: 1.7em;
       margin-bottom: 0.5em;
     }
+
     &--detail.tutor-grade--narrow .tutor-grade__name {
       font-size: 1.3em;
     }
+
     &--narrow .tutor-grade__concept {
       @extend %roboto;
     }
+
     &__visual {
       @extend %flex-center;
+
       > div {
         flex: 13% 0 0;
         margin-inline-end: 1.28%;
@@ -38,16 +49,19 @@
         border: $border;
         border-radius: 4px;
         background: $c-bg-low;
+
         &.lit {
           background: $c-grade-good;
         }
       }
+
       &--1,
       &--2 {
         > div.lit {
           background: $c-grade-bad;
         }
       }
+
       &--3,
       &--4 {
         > div.lit {
@@ -55,20 +69,25 @@
         }
       }
     }
+
     &--detail {
       gap: var(---box-padding);
       align-items: center;
+
       &:not(:last-child) {
         padding-bottom: 2em;
         border-bottom: $border;
       }
+
       $icon-size: max(5em, min(11em, 17vw));
+
       .tutor-icon {
         flex: 0 0 $icon-size;
         width: $icon-size;
         height: $icon-size;
       }
     }
+
     &__detail {
       font-size: 0.9em;
       color: $c-font-dim;
@@ -78,6 +97,7 @@
     .tutor-grade__name {
       color: $c-grade-good;
     }
+
     &--1,
     &--2 {
       .tutor-icon,
@@ -85,6 +105,7 @@
         color: $c-grade-bad;
       }
     }
+
     &--3,
     &--4 {
       .tutor-icon,
@@ -92,6 +113,7 @@
         color: $c-grade-avg;
       }
     }
+
     &--narrow .tutor-icon {
       display: none;
     }

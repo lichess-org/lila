@@ -70,6 +70,7 @@
 
   span {
     @extend %roboto;
+
     position: absolute;
     transform: rotate(45deg);
     display: block;
@@ -88,6 +89,7 @@
 
 .live-ribbon {
   @extend %streamer-ribbon;
+
   top: -10px;
   right: -10px;
 
@@ -116,6 +118,7 @@
     bottom: 0;
     right: 0;
   }
+
   span {
     top: 35px;
     left: -20px;
@@ -124,6 +127,7 @@
 
 .streamer-title {
   @extend %flex-between;
+
   gap: 1em;
   margin: 1.5em var(---box-padding) 1em 0;
 }
@@ -142,6 +146,7 @@
 
 .streamer-footer {
   @extend %flex-wrap;
+
   align-items: center;
   gap: 3em;
 }

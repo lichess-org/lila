@@ -1,6 +1,7 @@
 import { hl, type VNode } from '@/view';
-import { option } from '../option';
+
 import { colors, type ColorChoice, type ColorProp } from '../color';
+import { option } from '../option';
 
 export const blindModeColorPicker = (colorProp: ColorProp): VNode[] => [
   hl('label', { attrs: { for: 'sf_color' } }, i18n.site.side),

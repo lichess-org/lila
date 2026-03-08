@@ -26,6 +26,8 @@
   <string name="castlingDescription">นำคิงของคุณไปที่ปลอดภัย และเคลื่อนเรือของคุณเพื่อการโจมตี</string>
   <string name="capturingDefender">กินผู้ป้องกัน</string>
   <string name="capturingDefenderDescription">กีกกันหมากที่สำคัญออกไปจากการป้องหมากตัวอื่น ทำให้หมากที่สูญเสียการป้องกันสามารถถูกกินในตาต่อไปได้</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">การเดินแบบแนวเส้นตรงเดียวกัน</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">หมากสองตัวที่อยู่ตรงข้ามกันหันหน้าเข้าหากัน และตัวหนึ่งเคลื่อนที่ไปตามแนวการโจมตีโดยไม่กินหมากของฝ่ายตรงข้าม</string>
   <string name="cornerMate">รุกจนที่มุม</string>
   <string name="cornerMateDescription">ต้อนคิงไปที่มุมใดมุมหนึ่งของกระดาน โดยใช้เรือหรือควีน และม้า เพื่อทำการรุกจนต่อไป</string>
   <string name="crushing">บดขยี้</string>
@@ -53,6 +55,8 @@
   <string name="endgame">ท้ายเกม</string>
   <string name="endgameDescription">กลยุทธ์ในช่วงท้ายของเกม</string>
   <string name="enPassantDescription">กลยุทธ์ที่มีความเกี่ยวข้องกับการกินผ่าน โดยที่เบี้ยสามารถกินของฝ่ายตรงข้ามที่ผ่านไปได้โดยใช้การเดินสองช่องเริ่มต้น</string>
+  <string name="epauletteMate">การรุกจนแบบอินทรธนู</string>
+  <string name="epauletteMateDescription">ช่องทั้งสองที่อยู่ข้างคิงมีหมากของฝ่ายตัวเองขวางอยู่เลยหนีไม่ได้</string>
   <string name="exposedKing">คิงที่เปิดเผย</string>
   <string name="exposedKingDescription">เป็นกลยุทธ์ที่เกี่ยวกับการรุกจนคิงที่มีหมากป้องกันตัวป้องกันน้อย</string>
   <string name="fork">การโจมตีสองทาง</string>
@@ -71,6 +75,8 @@
   <string name="pillsburysMateDescription">การนำเรือไปรุกจน โดยมีบิชอปช่วยกันไม่ให้คิงหนี</string>
   <string name="morphysMate">รุกจนของมอร์ฟีย์</string>
   <string name="morphysMateDescription">เอาบิชอปคุณไปรุกคิง โดยที่มีเรือคอยช่วยกันไม่ให้คิงหนี</string>
+  <string name="swallowstailMate">การรุกจนแบบหางนกนางแอ่น</string>
+  <string name="swallowstailMateDescription">รูปแบบการรุกจนที่มีลักษณะเป็นตัว V คล้ายหางนกนางแอ่ง โดยช่องแนวทแยงข้างหน้าหรือหลังคิงมีหมากขว้างไว้คิงเลยหนีไม่ได้</string>
   <string name="triangleMate">รุกจนแบบสามเหลี่ยม</string>
   <string name="triangleMateDescription">รุกจนโดยควีนและเรือที่อยู่ห่างจากคิงของฝ่ายตรงข้ามหนึ่งช่องในทางแนวทแยง โดยเว้นระยะห่างกันหนึ่งช่อง ทำให้เกิดเป็นรูปสามเหลี่ยม</string>
   <string name="vukovicMate">การรุกจนแบบ Vukovic</string>

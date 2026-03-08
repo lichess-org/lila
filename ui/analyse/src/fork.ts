@@ -1,11 +1,12 @@
 import { defined } from 'lib';
-import { onInsert, hl } from 'lib/view';
-import type AnalyseCtrl from './ctrl';
-import type { ConcealOf } from './interfaces';
-import { renderIndexAndMove } from './view/components';
 import { isTouchDevice } from 'lib/device';
 import { addPointerListeners } from 'lib/pointer';
 import type { TreeNode } from 'lib/tree/types';
+import { onInsert, hl } from 'lib/view';
+
+import type AnalyseCtrl from './ctrl';
+import type { ConcealOf } from './interfaces';
+import { renderIndexAndMove } from './view/components';
 
 export class ForkCtrl {
   selectedIndex = 0;

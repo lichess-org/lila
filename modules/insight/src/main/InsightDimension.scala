@@ -391,6 +391,10 @@ object InsightDimension:
         selected.maximumByOption(_.days).fold($empty) { period =>
           $doc(d.dbKey.$gt(period.min))
         }
+      case InsightDimension.Date => // for tutor config date range filtering
+        selected match
+          case List(range) => $doc(d.dbKey.$gt(range.min).$lte(range.max))
+          case _ => $empty
       case InsightDimension.MaterialRange =>
         selected match
           case Nil => $empty

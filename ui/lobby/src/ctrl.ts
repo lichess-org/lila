@@ -1,10 +1,12 @@
 import { numberFormat } from 'lib/i18n';
-import variantConfirm from './variant';
-import * as hookRepo from './hookRepo';
-import * as seekRepo from './seekRepo';
-import { make as makeStores, type Stores } from './store';
-import * as xhr from './xhr';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
+import { pubsub } from 'lib/pubsub';
+import { colors, type ColorChoice } from 'lib/setup/color';
+import { wsPingInterval } from 'lib/socket';
+import { storage, type LichessStorage } from 'lib/storage';
+
+import Filter from './filter';
+import * as hookRepo from './hookRepo';
 import type {
   LobbyOpts,
   LobbyData,
@@ -18,8 +20,7 @@ import type {
   ForceSetupOptions,
   LobbyMe,
 } from './interfaces';
-import LobbySocket from './socket';
-import Filter from './filter';
+import * as seekRepo from './seekRepo';
 import SetupController from './setupCtrl';
 import { storage, type LichessStorage } from 'lib/storage';
 import { pubsub } from 'lib/pubsub';
@@ -343,7 +344,7 @@ export default class LobbyController {
     if (location.hash.startsWith('#pool/')) {
       const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
         match = regex.exec(location.hash),
-        member: any = { id: match![1], blocking: match![2] },
+        member: PoolMember = { id: match![1], blocking: match![2] },
         range = poolRangeStorage.get(this.me?.username, member.id);
       if (range) member.range = range;
       if (match) {

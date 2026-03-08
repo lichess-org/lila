@@ -1,8 +1,9 @@
-import type { TreeNode, TreeNodeIncomplete, TreePath } from 'lib/tree/types';
-import type AnalyseCtrl from './ctrl';
 import { objectStorage, type ObjectStorage } from 'lib/objectStorage';
-import * as treeOps from 'lib/tree/ops';
 import { completeNode } from 'lib/tree/node';
+import * as treeOps from 'lib/tree/ops';
+import type { TreeNode, TreeNodeIncomplete, TreePath } from 'lib/tree/types';
+
+import type AnalyseCtrl from './ctrl';
 
 export type DiscloseState = undefined | 'expanded' | 'collapsed';
 

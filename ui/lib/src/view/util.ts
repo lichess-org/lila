@@ -1,4 +1,5 @@
 import { h, type VNode, type VNodeChildren } from 'snabbdom';
+
 import { numberFormat } from '../i18n';
 
 const ratio2percent = (r: number): string => Math.round(100 * r) + '%';

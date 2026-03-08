@@ -1,4 +1,3 @@
-import { parseFen, makeBoardFen } from 'chessops/fen';
 import {
   parseSquare,
   makeSquare,
@@ -8,10 +7,12 @@ import {
   charToRole,
   opposite,
 } from 'chessops';
-import { Antichess, type Context } from 'chessops/variant';
 import { chessgroundDests } from 'chessops/compat';
-import type { CgMove } from './chessground';
+import { parseFen, makeBoardFen } from 'chessops/fen';
 import { makeSan } from 'chessops/san';
+import { Antichess, type Context } from 'chessops/variant';
+
+import type { CgMove } from './chessground';
 import { isRole, type PromotionChar, type PromotionRole } from './util';
 
 type LearnVariant = Chess | Antichess;

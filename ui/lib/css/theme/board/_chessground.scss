@@ -104,7 +104,8 @@ square {
   }
 
   @media (hover: hover) {
-    &.move-dest:hover {
+    &.move-dest:hover,
+    &.move-dest.hover {
       background: rgba(20, 85, 30, 0.3);
 
       body[data-board='horsey'] .is2d & {
@@ -113,7 +114,8 @@ square {
       }
     }
 
-    &.premove-dest:hover {
+    &.premove-dest:hover,
+    &.premove-dest.hover {
       background: rgba(20, 30, 85, 0.2);
     }
   }
@@ -181,6 +183,7 @@ cg-container .cg-shapes {
   overflow: hidden;
   z-index: $z-cg__svg-shapes-2;
 }
+
 cg-container .cg-shapes-below {
   overflow: hidden;
   z-index: $z-cg-below-pieces-1;

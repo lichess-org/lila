@@ -26,6 +26,8 @@
   <string name="castlingDescription">Bring the king to safety, and deploy the rook for attack.</string>
   <string name="capturingDefender">Capture the defender</string>
   <string name="capturingDefenderDescription">Removing a piece that is critical to defense of another piece, allowing the now undefended piece to be captured on a following move.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Collinear move</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.</string>
   <string name="cornerMate">Corner mate</string>
   <string name="cornerMateDescription">Confine the king to the corner using a rook or queen and a knight to engage the checkmate.</string>
   <string name="crushing">Crushing</string>
@@ -53,8 +55,8 @@
   <string name="endgame">Endgame</string>
   <string name="endgameDescription">A tactic during the last phase of the game.</string>
   <string name="enPassantDescription">A tactic involving the en passant rule, where a pawn can capture an opponent pawn that has bypassed it using its initial two-square move.</string>
-  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Epaulette mate</string>
-  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Two adjacent escape squares for a checked king are occupied by other pieces.</string>
+  <string name="epauletteMate">Epaulette mate</string>
+  <string name="epauletteMateDescription">Two adjacent escape squares for a checked king are occupied by other pieces.</string>
   <string name="exposedKing">Exposed king</string>
   <string name="exposedKingDescription">A tactic involving a king with few defenders around it, often leading to checkmate.</string>
   <string name="fork">Fork</string>
@@ -73,8 +75,8 @@
   <string name="pillsburysMateDescription">The rook delivers checkmate, while the bishop helps to confine it.</string>
   <string name="morphysMate">Morphy\'s mate</string>
   <string name="morphysMateDescription">Use the bishop to check the king, while your rook helps to confine it.</string>
-  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Swallow\'s tail mate</string>
-  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.</string>
+  <string name="swallowstailMate">Swallow\'s tail mate</string>
+  <string name="swallowstailMateDescription">A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.</string>
   <string name="triangleMate">Triangle mate</string>
   <string name="triangleMateDescription">The queen and rook, one square away from the enemy king, are on the same rank or file, separated by one square, forming a triangle.</string>
   <string name="vukovicMate">Vukovic mate</string>

@@ -1,14 +1,17 @@
-import type { TreeNode } from 'lib/tree/types';
-import { fixCrazySan, plyToTurn } from 'lib/game/chess';
 import {
   attributesModule,
   classModule,
   propsModule,
   eventListenersModule,
   init,
-  h,
   type VNodeData,
 } from 'snabbdom';
+
+import { fixCrazySan, plyToTurn } from 'lib/game/chess';
+import type { TreeNode } from 'lib/tree/types';
+import { hl } from 'lib/view';
+
+import type { Federation } from '@/study/interfaces';
 
 export const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 
@@ -29,4 +32,13 @@ export function titleNameToId(titleName: string): string {
 }
 
 export const option = (value: string, current: string | undefined, name: string, data?: VNodeData) =>
-  h('option', { attrs: { value: value, selected: value === current }, ...data }, name);
+  hl('option', { attrs: { value: value, selected: value === current }, ...data }, name);
+
+export const playerFedFlag = (fed?: Federation) =>
+  fed &&
+  hl('img.mini-game__flag', {
+    attrs: {
+      src: site.asset.fideFedSrc(fed.id),
+      title: `Federation: ${fed.i18nName}`,
+    },
+  });

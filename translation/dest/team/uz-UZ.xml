@@ -3,8 +3,8 @@
   <string name="team">Jamoa</string>
   <string name="teams">Jamoalar</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s ta aʻzo</item>
-    <item quantity="other">%s ta aʻzo</item>
+    <item quantity="one">%s ta aʻzo</item>
+    <item quantity="other">%s ta aʻzo</item>
   </plurals>
   <string name="allTeams">Barcha jamoalar</string>
   <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Men boshqaradigan jamoalar</string>
@@ -24,8 +24,8 @@
   <string name="kickSomeone">Jamoadan kimnidir chiqarish</string>
   <string name="whoToKick">Kimni jamoadan chiqarmoqchisiz?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s ta qoʻshilish soʻrovi</item>
-    <item quantity="other">%s ta qoʻshilish soʻrovi</item>
+    <item quantity="one">%s ta qoʻshilish soʻrovi</item>
+    <item quantity="other">%s ta qoʻshilish soʻrovi</item>
   </plurals>
   <string name="willBeReviewed">Aʻzo boʻlish soʻrovingiz jamoa sardori tomonidan koʻrib chiqiladi.</string>
   <string name="beingReviewed">Aʻzo boʻlish soʻrovingiz jamoa sardori tomonidan koʻrib chiqilmoqda.</string>
@@ -35,7 +35,7 @@
   <string name="teamBattleOverview">Jamoalar oʻrtasidagi jang, unda har bir oʻyinchi oʻz jamoasi uchun ochko yigʻadi</string>
   <string name="teamTournament">Jamoa turniri</string>
   <string name="teamTournamentOverview">Faqat jamoangiz aʻzolari ishtirok eta oladigan Arena turniri</string>
-  <string name="swissTournamentOverview">Faqat jamoangiz aʻzolari ishtirok eta oladigan Shveysarcha turnir</string>
+  <string name="swissTournamentOverview">Faqat jamoangiz aʻzolari ishtirok eta oladigan shveysarcha turnir</string>
   <string name="messageAllMembers">Barcha aʻzolarga xabar yuborish</string>
   <string name="messageAllMembersOverview">Jamoaning barcha aʻzolariga shaxsiy xabar yuborish</string>
   <string name="messageAllMembersLongDescription">Jamoaning BARCHA aʻzolariga shaxsiy xabar yuborish.
@@ -67,11 +67,11 @@ Agar biror oʻyinchi ushbu bilan turnirga qoʻshilgan boʻlsa, oʻsha jamoani ro
   <string name="numberOfLeadsPerTeamHelp">Turnir boshlanganidan keyin bu qiymatni oʻzgartirmaslikni qatʼiy tavsiya qilamiz!</string>
   <string name="innerTeam">Ichki jamoa</string>
   <plurals name="battleOfNbTeams">
-    <item quantity="one">%s ta jamoa jangi</item>
-    <item quantity="other">%s ta jamoalar jangi</item>
+    <item quantity="one">%s ta jamoa jangi</item>
+    <item quantity="other">%s ta jamoa jangi</item>
   </plurals>
   <plurals name="nbLeadersPerTeam">
     <item quantity="one">Har bir bitta jamoadan bitta peshqadam</item>
-    <item quantity="other">Har bir bitta jamoadan %s ta peshqadam</item>
+    <item quantity="other">Har bir bitta jamoadan %s ta peshqadam</item>
   </plurals>
 </resources>

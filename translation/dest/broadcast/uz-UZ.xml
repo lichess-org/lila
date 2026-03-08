@@ -7,40 +7,40 @@
     <item quantity="other">%s translyatsiya</item>
   </plurals>
   <plurals name="nbViewers">
-    <item quantity="one">%s ta tomoshabin</item>
-    <item quantity="other">%s ta tomoshabin</item>
+    <item quantity="one">%s ta kuzatuvchi</item>
+    <item quantity="other">%s ta kuzatuvchi</item>
   </plurals>
   <string name="liveBroadcasts">Jonli turnir translyatsiyalari</string>
   <string name="broadcastCalendar">Translyatsiyalar taqvimi</string>
   <string name="newBroadcast">Yangi jonli translyatsiya</string>
-  <string name="subscribedBroadcasts">Obuna bo\'lgan translyatsiyalar</string>
+  <string name="subscribedBroadcasts">Obuna boʻlgan translyatsiyalar</string>
   <string name="aboutBroadcasts">Translyatsiyalar haqida</string>
   <string name="howToUseLichessBroadcasts">Lichess translyatsiyalaridan qanday foydalaniladi.</string>
   <string name="theNewRoundHelp">Yangi turda oldingi turdagi aʼzolar va redaktorlar qatnashadi.</string>
   <string name="addRound">Tur qoʻshish</string>
-  <string name="ongoing">Joriy</string>
+  <string name="ongoing">Davom etmoqda</string>
   <string name="upcoming">Tez kunda</string>
   <string name="roundName">Tur nomi</string>
   <string name="tournamentName">Turnir nomi</string>
   <string name="tournamentDescription">Turnirning qisqacha tavsifi</string>
-  <string name="fullDescription">Tadbir haqida toʻliq izoh</string>
-  <string name="fullDescriptionHelp">Turnirning ixtiyoriy uzun tavsifi. %1$s mavjud. Uzunligi %2$s ta belgidan kam boʻlishi kerak.</string>
+  <string name="fullDescription">Turnirning toʻliq tavsifi</string>
+  <string name="fullDescriptionHelp">Turnir haqida ixtiyoriy uzun tavsif. %1$sʼdan foydalanish mumkin. Belgilar soni %2$s tadan oshmasligi kerak.</string>
   <string name="sourceSingleUrl">PGN manba URL manzili</string>
-  <string name="sourceUrlHelp">PGN yangilanishlarini olish uchun Lichess tekshiradigan URL. U \"Inter\"dan hamma uchun ochiq bo\'lishi kerak</string>
-  <string name="sourceGameIds">Bo\'shliqlar bilan ajratilgan 64 tagacha Lichess o\'yin identifikatorlari.</string>
+  <string name="sourceUrlHelp">Lichess PGN yangilanishlarini olishi uchun tekshiradigan URL manzili. U Internet orqali hamma uchun ochiq boʻlishi shart.</string>
+  <string name="sourceGameIds">Boʻshliqlar bilan ajratilgan 64 tagacha Lichess oʻyin identifikatorlari.</string>
   <string name="startDateTimeZone">Turnirning mahalliy vaqt boʻyicha boshlanish sanasi: %s</string>
   <string name="startDateHelp">Majburiy emas, agar tadbir qachon boshlanishini bilsangiz</string>
   <string name="currentGameUrl">Joriy oʻyin havolasi</string>
   <string name="downloadAllRounds">Barcha turlarni yuklab oling</string>
-  <string name="resetRound">Ushbu turni qayta o\'rnating</string>
-  <string name="deleteRound">Ushbu turni o\'chirib tashlang</string>
-  <string name="definitivelyDeleteRound">Turni va uning barcha o\'yinlarini mutlaqo o\'chirib tashlang.</string>
-  <string name="deleteAllGamesOfThisRound">Ushbu turning barcha o\'yinlarini o\'chirib tashlang. Ularni qayta yaratish uchun manba faol bo\'lishi kerak bo\'ladi</string>
-  <string name="editRoundStudy">Davra o\'rganishni tahrirlash</string>
-  <string name="deleteTournament">Ushbu turnirni o\'chirib tashlang</string>
-  <string name="definitivelyDeleteTournament">Butun turnirni, uning barcha raundlarini va barcha o\'yinlarini mutlaqo o\'chirib tashlang.</string>
-  <string name="showScores">O\'yin natijalari asosida o\'yinchilarning ballarini ko\'rsatish</string>
-  <string name="replacePlayerTags">Majburiy emas: o\'yinchi ismlari, reytinglari va unvonlarini almashtiring</string>
+  <string name="resetRound">Ushbu turni qayta sozlash</string>
+  <string name="deleteRound">Ushbu turni oʻchirish</string>
+  <string name="definitivelyDeleteRound">Ushbu tur va unga tegishli barcha oʻyinlarni butunlay oʻchirish.</string>
+  <string name="deleteAllGamesOfThisRound">Ushbu turning barcha oʻyinlarini oʻchirib tashlash. Ularni qayta tiklash uchun manba faol holatda boʻlishi lozim.</string>
+  <string name="editRoundStudy">Tur sabogʻini tahrirlash</string>
+  <string name="deleteTournament">Ushbu turnirni oʻchirish</string>
+  <string name="definitivelyDeleteTournament">Butun turnirni, uning barcha turlari va barcha oʻyinlarini butunlay oʻchirib tashlash.</string>
+  <string name="showScores">Oʻyin natijalari asosida oʻyinchilarning ochkolarini koʻrsatish</string>
+  <string name="replacePlayerTags">Ixtiyoriy: oʻyinchilar ismlari, reytinglari va unvonlarini oʻzgartirish</string>
   <string name="fideFederations">FIDE federatsiyalari</string>
   <string name="top10Rating">Top 10 reyting</string>
   <string name="fidePlayers">FIDE oʻyinchilari</string>
@@ -48,37 +48,37 @@
   <string name="fideProfile">FIDE profili</string>
   <string name="federation">Federatsiya</string>
   <string name="age">Yoshi</string>
-  <string name="unrated">Baholanmagan</string>
-  <string name="recentTournaments">Oxirgi turnirlar</string>
-  <string name="openLichess">Lichessda oching</string>
+  <string name="unrated">Reytingsiz</string>
+  <string name="recentTournaments">Soʻnggi turnirlar</string>
+  <string name="openLichess">Lichessʼda oching</string>
   <string name="teams">Jamoalar</string>
   <string name="boards">Taxtalar</string>
   <string name="overview">Obzor</string>
-  <string name="subscribeTitle">Har bir tur boshlanganda xabardor bo\'lish uchun obuna bo\'ling. Hisobingiz sozlamalarida eshittirishlar uchun qo‘ng‘iroq yoki push bildirishnomalarini almashtirishingiz mumkin.</string>
+  <string name="subscribeTitle">Turlar boshlanishidan xabardor boʻlish uchun obuna boʻling. Bildirishnomalarni akkaunt sozlamalaridan boshqarish mumkin.</string>
   <string name="uploadImage">Turnir rasmini yuklash</string>
-  <string name="noBoardsYet">Hali taxtalar yo\'q. Oʻyinlar yuklangandan keyin paydo boʻladi.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Doskalarni manba yoki %s orqali yuklash mumkin</string>
-  <string name="startsAfter">%s dan keyin boshlanadi</string>
+  <string name="noBoardsYet">Hozircha taxtalar yoʻq. Oʻyinlar yuklangach, ular shu yerda koʻrinadi.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Taxtalarni manba yoki %s orqali yuklash mumkin</string>
+  <string name="startsAfter">%sdan keyin boshlanadi</string>
   <string name="startVerySoon">Translyatsiya tez orada boshlanadi.</string>
   <string name="notYetStarted">Translyatsiya hali boshlanmadi.</string>
-  <string name="officialWebsite">Rasmiy veb-sayt</string>
+  <string name="officialWebsite">Rasmiy veb‑sayt</string>
   <string name="officialStandings">Rasmiy turnir jadvali</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page'">%s boʻyicha boshqa variantlar</string>
-  <string name="webmastersPage">veb-ustalar sahifasi</string>
-  <string name="embedThisBroadcast">Ushbu translyatsiyani veb-saytingizga joylashtiring</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">%s sahifasida qoʻshimcha imkoniyatlar mavjud</string>
+  <string name="webmastersPage">veb‑ustalar sahifasi</string>
+  <string name="embedThisBroadcast">Ushbu translyatsiyani veb‑saytingizga joylashtiring</string>
   <string name="ratingDiff">Reyting farqi</string>
-  <string name="gamesThisTournament">Ushbu turnirdagi o\'yinlar</string>
+  <string name="gamesThisTournament">Ushbu turnirdagi oʻyinlar</string>
   <string name="score">Ochkolar</string>
   <string name="standingsDisclaimer">Turnir jadvali translyatsiya qilingan oʻyinlar yordamida hisoblanadi va rasmiy natijalardan farq qilishi mumkin.</string>
   <string name="allTeams">Barcha jamoalar</string>
   <string name="tournamentFormat">Turnir formati</string>
-  <string name="tournamentLocation">Turnir joyi</string>
+  <string name="tournamentLocation">Turnir manzili</string>
   <string name="topPlayers">Eng yaxshi oʻyinchilar</string>
   <string name="timezone">Vaqt mintaqasi</string>
   <string name="fideRatingCategory">FIDE reyting toifasi</string>
   <string name="optionalDetails">Ixtiyoriy tafsilotlar</string>
   <string name="pastBroadcasts">Oʻtgan translyatsiyalar</string>
-  <string name="allBroadcastsByMonth">Barcha translyatsiyalarni oyma-oy koʻring</string>
+  <string name="allBroadcastsByMonth">Barcha translyatsiyalarni oyma‑oy koʻring</string>
   <string name="backToLiveMove">Jonli efirdagi yurishga qaytish</string>
   <string name="sinceHideResults">Natijalarni yashirishni tanlaganingiz sababli spoiler bermaslik uchun barcha obzor taxtalari boʻsh.</string>
   <string name="liveboard">Jonli efirdagi taxta</string>
@@ -90,7 +90,7 @@
   <string name="matchHistory">Match tarixi</string>
   <string name="teamResults">Jamoa natijalari</string>
   <string name="termsAutomaticallyTranslated">Quyidagi atama(lar) avtomatik tarzda tarjima qilinadi: %s.</string>
-  <string name="roundX">%s-raund</string>
+  <string name="roundX">%s‑raund</string>
   <string name="defaultRoundNameHelp">Birlamchi nomni saqlasangiz, avtomatik tarzda boshqa tillarga tarjima qilinadi.</string>
   <string name="openTournament">Ochiq</string>
   <string name="womenTournament">Ayollar</string>
@@ -103,7 +103,7 @@
   <string name="quarterfinals">Chorak final</string>
   <string name="semifinals">Yarim final</string>
   <string name="finals">Final</string>
-  <string name="tiebreaks">Tay-breyk</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">%s-oʻyin</string>
+  <string name="tiebreaks">Tay‑breyk</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">%s‑oʻyin</string>
   <string name="knockouts">Nokaut</string>
 </resources>

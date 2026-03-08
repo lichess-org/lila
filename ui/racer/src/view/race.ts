@@ -1,8 +1,10 @@
-import type RacerCtrl from '../ctrl';
 import { h, type VNodes } from 'snabbdom';
-import type { PlayerWithScore } from '../interfaces';
-import type { Boost } from '../boost';
+
 import { userLink } from 'lib/view/userLink';
+
+import type { Boost } from '../boost';
+import type RacerCtrl from '../ctrl';
+import type { PlayerWithScore } from '../interfaces';
 
 // to [0,1]
 type RelativeScore = (score: number) => number;

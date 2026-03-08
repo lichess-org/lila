@@ -126,6 +126,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         "BOOST_HUNTER",
         List(
           LichessTeam,
+          UserSearch,
           MarkBooster,
           ArenaBan,
           UserModView,
@@ -147,6 +148,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         "CHEAT_HUNTER",
         List(
           LichessTeam,
+          UserSearch,
           ViewBlurs,
           MarkEngine,
           UserModView,
@@ -170,6 +172,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         List(
           LichessTeam,
           AccountInfo,
+          UserSearch,
           TimeoutMod,
           ViewPrivateComms,
           Shadowban,

@@ -1,12 +1,14 @@
-import { prop } from 'lib';
-import { onInsert } from 'lib/view';
-import { throttle } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
-import type AnalyseCtrl from '../ctrl';
-import { currentComments, isAuthorObj } from './studyComments';
+
+import { prop } from 'lib';
+import { throttle } from 'lib/async';
 import { storage } from 'lib/storage';
 import type { TreeNode, TreePath } from 'lib/tree/types';
+import { onInsert } from 'lib/view';
+
+import type AnalyseCtrl from '../ctrl';
 import type { ChapterId } from './interfaces';
+import { currentComments, isAuthorObj } from './studyComments';
 
 interface Current {
   chapterId: ChapterId;

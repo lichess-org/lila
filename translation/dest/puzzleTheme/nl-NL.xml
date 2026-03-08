@@ -26,6 +26,8 @@
   <string name="castlingDescription">Breng de koning in veiligheid en zet de toren in voor een aanval.</string>
   <string name="capturingDefender">De verdediger slaan</string>
   <string name="capturingDefenderDescription">Een stuk slaan dat essentieel is voor de verdediging van een ander stuk, waardoor vervolgens het nu onverdedigde stuk een volgende zet kan worden geslagen.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Collineaire zet</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Twee vijandige stukken staan tegenover elkaar, en één glipt langs de lijn van aanval zonder het stuk van de vijand te slaan.</string>
   <string name="cornerMate">Mat in een hoek</string>
   <string name="cornerMateDescription">Dring de koning met behulp van een toren of dame en een paard een hoek in om hem schaakmat te zetten.</string>
   <string name="crushing">Verpletteren</string>
@@ -53,8 +55,8 @@
   <string name="endgame">Eindspel</string>
   <string name="endgameDescription">Tactiek in de slotfase van de partij.</string>
   <string name="enPassantDescription">Tactiek met betrekking tot de en passant-regel, waarbij een pion een vijandelijke pion die vanuit zijn beginpositie twee velden tegelijk wordt opgespeeld, kan slaan.</string>
-  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">Epaulettenmat</string>
-  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Twee aangrenzende ontsnappingsvakjes voor een koning in schaak worden bezet door andere stukken.</string>
+  <string name="epauletteMate">Epaulettenmat</string>
+  <string name="epauletteMateDescription">Twee aangrenzende ontsnappingsvakjes voor een koning in schaak worden bezet door andere stukken.</string>
   <string name="exposedKing">Onveilige koning</string>
   <string name="exposedKingDescription">Een stelling met een koning met weinig verdedigers, vaak leidend tot schaakmat.</string>
   <string name="fork">Vork</string>
@@ -73,8 +75,8 @@
   <string name="pillsburysMateDescription">De toren geeft mat, terwijl de loper helpt met opsluiten.</string>
   <string name="morphysMate">Morphy\'s mat</string>
   <string name="morphysMateDescription">Gebruik de loper om de koning te mat te zetten, terwijl je toren helpt om hem te de pas af te snijden.</string>
-  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Zwaluwstaartmat</string>
-  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Een matpatroon dat visueel lijkt op de staart van een zwaluw, zoals de vorm van een V.</string>
+  <string name="swallowstailMate">Zwaluwstaartmat</string>
+  <string name="swallowstailMateDescription">Een matpatroon dat visueel lijkt op de staart van een zwaluw, zoals de vorm van een V.</string>
   <string name="triangleMate">Driehoeksmat</string>
   <string name="triangleMateDescription">De toren en koningin, een vakje verwijderd van de vijandelijke koning, staan op dezelfde rij of kolom, gescheiden door een vakje, en vormen samen een driehoek.</string>
   <string name="vukovicMate">Vukovic-mat</string>

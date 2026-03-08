@@ -1,11 +1,12 @@
-import type { CevalHandler } from '../types';
-import type CevalCtrl from '../ctrl';
-import { fewerCores } from '../util';
-import { isChrome } from '@/device';
-import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm } from '@/view';
-import * as Licon from '@/licon';
-import { onClickAway } from '@/index';
 import { clamp } from '@/algo';
+import { isChrome } from '@/device';
+import { onClickAway } from '@/index';
+import * as Licon from '@/licon';
+import { type VNode, onInsert, bind, dataIcon, hl, rangeConfig, confirm } from '@/view';
+
+import type CevalCtrl from '../ctrl';
+import type { CevalHandler } from '../types';
+import { fewerCores } from '../util';
 
 const allSearchTicks: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30, Number.POSITIVE_INFINITY];
 
@@ -53,8 +54,8 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
           [
             engineSelection(ctrl),
             (id => {
-              return hl('div.setting', { attrs: { title: 'Set time to evaluate fresh positions' } }, [
-                hl('label', { attrs: { for: id } }, 'Search time'),
+              return hl('div.setting', { attrs: { title: i18n.site.searchTimeDescription } }, [
+                hl('label', { attrs: { for: id } }, i18n.site.searchTime),
                 hl('input#' + id, {
                   attrs: {
                     type: 'range',
@@ -77,25 +78,21 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
             })('engine-search-ms'),
             (id => {
               const max = 5;
-              return hl(
-                'div.setting',
-                { attrs: { title: 'Set number of evaluation lines and move arrows on the board' } },
-                [
-                  hl('label', { attrs: { for: id } }, i18n.site.multipleLines),
-                  hl('input#' + id, {
-                    attrs: { type: 'range', min: 0, max, step: 1 },
-                    hook: rangeConfig(
-                      () => ceval.storedPv(),
-                      (pvs: number) => {
-                        ceval.storedPv(pvs);
-                        ctrl.clearCeval?.();
-                        ceval.opts.redraw();
-                      },
-                    ),
-                  }),
-                  hl('div.range_value', `${ceval.storedPv()} / ${max}`),
-                ],
-              );
+              return hl('div.setting', { attrs: { title: i18n.site.multipleLinesDescription } }, [
+                hl('label', { attrs: { for: id } }, i18n.site.multipleLines),
+                hl('input#' + id, {
+                  attrs: { type: 'range', min: 0, max, step: 1 },
+                  hook: rangeConfig(
+                    () => ceval.storedPv(),
+                    (pvs: number) => {
+                      ceval.storedPv(pvs);
+                      ctrl.clearCeval?.();
+                      ceval.opts.redraw();
+                    },
+                  ),
+                }),
+                hl('div.range_value', `${ceval.storedPv()} / ${max}`),
+              ]);
             })('analyse-multipv'),
             maxThreads > minThreads &&
               (id => {
@@ -105,12 +102,12 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                     attrs: {
                       title:
                         fewerCores() && !ceval.engines.external
-                          ? 'More threads will use more battery for better analysis'
-                          : "Set this below your CPU's thread count\nThe ticks mark a good safe choice",
+                          ? i18n.site.threadsDescriptionMobile
+                          : i18n.site.threadsDescription,
                     },
                   },
                   [
-                    hl('label', { attrs: { for: id } }, 'Threads'),
+                    hl('label', { attrs: { for: id } }, i18n.site.threads),
                     hl('span', [
                       hl('input#' + id, {
                         attrs: {
@@ -146,7 +143,7 @@ export function renderCevalSettings(ctrl: CevalHandler): VNode | null {
                 );
               })('analyse-threads'),
             (id =>
-              hl('div.setting', { attrs: { title: 'Higher values may improve performance' } }, [
+              hl('div.setting', { attrs: { title: i18n.site.memoryDescription } }, [
                 hl('label', { attrs: { for: id } }, i18n.site.memory),
                 hl('input#' + id, {
                   attrs: {

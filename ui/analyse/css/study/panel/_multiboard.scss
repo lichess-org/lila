@@ -1,6 +1,7 @@
 .study__multiboard {
   .analyse__underboard & {
     @extend %box-neat;
+
     background: $c-bg-box;
   }
 
@@ -14,16 +15,21 @@
 
   &__top {
     @extend %flex-between;
+
     gap: 0.4em;
     padding: 0.4em 1em 1em 0.4em;
   }
+
   &__options {
     @extend %flex-center;
+
     gap: 1em;
+
     .cmn-toggle-wrap {
       font-size: 0.9em;
       gap: 0;
     }
+
     .cmn-toggle {
       transform: scale(0.7);
     }
@@ -42,6 +48,7 @@
           display: none;
         }
       }
+
       max-width: 25vw;
       margin-inline-end: 1ch;
     }
@@ -72,12 +79,11 @@
 
     a {
       @extend %box-radius;
-      container-type: inline-size;
 
+      container-type: inline-size;
       color: $c-font;
       padding: 0.4em 0.3em;
       border: 1px solid transparent;
-
       overflow: hidden;
 
       &.active {
@@ -85,40 +91,49 @@
         color: $c-font-clear;
         border-color: $m-primary_bg--mix-40;
       }
+
       &:hover {
         background: $m-primary_bg--mix-12;
         color: $c-font-clear;
         border-color: $m-primary_bg--mix-50;
       }
     }
+
     cg-board {
       box-shadow: none;
     }
   }
 }
+
 @container (width < 250px) {
   .now-playing .rating {
     display: none;
   }
 }
+
 .mini-game__gauge {
   --c-eval-mini-gauge-white: #c0c0c0;
   --c-eval-mini-gauge-black: #444;
+
   @include if-light {
     --c-eval-mini-gauge-white: #fff;
     --c-eval-mini-gauge-black: #606060;
   }
 }
+
 .mini-game {
   .cg-gauge {
     display: flex;
     flex-flow: row nowrap;
   }
+
   &__board {
     flex: 1 1 auto;
   }
+
   &__gauge {
     @extend %box-radius;
+
     order: 1;
     position: relative;
     flex: 0 0 4%;
@@ -127,6 +142,7 @@
     opacity: 0.4;
     margin-left: 4px;
     background: linear-gradient(to top, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
+
     &::after {
       content: '';
       display: block;
@@ -144,6 +160,7 @@
 
     &--flip {
       background: linear-gradient(to bottom, var(--c-eval-mini-gauge-white), var(--c-eval-mini-gauge-black));
+
       .mini-game__gauge__black {
         position: absolute;
         bottom: 0;
@@ -153,9 +170,11 @@
     &--set {
       opacity: 1;
       background: var(--c-eval-mini-gauge-white);
+
       .mini-game__gauge__black {
         display: block;
       }
+
       tick {
         position: absolute;
         width: 100%;

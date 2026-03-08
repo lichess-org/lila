@@ -8,6 +8,7 @@ $total_len: $len1 + $len2 + $len3;
   0% {
     stroke-dashoffset: $total_len;
   }
+
   100% {
     stroke-dashoffset: -$total_len;
   }
@@ -17,6 +18,7 @@ $total_len: $len1 + $len2 + $len3;
   0% {
     stroke-dashoffset: $total_len + $len1;
   }
+
   100% {
     stroke-dashoffset: -$total_len + $len1;
   }
@@ -26,6 +28,7 @@ $total_len: $len1 + $len2 + $len3;
   0% {
     stroke-dashoffset: $total_len + $len1 + $len2;
   }
+
   100% {
     stroke-dashoffset: -$total_len + $len1 + $len2;
   }
@@ -36,12 +39,15 @@ $total_len: $len1 + $len2 + $len3;
   100% {
     stroke: $c-primary;
   }
+
   25% {
     stroke: $c-error;
   }
+
   50% {
     stroke: $c-secondary;
   }
+
   75% {
     stroke: $c-brag;
   }
@@ -52,12 +58,15 @@ $total_len: $len1 + $len2 + $len3;
   100% {
     stroke: #42a5f5;
   }
+
   25% {
     stroke: #f44336;
   }
+
   50% {
     stroke: #fdd835;
   }
+
   75% {
     stroke: #4caf50;
   }
@@ -71,9 +80,11 @@ $total_len: $len1 + $len2 + $len3;
   path {
     animation: mask1 2.75s cubic-bezier(0.49, 0.67, 0.45, 0.29) infinite;
   }
+
   path:nth-child(2) {
     animation-name: mask2;
   }
+
   path:nth-child(3) {
     animation-name: mask3;
   }
@@ -101,6 +112,7 @@ $total_len: $len1 + $len2 + $len3;
 
 .ddloader {
   background: url('../images/loader/whitex1.png') no-repeat;
+
   @include if-light {
     background: url('../images/loader/blackx1.png') no-repeat;
   }

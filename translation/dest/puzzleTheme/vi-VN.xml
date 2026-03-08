@@ -26,6 +26,8 @@
   <string name="castlingDescription">Chuyển quân vua đến vị trí an toàn và triển khai quân xe để tấn công.</string>
   <string name="capturingDefender">Ăn quân phòng thủ</string>
   <string name="capturingDefenderDescription">Loại bỏ một quân cực kỳ quan trọng đối với việc bảo vệ một quân cờ khác, khiến cho quân cờ hiện không được bảo vệ có thể bị ăn vào một nước sau đó.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Nước cờ trên cùng một đường thẳng</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Hai quân cờ đối diện nhau, và một quân di chuyển dọc theo đường tấn công mà không bắt được quân cờ đối phương.</string>
   <string name="cornerMate">Góc chiếu hết chết chóc</string>
   <string name="cornerMateDescription">Kìm hãm vua ở góc bằng cách sử dụng một xe hoặc hậu và một mã để chiếu hết.</string>
   <string name="crushing">Áp đảo</string>
@@ -53,11 +55,8 @@
   <string name="endgame">Tàn cuộc</string>
   <string name="endgameDescription">Chiến thuật trong phần kết thúc của ván cờ.</string>
   <string name="enPassantDescription">Một đòn chiến thuật bao gồm luật bắt tốt qua đường, khi một quân tốt có thể ăn một quân tốt đối phương đi qua mặt nó khi đi 2 ô từ vị trí ban đầu của nó.</string>
-  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">\"Epaulette\" không phải là danh từ riêng, mà là thuật ngữ chỉ phần trang trí trên vai áo quân phục: https://en.wikipedia.org/wiki/Epaulette
-
-Mô tả cho kiểu chiếu tướng này (có thể dịch riêng):
-Hai ô thoát hiểm liền kề của vua bị chiếu đều bị các quân cờ khác chiếm giữ.</string>
-  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">Hai ô trốn thoát liền kề của vua bị chiếu bị các quân cờ khác chiếm kiểm soát.</string>
+  <string name="epauletteMate">Chiếu hết kiểu cầu vai</string>
+  <string name="epauletteMateDescription">Hai ô trốn thoát liền kề của vua bị chiếu bị các quân cờ khác chiếm kiểm soát.</string>
   <string name="exposedKing">Vua bị hở</string>
   <string name="exposedKingDescription">Một đòn chiến thuật bao gồm một quân vua với ít quân bảo vệ quanh quân vua đó, thường dẫn tới chiếu hết.</string>
   <string name="fork">Tấn công đôi</string>
@@ -76,8 +75,8 @@ Hai ô thoát hiểm liền kề của vua bị chiếu đều bị các quân c
   <string name="pillsburysMateDescription">Quân xe chiếu hết, trong khi quân tượng giúp khống chế nước đi đó.</string>
   <string name="morphysMate">Chiếu hết kiểu Morphy</string>
   <string name="morphysMateDescription">Dùng quân tượng để chiếu vua, trong khi quân xe giúp kìm hãm vua.</string>
-  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">Chiếu hết kiểu đuôi chim én</string>
-  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">Một kiểu chiếu tướng có hình dáng trực quan giống đuôi chim én, tương tự như hình chữ V.</string>
+  <string name="swallowstailMate">Chiếu hết kiểu đuôi chim én</string>
+  <string name="swallowstailMateDescription">Một kiểu chiếu tướng có hình dáng trực quan giống đuôi chim én, tương tự như hình chữ V.</string>
   <string name="triangleMate">Chiếu hết kiểu tam giác</string>
   <string name="triangleMateDescription">Quân hậu và quân xe, cách quân vua của đối phương một ô, nằm trên cùng một hàng, cách nhau một ô, tạo thành một hình tam giác.</string>
   <string name="vukovicMate">Chiếu hết kiểu Vukovic</string>

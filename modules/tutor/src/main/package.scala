@@ -3,7 +3,7 @@ package lila.tutor
 import chess.IntRating
 
 import lila.core.perf.UserWithPerfs
-import lila.insight.{ ClockPercent, InsightPerfStats, MeanRating }
+import lila.insight.{ ClockPercent, InsightPerfStats, MeanRating, Question }
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 
@@ -22,5 +22,8 @@ extension (stats: List[InsightPerfStats])
   def totalNbGames = stats.map(_.totalNbGames).sum
   def meanRating = (totalNbGames > 0).option:
     MeanRating(stats.map(s => s.rating.value * s.totalNbGames).sum / totalNbGames)
+
+extension [A](question: Question[A])
+  def timeFilter(config: TutorConfig): Question[A] = config.addFilter(question)
 
 type Angle = "skills" | "opening" | "time" | "phases" | "pieces"

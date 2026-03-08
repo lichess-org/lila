@@ -1,7 +1,7 @@
-import { winningChances } from 'lib/ceval';
-import { fenToEpd } from 'lib/game/chess';
 import { defined } from 'lib';
 import { zip } from 'lib/algo';
+import { winningChances } from 'lib/ceval';
+import { fenToEpd } from 'lib/game/chess';
 import type { TreeNode } from 'lib/tree/types';
 
 const hasCompChild = (node: TreeNode): boolean => node.children.some(c => !!c.comp);
