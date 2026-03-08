@@ -60,7 +60,7 @@ db.m_thread_sorted
 
     o.threads.forEach(t => {
       t.posts.forEach(p => {
-        if (o.creatorId == 'lichess' && isOld(p.createdAt)) return;
+        if (o.creatorId === 'lichess' && isOld(p.createdAt)) return;
         msgs.push({
           _id: p.id,
           tid: threadId,
@@ -84,7 +84,7 @@ db.m_thread_sorted
         text: last.text.slice(0, 60),
         user: last.user,
         date: last.date,
-        read: !o.threads.find(t => t.posts.find(p => p.isRead)) || isOld(last.date),
+        read: !o.threads.some(t => t.posts.find(p => p.isRead)) || isOld(last.date),
       },
     };
 

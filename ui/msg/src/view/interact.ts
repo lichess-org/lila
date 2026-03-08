@@ -83,7 +83,7 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
 
   // send the content on <enter.
   area.addEventListener('keypress', (e: KeyboardEvent) => {
-    if ((e.which === 10 || e.which === 13) && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       setTimeout(send);
     }
