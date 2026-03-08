@@ -1,6 +1,6 @@
 import { INITIAL_FEN } from 'chessops/fen';
 
-import { type Prop, propWithEffect, toggle } from 'lib';
+import { type Prop, propWithEffect, toggle, storedJsonProp } from 'lib';
 import { debounce } from 'lib/async';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
 import {
@@ -9,8 +9,13 @@ import {
   timeModes,
   type TimeControl,
 } from 'lib/setup/timeControl';
-import type { ColorChoice, ColorProp } from 'lib/setup/color';
+import { alert } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
+import type LobbyController from './ctrl';
 import * as customiser from './customiser';
+import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
+import { keyToId, variants } from './options';
 
 const getPerf = (variant: VariantKey, tc: TimeControl): Perf =>
   variant !== 'standard' && variant !== 'fromPosition' ? variant : tc.speed();

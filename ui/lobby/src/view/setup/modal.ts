@@ -2,13 +2,15 @@ import { timePickerAndSliders } from 'lib/setup/view/timeControl';
 import { hl, type VNode, type LooseVNodes, snabDialog, spinnerVdom } from 'lib/view';
 
 import type LobbyController from '@/ctrl';
+import { renderCustomiserModalContent } from '@/customiser';
 
 import { colorButtons } from './components/colorButtons';
 import { fenInput } from './components/fenInput';
 import { gameModeButtons } from './components/gameModeButtons';
 import { levelButtons } from './components/levelButtons';
-import { timePickerAndSliders } from 'lib/setup/view/timeControl';
-import { renderCustomiserModalContent } from '@/customiser';
+import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
+import { ratingView } from './components/ratingView';
+import { variantPicker } from './components/variantPicker';
 
 export default function setupModal(ctrl: LobbyController): VNode[] | null {
   const { setupCtrl } = ctrl;

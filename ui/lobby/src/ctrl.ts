@@ -1,3 +1,4 @@
+import { toggle, type Toggle } from 'lib';
 import { numberFormat } from 'lib/i18n';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
@@ -5,6 +6,7 @@ import { colors, type ColorChoice } from 'lib/setup/color';
 import { wsPingInterval } from 'lib/socket';
 import { storage, type LichessStorage } from 'lib/storage';
 
+import * as customiser from './customiser';
 import Filter from './filter';
 import * as hookRepo from './hookRepo';
 import type {
@@ -22,12 +24,10 @@ import type {
 } from './interfaces';
 import * as seekRepo from './seekRepo';
 import SetupController from './setupCtrl';
-import { storage, type LichessStorage } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
-import { wsPingInterval } from 'lib/socket';
-import { colors, type ColorChoice } from 'lib/setup/color';
-import { toggle } from 'lib';
-import * as customiser from './customiser';
+import LobbySocket from './socket';
+import { make as makeStores, type Stores } from './store';
+import variantConfirm from './variant';
+import * as xhr from './xhr';
 
 export default class LobbyController {
   data: LobbyData;
@@ -45,7 +45,7 @@ export default class LobbyController {
   pools: Pool[];
   filter: Filter;
   setupCtrl: SetupController;
-  isEditingPoolButtons = toggle(false);
+  isEditingPoolButtons: Toggle = toggle(false);
   selectedPoolButton?: string;
   isHeadlessSubmission = false;
 
