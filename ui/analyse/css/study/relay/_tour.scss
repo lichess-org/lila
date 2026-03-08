@@ -9,6 +9,7 @@ $hover-bg: $m-primary_bg--mix-30;
 
   gap: 3vh;
   background: $c-bg-box;
+  overflow: visible;
 
   &__side {
     @extend %flex-column;
@@ -215,7 +216,7 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__header {
-    @extend %flex-center-nowrap;
+    @extend %flex-center-nowrap, %box-radius-top;
 
     background: $c-bg-zebra;
 
@@ -539,10 +540,14 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__players {
+    @extend %box-radius-bottom;
+
     overflow: auto;
   }
 
   &__players__table {
+    border-bottom: 0;
+
     thead {
       background: none;
 
