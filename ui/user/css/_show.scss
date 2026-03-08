@@ -210,6 +210,7 @@
   .number-menu .to-games.active,
   #games.number-menu {
     background: $c-bg-low !important;
+    flex-wrap: wrap;
   }
 
   .angles {
