@@ -39,9 +39,12 @@
     "typescript/no-unnecessary-type-arguments": "error",
     "typescript/no-unnecessary-type-assertion": "error",
     "typescript/no-unnecessary-type-constraint": "error",
+    "unicorn/no-immediate-mutation": "error",
+    "unicorn/no-useless-collection-argument": "error",
     "unicorn/prefer-array-flat": "error",
     "unicorn/prefer-array-flat-map": "error",
     "unicorn/prefer-array-some": "error",
+    "unicorn/prefer-keyboard-event-key": "error",
     "no-restricted-globals": [
       "error",
       "addEventListener",
@@ -231,8 +234,7 @@
     {
       "files": ["bin/**", "cron/**"],
       "rules": {
-        "no-unused-vars": "off",
-        "unicorn/prefer-array-some": "off"
+        "no-unused-vars": "off"
       }
     },
     {

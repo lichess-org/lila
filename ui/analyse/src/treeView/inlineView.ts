@@ -66,7 +66,7 @@ export class InlineView {
     if (!this.ctrl.showComments || !node.comments) return [];
     return node.comments
       .map(comment =>
-        this.ctrl.retro?.hideComputerLine(node)
+        this.ctrl.retro?.hideComputerLine(node) && this.isFishnetComment(comment)
           ? hl('comment', i18n.site.learnFromThisMistake)
           : (!this.isFishnetComment(comment) || this.ctrl.showFishnetAnalysis()) &&
             hl('comment', {

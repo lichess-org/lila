@@ -31,7 +31,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
               a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
             )
           ),
-          whatsNext(page) | p(cls := "opening__error")("Couldn't fetch the next moves, try again later."),
+          whatsNext(page),
           Granter.opt(_.OpeningWiki).option(showMissing(wikiMissing))
         )
 
@@ -116,32 +116,19 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
                     href := s"${routes.UserAnalysis.pgn(page.query.sans.mkString("_"))}#explorer"
                   )(trans.site.openingExplorer())
                 ),
-                page.explored.fold(
-                  _ =>
-                    p(cls := "opening__popularity opening__error")(
-                      "Couldn't fetch the popularity history, try again later."
-                    ),
-                  exp =>
-                    exp
-                      .so(_.history)
-                      .nonEmpty
-                      .option:
-                        div(cls := "opening__popularity opening__popularity--chart")(
-                          canvas(cls := "opening__popularity__chart")
-                        )
+                exploredOrError(page).fold(
+                  identity,
+                  _.history.nonEmpty.option:
+                    div(cls := "opening__popularity opening__popularity--chart")(
+                      canvas(cls := "opening__popularity__chart")
+                    )
                 )
               )
             )
           ),
           div(cls := "opening__panels")(
             lila.ui.bits.ariaTabList("opening", "next")(
-              (
-                "next",
-                "Popular continuations",
-                whatsNext(page) | p(cls := "opening__error")(
-                  "Couldn't fetch the next moves, try again later."
-                )
-              ),
+              ("next", "Popular continuations", whatsNext(page)),
               ("games", "Example games", exampleGames(page))
             )
           )

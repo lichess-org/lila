@@ -56,8 +56,7 @@ export class PromotionCtrl {
     this.withGround(ground => {
       const piece = ground.state.pieces.get(key);
       if (piece && piece.role === 'pawn') {
-        const pieces: PiecesDiff = new Map();
-        pieces.set(key, { color: piece.color, role, promoted: true });
+        const pieces: PiecesDiff = new Map([[key, { color: piece.color, role, promoted: true }]]);
         ground.setPieces(pieces);
       }
     });
