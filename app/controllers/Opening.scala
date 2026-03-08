@@ -40,7 +40,7 @@ final class Opening(env: Env) extends LilaController(env):
             val cost = if ctx.isAuth then 1 else if suspUA then 5 else 2
             ipRateLimit(rateLimited, cost = cost):
               env.opening.api
-                .lookup(queryFromUrl(key, moves.some), isGrantedOpt(_.OpeningWiki), crawler, proxy)
+                .lookup(queryFromUrl(key, moves.some), crawler, proxy)
                 .flatMap:
                   case None => Redirect(routes.Opening.index(key.some))
                   case Some(page) =>
@@ -72,7 +72,7 @@ final class Opening(env: Env) extends LilaController(env):
 
   def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { ctx ?=> me ?=>
     env.opening.api
-      .lookup(queryFromUrl(key, moves.some), isGranted(_.OpeningWiki), Crawler.No, IsProxy.empty)
+      .lookup(queryFromUrl(key, moves.some), Crawler.No, IsProxy.empty)
       .map(_.flatMap(_.query.exactOpening))
       .orNotFound: op =>
         val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))

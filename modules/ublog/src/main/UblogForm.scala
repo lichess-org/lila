@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import scalalib.model.Language
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, into, given }
+import lila.common.Form.{ cleanNonEmptyText, cleanTextWithSymbols, cleanText, into, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
 import lila.core.i18n.{ LangList, toLanguage, defaultLanguage }
 import lila.core.ublog.Quality
@@ -19,7 +19,7 @@ final class UblogForm(val captcher: CaptchaApi, langList: LangList):
     mapping(
       "title" -> cleanNonEmptyText(minLength = 3, maxLength = 80),
       "intro" -> cleanNonEmptyText(minLength = 0, maxLength = 1_000),
-      "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).into[Markdown],
+      "markdown" -> cleanTextWithSymbols(minLength = 0, maxLength = 100_000).into[Markdown],
       "imageAlt" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "language" -> optional(langList.popularLanguagesForm.mapping),

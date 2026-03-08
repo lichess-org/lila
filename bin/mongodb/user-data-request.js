@@ -7,7 +7,7 @@ db.security
   })
   .map(o => `${o.ip} ${o.ua}`)
   .forEach(conn => {
-    if (!connections.find(c => c === conn)) connections.push(conn);
+    if (!connections.some(c => c === conn)) connections.push(conn);
   });
 
 print(`\n${user.username} ${user.email}`);

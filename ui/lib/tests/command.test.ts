@@ -4,11 +4,12 @@ import { test } from 'node:test';
 
 import { commands } from '../src/nvui/command';
 
-const pieces: Pieces = new Map();
-pieces.set('a1', { color: 'white', role: 'king' });
-pieces.set('a2', { color: 'white', role: 'queen' });
-pieces.set('b1', { color: 'white', role: 'knight' });
-pieces.set('b2', { color: 'white', role: 'knight' });
+const pieces: Pieces = new Map([
+  ['a1', { color: 'white', role: 'king' }],
+  ['a2', { color: 'white', role: 'queen' }],
+  ['b1', { color: 'white', role: 'knight' }],
+  ['b2', { color: 'white', role: 'knight' }],
+]);
 
 test('piece command', () => {
   assert.strictEqual(commands().piece.apply('p Q', pieces, 'anna'), 'nvui.whiteQueen: anna 2');

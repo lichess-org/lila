@@ -39,7 +39,7 @@ db.puzzle2_puzzle
     const themeMap = {};
 
     p.rounds.forEach(x => {
-      const signum = x._id[0] == '+' ? 1 : -1;
+      const signum = x._id[0] === '+' ? 1 : -1;
       const theme = x._id.substring(1);
       themeMap[theme] = x.v * signum + (themeMap[theme] || 0);
     });
@@ -50,7 +50,7 @@ db.puzzle2_puzzle
     });
 
     const update = { $unset: { dirty: true } };
-    if (oldThemes.length !== newThemes.size || oldThemes.find(t => !newThemes.has(t))) {
+    if (oldThemes.length !== newThemes.size || oldThemes.some(t => !newThemes.has(t))) {
       update['$set'] = { themes: Array.from(newThemes) };
     }
     playColl.updateOne({ _id: p._id }, update);
