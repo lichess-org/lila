@@ -68,6 +68,12 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               else notFound
           yield res
 
+  def latest(categId: ForumCategId, slug: ForumTopicSlug) = Open:
+    NotForKids:
+      Found(topicApi.showLastPage(categId, slug)): (_, topic, posts) =>
+        val call = routes.ForumTopic.show(categId, slug, posts.currentPage)
+        Redirect(call).withCanonical(call)
+
   def close(categId: ForumCategId, slug: ForumTopicSlug) = Auth { _ ?=> me ?=>
     TopicGrantModBySlug(categId, slug):
       Found(topicApi.show(categId, slug, 1)): (categ, topic, pag) =>

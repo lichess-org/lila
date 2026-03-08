@@ -663,6 +663,7 @@ POST  /forum/:categId/new              controllers.ForumTopic.create(categId: Fo
 GET   /forum/:categId/mod-feed         controllers.ForumCateg.modFeed(categId: ForumCategId, page: Int ?= 1)
 GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId: ForumTopicId)
 GET   /forum/:categId/:slug            controllers.ForumTopic.show(categId: ForumCategId, slug: ForumTopicSlug, page: Int ?= 1)
+GET   /forum/:categId/:slug/latest     controllers.ForumTopic.latest(categId: ForumCategId, slug: ForumTopicSlug)
 POST  /forum/:categId/:slug/close      controllers.ForumTopic.close(categId: ForumCategId, slug: ForumTopicSlug)
 POST  /forum/:categId/:slug/sticky     controllers.ForumTopic.sticky(categId: ForumCategId, slug: ForumTopicSlug)
 POST  /forum/:categId/:slug/new        controllers.ForumPost.create(categId: ForumCategId, slug: ForumTopicSlug, page: Int ?= 1)
