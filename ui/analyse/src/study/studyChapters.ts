@@ -224,10 +224,20 @@ export function view(ctrl: StudyCtrl): VNode {
       }),
     ),
     ctrl.members.canContribute() &&
-      hl('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
-        hl('span', iconTag(licon.PlusButton)),
-        hl('h3', i18n.study.addNewChapter),
-      ]),
+      hl(
+        'button.add',
+        {
+          hook: bind(
+            'click',
+            e => {
+              blurIfPrimaryClick(e);
+              ctrl.chapters.toggleNewForm();
+            },
+            ctrl.redraw,
+          ),
+        },
+        [hl('span', iconTag(licon.PlusButton)), hl('h3', i18n.study.addNewChapter)],
+      ),
   ]);
 }
 
