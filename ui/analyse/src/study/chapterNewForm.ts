@@ -1,7 +1,7 @@
 import { parseFen } from 'chessops/fen';
 import type { LichessEditor } from 'editor';
 
-import { defined, prop, type Prop, toggle } from 'lib';
+import { blurIfPrimaryClick, defined, prop, type Prop, toggle } from 'lib';
 import * as licon from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
 import { storedProp } from 'lib/storage';
@@ -369,7 +369,18 @@ export function view(ctrl: StudyChapterNewForm): VNode {
           ]),
           hl(
             'div.form-actions.single',
-            hl('button.button', { attrs: { type: 'submit' } }, i18n.study.createChapter),
+            hl(
+              'button.button',
+              {
+                attrs: { type: 'submit' },
+                on: {
+                  click: e => {
+                    requestAnimationFrame(() => blurIfPrimaryClick(e));
+                  },
+                },
+              },
+              i18n.study.createChapter,
+            ),
           ),
         ],
       ),

@@ -5,6 +5,7 @@ import { userComplete } from 'lib/view/userComplete';
 import { writeTextClipboard, text as xhrText } from 'lib/xhr';
 
 import topBar from './topBar';
+import { blurIfPrimaryClick } from 'lib';
 
 export function addWindowHandlers() {
   let animFrame: number;
@@ -25,7 +26,8 @@ export function addDomHandlers() {
   menuKeyboardInteractions();
 
   $('#main-wrap')
-    .on('click', '.copy-me__button', function (this: HTMLElement) {
+    .on('click', '.copy-me__button', function (this: HTMLElement, e: Event) {
+      blurIfPrimaryClick(e);
       const showCheckmark = () => {
         $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
         setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
