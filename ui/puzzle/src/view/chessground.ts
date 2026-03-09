@@ -12,7 +12,10 @@ export default function (ctrl: PuzzleCtrl): VNode {
   return h('div.cg-wrap.cgv' + ctrl.cgVersion, {
     hook: {
       insert: vnode => ctrl.setChessground(makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
-      destroy: () => ctrl.ground().destroy(),
+      destroy: () => {
+        ctrl.removeGooglyBoardEl();
+        ctrl.ground().destroy();
+      },
     },
   });
 }
@@ -48,6 +51,7 @@ export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
       move: ctrl.userMove,
       insert(elements) {
         resizeHandle(elements, ShowResizeHandle.Always, ctrl.node.ply);
+        ctrl.setGooglyBoardEl(elements.wrap);
       },
     },
     premovable: {

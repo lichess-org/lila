@@ -82,6 +82,10 @@ export default class PuzzleCtrl implements CevalHandler {
   blindfolded: StoredProp<boolean>;
   cgVersion = 1;
 
+  googlyMousePos = { x: 0.5, y: 0.5 };
+  private googlyBoardEl?: HTMLElement;
+  private googlyRaf?: number;
+
   private report: Report;
 
   constructor(
@@ -207,6 +211,34 @@ export default class PuzzleCtrl implements CevalHandler {
     });
   };
 
+  setGooglyBoardEl = (el: HTMLElement): void => {
+    this.googlyBoardEl?.removeEventListener('mousemove', this.onGooglyMouseMove);
+    this.googlyBoardEl = el;
+    el.addEventListener('mousemove', this.onGooglyMouseMove);
+  };
+
+  removeGooglyBoardEl = (): void => {
+    if (this.googlyRaf !== undefined) cancelAnimationFrame(this.googlyRaf);
+    this.googlyRaf = undefined;
+    this.googlyBoardEl?.removeEventListener('mousemove', this.onGooglyMouseMove);
+    this.googlyBoardEl = undefined;
+  };
+
+  private onGooglyMouseMove = (e: MouseEvent): void => {
+    if (!this.googlyBoardEl) return;
+    const rect = this.googlyBoardEl.getBoundingClientRect();
+    this.googlyMousePos = {
+      x: (e.clientX - rect.left) / rect.width,
+      y: (e.clientY - rect.top) / rect.height,
+    };
+    if (this.googlyRaf === undefined) {
+      this.googlyRaf = requestAnimationFrame(() => {
+        this.googlyRaf = undefined;
+        this.withGround(g => g.set(this.makeCgOpts()));
+      });
+    }
+  };
+
   pref = this.opts.pref;
 
   withGround: WithGround = f => {
@@ -278,17 +310,29 @@ export default class PuzzleCtrl implements CevalHandler {
           dests: new Map(),
         };
 
-    const googlyEyes = (): string => $html`
+    const googlyEyes = (): string => {
+      const { x: mx, y: my } = this.googlyMousePos;
+      const eyeCenter = this.flipped() ? { x: 0.5 / 8, y: 0.5 / 8 } : { x: 7.5 / 8, y: 7.5 / 8 };
+      let dx = mx - eyeCenter.x;
+      let dy = my - eyeCenter.y;
+      const len = Math.hypot(dx, dy) || 1;
+      const maxOffset = 8;
+      dx = (dx / len) * maxOffset;
+      dy = (dy / len) * maxOffset;
+      const lx = -18 + dx;
+      const ly = 0 + dy;
+      const rx = 18 + dx;
+      const ry = 0 + dy;
+      return $html`
   <g transform="translate(50, 50)">
-    <!-- Left eye -->
     <ellipse cx="-18" cy="0" rx="20" ry="26" fill="white" stroke="#333" stroke-width="2"/>
-    <circle cx="-22" cy="-4" r="11" fill="#222"/>
-    <circle cx="-26" cy="-9" r="4" fill="white" opacity="0.9"/>
-    <!-- Right eye -->
+    <circle cx="${lx}" cy="${ly}" r="11" fill="#222"/>
+    <circle cx="${lx - 4}" cy="${ly - 5}" r="4" fill="white" opacity="0.9"/>
     <ellipse cx="18" cy="0" rx="20" ry="26" fill="white" stroke="#333" stroke-width="2"/>
-    <circle cx="14" cy="-4" r="11" fill="#222"/>
-    <circle cx="10" cy="-9" r="4" fill="white" opacity="0.9"/>
+    <circle cx="${rx}" cy="${ry}" r="11" fill="#222"/>
+    <circle cx="${rx - 4}" cy="${ry - 5}" r="4" fill="white" opacity="0.9"/>
   </g>`;
+    };
     const config = {
       fen: node.fen,
       orientation: this.flipped() ? opposite(this.pov) : this.pov,
