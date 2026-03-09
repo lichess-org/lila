@@ -90,7 +90,7 @@ final class StudyPager(
       if includeUnlisted then $or(selectPublic, selectMemberId(u), selectUnlisted)
       else $or(selectPublic, selectMemberId(u))
 
-  private val noRelaySelect = $doc("from".$ne("relay"))
+  private val noRelaySelect = $doc("topics".$ne("Broadcast"))
 
   private def paginator(
       selector: Bdoc,
