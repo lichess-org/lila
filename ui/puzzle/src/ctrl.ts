@@ -313,6 +313,10 @@ export default class PuzzleCtrl implements CevalHandler {
     const pos = this.position();
     const knightSquares = [...pos.board.knight];
     const googlyEyes = (square: number): string => {
+      const eyeX = -10;
+      const eyeY = -15;
+      const eyeSpacing = 20;
+
       const { x: mx, y: my } = this.googlyMousePos;
       const file = squareFile(square);
       const rank = squareRank(square);
@@ -322,21 +326,23 @@ export default class PuzzleCtrl implements CevalHandler {
       let dx = mx - eyeCenter.x;
       let dy = my - eyeCenter.y;
       const len = Math.hypot(dx, dy) || 1;
-      const maxOffset = 8;
+      const maxOffset = 4;
       dx = (dx / len) * maxOffset;
       dy = (dy / len) * maxOffset;
-      const lx = -18 + dx;
-      const ly = 0 + dy;
-      const rx = 18 + dx;
-      const ry = 0 + dy;
+      const leftEyeX = eyeX - eyeSpacing / 2;
+      const rightEyeX = eyeX + eyeSpacing / 2;
+      const lx = leftEyeX + dx;
+      const ly = eyeY + dy;
+      const rx = rightEyeX + dx;
+      const ry = eyeY + dy;
       return $html`
   <g transform="translate(50, 50)">
-    <ellipse cx="-18" cy="0" rx="20" ry="26" fill="white" stroke="#333" stroke-width="2"/>
-    <circle cx="${lx}" cy="${ly}" r="11" fill="#222"/>
-    <circle cx="${lx - 4}" cy="${ly - 5}" r="4" fill="white" opacity="0.9"/>
-    <ellipse cx="18" cy="0" rx="20" ry="26" fill="white" stroke="#333" stroke-width="2"/>
-    <circle cx="${rx}" cy="${ry}" r="11" fill="#222"/>
-    <circle cx="${rx - 4}" cy="${ry - 5}" r="4" fill="white" opacity="0.9"/>
+    <circle cx="${leftEyeX}" cy="${eyeY}" r="8" fill="white" stroke="#333" stroke-width="1.5"/>
+    <circle cx="${lx}" cy="${ly}" r="5" fill="#222"/>
+    <circle cx="${lx - 2}" cy="${ly - 2.5}" r="1.5" fill="white" opacity="0.9"/>
+    <circle cx="${rightEyeX}" cy="${eyeY}" r="8" fill="white" stroke="#333" stroke-width="1.5"/>
+    <circle cx="${rx}" cy="${ry}" r="5" fill="#222"/>
+    <circle cx="${rx - 2}" cy="${ry - 2.5}" r="1.5" fill="white" opacity="0.9"/>
   </g>`;
     };
     const config = {
