@@ -31,7 +31,8 @@ final class Signup(
 )(using Executor, lila.core.config.RateLimit):
 
   private enum MustConfirmEmail(val value: Boolean):
-    case Nope extends MustConfirmEmail(false)
+    case NoCantSend extends MustConfirmEmail(false)
+    case YesAnyway extends MustConfirmEmail(true)
     case YesBecausePrintExists extends MustConfirmEmail(true)
     case YesBecausePrintMissing extends MustConfirmEmail(true)
     case YesBecauseIpExists extends MustConfirmEmail(true)
@@ -44,7 +45,7 @@ final class Signup(
     def apply(print: Option[FingerPrint], email: EmailAddress, suspIp: Boolean)(using
         req: RequestHeader
     ): Fu[MustConfirmEmail] =
-      if !canSendEmails.get() then fuccess(Nope)
+      if !canSendEmails.get() then fuccess(NoCantSend)
       else
         val ip = HTTPRequest.ipAddress(req)
         store.recentByIpExists(ip, 7.days).flatMap { ipExists =>
@@ -59,7 +60,7 @@ final class Signup(
                   else if suspIp then YesBecauseIpSusp
                   else if email.domain.exists: dom =>
                       DisposableEmailDomain.whitelisted(dom) && !DisposableEmailDomain.isOutlook(dom)
-                  then Nope
+                  then YesAnyway
                   else YesBecauseEmailDomain
         }
 
@@ -174,7 +175,7 @@ final class Signup(
                       result <- signupRateLimit(data.username.id, suspIp = suspIp, captched = false):
                         val mustConfirm =
                           if canSendEmails.get() then MustConfirmEmail.YesBecauseMobile
-                          else MustConfirmEmail.Nope
+                          else MustConfirmEmail.NoCantSend
                         monitor(
                           data,
                           captcha = Hcaptcha.Result.Mobile,
