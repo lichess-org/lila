@@ -5,7 +5,7 @@ import { chessgroundDests } from 'chessops/compat';
 import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import type { Role, Move, Outcome } from 'chessops/types';
-import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
+import { parseSquare, parseUci, makeSquare, makeUci, opposite, squareFile, squareRank } from 'chessops/util';
 import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
@@ -310,9 +310,15 @@ export default class PuzzleCtrl implements CevalHandler {
           dests: new Map(),
         };
 
-    const googlyEyes = (): string => {
+    const pos = this.position();
+    const knightSquares = [...pos.board.knight];
+    const googlyEyes = (square: number): string => {
       const { x: mx, y: my } = this.googlyMousePos;
-      const eyeCenter = this.flipped() ? { x: 0.5 / 8, y: 0.5 / 8 } : { x: 7.5 / 8, y: 7.5 / 8 };
+      const file = squareFile(square);
+      const rank = squareRank(square);
+      const eyeCenter = this.flipped()
+        ? { x: (7.5 - file) / 8, y: (rank + 0.5) / 8 }
+        : { x: (file + 0.5) / 8, y: (7.5 - rank) / 8 };
       let dx = mx - eyeCenter.x;
       let dy = my - eyeCenter.y;
       const len = Math.hypot(dx, dy) || 1;
@@ -344,12 +350,10 @@ export default class PuzzleCtrl implements CevalHandler {
       check: !!node.check(),
       lastMove: uciToMove(node.uci),
       drawable: {
-        shapes: [
-          {
-            orig: 'h1' as Key,
-            customSvg: { html: googlyEyes() },
-          },
-        ],
+        shapes: knightSquares.map(sq => ({
+          orig: makeSquare(sq) as Key,
+          customSvg: { html: googlyEyes(sq) },
+        })),
       },
     };
     if (node.ply >= this.initialNode.ply) {
