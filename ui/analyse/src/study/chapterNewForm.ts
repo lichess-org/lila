@@ -375,6 +375,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 attrs: { type: 'submit' },
                 on: {
                   click: e => {
+                    // The "add a new chapter" button will be refocussed, so blur it when it is:
                     requestAnimationFrame(() => blurIfPrimaryClick(e));
                   },
                 },
