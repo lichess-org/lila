@@ -98,7 +98,7 @@ body {
 
   h2 {
     @extend %page-text-shadow !optional;
-    @include line-clamp(4);
+    @include line-clamp(3);
 
     font-size: 1.3em;
   }
