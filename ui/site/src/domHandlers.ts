@@ -1,3 +1,4 @@
+import { blurIfPrimaryClick } from 'lib';
 import * as licon from 'lib/licon';
 import menuKeyboardInteractions from 'lib/menuKeyboardInteractions';
 import { confirm } from 'lib/view';
@@ -5,7 +6,6 @@ import { userComplete } from 'lib/view/userComplete';
 import { writeTextClipboard, text as xhrText } from 'lib/xhr';
 
 import topBar from './topBar';
-import { blurIfPrimaryClick } from 'lib';
 
 export function addWindowHandlers() {
   let animFrame: number;
