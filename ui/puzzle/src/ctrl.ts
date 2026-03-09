@@ -212,15 +212,15 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   setGooglyBoardEl = (el: HTMLElement): void => {
-    this.googlyBoardEl?.removeEventListener('mousemove', this.onGooglyMouseMove);
+    this.removeGooglyBoardEl();
     this.googlyBoardEl = el;
-    el.addEventListener('mousemove', this.onGooglyMouseMove);
+    document.addEventListener('mousemove', this.onGooglyMouseMove);
   };
 
   removeGooglyBoardEl = (): void => {
     if (this.googlyRaf !== undefined) cancelAnimationFrame(this.googlyRaf);
     this.googlyRaf = undefined;
-    this.googlyBoardEl?.removeEventListener('mousemove', this.onGooglyMouseMove);
+    document.removeEventListener('mousemove', this.onGooglyMouseMove);
     this.googlyBoardEl = undefined;
   };
 
