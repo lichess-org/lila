@@ -277,6 +277,18 @@ export default class PuzzleCtrl implements CevalHandler {
           color: undefined,
           dests: new Map(),
         };
+
+    const googlyEyes = (): string => $html`
+  <g transform="translate(50, 50)">
+    <!-- Left eye -->
+    <ellipse cx="-18" cy="0" rx="20" ry="26" fill="white" stroke="#333" stroke-width="2"/>
+    <circle cx="-22" cy="-4" r="11" fill="#222"/>
+    <circle cx="-26" cy="-9" r="4" fill="white" opacity="0.9"/>
+    <!-- Right eye -->
+    <ellipse cx="18" cy="0" rx="20" ry="26" fill="white" stroke="#333" stroke-width="2"/>
+    <circle cx="14" cy="-4" r="11" fill="#222"/>
+    <circle cx="10" cy="-9" r="4" fill="white" opacity="0.9"/>
+  </g>`;
     const config = {
       fen: node.fen,
       orientation: this.flipped() ? opposite(this.pov) : this.pov,
@@ -287,6 +299,14 @@ export default class PuzzleCtrl implements CevalHandler {
       },
       check: !!node.check(),
       lastMove: uciToMove(node.uci),
+      drawable: {
+        shapes: [
+          {
+            orig: 'h1' as Key,
+            customSvg: { html: googlyEyes() },
+          },
+        ],
+      },
     };
     if (node.ply >= this.initialNode.ply) {
       if (this.mode !== 'view' && color !== this.pov && !nextNode) {
