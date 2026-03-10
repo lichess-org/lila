@@ -69,6 +69,7 @@
   <string name="ratingDiff">रेटिंग डिफ</string>
   <string name="gamesThisTournament">ह्या स्पर्धेतील खेळ</string>
   <string name="score">गुण</string>
+  <string name="standingsDisclaimer">स्थळांची गणना प्रसारित केलेल्या फेऱ्यांपासून केली जाते आणि अधिकृत परिणामांपासून वेगळे असू शकतात.</string>
   <string name="allTeams">सगळे संघ</string>
   <string name="tournamentFormat">स्पर्धेचे स्वरूप</string>
   <string name="tournamentLocation">स्पर्धेचे स्थान</string>
@@ -83,6 +84,26 @@
   <string name="liveboard">सद्य पट</string>
   <string name="communityBroadcast">समुदाय प्रसारण</string>
   <string name="createdAndManagedBy">%s ने बनवलेले व व्यवस्थापित केलेले.</string>
+  <string name="matchPoints">सामन्याचे अंक</string>
+  <string name="gamePoints">खेळाचे अंक</string>
+  <string name="matches">सामने</string>
+  <string name="matchHistory">सामन्यांचा इतिहास</string>
+  <string name="teamResults">संघाचे परिणाम</string>
+  <string name="termsAutomaticallyTranslated">खालील शब्दाचे/शब्दांचे आपोआप भाषांतर केले जाईल: %s.</string>
   <string name="roundX">फेरी %s</string>
   <string name="defaultRoundNameHelp">मूळ नाव ठेवल्याने बाकीच्या भाषांमध्ये आपोआप भाषांतर केले जाईल.</string>
+  <string name="openTournament">खुली स्पर्धा</string>
+  <string name="womenTournament">महिला</string>
+  <string name="menTournament">पुरुष</string>
+  <string name="girlsTournament">मुली</string>
+  <string name="boysTournament">मुले</string>
+  <string name="openUnderXAgeTournament">खुली स्पर्धा %s वर्षांखालील</string>
+  <string name="girlsUnderXAgeTournament">मुलींची स्पर्धा %s वर्षांखालील</string>
+  <string name="boysUnderXAgeTournament">मुलांची स्पर्धा %s वर्षांखालील</string>
+  <string name="quarterfinals">उपांत्यपूर्व फेऱ्या</string>
+  <string name="semifinals">उपांत्य फेऱ्या</string>
+  <string name="finals">अंतिम फेरी</string>
+  <string name="tiebreaks">बरोबरीभंग फेऱ्या</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">खेळ %s</string>
+  <string name="knockouts">बाद फेऱ्या</string>
 </resources>
