@@ -29,7 +29,6 @@
   <string name="botPlay">Pelaa pelejä botti-sovellusliittymän (bot API) kautta</string>
   <string name="engineRead">Katso ja käytä ulkoista tietokonettasi</string>
   <string name="engineWrite">Luo ja päivitä ulkoinen tietokone</string>
-  <string name="webLogin">Luo todennettuja sivustoistuntoja (antaa täydet käyttöoikeudet!)</string>
   <string name="webMod">Käytä moderaattorityökaluja (omien käyttöoikeuksiesi rajoissa)</string>
   <string name="personalAccessTokens">Henkilökohtaiset sovellusliittymän (APIn) käyttöoikeustietueet</string>
   <string name="canMakeOauthRequests">Voit tehdä OAuth-pyyntöjä käymättä läpi %s.</string>
