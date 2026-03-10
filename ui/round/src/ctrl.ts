@@ -152,24 +152,24 @@ export default class RoundController implements MoveRootCtrl {
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
   }
 
-  private showExpiration = () => {
+  private readonly showExpiration = () => {
     if (!this.data.expiration) return;
     this.redraw();
     setTimeout(this.showExpiration, 250);
   };
 
-  private onUserMove = (orig: Key, dest: Key, meta: MoveMetadata) => {
+  private readonly onUserMove = (orig: Key, dest: Key, meta: MoveMetadata) => {
     if (!this.keyboardMove?.usedSan) ab.move(this, meta, pubsub.emit);
     if (!this.startPromotion(orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
-  private onUserNewPiece = (role: Role, key: Key, meta: MoveMetadata) => {
+  private readonly onUserNewPiece = (role: Role, key: Key, meta: MoveMetadata) => {
     if (!this.replaying() && crazyValid(this.data, role, key)) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
   };
 
-  private onMove = (orig: Key, dest: Key, captured?: Piece) => {
+  private readonly onMove = (orig: Key, dest: Key, captured?: Piece) => {
     if (captured || this.enpassant(orig, dest)) {
       if (this.data.game.variant.key === 'atomic') {
         site.sound.play('explosion');
@@ -178,7 +178,7 @@ export default class RoundController implements MoveRootCtrl {
     } else site.sound.move({ name: 'move', filter: 'game' });
   };
 
-  private startPromotion = (orig: Key, dest: Key, meta: MoveMetadata) =>
+  private readonly startPromotion = (orig: Key, dest: Key, meta: MoveMetadata) =>
     this.promotion.start(
       orig,
       dest,
@@ -190,23 +190,23 @@ export default class RoundController implements MoveRootCtrl {
       this.keyboardMove?.justSelected(),
     );
 
-  private onPremove = (orig: Key, dest: Key, meta: MoveMetadata) => this.startPromotion(orig, dest, meta);
+  private readonly onPremove = (orig: Key, dest: Key, meta: MoveMetadata) => this.startPromotion(orig, dest, meta);
 
-  private onCancelPremove = () => this.promotion.cancelPrePromotion();
+  private readonly onCancelPremove = () => this.promotion.cancelPrePromotion();
 
-  private onNewPiece = (piece: Piece, key: Key): void => {
+  private readonly onNewPiece = (piece: Piece, key: Key): void => {
     if (piece.role === 'pawn' && (key[1] === '1' || key[1] === '8')) return;
     site.sound.move();
   };
 
-  private onPredrop = (role: Role | undefined) => {
+  private readonly onPredrop = (role: Role | undefined) => {
     this.preDrop = role;
     this.redraw();
   };
 
-  private isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
+  private readonly isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
 
-  private enpassant = (orig: Key, dest: Key): boolean => {
+  private readonly enpassant = (orig: Key, dest: Key): boolean => {
     if (orig[0] === dest[0] || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
     const pos = (dest[0] + orig[1]) as Key;
     this.chessground.setPieces(new Map([[pos, undefined]]));
@@ -511,7 +511,7 @@ export default class RoundController implements MoveRootCtrl {
 
   getCrazyhousePockets = (): NodeCrazy['pockets'] | undefined => this.data.crazyhouse?.pockets;
 
-  private playPredrop = () => {
+  private readonly playPredrop = () => {
     return this.chessground.playPredrop(drop => {
       return crazyValid(this.data, drop.role, drop.key);
     });
@@ -640,7 +640,7 @@ export default class RoundController implements MoveRootCtrl {
     }
   }
 
-  private makeClockOpts: () => ClockOpts = () => ({
+  private readonly makeClockOpts: () => ClockOpts = () => ({
     onFlag: this.socket.outoftime,
     bothPlayersHavePlayed: () => game.bothPlayersHavePlayed(this.data),
     hasGoneBerserk: this.hasGoneBerserk,
@@ -650,12 +650,12 @@ export default class RoundController implements MoveRootCtrl {
         : this.data.player.color,
   });
 
-  private tickingClockColor = (): Color | undefined =>
+  private readonly tickingClockColor = (): Color | undefined =>
     game.playable(this.data) && (game.playedTurns(this.data) > 1 || this.data.clock?.running)
       ? this.data.game.player
       : undefined;
 
-  private setQuietMode = () => {
+  private readonly setQuietMode = () => {
     const was = site.quietMode;
     const is = this.isPlaying();
     if (was !== is) {
@@ -782,7 +782,7 @@ export default class RoundController implements MoveRootCtrl {
     } else this.jump(this.ply);
   };
 
-  private onChange = () => {
+  private readonly onChange = () => {
     if (this.opts.onChange) setTimeout(() => this.opts.onChange(this.data), 150);
   };
 
@@ -856,7 +856,7 @@ export default class RoundController implements MoveRootCtrl {
     this.redraw();
   };
 
-  private doOfferDraw = () => {
+  private readonly doOfferDraw = () => {
     this.data.player.lastDrawOfferAtPly = this.lastPly();
     this.socket.sendLoading('draw-yes');
   };
@@ -906,12 +906,12 @@ export default class RoundController implements MoveRootCtrl {
     if (!this.data.player.spectator) this.doYeet();
   };
 
-  private doYeet = memoize(() => {
+  private readonly doYeet = memoize(() => {
     this.chessground.stop();
     site.asset.loadEsm('round.yeet');
   });
 
-  private delayedInit = () =>
+  private readonly delayedInit = () =>
     requestIdleCallback(
       () => {
         const d = this.data;

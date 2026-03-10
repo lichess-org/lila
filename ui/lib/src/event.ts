@@ -40,7 +40,7 @@ export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => voi
 }
 
 export class Janitor {
-  private cleanupTasks: (() => void)[] = [];
+  private readonly cleanupTasks: (() => void)[] = [];
 
   addListener<T extends EventTarget, E extends Event>(
     target: T,

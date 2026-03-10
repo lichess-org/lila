@@ -25,7 +25,7 @@ export default class GamebookPlayCtrl {
     this.makeState();
   }
 
-  private makeState = (): void => {
+  private readonly makeState = (): void => {
     const node = this.root.node,
       nodeComment = (node.comments || [])[0],
       state: Partial<State> = {

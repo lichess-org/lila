@@ -137,10 +137,10 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  private dialogEvents = new Janitor();
-  private actionEvents = new Janitor();
+  private readonly dialogEvents = new Janitor();
+  private readonly actionEvents = new Janitor();
   private resolve?: (dialog: Dialog) => void;
-  private observer: MutationObserver = new MutationObserver(list => {
+  private readonly observer: MutationObserver = new MutationObserver(list => {
     for (const m of list)
       if (m.type === 'childList')
         for (const n of m.removedNodes) {
@@ -150,7 +150,7 @@ class DialogWrapper implements Dialog {
           }
         }
   });
-  private focusQuery = ['button', 'input', 'select', 'textarea']
+  private readonly focusQuery = ['button', 'input', 'select', 'textarea']
     .map(sel => `${sel}:not(:disabled)`)
     .concat(['[href]', '[tabindex]', '[role="tab"]'])
     .join(',');
@@ -247,7 +247,7 @@ class DialogWrapper implements Dialog {
     }
   };
 
-  private onKeydown = (e: KeyboardEvent) => {
+  private readonly onKeydown = (e: KeyboardEvent) => {
     if (e.key === 'Escape' && !(this.o.noCloseButton && this.o.noClickAway)) {
       this.close('cancel');
       e.preventDefault();
@@ -284,7 +284,7 @@ class DialogWrapper implements Dialog {
     if (focus instanceof HTMLInputElement) focus.select();
   }
 
-  private onRemove = () => {
+  private readonly onRemove = () => {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     this.resolve?.(this);

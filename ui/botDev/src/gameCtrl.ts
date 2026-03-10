@@ -185,7 +185,7 @@ export class GameCtrl {
   }
 
   // investigate setting rewind = live to pause
-  private jump = (ply: number) => {
+  private readonly jump = (ply: number) => {
     this.rewind = ply < this.live.moves.length ? new LocalGame(this.live, ply) : undefined;
     if (this.clock) this.clock.since = this.rewind || ply < 2 ? undefined : performance.now();
     this.updateTurn();

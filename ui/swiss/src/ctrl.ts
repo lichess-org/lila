@@ -135,7 +135,7 @@ export default class SwissCtrl {
 
   private reloadSoonThrottle: () => void;
 
-  private reloadSoon = () => {
+  private readonly reloadSoon = () => {
     if (!this.reloadSoonThrottle)
       this.reloadSoonThrottle = throttlePromiseDelay(
         () => Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)),
@@ -144,19 +144,19 @@ export default class SwissCtrl {
     this.reloadSoonThrottle();
   };
 
-  private isIn = () => !!this.data.me && !this.data.me.absent;
+  private readonly isIn = () => !!this.data.me && !this.data.me.absent;
 
-  private redrawNbRounds = () =>
+  private readonly redrawNbRounds = () =>
     $('.swiss__meta__round').text(
       i18n.swiss.nbRounds.asArray(this.data.nbRounds, `${this.data.round}/${this.data.nbRounds}`).join(''),
     );
 
-  private readData = (data: SwissData) => ({
+  private readonly readData = (data: SwissData) => ({
     ...data,
     standing: this.readStanding(data.standing),
   });
 
-  private readStanding = (standing: Standing) => ({
+  private readonly readStanding = (standing: Standing) => ({
     ...standing,
     players: standing.players.map(p => ({
       ...p,

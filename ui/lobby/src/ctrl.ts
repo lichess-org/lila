@@ -44,9 +44,9 @@ export default class LobbyController {
   filter: Filter;
   setupCtrl: SetupController;
 
-  private poolInStorage: LichessStorage;
+  private readonly poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
-  private alreadyWatching: string[] = [];
+  private readonly alreadyWatching: string[] = [];
 
   constructor(
     readonly opts: LobbyOpts,
@@ -203,7 +203,7 @@ export default class LobbyController {
     this.flushHooksTimeout = this.flushHooksSchedule();
   };
 
-  private flushHooksSchedule = () => setTimeout(this.flushHooks, 8000);
+  private readonly flushHooksSchedule = () => setTimeout(this.flushHooks, 8000);
 
   setTab = (tab: Tab) => {
     if (tab !== this.tab) {
@@ -324,7 +324,7 @@ export default class LobbyController {
 
   // after click on round "new opponent" button
   // also handles onboardink link for anon users
-  private joinPoolFromLocationHash = () => {
+  private readonly joinPoolFromLocationHash = () => {
     if (location.hash.startsWith('#pool/')) {
       const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
         match = regex.exec(location.hash),

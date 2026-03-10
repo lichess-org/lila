@@ -18,7 +18,7 @@ export default class SimulCtrl {
     if (this.createdByMe() && this.data.isCreated) this.setupCreatedHost();
   }
 
-  private setupCreatedHost = () => {
+  private readonly setupCreatedHost = () => {
     storage.set('site.move_on', '1'); // hideous hack :D
     let hostIsAround = true;
     idleTimer(

@@ -67,7 +67,7 @@ export default class SetupCtrl {
     this.start(this.selectedBot, this.color(), clockConfig(this.timeControl));
   };
 
-  private saveSettings = () => {
+  private readonly saveSettings = () => {
     this.settings({
       color: this.color(),
       clock: this.timeControl.mode() === 'realTime',

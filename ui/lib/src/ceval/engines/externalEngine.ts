@@ -24,12 +24,12 @@ interface ExternalEngineOutput {
 
 export class ExternalEngine implements CevalEngine {
   private state = CevalState.Initial;
-  private sessionId = randomToken();
+  private readonly sessionId = randomToken();
   private req: AbortController | undefined;
 
   constructor(
-    private opts: ExternalEngineInfo,
-    private status?: EngineNotifier | undefined,
+    private readonly opts: ExternalEngineInfo,
+    private readonly status?: EngineNotifier | undefined,
   ) {}
 
   getState(): CevalState {

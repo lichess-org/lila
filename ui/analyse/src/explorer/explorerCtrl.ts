@@ -34,7 +34,7 @@ export default class ExplorerCtrl {
   allowed: Prop<boolean>;
   enabled: Prop<boolean>;
   withGames: boolean;
-  private effectiveVariant: VariantKey;
+  private readonly effectiveVariant: VariantKey;
   config: ExplorerConfigCtrl;
 
   loading = prop(true);
@@ -61,7 +61,7 @@ export default class ExplorerCtrl {
     this.checkHash();
   }
 
-  private checkHash = (e?: HashChangeEvent) => {
+  private readonly checkHash = (e?: HashChangeEvent) => {
     const parts = location.hash.split('/');
     if (parts[0] === '#explorer' || parts[0] === '#opening') {
       this.enabled(true);
@@ -84,12 +84,12 @@ export default class ExplorerCtrl {
 
   destroy = clearLastShow;
 
-  private baseXhrOpening = () => ({
+  private readonly baseXhrOpening = () => ({
     endpoint: this.opts.endpoint,
     config: this.config.data,
   });
 
-  private fetch = debounce(
+  private readonly fetch = debounce(
     () => {
       const fen = this.root.node.fen;
       const processData = (res: ExplorerData) => {
@@ -138,7 +138,7 @@ export default class ExplorerCtrl {
     true,
   );
 
-  private empty: OpeningData = {
+  private readonly empty: OpeningData = {
     white: 0,
     black: 0,
     draws: 0,
@@ -148,7 +148,7 @@ export default class ExplorerCtrl {
     opening: this.root.data.game.opening,
   };
 
-  private tablebaseRelevant = (variant: VariantKey, fen: FEN) =>
+  private readonly tablebaseRelevant = (variant: VariantKey, fen: FEN) =>
     pieceCount(fen) - 1 <= tablebasePieces(variant) && this.root.isCevalAllowed();
 
   setNode = () => {

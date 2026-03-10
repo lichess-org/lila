@@ -11,7 +11,7 @@ export class Autoplay {
 
   lastMoveAt: number | undefined;
 
-  constructor(private ctrl: AnalyseCtrl) {}
+  constructor(private readonly ctrl: AnalyseCtrl) {}
 
   private move(): boolean {
     const child = this.ctrl.node.children[0];

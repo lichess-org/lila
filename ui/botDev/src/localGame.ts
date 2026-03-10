@@ -45,7 +45,7 @@ export class LocalGameData implements LocalSetup {
 }
 
 export class LocalGame extends LocalGameData {
-  private threefoldHashes: Map<bigint, number>;
+  private readonly threefoldHashes: Map<bigint, number>;
   readonly chess: co.Chess;
   readonly initialPly: number;
 

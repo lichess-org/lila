@@ -221,7 +221,7 @@ export default class CoordinateTrainerCtrl {
     }, 1000);
   };
 
-  private tick = () => {
+  private readonly tick = () => {
     if (!this.playing) return;
     const timeSpent = Math.min(DURATION, new Date().getTime() - +this.timeAtStart);
     this.timeLeft = DURATION - timeSpent;

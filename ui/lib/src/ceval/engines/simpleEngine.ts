@@ -3,7 +3,7 @@ import { CevalState, type Work, type CevalEngine, type BrowserEngineInfo } from 
 
 export class SimpleEngine implements CevalEngine {
   private failed: Error;
-  private protocol = new Protocol();
+  private readonly protocol = new Protocol();
   private worker: Worker | undefined;
   url: string;
 

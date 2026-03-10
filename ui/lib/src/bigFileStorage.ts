@@ -10,8 +10,8 @@ export const bigFileStorage: () => BigFileStorage = memoize(() => new BigFileSto
 type U8 = Uint8Array<ArrayBuffer>;
 
 class BigFileStorage {
-  private idb = memoize(() => objectStorage<U8>({ store: 'big-file' }));
-  private opfs = memoize(() => directoryHandleIfAvailable());
+  private readonly idb = memoize(() => objectStorage<U8>({ store: 'big-file' }));
+  private readonly opfs = memoize(() => directoryHandleIfAvailable());
 
   async get(assetUrl: string, onProgress?: (loaded: number, total: number) => void): Promise<U8> {
     const stored = await this.readFile(assetUrl).catch(() => undefined);

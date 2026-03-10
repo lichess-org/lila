@@ -44,7 +44,7 @@ class ClockWidget {
     clearInterval(this.interval);
     if (!opts.pause) this.interval = setInterval(this.render, 1000);
   };
-  private render = () => {
+  private readonly render = () => {
     if (document.body.contains(this.el)) {
       this.el.textContent = formatMs(this.target - Date.now());
       this.el.classList.toggle('clock--run', !this.opts.pause);

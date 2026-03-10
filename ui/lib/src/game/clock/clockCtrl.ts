@@ -139,7 +139,7 @@ export class ClockCtrl {
 
   hardStopClock = (): void => (this.times.activeColor = undefined);
 
-  private scheduleTick = (time: Millis, extraDelay: Millis) => {
+  private readonly scheduleTick = (time: Millis, extraDelay: Millis) => {
     if (this.tickTimeout !== undefined) clearTimeout(this.tickTimeout);
     // changing the value of active node confuses the chromevox screen reader
     // so update the clock less often for blind mode.
@@ -155,7 +155,7 @@ export class ClockCtrl {
   };
 
   // Should only be invoked by scheduleTick.
-  private tick = (): void => {
+  private readonly tick = (): void => {
     this.tickTimeout = undefined;
 
     const color = this.times.activeColor;

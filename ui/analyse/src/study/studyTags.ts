@@ -24,7 +24,7 @@ export class TagsForm {
 
   getChapter = () => this.root.data.chapter;
 
-  private makeChange = throttle(500, (name: string, value: string) => {
+  private readonly makeChange = throttle(500, (name: string, value: string) => {
     this.root.makeChange('setTag', {
       chapterId: this.getChapter().id,
       name,

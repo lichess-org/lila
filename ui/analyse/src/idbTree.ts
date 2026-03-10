@@ -12,7 +12,7 @@ export class IdbTree {
   private moveDb?: ObjectStorage<MoveState>;
   private collapseDb?: ObjectStorage<TreePath[]>;
 
-  constructor(private ctrl: AnalyseCtrl) {}
+  constructor(private readonly ctrl: AnalyseCtrl) {}
 
   someCollapsedOf(collapsed: boolean, path = ''): boolean {
     return (

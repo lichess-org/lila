@@ -102,7 +102,7 @@ export default class PlayCtrl {
     this.safelyRequestBotMove();
   };
 
-  private updateGround = () => {
+  private readonly updateGround = () => {
     this.withGround(cg => cg.set(updateGround(this.game, this.board)));
   };
 
@@ -110,7 +110,7 @@ export default class PlayCtrl {
 
   goToLast = () => this.goTo(this.game.ply());
 
-  private playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
+  private readonly playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
     const chessMove = normalizeMove(this.board.chess, {
       from: parseSquare(orig)!,
       to: parseSquare(dest)!,
@@ -122,7 +122,7 @@ export default class PlayCtrl {
     this.safelyRequestBotMove();
   };
 
-  private safelyRequestBotMove = async () => {
+  private readonly safelyRequestBotMove = async () => {
     const source = await this.opts.bridge;
     if (this.game.computeEnd()) return;
     if (this.game.turn() === this.game.pov) return;
@@ -143,13 +143,13 @@ export default class PlayCtrl {
     }
   };
 
-  private afterMove = (move: Move): void => {
+  private readonly afterMove = (move: Move): void => {
     playMoveSounds(this, move);
     this.opts.save(this.game);
     this.recomputeAndSetClock();
   };
 
-  private makeClockOpts: () => ClockOpts = () => ({
+  private readonly makeClockOpts: () => ClockOpts = () => ({
     onFlag: this.onFlag,
     playable: () => true,
     bothPlayersHavePlayed: () => this.game.moves.length > 1,
@@ -158,14 +158,14 @@ export default class PlayCtrl {
     nvui: false,
   });
 
-  private recomputeAndSetClock = () => {
+  private readonly recomputeAndSetClock = () => {
     const clk = this.game.clockState();
     if (this.clock && clk) this.clock.setClock(clk);
   };
 
-  private setGround = () => this.withGround(g => g.set(initialGround(this)));
+  private readonly setGround = () => this.withGround(g => g.set(initialGround(this)));
 
-  private withGround: WithGround = f => {
+  private readonly withGround: WithGround = f => {
     const g = this.ground();
     return g ? f(g) : undefined;
   };

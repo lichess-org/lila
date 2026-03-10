@@ -27,8 +27,8 @@ export class ChatCtrl {
   data: ChatData;
   private maxLines = 200;
   private maxLinesDrop = 50; // how many lines to drop at once
-  private storedTabKey: Prop<string>;
-  private allTabs: Tab[] = [];
+  private readonly storedTabKey: Prop<string>;
+  private readonly allTabs: Tab[] = [];
 
   chatEnabled: Prop<boolean>;
   voiceChat: VoiceChatData;
@@ -127,7 +127,7 @@ export class ChatCtrl {
 
   listenToIncoming = (cb: (line: Line) => void): void => pubsub.on('socket.in.message', cb);
 
-  private onTimeout = (userId: string): void => {
+  private readonly onTimeout = (userId: string): void => {
     let change = false;
     this.data.lines.forEach(l => {
       if (l.u && l.u.toLowerCase() === userId) {
@@ -142,14 +142,14 @@ export class ChatCtrl {
     }
   };
 
-  private onReinstate = (userId: string): void => {
+  private readonly onReinstate = (userId: string): void => {
     if (userId === this.data.userId) {
       this.vm.timeout = false;
       this.redraw();
     }
   };
 
-  private onMessage = (line: Line): void => {
+  private readonly onMessage = (line: Line): void => {
     this.data.lines.push(line);
     const nb = this.data.lines.length;
     if (nb > this.maxLines) {
@@ -159,17 +159,17 @@ export class ChatCtrl {
     this.redraw();
   };
 
-  private onWriteable = (v: boolean): void => {
+  private readonly onWriteable = (v: boolean): void => {
     this.vm.writeable = v;
   };
 
-  private onPermissions = (perms: Permissions): void => {
+  private readonly onPermissions = (perms: Permissions): void => {
     if (isContained(this.opts.permissions, perms)) return;
     Object.assign(this.opts.permissions, perms);
     this.instanciateModeration();
   };
 
-  private instanciateModeration = () => {
+  private readonly instanciateModeration = () => {
     if (this.opts.permissions.timeout || this.opts.permissions.broadcast || this.opts.permissions.local) {
       this.maxLines = 1000;
       this.maxLinesDrop = 500;

@@ -106,7 +106,7 @@ export default class AnalyseCtrl implements CevalHandler {
   onMainline = true;
   synthetic: boolean; // false if coming from a real game
   ongoing: boolean; // true if real game is ongoing
-  private cevalEnabledProp = storedBooleanProp('engine.enabled', false);
+  private readonly cevalEnabledProp = storedBooleanProp('engine.enabled', false);
 
   // display flags
   flipped = false;
@@ -115,7 +115,7 @@ export default class AnalyseCtrl implements CevalHandler {
   showManeuverMoveArrowsProp: Prop<boolean>;
   variationArrowOpacity: Prop<number | false>;
   showGauge = storedBooleanProp('analyse.show-gauge', true);
-  private showCevalProp: Prop<boolean> = storedBooleanProp('analyse.show-engine', !!this.cevalEnabledProp());
+  private readonly showCevalProp: Prop<boolean> = storedBooleanProp('analyse.show-engine', !!this.cevalEnabledProp());
   showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
   possiblyShowMoveAnnotationsOnBoard = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
@@ -276,7 +276,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return this.data.game.variant.key;
   }
 
-  private makeInitialPath = (): TreePath => {
+  private readonly makeInitialPath = (): TreePath => {
     // if correspondence, always use latest actual move to set 'current' style
     if (this.ongoing) return treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     const loc = window.location,
@@ -297,7 +297,7 @@ export default class AnalyseCtrl implements CevalHandler {
     else wikiClear();
   };
 
-  private setPath = (path: TreePath): void => {
+  private readonly setPath = (path: TreePath): void => {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList) as TreeNode;
@@ -414,11 +414,11 @@ export default class AnalyseCtrl implements CevalHandler {
     this.cgVersion.dom = this.cgVersion.js;
   };
 
-  private onChange: () => void = throttle(300, () => {
+  private readonly onChange: () => void = throttle(300, () => {
     pubsub.emit('analysis.change', this.node.fen, this.path);
   });
 
-  private updateHref: () => void = debounce(() => {
+  private readonly updateHref: () => void = debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
   }, 750);
 
@@ -705,7 +705,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (!site.blindMode) this.chessground?.setAutoShapes(computeAutoShapes(this));
   };
 
-  private onNewCeval = (ev: ClientEval, path: TreePath, isThreat?: boolean): void => {
+  private readonly onNewCeval = (ev: ClientEval, path: TreePath, isThreat?: boolean): void => {
     this.tree.updateAt(path, (node: TreeNode) => {
       if (node.fen !== ev.fen && !isThreat) return;
 
@@ -931,7 +931,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   isGamebook = (): boolean => !!this.study?.data.chapter.gamebook;
 
-  private closeTools = () => {
+  private readonly closeTools = () => {
     this.retro = undefined;
     this.togglePractice(false);
     if (this.explorer.enabled()) this.explorer.toggle();
@@ -961,7 +961,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return !n.eval && !!n.children.length && n.ply <= 300 && n.ply > 0;
   }
 
-  private canEvalGet = (): boolean => {
+  private readonly canEvalGet = (): boolean => {
     if (this.node.ply >= 15 && !this.opts.study) return false;
 
     // cloud eval does not support threefold repetition
@@ -976,7 +976,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return true;
   };
 
-  private instanciateEvalCache = () => {
+  private readonly instanciateEvalCache = () => {
     this.evalCache = new EvalCache({
       variant: this.data.game.variant.key,
       canGet: this.canEvalGet,
@@ -1072,7 +1072,7 @@ export default class AnalyseCtrl implements CevalHandler {
     };
   }
 
-  private pluginUpdate = (fen: FEN) => {
+  private readonly pluginUpdate = (fen: FEN) => {
     // If controller and chessground board states differ, ignore this update. Once the chessground
     // state is updated to match, pluginUpdate will be called again.
     if (!fen.startsWith(this.chessground?.getFen())) return;
@@ -1081,7 +1081,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   showBestMoveArrows = () => this.showBestMoveArrowsProp() && !this.retro?.hideComputerLine(this.node);
 
-  private resetAutoShapes = () => {
+  private readonly resetAutoShapes = () => {
     if (
       this.showBestMoveArrows() ||
       this.possiblyShowMoveAnnotationsOnBoard() ||

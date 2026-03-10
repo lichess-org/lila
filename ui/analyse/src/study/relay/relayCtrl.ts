@@ -197,7 +197,7 @@ export default class RelayCtrl {
     }
   };
 
-  private socketHandlers = {
+  private readonly socketHandlers = {
     relaySync: (sync: RelaySync) => {
       this.data.sync = {
         ...sync,

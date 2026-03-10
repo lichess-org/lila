@@ -159,7 +159,7 @@ class SetupDialog {
       .join('');
   }
 
-  private dropSelect = (_: HTMLElement, domId?: string) => {
+  private readonly dropSelect = (_: HTMLElement, domId?: string) => {
     this.select(domIdToUid(domId));
   };
 
@@ -177,14 +177,14 @@ class SetupDialog {
     if (this.mainContentEl.scrollLeft > 0) this.mainContentEl.scrollLeft = this.mainContentEl.scrollWidth;
   }
 
-  private updateClock = () => {
+  private readonly updateClock = () => {
     for (const type of ['initial', 'increment'] as const) {
       const selectEl = this.dialog.view.querySelector<HTMLSelectElement>(`[data-type="${type}"]`);
       this.setup[type] = Number(selectEl?.value);
     }
   };
 
-  private fight = (asColor: Color = Math.random() < 0.5 ? 'white' : 'black') => {
+  private readonly fight = (asColor: Color = Math.random() < 0.5 ? 'white' : 'black') => {
     this.updateClock();
     this.setup.white = this.setup.black = undefined;
     if (asColor === 'black') this.setup.white = this.uid;
