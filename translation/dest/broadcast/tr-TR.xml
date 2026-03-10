@@ -104,6 +104,6 @@
   <string name="semifinals">Yarı final</string>
   <string name="finals">Final</string>
   <string name="tiebreaks">Beraberlik bozma</string>
-  <string name="gameX">Oyun %s</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Oyun %s</string>
   <string name="knockouts">Eleme</string>
 </resources>
