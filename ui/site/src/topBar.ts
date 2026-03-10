@@ -1,4 +1,4 @@
-import { memoize } from 'lib';
+import { blurIfPrimaryClick, memoize } from 'lib';
 import { clamp } from 'lib/algo';
 import { isTouchDevice } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
@@ -39,7 +39,8 @@ export default function () {
     document.body.classList.toggle('masked', menuOpen);
   });
 
-  $(top).on('click', '.toggle', function (this: HTMLElement) {
+  $(top).on('click', '.toggle', function (this: HTMLElement, e: Event) {
+    blurIfPrimaryClick(e);
     const $p = $(this).parent().toggleClass('shown');
     $p.siblings('.shown').removeClass('shown');
     setTimeout(() => {

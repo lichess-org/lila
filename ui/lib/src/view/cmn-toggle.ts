@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
-import { defined, type Prop } from '@/common';
+import { blurIfPrimaryClick, defined, type Prop } from '@/common';
 
 import { bind } from './snabbdom';
 
@@ -39,6 +39,9 @@ export const cmnToggle = (opts: CmnToggle): VNode =>
   h('span.cmn-toggle', { attrs: { role: 'button' } }, [
     h(`input#cmn-tg-${opts.id}`, {
       attrs: { type: 'checkbox', checked: opts.checked, disabled: !!opts.disabled },
+      on: {
+        click: blurIfPrimaryClick,
+      },
       props: defined(opts.propsChecked) ? { checked: opts.propsChecked } : undefined,
       hook: bind('change', e => opts.change((e.target as HTMLInputElement).checked), opts.redraw),
     }),

@@ -1,3 +1,4 @@
+import { blurIfPrimaryClick } from 'lib';
 import * as licon from 'lib/licon';
 import menuKeyboardInteractions from 'lib/menuKeyboardInteractions';
 import { confirm } from 'lib/view';
@@ -25,7 +26,8 @@ export function addDomHandlers() {
   menuKeyboardInteractions();
 
   $('#main-wrap')
-    .on('click', '.copy-me__button', function (this: HTMLElement) {
+    .on('click', '.copy-me__button', function (this: HTMLElement, e: Event) {
+      blurIfPrimaryClick(e);
       const showCheckmark = () => {
         $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
         setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
