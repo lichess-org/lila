@@ -223,7 +223,7 @@ export const previewContent = (
 ) => [
   boardPlayer(preview, cgOpposite(orientation), showResults, round),
   h('span.cg-gauge', [
-    showResults ? cloudEval && verticalEvalGauge(preview, cloudEval) : undefined,
+    showResults ? cloudEval && verticalEvalGauge(preview, orientation, cloudEval) : undefined,
     h(
       'span.mini-game__board',
       h('span.cg-wrap', {
@@ -252,8 +252,12 @@ export const previewContent = (
   boardPlayer(preview, orientation, showResults, round),
 ];
 
-export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEval): MaybeVNode => {
-  const tag = `span.mini-game__gauge${chap.orientation === 'black' ? ' mini-game__gauge--flip' : ''}${
+export const verticalEvalGauge = (
+  chap: ChapterPreview,
+  orientation: Color,
+  cloudEval: MultiCloudEval,
+): MaybeVNode => {
+  const tag = `span.mini-game__gauge${orientation === 'black' ? ' mini-game__gauge--flip' : ''}${
     chap.check === '#' ? ' mini-game__gauge--set' : ''
   }`;
   return chap.check === '#'

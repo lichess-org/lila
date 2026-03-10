@@ -13,10 +13,9 @@
 }
 
 .chat-liveboard {
-  display: flex;
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1;
+  .mini-game__gauge {
+    flex: 0 0 3%;
+  }
 }
 
 .mchat:has(.chat-liveboard) {
@@ -24,8 +23,5 @@
 }
 
 .mchat__content.liveboard {
-  background: none;
-  cg-board {
-    border-top-right-radius: 0;
-  }
+  padding: 1ch;
 }

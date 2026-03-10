@@ -27,11 +27,12 @@ export class LiveboardPlugin implements ChatPlugin {
     const preview = this.ctrl.chapters.list.get(this.chapterId);
     if (!preview) return spinnerVdom();
     const cloudEval = this.ctrl.multiCloudEval?.thisIfShowEval();
+    const orientation = this.ctrl.bottomColor();
     return hl(
       'div.chat-liveboard',
       hl(
-        `span.mini-game.is2d.active.chap-${preview.id}`,
-        previewContent(preview, this.ctrl.bottomColor(), cloudEval, true, this.round),
+        `span.mini-game.is2d.liveboard-chapter-${preview.id}.liveboard-orientation-${orientation}`,
+        previewContent(preview, orientation, cloudEval, true, this.round),
       ),
     );
   }

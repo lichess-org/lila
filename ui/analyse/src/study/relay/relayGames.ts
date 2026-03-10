@@ -51,7 +51,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               class: { 'relay-game--current': c.id === study.data.chapter.id },
             },
             [
-              showResults && cloudEval && verticalEvalGauge(c, cloudEval),
+              showResults && cloudEval && verticalEvalGauge(c, c.orientation, cloudEval),
               hl(
                 'span.relay-game__players',
                 players.map((p, i) => {
