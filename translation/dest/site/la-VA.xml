@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="playAgainstComputer">Contra computatrum lude</string>
+  <string name="gameMode">Modus ludi</string>
+  <string name="createLobbyGame">Ludo fac</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Hōc URL alicui dā ut ludatis</string>
   <string name="gameOver">Ludus conclusus est</string>
   <string name="waitingForOpponent">Adversarius expectatur</string>
@@ -15,11 +18,11 @@
   <string name="stalemate">Rex impeditus</string>
   <string name="white">Albus</string>
   <string name="black">Ater</string>
-  <string name="asWhite">sicut album</string>
-  <string name="asBlack">sicut nigrum</string>
+  <string name="asWhite">albo</string>
+  <string name="asBlack">nigro</string>
   <string name="randomColor">Latus fortuitus</string>
   <string name="createAGame">Ludum facere</string>
-  <string name="createTheGame">Ludum facere</string>
+  <string name="createTheGame">Ludum fac</string>
   <string name="whiteIsVictorious">Albus victor est</string>
   <string name="blackIsVictorious">Ater victor est</string>
   <string name="youPlayTheWhitePieces">ludis cales albas</string>
@@ -175,15 +178,15 @@
   <string name="otherPlayers">alii lusores</string>
   <string name="discussions">Conlucutiones</string>
   <string name="today">Hodie</string>
-  <string name="yesterday">heri</string>
+  <string name="yesterday">Heri</string>
   <string name="minutesPerSide">Minutae pro utriusque lusore</string>
   <string name="variant">Varietas</string>
   <string name="variants">variationes</string>
   <string name="timeControl">Temporis curatio</string>
   <string name="realTime">Praesens tempus</string>
-  <string name="correspondence">Ludus diutinus</string>
+  <string name="correspondence">Epistularis</string>
   <string name="daysPerTurn">Dies per motum</string>
-  <string name="oneDay">Dies unus</string>
+  <string name="oneDay">Unus dies</string>
   <plurals name="nbDays">
     <item quantity="one">%s dies</item>
     <item quantity="other">%s dies</item>
@@ -225,7 +228,7 @@
     <item quantity="one">%s ludi tecum</item>
     <item quantity="other">%s ludi tecum</item>
   </plurals>
-  <string name="ok">Accepto</string>
+  <string name="ok">Accipe</string>
   <string name="cancel">Anullare</string>
   <string name="whiteTimeOut">Tempus nullum est</string>
   <string name="blackTimeOut">Tempus nullum est</string>
@@ -260,7 +263,7 @@
   <string name="viewRematch">Novam lusionem videre</string>
   <string name="confirmMove">Motum confirma</string>
   <string name="play">Ludere</string>
-  <string name="inbox">Inbox</string>
+  <string name="inbox">Epistulae</string>
   <string name="chatRoom">Sermo</string>
   <string name="loginToChat">Ini sessionem ut colloquaris</string>
   <string name="youHaveBeenTimedOut">Nunc existi.</string>
@@ -398,8 +401,8 @@
     <item quantity="one">%s spectans</item>
     <item quantity="other">%s spectans</item>
   </plurals>
-  <string name="more">Multus</string>
-  <string name="memberSince">Membrum ab</string>
+  <string name="more">Plus</string>
+  <string name="memberSince">Socius quum</string>
   <string name="lastSeenActive">Initus recentissimus %s</string>
   <string name="player">Lusor</string>
   <string name="list">Tabula</string>
@@ -436,12 +439,13 @@
   <string name="loadPosition">Legere positionem</string>
   <string name="isPrivate">Privatis</string>
   <string name="reportXToModerators">Referre %s moderatoribus</string>
+  <string name="profileCompletion">Confectio %s</string>
   <string name="xRating">Gradus %s</string>
   <string name="profile">Codex</string>
   <string name="editProfile">Mutare codicem</string>
   <string name="realName">Nomen verum</string>
   <string name="biography">Biographia</string>
-  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Patria aut regio</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Patria vel regio</string>
   <string name="thankYou">Gratias tibi!</string>
   <string name="previouslyOnLichessTV">Prius in Lichess TV</string>
   <string name="onlinePlayers">Lusores presentes</string>
@@ -536,7 +540,7 @@
   <string name="opponent">Adversarius</string>
   <string name="learnMenu">Discere</string>
   <string name="studyMenu">Studia</string>
-  <string name="practice">Meditare</string>
+  <string name="practice">Usus</string>
   <string name="community">Communitas</string>
   <string name="tools">Instrumenta</string>
   <string name="increment">Incrementum</string>
@@ -577,7 +581,7 @@
   <string name="aboutSimulRealLife">Haec notio ab exhibitione reali mundana devenit. In vita reali, hospes simultaneae movens ab tabula ad tabulam motum singulum ludit.</string>
   <string name="aboutSimulRules">Cum simultanea incepit, omnes lusores ludum cum hospite incipiunt, qui cum calculis albis ludit. Cum omnes ludi finiti sunt, sumultanea completa erit.</string>
   <string name="aboutSimulSettings">Simultaneae semper leviores sunt. Vindictas, receptus, atque \"plus temporis\" tibi non licet.</string>
-  <string name="create">Creare</string>
+  <string name="create">Crea</string>
   <string name="whenCreateSimul">Cum simultaneam exhibitionem creas, plures lusores una ludis.</string>
   <string name="simulVariantsHint">Si variationes plures legis quas ludere quisque lusor eligere potest.</string>
   <string name="simulClockHint">Fischer Horologica fabrica. Tot lusores ludeabis ut plurem tempus requireas.</string>
@@ -645,7 +649,7 @@
   <string name="xJoinsY">%1$s iungit %2$s</string>
   <string name="xLikesY">%1$s velit %2$s</string>
   <string name="quickPairing">Velox partes</string>
-  <string name="lobby">Praecinctio</string>
+  <string name="lobby">Vestibulum</string>
   <string name="anonymous">Sine nomine</string>
   <string name="yourScore">Status tibi: %s</string>
   <string name="language">Lingua</string>
@@ -666,11 +670,12 @@
   <string name="coaches">Tutores</string>
   <string name="invalidPgn">Irritum ludum notatio</string>
   <string name="invalidFen">Invalida positio notatio</string>
-  <string name="custom">Alius</string>
+  <string name="custom">Varia</string>
   <string name="notifications">Nuntii</string>
   <string name="perfRatingX">Ordo: %s</string>
   <string name="seeBestMove">Maxime motum videre</string>
   <string name="hideBestMove">Maxime motum celare</string>
+  <string name="getAHint">Significatio</string>
   <string name="whiteWinsGame">Albus vincit</string>
   <string name="blackWinsGame">Niger vincit</string>
   <string name="learnFromYourMistakes">Disce ex errata tua</string>
@@ -693,7 +698,11 @@
   <string name="sorry">Paenitet :(</string>
   <string name="why">Cur?</string>
   <string name="playEveryGame">Lude vos satus omnis ludum.</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Fulmineus</string>
   <string name="rapid">Rapidus</string>
   <string name="classical">Classicus</string>
+  <string name="gameVsX">Ludus contra %1$s</string>
+  <string name="timeAlmostUp">Tempus paene deest!</string>
   <string name="hangOn">Expecta!</string>
+  <string name="search">Quaere</string>
 </resources>
