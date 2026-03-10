@@ -1,41 +1,5 @@
 .tour__main__header {
-  @extend %flex-center-nowrap;
-
-  position: relative;
-  min-height: 8em;
-  padding: 0 2rem;
-
-  h1 {
-    font-size: 2.2rem;
-    flex: 9 1 auto;
-    margin: 0;
-    overflow: hidden;
-
-    a {
-      /* GM wikipedia */
-      color: $m-primary_font--mix-35;
-
-      &:hover {
-        color: $c-link;
-      }
-    }
-  }
-
-  img {
-    flex: 0 0 60px;
-    display: block;
-    width: 60px;
-    height: 60px;
-    padding: 6px;
-  }
-
-  .img {
-    margin-inline-end: 1rem;
-  }
-
-  i::before {
-    font-size: 2.2rem;
-  }
+  @extend %tour-header;
 
   .tour-shed & h1 {
     letter-spacing: 2px;
@@ -59,18 +23,6 @@
     letter-spacing: 3px;
   }
 
-  .clock {
-    flex: 0 0 auto;
-    font-weight: bold;
-    color: $c-font-dim;
-
-    &-created {
-      @extend %flex-column;
-
-      text-align: right;
-    }
-  }
-
   .tour-sched & h1,
   .tour-sched & .img {
     color: $c-brag;
@@ -82,22 +34,6 @@
     .tour-sched-marathon & {
       padding-inline-start: 0;
     }
-  }
-
-  .time {
-    @extend %roboto;
-
-    font-size: 1.5em;
-    margin-inline-start: 0.2em;
-  }
-
-  .shy {
-    line-height: 20px;
-    font-size: 0.9em;
-    font-weight: bold;
-    text-transform: uppercase;
-    opacity: 0.6;
-    white-space: nowrap;
   }
 
   .tour-sched-marathon & h1 {
