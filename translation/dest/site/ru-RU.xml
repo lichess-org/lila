@@ -1117,6 +1117,7 @@
   <string name="offline" comment="status of a user">офлайн</string>
   <string name="search">Поиск</string>
   <string name="clearSearch">Очистить поиск</string>
+  <string name="thereAreNoResultsForX">Нет результатов для «%s»</string>
   <string name="tags">Теги</string>
   <string name="enPassant">Взятие на проходе</string>
 </resources>
