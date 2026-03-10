@@ -173,7 +173,8 @@ export default class StormCtrl implements PuzCtrl {
     return g ? f(g) : undefined;
   };
 
-  private readonly setGround = () => this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt, this.flipped)));
+  private readonly setGround = () =>
+    this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt, this.flipped)));
 
   countWins = (): number => this.run.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);
 

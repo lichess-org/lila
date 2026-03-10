@@ -55,7 +55,8 @@ export default class SetupController {
   }
 
   // Namespace the store by username for user specific modal settings
-  private readonly storeKey = (gameType: GameType) => `lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`;
+  private readonly storeKey = (gameType: GameType) =>
+    `lobby.setup.${this.root.me?.username || 'anon'}.${gameType}`;
 
   makeSetupStore = (gameType: GameType) =>
     storedJsonProp<SetupStore>(this.storeKey(gameType), () => ({
@@ -268,7 +269,8 @@ export default class SetupController {
   valid = () =>
     this.validFen() && this.timeControl.valid(this.minimumTimeIfReal()) && this.validConstraints();
 
-  private readonly invalid = <A>(forced: A | undefined, current: A) => forced !== undefined && forced !== current;
+  private readonly invalid = <A>(forced: A | undefined, current: A) =>
+    forced !== undefined && forced !== current;
 
   private readonly validConstraints = () => {
     if (this.forced) {
