@@ -1030,6 +1030,7 @@
   <string name="offline" comment="status of a user">उपस्थित नाही</string>
   <string name="search">शोधा</string>
   <string name="clearSearch">शोध हटवा</string>
+  <string name="thereAreNoResultsForX">\"%s\" साठी कोणताही निकाल नाही</string>
   <string name="tags">टॅंग्स</string>
   <string name="enPassant">एन पसांट</string>
 </resources>
