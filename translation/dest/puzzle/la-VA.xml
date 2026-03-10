@@ -8,6 +8,7 @@
   <string name="origin">Origo</string>
   <string name="upVote">Suffragium pro aenigma</string>
   <string name="downVote">Suffragium contra aenigma</string>
+  <string name="findTheBestMoveForWhite">Optimus motus per albi inveni.</string>
   <string name="puzzleId">Compositio %s</string>
   <string name="puzzleOfTheDay">Compositio cotidiana</string>
   <string name="dailyPuzzle">Compositio Cotidiana</string>
@@ -21,6 +22,7 @@
   <string name="trySomethingElse">Aliud experire.</string>
   <string name="ratingX">Aestimatio: %s</string>
   <string name="hidden">conditus</string>
+  <string name="fromGameLink">Ex ludo %s</string>
   <string name="normal">Normalis</string>
   <string name="easier">Facilior</string>
   <string name="easiest">Facillimus</string>
