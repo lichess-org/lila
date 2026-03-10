@@ -1029,6 +1029,7 @@ Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerd
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Søg</string>
   <string name="clearSearch">Ryd søgning</string>
+  <string name="thereAreNoResultsForX">Ingen resultater for \"%s\"</string>
   <string name="tags">Etiketter</string>
   <string name="enPassant">En passant</string>
 </resources>
