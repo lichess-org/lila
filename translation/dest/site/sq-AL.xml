@@ -1023,5 +1023,6 @@ Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga p�
   <string name="offline" comment="status of a user">jashtë linje</string>
   <string name="search">Kërko</string>
   <string name="clearSearch">Spastro kërkimin</string>
+  <string name="thereAreNoResultsForX">S’ka përfundime për “%s”</string>
   <string name="tags">Etiketa</string>
 </resources>
