@@ -102,6 +102,6 @@
   <string name="semifinals">準決勝</string>
   <string name="finals">決勝</string>
   <string name="tiebreaks">タイブレーク</string>
-  <string name="gameX">局数 %s</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">局数 %s</string>
   <string name="knockouts">ノックアウト</string>
 </resources>
