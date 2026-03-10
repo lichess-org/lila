@@ -29,6 +29,5 @@
   <string name="botPlay">Mängude mängimine botti rakendusliidesega</string>
   <string name="engineRead">Väliste mootorite vaatamine ja kasutamine</string>
   <string name="engineWrite">Väliste mootorite loomine ja uuendamine</string>
-  <string name="webLogin">Loo autenditud veebisaidi seansse (annab täieliku juurdepääsu!)</string>
   <string name="webMod">Kasuta moderaatori tööriistu (sinu lubade piires)</string>
 </resources>
