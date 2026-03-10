@@ -105,7 +105,12 @@ export default class CevalCtrl {
     return !document.hidden && this.analysable;
   }
 
-  private readonly doStart = (path: TreePath, steps: Step[], gameId: string | undefined, threatMode: boolean) => {
+  private readonly doStart = (
+    path: TreePath,
+    steps: Step[],
+    gameId: string | undefined,
+    threatMode: boolean,
+  ) => {
     const step = steps[steps.length - 1];
     if (
       !this.isDeeper() &&

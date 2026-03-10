@@ -11,9 +11,11 @@ export class Premove {
     this.unrestrictedPremoves = ['atomic', 'crazyhouse'].includes(variant);
   }
 
-  private readonly isDestOccupiedByFriendly = (ctx: cg.MobilityContext): boolean => ctx.friendlies.has(ctx.dest.key);
+  private readonly isDestOccupiedByFriendly = (ctx: cg.MobilityContext): boolean =>
+    ctx.friendlies.has(ctx.dest.key);
 
-  private readonly isDestOccupiedByEnemy = (ctx: cg.MobilityContext): boolean => ctx.enemies.has(ctx.dest.key);
+  private readonly isDestOccupiedByEnemy = (ctx: cg.MobilityContext): boolean =>
+    ctx.enemies.has(ctx.dest.key);
 
   private readonly anyPieceBetween = (orig: cg.Pos, dest: cg.Pos, pieces: cg.Pieces): boolean =>
     util.squaresBetween(...orig, ...dest).some(s => pieces.has(s));
@@ -56,7 +58,10 @@ export class Premove {
   private readonly canSomeEnemyPawnAdvanceToDest = (ctx: cg.MobilityContext): boolean =>
     [...ctx.enemies.keys()].some(key => this.canEnemyPawnAdvanceToSquare(key, ctx.dest.key, ctx));
 
-  private readonly isDestControlledByEnemy = (ctx: cg.MobilityContext, pieceRolesExclude?: cg.Role[]): boolean => {
+  private readonly isDestControlledByEnemy = (
+    ctx: cg.MobilityContext,
+    pieceRolesExclude?: cg.Role[],
+  ): boolean => {
     const square: cg.Pos = ctx.dest.pos;
     return [...ctx.enemies].some(([key, piece]) => {
       const piecePos = util.key2pos(key);
