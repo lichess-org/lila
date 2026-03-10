@@ -26,6 +26,8 @@
   <string name="castlingDescription">キングを安全にし、ルークを攻撃に活用する。</string>
   <string name="capturingDefender">守り駒の除去</string>
   <string name="capturingDefenderDescription">別の駒を守っている駒を消して、無防備になった駒を取る。</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">コリニア（共線）ムーブ</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">同種の駒が向き合っている時に、一方が両者を結ぶ線上を動く手。</string>
   <string name="cornerMate">コーナー・メイト</string>
   <string name="cornerMateDescription">ルークかクイーンでキングを隅に追い詰め、ナイトでメイトする形。</string>
   <string name="crushing">圧倒</string>
@@ -53,8 +55,8 @@
   <string name="endgame">エンドゲーム</string>
   <string name="endgameDescription">ゲームの終盤でのタクティクス。</string>
   <string name="enPassantDescription">アンパッサン、つまり相手の 2 マス前進したポーンを途中で取る手を含むタクティクス。</string>
-  <string name="epauletteMate" comment="&quot;Epaulette&quot; is not a proper noun, it is a reference to the shoulder decoration on military uniforms: https://en.wikipedia.org/wiki/Epaulette&#10;&#10;Description for this mating pattern (translatable separately):&#10;Two adjacent escape squares for a checked king are occupied by other pieces.">肩章（エポレット）のメイト</string>
-  <string name="epauletteMateDescription" comment="Description for &quot;Epaulette mate&quot; (translatable separately).">チェックされたキングの両脇のマスが味方の駒でふさがっている形。</string>
+  <string name="epauletteMate">肩章（エポレット）のメイト</string>
+  <string name="epauletteMateDescription">チェックされたキングの両脇のマスが味方の駒でふさがっている形。</string>
   <string name="exposedKing">危険なキング</string>
   <string name="exposedKingDescription">守り駒の少ないキングを攻める問題、多くの場合メイトにつながる。</string>
   <string name="fork">フォーク（両取り）</string>
@@ -73,8 +75,8 @@
   <string name="pillsburysMateDescription">ルークがチェックをかけ、ビショップがルークを守っているメイト。</string>
   <string name="morphysMate">モーフィのメイト</string>
   <string name="morphysMateDescription">ビショップがチェックをかけ、ルークがキングの逃げ道を抑えているメイト。</string>
-  <string name="swallowstailMate" comment="Description of this mating pattern (translatable separately):&#10;A checkmate pattern that visually resembles the appearance of a swallow’s tail, similar to a V shape.&#10;&#10;If &quot;V shape&quot; does not have an equivalent in your language, or if your language uses a different script/alphabet, you can leave that part out.">燕尾のメイト</string>
-  <string name="swallowstailMateDescription" comment="Description for &quot;Swallow's tail mate&quot; (translatable separately).">駒がツバメの尾に似た V 字型を作るメイト。</string>
+  <string name="swallowstailMate">燕尾のメイト</string>
+  <string name="swallowstailMateDescription">駒がツバメの尾に似た V 字型を作るメイト。</string>
   <string name="triangleMate">三角のメイト</string>
   <string name="triangleMateDescription">同じランクかファイル上で空きマスを挟んだクイーンとルーク、そして相手のキングが三角形を作るメイト。</string>
   <string name="vukovicMate">ヴコヴィッチのメイト</string>
