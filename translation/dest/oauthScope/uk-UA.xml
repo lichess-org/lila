@@ -29,7 +29,6 @@
   <string name="botPlay">Грати ігри з API ботом</string>
   <string name="engineRead">Переглядати та використовувати ваші зовнішні рушії</string>
   <string name="engineWrite">Створювати та оновлювати зовнішні рушії</string>
-  <string name="webLogin">Створювати автентифіковані сесії на вебсайті (надає повний доступ!)</string>
   <string name="webMod">Використовувати інструменти модерації (в рамках ваших дозволів)</string>
   <string name="personalAccessTokens">API токени особистого доступу</string>
   <string name="canMakeOauthRequests">Ви можете зробити запити OAuth не проходячи через %s.</string>
