@@ -1,10 +1,20 @@
-import { view as cevalView, renderEval as normalizeEval } from 'lib/ceval';
 import { parseFen } from 'chessops/fen';
+import { h } from 'snabbdom';
+
 import { defined } from 'lib';
+import { renderEval as normalizeEval } from 'lib/ceval';
+import { dispatchChessgroundResize } from 'lib/chessgroundResize';
+import { isMobile } from 'lib/device';
+import { playable } from 'lib/game';
+import { fixCrazySan, plyToTurn } from 'lib/game/chess';
+import statusView from 'lib/game/view/status';
 import * as licon from 'lib/licon';
+import * as Prefs from 'lib/prefs';
+import { storage } from 'lib/storage';
+import { path as treePath } from 'lib/tree/tree';
+import type { ClientEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import {
   type VNode,
-  type LooseVNode,
   type LooseVNodes,
   bind,
   bindNonPassive,
@@ -14,36 +24,20 @@ import {
   spinnerVdom as spinner,
   stepwiseScroll,
 } from 'lib/view';
-import { playable } from 'lib/game';
-import { isMobile } from 'lib/device';
-import * as materialView from 'lib/game/view/material';
-import { path as treePath } from 'lib/tree/tree';
-import { view as actionMenu } from './actionMenu';
-import retroView from '../retrospect/retroView';
-import practiceView from '../practice/practiceView';
-import explorerView from '../explorer/explorerView';
-import { view as forkView } from '../fork';
-import renderClocks from './clocks';
+
 import * as control from '../control';
-import * as chessground from '../ground';
 import type AnalyseCtrl from '../ctrl';
+import * as chessground from '../ground';
 import type { ConcealOf } from '../interfaces';
 import * as pgnExport from '../pgnExport';
-import * as Prefs from 'lib/prefs';
-import statusView from 'lib/game/view/status';
-import { renderNextChapter } from '../study/nextChapter';
-import { dispatchChessgroundResize } from 'lib/chessgroundResize';
-import serverSideUnderboard from '../serverSideUnderboard';
-import type StudyCtrl from '../study/studyCtrl';
-import type RelayCtrl from '../study/relay/relayCtrl';
-import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
-import { storage } from 'lib/storage';
-import { backToLiveView } from '../study/relay/relayView';
+import serverSideUnderboard from '../serverSideUnderboard';
+import type RelayCtrl from '../study/relay/relayCtrl';
 import { findTag } from '../study/studyChapters';
-import { fixCrazySan, plyToTurn } from 'lib/game/chess';
-import type { ClientEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
-import { h } from 'snabbdom';
+import type StudyCtrl from '../study/studyCtrl';
+import type * as studyDeps from '../study/studyDeps';
+import renderClocks from './clocks';
+import { renderMaterialDiffs } from './materialDiffs';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -129,21 +123,6 @@ export function renderMain(ctx: ViewContext, ...kids: LooseVNodes[]): VNode {
   );
 }
 
-export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embeddedVideo?: LooseVNode) {
-  const showCeval = ctrl.isCevalAllowed() && ctrl.showCeval();
-  return hl(addChapterId(ctrl.study, 'div.analyse__tools'), [
-    allowVideo && embeddedVideo,
-    showCeval && cevalView.renderCeval(ctrl),
-    showCeval && !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
-    renderMoveList(ctrl, deps, concealOf),
-    deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
-    backToLiveView(ctrl),
-    forkView(ctrl, concealOf),
-    retroView(ctrl) || explorerView(ctrl) || practiceView(ctrl),
-    ctrl.actionMenu() && actionMenu(ctrl),
-  ]);
-}
-
 export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewContext): VNode =>
   hl(
     addChapterId(study, 'div.analyse__board.main-board'),
@@ -153,22 +132,16 @@ export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewConte
           ? undefined
           : bindNonPassive(
               'wheel',
-              stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                if (ctrl.gamebookPlay()) return;
-                const target = e.target as HTMLElement;
-                if (
-                  target.tagName !== 'PIECE' &&
-                  target.tagName !== 'SQUARE' &&
-                  target.tagName !== 'CG-BOARD'
-                )
-                  return;
-                if (scroll) {
-                  e.preventDefault();
+              stepwiseScroll(
+                e => {
                   if (e.deltaY > 0) control.next(ctrl);
                   else if (e.deltaY < 0) control.prev(ctrl);
                   ctrl.redraw();
-                }
-              }),
+                },
+                e =>
+                  !!ctrl.gamebookPlay() ||
+                  !['PIECE', 'SQUARE', 'CG-BOARD'].includes((e.target as HTMLElement).tagName),
+              ),
             ),
     },
     [
@@ -320,22 +293,6 @@ export function renderMoveNodes(
   if (withEval && evalText) nodes.push(h('eval', evalText.replace('-', '−')));
   return nodes;
 }
-
-const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf): VNode =>
-  hl('div.analyse__moves.areplay', { hook: ctrl.treeView.hook() }, [
-    hl('div', [ctrl.treeView.render(concealOf), renderResult(ctrl)]),
-    !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
-  ]);
-
-export const renderMaterialDiffs = (ctrl: AnalyseCtrl): [VNode, VNode] =>
-  materialView.renderMaterialDiffs(
-    !!ctrl.data.pref.showCaptured,
-    ctrl.bottomColor(),
-    ctrl.node.fen,
-    !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
-    ctrl.nodeList,
-    ctrl.node.ply,
-  );
 
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');

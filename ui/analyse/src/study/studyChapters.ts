@@ -1,10 +1,17 @@
+import { INITIAL_FEN } from 'chessops/fen';
+import { opposite } from 'chessops/util';
+import type Sortable from 'sortablejs';
+
 import { blurIfPrimaryClick, defined, prop, type Prop, scrollToInnerSelector } from 'lib';
+import { fenColor } from 'lib/game/chess';
 import * as licon from 'lib/licon';
 import { type VNode, bind, dataIcon, iconTag, hl, alert } from 'lib/view';
+
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
+import { federations, localizedName } from './fideFeds';
 import type {
   LocalPaths,
   StudyChapter,
@@ -20,11 +27,6 @@ import type {
   StatusStr,
 } from './interfaces';
 import type StudyCtrl from './studyCtrl';
-import { opposite } from 'chessops/util';
-import { fenColor } from 'lib/game/chess';
-import type Sortable from 'sortablejs';
-import { INITIAL_FEN } from 'chessops/fen';
-import { federations, localizedName } from './fideFeds';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -81,7 +83,7 @@ export default class StudyChaptersCtrl {
         lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
       })),
     );
-  private convertPlayersFromServer = (players: PairOf<StudyPlayerFromServer>) => {
+  private readonly convertPlayersFromServer = (players: PairOf<StudyPlayerFromServer>) => {
     const conv: StudyPlayer[] = players.map(convertPlayerFromServer);
     return { white: conv[0], black: conv[1] };
   };
@@ -222,10 +224,20 @@ export function view(ctrl: StudyCtrl): VNode {
       }),
     ),
     ctrl.members.canContribute() &&
-      hl('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
-        hl('span', iconTag(licon.PlusButton)),
-        hl('h3', i18n.study.addNewChapter),
-      ]),
+      hl(
+        'button.add',
+        {
+          hook: bind(
+            'click',
+            e => {
+              blurIfPrimaryClick(e);
+              ctrl.chapters.toggleNewForm();
+            },
+            ctrl.redraw,
+          ),
+        },
+        [hl('span', iconTag(licon.PlusButton)), hl('h3', i18n.study.addNewChapter)],
+      ),
   ]);
 }
 

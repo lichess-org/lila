@@ -1,13 +1,15 @@
-import { attributesModule, classModule, init } from 'snabbdom';
-import { showSetupDialog } from './setupDialog';
-import { GameCtrl } from './gameCtrl';
-import { LocalDb } from './localDb';
-import { DevBotCtrl } from './devBotCtrl';
-import { DevAssets } from './devAssets';
-import { env, makeEnv } from './devEnv';
-import { renderGameView } from './gameView';
-import type { LocalPlayOpts, LocalSetup } from 'lib/bot/types';
 import type { RoundController } from 'round';
+import { attributesModule, classModule, init } from 'snabbdom';
+
+import type { LocalPlayOpts, LocalSetup } from 'lib/bot/types';
+
+import { DevAssets } from './devAssets';
+import { DevBotCtrl } from './devBotCtrl';
+import { env, makeEnv } from './devEnv';
+import { GameCtrl } from './gameCtrl';
+import { renderGameView } from './gameView';
+import { LocalDb } from './localDb';
+import { showSetupDialog } from './setupDialog';
 
 const patch = init([classModule, attributesModule]);
 

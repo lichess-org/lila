@@ -1,10 +1,12 @@
 import { h, type VNode } from 'snabbdom';
-import type AnalyseCtrl from '../ctrl';
+
 import { defined, notNull } from 'lib';
-import * as licon from 'lib/licon';
-import { iconTag, type MaybeVNode, type MaybeVNodes } from 'lib/view';
 import { formatClockTimeVerbal } from 'lib/game/clock/clockView';
+import * as licon from 'lib/licon';
 import type { TreePath } from 'lib/tree/types';
+import { iconTag, type MaybeVNode, type MaybeVNodes } from 'lib/view';
+
+import type AnalyseCtrl from '../ctrl';
 
 interface ClockOpts {
   centis: number | undefined;

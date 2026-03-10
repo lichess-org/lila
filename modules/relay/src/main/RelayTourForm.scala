@@ -15,6 +15,7 @@ import lila.core.study.Visibility
 final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGroupForm):
 
   import RelayTourForm.*
+  import lila.study.StudyForm.given
 
   private val spotlightMapping =
     mapping("enabled" -> boolean, "lang" -> langList.popularLanguagesForm.mapping, "title" -> optional(text))(
@@ -42,8 +43,6 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
     "text" -> optional(cleanText(maxLength = 100))
   )(RelayPinnedStream.apply)(unapply)
 
-  private given Formatter[Visibility] =
-    formatter.stringOptionFormatter[Visibility](_.key, Visibility.byKey.get)
   private given Formatter[RelayTour.Tier] =
     formatter.intOptionFormatter[RelayTour.Tier](_.v, RelayTour.Tier.byV.get)
 

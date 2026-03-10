@@ -3,7 +3,8 @@
 // Rich Text helper functions
 // Refactored for https://github.com/lichess-org/lila/issues/7342 request
 import type { VNode, Hooks } from 'snabbdom';
-import { escapeHtml } from './index';
+
+import { escapeHtml } from './common';
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
 export const linkRegex: RegExp =

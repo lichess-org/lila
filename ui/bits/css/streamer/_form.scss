@@ -11,16 +11,19 @@
     flex-direction: column;
     padding: 2em 2em 0;
     row-gap: 2em;
+
     @include mq-at-least-picture {
       flex-direction: row;
     }
 
     .picture-edit {
       @extend %flex-column;
+
       row-gap: 2em;
 
       > span {
         @extend %flex-center-center;
+
         column-gap: 1em;
       }
     }
@@ -31,6 +34,7 @@
       height: min(350px, calc(100vw - 4em));
     }
   }
+
   .twitch-link-box,
   .youtube-link-box {
     display: flex;
@@ -38,13 +42,16 @@
     align-items: center;
     justify-content: start;
     gap: 1em;
+
     &.linked button.link {
       display: none;
     }
+
     &:not(.linked) button.unlink {
       display: none;
     }
   }
+
   .status {
     @extend %box-radius;
 

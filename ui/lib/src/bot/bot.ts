@@ -1,6 +1,11 @@
+import type { SearchResult } from '@lichess-org/zerofish';
 import * as co from 'chessops';
-import { zip } from '../algo';
+
 import { clockToSpeed } from '@/game';
+
+import { zip } from '../algo';
+import type { OpeningBook } from '../game/polyglot';
+import type { BotLoader } from './botLoader';
 import {
   type FilterFacetValue,
   type FilterSpec,
@@ -11,10 +16,7 @@ import {
   filterFacetKeys,
   combine,
 } from './filter';
-import type { SearchResult } from '@lichess-org/zerofish';
-import type { OpeningBook } from '../game/polyglot';
 import { movetime as getMovetime } from './movetime';
-import type { BotLoader } from './botLoader';
 import type {
   BotInfo,
   FishSearch,
@@ -65,11 +67,11 @@ export class Bot implements BotInfo, MoveSource {
   zero?: ZeroSearch;
   fish?: FishSearch;
 
-  private openings: Promise<OpeningBook[]>;
-  private stats: { cplMoves: number; cpl: number };
+  private readonly openings: Promise<OpeningBook[]>;
+  private readonly stats: { cplMoves: number; cpl: number };
   private traces: string[];
   private cp: number;
-  private ctrl: BotLoader;
+  private readonly ctrl: BotLoader;
 
   constructor(info: BotInfo, ctrl: BotLoader) {
     Object.assign(this, structuredClone(info));

@@ -1,13 +1,14 @@
-import { PingCtrl } from './ping';
-import { LangsCtrl } from './langs';
-import { SoundCtrl } from './sound';
+import { type Prop, prop } from 'lib';
+import type { MaybeVNode } from 'lib/view';
+
 import { BackgroundCtrl } from './background';
 import { BoardCtrl } from './board';
-import { PieceCtrl } from './piece';
-import { LinksCtrl } from './links';
-import type { MaybeVNode } from 'lib/view';
 import type { DasherData, Mode, PaneCtrl } from './interfaces';
-import { type Prop, prop } from 'lib';
+import { LangsCtrl } from './langs';
+import { LinksCtrl } from './links';
+import { PieceCtrl } from './piece';
+import { PingCtrl } from './ping';
+import { SoundCtrl } from './sound';
 
 const defaultMode: Mode = 'links';
 

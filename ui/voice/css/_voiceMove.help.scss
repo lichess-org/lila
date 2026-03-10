@@ -1,5 +1,6 @@
 .voice-move-help {
   max-width: 800px;
+
   td.tips li {
     list-style: disc;
     font-size: 1.1em;
@@ -21,11 +22,13 @@
   }
 
   .commands {
+    display: flex;
+    flex-direction: row;
+
     td:first-child {
       padding-inline-start: 2em;
     }
-    display: flex;
-    flex-direction: row;
+
     @media (width <= 600px) {
       flex-direction: column;
     }
@@ -39,12 +42,15 @@
   .big-table {
     td {
       @extend %nowrap-ellipsis;
+
       padding: 0 1em;
     }
+
     tr {
       td:nth-child(even) {
         border-right: 1px solid $c-brag;
       }
+
       td:last-child {
         border-right: none;
       }

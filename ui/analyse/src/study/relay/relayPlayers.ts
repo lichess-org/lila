@@ -1,6 +1,22 @@
-import { type VNode, dataIcon, hl, onInsert, spinnerVdom as spinner, type LooseVNodes } from 'lib/view';
-import { json as xhrJson } from 'lib/xhr';
+import { type Attrs, type Hooks, init as initSnabbdom, attributesModule, type VNodeData } from 'snabbdom';
+import type { Tablesort } from 'tablesort';
+
+import { defined } from 'lib';
+import { isTouchDevice } from 'lib/device';
+import perfIcons from 'lib/game/perfIcons';
 import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { sortTable, extendTablesortNumber } from 'lib/tablesort';
+import { type VNode, dataIcon, hl, onInsert, spinnerVdom as spinner, type LooseVNodes } from 'lib/view';
+import { userLink, userTitle } from 'lib/view/userLink';
+import { json as xhrJson } from 'lib/xhr';
+
+import { playerFedFlag } from '@/view/util';
+
+import type { ChapterId, FideId, PointsStr, StudyPlayer, StudyPlayerFromServer } from '../interfaces';
+import { convertPlayerFromServer } from '../studyChapters';
+import { playerColoredResult } from './customScoreStatus';
+import { teamLinkData } from './deepLink';
 import type {
   FideTC,
   Photo,
@@ -10,19 +26,6 @@ import type {
   RoundId,
   StatByFideTC,
 } from './interfaces';
-import { playerColoredResult } from './customScoreStatus';
-import { playerFedFlag } from '../playerBars';
-import { userLink, userTitle } from 'lib/view/userLink';
-import type { ChapterId, FideId, PointsStr, StudyPlayer, StudyPlayerFromServer } from '../interfaces';
-import { sortTable, extendTablesortNumber } from 'lib/tablesort';
-import { defined } from 'lib';
-import { type Attrs, type Hooks, init as initSnabbdom, attributesModule, type VNodeData } from 'snabbdom';
-import { convertPlayerFromServer } from '../studyChapters';
-import { isTouchDevice } from 'lib/device';
-import { pubsub } from 'lib/pubsub';
-import { teamLinkData } from './relayTeamLeaderboard';
-import perfIcons from 'lib/game/perfIcons';
-import type { Tablesort } from 'tablesort';
 
 export type RelayPlayerId = FideId | string;
 
@@ -77,7 +80,7 @@ export default class RelayPlayers {
   loading = false;
   players?: RelayPlayer[];
   show?: PlayerToShow;
-  private table?: Tablesort;
+  private readonly table?: Tablesort;
 
   constructor(
     readonly tour: RelayTour,

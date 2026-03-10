@@ -1,12 +1,13 @@
 // no side effects allowed due to re-export by index.ts
 
-import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 import { isTouchDevice } from '@/device';
-import { blurIfPrimaryClick, frag } from '@/index';
 import { Janitor } from '@/event';
-import * as xhr from '@/xhr';
+import { blurIfPrimaryClick, frag } from '@/index';
 import * as licon from '@/licon';
 import { pubsub } from '@/pubsub';
+import * as xhr from '@/xhr';
+
+import { onInsert, hl, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 
 export interface Dialog {
   readonly view: HTMLElement; // your content div
@@ -136,10 +137,10 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  private dialogEvents = new Janitor();
-  private actionEvents = new Janitor();
+  private readonly dialogEvents = new Janitor();
+  private readonly actionEvents = new Janitor();
   private resolve?: (dialog: Dialog) => void;
-  private observer: MutationObserver = new MutationObserver(list => {
+  private readonly observer: MutationObserver = new MutationObserver(list => {
     for (const m of list)
       if (m.type === 'childList')
         for (const n of m.removedNodes) {
@@ -149,7 +150,7 @@ class DialogWrapper implements Dialog {
           }
         }
   });
-  private focusQuery = ['button', 'input', 'select', 'textarea']
+  private readonly focusQuery = ['button', 'input', 'select', 'textarea']
     .map(sel => `${sel}:not(:disabled)`)
     .concat(['[href]', '[tabindex]', '[role="tab"]'])
     .join(',');
@@ -246,7 +247,7 @@ class DialogWrapper implements Dialog {
     }
   };
 
-  private onKeydown = (e: KeyboardEvent) => {
+  private readonly onKeydown = (e: KeyboardEvent) => {
     if (e.key === 'Escape' && !(this.o.noCloseButton && this.o.noClickAway)) {
       this.close('cancel');
       e.preventDefault();
@@ -283,7 +284,7 @@ class DialogWrapper implements Dialog {
     if (focus instanceof HTMLInputElement) focus.select();
   }
 
-  private onRemove = () => {
+  private readonly onRemove = () => {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     this.resolve?.(this);

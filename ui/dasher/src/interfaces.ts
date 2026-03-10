@@ -1,9 +1,8 @@
-import type { LangsData } from './langs';
-import type { BackgroundData } from './background';
-import { DasherCtrl } from './ctrl';
 import type { VNode } from 'lib/view';
 
-export { DasherCtrl };
+import type { BackgroundData } from '@/background';
+import type { DasherCtrl } from '@/ctrl';
+import type { LangsData } from '@/langs';
 
 export type Dimension = 'd2' | 'd3';
 

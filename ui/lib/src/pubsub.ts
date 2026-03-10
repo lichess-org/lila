@@ -1,5 +1,6 @@
 import type { Line } from '@/chat/interfaces';
 import type { Data as WatchersData } from '@/view/watchers';
+
 import type { TreePath } from './tree/types';
 
 export type PubsubEventKey = keyof PubsubEvents;
@@ -78,8 +79,8 @@ export interface OneTimeEvents {
 }
 
 export class Pubsub {
-  private allSubs: Map<keyof PubsubEvents, Set<PubsubEvents[keyof PubsubEvents]>> = new Map();
-  private oneTimeEvents: Map<OneTimeKey, OneTimeHandler<OneTimeEvents[OneTimeKey]>> = new Map();
+  private readonly allSubs: Map<keyof PubsubEvents, Set<PubsubEvents[keyof PubsubEvents]>> = new Map();
+  private readonly oneTimeEvents: Map<OneTimeKey, OneTimeHandler<OneTimeEvents[OneTimeKey]>> = new Map();
 
   on<K extends keyof PubsubEvents>(name: K, cb: PubsubEvents[K]): void {
     const subs = this.allSubs.get(name);

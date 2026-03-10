@@ -1,19 +1,21 @@
-import { domIdToUid, uidToDomId, botEquals } from './devBotCtrl';
-import { handOfCards, type HandOfCards } from './handOfCards';
+import stringify from 'json-stringify-pretty-compact';
+
 import { frag } from 'lib';
 import { deepFreeze, definedMap } from 'lib/algo';
-import { buildFromSchema, Panes } from './panes';
-import { deadStrip } from './devUtil';
-import { domDialog, type Dialog, type Action, confirm, alert } from 'lib/view';
-import type { BotInfo } from 'lib/bot/types';
 import { Bot } from 'lib/bot/bot';
-import { AssetDialog, type AssetType } from './assetDialog';
-import { historyDialog } from './historyDialog';
-import { env } from './devEnv';
-import { pubsub } from 'lib/pubsub';
+import type { BotInfo } from 'lib/bot/types';
 import { Janitor } from 'lib/event';
-import stringify from 'json-stringify-pretty-compact';
 import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { domDialog, type Dialog, type Action, confirm, alert } from 'lib/view';
+
+import { AssetDialog, type AssetType } from './assetDialog';
+import { domIdToUid, uidToDomId, botEquals } from './devBotCtrl';
+import { env } from './devEnv';
+import { deadStrip } from './devUtil';
+import { handOfCards, type HandOfCards } from './handOfCards';
+import { historyDialog } from './historyDialog';
+import { buildFromSchema, Panes } from './panes';
 
 export class EditDialog {
   static default: ReadableBot = deepFreeze<ReadableBot>({
@@ -128,7 +130,7 @@ export class EditDialog {
     ];
   }
 
-  private isDirty = (other: BotInfo | undefined = env.bot.info(this.uid)): boolean => {
+  private readonly isDirty = (other: BotInfo | undefined = env.bot.info(this.uid)): boolean => {
     return (
       other !== undefined &&
       this.scratch.has(other.uid) &&
@@ -173,7 +175,7 @@ export class EditDialog {
     this.update();
   }
 
-  private pullBots = async (uids?: string[]) => {
+  private readonly pullBots = async (uids?: string[]) => {
     if (!(await confirm(uids ? `Pull ${uids.join(' ')}?` : 'Pull all server bots?'))) return;
     const clear = (uids ?? Object.keys(this.bots)).filter(uid => env.bot.serverBots[uid]);
     clear.forEach(this.scratch.delete);
@@ -202,7 +204,7 @@ export class EditDialog {
     this.panes.forEach(el => el.setEnabled());
   }
 
-  private onBookImported = (key: string, oldKey?: string) => {
+  private readonly onBookImported = (key: string, oldKey?: string) => {
     this.assetDlg?.update();
     if (!oldKey) return;
     for (const bot of new Set<WritableBot>([this.editing(), ...Object.values(this.scratch)])) {
@@ -348,7 +350,7 @@ export class EditDialog {
     this.update();
   }
 
-  private deckEl = frag<HTMLElement>($html`
+  private readonly deckEl = frag<HTMLElement>($html`
     <div class="deck">
       <div class="placeholder"></div>
       <fieldset class="deck-legend">
@@ -360,7 +362,7 @@ export class EditDialog {
       </fieldset>
     </div>`);
 
-  private globalActionsEl = frag<HTMLElement>($html`
+  private readonly globalActionsEl = frag<HTMLElement>($html`
     <div class="global-actions">
       <button class="button button-empty button-green" data-bot-action="new">new bot</button>
       <button class="button button-empty button-brag" data-bot-action="assets">assets</button>
@@ -368,7 +370,7 @@ export class EditDialog {
       <button class="button button-empty button-red" data-bot-action="unrate-all">clear all ratings</button>
     </div>`);
 
-  private botActionsEl = frag<HTMLElement>($html`
+  private readonly botActionsEl = frag<HTMLElement>($html`
     <div class="bot-actions">
       <button class="button button-empty button" data-bot-action="vision">vision</button>
       <button class="button button-empty button-dim" data-bot-action="json">json</button>

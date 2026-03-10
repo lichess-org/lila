@@ -1,12 +1,10 @@
 .sub-ratings {
   a {
     @extend %box-radius-left, %flex-center-nowrap, %page-text;
-
     @include padding-direction(0.7em, $block-gap, 0.7em, 0.4em);
+    @include transition(background);
 
     white-space: nowrap;
-
-    @include transition(background);
 
     &.empty {
       opacity: 0.5;
@@ -16,6 +14,7 @@
       font-size: 3em;
       opacity: 0.5;
       margin-inline-end: 0.2em;
+
       @include transition(opacity color);
     }
 

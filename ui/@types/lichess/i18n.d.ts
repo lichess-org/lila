@@ -2009,8 +2009,6 @@ interface I18n {
     tokenGrantsPermission: string;
     /** Create, update, and join tournaments */
     tournamentWrite: string;
-    /** Create authenticated website sessions (grants full access!) */
-    webLogin: string;
     /** Use moderator tools (within bounds of your permission) */
     webMod: string;
     /** What the token can do on your behalf: */
@@ -4439,6 +4437,8 @@ interface I18n {
     theGameIsADraw: string;
     /** Thematic */
     thematic: string;
+    /** No results for "%s" */
+    thereAreNoResultsForX: I18nFormat;
     /** This account violated the Lichess Terms of Service */
     thisAccountViolatedTos: string;
     /** This game is rated */

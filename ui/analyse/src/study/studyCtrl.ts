@@ -1,20 +1,23 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
+import { opposite } from 'chessops/util';
+
 import { prop, defined } from 'lib';
 import { debounce, throttle, throttlePromiseDelay } from 'lib/async';
-import type AnalyseCtrl from '../ctrl';
-import { StudyMemberCtrl } from './studyMembers';
-import StudyPracticeCtrl from './practice/studyPracticeCtrl';
-import type { StudyPracticeData } from './practice/interfaces';
-import { CommentForm } from './commentForm';
-import { GlyphForm } from './studyGlyph';
-import { StudyForm } from './studyForm';
-import TopicsCtrl from './topics';
-import { NotifCtrl } from './notif';
-import { StudyShare } from './studyShare';
-import { TagsForm } from './studyTags';
-import ServerEval from './serverEval';
-import * as xhr from './studyXhr';
+import { displayColumns } from 'lib/device';
+import { pubsub } from 'lib/pubsub';
+import { storedMap } from 'lib/storage';
+import { completeNode } from 'lib/tree/node';
 import { path as treePath, ops as treeOps } from 'lib/tree/tree';
+import type { Glyph, Shape, TreeComment, TreeNode, TreePath } from 'lib/tree/types';
+import { alert } from 'lib/view';
+
+import type AnalyseCtrl from '../ctrl';
+import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
+import type { StudySocketSendParams } from '../socket';
+import { CommentForm } from './commentForm';
+import { DescriptionCtrl } from './description';
+import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
+import type { GamebookOverride } from './gamebook/interfaces';
 import type {
   StudyVm,
   Tab,
@@ -36,25 +39,24 @@ import type {
   ChapterPreviewFromServer,
   ChapterSelect,
 } from './interfaces';
-import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
-import { DescriptionCtrl } from './description';
-import RelayCtrl from './relay/relayCtrl';
-import type { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
-import type { StudySocketSendParams } from '../socket';
-import { storedMap } from 'lib/storage';
-import { opposite } from 'chessops/util';
-import StudyChaptersCtrl, { isFinished } from './studyChapters';
-import { SearchCtrl } from './studySearch';
-import type { GamebookOverride } from './gamebook/interfaces';
-import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 import { MultiCloudEval } from './multiCloudEval';
-import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/view';
-import { displayColumns } from 'lib/device';
-import type { Glyph, Shape, TreeComment, TreeNode, TreePath } from 'lib/tree/types';
-import { completeNode } from 'lib/tree/node';
+import { NotifCtrl } from './notif';
+import type { StudyPracticeData } from './practice/interfaces';
+import StudyPracticeCtrl from './practice/studyPracticeCtrl';
+import type { RelayData } from './relay/interfaces';
+import RelayCtrl from './relay/relayCtrl';
+import ServerEval from './serverEval';
+import StudyChaptersCtrl, { isFinished } from './studyChapters';
+import { StudyForm } from './studyForm';
+import { GlyphForm } from './studyGlyph';
 import studyKeyboard from './studyKeyboard';
+import { StudyMemberCtrl } from './studyMembers';
+import { SearchCtrl } from './studySearch';
+import { StudyShare } from './studyShare';
+import { TagsForm } from './studyTags';
+import * as xhr from './studyXhr';
+import TopicsCtrl from './topics';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -282,7 +284,7 @@ export default class StudyCtrl {
 
   isWriting = (): boolean => this.vm.mode.write && !this.isGamebookPlay();
 
-  private updateShapes = (shapes: Shape[]) => {
+  private readonly updateShapes = (shapes: Shape[]) => {
     this.ctrl.tree.setShapes(shapes, this.ctrl.path);
     this.makeChange(
       'shapes',
@@ -446,14 +448,16 @@ export default class StudyCtrl {
     return undefined;
   };
 
-  mutateCgConfig = (config: Required<Pick<CgConfig, 'drawable'>>) => {
-    config.drawable.onChange = (shapes: Shape[]) => {
-      if (this.vm.mode.write) {
-        this.arrowHistory.push(this.ctrl.node.shapes?.slice() ?? []);
-        this.updateShapes(shapes);
-      }
-      this.gamebookPlay?.onShapeChange(shapes);
-    };
+  mutateCgConfig = (config: CgConfig) => {
+    if (config.drawable) {
+      config.drawable.onChange = (shapes: Shape[]) => {
+        if (this.vm.mode.write) {
+          this.arrowHistory.push(this.ctrl.node.shapes?.slice() ?? []);
+          this.updateShapes(shapes);
+        }
+        this.gamebookPlay?.onShapeChange(shapes);
+      };
+    }
   };
 
   wrongChapter = (serverData: WithPosition & { s?: boolean }): boolean => {
@@ -509,7 +513,6 @@ export default class StudyCtrl {
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
       this.chapters.scroller.request('smooth'); // sticky scroll request is set in `changeChapter`
-      this.relay?.liveboardPlugin?.reset();
       await this.xhrReload(false, () => componentCallbacks(id));
     }
     if (displayColumns() > 2) window.scrollTo(0, 0);
@@ -522,7 +525,7 @@ export default class StudyCtrl {
     get: () => this.data.chapter.id,
   };
 
-  private deltaChapter = (delta: number): ChapterPreview | undefined => {
+  private readonly deltaChapter = (delta: number): ChapterPreview | undefined => {
     const chs = this.chapters.list.all();
     const i = chs.findIndex(ch => ch.id === this.vm.chapterId);
     return i < 0 ? undefined : chs[i + delta];

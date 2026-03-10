@@ -21,9 +21,9 @@
   }
 
   &-result {
-    color: $c-font;
     @include padding-direction(0.4em, 0, 0.4em, 0.4em);
 
+    color: $c-font;
     display: block;
     cursor: pointer;
     text-align: left;

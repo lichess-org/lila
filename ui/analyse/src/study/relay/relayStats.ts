@@ -1,8 +1,10 @@
-import { spinnerVdom as spinner } from 'lib/view';
-import type { RelayRound } from './interfaces';
-import { json as xhrJson } from 'lib/xhr';
 import { h } from 'snabbdom';
+
 import { numberFormat } from 'lib/i18n';
+import { spinnerVdom as spinner } from 'lib/view';
+import { json as xhrJson } from 'lib/xhr';
+
+import type { RelayRound } from './interfaces';
 
 type Data = {
   viewers: any;

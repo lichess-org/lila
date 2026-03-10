@@ -50,8 +50,9 @@
   }
 
   .bookmark {
-    position: absolute;
     @include inline-end(0);
+
+    position: absolute;
     z-index: $z-game-bookmark-2;
     color: $c-font-dim;
 

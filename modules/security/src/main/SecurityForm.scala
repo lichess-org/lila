@@ -168,18 +168,17 @@ final class SecurityForm(
         mapping(
           "secret" -> nonEmptyText,
           "passwd" -> passwordMapping(candidate),
-          "token" -> nonEmptyText
+          "token" -> nonEmptyText.into[TotpToken]
         )(TwoFactor.apply)(unapply).verifying(
           "invalidAuthenticationCode",
           _.tokenValid
         )
-      ).fill(
+      ).fill:
         TwoFactor(
           secret = TotpSecret.random.base32,
           passwd = "",
-          token = ""
+          token = TotpToken("")
         )
-      )
 
   def disableTwoFactor(using me: Me) =
     authenticator.loginCandidate.map: candidate =>
@@ -275,5 +274,5 @@ object SecurityForm:
 
   case class ChangeEmail(passwd: String, email: EmailAddress)
 
-  case class TwoFactor(secret: String, passwd: String, token: String):
-    def tokenValid = TotpSecret.decode(secret).verify(TotpToken(token))
+  case class TwoFactor(secret: String, passwd: String, token: TotpToken):
+    def tokenValid = TotpSecret.decode(secret).verify(token)

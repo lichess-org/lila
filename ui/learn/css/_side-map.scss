@@ -60,7 +60,6 @@
 
   .stage {
     @extend %roboto, %flex-center;
-
     @include transition;
 
     font-size: 1.1em;

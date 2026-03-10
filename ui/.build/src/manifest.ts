@@ -1,11 +1,12 @@
 import cps from 'node:child_process';
-import fs from 'node:fs';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
 import { join } from 'node:path';
-import { env, c } from './env.ts';
-import { jsLogger } from './console.ts';
-import { taskOk } from './task.ts';
+
 import { shallowSort, isContained } from './algo.ts';
+import { jsLogger } from './console.ts';
+import { env, c } from './env.ts';
+import { taskOk } from './task.ts';
 
 const manifest = {
   i18n: {} as Manifest,

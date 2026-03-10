@@ -1,6 +1,7 @@
 import { opposite } from '@lichess-org/chessground/util';
-import type { CheckCount, CheckState, MaterialDiff } from './interfaces';
 import { charToRole, ROLES, type Board } from 'chessops';
+
+import type { CheckCount, CheckState, MaterialDiff } from './interfaces';
 
 export function getMaterialDiff(chess: FEN | Board): MaterialDiff {
   const diff: MaterialDiff = {

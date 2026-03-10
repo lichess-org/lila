@@ -3,6 +3,7 @@
 
   .box__top__title {
     @extend %flex-center-nowrap;
+
     gap: 0.4em;
   }
 
@@ -22,6 +23,7 @@
     &.top50 img {
       transform: translateY(-12px);
     }
+
     &.top100 img {
       transform: translateY(-15px);
     }

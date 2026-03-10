@@ -1,10 +1,12 @@
-import { h, type VNode, type VNodeChildren } from 'snabbdom';
 import { type Pieces, files } from '@lichess-org/chessground/types';
 import { COLORS, RANK_NAMES, ROLES, type FileName } from 'chessops/types';
 import { charToRole, roleToChar } from 'chessops/util';
+import { h, type VNode, type VNodeChildren } from 'snabbdom';
+
 import { plyToTurn, sanToWords } from '@/game';
-import type { MoveStyle, PieceStyle, PositionStyle, PrefixStyle, BoardStyle } from './setting';
 import type { CrazyPocket, NodeCrazy, TreeComment, TreeNode, TreePath } from '@/tree/types';
+
+import type { MoveStyle, PieceStyle, PositionStyle, PrefixStyle, BoardStyle } from './setting';
 
 export const renderPieceStyle = (ch: string, pieceStyle: PieceStyle): string =>
   pieceStyle === 'letter'

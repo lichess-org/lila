@@ -37,9 +37,11 @@ object page:
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
+    val anonOnboarding = ctx.isAnon.so(lila.security.EmailConfirm.cookie.get(ctx.req))
     val allModules = p.modules ++
       p.pageModule.so(module => esmPage(module.name)) ++
-      ctx.needsFp.so(fingerprintTag)
+      ctx.needsFp.so(fingerprintTag) ++
+      anonOnboarding.isDefined.so(esmInitBit("emailErrorCheck"))
     val zenable = p.flags(PageFlags.zen)
     val playing = p.flags(PageFlags.playing)
     val pageFrag = frag(
@@ -106,7 +108,7 @@ object page:
               "playing fixed-scroll" -> playing,
               "no-rating" -> (!pref.showRatings || (playing && pref.hideRatingsInGame)),
               "no-flair" -> !pref.flairs,
-              "zen" -> (pref.isZen || (playing && pref.isZenAuto)),
+              "zen" -> (zenable && (pref.isZen || (playing && pref.isZenAuto))),
               "zenable" -> zenable,
               "zen-auto" -> (zenable && pref.isZenAuto)
             )
@@ -136,11 +138,8 @@ object page:
           for in <- ctx.data.inquiry; me <- ctx.me yield views.mod.inquiryUi(in)(using ctx, me),
           ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.ui.impersonate(_) },
           netConfig.stageBanner.option(views.bits.stage),
-          ctx.isAnon
-            .so(lila.security.EmailConfirm.cookie.get(ctx.req))
-            .map(u =>
-              frag(cssTag("bits.email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email))
-            ),
+          anonOnboarding.map: u =>
+            frag(cssTag("bits.email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email)),
           zenable.option(zenZone),
           Option.unless(p.flags(PageFlags.noHeader)):
             ui.siteHeader(

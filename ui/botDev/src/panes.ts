@@ -1,11 +1,12 @@
-import { schema, infoKeys } from './schema';
-import { Pane, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './pane';
-import { FilterPane } from './filterPane';
-import { SoundEventPane } from './soundEventPane';
-import { BooksPane } from './booksPane';
-import type { EditDialog } from './editDialog';
-import type { PaneInfo, InfoKey } from './devTypes';
 import type { ActionListener, Action } from 'lib/view';
+
+import { BooksPane } from './booksPane';
+import type { PaneInfo, InfoKey } from './devTypes';
+import type { EditDialog } from './editDialog';
+import { FilterPane } from './filterPane';
+import { Pane, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './pane';
+import { schema, infoKeys } from './schema';
+import { SoundEventPane } from './soundEventPane';
 
 export class Panes {
   byId: Record<string, Pane> = {};
@@ -40,7 +41,7 @@ export class Panes {
     ];
   }
 
-  private toggleEnabled: ActionListener = e => {
+  private readonly toggleEnabled: ActionListener = e => {
     const pane = this.byEvent(e)!;
     pane.setProperty(pane.paneValue);
     pane.setEnabled((e.target as HTMLInputElement).checked);
@@ -48,7 +49,7 @@ export class Panes {
     pane.host.update();
   };
 
-  private updateProperty: ActionListener = e => {
+  private readonly updateProperty: ActionListener = e => {
     const pane = this.byEvent(e)!;
     pane.update(e);
     pane.host.update();

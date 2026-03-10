@@ -15,7 +15,7 @@
     }
   },
   "dependencies": {
-    "@lichess-org/chessground": "^10.0.2",
+    "@lichess-org/chessground": "^10.1.0",
     "@lichess-org/pgn-viewer": "^2.5.9",
     "@types/lichess": "workspace:*",
     "@types/node": "^24.10.13",
@@ -43,6 +43,7 @@
     "check-format": "oxfmt --check",
     "lint": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json && stylelint \"**/*.scss\"",
     "lint:fix": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json --fix && stylelint \"**/*.scss\" --fix",
+    "test": "node ui/test",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",

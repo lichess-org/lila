@@ -1,6 +1,7 @@
 %result-box {
   .result {
     @extend %box-radius;
+
     flex: 0 0 auto;
     padding: 0.1em 0.6em;
     background: $c-font-dimmer;
@@ -8,9 +9,11 @@
     color: $c-over;
     font-weight: bold;
   }
+
   good.result {
     background: $c-good;
   }
+
   bad.result {
     background: $c-bad;
   }

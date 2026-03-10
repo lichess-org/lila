@@ -1,13 +1,14 @@
 // no side effects allowed due to re-export by index.ts
 
-import { h, type VNode } from 'snabbdom';
-import * as domData from '@/data';
-import { lichessClockIsRunning, setClockWidget } from '@/game/clock/clockWidget';
-import { uciToMove, fenColor } from '@/game/chess';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { COLORS } from 'chessops';
+import { h, type VNode } from 'snabbdom';
+
+import * as domData from '@/data';
+import { uciToMove, fenColor } from '@/game/chess';
+import { lichessClockIsRunning, setClockWidget } from '@/game/clock/clockWidget';
 import { pubsub } from '@/pubsub';
 import { wsSend } from '@/socket';
-import { COLORS } from 'chessops';
 
 export const initMiniBoard = (node: HTMLElement): void => {
   const [fen, orientation, lm] = node.getAttribute('data-state')!.split(',');

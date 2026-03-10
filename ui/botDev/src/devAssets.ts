@@ -1,11 +1,12 @@
-import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
-import { makeBookFromPolyglot, makeBookFromPgn, type PgnProgress, type PgnFilter } from 'lib/game/polyglot';
-import { botAssetUrl } from 'lib/bot/botLoader';
-import { alert } from 'lib/view';
-import { zip } from 'lib/algo';
-import { env } from './devEnv';
-import { pubsub } from 'lib/pubsub';
 import { myUserId } from 'lib';
+import { zip } from 'lib/algo';
+import { botAssetUrl } from 'lib/bot/botLoader';
+import { makeBookFromPolyglot, makeBookFromPgn, type PgnProgress, type PgnFilter } from 'lib/game/polyglot';
+import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
+import { pubsub } from 'lib/pubsub';
+import { alert } from 'lib/view';
+
+import { env } from './devEnv';
 
 // dev asset keys are a 12 digit hex hash of the asset contents (plus the file extension for image/sound)
 // dev asset names are strictly cosmetic and can be renamed at any time
@@ -220,7 +221,7 @@ export class DevAssets {
     assetTypes.forEach(type => (this.server[type] = valueSorted(this.server[type])));
   }
 
-  private onStorageEvent = async (e: StorageEvent) => {
+  private readonly onStorageEvent = async (e: StorageEvent) => {
     if (e.key !== 'botdev.import.book' || !e.newValue) return;
 
     await this.init();

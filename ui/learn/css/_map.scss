@@ -110,6 +110,7 @@
       overflow: hidden;
       position: absolute;
       top: -3px;
+
       @include inline-end(-3px);
     }
   }
@@ -121,12 +122,16 @@
     text-align: center;
     text-shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
     transform: rotate(45deg);
+
     @include if-rtl {
       transform: rotate(-45deg);
     }
+
     position: relative;
     padding: 7px 0;
+
     @include inline-start(-5px);
+
     top: 15px;
     width: 120px;
     color: #6a6340;
@@ -184,6 +189,7 @@
 
   .what_next > p {
     @extend %page-text-shadow !optional;
+
     width: 100%;
     text-align: center;
     margin: 0.5em 0 1.5em;

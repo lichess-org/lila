@@ -65,6 +65,7 @@
 
   .question {
     @extend %flex-center-nowrap;
+
     animation: flash-once 1s ease-in;
     border: none;
     padding: 1px;
@@ -219,9 +220,11 @@
       0% {
         opacity: 0;
       }
+
       60% {
         opacity: 0.2;
       }
+
       85% {
         opacity: 0;
       }
@@ -231,6 +234,7 @@
       position: relative;
       animation: none;
       color: $c-font-clear;
+
       &::before {
         content: '';
         position: absolute;
@@ -243,6 +247,7 @@
 
       span {
         display: block;
+
         // this animation somewhat changes the element width,
         // and can cause overflow on narrow screens, where it already
         // is at 100% width
@@ -264,7 +269,9 @@
       justify-content: center;
       position: absolute;
       top: 0;
+
       @include inline-end(-25px);
+
       width: 25px;
       height: 6rem;
       border: 0;
@@ -282,7 +289,9 @@
       &:hover {
         background: $c-bad;
         color: $c-over;
+
         @include inline-end(-36px);
+
         width: 35px;
       }
     }

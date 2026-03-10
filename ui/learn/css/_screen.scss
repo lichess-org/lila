@@ -82,9 +82,10 @@
   }
 
   .stars .star-wrap::before {
+    @include inline-start(5px);
+
     position: absolute;
     top: 5px;
-    @include inline-start(5px);
     display: block;
     width: 45px;
     height: 45px;

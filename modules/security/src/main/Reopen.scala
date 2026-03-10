@@ -37,8 +37,8 @@ final class Reopen(
     modClosed <- closedByMod(user)
     _ <- raiseIf(modClosed):
       "nope" -> "Sorry, that account can no longer be reopened."
-    forever <- userRepo.isForeverClosed(user)
-    _ <- raiseIf(forever):
+    flags <- userRepo.closedFlags(user)
+    _ <- raiseIf(flags.exists(_.forever)):
       "nope" -> "Sorry, but you explicitly requested that your account could never be reopened."
   yield user
 
@@ -67,9 +67,10 @@ ${trans.common_orPaste.txt()}"""),
   def confirm(token: String): Fu[Option[User]] =
     tokener.read(token).flatMapz(userRepo.disabledById).flatMapz { user =>
       for
-        forever <- userRepo.isForeverClosed(user)
-        _ <- forever.not.so(userRepo.reopen(user.id))
-        reopened = forever.not.option(user)
+        flags <- userRepo.closedFlags(user)
+        canReopen = flags.exists(_.forever).not
+        _ <- canReopen.so(userRepo.reopen(user.id))
+        reopened = canReopen.option(user)
       yield
         if reopened.isDefined
         then lila.common.Bus.pub(lila.core.security.ReopenAccount(user))

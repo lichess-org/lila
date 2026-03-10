@@ -14,7 +14,6 @@
     @extend %flex-center;
 
     font-size: 1.5em;
-    margin-bottom: 0.3em;
     unicode-bidi: plaintext;
 
     &.mine {
@@ -31,6 +30,11 @@
       font-size: 0.9rem;
       margin-inline-start: 1em;
     }
+
+    + span {
+      display: block;
+      margin-top: 0.3em;
+    }
   }
 
   .team__quit {
@@ -46,10 +50,17 @@
   .info {
     font-size: 0.9em;
     white-space: nowrap;
-    display: none;
 
-    @media (min-width: at-least($x-small)) {
-      display: table-cell;
+    p {
+      margin-bottom: 0;
+    }
+
+    form {
+      margin-top: 0.5em;
+    }
+
+    @media (width <= $x-small) {
+      display: none;
     }
   }
 }

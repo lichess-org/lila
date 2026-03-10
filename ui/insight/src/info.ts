@@ -1,9 +1,11 @@
-import { onInsert, spinnerHtml } from 'lib/view';
-import { numberFormat } from 'lib/i18n';
-import { userLink } from 'lib/view/userLink';
 import { h } from 'snabbdom';
+
+import { numberFormat } from 'lib/i18n';
+import { onInsert, spinnerHtml } from 'lib/view';
+import { userLink } from 'lib/view/userLink';
+
 import type Ctrl from './ctrl';
-import { registerFormHandler } from './insight';
+import { registerFormHandler } from './insight.refresh';
 
 const shareStates = ['nobody', 'friends only', 'everybody'];
 

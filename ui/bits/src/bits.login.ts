@@ -1,7 +1,7 @@
-import * as xhr from 'lib/xhr';
 import { debounce } from 'lib/async';
-import { addPasswordVisibilityToggleListener, spinnerHtml, alert } from 'lib/view';
 import { storedJsonProp } from 'lib/storage';
+import { addPasswordVisibilityToggleListener, spinnerHtml, alert } from 'lib/view';
+import * as xhr from 'lib/xhr';
 
 export function initModule(mode: 'login' | 'signup' | 'reset'): void {
   mode === 'login' ? loginStart() : mode === 'signup' ? signupStart() : resetStart();
@@ -11,7 +11,7 @@ export function initModule(mode: 'login' | 'signup' | 'reset'): void {
 
 class LoginHistory {
   historyStorage = storedJsonProp<number[]>('login.history', () => []);
-  private now = () => Math.round(Date.now() / 1000);
+  private readonly now = () => Math.round(Date.now() / 1000);
   add = () => {
     const now = this.now();
     this.historyStorage([now, ...this.historyStorage().filter(d => d > now - 30)]);

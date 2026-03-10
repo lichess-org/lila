@@ -1,12 +1,15 @@
+import { h, thunk, type VNode } from 'snabbdom';
+
 import * as licon from 'lib/licon';
+import { richHTML } from 'lib/richText';
 import { bind, bindNonPassive, type MaybeVNodes, spinnerVdom as spinner } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
-import { h, thunk, type VNode } from 'snabbdom';
-import { richHTML } from 'lib/richText';
+
 import { option, plural } from '@/view/util';
+
 import { view as descView } from '../description';
-import type { StudyPracticeData } from './interfaces';
 import type StudyCtrl from '../studyCtrl';
+import type { StudyPracticeData } from './interfaces';
 import type StudyPracticeCtrl from './studyPracticeCtrl';
 
 const selector = (data: StudyPracticeData) =>

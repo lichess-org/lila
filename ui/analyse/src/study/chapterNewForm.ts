@@ -1,5 +1,10 @@
 import { parseFen } from 'chessops/fen';
+import type { LichessEditor } from 'editor';
+
 import { defined, prop, type Prop, toggle } from 'lib';
+import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { storedProp } from 'lib/storage';
 import {
   snabDialog,
   alert,
@@ -12,17 +17,14 @@ import {
   type Dialog,
   type VNode,
 } from 'lib/view';
-import * as licon from 'lib/licon';
-import { storedProp } from 'lib/storage';
 import { json as xhrJson, text as xhrText } from 'lib/xhr';
+
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { option } from '../view/util';
 import type { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './interfaces';
-import { importPgn, variants as xhrVariants } from './studyXhr';
 import type { StudyChapters } from './studyChapters';
-import type { LichessEditor } from 'editor';
-import { pubsub } from 'lib/pubsub';
+import { importPgn, variants as xhrVariants } from './studyXhr';
 
 export const modeChoices = [
   ['normal', i18n.study.normalAnalysis],

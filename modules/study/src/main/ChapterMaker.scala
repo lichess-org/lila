@@ -84,7 +84,7 @@ final private class ChapterMaker(
       // else we show from the perspective of whoever turn it is to move
       case _ => root.lastMainlineNode.color
 
-  private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
+  def fromFenOrBlank(study: Study, data: Data, order: Int, userId: UserId): Chapter =
     val variant = data.variant | Variant.default
     val (root, isFromFen) =
       data.fen.filterNot(_.isInitial).flatMap { Fen.readWithMoveNumber(variant, _) } match

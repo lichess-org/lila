@@ -1,7 +1,8 @@
-import { text, formToXhr } from 'lib/xhr';
-import flairPickerLoader from './flairPicker';
 import { spinnerHtml } from 'lib/view';
+import { text, formToXhr } from 'lib/xhr';
+
 import { wireCropDialog } from './crop';
+import flairPickerLoader from './flairPicker';
 
 // avoid node_modules and pay attention to imports here. we don't want to force people
 // to download the entire toastui editor library just to do some light form processing.
@@ -40,6 +41,8 @@ export function initModule(args: { fn: string } & any): void {
       return titleRequest();
     case 'validEmail':
       return validateEmail();
+    case 'emailErrorCheck':
+      return emailErrorCheck();
     default:
       console.error('Unknown bits function', args.fn);
   }
@@ -260,4 +263,17 @@ function validateEmail() {
   email.addEventListener('input', function () {
     email.setCustomValidity(email.validity.patternMismatch ? currentError : '');
   });
+}
+
+function emailErrorCheck() {
+  const fetchError = async (backoff: number) => {
+    const error = await text('/dev/email-error');
+    if (error) {
+      $('.email-confirm-banner')
+        .addClass('error')
+        .html(`<a href="/signup/check-your-email">We sent the email, but it was rejected.</a><code></code>`);
+      $('.email-confirm-banner code').text(error);
+    } else setTimeout(() => fetchError(backoff * 1.5), backoff);
+  };
+  fetchError(3000);
 }

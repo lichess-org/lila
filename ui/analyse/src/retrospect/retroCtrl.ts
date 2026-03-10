@@ -1,11 +1,13 @@
 import { opposite } from '@lichess-org/chessground/util';
-import { evalSwings } from '../nodeFinder';
+
+import { isEmpty, type Prop, prop } from 'lib';
 import { winningChances } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
-import { isEmpty, type Prop, prop } from 'lib';
-import type { OpeningData } from '../explorer/interfaces';
-import type AnalyseCtrl from '../ctrl';
 import type { TreeNode } from 'lib/tree/types';
+
+import type AnalyseCtrl from '../ctrl';
+import type { OpeningData } from '../explorer/interfaces';
+import { evalSwings } from '../nodeFinder';
 
 export interface RetroCtrl {
   isSolving(): boolean;
@@ -57,7 +59,9 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     if (!site.blindMode) root.redraw();
   }
 
+  // TODO these functions return false positives for variation plies.
   const isPlySolved = (ply: Ply): boolean => solvedPlies.includes(ply);
+  const isPlyLearnCandidate = (ply: Ply): boolean => candidateNodes.some(n => n.ply === ply);
 
   function findNextNode(): TreeNode | undefined {
     const colorModulo = color === 'white' ? 1 : 0;
@@ -195,7 +199,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   const hideComputerLine = (node: TreeNode): boolean =>
-    (node.ply % 2 === 0) !== (color === 'white') && !isPlySolved(node.ply);
+    isPlyLearnCandidate(node.ply) && !isPlySolved(node.ply);
 
   function showBadNode(): TreeNode | undefined {
     const cur = current();

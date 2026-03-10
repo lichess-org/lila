@@ -1,6 +1,7 @@
-import { propWithEffect, type Prop } from '@/index';
-import type { ClockConfig, InputValue, RealValue } from './interfaces';
 import { clockToSpeed } from '@/game';
+import { propWithEffect, type Prop } from '@/index';
+
+import type { ClockConfig, InputValue, RealValue } from './interfaces';
 
 export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
 

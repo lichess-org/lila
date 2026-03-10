@@ -1,8 +1,9 @@
-import * as xhr from 'lib/xhr';
-import main from './main';
-import type { LobbyOpts } from './interfaces';
-import { wsConnect, wsPingInterval } from 'lib/socket';
 import { pubsub } from 'lib/pubsub';
+import { wsConnect, wsPingInterval } from 'lib/socket';
+import * as xhr from 'lib/xhr';
+
+import type { LobbyOpts } from './interfaces';
+import main from './main';
 
 export function initModule(opts: LobbyOpts) {
   opts.appElement = document.querySelector('.lobby__app') as HTMLElement;

@@ -1,5 +1,7 @@
-import { Pane } from './pane';
 import { Chart, PointElement, LinearScale, LineController, LineElement } from 'chart.js';
+
+import { frag } from 'lib';
+import { clamp } from 'lib/algo';
 import {
   addPoint,
   asData,
@@ -10,9 +12,9 @@ import {
   type FilterBy,
   type FilterFacetKey,
 } from 'lib/bot/filter';
-import { frag } from 'lib';
-import { clamp } from 'lib/algo';
+
 import type { PaneArgs, FilterInfo } from './devTypes';
+import { Pane } from './pane';
 
 type FacetToggle = { el: HTMLElement; input: HTMLInputElement };
 
@@ -64,7 +66,7 @@ export class FilterPane extends Pane {
     return enabled;
   }
 
-  private toggleFacet = (facet: FilterFacetKey, checked?: boolean): boolean => {
+  private readonly toggleFacet = (facet: FilterFacetKey, checked?: boolean): boolean => {
     if (checked) this.facets[facet].input.checked = checked;
     else checked = this.facets[facet].input.checked;
     if (checked) {

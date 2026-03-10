@@ -1,3 +1,18 @@
+import { type Result } from '@badrap/result';
+import type { Api as CgApi } from '@lichess-org/chessground/api';
+import { opposite } from '@lichess-org/chessground/util';
+import { parseSquare } from 'chessops';
+import { Board } from 'chessops/board';
+import { lichessRules } from 'chessops/compat';
+import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
+import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
+import type { Rules, Square } from 'chessops/types';
+import { Castles, defaultPosition, Position, setupPosition } from 'chessops/variant';
+
+import { defined, prop, type Prop } from 'lib';
+import { prompt } from 'lib/view';
+
+import { chess960CastlingSquares, chess960IdToFEN, fenToChess960Id, randomPositionId } from './chess960';
 import {
   type EditorState,
   type Selected,
@@ -8,19 +23,6 @@ import {
   type CastlingToggles,
   CASTLING_TOGGLES,
 } from './interfaces';
-import { type Result } from '@badrap/result';
-import type { Api as CgApi } from '@lichess-org/chessground/api';
-import type { Rules, Square } from 'chessops/types';
-import { Board } from 'chessops/board';
-import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
-import { Castles, defaultPosition, Position, setupPosition } from 'chessops/variant';
-import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
-import { lichessRules } from 'chessops/compat';
-import { defined, prop, type Prop } from 'lib';
-import { prompt } from 'lib/view';
-import { opposite } from '@lichess-org/chessground/util';
-import { parseSquare } from 'chessops';
-import { chess960CastlingSquares, chess960IdToFEN, fenToChess960Id, randomPositionId } from './chess960';
 
 export default class EditorCtrl {
   options: Options;
@@ -82,9 +84,17 @@ export default class EditorCtrl {
       this.initialFen = INITIAL_FEN;
       this.setSetup(defaultSetup());
     });
+
+    new MutationObserver(mutations => {
+      for (const m of mutations) {
+        if (!m.attributeName || !(m.attributeName === 'data-board' || m.attributeName === 'data-piece-set'))
+          continue;
+        this.redraw();
+      }
+    }).observe(window.document.body, { attributes: true });
   }
 
-  private indexOfNthOccurrence = (haystack: string, needle: string, n: number): number => {
+  private readonly indexOfNthOccurrence = (haystack: string, needle: string, n: number): number => {
     let index = haystack.indexOf(needle);
     for (; n > 1 && index !== -1; n--) index = haystack.indexOf(needle, index + needle.length);
     return index;
@@ -229,7 +239,7 @@ export default class EditorCtrl {
     const variant = this.variant === 'standard' ? '' : this.variant + '/';
     const chess960PositionId =
       this.chess960PositionId === undefined ? '' : `&position=${this.chess960PositionId}`;
-    return `/analysis/${variant}${urlFen(legalFen)}?color=${orientation}${chess960PositionId}`;
+    return `/analysis/${variant}${this.urlFen(legalFen)}?color=${orientation}${chess960PositionId}`;
   }
 
   makeEditorUrl(fen: FEN, orientation: Color = 'white'): string {
@@ -239,11 +249,8 @@ export default class EditorCtrl {
     const chess960PositionId =
       this.chess960PositionId === undefined ? '' : `&position=${this.chess960PositionId}`;
     const orientationParam = variant ? `&color=${orientation}` : `?color=${orientation}`;
-    return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}${orientationParam}${chess960PositionId}`;
+    return `${this.cfg.baseUrl}/${this.urlFen(fen)}${variant}${orientationParam}${chess960PositionId}`;
   }
-
-  makeImageUrl = (fen: FEN): string =>
-    `${site.asset.baseUrl()}/export/fen.gif?fen=${urlFen(fen)}&color=${this.bottomColor()}`;
 
   bottomColor = (): Color =>
     this.chessground ? this.chessground.state.orientation : this.options.orientation || 'white';
@@ -284,7 +291,7 @@ export default class EditorCtrl {
     else this.setFen(fen);
   }
 
-  private setSetup = (setup: Setup): void => {
+  private readonly setSetup = (setup: Setup): void => {
     this.pockets = setup.pockets;
     this.turn = setup.turn;
     this.epSquare = setup.epSquare;
@@ -336,8 +343,8 @@ export default class EditorCtrl {
     const id = randomPositionId();
     id !== this.chess960PositionId ? this.set960Position(id) : this.setRandom960Position();
   }
-}
 
-function urlFen(fen: FEN): string {
-  return encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+  urlFen(fen: FEN): string {
+    return encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+  }
 }

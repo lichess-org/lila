@@ -1,5 +1,6 @@
 import { throttlePromiseDelay } from 'lib/async';
 import { json as xhrJson } from 'lib/xhr';
+
 import type {
   InsightData,
   Dimension,
@@ -12,7 +13,7 @@ import type {
   Filters,
   ViewTab,
 } from './interfaces';
-import { isLandscapeLayout } from './view';
+import { isLandscapeLayout } from './util';
 
 export default class {
   env: Env;
@@ -51,9 +52,9 @@ export default class {
     };
   }
 
-  private findMetric = (key: string) => this.metrics.find(x => x.key === key);
+  private readonly findMetric = (key: string) => this.metrics.find(x => x.key === key);
 
-  private findDimension = (key: string) => this.dimensions.find(x => x.key === key);
+  private readonly findDimension = (key: string) => this.dimensions.find(x => x.key === key);
 
   setPanel(p: 'filter' | 'preset') {
     this.vm.panel = p;

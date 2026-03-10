@@ -5,12 +5,15 @@
   cursor: pointer;
   user-select: none;
 }
+
 .cmn-toggle input {
   @extend %double-tap, %visually-hidden;
 }
 
 .cmn-toggle label {
   @include prevent-select;
+  @include transition(background box-shadow);
+
   display: block;
   position: relative;
   cursor: pointer;
@@ -22,7 +25,6 @@
   border-radius: 24px;
   background-clip: padding-box;
   background-color: $c-font-dimmer;
-  @include transition(background box-shadow);
 
   &::before,
   &::after {
@@ -32,28 +34,32 @@
     width: 22px;
     height: 22px;
     bottom: 0;
+
     @include inline-start(0);
   }
 
   &::before {
     @extend %data-icon;
+    @include transition(margin color);
+
     font-size: 1em;
     z-index: 1;
     text-align: center;
     line-height: 22px;
     content: $licon-X;
     color: $c-font-dimmer;
-    @include transition(margin color);
   }
 
   &::after {
     @extend %metal;
+    @include transition(margin box-shadow);
+
+    border-radius: 100%;
+    box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
+
     @include if-transp {
       background: linear-gradient(to bottom, hsl($site-hue, 7%, 22), hsl($site-hue, 5%, 19) 100%);
     }
-    border-radius: 100%;
-    box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
-    @include transition(margin box-shadow);
   }
 }
 

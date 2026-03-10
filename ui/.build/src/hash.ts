@@ -1,11 +1,12 @@
-import fs from 'node:fs';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
 import { relative, join, resolve } from 'node:path';
-import { makeTask } from './task.ts';
-import { type Manifest, updateManifest } from './manifest.ts';
-import { env, c } from './env.ts';
-import { type Package, isClose } from './parse.ts';
+
 import { isEquivalent } from './algo.ts';
+import { env, c } from './env.ts';
+import { type Manifest, updateManifest } from './manifest.ts';
+import { type Package, isClose } from './parse.ts';
+import { makeTask } from './task.ts';
 
 export async function hash(): Promise<void> {
   if (!env.begin('hash')) return;

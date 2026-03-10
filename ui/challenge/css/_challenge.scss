@@ -1,5 +1,6 @@
 #challenge-app {
   @extend %box-radius-left, %dropdown-shadow;
+
   overflow: hidden scroll;
   max-height: 90vh;
   width: 300px;
@@ -33,6 +34,7 @@
 
     .buttons {
       @extend %flex-between-nowrap;
+
       align-items: stretch;
 
       @media (hover: hover) {

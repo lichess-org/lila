@@ -1,10 +1,11 @@
 import { prop, notEmpty, type Prop } from 'lib';
-import { json as xhrJson } from 'lib/xhr';
-import type { ForecastData, ForecastList, ForecastStep } from './interfaces';
-import type { AnalyseData } from '../interfaces';
-import type { TreeWrapper } from 'lib/tree/tree';
 import { completeNode } from 'lib/tree/node';
+import type { TreeWrapper } from 'lib/tree/tree';
 import type { TreePath } from 'lib/tree/types';
+import { json as xhrJson } from 'lib/xhr';
+
+import type { AnalyseData } from '../interfaces';
+import type { ForecastData, ForecastList, ForecastStep } from './interfaces';
 
 export default class ForecastCtrl {
   forecasts: Prop<ForecastList> = prop<ForecastList>([]);
@@ -19,11 +20,11 @@ export default class ForecastCtrl {
     this.fixAll();
   }
 
-  private saveUrl = () => `/${this.data.game.id}${this.data.player.id}/forecasts`;
+  private readonly saveUrl = () => `/${this.data.game.id}${this.data.player.id}/forecasts`;
 
-  private keyOf = (fc: ForecastStep[]): string => fc.map(node => node.ply + ':' + node.uci).join(',');
+  private readonly keyOf = (fc: ForecastStep[]): string => fc.map(node => node.ply + ':' + node.uci).join(',');
 
-  private update = (f: (fc: ForecastList) => ForecastList) => this.forecasts(f(this.forecasts()));
+  private readonly update = (f: (fc: ForecastList) => ForecastList) => this.forecasts(f(this.forecasts()));
 
   contains = (fc1: ForecastStep[], fc2: ForecastStep[]): boolean =>
     fc1.length >= fc2.length && this.keyOf(fc1).startsWith(this.keyOf(fc2));

@@ -1,6 +1,6 @@
 import { debounce } from 'lib/async';
-import type { TreeNode } from 'lib/tree/types';
 import { storedBooleanPropWithEffect } from 'lib/storage';
+import type { TreeNode } from 'lib/tree/types';
 import { enter } from 'lib/view';
 import { wikiBooksUrl, apiArgs, transformWikiHtml } from 'lib/wikiBooks';
 

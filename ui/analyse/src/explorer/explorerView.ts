@@ -1,11 +1,14 @@
 import type { VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
-import { displayLocale, numberFormat } from 'lib/i18n';
+
 import perfIcons from 'lib/game/perfIcons';
+import { displayLocale, numberFormat } from 'lib/i18n';
+import * as licon from 'lib/licon';
 import { bind, dataIcon, type MaybeVNode, type LooseVNodes, hl } from 'lib/view';
-import { view as renderConfig } from './explorerConfig';
-import { moveArrowAttributes, ucfirst } from './explorerUtil';
+
 import type AnalyseCtrl from '../ctrl';
+import { view as renderConfig } from './explorerConfig';
+import type ExplorerCtrl from './explorerCtrl';
+import { MAX_ANALYSE_DEPTH, moveArrowAttributes, ucfirst } from './explorerUtil';
 import {
   isOpening,
   isTablebase,
@@ -15,7 +18,6 @@ import {
   type OpeningGame,
   type ExplorerDb,
 } from './interfaces';
-import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
 import { showTablebase } from './tablebaseView';
 
 function resultBar(move: OpeningMoveStats): VNode {
@@ -206,7 +208,7 @@ const closeButton = (ctrl: AnalyseCtrl): VNode =>
   );
 
 const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode => {
-  const isTooDeep = ctrl.explorer.root.node.ply >= MAX_DEPTH;
+  const isTooDeep = ctrl.explorer.root.node.ply >= MAX_ANALYSE_DEPTH;
   return hl('div.data.empty', [
     explorerTitle(ctrl.explorer),
     openingTitle(ctrl, data),
@@ -246,6 +248,7 @@ export const clearLastShow = () => {
 function show(ctrl: AnalyseCtrl): MaybeVNode {
   const data = ctrl.explorer.current();
   if (data && isOpening(data)) {
+    if (!ctrl.explorer.isAuth()) return showAnon(ctrl);
     const moveTable = showMoveTable(ctrl, data),
       recentTable = showGameTable(ctrl, data.fen, i18n.site.recentGames, data.recentGames || []),
       topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);
@@ -374,7 +377,7 @@ const showConfig = (ctrl: AnalyseCtrl): VNode =>
 const showFailing = (ctrl: AnalyseCtrl) =>
   hl('div.data.empty', [
     hl('div.title', showTitle(ctrl.data.game.variant)),
-    hl('div.failing.message', [
+    hl('div.message', [
       hl('h3', 'Oops, sorry!'),
       hl('p.explanation', ctrl.explorer.failing()?.toString()),
       closeButton(ctrl),
@@ -382,24 +385,24 @@ const showFailing = (ctrl: AnalyseCtrl) =>
   ]);
 
 const showAnon = (ctrl: AnalyseCtrl) =>
-  hl(
-    'section.explorer-box.sub-box',
-    hl('div.data.empty', [
-      hl('div.title', i18n.site.openingExplorer),
-      hl('div.failing.message', [
-        hl('p.explanation', i18n.site.youNeedAnAccountToDoThat),
-        hl('a.button.button-empty', { attrs: { href: '/signup' } }, i18n.site.signUp),
-        closeButton(ctrl),
-      ]),
+  hl('div.data.empty', [
+    hl('div.title', i18n.site.openingExplorer),
+    hl('div.message', [
+      hl('p.explanation', i18n.site.youNeedAnAccountToDoThat),
+      hl(
+        'a.button.button-empty.text',
+        { attrs: { ...dataIcon(licon.Checkmark), href: '/signup' } },
+        i18n.site.signUp,
+      ),
+      closeButton(ctrl),
     ]),
-  );
+  ]);
 
 let lastFen: FEN = '';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const explorer = ctrl.explorer;
   if (!explorer.enabled()) return;
-  if (!explorer.isAuth()) return showAnon(ctrl);
   const data = explorer.current(),
     config = explorer.config,
     configOpened = config.data.open(),

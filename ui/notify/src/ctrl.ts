@@ -1,7 +1,7 @@
-import type { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
-
-import { json as xhrJson, url as xhrUrl, text as xhrText } from 'lib/xhr';
 import { storage } from 'lib/storage';
+import { json as xhrJson, url as xhrUrl, text as xhrText } from 'lib/xhr';
+
+import type { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
 
 export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   let data: NotifyData | undefined,

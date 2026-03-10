@@ -1,8 +1,9 @@
 import * as licon from 'lib/licon';
 import { type VNode, type MaybeVNode, bind, dataIcon, hl, type VNodeData } from 'lib/view';
+
+import type PuzzleCtrl from '../ctrl';
 import type { ThemeKey, RoundThemes } from '../interfaces';
 import { renderColorForm } from './side';
-import type PuzzleCtrl from '../ctrl';
 
 const studyUrl = 'https://lichess.org/study/viiWlKjv';
 

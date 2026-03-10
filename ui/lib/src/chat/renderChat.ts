@@ -1,13 +1,14 @@
-import * as licon from '../licon';
-import { type VNode, hl, bind } from '@/view';
-import { cmnToggleProp } from '@/view/cmn-toggle';
-import type { Tab, VoiceChat } from './interfaces';
-import discussionView from './discussion';
-import { noteView } from './note';
-import { moderationView } from './moderation';
 import { type Hooks } from 'snabbdom';
 
+import { type VNode, hl, bind } from '@/view';
+import { cmnToggleProp } from '@/view/cmn-toggle';
+
+import * as licon from '../licon';
 import type { ChatCtrl } from './chatCtrl';
+import discussionView from './discussion';
+import type { Tab, VoiceChat } from './interfaces';
+import { moderationView } from './moderation';
+import { noteView } from './note';
 
 export function renderChat(ctrl: ChatCtrl, hook: Hooks = {}): VNode {
   return hl(

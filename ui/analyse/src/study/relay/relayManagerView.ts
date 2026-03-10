@@ -1,11 +1,12 @@
+import { memoize } from 'lib';
 import * as licon from 'lib/licon';
 import { hl, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/view';
+
+import type StudyCtrl from '../studyCtrl';
+import { studySideNodes } from '../studyView';
+import { broadcasterDeepLink } from './deepLink';
 import type { LogEvent } from './interfaces';
 import type RelayCtrl from './relayCtrl';
-import { memoize } from 'lib';
-import { studySideNodes } from '../studyView';
-import type StudyCtrl from '../studyCtrl';
-import { broadcasterDeepLink } from './deepLink';
 
 export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
   const contributor = study.members.canContribute(),

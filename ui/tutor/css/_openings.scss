@@ -2,44 +2,56 @@
   &__openings {
     &__colors {
       @extend %flex-wrap;
+
       gap: $block-gap;
     }
+
     &__color {
       flex: 250px 1 1;
+
       h2 {
         font-size: 2em;
         margin-bottom: $block-gap;
         color: $c-font-page;
       }
+
       &__openings {
         display: grid;
         gap: 2vmin;
       }
+
       &__explorer {
         margin-top: $block-gap;
         width: 100%;
       }
     }
+
     &__opening {
       .tutor-card__top {
         gap: 1em;
+
         &__board {
           flex: 0 0 9em;
           aspect-ratio: 1;
           margin: 0.6em 0 0 0.8em;
+
           cg-container {
             left: 0;
           }
         }
       }
+
       .slist tr td {
         font-weight: bold;
+
         &:last-child {
           opacity: 0.8;
         }
+
         &.good {
           background: $m-secondary_bg-zebra--mix-20;
         }
+
         &.bad {
           background: $m-bad_bg-zebra--mix-20;
         }

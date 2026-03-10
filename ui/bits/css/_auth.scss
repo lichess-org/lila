@@ -5,6 +5,7 @@
 .checklist {
   font-size: 1.5em;
   font-weight: 700;
+
   li {
     list-style: disc inside;
   }
@@ -25,6 +26,7 @@
 
   .alternative {
     @extend %flex-between;
+
     margin-top: 2rem;
     font-size: 0.9em;
     line-height: 2em;
@@ -39,6 +41,7 @@
     .login-remember {
       @extend %flex-center-nowrap;
       @include prevent-select;
+
       margin-top: 1em;
       gap: 1ch;
       cursor: pointer;
@@ -46,6 +49,7 @@
 
     &__blanked {
       @extend %box-radius;
+
       margin-bottom: 2em;
       padding: 1em 2em;
       background: $c-bg-zebra;

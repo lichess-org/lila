@@ -1,18 +1,20 @@
-import { h, type VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
-import { copyMeInput, dataIcon, domDialog, enter } from 'lib/view';
-import type { MouchEvent, NumberPair } from '@lichess-org/chessground/types';
 import { dragNewPiece } from '@lichess-org/chessground/drag';
+import type { MouchEvent, NumberPair } from '@lichess-org/chessground/types';
 import { eventPosition, opposite } from '@lichess-org/chessground/util';
 import { lichessRules } from 'chessops/compat';
-
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
-import type EditorCtrl from './ctrl';
-import chessground from './chessground';
-import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
+import { h, type VNode } from 'snabbdom';
+
 import { fenToEpd } from 'lib/game/chess';
+import * as licon from 'lib/licon';
+import { copyMeInput, dataIcon, domDialog, enter } from 'lib/view';
+import { url as xhrUrl } from 'lib/xhr';
+
 import { fenToChess960Id, isValidPositionId } from './chess960';
+import chessground from './chessground';
+import type EditorCtrl from './ctrl';
+import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
@@ -321,6 +323,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
 
 function inputs(ctrl: EditorCtrl, fen: FEN): VNode | undefined {
   if (ctrl.cfg.embed) return;
+
   return h('div.copyables', [
     h('p', [
       h('strong', 'FEN'),
@@ -354,7 +357,21 @@ function inputs(ctrl: EditorCtrl, fen: FEN): VNode | undefined {
       }),
     ]),
     h('p', [h('strong.name', 'URL'), copyMeInput(ctrl.makeEditorUrl(fen, ctrl.bottomColor()))]),
-    h('a', { attrs: { href: ctrl.makeImageUrl(fen) } }, 'SCREENSHOT'),
+    h(
+      'a',
+      {
+        attrs: {
+          href: xhrUrl(`${site.asset.baseUrl()}/export/fen.gif`, {
+            fen: ctrl.urlFen(fen),
+            color: ctrl.bottomColor(),
+            theme: document.body.dataset.board,
+            piece: document.body.dataset.pieceSet,
+          }),
+          download: true,
+        },
+      },
+      'SCREENSHOT',
+    ),
   ]);
 }
 

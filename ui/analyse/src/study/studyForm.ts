@@ -1,7 +1,9 @@
-import * as licon from 'lib/licon';
-import { toggle } from 'lib';
-import { snabDialog, confirm, prompt, type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/view';
 import flairPickerLoader from 'bits/flairPicker';
+
+import { toggle } from 'lib';
+import * as licon from 'lib/licon';
+import { snabDialog, confirm, prompt, type VNode, bindSubmit, bindNonPassive, onInsert, hl } from 'lib/view';
+
 import { emptyRedButton } from '../view/util';
 import type { StudyData } from './interfaces';
 import type RelayCtrl from './relay/relayCtrl';

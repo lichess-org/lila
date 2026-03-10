@@ -23,10 +23,11 @@
     display: none;
 
     @include mq-zoom-enabled {
+      @include inline-end(3px);
+
       display: block;
       position: fixed;
       bottom: 3px;
-      @include inline-end(3px);
       width: 10vw;
     }
   }
@@ -35,9 +36,11 @@
 @mixin transition($prop: all, $dur: $transition-duration, $timing: ease) {
   @if type-of($prop) == 'list' and length($prop) > 1 {
     $out: ();
+
     @for $i from 1 through length($prop) {
       $out: append($out, nth($prop, $i) $dur $timing, comma);
     }
+
     transition: $out;
   } @else {
     transition: $prop $dur $timing;
@@ -47,6 +50,7 @@
 @mixin hoverflow {
   scrollbar-gutter: stable;
   overflow-y: auto;
+
   @media (hover: hover) {
     &:not(:hover) {
       overflow: hidden;
@@ -107,6 +111,7 @@
     background: unset;
     border-bottom-color: transparent;
     transform: unset;
+
     ---site-header-sticky-padding: 0;
 
     #topnav,
@@ -117,6 +122,7 @@
       transition: unset;
     }
   }
+
   #main-wrap {
     margin-top: var(---sticky-gap);
   }
@@ -126,8 +132,10 @@
   display: block;
   position: relative;
   aspect-ratio: $aspect-ratio;
+
   &::after {
     @extend %flex-center-center;
+
     content: attr(alt);
     position: absolute;
     top: 0;

@@ -21,13 +21,15 @@ object TokenScopes extends TotalWrapper[TokenScopes, List[OAuthScope]]:
   extension (e: TokenScopes)
     def intersects(other: OAuthScopes): Boolean = e.exists(other.contains)
     def has(s: OAuthScope.Selector): Boolean = e.contains(s(OAuthScope))
+    def mobile: Boolean = has(_.Web.Mobile)
+    def polygon: Boolean = has(_.Web.Polygon)
 
 opaque type EndpointScopes = List[OAuthScope]
 object EndpointScopes extends TotalWrapper[EndpointScopes, List[OAuthScope]]:
   extension (e: EndpointScopes)
     def isEmpty = e.isEmpty
     def compatible(token: TokenScopes): Boolean = e.exists(token.has)
-    def show = e.filter(_ != OAuthScope.Web.Mobile).map(_.key).mkString(" || ")
+    def show = e.filterNot(OAuthScope.concealedScopes).map(_.key).mkString(" || ")
 
 object OAuthScope:
 
@@ -82,8 +84,8 @@ object OAuthScope:
     case object Write extends OAuthScope("engine:write", trans.engineWrite)
 
   object Web:
-    case object Login extends OAuthScope("web:login", trans.webLogin)
     case object Mobile extends OAuthScope("web:mobile", I18nKey("Official Lichess mobile app"))
+    case object Polygon extends OAuthScope("web:polygon", I18nKey("Polygon client"))
     case object Mod extends OAuthScope("web:mod", trans.webMod)
 
   case class Scoped(me: Me, scopes: TokenScopes):
@@ -117,8 +119,8 @@ object OAuthScope:
     Bot.Play,
     Engine.Read,
     Engine.Write,
-    Web.Login,
     Web.Mobile,
+    Web.Polygon,
     Web.Mod
   )
 
@@ -135,21 +137,23 @@ object OAuthScope:
 
   val dangerList: OAuthScopes = OAuthScope.select(
     _.Team.Lead,
-    _.Web.Login,
     _.Web.Mod,
     _.Web.Mobile,
+    _.Web.Polygon,
     _.Msg.Write
   )
 
   val relevantToMods: OAuthScopes = OAuthScope.select(
     _.Team.Lead,
-    _.Web.Login,
     _.Web.Mobile,
+    _.Web.Polygon,
     _.Msg.Write,
     _.Board.Play
   )
 
   val byKey: Map[String, OAuthScope] = all.mapBy(_.key)
+
+  val concealedScopes = Set(Web.Mobile, Web.Polygon)
 
   def select(selectors: Iterable[Selector]): OAuthScopes =
     OAuthScopes(selectors.map(_(OAuthScope)).toList)

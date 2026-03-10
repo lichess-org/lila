@@ -1,13 +1,10 @@
 #friend_box {
+  @include inline-end(0);
+  @include hoverflow;
+
   display: none;
-
-  @include mq-topnav-visible-and-tall {
-    display: block;
-  }
-
   position: fixed;
   bottom: 0;
-  @include inline-end(0);
   z-index: $z-friend-box-2;
   background: $c-bg-popup;
   border: $border;
@@ -17,11 +14,11 @@
   font-size: 0.9rem;
   min-width: 150px;
   max-height: 95%;
+  backface-visibility: hidden; // improve scroll perfs
 
-  /* improve scroll perfs */
-  backface-visibility: hidden;
-
-  @include hoverflow;
+  @include mq-topnav-visible-and-tall {
+    display: block;
+  }
 
   .friend_box_title {
     @extend %metal;

@@ -1,3 +1,4 @@
+import { Cache } from '../cache';
 import { Protocol } from '../protocol';
 import {
   CevalState,
@@ -7,7 +8,6 @@ import {
   type EngineNotifier,
 } from '../types';
 import { sharedWasmMemory } from '../util';
-import { Cache } from '../cache';
 
 interface WasmModule {
   (opts: {

@@ -7,11 +7,12 @@
 
 .title-image-edit {
   @extend %flex-column, %box-neat;
+
   padding: 2em;
   gap: 2em;
   background: $c-bg-zebra;
-
   margin-bottom: 2em;
+
   h2 {
     align-self: flex-start;
     width: auto;
@@ -21,25 +22,31 @@
 
 .title__status {
   @extend %box-neat;
+
   padding: 0.3em 0.7em;
   background: $c-accent;
   color: white;
   font-size: 0.9rem;
   font-weight: bold;
   text-transform: uppercase;
+
   &--building {
     background: $c-bg-zebra;
     color: $c-font;
   }
+
   &--approved {
     background: $c-good;
   }
+
   &--rejected {
     background: $c-bad;
   }
+
   &--feedback {
     background: $c-primary;
   }
+
   &--imported {
     background: $c-fancy;
   }
@@ -47,6 +54,7 @@
 
 .title__status-full {
   @extend %flex-center-nowrap, %box-neat;
+
   margin-bottom: 2em;
   padding: 2em 2em;
   background: $c-bg-zebra;
@@ -56,6 +64,7 @@
     margin-inline: 0 2rem;
     height: 60px;
   }
+
   h2 {
     margin-bottom: 1rem;
   }
@@ -64,6 +73,7 @@
 .title-mod .mod-zone {
   margin: 0;
 }
+
 .title-mod > .mz-section {
   max-height: 250px;
 }
@@ -73,6 +83,7 @@
 .title-mod__data,
 .title-mod__actions {
   margin-top: 4em;
+
   h2 {
     line-height: 3;
   }
@@ -80,6 +91,7 @@
 
 .title-mod__actions {
   @extend %box-neat;
+
   background: $c-bg-zebra;
   padding: 2em;
 }
@@ -90,6 +102,7 @@
   margin: auto;
   cursor: pointer;
 }
+
 .title-image--fallback {
   padding: 3rem;
   text-align: center;

@@ -1,13 +1,15 @@
-import * as licon from 'lib/licon';
-import { bind, onInsert, spinnerVdom } from 'lib/view';
-import { requestIdleCallback } from 'lib';
-import { h, type VNode } from 'snabbdom';
-import type AnalyseCtrl from '../ctrl';
 import type { ChartGame, AcplChart } from 'chart';
-import type { AnalyseData } from '../interfaces';
+import { h, type VNode } from 'snabbdom';
+
+import { requestIdleCallback } from 'lib';
+import * as licon from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
-import { stockfishName } from '../serverSideUnderboard';
 import type { TreeNode } from 'lib/tree/types';
+import { bind, onInsert, spinnerVdom } from 'lib/view';
+
+import type AnalyseCtrl from '../ctrl';
+import type { AnalyseData } from '../interfaces';
+import { stockfishName } from '../serverSideUnderboard';
 
 export const chartSpinner = (): VNode =>
   h('div#acpl-chart-container-loader', [

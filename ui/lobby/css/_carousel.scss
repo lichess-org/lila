@@ -6,15 +6,17 @@
   gap: $block-gap;
   position: relative;
 
-  .track {
+  &__track {
     display: flex;
     flex-flow: row nowrap;
     width: fit-content;
     align-items: stretch;
   }
 
-  .controls {
+  &__controls {
     @extend %flex-between;
+    @include transition(opacity);
+
     position: absolute;
     top: 0;
     left: 0;
@@ -22,7 +24,6 @@
     height: 100%;
     width: 100%;
     opacity: 0;
-    @include transition(opacity);
     pointer-events: none;
 
     button {
@@ -30,6 +31,7 @@
       font-size: 3em;
       pointer-events: auto;
       height: 100%;
+
       &:hover {
         color: $c-primary;
       }
@@ -37,7 +39,7 @@
   }
 
   &:hover {
-    .controls {
+    .carousel__controls {
       opacity: 1;
     }
   }

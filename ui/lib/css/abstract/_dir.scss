@@ -14,6 +14,7 @@
   @include if-ltr {
     left: $x;
   }
+
   @include if-rtl {
     right: $x;
   }
@@ -23,6 +24,7 @@
   @include if-ltr {
     right: $x;
   }
+
   @include if-rtl {
     left: $x;
   }

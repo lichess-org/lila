@@ -21,6 +21,7 @@
   &.event-spotlight,
   &:hover {
     @extend %metal-hover;
+
     text-shadow: none;
 
     @include if-light {

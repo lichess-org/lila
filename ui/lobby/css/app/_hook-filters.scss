@@ -54,12 +54,16 @@
     display: block;
     text-align: center;
   }
+
   .rating-range {
     @extend %flex-center-nowrap;
+
     justify-content: center;
+
     input {
       padding: 0.6em 0;
       margin: 0 1ch;
+
       @media (max-width: at-most($xx-small)) {
         width: 26vw;
       }

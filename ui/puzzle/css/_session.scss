@@ -16,6 +16,7 @@
 
     &.result-empty::before {
       @extend %data-icon;
+
       content: $licon-Checkmark;
       font-size: 0.9em;
     }

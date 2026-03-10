@@ -6,6 +6,7 @@
 
 .ms-choice {
   @extend %nowrap-hidden;
+
   display: block;
   width: 100%;
   height: 26px;
@@ -27,6 +28,7 @@
 
 .ms-choice > span {
   @extend %nowrap-ellipsis;
+
   position: absolute;
   top: 0;
   left: 0;
@@ -124,6 +126,7 @@
 
 .ms-drop ul > li.multiple label {
   @extend %nowrap-ellipsis;
+
   width: 100%;
   display: block;
 }

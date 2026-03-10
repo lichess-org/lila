@@ -59,7 +59,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
     aggregationColor = !aggregationColor
     colls
       .path:
-        _.aggregateList(setSize * nbSets, _.sec): framework =>
+        _.aggregateList(setSize * nbSets): framework =>
           import framework.*
           Facet(
             ratingBuckets.map: (rating, nbPuzzles) =>

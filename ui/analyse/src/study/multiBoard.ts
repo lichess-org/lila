@@ -1,23 +1,26 @@
-import * as licon from 'lib/licon';
-import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { opposite as cgOpposite, uciToMove } from '@lichess-org/chessground/util';
+import type { Color } from 'chessops';
+import { EMPTY_BOARD_FEN } from 'chessops/fen';
+import { h } from 'snabbdom';
+
+import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
 import { fenColor } from 'lib/game/chess';
+import { otbClockIsRunning, formatMs } from 'lib/game/clock/clockWidget';
+import * as licon from 'lib/licon';
+import { storage, storedBooleanProp } from 'lib/storage';
 import { type MaybeVNode, type VNode, bind, dataIcon, onInsert, hl } from 'lib/view';
 import { cmnToggleWrapProp } from 'lib/view/cmn-toggle';
-import { opposite as cgOpposite, uciToMove } from '@lichess-org/chessground/util';
-import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
-import type StudyCtrl from './studyCtrl';
-import { type CloudEval, type MultiCloudEval, renderScore } from './multiCloudEval';
-import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'lib';
-import type { Color } from 'chessops';
-import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
-import { playerFedFlag } from './playerBars';
 import { userTitle } from 'lib/view/userLink';
-import { h } from 'snabbdom';
-import { storage, storedBooleanProp } from 'lib/storage';
-import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { EMPTY_BOARD_FEN } from 'chessops/fen';
+
+import { playerFedFlag } from '@/view/util';
+
+import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
+import { type CloudEval, type MultiCloudEval, renderScore } from './multiCloudEval';
 import { playerColoredResult } from './relay/customScoreStatus';
 import type { RelayRound } from './relay/interfaces';
+import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
+import type StudyCtrl from './studyCtrl';
 
 export class MultiBoardCtrl {
   playing: Toggle = toggle(false);
@@ -39,7 +42,7 @@ export class MultiBoardCtrl {
 
   maxPerPage = () => Math.min(32, parseInt(this.maxPerPageStorage.get() || '12'));
 
-  private chapterFilter = (c: ChapterPreview) => {
+  private readonly chapterFilter = (c: ChapterPreview) => {
     const t = this.teamSelect();
     return (
       (!this.playing() || c.playing) && (!t || c.players?.white.team === t || c.players?.black.team === t)
@@ -207,42 +210,61 @@ const makePreview =
         class: { active: preview.id === current },
         attrs: gameLinkAttrs(roundPath, preview),
       },
-      [
-        boardPlayer(preview, cgOpposite(orientation), showResults, round),
-        h('span.cg-gauge', [
-          showResults ? cloudEval && verticalEvalGauge(preview, cloudEval) : undefined,
-          h(
-            'span.mini-game__board',
-            h('span.cg-wrap', {
-              hook: {
-                insert(vnode) {
-                  const el = vnode.elm as HTMLElement;
-                  vnode.data!.cg = makeChessground(el, {
-                    coordinates: false,
-                    viewOnly: true,
-                    orientation,
-                    drawable: { enabled: false, visible: false },
-                    ...(showResults ? previewToCgConfig(preview) : { fen: EMPTY_BOARD_FEN }),
-                  });
-                  vnode.data!.fen = preview.fen;
-                },
-                postpatch(old, vnode) {
-                  if (!showResults) return;
-                  if (old.data!.fen !== preview.fen) old.data!.cg?.set(previewToCgConfig(preview));
-                  vnode.data!.fen = preview.fen;
-                  vnode.data!.cg = old.data!.cg;
-                },
-              },
-            }),
-          ),
-        ]),
-        boardPlayer(preview, orientation, showResults, round),
-      ],
+      previewContent(preview, orientation, cloudEval, showResults, round),
     );
   };
 
-export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEval): MaybeVNode => {
-  const tag = `span.mini-game__gauge${chap.orientation === 'black' ? ' mini-game__gauge--flip' : ''}${
+export const previewContent = (
+  preview: ChapterPreview,
+  orientation: Color,
+  cloudEval?: MultiCloudEval,
+  showResults?: boolean,
+  round?: RelayRound,
+  extraCgConfig?: () => Partial<CgConfig>,
+) => {
+  const makeCgConfig = () => ({
+    ...previewToCgConfig(preview),
+    ...(extraCgConfig ? extraCgConfig() : {}),
+  });
+  return [
+    boardPlayer(preview, cgOpposite(orientation), showResults, round),
+    h('span.cg-gauge', [
+      showResults ? cloudEval && verticalEvalGauge(preview, orientation, cloudEval) : undefined,
+      h(
+        'span.mini-game__board',
+        h('span.cg-wrap', {
+          hook: {
+            insert(vnode) {
+              const el = vnode.elm as HTMLElement;
+              vnode.data!.cg = makeChessground(el, {
+                coordinates: false,
+                viewOnly: true,
+                orientation,
+                drawable: { enabled: false, visible: false },
+                ...(showResults ? makeCgConfig() : { fen: EMPTY_BOARD_FEN }),
+              });
+              vnode.data!.fen = preview.fen;
+            },
+            postpatch(old, vnode) {
+              if (!showResults) return;
+              if (old.data!.fen !== preview.fen) old.data!.cg?.set(makeCgConfig());
+              vnode.data!.fen = preview.fen;
+              vnode.data!.cg = old.data!.cg;
+            },
+          },
+        }),
+      ),
+    ]),
+    boardPlayer(preview, orientation, showResults, round),
+  ];
+};
+
+export const verticalEvalGauge = (
+  chap: ChapterPreview,
+  orientation: Color,
+  cloudEval: MultiCloudEval,
+): MaybeVNode => {
+  const tag = `span.mini-game__gauge${orientation === 'black' ? ' mini-game__gauge--flip' : ''}${
     chap.check === '#' ? ' mini-game__gauge--set' : ''
   }`;
   return chap.check === '#'

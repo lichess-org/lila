@@ -1,9 +1,11 @@
-import { domDialog, type Dialog, alert, confirm } from 'lib/view';
+import { wireCropDialog } from 'bits/crop';
+
 import { frag } from 'lib';
 import * as licon from 'lib/licon';
-import { renderRemoveButton } from './devUtil';
-import { wireCropDialog } from 'bits/crop';
+import { domDialog, type Dialog, alert, confirm } from 'lib/view';
+
 import { env } from './devEnv';
+import { renderRemoveButton } from './devUtil';
 
 export type AssetType = 'image' | 'book' | 'sound';
 
@@ -17,7 +19,7 @@ export class AssetDialog {
   private dlg: Dialog;
   private resolve?: (key: string | undefined) => void;
   private type: AssetType;
-  private isChooser: boolean;
+  private readonly isChooser: boolean;
   constructor(type?: AssetType) {
     if (!type || type === 'image') wireCropDialog();
     this.isChooser = type !== undefined;
@@ -110,7 +112,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     return wrap;
   }
 
-  private dragDrop = (e: DragEvent): void => {
+  private readonly dragDrop = (e: DragEvent): void => {
     e.preventDefault();
     if (e.type === 'dragover') {
       e.dataTransfer!.dropEffect = 'copy';
@@ -128,14 +130,14 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     }
   };
 
-  private nameChange = (e: Event): void => {
+  private readonly nameChange = (e: Event): void => {
     const el = e.target as HTMLInputElement;
     const key = el.closest('.asset-item')!.getAttribute('data-asset')!;
     if (this.local.get(key) === el.value) return;
     if (this.validName(el.value)) env.assets.rename(this.type, key, el.value);
   };
 
-  private nameKeyDown = (e: KeyboardEvent): void => {
+  private readonly nameKeyDown = (e: KeyboardEvent): void => {
     const el = e.target as HTMLElement;
     if (e.key === 'Enter') {
       const key = el.closest('.asset-item')!.getAttribute('data-asset')!;
@@ -149,7 +151,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     }
   };
 
-  private delete = async (e: Event): Promise<void> => {
+  private readonly delete = async (e: Event): Promise<void> => {
     e.stopPropagation();
     const el = (e.currentTarget as Element).closest('.asset-item')!;
     const key = el.getAttribute('data-asset')!;
@@ -158,7 +160,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     this.update();
   };
 
-  private push = async (e: Event): Promise<string | undefined> => {
+  private readonly push = async (e: Event): Promise<string | undefined> => {
     e.stopPropagation();
     const el = (e.currentTarget as Element).closest('.asset-item') as HTMLElement;
     const key = el.dataset.asset!;
@@ -190,7 +192,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     return name;
   };
 
-  private clickTab = (e: Event): void => {
+  private readonly clickTab = (e: Event): void => {
     const tab = (e.currentTarget as HTMLElement).closest('.tab')!;
     const type = tab?.textContent?.slice(0, -1) as AssetType;
     if (!tab || type === this.type) return;
@@ -200,13 +202,13 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     this.update();
   };
 
-  private clickItem = (e: Event): void => {
+  private readonly clickItem = (e: Event): void => {
     const item = (e.currentTarget as HTMLElement).closest('.asset-item') as HTMLElement;
     const oldKey = item?.getAttribute('data-asset');
     if (oldKey && this.isChooser) return this.resolve?.(oldKey);
   };
 
-  private addItem = () => {
+  private readonly addItem = () => {
     const fileInputEl = document.createElement('input');
     fileInputEl.type = 'file';
     fileInputEl.accept = mimeTypes[this.type].join(',');
@@ -246,7 +248,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     return undefined;
   }
 
-  private categories = {
+  private readonly categories = {
     image: {
       placeholder: `<img src="/${env.assets.path}/image/gray-torso.webp">`,
       preview: (key: string) => frag<HTMLElement>(`<img src="${env.bot.getImageUrl(key)}">`),

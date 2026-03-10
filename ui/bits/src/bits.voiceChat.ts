@@ -1,8 +1,9 @@
-import { hl, alert } from 'lib/view';
-import * as licon from 'lib/licon';
 import Peer from 'peerjs';
-import { pubsub } from 'lib/pubsub';
+
 import type { VoiceChat } from 'lib/chat/interfaces';
+import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { hl, alert } from 'lib/view';
 
 type State =
   | 'off'

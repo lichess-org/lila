@@ -454,9 +454,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def magicLinkSent = Open:
     Ok.page(views.auth.magicLinkSent)
 
-  def makeLoginToken = AuthOrScoped(_.Web.Login) { ctx ?=> me ?=>
-    if ctx.isOAuth
-    then lila.log("oauth").info(s"api makeLoginToken ${me.username} ${HTTPRequest.printClient(ctx.req)}")
+  def makeLoginToken = Auth { ctx ?=> me ?=>
     JsonOk:
       env.security.loginToken
         .generate(me)

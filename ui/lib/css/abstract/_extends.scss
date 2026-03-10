@@ -24,6 +24,7 @@
 
   draw {
     @extend %roboto;
+
     margin-inline-start: 1ch;
     font-weight: normal;
   }
@@ -48,7 +49,6 @@
 
 %page-link {
   @extend %page-link-font !optional;
-
   @extend %page-text-shadow !optional;
 }
 
@@ -139,6 +139,7 @@
   @include if-transp {
     @include back-blur;
   }
+
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -146,6 +147,7 @@
   @include if-transp {
     @include back-blur;
   }
+
   box-shadow:
     0 14px 28px rgba(0, 0, 0, 0.25),
     0 10px 10px rgba(0, 0, 0, 0.22);

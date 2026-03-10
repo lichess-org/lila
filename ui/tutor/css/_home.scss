@@ -1,24 +1,30 @@
 .tutor {
   &-home {
     @extend %flex-column;
+
     gap: $block-gap;
     overflow: hidden;
 
     .box {
       @extend %box-neat-force;
     }
+
     &__first-wait .tutor__waiting__games {
       padding-top: 0;
     }
   }
+
   &__first-report {
     text-align: center;
+
     button {
       margin: 5vh 0;
     }
   }
+
   ol {
     margin-bottom: 1em;
+
     li {
       list-style: number;
       list-style-position: inside;
@@ -27,6 +33,7 @@
 
   &__reports-list {
     @extend %flex-column;
+
     gap: 0.3em;
   }
 }

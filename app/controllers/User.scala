@@ -128,8 +128,6 @@ final class User(
                   _ <- env.tournament.cached.nameCache.preloadMany {
                     pag.currentPageResults.flatMap((_: GameModel).tournamentId).map(tid => tid -> ctx.lang)
                   }
-                  notes <- ctx.useMe:
-                    env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id))
                   res <-
                     if HTTPRequest.isSynchronousHttp(ctx.req) then
                       for
@@ -140,9 +138,9 @@ final class User(
                           lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
                         )
                         res <- Ok.page:
-                          views.user.show.page.games(info, pag, filters, searchForm, social, notes)
+                          views.user.show.page.games(info, pag, filters, searchForm, social)
                       yield res
-                    else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter, notes)).toFuccess
+                    else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter)).toFuccess
                 yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
                 json = apiGames(u, filter, page)
               )
@@ -383,9 +381,9 @@ final class User(
             .zip(env.playban.api.bans(user.id))
             .map(ui.showRageSitAndPlaybans)
 
-        val actions = env.user.repo.isDeleted(user).map { deleted =>
-          ui.actions(user, emails, deleted, env.mod.presets.getPmPresets)
-        }
+        val actions =
+          for flags <- env.user.repo.closedFlags(user)
+          yield ui.actions(user, emails, flags, env.mod.presets.getPmPresets)
 
         val userLoginsFu = env.security.userLogins(user, nbOthers)
         val othersAndLogins = for
@@ -453,15 +451,9 @@ final class User(
       .orFail(s"No such user $username")
       .flatMap:
         case WithPerfsAndEmails(user, emails) =>
-          env.user.repo.isDeleted(user).flatMap { deleted =>
-            Ok.snip:
-              views.mod.user.actions(
-                user,
-                emails,
-                deleted,
-                env.mod.presets.getPmPresets
-              )
-          }
+          for flags <- env.user.repo.closedFlags(user)
+          yield Ok.snip:
+            views.mod.user.actions(user, emails, flags, env.mod.presets.getPmPresets)
 
   def writeNote(username: UserStr) = AuthBody { ctx ?=> me ?=>
     bindForm(lila.user.UserForm.note)(

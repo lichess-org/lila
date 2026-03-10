@@ -16,52 +16,43 @@ final private class OpeningExplorer(
     ws: StandaloneWSClient,
     explorerEndpoint: Url,
     oauthToken: Secret
-)(using Scheduler, Executor):
+)(using Executor):
   import OpeningExplorer.*
 
   private val requestTimeout = 4.seconds
 
-  private val anonStatsReqCounter = PeriodicCounter(1.minute)
-  private val maxAnonStatsPerMinute = 200
-
   // weird looking return type, but it was convenient here
-  def stats(play: Vector[Uci], config: OpeningConfig, crawler: Crawler)(using
-      me: Option[MyId]
-  ): Fu[Try[Option[Position]]] =
-    if me.isEmpty then anonStatsReqCounter.increment()
-    if me.isEmpty && anonStatsReqCounter.get > maxAnonStatsPerMinute
-    then fuccess(Failure(AnonRateLimit))
-    else
-      ws.url(s"$explorerEndpoint/lichess")
-        .withHttpHeaders("Authorization" -> s"Bearer ${oauthToken.value}")
-        .withQueryStringParameters(
-          "since" -> OpeningQuery.firstMonth,
-          "play" -> play.map(_.uci).mkString(","),
-          "ratings" -> config.ratings.mkString(","),
-          "speeds" -> config.speeds.map(_.key).mkString(","),
-          "history" -> "yes",
-          "source" -> (if crawler.yes then "openingCrawler" else "opening")
-        )
-        .withRequestTimeout(requestTimeout)
-        .get()
-        .flatMap:
-          case res if res.status == 404 => fuccess(none)
-          case res if res.status != 200 =>
-            fufail(s"Couldn't reach the opening explorer: ${res.status}")
-          case res =>
-            res
-              .body[JsValue]
-              .validate[Position]
-              .fold(
-                err => fufail(s"Couldn't parse $err"),
-                data => fuccess(data.some)
-              )
-        .monSuccess(_.opening.explorer.stats)
-        .map(Success(_))
-        .recover:
-          case e: Exception =>
-            logger.warn(s"Opening stats $play $config", e)
-            Failure(e)
+  def stats(play: Vector[Uci], config: OpeningConfig, crawler: Crawler): Fu[Try[Option[Position]]] =
+    ws.url(s"$explorerEndpoint/lichess")
+      .withHttpHeaders("Authorization" -> s"Bearer ${oauthToken.value}")
+      .withQueryStringParameters(
+        "since" -> OpeningQuery.firstMonth,
+        "play" -> play.map(_.uci).mkString(","),
+        "ratings" -> config.ratings.mkString(","),
+        "speeds" -> config.speeds.map(_.key).mkString(","),
+        "history" -> "yes",
+        "source" -> (if crawler.yes then "openingCrawler" else "opening")
+      )
+      .withRequestTimeout(requestTimeout)
+      .get()
+      .flatMap:
+        case res if res.status == 404 => fuccess(none)
+        case res if res.status != 200 =>
+          fufail(s"Couldn't reach the opening explorer: ${res.status}")
+        case res =>
+          res
+            .body[JsValue]
+            .validate[Position]
+            .fold(
+              err => fufail(s"Couldn't parse $err"),
+              data => fuccess(data.some)
+            )
+      .monSuccess(_.opening.explorer.stats)
+      .map(Success(_))
+      .recover:
+        case e: Exception =>
+          logger.warn(s"Opening stats $play $config", e)
+          Failure(e)
 
   private[opening] def simplePopularity(opening: Opening): Fu[Option[Long]] =
     ws.url(s"$explorerEndpoint/lichess")
@@ -94,9 +85,6 @@ final private class OpeningExplorer(
       }
 
 private object OpeningExplorer:
-
-  object AnonRateLimit extends lila.core.lilaism.LilaExceptionNoStack:
-    val message = "Too many anon requests"
 
   case class Position(
       white: Long,

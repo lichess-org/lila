@@ -1,9 +1,11 @@
 import { h, type VNode } from 'snabbdom';
+
+import { throttle } from 'lib/async';
 import * as licon from 'lib/licon';
 import { bindSubmit, alert } from 'lib/view';
-import type { User } from '../interfaces';
+
 import type MsgCtrl from '../ctrl';
-import { throttle } from 'lib/async';
+import type { User } from '../interfaces';
 
 export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
   const connected = ctrl.connected();
@@ -81,7 +83,7 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
 
   // send the content on <enter.
   area.addEventListener('keypress', (e: KeyboardEvent) => {
-    if ((e.which === 10 || e.which === 13) && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       setTimeout(send);
     }

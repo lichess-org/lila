@@ -29,6 +29,7 @@
 
   .box {
     margin-bottom: 4em;
+
     > p {
       padding-bottom: 2em;
     }
@@ -40,6 +41,7 @@
     display: block;
     margin: 2em auto;
   }
+
   .redacted {
     background: black;
     color: black;
@@ -104,33 +106,42 @@
 
     fieldset {
       @extend %box-neat;
+
       border: $c-border;
       background: $m-accent_bg--mix-10;
       flex: 1 1 49%;
     }
+
     legend {
       @extend %roboto, %box-radius-top;
+
       text-transform: uppercase;
       letter-spacing: 0.2ch;
       background: $m-accent_bg--mix-10;
       padding: 0.2em 1em;
       margin-left: 1em;
     }
+
     .form-check__container {
       margin-inline-start: 1em;
     }
+
     .form-label {
       font-weight: normal;
     }
 
     div {
       @extend %flex-center-nowrap;
+
       margin-top: 1em;
+
       &:last-child {
         margin-bottom: 1em;
       }
+
       em {
         @extend %roboto;
+
         margin-inline-start: 1rem;
         color: $c-font-dimmer;
         unicode-bidi: plaintext;
@@ -162,6 +173,7 @@
 
     &:focus-visible {
       outline: none;
+
       h2 {
         outline: $outline;
         outline-offset: 2px;
@@ -186,6 +198,7 @@
         width: 100%;
         height: 1px;
         background: linear-gradient(to right, $m-accent--fade-50, $c-bg-box 80%);
+
         @include if-rtl {
           background: linear-gradient(to left, $m-accent--fade-50, $c-bg-box 80%);
         }
@@ -232,6 +245,7 @@
     th {
       vertical-align: bottom;
       color: $c-font-dim;
+
       i {
         font-size: 2em;
         display: block;
@@ -282,10 +296,13 @@
 .personal-data {
   &__header {
     @extend %flex-between;
+
     margin-bottom: 3em;
   }
+
   .raw-text {
     @extend %box-radius, %break-word;
+
     font-family: monospace;
     background: $c-bg-page;
     padding: 1em 2em;

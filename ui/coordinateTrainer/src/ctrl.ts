@@ -1,9 +1,15 @@
 import { sparkline } from '@fnando/sparkline';
-import { text as xhrText, form as xhrForm } from 'lib/xhr';
-import { type Prop, myUserId, withEffect } from 'lib';
-import { makeVoice, type VoiceCtrl } from 'voice';
-import { storedBooleanProp, storedProp } from 'lib/storage';
 import type { Api as CgApi } from '@lichess-org/chessground/api';
+import { COLORS } from 'chessops';
+import { makeVoice, type VoiceCtrl } from 'voice';
+
+import { type Prop, myUserId, withEffect } from 'lib';
+import { pubsub } from 'lib/pubsub';
+import type { ColorChoice } from 'lib/setup/color';
+import { storedBooleanProp, storedProp } from 'lib/storage';
+import { toggleZenMode } from 'lib/view/zen';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
+
 import type {
   TimeControl,
   CoordinateTrainerConfig,
@@ -12,10 +18,6 @@ import type {
   ModeScores,
   Redraw,
 } from './interfaces';
-import { pubsub } from 'lib/pubsub';
-import type { ColorChoice } from 'lib/setup/color';
-import { COLORS } from 'chessops';
-import { toggleZenMode } from 'lib/view/zen';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   colorChoice === 'random' ? COLORS[Math.round(Math.random())] : colorChoice;
@@ -219,7 +221,7 @@ export default class CoordinateTrainerCtrl {
     }, 1000);
   };
 
-  private tick = () => {
+  private readonly tick = () => {
     if (!this.playing) return;
     const timeSpent = Math.min(DURATION, new Date().getTime() - +this.timeAtStart);
     this.timeLeft = DURATION - timeSpent;

@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["promise", "typescript", "unicorn"],
+  "plugins": ["import", "promise", "typescript", "unicorn"],
   "env": {
     "builtin": true
   },
@@ -26,6 +26,7 @@
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
+    "import/no-cycle": "error",
     "prefer-promise-reject-errors": "error",
     "promise/no-callback-in-promise": "error",
     "promise/no-multiple-resolved": "error",
@@ -38,9 +39,13 @@
     "typescript/no-unnecessary-type-arguments": "error",
     "typescript/no-unnecessary-type-assertion": "error",
     "typescript/no-unnecessary-type-constraint": "error",
+    "typescript/prefer-readonly": "error",
+    "unicorn/no-immediate-mutation": "error",
+    "unicorn/no-useless-collection-argument": "error",
     "unicorn/prefer-array-flat": "error",
     "unicorn/prefer-array-flat-map": "error",
     "unicorn/prefer-array-some": "error",
+    "unicorn/prefer-keyboard-event-key": "error",
     "no-restricted-globals": [
       "error",
       "addEventListener",
@@ -230,8 +235,13 @@
     {
       "files": ["bin/**", "cron/**"],
       "rules": {
-        "no-unused-vars": "off",
-        "unicorn/prefer-array-some": "off"
+        "no-unused-vars": "off"
+      }
+    },
+    {
+      "files": ["ui/.build/**"],
+      "rules": {
+        "import/no-cycle": "off"
       }
     }
   ]

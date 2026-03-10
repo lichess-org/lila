@@ -1,23 +1,25 @@
 .hooks__chart {
   @extend %abs-100;
+  @include inline-end(0);
 
   bottom: 0;
-  @include inline-end(0);
   overflow: hidden;
 
   .label {
     @extend %page-text-shadow;
+    @include inline-start(3px);
+
     color: $c-font-dim;
     font-size: 0.7em;
     position: absolute;
-    @include inline-start(3px);
     bottom: 1px;
     font-weight: bold;
   }
 
   .grid {
-    position: absolute;
     @include inline-start(0);
+
+    position: absolute;
     bottom: 0;
 
     &.horiz {
@@ -38,14 +40,13 @@
   }
 
   .plot {
+    @include transition;
+
     position: absolute;
     cursor: pointer;
     z-index: 3;
     font-size: 1.6em;
     opacity: 0.7;
-
-    @include transition;
-
     transform: scale(1);
 
     &.rated {

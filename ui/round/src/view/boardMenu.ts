@@ -1,9 +1,10 @@
-import { hl, type LooseVNode, boardMenu as menuDropdown, boolPrefXhrToggle } from 'lib/view';
-import { cmnToggleWrap } from 'lib/view/cmn-toggle';
-import type RoundController from '../ctrl';
 import { toggle } from 'lib';
 import { displayColumns, isTouchDevice } from 'lib/device';
 import { storage } from 'lib/storage';
+import { hl, type LooseVNode, boardMenu as menuDropdown, boolPrefXhrToggle } from 'lib/view';
+import { cmnToggleWrap } from 'lib/view/cmn-toggle';
+
+import type RoundController from '../ctrl';
 
 export default function (ctrl: RoundController): LooseVNode {
   return menuDropdown(ctrl.redraw, ctrl.menu, menu => {

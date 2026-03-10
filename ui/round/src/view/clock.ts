@@ -1,9 +1,3 @@
-import { type LooseVNode, hl, bind } from 'lib/view';
-import * as licon from 'lib/licon';
-import { renderClock } from 'lib/game/clock/clockView';
-import RoundController from '../ctrl';
-import renderCorresClock from '../corresClock/corresClockView';
-import { moretime } from './button';
 import {
   aborted,
   berserkableBy,
@@ -13,7 +7,14 @@ import {
   type TopOrBottom,
   type TournamentRanks,
 } from 'lib/game';
+import { renderClock } from 'lib/game/clock/clockView';
+import * as licon from 'lib/licon';
+import { type LooseVNode, hl, bind } from 'lib/view';
+
+import renderCorresClock from '../corresClock/corresClockView';
+import type RoundController from '../ctrl';
 import { justIcon } from '../util';
+import { moretime } from './button';
 
 export const anyClockView = (ctrl: RoundController, position: TopOrBottom): LooseVNode => {
   const player = ctrl.playerAt(position);

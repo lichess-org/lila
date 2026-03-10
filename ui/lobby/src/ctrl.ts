@@ -1,10 +1,12 @@
 import { numberFormat } from 'lib/i18n';
-import variantConfirm from './variant';
-import * as hookRepo from './hookRepo';
-import * as seekRepo from './seekRepo';
-import { make as makeStores, type Stores } from './store';
-import * as xhr from './xhr';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
+import { pubsub } from 'lib/pubsub';
+import { colors, type ColorChoice } from 'lib/setup/color';
+import { wsPingInterval } from 'lib/socket';
+import { storage, type LichessStorage } from 'lib/storage';
+
+import Filter from './filter';
+import * as hookRepo from './hookRepo';
 import type {
   LobbyOpts,
   LobbyData,
@@ -18,13 +20,12 @@ import type {
   ForceSetupOptions,
   LobbyMe,
 } from './interfaces';
-import LobbySocket from './socket';
-import Filter from './filter';
+import * as seekRepo from './seekRepo';
 import SetupController from './setupCtrl';
-import { storage, type LichessStorage } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
-import { wsPingInterval } from 'lib/socket';
-import { colors, type ColorChoice } from 'lib/setup/color';
+import LobbySocket from './socket';
+import { make as makeStores, type Stores } from './store';
+import variantConfirm from './variant';
+import * as xhr from './xhr';
 
 export default class LobbyController {
   data: LobbyData;
@@ -43,9 +44,9 @@ export default class LobbyController {
   filter: Filter;
   setupCtrl: SetupController;
 
-  private poolInStorage: LichessStorage;
+  private readonly poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
-  private alreadyWatching: string[] = [];
+  private readonly alreadyWatching: string[] = [];
 
   constructor(
     readonly opts: LobbyOpts,
@@ -202,7 +203,7 @@ export default class LobbyController {
     this.flushHooksTimeout = this.flushHooksSchedule();
   };
 
-  private flushHooksSchedule = () => setTimeout(this.flushHooks, 8000);
+  private readonly flushHooksSchedule = () => setTimeout(this.flushHooks, 8000);
 
   setTab = (tab: Tab) => {
     if (tab !== this.tab) {
@@ -323,7 +324,7 @@ export default class LobbyController {
 
   // after click on round "new opponent" button
   // also handles onboardink link for anon users
-  private joinPoolFromLocationHash = () => {
+  private readonly joinPoolFromLocationHash = () => {
     if (location.hash.startsWith('#pool/')) {
       const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
         match = regex.exec(location.hash),

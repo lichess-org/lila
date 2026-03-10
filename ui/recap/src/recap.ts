@@ -1,9 +1,11 @@
 import { init, classModule, attributesModule } from 'snabbdom';
-import { view, awaiter } from './view';
-import { makeSwiper } from './swiper';
-import { json } from 'lib/xhr';
+
 import { isMobile } from 'lib/device';
+import { json } from 'lib/xhr';
+
 import type { Opts } from './interfaces';
+import { makeSwiper } from './swiper';
+import { view, awaiter } from './view';
 
 const patch = init([classModule, attributesModule]);
 

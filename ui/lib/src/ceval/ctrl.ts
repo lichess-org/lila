@@ -1,6 +1,16 @@
 // no side effects allowed due to re-export by index.ts
 
+import type { Rules } from 'chessops';
+import { lichessRules } from 'chessops/compat';
+import { parseFen } from 'chessops/fen';
+import { setupPosition } from 'chessops/variant';
+
+import type { LocalEval, PvData, TreePath } from '@/tree/types';
+
+import { clamp } from '../algo';
 import { throttle } from '../async';
+import { prop, type Prop, type Toggle, toggle } from '../index';
+import { storedIntProp, storage } from '../storage';
 import { Engines } from './engines/engines';
 import {
   type CevalOpts,
@@ -14,15 +24,7 @@ import {
   CevalState,
 } from './types';
 import { sanIrreversible, showEngineError, fewerCores } from './util';
-import { setupPosition } from 'chessops/variant';
-import { parseFen } from 'chessops/fen';
-import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, type Prop, type Toggle, toggle } from '../index';
-import { clamp } from '../algo';
-import { storedIntProp, storage } from '../storage';
-import type { Rules } from 'chessops';
-import type { LocalEval, PvData, TreePath } from '@/tree/types';
 
 export default class CevalCtrl {
   opts: CevalOpts;
@@ -103,7 +105,7 @@ export default class CevalCtrl {
     return !document.hidden && this.analysable;
   }
 
-  private doStart = (path: TreePath, steps: Step[], gameId: string | undefined, threatMode: boolean) => {
+  private readonly doStart = (path: TreePath, steps: Step[], gameId: string | undefined, threatMode: boolean) => {
     const step = steps[steps.length - 1];
     if (
       !this.isDeeper() &&
@@ -284,6 +286,6 @@ export default class CevalCtrl {
   }
 
   private lastEmitFen: string | null = null;
-  private sortPvsInPlace = (pvs: PvData[], color: Color) =>
+  private readonly sortPvsInPlace = (pvs: PvData[], color: Color) =>
     pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 }

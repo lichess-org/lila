@@ -1,6 +1,7 @@
+import fg from 'fast-glob';
 import fs from 'node:fs';
 import { dirname, join, basename } from 'node:path';
-import fg from 'fast-glob';
+
 import { env } from './env.ts';
 
 export interface Package {

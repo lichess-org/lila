@@ -1,6 +1,7 @@
-import * as chart from 'chart.js';
 import 'chartjs-adapter-dayjs-4';
+import * as chart from 'chart.js';
 import dayjs from 'dayjs';
+
 import type { OpeningPage } from './interfaces';
 
 chart.Chart.register(

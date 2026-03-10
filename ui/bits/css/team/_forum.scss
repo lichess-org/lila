@@ -36,12 +36,14 @@
 
     p {
       @extend %zalgoverflow;
+
       color: $c-font-dim;
       text-align: start;
     }
 
     a.more {
       @extend %zalgoverflow;
+
       display: block;
       text-align: right;
       margin: 10px 10px 0 0;

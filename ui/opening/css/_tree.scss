@@ -1,75 +1,99 @@
 .opening {
   &__tree {
     @include prevent-select;
+
     details[open] {
       border-color: $c-primary;
       padding-bottom: 0.4em;
 
       > summary {
         @extend %box-radius-top;
+
         border-bottom: $border;
       }
     }
+
     summary {
       cursor: pointer;
+
       &:focus-visible {
         outline: $outline;
       }
     }
+
     > div,
     > details {
       font-size: 2em;
       margin-bottom: 0.7em;
     }
+
     > div {
       padding: 0.5em 0.5em 0.5em 2em;
     }
+
     > details {
       @extend %box-neat;
+
       background: $c-bg-zebra;
       border: $border;
+
       > summary {
         @extend %box-radius;
+
         padding: 0.5em 0.5em 0.5em 1em;
+
         &:hover {
           background: $m-primary_bg--mix-20;
         }
       }
+
       > div,
       > details {
         margin: 0.5em 0.5em 0 1rem;
         font-size: 0.7em;
       }
+
       > div {
         padding: 0.5em 0.5em 0.5em 1.9em;
       }
+
       > details {
         @extend %box-radius;
+
         border: $border;
         background: $c-bg-zebra2;
+
         > summary {
           @extend %box-radius;
+
           padding: 0.5em 0.5em 0.5em 1em;
+
           &:hover {
             background: $m-primary_bg--mix-20;
           }
         }
+
         > div,
         > details {
           margin: 0.5em 0.5em 0 1.5rem;
           font-size: 0.8em;
         }
+
         > div {
           padding: 0.5em 0.5em 0.5em 1.7em;
         }
+
         > details {
           > summary {
             padding: 0.5em 0.5em 0.5em 1em;
+
             &:hover {
               @extend %box-radius;
+
               background: $m-primary_bg--mix-20;
             }
           }
+
           div,
           details {
             margin: 0.5em 0.5em 0.3em 3rem;

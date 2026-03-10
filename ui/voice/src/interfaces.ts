@@ -1,5 +1,6 @@
-import type { Prop, Toggle } from 'lib';
 import type { VNode } from 'snabbdom';
+
+import type { Prop, Toggle } from 'lib';
 
 export type MsgType = 'full' | 'partial' | 'status' | 'error' | 'stop' | 'start';
 export type Listener = (msgText: string, msgType: MsgType) => void;

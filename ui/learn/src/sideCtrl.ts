@@ -1,8 +1,9 @@
-import { stageIdToCategId, byKey as stageByKey, list as stageList } from './stage/list';
-import * as scoring from './score';
 import { type Prop, propWithEffect } from 'lib';
+
+import type { LearnCtrl } from './ctrl';
 import type { LearnProgress, LearnOpts } from './learn';
-import { LearnCtrl } from './ctrl';
+import * as scoring from './score';
+import { stageIdToCategId, byKey as stageByKey, list as stageList } from './stage/list';
 
 export class SideCtrl {
   opts: LearnOpts;

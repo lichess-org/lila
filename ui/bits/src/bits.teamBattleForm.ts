@@ -1,6 +1,7 @@
-import * as xhr from 'lib/xhr';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
+
+import * as xhr from 'lib/xhr';
 
 interface Team {
   id: string;

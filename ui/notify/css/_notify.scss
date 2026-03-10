@@ -16,14 +16,18 @@
     top: 0;
     padding: 0.5rem;
   }
+
   .settings {
     @include inline-end(0);
+
     &:hover {
       color: $c-link;
     }
   }
+
   .delete {
     @include inline-start(0);
+
     &:hover {
       color: $c-bad;
     }
@@ -85,6 +89,7 @@
 
       &:last-child {
         @extend %ellipsis;
+
         display: block;
       }
     }
@@ -120,6 +125,7 @@
 
     &:hover {
       background: $m-secondary_bg-popup--mix-36;
+
       i {
         opacity: 1;
       }

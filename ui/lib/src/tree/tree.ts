@@ -1,6 +1,6 @@
-import * as treePath from './path';
-import * as ops from './ops';
 import { defined } from '../index';
+import * as ops from './ops';
+import * as treePath from './path';
 import type { Clock, Glyph, Shape, TreeComment, TreeNode, TreePath } from './types';
 
 export { treePath as path, ops };

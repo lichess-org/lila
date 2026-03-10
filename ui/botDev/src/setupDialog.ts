@@ -1,17 +1,19 @@
-import { handOfCards, type HandOfCards } from './handOfCards';
 import * as co from 'chessops';
-import { domDialog, type Dialog } from 'lib/view';
-import { fen960 } from 'lib/game/chess';
-import { pubsub } from 'lib/pubsub';
-import { definedMap, clamp } from 'lib/algo';
-import { domIdToUid, uidToDomId } from './devBotCtrl';
-import { rangeTicks } from './devUtil';
-import type { LocalSetup } from 'lib/bot/types';
-import { env } from './devEnv';
-import * as licon from 'lib/licon';
 import type { LichessEditor } from 'editor';
-import { json } from 'lib/xhr';
+
+import { definedMap, clamp } from 'lib/algo';
+import type { LocalSetup } from 'lib/bot/types';
 import { Janitor } from 'lib/event';
+import { fen960 } from 'lib/game/chess';
+import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { domDialog, type Dialog } from 'lib/view';
+import { json } from 'lib/xhr';
+
+import { domIdToUid, uidToDomId } from './devBotCtrl';
+import { env } from './devEnv';
+import { rangeTicks } from './devUtil';
+import { handOfCards, type HandOfCards } from './handOfCards';
 
 export function showSetupDialog(setup: LocalSetup = {}): void {
   pubsub.after('botdev.images.ready').then(() => new SetupDialog(setup).show());
@@ -157,7 +159,7 @@ class SetupDialog {
       .join('');
   }
 
-  private dropSelect = (_: HTMLElement, domId?: string) => {
+  private readonly dropSelect = (_: HTMLElement, domId?: string) => {
     this.select(domIdToUid(domId));
   };
 
@@ -175,14 +177,14 @@ class SetupDialog {
     if (this.mainContentEl.scrollLeft > 0) this.mainContentEl.scrollLeft = this.mainContentEl.scrollWidth;
   }
 
-  private updateClock = () => {
+  private readonly updateClock = () => {
     for (const type of ['initial', 'increment'] as const) {
       const selectEl = this.dialog.view.querySelector<HTMLSelectElement>(`[data-type="${type}"]`);
       this.setup[type] = Number(selectEl?.value);
     }
   };
 
-  private fight = (asColor: Color = Math.random() < 0.5 ? 'white' : 'black') => {
+  private readonly fight = (asColor: Color = Math.random() < 0.5 ? 'white' : 'black') => {
     this.updateClock();
     this.setup.white = this.setup.black = undefined;
     if (asColor === 'black') this.setup.white = this.uid;

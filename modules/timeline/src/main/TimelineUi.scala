@@ -60,7 +60,7 @@ final class TimelineUi(helpers: Helpers):
         case TourJoin(userId, tourId, tourName) =>
           trans.site.xCompetesInY(
             userLink(userId),
-            a(href := routes.Tournament.show(tourId))(tourName)
+            a(href := addQueryParam(routes.Tournament.show(tourId).url, "player", userId.value))(tourName)
           )
         case SimulCreate(userId, simulId, simulName) =>
           trans.site.xHostsY(

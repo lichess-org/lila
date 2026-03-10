@@ -1,10 +1,12 @@
-import { assetUrl } from './util';
-import { categs } from './stage/list';
-import type { SideCtrl } from './sideCtrl';
 import { h } from 'snabbdom';
+
 import { bind, confirm } from 'lib/view';
-import { BASE_LEARN_PATH, hashHref } from './hashRouting';
+
 import type { LearnCtrl } from './ctrl';
+import { BASE_LEARN_PATH, hashHref } from './hashRouting';
+import type { SideCtrl } from './sideCtrl';
+import { categs } from './stage/list';
+import { assetUrl } from './util';
 
 export function mapSideView(ctrl: LearnCtrl) {
   if (ctrl.inStage()) return renderInStage(ctrl.sideCtrl);

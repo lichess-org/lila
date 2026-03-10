@@ -1,23 +1,27 @@
-import { view as cevalView } from 'lib/ceval';
-import * as licon from 'lib/licon';
-import { type VNode, onInsert, hl } from 'lib/view';
-import { playable } from 'lib/game';
-import * as router from 'lib/game/router';
-import { render as trainingView } from './roundTraining';
-import crazyView from '../crazy/crazyView';
-import type AnalyseCtrl from '../ctrl';
-import forecastView from '../forecast/forecastView';
-import { view as keyboardView } from '../keyboard';
 import { render as renderKeyboardMove } from 'keyboardMove';
-import type * as studyDeps from '../study/studyDeps';
-import { relayView } from '../study/relay/relayView';
-import { studyView } from '../study/studyView';
-import { viewContext, renderBoard, renderMain, renderTools, renderUnderboard } from './components';
-import { wikiToggleBox } from '../wiki';
-import { watchers } from 'lib/view/watchers';
+
+import { view as cevalView } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
 import { displayColumns } from 'lib/device';
+import { playable } from 'lib/game';
+import * as router from 'lib/game/router';
+import * as licon from 'lib/licon';
+import { type VNode, onInsert, hl } from 'lib/view';
+import { watchers } from 'lib/view/watchers';
+
+import crazyView from '@/crazy/crazyView';
+import type AnalyseCtrl from '@/ctrl';
+import forecastView from '@/forecast/forecastView';
+import { view as keyboardView } from '@/keyboard';
+import { relayView } from '@/study/relay/relayView';
+import type * as studyDeps from '@/study/studyDeps';
+import { studyView } from '@/study/studyView';
+import { wikiToggleBox } from '@/wiki';
+
+import { viewContext, renderBoard, renderMain, renderUnderboard } from './components';
 import { renderControls } from './controls';
+import { render as trainingView } from './roundTraining';
+import { renderTools } from './tools';
 
 let resizeCache: {
   columns: number;

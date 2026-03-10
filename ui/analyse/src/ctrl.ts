@@ -1,24 +1,16 @@
-import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
-import * as keyboard from './keyboard';
-import { treeReconstruct, addCrazyData } from './util';
-import { plural } from './view/util';
-import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
-import type StudyCtrl from './study/studyCtrl';
-import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
+import { Result } from '@badrap/result';
 import type { Api as ChessgroundApi } from '@lichess-org/chessground/api';
-import { Autoplay, type AutoplayDelay } from './autoplay';
-import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
-import { compute as computeAutoShapes } from './autoShape';
 import type { Config as ChessgroundConfig } from '@lichess-org/chessground/config';
-import {
-  CevalCtrl,
-  isEvalBetter,
-  sanIrreversible,
-  type CevalHandler,
-  type EvalMeta,
-  type CevalOpts,
-} from 'lib/ceval';
-import { TreeView } from './treeView/treeView';
+import type { DrawShape } from '@lichess-org/chessground/draw';
+import { uciToMove } from '@lichess-org/chessground/util';
+import { makeFen } from 'chessops/fen';
+import type { PgnError } from 'chessops/pgn';
+import { makeSanAndPlay } from 'chessops/san';
+import { isNormal, type Move } from 'chessops/types';
+import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from 'chessops/util';
+import { normalizeMove } from 'chessops/variant';
+import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
+
 import {
   defined,
   prop,
@@ -30,40 +22,50 @@ import {
   type Prop,
   type Toggle,
 } from 'lib';
+import {
+  CevalCtrl,
+  isEvalBetter,
+  sanIrreversible,
+  type CevalHandler,
+  type EvalMeta,
+  type CevalOpts,
+} from 'lib/ceval';
+import { ChatCtrl } from 'lib/chat/chatCtrl';
+import { displayColumns } from 'lib/device';
+import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
+import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
-import type { DrawShape } from '@lichess-org/chessground/draw';
+import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
+import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
+import { completeNode } from 'lib/tree/node';
+import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
+import { confirm } from 'lib/view';
+
+import api from './api';
+import { Autoplay, type AutoplayDelay } from './autoplay';
+import { compute as computeAutoShapes } from './autoShape';
+import * as control from './control';
+import { valid as crazyValid } from './crazy/crazyCtrl';
 import EvalCache from './evalCache';
+import ExplorerCtrl from './explorer/explorerCtrl';
+import ForecastCtrl from './forecast/forecastCtrl';
 import { ForkCtrl } from './fork';
+import { IdbTree } from './idbTree';
+import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
+import * as keyboard from './keyboard';
+import MotifCtrl from './motif/motifCtrl';
+import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
+import pgnImport from './pgnImport';
 import { make as makePractice, type PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeRetro, type RetroCtrl } from './retrospect/retroCtrl';
 import { make as makeSocket, type Socket } from './socket';
-import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
-import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from 'chessops/util';
-import { isNormal, type Move } from 'chessops/types';
-import { makeFen } from 'chessops/fen';
-import { normalizeMove } from 'chessops/variant';
-import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
+import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type { AnaMove } from './study/interfaces';
-import { valid as crazyValid } from './crazy/crazyCtrl';
-import { PromotionCtrl } from 'lib/game/promotion';
+import type StudyCtrl from './study/studyCtrl';
+import { TreeView } from './treeView/treeView';
+import { treeReconstruct, addCrazyData } from './util';
+import { plural } from './view/util';
 import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
-import ExplorerCtrl from './explorer/explorerCtrl';
-import { uciToMove } from '@lichess-org/chessground/util';
-import { IdbTree } from './idbTree';
-import pgnImport from './pgnImport';
-import ForecastCtrl from './forecast/forecastCtrl';
-import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
-import * as control from './control';
-import type { PgnError } from 'chessops/pgn';
-import { ChatCtrl } from 'lib/chat/chatCtrl';
-import { confirm } from 'lib/view';
-import api from './api';
-import { displayColumns } from 'lib/device';
-import MotifCtrl from './motif/motifCtrl';
-import { makeSanAndPlay } from 'chessops/san';
-import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
-import { completeNode } from 'lib/tree/node';
-import { Result } from '@badrap/result';
 
 export default class AnalyseCtrl implements CevalHandler {
   data: AnalyseData;
@@ -104,7 +106,7 @@ export default class AnalyseCtrl implements CevalHandler {
   onMainline = true;
   synthetic: boolean; // false if coming from a real game
   ongoing: boolean; // true if real game is ongoing
-  private cevalEnabledProp = storedBooleanProp('engine.enabled', false);
+  private readonly cevalEnabledProp = storedBooleanProp('engine.enabled', false);
 
   // display flags
   flipped = false;
@@ -113,7 +115,7 @@ export default class AnalyseCtrl implements CevalHandler {
   showManeuverMoveArrowsProp: Prop<boolean>;
   variationArrowOpacity: Prop<number | false>;
   showGauge = storedBooleanProp('analyse.show-gauge', true);
-  private showCevalProp: Prop<boolean> = storedBooleanProp('analyse.show-engine', !!this.cevalEnabledProp());
+  private readonly showCevalProp: Prop<boolean> = storedBooleanProp('analyse.show-engine', !!this.cevalEnabledProp());
   showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
   possiblyShowMoveAnnotationsOnBoard = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
@@ -274,7 +276,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return this.data.game.variant.key;
   }
 
-  private makeInitialPath = (): TreePath => {
+  private readonly makeInitialPath = (): TreePath => {
     // if correspondence, always use latest actual move to set 'current' style
     if (this.ongoing) return treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     const loc = window.location,
@@ -295,7 +297,7 @@ export default class AnalyseCtrl implements CevalHandler {
     else wikiClear();
   };
 
-  private setPath = (path: TreePath): void => {
+  private readonly setPath = (path: TreePath): void => {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList) as TreeNode;
@@ -412,11 +414,11 @@ export default class AnalyseCtrl implements CevalHandler {
     this.cgVersion.dom = this.cgVersion.js;
   };
 
-  private onChange: () => void = throttle(300, () => {
+  private readonly onChange: () => void = throttle(300, () => {
     pubsub.emit('analysis.change', this.node.fen, this.path);
   });
 
-  private updateHref: () => void = debounce(() => {
+  private readonly updateHref: () => void = debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
   }, 750);
 
@@ -703,7 +705,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (!site.blindMode) this.chessground?.setAutoShapes(computeAutoShapes(this));
   };
 
-  private onNewCeval = (ev: ClientEval, path: TreePath, isThreat?: boolean): void => {
+  private readonly onNewCeval = (ev: ClientEval, path: TreePath, isThreat?: boolean): void => {
     this.tree.updateAt(path, (node: TreeNode) => {
       if (node.fen !== ev.fen && !isThreat) return;
 
@@ -929,7 +931,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   isGamebook = (): boolean => !!this.study?.data.chapter.gamebook;
 
-  private closeTools = () => {
+  private readonly closeTools = () => {
     this.retro = undefined;
     this.togglePractice(false);
     if (this.explorer.enabled()) this.explorer.toggle();
@@ -959,7 +961,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return !n.eval && !!n.children.length && n.ply <= 300 && n.ply > 0;
   }
 
-  private canEvalGet = (): boolean => {
+  private readonly canEvalGet = (): boolean => {
     if (this.node.ply >= 15 && !this.opts.study) return false;
 
     // cloud eval does not support threefold repetition
@@ -974,7 +976,7 @@ export default class AnalyseCtrl implements CevalHandler {
     return true;
   };
 
-  private instanciateEvalCache = () => {
+  private readonly instanciateEvalCache = () => {
     this.evalCache = new EvalCache({
       variant: this.data.game.variant.key,
       canGet: this.canEvalGet,
@@ -1070,7 +1072,7 @@ export default class AnalyseCtrl implements CevalHandler {
     };
   }
 
-  private pluginUpdate = (fen: FEN) => {
+  private readonly pluginUpdate = (fen: FEN) => {
     // If controller and chessground board states differ, ignore this update. Once the chessground
     // state is updated to match, pluginUpdate will be called again.
     if (!fen.startsWith(this.chessground?.getFen())) return;
@@ -1079,7 +1081,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
   showBestMoveArrows = () => this.showBestMoveArrowsProp() && !this.retro?.hideComputerLine(this.node);
 
-  private resetAutoShapes = () => {
+  private readonly resetAutoShapes = () => {
     if (
       this.showBestMoveArrows() ||
       this.possiblyShowMoveAnnotationsOnBoard() ||

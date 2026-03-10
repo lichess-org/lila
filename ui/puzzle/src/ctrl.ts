@@ -1,10 +1,30 @@
-import * as xhr from './xhr';
-import computeAutoShapes from './autoShape';
-import keyboard from './keyboard';
-import moveTest from './moveTest';
-import PuzzleSession from './session';
-import PuzzleStreak from './streak';
+import { Result } from '@badrap/result';
+import { uciToMove } from '@lichess-org/chessground/util';
+import { Chess, normalizeMove } from 'chessops/chess';
+import { chessgroundDests } from 'chessops/compat';
+import { parseFen, makeFen } from 'chessops/fen';
+import { makeSanAndPlay } from 'chessops/san';
+import type { Role, Move, Outcome } from 'chessops/types';
+import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
+import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
+import { makeVoiceMove, type VoiceMove } from 'voice';
+
+import { prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'lib';
 import { type Deferred, defer, throttle } from 'lib/async';
+import { CevalCtrl } from 'lib/ceval';
+import type { CevalHandler } from 'lib/ceval/types';
+import { type WithGround } from 'lib/game/ground';
+import { PromotionCtrl } from 'lib/game/promotion';
+import { pubsub } from 'lib/pubsub';
+import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'lib/storage';
+import { makeTree, treeOps, treePath, type TreeWrapper } from 'lib/tree';
+import { completeNode } from 'lib/tree/node';
+import { last } from 'lib/tree/ops';
+import type { TreeNode, TreePath } from 'lib/tree/types';
+import { alert } from 'lib/view';
+import { toggleZenMode } from 'lib/view/zen';
+
+import computeAutoShapes from './autoShape';
 import type {
   PuzzleOpts,
   PuzzleData,
@@ -14,31 +34,13 @@ import type {
   PuzzleRound,
   RoundThemes,
 } from './interfaces';
-import { makeTree, treeOps, treePath, type TreeWrapper } from 'lib/tree';
-import { Chess, normalizeMove } from 'chessops/chess';
-import { chessgroundDests } from 'chessops/compat';
-import { CevalCtrl } from 'lib/ceval';
-import { makeVoiceMove, type VoiceMove } from 'voice';
-import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
-import { prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'lib';
-import { makeSanAndPlay } from 'chessops/san';
-import { parseFen, makeFen } from 'chessops/fen';
-import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
+import keyboard from './keyboard';
+import moveTest from './moveTest';
 import { pgnToTree, mergeSolution, nextCorrectMove } from './moveTree';
-import { PromotionCtrl } from 'lib/game/promotion';
-import type { Role, Move, Outcome } from 'chessops/types';
-import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'lib/storage';
 import Report from './report';
-import { last } from 'lib/tree/ops';
-import { uciToMove } from '@lichess-org/chessground/util';
-import type { CevalHandler } from 'lib/ceval/types';
-import { pubsub } from 'lib/pubsub';
-import { alert } from 'lib/view';
-import { type WithGround } from 'lib/game/ground';
-import type { TreeNode, TreePath } from 'lib/tree/types';
-import { completeNode } from 'lib/tree/node';
-import { Result } from '@badrap/result';
-import { toggleZenMode } from 'lib/view/zen';
+import PuzzleSession from './session';
+import PuzzleStreak from './streak';
+import * as xhr from './xhr';
 
 export default class PuzzleCtrl implements CevalHandler {
   data: PuzzleData;
@@ -151,7 +153,7 @@ export default class PuzzleCtrl implements CevalHandler {
     $('#zentog').on('click', () => pubsub.emit('zen'));
   }
 
-  private loadSound = (name: string, volume?: number) => {
+  private readonly loadSound = (name: string, volume?: number) => {
     site.sound.load(name, site.sound.url(`${name}.mp3`));
     return () => site.sound.play(name, volume);
   };
@@ -376,7 +378,7 @@ export default class PuzzleCtrl implements CevalHandler {
     if (recursive) node.children.forEach(child => this.reorderChildren(path + child.id, true));
   };
 
-  private instantRevertUserMove = (): void => {
+  private readonly instantRevertUserMove = (): void => {
     this.withGround(g => {
       g.cancelPremove();
       g.selectSquare(null);
@@ -464,7 +466,7 @@ export default class PuzzleCtrl implements CevalHandler {
     }
   };
 
-  private isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
+  private readonly isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
 
   nextPuzzle = (): void => {
     if (this.streak && this.lastFeedback !== 'win') {
@@ -513,7 +515,7 @@ export default class PuzzleCtrl implements CevalHandler {
     if (this.cevalEnabled()) this.doStartCeval();
   };
 
-  private doStartCeval = throttle(800, () =>
+  private readonly doStartCeval = throttle(800, () =>
     this.ceval.start(this.path, this.nodeList, this.data.puzzle.id, this.threatMode()),
   );
 

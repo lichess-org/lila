@@ -21,6 +21,7 @@
 
   &__user {
     @extend %flex-center-nowrap;
+
     overflow: hidden;
   }
 
@@ -30,7 +31,8 @@
     vertical-align: middle;
     opacity: 0.75;
     margin-inline-end: 0.75ch;
-    .mini-game:hover &,
+
+    a.mini-game:hover &,
     .relay-game--current &,
     .mini-game.active & {
       opacity: 1;
@@ -46,6 +48,7 @@
 
     margin-inline-start: 1ch;
     font-size: 0.9em;
+
     body.no-rating & {
       display: none;
     }

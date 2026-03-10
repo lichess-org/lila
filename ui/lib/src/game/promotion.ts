@@ -1,9 +1,11 @@
-import { h } from 'snabbdom';
-import { AutoQueen } from '../prefs';
-import { type MaybeVNode, bind, onInsert } from '@/view';
 import type { DrawShape } from '@lichess-org/chessground/draw';
-import { opposite, key2pos } from '@lichess-org/chessground/util';
 import type { MoveMetadata } from '@lichess-org/chessground/types';
+import { opposite, key2pos } from '@lichess-org/chessground/util';
+import { h } from 'snabbdom';
+
+import { type MaybeVNode, bind, onInsert } from '@/view';
+
+import { AutoQueen } from '../prefs';
 import type { WithGround } from './ground';
 
 export type Hooks = {
@@ -31,10 +33,10 @@ export class PromotionCtrl {
   private prePromotionRole?: Role;
 
   constructor(
-    private withGround: WithGround,
-    private onCancel: () => void,
-    private redraw: Redraw,
-    private autoQueenPref: AutoQueen = AutoQueen.Never,
+    private readonly withGround: WithGround,
+    private readonly onCancel: () => void,
+    private readonly redraw: Redraw,
+    private readonly autoQueenPref: AutoQueen = AutoQueen.Never,
   ) {}
 
   start = (orig: Key, dest: Key, hooks: Hooks, meta?: MoveMetadata, forceAutoQueen = false): boolean =>

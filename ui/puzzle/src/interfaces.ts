@@ -1,8 +1,9 @@
 import type { Move } from 'chessops/types';
 import type { VNode } from 'snabbdom';
-import type { Coords } from 'lib/prefs';
-import perfIcons from 'lib/game/perfIcons';
+
 import type { ExternalEngineInfo } from 'lib/ceval';
+import perfIcons from 'lib/game/perfIcons';
+import type { Coords } from 'lib/prefs';
 import type { TreePath } from 'lib/tree/types';
 
 export type PuzzleId = string;

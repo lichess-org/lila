@@ -36,10 +36,9 @@
 
   .finally {
     @extend %flex-center-nowrap;
-
-    flex: 0 0 auto;
     @include padding-direction(0.7em, 0.7em, 0.7em, 0);
 
+    flex: 0 0 auto;
     background: $c-bg-low;
     font-size: 0.9em;
 

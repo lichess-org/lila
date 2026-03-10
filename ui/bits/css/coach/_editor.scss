@@ -8,10 +8,12 @@
   .top {
     > span {
       @extend %flex-between;
+
       padding: 1em;
 
       > h1 {
         @extend %roboto;
+
         margin: 0;
         padding: 0 1em !important;
         font-size: 2rem;
@@ -25,6 +27,7 @@
       }
     }
   }
+
   .overview {
     width: 100%;
     display: flex;
@@ -103,7 +106,9 @@
 
   .status {
     opacity: 0;
+
     @include transition;
+
     text-align: center;
     color: $c-good;
   }

@@ -1,12 +1,14 @@
-import { dataIcon, hl, onInsert, requiresI18n, spinnerVdom, type VNode, type VNodeData } from 'lib/view';
-import { Group, StudyBoard } from 'lib/licon';
-import { json as xhrJson } from 'lib/xhr';
-import type { RelayTeamName, RelayTeamStandings, TourId } from './interfaces';
-import RelayPlayers, { renderPlayers, tableAugment, type RelayPlayer } from './relayPlayers';
+import type { Tablesort } from 'tablesort';
+
 import { throttle } from 'lib';
+import { Group, StudyBoard } from 'lib/licon';
+import { dataIcon, hl, onInsert, requiresI18n, spinnerVdom, type VNode } from 'lib/view';
+import { json as xhrJson } from 'lib/xhr';
+
 import type { StudyPlayerFromServer } from '../interfaces';
 import { convertPlayerFromServer } from '../studyChapters';
-import type { Tablesort } from 'tablesort';
+import type { RelayTeamName, RelayTeamStandings, TourId } from './interfaces';
+import RelayPlayers, { renderPlayers, tableAugment, type RelayPlayer } from './relayPlayers';
 
 export default class RelayTeamLeaderboard {
   standings: RelayTeamStandings | undefined;
@@ -180,14 +182,8 @@ export default class RelayTeamLeaderboard {
       ),
     );
 
-  private toggleTeam = (team: RelayTeamName) => (ev: PointerEvent) => {
+  private readonly toggleTeam = (team: RelayTeamName) => (ev: PointerEvent) => {
     ev.preventDefault();
     this.setTeamToShow(team);
   };
 }
-
-export const teamLinkData = (teamName: RelayTeamName): VNodeData => ({
-  attrs: {
-    href: `#team-results/${encodeURIComponent(teamName)}`,
-  },
-});

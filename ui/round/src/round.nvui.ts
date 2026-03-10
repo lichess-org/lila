@@ -1,11 +1,12 @@
-import type RoundController from './ctrl';
-import { renderNvui } from './view/nvuiView';
-import type { NvuiPlugin } from './interfaces';
+import { isTouchDevice } from 'lib/device';
 import { type NvuiContext, makeContext } from 'lib/nvui/chess';
 import { makeSetting, type Setting } from 'lib/nvui/setting';
 import { pubsub } from 'lib/pubsub';
 import { storage } from 'lib/storage';
-import { isTouchDevice } from 'lib/device';
+
+import type RoundController from './ctrl';
+import type { NvuiPlugin } from './interfaces';
+import { renderNvui } from './view/nvuiView';
 
 export type RoundNvuiContext = NvuiContext &
   Readonly<{

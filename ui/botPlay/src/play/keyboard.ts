@@ -1,5 +1,6 @@
 import { pubsub } from 'lib/pubsub';
-import PlayCtrl from './playCtrl';
+
+import type PlayCtrl from './playCtrl';
 
 export default function keyboard(ctrl: PlayCtrl): void {
   site.mousetrap

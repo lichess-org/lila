@@ -1,7 +1,8 @@
-import type AnalyseCtrl from '@/ctrl';
 import { path as treePath } from 'lib/tree/tree';
-import { makeShapesFromUci } from '@/autoShape';
 import type { Shape, TreePath } from 'lib/tree/types';
+
+import { makeShapesFromUci } from '@/autoShape';
+import type AnalyseCtrl from '@/ctrl';
 
 export type Feedback = 'play' | 'good' | 'bad' | 'end';
 
@@ -24,7 +25,7 @@ export default class GamebookPlayCtrl {
     this.makeState();
   }
 
-  private makeState = (): void => {
+  private readonly makeState = (): void => {
     const node = this.root.node,
       nodeComment = (node.comments || [])[0],
       state: Partial<State> = {

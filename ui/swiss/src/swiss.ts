@@ -1,7 +1,9 @@
 import { init, type VNode, classModule, attributesModule } from 'snabbdom';
-import type { SwissOpts } from './interfaces';
-import SwissCtrl from './ctrl';
+
 import { wsConnect } from 'lib/socket';
+
+import SwissCtrl from './ctrl';
+import type { SwissOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 

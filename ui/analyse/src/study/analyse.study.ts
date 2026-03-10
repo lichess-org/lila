@@ -1,9 +1,10 @@
-import { patch } from '../view/util';
-import makeStart from '../start';
+import { wsConnect } from 'lib/socket';
+
 import type { AnalyseOpts } from '../interfaces';
 import type { AnalyseSocketSend } from '../socket';
+import makeStart from '../start';
+import { patch } from '../view/util';
 import * as studyDeps from './studyDeps';
-import { wsConnect } from 'lib/socket';
 
 export { patch };
 

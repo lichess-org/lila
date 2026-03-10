@@ -1,10 +1,14 @@
 import { h, type VNode } from 'snabbdom';
-import { text as xhrText, form as xhrForm } from 'lib/xhr';
-import { header, elementScrollBarWidthSlowGuess, moreButton } from './util';
-import { bind } from 'lib/view';
-import { type DasherCtrl, type Dimension, PaneCtrl } from './interfaces';
-import { pubsub } from 'lib/pubsub';
+
 import { type Toggle, toggle } from 'lib';
+import { pubsub } from 'lib/pubsub';
+import { bind } from 'lib/view';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
+
+import type { DasherCtrl } from '@/ctrl';
+
+import { type Dimension, PaneCtrl } from './interfaces';
+import { header, elementScrollBarWidthSlowGuess, moreButton } from './util';
 
 export class PieceCtrl extends PaneCtrl {
   featured: Record<Dimension, string[]> = { d2: [], d3: [] };
@@ -70,7 +74,7 @@ export class PieceCtrl extends PaneCtrl {
     return this.root.data.piece[this.dimension];
   }
 
-  private set = (t: string) => {
+  private readonly set = (t: string) => {
     this.apply(t);
     const field = `pieceSet${this.is3d ? '3d' : ''}`;
     xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>

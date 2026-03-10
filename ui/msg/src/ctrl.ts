@@ -1,3 +1,7 @@
+import { throttle } from 'lib/async';
+import { pubsub } from 'lib/pubsub';
+import { storage, type LichessStorage } from 'lib/storage';
+
 import type {
   MsgData,
   Contact,
@@ -10,11 +14,8 @@ import type {
   Pane,
   Redraw,
 } from './interfaces';
-import { throttle } from 'lib/async';
 import * as network from './network';
 import { scroller } from './view/scroller';
-import { storage, type LichessStorage } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
 
 export default class MsgCtrl {
   data: MsgData;
@@ -89,7 +90,7 @@ export default class MsgCtrl {
     this.redraw();
   };
 
-  private onLoadConvo = (convo: Convo) => {
+  private readonly onLoadConvo = (convo: Convo) => {
     this.textStore = storage.make(`msg:area:${convo.user.id}`);
     this.onLoadMsgs(convo.msgs);
     if (this.typing) {
@@ -98,7 +99,7 @@ export default class MsgCtrl {
     }
     setTimeout(this.setRead, 500);
   };
-  private onLoadMsgs = (msgs: Msg[]) => {
+  private readonly onLoadMsgs = (msgs: Msg[]) => {
     const oldFirstMsg = msgs[this.msgsPerPage - 1];
     this.canGetMoreSince = oldFirstMsg?.date;
   };
@@ -147,17 +148,17 @@ export default class MsgCtrl {
       });
   };
 
-  private addMsg = (msg: LastMsg, contact?: Contact) => {
+  private readonly addMsg = (msg: LastMsg, contact?: Contact) => {
     if (contact) {
       contact.lastMsg = msg;
       this.data.contacts = [contact].concat(this.data.contacts.filter(c => c.user.id !== contact.user.id));
     }
   };
 
-  private findContact = (userId: string): Contact | undefined =>
+  private readonly findContact = (userId: string): Contact | undefined =>
     this.data.contacts.find(c => c.user.id === userId);
 
-  private currentContact = (): Contact | undefined =>
+  private readonly currentContact = (): Contact | undefined =>
     this.data.convo && this.findContact(this.data.convo.user.id);
 
   searchInput = (q: string) => {

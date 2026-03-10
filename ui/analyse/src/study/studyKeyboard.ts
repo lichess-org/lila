@@ -1,4 +1,5 @@
 import { keyToMouseEvent } from '@/keyboard';
+
 import type StudyCtrl from './studyCtrl';
 
 export default function studyKeyboard(ctrl: StudyCtrl) {

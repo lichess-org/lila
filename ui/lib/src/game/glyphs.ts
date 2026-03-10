@@ -1,5 +1,6 @@
-import { parseUci, makeSquare, squareRank } from 'chessops/util';
 import type { DrawShape } from '@lichess-org/chessground/draw';
+import { parseUci, makeSquare, squareRank } from 'chessops/util';
+
 import type { Glyph, TreeNode } from '@/tree/types';
 
 // maximum number of glyphs to show for a given move
