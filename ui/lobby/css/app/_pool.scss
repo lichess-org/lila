@@ -79,4 +79,41 @@
   &.transp {
     opacity: 0.35;
   }
+
+  &.selected {
+    background: $m-accent--fade-80 !important;
+    color: $c-font;
+  }
+
+  &.customisable {
+    position: relative;
+    background: $m-accent--fade-80 !important;
+    color: $c-font;
+    &::after {
+      @extend %data-icon;
+      content: $licon-Pencil;
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em;
+      font-size: 1.2em;
+      color: $c-font-dimmer;
+    }
+  }
+
+  &.custom {
+    position: relative;
+
+    .icons {
+      position: absolute;
+      top: 0.2em;
+      left: 0.2em;
+      display: flex;
+      gap: 0.2em;
+      flex-direction: column;
+    }
+  }
+
+  [data-icon] {
+    pointer-events: none;
+  }
 }

@@ -1,3 +1,4 @@
+import { toggle, type Toggle } from 'lib';
 import { numberFormat } from 'lib/i18n';
 import * as poolRangeStorage from 'lib/poolRangeStorage';
 import { pubsub } from 'lib/pubsub';
@@ -5,6 +6,7 @@ import { colors, type ColorChoice } from 'lib/setup/color';
 import { wsPingInterval } from 'lib/socket';
 import { storage, type LichessStorage } from 'lib/storage';
 
+import * as customiser from './customiser';
 import Filter from './filter';
 import * as hookRepo from './hookRepo';
 import type {
@@ -43,6 +45,9 @@ export default class LobbyController {
   pools: Pool[];
   filter: Filter;
   setupCtrl: SetupController;
+  isEditingPoolButtons: Toggle = toggle(false);
+  selectedPoolButton?: string;
+  isHeadlessSubmission = false;
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -254,6 +259,17 @@ export default class LobbyController {
   };
 
   clickPool = (id: string) => {
+    const customisation = customiser.overrideStoredLobbySetup(id, this.me?.username);
+    if (this.isEditingPoolButtons()) {
+      this.selectedPoolButton = id;
+      this.redraw();
+      return;
+    }
+    if (id != this.poolMember?.id && customisation) {
+      this.setupCtrl.headlessSubmit(customisation.gameType);
+      return;
+    }
+
     if (!this.me) {
       xhr.anonPoolSeek(this.pools.find(p => p.id === id)!);
       this.setTab('real_time');

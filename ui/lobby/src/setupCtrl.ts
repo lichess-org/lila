@@ -1,6 +1,6 @@
 import { INITIAL_FEN } from 'chessops/fen';
 
-import { type Prop, propWithEffect, toggle } from 'lib';
+import { type Prop, propWithEffect, toggle, storedJsonProp } from 'lib';
 import { debounce } from 'lib/async';
 import type { ColorChoice, ColorProp } from 'lib/setup/color';
 import {
@@ -9,11 +9,11 @@ import {
   timeModes,
   type TimeControl,
 } from 'lib/setup/timeControl';
-import { storedJsonProp } from 'lib/storage';
 import { alert } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
 import type LobbyController from './ctrl';
+import * as customiser from './customiser';
 import type { ForceSetupOptions, GameMode, GameType, PoolMember, SetupStore } from './interfaces';
 import { keyToId, variants } from './options';
 
@@ -71,7 +71,7 @@ export default class SetupController {
       aiLevel: 1,
     }));
 
-  private loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
+  loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
     const storeProps = this.store[this.gameType!]();
     // Load props from the store, but override any store values with values found in forceOptions
     this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onDropdownChange);
@@ -263,10 +263,11 @@ export default class SetupController {
       color,
     });
 
-  validFen = () => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
+  validFen = () => !this.gameType || this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
 
   valid = () =>
-    this.validFen() && this.timeControl.valid(this.minimumTimeIfReal()) && this.validConstraints();
+    !this.gameType ||
+    (this.validFen() && this.timeControl.valid(this.minimumTimeIfReal()) && this.validConstraints());
 
   private invalid = <A>(forced: A | undefined, current: A) => forced !== undefined && forced !== current;
 
@@ -293,10 +294,20 @@ export default class SetupController {
   minimumTimeIfReal = () => (this.gameType === 'ai' && this.variant() === 'fromPosition' ? 1 : 0);
 
   submit = async () => {
+    if (this.root.selectedPoolButton) {
+      customiser.set(this.root.me?.username, this.root.selectedPoolButton, {
+        gameType: this.gameType!,
+        settings: this.store[this.gameType!](),
+      });
+      this.closeModal?.();
+      return;
+    }
+
     const color = this.color();
     const poolMember = this.hookToPoolMember(color);
     if (poolMember) {
       this.root.enterPool(poolMember);
+      this.gameType = null;
       this.closeModal?.();
       return;
     }
@@ -343,5 +354,15 @@ export default class SetupController {
       this.loading = false;
       this.closeModal?.();
     }
+  };
+
+  headlessSubmit = async (gameType: GameType) => {
+    this.gameType = gameType;
+    this.loadPropsFromStore();
+    this.root.isHeadlessSubmission = true;
+    await this.submit();
+    this.root.isHeadlessSubmission = false;
+    this.gameType = null;
+    this.root.redraw();
   };
 }
