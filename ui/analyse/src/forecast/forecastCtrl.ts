@@ -22,7 +22,8 @@ export default class ForecastCtrl {
 
   private readonly saveUrl = () => `/${this.data.game.id}${this.data.player.id}/forecasts`;
 
-  private readonly keyOf = (fc: ForecastStep[]): string => fc.map(node => node.ply + ':' + node.uci).join(',');
+  private readonly keyOf = (fc: ForecastStep[]): string =>
+    fc.map(node => node.ply + ':' + node.uci).join(',');
 
   private readonly update = (f: (fc: ForecastList) => ForecastList) => this.forecasts(f(this.forecasts()));
 

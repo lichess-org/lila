@@ -115,7 +115,10 @@ export default class AnalyseCtrl implements CevalHandler {
   showManeuverMoveArrowsProp: Prop<boolean>;
   variationArrowOpacity: Prop<number | false>;
   showGauge = storedBooleanProp('analyse.show-gauge', true);
-  private readonly showCevalProp: Prop<boolean> = storedBooleanProp('analyse.show-engine', !!this.cevalEnabledProp());
+  private readonly showCevalProp: Prop<boolean> = storedBooleanProp(
+    'analyse.show-engine',
+    !!this.cevalEnabledProp(),
+  );
   showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
   possiblyShowMoveAnnotationsOnBoard = storedBooleanProp('analyse.show-move-annotation', true);
   keyboardHelp: boolean = location.hash === '#keyboard';

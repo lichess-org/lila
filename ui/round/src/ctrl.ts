@@ -190,7 +190,8 @@ export default class RoundController implements MoveRootCtrl {
       this.keyboardMove?.justSelected(),
     );
 
-  private readonly onPremove = (orig: Key, dest: Key, meta: MoveMetadata) => this.startPromotion(orig, dest, meta);
+  private readonly onPremove = (orig: Key, dest: Key, meta: MoveMetadata) =>
+    this.startPromotion(orig, dest, meta);
 
   private readonly onCancelPremove = () => this.promotion.cancelPrePromotion();
 
