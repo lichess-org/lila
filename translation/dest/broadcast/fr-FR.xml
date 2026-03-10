@@ -104,6 +104,6 @@
   <string name="semifinals">Demi-finales</string>
   <string name="finals">Finales</string>
   <string name="tiebreaks">Bris d\'égalité</string>
-  <string name="gameX">Partie %s</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Partie %s</string>
   <string name="knockouts">Éliminatoires</string>
 </resources>
