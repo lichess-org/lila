@@ -132,6 +132,9 @@
   <string name="pinnedPieces">Kiinnitetyt nappulat</string>
   <string name="checkableKing">Kuningas, jota voi shakata</string>
   <string name="multipleLines">Muunnelmien määrä</string>
+  <string name="multipleLinesDescription">Aseta analyysirivien sekä laudalla näytettävien siirtonuolien määrä</string>
+  <string name="searchTime">Hakuaika</string>
+  <string name="searchTimeDescription">Aseta uusien asemien arvioimisaika</string>
   <string name="cpus">Suorittimia</string>
   <string name="memory">Muistia</string>
   <string name="infiniteAnalysis">Loputon analyysi</string>
