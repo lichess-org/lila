@@ -80,7 +80,7 @@ export default class RelayPlayers {
   loading = false;
   players?: RelayPlayer[];
   show?: PlayerToShow;
-  private table?: Tablesort;
+  private readonly table?: Tablesort;
 
   constructor(
     readonly tour: RelayTour,

@@ -42,7 +42,7 @@ export class MultiBoardCtrl {
 
   maxPerPage = () => Math.min(32, parseInt(this.maxPerPageStorage.get() || '12'));
 
-  private chapterFilter = (c: ChapterPreview) => {
+  private readonly chapterFilter = (c: ChapterPreview) => {
     const t = this.teamSelect();
     return (
       (!this.playing() || c.playing) && (!t || c.players?.white.team === t || c.players?.black.team === t)

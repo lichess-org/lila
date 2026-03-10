@@ -52,9 +52,9 @@ export default class {
     };
   }
 
-  private findMetric = (key: string) => this.metrics.find(x => x.key === key);
+  private readonly findMetric = (key: string) => this.metrics.find(x => x.key === key);
 
-  private findDimension = (key: string) => this.dimensions.find(x => x.key === key);
+  private readonly findDimension = (key: string) => this.dimensions.find(x => x.key === key);
 
   setPanel(p: 'filter' | 'preset') {
     this.vm.panel = p;

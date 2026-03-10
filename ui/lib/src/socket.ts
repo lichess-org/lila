@@ -92,20 +92,20 @@ const isOnline = () => !('onLine' in navigator) || navigator.onLine;
 class WsSocket {
   averageLag = 0;
 
-  private settings: Settings;
-  private options: Options;
+  private readonly settings: Settings;
+  private readonly options: Options;
   private version: number | false;
   private ws: WebSocket | undefined;
   private pingSchedule: Timeout;
   private connectSchedule: Timeout;
-  private ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
+  private readonly ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
   private lastPingTime: number = performance.now();
   private pongCount = 0;
   private tryOtherUrl = false;
-  private storage: LichessStorage = storage.make('surl18', 30 * 60 * 1000);
+  private readonly storage: LichessStorage = storage.make('surl18', 30 * 60 * 1000);
   private _sign?: string;
   private resendWhenOpen: [string, Payload, Partial<SocketSendOpts>][] = [];
-  private baseUrls = document.body.dataset.socketDomains!.split(',');
+  private readonly baseUrls = document.body.dataset.socketDomains!.split(',');
 
   private lastUrl?: string;
 
@@ -143,7 +143,7 @@ class WsSocket {
     this.ackable.sign(s);
   };
 
-  private connect = (): void => {
+  private readonly connect = (): void => {
     this.destroy();
     this.lastUrl = xhr.url(this.options.protocol + '//' + this.nextBaseUrl() + this.url, {
       ...this.settings.params,
@@ -215,7 +215,7 @@ class WsSocket {
     } else this.ws.send(message);
   };
 
-  private scheduleConnect = (delay: number = this.options.pongTimeout): void => {
+  private readonly scheduleConnect = (delay: number = this.options.pongTimeout): void => {
     if (this.options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
@@ -229,12 +229,12 @@ class WsSocket {
     }, delay);
   };
 
-  private schedulePing = (delay: number): void => {
+  private readonly schedulePing = (delay: number): void => {
     clearTimeout(this.pingSchedule);
     this.pingSchedule = setTimeout(this.pingNow, delay);
   };
 
-  private pingNow = (): void => {
+  private readonly pingNow = (): void => {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     const pingData =
@@ -253,9 +253,9 @@ class WsSocket {
     this.scheduleConnect();
   };
 
-  private computePingDelay = (): number => this.options.pingDelay + (this.options.idle ? 1000 : 0);
+  private readonly computePingDelay = (): number => this.options.pingDelay + (this.options.idle ? 1000 : 0);
 
-  private pong = (): void => {
+  private readonly pong = (): void => {
     clearTimeout(this.connectSchedule);
     this.schedulePing(this.computePingDelay());
     const currentLag = Math.min(performance.now() - this.lastPingTime, 10000);
@@ -268,7 +268,7 @@ class WsSocket {
     pubsub.emit('socket.lag', this.averageLag);
   };
 
-  private handle = (m: MsgIn, retries: number = 10): void => {
+  private readonly handle = (m: MsgIn, retries: number = 10): void => {
     if (m.v && this.version !== false) {
       if (m.v <= this.version) {
         this.debug('already has event ' + m.v);
@@ -308,7 +308,7 @@ class WsSocket {
     }
   };
 
-  private debug = (msg: unknown, always = false): void => {
+  private readonly debug = (msg: unknown, always = false): void => {
     if (always || this.options.debug) console.debug(msg);
   };
 
@@ -319,7 +319,7 @@ class WsSocket {
     this.ws = undefined;
   };
 
-  private disconnect = (): void => {
+  private readonly disconnect = (): void => {
     const ws = this.ws;
     if (ws) {
       this.debug('Disconnect');
@@ -328,12 +328,12 @@ class WsSocket {
     }
   };
 
-  private onError = (e: unknown): void => {
+  private readonly onError = (e: unknown): void => {
     this.options.debug = true;
     this.debug(`error: ${e} ${JSON.stringify(e)}`); // e not always from lila
   };
 
-  private onClose = (e: CloseEvent): void => {
+  private readonly onClose = (e: CloseEvent): void => {
     pubsub.emit('socket.close');
 
     if (this.ws) {
@@ -346,7 +346,7 @@ class WsSocket {
     clearTimeout(this.pingSchedule);
   };
 
-  private onSuccess = (): void => {
+  private readonly onSuccess = (): void => {
     if (pubsub.past('socket.hasConnected')) return;
 
     pubsub.complete('socket.hasConnected');
@@ -365,7 +365,7 @@ class WsSocket {
     );
   };
 
-  private nextBaseUrl = (): string => {
+  private readonly nextBaseUrl = (): string => {
     let url = this.storage.get();
     if (!url || !this.baseUrls.includes(url)) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];

@@ -74,7 +74,7 @@ export class PieceCtrl extends PaneCtrl {
     return this.root.data.piece[this.dimension];
   }
 
-  private set = (t: string) => {
+  private readonly set = (t: string) => {
     this.apply(t);
     const field = `pieceSet${this.is3d ? '3d' : ''}`;
     xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>

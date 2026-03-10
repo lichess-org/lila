@@ -11,7 +11,7 @@ export function initModule(mode: 'login' | 'signup' | 'reset'): void {
 
 class LoginHistory {
   historyStorage = storedJsonProp<number[]>('login.history', () => []);
-  private now = () => Math.round(Date.now() / 1000);
+  private readonly now = () => Math.round(Date.now() / 1000);
   add = () => {
     const now = this.now();
     this.historyStorage([now, ...this.historyStorage().filter(d => d > now - 30)]);

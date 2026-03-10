@@ -41,7 +41,7 @@ export class Panes {
     ];
   }
 
-  private toggleEnabled: ActionListener = e => {
+  private readonly toggleEnabled: ActionListener = e => {
     const pane = this.byEvent(e)!;
     pane.setProperty(pane.paneValue);
     pane.setEnabled((e.target as HTMLInputElement).checked);
@@ -49,7 +49,7 @@ export class Panes {
     pane.host.update();
   };
 
-  private updateProperty: ActionListener = e => {
+  private readonly updateProperty: ActionListener = e => {
     const pane = this.byEvent(e)!;
     pane.update(e);
     pane.host.update();

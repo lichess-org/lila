@@ -182,7 +182,7 @@ export default class RelayTeamLeaderboard {
       ),
     );
 
-  private toggleTeam = (team: RelayTeamName) => (ev: PointerEvent) => {
+  private readonly toggleTeam = (team: RelayTeamName) => (ev: PointerEvent) => {
     ev.preventDefault();
     this.setTeamToShow(team);
   };

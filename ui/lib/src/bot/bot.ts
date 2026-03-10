@@ -67,11 +67,11 @@ export class Bot implements BotInfo, MoveSource {
   zero?: ZeroSearch;
   fish?: FishSearch;
 
-  private openings: Promise<OpeningBook[]>;
-  private stats: { cplMoves: number; cpl: number };
+  private readonly openings: Promise<OpeningBook[]>;
+  private readonly stats: { cplMoves: number; cpl: number };
   private traces: string[];
   private cp: number;
-  private ctrl: BotLoader;
+  private readonly ctrl: BotLoader;
 
   constructor(info: BotInfo, ctrl: BotLoader) {
     Object.assign(this, structuredClone(info));

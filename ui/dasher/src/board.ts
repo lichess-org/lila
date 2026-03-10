@@ -95,7 +95,7 @@ export class BoardCtrl extends PaneCtrl {
     this.data[this.dimension].current = t;
   }
 
-  private setBoard = (t: string) => {
+  private readonly setBoard = (t: string) => {
     this.apply(t);
     const field = `theme${this.is3d ? '3d' : ''}`;
     xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>
@@ -104,7 +104,7 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private reset = () => {
+  private readonly reset = () => {
     this.defaults
       .filter(([prop, v]) => this.getVar(prop) !== v)
       .forEach(([prop, v], i) => {
@@ -117,24 +117,24 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private getVar = (prop: string) =>
+  private readonly getVar = (prop: string) =>
     parseInt(window.getComputedStyle(document.body).getPropertyValue(`---${prop}`));
 
-  private setVar = (prop: string, v: number) => {
+  private readonly setVar = (prop: string, v: number) => {
     this.showReset(this.showReset() || !this.isDefault());
     document.body.style.setProperty(`---${prop}`, v.toString());
     document.body.classList.toggle('simple-board', this.isDefault());
     if (prop === 'zoom') window.dispatchEvent(new Event('resize'));
   };
 
-  private postPref = debounce((prop: string) => {
+  private readonly postPref = debounce((prop: string) => {
     const body = new FormData();
     body.set(hyphenToCamel(prop), this.getVar(prop).toString());
     const path = prop === 'zoom' ? `/pref/zoom?v=${this.getVar(prop)}` : `/pref/${hyphenToCamel(prop)}`;
     xhrText(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
   }, 1000);
 
-  private set3d = async (v: boolean) => {
+  private readonly set3d = async (v: boolean) => {
     if (this.is3d === v) return;
     this.data.is3d = v;
     xhrText('/pref/is3d', { body: xhrForm({ is3d: v }), method: 'post' }).catch(() =>
@@ -150,24 +150,24 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private apply = (t: string = this.current) => {
+  private readonly apply = (t: string = this.current) => {
     this.current = t;
     document.body.dataset[this.is3d ? 'board3d' : 'board'] = t;
     pubsub.emit('board.change', this.is3d);
     this.root?.piece.apply();
   };
 
-  private defaults: [string, number][] = [
+  private readonly defaults: [string, number][] = [
     ['board-opacity', 100],
     ['board-brightness', 100],
     ['board-contrast', 100],
     ['board-hue', 0],
   ];
 
-  private isDefault = () => this.defaults.every(([prop, v]) => this.getVar(prop) === v);
-  private showReset = toggle(!this.isDefault());
+  private readonly isDefault = () => this.defaults.every(([prop, v]) => this.getVar(prop) === v);
+  private readonly showReset = toggle(!this.isDefault());
 
-  private propSliders = () => {
+  private readonly propSliders = () => {
     const sliders = [];
     if (!Number.isNaN(this.getVar('zoom')))
       sliders.push(this.propSlider('zoom', i18n.site.size, { min: 0, max: 100, step: 1 }));
@@ -187,7 +187,7 @@ export class BoardCtrl extends PaneCtrl {
     return sliders;
   };
 
-  private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) =>
+  private readonly propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) =>
     hl(
       `div.${prop}`,
       { attrs: { title: title ? title(this.getVar(prop)) : `${Math.round(this.getVar(prop))}%` } },

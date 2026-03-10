@@ -43,7 +43,7 @@ export interface Args {
 
 export class InlineView {
   readonly inline: boolean = true;
-  private glyphs = ['good', 'mistake', 'brilliant', 'blunder', 'interesting', 'inaccuracy'];
+  private readonly glyphs = ['good', 'mistake', 'brilliant', 'blunder', 'interesting', 'inaccuracy'];
 
   constructor(readonly ctrl: AnalyseCtrl) {}
 

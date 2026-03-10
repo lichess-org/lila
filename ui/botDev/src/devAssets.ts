@@ -221,7 +221,7 @@ export class DevAssets {
     assetTypes.forEach(type => (this.server[type] = valueSorted(this.server[type])));
   }
 
-  private onStorageEvent = async (e: StorageEvent) => {
+  private readonly onStorageEvent = async (e: StorageEvent) => {
     if (e.key !== 'botdev.import.book' || !e.newValue) return;
 
     await this.init();

@@ -34,7 +34,7 @@ export class BotCtrl {
     this.resume(); // auto-join the ongoing game
   }
 
-  private resume = (evenIfEnded?: boolean) => {
+  private readonly resume = (evenIfEnded?: boolean) => {
     try {
       const game = loadCurrentGame();
       if (game && (game.worthResuming() || evenIfEnded)) this.resumeGame(game);
@@ -44,7 +44,7 @@ export class BotCtrl {
     }
   };
 
-  private newGame = (bot: BotInfo, pov: ColorChoice, clock?: ClockConfig) => {
+  private readonly newGame = (bot: BotInfo, pov: ColorChoice, clock?: ClockConfig) => {
     const color = pov === 'random' ? (Math.random() < 0.5 ? 'white' : 'black') : pov;
     this.resumeGameAndRedraw(
       new Game({
@@ -57,7 +57,7 @@ export class BotCtrl {
     );
   };
 
-  private resumeGame = (game: Game) => {
+  private readonly resumeGame = (game: Game) => {
     const bot = this.opts.bots.find(b => b.uid === game.data.botKey);
     if (!bot) {
       alert(`Couldn't find your opponent ${game.data.botKey}`);
@@ -80,25 +80,25 @@ export class BotCtrl {
     }
   };
 
-  private onResumeFail = (e: unknown) => {
+  private readonly onResumeFail = (e: unknown) => {
     console.error('Failed to resume game', e);
     alert('Failed to resume game. Please start a new one.');
     saveCurrentGame(null);
   };
 
-  private resumeGameAndRedraw = (game: Game) => {
+  private readonly resumeGameAndRedraw = (game: Game) => {
     this.resumeGame(game);
     this.redraw();
   };
 
-  private closeGame = () => {
+  private readonly closeGame = () => {
     this.playCtrl = undefined;
     this.redraw();
   };
 
   view = () => (this.playCtrl ? playView(this.playCtrl) : setupView(this.setupCtrl));
 
-  private makeLocalBridge = async (info: BotInfo): Promise<LocalBridge> => {
+  private readonly makeLocalBridge = async (info: BotInfo): Promise<LocalBridge> => {
     const loader = new BotLoader();
 
     await loader.init(this.opts.bots);

@@ -12,8 +12,8 @@ export class Mic implements Microphone {
   private mediaStream: MediaStream;
   private micSource: AudioNode;
   private vosk: VoskModule;
-  private deviceId = storedStringProp('voice.micDeviceId', 'default');
-  private recs = new Switch<string, RecNode>();
+  private readonly deviceId = storedStringProp('voice.micDeviceId', 'default');
+  private readonly recs = new Switch<string, RecNode>();
   private ctrl: Listener;
   private download?: XMLHttpRequest;
   private broadcastTimeout?: number;
@@ -253,7 +253,7 @@ export class Mic implements Microphone {
     voskStore.txn('readwrite').objectStore('FILE_DATA').index('timestamp'); // just to throw on failure
   }
 
-  private soundListener = (event: 'start' | 'stop') => {
+  private readonly soundListener = (event: 'start' | 'stop') => {
     switch (event) {
       case 'start':
         return this.pause();

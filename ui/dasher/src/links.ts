@@ -69,12 +69,12 @@ export class LinksCtrl extends PaneCtrl {
       : null;
   }
 
-  private modeCfg = (m: Mode) => ({
+  private readonly modeCfg = (m: Mode) => ({
     hook: bind('click', () => this.root.setMode(m)),
     attrs: { 'data-icon': licon.GreaterThan, type: 'button' },
   });
 
-  private linkCfg = (href: string, icon: string, more?: Attrs) => ({
+  private readonly linkCfg = (href: string, icon: string, more?: Attrs) => ({
     attrs: { href, 'data-icon': icon, ...more },
   });
 }

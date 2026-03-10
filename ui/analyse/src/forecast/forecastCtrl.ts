@@ -20,11 +20,11 @@ export default class ForecastCtrl {
     this.fixAll();
   }
 
-  private saveUrl = () => `/${this.data.game.id}${this.data.player.id}/forecasts`;
+  private readonly saveUrl = () => `/${this.data.game.id}${this.data.player.id}/forecasts`;
 
-  private keyOf = (fc: ForecastStep[]): string => fc.map(node => node.ply + ':' + node.uci).join(',');
+  private readonly keyOf = (fc: ForecastStep[]): string => fc.map(node => node.ply + ':' + node.uci).join(',');
 
-  private update = (f: (fc: ForecastList) => ForecastList) => this.forecasts(f(this.forecasts()));
+  private readonly update = (f: (fc: ForecastList) => ForecastList) => this.forecasts(f(this.forecasts()));
 
   contains = (fc1: ForecastStep[], fc2: ForecastStep[]): boolean =>
     fc1.length >= fc2.length && this.keyOf(fc1).startsWith(this.keyOf(fc2));

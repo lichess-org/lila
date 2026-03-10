@@ -5,11 +5,11 @@ import type RoundController from './ctrl';
 import { whatsNext } from './xhr';
 
 export default class MoveOn {
-  private storage = storage.boolean(this.key);
+  private readonly storage = storage.boolean(this.key);
 
   constructor(
-    private ctrl: RoundController,
-    private key: string,
+    private readonly ctrl: RoundController,
+    private readonly key: string,
   ) {}
 
   toggle = (): void => {
@@ -19,7 +19,7 @@ export default class MoveOn {
 
   get: () => boolean = this.storage.get;
 
-  private redirect = (href: string) => {
+  private readonly redirect = (href: string) => {
     this.ctrl.setRedirecting();
     window.location.href = href;
   };

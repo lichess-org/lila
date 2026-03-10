@@ -1,7 +1,7 @@
 import { createStore, get, set, del } from 'idb-keyval';
 
 export class Cache {
-  private store;
+  private readonly store;
 
   constructor(name: string) {
     this.store = createStore(`${name}--db`, `${name}--store`);

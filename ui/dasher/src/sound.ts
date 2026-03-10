@@ -21,7 +21,7 @@ export interface SoundData {
 }
 
 export class SoundCtrl extends PaneCtrl {
-  private list: Sound[];
+  private readonly list: Sound[];
   private showVoiceSelection = false;
 
   constructor(root: DasherCtrl) {
@@ -80,7 +80,7 @@ export class SoundCtrl extends PaneCtrl {
     );
   };
 
-  private voiceSelectionDialog = () => {
+  private readonly voiceSelectionDialog = () => {
     if (!this.showVoiceSelection) return;
     const content = this.renderVoiceSelection();
     if (!content) return;
@@ -99,7 +99,7 @@ export class SoundCtrl extends PaneCtrl {
     });
   };
 
-  private getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
+  private readonly getCurrent = (): Key => (site.sound.speech() ? 'speech' : site.sound.theme);
 
   private renderVoiceSelection(): VNode | false {
     const selectedVoice = site.sound.getVoice();
@@ -132,7 +132,7 @@ export class SoundCtrl extends PaneCtrl {
         );
   }
 
-  private postSet = throttlePromiseDelay(
+  private readonly postSet = throttlePromiseDelay(
     () => 1000,
     (soundSet: string) =>
       xhrText('/pref/soundSet', { body: xhrForm({ soundSet }), method: 'post' }).catch(() =>
@@ -140,12 +140,12 @@ export class SoundCtrl extends PaneCtrl {
       ),
   );
 
-  private makeList = () => {
+  private readonly makeList = () => {
     const canSpeech = window.speechSynthesis?.getVoices().length;
     return this.list.filter(s => s[0] !== 'speech' || canSpeech);
   };
 
-  private set = (k: Key) => {
+  private readonly set = (k: Key) => {
     site.sound.speech(k === 'speech');
     if (site.sound.speech()) {
       this.showVoiceSelection = true;
@@ -160,7 +160,7 @@ export class SoundCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private volume = (v: number) => {
+  private readonly volume = (v: number) => {
     site.sound.setVolume(v);
     // plays a move sound if speech is off
     site.sound.sayOrPlay('move', 'knight F 7');

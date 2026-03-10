@@ -83,7 +83,7 @@ export default class StudyChaptersCtrl {
         lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
       })),
     );
-  private convertPlayersFromServer = (players: PairOf<StudyPlayerFromServer>) => {
+  private readonly convertPlayersFromServer = (players: PairOf<StudyPlayerFromServer>) => {
     const conv: StudyPlayer[] = players.map(convertPlayerFromServer);
     return { white: conv[0], black: conv[1] };
   };

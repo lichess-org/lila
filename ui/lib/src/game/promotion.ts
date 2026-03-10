@@ -33,10 +33,10 @@ export class PromotionCtrl {
   private prePromotionRole?: Role;
 
   constructor(
-    private withGround: WithGround,
-    private onCancel: () => void,
-    private redraw: Redraw,
-    private autoQueenPref: AutoQueen = AutoQueen.Never,
+    private readonly withGround: WithGround,
+    private readonly onCancel: () => void,
+    private readonly redraw: Redraw,
+    private readonly autoQueenPref: AutoQueen = AutoQueen.Never,
   ) {}
 
   start = (orig: Key, dest: Key, hooks: Hooks, meta?: MoveMetadata, forceAutoQueen = false): boolean =>

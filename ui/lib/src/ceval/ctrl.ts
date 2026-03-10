@@ -105,7 +105,7 @@ export default class CevalCtrl {
     return !document.hidden && this.analysable;
   }
 
-  private doStart = (path: TreePath, steps: Step[], gameId: string | undefined, threatMode: boolean) => {
+  private readonly doStart = (path: TreePath, steps: Step[], gameId: string | undefined, threatMode: boolean) => {
     const step = steps[steps.length - 1];
     if (
       !this.isDeeper() &&
@@ -286,6 +286,6 @@ export default class CevalCtrl {
   }
 
   private lastEmitFen: string | null = null;
-  private sortPvsInPlace = (pvs: PvData[], color: Color) =>
+  private readonly sortPvsInPlace = (pvs: PvData[], color: Color) =>
     pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 }

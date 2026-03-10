@@ -94,7 +94,7 @@ export default class EditorCtrl {
     }).observe(window.document.body, { attributes: true });
   }
 
-  private indexOfNthOccurrence = (haystack: string, needle: string, n: number): number => {
+  private readonly indexOfNthOccurrence = (haystack: string, needle: string, n: number): number => {
     let index = haystack.indexOf(needle);
     for (; n > 1 && index !== -1; n--) index = haystack.indexOf(needle, index + needle.length);
     return index;
@@ -291,7 +291,7 @@ export default class EditorCtrl {
     else this.setFen(fen);
   }
 
-  private setSetup = (setup: Setup): void => {
+  private readonly setSetup = (setup: Setup): void => {
     this.pockets = setup.pockets;
     this.turn = setup.turn;
     this.epSquare = setup.epSquare;

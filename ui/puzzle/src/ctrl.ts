@@ -153,7 +153,7 @@ export default class PuzzleCtrl implements CevalHandler {
     $('#zentog').on('click', () => pubsub.emit('zen'));
   }
 
-  private loadSound = (name: string, volume?: number) => {
+  private readonly loadSound = (name: string, volume?: number) => {
     site.sound.load(name, site.sound.url(`${name}.mp3`));
     return () => site.sound.play(name, volume);
   };
@@ -378,7 +378,7 @@ export default class PuzzleCtrl implements CevalHandler {
     if (recursive) node.children.forEach(child => this.reorderChildren(path + child.id, true));
   };
 
-  private instantRevertUserMove = (): void => {
+  private readonly instantRevertUserMove = (): void => {
     this.withGround(g => {
       g.cancelPremove();
       g.selectSquare(null);
@@ -466,7 +466,7 @@ export default class PuzzleCtrl implements CevalHandler {
     }
   };
 
-  private isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
+  private readonly isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
 
   nextPuzzle = (): void => {
     if (this.streak && this.lastFeedback !== 'win') {
@@ -515,7 +515,7 @@ export default class PuzzleCtrl implements CevalHandler {
     if (this.cevalEnabled()) this.doStartCeval();
   };
 
-  private doStartCeval = throttle(800, () =>
+  private readonly doStartCeval = throttle(800, () =>
     this.ceval.start(this.path, this.nodeList, this.data.puzzle.id, this.threatMode()),
   );
 

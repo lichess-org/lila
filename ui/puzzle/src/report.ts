@@ -16,7 +16,7 @@ export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
   private reported: boolean = false;
   // timestamp (ms) of the last time the user clicked on the hide report dialog toggle
-  private tsHideReportDialog: StoredProp<number>;
+  private readonly tsHideReportDialog: StoredProp<number>;
   // number of evals that have triggered the `winningChances.hasMultipleSolutions` method
   // this is used to reduce the number of fps due to fluke eval
   private evalsWithMultipleSolutions = 0;
@@ -83,7 +83,7 @@ export default class Report {
     }
   }
 
-  private reportDialog = (puzzleId: PuzzleId, reason: string) => {
+  private readonly reportDialog = (puzzleId: PuzzleId, reason: string) => {
     const switchButton =
       `<div class="switch switch-report-puzzle" title="temporarily disable reporting puzzles">` +
       `<input id="puzzle-toggle-report" class="cmn-toggle" type="checkbox">` +

@@ -191,7 +191,7 @@ export class DevBotCtrl extends BotLoader {
     );
   }
 
-  private upgrade = (change: IDBVersionChangeEvent, store: IDBObjectStore): void => {
+  private readonly upgrade = (change: IDBVersionChangeEvent, store: IDBObjectStore): void => {
     const req = store.openCursor();
     req.onsuccess = e => {
       const cursor = (e.target as IDBRequest<IDBCursorWithValue>).result;

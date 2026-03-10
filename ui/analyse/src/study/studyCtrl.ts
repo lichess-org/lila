@@ -284,7 +284,7 @@ export default class StudyCtrl {
 
   isWriting = (): boolean => this.vm.mode.write && !this.isGamebookPlay();
 
-  private updateShapes = (shapes: Shape[]) => {
+  private readonly updateShapes = (shapes: Shape[]) => {
     this.ctrl.tree.setShapes(shapes, this.ctrl.path);
     this.makeChange(
       'shapes',
@@ -526,7 +526,7 @@ export default class StudyCtrl {
     get: () => this.data.chapter.id,
   };
 
-  private deltaChapter = (delta: number): ChapterPreview | undefined => {
+  private readonly deltaChapter = (delta: number): ChapterPreview | undefined => {
     const chs = this.chapters.list.all();
     const i = chs.findIndex(ch => ch.id === this.vm.chapterId);
     return i < 0 ? undefined : chs[i + delta];

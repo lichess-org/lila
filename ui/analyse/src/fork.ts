@@ -14,7 +14,7 @@ export class ForkCtrl {
   private hoveringIndex: number | undefined;
   private mostRecent: TreeNode | undefined;
 
-  constructor(private ctrl: AnalyseCtrl) {}
+  constructor(private readonly ctrl: AnalyseCtrl) {}
 
   get forks(): TreeNode[] {
     return this.ctrl.visibleChildren();

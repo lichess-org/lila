@@ -72,7 +72,7 @@ type AwaitingEval = null;
 const awaitingEval: AwaitingEval = null;
 
 export default class EvalCache {
-  private fetchedByFen: Map<FEN, EvalHit | AwaitingEval> = new Map();
+  private readonly fetchedByFen: Map<FEN, EvalHit | AwaitingEval> = new Map();
   upgradable = prop(false);
 
   constructor(readonly opts: EvalCacheOpts) {
@@ -120,7 +120,7 @@ export default class EvalCache {
 
   clear = () => this.fetchedByFen.clear();
 
-  private fetchThrottled = throttle(700, (obj: EvalGetData) => {
+  private readonly fetchThrottled = throttle(700, (obj: EvalGetData) => {
     this.fetchedByFen.set(obj.fen, awaitingEval); // waiting for response
     this.opts.send('evalGet', obj);
   });

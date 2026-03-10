@@ -66,7 +66,7 @@ export class FilterPane extends Pane {
     return enabled;
   }
 
-  private toggleFacet = (facet: FilterFacetKey, checked?: boolean): boolean => {
+  private readonly toggleFacet = (facet: FilterFacetKey, checked?: boolean): boolean => {
     if (checked) this.facets[facet].input.checked = checked;
     else checked = this.facets[facet].input.checked;
     if (checked) {

@@ -29,7 +29,7 @@ interface Background {
 }
 
 export class BackgroundCtrl extends PaneCtrl {
-  private list: Background[];
+  private readonly list: Background[];
   constructor(root: DasherCtrl) {
     super(root);
     this.list = [
@@ -80,16 +80,16 @@ export class BackgroundCtrl extends PaneCtrl {
     return this.root.data.background;
   }
 
-  private announceFail = (err: string) =>
+  private readonly announceFail = (err: string) =>
     site.announce({ msg: `Failed to save background preference: ${err}` });
 
-  private reloadAllTheThings = () => {
+  private readonly reloadAllTheThings = () => {
     if ($('canvas').length) site.reload();
   };
 
-  private get = () => this.data.current;
-  private getImage = () => this.data.image;
-  private setImage = (i: string) => {
+  private readonly get = () => this.data.current;
+  private readonly getImage = () => this.data.image;
+  private readonly setImage = (i: string) => {
     this.data.image = i.startsWith('/assets/') ? i.slice(8) : i;
     xhrTextRaw('/pref/bgImg', { body: xhrForm({ bgImg: i }), method: 'post' })
       .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
@@ -98,7 +98,7 @@ export class BackgroundCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private apply = () => {
+  private readonly apply = () => {
     const key = this.data.current;
     document.body.dataset.theme = key === 'darkBoard' ? 'dark' : key;
     document.documentElement.className =
@@ -115,7 +115,7 @@ export class BackgroundCtrl extends PaneCtrl {
     pubsub.emit('theme', key);
   };
 
-  private imageInput = () =>
+  private readonly imageInput = () =>
     h('div.image', [
       h('label', { attrs: { for: 'backgroundUrl' } }, i18n.site.backgroundImageUrl),
       h('input#backgroundUrl', {
@@ -140,7 +140,7 @@ export class BackgroundCtrl extends PaneCtrl {
       }),
     ]);
 
-  private galleryInput = () => {
+  private readonly galleryInput = () => {
     const urlId = (url: string) => url.replace(/[^\w]/g, '_');
 
     const setImg = (url: string) => {

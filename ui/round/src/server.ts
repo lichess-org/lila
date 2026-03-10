@@ -18,12 +18,12 @@ export default class Server {
     }
   };
 
-  private onServerRestart = (): void => {
+  private readonly onServerRestart = (): void => {
     const wait = (12 + Math.random() * 15) * 1000;
     this.scheduledCheck = setTimeout(this.checkForDesync, wait);
   };
 
-  private checkForDesync = (): void => {
+  private readonly checkForDesync = (): void => {
     const d = this.getData();
     if (d.game.player !== d.player.color) {
       xhr.reload(d).then(n => {
