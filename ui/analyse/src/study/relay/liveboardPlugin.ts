@@ -28,11 +28,16 @@ export class LiveboardPlugin implements ChatPlugin {
     if (!preview) return spinnerVdom();
     const cloudEval = this.ctrl.multiCloudEval?.thisIfShowEval();
     const orientation = this.ctrl.bottomColor();
+
+    const extraCgConfig: () => Partial<CgConfig> = () => ({
+      addDimensionsCssVarsTo: document.querySelector<HTMLElement>('section.mchat') || undefined,
+    });
+
     return hl(
       'div.chat-liveboard',
       hl(
         `span.mini-game.is2d.liveboard-chapter-${preview.id}.liveboard-orientation-${orientation}`,
-        previewContent(preview, orientation, cloudEval, true, this.round),
+        previewContent(preview, orientation, cloudEval, true, this.round, extraCgConfig),
       ),
     );
   }

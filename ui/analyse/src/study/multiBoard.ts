@@ -220,37 +220,44 @@ export const previewContent = (
   cloudEval?: MultiCloudEval,
   showResults?: boolean,
   round?: RelayRound,
-) => [
-  boardPlayer(preview, cgOpposite(orientation), showResults, round),
-  h('span.cg-gauge', [
-    showResults ? cloudEval && verticalEvalGauge(preview, orientation, cloudEval) : undefined,
-    h(
-      'span.mini-game__board',
-      h('span.cg-wrap', {
-        hook: {
-          insert(vnode) {
-            const el = vnode.elm as HTMLElement;
-            vnode.data!.cg = makeChessground(el, {
-              coordinates: false,
-              viewOnly: true,
-              orientation,
-              drawable: { enabled: false, visible: false },
-              ...(showResults ? previewToCgConfig(preview) : { fen: EMPTY_BOARD_FEN }),
-            });
-            vnode.data!.fen = preview.fen;
+  extraCgConfig?: () => Partial<CgConfig>,
+) => {
+  const makeCgConfig = () => ({
+    ...previewToCgConfig(preview),
+    ...(extraCgConfig ? extraCgConfig() : {}),
+  });
+  return [
+    boardPlayer(preview, cgOpposite(orientation), showResults, round),
+    h('span.cg-gauge', [
+      showResults ? cloudEval && verticalEvalGauge(preview, orientation, cloudEval) : undefined,
+      h(
+        'span.mini-game__board',
+        h('span.cg-wrap', {
+          hook: {
+            insert(vnode) {
+              const el = vnode.elm as HTMLElement;
+              vnode.data!.cg = makeChessground(el, {
+                coordinates: false,
+                viewOnly: true,
+                orientation,
+                drawable: { enabled: false, visible: false },
+                ...(showResults ? makeCgConfig() : { fen: EMPTY_BOARD_FEN }),
+              });
+              vnode.data!.fen = preview.fen;
+            },
+            postpatch(old, vnode) {
+              if (!showResults) return;
+              if (old.data!.fen !== preview.fen) old.data!.cg?.set(makeCgConfig());
+              vnode.data!.fen = preview.fen;
+              vnode.data!.cg = old.data!.cg;
+            },
           },
-          postpatch(old, vnode) {
-            if (!showResults) return;
-            if (old.data!.fen !== preview.fen) old.data!.cg?.set(previewToCgConfig(preview));
-            vnode.data!.fen = preview.fen;
-            vnode.data!.cg = old.data!.cg;
-          },
-        },
-      }),
-    ),
-  ]),
-  boardPlayer(preview, orientation, showResults, round),
-];
+        }),
+      ),
+    ]),
+    boardPlayer(preview, orientation, showResults, round),
+  ];
+};
 
 export const verticalEvalGauge = (
   chap: ChapterPreview,
