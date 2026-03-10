@@ -1028,6 +1028,7 @@ Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicam
   <string name="offline" comment="status of a user">desconectado</string>
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar a procura</string>
+  <string name="thereAreNoResultsForX">Non hai resultados para \"%s\"</string>
   <string name="tags">Etiquetas</string>
   <string name="enPassant">Captura ao paso</string>
 </resources>
