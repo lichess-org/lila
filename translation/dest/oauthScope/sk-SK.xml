@@ -29,7 +29,6 @@
   <string name="botPlay">Hrať partie s API botom</string>
   <string name="engineRead">Zobrazovať a používať vlastné externé motory</string>
   <string name="engineWrite">Vytvárať a aktualizovať externé motory</string>
-  <string name="webLogin">Vytvoriť overené webové pripojenia (udeľuje úplný prístup!)</string>
   <string name="webMod">Používať nástroje moderátora (v rámci Vášho povolenia)</string>
   <string name="personalAccessTokens">Osobné prístupové API tokeny</string>
   <string name="canMakeOauthRequests">Požiadavky OAuth môžete zadávať bez toho, aby ste museli prejsť cez %s.</string>
