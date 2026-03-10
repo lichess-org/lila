@@ -15,9 +15,12 @@ export function makeCarousel({ selector, itemWidth, pauseFor, slideFor = 0.6 }: 
     if (!el) return;
 
     const track = el.querySelector<HTMLElement>('.carousel__track')!;
-    el.style.visibility = 'visible';
 
     onResize();
+
+    el.style.visibility = 'visible';
+    document.querySelector<HTMLElement>('.lobby__support')!.style.visibility = 'visible';
+
     window.addEventListener('resize', onResize);
 
     function onResize() {
