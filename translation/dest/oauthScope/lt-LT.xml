@@ -29,7 +29,6 @@
   <string name="botPlay">Žaisti partijas su botų API</string>
   <string name="engineRead">Peržiūrėti ir naudoti jūsų išorinius variklius</string>
   <string name="engineWrite">Kurti ir keisti išorinius variklius</string>
-  <string name="webLogin">Kurti autentikuotas svetainės sesijas (suteikia pilną prieigą!)</string>
   <string name="webMod">Naudoti moderatoriaus įrankius (jūsų leidimo ribose)</string>
   <string name="personalAccessTokens">Asmeniniai API prieigos žetonai</string>
   <string name="canMakeOauthRequests">Galite daryti OAuth užklausaus nepereidami %s.</string>
