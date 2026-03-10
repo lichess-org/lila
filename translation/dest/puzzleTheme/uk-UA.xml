@@ -69,11 +69,11 @@
   <string name="interferenceDescription">Хід фігурою між двома фігурами суперника, що перешкоджає одній або двом фігурам суперника і робить їх незахищеними, наприклад, кінь на захищеному полі між двома турами.</string>
   <string name="intermezzo">Проміжний хід</string>
   <string name="intermezzoDescription">Замість очікуваного ходу, спочатку робиться інший хід з безпосередньою атакою, на яку суперник має відповісти. Також відомий як \"Zwischenzug\" або \"In between\".</string>
-  <string name="killBoxMate">Мат: Смертельна коробка</string>
+  <string name="killBoxMate">Мат \"Смертельна коробка\"</string>
   <string name="killBoxMateDescription">Тура стає біля ворожого короля під захистом ферзя. Ферзь у той самий час блокує всі поля, через які король може втекти. Тура й ферзь ловлять ворожого короля у «смертельну коробку» розміру 3 на 3.</string>
   <string name="pillsburysMate">Мат Пілсбері</string>
   <string name="pillsburysMateDescription">Тура ставить мат королю, поки слон закриває поля для втечі.</string>
-  <string name="morphysMate">Мат Мерфі</string>
+  <string name="morphysMate">Мат Морфі</string>
   <string name="morphysMateDescription">Слон ставить шах королю, а тура закриває поля для втечі.</string>
   <string name="swallowstailMate">Мат \"ластівчин хвіст\"</string>
   <string name="swallowstailMateDescription">Матовий патерн, який візуально нагадує ластівчин хвіст, подібно до літери \"У\".</string>
