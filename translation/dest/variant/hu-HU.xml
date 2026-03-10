@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="standard">Normál</string>
-  <string name="chess960">Fischer Random</string>
+  <string name="chess960">Sakk960</string>
   <string name="chess960Title">Az alapsori bábuk véletlenszerű mezőről indulnak.</string>
   <string name="kingOfTheHillTitle">Juttasd a királyt a centrumba, hogy megnyerd a partit.</string>
   <string name="threeCheckTitle">Adj 3 sakkot a győzelemért.</string>
