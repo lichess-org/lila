@@ -13,18 +13,15 @@
 }
 
 .chat-liveboard {
-  display: flex;
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1;
+  .mini-game__gauge {
+    flex: 0 0 3%;
+  }
 }
 
 .mchat:has(.chat-liveboard) {
   box-shadow: none;
 }
 
-.mchat .liveboard {
-  cg-board {
-    border-top-right-radius: 0;
-  }
+.mchat__content.liveboard {
+  padding: 1ch;
 }
