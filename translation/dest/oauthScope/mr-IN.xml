@@ -35,6 +35,7 @@
   <string name="authorizationCodeFlow">अधिकृतता संकेतलिपीचे प्रवाह</string>
   <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">त्याऐवजी, %s जे तुम्ही थेट API विनंत्यांमध्ये वापरू शकता.</string>
   <string name="generatePersonalToken">एक वैयक्तिक प्रवेशचिन्ह उत्पन्न करा</string>
+  <string name="guardTokensCarefully">ह्या प्रवेशचिन्हांचे काळजीपूर्वक रक्षण करा! हे परवलीचा शब्दासारखे आहेत. परवलीचा शब्दाऐवजी प्रवेशचिन्ह कार्यलिपीत वापरण्याचा असा फायदा आहे कि प्रवेशचिन्ह रद्द केले जाऊ शकतात, आणि तुम्ही खूप सारे उत्पन्न करू शकतात.</string>
   <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">इकडे एक %1$s आहे आणि %2$s.</string>
   <string name="personalTokenAppExample">वैयक्तिक प्रवेशचिन्ह अनुप्रयोगाचे उदाहरण</string>
   <string name="apiDocumentation">API दस्तऐवजीकरण</string>
@@ -44,6 +45,8 @@
   <string name="lastUsed">%s शेवटचे वापरले</string>
   <string name="alreadyHavePlayedGames">तुम्ही आधीच खेळ खेळलेले आहात!</string>
   <string name="attentionOfDevelopers">फक्त विकसकांसाठी लक्ष देण्यासाठी नोंद:</string>
+  <string name="possibleToPrefill">URL च्या विनंतीपरिमाणात हलके बदल करून हे पत्रक आधीच भरणे शक्य आहे.</string>
   <string name="forExample">उदाहरण: %s</string>
   <string name="ticksTheScopes">%1$s आणि %2$s वावांना निवडखूणित करतो, आणि प्रवेशचिन्हाचे वर्णन संच करतो.</string>
+  <string name="givingPrefilledUrls">हे पूर्व-भरलेले URL तुमच्या वापकर्त्यांना देयून त्यांना बरोबरचे प्रवेशचिन्ह वाव मिळण्यास मदत होईल.</string>
 </resources>
