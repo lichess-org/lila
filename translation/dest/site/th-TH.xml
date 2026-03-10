@@ -130,8 +130,15 @@
   <string name="pinnedPieces">หมากที่โดนกด</string>
   <string name="checkableKing">คิงที่โดนรุกได้</string>
   <string name="multipleLines">จำนวนเส้นทางการเดิน</string>
+  <string name="multipleLinesDescription">กำหนดจำนวนตาเดินอื่นๆที่ถูกประเมินผลและตาเดินลูกศรบนกระดาน</string>
+  <string name="searchTime">เวลาในการค้นหา</string>
+  <string name="searchTimeDescription">กำหนดเวลาเพื่อประเมินตำแหน่งใหม่</string>
+  <string name="threads">ความเสี่ยง</string>
+  <string name="threadsDescription">ตั้งค่าตัวนี้ใช้ต่ำกว่าจำนวน CPU ที่ใช้ ต่ำกว่าหรือเท่ากับลูกศรสีฟ้าถือว่าดี</string>
+  <string name="threadsDescriptionMobile">จำนวนตาเสี่ยงที่มากขึ้นจะใช้แบตเตอรี่มากขึ้นเพื่อการวิเคราะห์ที่ดีขึ้น</string>
   <string name="cpus">จำนวนซีพียูที่ใช้</string>
   <string name="memory">หน่วยความจำที่ใช้</string>
+  <string name="memoryDescription">ค่าที่สูงขึ้นอาจช่วยปรับปรุงประสิทธิภาพได้</string>
   <string name="infiniteAnalysis">การวิเคราะห์อนันต์</string>
   <string name="removesTheDepthLimit">ไม่จำกัดความลึก อาจทำให้เครื่องร้อน</string>
   <string name="blunder">พลาดมหันต์</string>
