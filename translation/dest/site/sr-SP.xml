@@ -911,7 +911,7 @@
   <string name="correspondenceDesc">Дописне партије: један или неколико дана по потезу</string>
   <string name="puzzleDesc">Тренер шаховских тактика</string>
   <string name="important">Важно</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Ваше питање можда већ има одговор %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Твоје питање можда већ има одговор %1$s</string>
   <string name="inTheFAQ">у често постављеним питањима (F.A.Q.)</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Да бисте пријавили корисника због варања или лошег понашања, %1$s</string>
   <string name="useTheReportForm">користите образац за пријаву</string>
