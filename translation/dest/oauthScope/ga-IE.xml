@@ -29,6 +29,5 @@
   <string name="botPlay">Imir cluichí le bota api</string>
   <string name="engineRead">Féach ar agus úsáid do innill sheachtracha</string>
   <string name="engineWrite">Cruthaigh agus nuashonraigh innill sheachtracha</string>
-  <string name="webLogin">Cruthaigh seisiúin suíomh Gréasáin fíordheimhnithe (deonaíonn rochtain iomlán!)</string>
   <string name="webMod">Úsáid uirlisí modhnóra (laistigh de do chead)</string>
 </resources>
