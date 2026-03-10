@@ -132,10 +132,12 @@
   <string name="pinnedPieces">Peças cravadas</string>
   <string name="checkableKing">Rei possível de xeque</string>
   <string name="multipleLines">Linhas de análise</string>
-  <string name="multipleLinesDescription">Definir o número de linhas de análise e mover setas no tabuleiro</string>
+  <string name="multipleLinesDescription">Definir o número de linhas de análise e setas de movimento no tabuleiro</string>
   <string name="searchTime">Tempo de busca</string>
-  <string name="searchTimeDescription">Definir tempo para avaliar novas posições</string>
-  <string name="threads">Temas</string>
+  <string name="searchTimeDescription">Defina o tempo para avaliar novas posições</string>
+  <string name="threads">Threads</string>
+  <string name="threadsDescription">Defina isso abaixo da contagem de threads do seu processador, a marca indica uma escolha segura</string>
+  <string name="threadsDescriptionMobile">Usar mais threads consume mais bateria para uma análise melhor</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memória</string>
   <string name="memoryDescription">Valores mais altos podem melhorar o desempenho</string>
