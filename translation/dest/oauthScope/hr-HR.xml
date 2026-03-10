@@ -29,7 +29,6 @@
   <string name="botPlay">Igrajte igre s Api-jem za ploču</string>
   <string name="engineRead">Pogledajte i koristite svoje vanjske motore</string>
   <string name="engineWrite">Stvorite i ažurirajte vanjske motore</string>
-  <string name="webLogin">Stvorite autentificirane sesije web stranice (omogućuje puni pristup!)</string>
   <string name="webMod">Koristite moderatorske alate (unutar granica vašeg dopuštenja)</string>
   <string name="personalAccessTokens">Osobni API pristupni bonovi</string>
   <string name="canMakeOauthRequests">Možeš zatražiti OAuth zahtijev bez da prolaziš kroz %s.</string>
