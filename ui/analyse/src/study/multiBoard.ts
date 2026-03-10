@@ -210,39 +210,47 @@ const makePreview =
         class: { active: preview.id === current },
         attrs: gameLinkAttrs(roundPath, preview),
       },
-      [
-        boardPlayer(preview, cgOpposite(orientation), showResults, round),
-        h('span.cg-gauge', [
-          showResults ? cloudEval && verticalEvalGauge(preview, cloudEval) : undefined,
-          h(
-            'span.mini-game__board',
-            h('span.cg-wrap', {
-              hook: {
-                insert(vnode) {
-                  const el = vnode.elm as HTMLElement;
-                  vnode.data!.cg = makeChessground(el, {
-                    coordinates: false,
-                    viewOnly: true,
-                    orientation,
-                    drawable: { enabled: false, visible: false },
-                    ...(showResults ? previewToCgConfig(preview) : { fen: EMPTY_BOARD_FEN }),
-                  });
-                  vnode.data!.fen = preview.fen;
-                },
-                postpatch(old, vnode) {
-                  if (!showResults) return;
-                  if (old.data!.fen !== preview.fen) old.data!.cg?.set(previewToCgConfig(preview));
-                  vnode.data!.fen = preview.fen;
-                  vnode.data!.cg = old.data!.cg;
-                },
-              },
-            }),
-          ),
-        ]),
-        boardPlayer(preview, orientation, showResults, round),
-      ],
+      previewContent(preview, orientation, cloudEval, showResults, round),
     );
   };
+
+export const previewContent = (
+  preview: ChapterPreview,
+  orientation: Color,
+  cloudEval?: MultiCloudEval,
+  showResults?: boolean,
+  round?: RelayRound,
+) => [
+  boardPlayer(preview, cgOpposite(orientation), showResults, round),
+  h('span.cg-gauge', [
+    showResults ? cloudEval && verticalEvalGauge(preview, cloudEval) : undefined,
+    h(
+      'span.mini-game__board',
+      h('span.cg-wrap', {
+        hook: {
+          insert(vnode) {
+            const el = vnode.elm as HTMLElement;
+            vnode.data!.cg = makeChessground(el, {
+              coordinates: false,
+              viewOnly: true,
+              orientation,
+              drawable: { enabled: false, visible: false },
+              ...(showResults ? previewToCgConfig(preview) : { fen: EMPTY_BOARD_FEN }),
+            });
+            vnode.data!.fen = preview.fen;
+          },
+          postpatch(old, vnode) {
+            if (!showResults) return;
+            if (old.data!.fen !== preview.fen) old.data!.cg?.set(previewToCgConfig(preview));
+            vnode.data!.fen = preview.fen;
+            vnode.data!.cg = old.data!.cg;
+          },
+        },
+      }),
+    ),
+  ]),
+  boardPlayer(preview, orientation, showResults, round),
+];
 
 export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEval): MaybeVNode => {
   const tag = `span.mini-game__gauge${chap.orientation === 'black' ? ' mini-game__gauge--flip' : ''}${

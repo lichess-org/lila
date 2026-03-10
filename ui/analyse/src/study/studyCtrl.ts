@@ -513,7 +513,6 @@ export default class StudyCtrl {
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
       this.chapters.scroller.request('smooth'); // sticky scroll request is set in `changeChapter`
-      this.relay?.liveboardPlugin?.reset();
       await this.xhrReload(false, () => componentCallbacks(id));
     }
     if (displayColumns() > 2) window.scrollTo(0, 0);

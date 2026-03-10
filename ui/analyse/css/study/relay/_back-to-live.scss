@@ -23,7 +23,8 @@
   box-shadow: none;
 }
 
-.mchat .liveboard {
+.mchat__content.liveboard {
+  background: none;
   cg-board {
     border-top-right-radius: 0;
   }
