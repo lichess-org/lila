@@ -102,6 +102,6 @@
   <string name="semifinals">Bán kết</string>
   <string name="finals">Chung kết</string>
   <string name="tiebreaks">Tiebreak</string>
-  <string name="gameX">Trận thứ %s</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Trận thứ %s</string>
   <string name="knockouts">Loại trực tiếp</string>
 </resources>
