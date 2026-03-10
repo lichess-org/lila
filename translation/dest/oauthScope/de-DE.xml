@@ -29,7 +29,6 @@
   <string name="botPlay">Partien mit der Bot-API spielen</string>
   <string name="engineRead">Deine externen Engine</string>
   <string name="engineWrite">Externe Engine</string>
-  <string name="webLogin">Authentifizierte Website-Sitzungen erstellen (gewährt vollen Zugriff!)</string>
   <string name="webMod">Moderator-Werkzeuge verwenden (innerhalb der Grenzen deiner Berechtigung)</string>
   <string name="personalAccessTokens">Persönlicher API-Zugangsschlüssel</string>
   <string name="canMakeOauthRequests">Du kannst OAuth-Anfragen erstellen, ohne den %s zu durchlaufen.</string>

@@ -29,7 +29,6 @@
   <string name="botPlay">Igrajte igre z bot api</string>
   <string name="engineRead">Oglejte si in uporabite svoj zunanji motor</string>
   <string name="engineWrite">Ustvarite in posodobite zunanji motor</string>
-  <string name="webLogin">Ustvarite overjene seje spletnega mesta (omogoča popoln dostop!)</string>
   <string name="webMod">Uporabite orodja moderatorja (v mejah vašega dovoljenja)</string>
   <string name="personalAccessTokens">Žetoni za osebni dostop</string>
   <string name="canMakeOauthRequests">Zahteve OAuth lahko naredite, ne da bi šli skozi %s.</string>

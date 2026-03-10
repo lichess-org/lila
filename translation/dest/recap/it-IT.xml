@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="hiUser" comment="%s is the title+username e.g. 'GM ABC' or simply ABC if there is no title">Ciao, %s</string>
+	<string name="awaitQuestion" comment="Displayed while waiting for results and also as a notification.">Com\'è andata quest\'anno?</string>
+	<string name="initTitle">Che anno di scacchi hai avuto!</string>
+	<string name="noGamesText">Non hai giocato nessuna partita quest\'anno.</string>
+	<string name="noGamesCta">Vuoi giocare adesso?</string>
+	<string name="gamesYouWon" comment="%s is the number of games won">E hai vinto %s!</string>
 	<plurals name="shareableNbPuzzlesSolved">
 		<item quantity="one">%s problema risolto</item>
 		<item quantity="other">%s problemi risolti</item>

@@ -29,7 +29,6 @@
   <string name="botPlay">Bot API orqali oʻynash</string>
   <string name="engineRead">Tashqi dvijoklarni koʻrish va ulardan foydalanish</string>
   <string name="engineWrite">Tashqi dvijoklarni qoʻshish va yangilash</string>
-  <string name="webLogin">Tizimga avtorizatsiyadan oʻtgan seanslar yaratish (toʻliq kirish huquqini beradi!)</string>
   <string name="webMod">Moderator asboblaridan foydalanish (sizga berilgan vakolatlar doirasida)</string>
   <string name="personalAccessTokens">Shaxsiy API kirish tokenlari</string>
   <string name="canMakeOauthRequests">Siz %s oʻtmasdan OAuth soʻrovlarini amalga oshirishingiz mumkin.</string>

@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <plurals name="xRuns">
+    <item quantity="one">1 conatum</item>
+    <item quantity="other">%s conata</item>
+  </plurals>
+  <string name="score">Summa</string>
+  <string name="accuracy">Subtilitas</string>
+  <string name="time">Tempus</string>
+  <string name="runs">Conata</string>
+</resources>

@@ -249,7 +249,7 @@
   <string name="changePassword">Parolni oʻzgartirish</string>
   <string name="changeEmail">E‑pochta manzilini oʻzgartirish</string>
   <string name="email">E‑pochta</string>
-  <string name="passwordReset">Parolni tiklash</string>
+  <string name="passwordReset">tiklashingiz</string>
   <string name="forgotPassword">Parolni unutdingizmi?</string>
   <string name="error.weakPassword">Ushbu parol juda oddiy va uni taxmin qilish oson.</string>
   <string name="error.namePassword">Foydalanuvchi nomini parol sifatida ishlatmang.</string>
@@ -258,7 +258,7 @@
   <string name="neverTypeYourPassword">Lichess parolingizni boshqa saytlarda hech qachon kiritmang!</string>
   <string name="proceedToX">%sʼga oʻtish</string>
   <string name="passwordSuggestion">Boshqa birov aytgan parolni oʻrnatmang. Ular oʻsha parolni akkauntingizni oʻgʻirlash uchun ishlatishlari mumkin.</string>
-  <string name="emailSuggestion">Boshqa birov aytgan e‑pochtani oʻrnatmang. Ular oʻsha e‑pochtani akkauntingizni oʻgʻirlash uchun ishlatishlari mumkin.</string>
+  <string name="emailSuggestion">Boshqa birov aytgan e‑pochta manzilini oʻrnatmang. Ular oʻsha e‑pochta manzilini akkauntingizni oʻgʻirlash uchun ishlatishlari mumkin.</string>
   <string name="emailConfirmHelp">E‑pochtani tasdiqlash boʻyicha yordam</string>
   <string name="emailConfirmNotReceived">Roʻyxatdan oʻtganingizdan soʻng tasdiqlash xati kelmadimi?</string>
   <string name="whatSignupUsername">Roʻyxatdan oʻtishda qaysi foydalanuvchi nomidan foydalangansiz?</string>
@@ -614,7 +614,7 @@
   <string name="privacyPolicy">Maxfiylik siyosati</string>
   <string name="letOtherPlayersFollowYou">Boshqa oʻyinchilarga sizga obuna boʻlishga ruxsat berish</string>
   <string name="letOtherPlayersChallengeYou">Boshqa oʻyinchilarga sizni oʻyinga chorlashga ruxsat berish</string>
-  <string name="letOtherPlayersInviteYouToStudy">Boshqa oʻyinchilarga sizni saboqqa taklif qilishiga ruxsat berish</string>
+  <string name="letOtherPlayersInviteYouToStudy">Boshqa oʻyinchilar sizni saboqqa taklif qilishga ruxsat berish</string>
   <string name="sound">Tovush</string>
   <string name="none">Yoʻq</string>
   <string name="fast">Tez</string>
@@ -763,7 +763,7 @@
   <string name="ifYouDoNotGetTheEmail">Agar 5 daqiqa ichida e‑pochta olmasangiz:</string>
   <string name="checkAllEmailFolders">Barcha keraksiz, spam va boshqa e‑pochta jildlarni tekshiring</string>
   <string name="verifyYourAddress">%s e‑pochta manzili sizniki ekanligini tasdiqlang</string>
-  <string name="weHaveSentYouAnEmailTo">Biz %s manziliga xat yubordik. Parolni boshqattan oʻrnatish uchun xattagi havolani bosing.</string>
+  <string name="weHaveSentYouAnEmailTo">Biz %s manziliga xat yubordik. Parolni tiklash uchun xatdagi havolani bosing.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Roʻyxatdan oʻtish orqali siz %sga rozilik bildirasiz.</string>
   <string name="readAboutOur">%smiz bilan tanishib chiqing.</string>
   <string name="networkLagBetweenYouAndLichess">Siz va Lichess oʻrtasidagi tarmoq kechikishi (lag)</string>

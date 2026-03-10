@@ -12,7 +12,7 @@
   <string name="origin">Asal</string>
   <string name="specialMoves">Gerakan Khas</string>
   <string name="didYouLikeThisPuzzle">Adakah kamu menyuka Teka-teki ini?</string>
-  <string name="voteToLoadNextOne">Undi untuk memuatkan yang seterusnya!</string>
+  <string name="voteToLoadNextOne">Undi untuk memuatkan Teka-teki yang seterusnya!</string>
   <string name="findTheBestMoveForWhite">Cari langkah terbaik untuk putih.</string>
   <string name="findTheBestMoveForBlack">Cari langkah terbaik untuk hitam.</string>
   <string name="toGetPersonalizedPuzzles">Untuk mendapatkan teka-teki yang diperibadikan:</string>
@@ -38,7 +38,7 @@
   <string name="easier">Lebih Mudah</string>
   <string name="easiest">Termudah</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="other">%s Satu titik di bawah peringkat teka-teki anda</item>
+    <item quantity="other">%s titik di bawah peringkat teka-teki anda</item>
   </plurals>
   <string name="harder">Lebih Susah</string>
   <string name="hardest">Paling Susah</string>
@@ -47,6 +47,7 @@
   </plurals>
   <string name="example">Contoh</string>
   <string name="addAnotherTheme">Tambahkan tema lain</string>
+  <string name="nextPuzzle">Teka-teki seterusnya</string>
   <string name="jumpToNextPuzzleImmediately">Langsung ke teka-teki seterusnya dengan segera</string>
   <string name="puzzleDashboard">Papan Pemuka Teka-teki</string>
   <string name="improvementAreas">Kawasan penambahbaikan</string>
@@ -64,6 +65,9 @@
   <string name="searchPuzzles">Cari teka-teki</string>
   <string name="fromMyGamesNone">Anda tidak mempunyai teka-teki dalam pangkalan data, tetapi Lichess masih sangat menyayangi anda.
 Main permainan pantas dan klasik untuk meningkatkan peluang anda untuk menambahkan teka-teki anda!</string>
+  <plurals name="puzzlesFoundInUserGames">
+    <item quantity="other">%1$s Teka-teki dijumpai dalam permainan oleh %2$s</item>
+  </plurals>
   <string name="puzzleDashboardDescription">Melatih, menganalisis, memperbaiki</string>
   <plurals name="nbPlayed">
     <item quantity="other">%s dimainkan</item>

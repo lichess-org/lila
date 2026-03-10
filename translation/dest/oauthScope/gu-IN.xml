@@ -29,7 +29,6 @@
   <string name="botPlay">બૉટ API સાથે રમતો રમો</string>
   <string name="engineRead">તમારા બાહ્ય એન્જિનો જુઓ અને ઉપયોગ કરો</string>
   <string name="engineWrite">બાહ્ય એન્જિનો બનાવો અને અપડેટ કરો</string>
-  <string name="webLogin">પ્રમાણિત વેબસાઇટ સત્રો બનાવો (સંપૂર્ણ ઍક્સેસ આપે છે!)</string>
   <string name="webMod">મોડરેટર ટૂલ્સનો ઉપયોગ કરો (તમારી પરવાનગીની મર્યાદામાં)</string>
   <string name="personalAccessTokens">વ્યક્તિગત API એક્સેસ ટોકન્સ</string>
   <string name="canMakeOauthRequests">તમે %s માંથી પસાર થયા વિના OAuth વિનંતીઓ કરી શકો છો.</string>

@@ -132,8 +132,15 @@
   <string name="pinnedPieces">जकडलेले मोहरे</string>
   <string name="checkableKing">शह मिळू शकेल असा राजा</string>
   <string name="multipleLines">अनेक लाइन</string>
+  <string name="multipleLinesDescription">पटावर मूल्यमापन ओळांची व चालनिर्देशक बाणांची संख्या ठरवा</string>
+  <string name="searchTime">शोधण्यासाठी वेळ</string>
+  <string name="searchTimeDescription">नवीन स्थितींचे मूल्यमापन करण्यासाठी वेळ ठरवा</string>
+  <string name="threads">कार्यधागे</string>
+  <string name="threadsDescription">हे तुमच्या CPU च्या कार्याधागा मर्यादाच्या खाली ठरवा , निवडखूणा एक चांगला सुरक्षित पर्याय दर्शवतात.</string>
+  <string name="threadsDescriptionMobile">जास्त कार्याधागे चांगल्या विशलेषणासाठी अधिक विद्युतघटसंच वापरतील</string>
   <string name="cpus">गणक</string>
   <string name="memory">मेमरी</string>
+  <string name="memoryDescription">उच्च मूल्ये कार्यक्षमता सुधारू शकतात</string>
   <string name="infiniteAnalysis">अमर्यादित विश्लेषण</string>
   <string name="removesTheDepthLimit">खोली मर्यादा काढून टाकते आणि आपला संगणक उष्ण ठेवतो</string>
   <string name="blunder">घोडचूक</string>
@@ -1023,6 +1030,7 @@
   <string name="offline" comment="status of a user">उपस्थित नाही</string>
   <string name="search">शोधा</string>
   <string name="clearSearch">शोध हटवा</string>
+  <string name="thereAreNoResultsForX">\"%s\" साठी कोणताही निकाल नाही</string>
   <string name="tags">टॅंग्स</string>
   <string name="enPassant">एन पसांट</string>
 </resources>

@@ -106,6 +106,6 @@
   <string name="semifinals">Semifinale</string>
   <string name="finals">Finale</string>
   <string name="tiebreaks">Departajări</string>
-  <string name="gameX">Joc %s</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Joc %s</string>
   <string name="knockouts">Eliminatorii</string>
 </resources>

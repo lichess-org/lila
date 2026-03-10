@@ -29,7 +29,6 @@
   <string name="botPlay">Διεξαγωγή παρτίδων με API για bot</string>
   <string name="engineRead">Προβολή και χρήση των εξωτερικών μηχανών σας</string>
   <string name="engineWrite">Δημιουργία και ενημέρωση εξωτερικών μηχανών</string>
-  <string name="webLogin">Δημιουργία πιστοποιημένων συνεδριών ιστοσελίδας (παρέχει πλήρη πρόσβαση!)</string>
   <string name="webMod">Χρήση εργαλείων συντονιστή (εντός των ορίων των δικαιωμάτων σας)</string>
   <string name="personalAccessTokens">Προσωπικά διακριτικά πρόσβασης API</string>
   <string name="canMakeOauthRequests">Μπορείτε να κάνετε αιτήσεις OAuth χωρίς να περάσετε από το %s.</string>

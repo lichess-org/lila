@@ -100,6 +100,6 @@
   <string name="semifinals">Ημιτελικοί</string>
   <string name="finals">Τελικοί</string>
   <string name="tiebreaks">Μπαράζ</string>
-  <string name="gameX">Παρτίδα %s</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Παρτίδα %s</string>
   <string name="knockouts">Νοκ άουτ</string>
 </resources>

@@ -98,5 +98,5 @@
   <string name="quarterfinals">Çerekfinale</string>
   <string name="semifinals">Gjysmëfinale</string>
   <string name="finals">Fiale</string>
-  <string name="gameX">Loja %s</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Loja %s</string>
 </resources>

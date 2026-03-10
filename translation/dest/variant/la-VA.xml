@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="fromPosition" comment="An option that lets you create a standard chess game from a custom position.">Ex Positione</string>
+</resources>

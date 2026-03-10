@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Tetapan permainan</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Cabar rakan anda</string>
+  <string name="playAgainstComputer">Main dengan komputer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Untuk menjemput seseorang bermain, berikan pautan ini</string>
   <string name="gameOver">Permainan Tamat</string>
   <string name="waitingForOpponent">Menunggu untuk lawan</string>
   <string name="orLetYourOpponentScanQrCode">Atau biarkan lawan anda mengimbas kod QR</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Pautan tetap untuk sesiapa sahaja yang ingin mencabar anda dengan tetapan yang ditetapkan.</string>
   <string name="waiting">Menunggu</string>
   <string name="yourTurn">Giliran anda</string>
   <string name="aiNameLevelAiLevel">%1$s tahap %2$s</string>
@@ -91,6 +95,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" yang dibundar, mengikut jumlah pegerakkan separuh sehingga sebuah bidak dimakan atau pegerakkan pion seterusnya</string>
   <string name="noGameFound">Tiada perlawanan dijumpai</string>
+  <string name="maxDepthReached">Kedalaman maksimum telah dicapai!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Mungki masukkan lebih banyak perlawanan daripada pilihan menu?</string>
   <string name="openings">Pembukaan</string>
   <string name="openingExplorer">Membuka explorer</string>
@@ -113,7 +118,11 @@
   <string name="bestMoveArrow">Anak panah gerak terbaik</string>
   <string name="showVariationArrows">Tunjuk anak panah variasi</string>
   <string name="evaluationGauge">Tolok penialian</string>
+  <string name="undefendedPieces">Buah catur yang tidak dipertahankan</string>
+  <string name="pinnedPieces">Buah catur terkunci</string>
   <string name="multipleLines">Multiple lines</string>
+  <string name="searchTime">Masa carian</string>
+  <string name="searchTimeDescription">Tetapkan masa untuk menilai kedudukan baru</string>
   <string name="cpus">CPU</string>
   <string name="memory">Memori</string>
   <string name="infiniteAnalysis">Analisis tak terbatas</string>
@@ -154,6 +163,9 @@
   <plurals name="nbGames">
     <item quantity="other">%s Permainan</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="other">Taraf %1$s di atas %2$s permainan</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s bookmarks</item>
   </plurals>
@@ -170,6 +182,7 @@
   <string name="latestForumPosts">Latest forum posts</string>
   <string name="players">Senarai pemain</string>
   <string name="friends">Senarai rakan</string>
+  <string name="otherPlayers">pemain lain</string>
   <string name="discussions">Senarai perbualan</string>
   <string name="today">Hari ini</string>
   <string name="yesterday">Semalam</string>
@@ -242,6 +255,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s permainan dengan anda</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Batal</string>
   <string name="whiteTimeOut">Putih habis masa</string>
   <string name="blackTimeOut">Hitam habis masa</string>
@@ -359,6 +373,7 @@
   <string name="leaderboard">Papan pendahulu</string>
   <string name="screenshotCurrentPosition">Tangkapan skrin (Screenshot) kedudukan semasa</string>
   <string name="gameAsGIF">Permainan sebagai GIF</string>
+  <string name="playerNames">Nama pemain</string>
   <string name="pasteTheFenStringHere">Paste teks FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste text PGN di sini</string>
   <string name="orUploadPgnFile">Atau muat naik fail PGN</string>
@@ -378,6 +393,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="blackCheckmatesInOneMove">Hitam checkmate dalam satu langkah gerakan</string>
   <string name="retry">Cuba semula</string>
   <string name="reconnecting">Penyambungan semula</string>
+  <string name="noNetwork">Luar talian</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s rakan dalam talian</item>
   </plurals>
@@ -420,6 +436,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="points">Mata</string>
   <string name="wins">Menang</string>
   <string name="losses">Kalah</string>
+  <string name="startingIn" comment="Displayed above a timer">Bermula dalam</string>
   <string name="standByX">Berada dengan %s, permain yang diseimbangkan, sila bersedia!</string>
   <string name="pause">Jeda</string>
   <string name="resume">Sambung</string>

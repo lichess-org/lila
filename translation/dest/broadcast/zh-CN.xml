@@ -102,6 +102,6 @@
   <string name="semifinals">半决赛</string>
   <string name="finals">决赛</string>
   <string name="tiebreaks">加赛</string>
-  <string name="gameX">第 %s 局</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">第 %s 局</string>
   <string name="knockouts">淘汰赛</string>
 </resources>

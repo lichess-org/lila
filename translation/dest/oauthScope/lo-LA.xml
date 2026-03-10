@@ -29,7 +29,6 @@
   <string name="botPlay">ຫຼິ້ນເກມດ້ວຍ API ບັອດ (Bot)</string>
   <string name="engineRead">ເບິ່ງ ແລະ ນຳໃຊ້ເຄື່ອງຈັກວິເຄາະພາຍນອກ (Engine)</string>
   <string name="engineWrite">ສ້າງ ແລະ ອັບເດດເຄື່ອງຈັກວິເຄາະພາຍນອກ</string>
-  <string name="webLogin">ສ້າງເຊດຊັນເວັບໄຊທີ່ມີການຢືນຢັນຕົວຕົນ (ໃຫ້ສິດເຂົ້າເຖິງທັງໝົດ!)</string>
   <string name="webMod">ນຳໃຊ້ເຄື່ອງມືຜູ້ດູແລລະບົບ (ພາຍໃຕ້ຂອບເຂດສິດທິຂອງທ່ານ)</string>
   <string name="personalAccessTokens">ໂທເຄັນເຂົ້າເຖິງ API ສ່ວນຕົວ</string>
   <string name="canMakeOauthRequests">ທ່ານສາມາດສົ່ງຄຳຂໍ OAuth ໄດ້ໂດຍບໍ່ຕ້ອງຜ່ານ %s.</string>

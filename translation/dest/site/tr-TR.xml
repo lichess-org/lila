@@ -132,8 +132,15 @@
   <string name="pinnedPieces">Açmazdaki taşlar</string>
   <string name="checkableKing">Çekilebilir şah</string>
   <string name="multipleLines">Çoklu varyantlar</string>
+  <string name="multipleLinesDescription">Değerlendirme satırlarının sayısını belirleyin ve tahtadaki okları hareket ettirin</string>
+  <string name="searchTime">Arama süresi</string>
+  <string name="searchTimeDescription">Yeni pozisyonları değerlendirmek için zamanı ayarlayın</string>
+  <string name="threads">Çekirdek</string>
+  <string name="threadsDescription">Bunu işlemcinizin çekirdek sayısının altına ayarlayın, işaretler iyi ve güvenli bir seçimi gösterir</string>
+  <string name="threadsDescriptionMobile">Daha fazla çekirdek, daha iyi analiz için daha fazla pil tüketecektir</string>
   <string name="cpus">İşlemci</string>
   <string name="memory">Hafıza</string>
+  <string name="memoryDescription">Daha yüksek değerler performansı artırabilir</string>
   <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Derinlik sınırını kaldırır ve bilgisayarınızı sıcacık tutar</string>
   <string name="blunder">Vahim hata</string>

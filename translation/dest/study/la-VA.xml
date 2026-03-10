@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Privatum</string>
+  <string name="myStudies">Mea studia</string>
+  <string name="allStudies">Omnia studia</string>
+  <string name="alphabetical">Literarum ordine</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Capitulum</item>
+    <item quantity="other">%s Capitula</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Ludus</item>
+    <item quantity="other">%s Ludi</item>
+  </plurals>
   <plurals name="nbMembers">
     <item quantity="one">%s Socius</item>
     <item quantity="other">%s Socii</item>
@@ -13,5 +24,6 @@
   <string name="save">Serva</string>
   <string name="goodMove">Bonum spatium</string>
   <string name="mistake">Erratum</string>
+  <string name="brilliantMove">Splendidus motus</string>
   <string name="blunder">Peccatus</string>
 </resources>

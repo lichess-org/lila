@@ -104,6 +104,6 @@
   <string name="semifinals">Välierät</string>
   <string name="finals">Loppuottelu</string>
   <string name="tiebreaks">Katkaisupelit</string>
-  <string name="gameX">Peli %s</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Peli %s</string>
   <string name="knockouts">Pudotuspelit</string>
 </resources>

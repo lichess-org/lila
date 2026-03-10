@@ -29,7 +29,6 @@
   <string name="botPlay">Xogar partidas coa API de Bots</string>
   <string name="engineRead">Ver e empregar os teus motores de xadrez externos</string>
   <string name="engineWrite">Crear e actualizar os teus motores de xadrez externos</string>
-  <string name="webLogin">Crear sesións web autenticadas (concede acceso completo!)</string>
   <string name="webMod">Empregar ferramentas de moderador (dentro dos límites do teu permiso)</string>
   <string name="personalAccessTokens">Tokens persoais de acceso á API</string>
   <string name="canMakeOauthRequests">Podes facer solicitudes de OAuth sen pasar polo %s.</string>

@@ -104,6 +104,6 @@
   <string name="semifinals">Finalerdiak</string>
   <string name="finals">Finalak</string>
   <string name="tiebreaks">Desberdinketak</string>
-  <string name="gameX">%s partida</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">%s partida</string>
   <string name="knockouts">Kanporaketak</string>
 </resources>

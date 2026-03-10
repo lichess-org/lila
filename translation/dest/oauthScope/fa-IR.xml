@@ -29,7 +29,6 @@
   <string name="botPlay">با api ربات بازی کنید</string>
   <string name="engineRead">دیدن و استفاده از موتورهای بیرونی‌تان</string>
   <string name="engineWrite">ساخت و به‌روزرسانی موتورهای بیرونی</string>
-  <string name="webLogin">ساخت جلسه‌های وبگاه راستین‌شمارده (دادن دسترسی کامل!)</string>
   <string name="webMod">از ابزارهای مدیریت (در محدوده اجازه شما) استفاده کنید</string>
   <string name="personalAccessTokens">کلیدواژه خصوصی دسترسی به api</string>
   <string name="canMakeOauthRequests">شما میتوانید درخواست های OAuth را بدون استفاده از %s ارسال نمایید.</string>

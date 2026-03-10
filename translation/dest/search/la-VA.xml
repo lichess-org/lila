@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">Quaerere</string>
+  <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">Quaere</string>
   <string name="advancedSearch">Investigatio multiplex</string>
   <plurals name="searchInXGames">
     <item quantity="one">Quaere in %s ludo scaccorum</item>
@@ -12,5 +12,6 @@
   </plurals>
   <string name="opponentName">Nomen adversarii</string>
   <string name="humanOrComputer">Num adversarius lusoris homo aut computatra est</string>
+  <string name="source">Fons</string>
   <string name="maxNumberExplanation">Numerus ludorum reddendus</string>
 </resources>
