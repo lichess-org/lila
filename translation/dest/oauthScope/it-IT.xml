@@ -29,7 +29,6 @@
   <string name="botPlay">Disputa partite tramite bot API</string>
   <string name="engineRead">Visualizza e utilizza motori esterni</string>
   <string name="engineWrite">Crea e aggiorna i motori esterni</string>
-  <string name="webLogin">Crea sessioni del sito web autenticate (concede il pieno accesso!)</string>
   <string name="webMod">Utilizza strumenti da moderatore (entro i limiti dei tuoi permessi)</string>
   <string name="personalAccessTokens">Token di accesso API personale</string>
   <string name="canMakeOauthRequests">Puoi fare richieste OAuth senza bisogno del %s.</string>
