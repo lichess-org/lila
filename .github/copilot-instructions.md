@@ -6,7 +6,7 @@ Lila (li[chess in sca]la) is the free, open-source chess server powering lichess
 
 **Technology Stack:**
 
-- **Backend**: Scala 3.7.2 with Play Framework 2.8, SBT build system
+- **Backend**: Scala 3.8.2 with Play Framework 2.8, SBT build system
 - **Frontend**: TypeScript with Snabbdom, PNPM workspace monorepo
 - **Database**: MongoDB with Elasticsearch indexing
 - **Real-time**: WebSocket connections via separate lila-ws server, Redis for communication
@@ -18,14 +18,14 @@ Lila (li[chess in sca]la) is the free, open-source chess server powering lichess
 **CRITICAL**: These exact versions are required - the build will fail without them:
 
 - **Java 21** (JDK, not JRE - needs jdk.compiler module)
-- **Node.js 24.1.0+** (specified in `.node-version`)
-- **PNPM 10.4.1+** (specified in `package.json`)
+- **Node.js 24.14.0+** (specified in `.node-version`)
+- **PNPM 10.32.1+** (specified in `package.json`)
 
 **Installation:**
 
 ```bash
 # Install PNPM globally
-npm install -g pnpm@10.4.1
+npm install -g pnpm@10.32.1
 
 # Install dependencies (always run this first)
 pnpm install
@@ -86,7 +86,10 @@ pnpm check-format
 pnpm format
 
 # Lint TypeScript code
-pnpm lint [path]
+pnpm lint
+
+# Auto-fix lint issues
+pnpm lint:fix
 
 # Backend formatting check (Scalafmt) - via lila.sh wrapper
 ./lila.sh scalafmtCheckAll
@@ -122,9 +125,9 @@ pnpm lint [path]
 
 ## Common Issues & Solutions
 
-**Node Version Error:** `Nodejs v24.1.0 or later is required`
+**Node Version Error:** `Nodejs v24.14.0 or later is required`
 
-- Install Node 24+ using nvm or package manager
+- Install Node 24.14+ using nvm or package manager
 - Check with: `node -v`
 
 **Java Version Issues:**
