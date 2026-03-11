@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">Belajar catur</string>
-  <string name="byPlaying">!dengan bermain!</string>
+  <string name="byPlaying">dengan bermain!</string>
   <string name="play">main!</string>
   <string name="chessPieces">Bidak catur</string>
   <string name="theRook">Benteng</string>
