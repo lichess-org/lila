@@ -456,14 +456,13 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
         hl(
           'td',
           hl(
-            'a.game-link.text',
-            { attrs: { ...dataIcon(licon.StudyBoard), href: `/broadcast/-/-/${game.round}/${game.id}` } },
+            'a.game-link.is.color-icon.text.' + game.color,
+            { attrs: { href: `/broadcast/-/-/${game.round}/${game.id}` } },
             `${i + 1}`,
           ),
         ),
         playerTd(game.opponent, ctrl, withTips),
         hl('td', game.opponent.rating?.toString()),
-        hl('td.is.color-icon.' + game.color),
         hl('td.tpp__games__status', coloredPoint(game, i)),
         hl(
           'td',
