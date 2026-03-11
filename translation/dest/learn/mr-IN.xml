@@ -2,8 +2,8 @@
 <resources>
   <string name="learnChess">बुद्धिबळ शिका</string>
   <string name="byPlaying">खेळून!</string>
-  <string name="menu">मेनू</string>
-  <string name="progressX">प्रगती:%s</string>
+  <string name="menu">सूची</string>
+  <string name="progressX">प्रगती: %s</string>
   <string name="resetMyProgress">माझी प्रगती समायोजित करा</string>
   <string name="youWillLoseAllYourProgress">आपण आपली सर्व प्रगती गमावाल!</string>
   <string name="play">खेळा!</string>
@@ -130,7 +130,7 @@
 त्याच्या वझीराच्या शेजारी.</string>
   <string name="pawnsFormTheFrontLine">प्यादे समोरची ओळ बनवतात.
 पुढे जाण्यासाठी कोणतीही चाल करा.</string>
-  <string name="boardSetupComplete">अभिनंदन! बुद्धीबळ बोर्ड कसे लावायचे ते आपल्याला माहित आहे.</string>
+  <string name="boardSetupComplete">अभिनंदन! बुद्धीबळ पट कसे लावायचे ते आपल्याला माहित आहे.</string>
   <string name="castling">किल्लेकोट</string>
   <string name="theSpecialKingMove">राजाची विशेष चाल</string>
   <string name="castlingIntro">आपल्या राजाला सुरक्षित ठिकाणी पोचवा, आणि हत्तीला हल्ल्यासाठी तैनात करा!</string>
@@ -172,11 +172,11 @@
   <string name="pieceValue">सोंगट्यांचे मूल्य</string>
   <string name="evaluatePieceStrength">सोंगट्यांच्या शक्तीचे मूल्यमापन करा</string>
   <string name="pieceValueIntro">सोंगट्यांच्या हालचाली प्रमाणे त्यांना जास्त किंमत असते!
-वजीर = 9
-हत्ती = 5
-उंट = 3
-घोडा = 3
-प्यादे = 1
+वजीर = ९
+हत्ती = ५
+उंट = ३
+घोडा = ३
+प्यादे = १
 राजा अनमोल आहे! राजा गमावला म्हणजे खेळ हरला.</string>
   <string name="queenOverBishop">सर्वाधिक मुल्य असलेली सोंगटी मारा!
 वझीर &gt; उंट</string>
@@ -186,11 +186,11 @@
 पण चाल वैध आहे याची खात्री करा!</string>
   <string name="takeThePieceWithTheHighestValue">सर्वाधिक मूल्य असलेली सोंगटी मारा!</string>
   <string name="pieceValueComplete">अभिनंदन! आता तुम्हाला सोंगट्यांची किंमत समजली आहे!
-वझीर = 9
-हत्ती = 5
-उंट = 3
-घोडा = 3
-प्यादे = 1</string>
+वझीर = ९
+हत्ती = ५
+उंट = ३
+घोडा = ३
+प्यादे = १</string>
   <string name="checkInTwo">दोन चालीमध्ये शह</string>
   <string name="twoMovesToGiveCheck">दोन चालीमध्ये शह द्या</string>
   <string name="checkInTwoIntro">विरोधकाच्या राजाला शह देता येईल असे २ चालींचे संयोजन शोधा!</string>
@@ -199,16 +199,16 @@
   <string name="whatNext">पुढे काय?</string>
   <string name="youKnowHowToPlayChess">तुम्हाला बुद्धिबळ कसे खेळायचे ते समजले आहे, अभिनंदन! तुम्हाला अजून मजबूत खेळाडू व्ह्यायचे आहे का?</string>
   <string name="register">सदस्य खाते तयार करा</string>
-  <string name="getAFreeLichessAccount">फुकट lichess खाते घ्या</string>
+  <string name="getAFreeLichessAccount">फुकट Lichess खाते घ्या</string>
   <string name="practice">सराव</string>
   <string name="learnCommonChessPositions">बुद्धिबळाच्या सामान्य स्थिति शिका</string>
   <string name="puzzles">कोडी</string>
   <string name="exerciseYourTacticalSkills">तुमच्या डावपेच कौशल्याचा सराव करा</string>
-  <string name="videos">व्हिडिओ</string>
+  <string name="videos">चित्रफीतल्या </string>
   <string name="watchInstructiveChessVideos">उपदेशात्मक बुद्धीबळ व्हिडिओ पहा</string>
   <string name="playPeople">लोकांसोबत खेळा</string>
   <string name="opponentsFromAroundTheWorld">जगभरातील बुद्धिबळपटू</string>
-  <string name="playMachine">मशीन सोबत खेळा</string>
+  <string name="playMachine">संगणक सोबत खेळा</string>
   <string name="testYourSkillsWithTheComputer">तुमच्या कौशल्यांची संगणकासोबत चाचणी करा</string>
   <string name="letsGo">चला!</string>
   <string name="stageX">पायरी %s</string>
