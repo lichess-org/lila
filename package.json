@@ -41,8 +41,10 @@
     "format": "oxfmt",
     "format:scala": "./lila.sh scalafmtAll",
     "check-format": "oxfmt --check",
-    "lint": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json && stylelint \"ui/**/*.scss\"",
-    "lint:fix": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json --fix && stylelint \"ui/**/*.scss\" --fix",
+    "lint": "pnpm lint:code && pnpm lint:style",
+    "lint:code": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json",
+    "lint:style": "stylelint \"ui/**/*.scss\"",
+    "lint:fix": "pnpm lint:code --fix && pnpm lint:style --fix",
     "assets:optimize": "svgo -rf ./public/ ./public/",
     "test": "node ui/test",
     "journal": "journalctl --user -fu lila -o cat",
@@ -54,7 +56,8 @@
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true"
   },
   "lint-staged": {
-    "*.{json,ts,mts,mjs,scss}": "pnpm lint:fix && pnpm format"
+    "*.{json,scss,ts,mts,mjs}": "pnpm lint:code && pnpm format",
+    "*.{scss}": "pnpm lint:style && pnpm format"
   },
   "browserslist": [
     "defaults",
