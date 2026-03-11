@@ -41,6 +41,8 @@ in
     pkgs.stylelint
   ];
 
+  # pnpm installs dynamically linked binaries there,
+  # and forcefully adds the directory to the $PATH.
   enterShell = ''
     rm -rf node_modules/.bin
   '';
