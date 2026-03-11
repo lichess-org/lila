@@ -3,10 +3,12 @@
   <string name="gameSetup">Tetapan permainan</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Cabar rakan anda</string>
   <string name="playAgainstComputer">Main dengan komputer</string>
+  <string name="gameMode">Mod bermain</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Untuk menjemput seseorang bermain, berikan pautan ini</string>
   <string name="gameOver">Permainan Tamat</string>
   <string name="waitingForOpponent">Menunggu untuk lawan</string>
   <string name="orLetYourOpponentScanQrCode">Atau biarkan lawan anda mengimbas kod QR</string>
+  <string name="reusableChallengeUrl">URL (pautan) cabaran boleh guna semula</string>
   <string name="permanentLinkForAnyoneToChallengeYou">Pautan tetap untuk sesiapa sahaja yang ingin mencabar anda dengan tetapan yang ditetapkan.</string>
   <string name="waiting">Menunggu</string>
   <string name="yourTurn">Giliran anda</string>
@@ -72,7 +74,11 @@
   <string name="promoteVariation">Naikkan variasi</string>
   <string name="makeMainLine">Buat garisan utama</string>
   <string name="deleteFromHere">Hapuskan daripada sini</string>
+  <string name="collapseVariations">Runtuhkan variasi</string>
+  <string name="expandVariations">Kembangkan variasi</string>
   <string name="forceVariation">Force variation</string>
+  <string name="copyVariationPgn">Salin PGN bagi variasi ini</string>
+  <string name="copyMainLinePgn">Salin PGN bagi baris utama ini</string>
   <string name="move">Gerak</string>
   <string name="variantLoss">Variasi kalah</string>
   <string name="variantWin">Variasi menang</string>
@@ -189,6 +195,7 @@
   <string name="minutesPerSide">Minit bagi setiap bahagian</string>
   <string name="variant">Variasi</string>
   <string name="variants">Senarai variasi</string>
+  <string name="variantsDescription">Cara lain untuk bermain</string>
   <string name="timeControl">Peruntukan masa</string>
   <string name="realTime">Masa sebenar</string>
   <string name="correspondence">Jangka panjang</string>
@@ -212,6 +219,7 @@
   <string name="changeUsernameNotSame">Hanya huruf besar atau huruf kecil pada perkataan boleh ditukar. Contohnya, \"johndoe\" kepada \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Tukar nama pengguna. Tindakan ini hanya boleh dibuat sekali dan anda hanya dibenarkan menukar huruf besar/huruf kecil pada nama pengguna anda.</string>
   <string name="signupUsernameHint">Pastikan anda memilih nama yang elok. Anda tidak boleh menukarnya kemudian dan jika sesuatu akaun menggunakan nama yang tidak elok, akaun tersebut akan ditutup!</string>
+  <string name="signupEmailPromise">Kami hanya akan menghantar e-mel tentang akaun anda dan kami tidak akan mengkongsi alamat e-mel anda.</string>
   <string name="password">Kata kunci</string>
   <string name="changePassword">Tukar kata kunci</string>
   <string name="changeEmail">Tukar emel</string>
@@ -323,7 +331,15 @@
   <string name="openingExplorerAndTablebase">Peneroka bukaan &amp; senarai jadual</string>
   <string name="takeback">Ambil semula</string>
   <string name="proposeATakeback">Mencadang ambil semula</string>
+  <string name="whiteProposesTakeback">Pihak putih meminta untuk menarik balik</string>
+  <string name="blackProposesTakeback">Pihak hitam meminta untuk menarik balik</string>
   <string name="takebackPropositionSent">Tawaran ambil semula dihantar</string>
+  <string name="whiteDeclinesTakeback">Pihak putih menolak permintaan untuk menarik balik</string>
+  <string name="blackDeclinesTakeback">Pihak hitam menolak permintaan untuk menarik balik</string>
+  <string name="whiteAcceptsTakeback">Pihak putih menerima permintaan untuk menarik balik</string>
+  <string name="blackAcceptsTakeback">Pihak hitam menerima permintaan untuk menarik balik</string>
+  <string name="whiteCancelsTakeback">Pihak putih membatalkan permintaan untuk menarik balik</string>
+  <string name="blackCancelsTakeback">Pihak hitam membatalkan permintaan untuk menarik balik</string>
   <string name="yourOpponentProposesATakeback">Lawan anda mencadangkan untuk ambil semula</string>
   <string name="bookmarkThisGame">Tanda buku permainan ini</string>
   <string name="tournament">Pertandingan</string>
@@ -334,6 +350,9 @@
   </plurals>
   <plurals name="nbStudies">
     <item quantity="other">%s belajar</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="other">%s perlawanan simul</item>
   </plurals>
   <string name="viewTournament">Lihat pertandingan</string>
   <string name="backToTournament">Back to tournament</string>
@@ -464,13 +483,17 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="ifNoneLeaveEmpty">Jika tiada, biar kosong</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Sunting profile</string>
+  <string name="realName">Nama sebenar</string>
   <string name="biography">Biografi</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Negara atau kawasan</string>
   <string name="thankYou">Terima kasih!</string>
   <string name="socialMediaLinks">Pautan media sosial</string>
   <string name="oneUrlPerLine">Satu URL setiap baris.</string>
   <string name="inlineNotation">Notasi dalaman</string>
   <string name="makeAStudy">Untuk penyimpanan dan perkongsian, pertimbangkan untuk membuat kajian pembelajaran.</string>
+  <string name="previouslyOnLichessTV">Sebelum ini di Lichess TV</string>
   <string name="activePlayers">Pemain aktif</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Hati-hati, perlawanan ini ditarafkan tetapi tiada pemasa!</string>
   <string name="success">Berjaya</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s permainan sedang berlangsung</item>
@@ -482,6 +505,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="description">Huraian</string>
   <string name="no">Tidak</string>
   <string name="yes">Ya</string>
+  <string name="website">Laman sesawang</string>
   <string name="help">Tolong:</string>
   <string name="createANewTopic">Buat topik baharu</string>
   <string name="topics">Topik</string>
