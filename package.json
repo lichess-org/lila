@@ -58,7 +58,7 @@
   },
   "lint-staged": {
     "*.{json,ts,mts,mjs}": "pnpm lint:code --fix && pnpm format",
-    "*.{scss}": "pnpm lint:style --fix && pnpm format"
+    "*.scss": "pnpm lint:style --fix && pnpm format"
   },
   "browserslist": [
     "defaults",
