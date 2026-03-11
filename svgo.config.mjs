@@ -3,9 +3,5 @@ export default {
   js2svg: {
     pretty: false,
   },
-  plugins: [
-    'preset-default',
-    'convertOneStopGradients',
-    'removeTitle'
-  ],
+  plugins: ['preset-default', 'convertOneStopGradients', 'removeTitle'],
 };
