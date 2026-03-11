@@ -37,9 +37,8 @@ class RelayPlayerTest extends munit.FunSuite:
 
   test("sorting by tiebreakpoints"):
     import chess.tiebreak.*
-    val tiebreaks = Tiebreak.preset.take(2)
-    val tb1 = Seq(tiebreaks(0) -> TiebreakPoint(10), tiebreaks(1) -> TiebreakPoint(5))
-    val tb2 = Seq(tiebreaks(0) -> TiebreakPoint(12), tiebreaks(1) -> TiebreakPoint(4))
+    val tb1 = Seq(DirectEncounter -> TiebreakPoint(2), SonnebornBerger(CutModifier.None) -> TiebreakPoint(5))
+    val tb2 = Seq(DirectEncounter -> TiebreakPoint(1), SonnebornBerger(CutModifier.None) -> TiebreakPoint(4))
     val p1 = RelayPlayer(
       dummyPlayer("Alice", 2000),
       ratingsMap(2000),
