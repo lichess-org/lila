@@ -140,6 +140,7 @@
   <string name="threadsDescriptionMobile">Mitä enemmän säikeitä, sitä enemmän akku kuluu analyysin parantamiseksi</string>
   <string name="cpus">Suorittimia</string>
   <string name="memory">Muistia</string>
+  <string name="memoryDescription">Korkeammat arvot saattavat parantaa suorituskykyä</string>
   <string name="infiniteAnalysis">Loputon analyysi</string>
   <string name="removesTheDepthLimit">Poistaa syvyysrajoituksen ja pitää koneesi lämpöisenä</string>
   <string name="blunder">Vakava virhe</string>
