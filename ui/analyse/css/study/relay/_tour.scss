@@ -759,8 +759,9 @@ $hover-bg: $m-primary_bg--mix-30;
   %game-link-styles {
     @extend %flex-center-nowrap, %box-radius;
 
+    padding: 0.4em 0.5em;
+
     @media (min-width: at-least($medium)) {
-      padding: 0.4em 0.5em;
       font-size: 1.6em;
     }
 
@@ -796,6 +797,8 @@ $hover-bg: $m-primary_bg--mix-30;
 
     .player-intro__name {
       @include ellipsis;
+
+      max-width: 40vw;
     }
   }
 }
@@ -884,6 +887,20 @@ $hover-bg: $m-primary_bg--mix-30;
     tick {
       top: 1.5px;
       border-bottom-width: 3px;
+    }
+  }
+}
+
+.relay-tour__player {
+  &__games {
+    .game-point {
+      font-weight: bold;
+    }
+
+    @media (max-width: at-most($xxx-small)) {
+      td.rating-diff {
+        display: none;
+      }
     }
   }
 }
