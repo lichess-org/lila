@@ -97,6 +97,7 @@
 
     .actions {
       @extend %flex-column;
+      @include backdrop-blur-if-transparent;
 
       justify-content: stretch;
 
@@ -105,6 +106,16 @@
 
         width: 100%;
         text-align: start;
+        display: flex;
+        align-items: center;
+
+        &.disabled {
+          cursor: default;
+        }
+
+        &::before {
+          color: var(--c-font);
+        }
       }
     }
   }
