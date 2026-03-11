@@ -125,6 +125,7 @@
   .cg-gauge {
     display: flex;
     flex-flow: row nowrap;
+    height: var(---cg-height);
   }
 
   &__board {
