@@ -57,7 +57,7 @@
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true"
   },
   "lint-staged": {
-    "*.{json,scss,ts,mts,mjs}": "pnpm lint:code --fix && pnpm format",
+    "*.{json,ts,mts,mjs}": "pnpm lint:code --fix && pnpm format",
     "*.{scss}": "pnpm lint:style --fix && pnpm format"
   },
   "browserslist": [
