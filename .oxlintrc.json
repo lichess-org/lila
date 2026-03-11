@@ -39,7 +39,6 @@
     "typescript/no-unnecessary-type-arguments": "error",
     "typescript/no-unnecessary-type-assertion": "error",
     "typescript/no-unnecessary-type-constraint": "error",
-    "typescript/prefer-readonly": "error",
     "unicorn/no-immediate-mutation": "error",
     "unicorn/no-useless-collection-argument": "error",
     "unicorn/prefer-array-flat": "error",
