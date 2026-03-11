@@ -3,16 +3,19 @@
 # Short circuit lint-staged to avoid waiting on node when not needed. Even
 # when no files match, and we execute lint-stage directly, it still delays
 # the commit by .15s or so, which is annoying.
-if \git --no-pager diff-index -z --name-only --no-renames --cached HEAD | \
+if \git --no-pager diff-index -z --name-only --no-renames --cached HEAD |
   \grep -qzE '\.(json|ts|mts|mjs|scss)$'; then
   # NOTE! grep must be kept in sync with lint-staged config (ui/lint-staged-config.mjs)
 
   ROOT_DIR="$(dirname -- $0)/../.."
-  LINT_STAGED="$ROOT_DIR/node_modules/.bin/lint-staged"
+  NODE_BIN="$ROOT_DIR/node_modules/.bin/lint-staged"
+  SYS_BIN="$(which lint-staged 2>/dev/null)"
 
   # pnpm or npx adds .25s overhead. exec further reduces overhead.
-  if [ -x "$LINT_STAGED" ]; then
-    exec "$LINT_STAGED" --config "$ROOT_DIR/ui/lint-staged.config.mjs"
+  if [ -x "$NODE_BIN" ]; then
+    exec "$NODE_BIN" --config "$ROOT_DIR/ui/lint-staged.config.mjs"
+  elif [ -x "$SYS_BIN" ]; then
+    exec "$SYS_BIN" --config "$ROOT_DIR/ui/lint-staged.config.mjs"
   else
     exec pnpm lint-staged
   fi
