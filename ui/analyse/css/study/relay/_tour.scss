@@ -797,6 +797,7 @@ $hover-bg: $m-primary_bg--mix-30;
 
     .player-intro__name {
       @include ellipsis;
+      max-width: 40vw;
     }
   }
 }
