@@ -463,9 +463,9 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
         ),
         playerTd(game.opponent, ctrl, withTips),
         hl('td', game.opponent.rating?.toString()),
-        hl('td.tpp__games__status', coloredPoint(game, i)),
+        hl('td.game-point', coloredPoint(game, i)),
         hl(
-          'td',
+          'td.rating-diff',
           defined(game.ratingDiff) &&
             hideResultsSinceIndex > i &&
             ratingDiff(game, p.ratingsMap && Object.keys(p.ratingsMap).length > 1),

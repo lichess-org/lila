@@ -797,6 +797,7 @@ $hover-bg: $m-primary_bg--mix-30;
 
     .player-intro__name {
       @include ellipsis;
+
       max-width: 40vw;
     }
   }
@@ -886,6 +887,20 @@ $hover-bg: $m-primary_bg--mix-30;
     tick {
       top: 1.5px;
       border-bottom-width: 3px;
+    }
+  }
+}
+
+.relay-tour__player {
+  &__games {
+    .game-point {
+      font-weight: bold;
+    }
+
+    @media (max-width: at-most($xxx-small)) {
+      td.rating-diff {
+        display: none;
+      }
     }
   }
 }
