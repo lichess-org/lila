@@ -1029,6 +1029,7 @@ Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door do
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Zoeken</string>
   <string name="clearSearch">Zoekopdracht wissen</string>
+  <string name="thereAreNoResultsForX">Geen resultaten voor \"%s\"</string>
   <string name="tags">Labels</string>
   <string name="enPassant">En passant</string>
 </resources>
