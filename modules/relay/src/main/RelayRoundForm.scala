@@ -25,7 +25,6 @@ import lila.relay.RelayRound.Sync.url.*
 final class RelayRoundForm(using mode: Mode):
 
   import RelayRoundForm.*
-  import RelayFormUtil.*
 
   private def urlFormatter(prev: Option[RelayRound])(using Me): Formatter[Upstream.Url] =
     val prevUrl = prev.flatMap(_.sync.upstream).flatMap(_.asUrl)
@@ -100,7 +99,7 @@ final class RelayRoundForm(using mode: Mode):
       "rated" -> optional(boolean.into[Rated]),
       "customScoring" -> optional(byColor.mappingOf(customScoringMapping)),
       "teamCustomScoring" -> optional(customScoringMapping),
-      "fideTCOverride" -> optional(fideTCMapping)
+      "fideTCOverride" -> optional(RelayTourForm.fideTCMapping)
     )(Data.apply)(unapply)
 
   def create(trs: RelayTour.WithRounds)(using Me) = Form(

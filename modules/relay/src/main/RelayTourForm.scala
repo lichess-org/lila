@@ -15,7 +15,6 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
 
   import RelayTourForm.*
   import lila.study.StudyForm.given
-  import RelayFormUtil.*
 
   private val spotlightMapping =
     mapping("enabled" -> boolean, "lang" -> langList.popularLanguagesForm.mapping, "title" -> optional(text))(
@@ -114,6 +113,10 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
     )
 
 object RelayTourForm:
+
+  import chess.FideTC
+  given Formatter[FideTC] = formatter.stringFormatter(_.toString, FideTC.valueOf)
+  val fideTCMapping: Mapping[FideTC] = typeIn(FideTC.values.toSet)
 
   case class Data(
       name: RelayTour.Name,
