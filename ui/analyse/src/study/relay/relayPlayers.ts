@@ -236,13 +236,15 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
             p.performances &&
               hl('div.fide-player__card', [
                 hl('em', i18n.site.performance),
-                Object.entries(p.performances).map(([tc, value]: [FideTC, number]) =>
-                  hl(
-                    'div.performance',
-                    fideTCAttrs(tc),
-                    `${value}${p.games.filter(g => g.fideTC === tc).length < 4 ? '?' : ''}`,
+                Object.entries(p.performances)
+                  .sort(statByFideTCSort)
+                  .map(([tc, value]: [FideTC, number]) =>
+                    hl(
+                      'div.performance',
+                      fideTCAttrs(tc),
+                      `${value}${p.games.filter(g => g.fideTC === tc).length < 4 ? '?' : ''}`,
+                    ),
                   ),
-                ),
               ]),
             p.ratingDiffs &&
               hl('div.fide-player__card', [hl('em', i18n.broadcast.ratingDiff), ratingDiff(p)]),
@@ -516,10 +518,15 @@ const playerTd = (player: RelayPlayer, ctrl: RelayPlayers, withTips: boolean): V
   );
 };
 
+const fideTCOrder: FideTC[] = ['standard', 'rapid', 'blitz'];
+
+const statByFideTCSort = (a: [FideTC, number], b: [FideTC, number]) =>
+  fideTCOrder.indexOf(a[0]) - fideTCOrder.indexOf(b[0]);
+
 const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = false) => {
   if (isRelayPlayerGame(p)) return hl('div.diff', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff));
   if (!p.ratingDiffs) return p.rating;
-  const rds = Object.entries(p.ratingDiffs);
+  const rds = Object.entries(p.ratingDiffs).sort(statByFideTCSort);
   const isMultiTc = rds.length > 1;
   const diffNodes = rds.map(([tc, diff]: [FideTC, number]) => {
     const node = [p.ratingsMap?.[tc], diffNode(diff)];

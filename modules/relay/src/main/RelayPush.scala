@@ -69,7 +69,7 @@ final class RelayPush(
         rt <- api.byIdWithTour(prev.round.id).orFail(s"Relay $prev no longer available")
         _ <- cantHaveUpstream(rt.round).so(fail => fufail[Unit](fail.error))
         withPlayers = playerEnrich.enrichAndReportAmbiguous(rt)(rawGames)
-        withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
+        withFide <- fidePlayers.enrichGames(rt)(withPlayers)
         withReplacements = rt.tour.players.fold(withFide)(_.parse.update(withFide)._1)
         games = rt.tour.teams.fold(withReplacements)(_.update(withReplacements))
         event <- sync
