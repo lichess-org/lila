@@ -380,14 +380,30 @@ Hanna Marie ; Kozul, Zdenko"""),
             toggle = nav.round.exists(r => r.customScoring.isDefined || r.teamCustomScoring.isDefined).some
           )(
             nav.tour.showRatingDiffs.option(
-              form3.group(form("rated"), raw("")): field =>
-                val withDefault =
-                  if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
-                form3.checkboxGroup(
-                  withDefault,
-                  "Rated round",
-                  help = frag("Include this round when calculating players' rating changes").some
-                )
+              form3.split(
+                form3.group(form("rated"), raw("")): field =>
+                  val withDefault =
+                    if nav.newRound && field.value.isEmpty then field.copy(value = "true".some) else field
+                  form3.checkboxGroup(
+                    withDefault,
+                    "Rated round",
+                    help = frag("Include this round when calculating players' rating changes").some,
+                    half = true
+                  )
+                ,
+                form3.group(
+                  form("fideTCOverride"),
+                  trb.fideRatingCategory(),
+                  help = frag("Optional. Override the FIDE rating category for this round").some,
+                  half = true
+                ):
+                  form3.select(
+                    _,
+                    chess.FideTC.values.map: tc =>
+                      tc.toString -> tc.toString.capitalize,
+                    default = "".some
+                  )
+              )
             ),
             Color.all.map: color =>
               form3.split:

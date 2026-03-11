@@ -135,8 +135,13 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
           insert: gameLinksListener(study.chapterSelect),
         },
       },
-      pager.currentPageResults.map(
-        makePreview(baseUrl, study.vm.chapterId, cloudEval, ctrl.showResults(), study.relay?.round),
+      makePreviews(
+        pager.currentPageResults,
+        baseUrl,
+        study.vm.chapterId,
+        cloudEval,
+        ctrl.showResults(),
+        study.relay?.round,
       ),
     ),
   ]);
@@ -194,25 +199,30 @@ const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
   check: !!cp.check,
 });
 
-const makePreview =
-  (
-    roundPath: string,
-    current: ChapterId,
-    cloudEval?: MultiCloudEval,
-    showResults?: boolean,
-    round?: RelayRound,
-  ) =>
-  (preview: ChapterPreview) => {
-    const orientation = preview.orientation || 'white';
+const makePreviews = (
+  previews: ChapterPreview[],
+  roundPath: string,
+  current: ChapterId,
+  cloudEval?: MultiCloudEval,
+  showResults?: boolean,
+  round?: RelayRound,
+) =>
+  previews.map((preview, index) => {
+    const extraCgConfig =
+      index === 0
+        ? () => ({
+            addDimensionsCssVarsTo: document.querySelector<HTMLElement>('.study__multiboard .now-playing')!,
+          })
+        : undefined;
     return h(
       `a.mini-game.is2d.chap-${preview.id}${showResults ? '' : '.no-spoilers'}`,
       {
         class: { active: preview.id === current },
         attrs: gameLinkAttrs(roundPath, preview),
       },
-      previewContent(preview, orientation, cloudEval, showResults, round),
+      previewContent(preview, preview.orientation, cloudEval, showResults, round, extraCgConfig),
     );
-  };
+  });
 
 export const previewContent = (
   preview: ChapterPreview,
