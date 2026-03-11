@@ -80,13 +80,13 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
 
   const buttonStart = (icon?: string) =>
     h(
-      `a.button.button-empty${icon ? '.text' : ''}`,
+      `button.button.button-empty${icon ? '.text' : ''}`,
       { on: { click: ctrl.startPosition }, attrs: icon ? dataIcon(icon) : {} },
       i18n.site.startPosition,
     );
   const buttonClear = (icon?: string) =>
     h(
-      `a.button.button-empty${icon ? '.text' : ''}`,
+      `button.button.button-empty${icon ? '.text' : ''}`,
       { on: { click: ctrl.clearBoard }, attrs: icon ? dataIcon(icon) : {} },
       i18n.site.clearBoard,
     );
@@ -295,6 +295,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               'button',
               {
                 class: { button: true, 'button-empty': true, disabled: !state.playable },
+                attrs: {
+                  disabled: !state.playable,
+                },
                 on: {
                   click: () => {
                     if (state.playable) domDialog({ cash: $('.continue-with'), modal: true, show: true });
