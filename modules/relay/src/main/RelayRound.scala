@@ -83,6 +83,8 @@ case class RelayRound(
 
   def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
 
+  def ratingAndScoringFields = (rated, customScoring, teamCustomScoring, fideTCOverride)
+
   override def toString = s"""relay #$id "$name" $sync"""
 
 object RelayRound:

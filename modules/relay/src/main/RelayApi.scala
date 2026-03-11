@@ -358,14 +358,10 @@ final class RelayApi(
         _ <- nextRoundToStart.so(next => requestPlay(next.id, v = true, "update->nextRoundToStart"))
         _ <- (!round.isFinished && updated.startsAt != from.startsAt).so:
           autoStart(round.id.some)
-        _ = (round.rated != from.rated ||
-          round.customScoring != from.customScoring ||
-          round.teamCustomScoring != from.teamCustomScoring ||
-          round.fideTCOverride != from.fideTCOverride)
-          .so:
-            players.invalidate(round.tourId)
-            teamLeaderboard.invalidate(round.tourId)
       yield
+        if round.ratingAndScoringFields != from.ratingAndScoringFields then
+          players.invalidate(round.tourId)
+          teamLeaderboard.invalidate(round.tourId)
         round.sync.log.events.lastOption
           .ifTrue(round.sync.log != from.sync.log)
           .foreach: event =>
