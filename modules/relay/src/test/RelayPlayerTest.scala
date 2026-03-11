@@ -31,8 +31,9 @@ class RelayPlayerTest extends munit.FunSuite:
     )
     val p2 = p1.copy(player = dummyPlayer("Bob", 2100), score = Some(4.0f))
     val p3 = p1.copy(player = dummyPlayer("Carol", 2200), score = Some(2.0f))
-    val sorted = List(p1, p2, p3).sorted
-    assertEquals(sorted.map(_.player.player.name.map(_.value)), List("Bob".some, "Alice".some, "Carol".some))
+    val p4 = p1.copy(player = dummyPlayer("Dave", 2300), score = None)
+    val sorted = List(p1, p2, p3, p4).sorted
+    assertEquals(sorted.map(_.player.player.name.map(_.value)), List("Bob".some, "Alice".some, "Carol".some, "Dave".some))
 
   test("sorting by tiebreakpoints"):
     import chess.tiebreak.*
