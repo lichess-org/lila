@@ -1,0 +1,43 @@
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}:
+let
+  pkgs-oxfmt-pr = import inputs.oxfmt-pr { system = pkgs.stdenv.system; };
+  pkgs-master = import inputs.nixpkgs-master { system = pkgs.stdenv.system; };
+in
+{
+  # https://devenv.sh/languages/
+  languages = {
+    java = {
+      enable = true;
+      jdk.package = pkgs.openjdk21;
+    };
+    scala = {
+      enable = true;
+      sbt.enable = true;
+    };
+    javascript = {
+      enable = false; # it adds node_modules/.bin to the $PATH!
+    };
+  };
+
+  # https://devenv.sh/services/
+  services = {
+    mongodb.enable = true;
+    redis.enable = true;
+  };
+
+  packages = [
+    pkgs.nodejs-slim
+    pkgs.pnpm
+    pkgs.svgo
+    pkgs-master.oxlint
+    pkgs-oxfmt-pr.oxfmt
+    pkgs.lint-staged
+    pkgs.stylelint
+  ];
+}
