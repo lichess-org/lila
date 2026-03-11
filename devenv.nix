@@ -40,4 +40,8 @@ in
     pkgs.lint-staged
     pkgs.stylelint
   ];
+
+  enterShell = ''
+    rm -rf node_modules/.bin
+  '';
 }
