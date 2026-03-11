@@ -759,8 +759,9 @@ $hover-bg: $m-primary_bg--mix-30;
   %game-link-styles {
     @extend %flex-center-nowrap, %box-radius;
 
+    padding: 0.4em 0.5em;
+
     @media (min-width: at-least($medium)) {
-      padding: 0.4em 0.5em;
       font-size: 1.6em;
     }
 
