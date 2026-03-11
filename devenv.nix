@@ -2,8 +2,12 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
+let
+  pkgs-oxfmt-pr = import inputs.oxfmt-pr { system = pkgs.stdenv.system; };
+in
 {
   # https://devenv.sh/languages/
   languages = {
@@ -25,6 +29,11 @@
   services = {
     mongodb.enable = true;
     redis.enable = true;
-    elasticsearch.enable = true;
   };
+
+  packages = [
+    pkgs.svgo
+    pkgs.oxlint
+    pkgs-oxfmt-pr.oxfmt
+  ];
 }
