@@ -2,4 +2,18 @@
 <resources>
   <string name="twoFactorAuth">द्वि-घटक प्रमाणीकरण</string>
   <string name="twoFactorHelp">द्वि-घटक प्रमाणीकरण तुमच्या खात्यात सुरक्षिततेचा आणखी एक स्तर जोडते.</string>
+  <string name="twoFactorAppRecommend">द्वि-घटक प्रमाणीकरणासाठी एक अनुप्रयोग मिळवा. आम्ही खालील अनुप्रयोगांची शिफारस करतो:</string>
+  <string name="scanTheCode">QR संकेतला अनुप्रयोगाने वाचा.</string>
+  <string name="enterPassword">तुमचा परवलीचा शब्द आणि अनुप्रयोगाद्वारे व्युत्पन्न केलेले अधिप्रमाणन संकेत मांडणी पूर्ण करण्यासाठी प्रविष्ट करा. तुम्हाला एक अधिप्रमाणन संकेत प्रत्येक लॉग इन करण्याच्या वेळी लागेल. </string>
+  <string name="ifYouCannotScanEnterX">जर तुम्ही संकेतला वाचू नाही शकत, तर तुमच्या अनुप्रयोगात %s गुप्त किल्ली प्रविष्ट करा.</string>
+  <string name="authenticationCode">अधिप्रमाणन संकेत</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">नोंद: जर तुम्ही तुमच्या द्वि-घटक अधिप्रमाणन संकेत प्रवेश गमावता, तर तुम्ही %s ई-मेल द्वारे करू शकता.</string>
+  <string name="enableTwoFactor">द्वि-घटक प्रमाणीकरण सक्षम करा</string>
+  <string name="disableTwoFactor">द्वि-घटक प्रमाणीकरण अक्षम करा</string>
+  <string name="twoFactorEnabled">द्वि-घटक प्रमाणीकरण सक्षम झ्हाले आहे</string>
+  <string name="twoFactorToDisable">तुम्हाला तुमचा परवलीचा शब्द आणि तुमच्या प्रमाणक अनुप्रयोगामधून एक अधिप्रमाणन संकेत द्वि-घटक प्रमाणीकरण अक्षम करण्यासाठी लागेल.</string>
+  <string name="openTwoFactorApp">तुमच्या साधनावर द्वि-घटक प्रमाणीकरण अनुप्रयोगाला उघडा आणि तुमची ओळख सत्यापित करण्यासाठी अधिप्रमाणन संकेतला पहा.</string>
+  <string name="setupReminder">कृपया तुमच्या खात्याला सुरक्षित करण्यासाठी द्वि-घटक प्रमाणीकरण इथे सक्षम करा 
+https://lichess.org/account/twofactor 
+तुम्हाला हा निरोप आला आहे कारण तुमच्या खात्याला विशेष जबाबदाऱ्या जसे शीर्षक खेळाडू, संघ नेता, प्रशिक्षक, शिक्षक किंवा प्रसारक आहे.</string>
 </resources>
