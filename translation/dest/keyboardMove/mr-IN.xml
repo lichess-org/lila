@@ -14,5 +14,9 @@
   <string name="otherCommands">इतर आदेश</string>
   <string name="tips">निमुळते टोक</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">जर वरील डावांचे परिभाषिक नामकारण अपरिचित आहे, येथे अधिक जाणून घ्या:</string>
+  <string name="includingAXToIndicateACapture">पकडलेले सोंगट्या दर्शवण्यासाठी एक \"x\" ला समाविष्ट करणे पर्यायी आहे</string>
+  <string name="bothTheLetterOAndTheDigitZero">दोन्ही अक्षर \"o\" आणि अंक \"0\" किल्लेकोट करताना वापरले जाऊ शकते</string>
   <string name="ifItIsLegalToCastleBothWays">जर दोन्ही बाजूला किल्लेकोट शक्य असेल तर राजाच्या बाजूच्या किल्लेकोटासाठी enter कळ वापरा</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">कॅपिटल अक्षरांचा प्रयोग फक्त उंट आणि b-प्यादाच्या संबंधित अस्पष्ट परिस्थितींमध्ये महत्त्वाचे ठरते</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">डाव आधीच खेळण्यासाठी, तुमची पाळी येण्यापूर्वी केवळ इच्छित डाव टाइप करा</string>
 </resources>
