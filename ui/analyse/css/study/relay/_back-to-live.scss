@@ -16,6 +16,9 @@
   .mini-game__gauge {
     flex: 0 0 3%;
   }
+  .cg-gauge {
+    height: var(---cg-height);
+  }
 }
 
 .mchat:has(.chat-liveboard) {
