@@ -32,8 +32,11 @@ class RelayPlayerTest extends munit.FunSuite:
     val p2 = p1.copy(player = dummyPlayer("Bob", 2100), score = Some(4.0f))
     val p3 = p1.copy(player = dummyPlayer("Carol", 2200), score = Some(2.0f))
     val p4 = p1.copy(player = dummyPlayer("Dave", 2300), score = None)
-    val sorted = List(p1, p2, p3, p4).sorted
-    assertEquals(sorted.map(_.player.player.name.map(_.value)), List("Bob".some, "Alice".some, "Carol".some, "Dave".some))
+    val sorted = List(p1, p2, p3, p4).sortedReverse
+    assertEquals(
+      sorted.map(_.player.player.name.map(_.value)),
+      List("Bob".some, "Alice".some, "Carol".some, "Dave".some)
+    )
 
   test("sorting by tiebreakpoints"):
     import chess.tiebreak.*
@@ -59,7 +62,7 @@ class RelayPlayerTest extends munit.FunSuite:
       None,
       Vector.empty
     )
-    val sorted = List(p1, p2).sorted
+    val sorted = List(p1, p2).sortedReverse
     assertEquals(sorted.map(_.player.player.name.map(_.value)), List("Bob".some, "Alice".some))
 
   test("sorting by rating"):
@@ -83,7 +86,7 @@ class RelayPlayerTest extends munit.FunSuite:
       None,
       Vector.empty
     )
-    val sorted = List(p1, p2).sorted
+    val sorted = List(p1, p2).sortedReverse
     assertEquals(sorted.map(_.player.player.name.map(_.value)), List("Bob".some, "Alice".some))
 
   test("sorting by name"):
@@ -107,7 +110,7 @@ class RelayPlayerTest extends munit.FunSuite:
       None,
       Vector.empty
     )
-    val sorted = List(p2, p1).sorted
+    val sorted = List(p2, p1).sortedReverse
     assertEquals(sorted.map(_.player.player.name.map(_.value)), List("Alice".some, "Bob".some))
 
   def dummyPlayer(name: String, rating: Int): lila.study.StudyPlayer.WithFed =
