@@ -7,6 +7,7 @@
 }:
 let
   pkgs-oxfmt-pr = import inputs.oxfmt-pr { system = pkgs.stdenv.system; };
+  pkgs-master = import inputs.nixpkgs-master { system = pkgs.stdenv.system; };
 in
 {
   # https://devenv.sh/languages/
@@ -20,8 +21,7 @@ in
       sbt.enable = true;
     };
     javascript = {
-      enable = true;
-      pnpm.enable = true;
+      enable = false; # it adds node_modules/.bin to the $PATH!
     };
   };
 
@@ -32,8 +32,12 @@ in
   };
 
   packages = [
+    pkgs.nodejs-slim
+    pkgs.pnpm
     pkgs.svgo
-    pkgs.oxlint
+    pkgs-master.oxlint
     pkgs-oxfmt-pr.oxfmt
+    pkgs.lint-staged
+    pkgs.stylelint
   ];
 }
