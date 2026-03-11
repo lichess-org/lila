@@ -30,7 +30,8 @@ case class RelayRound(
     // crowdAt: Option[Instant], // in DB but not used by RelayRound
     rated: Rated = Rated.Yes,
     customScoring: Option[ByColor[RelayRound.CustomScoring]] = none,
-    teamCustomScoring: Option[RelayRound.CustomScoring] = none
+    teamCustomScoring: Option[RelayRound.CustomScoring] = none,
+    fideTCOverride: Option[chess.FideTC] = none
 ):
   inline def studyId = id.studyId
 
@@ -240,6 +241,7 @@ object RelayRound:
     def display = round
     def link = round
     def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
+    def fideTC = round.fideTCOverride | tour.info.fideTCOrGuess
 
   case class WithTourAndGroup(round: RelayRound, tour: RelayTour, group: Option[RelayGroup.Name])
       extends AndTourAndGroup:

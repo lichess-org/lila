@@ -6,7 +6,6 @@ import play.api.data.format.Formatter
 import io.mola.galimatias.URL
 import java.time.ZoneId
 import chess.tiebreak.Tiebreak
-import chess.FideTC
 
 import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, typeIn, url }
 import lila.core.perm.Granter
@@ -16,14 +15,12 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
 
   import RelayTourForm.*
   import lila.study.StudyForm.given
+  import RelayFormUtil.*
 
   private val spotlightMapping =
     mapping("enabled" -> boolean, "lang" -> langList.popularLanguagesForm.mapping, "title" -> optional(text))(
       RelayTour.Spotlight.apply
     )(unapply)
-
-  private given Formatter[FideTC] = formatter.stringFormatter(_.toString, FideTC.valueOf)
-  private val fideTCMapping: Mapping[FideTC] = typeIn(FideTC.values.toSet)
 
   private val infoMapping = mapping(
     "format" -> optional(cleanText(maxLength = 80)),
