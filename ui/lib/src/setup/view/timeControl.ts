@@ -1,5 +1,5 @@
 import type { Prop } from '@/index';
-import { hl, type VNode } from '@/view';
+import { hl, type MaybeVNode, type VNode } from '@/view';
 
 import type { InputValue } from '../interfaces';
 import { option } from '../option';
@@ -135,7 +135,7 @@ export const timePickerAndSliders = (tc: TimeControl, minimumTimeRequiredIfReal:
       )
     : null;
 
-  let panelContent: VNode | null = null;
+  let panelContent: MaybeVNode = null;
 
   if (activeMode === 'realTime') {
     const [tcTime, tcIncrement] = [tc.time(), tc.increment()];

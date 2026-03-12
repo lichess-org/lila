@@ -1,4 +1,5 @@
-import { clamp, quantize } from '../algo';
+import { clamp, quantize } from '@/algo';
+
 import type { SearchMove, MoveArgs } from './types';
 
 type Point = [number, number];

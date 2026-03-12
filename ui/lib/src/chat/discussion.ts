@@ -1,13 +1,12 @@
 import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
 
-import { enter } from '@/view';
+import { pubsub } from '@/pubsub';
+import { tempStorage } from '@/storage';
+import { enter, alert } from '@/view';
+import { userLink } from '@/view/userLink';
 
 import * as licon from '../licon';
-import { pubsub } from '../pubsub';
 import * as enhance from '../richText';
-import { tempStorage } from '../storage';
-import { alert } from '../view/dialogs';
-import { userLink } from '../view/userLink';
 import type { ChatCtrl } from './chatCtrl';
 import type { Line } from './interfaces';
 import { lineAction as modLineAction, flagReport } from './moderation';

@@ -1,10 +1,10 @@
 import { isContained } from '@/algo';
 import { isMobile } from '@/device';
+import { pubsub, type PubsubEvents } from '@/pubsub';
+import { storedStringProp, storedBooleanProp } from '@/storage';
+import { alert } from '@/view';
 
 import { prop, type Prop } from '../index';
-import { pubsub, type PubsubEvents } from '../pubsub';
-import { storedStringProp, storedBooleanProp } from '../storage';
-import { alert } from '../view/dialogs';
 import type {
   ChatOpts,
   Line,
@@ -55,7 +55,7 @@ export class ChatCtrl {
     this.voiceChat = {
       instance: undefined,
       loaded: false,
-      enabled: prop(!opts.kidMode && !!this.data.voiceChat),
+      enabled: prop(!opts.kidMode && this.data.voiceChat),
     };
     this.vm = {
       loading: false,

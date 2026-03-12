@@ -3,14 +3,12 @@
 import { type Chess, type NormalMove, parseUci, makeUci } from 'chessops';
 import { normalizeMove } from 'chessops/chess';
 
-import { shuffle } from '../algo';
+import { shuffle } from '@/algo';
 
 export const fixCrazySan = (san: San): San => (san[0] === 'P' ? san.slice(1) : san);
 
 export const destsToUcis = (destMap: Dests): Uci[] =>
   Array.from(destMap).reduce<Uci[]>((acc, [orig, dests]) => acc.concat(dests.map(dest => orig + dest)), []);
-
-export { uciToMove } from '@lichess-org/chessground/util';
 
 export const fenColor = (fen: string): Color => (fen.includes(' w') ? 'white' : 'black');
 

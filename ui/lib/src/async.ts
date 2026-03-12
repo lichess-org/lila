@@ -33,7 +33,7 @@ export function throttlePromiseWithResult<R, T extends (...args: any) => Promise
     if (!current) return runCurrent();
 
     pending?.reject();
-    const next = new Promise<R>((resolve, reject) => {
+    return new Promise<R>((resolve, reject) => {
       pending = {
         run: () =>
           runCurrent().then(
@@ -49,7 +49,6 @@ export function throttlePromiseWithResult<R, T extends (...args: any) => Promise
         reject: () => reject(new Error('Throttled')),
       };
     });
-    return next;
   };
 }
 

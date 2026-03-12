@@ -15,7 +15,7 @@ export const makeCgOpts = (run: Run, canMove: boolean, flipped: boolean): CgConf
       color: run.pov,
       dests: canMove ? chessgroundDests(pos) : undefined,
     },
-    check: !!pos.isCheck(),
+    check: pos.isCheck(),
     lastMove: uciToMove(cur.lastMove()),
     animation: {
       enabled: cur.moveIndex >= 0,

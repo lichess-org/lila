@@ -1,8 +1,9 @@
 import './filters';
 import makeZerofish, { type Zerofish } from '@lichess-org/zerofish';
 
-import { definedMap } from '../algo';
-import { type OpeningBook, makeBookFromPolyglot } from '../game/polyglot';
+import { definedMap } from '@/algo';
+import { type OpeningBook, makeBookFromPolyglot } from '@/game/polyglot';
+
 import { myUserId, myUsername } from '../index';
 import * as xhr from '../xhr';
 import { Bot } from './bot';

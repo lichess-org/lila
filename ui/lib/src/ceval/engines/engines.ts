@@ -1,12 +1,12 @@
 import { lichessRules } from 'chessops/compat';
 
+import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '@/ceval';
 import { isAndroid, isIos, isIPad, features as browserSupport } from '@/device';
 import { log } from '@/permalog';
 import { storedStringProp, type StoredProp } from '@/storage';
 import { xhrHeader } from '@/xhr';
 
 import type CevalCtrl from '../ctrl';
-import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '../types';
 import { ExternalEngine } from './externalEngine';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';

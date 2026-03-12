@@ -36,25 +36,22 @@ export async function confirm(
   ok: string = i18n.site.ok,
   cancel: string = i18n.site.cancel,
 ): Promise<boolean> {
-  return (
-    (
-      await domDialog({
-        htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
-          <span><button class="button button-empty cancel">${cancel}</button>
-          <button class="button ok">${ok}</button></span>`,
-        class: 'alert',
-        noCloseButton: true,
-        noClickAway: true,
-        modal: true,
-        show: true,
-        focus: '.ok',
-        actions: [
-          { selector: '.cancel', result: 'cancel' },
-          { selector: '.ok', result: 'ok' },
-        ],
-      })
-    ).returnValue === 'ok'
-  );
+  const confirmDialog = await domDialog({
+    htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
+      <span><button class="button button-empty cancel">${cancel}</button>
+      <button class="button ok">${ok}</button></span>`,
+    class: 'alert',
+    noCloseButton: true,
+    noClickAway: true,
+    modal: true,
+    show: true,
+    focus: '.ok',
+    actions: [
+      { selector: '.cancel', result: 'cancel' },
+      { selector: '.ok', result: 'ok' },
+    ],
+  });
+  return confirmDialog.returnValue === 'ok';
 }
 
 // non-blocking window.prompt-alike
