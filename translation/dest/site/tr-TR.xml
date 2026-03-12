@@ -1027,6 +1027,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="offline" comment="status of a user">çevrimdışı</string>
   <string name="search">Ara</string>
   <string name="clearSearch">Aramayı temizle</string>
+  <string name="thereAreNoResultsForX">\"%s\" için sonuç bulunamadı</string>
   <string name="tags">Etiketler</string>
   <string name="enPassant">Geçerken alma</string>
 </resources>
