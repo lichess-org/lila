@@ -282,6 +282,7 @@ GET   /broadcast/by/:user                     controllers.RelayTour.by(user: Use
 GET   /api/broadcast/by/:user                 controllers.RelayTour.apiBy(user: UserStr, page: Int ?= 1)
 GET   /broadcast/subscribed                   controllers.RelayTour.subscribed(page: Int ?= 1)
 GET   /broadcast/all-private                  controllers.RelayTour.allPrivate(page: Int ?= 1)
+GET   /broadcast/non-official                 controllers.RelayTour.nonOfficial(page: Int ?= 1)
 GET   /broadcast/:ts/$id<\w{8}>               controllers.RelayTour.show(ts, id: RelayTourId)
 GET   /embed/broadcast/:ts/$id<\w{8}>         controllers.RelayTour.embedShow(ts, id: RelayTourId)
 GET   /api/broadcast/$id<\w{8}>               controllers.RelayTour.apiShow(id: RelayTourId)

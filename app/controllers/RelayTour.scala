@@ -78,6 +78,15 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
             views.relay.tour.allPrivate(pager)
   }
 
+  def nonOfficial(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
+    Reasonable(page, Max(20)):
+      env.relay.pager
+        .nonOfficial(page)
+        .flatMap: pager =>
+          Ok.async:
+            views.relay.tour.nonOfficial(pager)
+  }
+
   private def page(key: String, menu: String) = Open:
     pageHit
     FoundPage(env.cms.renderKey(key)): p =>

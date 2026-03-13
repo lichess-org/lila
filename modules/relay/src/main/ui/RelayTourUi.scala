@@ -138,6 +138,12 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
       boxTop(h1("Private Broadcasts")),
       renderPager(pager)(routes.RelayTour.allPrivate)
     )
+  
+  def nonOfficial(pager: Paginator[RelayTour | WithLastRound])(using Context) =
+    listLayout("Non-Official Broadcasts", pageMenu("nonOfficial"))(
+      boxTop(h1("Non-Official Broadcasts")),
+      renderPager(pager)(routes.RelayTour.nonOfficial)
+    )
 
   def calendar(at: YearMonth, tours: List[WithFirstRound], announcement: Option[Html])(using ctx: Context) =
     Page(s"${trc.broadcastCalendar.txt()} ${showYearMonth(at)}")
