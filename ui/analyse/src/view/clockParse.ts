@@ -4,8 +4,11 @@ export function parseTimeToCentis(str: string): number | undefined {
   if (s === '' || s === '--:--') return undefined;
   const parts = s.split(':').map(p => p.trim());
   if (parts.some(p => p === '')) return undefined;
+  // Reject segments with trailing garbage (e.g. "5a" or "13a") so invalid input shows error
+  const integerSegment = /^\d+$/;
   const lastPart = parts[parts.length - 1];
-  if (lastPart.endsWith('.')) return undefined;
+  if (parts.slice(0, -1).some(p => !integerSegment.test(p))) return undefined;
+  if (!/^\d+(\.\d+)?$/.test(lastPart) || lastPart.endsWith('.')) return undefined;
   const lastNum = parseFloat(lastPart);
   if (isNaN(lastNum) || lastNum < 0) return undefined;
   const wholeParts = parts.slice(0, -1).map(p => parseInt(p, 10));

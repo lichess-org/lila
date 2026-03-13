@@ -85,13 +85,17 @@ $clock-height: 20px;
 
   .analyse__clock-input--error {
     border-color: $c-bad !important;
-    animation: clock-shake 0.3s ease;
+
+    /* Thick ring so error state is consistent focused or blurred (e.g. blur-with-invalid flash) */
+    box-shadow: inset 0 0 0 2px $c-bad;
 
     &:focus {
-      /* Inset box-shadow so the error ring is visible when the top strip is partially covered by the board */
       outline: none;
-      box-shadow: inset 0 0 0 2px $c-bad;
     }
+  }
+
+  .analyse__clock-input--shake {
+    animation: clock-shake 0.3s ease;
   }
 }
 

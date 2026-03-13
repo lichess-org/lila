@@ -46,6 +46,14 @@ test('parseTimeToCentis: invalid', () => {
   assert.equal(parseTimeToCentis('3:-40'), undefined);
 });
 
+test('parseTimeToCentis: reject trailing garbage in segments', () => {
+  assert.equal(parseTimeToCentis('5:13a'), undefined);
+  assert.equal(parseTimeToCentis('5a:13'), undefined);
+  assert.equal(parseTimeToCentis('3:40.2x'), undefined);
+  assert.equal(parseTimeToCentis('1:30foo'), undefined);
+  assert.equal(parseTimeToCentis('40.5'), 4050); // valid decimal, no garbage
+});
+
 test('parseTimeToCentis: segment bounds (min/sec 0-59)', () => {
   assert.equal(parseTimeToCentis('60'), undefined);
   assert.equal(parseTimeToCentis('90'), undefined);

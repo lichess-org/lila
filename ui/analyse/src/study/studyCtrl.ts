@@ -14,6 +14,7 @@ import { alert } from 'lib/view';
 import type AnalyseCtrl from '../ctrl';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 import type { StudySocketSendParams } from '../socket';
+import { parseTimeToCentis } from '../view/clockParse';
 import { CommentForm } from './commentForm';
 import { DescriptionCtrl } from './description';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
@@ -48,6 +49,7 @@ import type { RelayData } from './relay/interfaces';
 import RelayCtrl from './relay/relayCtrl';
 import ServerEval from './serverEval';
 import StudyChaptersCtrl, { isFinished } from './studyChapters';
+import StudyClockEdit from './studyClockEdit';
 import { StudyForm } from './studyForm';
 import { GlyphForm } from './studyGlyph';
 import studyKeyboard from './studyKeyboard';
@@ -93,7 +95,7 @@ export default class StudyCtrl {
   nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
   arrowHistory: Shape[][] = [];
-  clockEdit: { slot: 'top' | 'bottom'; path: string; value: string; error?: boolean } | null = null;
+  clockEdit?: StudyClockEdit;
   data: StudyData;
   vm: StudyVm;
   notif: NotifCtrl;
@@ -320,28 +322,72 @@ export default class StudyCtrl {
     ch: this.vm.chapterId,
   });
 
-  openClockEdit = (slot: 'top' | 'bottom', path: string, value: string) => {
+  /** Whether clock is editable at this path and which slot (top/bottom) is editable. Mainline, write mode, current path only. */
+  clockEditState = (path: TreePath): { canEdit: boolean; editableSlot?: 'top' | 'bottom' } => {
+    const canEdit =
+      !this.relay &&
+      path === this.ctrl.path &&
+      this.vm.mode.write &&
+      this.members.canContribute() &&
+      this.ctrl.tree.pathIsMainline(path);
+    if (!canEdit) return { canEdit: false };
+    const node = this.ctrl.tree.nodeAtPath(path);
+    if (node.ply === 0) return { canEdit: true };
+    const isWhiteTurn = node.ply % 2 === 0;
+    const whitePov = this.ctrl.bottomIsWhite();
+    const editableSlot: 'top' | 'bottom' = isWhiteTurn
+      ? whitePov
+        ? 'top'
+        : 'bottom'
+      : whitePov
+        ? 'bottom'
+        : 'top';
+    return { canEdit: true, editableSlot };
+  };
+
+  openClockEdit = (slot: 'top' | 'bottom', path: TreePath, value: string) => {
     this.ctrl.autoplay.stop();
-    this.clockEdit = { slot, path, value };
+    this.clockEdit = new StudyClockEdit(slot, path, value, this.ctrl.redraw);
     this.ctrl.redraw();
   };
 
-  setClockEditValue = (value: string) => {
-    if (this.clockEdit) {
-      this.clockEdit = { ...this.clockEdit, value, error: false };
-      this.ctrl.redraw();
+  /** 'closeNow' = close immediately (navigate-away). 'closeAfterFeedback' = show error then close (blur). Omit = stay open (Enter). */
+  commitClockEdit = (opts?: { whenInvalid?: 'closeNow' | 'closeAfterFeedback' }) => {
+    const edit = this.clockEdit;
+    if (!edit) return;
+    const path = edit.path;
+    const val = edit.value.trim();
+    if (val === '') {
+      if (this.makeChange('setClock', { ch: this.vm.chapterId, path, clear: true })) {
+        this.ctrl.tree.setClockAt(undefined, path);
+      } else {
+        alert(i18n.study.turnOnRecToSaveClockTimes);
+      }
+      this.closeClockEdit();
+      return;
     }
-  };
-
-  setClockEditError = (error: boolean) => {
-    if (this.clockEdit) {
-      this.clockEdit = { ...this.clockEdit, error };
-      this.ctrl.redraw();
+    const parsed = parseTimeToCentis(edit.value);
+    if (parsed !== undefined && parsed >= 0) {
+      if (this.makeChange('setClock', { ch: this.vm.chapterId, path, centis: parsed })) {
+        this.ctrl.tree.setClockAt(parsed, path);
+        this.closeClockEdit();
+      } else {
+        alert(i18n.study.turnOnRecToSaveClockTimes);
+      }
+    } else {
+      if (opts?.whenInvalid === 'closeNow') {
+        this.closeClockEdit();
+      } else if (opts?.whenInvalid === 'closeAfterFeedback') {
+        edit.setEditError(true);
+        setTimeout(() => this.closeClockEdit(), 300);
+      } else {
+        edit.setEditError(true);
+      }
     }
   };
 
   closeClockEdit = () => {
-    this.clockEdit = null;
+    this.clockEdit = undefined;
     this.ctrl.redraw();
   };
 

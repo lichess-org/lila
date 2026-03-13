@@ -23,11 +23,10 @@ interface ClockOpts {
   onEditKeydown?: (e: KeyboardEvent) => void;
   onEditBlur?: () => void;
   hasError?: boolean;
+  shakeTrigger?: number;
 }
 
-import { parseTimeToCentis, formatClockFromCentis } from './clockParse';
-
-const isClearClockValue = (s: string): boolean => s.trim() === '';
+import { formatClockFromCentis } from './clockParse';
 
 const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 
@@ -38,50 +37,19 @@ export default function renderClocks(ctrl: AnalyseCtrl, path: TreePath): [VNode,
   const parentClock = ctrl.tree.getParentClock(node, path);
   // isWhiteTurn = white to move (ply 0,2,4...). [0] = white, [1] = black (playerBars uses clocks[white?0:1]).
   const isWhiteTurn = node.ply % 2 === 0;
-  // At initial position (no move selected): show no clocks at all.
-  if (node.ply === 0) {
-    return undefined;
-  }
   const centis: Array<number | undefined> = (
     isWhiteTurn ? [parentClock, node.clock] : [node.clock, parentClock]
   ).map(c => (defined(c) && c < 0 ? undefined : c));
-  // After the first move (ply 1), the other player hasn't moved yet — never show their clock.
-  if (node.ply === 1) {
-    centis[1] = undefined;
-  }
 
   const hasAnyClock = centis.some(notNull);
   const isStudy = !!study;
   const isRelay = !!study?.relay;
-  const canEdit =
-    isStudy &&
-    !isRelay &&
-    path === ctrl.path &&
-    study.vm.mode.write &&
-    study.members.canContribute() &&
-    ctrl.tree.pathIsMainline(path);
+  const editState = study ? study.clockEditState(path) : { canEdit: false as const };
   // When no clock data: show nothing except on mainline when editable, so user can add times
-  if (!hasAnyClock && !(canEdit && node.ply > 0)) return undefined;
-  // Editable = side that just moved (clock on current node). White to move → black just moved → editable index 1; black to move → white just moved → index 0.
-  const editableIndex = canEdit && node.ply > 0 ? (isWhiteTurn ? 1 : 0) : -1;
+  if (!hasAnyClock && !(editState.canEdit && editState.editableSlot)) return undefined;
 
-  if (study && study.clockEdit && study.clockEdit.path !== path) {
-    const val = study.clockEdit.value;
-    if (isClearClockValue(val)) {
-      if (study.makeChange('setClock', { ch: study.vm.chapterId, path: study.clockEdit.path, clear: true })) {
-        ctrl.tree.setClockAt(undefined, study.clockEdit.path);
-      }
-    } else {
-      const parsed = parseTimeToCentis(val);
-      if (parsed !== undefined && parsed >= 0) {
-        if (
-          study.makeChange('setClock', { ch: study.vm.chapterId, path: study.clockEdit.path, centis: parsed })
-        ) {
-          ctrl.tree.setClockAt(parsed, study.clockEdit.path);
-        }
-      }
-    }
-    study.closeClockEdit();
+  if (study?.clockEdit && study.clockEdit.path !== path) {
+    setTimeout(() => study.commitClockEdit({ whenInvalid: 'closeNow' }), 0);
   }
 
   const lastMoveAt = study
@@ -124,8 +92,8 @@ export default function renderClocks(ctrl: AnalyseCtrl, path: TreePath): [VNode,
   const renderOpts = (index: number): ClockOpts => {
     const cls = index === 0 ? (whitePov ? 'bottom' : 'top') : whitePov ? 'top' : 'bottom';
     const empty = !defined(centis[index]) && centis[index] !== 0;
-    const editable = editableIndex === index;
-    const isEditing = !!clockEdit && clockEdit.slot === slotForIndex(index);
+    const editable = !!editState.editableSlot && editState.editableSlot === slotForIndex(index);
+    const isEditing = !!clockEdit && clockEdit.path === path && clockEdit.slot === slotForIndex(index);
     return {
       centis: centis[index],
       // Active (blue) = side to move
@@ -134,7 +102,7 @@ export default function renderClocks(ctrl: AnalyseCtrl, path: TreePath): [VNode,
       showTenths,
       pause,
       empty: empty && !isEditing,
-      editable: editable, // true when this slot is editable (empty or has value)
+      editable,
       isEditing,
       editValue: isEditing ? clockEdit.value : undefined,
       onClockClick:
@@ -147,56 +115,19 @@ export default function renderClocks(ctrl: AnalyseCtrl, path: TreePath): [VNode,
               );
             }
           : undefined,
-      onEditInput: isEditing ? v => study.setClockEditValue(v) : undefined,
+      onEditInput: isEditing ? v => study.clockEdit!.setValue(v) : undefined,
       onEditKeydown: isEditing
         ? (e: KeyboardEvent) => {
             if (e.key === 'Enter') {
-              const val = clockEdit.value;
-              if (isClearClockValue(val)) {
-                if (study.makeChange('setClock', { ch: study.vm.chapterId, path, clear: true })) {
-                  ctrl.tree.setClockAt(undefined, path);
-                  study.closeClockEdit();
-                } else {
-                  alert(i18n.study.turnOnRecToSaveClockTimes);
-                }
-              } else {
-                const parsed = parseTimeToCentis(val);
-                if (parsed !== undefined && parsed >= 0) {
-                  const payload = { ch: study.vm.chapterId, path, centis: parsed };
-                  if (study.makeChange('setClock', payload)) {
-                    ctrl.tree.setClockAt(parsed, path);
-                    study.closeClockEdit();
-                  } else {
-                    alert(i18n.study.turnOnRecToSaveClockTimes);
-                  }
-                } else if (val.trim() !== '') {
-                  study.setClockEditError(true);
-                }
-              }
+              study.commitClockEdit();
             } else if (e.key === 'Escape') {
               study.closeClockEdit();
             }
           }
         : undefined,
-      onEditBlur: isEditing
-        ? () => {
-            const val = clockEdit.value;
-            if (isClearClockValue(val)) {
-              if (study.makeChange('setClock', { ch: study.vm.chapterId, path, clear: true })) {
-                ctrl.tree.setClockAt(undefined, path);
-              }
-            } else {
-              const parsed = parseTimeToCentis(val);
-              if (parsed !== undefined && parsed >= 0) {
-                if (study.makeChange('setClock', { ch: study.vm.chapterId, path, centis: parsed })) {
-                  ctrl.tree.setClockAt(parsed, path);
-                }
-              }
-            }
-            study.closeClockEdit();
-          }
-        : undefined,
+      onEditBlur: isEditing ? () => study.commitClockEdit({ whenInvalid: 'closeAfterFeedback' }) : undefined,
       hasError: isEditing && !!clockEdit.error,
+      shakeTrigger: isEditing ? clockEdit.shakeTrigger : undefined,
     };
   };
 
@@ -232,9 +163,14 @@ const renderClock = (opts: ClockOpts): VNode => {
 
 function clockContent(opts: ClockOpts): MaybeVNodes {
   if (opts.isEditing && opts.editValue !== undefined) {
+    const shakeTrigger = opts.shakeTrigger ?? 0;
     return [
       h('input.analyse__clock-input', {
-        class: { 'analyse__clock-input--error': !!opts.hasError },
+        class: {
+          'analyse__clock-input--error': !!opts.hasError,
+          'analyse__clock-input--shake':
+            !!opts.hasError && opts.shakeTrigger != null && opts.shakeTrigger > 0,
+        },
         attrs: {
           type: 'text',
           value: opts.editValue,
@@ -242,10 +178,21 @@ function clockContent(opts: ClockOpts): MaybeVNodes {
           title: i18n.study.clockTimeFormat,
           'data-cy': 'clock-input',
         },
+        shakeTrigger,
         hook: {
           insert: vnode => {
             (vnode.elm as HTMLInputElement).focus();
             (vnode.elm as HTMLInputElement).select();
+          },
+          postpatch: (oldVnode, vnode) => {
+            const oldTrigger = (oldVnode.data as { shakeTrigger?: number })?.shakeTrigger;
+            const newTrigger = (vnode.data as { shakeTrigger?: number })?.shakeTrigger;
+            if (oldTrigger !== newTrigger && newTrigger != null && newTrigger > 0) {
+              const el = vnode.elm as HTMLElement;
+              el.classList.remove('analyse__clock-input--shake');
+              void el.offsetHeight;
+              requestAnimationFrame(() => el.classList.add('analyse__clock-input--shake'));
+            }
           },
         },
         on: {
