@@ -138,7 +138,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
       boxTop(h1("Private Broadcasts")),
       renderPager(pager)(routes.RelayTour.allPrivate)
     )
-  
+
   def nonOfficial(pager: Paginator[RelayTour | WithLastRound])(using Context) =
     listLayout("Non-Official Broadcasts", pageMenu("nonOfficial"))(
       boxTop(h1("Non-Official Broadcasts")),

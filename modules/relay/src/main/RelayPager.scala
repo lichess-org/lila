@@ -85,7 +85,6 @@ final class RelayPager(
     maxPerPage = maxPerPage
   )
 
-
   def subscribedBy(userId: UserId, page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
     adapter = new:
       def nbResults: Fu[Int] = tourRepo.countBySubscriberId(userId)
