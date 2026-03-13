@@ -1,11 +1,11 @@
 import { h, type VNode } from 'snabbdom';
 
+import { numberFormat } from '@/i18n';
+import { pubsub } from '@/pubsub';
 import { bind, confirm } from '@/view';
+import { userLink } from '@/view/userLink';
 
-import { numberFormat } from '../i18n';
 import * as licon from '../licon';
-import { pubsub } from '../pubsub';
-import { userLink } from '../view/userLink';
 import type {
   ModerationCtrl,
   ModerationOpts,

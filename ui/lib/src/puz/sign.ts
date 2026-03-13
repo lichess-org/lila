@@ -1,5 +1,5 @@
-import { pubsub } from '../pubsub';
-import { wsSend } from '../socket';
+import { pubsub } from '@/pubsub';
+import { wsSend } from '@/socket';
 
 export default function (serverKey: string): Promise<string> {
   const otp = randomAscii(64);

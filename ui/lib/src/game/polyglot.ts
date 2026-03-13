@@ -1,9 +1,9 @@
-import * as co from 'chessops';
+import type { Chess, pgn } from 'chessops';
 
 export type OpeningMove = { uci: string; weight: number };
-export type OpeningBook = (pos: co.Chess, ...args: any[]) => Promise<OpeningMove[]>;
+export type OpeningBook = (pos: Chess, ...args: any[]) => Promise<OpeningMove[]>;
 export type PgnProgress = (processed: number, total: number) => boolean | undefined; // return false to stop
-export type PgnFilter = (game: co.pgn.Game<co.pgn.PgnNodeData>) => boolean;
+export type PgnFilter = (game: pgn.Game<pgn.PgnNodeData>) => boolean;
 export type PolyglotResult = { getMoves: OpeningBook; positions?: number; polyglot?: Blob; cover?: Blob };
 
 export type PolyglotOpts = { cover?: boolean | { boardSize: number } } & (

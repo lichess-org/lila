@@ -1,6 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
-import { debounce } from '../async';
+import { debounce } from '@/async';
+
 import type { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
 

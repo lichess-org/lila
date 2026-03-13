@@ -2,7 +2,7 @@
 
 // Rich Text helper functions
 // Refactored for https://github.com/lichess-org/lila/issues/7342 request
-import type { VNode, Hooks } from 'snabbdom';
+import type { Hooks, VNode } from 'snabbdom';
 
 import { escapeHtml } from './common';
 
@@ -92,6 +92,5 @@ export function enhance(text: string, opts?: EnhanceOpts): string {
   const escaped = escapeHtml(text);
   const linked = escaped.replace(userPattern, userLinkReplacePawn).replace(linkPattern, linkReplace);
   const plied = opts?.plies && linked === escaped ? addPlies(linked) : linked;
-  const boarded = opts?.boards && linked === escaped ? addBoards(plied) : linked;
-  return boarded;
+  return opts?.boards && linked === escaped ? addBoards(plied) : linked;
 }

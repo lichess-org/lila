@@ -3,9 +3,9 @@ import type { MoveMetadata } from '@lichess-org/chessground/types';
 import { opposite, key2pos } from '@lichess-org/chessground/util';
 import { h } from 'snabbdom';
 
+import { AutoQueen } from '@/prefs';
 import { type MaybeVNode, bind, onInsert } from '@/view';
 
-import { AutoQueen } from '../prefs';
 import type { WithGround } from './ground';
 
 export type Hooks = {

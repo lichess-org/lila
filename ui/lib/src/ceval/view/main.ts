@@ -86,7 +86,7 @@ const threatButton = (ctrl: CevalHandler): VNode | null =>
   ctrl.ceval.download
     ? null
     : hl('button.show-threat', {
-        class: { active: ctrl.threatMode(), hidden: !!ctrl.getNode().check() },
+        class: { active: ctrl.threatMode(), hidden: ctrl.getNode().check() },
         attrs: { 'data-icon': licon.Target, title: i18n.site.showThreat + ' (x)' },
         hook: bind('click', e => {
           ctrl.toggleThreatMode();
