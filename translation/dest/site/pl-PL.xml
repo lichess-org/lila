@@ -1117,6 +1117,7 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Szukaj</string>
   <string name="clearSearch">Wyczyść wyszukiwanie</string>
+  <string name="thereAreNoResultsForX">Brak wyników dla \"%s\"</string>
   <string name="tags">Tagi</string>
   <string name="enPassant">Bicie w przelocie</string>
 </resources>

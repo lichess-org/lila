@@ -1116,6 +1116,7 @@
   <string name="offline" comment="status of a user">не в мережі</string>
   <string name="search">Пошук</string>
   <string name="clearSearch">Очистити пошук</string>
+  <string name="thereAreNoResultsForX">Нічого не знайдено для \"%s\"</string>
   <string name="tags">Теги</string>
   <string name="enPassant">Взяття на проході</string>
 </resources>

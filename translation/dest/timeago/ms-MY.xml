@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">baru sahaja</string>
+  <string name="justNow" comment="This string refers to an event which has not started yet, but will begin in the next few seconds-to-milliseconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for right after events that have begun, which reads &quot;right now&quot;.">sebentar tadi</string>
   <plurals name="inNbSeconds">
     <item quantity="other">dalam %s saat</item>
   </plurals>
@@ -24,21 +24,28 @@
   </plurals>
   <string name="rightNow" comment="This string refers to an event that has started in the last few milliseconds-to-seconds, depending on when your browser refreshes. Used in areas with live-refreshing text like this, such as the list of Open Tournaments on the homepage.&#10;&#10;There is a separate string for just before events that have begun, which reads &quot;just now&quot;.">sekarang</string>
   <plurals name="nbMinutesAgo">
-    <item quantity="other">%s minit yang lalu</item>
+    <item quantity="other">%s minit lepas</item>
   </plurals>
   <plurals name="nbHoursAgo">
-    <item quantity="other">%s jam yang lalu</item>
+    <item quantity="other">%s jam lepas</item>
   </plurals>
   <plurals name="nbDaysAgo">
-    <item quantity="other">%s hari yang lalu</item>
+    <item quantity="other">%s hari lepas</item>
   </plurals>
   <plurals name="nbWeeksAgo">
-    <item quantity="other">%s minggu yang lalu</item>
+    <item quantity="other">%s minggu lepas</item>
   </plurals>
   <plurals name="nbMonthsAgo">
-    <item quantity="other">%s bulan yang lalu</item>
+    <item quantity="other">%s bulan lepas</item>
   </plurals>
   <plurals name="nbYearsAgo">
-    <item quantity="other">%s tahun yang lalu</item>
+    <item quantity="other">%s tahun lepas</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="other">%s minit lagi</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="other">%s jam lagi</item>
+  </plurals>
+  <string name="completed">telah tamat</string>
 </resources>

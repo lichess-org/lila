@@ -1039,6 +1039,7 @@ Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur B
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Suechi</string>
   <string name="clearSearch">Suechi lösche</string>
+  <string name="thereAreNoResultsForX">Kei Resultat für \"%s\"</string>
   <string name="tags">Tags</string>
   <string name="enPassant">En passant</string>
 </resources>

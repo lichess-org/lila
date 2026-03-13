@@ -984,6 +984,7 @@
   <string name="offline" comment="status of a user">ออฟไลน์</string>
   <string name="search">ค้นหา</string>
   <string name="clearSearch">ล้างการค้นหา</string>
+  <string name="thereAreNoResultsForX">ไม่มีผลลัพธ์สำหรับ \"%s\"</string>
   <string name="tags">แท็ก</string>
   <string name="enPassant">การกินผ่าน</string>
 </resources>

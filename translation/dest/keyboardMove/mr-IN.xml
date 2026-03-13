@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="keyboardInputCommands">कळफलक आदान आदेश</string>
+  <string name="performAMove">एक डाव मांडा</string>
   <string name="movePieceFromE2ToE4">e2 वरील सोंगटी e4 वर हलवा</string>
   <string name="moveKnightToC3">घोडा c3 वर हलवा</string>
   <string name="kingsideCastle">राजाकडील किल्लेकोट</string>
   <string name="queensideCastle">वझिराकडील किल्लेकोट</string>
   <string name="promoteC8ToQueen">c8 प्याद्याला वझीर बनवा</string>
+  <string name="dropARookAtB4">एका हत्तीला b4 वर सोडा (फक्त वेडाघर प्रकारासाठी)</string>
+  <string name="offerOrAcceptDraw">बरोबरी उपस्थित किंवा स्वीकार करा</string>
+  <string name="readOutClocks">घड्याळांना वाचा</string>
+  <string name="readOutOpponentName">प्रतिस्पर्धीचे नाव वाचा</string>
+  <string name="otherCommands">इतर आदेश</string>
+  <string name="tips">निमुळते टोक</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">जर वरील डावांचे परिभाषिक नामकारण अपरिचित आहे, येथे अधिक जाणून घ्या:</string>
+  <string name="includingAXToIndicateACapture">पकडलेले सोंगट्या दर्शवण्यासाठी एक \"x\" ला समाविष्ट करणे पर्यायी आहे</string>
+  <string name="bothTheLetterOAndTheDigitZero">दोन्ही अक्षर \"o\" आणि अंक \"0\" किल्लेकोट करताना वापरले जाऊ शकते</string>
   <string name="ifItIsLegalToCastleBothWays">जर दोन्ही बाजूला किल्लेकोट शक्य असेल तर राजाच्या बाजूच्या किल्लेकोटासाठी enter कळ वापरा</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">कॅपिटल अक्षरांचा प्रयोग फक्त उंट आणि b-प्यादाच्या संबंधित अस्पष्ट परिस्थितींमध्ये महत्त्वाचे ठरते</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">डाव आधीच खेळण्यासाठी, तुमची पाळी येण्यापूर्वी केवळ इच्छित डाव टाइप करा</string>
 </resources>

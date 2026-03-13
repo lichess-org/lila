@@ -106,11 +106,11 @@
   <string name="noGameFound">कोणताही खेळ सापडला नाही</string>
   <string name="maxDepthReached">कमाल खोली पोहचली!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक खेळ समाविष्ट कराल?</string>
-  <string name="openings">ओपनिंग</string>
-  <string name="openingExplorer">ओपनिंग अन्वेषक</string>
-  <string name="openingEndgameExplorer">ओपनिंग/अंत्यखेळ अन्वेषक</string>
-  <string name="xOpeningExplorer">%s ओपनिंग अन्वेषक</string>
-  <string name="playFirstOpeningEndgameExplorerMove">ओपेनिंग किंवा एंडगेम एक्सप्लोररची पहिली निवड खेळा</string>
+  <string name="openings">प्रारंभ</string>
+  <string name="openingExplorer">प्रारंभ अन्वेषक</string>
+  <string name="openingEndgameExplorer">प्रारंभ/अंत्यखेळ अन्वेषक</string>
+  <string name="xOpeningExplorer">%s प्रारंभ अन्वेषक</string>
+  <string name="playFirstOpeningEndgameExplorerMove">प्रारंभ किंवा अंत्यखेळ अन्वेषकची पहिली निवड खेळा</string>
   <string name="winPreventedBy50MoveRule">५० चाली नियमाने विजय रोखला</string>
   <string name="lossSavedBy50MoveRule">५० चाली नियमाने हार चुकली</string>
   <string name="winOr50MovesByPriorMistake">आधीच्या चुकीने विजय किंवा 50 चाली</string>
@@ -120,7 +120,7 @@
   <string name="importPgn">PGN आयात करा</string>
   <string name="delete">काढून टाका</string>
   <string name="deleteThisImportedGame">मागावलेला खेळ हटवायचा?</string>
-  <string name="replayMode">रीप्ले मोड</string>
+  <string name="replayMode">रीप्ले रीत</string>
   <string name="realtimeReplay">प्रत्यक्ष वेळी</string>
   <string name="byCPL">सेंटीपॉन तोट्यानुसार</string>
   <string name="enable">सक्षम करा</string>

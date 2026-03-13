@@ -9,13 +9,13 @@
     <item quantity="other">%1$s posisi di %2$s dilatih</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="other">%s soalan taktikal selesai</item>
+    <item quantity="other">%s soalan latihan selesai</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="other">%1$s %2$s dimain</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="other">%1$s mesej dalam %2$s dipos</item>
+    <item quantity="other">%1$s mesej dalam %2$s dihantar</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="other">%1$s pergerakan dimain</item>
@@ -24,10 +24,13 @@
     <item quantity="other">dalam %1$s mainan koresponden</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="other">%s mainan koresponden selesai</item>
+    <item quantity="other">%s permainan koresponden selesai</item>
+  </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="other">Habis bermain %1$s permainan koresponden %2$s</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="other">Pemain %s mula diikuti</item>
+    <item quantity="other">Mula mengikuti pemain %s</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="other">%s pengikut baru diterima</item>
