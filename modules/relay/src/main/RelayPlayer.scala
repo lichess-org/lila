@@ -37,22 +37,22 @@ case class RelayPlayer(
   def toTieBreakPlayer: Option[Tiebreak.Player] = player.id.map: id =>
     Tiebreak.Player(id = id.toString, rating = player.rating.map(_.into(Elo)))
 
-given Ordering[(Tiebreak, TiebreakPoint)] = Ordering.by: (tb, tbv) =>
-  if tb == chess.tiebreak.DirectEncounter then tbv.value else -tbv.value
-
-/* Sort players by:
-    1. Score (Descending)
-    2. Tiebreak points - compare each tiebreak in order,
-        higher is better, except for Direct Encounter where lower (rank) is better
-    3. Player rating (Descending)
-    4. Player name (Alphabetical, ascending)
- */
-given Ordering[RelayPlayer] =
-  import scala.math.Ordering.Implicits.seqOrdering
-  Ordering.by: p =>
-    (p.score.map(-_), p.tiebreaks, p.player.rating.map(-_.value), p.player.name.map(_.value))
-
 object RelayPlayer:
+
+  /* Sort players by:
+      1. Score (Descending)
+      2. Tiebreak points - compare each tiebreak in order,
+          higher is better, except for Direct Encounter where lower (rank) is better
+      3. Player rating (Descending)
+      4. Player name (Alphabetical, ascending)
+   */
+  given Ordering[RelayPlayer] =
+    import scala.math.Ordering.Implicits.seqOrdering
+    given Ordering[(Tiebreak, TiebreakPoint)] = Ordering.by: (tb, tbv) =>
+      if tb == chess.tiebreak.DirectEncounter then -tbv.value else tbv.value
+    given Ordering[PlayerName] = Ordering.by[PlayerName, String](_.value).reverse
+    Ordering.by: p =>
+      (p.score, p.tiebreaks, p.player.rating.map(_.value), p.player.name)
 
   opaque type Rank = Int
   object Rank extends OpaqueInt[Rank]
@@ -350,7 +350,7 @@ private final class RelayPlayerApi(
           tiebreaks = found.map(t => tiebreaks.zip(t.tiebreakPoints).to(Seq))
         )
       .toList
-      .sortBy(_._2)
+      .sortByReverse(_._2)
       .mapWithIndex:
         case ((id, rp), index) =>
           id -> rp.copy(rank = Rank.from((index + 1).some))
