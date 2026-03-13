@@ -35,14 +35,16 @@ final class RelayMenuUi(helpers: Helpers):
       Granter
         .opt(_.StudyAdmin)
         .option:
-          div(cls := "sep")
-      ,
-      a(href := routes.RelayTour.allPrivate(), cls := menu.activeO("allPrivate"))(
+          frag(
+            div(cls := "sep"),
+            a(href := routes.RelayTour.allPrivate(), cls := menu.activeO("allPrivate"))(
         "Private Broadcasts"
-      ),
-      a(href := routes.RelayTour.nonOfficial(), cls := menu.activeO("nonOfficial"))(
+            ),
+            a(href := routes.RelayTour.nonOfficial(), cls := menu.activeO("nonOfficial"))(
         "Non-Official Broadcasts"
-      ),
+            ),
+          )
+      ,
       div(cls := "sep"),
       a(cls := menu.active("players"), href := routes.Fide.index())(trc.fidePlayers()),
       a(cls := menu.active("federations"), href := routes.Fide.federations(1))(
