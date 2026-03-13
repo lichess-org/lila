@@ -39,11 +39,6 @@ case class RelayPlayer(
 
 object RelayPlayer:
 
-  private given Ordering[(Tiebreak, TiebreakPoint)] = Ordering.by: (tb, tbv) =>
-    if tb == chess.tiebreak.DirectEncounter then -tbv.value else tbv.value
-  private given Ordering[PlayerName] =
-    val asc: Ordering[PlayerName] = Ordering.by(_.value)
-    asc.reverse
   /* Sort players by:
       1. Score (Descending)
       2. Tiebreak points - compare each tiebreak in order,
@@ -53,6 +48,9 @@ object RelayPlayer:
    */
   given Ordering[RelayPlayer] =
     import scala.math.Ordering.Implicits.seqOrdering
+    given Ordering[(Tiebreak, TiebreakPoint)] = Ordering.by: (tb, tbv) =>
+      if tb == chess.tiebreak.DirectEncounter then -tbv.value else tbv.value
+    given Ordering[PlayerName] = Ordering.by[PlayerName, String](_.value).reverse
     Ordering.by: p =>
       (p.score, p.tiebreaks, p.player.rating.map(_.value), p.player.name)
 
