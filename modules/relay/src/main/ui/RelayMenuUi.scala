@@ -38,11 +38,11 @@ final class RelayMenuUi(helpers: Helpers):
           frag(
             div(cls := "sep"),
             a(href := routes.RelayTour.allPrivate(), cls := menu.activeO("allPrivate"))(
-        "Private Broadcasts"
+              "Private Broadcasts"
             ),
             a(href := routes.RelayTour.nonOfficial(), cls := menu.activeO("nonOfficial"))(
-        "Non-Official Broadcasts"
-            ),
+              "Non-Official Broadcasts"
+            )
           )
       ,
       div(cls := "sep"),
