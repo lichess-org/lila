@@ -39,7 +39,7 @@ case class FidePlayer(
       case FideTC.blitz => blitzK
     .|(KFactor.default)
 
-  def slug: String = FidePlayer.slugify(name)
+  lazy val slug: String = FidePlayer.slugify(name)
 
   def age: Option[Int] =
     val nowYear = nowInstant.date.getYear

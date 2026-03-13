@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@types/micromatch": "4.0.10",
-    "@types/node": "24.10.13",
+    "@types/node": "24.12.0",
     "@types/tinycolor2": "1.4.6",
     "esbuild": "0.27.3",
     "fast-glob": "3.3.3",

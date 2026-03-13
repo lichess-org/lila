@@ -109,13 +109,7 @@ export const spinnerHtml: string = $html`
       <g mask="url(#mask)" fill="none">
         ${pathAttrs.map(
           (a, i) =>
-            '<path id="' +
-            String.fromCharCode(97 + i) +
-            '" stroke-width="' +
-            a['stroke-width'] +
-            '" d="' +
-            a.d +
-            '"/>',
+            `<path id="${String.fromCharCode(97 + i)}" stroke-width="${a['stroke-width']}" d="${a.d}"/>`,
         )}
       </g>
     </svg>

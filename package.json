@@ -1,7 +1,7 @@
 {
   "name": "lila",
   "private": true,
-  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c",
+  "packageManager": "pnpm@10.32.1",
   "engines": {
     "node": ">=24",
     "pnpm": "10"
@@ -18,7 +18,7 @@
     "@lichess-org/chessground": "^10.1.0",
     "@lichess-org/pgn-viewer": "^2.5.9",
     "@types/lichess": "workspace:*",
-    "@types/node": "^24.10.13",
+    "@types/node": "^24.12.0",
     "ab": "github:lichess-org/ab-stub",
     "chessops": "^0.15",
     "jsdom": "^27.1.0",
@@ -42,8 +42,10 @@
     "format": "oxfmt",
     "format:scala": "./lila.sh scalafmtAll",
     "check-format": "oxfmt --check",
-    "lint": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json && stylelint \"**/*.scss\"",
-    "lint:fix": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json --fix && stylelint \"**/*.scss\" --fix",
+    "lint": "pnpm lint:code && pnpm lint:style",
+    "lint:code": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json",
+    "lint:style": "stylelint \"ui/**/*.scss\"",
+    "lint:fix": "pnpm lint:code --fix && pnpm lint:style --fix",
     "assets:optimize": "svgo -rf ./public/ ./public/",
     "test": "node ui/test",
     "journal": "journalctl --user -fu lila -o cat",
@@ -55,7 +57,8 @@
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true"
   },
   "lint-staged": {
-    "*.{json,scss,ts,mts,mjs,scss}": "pnpm lint:fix && pnpm format"
+    "*.{json,ts,mts,mjs}": "pnpm lint:code --fix && pnpm format",
+    "*.scss": "pnpm lint:style --fix && pnpm format"
   },
   "browserslist": [
     "defaults",

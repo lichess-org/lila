@@ -4,6 +4,7 @@
 /.bloop/
 /.metals/
 /.pnpm-store/
+/.devenv/
 /bin/flair/download-flair.sh
 /bin/flair/emoji.txt
 /bin/flair/emojipedia.html

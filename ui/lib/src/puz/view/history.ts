@@ -1,9 +1,9 @@
+import { uciToMove } from '@lichess-org/chessground/util';
 import { Chess } from 'chessops/chess';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci } from 'chessops/util';
 import { h, type VNode } from 'snabbdom';
 
-import { uciToMove } from '@/game/chess';
 import type { Toggle } from '@/index';
 import type { PuzCtrl } from '@/puz/interfaces';
 import { initMiniBoardWith, onInsert } from '@/view';

@@ -1,10 +1,10 @@
 // no side effects allowed due to re-export by index.ts
 
+import { isMobile } from '@/device';
 import type { ClientEval } from '@/tree/types';
+import { domDialog } from '@/view';
 
-import { isMobile } from '../device';
 import { memoize, escapeHtml } from '../index';
-import { domDialog } from '../view/dialog';
 
 export function isEvalBetter(a: ClientEval, b: ClientEval, desiredPvs: number): boolean {
   return (

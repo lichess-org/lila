@@ -189,7 +189,7 @@ const transRole = (role: Role): string =>
   (i18n.nvui[role as keyof typeof i18n.nvui] as string) || (role as string);
 
 export function speakable(san?: San): string {
-  const text = !san
+  return !san
     ? i18n.nvui.gameStart
     : sanToWords(san)
         .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
@@ -198,5 +198,4 @@ export function speakable(san?: San): string {
         .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
         .replace(/(\d) H (\d)/, '$1H$2') // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
         .replace(/(\d) H (\d)/, '$1H$2');
-  return text;
 }

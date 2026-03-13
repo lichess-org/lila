@@ -1,10 +1,10 @@
 import type { SearchResult } from '@lichess-org/zerofish';
 import * as co from 'chessops';
 
+import { zip } from '@/algo';
 import { clockToSpeed } from '@/game';
+import type { OpeningBook } from '@/game/polyglot';
 
-import { zip } from '../algo';
-import type { OpeningBook } from '../game/polyglot';
 import type { BotLoader } from './botLoader';
 import {
   type FilterFacetValue,

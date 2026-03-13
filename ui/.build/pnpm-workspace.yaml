@@ -1,3 +1,4 @@
+useNodeVersion: 24.13.0
 ignoredOptionalDependencies:
   - '@esbuild/*-arm'
   - '@esbuild/*-ia32'

@@ -2,35 +2,20 @@ import { type Attrs, h, type VNode, type VNodeData } from 'snabbdom';
 
 import { type MaybeVNodes } from './snabbdom';
 
-export interface HasRating {
-  rating?: number;
-  provisional?: boolean;
-  brackets?: boolean; // display the rating in brackets/parentheses, true by default
-}
-
-export interface HasRatingDiff {
-  ratingDiff?: number;
-}
-
-export interface HasFlair {
-  flair?: Flair;
-}
-
-export interface HasTitle {
-  title?: string;
-}
-
-export interface HasLine {
-  line?: boolean; // display i.line, true by default
-  patronColor?: PatronColor; // turn i.line into a patron wing
-  moderator?: boolean; // turn i.line into a mod icon
-}
-
-export interface AnyUser extends HasRating, HasFlair, HasTitle, HasLine {
+export type AnyUser = {
   name: string;
   online?: boolean; // light up .line
   attrs?: Attrs;
-}
+  title?: string;
+  flair?: Flair;
+  ratingDiff?: number;
+  line?: boolean; // display i.line, true by default
+  patronColor?: PatronColor; // turn i.line into a patron wing
+  moderator?: boolean; // turn i.line into a mod icon
+  rating?: number;
+  provisional?: boolean;
+  brackets?: boolean; // display the rating in brackets/parentheses, true by default
+};
 
 export const userLink = (u: AnyUser): VNode =>
   h('a', userLinkData(u), [userLine(u), ...fullName(u), u.rating && ` ${userRating(u)} `]);
@@ -41,10 +26,10 @@ export const userLinkData = (u: AnyUser): VNodeData => ({
   attrs: { href: `/@/${u.name}`, ...u.attrs },
 });
 
-export const userFlair = (u: HasFlair): VNode | undefined =>
+export const userFlair = (u: Pick<AnyUser, 'flair'>): VNode | undefined =>
   u.flair ? h('img.uflair', { attrs: { src: site.asset.flairSrc(u.flair) } }) : undefined;
 
-export const userLine = (u: HasLine): VNode | undefined =>
+export const userLine = (u: Pick<AnyUser, 'line' | 'patronColor' | 'moderator'>): VNode | undefined =>
   u.line !== false
     ? h('i.line', {
         class: {
@@ -56,14 +41,14 @@ export const userLine = (u: HasLine): VNode | undefined =>
       })
     : undefined;
 
-export const userTitle = (u: HasTitle): VNode | undefined =>
-  u.title
-    ? h('span.utitle', u.title === 'BOT' ? { attrs: { 'data-bot': true } } : {}, [u.title, '\xa0'])
+export const userTitle = ({ title }: Pick<AnyUser, 'title'>): VNode | undefined =>
+  title
+    ? h('span.utitle', title === 'BOT' ? { attrs: { 'data-bot': true } } : {}, [title, '\xa0'])
     : undefined;
 
 export const fullName = (u: AnyUser): MaybeVNodes => [userTitle(u), u.name, userFlair(u)];
 
-export const userRating = (u: HasRating): string | undefined => {
+export const userRating = (u: Pick<AnyUser, 'rating' | 'provisional' | 'brackets'>): string | undefined => {
   if (u.rating) {
     const rating = `${u.rating}${u.provisional ? '?' : ''}`;
     return u.brackets !== false ? `(${rating})` : rating;
@@ -71,11 +56,11 @@ export const userRating = (u: HasRating): string | undefined => {
   return undefined;
 };
 
-export const ratingDiff = (u: HasRatingDiff): VNode | undefined =>
-  u.ratingDiff === 0
+export const ratingDiff = ({ ratingDiff }: Pick<AnyUser, 'ratingDiff'>): VNode | undefined =>
+  ratingDiff === 0
     ? h('span', '±0')
-    : u.ratingDiff && u.ratingDiff > 0
-      ? h('good', '+' + u.ratingDiff)
-      : u.ratingDiff && u.ratingDiff < 0
-        ? h('bad', '−' + -u.ratingDiff)
+    : ratingDiff && ratingDiff > 0
+      ? h('good', '+' + ratingDiff)
+      : ratingDiff && ratingDiff < 0
+        ? h('bad', '−' + -ratingDiff)
         : undefined;

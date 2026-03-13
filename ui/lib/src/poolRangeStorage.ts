@@ -1,4 +1,5 @@
-import type { GameData } from './game/interfaces';
+import type { GameData } from '@/game';
+
 import { defined } from './index';
 import { storage } from './storage';
 

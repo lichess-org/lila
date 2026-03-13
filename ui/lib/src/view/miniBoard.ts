@@ -1,11 +1,12 @@
 // no side effects allowed due to re-export by index.ts
 
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { uciToMove } from '@lichess-org/chessground/util';
 import { COLORS } from 'chessops';
 import { h, type VNode } from 'snabbdom';
 
 import * as domData from '@/data';
-import { uciToMove, fenColor } from '@/game/chess';
+import { fenColor } from '@/game/chess';
 import { lichessClockIsRunning, setClockWidget } from '@/game/clock/clockWidget';
 import { pubsub } from '@/pubsub';
 import { wsSend } from '@/socket';

@@ -98,7 +98,8 @@ final class RelayRoundForm(using mode: Mode):
       "reorder" -> optional(nonEmptyText.into[RelayGame.ReorderNames]),
       "rated" -> optional(boolean.into[Rated]),
       "customScoring" -> optional(byColor.mappingOf(customScoringMapping)),
-      "teamCustomScoring" -> optional(customScoringMapping)
+      "teamCustomScoring" -> optional(customScoringMapping),
+      "fideTCOverride" -> optional(RelayTourForm.fideTCMapping)
     )(Data.apply)(unapply)
 
   def create(trs: RelayTour.WithRounds)(using Me) = Form(
@@ -174,7 +175,8 @@ object RelayRoundForm:
       slices = prev.flatMap(_.sync.slices),
       rated = prev.map(_.rated),
       customScoring = prev.flatMap(_.customScoring),
-      teamCustomScoring = prev.flatMap(_.teamCustomScoring)
+      teamCustomScoring = prev.flatMap(_.teamCustomScoring),
+      fideTCOverride = prev.flatMap(_.fideTCOverride)
     )
 
   case class GameIds(ids: List[GameId])
@@ -247,7 +249,8 @@ object RelayRoundForm:
       reorder: Option[RelayGame.ReorderNames] = None,
       rated: Option[Rated] = None,
       customScoring: Option[ByColor[RelayRound.CustomScoring]] = None,
-      teamCustomScoring: Option[RelayRound.CustomScoring] = None
+      teamCustomScoring: Option[RelayRound.CustomScoring] = None,
+      fideTCOverride: Option[chess.FideTC] = None
   ):
     def upstream: Option[Upstream] = syncSource.match
       case None => syncUrl.orElse(syncUrls).orElse(syncIds).orElse(syncUsers)
@@ -274,7 +277,8 @@ object RelayRoundForm:
         finishedAt = status.has("finished").option(round.finishedAt.|(nowInstant)),
         rated = rated | Rated.No,
         customScoring = customScoring,
-        teamCustomScoring = teamCustomScoring
+        teamCustomScoring = teamCustomScoring,
+        fideTCOverride = fideTCOverride
       )
 
     private def makeSync(prev: Option[RelayRound.Sync])(using Me): Sync =
@@ -304,7 +308,8 @@ object RelayRoundForm:
         finishedAt = status.has("finished").option(nowInstant),
         rated = rated | Rated.No,
         customScoring = customScoring,
-        teamCustomScoring = teamCustomScoring
+        teamCustomScoring = teamCustomScoring,
+        fideTCOverride = fideTCOverride
       )
 
   object Data:
@@ -345,5 +350,6 @@ object RelayRoundForm:
         delay = round.sync.delay,
         rated = round.rated.some,
         customScoring = round.customScoring,
-        teamCustomScoring = round.teamCustomScoring
+        teamCustomScoring = round.teamCustomScoring,
+        fideTCOverride = round.fideTCOverride
       )

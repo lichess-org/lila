@@ -5,12 +5,12 @@ import { lichessRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
 
+import { clamp } from '@/algo';
+import { throttle } from '@/async';
+import { storedIntProp, storage } from '@/storage';
 import type { LocalEval, PvData, TreePath } from '@/tree/types';
 
-import { clamp } from '../algo';
-import { throttle } from '../async';
 import { prop, type Prop, type Toggle, toggle } from '../index';
-import { storedIntProp, storage } from '../storage';
 import { Engines } from './engines/engines';
 import {
   type CevalOpts,
