@@ -106,8 +106,9 @@ $c-report-high-over: white;
     }
 
     .text {
-      max-height: 100px;
       overflow: hidden;
+      overflow-wrap: anywhere;
+      max-height: 100px;
       font-size: 0.9em;
 
       &.large {
