@@ -11,3 +11,11 @@ class RelayI18nTest extends munit.FunSuite:
     // https://lichess.org/broadcast/turkish-cadet--youth-championships-2026--u13-open/round-9/iV4feSab
     val name = RelayTour.Name("Turkish Cadet & Youth Championships 2026 | U13 Open")
     assertEquals(RelayI18n(name), name.value)
+
+  test("UnderX elo not parsed as UnderX age"):
+    val name = RelayTour.Name("Some event | open U1800")
+    assertEquals(RelayI18n(name), name.value)
+
+  test("UnderX age should be parsed"):
+    val name = RelayTour.Name("Some event | open U18")
+    assertEquals(RelayI18n(name), "Some event | broadcast:openUnderXAgeTournament")
