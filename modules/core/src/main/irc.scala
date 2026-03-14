@@ -45,3 +45,4 @@ trait IrcApi:
       tier: Option[String],
       note: Option[String]
   ): Funit
+  def broadcasterDm(topicUserId: UserId, userId: UserId, content: String): Funit

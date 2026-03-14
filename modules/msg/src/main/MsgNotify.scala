@@ -8,7 +8,8 @@ import lila.db.dsl.{ *, given }
 
 final private class MsgNotify(
     colls: MsgColls,
-    notifyApi: NotifyApi
+    notifyApi: NotifyApi,
+    ircApi: lila.core.irc.IrcApi
 )(using ec: Executor, scheduler: Scheduler):
 
   import BsonHandlers.given
@@ -55,5 +56,10 @@ final private class MsgNotify(
         notifyApi.notifyOne(
           thread.other(msg.user),
           NotificationContent.PrivateMessage(msg.user, text = shorten(msg.text, 40))
-        )
+        ) >> {
+          if thread.users.exists(_ == UserId.broadcaster) then
+            val topicUserId = thread.users.find(_ != UserId.broadcaster).getOrElse(UserId.undefined)
+            ircApi.broadcasterDm(topicUserId, msg.user, msg.text)
+          else funit
+        }
     }
