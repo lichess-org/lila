@@ -94,14 +94,18 @@ function renderPlayer(
       fideId,
     },
     photo = fideId ? relayPlayers?.fidePhoto(fideId) : undefined;
+  if (relayPlayers && !relayPlayers.players && !relayPlayers.loading) void relayPlayers.loadFromXhr();
   const coloredResult = status && status !== '*' && playerColoredResult(status, color, round);
   const resultNode = coloredResult
     ? hl(`${coloredResult.tag}.result`, coloredResult.points)
     : result && hl(`${resultTag(result)}.result`, result);
+  const playerScore = relayPlayers?.players?.find(p => playerId(p) === playerId(player))?.score;
+  const scoreNode = defined(playerScore) ? hl('span.result.score', playerScore) : undefined;
   return relayPlayers
     ? hl(`div.relay-board-player.relay-board-player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
         hl('div.left', [
           playerPhotoOrFallback(player, photo, 'small', 'relay-board-player__photo'),
+          scoreNode,
           hl('div.info-split', [
             hl('div', [
               !!player.title && userTitle(player),
