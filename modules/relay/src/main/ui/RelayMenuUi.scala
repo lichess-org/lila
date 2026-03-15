@@ -26,7 +26,7 @@ final class RelayMenuUi(helpers: Helpers):
             " ",
             trc.broadcasts()
           ),
-      a(href := routes.RelayTour.subscribed(), cls := menu.activeO("subscribed"))(
+      a(href := routes.RelayTour.pager("subscribed"), cls := menu.activeO("subscribed"))(
         trc.subscribedBroadcasts()
       ),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trc.broadcastCalendar()),
@@ -37,10 +37,10 @@ final class RelayMenuUi(helpers: Helpers):
         .option:
           frag(
             div(cls := "sep"),
-            a(href := routes.RelayTour.allPrivate(), cls := menu.activeO("allPrivate"))(
+            a(href := routes.RelayTour.pager("all-private"), cls := menu.activeO("allPrivate"))(
               "Private Broadcasts"
             ),
-            a(href := routes.RelayTour.nonOfficial(), cls := menu.activeO("nonOfficial"))(
+            a(href := routes.RelayTour.pager("non-official"), cls := menu.activeO("nonOfficial"))(
               "Non-Official Broadcasts"
             )
           )

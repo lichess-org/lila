@@ -130,19 +130,19 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi, card: RelayCardUi, pageMe
     listLayout(trc.subscribedBroadcasts.txt(), pageMenu("subscribed"))(
       boxTop(h1(trc.subscribedBroadcasts())),
       standardFlash,
-      renderPager(pager)(routes.RelayTour.subscribed)
+      renderPager(pager)(routes.RelayTour.pager("subscribed", _))
     )
 
   def allPrivate(pager: Paginator[RelayTour | WithLastRound])(using Context) =
     listLayout("Private Broadcasts", pageMenu("allPrivate"))(
       boxTop(h1("Private Broadcasts")),
-      renderPager(pager)(routes.RelayTour.allPrivate)
+      renderPager(pager)(routes.RelayTour.pager("all-private", _))
     )
 
   def nonOfficial(pager: Paginator[RelayTour | WithLastRound])(using Context) =
     listLayout("Non-Official Broadcasts", pageMenu("nonOfficial"))(
       boxTop(h1("Non-Official Broadcasts")),
-      renderPager(pager)(routes.RelayTour.nonOfficial)
+      renderPager(pager)(routes.RelayTour.pager("non-official", _))
     )
 
   def calendar(at: YearMonth, tours: List[WithFirstRound], announcement: Option[Html])(using ctx: Context) =
