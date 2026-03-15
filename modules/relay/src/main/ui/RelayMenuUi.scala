@@ -26,19 +26,25 @@ final class RelayMenuUi(helpers: Helpers):
             " ",
             trc.broadcasts()
           ),
-      a(href := routes.RelayTour.subscribed(), cls := menu.activeO("subscribed"))(
+      a(href := routes.RelayTour.pager("subscribed"), cls := menu.activeO("subscribed"))(
         trc.subscribedBroadcasts()
       ),
-      Granter
-        .opt(_.StudyAdmin)
-        .option(
-          a(href := routes.RelayTour.allPrivate(), cls := menu.activeO("allPrivate"))(
-            "Private Broadcasts"
-          )
-        ),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trc.broadcastCalendar()),
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trc.aboutBroadcasts()),
       a(href := routes.RelayTour.app, cls := menu.activeO("app"))("Broadcaster App"),
+      Granter
+        .opt(_.StudyAdmin)
+        .option:
+          frag(
+            div(cls := "sep"),
+            a(href := routes.RelayTour.pager("all-private"), cls := menu.activeO("allPrivate"))(
+              "Private Broadcasts"
+            ),
+            a(href := routes.RelayTour.pager("non-official"), cls := menu.activeO("nonOfficial"))(
+              "Non-Official Broadcasts"
+            )
+          )
+      ,
       div(cls := "sep"),
       a(cls := menu.active("players"), href := routes.Fide.index())(trc.fidePlayers()),
       a(cls := menu.active("federations"), href := routes.Fide.federations(1))(
