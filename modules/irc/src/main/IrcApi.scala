@@ -124,10 +124,9 @@ final class IrcApi(
         s" by **${markdown.modLink(mod)}**" +
         note.so(n => s"\nnote: $n")
 
-  def broadcasterDm(topicUserId: UserId, userId: UserId, content: String): Funit =
-    val user = lightUser(userId)
-    zulip(_.broadcastDms, s"/${topicUserId.value}"):
-      s"${markdown.userLink(user)}:\n```quote\n$content\n```"
+  def broadcasterDm(topicUserId: UserId, senderId: UserId, content: String): Funit =
+    zulip(_.broadcastDms, s"/${lightUser(topicUserId).name}"):
+      s"${markdown.userLink(lightUser(senderId))}:\n```quote\n$content\n```"
 
   def openingEdit(user: LightUser, opening: String, moves: String): Funit =
     zulip(_.content, "/opening edits"):
