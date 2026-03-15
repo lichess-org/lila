@@ -4,12 +4,12 @@ import play.api.Configuration
 
 import lila.oauth.Protocol.ClientId
 import lila.common.config.given
-import lila.core.net.Bearer
+import lila.core.net.{ Bearer, Origin }
 import com.roundeights.hasher.Algo
 
 case class OAuthSignedClient(
     clientId: ClientId,
-    origin: String,
+    origin: Origin,
     scope: OAuthScope,
     signers: List[Algo.HmacBuilder]
 )
@@ -21,14 +21,14 @@ final class OAuthSignedClients(appConfig: Configuration):
 
   val mobile = OAuthSignedClient(
     ClientId("lichess_mobile"),
-    "org.lichess.mobile://",
+    Origin("org.lichess.mobile://"),
     OAuthScope.Web.Mobile,
     signersOf("mobile")
   )
 
   val polygon = OAuthSignedClient(
     ClientId("polygon"),
-    config.get[String]("polygon.origin"),
+    Origin(config.get[String]("polygon.origin")),
     OAuthScope.Web.Polygon,
     signersOf("polygon")
   )

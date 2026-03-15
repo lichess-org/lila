@@ -27,7 +27,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
             h1("Authorize"),
             if prompt.looksLikeLichessMobile
             then h2("Lichess Mobile")
-            else strong(code(prompt.redirectUri.clientOrigin))
+            else strong(code(prompt.redirectUri.origin))
           ),
           prompt.redirectUri.insecure.option(flashMessage("warning")("Does not use a secure connection")),
           postForm(action := authorizeUrl)(

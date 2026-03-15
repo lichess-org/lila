@@ -32,7 +32,7 @@ final class OAuthServer(
       MissingScope(accepted, at.scopes)
     u <- userApi.me(at.userId)
     u <- u.raiseIfNone(NoSuchUser)
-    blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
+    blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.value.contains))
     _ = andLogReq
       .filter: req =>
         blocked || (u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req))
