@@ -15,7 +15,6 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using
       Context
   ) =
-    import prompt.{ isDanger, looksLikeLichessMobile as mobile }
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
     Page("Authorization")
       .css("bits.oauth")
@@ -26,7 +25,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
           div(cls := "oauth__top")(
             iconTag(Icon.Logo)(cls := "oauth__logo", alt := "lichess logo"),
             h1("Authorize"),
-            if mobile
+            if prompt.looksLikeLichessMobile
             then h2("Lichess Mobile")
             else strong(code(prompt.redirectUri.clientOrigin))
           ),
@@ -37,7 +36,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
               strong(otherUserRequested.fold(me.username)(_.name)),
               " account:"
             ),
-            if mobile then emptyFrag
+            if prompt.looksLikeLichessMobile then emptyFrag
             else if prompt.scopes.isEmpty then ul(li("Only public data"))
             else
               ul(cls := "oauth__scopes"):
@@ -55,13 +54,13 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                 case None =>
                   submitButton(
                     cls := buttonClass(prompt),
-                    dataIcon := isDanger.option(Icon.CautionTriangle),
+                    dataIcon := prompt.isDanger.option(Icon.CautionTriangle),
                     disabled := true,
                     id := "oauth-authorize",
                     title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
                   )("Authorize")
             ),
-            footer(prompt, isDanger, otherUserRequested)
+            footer(prompt, otherUserRequested)
           )
         )
 
@@ -70,7 +69,6 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
 
   private def footer(
       prompt: AuthorizationRequest.Prompt,
-      isDanger: Boolean,
       otherUserRequested: Option[LightUser]
   )(using ctx: Context) =
     div(cls := "oauth__footer")(
@@ -87,7 +85,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
       else
         frag(
           (!prompt.trusted).option(
-            p(cls := List("danger" -> isDanger))("Not owned or operated by lichess.org")
+            p(cls := List("danger" -> prompt.isDanger))("Not owned or operated by lichess.org")
           ),
           p(cls := "oauth__redirect")("Will redirect to ", prompt.redirectUri.withoutQuery)
         )
