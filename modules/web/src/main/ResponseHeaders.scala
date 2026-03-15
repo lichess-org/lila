@@ -7,10 +7,10 @@ import lila.common.HTTPRequest
 
 trait ResponseHeaders extends HeaderNames:
 
-  def headersForApiOrApp(using req: RequestHeader) =
+  def headersForApiOrApp(using req: RequestHeader): List[PairOf[String]] =
     val appOrigin = HTTPRequest.appOrigin(req)
     List(
-      "Access-Control-Allow-Origin" -> appOrigin.getOrElse("*"),
+      "Access-Control-Allow-Origin" -> appOrigin.fold("*")(_.value),
       "Access-Control-Allow-Methods" -> allowMethods,
       "Access-Control-Allow-Headers" -> {
         List(
