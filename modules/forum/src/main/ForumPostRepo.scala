@@ -109,3 +109,8 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
       $set($doc("userId" -> UserId.ghost, "text" -> "", "erasedAt" -> nowInstant)),
       multi = true
     )
+
+  def maxNumberByTopic(topicId: ForumTopicId): Fu[Int] =
+    coll
+      .primitiveOne[Int]($doc("topicId" -> topicId), $sort.desc("number"), "number")
+      .dmap(_.getOrElse(0))

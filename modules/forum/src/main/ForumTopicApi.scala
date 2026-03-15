@@ -32,9 +32,6 @@ final private class ForumTopicApi(
 
   import BSONHandlers.given
 
-  def lastPage(topic: ForumTopic): Int =
-    topic.nbPosts / config.postMaxPerPage.value + 1
-
   def showLastPage(categId: ForumCategId, slug: ForumTopicSlug)(using NetDomain)(using me: Option[Me]) =
     topicRepo
       .byTree(categId, slug)

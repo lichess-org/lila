@@ -35,11 +35,12 @@ final class ForumPostApi(
     publicMod = MasterGranter(_.PublicMod)
     modIcon = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
     anonMod = modIcon && !publicMod
+    maxNumber <- postRepo.maxNumberByTopic(topic.id)
     post = ForumPost.make(
       topicId = topic.id,
       userId = (!anonMod).option(me),
       text = spam.replace(data.text),
-      number = topic.nbPosts + 1,
+      number = maxNumber + 1,
       lang = lang.map(_.language),
       troll = me.marks.troll,
       categId = categ.id,
