@@ -120,7 +120,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               postUi.show(
                 topic,
                 p,
-                s"${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage)}#${p.post.number}",
+                s"${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage)}#${p.post.id}",
                 canReply = formWithCaptcha.isDefined,
                 canModCateg = canModCateg,
                 canReact = teamOnly.isEmpty

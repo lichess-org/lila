@@ -27,7 +27,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       )
       st.article(
         cls := List("forum-post" -> true, "erased" -> post.erased),
-        id := post.number,
+        id := post.id,
         postId := post.id
       )(
         div(cls := "forum-post__metas")(

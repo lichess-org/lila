@@ -35,12 +35,11 @@ final class ForumPostApi(
     publicMod = MasterGranter(_.PublicMod)
     modIcon = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
     anonMod = modIcon && !publicMod
-    maxNumber <- postRepo.maxNumberByTopic(topic.id)
     post = ForumPost.make(
       topicId = topic.id,
       userId = (!anonMod).option(me),
       text = spam.replace(data.text),
-      number = maxNumber + 1,
+      number = topic.nbPosts + 1,
       lang = lang.map(_.language),
       troll = me.marks.troll,
       categId = categ.id,
@@ -102,9 +101,9 @@ final class ForumPostApi(
     get(postId).flatMap:
       case Some(_, post) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some(topic, post) =>
-        postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number).dmap { nb =>
+        postRepo.forUser(forUser).countBeforePost(post).dmap { nb =>
           val page = nb / config.postMaxPerPage.value + 1
-          PostUrlData(topic.categId, topic.slug, page, post.number).some
+          PostUrlData(topic.categId, topic.slug, page, post.id).some
         }
       case _ => fuccess(none)
 

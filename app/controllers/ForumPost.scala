@@ -138,9 +138,9 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def redirect(id: ForumPostId) = Open:
     Found(postApi.urlData(id, ctx.me)):
-      case lila.forum.PostUrlData(categ, topic, page, number) =>
+      case lila.forum.PostUrlData(categ, topic, page, postId) =>
         val call = routes.ForumTopic.show(categ, topic, page)
-        Redirect(s"$call#$number").withCanonical(call)
+        Redirect(s"$call#$postId").withCanonical(call)
 
   private def maybeAutomod(post: lila.forum.ForumPost)(using me: Me) = for
     teamId <- env.forum.postApi.teamIdOfPost(post)

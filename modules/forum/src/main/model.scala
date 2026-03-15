@@ -36,7 +36,7 @@ case class PostView(post: ForumPost, topic: ForumTopic, categ: ForumCateg):
 object PostView:
   case class WithReadPerm(view: PostView, canRead: Boolean)
 
-case class PostUrlData(categ: ForumCategId, topicSlug: ForumTopicSlug, page: Int, number: Int)
+case class PostUrlData(categ: ForumCategId, topicSlug: ForumTopicSlug, page: Int, postId: ForumPostId)
 
 enum Filter:
   case Safe
