@@ -24,6 +24,7 @@ trait Player:
   def title: Option[PlayerTitle]
   def year: Option[Int]
   def ratingOf(tc: FideTC): Option[Elo]
+  def ratingOfOrStandard(tc: FideTC): Option[Elo]
   def kFactorOf(tc: FideTC): KFactor
   def ratingsMap: Map[FideTC, Elo]
 
