@@ -53,13 +53,13 @@ final private class MsgNotify(
     colls.thread.byId[MsgThread](threadId.value).flatMapz { thread =>
       val msg = thread.lastMsg
       (!thread.delBy(thread.other(msg.user))).so:
-        notifyApi.notifyOne(
-          thread.other(msg.user),
-          NotificationContent.PrivateMessage(msg.user, text = shorten(msg.text, 40))
-        ) >> {
-          if thread.users.exists(_ == UserId.broadcaster) then
-            val topicUserId = thread.users.find(_ != UserId.broadcaster).getOrElse(UserId.undefined)
-            ircApi.broadcasterDm(topicUserId, msg.user, msg.text)
-          else funit
-        }
+        for
+          _ <- notifyApi.notifyOne(
+            thread.other(msg.user),
+            NotificationContent.PrivateMessage(msg.user, text = shorten(msg.text, 40))
+          )
+          _ <- thread.users
+            .has(UserId.broadcaster)
+            .so(ircApi.broadcasterDm(thread.other(UserId.broadcaster), msg.user, msg.text))
+        yield ()
     }
