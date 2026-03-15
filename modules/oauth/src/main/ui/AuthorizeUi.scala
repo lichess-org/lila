@@ -9,9 +9,6 @@ import ScalatagsTemplate.{ *, given }
 final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser):
   import helpers.{ *, given }
 
-  private def buttonClass(prompt: AuthorizationRequest.Prompt) =
-    s"button${prompt.isDanger.so(" button-red ok-cancel-confirm text")} disabled"
-
   def apply(prompt: AuthorizationRequest.Prompt, signedClient: Option[OAuthSignedClient])(using
       ctx: Context,
       me: Me
@@ -53,9 +50,10 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                     otherUser.name
                   )
                 case None =>
+                  val danger = prompt.isDanger && signedClient.isEmpty
                   submitButton(
-                    cls := buttonClass(prompt),
-                    dataIcon := prompt.isDanger.option(Icon.CautionTriangle),
+                    cls := s"button${danger.so(" button-red ok-cancel-confirm text")} disabled",
+                    dataIcon := danger.option(Icon.CautionTriangle),
                     disabled := true,
                     id := "oauth-authorize",
                     title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
