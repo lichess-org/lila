@@ -2,14 +2,14 @@ package lila.round
 
 import chess.format.pgn.SanStr
 import chess.format.{ Fen, Uci }
-import chess.{ Move, Ply }
+import chess.{ MoveOrDrop, Ply }
 import play.api.libs.json.*
 
 import lila.common.Json.given
 
 case class Forecast(_id: GameFullId, steps: Forecast.Steps, date: Instant):
 
-  def apply(g: Game, lastMove: Move): Option[(Forecast, Uci.Move)] =
+  def apply(g: Game, lastMove: MoveOrDrop): Option[(Forecast, Uci)] =
     nextMove(g, lastMove).map { move =>
       copy(
         steps = steps.collect {
@@ -23,7 +23,7 @@ case class Forecast(_id: GameFullId, steps: Forecast.Steps, date: Instant):
   // accept up to 30 lines of 30 moves each
   def truncate = copy(steps = steps.take(30).map(_.take(30)))
 
-  private def nextMove(g: Game, last: Move) =
+  private def nextMove(g: Game, last: MoveOrDrop) =
     steps.collectFirstSome:
       case fst :: snd :: _ if g.ply == fst.ply && fst.is(last) => snd.uciMove
       case _ => none
@@ -42,10 +42,10 @@ object Forecast:
       check: Option[Boolean]
   ):
 
-    def is(move: Move) = move.toUci.uci == uci
-    def is(move: Uci.Move) = move.uci == uci
+    def is(move: MoveOrDrop) = move.toUci.uci == uci
+    def is(move: Uci) = move.uci == uci
 
-    def uciMove = Uci.Move(uci)
+    def uciMove = Uci(uci)
 
   given Format[Step] = Json.format
   given Writes[Forecast] = Json.writes

@@ -124,6 +124,10 @@ final class IrcApi(
         s" by **${markdown.modLink(mod)}**" +
         note.so(n => s"\nnote: $n")
 
+  def broadcasterDm(topicUserId: UserId, senderId: UserId, content: String): Funit =
+    zulip(_.broadcastDms, s"/${lightUser(topicUserId).name}"):
+      s"${markdown.userLink(lightUser(senderId))}:\n```quote\n$content\n```"
+
   def openingEdit(user: LightUser, opening: String, moves: String): Funit =
     zulip(_.content, "/opening edits"):
       s"${markdown.userLink(user)} edited ${markdown.lichessLink(s"/opening/$opening/$moves", opening)}"

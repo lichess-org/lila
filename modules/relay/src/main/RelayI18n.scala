@@ -16,9 +16,9 @@ private object RelayI18n:
   private val menRegex = """(?i)^men$""".r
   private val girlsRegex = """(?i)^girls$""".r
   private val boysRegex = """(?i)^boys$""".r
-  private val openUnderXAgeRegex = """(?i)^open\s+u(\d+)$""".r
-  private val girlsUnderXAgeRegex = """(?i)^girls\s+u(\d+)$""".r
-  private val boysUnderXAgeRegex = """(?i)^boys\s+u(\d+)$""".r
+  private val openUnderXAgeRegex = """(?i)^open\s+u(\d{1,2})$""".r
+  private val girlsUnderXAgeRegex = """(?i)^girls\s+u(\d{1,2})$""".r
+  private val boysUnderXAgeRegex = """(?i)^boys\s+u(\d{1,2})$""".r
   private val quarterfinalsRegex = """(?i)^quarter[-\s]?final[s]?$""".r
   private val semifinalsRegex = """(?i)^semi[-\s]?final[s]?$""".r
   private val finalsRegex = """(?i)^final[s]?$""".r

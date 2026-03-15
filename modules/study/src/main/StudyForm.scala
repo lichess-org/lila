@@ -90,6 +90,8 @@ object StudyForm:
         case None | Some("study") => As.NewStudy
         case Some(studyId) => As.ChapterOf(StudyId(studyId))
 
+      def isNewStudy = as == As.NewStudy
+
       def toChapterData = ChapterMaker.Data(
         name = StudyChapterName(""),
         game = gameId.map(_.value),
