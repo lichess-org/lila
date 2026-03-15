@@ -132,8 +132,15 @@
   <string name="pinnedPieces">Bundne brikker</string>
   <string name="checkableKing">Sjakkbar konge</string>
   <string name="multipleLines">Flere varianter</string>
+  <string name="multipleLinesDescription">Angi antall evalueringslinjer og trekkpiler på brettet</string>
+  <string name="searchTime">Søketid</string>
+  <string name="searchTimeDescription">Angi tid for å evaluere nye stillinger</string>
+  <string name="threads">Tråder</string>
+  <string name="threadsDescription">Sett denne lavere enn antall tråder på CPU-en din; merkene viser et trygt og godt valg</string>
+  <string name="threadsDescriptionMobile">Flere tråder vil bruke mer batteri for bedre analyse</string>
   <string name="cpus">Prosessorer</string>
   <string name="memory">Minne</string>
+  <string name="memoryDescription">Høyere verdier kan forbedre ytelsen</string>
   <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="removesTheDepthLimit">Fjerner dybdebegrensning, og holder maskinen din varm</string>
   <string name="blunder">Bukk</string>
@@ -1021,6 +1028,7 @@ Alle kostnader for drift, utvikling og innhold finansieres utelukkende av bruker
   <string name="offline" comment="status of a user">frakoblet</string>
   <string name="search">Søk</string>
   <string name="clearSearch">Tøm søk</string>
+  <string name="thereAreNoResultsForX">Ingen resultater for «%s»</string>
   <string name="tags">Merkelapper</string>
   <string name="enPassant">En passant</string>
 </resources>
