@@ -46,7 +46,7 @@
   <string name="continueTraining">Mashgʻulotni davom ettirish</string>
   <string name="difficultyLevel">Qiyinlik darajasi</string>
   <string name="normal">Normal</string>
-  <string name="easier">Onsonroq</string>
+  <string name="easier">Osonroq</string>
   <string name="easiest">Eng Oson</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
     <item quantity="one">Masalalar reytingingizdan bir ball past</item>
