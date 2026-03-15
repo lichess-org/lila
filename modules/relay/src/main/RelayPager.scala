@@ -65,25 +65,26 @@ final class RelayPager(
     maxPerPage = maxPerPage
   )
 
-  def nonOfficial(page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
-    adapter = new:
-      def nbResults: Fu[Int] = fuccess(9999)
-      def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
-        tourRepo.coll
-          .aggregateList(length, _.sec): framework =>
-            import framework.*
-            Match(selectors.nonOfficial) -> {
-              List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
-                .aggregateRoundAndUnwind(colls, framework) ::: List(
-                Skip(offset),
-                Limit(length)
-              )
-            }
-          .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
-    ,
-    currentPage = page,
-    maxPerPage = maxPerPage
-  )
+  def nonOfficialExpensiveNoIndexHitForAdminsOnly(page: Int): Fu[Paginator[RelayTour | WithLastRound]] =
+    Paginator(
+      adapter = new:
+        def nbResults: Fu[Int] = fuccess(9999)
+        def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
+          tourRepo.coll
+            .aggregateList(length, _.sec): framework =>
+              import framework.*
+              Match(selectors.nonOfficial) -> {
+                List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
+                  .aggregateRoundAndUnwind(colls, framework) ::: List(
+                  Skip(offset),
+                  Limit(length)
+                )
+              }
+            .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
+      ,
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
 
   def subscribedBy(userId: UserId, page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
     adapter = new:

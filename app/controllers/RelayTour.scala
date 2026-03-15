@@ -81,7 +81,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   def nonOfficial(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
     Reasonable(page, Max(20)):
       env.relay.pager
-        .nonOfficial(page)
+        .nonOfficialExpensiveNoIndexHitForAdminsOnly(page)
         .flatMap: pager =>
           Ok.async:
             views.relay.tour.nonOfficial(pager)
