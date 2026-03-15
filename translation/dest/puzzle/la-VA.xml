@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Compositiones</string>
+  <string name="puzzles">Problemata</string>
   <string name="puzzleThemes">Themata Aenigmatum</string>
   <string name="recommended">Commendatum</string>
   <string name="advanced">Provectus</string>
@@ -21,7 +21,7 @@
   <string name="notTheMove">Non est id motus!</string>
   <string name="trySomethingElse">Aliud experire.</string>
   <string name="ratingX">Aestimatio: %s</string>
-  <string name="hidden">conditus</string>
+  <string name="hidden">occulta</string>
   <string name="fromGameLink">Ex ludo %s</string>
   <string name="normal">Normalis</string>
   <string name="easier">Facilior</string>
@@ -31,6 +31,6 @@
   <string name="example">Exemplum</string>
   <string name="nextPuzzle">Aenigma proximum</string>
   <string name="puzzleDashboard">Tabula Aenigmatum</string>
-  <string name="solved">solutum</string>
-  <string name="failed">defecit</string>
+  <string name="solved">soluta</string>
+  <string name="failed">mendosa</string>
 </resources>
