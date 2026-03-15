@@ -23,7 +23,7 @@ final class Env(
     text = "OAuth origin blocklist".some
   ).taggedWith[OriginBlocklist]
 
-  lazy val powerClients = OAuthSignedClients(appConfig)
+  lazy val signedClients = OAuthSignedClients(appConfig)
 
   lazy val legacyClientApi = LegacyClientApi(db(CollName("oauth2_legacy_client")))
 

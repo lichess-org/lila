@@ -11,7 +11,8 @@ case class OAuthSignedClient(
     clientId: ClientId,
     origin: Origin,
     scope: OAuthScope,
-    signers: List[Algo.HmacBuilder]
+    signers: List[Algo.HmacBuilder],
+    displayName: String
 )
 
 final class OAuthSignedClients(appConfig: Configuration):
@@ -23,15 +24,23 @@ final class OAuthSignedClients(appConfig: Configuration):
     ClientId("lichess_mobile"),
     Origin("org.lichess.mobile://"),
     OAuthScope.Web.Mobile,
-    signersOf("mobile")
+    signersOf("mobile"),
+    displayName = "Lichess Mobile"
   )
 
   val polygon = OAuthSignedClient(
     ClientId("polygon"),
     Origin(config.get[String]("polygon.origin")),
     OAuthScope.Web.Polygon,
-    signersOf("polygon")
+    signersOf("polygon"),
+    displayName = "Polygon"
   )
+
+  def forPrompt(prompt: AuthorizationRequest.Prompt): Option[OAuthSignedClient] =
+    clients.find: c =>
+      prompt.clientId == c.clientId &&
+        prompt.redirectUri.origin == c.origin &&
+        prompt.scopes.has(c.scope)
 
   private val clients = List(mobile, polygon)
 

@@ -12,8 +12,9 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
   private def buttonClass(prompt: AuthorizationRequest.Prompt) =
     s"button${prompt.isDanger.so(" button-red ok-cancel-confirm text")} disabled"
 
-  def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using
-      Context
+  def apply(prompt: AuthorizationRequest.Prompt, signedClient: Option[OAuthSignedClient])(using
+      ctx: Context,
+      me: Me
   ) =
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
     Page("Authorization")
@@ -25,18 +26,18 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
           div(cls := "oauth__top")(
             iconTag(Icon.Logo)(cls := "oauth__logo", alt := "lichess logo"),
             h1("Authorize"),
-            if prompt.looksLikeLichessMobile
-            then h2("Lichess Mobile")
-            else strong(code(prompt.redirectUri.origin))
+            signedClient match
+              case Some(client) => h2(client.displayName)
+              case None => strong(code(prompt.redirectUri.origin))
           ),
           prompt.redirectUri.insecure.option(flashMessage("warning")("Does not use a secure connection")),
-          postForm(action := authorizeUrl)(
+          postForm(action := s"${routes.OAuth.authorizeApply}?${ctx.req.rawQueryString}")(
             p(
               "Grant access to your ",
               strong(otherUserRequested.fold(me.username)(_.name)),
               " account:"
             ),
-            if prompt.looksLikeLichessMobile then emptyFrag
+            if signedClient.isDefined then emptyFrag
             else if prompt.scopes.isEmpty then ul(li("Only public data"))
             else
               ul(cls := "oauth__scopes"):
@@ -60,7 +61,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                     title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
                   )("Authorize")
             ),
-            footer(prompt, otherUserRequested)
+            footer(prompt, signedClient, otherUserRequested)
           )
         )
 
@@ -69,6 +70,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
 
   private def footer(
       prompt: AuthorizationRequest.Prompt,
+      signedClient: Option[OAuthSignedClient],
       otherUserRequested: Option[LightUser]
   )(using ctx: Context) =
     div(cls := "oauth__footer")(
@@ -80,13 +82,13 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
           a(href := switchLoginUrl(none))(trans.site.signIn())
         )
       },
-      if prompt.looksLikeLichessMobile
-      then p("Not using Lichess Mobile? ", a(href := prompt.cancelUrl)("Cancel"))
-      else
-        frag(
-          (!prompt.trusted).option(
-            p(cls := List("danger" -> prompt.isDanger))("Not owned or operated by lichess.org")
-          ),
-          p(cls := "oauth__redirect")("Will redirect to ", prompt.redirectUri.withoutQuery)
-        )
+      signedClient match
+        case Some(client) => p(s"Not using ${client.displayName}? ", a(href := prompt.cancelUrl)("Cancel"))
+        case None =>
+          frag(
+            (!prompt.trusted).option(
+              p(cls := List("danger" -> prompt.isDanger))("Not owned or operated by lichess.org")
+            ),
+            p(cls := "oauth__redirect")("Will redirect to ", prompt.redirectUri.withoutQuery)
+          )
     )
