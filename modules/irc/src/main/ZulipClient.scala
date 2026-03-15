@@ -86,6 +86,7 @@ private object ZulipClient:
         case _ => "mod-admin-monitor-other"
     val general = "general"
     val broadcast = "content-broadcast"
+    val broadcastDms = "content-broadcast-dms"
     val blog = "content-blog"
     val content = "content-site"
     val bbb = "pub-org-bbb"

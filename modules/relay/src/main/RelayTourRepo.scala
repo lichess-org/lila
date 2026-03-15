@@ -154,6 +154,7 @@ private object RelayTourRepo:
 
   object selectors:
     val official = $doc("tier".$exists(true))
+    val nonOfficial = $doc("tier".$exists(false))
     object vis:
       val public = $doc("visibility" -> Visibility.public)
       val notPublic = $doc("visibility".$ne(Visibility.public))

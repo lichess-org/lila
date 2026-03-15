@@ -61,7 +61,13 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
           .map(_.mapResults(env.relay.jsonView.tourWithAnyRound(_)))
           .map(JsonOk(_))
 
-  def subscribed(page: Int) = Auth { ctx ?=> me ?=>
+  def pager(pager: String, page: Int) = pager match
+    case "subscribed" => subscribed(page)
+    case "all-private" => allPrivate(page)
+    case "non-official" => nonOfficial(page)
+    case _ => Open(notFound)
+
+  private def subscribed(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):
       for
         pager <- env.relay.pager.subscribedBy(me.userId, page)
@@ -69,13 +75,20 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       yield page
   }
 
-  def allPrivate(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
+  private def allPrivate(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
     Reasonable(page, Max(20)):
-      env.relay.pager
-        .allPrivate(page)
-        .flatMap: pager =>
-          Ok.async:
-            views.relay.tour.allPrivate(pager)
+      for
+        pager <- env.relay.pager.allPrivate(page)
+        page <- Ok.async(views.relay.tour.allPrivate(pager))
+      yield page
+  }
+
+  private def nonOfficial(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
+    Reasonable(page, Max(20)):
+      for
+        pager <- env.relay.pager.nonOfficialExpensiveNoIndexHitForAdminsOnly(page)
+        page <- Ok.async(views.relay.tour.nonOfficial(pager))
+      yield page
   }
 
   private def page(key: String, menu: String) = Open:
