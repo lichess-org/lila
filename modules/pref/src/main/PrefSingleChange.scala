@@ -44,6 +44,8 @@ object PrefSingleChange:
       _.copy(confirmResign = v),
     changing(_.moretime): v =>
       _.copy(moretime = v),
+    changing(_.clockTenths): v =>
+      _.copy(clockTenths = v),
     changing(_.clockSound): v =>
       _.copy(clockSound = v == 1),
     changing(_.pieceNotation): v =>

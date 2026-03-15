@@ -48,7 +48,7 @@ case class Appeal(
 
     val recentCount = recentWithoutMod.size
     val recentSize = recentWithoutMod.foldLeft(0)(_ + _.text.size)
-    recentSize < Appeal.maxLength || recentCount < 3
+    recentSize < Appeal.maxLength && recentCount < 3
 
   def unread = copy(status = Appeal.Status.Unread)
   def read = copy(status = Appeal.Status.Read)

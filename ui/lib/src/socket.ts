@@ -243,7 +243,7 @@ class WsSocket {
             t: 'p',
             l: Math.round(0.1 * this.averageLag),
           })
-        : 'null';
+        : 'p';
     try {
       this.ws!.send(pingData);
       this.lastPingTime = performance.now();

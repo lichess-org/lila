@@ -1028,6 +1028,7 @@ Loyiha faoliyati, uni rivojlantirish va barcha xarajatlar faqat foydalanuvchilar
   <string name="offline" comment="status of a user">oflayn</string>
   <string name="search">Qidirish</string>
   <string name="clearSearch">Qidiruvni tozalash</string>
+  <string name="thereAreNoResultsForX">\"%s\" boʻyicha natija yoʻq</string>
   <string name="tags">Teglar</string>
   <string name="enPassant">Kesib oʻtish</string>
 </resources>
