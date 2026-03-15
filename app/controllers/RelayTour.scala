@@ -77,20 +77,18 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   private def allPrivate(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
     Reasonable(page, Max(20)):
-      env.relay.pager
-        .allPrivate(page)
-        .flatMap: pager =>
-          Ok.async:
-            views.relay.tour.allPrivate(pager)
+      for
+        pager <- env.relay.pager.allPrivate(page)
+        page <- Ok.async(views.relay.tour.allPrivate(pager))
+      yield page
   }
 
   private def nonOfficial(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
     Reasonable(page, Max(20)):
-      env.relay.pager
-        .nonOfficialExpensiveNoIndexHitForAdminsOnly(page)
-        .flatMap: pager =>
-          Ok.async:
-            views.relay.tour.nonOfficial(pager)
+      for
+        pager <- env.relay.pager.nonOfficialExpensiveNoIndexHitForAdminsOnly(page)
+        page <- Ok.async(views.relay.tour.nonOfficial(pager))
+      yield page
   }
 
   private def page(key: String, menu: String) = Open:
