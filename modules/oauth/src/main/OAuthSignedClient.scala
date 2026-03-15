@@ -17,7 +17,7 @@ case class OAuthSignedClient(
 
 final class OAuthSignedClients(appConfig: Configuration):
 
-  private val config = appConfig.get[Configuration]("oauth.powerClients")
+  private val config = appConfig.get[Configuration]("oauth.signedClients")
   private def signersOf(name: String) = config.get[List[String]](name + ".secrets").map(Algo.hmac)
 
   val mobile = OAuthSignedClient(
