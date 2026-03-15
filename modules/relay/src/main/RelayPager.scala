@@ -45,27 +45,10 @@ final class RelayPager(
       maxPerPage = maxPerPage
     )
 
-  def allPrivate(page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
-    adapter = new:
-      def nbResults: Fu[Int] = fuccess(9999)
-      def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
-        tourRepo.coll
-          .aggregateList(length, _.sec): framework =>
-            import framework.*
-            Match(selectors.officialNotPublic) -> {
-              List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
-                .aggregateRoundAndUnwind(colls, framework) ::: List(
-                Skip(offset),
-                Limit(length)
-              )
-            }
-          .map(readToursWithRoundAndGroup(RelayTour.WithLastRound.apply))
-    ,
-    currentPage = page,
-    maxPerPage = maxPerPage
-  )
+  def allPrivate = adminPager(selectors.officialNotPublic)
+  def nonOfficialExpensiveNoIndexHitForAdminsOnly = adminPager(selectors.nonOfficial)
 
-  def nonOfficialExpensiveNoIndexHitForAdminsOnly(page: Int): Fu[Paginator[RelayTour | WithLastRound]] =
+  private def adminPager(selector: Bdoc)(page: Int): Fu[Paginator[RelayTour | WithLastRound]] =
     Paginator(
       adapter = new:
         def nbResults: Fu[Int] = fuccess(9999)
@@ -73,7 +56,7 @@ final class RelayPager(
           tourRepo.coll
             .aggregateList(length, _.sec): framework =>
               import framework.*
-              Match(selectors.nonOfficial) -> {
+              Match(selector) -> {
                 List(Project(unsetHeavyOptionalFields), Sort(Descending("createdAt"))) ::: tourRepo
                   .aggregateRoundAndUnwind(colls, framework) ::: List(
                   Skip(offset),
