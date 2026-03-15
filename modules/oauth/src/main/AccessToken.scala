@@ -30,7 +30,8 @@ object AccessToken:
       scopes: TokenScopes,
       tokenId: AccessTokenId,
       clientOrigin: Option[String]
-  )
+  ):
+    def show = s"$userId $scopes origin=$clientOrigin"
 
   case class Create(token: AccessToken)
 

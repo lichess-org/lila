@@ -71,9 +71,7 @@ object Protocol:
       .toString
 
     def code(code: AuthorizationCode, state: Option[State]): String = value
-      .withQuery(
-        s"code=${urlencode(code.secret)}&state=${urlencode(~state)}"
-      )
+      .withQuery(s"code=${urlencode(code.secret)}&state=${urlencode(~state)}")
       .toString
 
     def matches(other: UncheckedRedirectUri): Boolean =
