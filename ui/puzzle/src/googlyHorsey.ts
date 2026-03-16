@@ -2,7 +2,7 @@ import type { DrawShape } from '@lichess-org/chessground/draw';
 import type { Chess } from 'chessops/chess';
 import { makeSquare, squareFile, squareRank } from 'chessops/util';
 
-export interface GooglyEyeLayout {
+interface GooglyEyeLayout {
   eyeX: number;
   eyeY: number;
   eyeSpacing: number;
@@ -53,9 +53,6 @@ const GOOGLY_EYE_LAYOUTS: Record<string, GooglyEyeLayout> = {
   disguised: { eyeX: 0, eyeY: -8, eyeSpacing: 15 },
 };
 
-const getGooglyEyeLayout = (pieceSet: string): GooglyEyeLayout =>
-  GOOGLY_EYE_LAYOUTS[pieceSet] ?? DEFAULT_LAYOUT;
-
 let mousePos = { x: 0.5, y: 0.5 };
 let rafId: number | undefined;
 let boardRectSource: (() => DOMRect | undefined) | undefined;
@@ -93,9 +90,8 @@ export function disableGooglyEyesTracking(): void {
 }
 
 export function makeGooglyShapes(pos: Chess, bottomColor: Color, pieceSet: string): DrawShape[] {
-  const layout = getGooglyEyeLayout(pieceSet);
-  const knightSquares = [...pos.board.knight];
-  return knightSquares.map(sq => ({
+  const layout = GOOGLY_EYE_LAYOUTS[pieceSet] ?? DEFAULT_LAYOUT;
+  return [...pos.board.knight].map(sq => ({
     orig: makeSquare(sq) as Key,
     customSvg: { html: renderGooglySvg(sq, bottomColor, layout) },
   }));
