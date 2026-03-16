@@ -5,7 +5,7 @@ import { chessgroundDests } from 'chessops/compat';
 import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import type { Role, Move, Outcome } from 'chessops/types';
-import { parseSquare, parseUci, makeSquare, makeUci, opposite, squareFile, squareRank } from 'chessops/util';
+import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
@@ -25,6 +25,11 @@ import { alert } from 'lib/view';
 import { toggleZenMode } from 'lib/view/zen';
 
 import computeAutoShapes from './autoShape';
+import {
+  makeGooglyShapes,
+  enableGooglyEyesTracking as enableGooglyEyesTrackingHelper,
+  disableGooglyEyesTracking as disableGooglyEyesTrackingHelper,
+} from './googlyHorsey';
 import type {
   PuzzleOpts,
   PuzzleData,
@@ -81,10 +86,6 @@ export default class PuzzleCtrl implements CevalHandler {
   isDaily: boolean;
   blindfolded: StoredProp<boolean>;
   cgVersion = 1;
-
-  googlyMousePos = { x: 0.5, y: 0.5 };
-  private googlyBoardEl?: HTMLElement;
-  private googlyRaf?: number;
 
   private report: Report;
 
@@ -211,32 +212,12 @@ export default class PuzzleCtrl implements CevalHandler {
     });
   };
 
-  setGooglyBoardEl = (el: HTMLElement): void => {
-    this.removeGooglyBoardEl();
-    this.googlyBoardEl = el;
-    document.addEventListener('mousemove', this.onGooglyMouseMove);
+  enableGooglyEyesTracking = (el: HTMLElement): void => {
+    enableGooglyEyesTrackingHelper(el, () => this.withGround(g => g.set(this.makeCgOpts())));
   };
 
-  removeGooglyBoardEl = (): void => {
-    if (this.googlyRaf !== undefined) cancelAnimationFrame(this.googlyRaf);
-    this.googlyRaf = undefined;
-    document.removeEventListener('mousemove', this.onGooglyMouseMove);
-    this.googlyBoardEl = undefined;
-  };
-
-  private onGooglyMouseMove = (e: MouseEvent): void => {
-    if (!this.googlyBoardEl) return;
-    const rect = this.googlyBoardEl.getBoundingClientRect();
-    this.googlyMousePos = {
-      x: (e.clientX - rect.left) / rect.width,
-      y: (e.clientY - rect.top) / rect.height,
-    };
-    if (this.googlyRaf === undefined) {
-      this.googlyRaf = requestAnimationFrame(() => {
-        this.googlyRaf = undefined;
-        this.withGround(g => g.set(this.makeCgOpts()));
-      });
-    }
+  disableGooglyEyesTracking = (): void => {
+    disableGooglyEyesTrackingHelper();
   };
 
   pref = this.opts.pref;
@@ -310,41 +291,6 @@ export default class PuzzleCtrl implements CevalHandler {
           dests: new Map(),
         };
 
-    const pos = this.position();
-    const knightSquares = [...pos.board.knight];
-    const googlyEyes = (square: number): string => {
-      const eyeX = -10;
-      const eyeY = -15;
-      const eyeSpacing = 20;
-
-      const { x: mx, y: my } = this.googlyMousePos;
-      const file = squareFile(square);
-      const rank = squareRank(square);
-      const eyeCenter = this.flipped()
-        ? { x: (7.5 - file) / 8, y: (rank + 0.5) / 8 }
-        : { x: (file + 0.5) / 8, y: (7.5 - rank) / 8 };
-      let dx = mx - eyeCenter.x;
-      let dy = my - eyeCenter.y;
-      const len = Math.hypot(dx, dy) || 1;
-      const maxOffset = 4;
-      dx = (dx / len) * maxOffset;
-      dy = (dy / len) * maxOffset;
-      const leftEyeX = eyeX - eyeSpacing / 2;
-      const rightEyeX = eyeX + eyeSpacing / 2;
-      const lx = leftEyeX + dx;
-      const ly = eyeY + dy;
-      const rx = rightEyeX + dx;
-      const ry = eyeY + dy;
-      return $html`
-  <g transform="translate(50, 50)">
-    <circle cx="${leftEyeX}" cy="${eyeY}" r="8" fill="white" stroke="#333" stroke-width="1.5"/>
-    <circle cx="${lx}" cy="${ly}" r="5" fill="#222"/>
-    <circle cx="${lx - 2}" cy="${ly - 2.5}" r="1.5" fill="white" opacity="0.9"/>
-    <circle cx="${rightEyeX}" cy="${eyeY}" r="8" fill="white" stroke="#333" stroke-width="1.5"/>
-    <circle cx="${rx}" cy="${ry}" r="5" fill="#222"/>
-    <circle cx="${rx - 2}" cy="${ry - 2.5}" r="1.5" fill="white" opacity="0.9"/>
-  </g>`;
-    };
     const config = {
       fen: node.fen,
       orientation: this.flipped() ? opposite(this.pov) : this.pov,
@@ -356,10 +302,10 @@ export default class PuzzleCtrl implements CevalHandler {
       check: !!node.check(),
       lastMove: uciToMove(node.uci),
       drawable: {
-        shapes: knightSquares.map(sq => ({
-          orig: makeSquare(sq) as Key,
-          customSvg: { html: googlyEyes(sq) },
-        })),
+        shapes: makeGooglyShapes(
+          this.position(),
+          this.flipped() ? opposite(this.pov) : this.pov,
+        ),
       },
     };
     if (node.ply >= this.initialNode.ply) {
