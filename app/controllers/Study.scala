@@ -231,7 +231,7 @@ final class Study(
   private def chapterAnalysis(sc: WithChapter) =
     sc.chapter.serverEval
       .exists(_.done)
-      .so(env.analyse.analyser.byId(Analysis.Id(sc.study.id, sc.chapter.id)))
+      .so(env.analyse.repo.byId(Analysis.Id(sc.study.id, sc.chapter.id)))
 
   def show(id: StudyId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id):

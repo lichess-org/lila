@@ -8,21 +8,21 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
 
   import AnalyseBsonHandlers.given
 
-  def save(analysis: Analysis) = coll.insert.one(analysis).void
-
-  def byId(id: Analysis.Id): Fu[Option[Analysis]] = coll.byId[Analysis](id)
+  def byId(id: Analysis.Id): Fu[Option[Analysis]] = coll.secondary.byId[Analysis](id)
 
   def byGame(game: Game): Fu[Option[Analysis]] =
     game.metadata.analysed.so(byId(Analysis.Id(game.id)))
 
   def byIds(ids: Seq[Analysis.Id]): Fu[Seq[Option[Analysis]]] =
-    coll.optionsByOrderedIds[Analysis, Analysis.Id](ids)(_.id)
+    coll.optionsByOrderedIds[Analysis, Analysis.Id](ids, readPref = _.sec)(_.id)
 
   def associateToGames(games: List[Game]): Fu[List[(Game, Analysis)]] =
     byIds(games.map(g => Analysis.Id(g.id))).map: as =>
       games.zip(as).collect { case (game, Some(analysis)) =>
         game -> analysis
       }
+
+  private[analyse] def save(analysis: Analysis) = coll.insert.one(analysis).void
 
   def remove(id: GameId) = coll.delete.one($id(Analysis.Id(id)))
 

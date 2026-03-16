@@ -96,7 +96,7 @@ final class TextLpvExpand(
       .gameWithInitialFen(id)
       .flatMapz: g =>
         analysisRepo
-          .byId(Analysis.Id(id))
+          .byGame(g.game)
           .flatMap: analysis =>
             pgnDump(g.game, g.fen, analysis, pgnFlags).map: pgn =>
               val gameUrl = net.routeUrl(routes.Round.watcher(id, Color.White)).value

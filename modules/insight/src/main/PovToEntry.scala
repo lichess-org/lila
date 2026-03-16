@@ -43,7 +43,7 @@ final private class PovToEntry(
       Pov(game, userId).so: pov =>
         gameRepo
           .initialFen(game)
-          .zip(game.metadata.analysed.so(analysisRepo.byId(Analysis.Id(game.id))))
+          .zip(game.metadata.analysed.so(analysisRepo.byGame(game)))
           .map { (fen, an) =>
             chess
               .Position(
