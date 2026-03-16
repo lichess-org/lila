@@ -35,7 +35,7 @@
   <string name="useFindInPage">Yoqtirgan debyutlaringizni topish uchun brauzer menyusidagi \"Sahifadan izlash\" funksiyasidan foydalaning!</string>
   <string name="useCtrlF">Yoqtirgan debyutlaringizni topish uchun Ctrl+f tugmalarini bosing!</string>
   <string name="notTheMove">Bu notoʻgʻri yurish!</string>
-  <string name="trySomethingElse">Boshqa variantni sinab koʻring.</string>
+  <string name="trySomethingElse">Boshqa yurishni sinab koʻring.</string>
   <string name="ratingX">Reyting: %s</string>
   <string name="hidden">yashirilgan</string>
   <plurals name="playedXTimes">
