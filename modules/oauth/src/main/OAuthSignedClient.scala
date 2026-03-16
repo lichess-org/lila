@@ -48,9 +48,9 @@ final class OAuthSignedClients(appConfig: Configuration):
     clients.filter(c => token.scopes.value.contains(c.scope))
 
   /* Check that the token matching a provided bearer is allowed for use.
-   * If the token matches a power client, check that the signature is valid for that client.
-   * If the token matches several power clients, it will fail.
-   * If it doesn't match any power client, it will succeed without needing a signature. */
+   * If the token matches a signed client, check that the signature is valid for that client.
+   * If the token matches several signed clients, it will fail.
+   * If it doesn't match any signed client, it will succeed without needing a signature. */
   def allow(bearer: Bearer, token: AccessToken.ForAuth, signature: Option[String]): Boolean =
     forScopesOf(token).forall: client =>
       token.clientOrigin.has(client.origin) && signature.exists: signed =>
