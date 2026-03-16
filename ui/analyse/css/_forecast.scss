@@ -105,8 +105,6 @@
       }
 
       &:hover {
-        @extend %metal-hover;
-
         &::before {
           opacity: 1;
         }

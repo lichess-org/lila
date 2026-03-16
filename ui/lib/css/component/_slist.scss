@@ -3,12 +3,15 @@
   border-bottom: $border;
 
   thead {
-    @extend %metal, %roboto;
+    @extend %metal-bg, %roboto;
 
     th {
-      border-top: $border;
       border-bottom: $border;
       padding: 0.5rem 0.8rem;
+
+      @include if-light {
+        border-top: $border;
+      }
     }
 
     th.large {

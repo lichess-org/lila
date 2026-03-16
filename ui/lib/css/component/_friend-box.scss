@@ -26,10 +26,6 @@
     cursor: pointer;
     padding: 3px 5px;
     border-bottom: $border;
-
-    &:hover {
-      @extend %metal-hover;
-    }
   }
 
   .content {
