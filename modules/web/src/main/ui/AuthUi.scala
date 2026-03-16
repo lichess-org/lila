@@ -19,7 +19,7 @@ final class AuthUi(helpers: Helpers):
       .css("bits.auth")
       .hrefLangs(lila.ui.LangPath(routes.Auth.login)):
         main(cls := "auth auth-login box box-pad")(
-          h1(cls := "box__top")(trans.site.signIn()),
+          authTabs("login", referrer),
           postForm(
             cls := "form3",
             action := addReferrer(routes.Auth.authenticate.url)
@@ -34,16 +34,20 @@ final class AuthUi(helpers: Helpers):
                 )
               else form3.globalError(form),
               formFields(form("username"), form("password"), none, register = false),
-              form3.submit(trans.site.signIn(), icon = none),
-              label(cls := "login-remember")(
-                input(
-                  name := "remember",
-                  value := "true",
-                  tpe := "checkbox",
-                  isRememberMe.option(checked)
+              div(cls := "forgot-password")(
+                a(href := routes.Auth.passwordReset)(trans.site.passwordReset())
+              ),
+              div(cls := "login-remember form-check__container")(
+                form3.nativeCheckbox(
+                  "login-remember-me",
+                  "remember",
+                  checked = isRememberMe
                 ),
-                trans.site.rememberMe()
-              )
+                label(cls := "form-label", `for` := "login-remember-me")(
+                  trans.site.rememberMe()
+                )
+              ),
+              form3.submit(trans.site.signIn(), icon = none)
             ),
             div(cls := "two-factor none")(
               form3.group(
@@ -61,10 +65,9 @@ final class AuthUi(helpers: Helpers):
               form3.submit(trans.site.signIn(), icon = none)
             )
           ),
-          div(cls := "alternative")(
-            a(href := addReferrer(langHref(routes.Auth.signup)))(trans.site.signUp()),
-            a(href := routes.Auth.passwordReset)(trans.site.passwordReset()),
-            a(href := routes.Auth.magicLink)("Log in by email")
+          div(cls := "or-separator")(span(trans.site.orSeparator())),
+          a(href := routes.Auth.magicLink, cls := "button magic-link")(
+            trans.site.logInByEmail()
           )
         )
 
@@ -77,7 +80,7 @@ final class AuthUi(helpers: Helpers):
       .csp(_.withHcaptcha)
       .hrefLangs(lila.ui.LangPath(routes.Auth.signup)):
         main(cls := "auth auth-signup box box-pad")(
-          h1(cls := "box__top")(trans.site.signUp()),
+          authTabs("signup", HTTPRequest.queryStringGet("referrer")(using ctx.req)),
           postForm(
             id := "signup-form",
             cls := List(
@@ -110,7 +113,7 @@ final class AuthUi(helpers: Helpers):
             ),
             agreement(form("agreement"), form.form.errors.exists(_.key.startsWith("agreement."))),
             lila.ui.bits.hcaptcha(form),
-            button(cls := "submit button text big")(trans.site.signUp())
+            button(cls := "submit button", tpe := "submit")(trans.site.signUp())
           )
         )
 
@@ -273,10 +276,10 @@ final class AuthUi(helpers: Helpers):
         )
 
   def magicLinkSent(using Context) =
-    Page("Log in by email"):
+    Page(trans.site.logInByEmail.txt()):
       main(cls := "page-small box box-pad")(
         boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
-        p("We've sent you an email with a link."),
+        p(trans.site.sentEmailWithLink()),
         p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
 
@@ -315,6 +318,17 @@ final class AuthUi(helpers: Helpers):
         )
       )
 
+  private def authTabs(active: String, referrer: Option[String] = None)(using Context) =
+    def withRef(url: String): String = referrer.fold(url)(addQueryParam(url, "referrer", _))
+    div(cls := "auth-tabs")(
+      a(href := withRef(langHref(routes.Auth.login)), cls := (active == "login").option("active"))(
+        trans.site.signIn()
+      ),
+      a(href := withRef(langHref(routes.Auth.signup)), cls := (active == "signup").option("active"))(
+        trans.site.signUp()
+      )
+    )
+
   private def agreement(form: play.api.data.Field, error: Boolean)(using Context) =
     div(cls := "agreement")(
       error.option(p:
@@ -341,7 +355,10 @@ final class AuthUi(helpers: Helpers):
         help = register.option(trans.site.signupUsernameHint())
       ): f =>
         frag(
-          form3.input(f)(autofocus, required, autocomplete := "username"),
+          div(cls := "text-wrapper")(
+            form3.input(f)(autofocus, required, autocomplete := "username"),
+            clearFieldButton
+          ),
           register.option(p(cls := "error username-exists none")(trans.site.usernameAlreadyUsed()))
         ),
       form3.passwordModified(password, trans.site.password())(
@@ -349,7 +366,18 @@ final class AuthUi(helpers: Helpers):
       ),
       register.option(form3.passwordComplexityMeter(trans.site.newPasswordStrength())),
       email.map: email =>
-        form3.group(email, trans.site.email(), help = trans.site.signupEmailPromise().some)(
-          form3.input(_, typ = "email")(required)
-        )
+        form3.group(email, trans.site.email(), help = trans.site.signupEmailPromise().some): f =>
+          div(cls := "text-wrapper")(
+            form3.input(f, typ = "email")(required),
+            clearFieldButton
+          )
+    )
+
+  private def clearFieldButton(using Context) =
+    button(
+      cls := "text-clear",
+      tpe := "button",
+      dataIcon := Icon.Cancel,
+      title := trans.site.clearField.txt(),
+      aria.label := trans.site.clearField.txt()
     )

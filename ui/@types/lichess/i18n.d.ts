@@ -3285,6 +3285,8 @@ interface I18n {
     classicalDesc: string;
     /** Clear board */
     clearBoard: string;
+    /** Clear field */
+    clearField: string;
     /** Clear moves */
     clearSavedMoves: string;
     /** Clear search */
@@ -3781,6 +3783,8 @@ interface I18n {
     lobby: string;
     /** Location */
     location: string;
+    /** Log in by email */
+    logInByEmail: string;
     /** Sign in to chat */
     loginToChat: string;
     /** Sign out */
@@ -4047,6 +4051,8 @@ interface I18n {
     opponentLeftCounter: I18nPlural;
     /** Or let your opponent scan this QR code */
     orLetYourOpponentScanQrCode: string;
+    /** Or */
+    orSeparator: string;
     /** Or upload a PGN file */
     orUploadPgnFile: string;
     /** Other */
