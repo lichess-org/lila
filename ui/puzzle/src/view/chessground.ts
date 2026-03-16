@@ -13,7 +13,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
     hook: {
       insert: vnode => ctrl.setChessground(makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
       destroy: () => {
-        ctrl.removeGooglyBoardEl();
+        ctrl.disableGooglyEyesTracking();
         ctrl.ground().destroy();
       },
     },
@@ -51,7 +51,7 @@ export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
       move: ctrl.userMove,
       insert(elements) {
         resizeHandle(elements, ShowResizeHandle.Always, ctrl.node.ply);
-        ctrl.setGooglyBoardEl(elements.wrap);
+        ctrl.enableGooglyEyesTracking(elements.wrap);
       },
     },
     premovable: {
