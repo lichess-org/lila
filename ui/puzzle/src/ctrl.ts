@@ -291,6 +291,8 @@ export default class PuzzleCtrl implements CevalHandler {
           dests: new Map(),
         };
 
+    console.log(document.body.dataset[this.pref.is3d ? 'pieceSet3d' : 'pieceSet']);
+
     const config = {
       fen: node.fen,
       orientation: this.flipped() ? opposite(this.pov) : this.pov,
@@ -305,6 +307,7 @@ export default class PuzzleCtrl implements CevalHandler {
         shapes: makeGooglyShapes(
           this.position(),
           this.flipped() ? opposite(this.pov) : this.pov,
+          document.body.dataset[this.pref.is3d ? 'pieceSet3d' : 'pieceSet'] ?? 'default',
         ),
       },
     };
