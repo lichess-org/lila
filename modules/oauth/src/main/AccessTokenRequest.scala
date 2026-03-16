@@ -7,6 +7,7 @@ import play.api.mvc.RequestHeader
 
 import lila.common.Form.into
 import lila.common.String.base64
+import lila.core.net.Origin
 
 object AccessTokenRequest:
   import Protocol.*
@@ -22,7 +23,7 @@ object AccessTokenRequest:
     )(AccessTokenRequest.Raw.apply)(unapply)
   )
 
-  val revokeClientForm = Form(single("origin" -> text))
+  val revokeClientForm = Form(single("origin" -> text.into[Origin]))
 
   case class Raw(
       grantType: Option[String],

@@ -8,7 +8,7 @@
   <string name="myFavoriteStudies">En sevdiğim çalışmalar</string>
   <string name="whatAreStudies">Çalışmalar nedir?</string>
   <string name="allStudies">Bütün çalışmalar</string>
-  <string name="studiesCreatedByX">Çalışmalar %s tarafından oluşturulmuştur</string>
+  <string name="studiesCreatedByX">%s tarafından oluşturulan çalışmalar</string>
   <string name="noneYet">Henüz yok.</string>
   <string name="hot">Popüler</string>
   <string name="dateAddedNewest">Eklenme tarihi (en yeni)</string>
@@ -132,7 +132,7 @@
   <string name="whereDoYouWantToStudyThat">Bu çalışmayı nerede sürdürmek istersiniz?</string>
   <string name="goodMove">İyi hamle</string>
   <string name="mistake">Hata</string>
-  <string name="brilliantMove">Muhteşem hamle</string>
+  <string name="brilliantMove">Göz alıcı hamle</string>
   <string name="blunder">Vahim hata</string>
   <string name="interestingMove">İlginç hamle</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Şüpheli hamle</string>

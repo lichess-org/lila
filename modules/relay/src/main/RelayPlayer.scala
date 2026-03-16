@@ -322,7 +322,7 @@ private final class RelayPlayerApi(
                       player.ratingsMap
                         .get(gameTC)
                         .map(_.into(Elo))
-                        .orElse(fidePlayer.ratingOf(gameTC))
+                        .orElse(fidePlayer.ratingOfOrStandard(gameTC))
                         .fold(diffs): rating =>
                           val p = Elo.Player(rating, fidePlayer.kFactorOf(gameTC))
                           val newDiff = Elo.computeRatingDiff(gameTC)(p, tcGames.flatMap(_.eloGame))

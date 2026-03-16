@@ -60,14 +60,7 @@ object AuthorizationRequest:
       List("lichess.org", "discotron.lichess.org", "www.lichess4545.com", "wiki.lichess.ovh").has:
         ~redirectUri.host
 
-    lazy val lichessMobileAttributes = List(
-      clientId == ClientId("lichess_mobile"),
-      redirectUri.value.toString == "org.lichess.mobile://login-callback",
-      scope.has(OAuthScope.Web.Mobile.key)
-    )
-    lazy val looksLikeLichessMobile = lichessMobileAttributes.forall(identity)
-    lazy val mimicsLichessMobile = !looksLikeLichessMobile && lichessMobileAttributes.exists(identity)
-    lazy val isDanger = scopes.intersects(OAuthScope.dangerList) && !trusted && !looksLikeLichessMobile
+    lazy val isDanger = scopes.intersects(OAuthScope.dangerList) && !trusted
 
     def authorize(
         user: UserId,
@@ -101,9 +94,3 @@ object AuthorizationRequest:
       challenge: Either[LegacyClientApi.HashedClientSecret, CodeChallenge]
   ):
     def redirectUrl(code: AuthorizationCode) = redirectUri.code(code, state)
-
-  def logPrompt(prompt: Prompt, me: Option[UserId])(using req: play.api.mvc.RequestHeader) =
-    if prompt.mimicsLichessMobile
-    then
-      val reqInfo = lila.common.HTTPRequest.print(req)
-      logger.warn(s"OAuth prompt looks like lichess mobile: ${me.fold("anon")(_.value)} $reqInfo")
