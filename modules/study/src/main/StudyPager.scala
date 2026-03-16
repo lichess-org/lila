@@ -26,7 +26,7 @@ final class StudyPager(
     selectTopic
   }
 
-  def all(order: StudyOrder, page: Int)(using me: Option[Me]) =
+  def all(order: StudyOrder, page: Int)(using Option[Me]) =
     paginator(
       accessSelect(),
       order,
@@ -34,7 +34,7 @@ final class StudyPager(
       fuccess(9999).some
     )
 
-  def byOwner(owner: User, order: StudyOrder, page: Int)(using me: Option[Me]) =
+  def byOwner(owner: User, order: StudyOrder, page: Int)(using Option[Me]) =
     paginator(
       selectOwnerId(owner.id) ++ accessSelect(),
       order,
@@ -90,8 +90,6 @@ final class StudyPager(
       if includeUnlisted then $or(selectPublic, selectMemberId(u), selectUnlisted)
       else $or(selectPublic, selectMemberId(u))
 
-  private val noRelaySelect = $doc("topics".$ne("Broadcast"))
-
   private def paginator(
       selector: Bdoc,
       order: StudyOrder,
@@ -101,7 +99,7 @@ final class StudyPager(
   )(using Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
     val adapter = Adapter[Study](
       collection = coll,
-      selector = selector ++ noRelaySelect,
+      selector = selector ++ selector.contains("topics").not.so($doc("topics".$ne("Broadcast"))),
       projection = studyRepo.projection.some,
       sort = order match
         case StudyOrder.hot => $sort.desc("rank")
