@@ -221,18 +221,16 @@ function setAssetInfo() {
 }
 
 function streamerSubscribe() {
-  $('.streamer-show, .streamer-list').on('change', '.streamer-subscribe input', (e: Event) => {
+  $('.streamer-show').on('change', '.streamer-subscribe input', (e: Event) => {
     const target = e.target as HTMLInputElement;
-    $(target)
-      .parents('.streamer-subscribe')
-      .each(function (this: HTMLElement) {
-        text(
-          $(this)
-            .data('action')
-            .replace(/set=[^&]+/, `set=${target.checked}`),
-          { method: 'post' },
-        );
-      });
+    const action = target.dataset.action;
+    if (action) {
+      const url = new URL(action, location.href);
+      url.searchParams.set('set', String(target.checked));
+      text(url.pathname + url.search, { method: 'post' });
+      url.searchParams.set('set', String(!target.checked));
+      target.dataset.action = url.pathname + url.search;
+    }
   });
 }
 
