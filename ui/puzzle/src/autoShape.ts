@@ -7,6 +7,7 @@ import { annotationShapes } from 'lib/game/glyphs';
 import type { Glyph, TreeNode } from 'lib/tree/types';
 
 import type PuzzleCtrl from './ctrl';
+import { makeGooglyShapes } from './googlyHorsey';
 
 function makeAutoShapesFromUci(
   color: Color,
@@ -68,11 +69,17 @@ export default function (ctrl: PuzzleCtrl): DrawShape[] {
   const feedback = feedbackAnnotation(n);
   const hint =
     ctrl.hintSquare() !== undefined ? { orig: makeSquare(ctrl.hintSquare()!), brush: 'green' } : undefined;
+  const googlyShapes = makeGooglyShapes(
+    ctrl.position(),
+    ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+    document.body.dataset[ctrl.pref.is3d ? 'pieceSet3d' : 'pieceSet'] ?? 'default',
+  );
   return [
     ...shapes,
     ...annotationShapes(n),
     ...(feedback ? annotationShapes(feedback) : []),
     ...(hint ? [hint] : []),
+    ...googlyShapes,
   ];
 }
 

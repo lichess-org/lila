@@ -25,11 +25,7 @@ import { alert } from 'lib/view';
 import { toggleZenMode } from 'lib/view/zen';
 
 import computeAutoShapes from './autoShape';
-import {
-  makeGooglyShapes,
-  enableGooglyEyesTracking as enableGooglyEyesTrackingHelper,
-  disableGooglyEyesTracking as disableGooglyEyesTrackingHelper,
-} from './googlyHorsey';
+import { enableGooglyEyesTracking, disableGooglyEyesTracking } from './googlyHorsey';
 import type {
   PuzzleOpts,
   PuzzleData,
@@ -209,15 +205,16 @@ export default class PuzzleCtrl implements CevalHandler {
         g.state.addPieceZIndex = is3d;
         g.redrawAll();
       });
+      this.setAutoShapes();
     });
   };
 
-  enableGooglyEyesTracking = (el: HTMLElement): void => {
-    enableGooglyEyesTrackingHelper(el, () => this.withGround(g => g.set(this.makeCgOpts())));
+  enableGooglyEyes = (el: HTMLElement): void => {
+    enableGooglyEyesTracking(el, () => this.setAutoShapes());
   };
 
-  disableGooglyEyesTracking = (): void => {
-    disableGooglyEyesTrackingHelper();
+  disableGooglyEyes = (): void => {
+    disableGooglyEyesTracking();
   };
 
   pref = this.opts.pref;
@@ -291,8 +288,6 @@ export default class PuzzleCtrl implements CevalHandler {
           dests: new Map(),
         };
 
-    console.log(document.body.dataset[this.pref.is3d ? 'pieceSet3d' : 'pieceSet']);
-
     const config = {
       fen: node.fen,
       orientation: this.flipped() ? opposite(this.pov) : this.pov,
@@ -303,13 +298,6 @@ export default class PuzzleCtrl implements CevalHandler {
       },
       check: !!node.check(),
       lastMove: uciToMove(node.uci),
-      drawable: {
-        shapes: makeGooglyShapes(
-          this.position(),
-          this.flipped() ? opposite(this.pov) : this.pov,
-          document.body.dataset[this.pref.is3d ? 'pieceSet3d' : 'pieceSet'] ?? 'default',
-        ),
-      },
     };
     if (node.ply >= this.initialNode.ply) {
       if (this.mode !== 'view' && color !== this.pov && !nextNode) {
