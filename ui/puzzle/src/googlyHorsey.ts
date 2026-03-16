@@ -53,9 +53,8 @@ const GOOGLY_EYE_LAYOUTS: Record<string, GooglyEyeLayout> = {
   disguised: { eyeX: 0, eyeY: -8, eyeSpacing: 15 },
 };
 
-function getGooglyEyeLayout(pieceSet: string): GooglyEyeLayout {
-  return GOOGLY_EYE_LAYOUTS[pieceSet] ?? DEFAULT_LAYOUT;
-}
+const getGooglyEyeLayout = (pieceSet: string): GooglyEyeLayout =>
+  GOOGLY_EYE_LAYOUTS[pieceSet] ?? DEFAULT_LAYOUT;
 
 let mousePos = { x: 0.5, y: 0.5 };
 let rafId: number | undefined;
@@ -78,25 +77,11 @@ function onMouseMove(e: MouseEvent): void {
   }
 }
 
-// Maybe revisit - this keeps eyes from disappearing when clicked, but there's a flicker
-function onMouseDown(_e: MouseEvent): void {
-  if (!boardRectSource || !requestRedraw) return;
-  const rect = boardRectSource();
-  if (!rect) return;
-  if (rafId === undefined) {
-    rafId = requestAnimationFrame(() => {
-      rafId = undefined;
-      requestRedraw?.();
-    });
-  }
-}
-
 export function enableGooglyEyesTracking(wrap: HTMLElement, redraw: () => void): void {
   disableGooglyEyesTracking();
   boardRectSource = () => wrap.getBoundingClientRect();
   requestRedraw = redraw;
   document.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mousedown', onMouseDown);
 }
 
 export function disableGooglyEyesTracking(): void {
@@ -105,7 +90,6 @@ export function disableGooglyEyesTracking(): void {
   boardRectSource = undefined;
   requestRedraw = undefined;
   document.removeEventListener('mousemove', onMouseMove);
-  document.removeEventListener('mousedown', onMouseDown);
 }
 
 export function makeGooglyShapes(pos: Chess, bottomColor: Color, pieceSet: string): DrawShape[] {
