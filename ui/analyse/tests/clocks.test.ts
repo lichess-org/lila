@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { parseTimeToCentis, formatClockFromCentis } from '../src/view/clockParse';
+import { parseTimeToCentis, formatClockFromCentis } from '../src/study/studyClockEdit';
 
 test('parseTimeToCentis: empty and placeholder', () => {
   assert.equal(parseTimeToCentis(''), undefined);

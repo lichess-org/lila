@@ -8,7 +8,7 @@ import { hl } from 'lib/view';
 import { userTitle } from 'lib/view/userLink';
 
 import type AnalyseCtrl from '@/ctrl';
-import renderClocks from '@/view/clocks';
+import { renderEditableClocks } from '@/study/studyClockEdit';
 import { renderMaterialDiffs } from '@/view/materialDiffs';
 import { playerFedFlag } from '@/view/util';
 
@@ -31,7 +31,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
 
   const players = study.currentChapter().players,
     tags = study.data.chapter.tags,
-    clocks = renderClocks(ctrl, selectClockPath(ctrl, study)),
+    clocks = renderEditableClocks(ctrl, selectClockPath(ctrl, study)),
     tickingColor = study.isClockTicking(ctrl.path) && ctrl.turnColor(),
     materialDiffs = renderMaterialDiffs(ctrl),
     tagsMap = tagsToMap(tags);
