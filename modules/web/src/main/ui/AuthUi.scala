@@ -320,7 +320,7 @@ final class AuthUi(helpers: Helpers):
         )
       )
 
-  private def authTabs(active: String, referrer: Option[String] = None)(using Context) =
+  private def authTabs(active: String, referrer: Option[String])(using Context) =
     def withRef(url: String): String = referrer.fold(url)(addQueryParam(url, "referrer", _))
     div(cls := "auth-tabs")(
       a(href := withRef(langHref(routes.Auth.login)), cls := (active == "login").option("active"))(
