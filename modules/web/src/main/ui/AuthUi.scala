@@ -14,6 +14,7 @@ final class AuthUi(helpers: Helpers):
 
   def login(form: Form[?], referrer: Option[String], isRememberMe: Boolean = true)(using Context) =
     def addReferrer(url: String): String = referrer.fold(url)(addQueryParam(url, "referrer", _))
+    val blankedPasswordError = form.globalError.exists(_.messages.contains("blankedPassword"))
     Page(trans.site.signIn.txt())
       .js(esmInit("bits.login", "login"))
       .css("bits.auth")
@@ -25,17 +26,16 @@ final class AuthUi(helpers: Helpers):
             action := addReferrer(routes.Auth.authenticate.url)
           )(
             div(cls := "one-factor")(
-              form.globalError
-                .filter(_.messages.contains("blankedPassword"))
-                .map: _ =>
-                  div(cls := "auth-login__blanked")(
-                    p(trans.site.blankedPassword()),
-                    a(href := routes.Auth.passwordReset, cls := "button button-no-upper")(
-                      trans.site.passwordReset()
-                    )
-                  ),
+              blankedPasswordError.option:
+                div(cls := "auth-login__blanked")(
+                  p(trans.site.blankedPassword()),
+                  a(href := routes.Auth.passwordReset, cls := "button button-no-upper")(
+                    trans.site.passwordReset()
+                  )
+                )
+              ,
               formFields(form("username"), form("password"), none, register = false),
-              div(cls := "forgot-password")(
+              div(cls := "password-reset")(
                 a(href := routes.Auth.passwordReset)(trans.site.passwordReset())
               ),
               div(cls := "login-remember form-check__container")(
@@ -49,7 +49,7 @@ final class AuthUi(helpers: Helpers):
                 )
               ),
               form3.submit(trans.site.signIn(), icon = none),
-              authGlobalError(form).filter(_ => !form.globalError.exists(_.message == "blankedPassword"))
+              authGlobalError(form).ifFalse(blankedPasswordError)
             ),
             div(cls := "two-factor none")(
               form3.group(

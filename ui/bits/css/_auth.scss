@@ -203,11 +203,11 @@ $c-auth-fade: $m-brag--fade-70;
   }
 
   &-login {
-    .form-group:has(+ .forgot-password) {
+    .form-group:has(+ .password-reset) {
       margin-bottom: 0.5em;
     }
 
-    .forgot-password {
+    .password-reset {
       text-align: end;
       font-size: 1rem;
 
