@@ -38,7 +38,6 @@ final class ForumCategApi(
       topicId = topic.id,
       userId = author.some,
       text = s"Welcome to the $name forum!",
-      number = 1,
       troll = false,
       lang = "en".some,
       categId = categ.id,

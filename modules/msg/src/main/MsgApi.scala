@@ -179,7 +179,7 @@ final class MsgApi(
                 Bus.pub(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))))
               if send == Ok && !multi then
                 shutupApi.privateMessage(orig, dest, text)
-                if orig == UserId.broadcaster || dest == UserId.broadcaster then
+                if List(orig, dest).has(UserId.broadcaster) then
                   val topicUser = if orig == UserId.broadcaster then dest else orig
                   ircApi.broadcasterDm(topicUser, orig, msg.text)
               PostResult.Success

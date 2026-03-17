@@ -52,9 +52,6 @@ final private class MsgNotify(
     colls.thread.byId[MsgThread](threadId.value).flatMapz { thread =>
       val msg = thread.lastMsg
       (!thread.delBy(thread.other(msg.user))).so:
-        for _ <- notifyApi.notifyOne(
-            thread.other(msg.user),
-            NotificationContent.PrivateMessage(msg.user, text = shorten(msg.text, 40))
-          )
-        yield ()
+        val notification = NotificationContent.PrivateMessage(msg.user, text = shorten(msg.text, 40))
+        notifyApi.notifyOne(thread.other(msg.user), notification).void
     }
