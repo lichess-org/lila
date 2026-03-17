@@ -28,6 +28,10 @@
     padding-bottom: $box-padding-vert;
   }
 
+  &__table {
+    overflow-x: auto;
+  }
+
   table {
     @media (min-width: at-least($x-small)) {
       .highlight,

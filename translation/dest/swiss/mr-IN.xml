@@ -14,6 +14,10 @@
     <item quantity="one">%s स्विस फेरी</item>
     <item quantity="other">%s स्विस फेऱ्या</item>
   </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">दर दिवस एक फेरी</item>
+    <item quantity="other">दर %s दिवसात एक फेरी</item>
+  </plurals>
   <string name="roundsAreStartedManually">फेऱ्या स्वहस्ते सुरू कराव्या लागतील</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">फेऱ्यांमध्ये %s सेकंद</item>
@@ -34,7 +38,7 @@
   <string name="roundInterval">फेऱ्यांमधील अंतर</string>
   <string name="forbiddenPairings">निषिद्ध जोड्या</string>
   <string name="dutchSystem">डच प्रणाली</string>
-  <string name="FIDEHandbook">फिडे हस्तपुस्तिका</string>
+  <string name="FIDEHandbook">FIDE हस्तपुस्तिका</string>
   <string name="nowPlaying">आता चालू</string>
   <string name="startingSoon">लवकरच सुरू होत आहेत</string>
   <string name="comparison">तुलना</string>
