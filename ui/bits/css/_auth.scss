@@ -18,6 +18,7 @@ body:has(.auth) .signin-or-signup {
 $auth-input-radius: 16px;
 $auth-input-bg: rgba(26, 22, 16, 1);
 $c-auth: $m-brag_bg--mix-80;
+$c-auth-text: $m-brag_font--mix-70;
 $c-auth-fade: $m-brag--fade-70;
 
 .auth {
@@ -69,7 +70,7 @@ $c-auth-fade: $m-brag--fade-70;
     height: 50px;
     border: none;
     border-radius: $auth-input-radius;
-    color: $c-auth;
+    color: $c-auth-text;
     background: $auth-input-bg;
 
     @include if-light {
