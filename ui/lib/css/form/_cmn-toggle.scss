@@ -56,7 +56,6 @@
     @include transition(margin box-shadow);
 
     border-radius: 100%;
-    box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
 
     @include if-transp {
       background: linear-gradient(to bottom, hsl($site-hue, 7%, 22), hsl($site-hue, 5%, 19) 100%);
