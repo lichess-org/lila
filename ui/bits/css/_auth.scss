@@ -17,6 +17,8 @@ body:has(.auth) .signin-or-signup {
 
 $auth-input-radius: 16px;
 $auth-input-bg: rgba(26, 22, 16, 1);
+$c-auth: $m-brag_bg--mix-80;
+$c-auth-fade: $m-brag--fade-70;
 
 .auth {
   width: 100%;
@@ -35,18 +37,18 @@ $auth-input-bg: rgba(26, 22, 16, 1);
       font-size: 1.5em;
       padding: 1em 0.2em;
       color: $c-font;
-      border-bottom: 2px solid $m-brag--fade-70;
+      border-bottom: 2px solid $c-auth-fade;
 
       @include transition(color border-color, 0.25s);
 
       &:hover {
-        border-bottom-color: $c-brag;
+        border-bottom-color: $c-auth;
       }
 
       &.active {
         font-weight: bold;
-        color: $c-brag;
-        border-bottom-color: $c-brag;
+        color: $c-auth;
+        border-bottom-color: $c-auth;
       }
     }
   }
@@ -67,7 +69,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
     height: 50px;
     border: none;
     border-radius: $auth-input-radius;
-    color: $c-brag;
+    color: $c-auth;
     background: $auth-input-bg;
 
     @include if-light {
@@ -75,7 +77,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
     }
 
     &:focus-visible {
-      outline: 2px solid $c-brag;
+      outline: 2px solid $c-auth;
       outline-offset: -2px;
     }
   }
@@ -99,7 +101,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
     font-size: 1.3em;
 
     &:focus-visible {
-      outline: 2px solid $c-brag;
+      outline: 2px solid $c-auth;
       outline-offset: -2px;
     }
   }
@@ -138,7 +140,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
   }
 
   a:focus-visible {
-    outline: 2px solid $c-brag;
+    outline: 2px solid $c-auth;
     outline-offset: -2px;
   }
 
@@ -148,14 +150,14 @@ $auth-input-bg: rgba(26, 22, 16, 1);
     border-radius: $auth-input-radius;
 
     &:focus-visible {
-      outline: 2px solid $c-brag;
+      outline: 2px solid $c-auth;
       outline-offset: -2px;
-      box-shadow: 0 0 12px $c-brag;
+      box-shadow: 0 0 12px $c-auth;
     }
   }
 
   .submit.button {
-    background: $c-brag;
+    background: $c-auth;
     color: $c-bg-box;
     font-size: 1.125rem;
     font-weight: bold;
@@ -168,15 +170,15 @@ $auth-input-bg: rgba(26, 22, 16, 1);
 
   .magic-link {
     background: transparent;
-    color: $c-brag;
+    color: $c-auth;
     font-size: 1.125rem;
     font-weight: bold;
     text-transform: none;
-    border: 2px solid $c-brag;
+    border: 2px solid $c-auth;
 
     &:not(.disabled):hover {
       background: transparent;
-      color: $c-brag;
+      color: $c-auth;
     }
   }
 
@@ -209,7 +211,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
       font-size: 1rem;
 
       a {
-        color: $c-brag;
+        color: $c-auth;
         text-decoration: underline;
         text-decoration-color: currentcolor;
         text-underline-offset: 3px;
@@ -252,19 +254,19 @@ $auth-input-bg: rgba(26, 22, 16, 1);
 
   .form-check__input input {
     &:checked + .form-check__label {
-      background-color: $c-brag;
-      border-color: $c-brag;
+      background-color: $c-auth;
+      border-color: $c-auth;
     }
 
     &:checked:hover + .form-check__label {
-      background-color: $c-brag;
-      border-color: $c-brag;
+      background-color: $c-auth;
+      border-color: $c-auth;
     }
   }
 
   .form-check__container:has(.form-label:hover) .form-check__label,
   .form-check__label:hover {
-    border-color: $c-brag;
+    border-color: $c-auth;
   }
 }
 
