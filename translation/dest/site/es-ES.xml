@@ -602,6 +602,9 @@
   <string name="invalidUsernameOrPassword">Nombre de usuario o contraseña erróneo</string>
   <string name="incorrectPassword">Contraseña incorrecta</string>
   <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
+  <string name="clearField">Borrar campo</string>
+  <string name="orSeparator">o</string>
+  <string name="logInByEmail">Iniciar sesión con el correo electrónico</string>
   <string name="emailMeALink">Envíame un enlace por correo electrónico</string>
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Nueva contraseña</string>
