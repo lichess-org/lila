@@ -3,7 +3,7 @@ package lila.api
 import chess.format.pgn.PgnStr
 import scalatags.Text.all.*
 
-import lila.analyse.{ Analysis, AnalysisRepo }
+import lila.analyse.AnalysisRepo
 import lila.core.config.NetDomain
 import lila.core.misc.lpv.*
 import lila.memo.CacheApi

@@ -602,6 +602,9 @@
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
   <string name="incorrectPassword">Incorrect password</string>
   <string name="invalidAuthenticationCode">Invalid authentication code</string>
+  <string name="clearField">Clear field</string>
+  <string name="orSeparator">Or</string>
+  <string name="logInByEmail">Log in by email</string>
   <string name="emailMeALink">Email me a link</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>

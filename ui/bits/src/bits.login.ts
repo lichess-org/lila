@@ -32,6 +32,7 @@ function loginStart() {
   (function load() {
     const form = document.querySelector(selector) as HTMLFormElement,
       $f = $(form);
+    initTextClear(form);
     const lockSeconds = history.lockSeconds();
     if (lockSeconds) {
       const $submit = $f.find('.submit');
@@ -102,6 +103,8 @@ function signupStart() {
         .then(res => $exists.toggleClass('none', !res));
   }, 300);
 
+  initTextClear($form[0] as HTMLFormElement);
+
   $form.on('submit', () => {
     if ($form.find('[name="h-captcha-response"]').val() || !$form.hasClass('h-captcha-enabled'))
       $form
@@ -114,6 +117,22 @@ function signupStart() {
   });
 
   site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
+}
+
+function initTextClear(form: HTMLFormElement) {
+  for (const wrapper of form.querySelectorAll<HTMLElement>('.text-wrapper')) {
+    const input = wrapper.querySelector<HTMLInputElement>('input');
+    const clearBtn = wrapper.querySelector<HTMLButtonElement>('.text-clear');
+    if (!input || !clearBtn) continue;
+    const toggle = () => clearBtn.classList.toggle('show', input.value.length > 0);
+    input.addEventListener('input', toggle);
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      clearBtn.classList.remove('show');
+      input.focus();
+    });
+    toggle();
+  }
 }
 
 function resetStart() {
