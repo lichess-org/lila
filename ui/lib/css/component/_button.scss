@@ -17,9 +17,9 @@
 
   @include with-button-shadow(
     $m-primary--lighten-32,
-    $m-primary--darken-20,
+    $m-primary--darken-18,
     $m-primary--lighten-44,
-    $m-primary--darken-15
+    $m-primary--darken-14
   );
 
   &,
@@ -53,9 +53,9 @@
   &-green {
     @include with-button-shadow(
       $m-secondary--lighten-32,
-      $m-secondary--darken-15,
+      $m-secondary--darken-12,
       $m-secondary--lighten-44,
-      $m-secondary--darken-12
+      $m-secondary--darken-9
     );
 
     background: $c-secondary;
@@ -66,7 +66,7 @@
   }
 
   &-red {
-    @include with-button-shadow($m-bad--lighten-32, $m-bad--darken-18, $m-bad--lighten-44, $m-bad--darken-12);
+    @include with-button-shadow($m-bad--lighten-32, $m-bad--darken-15, $m-bad--lighten-44, $m-bad--darken-12);
 
     background: $c-bad;
 
