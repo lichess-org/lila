@@ -96,7 +96,6 @@ final private class ForumTopicApi(
         troll = me.marks.troll,
         text = spam.replace(data.post.text),
         lang = lang.map(_.language),
-        number = 1,
         categId = categ.id,
         modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)).option(true)
       )
