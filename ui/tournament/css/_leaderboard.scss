@@ -13,7 +13,7 @@ $user-list-width: 35ch;
   }
 
   h2 {
-    @extend %metal, %box-shadow;
+    @extend %metal-bg, %box-shadow;
 
     font-size: 1.45em;
     line-height: 2.5em;

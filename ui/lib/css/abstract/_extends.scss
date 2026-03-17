@@ -53,78 +53,36 @@
 }
 
 %metal-bg {
-  background-image: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
-  box-shadow:
-    inset 0 2px 3px -2px hsl(0, 0%, 50%),
-    inset 0 -4px 6px -3px $c-body-gradient;
+  @include with-metal-shadow;
 
-  @include if-light {
-    box-shadow:
-      inset 0 2px 3px -2px #fff,
-      inset 0 -4px 6px -3px $c-body-gradient;
-  }
+  background-image: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
 }
 
 %metal {
+  @include with-metal-shadow(hsla(0, 0, 0%, 0.2), hsla(0, 0, 0%, 0.18));
+
   background: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
-  text-shadow: 0.5px 0.5px 0 $m-clearer--fade-80;
-  box-shadow:
-    inset 0 2px 3px -2px $c-border-light,
-    inset 0 -4px 6px -3px $c-body-gradient,
-    0 1px 3px 0 hsla(0, 0, 0%, 0.2);
+  text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-80;
 
   @include if-light {
-    text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-80;
-    box-shadow:
-      inset 0 2px 3px -2px #fff,
-      inset 0 -4px 6px -3px $c-body-gradient,
-      0 1px 3px 0 hsla(0, 0, 0%, 0.18);
+    text-shadow: 0.5px 0.5px 0 $m-clearer--fade-80;
   }
 
   &:hover:not(.diabled, [disabled]) {
-    background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
-    box-shadow:
-      inset 0 3px 3px -2px $c-border-light,
-      inset 0 -5px 6px -3px $c-body-gradient,
-      0 2px 4px 0 hsla(0, 0, 0%, 0.24);
+    @include with-metal-hover-shadow(hsla(0, 0, 0%, 0.24), hsla(0, 0, 0%, 0.21));
 
-    @include if-light {
-      box-shadow:
-        inset 0 3px 3px -2px #fff,
-        inset 0 -5px 6px -3px $c-body-gradient,
-        0 2px 4px 0 hsla(0, 0, 0%, 0.21);
-    }
+    background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
   }
 }
 
 %metal-with-border {
   @extend %metal;
+  @include with-metal-shadow(hsla(0, 0, 0%, 0.1), hsla(0, 0, 0%, 0.08), true);
 
   border: 1px solid $c-border;
-  box-shadow:
-    inset 0 1px 3px -2px $c-border-light,
-    inset 0 -4px 6px -3px $c-body-gradient,
-    0 1px 3px 0 hsla(0, 0, 0%, 0.1);
-
-  @include if-light {
-    box-shadow:
-      inset 0 1px 3px -2px #fff,
-      inset 0 -4px 6px -3px $c-body-gradient,
-      0 1px 3px 0 hsla(0, 0, 0%, 0.08);
-  }
 
   &:hover:not(.diabled, [disabled]) {
-    box-shadow:
-      inset 0 2px 3px -2px $c-border-light,
-      inset 0 -5px 8px -2px $c-body-gradient,
-      0 2px 4px 0 hsla(0, 0, 0%, 0.1);
-
-    @include if-light {
-      box-shadow:
-        inset 0 2px 3px -2px #fff,
-        inset 0 -5px 8px -2px $c-body-gradient,
-        0 2px 4px 0 hsla(0, 0, 0%, 0.08);
-    }
+    @include with-metal-hover-shadow(hsla(0, 0, 0%, 0.12), hsla(0, 0, 0%, 0.1), true);
   }
 }
 
