@@ -208,7 +208,7 @@
       0 1px 3px 0 hsla(0, 0, 0%, 0.18);
   }
 
-  &:not(.disabled):hover {
+  &:not(.disabled, :disabled, [disabled]):hover {
     box-shadow:
       inset 0 2px 3px -2px $topShadow,
       inset 0 -5px 6pt -3pt $bottomShadow,

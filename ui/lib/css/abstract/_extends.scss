@@ -62,13 +62,9 @@
   @include with-metal-shadow(hsla(0, 0, 0%, 0.2), hsla(0, 0, 0%, 0.18));
 
   background: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
-  text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-80;
+  text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20;
 
-  @include if-light {
-    text-shadow: 0.5px 0.5px 0 $m-clearer--fade-80;
-  }
-
-  &:hover:not(.diabled, [disabled]) {
+  &:hover:not(.disabled, :disabled, [disabled]) {
     @include with-metal-hover-shadow(hsla(0, 0, 0%, 0.24), hsla(0, 0, 0%, 0.21));
 
     background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
@@ -81,7 +77,7 @@
 
   border: 1px solid $c-border;
 
-  &:hover:not(.diabled, [disabled]) {
+  &:hover:not(.disabled, :disabled, [disabled]) {
     @include with-metal-hover-shadow(hsla(0, 0, 0%, 0.12), hsla(0, 0, 0%, 0.1), true);
   }
 }

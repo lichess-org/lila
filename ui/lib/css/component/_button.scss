@@ -13,11 +13,7 @@
   text-align: center;
   white-space: nowrap;
   display: inline-block;
-  text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-80;
-
-  @include if-light {
-    text-shadow: 0.5px 0.5px 0 $m-clearer--fade-80;
-  }
+  text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20;
 
   @include with-button-shadow(
     $m-primary--lighten-32,
