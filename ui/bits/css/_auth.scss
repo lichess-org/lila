@@ -16,7 +16,7 @@ body:has(.auth) .signin-or-signup {
 }
 
 $auth-input-radius: 16px;
-$auth-input-bg: rgba(46, 52, 56, 1);
+$auth-input-bg: rgba(26, 22, 16, 1);
 
 .auth {
   width: 100%;
@@ -35,18 +35,18 @@ $auth-input-bg: rgba(46, 52, 56, 1);
       font-size: 1.5em;
       padding: 1em 0.2em;
       color: $c-font;
-      border-bottom: 2px solid $m-primary--alpha-30;
+      border-bottom: 2px solid $m-brag--fade-70;
 
       @include transition(color border-color, 0.25s);
 
       &:hover {
-        border-bottom-color: $c-primary;
+        border-bottom-color: $c-brag;
       }
 
       &.active {
         font-weight: bold;
-        color: $c-primary;
-        border-bottom-color: $c-primary;
+        color: $c-brag;
+        border-bottom-color: $c-brag;
       }
     }
   }
@@ -59,14 +59,6 @@ $auth-input-bg: rgba(46, 52, 56, 1);
     position: relative;
   }
 
-  .form-group .error {
-    position: absolute;
-  }
-
-  .form-group .form-help {
-    margin-top: 1.5rem;
-  }
-
   .password-complexity {
     margin-top: 0;
   }
@@ -75,11 +67,16 @@ $auth-input-bg: rgba(46, 52, 56, 1);
     height: 50px;
     border: none;
     border-radius: $auth-input-radius;
-    color: $c-primary;
+    color: $c-brag;
     background: $auth-input-bg;
 
     @include if-light {
-      background: rgba(227, 230, 233, 1);
+      background: rgba(245, 242, 237, 1);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $c-brag;
+      outline-offset: -2px;
     }
   }
 
@@ -100,6 +97,11 @@ $auth-input-bg: rgba(46, 52, 56, 1);
     top: 50%;
     transform: translateY(-50%);
     font-size: 1.3em;
+
+    &:focus-visible {
+      outline: 2px solid $c-brag;
+      outline-offset: -2px;
+    }
   }
 
   .password-reveal {
@@ -120,26 +122,62 @@ $auth-input-bg: rgba(46, 52, 56, 1);
     }
   }
 
+  .auth-global-error {
+    color: $c-error;
+    margin-top: 1em;
+
+    .text {
+      display: flex;
+      align-items: center;
+      gap: 0.2em;
+
+      &::before {
+        font-size: 1.3em;
+      }
+    }
+  }
+
+  a:focus-visible {
+    outline: 2px solid $c-brag;
+    outline-offset: -2px;
+  }
+
   .button {
     width: 100%;
     padding: 1.3rem;
     border-radius: $auth-input-radius;
+
+    &:focus-visible {
+      outline: 2px solid $c-brag;
+      outline-offset: -2px;
+      box-shadow: 0 0 12px $c-brag;
+    }
   }
 
   .submit.button {
+    background: $c-brag;
     color: $c-bg-box;
     font-size: 1.125rem;
     font-weight: bold;
     text-transform: none;
+
+    &:not(.disabled):hover {
+      background: $m-brag_bg--mix-70;
+    }
   }
 
   .magic-link {
     background: transparent;
-    color: $c-primary;
+    color: $c-brag;
     font-size: 1.125rem;
     font-weight: bold;
     text-transform: none;
-    border: 2px solid $c-primary;
+    border: 2px solid $c-brag;
+
+    &:not(.disabled):hover {
+      background: transparent;
+      color: $c-brag;
+    }
   }
 
   .or-separator {
@@ -171,6 +209,7 @@ $auth-input-bg: rgba(46, 52, 56, 1);
       font-size: 1rem;
 
       a {
+        color: $c-brag;
         text-decoration: underline;
         text-decoration-color: currentcolor;
         text-underline-offset: 3px;
@@ -213,19 +252,19 @@ $auth-input-bg: rgba(46, 52, 56, 1);
 
   .form-check__input input {
     &:checked + .form-check__label {
-      background-color: $c-primary;
-      border-color: $c-primary;
+      background-color: $c-brag;
+      border-color: $c-brag;
     }
 
     &:checked:hover + .form-check__label {
-      background-color: $c-primary;
-      border-color: $c-primary;
+      background-color: $c-brag;
+      border-color: $c-brag;
     }
   }
 
   .form-check__container:has(.form-label:hover) .form-check__label,
   .form-check__label:hover {
-    border-color: $c-primary;
+    border-color: $c-brag;
   }
 }
 

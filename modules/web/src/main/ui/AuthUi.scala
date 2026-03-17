@@ -25,14 +25,15 @@ final class AuthUi(helpers: Helpers):
             action := addReferrer(routes.Auth.authenticate.url)
           )(
             div(cls := "one-factor")(
-              if form.globalError.exists(_.messages.contains("blankedPassword")) then
-                div(cls := "auth-login__blanked")(
-                  p(trans.site.blankedPassword()),
-                  a(href := routes.Auth.passwordReset, cls := "button button-no-upper")(
-                    trans.site.passwordReset()
-                  )
-                )
-              else form3.globalError(form),
+              form.globalError
+                .filter(_.messages.contains("blankedPassword"))
+                .map: _ =>
+                  div(cls := "auth-login__blanked")(
+                    p(trans.site.blankedPassword()),
+                    a(href := routes.Auth.passwordReset, cls := "button button-no-upper")(
+                      trans.site.passwordReset()
+                    )
+                  ),
               formFields(form("username"), form("password"), none, register = false),
               div(cls := "forgot-password")(
                 a(href := routes.Auth.passwordReset)(trans.site.passwordReset())
@@ -47,7 +48,8 @@ final class AuthUi(helpers: Helpers):
                   trans.site.rememberMe()
                 )
               ),
-              form3.submit(trans.site.signIn(), icon = none)
+              form3.submit(trans.site.signIn(), icon = none),
+              authGlobalError(form).filter(_ => !form.globalError.exists(_.message == "blankedPassword"))
             ),
             div(cls := "two-factor none")(
               form3.group(
@@ -93,7 +95,6 @@ final class AuthUi(helpers: Helpers):
                 addQueryParam(url, "referrer", ref)
           )(
             formFields(form("username"), form("password"), form("email").some, register = true),
-            globalErrorNamed(form.form, "error.namePassword"),
             input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
             div(cls := "form-group text", dataIcon := Icon.InfoCircle)(
               trans.site.computersAreNotAllowedToPlay(),
@@ -113,7 +114,8 @@ final class AuthUi(helpers: Helpers):
             ),
             agreement(form("agreement"), form.form.errors.exists(_.key.startsWith("agreement."))),
             lila.ui.bits.hcaptcha(form),
-            button(cls := "submit button", tpe := "submit")(trans.site.signUp())
+            button(cls := "submit button", tpe := "submit")(trans.site.signUp()),
+            authGlobalError(form.form)
           )
         )
 
@@ -226,7 +228,7 @@ final class AuthUi(helpers: Helpers):
     Page(s"${me.username} - ${trans.site.changePassword.txt()}")
       .css("bits.auth")
       .js(esmInit("bits.login", "reset")):
-        main(cls := "page-small box box-pad")(
+        main(cls := "auth page-small box box-pad")(
           boxTop(
             (ok match
               case Some(true) => h1(cls := "is-green text", dataIcon := Icon.Checkmark)
@@ -372,6 +374,12 @@ final class AuthUi(helpers: Helpers):
             clearFieldButton
           )
     )
+
+  private def authGlobalError(form: Form[?])(using Translate): Option[Frag] =
+    form.globalError.map: err =>
+      div(cls := "form-group is-invalid auth-global-error")(
+        span(cls := "text", dataIcon := Icon.CautionCircle)(transKey(trans(err.message), err.args))
+      )
 
   private def clearFieldButton(using Context) =
     button(
