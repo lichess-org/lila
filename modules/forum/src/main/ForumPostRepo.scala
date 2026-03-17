@@ -33,9 +33,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
     coll.byOrderedIds[ForumPostMini, ForumPostId](ids, miniProjection.some)(_.id)
 
   def countBeforePost(post: ForumPost): Fu[Int] =
-    coll.countSel(
-      selectTopic(post.topicId) ++ $doc("createdAt" -> $lt(post.createdAt))
-    )
+    coll.countSel(selectTopic(post.topicId) ++ $doc("createdAt" -> $lt(post.createdAt)))
 
   def isFirstPost(topicId: ForumTopicId, postId: ForumPostId): Fu[Boolean] =
     coll.primitiveOne[ForumPostId](selectTopic(topicId), $sort.createdAsc, "_id").dmap { _ contains postId }

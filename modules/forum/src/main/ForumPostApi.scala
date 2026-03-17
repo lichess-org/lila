@@ -39,7 +39,6 @@ final class ForumPostApi(
       topicId = topic.id,
       userId = (!anonMod).option(me),
       text = spam.replace(data.text),
-      number = topic.nbPosts + 1,
       lang = lang.map(_.language),
       troll = me.marks.troll,
       categId = categ.id,
@@ -53,7 +52,7 @@ final class ForumPostApi(
           _ <- postRepo.coll.insert.one(post)
           _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
           _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
-          recentUsers <- recentUserIds(topic, topic.nbPosts)
+          recentUsers <- recentUserIds(topic)
           blockingUsers <- relationApi.filterBlocking(recentUsers, me.userId)
           interestedUsers = recentUsers.filterNot(blockingUsers.contains)
         yield
@@ -216,13 +215,13 @@ final class ForumPostApi(
         categ <- categOpt
       yield CategView(categ, (topic, post, topic.lastPage(config.postMaxPerPage)).some, user.some)
 
-  private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =
+  private def recentUserIds(topic: ForumTopic) =
     postRepo.coll
       .distinctEasy[UserId, List](
         "userId",
         $doc(
           "topicId" -> topic.id,
-          "number".$gt(newPostNumber - 20)
+          "createdAt".$gt(nowInstant.minusDays(2))
         ),
         _.sec
       )
