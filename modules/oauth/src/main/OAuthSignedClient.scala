@@ -9,7 +9,7 @@ import com.roundeights.hasher.Algo
 
 case class OAuthSignedClient(
     clientId: ClientId,
-    origin: Origin,
+    origins: List[Origin],
     scope: OAuthScope,
     signers: List[Algo.HmacBuilder],
     displayName: String
@@ -22,7 +22,7 @@ final class OAuthSignedClients(appConfig: Configuration):
 
   val mobile = OAuthSignedClient(
     ClientId("lichess_mobile"),
-    Origin("org.lichess.mobile://"),
+    List(Origin("org.lichess.mobile://")),
     OAuthScope.Web.Mobile,
     signersOf("mobile"),
     displayName = "Lichess Mobile"
@@ -30,7 +30,7 @@ final class OAuthSignedClients(appConfig: Configuration):
 
   val polygon = OAuthSignedClient(
     ClientId("polygon"),
-    Origin(config.get[String]("polygon.origin")),
+    Origin.from(List(config.get[String]("polygon.origin"), "http://localhost")),
     OAuthScope.Web.Polygon,
     signersOf("polygon"),
     displayName = "Polygon"
@@ -39,7 +39,7 @@ final class OAuthSignedClients(appConfig: Configuration):
   def forPrompt(prompt: AuthorizationRequest.Prompt): Option[OAuthSignedClient] =
     clients.find: c =>
       prompt.clientId == c.clientId &&
-        prompt.redirectUri.origin == c.origin &&
+        c.origins.has(prompt.redirectUri.origin) &&
         prompt.scopes.has(c.scope)
 
   private val clients = List(mobile, polygon)
@@ -48,11 +48,11 @@ final class OAuthSignedClients(appConfig: Configuration):
     clients.filter(c => token.scopes.value.contains(c.scope))
 
   /* Check that the token matching a provided bearer is allowed for use.
-   * If the token matches a power client, check that the signature is valid for that client.
-   * If the token matches several power clients, it will fail.
-   * If it doesn't match any power client, it will succeed without needing a signature. */
+   * If the token matches a signed client, check that the signature is valid for that client.
+   * If the token matches several signed clients, it will fail.
+   * If it doesn't match any signed client, it will succeed without needing a signature. */
   def allow(bearer: Bearer, token: AccessToken.ForAuth, signature: Option[String]): Boolean =
     forScopesOf(token).forall: client =>
-      token.clientOrigin.has(client.origin) && signature.exists: signed =>
+      token.clientOrigin.exists(client.origins.has) && signature.exists: signed =>
         client.signers.exists: signer =>
           signer.sha1(bearer.value).hash_=(signed)

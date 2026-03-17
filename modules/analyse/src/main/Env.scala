@@ -13,7 +13,7 @@ final class Env(
     net: NetConfig
 )(using Executor):
 
-  lazy val analysisRepo = AnalysisRepo(db(CollName("analysis2")))
+  lazy val repo = AnalysisRepo(db(CollName("analysis2")))
 
   lazy val requesterApi = RequesterApi(db(CollName("analysis_requester")))
 

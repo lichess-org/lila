@@ -30,7 +30,6 @@
     "stylelint": "^17.3.0",
     "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-scss": "^7.0.0",
-    "svgo": "^4.0.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
@@ -46,7 +45,6 @@
     "lint:code": "oxlint --type-aware --tsconfig=ui/tsconfig.base.json",
     "lint:style": "stylelint \"ui/**/*.scss\"",
     "lint:fix": "pnpm lint:code --fix && pnpm lint:style --fix",
-    "assets:optimize": "svgo -rf ./public/ ./public/",
     "test": "node ui/test",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
