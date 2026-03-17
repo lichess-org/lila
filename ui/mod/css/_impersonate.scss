@@ -1,24 +1,35 @@
 @include topnav-unsticky;
 
+$impersonate-bar-height: 40px;
+
 body {
-  margin-top: 45px;
+  margin-top: $impersonate-bar-height;
+
+  #main-wrap .msg-app {
+    height: calc(var(---app-height) - $site-header-height - $impersonate-bar-height);
+
+    @media (width >= $small) {
+      height: calc(var(---app-height) * 0.98 - $site-header-height - $impersonate-bar-height);
+    }
+  }
 }
 
 #impersonate {
   @extend %flex-center-center, %popup-shadow;
 
-  height: 40px;
-  background: #7f1010;
+  height: $impersonate-bar-height;
+  background: #7f1010df;
   color: #fff;
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid #912727;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 110;
+  backdrop-filter: blur(6px);
 
   form {
-    height: 40px;
+    height: $impersonate-bar-height;
   }
 
   a,
