@@ -48,6 +48,7 @@
     line-height: 22px;
     content: $licon-X;
     color: $c-font-dimmer;
+    border-radius: 100%;
   }
 
   &::after {
@@ -81,8 +82,11 @@
   opacity: 0.6;
   cursor: not-allowed !important;
 
+  &::before,
   &::after {
     @extend %metal-bg;
+
+    box-shadow: none;
   }
 }
 

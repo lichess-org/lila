@@ -26,7 +26,7 @@
       border-right: 0;
       box-shadow: none;
 
-      &:hover {
+      &:hover:not(.disabled, :disabled, [disabled]) {
         box-shadow: none;
       }
 
@@ -41,6 +41,14 @@
 
         @include if-light {
           background-color: #dbebfc;
+        }
+
+        &:hover:not(.disabled, :disabled, [disabled]) {
+          background-color: $c-bg-input;
+
+          @include if-light {
+            background-color: #e6f1fb;
+          }
         }
       }
     }
