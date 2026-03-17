@@ -3,6 +3,10 @@ $marker-margin-top: -14px;
 .daily-feed {
   overflow: visible;
 
+  .box {
+    overflow: visible;
+  }
+
   &__updates {
     margin: 3em 3em 0 3em;
     border-inline-start: 3px solid $c-contours;
