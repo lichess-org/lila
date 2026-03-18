@@ -595,6 +595,9 @@
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
   <string name="incorrectPassword">Εσφαλμένος κωδικός πρόσβασης</string>
   <string name="invalidAuthenticationCode">Μη έγκυρος κωδικός επαλήθευσης</string>
+  <string name="clearField">Καθαρισμός πεδίου</string>
+  <string name="orSeparator">Ή</string>
+  <string name="logInByEmail">Συνδεθείτε μέσω email</string>
   <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
   <string name="currentPassword">Τρέχων κωδικός πρόσβασης</string>
   <string name="newPassword">Νέος κωδικός πρόσβασης</string>

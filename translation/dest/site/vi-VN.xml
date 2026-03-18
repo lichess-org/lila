@@ -567,6 +567,9 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="invalidUsernameOrPassword">Tên tài khoản hoặc mật khẩu đăng nhập không đúng</string>
   <string name="incorrectPassword">Mật khẩu sai</string>
   <string name="invalidAuthenticationCode">Mã xác thực không hợp lệ</string>
+  <string name="clearField">Dọn sạch trường</string>
+  <string name="orSeparator">Hoặc</string>
+  <string name="logInByEmail">Đăng nhập bằng email</string>
   <string name="emailMeALink">Gửi cho tôi một liên kết trong Email</string>
   <string name="currentPassword">Nhập mật khẩu hiện tại</string>
   <string name="newPassword">Nhập mật khẩu mới</string>
