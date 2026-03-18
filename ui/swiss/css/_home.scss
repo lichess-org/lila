@@ -1,8 +1,11 @@
 .swiss-home {
   @extend %flex-column;
+
   gap: $block-gap;
+
   &__infos {
     padding-top: var(---box-padding);
+
     .main-point,
     .faq {
       @extend %flex-center-nowrap;

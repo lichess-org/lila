@@ -6,6 +6,7 @@
 #version {
   td:first-child {
     @extend %flex-column;
+
     gap: 1ch;
   }
 }
