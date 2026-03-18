@@ -1,7 +1,5 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
-import type { Dom } from '@lichess-org/chessground/types';
-import type { Chess } from 'chessops/chess';
-import { makeSquare, squareFile, squareRank } from 'chessops/util';
+import { parseSquare, squareFile, squareRank } from 'chessops/util';
 
 interface GooglyEyeLayout {
   eyeX: number;
@@ -56,12 +54,12 @@ const GOOGLY_EYE_LAYOUTS: Record<string, GooglyEyeLayout> = {
 
 let mousePos = { x: 0.5, y: 0.5 };
 let rafId: number | undefined;
-let boardRectSource: (() => DOMRect | undefined) | undefined;
+let chessground: CgApi | undefined;
 let requestRedraw: (() => void) | undefined;
 
 function onMouseMove(e: MouseEvent): void {
-  if (!boardRectSource || !requestRedraw) return;
-  const rect = boardRectSource();
+  if (!chessground || !requestRedraw) return;
+  const rect = chessground.state.dom.bounds();
   if (!rect) return;
   mousePos = {
     x: (e.clientX - rect.left) / rect.width,
@@ -75,9 +73,16 @@ function onMouseMove(e: MouseEvent): void {
   }
 }
 
-export function enableGooglyEyesTracking(board: Dom, redraw: () => void): void {
+export async function initModule({ cg, redraw }: { cg: CgApi; redraw: Redraw }): Promise<any> {
+  enableGooglyEyesTracking(cg, redraw);
+  return {
+    makeGooglyShapes,
+  };
+}
+
+export function enableGooglyEyesTracking(cg: CgApi, redraw: Redraw): void {
   disableGooglyEyesTracking();
-  boardRectSource = () => board.bounds();
+  chessground = cg;
   requestRedraw = redraw;
   document.addEventListener('mousemove', onMouseMove);
 }
@@ -85,17 +90,22 @@ export function enableGooglyEyesTracking(board: Dom, redraw: () => void): void {
 export function disableGooglyEyesTracking(): void {
   if (rafId !== undefined) cancelAnimationFrame(rafId);
   rafId = undefined;
-  boardRectSource = undefined;
+  chessground = undefined;
   requestRedraw = undefined;
   document.removeEventListener('mousemove', onMouseMove);
 }
 
-export function makeGooglyShapes(pos: Chess, bottomColor: Color): DrawShape[] {
+export function makeGooglyShapes(): DrawShape[] {
+  if (!chessground) return [];
+  const orientation = chessground.state.orientation;
   const pieceSet = document.body.dataset['pieceSet'] ?? 'default';
   const layout = GOOGLY_EYE_LAYOUTS[pieceSet] ?? DEFAULT_LAYOUT;
-  return [...pos.board.knight].map(sq => ({
-    orig: makeSquare(sq) as Key,
-    customSvg: { html: renderGooglySvg(sq, bottomColor, layout) },
+  const knightKeys = [...chessground.state.pieces.entries()]
+    .filter(([_, piece]) => piece.role === 'knight')
+    .map(([key, _]) => key);
+  return knightKeys.map(key => ({
+    orig: key,
+    customSvg: { html: renderGooglySvg(parseSquare(key)!, orientation, layout) },
   }));
 }
 
