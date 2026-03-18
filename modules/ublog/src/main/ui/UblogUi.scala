@@ -493,7 +493,11 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi, modMenu: Context ?=> Frag)
     )
 
   private def btnCls(active: Boolean, other: String = ""): Modifier =
-    cls := s"btn-rack__btn" + (if active then " active" else "") + (if other.nonEmpty than s" $other" else "")
+    cls := (
+      "btn-rack__btn" ::
+        active.option("active").toList :::
+        other.nonEmpty.option(other).toList
+    ).mkString(" ")
 
   private def modForm(blog: UblogBlog) =
     val colorCls = if blog.modNote.isDefined then "button-red" else "button-dim"
