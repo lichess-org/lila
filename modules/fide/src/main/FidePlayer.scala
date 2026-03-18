@@ -32,6 +32,8 @@ case class FidePlayer(
     case FideTC.rapid => rapid
     case FideTC.blitz => blitz
 
+  def ratingOfOrStandard(tc: FideTC): Option[Elo] = ratingOf(tc).orElse(standard)
+
   def kFactorOf(tc: FideTC): KFactor = tc
     .match
       case FideTC.standard => standardK

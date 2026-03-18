@@ -18,7 +18,8 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       url: String,
       canReply: Boolean,
       canModCateg: Boolean,
-      canReact: Boolean
+      canReact: Boolean,
+      isTopicFirst: Boolean
   )(using ctx: Context) = postWithFrag match
     case ForumPost.WithFrag(post, body, hide) =>
       val postFrag = div(cls := "forum-post__message expand-text")(
@@ -27,7 +28,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
       )
       st.article(
         cls := List("forum-post" -> true, "erased" -> post.erased),
-        id := post.number,
+        id := post.id,
         postId := post.id
       )(
         div(cls := "forum-post__metas")(
@@ -79,7 +80,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                   ).some
                 else
                   frag(
-                    (canModCateg && post.number == 1).option:
+                    (isTopicFirst && canModCateg).option:
                       a(
                         cls := "forum-post__button mod-relocate button button-empty",
                         href := routes.ForumPost.relocate(post.id),
@@ -213,9 +214,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                           a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
                             view.categ.name,
                             " - ",
-                            view.topic.name,
-                            "#",
-                            view.post.number
+                            view.topic.name
                           ),
                           p(shorten(Markdown(view.post.text).unlink, 200))
                         ),

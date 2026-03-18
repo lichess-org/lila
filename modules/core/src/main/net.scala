@@ -1,5 +1,6 @@
 package lila.core
 
+import io.mola.galimatias.URL
 import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
 import scalalib.SecureRandom
@@ -92,3 +93,9 @@ object net:
   object Bearer extends OpaqueString[Bearer]:
     def random() = Bearer(s"lio_${SecureRandom.nextString(32)}")
     def randomPersonal() = Bearer(s"lip_${SecureRandom.nextString(20)}")
+
+  opaque type Origin = String
+  object Origin extends OpaqueString[Origin]:
+    def from(url: URL): Origin =
+      // https://github.com/smola/galimatias/issues/72 will be more precise
+      s"${url.scheme}://${Option(url.host).fold("")(_.toHostString)}"

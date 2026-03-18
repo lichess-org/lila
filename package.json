@@ -27,10 +27,10 @@
     "oxlint": "^1.50.0",
     "oxlint-tsgolint": "^0.15.0",
     "snabbdom": "3.5.1",
+    "svgo": "^4.0.1",
     "stylelint": "^17.3.0",
     "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-scss": "^7.0.0",
-    "svgo": "^4.0.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },

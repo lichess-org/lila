@@ -32,8 +32,8 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
   def miniByIds(ids: Seq[ForumPostId]) =
     coll.byOrderedIds[ForumPostMini, ForumPostId](ids, miniProjection.some)(_.id)
 
-  def countBeforeNumber(topicId: ForumTopicId, number: Int): Fu[Int] =
-    coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
+  def countBeforePost(post: ForumPost): Fu[Int] =
+    coll.countSel(selectTopic(post.topicId) ++ $doc("createdAt" -> $lt(post.createdAt)))
 
   def isFirstPost(topicId: ForumTopicId, postId: ForumPostId): Fu[Boolean] =
     coll.primitiveOne[ForumPostId](selectTopic(topicId), $sort.createdAsc, "_id").dmap { _ contains postId }
@@ -109,8 +109,3 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
       $set($doc("userId" -> UserId.ghost, "text" -> "", "erasedAt" -> nowInstant)),
       multi = true
     )
-
-  def maxNumberByTopic(topicId: ForumTopicId): Fu[Int] =
-    coll
-      .primitiveOne[Int]($doc("topicId" -> topicId), $sort.desc("number"), "number")
-      .dmap(_.getOrElse(0))

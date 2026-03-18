@@ -192,6 +192,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.memo.PicfitUrl):
     (ctx.isAuth && ctx.isnt(s.user)).option:
       val id = s"streamer-subscribe-${s.streamer.userId}"
       form3.cmnToggleWrap(
+        cls := "streamer-subscribe",
         form3.cmnToggle(
           id,
           id,

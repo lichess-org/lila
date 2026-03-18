@@ -602,6 +602,9 @@
   <string name="invalidUsernameOrPassword">Ugyldigt brugernavn eller adgangskode</string>
   <string name="incorrectPassword">Forkert adgangskode</string>
   <string name="invalidAuthenticationCode">Ugyldig godkendelseskode</string>
+  <string name="clearField">Ryd felt</string>
+  <string name="orSeparator">Eller</string>
+  <string name="logInByEmail">Log ind via e-mail</string>
   <string name="emailMeALink">E-mail mig et link</string>
   <string name="currentPassword">Nuværende adgangskode</string>
   <string name="newPassword">Ny adgangskode</string>

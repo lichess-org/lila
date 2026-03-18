@@ -720,7 +720,7 @@
   <string name="lichessTournaments">Lichess turnirlar</string>
   <string name="tournamentFAQ">Arena turnirlari haqida TSS</string>
   <string name="timeBeforeTournamentStarts">Turnir boshlangunicha</string>
-  <string name="averageCentipawnLoss">Oʻrtacha sentipiyoda yoʻqotilishi</string>
+  <string name="averageCentipawnLoss">Oʻrtacha santipiyoda yoʻqotilishi</string>
   <string name="accuracy">Aniqlik</string>
   <string name="keyboardShortcuts">Klaviatura yorliqlari</string>
   <string name="keyMoveBackwardOrForward">ortga/oldinga yurish</string>
@@ -772,7 +772,7 @@
   <string name="downloadRaw">Asl holatda yuklab olish</string>
   <string name="downloadImported">Import qilinganini yuklab olish</string>
   <string name="downloadAllGames">Barcha oʻyinlarni yuklab olish</string>
-  <string name="crosstable">Oʻzaro natijalar</string>
+  <string name="crosstable">Hisob</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Oʻyindagi yurishlarni koʻrib chiqish uchun taxta ustida sichqonchani aylantiring.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Kompyuter variatsiyalarini koʻrib chiqish uchun ustida sichqonchani aylantiring.</string>
   <string name="analysisShapesHowTo">Taxtada strelka yoki aylanala chizish uchun sichqonchani oʻng tugmasini (yoki shift+click) bosing. Boshqa ranglar hosil qilish uchun sichqonchani oʻng tugmasini quyidagi bilan bosing:</string>
@@ -846,7 +846,7 @@
   </plurals>
   <string name="practiceWithComputer">Kompyuter bilan mashq qilish</string>
   <string name="anotherWasX">Boshqasi esa %s edi</string>
-  <string name="bestWasX">Eng yaxshisi %s edi</string>
+  <string name="bestWasX">%s eng yaxshi yurish edi</string>
   <string name="youBrowsedAway">Uzoqlashib kettingiz</string>
   <string name="resumePractice">Mashqni davom ettirish</string>
   <string name="drawByFiftyMoves">Ellikta yurish qoidasiga koʻra durang qayd etildi.</string>
@@ -863,12 +863,12 @@
   <string name="skipThisMove">Bu yurishni oʻtkazib yuborish</string>
   <string name="next">Keyingisi</string>
   <string name="xWasPlayed">%s oʻynaldi</string>
-  <string name="findBetterMoveForWhite">Oqlar uchun yaxshiroq yurishni toping</string>
-  <string name="findBetterMoveForBlack">Qoralar uchun eng yaxshiroq yurishni toping</string>
+  <string name="findBetterMoveForWhite">Oqlar uchun yaxshi yurishni toping</string>
+  <string name="findBetterMoveForBlack">Qoralar uchun eng yaxshi yurishni toping</string>
   <string name="resumeLearning">Oʻrganishni davom ettirish</string>
   <string name="youCanDoBetter">Bundan ham yaxshiroq yurish bor</string>
-  <string name="tryAnotherMoveForWhite">Oqlar bilan boshqa yurish qilib koʻring</string>
-  <string name="tryAnotherMoveForBlack">Qoralar bilan boshqa yurish qilib koʻring</string>
+  <string name="tryAnotherMoveForWhite">Oqlar uchun boshqa yurish toping</string>
+  <string name="tryAnotherMoveForBlack">Qoralar uchun boshqa yurish toping</string>
   <string name="solution">Yechim</string>
   <string name="waitingForAnalysis">Tahlil kutilmoqda</string>
   <string name="noMistakesFoundForWhite">Oqlar uchun xatolar topilmadi</string>

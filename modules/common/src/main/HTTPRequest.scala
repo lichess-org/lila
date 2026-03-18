@@ -24,16 +24,17 @@ object HTTPRequest:
   def isXhrFromEmbed(req: RequestHeader) =
     isXhr(req) && referer(req).exists(_.contains(s"${req.host}/embed/"))
 
-  private val appOrigins = List(
-    "capacitor://localhost", // ios
-    "ionic://localhost", // ios
-    "http://localhost" // android/dev/flutter
-  )
+  private val appOrigins: List[Origin] = Origin.from:
+    List(
+      "capacitor://localhost", // ios
+      "ionic://localhost", // ios
+      "http://localhost" // android/dev/flutter
+    )
 
-  def appOrigin(req: RequestHeader): Option[String] =
+  def appOrigin(req: RequestHeader): Option[Origin] =
     origin(req).filter: reqOrigin =>
       appOrigins.exists: appOrigin =>
-        reqOrigin == appOrigin || reqOrigin.startsWith(s"$appOrigin:")
+        reqOrigin == appOrigin || reqOrigin.value.startsWith(s"$appOrigin:")
 
   def isApi(req: RequestHeader) = req.path.startsWith("/api/")
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
@@ -67,7 +68,7 @@ object HTTPRequest:
           case _ => none
       yield version
 
-  def origin(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ORIGIN)
+  def origin(req: RequestHeader): Option[Origin] = Origin.from(req.headers.get(HeaderNames.ORIGIN))
   def referer(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.REFERER)
 
   def ipAddress(req: RequestHeader): IpAddress =
@@ -111,7 +112,7 @@ object HTTPRequest:
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
   def printClient(req: RequestHeader) =
-    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).value}"
+    s"${ipAddress(req)} origin:${origin(req).so(_.value)} referer:${~referer(req)} ua:${userAgent(req)}"
 
   def bearer(req: RequestHeader): Option[Bearer] = for
     authorization <- req.headers.get(HeaderNames.AUTHORIZATION)

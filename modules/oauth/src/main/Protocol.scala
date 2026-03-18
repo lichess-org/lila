@@ -8,6 +8,7 @@ import scalalib.SecureRandom
 import java.util.Base64
 
 import lila.common.String.urlencode
+import lila.core.net.Origin
 
 object Protocol:
   case class AuthorizationCode(secret: String) extends AnyVal:
@@ -54,8 +55,7 @@ object Protocol:
 
     def host: Option[String] = Option(value.host).map(_.toHostString)
 
-    // https://github.com/smola/galimatias/issues/72 will be more precise
-    def clientOrigin: String = s"${value.scheme}://${~host}"
+    def origin = Origin.from(value)
 
     def insecure =
       value.scheme == "http" && !host.exists(h =>
@@ -71,9 +71,7 @@ object Protocol:
       .toString
 
     def code(code: AuthorizationCode, state: Option[State]): String = value
-      .withQuery(
-        s"code=${urlencode(code.secret)}&state=${urlencode(~state)}"
-      )
+      .withQuery(s"code=${urlencode(code.secret)}&state=${urlencode(~state)}")
       .toString
 
     def matches(other: UncheckedRedirectUri): Boolean =

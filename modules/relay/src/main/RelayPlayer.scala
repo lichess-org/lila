@@ -132,11 +132,14 @@ object RelayPlayer:
     def full(
         tour: RelayTour
     )(p: RelayPlayer, fidePlayer: Option[FidePlayer], user: Option[User], follow: Option[Boolean]): JsObject =
-      lazy val tcPlayerMap: Map[FideTC, Elo.Player] = p.ratingsMap.map: (tc, tcRating) =>
-        tc -> Elo.Player(tcRating.into(Elo), fidePlayer.fold(chess.rating.KFactor.default)(_.kFactorOf(tc)))
+      val eloPlayerByTCOpt = fidePlayer
+        .ifTrue(tour.showRatingDiffs)
+        .map: fp =>
+          p.ratingsMap.map: (tc, tcRating) =>
+            tc -> Elo.Player(tcRating.into(Elo), fp.kFactorOf(tc))
       val gamesJson = p.games.map: g =>
-        val rd = tour.showRatingDiffs.so:
-          (tcPlayerMap.get(g.fideTC), g.eloGame).mapN: (ep, eg) =>
+        val rd: Option[IntRatingDiff] = eloPlayerByTCOpt.flatMap: epByTC =>
+          (epByTC.get(g.fideTC), g.eloGame).mapN: (ep, eg) =>
             Elo.computeRatingDiff(g.fideTC)(ep, List(eg))
         Json
           .obj(
@@ -322,7 +325,7 @@ private final class RelayPlayerApi(
                       player.ratingsMap
                         .get(gameTC)
                         .map(_.into(Elo))
-                        .orElse(fidePlayer.ratingOf(gameTC))
+                        .orElse(fidePlayer.ratingOfOrStandard(gameTC))
                         .fold(diffs): rating =>
                           val p = Elo.Player(rating, fidePlayer.kFactorOf(gameTC))
                           val newDiff = Elo.computeRatingDiff(gameTC)(p, tcGames.flatMap(_.eloGame))

@@ -21,7 +21,8 @@ final class MsgApi(
     notifier: MsgNotify,
     security: MsgSecurity,
     shutupApi: lila.core.shutup.ShutupApi,
-    spam: lila.core.security.SpamApi
+    spam: lila.core.security.SpamApi,
+    ircApi: lila.core.irc.IrcApi
 )(using Executor, akka.stream.Materializer)
     extends lila.core.msg.MsgApi:
 
@@ -176,7 +177,11 @@ final class MsgApi(
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
                 Bus.pub(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))))
-              if send == Ok && !multi then shutupApi.privateMessage(orig, dest, text)
+              if send == Ok && !multi then
+                shutupApi.privateMessage(orig, dest, text)
+                if List(orig, dest).has(UserId.broadcaster) then
+                  val topicUser = if orig == UserId.broadcaster then dest else orig
+                  ircApi.broadcasterDm(topicUser, orig, msg.text)
               PostResult.Success
       yield res
     }

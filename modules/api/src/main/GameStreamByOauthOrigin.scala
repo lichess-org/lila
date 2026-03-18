@@ -6,7 +6,7 @@ import play.api.mvc.RequestHeader
 
 import lila.common.{ Bus, HTTPRequest }
 import lila.core.game.{ FinishGame, Game, StartGame, WithInitialFen }
-import lila.core.net.UserAgent
+import lila.core.net.{ UserAgent, Origin }
 import lila.oauth.AccessToken
 
 final class GameStreamByOauthOrigin(
@@ -17,7 +17,7 @@ final class GameStreamByOauthOrigin(
 )(using akka.stream.Materializer, Executor):
 
   private val streamUserId = UserId.t3
-  private val origin = "https://auth.taketaketake.com"
+  private val origin = Origin("https://auth.taketaketake.com")
 
   private def mon = lila.mon.game.streamByOauthOrigin
 

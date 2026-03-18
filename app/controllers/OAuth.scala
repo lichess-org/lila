@@ -31,17 +31,14 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context): Fu[Result] =
     reqToAuthorizationRequest.prompt match
-      case Right(prompt) =>
-        AuthorizationRequest.logPrompt(prompt, ctx.me)
-        f(prompt)
+      case Right(prompt) => f(prompt)
       case Left(error) =>
         BadRequest.page(views.site.message("Bad authorization request")(stringFrag(error.description)))
 
   def authorize = Open:
     withPrompt: prompt =>
-      ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri))).toFuccess): me =>
-        Ok.page:
-          views.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${req.rawQueryString}")
+      ctx.me.foldUse(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri))).toFuccess):
+        Ok.page(views.oAuth.authorize(prompt, env.oAuth.signedClients.forPrompt(prompt)))
 
   def legacyAuthorize = Anon:
     MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")

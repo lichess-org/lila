@@ -4,7 +4,7 @@ import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 import com.roundeights.hasher.Algo
 
-import lila.core.net.{ Bearer, UserAgent }
+import lila.core.net.{ Bearer, UserAgent, Origin }
 import lila.core.misc.oauth.AccessTokenId
 
 case class AccessToken(
@@ -15,7 +15,7 @@ case class AccessToken(
     description: Option[String], // for personal access tokens
     usedAt: Option[Instant] = None,
     scopes: TokenScopes,
-    clientOrigin: Option[String],
+    clientOrigin: Option[Origin],
     userAgent: Option[UserAgent],
     expires: Option[Instant]
 ):
@@ -29,8 +29,9 @@ object AccessToken:
       userId: UserId,
       scopes: TokenScopes,
       tokenId: AccessTokenId,
-      clientOrigin: Option[String]
-  )
+      clientOrigin: Option[Origin]
+  ):
+    def show = s"$userId $scopes origin=$clientOrigin"
 
   case class Create(token: AccessToken)
 
@@ -58,7 +59,7 @@ object AccessToken:
       tokenId <- doc.getAsTry[AccessTokenId](BSONFields.id)
       userId <- doc.getAsTry[UserId](BSONFields.userId)
       scopes <- doc.getAsTry[TokenScopes](BSONFields.scopes)
-      origin = doc.getAsOpt[String](BSONFields.clientOrigin)
+      origin = doc.getAsOpt[Origin](BSONFields.clientOrigin)
     yield ForAuth(userId, scopes, tokenId, origin)
 
   given BSONDocumentHandler[AccessToken] = Macros.handler

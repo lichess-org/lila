@@ -6,7 +6,7 @@ import reactivemongo.akkastream.cursorProducer
 
 import lila.common.Json.given
 import lila.core.misc.oauth.{ AccessTokenId, TokenRevoke }
-import lila.core.net.{ Bearer, UserAgent }
+import lila.core.net.{ Bearer, UserAgent, Origin }
 import lila.db.dsl.{ *, given }
 
 final class AccessTokenApi(
@@ -67,7 +67,7 @@ final class AccessTokenApi(
         description = None,
         created = nowInstant.some,
         scopes = granted.scopes,
-        clientOrigin = granted.redirectUri.clientOrigin.some,
+        clientOrigin = granted.redirectUri.origin.some,
         userAgent = ua.some,
         expires = nowInstant.plusMonths(12).some
       )
@@ -96,7 +96,7 @@ final class AccessTokenApi(
               description = s"Challenge admin: ${admin.username}".some,
               created = nowInstant.some,
               scopes = TokenScopes(List(scope)),
-              clientOrigin = setup.description.some,
+              clientOrigin = Origin(setup.description).some,
               userAgent = ua.some,
               expires = Some(nowInstant.plusMonths(6))
             )
@@ -162,7 +162,7 @@ final class AccessTokenApi(
       .map: docs =>
         for
           doc <- docs
-          origin <- doc.getAsOpt[String]("_id")
+          origin <- doc.getAsOpt[Origin]("_id")
           usedAt = doc.getAsOpt[Instant](F.usedAt)
           scopes <- doc.getAsOpt[List[OAuthScope]](F.scopes)(using collectionReader)
         yield AccessTokenApi.Client(origin, usedAt, scopes)
@@ -180,7 +180,7 @@ final class AccessTokenApi(
       .run()
       .void
 
-  def revokeByClientOrigin(clientOrigin: String)(using me: MyId): Funit =
+  def revokeByClientOrigin(clientOrigin: Origin)(using me: MyId): Funit =
     coll
       .find(
         $doc(
@@ -194,7 +194,7 @@ final class AccessTokenApi(
       .run()
       .void
 
-  def userIdsByClientOrigin(clientOrigin: String): Fu[Set[UserId]] =
+  def userIdsByClientOrigin(clientOrigin: Origin): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("userId", $doc(F.clientOrigin -> clientOrigin), _.sec)
 
   def revoke(bearer: Bearer) =
@@ -245,7 +245,7 @@ final class AccessTokenApi(
     lila.common.Bus.pub(TokenRevoke(id))
 
 object AccessTokenApi:
-  case class Client(origin: String, usedAt: Option[Instant], scopes: List[OAuthScope])
+  case class Client(origin: Origin, usedAt: Option[Instant], scopes: List[OAuthScope])
 
   case class GithubSecretScan(token: Bearer, `type`: String, url: String, source: String)
   given Reads[GithubSecretScan] = Json.reads[GithubSecretScan]
