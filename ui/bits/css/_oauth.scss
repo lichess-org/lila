@@ -69,6 +69,13 @@
     padding-bottom: 1.5rem;
     border-bottom: $border;
   }
+  &__success {
+    @extend %box-neat;
+    padding: 2em;
+    background: $c-good;
+    color: $c-over;
+    font-weight: bold;
+  }
 
   &__footer {
     color: $c-font-dim;
