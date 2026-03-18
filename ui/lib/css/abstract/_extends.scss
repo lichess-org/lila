@@ -62,7 +62,7 @@
   @include with-metal-shadow(hsla(0, 0, 0%, 0.2), hsla(0, 0, 0%, 0.18));
 
   background: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
-  text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20;
+  text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20 !important;
 
   &:hover:not(.disabled, :disabled, [disabled]) {
     @include with-metal-hover-shadow(hsla(0, 0, 0%, 0.24), hsla(0, 0, 0%, 0.21));
@@ -113,7 +113,7 @@
 }
 
 %active-inset-shadow {
-  box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset;
+  box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset !important;
 }
 
 %active {
