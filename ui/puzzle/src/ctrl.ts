@@ -25,7 +25,6 @@ import { alert } from 'lib/view';
 import { toggleZenMode } from 'lib/view/zen';
 
 import computeAutoShapes from './autoShape';
-import { enableGooglyEyesTracking, disableGooglyEyesTracking } from './googlyHorsey';
 import type {
   PuzzleOpts,
   PuzzleData,
@@ -210,13 +209,13 @@ export default class PuzzleCtrl implements CevalHandler {
     });
   };
 
-  enableGooglyEyes = (el: HTMLElement): void => {
-    enableGooglyEyesTracking(el, () => this.setAutoShapes());
-  };
-
-  disableGooglyEyes = (): void => {
-    disableGooglyEyesTracking();
-  };
+  // enableGooglyEyes = (el: HTMLElement): void => {
+  //   enableGooglyEyesTracking(el, () => this.setAutoShapes());
+  // };
+  //
+  // disableGooglyEyes = (): void => {
+  //   disableGooglyEyesTracking();
+  // };
 
   pref = this.opts.pref;
 
