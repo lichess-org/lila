@@ -1,4 +1,3 @@
-$hover-bg: $m-primary_bg--mix-30;
 %tour-margin-horiz {
   margin-left: 2vw;
   margin-right: 2vw;
@@ -36,10 +35,6 @@ $hover-bg: $m-primary_bg--mix-30;
         @extend %flex-center-nowrap, %metal;
 
         outline: none;
-
-        &:hover {
-          background: $hover-bg;
-        }
 
         &:hover::before {
           color: $c-font-clear;
@@ -83,10 +78,6 @@ $hover-bg: $m-primary_bg--mix-30;
       padding: 1em;
       gap: 0.7em;
       font-weight: bold;
-
-      &:hover {
-        background: $hover-bg !important;
-      }
 
       &::before {
         @extend %data-icon;
@@ -191,6 +182,7 @@ $hover-bg: $m-primary_bg--mix-30;
       &:hover {
         background: $m-primary_bg--mix-30;
         color: $c-font-clearer;
+        box-shadow: none !important;
       }
     }
   }
