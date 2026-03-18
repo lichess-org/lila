@@ -53,17 +53,33 @@
 }
 
 %metal-bg {
+  @include with-metal-shadow;
+
   background-image: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
 }
 
 %metal {
+  @include with-metal-shadow(hsla(0, 0, 0%, 0.2), hsla(0, 0, 0%, 0.18));
+
   background: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
-  text-shadow: 0 1px 0 $c-font-shadow;
+  text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20;
+
+  &:hover:not(.disabled, :disabled, [disabled]) {
+    @include with-metal-hover-shadow(hsla(0, 0, 0%, 0.24), hsla(0, 0, 0%, 0.21));
+
+    background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
+  }
 }
 
-%metal-hover {
-  background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
-  text-shadow: 0 1px 0 $c-font-shadow;
+%metal-with-border {
+  @extend %metal;
+  @include with-metal-shadow(hsla(0, 0, 0%, 0.1), hsla(0, 0, 0%, 0.08), true);
+
+  border: 1px solid $c-border;
+
+  &:hover:not(.disabled, :disabled, [disabled]) {
+    @include with-metal-hover-shadow(hsla(0, 0, 0%, 0.12), hsla(0, 0, 0%, 0.1), true);
+  }
 }
 
 %metal-inverse {
@@ -106,9 +122,17 @@
   background: $c-accent;
   color: #fff;
   text-shadow: 0 1px 1px black !important;
+
+  &:not(.disabled):hover {
+    @extend %active-inset-shadow;
+
+    background: $m-accent--lighten-5;
+  }
 }
 
 %active-hover {
+  @extend %active-inset-shadow;
+
   background: $m-accent_white--mix-80;
 }
 
@@ -154,11 +178,19 @@
 }
 
 %button-shadow {
-  box-shadow: 0 2px 5px 0 hsla(0, 0, 0%, 0.225);
+  box-shadow: 0 1px 3px 0 hsla(0, 0, 0%, 0.2);
+
+  @include if-light {
+    box-shadow: 0 1px 3px 0 hsla(0, 0, 0%, 0.15);
+  }
 }
 
 %button-raised-shadow {
-  box-shadow: 0 4px 10px 0 hsla(0, 0, 0, 0.225);
+  box-shadow: 0 2px 4px 0 hsla(0, 0, 0%, 0.225);
+
+  @include if-light {
+    box-shadow: 0 2px 4px 0 hsla(0, 0, 0%, 0.18);
+  }
 }
 
 %checkbox {

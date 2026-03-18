@@ -1,5 +1,5 @@
 .button {
-  @extend %roboto, %button-shadow, %box-radius;
+  @extend %roboto, %box-radius;
   @include prevent-select;
   @include transition;
   @include backdrop-blur-if-transparent;
@@ -13,6 +13,14 @@
   text-align: center;
   white-space: nowrap;
   display: inline-block;
+  text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20;
+
+  @include with-button-shadow(
+    $m-primary--lighten-32,
+    $m-primary--darken-18,
+    $m-primary--lighten-44,
+    $m-primary--darken-14
+  );
 
   &,
   &:visited,
@@ -21,8 +29,6 @@
   }
 
   &:not(.disabled):hover {
-    @extend %button-raised-shadow;
-
     color: $c-over;
     background: $m-primary--lighten-7;
   }
@@ -45,6 +51,13 @@
   }
 
   &-green {
+    @include with-button-shadow(
+      $m-secondary--lighten-32,
+      $m-secondary--darken-12,
+      $m-secondary--lighten-44,
+      $m-secondary--darken-9
+    );
+
     background: $c-secondary;
 
     &:not(.disabled):hover {
@@ -53,7 +66,9 @@
   }
 
   &-red {
-    background: $c-error;
+    @include with-button-shadow($m-bad--lighten-32, $m-bad--darken-15, $m-bad--lighten-44, $m-bad--darken-12);
+
+    background: $c-bad;
 
     &:not(.disabled):hover {
       background: $m-bad--lighten-11;
@@ -72,14 +87,17 @@
 
   &.button-empty {
     transition: none;
+    background: none;
+    box-shadow: none;
+
+    @include if-light {
+      box-shadow: none;
+    }
 
     &,
     &:hover {
       color: $c-primary;
     }
-
-    background: none;
-    box-shadow: none;
 
     &:not(.disabled):hover {
       @extend %button-shadow;
@@ -120,10 +138,6 @@
     &,
     &:not(.disabled):hover {
       color: $c-font-dim;
-    }
-
-    &:not(.disabled):hover {
-      @extend %metal-hover;
     }
   }
 

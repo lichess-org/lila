@@ -214,11 +214,14 @@
   }
 
   .angles {
-    @extend %metal;
+    @extend %metal-bg;
 
     font-size: 1.2em;
     height: 4rem;
-    border-top: $border;
+
+    @include if-light {
+      border-top: $border;
+    }
 
     .nm-item {
       @extend %flex-center-center;

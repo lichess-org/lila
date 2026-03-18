@@ -39,10 +39,6 @@
         border-right-width: 1px;
       }
 
-      &:hover {
-        @extend %metal-hover;
-      }
-
       &[aria-pressed='true'],
       &.active {
         background: $c-secondary;

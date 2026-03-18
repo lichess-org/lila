@@ -5,7 +5,7 @@
 }
 
 .tour-spotlight {
-  @extend %flex-center-nowrap, %page-text-shadow, %nowrap-hidden, %metal-bg;
+  @extend %flex-center-nowrap, %page-text-shadow, %nowrap-hidden, %metal;
   @include transition;
 
   flex: 0 0 auto;
@@ -20,8 +20,6 @@
   &.invert,
   &.event-spotlight,
   &:hover {
-    @extend %metal-hover;
-
     text-shadow: none;
 
     @include if-light {
