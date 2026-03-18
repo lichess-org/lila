@@ -912,7 +912,7 @@
   <string name="puzzleDesc">Тренер шаховских тактика</string>
   <string name="important">Важно</string>
   <string name="yourQuestionMayHaveBeenAnswered">Твоје питање можда већ има одговор %1$s</string>
-  <string name="inTheFAQ">у често постављеним питањима (F.A.Q.)</string>
+  <string name="inTheFAQ">у најчешће постављеним питањима</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Да би пријавио/ла корисника за варање или лоше понашање, %1$s</string>
   <string name="useTheReportForm">користи образац за пријаву</string>
   <string name="toRequestSupport">Да затражиш подршку, %1$s</string>

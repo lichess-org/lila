@@ -29,11 +29,11 @@ final class OAuthSignedClients(appConfig: Configuration):
   )
 
   val polygon = OAuthSignedClient(
-    ClientId("polygon"),
+    ClientId(config.get[String]("polygon.id")),
     Origin.from(List(config.get[String]("polygon.origin"), "http://localhost")),
     OAuthScope.Web.Polygon,
     signersOf("polygon"),
-    displayName = "Polygon"
+    displayName = config.get[String]("polygon.name")
   )
 
   def forPrompt(prompt: AuthorizationRequest.Prompt): Option[OAuthSignedClient] =
