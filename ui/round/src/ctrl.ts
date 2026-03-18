@@ -912,6 +912,10 @@ export default class RoundController implements MoveRootCtrl {
     site.asset.loadEsm('round.yeet');
   });
 
+  googlyEyes: () => void = memoize(() => {
+    site.asset.loadEsm('bits.googlyHorsey');
+  });
+
   private readonly delayedInit = () =>
     requestIdleCallback(
       () => {

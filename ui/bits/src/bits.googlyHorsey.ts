@@ -1,4 +1,5 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
+import type { Dom } from '@lichess-org/chessground/types';
 import type { Chess } from 'chessops/chess';
 import { makeSquare, squareFile, squareRank } from 'chessops/util';
 
@@ -74,9 +75,9 @@ function onMouseMove(e: MouseEvent): void {
   }
 }
 
-export function enableGooglyEyesTracking(wrap: HTMLElement, redraw: () => void): void {
+export function enableGooglyEyesTracking(board: Dom, redraw: () => void): void {
   disableGooglyEyesTracking();
-  boardRectSource = () => wrap.getBoundingClientRect();
+  boardRectSource = () => board.bounds();
   requestRedraw = redraw;
   document.addEventListener('mousemove', onMouseMove);
 }
@@ -89,7 +90,8 @@ export function disableGooglyEyesTracking(): void {
   document.removeEventListener('mousemove', onMouseMove);
 }
 
-export function makeGooglyShapes(pos: Chess, bottomColor: Color, pieceSet: string): DrawShape[] {
+export function makeGooglyShapes(pos: Chess, bottomColor: Color): DrawShape[] {
+  const pieceSet = document.body.dataset['pieceSet'] ?? 'default';
   const layout = GOOGLY_EYE_LAYOUTS[pieceSet] ?? DEFAULT_LAYOUT;
   return [...pos.board.knight].map(sq => ({
     orig: makeSquare(sq) as Key,

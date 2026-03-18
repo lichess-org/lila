@@ -6,8 +6,8 @@ import { winningChances } from 'lib/ceval';
 import { annotationShapes } from 'lib/game/glyphs';
 import type { Glyph, TreeNode } from 'lib/tree/types';
 
+import { makeGooglyShapes } from '../../bits/src/bits.googlyHorsey';
 import type PuzzleCtrl from './ctrl';
-import { makeGooglyShapes } from './googlyHorsey';
 
 function makeAutoShapesFromUci(
   color: Color,
@@ -69,11 +69,7 @@ export default function (ctrl: PuzzleCtrl): DrawShape[] {
   const feedback = feedbackAnnotation(n);
   const hint =
     ctrl.hintSquare() !== undefined ? { orig: makeSquare(ctrl.hintSquare()!), brush: 'green' } : undefined;
-  const googlyShapes = makeGooglyShapes(
-    ctrl.position(),
-    ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
-    document.body.dataset[ctrl.pref.is3d ? 'pieceSet3d' : 'pieceSet'] ?? 'default',
-  );
+  const googlyShapes = makeGooglyShapes(ctrl.position(), ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov);
   return [
     ...shapes,
     ...annotationShapes(n),

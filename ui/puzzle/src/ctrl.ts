@@ -57,6 +57,7 @@ export default class PuzzleCtrl implements CevalHandler {
   session: PuzzleSession;
   menu: Toggle;
   flipped = toggle(false);
+  googleEyes: Toggle;
   keyboardMove?: KeyboardMove;
   voiceMove?: VoiceMove;
   promotion: PromotionCtrl;
