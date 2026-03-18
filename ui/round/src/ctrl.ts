@@ -919,6 +919,7 @@ export default class RoundController implements MoveRootCtrl {
         redraw: () => this.chessground.setAutoShapes(googlyHorsey.makeGooglyShapes()),
       },
     });
+    this.chessground.setAutoShapes(googlyHorsey.makeGooglyShapes());
   });
 
   private readonly delayedInit = () =>

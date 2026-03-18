@@ -221,6 +221,7 @@ export default class PuzzleCtrl implements CevalHandler {
           })
           .then(({ makeGooglyShapes }: { makeGooglyShapes: () => DrawShape[] }) => {
             this.googlyEyes = makeGooglyShapes;
+            this.setAutoShapes();
           });
       });
   };
