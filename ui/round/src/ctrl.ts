@@ -912,8 +912,13 @@ export default class RoundController implements MoveRootCtrl {
     site.asset.loadEsm('round.yeet');
   });
 
-  googlyEyes: () => void = memoize(() => {
-    site.asset.loadEsm('bits.googlyHorsey');
+  googlyEyes: () => void = memoize(async () => {
+    const googlyHorsey: any = await site.asset.loadEsm('bits.googlyHorsey', {
+      init: {
+        cg: this.chessground,
+        redraw: () => this.chessground.setAutoShapes(googlyHorsey.makeGooglyShapes()),
+      },
+    });
   });
 
   private readonly delayedInit = () =>

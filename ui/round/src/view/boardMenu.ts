@@ -1,7 +1,7 @@
 import { toggle } from 'lib';
 import { displayColumns, isTouchDevice } from 'lib/device';
 import { storage } from 'lib/storage';
-import { hl, type LooseVNode, boardMenu as menuDropdown, boolPrefXhrToggle } from 'lib/view';
+import { hl, type LooseVNode, boardMenu as menuDropdown, boolPrefXhrToggle, bind } from 'lib/view';
 import { cmnToggleWrap } from 'lib/view/cmn-toggle';
 
 import type RoundController from '../ctrl';
@@ -59,6 +59,16 @@ export default function (ctrl: RoundController): LooseVNode {
           'a',
           { attrs: { target: '_blank', href: '/account/preferences/game-behavior ' } },
           i18n.preferences.gameBehavior,
+        ),
+        hl(
+          'a',
+          {
+            hook: bind('click', () => {
+              ctrl.menu.toggle();
+              ctrl.googlyEyes();
+            }),
+          },
+          ["Horsey's googly eyes", hl('kbd', 'G')],
         ),
       ]),
     ];
