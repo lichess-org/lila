@@ -30,7 +30,7 @@ export const init = (ctrl: RoundController): LichessMousetrap =>
     .bind('f', ctrl.flipNow)
     .bind('z', () => pubsub.emit('zen'))
     .bind('F', ctrl.yeet)
-    .bind('G', ctrl.googlyEyes)
+    .bind('G', ctrl.googlyEyesStart)
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
       ctrl.redraw();

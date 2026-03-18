@@ -65,7 +65,7 @@ export default function (ctrl: RoundController): LooseVNode {
           {
             hook: bind('click', () => {
               ctrl.menu.toggle();
-              ctrl.googlyEyes();
+              ctrl.googlyEyesStart();
             }),
           },
           ['Advanced cursor tracking', hl('kbd', 'G')],
