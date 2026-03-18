@@ -1,5 +1,8 @@
 .swiss-home {
+  @extend %flex-column;
+  gap: $block-gap;
   &__infos {
+    padding-top: var(---box-padding);
     > div {
       @extend %flex-center-nowrap;
 
@@ -48,10 +51,6 @@
     time {
       opacity: 1;
       font-size: 1em;
-    }
-
-    td {
-      padding: 0.5rem 1rem;
     }
 
     .header {
