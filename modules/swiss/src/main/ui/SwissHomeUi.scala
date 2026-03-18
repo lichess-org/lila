@@ -12,30 +12,32 @@ final class SwissHomeUi(helpers: Helpers):
     Page(trans.swiss.swissTournaments.txt())
       .css("swiss.home")
       .hrefLangs(lila.ui.LangPath(routes.Swiss.home)):
-        main(cls := "page-small box box-pad page swiss-home")(
-          h1(cls := "box__top")(trans.swiss.swissTournaments()),
-          renderList(trans.swiss.nowPlaying.txt())(featured.started),
-          renderList(trans.swiss.startingSoon.txt())(featured.created.sortBy(_.startsAt)),
-          div(cls := "swiss-home__infos")(
-            div(cls := "wiki")(
+        main(cls := "page-small page swiss-home")(
+          div(cls := "box")(
+            h1(cls := "box__top")(trans.swiss.swissTournaments()),
+            renderList(trans.swiss.nowPlaying.txt())(featured.started),
+            renderList(trans.swiss.startingSoon.txt())(featured.created.sortBy(_.startsAt))
+          ),
+          div(cls := "box swiss-home__infos")(
+            div(cls := "box__pad main-point")(
               iconTag(Icon.InfoCircle),
               p:
                 trans.swiss.swissDescription:
                   a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)")
             ),
-            div(cls := "team")(
+            div(cls := "box__pad main-point")(
               iconTag(Icon.Group),
               p:
                 trans.swiss.teamOnly:
                   a(href := routes.Team.home())(trans.swiss.joinOrCreateTeam.txt())
             ),
             comparison,
-            div(id := "faq")(faq)
+            div(id := "faq", cls := "box__pad")(faq)
           )
         )
 
   private def renderList(name: String)(swisses: List[Swiss])(using Context) =
-    table(cls := "slist swisses")(
+    table(cls := "slist slist-pad swisses")(
       thead(tr(th(colspan := 4)(name))),
       tbody:
         swisses.map: s =>
@@ -70,7 +72,7 @@ final class SwissHomeUi(helpers: Helpers):
           )
     )
 
-  private def comparison(using Translate) = table(cls := "comparison slist")(
+  private def comparison(using Translate) = table(cls := "comparison slist slist-pad")(
     thead(
       tr(
         th(trans.swiss.comparison()),

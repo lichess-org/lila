@@ -3,7 +3,8 @@
   gap: $block-gap;
   &__infos {
     padding-top: var(---box-padding);
-    > div {
+    .main-point,
+    .faq {
       @extend %flex-center-nowrap;
 
       margin-bottom: 4em;
