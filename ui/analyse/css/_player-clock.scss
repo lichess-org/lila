@@ -43,6 +43,7 @@ $clock-height: 20px;
 
   &.active {
     background: $m-primary_bg--mix-30;
+    box-shadow: none;
   }
 
   tenths {
