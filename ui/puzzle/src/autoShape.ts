@@ -69,13 +69,12 @@ export default function (ctrl: PuzzleCtrl): DrawShape[] {
   const feedback = feedbackAnnotation(n);
   const hint =
     ctrl.hintSquare() !== undefined ? { orig: makeSquare(ctrl.hintSquare()!), brush: 'green' } : undefined;
-  // const googlyShapes = makeGooglyShapes(ctrl.position(), ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov);
   return [
     ...shapes,
     ...annotationShapes(n),
     ...(feedback ? annotationShapes(feedback) : []),
     ...(hint ? [hint] : []),
-    // ...googlyShapes,
+    ...(ctrl.googlyEyes ? ctrl.googlyEyes() : []),
   ];
 }
 

@@ -36,8 +36,8 @@ export default (ctrl: PuzzleCtrl) =>
     .bind('?', () => ctrl.keyboardHelp(!ctrl.keyboardHelp()))
     .bind('f', ctrl.flip)
     .bind('n', ctrl.nextPuzzle)
-    .bind('h', ctrl.menu.toggle);
-// .bind('G', ctrl.googlyEyes.toggle);
+    .bind('h', ctrl.menu.toggle)
+    .bind('G', ctrl.googlyEyesStart);
 
 export const view = (ctrl: PuzzleCtrl) =>
   snabDialog({

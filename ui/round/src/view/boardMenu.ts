@@ -68,7 +68,7 @@ export default function (ctrl: RoundController): LooseVNode {
               ctrl.googlyEyes();
             }),
           },
-          ["Horsey's googly eyes", hl('kbd', 'G')],
+          ['Advanced cursor tracking', hl('kbd', 'G')],
         ),
       ]),
     ];

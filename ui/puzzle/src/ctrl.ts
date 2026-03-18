@@ -1,4 +1,5 @@
 import { Result } from '@badrap/result';
+import type { DrawShape } from '@lichess-org/chessground/draw';
 import { uciToMove } from '@lichess-org/chessground/util';
 import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
@@ -56,7 +57,7 @@ export default class PuzzleCtrl implements CevalHandler {
   session: PuzzleSession;
   menu: Toggle;
   flipped = toggle(false);
-  googleEyes: Toggle;
+  googlyEyes?: () => DrawShape[];
   keyboardMove?: KeyboardMove;
   voiceMove?: VoiceMove;
   promotion: PromotionCtrl;
@@ -209,13 +210,18 @@ export default class PuzzleCtrl implements CevalHandler {
     });
   };
 
-  // enableGooglyEyes = (el: HTMLElement): void => {
-  //   enableGooglyEyesTracking(el, () => this.setAutoShapes());
-  // };
-  //
-  // disableGooglyEyes = (): void => {
-  //   disableGooglyEyesTracking();
-  // };
+  googlyEyesStart: () => void = () => {
+    if (!this.googlyEyes)
+      this.withGround(cg => {
+        site.asset
+          .loadEsm('bits.googlyHorsey', {
+            init: { cg, redraw: this.setAutoShapes },
+          })
+          .then(({ makeGooglyShapes }: { makeGooglyShapes: () => DrawShape[] }) => {
+            this.googlyEyes = makeGooglyShapes;
+          });
+      });
+  };
 
   pref = this.opts.pref;
 
