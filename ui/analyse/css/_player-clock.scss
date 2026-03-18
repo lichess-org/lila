@@ -33,7 +33,7 @@ $clock-height: 20px;
 }
 
 .analyse__clock {
-  @extend %metal;
+  @extend %metal-bg;
 
   padding: 0 0.5em;
   margin-inline-start: 12px;

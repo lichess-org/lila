@@ -7,7 +7,7 @@
 }
 
 .relay-board-player {
-  @extend %flex-between-nowrap, %metal, %box-shadow;
+  @extend %flex-between-nowrap, %metal-bg, %box-shadow;
   @include inline-end(0);
 
   overflow: hidden;
