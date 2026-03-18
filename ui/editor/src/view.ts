@@ -81,13 +81,29 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
   const buttonStart = (icon?: string) =>
     h(
       `button.button.button-empty${icon ? '.text' : ''}`,
-      { on: { click: ctrl.startPosition }, attrs: icon ? dataIcon(icon) : {} },
+      {
+        on: {
+          click(e) {
+            e.preventDefault();
+            ctrl.startPosition();
+          },
+        },
+        attrs: icon ? dataIcon(icon) : {},
+      },
       i18n.site.startPosition,
     );
   const buttonClear = (icon?: string) =>
     h(
       `button.button.button-empty${icon ? '.text' : ''}`,
-      { on: { click: ctrl.clearBoard }, attrs: icon ? dataIcon(icon) : {} },
+      {
+        on: {
+          click(e) {
+            e.preventDefault();
+            ctrl.clearBoard();
+          },
+        },
+        attrs: icon ? dataIcon(icon) : {},
+      },
       i18n.site.clearBoard,
     );
 
