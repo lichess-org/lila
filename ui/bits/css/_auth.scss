@@ -149,6 +149,11 @@ $c-auth-fade: $m-brag--fade-70;
     width: 100%;
     padding: 1.3rem;
     border-radius: $auth-input-radius;
+    &,
+    &:hover {
+      box-shadow: none;
+      text-shadow: none;
+    }
 
     &:focus-visible {
       outline: 2px solid $c-auth;

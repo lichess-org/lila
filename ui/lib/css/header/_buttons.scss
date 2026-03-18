@@ -88,6 +88,11 @@
       background: none;
       border: 2px solid $c-link;
       color: $c-link;
+      &,
+      &:hover {
+        box-shadow: none;
+        text-shadow: none;
+      }
       order: -1;
     }
   }
