@@ -12,10 +12,13 @@ setTimeout(
 );
 
 el.addEventListener('click', function () {
-  document.querySelector<HTMLDivElement>('.oauth form')!.remove();
-  const oauthTop = document.querySelector<HTMLDivElement>('.oauth__top')!;
-  const successDiv = document.createElement('div');
-  successDiv.className = 'oauth__success';
-  successDiv.textContent = 'All set! You can now close this page and return to the app.';
-  oauthTop.insertAdjacentElement('afterend', successDiv);
+  setTimeout(function () {
+    document.querySelector<HTMLDivElement>('.oauth form')!.remove();
+    const oauthTop = document.querySelector<HTMLDivElement>('.oauth__top')!;
+    const successDiv = document.createElement('div');
+    successDiv.className = 'oauth__success';
+    successDiv.textContent = 'All set! You can now close this page and return to the app.';
+    oauthTop.insertAdjacentElement('afterend', successDiv);
+  }, 500);
+  return true;
 });
