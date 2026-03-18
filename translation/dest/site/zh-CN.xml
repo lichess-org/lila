@@ -566,6 +566,9 @@
   <string name="invalidUsernameOrPassword">用户名或密码错误</string>
   <string name="incorrectPassword">密码错误</string>
   <string name="invalidAuthenticationCode">无效的验证码</string>
+  <string name="clearField">清除字段</string>
+  <string name="orSeparator">或</string>
+  <string name="logInByEmail">通过邮件登录</string>
   <string name="emailMeALink">将链接发送到我的邮箱</string>
   <string name="currentPassword">当前密码</string>
   <string name="newPassword">新密码</string>
