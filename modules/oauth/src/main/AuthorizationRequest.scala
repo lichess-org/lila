@@ -1,58 +1,52 @@
 package lila.oauth
 
 object AuthorizationRequest:
+
   import Protocol.*
 
-  case class Raw(
-      clientId: Option[ClientId],
-      state: Option[State],
-      redirectUri: Option[String],
-      responseType: Option[String],
-      codeChallengeMethod: Option[String],
-      codeChallenge: Option[CodeChallenge],
-      scope: Option[String],
-      username: Option[UserStr]
-  ):
-    // In order to show a prompt and redirect back with error codes a valid
-    // redirect_uri is absolutely required. Ignore all other errors for now.
-    def prompt: Either[Error, Prompt] = for
-      redirectUri <- redirectUri.toRight(Error.RedirectUriRequired).flatMap(RedirectUri.from)
-      clientId <- clientId.toRight(Error.ClientIdRequired)
-    yield Prompt(
-      redirectUri,
-      state,
-      clientId = clientId,
-      responseType = responseType,
-      codeChallengeMethod = codeChallengeMethod,
-      codeChallenge = codeChallenge,
-      scope = scope,
-      userId = username.map(_.id)
-    )
-
-  case class Prompt(
-      redirectUri: RedirectUri,
-      state: Option[State],
-      clientId: ClientId,
-      responseType: Option[String],
-      codeChallengeMethod: Option[String],
-      codeChallenge: Option[CodeChallenge],
-      scope: Option[String],
-      userId: Option[UserId]
-  ):
-    def errorUrl(error: Error) = redirectUri.error(error, state)
-
-    def cancelUrl = errorUrl(Error.AccessDenied)
-
-    private def validScopes: Either[Error, OAuthScopes] =
-      (~scope)
+  def fromReq(using play.api.mvc.RequestHeader): Either[Error, Prompt] =
+    import lila.common.HTTPRequest.{ queryStringGetAs as getAs, queryStringGet as get }
+    for
+      redirectUri <- get("redirect_uri").toRight(Error.RedirectUriRequired).flatMap(RedirectUri.from)
+      clientId <- getAs[ClientId]("client_id").toRight(Error.ClientIdRequired)
+      scopes <- get("scope").orZero
         .split(" ")
         .filter(_ != "")
         .toList
         .foldLeftM(List.empty[OAuthScope]): (acc, key) =>
           OAuthScope.byKey.get(key).toRight(Error.InvalidScope(key)).map(_ :: acc)
         .map(OAuthScopes(_))
+    yield Prompt(
+      redirectUri,
+      clientId,
+      scopes,
+      getAs[State]("state"),
+      responseType = get("response_type"),
+      codeChallengeMethod = get("code_challenge_method"),
+      codeChallenge = getAs[CodeChallenge]("code_challenge"),
+      userId = getAs[UserStr]("username").flatMap(_.validateId),
+      signup = for
+        username <- getAs[UserName]("default_username")
+        email <- get("default_email").flatMap(EmailAddress.from)
+      yield PromptSignup(username, email)
+    )
 
-    def scopes: OAuthScopes = validScopes.getOrElse(OAuthScopes(Nil))
+  case class PromptSignup(defaultUsername: UserName, defaultEmail: EmailAddress)
+
+  case class Prompt(
+      redirectUri: RedirectUri,
+      clientId: ClientId,
+      scopes: OAuthScopes,
+      state: Option[State],
+      responseType: Option[String],
+      codeChallengeMethod: Option[String],
+      codeChallenge: Option[CodeChallenge],
+      userId: Option[UserId],
+      signup: Option[PromptSignup]
+  ):
+    def errorUrl(error: Error) = redirectUri.error(error, state)
+
+    def cancelUrl = errorUrl(Error.AccessDenied)
 
     def maybeLegacy: Boolean = codeChallengeMethod.isEmpty && codeChallenge.isEmpty
 
@@ -80,7 +74,6 @@ object AuthorizationRequest:
 
       for
         challenge <- challengeFu
-        scopes <- validScopes.fold(_.raise, fuccess)
         tpe <- responseType.raiseIfNone(Error.ResponseTypeRequired)
         _ <- ResponseType.check(tpe).raiseIfSome(funit)
       yield Authorized(clientId, redirectUri, state, user, scopes, challenge)

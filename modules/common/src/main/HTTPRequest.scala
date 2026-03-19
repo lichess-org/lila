@@ -160,6 +160,9 @@ object HTTPRequest:
   def queryStringBoolOpt(name: String)(using req: RequestHeader): Option[Boolean] =
     queryStringGet(name).map(trueish)
 
+  def queryStringGetAs[A](name: String)(using req: RequestHeader, sr: SameRuntime[String, A]): Option[A] =
+    queryStringGet(name).map(sr.apply)
+
   def looksLikeLichessBot(req: RequestHeader) =
     val ua = userAgent(req).value
     ua.startsWith("lichess-bot/") || ua.startsWith("maia-bot/")

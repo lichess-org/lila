@@ -9,12 +9,7 @@ trait RequestGetter:
   export HTTPRequest.queryStringGet as get
   export HTTPRequest.queryStringBool as getBool
   export HTTPRequest.queryStringBoolOpt as getBoolOpt
-
-  protected def getAs[A](name: String)(using
-      req: RequestHeader,
-      sr: SameRuntime[String, A]
-  ): Option[A] =
-    get(name).map(sr.apply)
+  export HTTPRequest.queryStringGetAs as getAs
 
   protected def getUserStr(name: String)(using RequestHeader): Option[UserStr] =
     get(name).flatMap(UserStr.read)

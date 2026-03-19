@@ -16,21 +16,8 @@ import Api.ApiResult
 
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
-  private def reqToAuthorizationRequest(using RequestHeader) =
-    import lila.oauth.Protocol.*
-    AuthorizationRequest.Raw(
-      clientId = getAs[ClientId]("client_id"),
-      responseType = get("response_type"),
-      redirectUri = get("redirect_uri"),
-      state = getAs[State]("state"),
-      codeChallengeMethod = get("code_challenge_method"),
-      codeChallenge = getAs[CodeChallenge]("code_challenge"),
-      scope = get("scope"),
-      username = getAs[UserStr]("username")
-    )
-
   private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(using ctx: Context): Fu[Result] =
-    reqToAuthorizationRequest.prompt match
+    AuthorizationRequest.fromReq match
       case Right(prompt) => f(prompt)
       case Left(error) =>
         BadRequest.page(views.site.message("Bad authorization request")(stringFrag(error.description)))
@@ -43,15 +30,18 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   def legacyAuthorize = Anon:
     MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
 
-  def authorizeApply = Auth { _ ?=> me ?=>
+  def authorizeApply = Open { ctx ?=>
     withPrompt: prompt =>
-      allow:
-        for
-          authorized <- prompt.authorize(me, env.oAuth.legacyClientApi.apply)
-          code <- env.oAuth.authorizationApi.create(authorized)
-        yield SeeOther(authorized.redirectUrl(code))
-      .rescue: error =>
-        SeeOther(prompt.redirectUri.error(error, prompt.state))
+      ctx.me match
+        case None => ???
+        case Some(me) =>
+          allow:
+            for
+              authorized <- prompt.authorize(me, env.oAuth.legacyClientApi.apply)
+              code <- env.oAuth.authorizationApi.create(authorized)
+            yield SeeOther(authorized.redirectUrl(code))
+          .rescue: error =>
+            SeeOther(prompt.redirectUri.error(error, prompt.state))
   }
 
   def tokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)): raw =>
