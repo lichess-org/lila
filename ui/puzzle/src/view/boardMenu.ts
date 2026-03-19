@@ -33,7 +33,7 @@ export default function (ctrl: PuzzleCtrl) {
           ctrl.googlyEyesStart();
         }),
       },
-      ['Advanced cursor tracking', h('kbd', 'G')],
+      ['Advanced cursor tracking', h('kbd', 'shift'), h('kbd', 'G')],
     ),
   ]);
 }
