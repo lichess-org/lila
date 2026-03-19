@@ -98,19 +98,39 @@ body.zen {
   justify-content: flex-start;
 
   &__donate {
-    @extend %flex-center;
+    padding: 16px 0;
 
-    color: $c-brag;
-    padding: 0 1rem;
-    text-transform: uppercase;
-    line-height: $site-header-height;
+    span {
+      color: $c-brag;
+      text-transform: uppercase;
+      text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20;
+      border-radius: 20px;
+      line-height: 28px;
+      padding: 8px 1rem 8px 1.2rem;
 
-    @media (max-width: at-most($xx-small)) {
-      display: none;
+      &::before {
+        @extend %data-icon;
+        @include inline-end(4px);
+
+        position: relative;
+        top: -2px;
+        content: $licon-Wings;
+        font-size: 1em;
+        color: $c-brag;
+      }
+    }
+
+    &:hover span {
+      color: $c-brag;
+      background-color: $m-brag--fade-85;
     }
 
     &:focus-visible {
       outline-offset: -2px;
+    }
+
+    @media (max-width: at-most($xx-small)) {
+      display: none;
     }
   }
 }
