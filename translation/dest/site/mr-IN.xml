@@ -6,7 +6,7 @@
   <string name="gameMode">खेळाची रीत</string>
   <string name="createLobbyGame">प्रेक्षागृहाचा खेळ तयार करा</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रण देण्यासाठी हा URL द्या</string>
-  <string name="gameOver">डाव समाप्त</string>
+  <string name="gameOver">खेळ संपला</string>
   <string name="waitingForOpponent">प्रतिस्पर्ध्याची प्रतीक्षा आहे</string>
   <string name="orLetYourOpponentScanQrCode">तुमच्या विरोधकाला हा QR Code स्कॅन करायला सांगा</string>
   <string name="reusableChallengeUrl">पुनर्प्रयोगी आव्हान URL </string>
@@ -51,7 +51,7 @@
   <string name="forceResignation">विजयाचा दावा करा</string>
   <string name="forceDraw">सामना बरोबरीत सोडवण्याची विनंती करा</string>
   <string name="talkInChat">कृपया गप्पांमध्ये सभ्यतेने बोला!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">या युआरएलवर येणारे पहिले व्यक्ती तुमच्याबरोबर खेळणार.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">या URL वर येणारे पहिले व्यक्ती तुमच्याबरोबर खेळणार.</string>
   <string name="whiteResigned">पांढऱ्याने पराभव स्वीकारला</string>
   <string name="blackResigned">काळ्याने हार मानली</string>
   <string name="whiteLeftTheGame">पांढऱ्याने खेळ सोडला</string>
@@ -115,12 +115,12 @@
   <string name="lossSavedBy50MoveRule">५० चाली नियमाने हार चुकली</string>
   <string name="winOr50MovesByPriorMistake">आधीच्या चुकीने विजय किंवा 50 चाली</string>
   <string name="lossOr50MovesByPriorMistake">आधीच्या चुकीने हार किंवा 50 चाली</string>
-  <string name="unknownDueToRounding">Syzygy tablebases मध्ये DTZ मूल्यांच्या संभाव्य गोलाकारपणामुळे, शेवटच्या कॅप्चर किंवा प्याद्याच्या हालचालींपासून शिफारस केलेल्या टेबलबेस लाइनचे पालन केले तरच जिंकणे/हारणे हमी आहे.</string>
+  <string name="unknownDueToRounding">Syzygy टेबलबेस मध्ये DTZ मूल्यांच्या संभाव्य गोलाकारपणामुळे, शेवटच्या कॅप्चर किंवा प्याद्याच्या हालचालींपासून शिफारस केलेल्या टेबलबेस लाइनचे पालन केले तरच जिंकणे/हारणे हमी आहे.</string>
   <string name="allSet">सर्व तयार!</string>
   <string name="importPgn">PGN आयात करा</string>
   <string name="delete">काढून टाका</string>
   <string name="deleteThisImportedGame">मागावलेला खेळ हटवायचा?</string>
-  <string name="replayMode">रीप्ले रीत</string>
+  <string name="replayMode">पुनः प्रदर्शन रीत</string>
   <string name="realtimeReplay">प्रत्यक्ष वेळी</string>
   <string name="byCPL">सेंटीपॉन तोट्यानुसार</string>
   <string name="enable">सक्षम करा</string>
@@ -136,7 +136,7 @@
   <string name="searchTime">शोधण्यासाठी वेळ</string>
   <string name="searchTimeDescription">नवीन स्थितींचे मूल्यमापन करण्यासाठी वेळ ठरवा</string>
   <string name="threads">कार्यधागे</string>
-  <string name="threadsDescription">हे तुमच्या CPU च्या कार्याधागा मर्यादाच्या खाली ठरवा , निवडखूणा एक चांगला सुरक्षित पर्याय दर्शवतात.</string>
+  <string name="threadsDescription">हे तुमच्या गणकाच्या कार्याधागा मर्यादाच्या खाली ठरवा, निवडखूणा एक चांगला सुरक्षित पर्याय दर्शवतात</string>
   <string name="threadsDescriptionMobile">जास्त कार्याधागे चांगल्या विशलेषणासाठी अधिक विद्युतघटसंच वापरतील</string>
   <string name="cpus">गणक</string>
   <string name="memory">मेमरी</string>
@@ -602,6 +602,9 @@
   <string name="invalidUsernameOrPassword">चुकीचे नाव किंवा गुप्त शब्द</string>
   <string name="incorrectPassword">चुकीचा गुप्त शब्द</string>
   <string name="invalidAuthenticationCode">अवैध प्रमाणीकरण कोड</string>
+  <string name="clearField">क्षेत्र मिटवा</string>
+  <string name="orSeparator">किंवा</string>
+  <string name="logInByEmail">ई-मेल द्वारे प्रवेश करा</string>
   <string name="emailMeALink">एक दुवा ईमेल करा</string>
   <string name="currentPassword">सध्याचा गुप्त शब्द</string>
   <string name="newPassword">नवीन गुप्त शब्द</string>
