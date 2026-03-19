@@ -602,6 +602,9 @@
   <string name="invalidUsernameOrPassword">Foydalanuvchi nomi yoki parol notoʻgʻri</string>
   <string name="incorrectPassword">Parol notoʻgʻri</string>
   <string name="invalidAuthenticationCode">Autentifikatsiya kodi notoʻgʻri</string>
+  <string name="clearField">Maydonni tozalash</string>
+  <string name="orSeparator">Yoki</string>
+  <string name="logInByEmail">E-pochta yordamida kirish</string>
   <string name="emailMeALink">E‑pochtamga havola joʻnat</string>
   <string name="currentPassword">Joriy parol</string>
   <string name="newPassword">Yangi parol</string>
