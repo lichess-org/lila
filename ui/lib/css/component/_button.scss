@@ -15,6 +15,10 @@
   display: inline-block;
   text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20;
 
+  @include if-light {
+    text-shadow: 0.5px 0.5px 0 $m-clearer--fade-30;
+  }
+
   @include with-button-shadow(
     $m-primary--lighten-32,
     $m-primary--darken-18,
@@ -92,6 +96,7 @@
 
     @include if-light {
       box-shadow: none;
+      text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20;
     }
 
     &,

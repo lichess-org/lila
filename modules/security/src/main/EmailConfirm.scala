@@ -1,7 +1,7 @@
 package lila.security
 
 import play.api.i18n.Lang
-import play.api.mvc.{ Cookie, RequestHeader }
+import play.api.mvc.{ Cookie, Session, RequestHeader }
 import scalatags.Text.all.*
 
 import lila.core.config.*
@@ -114,11 +114,9 @@ object EmailConfirm:
     val name = "email_confirm"
     private val sep = ":"
 
-    def make(lilaCookie: LilaCookie, user: User, email: EmailAddress)(using RequestHeader): Cookie =
-      lilaCookie.session(
-        name = name,
-        value = s"${user.username}$sep${email.value}"
-      )
+    def newSession(lilaCookie: LilaCookie, user: User, email: EmailAddress)(using RequestHeader): Cookie =
+      lilaCookie.withSession(remember = false): _ =>
+        Session.emptyCookie + (name -> s"${user.username}$sep${email.value}")
 
     def has(req: RequestHeader) = req.session.data contains name
 
@@ -170,9 +168,8 @@ object EmailConfirm:
     import play.api.data.*
     import play.api.data.Forms.*
 
-    val helpForm = Form(
+    val helpForm = Form:
       single("username" -> lila.common.Form.username.historicalField)
-    )
 
     def getStatus(userApi: UserApi, userRepo: UserRepo, u: UserStr)(using Executor): Fu[Status] =
       import Status.*

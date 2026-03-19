@@ -23,8 +23,6 @@ final class PrefApi(
   private val cache = cacheApi[UserId, Option[Pref]](200_000, "pref.fetchPref"):
     _.expireAfterAccess(10.minutes).buildAsyncFuture(fetchPref)
 
-  export cache.get as getPrefById
-
   def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) =
     for _ <-
         if value
@@ -32,15 +30,10 @@ final class PrefApi(
         else coll.update.one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
     yield cache.invalidate(user.id)
 
-  def get(user: User): Fu[Pref] = cache
-    .get(user.id)
-    .dmap:
-      _ | Pref.create(user)
-
-  def get[A](user: User, pref: Pref => A): Fu[A] = get(user).dmap(pref)
+  def get(user: User): Fu[Pref] = cache.get(user.id).dmap(_ | Pref.create(user))
 
   def get[A](userId: UserId, pref: Pref => A): Fu[A] =
-    getPrefById(userId).dmap(p => pref(p | Pref.default))
+    cache.get(userId).dmap(p => pref(p | Pref.default))
 
   def get(user: User, req: RequestHeader): Fu[Pref] =
     get(user).dmap(RequestPref.queryParamOverride(req))
@@ -51,8 +44,7 @@ final class PrefApi(
 
   def byId(userId: UserId): Fu[Pref] = cache
     .get(userId)
-    .dmap:
-      _ | Pref.create(userId)
+    .dmap(_ | Pref.create(userId))
 
   def byId(both: ByColor[Option[UserId]]): Fu[ByColor[Pref]] =
     both.traverse(_.fold(fuccess(Pref.default))(byId))

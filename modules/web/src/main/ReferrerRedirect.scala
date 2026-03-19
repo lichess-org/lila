@@ -8,11 +8,15 @@ import lila.core.config.BaseUrl
 import play.api.mvc.RequestHeader
 import lila.common.HTTPRequest
 
+opaque type ValidReferrer = String
+object ValidReferrer extends OpaqueString[ValidReferrer]
+
 final class ReferrerRedirect(baseUrl: BaseUrl):
 
   private val sillyLoginReferrersSet = Set("/login", "/signup", "/mobile")
   private val loginPattern = """/\w\w/(login|signup|mobile)""".r.pattern
-  def sillyLoginReferrers(ref: String) = sillyLoginReferrersSet(ref) || loginPattern.matcher(ref).matches
+  private def sillyLoginReferrers(ref: String) =
+    sillyLoginReferrersSet(ref) || loginPattern.matcher(ref).matches
 
   private lazy val parsedBaseUrl = URL.parse(baseUrl.value)
 
@@ -30,7 +34,7 @@ final class ReferrerRedirect(baseUrl: BaseUrl):
 
   // allow relative and absolute redirects only to the same domain or
   // subdomains, excluding /mobile (which is shown after logout)
-  private[web] def valid(referrer: String): Option[String] =
+  private[web] def valid(referrer: String): Option[ValidReferrer] =
     (!sillyLoginReferrers(referrer) && validCharsRegex.matches(referrer)).so:
       Try {
         URL.parse(parsedBaseUrl, referrer)
@@ -39,6 +43,7 @@ final class ReferrerRedirect(baseUrl: BaseUrl):
         .filter(_.host == parsedBaseUrl.host)
         .filterNot(url => isForbiddenPath(url.path))
         .map(_.toString)
+        .map(ValidReferrer(_))
 
-  def fromReq(using RequestHeader) =
+  def fromReq(using RequestHeader): Option[ValidReferrer] =
     HTTPRequest.queryStringGet("referrer").flatMap(valid)
