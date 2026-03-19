@@ -1,0 +1,55 @@
+.select-search {
+  position: relative;
+
+  &__input {
+    @extend .form-control;
+
+    cursor: pointer;
+  }
+
+  &__list {
+    display: none;
+    position: absolute;
+    z-index: 9;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    background: $c-bg-box;
+    border: $border;
+    @extend %box-radius-bottom;
+    @extend %popup-shadow;
+  }
+
+  &.open &__list {
+    display: block;
+  }
+
+  &.open &__input {
+    @extend %box-radius-top;
+
+    cursor: text;
+  }
+
+  &__item {
+    padding: 0.4em 0.8em;
+    cursor: pointer;
+
+    &:hover,
+    &.highlight {
+      background: $c-bg-zebra;
+    }
+
+    &.active {
+      background: $c-primary;
+      color: $c-over;
+    }
+
+    &.highlight.active {
+      background: $c-primary-dim;
+    }
+
+    &.none {
+      display: none;
+    }
+  }
+}
