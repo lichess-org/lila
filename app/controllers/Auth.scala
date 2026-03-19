@@ -218,7 +218,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                             BadRequest.page(views.auth.signup(baseForm.withForm(err)))
                         case Signup.Result.ConfirmEmail(user, email) =>
                           Redirect(routes.Auth.checkYourEmail).withCookies:
-                            EmailConfirm.cookie.make(env.security.lilaCookie, user, email)(using ctx.req)
+                            EmailConfirm.cookie.newSession(env.security.lilaCookie, user, email)
                         case Signup.Result.AllSet(user, email) =>
                           welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
                   case Some(apiVersion) =>
@@ -281,7 +281,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                               .inject:
                                 Redirect(routes.Auth.checkYourEmail).withCookies:
                                   EmailConfirm.cookie
-                                    .make(env.security.lilaCookie, user, newUserEmail.email)(using ctx.req)
+                                    .newSession(env.security.lilaCookie, user, newUserEmail.email)
                       else Redirect(routes.Auth.login)
         )
     }
