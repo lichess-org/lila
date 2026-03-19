@@ -2,7 +2,8 @@
   min-height: calc(95vh - #{$site-header-outer-height} - 4em);
 }
 
-body:has(.auth) .signin-or-signup {
+.site-buttons .signin-or-signup,
+.site-title-nav__donate {
   display: none;
 }
 
