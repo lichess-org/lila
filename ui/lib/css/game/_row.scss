@@ -8,7 +8,7 @@
 
   @include transition(background);
 
-  &:nth-child(odd) {
+  &:nth-child(even) {
     background: $c-bg-zebra;
   }
 

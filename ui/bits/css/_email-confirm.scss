@@ -12,7 +12,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 107;
+  z-index: $z-above-site-header-107;
 
   &.error {
     background: $c-error;
@@ -150,6 +150,7 @@ body:has(.email-confirm, .signup-confirm) .signin-or-signup {
 
     .button-fat {
       @extend %box-radius;
+
       border: 10px solid $m-primary_bg--mix-30;
     }
   }
