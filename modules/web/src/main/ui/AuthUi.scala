@@ -3,7 +3,6 @@ package ui
 
 import play.api.data.{ Field, Form }
 
-import lila.common.HTTPRequest
 import lila.core.security.HcaptchaForm
 import lila.ui.*
 
@@ -12,15 +11,17 @@ import ScalatagsTemplate.{ *, given }
 final class AuthUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  def login(form: Form[?], referrer: Option[String], isRememberMe: Boolean = true)(using Context) =
-    def addReferrer(url: String): String = referrer.fold(url)(addQueryParam(url, "referrer", _))
+  private def addReferrer(url: String)(using referrer: Option[ValidReferrer]): String =
+    referrer.fold(url)(ref => addQueryParam(url, "referrer", ref.value))
+
+  def login(form: Form[?], isRememberMe: Boolean = true)(using Option[ValidReferrer])(using Context) =
     val blankedPasswordError = form.globalError.exists(_.messages.contains("blankedPassword"))
     Page(trans.site.signIn.txt())
       .js(esmInit("bits.login", "login"))
       .css("bits.auth")
       .hrefLangs(lila.ui.LangPath(routes.Auth.login)):
         main(cls := "auth auth-login box box-pad")(
-          authTabs("login", referrer),
+          authTabs("login"),
           postForm(
             cls := "form3",
             action := addReferrer(routes.Auth.authenticate.url)
@@ -68,12 +69,12 @@ final class AuthUi(helpers: Helpers):
             )
           ),
           div(cls := "or-separator")(span(trans.site.orSeparator())),
-          a(href := routes.Auth.magicLink, cls := "button magic-link")(
+          a(href := addReferrer(routes.Auth.magicLink.url), cls := "button magic-link")(
             trans.site.logInByEmail()
           )
         )
 
-  def signup(form: lila.core.security.HcaptchaForm[?])(using ctx: Context) =
+  def signup(form: lila.core.security.HcaptchaForm[?])(using Option[ValidReferrer])(using Context) =
     Page(trans.site.signUp.txt())
       .js(esmInit("bits.login", "signup"))
       .js(hcaptchaScript(form))
@@ -82,17 +83,14 @@ final class AuthUi(helpers: Helpers):
       .csp(_.withHcaptcha)
       .hrefLangs(lila.ui.LangPath(routes.Auth.signup)):
         main(cls := "auth auth-signup box box-pad")(
-          authTabs("signup", HTTPRequest.queryStringGet("referrer")(using ctx.req)),
+          authTabs("signup"),
           postForm(
             id := "signup-form",
             cls := List(
               "form3" -> true,
               "h-captcha-enabled" -> form.enabled
             ),
-            action := HTTPRequest
-              .queryStringGet("referrer")(using ctx.req)
-              .foldLeft(routes.Auth.signupPost.url): (url, ref) =>
-                addQueryParam(url, "referrer", ref)
+            action := addReferrer(routes.Auth.signupPost.url)
           )(
             formFields(form("username"), form("password"), form("email").some, register = true),
             input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
@@ -285,11 +283,11 @@ final class AuthUi(helpers: Helpers):
         p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
 
-  def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(using Context) =
+  def tokenLoginConfirmation(user: User, token: String)(using Context, Option[ValidReferrer]) =
     Page(s"Log in as ${user.username}").css("bits.form3"):
       main(cls := "page-small box box-pad")(
         boxTop(h1("Log in as ", userLink(user))),
-        postForm(action := routes.Auth.loginWithTokenPost(token, referrer))(
+        postForm(action := addReferrer(routes.Auth.loginWithTokenPost(token).url))(
           form3.actions(
             a(href := routes.Lobby.home)(trans.site.cancel()),
             submitButton(cls := "button")(s"${user.username} is my Lichess username, log me in")
@@ -320,13 +318,12 @@ final class AuthUi(helpers: Helpers):
         )
       )
 
-  private def authTabs(active: String, referrer: Option[String])(using Context) =
-    def withRef(url: String): String = referrer.fold(url)(addQueryParam(url, "referrer", _))
+  private def authTabs(active: String)(using Context, Option[ValidReferrer]) =
     div(cls := "auth-tabs")(
-      a(href := withRef(langHref(routes.Auth.login)), cls := (active == "login").option("active"))(
+      a(href := addReferrer(langHref(routes.Auth.login)), cls := (active == "login").option("active"))(
         trans.site.signIn()
       ),
-      a(href := withRef(langHref(routes.Auth.signup)), cls := (active == "signup").option("active"))(
+      a(href := addReferrer(langHref(routes.Auth.signup)), cls := (active == "signup").option("active"))(
         trans.site.signUp()
       )
     )

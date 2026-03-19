@@ -209,8 +209,8 @@ final class Account(
           remember = true,
           result =
             if prevEmail.exists(_.isNoReply)
-            then Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
-            else Some(_ => Redirect(routes.Account.email).flashSuccess)
+            then Redirect(routes.User.show(user.username)).flashSuccess.some
+            else Redirect(routes.Account.email).flashSuccess.some
         )
       yield res
 

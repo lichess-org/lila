@@ -44,8 +44,7 @@ final class PrefApi(
 
   def byId(userId: UserId): Fu[Pref] = cache
     .get(userId)
-    .dmap:
-      _ | Pref.create(userId)
+    .dmap(_ | Pref.create(userId))
 
   def byId(both: ByColor[Option[UserId]]): Fu[ByColor[Pref]] =
     both.traverse(_.fold(fuccess(Pref.default))(byId))

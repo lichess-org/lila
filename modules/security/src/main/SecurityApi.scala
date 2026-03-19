@@ -33,8 +33,6 @@ final class SecurityApi(
     proxy2faSetting: lila.memo.SettingStore[lila.core.data.Strings] @@ Proxy2faSetting
 )(using ec: Executor, mode: play.api.Mode):
 
-  val AccessUri = "access_uri"
-
   private val usernameOrEmailMapping =
     lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
   private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
