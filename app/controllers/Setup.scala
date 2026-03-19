@@ -142,7 +142,7 @@ final class Setup(
   def boardApiHook = WithBoardApiHookAuthor { (author, reqSri) => ctx ?=>
     forms
       .boardApiHook:
-        ctx.isMobileOauth || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
+        ctx.isMobileOauth || ctx.isPolygon || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
       .bindFromRequest()
       .fold(
         doubleJsonFormError,

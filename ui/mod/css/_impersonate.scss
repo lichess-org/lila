@@ -25,7 +25,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 110;
+  z-index: $z-topnav-111;
   backdrop-filter: blur(6px);
 
   form {
