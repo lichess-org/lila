@@ -6,7 +6,8 @@ site.load.then(() => {
     // tournament form
 
     $('#form3-info_timeZone').each(function (this: HTMLSelectElement) {
-      if (!$('.form3[action="/broadcast/new"] .is-invalid').length)
+      const newForm = $('.form3[action="/broadcast/new"]');
+      if (newForm.length && !newForm.find('.is-invalid').length)
         this.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
       createSelectSearch(this);
     });
