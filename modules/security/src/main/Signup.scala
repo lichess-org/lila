@@ -8,7 +8,7 @@ import play.api.mvc.{ Request, RequestHeader }
 import lila.common.HTTPRequest
 import lila.core.config.NetConfig
 import lila.core.email.UserIdOrEmail
-import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.net.{ ApiVersion, IpAddress, ValidReferrer }
 import lila.core.security.ClearPassword
 import lila.memo.{ RateLimit, SettingStore }
 
@@ -65,11 +65,16 @@ final class Signup(
         }
 
   private val dedupCache = cacheApi.notLoading[SecurityForm.AnySignupData, Signup.Result](16, "signup.dedup"):
-    _.expireAfterWrite(2.seconds).buildAsync()
+    _.expireAfterWrite(3.seconds).buildAsync()
 
   def website(
       blind: Boolean
-  )(using req: Request[?], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
+  )(using
+      req: Request[?],
+      lang: Lang,
+      formBinding: FormBinding,
+      referrer: Option[ValidReferrer]
+  ): Fu[Signup.Result] =
     val ip = HTTPRequest.ipAddress(req)
     forms.signup.website.flatMap:
       _.form
@@ -136,7 +141,7 @@ final class Signup(
       fingerPrint: Option[FingerPrint],
       apiVersion: Option[ApiVersion],
       pwned: IsPwned
-  )(user: User)(using RequestHeader, Lang): Fu[Signup.Result] =
+  )(user: User)(using RequestHeader, Lang, Option[ValidReferrer]): Fu[Signup.Result] =
     store.deletePreviousSessions(user) >> {
       if mustConfirm.value then
         emailConfirm.send(user, email) >> {
@@ -148,7 +153,9 @@ final class Signup(
       else fuccess(Signup.Result.AllSet(user, email))
     }
 
-  def mobile(apiVersion: ApiVersion)(using req: Request[?])(using Lang, FormBinding): Fu[Signup.Result] =
+  def mobile(apiVersion: ApiVersion)(using
+      req: Request[?]
+  )(using Lang, FormBinding, Option[ValidReferrer]): Fu[Signup.Result] =
     val ip = HTTPRequest.ipAddress(req)
     ip2proxy
       .ofReq(req)

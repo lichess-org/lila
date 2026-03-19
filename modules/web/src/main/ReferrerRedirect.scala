@@ -5,11 +5,9 @@ import io.mola.galimatias.URL
 import scala.util.Try
 
 import lila.core.config.BaseUrl
+import lila.core.net.ValidReferrer
 import play.api.mvc.RequestHeader
 import lila.common.HTTPRequest
-
-opaque type ValidReferrer = String
-object ValidReferrer extends OpaqueString[ValidReferrer]
 
 final class ReferrerRedirect(baseUrl: BaseUrl):
 

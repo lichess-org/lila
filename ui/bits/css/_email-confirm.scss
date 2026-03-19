@@ -31,6 +31,10 @@
   margin-left: 1em;
 }
 
+body:has(.email-confirm, .signup-confirm) .signin-or-signup {
+  display: none;
+}
+
 .email-confirm {
   h2 {
     font-size: 1.7em;
@@ -145,6 +149,7 @@
     margin: 6em 0 4em 0;
 
     .button-fat {
+      @extend %box-radius;
       border: 10px solid $m-primary_bg--mix-30;
     }
   }

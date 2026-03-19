@@ -99,3 +99,6 @@ object net:
     def from(url: URL): Origin =
       // https://github.com/smola/galimatias/issues/72 will be more precise
       s"${url.scheme}://${Option(url.host).fold("")(_.toHostString)}"
+
+  opaque type ValidReferrer = String
+  object ValidReferrer extends OpaqueString[ValidReferrer]

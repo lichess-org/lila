@@ -8,12 +8,11 @@ import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.id.SessionId
 import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
-import lila.core.net.IpAddress
+import lila.core.net.{ IpAddress, ValidReferrer }
 import lila.core.security.ClearPassword
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup, EmailConfirm, IsPwned }
-import lila.web.ValidReferrer
 
 final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
@@ -28,8 +27,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       "sessionId" -> sessionId
     )
 
-  private given (using Context): Option[ValidReferrer] =
-    env.web.referrerRedirect.fromReq
+  private given (using Context): Option[ValidReferrer] = env.web.referrerRedirect.fromReq
 
   private def referrerOr(default: => Call)(using referrer: Option[ValidReferrer]): String =
     referrer.fold(default.url)(_.value)
@@ -293,7 +291,9 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def signupConfirmEmailPost(token: String) = Open:
     env.security.emailConfirm.confirm(token).flatMap(emailConfirmResult(token))
 
-  private def emailConfirmResult(token: String)(using ctx: Context): EmailConfirm.Result => Fu[Result] =
+  private def emailConfirmResult(
+      token: String
+  )(using ctx: Context): EmailConfirm.Result => Fu[Result] =
     case EmailConfirm.Result.NotFound =>
       lila.mon.user.register.confirmEmailResult(false).increment()
       notFound

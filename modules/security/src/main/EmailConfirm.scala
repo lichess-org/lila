@@ -3,9 +3,11 @@ package lila.security
 import play.api.i18n.Lang
 import play.api.mvc.{ Cookie, Session, RequestHeader }
 import scalatags.Text.all.*
+import scalalib.StringOps.addQueryParam
 
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
+import lila.core.net.ValidReferrer
 import lila.mailer.Mailer
 import lila.user.{ User, UserApi, UserRepo }
 
@@ -13,7 +15,7 @@ trait EmailConfirm:
 
   def effective: Boolean
 
-  def send(user: User, email: EmailAddress)(using Lang): Funit
+  def send(user: User, email: EmailAddress)(using Lang, Option[ValidReferrer]): Funit
 
   def dryTest(token: String): Fu[EmailConfirm.Result]
 
@@ -23,7 +25,7 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
 
   def effective = false
 
-  def send(user: User, email: EmailAddress)(using Lang) =
+  def send(user: User, email: EmailAddress)(using Lang, Option[ValidReferrer]) =
     userRepo.setEmailConfirmed(user.id).void
 
   def dryTest(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
@@ -44,7 +46,7 @@ final class EmailConfirmMailer(
 
   val maxTries = 3
 
-  def send(user: User, email: EmailAddress)(using Lang): Funit =
+  def send(user: User, email: EmailAddress)(using lang: Lang, referrer: Option[ValidReferrer]): Funit =
     if email.looksLikeFakeEmail then
       lila.log("auth").info(s"Not sending confirmation to fake email $email of ${user.username}")
       fuccess(())
@@ -52,7 +54,8 @@ final class EmailConfirmMailer(
       email.looksLikeFakeEmail.not.so:
         tokener.make(user.id).flatMap { token =>
           lila.mon.email.send.confirmation.increment()
-          val url = s"$baseUrl/signup/confirm/$token"
+          val url = referrer.foldLeft(s"$baseUrl/signup/confirm/$token"): (url, ref) =>
+            addQueryParam(url, "referrer", ref.value)
           lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
           mailer.sendOrFail:
             Mailer.Message(

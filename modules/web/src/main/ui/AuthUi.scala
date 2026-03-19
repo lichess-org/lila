@@ -3,6 +3,7 @@ package ui
 
 import play.api.data.{ Field, Form }
 
+import lila.core.net.ValidReferrer
 import lila.core.security.HcaptchaForm
 import lila.ui.*
 
@@ -175,12 +176,12 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
-  def signupConfirm(user: User, token: String)(using Context) =
+  def signupConfirm(user: User, token: String)(using Context, Option[ValidReferrer]) =
     Page(trans.site.signUp.txt())
       .css("bits.email-confirm"):
         main(cls := "page-small box box-pad signup-confirm")(
           h1(iconFlair(Flair("activity.party-popper")), trans.onboarding.welcomeToLichess()),
-          postForm(action := routes.Auth.signupConfirmEmailPost(token)):
+          postForm(action := addReferrer(routes.Auth.signupConfirmEmailPost(token).url)):
             submitButton(cls := "button button-fat button-no-upper")(
               trans.onboarding.logInAsUsername(user.username)
             )
