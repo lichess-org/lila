@@ -16,7 +16,7 @@ export function createSelectSearch(select: HTMLSelectElement): void {
 
   const search = document.createElement('input');
   search.type = 'text';
-  search.placeholder = 'Search...';
+  search.placeholder = i18n.site.search;
   search.classList.add('select-search__input');
   menu.appendChild(search);
 
