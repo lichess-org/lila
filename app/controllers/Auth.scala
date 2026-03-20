@@ -187,7 +187,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
   def signupLang = LangPage(routes.Auth.signup)(serveSignup)
   private def serveSignup(using Context) = NoTor:
     forms.signup.website.flatMap: form =>
-      Ok.page(views.auth.signup(form))
+      Ok.page(views.auth.signup(form.form, form.simple))
 
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) = for
     proxy <- env.security.ip2proxy.ofReq(ctx.req)
@@ -210,11 +210,11 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                       .flatMap:
                         case Signup.Result.RateLimited | Signup.Result.ForbiddenNetwork => rateLimited
                         case Signup.Result.MissingCaptcha =>
-                          forms.signup.website.flatMap: form =>
-                            BadRequest.page(views.auth.signup(form))
+                          forms.signup.website.flatMap: f =>
+                            BadRequest.page(views.auth.signup(f.form, f.simple))
                         case Signup.Result.Bad(err) =>
-                          forms.signup.website.flatMap: baseForm =>
-                            BadRequest.page(views.auth.signup(baseForm.withForm(err)))
+                          forms.signup.website.flatMap: f =>
+                            BadRequest.page(views.auth.signup(f.form.withForm(err), f.simple))
                         case Signup.Result.ConfirmEmail(user, email) =>
                           Redirect(routes.Auth.checkYourEmail).withCookies:
                             EmailConfirm.cookie.newSession(env.security.lilaCookie, user, email)

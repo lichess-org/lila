@@ -256,6 +256,9 @@ $c-auth-fade: $m-brag--fade-70;
     }
   }
 
+  &-signup--simple .agreement {
+    display: none;
+  }
   .agreement label {
     font-weight: normal;
   }

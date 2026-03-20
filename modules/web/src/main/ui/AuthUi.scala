@@ -85,7 +85,12 @@ final class AuthUi(helpers: Helpers):
       .css("bits.auth")
       .csp(_.withHcaptcha)
       .hrefLangs(lila.ui.LangPath(routes.Auth.signup)):
-        main(cls := "auth auth-signup box box-pad")(
+        main(
+          cls := List(
+            "auth auth-signup box box-pad" -> true,
+            "auth-signup--simple" -> simple
+          )
+        )(
           authTabs("signup"),
           postForm(
             id := "signup-form",
@@ -97,28 +102,35 @@ final class AuthUi(helpers: Helpers):
           )(
             formFields(form("username"), form("password"), form("email").some, register = true),
             input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
-            div(cls := "form-group text", dataIcon := Icon.InfoCircle)(
-              trans.site.computersAreNotAllowedToPlay(),
-              br,
-              small(
-                trans.site.byRegisteringYouAgreeToBeBoundByOur(
-                  a(href := routes.Cms.tos)(trans.site.termsOfService())
-                ),
+            simple.not.option:
+              div(cls := "form-group text", dataIcon := Icon.InfoCircle)(
+                trans.site.computersAreNotAllowedToPlay(),
                 br,
-                trans.site.readAboutOur(
-                  a(href := routes.Cms.menuPage(lila.core.id.CmsPageKey("privacy")))(
-                    trans.site.privacyPolicy()
-                  )
-                ),
-                br
+                small(
+                  tosLink,
+                  br,
+                  trans.site.readAboutOur(
+                    a(href := routes.Cms.menuPage(lila.core.id.CmsPageKey("privacy")))(
+                      trans.site.privacyPolicy()
+                    )
+                  ),
+                  br
+                )
               )
-            ),
+            ,
             agreement(form("agreement"), form.form.errors.exists(_.key.startsWith("agreement."))),
             lila.ui.bits.hcaptcha(form),
             button(cls := "submit button", tpe := "submit")(trans.site.signUp()),
+            simple.option:
+              small(cls := "form-help")(tosLink)
+            ,
             authGlobalError(form.form)
           )
         )
+
+  private def tosLink(using Translate) = trans.site.byRegisteringYouAgreeToBeBoundByOur(
+    a(href := routes.Cms.tos)(trans.site.termsOfService())
+  )
 
   def checkYourEmail(
       email: Option[EmailAddress],
