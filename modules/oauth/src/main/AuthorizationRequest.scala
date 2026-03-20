@@ -28,6 +28,8 @@ object AuthorizationRequest:
       signup = for
         username <- getAs[UserName]("default_username")
         email <- get("default_email").flatMap(EmailAddress.from)
+        sign <- get("default_sign")
+        if sign == email.value // TODO hash check
       yield PromptSignup(username, email)
     )
 
