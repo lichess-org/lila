@@ -134,7 +134,7 @@ function signupStart() {
 function randomPassword() {
   const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,;@#!?*/-_=()[]';
   const length = 20;
-  const password = Array.from(crypto.getRandomValues(new Uint32Array(length))).map(
+  const password = Array.from(window.crypto.getRandomValues(new Uint32Array(length))).map(
     n => chars[n % chars.length],
   );
   return password.join('');
