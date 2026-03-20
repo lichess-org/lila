@@ -33,7 +33,6 @@ export function createSelectSearch(select: HTMLSelectElement): void {
     item.addEventListener('click', () => {
       toggle.textContent = item.textContent;
       select.value = item.dataset.value!;
-      select.dispatchEvent(new Event('change'));
       list.querySelector('.selected')?.classList.remove('selected');
       item.classList.add('selected');
       closeMenu();
