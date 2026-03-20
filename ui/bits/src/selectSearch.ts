@@ -1,104 +1,81 @@
-export function createSelectSearch(dropdown: HTMLSelectElement): void {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'select-search';
+export function createSelectSearch(select: HTMLSelectElement): void {
+  const options = [...select.options];
 
-  const items: { el: HTMLElement; value: string; label: string }[] = [];
-  let highlightIndex = -1;
+  const container = document.createElement('div');
+  container.classList.add('select-search');
+  select.insertAdjacentElement('afterend', container);
 
-  const input = document.createElement('input');
-  input.type = 'text';
-  input.className = 'select-search__input';
-  input.autocomplete = 'off';
-  input.spellcheck = false;
-  input.placeholder = selectedLabel() || 'Search...';
+  const toggle = document.createElement('div');
+  toggle.classList.add('select-search__toggle');
+  toggle.textContent = select.selectedOptions[0]?.textContent ?? options[0]?.textContent ?? '';
+  container.appendChild(toggle);
+
+  const menu = document.createElement('div');
+  menu.classList.add('select-search__menu');
+  container.appendChild(menu);
+
+  const search = document.createElement('input');
+  search.type = 'text';
+  search.placeholder = 'Search...';
+  search.classList.add('select-search__input');
+  menu.appendChild(search);
 
   const list = document.createElement('div');
-  list.className = 'select-search__list';
+  list.classList.add('select-search__list');
+  menu.appendChild(list);
 
-  for (const opt of dropdown.options) {
-    const label = opt.textContent?.trim() || '';
+  for (const option of options) {
     const item = document.createElement('div');
-    item.className = 'select-search__item';
-    item.textContent = label;
-    if (opt.value === dropdown.value) item.classList.add('active');
-    item.addEventListener('mousedown', () => selectOption(opt.value, label));
+    item.classList.add('select-search__item');
+    item.dataset.value = option.value;
+    item.textContent = option.textContent;
+    if (option.value === select.value) item.classList.add('selected');
+    item.addEventListener('click', () => {
+      toggle.textContent = item.textContent;
+      select.value = item.dataset.value!;
+      select.dispatchEvent(new Event('change'));
+      list.querySelector('.selected')?.classList.remove('selected');
+      item.classList.add('selected');
+      closeMenu();
+    });
     list.appendChild(item);
-    items.push({ el: item, value: opt.value, label });
   }
 
-  dropdown.style.display = 'none';
-  dropdown.insertAdjacentElement('afterend', wrapper);
-  wrapper.appendChild(input);
-  wrapper.appendChild(list);
-
-  input.addEventListener('focus', () => {
-    wrapper.classList.add('open');
-    input.value = '';
-    filter('');
-    const visible = visibleItems();
-    highlightIndex = visible.findIndex(i => i.value === dropdown.value);
-    setHighlight();
-    if (highlightIndex >= 0) visible[highlightIndex].el.scrollIntoView({ block: 'nearest' });
-  });
-
-  input.addEventListener('input', () => {
-    filter(input.value);
-    highlightIndex = -1;
-    setHighlight();
-  });
-
-  input.addEventListener('keydown', (e: KeyboardEvent) => {
-    const visible = visibleItems();
-    const delta = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0;
-    if (e.key === 'Escape') input.blur();
-    else if (delta && visible.length) {
-      e.preventDefault();
-      highlightIndex = (highlightIndex + delta + visible.length) % visible.length;
-      setHighlight();
-      visible[highlightIndex].el.scrollIntoView({ block: 'nearest' });
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      const target = visible[Math.max(0, highlightIndex)];
-      if (target) selectOption(target.value, target.label);
+  toggle.addEventListener('click', () => {
+    const isOpen = container.classList.toggle('open');
+    if (isOpen) {
+      search.focus();
+      list.querySelector('.selected')?.scrollIntoView({ block: 'nearest' });
     }
   });
 
-  input.addEventListener('blur', () => {
-    wrapper.classList.remove('open');
-    input.value = selectedLabel() || '';
+  search.addEventListener('input', () => {
+    const query = search.value.toLowerCase();
+    for (const item of list.children) {
+      const el = item as HTMLElement;
+      const text = (el.textContent ?? '').toLowerCase();
+      el.classList.toggle('none', !text.includes(query));
+    }
   });
 
-  function visibleItems() {
-    return items.filter(i => !i.el.classList.contains('none'));
+  search.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape') closeMenu();
+    else if (e.key === 'Enter') {
+      e.preventDefault();
+      const visible = list.querySelector<HTMLElement>('.select-search__item:not(.none)');
+      visible?.click();
+    }
+  });
+
+  document.addEventListener('click', (e: MouseEvent) => {
+    if (!container.contains(e.target as Node)) closeMenu();
+  });
+
+  function closeMenu() {
+    container.classList.remove('open');
+    search.value = '';
+    for (const item of list.children) (item as HTMLElement).classList.remove('none');
   }
 
-  function setHighlight() {
-    const visible = visibleItems();
-    items.forEach(i => i.el.classList.remove('highlight'));
-    if (highlightIndex >= 0 && visible[highlightIndex]) visible[highlightIndex].el.classList.add('highlight');
-  }
-
-  function selectedLabel(): string {
-    return items.find(i => i.value === dropdown.value)?.label || '';
-  }
-
-  function selectOption(value: string, label: string) {
-    dropdown.value = value;
-    dropdown.dispatchEvent(new Event('change'));
-    input.value = label;
-    input.blur();
-    items.forEach(i => i.el.classList.toggle('active', i.value === value));
-  }
-
-  function filter(query: string) {
-    const q = query.toLowerCase();
-    items.forEach(i =>
-      i.el.classList.toggle(
-        'none',
-        !!q && !i.label.toLowerCase().includes(q) && !i.value.toLowerCase().includes(q),
-      ),
-    );
-  }
-
-  input.value = selectedLabel();
+  select.classList.add('none');
 }
