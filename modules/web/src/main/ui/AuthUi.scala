@@ -111,7 +111,7 @@ final class AuthUi(helpers: Helpers):
             form3.group(
               form("username"),
               trans.site.username(),
-              help = trans.site.signupUsernameHint().some
+              help = simple.not.option(trans.site.signupUsernameHint())
             ): f =>
               frag(
                 div(cls := "text-wrapper")(
@@ -131,7 +131,11 @@ final class AuthUi(helpers: Helpers):
                 ,
                 form3.passwordComplexityMeter(trans.site.newPasswordStrength())
               ),
-            form3.group(form("email"), trans.site.email(), help = trans.site.signupEmailPromise().some): f =>
+            form3.group(
+              form("email"),
+              trans.site.email(),
+              help = simple.not.option(trans.site.signupEmailPromise())
+            ): f =>
               div(cls := "text-wrapper")(
                 form3.input(f, typ = "email")(required),
                 clearFieldButton
