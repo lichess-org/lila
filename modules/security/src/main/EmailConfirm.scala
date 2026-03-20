@@ -35,7 +35,7 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
 final class EmailConfirmMailer(
     userRepo: UserRepo,
     mailer: Mailer,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     tokenerSecret: Secret
 )(using Executor, lila.core.i18n.Translator)
     extends EmailConfirm:
@@ -54,8 +54,8 @@ final class EmailConfirmMailer(
       email.looksLikeFakeEmail.not.so:
         tokener.make(user.id).flatMap { token =>
           lila.mon.email.send.confirmation.increment()
-          val url = referrer.foldLeft(s"$baseUrl/signup/confirm/$token"): (url, ref) =>
-            addQueryParam(url, "referrer", ref.value)
+          val url = referrer.foldLeft(routeUrl(routes.Auth.signupConfirmEmail(token))): (url, ref) =>
+            url.map(addQueryParam(_, "referrer", ref.value))
           lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
           mailer.sendOrFail:
             Mailer.Message(

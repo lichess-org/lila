@@ -178,10 +178,10 @@ $serviceNote"""
         serviceNote
       )
 
-    def url(u: String, clickOrPaste: Boolean = true)(using Translate) =
+    def url(u: Url, clickOrPaste: Boolean = true)(using Translate) =
       frag(
-        meta(itemprop := "url", content := u),
-        p(a(itemprop := "target", href := u)(u)),
+        meta(itemprop := "url", content := u.value),
+        p(a(itemprop := "target", href := u.value)(u.value)),
         clickOrPaste.option(p(trans.common_orPaste()))
       )
 

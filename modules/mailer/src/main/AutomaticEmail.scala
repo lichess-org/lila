@@ -3,7 +3,7 @@ package lila.mailer
 import play.api.i18n.Lang
 import scalatags.Text.all.*
 
-import lila.core.config.BaseUrl
+import lila.core.config.RouteUrl
 import lila.core.i18n.I18nKey.emails as trans
 import lila.core.i18n.Translator
 import lila.core.lilaism.LilaException
@@ -13,7 +13,7 @@ import lila.core.msg.SystemMsg
 final class AutomaticEmail(
     userApi: lila.core.user.UserApi,
     mailer: Mailer,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     lightUser: lila.core.user.LightUserApi
 )(using Executor, Translator):
 
@@ -26,8 +26,8 @@ The Lichess team"""
   def welcomeEmail(user: User, email: EmailAddress)(using Lang): Funit =
     mailer.canSend.so:
       lila.mon.email.send.welcome.increment()
-      val profileUrl = s"$baseUrl/@/${user.username}"
-      val editUrl = s"$baseUrl/account/profile"
+      val profileUrl = routeUrl(routes.User.show(user.username))
+      val editUrl = routeUrl(routes.Account.profile)
       mailer.sendOrSkip:
         Mailer.Message(
           to = email,
@@ -52,7 +52,7 @@ The Lichess team"""
         s"""Hello,
 
 Thank you for confirming your $title title on Lichess.
-It is now visible on your profile page: $baseUrl/@/${user.username}.
+It is now visible on your profile page: ${routeUrl(routes.User.show(user.username))}.
 
 $regards
 """
@@ -77,7 +77,7 @@ $regards
       body = _ => s"""Hello,
 
 It is our pleasure to welcome you as a Lichess coach.
-Your coach profile awaits you on $baseUrl/coach/edit.
+Your coach profile awaits you on ${routeUrl(routes.Coach.edit)}.
 
 $regards
 """
@@ -102,11 +102,12 @@ $regards
     )
 
   def onAppealReply(user: User): Funit =
+    val url = routeUrl(routes.Appeal.home)
     sendAsPrivateMessageAndEmail(user)(
       subject = _ => "Appeal response on lichess.org",
       body = _ => s"""Hello,
 
-Your appeal has received a response from the moderation team, to see it click here: $baseUrl/appeal
+Your appeal has received a response from the moderation team, to see it click here: $url
 
 $regards
 """
@@ -152,12 +153,13 @@ As a small token of our thanks, your account now has the awesome Patron wings!""
         _.foreach: user =>
           alsoSendAsPrivateMessage(user)(
             body = _ =>
+              val helpUrl = routeUrl(routes.Cms.help)
               s"""End of Lichess Patron subscription
 
 Thank you for your support over the last month.
 We appreciate all donations, being a small team relying entirely on generous donors like you!
-If you're still interested in supporting us in other ways, you can see non-financial ways of supporting us here $baseUrl/help/contribute.
-To make a new donation, head to $baseUrl/patron"""
+If you're still interested in supporting us in other ways, you can see non-financial ways of supporting us here $helpUrl.
+To make a new donation, head to ${routeUrl(routes.Plan.index())}."""
           )
 
   def onPatronGift(from: UserId, to: UserId, lifetime: Boolean): Funit =
@@ -177,7 +179,7 @@ To make a new donation, head to $baseUrl/patron"""
     alsoSendAsPrivateMessage(dest)(
       body = _ => s"""Thank you for being an active member of our community!
 As a token of our appreciation, you have been gifted Patron Wings for a month.
-$baseUrl/patron"""
+${routeUrl(routes.Plan.index())}"""
     )
 
   private[mailer] def dailyCorrespondenceNotice(
@@ -194,7 +196,9 @@ $baseUrl/patron"""
               "Hello and thank you for playing correspondence chess on Lichess!"
             val disableSettingNotice =
               "You are receiving this email because you have correspondence email notification turned on. You can turn it off in your settings:"
-            val disableLink = s"$baseUrl/account/preferences/notification#correspondence-email-notif"
+            val disableLink =
+              routeUrl(routes.Pref.form("notification")).map(_ + "#correspondence-email-notif")
+            def gameUrl(op: CorrespondenceOpponent) = routeUrl(routes.Round.watcher(op.gameId, chess.White))
             mailer.sendOrSkip:
               Mailer.Message(
                 to = email,
@@ -202,7 +206,7 @@ $baseUrl/patron"""
                 text = Mailer.txt.addServiceNote {
                   s"""$hello
 
-${opponents.map { opponent => s"${showGame(opponent)} $baseUrl/${opponent.gameId}" }.mkString("\n\n")}
+${opponents.map { opponent => s"${showGame(opponent)} $gameUrl" }.mkString("\n\n")}
 
 $disableSettingNotice $disableLink"""
                 },
@@ -211,7 +215,7 @@ $disableSettingNotice $disableLink"""
                   opponents.map: opponent =>
                     li(
                       showGame(opponent),
-                      Mailer.html.url(s"$baseUrl/${opponent.gameId}", clickOrPaste = false)
+                      Mailer.html.url(gameUrl(opponent), clickOrPaste = false)
                     ),
                   disableSettingNotice,
                   Mailer.html.url(disableLink),

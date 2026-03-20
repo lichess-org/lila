@@ -411,7 +411,7 @@ lazy val irc = module("irc",
 )
 
 lazy val mailer = module("mailer",
-  Seq(memo, coreI18n),
+  Seq(memo, coreI18n, ui),
   Seq(hasher, play.mailer)
 )
 

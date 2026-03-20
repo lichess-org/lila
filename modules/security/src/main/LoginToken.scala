@@ -1,16 +1,18 @@
 package lila.security
 
 import scalatags.Text.all.*
+import scalalib.StringOps.addQueryParam
 
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
+import lila.core.net.ValidReferrer
 import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 
 final class LoginToken(
     mailer: Mailer,
     userRepo: UserRepo,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     tokenerSecret: Secret
 )(using Executor, lila.core.i18n.Translator, lila.core.config.RateLimit):
 
@@ -18,10 +20,11 @@ final class LoginToken(
 
   def generate[U: UserIdOf](user: U): Fu[String] = tokener.make(user.id)
 
-  def send(user: User, email: EmailAddress): Funit =
+  def send(user: User, email: EmailAddress)(using referrer: Option[ValidReferrer]): Funit =
     generate(user).flatMap { token =>
       lila.mon.email.send.magicLink.increment()
-      val url = s"$baseUrl/auth/token/$token"
+      val url = referrer.foldLeft(routeUrl(routes.Auth.loginWithToken(token))): (url, ref) =>
+        url.map(addQueryParam(_, "referrer", ref.value))
       given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
       import Mailer.html.*
       mailer.sendOrFail:

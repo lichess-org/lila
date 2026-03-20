@@ -29,12 +29,12 @@ final class Env(
     cookieBaker: play.api.mvc.SessionCookieBaker,
     lazyCurrentlyPlaying: => lila.core.round.CurrentlyPlaying,
     db: lila.db.Db,
-    getFile: GetRelativeFile
+    getFile: GetRelativeFile,
+    routeUrl: RouteUrl
 )(using Executor, play.api.Mode, lila.core.i18n.Translator, lila.core.config.RateLimit)(using
     scheduler: Scheduler
 ):
-
-  private val (baseUrl, domain) = (net.baseUrl, net.domain)
+  private def netDomain = net.domain
 
   private val config = appConfig.get[SecurityConfig]("security")
 
@@ -99,7 +99,7 @@ final class Env(
       EmailConfirmMailer(
         userRepo = userRepo,
         mailer = mailer,
-        baseUrl = baseUrl,
+        routeUrl = routeUrl,
         tokenerSecret = config.emailConfirm.secret
       )
     else wire[EmailConfirmSkip]
