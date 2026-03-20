@@ -483,7 +483,7 @@
     <item quantity="one">%s obuna</item>
     <item quantity="other">%s obuna</item>
   </plurals>
-  <string name="more">Batafsil</string>
+  <string name="more">Koʻproq</string>
   <string name="memberSince">Roʻyxatdan oʻtgan kuni</string>
   <string name="lastSeenActive">%s onlayn edi</string>
   <string name="player">Oʻyinchi</string>
@@ -691,12 +691,12 @@
   <string name="webmasters">Veb‑dasturchilarga</string>
   <string name="about">Dastur haqida</string>
   <string name="aboutX">%s haqida</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s bu (%2$s) bepul, erkin, reklamasiz, ochiq manbali shaxmat serveri.</string>
-  <string name="really">haqiqatan ham</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s — bu %2$s bepul, reklamasiz, ochiq kodli shaxmat serveri.</string>
+  <string name="really">mutlaqo</string>
   <string name="contribute">Hissa qo‘shish</string>
   <string name="termsOfService">Foydalanish shartlari</string>
   <string name="titleVerification">Unvonni tasdiqlash</string>
-  <string name="sourceCode">Manba kodi</string>
+  <string name="sourceCode">Dastur kodi</string>
   <string name="simultaneousExhibitions">Biryoʻla seanslar</string>
   <string name="host">Seans oʻtkazuvchi</string>
   <string name="hostColorX">Seans oʻtkazuvchi rangi: %s</string>
@@ -782,7 +782,7 @@
   <string name="primaryColorArrowsHowTo">Ctrl yoki shift = qizil; command, alt, yoki meta = koʻk; har bittasini birga = sariq.</string>
   <string name="letOtherPlayersMessageYou">Boshqa oʻyinchilar sizga xabar joʻnatishga ruxsat bering</string>
   <string name="receiveForumNotifications">Forumda sizni eslatib oʻtishganida bildirishnoma olish</string>
-  <string name="shareYourInsightsData">Shaxmat analitika maʼlumotlaringiz bilan ulashing</string>
+  <string name="shareYourInsightsData">Shaxmat analitika maʼlumotlaringiz bilan ulashish</string>
   <string name="withNobody">Hech kim bilan</string>
   <string name="withFriends">Doʻstlar bilan</string>
   <string name="withEverybody">Hamma bilan</string>
