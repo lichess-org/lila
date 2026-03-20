@@ -2,8 +2,7 @@
   min-height: calc(95vh - #{$site-header-outer-height} - 4em);
 }
 
-.site-buttons .signin-or-signup,
-.site-title-nav__donate {
+.site-buttons .signin-or-signup {
   display: none;
 }
 
@@ -18,49 +17,52 @@
 
 $auth-input-radius: 16px;
 $auth-input-bg: rgba(26, 22, 16, 1);
-$c-auth: $m-brag_bg--mix-80;
-$c-auth-text: $m-brag_font--mix-70;
-$c-auth-fade: $m-brag--fade-70;
 
 .auth {
   width: 100%;
   margin: 0 auto;
+  height: min-content;
+  border-radius: $auth-input-radius;
+  border: $border;
 
   .auth-tabs {
     @extend %flex-center-nowrap;
 
     margin-bottom: 2rem;
+    border-bottom: $border;
 
     a {
-      @extend %roboto;
-
       flex: 1 1 auto;
       text-align: center;
       font-size: 1.5em;
-      padding: 1em 0.2em;
+      padding: 0 0.2em 1em;
       color: $c-font;
-      border-bottom: 2px solid $c-auth-fade;
+      border-bottom: 2px solid transparent;
 
       @include transition(color border-color, 0.25s);
 
       &:hover {
-        border-bottom-color: $c-auth;
+        border-bottom-color: $m-accent--fade-70;
       }
 
       &.active {
         font-weight: bold;
-        color: $c-auth;
-        border-bottom-color: $c-auth;
+        color: $c-accent;
+        border-bottom-color: $c-accent;
       }
     }
   }
 
-  @media (min-width: at-least($x-small)) {
+  @media (width >= $x-small) {
     width: 40em;
   }
 
   .form-group {
     position: relative;
+
+    &:has(+ .password-complexity) {
+      margin-bottom: 1rem;
+    }
   }
 
   .password-complexity {
@@ -85,7 +87,6 @@ $c-auth-fade: $m-brag--fade-70;
     height: 50px;
     border: none;
     border-radius: $auth-input-radius;
-    color: $c-auth-text;
     background: $auth-input-bg;
 
     @include if-light {
@@ -93,7 +94,7 @@ $c-auth-fade: $m-brag--fade-70;
     }
 
     &:focus-visible {
-      outline: 2px solid $c-auth;
+      outline: $outline;
       outline-offset: -2px;
     }
   }
@@ -115,10 +116,11 @@ $c-auth-fade: $m-brag--fade-70;
     top: 50%;
     transform: translateY(-50%);
     font-size: 1.3em;
+    border-radius: $box-radius-size;
 
     &:focus-visible {
-      outline: 2px solid $c-auth;
-      outline-offset: -2px;
+      outline: $outline;
+      outline-offset: 2px;
     }
   }
 
@@ -156,52 +158,25 @@ $c-auth-fade: $m-brag--fade-70;
   }
 
   a:focus-visible {
-    outline: 2px solid $c-auth;
-    outline-offset: -2px;
+    outline: $outline;
   }
 
   .button {
     width: 100%;
     padding: 1.3rem;
     border-radius: $auth-input-radius;
-
-    &,
-    &:hover {
-      box-shadow: none;
-      text-shadow: none;
-    }
-
-    &:focus-visible {
-      outline: 2px solid $c-auth;
-      outline-offset: -2px;
-      box-shadow: 0 0 12px $c-auth;
-    }
   }
 
   .submit.button {
-    background: $c-auth;
-    color: $c-bg-box;
     font-size: 1.125rem;
     font-weight: bold;
     text-transform: none;
-
-    &:not(.disabled):hover {
-      background: $m-brag_bg--mix-70;
-    }
   }
 
   .magic-link {
-    background: transparent;
-    color: $c-auth;
     font-size: 1.125rem;
     font-weight: bold;
     text-transform: none;
-    border: 2px solid $c-auth;
-
-    &:not(.disabled):hover {
-      background: transparent;
-      color: $c-auth;
-    }
   }
 
   .or-separator {
@@ -231,13 +206,6 @@ $c-auth-fade: $m-brag--fade-70;
     .password-reset {
       text-align: end;
       font-size: 1rem;
-
-      a {
-        color: $c-auth;
-        text-decoration: underline;
-        text-decoration-color: currentcolor;
-        text-underline-offset: 3px;
-      }
     }
 
     .login-remember {
@@ -273,30 +241,19 @@ $c-auth-fade: $m-brag--fade-70;
   &-signup--simple .agreement {
     display: none;
   }
-  .agreement label {
-    font-weight: normal;
-  }
-
-  .form-check__input input {
-    &:checked + .form-check__label {
-      background-color: $c-auth;
-      border-color: $c-auth;
+  .agreement {
+    .form-group {
+      margin-bottom: 1rem;
     }
 
-    &:checked:hover + .form-check__label {
-      background-color: $c-auth;
-      border-color: $c-auth;
+    label {
+      font-weight: normal;
     }
-  }
-
-  .form-check__container:has(.form-label:hover) .form-check__label,
-  .form-check__label:hover {
-    border-color: $c-auth;
   }
 }
 
 /* presumably the keyboard is up */
-@media (max-height: at-most($x-short)) {
+@media (height <= $x-short) {
   #top {
     display: none;
   }
