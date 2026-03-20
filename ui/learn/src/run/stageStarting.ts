@@ -16,7 +16,7 @@ export default function (ctrl: RunCtrl) {
       h(
         'div.buttons',
         h(
-          'a.next',
+          'button.button',
           {
             key: ctrl.stage.id,
             hook: bind('click', ctrl.hideStartingPane),

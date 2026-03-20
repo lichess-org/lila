@@ -50,16 +50,15 @@ export default function (ctrl: RunCtrl) {
       h('p', withLinebreaks(stage.complete)),
       h('div.buttons', [
         next
-          ? h('a.next', { hook: bind('click', () => hashNavigate(next.id)) }, [
-              i18n.learn.nextX(next.title) + ' ',
+          ? h('button.button', { hook: bind('click', () => hashNavigate(next.id)) }, [
+              i18n.learn.nextX(next.title),
               h('i', { attrs: { 'data-icon': licon.GreaterThan } }),
             ])
           : null,
-        h(
-          `a.back.text[data-icon=${licon.LessThan}]`,
-          { hook: bind('click', () => hashNavigate()) },
+        h(`button.button.button-empty`, { hook: bind('click', () => hashNavigate()) }, [
+          h('i', { attrs: { 'data-icon': licon.LessThan } }),
           i18n.learn.backToMenu,
-        ),
+        ]),
       ]),
     ]),
   );
