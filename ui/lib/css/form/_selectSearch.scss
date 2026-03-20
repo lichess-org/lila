@@ -11,6 +11,9 @@
     border: $border;
     cursor: pointer;
     user-select: none;
+    text-align: start;
+    font: inherit;
+    color: inherit;
 
     &::after {
       content: '\25BE';
@@ -55,7 +58,8 @@
     cursor: pointer;
     color: $c-font;
 
-    &:hover {
+    &:hover,
+    &.focus {
       background: $c-bg-high;
     }
 
