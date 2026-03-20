@@ -313,7 +313,10 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       )
 
     private def renderRound(r: SessionRound)(using Context) =
-      a(cls := "puzzle-history__round", href := routes.Puzzle.show(r.puzzle.id.value))(
+      a(
+        cls := List("puzzle-history__round" -> true, "good" -> r.round.win.yes, "bad" -> !r.round.win.yes),
+        href := routes.Puzzle.show(r.puzzle.id.value)
+      )(
         chessgroundMini(r.puzzle.fenAfterInitialMove.board, r.puzzle.color, r.puzzle.line.head.some)(
           span(cls := "puzzle-history__round__puzzle")
         ),

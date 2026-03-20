@@ -22,7 +22,8 @@
   }
 
   &__round {
-    padding: 0.4em;
+    padding: 5px;
+    outline-offset: -2px;
 
     &__meta {
       @extend %flex-between;
@@ -30,6 +31,19 @@
 
     &__id {
       visibility: hidden;
+    }
+
+    cg-container {
+      outline: 3px solid transparent;
+      border-radius: 4px;
+    }
+
+    &.good cg-container {
+      outline-color: $c-good;
+    }
+
+    &.bad cg-container {
+      outline-color: $c-bad;
     }
 
     &:hover .puzzle-history__round__id {
@@ -40,13 +54,13 @@
 
   good,
   bad {
-    @extend %flex-center;
+    @extend %flex-center, %box-radius-bottom;
 
     color: white;
     text-transform: uppercase;
-    padding: 0 0.2em;
+    padding: 0 0.3em 2px;
     font-size: 0.9em;
-    opacity: 0.7;
+    margin-left: 2px;
 
     &::before {
       @extend %data-icon;
