@@ -14,12 +14,15 @@ import lila.web.AnnounceApi
 import lila.core.user.KidMode
 import lila.security.IsPwned
 import lila.core.security.ClearPassword
+import lila.core.net.ValidReferrer
 
 final class Account(
     env: Env,
     auth: Auth,
     apiC: => Api
 ) extends LilaController(env):
+
+  private given (using Context): Option[ValidReferrer] = env.web.referrerRedirect.fromReq
 
   def profile = Auth { _ ?=> me ?=>
     Ok.page:
@@ -180,7 +183,7 @@ final class Account(
       JsonOk(Json.obj("email" -> email.value))
   }
 
-  def renderCheckYourEmail(using Context) =
+  def renderCheckYourEmail(using Context, Option[ValidReferrer]) =
     views.auth.checkYourEmail(lila.security.EmailConfirm.cookie.get(ctx.req).map(_.email))
 
   def emailApply = AuthBody { ctx ?=> me ?=>

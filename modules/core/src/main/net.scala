@@ -10,6 +10,7 @@ import scala.util.Try
 
 import lila.core.socket.Sri
 import lila.core.userId.UserId
+import lila.core.data.Url
 
 object net:
 
@@ -101,4 +102,8 @@ object net:
       s"${url.scheme}://${Option(url.host).fold("")(_.toHostString)}"
 
   opaque type ValidReferrer = String
-  object ValidReferrer extends OpaqueString[ValidReferrer]
+  object ValidReferrer extends OpaqueString[ValidReferrer]:
+    import scalalib.StringOps.addQueryParam
+    extension (a: ValidReferrer)
+      def propagate(url: Url): Url = url.map(addQueryParam(_, "referrer", a.value))
+      def propagate(call: play.api.mvc.Call): Url = propagate(Url(call.url))

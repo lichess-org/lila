@@ -3,7 +3,6 @@ package lila.security
 import play.api.i18n.Lang
 import play.api.mvc.{ Cookie, Session, RequestHeader }
 import scalatags.Text.all.*
-import scalalib.StringOps.addQueryParam
 
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
@@ -55,7 +54,7 @@ final class EmailConfirmMailer(
         tokener.make(user.id).flatMap { token =>
           lila.mon.email.send.confirmation.increment()
           val url = referrer.foldLeft(routeUrl(routes.Auth.signupConfirmEmail(token))): (url, ref) =>
-            url.map(addQueryParam(_, "referrer", ref.value))
+            ref.propagate(url)
           lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
           mailer.sendOrFail:
             Mailer.Message(

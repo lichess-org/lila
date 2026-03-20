@@ -216,7 +216,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                           forms.signup.website.flatMap: f =>
                             BadRequest.page(views.auth.signup(f.form.withForm(err), f.simple))
                         case Signup.Result.ConfirmEmail(user, email) =>
-                          Redirect(routes.Auth.checkYourEmail).withCookies:
+                          redirectWithReferrer(routes.Auth.checkYourEmail).withCookies:
                             EmailConfirm.cookie.newSession(env.security.lilaCookie, user, email)
                         case Signup.Result.AllSet(user, email) =>
                           welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
@@ -274,16 +274,17 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                         val newUserEmail = userEmail.copy(email = email)
                         EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
                           lila.mon.email.send.fix.increment()
-                          env.user.repo.setEmail(user.id, newUserEmail.email) >>
-                            env.security.emailConfirm
-                              .send(user, newUserEmail.email)
-                              .inject:
-                                Redirect(routes.Auth.checkYourEmail).withCookies:
-                                  EmailConfirm.cookie
-                                    .newSession(env.security.lilaCookie, user, newUserEmail.email)
+                          for
+                            _ <- env.user.repo.setEmail(user.id, newUserEmail.email)
+                            _ <- env.security.emailConfirm.send(user, newUserEmail.email)
+                          yield redirectWithReferrer(routes.Auth.checkYourEmail).withCookies:
+                            EmailConfirm.cookie.newSession(env.security.lilaCookie, user, newUserEmail.email)
                       else Redirect(routes.Auth.login)
         )
     }
+
+  private def redirectWithReferrer(call: Call)(using referrer: Option[ValidReferrer]) =
+    Redirect(call.url, referrer.so(r => Map("referrer" -> List(r.value))))
 
   def signupConfirmEmail(token: String) = Open:
     env.security.emailConfirm.dryTest(token).flatMap(emailConfirmResult(token))

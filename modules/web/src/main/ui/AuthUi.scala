@@ -174,7 +174,7 @@ final class AuthUi(helpers: Helpers):
   def checkYourEmail(
       email: Option[EmailAddress],
       form: Option[Form[?]] = None
-  )(using ctx: Context) =
+  )(using Context, Option[ValidReferrer]) =
     Page("Check your email")
       .css("bits.email-confirm")
       .js(esmInitBit("validateEmail")):
@@ -193,7 +193,7 @@ final class AuthUi(helpers: Helpers):
                 h3("Make sure your email address is correct:"),
                 br,
                 br,
-                postForm(action := routes.Auth.fixEmail)(
+                postForm(action := addReferrer(routes.Auth.fixEmail.url))(
                   input(
                     id := "new-email",
                     tpe := "email",

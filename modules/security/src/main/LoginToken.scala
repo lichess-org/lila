@@ -1,7 +1,6 @@
 package lila.security
 
 import scalatags.Text.all.*
-import scalalib.StringOps.addQueryParam
 
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
@@ -24,7 +23,7 @@ final class LoginToken(
     generate(user).flatMap { token =>
       lila.mon.email.send.magicLink.increment()
       val url = referrer.foldLeft(routeUrl(routes.Auth.loginWithToken(token))): (url, ref) =>
-        url.map(addQueryParam(_, "referrer", ref.value))
+        ref.propagate(url)
       given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
       import Mailer.html.*
       mailer.sendOrFail:
