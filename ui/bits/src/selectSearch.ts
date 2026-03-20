@@ -7,6 +7,7 @@ export function createSelectSearch(select: HTMLSelectElement): void {
 
   const toggle = document.createElement('div');
   toggle.classList.add('select-search__toggle');
+  select.classList.contains('form-control') && toggle.classList.add('form-control');
   toggle.textContent = select.selectedOptions[0]?.textContent ?? options[0]?.textContent ?? '';
   container.appendChild(toggle);
 
