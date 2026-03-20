@@ -93,7 +93,8 @@ function signupStart() {
     $username = $form.find('input[name="username"]').on('change keyup paste', () => {
       $exists.addClass('none');
       usernameCheck();
-    });
+    }),
+    $password = $form.find('input[name="password"]');
 
   const usernameCheck = debounce(() => {
     const name = $username.val() as string;
@@ -116,7 +117,27 @@ function signupStart() {
     else return false;
   });
 
+  $form.find('.password-generator button').on('click', () => {
+    $password.val(randomPassword()).trigger('input');
+    return false;
+  });
+  const showPasswordTools = () => {
+    $form.find('.password-generator').toggleClass('none', $password.val() != '');
+    $form.find('.password-complexity').toggleClass('none', $password.val() == '');
+  };
+  $password.on('input', showPasswordTools);
+  showPasswordTools();
+
   site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
+}
+
+function randomPassword() {
+  const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,;@#!?*/-_=()[]';
+  const length = 20;
+  const password = Array.from(crypto.getRandomValues(new Uint32Array(length))).map(
+    n => chars[n % chars.length],
+  );
+  return password.join('');
 }
 
 function initTextClear(form: HTMLFormElement) {

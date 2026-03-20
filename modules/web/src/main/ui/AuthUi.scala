@@ -105,7 +105,8 @@ final class AuthUi(helpers: Helpers):
               "form3" -> true,
               "h-captcha-enabled" -> form.enabled
             ),
-            action := addReferrer(routes.Auth.signupPost.url)
+            action := addReferrer(routes.Auth.signupPost.url),
+            autocomplete := "off"
           )(
             form3.group(
               form("username"),
@@ -119,10 +120,17 @@ final class AuthUi(helpers: Helpers):
                 ),
                 p(cls := "error username-exists none")(trans.site.usernameAlreadyUsed())
               ),
-            form3.passwordModified(form("password"), trans.site.password())(
-              autocomplete := "new-password"
-            ),
-            form3.passwordComplexityMeter(trans.site.newPasswordStrength()),
+            form3.group(form("password"), trans.site.password()): f =>
+              frag(
+                div(cls := "password-wrapper")(
+                  form3.input(f, typ = "password")(required)(autocomplete := "new-password"),
+                  form3.passwordRevealButton
+                ),
+                simple.option:
+                  div(cls := "password-generator")(button("Generate a random password"))
+                ,
+                form3.passwordComplexityMeter(trans.site.newPasswordStrength())
+              ),
             form3.group(form("email"), trans.site.email(), help = trans.site.signupEmailPromise().some): f =>
               div(cls := "text-wrapper")(
                 form3.input(f, typ = "email")(required),

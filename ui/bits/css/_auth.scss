@@ -64,7 +64,21 @@ $c-auth-fade: $m-brag--fade-70;
   }
 
   .password-complexity {
-    margin-top: 0;
+    margin-top: 1em;
+  }
+
+  .password-generator {
+    margin-top: 0.5em;
+    text-align: right;
+    button {
+      @extend %box-radius;
+      color: $c-auth-text;
+      font-size: 0.9em;
+      padding: 0.5em 1em;
+      &:hover {
+        background: $c-auth-fade;
+      }
+    }
   }
 
   .form-group input {
