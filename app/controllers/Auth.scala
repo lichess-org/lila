@@ -423,7 +423,10 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 res
           }
 
-  private def renderMagicLink(form: Option[Form[MagicLink]], fail: Boolean)(using Context) =
+  private def renderMagicLink(form: Option[Form[MagicLink]], fail: Boolean)(using
+      Context,
+      Option[ValidReferrer]
+  ) =
     env.security.forms.magicLink.map: baseForm =>
       views.auth.magicLink(form.foldLeft(baseForm)(_.withForm(_)), fail)
 

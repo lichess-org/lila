@@ -295,7 +295,7 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
-  def magicLink(form: HcaptchaForm[?], fail: Boolean)(using Context) =
+  def magicLink(form: HcaptchaForm[?], fail: Boolean)(using Context, Option[ValidReferrer]) =
     Page("Log in by email")
       .css("bits.auth")
       .js(hcaptchaScript(form))
@@ -308,7 +308,7 @@ final class AuthUi(helpers: Helpers):
             )
           ),
           p("We will send you an email containing a link to log you in."),
-          postForm(cls := "form3", action := routes.Auth.magicLinkApply)(
+          postForm(cls := "form3", action := addReferrer(routes.Auth.magicLinkApply.url))(
             form3.group(form("email"), trans.site.email())(
               form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
             ),
