@@ -1,7 +1,7 @@
 package lila.web
 package ui
 
-import play.api.data.{ Field, Form }
+import play.api.data.Form
 
 import lila.core.net.ValidReferrer
 import lila.core.security.HcaptchaForm
@@ -36,7 +36,14 @@ final class AuthUi(helpers: Helpers):
                   )
                 )
               ,
-              formFields(form("username"), form("password"), none, register = false),
+              form3.group(form("username"), trans.site.usernameOrEmail()): f =>
+                div(cls := "text-wrapper")(
+                  form3.input(f)(autofocus, required, autocomplete := "username"),
+                  clearFieldButton
+                ),
+              form3.passwordModified(form("password"), trans.site.password())(
+                autocomplete := "current-password"
+              ),
               div(cls := "password-reset")(
                 a(href := routes.Auth.passwordReset)(trans.site.passwordReset())
               ),
@@ -100,7 +107,27 @@ final class AuthUi(helpers: Helpers):
             ),
             action := addReferrer(routes.Auth.signupPost.url)
           )(
-            formFields(form("username"), form("password"), form("email").some, register = true),
+            form3.group(
+              form("username"),
+              trans.site.username(),
+              help = trans.site.signupUsernameHint().some
+            ): f =>
+              frag(
+                div(cls := "text-wrapper")(
+                  form3.input(f)(autofocus, required, autocomplete := "username"),
+                  clearFieldButton
+                ),
+                p(cls := "error username-exists none")(trans.site.usernameAlreadyUsed())
+              ),
+            form3.passwordModified(form("password"), trans.site.password())(
+              autocomplete := "new-password"
+            ),
+            form3.passwordComplexityMeter(trans.site.newPasswordStrength()),
+            form3.group(form("email"), trans.site.email(), help = trans.site.signupEmailPromise().some): f =>
+              div(cls := "text-wrapper")(
+                form3.input(f, typ = "email")(required),
+                clearFieldButton
+              ),
             input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
             simple.not.option:
               div(cls := "form-group text", dataIcon := Icon.InfoCircle)(
@@ -358,34 +385,6 @@ final class AuthUi(helpers: Helpers):
     "account" -> trans.site.agreementMultipleAccounts(a(href := routes.Cms.tos)(trans.site.termsOfService())),
     "policy" -> trans.site.agreementPolicy()
   )
-
-  private def formFields(username: Field, password: Field, email: Option[Field], register: Boolean)(using
-      Context
-  ) =
-    frag(
-      form3.group(
-        username,
-        if register then trans.site.username() else trans.site.usernameOrEmail(),
-        help = register.option(trans.site.signupUsernameHint())
-      ): f =>
-        frag(
-          div(cls := "text-wrapper")(
-            form3.input(f)(autofocus, required, autocomplete := "username"),
-            clearFieldButton
-          ),
-          register.option(p(cls := "error username-exists none")(trans.site.usernameAlreadyUsed()))
-        ),
-      form3.passwordModified(password, trans.site.password())(
-        autocomplete := (if register then "new-password" else "current-password")
-      ),
-      register.option(form3.passwordComplexityMeter(trans.site.newPasswordStrength())),
-      email.map: email =>
-        form3.group(email, trans.site.email(), help = trans.site.signupEmailPromise().some): f =>
-          div(cls := "text-wrapper")(
-            form3.input(f, typ = "email")(required),
-            clearFieldButton
-          )
-    )
 
   private def authGlobalError(form: Form[?])(using Translate): Option[Frag] =
     form.globalError.map: err =>
