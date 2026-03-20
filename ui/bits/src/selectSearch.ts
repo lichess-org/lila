@@ -51,15 +51,15 @@ export function createSelectSearch(select: HTMLSelectElement): void {
   }
 
   toggle.addEventListener('click', () => {
-    const wasOpen = container.classList.contains('open');  
-    if (wasOpen) {  
-      closeMenu();  
-      return;  
-    }  
-    container.classList.add('open');  
-    toggle.setAttribute('aria-expanded', 'true');  
-    search.focus();  
-    list.querySelector('.selected')?.scrollIntoView({ block: 'nearest' });  
+    const wasOpen = container.classList.contains('open');
+    if (wasOpen) {
+      closeMenu();
+      return;
+    }
+    container.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    search.focus();
+    list.querySelector('.selected')?.scrollIntoView({ block: 'nearest' });
   });
 
   toggle.addEventListener('keydown', (e: KeyboardEvent) => {
