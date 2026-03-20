@@ -138,6 +138,7 @@ object Federation:
     Id("GRL") -> ("Greenland", Some("GL")),
     Id("GRN") -> ("Grenada", Some("GD")),
     Id("GUA") -> ("Guatemala", Some("GT")),
+    Id("GUI") -> ("Guinea", Some("GN")),
     Id("GUM") -> ("Guam", Some("GU")),
     Id("GUY") -> ("Guyana", Some("GY")),
     Id("HAI") -> ("Haiti", Some("HT")),
