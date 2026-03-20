@@ -1,5 +1,7 @@
 package lila.oauth
 
+import lila.core.net.ValidReferrer
+
 object AuthorizationRequest:
 
   import Protocol.*
@@ -24,20 +26,20 @@ object AuthorizationRequest:
       responseType = get("response_type"),
       codeChallengeMethod = get("code_challenge_method"),
       codeChallenge = getAs[CodeChallenge]("code_challenge"),
-      userId = getAs[UserStr]("username").flatMap(_.validateId),
-      signup = for
-        username <- getAs[UserName]("default_username")
-        email <- get("default_email").flatMap(EmailAddress.from)
-        sign <- get("default_sign")
-        if sign == email.value // TODO hash check
-      yield PromptSignup(username, email)
+      userId = getAs[UserStr]("username").flatMap(_.validateId)
     )
 
-  case class PromptSignup(defaultUsername: UserName, defaultEmail: EmailAddress):
-    def redirParams = Map(
-      "defaultUsername" -> List(defaultUsername.value),
-      "defaultEmail" -> List(defaultEmail.value)
-    )
+  case class PromptSignup(username: UserName, email: EmailAddress)
+
+  def promptSignupFrom(referrer: ValidReferrer): Option[PromptSignup] =
+    import lila.common.url.{ parse, queryParam }
+    for
+      ref <- parse(referrer.value).toOption
+      username <- ref.queryParam("default_username").map(UserName(_))
+      email <- ref.queryParam("default_email").flatMap(EmailAddress.from)
+      sign <- ref.queryParam("default_sign")
+      if sign == email.value // TODO hash check
+    yield PromptSignup(username, email)
 
   case class Prompt(
       redirectUri: RedirectUri,
@@ -47,8 +49,7 @@ object AuthorizationRequest:
       responseType: Option[String],
       codeChallengeMethod: Option[String],
       codeChallenge: Option[CodeChallenge],
-      userId: Option[UserId],
-      signup: Option[PromptSignup]
+      userId: Option[UserId]
   ):
     def errorUrl(error: Error) = redirectUri.error(error, state)
 
@@ -66,17 +67,16 @@ object AuthorizationRequest:
         user: UserId,
         legacy: (ClientId, RedirectUri) => Fu[Option[LegacyClientApi.HashedClientSecret]]
     )(using Executor): FuRaise[Error, Authorized] =
-      val challengeFu =
-        codeChallengeMethod.match
-          case None =>
-            legacy(clientId, redirectUri)
-              .flatMap(_.raiseIfNone(Error.CodeChallengeMethodRequired))
-              .map(Left(_))
-          case Some(method) =>
-            CodeChallengeMethod
-              .check(method)
-              .raiseIfSome:
-                codeChallenge.raiseIfNone(Error.CodeChallengeMethodRequired).map(Right(_))
+      val challengeFu = codeChallengeMethod.match
+        case None =>
+          legacy(clientId, redirectUri)
+            .flatMap(_.raiseIfNone(Error.CodeChallengeMethodRequired))
+            .map(Left(_))
+        case Some(method) =>
+          CodeChallengeMethod
+            .check(method)
+            .raiseIfSome:
+              codeChallenge.raiseIfNone(Error.CodeChallengeMethodRequired).map(Right(_))
 
       for
         challenge <- challengeFu

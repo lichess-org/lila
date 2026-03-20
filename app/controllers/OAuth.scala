@@ -29,10 +29,10 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
           given Me = me
           Ok.page(views.oAuth.authorize(prompt, env.oAuth.signedClients.forPrompt(prompt)))
         case None =>
-          val redirParams = Map("referrer" -> List(req.uri))
-          prompt.signup match
-            case Some(signup) => Redirect(routes.Auth.signup.url, redirParams ++ signup.redirParams).toFuccess
-            case None => Redirect(routes.Auth.login.url, redirParams).toFuccess
+          Redirect(
+            if getBool("signup") then routes.Auth.signup.url else routes.Auth.login.url,
+            Map("referrer" -> List(req.uri))
+          ).toFuccess
 
   def legacyAuthorize = Anon:
     MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
