@@ -64,7 +64,7 @@ final class Env(
     else wire[HcaptchaSkip]
 
   lazy val forms = wire[SecurityForm]
-  def signupForm: lila.core.security.SignupForm = forms.signup
+  def signupForm: lila.core.security.SignupFormFields = forms.signup
 
   lazy val geoIP: GeoIP = wire[GeoIP]
 

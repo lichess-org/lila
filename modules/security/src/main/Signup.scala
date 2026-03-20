@@ -77,7 +77,7 @@ final class Signup(
   ): Fu[Signup.Result] =
     val ip = HTTPRequest.ipAddress(req)
     forms.signup.website.flatMap:
-      _.form
+      _.form.form
         .bindFromRequest()
         .fold[Fu[Signup.Result]](
           err =>

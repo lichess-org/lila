@@ -15,7 +15,7 @@ final class Env(
     puzzleColls: lila.puzzle.PuzzleColls,
     msgApi: lila.core.msg.MsgApi,
     lightUserAsync: lila.core.LightUser.Getter,
-    signupForm: lila.core.security.SignupForm,
+    signupForm: lila.core.security.SignupFormFields,
     authenticator: lila.core.security.Authenticator,
     cacheApi: lila.memo.CacheApi,
     markdownCache: lila.memo.MarkdownCache,

@@ -75,7 +75,9 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
-  def signup(form: lila.core.security.HcaptchaForm[?])(using Option[ValidReferrer])(using Context) =
+  def signup(form: lila.core.security.HcaptchaForm[?], simple: Boolean)(using
+      Option[ValidReferrer]
+  )(using Context) =
     Page(trans.site.signUp.txt())
       .js(esmInit("bits.login", "signup"))
       .js(hcaptchaScript(form))

@@ -7,7 +7,7 @@ import play.api.mvc.{ Request, RequestHeader }
 
 import lila.common.Form.*
 import lila.common.{ Form as LilaForm, LameName }
-import lila.core.security.ClearPassword
+import lila.core.security.{ HcaptchaForm, ClearPassword }
 import lila.user.TotpSecret.{ base32, verify }
 import lila.user.{ TotpSecret, TotpToken }
 
@@ -52,7 +52,7 @@ final class SecurityForm(
       .bindFromRequest()
       .fold(_ => funit, emailValidator.preloadDns)
 
-  object signup extends lila.core.security.SignupForm:
+  object signup extends lila.core.security.SignupFormFields:
 
     val emailField: Mapping[EmailAddress] = fullyValidEmail(using none)
 
@@ -92,16 +92,40 @@ final class SecurityForm(
       "policy" -> agreementBool
     )(AgreementData.apply)(unapply)
 
-    def website(using RequestHeader) = hcaptcha.form:
-      Form:
-        mapping(
-          "username" -> username,
-          "password" -> newPasswordField,
-          "email" -> emailField,
-          "agreement" -> agreement,
-          "fp" -> optional(nonEmptyText)
-        )(SignupData.apply)(_ => None)
-          .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
+    def website(using RequestHeader) =
+      val base = hcaptcha.form(websitePreCaptcha)
+      websitePreFill match
+        case None => base.map(SignupForm(_, simple = false))
+        case Some((username, email)) =>
+          base.map: f =>
+            SignupForm(
+              f.copy(
+                skip = true,
+                form = f.form.fill:
+                  SignupData(
+                    username = username,
+                    password = "",
+                    email = email,
+                    agreement = AgreementData(true, true, true, true),
+                    fp = none
+                  )
+              ),
+              simple = true
+            )
+
+    private def websitePreFill(using RequestHeader): Option[(UserName, EmailAddress)] =
+      import lila.common.HTTPRequest.queryStringGetAs as getAs
+      getAs[UserName]("defaultUsername").zip(getAs[EmailAddress]("defaultEmail"))
+
+    private def websitePreCaptcha = Form:
+      mapping(
+        "username" -> username,
+        "password" -> newPasswordField,
+        "email" -> emailField,
+        "agreement" -> agreement,
+        "fp" -> optional(nonEmptyText)
+      )(SignupData.apply)(unapply)
+        .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
 
     val mobile = Form:
       mapping(
@@ -236,6 +260,8 @@ final class SecurityForm(
     text.verifying("incorrectPassword", p => candidate.check(ClearPassword(p)))
 
 object SecurityForm:
+
+  case class SignupForm(form: HcaptchaForm[SignupData], simple: Boolean)
 
   case class AgreementData(
       assistance: Boolean,

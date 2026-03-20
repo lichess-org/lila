@@ -44,7 +44,7 @@ case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig, skip: Bo
 trait Hcaptcha:
   def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]]
 
-trait SignupForm:
+trait SignupFormFields:
   val emailField: Mapping[EmailAddress]
   val username: Mapping[UserName]
 

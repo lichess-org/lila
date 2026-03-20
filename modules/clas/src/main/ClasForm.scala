@@ -11,7 +11,7 @@ import lila.clas.Student.RealName
 
 final class ClasForm(
     lightUserAsync: lila.core.LightUser.Getter,
-    signupForm: lila.core.security.SignupForm,
+    signupForm: lila.core.security.SignupFormFields,
     nameGenerator: NameGenerator,
     hcaptcha: Hcaptcha
 )(using Executor):

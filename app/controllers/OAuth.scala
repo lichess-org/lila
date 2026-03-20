@@ -24,24 +24,28 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   def authorize = Open:
     withPrompt: prompt =>
-      ctx.me.foldUse(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri))).toFuccess):
-        Ok.page(views.oAuth.authorize(prompt, env.oAuth.signedClients.forPrompt(prompt)))
+      ctx.me match
+        case Some(me) =>
+          given Me = me
+          Ok.page(views.oAuth.authorize(prompt, env.oAuth.signedClients.forPrompt(prompt)))
+        case None =>
+          val redirParams = Map("referrer" -> List(req.uri))
+          prompt.signup match
+            case Some(signup) => Redirect(routes.Auth.signup.url, redirParams ++ signup.redirParams).toFuccess
+            case None => Redirect(routes.Auth.login.url, redirParams).toFuccess
 
   def legacyAuthorize = Anon:
     MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
 
-  def authorizeApply = Open { ctx ?=>
+  def authorizeApply = Auth { _ ?=> me ?=>
     withPrompt: prompt =>
-      ctx.me match
-        case None => ???
-        case Some(me) =>
-          allow:
-            for
-              authorized <- prompt.authorize(me, env.oAuth.legacyClientApi.apply)
-              code <- env.oAuth.authorizationApi.create(authorized)
-            yield SeeOther(authorized.redirectUrl(code))
-          .rescue: error =>
-            SeeOther(prompt.redirectUri.error(error, prompt.state))
+      allow:
+        for
+          authorized <- prompt.authorize(me, env.oAuth.legacyClientApi.apply)
+          code <- env.oAuth.authorizationApi.create(authorized)
+        yield SeeOther(authorized.redirectUrl(code))
+      .rescue: error =>
+        SeeOther(prompt.redirectUri.error(error, prompt.state))
   }
 
   def tokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)): raw =>

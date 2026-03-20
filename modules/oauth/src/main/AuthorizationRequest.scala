@@ -31,7 +31,11 @@ object AuthorizationRequest:
       yield PromptSignup(username, email)
     )
 
-  case class PromptSignup(defaultUsername: UserName, defaultEmail: EmailAddress)
+  case class PromptSignup(defaultUsername: UserName, defaultEmail: EmailAddress):
+    def redirParams = Map(
+      "defaultUsername" -> List(defaultUsername.value),
+      "defaultEmail" -> List(defaultEmail.value)
+    )
 
   case class Prompt(
       redirectUri: RedirectUri,
