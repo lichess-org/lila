@@ -208,15 +208,16 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
               )(
                 submitButton(cls := "btn-rack__btn")("Close")
               )
-            else if closedFlags.exists(_.forever) then "Forever closed"
             else if closedFlags.exists(_.deleted) then "Deleted"
             else
               frag(
-                postForm(
-                  action := routes.Mod.reopenAccount(u.username),
-                  title := "Re-activates this account.",
-                  cls := "xhr"
-                )(submitButton(cls := "btn-rack__btn active")("Closed")),
+                if closedFlags.exists(_.forever) then "Forever closed"
+                else
+                  postForm(
+                    action := routes.Mod.reopenAccount(u.username),
+                    title := "Re-activates this account.",
+                    cls := "xhr"
+                  )(submitButton(cls := "btn-rack__btn active")("Closed")),
                 Granter.opt(_.GdprErase).option(gdprEraseForm(u))
               )
           )
