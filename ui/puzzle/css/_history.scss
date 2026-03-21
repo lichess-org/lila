@@ -22,17 +22,34 @@
   }
 
   &__round {
-    padding: 0.4em;
+    padding: 5px;
+    outline-offset: -2px;
 
     &__meta {
       @extend %flex-between;
+      font-size: 0.9em;
+      margin: 2px 2px 0 2px;
     }
 
     &__id {
       visibility: hidden;
     }
 
+    cg-container {
+      outline: 3px solid transparent;
+      border-radius: $board-radius-size;
+    }
+
+    &.good cg-container {
+      outline-color: $c-good;
+    }
+
+    &.bad cg-container {
+      outline-color: $c-bad;
+    }
+
     &:hover .puzzle-history__round__id {
+      font-family: monospace;
       color: $c-font;
       visibility: visible;
     }
@@ -40,13 +57,9 @@
 
   good,
   bad {
-    @extend %flex-center;
+    @extend %flex-center, %box-radius-bottom;
 
-    color: white;
     text-transform: uppercase;
-    padding: 0 0.2em;
-    font-size: 0.9em;
-    opacity: 0.7;
 
     &::before {
       @extend %data-icon;
@@ -56,7 +69,7 @@
   }
 
   good {
-    background: $c-good;
+    color: $c-good;
 
     &::before {
       content: $licon-Checkmark;
@@ -64,7 +77,7 @@
   }
 
   bad {
-    background: $c-bad;
+    color: $c-bad;
 
     &::before {
       content: $licon-X;
