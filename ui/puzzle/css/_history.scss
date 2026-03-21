@@ -56,11 +56,9 @@
   bad {
     @extend %flex-center, %box-radius-bottom;
 
-    color: white;
     text-transform: uppercase;
-    padding: 0 0.3em 2px;
     font-size: 0.9em;
-    margin-left: 2px;
+    margin: 2px 0 0 2px;
 
     &::before {
       @extend %data-icon;
@@ -70,7 +68,7 @@
   }
 
   good {
-    background: $c-good;
+    color: $c-good;
 
     &::before {
       content: $licon-Checkmark;
@@ -78,7 +76,7 @@
   }
 
   bad {
-    background: $c-bad;
+    color: $c-bad;
 
     &::before {
       content: $licon-X;
