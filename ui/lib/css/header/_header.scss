@@ -34,6 +34,8 @@ body > header {
     }
 
     @include if-transp {
+      @include back-blur(6px);
+
       border: none;
       background: hsla(0, 0, 20%, 0.15);
     }
@@ -131,4 +133,8 @@ body.zen {
       display: none;
     }
   }
+}
+
+html.transp body[data-board3d] #top::before {
+  display: none;
 }
