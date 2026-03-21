@@ -37,7 +37,7 @@ body > header {
       @include back-blur(6px);
 
       border: none;
-      background: hsla(0, 0, 60%, 0.14);
+      background: hsla(0, 0, 20%, 0.15);
     }
 
     .dropdown {
@@ -133,4 +133,8 @@ body.zen {
       display: none;
     }
   }
+}
+
+html.transp body[data-board3d] #top::before {
+  display: none;
 }

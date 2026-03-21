@@ -126,8 +126,8 @@ object page:
           dataTheme := pref.currentBg,
           dataBoard := pref.currentTheme.name,
           dataPieceSet := pref.currentPieceSet.name,
-          dataBoard3d := pref.currentTheme3d.name,
-          dataPieceSet3d := pref.currentPieceSet3d.name,
+          dataBoard3d := pref.is3d.option(pref.currentTheme3d.name),
+          dataPieceSet3d := pref.is3d.option(pref.currentPieceSet3d.name),
           dataAnnounce := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
           attr("data-i18n-catalog") := assetHelper.manifest
             .js(s"i18n/${ctx.lang.code}")
