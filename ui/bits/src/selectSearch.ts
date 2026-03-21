@@ -79,17 +79,17 @@ export function createSelectSearch(select: HTMLSelectElement): void {
 
   search.addEventListener('keydown', (e: KeyboardEvent) => {
     const items = visibleItems();
+    const focused = list.querySelector<HTMLDivElement>('.focus');
     if (e.key === 'Escape') {
       closeMenu();
       toggle.focus();
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      const target = list.querySelector<HTMLDivElement>('.focus') ?? items[0];
+      const target = focused ?? items[0];
       if (target) selectItem(target);
     } else if (['ArrowDown', 'ArrowUp'].includes(e.key)) {
       e.preventDefault();
       if (!items.length) return;
-      const focused = list.querySelector<HTMLDivElement>('.focus');
       const current = focused ? items.indexOf(focused) : -1;
       const next =
         e.key === 'ArrowDown'
@@ -99,7 +99,7 @@ export function createSelectSearch(select: HTMLSelectElement): void {
           : current > 0
             ? current - 1
             : items.length - 1;
-      list.querySelector('.focus')?.classList.remove('focus');
+      focused?.classList.remove('focus');
       items[next].classList.add('focus');
       items[next].scrollIntoView({ block: 'nearest' });
     }
