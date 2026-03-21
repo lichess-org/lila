@@ -4,16 +4,11 @@
   &__toggle {
     @extend %box-radius;
 
-    display: block;
-    width: 100%;
     padding: 0.6em 1em;
     background: $c-bg-input;
     border: $border;
     cursor: pointer;
     user-select: none;
-    text-align: start;
-    font: inherit;
-    color: inherit;
 
     &::after {
       content: '\25BE';
@@ -23,29 +18,28 @@
   }
 
   &__menu {
+    @extend %box-radius-bottom, %popup-shadow;
     display: none;
     position: absolute;
     z-index: $z-dropdown-109;
     width: 100%;
     background: $c-bg-popup;
     border: $border;
-    border-radius: 0 0 $box-radius-size $box-radius-size;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     margin-top: -1px;
   }
 
-  &.open &__menu {
+  &--open &__menu {
     display: block;
   }
 
   &__input {
+    @extend %box-radius;
     display: block;
     width: calc(100% - 1.2em);
     margin: 0.6em;
     padding: 0.5em 0.8em;
     background: $c-bg-input;
     border: $border;
-    border-radius: $box-radius-size;
   }
 
   &__list {
@@ -66,10 +60,6 @@
     &.selected {
       color: $c-primary;
       font-weight: bold;
-    }
-
-    &.none {
-      display: none;
     }
   }
 }

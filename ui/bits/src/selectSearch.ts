@@ -50,19 +50,22 @@ export function createSelectSearch(select: HTMLSelectElement): void {
   }
 
   toggle.addEventListener('click', () => {
-    const wasOpen = container.classList.contains('open');
+    const wasOpen = container.classList.contains('.select-search--open');
     if (wasOpen) {
       closeMenu();
       return;
     }
-    container.classList.add('open');
+    container.classList.add('select-search--open');
     toggle.setAttribute('aria-expanded', 'true');
     search.focus();
     list.querySelector('.selected')?.scrollIntoView({ block: 'nearest' });
   });
 
   toggle.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (['ArrowDown', 'ArrowUp', ' '].includes(e.key) && !container.classList.contains('open')) {
+    if (
+      ['ArrowDown', 'ArrowUp', ' '].includes(e.key) &&
+      !container.classList.contains('select-search--open')
+    ) {
       e.preventDefault();
       toggle.click();
     }
@@ -111,7 +114,7 @@ export function createSelectSearch(select: HTMLSelectElement): void {
   });
 
   function closeMenu() {
-    container.classList.remove('open');
+    container.classList.remove('select-search--open');
     toggle.setAttribute('aria-expanded', 'false');
     search.value = '';
     Array.from(list.children).forEach(i => i.classList.remove('none', 'focus'));
