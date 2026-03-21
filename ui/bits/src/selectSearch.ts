@@ -30,7 +30,6 @@ export function createSelectSearch(select: HTMLSelectElement): void {
     item.textContent = option.textContent;
     item.setAttribute('aria-selected', String(option.value === select.value));
     option.value === select.value && item.classList.add('selected');
-    item.addEventListener('click', () => selectItem(item));
     list.appendChild(item);
   }
 
@@ -106,7 +105,9 @@ export function createSelectSearch(select: HTMLSelectElement): void {
   });
 
   document.addEventListener('click', (e: MouseEvent) => {
-    !container.contains(e.target as Node) && closeMenu();
+    const target = e.target as HTMLElement;
+    if (list.contains(target)) selectItem(target);
+    else if (!container.contains(target)) closeMenu();
   });
 
   function closeMenu() {
