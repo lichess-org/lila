@@ -59,7 +59,9 @@ final class Automod(
             "messages" -> Json.arr(
               Json.obj("role" -> "system", "content" -> systemPrompt.value),
               Json.obj("role" -> "user", "content" -> userText)
-            )
+            ),
+            "reasoning" -> Json.obj("enabled" -> false),
+            "response_format" -> Json.obj("type" -> "json_object")
           )
         ws.url(config.url)
           .withHttpHeaders(
@@ -107,7 +109,9 @@ final class Automod(
                   Json.obj("type" -> "image_url", "image_url" -> Json.obj("url" -> imageUrl))
                 )
               )
-            )
+            ),
+            "reasoning" -> Json.obj("enabled" -> false),
+            "response_format" -> Json.obj("type" -> "json_object")
           )
         ws.url(config.url)
           .withHttpHeaders(
