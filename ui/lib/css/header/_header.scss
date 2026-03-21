@@ -3,7 +3,7 @@
 @import 'title';
 @import 'buttons';
 
-body > header {
+#top {
   @include prevent-select;
 
   height: $site-header-height;
