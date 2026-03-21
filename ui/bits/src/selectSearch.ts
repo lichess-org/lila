@@ -20,7 +20,7 @@ export function createSelectSearch(select: HTMLSelectElement): void {
   search.placeholder = i18n.site.search;
   search.setAttribute('aria-label', i18n.site.search);
 
-  const list = container.querySelector<HTMLDivElement>('.select-search__list')!;
+  const list = container.querySelector<HTMLElement>('.select-search__list')!;
 
   for (const option of select.options) {
     const item = document.createElement('div');
@@ -34,7 +34,7 @@ export function createSelectSearch(select: HTMLSelectElement): void {
     list.appendChild(item);
   }
 
-  function selectItem(item: HTMLDivElement) {
+  function selectItem(item: HTMLElement) {
     toggle.textContent = item.textContent;
     select.value = item.dataset.value!;
     select.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
@@ -46,8 +46,8 @@ export function createSelectSearch(select: HTMLSelectElement): void {
     toggle.focus();
   }
 
-  function visibleItems(): HTMLDivElement[] {
-    return [...list.querySelectorAll<HTMLDivElement>('.select-search__item:not(.none)')];
+  function visibleItems(): HTMLElement[] {
+    return [...list.querySelectorAll<HTMLElement>('.select-search__item:not(.none)')];
   }
 
   toggle.addEventListener('click', () => {
@@ -71,7 +71,7 @@ export function createSelectSearch(select: HTMLSelectElement): void {
 
   search.addEventListener('input', () => {
     const query = search.value.toLowerCase();
-    [...list.children].forEach(item => {
+    Array.from(list.children).forEach(item => {
       item.classList.remove('focus');
       item.classList.toggle('none', !(item.textContent ?? '').toLowerCase().includes(query));
     });
@@ -79,7 +79,7 @@ export function createSelectSearch(select: HTMLSelectElement): void {
 
   search.addEventListener('keydown', (e: KeyboardEvent) => {
     const items = visibleItems();
-    const focused = list.querySelector<HTMLDivElement>('.focus');
+    const focused = list.querySelector<HTMLElement>('.focus');
     if (e.key === 'Escape') {
       closeMenu();
       toggle.focus();
@@ -113,7 +113,7 @@ export function createSelectSearch(select: HTMLSelectElement): void {
     container.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
     search.value = '';
-    [...list.children].forEach(i => i.classList.remove('none', 'focus'));
+    Array.from(list.children).forEach(i => i.classList.remove('none', 'focus'));
   }
 
   select.classList.add('none');
