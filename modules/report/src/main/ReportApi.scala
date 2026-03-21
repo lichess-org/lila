@@ -368,7 +368,7 @@ final class ReportApi(
     candidate
       .flatMapz(create(_))
       .recoverWith: e =>
-        logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)
+        logger.warn(s"Comms automod failed for ${me.username} on $url: ${e.getMessage}", e)
         funit
 
   private def onReportClose() =
