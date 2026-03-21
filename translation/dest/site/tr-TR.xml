@@ -602,6 +602,9 @@
   <string name="invalidUsernameOrPassword">Hatalı kullanıcı adı ya da şifre</string>
   <string name="incorrectPassword">Şifre yanlış</string>
   <string name="invalidAuthenticationCode">Geçersiz kimlik doğrulama kodu</string>
+  <string name="clearField">Alanı temizle</string>
+  <string name="orSeparator">Veya</string>
+  <string name="logInByEmail">E-posta ile giriş yap</string>
   <string name="emailMeALink">E-Posta ile giriş linki yolla</string>
   <string name="currentPassword">Mevcut şifre</string>
   <string name="newPassword">Yeni şifre</string>

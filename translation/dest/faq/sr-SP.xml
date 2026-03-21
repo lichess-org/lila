@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">Често постављана питања</string>
+  <string name="faqAbbreviation">Најчешће Постављена Питања</string>
   <string name="frequentlyAskedQuestions">Често Постављана Питања</string>
   <string name="whyIsLichessCalledLichess">Зашто се Lichess зове Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess је комбинација речи live/light/libre (уживо/лако/слободно) и chess (шах). Изговара се %1$s.</string>
