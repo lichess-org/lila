@@ -19,6 +19,7 @@
 
   &__menu {
     @extend %box-radius-bottom, %popup-shadow;
+
     display: none;
     position: absolute;
     z-index: $z-dropdown-109;
@@ -34,6 +35,7 @@
 
   &__input {
     @extend %box-radius;
+
     display: block;
     width: calc(100% - 1.2em);
     margin: 0.6em;
