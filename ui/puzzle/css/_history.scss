@@ -37,7 +37,7 @@
 
     cg-container {
       outline: 3px solid transparent;
-      border-radius: $board-radius-size;
+      border-radius: $miniboard-radius-size;
     }
 
     &.good cg-container {
