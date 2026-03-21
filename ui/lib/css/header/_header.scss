@@ -35,7 +35,7 @@ body > header {
 
     @include if-transp {
       border: none;
-      background: hsla(0, 0, 60%, 0.14);
+      background: hsla(0, 0, 20%, 0.15);
     }
 
     .dropdown {
