@@ -37,7 +37,7 @@
 
     cg-container {
       outline: 3px solid transparent;
-      border-radius: 4px;
+      border-radius: $board-radius-size;
     }
 
     &.good cg-container {
