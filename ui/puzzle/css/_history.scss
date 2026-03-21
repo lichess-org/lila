@@ -27,6 +27,8 @@
 
     &__meta {
       @extend %flex-between;
+      font-size: 0.9em;
+      margin: 2px 2px 0 2px;
     }
 
     &__id {
@@ -47,6 +49,7 @@
     }
 
     &:hover .puzzle-history__round__id {
+      font-family: monospace;
       color: $c-font;
       visibility: visible;
     }
@@ -57,8 +60,6 @@
     @extend %flex-center, %box-radius-bottom;
 
     text-transform: uppercase;
-    font-size: 0.9em;
-    margin: 2px 0 0 2px;
 
     &::before {
       @extend %data-icon;
