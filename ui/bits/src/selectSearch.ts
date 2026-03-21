@@ -13,7 +13,7 @@ export function createSelectSearch(select: HTMLSelectElement): void {
   select.insertAdjacentElement('afterend', container);
 
   const toggle = container.querySelector<HTMLButtonElement>('.select-search__toggle')!;
-  select.classList.contains('form-control') && toggle.classList.add('form-control');
+  if (select.classList.contains('form-control')) toggle.classList.add('form-control');
   toggle.textContent = select.selectedOptions[0]?.textContent ?? select.options[0]?.textContent ?? '';
 
   const search = container.querySelector<HTMLInputElement>('.select-search__input')!;
@@ -39,7 +39,7 @@ export function createSelectSearch(select: HTMLSelectElement): void {
     select.value = item.dataset.value!;
     select.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
     list.querySelector('.selected')?.classList.remove('selected');
-    [...list.children].forEach(el => el.setAttribute('aria-selected', 'false'));
+    Array.from(list.children).forEach(el => el.removeAttribute('aria-selected'));
     item.classList.add('selected');
     item.setAttribute('aria-selected', 'true');
     closeMenu();
