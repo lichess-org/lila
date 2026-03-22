@@ -28,7 +28,10 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
               case None => strong(code(prompt.redirectUri.origin))
           ),
           prompt.redirectUri.insecure.option(flashMessage("warning")("Does not use a secure connection")),
-          postForm(action := s"${routes.OAuth.authorizeApply}?${ctx.req.rawQueryString}")(
+          postForm(
+            id := "oauth-authorize",
+            action := s"${routes.OAuth.authorizeApply}?${ctx.req.rawQueryString}"
+          )(
             p(
               "Grant access to your ",
               strong(otherUserRequested.fold(me.username)(_.name)),
@@ -55,7 +58,6 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                     cls := s"button${danger.so(" button-red ok-cancel-confirm text")} disabled",
                     dataIcon := danger.option(Icon.CautionTriangle),
                     disabled := true,
-                    id := "oauth-authorize",
                     title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
                   )("Authorize")
             ),
