@@ -75,6 +75,8 @@
   <string name="pillsburysMateDescription">La torre dà lo scacco matto, mentre l\'alfiere aiuta a rinchiuderlo.</string>
   <string name="morphysMate">Matto di Morphy</string>
   <string name="morphysMateDescription">Usa l\'alfiere per dare scacco al re, mentre la torre aiuta a rinchiuderlo.</string>
+  <string name="swallowstailMate">Matto della coda di rondine</string>
+  <string name="swallowstailMateDescription">Uno scacco matto che assomiglia alla forma a V della coda di una rondine.</string>
   <string name="triangleMate">Matto triangolare</string>
   <string name="triangleMateDescription">La regina e la torre, a una casella di distanza dal re avversario, sono sulla stessa riga o colonna, separati da una casella, formando un triangolo.</string>
   <string name="vukovicMate">Scacco matto Vukovic</string>
@@ -105,6 +107,8 @@
   <string name="oneMoveDescription">Un problema lungo una sola mossa.</string>
   <string name="opening">Apertura</string>
   <string name="openingDescription">Una tattica durante la prima fase della partita.</string>
+  <string name="operaMate">Matto dell\'opera</string>
+  <string name="operaMateDescription">Dai scacco al re con la torre e usa un alfiere per difendere quella torre.</string>
   <string name="pawnEndgame">Finale di pedoni</string>
   <string name="pawnEndgameDescription">Un finale con soli pedoni.</string>
   <string name="pin">Inchiodatura</string>
