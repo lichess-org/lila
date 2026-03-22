@@ -179,14 +179,16 @@ final class User(
               ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
               ctx.userId.traverse(env.game.crosstableApi(user.id, _)),
               ctx.isAuth.so(env.pref.api.followable(user.id)),
-              ctx.useMe(env.clas.api.clas.realName(user.id))
-            ).flatMapN: (blocked, crosstable, followable, realName) =>
+              ctx.useMe(env.clas.api.clas.realName(user.id)),
+              ctx.me.so(me => env.msg.api.canMessage(user.id)(using me))
+            ).flatMapN: (blocked, crosstable, followable, realName, canMessage) =>
               negotiate(
                 html = for
                   pov <- ctx.isnt(user).so(env.round.currentlyPlaying.exec(user.user.id))
                   ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
                   snip <- Ok.snip:
-                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, realName)
+                    views.user
+                      .mini(user, pov, blocked, followable, relation, ping, crosstable, realName, canMessage)
                 yield snip.headerCacheSeconds(5),
                 json =
                   import lila.game.JsonView.given

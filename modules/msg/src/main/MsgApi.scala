@@ -96,7 +96,7 @@ final class MsgApi(
             _ <- setReadBy(threadId, me, userId)
             msgs <- threadMsgsFor(threadId, me, before)
             relations <- relationApi.fetchRelations(me, userId)
-            postable <- security.may.post(me, userId, isNew = msgs.headOption.isEmpty)
+            postable <- security.may.post(me, userId, msgs.headOption.isEmpty)
             details <- Granter(_.PublicMod).optionFu(fetchContactDetailsForMods(userId))
           yield MsgConvo(contact, msgs, relations, postable, details).some
         }
@@ -396,3 +396,12 @@ final class MsgApi(
           // filter conversation where only team messages where sent
           msgs <- doc.getAsOpt[NonEmptyList[Msg]]("msgs")
         yield (tid, msgs)).toList
+
+  def canMessage(dest: UserId)(using me: Me): Fu[Boolean] =
+    if dest.is(me) then fuFalse
+    else
+      for
+        hasMsgs <- threadMsgsFor(MsgThread.id(me, dest), me, none).map(_.nonEmpty)
+        canPost <- security.may.post(me, dest, !hasMsgs)
+      yield
+        canPost

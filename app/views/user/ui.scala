@@ -19,7 +19,8 @@ def mini(
     relation: Option[lila.relation.Relation],
     ping: Option[Int],
     ct: Option[lila.game.Crosstable],
-    realName: Option[String]
+    realName: Option[String],
+    canMessage: Boolean
 )(using ctx: Context) =
   val rel = views.relation.mini(u.id, blocked, followable, relation)
   def crosstable(myId: UserId) = ct
@@ -38,7 +39,7 @@ def mini(
   val flag = u.profileOrDefault.flagInfo
   val perfs = u.perfs.best8Perfs
   val nameFrag = realName.map(frag(_))
-  show.ui.mini(u, playing, blocked, ping, rel, crosstable, flag, nameFrag, perfs, userMarks)
+  show.ui.mini(u, playing, blocked, ping, rel, crosstable, flag, nameFrag, perfs, userMarks, canMessage)
 
 val perfStat = lila.perfStat.PerfStatUi(helpers)(views.user.bits.communityMenu("ratings"))
 def perfStatPage(data: PerfStatData, ratingChart: Option[SafeJsonStr])(using Context) =

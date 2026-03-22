@@ -20,7 +20,8 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       flag: Option[Flag],
       realName: Option[Frag],
       best8Perfs: List[PerfKey],
-      userMarks: => Frag
+      userMarks: => Frag,
+      canMessage: Boolean
   )(using ctx: Context) =
     frag(
       div(cls := "upt__info")(
@@ -58,12 +59,22 @@ final class UserShow(helpers: Helpers, bits: UserBits):
               ),
               (!blocked).option(
                 frag(
-                  a(
-                    dataIcon := Icon.BubbleSpeech,
-                    cls := "btn-rack__btn",
-                    title := trans.site.chat.txt(),
-                    href := routes.Msg.convo(u.username)
-                  ),
+                  if canMessage then
+                    a(
+                      dataIcon := Icon.BubbleSpeech,
+                      cls := "btn-rack__btn",
+                      title := trans.site.chat.txt(),
+                      href := routes.Msg.convo(u.username)
+                    )
+                  else
+                    span(
+                      dataIcon := Icon.BubbleSpeech,
+                      cls := "btn-rack__btn",
+                      title := s"${u.username} doesn't accept new messages.",
+                      attr("disabled") := "disabled",
+                      aria.disabled := "true"
+                    )
+                  ,
                   a(
                     dataIcon := Icon.Swords,
                     cls := "btn-rack__btn",
