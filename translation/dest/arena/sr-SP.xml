@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arena">Арена</string>
-  <string name="arenaTournaments">Турнири у арени</string>
+  <string name="arenaTournaments">Арена турнири</string>
   <string name="isItRated">Да ли је рангиран?</string>
   <string name="willBeNotified">Бићеш обавештен/а када турнир почне, тако да је сигурно играти у другом прозору док чекаш.</string>
   <string name="isRated">Овај турнир је рангиран и утицаће на твој рејтинг.</string>
