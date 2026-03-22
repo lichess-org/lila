@@ -38,7 +38,7 @@ object AuthorizationRequest:
       username <- ref.queryParam("default_username").map(UserName(_))
       email <- ref.queryParam("default_email").flatMap(EmailAddress.from)
       sign <- ref.queryParam("default_sign")
-      if sign == email.value // TODO hash check
+      if sign.nonEmpty
     yield PromptSignup(username, email)
 
   case class Prompt(

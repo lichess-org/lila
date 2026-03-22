@@ -602,6 +602,9 @@
   <string name="invalidUsernameOrPassword">Nom d\'usuari o contrasenya incorrectes</string>
   <string name="incorrectPassword">Contrasenya incorrecta</string>
   <string name="invalidAuthenticationCode">Codi d\'autenticació invàlid</string>
+  <string name="clearField">Neteja el camp</string>
+  <string name="orSeparator">O</string>
+  <string name="logInByEmail">Identificat amb el correu electrònic</string>
   <string name="emailMeALink">Envieu-me un enllaç per correu electrònic</string>
   <string name="currentPassword">Contrasenya actual</string>
   <string name="newPassword">Nova contrasenya</string>

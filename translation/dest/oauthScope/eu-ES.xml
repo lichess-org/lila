@@ -10,7 +10,7 @@
   <string name="copyTokenNow">Kopiatu zure sarbide-token pertsonala orain. Ezingo duzu berriz ikusi!</string>
   <string name="preferenceRead">Aukerak irakurri</string>
   <string name="preferenceWrite">Aukerak idatzi</string>
-  <string name="emailRead">Eposta helbidea irakurri</string>
+  <string name="emailRead">Irakurri emaila</string>
   <string name="challengeRead">Datozen erronkak irakurri</string>
   <string name="challengeWrite">Erronkak bidali, onartu eta ukatu</string>
   <string name="challengeBulk">Beste jokalari batzuentzat hainbat partida aldi berean sortu</string>

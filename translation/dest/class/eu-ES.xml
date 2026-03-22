@@ -43,7 +43,7 @@ Pasahitza: %3$s</string>
   <string name="inviteDesc4">Sekula ez bidali eskatu gabeko gonbidapenak edozein jokalariri.</string>
   <string name="createANewLichessAccount">Lichess kontu berri bat sortu</string>
   <string name="createDesc1">Ikasleak ez badu Lichess kontu bat, hemendik sortu diezaiokezu.</string>
-  <string name="createDesc2">Ez dugu eposta helbiderik behar. Pasahitz bat sortuko da eta ikasleari eman beharko dozu.</string>
+  <string name="createDesc2">Ez dugu emailik behar. Pasahitz bat sortuko da eta ikasleari eman beharko dozu.</string>
   <string name="createDesc3">Garrantzitsua: ikasle batek ezin du kontu bat baino gehiago eduki.</string>
   <string name="createDesc4">Jada bat badu, erabili gonbidatzeko formularioa horretarako.</string>
   <string name="createStudentWarning">Benetako ikasleentzat bakarrik sortu kontuak. Ez erabili hau zuretzat kontu bat baino gehiago sortzeko. Webgunera sartzea debekatu egingo dizugu.</string>
@@ -68,7 +68,7 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="releaseTheAccount">Kontua askatu ikasleak era autonomoan kudeatu dezan.</string>
   <string name="releaseDesc1">Askatutako kontua ezin da kudeatutako kontu bihurtu berriz. Ikasleak haur-modua aktibatu dezake eta pasahitza euren kabuz berrezarri dezakete.</string>
   <string name="releaseDesc2">Ikasleak klasean jarraituko du kontua askatu ostean.</string>
-  <string name="realUniqueEmail">Ikaslearen benetako eposta helbidea. Kontua askatzeko konfirmazio mezua bidaliko diogu.</string>
+  <string name="realUniqueEmail">Ikaslearen benetako emaila. Kontua askatzeko konfirmazio mezua bidaliko diogu.</string>
   <string name="closeStudent">Kontua itxi</string>
   <string name="closeTheAccount">Ikasle-kontua betiko itxi.</string>
   <string name="closeDesc1">Ikasleak ezingo du kontu hau berriz erabili. Ixtea betiko izango da. Ziurtatu ikasleak ulertu duela eta ados dagoela.</string>

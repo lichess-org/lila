@@ -13,9 +13,9 @@ if \git --no-pager diff-index -z --name-only --no-renames --cached HEAD |
 
   # pnpm or npx adds .25s overhead. exec further reduces overhead.
   if [ -x "$NODE_BIN" ]; then
-    exec "$NODE_BIN" --config "$ROOT_DIR/ui/lint-staged.config.mjs"
+    exec "$NODE_BIN"
   elif [ -x "$SYS_BIN" ]; then
-    exec "$SYS_BIN" --config "$ROOT_DIR/ui/lint-staged.config.mjs"
+    exec "$SYS_BIN"
   else
     exec pnpm lint-staged
   fi

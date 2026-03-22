@@ -604,6 +604,9 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="invalidUsernameOrPassword">Emër përdorues ose fjalëkalim i pavlefshëm</string>
   <string name="incorrectPassword">Fjalëkalim i pasaktë</string>
   <string name="invalidAuthenticationCode">Kod i pavlefshëm mirëfilltësimi</string>
+  <string name="clearField">Spatroje fushën</string>
+  <string name="orSeparator">Ose</string>
+  <string name="logInByEmail">Hyni me email</string>
   <string name="emailMeALink">Dërgomëni lidhjen me email</string>
   <string name="currentPassword">Fjalëkalimi i tanishëm</string>
   <string name="newPassword">Fjalëkalimi i ri</string>

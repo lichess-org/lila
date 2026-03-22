@@ -604,6 +604,9 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="invalidUsernameOrPassword">Ungültige Benutzername oder Passwort</string>
   <string name="incorrectPassword">Falschs Passwort</string>
   <string name="invalidAuthenticationCode">Ungültige Authentifizierigscode</string>
+  <string name="clearField">Fäld rume</string>
+  <string name="orSeparator">Oder</string>
+  <string name="logInByEmail">Mit E-Mail ilogge</string>
   <string name="emailMeALink">Schick mer per E-Mail en Link</string>
   <string name="currentPassword">Aktuells Passwort</string>
   <string name="newPassword">Neus Passwort</string>
