@@ -403,5 +403,4 @@ final class MsgApi(
       for
         hasMsgs <- threadMsgsFor(MsgThread.id(me, dest), me, none).map(_.nonEmpty)
         canPost <- security.may.post(me, dest, !hasMsgs)
-      yield
-        canPost
+      yield canPost
