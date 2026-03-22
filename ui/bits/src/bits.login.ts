@@ -113,7 +113,7 @@ function signupStart() {
   });
 
   $form.find('.password-generator button').on('click', () => {
-    $password.val(randomPassword()).trigger('input');
+    site.asset.loadEsm('bits.passwordGenerator', { init: 'form3-password' });
     return false;
   });
   const showPasswordTools = () => {
@@ -124,15 +124,6 @@ function signupStart() {
   showPasswordTools();
 
   site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
-}
-
-function randomPassword() {
-  const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,;@#!?*/-_=()[]';
-  const length = 20;
-  const password = Array.from(globalThis.crypto.getRandomValues(new Uint32Array(length))).map(
-    n => chars[n % chars.length],
-  );
-  return password.join('');
 }
 
 function initTextClear(form: HTMLFormElement) {
