@@ -318,7 +318,7 @@
     overflow: visible;
 
     .top {
-      @extend %metal, %box-radius-top;
+      @extend %metal-bg, %box-radius-top;
 
       padding: 1rem $block-gap;
       font-weight: bold;
