@@ -201,7 +201,7 @@ final class UblogApi(
     )
 
   def triggerAutomod(post: UblogPost): Fu[Option[UblogAutomod.Assessment]] =
-    val retries = 5 // 30s, 1m, 2m, 4m, 8m
+    val retries = 1 // 30s, 1m, 2m, 4m, 8m
     def attempt(n: Int): Fu[Option[UblogAutomod.Assessment]] =
       ublogAutomod(post, n * 0.1)
         .flatMapz: llm =>

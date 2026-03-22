@@ -566,6 +566,9 @@
   <string name="invalidUsernameOrPassword">無効なユーザー名 または パスワード</string>
   <string name="incorrectPassword">パスワードが違います</string>
   <string name="invalidAuthenticationCode">無効な認証コード</string>
+  <string name="clearField">項目をクリア</string>
+  <string name="orSeparator">または</string>
+  <string name="logInByEmail">メールアドレスでログイン</string>
   <string name="emailMeALink">リンクをメールで送る</string>
   <string name="currentPassword">現在のパスワード</string>
   <string name="newPassword">新しいパスワード</string>

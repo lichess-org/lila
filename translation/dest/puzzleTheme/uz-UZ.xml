@@ -146,7 +146,7 @@
   <string name="zugzwang">Sugsvang</string>
   <string name="zugzwangDescription">Raqib yurish qilishga majbur boʻlgan, ammo har qanday yurish uning pozitsiyasini yomonlashtiradigan holat.</string>
   <string name="mix">Bir undan bir bundan</string>
-  <string name="mixDescription">Har turdan bir shingil. Oldinda nima kutayotganini bilmaysiz, shuning uchun har qanday holatga tayyor turasiz. Xuddi real oʻyindagi kabi!</string>
+  <string name="mixDescription">Har turdan bir shingil. Oldinda nima kutayotganini bilmaysiz, shuning uchun har qanday holatga tayyor turasiz! Haqiqiy oʻyindagi kabi!</string>
   <string name="playerGames">Oʻyinchilardan</string>
   <string name="playerGamesDescription">Oʻzingizning yoki boshqa oʻyinchilarning oʻyinlaridan olingan masalalarni topish.</string>
   <string name="puzzleDownloadInformation">Ushbu masalalar jamoat mulki hisoblanadi va ularni %s manzilidan yuklab olish mumkin.</string>

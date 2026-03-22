@@ -5,10 +5,10 @@
   <string name="whatCanWeHelpYouWith">Zertan lagun zaitzakegu?</string>
   <string name="visitThisPage">Ikusi orrialde hau zure arazoa konpontzeko</string>
   <string name="iCantLogIn">Ezin naiz sartu</string>
-  <string name="noConfirmationEmail">Ez dut nire baieztapen eposta jaso</string>
+  <string name="noConfirmationEmail">Ez dut nire baieztapen emailik jaso</string>
   <string name="forgotPassword">Pasahitza ahaztu dut</string>
   <string name="forgotUsername">Erabiltzaile-izena ahaztu dut</string>
-  <string name="youCanLoginWithEmail">Izena eman zenuenean esan zenigun eposta helbidearekin sar zaitezke</string>
+  <string name="youCanLoginWithEmail">Izena eman zenuenean esan zenigun emailarekin sar zaitezke</string>
   <string name="lost2FA">Nire bi faktoreko autentikazio kodeak galdu ditut</string>
   <string name="doPasswordReset">Berrezarri pasahitza bi faktoreko autentikazioa desgaitzeko</string>
   <string name="accountSupport">Kontuaren inguruko laguntza behar dut</string>
@@ -16,10 +16,10 @@
   <string name="visitTitleConfirmation">Zure titulua Lichessen agertzeko eta Titled Arena txapelketetan parte hartzeko, joan tituluaren baieztapenaren orrialdera</string>
   <string name="wantCloseAccount">Nire kontua itxi egin nahi dut</string>
   <string name="closeYourAccount">Zure kontua orrialde honetan itxi dezakezu</string>
-  <string name="doNotAskByEmail">Ez iezaguzu epostaz eskatu zure kontua ixteko, ez dugu egingo.</string>
+  <string name="doNotAskByEmail">Ez iezaguzu zure kontua ixteko emailez eskatu, ez dugu egingo.</string>
   <string name="wantReopen">Nire kontua berriz ireki nahi dut</string>
   <string name="reopenOnThisPage">Zure kontua orrialde honetan ireki dezakezu berriro. Behin bakarrik egin dezakezu.</string>
-  <string name="doNotAskByEmailToReopen">Ez iezaguzu epostaz eskatu zure kontua berriz irekitzeko, ez dugu egingo.</string>
+  <string name="doNotAskByEmailToReopen">Ez iezaguzu zure kontua berriz irekitzeko emailez eskatu, ez dugu egingo.</string>
   <string name="wantChangeUsername">Nire erabiltzaile-izena aldatu nahi dut</string>
   <string name="changeUsernameCase">Joan orrialde honetara zure erabiltzaile-izena aldatzeko</string>
   <string name="cantChangeMore">Ezin dugu zure erabiltzaile-izena berriz aldatu. Arrazoi teknikoak direla-eta ezin dugu egin.</string>
@@ -30,7 +30,7 @@
   <string name="toReportAPlayerUseForm">Jokalari bati buruzko kexa egiteko, erabili kexa formularioa</string>
   <string name="youCanAlsoReachReportPage">Orrialde horretara jokalariaren profilaren orrialdeko %s berri emateko botoian sakatuta hel zaitezke.</string>
   <string name="doNotReportInForum">Ez erabili foroa jokalarien inguruko kexa bidaltzeko.</string>
-  <string name="doNotSendReportEmails">Ez bidali epostaz kexak.</string>
+  <string name="doNotSendReportEmails">Ez bidali emailez kexarik.</string>
   <string name="doNotMessageModerators">Ez bidali mezu zuzenak moderatzaileei.</string>
   <string name="onlyReports">Formularioa erabiliz bakarrik egingo dizugu kasu.</string>
   <string name="wantReportBug">Errore baten berri eman nahi dut</string>
@@ -72,6 +72,6 @@
   <string name="videosAndBooks">Zure bideoetan erabili dezakezu eta pantaila-irudiak liburuetan ere argitaratu ditzakezu.</string>
   <string name="creditAppreciated">Erabili gaituzula esatea ondo dago baina ez da beharrezkoa.</string>
   <string name="noneOfTheAbove">Aurreko bat ere ez</string>
-  <string name="sendEmailAt">Bidali eposta mezu bat hona %s.</string>
+  <string name="sendEmailAt">Bidali email bat hona %s.</string>
   <string name="explainYourRequest">Azaldu zure eskaera ahalik eta argien. Esan zein den zure erabiltzaile-izena eta laguntzeko beste edozein informazio.</string>
 </resources>

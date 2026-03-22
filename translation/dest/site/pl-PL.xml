@@ -674,6 +674,9 @@
   <string name="invalidUsernameOrPassword">Niepoprawne nazwa użytkownika lub hasło</string>
   <string name="incorrectPassword">Nieprawidłowe hasło</string>
   <string name="invalidAuthenticationCode">Nieprawidłowy kod uwierzytelniający</string>
+  <string name="clearField">Wyczyść pole</string>
+  <string name="orSeparator">lub</string>
+  <string name="logInByEmail">Zaloguj się przez e-mail</string>
   <string name="emailMeALink">Wyślij mi link</string>
   <string name="currentPassword">Aktualne hasło</string>
   <string name="newPassword">Nowe hasło</string>
