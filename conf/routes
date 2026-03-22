@@ -740,6 +740,7 @@ GET   /api/user/:user/current-game     controllers.User.tvExport(user: UserStr)
 GET   /api/user/:user/perf/:perfKey    controllers.Api.perfStat(user: UserStr, perfKey: PerfKey)
 GET   /api/user/:user/mod-log          controllers.Mod.apiUserLog(user: UserStr)
 GET   /api/game/:id                    controllers.Api.game(id: GameId)
+GET   /api/game/:id/chat               controllers.Api.gameChat(id: GameId)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/$id<\w{8}>            controllers.Tournament.apiShow(id: TourId)
 GET   /api/tournament/$id<\w{8}>/games      controllers.Api.tournamentGames(id: TourId)
