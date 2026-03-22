@@ -57,12 +57,12 @@ final private class ChapterMaker(
     )
 
   private def getChapterNameFromPgn(data: Data, parsed: StudyPgnImport.Result): StudyChapterName =
-    def fromPgnTags = (
-      for
-        white <- parsed.tags(_.White)
-        black <- parsed.tags(_.Black)
-      yield s"$white - $black"
-    ).orElse(parsed.tags("Event"))
+    def fromPgnTags =
+      (parsed.tags(_.White), parsed.tags(_.Black)) match
+        case (Some(white), Some(black)) => Some(s"$white - $black")
+        case (Some(white), None) => Some(white)
+        case (None, Some(black)) => Some(black)
+        case (None, None) => parsed.tags("Event")
     data.name.some
       .ifFalse(data.isDefaultName)
       .orElse(parsed.chapterNameHint)
