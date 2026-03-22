@@ -48,12 +48,12 @@ export function view(ctrl: ServerEval): VNode {
 
   if (!ctrl.root.showFishnetAnalysis()) return disabled();
   if (!analysis) return ctrl.requested ? requested() : requestButton(ctrl);
-  const mainline = ctrl.requested ? ctrl.root.data.treeParts : ctrl.analysedMainline();
+  const mainline = () => ctrl.root.study?.data.chapter?.serverEval?.done ? ctrl.analysedMainline() : ctrl.root.data.treeParts;
   const chart = h('canvas.study__server-eval.ready.' + analysis.id, {
     hook: onInsert(el => {
       requestIdleCallback(async () => {
         (await site.asset.loadEsm<ChartGame>('chart.game'))
-          .acpl(el as HTMLCanvasElement, ctrl.root.data, mainline)
+          .acpl(el as HTMLCanvasElement, ctrl.root.data, mainline())
           .then(chart => (ctrl.chart = chart));
       }, 800);
     }),
