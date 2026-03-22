@@ -217,7 +217,8 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                     action := routes.Mod.reopenAccount(u.username),
                     title := "Re-activates this account.",
                     cls := "xhr"
-                  )(submitButton(cls := "btn-rack__btn active")("Closed")),
+                  )(submitButton(cls := "btn-rack__btn active")("Closed"))
+                ,
                 Granter.opt(_.GdprErase).option(gdprEraseForm(u))
               )
           )
