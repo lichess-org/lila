@@ -61,11 +61,10 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
       .intersperse("\n")
       .map(ByteString.apply)
       .runWith(FileIO.toPath(file.toPath))
-      .map { _ =>
+      .map: _ =>
         val res = f(file)
         file.delete()
         res
-      }
 
 private object PairingSystem:
   case class BBPairingException(message: String, swiss: Swiss) extends lila.core.lilaism.LilaException
