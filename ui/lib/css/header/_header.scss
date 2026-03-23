@@ -78,13 +78,11 @@ body.zen {
 
   &::after {
     @extend %data-icon;
+    @include margin-direction(0, 0, 0.08ch, 0.3ch);
 
     content: $licon-Wings;
     font-size: 1.3em;
     color: $c-brag;
-
-    @include margin-direction(0, 0, 0.08ch, 0.3ch);
-
     transform: scaleX(-1);
 
     @include if-rtl {
@@ -129,7 +127,7 @@ body.zen {
       outline-offset: -2px;
     }
 
-    @media (max-width: at-most($xx-small)) {
+    @media (width <= $xx-small) {
       display: none;
     }
   }
