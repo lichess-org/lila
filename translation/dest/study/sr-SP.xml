@@ -65,7 +65,7 @@
   <string name="youCanPasteThisInTheForumToEmbed">Ово можеш налепити на форуму или твом Lichess блогу да уградиш</string>
   <string name="startAtInitialPosition">Започни на почетној позицији</string>
   <string name="startAtX">Започни на %s</string>
-  <string name="embedInYourWebsite">Угради у свој сајт или блог</string>
+  <string name="embedInYourWebsite">Угради у свој вебсајт</string>
   <string name="readMoreAboutEmbedding">Прочитај више о уграђивању</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Само јавне студије могу бити уграђене!</string>
   <string name="open">Отвори</string>
