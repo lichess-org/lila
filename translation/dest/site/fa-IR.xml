@@ -134,6 +134,9 @@
   <string name="multipleLines">شاخه های متعدد</string>
   <string name="multipleLinesDescription">تعداد خطوط ارزیابی را تعیین کن و فلش‌ها را روی تخته جابه‌جا کن</string>
   <string name="searchTime">زمان جستجو</string>
+  <string name="searchTimeDescription">زمان ارزیابی موقعیت‌های تازه را تنظیم کن</string>
+  <string name="threads">رشته‌های CPU</string>
+  <string name="threadsDescription">این را زیر تعداد رشته‌های CPU خود تنظیم کنید، تیک‌ها انتخابی خوب و ایمن را نشان می‌دهند.</string>
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
   <string name="infiniteAnalysis">تحلیل بی‌کران</string>
