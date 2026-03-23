@@ -54,3 +54,4 @@ class EmailTest extends munit.FunSuite:
     assertEquals(EmailAddress.from("underscore.in@domain_name.com"), None)
     assertEquals(EmailAddress.from("consecutive..dots@example.com"), None)
     assertEquals(EmailAddress.from("invalid<character@example.com"), None)
+    assertEquals(EmailAddress.from("asterisk*user@example.com"), None)
