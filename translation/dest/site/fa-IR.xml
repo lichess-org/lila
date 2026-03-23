@@ -132,6 +132,8 @@
   <string name="pinnedPieces">مهره‌های آچمز</string>
   <string name="checkableKing">شاهِ کیش‌پذیر</string>
   <string name="multipleLines">شاخه های متعدد</string>
+  <string name="multipleLinesDescription">تعداد خطوط ارزیابی را تعیین کن و فلش‌ها را روی تخته جابه‌جا کن</string>
+  <string name="searchTime">زمان جستجو</string>
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
   <string name="infiniteAnalysis">تحلیل بی‌کران</string>
