@@ -246,7 +246,12 @@ function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
     hl('h2', i18n.site.board),
     hl(
       'div.board',
-      { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
+      {
+        hook: {
+          insert: el => boardEventsHook(ctx, el.elm as HTMLElement),
+          update: (_, vnode) => boardEventsHook(ctx, vnode.elm as HTMLElement),
+        },
+      },
       nv.renderBoard(
         ctrl.chessground.state.pieces,
         ctrl.data.game.variant.key === 'racingKings'
@@ -279,17 +284,24 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
   const { ctrl, prefixStyle, pieceStyle, moveStyle, deviceType } = ctx;
 
   const $board = $(el);
-  const $buttons = $board.find('button');
-  $buttons.on('blur', nv.leaveSquareHandler($buttons));
-  $buttons.on(
-    'click',
+  // Remove old handlers before rebinding (important on re-render)
+  $board.off('.nvui');
+  // NVUI re-renders the board, recreating <button> elements.
+  // Avoid binding events directly to buttons, as references
+  // become stale. Use delegation on $board instead.
+  $board.on('blur.nvui', 'button', e => {
+    nv.leaveSquareHandler($board.find('button'))(e);
+  });
+
+  $board.on('click.nvui', 'button', e => {
     nv.selectionHandler(
       () => ctrl.data.opponent.color,
       deviceType.get() === 'touchscreen',
       ctrl.data.game.variant.key === 'antichess',
-    ),
-  );
-  $buttons.on('keydown', (e: KeyboardEvent) => {
+    )(e);
+  });
+
+  $board.on('keydown.nvui', 'button', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
     else if (e.key.match(/^x$/i))
       scanDirectionsHandler(
