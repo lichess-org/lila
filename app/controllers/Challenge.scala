@@ -135,8 +135,9 @@ final class Challenge(env: Env) extends LilaController(env):
                 .useMe(c.challengerUserId.so(env.bot.limit.acceptLimitError))
                 .map(eitherBotLimitResponse)
                 .getOrElse:
+                  val sri = lila.security.Mobile.LichessMobileUa.sriFromUA
                   allow:
-                    api.accept(c, none, color).inject(jsonOkResult)
+                    api.accept(c, sri.map(_.value), color).inject(jsonOkResult)
                   .rescue: err =>
                     fuccess(BadRequest(jsonError(err)))
     }

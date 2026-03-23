@@ -120,7 +120,7 @@ final class ChallengeApi(
 
   def accept(
       c: Challenge,
-      sid: Option[String],
+      anonSecret: Option[String],
       requestedColor: Option[Color] = None
   )(using me: Option[Me]): FuRaise[String, Option[Pov]] =
     acceptQueue:
@@ -144,7 +144,7 @@ final class ChallengeApi(
         then
           for
             me <- withPerf
-            _ <- repo.setChallenger(c.setChallenger(me, sid), color)
+            _ <- repo.setChallenger(c.setChallenger(me, anonSecret), color)
           yield none
         else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice)
         then "This color has already been chosen".raise
