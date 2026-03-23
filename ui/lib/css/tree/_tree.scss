@@ -62,8 +62,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   &.active {
     color: white;
-    background: $c-primary;
-    background: color-mix(in srgb, var(--c-base) 85%, transparent);
+    background: $m-primary--alpha-85;
 
     shapes,
     eval,
@@ -101,12 +100,12 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
   &.pending-deletion {
     border-radius: unset;
-    background: color-mix(in srgb, $c-bad 30%, transparent) !important;
+    background: $m-bad--alpha-30 !important;
   }
 
   &.pending-copy {
     border-radius: unset;
-    background: color-mix(in srgb, $c-good 30%, transparent) !important;
+    background: $m-good--alpha-30 !important;
   }
 }
 
@@ -433,7 +432,7 @@ $disclosure-btn-size: calc(15px + var(---button-size-pointer-adjust, 0px));
 
 @media (hover: hover) {
   .tview2 move:not(.active):hover {
-    background: color-mix(in srgb, var(--c-base) 15%, transparent);
+    background: $c-bg-zebra2;
     color: $c-font-clear;
 
     eval,
