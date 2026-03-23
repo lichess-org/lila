@@ -9,7 +9,7 @@
   <string name="threeCheck">Trois-échecs</string>
   <string name="threeCheckTitle">Mettez votre adversaire en échec trois fois pour gagner la partie.</string>
   <string name="antichess">Antiéchecs</string>
-  <string name="antichessTitle">Si vous perdez toutes vos pièces (ou êtes en pat), vous gagner la partie.</string>
+  <string name="antichessTitle">Si vous perdez toutes vos pièces (ou êtes en pat), vous gagnez la partie.</string>
   <string name="atomic">Atomique</string>
   <string name="atomicTitle">Faites exploser le roi adverse pour gagner la partie.</string>
   <string name="horde">Horde</string>
