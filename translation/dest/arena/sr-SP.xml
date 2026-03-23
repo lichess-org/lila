@@ -43,7 +43,7 @@
   <string name="shareUrl">Подели овај линк како би допустито/ла људима да се придруже: %s</string>
   <string name="variant">Варијанта</string>
   <string name="minimumGameLength">Минимална дужина партије</string>
-  <string name="history">Прошле арене</string>
+  <string name="history">Историја Арена</string>
   <string name="newTeamBattle">Нова Борба Тимова</string>
   <string name="pointsSum">Збир бодова</string>
   <string name="tournamentWinners">Победници турнира</string>
