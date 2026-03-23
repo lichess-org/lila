@@ -249,6 +249,9 @@
 
   .btn-rack {
     margin: 0 auto;
+    .lit {
+      @extend %active;
+    }
   }
 
   .carousel-fields {
