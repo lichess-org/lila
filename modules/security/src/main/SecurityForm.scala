@@ -10,7 +10,7 @@ import lila.common.{ Form as LilaForm, LameName }
 import lila.core.security.{ HcaptchaForm, ClearPassword }
 import lila.user.TotpSecret.{ base32, verify }
 import lila.user.{ TotpSecret, TotpToken }
-import lila.core.net.ValidReferrer
+import lila.oauth.OAuthSignedClient.SimpleSignup
 
 final class SecurityForm(
     userRepo: lila.user.UserRepo,
@@ -93,9 +93,9 @@ final class SecurityForm(
       "policy" -> agreementBool
     )(AgreementData.apply)(unapply)
 
-    def website(using RequestHeader)(using ref: Option[ValidReferrer]) =
+    def website(simpleSignup: Option[SimpleSignup])(using RequestHeader) =
       val base = hcaptcha.form(websitePreCaptcha)
-      ref.flatMap(lila.oauth.AuthorizationRequest.promptSignupFrom) match
+      simpleSignup match
         case None => base.map(SignupForm(_, simple = false))
         case Some(prefill) =>
           base.map: f =>

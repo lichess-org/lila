@@ -1,11 +1,11 @@
 package lila.oauth
 
 import play.api.Configuration
-
-import lila.oauth.Protocol.ClientId
-import lila.common.config.given
-import lila.core.net.{ Bearer, Origin }
 import com.roundeights.hasher.Algo
+
+import lila.oauth.Protocol.{ ClientId, RedirectUri }
+import lila.common.config.given
+import lila.core.net.{ Bearer, Origin, ValidReferrer }
 
 case class OAuthSignedClient(
     clientId: ClientId,
@@ -14,6 +14,8 @@ case class OAuthSignedClient(
     signers: List[Algo.HmacBuilder],
     displayName: String
 )
+object OAuthSignedClient:
+  case class SimpleSignup(username: UserName, email: EmailAddress)
 
 final class OAuthSignedClients(appConfig: Configuration):
 
@@ -37,10 +39,34 @@ final class OAuthSignedClients(appConfig: Configuration):
   )
 
   def forPrompt(prompt: AuthorizationRequest.Prompt): Option[OAuthSignedClient] =
+    forPrompt(prompt.clientId, prompt.redirectUri, prompt.scopes)
+
+  def forPrompt(
+      clientId: ClientId,
+      redirectUri: RedirectUri,
+      scopes: OAuthScopes
+  ): Option[OAuthSignedClient] =
     clients.find: c =>
-      prompt.clientId == c.clientId &&
-        c.origins.has(prompt.redirectUri.origin) &&
-        prompt.scopes.has(c.scope)
+      clientId == c.clientId &&
+        c.origins.has(redirectUri.origin) &&
+        scopes.has(c.scope)
+
+  def simpleSignupFrom(referrer: ValidReferrer): Option[OAuthSignedClient.SimpleSignup] =
+    import lila.common.url.{ parse, queryParam }
+    for
+      ref <- parse(referrer.value).toOption
+      username <- ref.queryParam("default_username").map(UserName(_))
+      email <- ref.queryParam("default_email").flatMap(EmailAddress.from)
+      sign <- ref.queryParam("default_sign")
+      clientId <- ref.queryParam("client_id").map(ClientId(_))
+      redirectUriStr <- ref.queryParam("redirect_uri")
+      redirectUri <- RedirectUri.from(redirectUriStr).toOption
+      scopes <- AuthorizationRequest.readScopes(~ref.queryParam("scope")).toOption
+      client <- forPrompt(clientId, redirectUri, scopes)
+      if client == polygon
+      if client.signers.exists: signer =>
+        signer.sha1(email.value).hash_=(sign)
+    yield OAuthSignedClient.SimpleSignup(username, email)
 
   private val clients = List(mobile, polygon)
 
