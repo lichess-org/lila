@@ -151,6 +151,13 @@ final class Setup(
             me <- ctx.me.so(env.user.api.withPerfs)
             blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
             sri = orUserSri(author)
+            _ = lila.mon.lobby.hook
+              .apiCreate:
+                if ctx.isMobileOauth then env.oAuth.signedClients.mobile.clientId.value
+                else if ctx.isPolygon then env.oAuth.signedClients.polygon.clientId.value
+                else if HTTPRequest.isLichobile(ctx.req) then "lichobile"
+                else "other"
+              .increment()
             forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
             res <- forcedColor.match
               case Some(forced) => fuccess(JsonBadRequest(s"You must also play some games as $forced"))
