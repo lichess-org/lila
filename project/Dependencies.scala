@@ -56,7 +56,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version = "11.10.2"
+    val version = "11.10.4"
     val org = "com.github.lichess-org.scalalib"
     // val org = "org.lichess" // for publishLocal
     val core = org %% "scalalib-core" % version
