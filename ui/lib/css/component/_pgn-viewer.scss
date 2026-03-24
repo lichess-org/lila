@@ -34,14 +34,14 @@
   --c-lpv-bg-brilliant-hover: #{$m-brilliant_bg--mix-30};
   --c-lpv-bg-interesting-hover: #{$m-interesting_bg--mix-30};
 
+  @include if-transp {
+    --c-lpv-bg-pane: #{$m-body-gradient--fade-15};
+  }
+
   @extend %box-neat-force;
 
   &__player__title {
     color: $c-brag;
-  }
-
-  @include if-transp {
-    --c-lpv-bg-pane: #{$m-body-gradient--fade-15};
   }
 
   &__pane {
