@@ -602,6 +602,9 @@
   <string name="invalidUsernameOrPassword">Virheellinen käyttäjätunnus tai salasana</string>
   <string name="incorrectPassword">Salasana ei kelpaa</string>
   <string name="invalidAuthenticationCode">Tunnistautumiskoodi ei kelpaa</string>
+  <string name="clearField">Tyhjennä kenttä</string>
+  <string name="orSeparator">Tai</string>
+  <string name="logInByEmail">Kirjaudu sisään sähköpostilla</string>
   <string name="emailMeALink">Lähetä minulle linkki</string>
   <string name="currentPassword">Nykyinen salasana</string>
   <string name="newPassword">Uusi salasana</string>
