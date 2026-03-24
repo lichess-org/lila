@@ -80,21 +80,7 @@
   .signin-or-signup {
     @extend %flex-center;
 
-    gap: 1em;
-
-    .signup {
-      background: none;
-      border: 2px solid $c-link;
-      color: $c-link;
-
-      &,
-      &:hover {
-        box-shadow: none;
-        text-shadow: none;
-      }
-
-      order: -1;
-    }
+    gap: 0.5em;
   }
 
   .link-center {

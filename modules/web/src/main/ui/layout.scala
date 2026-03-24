@@ -129,7 +129,9 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     val prefs = trans.preferences.preferences.txt()
     frag(
       div(cls := "signin-or-signup")(
-        a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
+        a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "button button-empty signin")(
+          trans.site.signIn()
+        ),
         a(href := routes.Auth.signup, cls := "button signup")(trans.site.signUp())
       ),
       div(cls := "dasher")(

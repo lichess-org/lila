@@ -77,7 +77,7 @@ final class AuthUi(helpers: Helpers):
             )
           ),
           div(cls := "or-separator")(span(trans.site.orSeparator())),
-          a(href := addReferrer(routes.Auth.magicLink.url), cls := "button magic-link")(
+          a(href := addReferrer(routes.Auth.magicLink.url), cls := "button button-empty magic-link")(
             trans.site.logInByEmail()
           )
         )
