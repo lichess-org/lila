@@ -41,10 +41,12 @@
   }
 
   @include if-transp {
-    --c-lpv-bg-pane: #{$c-bg-header-dropdown};
+    --c-lpv-bg-pane: #{$m-body-gradient--fade-15};
   }
 
-  &__menu {
-    backdrop-filter: blur(6px);
+  &__pane {
+    @include back-blur;
+
+    position: relative;
   }
 }
