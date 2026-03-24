@@ -227,7 +227,6 @@ object JsonView:
 
   def puzzleJsonStandalone(puzzle: Puzzle): JsObject =
     puzzleJsonBase(puzzle) ++ Json.obj(
-      "fen" -> puzzle.fenAfterInitialMove,
       "lastMove" -> puzzle.line.head.uci
     )
 
@@ -236,7 +235,8 @@ object JsonView:
     "rating" -> puzzle.glicko.intRating,
     "plays" -> puzzle.plays,
     "solution" -> puzzle.line.tail.map(_.uci),
-    "themes" -> simplifyThemes(puzzle.themes)
+    "themes" -> simplifyThemes(puzzle.themes),
+    "fen" -> puzzle.fenAfterInitialMove
   )
   private def simplifyThemes(themes: Set[PuzzleTheme.Key]) =
     themes.filterNot(_ == PuzzleTheme.mate.key)
