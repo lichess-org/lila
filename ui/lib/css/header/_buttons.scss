@@ -52,12 +52,10 @@
 
   .dropdown {
     @extend %dropdown-shadow;
+    @include inline-end(0);
 
     display: none;
     position: absolute;
-
-    @include inline-end(0);
-
     top: $site-header-height;
     background: $c-bg-header-dropdown;
     z-index: $z-dropdown-109;

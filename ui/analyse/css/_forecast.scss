@@ -18,7 +18,7 @@
   }
 
   .top {
-    @extend %metal;
+    @extend %metal-bg;
 
     border-bottom: $border;
     padding: 0.5em 0.7em;

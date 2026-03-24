@@ -302,6 +302,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       }
     }
 
+  def gameChat(gameId: GameId) = Anon:
+    Found(env.chat.api.userChat.findOption(ChatId(s"$gameId/w"))): chat =>
+      JsonOk(Json.obj("lines" -> env.chat.json.boardApi(chat)))
+
   def activity(name: UserStr) = ApiRequest:
     limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       lila.mon.api.activity.increment(1)

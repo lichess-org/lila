@@ -9,6 +9,8 @@
   <string name="gameOver">Partita terminata</string>
   <string name="waitingForOpponent">In attesa dell\'avversario</string>
   <string name="orLetYourOpponentScanQrCode">O fai scansionare questo codice QR al tuo avversario</string>
+  <string name="reusableChallengeUrl">URL per sfidare riutilizzabile</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Un link permanente che ognuno può utilizzare per sfidarti con queste impostazioni</string>
   <string name="waiting">In attesa</string>
   <string name="yourTurn">Tocca a te</string>
   <string name="aiNameLevelAiLevel">%1$s livello %2$s</string>
@@ -125,9 +127,20 @@
   <string name="bestMoveArrow">Freccia per la mossa migliore</string>
   <string name="showVariationArrows">Mostra le frecce delle varianti</string>
   <string name="evaluationGauge">Indicatore di valutazione del vantaggio</string>
+  <string name="visualMotifs">Motivi visivi</string>
+  <string name="undefendedPieces">Pezzi indifesi</string>
+  <string name="pinnedPieces">Pezzi inchiodati</string>
+  <string name="checkableKing">Re che si può mettere sotto scacco</string>
   <string name="multipleLines">Varianti multiple</string>
+  <string name="multipleLinesDescription">Numero impostato di linee di valutazione e frecce di movimento pezzi sulla scacchiera</string>
+  <string name="searchTime">Tempo di ricerca</string>
+  <string name="searchTimeDescription">Tempo impostato per valutare posizioni nuove</string>
+  <string name="threads">Discussioni</string>
+  <string name="threadsDescription">Impostare questo sotto il numero di thread della CPU, le spunte indicano una scelta sicura</string>
+  <string name="threadsDescriptionMobile">Più thread utilizzeranno più batteria per una analisi migliore</string>
   <string name="cpus">Processori</string>
   <string name="memory">Memoria</string>
+  <string name="memoryDescription">Valori maggiori possono aumentare le prestazioni</string>
   <string name="infiniteAnalysis">Analisi infinita</string>
   <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi, ma può surriscaldare il tuo computer</string>
   <string name="blunder">Errore grave</string>
@@ -204,6 +217,7 @@
   <string name="minutesPerSide">Minuti per giocatore</string>
   <string name="variant">Variante</string>
   <string name="variants">Varianti</string>
+  <string name="variantsDescription">Più modi di giocare</string>
   <string name="timeControl">Cadenza di gioco</string>
   <string name="realTime">Partite a tempo</string>
   <string name="correspondence">Corrispondenza</string>
@@ -230,6 +244,7 @@
   <string name="changeUsernameNotSame">Puoi cambiare solamente il maiuscolo/minuscolo delle lettere (per esempio da \"mariorossi\" a \"MarioRossi\").</string>
   <string name="changeUsernameDescription">Cambia il tuo nome utente. Questa operazione può essere effettuata una sola volta e consente di modificare solamente il maiuscolo/minuscolo del tuo nome utente.</string>
   <string name="signupUsernameHint">Assicurati di scegliere un nome utente appropriato. Non potrai cambiarlo successivamente e gli account con nomi inappropriati saranno cancellati!</string>
+  <string name="signupEmailPromise">Noi ti manderemo soltanto mail relative al tuo account e non condivideremo mai il vostro indirizzo e-mail.</string>
   <string name="password">Password</string>
   <string name="changePassword">Cambia password</string>
   <string name="changeEmail">Cambia email</string>
@@ -297,6 +312,7 @@
   <string name="standard">Standard</string>
   <string name="customPosition">Posizione personalizzata</string>
   <string name="unlimited">Illimitato</string>
+  <string name="unlimitedDescription">Prenditi tutto il tempo necessario</string>
   <string name="mode">Modalità</string>
   <string name="casual">Amichevole</string>
   <string name="rated">Classificata</string>
@@ -422,6 +438,8 @@
   <string name="leaderboard">Classifica</string>
   <string name="screenshotCurrentPosition">Salva la schermata corrente</string>
   <string name="gameAsGIF">Salva la partita come GIF</string>
+  <string name="playerNames">Nomi dei giocatori</string>
+  <string name="moveAnnotations">Annotazioni delle mosse</string>
   <string name="pasteTheFenStringHere">Incolla qui la stringa FEN</string>
   <string name="pasteThePgnStringHere">Incolla qui il testo PGN</string>
   <string name="orUploadPgnFile">O carica un file PGN</string>
@@ -585,6 +603,9 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="invalidUsernameOrPassword">Nome utente o password non validi</string>
   <string name="incorrectPassword">Password errata</string>
   <string name="invalidAuthenticationCode">Codice di autenticazione non valido</string>
+  <string name="clearField">Campo libero</string>
+  <string name="orSeparator">O</string>
+  <string name="logInByEmail">Effettua il log in con l\'indirizzo e-mail</string>
   <string name="emailMeALink">Inviami il link via email</string>
   <string name="currentPassword">Password attuale</string>
   <string name="newPassword">Nuova password</string>
@@ -717,6 +738,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="cyclePreviousOrNextVariation">Vai alla variante precedente/successiva</string>
   <string name="toggleGlyphAnnotations">Mostra i simboli delle annotazioni</string>
   <string name="togglePositionAnnotations">Mostra le annotazioni della posizione</string>
+  <string name="toggleObservationAnnotations">Attiva/Disattiva annotazioni di osservazione</string>
   <string name="variationArrowsInfo">Le frecce delle varianti ti permettono di esplorare le mosse senza usare la lista.</string>
   <string name="playSelectedMove">gioca la mossa selezionata</string>
   <string name="newTournament">Nuovo torneo</string>
@@ -802,6 +824,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="size">Grandezza</string>
   <string name="opacity">Opacità</string>
   <string name="brightness">Luminosità</string>
+  <string name="contrast">Contrasto</string>
   <string name="hue">Tonalità</string>
   <string name="boardReset">Ripristina i colori predefiniti</string>
   <string name="pieceSet">Set pezzi</string>
@@ -900,6 +923,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="agreementPolicy">Dichiaro di acconsentire a tutte le politiche di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inizia una nuova conversazione</string>
   <string name="edit">Modifica</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
@@ -1009,6 +1033,7 @@ Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivament
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Cerca</string>
   <string name="clearSearch">Cancella ricerca</string>
+  <string name="thereAreNoResultsForX">Nessun risultato per \"%s\"</string>
   <string name="tags">Tag</string>
   <string name="enPassant">Regole En passant</string>
 </resources>

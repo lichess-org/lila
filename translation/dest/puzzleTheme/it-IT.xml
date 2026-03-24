@@ -26,6 +26,8 @@
   <string name="castlingDescription">Porta il re al sicuro, e sviluppa la torre per attaccare.</string>
   <string name="capturingDefender">Cattura del difensore</string>
   <string name="capturingDefenderDescription">Rimozione di un pezzo essenziale per la difesa di un altro pezzo, che permette al pezzo ora indifeso di essere catturato con una mossa successiva.</string>
+  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Mossa collineare</string>
+  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Due pezzi avversari si trovano uno di fronte all\'altro</string>
   <string name="cornerMate">Matto nell\'angolo</string>
   <string name="cornerMateDescription">Restringi il re nell\'angolo usando una torre o una regina, e usa un cavallo per dare scacco matto.</string>
   <string name="crushing">Posizione schiacciante</string>
@@ -53,6 +55,8 @@
   <string name="endgame">Finale</string>
   <string name="endgameDescription">Una tattica durante l\'ultima fase della partita.</string>
   <string name="enPassantDescription">Una tattica che coinvolge la regola dell\'en passant, in cui un pedone può catturare un pedone avversario che l\'ha superato usando la propria mossa iniziale di due caselle.</string>
+  <string name="epauletteMate">Matto di controspallina</string>
+  <string name="epauletteMateDescription">Due case di fuga utilizzabili dal re sotto scacco adiacenti sono occupate da altri pezzi </string>
   <string name="exposedKing">Re esposto</string>
   <string name="exposedKingDescription">Una tattica che coinvolge un re con pochi difensori vicini, il che spesso porta al matto.</string>
   <string name="fork">Attacco doppio</string>
@@ -67,6 +71,12 @@
   <string name="intermezzoDescription">Esecuzione, prima della mossa più naturale, di un\'altra mossa che pone una minaccia più immediata, alla quale l\'avversario deve necessariamente reagire. Conosciuto anche come \"Zwischenzug\" o \"Mossa intermedia\".</string>
   <string name="killBoxMate">Matto della scatola assassina</string>
   <string name="killBoxMateDescription">Una Torre è vicina al Re nemico e supportata da una Regina che blocca i quadrati di fuga del Re. La Torre e la Regina catturano il Re nemico in una \"scatola assassina\" 3 x 3.</string>
+  <string name="pillsburysMate">Matto di Pillsbury</string>
+  <string name="pillsburysMateDescription">La torre dà lo scacco matto, mentre l\'alfiere aiuta a rinchiuderlo.</string>
+  <string name="morphysMate">Matto di Morphy</string>
+  <string name="morphysMateDescription">Usa l\'alfiere per dare scacco al re, mentre la torre aiuta a rinchiuderlo.</string>
+  <string name="swallowstailMate">Matto della coda di rondine</string>
+  <string name="swallowstailMateDescription">Uno scacco matto che assomiglia alla forma a V della coda di una rondine.</string>
   <string name="triangleMate">Matto triangolare</string>
   <string name="triangleMateDescription">La regina e la torre, a una casella di distanza dal re avversario, sono sulla stessa riga o colonna, separati da una casella, formando un triangolo.</string>
   <string name="vukovicMate">Scacco matto Vukovic</string>
@@ -97,6 +107,8 @@
   <string name="oneMoveDescription">Un problema lungo una sola mossa.</string>
   <string name="opening">Apertura</string>
   <string name="openingDescription">Una tattica durante la prima fase della partita.</string>
+  <string name="operaMate">Matto dell\'opera</string>
+  <string name="operaMateDescription">Dai scacco al re con la torre e usa un alfiere per difendere quella torre.</string>
   <string name="pawnEndgame">Finale di pedoni</string>
   <string name="pawnEndgameDescription">Un finale con soli pedoni.</string>
   <string name="pin">Inchiodatura</string>

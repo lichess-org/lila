@@ -18,7 +18,7 @@ final class SwissTrf(
     fetchPlayerIds(swiss).map { apply(swiss, _, sorted) }
 
   def apply(swiss: Swiss, playerIds: PlayerIds, sorted: Boolean): Source[String, ?] =
-    SwissPlayer.fields { f =>
+    SwissPlayer.fields: f =>
       tournamentLines(swiss)
         .concat(forbiddenPairings(swiss, playerIds))
         .concat:
@@ -26,7 +26,6 @@ final class SwissTrf(
             .source(swiss, sort = sorted.so($doc(f.rating -> -1)))
             .map((playerLine(swiss, playerIds)).tupled)
             .map(formatLine)
-    }
 
   private def tournamentLines(swiss: Swiss) =
     Source(
@@ -55,7 +54,7 @@ final class SwissTrf(
       52 -> p.rating.toString,
       84 -> f"${sheet.points.value}%1.1f"
     ) ::: {
-      swiss.allRounds.zip(sheet.outcomes).flatMap { case (rn, outcome) =>
+      swiss.allRounds.zip(sheet.outcomes).flatMap { (rn, outcome) =>
         val pairing = pairings.get(rn)
         List(
           95 -> pairing.map(_.opponentOf(p.userId)).flatMap(playerIds.get).so(_.toString),
@@ -73,7 +72,8 @@ final class SwissTrf(
               case ForfeitLoss => "-"
               case ForfeitWin => "+"
           }
-        ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
+        ).map: (l, s) =>
+          (l + (rn.value - 1) * 10, s)
       }
     } ::: {
       p.absent && swiss.round.value < swiss.settings.nbRounds
@@ -82,7 +82,7 @@ final class SwissTrf(
         95 -> "0000",
         97 -> "",
         99 -> "-"
-      ).map { case (l, s) => (l + swiss.round.value * 10, s) }
+      ).map { (l, s) => (l + swiss.round.value * 10, s) }
 
   private def formatLine(bits: Bits): String =
     bits.foldLeft("") { case (acc, (pos, txt)) =>

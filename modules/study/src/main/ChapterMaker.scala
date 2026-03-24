@@ -57,16 +57,18 @@ final private class ChapterMaker(
     )
 
   private def getChapterNameFromPgn(data: Data, parsed: StudyPgnImport.Result): StudyChapterName =
-    def vsFromPgnTags = for
-      white <- parsed.tags(_.White)
-      black <- parsed.tags(_.Black)
-    yield s"$white - $black"
+    def fromPgnTags =
+      (parsed.tags(_.White), parsed.tags(_.Black)) match
+        case (Some(white), Some(black)) => Some(s"$white - $black")
+        case (Some(white), None) => Some(white)
+        case (None, Some(black)) => Some(black)
+        case (None, None) => parsed.tags("Event")
     data.name.some
       .ifFalse(data.isDefaultName)
       .orElse(parsed.chapterNameHint)
       .orElse:
         StudyChapterName.from:
-          vsFromPgnTags.orElse(parsed.tags("Event")).map(_.trim).filter(_.nonEmpty)
+          fromPgnTags.map(_.trim).filter(_.nonEmpty)
       .getOrElse(data.name)
 
   private def resolveOrientation(data: Data, root: Root, userId: UserId, tags: Tags = Tags.empty): Color =
