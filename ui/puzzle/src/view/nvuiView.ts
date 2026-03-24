@@ -119,6 +119,20 @@ export function renderNvui({
                 ground,
                 el.elm as HTMLElement,
               ),
+            update: (_, vnode) =>
+              boardEventsHook(
+                {
+                  ctrl,
+                  notify,
+                  moveStyle,
+                  pieceStyle,
+                  prefixStyle,
+                  positionStyle,
+                  boardStyle,
+                },
+                ground,
+                vnode.elm as HTMLElement,
+              ),
           },
         },
 
@@ -171,16 +185,14 @@ export function renderNvui({
 function boardEventsHook(ctx: PuzzleNvuiContext, ground: Api, el: HTMLElement): void {
   const { ctrl, moveStyle, pieceStyle, prefixStyle, notify } = ctx;
   const $board = $(el);
-  const $buttons = $board.find('button');
+  // Remove old handlers before rebinding (important on re-render)
+  $board.off('.nvui');
   const steps = ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps.map(step => step.fen);
 
-  $buttons.on('blur', nv.leaveSquareHandler($buttons));
-  $buttons.on(
-    'click',
-    nv.selectionHandler(() => opposite(ctrl.pov)),
-  );
-  $buttons.on('keydown', (e: KeyboardEvent) => {
+  $board.on('blur', 'button', e => nv.leaveSquareHandler($board.find('button'))(e));
+  $board.on('click', 'button', e => nv.selectionHandler(() => opposite(ctrl.pov))(e));
+  $board.on('keydown', 'button', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
     else if (e.key.match(/^x$/i))
       scanDirectionsHandler(
