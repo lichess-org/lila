@@ -424,6 +424,7 @@
   <string name="leaderboard">Ranglista</string>
   <string name="screenshotCurrentPosition">Képernyőkép készítése a jelenlegi állásról</string>
   <string name="gameAsGIF">Játszma GIF-ként</string>
+  <string name="playerNames">Játékosok nevei</string>
   <string name="pasteTheFenStringHere">Másold ide a FEN szöveget</string>
   <string name="pasteThePgnStringHere">Másold ide a PGN szöveget</string>
   <string name="orUploadPgnFile">Vagy tölts fel egy PGN fájlt</string>
@@ -586,6 +587,7 @@
   <string name="invalidUsernameOrPassword">Érvénytelen felhasználónév vagy jelszó</string>
   <string name="incorrectPassword">Hibás jelszó</string>
   <string name="invalidAuthenticationCode">Érvénytelen hitelesítő kód</string>
+  <string name="logInByEmail">Bejelentkezés e-maillel</string>
   <string name="emailMeALink">Link küldése e-mailben</string>
   <string name="currentPassword">Jelenlegi jelszó</string>
   <string name="newPassword">Új jelszó</string>
