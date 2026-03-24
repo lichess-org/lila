@@ -7,7 +7,7 @@
   --c-lpv-bg-controls: var(--c-lpv-bg);
   --c-lpv-bg-movelist: var(--c-lpv-bg);
   --c-lpv-bg-variation: #{$c-bg-zebra2};
-  --c-lpv-bg-pane: #{$m-bg-zebra2--fade-1};
+  --c-lpv-bg-pane: #{$m-bg-zebra2--fade-5};
   --c-lpv-pgn-text: #{$c-bg-zebra2};
   --c-lpv-font: #{$c-font};
 
@@ -38,5 +38,13 @@
 
   &__player__title {
     color: $c-brag;
+  }
+
+  @include if-transp {
+    --c-lpv-bg-pane: #{$c-bg-header-dropdown};
+  }
+
+  &__menu {
+    backdrop-filter: blur(6px);
   }
 }
