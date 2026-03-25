@@ -833,7 +833,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (show === undefined) return displayColumns() > 1 || barMode === 'ceval' || barMode === 'practice';
     this.ceval.showEnginePrefs(false);
     this.showCevalProp(show);
-    if (show) this.cevalEnabled(true);
+    this.cevalEnabled(show);
     return show;
   };
 
