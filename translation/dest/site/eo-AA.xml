@@ -589,6 +589,7 @@
   <string name="invalidUsernameOrPassword">Malĝusta uzantnomo aŭ pasvorto</string>
   <string name="incorrectPassword">Malkorekta pasvorto</string>
   <string name="invalidAuthenticationCode">Nevalida aŭtentigada kodo</string>
+  <string name="logInByEmail">Komenci seancon per retpoŝto</string>
   <string name="emailMeALink">Retpoŝte sendu al mi ligilon</string>
   <string name="currentPassword">Nuna pasvorto</string>
   <string name="newPassword">Nova pasvorto</string>
@@ -807,6 +808,7 @@
   <string name="size">Amplekso</string>
   <string name="opacity">Opakeco</string>
   <string name="brightness">Lumeco</string>
+  <string name="contrast">Kontrasto</string>
   <string name="hue">Kolortono</string>
   <string name="boardReset">Restarigi kolorojn al la defaŭlta</string>
   <string name="pieceSet">Ŝakpecaro</string>
