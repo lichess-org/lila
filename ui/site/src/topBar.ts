@@ -191,7 +191,10 @@ export default function () {
         if (mouseInside === undefined) {
           const rect = $wrap[0]!.getBoundingClientRect();
           mouseInside =
-            e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+            e.clientX >= rect.left &&
+            e.clientX <= rect.right &&
+            e.clientY >= rect.top &&
+            e.clientY <= rect.bottom;
         }
       },
       { once: true },
