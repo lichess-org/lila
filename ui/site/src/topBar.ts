@@ -162,7 +162,9 @@ export default function () {
     if (!$wrap.length) return;
     const $input = $wrap.find('input');
     let booted = false;
+    let mouseInside: boolean | undefined;
     const boot = () => {
+      if (mouseInside === undefined) return;
       if (booted) return;
       booted = true;
       loadEsm('cli', { init: { input: $input[0] } }).catch(() => (booted = false));
@@ -183,11 +185,24 @@ export default function () {
         $('body').hasClass('clinput') ? $input[0]!.blur() : $input[0]!.focus();
       },
     });
+    document.addEventListener(
+      'mousemove',
+      (e: MouseEvent) => {
+        if (mouseInside === undefined) {
+          const rect = $wrap[0]!.getBoundingClientRect();
+          mouseInside =
+            e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+        }
+      },
+      { once: true },
+    );
     $wrap.on('mouseenter', () => {
-      if ($input[0] !== document.activeElement) $input[0]!.focus();
+      if (mouseInside === false && $input[0] !== document.activeElement) $input[0]!.focus();
+      mouseInside = true;
     });
     $wrap.on('mouseleave', () => {
       if (!$input.val()) $input[0]!.blur();
+      mouseInside = false;
     });
     site.mousetrap
       .bind('/', () => {
