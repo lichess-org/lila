@@ -74,22 +74,17 @@ final class Mailer(
       .monSuccess(_.email.send.time(client.toString))
         .recoverWith:
           case _: EmailException if msg.to.normalize.value != msg.to.value =>
-            lila.log("mailer").warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
+            logger.warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
             send(msg.copy(to = msg.to.normalize.into(EmailAddress)), orFail, retry, forceClient)
           case e: Exception =>
             retry.again match
               case None if orFail => throw e
               case None =>
-                lila
-                  .log("mailer")
-                  .warn(s"Couldn't send email via ${client.toString} to ${msg.to}: ${e.getMessage}")
+                logger.warn(s"Couldn't send email via ${client.toString} to ${msg.to}: ${e.getMessage}")
                 funit
               case Some(nextTry) =>
-                lila
-                  .log("mailer")
-                  .info(
-                    s"Will retry to send email via ${client.toString} to ${msg.to} after: ${e.getMessage}"
-                  )
+                logger.info:
+                  s"Will retry to send email via ${client.toString} to ${msg.to} after: ${e.getMessage}"
                 scheduler.scheduleOnce(nextTry.delay)(send(msg, orFail, nextTry, forceClient))
                 funit
         .void
