@@ -351,6 +351,9 @@ export default class StudyCtrl {
     const s = d.study;
     const prevPath = this.ctrl.path;
     const sameChapter = this.data.chapter.id === s.chapter.id;
+    const changeInChapterOrientation =
+      sameChapter &&  // changes on orientation are only relevant for the same chapter
+      this.data.chapter.setup.orientation !== s.chapter.setup.orientation;
     this.vm.mode.sticky =
       (this.vm.mode.sticky && s.features.sticky) || (!this.data.features.sticky && s.features.sticky);
     if (this.vm.mode.sticky) this.vm.behind = 0;
@@ -369,7 +372,11 @@ export default class StudyCtrl {
     document.title = this.relay?.fullRoundName() ?? this.data.name;
     this.members.dict(s.members);
     if (s.chapters) this.chapters.loadFromServer(s.chapters);
-    this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
+    this.ctrl.flipped = changeInChapterOrientation
+      ? false
+      : this.chapterFlipMapProp(this.data.chapter.id);
+    if (changeInChapterOrientation)
+      this.chapterFlipMapProp(this.data.chapter.id, false);
 
     const merge = !this.vm.mode.write && sameChapter;
     this.ctrl.reloadData(d.analysis, merge);
