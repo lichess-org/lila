@@ -25,15 +25,8 @@ const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export function renderNvui({
-  ctrl,
-  notify,
-  moveStyle,
-  pieceStyle,
-  prefixStyle,
-  positionStyle,
-  boardStyle,
-}: PuzzleNvuiContext): VNode {
+export function renderNvui(ctx: PuzzleNvuiContext): VNode {
+  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle } = ctx;
   notify.redraw = ctrl.redraw;
   const ground =
     ctrl.ground() ||
@@ -105,34 +98,8 @@ export function renderNvui({
         'div.board',
         {
           hook: {
-            insert: el =>
-              boardEventsHook(
-                {
-                  ctrl,
-                  notify,
-                  moveStyle,
-                  pieceStyle,
-                  prefixStyle,
-                  positionStyle,
-                  boardStyle,
-                },
-                ground,
-                el.elm as HTMLElement,
-              ),
-            update: (_, vnode) =>
-              boardEventsHook(
-                {
-                  ctrl,
-                  notify,
-                  moveStyle,
-                  pieceStyle,
-                  prefixStyle,
-                  positionStyle,
-                  boardStyle,
-                },
-                ground,
-                vnode.elm as HTMLElement,
-              ),
+            insert: el => boardEventsHook(ctx, ground, el.elm as HTMLElement),
+            update: (_, vnode) => boardEventsHook(ctx, ground, vnode.elm as HTMLElement),
           },
         },
 
