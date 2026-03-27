@@ -14,6 +14,10 @@
   <string name="attractionDescription">Csere vagy áldozat ami elmozdítja az ellenfél figuráját egy olyan mezőre ahol újabb taktika alkalmazható.</string>
   <string name="backRankMate">Alapsori matt</string>
   <string name="backRankMateDescription">Adj mattot az alapsoron ragadt királynak, mikor a saját figurái ejtik csapdába.</string>
+  <string name="balestraMate">Balestra-matt</string>
+  <string name="balestraMateDescription">Egy futó sakk-mattot add, miközben a vezér blokkolja a maradék menekülésre alkalmas mezőket</string>
+  <string name="blindSwineMate">Vakmalac-matt</string>
+  <string name="blindSwineMateDescription">Két bástya összefog mattot adni a királynak egy 2 x 2 mezős területen.</string>
   <string name="bishopEndgame">Futóvégjáték</string>
   <string name="bishopEndgameDescription">Végjáték csak futókkal és gyalogokkal.</string>
   <string name="bodenMate">Boden mattja</string>
