@@ -90,15 +90,6 @@ Allow: /game/export/gif/thumbnail/
       )
     })
 
-  val externalLinks = Map(
-    "mastodon" -> "https://mastodon.online/@lichess",
-    "github" -> "https://github.com/lichess-org",
-    "discord" -> "https://discord.gg/lichess",
-    "bluesky" -> "https://bsky.app/profile/lichess.org",
-    "youtube" -> "https://youtube.com/@LichessDotOrg",
-    "twitch" -> "https://www.twitch.tv/lichessdotorg"
-  )
-
   def legacyQaQuestion(id: Int) =
     val faq = routes.Main.faq.url
     id match
