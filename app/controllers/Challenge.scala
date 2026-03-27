@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.libs.json.Json
-import play.api.mvc.Result
+import play.api.mvc.{ RequestHeader, Result }
 
 import lila.app.{ *, given }
 import lila.challenge.{ Challenge as ChallengeModel, Direction }
@@ -82,8 +82,7 @@ final class Challenge(env: Env) extends LilaController(env):
   private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match
       case lila.challenge.Challenge.Challenger.Anonymous(secret) =>
-        ctx.req.sid.contains(secret) ||
-        lila.security.Mobile.LichessMobileUa.sriFromUA.exists(_.value == secret)
+        anonSecretFromCookieOrMobileSri.exists(_ == secret)
       case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.is(userId)
       case lila.challenge.Challenge.Challenger.Open => false
 
@@ -195,50 +194,51 @@ final class Challenge(env: Env) extends LilaController(env):
         then api.cancel(c).inject(NoContent)
         else notFound
 
-  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile): ctx ?=>
-    me ?=>
-      api
-        .activeByIdBy(id, me)
+  def apiCancel(id: ChallengeId) =
+    AnonOrScoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile): ctx ?=>
+      (ctx.user orElse anonSecretFromCookieOrMobileSri)
+        .so(api.activeByIdBy(id, _))
         .flatMap:
           case Some(c) => api.cancel(c).inject(jsonOkResult)
           case None =>
-            api
-              .activeByIdFor(id, me)
-              .flatMap:
-                case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
-                case None =>
-                  import lila.core.round.{ Tell, RoundBus }
-                  env.game.gameRepo
-                    .game(id.into(GameId))
-                    .dmap:
-                      _.flatMap { Pov(_, me) }
-                    .flatMapz: p =>
-                      env.round.proxyRepo.upgradeIfPresent(p).dmap(some)
-                    .flatMap:
-                      case Some(pov) if pov.game.abortableByUser =>
-                        lila.common.Bus.pub(Tell(pov.gameId, RoundBus.Abort(pov.playerId)))
-                        jsonOkResult
-                      case Some(pov) if pov.game.playable =>
-                        Bearer.from(get("opponentToken")) match
-                          case Some(bearer) =>
-                            val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
-                            allow:
-                              for
-                                access <- env.oAuth.server.auth(bearer, required, ctx.req.some)
-                                _ <- raiseIf(!pov.opponent.isUser(access.me)):
-                                  OAuthServer.AuthError("Not the opponent token")
-                              yield
+            ctx.me.soUse: me ?=>
+              api
+                .activeByIdFor(id, me)
+                .flatMap:
+                  case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
+                  case None =>
+                    import lila.core.round.{ Tell, RoundBus }
+                    env.game.gameRepo
+                      .game(id.into(GameId))
+                      .dmap:
+                        _.flatMap { Pov(_, me) }
+                      .flatMapz: p =>
+                        env.round.proxyRepo.upgradeIfPresent(p).dmap(some)
+                      .flatMap:
+                        case Some(pov) if pov.game.abortableByUser =>
+                          lila.common.Bus.pub(Tell(pov.gameId, RoundBus.Abort(pov.playerId)))
+                          jsonOkResult
+                        case Some(pov) if pov.game.playable =>
+                          Bearer.from(get("opponentToken")) match
+                            case Some(bearer) =>
+                              val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
+                              allow:
+                                for
+                                  access <- env.oAuth.server.auth(bearer, required, ctx.req.some)
+                                  _ <- raiseIf(!pov.opponent.isUser(access.me)):
+                                    OAuthServer.AuthError("Not the opponent token")
+                                yield
+                                  lila.common.Bus.pub(Tell(pov.gameId, RoundBus.AbortForce))
+                                  jsonOkResult
+                              .rescue: err =>
+                                BadRequest(jsonError(err.message))
+                            case None if api.isOpenBy(id, me) =>
+                              if pov.game.abortable then
                                 lila.common.Bus.pub(Tell(pov.gameId, RoundBus.AbortForce))
                                 jsonOkResult
-                            .rescue: err =>
-                              BadRequest(jsonError(err.message))
-                          case None if api.isOpenBy(id, me) =>
-                            if pov.game.abortable then
-                              lila.common.Bus.pub(Tell(pov.gameId, RoundBus.AbortForce))
-                              jsonOkResult
-                            else BadRequest(jsonError("The game can no longer be aborted"))
-                          case None => BadRequest(jsonError("Missing opponentToken"))
-                      case _ => notFoundJson()
+                              else BadRequest(jsonError("The game can no longer be aborted"))
+                            case None => BadRequest(jsonError("Missing opponentToken"))
+                        case _ => notFoundJson()
 
   def apiStartClocks(id: GameId) = Anon:
     Found(env.round.proxyRepo.game(id)): game =>
@@ -385,3 +385,6 @@ final class Challenge(env: Env) extends LilaController(env):
                     else BadRequest(jsonError("Sorry, couldn't create the rematch."))
         }
   }
+
+  private def anonSecretFromCookieOrMobileSri(using RequestHeader) =
+    req.sid orElse lila.security.Mobile.LichessMobileUa.sriFromUA.map(_.value)
