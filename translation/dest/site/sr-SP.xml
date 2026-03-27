@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Подешавања партије</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Изазови пријатеља</string>
+  <string name="playAgainstComputer">Играј против рачунара</string>
+  <string name="gameMode">Режим партије</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовеш некога да игра, проследи овaј линк</string>
   <string name="gameOver">Партија Завршена</string>
   <string name="waitingForOpponent">Чека се противник</string>
@@ -269,8 +273,8 @@
   </plurals>
   <string name="ok">У реду</string>
   <string name="cancel">Откажи</string>
-  <string name="whiteTimeOut">Време истекло белом</string>
-  <string name="blackTimeOut">Време истекло црном</string>
+  <string name="whiteTimeOut">Белом истекло време</string>
+  <string name="blackTimeOut">Црном истекло време</string>
   <string name="drawOfferSent">Понуда за реми послата</string>
   <string name="drawOfferAccepted">Понуда за реми прихваћена</string>
   <string name="whiteOffersDraw">Бели нуди реми</string>
@@ -344,7 +348,7 @@
     <item quantity="few">Дај %s секунде</item>
     <item quantity="other">Дај %s секунди</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Овај налог није поштовао Lichess услове коришћења</string>
+  <string name="thisAccountViolatedTos">Овај налог је прекршио Lichess Услове коришћења Услуге</string>
   <string name="openingExplorerAndTablebase">Претраживач отварања и база позиција у завршници</string>
   <string name="takeback">Враћање потеза</string>
   <string name="proposeATakeback">Предложи враћање потеза</string>

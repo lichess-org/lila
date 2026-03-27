@@ -674,6 +674,9 @@
   <string name="invalidUsernameOrPassword">Неверное имя пользователя или пароль</string>
   <string name="incorrectPassword">Неверный пароль</string>
   <string name="invalidAuthenticationCode">Неверный код аутентификации</string>
+  <string name="clearField">Очистить поле</string>
+  <string name="orSeparator">Или</string>
+  <string name="logInByEmail">Авторизация через электронную почту</string>
   <string name="emailMeALink">Прислать ссылку мне на почту</string>
   <string name="currentPassword">Текущий пароль</string>
   <string name="newPassword">Новый пароль</string>

@@ -4,13 +4,14 @@
   <string name="puzzleThemes">Теме проблема</string>
   <string name="recommended">Препоручене</string>
   <string name="phases">Фазе</string>
-  <string name="advanced">Напредно</string>
-  <string name="lengths">Дужина</string>
+  <string name="motifs">Мотиви</string>
+  <string name="advanced">Напредне</string>
+  <string name="lengths">Дужине</string>
   <string name="mates">Матови</string>
   <string name="goals">Циљеви</string>
   <string name="origin">Порекло</string>
   <string name="specialMoves">Специјални потези</string>
-  <string name="didYouLikeThisPuzzle">Да ли вам се свиђа овај проблем?</string>
+  <string name="didYouLikeThisPuzzle">Да ли ти се свидео овај проблем?</string>
   <string name="voteToLoadNextOne">Оцени да учиташ следећи!</string>
   <string name="findTheBestMoveForWhite">Нађи најбољи потез за белог.</string>
   <string name="findTheBestMoveForBlack">Нађи најбољи потез за црног.</string>
