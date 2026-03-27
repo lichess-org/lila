@@ -82,9 +82,8 @@ final class Challenge(env: Env) extends LilaController(env):
   private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match
       case lila.challenge.Challenge.Challenger.Anonymous(secret) =>
-        ctx.req.sid.contains(secret) || lila.security.Mobile.LichessMobileUa
-          .sriFromUA(using ctx.req)
-          .exists(_.value == secret)
+        ctx.req.sid.contains(secret) ||
+        lila.security.Mobile.LichessMobileUa.sriFromUA.exists(_.value == secret)
       case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.is(userId)
       case lila.challenge.Challenge.Challenger.Open => false
 
