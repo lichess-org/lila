@@ -9,6 +9,8 @@
   <string name="gameOver">Játszma vége</string>
   <string name="waitingForOpponent">Várakozás az ellenfélre</string>
   <string name="orLetYourOpponentScanQrCode">Ellenfeled az itt látható QR-kód beolvasásával is csatlakozhat</string>
+  <string name="reusableChallengeUrl">Többször használható kihívás URL</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Egy örökhivatkozás amit bárki használhat arra hogy játékra hívjon téged a megadott beállításaiddal.</string>
   <string name="waiting">Várakozás</string>
   <string name="yourTurn">Te következel</string>
   <string name="aiNameLevelAiLevel">%1$s szint: %2$s</string>
@@ -125,11 +127,20 @@
   <string name="bestMoveArrow">Legjobb lépés mutatása</string>
   <string name="showVariationArrows">Változatok nyilainak megjelenítése</string>
   <string name="evaluationGauge">Állásértékelő oldaljelzés</string>
+  <string name="visualMotifs">Vizuális jelölések</string>
   <string name="undefendedPieces">Védtelen bábuk</string>
   <string name="pinnedPieces">Kötött bábuk</string>
+  <string name="checkableKing">Támadható király</string>
   <string name="multipleLines">Több változat</string>
+  <string name="multipleLinesDescription">A táblán megjelenő lépés javasló nyilak számának beállítása</string>
+  <string name="searchTime">Keresési idő</string>
+  <string name="searchTimeDescription">Friss pozíciók elemzési idejének beállítása</string>
+  <string name="threads">Szálak</string>
+  <string name="threadsDescription">Állítsd a processzorod szálainak száma alá ezt az értéket, a jelölések a biztonságos opciókat jelölik</string>
+  <string name="threadsDescriptionMobile">A több szál jobb analízist eredményez, de gyorsabban meríti az akkumulátort</string>
   <string name="cpus">Processzorok</string>
   <string name="memory">Memória</string>
+  <string name="memoryDescription">A magasabb értékek javíthatnak a teljesítményen</string>
   <string name="infiniteAnalysis">Végtelen elemzés</string>
   <string name="removesTheDepthLimit">Feloldja a mélységi korlátot, és melegen tartja a számítógéped</string>
   <string name="blunder">Baklövés</string>
@@ -206,6 +217,7 @@
   <string name="minutesPerSide">Perc játékosonként</string>
   <string name="variant">Variáns</string>
   <string name="variants">Variánsok</string>
+  <string name="variantsDescription">Több játékmód</string>
   <string name="timeControl">Játékidő</string>
   <string name="realTime">Valós idő</string>
   <string name="correspondence">Levelező</string>
@@ -232,6 +244,7 @@
   <string name="changeUsernameNotSame">Csak a kis- és nagybetűket cserélheted a névben. Például: \"gipszjakab\" - \"GipszJakab\".</string>
   <string name="changeUsernameDescription">Változtasd meg a felhasználó nevet. Ezt csak egyszer teheted meg és csak a kis- és nagybetű váltás engedélyezett a felhasználónévben.</string>
   <string name="signupUsernameHint">Mindenképpen családbarát felhasználónevet válassz. Később már nem tudod megváltoztatni, a nem helyénvaló felhasználónevek fiókját zároljuk!</string>
+  <string name="signupEmailPromise">Kizárólag a fiókoddal kapcsolatban fogunk neked emailt küldeni, és soha nem osztjuk meg az email címed.</string>
   <string name="password">Jelszó</string>
   <string name="changePassword">Jelszó megváltoztatása</string>
   <string name="changeEmail">E-mail cím megváltoztatása</string>
@@ -299,6 +312,7 @@
   <string name="standard">Hagyományos</string>
   <string name="customPosition">Megadott állásból</string>
   <string name="unlimited">Végtelen</string>
+  <string name="unlimitedDescription">Szánj rá annyi időt, amennyit csak kell</string>
   <string name="mode">Mód</string>
   <string name="casual">Nem rangsorolt</string>
   <string name="rated">Rangsorolt</string>
@@ -425,6 +439,7 @@
   <string name="screenshotCurrentPosition">Képernyőkép készítése a jelenlegi állásról</string>
   <string name="gameAsGIF">Játszma GIF-ként</string>
   <string name="playerNames">Játékosok nevei</string>
+  <string name="moveAnnotations">Lépés jelölések</string>
   <string name="pasteTheFenStringHere">Másold ide a FEN szöveget</string>
   <string name="pasteThePgnStringHere">Másold ide a PGN szöveget</string>
   <string name="orUploadPgnFile">Vagy tölts fel egy PGN fájlt</string>
@@ -587,6 +602,8 @@
   <string name="invalidUsernameOrPassword">Érvénytelen felhasználónév vagy jelszó</string>
   <string name="incorrectPassword">Hibás jelszó</string>
   <string name="invalidAuthenticationCode">Érvénytelen hitelesítő kód</string>
+  <string name="clearField">Mező törlése</string>
+  <string name="orSeparator">Vagy</string>
   <string name="logInByEmail">Bejelentkezés e-maillel</string>
   <string name="emailMeALink">Link küldése e-mailben</string>
   <string name="currentPassword">Jelenlegi jelszó</string>
@@ -1016,6 +1033,7 @@ Minden működési költséget, fejlesztést és tartalmat felhasználói adomá
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Keresés</string>
   <string name="clearSearch">Keresési előzmények törlése</string>
+  <string name="thereAreNoResultsForX">Nincs találat a következőre: \"%s\"</string>
   <string name="tags">Címkék</string>
   <string name="enPassant">En passant</string>
 </resources>
