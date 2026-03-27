@@ -7,6 +7,7 @@
 }:
 let
   pkgs-master = import inputs.nixpkgs-master { system = pkgs.stdenv.system; };
+  pkgs-unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.system; };
 in
 {
   # https://devenv.sh/languages/
@@ -31,7 +32,7 @@ in
   };
 
   packages = [
-    pkgs.nodejs-slim
+    pkgs-unstable.nodejs-slim
     pkgs.pnpm
     pkgs.svgo
     pkgs-master.oxlint
