@@ -185,9 +185,15 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   def signup = Open(serveSignup)
   def signupLang = LangPage(routes.Auth.signup)(serveSignup)
+
   private def serveSignup(using Context) = NoTor:
-    forms.signup.website.flatMap: form =>
-      Ok.page(views.auth.signup(form.form, form.simple))
+    for
+      form <- forms.signup.website(simpleSignup)
+      res <- Ok.page(views.auth.signup(form.form, form.simple))
+    yield res
+
+  private def simpleSignup(using Context) =
+    summon[Option[ValidReferrer]].flatMap(env.oAuth.signedClients.simpleSignupFrom)
 
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) = for
     proxy <- env.security.ip2proxy.ofReq(ctx.req)
@@ -206,15 +212,19 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                 .match
                   case None =>
                     env.security.signup
-                      .website(ctx.blind)
+                      .website(ctx.blind, simpleSignup)
                       .flatMap:
                         case Signup.Result.RateLimited | Signup.Result.ForbiddenNetwork => rateLimited
                         case Signup.Result.MissingCaptcha =>
-                          forms.signup.website.flatMap: f =>
-                            BadRequest.page(views.auth.signup(f.form, f.simple))
+                          forms.signup
+                            .website(simpleSignup)
+                            .flatMap: f =>
+                              BadRequest.page(views.auth.signup(f.form, f.simple))
                         case Signup.Result.Bad(err) =>
-                          forms.signup.website.flatMap: f =>
-                            BadRequest.page(views.auth.signup(f.form.withForm(err), f.simple))
+                          forms.signup
+                            .website(simpleSignup)
+                            .flatMap: f =>
+                              BadRequest.page(views.auth.signup(f.form.withForm(err), f.simple))
                         case Signup.Result.ConfirmEmail(user, email) =>
                           redirectWithReferrer(routes.Auth.checkYourEmail).withCookies:
                             EmailConfirm.cookie.newSession(env.security.lilaCookie, user, email)

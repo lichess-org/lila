@@ -60,8 +60,8 @@ final class Mailer(
       logger.warn(s"Can't send ${msg.subject} to noreply email ${msg.to}")
       funit
     else
+      val client = forceClient.getOrElse(randomClientFor(msg.to))
       Future:
-        val client = forceClient.getOrElse(randomClientFor(msg.to))
         val email = Email(
           subject = msg.subject,
           from = client.config.sender,
@@ -71,7 +71,7 @@ final class Mailer(
         )
         blocking:
           client.mailer.send(email)
-      .monSuccess(_.email.send.time)
+      .monSuccess(_.email.send.time(client.toString))
         .recoverWith:
           case _: EmailException if msg.to.normalize.value != msg.to.value =>
             logger.warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
@@ -80,10 +80,11 @@ final class Mailer(
             retry.again match
               case None if orFail => throw e
               case None =>
-                logger.warn(s"Couldn't send email to ${msg.to}: ${e.getMessage}")
+                logger.warn(s"Couldn't send email via ${client.toString} to ${msg.to}: ${e.getMessage}")
                 funit
               case Some(nextTry) =>
-                logger.info(s"Will retry to send email to ${msg.to} after: ${e.getMessage}")
+                logger.info:
+                  s"Will retry to send email via ${client.toString} to ${msg.to} after: ${e.getMessage}"
                 scheduler.scheduleOnce(nextTry.delay)(send(msg, orFail, nextTry, forceClient))
                 funit
         .void

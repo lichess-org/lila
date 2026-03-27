@@ -1,7 +1,5 @@
 package lila.oauth
 
-import lila.core.net.ValidReferrer
-
 object AuthorizationRequest:
 
   import Protocol.*
@@ -11,13 +9,7 @@ object AuthorizationRequest:
     for
       redirectUri <- get("redirect_uri").toRight(Error.RedirectUriRequired).flatMap(RedirectUri.from)
       clientId <- getAs[ClientId]("client_id").toRight(Error.ClientIdRequired)
-      scopes <- get("scope").orZero
-        .split(" ")
-        .filter(_ != "")
-        .toList
-        .foldLeftM(List.empty[OAuthScope]): (acc, key) =>
-          OAuthScope.byKey.get(key).toRight(Error.InvalidScope(key)).map(_ :: acc)
-        .map(OAuthScopes(_))
+      scopes <- readScopes(~get("scope"))
     yield Prompt(
       redirectUri,
       clientId,
@@ -29,17 +21,14 @@ object AuthorizationRequest:
       userId = getAs[UserStr]("username").flatMap(_.validateId)
     )
 
-  case class PromptSignup(username: UserName, email: EmailAddress)
-
-  def promptSignupFrom(referrer: ValidReferrer): Option[PromptSignup] =
-    import lila.common.url.{ parse, queryParam }
-    for
-      ref <- parse(referrer.value).toOption
-      username <- ref.queryParam("default_username").map(UserName(_))
-      email <- ref.queryParam("default_email").flatMap(EmailAddress.from)
-      sign <- ref.queryParam("default_sign")
-      if sign.nonEmpty
-    yield PromptSignup(username, email)
+  def readScopes(str: String): Either[Error, OAuthScopes] =
+    str
+      .split(" ")
+      .filter(_.nonEmpty)
+      .toList
+      .foldLeftM(List.empty[OAuthScope]): (acc, key) =>
+        OAuthScope.byKey.get(key).toRight(Error.InvalidScope(key)).map(_ :: acc)
+      .map(OAuthScopes(_))
 
   case class Prompt(
       redirectUri: RedirectUri,

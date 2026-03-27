@@ -108,12 +108,7 @@ function signupStart() {
 
   $form.on('submit', () => {
     if ($form.find('[name="h-captcha-response"]').val() || !$form.hasClass('h-captcha-enabled'))
-      $form
-        .find('button.submit')
-        .prop('disabled', true)
-        .removeAttr('data-icon')
-        .addClass('frameless')
-        .html(spinnerHtml);
+      $form.find('button.submit').prop('disabled', true).addClass('button-empty').html(spinnerHtml);
     else return false;
   });
 
