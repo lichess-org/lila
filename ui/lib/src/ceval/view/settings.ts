@@ -210,8 +210,8 @@ function engineSelection({ ceval }: CevalHandler) {
       ),
     ),
     external &&
-      hl('button.button.button-red', {
-        attrs: { ...dataIcon(Licon.X), title: 'Remove external engine' },
+      hl('button.button.button-red.button-empty', {
+        attrs: { ...dataIcon(Licon.Trash), title: 'Delete external engine' },
         hook: bind('click', async e => {
           (e.currentTarget as HTMLElement).blur();
           if (await confirm('Remove external engine?'))
