@@ -522,6 +522,18 @@ final class Study(
       )
     }
 
+  def apiChapterPgnMovesUpdate(studyId: StudyId, chapterId: StudyChapterId) =
+    AuthOrScopedBody(_.Study.Write) { _ ?=> me ?=>
+      bindForm(StudyForm.replaceChapterPgnMoves.form)(
+        jsonFormError,
+        data =>
+          env.study.api
+            .replaceChapterPgnMoves(studyId, chapterId, data.pgn)(using me)
+            .map:
+              _.fold(NotFound(jsonError(s"Chapter $chapterId not found in study $studyId")))(_ => NoContent)
+      )
+    }
+
   def topicAutocomplete = Anon:
     get("term").filter(_.nonEmpty) match
       case None => BadRequest("No search term provided")
