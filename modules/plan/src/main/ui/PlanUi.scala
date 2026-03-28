@@ -241,7 +241,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                         else
                           a(
                             cls := "button",
-                            href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
+                            href := s"${routes.Auth.login}?referrer=${routes.Plan.index()}"
                           )(trp.logInToDonate())
                       ),
                       ctx.isAuth.option(

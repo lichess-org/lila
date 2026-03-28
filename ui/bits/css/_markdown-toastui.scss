@@ -16,13 +16,15 @@
     &-defaultUI {
       @extend %base-font;
 
-      border: none;
+      border-radius: $box-radius-size;
+      border-color: $c-border;
+      overflow: hidden;
 
       &-toolbar {
-        @extend %metal;
+        @extend %metal-bg;
 
-        border-radius: $box-radius-size $box-radius-size 0 0 !important;
-        border: $border;
+        padding: 0 6px;
+        border-bottom: $border;
         flex-flow: row wrap;
       }
     }
@@ -38,6 +40,7 @@
 
           &:hover {
             background-color: $c-bg-box;
+            border-color: $c-border-light;
           }
         }
       }
@@ -105,14 +108,6 @@
       background-color: $c-primary !important;
     }
 
-    &-ww-container,
-    &-md-container {
-      @extend %box-radius-bottom;
-
-      border: $border;
-      border-top: 0;
-    }
-
     &.ww-mode,
     &.md-mode,
     &-md-preview {
@@ -124,9 +119,12 @@
     }
 
     &-contents {
+      @extend %base-font;
+
       font-size: 1rem;
 
       & p,
+      & del,
       & h2,
       & h3,
       & h4 {
@@ -134,11 +132,79 @@
       }
 
       & h2 {
+        font-weight: 300;
+        padding-bottom: 0.5em;
         border-color: $c-brag;
       }
 
       & h3 {
         border: none;
+        margin: 1.6em 0 1em 0;
+      }
+
+      & h4 {
+        font-weight: 300;
+      }
+
+      blockquote {
+        border-color: $c-font-dimmer;
+
+        p {
+          margin: 2em 0;
+        }
+      }
+
+      pre {
+        @extend %box-shadow, %box-radius;
+
+        margin: 2em 0;
+        padding: 1em 1.5em;
+        background-color: $c-bg-zebra !important;
+
+        code {
+          background: none;
+        }
+      }
+
+      code {
+        @extend %box-radius;
+
+        font-family: monospace;
+        padding: 0.2em 0.5em;
+        background: $c-bg-zebra;
+        color: $c-font-clear;
+      }
+
+      ul,
+      ol {
+        margin: 2em 0;
+      }
+
+      ol li::before {
+        color: $c-font;
+      }
+
+      ul li::before {
+        margin-top: 8px;
+        margin-left: -13px;
+        background-color: $c-font;
+      }
+
+      table {
+        th,
+        td {
+          height: auto;
+        }
+
+        th {
+          @extend %metal-bg;
+
+          padding: 0.5rem 0.8rem;
+        }
+
+        td {
+          padding: 1rem;
+        }
       }
     }
 
@@ -166,6 +232,10 @@
         border: $border;
         border-radius: $box-radius-size !important;
       }
+    }
+
+    &-tooltip {
+      @extend %base-font;
     }
   }
 }

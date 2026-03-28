@@ -7,7 +7,7 @@
   --c-lpv-bg-controls: var(--c-lpv-bg);
   --c-lpv-bg-movelist: var(--c-lpv-bg);
   --c-lpv-bg-variation: #{$c-bg-zebra2};
-  --c-lpv-bg-pane: #{$m-bg-zebra2--fade-1};
+  --c-lpv-bg-pane: #{$m-bg-zebra2--fade-5};
   --c-lpv-pgn-text: #{$c-bg-zebra2};
   --c-lpv-font: #{$c-font};
 
@@ -34,9 +34,19 @@
   --c-lpv-bg-brilliant-hover: #{$m-brilliant_bg--mix-30};
   --c-lpv-bg-interesting-hover: #{$m-interesting_bg--mix-30};
 
+  @include if-transp {
+    --c-lpv-bg-pane: #{$m-body-gradient--fade-15};
+  }
+
   @extend %box-neat-force;
 
   &__player__title {
     color: $c-brag;
+  }
+
+  &__pane {
+    @include back-blur;
+
+    position: relative;
   }
 }

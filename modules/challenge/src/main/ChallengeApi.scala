@@ -68,15 +68,15 @@ final class ChallengeApi(
 
   def activeByIdFor(id: ChallengeId, dest: User): Future[Option[Challenge]] =
     repo.byIdFor(id, dest).dmap(_.filter(_.active))
-  def activeByIdBy(id: ChallengeId, maker: User): Future[Option[Challenge]] =
-    repo
-      .byId(id)
-      .dmap(_.filter { c =>
-        c.active && c.challenger.match
-          case Challenger.Registered(orig, _) if maker.is(orig) => true
-          case Challenger.Open if isOpenBy(id, maker) => true
-          case _ => false
-      })
+
+  def activeByIdBy(id: ChallengeId, by: User | String): Future[Option[Challenge]] =
+    for opt <- repo.byId(id)
+    yield opt.filter: c =>
+      c.active && (c.challenger, by).match
+        case (Challenger.Registered(orig, _), user: User) if user.is(orig) => true
+        case (Challenger.Open, user: User) if isOpenBy(id, user) => true
+        case (Challenger.Anonymous(secret), anonSecret: String) if secret == anonSecret => true
+        case _ => false
 
   val countInFor = cacheApi[UserId, Int](131_072, "challenge.countInFor"):
     _.expireAfterAccess(15.minutes).buildAsyncFuture(repo.countCreatedByDestId)

@@ -99,6 +99,7 @@ object mon:
       val create = counter("lobby.hook.create").withoutTags()
       val join = counter("lobby.hook.join").withoutTags()
       val size = histogram("lobby.hook.size").withoutTags()
+      def apiCreate(client: String) = counter("lobby.hook.apiCreate").withTag("client", client)
     object seek:
       val create = counter("lobby.seek.create").withoutTags()
       val join = counter("lobby.seek.join").withoutTags()
@@ -336,7 +337,7 @@ object mon:
       val change = c.withTag("type", "change")
       val confirmation = c.withTag("type", "confirmation")
       val welcome = c.withTag("type", "welcome")
-      val time = future("email.send.time")
+      def time(mailer: String) = future("email.send.time", tags("mailer" -> mailer))
     val disposableDomain = gauge("email.disposableDomain").withoutTags()
   object security:
     val torNodes = gauge("security.tor.node").withoutTags()
@@ -719,9 +720,6 @@ object mon:
     val time = future("fide.sync.time")
     val players = gauge("fide.sync.players").withoutTags()
     val updated = gauge("fide.sync.updated").withoutTags()
-  object link:
-    def external(tag: String, auth: Boolean) = counter("link.external").withTags:
-      tags("tag" -> tag.escape, "auth" -> auth)
   object recap:
     val games = future("recap.build.games.time")
     val puzzles = future("recap.build.puzzles.time")

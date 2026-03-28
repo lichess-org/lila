@@ -2,7 +2,7 @@ package lila.web
 package ui
 
 import lila.ui.*
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.*
 import lila.core.i18n.Translate
 
 object bits:
@@ -45,29 +45,28 @@ z-index: 99;
   ):
     "This is an empty Lichess preview website, go to lichess.org instead"
 
-  val connectLinks: Frag =
-    div(cls := "connect-links")(
-      a(
-        href := routes.Main.externalLink("mastodon"),
-        targetBlank,
-        noFollow,
-        relMe
-      )("Mastodon"),
-      a(
-        href := routes.Main.externalLink("github"),
-        targetBlank,
-        noFollow
-      )("GitHub"),
-      a(href := routes.Main.externalLink("discord"), targetBlank, noFollow)("Discord"),
-      a(href := routes.Main.externalLink("bluesky"), targetBlank, noFollow)("Bluesky"),
-      a(
-        href := routes.Main.externalLink("youtube"),
-        targetBlank,
-        noFollow
-      )("YouTube"),
-      a(
-        href := routes.Main.externalLink("twitch"),
-        targetBlank,
-        noFollow
-      )("Twitch")
-    )
+  val connectLinks: Frag = div(cls := "connect-links")(
+    a(
+      href := "https://mastodon.online/@lichess",
+      targetBlank,
+      noFollow,
+      relMe
+    )("Mastodon"),
+    a(
+      href := "https://github.com/lichess-org",
+      targetBlank,
+      noFollow
+    )("GitHub"),
+    a(href := "https://discord.gg/lichess", targetBlank, noFollow)("Discord"),
+    a(href := "https://bsky.app/profile/lichess.org", targetBlank, noFollow)("Bluesky"),
+    a(
+      href := "https://youtube.com/@LichessDotOrg",
+      targetBlank,
+      noFollow
+    )("YouTube"),
+    a(
+      href := "https://www.twitch.tv/lichessdotorg",
+      targetBlank,
+      noFollow
+    )("Twitch")
+  )

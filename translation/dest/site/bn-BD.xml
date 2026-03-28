@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playAgainstComputer">কম্পিউটারের বিপরীতে খেলুন</string>
+  <string name="gameMode">খেলার ধরন</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">কাউকে খেলার জন্য আমন্ত্রণ জানাতে চাইলে এই URL টি দিন</string>
   <string name="gameOver">খেলা সমাপ্ত</string>
   <string name="waitingForOpponent">প্রতিপক্ষের জন্য অপেক্ষারত</string>
