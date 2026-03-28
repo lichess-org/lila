@@ -16,6 +16,7 @@
   <string name="recentlyUpdated">Legutóbb frissítve</string>
   <string name="mostPopular">Legnépszerűbb</string>
   <string name="alphabetical">Betűrendben</string>
+  <string name="relevant">Releváns</string>
   <string name="addNewChapter">Új fejezet hozzáadása</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Fejezet</item>
