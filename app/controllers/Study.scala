@@ -530,7 +530,13 @@ final class Study(
           env.study.api
             .replaceChapterPgnMoves(studyId, chapterId, data.pgn)(using me)
             .map:
-              _.fold(NotFound(jsonError(s"Chapter $chapterId not found in study $studyId")))(_ => NoContent)
+              _.fold(
+                NotFound(
+                  jsonError(
+                    s"Either chapter $chapterId doesn't exist in study $studyId, or you aren't allowed to edit it."
+                  )
+                )
+              )(_ => NoContent)
       )
     }
 
