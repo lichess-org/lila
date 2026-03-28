@@ -155,7 +155,6 @@ final class Setup(
               .apiCreate:
                 if ctx.isMobileOauth then env.oAuth.signedClients.mobile.clientId.value
                 else if ctx.isPolygon then env.oAuth.signedClients.polygon.clientId.value
-                else if HTTPRequest.isLichobile(ctx.req) then "lichobile"
                 else "other"
               .increment()
             forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
