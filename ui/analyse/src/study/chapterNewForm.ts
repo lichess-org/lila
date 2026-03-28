@@ -127,7 +127,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       'button.' + key,
       {
         class: { active: activeTab === key },
-        attrs: { role: 'tab', title, tabindex: '0' },
+        attrs: { type: 'button', role: 'tab', title, tabindex: '0' },
         hook: onInsert(el => {
           el.addEventListener('click', (e: Event) => {
             ctrl.setTab(key);

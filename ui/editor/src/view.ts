@@ -88,7 +88,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             ctrl.startPosition();
           },
         },
-        attrs: icon ? dataIcon(icon) : {},
+        attrs: { type: 'button', ...(icon ? dataIcon(icon) : {}) },
       },
       i18n.site.startPosition,
     );
@@ -102,7 +102,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             ctrl.clearBoard();
           },
         },
-        attrs: icon ? dataIcon(icon) : {},
+        attrs: { type: 'button', ...(icon ? dataIcon(icon) : {}) },
       },
       i18n.site.clearBoard,
     );
