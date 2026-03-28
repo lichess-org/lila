@@ -343,7 +343,7 @@ final class ReportApi(
       reporter <- automodReporter
       fromLlm <- textResponse
         .str("assessment")
-        .toTry(s"missing assessment in automod response: $textResponse")
+        .toTry(s"missing assessment in automod response: $textResponse. Input text: ${userText.take(400)}")
         .toFuture
       hasFlaggedImages = flaggedImages.nonEmpty
       kamonTag = if hasFlaggedImages then "image" else if fromLlm == "pass" then "ok" else fromLlm
