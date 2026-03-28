@@ -120,7 +120,7 @@ $auth-input-bg: rgba(26, 22, 16, 1);
   .password-reveal,
   .text-clear {
     position: absolute;
-    right: 1em;
+    inset-inline-end: 1em;
     top: 50%;
     transform: translateY(-50%);
     font-size: 1.3em;
