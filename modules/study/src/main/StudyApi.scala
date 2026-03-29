@@ -731,7 +731,6 @@ final class StudyApi(
             setStudyUpdated(study)
         }
 
-  // pgn validation is not performed
   def replaceChapterPgnMoves(
       studyId: StudyId,
       chapterId: StudyChapterId,
