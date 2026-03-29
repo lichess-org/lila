@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">Configurație joc</string>
+  <string name="gameSetup">Configurare joc</string>
   <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Provoacă un prieten</string>
   <string name="playAgainstComputer">Joacă împotriva calculatorului</string>
   <string name="gameMode">Mod joc</string>
   <string name="createLobbyGame">Creează un joc nou</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, oferiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
   <string name="orLetYourOpponentScanQrCode">Sau lăsați adversarul să scaneze acest cod QR</string>
   <string name="reusableChallengeUrl">URL provocare reutilizabil</string>
-  <string name="permanentLinkForAnyoneToChallengeYou">Un link permanent pentru oricine să vă provoace cu aceste setări exacte.</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Un link permanent pentru oricine să vă provoace cu exact aceste setări.</string>
   <string name="waiting">Se așteaptă</string>
   <string name="yourTurn">Rândul tău</string>
   <string name="aiNameLevelAiLevel">%1$s nivelul %2$s</string>
@@ -18,14 +18,14 @@
   <string name="strength">Putere</string>
   <string name="toggleTheChat">Comută conversația</string>
   <string name="chat">Discuție</string>
-  <string name="resign">Renunță</string>
+  <string name="resign">Cedează jocul</string>
   <string name="checkmate">Șah mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Alb</string>
   <string name="black">Negru</string>
   <string name="asWhite">cu albele</string>
   <string name="asBlack">cu negrele</string>
-  <string name="randomColor">Culoare aleatorie</string>
+  <string name="randomColor">Orice culoare</string>
   <string name="createAGame">Creează un joc</string>
   <string name="createTheGame">Creează jocul</string>
   <string name="whiteIsVictorious">Albul a câștigat</string>
@@ -36,7 +36,7 @@
   <string name="cheatDetected">Trișare detectată</string>
   <string name="kingInTheCenter">Regele în centru</string>
   <string name="threeChecks">Trei șahuri</string>
-  <string name="raceFinished">Competiție terminată</string>
+  <string name="raceFinished">Competiția s-a terminat</string>
   <string name="variantEnding">Sfârșit prin variantă</string>
   <string name="newOpponent">Adversar nou</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Adversarul dvs. vă propune o nouă partidă</string>
@@ -62,7 +62,7 @@
   <string name="requestAComputerAnalysis">Cereți o analiză făcută de calculator</string>
   <string name="computerAnalysis">Analiza calculatorului</string>
   <string name="computerAnalysisAvailable">Analiza calculatorului este disponibilă</string>
-  <string name="computerAnalysisDisabled">Analiză computerizată dezactivată</string>
+  <string name="computerAnalysisDisabled">Analiza calculatorului dezactivată</string>
   <string name="analysis">Tablă de analiză</string>
   <string name="depthX">Profunzime %s</string>
   <string name="usingServerAnalysis">Utilizează analiză de server</string>
@@ -79,12 +79,12 @@
   <string name="deleteFromHere">Șterge de aici</string>
   <string name="collapseVariations">Restrânge variațiile</string>
   <string name="expandVariations">Extinde variațiile</string>
-  <string name="forceVariation">Forțează variația</string>
-  <string name="copyVariationPgn">Copiază variația PGN</string>
-  <string name="copyMainLinePgn">Copiază linia PGN principală</string>
+  <string name="forceVariation">Forțeaz-o ca variație</string>
+  <string name="copyVariationPgn">Copiază PGN-ul variației</string>
+  <string name="copyMainLinePgn">Copiază PGN-ul variației principale</string>
   <string name="move">Mutare</string>
-  <string name="variantLoss">Variantă pierdere</string>
-  <string name="variantWin">Variantă câștig</string>
+  <string name="variantLoss">Victorie de variantă</string>
+  <string name="variantWin">Pierdere de variantă</string>
   <string name="insufficientMaterial">Material insuficient</string>
   <string name="pawnMove">Mutare de pion</string>
   <string name="capture">Captură</string>
@@ -106,8 +106,8 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' cu rotunjire, bazat pe numărul de jumătăți de mutări până la următoarea captură sau mutare de pion</string>
   <string name="noGameFound">Niciun joc găsit</string>
-  <string name="maxDepthReached">Adâncime maximă atinsă!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri din meniul de preferințe?</string>
+  <string name="maxDepthReached">S-a atins profunzimea maximă!</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri prin meniul de preferințe?</string>
   <string name="openings">Deschideri</string>
   <string name="openingExplorer">Exploratorul de deschideri</string>
   <string name="openingEndgameExplorer">Explorator de deschideri/finaluri de joc</string>
@@ -142,7 +142,7 @@
   <string name="threadsDescriptionMobile">Mai multe fire de execuţie vor folosi mai multă baterie pentru o analiză mai bună</string>
   <string name="cpus">Procesoare</string>
   <string name="memory">Memorie</string>
-  <string name="memoryDescription">Valorile mai mari pot îmbunătăți performanța</string>
+  <string name="memoryDescription">Valori mai mari pot îmbunătăți performanța</string>
   <string name="infiniteAnalysis">Analiză infinită</string>
   <string name="removesTheDepthLimit">Elimină limita de adâncime (și încălzește computerul)</string>
   <string name="blunder">Gafă</string>
