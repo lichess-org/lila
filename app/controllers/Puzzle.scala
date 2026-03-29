@@ -54,12 +54,15 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def apiDaily = Anon:
     Found(env.puzzle.daily.get): daily =>
       WithPuzzlePerf:
-        JsonOk(env.puzzle.jsonView(daily.puzzle, none, none))
+        apiSinglePuzzle(daily.puzzle)
 
   def apiShow(id: PuzzleId) = Anon:
     Found(env.puzzle.api.puzzle.find(id)): puzzle =>
       WithPuzzlePerf:
-        JsonOk(env.puzzle.jsonView(puzzle, none, none))
+        apiSinglePuzzle(puzzle)
+
+  def apiSinglePuzzle(puzzle: Puz)(using Context, Perf) =
+    JsonOk(env.puzzle.jsonView(puzzle, none, none, withInitialPos = true))
 
   def home = Open(serveHome)
 
