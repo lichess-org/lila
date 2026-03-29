@@ -320,7 +320,6 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   private val ApiMoveStreamGlobalConcurrencyLimitPerIP =
     lila.web.ConcurrencyLimit[IpAddress](
-      name = "API concurrency per IP",
       key = "round.apiMoveStream.ip",
       ttl = 20.minutes,
       maxConcurrency = 8
@@ -405,38 +404,32 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   private[controllers] object GlobalConcurrencyLimitPerIP:
     val events = lila.web.ConcurrencyLimit[IpAddress](
-      name = "API events concurrency per IP",
       key = "api.ip.events",
       ttl = 1.hour,
       maxConcurrency = 4
     )
     val eventsForVerifiedUser = lila.web.ConcurrencyLimit[IpAddress](
-      name = "API verified events concurrency per IP",
       key = "api.ip.events.verified",
       ttl = 1.hour,
       maxConcurrency = 12
     )
     val download = lila.web.ConcurrencyLimit[IpAddress](
-      name = "API download concurrency per IP",
       key = "api.ip.download",
       ttl = 1.hour,
       maxConcurrency = 2
     )
     val generous = lila.web.ConcurrencyLimit[IpAddress](
-      name = "API generous concurrency per IP",
       key = "api.ip.generous",
       ttl = 1.hour,
       maxConcurrency = 20
     )
 
   private[controllers] val GlobalConcurrencyLimitUser = lila.web.ConcurrencyLimit[UserId](
-    name = "API concurrency per user",
     key = "api.user",
     ttl = 1.hour,
     maxConcurrency = 2
   )
   private[controllers] val GlobalConcurrencyLimitUserMobile = lila.web.ConcurrencyLimit[UserId](
-    name = "API concurrency per mobile user",
     key = "api.user.mobile",
     ttl = 1.hour,
     maxConcurrency = 3
