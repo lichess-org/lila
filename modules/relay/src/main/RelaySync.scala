@@ -105,11 +105,11 @@ final private class RelaySync(
               .filter: c =>
                 existing.clock.forall: prev =>
                   ~c.trust && c.centis != prev.centis
-              .so: c =>
+              .foreach: c =>
                 studyApi.setClock(
                   studyId = study.id,
                   position = Position(chapter, path).ref,
-                  clock = c
+                  clock = c.some
                 )(by)
             path -> none
       case (found, _) => found

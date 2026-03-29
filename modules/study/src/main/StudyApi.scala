@@ -432,18 +432,22 @@ final class StudyApi(
                 reloadSriBecauseOf(study, who.sri, chapter.id)
                 fufail(s"Invalid setShapes $position $shapes")
 
-  def setClock(studyId: StudyId, position: Position.Ref, clock: Clock)(who: Who): Funit =
+  def setClock(studyId: StudyId, position: Position.Ref, clock: Option[Clock])(who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId):
-      doSetClock(_, position, clock)(who)
+      case sc @ Study.WithChapter(study, chapter) =>
+        Contribute(who.u, study):
+          if study.isRelay then fufail("Cannot edit clock on relay chapter")
+          else if !position.path.isMainline(chapter.root) then fufail("Can only edit clock on mainline")
+          else doSetClock(sc, position, clock)(who)
 
-  private def doSetClock(sc: Study.WithChapter, position: Position.Ref, clock: Clock)(
+  private def doSetClock(sc: Study.WithChapter, position: Position.Ref, clock: Option[Clock])(
       who: Who
   ): Funit =
-    sc.chapter.setClock(clock.some, position.path) match
+    sc.chapter.setClock(clock, position.path) match
       case Some(chapter, newCurrentClocks) =>
         setStudyUpdated(sc.study)
         for _ <- chapterRepo.setClockAndDenorm(chapter, position.path, clock, newCurrentClocks)
-        yield sendTo(sc.study.id)(_.setClock(position, clock.centis.some, newCurrentClocks))
+        yield sendTo(sc.study.id)(_.setClock(position, clock.map(_.centis), newCurrentClocks))
       case None =>
         reloadSriBecauseOf(sc.study, who.sri, position.chapterId)
         fufail(s"Invalid setClock $position $clock")
@@ -479,7 +483,7 @@ final class StudyApi(
           .setRootClockFromTags(chapter)
           .so: c =>
             c.root.clock.so: clock =>
-              doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
+              doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock.some)(who)
       yield sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
 
   def setComment(studyId: StudyId, position: Position.Ref, text: CommentStr)(who: Who) =

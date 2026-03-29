@@ -44,6 +44,10 @@
   <string name="like">Like</string>
   <string name="unlike">Unlike</string>
   <string name="newTag">New tag</string>
+  <string name="addOrEditClockTime">Add or edit clock time</string>
+  <string name="clockTimeFormat">Time format: H:MM:SS (e.g. 1:03:40), MM:SS (3:40), or seconds (40). Optional tenths or hundredths: 40.5, 40.55, 3:40.25. Leave empty to clear.</string>
+  <string name="clockTimePlaceholder">H:MM:SS</string>
+  <string name="turnOnRecToSaveClockTimes">Turn on REC (record button below the board) to save clock times.</string>
   <string name="commentThisPosition">Comment on this position</string>
   <string name="commentThisMove">Comment on this move</string>
   <string name="annotateWithGlyphs">Annotate with glyphs</string>

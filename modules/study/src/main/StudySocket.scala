@@ -10,7 +10,7 @@ import lila.common.Bus
 import lila.common.Json.{ *, given }
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
-import lila.tree.Branch
+import lila.tree.{ Branch, Clock }
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 import lila.core.study.Visibility
 import cats.mtl.Handle.*
@@ -197,6 +197,17 @@ final private class StudySocket(
               .asOpt[String]
               .foreach: id =>
                 applyWho(api.deleteComment(studyId, position.ref, Comment.Id(id)))
+
+        case "setClock" =>
+          reading[AtPosition](o): position =>
+            if (o \ "d" \ "clear").asOpt[Boolean].contains(true) then
+              applyWho(api.setClock(studyId, position.ref, None)(_))
+            else
+              (o \ "d" \ "centis")
+                .asOpt[Int]
+                .filter(_ >= 0)
+                .foreach: centis =>
+                  applyWho(api.setClock(studyId, position.ref, Clock(Centis(centis), false.some).some)(_))
 
         case "setGamebook" =>
           reading[AtPosition](o): position =>

@@ -54,7 +54,7 @@ import { view as chapterEditFormView } from '../study/chapterEditForm';
 import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { playersView } from '../study/relay/relayPlayers';
 import { showInfo as tourOverview } from '../study/relay/relayTourView';
-import renderClocks from '../view/clocks';
+import { renderEditableClocks } from '../study/studyClockEdit';
 import { renderResult, viewContext, type RelayViewContext } from '../view/components';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
@@ -75,7 +75,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
   const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle } = ctx;
   const d = ctrl.data,
     style = moveStyle.get(),
-    clocks = renderClocks(ctrl, ctrl.path),
+    clocks = renderEditableClocks(ctrl),
     pockets = ctrl.node.crazy?.pockets;
   ctrl.chessground = makeChessground(document.createElement('div'), {
     ...makeCgConfig(ctrl),

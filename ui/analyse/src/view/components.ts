@@ -34,9 +34,9 @@ import { renderPgnError } from '../pgnImport';
 import serverSideUnderboard from '../serverSideUnderboard';
 import type RelayCtrl from '../study/relay/relayCtrl';
 import { findTag } from '../study/studyChapters';
+import { renderEditableClocks } from '../study/studyClockEdit';
 import type StudyCtrl from '../study/studyCtrl';
 import type * as studyDeps from '../study/studyDeps';
-import renderClocks from './clocks';
 import { renderMaterialDiffs } from './materialDiffs';
 
 export interface ViewContext {
@@ -336,7 +336,7 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
     hl('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
-  const clocks = renderClocks(ctrl, ctrl.path),
+  const clocks = renderEditableClocks(ctrl),
     whitePov = ctrl.bottomIsWhite(),
     materialDiffs = renderMaterialDiffs(ctrl);
 

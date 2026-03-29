@@ -41,6 +41,9 @@ $clock-height: 20px;
   font-weight: bold;
   text-align: center;
 
+  /* Reserve border space so the --editable dashed border doesn't cause 1px layout shift */
+  border: 1px solid transparent;
+
   &.active {
     background: $m-primary_bg--mix-30;
     box-shadow: none;

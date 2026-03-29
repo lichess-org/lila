@@ -1,0 +1,74 @@
+.analyse__clock {
+  &--editable {
+    cursor: pointer;
+    border: 1px dashed $c-primary;
+
+    @media (hover: hover) {
+      &:hover {
+        background: color-mix(in srgb, $c-font 15%, transparent);
+      }
+    }
+  }
+
+  &--editing {
+    flex-shrink: 0;
+    min-width: 0;
+
+    .analyse__clock-input {
+      min-width: 10em;
+      width: 10em;
+      padding: 0 0.4em;
+      font: inherit;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+
+  .analyse__clock-input--error {
+    border-color: $c-bad !important;
+    box-shadow: inset 0 0 0 2px $c-bad;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .analyse__clock-input--shake-odd {
+    animation: clock-shake-odd 0.3s ease;
+  }
+
+  .analyse__clock-input--shake-even {
+    animation: clock-shake-even 0.3s ease;
+  }
+
+  /* No end padding when clock contains input (overrides .study__player .analyse__clock) */
+  &.analyse__clock:has(.analyse__clock-input) {
+    padding-inline-end: 0;
+  }
+}
+
+// Two identical keyframes so we can alternate classes and reliably re-trigger the shake animation
+// when the user submits invalid input multiple times in a row.
+@mixin clock-shake-keyframes($name) {
+  @keyframes #{$name} {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    25% {
+      transform: translateX(-3px);
+    }
+
+    75% {
+      transform: translateX(3px);
+    }
+  }
+}
+
+@include clock-shake-keyframes(clock-shake-odd);
+@include clock-shake-keyframes(clock-shake-even);
+
+.analyse__clock-placeholder {
+  opacity: 0.7;
+}

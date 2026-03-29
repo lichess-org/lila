@@ -48,6 +48,7 @@ import type { RelayData } from './relay/interfaces';
 import RelayCtrl from './relay/relayCtrl';
 import ServerEval from './serverEval';
 import StudyChaptersCtrl, { isFinished } from './studyChapters';
+import StudyClockEdit from './studyClockEdit';
 import { StudyForm } from './studyForm';
 import { GlyphForm } from './studyGlyph';
 import studyKeyboard from './studyKeyboard';
@@ -93,6 +94,7 @@ export default class StudyCtrl {
   nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
   arrowHistory: Shape[][] = [];
+  clockEdit?: StudyClockEdit;
   data: StudyData;
   vm: StudyVm;
   notif: NotifCtrl;
@@ -318,6 +320,66 @@ export default class StudyCtrl {
     ...req,
     ch: this.vm.chapterId,
   });
+
+  openClockEdit = (slot: 'top' | 'bottom', path: TreePath, value: string) => {
+    this.ctrl.autoplay.stop();
+    this.clockEdit = new StudyClockEdit(slot, path, value, this.ctrl.redraw);
+    this.ctrl.redraw();
+  };
+
+  /** Finalize the current clock edit session.
+   *
+   * Called explicitly on Enter/blur, and also when the UI navigates away from the edited node.
+   *
+   * whenInvalid:
+   * - 'closeNow': close immediately (navigate-away) without showing error feedback
+   * - 'closeAfterFeedback': show error then close (blur)
+   * - undefined: keep session open and show error (Enter)
+   */
+  commitClockEdit = (opts?: { whenInvalid?: 'closeNow' | 'closeAfterFeedback' }) => {
+    const edit = this.clockEdit;
+    if (!edit) return;
+    const path = edit.path;
+
+    const action = edit.getCommitAction();
+    switch (action.kind) {
+      case 'clear': {
+        if (this.makeChange('setClock', { ch: this.vm.chapterId, path, clear: true })) {
+          this.ctrl.tree.setClockAt(undefined, path);
+          this.closeClockEdit();
+        } else {
+          alert(i18n.study.turnOnRecToSaveClockTimes);
+        }
+        return;
+      }
+      case 'set': {
+        if (this.makeChange('setClock', { ch: this.vm.chapterId, path, centis: action.centis })) {
+          this.ctrl.tree.setClockAt(action.centis, path);
+          this.closeClockEdit();
+        } else {
+          alert(i18n.study.turnOnRecToSaveClockTimes);
+        }
+        return;
+      }
+      case 'invalid': {
+        if (opts?.whenInvalid === 'closeNow') {
+          this.closeClockEdit();
+          return;
+        }
+
+        edit.setEditError(true);
+        if (opts?.whenInvalid === 'closeAfterFeedback') {
+          setTimeout(() => this.closeClockEdit(), 300);
+        }
+        return;
+      }
+    }
+  };
+
+  closeClockEdit = () => {
+    this.clockEdit = undefined;
+    this.ctrl.redraw();
+  };
 
   isGamebookPlay = () =>
     this.data.chapter.gamebook &&
@@ -866,7 +928,7 @@ export default class StudyCtrl {
       this.setMemberActive(who);
       if (d.relayClocks) this.relay?.setClockToChapterPreview(d, d.relayClocks);
       if (this.wrongChapter(d)) return;
-      this.ctrl.tree.setClockAt(d.c, position.path);
+      this.ctrl.tree.setClockAt(d.c ?? undefined, position.path);
       this.redraw();
     },
     forceVariation: d => {
