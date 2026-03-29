@@ -147,12 +147,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       hl('h2', i18n.site.board),
       hl(
         'div.board',
-        {
-          hook: {
-            insert: el => boardEventsHook(ctx, el.elm as HTMLElement),
-            update: (_, vnode) => boardEventsHook(ctx, vnode.elm as HTMLElement),
-          },
-        },
+        { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
         renderBoard(
           ctrl.chessground.state.pieces,
           ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.bottomColor(),
@@ -229,18 +224,13 @@ function boardEventsHook(
   el: HTMLElement,
 ): void {
   const $board = $(el);
-  // Remove old handlers before rebinding (important on re-render)
-  $board.off('.nvui');
+  const $buttons = $board.find('button');
   const steps = () => ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps().map(step => step.fen);
   const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
-  $board.on('blur', 'button', e => {
-    leaveSquareHandler($board.find('button'))(e);
-  });
-  $board.on('click', 'button', e => {
-    selectionHandler(opponentColor)(e);
-  });
-  $board.on('keydown', 'button', (e: KeyboardEvent) => {
+  $buttons.on('blur', leaveSquareHandler($buttons));
+  $buttons.on('click', selectionHandler(opponentColor));
+  $buttons.on('keydown', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
     else if (e.key.match(/^x$/i))
       scanDirectionsHandler(ctrl.bottomColor(), ctrl.chessground.state.pieces, moveStyle.get())(e);
