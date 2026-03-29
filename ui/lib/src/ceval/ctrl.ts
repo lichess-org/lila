@@ -111,6 +111,10 @@ export default class CevalCtrl {
     gameId: string | undefined,
     threatMode: boolean,
   ) => {
+    if (!this.available()) {
+      this.lastStarted = { path, steps, gameId, threatMode };
+      return;
+    }
     const step = steps[steps.length - 1];
     if (
       !this.isDeeper() &&
@@ -183,7 +187,7 @@ export default class CevalCtrl {
   };
 
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode?: boolean): void => {
-    if (!this.available() || this.isPaused) return;
+    if (this.isPaused) return;
     this.isDeeper(false);
     this.doStart(path, steps, gameId, !!threatMode);
   };
