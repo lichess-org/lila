@@ -354,6 +354,7 @@ final class StudyApi(
                     .parallel
                     .map: _ =>
                       sendTo(study.id)(_.promote(position, toMainline, who))
+                      setStudyUpdated(study)
               case None =>
                 reloadSriBecauseOf(study, who.sri, chapter.id)
                 fufail(s"Invalid promoteToMainline $studyId $position")
@@ -684,6 +685,7 @@ final class StudyApi(
             yield
               if shouldReload then sendTo(study.id)(_.reloadStudy(who))
               if shouldSendChapterPreviews then sendChaperPreviews(study)
+              setStudyUpdated(study)
         }
 
   def descChapter(studyId: StudyId, data: ChapterMaker.DescData)(who: Who) =
@@ -743,7 +745,10 @@ final class StudyApi(
   def sortChapters(studyId: StudyId, chapterIds: List[StudyChapterId])(who: Who): Funit =
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
-        for _ <- chapterRepo.sort(study, chapterIds) yield sendChaperPreviews(study)
+        for _ <- chapterRepo.sort(study, chapterIds)
+        yield
+          sendChaperPreviews(study)
+          setStudyUpdated(study)
 
   def descStudy(studyId: StudyId, desc: String)(who: Who) =
     sequenceStudy(studyId): study =>
