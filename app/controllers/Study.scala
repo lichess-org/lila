@@ -528,15 +528,12 @@ final class Study(
         jsonFormError,
         data =>
           env.study.api
-            .replaceChapterPgnMoves(studyId, chapterId, data.pgn)(using me)
+            .replaceChapterPgnMoves(studyId, chapterId, data.pgn)
             .map:
-              _.fold(
-                NotFound(
-                  jsonError(
-                    s"Either chapter $chapterId doesn't exist in study $studyId, or you aren't allowed to edit it."
-                  )
-                )
-              )(_ => NoContent)
+              if _ then NoContent
+              else
+                JsonBadRequest:
+                  s"Either chapter $chapterId doesn't exist in study $studyId, or you aren't allowed to edit it."
       )
     }
 

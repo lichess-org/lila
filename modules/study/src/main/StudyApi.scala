@@ -735,10 +735,9 @@ final class StudyApi(
       studyId: StudyId,
       chapterId: StudyChapterId,
       pgn: chess.format.pgn.PgnStr
-  )(using me: Me): Fu[Option[Chapter]] =
-    byIdWithChapter(studyId, chapterId).flatMap:
-      case None => fuccess(none)
-      case Some(Study.WithChapter(study, chapter)) =>
+  )(using me: Me): Fu[Boolean] =
+    byIdWithChapter(studyId, chapterId).flatMapz:
+      case Study.WithChapter(study, chapter) =>
         Contribute(me, study):
           for
             contributors <- lightUserApi.asyncMany(study.members.contributorIds.toList)
@@ -761,7 +760,7 @@ final class StudyApi(
           yield
             sendChaperPreviews(study)
             reloadStudy(study.id, Who(me.userId, Sri("api")))
-            newChapter.some
+            true
 
   // update provided tags, keep missing tags, delete tags with empty value
   def updateChapterTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(using me: Me) =
