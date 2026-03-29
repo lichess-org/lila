@@ -480,7 +480,9 @@ final class StudyApi(
           .so: c =>
             c.root.clock.so: clock =>
               doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
-      yield sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
+      yield
+        sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
+        setStudyUpdated(study)
 
   def setComment(studyId: StudyId, position: Position.Ref, text: CommentStr)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):
