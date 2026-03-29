@@ -6,14 +6,36 @@ import lila.core.i18n.I18nKey
 import lila.core.study.StudyOrder
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.{ Adapter, CachedAdapter }
+import lila.memo.SettingStore
 
 final class StudyPager(
     studyRepo: StudyRepo,
-    chapterRepo: ChapterRepo
+    chapterRepo: ChapterRepo,
+    settingStore: SettingStore.Builder
 )(using Executor):
 
   val maxPerPage = MaxPerPage(16)
   val defaultNbChaptersPerStudy = 4
+
+  object featured:
+    import scalalib.Iso
+    import lila.core.data.Strings
+    import reactivemongo.api.bson.BSONHandler
+    private type Ids = List[StudyId]
+    private given Iso[String, Ids] = lila.common.Iso
+      .strings("\n")
+      .map[Ids](
+        s => StudyId.from(s.value.filter(_.nonEmpty).map(_.takeRight(8))),
+        s => Strings(StudyId.raw(s))
+      )
+    private given BSONHandler[Ids] = lila.db.dsl.isoHandler
+    private given SettingStore.StringReader[Ids] = SettingStore.StringReader.fromIso
+    private given SettingStore.Formable[Ids] = SettingStore.Formable.stringIsoForm
+    val setting = settingStore[Ids](
+      "studyFeatured",
+      text = "Featured studies, one URL per line".some,
+      default = Nil
+    )
 
   import BSONHandlers.given
   import studyRepo.{
@@ -32,7 +54,13 @@ final class StudyPager(
       order,
       page,
       fuccess(9999).some
-    )
+    ).flatMap: pager =>
+      if (order == StudyOrder.hot || order == StudyOrder.popular) && page == 1 then
+        for
+          studies <- studyRepo.byOrderedIds(featured.setting.get())
+          extra <- withChaptersAndLiking()(studies)
+        yield pager.withCurrentPageResults(extra ++ pager.currentPageResults)
+      else fuccess(pager)
 
   def byOwner(owner: User, order: StudyOrder, page: Int)(using Option[Me]) =
     paginator(

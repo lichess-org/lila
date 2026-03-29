@@ -551,8 +551,16 @@ final class Study(
 
   def staffPicks = Open:
     pageHit
-    FoundPage(env.cms.renderKey("studies-staff-picks")):
-      views.study.staffPicks
+    FoundPage(env.cms.renderKey("studies-staff-picks")): page =>
+      val featured = isGrantedOpt(_.StudyAdmin).option(env.study.pager.featured.setting.form)
+      views.study.staffPicks(page, featured)
+
+  def staffPicksPost = SecureBody(_.StudyAdmin) { _ ?=> _ ?=>
+    bindForm(env.study.pager.featured.setting.form)(
+      _ => Redirect(routes.Study.staffPicks),
+      v => env.study.pager.featured.setting.setString(v.toString).inject(Redirect(routes.Study.staffPicks))
+    )
+  }
 
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
   def privateUnauthorizedFu(study: StudyModel)(using Context) = negotiate(

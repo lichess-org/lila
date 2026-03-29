@@ -31,7 +31,8 @@ final class Env(
     annotator: lila.tree.Annotator,
     mongo: lila.db.Env,
     net: lila.core.config.NetConfig,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    settingStore: lila.memo.SettingStore.Builder
 )(using
     Executor,
     Scheduler,

@@ -231,6 +231,7 @@ GET   /embed/analysis                  controllers.UserAnalysis.embed
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)
 GET   /study/staff-picks               controllers.Study.staffPicks
+POST  /study/staff-picks               controllers.Study.staffPicksPost
 GET   /study/all/:order                controllers.Study.all(order: StudyOrder, page: Int ?= 1)
 GET   /study/mine/:order               controllers.Study.mine(order: StudyOrder, page: Int ?= 1)
 GET   /study/member/:order             controllers.Study.mineMember(order: StudyOrder, page: Int ?= 1)
