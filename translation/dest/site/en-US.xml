@@ -234,7 +234,7 @@
   <string name="time">Time</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Rating stats</string>
-  <string name="username">User name</string>
+  <string name="username">Username</string>
   <string name="usernameOrEmail">User name or email</string>
   <string name="changeUsername">Change username</string>
   <string name="changeUsernameNotSame">Only the case of the letters can change. For example \"johndoe\" to \"JohnDoe\".</string>
