@@ -23,9 +23,9 @@
   <string name="bestMove">Најбољи потез!</string>
   <string name="keepGoing">Настави…</string>
   <string name="puzzleSuccess">Успех!</string>
-  <string name="puzzleComplete">Готов проблем!</string>
-  <string name="notTheMove">То није потез!</string>
-  <string name="trySomethingElse">Покушајте нешто друго.</string>
+  <string name="puzzleComplete">Проблем завршен!</string>
+  <string name="notTheMove">То није тражени потез!</string>
+  <string name="trySomethingElse">Покушај нешто друго.</string>
   <string name="ratingX">Рејтинг: %s</string>
   <string name="hidden">сакривено</string>
   <plurals name="playedXTimes">
