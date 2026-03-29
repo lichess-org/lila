@@ -524,11 +524,11 @@ final class Study(
 
   def apiChapterPgnMovesUpdate(studyId: StudyId, chapterId: StudyChapterId) =
     AuthOrScopedBody(_.Study.Write) { _ ?=> me ?=>
-      bindForm(StudyForm.replaceChapterPgnMoves.form)(
+      bindForm(StudyForm.replaceChapterPgnMoves)(
         jsonFormError,
-        data =>
+        pgnStr =>
           env.study.api
-            .replaceChapterPgnMoves(studyId, chapterId, data.pgn)
+            .replaceChapterPgnMoves(studyId, chapterId, pgnStr)
             .map:
               if _ then NoContent
               else
