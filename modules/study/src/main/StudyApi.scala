@@ -731,6 +731,7 @@ final class StudyApi(
             setStudyUpdated(study)
         }
 
+  // pgn validation is not performed
   def replaceChapterPgnMoves(
       studyId: StudyId,
       chapterId: StudyChapterId,
@@ -738,6 +739,7 @@ final class StudyApi(
   )(using me: Me): Fu[Boolean] =
     byIdWithChapter(studyId, chapterId).flatMapz:
       case Study.WithChapter(study, chapter) =>
+        if study.isRelay then fuccess(false)
         Contribute(me, study):
           for
             contributors <- lightUserApi.asyncMany(study.members.contributorIds.toList)
