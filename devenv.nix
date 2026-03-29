@@ -35,8 +35,8 @@ in
     pkgs-unstable.nodejs-slim
     pkgs.pnpm
     pkgs.svgo
-    pkgs-master.oxlint
-    pkgs-master.oxfmt
+    pkgs-unstable.oxlint
+    pkgs-unstable.oxfmt
     pkgs.lint-staged
     pkgs.stylelint
   ];
