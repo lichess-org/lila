@@ -737,6 +737,7 @@
   <string name="cyclePreviousOrNextVariation">Endre til forrige/neste variant</string>
   <string name="toggleGlyphAnnotations">Skru symboler i kommentarer av eller på</string>
   <string name="togglePositionAnnotations">Skru kommentarer for stillinger av eller på</string>
+  <string name="toggleObservationAnnotations">Skru kommentarer for observasjoner av eller på</string>
   <string name="variationArrowsInfo">Variantpiler lar deg navigere uten å bruke notasjonslisten.</string>
   <string name="playSelectedMove">spill valgt trekk</string>
   <string name="newTournament">Ny turnering</string>
