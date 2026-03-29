@@ -9,8 +9,8 @@
   <string name="lichessServerLatency">Lichess server latency</string>
   <string name="lichessServerLatencyExplanation">The time it takes to process a move on the server. It's the same for everybody, and only depends on the servers load. The more players, the higher it gets, but Lichess developers do their best to keep it low. It rarely exceeds 10ms.</string>
   <string name="networkBetweenLichessAndYou">Network between Lichess and you</string>
-  <string name="networkBetweenLichessAndYouExplanation">The time it takes to send a move from your computer to Lichess server, and get the response back. It's specific to your distance to Lichess (France), and to the quality of your Internet connection. Lichess developers cannot fix your wifi or make light go faster.</string>
+  <string name="networkBetweenLichessAndYouExplanation">The time it takes to send a move from your computer to Lichess's server, and get a response back. The ping depends on your distance to Lichess (France) as well as the quality of your Internet connection. Lichess developers cannot fix your Wi-Fi or make light go faster.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">You can find both these values at any time, by clicking your username in the top bar.</string>
   <string name="lagCompensation">Lag compensation</string>
-  <string name="lagCompensationExplanation">Lichess compensates network lag. This includes sustained lag and occasional lag spikes. There are limits and heuristics based on time control and the compensated lag so far, so that the result should feel reasonable for both players. As a result, having a higher network lag than your opponent is not a handicap!</string>
+  <string name="lagCompensationExplanation">Lichess compensates for network lag. This includes sustained lag and occasional lag spikes. Compensation limits and rules are based on time control and already-compensated lag, ensuring the game stays fair for both players. As a result, having a higher network lag than your opponent is not a handicap!</string>
 </resources>
