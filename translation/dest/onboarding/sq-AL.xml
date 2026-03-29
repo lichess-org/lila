@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">Hyni si %s</string>
   <string name="welcome">Mirë se vini!</string>
-  <string name="welcomeToLichess">Mirë se vini në lichess.org!</string>
+  <string name="welcomeToLichess">Mirë se vini në Lichess!</string>
   <string name="thisIsYourProfilePage">Kjo është faqja e profilit tuaj.</string>
   <string name="enabledKidModeSuggestion">A do ta përdorë këtë llogari ndonjë fëmijë? Mund të doni të aktivizoni %s.</string>
   <string name="whatNowSuggestions">Po më? Ja ndoca sugjerime:</string>

@@ -61,7 +61,7 @@ interface I18n {
   appeal: {
     /** Your account is muted. */
     accountMuted: string;
-    /** Read our %s. Failure to comply with the communication guidelines may result in accounts being muted. */
+    /** Read our %s. Failure to comply with the communication guidelines may result in your account being muted. */
     accountMutedInfo: I18nFormat;
     /** Your account is banned from joining arena tournaments. */
     arenaBanned: string;
@@ -77,7 +77,7 @@ interface I18n {
     closedByModerators: string;
     /** communication guidelines */
     communicationGuidelines: string;
-    /** Your account is marked for external assistance in games. */
+    /** Your account has been restricted for using external assistance in games. */
     engineMarked: string;
     /** We define this as using any external help to reinforce your knowledge and/or calculation skills to gain an unfair advantage over your opponent. See the %s page for more details. */
     engineMarkedInfo: I18nFormat;
@@ -289,7 +289,7 @@ interface I18n {
     fideRatingCategory: string;
     /** Finals */
     finals: string;
-    /** Full tournament description */
+    /** Full event description */
     fullDescription: string;
     /** Optional long description of the event. You can use %1$s for additional formatting options. Length must be less than %2$s characters. */
     fullDescriptionHelp: I18nFormat;
@@ -413,9 +413,9 @@ interface I18n {
     tournamentDescription: string;
     /** Tournament format */
     tournamentFormat: string;
-    /** Tournament Location */
+    /** Event location */
     tournamentLocation: string;
-    /** Tournament name */
+    /** Event name */
     tournamentName: string;
     /** Unrated */
     unrated: string;
@@ -2041,7 +2041,7 @@ interface I18n {
     thisIsYourProfilePage: string;
     /** Welcome! */
     welcome: string;
-    /** Welcome to lichess.org! */
+    /** Welcome to Lichess! */
     welcomeToLichess: string;
     /** What now? Here are a few suggestions: */
     whatNowSuggestions: string;
@@ -4333,7 +4333,7 @@ interface I18n {
     signupEmailPromise: string;
     /** Register to join or host a simul */
     signUpToHostOrJoinASimul: string;
-    /** Make sure to choose a username that's appropriate for all ages. You cannot change it later and any accounts with inappropriate usernames will get closed! */
+    /** Be sure to choose a username appropriate for all ages. You cannot change it later, and accounts with inappropriate usernames will be closed! */
     signupUsernameHint: string;
     /** You may add extra initial time to your clock to help you cope with the simul. */
     simulAddExtraTime: string;
@@ -4445,7 +4445,7 @@ interface I18n {
     thematic: string;
     /** No results for "%s" */
     thereAreNoResultsForX: I18nFormat;
-    /** This account violated the Lichess Terms of Service */
+    /** The Lichess Terms of Service were violated on this account */
     thisAccountViolatedTos: string;
     /** This game is rated */
     thisGameIsRated: string;
@@ -5099,7 +5099,7 @@ interface I18n {
     commentThisMove: string;
     /** Comment on this position */
     commentThisPosition: string;
-    /** You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>Power users might want to press "?" to see keyboard shortcuts.<br>Have fun! */
+    /** You can find your <a href='/study/mine/hot'>previous studies</a> on your profile page.<br>There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>Power users might want to press "?" to see keyboard shortcuts.<br>Have fun! */
     conclusionText: string;
     /** Thanks for your time */
     conclusionTitle: string;

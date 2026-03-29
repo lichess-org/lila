@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">%s sifatida tizimga kiring</string>
   <string name="welcome">Xush kelibsiz!</string>
-  <string name="welcomeToLichess">Lichess.orgʼga xush kelibsiz!</string>
+  <string name="welcomeToLichess">Lichessʼga xush kelibsiz!</string>
   <string name="thisIsYourProfilePage">Bu sizning profil sahifangiz.</string>
   <string name="enabledKidModeSuggestion">Bu yosh bola akkauntimi? %sni yoqishingiz mumkin.</string>
   <string name="whatNowSuggestions">Endi nima? Bu yerda bir nechta takliflar:</string>

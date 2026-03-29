@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">Kirjaudu sisään tunnuksella %s</string>
   <string name="welcome">Tervetuloa!</string>
-  <string name="welcomeToLichess">Tervetuloa lichess.orgiin!</string>
+  <string name="welcomeToLichess">Tervetuloa Lichessiin!</string>
   <string name="thisIsYourProfilePage">Tämä on profiilisivusi.</string>
   <string name="enabledKidModeSuggestion">Käyttääkö lapsi tätä tunnusta? Harkitse siinä tapauksessa %sn päälle laittamista.</string>
   <string name="whatNowSuggestions">Mitä seuraavaksi? Tässä pari ehdotusta:</string>

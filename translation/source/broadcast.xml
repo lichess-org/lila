@@ -21,9 +21,9 @@
   <string name="ongoing">Ongoing</string>
   <string name="upcoming">Upcoming</string>
   <string name="roundName">Round name</string>
-  <string name="tournamentName">Tournament name</string>
+  <string name="tournamentName">Event name</string>
   <string name="tournamentDescription">Short tournament description</string>
-  <string name="fullDescription">Full tournament description</string>
+  <string name="fullDescription">Full event description</string>
   <string name="fullDescriptionHelp">Optional long description of the event. You can use %1$s for additional formatting options. Length must be less than %2$s characters.</string>
   <string name="sourceSingleUrl">PGN Source URL</string>
   <string name="sourceUrlHelp">URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.</string>
@@ -72,7 +72,7 @@
   <string name="standingsDisclaimer">Standings are calculated using broadcasted games and may differ from official results.</string>
   <string name="allTeams">All teams</string>
   <string name="tournamentFormat">Tournament format</string>
-  <string name="tournamentLocation">Tournament Location</string>
+  <string name="tournamentLocation">Event location</string>
   <string name="topPlayers">Top players</string>
   <string name="timezone">Time zone</string>
   <string name="fideRatingCategory">FIDE rating category</string>

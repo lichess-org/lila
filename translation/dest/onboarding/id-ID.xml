@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">Masuk sebagai %s</string>
   <string name="welcome">Selamat Datang!</string>
-  <string name="welcomeToLichess">Selamat Datang ke lichess.org!</string>
+  <string name="welcomeToLichess">Selamat Datang ke Lichess!</string>
   <string name="thisIsYourProfilePage">Ini adalah halaman profil Anda.</string>
   <string name="enabledKidModeSuggestion">Apakah anak dibawah umur akan menggunakan akun ini? Mungkin Anda ingin mengaktifkan %s.</string>
   <string name="whatNowSuggestions">Apa selanjutnya? Berikut ini ada beberapa saran:</string>

@@ -181,7 +181,7 @@
   <string name="annotatePositionTitle">Annotate a position</string>
   <string name="annotatePositionText">Click the !? button, or right-click on the move list.&amp;lt;br&amp;gt;Annotation glyphs are shared and saved.</string>
   <string name="conclusionTitle">Thanks for your time</string>
-  <string name="conclusionText">You can find your &lt;a href='/study/mine/hot'&gt;previous studies&lt;/a&gt; from your profile page.&lt;br&gt;There is also a &lt;a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'&gt;blog post about studies&lt;/a&gt;.&lt;br&gt;Power users might want to press "?" to see keyboard shortcuts.&lt;br&gt;Have fun!</string>
+  <string name="conclusionText">You can find your &lt;a href='/study/mine/hot'&gt;previous studies&lt;/a&gt; on your profile page.&lt;br&gt;There is also a &lt;a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'&gt;blog post about studies&lt;/a&gt;.&lt;br&gt;Power users might want to press "?" to see keyboard shortcuts.&lt;br&gt;Have fun!</string>
   <string name="createChapterTitle">Let's create a study chapter</string>
   <string name="createChapterText">A study can have several chapters.&amp;lt;br&amp;gt;Each chapter has a distinct move tree &amp;lt;br&amp;gt;and can be created in various ways.</string>
   <string name="fromInitialPositionTitle">From initial position</string>

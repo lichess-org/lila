@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">Mag-log in bilang %s</string>
   <string name="welcome">Maligayang pagdating!</string>
-  <string name="welcomeToLichess">Maligayang pagdating sa lichess.org!</string>
+  <string name="welcomeToLichess">Maligayang pagdating sa Lichess!</string>
   <string name="thisIsYourProfilePage">Ito ang iyong profile page.</string>
   <string name="enabledKidModeSuggestion">Gagamitin ba ang isang bata ng account na ito? Baka gusto mong i-enable ang %s.</string>
   <string name="whatNowSuggestions">Anong gagawin ngayon? Heto ang ilang mga suggestion:</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="welcome">स्वागत!</string>
-  <string name="welcomeToLichess">Lichess.org में आपका स्वागत है!</string>
+  <string name="welcomeToLichess">Lichess में आपका स्वागत है!</string>
   <string name="thisIsYourProfilePage">यह आपका प्रोफ़ाइल पृष्ठ है.</string>
   <string name="enabledKidModeSuggestion">क्या कोई बच्चा इस खाते का उपयोग करेगा? हो सकता है आप %s को सक्षम करना चाहें।</string>
   <string name="whatNowSuggestions">अब क्या? यहां कुछ सुझाव दिए गए हैं:</string>
