@@ -684,7 +684,7 @@ final class StudyApi(
                 studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
             yield
               if shouldReload then sendTo(study.id)(_.reloadStudy(who))
-              if shouldSendChapterPreviews then sendChaperPreviews(study)
+              if shouldSendChapterPreviews then sendChapterPreviews(study)
               setStudyUpdated(study)
         }
 
@@ -727,7 +727,7 @@ final class StudyApi(
                     doSetChapter(study, newId, who)
             _ <- chapterRepo.delete(chapter.id)
           yield
-            sendChaperPreviews(study)
+            sendChapterPreviews(study)
             setStudyUpdated(study)
         }
 
@@ -747,7 +747,7 @@ final class StudyApi(
       Contribute(who.u, study):
         for _ <- chapterRepo.sort(study, chapterIds)
         yield
-          sendChaperPreviews(study)
+          sendChapterPreviews(study)
           setStudyUpdated(study)
 
   def descStudy(studyId: StudyId, desc: String)(who: Who) =
@@ -869,7 +869,7 @@ final class StudyApi(
   ) =
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId, reason))
 
-  def sendChaperPreviews(study: Study) =
+  def sendChapterPreviews(study: Study) =
     for previews <- preview.jsonList(study.id)
     do sendTo(study.id)(_.sendChapterPreviews(previews))
 

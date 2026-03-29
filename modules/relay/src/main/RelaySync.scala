@@ -41,7 +41,7 @@ final private class RelaySync(
     reloadChapters = updates.exists(_.newEnd) || plan.isJustInitialChapterUpdate
     _ = if reloadChapters then
       preview.invalidate(study.id)
-      studyApi.sendChaperPreviews(study)
+      studyApi.sendChapterPreviews(study)
       players.invalidate(rt.tour.id)
       teamLeaderboard.invalidate(rt.tour.id)
   yield result
