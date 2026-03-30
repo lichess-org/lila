@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">DGT Board Requirements</string>
   <string name="dgtBoardLimitations">DGT Board Limitations</string>
   <string name="thisPageAllowsConnectingDgtBoard">This page allows you to connect your DGT board to Lichess and use it for games.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">To connect to the DGT Electronic Board, you will need to install %s.</string>
+  <string name="toConnectTheDgtBoard">To connect to the DGT Electronic Board, you will need to install %s.</string>
   <string name="downloadHere">You can download the software here: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">If %1$s is running on this computer, you can check your connection to it by %2$s.</string>
   <string name="openingThisLink">opening this link</string>
@@ -18,7 +18,7 @@
   <string name="whenReadySetupBoard">When ready, setup your board and then click %s.</string>
   <string name="ifMoveNotDetected">If a move is not detected</string>
   <string name="checkYouHaveMadeOpponentsMove">Check that you have made your opponent\'s move on the DGT board first. Revert your move. Play again.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">As a last resort, setup the board identically as Lichess, then %s</string>
+  <string name="asALastResort">As a last resort, setup the board identically as Lichess, then %s</string>
   <string name="reloadThisPage">Reload this page</string>
   <string name="dgtConfigure">DGT - Configure</string>
   <string name="lichessConnectivity">Lichess connectivity</string>
