@@ -71,7 +71,7 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe partide și pentr
   <string name="whichTeamWillYouRepresentInThisBattle">Ce echipă vei reprezenta în această bătălie?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Trebuie să te alături uneia dintre aceste echipe pentru a participa!</string>
   <string name="created">Creat</string>
-  <string name="recentlyPlayed">Jucate recent</string>
+  <string name="recentlyPlayed">Ultimele jucate</string>
   <string name="bestResults">Cele mai bune rezultate</string>
   <string name="tournamentStats">Statistici turneu</string>
   <string name="rankAvgHelp">Media rangului este un procent din clasamentul tău. Mai mic e mai bine.
