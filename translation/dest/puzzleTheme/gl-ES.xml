@@ -122,7 +122,7 @@
   <string name="queensideAttack">Ataque no flanco de dama</string>
   <string name="queensideAttackDescription">Un ataque sobre o rei do opoñente, despois de que este enrocase en longo.</string>
   <string name="quietMove">Movemento tranquilo</string>
-  <string name="quietMoveDescription">Unha xogada que non dá xaque nin captura, nin tampouco ameaza con capturar, pero que prepara unha ameaza agochada e inevitable nun movemento posterior.</string>
+  <string name="quietMoveDescription">Unha xogada que non dá xaque, non captura nin tampouco ameaza con capturar. En troques, prepara unha ameaza agochada e inevitable nun movemento posterior.</string>
   <string name="rookEndgame">Final de torres</string>
   <string name="rookEndgameDescription">Un final no que só hai torres e peóns.</string>
   <string name="sacrifice">Sacrificio</string>
@@ -148,6 +148,6 @@
   <string name="mix">Mestura equilibrada</string>
   <string name="mixDescription">Un pouco de todo. Non sabes que vai vir, así que prepárate para calquera cousa! Coma nas partidas de verdade.</string>
   <string name="playerGames">Partidas de xogadores</string>
-  <string name="playerGamesDescription">Busca crebacabezas xerados a partir das túas partidas ou das doutros xogadores.</string>
+  <string name="playerGamesDescription">Exercicios xerados a partir das túas partidas ou dende partidas doutros xogadores.</string>
   <string name="puzzleDownloadInformation">Estes problemas son de dominio público e poden ser descargados en %s.</string>
 </resources>
