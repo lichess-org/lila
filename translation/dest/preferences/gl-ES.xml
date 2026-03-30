@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modo zen</string>
   <string name="showPlayerRatings">Amosar a puntuación dos xogadores</string>
   <string name="showFlairs">Amosar as habelencias dos xogadores</string>
-  <string name="explainShowPlayerRatings">Oculta todas as puntuacións de Lichess para axudar a centrarse no xadrez. As partidas poden ser puntuadas, isto só afecta ó que podes ver.</string>
+  <string name="explainShowPlayerRatings">Oculta todas as puntuacións de Lichess para axudarte a centrarte no xadrez. Este axuste só afecta ó que ves. As partidas puntuadas seguirán modificando a túa puntuación.</string>
   <string name="displayBoardResizeHandle">Mostrar o control de redimensionamento do taboleiro</string>
   <string name="onlyOnInitialPosition">Só na posición inicial</string>
   <string name="inGameOnly">Só durante a partida</string>
@@ -64,7 +64,7 @@
   <string name="notifyTournamentSoon">O torneo comeza pronto</string>
   <string name="notifyBroadcasts">Emisións ás que te subscribiches</string>
   <string name="notifyTimeAlarm">Pouco tempo restante na partida por correspondencia</string>
-  <string name="notifyBell">Notificación dentro de Lichess</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Notificación dentro de Lichess</string>
   <string name="notifyPush">Notificación no dispositivo cando non esteas en Lichess</string>
   <string name="notifyWeb">Navegador</string>
   <string name="notifyDevice">Dispositivo</string>
