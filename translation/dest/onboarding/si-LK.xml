@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">%s ලෙස පුරන්න</string>
   <string name="welcome">ආයුබෝවන්!</string>
-  <string name="welcomeToLichess">Lichess වෙත සාදරයෙන් පිළිගනිමු!</string>
+  <string name="welcomeToLichess">lichess.org වෙත සාදරයෙන් පිළිගනිමු!</string>
   <string name="thisIsYourProfilePage">මෙය ඔබේ පරිශීලක පිටුවයි.</string>
   <string name="enabledKidModeSuggestion">මෙම ගිණුම ළමුන් භාවිත කරයිද? සමහර විට %s සක්‍රීය කළ යුතුවේ.</string>
   <string name="whatNowSuggestions">දැන් කුමක්ද? යෝජනා කිහිපයක් මෙන්න:</string>
