@@ -119,8 +119,7 @@ final class UserAnalysis(
                       ctx.pref,
                       initialFen,
                       pov.color,
-                      owner = owner,
-                      addLichobileCompat = true
+                      owner = owner
                     )
                 withForecast = owner && !pov.game.synthetic && pov.game.playable
                 page <- renderPage:
