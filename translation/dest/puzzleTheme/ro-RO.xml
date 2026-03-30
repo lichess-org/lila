@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Un fel de mat care se aseamănă vizual cu o coadă de rândunică, similar cu o formă de V.</string>
   <string name="triangleMate">Mat în triunghi</string>
   <string name="triangleMateDescription">Regina și tura, la un pătrat de regele inamic, sunt pe același linie sau coloană, separate de un singur pătrat, formând un triunghi.</string>
-  <string name="vukovicMate">Mat Vukovic</string>
+  <string name="vukovicMate">Mat Vuković</string>
   <string name="vukovicMateDescription">O tură și un cal fac echipă pentru a da șah mat regelui. Tura dă mat fiind apărată de o a treia piesă iar calul blochează toate căile de scăpare ale regelui.</string>
   <string name="knightEndgame">Final cu cai</string>
   <string name="knightEndgameDescription">Un final de partidă doar cu pioni și cai.</string>
@@ -122,7 +122,7 @@
   <string name="queensideAttack">Atac pe partea reginei</string>
   <string name="queensideAttackDescription">Un atac asupra regelui adversarului, după ce a făcut rocada pe partea reginei.</string>
   <string name="quietMove">Mutare silențioasă</string>
-  <string name="quietMoveDescription">O mutare care nu capturează sau dă șah, dar care pregătește o amenințare inevitabilă pentru o mutare ulterioară.</string>
+  <string name="quietMoveDescription">O mutare care nu dă șah, capturează sau crează o amenințare imediată, dar care pregătește o amenințare ascunsă și inevitabilă pentru o mutare ulterioară.</string>
   <string name="rookEndgame">Final cu turnuri</string>
   <string name="rookEndgameDescription">Un final de partidă doar cu turnuri și pioni.</string>
   <string name="sacrifice">Sacrificiu</string>
