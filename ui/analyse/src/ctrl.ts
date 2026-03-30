@@ -981,6 +981,7 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   private readonly instanciateEvalCache = () => {
+    if (this.evalCache) this.evalCache.destroy();
     this.evalCache = new EvalCache({
       variant: this.data.game.variant.key,
       canGet: this.canEvalGet,
