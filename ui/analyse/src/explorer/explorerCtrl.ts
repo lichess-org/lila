@@ -61,6 +61,11 @@ export default class ExplorerCtrl {
     this.checkHash();
   }
 
+  destroy = () => {
+    clearLastShow();
+    window.removeEventListener('hashchange', this.checkHash, false);
+  };
+
   private readonly checkHash = (e?: HashChangeEvent) => {
     const parts = location.hash.split('/');
     if (parts[0] === '#explorer' || parts[0] === '#opening') {
@@ -81,8 +86,6 @@ export default class ExplorerCtrl {
     this.setNode();
     this.root.redraw();
   };
-
-  destroy = clearLastShow;
 
   private readonly baseXhrOpening = () => ({
     endpoint: this.opts.endpoint,
