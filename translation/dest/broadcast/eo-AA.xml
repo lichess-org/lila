@@ -51,15 +51,23 @@
   <string name="teams">Teamoj</string>
   <string name="boards">Tabuloj</string>
   <string name="overview">Superrigardo</string>
+  <string name="uploadImage">Alŝuti bildon por la turniro</string>
   <string name="startsAfter">Komenciĝo post %s</string>
   <string name="officialWebsite">Oficiala retejo</string>
   <string name="ratingDiff">Ranga malsamo</string>
   <string name="gamesThisTournament">Ludoj en tiu ĉi turniro</string>
+  <string name="score">Rezulto</string>
   <string name="allTeams">Ĉiuj teamoj</string>
+  <string name="tournamentFormat">Formo de turniro</string>
+  <string name="tournamentLocation">Loko de turniro</string>
   <string name="topPlayers">Plej bonaj ludantoj</string>
   <string name="timezone">Horzono</string>
   <string name="fideRatingCategory">Kategorio de rango de FIDE</string>
   <string name="pastBroadcasts">Antaŭaj elsendoj</string>
+  <string name="allBroadcastsByMonth">Montri ĉiujn elsendoj laŭ monato</string>
+  <string name="teamResults">Rezultoj de teamo</string>
+  <string name="roundX">Rondo %s</string>
+  <string name="defaultRoundNameHelp">Se vi gardas la norman nomon, ĝi estos aŭtomate tradukita al ĉiuj aliaj lingvoj.</string>
   <string name="openTournament">Malfermita</string>
   <string name="womenTournament">Virina</string>
   <string name="menTournament">Vira</string>
@@ -71,4 +79,6 @@
   <string name="quarterfinals">Kvaronfinaloj</string>
   <string name="semifinals">Duonfinaloj</string>
   <string name="finals">Finaloj</string>
+  <string name="tiebreaks">Egalrompoj</string>
+  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Ludo %s</string>
 </resources>
