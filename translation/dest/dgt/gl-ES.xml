@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">As palabras chave están en formato JSON. Empréganse para traducir as xogadas e os resultados á túa lingua. Por defecto é o inglés, pero podes cambialo.</string>
   <string name="debug">Depuración</string>
   <string name="verboseLogging">Rexistro detallado</string>
-  <string name="toSeeConsoleMessage">Para ver mensaxes na consola, preme Command + Opción + C (Mac) ou Control + Maiúsculas + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage">Para ver mensaxes na consola, preme Ctrl + Maiúsculas + C (Windows, Linux, Chrome OS) ou ⌘ + ⌥ + C (Mac).</string>
   <string name="playWithDgtBoard">Xogar cun taboleiro DGT</string>
   <string name="configure">Configurar</string>
 </resources>
