@@ -94,6 +94,6 @@ Joga partidas semi-rápidas e clássicas para aumentares a probabilidade de tere
   </plurals>
   <string name="percentSolved">%s resolvido</string>
   <string name="noPuzzlesToShow">Nada para mostrar, joga alguns problemas primeiro!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Treine estes para otimizar o seu progresso!</string>
+  <string name="improvementAreasDescription">Treine estes para otimizar o seu progresso!</string>
   <string name="strengthDescription">Você tem melhor desempenho nestes temas</string>
 </resources>
