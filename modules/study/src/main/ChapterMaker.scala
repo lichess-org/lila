@@ -36,7 +36,7 @@ final private class ChapterMaker(
   def toStudyPgn(study: Study, pgn: PgnStr): Fu[StudyPgnImport.Result] = for
     contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
     parsed <- StudyPgnImport.result(pgn, contributors.flatten).toFuture.recoverWith { case e: Exception =>
-      fufail(ValidationException(e.getMessage))
+      fufail(StudyValidationException(e.getMessage))
     }
   yield parsed
 
@@ -196,9 +196,7 @@ final private class ChapterMaker(
       case UrlRegex(id) => parseGame(id)
       case _ => fuccess(none)
 
-private[study] object ChapterMaker:
-
-  case class ValidationException(message: String) extends lila.core.lilaism.LilaException
+private object ChapterMaker:
 
   enum Mode:
     def key = toString.toLowerCase

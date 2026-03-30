@@ -531,9 +531,9 @@ final class Study(
             .replaceChapterPgnMoves(studyId, chapterId, pgnStr)
             .map:
               if _ then NoContent
-              else
-                JsonBadRequest:
-                  s"Either chapter $chapterId doesn't exist in study $studyId, or you aren't allowed to edit it."
+              else JsonBadRequest(s"Invalid or forbidden chapter $studyId/$chapterId")
+            .recover:
+              case lila.study.StudyValidationException(error) => JsonBadRequest(error)
       )
     }
 

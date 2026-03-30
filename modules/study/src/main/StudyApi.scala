@@ -605,7 +605,7 @@ final class StudyApi(
         order <- chapterRepo.nextOrderByStudy(study.id)
         chapter <- chapterMaker(study, data, order, who.u, withRatings)
           .recoverWith:
-            case ChapterMaker.ValidationException(error) =>
+            case StudyValidationException(error) =>
               sendTo(study.id)(_.validationError(error, who.sri))
               ErrorMsg(error).raise
         _ <- doAddChapter(study, chapter, sticky, who)
@@ -749,9 +749,8 @@ final class StudyApi(
                 serverEval = None
               )
               _ <- chapterRepo.update(newChapter)
-              _ <- (study.position.chapterId == chapter.id).so(
+              _ <- (study.position.chapterId == chapter.id).so:
                 studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
-              )
               _ = preview.invalidate(study.id)
             yield
               sendChapterPreviews(study)
