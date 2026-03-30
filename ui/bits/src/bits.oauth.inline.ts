@@ -1,16 +1,8 @@
 // ensure maximum browser compatibility here,
 // as the oauth page can be embedded in very dubious webviews
 
-const form: HTMLElement = document.getElementById('oauth-authorize')!;
-const submitBtn: HTMLButtonElement = form.querySelector('button')!;
-
-setTimeout(
-  function () {
-    submitBtn.removeAttribute('disabled');
-    submitBtn.classList.remove('disabled');
-  },
-  submitBtn.classList.contains('button-red') ? 5000 : 2000,
-);
+const form: HTMLFormElement = document.querySelector<HTMLFormElement>('#oauth-authorize')!;
+const submitBtn: HTMLButtonElement = form.querySelector<HTMLButtonElement>('button')!;
 
 form.addEventListener('submit', function () {
   setTimeout(function () {
@@ -22,3 +14,15 @@ form.addEventListener('submit', function () {
     oauthTop.insertAdjacentElement('afterend', successDiv);
   }, 500);
 });
+
+if (submitBtn.classList.contains('auto-click')) {
+  form.submit();
+} else {
+  setTimeout(
+    function () {
+      submitBtn.removeAttribute('disabled');
+      submitBtn.classList.remove('disabled');
+    },
+    submitBtn.classList.contains('button-red') ? 5000 : 2000,
+  );
+}

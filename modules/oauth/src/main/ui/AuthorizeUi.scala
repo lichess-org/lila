@@ -55,9 +55,14 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                 case None =>
                   val danger = prompt.isDanger && signedClient.isEmpty
                   submitButton(
-                    cls := s"button${danger.so(" button-red ok-cancel-confirm text")} disabled",
+                    cls := List(
+                      "button" -> true,
+                      "button-red ok-cancel-confirm text" -> danger,
+                      "disabled" -> signedClient.isEmpty,
+                      "auto-click" -> signedClient.isDefined
+                    ),
                     dataIcon := danger.option(Icon.CautionTriangle),
-                    disabled := true,
+                    signedClient.isEmpty.option(disabled),
                     title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"
                   )("Authorize")
             ),
