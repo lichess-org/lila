@@ -44,13 +44,34 @@
   <string name="teamsIlead">मी नेतृत्व करत असलेले संघ</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">तुम्हाला यातील एखाद्या स्पर्धा लिंक करायची आहे का?</string>
   <string name="leadersChat">संघनेत्यांचा गप्पाकक्ष</string>
+  <string name="introduction">परिचय</string>
+  <string name="teamIntroductionHelp">संक्षिप्त वर्णन संघांच्या सूचित स्पष्ट आहे. २०० वर्ण पर्यंत.</string>
+  <string name="teamDescriptionHelp">पूर्ण वर्णन संघाच्या पृष्ठावर दृश्यमान आहे</string>
   <string name="closeTeam">संघ बंद करा</string>
   <string name="closeTeamDescription">संघ कायमचा बंद होईल.</string>
-  <string name="entryCode">संघ प्रवेश कोड</string>
-  <string name="entryCodeDescriptionForLeader">(पर्यायी) एक प्रवेश कोड जो नवीन सदस्यांना या संघात सामील होण्यासाठी माहित असणे आवश्यक आहे.</string>
+  <string name="entryCode">संघ प्रवेश संकेत</string>
+  <string name="entryCodeDescriptionForLeader">(पर्यायी) एक प्रवेश संकेत जो नवीन सदस्यांना या संघात सामील होण्यासाठी माहित असणे आवश्यक आहे.</string>
   <string name="incorrectEntryCode">चुकीचा प्रवेश कोड.</string>
   <string name="teamAlreadyExists">हा संघ आधीच अस्तित्वात आहे.</string>
+  <string name="upcomingTournaments">येणारी स्पर्धा</string>
   <string name="completedTourns">पूर्ण स्पर्धा</string>
   <string name="declinedRequests">नकारलेल्या विनंत्या</string>
   <string name="joinLichessVariantTeam">बातम्या आणि कार्यक्रमांसाठी अधिकृत %s संघात सामील व्हा</string>
+  <string name="thisTeamBattleIsOver">हि स्पर्धा संपलेली आहे, आणि संघांचे ह्यापुढे अद्यायावत केले नाही जाऊ शकत.</string>
+  <string name="listTheTeamsThatWillCompete">जे संघ लढाईत मुकाबला करत आहेत त्यांची यादी बनवा.</string>
+  <string name="oneTeamPerLine">प्रति ओळ एक संघ. आपोआप-पूर्णतेचा वापर करा.</string>
+  <string name="oneTeamPerLineHelp">हि यादी तुम्ही एका स्पर्धेमधून दुसऱ्यात कॉपी-पेस्ट करू शकता!
+
+जर एका खेळाडूने स्पर्धेत भाग घेतला असेल तर तुम्ही त्याच्या संघाला काढू नाही शकत.</string>
+  <string name="numberOfLeadsPerTeam">प्रति संघ नेत्यांची संख्या. त्यांच्या गुणांची बेरीज संघाचे गुण आहे.</string>
+  <string name="numberOfLeadsPerTeamHelp">तुम्ही स्पर्धा चालू झ्हाल्यानंतर ह्या मूल्याला खरंच बदलू करू नये!</string>
+  <string name="innerTeam">अंतस्थ संघ</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">%s संघाची लढाई</item>
+    <item quantity="other">%s संघांची लढाई</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">एक नेता प्रति संघ</item>
+    <item quantity="other">%s नेते प्रति संघ</item>
+  </plurals>
 </resources>
