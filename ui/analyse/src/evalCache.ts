@@ -80,9 +80,7 @@ export default class EvalCache {
     pubsub.on('socket.in.crowd', this.onCrowd);
   }
 
-  destroy = () => {
-    pubsub.off('socket.in.crowd', this.onCrowd);
-  };
+  destroy = () => pubsub.off('socket.in.crowd', this.onCrowd);
 
   private readonly onCrowd: PubsubEvents['socket.in.crowd'] = d => this.upgradable(d.nb > 2 && d.nb < 99999);
 
