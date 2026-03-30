@@ -297,7 +297,11 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     Redirect(call.url, referrer.so(r => Map("referrer" -> List(r.value))))
 
   def signupConfirmEmail(token: String) = Open:
-    env.security.emailConfirm.dryTest(token).flatMap(emailConfirmResult(token))
+    val result =
+      if summon[Option[ValidReferrer]].exists(env.oAuth.signedClients.isSignedReferrer)
+      then env.security.emailConfirm.confirm(token)
+      else env.security.emailConfirm.dryTest(token)
+    result.flatMap(emailConfirmResult(token))
 
   def signupConfirmEmailPost(token: String) = Open:
     env.security.emailConfirm.confirm(token).flatMap(emailConfirmResult(token))

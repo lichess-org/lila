@@ -57,6 +57,14 @@ final class OAuthSignedClients(appConfig: Configuration):
       ref <- parse(referrer.value).toOption
       username <- ref.queryParam("default_username").map(UserName(_))
       email <- ref.queryParam("default_email").flatMap(EmailAddress.from)
+      if isSignedReferrer(referrer)
+    yield OAuthSignedClient.SimpleSignup(username, email)
+
+  def isSignedReferrer(referrer: ValidReferrer): Boolean =
+    import lila.common.url.{ parse, queryParam }
+    val client = for
+      ref <- parse(referrer.value).toOption
+      email <- ref.queryParam("default_email").flatMap(EmailAddress.from)
       sign <- ref.queryParam("default_sign")
       clientId <- ref.queryParam("client_id").map(ClientId(_))
       redirectUriStr <- ref.queryParam("redirect_uri")
@@ -66,7 +74,8 @@ final class OAuthSignedClients(appConfig: Configuration):
       if client == polygon
       if client.signers.exists: signer =>
         signer.sha1(email.value).hash_=(sign)
-    yield OAuthSignedClient.SimpleSignup(username, email)
+    yield client
+    client.isDefined
 
   private val clients = List(mobile, polygon)
 
