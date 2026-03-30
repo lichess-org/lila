@@ -27,14 +27,14 @@
   <string name="notTheMove">То није тражени потез!</string>
   <string name="trySomethingElse">Покушај нешто друго.</string>
   <string name="ratingX">Рејтинг: %s</string>
-  <string name="hidden">сакривено</string>
+  <string name="hidden">сакривен</string>
   <plurals name="playedXTimes">
     <item quantity="one">Играно %s пут</item>
     <item quantity="few">Играно %s пута</item>
     <item quantity="other">Играно %s пута</item>
   </plurals>
   <string name="fromGameLink">Из партије %s</string>
-  <string name="continueTraining">Наставите тренинг</string>
+  <string name="continueTraining">Настави тренинг</string>
   <string name="difficultyLevel">Ниво тежине</string>
   <string name="normal">Нормалан</string>
   <string name="easier">Лакши</string>
