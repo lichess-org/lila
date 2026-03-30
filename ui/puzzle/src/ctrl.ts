@@ -70,7 +70,6 @@ export default class PuzzleCtrl implements CevalHandler {
   pov: Color;
   mode: 'play' | 'view' | 'try';
   round?: PuzzleRound;
-  justPlayed?: Key;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
   canViewSolution = toggle(false);
@@ -218,7 +217,6 @@ export default class PuzzleCtrl implements CevalHandler {
     this.mode = 'play';
     this.next = defer();
     this.round = undefined;
-    this.justPlayed = undefined;
     this.resultSent = false;
     this.lastFeedback = 'init';
     this.initialPath = initialPath;
@@ -317,7 +315,6 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   userMove = (orig: Key, dest: Key): void => {
-    this.justPlayed = orig;
     const isPromoting = this.promotion.start(orig, dest, {
       submit: this.playUserMove,
       show: this.voiceMove?.promotionHook(),
@@ -571,7 +568,6 @@ export default class PuzzleCtrl implements CevalHandler {
       this.startCeval();
     }
     this.promotion.cancel();
-    this.justPlayed = undefined;
     this.autoScrollRequested = true;
     this.pluginUpdate(this.node.fen);
     pubsub.emit('ply', this.node.ply);
