@@ -64,7 +64,7 @@
   <string name="notifyTournamentSoon">Tournament starting soon</string>
   <string name="notifyBroadcasts">Broadcasts you have subscribed to</string>
   <string name="notifyTimeAlarm">Correspondence time running out</string>
-  <string name="notifyBell">Bell notification within Lichess</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Notification within Lichess</string>
   <string name="notifyPush">Device notification when you\'re not on Lichess</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Device</string>
