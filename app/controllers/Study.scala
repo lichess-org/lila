@@ -522,6 +522,21 @@ final class Study(
       )
     }
 
+  def apiChapterPgnMovesUpdate(studyId: StudyId, chapterId: StudyChapterId) =
+    AuthOrScopedBody(_.Study.Write) { _ ?=> me ?=>
+      bindForm(StudyForm.replaceChapterPgnMoves)(
+        jsonFormError,
+        pgnStr =>
+          env.study.api
+            .replaceChapterPgnMoves(studyId, chapterId, pgnStr)
+            .map:
+              if _ then NoContent
+              else JsonBadRequest(s"Invalid or forbidden chapter $studyId/$chapterId")
+            .recover:
+              case lila.study.StudyValidationException(error) => JsonBadRequest(error)
+      )
+    }
+
   def topicAutocomplete = Anon:
     get("term").filter(_.nonEmpty) match
       case None => BadRequest("No search term provided")

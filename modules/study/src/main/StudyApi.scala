@@ -605,7 +605,7 @@ final class StudyApi(
         order <- chapterRepo.nextOrderByStudy(study.id)
         chapter <- chapterMaker(study, data, order, who.u, withRatings)
           .recoverWith:
-            case ChapterMaker.ValidationException(error) =>
+            case StudyValidationException(error) =>
               sendTo(study.id)(_.validationError(error, who.sri))
               ErrorMsg(error).raise
         _ <- doAddChapter(study, chapter, sticky, who)
@@ -730,6 +730,32 @@ final class StudyApi(
             sendChapterPreviews(study)
             setStudyUpdated(study)
         }
+
+  def replaceChapterPgnMoves(
+      studyId: StudyId,
+      chapterId: StudyChapterId,
+      pgn: chess.format.pgn.PgnStr
+  )(using me: Me): Fu[Boolean] =
+    byIdWithChapter(studyId, chapterId).flatMapz:
+      case Study.WithChapter(study, chapter) =>
+        study.isRelay.not.so:
+          Contribute(me, study):
+            for
+              parsed <- chapterMaker.toStudyPgn(study, pgn)
+              newChapter = chapter.copy(
+                root = parsed.root,
+                setup = chapter.setup.copy(variant = parsed.variant),
+                conceal = chapter.conceal.map(_ => parsed.root.ply),
+                serverEval = None
+              )
+              _ <- chapterRepo.update(newChapter)
+              _ <- (study.position.chapterId == chapter.id).so:
+                studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
+              _ = preview.invalidate(study.id)
+            yield
+              sendChapterPreviews(study)
+              reloadStudy(study.id, Who(me.userId, Sri("api")))
+              true
 
   // update provided tags, keep missing tags, delete tags with empty value
   def updateChapterTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(using me: Me) =
