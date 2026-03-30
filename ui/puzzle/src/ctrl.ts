@@ -150,6 +150,10 @@ export default class PuzzleCtrl implements CevalHandler {
     pubsub.on('zen', toggleZenMode);
     $('body').addClass('playing'); // for zen
     $('#zentog').on('click', () => pubsub.emit('zen'));
+    (window as any).lichess.puzzle = {
+      playUci: (uci: Uci) => this.sendMove(parseUci(uci)!),
+    };
+    (window as any).lichess.chessground = this.ground;
   }
 
   private readonly loadSound = (name: string, volume?: number) => {
