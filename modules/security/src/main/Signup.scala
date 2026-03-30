@@ -103,7 +103,8 @@ final class Signup(
                     pwned <- pwnedApi.isPwned(data.clearPassword)
                     captcha <- hcaptcha.verify()
                     result <- captcha match
-                      case Hcaptcha.Result.Fail => fuccess(Signup.Result.MissingCaptcha)
+                      case Hcaptcha.Result.Fail if simpleSignup.isEmpty =>
+                        fuccess(Signup.Result.MissingCaptcha)
                       case _ =>
                         signupRateLimit(
                           data.username.id,
