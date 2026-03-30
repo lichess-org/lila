@@ -101,7 +101,7 @@ piese neprotejate!</string>
 prin apărarea ta!</string>
   <string name="escapeOrBlock">Evadează cu regele
 sau blochează atacul!</string>
-  <string name="outOfCheckComplete">Felicitări! Regele tău nu poate fi capturat, asigură-te că-l poți apăra de șah!</string>
+  <string name="outOfCheckComplete">Felicitări! Regele tău nu trebuie capturat niciodată, așa că asigură-te că-l poți apăra de șah!</string>
   <string name="mateInOne">Mat într-o mutare</string>
   <string name="defeatTheOpponentsKing">Înfrânge regele adversarului</string>
   <string name="mateInOneIntro">Câștigi când adversarul tău nu se poate apăra de șah.</string>
