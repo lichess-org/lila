@@ -26,8 +26,8 @@
   <string name="castlingDescription">왕을 안전하게 피신시키고, 룩을 이용해 공격 태세를 갖춥니다.</string>
   <string name="capturingDefender">보호하는 기물을 제거하세요.</string>
   <string name="capturingDefenderDescription">다른 기물을 방어중인 기물을 잡아서 다음 수에 더 이상 지켜지지 않는 기물을 잡을 수 있게 됩니다.</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">일직선 위 수</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">마주 보는 두 기물이 있을 때, 한 말이 공격선을 따라 이동하되 상대 말을 잡지 않는 수입니다.</string>
+  <string name="collinearMove">일직선 위 수</string>
+  <string name="collinearMoveDescription">마주 보는 두 기물이 있을 때, 한 말이 공격선을 따라 이동하되 상대 말을 잡지 않는 수입니다.</string>
   <string name="cornerMate">코너 메이트</string>
   <string name="cornerMateDescription">킹을 룩이나 퀸으로 구석에 가두고, 나이트로 체크메이트를 가합니다.</string>
   <string name="crushing">박살내기</string>
