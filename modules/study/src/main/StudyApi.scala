@@ -738,30 +738,30 @@ final class StudyApi(
   )(using me: Me): Fu[Boolean] =
     byIdWithChapter(studyId, chapterId).flatMapz:
       case Study.WithChapter(study, chapter) =>
-        if study.isRelay then fuccess(false)
-        Contribute(me, study):
-          for
-            contributors <- lightUserApi.asyncMany(study.members.contributorIds.toList)
-            parsed <- StudyPgnImport
-              .result(pgn, contributors.flatten)
-              .toFuture
-              .recoverWith { case e: Exception => fufail(ChapterMaker.ValidationException(e.getMessage)) }
-            newChapter = chapter.copy(
-              root = parsed.root,
-              setup = chapter.setup.copy(variant = parsed.variant),
-              conceal = chapter.conceal.map(_ => parsed.root.ply),
-              relay = chapter.relay.map(_.copy(path = UciPath.root)),
-              serverEval = None
-            )
-            _ <- chapterRepo.update(newChapter)
-            _ <- (study.position.chapterId == chapter.id).so(
-              studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
-            )
-            _ = preview.invalidate(study.id)
-          yield
-            sendChapterPreviews(study)
-            reloadStudy(study.id, Who(me.userId, Sri("api")))
-            true
+        study.isRelay.not.so:
+          Contribute(me, study):
+            for
+              contributors <- lightUserApi.asyncMany(study.members.contributorIds.toList)
+              parsed <- StudyPgnImport
+                .result(pgn, contributors.flatten)
+                .toFuture
+                .recoverWith { case e: Exception => fufail(ChapterMaker.ValidationException(e.getMessage)) }
+              newChapter = chapter.copy(
+                root = parsed.root,
+                setup = chapter.setup.copy(variant = parsed.variant),
+                conceal = chapter.conceal.map(_ => parsed.root.ply),
+                relay = chapter.relay.map(_.copy(path = UciPath.root)),
+                serverEval = None
+              )
+              _ <- chapterRepo.update(newChapter)
+              _ <- (study.position.chapterId == chapter.id).so(
+                studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
+              )
+              _ = preview.invalidate(study.id)
+            yield
+              sendChapterPreviews(study)
+              reloadStudy(study.id, Who(me.userId, Sri("api")))
+              true
 
   // update provided tags, keep missing tags, delete tags with empty value
   def updateChapterTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(using me: Me) =
