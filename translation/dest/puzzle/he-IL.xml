@@ -98,6 +98,6 @@
   </plurals>
   <string name="percentSolved">%s נפתרו</string>
   <string name="noPuzzlesToShow">אין מה להראות, לכו לפתור כמה חידות קודם!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">התאמנו על אלה כדי לשפר את ההתקדמות שלכם!</string>
+  <string name="improvementAreasDescription">התאמנו על אלה כדי לשפר את ההתקדמות שלכם!</string>
   <string name="strengthDescription">את/ה מתפקד/ת הכי טוב בנושאים הבאים</string>
 </resources>
