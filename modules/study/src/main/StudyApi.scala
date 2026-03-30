@@ -741,11 +741,7 @@ final class StudyApi(
         study.isRelay.not.so:
           Contribute(me, study):
             for
-              contributors <- lightUserApi.asyncMany(study.members.contributorIds.toList)
-              parsed <- StudyPgnImport
-                .result(pgn, contributors.flatten)
-                .toFuture
-                .recoverWith { case e: Exception => fufail(ChapterMaker.ValidationException(e.getMessage)) }
+              parsed <- chapterMaker.toStudyPgn(study, pgn)
               newChapter = chapter.copy(
                 root = parsed.root,
                 setup = chapter.setup.copy(variant = parsed.variant),
