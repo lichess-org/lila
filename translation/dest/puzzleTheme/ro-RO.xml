@@ -26,8 +26,8 @@
   <string name="castlingDescription">Adu regele în siguranță și mută tura pentru atac.</string>
   <string name="capturingDefender">Capturează apărătorul</string>
   <string name="capturingDefenderDescription">Capturarea unei piese esențiale apărării alteia, permițând captura piesei acum neapărată la o mutare ulterioară.</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Mutare coliniară</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Două piese opuse se înfruntă una pe cealaltă, iar una mută de-a lungul liniei de atac fără a captura piesa inamică.</string>
+  <string name="collinearMove">Mutare coliniară</string>
+  <string name="collinearMoveDescription">Două piese opuse se înfruntă una pe cealaltă, iar una mută de-a lungul liniei de atac fără a captura piesa inamică.</string>
   <string name="cornerMate">Mat în colț</string>
   <string name="cornerMateDescription">Restrânge regele spre colț folosind o tură sau regină și un nebun pentru a duce la mat.</string>
   <string name="crushing">Zdrobitor</string>
