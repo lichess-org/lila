@@ -746,7 +746,6 @@ final class StudyApi(
                 root = parsed.root,
                 setup = chapter.setup.copy(variant = parsed.variant),
                 conceal = chapter.conceal.map(_ => parsed.root.ply),
-                relay = chapter.relay.map(_.copy(path = UciPath.root)),
                 serverEval = None
               )
               _ <- chapterRepo.update(newChapter)
