@@ -52,7 +52,7 @@ final class Challenge(env: Env) extends LilaController(env):
   )(using ctx: Context): Fu[Result] = for
     version <- env.challenge.version(c.id)
     mine = justCreated || isMine(c)
-    direction: Option[Direction] =
+    direction =
       if mine then Direction.Out.some
       else if isForMe(c) then Direction.In.some
       else none
@@ -61,13 +61,9 @@ final class Challenge(env: Env) extends LilaController(env):
       html =
         val color = get("color").flatMap(Color.fromName)
         if mine then
-          ctx.userId
-            .so(env.game.gameRepo.recentChallengersOf(_, Max(10)))
-            .flatMap(env.user.lightUserApi.asyncManyFallback)
-            .flatMap: friends =>
-              error match
-                case Some(e) => BadRequest.page(views.challenge.mine(c, json, friends, e.some, color))
-                case None => Ok.page(views.challenge.mine(c, json, friends, none, color))
+          targetSuggestions.flatMap: targets =>
+            val page = views.challenge.mine(c, json, targets, error, color)
+            if error.isDefined then BadRequest.page(page) else Ok.page(page)
         else
           Ok.async:
             for
@@ -78,6 +74,14 @@ final class Challenge(env: Env) extends LilaController(env):
       json = Ok(json)
     ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
   yield env.security.lilaCookie.ensure(ctx.req)(res)
+
+  private def targetSuggestions(using me: Option[Me]) = me.so: me =>
+    for
+      challengers <- env.game.gameRepo.recentChallengersOf(me.userId, Max(10))
+      blocked <- env.relation.api.filterBlocked(me.userId, challengers)
+      filtered = challengers.filterNot(blocked)
+      targets <- env.user.lightUserApi.asyncManyFallback(filtered)
+    yield targets
 
   private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match
