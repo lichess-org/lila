@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">እንደ %s ይግቡ</string>
   <string name="welcome">እንኳን ደህና መጣህ!</string>
-  <string name="welcomeToLichess">ወደ lichess.org እንኳን በደህና መጡ!</string>
+  <string name="welcomeToLichess">ወደ Lichess እንኳን በደህና መጡ!</string>
   <string name="thisIsYourProfilePage">ይህ የእርስዎ የመገለጫ ገጽ ነው።.</string>
   <string name="enabledKidModeSuggestion">አንድ ልጅ ይህን መለያ ይጠቀማል? %sን ማንቃት ይፈልጉ ይሆናል።.</string>
   <string name="whatNowSuggestions">አሁንስ? ጥቂት ጥቆማዎች እነሆ፡-:</string>

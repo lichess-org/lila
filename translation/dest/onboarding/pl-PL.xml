@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">Zaloguj się jako %s</string>
   <string name="welcome">Witaj!</string>
-  <string name="welcomeToLichess">Witaj na lichess.org!</string>
+  <string name="welcomeToLichess">Witaj na Lichess!</string>
   <string name="thisIsYourProfilePage">To jest Twoja strona profilowa.</string>
   <string name="enabledKidModeSuggestion">Czy tego konta będzie używało dziecko? Możesz włączyć %s.</string>
   <string name="whatNowSuggestions">Co teraz? Oto kilka sugestii:</string>

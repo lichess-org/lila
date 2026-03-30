@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">%s-лъун жаниве лъугьине</string>
   <string name="welcome">ЛъикӀ щварав!</string>
-  <string name="welcomeToLichess">ЛъикӀ щварав lichess.org-алде!</string>
+  <string name="welcomeToLichess">ЛъикӀ щварав Lichess-алде!</string>
   <string name="thisIsYourProfilePage">Гьаб дур гьумер буго.</string>
   <string name="enabledKidModeSuggestion">Гьаб аккаунт лъимаца хӀалтӀизабизе бугищ? Дуе бокьун батизе бегьула %s биччазе.</string>
   <string name="whatNowSuggestions">Гьанже щиб? Гьале гьаризе бегьулел жал:</string>

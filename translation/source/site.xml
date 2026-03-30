@@ -74,13 +74,13 @@
   <string name="inLocalBrowser">in local browser</string>
   <string name="toggleLocalEvaluation">Toggle local evaluation</string>
   <string name="promoteVariation">Promote variation</string>
-  <string name="makeMainLine">Make mainline</string>
+  <string name="makeMainLine">Make main line</string>
   <string name="deleteFromHere">Delete from here</string>
   <string name="collapseVariations">Collapse variations</string>
   <string name="expandVariations">Expand variations</string>
-  <string name="forceVariation">Force variation</string>
+  <string name="forceVariation">Convert to variation</string>
   <string name="copyVariationPgn">Copy variation PGN</string>
-  <string name="copyMainLinePgn">Copy mainline PGN</string>
+  <string name="copyMainLinePgn">Copy main line PGN</string>
   <string name="move">Move</string>
   <string name="variantLoss">Variant loss</string>
   <string name="variantWin">Variant win</string>
@@ -102,7 +102,7 @@
     <item quantity="one">Mate in %s half-move</item>
     <item quantity="other">Mate in %s half-moves</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50'' with rounding, based on number of half-moves until next capture, pawn move, or checkmate</string>
+  <string name="dtzWithRounding">DTZ50′′ with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">No games found</string>
   <string name="maxDepthReached">Max depth reached!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
@@ -115,7 +115,7 @@
   <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
   <string name="winOr50MovesByPriorMistake">Win or 50 moves by prior mistake</string>
   <string name="lossOr50MovesByPriorMistake">Loss or 50 moves by prior mistake</string>
-  <string name="unknownDueToRounding">Win/loss only guaranteed if recommended tablebase line has been followed since the last capture or pawn move, due to possible rounding of DTZ values in Syzygy tablebases.</string>
+  <string name="unknownDueToRounding">Due to possible rounding of DTZ values in Syzygy tablebases, a win/loss is only guaranteed if the recommended tablebase line has been followed since the last capture or pawn move.</string>
   <string name="allSet">All set!</string>
   <string name="importPgn">Import PGN</string>
   <string name="delete">Delete</string>
@@ -181,7 +181,7 @@
     <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
-  <string name="drawByMutualAgreement">Draw by mutual agreement</string>
+  <string name="drawByMutualAgreement">Draw by agreement</string>
   <string name="fiftyMovesWithoutProgress">Fifty moves without progress</string>
   <string name="currentGames">Current games</string>
   <string name="joinedX">Joined %s</string>
@@ -243,7 +243,7 @@
   <string name="changeUsername">Change username</string>
   <string name="changeUsernameNotSame">Only the case of the letters can change. For example "johndoe" to "JohnDoe".</string>
   <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
-  <string name="signupUsernameHint">Make sure to choose a username that's appropriate for all ages. You cannot change it later and any accounts with inappropriate usernames will get closed!</string>
+  <string name="signupUsernameHint">Be sure to choose a username appropriate for all ages. You cannot change it later, and accounts with inappropriate usernames will be closed!</string>
   <string name="signupEmailPromise">We will only send you emails about your account and never share your email.</string>
   <string name="password">Password</string>
   <string name="changePassword">Change password</string>
@@ -251,17 +251,17 @@
   <string name="email">Email</string>
   <string name="passwordReset">Password reset</string>
   <string name="forgotPassword">Forgot password?</string>
-  <string name="error.weakPassword">This password is extremely common, and too easy to guess.</string>
+  <string name="error.weakPassword">This password is extremely common and too easy to guess.</string>
   <string name="error.namePassword">Please don't use your username as your password.</string>
   <string name="blankedPassword">You have used the same password on another site, and that site has been compromised. To ensure the safety of your Lichess account, we need you to set a new password. Thank you for your understanding.</string>
   <string name="youAreLeavingLichess">You are leaving Lichess</string>
   <string name="neverTypeYourPassword">Never type your Lichess password on another site!</string>
   <string name="proceedToX">Proceed to %s</string>
-  <string name="passwordSuggestion">Do not set a password suggested by someone else. They will use it to steal your account.</string>
-  <string name="emailSuggestion">Do not set an email address suggested by someone else. They will use it to steal your account.</string>
+  <string name="passwordSuggestion">Do not set a password suggested by someone else. They can use it to steal your account.</string>
+  <string name="emailSuggestion">Do not set an email address suggested by someone else. They can use it to steal your account.</string>
   <string name="emailConfirmHelp">Help with email confirmation</string>
   <string name="emailConfirmNotReceived">Didn't receive your confirmation email after signing up?</string>
-  <string name="whatSignupUsername">What username did you use to sign up?</string>
+  <string name="whatSignupUsername">What username did you register with?</string>
   <string name="usernameNotFound">We couldn't find any user by this name: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">You can use this username to create a new account</string>
   <string name="emailSent">We have sent an email to %s.</string>
@@ -270,7 +270,7 @@
   <string name="checkSpamFolder">Also check your spam folder, it might end up there. If so, mark it as not spam.</string>
   <string name="emailForSignupHelp">If everything else fails, then send us this email:</string>
   <string name="copyTextToEmail">Copy and paste the above text and send it to %s</string>
-  <string name="waitForSignupHelp">We will come back to you shortly to help you complete your signup.</string>
+  <string name="waitForSignupHelp">We will respond shortly to help you complete your registration.</string>
   <string name="accountConfirmed">The user %s is successfully confirmed.</string>
   <string name="accountCanLogin">You can login right now as %s.</string>
   <string name="accountConfirmationEmailNotNeeded">You do not need a confirmation email.</string>
@@ -364,7 +364,7 @@
     <item quantity="one">Give %s second</item>
     <item quantity="other">Give %s seconds</item>
   </plurals>
-  <string name="thisAccountViolatedTos">This account violated the Lichess Terms of Service</string>
+  <string name="thisAccountViolatedTos">The Lichess Terms of Service were violated on this account</string>
   <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
@@ -404,7 +404,7 @@
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2$s rated game</item>
-    <item quantity="other">≥ %1$s %2$s rated games</item>
+    <item quantity="other">≥ %1$s rated %2$s games</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">You need to play %1$s more %2$s rated game</item>
@@ -446,7 +446,7 @@
   <string name="continueFromHere">Continue from here</string>
   <string name="toStudy">Study</string>
   <string name="importGame">Import game</string>
-  <string name="importGameExplanation">Paste a game PGN to get a browsable replay of the main line, computer analysis, game chat and public shareable URL.</string>
+  <string name="importGameExplanation">Paste a game PGN to get a browsable replay, computer analysis, game chat, and a shareable link.</string>
   <string name="importGameDataPrivacyWarning">This PGN can be accessed by the public. To import a game privately, use a study.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
@@ -588,7 +588,7 @@
   <string name="troll">Troll</string>
   <string name="other">Other</string>
   <string name="reportCheatBoostHelp">Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion.</string>
-  <string name="reportUsernameHelp">Explain what about this username is offensive. Don't just say "it's offensive/inappropriate", but tell us how you came to this conclusion, especially if the insult is obfuscated, not in english, is in slang, or is a historical/cultural reference.</string>
+  <string name="reportUsernameHelp">Explain why this username is offensive. Don't just say "it's offensive/inappropriate," but tell us how you came to this conclusion, especially if the offense is obscure, not in English, in slang, or a historical/cultural reference.</string>
   <string name="reportProcessedFasterInEnglish">Your report will be processed faster if written in English.</string>
   <string name="error.provideOneCheatedGameLink">Please provide at least one link to a game for review.</string>
   <string name="by">by %s</string>
@@ -625,7 +625,7 @@
   <string name="slow">Slow</string>
   <string name="insideTheBoard">Inside the board</string>
   <string name="outsideTheBoard">Outside the board</string>
-  <string name="allSquaresOfTheBoard">All squares of the board</string>
+  <string name="allSquaresOfTheBoard">All squares</string>
   <string name="onSlowGames">On slow games</string>
   <string name="always">Always</string>
   <string name="never">Never</string>
@@ -703,7 +703,7 @@
   <string name="yourPendingSimuls">Your pending simuls</string>
   <string name="createdSimuls">Newly created simuls</string>
   <string name="hostANewSimul">Host a new simul</string>
-  <string name="signUpToHostOrJoinASimul">Sign up to host or join a simul</string>
+  <string name="signUpToHostOrJoinASimul">Register to join or host a simul</string>
   <string name="noSimulFound">Simul not found</string>
   <string name="noSimulExplanation">This simultaneous exhibition does not exist.</string>
   <string name="returnToSimulHomepage">Return to simul homepage</string>
@@ -713,9 +713,9 @@
   <string name="aboutSimulRules">When the simul starts, every player starts a game with the host. The simul ends when all games are complete.</string>
   <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and adding time are disabled.</string>
   <string name="create">Create</string>
-  <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
+  <string name="whenCreateSimul">When you create a simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
-  <string name="simulClockHint">Fischer Clock setup. The more players you take on, the more time you may need.</string>
+  <string name="simulClockHint">The more players you take on, the more time you may need.</string>
   <string name="simulAddExtraTime">You may add extra initial time to your clock to help you cope with the simul.</string>
   <string name="simulHostExtraTime">Host extra initial clock time</string>
   <string name="simulAddExtraTimePerPlayer">Add initial time to your clock for each player joining the simul.</string>
@@ -790,7 +790,7 @@
   <string name="kidModeIsEnabled">Kid mode is enabled.</string>
   <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the Lichess logo gets a %s icon, so you know your kids are safe.</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode">Your account is managed. Ask your chess teacher about lifting kid mode.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Your account is managed. Ask your chess teacher about removing kid mode.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
@@ -852,7 +852,7 @@
   <string name="bestWasX">Best was %s</string>
   <string name="youBrowsedAway">You browsed away</string>
   <string name="resumePractice">Resume practice</string>
-  <string name="drawByFiftyMoves">The game has been drawn by the fifty move rule.</string>
+  <string name="drawByFiftyMoves">The game has been drawn by the fifty-move rule.</string>
   <string name="theGameIsADraw">The game is a draw.</string>
   <string name="computerThinking">Computer thinking ...</string>
   <string name="seeBestMove">See best move</string>
@@ -876,11 +876,11 @@
   <string name="waitingForAnalysis">Waiting for analysis</string>
   <string name="noMistakesFoundForWhite">No mistakes found for white</string>
   <string name="noMistakesFoundForBlack">No mistakes found for black</string>
-  <string name="doneReviewingWhiteMistakes">Done reviewing white mistakes</string>
-  <string name="doneReviewingBlackMistakes">Done reviewing black mistakes</string>
+  <string name="doneReviewingWhiteMistakes">Done reviewing white's mistakes</string>
+  <string name="doneReviewingBlackMistakes">Done reviewing black's mistakes</string>
   <string name="doItAgain">Do it again</string>
-  <string name="reviewWhiteMistakes">Review white mistakes</string>
-  <string name="reviewBlackMistakes">Review black mistakes</string>
+  <string name="reviewWhiteMistakes">Review white's mistakes</string>
+  <string name="reviewBlackMistakes">Review black's mistakes</string>
   <string name="advantage">Advantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s second</item>
@@ -1000,7 +1000,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Analysis options</string>
   <string name="focusChat">Focus chat</string>
-  <string name="showHelpDialog">Show this help dialog</string>
+  <string name="showHelpDialog">View this help overlay</string>
   <string name="reopenYourAccount">Reopen your account</string>
   <string name="reopenYourAccountDescription">If you closed your account, but have since changed your mind, you get a chance of getting your account back.</string>
   <string name="emailAssociatedToaccount">Email address associated to the account</string>

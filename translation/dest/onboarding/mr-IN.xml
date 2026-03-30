@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">%s असे लॉग इन करा</string>
   <string name="welcome">सुस्वागतम!</string>
-  <string name="welcomeToLichess">Lichess.org वर स्वागत!</string>
+  <string name="welcomeToLichess">Lichess वर स्वागत!</string>
   <string name="thisIsYourProfilePage">हे तुमचे प्रोफाइल पेज आहे.</string>
   <string name="enabledKidModeSuggestion">लहान मूल हे खाते वापरेल का? तुम्हाला कदाचित सक्षम करायचे असेल %s.</string>
   <string name="whatNowSuggestions">आता काय? येथे आहेत काही प्रस्ताव:</string>

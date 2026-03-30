@@ -15,12 +15,12 @@
   <string name="specialMoves">Special moves</string>
   <string name="didYouLikeThisPuzzle">Did you like this puzzle?</string>
   <string name="voteToLoadNextOne">Vote to load the next one!</string>
-  <string name="upVote">Up vote puzzle</string>
-  <string name="downVote">Down vote puzzle</string>
-  <string name="yourPuzzleRatingWillNotChange">Your puzzle rating will not change. Note that puzzles are not a competition. Your rating helps selecting the best puzzles for your current skill.</string>
+  <string name="upVote">Rate puzzle positively</string>
+  <string name="downVote">Rate puzzle negatively</string>
+  <string name="yourPuzzleRatingWillNotChange">Your puzzle rating will not change. Note that puzzles are not a competition. Your rating helps select the most appropriate puzzles for your skill level.</string>
   <string name="findTheBestMoveForWhite">Find the best move for white.</string>
   <string name="findTheBestMoveForBlack">Find the best move for black.</string>
-  <string name="toGetPersonalizedPuzzles">To get personalized puzzles:</string>
+  <string name="toGetPersonalizedPuzzles">To get personalised puzzles:</string>
   <string name="puzzleId">Puzzle %s</string>
   <string name="puzzleOfTheDay">Puzzle of the day</string>
   <string name="dailyPuzzle">Daily Puzzle</string>
@@ -75,11 +75,11 @@
   <string name="continueTheStreak">Continue the streak</string>
   <string name="newStreak">New streak</string>
   <string name="fromMyGames">From my games</string>
-  <string name="lookupOfPlayer">Lookup puzzles from a player's games</string>
+  <string name="lookupOfPlayer">View puzzles from a player's games</string>
   <string name="searchPuzzles">Search puzzles</string>
   <string name="fromMyGamesNone">You have no puzzles in the database, but Lichess still loves you very much.
 
-Play rapid and classical games to increase your chances of having a puzzle of yours added!</string>
+Play rapid and classical games to increase your chances of having a puzzle added from your games!</string>
   <plurals name="puzzlesFoundInUserGames">
     <item quantity="one">One puzzle found in games by %2$s</item>
     <item quantity="other">%1$s puzzles found in games by %2$s</item>
@@ -93,6 +93,6 @@ Play rapid and classical games to increase your chances of having a puzzle of yo
   </plurals>
   <string name="percentSolved">%s solved</string>
   <string name="noPuzzlesToShow">Nothing to show, go play some puzzles first!</string>
-  <string name="improvementAreasDescription">Train these to optimize your progress!</string>
+  <string name="improvementAreasDescription">Train these to optimise your progress!</string>
   <string name="strengthDescription">You perform the best in these themes</string>
 </resources>

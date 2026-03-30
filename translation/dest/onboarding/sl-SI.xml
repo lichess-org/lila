@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">Prijavite se kot %s</string>
   <string name="welcome">Dobrodošli!</string>
-  <string name="welcomeToLichess">Dobrodošli na lichess.org!</string>
+  <string name="welcomeToLichess">Dobrodošli na Lichess!</string>
   <string name="thisIsYourProfilePage">To je stran vašega profila.</string>
   <string name="enabledKidModeSuggestion">Ali bo otrok uporabljal ta račun? Morda boste želeli omogočiti %s.</string>
   <string name="whatNowSuggestions">Kaj zdaj? Tukaj je nekaj predlogov:</string>
