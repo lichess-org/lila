@@ -102,7 +102,7 @@ export default class CevalCtrl {
   });
 
   available(): boolean {
-    return !document.hidden && this.analysable;
+    return this.analysable;
   }
 
   private readonly doStart = (
@@ -111,7 +111,7 @@ export default class CevalCtrl {
     gameId: string | undefined,
     threatMode: boolean,
   ) => {
-    if (!this.available()) {
+    if (document.hidden) {
       this.lastStarted = { path, steps, gameId, threatMode };
       return;
     }
@@ -187,7 +187,7 @@ export default class CevalCtrl {
   };
 
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode?: boolean): void => {
-    if (this.isPaused) return;
+    if (!this.available() || this.isPaused) return;
     this.isDeeper(false);
     this.doStart(path, steps, gameId, !!threatMode);
   };
