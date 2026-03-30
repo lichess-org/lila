@@ -7,7 +7,7 @@
   <string name="enterPassword">Za namestitev, vpišite svoje geslo in avtentikacijsko kodo, ki jo ustvari aplikacija. Ko se boste prijavili, boste vsakokrat potrebovali avtentikacijsko kodo.</string>
   <string name="ifYouCannotScanEnterX">Če kode ne morete skenirati, vnesite skrivno %s v svojo aplikacijo.</string>
   <string name="authenticationCode">Avtentikacijska koda</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Opomba: Če izgubite dostop do dvofaktorskih kod za preverjanje pristnosti, lahko %s opravite po e-pošti.</string>
+  <string name="ifYouLoseAccessTwoFactor">Opomba: Če izgubite dostop do dvofaktorskih kod za preverjanje pristnosti, lahko %s opravite po e-pošti.</string>
   <string name="enableTwoFactor">Omogočite dvojno avtentikacijo</string>
   <string name="disableTwoFactor">Onemogočite dvojno avtentikacijo</string>
   <string name="twoFactorEnabled">Dvoja avtentikacija je omogočena</string>
