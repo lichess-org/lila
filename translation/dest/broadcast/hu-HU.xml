@@ -104,6 +104,6 @@
   <string name="semifinals">Elődöntő</string>
   <string name="finals">Döntő</string>
   <string name="tiebreaks">Rövidítés</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Játszma %s</string>
+  <string name="gameX">Játszma %s</string>
   <string name="knockouts">Kiütések</string>
 </resources>
