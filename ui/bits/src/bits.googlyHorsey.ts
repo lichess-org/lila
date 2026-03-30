@@ -7,7 +7,7 @@ interface GooglyEyeLayout {
   eyeSpacing: number;
 }
 
-const DEFAULT_LAYOUT: GooglyEyeLayout = { eyeX: -10, eyeY: -15, eyeSpacing: 15 };
+const DEFAULT_LAYOUT: GooglyEyeLayout = { eyeX: -14, eyeY: -15, eyeSpacing: 15 };
 
 const GOOGLY_EYE_LAYOUTS: Record<string, GooglyEyeLayout> = {
   default: DEFAULT_LAYOUT,
@@ -18,7 +18,7 @@ const GOOGLY_EYE_LAYOUTS: Record<string, GooglyEyeLayout> = {
   chessnut: { eyeX: -10, eyeY: -8, eyeSpacing: 15 },
   chess7: { eyeX: -10, eyeY: -15, eyeSpacing: 20 },
   reillycraig: { eyeX: -2, eyeY: -30, eyeSpacing: 15 },
-  companion: { eyeX: -7, eyeY: -10, eyeSpacing: 15 },
+  companion: { eyeX: -10, eyeY: -10, eyeSpacing: 15 },
   riohacha: { eyeX: -2, eyeY: -25, eyeSpacing: 15 },
   kosal: DEFAULT_LAYOUT,
   leipzig: DEFAULT_LAYOUT,
@@ -30,16 +30,16 @@ const GOOGLY_EYE_LAYOUTS: Record<string, GooglyEyeLayout> = {
   pixel: DEFAULT_LAYOUT,
   firi: { eyeX: -10, eyeY: -8, eyeSpacing: 15 },
   rhosgfx: DEFAULT_LAYOUT,
-  maestro: DEFAULT_LAYOUT,
-  fresca: DEFAULT_LAYOUT,
+  maestro: { eyeX: -20, eyeY: -15, eyeSpacing: 15 },
+  fresca: { eyeX: -14, eyeY: -12, eyeSpacing: 15 },
   cardinal: DEFAULT_LAYOUT,
   gioco: { eyeX: -3, eyeY: -15, eyeSpacing: 15 },
   tatiana: { eyeX: -3, eyeY: -15, eyeSpacing: 15 },
-  staunty: { eyeX: -3, eyeY: -15, eyeSpacing: 15 },
+  staunty: { eyeX: -10, eyeY: -19, eyeSpacing: 15 },
   cooke: { eyeX: -2, eyeY: -25, eyeSpacing: 15 },
-  monarchy: { eyeX: -4, eyeY: -18, eyeSpacing: 15 },
+  monarchy: { eyeX: -10, eyeY: -20, eyeSpacing: 15 },
   governor: { eyeX: -5, eyeY: -18, eyeSpacing: 15 },
-  dubrovny: { eyeX: -10, eyeY: -15, eyeSpacing: 18 },
+  dubrovny: DEFAULT_LAYOUT,
   'shahi-ivory-brown': { eyeX: -6, eyeY: -18, eyeSpacing: 15 },
   icpieces: { eyeX: -10, eyeY: -8, eyeSpacing: 15 },
   mpchess: { eyeX: -10, eyeY: -20, eyeSpacing: 15 },
