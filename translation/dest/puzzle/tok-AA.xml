@@ -15,7 +15,7 @@
   <string name="voteToLoadNextOne">sina wile e musi lili sin la, o pilin e nena pi pilin sina!</string>
   <string name="upVote">musi lili pona</string>
   <string name="downVote">musi lili ike</string>
-  <string name="yourPuzzleRatingWillNotChange">nanpa wawa sina li ante ala. o sona e ni: musi lili ni li utala ala. ilo li pana e musi lili pi pona mute tawa sina kepeken nanpa wawa sina.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">nanpa wawa sina li ante ala. o sona e ni: musi lili ni li utala ala. ilo li pana e musi lili pi pona mute tawa sina kepeken nanpa wawa sina.</string>
   <string name="findTheBestMoveForWhite">o pali e tawa pona #1 pi jan musi walo.</string>
   <string name="findTheBestMoveForBlack">o pali e tawa pona #1 pi jan musi pimeja.</string>
   <string name="toGetPersonalizedPuzzles">sina wile e ni: ilo Lichess li lukin e musi lili tawa sina la:</string>
@@ -83,6 +83,6 @@
   </plurals>
   <string name="percentSolved">%s li pini pona</string>
   <string name="noPuzzlesToShow">mi ken ala toki e ijo. o musi e musi lili!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">sina o kama sona pona tan musi ni!</string>
+  <string name="improvementAreasDescription">sina o kama sona pona tan musi ni!</string>
   <string name="strengthDescription">sina pali wawa e nasin ni</string>
 </resources>
