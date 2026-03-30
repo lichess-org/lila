@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Απαιτήσεις για τη σκακιέρα DGT</string>
   <string name="dgtBoardLimitations">Περιορισμοί της Σκακιέρας DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Αυτή η σελίδα σάς επιτρέπει να συνδέσετε μια σκακιέρα DGT με το Lichess και να τη χρησιμοποιήσετε για τις παρτίδες σας.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Για να συνδεθείτε με την ηλεκτρονική σκακιέρα DGT, πρέπει να εγκαταστήσετε το πρόγραμμα %s.</string>
+  <string name="toConnectTheDgtBoard">Για να συνδεθείτε με την ηλεκτρονική σκακιέρα DGT, πρέπει να εγκαταστήσετε το πρόγραμμα %s.</string>
   <string name="downloadHere">Μπορείτε να κατεβάσετε το λογισμικό εδώ: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Εάν το %1$s εκτελείται σε αυτόν τον υπολογιστή, μπορείτε να ελέγξετε τη σύνδεσή σας με αυτό το πρόγραμμα %2$s.</string>
   <string name="openingThisLink">ανοίγοντας αυτόν τον σύνδεσμο</string>
@@ -18,7 +18,7 @@
   <string name="whenReadySetupBoard">Όταν είστε έτοιμοι, ρυθμίστε τη σκακιέρα σας και στη συνέχεια κάντε κλικ στο κουμπί %s.</string>
   <string name="ifMoveNotDetected">Εάν δεν εντοπιστεί κάποια κίνηση</string>
   <string name="checkYouHaveMadeOpponentsMove">Βεβαιωθείτε αρχικά πως η κίνηση του αντιπάλου σας στη σκακιέρα DGT έχει καταγραφεί. Στη συνέχεια, ανακαλέστε τη δική σας κίνηση και ξαναπαίξτε.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Αν δεν υπάρχει κάποια άλλη λύση, ρυθμίστε τη σκακιέρα ώστε να ταιριάζει ακριβώς με τη θέση στο Lichess και στη συνέχεια %s</string>
+  <string name="asALastResort">Αν δεν υπάρχει κάποια άλλη λύση, ρυθμίστε τη σκακιέρα ώστε να ταιριάζει ακριβώς με τη θέση στο Lichess και στη συνέχεια %s</string>
   <string name="reloadThisPage">επαναφορτώστε αυτήν τη σελίδα</string>
   <string name="dgtConfigure">Ρυθμίσεις DGT</string>
   <string name="lichessConnectivity">Σύνδεση με το Lichess</string>
