@@ -108,6 +108,6 @@
   <string name="semifinals">Півфінали</string>
   <string name="finals">Фінали</string>
   <string name="tiebreaks">Тай-брейк</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Гра %s</string>
+  <string name="gameX">Гра %s</string>
   <string name="knockouts">Нокаути</string>
 </resources>
