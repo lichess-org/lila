@@ -759,7 +759,7 @@ final class StudyApi(
             )
             _ = preview.invalidate(study.id)
           yield
-            sendChaperPreviews(study)
+            sendChapterPreviews(study)
             reloadStudy(study.id, Who(me.userId, Sri("api")))
             true
 
