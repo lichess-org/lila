@@ -250,6 +250,7 @@ export default class AnalyseCtrl implements CevalHandler {
     });
     this.mergeIdbThenShowTreeView();
     (window as any).lichess.analysis = api(this);
+    (window as any).lichess.chessground = () => this.chessground;
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
