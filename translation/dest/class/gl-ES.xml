@@ -66,7 +66,7 @@ Aquí está a ligazón para acceder.</string>
   <string name="upgradeFromManaged">Actualizar de supervisada a autónoma</string>
   <string name="release">Liberar</string>
   <string name="releaseTheAccount">Libera a conta para que o estudante poida xestionala de forma autónoma.</string>
-  <string name="releaseDesc1">Unha conta liberada non pode ser supervisada de novo. O estudante poderá cambiar o modo infantil e redefinir o contrasinal por si mesmo.</string>
+  <string name="releaseDesc1">Unha conta liberada non pode ser &amp;lt;i&amp;gt;supervisada&amp;lt;/i&amp;gt; de novo. O estudante poderá cambiar o modo infantil e redefinir o contrasinal por si mesmo.</string>
   <string name="releaseDesc2">O estudante permanecerá na clase tras a liberación da conta.</string>
   <string name="realUniqueEmail">Enderezo de correo electrónico real e único do estudante. Enviarémoslle un correo de confirmación cunha ligazón para liberar a conta.</string>
   <string name="closeStudent">Pechar a conta</string>
@@ -115,7 +115,7 @@ Amosará unha liña separadora horizontal.</string>
   <string name="xisNowAStudentOfTheClass">%s xa é un novo estudante da clase</string>
   <string name="anInvitationHasBeenSentToX">Enviouse unha invitación a %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s xa ten unha invitación pendente</string>
-  <string name="xIsAKidAccountWarning">%1$s é unha conta infantil e non pode recibir a túa mensaxe. Debes enviarlle o URL de invitación de xeito manual: %2$s</string>
+  <string name="xIsAKidAccountWarning">%1$s está en modo infantil e non pode recibir mensaxes. Debes enviarlle a ligazón da invitación de xeito manual: %2$s</string>
   <string name="moveToClass">Mover a %s</string>
   <string name="moveToAnotherClass">Mover a outra clase</string>
   <string name="allowMessagingBetweenStudents">Permitir mensaxes entre estudantes</string>
