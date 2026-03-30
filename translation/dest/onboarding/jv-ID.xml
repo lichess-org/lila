@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">Log ing minangka %s</string>
   <string name="welcome">Sugeng rawuh!</string>
-  <string name="welcomeToLichess">Sugeng rawuh Lichess!</string>
+  <string name="welcomeToLichess">Sugeng rawuh lichess.org!</string>
   <string name="thisIsYourProfilePage">Iki kaca profilmu.</string>
   <string name="enabledKidModeSuggestion">Bakal anak nggunakake akun iki? Bisa ngaktifin %s.</string>
   <string name="whatNowSuggestions">Apa saiki? Mangkene sawetara saran:</string>
