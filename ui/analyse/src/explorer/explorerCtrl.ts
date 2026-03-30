@@ -51,7 +51,7 @@ export default class ExplorerCtrl {
     readonly opts: ExplorerOpts,
     previous?: ExplorerCtrl,
   ) {
-    this.allowed = prop(previous ? previous.allowed() : true);
+    this.allowed = prop(previous ? previous.allowed() : !root.isEmbed);
     this.enabled = storedBooleanProp('analyse.explorer.enabled', false);
     this.withGames = root.synthetic || replayable(root.data) || !!root.data.opponent.ai;
     this.effectiveVariant =
