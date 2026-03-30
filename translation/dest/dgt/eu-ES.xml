@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">DGT taularen beharrak</string>
   <string name="dgtBoardLimitations">DGT taularen mugak</string>
   <string name="thisPageAllowsConnectingDgtBoard">Orrialde honek zure DGT taula Lichessekin konektatzea eta berarekin partidak jokatzea ahalbidetzen du.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">DGT Taula elektronikoa konektatzeko %s instalatu beharko duzu.</string>
+  <string name="toConnectTheDgtBoard">DGT Taula elektronikoa konektatzeko %s instalatu beharko duzu.</string>
   <string name="downloadHere">Programa hori hemendik deskargatu dezakezu: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">%1$s ordenagailuan martxan baduzu, probatu konexioa %2$s.</string>
   <string name="openingThisLink">esteka hau irekiz</string>
@@ -18,7 +18,7 @@
   <string name="whenReadySetupBoard">Prest zaudenean, jarri zure taula eta gero sakatu %s.</string>
   <string name="ifMoveNotDetected">Jokaldi bat ez badugu detektatzen</string>
   <string name="checkYouHaveMadeOpponentsMove">Egiaztatu aurkariaren jokaldia DGT taulan eginda dagoela. Bota zure jokaldia atzera. Jokatu berriz.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Azken aukera gisa, jarri partida Lichessen bezala eta ondoren %s</string>
+  <string name="asALastResort">Azken aukera gisa, jarri partida Lichessen bezala eta ondoren %s</string>
   <string name="reloadThisPage">birkargatu orrialde hau</string>
   <string name="dgtConfigure">DGT Ezarpenak</string>
   <string name="lichessConnectivity">Lichessekin konektatu</string>
