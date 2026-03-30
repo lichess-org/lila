@@ -120,7 +120,7 @@ final private class ChapterMaker(
       conceal = data.isConceal.option(root.ply)
     )
 
-  private[study] def fromGame(
+  private def fromGame(
       study: Study,
       game: Game,
       data: Data,
@@ -169,7 +169,7 @@ final private class ChapterMaker(
         )
       }
 
-  private[study] def makeRoot(
+  def makeRoot(
       game: Game,
       pgnOpt: Option[PgnStr],
       initialFen: Option[Fen.Full]
