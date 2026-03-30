@@ -566,6 +566,9 @@
   <string name="invalidUsernameOrPassword">사용자 이름이나 비밀번호가 잘못되었습니다.</string>
   <string name="incorrectPassword">잘못된 비밀번호입니다.</string>
   <string name="invalidAuthenticationCode">잘못된 인증코드</string>
+  <string name="clearField">필드 지우기</string>
+  <string name="orSeparator">또는</string>
+  <string name="logInByEmail">이메일로 로그인</string>
   <string name="emailMeALink">메일로 링크를 보내주세요</string>
   <string name="currentPassword">현재 비밀번호</string>
   <string name="newPassword">새 비밀번호</string>
@@ -984,6 +987,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="offline" comment="status of a user">오프라인</string>
   <string name="search">검색</string>
   <string name="clearSearch">검색 초기화</string>
+  <string name="thereAreNoResultsForX">\"%s\"에 대한 결과 없음</string>
   <string name="tags">태그</string>
   <string name="enPassant">앙파상</string>
 </resources>
