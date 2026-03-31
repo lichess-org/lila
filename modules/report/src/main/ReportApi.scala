@@ -329,47 +329,48 @@ final class ReportApi(
       url: String,
       onlyIfFlaggedImages: Boolean = false // if true, will not create an automod report based on text alone
   )(using me: Me): Funit =
-    val assessText = automodApi
-      .text(
-        userText,
-        systemPrompt = commsPromptSetting.get(),
-        model = commsModelSetting.get()
-      )
-      .monSuccess(_.mod.report.automod.request)
-    val candidate = for
-      (images, textResponse) <- automodApi.markdownImages(Markdown(userText)).zip(assessText)
-      flaggedImages = images.flatMap(_.automod).flatMap(_.flagged)
-      suspectOpt <- getSuspect(me)
-      reporter <- automodReporter
-      fromLlm <- textResponse
-        .str("assessment")
-        .toTry(s"missing assessment in automod response: $textResponse. Input text: ${userText.take(400)}")
-        .toFuture
-      hasFlaggedImages = flaggedImages.nonEmpty
-      kamonTag = if hasFlaggedImages then "image" else if fromLlm == "pass" then "ok" else fromLlm
-      _ = lila.mon.mod.report.automod.assessment(kamonTag).increment()
-      reason = fromLlm match
-        case "pass" if hasFlaggedImages => Reason("comm")
-        case "other" => Reason("comm") // llm knows "other"
-        case r => Reason(r)
-      suspect <- suspectOpt.toTry(s"suspect $me not found").toFuture
-      summary = (flaggedImages ++ textResponse.str("reason")).mkString(", ")
-    yield reason
-      .ifTrue(hasFlaggedImages || !onlyIfFlaggedImages)
-      .map: reason =>
-        Candidate(
-          reporter = reporter,
-          suspect = suspect,
-          reason = reason,
-          text = s"[AUTO " + (hasFlaggedImages.option("IMG") ++ (fromLlm != "pass").option("TXT"))
-            .mkString("/") +
-            s"]: $summary $url"
+    userText.trim.nonEmpty.so:
+      val assessText = automodApi
+        .text(
+          userText,
+          systemPrompt = commsPromptSetting.get(),
+          model = commsModelSetting.get()
         )
-    candidate
-      .flatMapz(create(_))
-      .recoverWith: e =>
-        logger.warn(s"Comms automod failed for ${me.username} on $url: ${e.getMessage}", e)
-        funit
+        .monSuccess(_.mod.report.automod.request)
+      val candidate = for
+        (images, textResponse) <- automodApi.markdownImages(Markdown(userText)).zip(assessText)
+        flaggedImages = images.flatMap(_.automod).flatMap(_.flagged)
+        suspectOpt <- getSuspect(me)
+        reporter <- automodReporter
+        fromLlm <- textResponse
+          .str("assessment")
+          .toTry(s"missing assessment in automod response: $textResponse. Input text: ${userText.take(400)}")
+          .toFuture
+        hasFlaggedImages = flaggedImages.nonEmpty
+        kamonTag = if hasFlaggedImages then "image" else if fromLlm == "pass" then "ok" else fromLlm
+        _ = lila.mon.mod.report.automod.assessment(kamonTag).increment()
+        reason = fromLlm match
+          case "pass" if hasFlaggedImages => Reason("comm")
+          case "other" => Reason("comm") // llm knows "other"
+          case r => Reason(r)
+        suspect <- suspectOpt.toTry(s"suspect $me not found").toFuture
+        summary = (flaggedImages ++ textResponse.str("reason")).mkString(", ")
+      yield reason
+        .ifTrue(hasFlaggedImages || !onlyIfFlaggedImages)
+        .map: reason =>
+          Candidate(
+            reporter = reporter,
+            suspect = suspect,
+            reason = reason,
+            text = s"[AUTO " + (hasFlaggedImages.option("IMG") ++ (fromLlm != "pass").option("TXT"))
+              .mkString("/") +
+              s"]: $summary $url"
+          )
+      candidate
+        .flatMapz(create(_))
+        .recoverWith: e =>
+          logger.warn(s"Comms automod failed for ${me.username} on $url: ${e.getMessage}", e)
+          funit
 
   private def onReportClose() =
     maxScoreCache.invalidateUnit()
