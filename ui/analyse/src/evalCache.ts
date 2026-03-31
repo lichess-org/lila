@@ -1,6 +1,6 @@
 import { defined, prop } from 'lib';
 import { throttle } from 'lib/async';
-import { pubsub } from 'lib/pubsub';
+import { pubsub, type PubsubEvents } from 'lib/pubsub';
 import type { ClientEval, PvData, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 
 import type { EvalHit, EvalGetData, EvalPutData } from './interfaces';
@@ -77,8 +77,12 @@ export default class EvalCache {
 
   constructor(readonly opts: EvalCacheOpts) {
     this.upgradable(opts.upgradable);
-    pubsub.on('socket.in.crowd', d => this.upgradable(d.nb > 2 && d.nb < 99999));
+    pubsub.on('socket.in.crowd', this.onCrowd);
   }
+
+  destroy = () => pubsub.off('socket.in.crowd', this.onCrowd);
+
+  private readonly onCrowd: PubsubEvents['socket.in.crowd'] = d => this.upgradable(d.nb > 2 && d.nb < 99999);
 
   onLocalCeval = throttle(500, () => {
     const node = this.opts.getNode(),
