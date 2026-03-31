@@ -102,7 +102,7 @@ object NewTree:
       NewTree(
         value = fromBranch(first),
         child = first.children.first.map(fromBranch(_, first.children.variations)),
-        variations = root.children.variations.map(toVariation)
+        variations = (root.children.variations ::: root.children.forceVariations).map(toVariation)
       )
 
   def toVariation(branch: Branch): Variation[NewBranch] =
