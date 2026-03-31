@@ -12,7 +12,13 @@ class PgnDumpTest extends munit.FunSuite:
 
   val P = PgnDump
 
-  def node(ply: Ply, uci: String, san: String, children: Branches = Branches.empty) =
+  def node(
+      ply: Ply,
+      uci: String,
+      san: String,
+      children: Branches = Branches.empty,
+      forceVariation: Boolean = false
+  ) =
     Branch(
       ply = ply,
       move = Uci.WithSan(Uci(uci).get, SanStr(san)),
@@ -20,7 +26,7 @@ class PgnDumpTest extends munit.FunSuite:
       clock = None,
       crazyData = None,
       children = children,
-      forceVariation = false
+      forceVariation = forceVariation
     )
 
   def children(nodes: Branch*) = Branches(nodes.toList)
@@ -127,3 +133,23 @@ class PgnDumpTest extends munit.FunSuite:
       rootToPgn(tree).value,
       "1. e4 (1. Nf3 a6 (1... b6 2. c4)) 1... d5 (1... Nf6 2. h4) 2. a3 (2. b3)"
     )
+
+  test("force variation after last mainline move should render in brackets"):
+    val tree = root.copy(children =
+      children(
+        node(
+          1,
+          "e2e4",
+          "e4",
+          children(
+            node(
+              2,
+              "c7c5",
+              "c5"
+            )
+          )
+        ),
+        node(1, "c7c5", "c5", forceVariation = true)
+      )
+    )
+    assertEquals(rootToPgn(tree).value, "1. e4 c5 (1. c5)")
