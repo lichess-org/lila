@@ -8,7 +8,7 @@ import { setupPosition } from 'chessops/variant';
 import { clamp } from '@/algo';
 import { throttle } from '@/async';
 import { storedIntProp, storage } from '@/storage';
-import type { LocalEval, PvData, TreePath } from '@/tree/types';
+import type { LocalEval, PvData } from '@/tree/types';
 
 import { prop, type Prop, type Toggle, toggle } from '../index';
 import { Engines } from './engines/engines';
@@ -105,56 +105,51 @@ export default class CevalCtrl {
     return this.analysable;
   }
 
-  private readonly doStart = (
-    path: TreePath,
-    steps: Step[],
-    gameId: string | undefined,
-    threatMode: boolean,
-  ) => {
+  private readonly doStart = (s: Started) => {
     console.log('start document.hidden = ' + document.hidden);
     if (document.hidden) {
-      this.lastStarted = { path, steps, gameId, threatMode };
+      this.lastStarted = s;
       return;
     }
-    const step = steps[steps.length - 1];
+    const step = s.steps[s.steps.length - 1];
     if (
       !this.isDeeper() &&
       'movetime' in this.search.by &&
-      ((threatMode ? step.threat : step.ceval)?.millis ?? 0) >= this.search.by.movetime
+      ((s.threatMode ? step.threat : step.ceval)?.millis ?? 0) >= this.search.by.movetime
     ) {
-      this.lastStarted = { path, steps, gameId, threatMode };
+      this.lastStarted = s;
       return;
     }
     const work: Work = {
       variant: this.opts.variant.key,
       threads: this.threads,
       hashSize: this.hashSize,
-      gameId,
+      gameId: s.gameId,
       stopRequested: false,
-      initialFen: steps[0].fen,
+      initialFen: s.steps[0].fen,
       moves: [],
       currentFen: step.fen,
-      path,
+      path: s.path,
       ply: step.ply,
       search: this.search.by,
       multiPv: this.search.multiPv,
-      threatMode,
+      threatMode: s.threatMode,
       emit: (ev: LocalEval) => this.onEmit(ev, work),
     };
 
-    if (threatMode) {
+    if (s.threatMode) {
       const c = step.ply % 2 === 1 ? 'w' : 'b';
       const fen = step.fen.replace(/ (w|b) /, ' ' + c + ' ');
       work.currentFen = fen;
       work.initialFen = fen;
     } else {
       // send fen after latest castling move and the following moves
-      for (let i = 1; i < steps.length; i++) {
-        const s = steps[i];
-        if (sanIrreversible(this.opts.variant.key, s.san!)) {
+      for (let i = 1; i < s.steps.length; i++) {
+        const step = s.steps[i];
+        if (sanIrreversible(this.opts.variant.key, step.san!)) {
           work.moves = [];
-          work.initialFen = s.fen;
-        } else work.moves.push(s.uci!);
+          work.initialFen = step.fen;
+        } else work.moves.push(step.uci!);
       }
     }
 
@@ -163,23 +158,13 @@ export default class CevalCtrl {
 
     this.resume(work);
 
-    this.lastStarted = {
-      path,
-      steps,
-      gameId,
-      threatMode,
-    };
+    this.lastStarted = s;
   };
 
   goDeeper = (): void => {
     if (!this.lastStarted) return;
     this.isDeeper(true);
-    this.doStart(
-      this.lastStarted.path,
-      this.lastStarted.steps,
-      this.lastStarted.gameId,
-      this.lastStarted.threatMode,
-    );
+    this.doStart(this.lastStarted);
   };
 
   stop = (): void => {
@@ -190,7 +175,7 @@ export default class CevalCtrl {
   start = (path: string, steps: Step[], gameId: string | undefined, threatMode?: boolean): void => {
     if (!this.available() || this.isPaused) return;
     this.isDeeper(false);
-    this.doStart(path, steps, gameId, !!threatMode);
+    this.doStart({ path, steps, gameId, threatMode: !!threatMode });
   };
 
   get state(): CevalState {

@@ -1,7 +1,7 @@
 import type { VNode } from 'snabbdom';
 
 import type { Feature } from '@/device';
-import type { ClientEval, LocalEval, ServerEval, TreeNode } from '@/tree/types';
+import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from '@/tree/types';
 import type { MaybeVNode } from '@/view';
 
 import type { Prop } from '../index';
@@ -125,7 +125,7 @@ export interface PvBoard {
 }
 
 export interface Started {
-  path: string;
+  path: TreePath;
   steps: Step[];
   gameId?: string;
   threatMode: boolean;
