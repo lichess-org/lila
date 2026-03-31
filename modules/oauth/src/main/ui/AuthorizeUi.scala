@@ -3,8 +3,7 @@ package ui
 
 import lila.core.LightUser
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser):
   import helpers.{ *, given }
@@ -54,12 +53,14 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                   )
                 case None =>
                   val danger = prompt.isDanger && signedClient.isEmpty
+                  val autoClick = signedClient.isDefined &&
+                    me.createdAt.isAfter(nowInstant.minusMinutes(15))
                   submitButton(
                     cls := List(
                       "button" -> true,
                       "button-red ok-cancel-confirm text" -> danger,
                       "disabled" -> signedClient.isEmpty,
-                      "auto-click" -> signedClient.isDefined
+                      "auto-click" -> autoClick
                     ),
                     dataIcon := danger.option(Icon.CautionTriangle),
                     signedClient.isEmpty.option(disabled),

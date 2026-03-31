@@ -15,7 +15,7 @@ form.addEventListener('submit', function () {
   }, 500);
 });
 
-if (submitBtn.classList.contains('auto-click') && /signup=true/.test(location.search)) {
+if (submitBtn.classList.contains('auto-click')) {
   form.submit();
 } else {
   setTimeout(
