@@ -17,7 +17,7 @@ import lila.db.dsl.given
 trait Stream:
   val streamer: Streamer
   def platform: Platform
-  def status: Html
+  def status: String
   def lang: Lang
   def urls: Stream.Urls
 
@@ -26,7 +26,7 @@ trait Stream:
   def youtube = platform == "youtube"
   def language = toLanguage(lang)
 
-  lazy val cleanStatus = status.map(s => removeMultibyteSymbols(s).trim)
+  def cleanStatus = removeMultibyteSymbols(status).trim
 
   def redirectToLiveUrl: Option[Url] = Url.from:
     streamer.twitch

@@ -30,7 +30,7 @@ final private class Publisher(
           .liveMatching(
             streamers,
             s =>
-              s.status.value.toLowerCase.contains(keyword.toLowerCase) ||
+              s.status.toLowerCase.contains(keyword.toLowerCase) ||
                 alwaysFeatured().value.contains(s.streamer.id)
           )
           .zip(ytApi.liveMatching(streamers))

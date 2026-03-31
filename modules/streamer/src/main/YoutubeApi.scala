@@ -7,8 +7,6 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.Json.given
-import lila.common.String.html.unescapeHtml
 import lila.common.autoconfig.ConfigName
 import lila.core.config.{ NetConfig, Secret }
 
@@ -22,7 +20,7 @@ private class YoutubeConfig(
 private[streamer] object Youtube:
   case class Snippet(
       channelId: String,
-      title: Html,
+      title: String,
       liveBroadcastContent: String,
       defaultAudioLanguage: Option[String]
   )
@@ -32,21 +30,21 @@ private[streamer] object Youtube:
       items
         .withFilter: item =>
           item.snippet.liveBroadcastContent == "live" &&
-            item.snippet.title.value.toLowerCase.contains(keyword.toLowerCase)
+            item.snippet.title.toLowerCase.contains(keyword.toLowerCase)
         .flatMap: item =>
           streamers
             .find(s => s.youtube.exists(_.channelId == item.snippet.channelId))
             .map:
               YoutubeStream(
                 item.snippet.channelId,
-                unescapeHtml(item.snippet.title),
+                item.snippet.title,
                 item.id,
                 _,
                 item.snippet.defaultAudioLanguage.flatMap(Lang.get) | lila.core.i18n.defaultLang
               )
   case class YoutubeStream(
       channelId: String,
-      status: Html,
+      status: String,
       videoId: String,
       streamer: Streamer,
       lang: Lang
@@ -189,9 +187,9 @@ final private class YoutubeApi(
         .map { rsp =>
           rsp.body[JsValue].validate[Youtube.Result] match
             case JsSuccess(data, _) =>
-              data.items.headOption.fold(false): item =>
-                item.snippet.liveBroadcastContent == "live" && item.snippet.title.value.toLowerCase
-                  .contains(keyword.toLowerCase)
+              data.items.headOption.exists: item =>
+                item.snippet.liveBroadcastContent == "live" &&
+                  item.snippet.title.toLowerCase.contains(keyword.toLowerCase)
             case JsError(err) =>
               logger.warn(s"ERROR: ${rsp.status} $err ${rsp.body[String].take(200)}")
               false
