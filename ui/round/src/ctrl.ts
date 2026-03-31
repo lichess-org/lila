@@ -1,5 +1,6 @@
 /// <reference types="../types/ab" />
 
+import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, uciToMove } from '@lichess-org/chessground/util';
 import * as ab from 'ab';
 import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboardMove';
@@ -440,6 +441,7 @@ export default class RoundController implements MoveRootCtrl {
         },
         check: !!o.check,
       });
+      if (this.googlyEyes) this.chessground.setAutoShapes(this.googlyEyes());
       if (o.status?.name === 'mate') {
         site.sound.play('checkmate', o.volume);
       } else if (o.check) {
@@ -910,6 +912,17 @@ export default class RoundController implements MoveRootCtrl {
   private readonly doYeet = memoize(() => {
     this.chessground.stop();
     site.asset.loadEsm('round.yeet');
+  });
+
+  private googlyEyes?: () => DrawShape[];
+
+  googlyEyesStart: () => void = memoize(async () => {
+    const redraw = () => this.googlyEyes && this.chessground.setAutoShapes(this.googlyEyes());
+    const { makeGooglyShapes }: any = await site.asset.loadEsm('bits.googlyHorsey', {
+      init: { cg: this.chessground, redraw },
+    });
+    this.googlyEyes = makeGooglyShapes;
+    redraw();
   });
 
   private readonly delayedInit = () =>

@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 
 import { toggle } from 'lib';
-import { boardMenu as menuDropdown, boolPrefXhrToggle } from 'lib/view';
+import { boardMenu as menuDropdown, boolPrefXhrToggle, bind } from 'lib/view';
 
 import type PuzzleCtrl from '../ctrl';
 
@@ -24,6 +24,16 @@ export default function (ctrl: PuzzleCtrl) {
     ]),
     h('section.board-menu__links', [
       h('a', { attrs: { target: '_blank', href: '/account/preferences/display' } }, i18n.preferences.display),
+      h(
+        'a',
+        {
+          hook: bind('click', () => {
+            ctrl.menu.toggle();
+            ctrl.googlyEyesStart();
+          }),
+        },
+        ['Advanced cursor tracking', h('kbd', 'shift'), h('kbd', 'G')],
+      ),
     ]),
   ]);
 }

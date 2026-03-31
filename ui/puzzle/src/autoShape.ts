@@ -6,6 +6,7 @@ import { winningChances } from 'lib/ceval';
 import { annotationShapes } from 'lib/game/glyphs';
 import type { Glyph, TreeNode } from 'lib/tree/types';
 
+// import { makeGooglyShapes } from '../../bits/src/bits.googlyHorsey';
 import type PuzzleCtrl from './ctrl';
 
 function makeAutoShapesFromUci(
@@ -73,6 +74,7 @@ export default function (ctrl: PuzzleCtrl): DrawShape[] {
     ...annotationShapes(n),
     ...(feedback ? annotationShapes(feedback) : []),
     ...(hint ? [hint] : []),
+    ...(ctrl.googlyEyes ? ctrl.googlyEyes() : []),
   ];
 }
 
