@@ -59,7 +59,8 @@ final class StudyPager(
         for
           studies <- studyRepo.byOrderedIds(featured.setting.get())
           extra <- withChaptersAndLiking()(studies)
-        yield pager.withCurrentPageResults(extra ++ pager.currentPageResults)
+        yield pager.withCurrentPageResults:
+          extra ++ pager.currentPageResults.filterNot(s => extra.exists(_.study.id == s.study.id))
       else fuccess(pager)
 
   def byOwner(owner: User, order: StudyOrder, page: Int)(using Option[Me]) =
