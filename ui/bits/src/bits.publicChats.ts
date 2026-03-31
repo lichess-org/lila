@@ -64,7 +64,7 @@ site.load.then(() => {
   onPageReload();
 
   setInterval(function () {
-    if (!autoRefreshEnabled || document.visibilityState === 'hidden' || autoRefreshOnHold) return;
+    if (!autoRefreshEnabled || document.hidden || autoRefreshOnHold) return;
     reloadNow();
   }, 5000);
 });

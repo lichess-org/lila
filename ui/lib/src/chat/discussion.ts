@@ -58,7 +58,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
             const el = vnode.elm as HTMLElement;
             if (!scrollState.pinToBottom) return;
 
-            if (document.visibilityState === 'hidden') el.scrollTop = el.scrollHeight;
+            if (document.hidden) el.scrollTop = el.scrollHeight;
             else if (el.scrollTop + el.clientHeight < el.scrollHeight)
               el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
 

@@ -43,7 +43,7 @@ export class MultiCloudEval {
       this.requestNewEvals();
     });
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') this.requestNewEvals();
+      if (!document.hidden) this.requestNewEvals();
     });
   }
 
@@ -56,7 +56,7 @@ export class MultiCloudEval {
   private lastRequestedFens: Set<FEN> = new Set();
 
   private readonly sendRequestNow = () => {
-    if (!this.showEval() || document.visibilityState === 'hidden') return;
+    if (!this.showEval() || document.hidden) return;
     const ids = this.observedIds();
     const chapters = this.chapters
       .all()

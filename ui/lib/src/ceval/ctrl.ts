@@ -111,6 +111,7 @@ export default class CevalCtrl {
     gameId: string | undefined,
     threatMode: boolean,
   ) => {
+    console.log('start document.hidden = ' + document.hidden);
     if (document.hidden) {
       this.lastStarted = { path, steps, gameId, threatMode };
       return;
