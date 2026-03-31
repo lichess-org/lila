@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="welcome">स्वागतम् !</string>
-  <string name="welcomeToLichess">Lichessमा तपाईँलाई स्वागत छ।</string>
+  <string name="welcomeToLichess">lichess.orgमा तपाईँलाई स्वागत छ।</string>
   <string name="thisIsYourProfilePage">यो तपाईँको प्रोफाईल पेज हो।</string>
   <string name="enabledKidModeSuggestion">के यो खाता बच्चाले चलाउँछ? तपाईँका लागी %s  उपयुक्त हुन सक्छ।</string>
   <string name="whatNowSuggestions">अब के? यहाँ केही सुझावहरू छन्! </string>

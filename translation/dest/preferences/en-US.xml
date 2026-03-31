@@ -50,7 +50,7 @@
   <string name="castleByMovingOntoTheRook">Move king onto rook</string>
   <string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
   <string name="inputMovesWithVoice">Input moves with your voice</string>
-  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The arrows are for quick annotations you can do on the board, drawn by holding the right mouse button.&#10;&#10;With this setting enabled, it means the arrows will align themselves to places where pieces can move.&#10;&#10;It doesn't take into account actual move legality given the position, but it means that you can only draw an arrow between two squares if that move trajectory is theoretically possible by any piece.&#10;For example, if this was enabled and you tried drawing a line between c3 and f4: you wouldn't be able to, because no piece could ever move like that. But you can draw an arrow from c3 to f5 (bishop/queen), or c3 to e4 (knight), for example.&#10;&#10;">Snap arrows to valid moves</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Snap arrows to valid moves</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Say \"Good game, well played\" upon defeat or draw</string>
   <string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
@@ -64,11 +64,11 @@
   <string name="notifyTournamentSoon">Tournament starting soon</string>
   <string name="notifyBroadcasts">Broadcasts you have subscribed to</string>
   <string name="notifyTimeAlarm">Correspondence time running out</string>
-  <string name="notifyBell">Bell notification within Lichess</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Notification within Lichess</string>
   <string name="notifyPush">Device notification when you\'re not on Lichess</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Device</string>
   <string name="bellNotificationSound">Bell notification sound</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindfold</string>
-  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Show on the left on mobile devices</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Show on the left on mobile devices</string>
 </resources>

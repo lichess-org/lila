@@ -84,5 +84,5 @@ Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
   <string name="paymentDetails">Dettagli del pagamento</string>
   <string name="updatePaymentMethod">Aggiorna il metodo di pagamento</string>
   <string name="stripeManageSub">Gestisci il tuo abbonamento e scarica le tue fatture e ricevute</string>
-  <string name="coverFees" comment="%s is a monetary amount. It will be localised depending on the currency where you are e.g. &quot;$0.25&quot; in the United States, &quot;€0.20&quot; in the Eurozone, and so on.&#10;The amount may appear before or after the number, depending on the language (e.g. as &quot;0,25 €&quot; in certain languages &amp; locales).&#10;&#10;Appears as an option when donating to Lichess (https://lichess.org/patron), letting you pay a bit more to cover the transaction fees which would be part of your donation.">Aggiungerò %s per coprire il costo di questa transazione</string>
+  <string name="coverFees">Aggiungerò %s per coprire il costo di questa transazione</string>
 </resources>

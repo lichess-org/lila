@@ -26,8 +26,8 @@
   <string name="castlingDescription">Захистіть свого короля й виведіть у бій туру.</string>
   <string name="capturingDefender">Захоплення захисника</string>
   <string name="capturingDefenderDescription">Захоплення фігури, що захищає іншу фігуру, дозволяє захопити незахищену фігуру наступним ходом.</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Паралельний хід</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Дві протилежні фігури знаходяться на одній лінії та одна з них пересувається по лінії без взяття фігури.</string>
+  <string name="collinearMove">Паралельний хід</string>
+  <string name="collinearMoveDescription">Дві протилежні фігури знаходяться на одній лінії та одна з них пересувається по лінії без взяття фігури.</string>
   <string name="cornerMate">Кутовий мат</string>
   <string name="cornerMateDescription">Тура й ферзь заганяють короля в кут, а кінь ставить мат.</string>
   <string name="crushing">Руйнування</string>

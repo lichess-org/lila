@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="welcome">ברוכים הבאים!</string>
-  <string name="welcomeToLichess">ברוכים הבאים ל־Lichess!</string>
+  <string name="welcomeToLichess">ברוכים הבאים ל־lichess.org!</string>
   <string name="thisIsYourProfilePage">זה עמוד הפרופיל שלך.</string>
   <string name="enabledKidModeSuggestion">אם החשבון הזה מיועד לילד/ה, מומלץ להפעיל את %s.</string>
   <string name="whatNowSuggestions">מה עכשיו? הנה כמה הצעות:</string>

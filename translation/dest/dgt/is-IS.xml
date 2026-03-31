@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Skilyrði fyrir DGT-taflborði</string>
   <string name="dgtBoardLimitations">Takmarkanir DGT-taflborðs</string>
   <string name="thisPageAllowsConnectingDgtBoard">Þessi síða gerir þér kleift að tengja DGT-taflborðið þitt við Lichess og nota það til að tefla.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Til þess að tengjast DGT-rafeindaspjaldinu þarftu að setja upp %s.</string>
+  <string name="toConnectTheDgtBoard">Til þess að tengjast DGT-rafeindaspjaldinu þarftu að setja upp %s.</string>
   <string name="downloadHere">Þú getur sótt þann hugbúnað hér: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Ef %1$s er að keyra á þessari tölvu geturðu athugað tenginguna þína við það með því %2$s.</string>
   <string name="openingThisLink">að opna þennan tengil</string>
@@ -18,7 +18,7 @@
   <string name="whenReadySetupBoard">Þegar þér þykir kominn tími skaltu setja upp taflborðið þitt og smella svo á %s.</string>
   <string name="ifMoveNotDetected">Ef leikur er ekki greindur</string>
   <string name="checkYouHaveMadeOpponentsMove">Gakktu úr skugga um að þú hafir fyrst gert leik andstæðingsins á DGT-taflborðinu. Taktu leik þinn til baka. Tefldu upp á nýtt.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Sem síðasta úrræði skaltu setja upp taflborðið alveg eins og Lichess, síðan %s</string>
+  <string name="asALastResort">Sem síðasta úrræði skaltu setja upp taflborðið alveg eins og Lichess, síðan %s</string>
   <string name="reloadThisPage">Endurhlaða þessa síðu</string>
   <string name="dgtConfigure">DGT - Stillingar</string>
   <string name="lichessConnectivity">Lichess-tengjanleiki</string>

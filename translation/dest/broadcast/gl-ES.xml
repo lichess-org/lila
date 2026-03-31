@@ -21,10 +21,10 @@
   <string name="ongoing">En curso</string>
   <string name="upcoming">Proximamente</string>
   <string name="roundName">Nome da rolda</string>
-  <string name="tournamentName">Nome do torneo</string>
+  <string name="tournamentName">Nome do evento</string>
   <string name="tournamentDescription">Breve descrición do torneo</string>
-  <string name="fullDescription">Descrición completa do torneo</string>
-  <string name="fullDescriptionHelp">Descrición longa opcional do torneo. %1$s está dispoñíbel. A lonxitude debe ser menor de %2$s caracteres.</string>
+  <string name="fullDescription">Descrición completa do evento</string>
+  <string name="fullDescriptionHelp">Descrición longa opcional do evento. Podes usar %1$s para dispoñer de opcións adicionais de formato. A lonxitude debe ser menor de %2$s caracteres.</string>
   <string name="sourceSingleUrl">URL de orixe do arquivo PGN</string>
   <string name="sourceUrlHelp">Ligazón que Lichess comprobará para obter actualizacións dos PGN. Debe ser publicamente accesíbel desde a Internet.</string>
   <string name="sourceGameIds">Até 64 identificadores de partidas de Lichess, separados por espazos.</string>
@@ -63,7 +63,7 @@
   <string name="notYetStarted">A emisión aínda non comezou.</string>
   <string name="officialWebsite">Páxina web oficial</string>
   <string name="officialStandings">Clasificación oficial</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page'">Máis opcións na %s</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Atopar máis opcións na %s.</string>
   <string name="webmastersPage">páxina do administrador web</string>
   <string name="embedThisBroadcast">Incrustar esta emisión na túa páxina web</string>
   <string name="ratingDiff">Diferenza de puntuación</string>
@@ -72,7 +72,7 @@
   <string name="standingsDisclaimer">A clasificación calcúlase empregando as partidas transmitidas e pode diferir dos resultados oficiais.</string>
   <string name="allTeams">Todos os equipos</string>
   <string name="tournamentFormat">Formato do torneo</string>
-  <string name="tournamentLocation">Lugar do torneo</string>
+  <string name="tournamentLocation">Lugar do evento</string>
   <string name="topPlayers">Mellores xogadores</string>
   <string name="timezone">Zona horaria</string>
   <string name="fideRatingCategory">Categoría de puntuación FIDE</string>
@@ -104,6 +104,6 @@
   <string name="semifinals">Semifinais</string>
   <string name="finals">Finais</string>
   <string name="tiebreaks">Desempates</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Partida %s</string>
+  <string name="gameX">Partida %s</string>
   <string name="knockouts">Eliminatorias</string>
 </resources>

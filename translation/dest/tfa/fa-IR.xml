@@ -7,7 +7,7 @@
   <string name="enterPassword">گذرواژه خود و کد هویت‌سنجی که توسط برنامه تولید شده است را وارد نمایید تا تنظیمات کامل شود. شما برای هر بار که وارد می‌شوید نیاز به یک کد هویت‌سنجی خواهید داشت.</string>
   <string name="ifYouCannotScanEnterX">اگر نمی‌توانید کد را بِروبینید، کلید رمز %s را در کارآیه‌تان وارد کنید.</string>
   <string name="authenticationCode">کد هویت‌سنجی</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">توجه: اگر به کدهای راستین‌آزمایی دوعاملی‌تان دسترسی ندارید، می‌توانید %s را از راه رایانامه بیَنجامید.</string>
+  <string name="ifYouLoseAccessTwoFactor">توجه: اگر به کدهای راستین‌آزمایی دوعاملی‌تان دسترسی ندارید، می‌توانید %s را از راه رایانامه بیَنجامید.</string>
   <string name="enableTwoFactor">فعال‌سازی راستین‌آزمایی دوعاملی</string>
   <string name="disableTwoFactor">ازکاراندازی راستین‌آزمایی دوعاملی</string>
   <string name="twoFactorEnabled">راستین‌آزمایی دوعاملی فعال شد</string>

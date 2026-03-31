@@ -177,7 +177,7 @@
   <string name="sharedAndSavedText">Alţi membri vă pot vedea mutările în timp real!&lt;br&gt;Plus, totul este salvat pentru totdeauna.</string>
   <string name="studyMembersTitle">Membrii studiului</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Spectatori pot vedea studiul și pot vorbi în chat.&lt;br&gt;&lt;br&gt;%2$s Contribuitori pot face mutări și actualiza studiul.</string>
-  <string name="addMembersText" comment="%s is an icon that will added at runtime">Click pe butonul %s.&lt;br&gt;Apoi decide cine poate contribui sau nu.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">Selectează %s.&amp;lt;br&amp;gt;Apoi decide cine poate contribui sau nu.</string>
   <string name="studyChaptersTitle">Capitole de studiu</string>
   <string name="studyChaptersText">Un studiu poate conţine mai multe capitole.&lt;br&gt;Fiecare capitol are o poziţie iniţială distinctă şi arbore de mutări.</string>
   <string name="commentPositionTitle">Comentariu la o poziţie</string>

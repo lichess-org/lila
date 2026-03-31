@@ -190,7 +190,7 @@
   <string name="viewInFullSize">Vidi plengrande</string>
   <string name="logOut">Elsaluti</string>
   <string name="signIn">Ensaluti</string>
-  <string name="rememberMe">Memoru mian ensaluton</string>
+  <string name="rememberMe">Memori mian ensaluton</string>
   <string name="youNeedAnAccountToDoThat">Vi bezonas konton por fari tion</string>
   <string name="signUp">Registriĝi</string>
   <string name="computersAreNotAllowedToPlay">Estas nepermesate ludi per komputiloj aŭ komputilasisto. Bonvolu ne akiri asiston de iu ŝakaŭtomato, datumbazo aŭ aliaj ludantoj dum ludado. Krome, notu ke la kreado de multaj kontoj estas forte malrekomendata, kaj troa uzo de multaj kontoj rezultigos vian forbaron.</string>
@@ -700,7 +700,7 @@
   <string name="create">Krei</string>
   <string name="whenCreateSimul">Kiam vi kreas samtempludon, vi povas ludi kontraŭ multaj ludantoj samtempe.</string>
   <string name="simulVariantsHint">Se vi elektas multajn variaĵojn, ĉiu ludanto povas laŭvole elekti unu el la variaĵoj.</string>
-  <string name="simulClockHint">Ŝakhorloĝo. Ju pli da ludantoj kiujn vi defios, des pli da tempo kiun vi eble bezonos.</string>
+  <string name="simulClockHint" comment="This used to say &quot;Fischer clock setup&quot; at the start of it, which has since been removed as it is obvious from the context.">Ŝakhorloĝo. Ju pli da ludantoj kiujn vi defios, des pli da tempo kiun vi eble bezonos.</string>
   <string name="simulAddExtraTime">Vi povas aldoni plian tempon al via ŝakhorloĝo por helpi vian ludadon.</string>
   <string name="simulHostExtraTime">Plia tempo por la gastiganto</string>
   <string name="simulAddExtraTimePerPlayer">Aldoni komencan tempon al via horloĝo por ĉiu ludanto, kiu aliĝis al la samtempludo.</string>

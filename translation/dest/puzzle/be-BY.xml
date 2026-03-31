@@ -105,6 +105,6 @@
   </plurals>
   <string name="percentSolved">%s вырашана правільна</string>
   <string name="noPuzzlesToShow">Нічога няма, вырашыце некалькі задач спачатку!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Трэніруйце гэта, каб палепшыць прагрэс!</string>
+  <string name="improvementAreasDescription">Трэніруйце гэта, каб палепшыць прагрэс!</string>
   <string name="strengthDescription">Найбольш атрымоўваюцца гэтыя тэмы</string>
 </resources>

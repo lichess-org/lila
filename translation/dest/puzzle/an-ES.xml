@@ -15,7 +15,7 @@
   <string name="voteToLoadNextOne">Vota pa cargar lo siguient!</string>
   <string name="upVote">Vota positivament lo problema</string>
   <string name="downVote">Vota negativament lo problema</string>
-  <string name="yourPuzzleRatingWillNotChange">La tuya puntuación de problemas no cambiará. Tiene en cuenta que los problemas no son pas una competición. La puntuación nomás indica los problemas que mas s\'asimilan a las tuyas habilidaz.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">La tuya puntuación de problemas no cambiará. Tiene en cuenta que los problemas no son pas una competición. La puntuación nomás indica los problemas que mas s\'asimilan a las tuyas habilidaz.</string>
   <string name="findTheBestMoveForWhite">Troba lo millor movimiento pa las blancas.</string>
   <string name="findTheBestMoveForBlack">Troba lo millor movimiento pa las negras.</string>
   <string name="toGetPersonalizedPuzzles">Pa aconseguir problemas personalizaus:</string>
@@ -88,6 +88,6 @@ Chuga partidas rapidas y clasica pa tener mas opcions de que anyadamos un proble
   </plurals>
   <string name="percentSolved">%s resueltos</string>
   <string name="noPuzzlesToShow">No i hai cosa a amostrar, fe bel problema primero!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Entrena estes temas pa optimizar lo tuyo progreso!</string>
+  <string name="improvementAreasDescription">Entrena estes temas pa optimizar lo tuyo progreso!</string>
   <string name="strengthDescription">Estos son los temas en que yes millor</string>
 </resources>

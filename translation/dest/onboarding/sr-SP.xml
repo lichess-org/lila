@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">Пријави се као %s</string>
   <string name="welcome">Добродошли!</string>
-  <string name="welcomeToLichess">Добродошли на Lichess!</string>
+  <string name="welcomeToLichess">Добродошли на Lichess.org!</string>
   <string name="thisIsYourProfilePage">Ово је твоја профилна страница.</string>
   <string name="enabledKidModeSuggestion">Да ли ће овај налог користити дете? Можда ћете желети да омогућите %s.</string>
   <string name="whatNowSuggestions">Шта даље? Ево неколико сугестија:</string>

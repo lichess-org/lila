@@ -5,7 +5,7 @@
   <string name="byTopic">தலைப்பு வாரியாக</string>
   <string name="byLichess">Lichessன் பதிவுகள்</string>
   <string name="myFriends">எனது நண்பர்கள்</string>
-  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">நான் விரும்பியவை</string>
+  <string name="myLikes">நான் விரும்பியவை</string>
   <string name="myBlog">எனது வலைப்பதிவு</string>
   <string name="likedBlogs">வலைப்பதிவு இடுகைகளை விரும்பியுள்ளார்</string>
   <plurals name="blogPosts">

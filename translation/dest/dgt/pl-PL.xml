@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Wymagania szachownicy DGT</string>
   <string name="dgtBoardLimitations">Ograniczenia szachownicy DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Ta strona pozwala na podłączenie szachownicy DGT do Lichess i używanie jej do rozgrywania partii.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Aby połączyć się z elektroniczną szachownicą DGT musisz zainstalować %s.</string>
+  <string name="toConnectTheDgtBoard">Aby połączyć się z elektroniczną szachownicą DGT musisz zainstalować %s.</string>
   <string name="downloadHere">Oprogramowanie możesz pobrać stąd: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Jeśli %1$s jest uruchomiony na tym komputerze, możesz sprawdzić połączenie z nim %2$s.</string>
   <string name="openingThisLink">otwierając ten link</string>
@@ -18,7 +18,7 @@
   <string name="whenReadySetupBoard">Kiedy wszystko będzie gotowe, ustaw pozycję na szachownicy, a następnie kliknij %s.</string>
   <string name="ifMoveNotDetected">Jeśli nie zostanie wykryty ruch</string>
   <string name="checkYouHaveMadeOpponentsMove">Sprawdź, czy najpierw wykonałeś ruch przeciwnika na szachownicy DGT. Cofnij swój ruch. Zagraj go ponownie.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">W ostateczności, ustaw pozycję na szachownicy identycznie jak Lichess, a następnie %s</string>
+  <string name="asALastResort">W ostateczności, ustaw pozycję na szachownicy identycznie jak Lichess, a następnie %s</string>
   <string name="reloadThisPage">Odśwież stronę</string>
   <string name="dgtConfigure">DGT - Konfiguracja</string>
   <string name="lichessConnectivity">Łączność z Lichess</string>

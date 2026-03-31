@@ -63,7 +63,7 @@
   <string name="notifyChallenge">ຄຳທ້າດວນ</string>
   <string name="notifyTournamentSoon">ການແຂ່ງຂັນກຳລັງຈະເລີ່ມໃນໄວໆນີ້</string>
   <string name="notifyTimeAlarm">ເວລາໃນເກມ Correspondence ໃກ້ຈະໝົດ</string>
-  <string name="notifyBell">ການແຈ້ງເຕືອນຮູບກະດິ່ງພາຍໃນ Lichess</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">ການແຈ້ງເຕືອນຮູບກະດິ່ງພາຍໃນ Lichess</string>
   <string name="notifyPush">ການແຈ້ງເຕືອນເທິງອຸປະກອນເມື່ອບໍ່ໄດ້ເປີດ Lichess</string>
   <string name="notifyWeb">ບຣາວເຊີ</string>
   <string name="notifyDevice">ອຸປະກອນ</string>

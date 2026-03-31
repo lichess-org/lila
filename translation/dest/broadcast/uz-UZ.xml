@@ -104,6 +104,6 @@
   <string name="semifinals">Yarim final</string>
   <string name="finals">Final</string>
   <string name="tiebreaks">Tay‑breyk</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">%s‑oʻyin</string>
+  <string name="gameX">%s‑oʻyin</string>
   <string name="knockouts">Nokaut</string>
 </resources>

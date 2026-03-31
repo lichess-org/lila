@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">Mewngofnodi fel %s</string>
   <string name="welcome">Croeso!</string>
-  <string name="welcomeToLichess">Croeso i Lichess!</string>
+  <string name="welcomeToLichess">Croeso i lichess.org!</string>
   <string name="thisIsYourProfilePage">Dyma eich tudalen proffil.</string>
   <string name="enabledKidModeSuggestion">A fydd plentyn yn defnyddio\'r cyfrif hwn? Efallai yr hoffech chi alluogi %s.</string>
   <string name="whatNowSuggestions">Beth nawr? Dyma sawl awgrym:</string>

@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">%s булып керү</string>
   <string name="welcome">Рәхим итегез!</string>
-  <string name="welcomeToLichess">Lichess сайтына рәхим итегез!</string>
+  <string name="welcomeToLichess">Lichess.org сайтына рәхим итегез!</string>
   <string name="thisIsYourProfilePage">Бу сезнеж хисап битегез.</string>
   <string name="enabledKidModeSuggestion">Бу аккаунтны бала кулланачакмы? %s кабыза аласыз.</string>
   <string name="whatNowSuggestions">Ә хәзер нәрсә? Менә берничә киңәш:</string>

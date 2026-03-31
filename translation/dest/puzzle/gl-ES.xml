@@ -16,7 +16,7 @@
   <string name="voteToLoadNextOne">Vota para cargar o seguinte!</string>
   <string name="upVote">Vota a favor do crebacabezas</string>
   <string name="downVote">Vota en contra do crebacabezas</string>
-  <string name="yourPuzzleRatingWillNotChange">A túa puntuación en crebacabezas non cambia. Ten en conta que os crebacabezas non son unha competición. A puntuación axuda a escollerche os crebacabezas máis axeitados segundo a túa puntuación actual.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">A túa puntuación en crebacabezas non cambiará. Ten en conta que os crebacabezas non son unha competición. A túa puntuación axuda a escollerche os crebacabezas máis axeitados ó teu nivel.</string>
   <string name="findTheBestMoveForWhite">Atopa a mellor xogada para as brancas.</string>
   <string name="findTheBestMoveForBlack">Atopa a mellor xogada para as negras.</string>
   <string name="toGetPersonalizedPuzzles">Para conseguir crebacabezas personalizados:</string>
@@ -74,10 +74,11 @@
   <string name="continueTheStreak">Continúa a secuencia</string>
   <string name="newStreak">Nova secuencia de vitorias</string>
   <string name="fromMyGames">Das miñas partidas</string>
-  <string name="lookupOfPlayer">Buscar crebacabezas das partidas dun xogador</string>
+  <string name="lookupOfPlayer">Ver crebacabezas das partidas dun xogador</string>
   <string name="searchPuzzles">Busca crebacabezas</string>
   <string name="fromMyGamesNone">Non tes crebacabezas na base de datos e aínda así Lichess quérete moito.
-Xoga partidas rápidas e clásicas para ter máis opcións de que se engadan os teus crebacabezas!</string>
+
+Xoga partidas rápidas e clásicas para ter máis opcións de que se engadan crebacabezas a partir das túas partidas!</string>
   <plurals name="puzzlesFoundInUserGames">
     <item quantity="one">Un crebacabezas atopado nas partidas de %2$s</item>
     <item quantity="other">%1$s crebacabezas atopados nas partidas de %2$s</item>
@@ -94,6 +95,6 @@ Xoga partidas rápidas e clásicas para ter máis opcións de que se engadan os 
   <string name="percentSolved">%s
 resoltos</string>
   <string name="noPuzzlesToShow">Non hai nada que amosar, primeiro resolve algún crebacabezas!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Adestra nestes temas para progresar!</string>
+  <string name="improvementAreasDescription">Adestra nestes temas para progresar!</string>
   <string name="strengthDescription">Estas son as áreas nas que es máis forte</string>
 </resources>

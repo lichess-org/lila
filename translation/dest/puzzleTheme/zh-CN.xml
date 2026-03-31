@@ -26,8 +26,8 @@
   <string name="castlingDescription">将王转移到安全位置，并出动车参与进攻。</string>
   <string name="capturingDefender">消除保护</string>
   <string name="capturingDefenderDescription">消除保护另一个棋子的防御子，使得接下来可以吃掉那个失去保护的棋子。</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">共线移动</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">两枚对立的棋子彼此面对，其中一枚棋子沿攻击线移动但不吃子。</string>
+  <string name="collinearMove">共线移动</string>
+  <string name="collinearMoveDescription">两枚对立的棋子彼此面对，其中一枚棋子沿攻击线移动但不吃子。</string>
   <string name="cornerMate">角落将杀</string>
   <string name="cornerMateDescription">用车或后与马配合，将对方的王困在角落并将其将杀。</string>
   <string name="crushing">压倒性优势</string>

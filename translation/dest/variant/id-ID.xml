@@ -18,6 +18,6 @@
   <string name="racingKingsTitle">Bawa raja Anda ke sisi seberang papan untuk menang.</string>
   <string name="crazyhouse">Crazyhouse</string>
   <string name="crazyhouseTitle">Buah yang ditangkap dapat diletakkan kembali ke papan alih-alih menggerakkan buah.</string>
-  <string name="fromPosition" comment="An option that lets you create a standard chess game from a custom position.">Dari Posisi</string>
-  <string name="fromPositionTitle" comment="Description for when looking to start a game 'From position'">Catur standar dari posisi kustom</string>
+  <string name="fromPosition">Dari Posisi</string>
+  <string name="fromPositionTitle">Catur standar dari posisi kustom</string>
 </resources>

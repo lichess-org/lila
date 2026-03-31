@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">%s olarak giriş yap</string>
   <string name="welcome">Hoş geldiniz!</string>
-  <string name="welcomeToLichess">Lichess\'a hoş geldiniz!</string>
+  <string name="welcomeToLichess">lichess.org\'a hoş geldiniz!</string>
   <string name="thisIsYourProfilePage">Profil sayfanız.</string>
   <string name="enabledKidModeSuggestion">Bu hesabı bir çocuk mu kullanacak? %s\'i aktifleştirmek isteyebilirsiniz.</string>
   <string name="whatNowSuggestions">Sırada ne var? Birkaç öneriyi burada bulabilirsiniz:</string>

@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">Iniciar sesión como %s</string>
   <string name="welcome">Bienveniu/da!</string>
-  <string name="welcomeToLichess">Bienveniu/da a Lichess!</string>
+  <string name="welcomeToLichess">Bienveniu/da a lichess.org!</string>
   <string name="thisIsYourProfilePage">Esta ye la tuya pachina de perfil.</string>
   <string name="enabledKidModeSuggestion">Esta cuenta la usará un nino u nina? Talment quiera activar lo %s.</string>
   <string name="whatNowSuggestions">Y agora, qué? Aquí tiens cualques sucherencias:</string>

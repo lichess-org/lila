@@ -26,8 +26,8 @@
   <string name="castlingDescription">Få kongen din i tryggleik og gjer tårnet klårt for åtak.</string>
   <string name="capturingDefender">Slå ut forsvararen</string>
   <string name="capturingDefenderDescription">Slå ut ei brikke som er kritisk som dekning for ei anna brikke, slik at brikka som no står udekka kan fjernast i eit seinare trekk.</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Kolineært trekk</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Ei kvit og ei svart brikke står ovanfor kvarandre, og ei av dei glir langs åtakslinja utan å slå ut brikka til motspelaren.</string>
+  <string name="collinearMove">Kolineært trekk</string>
+  <string name="collinearMoveDescription">Ei kvit og ei svart brikke står ovanfor kvarandre, og ei av dei glir langs åtakslinja utan å slå ut brikka til motspelaren.</string>
   <string name="cornerMate">Hjørnematt</string>
   <string name="cornerMateDescription">Sperr kongen inn i hjørnet ved hjelp av tårn eller dronning og la springar sette matt.</string>
   <string name="crushing">Avgjerande fordel</string>

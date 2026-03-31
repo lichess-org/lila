@@ -26,8 +26,8 @@
   <string name="castlingDescription">Porta il re al sicuro, e sviluppa la torre per attaccare.</string>
   <string name="capturingDefender">Cattura del difensore</string>
   <string name="capturingDefenderDescription">Rimozione di un pezzo essenziale per la difesa di un altro pezzo, che permette al pezzo ora indifeso di essere catturato con una mossa successiva.</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Mossa collineare</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Due pezzi avversari si trovano uno di fronte all\'altro</string>
+  <string name="collinearMove">Mossa collineare</string>
+  <string name="collinearMoveDescription">Due pezzi avversari si trovano uno di fronte all\'altro</string>
   <string name="cornerMate">Matto nell\'angolo</string>
   <string name="cornerMateDescription">Restringi il re nell\'angolo usando una torre o una regina, e usa un cavallo per dare scacco matto.</string>
   <string name="crushing">Posizione schiacciante</string>

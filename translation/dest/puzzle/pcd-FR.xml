@@ -16,7 +16,7 @@
   <string name="voteToLoadNextOne">Votez pour afficher le suivant !</string>
   <string name="upVote">Voter pour ce problème</string>
   <string name="downVote">Voter contre ce problème</string>
-  <string name="yourPuzzleRatingWillNotChange">Votre classement ne changera pas. Notez que les problèmes ne sont pas une compétition. Le classement aide à sélectionner les meilleurs problèmes en fonction de votre niveau.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">Votre classement ne changera pas. Notez que les problèmes ne sont pas une compétition. Le classement aide à sélectionner les meilleurs problèmes en fonction de votre niveau.</string>
   <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour les Blancs.</string>
   <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour les Noirs.</string>
   <string name="toGetPersonalizedPuzzles">Pour obtenir des problèmes personnalisés :</string>
@@ -93,6 +93,6 @@ Jouez des parties rapides et classiques pour augmenter vos chances qu\'une de vo
   </plurals>
   <string name="percentSolved">%s des problèmes résolus</string>
   <string name="noPuzzlesToShow">Rien à afficher - faites d\'abord quelques problèmes !</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Faites ces problèmes pour progresser !</string>
+  <string name="improvementAreasDescription">Faites ces problèmes pour progresser !</string>
   <string name="strengthDescription">Vous avez le plus de succès dans ces thèmes.</string>
 </resources>

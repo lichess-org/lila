@@ -102,6 +102,6 @@
   <string name="semifinals">준결승전</string>
   <string name="finals">결승전</string>
   <string name="tiebreaks">타이브레이커</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">게임 %s</string>
+  <string name="gameX">게임 %s</string>
   <string name="knockouts">녹아웃</string>
 </resources>

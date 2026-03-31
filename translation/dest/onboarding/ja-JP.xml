@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">%s としてログイン</string>
   <string name="welcome">ようこそ！</string>
-  <string name="welcomeToLichess">Lichess へようこそ！</string>
+  <string name="welcomeToLichess">Lichess.org へようこそ！</string>
   <string name="thisIsYourProfilePage">これはあなたのプロフィールページです。</string>
   <string name="enabledKidModeSuggestion">このアカウントを使用するのは子供ですか？ %s も使えます。</string>
   <string name="whatNowSuggestions">では何をしましょう？　たとえば…</string>

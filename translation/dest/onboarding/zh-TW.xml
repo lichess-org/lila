@@ -2,7 +2,7 @@
 <resources>
   <string name="logInAsUsername">以 %s 登入</string>
   <string name="welcome">歡迎！</string>
-  <string name="welcomeToLichess">歡迎來到 Lichess！</string>
+  <string name="welcomeToLichess">歡迎來到 lichess.org！</string>
   <string name="thisIsYourProfilePage">這是你的個人資料頁面。</string>
   <string name="enabledKidModeSuggestion">有小孩在使用此帳號？你可能需要啟用%s。</string>
   <string name="whatNowSuggestions">現在可以作什麼？這裡有幾個建議：</string>

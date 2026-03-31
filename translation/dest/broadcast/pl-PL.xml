@@ -108,6 +108,6 @@
   <string name="semifinals">Półfinały</string>
   <string name="finals">Finały</string>
   <string name="tiebreaks">Dogrywki</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Partia %s</string>
+  <string name="gameX">Partia %s</string>
   <string name="knockouts">Eliminacje</string>
 </resources>

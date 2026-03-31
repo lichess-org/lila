@@ -60,7 +60,7 @@ Pode ser unha boa opción para clubes e torneos oficiais.</string>
   <string name="pointsCalculationA">Unha vitoria equivale a un punto, un empate a medio punto e unha derrota a cero puntos.
 Cando un xogador non pode ser emparellado durante unha rolda, recibe un \"bye\" ou exención de rolda, que vale un punto.</string>
   <string name="tiebreaksCalculationQ">Como se calculan os desempates?</string>
-  <string name="sonnebornBergerScore">puntuación Sonneborn–Berger</string>
+  <string name="sonnebornBergerScore">puntuación Sonneborn-Berger</string>
   <string name="tiebreaksCalculationA">Coa %s.
 É a suma dos puntos dos rivais derrotados máis a metade dos puntos dos rivais cos que se fai táboas.</string>
   <string name="pairingsQ">Como se deciden os emparellamentos?</string>
@@ -78,15 +78,15 @@ Ademais, outórgaselle un único \"bye\" de medio punto ó xogador que se une ta
   <string name="earlyDrawsQ">Que pasa coas táboas rápidas?</string>
   <string name="earlyDrawsAnswer">Nun torneo suízo non se permiten as táboas en menos de 30 xogadas. Malia que esta medida non evita as táboas pactadas, cando menos dificulta acordalas de improviso.</string>
   <string name="whatIfOneDoesntPlayQ">Que pasa se un xogador non xoga unha partida?</string>
-  <string name="whatIfOneDoesntPlayA">O seu reloxo parará, será marcado e perderá a partida.
+  <string name="whatIfOneDoesntPlayA">O seu reloxo correrá, quedará sen tempo e perderá a partida.
 Logo o sistema botará ao xogador do torneo para que non perda máis partidas.
 Poderá volver unirse ao torneo en calquera momento.</string>
   <string name="protectionAgainstNoShowQ">Que se fai cos xogadores ausentes?</string>
   <string name="protectionAgainstNoShowA">Os xogadores que se inscriben en torneos suízos pero que non xogan as súas partidas poden causar problemas.
-Pra mitigar este inconveniente, Lichess impide unirse a un torneo suízo durante un período de tempo ós xogadores que non se presentan ás súas partidas.
+Pra mitigar este inconveniente, Lichess impide temporalmente a estes xogadores unirse a novos torneos suízos.
 De calquera maneira, o creador dun torneo suízo pode decidir deixalos participar.</string>
   <string name="lateJoinQ">Poden os xogadores unirse a un torneo que xa comezou?</string>
-  <string name="lateJoinA">Si, pero só antes de que se xogue máis da metade das roldas; por exemplo, nun torneo suízo de 11 roldas, os xogadores poden unirse antes de que comece a 6ª rolda; nun torneo de 12 roldas poden unirse antes de que comece a 7ª rolda.
+  <string name="lateJoinA">Si, pero só antes de que se xogue máis da metade das roldas. Por exemplo, nun torneo suízo de 11 roldas, os xogadores poden unirse antes de que comece a 6ª rolda. Nun torneo de 12 roldas poden unirse antes de que comece a 7ª rolda.
 Os xogadores que se unen tarde reciben un só \"bye\", mesmo se non se presentan a varias roldas.</string>
   <string name="willSwissReplaceArenasQ">Substituirán os torneos suízos ás Arenas?</string>
   <string name="willSwissReplaceArenasA">Non, teñen características complementarias.</string>
@@ -125,7 +125,7 @@ O formato máis próximo a un torneo \"todos contra todos\" en liña é un torne
   <string name="streaksAndBerserk">Secuencias de vitorias e Berserk</string>
   <string name="similarToOTB">Similar aos torneos presenciais</string>
   <string name="unlimitedAndFree">Ilimitado e libre</string>
-  <string name="predefinedUsers">Permitir unirse só a usuarios predefinidos</string>
+  <string name="predefinedUsers">Permitir a entrada só a usuarios específicos</string>
   <string name="forbiddedUsers">Se esta lista non está baleira, ós usuarios ausentes desta lista lles estará prohibido unirse. Un nome de usuario por liña.</string>
   <string name="playYourGames">Xoga as túas partidas</string>
   <string name="byes">Byes</string>

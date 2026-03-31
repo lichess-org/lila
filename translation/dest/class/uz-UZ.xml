@@ -90,7 +90,7 @@ Sinfga kirish uchun havola quyidagicha.</string>
   <string name="timePlaying">Oʻyin vaqti</string>
   <string name="variantXOverLastY">Oxirgi %2$s kunda %1$s</string>
   <string name="winrate">Gʻalabalar foizi</string>
-  <string name="na" comment="Appears as part of the 'Progress' column on Lichess classes, where a teacher is looking at their list of students under specific rating or variant categories.">—</string>
+  <string name="na">—</string>
   <string name="overview">Obzor</string>
   <string name="news">Yangiliklar</string>
   <string name="classNews">Sinf yangiliklari</string>
@@ -122,7 +122,7 @@ bilan ajrating, u gorizontal chiziqni tasvirlaydi.</string>
   <string name="allowMessagingBetweenStudentsDesc">Bu faqat siz oʻquvchilaringiz uchun yaratgan akkauntlarga tegishli.</string>
   <string name="quickLoginCode">Tez kirish kodi</string>
   <string name="quickLoginCodes">Tez kirish kodlari</string>
-  <string name="quickLoginCodesDesc1" comment="%s is a link to https://lichess.org/class">Oʻquvchilaringizni Lichessʼga kiritish uchun %s sahifasida ushbu kodlardan foydalaning.</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Oʻquvchilaringizni Lichessʼga kiritish uchun %s sahifasida ushbu kodlardan foydalaning.</string>
   <string name="quickLoginCodesDesc2">Kodlarning amal qilish muddati tugasa ham, oʻquvchilar tizimdan oʻzlari chiqib ketmagunlaricha tizimda qoladilar.</string>
-  <string name="expirationInMomentFromNow" comment="%s is relative time in the future. For example, 'in 2 hours'&#10;&#10;If it works better for your language, you can use punctuation e.g. &quot;Expiration: %s&quot;">%s muddati tugaydi</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">%s muddati tugaydi</string>
 </resources>

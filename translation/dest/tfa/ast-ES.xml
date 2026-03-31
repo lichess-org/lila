@@ -7,7 +7,7 @@
   <string name="enterPassword">Introduz la to contraseña y el códigu de autenticación xeneráu pola aplicación pa completar la configuración. Vas precisar un códigu de autenticación cada vez que anicies sesión.</string>
   <string name="ifYouCannotScanEnterX">Si nun puedes escaniar el códigu, introduz la clave %s na to aplicación.</string>
   <string name="authenticationCode">Códigu de autenticación</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Nota: si pierdes l\'accesu a los tos códigos de autenticación de dos pasos, puedes %s per corréu electrónicu.</string>
+  <string name="ifYouLoseAccessTwoFactor">Nota: si pierdes l\'accesu a los tos códigos de autenticación de dos pasos, puedes %s per corréu electrónicu.</string>
   <string name="enableTwoFactor">Habilitar la autenticación en dos pasos</string>
   <string name="disableTwoFactor">Desactivar la autenticación en dos pasos</string>
   <string name="twoFactorEnabled">Autenticación en dos pasos habilitada</string>

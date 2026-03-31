@@ -26,8 +26,8 @@
   <string name="castlingDescription">شاه خود را ایمن کنید و رخ خود را برای حمله مستقر کنید.</string>
   <string name="capturingDefender">زدنِ دفاع‌گر</string>
   <string name="capturingDefenderDescription">گرفتن یک مهره که برای دفاع از یک مهره دیگر حیاتی است، اجازه می دهد مهره ای که اکنون بدون دفاع است در حرکت بعدی گرفته شود.</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">حرکت هم‌خط</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">دو مهره مقابل هم قرار گرفته‌اند و یکی بدون گرفتن مهره حریف، روی خط حمله حرکت می‌کند.</string>
+  <string name="collinearMove">حرکت هم‌خط</string>
+  <string name="collinearMoveDescription">دو مهره مقابل هم قرار گرفته‌اند و یکی بدون گرفتن مهره حریف، روی خط حمله حرکت می‌کند.</string>
   <string name="cornerMate">ماتِ کُنج</string>
   <string name="cornerMateDescription">شاه را به کنج محدود کنید و با استفاده از یک رخ یا وزیر و یک اسب، او را مات کنید.</string>
   <string name="crushing">تخریب</string>
