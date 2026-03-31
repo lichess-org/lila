@@ -1,5 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">देणगी द्या</string>
+  <string name="donateAsX">%s म्हणून देणगी द्या</string>
+  <string name="lichessPatron">Lichess आश्रयदाता</string>
+  <string name="patronSince" comment="string is a date">%s पासून गिऱ्हाईक</string>
+  <string name="freeAccount">मोफत खाते</string>
+  <string name="becomePatron">Lichess आश्रयदाता बना</string>
+  <string name="xBecamePatron">%s एक Lichess गिऱ्हाईक बनले</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s एक Liches गिऱ्हाईक %2$s महिन्यासाठी आहे</item>
+    <item quantity="other">%1$s एक Liches गिऱ्हाईक %2$s महिन्यांसाठी आहे</item>
+  </plurals>
+  <string name="newPatrons">नवीन गिऱ्हाईक</string>
+  <string name="freeChess">मोफत बुद्धिबळ सगळ्यांसाठी, कायमचे!</string>
+  <string name="noAdsNoSubs">जाहिराती नाही, वर्गणी नाही; पण मुक्त-स्रोत आणि तीव्र आवड.</string>
+  <string name="thankYou">तुमच्या देणगीसाठी धन्यवाद!</string>
+  <string name="youHaveLifetime">तुमच्याकडे आयुष्यभर एक Lichess आश्रयदाता असण्याचे खाते आहे. हे खूपच छान व सुंदर आहे!</string>
+  <string name="patronUntil">तुमच्याकडे एक गिऱ्हाईक खाते %s पर्यंत आहे.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">जर नूतनीकरण केले नसेल, तर तुमचे खाते परत सामान्य खात्यात बदलले जाईल.</string>
+  <string name="weAreNonProfit">आम्ही एक विना-नफा संस्था आहोत कारण आमचा विश्वास असा आहे की प्रत्येकाला एक विनामूल्य, जागतिक दर्जाचे बुद्धिबळ व्यासपीठ उपलब्ध असले पाहिजे.</string>
+  <string name="weRelyOnSupport">हे शक्य करण्यासाठी आम्ही तुमच्यासारख्या लोकांच्या पाठिंब्यावर अवलंबून आहोत. जर तुम्हाला Lichess वापरायला आवडत असेल, तर कृपया देणगी देऊन आणि आश्रयदाता (पॅट्रॉन) बनून आम्हाला पाठिंबा देण्याचा विचार करा!</string>
+  <string name="lifetime">आयुष्यभर</string>
+  <string name="payLifetimeOnce">एकदा %s पैसे द्या. कायमसाठी Lichess आश्रयदाता बना!</string>
+  <string name="lifetimePatron">आयुष्यभरासाठी Lichess आश्रयदाता</string>
+  <string name="monthly">मासिक</string>
+  <string name="recurringBilling">आवर्ती वर्गणी, दर महिन्याला तुमच्या पॅट्रॉन विंग्सचे नूतनीकरण.</string>
+  <string name="onetime">एक-वेळी</string>
+  <string name="singleDonation">एकच देणगी जी तुम्हाला एका महिन्यासाठी पॅट्रॉन विंग्स प्रदान करते.</string>
+  <string name="otherAmount">इतर</string>
+  <string name="pleaseEnterAmountInX">कृपया एक रक्कम %s मध्ये टाका</string>
+  <string name="withCreditCard">क्रेडिट कार्ड</string>
   <string name="logInToDonate">देणगी देण्यासाठी लॉगीन करा</string>
+  <string name="weAreSmallTeam">आमचा संघ लहान आहे, त्यामुळे तुमच्या पाठिंब्याने खूप मोठा फरक पडतो!</string>
+  <string name="celebratedPatrons">Lichess ला शक्य करणारे प्रख्यात आश्रयदाते</string>
+  <string name="whereMoneyGoes">पैसे कुठे जातात?</string>
+  <string name="serversAndDeveloper">सर्वप्रथम, शक्तिशाली सर्व्हर्स.
+त्यानंतर आम्ही एका पूर्ण-वेळ विकसकला पगार देतो: %s, जे Lichess चे संस्थापक आहेत.</string>
+  <string name="costBreakdown">खर्चाचा तपशीलवार आढावा पहा</string>
+  <string name="officialNonProfit">Lichess ही एक अधिकृत विना-नफा संस्था आहे का?</string>
+  <string name="actOfCreation">हो, ही आहे निर्मितीची प्रक्रिया (फ्रेंच भाषेत)</string>
+  <string name="changeMonthlySupport">मी माझी मासिक वर्गणी बदलू किंवा रद्द करू शकतो का?</string>
+  <string name="changeOrContact">हो, कोणत्याही वेळी, याच पृष्ठावरून.
+किंवा तुम्ही %s करू शकता.</string>
+  <string name="contactSupport">Lichess समर्थनशी संपर्क साधा</string>
+  <string name="otherMethods">देणगी देण्याचे इतर मार्ग कोणते?</string>
+  <string name="lichessIsRegisteredWith">Lichess ची नोंदणी %s बरोबर झाली आहे.</string>
+  <string name="bankTransfers">आम्ही बँक हस्तांतरण देखील स्वीकारतो.</string>
+  <string name="onlyDonationFromAbove">कृपया नोंद घ्या की केवळ वरील देणगी अर्जाद्वारेच आश्रयदाता दर्जा दिला जाईल.</string>
+  <string name="patronFeatures">काही वैशिष्ट्ये आश्रयदात्यांसाठी राखीव आहेत का?</string>
+  <string name="noPatronFeatures">नाही, कारण Lichess पूर्णपणे, कायमस्वरूपी आणि सर्वांसाठी विनामूल्य आहे. हे एक वचन आहे.
+मात्र, आश्रयदात्यांना त्यांच्या चरित्रावर दिसणाऱ्या आकर्षक नवीन पॅट्रॉन विंग्समुळे मिरवण्याचा हक्क मिळतो.</string>
+  <string name="featuresComparison">वैशिष्ट्यांची सविस्तर तुलना पहा</string>
+  <plurals name="patronForMonths">
+    <item quantity="one"> Lichess गिऱ्हाईक एका महिन्यासाठी</item>
+    <item quantity="other"> Lichess गिऱ्हाईक %s महिन्यांसाठी</item>
+  </plurals>
+  <string name="youSupportWith">तुम्ही दरमहिन्याला %s देऊन lichess.org ला पाठिंबा देऊ शकता.</string>
+  <string name="tyvm">तुमच्या मदतीबद्दल खूप खूप धन्यवाद. तुम्ही कमाल आहात!</string>
+  <string name="currentStatus">Current status</string>
+  <string name="nextPayment">पुढील वर्गणी</string>
+  <string name="youWillBeChargedXOnY">तुमच्याकडून %2$s ला %1$s शुल्क आकारले जाईल.</string>
+  <string name="makeAdditionalDonation">अतिरिक्त देणगी द्या</string>
+  <string name="giftPatronWingsShort">पॅट्रॉन विंग्स भेट द्या</string>
+  <string name="giftPatronWings">पॅट्रॉन विंग्स एका खेळाडूला भेट द्या</string>
+  <string name="update">अद्यतन करा</string>
+  <string name="changeMonthlyAmount">मासिक रक्कम बदला (%s)</string>
+  <string name="cancelSupport">तुमचा समर्थन रद्द करा</string>
+  <string name="xOrY">%1$s किंवा %2$s</string>
+  <string name="decideHowMuch">तुमच्यासाठी Lichess ची किंमत काय आहे ते ठरवा:</string>
+  <string name="stopPayments">तुमचे क्रेडिट कार्ड काढा आणि वर्गणी थांबवा:</string>
+  <string name="stopPaymentsPayPal">PayPal सदस्यता रद्द करा आणि वर्गणी थांबवा:</string>
+  <string name="noLongerSupport">Lichess ला यापुढे तुम्ही मदत करत नाही</string>
+  <string name="viewOthers">इतर Lichess आश्रयदाते पहा</string>
+  <string name="date">दिनांक</string>
+  <string name="amount">रक्कम</string>
+  <string name="transactionCompleted">तुमचा व्यवहार पूर्ण झाला असून, तुमच्या देणगीची पावती तुम्हाला ई-मेल करण्यात आली आहे.</string>
+  <string name="permanentPatron">आता तुम्हाला कायमस्वरूपी आश्रयदात्याचे खाते मिळाले आहे.</string>
+  <string name="checkOutProfile">तुमचे चरित्र पृष्ठ पहा!</string>
+  <string name="nowLifetime">तुम्ही आता आयुष्यभरासाठी Lichess चे आश्रयदाता आहात!</string>
+  <string name="nowOneMonth">तुम्ही आता एका महिन्यासाठी Lichess चे गिऱ्हाईक झाला आहात!</string>
+  <string name="downgradeNextMonth">एका महिन्यात, तुमच्याकडून पुन्हा शुल्क आकारले जाणार नाही आणि तुमच्या Lichess खातेचे नियमित खात्यात रूपांतरित होईल.</string>
+  <string name="changeCurrency">चलन बदला</string>
+  <string name="paymentDetails">वर्गणीचे तपशील</string>
+  <string name="updatePaymentMethod">वर्गणी देण्याची पद्धत अद्यतन करा</string>
+  <string name="stripeManageSub">तुमचे सदस्यत्व व्यवस्थापित करा आणि तुमची चलन व पावत्या आयात करा.</string>
+  <string name="coverFees">या व्यवहाराच्या प्रक्रियेचा खर्च भरून काढण्यास मदत म्हणून मी %s जोडेन.</string>
 </resources>
