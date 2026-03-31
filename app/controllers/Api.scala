@@ -403,15 +403,26 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     Ok.chunked(source.map(_ + "\n")).as(csvContentType).noProxyBuffer
 
   private[controllers] object GlobalConcurrencyLimitPerIP:
-    val events = lila.web.ConcurrencyLimit[IpAddress](
-      key = "api.ip.events",
+
+    def events(using ctx: Context) =
+      if ctx.isAnon then eventsForAnon
+      else if ctx.me.exists(_.isVerified) then eventsForVerifiedUser
+      else eventsForUser
+
+    private val eventsForAnon = lila.web.ConcurrencyLimit[IpAddress](
+      key = "api.ip.events.anon",
       ttl = 1.hour,
       maxConcurrency = 4
     )
-    val eventsForVerifiedUser = lila.web.ConcurrencyLimit[IpAddress](
+    private val eventsForUser = lila.web.ConcurrencyLimit[IpAddress](
+      key = "api.ip.events.user",
+      ttl = 1.hour,
+      maxConcurrency = 8
+    )
+    private val eventsForVerifiedUser = lila.web.ConcurrencyLimit[IpAddress](
       key = "api.ip.events.verified",
       ttl = 1.hour,
-      maxConcurrency = 12
+      maxConcurrency = 16
     )
     val download = lila.web.ConcurrencyLimit[IpAddress](
       key = "api.ip.download",

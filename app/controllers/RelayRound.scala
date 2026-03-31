@@ -223,10 +223,7 @@ final class RelayRound(
 
   def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     Found(env.relay.api.byIdWithStudy(id)): rs =>
-      val limiter =
-        if ctx.me.exists(_.isVerified)
-        then apiC.GlobalConcurrencyLimitPerIP.eventsForVerifiedUser
-        else apiC.GlobalConcurrencyLimitPerIP.events
+      val limiter = apiC.GlobalConcurrencyLimitPerIP.events
       studyC.CanView(rs.study) {
         limiter(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rs)): source =>
           Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))).noProxyBuffer
