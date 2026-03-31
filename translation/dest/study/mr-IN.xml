@@ -171,5 +171,17 @@
   <string name="welcomeToLichessStudyText">हा एक एकत्रित विशलेषण पट आहे.&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;ह्याचा वापर खेळांचे विशलेषण व भाष्य करण्यासाठी वापरा,&amp;lt;br&amp;gt;मित्रांबरोर स्थितींची चर्चा करण्यासाठी,&amp;lt;br&amp;gt;आणि नक्कीच बुद्धिबळाच्या 
 अभ्य्सासाठी!&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;हे एक शक्तिशाली साधन आहे. ते कसे काम करते हे पाहण्यासाठी आपण थोडा वेळ घेऊया. </string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">पाठवलेले आणि जतन केलेले</string>
+  <string name="sharedAndSavedText">बाकी सदस्यांना तुमचे डाव वास्तविक वेळात दिसतात!&lt;br&gt;अधिकतर, सगळं कायमचे जतन राहील.</string>
+  <string name="studyMembersTitle">अभ्यासिकेचे सदस्य</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s प्रेक्षक अभ्यास पाहू शकतात आणि गप्पा मारू शकतात.&lt;br&gt;&lt;br&gt;%2$s योगदानकर्ते चाल खेळू शकतात आणि अभ्यास अद्यतनित करू शकतात.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">निवडा %s. &amp;lt;br&amp;gt;मग ठरावा कि कोणाला योगदान करण्याची परवानगी आहे.</string>
+  <string name="studyChaptersTitle">अभ्यासिकेचे अध्याय</string>
+  <string name="studyChaptersText">एका अभ्यासिकेत अनेक अध्याय असू शकतात. प्रत्यके अध्याची वेगळी प्रारंभिक स्थिती आणि चालवृक्षी असते.</string>
+  <string name="commentPositionTitle">एका स्थितीवर टिप्पणी द्या</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">%s बटण दाबा, किंवा डावांच्या सूचीवर उजवं क्लिक करा.&amp;lt;br&amp;gt;टिप्पण्या सगळ्यांबरोबर शेअर केले जातात आणि जतन केले जातात</string>
+  <string name="annotatePositionTitle">एका स्थितीचे भाष्य करा</string>
+  <string name="annotatePositionText">!? बटण दाबा, किंवा उजवं क्लिक करा डावांच्या सूचीवर.&amp;lt;br&amp;gt;भाष्य ग्लिफ्स शेअर आणि जतन केले जातात.</string>
+  <string name="conclusionTitle">तुमच्या वेळेसाठी धन्यवाद</string>
+  <string name="conclusionText">तुम्ही तुमचे &lt;a href=\'/study/mine/hot\'&gt;मागील अभ्यासिके&lt;/a&gt;तुमच्या चरित्र पृष्ठावर.&lt;br&gt;तेथे देखील आहे एक &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;नेमणी अभ्यासांबद्दल&lt;/a&gt;.&lt;br&gt;प्रगत वापरकर्त्यांना कळफलक शॉर्टकट पाहण्यासाठी \"?\" दाबावेसे वाटू शकते.&lt;br&gt;मजा करा!</string>
   <string name="fromInitialPositionTitle">प्रारंभिक स्थितीपासून</string>
 </resources>
