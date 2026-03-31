@@ -372,8 +372,8 @@ export default class StudyCtrl {
     document.title = this.relay?.fullRoundName() ?? this.data.name;
     this.members.dict(s.members);
     if (s.chapters) this.chapters.loadFromServer(s.chapters);
-    this.ctrl.flipped = changeInChapterOrientation ? false : this.chapterFlipMapProp(this.data.chapter.id);
     if (changeInChapterOrientation) this.chapterFlipMapProp(this.data.chapter.id, false);
+    this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
 
     const merge = !this.vm.mode.write && sameChapter;
     this.ctrl.reloadData(d.analysis, merge);
