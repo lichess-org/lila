@@ -248,6 +248,9 @@ export default class AnalyseCtrl implements CevalHandler {
         redraw();
       }
     });
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) this.startCeval(); // maybe resume eval when coming back to the tab
+    });
     this.mergeIdbThenShowTreeView();
     (window as any).lichess.analysis = api(this);
     (window as any).lichess.chessground = () => this.chessground;
