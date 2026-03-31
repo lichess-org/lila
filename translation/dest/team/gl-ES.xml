@@ -15,7 +15,7 @@
   <string name="onlyLeaderLeavesTeam">Por favor, engade un novo líder de equipo antes de saíres ou pecha o equipo.</string>
   <string name="quitTeam">Saír do equipo</string>
   <string name="manuallyReviewAdmissionRequests">Revisar manualmente as solicitudes de admisión</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Se está marcado, os xogadores terán que escribir unha solicitude para unirse ao equipo, que ti poderás rexeitar ou aceptar.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Se está marcado, os xogadores terán que solicitar unirse ao equipo e ti poderás aceptalos ou rexeitalos.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder do equipo</item>
     <item quantity="other">Líderes do equipo</item>
