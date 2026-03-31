@@ -101,14 +101,14 @@ object NewTree:
     root.children.first.map: first =>
       NewTree(
         value = fromBranch(first),
-        child = first.children.first.map(fromBranch(_, first.children.variations)),
-        variations = root.children.variations.map(toVariation)
+        child = first.children.first.map(fromBranch(_, first.children.forceVariations)),
+        variations = root.children.forceVariations.map(toVariation)
       )
 
   def toVariation(branch: Branch): Variation[NewBranch] =
     Variation(
       value = fromBranch(branch),
-      child = branch.children.first.map(fromBranch(_, branch.children.variations))
+      child = branch.children.first.map(fromBranch(_, branch.children.forceVariations))
     )
 
   def fromBranch(branch: Branch, variations: List[Branch] = Nil): NewTree =
@@ -124,7 +124,7 @@ object NewTree:
         case Some(next) =>
           loop(
             next,
-            current.children.variations,
+            current.children.forceVariations,
             tree => buildTree(result.copy(child = Some(tree)))
           )
     loop(branch, variations, identity)
