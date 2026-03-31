@@ -31,12 +31,24 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             div(cls := "form-group")(trs.closeAccountAreYouSure()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             myUsernamePasswordFields(form),
-            form3.checkboxGroup(
-              form("forever"),
-              raw("Forever close: make it impossible to reopen"),
-              help = raw(
-                "Prevent reopening the account later. If you check this box, even administrators will be unable to reopen your account at your request."
-              ).some
+            form3.split(
+              if me.totpSecret.isDefined
+              then
+                form3.group(
+                  form("token"),
+                  trans.tfa.authenticationCode(),
+                  half = true,
+                  help = Some(span(dataIcon := Icon.PhoneMobile)(trans.tfa.openTwoFactorApp()))
+                )(form3.totpTokenInput)
+              else form3.hidden(form("token")),
+              form3.checkboxGroup(
+                form("forever"),
+                raw("Forever close: make it impossible to reopen"),
+                half = me.totpSecret.isDefined,
+                help = raw(
+                  "Prevent reopening the account later. If you check this box, even administrators will be unable to reopen your account at your request."
+                ).some
+              )
             ),
             form3.actions(
               frag(

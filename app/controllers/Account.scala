@@ -233,8 +233,7 @@ final class Account(
         )
 
   def twoFactor = Auth { _ ?=> me ?=>
-    if me.totpSecret.isDefined
-    then
+    if me.totpSecret.isDefined then
       env.security.forms.disableTwoFactor.flatMap: f =>
         Ok.page(views.account.twoFactor.disable(f))
     else

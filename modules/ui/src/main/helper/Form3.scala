@@ -233,6 +233,13 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
         for _ <- 1 to 4 yield span
     )
 
+  def totpTokenInput(field: Field): Frag = input(field)(
+    attr("inputmode") := "numeric",
+    pattern := "[0-9]{6}",
+    autocomplete := "one-time-code",
+    required
+  )
+
   def globalError(form: Form[?])(using Translate): Option[Frag] =
     form.globalError.map: err =>
       div(cls := "form-group is-invalid")(error(err))

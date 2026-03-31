@@ -201,16 +201,16 @@ final class SecurityForm(
           token = TotpToken("")
         )
 
-  def disableTwoFactor(using me: Me) =
+  def disableTwoFactor(using Me) =
     authenticator.loginCandidate.map: candidate =>
       Form:
         tuple(
           "passwd" -> passwordMapping(candidate),
-          "token" -> text.verifying(
-            "invalidAuthenticationCode",
-            t => me.totpSecret.so(_.verify(TotpToken(t)))
-          )
+          "token" -> totpCheckField
         )
+
+  def totpCheckField(using me: Me) =
+    text.into[TotpToken].verifying("invalidAuthenticationCode", t => me.totpSecret.forall(_.verify(t)))
 
   def fixEmail(old: EmailAddress) =
     Form(
@@ -231,8 +231,9 @@ final class SecurityForm(
         mapping(
           "username" -> myUsernameField,
           "passwd" -> passwordMapping(candidate),
+          "token" -> totpCheckField,
           "forever" -> boolean
-        )((_, _, forever) => forever)(_ => None)
+        )((_, _, _, forever) => forever)(_ => None)
 
   def toggleKid(using Me) = passwordProtected
 
