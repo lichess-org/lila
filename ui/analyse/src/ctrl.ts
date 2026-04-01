@@ -41,7 +41,6 @@ import { completeNode } from 'lib/tree/node';
 import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import { confirm } from 'lib/view';
 
-import api from './api';
 import { Autoplay, type AutoplayDelay } from './autoplay';
 import { compute as computeAutoShapes } from './autoShape';
 import { valid as crazyValid } from './crazy/crazyCtrl';
@@ -254,7 +253,10 @@ export default class AnalyseCtrl implements CevalHandler {
       if (!document.hidden) this.startCeval(); // maybe resume eval when coming back to the tab
     });
     this.mergeIdbThenShowTreeView();
-    (window as any).lichess.analysis = api(this);
+    (window as any).lichess.analysis = {
+      playUci: this.playUci,
+      navigate: this.navigate,
+    };
     (window as any).lichess.chessground = () => this.chessground;
   }
 
