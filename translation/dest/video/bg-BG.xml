@@ -16,7 +16,6 @@
   <string name="noVideosForTheseTags">Няма видеа за тези етикети:</string>
   <string name="thatsAllWeGotForTheseTags">Това е всичко, което имаме за тези етикети:</string>
   <string name="thatsAllWeGotForThisSearchX">Това е всичко, което открихме за това търсене: „%s“</string>
-  <string name="thereAreNoResultsForX">Няма резултати за „%s“</string>
   <string name="viewMoreTags">Вижте още етикети</string>
   <string name="videoNotFound">Видеото не е намерено!</string>
   <string name="xByY">%1$s от %2$s</string>
