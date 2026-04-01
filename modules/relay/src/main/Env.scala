@@ -41,7 +41,9 @@ final class Env(
     baker: lila.core.security.LilaCookie,
     markdownCache: lila.memo.MarkdownCache,
     viewerCount: lila.memo.ViewerCountApi
-)(using Executor, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
+)(using lila.core.fide.Federation.Guess, Executor, akka.stream.Materializer, play.api.Mode)(using
+    scheduler: Scheduler
+):
 
   lazy val roundForm = wire[RelayRoundForm]
   lazy val groupForm = wire[RelayGroupForm]

@@ -10,7 +10,7 @@ import chess.tiebreak.{ Tiebreak, TiebreakPoint }
 import lila.study.StudyPlayer
 import lila.study.StudyPlayer.json.given
 import lila.memo.CacheApi
-import lila.core.fide.{ PhotosJson, Player as FidePlayer }
+import lila.core.fide.{ PhotosJson, Federation, Player as FidePlayer }
 import lila.common.Json.given
 import lila.relay.RelayGroup.ScoreGroup
 
@@ -172,7 +172,7 @@ private final class RelayPlayerApi(
     cacheApi: CacheApi,
     fidePlayerGet: lila.core.fide.GetPlayer,
     photosJson: PhotosJson.Get
-)(using Executor)(using scheduler: Scheduler):
+)(using Federation.Guess, Executor)(using scheduler: Scheduler):
   import RelayPlayer.*
 
   private val cache = cacheApi[ScoreGroup, RelayPlayers](128, "relay.players.data"):
@@ -271,7 +271,7 @@ private final class RelayPlayerApi(
                   .fromTags(tags)
                   .flatMap:
                     _.traverse: p =>
-                      p.id.map(_ -> StudyPlayer.WithFed(p, p.fideId.flatMap(fedsById.get)))
+                      p.id.map(_ -> p.copy(fed = p.fed orElse p.fideId.flatMap(fedsById.get)))
                   .fold(playersAcc): gamePlayers =>
                     gamePlayers.zipColor.foldLeft(playersAcc):
                       case (playersAcc, (color, (playerId, player))) =>

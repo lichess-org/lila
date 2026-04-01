@@ -8,6 +8,7 @@ import scalalib.model.Seconds
 
 import lila.common.LilaScheduler
 import lila.core.lilaism.LilaInvalid
+import lila.core.fide.Federation
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.relay.RelayRound.Sync
@@ -29,7 +30,7 @@ final private class RelayFetch(
     playerEnrich: RelayPlayerEnrich,
     notifyAdmin: RelayNotifierAdmin,
     onlyIds: Option[List[RelayTourId]] = None
-)(using Executor, Scheduler)(using mode: play.api.Mode):
+)(using Federation.Guess, Executor, Scheduler)(using mode: play.api.Mode):
 
   import RelayFetch.*
 

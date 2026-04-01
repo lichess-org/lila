@@ -353,6 +353,7 @@ final class Study(
       data =>
         doImportPgn(id, data, Sri("api")): (chapters, errors) =>
           import lila.study.ChapterPreview.json.given
+          import lila.fide.Federation.find
           val previews = chapters.map(env.study.preview.fromChapter(_))
           JsonOk(Json.obj("chapters" -> previews, "error" -> errors))
     )

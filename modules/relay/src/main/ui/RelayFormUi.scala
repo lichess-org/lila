@@ -685,10 +685,10 @@ Hanna Marie ; Kozul, Zdenko"""),
                 "If the player is NM or WNM, you can:",
                 pre("""Player Name / FIDE ID / title"""),
                 "Alternatively, you may set tags manually, like so:",
-                pre("player name / FIDE ID / title / rating / new name"),
+                pre("player name / FIDE ID / title / rating / new name / new fed"),
                 "All values are optional. Example:",
                 pre("""Magnus Carlsen / / GM / 2863
-YouGotLittUp / / / 1890 / Louis Litt""")
+YouGotLittUp / / / 1890 / Louis Litt / FID""")
               ).some,
               half = true
             )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace")),
