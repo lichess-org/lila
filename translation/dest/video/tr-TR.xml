@@ -16,7 +16,6 @@
   <string name="noVideosForTheseTags">Bu etiketler için video bulunamadı:</string>
   <string name="thatsAllWeGotForTheseTags">Bu etiketler için bulabildiklerimiz bunlar:</string>
   <string name="thatsAllWeGotForThisSearchX">Bu araştırma için bulabildiklerimiz bunlar: \"%s\"</string>
-  <string name="thereAreNoResultsForX">\"%s\" için sonuç bulunamadı</string>
   <string name="viewMoreTags">Daha fazla etiket</string>
   <string name="videoNotFound">Video bulunamadı!</string>
   <string name="xByY">%2$s den %1$s</string>
