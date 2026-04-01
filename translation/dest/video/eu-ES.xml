@@ -16,7 +16,6 @@
   <string name="noVideosForTheseTags">Ez dago bideorik etiketa hauekin:</string>
   <string name="thatsAllWeGotForTheseTags">Hauxe da etiketa horiekin daukaguna:</string>
   <string name="thatsAllWeGotForThisSearchX">Hauxe da bilaketa honekin daukaguna: \"%s\"</string>
-  <string name="thereAreNoResultsForX">Ez dago emaitzarik \"%s\" bilaketarentzat</string>
   <string name="viewMoreTags">Ikusi etiketa gehiago</string>
   <string name="videoNotFound">Ez da bideoa aurkitu!</string>
   <string name="xByY">%1$s. Egilea %2$s</string>
