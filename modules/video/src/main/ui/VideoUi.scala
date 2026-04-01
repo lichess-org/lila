@@ -248,7 +248,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           videos.currentPageResults.map { card(_, control) },
           (videos.currentPageResults.sizeIs < 4).option(
             div(cls := s"not_much nb_${videos.nbResults}")(
-              if videos.currentPageResults.isEmpty then trv.thereAreNoResultsForX(~control.query)
+              if videos.currentPageResults.isEmpty then trans.site.thereAreNoResultsForX(~control.query)
               else trv.thatsAllWeGotForThisSearchX(~control.query),
               br,
               br,
