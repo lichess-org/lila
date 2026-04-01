@@ -106,7 +106,6 @@ export default class CevalCtrl {
   }
 
   private readonly doStart = (s: Started) => {
-    console.log('start document.hidden = ' + document.hidden);
     if (document.hidden) {
       this.lastStarted = s;
       return;
