@@ -16,7 +16,6 @@
   <string name="noVideosForTheseTags">Geen video\'s voor deze tags:</string>
   <string name="thatsAllWeGotForTheseTags">Dat is alles wat we hebben gevonden voor deze tags:</string>
   <string name="thatsAllWeGotForThisSearchX">Dat is alles wat we hebben voor deze zoekopdracht: \"%s\"</string>
-  <string name="thereAreNoResultsForX">Er zijn geen resultaten voor \"%s\"</string>
   <string name="viewMoreTags">Bekijk meer labels</string>
   <string name="videoNotFound">Video niet gevonden!</string>
   <string name="xByY">%1$s van %2$s</string>
