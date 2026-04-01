@@ -6,7 +6,6 @@ import * as licon from 'lib/licon';
 import type { Gamebook, TreeNode } from 'lib/tree/types';
 import { iconTag, bind, type MaybeVNodes } from 'lib/view';
 
-import { prev } from '@/control';
 import type AnalyseCtrl from '@/ctrl';
 
 export const running = (ctrl: AnalyseCtrl): boolean =>
@@ -79,7 +78,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
         ]),
         hasVariation
           ? null
-          : h('div.legend.clickable', { hook: bind('click', () => prev(ctrl), ctrl.redraw) }, [
+          : h('div.legend.clickable', { hook: bind('click', ctrl.navigate.prev, ctrl.redraw) }, [
               iconTag(licon.PlayTriangle),
               h('p', 'Add variation moves to explain why specific other moves are wrong.'),
             ]),

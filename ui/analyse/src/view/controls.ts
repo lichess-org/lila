@@ -5,7 +5,6 @@ import * as licon from 'lib/licon';
 import { addPointerListeners } from 'lib/pointer';
 import { type VNode, type LooseVNode, onInsert, hl, domDialog } from 'lib/view';
 
-import * as control from '../control';
 import type AnalyseCtrl from '../ctrl';
 
 type Action =
@@ -126,7 +125,7 @@ function holdControl(ctrl: AnalyseCtrl, e: PointerEvent) {
   const action = e.target.closest<HTMLElement>('[data-act]')?.dataset.act as Action;
   if (action === 'prev' || action === 'next') {
     repeater(() => {
-      control[action](ctrl);
+      ctrl.navigate[action]();
       ctrl.redraw();
     });
   } else clickControl(ctrl, e);
@@ -136,10 +135,10 @@ function clickControl(ctrl: AnalyseCtrl, e: PointerEvent) {
   if (!(e.target instanceof HTMLElement)) return;
   const action = e.target.closest<HTMLElement>('[data-act]')?.dataset.act as Action;
   if (!action) return;
-  if (action === 'prev') control.prev(ctrl);
-  else if (action === 'next') control.next(ctrl);
-  else if (action === 'first') control.first(ctrl);
-  else if (action === 'last') control.last(ctrl);
+  if (action === 'prev') ctrl.navigate.prev();
+  else if (action === 'next') ctrl.navigate.next();
+  else if (action === 'first') ctrl.navigate.first();
+  else if (action === 'last') ctrl.navigate.last();
   else if (action === 'scrub-help') scrubHelp(ctrl);
   else if (action === 'opening-explorer') ctrl.toggleExplorer();
   else if (action === 'menu') ctrl.toggleActionMenu();
@@ -164,12 +163,12 @@ let last: number[] = [];
 function scrubControl(ctrl: AnalyseCtrl, dx: number | 'pointerup') {
   if (dx === 'pointerup') {
     const v = last.slice(-3).reduce((a, b) => a + b, 0) / Math.min(last.length, 3);
-    if (v > 16) control.last(ctrl);
-    else if (v < -16) control.first(ctrl);
+    if (v > 16) ctrl.navigate.last();
+    else if (v < -16) ctrl.navigate.first();
     last = [];
   } else {
-    if (dx > 0) control.next(ctrl);
-    else control.prev(ctrl);
+    if (dx > 0) ctrl.navigate.next();
+    else ctrl.navigate.prev();
     last.push(dx);
   }
   ctrl.redraw();

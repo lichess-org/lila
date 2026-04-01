@@ -43,7 +43,6 @@ import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } f
 import { text as xhrText } from 'lib/xhr';
 
 import type { AnalyseNvuiContext } from '../analyse.nvui';
-import { next, prev } from '../control';
 import type AnalyseCtrl from '../ctrl';
 import explorerView from '../explorer/explorerView';
 import { makeConfig as makeCgConfig } from '../ground';
@@ -385,9 +384,13 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'prev',
     help: noTrans('return to the previous move'),
-    cb: ({ ctrl }) => doAndRedraw(ctrl, prev),
+    cb: ({ ctrl }) => doAndRedraw(ctrl, ctrl.navigate.prev),
   },
-  { cmd: 'next', help: noTrans('go to the next move'), cb: ({ ctrl }) => doAndRedraw(ctrl, next) },
+  {
+    cmd: 'next',
+    help: noTrans('go to the next move'),
+    cb: ({ ctrl }) => doAndRedraw(ctrl, ctrl.navigate.next),
+  },
   {
     cmd: 'prev line',
     help: noTrans('switch to the previous variation'),
@@ -701,7 +704,7 @@ const doAndRedraw = (ctrl: AnalyseCtrl, fn: (ctrl: AnalyseCtrl) => void): void =
 
 function jumpMoveOrLine(ctrl: AnalyseCtrl) {
   return (e: KeyboardEvent) => {
-    if (e.key === 'A') doAndRedraw(ctrl, e.altKey ? jumpPrevLine : prev);
-    else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : next);
+    if (e.key === 'A') doAndRedraw(ctrl, e.altKey ? jumpPrevLine : ctrl.navigate.prev);
+    else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : ctrl.navigate.next);
   };
 }

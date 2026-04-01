@@ -44,7 +44,6 @@ import { confirm } from 'lib/view';
 import api from './api';
 import { Autoplay, type AutoplayDelay } from './autoplay';
 import { compute as computeAutoShapes } from './autoShape';
-import * as control from './control';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import EvalCache from './evalCache';
 import ExplorerCtrl from './explorer/explorerCtrl';
@@ -54,6 +53,7 @@ import { IdbTree } from './idbTree';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import * as keyboard from './keyboard';
 import MotifCtrl from './motif/motifCtrl';
+import Navigate from './navigate';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
 import pgnImport from './pgnImport';
 import { make as makePractice, type PracticeCtrl } from './practice/practiceCtrl';
@@ -75,6 +75,7 @@ export default class AnalyseCtrl implements CevalHandler {
   chessground: ChessgroundApi;
   ceval: CevalCtrl;
   evalCache: EvalCache;
+  navigate: Navigate;
   idbTree: IdbTree = new IdbTree(this);
   actionMenu: Toggle = toggle(false);
   isEmbed: boolean;
@@ -159,6 +160,7 @@ export default class AnalyseCtrl implements CevalHandler {
     this.element = opts.element;
     this.isEmbed = !!opts.embed;
     this.treeView = new TreeView(this);
+    this.navigate = new Navigate(this);
     this.promotion = new PromotionCtrl(
       this.withCg,
       () => this.withCg(g => g.set(this.cgConfig)),
@@ -1049,12 +1051,12 @@ export default class AnalyseCtrl implements CevalHandler {
   handleArrowKey = (arrowKey: ArrowKey): void => {
     if (arrowKey === 'ArrowUp') {
       if (this.fork.select('prev')) this.setAutoShapes();
-      else control.first(this);
+      else this.navigate.first();
     } else if (arrowKey === 'ArrowDown') {
       if (this.fork.select('next')) this.setAutoShapes();
-      else control.last(this);
-    } else if (arrowKey === 'ArrowLeft') control.prev(this);
-    else if (arrowKey === 'ArrowRight') control.next(this);
+      else this.navigate.last();
+    } else if (arrowKey === 'ArrowLeft') this.navigate.prev();
+    else if (arrowKey === 'ArrowRight') this.navigate.next();
     this.redraw();
   };
 
