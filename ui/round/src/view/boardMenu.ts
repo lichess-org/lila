@@ -68,7 +68,7 @@ export default function (ctrl: RoundController): LooseVNode {
               ctrl.googlyEyesStart();
             }),
           },
-          ['Advanced cursor tracking', hl('kbd', 'G')],
+          ['Advanced cursor tracking', hl('kbd', 'shift'), hl('kbd', 'g')],
         ),
       ]),
     ];
