@@ -16,7 +16,6 @@
   <string name="noVideosForTheseTags">هیچ فیلمی با این برچسب‌ها یافت نشد:</string>
   <string name="thatsAllWeGotForTheseTags">آنچه با این برچسب‌ها یافتیم:</string>
   <string name="thatsAllWeGotForThisSearchX">آنچه با این برچسب‌ها یافتیم: «%s»</string>
-  <string name="thereAreNoResultsForX">برای «%s» هیچی یافت نشد</string>
   <string name="viewMoreTags">دیدنِ برچسب‌های بیشتر</string>
   <string name="videoNotFound">فیلم یافت نشد!</string>
   <string name="xByY">%1$s از %2$s</string>
