@@ -71,7 +71,8 @@ object RelayPlayer:
       rated: chess.Rated,
       fideTC: FideTC,
       customScoring: Option[ByColor[RelayRound.CustomScoring]] = None,
-      unplayed: Boolean
+      unplayed: Boolean,
+      ongoing: Boolean
   ):
     def playerPoints = points.map(_(color))
     def customPlayerPoints: Option[RelayRound.CustomPoints] = customScoring.flatMap: cs =>
@@ -149,6 +150,7 @@ object RelayPlayer:
             "color" -> g.color,
             "fideTC" -> g.fideTC
           )
+          .add("ongoing" -> g.ongoing)
           .add("points" -> g.playerPoints)
           .add("customPoints" -> g.customPlayerPoints)
           .add("ratingDiff" -> rd)
@@ -285,7 +287,8 @@ private final class RelayPlayerApi(
                             .orElse(toursById.get(round.tourId).map(_.info.fideTCOrGuess))
                             .getOrElse(FideTC.standard),
                           round.customScoring,
-                          unplayed = tags.value.contains(RelayGame.unplayedTag)
+                          unplayed = tags.value.has(RelayGame.unplayedTag),
+                          ongoing = tags.points.isEmpty && tags.exists(_.Result)
                         )
                         playersAcc.updated(
                           playerId,

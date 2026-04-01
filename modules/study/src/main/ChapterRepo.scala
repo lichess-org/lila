@@ -243,10 +243,14 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         .list(Study.maxChapters.value)
 
   // ordered like studyIds, then tags with the chapter order field
+  // the Result tag is omitted when the game is unstarted
   def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[SeqMap[StudyId, SeqMap[StudyChapterId, Tags]]] =
     studyIds.nonEmpty.so:
       coll:
-        _.find($doc("studyId".$in(studyIds)), $doc("studyId" -> true, "tags" -> true).some)
+        _.find(
+          $doc("studyId".$in(studyIds)),
+          $doc("studyId" -> true, "tags" -> true, "denorm.uci" -> true).some
+        )
           .sort($sortOrder)
           .cursor[Bdoc]()
           .listAll()
@@ -255,7 +259,11 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
               doc <- docs
               chapterId <- doc.getAsOpt[StudyChapterId]("_id")
               studyId <- doc.getAsOpt[StudyId]("studyId")
-              tags <- doc.getAsOpt[Tags]("tags")
+              rawTags <- doc.getAsOpt[Tags]("tags")
+              tags =
+                if rawTags(_.Result).contains("*") && !doc.child("denorm").exists(_.contains("uci"))
+                then rawTags - chess.format.pgn.Tag.Result
+                else rawTags
             yield (studyId, chapterId, tags)
           .map:
             _.groupBy(_._1).view
