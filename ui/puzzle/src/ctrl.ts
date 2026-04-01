@@ -227,8 +227,7 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   private googlyEyesAuto = () => {
-    if (this.isDaily && (true || (new Date().getMonth() === 3 && new Date().getDate() === 1)))
-      this.googlyEyesStart();
+    if (this.isDaily && new Date().getMonth() === 3 && new Date().getDate() === 1) this.googlyEyesStart();
   };
 
   pref = this.opts.pref;
