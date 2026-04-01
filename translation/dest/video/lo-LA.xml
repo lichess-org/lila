@@ -15,7 +15,6 @@
   <string name="noVideosForTheseTags">ບໍ່ມີວິດີໂອສຳລັບແທັກເຫຼົ່ານີ້:</string>
   <string name="thatsAllWeGotForTheseTags">ນັ້ນຄືທັງໝົດທີ່ພວກເຮົາມີສຳລັບແທັກເຫຼົ່ານີ້:</string>
   <string name="thatsAllWeGotForThisSearchX">ນັ້ນຄືທັງໝົດທີ່ພວກເຮົາມີສຳລັບການຄົ້ນຫານີ້: \"%s\"</string>
-  <string name="thereAreNoResultsForX">ບໍ່ມີຜົນການຄົ້ນຫາສຳລັບ \"%s\"</string>
   <string name="viewMoreTags">ເບິ່ງແທັກເພີ່ມເຕີມ</string>
   <string name="videoNotFound">ບໍ່ພົບວິດີໂອ!</string>
   <string name="xByY">%1$s ໂດຍ %2$s</string>
