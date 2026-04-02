@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="pieces">כלים</string>
+  <string name="opponentClock">השעון של היריב</string>
+  <string name="king">מלך</string>
+  <string name="whiteKing">מלך לבן</string>
+  <string name="blackKing">מלך שחור</string>
+  <string name="queen">מלכה</string>
+  <string name="whiteQueen">מלכה לבנה</string>
+  <string name="blackQueen">מלכה שחורה</string>
+  <string name="rook">צריח</string>
+  <string name="whiteRook">צריח לבן</string>
+  <string name="blackRook">צריח שחור</string>
+  <string name="bishop">רץ</string>
+  <string name="whiteBishop">רץ לבן</string>
+  <string name="blackBishop">רץ שחור</string>
+  <string name="knight">פרש</string>
+  <string name="whiteKnight">פרש לבן</string>
+  <string name="blackKnight">פרש שחור</string>
+  <string name="pawn">רגלי</string>
+  <string name="whitePawn">רגלי לבן</string>
+  <string name="blackPawn">רגלי שחור</string>
+  <string name="sanCheck" comment="+ in standard notation">שח</string>
+  <string name="sanCheckmate" comment="# in standard notation">מט</string>
+</resources>

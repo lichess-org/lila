@@ -654,6 +654,7 @@
   <string name="invalidUsernameOrPassword">שגיאה בשם המשתמש או בסיסמה</string>
   <string name="incorrectPassword">סיסמה שגויה</string>
   <string name="invalidAuthenticationCode">קוד אימות לא תקין</string>
+  <string name="orSeparator">או</string>
   <string name="emailMeALink">שלחו לי קישור בדוא״ל</string>
   <string name="currentPassword">הסיסמה הנוכחית</string>
   <string name="newPassword">סיסמה חדשה</string>
@@ -769,7 +770,7 @@
   <string name="create">צור</string>
   <string name="whenCreateSimul">כאשר יוצרים משחק סימולטני, זוכים לשחק עם שחקנים רבים בו זמנית.</string>
   <string name="simulVariantsHint">אם ייבחרו מספר נגזרות שחמט, כל שחקן יריב יזכה לבחור באיזו לשחק.</string>
-  <string name="simulClockHint">התקנת שעון של פישר. ככל שתשחק/י נגד יותר שחקנים, כך תזדקק/י ליותר זמן.</string>
+  <string name="simulClockHint" comment="This used to say &quot;Fischer clock setup&quot; at the start of it, which has since been removed as it is obvious from the context.">התקנת שעון של פישר. ככל שתשחק/י נגד יותר שחקנים, כך תזדקק/י ליותר זמן.</string>
   <string name="simulAddExtraTime">באפשרותך להוסיף זמן לשעון שלך כדי לעזור לך להתמודד עם המשחק הסימולטני.</string>
   <string name="simulHostExtraTime">זמן נוסף למארח/ת</string>
   <string name="simulAddExtraTimePerPlayer">הוספת זמן לשעון שלך בכל פעם שמצטרף שחקן למשחק הסימולטני.</string>

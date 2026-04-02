@@ -16,7 +16,6 @@
   <string name="noVideosForTheseTags">ह्या श्रेणींसाठी चलचित्रे नाहीत:</string>
   <string name="thatsAllWeGotForTheseTags">ह्या श्रेणीसाठी आमच्याकडे एवढेच आहे:</string>
   <string name="thatsAllWeGotForThisSearchX">ह्या शोधासाठी आमच्याकडे एवढेच आहे: \"%s\"</string>
-  <string name="thereAreNoResultsForX">ह्या शोधासाठी काही परिणाम नाही \"%s\"</string>
   <string name="viewMoreTags">अधिक श्रेण्या पहा</string>
   <string name="videoNotFound">चलचित्र सापडले नाही!</string>
   <string name="xByY">%2$sचे %1$s</string>

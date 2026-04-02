@@ -16,7 +16,6 @@
   <string name="noVideosForTheseTags">Aucune vidéo trouvée avec ces étiquettes :</string>
   <string name="thatsAllWeGotForTheseTags">Résultat avec cette ou ces étiquettes :</string>
   <string name="thatsAllWeGotForThisSearchX">Résultat pour ce mot-clé : \"%s\"</string>
-  <string name="thereAreNoResultsForX">Aucun résultat pour \"%s\"</string>
   <string name="viewMoreTags">Voir plus d\'étiquettes</string>
   <string name="videoNotFound">Vidéo introuvable !</string>
   <string name="xByY">%1$s Par %2$s</string>

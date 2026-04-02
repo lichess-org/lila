@@ -18,6 +18,10 @@
   <string name="alphabetical">वर्णक्रमानुसार</string>
   <string name="relevant">संबंधित</string>
   <string name="addNewChapter">एक नवीन अध्याय जोडा</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s अध्याय</item>
+    <item quantity="other">%s अध्याय</item>
+  </plurals>
   <plurals name="nbGames">
     <item quantity="one">%s खेळ</item>
     <item quantity="other">%s खेळ</item>
@@ -32,15 +36,23 @@
   <string name="searchByUsername">सदस्यनावानुसार शोधा</string>
   <string name="spectator">प्रेक्षक</string>
   <string name="contributor">योगदानकर्ता</string>
-  <string name="kick">हाकला</string>
+  <string name="kick">हकला</string>
   <string name="leaveTheStudy">अभ्यासातून बाहेर पडा</string>
   <string name="youAreNowAContributor">तुम्ही आता योगदानकर्ते आहात</string>
   <string name="youAreNowASpectator">तुम्ही आता प्रेक्षक आहात</string>
+  <string name="pgnTags">PGN चिन्हे</string>
   <string name="like">लाईक</string>
   <string name="unlike">अनलाईक</string>
   <string name="newTag">नवीन टॅग</string>
   <string name="commentThisPosition">या स्थितीवर टिप्पणी द्या</string>
   <string name="commentThisMove">या चालीवर टिप्पणी द्या</string>
+  <string name="annotateWithGlyphs">ग्लिफने टीपा लिहा</string>
+  <string name="theChapterIsTooShortToBeAnalysed">हा अध्याय विशलेषणासाठी खूप छोटा आहे.</string>
+  <string name="onlyContributorsCanRequestAnalysis">फक्त अभ्यासिकेचे योगदानकर्ते संगणक विशलेषणची विनंती करू शकतात.</string>
+  <string name="getAFullComputerAnalysis">मुख्य क्रमाचे संपूर्ण सर्व्हर-पत्रा संगणक विशलेषण मिळवा.</string>
+  <string name="makeSureTheChapterIsComplete">अध्याय पूर्ण असल्याचे खात्री करा. तुम्ही विशलेषणची विनंती फक्त एकदाच करू शकता.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">सर्व SYNC सदस्य एकाच स्थळावर राहतात</string>
+  <string name="shareChanges">प्रेक्षकांना बदल पाठवा आणि त्यांना सर्व्हरवर जतन करा</string>
   <string name="playing">चालू खेळ</string>
   <string name="showResults">निकाल</string>
   <string name="showEvalBar">मूल्यांकन पट्ट्या</string>
@@ -48,17 +60,21 @@
   <string name="shareAndExport">शेअर आणि निर्यात करा</string>
   <string name="cloneStudy">प्रतिकृती तयार करा</string>
   <string name="studyPgn">अभ्यासाची PGN</string>
+  <string name="chapterPgn">अध्याय PGN</string>
   <string name="copyChapterPgn">पीजीएन कॉपी करा</string>
   <string name="copyRawChapterPgn">कच्ची PGN कॉपी करा</string>
   <string name="downloadGame">डाव डाउनलोड करा</string>
   <string name="studyUrl">अभ्यासाची URL</string>
   <string name="currentChapterUrl">चालू अध्यायाची URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">तुम्ही हे सार्वजनिक मंचावर टाकू शकता किंवा तुमच्या Lichess अनुदिनीत बसवू शकता</string>
   <string name="startAtInitialPosition">प्रारंभिक स्थितीपासून सुरू करा</string>
   <string name="startAtX">%s पासून प्रारंभ</string>
   <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
   <string name="readMoreAboutEmbedding">तुमच्या वेबसाइटवर टाकण्याबद्दल वाचा</string>
   <string name="onlyPublicStudiesCanBeEmbedded">फक्त सार्वजनिक अभ्यास वेबसाइटवर टाकता येतात!</string>
   <string name="open">उघडा</string>
+  <string name="xBroughtToYouByY">%2$s ने तुमच्याकडे आणले, %1$s</string>
+  <string name="studyNotFound">अध्याय नाही सापडला</string>
   <string name="editChapter">अध्याय संपादित करा</string>
   <string name="newChapter">नवीन अध्याय</string>
   <string name="importFromChapterX">%s मधून आयात करा</string>
@@ -66,25 +82,54 @@
   <string name="analysisMode">विश्लेषण पद्धती</string>
   <string name="pinnedChapterComment">अध्याया चिकटवलेली टिप्पणी</string>
   <string name="saveChapter">अध्याय जतन करा</string>
+  <string name="clearAnnotations">भाष्ये मिटवा</string>
+  <string name="clearVariations">भिन्नता मिटवा</string>
   <string name="deleteChapter">अध्याय काढून टाका</string>
+  <string name="deleteThisChapter">हा अध्याय काढून टाका. आता मागे जाता येणार नाही!</string>
+  <string name="clearAllCommentsInThisChapter">ह्या अध्यायमधले सर्व टिप्पण्या, ग्लिफ्स आणि काढलेले आकार मिटवा</string>
+  <string name="rightUnderTheBoard">अगदी पटाच्या खाली</string>
+  <string name="noPinnedComment">काहीही नाही</string>
+  <string name="normalAnalysis">सामान्य विश्लेषण</string>
+  <string name="hideNextMoves">पुढील डाव लपवा</string>
+  <string name="interactiveLesson">परस्परसंवादी धडा</string>
   <string name="chapterX">अध्याय %s</string>
   <string name="empty">रिकामा</string>
   <string name="startFromInitialPosition">प्रारंभिक स्थितीपासून सुरूवात</string>
   <string name="editor">संपादक</string>
   <string name="startFromCustomPosition">विशिष्ठ स्थितीपासून सुरूवात</string>
+  <string name="loadAGameByUrl">खेळ URLs ने ध्वन्यर्ध करा</string>
+  <string name="loadAPositionFromFen">स्थिती FEN ने ध्वन्यर्ध करा</string>
+  <string name="loadAGameFromPgn">खेळ FEN ने ध्वन्यर्ध करा</string>
+  <string name="automatic">स्वयंचलित</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
+    <item quantity="one">तुमची PGN संहिता इथे टाका, %s खेळ पर्यंत</item>
+    <item quantity="other">येथे खेळ PGN संहिता म्हणून टाका. प्रत्येक खेळासाठी एक नवीन अध्याय तयार केला जातो. या अभ्यासिकेत %s पर्यंत अध्याय असू शकतात.</item>
+  </plurals>
+  <string name="urlOfTheGame">खेळांची URL, एक प्रति ओळ</string>
   <string name="createChapter">अध्याय तयार करा</string>
   <string name="createStudy">अभ्यास तयार करा</string>
   <string name="editStudy">अभ्यास संपादित करा</string>
   <string name="visibility">दृश्यमानता</string>
   <string name="public">सार्वजनिक</string>
+  <string name="unlisted">असूचीबद्ध</string>
   <string name="inviteOnly">फक्त निमंत्रणाद्वारे</string>
+  <string name="allowCloning">नक्कल बनवण्यास परवानगी द्या</string>
   <string name="nobody">कोणालाच नाही</string>
   <string name="onlyMe">फक्त मी</string>
   <string name="contributors">योगदानकर्ते</string>
   <string name="members">सदस्य</string>
   <string name="everyone">सर्वांना</string>
+  <string name="enableSync">समक्रमण सक्षम करा</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">हो: सर्वांना एकाच स्थितीवर ठेवा</string>
+  <string name="noLetPeopleBrowseFreely">नाही: लोकांना मुक्तपणे शोधू द्या</string>
+  <string name="pinnedStudyComment">खुंटीत असलेले अभ्यासाची टिप्पणी</string>
   <string name="start">सुरू</string>
   <string name="save">जतन करा</string>
+  <string name="clearChat">गप्पा मिटवा</string>
+  <string name="deleteTheStudyChatHistory">अभ्यासाच्या गप्पांचा इतिहास हटवायचा? एकदा का मागे फिरता येणार नाही!</string>
+  <string name="deleteStudy">अभ्यासिका हटवा</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">संपूर्ण अभ्यासिका हटवा? आता मागे जाता येणार नाही! पुष्टी करण्यासाठी अभ्यासिकेचं नाव टाका: %s</string>
+  <string name="whereDoYouWantToStudyThat">तुम्हाला ते कुठे शिकायचे आहे?</string>
   <string name="goodMove">चांगली चाल</string>
   <string name="mistake">चुक</string>
   <string name="brilliantMove">तल्लख चाल</string>
@@ -120,5 +165,40 @@
   <string name="playAgain">परत खेळा</string>
   <string name="whatWouldYouPlay">या स्थितीत तुम्ही काय खेळाल?</string>
   <string name="youCompletedThisLesson">अभिनंदन! तुम्ही हा धडा पूर्ण केला.</string>
+  <string name="perPage">%s प्रति पान</string>
+  <string name="getTheTour">मदत हवी आहे का? दौरा करा!</string>
+  <string name="welcomeToLichessStudyTitle">Lichess अभ्यासिकेत तुमचे स्वागत आहे!</string>
+  <string name="welcomeToLichessStudyText">हा एक एकत्रित विशलेषण पट आहे.&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;ह्याचा वापर खेळांचे विशलेषण व भाष्य करण्यासाठी वापरा,&amp;lt;br&amp;gt;मित्रांबरोर स्थितींची चर्चा करण्यासाठी,&amp;lt;br&amp;gt;आणि नक्कीच बुद्धिबळाच्या 
+अभ्य्सासाठी!&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;हे एक शक्तिशाली साधन आहे. ते कसे काम करते हे पाहण्यासाठी आपण थोडा वेळ घेऊया.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">पाठवलेले आणि जतन केलेले</string>
+  <string name="sharedAndSavedText">बाकी सदस्यांना तुमचे डाव वास्तविक वेळात दिसतात!&lt;br&gt;अधिकतर, सगळं कायमचे जतन राहील.</string>
+  <string name="studyMembersTitle">अभ्यासिकेचे सदस्य</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s प्रेक्षक अभ्यास पाहू शकतात आणि गप्पा मारू शकतात.&lt;br&gt;&lt;br&gt;%2$s योगदानकर्ते चाल खेळू शकतात आणि अभ्यास अद्यतनित करू शकतात.</string>
+  <string name="addMembersText" comment="%s is an icon that will added at runtime">निवडा %s. &amp;lt;br&amp;gt;मग ठरावा कि कोणाला योगदान करण्याची परवानगी आहे.</string>
+  <string name="studyChaptersTitle">अभ्यासिकेचे अध्याय</string>
+  <string name="studyChaptersText">एका अभ्यासिकेत अनेक अध्याय असू शकतात.&lt;br&gt;प्रत्येक अध्यायाची वेगळी प्रारंभिक स्थिती आणि चालवृक्षी असते.</string>
+  <string name="commentPositionTitle">एका स्थितीवर टिप्पणी द्या</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">%s बटण दाबा, किंवा डावांच्या सूचीवर उजवं क्लिक करा.&amp;lt;br&amp;gt;टिप्पण्या सगळ्यांबरोबर शेअर केले जातात आणि जतन केले जातात.</string>
+  <string name="annotatePositionTitle">एका स्थितीचे भाष्य करा</string>
+  <string name="annotatePositionText">!? बटण दाबा, किंवा उजवं क्लिक करा डावांच्या सूचीवर.&amp;lt;br&amp;gt;भाष्य ग्लिफ्स शेअर आणि जतन केले जातात.</string>
+  <string name="conclusionTitle">तुमच्या वेळेसाठी धन्यवाद</string>
+  <string name="conclusionText">तुम्ही तुमचे &lt;a href=\'/study/mine/hot\'&gt;मागील अभ्यासिके&lt;/a&gt;तुमच्या चरित्र पृष्ठावर.&lt;br&gt;तेथे देखील आहे एक &lt;a href=\'//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way\'&gt;नेमणी अभ्यासांबद्दल&lt;/a&gt;.&lt;br&gt;प्रगत वापरकर्त्यांना कळफलक शॉर्टकट पाहण्यासाठी \"?\" दाबावेसे वाटू शकते.&lt;br&gt;मजा करा!</string>
+  <string name="createChapterTitle">चला एक अभ्यास अध्याय तयार करूया</string>
+  <string name="createChapterText">एका अभ्यासात अनेक अध्याय असू शकतात.&amp;lt;br&amp;gt;प्रत्येक अध्यायामध्ये एक वेगळी चालवृक्षी असते &amp;lt;br&amp;gt;आणि ती विविध प्रकारे तयार केली जाऊ शकते.</string>
   <string name="fromInitialPositionTitle">प्रारंभिक स्थितीपासून</string>
+  <string name="fromInitialPositionText">नवीन खेळासाठी मांडलेले एक पट.&amp;lt;br&amp;gt;प्रारंभ शोधण्यासाठी उपयुक्त.</string>
+  <string name="customPositionTitle">सानुकूल स्थिती</string>
+  <string name="customPositionText">तुमच्या प्रमाणे पट मांडा.&amp;lt;br&amp;gt;अंत्यखेळांना शोधण्यासाठी अनुकूल.</string>
+  <string name="loadExistingLichessGameTitle">सध्या अस्तित्वात असलेला Lichess खेळ आयात करा</string>
+  <string name="loadExistingLichessGameText">एक Lichess खेळाचा URL&lt;br&gt;(जसं lichess.org/7fHIU0XI)&lt;br&gt;अध्यायमधील खेळाचे डाव आयात करण्यासाठी. </string>
+  <string name="fromFenStringTitle">एका FEN माळ मधून</string>
+  <string name="fromFenStringText">एका स्थितीला FEN स्वरूपात&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;अध्याय एका स्थितीपासून चालू करण्यासाठी.</string>
+  <string name="fromPgnGameTitle">एका PGN खेळातून</string>
+  <string name="fromPgnGameText">एका खेळाला PGN स्वरूपात&amp;lt;br&amp;gt;टाका अध्याय मधील डाव, टिप्पण्या व भिन्नता आयात करण्यासाठी.</string>
+  <string name="variantsAreSupportedTitle">अभ्यास भिन्न प्रकारांना पण समर्थन देतात</string>
+  <string name="variantsAreSupportedText">हो, तुम्ही वेडाघर&lt;br&gt;आणि बाकी Lichess प्रकारांचेही अभ्यास करू शकता!</string>
+  <string name="chapterConclusionText">अध्याय कायमस्वरूपी जतन केले जातात.&lt;br&gt;तुमच्या बुद्धिबळाच्या सामग्रीची मांडणी करताना मजा करा!   </string>
+  <string name="doubleDefeat">दुहेरी पराभव</string>
+  <string name="blackDefeatWhiteCanNotWin">काळ्याचा पराभव, पण पांढरा जिंकू शकत नाही.</string>
+  <string name="whiteDefeatBlackCanNotWin">पांढऱ्याचा पराभव, पण काळा जिंकू शकत नाही.</string>
 </resources>

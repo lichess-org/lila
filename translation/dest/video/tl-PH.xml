@@ -12,7 +12,6 @@
   </plurals>
   <string name="noVideosForTheseTags">Walang video sa (mga) tag na ito:</string>
   <string name="thatsAllWeGotForTheseTags">Iyon lang ang nahanap namin sa (mga) tag na ito:</string>
-  <string name="thereAreNoResultsForX">Walang resulta sa \"%s\"</string>
   <string name="viewMoreTags">Tingnan ang higit pang tag</string>
   <string name="videoNotFound">Hindi mahanap ang video!</string>
   <string name="xByY">%1$s ni %2$s</string>

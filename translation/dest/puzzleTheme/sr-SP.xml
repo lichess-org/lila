@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Пешак пред промоцијом</string>
+  <string name="advancedPawn">Напредан пешак</string>
   <string name="advancedPawnDescription">Један од Ваших пешака је дубоко у противничкој позицији, можда прети да промовише.</string>
   <string name="advantage">Предност</string>
   <string name="advantageDescription">Искористите шансу да стекнете одлучујућу предност. (200cp ≤ евалуација ≤ 600cp)</string>
@@ -13,7 +13,7 @@
   <string name="attraction">Привлачење</string>
   <string name="attractionDescription">Размена или жртва која подстиче или форсира противничку фигуру на поље које омогућава пратећу тактику.</string>
   <string name="backRankMate">Мат на последњем реду</string>
-  <string name="backRankMateDescription">Матирајте краља на његовом почетном реду, када је тамо заробљен својим фигурама.</string>
+  <string name="backRankMateDescription">Матирај краља на његовом почетном реду, када је тамо заробљен својим фигурама.</string>
   <string name="bishopEndgame">Ловачка завршница</string>
   <string name="bishopEndgameDescription">Завршница са само ловцима и пешацима.</string>
   <string name="bodenMate">Боденов мат</string>

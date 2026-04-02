@@ -8,6 +8,7 @@
   <string name="advanced">מתקדם</string>
   <string name="lengths">אורך</string>
   <string name="mates">מט</string>
+  <string name="mateThemes">מוטיבים של מט</string>
   <string name="goals">יעדים</string>
   <string name="origin">מקור</string>
   <string name="specialMoves">צעדים מיוחדים</string>
@@ -15,7 +16,7 @@
   <string name="voteToLoadNextOne">יש לדרג לקבלת החידה הבאה!</string>
   <string name="upVote">הצבעה בעד החידה</string>
   <string name="downVote">הצבעה נגד החידה</string>
-  <string name="yourPuzzleRatingWillNotChange">דירוג החידות שלך לא ישתנה. שימו לב כי פתירת חידות אינה תחרות. הדירוג נועד לאפשר בחירה של חידות המתאימות לרמה הנוכחית שלך.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">דירוג החידות שלך לא ישתנה. שימו לב כי פתירת חידות אינה תחרות. הדירוג נועד לאפשר בחירה של חידות המתאימות לרמה הנוכחית שלך.</string>
   <string name="findTheBestMoveForWhite">מצא/י את המהלך הטוב ביותר ללבן.</string>
   <string name="findTheBestMoveForBlack">מצא/י את המהלך הטוב ביותר לשחור.</string>
   <string name="toGetPersonalizedPuzzles">לקבלת חידות מותאמות אישית:</string>
