@@ -51,7 +51,7 @@ final class FlairApi(getFile: lila.common.config.GetRelativeFile)(using Executor
   private def refreshFrom(path: String): Unit =
     val source = scala.io.Source.fromFile(path, "UTF-8")
     try
-      db = Flair.from(source.getLines.toSet)
+      db = Flair.from(source.getLines().toSet)
       logger.info(s"Updated flair db with ${db.size} flairs")
     finally source.close()
 
