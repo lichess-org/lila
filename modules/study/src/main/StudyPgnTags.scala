@@ -69,13 +69,11 @@ object StudyPgnTags:
       WhiteTitle,
       WhiteTeam,
       WhiteFideId,
-      StudyPlayer.country.tagTypes.white,
       Black,
       BlackElo,
       BlackTitle,
       BlackTeam,
       BlackFideId,
-      StudyPlayer.country.tagTypes.black,
       TimeControl,
       Date,
       Result,
@@ -90,7 +88,7 @@ object StudyPgnTags:
 
   val typesToString = sortedTypes.mkString(",")
 
-  private val relevantTypeSet: Set[TagType] = sortedTypes.toSet
+  private val relevantTypeSet: Set[TagType] = sortedTypes.toSet ++ StudyPlayer.country.tagTypes.toList
 
   private val typePositions: Map[TagType, Int] = sortedTypes.zipWithIndex.toMap
 
