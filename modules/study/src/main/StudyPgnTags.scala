@@ -2,6 +2,7 @@ package lila.study
 
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
+import chess.variant.Variant
 import lila.tree.Clock
 
 private case class SetTag(chapterId: StudyChapterId, name: String, value: String):
@@ -14,8 +15,11 @@ object StudyPgnTags:
   def apply(tags: Tags): Tags =
     tags.pipe(filterRelevant(Set.empty)).pipe(removeContradictingTermination).pipe(sort)
 
-  def withRelevantTags(tags: Tags, types: Set[TagType]): Tags =
-    tags.pipe(filterRelevant(types)).pipe(removeContradictingTermination).pipe(sort)
+  def withRelevantTags(tags: Tags, types: Set[TagType], variant: Variant): Tags =
+    val allExtra = types ++
+      variant.standard.not.so(Set(Tag.Variant)) ++
+      variant.standardInitialPosition.not.so(Set(Tag.FEN))
+    tags.pipe(filterRelevant(allExtra)).pipe(removeContradictingTermination).pipe(sort)
 
   def setRootClockFromTags(c: Chapter): Option[Chapter] =
     val centis = c.tags.timeControl.map: c =>
@@ -58,6 +62,8 @@ object StudyPgnTags:
       tags.map(_.filterNot: t =>
         t.name == Tag.Termination && t.value.toLowerCase == "unterminated")
     else tags
+
+  val clockTags: Set[TagType] = Set(Tag.WhiteClock, Tag.BlackClock)
 
   private val unknownValues = Set("", "?", "unknown")
 

@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyphs, ParsedPgnTree, PgnNodeData, PgnStr, Tags, Tag }
+import chess.format.pgn.{ Glyphs, ParsedPgnTree, PgnNodeData, PgnStr, Tags }
 import chess.format.{ Fen, Uci }
 import chess.{ ErrorStr, Node as PgnNode, ByColor }
 import monocle.syntax.all.*
@@ -65,7 +65,7 @@ object StudyPgnImportNew:
             root = commented,
             variant = game.position.variant,
             tags = StudyPgnTags
-              .withRelevantTags(parsedPgn.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
+              .withRelevantTags(parsedPgn.tags, StudyPgnTags.clockTags, game.position.variant),
             end = gameEnd
           )
     }
