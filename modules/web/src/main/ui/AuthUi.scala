@@ -249,7 +249,10 @@ final class AuthUi(helpers: Helpers):
             )
         )
 
-  def passwordReset(form: HcaptchaForm[?], fail: Option[String])(using Context) =
+  def passwordReset(form: HcaptchaForm[?], fail: Option[String])(using
+      singlePostToken: SinglePostMakeToken,
+      ctx: Context
+  ) =
     Page(trans.site.passwordReset.txt())
       .css("bits.auth")
       .js(hcaptchaScript(form))
@@ -267,6 +270,8 @@ final class AuthUi(helpers: Helpers):
               form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
             ),
             lila.ui.bits.hcaptcha(form),
+            form3.hidden(form("singlePost"), singlePostToken(using ctx.req).some),
+            form3.errors(form("singlePost")),
             form3.action(form3.submit(trans.site.emailMeALink()))
           )
         )
