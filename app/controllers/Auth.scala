@@ -97,7 +97,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
               Unauthorized.page(views.auth.login(err, isRemember)),
               Unauthorized(doubleJsonFormErrorBody(err))
             ),
-          (login, pass) =>
+          (login, pass, _) =>
             LoginRateLimit(login.normalize, ctx.req): chargeLimiters =>
               env.security.pwned
                 .isPwned(pass)

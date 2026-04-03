@@ -30,6 +30,7 @@ final class SecurityApi(
     authenticator: Authenticator,
     oAuthServer: OAuthServer,
     ip2proxy: Ip2ProxyApi,
+    singlePost: SinglePost,
     proxy2faSetting: lila.memo.SettingStore[lila.core.data.Strings] @@ Proxy2faSetting
 )(using ec: Executor, mode: play.api.Mode):
 
@@ -40,9 +41,11 @@ final class SecurityApi(
   lazy val loginForm = Form:
     tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
-      "password" -> loginPasswordMapping
+      "password" -> loginPasswordMapping,
+      "singlePost" -> singlePost.formMapping
     )
-  def loginFormFilled(login: UserStrOrEmail) = loginForm.fill(login -> ClearPassword(""))
+  def loginFormFilled(login: UserStrOrEmail) = loginForm.fill:
+    (login, ClearPassword(""), singlePost.newToken)
 
   lazy val rememberForm = Form(single("remember" -> boolean))
 
@@ -52,9 +55,11 @@ final class SecurityApi(
       mapping(
         "username" -> usernameOrEmailMapping, // can also be an email
         "password" -> loginPasswordMapping,
-        "token" -> optional(nonEmptyText)
+        "token" -> optional(nonEmptyText), // totp 2fa
+        "singlePost" -> singlePost.formMapping
       )(authenticateCandidate(candidate)) {
-        case Success(user) => (user.username.into(UserStrOrEmail), ClearPassword(""), none).some
+        case Success(user) =>
+          (user.username.into(UserStrOrEmail), ClearPassword(""), none, singlePost.newToken).some
         case _ => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match
@@ -102,7 +107,8 @@ final class SecurityApi(
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
       login: UserStrOrEmail,
       password: ClearPassword,
-      token: Option[String]
+      token: Option[String],
+      @annotation.unused _singlePost: String
   ): LoginCandidate.Result =
     import LoginCandidate.Result.*
     candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword): c =>
