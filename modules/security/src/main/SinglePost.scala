@@ -1,0 +1,51 @@
+package lila
+package security
+
+import play.api.mvc.RequestHeader
+import play.api.data.Forms.*
+import scalalib.SecureRandom
+
+import lila.core.config.Secret
+import lila.core.security.{ SinglePostToken, SinglePostMakeToken }
+import lila.common.HTTPRequest
+
+final class SinglePost(secret: Secret)(using Executor):
+
+  private val signer = com.roundeights.hasher.Algo.hmac(secret.value)
+
+  private val tokens = scalalib.cache.ExpireSetMemo[String](10.minutes)
+
+  private val mon = lila.mon.security.singlePost
+
+  val newToken: SinglePostMakeToken = _ ?=>
+    val rnd = SecureRandom.nextString(12)
+    tokens.put(rnd)
+    mon.newToken.increment()
+    SinglePostToken(s"$rnd|${digestOf(rnd).hex}")
+
+  def consumeToken(token: String)(using RequestHeader): Boolean =
+    token.split('|') match
+      case Array(rnd, sign) =>
+        if !tokens.get(rnd) then
+          mon.expired.increment()
+          false
+        else if !digestOf(rnd).hash_=(sign) then
+          mon.badSign.increment()
+          false
+        else
+          mon.success.increment()
+          tokens.remove(rnd)
+          true
+      case _ =>
+        mon.missing.increment()
+        false
+
+  private def digestOf(rnd: String)(using req: RequestHeader) =
+    signer.sha1(s"$rnd|${HTTPRequest.userAgent(req)}")
+
+  def formMapping(using RequestHeader) =
+    nonEmptyText.verifying("Session has expired, please try again", consumeToken)
+
+  def formPair(using RequestHeader) = "singlePost" -> formMapping
+
+  def presenceForm = play.api.data.Form(single("singlePost" -> nonEmptyText))
