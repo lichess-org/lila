@@ -73,7 +73,7 @@ See the %3$s on this move for some practice with it.</string>
   <string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
   <string name="positions">positions</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">We repeated a position three times. Why was the game not drawn?</string>
-  <string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown or by offering a draw before your final repeating move. It won\'t matter if your opponent rejects the draw offer, the threefold repetition draw will be claimed anyway. You can also %1$s Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
+  <string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can claim a draw by pressing the button when it is shown, or by offering a draw before your final repeating move. It won\'t matter if your opponent rejects the draw offer; the draw by threefold repetition will be claimed anyway. You can also %1$s Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
   <string name="configure">configure</string>
   <string name="accounts">Accounts</string>
   <string name="titlesAvailableOnLichess">What titles are there on Lichess?</string>
@@ -133,7 +133,7 @@ It is useful to think of ratings as \"relative\" figures (as opposed to \"absolu
   <string name="displayPreferences">display preferences</string>
   <string name="connexionLostCanIGetMyRatingBack">I lost a game due to lag/disconnection. Can I get my rating points back?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lichess restarts and you lose on time because of that, we abort the game to prevent an unfair loss.</string>
-  <string name="howToThreeDots">How to...</string>
+  <string name="howToThreeDots" comment="This used to say &quot;How to...&quot;">How do I...</string>
   <string name="enableDisableNotificationPopUps">Enable or disable notification popups?</string>
   <string name="viewSiteInformationPopUp">View site information popup</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess can optionally send popup notifications, for example when it is your turn or you received a private message.
