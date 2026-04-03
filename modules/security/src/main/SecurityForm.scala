@@ -90,8 +90,7 @@ final class SecurityForm(
     private val agreement = mapping(
       "assistance" -> agreementBool,
       "nice" -> agreementBool,
-      "account" -> agreementBool,
-      "policy" -> agreementBool
+      "account" -> agreementBool
     )(AgreementData.apply)(unapply)
 
     def website(simpleSignup: Option[SimpleSignup])(using RequestHeader): Fu[SignupForm] =
@@ -108,7 +107,7 @@ final class SecurityForm(
                     username = prefill.username,
                     password = "",
                     email = prefill.email,
-                    agreement = AgreementData(true, true, true, true),
+                    agreement = AgreementData(true, true, true),
                     singlePost = "",
                     fp = none
                   )
@@ -267,8 +266,7 @@ object SecurityForm:
   case class AgreementData(
       assistance: Boolean,
       nice: Boolean,
-      account: Boolean,
-      policy: Boolean
+      account: Boolean
   )
 
   trait AnySignupData:
