@@ -78,7 +78,7 @@
   <string name="deleteFromHere">Delete from here</string>
   <string name="collapseVariations">Collapse variations</string>
   <string name="expandVariations">Expand variations</string>
-  <string name="forceVariation">Force variation</string>
+  <string name="forceVariation" comment="NOTE: This used to state &quot;Force variation&quot;&#10;&#10;By default, when analysing moves past the end of a game, the analysis just continues the main line.&#10;&#10;&quot;Convert to variation&quot; forces the analysis to be displayed as a variation (despite the lack of a main continuation), distinguishing it from moves that were actually played during the game.">Force variation</string>
   <string name="copyVariationPgn">Copy variation PGN</string>
   <string name="copyMainLinePgn">Copy main line PGN</string>
   <string name="move">Move</string>
@@ -115,7 +115,7 @@
   <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
   <string name="winOr50MovesByPriorMistake">Win or 50 moves by prior mistake</string>
   <string name="lossOr50MovesByPriorMistake">Loss or 50 moves by prior mistake</string>
-  <string name="unknownDueToRounding">Due to possible rounding of DTZ values in Syzygy tablebases, a win/loss is only guaranteed if the recommended tablebase line has been followed since the last capture or pawn move.</string>
+  <string name="unknownDueToRounding" comment="unknownDueToRounding&#10;&#10;Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in endgame tablebase view.&#10;&#10;&quot;Rounding&quot; is used in the mathematical sense. It refers to a quirk of Syzygy tablebases, where some DTZ values are stored rounded down.&#10;&#10;---&#10;&#10;This used to be phrased differently, but the meaning was the same:&#10;&#10;&quot;Win/loss only guaranteed if recommended tablebase line has been followed since the last capture or pawn move, due to possible rounding of DTZ values in Syzygy tablebases.&quot;">Due to possible rounding of DTZ values in Syzygy tablebases, a win/loss is only guaranteed if the recommended tablebase line has been followed since the last capture or pawn move.</string>
   <string name="allSet">All set!</string>
   <string name="importPgn">Import PGN</string>
   <string name="delete">Delete</string>
@@ -177,7 +177,7 @@
     <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
-  <string name="drawByMutualAgreement">Draw by mutual agreement</string>
+  <string name="drawByMutualAgreement">Draw by agreement</string>
   <string name="fiftyMovesWithoutProgress">Fifty moves without progress</string>
   <string name="currentGames">Current games</string>
   <string name="joinedX">Joined %s</string>
@@ -266,7 +266,7 @@
   <string name="checkSpamFolder">Also check your spam folder, it might end up there. If so, mark it as not spam.</string>
   <string name="emailForSignupHelp">If you still have questions, please send us an email:</string>
   <string name="copyTextToEmail">Copy and paste the above text and send it to %s</string>
-  <string name="waitForSignupHelp">We will come back to you shortly to help you complete your signup.</string>
+  <string name="waitForSignupHelp">We will respond shortly to help you complete your registration.</string>
   <string name="accountConfirmed">The user %s is successfully confirmed.</string>
   <string name="accountCanLogin">You can login right now as %s.</string>
   <string name="accountConfirmationEmailNotNeeded">You do not need a confirmation email.</string>
@@ -360,7 +360,7 @@
     <item quantity="one">Give %s second</item>
     <item quantity="other">Give %s seconds</item>
   </plurals>
-  <string name="thisAccountViolatedTos">This account violated the Lichess Terms of Service</string>
+  <string name="thisAccountViolatedTos" comment="This used to say &quot;This account violated the Lichess Terms of Service&quot;. Please update as needed in case this affects your language.">The Lichess Terms of Service were violated on this account</string>
   <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
@@ -621,7 +621,7 @@
   <string name="slow">Slow</string>
   <string name="insideTheBoard">Inside the board</string>
   <string name="outsideTheBoard">Outside the board</string>
-  <string name="allSquaresOfTheBoard">All squares on the board</string>
+  <string name="allSquaresOfTheBoard" comment="An option to display board coordinates (A-H, 1-8) within every single square of the chessboard.&#10;&#10;Could be written as 'In all squares of the board', but please try to keep this string short.&#10;&#10;---&#10;&#10;Note: this used to say &quot;All squares of the board&quot; (or &quot;on&quot; the board). As this is implicit, it simply reads &quot;All squares&quot; now.">All squares</string>
   <string name="onSlowGames">On slow games</string>
   <string name="always">Always</string>
   <string name="never">Never</string>
@@ -995,7 +995,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Analysis options</string>
   <string name="focusChat">Focus chat</string>
-  <string name="showHelpDialog">Show this help dialog</string>
+  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.&#10;&#10;---&#10;&#10;This text used to be &quot;Show this help dialog&quot;">View this help overlay</string>
   <string name="reopenYourAccount">Reopen your account</string>
   <string name="reopenYourAccountDescription">If you closed your account but have since changed your mind, you may reopen it now.</string>
   <string name="emailAssociatedToaccount">Email address associated to the account</string>
