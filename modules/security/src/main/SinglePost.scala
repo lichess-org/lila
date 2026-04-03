@@ -4,6 +4,7 @@ package security
 import scalalib.SecureRandom
 
 import lila.core.config.Secret
+import lila.core.security.{ SinglePostToken, SinglePostMakeToken }
 
 final class SinglePost(secret: Secret)(using Executor):
 
@@ -11,21 +12,20 @@ final class SinglePost(secret: Secret)(using Executor):
 
   private val tokens = scalalib.cache.ExpireSetMemo[String](10.minutes)
 
-  def newToken: String =
+  val newToken: SinglePostMakeToken = () =>
     val rnd = SecureRandom.nextString(12)
     tokens.put(rnd)
     val signed = signer.sha1(rnd).hex
-    s"$rnd|$signed".pp("new")
+    SinglePostToken(s"$rnd|$signed")
 
-  def consumeToken(encoded: String): Boolean = {
-    encoded.pp("consumable").split('|') match
-      case Array(rnd, sign) if tokens.get(rnd).pp("found") =>
+  def consumeToken(encoded: String): Boolean =
+    encoded.split('|') match
+      case Array(rnd, sign) if tokens.get(rnd) =>
         tokens.remove(rnd)
         if signer.sha1(rnd) hash_= sign then true
         else false
       case _ => false
-  }.pp("consumed")
 
   val formMapping =
     import play.api.data.Forms.*
-    nonEmptyText.verifying("Invalid CSRF token, please try again", consumeToken)
+    nonEmptyText.verifying("Session has expired, please try again", consumeToken)

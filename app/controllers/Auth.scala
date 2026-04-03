@@ -9,7 +9,7 @@ import lila.common.Json.given
 import lila.core.id.SessionId
 import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
 import lila.core.net.{ IpAddress, ValidReferrer }
-import lila.core.security.ClearPassword
+import lila.core.security.{ ClearPassword, SinglePostMakeToken }
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup, EmailConfirm, IsPwned }
@@ -28,6 +28,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     )
 
   private given (using Context): Option[ValidReferrer] = env.web.referrerRedirect.fromReq
+  private given SinglePostMakeToken = env.security.singlePost.newToken
 
   private def referrerOr(default: => Call)(using referrer: Option[ValidReferrer]): String =
     referrer.fold(default.url)(_.value)
