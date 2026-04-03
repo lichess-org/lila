@@ -11,7 +11,7 @@
     <item quantity="other">%s rounds</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="one">%s round Swiss</item>
+    <item quantity="one">%s-round Swiss</item>
     <item quantity="other">%s-round Swiss</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
@@ -56,7 +56,7 @@ It can be a good option for clubs and official tournaments.</string>
   <string name="pointsCalculationA">A win is worth one point, a draw is a half point, and a loss is zero points.
 When a player can't be paired during a round, they receive a bye worth one point.</string>
   <string name="tiebreaksCalculationQ">How are tie breaks calculated?</string>
-  <string name="sonnebornBergerScore">Sonneborn-Berger score</string>
+  <string name="sonnebornBergerScore">Sonneborn–Berger score</string>
   <string name="tiebreaksCalculationA">With the %s.
 Add the scores of every opponent the player beats and half of the score of every opponent the player draws.</string>
   <string name="pairingsQ">How are pairings decided?</string>
