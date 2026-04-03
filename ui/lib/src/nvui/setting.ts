@@ -76,8 +76,8 @@ export function boardSetting(): Setting<BoardStyle> {
 export function pageSetting(): Setting<PageStyle> {
   return makeSetting<PageStyle>({
     choices: [
-      ['board-actions', `${i18n.nvui.actions} ${i18n.site.board}`],
-      ['actions-board', `${i18n.site.board} ${i18n.nvui.actions}`],
+      ['actions-board', `${i18n.nvui.actions} ${i18n.site.board}`],
+      ['board-actions', `${i18n.site.board} ${i18n.nvui.actions}`],
     ],
     default: 'actions-board',
     storage: storage.make('nvui.pageLayout'),
