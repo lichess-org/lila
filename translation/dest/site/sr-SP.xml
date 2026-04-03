@@ -76,7 +76,7 @@
   <string name="deleteFromHere">Избриши одавде</string>
   <string name="collapseVariations">Скупи варијације</string>
   <string name="expandVariations">Рашири варијације</string>
-  <string name="forceVariation">Приморај варијацијом</string>
+  <string name="forceVariation" comment="NOTE: This used to state &quot;Force variation&quot;&#10;&#10;By default, when analysing moves past the end of a game, the analysis just continues the main line.&#10;&#10;&quot;Convert to variation&quot; forces the analysis to be displayed as a variation (despite the lack of a main continuation), distinguishing it from moves that were actually played during the game.">Приморај варијацијом</string>
   <string name="copyVariationPgn">Ископирај ПГН варијације</string>
   <string name="move">Потез</string>
   <string name="variantLoss">Пораз варијанте</string>
@@ -113,7 +113,7 @@
   <string name="lossSavedBy50MoveRule">Пораз спречен правилом 50 потеза</string>
   <string name="winOr50MovesByPriorMistake">Победа или 50 потеза на основу претходне грешке</string>
   <string name="lossOr50MovesByPriorMistake">Пораз или 50 потеза на основу претходне грешке</string>
-  <string name="unknownDueToRounding">Победа/пораз су гарантовани једино ако се после последњег узимања фигуре или потеза пешаком следи препоручена основна табела и то због могућег заокруживања DTZ вредности у Syzygy osnovnim tabelama.</string>
+  <string name="unknownDueToRounding" comment="unknownDueToRounding&#10;&#10;Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in endgame tablebase view.&#10;&#10;&quot;Rounding&quot; is used in the mathematical sense. It refers to a quirk of Syzygy tablebases, where some DTZ values are stored rounded down.&#10;&#10;---&#10;&#10;This used to be phrased differently, but the meaning was the same:&#10;&#10;&quot;Win/loss only guaranteed if recommended tablebase line has been followed since the last capture or pawn move, due to possible rounding of DTZ values in Syzygy tablebases.&quot;">Победа/пораз су гарантовани једино ако се после последњег узимања фигуре или потеза пешаком следи препоручена основна табела и то због могућег заокруживања DTZ вредности у Syzygy osnovnim tabelama.</string>
   <string name="allSet">Све спремно!</string>
   <string name="importPgn">Увези PGN</string>
   <string name="delete">Избриши</string>
@@ -159,7 +159,7 @@
     <item quantity="few">%s играча</item>
     <item quantity="other">%s играча</item>
   </plurals>
-  <string name="drawByMutualAgreement">Нерешено по договору</string>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.&#10;&#10;This used to say &quot;Draw by mutual agreement&quot;, but the term &quot;mutual&quot; was removed in March 2026 as it was redundant.">Нерешено по договору</string>
   <string name="fiftyMovesWithoutProgress">Педесет потеза без прогреса</string>
   <string name="currentGames">Партије у току</string>
   <string name="joinedX">Придружио/ла се %s</string>
@@ -234,8 +234,8 @@
   <string name="youAreLeavingLichess">Напуштате Личесс</string>
   <string name="neverTypeYourPassword">Никада немој користити своју Lichess лозинку на неком другом сајту!</string>
   <string name="proceedToX">Настаби до %s</string>
-  <string name="passwordSuggestion">Немој користити лозинку коју ти је предложио неко други. Он ће је искористити да преузме твој налог.</string>
-  <string name="emailSuggestion">Немој користити мејл адресу коју ти је предложио неко други. Он ће је искористити да преузме твој налог.</string>
+  <string name="passwordSuggestion" comment="The text used to say &quot;will&quot;, which was replaced by &quot;can&quot;.">Немој користити лозинку коју ти је предложио неко други. Он ће је искористити да преузме твој налог.</string>
+  <string name="emailSuggestion" comment="The text used to say &quot;will&quot;, which was replaced by &quot;can&quot;.">Немој користити мејл адресу коју ти је предложио неко други. Он ће је искористити да преузме твој налог.</string>
   <string name="emailConfirmHelp">Помоћ око потврђивања мејл адресе</string>
   <string name="emailConfirmNotReceived">Ниси примио потврду на мејл пошто си се регистровао?</string>
   <string name="whatSignupUsername">Које корисничко име си користио приликом регистрације?</string>
@@ -348,7 +348,7 @@
     <item quantity="few">Дај %s секунде</item>
     <item quantity="other">Дај %s секунди</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Овај налог је прекршио Lichess Услове коришћења Услуге</string>
+  <string name="thisAccountViolatedTos" comment="This used to say &quot;This account violated the Lichess Terms of Service&quot;. Please update as needed in case this affects your language.">Овај налог је прекршио Lichess Услове коришћења Услуге</string>
   <string name="openingExplorerAndTablebase">Претраживач отварања и база позиција у завршници</string>
   <string name="takeback">Враћање потеза</string>
   <string name="proposeATakeback">Предложи враћање потеза</string>
@@ -429,7 +429,7 @@
   <string name="continueFromHere">Настави одавде</string>
   <string name="toStudy">Проучи</string>
   <string name="importGame">Увези партију</string>
-  <string name="importGameExplanation">Налепи PGN партије да добијеш проигриву репризу, рачунарску анализу, ћаскање партије и јавни линк за дељење.</string>
+  <string name="importGameExplanation" comment="The description of the &quot;Import game&quot; feature. (https://lichess.org/paste)&#10;&#10;Please do not translate &quot;PGN&quot; itself, keep it as it is.&#10;&#10;---&#10;&#10;You might notice the translation seems different to the source string. This is because the original English text was rewritten in the active voice, and you are encouraged to do the same for your language. The source string previously stated:&#10;&quot;When pasting a game PGN you get a browsable replay,&#10;a computer analysis, a game chat and a shareable URL.&quot;&#10;We encourage you to re-do the translation for your language as well.&#10;&#10;The string was again edited in March 2026 to change &quot;a public shareable URL&quot; to &quot;a shareable link&quot;.">Налепи PGN партије да добијеш проигриву репризу, рачунарску анализу, ћаскање партије и јавни линк за дељење.</string>
   <string name="importGameDataPrivacyWarning">Овај PGN је јавно доступан. Ако желиш да партију увезеш као приватну, користи студију.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s увезена партија</item>
@@ -609,7 +609,7 @@
   <string name="slow">Спора</string>
   <string name="insideTheBoard">Унутар табле</string>
   <string name="outsideTheBoard">Ван табле</string>
-  <string name="allSquaresOfTheBoard">Сва поља табле</string>
+  <string name="allSquaresOfTheBoard" comment="An option to display board coordinates (A-H, 1-8) within every single square of the chessboard.&#10;&#10;Could be written as 'In all squares of the board', but please try to keep this string short.&#10;&#10;---&#10;&#10;Note: this used to say &quot;All squares of the board&quot; (or &quot;on&quot; the board). As this is implicit, it simply reads &quot;All squares&quot; now.">Сва поља табле</string>
   <string name="onSlowGames">На спорим партијама</string>
   <string name="always">Увек</string>
   <string name="never">Никада</string>
@@ -699,9 +699,9 @@
   <string name="aboutSimulRules">Када симултанка започне, сваки играч почиње партију са домаћином. Симултанка се завршава када су све партије завршене.</string>
   <string name="aboutSimulSettings">Симултанке су увек нерангиране. Реванши, враћања потеза и додавања времена су искључени.</string>
   <string name="create">Направи</string>
-  <string name="whenCreateSimul">Када направиш Симултанку, можеш играти против неколико играча одједном.</string>
+  <string name="whenCreateSimul">Када направиш симултанку, можеш играти против неколико играча одједном.</string>
   <string name="simulVariantsHint">Ако одабереш неколико варијанти, сваки играч има могућност да бира коју да игра.</string>
-  <string name="simulClockHint">На начин Фишеровог Сата. Што више играча играш, више времена ти може бити потребно.</string>
+  <string name="simulClockHint" comment="This used to say &quot;Fischer clock setup&quot; at the start of it, which has since been removed as it is obvious from the context.">Што више играча играш, више времена ти може бити потребно.</string>
   <string name="simulAddExtraTime">Можеш ставити додатно почетно време на свој сат како би ти помогло да се снађеш у симултанци.</string>
   <string name="simulHostExtraTime">Додатно почетно време сата домаћина</string>
   <string name="simulAddExtraTimePerPlayer">Додај почетно време на свом сату за сваког играча који учествује у симултанци.</string>
@@ -964,7 +964,7 @@
   <string name="playComputerMove">Одиграј најбољи потез који сугерише компјутер</string>
   <string name="analysisOptions">Опције при анализи</string>
   <string name="focusChat">Пређи на чет</string>
-  <string name="showHelpDialog">Прикажи овај прозор за помоћ</string>
+  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.&#10;&#10;---&#10;&#10;This text used to be &quot;Show this help dialog&quot;">Прикажи овај прозор за помоћ</string>
   <string name="reopenYourAccount">Поново отвори свој налог</string>
   <string name="emailAssociatedToaccount">Мејл адреса повезана са налогом</string>
   <string name="sentEmailWithLink">Послали смо ти мејл са линком.</string>
