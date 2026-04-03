@@ -68,7 +68,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
             requestAnimationFrame(() => scrollToBottom(el, false));
           },
           postpatch: (_, vnode) => {
-            if (scrollState.pinToBottom) scrollToBottom((vnode.elm as HTMLElement), true)
+            if (scrollState.pinToBottom) scrollToBottom(vnode.elm as HTMLElement, true);
           },
           destroy(vnode) {
             const el = vnode.elm as HTMLElement;
