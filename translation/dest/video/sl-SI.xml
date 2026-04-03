@@ -18,7 +18,6 @@
   <string name="noVideosForTheseTags">Za te oznake ni videoposnetkov:</string>
   <string name="thatsAllWeGotForTheseTags">To je vse, kar imamo za te oznake:</string>
   <string name="thatsAllWeGotForThisSearchX">To je vse, kar smo dobili za to iskanje: \"%s\"</string>
-  <string name="thereAreNoResultsForX">Ni rezultatov za »%s«</string>
   <string name="viewMoreTags">Ogled več oznak</string>
   <string name="videoNotFound">Video ni bil najden!</string>
   <string name="xByY">%1$s od %2$s</string>

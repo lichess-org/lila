@@ -43,15 +43,15 @@ object Federation:
       .orElse(fed.map(_._1))
       .getOrElse(id.value)
 
-  def find(str: String): Option[Id] =
+  given find: Guess = str =>
     Id(str.toUpperCase).some
       .filter(names.contains)
-      .orElse(bySlug.get(str))
-      .orElse(bySlug.get(nameToSlug(str)))
+      .orElse(byLowerSlug.get(str.toLowerCase))
+      .orElse(byLowerSlug.get(nameToSlug(str).toLowerCase))
 
-  lazy val bySlug: Map[String, Id] =
+  private lazy val byLowerSlug: Map[String, Id] =
     names.map: (id, name) =>
-      nameToSlug(name._1) -> id
+      nameToSlug(name._1).toLowerCase -> id
 
   // FIDE follows IOC country codes with some exceptions
   // https://en.wikipedia.org/wiki/List_of_IOC_country_codes

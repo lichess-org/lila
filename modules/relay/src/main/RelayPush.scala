@@ -8,6 +8,7 @@ import com.github.blemale.scaffeine.LoadingCache
 import lila.tree.{ ImportResult, ParseImport }
 import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 import lila.core.net.UserAgent
+import lila.core.fide.Federation
 import lila.relay.RelayPush.*
 import lila.memo.CacheApi
 
@@ -18,7 +19,7 @@ final class RelayPush(
     fidePlayers: RelayFidePlayerApi,
     playerEnrich: RelayPlayerEnrich,
     irc: lila.core.irc.IrcApi
-)(using Executor)(using scheduler: Scheduler):
+)(using Federation.Guess, Executor)(using scheduler: Scheduler):
 
   private val workQueue = AsyncActorSequencers[RelayRoundId](
     maxSize = Max(32),

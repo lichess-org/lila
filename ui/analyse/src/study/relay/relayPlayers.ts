@@ -55,6 +55,7 @@ interface RelayPlayerGame {
   points?: PointsStr;
   customPoints?: number;
   ratingDiff?: number;
+  ongoing?: boolean;
 }
 
 interface RelayPlayerWithGames extends RelayPlayer {
@@ -435,12 +436,12 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
   const hideResultsSinceIndex =
     (hideResultsSinceRoundId && p.games.findIndex(g => g.round === hideResultsSinceRoundId)) || 999;
 
-  const coloredPoint = ({ points, customPoints, color, roundObj }: RelayPlayerGame, index: number) => {
-    if (!points) return hl('span', '*');
+  const coloredPoint = ({ points, customPoints, color, ongoing }: RelayPlayerGame, index: number) => {
+    if (!points) return ongoing && hl('strong', '*');
     if (hideResultsSinceIndex <= index) return hl('span', '?');
 
     const povResultStr = points === '1/2' ? '½-½' : (points === '1') === (color === 'white') ? '1-0' : '0-1';
-    const coloredResult = playerColoredResult(povResultStr, color, roundObj);
+    const coloredResult = playerColoredResult(povResultStr, color);
     if (!coloredResult) return;
 
     return hl(

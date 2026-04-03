@@ -172,12 +172,12 @@ object PlanBuilder:
     if sortedExisting.isEmpty then low
     else
       val iter = sortedExisting.iterator
-      var prevElt = iter.next
+      var prevElt = iter.next()
       // nothing is at low element so gap is equiv to 2x size, centered at low
       var maxGapLow = low - (prevElt - low)
       var maxGapLen = (prevElt - low) * 2L
       while iter.hasNext do
-        val elt = iter.next
+        val elt = iter.next()
         if elt - prevElt > maxGapLen then
           maxGapLow = prevElt
           maxGapLen = elt - prevElt
