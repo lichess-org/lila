@@ -919,7 +919,6 @@
   <string name="agreementAssistance">Jeg lover, at jeg på intet tidspunkt i løbet af mine partier vil modtage assistance (fra en skakcomputer, bog, database eller anden person).</string>
   <string name="agreementNice">Jeg lover, at jeg altid vil være respektfuld mod andre spillere.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Jeg er indforstået med, at jeg ikke opretter flere konti (undtagen af de grunde, der er angivet i %s).</string>
-  <string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lichess-politikker.</string>
   <string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
   <string name="edit">Rediger</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
