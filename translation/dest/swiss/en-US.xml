@@ -74,15 +74,15 @@ Additionally, a single bye of half a point is attributed when a player late-join
   <string name="earlyDrawsQ">What happens with early draws?</string>
   <string name="earlyDrawsAnswer">In Swiss games, players cannot draw before 30 moves are played. While this measure cannot prevent pre-arranged draws, it does make it harder to agree to a draw on the fly.</string>
   <string name="whatIfOneDoesntPlayQ">What happens if a player doesn\'t play a game?</string>
-  <string name="whatIfOneDoesntPlayA">Their clock will tick, they will flag, and lose the game.
-Then the system will withdraw the player from the tournament, so they don\'t lose more games.
-They can re-join the tournament at any time.</string>
+  <string name="whatIfOneDoesntPlayA">Their clock will start, they will run out of time, and lose the game.
+The system will then withdraw them from the tournament so they don\'t lose more games.
+They will be able to re-join the tournament at any time.</string>
   <string name="protectionAgainstNoShowQ">What is done regarding no-shows?</string>
   <string name="protectionAgainstNoShowA">Players who sign up for Swiss events but don\'t play their games can be problematic.
 To alleviate this issue, Lichess temporarily restricts these players from joining new Swiss events for a period of time.
 The creator of a Swiss event can decide to let them join the event anyway.</string>
   <string name="lateJoinQ">Can players late-join?</string>
-  <string name="lateJoinA">Yes, until more than half the rounds have started; for example in a 11-rounds Swiss, players can join before round 6 starts and in a 12-rounds before round 7 starts.
+  <string name="lateJoinA">Yes, until more than half the rounds have started. For example in an 11-round Swiss tournament, players can join before round 6 starts. In a 12-round tournament, players can join before round 7 starts.
 Late joiners get a single bye, even if they missed several rounds.</string>
   <string name="willSwissReplaceArenasQ">Will Swiss replace arena tournaments?</string>
   <string name="willSwissReplaceArenasA">No. They\'re complementary features.</string>
@@ -119,9 +119,9 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="pause">Pause</string>
   <string name="pauseSwiss">Yes but might reduce the number of rounds</string>
   <string name="streaksAndBerserk">Streaks and Berserk</string>
-  <string name="similarToOTB">Similar to OTB tournaments</string>
+  <string name="similarToOTB" comment="This used to say &quot;Similar to OTB tournaments&quot;. The language was simplified to &quot;in-person&quot;">Similar to in-person tournaments</string>
   <string name="unlimitedAndFree">Unlimited and free</string>
-  <string name="predefinedUsers">Only allow pre-defined users to join</string>
+  <string name="predefinedUsers" comment="predefinedUsers&#10;&#10;This used to say &quot;pre-defined users&quot;, which has since been replaced with &quot;specific players&quot;.">Only allow pre-defined users to join</string>
   <string name="forbiddedUsers">If this list is non-empty, then users absent from this list will be forbidden to join. One username per line.</string>
   <string name="playYourGames">Play your games</string>
   <string name="byes">Byes</string>
