@@ -78,7 +78,7 @@
   <string name="deleteFromHere">Borrar desde aquí</string>
   <string name="collapseVariations">Contraer as variantes</string>
   <string name="expandVariations">Despregar as variantes</string>
-  <string name="forceVariation">Converter en variante</string>
+  <string name="forceVariation" comment="NOTE: This used to state &quot;Force variation&quot;&#10;&#10;By default, when analysing moves past the end of a game, the analysis just continues the main line.&#10;&#10;&quot;Convert to variation&quot; forces the analysis to be displayed as a variation (despite the lack of a main continuation), distinguishing it from moves that were actually played during the game.">Converter en variante</string>
   <string name="copyVariationPgn">Copiar o PGN da variante</string>
   <string name="copyMainLinePgn">Copiar o PGN da liña principal</string>
   <string name="move">Movemento</string>
@@ -115,7 +115,7 @@
   <string name="lossSavedBy50MoveRule">Derrota impedida pola regra das 50 xogadas</string>
   <string name="winOr50MovesByPriorMistake">Vitoria ou 50 movementos a causa dun erro anterior</string>
   <string name="lossOr50MovesByPriorMistake">Derrota ou 50 movementos a causa dun erro anterior</string>
-  <string name="unknownDueToRounding">A vitoria ou derrota só están garantidas se a liña recomendada da base de datos de finais se seguiu desde a última captura ou movemento de peón, debido a un posible arredondamento dos valores DTZ nas bases de datos de finais Syzygy.</string>
+  <string name="unknownDueToRounding" comment="unknownDueToRounding&#10;&#10;Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in endgame tablebase view.&#10;&#10;&quot;Rounding&quot; is used in the mathematical sense. It refers to a quirk of Syzygy tablebases, where some DTZ values are stored rounded down.&#10;&#10;---&#10;&#10;This used to be phrased differently, but the meaning was the same:&#10;&#10;&quot;Win/loss only guaranteed if recommended tablebase line has been followed since the last capture or pawn move, due to possible rounding of DTZ values in Syzygy tablebases.&quot;">Debido a un posible arredondamento dos valores DTZ nas bases de datos de finais Syzygy, a vitoria ou a derrota só están garantidas se a liña recomendada da base de datos de finais se seguiu desde a última captura ou movemento de peón.</string>
   <string name="allSet">Todo listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
@@ -181,7 +181,7 @@
     <item quantity="one">%s xogador</item>
     <item quantity="other">%s xogadores</item>
   </plurals>
-  <string name="drawByMutualAgreement">Táboas de mutuo acordo</string>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.&#10;&#10;This used to say &quot;Draw by mutual agreement&quot;, but the term &quot;mutual&quot; was removed in March 2026 as it was redundant.">Táboas de mutuo acordo</string>
   <string name="fiftyMovesWithoutProgress">Cincuenta movementos sen progreso</string>
   <string name="currentGames">Partidas en curso</string>
   <string name="joinedX">Uniuse %s</string>
@@ -257,8 +257,8 @@
   <string name="youAreLeavingLichess">Estas saíndo de Lichess</string>
   <string name="neverTypeYourPassword">Nunca empregues o teu contrasinal de Lichess noutro sitio web!</string>
   <string name="proceedToX">Ir a %s</string>
-  <string name="passwordSuggestion">Non empregues un contrasinal suxerido por outra persoa. Poden empregalo para roubar a túa conta.</string>
-  <string name="emailSuggestion">Non empregues un enderezo de correo suxerido por outra persoa. Poden empregalo para roubar a túa conta.</string>
+  <string name="passwordSuggestion" comment="The text used to say &quot;will&quot;, which was replaced by &quot;can&quot;.">Non empregues un contrasinal suxerido por outra persoa. Poden empregalo para roubar a túa conta.</string>
+  <string name="emailSuggestion" comment="The text used to say &quot;will&quot;, which was replaced by &quot;can&quot;.">Non empregues un enderezo de correo suxerido por outra persoa. Poden empregalo para roubar a túa conta.</string>
   <string name="emailConfirmHelp">Axuda coa confirmación por correo</string>
   <string name="emailConfirmNotReceived">Non recibiches o teu correo de confirmación despois de rexistrarte?</string>
   <string name="whatSignupUsername">Que nome de usuario empregaches para rexistrarte?</string>
@@ -364,7 +364,7 @@
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Esta conta violou os Termos de Servizo de Lichess</string>
+  <string name="thisAccountViolatedTos" comment="This used to say &quot;This account violated the Lichess Terms of Service&quot;. Please update as needed in case this affects your language.">Esta conta violou os Termos de Servizo de Lichess</string>
   <string name="openingExplorerAndTablebase">Explorador de aperturas e base de datos de finais</string>
   <string name="takeback">Rectificar xogada</string>
   <string name="proposeATakeback">Propoñer cambio de xogada</string>
@@ -446,7 +446,7 @@
   <string name="continueFromHere">Continuar dende aquí</string>
   <string name="toStudy">Estudar</string>
   <string name="importGame">Importar partida</string>
-  <string name="importGameExplanation">Pega o PGN dunha partida para obter unha versión navegable, análise por ordenador, sala de conversa e unha ligazón para compartila.</string>
+  <string name="importGameExplanation" comment="The description of the &quot;Import game&quot; feature. (https://lichess.org/paste)&#10;&#10;Please do not translate &quot;PGN&quot; itself, keep it as it is.&#10;&#10;---&#10;&#10;You might notice the translation seems different to the source string. This is because the original English text was rewritten in the active voice, and you are encouraged to do the same for your language. The source string previously stated:&#10;&quot;When pasting a game PGN you get a browsable replay,&#10;a computer analysis, a game chat and a shareable URL.&quot;&#10;We encourage you to re-do the translation for your language as well.&#10;&#10;The string was again edited in March 2026 to change &quot;a public shareable URL&quot; to &quot;a shareable link&quot;.">Pega o PGN dunha partida para obter unha versión navegable, análise por ordenador, sala de conversa e unha ligazón para compartila.</string>
   <string name="importGameDataPrivacyWarning">Este PGN é de acceso público. Para importar unha partida de xeito privado, emprega un estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
@@ -625,7 +625,7 @@
   <string name="slow">Lenta</string>
   <string name="insideTheBoard">Dentro do taboleiro</string>
   <string name="outsideTheBoard">Fóra do taboleiro</string>
-  <string name="allSquaresOfTheBoard">En todas as casas</string>
+  <string name="allSquaresOfTheBoard" comment="An option to display board coordinates (A-H, 1-8) within every single square of the chessboard.&#10;&#10;Could be written as 'In all squares of the board', but please try to keep this string short.&#10;&#10;---&#10;&#10;Note: this used to say &quot;All squares of the board&quot; (or &quot;on&quot; the board). As this is implicit, it simply reads &quot;All squares&quot; now.">En todas as casas</string>
   <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Sempre</string>
   <string name="never">Nunca</string>
@@ -790,7 +790,7 @@
   <string name="kidModeIsEnabled">O modo infantil está activado.</string>
   <string name="kidModeExplanation">Por seguridade, no modo infantil desactívanse tódalas comunicacións. Activa isto para protexer aos teus nenos ou alumnos de outros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En modo infantil, o logo de Lichess ten unha icona de %s, indicando que os nenos están seguros.</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode">A túa conta é xestionada. Pídelle ó teu mestre que desactive o modo infantil.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode" comment="A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.&#10;&#10;Note: The original English text of this string was &quot;Your account is managed. Ask your chess teacher about lifting kid mode.&quot;&#10;The meaning of the text remains the same.">A túa conta é xestionada. Pídelle ó teu mestre que desactive o modo infantil.</string>
   <string name="enableKidMode">Activar modo infantil</string>
   <string name="disableKidMode">Desactivar modo infantil</string>
   <string name="security">Seguridade</string>
@@ -1000,7 +1000,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="playComputerMove">Xogar o mellor movemento da computadora</string>
   <string name="analysisOptions">Opcións de análise</string>
   <string name="focusChat">Poñer o cursor na sala de conversa</string>
-  <string name="showHelpDialog">Ver este diálogo de axuda</string>
+  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.&#10;&#10;---&#10;&#10;This text used to be &quot;Show this help dialog&quot;">Ver este diálogo de axuda</string>
   <string name="reopenYourAccount">Abre de novo a túa conta</string>
   <string name="reopenYourAccountDescription">Se pechaches a túa conta pero mudaches de idea, tes a posibilidade de recuperala.</string>
   <string name="emailAssociatedToaccount">Enderezo de correo electrónico asociado á conta</string>
