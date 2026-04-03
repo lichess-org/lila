@@ -12,7 +12,7 @@
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s round Swiss</item>
-    <item quantity="other">%s rounds Swiss</item>
+    <item quantity="other">%s-round Swiss</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">One round per day</item>
@@ -37,7 +37,7 @@
   <string name="numberOfRoundsHelp">An odd number of rounds allows optimal color balance.</string>
   <string name="roundInterval">Interval between rounds</string>
   <string name="forbiddenPairings">Forbidden pairings</string>
-  <string name="forbiddenPairingsHelp">Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space.</string>
+  <string name="forbiddenPairingsHelp">Usernames of players who should not be paired (siblings, for instance). Two usernames per line, separated by a space.</string>
   <string name="manualPairings">Manual pairings in next round</string>
   <string name="manualPairingsHelp">Manually specify all pairings for the next round. One player pair per line. Example:
 PlayerA PlayerB
@@ -79,7 +79,7 @@ Then the system will withdraw the player from the tournament, so they don\'t los
 They can re-join the tournament at any time.</string>
   <string name="protectionAgainstNoShowQ">What is done regarding no-shows?</string>
   <string name="protectionAgainstNoShowA">Players who sign up for Swiss events but don\'t play their games can be problematic.
-To alleviate this issue, Lichess prevents players who failed to play a game from joining a new Swiss event for a given amount of time.
+To alleviate this issue, Lichess temporarily restricts these players from joining new Swiss events for a period of time.
 The creator of a Swiss event can decide to let them join the event anyway.</string>
   <string name="lateJoinQ">Can players late-join?</string>
   <string name="lateJoinA">Yes, until more than half the rounds have started; for example in a 11-rounds Swiss, players can join before round 6 starts and in a 12-rounds before round 7 starts.
