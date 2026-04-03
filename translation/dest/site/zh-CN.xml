@@ -875,7 +875,6 @@
   <string name="agreementAssistance">我同意在对局中任何时刻都不会接受帮助（来自电脑引擎、书籍、数据库或其他人）。</string>
   <string name="agreementNice">我同意我将始终尊重其他棋手。</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">我同意我不会创建多个账户（除非出于 %s 中所述的原因）。</string>
-  <string name="agreementPolicy">我同意我将遵守所有 Lichess 规范。</string>
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">超子弹棋</string>
