@@ -16,7 +16,7 @@
   <string name="voteToLoadNextOne">Vote to load the next one!</string>
   <string name="upVote">Upvote puzzle</string>
   <string name="downVote">Downvote puzzle</string>
-  <string name="yourPuzzleRatingWillNotChange">Your puzzle rating will not change. Note that puzzles are not a competition. Your rating helps selecting the best puzzles for your current skill.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.&#10;&#10;This text used to be slightly different towards the end, stating &quot;[...] Your rating helps selecting the best puzzles for your current skill.&quot; - but it had the same meaning.">Your puzzle rating will not change. Note that puzzles are not a competition. Your rating helps select the most appropriate puzzles for your skill level.</string>
   <string name="findTheBestMoveForWhite">Find the best move for white.</string>
   <string name="findTheBestMoveForBlack">Find the best move for black.</string>
   <string name="toGetPersonalizedPuzzles">To get personalized puzzles:</string>
@@ -76,9 +76,9 @@
   <string name="fromMyGames">From my games</string>
   <string name="lookupOfPlayer">Search puzzles from a player\'s games</string>
   <string name="searchPuzzles">Search puzzles</string>
-  <string name="fromMyGamesNone">You have no puzzles in the database, but Lichess still loves you very much.
+  <string name="fromMyGamesNone" comment="All games on Lichess are generated from players' games. This feature lets you see if any puzzles have been generated from your games (and in this case, they haven't).&#10;&#10;This text used to say &quot;[...] your chances of having a puzzle of yours added!&quot;. We have since clarified the English text to note they are puzzles added from your games.">You have no puzzles in the database, but Lichess still loves you very much.
 
-Play rapid and classical games to increase your chances of having a puzzle of yours added!</string>
+Play rapid and classical games to increase your chances of having a puzzle added from your games!</string>
   <plurals name="puzzlesFoundInUserGames">
     <item quantity="one">One puzzle found in games by %2$s</item>
     <item quantity="other">%1$s puzzles found in games by %2$s</item>
