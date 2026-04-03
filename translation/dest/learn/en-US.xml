@@ -156,7 +156,7 @@ castle king-side!</string>
 castle queen-side!</string>
   <string name="castlingComplete">Congratulations! You should almost always castle in a game.</string>
   <string name="theSpecialPawnMove">The special pawn move</string>
-  <string name="enPassantIntro">When the opponent pawn moved by two squares, you can take it like if it moved by one square.</string>
+  <string name="enPassantIntro">When the opponent\'s pawn moves two squares, you can still take it as if it had only moved one square.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Black just moved the pawn
 by two squares!
 Take it en passant.</string>
