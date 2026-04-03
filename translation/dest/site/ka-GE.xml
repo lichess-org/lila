@@ -827,7 +827,6 @@
   <string name="agreementAssistance">ვთანხმდები, რომ არავითარ შემთხვევაში არ მივიღებ დახმარებას ჩემი თამაშების დროს (ჭადრაკის კომპიუტერიდან, წიგნიდან, მონაცემთა ბაზიდან ან სხვა პირისგან).</string>
   <string name="agreementNice">ვთანხმდები, რომ ყოველთვის პატივს ვცემ სხვა მოთამაშეებს.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ვთანხმდები, რომ არ შევქმნი რამდენიმე ექაუნთს (გარდა %s-ში მითითებული მიზეზებისა).</string>
-  <string name="agreementPolicy">ვთანხმდები, რომ დავიცავ Lichess -ის პოლიტიკას.</string>
   <string name="searchOrStartNewDiscussion">მოძებნეთ ან დაიწყეთ საუბარი</string>
   <string name="edit">რედაქტირება</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ბლიცი</string>
