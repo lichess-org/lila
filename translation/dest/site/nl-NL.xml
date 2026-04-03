@@ -919,7 +919,6 @@
   <string name="agreementAssistance">Ik ga ermee akkoord dat ik tijdens mijn partijen geen hulp krijg (van een schaakcomputer, -boek, -database of ander persoon).</string>
   <string name="agreementNice">Ik ga ermee akkoord dat ik altijd respectvol tegenover andere spelers zal zijn.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken (behalve om de redenen die in de %s zijn vermeld).</string>
-  <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess-regels zal volgen.</string>
   <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
   <string name="edit">Wijzigen</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
