@@ -206,44 +206,48 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     NoTor:
       Firewall:
         WithProxy: proxy ?=>
-          limit.enumeration.signup(rateLimited):
-            proxy.no.so(forms.preloadEmailDns()) >>
-              HTTPRequest
-                .apiVersion(ctx.req)
-                .match
-                  case None =>
-                    env.security.signup
-                      .website(ctx.blind, simpleSignup)
-                      .flatMap:
-                        case Signup.Result.RateLimited | Signup.Result.ForbiddenNetwork => rateLimited
-                        case Signup.Result.MissingCaptcha =>
-                          forms.signup
-                            .website(simpleSignup)
-                            .flatMap: f =>
-                              BadRequest.page(views.auth.signup(f.form, f.simple))
-                        case Signup.Result.Bad(err) =>
-                          forms.signup
-                            .website(simpleSignup)
-                            .flatMap: f =>
-                              BadRequest.page(views.auth.signup(f.form.withForm(err), f.simple))
-                        case Signup.Result.ConfirmEmail(user, email) =>
-                          redirectWithReferrer(routes.Auth.checkYourEmail).withCookies:
-                            EmailConfirm.cookie.newSession(env.security.lilaCookie, user, email)
-                        case Signup.Result.AllSet(user, email) =>
-                          welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
-                  case Some(apiVersion) =>
-                    env.security.signup
-                      .mobile(apiVersion)
-                      .flatMap:
-                        case Signup.Result.RateLimited => rateLimited
-                        case Signup.Result.ForbiddenNetwork =>
-                          BadRequest(jsonError("This network cannot create new accounts."))
-                        case Signup.Result.MissingCaptcha => BadRequest(jsonError("Missing captcha?!"))
-                        case Signup.Result.Bad(err) => doubleJsonFormError(err)
-                        case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
-                        case Signup.Result.AllSet(user, email) =>
-                          welcome(user, email, sendWelcomeEmail = true) >>
-                            authenticateUser(user, remember = true, pwned = IsPwned.No)
+          bindForm(env.security.singlePost.presenceForm)(
+            _ => Redirect(routes.Auth.signup),
+            _ =>
+              limit.enumeration.signup(rateLimited):
+                proxy.no.so(forms.preloadEmailDns()) >>
+                  HTTPRequest
+                    .apiVersion(ctx.req)
+                    .match
+                      case None =>
+                        env.security.signup
+                          .website(ctx.blind, simpleSignup)
+                          .flatMap:
+                            case Signup.Result.RateLimited | Signup.Result.ForbiddenNetwork => rateLimited
+                            case Signup.Result.MissingCaptcha =>
+                              forms.signup
+                                .website(simpleSignup)
+                                .flatMap: f =>
+                                  BadRequest.page(views.auth.signup(f.form, f.simple))
+                            case Signup.Result.Bad(err) =>
+                              forms.signup
+                                .website(simpleSignup)
+                                .flatMap: f =>
+                                  BadRequest.page(views.auth.signup(f.form.withForm(err), f.simple))
+                            case Signup.Result.ConfirmEmail(user, email) =>
+                              redirectWithReferrer(routes.Auth.checkYourEmail).withCookies:
+                                EmailConfirm.cookie.newSession(env.security.lilaCookie, user, email)
+                            case Signup.Result.AllSet(user, email) =>
+                              welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
+                      case Some(apiVersion) =>
+                        env.security.signup
+                          .mobile(apiVersion)
+                          .flatMap:
+                            case Signup.Result.RateLimited => rateLimited
+                            case Signup.Result.ForbiddenNetwork =>
+                              BadRequest(jsonError("This network cannot create new accounts."))
+                            case Signup.Result.MissingCaptcha => BadRequest(jsonError("Missing captcha?!"))
+                            case Signup.Result.Bad(err) => doubleJsonFormError(err)
+                            case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
+                            case Signup.Result.AllSet(user, email) =>
+                              welcome(user, email, sendWelcomeEmail = true) >>
+                                authenticateUser(user, remember = true, pwned = IsPwned.No)
+          )
 
   private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(using
       ctx: Context

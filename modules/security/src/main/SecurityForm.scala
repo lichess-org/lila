@@ -17,7 +17,8 @@ final class SecurityForm(
     authenticator: Authenticator,
     emailValidator: EmailAddressValidator,
     lameNameCheck: LameNameCheck,
-    hcaptcha: Hcaptcha
+    hcaptcha: Hcaptcha,
+    singlePost: SinglePost
 )(using ec: Executor, mode: play.api.Mode):
 
   import SecurityForm.*
@@ -93,7 +94,7 @@ final class SecurityForm(
       "policy" -> agreementBool
     )(AgreementData.apply)(unapply)
 
-    def website(simpleSignup: Option[SimpleSignup])(using RequestHeader) =
+    def website(simpleSignup: Option[SimpleSignup])(using RequestHeader): Fu[SignupForm] =
       val base = hcaptcha.form(websitePreCaptcha)
       simpleSignup match
         case None => base.map(SignupForm(_, simple = false))
@@ -108,18 +109,20 @@ final class SecurityForm(
                     password = "",
                     email = prefill.email,
                     agreement = AgreementData(true, true, true, true),
+                    singlePost = "",
                     fp = none
                   )
               ),
               simple = true
             )
 
-    private def websitePreCaptcha = Form:
+    private def websitePreCaptcha(using RequestHeader) = Form:
       mapping(
         "username" -> username,
         "password" -> newPasswordField,
         "email" -> emailField,
         "agreement" -> agreement,
+        singlePost.formPair,
         "fp" -> optional(nonEmptyText)
       )(SignupData.apply)(unapply)
         .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
@@ -278,6 +281,7 @@ object SecurityForm:
       password: String,
       email: EmailAddress,
       agreement: AgreementData,
+      singlePost: String,
       fp: Option[String]
   ) extends AnySignupData:
     def fingerPrint = FingerPrint.from(fp.filter(_.nonEmpty))

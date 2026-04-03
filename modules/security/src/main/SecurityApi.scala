@@ -42,7 +42,7 @@ final class SecurityApi(
     tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
       "password" -> loginPasswordMapping,
-      "singlePost" -> singlePost.formMapping
+      singlePost.formPair
     )
   def loginFormFilled(login: UserStrOrEmail)(using RequestHeader) = loginForm.fill:
     (login, ClearPassword(""), "")

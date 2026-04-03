@@ -1,7 +1,8 @@
 package lila
 package security
 
-import play.api.mvc.RequestHeader
+import play.api.mvc.{ RequestHeader, Request }
+import play.api.data.Forms.*
 import scalalib.SecureRandom
 
 import lila.core.config.Secret
@@ -19,17 +20,22 @@ final class SinglePost(secret: Secret)(using Executor):
     tokens.put(rnd)
     SinglePostToken(s"$rnd|${digestOf(rnd).hex}")
 
-  def consumeToken(encoded: String)(using RequestHeader): Boolean =
-    encoded.split('|') match
-      case Array(rnd, sign) if tokens.get(rnd) =>
-        tokens.remove(rnd)
-        if digestOf(rnd).hash_=(sign) then true
-        else false
-      case _ => false
+  def dryTest(token: String)(using RequestHeader): Option[String] =
+    token.split('|') match
+      case Array(rnd, sign) if tokens.get(rnd) && digestOf(rnd).hash_=(sign) => rnd.some
+      case _ => none
+
+  def consumeToken(token: String)(using RequestHeader): Boolean =
+    val rnd = dryTest(token)
+    rnd.foreach(tokens.remove)
+    rnd.isDefined
 
   private def digestOf(rnd: String)(using req: RequestHeader) =
     signer.sha1(s"$rnd|${HTTPRequest.userAgent(req)}")
 
   def formMapping(using RequestHeader) =
-    import play.api.data.Forms.*
     nonEmptyText.verifying("Session has expired, please try again", consumeToken)
+
+  def formPair(using RequestHeader) = "singlePost" -> formMapping
+
+  def presenceForm = play.api.data.Form(single("singlePost" -> nonEmptyText))

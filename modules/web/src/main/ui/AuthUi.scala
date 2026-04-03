@@ -17,8 +17,9 @@ final class AuthUi(helpers: Helpers):
     referrer.fold(url)(ref => addQueryParam(url, "referrer", ref.value))
 
   def login(form: Form[?], isRememberMe: Boolean = true)(using
-      singlePostToken: SinglePostMakeToken
-  )(using Option[ValidReferrer])(using ctx: Context) =
+      singlePostToken: SinglePostMakeToken,
+      ctx: Context
+  )(using Option[ValidReferrer]) =
     val blankedPasswordError = form.globalError.exists(_.messages.contains("blankedPassword"))
     Page(trans.site.signIn.txt())
       .js(esmInit("bits.login", "login"))
@@ -88,8 +89,9 @@ final class AuthUi(helpers: Helpers):
         )
 
   def signup(form: lila.core.security.HcaptchaForm[?], simple: Boolean)(using
-      Option[ValidReferrer]
-  )(using Context) =
+      singlePostToken: SinglePostMakeToken,
+      ctx: Context
+  )(using Option[ValidReferrer]) =
     Page(trans.site.signUp.txt())
       .js(esmInit("bits.login", "signup"))
       .js(hcaptchaScript(form))
@@ -168,6 +170,8 @@ final class AuthUi(helpers: Helpers):
             simple.option:
               small(cls := "form-help")(tosLink)
             ,
+            form3.hidden(form("singlePost"), singlePostToken(using ctx.req).some),
+            form3.errors(form("singlePost")),
             authGlobalError(form.form)
           )
         )
