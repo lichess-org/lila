@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="playAgainstComputer">Mängi arvuti vastu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Et kutsuda kedagi mängima, anna talle see URL</string>
   <string name="gameOver">Mäng läbi</string>
   <string name="waitingForOpponent">Ootan vastast</string>
@@ -68,6 +69,8 @@
   <string name="makeMainLine">Tee põhiliiniks</string>
   <string name="deleteFromHere">Kustuta alates siit</string>
   <string name="forceVariation">Tee variatsiooniks</string>
+  <string name="copyVariationPgn">Kopeeri variatsioonide PGN</string>
+  <string name="copyMainLinePgn">Kopeeri põhiliini PGN</string>
   <string name="move">Käik</string>
   <string name="variantLoss">Variandi kaotus</string>
   <string name="variantWin">Variant võidab</string>
@@ -91,11 +94,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' ümardatult, põhineb poolkäikude arvul kuni järgmise löögi või etturi käiguni</string>
   <string name="noGameFound">Ühtegi mängu ei leitud</string>
+  <string name="maxDepthReached">Maksimaalne sügavus saavutatud!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kas kaasata eelistuste menüüst rohkem mänge?</string>
   <string name="openings">Avangud</string>
   <string name="openingExplorer">Avamiste otsija</string>
   <string name="openingEndgameExplorer">Avangu/lõppmängu uurija</string>
   <string name="xOpeningExplorer">%s avamiste otsija</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Mängi esimest avangu/lõppmängu otsingu käiku</string>
   <string name="winPreventedBy50MoveRule">50 käigu reegel ei lase võita</string>
   <string name="lossSavedBy50MoveRule">50 käigu reegel päästis kaotusest</string>
   <string name="winOr50MovesByPriorMistake">Võit või 50 käiku eelneva vea tõttu</string>
@@ -111,6 +116,7 @@
   <string name="enable">Luba</string>
   <string name="bestMoveArrow">Parima käigu nool</string>
   <string name="evaluationGauge">Hinnangunäidik</string>
+  <string name="undefendedPieces">Kaitsmata nupud</string>
   <string name="multipleLines">Mitu liini</string>
   <string name="cpus">CPU-d</string>
   <string name="memory">Mälu</string>
