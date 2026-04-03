@@ -1,7 +1,7 @@
 package lila
 package security
 
-import play.api.mvc.{ RequestHeader, Request }
+import play.api.mvc.RequestHeader
 import play.api.data.Forms.*
 import scalalib.SecureRandom
 
@@ -15,20 +15,30 @@ final class SinglePost(secret: Secret)(using Executor):
 
   private val tokens = scalalib.cache.ExpireSetMemo[String](10.minutes)
 
+  private val mon = lila.mon.security.singlePost
+
   val newToken: SinglePostMakeToken = _ ?=>
     val rnd = SecureRandom.nextString(12)
     tokens.put(rnd)
+    mon.newToken.increment()
     SinglePostToken(s"$rnd|${digestOf(rnd).hex}")
 
-  def dryTest(token: String)(using RequestHeader): Option[String] =
-    token.split('|') match
-      case Array(rnd, sign) if tokens.get(rnd) && digestOf(rnd).hash_=(sign) => rnd.some
-      case _ => none
-
   def consumeToken(token: String)(using RequestHeader): Boolean =
-    val rnd = dryTest(token)
-    rnd.foreach(tokens.remove)
-    rnd.isDefined
+    token.split('|') match
+      case Array(rnd, sign) =>
+        if !tokens.get(rnd) then
+          mon.expired.increment()
+          false
+        else if !digestOf(rnd).hash_=(sign) then
+          mon.badSign.increment()
+          false
+        else
+          mon.success.increment()
+          tokens.remove(rnd)
+          true
+      case _ =>
+        mon.missing.increment()
+        false
 
   private def digestOf(rnd: String)(using req: RequestHeader) =
     signer.sha1(s"$rnd|${HTTPRequest.userAgent(req)}")
