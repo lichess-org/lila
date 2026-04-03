@@ -39,7 +39,7 @@
   <string name="editRoundStudy">Edit round study</string>
   <string name="deleteTournament">Delete this tournament</string>
   <string name="definitivelyDeleteTournament">Definitively delete the entire tournament, all its rounds and all its games.</string>
-  <string name="showScores">Show players\' scores based on game results</string>
+  <string name="showScores">Show player scores based on game results</string>
   <string name="replacePlayerTags">Optional: replace player names, ratings and titles</string>
   <string name="fideFederations">FIDE federations</string>
   <string name="top10Rating">Top 10 rating</string>
@@ -62,9 +62,9 @@
   <string name="startVerySoon">The broadcast will start very soon.</string>
   <string name="notYetStarted">The broadcast has not yet started.</string>
   <string name="officialWebsite">Official website</string>
-  <string name="officialStandings">Official Standings</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page'">More options on the %s</string>
-  <string name="webmastersPage">webmasters page</string>
+  <string name="officialStandings">Official standings</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.&#10;&#10;This used to say &quot;More options on the %s&quot;. It has been updated to add the leading word and a full stop.&#10;">More options on the %s</string>
+  <string name="webmastersPage">Webmasters page</string>
   <string name="embedThisBroadcast">Embed this broadcast in your website</string>
   <string name="ratingDiff">Rating diff</string>
   <string name="gamesThisTournament">Games in this tournament</string>
