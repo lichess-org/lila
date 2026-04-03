@@ -138,7 +138,8 @@ final class SecurityForm(
   def passwordReset(using RequestHeader) = hcaptcha.form:
     Form:
       mapping(
-        "email" -> sendableEmail // allow unacceptable emails for BC
+        "email" -> sendableEmail, // allow unacceptable emails for BC
+        singlePost.formPair
       )(PasswordReset.apply)(_ => None)
 
   case class PasswordResetConfirm(newPasswd1: String, newPasswd2: String):
@@ -294,7 +295,7 @@ object SecurityForm:
   ) extends AnySignupData:
     def fp = none
 
-  case class PasswordReset(email: EmailAddress)
+  case class PasswordReset(email: EmailAddress, singlePost: String)
 
   case class MagicLink(email: EmailAddress)
 
