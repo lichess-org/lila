@@ -104,7 +104,7 @@ by taking the attacking piece.</string>
 through your defenses!</string>
   <string name="escapeOrBlock">Escape with the king
 or block the attack!</string>
-  <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend against a check!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Congratulations! Your king must never be taken, so make sure you can defend against a check!</string>
   <string name="mateInOne">Mate in one</string>
   <string name="defeatTheOpponentsKing">Defeat the opponent\'s king</string>
   <string name="mateInOneIntro">You win when your opponent cannot defend against a check.</string>
