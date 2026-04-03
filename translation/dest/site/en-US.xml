@@ -127,12 +127,16 @@
   <string name="bestMoveArrow">Best move arrow</string>
   <string name="showVariationArrows">Show variation arrows</string>
   <string name="evaluationGauge">Evaluation gauge</string>
+  <string name="visualMotifs">Visual motifs</string>
+  <string name="undefendedPieces">Undefended pieces</string>
+  <string name="pinnedPieces">Pinned pieces</string>
   <string name="checkableKing">Checkable king</string>
   <string name="multipleLines">Multiple lines</string>
   <string name="multipleLinesDescription">Set number of evaluation lines and move arrows on the board</string>
   <string name="searchTime">Search time</string>
   <string name="searchTimeDescription">Set time to evaluate fresh positions</string>
   <string name="threads">Threads</string>
+  <string name="threadsDescription">Set this below your CPU\'s thread count, the ticks mark a good safe choice</string>
   <string name="threadsDescriptionMobile">More threads will use more battery for better analysis</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memory</string>
@@ -711,6 +715,7 @@
   <string name="create">Create</string>
   <string name="whenCreateSimul">When you create a simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
+  <string name="simulClockHint" comment="This used to say &quot;Fischer clock setup&quot; at the start of it, which has since been removed as it is obvious from the context.">The more players you take on, the more time you may need.</string>
   <string name="simulAddExtraTime">You may add extra initial time to your clock to help you cope with the simul.</string>
   <string name="simulHostExtraTime">Host extra initial clock time</string>
   <string name="simulAddExtraTimePerPlayer">Add initial time to your clock for each player joining the simul.</string>
