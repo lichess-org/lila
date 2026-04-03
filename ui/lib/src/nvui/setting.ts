@@ -1,8 +1,9 @@
 import { h, type VNode } from 'snabbdom';
 
+import { isTouchDevice } from '@/device';
+
 import { type LichessStorage, storage } from '../storage';
 import { renderSan, renderPieceStyle, renderPrefixStyle } from './render';
-import { isTouchDevice } from '@/device';
 
 export interface Setting<A> {
   choices: Choices<A>;

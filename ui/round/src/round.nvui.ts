@@ -1,4 +1,3 @@
-
 import { type NvuiContext, makeContext } from 'lib/nvui/chess';
 import { pubsub } from 'lib/pubsub';
 
@@ -32,4 +31,3 @@ export function initModule(ctrl: RoundController): NvuiPlugin {
   };
   return nvui;
 }
-

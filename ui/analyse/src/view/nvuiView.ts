@@ -71,7 +71,18 @@ export function initNvui(ctx: AnalyseNvuiContext): void {
 }
 
 export function renderNvui(ctx: AnalyseNvuiContext): VNode {
-  const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle, deviceType } = ctx;
+  const {
+    ctrl,
+    deps,
+    notify,
+    moveStyle,
+    pieceStyle,
+    prefixStyle,
+    positionStyle,
+    boardStyle,
+    pageStyle,
+    deviceType,
+  } = ctx;
   const d = ctrl.data,
     style = moveStyle.get(),
     clocks = renderClocks(ctrl, ctrl.path),
@@ -82,11 +93,18 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
     drawable: { enabled: false },
     coordinates: false,
   });
+  const boardFirst = deviceType.get() === 'touchscreen' && pageStyle.get() === 'board-actions';
 
-  if (deviceType.get() === 'touchscreen' && pageStyle.get() === 'board-actions') {
-    return hl('main.analyse', [
-      hl('div.nvui', [
-        hl('h2', i18n.site.board),
+  if (boardFirst) {
+    pieceStyle.set('name');
+    prefixStyle.set('name');
+    boardStyle.set('plain');
+  }
+
+  return hl('main.analyse', [
+    hl('div.nvui', [
+      boardFirst && hl('h2', i18n.site.board),
+      boardFirst &&
         hl(
           'div.board',
           { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
@@ -99,73 +117,68 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
             boardStyle.get(),
           ),
         ),
-        hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-        notify.render(),
-      ]),]);
-  }
-  else {
-    return hl('main.analyse', [
-      hl('div.nvui', [
-        studyDetails(ctrl),
-        hl('h2', i18n.nvui.gameInfo),
-        ...COLORS.map(color => hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))])),
-        hl('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
-        d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
-        hl('h2', i18n.nvui.moveList),
-        hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctx)),
-        !ctrl.study?.practice && [
-          hl(
-            'button',
-            {
-              attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
-              hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
-            },
-            i18n.site.openingExplorerAndTablebase,
-          ),
-          explorerView(ctrl),
-        ],
-        hl('h2', i18n.nvui.pieces),
-        renderPieces(ctrl.chessground.state.pieces, style),
-        pockets && hl('h2', i18n.nvui.pockets),
-        pockets && renderPockets(pockets),
-        renderAriaResult(ctrl),
-        hl('h2', i18n.nvui.lastMove),
-        !ctrl.retro && liveText(renderCurrentNode(ctx), 'polite', 'p.position.lastMove'),
-        clocks &&
+      boardFirst && renderTouchDeviceCommands(ctx),
+      studyDetails(ctrl),
+      hl('h2', i18n.nvui.gameInfo),
+      ...COLORS.map(color => hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))])),
+      hl('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
+      d.clock ? hl('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
+      hl('h2', i18n.nvui.moveList),
+      hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctx)),
+      !ctrl.study?.practice && [
+        hl(
+          'button',
+          {
+            attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
+            hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
+          },
+          i18n.site.openingExplorerAndTablebase,
+        ),
+        explorerView(ctrl),
+      ],
+      hl('h2', i18n.nvui.pieces),
+      renderPieces(ctrl.chessground.state.pieces, style),
+      pockets && hl('h2', i18n.nvui.pockets),
+      pockets && renderPockets(pockets),
+      renderAriaResult(ctrl),
+      hl('h2', i18n.nvui.lastMove),
+      !ctrl.retro && liveText(renderCurrentNode(ctx), 'polite', 'p.position.lastMove'),
+      clocks &&
         hl('div.clocks', [
           hl('h2', i18n.site.clock),
           hl('div.clocks', [hl('div.topc', clocks[0]), hl('div.botc', clocks[1])]),
         ]),
-        hl('h2', i18n.nvui.inputForm),
-        hl(
-          'form#move-form',
-          {
-            hook: {
-              insert(vnode) {
-                const $form = $(vnode.elm as HTMLFormElement),
-                  $input = $form.find('.move').val('');
-                $form.on('submit', onSubmit(ctx, $input));
-              },
+      hl('h2', i18n.nvui.inputForm),
+      hl(
+        'form#move-form',
+        {
+          hook: {
+            insert(vnode) {
+              const $form = $(vnode.elm as HTMLFormElement),
+                $input = $form.find('.move').val('');
+              $form.on('submit', onSubmit(ctx, $input));
             },
           },
-          [
-            hl('label', [
-              i18n.nvui.inputForm,
-              hl('input.move.mousetrap', {
-                attrs: { name: 'move', type: 'text', autocomplete: 'off' },
-              }),
-            ]),
-          ],
-        ),
-        notify.render(),
-        renderRetro(ctx),
-        !ctrl.retro && [
-          hl('h2', i18n.site.computerAnalysis),
-          cevalView.renderCeval(ctrl), // beware unsolicted redraws hosing the screen reader
-          cevalView.renderPvs(ctrl),
-          renderAcpl(ctx) || requestAnalysisBtn(ctx),
+        },
+        [
+          hl('label', [
+            i18n.nvui.inputForm,
+            hl('input.move.mousetrap', {
+              attrs: { name: 'move', type: 'text', autocomplete: 'off' },
+            }),
+          ]),
         ],
-        hl('h2', i18n.site.board),
+      ),
+      notify.render(),
+      renderRetro(ctx),
+      !ctrl.retro && [
+        hl('h2', i18n.site.computerAnalysis),
+        cevalView.renderCeval(ctrl), // beware unsolicted redraws hosing the screen reader
+        cevalView.renderPvs(ctrl),
+        renderAcpl(ctx) || requestAnalysisBtn(ctx),
+      ],
+      !boardFirst && hl('h2', i18n.site.board),
+      !boardFirst &&
         hl(
           'div.board',
           { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
@@ -178,67 +191,124 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
             boardStyle.get(),
           ),
         ),
-        hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-        hl('div.content', {
-          hook: {
-            insert: vnode => {
-              const root = $(vnode.elm as HTMLElement);
-              root.append($('.blind-content').removeClass('none'));
-              root.find('.copy-pgn').on('click', function (this: HTMLElement) {
-                navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
-                  notify.set(i18n.nvui.copiedToClipboard('PGN'));
+      hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
+      hl('div.content', {
+        hook: {
+          insert: vnode => {
+            const root = $(vnode.elm as HTMLElement);
+            root.append($('.blind-content').removeClass('none'));
+            root.find('.copy-pgn').on('click', function (this: HTMLElement) {
+              navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
+                notify.set(i18n.nvui.copiedToClipboard('PGN'));
+              });
+            });
+            root.find('.copy-fen').on('click', function (this: HTMLElement) {
+              const fen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input')?.value;
+              if (fen) {
+                navigator.clipboard.writeText(fen).then(() => {
+                  notify.set(i18n.nvui.copiedToClipboard('FEN'));
                 });
-              });
-              root.find('.copy-fen').on('click', function (this: HTMLElement) {
-                const fen = document.querySelector<HTMLInputElement>('.analyse__underboard__fen input')?.value;
-                if (fen) {
-                  navigator.clipboard.writeText(fen).then(() => {
-                    notify.set(i18n.nvui.copiedToClipboard('FEN'));
-                  });
-                }
-              });
-            },
+              }
+            });
           },
-        }),
-        hl('h2', i18n.site.advancedSettings),
-        hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-        hl('h3', 'Board settings'),
-        hl('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-        hl('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-        hl('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-        hl('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-        hl('h2', i18n.site.keyboardShortcuts),
-        hl(
-          'p',
-          [
-            'Use arrow keys to navigate in the game.',
-            `l: ${i18n.site.toggleLocalAnalysis}`,
-            `z: ${i18n.site.toggleAllAnalysis}`,
-            `space: ${i18n.site.playComputerMove}`,
-            'c: announce computer evaluation',
-            `x: ${i18n.site.showThreat}`,
-          ].reduce(addBreaks, []),
+        },
+      }),
+      hl('h2', i18n.site.advancedSettings),
+      hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
+      hl('h3', 'Board settings'),
+      hl('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
+      hl('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
+      hl('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
+      hl('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
+      hl('h2', i18n.site.keyboardShortcuts),
+      hl(
+        'p',
+        [
+          'Use arrow keys to navigate in the game.',
+          `l: ${i18n.site.toggleLocalAnalysis}`,
+          `z: ${i18n.site.toggleAllAnalysis}`,
+          `space: ${i18n.site.playComputerMove}`,
+          'c: announce computer evaluation',
+          `x: ${i18n.site.showThreat}`,
+        ].reduce(addBreaks, []),
+      ),
+      boardCommands(),
+      hl('h2', i18n.nvui.inputFormCommandList),
+      hl(
+        'p',
+        [
+          'Type these commands in the command input.',
+          ...inputCommands
+            .filter(c => !c.invalid?.(ctrl))
+            .flatMap(command => [noTrans(`${command.cmd}: `), command.help]),
+        ].reduce<VNodeChildren[]>(
+          (acc, curr, i) => (i % 2 !== 0 ? addBreaks(acc, curr) : acc.concat(curr)),
+          [],
         ),
-        boardCommands(),
-        hl('h2', i18n.nvui.inputFormCommandList),
-        hl(
-          'p',
-          [
-            'Type these commands in the command input.',
-            ...inputCommands
-              .filter(c => !c.invalid?.(ctrl))
-              .flatMap(command => [noTrans(`${command.cmd}: `), command.help]),
-          ].reduce<VNodeChildren[]>(
-            (acc, curr, i) => (i % 2 !== 0 ? addBreaks(acc, curr) : acc.concat(curr)),
-            [],
-          ),
-        ),
-        hl('h2', 'Chat'),
-        ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
-        deps && ctrl.study?.relay && tourDetails(ctx),
-      ]),
-    ]);
-  }
+      ),
+      hl('h2', 'Chat'),
+      ctrl.chatCtrl && renderChat(ctrl.chatCtrl),
+      deps && ctrl.study?.relay && tourDetails(ctx),
+    ]),
+  ]);
+}
+
+function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
+  const { notify, ctrl } = ctx;
+  return [
+    hl('div.actions', [
+      hl(
+        'button',
+        {
+          hook: bind('click', () => {
+            ctrl.navigate.prev();
+            $('p.lastMove').text();
+          }),
+        },
+        'previous move',
+      ),
+      hl(
+        'button',
+        {
+          hook: bind('click', () => {
+            ctrl.navigate.next();
+            $('p.lastMove').text();
+          }),
+        },
+        'next move',
+      ),
+      hl('button', { hook: bind('click', () => notify.set(renderEvalAndDepth(ctrl))) }, 'evalutation'),
+      hl(
+        'button',
+        {
+          hook: bind('click', () => {
+            notify.set(`${$('.nvui .botc').text()} - ${$('.nvui .topc').text()}`);
+          }),
+        },
+        'clocks',
+      ),
+      hl(
+        'button',
+        {
+          hook: bind('click', () => {
+            ctrl.navigate.first();
+            $('p.lastMove').text();
+          }),
+        },
+        'first move',
+      ),
+      hl(
+        'button',
+        {
+          hook: bind('click', () => {
+            ctrl.navigate.last();
+            $('p.lastMove').text();
+          }),
+        },
+        'last move',
+      ),
+    ]),
+  ];
 }
 
 function boardEventsHook(
@@ -382,7 +452,7 @@ const inputCommands: InputCommand[] = [
     cb: ({ ctrl, notify, moveStyle }, input) =>
       notify.set(
         commands().piece.apply(input, ctrl.chessground.state.pieces, moveStyle.get()) ||
-        `Bad input: ${input}. Exptected format: ${commands().piece.help}`,
+          `Bad input: ${input}. Exptected format: ${commands().piece.help}`,
       ),
   },
   {
@@ -391,7 +461,7 @@ const inputCommands: InputCommand[] = [
     cb: ({ ctrl, notify, moveStyle }, input) =>
       notify.set(
         commands().scan.apply(input, ctrl.chessground.state.pieces, moveStyle.get()) ||
-        `Bad input: ${input}. Exptected format: ${commands().scan.help}`,
+          `Bad input: ${input}. Exptected format: ${commands().scan.help}`,
       ),
   },
   {
@@ -504,18 +574,18 @@ const requestAnalysisBtn = ({ ctrl, notify, analysisInProgress }: AnalyseNvuiCon
   return analysisInProgress()
     ? hl('p', 'Server-side analysis in progress')
     : hl(
-      'button.request-analysis',
-      clickHook(() =>
-        xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
-          () => {
-            analysisInProgress(true);
-            notify.set('Server-side analysis in progress');
-          },
-          () => notify.set('Cannot run server-side analysis'),
+        'button.request-analysis',
+        clickHook(() =>
+          xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
+            () => {
+              analysisInProgress(true);
+              notify.set('Server-side analysis in progress');
+            },
+            () => notify.set('Cannot run server-side analysis'),
+          ),
         ),
-      ),
-      i18n.site.requestAComputerAnalysis,
-    );
+        i18n.site.requestAComputerAnalysis,
+      );
 };
 
 const renderPlayer = (ctrl: AnalyseCtrl, player: Player): LooseVNodes =>
@@ -531,14 +601,14 @@ function userHtml(ctrl: AnalyseCtrl, player: Player) {
   const studyPlayers = ctrl.study && renderStudyPlayer(ctrl, player.color);
   return user
     ? hl('span', [
-      hl(
-        'a',
-        { attrs: { href: '/@/' + user.username } },
-        user.title ? `${user.title} ${user.username}` : user.username,
-      ),
-      rating ? ` ${rating}` : ``,
-      ' ' + ratingDiff,
-    ])
+        hl(
+          'a',
+          { attrs: { href: '/@/' + user.username } },
+          user.title ? `${user.title} ${user.username}` : user.username,
+        ),
+        rating ? ` ${rating}` : ``,
+        ' ' + ratingDiff,
+      ])
     : studyPlayers || hl('span', i18n.site.anonymous);
 }
 
@@ -623,53 +693,53 @@ function studyDetails(ctrl: AnalyseCtrl) {
       hl('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
       hl('br'),
       relayGroups &&
-      hl(
-        'div.relay-groups',
-        hl('label', [
-          'Current group:',
-          hl(
-            'select',
-            {
-              attrs: { autofocus: hash === '#group-select' },
-              hook: redirectToSelectedHook,
-            },
-            relayGroups.tours.map(t =>
-              hl(
-                'option',
-                { attrs: { selected: t.id === tour?.id, url: `/broadcast/-/${t.id}#group-select` } },
-                t.name,
+        hl(
+          'div.relay-groups',
+          hl('label', [
+            'Current group:',
+            hl(
+              'select',
+              {
+                attrs: { autofocus: hash === '#group-select' },
+                hook: redirectToSelectedHook,
+              },
+              relayGroups.tours.map(t =>
+                hl(
+                  'option',
+                  { attrs: { selected: t.id === tour?.id, url: `/broadcast/-/${t.id}#group-select` } },
+                  t.name,
+                ),
               ),
             ),
-          ),
-        ]),
-      ),
+          ]),
+        ),
       tour &&
-      relayRounds &&
-      hl(
-        'div.relay-rounds',
-        hl('label', [
-          'Current round:',
-          hl(
-            'select',
-            {
-              attrs: { autofocus: hash === '#round-select' },
-              hook: redirectToSelectedHook,
-            },
-            relayRounds.map(r =>
-              hl(
-                'option',
-                {
-                  attrs: {
-                    selected: r.id === study.data.id,
-                    url: `/broadcast/${tour.slug}/${r.slug}/${r.id}#round-select`,
+        relayRounds &&
+        hl(
+          'div.relay-rounds',
+          hl('label', [
+            'Current round:',
+            hl(
+              'select',
+              {
+                attrs: { autofocus: hash === '#round-select' },
+                hook: redirectToSelectedHook,
+              },
+              relayRounds.map(r =>
+                hl(
+                  'option',
+                  {
+                    attrs: {
+                      selected: r.id === study.data.id,
+                      url: `/broadcast/${tour.slug}/${r.slug}/${r.id}#round-select`,
+                    },
                   },
-                },
-                study.relay?.round.name,
+                  study.relay?.round.name,
+                ),
               ),
             ),
-          ),
-        ]),
-      ),
+          ]),
+        ),
       hl('div.chapters', [
         hl('label', [
           'Current chapter:',
@@ -697,23 +767,23 @@ function studyDetails(ctrl: AnalyseCtrl) {
         ]),
         study.members.canContribute()
           ? hl('div.buttons', [
-            hl(
-              'button.edit-chapter',
-              clickHook(() => study.chapters.editForm.toggle(study.currentChapter()), ctrl.redraw),
-              [
-                'Edit current chapter',
-                study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
-              ],
-            ),
-            hl(
-              'button.create-chapter',
-              clickHook(() => study.chapters.newForm.toggle(), ctrl.redraw),
-              [
-                'Add new chapter',
-                study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
-              ],
-            ),
-          ])
+              hl(
+                'button.edit-chapter',
+                clickHook(() => study.chapters.editForm.toggle(study.currentChapter()), ctrl.redraw),
+                [
+                  'Edit current chapter',
+                  study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
+                ],
+              ),
+              hl(
+                'button.create-chapter',
+                clickHook(() => study.chapters.newForm.toggle(), ctrl.redraw),
+                [
+                  'Add new chapter',
+                  study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
+                ],
+              ),
+            ])
           : undefined,
       ]),
     ])
