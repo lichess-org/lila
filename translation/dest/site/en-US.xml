@@ -78,7 +78,7 @@
   <string name="deleteFromHere">Delete from here</string>
   <string name="collapseVariations">Collapse variations</string>
   <string name="expandVariations">Expand variations</string>
-  <string name="forceVariation" comment="NOTE: This used to state &quot;Force variation&quot;&#10;&#10;By default, when analysing moves past the end of a game, the analysis just continues the main line.&#10;&#10;&quot;Convert to variation&quot; forces the analysis to be displayed as a variation (despite the lack of a main continuation), distinguishing it from moves that were actually played during the game.">Force variation</string>
+  <string name="forceVariation">Force variation</string>
   <string name="copyVariationPgn">Copy variation PGN</string>
   <string name="copyMainLinePgn">Copy main line PGN</string>
   <string name="move">Move</string>
@@ -115,7 +115,7 @@
   <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
   <string name="winOr50MovesByPriorMistake">Win or 50 moves by prior mistake</string>
   <string name="lossOr50MovesByPriorMistake">Loss or 50 moves by prior mistake</string>
-  <string name="unknownDueToRounding" comment="unknownDueToRounding&#10;&#10;Tooltip explaining &quot;Win or 50 moves by prior mistake&quot; and &quot;Loss or 50 moves by prior mistake&quot; in endgame tablebase view.&#10;&#10;&quot;Rounding&quot; is used in the mathematical sense. It refers to a quirk of Syzygy tablebases, where some DTZ values are stored rounded down.&#10;&#10;---&#10;&#10;This used to be phrased differently, but the meaning was the same:&#10;&#10;&quot;Win/loss only guaranteed if recommended tablebase line has been followed since the last capture or pawn move, due to possible rounding of DTZ values in Syzygy tablebases.&quot;">Due to possible rounding of DTZ values in Syzygy tablebases, a win/loss is only guaranteed if the recommended tablebase line has been followed since the last capture or pawn move.</string>
+  <string name="unknownDueToRounding">Due to possible rounding of DTZ values in Syzygy tablebases, a win/loss is only guaranteed if the recommended tablebase line has been followed since the last capture or pawn move.</string>
   <string name="allSet">All set!</string>
   <string name="importPgn">Import PGN</string>
   <string name="delete">Delete</string>
@@ -181,7 +181,7 @@
     <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.&#10;&#10;This used to say &quot;Draw by mutual agreement&quot;, but the term &quot;mutual&quot; was removed in March 2026 as it was redundant.">Draw by agreement</string>
+  <string name="drawByMutualAgreement">Draw by agreement</string>
   <string name="fiftyMovesWithoutProgress">Fifty moves without progress</string>
   <string name="currentGames">Current games</string>
   <string name="joinedX">Joined %s</string>
@@ -257,8 +257,8 @@
   <string name="youAreLeavingLichess">You are leaving Lichess</string>
   <string name="neverTypeYourPassword">Never type your Lichess password on another site!</string>
   <string name="proceedToX">Proceed to %s</string>
-  <string name="passwordSuggestion" comment="The text used to say &quot;will&quot;, which was replaced by &quot;can&quot;.">Do not set a password suggested by someone else. They can use it to steal your account.</string>
-  <string name="emailSuggestion" comment="The text used to say &quot;will&quot;, which was replaced by &quot;can&quot;.">Do not set an email address suggested by someone else. They can use it to steal your account.</string>
+  <string name="passwordSuggestion">Do not set a password suggested by someone else. They can use it to steal your account.</string>
+  <string name="emailSuggestion">Do not set an email address suggested by someone else. They can use it to steal your account.</string>
   <string name="emailConfirmHelp">Help with email confirmation</string>
   <string name="emailConfirmNotReceived">Didn\'t receive your confirmation email after signing up?</string>
   <string name="whatSignupUsername">What username did you register with?</string>
@@ -364,7 +364,7 @@
     <item quantity="one">Give %s second</item>
     <item quantity="other">Give %s seconds</item>
   </plurals>
-  <string name="thisAccountViolatedTos" comment="This used to say &quot;This account violated the Lichess Terms of Service&quot;. Please update as needed in case this affects your language.">The Lichess Terms of Service were violated on this account</string>
+  <string name="thisAccountViolatedTos">The Lichess Terms of Service were violated on this account</string>
   <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
@@ -446,7 +446,7 @@
   <string name="continueFromHere">Continue from here</string>
   <string name="toStudy">Study</string>
   <string name="importGame">Import game</string>
-  <string name="importGameExplanation" comment="The description of the &quot;Import game&quot; feature. (https://lichess.org/paste)&#10;&#10;Please do not translate &quot;PGN&quot; itself, keep it as it is.&#10;&#10;---&#10;&#10;You might notice the translation seems different to the source string. This is because the original English text was rewritten in the active voice, and you are encouraged to do the same for your language. The source string previously stated:&#10;&quot;When pasting a game PGN you get a browsable replay,&#10;a computer analysis, a game chat and a shareable URL.&quot;&#10;We encourage you to re-do the translation for your language as well.&#10;&#10;The string was again edited in March 2026 to change &quot;a public shareable URL&quot; to &quot;a shareable link&quot;.">Paste a game PGN to get a browsable replay, computer analysis, game chat, and a shareable link.</string>
+  <string name="importGameExplanation">Paste a game PGN to get a browsable replay, computer analysis, game chat, and a shareable link.</string>
   <string name="importGameDataPrivacyWarning">This PGN can be accessed by the public. To import a game privately, use a study.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
@@ -625,7 +625,7 @@
   <string name="slow">Slow</string>
   <string name="insideTheBoard">Inside the board</string>
   <string name="outsideTheBoard">Outside the board</string>
-  <string name="allSquaresOfTheBoard" comment="An option to display board coordinates (A-H, 1-8) within every single square of the chessboard.&#10;&#10;Could be written as 'In all squares of the board', but please try to keep this string short.&#10;&#10;---&#10;&#10;Note: this used to say &quot;All squares of the board&quot; (or &quot;on&quot; the board). As this is implicit, it simply reads &quot;All squares&quot; now.">All squares</string>
+  <string name="allSquaresOfTheBoard">All squares</string>
   <string name="onSlowGames">On slow games</string>
   <string name="always">Always</string>
   <string name="never">Never</string>
@@ -715,7 +715,7 @@
   <string name="create">Create</string>
   <string name="whenCreateSimul">When you create a simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
-  <string name="simulClockHint" comment="This used to say &quot;Fischer clock setup&quot; at the start of it, which has since been removed as it is obvious from the context.">The more players you take on, the more time you may need.</string>
+  <string name="simulClockHint">The more players you take on, the more time you may need.</string>
   <string name="simulAddExtraTime">You may add extra initial time to your clock to help you cope with the simul.</string>
   <string name="simulHostExtraTime">Host extra initial clock time</string>
   <string name="simulAddExtraTimePerPlayer">Add initial time to your clock for each player joining the simul.</string>
@@ -790,7 +790,7 @@
   <string name="kidModeIsEnabled">Kid mode is enabled.</string>
   <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the Lichess logo gets a %s icon, so you know your kids are safe.</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode" comment="A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.&#10;&#10;Note: The original English text of this string was &quot;Your account is managed. Ask your chess teacher about lifting kid mode.&quot;&#10;The meaning of the text remains the same.">Your account is managed. Ask your chess teacher about lifting kid mode.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">Your account is managed. Ask your chess teacher about lifting kid mode.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
@@ -919,7 +919,6 @@
   <string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a chess computer, book, database or another person).</string>
   <string name="agreementNice">I agree that I will always be respectful to other players.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">I agree that I will not create multiple accounts (except for the reasons stated in the %s).</string>
-  <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
   <string name="searchOrStartNewDiscussion">Search or start new conversation</string>
   <string name="edit">Edit</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
@@ -1000,7 +999,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Analysis options</string>
   <string name="focusChat">Focus chat</string>
-  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.&#10;&#10;---&#10;&#10;This text used to be &quot;Show this help dialog&quot;">View this help overlay</string>
+  <string name="showHelpDialog">View this help overlay</string>
   <string name="reopenYourAccount">Reopen your account</string>
   <string name="reopenYourAccountDescription">If you closed your account but have since changed your mind, you may reopen it now.</string>
   <string name="emailAssociatedToaccount">Email address associated to the account</string>
