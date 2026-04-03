@@ -117,7 +117,11 @@
   <string name="bestMoveArrow">Parima käigu nool</string>
   <string name="evaluationGauge">Hinnangunäidik</string>
   <string name="undefendedPieces">Kaitsmata nupud</string>
+  <string name="pinnedPieces">Seotud nupud</string>
+  <string name="checkableKing">Tules kuningas</string>
   <string name="multipleLines">Mitu liini</string>
+  <string name="searchTime">Otsingu aeg</string>
+  <string name="threads">Lõimed </string>
   <string name="cpus">CPU-d</string>
   <string name="memory">Mälu</string>
   <string name="infiniteAnalysis">Lõputu analüüs</string>
@@ -162,6 +166,7 @@
   <string name="drawByMutualAgreement">Viik kokkuleppel</string>
   <string name="fiftyMovesWithoutProgress">50 käiku ilma edusammudeta</string>
   <string name="currentGames">Hetkel mängitavad mängud</string>
+  <string name="joinedX">Liitus %s</string>
   <plurals name="nbGames">
     <item quantity="one">%s mäng</item>
     <item quantity="other">%s mängu</item>
@@ -183,12 +188,14 @@
   <string name="latestForumPosts">Viimased foorumi postitused</string>
   <string name="players">Maletajad</string>
   <string name="friends">Sõbrad</string>
+  <string name="otherPlayers">teiste mängijatega</string>
   <string name="discussions">Vestlused</string>
   <string name="today">Täna</string>
   <string name="yesterday">Eile</string>
   <string name="minutesPerSide">Minutit poole kohta</string>
   <string name="variant">Variant</string>
   <string name="variants">variandid</string>
+  <string name="variantsDescription">Veel võimalusi mängimiseks</string>
   <string name="timeControl">Aja kontroll</string>
   <string name="realTime">Reaalajas</string>
   <string name="correspondence">Kirimale</string>
@@ -215,6 +222,7 @@
   <string name="changeUsernameNotSame">Muuta saab ainult tähe suurust. Näiteks \"karlsuur\" ja \"KarlSuur\".</string>
   <string name="changeUsernameDescription">Muuda kasutajanime. Seda saad teha ainult korra ning muuta on võimalik ainult kasutajanimes leiduvate tähtede suurust.</string>
   <string name="signupUsernameHint">Vali kasutajanimi mis oleks kõigile sobilik, isegi lastele. Seda ei saa hiljem muuta, ning kõik sobimatute nimedega kontod suletakse!</string>
+  <string name="signupEmailPromise">Saadame teile ainult teie kontoga seotud e-kirju ja me ei jaga kunagi teie e-posti aadressi.</string>
   <string name="password">Parool</string>
   <string name="changePassword">Muuda parooli</string>
   <string name="changeEmail">Muuda email</string>
