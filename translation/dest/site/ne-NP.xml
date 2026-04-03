@@ -764,7 +764,6 @@
   <string name="agreementAssistance">म आफ्नो खेलको क्रममा कहिल्यै पनि कुनै पनि बाहिरी सहायता (कम्प्युटर, डाटाबेस, वा अर्को व्यक्तिसँग) नलिन सहमत छु।</string>
   <string name="agreementNice">म सबै खेलाडीसँग राम्रो व्यवहार गर्न सहमत छु।</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">म स्विकार्छु कि म (%s मा उल्लिखित कारणहरूले गर्दा बाहेक) एक भन्दा बढी खाता बनाउँने छैन । </string>
-  <string name="agreementPolicy">म लीचेसका सबै नीति पालना गर्न सहमत छु।</string>
   <string name="searchOrStartNewDiscussion">नयाँ छलफल शुरू गर्नुहोस्।</string>
   <string name="edit">परिमार्जन</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">तोप</string>
