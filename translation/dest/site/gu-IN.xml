@@ -905,7 +905,6 @@
   <string name="agreementAssistance">હું સંમત છું કે મને મારી રમતો દરમિયાન (ચેસ કમ્પ્યુટર, પુસ્તક, ડેટાબેઝ અથવા અન્ય કોઈ વ્યક્તિ તરફથી) ક્યારેય સહાય મળશે નહીં.</string>
   <string name="agreementNice">હું સંમત છું કે હું હંમેશા અન્ય ખેલાડીઓ પ્રત્યે આદર રાખીશ.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">હું સંમત છું કે હું બહુવિધ એકાઉન્ટ્સ બનાવીશ નહીં (%s માં દર્શાવેલ કારણો સિવાય).</string>
-  <string name="agreementPolicy">હું સંમત છું કે હું લાઇચેસની બધી નીતિઓનું પાલન કરીશ.</string>
   <string name="searchOrStartNewDiscussion">નવી વાતચીત શોધો અથવા શરૂ કરો</string>
   <string name="edit">ફેરફાર કરો</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">અલ્ટ્રાબુલેટ</string>
