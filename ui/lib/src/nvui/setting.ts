@@ -2,6 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { type LichessStorage, storage } from '../storage';
 import { renderSan, renderPieceStyle, renderPrefixStyle } from './render';
+import { isTouchDevice } from '@/device';
 
 export interface Setting<A> {
   choices: Choices<A>;
@@ -58,6 +59,8 @@ const prefixStyles = ['letter', 'name', 'none'] as const;
 export type PrefixStyle = (typeof prefixStyles)[number];
 export type PositionStyle = 'before' | 'after' | 'none';
 export type BoardStyle = 'plain' | 'table';
+export type PageStyle = 'board-actions' | 'actions-board';
+export type DeviceType = 'desktop' | 'touchscreen';
 
 export function boardSetting(): Setting<BoardStyle> {
   return makeSetting<BoardStyle>({
@@ -67,6 +70,28 @@ export function boardSetting(): Setting<BoardStyle> {
     ],
     default: 'plain',
     storage: storage.make('nvui.boardLayout'),
+  });
+}
+
+export function pageSetting(): Setting<PageStyle> {
+  return makeSetting<PageStyle>({
+    choices: [
+      ['board-actions', `${i18n.nvui.actions} ${i18n.site.board}`],
+      ['actions-board', `${i18n.site.board} ${i18n.nvui.actions}`],
+    ],
+    default: 'actions-board',
+    storage: storage.make('nvui.pageLayout'),
+  });
+}
+
+export function deviceTypeSetting(): Setting<DeviceType> {
+  return makeSetting<DeviceType>({
+    choices: [
+      ['desktop', 'Desktop'],
+      ['touchscreen', 'Touch screen'],
+    ],
+    default: isTouchDevice() ? 'touchscreen' : 'desktop',
+    storage: storage.make('nvui.deviceType'),
   });
 }
 
