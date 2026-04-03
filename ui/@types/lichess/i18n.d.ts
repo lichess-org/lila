@@ -639,7 +639,7 @@ interface I18n {
     realUniqueEmail: string;
     /** Graduate */
     release: string;
-    /** A graduated account cannot be set to &lt;i&gt;managed&lt;/i&gt; again. The student will be able to disable kid mode and reset password themselves. */
+    /** A graduated account cannot be set to <i>managed</i> again. The student will be able to disable kid mode and reset password themselves. */
     releaseDesc1: string;
     /** The student will remain in the class after their account is graduated. */
     releaseDesc2: string;
