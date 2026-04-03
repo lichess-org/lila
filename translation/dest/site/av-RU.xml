@@ -840,7 +840,6 @@
   <string name="agreementAssistance">Дун рази вуго дица дир хӀаязда квербакъи босичӀого тезе (шахматазул компутералдаса, тӀехьалдаса, яги цогидав чиясдаса).</string>
   <string name="agreementNice">Дун рузи вуго цогидал хӀалезул хӀурмат гьабулев вукӀине.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Дун рази вуго дица чанги аккаунт гьабичӀого тезе (%s-да рехсарал гӀиллабаз гурони).</string>
-  <string name="agreementPolicy">Дун рази вуго Lichess-алъул къагӀидаби цӀунизе.</string>
   <string name="edit">Хисизе</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Гулла</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
