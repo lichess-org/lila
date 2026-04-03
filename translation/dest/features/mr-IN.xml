@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="zeroAdsAndNoTracking">शून्य जाहिराती, पाठलाग नाही</string>
+  <string name="correspondenceWithConditionalPremoves">पत्रव्यवहार बुद्धिबळ सशर्त पूर्व-चलांसोबत</string>
   <string name="standardChessAndX" comment="%s is 8 variants">पारंपारिक बुद्धिबळ व %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">खोल %s सर्व्हर विशलेषण</string>
+  <plurals name="gamesPerDay">
+    <item quantity="one">%s खेळ प्रति दिवस</item>
+    <item quantity="other">%s खेळ प्रति दिवस</item>
+  </plurals>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">पट संपादक आणि विशलेषण मंच %s सोबत</string>
+  <string name="cloudEngineAnalysis">मेघआधारित शोधयंत्र विशलेषण</string>
+  <string name="studies">अभ्यास (पाठवण्यायोग्य आणि दीर्घ विशलेषण)</string>
+  <string name="chessInsights">बुद्धिबळ अंतर्दृष्टी (तुमच्या खेळाचे तपशीलवार विशलेषण)</string>
+  <string name="allChessBasicsLessons">सर्व बुद्धिबळ मूलभूत धडे</string>
+  <string name="tacticalPuzzlesFromUserGames">रणनीतिक कोडी वापरकर्त्यांच्या खेळांमधून</string>
+  <string name="personalOpeningExplorerX">%1$s (%2$s वर पण काम करते)</string>
+  <string name="personalOpeningExplorer">वैयक्तिक आरंभ शोधक</string>
+  <string name="globalOpeningExplorerInNbGames">जागतिक आरंभ शोधक (%s खेळ!)</string>
+  <string name="endgameTablebase">7-सोंगट्या अंत्यखेल तक्तातळ</string>
+  <string name="downloadOrUploadAnyGameAsPgn">PGN म्हणून कोणताही खेळ निर्यात/आयात करा</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">अनुदिनी, सार्वजनिक मंच, संघ, दूरदर्शन, संदेशवहन, मित्र आणि आव्हाने</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">उजेड/गडद रीत, सानुकूल पट, सोंगट्या आणि पार्श्वभूमी</string>
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">अल्ट्राबुलेट, बुलेट, ब्लिट्झ, द्रुतगती, पारंपारिक, पत्रव्यवहार बुद्धिबळ</string>
+  <string name="allFeaturesToCome">सगळे वैशिष्ट्ये, आयुष्यभरासाठी!</string>
+  <string name="landscapeSupportOnApp">iPhone &amp; Android भ्रमणध्वनी आणि टॅबलेट संगणक, क्षैतिज समर्थन</string>
+  <string name="everybodyGetsAllFeaturesForFree">हो, दोनी खात्यांचे सामान वैशिष्ट्ये आहेत!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">आम्ही असा विश्वास ठेवतो कि प्रत्येक बुद्धिबळ खेळाडू सर्वोत्तम बुद्धिबळासाठी पात्र आहे, आणि म्हणून:</string>
+  <string name="allFeaturesAreFreeForEverybody">सगळे वैशिष्ट्ये सगळ्यांसाठी मोफत आहे, कायमसाठी!</string>
+  <string name="ifYouLoveLichess">जर तुम्हाला Lichess आवडत असेल,</string>
+  <string name="supportUsWithAPatronAccount">आम्हाला एका आश्रयदाता खात्याने समर्थन द्या!</string>
 </resources>
