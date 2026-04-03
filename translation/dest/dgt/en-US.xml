@@ -2,8 +2,8 @@
 <resources>
   <string name="dgtBoard">DGT board</string>
   <string name="lichessAndDgt">Lichess &amp; DGT</string>
-  <string name="dgtBoardRequirements">DGT Board Requirements</string>
-  <string name="dgtBoardLimitations">DGT Board Limitations</string>
+  <string name="dgtBoardRequirements">DGT board requirements</string>
+  <string name="dgtBoardLimitations">DGT board limitations</string>
   <string name="thisPageAllowsConnectingDgtBoard">This page allows you to connect your DGT board to Lichess and use it for playing games.</string>
   <string name="toConnectTheDgtBoard">To connect to the DGT Electronic Board, you will need to install %s.</string>
   <string name="downloadHere">To download the software, go here: %s</string>
@@ -15,7 +15,7 @@
   <string name="boardWillAutoConnect">The board will auto connect to any game that is already on course or any new game that starts. Ability to choose which game to play is coming soon.</string>
   <string name="timeControlsForCasualGames">Time controls for casual games: Classical, Correspondence and Rapid only.</string>
   <string name="timeControlsForRatedGames">Time controls for rated games: Classical, Correspondence and some Rapids including 15+10 and 20+0</string>
-  <string name="whenReadySetupBoard">When ready, setup your board and then click %s.</string>
+  <string name="whenReadySetupBoard">When ready, set up your board and then click %s.</string>
   <string name="ifMoveNotDetected">If a move is not detected</string>
   <string name="checkYouHaveMadeOpponentsMove">Check that you have made your opponent\'s move on the DGT board first. Revert your move. Play again.</string>
   <string name="asALastResort">As a last resort: Set up the board identically to Lichess, then %s</string>
@@ -36,7 +36,7 @@
   <string name="announceAllMoves">Announce All Moves</string>
   <string name="selectAnnouncePreference">Select YES to announce both your moves and your opponent\'s moves. Select NO to announce only your opponent\'s moves.</string>
   <string name="announceMoveFormat">Announce Move Format</string>
-  <string name="moveFormatDescription">SAN is the standard on Lichess like \"Nf6\". UCI is common on engines like \"g8f6\".</string>
+  <string name="moveFormatDescription">SAN is the standard on Lichess, for example \"Nf6\". UCI is common for engines, for example \"g8f6\".</string>
   <string name="keywords">Keywords</string>
   <string name="keywordFormatDescription">Keywords are in JSON format. They are used to translate moves and results into your language. Default is English, but feel free to change it.</string>
   <string name="debug">Debug</string>
