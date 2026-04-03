@@ -18,7 +18,7 @@ final class AuthUi(helpers: Helpers):
 
   def login(form: Form[?], isRememberMe: Boolean = true)(using
       singlePostToken: SinglePostMakeToken
-  )(using Option[ValidReferrer], Context) =
+  )(using Option[ValidReferrer])(using ctx: Context) =
     val blankedPasswordError = form.globalError.exists(_.messages.contains("blankedPassword"))
     Page(trans.site.signIn.txt())
       .js(esmInit("bits.login", "login"))
@@ -60,7 +60,7 @@ final class AuthUi(helpers: Helpers):
                   trans.site.rememberMe()
                 )
               ),
-              form3.hidden(form("singlePost"), singlePostToken().some),
+              form3.hidden(form("singlePost"), singlePostToken(using ctx.req).some),
               form3.errors(form("singlePost")),
               form3.submit(trans.site.signIn(), icon = none),
               authGlobalError(form).ifFalse(blankedPasswordError)
