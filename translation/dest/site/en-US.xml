@@ -177,7 +177,7 @@
     <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
-  <string name="drawByMutualAgreement">Draw by agreement</string>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.&#10;&#10;This used to say &quot;Draw by mutual agreement&quot;, but the term &quot;mutual&quot; was removed in March 2026 as it was redundant.">Draw by agreement</string>
   <string name="fiftyMovesWithoutProgress">Fifty moves without progress</string>
   <string name="currentGames">Current games</string>
   <string name="joinedX">Joined %s</string>
@@ -253,11 +253,11 @@
   <string name="youAreLeavingLichess">You are leaving Lichess</string>
   <string name="neverTypeYourPassword">Never type your Lichess password on another site!</string>
   <string name="proceedToX">Proceed to %s</string>
-  <string name="passwordSuggestion">Do not set a password suggested by someone else. They will use it to steal your account.</string>
-  <string name="emailSuggestion">Do not set an email address suggested by someone else. They will use it to steal your account.</string>
+  <string name="passwordSuggestion" comment="The text used to say &quot;will&quot;, which was replaced by &quot;can&quot;.">Do not set a password suggested by someone else. They can use it to steal your account.</string>
+  <string name="emailSuggestion" comment="The text used to say &quot;will&quot;, which was replaced by &quot;can&quot;.">Do not set an email address suggested by someone else. They can use it to steal your account.</string>
   <string name="emailConfirmHelp">Help with email confirmation</string>
   <string name="emailConfirmNotReceived">Didn\'t receive your confirmation email after signing up?</string>
-  <string name="whatSignupUsername">What username did you use to sign up?</string>
+  <string name="whatSignupUsername">What username did you register with?</string>
   <string name="usernameNotFound">We couldn\'t find any user by this name: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">You can use this username to create a new account</string>
   <string name="emailSent">We have sent an email to %s.</string>
@@ -400,7 +400,7 @@
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2$s rated game</item>
-    <item quantity="other">≥ %1$s %2$s rated games</item>
+    <item quantity="other">≥ %1$s rated %2$s games</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">You need to play %1$s more %2$s rated game</item>
@@ -442,7 +442,7 @@
   <string name="continueFromHere">Continue from here</string>
   <string name="toStudy">Study</string>
   <string name="importGame">Import game</string>
-  <string name="importGameExplanation">Paste a game PGN to get a browsable replay, computer analysis, game chat and public shareable URL.</string>
+  <string name="importGameExplanation" comment="The description of the &quot;Import game&quot; feature. (https://lichess.org/paste)&#10;&#10;Please do not translate &quot;PGN&quot; itself, keep it as it is.&#10;&#10;---&#10;&#10;You might notice the translation seems different to the source string. This is because the original English text was rewritten in the active voice, and you are encouraged to do the same for your language. The source string previously stated:&#10;&quot;When pasting a game PGN you get a browsable replay,&#10;a computer analysis, a game chat and a shareable URL.&quot;&#10;We encourage you to re-do the translation for your language as well.&#10;&#10;The string was again edited in March 2026 to change &quot;a public shareable URL&quot; to &quot;a shareable link&quot;.">Paste a game PGN to get a browsable replay, computer analysis, game chat, and a shareable link.</string>
   <string name="importGameDataPrivacyWarning">This PGN can be accessed by the public. To import a game privately, use a study.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
@@ -699,7 +699,7 @@
   <string name="yourPendingSimuls">Your pending simuls</string>
   <string name="createdSimuls">Newly created simuls</string>
   <string name="hostANewSimul">Host a new simul</string>
-  <string name="signUpToHostOrJoinASimul">Sign up to join or host a simul</string>
+  <string name="signUpToHostOrJoinASimul">Register to join or host a simul</string>
   <string name="noSimulFound">Simul not found</string>
   <string name="noSimulExplanation">This simultaneous exhibition does not exist.</string>
   <string name="returnToSimulHomepage">Return to simul homepage</string>
@@ -709,7 +709,7 @@
   <string name="aboutSimulRules">When the simul starts, every player starts a game with the host. The simul ends when all games are complete.</string>
   <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and adding time are disabled.</string>
   <string name="create">Create</string>
-  <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
+  <string name="whenCreateSimul">When you create a simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
   <string name="simulAddExtraTime">You may add extra initial time to your clock to help you cope with the simul.</string>
   <string name="simulHostExtraTime">Host extra initial clock time</string>
@@ -785,7 +785,7 @@
   <string name="kidModeIsEnabled">Kid mode is enabled.</string>
   <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the Lichess logo gets a %s icon, so you know your kids are safe.</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode">Your account is managed. Ask your chess teacher about lifting kid mode.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode" comment="A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.&#10;&#10;Note: The original English text of this string was &quot;Your account is managed. Ask your chess teacher about lifting kid mode.&quot;&#10;The meaning of the text remains the same.">Your account is managed. Ask your chess teacher about lifting kid mode.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
@@ -871,11 +871,11 @@
   <string name="waitingForAnalysis">Waiting for analysis</string>
   <string name="noMistakesFoundForWhite">No significant mistakes found for White</string>
   <string name="noMistakesFoundForBlack">No significant mistakes found for Black</string>
-  <string name="doneReviewingWhiteMistakes">Done reviewing White mistakes</string>
-  <string name="doneReviewingBlackMistakes">Done reviewing Black mistakes</string>
+  <string name="doneReviewingWhiteMistakes">Done reviewing white\'s mistakes</string>
+  <string name="doneReviewingBlackMistakes">Done reviewing black\'s mistakes</string>
   <string name="doItAgain">Do it again</string>
-  <string name="reviewWhiteMistakes">Review White mistakes</string>
-  <string name="reviewBlackMistakes">Review Black mistakes</string>
+  <string name="reviewWhiteMistakes">Review white\'s mistakes</string>
+  <string name="reviewBlackMistakes">Review black\'s mistakes</string>
   <string name="advantage">Advantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s second</item>
