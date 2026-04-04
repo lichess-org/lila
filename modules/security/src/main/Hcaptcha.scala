@@ -31,7 +31,6 @@ object Hcaptcha:
     case Valid extends Result(true)
     case Disabled extends Result(true)
     case IpFirst extends Result(true)
-    case Mobile extends Result(true)
     case Fail extends Result(false)
 
   val field = "h-captcha-response" -> optional(nonEmptyText)
@@ -94,20 +93,16 @@ final class HcaptchaReal(
     val client = HTTPRequest.clientName(req)
     given Conversion[Result, Fu[Result]] = fuccess
     def missingResponse: Fu[Result] =
-      if HTTPRequest.apiVersion(req).isDefined then
-        lila.mon.security.hCaptcha.hit(client, "api").increment()
-        Result.Mobile
-      else
-        skipIp.get.map:
-          if _
-          then
-            lila.mon.security.hCaptcha.hit(client, "skip").increment()
-            skipIp.record
-            Result.IpFirst
-          else
-            logger.info(s"hcaptcha missing ${HTTPRequest.printClient(req)}")
-            lila.mon.security.hCaptcha.hit(client, "missing").increment()
-            Result.Fail
+      skipIp.get.map:
+        if _
+        then
+          lila.mon.security.hCaptcha.hit(client, "skip").increment()
+          skipIp.record
+          Result.IpFirst
+        else
+          logger.info(s"hcaptcha missing ${HTTPRequest.printClient(req)}")
+          lila.mon.security.hCaptcha.hit(client, "missing").increment()
+          Result.Fail
     if response.isEmpty then missingResponse
     else
       ws.url(config.endpoint)
