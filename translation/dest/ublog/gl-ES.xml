@@ -27,7 +27,7 @@
   <string name="createBlogDiscussion">Activar comentarios</string>
   <string name="createBlogDiscussionHelp">Crearase un tema do foro para que a xente comente na túa publicación</string>
   <string name="publishOnYourBlog">Publica no teu blog</string>
-  <string name="publishHelp">Se non, será privado e ficará xunto ós teus borradores</string>
+  <string name="publishHelp">Se está marcada, a túa publicación será listada no teu blog. Se non, será privada e ficará xunto ós teus borradores</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixar a publicación</string>
   <string name="stickyPostHelp">Se se selecciona, este artigo será o primeiro no teu blog e no teu perfil.</string>
   <plurals name="publishedNbBlogPosts">
