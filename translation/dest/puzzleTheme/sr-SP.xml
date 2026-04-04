@@ -33,7 +33,7 @@
   <string name="kingsideAttack">Напад на краљевој страни</string>
   <string name="kingsideAttackDescription">Напад на противничког краља, након што се рокадирао на краљевој страни.</string>
   <string name="clearance">Рашчишћавање</string>
-  <string name="clearanceDescription">Потез, често са темпом, који рашчишћава поље, колону или дијагоналу за пратећу тактичку идеју.</string>
+  <string name="clearanceDescription">Потез, често са темпом, који чисти поље, колону или дијагоналу за пратећу тактичку идеју.</string>
   <string name="defensiveMove">Одбрамбени потез</string>
   <string name="defensiveMoveDescription">Прецизан потез или низ потеза који је потребан да се избегне губитак материјала или нека друга предност.</string>
   <string name="deflection">Одвлачење</string>
