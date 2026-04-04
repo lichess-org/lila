@@ -919,7 +919,6 @@
   <string name="agreementAssistance">मी खेळतांना इतर सहाय्य घेणार नाही (संगणक, पुस्तक, डेटाबेस किंवा इतर व्यक्ती).</string>
   <string name="agreementNice">मी इतर खेळाडू सोबत आदरयुक्त व्यवहार ठेवील.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">मी हे मान्य करतो की मी एकाहून अधिक खाती चालू करणार नाही. (%s मध्ये दिलेली कारणे वगळून).</string>
-  <string name="agreementPolicy">मी Lichess च्या सर्व नियमांचे पालन करेल.</string>
   <string name="searchOrStartNewDiscussion">संभाषण शोधा किंवा नविन सुरू करा</string>
   <string name="edit">सुधार करा</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">अल्ट्राबुलेट</string>

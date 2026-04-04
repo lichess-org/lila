@@ -904,7 +904,6 @@
   <string name="agreementAssistance">Piekrītu spēlējot nevienā brīdī nesaņemt palīdzību (no šaha programmas, grāmatas, datubāzes vai cita cilvēka).</string>
   <string name="agreementNice">Piekrītu vienmēr izturēties pieklājīgi pret citiem spēlētājiem.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Piekrītu neizveidot vairākus kontus (izņemot gadījumos, kad to attaisno %s).</string>
-  <string name="agreementPolicy">Piekrītu ievērot visus Lichess noteikumus.</string>
   <string name="searchOrStartNewDiscussion">Meklēt vai uzsākt sarunu</string>
   <string name="edit">Rediģēt</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>

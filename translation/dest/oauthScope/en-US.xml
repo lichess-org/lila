@@ -25,8 +25,8 @@
   <string name="followRead">Read followed players</string>
   <string name="followWrite">Follow and unfollow other players</string>
   <string name="msgWrite">Send private messages to other players</string>
-  <string name="boardPlay">Play games with board API</string>
-  <string name="botPlay">Play games with the bot API</string>
+  <string name="boardPlay">Play games using the Board API</string>
+  <string name="botPlay">Play games using the Bot API</string>
   <string name="engineRead">View and use your external engines</string>
   <string name="engineWrite">Create and update external engines</string>
   <string name="webMod">Use moderator tools (within bounds of your permission)</string>

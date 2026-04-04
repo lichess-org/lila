@@ -839,7 +839,6 @@
   <string name="agreementAssistance">我同意我不會在比賽期間使用支援(從書籍、電腦運算、資料庫等等)</string>
   <string name="agreementNice">我會一直尊重其他的玩家</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">我同意我不會開設多個帳號(除了於%s列明的原因以外)</string>
-  <string name="agreementPolicy">我同意我將會遵守Lichess的規則</string>
   <string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
   <string name="edit">編輯</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>

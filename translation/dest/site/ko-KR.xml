@@ -875,7 +875,6 @@
   <string name="agreementAssistance">나는 대국 중 도움을 받지 않겠습니다 (체스 컴퓨터, 책, 데이터베이스나 다른 사람).</string>
   <string name="agreementNice">나는 항상 다른 플레이어들을 존중하겠습니다.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">나는 다중 계정을 생성하지 않을 것에 동의합니다. (%s에 명시된 경우 제외)</string>
-  <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">울트라불릿</string>

@@ -733,7 +733,7 @@
   <string name="create">Стварыць</string>
   <string name="whenCreateSimul">Калі вы створыце сеанс адначасовай гульні, вам прыйдзецца гуляць супраць некалькіх супернікаў у адначассе.</string>
   <string name="simulVariantsHint">Вы таксама можаце абраць некалькі варыянтаў для гульні: тады кожны гулец абярэ той з іх, у якім ён хоча гуляць з вамі.</string>
-  <string name="simulClockHint" comment="This used to say &quot;Fischer clock setup&quot; at the start of it, which has since been removed as it is obvious from the context.">Налады гадзінніку Фішэра. Чым больш у вас супернікаў, тым больш часу вам можа спатрэбіцца.</string>
+  <string name="simulClockHint">Налады гадзінніку Фішэра. Чым больш у вас супернікаў, тым больш часу вам можа спатрэбіцца.</string>
   <string name="simulAddExtraTime">Вы можаце ўзяць сабе дадатковы час на роздумы.</string>
   <string name="simulHostExtraTime">Дадатковы час для арганізатара</string>
   <string name="lichessTournaments">Турніры Lichess</string>
@@ -931,7 +931,6 @@
   <string name="agreementAssistance">Я згаджаюся, што я ніколі не скарыстаюся старонняй дапамогай у сваіх гульнях (ад шахматных праграм, кніг, баз даных або іншых гульцоў).</string>
   <string name="agreementNice">Я згаджаюся, што я заўсёды адносіцца з павагай да другіх гульцоў.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Я пагаджаюся не ствараць некалькі ўліковых запісаў (акрамя выпадкаў апісаных у %s).</string>
-  <string name="agreementPolicy">Я згаджаюся, што я буду прытрымлівацца ўсіх правіл Lichess.</string>
   <string name="searchOrStartNewDiscussion">Знайсці размову або пачаць новую</string>
   <string name="edit">Рэдагаваць</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ультракуля</string>

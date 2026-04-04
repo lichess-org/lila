@@ -96,7 +96,7 @@ Nu cere titlul LM.</string>
   <string name="usernamesNotOffensive">În general, numele de utilizator nu ar trebui să fie: ofensiv, să nu fie numele altcuiva sau publicitate. Puteți citi %1$s aici.</string>
   <string name="guidelines">instrucțiunile</string>
   <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
-  <string name="usernamesCannotBeChanged">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
+  <string name="usernamesCannotBeChanged" comment="The original English text of this string was edited in March 2026. It used more complex language before, stating:&#10;&#10;&quot;No, usernames cannot be changed for technical and practical reasons. Usernames are materialized in too many places: databases, exports, logs, and people's minds. You can adjust the capitalization once.&quot;&#10;&#10;The meaning remains the same.">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
   <string name="uniqueTrophies">Trofee unice</string>
   <string name="ownerUniqueTrophies">Acest trofeu este unic în istoria Lichess, nimeni înafară de %1$s nu îl va avea vreodată.</string>
   <string name="aHourlyBulletTournament">turneu de o oră de Bullet</string>
@@ -134,7 +134,7 @@ Este cel mai bine să te gândești la scoruri ca la niște cifre \"relative\" (
   <string name="displayPreferences">setările de afișare</string>
   <string name="connexionLostCanIGetMyRatingBack">Am pierdut un joc din cauza lagului/deconectării. Pot sa-mi iau punctele înapoi?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Din păcate, nu putem să-ți dăm scor înapoi pentru partidele pierdute din cauza lagului sau a deconectării, indiferent de ce problemă ai avut, sau am avut. Deși a doua este foarte rară. Ține minte și: când Lichess se restartează și tu pierzi la timp din această cauză, anulăm partida pentru a preveni o pierdere nedreaptă.</string>
-  <string name="howToThreeDots">Cum să...</string>
+  <string name="howToThreeDots" comment="This used to say &quot;How to...&quot;">Cum să...</string>
   <string name="enableDisableNotificationPopUps">Activați sau dezactivați ferestrele de notificare?</string>
   <string name="viewSiteInformationPopUp">Vezi ferestra de informații a siteului</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess poate trimite opțional ferestre de notificări, de exemplu atunci când este rândul tău sau când ai primit un mesaj privat.
@@ -149,8 +149,8 @@ Pictograma roşie cu sunet apare atunci când browserul dumneavoastră împiedic
 
 Vă arătăm pictograma roșie pentru a vă alerta când se întâmplă acest lucru. De multe ori puteți permite în mod explicit lichess.org pentru a reda sunete. Aici sunt instrucţiuni pentru aceasta în versiunile recente ale unor browsere populare.</string>
   <string name="desktop">desktop</string>
-  <string name="enableAutoplayForSoundsFirefox">1. Mergeți la lichess.org
-2. Apăsați Ctrl-i pe Linux/Windows sau cmd-i pe MacOS
+  <string name="enableAutoplayForSoundsFirefox">1. Deschideți lichess.org
+2. Apăsați Ctrl-i în Linux/Windows sau cmd-i în MacOS
 3. Faceți clic pe fila Permisiuni
 4. Permiteți audio și video pe lichess.org</string>
   <string name="enableAutoplayForSoundsChrome">1. Mergeți la lichess.org

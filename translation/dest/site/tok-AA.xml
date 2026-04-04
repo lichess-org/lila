@@ -847,7 +847,6 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="agreementAssistance">mi toki wawa e ni: mi musi la, jan ante en lipu en ilo sona li pona ala e musi mi.</string>
   <string name="agreementNice">mi toki wawa e ni: mi pona tawa jan ante lon tenpo ale.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">mi pilin sama tawa ni: mi pali ala e sinpin mute (tan lon %s li ala e ni).</string>
-  <string name="agreementPolicy">mi toki wawa e ni: mi pali ala e ijo ni: ona li ike tawa nasin lawa pi ilo Lichess.</string>
   <string name="searchOrStartNewDiscussion">o lukin anu open e toki</string>
   <string name="edit">o ante</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">nasin Bullet</string>

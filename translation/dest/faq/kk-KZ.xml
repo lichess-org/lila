@@ -95,7 +95,7 @@
   <string name="usernamesNotOffensive">Жалпы, тіркеулі атта қорлау, басқа біреудің аты, жарнама сияқты нәрселер болмау керек. Бұл туралы %1$s - де көбірек жазылған.</string>
   <string name="guidelines">нұсқаулық</string>
   <string name="canIChangeMyUsername">Мен тіркеулі атымды өзгерте аламын ба?</string>
-  <string name="usernamesCannotBeChanged">Жоқ, тіркеулі атыңызды өзгерте алмайсыз. Тіркеулі ат алуан-түрлі нәрсеге байланған: дерекқор, экспорт, журнал, сонымен қатар – адамдардың есі. Дегенмен, бір рет қана әріп үлкендігін өзгерту рұқсат.</string>
+  <string name="usernamesCannotBeChanged" comment="The original English text of this string was edited in March 2026. It used more complex language before, stating:&#10;&#10;&quot;No, usernames cannot be changed for technical and practical reasons. Usernames are materialized in too many places: databases, exports, logs, and people's minds. You can adjust the capitalization once.&quot;&#10;&#10;The meaning remains the same.">Жоқ, тіркеулі атыңызды өзгерте алмайсыз. Тіркеулі ат алуан-түрлі нәрсеге байланған: дерекқор, экспорт, журнал, сонымен қатар – адамдардың есі. Дегенмен, бір рет қана әріп үлкендігін өзгерту рұқсат.</string>
   <string name="uniqueTrophies">Ерекше олжалар</string>
   <string name="ownerUniqueTrophies">Бұл олжа Личес тарихында ерекше орын алады, %1$s-дан басқа ешкім де оған ие болмады.</string>
   <string name="aHourlyBulletTournament">әрсағаттық Буллит жарысы</string>
@@ -124,15 +124,15 @@
   <string name="beInTopTen">белгіленген рейтингтің үздік 10 қатарында болу.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Екінші талап – өз тіркелгілерін пайдаланбайтын ойыншылар Мықтылар қатарынан шығады.</string>
   <string name="whyAreRatingHigher">Рейтинг басқа FIDE, USCF пен ICC сияқты ұйымдармен салыстырғанда неге жоғарылау болып тұр?</string>
-  <string name="whyAreRatingHigherExplanation">Рейтингті тұрақты абсолют шама деп ойламаңыз, әрі басқа ұйымдармен салыстырмағаныңыз жөн. Басқа ұйымдарда ойыншылар саны мен рейтинг есептеу жүйелері басқа (Elo, Glicko, Glicko-2 не осылардың өзгертілген нұсқалары). Бұл жайттар көрсеткіштің шамасына (рейтингке) зор ықпал етеді.
+  <string name="whyAreRatingHigherExplanation">Рейтингті дәл абсолют шама деп ойламаңыз, басқа ұйымдармен де салыстыру дұрыс болмас. Басқа ұйымдарда ойыншылар деңгейі мен рейтинг есептеу жүйелері басқа (Elo, Glicko, Glicko-2 не осылардың өзгертілген нұсқалары). Бұл жайттар көрсеткіштің шамасына (рейтингке) зор ықпал етеді.
 
-Рейтингті салыстырмалы шама деп ойлаған дұрыс: ойыншылар арасында рейтинг айырмашылығына қарап, кім жеңетінін, тең ойнайтынын не жеңілетінін бағалауға болады. \"Менің рейтингім осынша\" дегеннің ешбір мәні жоқ, тек басқа ойыншымен салыстырғаннан пайдасы болар.</string>
+Рейтингті салыстырмалы шама деп ойлаған дұрыс: бір топ ойыншылар арасында рейтинг айырмашылығына қарап, кім жеңетінін, тең ойнайтынын не жеңілетінін бағалауға болады. \"Менің рейтингім осынша\" деген сөздің мағынасы жоқ, тек басқа ойыншымен салыстыру арқылы дұрыс түсінікке келесіз.</string>
   <string name="howToHideRatingWhilePlaying">Рейтингті ойын кезінде қалай жасырсам болады?</string>
   <string name="enableZenMode">%1$s-ге кіріп Оқшау көріністі қосыңыз немесе ойын кезінде %2$s басыңыз.</string>
   <string name="displayPreferences">баптауларды көрсету</string>
   <string name="connexionLostCanIGetMyRatingBack">Желінің ажырауы/кідірісі кесірінен ойын тоқталды. Рейтинг ұпайларын қайтара аласыз ба?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Өкінішке орай, бұл ажырау не кідіріс кімнің жағынан болғанына қарамастан, біз осы жайтта ұпайды қайтара алмаймыз. Біздің жағымыздан туындаған ажырау мен кідіріс – мүлдем сирек болатын жағдай. Онымен қатар, Личес жүйесінің қайта қосылуынан сіз уақыт жоғалтсаңыз, әділсіз шығын болмағандай біз ойынды үзіп тастаймыз.</string>
-  <string name="howToThreeDots">Қалайша...</string>
+  <string name="howToThreeDots" comment="This used to say &quot;How to...&quot;">Қалайша...</string>
   <string name="enableDisableNotificationPopUps">Ескерту қалқымалы терезелерін қосайын ба, өшірейін бе?</string>
   <string name="viewSiteInformationPopUp">Сайттың жайлы қалқымалы терезені қарау</string>
   <string name="lichessCanOptionnalySendPopUps">Личес таңдаулы түрде қалқымалы терезе түрінде ескерту жібере алады, мысалы, сіздің жүру кезегіңіз келгенде не жеке хабар түскенде.
