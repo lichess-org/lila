@@ -1,4 +1,3 @@
-$c-lead: $c-brag;
 $user-list-width: 30ch;
 
 .community {
@@ -73,11 +72,20 @@ $user-list-width: 30ch;
         padding-inline-start: 0.8rem;
         text-transform: uppercase;
         margin: 0;
-        background: $c-lead;
-        color: #fff;
+        background: $c-brag;
 
+        &,
         a {
           color: #fff;
+        }
+
+        @include if-light {
+          background: $m-brag--lighten-15;
+
+          &,
+          a {
+            color: $c-font;
+          }
         }
       }
 
