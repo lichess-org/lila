@@ -168,7 +168,7 @@ final class Env(
     text = "Always serve captchas, don't skip once per IP and per 24h".some
   ).taggedWith[AlwaysCaptcha]
 
-  val singlePost = SinglePost(config.singlePostSecret)
+  val singlePost = SinglePost(config.singlePostSecret, settingStore)
 
   lazy val api = wire[SecurityApi]
 

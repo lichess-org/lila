@@ -87,7 +87,8 @@ final class Dev(env: Env) extends LilaController(env):
     "Security" -> List(
       env.oAuth.originBlocklistSetting,
       env.security.proxy2faSetting,
-      env.security.alwaysCaptcha
+      env.security.alwaysCaptcha,
+      env.security.singlePost.enforce
     ),
     "Mailing" -> List(
       env.mailer.mailerSecondaryPermilleSetting,

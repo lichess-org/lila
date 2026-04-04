@@ -10,13 +10,19 @@ import lila.core.security.{ SinglePostToken, SinglePostMakeToken }
 import lila.common.HTTPRequest
 import play.api.data.Mapping
 
-final class SinglePost(secret: Secret)(using Executor):
+final class SinglePost(secret: Secret, settingStore: lila.memo.SettingStore.Builder)(using Executor):
 
   private val signer = com.roundeights.hasher.Algo.hmac(secret.value)
 
   private val tokens = scalalib.cache.ExpireSetMemo[String](10.minutes)
 
   private val mon = lila.mon.security.singlePost
+
+  val enforce = settingStore[Boolean](
+    "singlePostEnforce",
+    default = true,
+    text = "Enforce single post".some
+  )
 
   val newToken: SinglePostMakeToken = _ ?=>
     val rnd = SecureRandom.nextString(12)
@@ -29,17 +35,17 @@ final class SinglePost(secret: Secret)(using Executor):
       case Array(rnd, sign) =>
         if !tokens.get(rnd) then
           mon.expired.increment()
-          false
+          !enforce.get()
         else if !digestOf(rnd).hash_=(sign) then
           mon.badSign.increment()
-          false
+          !enforce.get()
         else
           mon.success.increment()
           tokens.remove(rnd)
           true
       case _ =>
         mon.missing.increment()
-        false
+        !enforce.get()
 
   private def digestOf(rnd: String)(using req: RequestHeader) =
     signer.sha1(s"$rnd|${HTTPRequest.userAgent(req)}")
