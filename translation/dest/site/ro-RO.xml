@@ -431,7 +431,7 @@
     <item quantity="other">%s de partide oficiale jucate</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ o partidă %2$s jucată</item>
+    <item quantity="one">≥ o partidă %2$s oficială jucată</item>
     <item quantity="few">≥ %1$s partide oficiale %2$s jucate</item>
     <item quantity="other">≥ %1$s de partide oficiale %2$s jucate</item>
   </plurals>
