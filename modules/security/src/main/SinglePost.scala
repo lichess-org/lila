@@ -16,36 +16,36 @@ final class SinglePost(secret: Secret, settingStore: lila.memo.SettingStore.Buil
 
   private val tokens = scalalib.cache.ExpireSetMemo[String](10.minutes)
 
-  private val mon = lila.mon.security.singlePost
-
   val enforce = settingStore[Boolean](
     "singlePostEnforce",
     default = true,
     text = "Enforce single post".some
   )
 
-  val newToken: SinglePostMakeToken = _ ?=>
-    val rnd = SecureRandom.nextString(12)
+  val newToken: SinglePostMakeToken = req ?=>
+    val rnd = SecureRandom.nextString(16)
     tokens.put(rnd)
-    mon.newToken.increment()
+    lila.mon.security.singlePost.newToken(HTTPRequest.actionName(req)).increment()
     SinglePostToken(s"$rnd|${digestOf(rnd).hex}")
 
   def consumeToken(token: String)(using RequestHeader): Boolean =
     token.split('|') match
       case Array(rnd, sign) =>
-        if !tokens.get(rnd) then
-          mon.expired.increment()
-          !enforce.get()
-        else if !digestOf(rnd).hash_=(sign) then
-          mon.badSign.increment()
-          !enforce.get()
+        if !tokens.get(rnd) then result("expired".some)
+        else if !digestOf(rnd).hash_=(sign) then result("badSign".some)
         else
-          mon.success.increment()
           tokens.remove(rnd)
-          true
-      case _ =>
-        mon.missing.increment()
-        !enforce.get()
+          result(none)
+      case _ => result("missing".some)
+
+  private def result(err: Option[String])(using req: RequestHeader) =
+    val endpoint = HTTPRequest.actionName(req)
+    lila.mon.security.singlePost.consume(endpoint, err | "success").increment()
+    err.foreach: e =>
+      logger
+        .branch("singlePost")
+        .warn(s"$endpoint $e ${HTTPRequest.printReq(req)} ${HTTPRequest.printClient(req)}")
+    err.isEmpty || !enforce.get()
 
   private def digestOf(rnd: String)(using req: RequestHeader) =
     signer.sha1(s"$rnd|${HTTPRequest.userAgent(req)}")
