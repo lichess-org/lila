@@ -20,7 +20,8 @@ final class Spam(spamKeywords: () => lila.core.data.Strings) extends lila.core.s
       "go.chess.com/",
       "decodechess.com/ref/",
       "aimchess.com/i/",
-      "aimchess.com/try?ref="
+      "aimchess.com/try?ref=",
+      "endgame.ai/login?t=r&ref="
     )
 
   private lazy val staticBlacklist = List(
@@ -44,7 +45,8 @@ final class Spam(spamKeywords: () => lila.core.data.Strings) extends lila.core.s
     """go.chess.com/[\w-]+""".r -> "chess.com",
     """aimchess.com/try\?ref=[\w-]+""".r -> "aimchess.com",
     """aimchess.com/i/[\w-]+""".r -> "aimchess.com",
-    """\bchess-bot(\.com)?[^\s]*""".r -> "[redacted]"
+    """\bchess-bot(\.com)?[^\s]*""".r -> "[redacted]",
+    """endgame.ai/login\?t=r&ref=[\w-]+""".r -> "endgame.ai"
   ) ::: bannedYoutubeIds.map { id =>
     id.r -> "7orFjhLkcxA"
   }
