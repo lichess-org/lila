@@ -8,6 +8,7 @@ import scalalib.SecureRandom
 import lila.core.config.Secret
 import lila.core.security.{ SinglePostToken, SinglePostMakeToken }
 import lila.common.HTTPRequest
+import play.api.data.Mapping
 
 final class SinglePost(secret: Secret)(using Executor):
 
@@ -46,6 +47,11 @@ final class SinglePost(secret: Secret)(using Executor):
   def formMapping(using RequestHeader) =
     nonEmptyText.verifying("Session has expired, please try again", consumeToken)
 
-  def formPair(using RequestHeader) = "singlePost" -> formMapping
+  def formPair(using RequestHeader): (String, Mapping[String]) = "singlePost" -> formMapping
+
+  def formPairWithLichobileCompat(using req: RequestHeader): (String, Mapping[String]) =
+    if HTTPRequest.isLichobile(req)
+    then "singlePost" -> optional(text).transform(~_, _.some)
+    else formPair
 
   def presenceForm = play.api.data.Form(single("singlePost" -> nonEmptyText))
