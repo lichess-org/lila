@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessStreamers">Lichess प्रसारक</string>
   <string name="lichessStreamer">Lichess प्रसारक</string>
   <string name="live">सक्रिय!</string>
   <string name="offline">ऑफलाइन</string>
@@ -14,4 +15,22 @@
   <string name="downloadKit">प्रसारण साधने डाउनलोड करा</string>
   <string name="xIsStreaming">%s प्रसारण करत आहे</string>
   <string name="rules">प्रसारण नियम</string>
+  <string name="rule1">Lichess वर प्रसारण करताना तुमच्या प्रारणाच्या शीर्षकामध्ये \"lichess.org\" हा किल्लीशब्द समाविष्ट करा आणि \"Chess\" ही श्रेणी वापरा.</string>
+  <string name="rule2">जेव्हा तुम्ही Lichess व्यतिरिक्त इतर गोष्टी प्रसारण करता तेव्हा तो किल्लीशब्द काढून टाका.</string>
+  <string name="rule3">Lichess तुमचे प्रसरण आपोआप ओळखेल आणि खालील सुविधा सक्षम करेल:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">तुमच्या प्रसारण दरम्यान सर्वांसाठी निष्पक्ष खेळ सुनिश्चित करण्यासाठी आमचे %s वाचा.</string>
+  <string name="streamingFairplayFAQ">प्रसारण वाजवी खेळ FAQ</string>
+  <string name="perks">किल्लीशब्दाबरोबर प्रसारण करण्याचे फायदे</string>
+  <string name="perk1">तुमच्या Lichess प्रसारक चरित्रावर एक पेटत्या पताकाचे चिन्ह मिळवा.</string>
+  <string name="perk2">प्रसारकांच्या सूचीत सर्वात वरचे स्थान मिळवा.</string>
+  <string name="perk3">तुमच्या Lichess अनुयायींना सूचित करा.</string>
+  <string name="perk4">तुमच्या खेळांमध्ये, स्पर्धांमध्ये आणि अभ्यासात तुमचे प्रसारण दाखवा.</string>
+  <string name="approved">तुमचे प्रसारण मंजूर झाले आहे.</string>
+  <string name="pendingReview">तुमच्या प्रसारणाचे नियंत्रकांकडून पुनरावलोकन केले जात आहे.</string>
+  <string name="pleaseFillIn">कृपया तुमची प्रसारक माहिती भरा आणि एक छायाचित्र निर्यात करा.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">जेव्हा तुम्ही Lichess प्रसारक म्हणून सूचीबद्ध होण्यास तयार असाल, %s</string>
+  <string name="submitForReview">पुनरावलोकनासाठी पाठवा</string>
+  <string name="pleaseAllow">तुमची प्रसारक पदवी आणि सूची मंजूर होण्यापूर्वी कृपया ७२ तासांपर्यंतचा वेळ द्या.</string>
+  <string name="chooseYoutubeChannel">तुम्ही Lichess वर वापरणार असलेले YouTube चॅनेल निवडा.</string>
+  <string name="streamerName">तुमचे प्रसारक नाव Lichess वर</string>
 </resources>
