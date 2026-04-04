@@ -190,7 +190,7 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
 function renderTouchDeviceCommands(ctx: PuzzleNvuiContext): LooseVNodes {
   const { notify, ctrl } = ctx;
   return hl('div.actions', [
-    hl(
+    ctrl.mode !== 'view' && hl(
       'button',
       {
         hook: bind('click', () => {
@@ -202,12 +202,20 @@ function renderTouchDeviceCommands(ctx: PuzzleNvuiContext): LooseVNodes {
       },
       i18n.site.getAHint,
     ),
-    hl(
+    ctrl.mode !== 'view' && hl(
       'button',
       {
         hook: bind('click', () => ctrl.viewSolution()),
       },
       i18n.site.viewTheSolution,
+    ),
+    ctrl.mode === 'view' &&
+      hl(
+        'button',
+        {
+          hook: bind('click', () => ctrl.nextPuzzle()),
+        },
+        i18n.puzzle.continueTraining,
     ),
   ]);
 }
