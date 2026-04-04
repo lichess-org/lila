@@ -1,15 +1,13 @@
 #friend_box {
   @include inline-end(0);
-  @include hoverflow;
 
   display: none;
   position: fixed;
   bottom: 0;
   z-index: $z-friend-box-2;
   background: $c-bg-popup;
-  border: $border;
-  border-inline-end: 0;
-  border-bottom: 0;
+  overflow: hidden;
+  border-inline-start: $border;
   border-top-left-radius: $box-radius-size;
   font-size: 0.9rem;
   min-width: 150px;
@@ -29,6 +27,8 @@
   }
 
   .content {
+    @include hoverflow;
+
     max-height: 80vh;
     overflow-x: hidden;
     overflow-y: auto;
