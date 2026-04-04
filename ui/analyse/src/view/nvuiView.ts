@@ -254,7 +254,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
 }
 
 function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
-  const { notify, ctrl } = ctx;
+  const { notify, ctrl, moveStyle } = ctx;
   return [
     hl('div.actions', [
       hl(
@@ -278,6 +278,11 @@ function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
         'next move',
       ),
       hl('button', { hook: bind('click', () => notify.set(renderEvalAndDepth(ctrl))) }, 'evalutation'),
+      hl(
+        'button',
+        { hook: bind('click', () => notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext))) },
+        'top engine move',
+      ),
       hl(
         'button',
         {
