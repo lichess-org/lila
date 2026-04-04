@@ -403,7 +403,7 @@
     <item quantity="other">≥ %s rated games</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s rated game</item>
+    <item quantity="one">≥ %1$s rated %2$s game</item>
     <item quantity="other">≥ %1$s rated %2$s games</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
