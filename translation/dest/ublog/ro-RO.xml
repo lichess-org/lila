@@ -28,7 +28,7 @@
   <string name="createBlogDiscussion">Permite comentarii</string>
   <string name="createBlogDiscussionHelp">Va fi creat un subiect pe forum pentru ca oamenii să comenteze despre postarea dumneavoastră</string>
   <string name="publishOnYourBlog">Publică pe blogul tău</string>
-  <string name="publishHelp">Dacă nu, va fi privată, în ciornele tale</string>
+  <string name="publishHelp">Dacă bifezi, postarea va fi listată pe blogul tău. Dacă nu, va fi privată, în ciornele tale</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixează postarea</string>
   <string name="stickyPostHelp">Dacă este bifat, această postare va fi listată înaintea postărilor recente de pe profil.</string>
   <plurals name="publishedNbBlogPosts">
