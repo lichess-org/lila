@@ -17,7 +17,8 @@ final class SecurityForm(
     authenticator: Authenticator,
     emailValidator: EmailAddressValidator,
     lameNameCheck: LameNameCheck,
-    hcaptcha: Hcaptcha
+    hcaptcha: Hcaptcha,
+    singlePost: SinglePost
 )(using ec: Executor, mode: play.api.Mode):
 
   import SecurityForm.*
@@ -89,11 +90,10 @@ final class SecurityForm(
     private val agreement = mapping(
       "assistance" -> agreementBool,
       "nice" -> agreementBool,
-      "account" -> agreementBool,
-      "policy" -> agreementBool
+      "account" -> agreementBool
     )(AgreementData.apply)(unapply)
 
-    def website(simpleSignup: Option[SimpleSignup])(using RequestHeader) =
+    def website(simpleSignup: Option[SimpleSignup])(using RequestHeader): Fu[SignupForm] =
       val base = hcaptcha.form(websitePreCaptcha)
       simpleSignup match
         case None => base.map(SignupForm(_, simple = false))
@@ -107,19 +107,21 @@ final class SecurityForm(
                     username = prefill.username,
                     password = "",
                     email = prefill.email,
-                    agreement = AgreementData(true, true, true, true),
+                    agreement = AgreementData(true, true, true),
+                    singlePost = "",
                     fp = none
                   )
               ),
               simple = true
             )
 
-    private def websitePreCaptcha = Form:
+    private def websitePreCaptcha(using RequestHeader) = Form:
       mapping(
         "username" -> username,
         "password" -> newPasswordField,
         "email" -> emailField,
         "agreement" -> agreement,
+        singlePost.formPair,
         "fp" -> optional(nonEmptyText)
       )(SignupData.apply)(unapply)
         .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
@@ -135,7 +137,8 @@ final class SecurityForm(
   def passwordReset(using RequestHeader) = hcaptcha.form:
     Form:
       mapping(
-        "email" -> sendableEmail // allow unacceptable emails for BC
+        "email" -> sendableEmail, // allow unacceptable emails for BC
+        singlePost.formPair
       )(PasswordReset.apply)(_ => None)
 
   case class PasswordResetConfirm(newPasswd1: String, newPasswd2: String):
@@ -264,8 +267,7 @@ object SecurityForm:
   case class AgreementData(
       assistance: Boolean,
       nice: Boolean,
-      account: Boolean,
-      policy: Boolean
+      account: Boolean
   )
 
   trait AnySignupData:
@@ -278,6 +280,7 @@ object SecurityForm:
       password: String,
       email: EmailAddress,
       agreement: AgreementData,
+      singlePost: String,
       fp: Option[String]
   ) extends AnySignupData:
     def fingerPrint = FingerPrint.from(fp.filter(_.nonEmpty))
@@ -290,7 +293,7 @@ object SecurityForm:
   ) extends AnySignupData:
     def fp = none
 
-  case class PasswordReset(email: EmailAddress)
+  case class PasswordReset(email: EmailAddress, singlePost: String)
 
   case class MagicLink(email: EmailAddress)
 

@@ -3083,8 +3083,6 @@ interface I18n {
     agreementMultipleAccounts: I18nFormat;
     /** I agree that I will always be respectful to other players. */
     agreementNice: string;
-    /** I agree that I will follow all Lichess policies. */
-    agreementPolicy: string;
     /** %1$s level %2$s */
     aiNameLevelAiLevel: I18nFormat;
     /** All information is public and optional. */
