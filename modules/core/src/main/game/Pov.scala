@@ -48,6 +48,12 @@ case class Pov(game: Game, color: Color):
 
   def sideAndStart = SideAndStart(color, game.chess.startedAtPly)
 
+  // We are always the player in the pov. However for a scalachess Position, the "player" and "opponent"
+  // are based on whose turn it is.
+  def cannotLose =
+    (isMyTurn && game.position.opponentHasInsufficientMaterial) ||
+    (!isMyTurn && game.position.playerHasInsufficientMaterial)
+
   override def toString = ref.toString
 
 object Pov:
