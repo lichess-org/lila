@@ -52,7 +52,7 @@ case class Pov(game: Game, color: Color):
   // are based on whose turn it is.
   def cannotLose =
     (isMyTurn && game.position.opponentHasInsufficientMaterial) ||
-    (!isMyTurn && game.position.playerHasInsufficientMaterial)
+      (!isMyTurn && game.position.playerHasInsufficientMaterial)
 
   override def toString = ref.toString
 
