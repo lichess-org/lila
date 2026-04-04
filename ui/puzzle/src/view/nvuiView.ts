@@ -192,8 +192,10 @@ function renderTouchDeviceCommands(ctx: PuzzleNvuiContext): LooseVNodes {
   return hl('div.actions', [
     ctrl.mode !== 'view' &&
       hl(
-        'button',
+        'button.touch-hint',
         {
+          key: 'touch-hint',
+          attrs: { type: 'button' },
           hook: bind('click', () => {
             const hint = nextCorrectMove(ctrl);
             if (hint) {
@@ -205,16 +207,20 @@ function renderTouchDeviceCommands(ctx: PuzzleNvuiContext): LooseVNodes {
       ),
     ctrl.mode !== 'view' &&
       hl(
-        'button',
+        'button.touch-solution',
         {
+          key: 'touch-solution',
+          attrs: { type: 'button' },
           hook: bind('click', () => ctrl.viewSolution()),
         },
         i18n.site.viewTheSolution,
       ),
     ctrl.mode === 'view' &&
       hl(
-        'button',
+        'button.touch-continue',
         {
+          key: 'touch-continue',
+          attrs: { type: 'button' },
           hook: bind('click', () => ctrl.nextPuzzle()),
         },
         i18n.puzzle.continueTraining,
