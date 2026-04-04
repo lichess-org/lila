@@ -8,7 +8,7 @@ import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { renderSetting } from 'lib/nvui/setting';
 import type { TreeNode } from 'lib/tree/types';
-import { type VNode, bind, onInsert, requiresI18n, hl } from 'lib/view';
+import { type VNode, bind, onInsert, requiresI18n, hl, type LooseVNodes } from 'lib/view';
 
 import { nextCorrectMove } from '@/moveTree';
 
@@ -25,7 +25,17 @@ const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
 export function renderNvui(ctx: PuzzleNvuiContext): VNode {
-  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle } = ctx;
+  const {
+    ctrl,
+    notify,
+    moveStyle,
+    pieceStyle,
+    prefixStyle,
+    positionStyle,
+    boardStyle,
+    deviceType,
+    pageStyle,
+  } = ctx;
   notify.redraw = ctrl.redraw;
   const ground =
     ctrl.ground() ||
@@ -36,12 +46,40 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
       coordinates: false,
     });
   ctrl.ground(ground);
+  const boardFirst = deviceType.get() === 'touchscreen' && pageStyle.get() === 'board-actions';
+
+  if (boardFirst) {
+    pieceStyle.set('name');
+    prefixStyle.set('name');
+    boardStyle.set('plain');
+  }
 
   return hl(
     `main.puzzle.puzzle--nvui.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${
       ctrl.streak ? '.puzzle--streak' : ''
     }`,
     hl('div.nvui', [
+      boardFirst && hl('h2', 'Board'),
+      boardFirst &&
+        hl(
+          'div.board',
+          {
+            hook: {
+              insert: el => boardEventsHook(ctx, ground, el.elm as HTMLElement),
+              update: (_, vnode) => boardEventsHook(ctx, ground, vnode.elm as HTMLElement),
+            },
+          },
+
+          nv.renderBoard(
+            ground.state.pieces,
+            ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+            pieceStyle.get(),
+            prefixStyle.get(),
+            positionStyle.get(),
+            boardStyle.get(),
+          ),
+        ),
+      boardFirst && renderTouchDeviceCommands(ctx),
       hl('h2', 'Puzzle info'),
       puzzleBox(ctrl),
       theme(ctrl),
@@ -92,25 +130,26 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
       notify.render(),
       hl('h2', 'Actions'),
       ctrl.mode === 'view' ? afterActions(ctrl) : playActions({ ctrl, notify } as PuzzleNvuiContext),
-      hl('h2', 'Board'),
-      hl(
-        'div.board',
-        {
-          hook: {
-            insert: el => boardEventsHook(ctx, ground, el.elm as HTMLElement),
-            update: (_, vnode) => boardEventsHook(ctx, ground, vnode.elm as HTMLElement),
+      !boardFirst && hl('h2', 'Board'),
+      !boardFirst &&
+        hl(
+          'div.board',
+          {
+            hook: {
+              insert: el => boardEventsHook(ctx, ground, el.elm as HTMLElement),
+              update: (_, vnode) => boardEventsHook(ctx, ground, vnode.elm as HTMLElement),
+            },
           },
-        },
 
-        nv.renderBoard(
-          ground.state.pieces,
-          ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
-          pieceStyle.get(),
-          prefixStyle.get(),
-          positionStyle.get(),
-          boardStyle.get(),
+          nv.renderBoard(
+            ground.state.pieces,
+            ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+            pieceStyle.get(),
+            prefixStyle.get(),
+            positionStyle.get(),
+            boardStyle.get(),
+          ),
         ),
-      ),
       hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
       hl('h2', i18n.site.advancedSettings),
       hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
@@ -146,6 +185,31 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
       ]),
     ]),
   );
+}
+
+function renderTouchDeviceCommands(ctx: PuzzleNvuiContext): LooseVNodes {
+  const { notify, ctrl } = ctx;
+  return hl('div.actions', [
+    hl(
+      'button',
+      {
+        hook: bind('click', () => {
+          const hint = nextCorrectMove(ctrl);
+          if (hint) {
+            notify.set(makeSquare(hint.from));
+          }
+        }),
+      },
+      i18n.site.getAHint,
+    ),
+    hl(
+      'button',
+      {
+        hook: bind('click', () => ctrl.viewSolution()),
+      },
+      i18n.site.viewTheSolution,
+    ),
+  ]);
 }
 
 function boardEventsHook(ctx: PuzzleNvuiContext, ground: Api, el: HTMLElement): void {
