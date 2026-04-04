@@ -537,7 +537,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
 
   const makeTab = (key: RelayTab, name: string) =>
     hl(
-      `button.relay-tour__tabs--${key}`,
+      `button.tab.tab--${key}`,
       {
         class: { active: relay.tab() === key },
         attrs: { role: 'tab' },
@@ -547,7 +547,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
       },
       name,
     );
-  return hl('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
+  return hl('nav.tabs-horiz', { attrs: { role: 'tablist' } }, [
     makeTab('overview', i18n.broadcast.overview),
     makeTab('boards', i18n.broadcast.boards),
     makeTab('players', i18n.site.players),
