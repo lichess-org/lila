@@ -568,6 +568,9 @@
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
   <string name="invalidAuthenticationCode">Өкіл-растау құлыпсаны қате</string>
+  <string name="clearField">Жолды тазарту</string>
+  <string name="orSeparator">болмаса</string>
+  <string name="logInByEmail">Пошта арқылы кіру</string>
   <string name="emailMeALink">Поштама сілтеме жібер</string>
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>
