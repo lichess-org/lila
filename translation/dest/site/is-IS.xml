@@ -897,7 +897,6 @@
   <string name="agreementAssistance">Ég samþykki að ég mun alls ekki fá hjálp á meðan ég tefli (frá skákforriti, skákbók, gagnagrunni eða annari manneskju).</string>
   <string name="agreementNice">Ég lýsi yfir því að ég muni alltaf koma vel fram við aðra skákmenn.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ég lýsi yfir því að ég muni ekki stofna marga aðganga (nema af þeim ástæðum sem tilgreindar eru í %s).</string>
-  <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum Lichess.</string>
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
   <string name="edit">Breyta</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Örskák</string>

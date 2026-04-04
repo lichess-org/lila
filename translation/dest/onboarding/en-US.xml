@@ -2,11 +2,11 @@
 <resources>
   <string name="logInAsUsername">Log in as %s</string>
   <string name="welcome">Welcome!</string>
-  <string name="welcomeToLichess">Welcome to lichess.org!</string>
+  <string name="welcomeToLichess">Welcome to Lichess!</string>
   <string name="thisIsYourProfilePage">This is your profile page.</string>
   <string name="enabledKidModeSuggestion">Will a child use this account? You might want to enable %s.</string>
   <string name="whatNowSuggestions">What now? Here are a few suggestions:</string>
-  <string name="learnChessRules">Learn chess rules</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Learn the rules of chess.</string>
   <string name="improveWithChessTacticsPuzzles">Improve with chess tactics puzzles.</string>
   <string name="playTheArtificialIntelligence">Play the AI.</string>
   <string name="playOpponentsFromAroundTheWorld">Play opponents from around the world.</string>

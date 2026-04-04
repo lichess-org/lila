@@ -242,13 +242,12 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       passwordHash: HashedPassword,
       email: EmailAddress,
       blind: Boolean,
-      mobileApiVersion: Option[ApiVersion],
       mustConfirmEmail: Boolean,
       lang: Option[LangTag] = None,
       kid: KidMode = KidMode.No
   ): Fu[Option[User]] =
     exists(name).not.flatMapz:
-      val doc = newUser(name, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang, kid) ++
+      val doc = newUser(name, passwordHash, email, blind, mustConfirmEmail, lang, kid) ++
         ("len" -> BSONInteger(name.value.length))
       coll.insert.one(doc) >> byId(name.id)
 
@@ -589,7 +588,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       passwordHash: HashedPassword,
       email: EmailAddress,
       blind: Boolean,
-      mobileApiVersion: Option[ApiVersion],
       mustConfirmEmail: Boolean,
       lang: Option[LangTag],
       kid: KidMode
@@ -605,7 +603,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       F.count -> defaultCount,
       F.enabled -> true,
       F.createdAt -> now,
-      F.createdWithApiVersion -> mobileApiVersion,
       F.seenAt -> now,
       F.playTime -> PlayTime(0, 0, none),
       F.lang -> lang

@@ -2302,7 +2302,6 @@ object I18nKey:
     val `agreementAssistance`: I18nKey = "agreementAssistance"
     val `agreementNice`: I18nKey = "agreementNice"
     val `agreementMultipleAccounts`: I18nKey = "agreementMultipleAccounts"
-    val `agreementPolicy`: I18nKey = "agreementPolicy"
     val `searchOrStartNewDiscussion`: I18nKey = "searchOrStartNewDiscussion"
     val `edit`: I18nKey = "edit"
     val `ultraBullet`: I18nKey = "ultraBullet"

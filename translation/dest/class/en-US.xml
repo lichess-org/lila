@@ -25,7 +25,7 @@
   <string name="teachersOfTheClass">Teachers of the class</string>
   <string name="addLichessUsernames">Add Lichess usernames to invite them as teachers. One per line.</string>
   <string name="resetPassword">Reset password</string>
-  <string name="makeSureToCopy">Make sure to copy or write down the password now. You won’t be able to see it again!</string>
+  <string name="makeSureToCopy">Make sure you copy or write down the password now. You will never be able to see it again!</string>
   <string name="passwordX">Password: %s</string>
   <string name="generateANewPassword">Generate a new password for the student</string>
   <string name="invitedToXByY">Invited to %1$s by %2$s</string>
@@ -43,7 +43,7 @@ Password: %3$s</string>
   <string name="inviteDesc4">Never send unsolicited invites to arbitrary players.</string>
   <string name="createANewLichessAccount">Create a new Lichess account</string>
   <string name="createDesc1">If the student doesn\'t have a Lichess account yet, you can create one for them here.</string>
-  <string name="createDesc2">No email address is required. A password will be generated, and you will have to transmit it to the student, so they can log in.</string>
+  <string name="createDesc2">No email address is required. A password will be generated, and you will have to give it to the student so they can sign in.</string>
   <string name="createDesc3">Important: a student must not have multiple accounts.</string>
   <string name="createDesc4">If they already have one, use the invite form instead.</string>
   <string name="createStudentWarning">Only create accounts for real students. Do not use this to make multiple accounts for yourself. You would get banned.</string>
@@ -72,7 +72,7 @@ Here is the link to access the class.</string>
   <string name="closeStudent">Close account</string>
   <string name="closeTheAccount">Close the student account permanently.</string>
   <string name="closeDesc1">The student will never be able to use this account again. Closing is final. Make sure the student understands and agrees.</string>
-  <string name="closeDesc2">You may want to give the student control over the account instead, so that they can continue using it.</string>
+  <string name="closeDesc2">You may want to give the student control over the account instead, so they can continue using it.</string>
   <string name="teachers">Teachers</string>
   <plurals name="nbTeachers">
     <item quantity="one">Teacher</item>
@@ -115,7 +115,7 @@ It will display a horizontal line.</string>
   <string name="xisNowAStudentOfTheClass">%s is now a student of the class</string>
   <string name="anInvitationHasBeenSentToX">An invitation has been sent to %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s already has a pending invitation</string>
-  <string name="xIsAKidAccountWarning">%1$s is a kid account and can\'t receive your message. You must give them the invitation URL manually: %2$s</string>
+  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.&#10;&#10;This string used to say &quot;is a kid account&quot;, which has since been changed to &quot;is in kid mode&quot;. The second sentence was also rephrased slightly.">%1$s is in kid mode and can\'t receive messages. Please send them the invitation link manually: %2$s</string>
   <string name="moveToClass">Move to %s</string>
   <string name="moveToAnotherClass">Move to another class</string>
   <string name="allowMessagingBetweenStudents">Allow messages between students</string>

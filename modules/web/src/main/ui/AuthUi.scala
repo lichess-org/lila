@@ -408,8 +408,7 @@ final class AuthUi(helpers: Helpers):
   private def agreements(using Context) = List(
     "assistance" -> trans.site.agreementAssistance(),
     "nice" -> trans.site.agreementNice(),
-    "account" -> trans.site.agreementMultipleAccounts(a(href := routes.Cms.tos)(trans.site.termsOfService())),
-    "policy" -> trans.site.agreementPolicy()
+    "account" -> trans.site.agreementMultipleAccounts(a(href := routes.Cms.tos)(trans.site.termsOfService()))
   )
 
   private def authGlobalError(form: Form[?])(using Translate): Option[Frag] =

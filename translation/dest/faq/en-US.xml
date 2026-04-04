@@ -73,7 +73,7 @@ See the %3$s on this move for some practice with it.</string>
   <string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
   <string name="positions">positions</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">We repeated a position three times. Why was the game not drawn?</string>
-  <string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown or by offering a draw before your final repeating move. It won\'t matter if your opponent rejects the draw offer, the threefold repetition draw will be claimed anyway. You can also %1$s Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
+  <string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can claim a draw by pressing the button when it is shown, or by offering a draw before your final repeating move. It won\'t matter if your opponent rejects the draw offer; the draw by threefold repetition will be claimed anyway. You can also %1$s Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
   <string name="configure">configure</string>
   <string name="accounts">Accounts</string>
   <string name="titlesAvailableOnLichess">What titles are there on Lichess?</string>
@@ -96,7 +96,7 @@ Do not ask for the LM title.</string>
   <string name="usernamesNotOffensive">In general, usernames should not be: offensive, impersonating someone else, or advertising. You can read more about the %1$s.</string>
   <string name="guidelines">guidelines</string>
   <string name="canIChangeMyUsername">Can I change my username?</string>
-  <string name="usernamesCannotBeChanged">No, usernames cannot be changed for technical and practical reasons. Usernames are materialized in too many places: databases, exports, logs, and people\'s minds. You can adjust the capitalization once.</string>
+  <string name="usernamesCannotBeChanged" comment="The original English text of this string was edited in March 2026. It used more complex language before, stating:&#10;&#10;&quot;No, usernames cannot be changed for technical and practical reasons. Usernames are materialized in too many places: databases, exports, logs, and people's minds. You can adjust the capitalization once.&quot;&#10;&#10;The meaning remains the same.">No, usernames cannot be changed for technical and practical reasons. Your username is stored in too many places: databases, exports, logs, and people\'s minds. However, we allow a one-time change to your capitalisation.</string>
   <string name="uniqueTrophies">Unique trophies</string>
   <string name="ownerUniqueTrophies">That trophy is unique in the history of Lichess; nobody other than %1$s will ever have it.</string>
   <string name="aHourlyBulletTournament">an hourly Bullet tournament</string>
@@ -129,11 +129,11 @@ Another point to note is that, as time passes, the confidence interval will incr
 
 It is useful to think of ratings as \"relative\" figures (as opposed to \"absolute\" figures): Within a pool of players, their relative differences in ratings will help you estimate who will win/draw/lose, and how often. Saying \"I have X rating\" means nothing unless there are other players to compare that rating to.</string>
   <string name="howToHideRatingWhilePlaying">How to hide ratings while playing?</string>
-  <string name="enableZenMode">Enable Zen-mode in the %1$s, or by pressing %2$s during a game.</string>
+  <string name="enableZenMode">Enable Zen mode in the %1$s, or by pressing %2$s during a game.</string>
   <string name="displayPreferences">display preferences</string>
   <string name="connexionLostCanIGetMyRatingBack">I lost a game due to lag/disconnection. Can I get my rating points back?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lichess restarts and you lose on time because of that, we abort the game to prevent an unfair loss.</string>
-  <string name="howToThreeDots">How to...</string>
+  <string name="howToThreeDots" comment="This used to say &quot;How to...&quot;">How do I...</string>
   <string name="enableDisableNotificationPopUps">Enable or disable notification popups?</string>
   <string name="viewSiteInformationPopUp">View site information popup</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess can optionally send popup notifications, for example when it is your turn or you received a private message.

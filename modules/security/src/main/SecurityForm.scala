@@ -90,8 +90,7 @@ final class SecurityForm(
     private val agreement = mapping(
       "assistance" -> agreementBool,
       "nice" -> agreementBool,
-      "account" -> agreementBool,
-      "policy" -> agreementBool
+      "account" -> agreementBool
     )(AgreementData.apply)(unapply)
 
     def website(simpleSignup: Option[SimpleSignup])(using RequestHeader): Fu[SignupForm] =
@@ -108,7 +107,7 @@ final class SecurityForm(
                     username = prefill.username,
                     password = "",
                     email = prefill.email,
-                    agreement = AgreementData(true, true, true, true),
+                    agreement = AgreementData(true, true, true),
                     singlePost = "",
                     fp = none
                   )
@@ -125,14 +124,6 @@ final class SecurityForm(
         singlePost.formPair,
         "fp" -> optional(nonEmptyText)
       )(SignupData.apply)(unapply)
-        .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
-
-    val mobile = Form:
-      mapping(
-        "username" -> username,
-        "password" -> newPasswordField,
-        "email" -> emailField
-      )(MobileSignupData.apply)(_ => None)
         .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
 
   def passwordReset(using RequestHeader) = hcaptcha.form:
@@ -268,8 +259,7 @@ object SecurityForm:
   case class AgreementData(
       assistance: Boolean,
       nice: Boolean,
-      account: Boolean,
-      policy: Boolean
+      account: Boolean
   )
 
   trait AnySignupData:
@@ -287,13 +277,6 @@ object SecurityForm:
   ) extends AnySignupData:
     def fingerPrint = FingerPrint.from(fp.filter(_.nonEmpty))
     def clearPassword = ClearPassword(password)
-
-  case class MobileSignupData(
-      username: UserName,
-      password: String,
-      email: EmailAddress
-  ) extends AnySignupData:
-    def fp = none
 
   case class PasswordReset(email: EmailAddress, singlePost: String)
 
