@@ -1023,7 +1023,7 @@
   <string name="offline" comment="status of a user">εκτός σύνδεσης</string>
   <string name="search">Αναζήτηση</string>
   <string name="clearSearch">Εκκαθάριση πεδίου αναζήτησης</string>
-  <string name="thereAreNoResultsForX" comment="%s is the text (query) the user searched with.&#10;&#10;Can appear in various places that feature a search engine, such as video search.">Δε βρέθηκαν αποτελέσματα για το «%s»</string>
+  <string name="thereAreNoResultsForX">Δε βρέθηκαν αποτελέσματα για το «%s»</string>
   <string name="tags">Ετικέτες</string>
   <string name="enPassant">En passant</string>
 </resources>
