@@ -207,14 +207,19 @@
     }
   }
 
-  &__header {
-    @extend %flex-center-nowrap, %box-radius-top;
+  &__header-wrapper {
+    @extend %box-radius-top;
 
+    overflow: hidden;
     background: $c-bg-zebra;
+  }
+
+  &__header {
+    @extend %flex-center-nowrap;
 
     &__image {
       display: none;
-      flex: 0 0 38%;
+      flex: 0 0 37.5%;
 
       &.video {
         flex: 0 0 50%;
@@ -223,9 +228,10 @@
       line-height: 0;
 
       > img {
-        width: 100%;
-
         @include broken-img(2 / 1);
+
+        border-bottom-left-radius: $box-radius-size;
+        width: 100%;
       }
 
       .video-player-close {
@@ -539,6 +545,7 @@
         white-space: nowrap;
         border: none;
         text-align: end;
+        border-top: 0 !important;
         padding: 0.5rem 1rem 0.5rem 1.5rem;
 
         &.rank {

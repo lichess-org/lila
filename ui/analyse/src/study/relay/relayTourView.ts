@@ -468,17 +468,21 @@ const header = (ctx: RelayViewContext) => {
     studyD = ctrl.study?.data.description;
 
   return [
-    hl('div.relay-tour__header', [
-      hl('div.relay-tour__header__content', [
-        hl('h1', group?.name || d.tour.name),
-        hl('div.relay-tour__header__selectors', [
-          group && tourSelect(ctx, group),
-          roundSelect(relay, ctx.study),
+    hl('div.relay-tour__header-wrapper', [
+      hl('div.relay-tour__header', [
+        hl('div.relay-tour__header__content', [
+          hl('h1', group?.name || d.tour.name),
+          hl('div.relay-tour__header__selectors', [
+            group && tourSelect(ctx, group),
+            roundSelect(relay, ctx.study),
+          ]),
         ]),
+        broadcastImageOrStream(ctx),
       ]),
-      broadcastImageOrStream(ctx),
+      hl('div.relay-tour__nav', [makeTabs(ctrl), subscribe(relay, ctrl)]),
     ]),
     studyD && hl('div.relay-tour__note.pinned', hl('div', [hl('div', { hook: richHTML(studyD, false) })])),
+    delayedUntil(ctx),
     d.tour.communityOwner &&
       renderNote(
         hl('div', i18n.broadcast.communityBroadcast),
@@ -497,8 +501,6 @@ const header = (ctx: RelayViewContext) => {
         hl('div', { hook: richHTML(d.note, false) }),
         hl('small', 'This note is visible to contributors only.'),
       ),
-    delayedUntil(ctx),
-    hl('div.relay-tour__nav', [makeTabs(ctrl), subscribe(relay, ctrl)]),
   ];
 };
 
