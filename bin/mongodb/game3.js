@@ -49,7 +49,7 @@ function finishedOrAborted(game) {
 
 let c, z, pgn;
 let it = 0;
-let dat = new Date().getTime() / 1000;
+let dat = Date.now() / 1000;
 const finishedPlayerFieldsToRemove = [
   'previousMoveTs',
   'lastDrawOffer',
@@ -128,7 +128,7 @@ gamesToMigrate.forEach(function (g) {
   ++it;
   if (it % batchSize == 0) {
     const percent = Math.round((it / max) * 100);
-    const dat2 = new Date().getTime() / 1000;
+    const dat2 = Date.now() / 1000;
     const perSec = Math.round(batchSize / (dat2 - dat));
     dat = dat2;
     print(it / 1000 + 'k ' + percent + '% ' + perSec + '/s');

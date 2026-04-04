@@ -118,7 +118,7 @@ function eventCountdown() {
 
     const $el = $(this);
     const seconds = parseInt(this.dataset.seconds) - 1;
-    const target = new Date().getTime() + seconds * 1000;
+    const target = Date.now() + seconds * 1000;
 
     const second = 1000,
       minute = second * 60,
@@ -126,7 +126,7 @@ function eventCountdown() {
       day = hour * 24;
 
     const redraw = function () {
-      const distance = target - new Date().getTime();
+      const distance = target - Date.now();
 
       if (distance > 0) {
         $el.find('.days').text(Math.floor(distance / day).toString());
