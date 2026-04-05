@@ -1,5 +1,12 @@
 @import 'board-2d';
 
+@mixin with-filter-shadow-while-dragging($extraFilters: ()) {
+  &.dragging {
+    filter: drop-shadow(3px 4px 4px rgba(0, 0, 0, 0.5)) $extraFilters;
+    @content;
+  }
+}
+
 cg-board {
   @extend %box-shadow, %abs-100;
   @include prevent-select;
@@ -136,7 +143,7 @@ piece {
   will-change: transform;
   pointer-events: none;
 
-  &.dragging {
+  @include with-filter-shadow-while-dragging {
     cursor: move;
     z-index: $z-cg__piece_dragging-204 !important;
   }
@@ -211,19 +218,31 @@ cg-auto-pieces {
 }
 
 html:not(.transp) body:not(.simple-board) {
+  $brightness-filter: brightness(calc(0.35 + 0.0065 * min(120, var(---board-brightness))));
+
   &.coords-in coord,
   cg-board piece,
   cg-board square,
   .cg-custom-svgs,
   .cg-custom-below {
-    filter: brightness(calc(0.35 + 0.0065 * min(120, var(---board-brightness))));
+    filter: $brightness-filter;
+  }
+
+  cg-board piece {
+    @include with-filter-shadow-while-dragging($brightness-filter);
   }
 }
 
 html.transp body:not(.simple-board) cg-board {
+  $opacity-filter: calc(min(1, 0.5 + var(---board-opacity) / 100));
+
   piece,
   square {
-    opacity: calc(min(1, 0.5 + var(---board-opacity) / 100));
+    opacity: $opacity-filter;
+  }
+
+  piece {
+    @include with-filter-shadow-while-dragging($opacity-filter);
   }
 }
 
