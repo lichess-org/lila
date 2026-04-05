@@ -39,13 +39,16 @@ final class SinglePost(secret: Secret, settingStore: lila.memo.SettingStore.Buil
       case _ => result("missing".some)
 
   private def result(err: Option[String])(using req: RequestHeader) =
+    val cold = !lila.common.Uptime.startedSinceMinutes(5)
     val endpoint = HTTPRequest.actionName(req)
     lila.mon.security.singlePost.consume(endpoint, err | "success").increment()
-    err.foreach: e =>
-      logger
-        .branch("singlePost")
-        .warn(s"$endpoint $e ${HTTPRequest.printReq(req)} ${HTTPRequest.printClient(req)}")
-    err.isEmpty || !enforce.get()
+    err
+      .filterNot(_ == "expired" && cold)
+      .foreach: e =>
+        logger
+          .branch("singlePost")
+          .warn(s"$endpoint $e ${HTTPRequest.printReq(req)} ${HTTPRequest.printClient(req)}")
+    err.isEmpty || !enforce.get() || cold
 
   private def digestOf(rnd: String)(using req: RequestHeader) =
     signer.sha1(s"$rnd|${HTTPRequest.userAgent(req)}")
