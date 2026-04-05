@@ -417,6 +417,10 @@ interface I18n {
     tournamentLocation: string;
     /** Event name */
     tournamentName: string;
+    /** U%s */
+    underXAgeTournament: I18nFormat;
+    /** U%s */
+    underXEloTournament: I18nFormat;
     /** Unrated */
     unrated: string;
     /** Upcoming */
