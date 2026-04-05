@@ -101,22 +101,25 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
     boardStyle.set('plain');
   }
 
+  const boardView = [
+    hl('h2', i18n.site.board),
+    hl(
+      'div.board',
+      { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
+      renderBoard(
+        ctrl.chessground.state.pieces,
+        ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.bottomColor(),
+        pieceStyle.get(),
+        prefixStyle.get(),
+        positionStyle.get(),
+        boardStyle.get(),
+      ),
+    ),
+  ];
+
   return hl('main.analyse', [
     hl('div.nvui', [
-      boardFirst && hl('h2', i18n.site.board),
-      boardFirst &&
-        hl(
-          'div.board',
-          { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
-          renderBoard(
-            ctrl.chessground.state.pieces,
-            ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.bottomColor(),
-            pieceStyle.get(),
-            prefixStyle.get(),
-            positionStyle.get(),
-            boardStyle.get(),
-          ),
-        ),
+      ...(boardFirst ? boardView : []),
       boardFirst && renderTouchDeviceCommands(ctx),
       studyDetails(ctrl),
       hl('h2', i18n.nvui.gameInfo),
@@ -177,20 +180,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
         cevalView.renderPvs(ctrl),
         renderAcpl(ctx) || requestAnalysisBtn(ctx),
       ],
-      !boardFirst && hl('h2', i18n.site.board),
-      !boardFirst &&
-        hl(
-          'div.board',
-          { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
-          renderBoard(
-            ctrl.chessground.state.pieces,
-            ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.bottomColor(),
-            pieceStyle.get(),
-            prefixStyle.get(),
-            positionStyle.get(),
-            boardStyle.get(),
-          ),
-        ),
+      ...(boardFirst ? [] : boardView),
       hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
       hl('div.content', {
         hook: {
