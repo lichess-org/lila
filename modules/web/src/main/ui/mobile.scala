@@ -30,6 +30,17 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag) =
   </a>
   """
 
+  val fdroidButton = raw:
+    s"""
+  <a class="store"
+    href="${StaticContent.mobileFdroidUrl}">
+    <img alt="Android app on F-Droid"
+    width="172"
+    height="50"
+    src="${assetUrl("images/mobile/fdroid.svg")}" />
+  </a>
+  """
+
   Page("Mobile")
     .js(Esm("bits.qrcode"))
     .css("bits.mobile")
@@ -41,6 +52,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag) =
             div(cls := "left-side")(
               div(cls := "stores")(
                 googlePlayButton,
+                fdroidButton,
                 appleStoreButton
               ),
               renderedCmsPage,
