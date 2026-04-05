@@ -15,6 +15,14 @@ import * as spam from './spam';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 const scrollState = { pinToBottom: true, lastScrollTop: 0 };
+let resizeObserver: ResizeObserver | null = null;
+
+const scrollToBottom = (el: HTMLElement, smooth: boolean): void => {
+  if (document.hidden || !smooth) el.scrollTop = el.scrollHeight;
+  else if (el.scrollTop + el.clientHeight < el.scrollHeight)
+    el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+  scrollState.lastScrollTop = el.scrollTop;
+};
 
 export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.chatEnabled()) return [];
@@ -52,17 +60,19 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               scrollState.lastScrollTop = el.scrollTop;
             });
 
-            requestAnimationFrame(() => (el.scrollTop = el.scrollHeight));
+            resizeObserver?.disconnect();
+            resizeObserver = new ResizeObserver(() => {
+              if (scrollState.pinToBottom) scrollToBottom(el, false);
+            });
+            resizeObserver.observe(el);
+            requestAnimationFrame(() => scrollToBottom(el, false));
           },
           postpatch: (_, vnode) => {
-            const el = vnode.elm as HTMLElement;
-            if (!scrollState.pinToBottom) return;
-
-            if (document.hidden) el.scrollTop = el.scrollHeight;
-            else if (el.scrollTop + el.clientHeight < el.scrollHeight)
-              el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
-
-            scrollState.lastScrollTop = el.scrollTop;
+            if (scrollState.pinToBottom) scrollToBottom(vnode.elm as HTMLElement, true);
+          },
+          destroy(_) {
+            resizeObserver?.disconnect();
+            resizeObserver = null;
           },
         },
       },
