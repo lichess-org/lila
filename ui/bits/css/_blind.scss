@@ -14,14 +14,12 @@ body.blind-mode {
   }
 }
 
-@media (min-width: $small) {
-  #blind-mode {
-    position: static;
-    text-align: center;
-    padding: 5px 0;
-    background: #888;
-    height: auto;
-  }
+#blind-mode {
+  position: static;
+  text-align: center;
+  padding: 5px 0;
+  background: #888;
+  height: auto;
 }
 
 #topnav div {
