@@ -47,7 +47,7 @@ final class SinglePost(secret: Secret, settingStore: lila.memo.SettingStore.Buil
       .foreach: e =>
         logger
           .branch("singlePost")
-          .warn(s"$endpoint $e ${HTTPRequest.printReq(req)} ${HTTPRequest.printClient(req)}")
+          .info(s"$endpoint $e ${HTTPRequest.printReq(req)} ${HTTPRequest.printClient(req)}")
     err.isEmpty || !enforce.get() || cold
 
   private def digestOf(rnd: String)(using req: RequestHeader) =
