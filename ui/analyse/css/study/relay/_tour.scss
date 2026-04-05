@@ -1,12 +1,11 @@
 %tour-margin-horiz {
-  margin-left: 2vw;
-  margin-right: 2vw;
+  margin-inline: 2vw;
 }
 
 .relay-tour {
   @extend %box-neat-force, %flex-column;
 
-  gap: 3vh;
+  gap: 2em;
   background: $c-bg-box;
   overflow: visible;
   max-width: 100vw;
@@ -208,14 +207,19 @@
     }
   }
 
-  &__header {
-    @extend %flex-center-nowrap, %box-radius-top;
+  &__header-wrapper {
+    @extend %box-radius-top;
 
+    overflow: hidden;
     background: $c-bg-zebra;
+  }
+
+  &__header {
+    @extend %flex-center-nowrap;
 
     &__image {
       display: none;
-      flex: 0 0 38%;
+      flex: 0 0 37.5%;
 
       &.video {
         flex: 0 0 50%;
@@ -224,9 +228,10 @@
       line-height: 0;
 
       > img {
-        width: 100%;
-
         @include broken-img(2 / 1);
+
+        border-bottom-left-radius: $box-radius-size;
+        width: 100%;
       }
 
       .video-player-close {
@@ -455,31 +460,22 @@
   }
 
   &__nav {
-    @extend %flex-between, %tour-margin-horiz;
+    @extend %flex-between;
+    @include prevent-select;
 
     gap: 1em;
-
-    @include prevent-select;
+    padding-inline: 2vw;
+    border-bottom: $border;
   }
 
-  &__tabs {
-    @extend %flex-center;
+  .tabs-horiz {
+    .tab {
+      padding-block: 0.75em;
+      padding-inline: 1.5em;
+      font-size: 1.1em;
 
-    gap: 1em;
-
-    button {
-      @extend %box-radius;
-
-      cursor: pointer;
-      padding: 0.6em 1.5em;
-      border: $border;
-
-      &:hover {
-        @extend %box-shadow;
-      }
-
-      &.active {
-        border: 1px solid $c-brag;
+      @media (width <= $x-small) {
+        padding-inline: 0.75em;
       }
     }
   }
@@ -549,6 +545,7 @@
         white-space: nowrap;
         border: none;
         text-align: end;
+        border-top: 0 !important;
         padding: 0.5rem 1rem 0.5rem 1.5rem;
 
         &.rank {
