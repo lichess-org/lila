@@ -15,7 +15,7 @@ import * as spam from './spam';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 const scrollState = { pinToBottom: true, lastScrollTop: 0 };
-const resizeObservers = new WeakMap<HTMLElement, ResizeObserver>();
+let resizeObserver: ResizeObserver | null = null;
 
 const scrollToBottom = (el: HTMLElement, smooth: boolean): void => {
   if (document.hidden || !smooth) el.scrollTop = el.scrollHeight;
@@ -60,20 +60,19 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               scrollState.lastScrollTop = el.scrollTop;
             });
 
-            const ro = new ResizeObserver(() => {
+            resizeObserver?.disconnect();
+            resizeObserver = new ResizeObserver(() => {
               if (scrollState.pinToBottom) scrollToBottom(el, false);
             });
-            ro.observe(el);
-            resizeObservers.set(el, ro);
+            resizeObserver.observe(el);
             requestAnimationFrame(() => scrollToBottom(el, false));
           },
           postpatch: (_, vnode) => {
             if (scrollState.pinToBottom) scrollToBottom(vnode.elm as HTMLElement, true);
           },
-          destroy(vnode) {
-            const el = vnode.elm as HTMLElement;
-            resizeObservers.get(el)?.disconnect();
-            resizeObservers.delete(el);
+          destroy(_) {
+            resizeObserver?.disconnect();
+            resizeObserver = null;
           },
         },
       },
