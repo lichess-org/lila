@@ -138,6 +138,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                           case Some(u) =>
                             lila.mon.security.login
                               .attempt(isEmail, pwned = pwned.yes, result = true)
+                              .increment()
                             env.user.repo.email(u.id).foreach(_.foreach(garbageCollect(u)))
                             val ref = referrerOr(routes.Lobby.home)
                             authenticateUser(u, pwned, isRemember, redirectTo(ref).some)
