@@ -119,9 +119,9 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="pause">Pause</string>
   <string name="pauseSwiss">Yes but might reduce the number of rounds</string>
   <string name="streaksAndBerserk">Streaks and Berserk</string>
-  <string name="similarToOTB" comment="This used to say &quot;Similar to OTB tournaments&quot;. The language was simplified to &quot;in-person&quot;">Similar to in-person tournaments</string>
+  <string name="similarToOTB">Similar to in-person tournaments</string>
   <string name="unlimitedAndFree">Unlimited and free</string>
-  <string name="predefinedUsers" comment="predefinedUsers&#10;&#10;This used to say &quot;pre-defined users&quot;, which has since been replaced with &quot;specific players&quot;.">Only allow pre-defined users to join</string>
+  <string name="predefinedUsers">Only allow pre-defined users to join</string>
   <string name="forbiddedUsers">If this list is non-empty, then users absent from this list will be forbidden to join. One username per line.</string>
   <string name="playYourGames">Play your games</string>
   <string name="byes">Byes</string>

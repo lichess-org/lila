@@ -29,7 +29,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       pwned: IsPwned,
       remember: Boolean,
       result: => Option[Result] = None
-  )(using ctx: Context): Fu[Result] =
+  )(using ctx: Context): Fu[Result] = {
     for
       sessionId <- api.saveAuthentication(u.id, ctx.mobileApiVersion, pwned)
       res <- negotiate(
@@ -44,8 +44,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
             "sessionId" -> sessionId
           )
       ).map(authenticateCookie(sessionId, remember))
-        .recoverWith(authRecovery)
     yield res
+  }.recoverWith(authRecovery)
 
   private def authenticateAppealUser(u: UserModel, redirect: String => Result, url: String)(using
       ctx: Context
@@ -114,7 +114,10 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                             .increment()
                           negotiate(
                             err.errors match
-                              case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
+                              case List(FormError("", Seq(err), _)) if is2fa(err) =>
+                                Ok:
+                                  if HTTPRequest.isLichobile(req) then err
+                                  else s"$err ${env.security.singlePost.newToken}"
                               case _ => Unauthorized.page(views.auth.login(err, isRemember))
                             ,
                             Unauthorized(doubleJsonFormErrorBody(err))
@@ -138,6 +141,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                           case Some(u) =>
                             lila.mon.security.login
                               .attempt(isEmail, pwned = pwned.yes, result = true)
+                              .increment()
                             env.user.repo.email(u.id).foreach(_.foreach(garbageCollect(u)))
                             val ref = referrerOr(routes.Lobby.home)
                             authenticateUser(u, pwned, isRemember, redirectTo(ref).some)

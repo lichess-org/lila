@@ -3,7 +3,7 @@ const collection = db.history;
 const games = db.game4
   .find({ 'p.ed': { $exists: true } }, { 'p.elo': true, 'p.ed': true, 'p.uid': true, ca: true })
   .sort({ ca: 1 });
-let dat = new Date().getTime() / 1000,
+let dat = Date.now() / 1000,
   it = 0;
 
 print('Counting games...');
@@ -39,7 +39,7 @@ games.forEach(function (game) {
       cache = {};
     }
     const percent = Math.round((it / max) * 100);
-    const dat2 = new Date().getTime() / 1000;
+    const dat2 = Date.now() / 1000;
     const perSec = Math.round(batchSize / (dat2 - dat));
     dat = dat2;
     print(it / 1000 + 'k ' + percent + '% ' + perSec + '/s');

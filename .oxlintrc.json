@@ -44,7 +44,11 @@
     "unicorn/prefer-array-flat": "error",
     "unicorn/prefer-array-flat-map": "error",
     "unicorn/prefer-array-some": "error",
+    "unicorn/prefer-date-now": "error",
+    "unicorn/prefer-includes": "error",
     "unicorn/prefer-keyboard-event-key": "error",
+    "unicorn/prefer-node-protocol": "error",
+    "unicorn/require-number-to-fixed-digits-argument": "error",
     "no-restricted-globals": [
       "error",
       "addEventListener",

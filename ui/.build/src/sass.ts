@@ -242,7 +242,7 @@ async function buildColorWrap() {
   for (const file of await glob(join(env.themeDir, '_*.scss'))) {
     if (!file.includes('theme.')) continue;
     for (const line of (await fs.promises.readFile(file, 'utf8')).split('\n')) {
-      if (line.indexOf('--') === -1) continue;
+      if (!line.includes('--')) continue;
       const commentIndex = line.indexOf('//');
       if (commentIndex !== -1 && commentIndex < line.indexOf(':')) continue;
       if (!/--[cm]/.test(line)) continue;

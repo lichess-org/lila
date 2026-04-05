@@ -50,6 +50,6 @@ export function initModule(opts: { data: Data }) {
 function update(prevs: Tournament[], news: Tournament[]) {
   // updates ignore team tournaments (same for all)
   // also lacks finished tournaments
-  const now = new Date().getTime();
+  const now = Date.now();
   return news.concat(prevs.filter(p => !p.schedule || p.finishesAt < now));
 }

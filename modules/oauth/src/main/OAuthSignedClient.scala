@@ -89,5 +89,5 @@ final class OAuthSignedClients(appConfig: Configuration):
   def allow(bearer: Bearer, token: AccessToken.ForAuth, signature: Option[String]): Boolean =
     forScopesOf(token).forall: client =>
       token.clientOrigin.exists(client.origins.has) && signature.exists: signed =>
-        client.signers.exists: signer =>
+        client.signers.isEmpty || client.signers.exists: signer =>
           signer.sha1(bearer.value).hash_=(signed)

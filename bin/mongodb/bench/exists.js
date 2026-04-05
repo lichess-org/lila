@@ -7,11 +7,11 @@ const expected = false;
 
 function timer(name, f) {
   print('Start ' + name);
-  const start = new Date().getTime();
+  const start = Date.now();
   if (f() !== expected) print('FAILS');
   else {
     for (let i = 0; i < limit; i++) f();
-    print(name + ': ' + (new Date().getTime() - start));
+    print(name + ': ' + (Date.now() - start));
   }
 }
 

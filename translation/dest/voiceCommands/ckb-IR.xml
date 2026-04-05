@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">بچۆ بۆ e4 یان داشی e4 دیاری بکە</string>
   <string name="selectOrCaptureABishop">فیلێک دیاری بکە یان بیگرە</string>
   <string name="takeRookWithQueen">بە شاژن داشی قەڵا ببە</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">ماڵکردن (ھەر لایەک بێت)</string>
+  <string name="castle">ماڵکردن (ھەر لایەک بێت)</string>
   <string name="phoneticAlphabetIsBest">ئەلفبێی دەنگناسی باشترینە</string>
   <string name="cancelTimerOrDenyARequest">پووچەڵکردنەوەی کات یان ڕەتکردنەوەی داواکاری</string>
   <string name="playPreferredMoveOrConfirmSomething">جووڵەیەکی خوازراو بکە یان شتێک دڵنیا بکەرەوە</string>
