@@ -26,7 +26,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag) =
     <img alt="Android app on Google Play"
     width="172"
     height="50"
-    src="${assetUrl("images/mobile/google-play.png")}" />
+    src="${assetUrl("images/mobile/google-play.webp")}" />
   </a>
   """
 
@@ -53,7 +53,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag) =
                   widthA := "358",
                   heightA := "766",
                   cls := "mobile-playing",
-                  src := assetUrl("images/mobile/lichess-mobile-screen.png"),
+                  src := assetUrl("images/mobile/lichess-mobile-screen.webp"),
                   alt := "Lichess mobile screen"
                 )
             )
