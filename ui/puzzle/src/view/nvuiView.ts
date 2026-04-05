@@ -45,31 +45,34 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
     boardStyle.set('plain');
   }
 
+  const boardView = [
+    hl('h2', 'Board'),
+    hl(
+      'div.board',
+      {
+        hook: {
+          insert: el => boardEventsHook(ctx, ground, el.elm as HTMLElement),
+          update: (_, vnode) => boardEventsHook(ctx, ground, vnode.elm as HTMLElement),
+        },
+      },
+
+      nv.renderBoard(
+        ground.state.pieces,
+        ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+        pieceStyle.get(),
+        prefixStyle.get(),
+        positionStyle.get(),
+        boardStyle.get(),
+      ),
+    ),
+  ];
+
   return hl(
     `main.puzzle.puzzle--nvui.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${
       ctrl.streak ? '.puzzle--streak' : ''
     }`,
     hl('div.nvui', [
-      boardFirst && hl('h2', 'Board'),
-      boardFirst &&
-        hl(
-          'div.board',
-          {
-            hook: {
-              insert: el => boardEventsHook(ctx, ground, el.elm as HTMLElement),
-              update: (_, vnode) => boardEventsHook(ctx, ground, vnode.elm as HTMLElement),
-            },
-          },
-
-          nv.renderBoard(
-            ground.state.pieces,
-            ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
-            pieceStyle.get(),
-            prefixStyle.get(),
-            positionStyle.get(),
-            boardStyle.get(),
-          ),
-        ),
+      ...(boardFirst ? boardView : []),
       boardFirst && renderTouchDeviceCommands(ctx),
       hl('h2', 'Puzzle info'),
       puzzleBox(ctrl),
@@ -121,26 +124,7 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
       notify.render(),
       hl('h2', 'Actions'),
       ctrl.mode === 'view' ? afterActions(ctrl) : playActions({ ctrl, notify } as PuzzleNvuiContext),
-      !boardFirst && hl('h2', 'Board'),
-      !boardFirst &&
-        hl(
-          'div.board',
-          {
-            hook: {
-              insert: el => boardEventsHook(ctx, ground, el.elm as HTMLElement),
-              update: (_, vnode) => boardEventsHook(ctx, ground, vnode.elm as HTMLElement),
-            },
-          },
-
-          nv.renderBoard(
-            ground.state.pieces,
-            ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
-            pieceStyle.get(),
-            prefixStyle.get(),
-            positionStyle.get(),
-            boardStyle.get(),
-          ),
-        ),
+      ...(!boardFirst ? boardView : []),
       hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
       hl('h2', i18n.site.advancedSettings),
       hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
