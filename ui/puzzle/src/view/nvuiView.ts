@@ -177,7 +177,7 @@ function renderTouchDeviceCommands(ctx: PuzzleNvuiContext): LooseVNodes {
         },
         'Last move',
       ),
-      ctrl.mode !== 'view' &&
+    ctrl.mode !== 'view' &&
       hl(
         'button.touch-hint',
         {
