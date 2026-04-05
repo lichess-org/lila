@@ -126,14 +126,6 @@ final class SecurityForm(
       )(SignupData.apply)(unapply)
         .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
 
-    val mobile = Form:
-      mapping(
-        "username" -> username,
-        "password" -> newPasswordField,
-        "email" -> emailField
-      )(MobileSignupData.apply)(_ => None)
-        .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
-
   def passwordReset(using RequestHeader) = hcaptcha.form:
     Form:
       mapping(
@@ -285,13 +277,6 @@ object SecurityForm:
   ) extends AnySignupData:
     def fingerPrint = FingerPrint.from(fp.filter(_.nonEmpty))
     def clearPassword = ClearPassword(password)
-
-  case class MobileSignupData(
-      username: UserName,
-      password: String,
-      email: EmailAddress
-  ) extends AnySignupData:
-    def fp = none
 
   case class PasswordReset(email: EmailAddress, singlePost: String)
 

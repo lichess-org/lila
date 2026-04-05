@@ -38,11 +38,11 @@ final class SecurityApi(
     lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
   private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
 
-  def loginForm(using RequestHeader) = Form:
+  def loginForm(using req: RequestHeader) = Form:
     tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
       "password" -> loginPasswordMapping,
-      singlePost.formPair
+      singlePost.formPairWithLichobileCompat
     )
   def loginFormFilled(login: UserStrOrEmail)(using RequestHeader) = loginForm.fill:
     (login, ClearPassword(""), "")

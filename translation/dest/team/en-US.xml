@@ -60,7 +60,7 @@ Players who don\'t like receiving your messages might leave the team.</string>
   <string name="thisTeamBattleIsOver">This tournament is over, and the teams can no longer be updated.</string>
   <string name="listTheTeamsThatWillCompete">List the teams that will compete in this battle.</string>
   <string name="oneTeamPerLine">One team per line. Use the auto-completion.</string>
-  <string name="oneTeamPerLineHelp">You can copy-paste this list from a tournament to another!
+  <string name="oneTeamPerLineHelp">You can copy-paste this list from one tournament to another!
 
 You can\'t remove a team if a player has already joined the tournament.</string>
   <string name="numberOfLeadsPerTeam">Number of leaders per team. The sum of their score is the score of the team.</string>

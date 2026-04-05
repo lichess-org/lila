@@ -916,7 +916,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="agreementAssistance">Pranoj se s’do të marr kurrë asistencë gjatë lojërave të mia (nga një kompjuter, libër apo bazë të dhënash shahu, ose nga persona tjetër).</string>
   <string name="agreementNice">Pranoj se do të tregoj përherë respekt për lojtarët e tjerë.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Pranoj se nuk do të krijoj disa llogari (hiq për arsyet e deklaruara te %s).</string>
-  <string name="agreementPolicy">Jam dakord se do të ndjek krejt rregullat e Lichess-it.</string>
   <string name="searchOrStartNewDiscussion">Kërkoni ose filloni bisedë të re</string>
   <string name="edit">Përpunojeni</string>
   <string name="rapid">E shpejtë</string>

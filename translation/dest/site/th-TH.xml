@@ -873,7 +873,6 @@
   <string name="agreementAssistance">ฉันยอมรับว่า จะไม่ใช้ตัวช่วยระหว่างเกมของฉัน (จากคอมพิวเตอร์หมากรุก, หนังสือ, ฐานข้อมูล หรือบุคคลอื่น)</string>
   <string name="agreementNice">ฉันยอมรับว่า ฉันจะเคารพผู้เล่นคนอื่นเสมอ</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ฉันยอมรับว่าฉันจะไม่สร้างหลายบัญชี (ยกเว้นเหตุผลที่ชี้แจงไว้ใน %s)</string>
-  <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ Lichess</string>
   <string name="searchOrStartNewDiscussion">ค้นหา หรือเริ่มการสนทนาใหม่</string>
   <string name="edit">แก้ไข</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">อัลตร้าบูลเล็ต</string>

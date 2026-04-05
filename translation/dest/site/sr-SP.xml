@@ -699,9 +699,9 @@
   <string name="aboutSimulRules">Када симултанка започне, сваки играч почиње партију са домаћином. Симултанка се завршава када су све партије завршене.</string>
   <string name="aboutSimulSettings">Симултанке су увек нерангиране. Реванши, враћања потеза и додавања времена су искључени.</string>
   <string name="create">Направи</string>
-  <string name="whenCreateSimul">Када направиш Симултанку, можеш играти против неколико играча одједном.</string>
+  <string name="whenCreateSimul">Када направиш симултанку, можеш играти против неколико играча одједном.</string>
   <string name="simulVariantsHint">Ако одабереш неколико варијанти, сваки играч има могућност да бира коју да игра.</string>
-  <string name="simulClockHint">На начин Фишеровог Сата. Што више играча играш, више времена ти може бити потребно.</string>
+  <string name="simulClockHint">Што више играча играш, више времена ти може бити потребно.</string>
   <string name="simulAddExtraTime">Можеш ставити додатно почетно време на свој сат како би ти помогло да се снађеш у симултанци.</string>
   <string name="simulHostExtraTime">Додатно почетно време сата домаћина</string>
   <string name="simulAddExtraTimePerPlayer">Додај почетно време на свом сату за сваког играча који учествује у симултанци.</string>
@@ -901,7 +901,6 @@
   <string name="currentMatchScore">Скор тренутног меча</string>
   <string name="agreementAssistance">Слажем се да никада нећу добијати помоћ током својих партија (од стране шаховског рачунара, књиге, базе података или неке друге особе).</string>
   <string name="agreementNice">Слажем се да ћу увек бити поштен према другим играчима.</string>
-  <string name="agreementPolicy">Слажем се да ћу поштовати све Lichess полисе.</string>
   <string name="searchOrStartNewDiscussion">Претражи или започни нови разговор</string>
   <string name="edit">Уреди</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Муњевити</string>

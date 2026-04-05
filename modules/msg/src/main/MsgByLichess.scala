@@ -52,6 +52,16 @@ final class MsgByLichess(
                   _.filterNot(_.hasEmail).fold(fuccess(true)): user =>
                     for _ <- api.systemPost(user.id, text) yield false
 
+  def lichobileLogin(userId: UserId) = api.systemPost(
+    userId,
+    """The app you are using is no longer supported.
+
+Please upgrade to the new official Lichess app:
+
+lichess.org/mobile
+"""
+  )
+
   object chatTimeout:
     def apply(userId: UserId) = cache.get(userId)
     private val text = s"""Chat rules violation resulted in timeout
