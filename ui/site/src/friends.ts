@@ -66,7 +66,8 @@ export default class OnlineFriends {
       tvButton = friend.playing
         ? `<a data-icon="${licon.AnalogTv}" class="tv ulpt" data-pt-pos="nw" href="${url}/tv" data-href="${url}"></a>`
         : '';
-    return `<div><a class="online user-link ulpt" data-pt-pos="nw" href="${url}">${icon}${titleTag}${friend.name}</a>${tvButton}</div>`;
+    const playingCls = friend.playing ? ' playing' : '';
+    return `<div><a class="online user-link ulpt${playingCls}" data-pt-pos="nw" href="${url}">${icon}${titleTag}${friend.name}</a>${tvButton}</div>`;
   };
 
   enters = (titleName: TitleName, msg: { playing: boolean; patronColor?: PatronColor }) => {

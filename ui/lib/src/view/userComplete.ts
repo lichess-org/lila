@@ -57,11 +57,13 @@ export const checkDebouncedResultAgainstTerm =
 
 export const renderUserEntry = (o: LightUserOnline, tag: string = 'a'): string => {
   const patronClass = o.patronColor ? ` paco${o.patronColor}` : '';
+  const playingClass = o.playing ? ' playing' : '';
   return (
     '<' +
     tag +
     ' class="complete-result ulpt user-link' +
     (o.online ? ' online' : '') +
+    playingClass +
     '" ' +
     (tag === 'a' ? '' : 'data-') +
     'href="/@/' +

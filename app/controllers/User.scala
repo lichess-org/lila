@@ -596,6 +596,7 @@ final class User(
                       lila.common.Json.lightUser
                         .write(u)
                         .add("online" -> env.socket.isOnline.exec(u.id))
+                        .add("playing" -> env.round.playing(u.id))
                     })
             else fuccess(Json.toJson(userIds))
           }.map(JsonOk)

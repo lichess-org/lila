@@ -24,6 +24,10 @@
     }
   }
 
+  &.online.playing .line {
+    color: $c-live !important;
+  }
+
   .line {
     @extend %data-icon;
 

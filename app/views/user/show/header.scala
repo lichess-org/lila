@@ -59,7 +59,7 @@ object header:
       div(cls := "box__top user-show__header")(
         u.patronAndColor.match
           case Some(p) =>
-            h1(cls := s"user-link ${if isOnline.exec(u.id) then "online" else "offline"}")(
+            h1(cls := userClass(u.id, none, withOnline = true, withPowerTip = false))(
               a(href := routes.Plan.index())(patronIcon(p)),
               userDom(u)
             )
