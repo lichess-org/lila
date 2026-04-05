@@ -1,6 +1,7 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { COLORS, opposite } from 'chessops';
 
+import { isTouchDevice } from 'lib/device';
 import { type Player, type TopOrBottom, playable } from 'lib/game';
 import { plyToTurn } from 'lib/game/chess';
 import { renderClock } from 'lib/game/clock/clockView';
@@ -25,17 +26,7 @@ const borderSound = () => site.sound.play('outOfBound');
 const errorSound = () => site.sound.play('error');
 
 export function renderNvui(ctx: RoundNvuiContext): VNode {
-  const {
-    ctrl,
-    notify,
-    moveStyle,
-    pieceStyle,
-    prefixStyle,
-    positionStyle,
-    boardStyle,
-    pageStyle,
-    deviceType,
-  } = ctx;
+  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
   notify.redraw = ctrl.redraw;
   if (!ctrl.chessground) {
     ctrl.setChessground(
@@ -47,7 +38,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       }),
     );
   }
-  if (deviceType.get() === 'touchscreen' && pageStyle.get() === 'board-actions') {
+  if (isTouchDevice() && pageStyle.get() === 'board-actions') {
     pieceStyle.set('name');
     prefixStyle.set('name');
     boardStyle.set('plain');
@@ -281,7 +272,7 @@ function flipBoard(ctx: RoundNvuiContext): void {
 }
 
 function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
-  const { ctrl, prefixStyle, pieceStyle, moveStyle, deviceType } = ctx;
+  const { ctrl, prefixStyle, pieceStyle, moveStyle } = ctx;
 
   const $board = $(el);
   // Remove old handlers before rebinding (important on re-render)
@@ -296,7 +287,7 @@ function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
   $board.on('click.nvui', 'button', e => {
     nv.selectionHandler(
       () => ctrl.data.opponent.color,
-      deviceType.get() === 'touchscreen',
+      isTouchDevice(),
       ctrl.data.game.variant.key === 'antichess',
     )(e);
   });

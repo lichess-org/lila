@@ -3,6 +3,7 @@ import type { Api } from '@lichess-org/chessground/api';
 import { makeSquare, opposite } from 'chessops';
 
 import { throttle } from 'lib/async';
+import { isTouchDevice } from 'lib/device';
 import * as nv from 'lib/nvui/chess';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
@@ -25,17 +26,7 @@ const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
 export function renderNvui(ctx: PuzzleNvuiContext): VNode {
-  const {
-    ctrl,
-    notify,
-    moveStyle,
-    pieceStyle,
-    prefixStyle,
-    positionStyle,
-    boardStyle,
-    deviceType,
-    pageStyle,
-  } = ctx;
+  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
   notify.redraw = ctrl.redraw;
   const ground =
     ctrl.ground() ||
@@ -46,7 +37,7 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
       coordinates: false,
     });
   ctrl.ground(ground);
-  const boardFirst = deviceType.get() === 'touchscreen' && pageStyle.get() === 'board-actions';
+  const boardFirst = isTouchDevice() && pageStyle.get() === 'board-actions';
 
   if (boardFirst) {
     pieceStyle.set('name');

@@ -1,7 +1,5 @@
 import { h, type VNode } from 'snabbdom';
 
-import { isTouchDevice } from '@/device';
-
 import { type LichessStorage, storage } from '../storage';
 import { renderSan, renderPieceStyle, renderPrefixStyle } from './render';
 
@@ -82,17 +80,6 @@ export function pageSetting(): Setting<PageStyle> {
     ],
     default: 'actions-board',
     storage: storage.make('nvui.pageLayout'),
-  });
-}
-
-export function deviceTypeSetting(): Setting<DeviceType> {
-  return makeSetting<DeviceType>({
-    choices: [
-      ['desktop', 'Desktop'],
-      ['touchscreen', 'Touch screen'],
-    ],
-    default: isTouchDevice() ? 'touchscreen' : 'desktop',
-    storage: storage.make('nvui.deviceType'),
   });
 }
 

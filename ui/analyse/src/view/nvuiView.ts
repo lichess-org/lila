@@ -10,6 +10,7 @@ import { defined } from 'lib';
 import { throttle } from 'lib/async';
 import { view as cevalView, renderEval } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
+import { isTouchDevice } from 'lib/device';
 import type { Player } from 'lib/game';
 import { plyToTurn } from 'lib/game/chess';
 import {
@@ -71,18 +72,8 @@ export function initNvui(ctx: AnalyseNvuiContext): void {
 }
 
 export function renderNvui(ctx: AnalyseNvuiContext): VNode {
-  const {
-    ctrl,
-    deps,
-    notify,
-    moveStyle,
-    pieceStyle,
-    prefixStyle,
-    positionStyle,
-    boardStyle,
-    pageStyle,
-    deviceType,
-  } = ctx;
+  const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } =
+    ctx;
   const d = ctrl.data,
     style = moveStyle.get(),
     clocks = renderClocks(ctrl, ctrl.path),
@@ -93,7 +84,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
     drawable: { enabled: false },
     coordinates: false,
   });
-  const boardFirst = deviceType.get() === 'touchscreen' && pageStyle.get() === 'board-actions';
+  const boardFirst = isTouchDevice() && pageStyle.get() === 'board-actions';
 
   if (boardFirst) {
     pieceStyle.set('name');
