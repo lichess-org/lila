@@ -219,8 +219,7 @@ object mon:
           ipSusp: Boolean,
           fp: Boolean,
           proxy: Option[String],
-          country: String,
-          api: Option[ApiVersion]
+          country: String
       ) =
         counter("user.register.count").withTags:
           tags(
@@ -229,8 +228,7 @@ object mon:
             "ipSusp" -> ipSusp,
             "fp" -> fp,
             "proxy" -> proxy.getOrElse("no"),
-            "country" -> country.escape,
-            "api" -> apiTag(api)
+            "country" -> country.escape
           )
       def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
       def confirmEmailResult(success: Boolean) =
@@ -385,6 +383,10 @@ object mon:
       )
     def userTrust(trust: Boolean, cause: String) =
       counter("security.userTrust").withTags(tags("trust" -> trust, "cause" -> cause)).increment()
+    object singlePost:
+      def newToken(endpoint: String) = counter("security.singlePost.newToken").withTag("endpoint", endpoint)
+      def consume(endpoint: String, result: String) =
+        counter("security.singlePost.consume").withTags(tags("endpoint" -> endpoint, "result" -> result))
   object shutup:
     def analyzer = timer("shutup.analyzer.time").withoutTags()
   object tv:
@@ -751,8 +753,6 @@ object mon:
 
   private def successTag(success: Boolean) = if success then "success" else "failure"
   private def hitTag(hit: Boolean) = if hit then "hit" else "miss"
-
-  private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
   import scala.language.implicitConversions
   private given Conversion[UserId, String] = _.value

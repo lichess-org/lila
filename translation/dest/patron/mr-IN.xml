@@ -3,20 +3,20 @@
   <string name="donate">देणगी द्या</string>
   <string name="donateAsX">%s म्हणून देणगी द्या</string>
   <string name="lichessPatron">Lichess आश्रयदाता</string>
-  <string name="patronSince" comment="string is a date">%s पासून गिऱ्हाईक</string>
+  <string name="patronSince" comment="string is a date">%s पासून आश्रयदाता</string>
   <string name="freeAccount">मोफत खाते</string>
   <string name="becomePatron">Lichess आश्रयदाता बना</string>
-  <string name="xBecamePatron">%s एक Lichess गिऱ्हाईक बनले</string>
+  <string name="xBecamePatron">%s एक Lichess आश्रयदाता बनले</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s एक Liches गिऱ्हाईक %2$s महिन्यासाठी आहे</item>
-    <item quantity="other">%1$s एक Liches गिऱ्हाईक %2$s महिन्यांसाठी आहे</item>
+    <item quantity="one">%1$s एक Liches आश्रयदाता %2$s महिन्यासाठी आहे</item>
+    <item quantity="other">%1$s एक Liches आश्रयदाता %2$s महिन्यांसाठी आहे</item>
   </plurals>
-  <string name="newPatrons">नवीन गिऱ्हाईक</string>
+  <string name="newPatrons">नवीन आश्रयदाता</string>
   <string name="freeChess">मोफत बुद्धिबळ सगळ्यांसाठी, कायमचे!</string>
   <string name="noAdsNoSubs">जाहिराती नाही, वर्गणी नाही; पण मुक्त-स्रोत आणि तीव्र आवड.</string>
   <string name="thankYou">तुमच्या देणगीसाठी धन्यवाद!</string>
   <string name="youHaveLifetime">तुमच्याकडे आयुष्यभर एक Lichess आश्रयदाता असण्याचे खाते आहे. हे खूपच छान व सुंदर आहे!</string>
-  <string name="patronUntil">तुमच्याकडे एक गिऱ्हाईक खाते %s पर्यंत आहे.</string>
+  <string name="patronUntil">तुमच्याकडे एक आश्रयदाता खाते %s पर्यंत आहे.</string>
   <string name="ifNotRenewedThenAccountWillRevert">जर नूतनीकरण केले नसेल, तर तुमचे खाते परत सामान्य खात्यात बदलले जाईल.</string>
   <string name="weAreNonProfit">आम्ही एक विना-नफा संस्था आहोत कारण आमचा विश्वास असा आहे की प्रत्येकाला एक विनामूल्य, जागतिक दर्जाचे बुद्धिबळ व्यासपीठ उपलब्ध असले पाहिजे.</string>
   <string name="weRelyOnSupport">हे शक्य करण्यासाठी आम्ही तुमच्यासारख्या लोकांच्या पाठिंब्यावर अवलंबून आहोत. जर तुम्हाला Lichess वापरायला आवडत असेल, तर कृपया देणगी देऊन आणि आश्रयदाता (पॅट्रॉन) बनून आम्हाला पाठिंबा देण्याचा विचार करा!</string>
@@ -52,12 +52,12 @@
 मात्र, आश्रयदात्यांना त्यांच्या चरित्रावर दिसणाऱ्या आकर्षक नवीन पॅट्रॉन विंग्समुळे मिरवण्याचा हक्क मिळतो.</string>
   <string name="featuresComparison">वैशिष्ट्यांची सविस्तर तुलना पहा</string>
   <plurals name="patronForMonths">
-    <item quantity="one"> Lichess गिऱ्हाईक एका महिन्यासाठी</item>
-    <item quantity="other"> Lichess गिऱ्हाईक %s महिन्यांसाठी</item>
+    <item quantity="one">Lichess आश्रयदाता एका महिन्यासाठी</item>
+    <item quantity="other">Lichess आश्रयदाता %s महिन्यांसाठी</item>
   </plurals>
   <string name="youSupportWith">तुम्ही दरमहिन्याला %s देऊन lichess.org ला पाठिंबा देऊ शकता.</string>
   <string name="tyvm">तुमच्या मदतीबद्दल खूप खूप धन्यवाद. तुम्ही कमाल आहात!</string>
-  <string name="currentStatus">Current status</string>
+  <string name="currentStatus">वर्तमान स्थिती</string>
   <string name="nextPayment">पुढील वर्गणी</string>
   <string name="youWillBeChargedXOnY">तुमच्याकडून %2$s ला %1$s शुल्क आकारले जाईल.</string>
   <string name="makeAdditionalDonation">अतिरिक्त देणगी द्या</string>
@@ -65,7 +65,7 @@
   <string name="giftPatronWings">पॅट्रॉन विंग्स एका खेळाडूला भेट द्या</string>
   <string name="update">अद्यतन करा</string>
   <string name="changeMonthlyAmount">मासिक रक्कम बदला (%s)</string>
-  <string name="cancelSupport">तुमचा समर्थन रद्द करा</string>
+  <string name="cancelSupport">तुमचे समर्थन रद्द करा</string>
   <string name="xOrY">%1$s किंवा %2$s</string>
   <string name="decideHowMuch">तुमच्यासाठी Lichess ची किंमत काय आहे ते ठरवा:</string>
   <string name="stopPayments">तुमचे क्रेडिट कार्ड काढा आणि वर्गणी थांबवा:</string>
@@ -83,6 +83,6 @@
   <string name="changeCurrency">चलन बदला</string>
   <string name="paymentDetails">वर्गणीचे तपशील</string>
   <string name="updatePaymentMethod">वर्गणी देण्याची पद्धत अद्यतन करा</string>
-  <string name="stripeManageSub">तुमचे सदस्यत्व व्यवस्थापित करा आणि तुमची चलन व पावत्या आयात करा.</string>
-  <string name="coverFees">या व्यवहाराच्या प्रक्रियेचा खर्च भरून काढण्यास मदत म्हणून मी %s जोडेन.</string>
+  <string name="stripeManageSub">तुमचे सदस्यत्व व्यवस्थापित करा आणि तुमची चलन व पावत्या आयात करा</string>
+  <string name="coverFees">या व्यवहाराच्या प्रक्रियेचा खर्च भरून काढण्यास मदत म्हणून मी %s जोडेन</string>
 </resources>

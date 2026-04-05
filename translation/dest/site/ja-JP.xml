@@ -875,7 +875,6 @@
   <string name="agreementAssistance">私はいかなる場合も対局中に外部の力を借りないことに同意します（コンピュータ、書籍、データベース、別の人物）。</string>
   <string name="agreementNice">私は常に他のプレイヤーへの礼儀を守ることに同意します。</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">私は複数のアカウントを作成しないことに同意します（%s に記載の理由による場合を除く）。</string>
-  <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
   <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
   <string name="edit">編集</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">ウルトラブレット</string>

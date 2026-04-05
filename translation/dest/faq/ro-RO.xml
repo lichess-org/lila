@@ -149,8 +149,8 @@ Pictograma roşie cu sunet apare atunci când browserul dumneavoastră împiedic
 
 Vă arătăm pictograma roșie pentru a vă alerta când se întâmplă acest lucru. De multe ori puteți permite în mod explicit lichess.org pentru a reda sunete. Aici sunt instrucţiuni pentru aceasta în versiunile recente ale unor browsere populare.</string>
   <string name="desktop">desktop</string>
-  <string name="enableAutoplayForSoundsFirefox">1. Mergeți la lichess.org
-2. Apăsați Ctrl-i pe Linux/Windows sau cmd-i pe MacOS
+  <string name="enableAutoplayForSoundsFirefox">1. Deschideți lichess.org
+2. Apăsați Ctrl-i în Linux/Windows sau cmd-i în MacOS
 3. Faceți clic pe fila Permisiuni
 4. Permiteți audio și video pe lichess.org</string>
   <string name="enableAutoplayForSoundsChrome">1. Mergeți la lichess.org

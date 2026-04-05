@@ -127,12 +127,16 @@
   <string name="bestMoveArrow">Best move arrow</string>
   <string name="showVariationArrows">Show variation arrows</string>
   <string name="evaluationGauge">Evaluation gauge</string>
+  <string name="visualMotifs">Visual motifs</string>
+  <string name="undefendedPieces">Undefended pieces</string>
+  <string name="pinnedPieces">Pinned pieces</string>
   <string name="checkableKing">Checkable king</string>
   <string name="multipleLines">Multiple lines</string>
   <string name="multipleLinesDescription">Set number of evaluation lines and move arrows on the board</string>
   <string name="searchTime">Search time</string>
   <string name="searchTimeDescription">Set time to evaluate fresh positions</string>
   <string name="threads">Threads</string>
+  <string name="threadsDescription">Set this below your CPU\'s thread count, the ticks mark a good safe choice</string>
   <string name="threadsDescriptionMobile">More threads will use more battery for better analysis</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memory</string>
@@ -177,7 +181,7 @@
     <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
-  <string name="drawByMutualAgreement">Draw by mutual agreement</string>
+  <string name="drawByMutualAgreement">Draw by agreement</string>
   <string name="fiftyMovesWithoutProgress">Fifty moves without progress</string>
   <string name="currentGames">Current games</string>
   <string name="joinedX">Joined %s</string>
@@ -253,11 +257,11 @@
   <string name="youAreLeavingLichess">You are leaving Lichess</string>
   <string name="neverTypeYourPassword">Never type your Lichess password on another site!</string>
   <string name="proceedToX">Proceed to %s</string>
-  <string name="passwordSuggestion">Do not set a password suggested by someone else. They will use it to steal your account.</string>
-  <string name="emailSuggestion">Do not set an email address suggested by someone else. They will use it to steal your account.</string>
+  <string name="passwordSuggestion">Do not set a password suggested by someone else. They can use it to steal your account.</string>
+  <string name="emailSuggestion">Do not set an email address suggested by someone else. They can use it to steal your account.</string>
   <string name="emailConfirmHelp">Help with email confirmation</string>
   <string name="emailConfirmNotReceived">Didn\'t receive your confirmation email after signing up?</string>
-  <string name="whatSignupUsername">What username did you use to sign up?</string>
+  <string name="whatSignupUsername">What username did you register with?</string>
   <string name="usernameNotFound">We couldn\'t find any user by this name: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">You can use this username to create a new account</string>
   <string name="emailSent">We have sent an email to %s.</string>
@@ -266,7 +270,7 @@
   <string name="checkSpamFolder">Also check your spam folder, it might end up there. If so, mark it as not spam.</string>
   <string name="emailForSignupHelp">If you still have questions, please send us an email:</string>
   <string name="copyTextToEmail">Copy and paste the above text and send it to %s</string>
-  <string name="waitForSignupHelp">We will come back to you shortly to help you complete your signup.</string>
+  <string name="waitForSignupHelp">We will respond shortly to help you complete your registration.</string>
   <string name="accountConfirmed">The user %s is successfully confirmed.</string>
   <string name="accountCanLogin">You can login right now as %s.</string>
   <string name="accountConfirmationEmailNotNeeded">You do not need a confirmation email.</string>
@@ -360,7 +364,7 @@
     <item quantity="one">Give %s second</item>
     <item quantity="other">Give %s seconds</item>
   </plurals>
-  <string name="thisAccountViolatedTos">This account violated the Lichess Terms of Service</string>
+  <string name="thisAccountViolatedTos">The Lichess Terms of Service were violated on this account</string>
   <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
@@ -400,7 +404,7 @@
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2$s rated game</item>
-    <item quantity="other">≥ %1$s %2$s rated games</item>
+    <item quantity="other">≥ %1$s rated %2$s games</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">You need to play %1$s more %2$s rated game</item>
@@ -442,7 +446,7 @@
   <string name="continueFromHere">Continue from here</string>
   <string name="toStudy">Study</string>
   <string name="importGame">Import game</string>
-  <string name="importGameExplanation">Paste a game PGN to get a browsable replay, computer analysis, game chat and public shareable URL.</string>
+  <string name="importGameExplanation">Paste a game PGN to get a browsable replay, computer analysis, game chat, and a shareable link.</string>
   <string name="importGameDataPrivacyWarning">This PGN can be accessed by the public. To import a game privately, use a study.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
@@ -621,7 +625,7 @@
   <string name="slow">Slow</string>
   <string name="insideTheBoard">Inside the board</string>
   <string name="outsideTheBoard">Outside the board</string>
-  <string name="allSquaresOfTheBoard">All squares on the board</string>
+  <string name="allSquaresOfTheBoard">All squares</string>
   <string name="onSlowGames">On slow games</string>
   <string name="always">Always</string>
   <string name="never">Never</string>
@@ -699,7 +703,7 @@
   <string name="yourPendingSimuls">Your pending simuls</string>
   <string name="createdSimuls">Newly created simuls</string>
   <string name="hostANewSimul">Host a new simul</string>
-  <string name="signUpToHostOrJoinASimul">Sign up to join or host a simul</string>
+  <string name="signUpToHostOrJoinASimul">Register to join or host a simul</string>
   <string name="noSimulFound">Simul not found</string>
   <string name="noSimulExplanation">This simultaneous exhibition does not exist.</string>
   <string name="returnToSimulHomepage">Return to simul homepage</string>
@@ -709,8 +713,9 @@
   <string name="aboutSimulRules">When the simul starts, every player starts a game with the host. The simul ends when all games are complete.</string>
   <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and adding time are disabled.</string>
   <string name="create">Create</string>
-  <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
+  <string name="whenCreateSimul">When you create a simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
+  <string name="simulClockHint">The more players you take on, the more time you may need.</string>
   <string name="simulAddExtraTime">You may add extra initial time to your clock to help you cope with the simul.</string>
   <string name="simulHostExtraTime">Host extra initial clock time</string>
   <string name="simulAddExtraTimePerPlayer">Add initial time to your clock for each player joining the simul.</string>
@@ -871,11 +876,11 @@
   <string name="waitingForAnalysis">Waiting for analysis</string>
   <string name="noMistakesFoundForWhite">No significant mistakes found for White</string>
   <string name="noMistakesFoundForBlack">No significant mistakes found for Black</string>
-  <string name="doneReviewingWhiteMistakes">Done reviewing White mistakes</string>
-  <string name="doneReviewingBlackMistakes">Done reviewing Black mistakes</string>
+  <string name="doneReviewingWhiteMistakes">Done reviewing white\'s mistakes</string>
+  <string name="doneReviewingBlackMistakes">Done reviewing black\'s mistakes</string>
   <string name="doItAgain">Do it again</string>
-  <string name="reviewWhiteMistakes">Review White mistakes</string>
-  <string name="reviewBlackMistakes">Review Black mistakes</string>
+  <string name="reviewWhiteMistakes">Review white\'s mistakes</string>
+  <string name="reviewBlackMistakes">Review black\'s mistakes</string>
   <string name="advantage">Advantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s second</item>
@@ -914,7 +919,6 @@
   <string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a chess computer, book, database or another person).</string>
   <string name="agreementNice">I agree that I will always be respectful to other players.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">I agree that I will not create multiple accounts (except for the reasons stated in the %s).</string>
-  <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
   <string name="searchOrStartNewDiscussion">Search or start new conversation</string>
   <string name="edit">Edit</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
@@ -995,7 +999,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Analysis options</string>
   <string name="focusChat">Focus chat</string>
-  <string name="showHelpDialog">Show this help dialog</string>
+  <string name="showHelpDialog">View this help overlay</string>
   <string name="reopenYourAccount">Reopen your account</string>
   <string name="reopenYourAccountDescription">If you closed your account but have since changed your mind, you may reopen it now.</string>
   <string name="emailAssociatedToaccount">Email address associated to the account</string>

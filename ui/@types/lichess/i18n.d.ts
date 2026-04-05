@@ -1305,7 +1305,7 @@ interface I18n {
     youCanUseOpeningBookNoEngine: string;
   };
   features: {
-    /** All chess basics lessons */
+    /** All lessons in the basics of chess */
     allChessBasicsLessons: string;
     /** All features are free for everybody, forever! */
     allFeaturesAreFreeForEverybody: string;
@@ -3083,8 +3083,6 @@ interface I18n {
     agreementMultipleAccounts: I18nFormat;
     /** I agree that I will always be respectful to other players. */
     agreementNice: string;
-    /** I agree that I will follow all Lichess policies. */
-    agreementPolicy: string;
     /** %1$s level %2$s */
     aiNameLevelAiLevel: I18nFormat;
     /** All information is public and optional. */
@@ -5037,7 +5035,7 @@ interface I18n {
   study: {
     /** Add members */
     addMembers: string;
-    /** Select %s.&lt;br&gt;Then decide who will be allowed to contribute. */
+    /** Select %s.<br>Then decide who will be allowed to contribute. */
     addMembersText: I18nFormat;
     /** Add a new chapter */
     addNewChapter: string;
@@ -5051,7 +5049,7 @@ interface I18n {
     alphabetical: string;
     /** Analysis mode */
     analysisMode: string;
-    /** Click the !? button, or right-click on the move list.&lt;br&gt;Annotation glyphs are shared and saved. */
+    /** Click the !? button, or right-click on the move list.<br>Annotation glyphs are shared and saved. */
     annotatePositionText: string;
     /** Annotate a position */
     annotatePositionTitle: string;
@@ -5091,7 +5089,7 @@ interface I18n {
     clearVariations: string;
     /** Clone */
     cloneStudy: string;
-    /** Click the %s button, or right click on the move list.&lt;br&gt;Comments are shared and saved. */
+    /** Click the %s button, or right-click on the move list.<br>Comments are shared and saved. */
     commentPositionText: I18nFormat;
     /** Comment on a position */
     commentPositionTitle: string;
@@ -5117,7 +5115,7 @@ interface I18n {
     counterplay: string;
     /** Create chapter */
     createChapter: string;
-    /** A study can have several chapters.&lt;br&gt;Each chapter has a distinct move tree &lt;br&gt;and can be created in various ways. */
+    /** A study can have several chapters.<br>Each chapter has a distinct move tree <br>and can be created in various ways. */
     createChapterText: string;
     /** Let's create a study chapter */
     createChapterTitle: string;
@@ -5125,7 +5123,7 @@ interface I18n {
     createStudy: string;
     /** Current chapter URL */
     currentChapterUrl: string;
-    /** Set up the board your way.&lt;br&gt;Suited to explore endgames. */
+    /** Set up the board your way.<br>Suited to explore endgames. */
     customPositionText: string;
     /** Custom position */
     customPositionTitle: string;
@@ -5169,11 +5167,11 @@ interface I18n {
     fromFenStringText: string;
     /** From a FEN string */
     fromFenStringTitle: string;
-    /** A board set up for a new game.&lt;br&gt;Useful for exploring openings. */
+    /** A board set up for a new game.<br>Useful for exploring openings. */
     fromInitialPositionText: string;
     /** From initial position */
     fromInitialPositionTitle: string;
-    /** Paste a game in PGN format&lt;br&gt;to load moves, comments and variations in the chapter. */
+    /** Paste a game in PGN format<br>to load moves, comments and variations in the chapter. */
     fromPgnGameText: string;
     /** From a PGN game */
     fromPgnGameTitle: string;
@@ -5375,7 +5373,7 @@ interface I18n {
     variantsAreSupportedTitle: string;
     /** Visibility */
     visibility: string;
-    /** This is a shared analysis board.&lt;br&gt;&lt;br&gt;Use it to analyse and annotate games,&lt;br&gt;to discuss positions with friends,&lt;br&gt;and of course for chess lessons!&lt;br&gt;&lt;br&gt;It's a powerful tool. Let's take some time to see how it works. */
+    /** This is a shared analysis board.<br><br>Use it to analyse and annotate games,<br>to discuss positions with friends,<br>and of course for chess lessons!<br><br>It's a powerful tool. Let's take some time to see how it works. */
     welcomeToLichessStudyText: string;
     /** Welcome to Lichess Study! */
     welcomeToLichessStudyTitle: string;
@@ -5541,7 +5539,7 @@ interface I18n {
     roundsAreStartedManually: string;
     /** Similar to in-person tournaments */
     similarToOTB: string;
-    /** Sonneborn-Berger score */
+    /** Sonneborn–Berger score */
     sonnebornBergerScore: string;
     /** Starting soon */
     startingSoon: string;
@@ -5923,7 +5921,7 @@ interface I18n {
     published: string;
     /** Published %s blog posts */
     publishedNbBlogPosts: I18nPlural;
-    /** If not, it will be private and remain in your draft posts */
+    /** If checked, the post will be listed on your blog. If not, it will be private and remain in your draft posts */
     publishHelp: string;
     /** Publish on your blog */
     publishOnYourBlog: string;
@@ -6045,7 +6043,7 @@ interface I18n {
     instructions2: string;
     /** If an arrow shows a sweeping radar, that move will be played when the circle is complete. During this time, you may only say %1$s to play the move immediately, %2$s to cancel, or speak the colour/number of a different arrow. This timer can be adjusted or turned off in settings. */
     instructions3: I18nFormat;
-    /** Enable %s in noisy surroundings. Hold shift while speaking commands when this is on. */
+    /** Enable %s in noisy surroundings. Hold Shift when speaking commands while this option is active. */
     instructions4: I18nFormat;
     /** Use the phonetic alphabet to improve recognition of chessboard files. */
     instructions5: string;

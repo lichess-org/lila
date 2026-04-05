@@ -920,7 +920,6 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="agreementAssistance">Elfogadom, hogy játék közben soha semmilyen segítséget (sakkprogram, könyv, adatbázis vagy másik személy) nem használok fel.</string>
   <string name="agreementNice">Elfogadom, hogy tisztelettudó leszek a többi játékossal szemben.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Beleegyezem, hogy nem fogok egynél több felhasználói fiókot létrehozni (kivéve a %s között ismertetett okok miatt).</string>
-  <string name="agreementPolicy">Elfogadom, hogy követni fogom a Lichess szabályait.</string>
   <string name="searchOrStartNewDiscussion">Keresés, vagy új beszélgetés indítása</string>
   <string name="edit">Szerkeszt</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>

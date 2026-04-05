@@ -403,7 +403,7 @@
     <item quantity="other">≥ %s rated games</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s rated game</item>
+    <item quantity="one">≥ %1$s rated %2$s game</item>
     <item quantity="other">≥ %1$s rated %2$s games</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
@@ -919,7 +919,6 @@
   <string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a chess computer, book, database or another person).</string>
   <string name="agreementNice">I agree that I will always be respectful to other players.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">I agree that I will not create multiple accounts (except for the reasons stated in the %s).</string>
-  <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
   <string name="searchOrStartNewDiscussion">Search or start new conversation</string>
   <string name="edit">Edit</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>

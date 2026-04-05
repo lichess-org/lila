@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">e4 katagiga yurish yoki e4 dagi donani tanlash</string>
   <string name="selectOrCaptureABishop">Filni tanlash yoki filni urib olish</string>
   <string name="takeRookWithQueen">Farzin bilan ruxni urib olish</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rokirovka (qisqa yoki uzun)</string>
+  <string name="castle">Rokirovka (qisqa yoki uzun)</string>
   <string name="phoneticAlphabetIsBest">Fonetik alifbodan foydalanish eng ishonchli usuldir</string>
   <string name="cancelTimerOrDenyARequest">Taymerni toʻxtatish yoki soʻrovni rad etish</string>
   <string name="playPreferredMoveOrConfirmSomething">Tanlangan yurishni bajarish yoki amalni tasdiqlash</string>

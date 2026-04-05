@@ -115,7 +115,7 @@
   <string name="lossSavedBy50MoveRule">Derrota impedida pola regra das 50 xogadas</string>
   <string name="winOr50MovesByPriorMistake">Vitoria ou 50 movementos a causa dun erro anterior</string>
   <string name="lossOr50MovesByPriorMistake">Derrota ou 50 movementos a causa dun erro anterior</string>
-  <string name="unknownDueToRounding">A vitoria ou derrota só están garantidas se a liña recomendada da base de datos de finais se seguiu desde a última captura ou movemento de peón, debido a un posible arredondamento dos valores DTZ nas bases de datos de finais Syzygy.</string>
+  <string name="unknownDueToRounding">Debido a un posible arredondamento dos valores DTZ nas bases de datos de finais Syzygy, a vitoria ou a derrota só están garantidas se a liña recomendada da base de datos de finais se seguiu desde a última captura ou movemento de peón.</string>
   <string name="allSet">Todo listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
@@ -201,7 +201,7 @@
   <string name="logOut">Pechar sesión</string>
   <string name="signIn">Iniciar sesión</string>
   <string name="rememberMe">Manterme conectado</string>
-  <string name="youNeedAnAccountToDoThat">Precisas dunha conta de usuario para facer iso</string>
+  <string name="youNeedAnAccountToDoThat">Precisas dunha conta de usuario para usar esta función</string>
   <string name="signUp">Rexistrarse</string>
   <string name="computersAreNotAllowedToPlay">Non están permitidos nin os ordenadores nin os xogadores asistidos por eles. Por favor, non te axudes de módulos de xadrez, bases de datos ou doutros xogadores durante a partida. Lembra tamén que o uso de múltiples contas está altamente desaconsellado e que o uso abusivo deste tipo de contas pode conducir á suspensión.</string>
   <string name="games">Partidas</string>
@@ -715,7 +715,7 @@
   <string name="create">Crear</string>
   <string name="whenCreateSimul">Cando creas unha exhibición de simultáneas, tes que enfrontarte a varios xogadores ó mesmo tempo.</string>
   <string name="simulVariantsHint">Se seleccionas distintas variantes, cada xogador pode escoller cal xogar.</string>
-  <string name="simulClockHint" comment="This used to say &quot;Fischer clock setup&quot; at the start of it, which has since been removed as it is obvious from the context.">Cantos máis xogadores, máis tempo necesitas.</string>
+  <string name="simulClockHint">Cantos máis xogadores, máis tempo necesitas.</string>
   <string name="simulAddExtraTime">Podes engadir tempo extra ó teu reloxo para axudarte coas simultáneas.</string>
   <string name="simulHostExtraTime">Tempo inicial extra para o anfitrión</string>
   <string name="simulAddExtraTimePerPlayer">Engadir tempo inicial ao teu reloxo por cada xogador que se una ás simultáneas.</string>
@@ -919,7 +919,6 @@
   <string name="agreementAssistance">Comprométome a non recibir axuda externa durante as miñas partidas (dun computador, libro, base de datos ou doutra persoa).</string>
   <string name="agreementNice">Comprométome a respectar sempre aos outros xogadores.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Comprométome a non crear múltiples contas (excepto polas razóns indicadas nos %s).</string>
-  <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBala</string>

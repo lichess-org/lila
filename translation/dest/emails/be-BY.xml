@@ -10,11 +10,11 @@
   <string name="emailChange_intro">Мы атрымалі запыт на змену вашага адраса электроннай пошты.</string>
   <string name="emailChange_click">Для пацвярджэння таго, што ў вас ёсць доступ да адраса электроннай пошты, калі ласка, націсніце спасылку ніжэй:</string>
   <string name="welcome_subject">Вітаем вас на lichess.org, %s</string>
-  <string name="welcome_text">Вы паспяхова зарэгістравалі свой уліковы запіс на https://lichess.org.
+  <string name="welcome_text">Вы пасьпяхова стварылі свой уліковы запіс на https://lichess.org.
 
 Вось спасылка на ваш профіль: %1$s. Вы можаце наладзіць яго тут %2$s.
 
-Поспехаў, і ды знойдуць Вашы фігуры шлях да караля суперніка!</string>
+Забаўляйцеся, і няхай Вашыя хвігуры няўхільна знаходзяць шлях да караля супара!</string>
   <string name="logInToLichess">Уваход на lichess.org, %s</string>
   <string name="common_orPaste">(Націсканне на спасылку не працуе? Паспрабуйце ўставіць у ваш браўзер!)</string>
   <string name="common_note">Гэта службовы ліст, які звязаны з вашым выкарыстаннем %s.</string>

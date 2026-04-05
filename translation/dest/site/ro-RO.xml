@@ -431,7 +431,7 @@
     <item quantity="other">%s de partide oficiale jucate</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ o partidă %2$s jucată</item>
+    <item quantity="one">≥ o partidă %2$s oficială jucată</item>
     <item quantity="few">≥ %1$s partide oficiale %2$s jucate</item>
     <item quantity="other">≥ %1$s de partide oficiale %2$s jucate</item>
   </plurals>
@@ -754,7 +754,7 @@
   <string name="create">Creează</string>
   <string name="whenCreateSimul">Când creezi un simultan, vei juca cu mai mulți jucători în același timp.</string>
   <string name="simulVariantsHint">Dacă alegi mai multe variante, fiecare jucător va avea de ales ce variantă va juca.</string>
-  <string name="simulClockHint" comment="This used to say &quot;Fischer clock setup&quot; at the start of it, which has since been removed as it is obvious from the context.">Cu cât joci împotriva mai multor jucători, cu atât mai mult vei avea nevoie de timp.</string>
+  <string name="simulClockHint">Cu cât joci împotriva mai multor jucători, cu atât mai mult vei avea nevoie de timp.</string>
   <string name="simulAddExtraTime">Poți adăuga timp în plus pe ceasul tău pentru a te ajuta să faci față simultanului.</string>
   <string name="simulHostExtraTime">Timp suplimentar pe ceasul gazdei</string>
   <string name="simulAddExtraTimePerPlayer">Adaugă timp inițial la ceasul tău pentru fiecare jucător care se alătură jocului simultan.</string>
@@ -963,7 +963,6 @@
   <string name="agreementAssistance">Sunt de acord să nu primesc niciodată asistență în timpul partidelor mele (de la un calculator, o carte, o bază de date sau de la o altă persoană).</string>
   <string name="agreementNice">Sunt de acord să fiu mereu respectuos cu alți jucători.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Sunt de acord să nu creez conturi multiple (cu excepția motivelor declarate în %s).</string>
-  <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor Lichess.</string>
   <string name="searchOrStartNewDiscussion">Caută sau începe o nouă conversație</string>
   <string name="edit">Modifică</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>

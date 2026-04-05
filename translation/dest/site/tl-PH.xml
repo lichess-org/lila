@@ -840,7 +840,6 @@
   <string name="agreementAssistance">Sumasang-ayon ako na hindi ako kailanman tatanggap ng ayuda sa panahon ng aking mga laro (mula sa isang kompyuter ng ahedres, aklat, database o sa ibang tao).</string>
   <string name="agreementNice">Sumasang-ayon ako na lagi akong magiging magalang sa ibang mga manlalaro.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Sumasang-ayon ako na hindi ako gagawa ng maraming account (maliban sa dahilan na nakalagay sa %s).</string>
-  <string name="agreementPolicy">Sumasang-ayon ako na susundin ko ang lahat ng polisiya ng Lichess.</string>
   <string name="searchOrStartNewDiscussion">Mag-search o mag-start ng bagong pag-uusap</string>
   <string name="edit">I-edit</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>

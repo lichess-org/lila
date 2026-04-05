@@ -1007,7 +1007,6 @@
   <string name="agreementAssistance">Подтверждаю, что я никогда не воспользуюсь посторонней помощью в своих играх (из шахматных программ, книг, баз данных и от других игроков).</string>
   <string name="agreementNice">Подтверждаю, что я буду с уважением относиться к другим игрокам.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Я согласен с тем, что не должен создавать множество учётных записей (за исключением причин, указанных в %s).</string>
-  <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
   <string name="edit">Изменить</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ультра-пуля</string>

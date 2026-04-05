@@ -777,7 +777,6 @@
   <string name="agreementAssistance">Sò d\' accunsentu ch\' ùn piglieraghju mai cunsigliu durante e mo partite (da un urdinatore, d\'un libru, d\'una databasa o d\' una altra persona).</string>
   <string name="agreementNice">Sò d\' accunsentu chì seraghju sempre rispettosu di l\' altri ghjucadori.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Accettu d\' ùn creà parechji conti ( for\' di i raggioni mintuvati in u %s).</string>
-  <string name="agreementPolicy">Sò d\' accunsentu chì seguiteraghju tutte e regule di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cercà o principià una chjachjera nova</string>
   <string name="edit">Edità</string>
   <string name="rapid">Rapida</string>

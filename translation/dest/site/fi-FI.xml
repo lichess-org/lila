@@ -919,7 +919,6 @@
   <string name="agreementAssistance">Vakuutan etten ota vastaan ulkopuolista apua pelieni aikana (shakkitietokoneilta, kirjoilta, tietokannoilta enkä muilta ihmisiltä).</string>
   <string name="agreementNice">Vakuutan että käyttäydyn aina muita pelaajia kunnioittaen.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Hyväksyn, että en luo useampaa kuin yhtä käyttäjätunnusta (paitsi kohdassa %s mainituista syistä).</string>
-  <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Hae tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
