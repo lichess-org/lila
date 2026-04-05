@@ -8,7 +8,7 @@ type Name = string;
 type Path = string;
 
 export default new (class implements SoundI {
-  ctx = makeAudioContext();
+  ctx: AudioContext | undefined;
   listeners = new Set<SoundListener>();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
@@ -212,6 +212,7 @@ export default new (class implements SoundI {
   }
 
   async resumeWithTest(): Promise<boolean> {
+    if (!this.ctx) this.ctx = makeAudioContext();
     if (!this.ctx) return false;
     if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
       // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
