@@ -117,7 +117,7 @@ const ops: Record<string, (val?: string) => boolean> = {
 function processQueryParams() {
   let changed = 0;
   for (const p of location.hash.split('?')[1]?.split('&') ?? []) {
-    const op = p.indexOf('=') > -1 ? p.slice(0, p.indexOf('=')) : p;
+    const op = p.includes('=') ? p.slice(0, p.indexOf('=')) : p;
     if (op in ops) changed += ops[op](p.slice(op.length + 1)) ? 1 : 0;
     else console.warn('Invalid query op', op);
   }

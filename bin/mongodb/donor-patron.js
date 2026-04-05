@@ -35,7 +35,7 @@ function donationToPatron(donation) {
   if (donation.email) charge.payPal.email = donation.email;
   db.plan_charge.insert(charge);
 
-  if (userIds.indexOf(donation.userId) !== -1) return;
+  if (userIds.includes(donation.userId)) return;
   userIds.push(donation.userId);
 
   const patron = {

@@ -1,7 +1,7 @@
 import { XMLParser } from 'fast-xml-parser';
-import { readdirSync, readFileSync, writeFileSync } from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 interface TranslationXml {
   '?xml': {

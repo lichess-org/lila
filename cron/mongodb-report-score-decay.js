@@ -9,7 +9,7 @@
 
 const newScore = atom => Math.max(0, atom.initScore - scoreDecay(atom.at));
 const scoreDecay = date => Math.max(0, daysSince(date) - 3);
-const now = new Date().getTime();
+const now = Date.now();
 const daysSince = date => Math.floor((now - date.getTime()) / 86400000);
 
 db.report2
