@@ -960,6 +960,7 @@ export default class AnalyseCtrl implements CevalHandler {
     if (this.study && this.study.data.chapter.id !== data.ch) return;
     const tree = completeNode(this.variantKey)(data.tree);
     this.tree.merge(tree);
+    this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.data.analysis = data.analysis;
     if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(tree, this.partialAnalysisCallback);
     if (data.division) this.data.game.division = data.division;
