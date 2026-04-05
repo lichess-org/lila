@@ -167,7 +167,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       renderRetro(ctx),
       !ctrl.retro && [
         hl('h2', i18n.site.computerAnalysis),
-        cevalView.renderCeval(ctrl), // beware unsolicted redraws hosing the screen reader
+        cevalView.renderCeval(ctrl), // beware unsolicited redraws hosing the screen reader
         cevalView.renderPvs(ctrl),
         renderAcpl(ctx) || requestAnalysisBtn(ctx),
       ],
@@ -258,7 +258,7 @@ function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
         },
         'next move',
       ),
-      hl('button', { hook: bind('click', () => notify.set(renderEvalAndDepth(ctrl))) }, 'evalutation'),
+      hl('button', { hook: bind('click', () => notify.set(renderEvalAndDepth(ctrl))) }, 'evaluation'),
       hl(
         'button',
         { hook: bind('click', () => notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext))) },
