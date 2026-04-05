@@ -115,16 +115,19 @@ export default class RelayPlayers {
   };
 
   loadFromXhr = async (onInsert?: boolean) => {
-    if (this.players && !onInsert) {
-      this.loading = true;
+    if (this.loading) return;
+    this.loading = true;
+    if (this.players && !onInsert) this.redraw();
+    try {
+      const players: (RelayPlayer & StudyPlayerFromServer)[] = await xhrJson(
+        `/broadcast/${this.tour.id}/players`,
+      );
+      this.players = players.map(convertPlayerFromServer);
+      this.table?.refresh();
+    } finally {
+      this.loading = false;
       this.redraw();
     }
-    const players: (RelayPlayer & StudyPlayerFromServer)[] = await xhrJson(
-      `/broadcast/${this.tour.id}/players`,
-    );
-    this.players = players.map(convertPlayerFromServer);
-    this.table?.refresh();
-    this.redraw();
   };
 
   loadPlayerWithGames = async (id: RelayPlayerId) => {
