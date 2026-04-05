@@ -58,6 +58,8 @@ const prefixStyles = ['letter', 'name', 'none'] as const;
 export type PrefixStyle = (typeof prefixStyles)[number];
 export type PositionStyle = 'before' | 'after' | 'none';
 export type BoardStyle = 'plain' | 'table';
+export type PageStyle = 'board-actions' | 'actions-board';
+export type DeviceType = 'desktop' | 'touchscreen';
 
 export function boardSetting(): Setting<BoardStyle> {
   return makeSetting<BoardStyle>({
@@ -67,6 +69,17 @@ export function boardSetting(): Setting<BoardStyle> {
     ],
     default: 'plain',
     storage: storage.make('nvui.boardLayout'),
+  });
+}
+
+export function pageSetting(): Setting<PageStyle> {
+  return makeSetting<PageStyle>({
+    choices: [
+      ['actions-board', `${i18n.nvui.actions} ${i18n.site.board}`],
+      ['board-actions', `${i18n.site.board} ${i18n.nvui.actions}`],
+    ],
+    default: 'actions-board',
+    storage: storage.make('nvui.pageLayout'),
   });
 }
 
