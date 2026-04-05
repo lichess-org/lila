@@ -167,6 +167,18 @@ function renderTouchDeviceCommands(ctx: PuzzleNvuiContext): LooseVNodes {
   return hl('div.actions', [
     ctrl.mode !== 'view' &&
       hl(
+        'button.last-move',
+        {
+          key: 'last-move',
+          attrs: { type: 'button' },
+          hook: bind('click', () => {
+            notify.set($('.lastMove').text());
+          }),
+        },
+        'Last move',
+      ),
+      ctrl.mode !== 'view' &&
+      hl(
         'button.touch-hint',
         {
           key: 'touch-hint',
