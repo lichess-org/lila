@@ -29,7 +29,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
       pwned: IsPwned,
       remember: Boolean,
       result: => Option[Result] = None
-  )(using ctx: Context): Fu[Result] =
+  )(using ctx: Context): Fu[Result] = {
     for
       sessionId <- api.saveAuthentication(u.id, ctx.mobileApiVersion, pwned)
       res <- negotiate(
@@ -44,8 +44,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
             "sessionId" -> sessionId
           )
       ).map(authenticateCookie(sessionId, remember))
-        .recoverWith(authRecovery)
     yield res
+  }.recoverWith(authRecovery)
 
   private def authenticateAppealUser(u: UserModel, redirect: String => Result, url: String)(using
       ctx: Context
