@@ -116,6 +116,10 @@ object UserTrust extends YesNo[UserTrust]
 trait UserTrustApi:
   def get(id: UserId): Fu[UserTrust]
 
+opaque type SinglePostToken = String
+object SinglePostToken extends OpaqueString[SinglePostToken]
+type SinglePostMakeToken = RequestHeader ?=> SinglePostToken
+
 def canUploadImages(toRel: String)(using me: Me) = !me.marks.troll && me.kid.no && {
   me.isVerified ||
   toRel == "ublogBody" ||

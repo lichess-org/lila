@@ -385,6 +385,12 @@ object mon:
       )
     def userTrust(trust: Boolean, cause: String) =
       counter("security.userTrust").withTags(tags("trust" -> trust, "cause" -> cause)).increment()
+    object singlePost:
+      val newToken = counter("security.singlePost.newToken").withoutTags()
+      val success = counter("security.singlePost.success").withoutTags()
+      val missing = counter("security.singlePost.missing").withoutTags()
+      val expired = counter("security.singlePost.expired").withoutTags()
+      val badSign = counter("security.singlePost.badSign").withoutTags()
   object shutup:
     def analyzer = timer("shutup.analyzer.time").withoutTags()
   object tv:
