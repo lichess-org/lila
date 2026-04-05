@@ -18,13 +18,18 @@ export default function initModule(): void {
     /^girls$/i,
     /^boys$/i,
     /^open\s+u(\d{1,2})$/i,
+    /^o(\d{1,2})$/i,
     /^girls\s+u(\d{1,2})$/i,
+    /^g(\d{1,2})$/i,
     /^boys\s+u(\d{1,2})$/i,
+    /^b(\d{1,2})$/i,
     /^quarter[-\s]?final[s]?$/i,
     /^semi[-\s]?final[s]?$/i,
     /^final[s]?$/i,
     /^tie[-\s]?break(?:er)?[s]?$/i,
     /^knock[-\s]?out[s]?$/i,
+    /^u(\d{1,2})$/i,
+    /^u(\d{4})$/i,
   ];
   const checkAndToggle = (name: string) => {
     const translatedTokens = name
