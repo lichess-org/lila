@@ -12,7 +12,7 @@
   <string name="cloudEngineAnalysis">Cloud engine analysis</string>
   <string name="studies">Studies (shareable and persistent analysis)</string>
   <string name="chessInsights">Chess insights (detailed analysis of your play)</string>
-  <string name="allChessBasicsLessons">All chess basics lessons</string>
+  <string name="allChessBasicsLessons">All lessons in the basics of chess</string>
   <string name="tacticalPuzzlesFromUserGames">Tactical puzzles from user games</string>
   <string name="personalOpeningExplorerX">%1$s (also works on %2$s)</string>
   <string name="personalOpeningExplorer">Personal opening explorer</string>

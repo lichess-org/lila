@@ -149,7 +149,7 @@ The red mute icon appears when your browser prevents lichess.org from playing a 
 We show the red icon to alert you when this happens. Often you can explicitly allow lichess.org to play sounds. Here are instructions for doing so on recent versions of some popular browsers.</string>
   <string name="desktop">desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Go to lichess.org
-2. Press Ctrl-i on Linux/Windows or cmd-i on MacOS
+2. Press Ctrl+i on Linux/Windows or ⌘+i on macOS
 3. Click the Permissions tab
 4. Allow Audio and Video on lichess.org</string>
   <string name="enableAutoplayForSoundsChrome">1. Go to lichess.org
