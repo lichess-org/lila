@@ -114,7 +114,10 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
                             .increment()
                           negotiate(
                             err.errors match
-                              case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
+                              case List(FormError("", Seq(err), _)) if is2fa(err) =>
+                                Ok:
+                                  if HTTPRequest.isLichobile(req) then err
+                                  else s"$err ${env.security.singlePost.newToken}"
                               case _ => Unauthorized.page(views.auth.login(err, isRemember))
                             ,
                             Unauthorized(doubleJsonFormErrorBody(err))
