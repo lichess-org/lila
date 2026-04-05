@@ -96,7 +96,7 @@ LM पदवी मागू नका.</string>
   <string name="usernamesNotOffensive">सर्वसाधारणपणे, वापरकर्तानाव आक्षेपार्ह व वादग्रस्त, दुसऱ्याची बतावणी करणारे किंवा जाहिरात करणारे नसावेत. तुम्ही %1$s बद्दल अधिक वाचू शकता.</string>
   <string name="guidelines">मार्गदर्शक तत्त्वे</string>
   <string name="canIChangeMyUsername">मी माझे वापरकर्तानाव बदलू शकतो का?</string>
-  <string name="usernamesCannotBeChanged" comment="The original English text of this string was edited in March 2026. It used more complex language before, stating:&#10;&#10;&quot;No, usernames cannot be changed for technical and practical reasons. Usernames are materialized in too many places: databases, exports, logs, and people's minds. You can adjust the capitalization once.&quot;&#10;&#10;The meaning remains the same.">नाही, तांत्रिक आणि व्यावहारिक कारणांमुळे वापरकर्तानाव बदलता येत नाही. तुमचे वापरकर्तानाव अनेक ठिकाणी साठवलेले असते: सर्व्हरमध्ये, निर्यातीत, लॉग्स आणि लोकांच्या मनात. तथापि, आम्ही तुमच्या नावातील अक्षरांच्या कांजीत एकदा बदल करण्याची परवानगी देतो.</string>
+  <string name="usernamesCannotBeChanged">नाही, तांत्रिक आणि व्यावहारिक कारणांमुळे वापरकर्तानाव बदलता येत नाही. तुमचे वापरकर्तानाव अनेक ठिकाणी साठवलेले असते: सर्व्हरमध्ये, निर्यातीत, लॉग्स आणि लोकांच्या मनात. तथापि, आम्ही तुमच्या नावातील अक्षरांच्या कांजीत एकदा बदल करण्याची परवानगी देतो.</string>
   <string name="uniqueTrophies">अद्वितीय पारितोषिक</string>
   <string name="ownerUniqueTrophies">हे पारितोषिक Lichess च्या इतिहासात अद्वितीय आहे; %1$s व्यतिरिक्त ते कोणालाही कधीही मिळणार नाही.</string>
   <string name="aHourlyBulletTournament">ताशी बुलेट स्पर्धेत</string>
@@ -133,7 +133,7 @@ LM पदवी मागू नका.</string>
   <string name="displayPreferences">प्रदर्शन प्राधान्ये</string>
   <string name="connexionLostCanIGetMyRatingBack">लॅग/डिस्कनेक्शनमुळे मी एक खेळ हरलो. मला माझे मानांकन परत मिळू शकेल का?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">दुर्दैवाने, लॅग किंवा डिस्कनेक्शनमुळे हरलेल्या खेळासाठी आम्ही मानांकन परत देऊ शकत नाही, मग ती समस्या तुमच्या बाजूने असो किंवा आमच्या बाजूने. मात्र, आमच्या बाजूने असे होणे खूपच दुर्मिळ आहे. हे देखील लक्षात घ्या की, जेव्हा Lichess पुन्हा सुरू होते आणि त्यामुळे तुम्ही वेळेवर गेम हरता, तेव्हा अन्यायकारक पराभव टाळण्यासाठी आम्ही तो गेम रद्द करतो.</string>
-  <string name="howToThreeDots" comment="This used to say &quot;How to...&quot;">मी कसे...</string>
+  <string name="howToThreeDots">मी कसे...</string>
   <string name="enableDisableNotificationPopUps">पॉपअप सूचना चालू किंवा बंद करायचे का?</string>
   <string name="viewSiteInformationPopUp">संकेतस्थळ माहिती पॉपअप पहा</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess वैकल्पिकरित्या पॉपअप सूचना पाठवू शकते, उदाहरणार्थ जेव्हा तुमची पाळी असेल किंवा तुम्हाला खाजगी संदेश मिळाला असेल.

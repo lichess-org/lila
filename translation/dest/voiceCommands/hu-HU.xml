@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Lépj e4-re, vagy válaszd ki az e4-en lévő figurát</string>
   <string name="selectOrCaptureABishop">Válaszd vagy üsd le a futót</string>
   <string name="takeRookWithQueen">Üsd le a bástyát a vezérrel</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Sáncolj (bármelyik oldalra)</string>
+  <string name="castle">Sáncolj (bármelyik oldalra)</string>
   <string name="phoneticAlphabetIsBest">Fonetikus ábécé a legjobb</string>
   <string name="cancelTimerOrDenyARequest">Érvénytelenítsd az időzítőt, vagy utasítsd el a kérést</string>
   <string name="playPreferredMoveOrConfirmSomething">Játszd le a választott lépést, vagy erősíts meg valamit</string>

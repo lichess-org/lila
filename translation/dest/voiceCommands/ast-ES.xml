@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Mover a e4 o escoyer la pieza en e4</string>
   <string name="selectOrCaptureABishop">Escoyer o tomar un alfil</string>
   <string name="takeRookWithQueen">Prindar la torre cola dama</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Enroque (cualquier lado)</string>
+  <string name="castle">Enroque (cualquier lado)</string>
   <string name="phoneticAlphabetIsBest">L\'alfabetu fonéticu ye meyor</string>
   <string name="cancelTimerOrDenyARequest">Atayar temporizador o refugar una solicitú</string>
   <string name="playPreferredMoveOrConfirmSomething">Facer el movimientu preferíu o confirmar daqué</string>
