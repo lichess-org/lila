@@ -243,7 +243,6 @@ function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
         {
           hook: bind('click', () => {
             ctrl.navigate.prev();
-            $('p.lastMove').text();
           }),
         },
         'previous move',
@@ -253,7 +252,6 @@ function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
         {
           hook: bind('click', () => {
             ctrl.navigate.next();
-            $('p.lastMove').text();
           }),
         },
         'next move',
@@ -278,7 +276,6 @@ function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
         {
           hook: bind('click', () => {
             ctrl.navigate.first();
-            $('p.lastMove').text();
           }),
         },
         'first move',
@@ -288,7 +285,6 @@ function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
         {
           hook: bind('click', () => {
             ctrl.navigate.last();
-            $('p.lastMove').text();
           }),
         },
         'last move',
