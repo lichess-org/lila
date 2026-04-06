@@ -104,7 +104,8 @@ final class ChatApi(
       val xThPattern = """\d+(st|ts|nd|rd|th)$""".r
       xThPattern.matches(x) || x == "1" || x == "2" || x == "3"
     } || {
-      val claimNumberPattern = """(?i)^(I?\s?claim(ed?)?\s?((\d+(st|ts|nd|rd|th)?)|(first|second|third)))$""".r
+      val claimNumberPattern =
+        """(?i)^(I?\s?claim(ed?)?\s?((\d+(st|ts|nd|rd|th)?)|(first|second|third)))$""".r
       claimNumberPattern.matches(text)
     } || {
       val numberMemeDuplicatePattern = """(?i)^([67][\W\w]?[78][\W\w]?){2,}$""".r
