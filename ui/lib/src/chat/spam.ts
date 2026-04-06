@@ -45,7 +45,7 @@ const spamRegex = new RegExp(
     'lichess77',
     '77Casino.cfd',
     'Betspin.life',
-    '(67 ?){2,}',
+    '(6 ?7 ?){2,}',
   ]
     .map(url => url.replace(/\./g, '\\.').replace(/\//g, '\\/'))
     .join('|'),
