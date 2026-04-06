@@ -101,7 +101,15 @@ final class ChatApi(
       x == "last" || x == "first" || x == "second" || x == "third"
     } || {
       val x = text.filter(_.isLetterOrDigit).toLowerCase
-      x == "1st" || x == "1ts" || x == "1" || x == "2nd" || x == "2"
+      val xThPattern = """\d+(st|ts|nd|rd|th)$""".r
+      xThPattern.matches(x) || x == "1" || x == "2" || x == "3"
+    } || {
+      val claimNumberPattern = """(?i)^(I?\s?claim(ed?)?\s?((\d+(st|ts|nd|rd|th)?)|(first|second|third)))$""".r
+      claimNumberPattern.matches(text)
+    } || {
+      val numberMemeDuplicatePattern = """(?i)^([67][\W\w]?[78][\W\w]?){2,}$""".r
+      val numberLetterMemeDuplicatePattern = """(?i)^((six)[\W\w]?(seven)[\W\w]?){2,}$""".r
+      numberMemeDuplicatePattern.matches(text) || numberLetterMemeDuplicatePattern.matches(text)
     }
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =
