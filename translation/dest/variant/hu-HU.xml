@@ -6,7 +6,7 @@
   <string name="chess960Title">Az alapsori bábuk véletlenszerű mezőről indulnak.</string>
   <string name="kingOfTheHillTitle">Juttasd a királyt a centrumba, hogy megnyerd a partit.</string>
   <string name="threeCheckTitle">Adj 3 sakkot a győzelemért.</string>
-  <string name="antichess">Antisakk</string>
+  <string name="antichess">Francia sakk</string>
   <string name="atomicTitle">Robbantsd fel az ellenfél királyát a győzelemért.</string>
   <string name="horde">Horda</string>
   <string name="hordeTitle">Világos nagy számú gyaloggal kezd, sötétnek minden bábuja megvan.</string>
