@@ -805,7 +805,7 @@
     <item quantity="other">Dispoñible en %s idiomas!</item>
   </plurals>
   <string name="xHostsY">%1$s crea %2$s</string>
-  <string name="xJoinsY">%1$s únese a %2$s</string>
+  <string name="xJoinsY">%1$s uniuse a %2$s</string>
   <string name="xLikesY">A %1$s gústalle %2$s</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
