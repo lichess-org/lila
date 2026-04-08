@@ -342,7 +342,7 @@ private[chat] object GarbageDetector:
   private val xThPattern = """\d+(st|ts|nd|rd|th)$""".r
   private val claimNumberPattern =
     """(?i)^(I?\s?claim(ed?)?\s?((\d+(st|ts|nd|rd|th)?)|(first|second|third)))$""".r
-  private val numberMemeDuplicatePattern = """(?i)([\W\w]?[67][\W\w]?[78][\W\w]?){2,}""".r
+  private val numberMemeDuplicatePattern = """(?i)([\W\w]?[67][\W\w]?[678][\W\w]?){2,}""".r
   private val numberLetterMemeDuplicatePattern = """(?i)((six)[\W\w]?(seven)[\W\w]?){2,}""".r
 
   def apply(text: String): Boolean = {
