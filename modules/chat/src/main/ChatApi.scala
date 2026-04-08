@@ -353,5 +353,6 @@ private[chat] object GarbageDetector:
   } || {
     val numberMemeDuplicatePattern = """(?i)([67][\W\w]?[78][\W\w]?){2,}""".r
     val numberLetterMemeDuplicatePattern = """(?i)((six)[\W\w]?(seven)[\W\w]?){2,}""".r
-    numberMemeDuplicatePattern.matches(text) || numberLetterMemeDuplicatePattern.matches(text)
+    numberMemeDuplicatePattern.findFirstIn(text).isDefined ||
+      numberLetterMemeDuplicatePattern.findFirstIn(text).isDefined
   }
