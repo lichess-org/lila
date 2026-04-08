@@ -211,7 +211,7 @@ lazy val search = module("search",
 
 lazy val chat = module("chat",
   Seq(memo, ui),
-  Seq()
+  tests.bundle
 )
 
 lazy val room = module("room",
