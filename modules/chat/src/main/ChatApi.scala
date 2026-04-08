@@ -339,20 +339,21 @@ final class ChatApi(
 
 private[chat] object GarbageDetector:
 
+  private val xThPattern = """\d+(st|ts|nd|rd|th)$""".r
+  private val claimNumberPattern =
+    """(?i)^(I?\s?claim(ed?)?\s?((\d+(st|ts|nd|rd|th)?)|(first|second|third)))$""".r
+  private val numberMemeDuplicatePattern = """(?i)([\W\w]?[67][\W\w]?[78][\W\w]?){2,}""".r
+  private val numberLetterMemeDuplicatePattern = """(?i)((six)[\W\w]?(seven)[\W\w]?){2,}""".r
+
   def apply(text: String): Boolean = {
     val x = text.filter(_.isLetter).toLowerCase
     x == "last" || x == "first" || x == "second" || x == "third"
   } || {
     val x = text.filter(_.isLetterOrDigit).toLowerCase
-    val xThPattern = """\d+(st|ts|nd|rd|th)$""".r
     xThPattern.matches(x) || x == "1" || x == "2" || x == "3"
   } || {
-    val claimNumberPattern =
-      """(?i)^(I?\s?claim(ed?)?\s?((\d+(st|ts|nd|rd|th)?)|(first|second|third)))$""".r
     claimNumberPattern.matches(text)
   } || {
-    val numberMemeDuplicatePattern = """(?i)([\W\w]?[67][\W\w]?[678][\W\w]?){2,}""".r
-    val numberLetterMemeDuplicatePattern = """(?i)((six)[\W\w]?(seven)[\W\w]?){2,}""".r
     numberMemeDuplicatePattern.findFirstIn(text).isDefined ||
     numberLetterMemeDuplicatePattern.findFirstIn(text).isDefined
   }
