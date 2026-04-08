@@ -77,7 +77,7 @@ final class ChatApi(
           if _ then
             linkCheck(line, publicSource).flatMap:
               if _ then
-                val actuallyPersist = persist && (publicSource.isEmpty || !isGarbage(text))
+                val actuallyPersist = persist && (publicSource.isEmpty || !GarbageDetector(text))
                 for _ <- actuallyPersist.so(persistLine(chatId, line))
                 yield
                   if actuallyPersist then
@@ -95,23 +95,6 @@ final class ChatApi(
           else
             logger.info(s"Can't post $line in $publicSource: chat is closed")
             funit
-
-    private def isGarbage(text: String) = {
-      val x = text.filter(_.isLetter).toLowerCase
-      x == "last" || x == "first" || x == "second" || x == "third"
-    } || {
-      val x = text.filter(_.isLetterOrDigit).toLowerCase
-      val xThPattern = """\d+(st|ts|nd|rd|th)$""".r
-      xThPattern.matches(x) || x == "1" || x == "2" || x == "3"
-    } || {
-      val claimNumberPattern =
-        """(?i)^(I?\s?claim(ed?)?\s?((\d+(st|ts|nd|rd|th)?)|(first|second|third)))$""".r
-      claimNumberPattern.matches(text)
-    } || {
-      val numberMemeDuplicatePattern = """(?i)([67][\W\w]?[78][\W\w]?){2,}""".r
-      val numberLetterMemeDuplicatePattern = """(?i)((six)[\W\w]?(seven)[\W\w]?){2,}""".r
-      numberMemeDuplicatePattern.matches(text) || numberLetterMemeDuplicatePattern.matches(text)
-    }
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =
       source.fold(fuccess(true)): s =>
@@ -353,3 +336,22 @@ final class ChatApi(
     private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
     private val multilineRegex = """\n\n{1,}+""".r
     private def multiline(str: String) = multilineRegex.replaceAllIn(str, " ")
+
+private[chat] object GarbageDetector:
+
+  def apply(text: String): Boolean = {
+    val x = text.filter(_.isLetter).toLowerCase
+    x == "last" || x == "first" || x == "second" || x == "third"
+  } || {
+    val x = text.filter(_.isLetterOrDigit).toLowerCase
+    val xThPattern = """\d+(st|ts|nd|rd|th)$""".r
+    xThPattern.matches(x) || x == "1" || x == "2" || x == "3"
+  } || {
+    val claimNumberPattern =
+      """(?i)^(I?\s?claim(ed?)?\s?((\d+(st|ts|nd|rd|th)?)|(first|second|third)))$""".r
+    claimNumberPattern.matches(text)
+  } || {
+    val numberMemeDuplicatePattern = """(?i)([67][\W\w]?[78][\W\w]?){2,}""".r
+    val numberLetterMemeDuplicatePattern = """(?i)((six)[\W\w]?(seven)[\W\w]?){2,}""".r
+    numberMemeDuplicatePattern.matches(text) || numberLetterMemeDuplicatePattern.matches(text)
+  }
