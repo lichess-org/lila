@@ -38,12 +38,13 @@ class GarbageTest extends munit.FunSuite:
 
   test("ignore normal messages"):
     assert(!GarbageDetector("hello everyone"))
+    assert(!GarbageDetector("Sindarov is first"))
+    assert(!GarbageDetector("Caruna is 2nd"))
     assert(!GarbageDetector("firstly"))
     assert(!GarbageDetector("I claim victory"))
     assert(!GarbageDetector("6 7"))
     assert(!GarbageDetector("six seven"))
     assert(!GarbageDetector("My name is sixseven"))
-    assert(!GarbageDetector("6/7"))
     assert(!GarbageDetector("six/seven"))
     assert(!GarbageDetector("6/7"))
     assert(!GarbageDetector("Sindarov 6/7"))
