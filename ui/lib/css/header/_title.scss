@@ -77,3 +77,11 @@
     margin-inline-end: 0.5em;
   }
 }
+
+body.auth {
+  .site-title {
+    @media (max-width: at-least($xx-small)) {
+      display: flex;
+    }
+  }
+}
