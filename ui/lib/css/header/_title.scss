@@ -36,22 +36,22 @@
     display: none;
     font-size: 24px;
 
-    @include mq-at-least($tall, height) {
+    @media (min-height: at-least($tall)) {
       font-size: 36px;
     }
   }
 
-  @include mq-at-most($xx-small) {
+  @media (max-width: at-least($xx-small)) {
     display: none;
   }
 
-  @include mq-at-least($xx-small) {
+  @media (min-width: at-least($xx-small)) {
     .site-icon {
       display: block;
     }
   }
 
-  @include mq-at-least(1180px) {
+  @media (min-width: at-least(1180px)) {
     .site-name {
       display: block;
     }
@@ -61,7 +61,7 @@
     }
   }
 
-  @include mq-at-least($xx-large) {
+  @media (min-width: at-least($xx-large)) {
     .site-icon {
       display: block;
     }
@@ -80,7 +80,7 @@
 
 body.auth {
   .site-title {
-    @include mq-at-most($xx-small) {
+    @media (max-width: at-least($xx-small)) {
       display: flex;
     }
   }
