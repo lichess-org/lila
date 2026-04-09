@@ -21,10 +21,10 @@
   <string name="ongoing">En curso</string>
   <string name="upcoming">Proximamente</string>
   <string name="roundName">Nome da rolda</string>
-  <string name="tournamentName" comment="This used to say &quot;Tournament name&quot;. It is okay to continue using &quot;Tournament&quot;, as long as you stay consistent throughout.">Nome do evento</string>
+  <string name="tournamentName">Nome do evento</string>
   <string name="tournamentDescription">Breve descrición do torneo</string>
-  <string name="fullDescription" comment="This text used to say &quot;Full tournament description&quot;. It can be changed to &quot;tournament&quot; since all broadcast events are tournaments.">Descrición completa do evento</string>
-  <string name="fullDescriptionHelp" comment="This text used to start with &quot;Optional long description of the broadcast.&quot;.&#10;The word should be changed to &quot;event&quot; or &quot;tournament&quot; since all broadcast events are tournaments, and it is a more user-friendly term.&#10;&#10;%1$s says &quot;Markdown&quot; (a proper noun) and gives a link to a description of Markdown.&#10;%2$s is the character limit (e.g. 160)">Descrición longa opcional do evento. Podes usar %1$s para dispoñer de opcións adicionais de formato. A lonxitude debe ser menor de %2$s caracteres.</string>
+  <string name="fullDescription">Descrición completa do evento</string>
+  <string name="fullDescriptionHelp">Descrición longa opcional do evento. Podes usar %1$s para dispoñer de opcións adicionais de formato. A lonxitude debe ser menor de %2$s caracteres.</string>
   <string name="sourceSingleUrl">URL de orixe do arquivo PGN</string>
   <string name="sourceUrlHelp">Ligazón que Lichess comprobará para obter actualizacións dos PGN. Debe ser publicamente accesíbel desde a Internet.</string>
   <string name="sourceGameIds">Até 64 identificadores de partidas de Lichess, separados por espazos.</string>
@@ -63,7 +63,7 @@
   <string name="notYetStarted">A emisión aínda non comezou.</string>
   <string name="officialWebsite">Páxina web oficial</string>
   <string name="officialStandings">Clasificación oficial</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.&#10;&#10;This used to say &quot;More options on the %s&quot;. It has been updated to add the leading word and a full stop.&#10;">Atopar máis opcións na %s.</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Atopar máis opcións na %s.</string>
   <string name="webmastersPage">páxina do administrador web</string>
   <string name="embedThisBroadcast">Incrustar esta emisión na túa páxina web</string>
   <string name="ratingDiff">Diferenza de puntuación</string>
@@ -72,7 +72,7 @@
   <string name="standingsDisclaimer">A clasificación calcúlase empregando as partidas transmitidas e pode diferir dos resultados oficiais.</string>
   <string name="allTeams">Todos os equipos</string>
   <string name="tournamentFormat">Formato do torneo</string>
-  <string name="tournamentLocation" comment="This used to say &quot;Tournament location&quot;, which would still be valid, but please remain consistent with other strings.&#10;&#10;Appears as an optional field in the broadcast creation form (https://lichess.org/broadcast/new), for a tournament that someone wishes to broadcast on Lichess.">Lugar do evento</string>
+  <string name="tournamentLocation">Lugar do evento</string>
   <string name="topPlayers">Mellores xogadores</string>
   <string name="timezone">Zona horaria</string>
   <string name="fideRatingCategory">Categoría de puntuación FIDE</string>
@@ -102,7 +102,7 @@
   <string name="boysUnderXAgeTournament">Rapaces Sub%s</string>
   <string name="quarterfinals">Cuartos de final</string>
   <string name="semifinals">Semifinais</string>
-  <string name="finals" comment="In English, this is pluralised as per convention, because tournament finals in chess virtually always consist of more than one game. Example: https://lichess.org/broadcast/fide-world-rapid--blitz-championships-2025--blitz-open-knockout/final--game-1/TaZBIBvG#boards">Final</string>
+  <string name="finals">Final</string>
   <string name="tiebreaks">Desempates</string>
   <string name="gameX">Partida %s</string>
   <string name="knockouts">Eliminatorias</string>
