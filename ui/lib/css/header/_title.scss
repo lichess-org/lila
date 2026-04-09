@@ -36,22 +36,22 @@
     display: none;
     font-size: 24px;
 
-    @media (min-height: at-least($tall)) {
+    @media (min-height: $tall) {
       font-size: 36px;
     }
   }
 
-  @media (max-width: at-least($xx-small)) {
+  @media (max-width: $xx-small) {
     display: none;
   }
 
-  @media (min-width: at-least($xx-small)) {
+  @media (min-width: $xx-small) {
     .site-icon {
       display: block;
     }
   }
 
-  @media (min-width: at-least(1180px)) {
+  @media (min-width: 1180px) {
     .site-name {
       display: block;
     }
@@ -61,7 +61,7 @@
     }
   }
 
-  @media (min-width: at-least($xx-large)) {
+  @media (min-width: $xx-large) {
     .site-icon {
       display: block;
     }
@@ -80,7 +80,7 @@
 
 body.auth {
   .site-title {
-    @media (max-width: at-least($xx-small)) {
+    @media (max-width: $xx-small) {
       display: flex;
     }
   }
