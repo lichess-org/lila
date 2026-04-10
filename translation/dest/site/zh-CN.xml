@@ -888,7 +888,7 @@
   <string name="rapidDesc">普速对战：8 到 25 分钟</string>
   <string name="classicalDesc">慢棋对局：25 分钟及以上</string>
   <string name="correspondenceDesc">通讯棋对局：每步棋一天或数天</string>
-  <string name="puzzleDesc">国际象棋战术训练器</string>
+  <string name="puzzleDesc">战术训练</string>
   <string name="important">重要提示</string>
   <string name="yourQuestionMayHaveBeenAnswered">您的问题可能已 %1$s 有了解答</string>
   <string name="inTheFAQ">在常见问题中</string>
