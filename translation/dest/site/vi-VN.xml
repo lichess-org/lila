@@ -536,7 +536,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="mobile">Điện thoại di động</string>
   <string name="help">Hỗ trợ:</string>
   <string name="createANewTopic">Tạo một chủ đề mới</string>
-  <string name="topics">Các chủ đề</string>
+  <string name="topics">Số chủ đề</string>
   <string name="posts">Số bài đăng</string>
   <string name="lastPost">Bài đăng gần đây nhất</string>
   <string name="views">Lượt xem</string>
