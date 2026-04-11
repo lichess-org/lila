@@ -2,7 +2,7 @@
 <resources>
   <string name="settings">Налаштування</string>
   <string name="closeAccount">Видалити обліковий запис</string>
-  <string name="managedAccountCannotBeClosed">Ваш обліковий запис керований і не може бути закритим.</string>
+  <string name="managedAccountCannotBeClosed">Вашим обліковим записом керує інший користувач, тож його не можна видалити.</string>
   <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Ви не зможете створити новий обліковий запис з такою ж назвою, навіть зі зміною регістру.</string>
   <string name="cancelKeepAccount">Скасувати та зберегти мій обліковий запис</string>
   <string name="closeAccountAreYouSure">Ви впевнені, що хочете видалити свій обліковий запис?</string>
