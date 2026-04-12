@@ -189,8 +189,8 @@ object RelayRoundForm:
       // prevent common mistakes (not for security)
       if mode.notProd || !blocklist.exists(subdomain(host, _))
       if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub") || url.toString
-        .startsWith("https://www.chess.com/events/v1/api") || !subdomain(host, "chess-results.com") ||
-        url.toString.startsWith("https://www.chess-results.com/livepartien/")
+        .startsWith("https://www.chess.com/events/v1/api")
+      if !subdomain(host, "chess-results.com") || url.toString.startsWith("https://www.chess-results.com/livepartien/")
     yield url
 
   private def validateUpstreamUrl(s: String, prev: Option[URL])(using Me, Mode): Either[String, URL] =
