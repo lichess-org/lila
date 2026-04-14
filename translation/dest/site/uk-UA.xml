@@ -596,6 +596,7 @@
   <string name="popularOpenings">Популярні дебюти</string>
   <string name="endgamePositions">Позиції ендшпілю</string>
   <string name="chess960StartPosition">Початкова позиція Chess960: %s</string>
+  <string name="randomChess960Position">Випадкова позиція в шахи-960</string>
   <string name="startPosition">Початкова позиція</string>
   <string name="clearBoard">Очистити дошку</string>
   <string name="loadPosition">Завантажити позицію</string>
@@ -820,7 +821,7 @@
   <string name="playSelectedMove">зіграти обраний хід</string>
   <string name="newTournament">Новий турнір</string>
   <string name="tournamentHomeTitle">Шаховий турнір із різними контролем часу та варіантами</string>
-  <string name="tournamentHomeDescription">Грайте у швидкі шахи на турнірі! Приєднуйтеся до запланованих офіційних турнірів або створіть власний. Куля, бліц, класичні шахи, шахи Фішера, \"Цар гори\", \"Три шахи\" та інші варіанти забезпечать нескінченне задоволення.</string>
+  <string name="tournamentHomeDescription">Грайте на швидких турнірах із шахів! Приєднуйтеся до запланованих офіційних турнірів або створіть власний. Куля, бліц, класичні шахи, шахи-960, цар гори, три шахи та інші варіанти нададуть нескінченне задоволення.</string>
   <string name="tournamentNotFound">Турнір не знайдено</string>
   <string name="tournamentDoesNotExist">Цей турнір не існує.</string>
   <string name="tournamentMayHaveBeenCanceled">Турнір міг бути скасований, якщо всі гравці залишили його до початку.</string>
