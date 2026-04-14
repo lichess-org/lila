@@ -519,6 +519,7 @@
   <string name="popularOpenings">Δημοφιλή ανοίγματα</string>
   <string name="endgamePositions">Θέσεις φινάλε</string>
   <string name="chess960StartPosition">Αρχική θέση Chess960: %s</string>
+  <string name="randomChess960Position">Τυχαία θέση Chess960</string>
   <string name="startPosition">Αρχική διάταξη</string>
   <string name="clearBoard">Εκκαθάριση σκακιέρας</string>
   <string name="loadPosition">Φορτώστε θέση</string>
