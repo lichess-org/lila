@@ -526,6 +526,7 @@
   <string name="popularOpenings">Populære åbninger</string>
   <string name="endgamePositions">Slutspilsstillinger</string>
   <string name="chess960StartPosition">Chess960 startposition: %s</string>
+  <string name="randomChess960Position">Tilfældig Chess960-position</string>
   <string name="startPosition">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
   <string name="loadPosition">Indlæs stilling</string>
