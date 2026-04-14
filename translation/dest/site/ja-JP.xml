@@ -491,6 +491,7 @@
   <string name="popularOpenings">人気のオープニング</string>
   <string name="endgamePositions">エンドゲームの局面</string>
   <string name="chess960StartPosition">チェス960 開始局面: %s</string>
+  <string name="randomChess960Position">チェス960 のランダムな配置</string>
   <string name="startPosition">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="loadPosition">局面を読み込む</string>
