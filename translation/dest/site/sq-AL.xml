@@ -528,6 +528,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="popularOpenings">Hapje popullore</string>
   <string name="endgamePositions">Pozicione fundi loje</string>
   <string name="chess960StartPosition">Pozicion nisjeje Chess960: %s</string>
+  <string name="randomChess960Position">Pozicion Chess960 kuturu</string>
   <string name="startPosition">Pozicioni fillestar</string>
   <string name="clearBoard">Spastro fushën</string>
   <string name="loadPosition">Ngarko pozicionin</string>
