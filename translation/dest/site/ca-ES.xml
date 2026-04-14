@@ -526,6 +526,7 @@
   <string name="popularOpenings">Obertures populars</string>
   <string name="endgamePositions">Posicions de finals</string>
   <string name="chess960StartPosition">Posició inicial d\'Escacs960 Fischer: %s</string>
+  <string name="randomChess960Position">Posició d\'escacs960 Aleatòria</string>
   <string name="startPosition">Posició inicial</string>
   <string name="clearBoard">Netejar el tauler</string>
   <string name="loadPosition">Carregar la posició</string>
