@@ -492,6 +492,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="popularOpenings">Khai cuộc phổ biến</string>
   <string name="endgamePositions">Các thế cờ trong tàn cuộc</string>
   <string name="chess960StartPosition">Ván đấu Chess960 bắt đầu bằng thế cờ: %s</string>
+  <string name="randomChess960Position">Thế trận Chess960 ngẫu nhiên</string>
   <string name="startPosition">Thế cờ ban đầu</string>
   <string name="clearBoard">Xóa bàn cờ</string>
   <string name="loadPosition">Tải thế cờ</string>
