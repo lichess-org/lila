@@ -586,7 +586,6 @@ export default class AnalyseCtrl implements CevalHandler {
   };
 
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
-    this.justDropped = undefined;
     if (
       !this.promotion.start(orig, dest, {
         submit: (orig, dest, prom) => this.sendMove(orig, dest, capture, prom),
@@ -607,6 +606,7 @@ export default class AnalyseCtrl implements CevalHandler {
       fen: this.node.fen,
       path: this.path,
     };
+    this.justDropped = undefined;
     if (prom) move.promotion = prom;
     if (capture) this.justCaptured = capture;
     if (this.practice) this.practice.onUserMove();
