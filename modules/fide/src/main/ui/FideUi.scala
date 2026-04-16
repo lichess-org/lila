@@ -100,14 +100,15 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     private val kosovoText =
       """All reference to Kosovo, whether to the territory, institutions or population, in this text shall be understood in full compliance with United Nations Security Council Resolution 1244 and without prejudice to the status of Kosovo"""
 
-    def flag(id: lila.core.fide.Federation.Id, title: Option[String]) = img(
+    def flag(id: lila.core.fide.Federation.Id, title: Option[String], age: Option[Int] = None) = img(
       cls := "flag",
       st.title := title.getOrElse(id.value),
-      src := fideFedSrc(id)
+      src := fideFedSrc(id, age)
     )
 
-    private def fideFedSrc(fideFed: lila.core.fide.Federation.Id): Url =
-      staticAssetUrl(s"$fideFedVersion/fide/fed-webp/${fideFed}.webp")
+    private def fideFedSrc(fideFed: lila.core.fide.Federation.Id, age: Option[Int] = None): Url =
+      val fed = if ((fideFed.value == "RUS" || fideFed.value == "BLR") && age.exists(_ < 20)) then s"_${fideFed}" else s"${fideFed}"
+      staticAssetUrl(s"$fideFedVersion/fide/fed-webp/${fed}.webp")
 
     private def card(name: Frag, value: Frag) =
       div(cls := "fide-card fide-federation__card")(name, div(value))
