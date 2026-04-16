@@ -29,6 +29,7 @@ import {
   tooltipBgColor,
   whiteFill,
   axisOpts,
+  glyphProperties,
 } from './index';
 import type { AcplChart, AnalyseData, Player } from './interface';
 
@@ -190,14 +191,6 @@ export default async function (
   if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
   return acplChart;
 }
-
-type Advice = 'blunder' | 'mistake' | 'inaccuracy';
-const glyphProperties = (node: TreeNodeIncomplete): { advice?: Advice; color?: string } => {
-  if (node.glyphs?.some(g => g.id === 4)) return { advice: 'blunder', color: '#db3031' };
-  else if (node.glyphs?.some(g => g.id === 2)) return { advice: 'mistake', color: '#e69d00' };
-  else if (node.glyphs?.some(g => g.id === 6)) return { advice: 'inaccuracy', color: '#4da3d5' };
-  else return { advice: undefined, color: undefined };
-};
 
 const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 

@@ -28,6 +28,7 @@ import {
   tooltipBgColor,
   whiteFill,
   axisOpts,
+  glyphProperties,
 } from './index';
 import type { AnalyseData, Player, PlyChart } from './interface';
 
@@ -259,18 +260,6 @@ const formatClock = (centis: number) => {
   if (centis < 6000) result += secs.toFixed(2).padStart(5, '0');
   else result += Math.floor(secs).toString().padStart(2, '0');
   return result;
-};
-
-type Advice = 'blunder' | 'mistake' | 'inaccuracy';
-const glyphProperties = (node: TreeNodeIncomplete): { advice?: Advice; color?: string } => {
-  if (node?.glyphs?.some(g => g.name === 'Blunder')) {
-    return { advice: 'blunder', color: '#db3031' };
-  } else if (node?.glyphs?.some(g => g.name === 'Mistake')) {
-    return { advice: 'mistake', color: '#e69d00' };
-  } else if (node?.glyphs?.some(g => g.name === 'Inaccuracy')) {
-    return { advice: 'inaccuracy', color: '#4da3d5' };
-  }
-  return { advice: undefined, color: undefined };
 };
 
 function christmasTree(
