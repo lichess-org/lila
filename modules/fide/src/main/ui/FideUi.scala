@@ -107,7 +107,9 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     )
 
     private def fideFedSrc(fideFed: lila.core.fide.Federation.Id, age: Option[Int] = None): Url =
-      val fed = if ((fideFed.value == "RUS" || fideFed.value == "BLR") && age.exists(_ < 20)) then s"_${fideFed}" else s"${fideFed}"
+      val fed = if (fideFed.value == "RUS" || fideFed.value == "BLR") && age.exists(_ < 20) then
+        s"_${fideFed}"
+      else s"${fideFed}"
       staticAssetUrl(s"$fideFedVersion/fide/fed-webp/${fed}.webp")
 
     private def card(name: Frag, value: Frag) =
