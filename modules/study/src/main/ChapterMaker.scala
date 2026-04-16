@@ -202,7 +202,7 @@ final private class ChapterMaker(
 private object ChapterMaker:
 
   enum Mode:
-    def key = this.toString.toLowerCase()
+    def key = toString.toLowerCase
     case Normal, Practice, Recall, Gamebook, Conceal
   object Mode:
     def apply(key: String) = values.find(_.key == key)
