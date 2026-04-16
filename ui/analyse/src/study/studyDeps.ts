@@ -9,3 +9,4 @@ export * as gbPlay from './gamebook/gamebookPlayView';
 export * as studyPracticeView from './practice/studyPracticeView';
 export { findTag } from './studyChapters';
 export * as studyView from './studyView';
+export * as recallView from './recall/recallView';

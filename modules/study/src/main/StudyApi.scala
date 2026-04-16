@@ -652,6 +652,7 @@ final class StudyApi(
           val newChapter = chapter.copy(
             name = Chapter.fixName(data.name),
             practice = data.isPractice.option(true),
+            recall = data.isRecall.option(true),
             gamebook = data.isGamebook.option(true),
             conceal = (chapter.conceal, data.isConceal) match
               case (None, true) => chapter.root.ply.some
@@ -677,6 +678,7 @@ final class StudyApi(
                 concealChanged ||
                   newChapter.setup.orientation != chapter.setup.orientation ||
                   newChapter.practice != chapter.practice ||
+                  newChapter.recall != chapter.recall ||
                   newChapter.gamebook != chapter.gamebook ||
                   newChapter.description != chapter.description
               shouldSendChapterPreviews = newChapter.name != chapter.name

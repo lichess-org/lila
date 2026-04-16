@@ -103,6 +103,7 @@ export interface StudyChapterConfig {
   orientation?: Color; // defaults to white
   description?: string;
   practice: boolean;
+  recall: boolean;
   gamebook: boolean;
   conceal?: number;
 }
@@ -114,6 +115,7 @@ export interface StudyChapter {
   setup: StudyChapterSetup;
   tags: TagArray[];
   practice: boolean;
+  recall: boolean;
   conceal?: number;
   gamebook: boolean;
   features: StudyChapterFeatures;
@@ -209,7 +211,7 @@ export interface StudyPlayer extends StudyPlayerBase {
 }
 
 export type Orientation = 'black' | 'white' | 'auto';
-export type ChapterMode = 'normal' | 'practice' | 'gamebook' | 'conceal';
+export type ChapterMode = 'normal' | 'practice' | 'recall' | 'gamebook' | 'conceal';
 
 export interface ChapterData {
   name: string;
