@@ -803,6 +803,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="anonymous">Anoniman igrač</string>
   <string name="yourScore">Tvoj rezultat: %s</string>
   <string name="language">Jezik</string>
+  <string name="allLanguages">Svi jezici</string>
   <string name="background">Pozadina</string>
   <string name="light">Svijetla</string>
   <string name="dark">Tamna</string>
