@@ -561,6 +561,7 @@
   <string name="popularOpenings">Deschideri populare</string>
   <string name="endgamePositions">Poziții de sfârșit</string>
   <string name="chess960StartPosition">Poziție de start Chess960: %s</string>
+  <string name="randomChess960Position">Poziție aleatoare Chess960</string>
   <string name="startPosition">Poziția de start</string>
   <string name="clearBoard">Curăță tabla</string>
   <string name="loadPosition">Încarcă poziția</string>
