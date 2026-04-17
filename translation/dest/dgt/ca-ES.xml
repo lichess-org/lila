@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Requeriments del tauler DGT</string>
   <string name="dgtBoardLimitations">Limitacions del tauler DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Aquesta pàgina et permet connectar el teu tauler DGT amb Lichess i utilitzar-lo per jugar partides.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Per a connectar el tauler electrònic DGT has d\'instal·lar %s.</string>
+  <string name="toConnectTheDgtBoard">Per a connectar el tauler electrònic DGT has d\'instal·lar %s.</string>
   <string name="downloadHere">Pots descarregar el programari aquí: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Si %1$s s\'està executant en aquest ordinador, pots comprovar la teva connexió %2$s.</string>
   <string name="openingThisLink">obrint aquest enllaç</string>
@@ -18,7 +18,7 @@
   <string name="whenReadySetupBoard">Quan estiguis preparat, configura el tauler i clica en %s.</string>
   <string name="ifMoveNotDetected">Si no es detecta un moviment</string>
   <string name="checkYouHaveMadeOpponentsMove">Comprova que primer has realitzat el moviment de l\'oponent al tauler DGT. Reverteix el teu moviment. Juga de nou.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Com a últim recurs, distribueix el tauler de manera idèntica al de Lichess, després %s</string>
+  <string name="asALastResort">Com a últim recurs, distribueix el tauler de manera idèntica al de Lichess, després %s</string>
   <string name="reloadThisPage">Recarrega aquesta pàgina</string>
   <string name="dgtConfigure">Configuració DGT</string>
   <string name="lichessConnectivity">Connectivitat amb Lichess</string>

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="gameSetup">Oyun ayarları</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Arkadaşına Oyun Teklif Et</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Bir arkadaşınıza meydan okuyun</string>
   <string name="playAgainstComputer">Bilgisayara karşı oyna</string>
   <string name="gameMode">Oyun modu</string>
   <string name="createLobbyGame">Lobi oyunu oluştur</string>
-  <string name="youPlayAs">Oynadığın renk</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
   <string name="orLetYourOpponentScanQrCode">Veya rakibiniz bu QR kodunu tarasın</string>
+  <string name="reusableChallengeUrl">Yeniden kullanılabilir meydan okuma bağlantısı</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Bu ayarlar tam olarak aynı olduğundan, herkesin size meydan okuyabileceği kalıcı bir bağlantı.</string>
   <string name="waiting">Bekleniyor</string>
   <string name="yourTurn">Sıra sizde</string>
   <string name="aiNameLevelAiLevel">%1$s seviye %2$s</string>
@@ -109,7 +110,7 @@
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="openingEndgameExplorer">Açılış/oyunsonu kâşifi</string>
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
-  <string name="playFirstOpeningEndgameExplorerMove">İlk sıradaki açılış kaşifi/oyun sonu analizi hamlesini oyna</string>
+  <string name="playFirstOpeningEndgameExplorerMove">İlk sıradaki açılış kâşifi/oyun sonu analizi hamlesini oyna</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
   <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde önlendi</string>
   <string name="winOr50MovesByPriorMistake">Galibiyet veya geçmiş hata sebebiyle 50 hamle</string>
@@ -126,9 +127,20 @@
   <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="showVariationArrows">Varyasyon oklarını göster</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
+  <string name="visualMotifs">Görsel motifler</string>
+  <string name="undefendedPieces">Korumasız taşlar</string>
+  <string name="pinnedPieces">Açmazdaki taşlar</string>
+  <string name="checkableKing">Çekilebilir şah</string>
   <string name="multipleLines">Çoklu varyantlar</string>
+  <string name="multipleLinesDescription">Değerlendirme satırlarının sayısını belirleyin ve tahtadaki okları hareket ettirin</string>
+  <string name="searchTime">Arama süresi</string>
+  <string name="searchTimeDescription">Yeni pozisyonları değerlendirmek için zamanı ayarlayın</string>
+  <string name="threads">Çekirdek</string>
+  <string name="threadsDescription">Bunu işlemcinizin çekirdek sayısının altına ayarlayın, işaretler iyi ve güvenli bir seçimi gösterir</string>
+  <string name="threadsDescriptionMobile">Daha fazla çekirdek, daha iyi analiz için daha fazla pil tüketecektir</string>
   <string name="cpus">İşlemci</string>
   <string name="memory">Hafıza</string>
+  <string name="memoryDescription">Daha yüksek değerler performansı artırabilir</string>
   <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Derinlik sınırını kaldırır ve bilgisayarınızı sıcacık tutar</string>
   <string name="blunder">Vahim hata</string>
@@ -205,6 +217,7 @@
   <string name="minutesPerSide">Taraf başına dakika</string>
   <string name="variant">Varyant</string>
   <string name="variants">Varyantlar</string>
+  <string name="variantsDescription">Oynamanın daha fazla yolu</string>
   <string name="timeControl">Süre ayarı</string>
   <string name="realTime">Gerçek zaman</string>
   <string name="correspondence">Yazışma</string>
@@ -231,7 +244,7 @@
   <string name="changeUsernameNotSame">Sadece kullanıcı adınızdaki büyük/küçük harfleri değiştirebilirsiniz. Örneğin \"johndoe\" den \"JohnDoe\" gibi.</string>
   <string name="changeUsernameDescription">Kullanıcı adınızı değiştirin. Bu işlemi sadece 1 (bir) kez gerçekleştirebilirsiniz ve sadece mevcut kullanıcı adınızdaki harfleri (\"johndoe\", \"JohnDoe\") değiştirebilirsiniz.</string>
   <string name="signupUsernameHint">Aile dostu bir kullanıcı adı seçtiğinizden emin olun. Kullanıcı adı daha sonra değiştirilemez ve uygunsuz kullanıcı adına sahip hesaplar kapatılır!</string>
-  <string name="signupEmailHint">Bunu yalnızca şifre sıfırlaması için kullanacağız.</string>
+  <string name="signupEmailPromise">Size yalnızca hesabınızla ilgili e-postalar göndereceğiz ve e-posta adresinizi asla paylaşmayacağız.</string>
   <string name="password">Şifre</string>
   <string name="changePassword">Şifre değiştir</string>
   <string name="changeEmail">E-posta adresini değiştir</string>
@@ -299,6 +312,7 @@
   <string name="standard">Standart</string>
   <string name="customPosition">Özel Konum</string>
   <string name="unlimited">Sınırsız</string>
+  <string name="unlimitedDescription">İhtiyacınız olan tüm zamanı alın</string>
   <string name="mode">Mod</string>
   <string name="casual">Puansız</string>
   <string name="rated">Puanlı</string>
@@ -424,10 +438,11 @@
   <string name="leaderboard">Lider Tablosu</string>
   <string name="screenshotCurrentPosition">Geçerli pozisyonun ekran görüntüsünü al</string>
   <string name="gameAsGIF">Oyunun GIF hali</string>
+  <string name="playerNames">Oyuncu isimleri</string>
+  <string name="moveAnnotations">Hamle açıklamaları</string>
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN kodunu buraya yapıştırın</string>
   <string name="orUploadPgnFile">Veya bir PGN dosyası yükle</string>
-  <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="toStudy">Çalışma oluştur</string>
   <string name="importGame">Oyun yükle</string>
@@ -587,6 +602,9 @@
   <string name="invalidUsernameOrPassword">Hatalı kullanıcı adı ya da şifre</string>
   <string name="incorrectPassword">Şifre yanlış</string>
   <string name="invalidAuthenticationCode">Geçersiz kimlik doğrulama kodu</string>
+  <string name="clearField">Alanı temizle</string>
+  <string name="orSeparator">Veya</string>
+  <string name="logInByEmail">E-posta ile giriş yap</string>
   <string name="emailMeALink">E-Posta ile giriş linki yolla</string>
   <string name="currentPassword">Mevcut şifre</string>
   <string name="newPassword">Yeni şifre</string>
@@ -713,17 +731,13 @@
   <string name="keyCycleSelectedVariation">Seçilen varyasyonu değiştir</string>
   <string name="keyShowOrHideComments">yorumları gizle/göster</string>
   <string name="keyEnterOrExitVariation">varyasyona gir/çık</string>
-  <string name="keyRequestComputerAnalysis">Bilgisayar analizi talep et, Hatalarından ders al</string>
-  <string name="keyNextLearnFromYourMistakes">Sonraki (Hatalarından ders al)</string>
-  <string name="keyNextBlunder">Sonraki vahim hata</string>
-  <string name="keyNextMistake">Sonraki hata</string>
-  <string name="keyNextInaccuracy">Sonraki kusurlu hamle</string>
   <string name="keyPreviousBranch">Önceki dal</string>
   <string name="keyNextBranch">Sıradaki dal</string>
   <string name="toggleVariationArrows">Varyasyon oklarını aç/kapat</string>
   <string name="cyclePreviousOrNextVariation">Önceki/sonraki varyasyona geç</string>
   <string name="toggleGlyphAnnotations">Glif dipnotlarını aç/kapat</string>
   <string name="togglePositionAnnotations">Konum açıklamalarını değiştir</string>
+  <string name="toggleObservationAnnotations">Gözlem açıklamalarını aç/kapat</string>
   <string name="variationArrowsInfo">Varyasyon okları, hamle listesini kullanmadan gezinmenizi sağlar.</string>
   <string name="playSelectedMove">seçili hamleyi oyna</string>
   <string name="newTournament">Yeni turnuva</string>
@@ -765,6 +779,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ayrıca fare tekerini kullanarak da hamle yapabilirsiniz.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Fareyi bilgisayar varyantlarının üzerine getirerek pozisyonu görüntüleyin.</string>
   <string name="analysisShapesHowTo">Tahta üzerinde çember ya da ok çizmek için lütfen shift+click ya da right+click kullanın.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl veya shift = kırmızı; command, alt veya meta = mavi; her birinden bir tuş = sarı.</string>
   <string name="letOtherPlayersMessageYou">Diğer oyuncular size mesaj yollayabilsinler mi?</string>
   <string name="receiveForumNotifications">Forumda sizden bahsedildiğinde bildirim alın</string>
   <string name="shareYourInsightsData">Satranç oyun verilerinizi diğerleriyle paylaşın</string>
@@ -808,6 +823,7 @@
   <string name="size">Boyut</string>
   <string name="opacity">Opaklık</string>
   <string name="brightness">Parlaklık</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Ton</string>
   <string name="boardReset">Renkleri varsayılana döndür</string>
   <string name="pieceSet">Taş seti</string>
@@ -903,9 +919,9 @@
   <string name="agreementAssistance">Maçlar esnasında hiçbir zaman dışarıdan yardım almayacağım (bilgisayardan, kitaptan, veri tabanından veya başka bir insandan).</string>
   <string name="agreementNice">Diğer oyunculara karşı her zaman iyi bir tutum içinde olacağım.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Birden fazla hesap oluşturmayacağımı onaylıyorum (%s\'da sıralanmış durumlar hariç).</string>
-  <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Yıldırım</string>
   <string name="rapid">Hızlı</string>
@@ -1013,5 +1029,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="offline" comment="status of a user">çevrimdışı</string>
   <string name="search">Ara</string>
   <string name="clearSearch">Aramayı temizle</string>
+  <string name="thereAreNoResultsForX">\"%s\" için sonuç bulunamadı</string>
   <string name="tags">Etiketler</string>
+  <string name="enPassant">Geçerken alma</string>
 </resources>

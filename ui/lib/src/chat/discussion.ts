@@ -1,18 +1,28 @@
+import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
+
+import { pubsub } from '@/pubsub';
+import { tempStorage } from '@/storage';
+import { enter, alert } from '@/view';
+import { userLink } from '@/view/userLink';
+
 import * as licon from '../licon';
 import * as enhance from '../richText';
-import { userLink } from '../view/userLink';
-import * as spam from './spam';
+import type { ChatCtrl } from './chatCtrl';
 import type { Line } from './interfaces';
-import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
 import { lineAction as modLineAction, flagReport } from './moderation';
 import { presetView } from './preset';
-import type { ChatCtrl } from './chatCtrl';
-import { tempStorage } from '../storage';
-import { pubsub } from '../pubsub';
-import { alert } from '../view/dialogs';
+import * as spam from './spam';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 const scrollState = { pinToBottom: true, lastScrollTop: 0 };
+let resizeObserver: ResizeObserver | null = null;
+
+const scrollToBottom = (el: HTMLElement, smooth: boolean): void => {
+  if (document.hidden || !smooth) el.scrollTop = el.scrollHeight;
+  else if (el.scrollTop + el.clientHeight < el.scrollHeight)
+    el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+  scrollState.lastScrollTop = el.scrollTop;
+};
 
 export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.chatEnabled()) return [];
@@ -50,17 +60,19 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               scrollState.lastScrollTop = el.scrollTop;
             });
 
-            requestAnimationFrame(() => (el.scrollTop = el.scrollHeight));
+            resizeObserver?.disconnect();
+            resizeObserver = new ResizeObserver(() => {
+              if (scrollState.pinToBottom) scrollToBottom(el, false);
+            });
+            resizeObserver.observe(el);
+            requestAnimationFrame(() => scrollToBottom(el, false));
           },
           postpatch: (_, vnode) => {
-            const el = vnode.elm as HTMLElement;
-            if (!scrollState.pinToBottom) return;
-
-            if (document.visibilityState === 'hidden') el.scrollTop = el.scrollHeight;
-            else if (el.scrollTop + el.clientHeight < el.scrollHeight)
-              el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
-
-            scrollState.lastScrollTop = el.scrollTop;
+            if (scrollState.pinToBottom) scrollToBottom(vnode.elm as HTMLElement, true);
+          },
+          destroy(_) {
+            resizeObserver?.disconnect();
+            resizeObserver = null;
           },
         },
       },
@@ -137,31 +149,32 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
     if (!ctrl.opts.public && previousText.match(whisperRegex)) chatEl.classList.add('whisper');
   } else if (ctrl.vm.autofocus) chatEl.focus();
 
-  chatEl.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key !== 'Enter') return;
+  chatEl.addEventListener(
+    'keydown',
+    enter(target => {
+      setTimeout(() => {
+        const el = target as HTMLInputElement,
+          txt = el.value,
+          pub = ctrl.opts.public;
 
-    setTimeout(() => {
-      const el = e.target as HTMLInputElement,
-        txt = el.value,
-        pub = ctrl.opts.public;
-
-      if (txt === '')
-        $('.input-move input').each(function (this: HTMLInputElement) {
-          this.focus();
-        });
-      else {
-        if (!ctrl.opts.kobold) spam.selfReport(txt);
-        if (pub && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
+        if (txt === '')
+          $('.input-move input').each(function (this: HTMLInputElement) {
+            this.focus();
+          });
         else {
-          scrollState.pinToBottom = true;
-          ctrl.post(txt);
+          if (!ctrl.opts.kobold) spam.selfReport(txt);
+          if (pub && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
+          else {
+            scrollState.pinToBottom = true;
+            ctrl.post(txt);
+          }
+          el.value = '';
+          storage.inner.remove();
+          if (!pub) el.classList.remove('whisper');
         }
-        el.value = '';
-        storage.inner.remove();
-        if (!pub) el.classList.remove('whisper');
-      }
-    });
-  });
+      });
+    }),
+  );
 
   chatEl.addEventListener('input', (e: KeyboardEvent) =>
     setTimeout(() => {
@@ -174,7 +187,12 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
     }),
   );
 
-  site.mousetrap.bind('c', () => chatEl.focus(), undefined, false);
+  site.mousetrap.bind(
+    'c',
+    () => document.querySelector<HTMLInputElement>('input.mchat__say')?.focus(),
+    undefined,
+    false,
+  );
 
   // Ensure clicks remove chat focus.
   // See https://github.com/lichess-org/lila/pull/5323

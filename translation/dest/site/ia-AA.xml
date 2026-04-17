@@ -312,7 +312,6 @@
   <string name="leaderboard">Tabula del melior jocatores</string>
   <string name="pasteTheFenStringHere">Colla le notation FEN ci</string>
   <string name="pasteThePgnStringHere">Colla le notation PGN ci</string>
-  <string name="fromPosition">A partir del position</string>
   <string name="continueFromHere">Continuar a partir de iste position</string>
   <string name="toStudy">Studio</string>
   <string name="importGame">Importar partita</string>
@@ -692,7 +691,6 @@
   <string name="thankYouForReading">Gratias pro leger isto!</string>
   <string name="agreementAssistance">Io accepta que in ulle occasion io non recipera assistentia durante mi partitas (ab un computator de chacos, base de datos o altere persona).</string>
   <string name="agreementNice">Io accepta que io sempre essera respectuose a altere jocatores.</string>
-  <string name="agreementPolicy">Io accepta que io sequera tote le politicas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o initia un nove conversation</string>
   <string name="edit">Modificar</string>
   <string name="rapid">Rapide</string>

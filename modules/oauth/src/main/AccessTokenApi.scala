@@ -6,7 +6,7 @@ import reactivemongo.akkastream.cursorProducer
 
 import lila.common.Json.given
 import lila.core.misc.oauth.{ AccessTokenId, TokenRevoke }
-import lila.core.net.{ Bearer, UserAgent }
+import lila.core.net.{ Bearer, UserAgent, Origin }
 import lila.db.dsl.{ *, given }
 
 final class AccessTokenApi(
@@ -19,18 +19,19 @@ final class AccessTokenApi(
   import AccessToken.{ BSONFields as F, given }
 
   private def createAndRotate(token: AccessToken): Fu[AccessToken] = for
-    oldIds <- coll
+    oldDocs <- coll
       .find($doc(F.userId -> token.userId, F.clientOrigin -> token.clientOrigin), $doc(F.id -> true).some)
       .sort($doc(F.usedAt -> -1, F.created -> -1))
       .skip(30)
-      .cursor[Bdoc]()
+      .cursor[Bdoc](ReadPref.sec)
       .listAll()
-      .dmap:
-        _.flatMap { _.getAsOpt[AccessTokenId](F.id) }
+    oldIds = oldDocs.flatMap { _.getAsOpt[AccessTokenId](F.id) }
     _ <- oldIds.nonEmpty.so:
       coll.delete.one($doc(F.id.$in(oldIds))).void
     _ <- coll.insert.one(token)
-  yield token
+  yield
+    lila.common.Bus.pub(AccessToken.Create(token))
+    token
 
   def create(setup: OAuthTokenForm.Data, isStudent: Boolean)(using me: MyId, ua: UserAgent): Fu[AccessToken] =
     for
@@ -46,7 +47,7 @@ final class AccessTokenApi(
           setup.scopes
             .flatMap(OAuthScope.byKey.get)
             .filterNot(_ == OAuthScope.Bot.Play && noBot)
-            .filterNot(_ == OAuthScope.Web.Mobile)
+            .filterNot(OAuthScope.concealedScopes)
             .toList
         ,
         clientOrigin = None,
@@ -66,7 +67,7 @@ final class AccessTokenApi(
         description = None,
         created = nowInstant.some,
         scopes = granted.scopes,
-        clientOrigin = granted.redirectUri.clientOrigin.some,
+        clientOrigin = granted.redirectUri.origin.some,
         userAgent = ua.some,
         expires = nowInstant.plusMonths(12).some
       )
@@ -95,7 +96,7 @@ final class AccessTokenApi(
               description = s"Challenge admin: ${admin.username}".some,
               created = nowInstant.some,
               scopes = TokenScopes(List(scope)),
-              clientOrigin = setup.description.some,
+              clientOrigin = Origin(setup.description).some,
               userAgent = ua.some,
               expires = Some(nowInstant.plusMonths(6))
             )
@@ -113,17 +114,28 @@ final class AccessTokenApi(
       .cursor[AccessToken]()
       .list(100)
 
-  def usedBoardApi(user: UserId): Fu[List[AccessToken]] =
+  def modRelevantTokens(user: UserId): Fu[List[AccessToken]] =
     coll
-      .find:
-        $doc(
-          F.scopes -> OAuthScope.Board.Play.key,
-          F.usedAt.$exists(true),
-          F.userId -> user
+      .aggregateList(30): framework =>
+        import framework.*
+        Match(
+          $doc(
+            F.userId -> user,
+            F.scopes.$in(OAuthScope.relevantToMods.value.map(_.key)),
+            F.usedAt.$exists(true)
+          )
+        ) -> List(
+          Sort(Descending(F.usedAt)),
+          Group(
+            $doc(
+              F.scopes -> s"$$${F.scopes}",
+              F.description -> s"$$${F.description}",
+              F.clientOrigin -> s"$$${F.clientOrigin}"
+            )
+          )("token" -> FirstField("$ROOT")),
+          Sort(Descending(s"token.${F.usedAt}"))
         )
-      .sort($sort.desc(F.created))
-      .cursor[AccessToken]()
-      .list(30)
+      .map(_.flatMap(_.getAsOpt[AccessToken]("token")))
 
   def countPersonal(using me: MyId): Fu[Int] =
     coll.countSel:
@@ -161,7 +173,7 @@ final class AccessTokenApi(
       .map: docs =>
         for
           doc <- docs
-          origin <- doc.getAsOpt[String]("_id")
+          origin <- doc.getAsOpt[Origin]("_id")
           usedAt = doc.getAsOpt[Instant](F.usedAt)
           scopes <- doc.getAsOpt[List[OAuthScope]](F.scopes)(using collectionReader)
         yield AccessTokenApi.Client(origin, usedAt, scopes)
@@ -179,7 +191,7 @@ final class AccessTokenApi(
       .run()
       .void
 
-  def revokeByClientOrigin(clientOrigin: String)(using me: MyId): Funit =
+  def revokeByClientOrigin(clientOrigin: Origin)(using me: MyId): Funit =
     coll
       .find(
         $doc(
@@ -192,6 +204,9 @@ final class AccessTokenApi(
       .mapAsyncUnordered(4)(token => revokeById(token.id))
       .run()
       .void
+
+  def userIdsByClientOrigin(clientOrigin: Origin): Fu[Set[UserId]] =
+    coll.distinctEasy[UserId, Set]("userId", $doc(F.clientOrigin -> clientOrigin), _.sec)
 
   def revoke(bearer: Bearer) =
     val id = AccessToken.idFrom(bearer)
@@ -241,7 +256,7 @@ final class AccessTokenApi(
     lila.common.Bus.pub(TokenRevoke(id))
 
 object AccessTokenApi:
-  case class Client(origin: String, usedAt: Option[Instant], scopes: List[OAuthScope])
+  case class Client(origin: Origin, usedAt: Option[Instant], scopes: List[OAuthScope])
 
   case class GithubSecretScan(token: Bearer, `type`: String, url: String, source: String)
   given Reads[GithubSecretScan] = Json.reads[GithubSecretScan]

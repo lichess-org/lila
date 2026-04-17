@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">e4 પર ખસેડો અથવા e4 ટુકડો પસંદ કરો</string>
   <string name="selectOrCaptureABishop">એક ઊંટ પસંદ કરો અથવા પકડો</string>
   <string name="takeRookWithQueen">રાણી સાથે હાથી ને પકડો</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">કેસલ (કોઈપણ બાજુ)</string>
+  <string name="castle">કેસલ (કોઈપણ બાજુ)</string>
   <string name="phoneticAlphabetIsBest">ફોનેટિક આલ્ફાબેટ શ્રેષ્ઠ છે</string>
   <string name="cancelTimerOrDenyARequest">ટાઈમર રદ કરો અથવા વિનંતી નકારો</string>
   <string name="playPreferredMoveOrConfirmSomething">પસંદગીની ચાલ રમો અથવા કંઈક પુષ્ટિ કરો</string>

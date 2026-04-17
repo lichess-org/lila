@@ -151,7 +151,7 @@
   <string name="initiative">Iniziativa</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Attacco</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Contrattacco</string>
-  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Prolemi di tempo</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Problemi di tempo</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Con compenso</string>
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Con l\'idea</string>
   <string name="nextChapter">Prossimo capitolo</string>
@@ -189,15 +189,15 @@
   <string name="customPositionTitle">Posizione personalizzata</string>
   <string name="customPositionText">Personalizza la scacchiera come preferisci.&lt;br&gt;Ideale per esplorare i finali.</string>
   <string name="loadExistingLichessGameTitle">Carica una partita lichess esistente</string>
-  <string name="loadExistingLichessGameText">Incolla un\'URL di una partita lichess, &lt;br&gt;come (like lichess.org/7fHIU0XI)&lt;br&gt;per caricare le mosse nel capitolo.</string>
+  <string name="loadExistingLichessGameText">Incolla un\'URL di una partita lichess &lt;br&gt; (come lichess.org/7fHIU0XI)&lt;br&gt;per caricare le mosse nel capitolo.</string>
   <string name="fromFenStringTitle">Da una stringa FEN</string>
   <string name="fromFenStringText">Incolla una posizione in formato FEN&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;br&gt;&lt;br&gt;per iniziare il capitolo da una posizione.</string>
   <string name="fromPgnGameTitle">Preso da una partita PGN</string>
   <string name="fromPgnGameText">Incolla una partita in formato PGN&lt;br&gt;per caricare mosse, commenti e variazioni nel capitolo.</string>
   <string name="variantsAreSupportedTitle">Gli studi supportano le varianti</string>
   <string name="variantsAreSupportedText">Proprio così, puoi studiare le varianti crazyhouse&lt;br&gt;e lichess!</string>
-  <string name="chapterConclusionText">I capitoli sono salvati per sempre.&lt;br&gt;Divertiti a organzizare il tuo contenuto scacchistico!</string>
+  <string name="chapterConclusionText">I capitoli sono salvati per sempre.&lt;br&gt;Divertiti a organizzare il tuo contenuto scacchistico!</string>
   <string name="doubleDefeat">Doppia sconfitta</string>
   <string name="blackDefeatWhiteCanNotWin">Il Nero è sconfitto, ma il Bianco non può vincere</string>
-  <string name="whiteDefeatBlackCanNotWin">Il Bianco è sconfitto, ma il Nero non pul vincere</string>
+  <string name="whiteDefeatBlackCanNotWin">Il Bianco è sconfitto, ma il Nero non può vincere</string>
 </resources>

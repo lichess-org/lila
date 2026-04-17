@@ -18,6 +18,10 @@ final private class FideRepo(
 
   object player:
     given BSONDocumentHandler[FidePlayer.PlayerPhoto] = Macros.handler
+    given BSONHandler[FidePlayer.Gender] = quickHandler(
+      { case BSONString(g) if g.nonEmpty => FidePlayer.Gender(g.head) },
+      g => BSONString(g.toString)
+    )
     given handler: BSONDocumentHandler[FidePlayer] = Macros.handler
     val selectActive: Bdoc = $doc("inactive".$ne(true))
     def selectFed(fed: Federation.Id): Bdoc = $doc("fed" -> fed)
@@ -41,9 +45,6 @@ final private class FideRepo(
       playerColl.updateOrUnsetField($id(id), "deceasedYear", year).void
 
   object rating:
-    private given BSONHandler[YearMonth] =
-      quickHandler({ case BSONString(s) => YearMonth.parse(s) }, ym => BSONString(ym.toString))
-    given BSONHandler[FideRatingHistory.RatingPoint] = tupleHandler
     given BSONDocumentHandler[FideRatingHistory] = Macros.handler
     def get(id: FideId): Fu[FideRatingHistory] =
       ratingColl.byId[FideRatingHistory](id).map(_ | FideRatingHistory.empty(id))

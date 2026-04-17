@@ -214,28 +214,30 @@ final class SitePages(helpers: Helpers):
             table(cls := "slist slist-pad", id := "version")(
               thead(
                 tr(
-                  th(colspan := 3)("Current versions"),
+                  th("Current versions"),
                   th(colspan := 2)("Last boot: ", momentFromNow(lila.common.Uptime.startedAt))
                 )
               ),
               tbody(
                 version.map: v =>
                   tr(
-                    td("Server"),
-                    td(v.date),
-                    td:
-                      a(href := s"https://github.com/lichess-org/lila/commits/${v.commit}"):
-                        pre(v.commit.take(7))
-                    ,
+                    td(
+                      span("Server"),
+                      timeTag(v.date),
+                      span(a(href := s"https://github.com/lichess-org/lila/commits/${v.commit}"):
+                        pre(v.commit.take(7)))
+                    ),
                     td(v.message),
                     td:
                       a(href := s"https://github.com/lichess-org/lila/compare/${v.commit}...master"):
                         pre("...")
                   ),
                 tr(
-                  td("Assets"),
-                  td(id := "asset-version-date"),
-                  td(a(id := "asset-version-commit")(pre)),
+                  td(
+                    "Assets",
+                    timeTag(id := "asset-version-date"),
+                    span(a(id := "asset-version-commit")(pre))
+                  ),
                   td(id := "asset-version-message"),
                   td(a(id := "asset-version-upcoming")(pre("...")))
                 )

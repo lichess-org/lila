@@ -8,7 +8,7 @@ object log:
 
     val logger = org.slf4j.LoggerFactory.getLogger(name)
 
-    def branch(childName: String) = new Logger(name = s"$name.$childName")
+    def branch(childName: String) = Logger(name = s"$name.$childName")
 
   def http(status: Int, body: String) =
     s"$status ${body.linesIterator.take(1).toList.headOption.getOrElse("-")}"

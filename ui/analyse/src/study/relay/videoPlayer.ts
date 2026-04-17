@@ -1,14 +1,13 @@
 import { hl, type VNode, onInsert } from 'lib/view';
-import { allowVideo } from './relayView';
 
 export class VideoPlayer {
-  private iframe: HTMLIFrameElement;
-  private close: HTMLImageElement;
+  private readonly iframe: HTMLIFrameElement;
+  private readonly close: HTMLImageElement;
   private animationFrameId?: number;
 
   constructor(
-    private o: { embed: string | false; redirect?: string; image?: string; text?: string },
-    private redraw: Redraw,
+    private readonly o: { embed: string | false; redirect?: string; image?: string; text?: string },
+    private readonly redraw: Redraw,
   ) {
     if (!o.embed) return;
 
@@ -38,11 +37,11 @@ export class VideoPlayer {
       const position = placeholder.getBoundingClientRect();
       this.iframe.style.display = 'block';
       this.iframe.style.left = `${position.x}px`;
-      this.iframe.style.top = `${position.y}px`;
+      this.iframe.style.top = `${position.y + window.scrollY}px`;
       this.iframe.style.width = `${position.width}px`;
       this.iframe.style.height = `${position.height}px`;
       this.close.style.left = `${position.x + position.width - 16}px`;
-      this.close.style.top = `${position.y - 4}px`;
+      this.close.style.top = `${position.y + window.scrollY - 4}px`;
       if (document.body.contains(this.iframe)) return;
       document.body.appendChild(this.iframe);
       document.body.appendChild(this.close);
@@ -121,3 +120,6 @@ export class VideoPlayer {
     window.location.href = urlWithEmbed.toString();
   };
 }
+
+export const allowVideo = (): boolean =>
+  window.getComputedStyle(document.body).getPropertyValue('---allow-video') === 'true';

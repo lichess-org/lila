@@ -216,6 +216,7 @@ object Flags extends FlagApi:
     F("RO", "Romania"),
     F("RS", "Serbia"),
     F("RU", "Russia"),
+    F("RU-BA", "Bashkortostan"),
     F("RU-TAT", "Tatarstan"),
     F("RW", "Rwanda"),
     F("SA", "Saudi Arabia"),

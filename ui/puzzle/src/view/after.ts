@@ -1,5 +1,6 @@
 import * as licon from 'lib/licon';
 import { type VNode, type MaybeVNodes, bind, dataIcon, hl } from 'lib/view';
+
 import type PuzzleCtrl from '../ctrl';
 
 const renderVote = (ctrl: PuzzleCtrl): VNode =>
@@ -14,8 +15,8 @@ const renderVote = (ctrl: PuzzleCtrl): VNode =>
           hl('p', i18n.puzzle.voteToLoadNextOne),
         ]),
       hl('div.puzzle__vote__buttons', { class: { enabled: !ctrl.voteDisabled } }, [
-        hl('div.vote.vote-up', { hook: bind('click', () => ctrl.vote(true)) }),
-        hl('div.vote.vote-down', { hook: bind('click', () => ctrl.vote(false)) }),
+        hl('button.vote.vote-up', { hook: bind('click', () => ctrl.vote(true)) }),
+        hl('button.vote.vote-down', { hook: bind('click', () => ctrl.vote(false)) }),
       ]),
     ],
   );

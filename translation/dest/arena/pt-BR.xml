@@ -15,9 +15,9 @@ Ou seja, uma vitoriá valerá 4 pontos, um empate 2 e uma derrota continuará va
 
 Por exemplo, 2 vitórias seguidas por um empate valerão 6 pontos: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">Quando o jogador clica no botão Berserk no começo de um jogo, ele tem seu tempo reduzido pela metade. Nesse caso, uma vitória valerá um ponto a mais.
+  <string name="berserkAnswer">Quando o jogador clica no botão Berserk no começo de um partida, ele tem seu tempo reduzido pela metade, mas uma vitória valerá um ponto a mais no torneiro.
 
-Fazendo o Berserk em jogos com controle de tempo com incremento, cancelará o mesmo. (a exceção é 1+2, que ficará 1+0)
+Fazendo o Berserk em partidas com controle de tempo com incremento, cancelará o incremento. (a exceção é 1+2, que ficará 1+0)
 
 Berserk não está disponível em jogos sem tempo inicial (0+1, 0+2).
 

@@ -1,7 +1,8 @@
 import { objectStorage } from 'lib/objectStorage';
-import { Switch, type Selectable } from './switch';
 import { storedStringProp } from 'lib/storage';
+
 import type { VoskModule, Listener, Microphone, MsgType } from './interfaces';
+import { Switch, type Selectable } from './switch';
 
 export class Mic implements Microphone {
   recId = 'default';
@@ -11,8 +12,8 @@ export class Mic implements Microphone {
   private mediaStream: MediaStream;
   private micSource: AudioNode;
   private vosk: VoskModule;
-  private deviceId = storedStringProp('voice.micDeviceId', 'default');
-  private recs = new Switch<string, RecNode>();
+  private readonly deviceId = storedStringProp('voice.micDeviceId', 'default');
+  private readonly recs = new Switch<string, RecNode>();
   private ctrl: Listener;
   private download?: XMLHttpRequest;
   private broadcastTimeout?: number;
@@ -205,7 +206,7 @@ export class Mic implements Microphone {
   }
 
   private async downloadModel(emscriptenPath: string): Promise<void> {
-    const voskStore = await objectStorage<any>({
+    const voskStore = await objectStorage({
       db: '/vosk',
       store: 'FILE_DATA',
       version: 21,
@@ -219,8 +220,8 @@ export class Mic implements Microphone {
       this.download = new XMLHttpRequest();
       this.download.open('GET', site.asset.url(models.get(this.lang)!), true);
       this.download.responseType = 'arraybuffer';
-      this.download.onerror = _ => reject('Failed. See console');
-      this.download.onabort = _ => reject('Aborted');
+      this.download.onerror = _ => reject(new Error('Failed. See console'));
+      this.download.onabort = _ => reject(new Error('Aborted'));
       this.download.onprogress = (e: ProgressEvent) => {
         this.broadcast(
           e.total <= 0
@@ -230,7 +231,7 @@ export class Mic implements Microphone {
       };
 
       this.download.onload = _ => {
-        if (this.download?.status !== 200) reject(`${this.download?.status} Failed`);
+        if (this.download?.status !== 200) reject(new Error(`${this.download?.status} Failed`));
         else resolve(this.download?.response);
       };
       this.download.send();
@@ -252,7 +253,7 @@ export class Mic implements Microphone {
     voskStore.txn('readwrite').objectStore('FILE_DATA').index('timestamp'); // just to throw on failure
   }
 
-  private soundListener = (event: 'start' | 'stop') => {
+  private readonly soundListener = (event: 'start' | 'stop') => {
     switch (event) {
       case 'start':
         return this.pause();

@@ -5,25 +5,24 @@ const tourId = 'fscday25';
 try {
   db.trophyKind.insertOne({
     _id: tourId,
-    name: 'FIDE\'s Social Chess Day',
+    name: "FIDE's Social Chess Day",
     order: NumberInt(102),
-    withCustomImage: true
+    withCustomImage: true,
   });
 } catch (e) {
   if (e.code !== 11000) throw e; // Ignore duplicate key error
 }
 
-
 const userIds = db.tournament_player.distinct('uid', {
   tid: tourId,
-  s: { $gt: 0, $lt: 20 }
+  s: { $gt: 0, $lt: 20 },
 });
 
 const now = new Date();
 
 const existing = db.trophy.distinct('user', {
   kind: tourId,
-  user: { $in: userIds }
+  user: { $in: userIds },
 });
 
 const newUserIds = userIds.filter(uid => !existing.includes(uid));
@@ -35,11 +34,10 @@ const trophies = newUserIds.map(uid => ({
   user: uid,
   kind: tourId,
   url: 'https://lichess.org/tournament/' + tourId,
-  date: now
+  date: now,
 }));
 
 if (trophies.length) {
   const res = db.trophy.insertMany(trophies, { ordered: false });
   console.log('Inserted new trophies for', Object.keys(res.insertedIds).length, ' users');
 }
-

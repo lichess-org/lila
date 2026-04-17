@@ -75,7 +75,7 @@ final class SwissFeature(
             "garbage".$ne(true)
           )
         ) -> List(
-          Sort(Descending("nbPlayers")),
+          Sort(Descending(Swiss.Fields.nbPlayers)),
           Limit(nb * 50),
           PipelineOperator(
             $lookup.simple(

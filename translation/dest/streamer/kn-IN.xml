@@ -36,8 +36,8 @@
     <item quantity="one">ಚಿಕ್ಕದಾಗಿ ಇರಿಸಿ: %s ಅಕ್ಷರ ಗರಿಷ್ಠ</item>
     <item quantity="other">ಚಿಕ್ಕದಾಗಿ ಇರಿಸಿ: ಗರಿಷ್ಠ %s ಅಕ್ಷರಗಳು</item>
   </plurals>
-  <string name="visibility">ಸ್ಟ್ರೀಮರ್‌ಗಳ ಪುಟದಲ್ಲಿ ಗೋಚರಿಸುತ್ತದೆ</string>
-  <string name="whenApproved">ಮಾಡರೇಟರ್‌ಗಳು ಅನುಮೋದಿಸಿದಾಗ</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">ಸ್ಟ್ರೀಮರ್‌ಗಳ ಪುಟದಲ್ಲಿ ಗೋಚರಿಸುತ್ತದೆ</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">ಮಾಡರೇಟರ್‌ಗಳು ಅನುಮೋದಿಸಿದಾಗ</string>
   <string name="headline">ಶೀರ್ಷಿಕೆ</string>
   <string name="tellUsAboutTheStream">ಒಂದೇ ವಾಕ್ಯದಲ್ಲಿ ನಿಮ್ಮ ಸ್ಟ್ರೀಮ್ ಬಗ್ಗೆ ನಮಗೆ ತಿಳಿಸಿ</string>
   <string name="longDescription">ದೀರ್ಘ ವಿವರಣೆ</string>

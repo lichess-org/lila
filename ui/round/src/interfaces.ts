@@ -1,12 +1,15 @@
-import type { VNode } from 'lib/view';
+import type { MoveMetadata as CgMoveMetadata } from '@lichess-org/chessground/types';
+
+import type { ChatOpts as BaseChatOpts, ChatCtrl, ChatPlugin } from 'lib/chat/interfaces';
 import type { GameData, Status, RoundStep } from 'lib/game';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
-import type { CorresClockData } from './corresClock/corresClockCtrl';
-import type { ChatOpts as BaseChatOpts, ChatCtrl, ChatPlugin } from 'lib/chat/interfaces';
 import * as Prefs from 'lib/prefs';
 import type { EnhanceOpts } from 'lib/richText';
+import type { NodeCrazy } from 'lib/tree/types';
+import type { VNode } from 'lib/view';
+
+import type { CorresClockData } from './corresClock/corresClockCtrl';
 import type { RoundSocket } from './socket';
-import type { MoveMetadata as CgMoveMetadata } from '@lichess-org/chessground/types';
 
 export { type RoundSocket } from './socket';
 export { type CorresClockData } from './corresClock/corresClockCtrl';
@@ -71,11 +74,7 @@ export interface RoundSocketSend {
   ): void;
 }
 
-export type EncodedDests =
-  | string
-  | {
-      [key: string]: string;
-    };
+export type EncodedDests = string | Record<string, string>;
 
 export interface RoundData extends GameData {
   clock?: ClockData;
@@ -85,11 +84,11 @@ export interface RoundData extends GameData {
   possibleDrops?: string;
   forecastCount?: number;
   opponentSignal?: number;
-  crazyhouse?: Tree.NodeCrazy;
+  crazyhouse?: NodeCrazy;
   correspondence?: CorresClockData;
   tv?: Tv;
   userTv?: {
-    id: string;
+    id: UserId;
   };
   expiration?: Expiration;
   local?: RoundProxy;
@@ -123,7 +122,7 @@ export interface RoundOpts {
 }
 
 export interface ChatOpts extends BaseChatOpts {
-  preset: 'start' | 'end' | undefined;
+  preset?: 'start' | 'end';
   enhance?: EnhanceOpts;
   plugin?: ChatPlugin;
   alwaysEnabled: boolean;
@@ -134,7 +133,7 @@ export interface ChatOpts extends BaseChatOpts {
 }
 
 export interface ApiMove {
-  dests: string | { [key: string]: string };
+  dests: string | Record<string, string>;
   ply: number;
   fen: string;
   san: string;
@@ -151,7 +150,7 @@ export interface ApiMove {
   fiftyMoves?: boolean;
   wDraw?: boolean;
   bDraw?: boolean;
-  crazyhouse?: Tree.NodeCrazy;
+  crazyhouse?: NodeCrazy;
   role?: Role;
   drops?: string;
   promotion?: {

@@ -1,11 +1,13 @@
-import { practiceComplete } from '../studyXhr';
 import { type Prop, prop } from 'lib';
 import { storedBooleanProp } from 'lib/storage';
-import makeSuccess from './studyPracticeSuccess';
-import { readOnlyProp } from '@/util';
-import type { StudyPracticeData, Goal } from './interfaces';
-import type { StudyData } from '../interfaces';
+
 import type AnalyseCtrl from '@/ctrl';
+import { readOnlyProp } from '@/util';
+
+import type { StudyData } from '../interfaces';
+import { practiceComplete } from '../studyXhr';
+import type { StudyPracticeData, Goal } from './interfaces';
+import makeSuccess from './studyPracticeSuccess';
 
 export default class StudyPracticeCtrl {
   goal: Prop<Goal>;
@@ -27,6 +29,7 @@ export default class StudyPracticeCtrl {
 
   onLoad = () => {
     this.root.showBestMoveArrowsProp = readOnlyProp(true);
+    this.root.showManeuverMoveArrowsProp = readOnlyProp(true);
     this.root.showGauge = readOnlyProp(true);
     this.root.showFishnetAnalysis = readOnlyProp(true);
     this.goal(this.root.data.practiceGoal!);
@@ -80,7 +83,7 @@ export default class StudyPracticeCtrl {
 
   onJump = () => {
     // reset failure state if no failed move found in mainline history
-    if (this.success() === false && !this.root.nodeList.find(n => !!n.fail)) this.success(null);
+    if (this.success() === false && !this.root.nodeList.some(n => !!n.fail)) this.success(null);
     this.checkSuccess();
   };
   onCeval = this.checkSuccess;

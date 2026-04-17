@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>
   <string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
   <string name="inGameOnly">Seulement durant la partie</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Sauf durant la partie</string>
+  <string name="exceptInGame">Sauf durant la partie</string>
   <string name="chessClock">Pendule</string>
   <string name="tenthsOfSeconds">Dixièmes de seconde</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quand il reste moins de 10 secondes</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quand il reste moins de 10 secondes</string>
   <string name="horizontalGreenProgressBars">Barres de progression horizontales vertes</string>
   <string name="soundWhenTimeGetsCritical">Alerte quand le temps restant devient critique</string>
   <string name="giveMoreTime">Donner plus de temps</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Maintenez la touche &lt;ctrl&gt; enfoncée lors de la promotion pour désactiver temporairement l\'auto-promotion</string>
   <string name="whenPremoving">Lors d\'un pré-coup</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer la nulle par répétition automatiquement</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quand il reste moins de 30 secondes</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quand il reste moins de 30 secondes</string>
   <string name="moveConfirmation">Confirmation de coup</string>
   <string name="explainCanThenBeTemporarilyDisabled">Peut être désactivé pendant une partie grâce au menu de l\'échiquer</string>
   <string name="inCorrespondenceGames">Dans les parties par correspondance</string>
@@ -51,7 +51,7 @@
   <string name="inputMovesWithTheKeyboard">Saisir les coups au clavier</string>
   <string name="inputMovesWithVoice">Utiliser la reconnaissance vocale pour déplacer les pièces</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Restreindre les flèches aux coups valides</string>
-  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Dire \"Bonne partie, bien jouée\" en cas de défaite ou de nulle</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Dire \"Bonne partie, bien joué\" en cas de défaite ou de nulle</string>
   <string name="yourPreferencesHaveBeenSaved">Vos préférences ont été sauvegardées.</string>
   <string name="scrollOnTheBoardToReplayMoves">Parcourez les coups avec la molette de la souris sur l\'échiquier</string>
   <string name="correspondenceEmailNotification">Email quotidien de la liste de vos parties par correspondance</string>
@@ -62,11 +62,13 @@
   <string name="notifyGameEvent">Mise à jour des parties par correspondance</string>
   <string name="notifyChallenge">Défis</string>
   <string name="notifyTournamentSoon">Le tournoi va bientôt commencer</string>
+  <string name="notifyBroadcasts">Diffusions auxquelles vous vous êtes abonnées</string>
   <string name="notifyTimeAlarm">Le temps de la partie par correspondance est presque épuisé</string>
   <string name="notifyBell">Notification sonore sur Lichess</string>
   <string name="notifyPush">Notification sur votre appareil quand vous n\'êtes pas sur Lichess</string>
   <string name="notifyWeb">Navigateur</string>
   <string name="notifyDevice">Appareil</string>
   <string name="bellNotificationSound">Son de notification</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Partie à l\'aveugle</string>
+  <string name="blindfold" comment="As in Blindfold chess">Partie à l\'aveugle</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Afficher à gauche sur les appareils mobiles</string>
 </resources>

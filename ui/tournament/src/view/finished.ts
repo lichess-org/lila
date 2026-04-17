@@ -1,16 +1,17 @@
 import { h, type VNode } from 'snabbdom';
+
 import * as licon from 'lib/licon';
+import { once } from 'lib/storage';
+import { type MaybeVNodes } from 'lib/view';
+import { numberRow } from 'lib/view/util';
+
 import type TournamentController from '../ctrl';
 import type { TournamentData } from '../interfaces';
-import { players } from '../pagination';
 import { controls, standing, podium } from './arena';
 import { teamStanding } from './battle';
 import header from './header';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
-import { numberRow } from 'lib/view/util';
-import { type MaybeVNodes } from 'lib/view';
-import { once } from 'lib/storage';
 
 function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && once('tournament.end.canvas.' + data.id))
@@ -98,11 +99,10 @@ function stats(ctrl: TournamentController): VNode | undefined {
 export const name = 'finished';
 
 export function main(ctrl: TournamentController): MaybeVNodes {
-  const pag = players(ctrl);
   return [
     h('div.podium-wrap', [confetti(ctrl.data), header(ctrl), teamStanding(ctrl, 'finished') || podium(ctrl)]),
-    controls(ctrl, pag),
-    standing(ctrl, pag),
+    controls(ctrl),
+    standing(ctrl),
   ];
 }
 

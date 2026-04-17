@@ -2,8 +2,6 @@
   @extend %study-list;
 
   button {
-    @extend %button-none;
-
     width: 100%;
     text-align: start;
   }
@@ -23,9 +21,8 @@
   }
 
   .status {
-    @extend %flex-center;
+    @extend %flex-center-center;
 
-    justify-content: center;
     width: 2.4em;
     margin-inline-end: 0.1em;
     transition: 2.5s;
@@ -110,19 +107,6 @@
 
   m-config {
     @extend %flex-between;
-
     @include padding-direction(0.4em, 0.8em, 1em, 0.8em);
-
-    .role {
-      @extend %flex-center;
-
-      label {
-        cursor: pointer;
-      }
-    }
-
-    .switch {
-      margin-inline-end: 0.5em;
-    }
   }
 }

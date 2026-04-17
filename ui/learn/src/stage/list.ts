@@ -1,26 +1,27 @@
-import rook from './rook';
-import bishop from './bishop';
-import queen from './queen';
-import king from './king';
-import knight from './knight';
-import pawn from './pawn';
-import capture from './capture';
-import protection from './protection';
-import combat from './combat';
-import check1 from './check1';
-import outOfCheck from './outOfCheck';
-import checkmate1 from './checkmate1';
-import setup from './setup';
-import castling from './castling';
-import enpassant from './enpassant';
-import stalemate from './stalemate';
-import value from './value';
-import check2 from './check2';
-import type { AssertData } from '../levelCtrl';
-import type { ScenarioLevel } from '../scenario';
 import type { SquareName } from 'chessops';
 import type { VNode } from 'snabbdom';
+
 import type { Shape } from '../chessground';
+import type { AssertData } from '../levelCtrl';
+import type { ScenarioLevel } from '../scenario';
+import bishop from './bishop';
+import capture from './capture';
+import castling from './castling';
+import check1 from './check1';
+import check2 from './check2';
+import checkmate1 from './checkmate1';
+import combat from './combat';
+import enpassant from './enpassant';
+import king from './king';
+import knight from './knight';
+import outOfCheck from './outOfCheck';
+import pawn from './pawn';
+import protection from './protection';
+import queen from './queen';
+import rook from './rook';
+import setup from './setup';
+import stalemate from './stalemate';
+import value from './value';
 
 export type Level = LevelBase & LevelDefaults;
 export type LevelPartial = LevelBase & Partial<LevelDefaults>;
@@ -117,9 +118,9 @@ export const categs: Categ[] = rawCategs.map(c => ({
 
 const stages: Stage[] = categs.reduce<Stage[]>((prev, c) => prev.concat(c.stages), []);
 
-const stagesByKey: { [K in string]: Stage } = Object.fromEntries(stages.map(s => [s.key, s]));
+const stagesByKey: Record<string, Stage> = Object.fromEntries(stages.map(s => [s.key, s]));
 
-const stagesById: { [K in number]: Stage } = Object.fromEntries(stages.map(s => [s.id, s]));
+const stagesById: Record<number, Stage> = Object.fromEntries(stages.map(s => [s.id, s]));
 
 export const list = stages;
 export const byId = stagesById;

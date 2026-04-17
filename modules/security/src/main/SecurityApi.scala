@@ -30,21 +30,22 @@ final class SecurityApi(
     authenticator: Authenticator,
     oAuthServer: OAuthServer,
     ip2proxy: Ip2ProxyApi,
+    singlePost: SinglePost,
     proxy2faSetting: lila.memo.SettingStore[lila.core.data.Strings] @@ Proxy2faSetting
 )(using ec: Executor, mode: play.api.Mode):
-
-  val AccessUri = "access_uri"
 
   private val usernameOrEmailMapping =
     lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
   private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
 
-  lazy val loginForm = Form:
+  def loginForm(using req: RequestHeader) = Form:
     tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
-      "password" -> loginPasswordMapping
+      "password" -> loginPasswordMapping,
+      singlePost.formPairWithLichobileCompat
     )
-  def loginFormFilled(login: UserStrOrEmail) = loginForm.fill(login -> ClearPassword(""))
+  def loginFormFilled(login: UserStrOrEmail)(using RequestHeader) = loginForm.fill:
+    (login, ClearPassword(""), "")
 
   lazy val rememberForm = Form(single("remember" -> boolean))
 
@@ -54,9 +55,10 @@ final class SecurityApi(
       mapping(
         "username" -> usernameOrEmailMapping, // can also be an email
         "password" -> loginPasswordMapping,
-        "token" -> optional(nonEmptyText)
+        "token" -> optional(nonEmptyText) // totp 2fa
       )(authenticateCandidate(candidate)) {
-        case Success(user) => (user.username.into(UserStrOrEmail), ClearPassword(""), none).some
+        case Success(user) =>
+          (user.username.into(UserStrOrEmail), ClearPassword(""), none).some
         case _ => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match
@@ -130,8 +132,7 @@ final class SecurityApi(
             proxy <- ip2proxy.ofReq(req)
             _ = proxy.name.foreach: p =>
               logger.info(s"Proxy login $p $userId ${HTTPRequest.print(req)}")
-            sessionId = SessionId(SecureRandom.nextString(22))
-            _ <- store.save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy, pwned)
+            sessionId <- store.save(isSignup = false, userId, req, apiVersion, fp = none, proxy, pwned)
           yield sessionId
 
   def saveSignup(userId: UserId, apiVersion: Option[ApiVersion], fp: Option[FingerPrint], pwned: IsPwned)(
@@ -139,8 +140,7 @@ final class SecurityApi(
   ): Funit =
     for
       proxy <- ip2proxy.ofReq(req)
-      sessionId = SessionId(s"SIG-${SecureRandom.nextString(22)}")
-      _ <- store.save(sessionId, userId, req, apiVersion, up = false, fp = fp, proxy, pwned)
+      _ <- store.save(isSignup = true, userId, req, apiVersion, fp = fp, proxy, pwned)
     yield ()
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
@@ -243,7 +243,7 @@ final class SecurityApi(
 
     private val prefix = "appeal:"
 
-    private val store = cacheApi.notLoadingSync[SessionId, UserId](256, "security.session.appeal"):
+    private val store = cacheApi.notLoadingSync[SessionId, UserId](512, "security.session.appeal"):
       _.expireAfterAccess(2.days).build()
 
     def authenticate(sessionId: SessionId): Option[UserId] =

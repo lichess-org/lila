@@ -1,9 +1,11 @@
+import { onClickAway } from 'lib';
 import * as licon from 'lib/licon';
 import { onInsert, bind, hl, type VNode, snabDialog, type Dialog } from 'lib/view';
+import { cmnToggleProp } from 'lib/view/cmn-toggle';
 import { jsonSimple } from 'lib/xhr';
-import { onClickAway } from 'lib';
+
 import type { Entry, VoiceCtrl, MsgType } from './interfaces';
-import { supportedLangs } from './voice';
+import { supportedLangs } from './languages';
 
 export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string): VNode {
   return hl(`div#voice-bar${cls ? '.' + cls : ''}`, [
@@ -35,12 +37,6 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
   ]);
 }
 
-export function flash(): void {
-  const div = document.querySelector<HTMLElement>('#voice-status-row')!;
-  div.classList.add('flash');
-  div.onanimationend = () => div.classList.remove('flash');
-}
-
 function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
   const voiceBtn = $('button#microphone-button');
   return (txt: string, tpe: MsgType) => {
@@ -54,15 +50,13 @@ function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
 }
 
 function pushTalkSetting(ctrl: VoiceCtrl) {
-  return hl('div.voice-setting', { attrs: { style: 'align-self: center' } }, [
-    hl('div.switch', { attrs: { title: 'Hold the shift key while speaking' } }, [
-      hl('input#wake-mode.cmn-toggle', {
-        attrs: { type: 'checkbox', checked: ctrl.pushTalk() },
-        hook: bind('change', e => ctrl.pushTalk((e.target as HTMLInputElement).checked)),
-      }),
-      hl('label', { attrs: { for: 'wake-mode' } }),
+  return hl('div.voice-setting', [
+    hl('label.cmn-toggle-wrap', { attrs: { title: 'Hold the shift key while speaking' } }, [
+      cmnToggleProp({ id: 'wake-mode', prop: ctrl.pushTalk }),
+      'Push ',
+      hl('strong', 'shift'),
+      ' key to talk',
     ]),
-    hl('label', { attrs: { for: 'wake-mode' } }, ['Push ', hl('strong', 'shift'), ' key to talk']),
   ]);
 }
 

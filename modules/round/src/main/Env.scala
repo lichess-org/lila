@@ -45,6 +45,7 @@ final class Env(
     socketKit: lila.core.socket.ParallelSocketKit,
     userLagPut: lila.core.socket.userLag.Put,
     bookmarkExists: lila.core.misc.BookmarkExists,
+    securityApi: lila.core.security.SecurityApi,
     simulApiCircularDep: => lila.core.simul.SimulApi,
     tourApiCircularDep: => lila.core.tournament.TournamentApi,
     settingStore: lila.memo.SettingStore.Builder,

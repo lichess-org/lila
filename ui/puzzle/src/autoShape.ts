@@ -1,8 +1,12 @@
+import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
+import type { NormalMove } from 'chessops/types';
+import { opposite, parseUci, makeSquare } from 'chessops/util';
+
 import { winningChances } from 'lib/ceval';
 import { annotationShapes } from 'lib/game/glyphs';
-import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
-import { opposite, parseUci, makeSquare } from 'chessops/util';
-import type { NormalMove } from 'chessops/types';
+import type { Glyph, TreeNode } from 'lib/tree/types';
+
+// import { makeGooglyShapes } from '../../bits/src/bits.googlyHorsey';
 import type PuzzleCtrl from './ctrl';
 
 function makeAutoShapesFromUci(
@@ -70,11 +74,12 @@ export default function (ctrl: PuzzleCtrl): DrawShape[] {
     ...annotationShapes(n),
     ...(feedback ? annotationShapes(feedback) : []),
     ...(hint ? [hint] : []),
+    ...(ctrl.googlyEyes ? ctrl.googlyEyes() : []),
   ];
 }
 
-function feedbackAnnotation(n: Tree.Node): Tree.Node | undefined {
-  let glyph: Tree.Glyph | undefined;
+function feedbackAnnotation(n: TreeNode): TreeNode | undefined {
+  let glyph: Glyph | undefined;
   switch (n.puzzle) {
     case 'good':
     case 'win':

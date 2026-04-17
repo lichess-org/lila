@@ -11,13 +11,14 @@ final private class Tor(
     mongoCache: lila.memo.MongoCache.Api
 )(using Executor)(using scheduler: Scheduler):
 
-  def isExitNode(ip: IpAddress) = ips contains ip
+  def isExitNode(ip: IpAddress) = ips.contains(ip.value)
 
-  private var ips = Set.empty[IpAddress]
+  private var ips = Set.empty[String]
 
   private def refresh: Funit =
     ws.url("https://check.torproject.org/torbulkexitlist").get().map { res =>
-      ips = res.body[String].linesIterator.filterNot(_.startsWith("#")).flatMap(IpAddress.from).toSet
+      ips =
+        res.body[String].linesIterator.filterNot(_.startsWith("#")).flatMap(IpAddress.from).map(_.value).toSet
       mongoCache.put("security.torNodes", ips.mkString(" ")) // for lila-ws to fetch
       lila.mon.security.torNodes.update(ips.size)
     }

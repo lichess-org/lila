@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Certamenes harenae</string>
   <string name="isItRated">Censitane est?</string>
   <string name="howAreScoresCalculated">Ut numero computata?</string>
   <string name="berserk">Insania arenae</string>
@@ -7,4 +8,5 @@
   <string name="howDoesItEnd">Quomodo enim complere?</string>
   <string name="otherRules">Alia magni momenti praecepta</string>
   <string name="thisIsPrivate">Privatum haec arena</string>
+  <string name="history">Harenae Historia</string>
 </resources>

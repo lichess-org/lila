@@ -5,7 +5,7 @@ import play.api.data.{ Form, Mapping }
 import play.api.mvc.RequestHeader
 
 import lila.core.email.EmailAddress
-import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.net.IpAddress
 import lila.core.user.{ Me, User }
 import lila.core.userId.{ UserId, UserName }
 
@@ -31,7 +31,7 @@ object LilaCookie:
   def sid(req: RequestHeader): Option[String] = req.session.get(sessionId)
 
 trait SecurityApi:
-  def shareAnIpOrFp(u1: UserId, u2: UserId): Fu[Boolean]
+  def shareAnIpOrFp(users: PairOf[UserId]): Fu[Boolean]
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]]
 
 case class HcaptchaPublicConfig(key: String, enabled: Boolean)
@@ -44,7 +44,7 @@ case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig, skip: Bo
 trait Hcaptcha:
   def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]]
 
-trait SignupForm:
+trait SignupFormFields:
   val emailField: Mapping[EmailAddress]
   val username: Mapping[UserName]
 
@@ -56,14 +56,14 @@ case class UserSignup(
     email: EmailAddress,
     req: RequestHeader,
     fingerPrint: Option[FingerHash],
-    suspIp: Boolean,
-    apiVersion: Option[ApiVersion]
+    suspIp: Boolean
 )
 
 case class ClearPassword(value: String) extends AnyVal:
   override def toString = "ClearPassword(****)"
 
-case class HashedPassword(bytes: Array[Byte])
+case class HashedPassword(bytes: Array[Byte]):
+  def isBlank = bytes.isEmpty
 
 trait Authenticator:
   def passEnc(p: ClearPassword): HashedPassword
@@ -116,7 +116,9 @@ object UserTrust extends YesNo[UserTrust]
 trait UserTrustApi:
   def get(id: UserId): Fu[UserTrust]
 
-case class AskAreRelated(users: PairOf[UserId], promise: Promise[Boolean])
+opaque type SinglePostToken = String
+object SinglePostToken extends OpaqueString[SinglePostToken]
+type SinglePostMakeToken = RequestHeader ?=> SinglePostToken
 
 def canUploadImages(toRel: String)(using me: Me) = !me.marks.troll && me.kid.no && {
   me.isVerified ||

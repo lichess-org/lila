@@ -3,7 +3,7 @@
   <string name="donate">Doar</string>
   <string name="donateAsX">Doar como %s</string>
   <string name="lichessPatron">Patrón de Lichess</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Patrón dende %s</string>
+  <string name="patronSince" comment="string is a date">Patrón dende %s</string>
   <string name="freeAccount">Conta gratuíta</string>
   <string name="becomePatron">Faite Patrón de Lichess</string>
   <string name="xBecamePatron">%s fíxose Patrón de Lichess</string>
@@ -30,12 +30,12 @@
   <string name="otherAmount">Outro</string>
   <string name="pleaseEnterAmountInX">Por favor, insire unha cantidade en %s</string>
   <string name="withCreditCard">Tarxeta de crédito</string>
-  <string name="logInToDonate">Identifícate para doar</string>
+  <string name="logInToDonate">Rexístrate para doar</string>
   <string name="weAreSmallTeam">Somos un equipo pequeno, polo que o teu apoio supón unha grande diferenza!</string>
   <string name="celebratedPatrons">Os gloriosos Patróns que fan Lichess posíbel</string>
   <string name="whereMoneyGoes">Onde van os cartos?</string>
   <string name="serversAndDeveloper">En primeiro lugar, a servidores potentes.
-Logo pagamos a un desenvolvedor a tempo completo: %s, o fundador de Liches.</string>
+Logo pagamos a un desenvolvedor a tempo completo: %s, o fundador de Lichess.</string>
   <string name="costBreakdown">Ver a análise detallada de custos</string>
   <string name="officialNonProfit">É Lichess unha organización oficial sen ánimo de lucro?</string>
   <string name="actOfCreation">Si, aquí está a acta fundacional (en francés)</string>
@@ -84,4 +84,5 @@ Porén, os Patróns poden gabarse das súas novas e bárbaras ás de Patrón que
   <string name="paymentDetails">Detalles do pagamento</string>
   <string name="updatePaymentMethod">Actualizar o método de pagamento</string>
   <string name="stripeManageSub">Xestionar a túa subscrición e descargar as túas facturas e recibos</string>
+  <string name="coverFees">Engadirei %s para axudar a cubrir os custos de procesamento desta transacción</string>
 </resources>

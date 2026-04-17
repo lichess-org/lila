@@ -3,7 +3,7 @@ import scalalib.model.Language
 import lila.core.userId
 import lila.memo.CacheApi.*
 
-case class LiveStreams(streams: List[Stream]):
+final class LiveStreams(val streams: List[Stream]):
 
   private lazy val streamerIds: Set[Streamer.Id] = streams.view.map(_.streamer.id).to(Set)
 
@@ -35,9 +35,8 @@ case class LiveStreams(streams: List[Stream]):
         .toMap
     )
 
-  def excludeUsers(userIds: List[UserId]) = copy(
-    streams = streams.filterNot(s => userIds contains s.streamer.userId)
-  )
+  def excludeUsers(userIds: List[UserId]) = LiveStreams:
+    streams.filterNot(s => userIds contains s.streamer.userId)
 
 object LiveStreams:
 
@@ -73,6 +72,6 @@ final class LiveApi(
     Streamer.WithUserAndStream(s.streamer, s.user, live.get(s.streamer), s.subscribed)
 
   def userIds = userIdsCache
-  def isStreaming(userId: UserId) = userIdsCache contains userId
+  def isStreaming(userId: UserId) = userIdsCache.contains(userId)
   def one(userId: UserId): Fu[Option[Stream]] = all.map(_.streams.find(_.is(userId)))
   def many(userIds: Seq[UserId]): Fu[List[Stream]] = all.map(_.streams.filter(s => userIds.exists(s.is)))

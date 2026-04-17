@@ -23,17 +23,17 @@ final private class TournamentBusHandler(
   Bus.sub[lila.core.mod.MarkBooster](booster => ejectFromEnterable(booster.userId))
 
   Bus.sub[lila.core.round.Berserk]:
-    case lila.core.round.Berserk(gameId, userId) => api.berserk(gameId, userId)
+    case lila.core.round.Berserk(gameId, userId) => api.berserk(gameId, userId).logFailure(logger)
 
   Bus.sub[lila.core.playban.Playban]:
-    case lila.core.playban.Playban(userId, _, true) => api.pausePlaybanned(userId)
+    case lila.core.playban.Playban(userId, _, true) => api.pausePlaybanned(userId).logFailure(logger)
 
   Bus.sub[lila.core.team.KickFromTeam]:
-    case lila.core.team.KickFromTeam(teamId, _, userId) => api.kickFromTeam(teamId, userId)
+    case lila.core.team.KickFromTeam(teamId, _, userId) => api.kickFromTeam(teamId, userId).logFailure(logger)
 
   Bus.sub[lila.core.playban.SittingDetected]:
     case lila.core.playban.SittingDetected(tourId, userId) =>
-      api.withdraw(tourId, userId, isPause = false, isStalling = true)
+      api.withdraw(tourId, userId, isPause = false, isStalling = true).logFailure(logger)
 
   private def ejectFromEnterable(userId: UserId) =
     tournamentRepo

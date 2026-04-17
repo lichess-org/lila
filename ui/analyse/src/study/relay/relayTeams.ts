@@ -1,14 +1,16 @@
-import { type MaybeVNodes, type VNode, onInsert, hl } from 'lib/view';
+import { type MaybeVNodes, type VNode, onInsert, hl, spinnerVdom as spinner } from 'lib/view';
+import { userTitle } from 'lib/view/userLink';
 import { json as xhrJson } from 'lib/xhr';
-import type { RelayRound } from './interfaces';
+
+import { playerFedFlag } from '@/view/util';
+
 import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect } from '../interfaces';
 import { type MultiCloudEval, renderScore } from '../multiCloudEval';
-import { spinnerVdom as spinner } from 'lib/view';
-import { playerFedFlag } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
-import { userTitle } from 'lib/view/userLink';
-import type RelayPlayers from './relayPlayers';
 import { coloredStatusStr } from './customScoreStatus';
+import { teamLinkData } from './deepLink';
+import type { RelayRound, RelayTour } from './interfaces';
+import type RelayPlayers from './relayPlayers';
 
 interface TeamWithPoints {
   name: string;
@@ -31,7 +33,8 @@ export default class RelayTeams {
   teams?: TeamTable;
 
   constructor(
-    private readonly round: RelayRound,
+    readonly tour: RelayTour,
+    readonly round: RelayRound,
     readonly multiCloudEval: MultiCloudEval | undefined,
     readonly chapterSelect: ChapterSelect,
     readonly roundPath: () => string,
@@ -48,12 +51,7 @@ export default class RelayTeams {
   };
 }
 
-export const teamsView = (
-  ctrl: RelayTeams,
-  chapters: StudyChapters,
-  players: RelayPlayers,
-  round: RelayRound,
-) =>
+export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: RelayPlayers) =>
   hl(
     'div.relay-tour__team-table',
     {
@@ -72,7 +70,8 @@ export const teamsView = (
           ctrl.roundPath(),
           players,
           ctrl.multiCloudEval?.thisIfShowEval(),
-          round,
+          ctrl.round,
+          ctrl.tour.showTeamScores,
         )
       : [spinner()],
   );
@@ -84,6 +83,7 @@ const renderTeams = (
   playersCtrl: RelayPlayers,
   cloudEval?: MultiCloudEval,
   round?: RelayRound,
+  showTeamScores?: boolean,
 ): MaybeVNodes =>
   teams.table.map(row => {
     const firstTeam = row.teams[0];
@@ -102,13 +102,19 @@ const renderTeams = (
             : 'result.';
     return hl('div.relay-tour__team-match', [
       hl('div.relay-tour__team-match__teams', [
-        hl('strong.relay-tour__team-match__team', row.teams[0].name),
+        hl(
+          'strong.relay-tour__team-match__team',
+          showTeamScores ? hl('a.team', teamLinkData(firstTeam.name), firstTeam.name) : firstTeam.name,
+        ),
         hl('span.relay-tour__team-match__team__points', [
           hl(`${resultClass(firstTeam, secondTeam)}result`, firstTeam.points),
           hl('vs', 'vs'),
           hl(`${resultClass(secondTeam, firstTeam)}result`, secondTeam.points),
         ]),
-        hl('strong.relay-tour__team', secondTeam.name),
+        hl(
+          'strong.relay-tour__team-match__team',
+          showTeamScores ? hl('a.team', teamLinkData(secondTeam.name), secondTeam.name) : secondTeam.name,
+        ),
       ]),
       hl(
         'div.relay-tour__team-match__games',

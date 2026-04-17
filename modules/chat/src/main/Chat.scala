@@ -1,6 +1,7 @@
 package lila.chat
 
 import reactivemongo.api.bson.BSONDocumentHandler
+import lila.core.chat.PublicSource
 
 sealed trait AnyChat:
   def id: ChatId
@@ -76,11 +77,6 @@ case class MixedChat(
 
 object Chat:
 
-  opaque type ResourceId = String
-  object ResourceId extends OpaqueString[ResourceId]
-
-  import lila.core.shutup.PublicSource
-
   case class Setup(id: ChatId, publicSource: PublicSource)
 
   def tournamentSetup(tourId: TourId) = Setup(tourId.into(ChatId), PublicSource.Tournament(tourId))
@@ -91,7 +87,7 @@ object Chat:
 
   // left: game chat
   // right: tournament/simul chat
-  case class GameOrEvent(either: Either[Restricted, (UserChat.Mine, ResourceId)]):
+  case class GameOrEvent(either: Either[Restricted, (UserChat.Mine, PublicSource)]):
     def game = either.left.toOption
 
   import lila.db.BSON

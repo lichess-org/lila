@@ -4,8 +4,7 @@
 @import 'base/elements';
 @import 'base/typography';
 @import 'base/data-icon';
-
-@include theme-style;
-
+@import 'base/ltr';
 @import 'theme/board/chessground';
 @import 'layout/vars';
+@include theme-style;

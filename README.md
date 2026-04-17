@@ -1,11 +1,10 @@
 # [lichess.org](https://lichess.org)
 
-[![Build server](https://github.com/lichess-org/lila/actions/workflows/server.yml/badge.svg)](https://github.com/lichess-org/lila/actions/workflows/server.yml)
-[![Build assets](https://github.com/lichess-org/lila/actions/workflows/assets.yml/badge.svg)](https://github.com/lichess-org/lila/actions/workflows/assets.yml)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/lichess/localized.svg)](https://crowdin.com/project/lichess)
 [![Mastodon](https://img.shields.io/mastodon/follow/109298525492334687?domain=mastodon.online)](https://mastodon.online/@lichess)
 [![Bluesky](https://img.shields.io/badge/Bluesky-0285FF?logo=bluesky&logoColor=fff)](https://bsky.app/profile/lichess.org)
 [![Discord](https://img.shields.io/discord/280713822073913354?label=Discord&logo=discord&style=flat)](https://discord.gg/lichess)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lichess-org/lila)
 
 <img src="https://raw.githubusercontent.com/lichess-org/lila/master/public/images/home-bicolor.png" alt="Lichess homepage" title="Lichess comes with light and dark theme, this screenshot shows both." />
 
@@ -57,13 +56,13 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 
 ## Supported browsers
 
-| Name              | Version | Notes                                             |
-| ----------------- | ------- | ------------------------------------------------- |
-| Firefox           | 115+    | Full support (recommended)                        |
-| Chromium / Chrome | 112+    | Full support                                      |
-| Edge              | 109+    | Full support                                      |
-| Opera             | 91+     | Reasonable support                                |
-| Safari            | 13.1+   | Reasonable support                                |
+| Name              | Version | Notes                      |
+| ----------------- | ------- | -------------------------- |
+| Firefox           | 115+    | Full support (recommended) |
+| Chromium / Chrome | 112+    | Full support               |
+| Edge              | 109+    | Full support               |
+| Opera             | 91+     | Reasonable support         |
+| Safari            | 13.1+   | Reasonable support         |
 
 Older browsers will not work.
 For your own sake, please upgrade. Security and performance, think about it!

@@ -1,13 +1,15 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
-import type { Notification, Renderer, Renderers } from './interfaces';
+
 import { timeago } from 'lib/i18n';
+import * as licon from 'lib/licon';
+
+import type { Notification, Renderer, Renderers } from './interfaces';
 
 export default function makeRenderers(): Renderers {
   return {
     streamStart: {
       html: n =>
-        generic(n, `/streamer/${n.content.sid}/redirect`, licon.Mic, [
+        generic(n, `/streamer/${n.content.sid}?redirect=1`, licon.Mic, [
           h('span', [h('strong', n.content.name), drawTime(n)]),
           h('span', i18n.site.startedStreaming),
         ]),

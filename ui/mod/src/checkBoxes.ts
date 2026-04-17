@@ -23,7 +23,7 @@ export const expandCheckboxZone = (table: HTMLTableElement, tdSelector: string, 
   $(table).on('click', tdSelector, (e: MouseEvent) => {
     if ((e.target as HTMLElement).tagName === 'INPUT') onSelect(e.target as HTMLInputElement, e.shiftKey);
     else {
-      const input = (e.target as HTMLTableElement).querySelector('input') as HTMLInputElement | undefined;
+      const input = (e.target as HTMLTableElement).querySelector<HTMLInputElement>('input');
       if (input && !input.disabled) {
         input.checked = !input.checked;
         onSelect(input, e.shiftKey);

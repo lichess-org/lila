@@ -6,7 +6,7 @@
   <string name="progressX">Progressiýa: %s</string>
   <string name="resetMyProgress">Progressiýamy nolla</string>
   <string name="youWillLoseAllYourProgress">Progressiýa taryhyňyz tutuşlygyna öçüriler!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">oýnaň!</string>
+  <string name="play">oýnaň!</string>
   <string name="chessPieces">Küşt çöpleri</string>
   <string name="theRook">Ruh</string>
   <string name="itMovesInStraightLines">Göni liniýalarda hereket edýär</string>
@@ -155,7 +155,6 @@ eger-de şa şah astynda bolsa.
   <string name="findAWayToCastleQueenSide">Bir ýol tapyň
 wezirtarap rakirowka üçin!</string>
   <string name="castlingComplete">Gutlaýarys! Hemişe diýen ýaly rakirowka etmelisiňiz.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Pyýadanyň aýratyn göçümi</string>
   <string name="enPassantIntro">Garşydaşyňyzyň pyýadasy 2 öýjük süýşende 1 öýjük süýşen dek iýip bilersiňiz.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Garalar edil şu wagt

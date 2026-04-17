@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Domosdoshmëri Fushe DGT</string>
   <string name="dgtBoardLimitations">Kufizime Fushe DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Kjo faqe ju lejon të lidhni fushën tuaj DGT në Lichess dhe ta përdorni për të luajtur lojëra.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Për të lidhur Fushën Elektronike DGT do t’ju duhet të instaloni %s.</string>
+  <string name="toConnectTheDgtBoard">Për të lidhur Fushën Elektronike DGT do t’ju duhet të instaloni %s.</string>
   <string name="downloadHere">Software-in mund ta shkarkoni prej këtu: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Nëse %1$s po xhiron në këtë kompjuter, lidhjen tuaj me të mund ta kontrolloni duke %2$s.</string>
   <string name="openingThisLink">hapur këtë lidhje</string>
@@ -17,7 +17,7 @@
   <string name="timeControlsForRatedGames">Kontrolle kohe për lojëra me vlerësim: Klasike, Korrespondencë dhe disa Të shpejtë, përfshi 15+10 dhe 20+0</string>
   <string name="whenReadySetupBoard">Kur të jeni gati, ujdisni fushën tuaj dhe mandej klikoni %s.</string>
   <string name="ifMoveNotDetected">Nëse s’pikaset ndonjë lëvizje</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Si zgjidhje të fundit, ujdiseni fushën njësoj si në Lichess, mandej %s</string>
+  <string name="asALastResort">Si zgjidhje të fundit, ujdiseni fushën njësoj si në Lichess, mandej %s</string>
   <string name="reloadThisPage">Ringarko këtë faqe</string>
   <string name="dgtConfigure">DGT - Formësojeni</string>
   <string name="validDgtOauthToken">Keni një token OAuth të përshtatshëm për lojë DGT.</string>

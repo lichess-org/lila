@@ -1,8 +1,9 @@
-import * as xhr from 'lib/xhr';
-import main from './main';
-import type { LobbyOpts } from './interfaces';
-import { wsConnect, wsPingInterval } from 'lib/socket';
 import { pubsub } from 'lib/pubsub';
+import { wsConnect, wsPingInterval } from 'lib/socket';
+import * as xhr from 'lib/xhr';
+
+import type { LobbyOpts } from './interfaces';
+import main from './main';
 
 export function initModule(opts: LobbyOpts) {
   opts.appElement = document.querySelector('.lobby__app') as HTMLElement;
@@ -27,11 +28,8 @@ export function initModule(opts: LobbyOpts) {
     receive: (t: string, d: any) => lobbyCtrl.socket.receive(t, d),
     events: {
       n(_: string, msg: any) {
-        lobbyCtrl.spreadPlayersNumber && lobbyCtrl.spreadPlayersNumber(msg.d);
-        setTimeout(
-          () => lobbyCtrl.spreadGamesNumber && lobbyCtrl.spreadGamesNumber(msg.r),
-          wsPingInterval() / 2,
-        );
+        lobbyCtrl.spreadPlayersNumber?.(msg.d);
+        setTimeout(() => lobbyCtrl.spreadGamesNumber?.(msg.r), wsPingInterval() / 2);
       },
       reload_timeline() {
         xhr.text('/timeline').then(html => {
@@ -65,7 +63,6 @@ export function initModule(opts: LobbyOpts) {
       },
     );
     lobbyCtrl.setTab('real_time');
-    lobbyCtrl.redraw();
     history.replaceState(null, '', '/');
   });
 

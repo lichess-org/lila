@@ -6,7 +6,7 @@
   <string name="progressX">Progresu: %s</string>
   <string name="resetMyProgress">Reiniciar el mio progresu</string>
   <string name="youWillLoseAllYourProgress">¡Vas Perder tolos tos progresos!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">¡xugar!</string>
+  <string name="play">¡xugar!</string>
   <string name="chessPieces">Les pieces d\'axedrez</string>
   <string name="theRook">La Torre</string>
   <string name="itMovesInStraightLines">Muévese en llínea recta</string>
@@ -66,7 +66,7 @@
   <string name="escape">¡Tas amenazáu!
 ¡Escapa de l\'amenaza!</string>
   <string name="noEscape">Nun hai escapatoria,
-pero ¡pues defendete!</string>
+pero ¡puedes defendete!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">¡Nun dexes que te garren
 nenguna pieza indefensa!</string>
   <string name="combat">Combate</string>
@@ -83,8 +83,8 @@ nenguna pieza indefensa!</string>
   <string name="outOfCheckIntro">¡Tas en xaque! Tienes qu\'escapar o bloquiar l\'ataque.</string>
   <string name="escapeWithTheKing">¡Escapa col rei!</string>
   <string name="theKingCannotEscapeButBlock">¡El rei nun puede escapar,
-pero pues bloquiar l\'ataque!</string>
-  <string name="youCanGetOutOfCheckByTaking">Pues salir del xaque 
+pero puedes bloquiar l\'ataque!</string>
+  <string name="youCanGetOutOfCheckByTaking">Puedes salir del xaque 
 garrando la pieza qu\'ataca al rei.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">¡Esti caballu ta dándote xaque
 per enriba de las tos defenses!</string>
@@ -118,8 +118,8 @@ Mueve cualquier pieza pa siguir.</string>
   <string name="castling">Enroque</string>
   <string name="theSpecialKingMove">El movimientu especial del rei</string>
   <string name="castlingIntro">¡Pon al to rei a salvo y esplega la to torre para atacar!</string>
-  <string name="castleKingSide">Mueve\'l to rei dos casielles para faer un enroque curtiu!</string>
-  <string name="castleQueenSide">Mueve\'l to rei dos casiellas para faer un enroque llargu!</string>
+  <string name="castleKingSide">Mueve\'l to rei dos casielles pa facer un enroque curtiu!</string>
+  <string name="castleQueenSide">Mueve\'l to rei dos casiellas para facer un enroque llargu!</string>
   <string name="theKnightIsInTheWay">¡El caballu interponse! Muévilo, y depués fexe un enroque curtiu.</string>
   <string name="castleKingSideMovePiecesFirst">Fai un enroque curtiu. Precises estenar el camín primeru.</string>
   <string name="castleQueenSideMovePiecesFirst">Fai un enroque llargu. Precises estenar el camín primeru.</string>
@@ -128,9 +128,8 @@ Mueve cualquier pieza pa siguir.</string>
   <string name="findAWayToCastleKingSide">¡Atopa la forma de enrocar en curtiu!</string>
   <string name="findAWayToCastleQueenSide">¡Atopa la forma d\'enrocar en llargu!</string>
   <string name="castlingComplete">¡Norabona! Convien enrocar en casi toles partíes.</string>
-  <string name="enPassant">Garrar al pasu</string>
   <string name="theSpecialPawnMove">El movimientu especial del peón</string>
-  <string name="enPassantIntro">Cuándo\'l peón contrariu mueve dos casielles, pues garralo como si moviera namás una.</string>
+  <string name="enPassantIntro">Cuándo\'l peón contrariu mueve dos casielles, puedes garralo como si moviera namás una.</string>
   <string name="blackJustMovedThePawnByTwoSquares">¡El prietu movió\'l so peón dos casielles! Gárralu al pasu.</string>
   <string name="enPassantOnlyWorksImmediately">Garrar al pasu namás pue facese dempués de que\'l contrariu mueva\'l peón.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Garrar al pasu namás déxase si\'l to peón ta na quinta fila.</string>

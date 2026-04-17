@@ -8,6 +8,7 @@ import com.github.blemale.scaffeine.LoadingCache
 import lila.tree.{ ImportResult, ParseImport }
 import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 import lila.core.net.UserAgent
+import lila.core.fide.Federation
 import lila.relay.RelayPush.*
 import lila.memo.CacheApi
 
@@ -18,7 +19,7 @@ final class RelayPush(
     fidePlayers: RelayFidePlayerApi,
     playerEnrich: RelayPlayerEnrich,
     irc: lila.core.irc.IrcApi
-)(using Executor)(using scheduler: Scheduler):
+)(using Federation.Guess, Executor)(using scheduler: Scheduler):
 
   private val workQueue = AsyncActorSequencers[RelayRoundId](
     maxSize = Max(32),
@@ -56,6 +57,7 @@ final class RelayPush(
       .flatMap(_.split("as:").headOption)
       .getOrElse(ua.value)
       .trim
+      .nonEmptyOption | "no-UA"
     lila.mon.relay.push(name = rt.path, user = me.username, client = client)(
       games = results.size,
       moves = results.collect { case Right(a) => a.moves }.sum,
@@ -68,7 +70,7 @@ final class RelayPush(
         rt <- api.byIdWithTour(prev.round.id).orFail(s"Relay $prev no longer available")
         _ <- cantHaveUpstream(rt.round).so(fail => fufail[Unit](fail.error))
         withPlayers = playerEnrich.enrichAndReportAmbiguous(rt)(rawGames)
-        withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
+        withFide <- fidePlayers.enrichGames(rt)(withPlayers)
         withReplacements = rt.tour.players.fold(withFide)(_.parse.update(withFide)._1)
         games = rt.tour.teams.fold(withReplacements)(_.update(withReplacements))
         event <- sync
@@ -78,7 +80,7 @@ final class RelayPush(
           .recover:
             case e: Exception => SyncLog.event(0, e.some)
         _ = if !rt.round.hasStarted && !rt.tour.official && event.hasMoves then
-          irc.broadcastStart(rt.round.id, rt.fullName)
+          irc.broadcastStart(rt.round.id, rt.fullNameNoTrans)
         allGamesFinished <- (games.nonEmpty && games.forall(_.points.isDefined)).so:
           chapterPreview.dataList(rt.round.studyId).map(_.forall(_.finished))
         round <- api.update(rt.round): r1 =>

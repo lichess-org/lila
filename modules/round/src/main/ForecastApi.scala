@@ -70,7 +70,7 @@ final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Ex
           if firstStep(fc.steps).exists(_.ply != pov.game.ply) then clearPov(pov).inject(none)
           else fuccess(fc.some)
 
-  def nextMove(g: Game, last: chess.Move): Fu[Option[Uci.Move]] =
+  def nextMove(g: Game, last: chess.MoveOrDrop): Fu[Option[Uci]] =
     g.forecastable.so:
       val pov = Pov(g, g.turnColor)
       loadForPlay(pov).flatMapz: fc =>

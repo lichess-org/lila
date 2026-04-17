@@ -29,7 +29,6 @@
   <string name="botPlay">Joacă jocuri folosind API-ul pentru bot</string>
   <string name="engineRead">Vizualizați și folosiți motorul extern</string>
   <string name="engineWrite">Creează și actualizează motorul extern</string>
-  <string name="webLogin">Creează sesiuni autentificate pentru website (acordă acces deplin!)</string>
   <string name="webMod">Utilizează instrumente de moderator (în limitele permisiunilor dumneavoastră)</string>
   <string name="personalAccessTokens">Token-uri de acces personale pentru API</string>
   <string name="canMakeOauthRequests">Poți face cereri OAuth fără a trece prin %s.</string>

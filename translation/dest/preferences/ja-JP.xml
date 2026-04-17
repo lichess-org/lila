@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
   <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
   <string name="inGameOnly">対局中のみ</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">ゲーム中のみ非表示</string>
+  <string name="exceptInGame">ゲーム中のみ非表示</string>
   <string name="chessClock">時間表示</string>
   <string name="tenthsOfSeconds">0.1秒単位で時間表示</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">持時間が残り10秒以下の場合</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">持時間が残り10秒以下の場合</string>
   <string name="horizontalGreenProgressBars">緑の棒（プログレスバー）を表示</string>
   <string name="soundWhenTimeGetsCritical">時間が迫ってきたら音を鳴らす</string>
   <string name="giveMoreTime">相手に時間追加</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; キーを押しながら昇格させると、Q への自動昇格を一時的に無効にできます</string>
   <string name="whenPremoving">プリムーブをした場合</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">同形三復を自動的にドローにする</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">持時間が残り30秒以下の場合</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">持時間が残り30秒以下の場合</string>
   <string name="moveConfirmation">着手をそのつど確認する</string>
   <string name="explainCanThenBeTemporarilyDisabled">ボードのメニューからゲーム中に無効にできます</string>
   <string name="inCorrespondenceGames">通信チェスのみ</string>
@@ -62,11 +62,13 @@
   <string name="notifyGameEvent">通信戦の進行状況</string>
   <string name="notifyChallenge">挑戦が来た時</string>
   <string name="notifyTournamentSoon">トーナメントが間もなく開始</string>
+  <string name="notifyBroadcasts">あなたがフォローしている配信</string>
   <string name="notifyTimeAlarm">通信戦の時間切迫</string>
   <string name="notifyBell">Lichess にいる時にベル音</string>
   <string name="notifyPush">Lichess にいない時にデバイスでの通知</string>
   <string name="notifyWeb">ブラウザ</string>
   <string name="notifyDevice">デバイス</string>
   <string name="bellNotificationSound">ベル通知の音</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">めかくしモード</string>
+  <string name="blindfold" comment="As in Blindfold chess">めかくしモード</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">モバイル機器では左側に表示</string>
 </resources>

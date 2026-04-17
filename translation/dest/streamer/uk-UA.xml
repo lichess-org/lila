@@ -42,8 +42,8 @@
     <item quantity="many">Скоротіть: максимум %s символів</item>
     <item quantity="other">Скоротіть: максимум %s символів</item>
   </plurals>
-  <string name="visibility">Видимий на сторінці стримерів</string>
-  <string name="whenApproved">Після затвердження модераторами</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Видимий на сторінці стримерів</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Після затвердження модераторами</string>
   <string name="headline">Заголовок</string>
   <string name="tellUsAboutTheStream">Розкажіть нам про вашу трансляцію одним реченням</string>
   <string name="longDescription">Довгий опис</string>

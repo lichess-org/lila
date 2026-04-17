@@ -41,8 +41,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
             h1(
               if ctx.is(post.created.by) then trans.ublog.editYourBlogPost()
               else s"Edit ${usernameOrId(post.created.by)}'s post"
-            ),
-            a(href := ui.urlOfPost(post), dataIcon := Icon.Eye, cls := "text", targetBlank)("Preview")
+            )
           ),
           inner(f, Right(post), none),
           postForm(
@@ -104,13 +103,13 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
                 form3.select(_, langList.popularLanguagesForm.choices)
             ),
             form3.split(
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("discuss"),
                 trans.ublog.createBlogDiscussion(),
                 help = trans.ublog.createBlogDiscussionHelp().some,
                 half = true
               ),
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("live"),
                 trans.ublog.publishOnYourBlog(),
                 help = trans.ublog.publishHelp().some,
@@ -118,13 +117,13 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
               )
             ),
             form3.split(
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("sticky"),
                 trans.ublog.stickyPost(),
                 help = trans.ublog.stickyPostHelp().some,
                 half = true
               ),
-              form3.checkbox(
+              form3.checkboxGroup(
                 form("ads"),
                 "Includes promoted/sponsored content or referral links",
                 help = ads.some,

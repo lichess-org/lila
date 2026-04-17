@@ -29,7 +29,6 @@
   <string name="botPlay">Chơi cờ với bot API</string>
   <string name="engineRead">Xem và sử dụng động cơ máy tính bên ngoài</string>
   <string name="engineWrite">Tạo và cập nhật các động cơ bên ngoài</string>
-  <string name="webLogin">Tạo các phiên trang web đã được xác thực (cấp toàn quyền truy cập!)</string>
   <string name="webMod">Sử dụng các công cụ điều hành (nằm trong quyền kiểm soát của bạn)</string>
   <string name="personalAccessTokens">Khóa truy cập API cá nhân</string>
   <string name="canMakeOauthRequests">Bạn có thể thực hiện các yêu cầu OAuth mà không cần thông qua %s.</string>

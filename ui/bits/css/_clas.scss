@@ -1,13 +1,39 @@
-$c-bg-clas: $c-clas;
+$c-clas: hsl(274, 48%, 60%);
 $c-bg-clas-over: white;
 $c-bg-clas-over-dim: $m-clas_white--mix-20;
+$c-clas-light: mix($c-clas, #fff, 86%);
+
+@mixin button-with-clas-shadow {
+  @include with-button-shadow(
+    $m-clas--lighten-38,
+    $m-clas--darken-12,
+    $m-clas--lighten-50,
+    $m-clas--darken-8
+  );
+}
+
+body {
+  --bg-clas: linear-gradient(to right bottom, hsl(276, 29%, 49%), hsl(276, 65%, 32%), hsl(286, 37%, 21%));
+  --bg-clas-title: linear-gradient(to right, hsl(252, 97%, 80%), hsl(276, 97%, 79%), hsl(234, 81%, 78%));
+
+  @include if-light {
+    --bg-clas: linear-gradient(to right bottom, hsl(276, 29%, 52%), hsl(276, 65%, 38%), hsl(286, 37%, 30%));
+    --bg-clas-title: linear-gradient(to right, hsl(252, 97%, 86%), hsl(276, 97%, 84%), hsl(234, 81%, 83%));
+  }
+}
+
+.button-empty {
+  &.button-clas,
+  &.button-clas:hover {
+    color: $c-clas;
+  }
+}
 
 %archived {
-  @extend %box-radius, %flex-between;
+  @extend %flex-between;
 
   background: $c-bg-zebra2;
   padding: 1em 2em;
-  margin-bottom: 2em;
 }
 
 .page-menu__content.box {
@@ -23,7 +49,7 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   }
 
   &.active {
-    color: $m-font_clas--mix-40;
+    color: $c-clas;
   }
 
   &::after {
@@ -31,42 +57,50 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   }
 
   &.student {
-    em {
-      @extend %roboto;
+    @extend %roboto;
 
-      display: none;
-    }
-
-    @include mq-subnav-side {
-      font-weight: bold;
-      padding: 0.4rem 2vw 0.4rem 0.8rem;
-
-      em {
-        font-weight: normal;
-        display: block;
-      }
-    }
+    padding: 0.4rem 2vw 0.4rem 2rem;
+    line-height: 1.2em;
   }
 }
 
-.slist tbody tr:nth-child(2n) {
-  background: $m-clas_bg--mix-7;
+h1 {
+  @extend %base-font;
+
+  background-image: var(--bg-clas-title);
+  background-clip: text;
+  color: transparent;
+  font-weight: bold;
+}
+
+.page .body h2 {
+  border-bottom-color: $c-clas;
 }
 
 .clas-index {
   .box__top {
-    background: $c-bg-clas;
+    background: var(--bg-clas);
 
-    &,
-    a {
+    & a {
       color: $c-bg-clas-over;
     }
 
     flex-flow: row nowrap;
   }
 
-  .new::before {
-    font-size: 3em;
+  .button.new {
+    opacity: 0.8;
+
+    &:hover {
+      @include button-with-clas-shadow;
+
+      color: $c-over;
+      background: $c-clas-light !important;
+    }
+
+    &::before {
+      font-size: 3em;
+    }
   }
 
   .classes {
@@ -76,19 +110,19 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
 
     .clas-widget {
       @extend %flex-center-nowrap, %break-word;
-
-      border-bottom: $border;
-      padding: 2em var(---box-padding);
-      position: relative;
-
       @include transition;
 
+      border-bottom: $border;
+      padding: 2em $box-padding;
+      position: relative;
+
       &::before {
-        color: $m-clas_bg--mix-80;
+        @include transition;
+
+        color: $c-clas-light;
         font-size: 5em;
         margin-inline-end: 0.4em;
 
-        @include transition;
         @media (max-width: at-most($xx-small)) {
           display: none;
         }
@@ -135,13 +169,12 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   @extend %box-neat-force;
 
   &__top {
-    background: $c-bg-clas;
+    background: var(--bg-clas);
 
     &,
     a,
-    .button,
-    .title {
-      color: $c-bg-clas-over;
+    .button {
+      color: rgba(255, 255, 255, 0.7);
     }
   }
 
@@ -161,6 +194,7 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
 
   &__body {
     @extend %box-padding, %flex-column;
+
     gap: 3em;
   }
 
@@ -172,12 +206,15 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
     &__helps {
       margin-top: -2em;
     }
+
     &__help {
       @extend %box-radius;
+
       display: block;
       background: $c-bg-zebra2;
       margin-bottom: 1em;
       padding: 0.5em 1em;
+
       strong {
         color: $c-font-clear;
         line-height: 2em;
@@ -186,12 +223,18 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   }
 }
 
+.clas-create {
+  .box__top {
+    background: var(--bg-clas);
+  }
+}
+
 .dashboard {
   .flash {
     margin: 2em;
 
     &__content {
-      padding: 2em var(---box-padding);
+      padding: 2em $box-padding;
     }
   }
 
@@ -267,12 +310,13 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
       }
 
       &:hover {
-        background: $m-clas_bg-zebra--mix-20;
+        color: rgba(255, 255, 255, 0.8);
+        background: rgba(0, 0, 0, 0.15);
       }
 
       &.active {
         background: $c-bg-box;
-        color: $m-font_clas--mix-40;
+        color: $c-clas;
         font-weight: bold;
 
         .dashboard-teacher-overview &,
@@ -300,10 +344,6 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
       }
     }
 
-    .teachers {
-      margin-bottom: 2em;
-    }
-
     .clas-wall {
       max-height: 50vh;
       overflow-y: auto;
@@ -312,7 +352,7 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
 
   &-teacher {
     .clas-show__top h1 {
-      padding: 1.5em var(---box-padding);
+      padding: 1.5em $box-padding;
       margin: 0;
     }
 
@@ -364,11 +404,11 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
         }
 
         &.active {
-          background: $c-clas;
+          background: $m-clas_bg--mix-50;
           color: $c-over;
         }
 
-        border-inline-end: 1px solid $c-border;
+        border-inline-end: $border;
 
         &:last-child {
           border: 0;
@@ -392,14 +432,42 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   }
 }
 
+.clas-tournaments {
+  margin: $block-gap;
+}
+
+@keyframes target-fade {
+  from {
+    background: $m-accent_bg-popup--mix-80;
+  }
+
+  to {
+    background: $m-accent_bg-popup--mix-15;
+  }
+}
+
 .clas-edit {
   &__archive {
     text-align: right;
   }
+
+  #clas-team:target {
+    @extend %box-neat;
+
+    padding: 1em 1em 1em 1.5em;
+    border: 1px solid $c-accent;
+    animation: target-fade 1.5s forwards;
+  }
 }
 
 .button-clas {
-  background: $c-clas;
+  @include button-with-clas-shadow;
+
+  background: $m-clas_bg--mix-75;
+
+  &:hover {
+    background: $m-clas_bg--mix-90 !important;
+  }
 }
 
 .clas-wall {
@@ -414,9 +482,8 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   }
 
   &__actions {
-    @extend %flex-center;
+    @extend %flex-center-center;
 
-    justify-content: center;
     margin-top: 4em;
 
     .button {
@@ -436,13 +503,13 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   padding-bottom: 3em;
 
   &__top {
-    padding: calc(#{$box-padding-vert} - 1rem) var(---box-padding);
-    background: $c-bg-clas;
+    padding: calc(#{$box-padding-vert} - 1rem) $box-padding;
+    background: var(--bg-clas);
     margin-bottom: 3em;
 
     &,
     a,
-    .button,
+    a:hover,
     .title {
       color: $c-bg-clas-over;
     }
@@ -460,7 +527,6 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
       &::before {
         font-size: 2.5em;
         margin-inline-end: 0.4em;
-        color: $c-bg-clas-over-dim;
       }
 
       strong {
@@ -469,8 +535,6 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
 
       em {
         @extend %roboto;
-
-        color: $c-bg-clas-over-dim;
       }
     }
 
@@ -478,6 +542,15 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
       @extend %flex-between;
 
       justify-items: center;
+
+      .button-empty {
+        color: rgba(255, 255, 255, 0.7);
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1) !important;
+          color: inherit;
+        }
+      }
 
       p {
         margin: 0;
@@ -545,7 +618,7 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   &__choice {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
-    grid-gap: var(---box-padding);
+    gap: $box-padding;
     align-items: center;
 
     h2 {
@@ -584,6 +657,7 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
     }
   }
 }
+
 .student-add-many {
   form {
     margin-top: 2em;
@@ -597,7 +671,7 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
 }
 
 .clas-home {
-  background: $c-bg-clas;
+  background: var(--bg-clas);
   color: $c-bg-clas-over;
 
   &__doc {
@@ -608,18 +682,26 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
     text-align: center;
 
     .button {
+      @include button-with-clas-shadow;
+
       margin-bottom: 2em;
       display: inline-block;
       background: $c-clas-light;
+
+      &:hover {
+        background: $c-clas;
+      }
     }
   }
 
   &__login {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
+
     form {
       @extend %flex-center;
+
       align-items: stretch;
+
       input {
         @extend %box-radius-inline-start;
 
@@ -629,6 +711,7 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
 
       .button {
         @extend %box-radius-inline-end;
+
         background: $c-clas-light;
         padding: 0 1.5em;
         border-inline-start: 0;
@@ -643,38 +726,49 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
 
 .clas-login {
   @extend %flex-column;
+
   gap: 2em;
+
   &__title {
     @extend %flex-between;
   }
+
   &__expiration {
     @extend %box-radius;
+
     background: $c-bg-zebra;
     font-size: 1.2em;
     padding: 0.3em 1em;
+
     .timeago {
       font-weight: bold;
       color: $c-font-clear;
     }
   }
+
   &__cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 1em;
+    gap: 1em;
   }
+
   &__card {
     @extend %box-neat, %flex-column;
+
     padding: 1em;
     background: $c-bg-zebra;
     border: $border;
     font-size: 1.5em;
+
     h3 {
       color: $c-font-clear;
     }
+
     a {
       font-size: 0.7em;
       color: $c-font-dim;
     }
+
     code {
       font-size: 1.8em;
       text-align: center;
@@ -682,6 +776,7 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
       margin-top: 1rem;
       color: $c-font-dim;
     }
+
     i {
       font-size: 0.8em;
       color: $c-bad;

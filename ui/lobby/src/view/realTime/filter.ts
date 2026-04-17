@@ -1,10 +1,12 @@
 import { h } from 'snabbdom';
+
 import * as licon from 'lib/licon';
-import * as xhr from 'lib/xhr';
 import { bind } from 'lib/view';
+import * as xhr from 'lib/xhr';
+
 import type LobbyController from '@/ctrl';
 
-function initialize(ctrl: LobbyController, el: HTMLElement) {
+function initialize(ctrl: LobbyController, el: FilterNode) {
   const f = ctrl.filter.data?.form,
     $div = $(el),
     $ratingRange = $div.find('.rating-range'),
@@ -32,7 +34,7 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
       ctrl.filter.uiCacheBuster++;
       ctrl.redraw();
     })
-    .on('submit', (e: Event) => {
+    .on('submit', (e: SubmitEvent) => {
       e.preventDefault();
       ctrl.filter.open = false;
       ctrl.redraw();
@@ -59,11 +61,10 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
   changeRatingRange();
 }
 
-export function toggle(ctrl: LobbyController, nbFiltered: number) {
-  const filter = ctrl.filter;
-  return h('i.toggle.toggle-filter', {
+export function toggle({ filter, redraw }: LobbyController, nbFiltered: number) {
+  return h('button.toggle.toggle-filter', {
     class: { gamesFiltered: nbFiltered > 0, active: filter.open },
-    hook: bind('mousedown', filter.toggle, ctrl.redraw),
+    hook: bind('click', filter.toggle, redraw),
     attrs: { 'data-icon': filter.open ? licon.X : licon.Gear, title: i18n.site.filterGames },
   });
 }

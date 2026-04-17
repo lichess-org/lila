@@ -4,7 +4,7 @@
   <string name="byPlaying">ta\'i lo nu kelci</string>
   <string name="menu">lo zilcuxste</string>
   <string name="resetMyProgress">xruti lo ve farvi be fo mi</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">kelci</string>
+  <string name="play">kelci</string>
   <string name="chessPieces">lo keirmu\'u be ci\'e lo caxmati</string>
   <string name="theRook">lo slanydi\'u</string>
   <string name="itMovesInStraightLines">ti muvdu fo lo linji</string>
@@ -41,7 +41,6 @@
   <string name="howTheGameStarts">lo nunji\'a cu cfari tai ma kau</string>
   <string name="castling">lo badydi\'ulujnunmu\'u</string>
   <string name="theSpecialKingMove">lo se steci be fi lo\'i nunmu\'u pe lo noltrunau</string>
-  <string name="enPassant">lo lamgresoinunmu\'u</string>
   <string name="theSpecialPawnMove">lo se steci be fi lo\'i nunmu\'u pe lo sonci</string>
   <string name="takeAllThePawnsEnPassant">ko kavbu ro lo sonci fau lo lamgresoinunmu\'u</string>
   <string name="stalemate">caxpata</string>

@@ -33,15 +33,15 @@
   <string name="streamerLanguageSettings">Lichess-streamersiden er målrettet dit publikum med det sprog, som din streamingplatform leverer. Indstil det korrekte standardsprog for dine skakstreams i den app eller tjeneste, du bruger til at sende.</string>
   <string name="pleaseAllow">Det kan tage op til 72 timer, før dit streamer-badge og din profil bliver godkendt.</string>
   <string name="chooseYoutubeChannel">Vælg den YouTube-kanal, du vil bruge på Lichess.</string>
-  <string name="connect">Opret forbindelse</string>
-  <string name="disconnect">Afbryd forbindelse</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Opret forbindelse</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Afbryd forbindelse</string>
   <string name="streamerName">Dit streamernavn på Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Hold det kort: maksimalt %s tegn</item>
     <item quantity="other">Hold det kort: maksimalt %s tegn</item>
   </plurals>
-  <string name="visibility">Synlig på streamere-siden</string>
-  <string name="whenApproved">Når godkendt af moderatorer</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Synlig på streamere-siden</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Når godkendt af moderatorer</string>
   <string name="headline">Overskrift</string>
   <string name="tellUsAboutTheStream">Beskriv din stream for os i én sætning</string>
   <string name="longDescription">Lang beskrivelse</string>

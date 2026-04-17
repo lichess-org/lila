@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">Ludi kontraŭ komputilo</string>
   <string name="gameMode">Tipo de ludo</string>
   <string name="createLobbyGame">Krei ludon en atendejo</string>
-  <string name="youPlayAs">Koloro de viaj pecoj</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por inviti iun al ludo, donu ĉi tiun ligilon</string>
   <string name="gameOver">Ludo finiĝis</string>
   <string name="waitingForOpponent">Atendante kontraŭulon</string>
@@ -126,7 +125,12 @@
   <string name="bestMoveArrow">Sago por optimuma movo</string>
   <string name="showVariationArrows">Montri variaĵojn sagojn</string>
   <string name="evaluationGauge">Gaŭĝo de rangado</string>
+  <string name="undefendedPieces">Nedefenditaj pecoj</string>
+  <string name="pinnedPieces">Fiksitaj pecoj</string>
+  <string name="checkableKing">Ŝakigebla reĝo</string>
   <string name="multipleLines">Pluraj linioj</string>
+  <string name="threads">Fadenoj</string>
+  <string name="threadsDescription">Elektu malsupre la nombron de fadenoj de via procesoro. La markoj indikas sekurajn elektojn</string>
   <string name="cpus">Ĉefprocesoroj</string>
   <string name="memory">Memoro</string>
   <string name="infiniteAnalysis">Senfina analizo</string>
@@ -188,7 +192,7 @@
   <string name="viewInFullSize">Vidi plengrande</string>
   <string name="logOut">Elsaluti</string>
   <string name="signIn">Ensaluti</string>
-  <string name="rememberMe">Memoru mian ensaluton</string>
+  <string name="rememberMe">Memori mian ensaluton</string>
   <string name="youNeedAnAccountToDoThat">Vi bezonas konton por fari tion</string>
   <string name="signUp">Registriĝi</string>
   <string name="computersAreNotAllowedToPlay">Estas nepermesate ludi per komputiloj aŭ komputilasisto. Bonvolu ne akiri asiston de iu ŝakaŭtomato, datumbazo aŭ aliaj ludantoj dum ludado. Krome, notu ke la kreado de multaj kontoj estas forte malrekomendata, kaj troa uzo de multaj kontoj rezultigos vian forbaron.</string>
@@ -205,6 +209,7 @@
   <string name="minutesPerSide">Minutoj por ĉiu flanko</string>
   <string name="variant">Variaĵo</string>
   <string name="variants">Variaĵoj</string>
+  <string name="variantsDescription">Aliaj manieroj ludi</string>
   <string name="timeControl">Temporegado</string>
   <string name="realTime">Reala tempo</string>
   <string name="correspondence">Korespondo</string>
@@ -231,7 +236,6 @@
   <string name="changeUsernameNotSame">Nur la uskleco de la literoj povas ŝanĝiĝi. Ekzemple de \"johndoe\" al \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Ŝanĝu ĉiam uzantnomon. Vi rajtas fari tion nur unufoje kaj vi rajtas ŝanĝi nur la usklecon de la literoj en via nomo.</string>
   <string name="signupUsernameHint">Certigi, ke vi elektas uzantnomon, ke estas adekvata por ĉiu-aĝaj spektantoj. Vi ne povas ŝanĝi ĝin poste, kaj la administrantoj fermas ĉiujn ajn kontojn, kiuj havas malbonimpresajn uzantnomojn!</string>
-  <string name="signupEmailHint">Ni nur uzos ĝin por pasvorta restarigo.</string>
   <string name="password">Pasvorto</string>
   <string name="changePassword">Ŝanĝi pasvorton</string>
   <string name="changeEmail">Ŝanĝi retadreson</string>
@@ -266,8 +270,8 @@
   <string name="rank">Posicio</string>
   <string name="rankX">Posicio: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Posicio aktualiĝas en ĉiu minuto</item>
-    <item quantity="other">Posicio aktualiĝas en ĉiu %s minutoj</item>
+    <item quantity="one">Posicio aktualiĝas ĉiuminute</item>
+    <item quantity="other">Posicio aktualiĝas ĉiujn %s minutojn</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzlo</item>
@@ -292,13 +296,14 @@
   <string name="accept">Akcepti</string>
   <string name="decline">Malakcepti</string>
   <string name="playingRightNow">Ludate nun</string>
-  <string name="eventInProgress">Ludanta</string>
+  <string name="eventInProgress">Ludata</string>
   <string name="finished">Finita</string>
   <string name="abortGame">Ĉesigi ludon</string>
   <string name="gameAborted">Ludo estis ĉesigita</string>
   <string name="standard">Normale</string>
   <string name="customPosition">Tajlora pozicio</string>
   <string name="unlimited">Senlime</string>
+  <string name="unlimitedDescription">Tiel longe, kiel vi bezonas</string>
   <string name="mode">Modo</string>
   <string name="casual">Amike</string>
   <string name="rated">Range</string>
@@ -424,10 +429,11 @@
   <string name="leaderboard">Sukcesotabulo</string>
   <string name="screenshotCurrentPosition">Ekrankopii nunan pozicion</string>
   <string name="gameAsGIF">Ludo kiel GIF</string>
+  <string name="playerNames">Nomoj de ludantoj</string>
+  <string name="moveAnnotations">Notoj pri movoj</string>
   <string name="pasteTheFenStringHere">Glui la FEN-ĉenon ĉi tie</string>
   <string name="pasteThePgnStringHere">Glui la PGN-ĉenon ĉi tie</string>
   <string name="orUploadPgnFile">Aŭ alŝuti PGN-dosieron</string>
-  <string name="fromPosition">De pozicio</string>
   <string name="continueFromHere">Daŭrigi de ĉi tie</string>
   <string name="toStudy">Studo</string>
   <string name="importGame">Importi ludon</string>
@@ -587,6 +593,9 @@
   <string name="invalidUsernameOrPassword">Malĝusta uzantnomo aŭ pasvorto</string>
   <string name="incorrectPassword">Malkorekta pasvorto</string>
   <string name="invalidAuthenticationCode">Nevalida aŭtentigada kodo</string>
+  <string name="clearField">Viŝi kampon</string>
+  <string name="orSeparator">aŭ</string>
+  <string name="logInByEmail">Komenci seancon per retpoŝto</string>
   <string name="emailMeALink">Retpoŝte sendu al mi ligilon</string>
   <string name="currentPassword">Nuna pasvorto</string>
   <string name="newPassword">Nova pasvorto</string>
@@ -673,7 +682,7 @@
   <string name="webmasters">Retejestroj</string>
   <string name="about">Pri</string>
   <string name="aboutX">Pri %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s estas senpaga (%2$s), libera, ne-reklamoj, malferma-kodo ŝaka servilo.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s estas senpaga (%2$s), libera, senreklama, malfermitkoda ŝaka servilo.</string>
   <string name="really">vere</string>
   <string name="contribute">Kontribui</string>
   <string name="termsOfService">Uzkondiĉojn</string>
@@ -713,11 +722,6 @@
   <string name="keyCycleSelectedVariation">Cikligi elektan variaĵon</string>
   <string name="keyShowOrHideComments">(mal)montri komentojn</string>
   <string name="keyEnterOrExitVariation">eniru/forlasu variaĵon</string>
-  <string name="keyRequestComputerAnalysis">Peti komputilan analizon, Lerni de viaj eraroj</string>
-  <string name="keyNextLearnFromYourMistakes">Sekvo (Lerni de viaj eraroj)</string>
-  <string name="keyNextBlunder">Sekva erarego</string>
-  <string name="keyNextMistake">Sekva eraro</string>
-  <string name="keyNextInaccuracy">Sekva erareto</string>
   <string name="keyPreviousBranch">Antaŭa branĉo</string>
   <string name="keyNextBranch">Sekva branĉo</string>
   <string name="toggleVariationArrows">Baskuligi variaĵojn sagojn</string>
@@ -766,6 +770,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Vi povas ankaŭ rulumi sur la tabulo por movi en la ludo.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Tuŝadi sur komputilaj varioj por antaŭrigardi ilin.</string>
   <string name="analysisShapesHowTo">Premu shift+click aŭ rekt-klaki por desegni cirklojn kaj sagojn sur la tabulo.</string>
+  <string name="primaryColorArrowsHowTo">Ctrl aŭ Maj = ruĝa; Ordono, Alt aŭ Meta = blua; unu klavo el ĉiu grupo = flava.</string>
   <string name="letOtherPlayersMessageYou">Lasu aliajn ludantojn mesaĝi vin</string>
   <string name="receiveForumNotifications">Ricevi sciigojn kiam iu mencias vin en forumo</string>
   <string name="shareYourInsightsData">Havebligi viajn datumojn pri ŝaka kompreno</string>
@@ -809,6 +814,7 @@
   <string name="size">Amplekso</string>
   <string name="opacity">Opakeco</string>
   <string name="brightness">Lumeco</string>
+  <string name="contrast">Kontrasto</string>
   <string name="hue">Kolortono</string>
   <string name="boardReset">Restarigi kolorojn al la defaŭlta</string>
   <string name="pieceSet">Ŝakpecaro</string>
@@ -904,7 +910,6 @@
   <string name="agreementAssistance">Mi konsentas, ke mi neniam ricevos helpon dum miaj ludoj (de komputila programo, libro, datumbazo aŭ alia persono).</string>
   <string name="agreementNice">Mi konsentas, ke mi ĉiam estos respektema al aliaj ludantoj.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Mi konsentas ke mi ne faros plurajn kontojn (escepte pro la deklaritaj kialoj en la %s).</string>
-  <string name="agreementPolicy">Mi konsentas sekvi ĉiujn politikojn de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Serĉi aŭ komenci novan konversacion</string>
   <string name="edit">Redakti</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
@@ -915,7 +920,7 @@
   <string name="bulletDesc">Tre rapidaj ludoj: malpli ol 3 minutoj</string>
   <string name="blitzDesc">Rapidaj ludoj: 3 ĝis 8 minutoj</string>
   <string name="rapidDesc">Rapidaj ludoj: 8 ĝis 25 minutoj</string>
-  <string name="classicalDesc">Klasikaj ludoj: 25 minutoj kaj plu</string>
+  <string name="classicalDesc">Klasikaj ludoj: 25 minutoj kaj pli</string>
   <string name="correspondenceDesc">Korespondaj ludoj: unu aŭ kelkaj tagoj po movo</string>
   <string name="puzzleDesc">Ŝaktaktika trejnisto</string>
   <string name="important">Grava</string>
@@ -1016,4 +1021,5 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="search">Serĉi</string>
   <string name="clearSearch">Viŝi serĉon</string>
   <string name="tags">Etikedoj</string>
+  <string name="enPassant">Preterpasa kapto</string>
 </resources>

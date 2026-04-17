@@ -1,16 +1,12 @@
 import type { LichessStorage } from 'lib/storage';
 
-export interface FormLines {
-  [key: string]: string;
-}
-export interface FormObject {
-  [key: string]: any;
-}
-export interface FormStore {
+export type FormLines = Record<string, string>;
+export type FormObject = Record<string, any>;
+export type FormStore = {
   get: () => FormLines | null;
   set: (lines: FormLines) => void;
   remove: () => void;
-}
+};
 
 export const toFormLines = (form: HTMLFormElement): FormLines =>
   Array.from(new FormData(form).entries())

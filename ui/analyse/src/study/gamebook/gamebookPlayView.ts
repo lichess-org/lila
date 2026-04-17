@@ -1,7 +1,8 @@
-import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
 import * as licon from 'lib/licon';
-import { type VNode, iconTag, bind, dataIcon, hl, requiresI18n } from 'lib/view';
 import { richHTML } from 'lib/richText';
+import { type VNode, iconTag, bind, dataIcon, hl, requiresI18n } from 'lib/view';
+
+import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
   const state = ctrl.state;
@@ -47,7 +48,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
   if (fb === 'good' && state.comment)
     return hl('button.feedback.act.good.com', { attrs: { type: 'button' }, hook: bind('click', ctrl.next) }, [
       hl('span.text', { attrs: dataIcon(licon.PlayTriangle) }, i18n.study.next),
-      hl('kbd', '<space>'),
+      hl('kbd', 'space'),
     ]);
   if (fb === 'end') return renderEnd(ctrl);
   return hl(

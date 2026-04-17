@@ -6,7 +6,13 @@ import lila.app.UiEnv.*
 import lila.fide.{ FidePlayer, FideRatingHistory }
 import lila.relay.RelayTour
 
-lazy val ui = lila.fide.ui.FideUi(helpers)(active => Context ?=> views.relay.menu(active))
+private def broadcastOrPlayerMenu(helpers: lila.ui.Helpers): String => lila.ui.Context ?=> Frag = active =>
+  ctx ?=>
+    import helpers.given
+    if ctx.req.queryString.contains("community") then views.user.bits.communityMenu("fide")
+    else views.relay.menu(active)
+
+lazy val ui = lila.fide.ui.FideUi(helpers)(broadcastOrPlayerMenu(helpers))
 lazy val playerUi = lila.fide.ui.FidePlayerUi(helpers, ui, picfitUrl)
 export ui.federation
 

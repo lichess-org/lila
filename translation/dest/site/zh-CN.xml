@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">人机对弈</string>
   <string name="gameMode">对局模式</string>
   <string name="createLobbyGame">创建对局</string>
-  <string name="youPlayAs">执棋</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">请分享此链接以邀请好友对弈：</string>
   <string name="gameOver">对局结束</string>
   <string name="waitingForOpponent">正在等待对手</string>
   <string name="orLetYourOpponentScanQrCode">或让对方扫描此二维码</string>
+  <string name="reusableChallengeUrl">可重复使用的挑战链接</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">一个永久链接，任何人都可以使用此设定向您发起挑战。</string>
   <string name="waiting">等待中</string>
   <string name="yourTurn">轮到您走棋</string>
   <string name="aiNameLevelAiLevel">%1$s 级别 %2$s</string>
@@ -24,7 +25,7 @@
   <string name="black">黑方</string>
   <string name="asWhite">执白</string>
   <string name="asBlack">执黑</string>
-  <string name="randomColor">随机选色</string>
+  <string name="randomColor">随机</string>
   <string name="createAGame">创建对局</string>
   <string name="createTheGame">创建对局</string>
   <string name="whiteIsVictorious">白方胜局</string>
@@ -124,9 +125,20 @@
   <string name="bestMoveArrow">最佳着法指示</string>
   <string name="showVariationArrows">显示变着指示</string>
   <string name="evaluationGauge">显示局面评估</string>
+  <string name="visualMotifs">可视化模式</string>
+  <string name="undefendedPieces">无保护的棋子</string>
+  <string name="pinnedPieces">被牵制的棋子</string>
+  <string name="checkableKing">可将军的王</string>
   <string name="multipleLines">多线分析</string>
+  <string name="multipleLinesDescription">设置棋盘上评估线路的数量并移动箭头</string>
+  <string name="searchTime">搜索时间</string>
+  <string name="searchTimeDescription">设置评估新局面的时间</string>
+  <string name="threads">线程数</string>
+  <string name="threadsDescription">请将该值设置为低于 CPU 线程数，勾选标记处为安全选择</string>
+  <string name="threadsDescriptionMobile">更多线程将消耗更多电量以提升分析能力</string>
   <string name="cpus">CPU</string>
   <string name="memory">内存</string>
+  <string name="memoryDescription">较高的数值可能提升性能</string>
   <string name="infiniteAnalysis">无限分析</string>
   <string name="removesTheDepthLimit">移除深度限制（暂时增加电脑能耗）</string>
   <string name="blunder">败着</string>
@@ -193,6 +205,7 @@
   <string name="minutesPerSide">各方限时（分钟）</string>
   <string name="variant">变体</string>
   <string name="variants">变体</string>
+  <string name="variantsDescription">更多玩法</string>
   <string name="timeControl">时间限制</string>
   <string name="realTime">实时对局</string>
   <string name="correspondence">通讯棋</string>
@@ -216,7 +229,7 @@
   <string name="changeUsernameNotSame">只能更改字母大小写。例如，将“johndoe”改为“JohnDoe”。</string>
   <string name="changeUsernameDescription">更改用户名。注意只能更改一次，且只能更改用户名字母的大小写。</string>
   <string name="signupUsernameHint">请务必选择一个和谐的用户名，用户名设置后无法更改，并且不合规的用户名会导致账户被封禁！</string>
-  <string name="signupEmailHint">该邮箱仅用于密码重置和账户激活</string>
+  <string name="signupEmailPromise">我们只会向您发送与您账户相关的邮件，绝不会将您的邮箱共享给第三方！</string>
   <string name="password">密码</string>
   <string name="changePassword">更改密码</string>
   <string name="changeEmail">更改邮箱</string>
@@ -281,6 +294,7 @@
   <string name="standard">标准</string>
   <string name="customPosition">自定义局面</string>
   <string name="unlimited">无限制</string>
+  <string name="unlimitedDescription">请随意安排时间</string>
   <string name="mode">模式</string>
   <string name="casual">休闲</string>
   <string name="rated">排位</string>
@@ -393,10 +407,11 @@
   <string name="leaderboard">排行榜</string>
   <string name="screenshotCurrentPosition">保存当前局面为图片</string>
   <string name="gameAsGIF">保存对局为 GIF</string>
+  <string name="playerNames">棋手名称</string>
+  <string name="moveAnnotations">着法评注</string>
   <string name="pasteTheFenStringHere">在此处粘贴 FEN 文本</string>
   <string name="pasteThePgnStringHere">在此处粘贴 PGN 文本</string>
-  <string name="orUploadPgnFile">或上传 PGN 文件</string>
-  <string name="fromPosition">自定义局面</string>
+  <string name="orUploadPgnFile">或者上传 PGN 文件</string>
   <string name="continueFromHere">从此处继续</string>
   <string name="toStudy">研习</string>
   <string name="importGame">导入对局</string>
@@ -551,6 +566,9 @@
   <string name="invalidUsernameOrPassword">用户名或密码错误</string>
   <string name="incorrectPassword">密码错误</string>
   <string name="invalidAuthenticationCode">无效的验证码</string>
+  <string name="clearField">清除字段</string>
+  <string name="orSeparator">或</string>
+  <string name="logInByEmail">通过邮件登录</string>
   <string name="emailMeALink">将链接发送到我的邮箱</string>
   <string name="currentPassword">当前密码</string>
   <string name="newPassword">新密码</string>
@@ -559,7 +577,7 @@
   <string name="newPasswordStrength">密码强度</string>
   <string name="clockInitialTime">起始时限</string>
   <string name="clockIncrement">加秒</string>
-  <string name="privacy">隐私</string>
+  <string name="privacy">隐私政策</string>
   <string name="privacyPolicy">隐私政策</string>
   <string name="letOtherPlayersFollowYou">允许其他棋手关注您</string>
   <string name="letOtherPlayersChallengeYou">允许其他棋手向您发起挑战</string>
@@ -634,8 +652,8 @@
   <string name="webmasters">网站管理员</string>
   <string name="about">关于</string>
   <string name="aboutX">关于 %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个免费（%2$s）、自由、无广告、开源的国际象棋平台。</string>
-  <string name="really">千真万确</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个%2$s免费、开源共享、绝无广告的国际象棋平台。</string>
+  <string name="really">完全</string>
   <string name="contribute">协助我们</string>
   <string name="termsOfService">服务条款</string>
   <string name="titleVerification">头衔认证</string>
@@ -674,11 +692,6 @@
   <string name="keyCycleSelectedVariation">选择变着</string>
   <string name="keyShowOrHideComments">显示/隐藏评论</string>
   <string name="keyEnterOrExitVariation">进入/退出变着</string>
-  <string name="keyRequestComputerAnalysis">请求电脑分析，并从失误中学习</string>
-  <string name="keyNextLearnFromYourMistakes">下一个（从失误中学习）</string>
-  <string name="keyNextBlunder">下一个败着</string>
-  <string name="keyNextMistake">下一个错着</string>
-  <string name="keyNextInaccuracy">下一个失准</string>
   <string name="keyPreviousBranch">上一个分支</string>
   <string name="keyNextBranch">下一个分支</string>
   <string name="toggleVariationArrows">开启变着箭头</string>
@@ -769,6 +782,7 @@
   <string name="size">尺寸</string>
   <string name="opacity">不透明度</string>
   <string name="brightness">亮度</string>
+  <string name="contrast">对比</string>
   <string name="hue">色调</string>
   <string name="boardReset">恢复默认</string>
   <string name="pieceSet">棋子样式</string>
@@ -861,7 +875,6 @@
   <string name="agreementAssistance">我同意在对局中任何时刻都不会接受帮助（来自电脑引擎、书籍、数据库或其他人）。</string>
   <string name="agreementNice">我同意我将始终尊重其他棋手。</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">我同意我不会创建多个账户（除非出于 %s 中所述的原因）。</string>
-  <string name="agreementPolicy">我同意我将遵守所有 Lichess 规范。</string>
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">超子弹棋</string>
@@ -875,7 +888,7 @@
   <string name="rapidDesc">普速对战：8 到 25 分钟</string>
   <string name="classicalDesc">慢棋对局：25 分钟及以上</string>
   <string name="correspondenceDesc">通讯棋对局：每步棋一天或数天</string>
-  <string name="puzzleDesc">国际象棋战术训练器</string>
+  <string name="puzzleDesc">战术训练</string>
   <string name="important">重要提示</string>
   <string name="yourQuestionMayHaveBeenAnswered">您的问题可能已 %1$s 有了解答</string>
   <string name="inTheFAQ">在常见问题中</string>
@@ -973,5 +986,7 @@
   <string name="offline" comment="status of a user">离线</string>
   <string name="search">搜索</string>
   <string name="clearSearch">清除搜索</string>
+  <string name="thereAreNoResultsForX">未找到“%s”的结果</string>
   <string name="tags">标签</string>
+  <string name="enPassant">吃过路兵</string>
 </resources>

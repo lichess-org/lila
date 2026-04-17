@@ -47,7 +47,7 @@
   <string name="fidePlayerNotFound">FIDE પ્લેયર મળ્યું નથી</string>
   <string name="fideProfile">FIDE પ્રોફાઇલ</string>
   <string name="federation">ફેડરેશન</string>
-  <string name="age" comment="Label for the age of a player. Appears on FIDE profiles of players.">વય</string>
+  <string name="age">વય</string>
   <string name="unrated">અનરેટેડ</string>
   <string name="recentTournaments">તાજેતરની ટુર્નામેન્ટ્સ</string>
   <string name="openLichess">Lichess ખુલ્લું</string>

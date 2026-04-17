@@ -2,11 +2,10 @@ package lila.chat
 
 import lila.common.Bus
 import lila.common.String.{ fullCleanUp, noShouting }
-import lila.core.chat.{ OnReinstate, OnTimeout }
+import lila.core.chat.{ PublicSource, OnReinstate, OnTimeout }
 import lila.core.config.NetDomain
 import lila.core.perm.Granter
 import lila.core.security.{ FloodApi, FloodSource, SpamApi }
-import lila.core.shutup.PublicSource
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
@@ -78,7 +77,7 @@ final class ChatApi(
           if _ then
             linkCheck(line, publicSource).flatMap:
               if _ then
-                val actuallyPersist = persist && (publicSource.isEmpty || !isGarbage(text))
+                val actuallyPersist = persist && (publicSource.isEmpty || !GarbageDetector(text))
                 for _ <- actuallyPersist.so(persistLine(chatId, line))
                 yield
                   if actuallyPersist then
@@ -96,14 +95,6 @@ final class ChatApi(
           else
             logger.info(s"Can't post $line in $publicSource: chat is closed")
             funit
-
-    private def isGarbage(text: String) = {
-      val x = text.filter(_.isLetter).toLowerCase
-      x == "last" || x == "first" || x == "second" || x == "third"
-    } || {
-      val x = text.filter(_.isLetterOrDigit).toLowerCase
-      x == "1st" || x == "1ts" || x == "1" || x == "2nd" || x == "2"
-    }
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =
       source.fold(fuccess(true)): s =>
@@ -332,7 +323,7 @@ final class ChatApi(
       val out1 = multiline:
         spam.replace(noShouting(noPrivateUrl(fullCleanUp(in))))
       val out2 = username.fold(out1) { removeSelfMention(out1, _) }
-      out2.take(Line.textMaxSize).some.filter(_.nonEmpty)
+      out2.take(Line.textMaxSize).nonEmptyOption
 
     private def removeSelfMention(in: String, username: UserName) =
       if in.contains('@') then
@@ -345,3 +336,22 @@ final class ChatApi(
     private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
     private val multilineRegex = """\n\n{1,}+""".r
     private def multiline(str: String) = multilineRegex.replaceAllIn(str, " ")
+
+private[chat] object GarbageDetector:
+
+  private val xThPattern = """\d+(st|ts|nd|rd|th)$""".r
+  private val claimNumberPattern =
+    """(?i)^(I?\s?claim(ed?)?\s?((\d+(st|ts|nd|rd|th)?)|(first|second|third)))$""".r
+  private val numberMemeDuplicatePattern = """(?i)([\W\w]?[67][\W\w]?[678][\W\w]?){2,}""".r.unanchored
+  private val numberLetterMemeDuplicatePattern = """(?i)((six)[\W\w]?(seven)[\W\w]?){2,}""".r.unanchored
+
+  def apply(text: String): Boolean = {
+    val x = text.filter(_.isLetter).toLowerCase
+    x == "last" || x == "first" || x == "second" || x == "third"
+  } || {
+    val x = text.filter(_.isLetterOrDigit).toLowerCase
+    xThPattern.matches(x) || x == "1" || x == "2" || x == "3"
+  } ||
+    claimNumberPattern.matches(text) ||
+    numberMemeDuplicatePattern.matches(text) ||
+    numberLetterMemeDuplicatePattern.matches(text)

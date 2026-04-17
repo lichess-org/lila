@@ -6,7 +6,7 @@ db.study_chapter
     },
   })
   .forEach(function (c) {
-    var tags = c.setup.fromPgn ? c.setup.fromPgn.tags : [];
+    const tags = c.setup.fromPgn ? c.setup.fromPgn.tags : [];
     db.study_chapter.update(
       {
         _id: c._id,

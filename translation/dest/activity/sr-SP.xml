@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Активност</string>
-  <string name="hostedALiveStream">Одржали пренос уживо</string>
+  <string name="hostedALiveStream">Одржао/ла пренос уживо</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Подржаo/ла lichess.org на %1$s месец као %2$s</item>
     <item quantity="few">Подржаo/ла lichess.org на %1$s месеца као %2$s</item>

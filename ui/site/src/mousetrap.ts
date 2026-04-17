@@ -153,7 +153,7 @@ const getKeyInfo = (combination: string, action?: Action): KeyInfo => {
 };
 
 export default class Mousetrap {
-  private bindings: Record<string, Binding[]> = {};
+  private readonly bindings: Record<string, Binding[]> = {};
 
   constructor(targetElement?: HTMLElement | Document) {
     targetElement = targetElement || document;
@@ -196,7 +196,7 @@ export default class Mousetrap {
     });
   };
 
-  private handleKeyEvent = (e: KeyboardEvent) => {
+  private readonly handleKeyEvent = (e: KeyboardEvent) => {
     if (typeof e.which !== 'number') (e as any).which = e.keyCode; // normalize
 
     const el = e.target as HTMLElement;
@@ -217,7 +217,7 @@ export default class Mousetrap {
     }
   };
 
-  private getMatches = (e: KeyboardEvent): Binding[] => {
+  private readonly getMatches = (e: KeyboardEvent): Binding[] => {
     const key = keyFromEvent(e);
     const action = e.type;
     const modifiers = action === 'keyup' && isModifier(key) ? [key] : eventModifiers(e);

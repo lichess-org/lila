@@ -22,7 +22,7 @@
   <string name="inGameOnly">Nomás en a partida</string>
   <string name="chessClock">Reloch d\'escaques</string>
   <string name="tenthsOfSeconds">Decenas de segundo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuan queden menos de 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuan queden menos de 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progreso horizontals verdes</string>
   <string name="soundWhenTimeGetsCritical">Alerta cuan quede poco tiempo</string>
   <string name="giveMoreTime">Dar mas tiempo</string>
@@ -38,7 +38,7 @@
   <string name="explainPromoteToQueenAutomatically">Mantiene pretada la tecla &lt;ctrl&gt; mientres coronas pa desactivar temporalment la promoción automatica</string>
   <string name="whenPremoving">Con anticipadas</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar taulas per triple repetición</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuan lo tiempo restante sía de &lt; 30 segundos</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Cuan lo tiempo restante sía de &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmación de movimiento</string>
   <string name="explainCanThenBeTemporarilyDisabled">Se puet desactivar durant la partida en o menú d\'o taulero</string>
   <string name="inCorrespondenceGames">Partidas per correspondencia</string>
@@ -67,5 +67,5 @@
   <string name="notifyWeb">Navegador</string>
   <string name="notifyDevice">Dispositivo</string>
   <string name="bellNotificationSound">Soniu de notificación</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">A la ciega</string>
+  <string name="blindfold" comment="As in Blindfold chess">A la ciega</string>
 </resources>

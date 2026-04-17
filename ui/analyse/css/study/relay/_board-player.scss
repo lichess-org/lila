@@ -7,10 +7,13 @@
 }
 
 .relay-board-player {
-  @extend %flex-between-nowrap, %metal, %box-shadow;
+  @extend %flex-between-nowrap;
+  @include inline-end(0);
+  @include with-metal-shadow(hsla(0, 0, 0%, 0.2), hsla(0, 0, 0%, 0.18));
+
+  background-image: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
   overflow: hidden;
   position: absolute;
-  @include inline-end(0);
   font-weight: bold;
   width: var(---cg-width, 100%);
   height: $player-height;
@@ -41,8 +44,10 @@
 
   .left {
     @extend %flex-center-nowrap;
+
     flex: 1 1 100%;
     gap: 1em;
+    overflow: hidden;
   }
 
   @extend %result-box;
@@ -53,7 +58,6 @@
 
     height: 100%;
     border-radius: 0;
-    box-shadow: none;
     font-size: 1.5em;
     font-weight: normal;
   }
@@ -62,28 +66,35 @@
     background: $c-secondary;
     color: $c-over;
     text-shadow: none;
+    box-shadow: none;
   }
 
   .info-split {
     @extend %flex-column;
+
     line-height: 1.2;
+    overflow: hidden;
   }
+
   .info-secondary {
     @extend %flex-center-nowrap;
+
     gap: 0.5em;
     font-size: 0.9em;
   }
 
   .team,
   .name {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @extend %ellipsis;
+
     max-width: fit-content;
     flex: 1;
   }
+
   a.name {
     color: $c-font;
     font-size: 1.1em;
+
     &:hover {
       color: $c-link;
     }
@@ -91,11 +102,18 @@
 
   .team {
     @extend %roboto;
+
     flex: 2;
     color: $c-font-dim;
   }
+
+  a.team:hover {
+    color: $c-link;
+  }
+
   .mini-game__flag {
     width: 1em;
+    height: 1em;
     margin: 0;
   }
 

@@ -30,13 +30,15 @@
   <string name="pleaseFillIn">Fëll wgl. deng Streamer-Informatiounen aus a luet e Bild erop.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wanns du prett bass als Lichess Streamer gelëscht ze ginn, %s</string>
   <string name="streamerLanguageSettings">D\'Lichess-Streamer-Säit riicht sech un däi Publikum mat der Sprooch vun denger Streaming-Plattform. Lee déi richteg Standardsprooch fir deng Schach-Streams fest an der App oder dem Déngscht, deen s du fir d\'Iwwerdroung benotz.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Connectéieren</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Deconnectéieren</string>
   <string name="streamerName">Däi Streamernumm op Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Faass dech kuerz: maximal %s Zeechen</item>
     <item quantity="other">Faass dech kuerz: maximal %s Zeechen</item>
   </plurals>
-  <string name="visibility">Siichtbar op der Streamersäit</string>
-  <string name="whenApproved">Soubla vun de Moderatore geneemegt</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Siichtbar op der Streamersäit</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Soubla vun de Moderatore geneemegt</string>
   <string name="headline">Iwwerschrëft</string>
   <string name="tellUsAboutTheStream">Erziel eis an engem Saz eppes iwwer däi Stream</string>
   <string name="longDescription">Laang Beschreiwung</string>

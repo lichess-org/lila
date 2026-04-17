@@ -29,7 +29,6 @@
   <string name="botPlay">Jogar partidas com a API do bot</string>
   <string name="engineRead">Ver e usar os teus motores externos</string>
   <string name="engineWrite">Criar e atualizar os motores externos</string>
-  <string name="webLogin">Crie sessões de sites autenticados (garante acesso completo!)</string>
   <string name="webMod">Use ferramentas de moderação (dentro dos limites da tua permissão)</string>
   <string name="personalAccessTokens">Tokens de acesso pessoal da API</string>
   <string name="canMakeOauthRequests">Podes fazer solicitações OAuth sem passar pelo %s.</string>

@@ -77,8 +77,9 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
       dox = modOnly && dox,
       date = nowInstant
     )
-    Future
-      .fromTry(bsonHandler.writeTry(note))
+    bsonHandler
+      .writeTry(note)
+      .toFuture
       .flatMap: base =>
         val bson = if note.searchable then base ++ searchableBsonFlag else base
         coll.insert.one(bson).void

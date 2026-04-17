@@ -6,7 +6,7 @@
   <string name="progressX">Ósiw: %s</string>
   <string name="resetMyProgress">Barlıǵın basınan baslaw</string>
   <string name="youWillLoseAllYourProgress">Siz barlıq jetiskenligińizden ayrılasız!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">oynaw!</string>
+  <string name="play">oynaw!</string>
   <string name="chessPieces">Shaxmat tasları</string>
   <string name="theRook">Tuwra</string>
   <string name="itMovesInStraightLines">Tuwrı sızıq boylap júredi</string>

@@ -1,5 +1,7 @@
-import { throttle } from 'lib/async';
 import Tagify from '@yaireo/tagify';
+
+import { throttle } from 'lib/async';
+
 import { wireCropDialog } from './crop';
 import { makeToastEditor, getSanitizedMarkdown } from './toastEditor';
 

@@ -9,16 +9,14 @@ const newId = () => {
 db.relay.find().forEach(relay => {
   const tourId = newId();
   db.relay_tour.insert({
-    ...{
-      _id: tourId,
-      name: relay.name,
-      description: relay.description,
-      ownerId: relay.ownerId,
-      createdAt: relay.createdAt,
-      official: relay.official,
-      active: false,
-      syncedAt: relay.startedAt,
-    },
+    _id: tourId,
+    name: relay.name,
+    description: relay.description,
+    ownerId: relay.ownerId,
+    createdAt: relay.createdAt,
+    official: relay.official,
+    active: false,
+    syncedAt: relay.startedAt,
     ...(relay.markup ? { markup: relay.markup } : {}),
     ...(relay.credit ? { credit: relay.credit } : {}),
   });

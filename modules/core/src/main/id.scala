@@ -71,7 +71,8 @@ object id:
   object StudyChapterId extends OpaqueString[StudyChapterId]
 
   opaque type RelayRoundId = String
-  object RelayRoundId extends OpaqueString[RelayRoundId]
+  object RelayRoundId extends OpaqueString[RelayRoundId]:
+    extension (id: RelayRoundId) def studyId: StudyId = id.into(StudyId)
 
   opaque type PuzzleId = String
   object PuzzleId extends OpaqueString[PuzzleId]

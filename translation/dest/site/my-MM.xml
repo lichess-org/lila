@@ -105,7 +105,6 @@
   <string name="username">ကစားသူအမည်</string>
   <string name="usernameOrEmail">ကစားသူအမည် သို့မဟုတ် email လိပ်စာ</string>
   <string name="signupUsernameHint">မရိုင်းစိုင်းသော အသုံးပြုသူ အမည်ကို ရွေးချယ်ပါ။  နောင်တွင် ပြင်ဆင်၍ မရတော့သည့် အပြင်၊ မလျော်ကန်သည့် အသုံးပြုသူအမည်ဖြင့် အကောင့်များကို ပိတ်ပစ်မည် ဖြစ်ပါသည်။</string>
-  <string name="signupEmailHint">စကားဝှက် ပြောင်းရန် အတွက်သာ အသုံးပြုမည် ဖြစ်ပါသည်။</string>
   <string name="neverTypeYourPassword">လူကြီးမင်း၏ Lichess ဝင်ရန် သုံးသည့် စကားဝှက်ကို အခြား မည်သည့် ဝက်ဗ်ဆိုက်တွင်မျှ ရိုက်ထည့်ခြင်း မပြုပါနှင့်။</string>
   <string name="whiteTimeOut">အဖြူ အချိန်ကုန်</string>
   <string name="blackTimeOut">အနက် အချိန်ကုန်</string>

@@ -6,14 +6,36 @@ import lila.core.i18n.I18nKey
 import lila.core.study.StudyOrder
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.{ Adapter, CachedAdapter }
+import lila.memo.SettingStore
 
 final class StudyPager(
     studyRepo: StudyRepo,
-    chapterRepo: ChapterRepo
+    chapterRepo: ChapterRepo,
+    settingStore: SettingStore.Builder
 )(using Executor):
 
   val maxPerPage = MaxPerPage(16)
   val defaultNbChaptersPerStudy = 4
+
+  object featured:
+    import scalalib.Iso
+    import lila.core.data.Strings
+    import reactivemongo.api.bson.BSONHandler
+    private type Ids = List[StudyId]
+    private given Iso[String, Ids] = lila.common.Iso
+      .strings("\n")
+      .map[Ids](
+        s => StudyId.from(s.value.filter(_.nonEmpty).map(_.takeRight(8))),
+        s => Strings(StudyId.raw(s))
+      )
+    private given BSONHandler[Ids] = lila.db.dsl.isoHandler
+    private given SettingStore.StringReader[Ids] = SettingStore.StringReader.fromIso
+    private given SettingStore.Formable[Ids] = SettingStore.Formable.stringIsoForm
+    val setting = settingStore[Ids](
+      "studyFeatured",
+      text = "Featured studies, one URL per line".some,
+      default = Nil
+    )
 
   import BSONHandlers.given
   import studyRepo.{
@@ -22,20 +44,28 @@ final class StudyPager(
     selectOwnerId,
     selectPrivateOrUnlisted,
     selectPublic,
+    selectUnlisted,
     selectTopic
   }
 
-  def all(order: StudyOrder, page: Int)(using me: Option[Me]) =
+  def all(order: StudyOrder, page: Int)(using Option[Me]) =
     paginator(
-      noRelaySelect ++ accessSelect,
+      accessSelect(),
       order,
       page,
       fuccess(9999).some
-    )
+    ).flatMap: pager =>
+      if (order == StudyOrder.hot || order == StudyOrder.popular) && page == 1 then
+        for
+          studies <- studyRepo.byOrderedIds(featured.setting.get())
+          extra <- withChaptersAndLiking()(studies)
+        yield pager.withCurrentPageResults:
+          extra ++ pager.currentPageResults.filterNot(s => extra.exists(_.study.id == s.study.id))
+      else fuccess(pager)
 
-  def byOwner(owner: User, order: StudyOrder, page: Int)(using me: Option[Me]) =
+  def byOwner(owner: User, order: StudyOrder, page: Int)(using Option[Me]) =
     paginator(
-      selectOwnerId(owner.id) ++ accessSelect,
+      selectOwnerId(owner.id) ++ accessSelect(),
       order,
       page
     )
@@ -70,7 +100,7 @@ final class StudyPager(
 
   def mineLikes(order: StudyOrder, page: Int)(using me: Me) =
     paginator(
-      selectLiker(me) ++ accessSelect ++ $doc("ownerId".$ne(me.userId)),
+      selectLiker(me) ++ accessSelect(true) ++ $doc("ownerId".$ne(me.userId)),
       order,
       page
     )
@@ -78,17 +108,16 @@ final class StudyPager(
   def byTopic(topic: StudyTopic, order: StudyOrder, page: Int)(using me: Option[Me]) =
     val onlyMine = me.ifTrue(order == StudyOrder.mine)
     paginator(
-      selectTopic(topic) ++ onlyMine.fold(accessSelect)(selectMemberId(_)),
+      selectTopic(topic) ++ onlyMine.fold(accessSelect())(selectMemberId(_)),
       order,
       page,
       hint = onlyMine.isDefined.option($doc("uids" -> 1, "rank" -> -1))
     )
 
-  private def accessSelect(using me: Option[Me]) =
+  private def accessSelect(includeUnlisted: Boolean = false)(using me: Option[Me]) =
     me.fold(selectPublic): u =>
-      $or(selectPublic, selectMemberId(u))
-
-  private val noRelaySelect = $doc("from".$ne("relay"))
+      if includeUnlisted then $or(selectPublic, selectMemberId(u), selectUnlisted)
+      else $or(selectPublic, selectMemberId(u))
 
   private def paginator(
       selector: Bdoc,
@@ -99,7 +128,7 @@ final class StudyPager(
   )(using Option[Me]): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll: coll =>
     val adapter = Adapter[Study](
       collection = coll,
-      selector = selector,
+      selector = selector ++ selector.contains("topics").not.so($doc("topics".$ne("Broadcast"))),
       projection = studyRepo.projection.some,
       sort = order match
         case StudyOrder.hot => $sort.desc("rank")

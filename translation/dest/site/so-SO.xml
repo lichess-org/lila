@@ -221,7 +221,6 @@
   <string name="changeUsernameNotSame">Weynida xarfaha oo kaliiyaa is bedeli kara. Tusaale ahaan \"hebel\" iyo \"Hebel\".</string>
   <string name="changeUsernameDescription">Magac-koonkaaga beddel. Mar keliyaa kuu banana oo aad bedeli karto weynida xarfaha uun.</string>
   <string name="signupUsernameHint">Magac-akoon edeb leh dooro. Ma bedeli kartid mar dambe waana la xidhi doonaa magicii edeb darro ah!</string>
-  <string name="signupEmailHint">Waxan u isticmaalaynaa cusbaynta furahaaga oo keli ah.</string>
   <string name="password">Erey sir</string>
   <string name="changePassword">Beddel furaha</string>
   <string name="changeEmail">Beddel iimaylka</string>

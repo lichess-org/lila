@@ -6,7 +6,7 @@
   <string name="progressX">Framgongd: %s</string>
   <string name="resetMyProgress">Nullstilla mína framgongd</string>
   <string name="youWillLoseAllYourProgress">Tú missir alla tína framgongd!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">telva!</string>
+  <string name="play">telva!</string>
   <string name="chessPieces">Talvfólk</string>
   <string name="theRook">Rókurin</string>
   <string name="itMovesInStraightLines">Gongur í beinum linjum</string>
@@ -114,7 +114,6 @@
   <string name="findAWayToCastleKingSide">Finn útav einum máta at leypa í borg kongamegin (stuttu borg)!</string>
   <string name="findAWayToCastleQueenSide">Finn ein hátt at leypa í borg frúgvamegin (longu borg)!</string>
   <string name="castlingComplete">Til lukku! Tú eigur næstan altíð at leypa í borg í einum talvi.</string>
-  <string name="enPassant">At taka í framlopi</string>
   <string name="theSpecialPawnMove">Serligi finnuleikurin</string>
   <string name="enPassantIntro">Tá ið mótstøðufinnan loypur tveir puntar fram og kemur at standa undir liðini á einari finnu hjá tær, kanst tú drepa finnuna sum um, at hon bert flutti ein punt fram.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Svartur flutti eina finnu tveir puntar fram! Tak hana í framlopi (en passant).</string>

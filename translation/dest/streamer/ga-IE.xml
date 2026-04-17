@@ -38,8 +38,8 @@
     <item quantity="many">Coinnigh gearr é: %s carachtar uas</item>
     <item quantity="other">Coinnigh gearr é: %s carachtar uas</item>
   </plurals>
-  <string name="visibility">Le feiceáil ar an leathanach sruthú</string>
-  <string name="whenApproved">Nuair atá siad faofa ó modhnóirí</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Le feiceáil ar an leathanach sruthú</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Nuair atá siad faofa ó modhnóirí</string>
   <string name="headline">Ceannlíne</string>
   <string name="tellUsAboutTheStream">Inis dúinn faoi do shruth in aon abairt amháin</string>
   <string name="longDescription">Cur síos fada</string>

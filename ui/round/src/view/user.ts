@@ -1,10 +1,11 @@
-import { hl, type VNode } from 'lib/view';
-import * as licon from 'lib/licon';
-import type { Player, TopOrBottom } from 'lib/game';
-import type RoundController from '../ctrl';
-import { ratingDiff, userLink } from 'lib/view/userLink';
-import { wsAverageLag } from 'lib/socket';
 import { defined } from 'lib';
+import type { Player, TopOrBottom } from 'lib/game';
+import * as licon from 'lib/licon';
+import { wsAverageLag } from 'lib/socket';
+import { hl, type VNode } from 'lib/view';
+import { ratingDiff, userLink } from 'lib/view/userLink';
+
+import type RoundController from '../ctrl';
 
 export function userHtml(ctrl: RoundController, player: Player, position: TopOrBottom): VNode {
   const d = ctrl.data,

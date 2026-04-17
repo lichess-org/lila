@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">Vis brætstørrelse justering</string>
   <string name="onlyOnInitialPosition">Kun ved indledende position</string>
   <string name="inGameOnly">Kun i spillet</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Undtagen i spillet</string>
+  <string name="exceptInGame">Undtagen i spillet</string>
   <string name="chessClock">Skakur</string>
   <string name="tenthsOfSeconds">Tiendedele sekunder</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Når resterende tid &lt; 10 sekunder</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Når resterende tid &lt; 10 sekunder</string>
   <string name="horizontalGreenProgressBars">Horisontale grønne statuslinjer</string>
   <string name="soundWhenTimeGetsCritical">Lyd, når tiden bliver kritisk</string>
   <string name="giveMoreTime">Giv mere tid</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Hold &lt;ctrl&gt;-tasten nede, mens du forfremmer for midlertidigt at deaktivere auto-forfremmelse</string>
   <string name="whenPremoving">Ved forhåndstræk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kræv automatisk remis ved trækgentagelse</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Når tilbageværende tid &lt; 30 sekunder</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Når tilbageværende tid &lt; 30 sekunder</string>
   <string name="moveConfirmation">Bekræft træk</string>
   <string name="explainCanThenBeTemporarilyDisabled">Kan deaktiveres i løbet af et parti med brætmenuen</string>
   <string name="inCorrespondenceGames">I korrespondancepartier</string>
@@ -62,11 +62,13 @@
   <string name="notifyGameEvent">Opdateringer af korrespondancepartier</string>
   <string name="notifyChallenge">Udfordringer</string>
   <string name="notifyTournamentSoon">Turneringsstart nærmer sig</string>
+  <string name="notifyBroadcasts">Udsendelser, du abonnerer på</string>
   <string name="notifyTimeAlarm">Ur i korrespondance er ved at løbe ud</string>
   <string name="notifyBell">Klokkenotifikation i Lichess</string>
   <string name="notifyPush">Notifikation på enhed, når du ikke er på Lichess</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Enhed</string>
   <string name="bellNotificationSound">Notifikationslyd</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Blindskak</string>
+  <string name="blindfold" comment="As in Blindfold chess">Blindskak</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Vis til venstre på mobile enheder</string>
 </resources>

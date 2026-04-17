@@ -1,2 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="swiss">ສະວິດ</string>
+  <string name="swissTournaments">ການແຂ່ງຂັນແບບສະວິດ</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="other">ເບິ່ງທັງໝົດ %s ຮອບ</item>
+  </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="other">%s ຮອບ</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="other">ແບບສະວິດ %s ຮອບ</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="other">ໜຶ່ງຮອບທຸກໆ %s ມື້</item>
+  </plurals>
+  <string name="roundsAreStartedManually">ເລີ່ມແຕ່ລະຮອບດ້ວຍຕົນເອງ</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="other">ໄລຍະຫ່າງລະຫວ່າງຮອບ %s ວິນາທີ</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="other">ໄລຍະຫ່າງລະຫວ່າງຮອບ %s ນາທີ</item>
+  </plurals>
+  <string name="nextRound">ຮອບຕໍ່ໄປ</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="other">ເກມທີ່ກຳລັງຫຼິ້ນ</item>
+  </plurals>
+  <string name="tournStartDate">ວັນທີເລີ່ມການແຂ່ງຂັນ</string>
+  <string name="numberOfRounds">ຈຳນວນຮອບ</string>
+  <string name="numberOfRoundsHelp">ຈຳນວນຮອບທີ່ເປັນເລກຄີກຈະຊ່ວຍໃຫ້ການສະຫຼັບສີໝາກມີຄວາມສົມດຸນທີ່ສຸດ.</string>
+  <string name="roundInterval">ໄລຍະຫ່າງລະຫວ່າງຮອບ</string>
+  <string name="forbiddenPairings">ການຈັບຄູ່ທີ່ຖືກຫ້າມ</string>
+  <string name="forbiddenPairingsHelp">ຊື່ຜູ້ໃຊ້ຂອງຜູ້ຫຼິ້ນທີ່ບໍ່ໃຫ້ຫຼິ້ນນຳກັນ (ຕົວຢ່າງ: ພີ່ນ້ອງກັນ). ສອງຊື່ຜູ້ໃຊ້ຕໍ່ແຖວ, ຂັ້ນດ້ວຍຍະຫວ່າງ.</string>
+  <string name="manualPairings">ຈັບຄູ່ດ້ວຍຕົນເອງໃນຮອບຕໍ່ໄປ</string>
+  <string name="manualPairingsHelp">ລະບຸການຈັບຄູ່ທັງໝົດຂອງຮອບຕໍ່ໄປດ້ວຍຕົນເອງ. ໜຶ່ງຄູ່ຜູ້ຫຼິ້ນຕໍ່ແຖວ. ຕົວຢ່າງ:
+PlayerA PlayerB
+PlayerC PlayerD
+ເພື່ອໃຫ້ບາຍ (1 ຄະແນນ) ແກ່ຜູ້ຫຼິ້ນແທນການຈັບຄູ່, ໃຫ້ເພີ່ມແຖວດັ່ງນີ້:
+PlayerE 1
+ຜູ້ຫຼິ້ນທີ່ບໍ່ມີຊື່ຈະຖືກຖືວ່າຂາດ ແລະ ໄດ້ສູນຄະແນນ.
+ປະຫ້ອງນີ້ໄວ້ຫວ່າງເພື່ອໃຫ້ Lichess ສ້າງການຈັບຄູ່ໂດຍອັດຕະໂນມັດ.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">ຕ້ອງໄດ້ຫຼິ້ນເກມສະວິດຫຼ້າສຸດຂອງພວກເຂົາ</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">ອະນຸຍາດໃຫ້ຜູ້ຫຼິ້ນເຂົ້າຮ່ວມສະເພາະຜູ້ທີ່ໄດ້ຫຼິ້ນເກມສະວິດຫຼ້າສຸດຂອງພວກເຂົາ. ຫາກພວກເຂົາບໍ່ມາປາກົດຕົວໃນການແຂ່ງຂັນສະວິດກ່ອນໜ້ານີ້, ພວກເຂົາຈະບໍ່ສາມາດເຂົ້າຮ່ວມການແຂ່ງຂັນຂອງທ່ານໄດ້. ສິ່ງນີ້ຈະຊ່ວຍໃຫ້ຜູ້ຫຼິ້ນທີ່ຕັ້ງໃຈມາແຂ່ງຂັນແທ້ໆໄດ້ຮັບປະສົບການທີ່ດີຂຶ້ນ.</string>
+  <string name="newSwiss">ການແຂ່ງຂັນແບບສະວິດໃໝ່</string>
+  <string name="swissVsArenaQ">ຄວນໃຊ້ການແຂ່ງຂັນແບບສະວິດແທນແບບອາຣີນາ (Arena) ເມື່ອໃດ?</string>
+  <string name="swissVsArenaA">ໃນການແຂ່ງຂັນແບບສະວິດ, ຜູ້ເຂົ້າຮ່ວມທຸກຄົນຈະໄດ້ຫຼິ້ນໃນຈຳນວນເກມທີ່ເທົ່າກັນ ແລະ ຈະໄດ້ພົບກັບຄູ່ຕໍ່ສູ້ແຕ່ລະຄົນພຽງແຕ່ຄັ້ງດຽວ.
+ມັນເປັນທາງເລືອກທີ່ດີສຳລັບສະໂມສອນ ແລະ ການແຂ່ງຂັນແບບເປັນທາງການ.</string>
+  <string name="pointsCalculationQ">ຄິດໄລ່ຄະແນນແນວໃດ?</string>
+  <string name="pointsCalculationA">ຊະນະໄດ້ 1 ຄະແນນ, ສະເໝີໄດ້ 0.5 ຄະແນນ ແລະ ເສຍໄດ້ 0 ຄະແນນ.
+ຫາກຜູ້ຫຼິ້ນບໍ່ສາມາດຈັບຄູ່ໄດ້ໃນຮອບນັ້ນ, ພວກເຂົາຈະໄດ້ຮັບບາຍ (Bye) ເຊິ່ງມີຄ່າ 1 ຄະແນນ.</string>
+  <string name="tiebreaksCalculationQ">ຄິດໄລ່ຄະແນນຕັດສິນ (Tie Break) ແນວໃດ?</string>
+  <string name="sonnebornBergerScore">ຄະແນນ Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA">ໃຊ້ລະບົບ %s.
+ໂດຍການລວມຄະແນນຂອງຄູ່ຕໍ່ສູ້ທຸກຄົນທີ່ຜູ້ຫຼິ້ນຊະນະ ແລະ ບວກກັບເຄິ່ງໜຶ່ງຂອງຄະແນນຂອງຄູ່ຕໍ່ສູ້ທຸກຄົນທີ່ຜູ້ຫຼິ້ນສະເໝີນຳ.</string>
+  <string name="pairingsQ">ການຈັບຄູ່ຖືກຕັດສິນແນວໃດ?</string>
+  <string name="dutchSystem">ລະບົບດັດ (Dutch system)</string>
+  <string name="FIDEHandbook">ຄູ່ມື FIDE</string>
+  <string name="pairingsA">ໃຊ້ %1$s, ເຊິ່ງຈັດການໂດຍ %2$s, ຕາມຂໍ້ກຳນົດຂອງ %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">ຈະເກີດຫຍັງຂຶ້ນຫາກການແຂ່ງຂັນມີຈຳນວນຮອບຫຼາຍກວ່າຜູ້ຫຼິ້ນ?</string>
+  <string name="moreRoundsThanPlayersA">ເມື່ອການຈັບຄູ່ທີ່ເປັນໄປໄດ້ທັງໝົດໄດ້ຫຼິ້ນສຳເລັດແລ້ວ, ການແຂ່ງຂັນຈະສິ້ນສຸດລົງ ແລະ ປະກາດຜູ້ຊະນະ.</string>
+  <string name="restrictedToTeamsQ">ເປັນຫຍັງຈຶ່ງຈຳກັດສະເພາະທີມ?</string>
+  <string name="restrictedToTeamsA">ການແຂ່ງຂັນແບບສະວິດບໍ່ໄດ້ຖືກອອກແບບມາສຳລັບໝາກຮຸກອອນລາຍ. ມັນຕ້ອງການຄວາມກົງຕໍ່ເວລາ, ຄວາມຕັ້ງໃຈ ແລະ ຄວາມອົດທົນຈາກຜູ້ຫຼິ້ນ.
+ພວກເຮົາຄິດວ່າເງື່ອນໄຂເຫຼົ່ານີ້ມີໂອກາດທີ່ຈະປະສົບຜົນສຳເລັດພາຍໃນທີມຫຼາຍກວ່າການແຂ່ງຂັນແບບທົ່ວໄປ.</string>
+  <string name="numberOfByesQ">ຜູ້ຫຼິ້ນສາມາດໄດ້ຮັບບາຍ (Bye) ຈັກຄັ້ງ?</string>
+  <string name="numberOfByesA">ຜູ້ຫຼິ້ນຈະໄດ້ຮັບບາຍ 1 ຄະແນນ ທຸກຄັ້ງທີ່ລະບົບບໍ່ສາມາດຈັບຄູ່ໃຫ້ພວກເຂົາໄດ້.
+ນອກຈາກນັ້ນ, ຈະໄດ້ຮັບບາຍ 0.5 ຄະແນນພຽງຄັ້ງດຽວ ຫາກຜູ້ຫຼິ້ນເຂົ້າຮ່ວມການແຂ່ງຂັນຊ້າ.</string>
+  <string name="earlyDrawsQ">ຈະເກີດຫຍັງຂຶ້ນກັບການສະເໝີກັນໄວເກີນໄປ?</string>
+  <string name="earlyDrawsAnswer">ໃນເກມແບບສະວິດ, ຜູ້ຫຼິ້ນບໍ່ສາມາດສະເໝີກັນໄດ້ກ່ອນທີ່ຈະເດີນໝາກຄົບ 30 ຕາ. ເຖິງວ່າວິທີນີ້ຈະບໍ່ສາມາດປ້ອງກັນການຕົກລົງສະເໝີກັນລ່ວງໜ້າໄດ້ທັງໝົດ, ແຕ່ຢ່າງໜ້ອຍມັນກໍເຮັດໃຫ້ການຕົກລົງສະເໝີກັນໃນທັນທີນັ້ນຍາກຂຶ້ນ.</string>
+  <string name="whatIfOneDoesntPlayQ">ຈະເກີດຫຍັງຂຶ້ນຫາກຜູ້ຫຼິ້ນບໍ່ຫຼິ້ນເກມ?</string>
+  <string name="whatIfOneDoesntPlayA">ເວລາຂອງພວກເຂົາຈະຍ່າງໄປເລື້ອຍໆຈົນໝົດເວລາ ແລະ ເສຍເກມນັ້ນ.
+ຈາກນັ້ນ ລະບົບຈະຖອນຜູ້ຫຼິ້ນອອກຈາກການແຂ່ງຂັນ ເພື່ອບໍ່ໃຫ້ພວກເຂົາເສຍເກມຕໍ່ໄປອີກ.
+ພວກເຂົາສາມາດກັບເຂົ້າຮ່ວມການແຂ່ງຂັນຄືນໄດ້ທຸກເວລາ.</string>
+  <string name="protectionAgainstNoShowQ">ມີມາດຕະການແນວໃດສຳລັບຄົນທີ່ບໍ່ມາປາກົດຕົວ?</string>
+  <string name="protectionAgainstNoShowA">ຜູ້ຫຼິ້ນທີ່ລົງທະບຽນແຂ່ງຂັນແບບສະວິດ ແຕ່ບໍ່ມາຫຼິ້ນເກມອາດສ້າງບັນຫາໄດ້.
+ເພື່ອຫຼຸດຜ່ອນບັນຫານີ້, Lichess ຈະຫ້າມຜູ້ຫຼິ້ນທີ່ບໍ່ຫຼິ້ນເກມເຂົ້າຮ່ວມການແຂ່ງຂັນສະວິດໃໝ່ໃນໄລຍະເວລາໃດໜຶ່ງ.
+ຢ່າງໃດກໍຕາມ, ຜູ້ສ້າງການແຂ່ງຂັນສາມາດຕັດສິນໃຈອະນຸຍາດໃຫ້ພວກເຂົາເຂົ້າຮ່ວມໄດ້.</string>
+  <string name="lateJoinQ">ຜູ້ຫຼິ້ນສາມາດເຂົ້າຮ່ວມພາຍຫຼັງໄດ້ບໍ່?</string>
+  <string name="lateJoinA">ໄດ້, ຈົນກວ່າຈະເລີ່ມເກີນເຄິ່ງໜຶ່ງຂອງຈຳນວນຮອບ; ຕົວຢ່າງ: ໃນການແຂ່ງຂັນສະວິດ 11 ຮອບ, ຜູ້ຫຼິ້ນສາມາດເຂົ້າຮ່ວມໄດ້ກ່ອນຮອບທີ 6 ຈະເລີ່ມ.
+ຜູ້ທີ່ເຂົ້າຮ່ວມຊ້າຈະໄດ້ຮັບບາຍພຽງຄັ້ງດຽວ ເຖິງວ່າຈະຂາດໄປຫຼາຍຮອບກໍຕາມ.</string>
+  <string name="willSwissReplaceArenasQ">ການແຂ່ງຂັນແບບສະວິດຈະມາແທນທີ່ແບບອາຣີນາບໍ່?</string>
+  <string name="willSwissReplaceArenasA">ບໍ່, ພວກມັນແມ່ນຟີເຈີທີ່ສົ່ງເສີມເຊິ່ງກັນ ແລະ ກັນ.</string>
+  <string name="roundRobinQ">ແລ້ວລະບົບພົບກັນໝົດ (Round Robin) ເດ?</string>
+  <string name="roundRobinA">ພວກເຮົາຢາກເພີ່ມມັນເຂົ້າໄປ, ແຕ່ໂຊກຮ້າຍທີ່ລະບົບພົບກັນໝົດ (Round Robin) ບໍ່ເໝາະສົມສຳລັບອອນລາຍ.
+ເຫດຜົນແມ່ນຍ້ອນບໍ່ມີວິທີທີ່ຍຸຕິທຳໃນການຈັດການກັບຜູ້ຫຼິ້ນທີ່ອອກຈາກການແຂ່ງຂັນກ່ອນກຳນົດ. ພວກເຮົາບໍ່ສາມາດຄາດຫວັງໃຫ້ທຸກຄົນຫຼິ້ນຄົບທຸກເກມໃນການແຂ່ງຂັນອອນລາຍໄດ້. ຫາກມັນບໍ່ເກີດຂຶ້ນ, ການແຂ່ງຂັນກໍຈະບໍ່ຍຸຕິທຳ.
+ສິ່ງທີ່ໃກ້ຄຽງທີ່ສຸດກັບລະບົບພົບກັນໝົດຄືການຫຼິ້ນແບບສະວິດທີ່ມີຈຳນວນຮອບຫຼາຍໆ.</string>
+  <string name="otherSystemsQ">ແລ້ວລະບົບການແຂ່ງຂັນອື່ນໆເດ?</string>
+  <string name="otherSystemsA">ພວກເຮົາບໍ່ທັນມີແຜນທີ່ຈະເພີ່ມລະບົບການແຂ່ງຂັນອື່ນໆເຂົ້າໃນ Lichess ໃນເວລານີ້.</string>
+  <string name="swissDescription">ໃນການແຂ່ງຂັນແບບສະວິດ %1$s, ຜູ້ແຂ່ງຂັນບໍ່ຈຳເປັນຕ້ອງຫຼິ້ນກັບທຸກຄົນ. ຜູ້ແຂ່ງຂັນຈະພົບກັນແບບຕົວຕໍ່ຕົວໃນແຕ່ລະຮອບ ໂດຍການຈັບຄູ່ຕາມກົດທີ່ອອກແບບມາເພື່ອໃຫ້ແຕ່ລະຄົນພົບກັບຄູ່ຕໍ່ສູ້ທີ່ມີຄະແນນໃກ້ຄຽງກັນ, ແຕ່ຈະບໍ່ພົບກັບຄົນເດີມຊ້ຳ. ຜູ້ຊະນະຄືຜູ້ທີ່ໄດ້ຄະແນນລວມສູງສຸດຈາກທຸກຮອບ. ຜູ້ແຂ່ງຂັນທຸກຄົນຈະໄດ້ຫຼິ້ນໃນແຕ່ລະຮອບ ຍົກເວັ້ນກໍລະນີທີ່ມີຈຳນວນຜູ້ຫຼິ້ນເປັນເລກຄີກ.</string>
+  <string name="teamOnly">ການແຂ່ງຂັນແບບສະວິດສາມາດສ້າງໄດ້ໂດຍຫົວໜ້າທີມເທົ່ານັ້ນ ແລະ ຫຼິ້ນໄດ້ສະເພາະສະມາຊິກໃນທີມ.
+%1$s ເພື່ອເລີ່ມຫຼິ້ນໃນການແຂ່ງຂັນແບບສະວິດ.</string>
+  <string name="joinOrCreateTeam">ເຂົ້າຮ່ວມ ຫຼື ສ້າງທີມ</string>
+  <string name="nowPlaying">ກຳລັງຫຼິ້ນ</string>
+  <string name="startingSoon">ກຳລັງຈະເລີ່ມຕົ້ນ</string>
+  <string name="comparison">ການປຽບທຽບ</string>
+  <string name="tournDuration">ໄລຍະເວລາຂອງການແຂ່ງຂັນ</string>
+  <string name="predefinedDuration">ກຳນົດໄລຍະເວລາເປັນນາທີ</string>
+  <string name="durationUnknown">ກຳນົດຈຳນວນຮອບສູງສຸດ ແຕ່ບໍ່ຊາບໄລຍະເວລາ</string>
+  <string name="numberOfGames">ຈຳນວນເກມ</string>
+  <string name="numberOfGamesAsManyAsPossible">ຫຼິ້ນໃຫ້ໄດ້ຫຼາຍທີ່ສຸດເທົ່າທີ່ຈະເຮັດໄດ້ໃນໄລຍະເວລາທີ່ກຳນົດ</string>
+  <string name="numberOfGamesPreDefined">ກຳນົດໄວ້ລ່ວງໜ້າ ຄືກັນສຳລັບຜູ້ຫຼິ້ນທຸກຄົນ</string>
+  <string name="pairingSystem">ລະບົບການຈັບຄູ່</string>
+  <string name="pairingSystemArena">ຄູ່ຕໍ່ສູ້ທີ່ວ່າງທີ່ມີລະດັບຄະແນນໃກ້ຄຽງກັນ</string>
+  <string name="pairingSystemSwiss">ການຈັບຄູ່ທີ່ດີທີ່ສຸດໂດຍອີງຕາມຄະແນນ ແລະ ຄະແນນຕັດສິນ</string>
+  <string name="pairingWaitTime">ເວລາລໍຖ້າການຈັບຄູ່</string>
+  <string name="pairingWaitTimeArena">ໄວ: ບໍ່ລໍຖ້າຜູ້ຫຼິ້ນທຸກຄົນ</string>
+  <string name="pairingWaitTimeSwiss">ຊ້າ: ລໍຖ້າຜູ້ຫຼິ້ນທຸກຄົນ</string>
+  <string name="identicalPairing">ການຈັບຄູ່ກັບຄົນເດີມ</string>
+  <string name="possibleButNotConsecutive">ເປັນໄປໄດ້ ແຕ່ບໍ່ແມ່ນຕິດຕໍ່ກັນ</string>
+  <string name="identicalForbidden">ຫ້າມ</string>
+  <string name="lateJoin">ເຂົ້າຮ່ວມພາຍຫຼັງ</string>
+  <string name="lateJoinUntil">ໄດ້ ຈົນກວ່າຈະເລີ່ມເກີນເຄິ່ງໜຶ່ງຂອງຈຳນວນຮອບ</string>
+  <string name="pause">ພັກ</string>
+  <string name="pauseSwiss">ໄດ້ ແຕ່ອາດຈະຫຼຸດຈຳນວນຮອບລົງ</string>
+  <string name="streaksAndBerserk">ການຊະນະຕິດຕໍ່ກັນ ແລະ ເບີເຊີກ (Berserk)</string>
+  <string name="similarToOTB">ຄ້າຍຄືກັບການແຂ່ງຂັນໃນກະດານຈິງ (OTB)</string>
+  <string name="unlimitedAndFree">ບໍ່ຈຳກັດ ແລະ ຟຣີ</string>
+  <string name="predefinedUsers">ອະນຸຍາດສະເພາະຜູ້ໃຊ້ທີ່ກຳນົດໄວ້ເຂົ້າຮ່ວມ</string>
+  <string name="forbiddedUsers">ຫາກລາຍຊື່ນີ້ມີຂໍ້ມູນ, ຜູ້ໃຊ້ທີ່ບໍ່ມີໃນລາຍຊື່ຈະຖືກຫ້າມເຂົ້າຮ່ວມ. ໜຶ່ງຊື່ຜູ້ໃຊ້ຕໍ່ແຖວ.</string>
+  <string name="playYourGames">ຫຼິ້ນເກມຂອງທ່ານ</string>
+  <string name="byes">ບາຍ (Byes)</string>
+  <string name="absences">ການຂາດ</string>
+  <string name="tieBreak">ຄະແນນຕັດສິນ (Tie Break)</string>
+</resources>

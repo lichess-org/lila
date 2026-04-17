@@ -10,6 +10,7 @@
 
   #{$moves-tag} {
     @include prevent-select;
+
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -21,10 +22,6 @@
     will-change: scroll-position;
     line-height: 1.7;
     font-size: 1.1em;
-
-    &::-webkit-scrollbar {
-      width: 0px;
-    }
   }
 
   #{$index-tag} {

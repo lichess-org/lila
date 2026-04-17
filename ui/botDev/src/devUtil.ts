@@ -1,9 +1,11 @@
 import * as co from 'chessops';
-import * as licon from 'lib/licon';
-import type { BotInfo } from 'lib/bot/types';
+
 import { frag } from 'lib';
-import type { NumberInfo, RangeInfo } from './devTypes';
+import type { BotInfo } from 'lib/bot/types';
+import * as licon from 'lib/licon';
+
 import type { Result } from './devCtrl';
+import type { NumberInfo, RangeInfo } from './devTypes';
 
 type ObjectPath = { obj: any; path: { keys: string[] } | { id: string } };
 
@@ -90,7 +92,7 @@ function pathToKeys({ path, obj }: ObjectPath): string[] {
   return keys[0] in obj ? keys : keys.slice(1);
 }
 
-export const rangeTicks: { [type: string]: [number, string][] } = {
+export const rangeTicks: Record<string, [number, string][]> = {
   initial: [
     [15, '15 seconds'],
     [30, '30 seconds'],

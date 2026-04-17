@@ -148,6 +148,8 @@ object Chapter:
     def secondsSinceLastMove: Option[Int] = lastMoveAt.map: at =>
       (nowSeconds - at.toSeconds).toInt
 
+  def relayInit = Relay(UciPath.root, none, none)
+
   case class ServerEval(path: UciPath, done: Boolean)
 
   type BothClocks = ByColor[Option[Centis]]
@@ -162,9 +164,6 @@ object Chapter:
   case class IdName(@Key("_id") id: StudyChapterId, name: StudyChapterName)
 
   def defaultName(order: Order) = StudyChapterName(s"Chapter $order")
-
-  private val defaultNameRegex = """Chapter \d+""".r
-  def isDefaultName(n: StudyChapterName) = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value).take(80))
 

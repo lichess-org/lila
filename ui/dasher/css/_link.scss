@@ -8,7 +8,6 @@
   .links button,
   .subs .sub {
     @extend %nowrap-hidden;
-    @extend %button-none;
 
     display: block;
     padding: 0.5rem 1rem;
@@ -24,9 +23,11 @@
 
   .links .line {
     width: auto;
+
     &::before {
       display: inline-block;
       margin-inline: 0 0.4em;
+
       @include if-rtl {
         transform: scaleX(-1);
       }
@@ -50,8 +51,6 @@
   .links button {
     width: 100%;
     text-align: start;
-    border: 0;
-    background: none;
   }
 
   .subs:not(:first-child) {

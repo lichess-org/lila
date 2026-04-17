@@ -27,7 +27,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
             )
           },
           s.student.archived.map: archived =>
-            div(cls := "student-show__archived archived")(
+            div(cls := "student-show__archived")(
               clasUi.showArchived(archived),
               div(cls := "student-show__archived__actions")(
                 postForm(action := routes.Clas.studentArchive(clas.id, s.user.username, v = false)):

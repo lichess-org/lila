@@ -1,9 +1,9 @@
 #announce {
   @extend %flex-between, %popup-shadow;
+  @include inline-start(0);
 
   position: fixed;
   bottom: 0;
-  @include inline-start(0);
   font-size: 1.4em;
   background: $c-primary;
   color: $c-over;

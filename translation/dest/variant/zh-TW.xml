@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="standard">标准</string>
+  <string name="standardTitle">標準西洋棋規則</string>
+</resources>

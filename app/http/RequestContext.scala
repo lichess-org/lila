@@ -65,7 +65,7 @@ trait RequestContext(using Executor):
             teamNbRequests,
             nbChallenges,
             nbNotifications,
-            hasClas = env.clas.hasClas,
+            seesClassMenu = env.clas.seesClassMenu,
             inquiry = inquiry,
             nonce = nonce
           )
@@ -82,7 +82,7 @@ trait RequestContext(using Executor):
     env.security.api
       .restoreUser(req)
       .map:
-        case Some(Left(AppealUser(me))) if HTTPRequest.isClosedLoginPath(req) =>
+        case Some(Left(AppealUser(me))) if lila.web.ClosedLogin.acceptsPath(req) =>
           FingerPrintedUser(me, true).some
         case Some(Right(d)) if !env.mode.isProd =>
           d.copy(me = d.me.map:

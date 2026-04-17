@@ -6,7 +6,7 @@
   <string name="progressX">ಪ್ರಗತಿ: %s</string>
   <string name="resetMyProgress">ನನ್ನ ಪ್ರಗತಿಯನ್ನು ಮರುಹೊಂದಿಸಿ</string>
   <string name="youWillLoseAllYourProgress">ನಿಮ್ಮ ಎಲ್ಲಾ ಪ್ರಗತಿಯನ್ನು ನೀವು ಕಳೆದುಕೊಳ್ಳುತ್ತೀರಿ!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ಆಟವಾಡಿ!</string>
+  <string name="play">ಆಟವಾಡಿ!</string>
   <string name="chessPieces">ಚೆಸ್ ತುಣುಕುಗಳು</string>
   <string name="theRook">ರೂಕ್</string>
   <string name="itMovesInStraightLines">ಇದು ನೇರ ರೇಖೆಗಳಲ್ಲಿ ಚಲಿಸುತ್ತದೆ</string>
@@ -155,7 +155,6 @@
   <string name="findAWayToCastleQueenSide">ಒಂದು ಮಾರ್ಗವನ್ನು ಕಂಡುಕೊಳ್ಳಿ
 ಕೋಟೆಯು ರಾಣಿಯ ಬದಿ!</string>
   <string name="castlingComplete">ಅಭಿನಂದನೆಗಳು! ನೀವು ಯಾವಾಗಲೂ ಆಟದಲ್ಲಿ ಕೋಟೆಯಾಗಿರಬೇಕು.</string>
-  <string name="enPassant">ಎನ್ ಪಾಸಂಟ್</string>
   <string name="theSpecialPawnMove">ವಿಶೇಷ ಪ್ಯಾದೆಯ ಚಲನೆ</string>
   <string name="enPassantIntro">ಎದುರಾಳಿಯ ಪ್ಯಾದೆಯು ಎರಡು ಚೌಕಗಳಿಂದ ಚಲಿಸಿದಾಗ, ಅದು ಒಂದು ಚೌಕದಿಂದ ಚಲಿಸಿದರೆ ನೀವು ಅದನ್ನು ತೆಗೆದುಕೊಳ್ಳಬಹುದು.</string>
   <string name="blackJustMovedThePawnByTwoSquares">ಕಪ್ಪು ಕೇವಲ ಎರಡು ಚೌಕಗಳಿಂದ ಪ್ಯಾದೆಯನ್ನು ಸರಿಸಲಾಗಿದೆ! ಎನ್ ಪಾಸ್ಟ್ ತೆಗೆದುಕೊಳ್ಳಿ.</string>

@@ -1,6 +1,7 @@
 import { hl, type VNode } from '@/view';
-import { option } from '../option';
+
 import { colors, type ColorChoice, type ColorProp } from '../color';
+import { option } from '../option';
 
 export const blindModeColorPicker = (colorProp: ColorProp): VNode[] => [
   hl('label', { attrs: { for: 'sf_color' } }, i18n.site.side),
@@ -16,20 +17,21 @@ export const blindModeColorPicker = (colorProp: ColorProp): VNode[] => [
 ];
 
 export const colorButtons = (colorProp: ColorProp): VNode =>
-  hl('div.radio-pane', [
-    i18n.site.youPlayAs,
+  hl('div.config-group', [
+    hl('div.label', i18n.site.side),
     hl(
-      'group.radio.color-picker',
-      colors.map(({ key, name }) => [
-        hl(`input#color-picker-${key}`, {
-          attrs: { name: 'color', type: 'radio', value: key, checked: key === colorProp() },
-          on: { change: () => colorProp(key) },
-        }),
-        hl(
-          `label.color-picker__button.${key}`,
-          { attrs: { title: name, for: `color-picker-${key}` } },
-          hl('i'),
-        ),
-      ]),
+      'group.radio.color-picker.color-cards',
+      colors.map(({ key, name }) =>
+        hl('div', [
+          hl(`input#color-picker-${key}`, {
+            attrs: { name: 'color', type: 'radio', value: key, checked: colorProp() === key },
+            on: { change: () => colorProp(key) },
+          }),
+          hl(`label.card-radio`, { attrs: { for: `color-picker-${key}` } }, [
+            hl('div.color-picker__button', { class: { [key]: true } }, hl('i')),
+            hl('span.text', name),
+          ]),
+        ]),
+      ),
     ),
   ]);

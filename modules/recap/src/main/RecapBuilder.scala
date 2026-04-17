@@ -1,6 +1,6 @@
 package lila.recap
 
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.BSONNull
 import chess.ByColor
 import chess.opening.OpeningDb

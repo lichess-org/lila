@@ -2,7 +2,9 @@
 
 import re
 import sys
+import html
 import pathlib
+from html.parser import HTMLParser
 from urllib import parse
 
 # Do not load C implementation, so that we can override some parser methods.
@@ -16,6 +18,41 @@ class AnnotatingParser(ET.XMLParser):
         elem.line = self.parser.CurrentLineNumber
         elem.col = self.parser.CurrentColumnNumber
         return elem
+
+
+DANGEROUS_TAGS = frozenset({
+    "script", "iframe", "object", "embed", "form",
+    "input", "meta", "link", "style",
+    "svg", "math", "use", "animate", "animatetransform", "set",
+    "base", "textarea", "button", "select",
+})
+
+ALLOWED_TAGS = frozenset({
+    "a", "strong", "em", "i", "b", "br", "span",
+    "kbd", "code", "samp",
+})
+
+ALLOWED_A_ATTRS = frozenset({"href", "target", "rel"})
+
+EVENT_HANDLER_RE = re.compile(r"^on[a-z]+$")
+
+DANGEROUS_ATTRS = frozenset({"style", "srcdoc", "formaction", "xlink:href", "action"})
+
+
+class TranslationHTMLParser(HTMLParser):
+    """Collects HTML tags and their attributes from translation string fragments."""
+    def __init__(self):
+        super().__init__(convert_charrefs=False)
+        self.found_tags = []
+
+    def handle_starttag(self, tag, attrs):
+        self.found_tags.append((tag.lower(), dict(attrs)))
+
+    def handle_endtag(self, tag):
+        self.found_tags.append((tag.lower(), {}))
+
+    def handle_startendtag(self, tag, attrs):
+        self.found_tags.append((tag.lower(), dict(attrs)))
 
 
 class Report:
@@ -82,8 +119,16 @@ class ReportContext:
 
 def lint(report, path):
     db = path.parent.name # site, study, ...
-    source = ET.parse(path.parent.parent.parent / "source" / f"{db}.xml", parser=AnnotatingParser()).getroot()
-    root = ET.parse(path, parser=AnnotatingParser()).getroot()
+    is_source = db == "source"
+
+    if is_source:
+        db = path.stem
+        root = ET.parse(path, parser=AnnotatingParser()).getroot()
+        source = root
+    else:
+        source = ET.parse(path.parent.parent.parent / "source" / f"{db}.xml", parser=AnnotatingParser()).getroot()
+        root = ET.parse(path, parser=AnnotatingParser()).getroot()
+
     for el in root:
         name = el.attrib["name"]
         ctx = ReportContext(report, path, el, name, el.text)
@@ -96,7 +141,8 @@ def lint(report, path):
 
         source_el = source.find(f".//{el.tag}[@name='{name}']")
         if source_el is None:
-            ctx.warning(f"Source is missing for {db}")
+            if not is_source:
+                ctx.warning(f"Source is missing for {db}")
         elif el.tag == "string":
             lint_string(ctx, el.text, source_el.text)
         elif el.tag == "plurals":
@@ -107,6 +153,93 @@ def lint(report, path):
                 lint_string(ReportContext(report, path, item, plural_name, item.text), item.text, source_el.find("./item[@quantity='other']").text, allow_missing)
         else:
             ctx.error(f"bad resources tag: {el.tag}")
+
+
+def lint_html(ctx, text):
+    """Validate HTML content embedded in a translation string value."""
+    if not text:
+        return
+
+    unescaped = html.unescape(text)
+    if "<" not in unescaped:
+        return
+
+    parser = TranslationHTMLParser()
+    try:
+        parser.feed(unescaped)
+    except Exception:
+        ctx.warning("malformed HTML in translation string")
+        return
+
+    for tag, attrs in parser.found_tags:
+        if tag in DANGEROUS_TAGS:
+            ctx.error(f"dangerous HTML tag <{tag}>")
+            continue
+
+        allowed = tag in ALLOWED_TAGS
+
+        if not allowed:
+            ctx.warning(f"disallowed HTML tag <{tag}>")
+
+        for attr_name in attrs:
+            if EVENT_HANDLER_RE.match(attr_name):
+                ctx.error(f"event handler attribute '{attr_name}' on <{tag}>")
+            elif attr_name in DANGEROUS_ATTRS:
+                ctx.error(f"dangerous attribute '{attr_name}' on <{tag}>")
+
+        if not allowed:
+            continue
+
+        if tag == "a":
+            for attr_name in attrs:
+                if attr_name not in ALLOWED_A_ATTRS and not EVENT_HANDLER_RE.match(attr_name):
+                    ctx.error(f"disallowed attribute '{attr_name}' on <a>")
+            href = attrs.get("href", "")
+            if href:
+                lint_href(ctx, href)
+        elif attrs:
+            safe_attrs = [k for k in attrs if not EVENT_HANDLER_RE.match(k)]
+            if safe_attrs:
+                ctx.error(f"attributes not allowed on <{tag}>: {', '.join(safe_attrs)}")
+
+
+def lint_href(ctx, href):
+    """Validate an href attribute value on an <a> tag."""
+    stripped = href.strip()
+
+    if "\x00" in stripped or "\n" in stripped or "\t" in stripped or "\r" in stripped:
+        ctx.error("href contains null byte or control character")
+        return
+
+    try:
+        normalized = parse.unquote(stripped).strip().lower()
+    except Exception:
+        normalized = stripped.lower()
+
+    # Strip whitespace that browsers collapse inside scheme names
+    collapsed = re.sub(r"[\s\x00]+", "", normalized)
+
+    if collapsed.startswith("javascript:"):
+        ctx.error("javascript: href")
+        return
+    if collapsed.startswith("data:"):
+        ctx.error("data: href")
+        return
+    if collapsed.startswith("vbscript:"):
+        ctx.error("vbscript: href")
+        return
+
+    if stripped.startswith("/") or stripped.startswith("#"):
+        return
+
+    if stripped.startswith("//") or stripped.startswith("https://"):
+        return
+
+    if stripped.startswith("http://"):
+        ctx.warning("non-HTTPS href (use https:// instead)")
+        return
+
+    ctx.error(f"disallowed href scheme: {stripped}")
 
 
 def lint_string(ctx, dest, source, allow_missing=0):
@@ -177,6 +310,8 @@ def lint_string(ctx, dest, source, allow_missing=0):
 
     if re.search(r"\n{3,}", dest):
         ctx.warning("has more than one successive empty line")
+
+    lint_html(ctx, dest)
 
 
 if __name__ == "__main__":

@@ -39,13 +39,13 @@
   <string name="reportMobileIssue">مشکلِ گوشی‌افزار Lichess در GitHub</string>
   <string name="reportBugInDiscord">در کارسازِ دیسکوردِ Lichess</string>
   <string name="howToReportBug">لطفاً توصیف کنید که نقصان فنی چگونه است، شما انتظار داشتید به جای آن چه اتفاقی رخ می‌داد، و گامهایی که نقصان را مجدداً ایجاد می‌کند را شرح دهید.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">زدنِ غیرقانونیِ سرباز</string>
+  <string name="illegalPawnCapture">زدنِ غیرقانونیِ سرباز</string>
   <string name="calledEnPassant">این حرکت \"en passant\" نامیده می‌شود و یکی از قوانین شطرنج است.</string>
   <string name="tryEnPassant">برای یادگیری بیشتر «گرفتن هنگام عبور»، این بازی میان‌کنشی کوچک را بیازمایید.</string>
   <string name="illegalCastling">قلعه‌روی نامجاز یا ناممکن</string>
   <string name="castlingPrevented">از قلعه‌روی، هنگامی که شاه از خانه‌ی زیرِضرب می‌گذرد، جلوگیری می‌شود.</string>
   <string name="castlingRules">اطمینان یابید که قانون‌های قلعه‌روی را می‌فهمید</string>
-  <string name="tryCastling">برای تمرین قلعه‌روی در شطرنج، این بازی میان‌کنشی را انجام دهید</string>
+  <string name="tryCastling">برای تمرین قلعه‌روی در شطرنج، این بازی تعاملی را انجام دهید</string>
   <string name="castlingImported">اگر بازی را درون‌بُرده‌اید یا آن را از وضعیتی آغازیده‌اید، مطمئن شوید که حق قلعه‌روی را به‌درستی تنظیم کرده‌اید.</string>
   <string name="insufficientMaterial">نبودِ مهره کافی برای مات کردن</string>
   <string name="fideMate">بازگشت به قوانین فیده برای شطرنج بخش 6.9، اگر کیش و مات با هر گونه سلسله حرکتهای قانونی ممکن باشد، آنگاه بازی مساوی نیست</string>

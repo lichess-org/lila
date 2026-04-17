@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="perfStats">%s статистика</string>
+  <string name="perfStats">%s статистике</string>
   <string name="viewTheGames">Погледај партије</string>
-  <string name="provisional">привремени</string>
-  <string name="notEnoughRatedGames">Није одиграно довољно рангираних игара како би се оствари поуздан рејтинг.</string>
-  <string name="progressOverLastXGames">Напредак кроз задњих %s партија:</string>
-  <string name="ratingDeviation">Девијација рејтинга: %s.</string>
+  <string name="provisional">пробни</string>
+  <string name="notEnoughRatedGames">Није одиграно довољно рангираних партија да се успостави поуздан рејтинг.</string>
+  <string name="progressOverLastXGames">Напредак у последњих %s партија:</string>
+  <string name="ratingDeviation">Рејтинг девијација: %s.</string>
   <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Мања вредност значи да је рејтинг стабилнији. Преко %1$s, рејтинг се рачуна као привремени. Да би се урачунала у рејтингу, ова вредност би требала бити испод %2$s (стандардни шах) или %3$s (варијанте).</string>
   <string name="totalGames">Укупно партија</string>
-  <string name="ratedGames">Рангиране партије</string>
-  <string name="tournamentGames">Турнирске партије</string>
-  <string name="timeSpentPlaying">Време проведено у игри</string>
-  <string name="averageOpponent">Просечан противник</string>
-  <string name="victories">Победе</string>
+  <string name="ratedGames">Рангираних партија</string>
+  <string name="tournamentGames">Турнирских партија</string>
+  <string name="berserkedGames">Берсерковане партије</string>
+  <string name="timeSpentPlaying">Време проведено играјући</string>
+  <string name="averageOpponent">Просечни противник</string>
+  <string name="victories">Победа</string>
   <string name="defeats">Пораза</string>
-  <string name="disconnections">Прекидања веза</string>
-  <string name="notEnoughGames">Није одиграно довољно партија</string>
+  <string name="disconnections">Искључења</string>
+  <string name="notEnoughGames">Недовољно партија одиграно</string>
   <string name="highestRating">Највиши рејтинг: %s</string>
   <string name="lowestRating">Најнижи рејтинг: %s</string>
   <string name="fromXToY">од %1$s до %2$s</string>
-  <string name="winningStreak">Низ победа</string>
-  <string name="losingStreak">Низ пораза</string>
+  <string name="winningStreak">Победнички низ</string>
+  <string name="losingStreak">Губитнички низ</string>
   <string name="longestStreak">Најдужи низ: %s</string>
   <string name="currentStreak">Тренутни низ: %s</string>
   <string name="bestRated">Најбоље рангиране победе</string>
   <string name="gamesInARow">Узастопно одиграних партија</string>
-  <string name="lessThanOneHour">Мање од један сат између партија</string>
-  <string name="maxTimePlaying">Највише времена проведено у игри</string>
+  <string name="lessThanOneHour">Мање од једног сата између партија</string>
+  <string name="maxTimePlaying">Максимално време проведено играјући</string>
   <string name="now">сада</string>
 </resources>

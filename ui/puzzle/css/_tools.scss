@@ -13,6 +13,8 @@
 }
 
 .puzzle__moves {
+  @include prevent-select;
+
   flex: 2 1 auto;
   overflow: auto;
   border-bottom: $border;
@@ -136,15 +138,16 @@
     height: $col1-uniboard-controls;
   }
 
-  // height: calc(#{$puzzle-history-height} + #{$puzzle-block-gap});
   .jumps {
     position: relative;
     flex: 1 1 auto;
   }
+
   .board-menu {
     @include mq-at-least-col2 {
+      @include box-radius-top;
+
       bottom: $col3-uniboard-controls;
-      border-radius: $box-radius-size $box-radius-size 0 0;
       border-bottom: 2px solid $c-secondary;
     }
   }

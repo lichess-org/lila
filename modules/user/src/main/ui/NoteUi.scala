@@ -44,7 +44,7 @@ final class NoteUi(helpers: Helpers)(using NetDomain):
           userIdLink(note.from.some),
           br,
           note.dox.option("dox "),
-          if Granter.opt(_.ModNote) then momentFromNowServer(note.date)
+          if Granter.opt(_.ModNote) then pastMomentServer(note.date)
           else momentFromNow(note.date),
           (ctx.me.exists(note.isFrom) && !note.mod).option(
             frag(

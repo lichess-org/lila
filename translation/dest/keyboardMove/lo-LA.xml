@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="keyboardInputCommands">ຄຳສັ່ງປ້ອນຂໍ້ມູນຜ່ານຄີບອດ</string>
+  <string name="performAMove">ເດີນໝາກ</string>
+  <string name="movePieceFromE2ToE4">ເດີນໝາກຈາກ e2 ໄປ e4</string>
+  <string name="moveKnightToC3">ເດີນມ້າໄປ c3</string>
+  <string name="kingsideCastle">ເຂົ້າປ້ອມຝັ່ງຄິງ</string>
+  <string name="queensideCastle">ເຂົ້າປ້ອມຝັ່ງຄວີນ</string>
+  <string name="promoteC8ToQueen">ປ່ຽນ c8 ເປັນຄວີນ</string>
+  <string name="dropARookAtB4">ວາງເຮືອທີ່ b4 (ສະເພາະຮູບແບບ Crazyhouse)</string>
+  <string name="offerOrAcceptDraw">ສະເໜີ ຫຼື ຕົກລົງສະເໝີ</string>
+  <string name="readOutClocks">ອ່ານເວລາໂມງ</string>
+  <string name="readOutOpponentName">ອ່ານຊື່ຄູ່ຕໍ່ສູ້</string>
+  <string name="otherCommands">ຄຳສັ່ງອື່ນໆ</string>
+  <string name="tips">ຄຳແນະນຳ</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">ຫາກທ່ານບໍ່ຄຸ້ນເຄີຍກັບສັນຍະລັກການເດີນໝາກຂ້າງເທິງ, ສາມາດຮຽນຮູ້ເພີ່ມເຕີມໄດ້ທີ່ນີ້:</string>
+  <string name="includingAXToIndicateACapture">ການໃສ່ \"x\" ເພື່ອບົ່ງບອກການກິນໝາກແມ່ນບໍ່ບັງຄັບ</string>
+  <string name="bothTheLetterOAndTheDigitZero">ສາມາດໃຊ້ໄດ້ທັງຕົວອັກສອນ \"o\" ແລະ ເລກສູນ \"0\" ໃນເວລາເຂົ້າປ້ອມ</string>
+  <string name="ifItIsLegalToCastleBothWays">ຫາກສາມາດເຂົ້າປ້ອມໄດ້ທັງສອງທາງ, ໃຫ້ກົດ enter ເພື່ອເຂົ້າປ້ອມຝັ່ງຄິງ</string>
+  <string name="capitalizationOnlyMattersInAmbiguousSituations">ການໃຊ້ຕົວພິມໃຫຍ່-ນ້ອຍ ຈະມີຜົນກໍຕໍ່ເມື່ອມີຄວາມກຳກວມລະຫວ່າງ ບິຊັອບ (B) ແລະ ເບ້ແຖວ b</string>
+  <string name="toPremoveSimplyTypeTheDesiredPremove">ເພື່ອເດີນໝາກລ່ວງໜ້າ (premove), ພຽງແຕ່ພິມຕາເດີນທີ່ຕ້ອງການກ່ອນຈະຮອດຮອບຂອງທ່ານ</string>
+</resources>

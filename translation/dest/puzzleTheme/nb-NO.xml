@@ -26,12 +26,14 @@
   <string name="castlingDescription">Få kongen i sikkerhet og gjør tårnet klart for angrep.</string>
   <string name="capturingDefender">Slå forsvareren</string>
   <string name="capturingDefenderDescription">Ta en brikke som gir avgjørende dekning for en annen brikke, slik at den nå udekkede brikken kan slås senere.</string>
+  <string name="collinearMove">Kollineært trekk</string>
+  <string name="collinearMoveDescription">To brikker truer hverandre, og én av dem flytter langs angrepslinjen uten å slå.</string>
   <string name="cornerMate">Hjørnematt</string>
   <string name="cornerMateDescription">Press kongen inn i hjørnet ved hjelp av tårn eller dronning, og la springer sette matt.</string>
   <string name="crushing">Knusende</string>
   <string name="crushingDescription">Oppdag motstanderens bukk og oppnå en knusende fordel. (eval ≥ 600cp)</string>
-  <string name="discoveredCheck" comment="Description (translatable separately):&#10;&#10;Move a piece to reveal a check from a hidden attacking piece, which often leads to a decisive advantage.">Avdekkersjakk</string>
-  <string name="discoveredCheckDescription" comment="Description for the &quot;Discovered check&quot; puzzle theme.">Flytt en brikke for å avsløre sjakk fra en skjult angriper, noe som ofte gir en avgjørende fordel.</string>
+  <string name="discoveredCheck">Avdekkersjakk</string>
+  <string name="discoveredCheckDescription">Flytt en brikke for å avsløre sjakk fra en skjult angriper, noe som ofte gir en avgjørende fordel.</string>
   <string name="doubleBishopMate">Dobbeltløpermatt</string>
   <string name="doubleBishopMateDescription">To angripende løpere på tilstøtende diagonaler setter matt, da kongen er blokkert av egne brikker.</string>
   <string name="dovetailMate">Halematt</string>
@@ -53,6 +55,8 @@
   <string name="endgame">Sluttspill</string>
   <string name="endgameDescription">En taktikk i den siste fasen av partiet.</string>
   <string name="enPassantDescription">En taktikk som utnytter en passant-regelen, der en bonde kan slå en motstanderbonde som har passert den ved å flytte to felt.</string>
+  <string name="epauletteMate">Epålettmatt</string>
+  <string name="epauletteMateDescription">Kongens to fluktfelter er opptatt av andre brikker.</string>
   <string name="exposedKing">Utsatt konge</string>
   <string name="exposedKingDescription">En taktikk som utnytter en konge med få forsvarsbrikker rundt seg, noe som ofte leder til sjakk matt.</string>
   <string name="fork">Gaffel</string>
@@ -67,6 +71,12 @@
   <string name="intermezzoDescription">I stedet for å foreta det forventede trekket utføres først et annet trekk som utgjør en umiddelbar trussel, som motstanderen må svare på.</string>
   <string name="killBoxMate">Kassematt</string>
   <string name="killBoxMateDescription">Et tårn står ved siden av motstanderens konge og er støttet av en dronning som også blokkerer kongens fluktfelter. Tårnet og dronningen fanger motstanderens konge i en 3x3 «kasse».</string>
+  <string name="pillsburysMate">Pillsburys matt</string>
+  <string name="pillsburysMateDescription">Tårnet setter matt, mens løperen sperrer.</string>
+  <string name="morphysMate">Morphys matt</string>
+  <string name="morphysMateDescription">Løperen setter matt, mens tårnet sperrer.</string>
+  <string name="swallowstailMate">Svalehalematt</string>
+  <string name="swallowstailMateDescription">Et mattmønster som visuelt ligner halen til en svale, med en form som minner om en V.</string>
   <string name="triangleMate">Trekantmatt</string>
   <string name="triangleMateDescription">Dronning og tårn, på tilstøtende felt til motstanderens konge, står på samme rad eller linje med ett felt mellom seg, slik at de tre brikkene danner en trekant.</string>
   <string name="vukovicMate">Vuković-matt</string>
@@ -97,6 +107,8 @@
   <string name="oneMoveDescription">En sjakknøtt på bare ett trekk.</string>
   <string name="opening">Åpning</string>
   <string name="openingDescription">En taktikk i den første fasen av partiet.</string>
+  <string name="operaMate">Operamatt</string>
+  <string name="operaMateDescription">Tårn matter, dekket av løper.</string>
   <string name="pawnEndgame">Bondesluttspill</string>
   <string name="pawnEndgameDescription">Et sluttspill med kun bønder.</string>
   <string name="pin">Binding</string>

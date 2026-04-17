@@ -1,5 +1,5 @@
-import relayManager from './relay/relayManagerView';
 import renderPlayerBars from './playerBars';
+import relayManager from './relay/relayManagerView';
 import StudyCtrl from './studyCtrl';
 
 export { relayManager, renderPlayerBars, StudyCtrl };

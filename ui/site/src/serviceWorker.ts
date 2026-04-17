@@ -1,6 +1,7 @@
-import { url as assetUrl, jsModule } from './asset';
 import { log } from 'lib/permalog';
 import { storage } from 'lib/storage';
+
+import { url as assetUrl, jsModule } from './asset';
 
 export default async function () {
   if (!('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window)) return;
@@ -8,7 +9,6 @@ export default async function () {
   workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url')!);
   let newSub: PushSubscription | undefined = undefined;
   try {
-    // eslint-disable-next-line compat/compat
     const reg = await navigator.serviceWorker.register(workerUrl.href, { scope: '/', updateViaCache: 'all' });
 
     const store = storage.make('push-subscribed');

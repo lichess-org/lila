@@ -1,25 +1,28 @@
-import * as xhr from './xhr';
-import config from './config';
-import CurrentPuzzle from 'lib/puz/current';
-import sign from 'lib/puz/sign';
 import type { Api as CgApi } from '@lichess-org/chessground/api';
+import { parseUci } from 'chessops/util';
+
+import { prop, type Prop } from 'lib';
+import type { WithGround } from 'lib/game/ground';
+import { PromotionCtrl } from 'lib/game/promotion';
+import { pubsub } from 'lib/pubsub';
 import { Clock } from 'lib/puz/clock';
 import { Combo } from 'lib/puz/combo';
-import { getNow, puzzlePov, sound } from 'lib/puz/util';
-import { makeCgOpts } from 'lib/puz/run';
-import { parseUci } from 'chessops/util';
-import { PromotionCtrl } from 'lib/game/promotion';
-import { prop, type Prop } from 'lib';
-import type { PuzCtrl, Run } from 'lib/puz/interfaces';
+import CurrentPuzzle from 'lib/puz/current';
 import { PuzFilters } from 'lib/puz/filters';
-import type { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
+import type { PuzCtrl, Run } from 'lib/puz/interfaces';
+import { makeCgOpts } from 'lib/puz/run';
+import sign from 'lib/puz/sign';
+import { getNow, puzzlePov, sound } from 'lib/puz/util';
 import { storage } from 'lib/storage';
-import { pubsub } from 'lib/pubsub';
-import type { WithGround } from 'lib/game/ground';
+import { toggleZenMode } from 'lib/view/zen';
+
+import config from './config';
+import type { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
+import * as xhr from './xhr';
 
 export default class StormCtrl implements PuzCtrl {
-  private data: StormData;
-  private redraw: () => void;
+  private readonly data: StormData;
+  private readonly redraw: () => void;
   pref: StormPrefs;
   run: Run;
   vm: StormVm;
@@ -63,13 +66,7 @@ export default class StormCtrl implements PuzCtrl {
         this.redraw();
       }
     }, config.timeToStart + 1000);
-    pubsub.on('zen', () => {
-      const zen = $('body').toggleClass('zen').hasClass('zen');
-      window.dispatchEvent(new Event('resize'));
-      if (!$('body').hasClass('zen-auto')) {
-        xhr.setZen(zen);
-      }
-    });
+    pubsub.on('zen', toggleZenMode);
     $('#zentog').on('click', this.toggleZen);
     this.run.current.playSound();
   }
@@ -98,7 +95,7 @@ export default class StormCtrl implements PuzCtrl {
     if (!this.promotion.start(orig, dest, { submit: this.playUserMove })) this.playUserMove(orig, dest);
   };
 
-  playUserMove = (orig: Key, dest: Key, promotion?: Role): any => {
+  playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
     const now = getNow();
     const puzzle = this.run.current;
     if (puzzle.startAt + config.minFirstMoveTime > now) console.log('reverted!');
@@ -152,17 +149,17 @@ export default class StormCtrl implements PuzCtrl {
     pubsub.emit('ply', this.run.moves);
   };
 
-  private redrawQuick = () => setTimeout(this.redraw, 100);
-  private redrawSlow = () => setTimeout(this.redraw, 1000);
+  private readonly redrawQuick = () => setTimeout(this.redraw, 100);
+  private readonly redrawSlow = () => setTimeout(this.redraw, 1000);
 
-  private pushToHistory = (win: boolean) =>
+  private readonly pushToHistory = (win: boolean) =>
     this.run.history.push({
       puzzle: this.run.current.puzzle,
       win,
       millis: this.run.history.length ? getNow() - this.run.current.startAt : 0, // first one is free
     });
 
-  private incPuzzle = (): boolean => {
+  private readonly incPuzzle = (): boolean => {
     const index = this.run.current.index;
     if (index < this.data.puzzles.length - 1) {
       this.run.current = new CurrentPuzzle(index + 1, this.data.puzzles[index + 1]);
@@ -176,7 +173,8 @@ export default class StormCtrl implements PuzCtrl {
     return g ? f(g) : undefined;
   };
 
-  private setGround = () => this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt, this.flipped)));
+  private readonly setGround = () =>
+    this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt, this.flipped)));
 
   countWins = (): number => this.run.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);
 
@@ -197,7 +195,7 @@ export default class StormCtrl implements PuzCtrl {
     this.redraw();
   };
 
-  private checkDupTab = () => {
+  private readonly checkDupTab = () => {
     const dupTabMsg = storage.make('storm.tab');
     dupTabMsg.fire(this.data.puzzles[0].id);
     dupTabMsg.listen(ev => {
@@ -208,9 +206,9 @@ export default class StormCtrl implements PuzCtrl {
     });
   };
 
-  private toggleZen = () => pubsub.emit('zen');
+  private readonly toggleZen = () => pubsub.emit('zen');
 
-  private hotkeys = () =>
+  private readonly hotkeys = () =>
     site.mousetrap
       .bind('space', () => location.reload())
       .bind('return', this.end)

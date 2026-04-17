@@ -6,7 +6,7 @@
   <string name="progressX">پیشرفت: %s</string>
   <string name="resetMyProgress">پیشروی را از نو می‌آغازم</string>
   <string name="youWillLoseAllYourProgress">پیشروی‌تان صفر خواهد شد!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">بازی کن!</string>
+  <string name="play">بازی کن!</string>
   <string name="chessPieces">مُهره‌های شطرنج</string>
   <string name="theRook">رُخ</string>
   <string name="itMovesInStraightLines">در خط‌های راست حرکت می‌کند</string>
@@ -48,7 +48,7 @@
   <string name="itMovesForwardOnly">فقط به جلو حرکت می‌کند</string>
   <string name="pawnIntro">پیاده‌ها ضعیفند، ولی تَوَند فراوانی دارند.</string>
   <string name="pawnsMoveOneSquareOnly">پیاده‌ها فقط یک خانه حرکت می‌کنند.
-اما وقتی به سوی دیگر صفحه رسند، مهره‌ی نیرومندتری می‌شوند!</string>
+اما وقتی به سوی دیگرِ تخته رسند، مهره‌ی نیرومندتری می‌شوند!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">بیشتر وقت‌ها ارتقا به وزیر، بهترین است.
 اما گهگاه، یک اسب می‌تواند به درد خورد!</string>
   <string name="pawnsMoveForward">پیاده به جلو حرکت می‌کند،
@@ -111,7 +111,7 @@
 طوری که نتواند دفاع کند!</string>
   <string name="mateInOneComplete">شادباش! اینگونه بازی شطرنج را می‌برید!</string>
   <string name="intermediate">متوسط</string>
-  <string name="boardSetup">بَرپایِشِ صفحه</string>
+  <string name="boardSetup">بَرپایِشِ تخته</string>
   <string name="howTheGameStarts">بازی چگونه می‌آغازد</string>
   <string name="boardSetupIntro">دو لشکر باهم رودررو می‌شوند و آماده نبرد هستند.</string>
   <string name="thisIsTheInitialPosition">این وضعیت آغازینِ هر
@@ -129,7 +129,7 @@
 درست در کنار وزیر.</string>
   <string name="pawnsFormTheFrontLine">پیاده‌ها خط جلو را می‌سازند.
 برای ادامه حرکتی کنید.</string>
-  <string name="boardSetupComplete">شادبادش! شما می‌دانید چطور صفحه شطرنج را بچینید.</string>
+  <string name="boardSetupComplete">شادبادش! شما می‌دانید چطور میزِ شطرنج را بچینید.</string>
   <string name="castling">قلعه‌روی</string>
   <string name="theSpecialKingMove">حرکت ویژه شاه</string>
   <string name="castlingIntro">شاه‌تان را جای امنی ببرید و رخ‌تان را برای حمله به پا دارید!</string>
@@ -154,7 +154,6 @@
   <string name="findAWayToCastleQueenSide">برای قلعه‌ی بزرگ
 راهی بیابید!</string>
   <string name="castlingComplete">شادباش! تقریبا همیشه، بهتر است در بازی قلعه روید.</string>
-  <string name="enPassant">گرفتن هنگامِ عبور</string>
   <string name="theSpecialPawnMove">حرکت ویژه پیاده</string>
   <string name="enPassantIntro">هنگامی که پیاده حریف دو خانه حرکت می‌کند، می‌توانید آن را بزنید، مانند آن است که یک خانه رفته است.</string>
   <string name="blackJustMovedThePawnByTwoSquares">سیاه پیاده را

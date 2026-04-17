@@ -42,7 +42,7 @@
     <item quantity="one">%s kez çözüldü</item>
     <item quantity="other">%s kez çözüldü</item>
   </plurals>
-  <string name="fromGameLink">Maçın linki: %s</string>
+  <string name="fromGameLink">%s oyunundan</string>
   <string name="continueTraining">Pratik yapmaya devam et</string>
   <string name="difficultyLevel">Zorluk seviyesi</string>
   <string name="normal">Normal</string>

@@ -1,14 +1,14 @@
-var d = new Date();
+const d = new Date();
 d.setDate(d.getDate() - 1);
 
-var ids = db.game4
+const ids = db.game4
   .find({ t: { $lt: 2 }, ca: { $lt: d } }, { _id: 1 })
   .limit(1000)
   .toArray()
   .map(function (g) {
     return g._id;
   });
-var nb = ids.length;
+const nb = ids.length;
 
 if (nb > 0) {
   print('First ID: ' + ids[0]);

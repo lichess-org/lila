@@ -1,9 +1,10 @@
+import { throttlePromiseDelay } from 'lib/async';
+import { redirectFirst } from 'lib/tournament';
+import { maxPerPage, myPage, pagerData } from 'lib/view/pagination';
+
+import type { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 import { makeSocket, type SwissSocket } from './socket';
 import xhr from './xhr';
-import { throttlePromiseDelay } from 'lib/async';
-import { maxPerPage, myPage, players } from './pagination';
-import type { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
-import { storage } from 'lib/storage';
 
 export default class SwissCtrl {
   data: SwissData;
@@ -16,8 +17,6 @@ export default class SwissCtrl {
   playerInfoId?: string;
   disableClicks = true;
   searching = false;
-
-  private lastStorage = storage.make('last-redirect');
 
   constructor(
     readonly opts: SwissOpts,
@@ -58,27 +57,19 @@ export default class SwissCtrl {
 
   private redirectToMyGame() {
     const gameId = this.myGameId();
-    if (gameId) this.redirectFirst(gameId);
+    if (gameId) redirectFirst(gameId);
   }
 
-  redirectFirst = (gameId: string, rightNow?: boolean) => {
-    const delay = rightNow || document.hasFocus() ? 10 : 1000 + Math.random() * 500;
-    setTimeout(() => {
-      if (this.lastStorage.get() !== gameId) {
-        this.lastStorage.set(gameId);
-        site.redirect('/' + gameId, true);
-      }
-    }, delay);
-  };
-
   scrollToMe = () => this.setPage(myPage(this));
+
+  pager = () => pagerData(this);
 
   loadPage = (data: Standing) => {
     this.pages[data.page] = this.readStanding(data).players;
   };
 
   setPage = (page: number | undefined) => {
-    if (page && page !== this.page && page >= 1 && page <= players(this).nbPages) {
+    if (page && page !== this.page && page >= 1 && page <= this.pager().nbPages) {
       this.page = page;
       xhr.loadPage(this, page);
     }
@@ -108,12 +99,13 @@ export default class SwissCtrl {
   jumpToRank = (rank: number) => {
     const page = 1 + Math.floor((rank - 1) / maxPerPage);
     const row = (rank - 1) % maxPerPage;
-    xhr.loadPage(this, page, () => {
+    xhr.loadPage(this, page).then(() => {
       if (!this.pages[page] || row >= this.pages[page].length) return;
       this.page = page;
       this.searching = false;
       this.focusOnMe = false;
       this.showPlayerInfo(this.pages[page][row]);
+      this.redraw();
     });
   };
 
@@ -124,7 +116,7 @@ export default class SwissCtrl {
 
   userNextPage = () => this.userSetPage(this.page + 1);
   userPrevPage = () => this.userSetPage(this.page - 1);
-  userLastPage = () => this.userSetPage(players(this).nbPages);
+  userLastPage = () => this.userSetPage(this.pager().nbPages);
 
   showPlayerInfo = (player: Player) => {
     this.playerInfoId = this.playerInfoId === player.user.id ? undefined : player.user.id;
@@ -143,7 +135,7 @@ export default class SwissCtrl {
 
   private reloadSoonThrottle: () => void;
 
-  private reloadSoon = () => {
+  private readonly reloadSoon = () => {
     if (!this.reloadSoonThrottle)
       this.reloadSoonThrottle = throttlePromiseDelay(
         () => Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)),
@@ -152,19 +144,19 @@ export default class SwissCtrl {
     this.reloadSoonThrottle();
   };
 
-  private isIn = () => !!this.data.me && !this.data.me.absent;
+  private readonly isIn = () => !!this.data.me && !this.data.me.absent;
 
-  private redrawNbRounds = () =>
+  private readonly redrawNbRounds = () =>
     $('.swiss__meta__round').text(
       i18n.swiss.nbRounds.asArray(this.data.nbRounds, `${this.data.round}/${this.data.nbRounds}`).join(''),
     );
 
-  private readData = (data: SwissData) => ({
+  private readonly readData = (data: SwissData) => ({
     ...data,
     standing: this.readStanding(data.standing),
   });
 
-  private readStanding = (standing: Standing) => ({
+  private readonly readStanding = (standing: Standing) => ({
     ...standing,
     players: standing.players.map(p => ({
       ...p,

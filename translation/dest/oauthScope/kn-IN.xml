@@ -29,7 +29,6 @@
   <string name="botPlay">ಬೋಟ್ API ನೊಂದಿಗೆ ಆಟಗಳನ್ನು ಆಡಿ</string>
   <string name="engineRead">ನಿಮ್ಮ ಬಾಹ್ಯ ಎಂಜಿನ್‌ಗಳನ್ನು ವೀಕ್ಷಿಸಿ ಮತ್ತು ಬಳಸಿ</string>
   <string name="engineWrite">ಬಾಹ್ಯ ಎಂಜಿನ್‌ಗಳನ್ನು ರಚಿಸಿ ಮತ್ತು ನವೀಕರಿಸಿ</string>
-  <string name="webLogin">ದೃಢೀಕರಿಸಿದ ವೆಬ್‌ಸೈಟ್ ಸೆಷನ್‌ಗಳನ್ನು ರಚಿಸಿ (ಪೂರ್ಣ ಪ್ರವೇಶವನ್ನು ನೀಡುತ್ತದೆ!)</string>
   <string name="webMod">ಮಾಡರೇಟರ್ ಪರಿಕರಗಳನ್ನು ಬಳಸಿ (ನಿಮ್ಮ ಅನುಮತಿಯ ಮಿತಿಯೊಳಗೆ)</string>
   <string name="forExample">ಉದಾಹರಣೆಗಾಗಿ: %s</string>
 </resources>

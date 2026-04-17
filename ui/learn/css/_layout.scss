@@ -30,7 +30,7 @@
     grid-template-areas: 'side' 'main';
   }
 
-  grid-gap: $block-gap;
+  gap: $block-gap;
 
   @include mq-at-least-col2 {
     &--run {

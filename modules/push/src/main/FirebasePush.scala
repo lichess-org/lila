@@ -98,12 +98,11 @@ final private class FirebasePush(
                 )
         )
       .flatMap: res =>
-        lila.mon.push.firebaseStatus(res.status).increment()
-        lila.mon.push
-          .firebaseType(data.firebaseMod.fold("both"):
-            case PushApi.Data.FirebaseMod.DataOnly => "data"
-            case PushApi.Data.FirebaseMod.NotifOnly(_) => "notif")
-          .increment()
+        val project = if device.isMobile then "mobileV2" else "lichobile"
+        val dataType = data.firebaseMod.fold("both"):
+          case PushApi.Data.FirebaseMod.DataOnly => "data"
+          case PushApi.Data.FirebaseMod.NotifOnly(_) => "notif"
+        lila.mon.push.firebaseStatus(project, dataType, res.status).increment()
         if res.status == 200 then funit
         else if res.status == 404 then
           logger.info(s"Delete missing firebase device $device")
@@ -123,14 +122,12 @@ private object FirebasePush:
   final class Config(val url: String, val json: lila.core.config.Secret):
     lazy val googleCredentials: Option[GoogleCredentials] =
       try
-        json.value.some
-          .filter(_.nonEmpty)
-          .map: json =>
-            import java.nio.charset.StandardCharsets.UTF_8
-            import scala.jdk.CollectionConverters.*
-            ServiceAccountCredentials
-              .fromStream(new java.io.ByteArrayInputStream(json.getBytes(UTF_8)))
-              .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
+        json.value.nonEmptyOption.map: json =>
+          import java.nio.charset.StandardCharsets.UTF_8
+          import scala.jdk.CollectionConverters.*
+          ServiceAccountCredentials
+            .fromStream(new java.io.ByteArrayInputStream(json.getBytes(UTF_8)))
+            .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
       catch
         case e: Exception =>
           logger.warn("Failed to create google credentials", e)

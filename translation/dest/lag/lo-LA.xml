@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">Lichess ຊ້າບໍ່?</string>
+  <string name="measurementInProgressThreeDot">ກຳລັງວັດແທກ...</string>
+  <string name="noAndYourNetworkIsGood">ບໍ່. ແລະ ເຄືອຂ່າຍຂອງທ່ານດີ.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">ບໍ່. ແລະ ເຄືອຂ່າຍຂອງທ່ານບໍ່ດີ.</string>
+  <string name="yesItWillBeFixedSoon">ແມ່ນແລ້ວ. ມັນຈະຖືກແກ້ໄຂໃນໄວໆນີ້!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">ແລະ ບາດນີ້, ມາເບິ່ງຄຳຕອບແບບລະອຽດ! ຄວາມຊ້າຂອງເກມປະກອບມີສອງຄ່າທີ່ບໍ່ກ່ຽວຂ້ອງກັນ (ຄ່າຍິ່ງຕ່ຳຍິ່ງດີ):</string>
+  <string name="lichessServerLatency">ຄວາມຊ້າຂອງເຊີບເວີ Lichess</string>
+  <string name="lichessServerLatencyExplanation">ເວລາທີ່ໃຊ້ໃນການປະມວນຜົນການເດີນໝາກຢູ່ໃນເຊີບເວີ. ມັນຄືກັນສຳລັບທຸກຄົນ, ແລະ ຂຶ້ນຢູ່ກັບພາລະການເຮັດວຽກຂອງເຊີບເວີເທົ່ານັ້ນ. ຍິ່ງມີຜູ້ຫຼິ້ນຫຼາຍ, ຄ່າກໍຍິ່ງສູງຂຶ້ນ, ແຕ່ຜູ້ພັດທະນາ Lichess ພະຍາຍາມຢ່າງເຕັມທີ່ເພື່ອຮັກສາໃຫ້ມັນຕ່ຳ. ມັນບໍ່ຄ່ອຍເກີນ 10ms.</string>
+  <string name="networkBetweenLichessAndYou">ເຄືອຂ່າຍລະຫວ່າງ Lichess ແລະ ທ່ານ</string>
+  <string name="networkBetweenLichessAndYouExplanation">ເວລາທີ່ໃຊ້ໃນການສົ່ງການເດີນໝາກຈາກຄອມພິວເຕີຂອງທ່ານໄປຫາເຊີບເວີ Lichess, ແລະ ຮັບການຕອບກັບ. ມັນຂຶ້ນຢູ່ກັບໄລຍະຫ່າງຂອງທ່ານຫາ Lichess (ປະເທດຝຣັ່ງ), ແລະ ຄຸນນະພາບຂອງການເຊື່ອມຕໍ່ອິນເຕີເນັດຂອງທ່ານ. ຜູ້ພັດທະນາ Lichess ບໍ່ສາມາດແກ້ໄຂ Wi-Fi ຂອງທ່ານ ຫຼື ເຮັດໃຫ້ແສງເດີນທາງໄວຂຶ້ນໄດ້.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">ທ່ານສາມາດກວດເບິ່ງທັງສອງຄ່ານີ້ໄດ້ທຸກເວລາ, ໂດຍການຄລິກທີ່ຊື່ຜູ້ໃຊ້ຂອງທ່ານຢູ່ແຖບດ້ານເທິງ.</string>
+  <string name="lagCompensation">ການຊົດເຊີຍຄວາມຊ້າ</string>
+  <string name="lagCompensationExplanation">Lichess ຊົດເຊີຍຄວາມຊ້າຂອງເຄືອຂ່າຍ. ເຊິ່ງລວມເຖິງຄວາມຊ້າແບບຕໍ່ເນື່ອງ ແລະ ຄວາມຊ້າທີ່ເກີດຂຶ້ນບາງຄັ້ງຄາວ. ມີການກຳນົດຂອບເຂດ ແລະ ຫຼັກການໂດຍອີງໃສ່ການຄວບຄຸມເວລາ ແລະ ຄວາມຊ້າທີ່ໄດ້ຮັບການຊົດເຊີຍມາແລ້ວ, ເພື່ອໃຫ້ຜົນໄດ້ຮັບອອກມາເປັນທຳສຳລັບຜູ້ຫຼິ້ນທັງສອງຝ່າຍ. ດັ່ງນັ້ນ, ການທີ່ມີຄວາມຊ້າຂອງເຄືອຂ່າຍຫຼາຍກວ່າຄູ່ຕໍ່ສູ້ກໍບໍ່ຖືວ່າເປັນຂໍ້ເສຍປຽບ!</string>
+</resources>

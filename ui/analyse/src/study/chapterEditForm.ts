@@ -1,6 +1,12 @@
-import { fieldValue, modeChoices } from './chapterNewForm';
+import { COLORS } from 'chessops';
+import { h, type VNode } from 'snabbdom';
+
+import { defined, prop } from 'lib';
 import { bind, bindSubmit, onInsert, spinnerVdom as spinner, snabDialog, confirm } from 'lib/view';
+
+import type { StudySocketSend } from '../socket';
 import { option, emptyRedButton } from '../view/util';
+import { fieldValue, modeChoices } from './chapterNewForm';
 import type {
   ChapterMode,
   EditChapterData,
@@ -8,9 +14,6 @@ import type {
   StudyChapterConfig,
   ChapterPreview,
 } from './interfaces';
-import { defined, prop } from 'lib';
-import { h, type VNode } from 'snabbdom';
-import type { StudySocketSend } from '../socket';
 
 export class StudyChapterEditForm {
   current = prop<ChapterPreview | StudyChapterConfig | null>(null);
@@ -121,7 +124,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         h('label.form-label', { attrs: { for: 'chapter-orientation' } }, i18n.study.orientation),
         h(
           'select#chapter-orientation.form-control',
-          (['white', 'black'] as const).map(color => option(color, data.orientation, i18n.site[color])),
+          COLORS.map(color => option(color, data.orientation, i18n.site[color])),
         ),
       ]),
       h('div.form-group.form-half' + (ctrl.isBroadcast ? '.none' : ''), [

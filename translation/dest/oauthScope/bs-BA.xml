@@ -29,7 +29,6 @@
   <string name="botPlay">Igrajte partije s API-botom</string>
   <string name="engineRead">Pogledajte i koristite Vaš vanjski šahovski program</string>
   <string name="engineWrite">Kreirajte i ažurirajte vanjski šahovski program</string>
-  <string name="webLogin">Kreirajte autorizirane sesije na veb-sajtu (omogućava puni pristup!)</string>
   <string name="webMod">Koristite moderatorske alate (u granicama Vaših dozvola)</string>
   <string name="personalAccessTokens">Osobni API pristupni token</string>
   <string name="canMakeOauthRequests">Možete kreirati OAuth zahtjeve bez da prolazite kroz %s.</string>

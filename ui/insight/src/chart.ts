@@ -1,7 +1,4 @@
-import { h, type VNode } from 'snabbdom';
-import * as licon from 'lib/licon';
-import type Ctrl from './ctrl';
-import type { InsightChart, InsightData } from './interfaces';
+import { gridColor, tooltipBgColor, fontFamily, maybeChart, colorSeries } from 'chart';
 import {
   Chart,
   type ChartDataset,
@@ -14,11 +11,16 @@ import {
   Tooltip,
   type ChartOptions,
 } from 'chart.js';
-import { currentTheme } from 'lib/device';
-import { gridColor, tooltipBgColor, fontFamily, maybeChart, colorSeries } from 'chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { formatNumber } from './table';
+import { h, type VNode } from 'snabbdom';
+
+import { currentTheme } from 'lib/device';
+import * as licon from 'lib/licon';
 import { spinnerHtml } from 'lib/view';
+
+import type Ctrl from './ctrl';
+import type { InsightChart, InsightData } from './interfaces';
+import { formatNumber } from './table';
 
 Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartDataLabels);
 Chart.defaults.font = fontFamily();

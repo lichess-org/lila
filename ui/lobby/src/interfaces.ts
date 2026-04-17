@@ -1,3 +1,5 @@
+import type { ColorChoice } from 'lib/setup/color';
+import type { ClockConfig } from 'lib/setup/interfaces';
 import type { TimeMode } from 'lib/setup/timeControl';
 
 export type Sort = 'rating' | 'time';
@@ -11,6 +13,7 @@ export interface Variant {
   key: VariantKey;
   name: string;
   icon: string;
+  description: string;
 }
 
 export interface Hook {
@@ -44,10 +47,8 @@ export interface Seek {
   action: 'joinSeek' | 'cancelSeek';
 }
 
-export interface Pool {
+export interface Pool extends ClockConfig {
   id: PoolId;
-  lim: number;
-  inc: number;
   perf: string;
 }
 
@@ -79,10 +80,7 @@ export interface LobbyData {
   counters: { members: number; rounds: number };
 }
 
-export interface RatingWithProvisional {
-  rating: number;
-  prov?: boolean;
-}
+type RatingWithProvisional = number;
 
 export interface NowPlaying {
   fullId: string;
@@ -120,7 +118,7 @@ export type PoolRange = string;
 
 export interface SetupStore {
   variant: VariantKey;
-  fen: string;
+  fen: FEN;
   timeMode: TimeMode;
   gameMode: GameMode;
   ratingMin: number;
@@ -133,8 +131,11 @@ export interface SetupStore {
 
 export interface ForceSetupOptions {
   variant?: VariantKey;
-  fen?: string;
+  fen?: FEN;
   timeMode?: TimeMode;
   time?: number;
   increment?: number;
+  days?: number;
+  mode?: GameMode;
+  color?: ColorChoice;
 }

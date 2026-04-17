@@ -2,8 +2,8 @@
   border: none;
 
   .player {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 0;
+    padding-right: 0;
 
     .user-link {
       @extend %flex-center-nowrap;
@@ -15,6 +15,7 @@
       display: inline-block;
       padding-inline-end: 5px;
       max-width: 140px;
+
       @media (min-width: at-least($x-large)) {
         max-width: 200px;
       }
@@ -33,7 +34,7 @@
   tr.long .user-link .rating {
     display: block;
     direction: ltr;
-    padding-inline-start: 0px;
+    padding-inline-start: 0;
   }
 
   tr {
@@ -47,7 +48,7 @@
     @include transition(opacity, 0.3s);
   }
 
-  &:not(.created):not(.loading) tbody tr:hover {
+  &:not(.created, .loading) tbody tr:hover {
     background: $m-primary_bg--mix-30;
     cursor: pointer;
   }
@@ -62,6 +63,7 @@
 
   td.rank {
     @include padding-direction(1em, 0.5em, 1em, 10px);
+
     width: 1px;
 
     /* helps keeping it as small as possible */

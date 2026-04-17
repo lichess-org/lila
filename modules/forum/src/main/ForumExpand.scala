@@ -7,8 +7,17 @@ import lila.core.config.NetDomain
 
 final class ForumTextExpand(markdown: lila.memo.MarkdownCache)(using Executor, Scheduler):
 
-  val markdownOptions =
-    lila.memo.MarkdownOptions.all.copy(header = false, sourceMap = true, maxPgns = lila.memo.Max(10))
+  val markdownOptions = lila.memo.MarkdownOptions(
+    autoLink = true,
+    list = true,
+    table = true,
+    header = false,
+    strikeThrough = true,
+    blockQuote = true,
+    code = true,
+    timestamp = false,
+    maxPgns = lila.memo.Max(10)
+  )
 
   private def one(post: ForumPost)(using NetDomain): Fu[Frag] =
     if post.hasMarkdown then

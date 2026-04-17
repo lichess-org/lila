@@ -44,14 +44,10 @@ export interface Challenge {
   declined?: boolean;
 }
 
-export type Reasons = {
-  [key: string]: string;
-};
+export type Reasons = Record<string, string>;
 
 export interface ChallengeData {
   in: Array<Challenge>;
   out: Array<Challenge>;
   reasons?: Reasons;
 }
-
-export type Redraw = () => void;

@@ -14,8 +14,8 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
   export Granter.{ apply as isGranted, opt as isGrantedOpt }
 
   def NoCurrentGame(a: => Fu[Result])(using ctx: Context): Fu[Result] =
-    ctx.me
-      .soUse(env.preloader.currentGameMyTurn)
+    ctx
+      .useMe(env.preloader.currentGameMyTurn)
       .flatMap:
         _.fold(a): current =>
           negotiate(keyPages.home(Results.Forbidden), currentGameJsonError(current))

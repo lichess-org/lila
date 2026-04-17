@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Напреднала пешка</string>
-  <string name="advancedPawnDescription">Произвеждането на пешка, или заплахата за произвеждане, е ключова стратегия.</string>
+  <string name="advancedPawnDescription">Една от пешките ви е навлязла дълбоко в противниковата позиция и може би заплашва да се произведе.</string>
   <string name="advantage">Предимство</string>
   <string name="advantageDescription">Възползване от шанс за решаващо предимство. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Мат на Анастасия</string>
@@ -9,11 +9,15 @@
   <string name="arabianMate">Арабски мат</string>
   <string name="arabianMateDescription">Кон и топ матират царя в ъгъла на полето.</string>
   <string name="attackingF2F7">Атака на f2 или f7</string>
-  <string name="attackingF2F7Description">Атака, фокусирана върху пешката на f2 или f7, подобно на прочутия Fried Liver дебют.</string>
-  <string name="attraction">Завличане</string>
-  <string name="attractionDescription">Размяна или жертване, окуражаващо или заставящо противникова фигура да се премести на поле, което дава възможност за тактическо развитие.</string>
+  <string name="attackingF2F7Description">Атака, насочена към пешката на f2 или f7, характерна за варианта „Пържено дробче“.</string>
+  <string name="attraction">Привличане</string>
+  <string name="attractionDescription">Размяна или жертва, която примамва или принуждава противникова фигура да заеме поле, позволяващо последващ тактически удар.</string>
   <string name="backRankMate">Мат на задна линия</string>
   <string name="backRankMateDescription">Мат на царя на неговия хоризонтал, когато е заклещен от собствените си фигури.</string>
+  <string name="balestraMate">Балестра мат</string>
+  <string name="balestraMateDescription">Офицер нанася мата, докато дамата блокира полетата за отстъпление</string>
+  <string name="blindSwineMate">Мат на слепите свине</string>
+  <string name="blindSwineMateDescription">Два топа обединяват сили, за да матират царя в зона от 2 на 2 полета.</string>
   <string name="bishopEndgame">Офицерски ендшпил</string>
   <string name="bishopEndgameDescription">Ендшпил само с офицери и пешки.</string>
   <string name="bodenMate">Мат на Боден</string>
@@ -22,8 +26,12 @@
   <string name="castlingDescription">Защити царя си, и приготви топа си за атака.</string>
   <string name="capturingDefender">Премахни защитата</string>
   <string name="capturingDefenderDescription">Премахване на главната защита на фигура, което позволява на вече незащитената фигура да бъде взета на следващия ход.</string>
+  <string name="cornerMate">Мат в ъгъла</string>
+  <string name="cornerMateDescription">Притиснете царя в ъгъла с помощта на топ или дама и използвайте кон, за да нанесете мата.</string>
   <string name="crushing">Погром</string>
   <string name="crushingDescription">Използвайте грешката на противника за да получите смазващо преимущество. (≥ 600сп)</string>
+  <string name="discoveredCheck">Открит шах</string>
+  <string name="discoveredCheckDescription">Преместете фигура, за да разкриете шах от скрита нападаща фигура – тактика, която често води до решително предимство.</string>
   <string name="doubleBishopMate">Мат с два офицера</string>
   <string name="doubleBishopMateDescription">Два офицера на съседни диагонали матират цар обкръжен от собствените си фигури.</string>
   <string name="dovetailMate">Мат на Коцио</string>
@@ -57,6 +65,14 @@
   <string name="interferenceDescription">Преместване на фигура между две противникови, така че едната или и двете да останат незащитени. Например кон на защитено поле между два топа.</string>
   <string name="intermezzo">Междинен ход</string>
   <string name="intermezzoDescription">Вместо да се играе очаквания ход, първо се прави друг (междинен) ход, който представлява заплаха за опонента и трябва да бъде предотвратена.</string>
+  <string name="killBoxMate">Смъртоносна зона</string>
+  <string name="killBoxMateDescription">Топът се намира непосредствено до вражеския цар и е подкрепен от дама, която блокира полетата му за отстъпление. Двете фигури затварят вражеския цар в „смъртоносна зона“ от 3 на 3 полета.</string>
+  <string name="pillsburysMate">Мат на Пилсбъри</string>
+  <string name="pillsburysMateDescription">Офицерът отрязва пътя на царя, а топът дава мат.</string>
+  <string name="morphysMate">Мат на Морфи</string>
+  <string name="morphysMateDescription">Oфицерът нанася мат, докато топът блокира царя по вертикала.</string>
+  <string name="triangleMate">Мат „Триъгълник“</string>
+  <string name="triangleMateDescription">Дамата и топът се намират на един и същ хоризонтал или вертикал, на едно поле разстояние от вражеския цар. Те са разделени от едно поле помежду си, образувайки триъгълник.</string>
   <string name="vukovicMate">Мат на Вукович</string>
   <string name="vukovicMateDescription">Топ и кон се комбинират да матират краля. Топът, защитен от още една фигура, поставя мат, докато конят блокира полетата за отстрпление на краля.</string>
   <string name="knightEndgame">Конски ендшпил</string>
@@ -85,6 +101,8 @@
   <string name="oneMoveDescription">Задача, която се решава само с един ход.</string>
   <string name="opening">Дебют</string>
   <string name="openingDescription">Тактика в първата фаза на играта.</string>
+  <string name="operaMate">Оперен мат</string>
+  <string name="operaMateDescription">Матирайте царя с топ, защитен от офицер.</string>
   <string name="pawnEndgame">Пешечен Ендшпил</string>
   <string name="pawnEndgameDescription">Ендшпил само с пешки.</string>
   <string name="pin">Свръзка</string>

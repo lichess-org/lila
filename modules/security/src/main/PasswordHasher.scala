@@ -55,9 +55,10 @@ final class PasswordHasher(
     HashedPassword(salt ++ aes.encrypt(Aes.iv(salt), bHash(salt, p)))
 
   def check(bytes: HashedPassword, p: ClearPassword): Boolean =
-    parse(bytes).so: (salt, encHash) =>
-      val hash = aes.decrypt(Aes.iv(salt), encHash)
-      MessageDigest.isEqual(hash, bHash(salt, p))
+    !bytes.isBlank &&
+      parse(bytes).so: (salt, encHash) =>
+        val hash = aes.decrypt(Aes.iv(salt), encHash)
+        MessageDigest.isEqual(hash, bHash(salt, p))
 
   private def parse(h: HashedPassword) = Option.when(h.bytes.lengthIs == 39)(h.bytes.splitAt(16))
 

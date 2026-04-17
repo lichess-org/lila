@@ -1,9 +1,11 @@
+import { opposite } from '@lichess-org/chessground/util';
 import { h } from 'snabbdom';
+
 import { onInsert, renderClock } from 'lib/view';
+import { userFlair } from 'lib/view/userLink';
+
 import type SimulCtrl from '../ctrl';
 import type { Pairing } from '../interfaces';
-import { opposite } from '@lichess-org/chessground/util';
-import { userFlair } from 'lib/view/userLink';
 
 export default function (ctrl: SimulCtrl) {
   return h('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));

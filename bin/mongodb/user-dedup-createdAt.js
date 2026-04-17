@@ -1,5 +1,5 @@
-var it = 0;
-var batchSize = 100;
+let it = 0;
+const batchSize = 100;
 
 db.user4
   .find({

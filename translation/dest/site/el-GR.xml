@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Νέα παρτίδα εναντίον μηχανής</string>
   <string name="gameMode">Τύπος παιχνιδιού</string>
   <string name="createLobbyGame">Νέα παρτίδα</string>
-  <string name="youPlayAs">Παίζετε με τα</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Για να προσκαλέσετε κάποιον σε ένα παιχνίδι, στείλτε του αυτήν τη διεύθυνση</string>
   <string name="gameOver">Τέλος παρτίδας</string>
   <string name="waitingForOpponent">Αναμονή για αντίπαλο</string>
   <string name="orLetYourOpponentScanQrCode">Ή ζητήστε από τον αντίπαλό σας να σαρώσει αυτόν τον κωδικό QR</string>
+  <string name="reusableChallengeUrl">Επαναχρησιμοποιήσιμος σύνδεσμος πρόκλησης</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Μόνιμος σύνδεσμος που επιτρέπει σε κάποιον να σας προκαλέσει χρησιμοποιώντας τις επιλεγμένες ρυθμίσεις.</string>
   <string name="waiting">Αναμονή</string>
   <string name="yourTurn">Η σειρά σας</string>
   <string name="aiNameLevelAiLevel">%1$s επιπέδου %2$s</string>
@@ -76,7 +77,7 @@
   <string name="makeMainLine">Ορισμός ως κύρια βαριάντα</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
   <string name="collapseVariations">Σύμπτυξη βαριάντων</string>
-  <string name="expandVariations">Ανάπτυξη βαριάντων</string>
+  <string name="expandVariations">Επέκταση βαριάντων</string>
   <string name="forceVariation">Θέσε σε βαριάντα</string>
   <string name="copyVariationPgn">Αντιγραφή βαριάντας ως PGN</string>
   <string name="copyMainLinePgn">Αντιγραφή κύριας βαριάντας ως PGN</string>
@@ -126,6 +127,10 @@
   <string name="bestMoveArrow">Βέλτιστη κίνηση βέλους</string>
   <string name="showVariationArrows">Εμφάνιση βελών για βαριάντες</string>
   <string name="evaluationGauge">Δείκτης αξιολόγησης</string>
+  <string name="visualMotifs">Οπτικά μοτίβα</string>
+  <string name="undefendedPieces">Ανυπεράσπιστα κομμάτια</string>
+  <string name="pinnedPieces">Καρφωμένα κομμάτια</string>
+  <string name="checkableKing">Βασιλιάς που μπορεί να δεχθεί σαχ</string>
   <string name="multipleLines">Πολλαπλές γραμμές</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Μνήμη</string>
@@ -144,7 +149,7 @@
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s λάθος</item>
-    <item quantity="other">%s λάθη</item>
+    <item quantity="other">%s Λάθη</item>
   </plurals>
   <plurals name="numberMistakes">
     <item quantity="one">%s Λάθος</item>
@@ -205,6 +210,7 @@
   <string name="minutesPerSide">Λεπτά ανά πλευρά</string>
   <string name="variant">Εκδοχή</string>
   <string name="variants">Εκδοχές</string>
+  <string name="variantsDescription">Περισσότεροι τρόποι για να παίξετε</string>
   <string name="timeControl">Χρονόμετρο</string>
   <string name="realTime">Πραγματικού χρόνου</string>
   <string name="correspondence">Αλληλογραφία</string>
@@ -231,7 +237,7 @@
   <string name="changeUsernameNotSame">Μόνο η αλλαγή γραμμάτων από μικρά σε κεφαλαία ή το αντίστροφο επιτρέπεται. Για παράδειγμα, το όνομα χρήστη \"johndoe\" μπορεί να τροποποιηθεί σε \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Αλλάξτε το όνομα χρήστη σας. Η ενέργεια αυτή μπορεί να γίνει μόνο μία φορά, ενώ επιτρέπεται μόνο η αλλαγή των γραμμάτων από μικρά σε κεφαλαία ή το αντίστροφο.</string>
   <string name="signupUsernameHint">Eπιλέξτε ένα φιλικό προς την οικογένεια όνομα χρήστη, καθώς δε θα έχετε τη δυνατότητα να το αλλάξετε αργότερα. Τονίζουμε πως λογαριασμοί με ακατάλληλα ονόματα χρήστη θα απενεργοποιούνται!</string>
-  <string name="signupEmailHint">Θα τη χρησιμοποιήσουμε μόνο για την επαναφορά του κωδικού πρόσβασης.</string>
+  <string name="signupEmailPromise">Το email σας θα χρησιμοποιηθεί αποκλειστικά για ενημερώσεις σχετικά με τον λογαριασμό σας και ποτέ δεν θα κοινοποιηθεί σε τρίτους.</string>
   <string name="password">Κωδικός</string>
   <string name="changePassword">Αλλαγή κωδικού</string>
   <string name="changeEmail">Αλλαγή διεύθυνσης email</string>
@@ -299,6 +305,7 @@
   <string name="standard">Κανονικό</string>
   <string name="customPosition">Προσαρμοσμένη θέση</string>
   <string name="unlimited">Απεριόριστου χρόνου</string>
+  <string name="unlimitedDescription">Χρησιμοποιήστε όσο χρόνο χρειάζεστε</string>
   <string name="mode">Τύπος παιχνιδιού</string>
   <string name="casual">Φιλικό</string>
   <string name="rated">Βαθμολογημένο</string>
@@ -424,10 +431,11 @@
   <string name="leaderboard">Πίνακας βαθμολογίας</string>
   <string name="screenshotCurrentPosition">Λήψη στιγμιότυπου τρέχουσας θέσης</string>
   <string name="gameAsGIF">Αποθήκευση ως GIF</string>
+  <string name="playerNames">Ονόματα παικτών</string>
+  <string name="moveAnnotations">Σχολιασμός κινήσεων</string>
   <string name="pasteTheFenStringHere">Επικολλήστε τον κώδικα FEN εδώ</string>
   <string name="pasteThePgnStringHere">Επικολλήστε το κείμενο του PGN εδώ</string>
   <string name="orUploadPgnFile">Ή μεταφορτώστε ένα αρχείο PGN</string>
-  <string name="fromPosition">Από συγκεκριμένη θέση</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="toStudy">Μελέτη</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
@@ -448,14 +456,14 @@
   <string name="noNetwork">Εκτός σύνδεσης</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s φίλος/η συνδεδεμένος/η</item>
-    <item quantity="other">%s φίλοι συνδεδεμένοι</item>
+    <item quantity="other">%s Φίλοι συνδεδεμένοι</item>
   </plurals>
   <string name="favoriteOpponents">Αγαπημένοι αντίπαλοι</string>
   <string name="follow">Ακολουθήστε</string>
   <string name="following">Ακολουθείτε</string>
   <string name="unfollow">Κατάργηση παρακολούθησης</string>
-  <string name="followX">Ακολουθήστε τον χρήστη %s</string>
-  <string name="unfollowX">Κατάργηση ακολούθησης του χρήστη %s</string>
+  <string name="followX">Ακολουθήστε %s</string>
+  <string name="unfollowX">Να μην ακολουθείτε %s</string>
   <string name="block">Αποκλείστε</string>
   <string name="blocked">Αποκλεισμένος</string>
   <string name="unblock">Κατάργηση απόκλεισης</string>
@@ -511,6 +519,7 @@
   <string name="popularOpenings">Δημοφιλή ανοίγματα</string>
   <string name="endgamePositions">Θέσεις φινάλε</string>
   <string name="chess960StartPosition">Αρχική θέση Chess960: %s</string>
+  <string name="randomChess960Position">Τυχαία θέση Chess960</string>
   <string name="startPosition">Αρχική διάταξη</string>
   <string name="clearBoard">Εκκαθάριση σκακιέρας</string>
   <string name="loadPosition">Φορτώστε θέση</string>
@@ -572,7 +581,7 @@
   <string name="cheat">Απάτη</string>
   <string name="troll">Εμπαιγμός</string>
   <string name="other">Άλλη</string>
-  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τις παρτίδες και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"they cheat\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα.</string>
+  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τις παρτίδες και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"Αυτοί έκλεβαν\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα.</string>
   <string name="reportUsernameHelp">Εξηγήστε μας γιατί είναι προσβλητικό το όνομα αυτού του χρήστη. Μη λέτε απλώς ότι \"είναι προσβλητικό/ακατάλληλο\" (\"it\'s offensive/inappropriate\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα, ειδικά αν πρόκειται για προσβολή η οποία δεν είναι ιδιαίτερα εμφανής: για παράδειγμα αν δεν είναι στα αγγλικά, είναι σε κάποια αργκό ή κάνει κάποια προσβλητική ιστορική/πολιτιστική αναφορά.</string>
   <string name="reportProcessedFasterInEnglish">Η αναφορά σας θα εξεταστεί γρηγορότερα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Παρακαλούμε συμπεριλάβετε τουλάχιστον έναν σύνδεσμο παρτίδας στην οποία υποψιάζεστε πως υπήρξε χρήση εξωτερικής βοήθειας.</string>
@@ -587,6 +596,9 @@
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
   <string name="incorrectPassword">Εσφαλμένος κωδικός πρόσβασης</string>
   <string name="invalidAuthenticationCode">Μη έγκυρος κωδικός επαλήθευσης</string>
+  <string name="clearField">Καθαρισμός πεδίου</string>
+  <string name="orSeparator">Ή</string>
+  <string name="logInByEmail">Συνδεθείτε μέσω email</string>
   <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
   <string name="currentPassword">Τρέχων κωδικός πρόσβασης</string>
   <string name="newPassword">Νέος κωδικός πρόσβασης</string>
@@ -713,11 +725,6 @@
   <string name="keyCycleSelectedVariation">Επιλογή επόμενης βαριάντας</string>
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
   <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
-  <string name="keyRequestComputerAnalysis">Ζητήστε ανάλυση της παρτίδας από υπολογιστή (Μάθετε από τα λάθη σας)</string>
-  <string name="keyNextLearnFromYourMistakes">Συνέχεια (Μάθετε από τα λάθη σας)</string>
-  <string name="keyNextBlunder">Επόμενο σοβαρό σφάλμα</string>
-  <string name="keyNextMistake">Επόμενο λάθος</string>
-  <string name="keyNextInaccuracy">Επόμενη ανακρίβεια</string>
   <string name="keyPreviousBranch">Προηγούμενος κλάδος</string>
   <string name="keyNextBranch">Επόμενος κλάδος</string>
   <string name="toggleVariationArrows">Εμφάνιση/απόκρυψη βελών για βαριάντες</string>
@@ -766,7 +773,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Κάντε κύλιση με τη ροδέλα του ποντικιού πάνω στη σκακιέρα για να μετακινηθείτε στην παρτίδα.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Μετακινήστε το ποντίκι σας πάνω στις βαριάντες του υπολογιστή για την προεπισκόπησή τους.</string>
   <string name="analysisShapesHowTo">Πατήστε Shift + κλικ ή δεξί κλικ για να σχεδιάσετε κύκλους και βέλη στην σκακιέρα.</string>
-  <string name="primaryColorArrowsHowTo">Ctrl = κόκκινο, shift = κίτρινο, command ή alt = μπλε.</string>
+  <string name="primaryColorArrowsHowTo">Το Ctrl ή το Shift εμφανίζει χρώμα κόκκινο. Τα Command, Alt ή Meta εμφανίζουν χρώμα μπλε. Ένα πλήκτρο από κάθε ομάδα εμφανίζει χρώμα κίτρινο.</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
   <string name="receiveForumNotifications">Λήψη ειδοποιήσεων όταν γίνεται αναφορά σας στο φόρουμ</string>
   <string name="shareYourInsightsData">Κοινή χρήση των δεδομένων σας</string>
@@ -810,6 +817,7 @@
   <string name="size">Μέγεθος</string>
   <string name="opacity">Αδιαφάνεια</string>
   <string name="brightness">Φωτεινότητα</string>
+  <string name="contrast">Αντίθεση</string>
   <string name="hue">Χροιά</string>
   <string name="boardReset">Επαναφορά χρωμάτων στα προκαθορισμένα</string>
   <string name="pieceSet">Επιλογή κομματιών</string>
@@ -905,7 +913,6 @@
   <string name="agreementAssistance">Δηλώνω ότι ουδέποτε θα λάβω βοήθεια κατά τη διάρκεια των παρτίδων μου (από υπολογιστή, βιβλίο, βάση δεδομένων ή άλλο πρόσωπο).</string>
   <string name="agreementNice">Δηλώνω ότι πάντα θα επιδεικνύω σεβασμό προς όλους του παίκτες.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Δηλώνω ότι δε θα δημιουργήσω πολλούς λογαριασμούς (εκτός από τους λόγους προβλέπονται από τους %s).</string>
-  <string name="agreementPolicy">Δηλώνω ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
   <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
@@ -1017,5 +1024,7 @@
   <string name="offline" comment="status of a user">εκτός σύνδεσης</string>
   <string name="search">Αναζήτηση</string>
   <string name="clearSearch">Εκκαθάριση πεδίου αναζήτησης</string>
+  <string name="thereAreNoResultsForX">Δε βρέθηκαν αποτελέσματα για το «%s»</string>
   <string name="tags">Ετικέτες</string>
+  <string name="enPassant">En passant</string>
 </resources>

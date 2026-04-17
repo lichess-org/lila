@@ -1,7 +1,9 @@
 import { h, type VNode } from 'snabbdom';
+
 import { defined } from 'lib';
-import type { DasherCtrl } from './interfaces';
 import { pubsub } from 'lib/pubsub';
+
+import type { DasherCtrl } from '@/ctrl';
 
 export class PingCtrl {
   ping: number | undefined;

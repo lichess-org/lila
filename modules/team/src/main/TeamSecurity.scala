@@ -27,8 +27,8 @@ object TeamSecurity:
 
   case class NewPermissions(user: UserId, perms: Set[Permission])
 
-final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.UserApi, cached: Cached)(using
-    Executor
+final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.UserApi, cached: TeamCached)(
+    using Executor
 ):
 
   import TeamSecurity.*

@@ -1,11 +1,12 @@
-import fs from 'node:fs';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
 import { relative, join, resolve } from 'node:path';
-import { makeTask } from './task.ts';
-import { type Manifest, updateManifest } from './manifest.ts';
-import { env, c } from './env.ts';
-import { type Package, isClose } from './parse.ts';
+
 import { isEquivalent } from './algo.ts';
+import { env, c } from './env.ts';
+import { type Manifest, updateManifest } from './manifest.ts';
+import { type Package, isClose } from './parse.ts';
+import { makeTask } from './task.ts';
 
 export async function hash(): Promise<void> {
   if (!env.begin('hash')) return;
@@ -124,9 +125,8 @@ async function hashAndLink(name: string) {
   return hash;
 }
 
-function hashLog(src: string, hashName: string, pkgName?: string) {
+const hashLog = (src: string, hashName: string, pkgName?: string): void =>
   env.log(
     `${pkgName ? c.grey(pkgName) + ' ' : ''}'${c.cyan(src)}' -> '${c.cyan(join('public', 'hashed', hashName))}'`,
     'hash',
   );
-}

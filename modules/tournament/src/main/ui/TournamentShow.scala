@@ -31,7 +31,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     Page(s"${tour.name()} #${tour.id}")
       .i18n(_.arena)
       .i18nOpt(tour.isTeamBattle, _.team)
-      .js(
+      .js:
         PageModule(
           "tournament",
           Json.obj(
@@ -41,11 +41,9 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
             "showRatings" -> ctx.pref.showRatings
           )
         )
-      )
-      .css(
+      .css:
         if tour.isTeamBattle then "tournament.show.team-battle"
         else "tournament.show"
-      )
       .graph(
         title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.rated.name} #${tour.id}",
         url = routeUrl(routes.Tournament.show(tour.id)),
@@ -56,7 +54,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
               s"${titleNameOrId(winnerId)} takes the prize home!"
       )
       .csp(_.withLilaHttp):
-        main(cls := s"tour$extraCls")(
+        main(cls := s"tour variant-${tour.variant.key}$extraCls")(
           st.aside(cls := "tour__side"):
             side(tour, verdicts, shieldOwner, chat._1F, streamers)
           ,
@@ -91,7 +89,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
               lila.gathering.ui.translateRated(tour.rated),
               separator,
               trans.arena.arena(),
-              (Granter.opt(_.ManageTournament) || (ctx.is(tour.createdBy) && tour.isEnterable)).option(
+              (Granter.opt(_.ManageTournament) || ctx.is(tour.createdBy)).option(
                 frag(
                   " ",
                   a(href := routes.Tournament.edit(tour.id), title := trans.arena.editTournament.txt())(
@@ -116,8 +114,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
           variantTeamLinks
             .get(tour.variant.key)
             .filter: (team, _) =>
-              tour.createdBy.is(UserId.lichess) || tour.conditions.teamMember
-                .exists(_.teamId == team.id)
+              tour.createdBy.is(UserId.lichess) || tour.singleTeamId.has(team.id)
             .map: (team, link) =>
               st.section(
                 if isMyTeamSync(team.id) then frag(trans.team.team(), " ", link)
@@ -144,7 +141,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
               tour.isScheduled.not.option(frag(small(trans.site.by(userIdLink(tour.createdBy.some))), br)),
               (!tour.isStarted || (tour.isScheduled && tour.position.isDefined))
                 .option(absClientInstant(tour.startsAt))
-            ).flatten.some.filter(_.nonEmpty).map(st.section(_)),
+            ).flatten.nonEmptyOption.map(st.section(_)),
             tour.startingPosition
               .map: pos =>
                 st.section(a(href := pos.url)(pos.name))
@@ -167,7 +164,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     private def sideBotsWarning(tour: Tournament) =
       tour.conditions.allowsBots.option:
         div(cls := "tour__bots-warning")(
-          img(src := staticAssetUrl("images/icons/bot.png")),
+          img(src := staticAssetUrl("images/icons/bot.webp")),
           div(
             h2("Bot tournament"),
             p(

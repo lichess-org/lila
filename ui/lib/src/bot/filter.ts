@@ -1,10 +1,11 @@
-import { clamp, quantize } from '../algo';
+import { clamp, quantize } from '@/algo';
+
 import type { SearchMove, MoveArgs } from './types';
 
 type Point = [number, number];
 export type FilterFacetKey = keyof typeof filterFacets;
 export type FilterBy = 'max' | 'min' | 'avg';
-export type FilterFacetValue = { [key in FilterFacetKey]?: number };
+export type FilterFacetValue = Record<FilterFacetKey, number>;
 export type FilterName = 'cplTarget' | 'cplStdev' | 'lc0bias' | 'moveDecay' | string;
 export type Filters = Record<string, Filter>;
 export type FilterResult<T = any> = Record<Uci, { weight: number } & T>;
@@ -79,7 +80,7 @@ export function quantizeFilter(f: Filter): void {
 }
 
 export function evaluateFilter(f: Filter, x: FilterFacetValue): FilterFacetValue {
-  const value: FilterFacetValue = {};
+  const value = {} as FilterFacetValue;
   facetIteration: for (const facet of filterFacetKeys) {
     if (!f[facet] || !x[facet]) continue;
     const to = (f[facet] ??= []);

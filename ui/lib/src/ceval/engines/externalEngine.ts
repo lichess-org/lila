@@ -1,3 +1,7 @@
+import { randomToken } from '@/algo';
+import { throttle } from '@/async';
+import { readNdJson } from '@/xhr';
+
 import {
   type Work,
   type ExternalEngineInfo,
@@ -5,9 +9,6 @@ import {
   type EngineNotifier,
   CevalState,
 } from '../types';
-import { randomToken } from '@/algo';
-import { readNdJson } from '@/xhr';
-import { throttle } from '@/async';
 
 interface ExternalEngineOutput {
   time: number;
@@ -23,12 +24,12 @@ interface ExternalEngineOutput {
 
 export class ExternalEngine implements CevalEngine {
   private state = CevalState.Initial;
-  private sessionId = randomToken();
+  private readonly sessionId = randomToken();
   private req: AbortController | undefined;
 
   constructor(
-    private opts: ExternalEngineInfo,
-    private status?: EngineNotifier | undefined,
+    private readonly opts: ExternalEngineInfo,
+    private readonly status?: EngineNotifier | undefined,
   ) {}
 
   getState(): CevalState {

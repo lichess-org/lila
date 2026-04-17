@@ -6,7 +6,7 @@
   <string name="progressX">Tiến trình: %s</string>
   <string name="resetMyProgress">Đặt lại tiến trình của tôi</string>
   <string name="youWillLoseAllYourProgress">Bạn sẽ mất tất cả các tiến trình của bạn!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">chơi!</string>
+  <string name="play">chơi!</string>
   <string name="chessPieces">Các quân cờ</string>
   <string name="theRook">Quân xe</string>
   <string name="itMovesInStraightLines">Nó đi theo các đường thẳng</string>
@@ -152,7 +152,6 @@ Hãy chặn nước chiếu sau đó nhập thành!</string>
 nhập thành gần!</string>
   <string name="findAWayToCastleQueenSide">Tìm cách để nhập thành xa!</string>
   <string name="castlingComplete">Chúc mừng! Bạn luôn nên nhập thành trong mọi ván đấu.</string>
-  <string name="enPassant">Bắt tốt qua đường</string>
   <string name="theSpecialPawnMove">Nước đi đặc biệt của quân Tốt</string>
   <string name="enPassantIntro">Khi đối thủ di chuyển tốt lên hai ô, bạn có thể bắt nó như khi nó di chuyên lên một ô.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Quân đen vừa di chuyển tốt

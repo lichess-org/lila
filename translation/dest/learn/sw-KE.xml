@@ -5,7 +5,7 @@
   <string name="progressX">Maendeleo:%s</string>
   <string name="resetMyProgress">Futa maendeleo yangu</string>
   <string name="youWillLoseAllYourProgress">Utapoteza maendeleo yako yote!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">cheza!</string>
+  <string name="play">cheza!</string>
   <string name="chessPieces">Vipande vya chess</string>
   <string name="theRook">Kasri</string>
   <string name="itMovesInStraightLines">Inasonga kwa mstari sambamba</string>

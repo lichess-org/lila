@@ -18,13 +18,14 @@ final class Ip2ProxyServer(
     ws: StandaloneWSClient,
     cacheApi: lila.memo.CacheApi,
     checkUrl: String,
-    tor: Tor
+    tor: Tor,
+    ipTiers: IpTiers
 )(using Executor, Scheduler)
     extends Ip2ProxyApi:
 
   def ofIp(ip: IpAddress): Fu[IsProxy] =
-    if tor.isExitNode(ip)
-    then fuccess(IsProxy.tor)
+    if ipTiers.trustedIp.is(ip) then fuccess(IsProxy.empty)
+    else if tor.isExitNode(ip) then fuccess(IsProxy.tor)
     else cache.get(ip.value)
 
   def ofReq(req: RequestHeader): Fu[IsProxy] =
@@ -33,8 +34,8 @@ final class Ip2ProxyServer(
         lila.mon.security.proxy.hit(name, HTTPRequest.actionName(req)).increment()
 
   def getCached(ip: IpAddress): Option[Fu[IsProxy]] =
-    if tor.isExitNode(ip)
-    then fuccess(IsProxy.tor).some
+    if ipTiers.trustedIp.is(ip) then fuccess(IsProxy.empty).some
+    else if tor.isExitNode(ip) then fuccess(IsProxy.tor).some
     else cache.getIfPresent(ip.value)
 
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] =

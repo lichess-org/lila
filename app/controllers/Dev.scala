@@ -1,6 +1,6 @@
 package controllers
 
-import lila.app.*
+import lila.app.{ *, given }
 
 final class Dev(env: Env) extends LilaController(env):
 
@@ -51,9 +51,18 @@ final class Dev(env: Env) extends LilaController(env):
     Found(env.security.ipTiers.form.map(_.toOption)): form =>
       bindForm(form)(
         err => BadRequest.page(views.dev.ipTiers(Right(err))),
-        v => env.security.ipTiers.set(v).inject(Redirect(routes.Dev.ipTiers).flashSuccess)
+        v => env.security.ipTiers.writeToFile(v).inject(Redirect(routes.Dev.ipTiers).flashSuccess)
       )
   }
+
+  def emailErrorPost = SecuredScopedBody(_.SetEmail)():
+    if env.web.emailError.setFromReq().isDefined then NoContent else BadRequest
+
+  def emailErrorGet = Open: ctx ?=>
+    ctx.isAnon
+      .so(lila.security.EmailConfirm.cookie.get(ctx.req))
+      .flatMap(u => env.web.emailError.get(u.email))
+      .fold(NoContent)(Ok(_))
 
   private def runCommand(command: String)(using Me): Fu[String] =
     for
@@ -79,7 +88,7 @@ final class Dev(env: Env) extends LilaController(env):
       env.oAuth.originBlocklistSetting,
       env.security.proxy2faSetting,
       env.security.alwaysCaptcha,
-      env.web.settings.sitewideCoepCredentiallessHeader
+      env.security.singlePost.enforceIp
     ),
     "Mailing" -> List(
       env.mailer.mailerSecondaryPermilleSetting,
@@ -96,8 +105,6 @@ final class Dev(env: Env) extends LilaController(env):
     "Limits" -> List(
       env.web.settings.apiTimeline,
       env.web.settings.apiExplorerGamesPerSecond,
-      env.tutor.nbAnalysisSetting,
-      env.tutor.parallelismSetting,
       env.recap.parallelismSetting,
       env.fishnet.openingBookDepth
     ),
@@ -105,6 +112,10 @@ final class Dev(env: Env) extends LilaController(env):
       env.relay.proxyDomainRegex,
       env.relay.proxyHostPort,
       env.relay.proxyCredentials
+    ),
+    "Tutor" -> List(
+      env.tutor.nbAnalysisSetting,
+      env.tutor.parallelismSetting
     ),
     "Automod" -> List(
       env.report.automod.imageModelSetting,

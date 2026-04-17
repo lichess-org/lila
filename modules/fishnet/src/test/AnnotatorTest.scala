@@ -1,6 +1,6 @@
 package lila.fishnet
 import chess.format.FullFen
-import chess.format.pgn.{ Parser, Pgn, PgnStr, SanStr, Tags }
+import chess.format.pgn.{ Parser, PgnStr, SanStr, Tags }
 import chess.variant.{ Standard, Variant }
 import chess.{ ByColor, Ply }
 import play.api.libs.json.Json

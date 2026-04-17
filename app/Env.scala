@@ -2,7 +2,7 @@ package lila.app
 
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
-import play.api.mvc.{ Call, ControllerComponents, SessionCookieBaker }
+import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
 
 import lila.core.config.*
@@ -20,7 +20,7 @@ final class Env(
 ):
   val net: NetConfig = lila.web.WebConfig.netConfig(config)
   export net.baseUrl
-  val routeUrl: Call => Url = call => Url(s"${baseUrl}${call.url}")
+  val routeUrl: RouteUrl = call => Url(s"${baseUrl}${call.url}")
 
   given mode: Mode = environment.mode
   given translator: lila.core.i18n.Translator = lila.i18n.Translator
@@ -67,7 +67,7 @@ final class Env(
   val forum: lila.forum.Env = wire[lila.forum.Env]
   val forumSearch: lila.forumSearch.Env = wire[lila.forumSearch.Env]
   val pool: lila.pool.Env = wire[lila.pool.Env]
-  import pool.isClockCompatible
+  import pool.given
   val lobby: lila.lobby.Env = wire[lila.lobby.Env]
   val setup: lila.setup.Env = wire[lila.setup.Env]
   val simul: lila.simul.Env = wire[lila.simul.Env]
@@ -83,6 +83,7 @@ final class Env(
   val challenge: lila.challenge.Env = wire[lila.challenge.Env]
   val explorer: lila.explorer.Env = wire[lila.explorer.Env]
   val fide: lila.fide.Env = wire[lila.fide.Env]
+  import fide.given
   val study: lila.study.Env = wire[lila.study.Env]
   val studySearch: lila.studySearch.Env = wire[lila.studySearch.Env]
   val learn: lila.learn.Env = wire[lila.learn.Env]

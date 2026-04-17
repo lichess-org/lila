@@ -39,7 +39,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
     _.refreshAfterWrite(30.seconds).buildAsyncTimeout(20.seconds): _ =>
       colls
         .path:
-          _.aggregateList(poolSize, _.sec): framework =>
+          _.aggregateList(poolSize): framework =>
             import framework.*
             Facet(
               buckets.map: (rating, nbPuzzles) =>

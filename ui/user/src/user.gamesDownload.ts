@@ -6,7 +6,7 @@ function generateSearchParams(): string {
   $('#dl-form')
     .find('input[name], select[name]')
     .each((_, e: HTMLInputElement | HTMLSelectElement) => {
-      const val = e.type === 'checkbox' ? (e as HTMLInputElement).checked.toString() : e.value;
+      const val = e.type === 'checkbox' ? e.checked.toString() : e.value;
       if (val && e.name) searchParams.append(e.name, val);
     });
 

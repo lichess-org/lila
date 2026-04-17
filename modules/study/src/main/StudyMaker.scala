@@ -13,8 +13,8 @@ final private class StudyMaker(
 )(using Executor):
 
   def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
-    (data.form.gameId
-      .so(gameRepo.gameWithInitialFen))
+    data.form.gameId
+      .so(gameRepo.gameWithInitialFen)
       .flatMap:
         case Some(WithInitialFen(game, initialFen)) =>
           createFromPov(
@@ -29,6 +29,18 @@ final private class StudyMaker(
         // apply specified From if any
         sc.copy(study = sc.study.copy(from = data.from | sc.study.from))
       }
+
+  def apply(data: StudyForm.FormData)(using me: Me): Study.WithChapter =
+    val study = Study.make(
+      me.value,
+      Study.From.Scratch,
+      id = none,
+      name = data.studyName.some,
+      settings = data.settings.some
+    )
+    val chapterData = ChapterMaker.Data(StudyChapterName("Chapter 1"))
+    val chapter = chapterMaker.fromFenOrBlank(study, chapterData, order = 1, me.userId)
+    Study.WithChapter(study.withChapter(chapter), chapter)
 
   private def createFromScratch(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] =
     val study = Study.make(user, Study.From.Scratch, data.id, data.name, data.settings)
@@ -48,9 +60,8 @@ final private class StudyMaker(
         order = 1,
         userId = user.id
       )
-      .map { chapter =>
+      .map: chapter =>
         Study.WithChapter(study.withChapter(chapter), chapter)
-      }
 
   private def createFromPov(
       data: StudyMaker.ImportGame,
@@ -82,9 +93,8 @@ final private class StudyMaker(
         conceal = None
       )
     yield Study.WithChapter(study.withChapter(chapter), chapter)
-  }.addEffect { swc =>
+  }.addEffect: swc =>
     chapterMaker.notifyChat(swc.study, pov.game, user.id)
-  }
 
 object StudyMaker:
 

@@ -8,13 +8,15 @@ let cols = 0;
 function layout() {
   const lobby = document.querySelector<HTMLElement>('main.lobby');
   if (!lobby) return;
+
   const newCols = Number(window.getComputedStyle(lobby).getPropertyValue('---cols'));
   if (newCols === cols) return;
 
   cols = newCols;
-  document
-    .querySelector<HTMLElement>(cols > 2 ? '.lobby__side' : '.lobby')
-    ?.append(document.querySelector('.lobby__timeline') ?? '');
+
+  const timeline = lobby.querySelector('.lobby__timeline');
+  const newParent = cols > 2 ? lobby.querySelector<HTMLElement>('.lobby__side') : lobby;
+  if (timeline && newParent) newParent.append(timeline);
 }
 
 layout();

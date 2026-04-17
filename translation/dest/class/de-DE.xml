@@ -119,4 +119,9 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="moveToAnotherClass">In eine andere Klasse verschieben</string>
   <string name="allowMessagingBetweenStudents">Nachrichten zwischen Schülern erlauben</string>
   <string name="allowMessagingBetweenStudentsDesc">Dies gilt nur für die Konten, die du für deine Schüler erstellt hast.</string>
+  <string name="quickLoginCode">Schnellanmeldungs-Code</string>
+  <string name="quickLoginCodes">Schnellanmeldungs-Codes</string>
+  <string name="quickLoginCodesDesc1" comment="String is a URL">Benutzen diese Codes auf %s, um deine Schüler in Lichess einzuloggen.</string>
+  <string name="quickLoginCodesDesc2">Nach Ablauf der Codes bleiben deine Schüler eingeloggt, bis sie sich manuell abmelden.</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Verfällt %s</string>
 </resources>

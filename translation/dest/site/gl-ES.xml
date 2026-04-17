@@ -5,11 +5,12 @@
   <string name="playAgainstComputer">Xogar contra a máquina</string>
   <string name="gameMode">Modo de xogo</string>
   <string name="createLobbyGame">Crear unha partida na sala de espera</string>
-  <string name="youPlayAs">Xogas coas</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
   <string name="waitingForOpponent">Agardando polo rival</string>
   <string name="orLetYourOpponentScanQrCode">Ou deixa que o teu rival escanee este código QR</string>
+  <string name="reusableChallengeUrl">URL de desafío reutilizable</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Unha ligazón permanente para quen desexe desafiarte con estes precisos axustes.</string>
   <string name="waiting">Agardando</string>
   <string name="yourTurn">A túa quenda</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
@@ -77,7 +78,7 @@
   <string name="deleteFromHere">Borrar desde aquí</string>
   <string name="collapseVariations">Contraer as variantes</string>
   <string name="expandVariations">Despregar as variantes</string>
-  <string name="forceVariation">Forzar variante</string>
+  <string name="forceVariation">Converter en variante</string>
   <string name="copyVariationPgn">Copiar o PGN da variante</string>
   <string name="copyMainLinePgn">Copiar o PGN da liña principal</string>
   <string name="move">Movemento</string>
@@ -101,7 +102,7 @@
     <item quantity="one">Mate en %s media xogada</item>
     <item quantity="other">Mate en %s medias xogadas</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de medias xogadas ata a próxima captura, movemento de peón ou xaque mate</string>
+  <string name="dtzWithRounding">DTZ50′′ con redondeo, baseado no número de medias xogadas ata a próxima captura ou movemento de peón</string>
   <string name="noGameFound">Non se atoparon partidas</string>
   <string name="maxDepthReached">Chegouse á máxima profundidade!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">E se probas a incluír máis partidas dende o menú de preferencias?</string>
@@ -114,7 +115,7 @@
   <string name="lossSavedBy50MoveRule">Derrota impedida pola regra das 50 xogadas</string>
   <string name="winOr50MovesByPriorMistake">Vitoria ou 50 movementos a causa dun erro anterior</string>
   <string name="lossOr50MovesByPriorMistake">Derrota ou 50 movementos a causa dun erro anterior</string>
-  <string name="unknownDueToRounding">A vitoria ou derrota só están garantidas se a liña recomendada da base de datos de finais se seguiu desde a última captura ou movemento de peón, debido a un posible arredondamento dos valores DTZ nas bases de datos de finais Syzygy.</string>
+  <string name="unknownDueToRounding">Debido a un posible arredondamento dos valores DTZ nas bases de datos de finais Syzygy, a vitoria ou a derrota só están garantidas se a liña recomendada da base de datos de finais se seguiu desde a última captura ou movemento de peón.</string>
   <string name="allSet">Todo listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
@@ -126,9 +127,20 @@
   <string name="bestMoveArrow">Frecha coa mellor xogada</string>
   <string name="showVariationArrows">Amosar as frechas das variantes</string>
   <string name="evaluationGauge">Indicador de avaliación</string>
+  <string name="visualMotifs">Motivos visuais</string>
+  <string name="undefendedPieces">Pezas non defendidas</string>
+  <string name="pinnedPieces">Pezas cravadas</string>
+  <string name="checkableKing">Rei exposto a xaque</string>
   <string name="multipleLines">Liñas múltiples</string>
+  <string name="multipleLinesDescription">Indica o número de liñas analizadas e de frechas das variantes no taboleiro</string>
+  <string name="searchTime">Tempo de procura</string>
+  <string name="searchTimeDescription">Indica o tempo de análise de posicións novas</string>
+  <string name="threads">Fíos</string>
+  <string name="threadsDescription">Axusta este valor por debaixo do número de fíos do teu procesador. A marca indica unha elección segura</string>
+  <string name="threadsDescriptionMobile">Cantos máis fíos, maior uso de batería para unha mellor análise</string>
   <string name="cpus">Procesadores</string>
   <string name="memory">Memoria</string>
+  <string name="memoryDescription">Os valores altos poden mellorar o rendemento</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Elimina o límite de profundidade, e mantén o teu ordenador quente</string>
   <string name="blunder">Metida de zoca</string>
@@ -189,7 +201,7 @@
   <string name="logOut">Pechar sesión</string>
   <string name="signIn">Iniciar sesión</string>
   <string name="rememberMe">Manterme conectado</string>
-  <string name="youNeedAnAccountToDoThat">Precisas dunha conta de usuario para facer iso</string>
+  <string name="youNeedAnAccountToDoThat">Precisas dunha conta de usuario para usar esta función</string>
   <string name="signUp">Rexistrarse</string>
   <string name="computersAreNotAllowedToPlay">Non están permitidos nin os ordenadores nin os xogadores asistidos por eles. Por favor, non te axudes de módulos de xadrez, bases de datos ou doutros xogadores durante a partida. Lembra tamén que o uso de múltiples contas está altamente desaconsellado e que o uso abusivo deste tipo de contas pode conducir á suspensión.</string>
   <string name="games">Partidas</string>
@@ -205,6 +217,7 @@
   <string name="minutesPerSide">Minutos por bando</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
+  <string name="variantsDescription">Máis formas de xogar</string>
   <string name="timeControl">Control de tempo</string>
   <string name="realTime">Cronometrado</string>
   <string name="correspondence">Postal</string>
@@ -230,8 +243,8 @@
   <string name="changeUsername">Cambiar nome de usuario</string>
   <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
   <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
-  <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario axeitado pra todas as idades. Non poderás cambialo máis tarde e calquera conta con nome de usuario inadecuado será pechada!</string>
-  <string name="signupEmailHint">Usarémolo só pra o restablecemento do contrasinal e a activación da conta.</string>
+  <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario axeitado pra todas as idades. Logo non poderás cambialo e as contas con nome de usuario inadecuado serán pechadas!</string>
+  <string name="signupEmailPromise">Só che enviaremos correos relacionados coa túa conta e nunca compartiremos o teu enderezo electrónico.</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
@@ -257,7 +270,7 @@
   <string name="checkSpamFolder">Comproba tamén o teu cartafol de correos non solicitados, puido rematar aí. Se foi así, quítalle a marca de correo non desexado.</string>
   <string name="emailForSignupHelp">Se todo falla, entón envíanos un correo:</string>
   <string name="copyTextToEmail">Copia e pega o seguinte texto e envíao a %s</string>
-  <string name="waitForSignupHelp">Volveremos dentro de pouco para axudarche a completar o teu rexistro.</string>
+  <string name="waitForSignupHelp">Responderemos dentro de pouco para axudarche a completar o teu rexistro.</string>
   <string name="accountConfirmed">O usuario %s foi confirmado correctamente.</string>
   <string name="accountCanLogin">Podes iniciar sesión agora mesmo coma %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Non necesitas un correo de confirmación.</string>
@@ -299,6 +312,7 @@
   <string name="standard">Estándar</string>
   <string name="customPosition">Posición á medida</string>
   <string name="unlimited">Ilimitado</string>
+  <string name="unlimitedDescription">Emprega todo o tempo que precises</string>
   <string name="mode">Modo</string>
   <string name="casual">Amigable</string>
   <string name="rated">Puntuada</string>
@@ -424,14 +438,15 @@
   <string name="leaderboard">Listaxe de líderes</string>
   <string name="screenshotCurrentPosition">Fai unha captura de pantalla da posición actual</string>
   <string name="gameAsGIF">Gardar a partida en formato GIF</string>
+  <string name="playerNames">Nomes das xogadoras/es</string>
+  <string name="moveAnnotations">Mover anotacións</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega o texto PGN aquí</string>
   <string name="orUploadPgnFile">Ou sube un ficheiro PGN</string>
-  <string name="fromPosition">Dende posición</string>
   <string name="continueFromHere">Continuar dende aquí</string>
   <string name="toStudy">Estudar</string>
   <string name="importGame">Importar partida</string>
-  <string name="importGameExplanation">Pega o PGN dunha partida para obter unha versión navegable da liña principal, análise por ordenador, sala de conversa e unha ligazón pública para compartila.</string>
+  <string name="importGameExplanation">Pega o PGN dunha partida para obter unha versión navegable, análise por ordenador, sala de conversa e unha ligazón para compartila.</string>
   <string name="importGameDataPrivacyWarning">Este PGN é de acceso público. Para importar unha partida de xeito privado, emprega un estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
@@ -511,6 +526,7 @@
   <string name="popularOpenings">Aperturas populares</string>
   <string name="endgamePositions">Posicións de finais</string>
   <string name="chess960StartPosition">Posición inicial de Chess960: %s</string>
+  <string name="randomChess960Position">Posición aleatoria de Xadrez 960</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpar o taboleiro</string>
   <string name="loadPosition">Cargar unha posición</string>
@@ -575,7 +591,7 @@
   <string name="reportCheatBoostHelp">Pega a ligazón á(s) partida(s) e explica que ten de malo o comportamento deste usuario. Non digas soamente \"fai trampas\", mais cóntanos como chegaches a esta conclusión.</string>
   <string name="reportUsernameHelp">Explica que ten de ofensivo este nome de usuario. Non digas soamente \"é ofensivo/inadecuado\". Cóntanos como chegaches a esta conclusión, especialmente se o insulto está camuflado, non está en inglés, é xerga ou é unha referencia histórica ou cultural.</string>
   <string name="reportProcessedFasterInEnglish">A túa denuncia será procesada máis rápido se está escrita en Inglés.</string>
-  <string name="error.provideOneCheatedGameLink">Por favor, proporciona cando menos unha ligazón a unha partida na que sospeites que se fixeron trampas.</string>
+  <string name="error.provideOneCheatedGameLink">Por favor, proporciona cando menos unha ligazón a unha partida para a súa revisión.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
   <string name="thisTopicIsNowClosed">Este tema xa está pechado.</string>
@@ -587,6 +603,9 @@
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
   <string name="incorrectPassword">Contrasinal incorrecto</string>
   <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
+  <string name="clearField">Limpar campo</string>
+  <string name="orSeparator">Ou</string>
+  <string name="logInByEmail">Iniciar sesión co correo electrónico</string>
   <string name="emailMeALink">Mándame unha ligazón por correo</string>
   <string name="currentPassword">Contrasinal actual</string>
   <string name="newPassword">Novo contrasinal</string>
@@ -607,7 +626,7 @@
   <string name="slow">Lenta</string>
   <string name="insideTheBoard">Dentro do taboleiro</string>
   <string name="outsideTheBoard">Fóra do taboleiro</string>
-  <string name="allSquaresOfTheBoard">Todas as casas do taboleiro</string>
+  <string name="allSquaresOfTheBoard">En todas as casas</string>
   <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Sempre</string>
   <string name="never">Nunca</string>
@@ -697,7 +716,7 @@
   <string name="create">Crear</string>
   <string name="whenCreateSimul">Cando creas unha exhibición de simultáneas, tes que enfrontarte a varios xogadores ó mesmo tempo.</string>
   <string name="simulVariantsHint">Se seleccionas distintas variantes, cada xogador pode escoller cal xogar.</string>
-  <string name="simulClockHint">Modo Fischer de reloxo. Cantos máis xogadores, máis tempo necesitas.</string>
+  <string name="simulClockHint">Cantos máis xogadores, máis tempo necesitas.</string>
   <string name="simulAddExtraTime">Podes engadir tempo extra ó teu reloxo para axudarte coas simultáneas.</string>
   <string name="simulHostExtraTime">Tempo inicial extra para o anfitrión</string>
   <string name="simulAddExtraTimePerPlayer">Engadir tempo inicial ao teu reloxo por cada xogador que se una ás simultáneas.</string>
@@ -713,11 +732,6 @@
   <string name="keyCycleSelectedVariation">Cambia a variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">Entrar/saír da variante</string>
-  <string name="keyRequestComputerAnalysis">Solicitar unha análise por computador, Aprende dos teus erros</string>
-  <string name="keyNextLearnFromYourMistakes">Seguinte (Aprende dos teus erros)</string>
-  <string name="keyNextBlunder">Seguinte metida de zoca</string>
-  <string name="keyNextMistake">Seguinte erro</string>
-  <string name="keyNextInaccuracy">Seguinte imprecisión</string>
   <string name="keyPreviousBranch">Rama anterior</string>
   <string name="keyNextBranch">Rama seguinte</string>
   <string name="toggleVariationArrows">Activar/desactivar as frechas das variantes</string>
@@ -792,7 +806,7 @@
     <item quantity="other">Dispoñible en %s idiomas!</item>
   </plurals>
   <string name="xHostsY">%1$s crea %2$s</string>
-  <string name="xJoinsY">%1$s únese a %2$s</string>
+  <string name="xJoinsY">%1$s uniuse a %2$s</string>
   <string name="xLikesY">A %1$s gústalle %2$s</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
@@ -810,6 +824,7 @@
   <string name="size">Tamaño</string>
   <string name="opacity">Opacidade</string>
   <string name="brightness">Brillo</string>
+  <string name="contrast">Contraste</string>
   <string name="hue">Matiz</string>
   <string name="boardReset">Restaurar ás cores por defecto</string>
   <string name="pieceSet">Estilo das pezas</string>
@@ -838,7 +853,7 @@
   <string name="bestWasX">O mellor era %s</string>
   <string name="youBrowsedAway">Saíches da revisión</string>
   <string name="resumePractice">Seguir practicando</string>
-  <string name="drawByFiftyMoves">A partida rematou en táboas pola regra dos cincuenta movementos.</string>
+  <string name="drawByFiftyMoves">A partida rematou en táboas pola regra das cincuenta xogadas.</string>
   <string name="theGameIsADraw">A partida remata en táboas.</string>
   <string name="computerThinking">Computadora pensando...</string>
   <string name="seeBestMove">Ver o mellor movemento</string>
@@ -905,7 +920,6 @@
   <string name="agreementAssistance">Comprométome a non recibir axuda externa durante as miñas partidas (dun computador, libro, base de datos ou doutra persoa).</string>
   <string name="agreementNice">Comprométome a respectar sempre aos outros xogadores.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Comprométome a non crear múltiples contas (excepto polas razóns indicadas nos %s).</string>
-  <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBala</string>
@@ -950,7 +964,7 @@
   <string name="timeAlmostUp">Quédache pouco tempo!</string>
   <string name="clickToRevealEmailAddress">[Pincha para ver o correo electrónico]</string>
   <string name="download">Descarga</string>
-  <string name="coachManager">Administrador de adestradores</string>
+  <string name="coachManager">Adestrador</string>
   <string name="streamerManager">Administrador de presentadores</string>
   <string name="cancelTournament">Cancelar o torneo</string>
   <string name="tournDescription">Descrición do torneo</string>
@@ -986,7 +1000,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="playComputerMove">Xogar o mellor movemento da computadora</string>
   <string name="analysisOptions">Opcións de análise</string>
   <string name="focusChat">Poñer o cursor na sala de conversa</string>
-  <string name="showHelpDialog">Amosar este diálogo de axuda</string>
+  <string name="showHelpDialog">Ver este diálogo de axuda</string>
   <string name="reopenYourAccount">Abre de novo a túa conta</string>
   <string name="reopenYourAccountDescription">Se pechaches a túa conta pero mudaches de idea, tes a posibilidade de recuperala.</string>
   <string name="emailAssociatedToaccount">Enderezo de correo electrónico asociado á conta</string>
@@ -1017,5 +1031,7 @@ Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicam
   <string name="offline" comment="status of a user">desconectado</string>
   <string name="search">Buscar</string>
   <string name="clearSearch">Borrar a procura</string>
+  <string name="thereAreNoResultsForX">Non hai resultados para \"%s\"</string>
   <string name="tags">Etiquetas</string>
+  <string name="enPassant">Captura ao paso</string>
 </resources>

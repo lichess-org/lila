@@ -1,13 +1,15 @@
-import * as licon from 'lib/licon';
 import { h, type VNode } from 'snabbdom';
+
+import * as licon from 'lib/licon';
+
 import type { LearnCtrl } from './ctrl';
-import { type Stage, categs } from './stage/list';
-import type { StageProgress } from './learn';
-import * as scoring from './score';
-import { assetUrl } from './util';
-import { mapSideView } from './mapSideView';
 import { hashHref } from './hashRouting';
+import type { StageProgress } from './learn';
+import { mapSideView } from './mapSideView';
 import { runView } from './run/runView';
+import * as scoring from './score';
+import { type Stage, categs } from './stage/list';
+import { assetUrl } from './util';
 
 export const view = (ctrl: LearnCtrl): VNode => (ctrl.inStage() ? runView(ctrl) : mapView(ctrl));
 

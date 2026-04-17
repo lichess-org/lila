@@ -1,11 +1,12 @@
+import { memoize } from 'lib';
 import * as licon from 'lib/licon';
 import { hl, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/view';
+
+import type StudyCtrl from '../studyCtrl';
+import { studySideNodes } from '../studyView';
+import { broadcasterDeepLink } from './deepLink';
 import type { LogEvent } from './interfaces';
 import type RelayCtrl from './relayCtrl';
-import { memoize } from 'lib';
-import { studySideNodes } from '../studyView';
-import type StudyCtrl from '../studyCtrl';
-import { broadcasterDeepLink } from './deepLink';
 
 export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
   const contributor = study.members.canContribute(),
@@ -54,10 +55,10 @@ function renderLog(ctrl: RelayCtrl) {
 function stateOn(ctrl: RelayCtrl) {
   const sync = ctrl.data.sync;
   return hl(
-    'div.state.on.clickable',
+    'button.state.on.clickable',
     { hook: bind('click', _ => ctrl.setSync(false)), attrs: dataIcon(licon.ChasingArrows) },
     [
-      hl('div', [
+      hl('span', [
         'Connected ',
         sync && [
           !!sync.delay && `with ${sync.delay}s delay `,
@@ -82,14 +83,14 @@ function stateOn(ctrl: RelayCtrl) {
 
 const stateOff = (ctrl: RelayCtrl) =>
   hl(
-    'div.state.off.clickable',
+    'button.state.off.clickable',
     { hook: bind('click', _ => ctrl.setSync(true)), attrs: dataIcon(licon.PlayTriangle) },
-    [hl('div.fat', 'Connect to source')],
+    [hl('span.fat', 'Connect to source')],
   );
 
 const statePush = (ctrl: RelayCtrl) =>
   hl('div.state.push', { attrs: dataIcon(licon.UploadCloud) }, [
-    hl('div', [
+    hl('span', [
       'Listening to ',
       hl('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
       hl('br'),

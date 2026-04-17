@@ -3,7 +3,7 @@
   <string name="donate">Donirajte</string>
   <string name="donateAsX">Donirajte kao %s</string>
   <string name="lichessPatron">Lichess Pokrovitelj</string>
-  <string name="patronSince" comment="%s is a date e.g. &quot;21 Jan 2025&quot;,&#10;meaning the final text would be something like &quot;Patron since 21 Jan 2025&quot;.">Pokrovitelj od %s</string>
+  <string name="patronSince" comment="string is a date">Pokrovitelj od %s</string>
   <string name="freeAccount">Besplatni korisnički račun</string>
   <string name="becomePatron">Postanite Lichess Pokrovitelj</string>
   <string name="xBecamePatron">%s je postao/la Lichess Pokrovitelj</string>
@@ -15,7 +15,7 @@
   <string name="newPatrons">Novi Pokrovitelji</string>
   <string name="freeChess">Uvijek besplatan šah za sve!</string>
   <string name="noAdsNoSubs">Bez reklama i pretplate; sa otvorenim kodom i potpunom posvećenosti.</string>
-  <string name="thankYou" comment="&quot;you&quot; is in singular here.">Hvala Vam na donaciji!</string>
+  <string name="thankYou">Hvala Vam na donaciji!</string>
   <string name="youHaveLifetime">Imate doživotni račun pokrovitelja. To je baš fenomenalno!</string>
   <string name="patronUntil">Imate račun pokrovitelja do %s.</string>
   <string name="ifNotRenewedThenAccountWillRevert">Ako ga ne obnovite, Vaš će se račun vratiti na obični.</string>

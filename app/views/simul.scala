@@ -4,6 +4,7 @@ import play.api.libs.json.*
 
 import lila.app.UiEnv.{ *, given }
 import lila.chat.UserChat
+import lila.simul.Simul
 
 object simul:
 
@@ -16,7 +17,7 @@ object simul:
   val showUi = lila.simul.ui.SimulShow(helpers, views.gathering)
 
   def show(
-      sim: lila.simul.Simul,
+      sim: Simul,
       socket: lila.core.socket.SocketVersion,
       data: JsObject,
       chat: Option[UserChat.Mine],
@@ -25,18 +26,14 @@ object simul:
   )(using ctx: Context): Page =
     val streamFrag = stream.map: s =>
       views.streamer.bits.contextual(s.streamer.userId)
-    showUi(sim, socket, data, renderChat(chat, ctx.is(sim.hostId)), streamFrag, verdicts)
-
-  private def renderChat(c: Option[UserChat.Mine], userIsHost: Boolean)(using
-      Context
-  ): Option[(JsObject, Frag)] =
-    c.map: c =>
+    val chatData = chat.map: c =>
       views.chat.json(
         c.chat,
         c.lines,
         name = trans.site.chatRoom.txt(),
         timeout = c.timeout,
         public = true,
-        resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
-        localMod = userIsHost
+        resource = lila.core.chat.PublicSource.Simul(sim.id),
+        localMod = ctx.is(sim.hostId)
       ) -> views.chat.frag
+    showUi(sim, socket, data, chatData, streamFrag, verdicts)

@@ -4,29 +4,29 @@
   <string name="display">תצוגה</string>
   <string name="privacy">פרטיות</string>
   <string name="notifications">התראות</string>
-  <string name="pieceAnimation">אנימציית הכלים</string>
+  <string name="pieceAnimation">הנפשת הכלים</string>
   <string name="materialDifference">הבדל בחומר</string>
   <string name="boardHighlights">הדגשת המשבצות בלוח: המהלך האחרון ושח</string>
   <string name="pieceDestinations">יעדי הכלים: מהלכים וקדם-מהלכים מותרים</string>
   <string name="boardCoordinates">קואורדינטות לוח (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">רשימת מהלכים במהלך המשחק</string>
   <string name="pgnPieceNotation">רישום המהלכים</string>
-  <string name="chessPieceSymbol">סימן הכלי</string>
+  <string name="chessPieceSymbol">סימן כלי השחמט</string>
   <string name="pgnLetter">אות (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">מצב זן</string>
-  <string name="showPlayerRatings">הצג דירוג שחקנים</string>
+  <string name="showPlayerRatings">הצגת דירוגי שחקנים</string>
   <string name="showFlairs">הצגת הסמלילים של השחקנים</string>
-  <string name="explainShowPlayerRatings">אם תבחר/י להסתיר את הדירוג, הדירוג של השחקן היריב לא יופיע כדי לאפשר לך להתרכז בשח, אך המשחק יהיה מדורג.</string>
+  <string name="explainShowPlayerRatings">אפשרות זו מסתירה את כל הדירוגים מ־Lichess, כדי לסייע לך להתרכז במשחק. משחקים עם דירוג עדיין ישפיעו על הדירוג שלך, אפשרות זו רק מציגה או מסתירה אותו.</string>
   <string name="displayBoardResizeHandle">הצג סמן להגדלת הלוח</string>
   <string name="onlyOnInitialPosition">רק בעמדה ההתחלתית</string>
   <string name="inGameOnly">רק במהלך המשחק</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">למעט בזמן משחק</string>
+  <string name="exceptInGame">למעט בזמן משחק</string>
   <string name="chessClock">שעון השחמט</string>
   <string name="tenthsOfSeconds">הצג עשיריות שניה</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">כאשר הזמן שנותר קטן מעשר שניות</string>
-  <string name="horizontalGreenProgressBars">מדי התקדמות ירוקים אופקיים</string>
-  <string name="soundWhenTimeGetsCritical">השמע צליל כאשר הזמן נהיה קריטי</string>
-  <string name="giveMoreTime">תן עוד זמן</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">כאשר הזמן שנותר קטן מעשר שניות</string>
+  <string name="horizontalGreenProgressBars">שורות התקדמות ירוקות אופקיות</string>
+  <string name="soundWhenTimeGetsCritical">השמעת צליל כאשר הזמן עומד להיגמר</string>
+  <string name="giveMoreTime">לתת עוד זמן</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">התנהגות המשחק</string>
   <string name="howDoYouMovePieces">איך מזיזים את הכלים?</string>
   <string name="clickTwoSquares">לחץ על שני ריבועים</string>
@@ -34,27 +34,27 @@
   <string name="bothClicksAndDrag">שניהם</string>
   <string name="premovesPlayingDuringOpponentTurn">קדם-מהלכים: ביצוע מהלכים במהלך תורו של היריב</string>
   <string name="takebacksWithOpponentApproval">החזרת המהלך האחרון: מותנה בהסכמת היריב</string>
-  <string name="inCasualGamesOnly">במשחקים ללא דירוג בלבד</string>
+  <string name="inCasualGamesOnly">במשחקים מזדמנים בלבד</string>
   <string name="promoteToQueenAutomatically">הכתרה אוטומטית למלכה</string>
   <string name="explainPromoteToQueenAutomatically">לחצו על מקש &lt;ctrl&gt; בזמן הקידום כדי להשבית זמנית את ההכתרה האוטומטית</string>
   <string name="whenPremoving">כאשר מבצעים קדם-מהלך</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">הכרז על תיקו בחזרה משולשת באופן אוטומטי</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">כשהזמן הנותר קטן מ־30 שניות</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">כשהזמן הנותר קטן מ־30 שניות</string>
   <string name="moveConfirmation">אישור המהלכים</string>
   <string name="explainCanThenBeTemporarilyDisabled">ניתן לביטול במהלך המשחק באמצעות תפריט הלוח</string>
   <string name="inCorrespondenceGames">במשחקים בהתכתבות</string>
   <string name="correspondenceAndUnlimited">התכתבות וללא הגבלה</string>
-  <string name="confirmResignationAndDrawOffers">אשרו כניעה והצעות תיקו</string>
+  <string name="confirmResignationAndDrawOffers">אישור כניעה והצעות תיקו</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">שיטת הצרחה</string>
   <string name="castleByMovingTwoSquares">הזז את המלך שני משבצות</string>
   <string name="castleByMovingOntoTheRook">הזז את המלך על הצריח</string>
   <string name="inputMovesWithTheKeyboard">הקלידו מהלכים באמצעות המקלדת</string>
   <string name="inputMovesWithVoice">ביצוע מהלכים באמצעות דיבור</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">התאמת החצים למסעים חוקיים</string>
-  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">כתבו ״Good game, well played\" בצ׳אט לאחר הפסד או תיקו (בתרגום חופשי: משחק יפה, שיחקת טוב)</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">לכתוב \"Good game, well played\" (משחק טוב, שיחקת נהדר) לאחר הפסד או תיקו</string>
   <string name="yourPreferencesHaveBeenSaved">העדפותיך נשמרו.</string>
   <string name="scrollOnTheBoardToReplayMoves">גלול על גבי הלוח כדי להראות מהלכים קודמים</string>
-  <string name="correspondenceEmailNotification">הודעת מייל יומית עם רשימת המשחקים שלך בהתכתבות</string>
+  <string name="correspondenceEmailNotification">הודעת דוא״ל יומית עם רשימת המשחקים שלך בהתכתבות</string>
   <string name="notifyStreamStart">משדר עולה לשידור חי</string>
   <string name="notifyInboxMsg">הודעה חדשה בתיבת הדואר</string>
   <string name="notifyForumMention">מזכירים אותך בתגובה בפורום</string>
@@ -67,6 +67,6 @@
   <string name="notifyPush">התראה למכשיר גם כשאינך מחובר/ת ל־Lichess</string>
   <string name="notifyWeb">דפדפן</string>
   <string name="notifyDevice">מכשיר</string>
-  <string name="bellNotificationSound">השמע צליל עבור התראות פעמון</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">משחק עיוור</string>
+  <string name="bellNotificationSound">השמעת צליל עבור התראות פעמון</string>
+  <string name="blindfold" comment="As in Blindfold chess">משחק עיוור</string>
 </resources>

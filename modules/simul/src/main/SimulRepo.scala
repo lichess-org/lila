@@ -65,13 +65,6 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
   def findPending(hostId: UserId): Fu[List[Simul]] =
     coll.list[Simul](createdSelect ++ $doc("hostId" -> hostId))
 
-  def byTeamLeaders[U: UserIdOf](teamId: TeamId, hosts: Seq[U]): Fu[List[Simul]] =
-    coll
-      .find(createdSelect ++ $doc("hostId".$in(hosts.map(_.id)), "team" -> teamId))
-      .hint(coll.hint($doc("hostId" -> 1)))
-      .cursor[Simul]()
-      .listAll()
-
   def byHostAdapter(hostId: UserId) =
     lila.db.paginator.Adapter[Simul](
       collection = coll,
@@ -162,13 +155,6 @@ final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using E
         $set("text" -> text)
       )
       .void
-
-  def cleanup =
-    coll.delete.one(
-      createdSelect ++ $doc(
-        "createdAt" -> $doc("$lt" -> (nowInstant.minusMinutes(60)))
-      )
-    )
 
   private[simul] def anonymizeHost(id: UserId) =
     coll.update.one($doc("hostId" -> id), $set("hostId" -> UserId.ghost), multi = true)

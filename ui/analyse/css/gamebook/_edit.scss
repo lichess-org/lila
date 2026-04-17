@@ -25,12 +25,11 @@
     min-height: 3.5em;
 
     i {
-      @extend %flex-center;
+      @extend %flex-center-center;
 
       flex: 0 0 1.8em;
       font-size: 1.8em;
       opacity: 0.7;
-      justify-content: center;
     }
 
     &.clickable:hover {

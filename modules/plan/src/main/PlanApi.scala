@@ -1,11 +1,10 @@
 package lila.plan
 
 import play.api.i18n.Lang
-import play.api.mvc.Call
 import reactivemongo.api.*
 
 import lila.common.Bus
-import lila.core.config.Secret
+import lila.core.config.{ RouteUrl, Secret }
 import lila.core.net.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
@@ -27,7 +26,8 @@ final class PlanApi(
     monthlyGoalApi: MonthlyGoalApi,
     currencyApi: CurrencyApi,
     pricingApi: PlanPricingApi,
-    ip2proxy: lila.core.security.Ip2ProxyApi
+    ip2proxy: lila.core.security.Ip2ProxyApi,
+    routeUrl: RouteUrl
 )(using Executor, Scheduler):
 
   import BsonHandlers.given
@@ -183,8 +183,7 @@ final class PlanApi(
     def createSession(
         checkout: PlanCheckout,
         customerId: StripeCustomerId,
-        giftTo: Option[User],
-        routeUrl: Call => Url
+        giftTo: Option[User]
     )(using ctx: Context, me: Me, lang: Lang) =
       for
         isLifetime <- pricingApi.isLifetime(checkout.money)
@@ -477,7 +476,14 @@ final class PlanApi(
   private def setDbUserPlanOnCharge(from: User, levelUp: Boolean): Funit =
     val user = from.mapPlan(p => if levelUp then p.incMonths else p.enable)
     notifier.onCharge(user)
-    setDbUserPlan(user)
+    for _ <- setDbUserPlan(user)
+    yield maybeNotifyColorUnlock(from, user)
+
+  private def maybeNotifyColorUnlock(before: User, after: User): Unit =
+    (before, after).pairMap(_.patronTier.map(_.color.id)) match
+      case (Some(tierBefore), Some(tierAfter)) if tierAfter > tierBefore =>
+        Bus.pub(lila.core.msg.SystemMsg(after.id, s"New wing unlocked! ${routeUrl(routes.Plan.index())}"))
+      case _ =>
 
   import PlanApi.SyncResult.{ ReloadUser, Synced }
 

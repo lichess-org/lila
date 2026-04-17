@@ -81,7 +81,7 @@ object EventForm:
         startsAt = startsAt.instant,
         finishesAt = finishesAt.instant,
         hostedBy = hostedBy.map(_.id),
-        icon = icon.some.filter(_.nonEmpty),
+        icon = icon.nonEmptyOption,
         countdown = countdown,
         updatedAt = nowInstant.some,
         updatedBy = me.some
@@ -104,7 +104,7 @@ object EventForm:
         updatedAt = none,
         updatedBy = none,
         hostedBy = hostedBy.map(_.id),
-        icon = icon.some.filter(_.nonEmpty),
+        icon = icon.nonEmptyOption,
         countdown = countdown
       )
 

@@ -17,7 +17,7 @@
   <string name="studyRead">خواندن پخش و مطالعهٔ خصوصی</string>
   <string name="studyWrite">ایجاد، به روز رسانی، حذف درس ها و پخش</string>
   <string name="tournamentWrite">ایجاد، به روز رسانی، و پیوستن به مسابقات</string>
-  <string name="racerWrite">ایجاد و پیوستن به تاختِ معما</string>
+  <string name="racerWrite">ایجاد و پیوستن به تازِ معما</string>
   <string name="puzzleRead">خواندن داده‌های معماها</string>
   <string name="teamRead">خواندن اطلاعات خصوصی یَران</string>
   <string name="teamWrite">پیوستن و ترک کردن تیم ها</string>
@@ -29,7 +29,6 @@
   <string name="botPlay">با api ربات بازی کنید</string>
   <string name="engineRead">دیدن و استفاده از موتورهای بیرونی‌تان</string>
   <string name="engineWrite">ساخت و به‌روزرسانی موتورهای بیرونی</string>
-  <string name="webLogin">ساخت جلسه‌های وبگاه راستین‌شمارده (دادن دسترسی کامل!)</string>
   <string name="webMod">از ابزارهای مدیریت (در محدوده اجازه شما) استفاده کنید</string>
   <string name="personalAccessTokens">کلیدواژه خصوصی دسترسی به api</string>
   <string name="canMakeOauthRequests">شما میتوانید درخواست های OAuth را بدون استفاده از %s ارسال نمایید.</string>

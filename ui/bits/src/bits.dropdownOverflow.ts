@@ -1,6 +1,6 @@
 import { frag } from 'lib';
-import { json as xhrJson } from 'lib/xhr';
 import { isTouchDevice } from 'lib/device';
+import { json as xhrJson } from 'lib/xhr';
 
 type HttpMethod = 'GET' | 'POST';
 
@@ -25,12 +25,10 @@ site.load.then(() => {
   }
 
   function render() {
-    containers.forEach(container => {
-      renderMenu(container);
-      listenToReload(container);
-    });
+    containers.forEach(container => renderMenu(container));
   }
 
+  containers.forEach(container => listenToReload(container));
   render();
   window.addEventListener('resize', render);
 });

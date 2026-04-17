@@ -1,5 +1,6 @@
-import type { RoundTour } from '../interfaces';
 import Shepherd from 'shepherd.js';
+
+import type { RoundTour } from '../interfaces';
 
 export function initModule(): RoundTour {
   return {

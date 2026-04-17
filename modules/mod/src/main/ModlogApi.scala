@@ -115,7 +115,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       Modlog.selfCloseAccount,
       details = {
         forever.so("forever ") + openReports.map(r => s"${r.room.name} report").mkString(", ")
-      }.some.filter(_.nonEmpty)
+      }.nonEmptyOption
     )
 
   def closedByMod(user: User): Fu[Boolean] =
@@ -133,8 +133,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def removeTitle(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.removeTitle)
 
-  def setEmail(user: UserId)(using Me) = add:
-    Modlog(user.some, Modlog.setEmail)
+  def setEmail(user: UserId, from: Option[EmailAddress], to: EmailAddress)(using Me) = add:
+    Modlog(user.some, Modlog.setEmail, s"${from | "none"} -> $to".some)
+
+  def setPassword(using me: Me) = add:
+    Modlog(me.some, Modlog.setPassword)
 
   def deletePost(user: Option[UserId], text: String)(using MyId) = add:
     Modlog(
@@ -282,11 +285,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       details = image.automod.flatMap(_.flagged)
     )
 
-  def wasUnengined(sus: Suspect) = coll.exists:
+  def wasUnengined(sus: Suspect, after: Option[Instant] = None) = coll.exists:
     $doc(
       "user" -> sus.user.id,
       "action" -> Modlog.unengine
-    )
+    ) ++ after.so(d => $doc("date".$gte(d)))
 
   def wasUnbooster(userId: UserId) = coll.exists:
     $doc(

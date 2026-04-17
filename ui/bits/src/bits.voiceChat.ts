@@ -1,8 +1,9 @@
-import { hl, alert } from 'lib/view';
-import * as licon from 'lib/licon';
 import Peer from 'peerjs';
-import { pubsub } from 'lib/pubsub';
+
 import type { VoiceChat } from 'lib/chat/interfaces';
+import * as licon from 'lib/licon';
+import { pubsub } from 'lib/pubsub';
+import { hl, alert } from 'lib/view';
 
 type State =
   | 'off'
@@ -195,7 +196,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
       const connections = allOpenConnections();
       return devices
         ? hl(
-            'div.mchat__tab.voicechat.data-count.voicechat-' + state,
+            'button.mchat__tab.voicechat.data-count.voicechat-' + state,
             {
               attrs: {
                 'data-icon': licon.Handset,

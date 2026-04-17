@@ -219,7 +219,6 @@
   <string name="changeUsernameNotSame">Sadəcə istifadəçi adınızdakı böyük/kiçik hərfləri dəyişdirə bilərsiniz. Məsələn \"johndoe\" ilə \"JohnDoe\" kimi.</string>
   <string name="changeUsernameDescription">İstifadəçi adını dəyişdir. Bu prosesi sadəcə bir dəfə edə bilərsən və sadəcə mövcud istifadəçi adındakı hərfləri böyük və ya kiçik edə bilərsən.</string>
   <string name="signupUsernameHint">Ailə dostu bir istifadəçi adı seçdiyinizdən əmin olun. Siz onu daha sonra dəyişə bilməzsiniz və uyğun olmayan istifadəçi adları olan hesablar bağlanacaq!</string>
-  <string name="signupEmailHint">Biz onu yalnız parol sıfırlanması üçün istifadə edəcəyik.</string>
   <string name="password">Şifrə</string>
   <string name="changePassword">Şifrəni dəyiş</string>
   <string name="changeEmail">E-poçtu dəyiş</string>
@@ -404,7 +403,6 @@
   <string name="pasteTheFenStringHere">FEN mətnini bura yapışdırın</string>
   <string name="pasteThePgnStringHere">PGN mətnini bura yapışdırın</string>
   <string name="orUploadPgnFile">Və ya PGN faylı yükləyin</string>
-  <string name="fromPosition">Pozisiyadan</string>
   <string name="continueFromHere">Buradan davam edin</string>
   <string name="toStudy">Çalışma</string>
   <string name="importGame">Oyun daxil edin</string>
@@ -804,7 +802,6 @@
   <string name="currentMatchScore">Cari matç hesabı</string>
   <string name="agreementAssistance">Razıyam ki, heç vaxt oyunlarım zamanı (şahmat kompüterindən, kitabdan, məlumat bazasından və ya başqa bir şəxsdən) kömək almayacağam.</string>
   <string name="agreementNice">Həmişə digər oyunçulara hörmətlə yanaşacağımla razıyam.</string>
-  <string name="agreementPolicy">Bütün Lichess qaydalarına riayət edəcəyimlə razıyam.</string>
   <string name="searchOrStartNewDiscussion">Axtarış edin və ya yeni söhbətə başlayın</string>
   <string name="edit">Redaktə et</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">İldırım</string>

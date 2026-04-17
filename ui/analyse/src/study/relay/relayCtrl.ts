@@ -1,15 +1,20 @@
-import type { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
-import type { BothClocks, ChapterId, ServerClockMsg } from '@/study/interfaces';
+import { COLORS } from 'chessops';
+
 import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
-import RelayTeams from './relayTeams';
-import RelayPlayers from './relayPlayers';
-import type StudyCtrl from '@/study/studyCtrl';
-import { VideoPlayer } from './videoPlayer';
-import RelayStats from './relayStats';
-import { LiveboardPlugin } from './liveboardPlugin';
 import { pubsub } from 'lib/pubsub';
 
-export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats'] as const;
+import type { BothClocks, ChapterId, ServerClockMsg } from '@/study/interfaces';
+import type StudyCtrl from '@/study/studyCtrl';
+
+import type { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
+import { LiveboardPlugin } from './liveboardPlugin';
+import RelayPlayers from './relayPlayers';
+import RelayStats from './relayStats';
+import RelayTeamLeaderboard from './relayTeamLeaderboard';
+import RelayTeams from './relayTeams';
+import { VideoPlayer } from './videoPlayer';
+
+export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats', 'team-results'] as const;
 export type RelayTab = (typeof relayTabs)[number];
 type StreamInfo = [UserId, { name: string; lang: string }];
 
@@ -18,11 +23,12 @@ export default class RelayCtrl {
   log: LogEvent[] = [];
   cooldown = false;
   tourShow: Toggle;
-  roundSelectShow = toggle(false);
-  groupSelectShow = toggle(false);
+  roundSelectShow: Toggle;
+  tourSelectShow: Toggle;
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
   players: RelayPlayers;
+  teamLeaderboard: RelayTeamLeaderboard;
   stats: RelayStats;
   streams: StreamInfo[] = [];
   showStreamerMenu = toggle(false);
@@ -37,13 +43,20 @@ export default class RelayCtrl {
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3, v =>
       v ? study.ctrl.ceval.stop() : study.ctrl.startCeval(),
     );
+    this.tourSelectShow = toggle(false, this.study.ctrl.redraw);
+    this.roundSelectShow = toggle(false, this.study.ctrl.redraw);
     if (study.ctrl.opts.chat) {
-      const showLiveboard = () => this.tourShow() || !study.multiBoard.showResults();
-      this.liveboardPlugin = new LiveboardPlugin(study.ctrl, showLiveboard, study.chapterSelect.get());
+      const liveboardDisabled = () => this.tourShow() || !study.multiBoard.showResults();
+      this.liveboardPlugin = new LiveboardPlugin(
+        study,
+        this.round,
+        liveboardDisabled,
+        study.chapterSelect.get(),
+      );
       study.ctrl.opts.chat.plugin = this.liveboardPlugin;
     }
 
-    const locationTab = location.hash.replace(/^#(\w+).*$/, '$1') as RelayTab;
+    const locationTab = location.hash.replace(/^#([\w-]+).*$/, '$1') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
       ? locationTab
       : this.study.chapters.list.looksNew()
@@ -51,16 +64,28 @@ export default class RelayCtrl {
         : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
-      ? new RelayTeams(this.round, study.multiCloudEval, study.chapterSelect, this.roundPath, this.redraw)
+      ? new RelayTeams(
+          this.data.tour,
+          this.round,
+          study.multiCloudEval,
+          study.chapterSelect,
+          this.roundPath,
+          this.redraw,
+        )
       : undefined;
     this.players = new RelayPlayers(
-      data.tour.id,
+      data.tour,
       () => this.openTab('players'),
       study.ctrl.isEmbed,
-      () => study.data.federations,
       () => (study.multiBoard.showResults() ? undefined : this.round.id),
       fideId => data.photos[fideId],
       this.redraw,
+    );
+    this.teamLeaderboard = new RelayTeamLeaderboard(
+      this.data.tour.id,
+      () => this.openTab('team-results'),
+      this.redraw,
+      this.players,
     );
     this.stats = new RelayStats(this.round, this.redraw);
     if (data.videoUrls?.[0] || this.isPinnedStreamOngoing())
@@ -75,7 +100,6 @@ export default class RelayCtrl {
       );
     const pinnedName = this.isPinnedStreamOngoing() && data.pinned?.name;
     if (pinnedName) this.streams.push(['ps', { name: pinnedName, lang: '' }]);
-    this.setBodyClass();
     pubsub.on('socket.in.crowd', d => {
       const s = d.streams?.slice() ?? [];
       if (pinnedName) s.unshift(['ps', { name: pinnedName, lang: '' }]);
@@ -93,6 +117,7 @@ export default class RelayCtrl {
 
   openTab = (t: RelayTab) => {
     this.players.closePlayer();
+    this.teamLeaderboard.closeTeam();
     this.tab(t);
     this.tourShow(true);
     this.redraw();
@@ -118,7 +143,7 @@ export default class RelayCtrl {
   setClockToChapterPreview = (msg: ServerClockMsg, clocks: BothClocks) => {
     const cp = this.study.chapters.list.get(msg.p.chapterId);
     if (cp?.players)
-      ['white', 'black'].forEach((color: Color, i) => {
+      COLORS.forEach((color, i) => {
         const clock = clocks[i];
         if (notNull(clock)) cp.players![color].clock = clock;
       });
@@ -134,14 +159,19 @@ export default class RelayCtrl {
   roundUrlWithHash = (round?: RelayRound) => `${this.roundPath(round)}#${this.tab()}`;
   updateAddressBar = (tourUrl: string, roundUrl: string) => {
     const tab = this.tab();
-    const tabHash = () => (tab === 'overview' ? '' : tab === 'players' ? this.players.tabHash() : `#${tab}`);
+    const tabHash = () =>
+      tab === 'overview'
+        ? ''
+        : tab === 'players'
+          ? this.players.tabHash()
+          : tab === 'team-results'
+            ? this.teamLeaderboard.tabHash()
+            : `#${tab}`;
     const url = this.tourShow() ? `${tourUrl}${tabHash()}` : roundUrl;
     // when jumping from a tour tab to another page, remember which tour tab we were on.
     if (!this.tourShow() && location.href.includes('#')) history.pushState({}, '', url);
     else history.replaceState({}, '', url);
   };
-
-  setBodyClass = () => document.body.classList.toggle('header-margin-more', !this.tourShow());
 
   isOfficial = () => !!this.data.tour.tier;
 
@@ -167,7 +197,7 @@ export default class RelayCtrl {
     }
   };
 
-  private socketHandlers = {
+  private readonly socketHandlers = {
     relaySync: (sync: RelaySync) => {
       this.data.sync = {
         ...sync,

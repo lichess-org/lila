@@ -8,6 +8,7 @@ import scalalib.model.Seconds
 
 import lila.common.LilaScheduler
 import lila.core.lilaism.LilaInvalid
+import lila.core.fide.Federation
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.relay.RelayRound.Sync
@@ -29,7 +30,7 @@ final private class RelayFetch(
     playerEnrich: RelayPlayerEnrich,
     notifyAdmin: RelayNotifierAdmin,
     onlyIds: Option[List[RelayTourId]] = None
-)(using Executor, Scheduler)(using mode: play.api.Mode):
+)(using Federation.Guess, Executor, Scheduler)(using mode: play.api.Mode):
 
   import RelayFetch.*
 
@@ -68,7 +69,7 @@ final private class RelayFetch(
     else if rt.round.shouldGiveUp then
       val msg = "Finish for lack of start"
       logger.info(s"$msg ${rt.round}")
-      if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
+      if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullNameNoTrans, msg)
       api.update(rt.round)(_.finish).void
     else
       logger.info(s"Pause sync until round starts ${rt.round}")
@@ -90,7 +91,7 @@ final private class RelayFetch(
         _ <- (sliced.sizeCompare(limited) != 0 && rt.tour.official)
           .so(notifyAdmin.tooManyGames(rt, sliced.size, RelayFetch.maxChaptersToShow))
         withPlayers = playerEnrich.enrichAndReportAmbiguous(rt)(limited)
-        withFide <- fidePlayers.enrichGames(rt.tour)(withPlayers)
+        withFide <- fidePlayers.enrichGames(rt)(withPlayers)
         withReplacements = rt.tour.players.fold(withFide)(_.parse.update(withFide)._1)
         withTeams = rt.tour.teams.fold(withReplacements)(_.update(withReplacements))
         reordered = rt.round.sync.reorder.fold(withTeams)(_.reorder(withTeams))
@@ -142,7 +143,7 @@ final private class RelayFetch(
           lila.mon.relay.moves(tour.official, tour.id, tour.slug).increment(result.nbMoves)
           if tour.official then notifyAdmin.missingFideIds.schedule(round.id)
           if !round.hasStarted && !tour.official
-          then irc.broadcastStart(round.id, round.withTour(tour).fullName)
+          then irc.broadcastStart(round.id, round.withTour(tour).fullNameNoTrans)
           continueRelay(tour, updating(_.ensureStarted.resume(tour.official)))
         else continueRelay(tour, updating)
       case _ => continueRelay(tour, updating)
@@ -174,11 +175,12 @@ final private class RelayFetch(
         .filterNot(_.contains("Error parsing move"))
         .filterNot(_.contains("Error parsing PGN"))
         .filterNot(_.contains("Found an empty PGN"))
-        .foreach { irc.broadcastError(r.round.id, r.fullName, _) }
+        .foreach { irc.broadcastError(r.round.id, r.fullNameNoTrans, _) }
 
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
     val base =
       if upstream.isInternal then 1
+      else if upstream.hasIdChess then 3
       else if upstream.hasLcc then 4
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
@@ -229,7 +231,7 @@ final private class RelayFetch(
 
   // remembers previously ongoing games so they can be fetched one last time when finished
   private val ongoingUserGameIdsCache =
-    cacheApi.notLoadingSync[RelayTourId, Set[GameId]](16, "relay.fetch.ongoingUserGameIds"):
+    cacheApi.notLoadingSync[RelayTourId, Set[GameId]](8, "relay.fetch.ongoingUserGameIds"):
       _.expireAfterWrite(15.minutes).build()
 
   private def fetchFromUsers(tour: RelayTour, users: List[UserStr]): Fu[RelayGames] =
@@ -321,7 +323,7 @@ final private class RelayFetch(
       .flatMap:
         case RelayFormat.Round(id) =>
           studyChapterRepo
-            .orderedByStudyLoadingAllInMemory(id.into(StudyId))
+            .orderedByStudyLoadingAllInMemory(id.studyId)
             .map(_.view.map(RelayGame.fromChapter).toVector)
         case RelayFormat.SingleFile(url) =>
           httpGetPgn(url)

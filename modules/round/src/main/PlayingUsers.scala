@@ -10,7 +10,7 @@ final class PlayingUsers(using Executor):
 
   Bus.sub[lila.core.game.FinishGame]:
     case lila.core.game.FinishGame(game, _) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty).foreach(playing.removeAll)
+      game.userIds.nonEmptyOption.foreach(playing.removeAll)
   Bus.sub[lila.core.game.StartGame]:
     case lila.core.game.StartGame(game, _) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty).foreach(playing.putAll)
+      game.userIds.nonEmptyOption.foreach(playing.putAll)

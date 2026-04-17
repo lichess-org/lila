@@ -1,6 +1,8 @@
+import { h } from 'snabbdom';
+
 import * as licon from 'lib/licon';
 import { bind } from 'lib/view';
-import { h } from 'snabbdom';
+
 import type Ctrl from './ctrl';
 import type { Preset } from './interfaces';
 

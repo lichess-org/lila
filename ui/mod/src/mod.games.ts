@@ -1,8 +1,9 @@
-import { sortTable, extendTablesortNumber } from 'lib/tablesort';
 import { debounce } from 'lib/async';
+import { sortTable, extendTablesortNumber } from 'lib/tablesort';
+import { confirm, enter } from 'lib/view';
 import { formToXhr } from 'lib/xhr';
+
 import { checkBoxAll, expandCheckboxZone, shiftClickCheckboxRange } from './checkBoxes';
-import { confirm } from 'lib/view';
 
 site.load.then(() => {
   setupTable();
@@ -17,9 +18,10 @@ const setupFilter = () => {
     .on('change', () => form.submit());
   $(form)
     .find('input')
-    .on('keydown', e => {
-      if (e.code === 'Enter') form.submit();
-    });
+    .on(
+      'keydown',
+      enter(() => form.submit()),
+    );
 };
 
 const setupTable = () => {

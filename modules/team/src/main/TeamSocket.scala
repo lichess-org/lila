@@ -19,8 +19,8 @@ final private class TeamSocket(
     logger,
     roomId => _.Team(roomId.into(TeamId)).some,
     localTimeout = Some: (roomId, modId, suspectId) =>
-      api.hasPerm(roomId.into(TeamId), modId, _.Comm) >>&
-        api.hasPerm(roomId.into(TeamId), suspectId, _.Comm).not,
+      api.hasCommPerm(roomId.into(TeamId))(using modId.into(MyId)) >>&
+        api.hasCommPerm(roomId.into(TeamId))(using suspectId.into(MyId)).not,
     chatBusChan = _.team
   )
 

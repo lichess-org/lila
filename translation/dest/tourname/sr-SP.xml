@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Часовна Рапид Арена</string>
-  <string name="hourlyRapid">Часовни Рапид</string>
-  <string name="hourlyXArena">Часовна %s арена</string>
+  <string name="hourlyRapidArena">Часовна Брзопотезна Арена</string>
+  <string name="hourlyRapid">Часовни Брзопотез</string>
+  <string name="hourlyXArena">Часовна %s Арена</string>
   <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">Часовни %s</string>
-  <string name="dailyRapidArena">Дневна рапид арена</string>
-  <string name="dailyRapid">Дневни рапид</string>
-  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Дневна класична арена</string>
-  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Дневни класични</string>
-  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">Дневна %s арена</string>
+  <string name="dailyRapidArena">Дневна Брзопотезна Арена</string>
+  <string name="dailyRapid">Дневни Брзопотез</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Дневна Класична Арена</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Дневна Класична</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">Дневна %s Арена</string>
   <string name="dailyX">Дневни %s</string>
-  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Источна рапид арена</string>
-  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">Источни рапид</string>
-  <string name="easternClassicalArena">Источна класична арена</string>
-  <string name="easternClassical">Источни класични</string>
-  <string name="easternXArena">Источна %s арена</string>
+  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Источна Брзопотезна Арена</string>
+  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">Источни Брзопотез</string>
+  <string name="easternClassicalArena">Источна Класична Арена</string>
+  <string name="easternClassical">Источна Класична</string>
+  <string name="easternXArena">Источна %s Арена</string>
   <string name="easternX">Источни %s</string>
-  <string name="weeklyRapidArena">Седмична рапид арена</string>
-  <string name="weeklyRapid">Седмични рапид</string>
-  <string name="weeklyClassicalArena">Недељна класична арена</string>
-  <string name="weeklyClassical">Недељни класични</string>
-  <string name="weeklyXArena">Недељна %s арена</string>
+  <string name="weeklyRapidArena">Седмична Брзопотезна Арена</string>
+  <string name="weeklyRapid">Седмични Брзопотез</string>
+  <string name="weeklyClassicalArena">Седмична Класична Арена</string>
+  <string name="weeklyClassical">Седмична Класична</string>
+  <string name="weeklyXArena">Седмична %s Арена</string>
   <string name="weeklyX">Седмични %s</string>
-  <string name="monthlyRapidArena">Месечна рапид арена</string>
-  <string name="monthlyRapid">Месечни рапид</string>
-  <string name="monthlyClassicalArena">Месечна класична арена</string>
-  <string name="monthlyClassical">Месечни класични</string>
-  <string name="monthlyXArena">Месечна %s арена</string>
+  <string name="monthlyRapidArena">Месечна Брзопотезна Арена</string>
+  <string name="monthlyRapid">Месечни Брзопотез</string>
+  <string name="monthlyClassicalArena">Месечна Класична Арена</string>
+  <string name="monthlyClassical">Месечна Класична</string>
+  <string name="monthlyXArena">Месечна %s Арена</string>
   <string name="monthlyX">Месечни %s</string>
-  <string name="yearlyRapidArena">Годишња рапид арена</string>
-  <string name="yearlyRapid">Годишњи рапид</string>
-  <string name="yearlyClassicalArena">Годишња класична арена</string>
-  <string name="yearlyClassical">Годишњи класични</string>
-  <string name="yearlyXArena">Годишња %s арена</string>
+  <string name="yearlyRapidArena">Годишња Брзопотезна Арена</string>
+  <string name="yearlyRapid">Годишњи Брзопотез</string>
+  <string name="yearlyClassicalArena">Годишња Класична Арена</string>
+  <string name="yearlyClassical">Годишња Класична</string>
+  <string name="yearlyXArena">Годишња %s Арена</string>
   <string name="yearlyX">Годишњи %s</string>
-  <string name="rapidShieldArena">Рапид Шилд арена</string>
-  <string name="rapidShield">Рапид Шилд</string>
-  <string name="classicalShieldArena">Класична Шилд арена</string>
-  <string name="classicalShield">Класични Шилд</string>
-  <string name="xShieldArena">%s Шилд арена</string>
-  <string name="xShield">%s Шилд</string>
-  <string name="xTeamBattle">%s Борба тимова</string>
-  <string name="eliteXArena">Елитна %s арена</string>
+  <string name="rapidShieldArena">Брзопотезна Штитна Арена</string>
+  <string name="rapidShield">Брзопотезна Штитна</string>
+  <string name="classicalShieldArena">Класична Штитна Арена</string>
+  <string name="classicalShield">Класична Штитна</string>
+  <string name="xShieldArena">%s Штитна Арена</string>
+  <string name="xShield">%s Штитна</string>
+  <string name="xTeamBattle">%s Тимска Битка</string>
+  <string name="eliteXArena">Елитна %s Арена</string>
   <string name="eliteX">Елитни %s</string>
   <string name="xArena">%s Арена</string>
 </resources>

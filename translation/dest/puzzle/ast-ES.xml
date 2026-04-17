@@ -8,6 +8,7 @@
   <string name="advanced">Avanzáu</string>
   <string name="lengths">Duración</string>
   <string name="mates">Mates</string>
+  <string name="mateThemes">Temes de mate</string>
   <string name="goals">Oxetivos</string>
   <string name="origin">Orixe</string>
   <string name="specialMoves">Movimientos especiales</string>
@@ -15,7 +16,7 @@
   <string name="voteToLoadNextOne">¡Vota pa pasar al siguiente!</string>
   <string name="upVote">Votar positivamente l\'exerciciu</string>
   <string name="downVote">Votar negativamente l\'exerciciu</string>
-  <string name="yourPuzzleRatingWillNotChange">La to puntuación d\'exercicios nun va camudar. Nota que los exercicios nun son una competición. La puntuación indica los exercicios que se adecuan a les tos habilidaes.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">La to puntuación d\'exercicios nun va camudar. Nota que los exercicios nun son una competición. La puntuación indica los exercicios que se adecuan a les tos habilidaes.</string>
   <string name="findTheBestMoveForWhite">Atopa el meyor movimientu pa les blanques.</string>
   <string name="findTheBestMoveForBlack">Atopa el meyor movimientu pa les prietes.</string>
   <string name="toGetPersonalizedPuzzles">Pa consiguir exercicios personalizaos:</string>
@@ -67,9 +68,9 @@
   <string name="history">Historial d\'exercicios</string>
   <string name="solved">resueltu</string>
   <string name="failed">fallíu</string>
-  <string name="streakDescription">Resuelve exercicios cada vez más difíciles pa consiguir la racha más llarga posible. Nun hai tiempu, asina que tomatelo con calma. Un movimientu erróneu y ¡acabóse!, aunque pues omitir un movimientu en cada sesión.</string>
+  <string name="streakDescription">Resuelve exercicios cada vez más difíciles pa consiguir la racha más llarga posible. Nun hai tiempu, asina que tomatelo con calma. Un movimientu erróneu y ¡acabóse!, aunque puedes omitir un movimientu en cada sesión.</string>
   <string name="yourStreakX">La to racha: %s</string>
-  <string name="streakSkipExplanation">Pues omitir esti movimientu pa mantener la to racha, pero solo una vegada por sesión.</string>
+  <string name="streakSkipExplanation">Puedes omitir esti movimientu pa mantener la to racha, pero solo una vegada por sesión.</string>
   <string name="continueTheStreak">Siguir la racha</string>
   <string name="newStreak">Nueva racha</string>
   <string name="fromMyGames">De les mios partíes</string>

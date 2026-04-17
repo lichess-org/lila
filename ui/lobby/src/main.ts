@@ -1,11 +1,12 @@
-import { init, classModule, attributesModule, eventListenersModule } from 'snabbdom';
-import type { LobbyOpts } from './interfaces';
+import { init, classModule, attributesModule, eventListenersModule, propsModule } from 'snabbdom';
+
 import makeCtrl from './ctrl';
+import type { LobbyOpts } from './interfaces';
+import { makeCarousel } from './view/carousel';
 import appView from './view/main';
 import tableView from './view/table';
-import { makeCarousel } from './view/carousel';
 
-export const patch = init([classModule, attributesModule, eventListenersModule]);
+export const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 
 export default function main(opts: LobbyOpts) {
   const ctrl = new makeCtrl(opts, redraw);

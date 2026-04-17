@@ -5,10 +5,10 @@ import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 
 import lila.common.Json.given
-import lila.web.AnnounceApi
 import lila.core.i18n.Translate
 import lila.core.user.KidMode
 import lila.core.net.UserAgent
+import lila.oauth.TokenScopes
 
 final class MobileApi(
     userApi: UserApi,
@@ -17,7 +17,7 @@ final class MobileApi(
     lightUserApi: lila.core.user.LightUserApi,
     gameProxy: lila.round.GameProxyRepo,
     unreadCount: lila.msg.MsgUnreadCount,
-    teamCached: lila.team.Cached,
+    teamCached: lila.team.TeamCached,
     tourFeaturing: lila.tournament.TournamentFeaturing,
     tourApiJson: lila.tournament.ApiJsonView,
     relayHome: lila.relay.RelayHomeApi,
@@ -34,24 +34,28 @@ final class MobileApi(
 
   private given (using trans: Translate): Lang = trans.lang
 
-  def home(using me: Option[Me], ua: UserAgent)(using RequestHeader, Translate, KidMode): Fu[JsObject] =
+  def home(oauth: Option[TokenScopes])(using
+      me: Option[Me],
+      ua: UserAgent
+  )(using RequestHeader, Translate, KidMode): Fu[JsObject] =
     val myUser = me.map(_.value)
+    val takex3 = oauth.exists(_.takex3)
     for
-      tours <- tournaments
+      tours <- takex3.not.option(tournaments).sequence
       account <- myUser.traverse(userApi.mobile)
       recentGames <- myUser.traverse(gameApi.mobileRecent)
       ongoingGames <- myUser.traverse: u =>
         gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
-      inbox <- me.traverse(unreadCount.mobile)
+      inbox <- me.ifFalse(takex3).traverse(unreadCount.mobile)
       challenges <- me.traverse(challengeApi.allFor(_))
     yield Json
-      .obj("tournaments" -> tours, "version" -> webMobile.json)
+      .obj("version" -> webMobile.json)
+      .add("tournaments", tours)
       .add("account", account)
       .add("recentGames", recentGames)
       .add("ongoingGames", ongoingGames)
       .add("inbox", inbox)
       .add("challenges", challenges.map(challengeJson.all))
-      .add("announce", AnnounceApi.get.map(_.json))
 
   def tournaments(using me: Option[Me])(using Translate): Fu[JsObject] =
     for

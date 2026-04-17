@@ -24,16 +24,17 @@ object HTTPRequest:
   def isXhrFromEmbed(req: RequestHeader) =
     isXhr(req) && referer(req).exists(_.contains(s"${req.host}/embed/"))
 
-  private val appOrigins = List(
-    "capacitor://localhost", // ios
-    "ionic://localhost", // ios
-    "http://localhost" // android/dev/flutter
-  )
+  private val appOrigins: List[Origin] = Origin.from:
+    List(
+      "capacitor://localhost", // ios
+      "ionic://localhost", // ios
+      "http://localhost" // android/dev/flutter
+    )
 
-  def appOrigin(req: RequestHeader): Option[String] =
+  def appOrigin(req: RequestHeader): Option[Origin] =
     origin(req).filter: reqOrigin =>
       appOrigins.exists: appOrigin =>
-        reqOrigin == appOrigin || reqOrigin.startsWith(s"$appOrigin:")
+        reqOrigin == appOrigin || reqOrigin.value.startsWith(s"$appOrigin:")
 
   def isApi(req: RequestHeader) = req.path.startsWith("/api/")
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
@@ -52,8 +53,6 @@ object HTTPRequest:
   def isLichessMobile(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
   def isLichessMobile(req: RequestHeader): Boolean = isLichessMobile(userAgent(req))
   def isLichobile(req: RequestHeader) = userAgent(req).value.contains("Lichobile/")
-  def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
-    isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
   def isAndroid = UaMatcher("Android")
   def isLitools(req: RequestHeader) = userAgent(req) == UserAgent("litools")
   def lichessMobileVersion(ua: UserAgent): Option[LichessMobileVersion] =
@@ -67,7 +66,7 @@ object HTTPRequest:
           case _ => none
       yield version
 
-  def origin(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ORIGIN)
+  def origin(req: RequestHeader): Option[Origin] = Origin.from(req.headers.get(HeaderNames.ORIGIN))
   def referer(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.REFERER)
 
   def ipAddress(req: RequestHeader): IpAddress =
@@ -111,7 +110,7 @@ object HTTPRequest:
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
   def printClient(req: RequestHeader) =
-    s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).value}"
+    s"${ipAddress(req)} origin:${origin(req).so(_.value)} referer:${~referer(req)} ua:${userAgent(req)}"
 
   def bearer(req: RequestHeader): Option[Bearer] = for
     authorization <- req.headers.get(HeaderNames.AUTHORIZATION)
@@ -143,16 +142,6 @@ object HTTPRequest:
       case LichobileVersionHeaderPattern(v) => ApiVersion.from(v.toIntOption)
       case _ => none
 
-  private def isAppeal(req: RequestHeader) = req.path.startsWith("/appeal")
-  private def isGameExport(req: RequestHeader) =
-    "^/@/[\\w-]{2,30}/download$".r.matches(req.path) ||
-      "^/(api/games/user|games/export)/[\\w-]{2,30}($|/.+)".r.matches(req.path)
-  private def isStudyExport(req: RequestHeader) = "^/study/by/[\\w-]{2,30}/export.pgn$".r.matches(req.path)
-  private def isAccount(req: RequestHeader) = req.path.startsWith("/account")
-
-  def isClosedLoginPath(req: RequestHeader) =
-    isAppeal(req) || isStudyExport(req) || isGameExport(req) || isAccount(req)
-
   def clientName(req: RequestHeader) =
     // lichobile sends XHR headers
     if isXhr(req) then apiVersion(req).fold("xhr")(v => s"lichobile/$v")
@@ -160,8 +149,17 @@ object HTTPRequest:
     else if isCrawler(req).yes then "crawler"
     else "browser"
 
-  def queryStringGet(req: RequestHeader, name: String): Option[String] =
+  def queryStringGet(name: String)(using req: RequestHeader): Option[String] =
     req.queryString.get(name).flatMap(_.headOption).filter(_.nonEmpty)
+
+  def queryStringBool(name: String)(using req: RequestHeader): Boolean =
+    queryStringGet(name).exists(trueish)
+
+  def queryStringBoolOpt(name: String)(using req: RequestHeader): Option[Boolean] =
+    queryStringGet(name).map(trueish)
+
+  def queryStringGetAs[A](name: String)(using req: RequestHeader, sr: SameRuntime[String, A]): Option[A] =
+    queryStringGet(name).map(sr.apply)
 
   def looksLikeLichessBot(req: RequestHeader) =
     val ua = userAgent(req).value

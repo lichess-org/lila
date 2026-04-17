@@ -1,7 +1,9 @@
-import type RoundController from './ctrl';
 import type { VNode } from 'snabbdom';
-import { snabDialog } from 'lib/view';
+
 import { pubsub } from 'lib/pubsub';
+import { snabDialog } from 'lib/view';
+
+import type RoundController from './ctrl';
 
 export const prev = (ctrl: RoundController): void => ctrl.userJump(ctrl.ply - 1);
 
@@ -28,10 +30,12 @@ export const init = (ctrl: RoundController): LichessMousetrap =>
     .bind('f', ctrl.flipNow)
     .bind('z', () => pubsub.emit('zen'))
     .bind('F', ctrl.yeet)
+    .bind('G', ctrl.googlyEyesStart)
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
       ctrl.redraw();
-    });
+    })
+    .bind('h', ctrl.menu.toggle);
 
 export const view = (ctrl: RoundController): VNode =>
   snabDialog({

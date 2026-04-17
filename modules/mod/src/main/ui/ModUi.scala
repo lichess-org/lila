@@ -114,37 +114,34 @@ final class ModUi(helpers: Helpers):
           p(cls := "granted")("In green, permissions enabled manually or by a package."),
           div(cls := "permission-list")(
             permissions
-              .filter { (_, ps) => ps.exists(canGrant(_)) }
               .map: (categ, perms) =>
                 st.section(
                   h2(categ),
-                  perms
-                    .filter(canGrant)
-                    .map: perm =>
-                      val id = s"permission-${perm.dbKey}"
-                      div(
-                        cls := Granter.of(perm)(u).option("granted"),
-                        title := Granter
-                          .of(perm)(u)
-                          .so:
-                            findGranterPackage(Permission(u), perm).map: p =>
-                              s"Granted by package: $p"
-                      )(
-                        span(
-                          form3.cmnToggle(
-                            id,
-                            "permissions[]",
-                            checked = u.roles.contains(perm.dbKey),
-                            value = perm.dbKey
-                          )
-                        ),
-                        label(`for` := id)(perm.name)
-                      )
+                  perms.map: perm =>
+                    val id = s"permission-${perm.dbKey}"
+                    div(
+                      cls := List("form-check__container" -> true, "granted" -> Granter.of(perm)(u)),
+                      title := Granter
+                        .of(perm)(u)
+                        .so:
+                          findGranterPackage(Permission(u), perm).map: p =>
+                            s"Granted by package: $p"
+                    )(
+                      form3.nativeCheckbox(
+                        id,
+                        "permissions[]",
+                        checked = u.roles.contains(perm.dbKey),
+                        value = perm.dbKey,
+                        disabled = !canGrant(perm)
+                      ),
+                      label(`for` := id, cls := "form-label")(perm.name)
+                    )
                 )
           ),
           form3.actions(
             a(href := routes.User.show(u.username))(trans.site.cancel()),
-            submitButton(cls := "button")(trans.site.save())
+            Granter(_.ChangePermission).option:
+              submitButton(cls := "button")(trans.site.save())
           )
         )
       )
@@ -320,7 +317,7 @@ final class ModUi(helpers: Helpers):
       Granter(_.ManageTournament)
         .option(a(cls := itemCls(active, "tour"), href := routes.TournamentCrud.index(1))("Tournaments")),
       Granter(_.ManageEvent)
-        .option(a(cls := itemCls(active, "event"), href := routes.Event.manager)("Events")),
+        .option(a(cls := itemCls(active, "event"), href := routes.Event.manager())("Events")),
       Granter(_.ModerateBlog)
         .option(a(cls := itemCls(active, "carousel"), href := routes.Ublog.modShowCarousel)("Blog carousel")),
       Granter(_.MarkEngine)

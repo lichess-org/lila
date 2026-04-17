@@ -2,7 +2,7 @@ package lila.game
 
 import chess.format.Uci
 import chess.variant.Variant
-import chess.{ ByColor, Castles, Centis, Clock, Color, Game as ChessGame, MoveOrDrop, Ply, Speed, Status }
+import chess.{ Castles, Centis, Clock, Color, Game as ChessGame, MoveOrDrop, Ply, Speed, Status }
 import scalalib.model.Days
 
 import lila.core.game.{ ClockHistory, Game, Player, Pov, Source }
@@ -263,11 +263,9 @@ object Game:
 
   val unanalysableVariants: Set[Variant] = Variant.list.all.toSet -- analysableVariants
 
-  val hordeWhitePawnsSince = instantOf(2015, 4, 11, 10, 0)
-
+  private val hordeWhitePawnsSince = instantOf(2015, 4, 11, 10, 0)
   def isOldHorde(game: Game) =
-    game.variant == chess.variant.Horde &&
-      game.createdAt.isBefore(Game.hordeWhitePawnsSince)
+    game.variant == chess.variant.Horde && game.createdAt.isBefore(Game.hordeWhitePawnsSince)
 
   val abandonedDays = Days(21)
   def abandonedDate = nowInstant.minusDays(abandonedDays.value)

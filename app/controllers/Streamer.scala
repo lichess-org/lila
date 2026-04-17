@@ -31,7 +31,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       JsonOk:
         featured.live.streams.map: s =>
           Json.obj(
-            "url" -> routeUrl(routes.Streamer.redirect(s.streamer.userId)),
+            "url" -> routeUrl(routes.Streamer.show(s.streamer.userId, redirect = true)),
             "status" -> s.status,
             "user" -> Json
               .obj(
@@ -44,22 +44,20 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def live = apiC.ApiRequest:
     env.api.mobile.featuredStreamers.map(apiC.toApiResult)
 
-  def show(username: UserStr) = Open:
+  def show(username: UserStr, redirect: Boolean) = Open:
     Found(api.forSubscriber(username)): s =>
       WithVisibleStreamer(s):
-        for
-          sws <- env.streamer.liveApi.of(s)
-          activity <- env.activity.read.recentAndPreload(sws.user)
-          perfs <- env.user.perfsRepo.perfsOf(sws.user)
-          page <- renderPage(views.streamer.show(sws, perfs, activity))
-        yield Ok(page)
-
-  def redirect(username: UserStr) = Open:
-    Found(api.forSubscriber(username)): s =>
-      WithVisibleStreamer(s):
-        env.streamer.liveApi.of(s).map { sws =>
-          Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username).url)
-        }
+        redirect
+          .so(env.streamer.liveApi.of(s).map(_.stream.flatMap(_.redirectToLiveUrl)))
+          .flatMap:
+            case Some(url) => Redirect(url.value)
+            case None =>
+              for
+                sws <- env.streamer.liveApi.of(s)
+                activity <- env.activity.read.recentAndPreload(sws.user)
+                perfs <- env.user.perfsRepo.perfsOf(sws.user)
+                page <- renderPage(views.streamer.show(sws, perfs, activity))
+              yield Ok(page)
 
   def create = AuthBody { _ ?=> me ?=>
     ctx.kid.no.so:
@@ -132,23 +130,18 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def subscribe(streamer: UserStr, set: Boolean) = AuthBody { _ ?=> me ?=>
-    if set
-    then env.relation.subs.subscribe(me, streamer.id)
-    else env.relation.subs.unsubscribe(me, streamer.id)
-    Ok
+    for _ <- env.relation.subs.subscribe(me, streamer.id, set)
+    yield NoContent
   }
 
-  def checkOnline(streamer: UserStr) = Auth { _ ?=> me ?=>
+  def checkOnline(streamer: UserStr) = Auth { ctx ?=> me ?=>
     val uid = streamer.id
-    val isMod = isGranted(_.ModLog)
-    if ctx.is(uid) || isMod then
-      limit
-        .streamerOnlineCheck(uid, rateLimited)(api.forceCheck(uid))
-        .inject(
-          Redirect(routes.Streamer.show(uid).url)
-            .flashSuccess(s"Please wait one minute while we check, then reload the page.")
-        )
-    else Unauthorized
+    val redir = Redirect(routes.Streamer.show(uid).url)
+    if !env.socket.isOnline.exec(uid)
+    then redir.flashFailure("That player is not currently online.")
+    else
+      for _ <- limit.streamerOnlineCheck(uid -> ctx.ip, rateLimited)(api.forceCheck(uid))
+      yield redir.flashSuccess(s"Please wait one minute while we check, then reload the page.")
   }
 
   def onTwitchEventSub = AnonBodyOf(parse.tolerantText): body =>

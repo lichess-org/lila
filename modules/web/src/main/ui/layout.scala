@@ -23,7 +23,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
   val charset = raw("""<meta charset="utf-8">""")
   val viewport = raw:
-    """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
+    """<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,viewport-fit=cover">"""
   def metaCsp(csp: ContentSecurityPolicy): Frag = raw:
     s"""<meta http-equiv="Content-Security-Policy" content="${lila.web.ContentSecurityPolicy.render(csp)}">"""
   def metaCsp(csp: Option[ContentSecurityPolicy])(using Context, Option[Nonce]): Frag =
@@ -81,7 +81,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )
 
   def botImage = img(
-    src := staticAssetUrl("images/icons/bot.png"),
+    src := staticAssetUrl("images/icons/bot.webp"),
     title := "Robot chess",
     style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )
@@ -99,14 +99,17 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         s"""<link id="favicon" rel="icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-32.png" sizes="32x32">"""
       )
   def blindModeForm(using ctx: Context) = raw:
+    val btnText =
+      if ctx.blind
+      then trans.site.disableBlindMode.txt()
+      else s"${trans.site.accessibility.txt()} - ${trans.site.enableBlindMode.txt()}"
+    def tutorialLink = ctx.blind.so:
+      val url = routes.Cms.lonePage(lila.core.id.CmsPageKey("blind-mode-tutorial"))
+      s"""&nbsp;-&nbsp;${a(href := url)("Blind mode tutorial")}"""
+
     s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${
         if ctx.blind then 0 else 1
-      }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">${trans.site.accessibility
-        .txt()} - ${
-        if ctx.blind then trans.site.disableBlindMode.txt() else trans.site.enableBlindMode.txt()
-      } </button>&nbsp;-&nbsp;${a(href := "https://lichess.org/page/blind-mode-tutorial")(
-        "Blind mode tutorial"
-      )}</form>"""
+      }"><input type="hidden" name="redirect" value="${ctx.req.path}"><button id="nvui-button" type="submit">$btnText</button>$tutorialLink</form>"""
 
   def zenZone(using Translate) = spaceless:
     s"""
@@ -118,7 +121,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   def dasher(me: User) =
     div(cls := "dasher")(
-      a(id := "user_tag", cls := "toggle link", href := routes.Auth.logoutGet)(me.username),
+      button(id := "user_tag", cls := "toggle link")(me.username),
       div(id := "dasher_app", cls := "dropdown")
     )
 
@@ -126,7 +129,9 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     val prefs = trans.preferences.preferences.txt()
     frag(
       div(cls := "signin-or-signup")(
-        a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
+        a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "button button-empty signin")(
+          trans.site.signIn()
+        ),
         a(href := routes.Auth.signup, cls := "button signup")(trans.site.signUp())
       ),
       div(cls := "dasher")(
@@ -267,7 +272,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           a(
             cls := "link",
             title := "Content",
-            href := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager.some),
+            href := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager().some),
             dataIcon := Icon.InkQuill
           )
         )
@@ -309,7 +314,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
               (ctx.kid.no && !ctx.me.exists(_.isPatron) && !zenable).option(
                 a(cls := "site-title-nav__donate")(
                   href := routes.Plan.index()
-                )(trans.patron.donate())
+                )(span(trans.patron.donate()))
               )
             )
           ),

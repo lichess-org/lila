@@ -1,6 +1,8 @@
+import Cropper from 'cropperjs';
+
 import { defined } from 'lib';
 import { domDialog, spinnerHtml } from 'lib/view';
-import Cropper from 'cropperjs';
+
 import { supported, mimeAccept } from './crop';
 
 export interface CropOpts {
@@ -138,7 +140,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
       input.onchange = () => {
         const file = input.files?.[0];
         if (file) resolve(file);
-        else reject();
+        else reject(new Error('Invalid image file'));
       };
       input.click();
     });

@@ -1,11 +1,12 @@
 package lila.security
 
 import play.api.i18n.Lang
-import play.api.mvc.{ Cookie, RequestHeader }
+import play.api.mvc.{ Cookie, Session, RequestHeader }
 import scalatags.Text.all.*
 
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
+import lila.core.net.ValidReferrer
 import lila.mailer.Mailer
 import lila.user.{ User, UserApi, UserRepo }
 
@@ -13,7 +14,7 @@ trait EmailConfirm:
 
   def effective: Boolean
 
-  def send(user: User, email: EmailAddress)(using Lang): Funit
+  def send(user: User, email: EmailAddress)(using Lang, Option[ValidReferrer]): Funit
 
   def dryTest(token: String): Fu[EmailConfirm.Result]
 
@@ -23,7 +24,7 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
 
   def effective = false
 
-  def send(user: User, email: EmailAddress)(using Lang) =
+  def send(user: User, email: EmailAddress)(using Lang, Option[ValidReferrer]) =
     userRepo.setEmailConfirmed(user.id).void
 
   def dryTest(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
@@ -33,7 +34,7 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
 final class EmailConfirmMailer(
     userRepo: UserRepo,
     mailer: Mailer,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     tokenerSecret: Secret
 )(using Executor, lila.core.i18n.Translator)
     extends EmailConfirm:
@@ -44,7 +45,7 @@ final class EmailConfirmMailer(
 
   val maxTries = 3
 
-  def send(user: User, email: EmailAddress)(using Lang): Funit =
+  def send(user: User, email: EmailAddress)(using lang: Lang, referrer: Option[ValidReferrer]): Funit =
     if email.looksLikeFakeEmail then
       lila.log("auth").info(s"Not sending confirmation to fake email $email of ${user.username}")
       fuccess(())
@@ -52,7 +53,8 @@ final class EmailConfirmMailer(
       email.looksLikeFakeEmail.not.so:
         tokener.make(user.id).flatMap { token =>
           lila.mon.email.send.confirmation.increment()
-          val url = s"$baseUrl/signup/confirm/$token"
+          val url = referrer.foldLeft(routeUrl(routes.Auth.signupConfirmEmail(token))): (url, ref) =>
+            ref.propagate(url)
           lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
           mailer.sendOrFail:
             Mailer.Message(
@@ -114,11 +116,9 @@ object EmailConfirm:
     val name = "email_confirm"
     private val sep = ":"
 
-    def make(lilaCookie: LilaCookie, user: User, email: EmailAddress)(using RequestHeader): Cookie =
-      lilaCookie.session(
-        name = name,
-        value = s"${user.username}$sep${email.value}"
-      )
+    def newSession(lilaCookie: LilaCookie, user: User, email: EmailAddress)(using RequestHeader): Cookie =
+      lilaCookie.withSession(remember = false): _ =>
+        Session.emptyCookie + (name -> s"${user.username}$sep${email.value}")
 
     def has(req: RequestHeader) = req.session.data contains name
 
@@ -170,9 +170,8 @@ object EmailConfirm:
     import play.api.data.*
     import play.api.data.Forms.*
 
-    val helpForm = Form(
+    val helpForm = Form:
       single("username" -> lila.common.Form.username.historicalField)
-    )
 
     def getStatus(userApi: UserApi, userRepo: UserRepo, u: UserStr)(using Executor): Fu[Status] =
       import Status.*

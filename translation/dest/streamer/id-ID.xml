@@ -33,8 +33,8 @@
   <plurals name="keepItShort">
     <item quantity="other">Usahakan pendek: maksimal %s karakter</item>
   </plurals>
-  <string name="visibility">Terlihat di halaman streamer</string>
-  <string name="whenApproved">Kapan disetujui oleh moderator</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Terlihat di halaman streamer</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Kapan disetujui oleh moderator</string>
   <string name="headline">Berita utama</string>
   <string name="tellUsAboutTheStream">Dalam satu kalimat, beri tahu kami tentang stream Anda</string>
   <string name="longDescription">Deskripsi panjang</string>

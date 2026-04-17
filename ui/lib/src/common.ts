@@ -1,4 +1,4 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 export const defined = <T>(value: T | undefined): value is T => value !== undefined;
 
@@ -8,11 +8,11 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
-export interface Prop<T> {
+export type Prop<T> = {
   (): T;
   (v: T): T;
-}
-export interface PropWithEffect<T> extends Prop<T> {}
+};
+export type PropWithEffect<T> = Prop<T>;
 
 // like mithril prop but with type safety
 export const prop = <A>(initialValue: A): Prop<A> => {
@@ -108,9 +108,7 @@ export const onClickAway =
     setTimeout(listen, 300);
   };
 
-export function hyphenToCamel(str: string): string {
-  return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
-}
+export const hyphenToCamel = (str: string): string => str.replace(/-([a-z])/g, g => g[1].toUpperCase());
 
 export const requestIdleCallback = (f: () => void, timeout?: number): void => {
   if (window.requestIdleCallback) window.requestIdleCallback(f, timeout ? { timeout } : undefined);
@@ -118,7 +116,6 @@ export const requestIdleCallback = (f: () => void, timeout?: number): void => {
 };
 
 export function escapeHtml(str: string): string {
-  if (typeof str !== 'string') str = JSON.stringify(str); // throws
   return /[&<>"']/.test(str)
     ? str
         .replace(/&/g, '&amp;')
@@ -139,13 +136,9 @@ export function scopedQuery(scope: Element): <T extends Element = HTMLElement>(s
 }
 
 // The username with all characters lowercase
-export function myUserId(): string | undefined {
-  return document.body.dataset.user;
-}
+export const myUserId = (): string | undefined => document.body.dataset.user;
 
-export function myUsername(): string | undefined {
-  return document.body.dataset.username;
-}
+export const myUsername = (): string | undefined => document.body.dataset.username;
 
 export function repeater(f: () => void, additionalStopCond?: () => boolean): void {
   let timeout: number | undefined = undefined;
@@ -155,9 +148,17 @@ export function repeater(f: () => void, additionalStopCond?: () => boolean): voi
   })();
   const repeat = () => {
     f();
-    timeout = setTimeout(repeat, delay.next().value!);
+    timeout = setTimeout(repeat, delay.next().value);
     if (additionalStopCond?.()) clearTimeout(timeout);
   };
   repeat();
   document.addEventListener('pointerup', () => clearTimeout(timeout), { once: true });
+}
+
+// Prevents the clicked element from acquiring focus on primary mouse clicks.
+export function blurIfPrimaryClick(e: Event): void {
+  if (!(e instanceof MouseEvent)) return;
+  const target = document.activeElement;
+  if (target instanceof HTMLElement && e.button === 0 && (e.clientX || e.clientY))
+    requestAnimationFrame(() => target.blur());
 }

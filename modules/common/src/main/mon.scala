@@ -99,6 +99,7 @@ object mon:
       val create = counter("lobby.hook.create").withoutTags()
       val join = counter("lobby.hook.join").withoutTags()
       val size = histogram("lobby.hook.size").withoutTags()
+      def apiCreate(client: String) = counter("lobby.hook.apiCreate").withTag("client", client)
     object seek:
       val create = counter("lobby.seek.create").withoutTags()
       val join = counter("lobby.seek.join").withoutTags()
@@ -185,12 +186,14 @@ object mon:
     val index = future("insight.index.time")
   object tutor:
     def buildSegment(segment: String) = future("tutor.build.segment", segment)
-    def buildFull = future("tutor.build.full")
-    def askMine = askAs("mine")
-    def askPeer = askAs("peer")
-    def buildTimeout = counter("tutor.build.timeout").withoutTags()
-    def peerMatch(hit: Boolean) = counter("tutor.peerMatch").withTag("hit", hitTag(hit))
-    def parallelism = gauge("tutor.build.parallelism").withoutTags()
+    val buildFull = future("tutor.build.full")
+    val askMine = askAs("mine")
+    val askPeer = askAs("peer")
+    val buildTimeout = counter("tutor.build.timeout").withoutTags()
+    def peerMatch(hit: Boolean, perf: PerfKey) = counter("tutor.peerMatch").withTags:
+      tags("hit" -> hitTag(hit), "perf" -> perf)
+    val parallelism = gauge("tutor.build.parallelism").withoutTags()
+    val fishnetMissing = histogram("tutor.fishnet.missing").withoutTags()
     private def askAs(as: "mine" | "peer")(question: String, perf: PerfKey | "all") =
       future("tutor.insight.ask", tags("question" -> question, "perf" -> perf, "as" -> as))
   object search:
@@ -217,7 +220,7 @@ object mon:
           fp: Boolean,
           proxy: Option[String],
           country: String,
-          api: Option[ApiVersion]
+          client: String
       ) =
         counter("user.register.count").withTags:
           tags(
@@ -227,8 +230,11 @@ object mon:
             "fp" -> fp,
             "proxy" -> proxy.getOrElse("no"),
             "country" -> country.escape,
-            "api" -> apiTag(api)
+            "client" -> client
           )
+      def result(client: String, result: String) =
+        counter("user.register.result").withTags:
+          tags("client" -> client, "result" -> result)
       def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
       def confirmEmailResult(success: Boolean) =
         counter("user.register.confirmEmail").withTag("success", successTag(success))
@@ -334,7 +340,7 @@ object mon:
       val change = c.withTag("type", "change")
       val confirmation = c.withTag("type", "confirmation")
       val welcome = c.withTag("type", "welcome")
-      val time = future("email.send.time")
+      def time(mailer: String) = future("email.send.time", tags("mailer" -> mailer))
     val disposableDomain = gauge("email.disposableDomain").withoutTags()
   object security:
     val torNodes = gauge("security.tor.node").withoutTags()
@@ -382,6 +388,12 @@ object mon:
       )
     def userTrust(trust: Boolean, cause: String) =
       counter("security.userTrust").withTags(tags("trust" -> trust, "cause" -> cause)).increment()
+    object singlePost:
+      def newToken(endpoint: String) = counter("security.singlePost.newToken").withTag("endpoint", endpoint)
+      def preCheck(endpoint: String, result: String) =
+        counter("security.singlePost.preCheck").withTags(tags("endpoint" -> endpoint, "result" -> result))
+      def consume(endpoint: String, result: String) =
+        counter("security.singlePost.consume").withTags(tags("endpoint" -> endpoint, "result" -> result))
   object shutup:
     def analyzer = timer("shutup.analyzer.time").withoutTags()
   object tv:
@@ -389,9 +401,9 @@ object mon:
       def candidates(channel: String) = histogram("tv.selector.candidates").withTag("channel", channel)
       def cheats(channel: String) = histogram("tv.selector.cheats").withTag("channel", channel)
       def rating(channel: String) = histogram("tv.selector.rating").withTag("channel", channel)
-    object streamer:
-      def present(n: String) = gauge("tv.streamer.present").withTag("name", n.escape)
-      def twitch = future("tv.streamer.twitch")
+  object streamer:
+    def online = gauge("tv.streamer.count").withoutTags()
+    def present(n: String) = gauge("tv.streamer.present").withTag("name", n.escape)
   object relation:
     private val c = counter("relation.action")
     val follow = c.withTag("type", "follow")
@@ -400,11 +412,11 @@ object mon:
     val unblock = c.withTag("type", "unblock")
   object clas:
     object student:
-      def create(teacher: String) = counter("clas.student.create").withTag("teacher", teacher)
-      def invite(teacher: String) = counter("clas.student.invite").withTag("teacher", teacher)
-      object bloomFilter:
-        val count = gauge("clas.student.bloomFilter.count").withoutTags()
-        val fu = future("clas.student.bloomFilter.future")
+      def create(teacher: UserId) = counter("clas.student.create").withTag("teacher", teacher)
+      def invite(teacher: UserId) = counter("clas.student.invite").withTag("teacher", teacher)
+    final class bloomFilter(name: String):
+      def count = gauge(s"clas.${name}.bloomFilter.count").withoutTags()
+      def fu = future(s"clas.${name}.bloomFilter.future")
   object tournament:
     object pairing:
       val batchSize = histogram("tournament.pairing.batchSize").withoutTags()
@@ -464,6 +476,9 @@ object mon:
     val percent = gauge("plan.percent").withoutTags()
     def webhook(service: String, tpe: String) =
       counter("plan.webhook").withTags(tags("service" -> service, "tpe" -> tpe))
+    def intent(service: String, currency: java.util.Currency, coverFees: Boolean) =
+      counter("plan.intent").withTags:
+        tags("service" -> service, "currency" -> currency.getCurrencyCode, "coverFees" -> coverFees)
     object charge:
       def first(service: String) = counter("plan.charge.first").withTag("service", service)
       def countryCents(country: String, currency: java.util.Currency, service: String, gift: Boolean) =
@@ -531,7 +546,8 @@ object mon:
     val crazyGlicko = counter("puzzle.crazyGlicko").withoutTags()
   object storm:
     object selector:
-      val time = timer("storm.selector.time").withoutTags()
+      val time = future("storm.selector.time")
+      val sets = histogram("storm.selector.sets").withoutTags()
       val count = histogram("storm.selector.count").withoutTags()
       val rating = histogram("storm.selector.rating").withoutTags()
       def ratingSlice(index: Int) = histogram("storm.selector.ratingSlice").withTag("index", index)
@@ -564,7 +580,7 @@ object mon:
       counter("game.finish").withTags:
         tags(
           "variant" -> variant.key,
-          "speed" -> speed,
+          "speed" -> speed.key,
           "source" -> source.fold("unknown")(_.name),
           "mode" -> mode.name,
           "status" -> status.name
@@ -576,6 +592,10 @@ object mon:
       def decode(format: String) = timer("game.pgn.decode").withTag("format", format)
     val idCollision = counter("game.idCollision").withoutTags()
     def idGenerator(collisions: Int) = timer("game.idGenerator").withTags(tags("collisions" -> collisions))
+    object streamByOauthOrigin:
+      def event(tpe: String) = counter("game.streamByOauthOrigin.event").withTag("type", tpe)
+      def users(sel: String) = gauge("game.streamByOauthOrigin.users").withTag("selector", sel)
+      def streams(ua: UserAgent) = gauge("game.streamByOauthOrigin.streams").withTag("ua", ua.value)
   object chat:
     private val msgCounter = counter("chat.message")
     def message(parent: String, troll: Boolean) =
@@ -585,6 +605,8 @@ object mon:
     object register:
       def in(platform: String) = counter("push.register").withTag("platform", platform)
       val out = counter("push.register.out").withoutTags()
+    object web:
+      def post = future("push.web.post")
     object send:
       private def send(tpe: String)(platform: String, success: Boolean, count: Int): Unit =
         counter("push.send")
@@ -612,8 +634,8 @@ object mon:
         val create = send("challengeCreate")
         val accept = send("challengeAccept")
     val googleTokenTime = timer("push.send.googleToken").withoutTags()
-    def firebaseStatus(status: Int) = counter("push.firebase.status").withTag("status", status)
-    def firebaseType(typ: String) = counter("push.firebase.msgType").withTag("type", typ)
+    def firebaseStatus(project: String, typ: String, status: Int) =
+      counter("push.firebase.status").withTags(tags("status" -> status, "project" -> project, "type" -> typ))
   object fishnet:
     object client:
       object result:
@@ -658,6 +680,8 @@ object mon:
         tags("variant" -> variant.key, "hit" -> hitTag(hit))
   object opening:
     def searchTime = timer("opening.search.time").withoutTags()
+    object explorer:
+      def stats = future("opening.explorer.stats")
   object study:
     object tree:
       val read = timer("study.tree.read").withoutTags()
@@ -705,9 +729,6 @@ object mon:
     val time = future("fide.sync.time")
     val players = gauge("fide.sync.players").withoutTags()
     val updated = gauge("fide.sync.updated").withoutTags()
-  object link:
-    def external(tag: String, auth: Boolean) = counter("link.external").withTags:
-      tags("tag" -> tag.escape, "auth" -> auth)
   object recap:
     val games = future("recap.build.games.time")
     val puzzles = future("recap.build.puzzles.time")
@@ -739,8 +760,6 @@ object mon:
 
   private def successTag(success: Boolean) = if success then "success" else "failure"
   private def hitTag(hit: Boolean) = if hit then "hit" else "miss"
-
-  private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
   import scala.language.implicitConversions
   private given Conversion[UserId, String] = _.value

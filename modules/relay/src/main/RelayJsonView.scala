@@ -5,7 +5,7 @@ import scalalib.Json.paginatorWriteNoNbResults
 import scalalib.paginator.Paginator
 
 import lila.common.Json.{ *, given }
-import lila.core.config.BaseUrl
+import lila.core.config.RouteUrl
 import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ WithLastRound, WithRounds }
 import lila.study.ChapterPreview
@@ -16,7 +16,7 @@ import lila.core.i18n.Translate
 import lila.core.fide.PhotosJson
 
 final class RelayJsonView(
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     picfitUrl: PicfitUrl,
     lightUserSync: GetterSync,
     markdown: RelayMarkdown
@@ -42,15 +42,22 @@ final class RelayJsonView(
         "slug" -> t.slug,
         "info" -> t.info,
         "createdAt" -> t.createdAt,
-        "url" -> s"$baseUrl${t.path}"
+        "url" -> routeUrl(t.call)
       )
       .add("tier" -> t.tier)
       .add("dates" -> t.dates)
       .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
 
-  given OWrites[RelayTour.TourPreview] = Json.writes
+  given (using Translate): OWrites[RelayTour.TourPreview] = OWrites: t =>
+    Json
+      .obj(
+        "id" -> t.id,
+        "name" -> t.name.translate,
+        "active" -> t.active
+      )
+      .add("live" -> t.live)
 
-  given OWrites[RelayGroup.WithTours] = OWrites: g =>
+  given (using Translate): OWrites[RelayGroup.WithTours] = OWrites: g =>
     Json.obj(
       "id" -> g.group.id,
       "slug" -> g.group.name.toSlug,
@@ -65,6 +72,7 @@ final class RelayJsonView(
         if config.html then markdown.of(tour).map(_.value) else tour.markup.map(_.value)
       })
       .add("teamTable" -> tour.teamTable)
+      .add("showTeamScores" -> tour.showTeamScores)
       .add("communityOwner" -> tour.communityOwner.map(lightUserSync))
 
   def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using
@@ -102,7 +110,7 @@ final class RelayJsonView(
 
   def withUrl(rt: RelayRound.WithTour, withTour: Boolean)(using Translate): JsObject =
     apply(rt.round) ++ Json
-      .obj("url" -> s"$baseUrl${rt.path}")
+      .obj("url" -> routeUrl(rt.call))
       .add("tour" -> withTour.option(rt.tour))
 
   def withUrlAndPreviews(
@@ -132,7 +140,7 @@ final class RelayJsonView(
 
     Json.obj(
       "round" -> apply(r.relay)
-        .add("url" -> s"$baseUrl${r.path}".some)
+        .add("url" -> routeUrl(r.call).some)
         .add("delay" -> r.relay.sync.delay),
       "tour" -> fullTour(r.tour)(using Config(html = false)),
       "study" -> Json.obj(
@@ -180,7 +188,7 @@ final class RelayJsonView(
 
   def top(active: List[RelayCard | WithLastRound], tours: Paginator[WithLastRound])(using Config, Translate) =
     Json.obj(
-      "active" -> active.map(tourWithAnyRound),
+      "active" -> active.sortBy(-_.tour.tier.so(_.v)).map(tourWithAnyRound), // sort like on /broadcast
       "upcoming" -> Json.arr(), // BC
       "past" -> paginatorWriteNoNbResults.writes(tours.map(tourWithAnyRound))
     )
@@ -210,7 +218,7 @@ object RelayJsonView:
     Json
       .obj(
         "id" -> r.id,
-        "name" -> r.transName,
+        "name" -> r.name.translate,
         "slug" -> r.slug,
         "createdAt" -> r.createdAt,
         "rated" -> r.rated
@@ -222,11 +230,13 @@ object RelayJsonView:
       .add("startsAfterPrevious" -> r.startsAfterPrevious)
       .add("customScoring" -> r.customScoring)
 
-  def statsJson(stats: RelayStats.RoundStats) =
-    Json.obj(
-      "viewers" -> stats.viewers.map: (minute, crowd) =>
-        Json.arr(minute * 60, crowd)
-    )
+  private[relay] def statsJson(stats: RelayStats.RoundStats, unique: Int) =
+    Json
+      .obj(
+        "viewers" -> stats.viewers.map: (minute, crowd) =>
+          Json.arr(minute * 60, crowd)
+      )
+      .add("unique" -> Option.when(unique > 0)(unique))
 
   import RelayRound.Sync
 

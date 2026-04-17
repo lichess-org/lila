@@ -206,7 +206,6 @@
   <string name="changeUsernameNotSame">Allinne lytse letters feroarje yn grutte of oarsom. Bygelyks \"pytsjesmit\" yn \"PytsjeSmit\".</string>
   <string name="changeUsernameDescription">Feroarje dyn brûkersnamme. Dit kin mar ien kear dien wurde en do kinst allinich haad- en lytseletters yn dyn brûkersnamme feroarje.</string>
   <string name="signupUsernameHint">Tink derom in fatsoenlike gebrûkersnamme te kiezen. Kinst it letter net mear feroarje en alle accounts mei ûnfatsoenlike gebrûkersnammen wurde slúten!</string>
-  <string name="signupEmailHint">Wy sille it allinnich brûke foar wachtwurd reset.</string>
   <string name="password">Wachtwurd</string>
   <string name="changePassword">Wachtwurd feroarje</string>
   <string name="changeEmail">Email feroarje</string>
@@ -314,7 +313,6 @@
   <string name="leaderboard">Oanfierders</string>
   <string name="pasteTheFenStringHere">Plak de FEN tekst hjirre</string>
   <string name="pasteThePgnStringHere">Plak de PGN tekst hjirre</string>
-  <string name="fromPosition">Fan posysje</string>
   <string name="continueFromHere">Fan hjirwei fierder</string>
   <string name="toStudy">Studzje</string>
   <string name="importGame">Ymportear in partij</string>
@@ -470,7 +468,6 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="practice">Oefenje</string>
   <string name="averageCentipawnLoss">Gemiddeld sintipion ferlies</string>
   <string name="accuracy">Krektens</string>
-  <string name="keyNextInaccuracy">Folgjende ûnkrektens</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>

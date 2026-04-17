@@ -2,19 +2,17 @@ body {
   margin: 0;
   background: $lpv-bg;
 }
+
 .lpv {
   border-radius: 0;
   box-shadow: none;
 }
+
 .not-found {
-  @extend %flex-center;
+  @extend %flex-center-center;
 
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  justify-content: center;
+  inset: 0;
   height: 100%;
   background: radial-gradient(circle, #484848, #2f3031);
 

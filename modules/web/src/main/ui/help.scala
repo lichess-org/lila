@@ -31,6 +31,7 @@ object help:
   private def flip(using Translate) = row(kbd("f"), trans.site.flipBoard())
   private def zen(using Translate) = row(kbd("z"), trans.preferences.zenMode())
   private def helpDialog(using Translate) = row(kbd("?"), trans.site.showHelpDialog())
+  private def menu(using Translate) = row(kbd("h"), trans.site.menu())
   private def localAnalysis(using Translate) = frag(
     row(kbd("l"), trans.site.toggleLocalAnalysis()),
     row(kbd("space"), trans.site.playComputerMove()),
@@ -53,6 +54,7 @@ object help:
           hasChat.option(
             row(kbd("c"), trans.site.focusChat())
           ),
+          menu,
           helpDialog
         )
       )
@@ -69,6 +71,7 @@ object help:
           header(trans.site.other()),
           flip,
           zen,
+          menu,
           helpDialog
         )
       )
@@ -102,14 +105,10 @@ object help:
           row(kbd("z"), trans.site.toggleAllAnalysis()),
           row(kbd("a"), trans.site.bestMoveArrow()),
           row(kbd("v"), trans.site.toggleVariationArrows()),
-          row(kbd("r"), trans.site.keyRequestComputerAnalysis()),
-          row(kbd("enter"), trans.site.keyNextLearnFromYourMistakes()),
-          row(kbd("b"), trans.site.keyNextBlunder()),
-          row(kbd("m"), trans.site.keyNextMistake()),
-          row(kbd("i"), trans.site.keyNextInaccuracy()),
           row(kbd("c"), trans.site.focusChat()),
           helpDialog,
           row(kbd("e"), trans.site.openingEndgameExplorer()),
+          menu,
           row(
             frag(kbd("shift"), kbd("space")),
             trans.site.playFirstOpeningEndgameExplorerMove()
@@ -132,7 +131,11 @@ object help:
                 frag(kbd("ctrl"), kbd("shift"), (1 to 8).map(kbd(_))),
                 trans.site.toggleObservationAnnotations()
               ),
-              row(frag(kbd("ctrl"), kbd("z")), "Undo arrow changes")
+              row(frag(kbd("ctrl"), kbd("z")), "Undo arrow changes"),
+              row(frag(kbd("shift"), kbd("S")), trans.site.search()),
+              row(frag(kbd("shift"), kbd("H")), trans.study.editStudy()),
+              row(frag(kbd("shift"), kbd("E")), trans.study.editChapter()),
+              row(frag(kbd("shift"), kbd("N")), trans.study.addNewChapter())
             )
           ),
           header(trans.site.mouseTricks()),

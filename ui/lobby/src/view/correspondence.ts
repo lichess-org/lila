@@ -1,10 +1,12 @@
 import { h, type VNode } from 'snabbdom';
-import { bind, type MaybeVNodes } from 'lib/view';
-import { tds, perfNames } from './util';
-import type LobbyController from '../ctrl';
-import type { Seek } from '../interfaces';
+
 import perfIcons from 'lib/game/perfIcons';
-import { confirm } from 'lib/view';
+import { bind, type MaybeVNodes, confirm } from 'lib/view';
+
+import type LobbyController from '@/ctrl';
+import type { Seek } from '@/interfaces';
+
+import { tds, perfNames } from './util';
 
 function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
   const klass = seek.action === 'joinSeek' ? 'join' : 'cancel';
@@ -39,7 +41,7 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
   if (ctrl.me && ctrl.data.seeks.length < 8)
     return h('div.create', [
       h(
-        'a.button',
+        'button.button',
         {
           hook: bind(
             'click',

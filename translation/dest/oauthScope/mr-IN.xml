@@ -1,2 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="newAccessToken">नवीन वैयक्तिक API प्रवेशचिन्ह</string>
+  <string name="tokenGrantsPermission">एक प्रवेशचिन्ह (टोकन) इतर लोकांना तुमचे खाते वापरण्यासाठी परवानगी देते.</string>
+  <string name="carefullySelect">कृपया काळजीपूर्वक निवड कि तुमच्या वतीने काय करण्यास परवानगी आहे.</string>
+  <string name="tokenDescription">प्रवेशचिन्हाचे वर्णन</string>
+  <string name="rememberTokenUse">तर तुम्हाला आठवेल हे प्रवेशचिन्ह कश्यासाठी आहे</string>
+  <string name="whatTheTokenCanDo">हे प्रवेशचिन्ह तुमच्या वतीने काय करू शकतं:</string>
+  <string name="doNotShareIt">हे प्रवेशचिन्ह तुमच्या खातेत प्रवेश करण्याची परवानगी देते. कृपया कोणालाही हे पाठवू नये!</string>
+  <string name="copyTokenNow">तुमच्या नवीन वैयक्तिक प्रवेशचिन्हाला कॉपी करण्याची खात्री करून घ्या. तुम्ही हे परत बघू शकणार नाही!</string>
+  <string name="preferenceRead">वाचण्याचे प्राधान्ये</string>
+  <string name="preferenceWrite">लिहिण्याचे प्राधान्ये</string>
+  <string name="emailRead">ई-मेल पत्ता वाचा</string>
+  <string name="challengeRead">येणारे आव्हाने वाचा</string>
+  <string name="challengeWrite">आव्हाने पाठवा, स्वीकारा व नाकारा</string>
+  <string name="challengeBulk">खूप सारे खेळ बाकी खेळाडूंसाठी एकाच वेळी बनवा</string>
+  <string name="studyRead">खाजगी अभ्यासिका व प्रसारणे वाचा</string>
+  <string name="studyWrite">प्रसारणे व अभ्यासिका बनवा, अद्यतना आणि हटवा</string>
+  <string name="tournamentWrite">स्पर्धा बनवा, अद्यतना आणि सामील व्हा</string>
+  <string name="racerWrite">कोड्यांची शर्यत भावना व सामील व्हा</string>
+  <string name="puzzleRead">कोड्यांची वर्दळ वाचा</string>
+  <string name="teamRead">संघाची खाजगी माहिती वाचा</string>
+  <string name="teamWrite">संघात सामील व्हा व सोडा</string>
+  <string name="teamLead">तुमच्या द्वारे नेतृत्व केलेल्या संघांचे व्यवस्थापन करा: PM पाठवा, सदस्यांना हटवा</string>
+  <string name="followRead">अनुसरण केलेले खेळाडू वाचा</string>
+  <string name="followWrite">बाकी खेळाडूंचे अनुसरण करा व अनुसरण रद्द करा</string>
+  <string name="msgWrite">बाकी खेळाडूंना गुप्त संदेश पाठवा</string>
+  <string name="boardPlay">पट API सोबत खेळ खेळा</string>
+  <string name="botPlay">संगणक API सोबत खेळ खेळा</string>
+  <string name="engineRead">तुमच्या बाह्य खेळविश्लेषण यंत्रांना पहा व वापरा</string>
+  <string name="engineWrite">बाह्य खेळविश्लेषण यंत्र बनवा व अद्यतना</string>
+  <string name="webMod">नियंत्रक साधने वापरा (तुमच्या परवानगीच्या मर्यादात)</string>
+  <string name="personalAccessTokens">वैयक्तिक API प्रवेशचिन्हे</string>
+  <string name="canMakeOauthRequests">%s च्या माध्यमातून न जाता तुम्ही OAuth विनंत्या बनवू शकता.</string>
+  <string name="authorizationCodeFlow">अधिकृतता संकेतलिपीचे प्रवाह</string>
+  <string name="insteadGenerateToken" comment="The parameter is a link to generate a token a personal access token">त्याऐवजी, %s जे तुम्ही थेट API विनंत्यांमध्ये वापरू शकता.</string>
+  <string name="generatePersonalToken">एक वैयक्तिक प्रवेशचिन्ह उत्पन्न करा</string>
+  <string name="guardTokensCarefully">ह्या प्रवेशचिन्हांचे काळजीपूर्वक रक्षण करा! हे परवलीचा शब्दासारखे आहेत. परवलीचा शब्दाऐवजी प्रवेशचिन्ह कार्यलिपीत वापरण्याचा असा फायदा आहे कि प्रवेशचिन्ह रद्द केले जाऊ शकतात, आणि तुम्ही खूप सारे उत्पन्न करू शकतात.</string>
+  <string name="apiDocumentationLinks" comment="The first parameter links to a personal token app example. The second parameter links to the API documentation">इकडे एक %1$s आहे आणि %2$s.</string>
+  <string name="personalTokenAppExample">वैयक्तिक प्रवेशचिन्ह अनुप्रयोगाचे उदाहरण</string>
+  <string name="apiDocumentation">API दस्तऐवजीकरण</string>
+  <string name="newToken">नवीन वैयक्तिक प्रवेशचिन्ह</string>
+  <string name="apiAccessTokens">API प्रवेशचिन्ह</string>
+  <string name="created">%s बनवले</string>
+  <string name="lastUsed">%s शेवटचे वापरले</string>
+  <string name="alreadyHavePlayedGames">तुम्ही आधीच खेळ खेळलेले आहात!</string>
+  <string name="attentionOfDevelopers">फक्त विकसकांसाठी लक्ष देण्यासाठी नोंद:</string>
+  <string name="possibleToPrefill">URL च्या विनंतीपरिमाणात हलके बदल करून हे पत्रक आधीच भरणे शक्य आहे.</string>
+  <string name="forExample">उदाहरण: %s</string>
+  <string name="ticksTheScopes">%1$s आणि %2$s वावांना निवडखूणित करतो, आणि प्रवेशचिन्हाचे वर्णन संच करतो.</string>
+  <string name="givingPrefilledUrls">हे पूर्व-भरलेले URL तुमच्या वापकर्त्यांना देयून त्यांना बरोबरचे प्रवेशचिन्ह वाव मिळण्यास मदत होईल.</string>
+</resources>

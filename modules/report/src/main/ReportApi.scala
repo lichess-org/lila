@@ -270,7 +270,7 @@ final class ReportApi(
   // `seriousness` depends on the number of previous warnings, and number of games thrown away
   def autoBoostReport(winnerId: UserId, loserId: UserId, seriousness: Int): Funit =
     securityApi
-      .shareAnIpOrFp(winnerId, loserId)
+      .shareAnIpOrFp(winnerId -> loserId)
       .zip(userApi.pair(winnerId, loserId))
       .zip(getLichessReporter)
       .flatMap:
@@ -328,47 +328,49 @@ final class ReportApi(
       userText: String,
       url: String,
       onlyIfFlaggedImages: Boolean = false // if true, will not create an automod report based on text alone
-  )(using
-      me: Me
-  ): Funit =
-    val assessText = automodApi
-      .text(
-        userText,
-        systemPrompt = commsPromptSetting.get(),
-        model = commsModelSetting.get()
-      )
-      .monSuccess(_.mod.report.automod.request)
-    for
-      (images, textResponse) <- automodApi.markdownImages(Markdown(userText)).zip(assessText)
-      flaggedImages = images.flatMap(_.automod).flatMap(_.flagged)
-      suspectOpt <- getSuspect(me)
-      reporter <- automodReporter
-    yield
-      for
-        res <- textResponse
-        fromLlm <- res.str("assessment")
+  )(using me: Me): Funit =
+    userText.trim.nonEmpty.so:
+      val assessText = automodApi
+        .text(
+          userText,
+          systemPrompt = commsPromptSetting.get(),
+          model = commsModelSetting.get()
+        )
+        .monSuccess(_.mod.report.automod.request)
+      val candidate = for
+        (images, textResponse) <- automodApi.markdownImages(Markdown(userText)).zip(assessText)
+        flaggedImages = images.flatMap(_.automod).flatMap(_.flagged)
+        suspectOpt <- getSuspect(me)
+        reporter <- automodReporter
+        fromLlm <- textResponse
+          .str("assessment")
+          .toTry(s"missing assessment in automod response: $textResponse. Input text: ${userText.take(400)}")
+          .toFuture
         hasFlaggedImages = flaggedImages.nonEmpty
         kamonTag = if hasFlaggedImages then "image" else if fromLlm == "pass" then "ok" else fromLlm
         _ = lila.mon.mod.report.automod.assessment(kamonTag).increment()
-        reason <- fromLlm match
+        reason = fromLlm match
           case "pass" if hasFlaggedImages => Reason("comm")
           case "other" => Reason("comm") // llm knows "other"
           case r => Reason(r)
-        suspect <- suspectOpt
-        summary = (flaggedImages ++ res.str("reason")).mkString(", ")
-        if hasFlaggedImages || !onlyIfFlaggedImages
-      yield create(
-        Candidate(
-          reporter = reporter,
-          suspect = suspect,
-          reason = reason,
-          text = s"[AUTO " + (hasFlaggedImages.option("IMG") ++ (fromLlm != "pass").option("TXT"))
-            .mkString("/") +
-            s"]: $summary $url"
-        )
-      ).recoverWith: e =>
-        logger.warn(s"Comms automod failed for ${me.username}: ${e.getMessage}", e)
-        funit
+        suspect <- suspectOpt.toTry(s"suspect $me not found").toFuture
+        summary = (flaggedImages ++ textResponse.str("reason")).mkString(", ")
+      yield reason
+        .ifTrue(hasFlaggedImages || !onlyIfFlaggedImages)
+        .map: reason =>
+          Candidate(
+            reporter = reporter,
+            suspect = suspect,
+            reason = reason,
+            text = s"[AUTO " + (hasFlaggedImages.option("IMG") ++ (fromLlm != "pass").option("TXT"))
+              .mkString("/") +
+              s"]: $summary $url"
+          )
+      candidate
+        .flatMapz(create(_))
+        .recoverWith: e =>
+          logger.warn(s"Comms automod failed for ${me.username} on $url: ${e.getMessage}", e)
+          funit
 
   private def onReportClose() =
     maxScoreCache.invalidateUnit()
@@ -540,7 +542,7 @@ final class ReportApi(
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
     userApi
-      .listWithPerfs(reports.map(_.user).distinct)
+      .listWithPerfs(reports.map(_.user).distinct, includeClosed = true)
       .map: users =>
         reports
           .flatMap: r =>

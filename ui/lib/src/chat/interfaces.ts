@@ -1,13 +1,13 @@
 import type { VNode } from 'snabbdom';
-import type { Prop } from '@/index';
 
+import type { Prop } from '@/index';
 import type { EnhanceOpts } from '@/richText';
 export type { ChatCtrl } from './chatCtrl';
 
 export interface ChatOpts {
   data: ChatData;
   writeable: boolean;
-  kobold: boolean;
+  kobold: boolean; // a.k.a. troll
   blind: boolean;
   timeout: boolean;
   enhance?: EnhanceOpts;
@@ -19,7 +19,6 @@ export interface ChatOpts {
   noteText?: string;
   plugin?: ChatPlugin;
   kidMode: boolean;
-  persistent?: boolean;
 }
 
 export type Tab = { key: string; isDisabled?: () => boolean };
@@ -36,7 +35,8 @@ export interface ChatData {
   name: string;
   lines: Line[];
   userId?: string;
-  resourceId: string;
+  resourceType: string; // team, swiss, tournament, watcher, etc.
+  resourceId: string; // team:<id>
   loginRequired: boolean;
   restricted: boolean;
   voiceChat: boolean;

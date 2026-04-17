@@ -23,11 +23,11 @@
   <string name="moveToPieceByType">Move to squares using piece names. For example: repeated k will move to every square where there is a knight. Use uppercase to invert order.</string>
   <string name="moveToRank">Move to rank 1-8.</string>
   <string name="moveToFile">Move to file a-h.</string>
-  <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king.</string>
-  <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">Announce pieces on a rank or a file. Example: s a, s 1.</string>
-  <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">Go to the board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1.</string>
+  <string name="announcePieceLocations">Announce locations of pieces. Example: p capital N for white knights, p lowercase k for black king.</string>
+  <string name="announcePiecesOnRankOrFile">Announce pieces on a rank or a file. Example: s a, s 1.</string>
+  <string name="goToBoard">Go to the board. Default square is e-4. You can specify a square: board a-1 or b a-1 will take you to square a-1.</string>
   <string name="movePiece">To move a piece, use standard algebraic notation.</string>
-  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight.</string>
+  <string name="promotion">To promote to anything else than a queen, use equals. For example a-8-equals-n promotes to a knight.</string>
   <string name="king">king</string>
   <string name="whiteKing">white king</string>
   <string name="blackKing">black king</string>
@@ -47,18 +47,18 @@
   <string name="whitePawn">white pawn</string>
   <string name="blackPawn">black pawn</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
-  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">takes</string>
+  <string name="sanTakes" comment="x in standard notation">takes</string>
   <string name="sanCheck" comment="+ in standard notation">check</string>
   <string name="sanCheckmate" comment="# in standard notation">checkmate</string>
-  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">promotes to</string>
-  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">short castling</string>
-  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">long castling</string>
-  <string name="sanDroppedOn" comment="Indicates a piece is dropped on a square in the Crazyhouse variant, as part of a longer sentence.&#10;&#10;In Crazyhouse, any pieces you capture are placed in your pocket. You can then drop those pieces onto any square on the board.&#10;&#10;Examples:&#10;&quot;bishop is dropped on c 4 check&quot; (B@c4+)&#10;&quot;pawn is dropped on f 7&quot; (@f7)&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'dropped on' corresponds to &quot;@&quot; in Crazyhouse's form of algebraic notation.">Is dropped on</string>
+  <string name="sanPromotesTo" comment="= in standard notation">promotes to</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">short castling</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">long castling</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">Is dropped on</string>
   <string name="invalidMove">Invalid move</string>
   <string name="premoveCancelled">Premove canceled</string>
   <string name="premoveRecorded">Premove recorded: %s. Hit enter to cancel</string>
-  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Pockets</string>
-  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Copy %s to clipboard</string>
-  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s copied to clipboard</string>
-  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN and FEN</string>
+  <string name="pockets" comment="Crazyhouse pockets">Pockets</string>
+  <string name="copyToClipboard">Copy %s to clipboard</string>
+  <string name="copiedToClipboard">%s copied to clipboard</string>
+  <string name="pgnAndFen">PGN and FEN</string>
 </resources>

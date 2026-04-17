@@ -1,34 +1,45 @@
+import { COLORS } from 'chessops';
 import type { VNode } from 'snabbdom';
-import { hl } from 'lib/view';
-import renderClocks from '../view/clocks';
-import type AnalyseCtrl from '../ctrl';
-import { renderMaterialDiffs } from '../view/components';
-import type { StudyPlayers, Federation, TagArray, StudyPlayer, StatusStr } from './interfaces';
-import { findTag, looksLikeLichessGame, resultOf } from './studyChapters';
-import { userTitle } from 'lib/view/userLink';
-import RelayPlayers, { fidePageLinkAttrs, playerId } from './relay/relayPlayers';
-import { StudyCtrl } from './studyDeps';
-import { intersection } from 'lib/tree/path';
+
 import { defined } from 'lib';
-import { resultTag } from './studyView';
-import type { RelayRound } from './relay/interfaces';
+import { intersection } from 'lib/tree/path';
+import type { TreePath } from 'lib/tree/types';
+import { hl } from 'lib/view';
+import { userTitle } from 'lib/view/userLink';
+
+import type AnalyseCtrl from '@/ctrl';
+import renderClocks from '@/view/clocks';
+import { renderMaterialDiffs } from '@/view/materialDiffs';
+import { playerFedFlag } from '@/view/util';
+
+import type { StudyPlayers, StudyPlayer, StatusStr, TagMap } from './interfaces';
 import { playerColoredResult } from './relay/customScoreStatus';
+import type { RelayRound } from './relay/interfaces';
+import RelayPlayers, { fidePageLinkAttrs, playerId, playerPhotoOrFallback } from './relay/relayPlayers';
+import RelayTeamLeaderboard from './relay/relayTeamLeaderboard';
+import { looksLikeLichessGame } from './studyChapters';
+import type { StudyCtrl } from './studyDeps';
+import { tagsToMap } from './studyTags';
+import { resultTag } from './studyView';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
   if (!study) return;
   const relayPlayers = study.relay?.players;
+  const showTeamLeaderboard = !!study.relay?.data.tour.showTeamScores;
+  const relayTeamLeaderboard = study.relay?.teamLeaderboard;
 
   const players = study.currentChapter().players,
     tags = study.data.chapter.tags,
     clocks = renderClocks(ctrl, selectClockPath(ctrl, study)),
     tickingColor = study.isClockTicking(ctrl.path) && ctrl.turnColor(),
-    materialDiffs = renderMaterialDiffs(ctrl);
+    materialDiffs = renderMaterialDiffs(ctrl),
+    tagsMap = tagsToMap(tags);
 
-  return (['white', 'black'] as Color[]).map(color =>
+  return COLORS.map(color =>
     renderPlayer(
       ctrl,
-      tags,
+      tagsMap,
       clocks,
       materialDiffs,
       players,
@@ -37,6 +48,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       study.data.showRatings || !looksLikeLichessGame(tags),
       study.relay?.round,
       relayPlayers,
+      { show: showTeamLeaderboard, leaderboard: relayTeamLeaderboard },
     ),
   );
 }
@@ -44,14 +56,14 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
 // The tree node whose clocks are displayed.
 // Finished game: last mainline node of the current variation.
 // Ongoing game: the last mainline node, no matter what
-function selectClockPath(ctrl: AnalyseCtrl, study: StudyCtrl): Tree.Path {
+function selectClockPath(ctrl: AnalyseCtrl, study: StudyCtrl): TreePath {
   const gamePath = ctrl.gamePath || study.data.chapter.relayPath;
   return ctrl.node.clock ? ctrl.path : gamePath ? intersection(ctrl.path, gamePath) : ctrl.path;
 }
 
 function renderPlayer(
   ctrl: AnalyseCtrl,
-  tags: TagArray[],
+  tags: TagMap,
   clocks: [VNode, VNode] | undefined,
   materialDiffs: [VNode, VNode],
   players: StudyPlayers | undefined,
@@ -60,27 +72,28 @@ function renderPlayer(
   showRatings: boolean,
   round?: RelayRound,
   relayPlayers?: RelayPlayers,
+  relayTeamLeaderboard?: { show: boolean; leaderboard?: RelayTeamLeaderboard },
 ): VNode {
   const showResult: boolean =
       !defined(ctrl.study?.relay) ||
       ctrl.study?.multiBoard.showResults() ||
       ctrl.node.ply === ctrl.tree.lastPly(),
-    team = findTag(tags, `${color}team`),
-    rawStatus = showResult ? findTag(tags, 'result')?.replace(/1\/2/g, '½') : undefined,
+    team = tags.get(`${color}team`),
+    rawStatus = showResult ? tags.get('result')?.replace(/1\/2/g, '½') : undefined,
     status = rawStatus && rawStatus !== '*' ? (rawStatus as StatusStr) : undefined,
     result = showResult ? resultOf(tags, color === 'white') : undefined,
     top = ctrl.bottomColor() !== color,
-    eloTag = findTag(tags, `${color}elo`),
-    fideIdTag = findTag(tags, `${color}fideid`),
+    eloTag = tags.get(`${color}elo`),
+    fideIdTag = tags.get(`${color}fideid`),
     fideId = fideIdTag ? parseInt(fideIdTag) : undefined,
     player: StudyPlayer = {
       ...players?.[color],
-      name: findTag(tags, color),
-      title: findTag(tags, `${color}title`),
+      name: tags.get(color),
+      title: tags.get(`${color}title`),
       rating: showRatings && eloTag ? parseInt(eloTag) : undefined,
       fideId,
     },
-    photo = fideId && relayPlayers?.fidePhoto(fideId);
+    photo = fideId ? relayPlayers?.fidePhoto(fideId) : undefined;
   const coloredResult = status && status !== '*' && playerColoredResult(status, color, round);
   const resultNode = coloredResult
     ? hl(`${coloredResult.tag}.result`, coloredResult.points)
@@ -88,13 +101,7 @@ function renderPlayer(
   return relayPlayers
     ? hl(`div.relay-board-player.relay-board-player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
         hl('div.left', [
-          player.title === 'BOT'
-            ? hl('span', '')
-            : photo
-              ? hl('img.relay-board-player__photo', { attrs: { src: photo.small } })
-              : hl('img.relay-board-player__photo.relay-board-player__photo--fallback', {
-                  attrs: { src: site.asset.url('images/anon-face.webp') },
-                }),
+          playerPhotoOrFallback(player, photo, 'small', 'relay-board-player__photo'),
           hl('div.info-split', [
             hl('div', [
               !!player.title && userTitle(player),
@@ -102,7 +109,22 @@ function renderPlayer(
                 hl(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name),
             ]),
             hl('div.info-secondary', [
-              team ? hl('span.team', team) : undefined,
+              team
+                ? hl(
+                    'a.team',
+                    {
+                      on: {
+                        click: (ev: PointerEvent) => {
+                          ev.preventDefault();
+                          relayTeamLeaderboard?.show
+                            ? relayTeamLeaderboard?.leaderboard?.setTeamToShow(team)
+                            : ctrl.study?.relay?.openTab('teams');
+                        },
+                      },
+                    },
+                    team,
+                  )
+                : undefined,
               playerFedFlag(player?.fed),
               player.rating && hl('span.elo', `${player.rating}`),
             ]),
@@ -133,11 +155,8 @@ function renderPlayer(
       ]);
 }
 
-export const playerFedFlag = (fed?: Federation): VNode | undefined =>
-  fed &&
-  hl('img.mini-game__flag', {
-    attrs: {
-      src: site.asset.fideFedSrc(fed.id),
-      title: `Federation: ${fed.name}`,
-    },
-  });
+function resultOf(tags: TagMap, isWhite: boolean): string | undefined {
+  const both = tags.get('result')?.split('-');
+  const mine = both?.length === 2 ? both[isWhite ? 0 : 1] : undefined;
+  return mine === '1/2' ? '½' : mine;
+}

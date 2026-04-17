@@ -22,18 +22,25 @@ final private class InsightIndexer(
     lila.log.asyncActorMonitor.full
   )
 
-  def all(user: User): Funit =
-    workQueue:
-      storage
-        .fetchLast(user.id)
-        .flatMap:
-          _.fold(fromScratch(user)): e =>
-            computeFrom(user, e.date.plusSeconds(1))
+  def all(user: User, force: Boolean): Funit =
+    (force || (user.lame.not && user.noBot)).so:
+      workQueue:
+        storage
+          .fetchLast(user.id)
+          .flatMap:
+            _.fold(fromScratch(user)): e =>
+              computeFrom(user, e.date.plusSeconds(1))
 
   def update(game: Game, userId: UserId, previous: InsightEntry): Funit =
     povToEntry(game, userId, previous.provisional).flatMap:
       case Right(e) => storage.update(e)
       case _ => funit
+
+  private[insight] def lastIndexableGame(user: User): Fu[Option[Game]] =
+    gameRepo.coll
+      .find(gameQuery(user))
+      .sort(Query.sortAntiChronological)
+      .one[Game]
 
   private def fromScratch(user: User): Funit =
     fetchFirstGame(user).flatMapz: g =>
@@ -43,21 +50,19 @@ final private class InsightIndexer(
     Query.user(user.id) ++
       Query.rated ++
       Query.finished ++
-      Query.turnsGt(2) ++
+      Query.turnsGt(10) ++
       Query.notFromPosition ++
-      Query.notHordeOrSincePawnsAreWhite
-
-  private val maxGames = 10_000
+      Query.createdSince(minDate)
 
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if user.count.rated == 0 then fuccess(none)
     else
-      (user.count.rated >= maxGames)
+      (maxGames < user.count.rated)
         .so:
           gameRepo.coll
             .find(gameQuery(user))
-            .sort(Query.sortCreated)
-            .skip(maxGames - 1)
+            .sort(Query.sortAntiChronological)
+            .skip(maxGames.value - 1)
             .one[Game](ReadPref.sec)
         .orElse:
           gameRepo.coll
@@ -80,10 +85,10 @@ final private class InsightIndexer(
         val query = gameQuery(user) ++ $doc(lila.game.Game.BSONFields.createdAt.$gte(from))
         gameRepo
           .sortedCursor(query, Query.sortChronological)
-          .documentSource(maxGames)
-          .mapAsync(16)(toEntry)
+          .documentSource(maxGames.value)
+          .mapAsync(8)(toEntry)
           .via(LilaStream.collect)
-          .grouped(100.atMost(maxGames))
-          .map(storage.bulkInsert)
+          .grouped(100.atMost(maxGames.value))
+          .mapAsync(1)(storage.bulkInsert)
           .run()
           .void

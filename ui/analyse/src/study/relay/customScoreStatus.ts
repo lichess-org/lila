@@ -1,12 +1,20 @@
-import { hl, type LooseVNodes, type VNodeChildElement } from 'lib/view';
-import type { GamePointsStr } from '../interfaces';
-import type { CustomScoring, RelayRound } from './interfaces';
 import { opposite } from 'chessops/util';
 
-const points = (point: string) => parseFloat(point.replace('½', '.5'));
-const colorClass = (point: string) => (points(point) === 1 ? 'good' : points(point) === 0 ? 'bad' : 'status');
+import { hl, type LooseVNodes, type VNodeChildElement } from 'lib/view';
 
-const withCustomScore = (point: string, color: Color, customScoring?: CustomScoring): VNodeChildElement => {
+import type { GamePointsStr } from '../interfaces';
+import type { CustomScoring, RelayRound } from './interfaces';
+
+type ServerPoint = '1' | '0' | '½';
+const points = (point: ServerPoint) => parseFloat(point.replace('½', '.5'));
+const colorClass = (point: ServerPoint) =>
+  points(point) === 1 ? 'good' : points(point) === 0 ? 'bad' : 'status';
+
+const withCustomScore = (
+  point: ServerPoint,
+  color: Color,
+  customScoring?: CustomScoring,
+): VNodeChildElement => {
   if (!customScoring) return point;
   const base = points(point);
   return base === 1
@@ -22,22 +30,28 @@ export const coloredStatusStr = (gamePoints: GamePointsStr, pov: Color, round?: 
   const customScoring = round?.customScoring;
   const points = gamePoints.split('-');
   if (pov === 'black') points.reverse();
-  return [
-    hl(`${colorClass(points[0])}.result`, withCustomScore(points[0], pov, customScoring)),
-    '-',
-    hl(`${colorClass(points[1])}.result`, withCustomScore(points[1], opposite(pov), customScoring)),
-  ];
+  return (
+    points.every(p => isServerPoint(p)) && [
+      hl(`${colorClass(points[0])}.result`, withCustomScore(points[0], pov, customScoring)),
+      '-',
+      hl(`${colorClass(points[1])}.result`, withCustomScore(points[1], opposite(pov), customScoring)),
+    ]
+  );
 };
 
 export const playerColoredResult = (
   status: GamePointsStr,
   color: Color,
   round?: RelayRound,
-): { tag: 'good' | 'bad' | 'status'; points: VNodeChildElement } => {
+): { tag: 'good' | 'bad' | 'status'; points: VNodeChildElement } | false => {
   const customScoring = round?.customScoring;
   const resultPart = status.split('-')[color === 'white' ? 0 : 1];
-  return {
-    tag: colorClass(resultPart),
-    points: withCustomScore(resultPart, color, customScoring),
-  };
+  return (
+    isServerPoint(resultPart) && {
+      tag: colorClass(resultPart),
+      points: withCustomScore(resultPart, color, customScoring),
+    }
+  );
 };
+
+const isServerPoint = (s: string): s is ServerPoint => s === '1' || s === '0' || s === '½';

@@ -45,6 +45,12 @@ trait LilaLibraryExtensions extends CoreExports:
     inline def raiseIfSome[B](f: => Fu[B]): FuRaise[A, B] =
       self.fold(f)(_.raise)
 
+  extension (self: String) def nonEmptyOption: Option[String] = if self.nonEmpty then Some(self) else None
+  extension [K, V](self: Map[K, V])
+    def nonEmptyOption: Option[Map[K, V]] = if self.nonEmpty then Some(self) else None
+  extension [A, M <: Iterable](self: M[A])
+    def nonEmptyOption: Option[M[A]] = if self.nonEmpty then Some(self) else None
+
   extension (self: Boolean)
     def not: Boolean = !self
     // move to scalalib? generalize Future away?
@@ -66,6 +72,8 @@ trait LilaLibraryExtensions extends CoreExports:
           case _ => fufail(err.toString)
 
     inline def raiseIfLeft: FuRaise[A, B] = v.fold(_.raise, fuccess)
+
+  extension [A](v: Try[A]) def toFuture: Fu[A] = Future.fromTry(v)
 
   extension [A, B](v: (A, B)) def map2[C](f: B => C): (A, C) = (v._1, f(v._2))
 
@@ -191,3 +199,7 @@ trait LilaLibraryExtensions extends CoreExports:
 
     // inline def unary_! = fua.map { !_ }(EC.parasitic)
     inline def not = fua.map { !_ }(using EC.parasitic)
+
+  extension [A](p: PairOf[A])
+    def pairMap[B](f: A => B): PairOf[B] = (f(p._1), f(p._2))
+    def asList: List[A] = List(p._1, p._2)

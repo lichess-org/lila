@@ -49,14 +49,7 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
               autofocus,
               autocomplete := "current-password"
             ),
-            form3.group(form("token"), trt.authenticationCode())(
-              form3.input(_)(
-                attr("inputmode") := "numeric",
-                pattern := "[0-9]{6}",
-                autocomplete := "one-time-code",
-                required
-              )
-            ),
+            form3.group(form("token"), trt.authenticationCode())(form3.totpTokenInput),
             form3.globalError(form),
             div(cls := "form-group")(
               trt.ifYouLoseAccessTwoFactor(a(href := routes.Auth.passwordReset)(trans.site.passwordReset()))
@@ -79,9 +72,7 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
           p(trt.twoFactorToDisable()),
           trt.ifYouLoseAccessTwoFactor(a(href := routes.Auth.passwordReset)(trans.site.passwordReset())),
           form3.passwordModified(form("passwd"), trans.site.password())(autocomplete := "current-password"),
-          form3.group(form("token"), trt.authenticationCode())(
-            form3.input(_)(pattern := "[0-9]{6}", autocomplete := "one-time-code", required)
-          ),
+          form3.group(form("token"), trt.authenticationCode())(form3.totpTokenInput),
           form3.action(form3.submit(trt.disableTwoFactor()))
         )
       )

@@ -126,4 +126,7 @@ Zobrazí se vodorovná čára.</string>
   <string name="moveToAnotherClass">Přesunout do jiné třídy</string>
   <string name="allowMessagingBetweenStudents">Povolit zprávy mezi studenty</string>
   <string name="allowMessagingBetweenStudentsDesc">Tohle platí pouze pro účty, které jste vytvořil pro studenty.</string>
+  <string name="quickLoginCode">Kód pro rychlé přihlášení</string>
+  <string name="quickLoginCodes">Kód pro rychlé přihlášení</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">Vyprší za %s</string>
 </resources>

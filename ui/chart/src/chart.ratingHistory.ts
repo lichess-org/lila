@@ -1,3 +1,4 @@
+import 'chartjs-adapter-dayjs-4';
 import {
   type ChartDataset,
   type Point,
@@ -11,17 +12,18 @@ import {
   Tooltip,
   LineElement,
 } from 'chart.js';
-import type { PerfRatingHistory } from './interface';
-import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor } from './index';
-import 'chartjs-adapter-dayjs-4';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import noUiSlider, { type Options, PipsMode } from 'nouislider';
 import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
+import duration from 'dayjs/plugin/duration';
 import utc from 'dayjs/plugin/utc';
+import noUiSlider, { type Options, PipsMode } from 'nouislider';
+
 import { memoize } from 'lib';
 import { pubsub } from 'lib/pubsub';
+
+import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor } from './index';
+import type { PerfRatingHistory } from './interface';
 
 interface Opts {
   data: PerfRatingHistory[];
@@ -258,22 +260,23 @@ export function initModule({ data, singlePerfName }: Opts): void {
       { t: '1y', duration: dayjs.duration(1, 'y') },
       { t: 'all', duration: dayjs.duration(endDate.diff(startDate, 'd'), 'd') },
     ];
-    $('.time-selector-buttons').html(
-      buttons
-        .filter(b => startDate.isBefore(endDate.subtract(b.duration)) || b.t === 'all')
-        .map(b => timeBtn(b))
-        .join(''),
-    );
     const btnClick = (min: number) => {
       $('.time-selector-buttons .button').removeClass('active');
       slider.set([min, endDate.valueOf()]);
       chart.zoomScale('x', { min: min, max: endDate.valueOf() });
     };
-    $('.time-selector-buttons').on('mousedown', 'button', function (this: HTMLButtonElement) {
-      const min = buttons.find(b => b.t === this.textContent);
-      if (min) btnClick(Math.max(startDate.valueOf(), endDate.subtract(min.duration).valueOf()));
-      this.classList.add('active');
-    });
+    $('.time-selector-buttons')
+      .html(
+        buttons
+          .filter(b => startDate.isBefore(endDate.subtract(b.duration)) || b.t === 'all')
+          .map(b => timeBtn(b))
+          .join(''),
+      )
+      .on('mousedown', 'button', function (this: HTMLButtonElement) {
+        const min = buttons.find(b => b.t === this.textContent);
+        if (min) btnClick(Math.max(startDate.valueOf(), endDate.subtract(min.duration).valueOf()));
+        this.classList.add('active');
+      });
     chart.zoomScale('x', { min: initial.valueOf(), max: endDate.valueOf() });
   }
 }

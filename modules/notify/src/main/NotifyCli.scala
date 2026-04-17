@@ -27,8 +27,8 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
       words: List[String],
       icon: Icon = Icon.InfoCircle
   ) =
-    val title = words.takeWhile(_ != "|").mkString(" ").some.filter(_.nonEmpty)
-    val text = words.dropWhile(_ != "|").drop(1).mkString(" ").some.filter(_.nonEmpty)
+    val title = words.takeWhile(_ != "|").mkString(" ").nonEmptyOption
+    val text = words.dropWhile(_ != "|").drop(1).mkString(" ").nonEmptyOption
     val notification = lila.core.notify.NotificationContent.GenericLink(url, title, text, icon.value)
     userIds
       .grouped(20)

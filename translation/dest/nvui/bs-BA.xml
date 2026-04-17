@@ -23,11 +23,11 @@
   <string name="moveToPieceByType">Pomičite se na polja koristeći imena figura. Na primjer: ponovljeni k će se pomaknuti na svako polje gdje se nalazi skakač. Koristite velika slova da obrnete redoslijed.</string>
   <string name="moveToRank">Pomakni se na rang od 1 do 8.</string>
   <string name="moveToFile">Premjesti u datoteku od a do h.</string>
-  <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">Najavite položaje figura. Primjer: veliko N za bijele skakače, malo k za crnog kralja, veliko A za sve bijele figure.</string>
-  <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">Najavite figure u rangu ili koloni. Primjer: s a, s 1.</string>
-  <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">Idi na ploču. Zadano polje je e-4. Možeš odrediti polje: ploča a-1 ili b a-1 će te odvesti na polje a-1.</string>
+  <string name="announcePieceLocations">Najavite položaje figura. Primjer: veliko N za bijele skakače, malo k za crnog kralja, veliko A za sve bijele figure.</string>
+  <string name="announcePiecesOnRankOrFile">Najavite figure u rangu ili koloni. Primjer: s a, s 1.</string>
+  <string name="goToBoard">Idi na ploču. Zadano polje je e-4. Možeš odrediti polje: ploča a-1 ili b a-1 će te odvesti na polje a-1.</string>
   <string name="movePiece">Za pomicanje figure koristite standardnu algebarsku notaciju.</string>
-  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">Za promociju u bilo šta osim dame, koristite izraz jednako je. Na primjer, a-8-jednako-n promoviše u skakača.</string>
+  <string name="promotion">Za promociju u bilo šta osim dame, koristite izraz jednako je. Na primjer, a-8-jednako-n promoviše u skakača.</string>
   <string name="king">kralj</string>
   <string name="whiteKing">bijeli kralj</string>
   <string name="blackKing">crni kralj</string>
@@ -47,18 +47,18 @@
   <string name="whitePawn">bijeli pijun</string>
   <string name="blackPawn">crni pijun</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">K Q R B N x</string>
-  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">uzima</string>
+  <string name="sanTakes" comment="x in standard notation">uzima</string>
   <string name="sanCheck" comment="+ in standard notation">provjeriti</string>
   <string name="sanCheckmate" comment="# in standard notation">šah-mat</string>
-  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">promovira</string>
-  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">kratka rokada</string>
-  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">duga rokada</string>
-  <string name="sanDroppedOn" comment="Indicates a piece is dropped on a square in the Crazyhouse variant, as part of a longer sentence.&#10;&#10;In Crazyhouse, any pieces you capture are placed in your pocket. You can then drop those pieces onto any square on the board.&#10;&#10;Examples:&#10;&quot;bishop is dropped on c 4 check&quot; (B@c4+)&#10;&quot;pawn is dropped on f 7&quot; (@f7)&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'dropped on' corresponds to &quot;@&quot; in Crazyhouse's form of algebraic notation.">je spušten na</string>
+  <string name="sanPromotesTo" comment="= in standard notation">promovira</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">kratka rokada</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">duga rokada</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">je spušten na</string>
   <string name="invalidMove">Nevažeći potez</string>
   <string name="premoveCancelled">Premještanje otkazano</string>
   <string name="premoveRecorded">Snimljeno prethodno pomicanje: %s. Pritisnite enter za otkazivanje</string>
-  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Džepovi</string>
-  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Kopiraj %s u međuspremnik</string>
-  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s kopirano u međuspremnik</string>
-  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN i FEN</string>
+  <string name="pockets" comment="Crazyhouse pockets">Džepovi</string>
+  <string name="copyToClipboard">Kopiraj %s u međuspremnik</string>
+  <string name="copiedToClipboard">%s kopirano u međuspremnik</string>
+  <string name="pgnAndFen">PGN i FEN</string>
 </resources>

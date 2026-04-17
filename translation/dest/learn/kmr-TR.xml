@@ -6,7 +6,7 @@
   <string name="progressX">Pêvajo: %s</string>
   <string name="resetMyProgress">Pêşveçûna min bike sifir</string>
   <string name="youWillLoseAllYourProgress">Tu yê hemû peşveçûna xwe winda bikî!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">bilîze!</string>
+  <string name="play">bilîze!</string>
   <string name="chessPieces">Kabikên kişikê</string>
   <string name="theRook">Keleh</string>
   <string name="itMovesInStraightLines">Ew di xetên rast de dimeşe</string>
@@ -152,7 +152,6 @@ Rê li ber tehdîdê bigire, paşê rok bike!</string>
   <string name="findAWayToCastleQueenSide">Rêyeke bibîne ku
 wezîr-alîkî rok bikî!</string>
   <string name="castlingComplete">Serkeftin! Divê tu hema bêje di her lîstekekê de rok bikî.</string>
-  <string name="enPassant">(En passant) xwarina gava derbasbûnê</string>
   <string name="theSpecialPawnMove">Hemleya peyayê ya taybet</string>
   <string name="enPassantIntro">Gava ku peyayê dijbera te bi yekcarî du çarçikan pêşve çû, tu dikarî wê peyayê bixwî, wekî ku ew peya tenê çarçikek çûbe.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Reş vê gavê peyayê

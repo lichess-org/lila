@@ -17,7 +17,7 @@ import lila.db.dsl.given
 trait Stream:
   val streamer: Streamer
   def platform: Platform
-  def status: Html
+  def status: String
   def lang: Lang
   def urls: Stream.Urls
 
@@ -26,7 +26,13 @@ trait Stream:
   def youtube = platform == "youtube"
   def language = toLanguage(lang)
 
-  lazy val cleanStatus = status.map(s => removeMultibyteSymbols(s).trim)
+  def cleanStatus = removeMultibyteSymbols(status).trim
+
+  def redirectToLiveUrl: Option[Url] = Url.from:
+    streamer.twitch
+      .ifTrue(twitch)
+      .map(_.fullUrl)
+      .orElse(streamer.youtube.ifTrue(youtube).map(_.fullUrl))
 
 object Stream:
 
@@ -172,13 +178,7 @@ object Streamer:
       user: User,
       stream: Option[Stream],
       subscribed: Boolean = false
-  ) extends WithContext:
-    def redirectToLiveUrl: Option[String] =
-      stream.so: s =>
-        streamer.twitch
-          .ifTrue(s.twitch)
-          .map(_.fullUrl)
-          .orElse(streamer.youtube.ifTrue(s.youtube).map(_.fullUrl))
+  ) extends WithContext
 
   case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean, reason: Option[String])
 

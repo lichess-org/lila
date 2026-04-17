@@ -46,6 +46,8 @@ object config:
       case Array(host, port) => port.toIntOption.map(HostPort(host, _))
       case _ => none
 
+  type RouteUrl = play.api.mvc.Call => data.Url
+
   case class NetConfig(
       domain: NetDomain,
       prodDomain: NetDomain,

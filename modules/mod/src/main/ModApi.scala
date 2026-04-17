@@ -156,7 +156,7 @@ final class ModApi(
           s"noreply.blanked.${username.id}${prev.fold("@nope.nope")("." + _)}"
         _ <- userRepo.setEmail(user.id, email)
         _ <- userRepo.setEmailConfirmed(user.id)
-        _ <- logApi.setEmail(user.id)
+        _ <- logApi.setEmail(user.id, prev, email)
       yield ()
 
   def blankPassword(username: UserStr)(using Me): Funit =

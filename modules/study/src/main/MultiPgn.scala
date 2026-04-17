@@ -2,15 +2,13 @@ package lila.study
 
 import chess.format.pgn.PgnStr
 
-case class MultiPgn(value: List[PgnStr]) extends AnyVal:
+opaque type MultiPgn = List[PgnStr]
 
-  def toPgnStr = PgnStr(value.mkString("\n\n"))
-
-object MultiPgn:
+object MultiPgn extends TotalWrapper[MultiPgn, List[PgnStr]]:
 
   private val splitPat = """\n\n(?=\[)""".r.pattern
 
-  def split(str: PgnStr, max: Max) = MultiPgn:
+  def split(str: PgnStr, max: Max): MultiPgn =
     PgnStr.from:
       splitPat
         .split(str.value.replaceIf('\r', ""), max.value + 1)
@@ -18,3 +16,5 @@ object MultiPgn:
         .filter(_.nonEmpty)
         .take(max.value)
         .toList
+
+  extension (pgns: MultiPgn) def toPgnStr = PgnStr(pgns.mkString("\n\n"))

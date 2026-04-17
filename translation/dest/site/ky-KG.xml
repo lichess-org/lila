@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Оюндун параметрлери</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Досту чакыруу</string>
+  <string name="playAgainstComputer">Компьютерге каршы ойноо</string>
+  <string name="gameMode">Оюн режими</string>
+  <string name="createLobbyGame">Оюнга чакырык таштоо</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Бул шилтеме менен чакыруу</string>
   <string name="gameOver">Оюн бутту</string>
   <string name="waitingForOpponent">Өнөктөш менен ойноо</string>
+  <string name="orLetYourOpponentScanQrCode">Же атаандашыңызга ушул QR-кодду сканерлөө үчүн көрсөтүңүз</string>
   <string name="waiting">Күтүүдө</string>
   <string name="yourTurn">Сиздин кезегиңиз</string>
   <string name="aiNameLevelAiLevel">%1$s басамак %2$s</string>

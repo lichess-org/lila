@@ -4,7 +4,7 @@
   "type": "module",
   "dependencies": {
     "lib": "workspace:*",
-    "swiper": "^12.0.3"
+    "swiper": "^12.1.2"
   },
   "build": {
     "bundle": "src/recap.ts"

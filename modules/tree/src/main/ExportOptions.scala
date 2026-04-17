@@ -2,7 +2,6 @@ package lila.tree
 
 // Options for exporting a game or study to pgn or json
 case class ExportOptions(
-    opening: Boolean = false,
     movetimes: Boolean = false,
     division: Boolean = false,
     clocks: Boolean = false,

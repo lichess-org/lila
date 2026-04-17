@@ -10,8 +10,6 @@
     flex: 1 1 auto;
     text-align: center;
     padding: 0.4em 10px;
-
-    // background: $c-shade;
     cursor: pointer;
     color: $c-font-page;
 
@@ -24,17 +22,6 @@
     &-active {
       color: $c-font;
       background: $c-bg-box !important;
-    }
-
-    input {
-      cursor: pointer;
-      display: none;
-
-      @extend %checkbox;
-    }
-
-    &-active input {
-      display: block;
     }
 
     span {

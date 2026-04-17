@@ -4,16 +4,18 @@
 
 #ceval-settings {
   @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+
   position: absolute;
   border-top: 2px solid $c-primary;
   z-index: $z-mz-menu-4;
   width: 100%;
   background: $c-bg-high;
   gap: 1.5em;
-  padding: 2em 1.5em;
+  padding: 1.5em;
 
   @media (max-width: at-most($small)) {
     gap: 1em;
+
     br {
       display: none;
     }
@@ -22,17 +24,7 @@
   .setting {
     @extend %flex-center-nowrap;
 
-    * {
-      white-space: nowrap;
-    }
-
-    label {
-      cursor: pointer;
-    }
-
-    .switch + label {
-      margin-inline-start: 1ch;
-    }
+    white-space: nowrap;
 
     input[type='range'],
     span {
@@ -45,12 +37,12 @@
     }
 
     select {
+      @extend %ellipsis;
+
       flex: 1 4 auto;
       min-width: 0;
       margin-inline-start: 1ch;
       padding: 4px;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     #select-engine {
@@ -63,23 +55,9 @@
       text-align: left;
     }
 
-    button.delete {
-      @extend %button-none;
-      width: 20px;
-      height: 20px;
-      border-radius: 100%;
-      background-color: $c-bad;
-      color: $c-bg-page;
-      margin-inline-start: 1.5ch;
-
-      &:focus {
-        outline: 2px solid $c-primary;
-      }
-
-      &:hover {
-        color: #bbb;
-        outline: 2px solid #bbb;
-      }
+    button.button-red {
+      margin-left: 0.6em;
+      padding: 0.6em 0.75em;
     }
 
     span {

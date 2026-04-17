@@ -3,7 +3,7 @@ package lila.api
 import chess.format.pgn.PgnStr
 import scalatags.Text.all.*
 
-import lila.analyse.{ Analysis, AnalysisRepo }
+import lila.analyse.AnalysisRepo
 import lila.core.config.NetDomain
 import lila.core.misc.lpv.*
 import lila.memo.CacheApi
@@ -96,10 +96,13 @@ final class TextLpvExpand(
       .gameWithInitialFen(id)
       .flatMapz: g =>
         analysisRepo
-          .byId(Analysis.Id(id))
+          .byGame(g.game)
           .flatMap: analysis =>
             pgnDump(g.game, g.fen, analysis, pgnFlags).map: pgn =>
-              LpvEmbed.PublicPgn(pgn.render).some
+              val gameUrl = net.routeUrl(routes.Round.watcher(id, Color.White)).value
+              val siteTag = chess.format.pgn.Tag(_.Site, gameUrl)
+              val fixedSiteTag = pgn.copy(tags = pgn.tags + siteTag)
+              LpvEmbed.PublicPgn(fixedSiteTag.render).some
 
   private def studyChapterIdToPgn(id: StudyChapterId): Fu[Option[LpvEmbed]] =
     import lila.study.PgnDump.fullFlags

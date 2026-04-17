@@ -1,7 +1,7 @@
 export async function initModule(): Promise<SoundMove> {
   let currentNotes = 0;
 
-  const volumes: { [instrument: string]: number } = {
+  const volumes: Record<string, number> = {
       celesta: 0.3,
       clav: 0.2,
       swells: 0.8,

@@ -40,8 +40,8 @@
     <item quantity="one">તેને ટૂંકું રાખો: %s અક્ષર મહત્તમ</item>
     <item quantity="other">તેને ટૂંકું રાખો: %s અક્ષરો મહત્તમ</item>
   </plurals>
-  <string name="visibility">સ્ટ્રીમર્સ પેજ પર દૃશ્યમાન</string>
-  <string name="whenApproved">મોડરેટર્સ દ્વારા મંજૂર થયા પછી</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">સ્ટ્રીમર્સ પેજ પર દૃશ્યમાન</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">મોડરેટર્સ દ્વારા મંજૂર થયા પછી</string>
   <string name="headline">હેડલાઇન</string>
   <string name="tellUsAboutTheStream">એક વાક્યમાં તમારા સ્ટ્રીમ વિશે અમને કહો</string>
   <string name="longDescription">લાંબુ વર્ણન</string>

@@ -1,7 +1,22 @@
-useNodeVersion: 24.11.1
+useNodeVersion: 24.14.0
 managePackageManagerVersions: true
 updateNotified: false
 packages:
   - 'bin'
   - 'ui/*'
   - 'ui/@types/*'
+ignoredOptionalDependencies:
+  - '@ox*/*-arm-*'
+  - '@ox*/*-ia32-*'
+  - '@ox*/*-loong64-*'
+  - '@ox*/*-mips64el-*'
+  - '@ox*/*-ppc64-*'
+  - '@ox*/*-riscv64-*'
+  - '@ox*/*-s390x-*'
+  - '@ox*/*-aix-*'
+  - '@ox*/*-android-*'
+  - '@ox*/*-freebsd-*'
+  - '@ox*/*-openbsd-*'
+  - '@ox*/*-openharmony-*'
+  - '@ox*/*-netbsd-*'
+  - '@ox*/*-sunos-*'

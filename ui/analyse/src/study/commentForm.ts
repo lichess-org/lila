@@ -1,15 +1,19 @@
-import { prop } from 'lib';
-import { onInsert } from 'lib/view';
-import { throttle } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
-import type AnalyseCtrl from '../ctrl';
-import { currentComments, isAuthorObj } from './studyComments';
+
+import { prop } from 'lib';
+import { throttle } from 'lib/async';
 import { storage } from 'lib/storage';
+import type { TreeNode, TreePath } from 'lib/tree/types';
+import { onInsert } from 'lib/view';
+
+import type AnalyseCtrl from '../ctrl';
+import type { ChapterId } from './interfaces';
+import { currentComments, isAuthorObj } from './studyComments';
 
 interface Current {
-  chapterId: string;
-  path: Tree.Path;
-  node: Tree.Node;
+  chapterId: ChapterId;
+  path: TreePath;
+  node: TreeNode;
 }
 
 export class CommentForm {
@@ -24,13 +28,13 @@ export class CommentForm {
     if (cur) this.root.study!.makeChange('setComment', { ch: cur.chapterId, path: cur.path, text });
   });
 
-  start = (chapterId: string, path: Tree.Path, node: Tree.Node): void => {
+  start = (chapterId: string, path: TreePath, node: TreeNode): void => {
     this.opening(true);
     this.current({ chapterId, path, node });
     this.root.userJump(path);
   };
 
-  onSetPath = (chapterId: string, path: Tree.Path, node: Tree.Node): void => {
+  onSetPath = (chapterId: string, path: TreePath, node: TreeNode): void => {
     const cur = this.current();
     if (cur && (path !== cur.path || chapterId !== cur.chapterId || cur.node !== node)) {
       cur.chapterId = chapterId;
@@ -38,7 +42,7 @@ export class CommentForm {
       cur.node = node;
     }
   };
-  delete = (chapterId: string, path: Tree.Path, id: string) => {
+  delete = (chapterId: string, path: TreePath, id: string) => {
     this.root.study!.makeChange('deleteComment', { ch: chapterId, path, id });
   };
 }
@@ -51,15 +55,16 @@ export function view(root: AnalyseCtrl): VNode {
     ctrl = study.commentForm,
     current = ctrl.current();
   if (!current) return viewDisabled(root, 'Select a move to comment');
+
   const setupTextarea = (vnode: VNode, old?: VNode) => {
     const el = vnode.elm as HTMLInputElement;
     const newKey = current.chapterId + current.path;
 
     if (old?.data!.path !== newKey) {
-      const mine = (current.node.comments || []).find(function (c) {
-        return isAuthorObj(c.by) && c.by.id && c.by.id === ctrl.root.opts.userId;
-      });
-      el.value = mine ? mine.text : '';
+      const mine = (current.node.comments || []).find(
+        c => isAuthorObj(c.by) && c.by.id && c.by.id === ctrl.root.opts.userId,
+      );
+      el.value = mine?.text || '';
     }
     vnode.data!.path = newKey;
 

@@ -7,7 +7,7 @@ export const scenario = 50;
 
 export type Rank = 1 | 2 | 3;
 
-const levelBonus: { [r in Rank]: number } = {
+const levelBonus: Record<Rank, number> = {
   1: 500,
   2: 300,
   3: 100,
@@ -36,7 +36,7 @@ export const getStageRank = (s: Stage, score: number | number[]): Rank => {
 
 type ExcludingKing = Exclude<Role, 'king'>;
 
-const pieceValues: { [key in ExcludingKing]: number } = {
+const pieceValues: Record<ExcludingKing, number> = {
   queen: 90,
   rook: 50,
   bishop: 30,

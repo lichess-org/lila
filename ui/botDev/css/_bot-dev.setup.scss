@@ -4,13 +4,13 @@
   top: 25%;
   font-size: 4em;
   color: $c-bg-zebra2;
+
   &:hover {
     color: $c-font-dimmer;
   }
 }
 
 body:has(.base-view.setup-view) {
-  -webkit-user-select: none !important;
   user-select: none !important;
 }
 
@@ -32,9 +32,10 @@ body:has(.base-view.setup-view) {
 
   .from-position {
     position: relative;
+
     .resets {
-      @extend %flex-center;
-      justify-content: center;
+      @extend %flex-center-center;
+
       padding: 2em;
       gap: 2em;
     }
@@ -47,11 +48,13 @@ body:has(.base-view.setup-view) {
 
   .go-to-board {
     @include go-to-button;
+
     right: 20px;
   }
 
   .go-to-opponent {
     @include go-to-button;
+
     left: 20px;
   }
 
@@ -60,13 +63,14 @@ body:has(.base-view.setup-view) {
     aspect-ratio: 1;
 
     &.drag-over {
-      outline: 2px solid $c-primary;
+      outline: $outline;
       outline-offset: 2px;
     }
   }
 
   .vs {
     @extend %flex-column;
+
     align-items: center;
     justify-content: center;
     height: 70%;
@@ -81,29 +85,33 @@ body:has(.base-view.setup-view) {
   }
 
   .chin {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
+
     padding: 1em;
     border-radius: 5px;
     border-top: 1px solid $c-border;
     background: $c-bg-zebra2;
+
     * {
       padding: 6px;
       gap: 0.5em;
     }
+
     span {
-      @extend %flex-center;
-      justify-content: center;
+      @extend %flex-center-center;
     }
+
     input {
       min-height: 32px;
       flex: auto;
     }
+
     @include mq-is-col1 {
       select {
         height: 32px;
       }
     }
+
     button {
       i {
         display: block;
@@ -114,54 +122,67 @@ body:has(.base-view.setup-view) {
       }
 
       &.white i {
-        background-image: url(../images/buttons/play-as-white.svg);
+        background-image: url('../images/buttons/play-as-white.svg');
       }
+
       &.black i {
-        background-image: url(../images/buttons/play-as-black.svg);
+        background-image: url('../images/buttons/play-as-black.svg');
       }
+
       &.random i {
-        background-image: url(../images/buttons/play-as-random.svg);
+        background-image: url('../images/buttons/play-as-random.svg');
       }
     }
   }
 
   .params {
     @extend %flex-column;
+
     flex: auto;
     gap: 0.5em;
   }
+
   .actions {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-center-center;
   }
+
   @include mq-is-col1 {
     .fen {
       display: none;
     }
   }
+
   @include mq-phone-landscape {
     flex-flow: row nowrap;
+
     .fen {
       display: none;
     }
+
     .main-content {
       width: 56%;
     }
+
     .from-position {
       gap: 0;
+
       .resets {
         padding: 4px;
+
         button {
           padding: 4px;
         }
       }
     }
+
     .chin {
       padding-top: 3em;
       width: 44%;
     }
+
     div.player {
       width: 38vh;
+
       .placard {
         display: none;
       }

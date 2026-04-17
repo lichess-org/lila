@@ -18,7 +18,7 @@
   <string name="aiLevel">A.I. श्रेणी</string>
   <string name="source">स्त्रोत</string>
   <string name="nbTurns">चाली</string>
-  <string name="result">परिणाम</string>
+  <string name="result">निकाल</string>
   <string name="winnerColor">विजेत्याचा रंग</string>
   <string name="date">दिनांक</string>
   <string name="sortBy">या क्रमानुसार लावा</string>
@@ -26,7 +26,7 @@
   <string name="onlyAnalysed">खेळात कॉम्प्युटर विश्लेषण उपलब्ध आहे</string>
   <string name="color">रंग</string>
   <string name="evaluation">मूल्यमापन</string>
-  <string name="maxNumber">सर्वाधिक आकडा</string>
+  <string name="maxNumber">सर्वाधिक संख्या</string>
   <string name="maxNumberExplanation">परत जाण्यासाठी खेळांची सर्वाधिक संख्या</string>
   <string name="include">समाविष्ट करा</string>
   <string name="descending">उतरता क्रम</string>

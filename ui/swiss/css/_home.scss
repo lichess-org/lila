@@ -1,6 +1,13 @@
 .swiss-home {
+  @extend %flex-column;
+
+  gap: $block-gap;
+
   &__infos {
-    > div {
+    padding-top: $box-padding;
+
+    .main-point,
+    .faq {
       @extend %flex-center-nowrap;
 
       margin-bottom: 4em;
@@ -41,8 +48,6 @@
 
     tbody th {
       @extend %roboto;
-
-      // background: $c-bg-box;
     }
   }
 
@@ -50,10 +55,6 @@
     time {
       opacity: 1;
       font-size: 1em;
-    }
-
-    td {
-      padding: 0.5rem 1rem;
     }
 
     .header {

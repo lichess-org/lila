@@ -85,10 +85,10 @@
   <string name="fromMyGamesNone">Nie masz zadań w bazie danych, ale Lichess nadal bardzo Cię kocha.
 Graj partie szybkie i klasyczne, aby zwiększyć swoje szanse na dodanie zadania!</string>
   <plurals name="puzzlesFoundInUserGames">
-    <item quantity="one">Jedna zadanie szachowe znalezione w partiach przez %2$s</item>
-    <item quantity="few">%1$s zadania szachowe znalezione w partiach przez %2$s</item>
-    <item quantity="many">%1$s zadanń szachowych znalezionych w partiach przez %2$s</item>
-    <item quantity="other">%1$s zadanń szachowych znalezionych w partiach przez %2$s</item>
+    <item quantity="one">Jedno zadanie szachowe znalezione w partiach gracza %2$s</item>
+    <item quantity="few">%1$s zadania szachowe znalezione w partiach gracza %2$s</item>
+    <item quantity="many">%1$s zadań szachowych znalezionych w partiach gracza %2$s</item>
+    <item quantity="other">%1$s zadań szachowych znalezionych w partiach gracza %2$s</item>
   </plurals>
   <string name="puzzleDashboardDescription">Trenuj, analizuj, doskonal się</string>
   <plurals name="nbPlayed">

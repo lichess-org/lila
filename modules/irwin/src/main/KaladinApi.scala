@@ -70,7 +70,7 @@ final class KaladinApi(
             _ <-
               if enoughMoves then
                 lila.mon.mod.kaladin.request(requester.name).increment()
-                insightApi.indexAll(user.user) >>
+                insightApi.indexAll(user.user, force = false) >>
                   coll(_.update.one($id(req.id), req, upsert = true)).void
               else
                 lila.mon.mod.kaladin.insufficientMoves(requester.name).increment()
@@ -82,7 +82,7 @@ final class KaladinApi(
       // hits a mongodb index
       // db.kaladin_queue.createIndex({'response.at':1,'response.read':1},{partialFilterExpression:{'response.at':{$exists:true}}})
       coll
-        .find($doc("response.at".$exists(true), "response.read".$ne(true)))
+        .find($doc("response.at".$exists(true), "response.read" -> false))
         .sort($doc("response.at" -> 1))
         .hint(coll.hint("response.at_1_response.read_1"))
         .cursor[KaladinUser]()

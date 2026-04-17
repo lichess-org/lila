@@ -1,4 +1,4 @@
-var gamesToMigrate = db.game5.find(
+const gamesToMigrate = db.game5.find(
   {
     w: {
       $exists: true,

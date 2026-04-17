@@ -23,11 +23,11 @@
   <string name="moveToPieceByType">Mugitu laukietara piezen izenak erabiliz. Adibidez: z errepikatuz gero, zaldia dagoen lauki batera mugituko da. Erabili maiuskulak alderantzizko ordena erabiltzeko.</string>
   <string name="moveToRank">Mugitu 1etik 8 errenkadara.</string>
   <string name="moveToFile">Mugitu atik h zutabera.</string>
-  <string name="announcePieceLocations" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they can type in &quot;p N&quot;, &quot;p k&quot;, or &quot;p A&quot; for the respective commands. Capital letters are for white pieces while lowercase letters are for black pieces.&#10;&#10;Please write out &quot;capital&quot; or &quot;lowercase&quot; to distinguish it for blind users.">Iragarri piezen kokalekuak: Adibidez: p Z maiuskula zaldi zurientzat, p k minuskulua errege baltza, p A pieza zuri guztiak.</string>
-  <string name="announcePiecesOnRankOrFile" comment="This is an instruction for how blind users can use the command form.&#10;&#10;Here, they must type in &quot;s&quot; to announce pieces on the rank or file. So &quot;s a&quot; would announce all pieces on file a, while &quot;s 1&quot; would announce all pieces on file 1.&#10;&#10;Please keep the space. Screen readers may not read the text out correctly without a space present.">Iragarri errenkada edo zutabe bateko piezak. Adibidez: s a, s 1.</string>
-  <string name="goToBoard" comment="Please keep the hyphen in or use a space for moves (e.g. &quot;a 1&quot;). Screen readers may not read the text out correctly without a hyphen or space present.">Taulara joan. Defektuzko laukia e-4 da. Lauki bat zehazteko: board a-1 edo b a-1-ek a-1 laukira eramango zaitu.</string>
+  <string name="announcePieceLocations">Iragarri piezen kokalekuak: Adibidez: p Z maiuskula zaldi zurientzat, p k minuskulua errege baltza, p A pieza zuri guztiak.</string>
+  <string name="announcePiecesOnRankOrFile">Iragarri errenkada edo zutabe bateko piezak. Adibidez: s a, s 1.</string>
+  <string name="goToBoard">Taulara joan. Defektuzko laukia e-4 da. Lauki bat zehazteko: board a-1 edo b a-1-ek a-1 laukira eramango zaitu.</string>
   <string name="movePiece">Pieza bat mugitzeko, erabili notazio algebraiko estandarra.</string>
-  <string name="promotion" comment="This is meant to be read verbally by a screen reader. Please do NOT use the symbol &quot;=&quot; when translating &quot;equals&quot;. Write it as a full word.">Dama ez den zerbait sustatzeko erabili berdin. Adibidez: a-8-berdin-z, zalduna sustatuko du.</string>
+  <string name="promotion">Dama ez den zerbait sustatzeko erabili berdin. Adibidez: a-8-berdin-z, zalduna sustatuko du.</string>
   <string name="king">erregea</string>
   <string name="whiteKing">errege zuria</string>
   <string name="blackKing">errege beltza</string>
@@ -47,18 +47,18 @@
   <string name="whitePawn">peoi zuria</string>
   <string name="blackPawn">peoi beltza</string>
   <string name="sanSymbols" comment="Keep this order: king queen rook bishop knight takes">E D G A Z x</string>
-  <string name="sanTakes" comment="Indicates a piece captured another piece as part of a longer sentence.&#10;Examples:&#10;&quot;knight takes f 3&quot;&#10;&quot;e takes f 3&quot;&#10;The exact format can vary depending on the user's preferences.&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;&quot;Takes&quot; corresponds to &quot;x&quot; in Standard Algebraic Notation, for pieces being captured.">harrapatu</string>
+  <string name="sanTakes" comment="x in standard notation">harrapatu</string>
   <string name="sanCheck" comment="+ in standard notation">xake</string>
   <string name="sanCheckmate" comment="# in standard notation">mate</string>
-  <string name="sanPromotesTo" comment="Indicates a piece is promoted, as part of a longer sentence.&#10;Examples:&#10;&quot;e promotes to queen&quot;&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'Takes' corresponds to &quot;=&quot; in Standard Algebraic Notation, for pieces being promoted.">sustatu</string>
-  <string name="sanShortCastling" comment="O-O in standard notation; also known as kingside castling">endroke laburra</string>
-  <string name="sanLongCastling" comment="O-O-O in standard notation; also known as queenside castling.">endroke luzea</string>
-  <string name="sanDroppedOn" comment="Indicates a piece is dropped on a square in the Crazyhouse variant, as part of a longer sentence.&#10;&#10;In Crazyhouse, any pieces you capture are placed in your pocket. You can then drop those pieces onto any square on the board.&#10;&#10;Examples:&#10;&quot;bishop is dropped on c 4 check&quot; (B@c4+)&#10;&quot;pawn is dropped on f 7&quot; (@f7)&#10;&#10;Used only in blind mode when the screen reader verbally announces a move.&#10;&#10;'dropped on' corresponds to &quot;@&quot; in Crazyhouse's form of algebraic notation.">hemen utzi da</string>
+  <string name="sanPromotesTo" comment="= in standard notation">sustatu</string>
+  <string name="sanShortCastling" comment="O-O in standard notation">endroke laburra</string>
+  <string name="sanLongCastling" comment="O-O-O in standard notation">endroke luzea</string>
+  <string name="sanDroppedOn" comment="crazyhouse @">hemen utzi da</string>
   <string name="invalidMove">Jokaldia ez da zuzena</string>
   <string name="premoveCancelled">Aurrejokaldia bertan behera utzi da</string>
   <string name="premoveRecorded">Aurrejokaldia gorde da: %s. Sakatu enter bertan behera uzteko</string>
-  <string name="pockets" comment="Pockets in Crazyhouse, which hold captured pieces and let players place them again">Poltsa</string>
-  <string name="copyToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">Kopiatu %s arbelera</string>
-  <string name="copiedToClipboard" comment="%s will be either &quot;PGN&quot; or &quot;FEN&quot;.">%s arbelera kopiatu da</string>
-  <string name="pgnAndFen" comment="Will be a heading read out over text-to-speech for blind users looking to share a PGN or FEN of a game.">PGN eta FEN</string>
+  <string name="pockets" comment="Crazyhouse pockets">Poltsa</string>
+  <string name="copyToClipboard">Kopiatu %s arbelera</string>
+  <string name="copiedToClipboard">%s arbelera kopiatu da</string>
+  <string name="pgnAndFen">PGN eta FEN</string>
 </resources>

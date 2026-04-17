@@ -6,7 +6,7 @@
   <string name="progressX">Edenemine: %s</string>
   <string name="resetMyProgress">Lähtesta saavutused</string>
   <string name="youWillLoseAllYourProgress">Kaotad kõik oma saavutused!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">mängi!</string>
+  <string name="play">mängi!</string>
   <string name="chessPieces">Malendid</string>
   <string name="theRook">Vanker</string>
   <string name="itMovesInStraightLines">Ta liigub sirgejooneliselt</string>
@@ -155,7 +155,6 @@ vangerdada kuningatiivale!</string>
   <string name="findAWayToCastleQueenSide">Leia viis, kuidas
 vangerdada liputiivale!</string>
   <string name="castlingComplete">Õnnitlused! Te peaksite peaaegu alati vangerdama mängus.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Eriline etturi liigutus</string>
   <string name="enPassantIntro">Kui vastase ettur on liikunud kahe ruudu võrra, siis sa saad seda kui ühe ruuduna võtta.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Must liikus etturiga

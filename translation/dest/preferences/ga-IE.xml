@@ -20,7 +20,7 @@
   <string name="onlyOnInitialPosition">Suíomh tosaigh amháin</string>
   <string name="chessClock">Clog fichille</string>
   <string name="tenthsOfSeconds">Deichiú soicind</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Nuair atá am fágtha &lt; 10 soicind</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Nuair atá am fágtha &lt; 10 soicind</string>
   <string name="horizontalGreenProgressBars">Barraí cothrománacha glasa ar dhul chun cinn</string>
   <string name="soundWhenTimeGetsCritical">Fuaim nuair atá an t-am criticiúil</string>
   <string name="giveMoreTime">Tabhair am breise</string>
@@ -36,7 +36,7 @@
   <string name="explainPromoteToQueenAutomatically">Coinnigh an &lt;ctrl&gt; eochair síos agus ceithearnach á ardú chun uath-ardú a dhíchumasú go sealadach</string>
   <string name="whenPremoving">Réamh-ghluaiseacht</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Máigh cluiche cothrom ar athrshuíomh faoi thrí go huathoibríoch</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Nuair atá am fágtha &lt; 30 soicind</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Nuair atá am fágtha &lt; 30 soicind</string>
   <string name="moveConfirmation">Deimhniú beart</string>
   <string name="inCorrespondenceGames">Cluichí comhfhreagrais</string>
   <string name="correspondenceAndUnlimited">Comhfhreagras agus neamhtheoranta</string>

@@ -1,5 +1,3 @@
-import { animation, fontFamily, gridColor, hoverBorderColor } from './index';
-import type { DistributionData } from './interface';
 import {
   type ChartConfiguration,
   type ChartData,
@@ -14,6 +12,9 @@ import {
   Tooltip,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+import { fontFamily, gridColor, hoverBorderColor } from './index';
+import type { DistributionData } from './interface';
 
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 
@@ -145,7 +146,7 @@ export async function initModule(data: DistributionData): Promise<void> {
             },
           },
         },
-        animations: animation(1000 / ratings.length),
+        animation: false,
         locale: document.documentElement.lang,
         maintainAspectRatio: false,
         responsive: true,

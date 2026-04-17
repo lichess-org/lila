@@ -6,7 +6,7 @@
   <string name="progressX">İlerleme: %s</string>
   <string name="resetMyProgress">İlerlememi sıfırla</string>
   <string name="youWillLoseAllYourProgress">Tüm ilerlemen silinecek!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">oyna!</string>
+  <string name="play">oyna!</string>
   <string name="chessPieces">Satranç taşları</string>
   <string name="theRook">Kale</string>
   <string name="itMovesInStraightLines">Düz gider</string>
@@ -115,7 +115,6 @@ Terfiye gerek yok.</string>
   <string name="findAWayToCastleKingSide">Şah tarafına rok atmanın bir yolunu bul!</string>
   <string name="findAWayToCastleQueenSide">Vezir tarafına rok atmanın bir yolunu bul!</string>
   <string name="castlingComplete">İyi iş çıkardın! Neredeyse tüm oyunlarda rok atman gerekir.</string>
-  <string name="enPassant">Geçerken alma</string>
   <string name="theSpecialPawnMove">Piyona özgü bir hareket</string>
   <string name="enPassantIntro">Rakip piyon iki kare hareket ettiğinde onu bir kare hareket etmiş gibi yiyebilirsin.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Rakibin siyah piyonu iki kare sürdü! Piyonu geçerken al.</string>

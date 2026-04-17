@@ -5,7 +5,7 @@ import chess.opening.OpeningDb
 import chess.{ Position, Centis, Clock, Ply, Role, Stats }
 import chess.eval.WinPercent
 
-import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, Analysis }
+import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice }
 import lila.common.SimpleOpening
 import lila.game.Blurs.booleans
 
@@ -43,7 +43,7 @@ final private class PovToEntry(
       Pov(game, userId).so: pov =>
         gameRepo
           .initialFen(game)
-          .zip(game.metadata.analysed.so(analysisRepo.byId(Analysis.Id(game.id))))
+          .zip(game.metadata.analysed.so(analysisRepo.byGame(game)))
           .map { (fen, an) =>
             chess
               .Position(
@@ -208,9 +208,8 @@ final private class PovToEntry(
     )
 
   private def findOpening(from: RichPov): Option[SimpleOpening] =
-    from.pov.game.variant.standard.so(
+    from.pov.game.variant.standard.so:
       OpeningDb
         .searchInPositions(from.boards)
         .map(_.opening)
         .flatMap(SimpleOpening.apply)
-    )

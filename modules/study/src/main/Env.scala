@@ -21,7 +21,6 @@ final class Env(
     explorer: lila.core.game.Explorer,
     notifyApi: lila.core.notify.NotifyApi,
     federations: lila.core.fide.Federation.FedsOf,
-    federationNames: lila.core.fide.Federation.NamesOf,
     prefApi: lila.core.pref.PrefApi,
     relationApi: lila.core.relation.RelationApi,
     socketKit: lila.core.socket.SocketKit,
@@ -32,12 +31,14 @@ final class Env(
     annotator: lila.tree.Annotator,
     mongo: lila.db.Env,
     net: lila.core.config.NetConfig,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    settingStore: lila.memo.SettingStore.Builder
 )(using
     Executor,
     Scheduler,
     akka.stream.Materializer,
-    lila.core.config.RateLimit
+    lila.core.config.RateLimit,
+    lila.core.fide.Federation.Guess
 ):
 
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))

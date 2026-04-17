@@ -8,7 +8,6 @@ export interface ForecastStep {
   uci: Uci;
   san: San;
   fen: FEN;
-  check?: Key;
 }
 
 export type ForecastList = ForecastStep[][];

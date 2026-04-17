@@ -1,14 +1,15 @@
 import type { VNode, Hooks } from 'snabbdom';
-import * as licon from 'lib/licon';
-import { spinnerVdom as spinner } from 'lib/view';
-import { justIcon } from '../util';
+
 import { finished, aborted, replayable, rematchable, moretimeable, type PlayerUser } from 'lib/game';
-import { game as gameRoute } from 'lib/game/router';
-import type { EventsWithoutPayload, RoundData } from '../interfaces';
 import type { ClockData } from 'lib/game/clock/clockCtrl';
-import type RoundController from '../ctrl';
-import { type LooseVNodes, type LooseVNode, hl, bind, onInsert } from 'lib/view';
+import { game as gameRoute } from 'lib/game/router';
+import * as licon from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
+import { spinnerVdom as spinner, type LooseVNodes, type LooseVNode, hl, bind, onInsert } from 'lib/view';
+
+import type RoundController from '../ctrl';
+import type { EventsWithoutPayload, RoundData } from '../interfaces';
+import { justIcon } from '../util';
 
 export interface ButtonState {
   enabled: boolean;
@@ -70,8 +71,9 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
     hl(
       'button.fbt.rematch.white',
       {
-        class: { me, glowing: them, disabled },
+        class: { me, glowing: them },
         attrs: {
+          disabled,
           title: them
             ? i18n.site.yourOpponentWantsToPlayANewGameWithYou
             : me
@@ -114,7 +116,7 @@ export function standard(
   return hl(
     'button.fbt.' + socketMsg,
     {
-      attrs: ctrl.nvui ? { disabled: !enabled() } : { disabled: !enabled(), title: hintFn() },
+      attrs: { disabled: !enabled(), ...(!ctrl.nvui ? { title: hintFn() } : {}) },
       hook: bind('click', () => {
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
       }),
@@ -141,7 +143,10 @@ export function opponentGone(ctrl: RoundController): LooseVNode {
         ),
       ])
     : gone !== false &&
-        hl('div.suggestion', hl('p', i18n.site.opponentLeftCounter.asArray(gone, hl('strong', '' + gone))));
+        hl(
+          'div.suggestion.opponent-left-counter',
+          hl('p', i18n.site.opponentLeftCounter.asArray(gone, hl('strong', '' + gone))),
+        );
 }
 
 const fbtCancel = (f: (v: boolean) => void) =>

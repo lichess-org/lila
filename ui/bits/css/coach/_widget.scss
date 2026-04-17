@@ -4,6 +4,7 @@
   padding-bottom: 1rem;
 
   @include transition;
+
   @include mq-at-least-picture {
     height: 300px;
   }
@@ -54,6 +55,7 @@
 
     th {
       @extend %break-nope;
+
       font-size: 0.9em;
       color: $c-font-dim;
       padding-inline-end: 1.2em;

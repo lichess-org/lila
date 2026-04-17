@@ -29,7 +29,6 @@
   <string name="botPlay">العب مبارايات ضد بوت api</string>
   <string name="engineRead">عرض و استخدام المحركات الخارجية</string>
   <string name="engineWrite">إنشاء وتحديث محركات خارجية</string>
-  <string name="webLogin">إنشاء جلسات موقع مصادقة (منح الوصول الكامل!)</string>
   <string name="webMod">استخدام أدوات المشرف (ضمن حدود الأذونات الخاصة بك)</string>
   <string name="personalAccessTokens">رمز وصول API الشخصي</string>
   <string name="canMakeOauthRequests">يمكنك إنشاء طلبات OAuth دون المرور خلال%s.</string>

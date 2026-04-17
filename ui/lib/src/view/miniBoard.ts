@@ -1,10 +1,13 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
-import { h, type VNode } from 'snabbdom';
-import * as domData from '@/data';
-import { lichessClockIsRunning, setClockWidget } from '@/game/clock/clockWidget';
-import { uciToMove, fenColor } from '@/game/chess';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { uciToMove } from '@lichess-org/chessground/util';
+import { COLORS } from 'chessops';
+import { h, type VNode } from 'snabbdom';
+
+import * as domData from '@/data';
+import { fenColor } from '@/game/chess';
+import { lichessClockIsRunning, setClockWidget } from '@/game/clock/clockWidget';
 import { pubsub } from '@/pubsub';
 import { wsSend } from '@/socket';
 
@@ -53,7 +56,7 @@ export const initMiniGame = (node: Element, withCg?: typeof makeChessground): st
 
   domData.set($cg[0] as Element, 'chessground', (withCg ?? makeChessground)($cg[0] as HTMLElement, config));
 
-  ['white', 'black'].forEach((color: Color) =>
+  COLORS.forEach(color =>
     $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
       setClockWidget(this, {
         time: parseInt(this.getAttribute('data-time')!),
@@ -94,7 +97,7 @@ export const updateMiniGame = (node: HTMLElement, data: MiniGameUpdateData): voi
 };
 
 export const finishMiniGame = (node: HTMLElement, win?: 'b' | 'w'): void =>
-  ['white', 'black'].forEach((color: Color) => {
+  COLORS.forEach(color => {
     const clock: HTMLElement | null = node.querySelector('.mini-game__clock--' + color);
     // don't interfere with snabbdom clocks
     if (clock && !clock.dataset['managed'])

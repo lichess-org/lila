@@ -1,7 +1,7 @@
-import tablesort from 'tablesort';
+import tablesort, { type Tablesort } from 'tablesort';
 
-export function sortTable(el: HTMLElement, options: { descending: boolean }): void {
-  tablesort(el, options);
+export function sortTable(el: HTMLTableElement, options: { descending: boolean }): Tablesort {
+  return tablesort(el, options);
 }
 
 export function extendTablesortNumber(): void {

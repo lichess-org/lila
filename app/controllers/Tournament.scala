@@ -66,109 +66,105 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def show(id: TourId) = Open:
     val page = getInt("page")
-    cachedTour(id).flatMap: tourOption =>
+    WithVisibleTournament(id): tour =>
       negotiate(
-        html = tourOption
-          .fold(tournamentNotFound): tour =>
-            for
-              myInfo <- ctx.me.so { jsonView.fetchMyInfo(tour, _) }
-              verdicts <- api.getVerdicts(tour, myInfo.isDefined)
-              version <- env.tournament.version(tour.id)
-              json <- jsonView(
-                tour = tour,
-                page = page,
-                playerInfoExt = none,
-                socketVersion = version.some,
-                partial = false,
-                withScores = true,
-                withAllowList = false,
-                withDescription = false,
-                myInfo = Preload[Option[MyInfo]](myInfo),
-                addReloadEndpoint = env.tournament.lilaHttp.handles.some
-              )
-              chat <- loadChat(tour, json)
-              _ <- tour.teamBattle.so: b =>
-                env.team.cached.preloadSet(b.teams)
-              streamers <- streamerCache.get(tour.id)
-              shieldOwner <- env.tournament.shieldApi.currentOwner(tour)
-              page <- renderPage(views.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))
-            yield
-              env.tournament.lilaHttp.hit(tour)
-              Ok(page).noCache
-          .monSuccess(_.tournament.apiShowPartial(partial = false, HTTPRequest.clientName(ctx.req))),
-        json = tourOption
-          .fold[Fu[Result]](notFoundJson("No such tournament")): tour =>
-            for
-              playerInfoExt <- getUserStr("playerInfo").map(_.id).so(api.playerInfo(tour, _))
-              socketVersion <- getBool("socketVersion").optionFu(env.tournament.version(tour.id))
-              partial = getBool("partial")
-              json <- jsonView(
-                tour = tour,
-                page = page,
-                playerInfoExt = playerInfoExt,
-                socketVersion = socketVersion,
-                partial = partial,
-                withScores = getBoolOpt("scores") | true,
-                withAllowList = true,
-                withDescription = true,
-                addReloadEndpoint = env.tournament.lilaHttp.handles.some
-              )
-              chatOpt <- partial.not.so(loadChat(tour, json))
-              jsChat <- chatOpt.traverse: c =>
-                env.chat.json.mobile(c.chat)
-            yield Ok(json.add("chat" -> jsChat)).noCache
-          .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest.clientName(ctx.req)))
-      )
-
-  def apiShow(id: TourId) = AnonOrScoped(): ctx ?=>
-    env.tournament.tournamentRepo
-      .byId(id)
-      .flatMapz: tour =>
-        val maxPage = if ctx.isMobileOauth then 5_000 else 200
-        val page = (getInt("page") | 1).atLeast(1).atMost(maxPage)
-        given GetMyTeamIds = me => env.team.cached.teamIdsList(me.userId)
-        for
-          data <- env.tournament.jsonView(
+        html = for
+          myInfo <- ctx.me.so { jsonView.fetchMyInfo(tour, _) }
+          verdicts <- api.getVerdicts(tour, myInfo.isDefined)
+          version <- env.tournament.version(tour.id)
+          playerId = getUserStr("player").map(_.id)
+          (page, playerInfo) <- playerId
+            .so(api.playerPage(tour))
+            .map(_.fold(page -> none)((page, player) => page.some -> player.some))
+          json <- jsonView(
             tour = tour,
-            page = page.some,
-            playerInfoExt = none,
-            socketVersion = none,
+            page = page,
+            playerInfoExt = playerInfo,
+            socketVersion = version.some,
             partial = false,
             withScores = true,
-            withDescription = true,
-            withAllowList = true
+            withAllowList = false,
+            withDescription = false,
+            myInfo = Preload[Option[MyInfo]](myInfo),
+            addReloadEndpoint = env.tournament.lilaHttp.handles.some
           )
-          chatOpt <- getBool("chat").so(loadChat(tour, data))
-          jsChat <- chatOpt.traverse(c => env.chat.json.mobile(c.chat))
+          chat <- loadChat(tour, json)
+          _ <- tour.teamBattle.so: b =>
+            env.team.cached.preloadSet(b.teams)
+          streamers <- streamerCache.get(tour.id)
+          shieldOwner <- env.tournament.shieldApi.currentOwner(tour)
+          page <- renderPage(views.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))
+        yield
+          env.tournament.lilaHttp.hit(tour)
+          Ok(page).noCache
+        ,
+        json = for
+          playerInfoExt <- getUserStr("playerInfo").map(_.id).so(api.playerInfo(tour, _))
           socketVersion <- getBool("socketVersion").optionFu(env.tournament.version(tour.id))
-        yield data
-          .add("chat", jsChat)
-          .add("socketVersion" -> socketVersion)
-          .some
-      .map(JsonOk(_))
+          partial = getBool("partial")
+          json <- jsonView(
+            tour = tour,
+            page = page,
+            playerInfoExt = playerInfoExt,
+            socketVersion = socketVersion,
+            partial = partial,
+            withScores = getBoolOpt("scores") | true,
+            withAllowList = true,
+            withDescription = true,
+            addReloadEndpoint = env.tournament.lilaHttp.handles.some
+          )
+          chatOpt <- partial.not.so(loadChat(tour, json))
+          jsChat <- chatOpt.traverse: c =>
+            env.chat.json.mobile(c.chat)
+        yield Ok(json.add("chat" -> jsChat)).noCache
+      )
+        .monSuccess:
+          _.tournament.apiShowPartial(partial = getBool("partial"), HTTPRequest.clientName(ctx.req))
+
+  def apiShow(id: TourId) = AnonOrScoped(): ctx ?=>
+    WithVisibleTournament(id): tour =>
+      val maxPage = if ctx.isMobileOauth then 5_000 else 200
+      val page = (getInt("page") | 1).atLeast(1).atMost(maxPage)
+      given GetMyTeamIds = me => env.team.cached.teamIdsList(me.userId)
+      for
+        data <- env.tournament.jsonView(
+          tour = tour,
+          page = page.some,
+          playerInfoExt = none,
+          socketVersion = none,
+          partial = false,
+          withScores = true,
+          withDescription = true,
+          withAllowList = true
+        )
+        chatOpt <- getBool("chat").so(loadChat(tour, data))
+        jsChat <- chatOpt.traverse(c => env.chat.json.mobile(c.chat))
+        socketVersion <- getBool("socketVersion").optionFu(env.tournament.version(tour.id))
+      yield JsonOk:
+        data.add("chat", jsChat).add("socketVersion" -> socketVersion)
 
   def standing(id: TourId, page: Int) = Open:
-    Found(cachedTour(id)): tour =>
+    WithVisibleTournament(id): tour =>
       JsonOk:
         env.tournament.standingApi(tour, page, withScores = getBoolOpt("scores") | true)
 
   def pageOf(id: TourId, userId: UserStr) = Open:
-    Found(cachedTour(id)): tour =>
+    WithVisibleTournament(id): tour =>
       Found(api.pageOf(tour, userId.id)): page =>
         JsonOk:
           env.tournament.standingApi(tour, page, withScores = getBoolOpt("scores") | true)
 
-  def player(tourId: TourId, userId: UserStr) = Anon:
-    Found(cachedTour(tourId)): tour =>
+  def player(tourId: TourId, userId: UserStr) = Open:
+    WithVisibleTournament(tourId): tour =>
       Found(api.playerInfo(tour, userId.id)): player =>
         JsonOk:
           jsonView.playerInfoExtended(tour, player)
 
   def teamInfo(tourId: TourId, teamId: TeamId) = Open:
-    Found(cachedTour(tourId)): tour =>
+    WithVisibleTournament(tourId): tour =>
       Found(env.team.lightTeam(teamId)): team =>
         for
-          joined <- ctx.userId.so(env.team.api.belongsTo(team.id, _))
+          joined <- ctx.useMe(env.team.api.isMember(team.id))
           res <- negotiate(
             FoundPage(api.teamBattleTeamInfo(tour, teamId)):
               views.tournament.teamBattle.teamInfo(tour, team, _)
@@ -197,36 +193,36 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
               BadRequest(Json.obj("error" -> error))
   }
 
-  private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using me: Me) =
+  private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using Me) =
     data.team
-      .so(env.team.api.isGranted(_, me, _.Tour))
+      .so(env.team.api.isGranted(_, _.Tour))
       .flatMap: isLeader =>
         api.join(tourId, data = data, asLeader = isLeader)
 
   def pause(id: TourId) = Auth { ctx ?=> me ?=>
-    Found(cachedTour(id)): tour =>
+    WithVisibleTournament(id): tour =>
       api.selfPause(tour.id, me)
       if HTTPRequest.isXhr(ctx.req) then jsonOkResult
       else Redirect(routes.Tournament.show(tour.id))
   }
 
   def apiWithdraw(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play, _.Web.Mobile) { _ ?=> me ?=>
-    Found(cachedTour(id)): tour =>
+    WithVisibleTournament(id): tour =>
       api.selfPause(tour.id, me).inject(jsonOkResult)
   }
 
   def form = Auth { ctx ?=> me ?=>
     NoBot:
       env.team.api.lightsByTourLeader(me).flatMap { teams =>
-        Ok.page(views.tournament.form.create(forms.create(teams), teams))
+        Ok.page(views.tournament.form.create(forms.create(teams, forClas = getBool("clas")), teams))
       }
   }
 
-  def teamBattleForm(teamId: TeamId) = Auth { ctx ?=> me ?=>
+  def teamBattleForm(teamId: TeamId) = Auth { _ ?=> me ?=>
     NoBot:
       env.team.api.lightsByTourLeader(me).flatMap { teams =>
         env.team.api
-          .isGranted(teamId, me, _.Tour)
+          .isGranted(teamId, _.Tour)
           .elseNotFound(Ok.page(views.tournament.form.create(forms.create(teams, teamId.some), Nil)))
       }
   }
@@ -266,95 +262,87 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             ),
           setup =>
             rateLimitCreation(setup.isPrivate, whenRateLimited):
-              api
-                .createTournament(setup, teams, andJoin = ctx.isWebAuth)
-                .flatMap: tour =>
-                  val tourUrl = routes.Tournament.show(tour.id)
-                  discard { env.report.api.automodComms(setup.automodText, tourUrl.url) }
-                  given GetMyTeamIds = _ => fuccess(teams.map(_.id))
-                  negotiate(
-                    html = Redirect {
-                      if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
-                      else tourUrl
-                    }.flashSuccess,
-                    json = jsonView(
-                      tour,
-                      none,
-                      none,
-                      none,
-                      partial = false,
-                      withScores = false,
-                      withAllowList = true,
-                      withDescription = true
-                    ).map { Ok(_) }
-                  )
+              given GetMyTeamIds = _ => fuccess(teams.map(_.id))
+              for
+                tour <- api.createTournament(setup, teams, andJoin = ctx.isWebAuth)
+                _ <- env.api.clas.onArenaCreate(tour)
+                tourUrl = routes.Tournament.show(tour.id)
+                _ = env.report.api.automodComms(setup.automodText, tourUrl.url).discard
+                result <- negotiate(
+                  html = Redirect {
+                    if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
+                    else tourUrl
+                  }.flashSuccess,
+                  json = jsonView(
+                    tour,
+                    none,
+                    none,
+                    none,
+                    partial = false,
+                    withScores = false,
+                    withAllowList = true,
+                    withDescription = true
+                  ).map { Ok(_) }
+                )
+              yield result
         )
 
   def apiUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
-    cachedTour(id).flatMap:
-      _.filter(_.createdBy.is(me) || isGranted(_.ManageTournament)).so { tour =>
-        env.team.api.lightsByTourLeader(me).flatMap { teams =>
-          bindForm(forms.edit(teams, tour))(
-            jsonFormError,
-            data =>
-              given GetMyTeamIds = _ => fuccess(teams.map(_.id))
-              for
-                tour <- api.apiUpdate(tour, data)
-                json <- jsonView(
-                  tour,
-                  none,
-                  none,
-                  none,
-                  partial = false,
-                  withScores = true,
-                  withAllowList = true,
-                  withDescription = true
-                )
-              yield
-                discard { env.report.api.automodComms(data.automodText, routes.Tournament.show(tour.id).url) }
-                Ok(json)
-          )
-        }
+    WithEditableTournament(id): tour =>
+      env.team.api.lightsByTourLeader(me).flatMap { teams =>
+        bindForm(forms.edit(teams, tour))(
+          jsonFormError,
+          data =>
+            given GetMyTeamIds = _ => fuccess(teams.map(_.id))
+            for
+              tour <- api.apiUpdate(tour, data)
+              json <- jsonView(
+                tour,
+                none,
+                none,
+                none,
+                partial = false,
+                withScores = true,
+                withAllowList = true,
+                withDescription = true
+              )
+            yield
+              discard { env.report.api.automodComms(data.automodText, routes.Tournament.show(tour.id).url) }
+              Ok(json)
+        )
       }
   }
 
   def apiTerminate(id: TourId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
-    Found(cachedTour(id)):
-      case tour if tour.createdBy.is(me) || isGranted(_.ManageTournament) =>
-        api.kill(tour).inject(jsonOkResult)
-      case _ => BadRequest(jsonError("Can't terminate that tournament: Permission denied"))
+    WithEditableTournament(id): tour =>
+      api.kill(tour).inject(jsonOkResult)
   }
 
   def teamBattleEdit(id: TourId) = Auth { ctx ?=> me ?=>
-    Found(cachedTour(id)):
-      case tour if tour.createdBy.is(me) || isGranted(_.ManageTournament) =>
-        tour.teamBattle.so: battle =>
-          env.team.teamRepo.byOrderedIds(battle.sortedTeamIds).flatMap { teams =>
-            env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
-              val form = lila.tournament.TeamBattle.DataForm.edit(
-                teams.map: t =>
-                  s"""${t.id} "${t.name}" by ${env.user.lightUserApi
-                      .sync(t.createdBy)
-                      .fold(t.createdBy)(_.name)}""",
-                battle.nbLeaders
-              )
-              Ok.page(views.tournament.teamBattle.edit(tour, form))
-            }
-          }
-      case tour => Redirect(routes.Tournament.show(tour.id))
+    WithEditableTournament(id): tour =>
+      tour.teamBattle.so: battle =>
+        for
+          teams <- env.team.teamRepo.byOrderedIds(battle.sortedTeamIds)
+          _ <- env.user.lightUserApi.preloadMany(teams.map(_.createdBy))
+          form = lila.tournament.TeamBattle.DataForm.edit(
+            teams.map: t =>
+              s"""${t.id} "${t.name}" by ${env.user.lightUserApi
+                  .sync(t.createdBy)
+                  .fold(t.createdBy)(_.name)}""",
+            battle.nbLeaders
+          )
+          page <- Ok.page(views.tournament.teamBattle.edit(tour, form))
+        yield page
   }
 
   def teamBattleUpdate(id: TourId) = AuthBody { ctx ?=> me ?=>
-    Found(cachedTour(id)):
-      case tour if tour.createdBy.is(me) || isGranted(_.ManageTournament) && !tour.isFinished =>
-        bindForm(lila.tournament.TeamBattle.DataForm.empty)(
-          err => BadRequest.page(views.tournament.teamBattle.edit(tour, err)),
-          res =>
-            api
-              .teamBattleUpdate(tour, res, env.team.api.filterExistingIds)
-              .inject(Redirect(routes.Tournament.show(tour.id)))
-        )
-      case tour => Redirect(routes.Tournament.show(tour.id))
+    WithEditableTournament(id): tour =>
+      bindForm(lila.tournament.TeamBattle.DataForm.empty)(
+        err => BadRequest.page(views.tournament.teamBattle.edit(tour, err)),
+        res =>
+          for _ <- api.teamBattleUpdate(tour, res, env.team.api.filterExistingIdsNoClas)
+          yield Redirect(routes.Tournament.show(tour.id))
+      )
   }
 
   def apiTeamBattleUpdate(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
@@ -363,7 +351,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         bindForm(lila.tournament.TeamBattle.DataForm.empty)(
           jsonFormError,
           res =>
-            api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) >> {
+            api.teamBattleUpdate(tour, res, env.team.api.filterExistingIdsNoClas) >> {
               cachedTour(tour.id)
                 .map(_ | tour)
                 .flatMap { tour =>
@@ -438,7 +426,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         .kill(tour)
         .inject:
           env.mod.logApi.terminateTournament(tour.name())
-          Redirect(routes.Tournament.home)
+          Redirect:
+            tour.singleTeamId.fold(routes.Tournament.home)(routes.Team.show(_))
   }
 
   def byTeam(id: TeamId) = Anon:
@@ -470,19 +459,33 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   private def WithEditableTournament(id: TourId)(
       f: Tour => Fu[Result]
   )(using ctx: Context, me: Me): Fu[Result] =
-    Found(cachedTour(id)): t =>
-      if (t.createdBy.is(me) && !t.isFinished) || isGranted(_.ManageTournament)
+    WithVisibleTournament(id): t =>
+      if isGranted(_.ManageTournament) || (t.createdBy.is(me) && (!t.isFinished || ctx.req.method == "GET"))
       then f(t)
       else Redirect(routes.Tournament.show(t.id))
 
-  private val streamerCache = env.memo.cacheApi[TourId, List[UserId]](64, "tournament.streamers"):
-    _.refreshAfterWrite(15.seconds)
+  private def WithVisibleTournament(id: TourId)(
+      f: Tour => Fu[Result]
+  )(using ctx: Context): Fu[Result] =
+    def nope = negotiate(tournamentNotFound, notFoundJson("No such tournament"))
+    cachedTour(id).flatMap:
+      case None => nope
+      case Some(tour) =>
+        tour.singleTeamId
+          .fold(fuTrue)(env.team.api.clasMemberCheck)
+          .flatMap:
+            if _ then f(tour) else nope
+
+  private val streamerCache = env.memo.cacheApi[TourId, List[UserId]](256, "tournament.streamers"):
+    _.expireAfterWrite(15.seconds)
       .maximumSize(256)
       .buildAsyncFuture: tourId =>
         repo
           .isUnfinished(tourId)
           .flatMapz:
             env.streamer.liveApi.all.flatMap:
+              // #TODO it can become expensive to run `hasUser` for many streamers
+              // there should be an `hasUsers` method
               _.streams
                 .sequentially: stream =>
                   env.tournament

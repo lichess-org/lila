@@ -204,17 +204,13 @@ final class RoundSocket(
 
   Bus.sub[lila.core.game.StartGame]:
     case lila.core.game.StartGame(game, _) if game.hasClock =>
-      game.userIds.some
-        .filter(_.nonEmpty)
-        .foreach: usersPlaying =>
-          sendForGameId(game.id).exec(Protocol.Out.startGame(usersPlaying))
+      game.userIds.nonEmptyOption.foreach: usersPlaying =>
+        sendForGameId(game.id).exec(Protocol.Out.startGame(usersPlaying))
 
   Bus.sub[lila.core.game.FinishGame]:
     case lila.core.game.FinishGame(game, _) if game.hasClock =>
-      game.userIds.some
-        .filter(_.nonEmpty)
-        .foreach: usersPlaying =>
-          sendForGameId(game.id).exec(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
+      game.userIds.nonEmptyOption.foreach: usersPlaying =>
+        sendForGameId(game.id).exec(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
 
   Bus.sub[lila.core.round.DeleteUnplayed]:
     case lila.core.round.DeleteUnplayed(gameId) => finishRound(gameId)
@@ -313,7 +309,7 @@ object RoundSocket:
         import chess.variant.*
         (pov.game.chess.position.materialImbalance, pov.game.variant) match
           case (_, Antichess | Crazyhouse | Horde) => 1
-          case (i, _) if (pov.color.white && i <= -4) || (pov.color.black && i >= 4) => 3
+          case (i, _) if (pov.color.white && i <= -4) || (pov.color.black && i >= 4) => 2
           case _ => 1
       } / {
         if pov.player.hasUser then 1 else 2

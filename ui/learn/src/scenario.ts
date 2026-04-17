@@ -1,7 +1,7 @@
-import * as timeouts from './timeouts';
 import type { ChessCtrl } from './chess';
-import { decomposeUci } from './util';
 import type { Shape } from './chessground';
+import * as timeouts from './timeouts';
+import { decomposeUci } from './util';
 
 export interface Scenario {
   isComplete(): boolean;

@@ -50,6 +50,5 @@
   <string name="computerAnalysis">AnalisaKomputer</string>
   <string name="computerAnalysisAvailable">Analisis komputer kasedhiya</string>
   <string name="computerAnalysisDisabled">Analisis komputer dipatèni</string>
-  <string name="fromPosition">seka posisi</string>
   <string name="continueFromHere">lanjut seka kene</string>
 </resources>

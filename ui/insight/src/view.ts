@@ -1,17 +1,20 @@
 import { thunk } from 'snabbdom';
+
 import { debounce } from 'lib/async';
 import * as licon from 'lib/licon';
-import axis from './axis';
-import filters from './filters';
-import presets from './presets';
-import chart from './chart';
-import { vert } from './table';
-import help from './help';
-import info from './info';
-import boards from './boards';
-import type Ctrl from './ctrl';
-import type { ViewTab } from './interfaces';
 import { bind, hl } from 'lib/view';
+
+import axis from './axis';
+import boards from './boards';
+import chart from './chart';
+import type Ctrl from './ctrl';
+import filters from './filters';
+import help from './help';
+import { info, tutor } from './info';
+import type { ViewTab } from './interfaces';
+import presets from './presets';
+import { vert } from './table';
+import { isAtLeastSmall, isAtLeastXSmall, isAtLeastXXSmall, isLandscapeLayout } from './util';
 
 let forceRender = false;
 
@@ -28,10 +31,6 @@ export function view(ctrl: Ctrl) {
     ctrl.vm.view = 'insights';
   }
   return portraitView(ctrl);
-}
-
-export function isLandscapeLayout() {
-  return isAtLeastXSmall() || window.innerWidth > window.innerHeight;
 }
 
 // Key that determines whether or not renderMain needs to get rerendered
@@ -86,6 +85,7 @@ function landscapeView(ctrl: Ctrl) {
     hl('div', { attrs: { class: ctrl.vm.loading ? 'loading' : 'ready' } }, [
       hl('div', widthStyle(sideW()), [
         info(ctrl),
+        tutor(),
         hl('div.panel-tabs', [
           hl('a.tab.preset', panelTabData(ctrl, 'preset'), 'Presets'),
           hl('a.tab.filter', panelTabData(ctrl, 'filter'), 'Filters'),
@@ -174,7 +174,3 @@ const containerStyle = () => ({
       ` ---chart-height: ${Math.max(300, Math.min(600, window.innerHeight - 100))}px;`,
   },
 });
-
-const isAtLeastXXSmall = (w = window.innerWidth) => w >= 500; // $mq-xx-small
-const isAtLeastXSmall = (w = window.innerWidth) => w >= 650; // $mq-x-small
-const isAtLeastSmall = (w = window.innerWidth) => w >= 800; // $mq-small

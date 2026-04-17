@@ -1,14 +1,15 @@
-import { storage } from 'lib/storage';
-import { isIos } from 'lib/device';
+import { defined, requestIdleCallback } from 'lib';
 import { throttle } from 'lib/async';
-import { defined } from 'lib';
+import { isIos } from 'lib/device';
 import { speakable } from 'lib/game/sanWriter';
+import { storage } from 'lib/storage';
 
 type Name = string;
 type Path = string;
 
 export default new (class implements SoundI {
-  ctx = makeAudioContext();
+  ctx: AudioContext | undefined;
+  ctxPromise: Promise<AudioContext>;
   listeners = new Set<SoundListener>();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
@@ -18,20 +19,28 @@ export default new (class implements SoundI {
   volumeStorage = storage.make('sound-volume');
   music?: SoundMove;
   primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
-  primer = () => {
-    this.ctx?.resume().then(() => {
-      setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
-    });
-    for (const e of this.primerEvents) window.removeEventListener(e, this.primer, { capture: true });
-  };
 
   constructor() {
     this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
-    window.speechSynthesis?.getVoices(); // preload
+    this.ctxPromise = new Promise((resolve, fail) => {
+      requestIdleCallback(() => {
+        this.ctx = makeAudioContext();
+        if (this.ctx) resolve(this.ctx);
+        else fail(new Error('AudioContext not supported'));
+        window.speechSynthesis?.getVoices(); // preload
+      });
+    });
   }
 
+  primer = async () => {
+    const ctx = await this.ctxPromise;
+    await ctx.resume();
+    setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
+    for (const e of this.primerEvents) window.removeEventListener(e, this.primer, { capture: true });
+  };
+
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
-    if (!this.ctx) return;
+    const ctx = await this.ctxPromise;
     if (path) this.paths.set(name, path);
     else path = this.paths.get(name) ?? this.resolvePath(name);
     if (!path) return;
@@ -42,11 +51,10 @@ export default new (class implements SoundI {
 
     const arrayBuffer = await result.arrayBuffer();
     const audioBuffer = await new Promise<AudioBuffer>((resolve, reject) => {
-      if (this.ctx?.decodeAudioData.length === 1)
-        this.ctx?.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
-      else this.ctx?.decodeAudioData(arrayBuffer, resolve, reject);
+      if (ctx.decodeAudioData.length === 1) ctx.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
+      else ctx.decodeAudioData(arrayBuffer, resolve, reject);
     });
-    const sound = new Sound(this.ctx, audioBuffer);
+    const sound = new Sound(ctx, audioBuffer);
     this.sounds.set(path, sound);
     return sound;
   }
@@ -62,7 +70,7 @@ export default new (class implements SoundI {
   }
 
   url(name: Name): string {
-    return site.asset.url(`sound/${name}`); //, { pathVersion: '_____1' });
+    return site.asset.url(`sound/${name}`);
   }
 
   async play(name: Name, volume = 1): Promise<void> {
@@ -162,7 +170,7 @@ export default new (class implements SoundI {
     else this.voiceStorage.set(JSON.stringify({ name: o.name, lang: o.lang }));
   };
 
-  enabled = () => this.theme !== 'silent';
+  enabled = () => this.theme !== 'silent' && this.getVolume() !== 0;
 
   speech = (v?: boolean): boolean => {
     if (defined(v)) this.speechStorage.set(v);
@@ -222,17 +230,18 @@ export default new (class implements SoundI {
       }
     }
     // if suspended, try audioContext.resume() with a timeout (sometimes it never resolves)
-    if (this.ctx?.state === 'suspended')
-      await new Promise<void>(resolve => {
-        const resumeTimer = setTimeout(() => {
-          $('#warn-no-autoplay').addClass('shown');
-          resolve();
-        }, 400);
-        this.ctx?.resume().then(() => {
-          clearTimeout(resumeTimer);
-          resolve();
-        });
-      });
+    if (this.ctx?.state === 'suspended') {
+      await Promise.race([
+        this.ctx.resume(),
+        new Promise<void>(resolve => {
+          setTimeout(() => {
+            $('#warn-no-autoplay').addClass('shown');
+            resolve();
+          }, 400);
+        }),
+      ]);
+    }
+
     if (this.ctx?.state !== 'running') return false;
     $('#warn-no-autoplay').removeClass('shown');
     return true;

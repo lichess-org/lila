@@ -1,15 +1,18 @@
-import * as util from './util';
-import { onInsert } from 'lib/view';
-import resizeHandle from 'lib/chessgroundResize';
-import type RoundController from './ctrl';
-import { h, type VNode } from 'snabbdom';
-import { plyStep } from './util';
-import type { RoundData } from './interfaces';
+import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { uciToMove } from '@lichess-org/chessground/util';
+import { h, type VNode } from 'snabbdom';
+
+import resizeHandle from 'lib/chessgroundResize';
+import { isSafari } from 'lib/device';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
-import { Chessground as makeChessground } from '@lichess-org/chessground';
+import { onInsert } from 'lib/view';
+
+import type RoundController from './ctrl';
+import type { RoundData } from './interfaces';
 import { Premove } from './premove';
+import * as util from './util';
+import { plyStep } from './util';
 
 export function makeConfig(ctrl: RoundController): CgConfig {
   const data = ctrl.data,
@@ -28,6 +31,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
     addPieceZIndex: ctrl.data.pref.is3d,
     addDimensionsCssVarsTo: document.body,
     touchIgnoreRadius: data.correspondence ? 0 : 1,
+    jsHover: isSafari(),
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight,

@@ -5,7 +5,6 @@
   <string name="playAgainstComputer">משחק נגד המחשב</string>
   <string name="gameMode">מצב משחק</string>
   <string name="createLobbyGame">יצירת משחק במבואה</string>
-  <string name="youPlayAs">לשחק בתור</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתפו את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
@@ -260,7 +259,6 @@
   <string name="changeUsernameNotSame">באותיות לועזיות ניתן להחליף אותיות קטנות בגדולות, למשל מ־\"johndoe\" ל־\"JohnDoe\".</string>
   <string name="changeUsernameDescription">שינוי שם המשתמש. ניתן לעשותו פעם אחת בלבד, ורק על ידי החלפת אותיות גדולות בקטנות ולהיפך.</string>
   <string name="signupUsernameHint">ודאו ששם המשתמש שלכם מתאים גם לילדים. לא תוכלו לשנות אותו מאוחר יותר וחשבונות עם שמות משתמש לא הולמים יסגרו!</string>
-  <string name="signupEmailHint">רק לצורך איפוס הסיסמה.</string>
   <string name="password">סיסמה</string>
   <string name="changePassword">שינוי סיסמה</string>
   <string name="changeEmail">שינוי דוא״ל</string>
@@ -401,7 +399,15 @@
   <string name="openingExplorerAndTablebase">סייר הפתיחות וטבלאות סיומים</string>
   <string name="takeback">החזרת מהלך</string>
   <string name="proposeATakeback">הצע החזרת המהלך האחרון</string>
+  <string name="whiteProposesTakeback">הלבן מציע ביטול מהלך</string>
+  <string name="blackProposesTakeback">השחור מציע ביטול מהלך</string>
   <string name="takebackPropositionSent">הצעה להחזרת המהלך האחרון נשלחה</string>
+  <string name="whiteDeclinesTakeback">הלבן מסרב לביטול מהלך</string>
+  <string name="blackDeclinesTakeback">השחור מסרב לביטול מהלך</string>
+  <string name="whiteAcceptsTakeback">הלבן מסכים לביטול מהלך</string>
+  <string name="blackAcceptsTakeback">השחור מסכים לביטול מהלך</string>
+  <string name="whiteCancelsTakeback">הלבן מבטל את ביטול המהלך</string>
+  <string name="blackCancelsTakeback">השחור מבטל את ביטול המהלך</string>
   <string name="yourOpponentProposesATakeback">יריבך מציע/ה להחזיר את המהלך האחרון</string>
   <string name="bookmarkThisGame">הוסף משחק זה למועדפים</string>
   <string name="tournament">טורניר</string>
@@ -479,7 +485,6 @@
   <string name="pasteTheFenStringHere">הדביקו מחרוזת FEN כאן</string>
   <string name="pasteThePgnStringHere">הדביקו מחרוזת PGN כאן</string>
   <string name="orUploadPgnFile">או העלו קובץ PGN</string>
-  <string name="fromPosition">מעמדה מסוימת</string>
   <string name="continueFromHere">המשיכו מכאן</string>
   <string name="toStudy">לוח למידה</string>
   <string name="importGame">ייבוא משחק</string>
@@ -649,6 +654,7 @@
   <string name="invalidUsernameOrPassword">שגיאה בשם המשתמש או בסיסמה</string>
   <string name="incorrectPassword">סיסמה שגויה</string>
   <string name="invalidAuthenticationCode">קוד אימות לא תקין</string>
+  <string name="orSeparator">או</string>
   <string name="emailMeALink">שלחו לי קישור בדוא״ל</string>
   <string name="currentPassword">הסיסמה הנוכחית</string>
   <string name="newPassword">סיסמה חדשה</string>
@@ -780,11 +786,6 @@
   <string name="keyCycleSelectedVariation">מחזור הוריאציה שנבחרה </string>
   <string name="keyShowOrHideComments">הצג/הסתר הערות</string>
   <string name="keyEnterOrExitVariation">כנס לגרסה או צא ממנה</string>
-  <string name="keyRequestComputerAnalysis">בקשו ניתוח ממוחשב, למדו מטעויותיכם</string>
-  <string name="keyNextLearnFromYourMistakes">הבא (למדו מטעויותיכם)</string>
-  <string name="keyNextBlunder">הטעות הגסה הבאה</string>
-  <string name="keyNextMistake">הטעות הבאה</string>
-  <string name="keyNextInaccuracy">אי־הדיוק הבא</string>
   <string name="keyPreviousBranch">הענף הקודם</string>
   <string name="keyNextBranch">הענף הבא</string>
   <string name="toggleVariationArrows">הפעלת חיצים בנגזרות שחמט</string>
@@ -980,7 +981,6 @@
   <string name="agreementAssistance">אני מסכימ/ה שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד־נתונים, או אדם אחר).</string>
   <string name="agreementNice">אני מסכים/ה תמיד להיות אדיב/ה כלפי השחקנים האחרים.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">אני מסכימ/ה לא ליצור חשבונות מרובים (אלא אם כן יש הצדקה לכך כמצוין ב%s).</string>
-  <string name="agreementPolicy">אני מסכימ/ה לציית לכל מדיניות של Lichess.</string>
   <string name="searchOrStartNewDiscussion">חפשו את התחילו שיחה חדשה</string>
   <string name="edit">עריכה</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>

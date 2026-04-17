@@ -13,7 +13,7 @@ import lila.common.Json.given
 final class Importer(env: Env) extends LilaController(env):
 
   def importGame = OpenBody:
-    val pgn = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
+    val pgn = ~get("pgn")
     val data = lila.game.importer.ImportData(PgnStr(pgn), None)
     Ok.page(views.game.ui.importer(lila.game.importer.form.fill(data)))
 
@@ -40,7 +40,7 @@ final class Importer(env: Env) extends LilaController(env):
                 negotiate(
                   html = ctx.me
                     .filter(_ => data.analyse.isDefined && lila.game.GameExt.analysable(game))
-                    .soUse { me ?=>
+                    .soUse: me ?=>
                       env.fishnet
                         .analyser(
                           game,
@@ -52,7 +52,6 @@ final class Importer(env: Env) extends LilaController(env):
                           )
                         )
                         .void
-                    }
                     .inject(Redirect(routes.Round.watcher(game.id, Color.white))),
                   json =
                     if HTTPRequest.isLichobile(ctx.req)

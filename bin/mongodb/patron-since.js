@@ -1,5 +1,5 @@
-var u = 'neio'.toLowerCase();
-var since = new Date('2019-01-17');
+const u = 'neio'.toLowerCase();
+const since = new Date('2019-01-17');
 
 function monthDiff(dateFrom, dateTo) {
   return dateTo.getMonth() - dateFrom.getMonth() + 12 * (dateTo.getFullYear() - dateFrom.getFullYear());

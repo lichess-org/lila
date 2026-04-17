@@ -16,14 +16,15 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mode</string>
   <string name="showPlayerRatings">Show player ratings</string>
   <string name="showFlairs">Show player flairs</string>
-  <string name="explainShowPlayerRatings">This hides all ratings from Lichess, to help focus on the chess. Rated games still impact your rating, this is only about what you get to see.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">Hides all ratings from Lichess, to help you focus on the game.
+This setting only affects what you see. Rated games will still impact your rating.</string>
   <string name="displayBoardResizeHandle">Show board resize handle</string>
   <string name="onlyOnInitialPosition">Only on initial position</string>
   <string name="inGameOnly">In-game only</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">Except in-game</string>
+  <string name="exceptInGame">Except in-game</string>
   <string name="chessClock">Chess clock</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">When time remaining &lt; 10 seconds</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">When time remaining &lt; 10 seconds</string>
   <string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
   <string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
   <string name="giveMoreTime">Give more time</string>
@@ -39,7 +40,7 @@
   <string name="explainPromoteToQueenAutomatically">Hold the &lt;ctrl&gt; key while promoting to temporarily disable auto-promotion</string>
   <string name="whenPremoving">When premoving</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Claim draw on threefold repetition automatically</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">When time remaining &lt; 30 seconds</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">When time remaining &lt; 30 seconds</string>
   <string name="moveConfirmation">Move confirmation</string>
   <string name="explainCanThenBeTemporarilyDisabled">Can be disabled during a game with the board menu</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
@@ -54,7 +55,7 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Say \"Good game, well played\" upon defeat or draw</string>
   <string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
-  <string name="correspondenceEmailNotification">Daily mail notification listing your correspondence games</string>
+  <string name="correspondenceEmailNotification">Daily email listing your correspondence games</string>
   <string name="notifyStreamStart">Streamer goes live</string>
   <string name="notifyInboxMsg">New inbox message</string>
   <string name="notifyForumMention">Forum comment mentions you</string>
@@ -62,11 +63,13 @@
   <string name="notifyGameEvent">Correspondence game updates</string>
   <string name="notifyChallenge">Challenges</string>
   <string name="notifyTournamentSoon">Tournament starting soon</string>
+  <string name="notifyBroadcasts">Broadcasts you have subscribed to</string>
   <string name="notifyTimeAlarm">Correspondence time running out</string>
-  <string name="notifyBell">Bell notification within Lichess</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Notification within Lichess</string>
   <string name="notifyPush">Device notification when you\'re not on Lichess</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Device</string>
   <string name="bellNotificationSound">Bell notification sound</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">Blindfold</string>
+  <string name="blindfold" comment="As in Blindfold chess">Blindfold</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Show on the left on mobile devices</string>
 </resources>

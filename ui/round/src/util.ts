@@ -1,4 +1,5 @@
 import type { VNodeData } from 'snabbdom';
+
 import type { EncodedDests, RoundData, Step } from './interfaces';
 
 export const justIcon = (icon: string): VNodeData => ({

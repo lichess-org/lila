@@ -10,7 +10,7 @@
   <string name="mates">मात</string>
   <string name="mateThemes">माताचे प्रकारे</string>
   <string name="goals">लक्ष्य</string>
-  <string name="origin">मूळ</string>
+  <string name="origin">स्रोत</string>
   <string name="specialMoves">विशिष्ट चाली</string>
   <string name="didYouLikeThisPuzzle">आपल्याला हे कोडे आवडले का?</string>
   <string name="voteToLoadNextOne">पूढील येण्यासाठी मत द्या!</string>
@@ -80,8 +80,8 @@
 
 आपले कोडे निवडले जाण्याच्या संधी वाढवण्यासाठी रॅपिड आणि क्लासिकल खेळ खेळा!</string>
   <plurals name="puzzlesFoundInUserGames">
-    <item quantity="one">एक कोडी %2$sच्या खेळांमध्ये सापडली</item>
-    <item quantity="other">%1$s कोड्या %2$sच्या खेळांमध्ये सापडल्या </item>
+    <item quantity="one">एक कोडे %2$sच्या खेळांमध्ये सापडले</item>
+    <item quantity="other">%1$s कोडी %2$sच्या खेळांमध्ये सापडली</item>
   </plurals>
   <string name="puzzleDashboardDescription">सराव करा, विश्लेषण करा, प्रगती करा</string>
   <plurals name="nbPlayed">

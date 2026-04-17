@@ -104,6 +104,34 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
   def tournamentIdToName(id: TourId)(using Lang): String =
     getTourName.sync(id).getOrElse(s"Tournament #$id")
 
+  def teamTournamentRow(t: Tournament)(using Translate) =
+    tr(cls := List("enterable" -> t.isEnterable, "soon" -> t.isNowOrSoon))(
+      td(cls := "icon")(iconTag(tournamentIcon(t))),
+      td(cls := "header")(
+        a(href := routes.Tournament.show(t.id))(
+          span(cls := "name")(t.name()),
+          span(cls := "setup")(
+            t.clock.show,
+            " • ",
+            if t.variant.exotic then t.variant.name else t.perfType.trans,
+            t.position.isDefined.option(frag(" • ", trans.site.thematic())),
+            " • ",
+            lila.gathering.ui.translateRated(t.rated),
+            " • ",
+            t.durationString
+          )
+        )
+      ),
+      td(cls := "infos")(
+        t.teamBattle.fold(trans.team.innerTeam()): battle =>
+          trans.team.battleOfNbTeams.plural(battle.teams.size, battle.teams.size.localize),
+        br,
+        if t.isEnterable && t.startsAt.isBeforeNow then trans.site.eventInProgress()
+        else momentFromNowOnce(t.startsAt)
+      ),
+      td(cls := "text", dataIcon := Icon.User)(t.nbPlayers.localize)
+    )
+
   object scheduledTournamentNameShortHtml:
     private def icon(c: Icon) = s"""<span data-icon="$c"></span>"""
     private val replacements =

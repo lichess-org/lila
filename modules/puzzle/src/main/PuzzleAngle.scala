@@ -5,7 +5,7 @@ import chess.opening.{ Opening, OpeningDb, OpeningKey }
 import lila.common.{ Iso, LilaOpeningFamily, SimpleOpening }
 import lila.core.i18n.I18nKey
 
-sealed abstract class PuzzleAngle(val key: String):
+sealed abstract class PuzzleAngle(val key: PuzzleAngle.Key):
   val name: I18nKey
   def description: I18nKey
   def asTheme: Option[PuzzleTheme.Key]
@@ -16,6 +16,7 @@ sealed abstract class PuzzleAngle(val key: String):
     case PuzzleAngle.Opening(_) => "opening"
 
 object PuzzleAngle:
+  type Key = String
   case class Theme(theme: PuzzleTheme.Key) extends PuzzleAngle(theme.value):
     val name = PuzzleTheme(theme).name
     val description = PuzzleTheme(theme).description
@@ -44,7 +45,7 @@ object PuzzleAngle:
   def apply(family: LilaOpeningFamily): PuzzleAngle = Opening(Left(family.key))
   def apply(opening: SimpleOpening): PuzzleAngle = Opening(Right(opening.key))
 
-  def find(key: String): Option[PuzzleAngle] =
+  def find(key: Key): Option[PuzzleAngle] =
     PuzzleTheme
       .findVisible(key)
       .map(apply)
@@ -53,7 +54,7 @@ object PuzzleAngle:
 
   val mix: PuzzleAngle = apply(PuzzleTheme.mix)
 
-  def findOrMix(key: String): PuzzleAngle = find(key) | mix
+  def findOrMix(key: Key): PuzzleAngle = find(key) | mix
 
   case class All(
       themes: List[(I18nKey, List[PuzzleTheme.WithCount])],

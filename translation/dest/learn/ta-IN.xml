@@ -6,7 +6,7 @@
   <string name="progressX">முன்னேற்றம்: %s</string>
   <string name="resetMyProgress">எனது முன்னேற்றத்தை மீட்டமை</string>
   <string name="youWillLoseAllYourProgress">உங்கள் முன்னேற்றம் அனைத்தையும் இழப்பீர்கள்!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">விளையாடு!</string>
+  <string name="play">விளையாடு!</string>
   <string name="chessPieces">சதுரங்க காய்கள்</string>
   <string name="theRook">யானை</string>
   <string name="itMovesInStraightLines">இது நேர்கோட்டில் நகரும்</string>
@@ -146,7 +146,6 @@
   <string name="findAWayToCastleQueenSide">ஒரு வழியைக் கண்டுபிடி
 கோட்டை ராணி பக்கம்!</string>
   <string name="castlingComplete">வாழ்த்துகள்! நீங்கள் எப்போதும் ஒரு விளையாட்டில் கோட்டையில் இருக்க வேண்டும்.</string>
-  <string name="enPassant">மூலம்</string>
   <string name="theSpecialPawnMove">சிறப்பு சிப்பாய் நகர்வு</string>
   <string name="enPassantIntro">எதிராளியின் சிப்பாயை இரண்டு சதுரங்கள் நகர்த்தும்போது, ​​​​அது ஒரு சதுரத்தால் நகர்த்தப்பட்டதைப் போல நீங்கள் அதை எடுக்கலாம்.</string>
   <string name="blackJustMovedThePawnByTwoSquares">கருப்பு தான் வெற்றிலையை நகர்த்தினான்

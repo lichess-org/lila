@@ -29,7 +29,6 @@
   <string name="botPlay">Bot API\'si ile oyunlar oynayın</string>
   <string name="engineRead">Harici motorlarınızı görüntüleyin ve kullanın</string>
   <string name="engineWrite">Harici motorlar oluşturun ve güncelleyin</string>
-  <string name="webLogin">Kimliği doğrulanmış web sitesi oturumları oluşturun (tam erişim sağlar!)</string>
   <string name="webMod">Moderatör araçlarını kullanın (izniniz dahilinde)</string>
   <string name="personalAccessTokens">Kişisel API erişim jetonları</string>
   <string name="canMakeOauthRequests">OAuth isteklerini %s üzerinden geçmeden yapabilirsiniz.</string>

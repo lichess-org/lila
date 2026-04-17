@@ -18,8 +18,12 @@ export const timeago: (d: DateLike) => string = (date: DateLike) =>
   formatAgo((Date.now() - toDate(date).getTime()) / 1000);
 
 // format Date / string / timestamp to Date instance.
-export const toDate = (input: DateLike): Date =>
-  input instanceof Date ? input : new Date(isNaN(input as any) ? input : parseInt(input as any));
+const IS_NUMBER = /^\d+$/;
+export const toDate = (input: DateLike): Date => {
+  if (input instanceof Date) return input;
+  else if (typeof input === 'string') return new Date(IS_NUMBER.test(input) ? Number(input) : input);
+  return new Date(input);
+};
 
 export const use24h = (): boolean => !commonDateFormatter.resolvedOptions().hour12;
 
@@ -63,6 +67,31 @@ export const currencyFormat = (n: number, currency: string, options?: Intl.Numbe
   const nf = getNumberFormatter();
   if (!nf) return currency + ' ' + n;
   return new Intl.NumberFormat(displayLocale, { style: 'currency', currency, ...options }).format(n);
+};
+
+const currencyDigitsCache = new Map<string, number>();
+
+const getCurrencyDigits = (currency: string): number => {
+  const cached = currencyDigitsCache.get(currency);
+  if (cached !== undefined) return cached;
+
+  try {
+    const nf = new Intl.NumberFormat(displayLocale, {
+      style: 'currency',
+      currency,
+    });
+    const digits = nf.resolvedOptions().maximumFractionDigits ?? 2;
+    currencyDigitsCache.set(currency, digits);
+    return digits;
+  } catch (_) {
+    return 2;
+  }
+};
+
+export const roundToCurrency = (n: number, currency: string): number => {
+  const digits = getCurrencyDigits(currency);
+  const factor = Math.pow(10, digits);
+  return Math.round((n + Number.EPSILON) * factor) / factor;
 };
 
 export const percentFormat = (n: number, precision: number): string =>

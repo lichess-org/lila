@@ -28,8 +28,7 @@ final class GameSearchApi(
   def idStream(query: Query.Game, total: Size, batchSize: MaxPerPage): Source[List[GameId], ?] =
     val pageSize = Size(batchSize.value.atMost(total.value))
     Source.unfoldAsync(0): from =>
-      if from >= total.value then fuccess(none)
-      else
+      (from < total.value).so:
         client
           .search(query, From(from), pageSize)
           .map: res =>

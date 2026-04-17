@@ -48,6 +48,7 @@ object PrefForm:
     val confirmResign = "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices)
     val moretime = "moretime" -> checkedNumber(Pref.Moretime.choices)
     val clockSound = "clockSound" -> booleanNumber
+    val clockTenths = "clockTenths" -> checkedNumber(Pref.ClockTenths.choices)
     val pieceNotation = "pieceNotation" -> booleanNumber
     val ratings = "ratings" -> checkedNumber(Pref.Ratings.choices)
     val flairs = "flairs" -> boolean
@@ -55,7 +56,8 @@ object PrefForm:
     val challenge = "challenge" -> checkedNumber(Pref.Challenge.choices)
     val message = "message" -> checkedNumber(Pref.Message.choices)
     object board:
-      val brightness = "boardBrightness" -> number(0, 150)
+      val brightness = "boardBrightness" -> number(20, 140)
+      val contrast = "boardContrast" -> number(40, 200)
       val opacity = "boardOpacity" -> number(0, 100)
       val hue = "boardHue" -> number(0, 100)
     val sayGG = "sayGG" -> checkedNumber(Pref.SayGG.choices)

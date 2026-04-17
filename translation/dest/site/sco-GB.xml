@@ -224,7 +224,6 @@
   <string name="changeUsernameNotSame">Anely the case o letters can change. Ensaumple \"johndoe\" tae \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Change yer uisername. This can anely be duin ance, and ye are anely latten tae change the case o letters in yer uisername.</string>
   <string name="signupUsernameHint">Mak siccar tae chuise a faimily-freendly uisername. Ye cannae change it efter, an onny accoonts wae hallock uisernames will git closed!</string>
-  <string name="signupEmailHint">We wad anely uise it for trystwird reset.</string>
   <string name="password">Trystwird</string>
   <string name="changePassword">Change trystwird</string>
   <string name="changeEmail">Change email</string>

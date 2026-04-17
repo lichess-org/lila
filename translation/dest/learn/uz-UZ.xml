@@ -1,194 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">Shahmatni o\'rganish</string>
-  <string name="byPlaying">o\'yin orqali!</string>
+  <string name="learnChess">Shaxmat oʻynab</string>
+  <string name="byPlaying">oʻrganing!</string>
   <string name="menu">Menyu</string>
-  <string name="progressX">Rivojlar: %s</string>
-  <string name="resetMyProgress">Mening rivojlarimni yangitdan boshlash</string>
-  <string name="youWillLoseAllYourProgress">Siz xamma rivojlaringizni yo\'qotasiz!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">o\'yna!</string>
-  <string name="chessPieces">Shahmat sipohlari</string>
-  <string name="theRook">To\'ra</string>
-  <string name="itMovesInStraightLines">To\'g\'ri chiziq bo\'yicha harakat qiladi</string>
-  <string name="rookIntro">To\'ra kuchli sipoh. Siz unga komanda berishga tayyormisiz?</string>
-  <string name="rookGoal">To\'rani bosing va yulduzchaga olib boring!</string>
-  <string name="grabAllTheStars">Xamma yulduzchalarni terib chiqing!</string>
-  <string name="theFewerMoves">Qancha kam yurish qilsangiz shuncha ko\'p bal olasiz!</string>
-  <string name="useTwoRooks">Ishni tezlashtirish uchun ikkita to\'radan foydalaning!</string>
-  <string name="rookComplete">Tabriklar! Siz to\'rani muvaffaqiyatli o\'zlashtirdingiz.</string>
-  <string name="theBishop">Fil (Sham)</string>
-  <string name="itMovesDiagonally">U diagonal bo\'yicha yuradi</string>
-  <string name="bishopIntro">Keyin biz filni qanday harakatlar qila olishini o\'rganamiz!</string>
-  <string name="youNeedBothBishops">Bitta yorqin katakdagi fil, bitta to\'q rangdagi fil. Sizga ikkalasi ham kerak!</string>
-  <string name="bishopComplete">Tabriklaymiz! Siz filni boshqarishni o\'rganib oldingiz.</string>
-  <string name="theQueen">Farzin yoki Malika</string>
-  <string name="queenCombinesRookAndBishop">Farzin = to\'ra + fil</string>
-  <string name="queenIntro">Shahmat eng kuchli sipohiga kiradi! Qirolicha!</string>
-  <string name="queenComplete">Tabriklaymiz! Farzinning sirlari endi siz uchun ma\'lum.</string>
+  <string name="progressX">%s oʻzlashtirildi</string>
+  <string name="resetMyProgress">Noldan boshlash</string>
+  <string name="youWillLoseAllYourProgress">Barcha natijalaringiz oʻchirib tashlanadi!</string>
+  <string name="play">oʻynang!</string>
+  <string name="chessPieces">Shaxmat donalari</string>
+  <string name="theRook">Rux</string>
+  <string name="itMovesInStraightLines">Rux toʻgʻri chiziq boʻyicha harakatlanadi</string>
+  <string name="rookIntro">Rux — kuchli dona. Uni boshqarishga tayyormisiz?</string>
+  <string name="rookGoal">Ruxni ustiga bosib
+yulduzchaga olib boring!</string>
+  <string name="grabAllTheStars">Barcha yulduzchalarni yigʻing!</string>
+  <string name="theFewerMoves">Qancha kam yurish qilsangiz shuncha koʻp ochko olasiz!</string>
+  <string name="useTwoRooks">Ishni tezlashtirish uchun
+ikkita ruxdan foydalaning!</string>
+  <string name="rookComplete">Tabriklaymiz! Siz rux bilan oʻynashni muvaffaqiyatli oʻzlashtirdingiz.</string>
+  <string name="theBishop">Fil</string>
+  <string name="itMovesDiagonally">Fil diagonal boʻyicha harakatlanadi</string>
+  <string name="bishopIntro">Endi filni boshqarishni oʻrganamiz!</string>
+  <string name="youNeedBothBishops">Bitta oq katakdagi fil,
+bitta qora rangdagi fil.
+Sizga ikkalasi ham kerak!</string>
+  <string name="bishopComplete">Tabriklaymiz! Endi siz filni boshqara olasiz.</string>
+  <string name="theQueen">Farzin</string>
+  <string name="queenCombinesRookAndBishop">Farzin = rux + fil</string>
+  <string name="queenIntro">Eng qudratli dona bilan tanishing. Qarshingizda — oliy hazratlari farzin!</string>
+  <string name="queenComplete">Tabriklaymiz! Endi farzinning siz bilmagan siri qolmadi.</string>
   <string name="theKing">Shoh</string>
-  <string name="theMostImportantPiece">Eng asosiy sipoh</string>
-  <string name="kingIntro">Siz shohsiz. Agar siz o\'yin davomida yiqilsangiz, o\'yinda mag\'lub bo\'lgan bo\'lasiz.</string>
-  <string name="theKingIsSlow">Qirol bitta bitta yuradi.</string>
-  <string name="lastOne">Oxirgi!</string>
-  <string name="kingComplete">Endi siz komandir ustidan komanda berishingiz mumkin!</string>
+  <string name="theMostImportantPiece">Eng muhim dona</string>
+  <string name="kingIntro">Siz — shohsiz. Agar jangda magʻlub boʻlsangiz, oʻyin ham tugaydi.</string>
+  <string name="theKingIsSlow">Shoh vazmin harakat qiladi.</string>
+  <string name="lastOne">Bu oxirgisi!</string>
+  <string name="kingComplete">Endi siz lashkarboshini ham boshqara olasiz!</string>
   <string name="theKnight">Ot</string>
-  <string name="itMovesInAnLShape">U L shaklida harakat qiladi</string>
-  <string name="knightIntro">Bu yerda sizni musobaqalaringiz. Ot - murakkab sipoh.</string>
-  <string name="knightsHaveAFancyWay">Otlarda o\'ziga xos ajoyib ustidan sakrab yurish imkoni bor!</string>
-  <string name="knightsCanJumpOverObstacles">Otlar to\'siqlardan sakrab o\'ta oladi!
-Yuring va yulduzlarni tering!</string>
-  <string name="knightComplete">Tabriklaymiz siz otni o\'rgandingiz.</string>
+  <string name="itMovesInAnLShape">Ot “L” shaklida harakatlanadi</string>
+  <string name="knightIntro">Siz uchun bir sinov: ot — biroz ayyor dona.</string>
+  <string name="knightsHaveAFancyWay">Otlar oʻziga xos usulda sakrab yura oladi!</string>
+  <string name="knightsCanJumpOverObstacles">Otlar toʻsiqlar ustidan sakrab oʻta oladi!
+Toʻsiqlardan oʻting va yulduzlarni zabt eting!</string>
+  <string name="knightComplete">Tabriklaymiz! Siz otni jilovlashni oʻrgandingiz.</string>
   <string name="thePawn">Piyoda</string>
   <string name="itMovesForwardOnly">Faqat oldinga yuradi</string>
   <string name="pawnIntro">Piyodalar kuchsiz, lekin ularda katta potensial mavjud.</string>
-  <string name="pawnsMoveOneSquareOnly">Piyodalar faqat bitta katak yuradi. Ammo ular qarshi tarafdagi doskaning oxiriga yetsa ular kuchli bo\'lib qoladi!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Qirolichani imkonini yaxshilash uchun ko\'p vaqt ajratish yaxshi ish hisoblanadi!</string>
-  <string name="pawnsMoveForward">Piyodalar qiyshiq yurishi mumkin, faqat diagonal bo\'yicha raqib sipohini olishda yurishi mumkin!</string>
-  <string name="captureThenPromote">Urish, va yurish!</string>
-  <string name="useAllThePawns">Barcha piyodalarni ishlating! Yurish uchun hojat yo\'q.</string>
-  <string name="aPawnOnTheSecondRank">Ikkinchi qatordagi piyodalar bir yurganda ikkita katak yurishi mumkin!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Barcha yulduzlarni terib chiqing! Yurish shart emas.</string>
+  <string name="pawnsMoveOneSquareOnly">Piyodalar faqat bir katak oldinga yuradi. Lekin taxtaning oxiriga yetib borsa, kuchliroq donaga aylanadi!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Koʻpincha piyodani farzinga aylantirish eng yaxshi qarordir.
+Ammo baʼzan ot ham asqotib qolishi mumkin!</string>
+  <string name="pawnsMoveForward">Piyoda oldinga yuradi,
+lekin diagonal boʻyicha uradi!</string>
+  <string name="captureThenPromote">Uring va kuchliroq donaga aylantiring!</string>
+  <string name="useAllThePawns">Barcha piyodalardan foydalaning! Ularni boshqa donaga aylantirishga hojat yoʻq.</string>
+  <string name="aPawnOnTheSecondRank">Ikkinchi qatordagi piyoda bir yoʻla ikki katak oldinga yura oladi!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Barcha yulduzlarni yigʻing!
+Donalarni almashtirish shart emas.</string>
   <string name="pawnComplete">Tabriklaymiz! Piyodalar endi siz uchun sirli emas.</string>
-  <string name="pawnPromotion">Piyodani yurish</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Sizning piyodangiz doska oxirigacha bordi!</string>
-  <string name="itNowPromotesToAStrongerPiece">U xozir kuchli sipohini yurayabdi.</string>
-  <string name="selectThePieceYouWant">O\'zingiz xohlagan sipohni tanlang!</string>
-  <string name="fundamentals">Asoslar</string>
-  <string name="capture">Urish</string>
-  <string name="takeTheEnemyPieces">Raqib sipohlarini oling</string>
-  <string name="captureIntro">Raqib ximoyasiz sipohlarini toping va ularni yutib oling!</string>
-  <string name="takeTheBlackPieces">Qoralar sipohlarini oling!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Qoralar sipohlarini oling! Va o\'zingiznikini yo\'qotmang.</string>
-  <string name="captureComplete">Tabriklaymiz! Siz shahmat sipohlari bilan qanday kurashishni bilasiz!</string>
-  <string name="protection">Ximoya</string>
-  <string name="keepYourPiecesSafe">Sipohlaringizni ximoyalang</string>
-  <string name="protectionIntro">Raqibingiz hujum qilayotgan sipohlaringizni aniqlang va ularni ximoya qiling!</string>
-  <string name="protectionComplete">Tabriklaymiz! Sipoh yutib sipoh yo\'qotmadingiz!</string>
-  <string name="escape">Siz hujum ostidasiz! Undan qoching!</string>
-  <string name="noEscape">Qochishga imkon yo\'q lekin ximoyalanishingiz mumkin!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Ularga ximoyasiz sipohlarni olishga imkon bermang!</string>
+  <string name="pawnPromotion">Piyodani almashtirish</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Piyodangiz taxtaning oxiriga yetib keldi!</string>
+  <string name="itNowPromotesToAStrongerPiece">Endi uni kuchliroq donaga almashtirish mumkin.</string>
+  <string name="selectThePieceYouWant">Oʻzingiz xohlagan donani tanlang!</string>
+  <string name="fundamentals">Asosiy prinsiplar</string>
+  <string name="capture">Urib olish</string>
+  <string name="takeTheEnemyPieces">Raqib donalarini urib oling</string>
+  <string name="captureIntro">Raqibning himoyalanmagan donalarini aniqlang va ularni urib oling!</string>
+  <string name="takeTheBlackPieces">Qora donalarni urib oling!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Qora figuralarni urib oling!
+Va oʻzingiznikilarni yoʻqotmang.</string>
+  <string name="captureComplete">Tabriklaymiz! Endi siz shaxmat donalari bilan jang qilishni bilasiz!</string>
+  <string name="protection">Himoya</string>
+  <string name="keepYourPiecesSafe">Donalaringizni ehtiyot qiling</string>
+  <string name="protectionIntro">Raqib qaysi donangizga hujum qilayotganini toping va uni himoyalang!</string>
+  <string name="protectionComplete">Barakalla! Boy berilmagan dona — yutilgan dona bilan teng!</string>
+  <string name="escape">Qochishga joy yoʻq, lekin himoyalansa boʻladi!</string>
+  <string name="noEscape">Qochib qutulishning iloji yoʻq,
+ammo himoyalanish mumkin!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Birorta ham himoyasiz donani boy bermang!</string>
   <string name="combat">Jang</string>
-  <string name="captureAndDefendPieces">Sipohni urish va ximoyalash</string>
-  <string name="combatIntro">Yaxshi o\'yinchi ikkalasini - ximoyani ham hujumni ham biladi!</string>
-  <string name="combatComplete">Tabriklaymiz! Siz shahmat sipohlari bilan qanday kurashishni bilasiz!</string>
-  <string name="checkInOne">Bir yurishda shoh</string>
-  <string name="attackTheOpponentsKing">Raqib qiroliga hujum qiling</string>
-  <string name="checkInOneIntro">Raqibingizga shoh berish uchun uning shohiga hujum qiling. Ular uni ximoya qilishi kerak!</string>
-  <string name="checkInOneGoal">Raqib qirolining xozirgi maqsadi bitta yurish!</string>
-  <string name="checkInOneComplete">Tabriklaymiz! Ularni o\'zlarini shohini ximoya qilishga majburlagan holda, siz raqibingizga shoh berdingiz!</string>
-  <string name="outOfCheck">Shohdan qochish</string>
-  <string name="defendYourKing">Shohingizni ximoya qiling</string>
-  <string name="outOfCheckIntro">Siz shohdasiz! Siz hujumdan qochishingiz yoki uni bloklashingiz kerak.</string>
-  <string name="escapeWithTheKing">Qirolni olib qoching!</string>
-  <string name="theKingCannotEscapeButBlock">Qirol qocha olmaydi, ammo siz hujumni bloklashingiz mumkin!</string>
-  <string name="youCanGetOutOfCheckByTaking">Siz piyoda bilan yurib shoh berishingiz mumkin.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">Bu ot sizni ximoyangizdan o\'tib shoh berayabi!</string>
-  <string name="escapeOrBlock">Qirolni olib qoching yoki hujumni bloklang!</string>
-  <string name="outOfCheckComplete">Tabriklaymiz! Sizni shohingiz birorta ham shoh olmadi, endi shoh olmaslikka ximoyalanganligingizga ishinch xosil qiling!</string>
-  <string name="mateInOne">Bitta yurishda mot</string>
-  <string name="defeatTheOpponentsKing">Raqib qirolini mag\'lub qilish</string>
-  <string name="mateInOneIntro">Siz g\'olib hisoblanasiz qachonki raqibingiz shohini shohdan ximoya qila olmasa.</string>
-  <string name="attackYourOpponentsKing">Raqib qiroliga ximoya qila olmaydigan yo\'l bilan shoh ber!</string>
-  <string name="mateInOneComplete">Tabriklaymiz! Siz shunday qilib shahmatda g\'olib bo\'lasiz!</string>
-  <string name="intermediate">O\'rtacha</string>
-  <string name="boardSetup">Doska sozlashlari</string>
-  <string name="howTheGameStarts">O\'yin qanday boshlanadi</string>
-  <string name="boardSetupIntro">Jangga tayyor ikkita armiya bir-biriga qarab turadi.</string>
-  <string name="thisIsTheInitialPosition">Bu shahmatning boshlang\'ich holati! O\'yinni davom ettirish uchun ixtiyorioy yurishni qiling.</string>
-  <string name="firstPlaceTheRooks">Birinchi to\'rani qo\'ying! Ular burchakda turishadi.</string>
-  <string name="thenPlaceTheKnights">Keyin otlarni qo\'ying! Ular to\'ralardan keyin turadi.</string>
-  <string name="placeTheBishops">Fillarni qo\'ying! Ular otlardan keyin.</string>
-  <string name="placeTheQueen">Qirolicha - farzinni qo\'ying! U o\'zini rangida turadi.</string>
-  <string name="placeTheKing">Qirolni qo\'ying! U qirolichadan keyin turadi.</string>
-  <string name="pawnsFormTheFrontLine">Piyodalar front chizig\'ini tashkil qiladi. Ixtiyoriy yurishni qilib davom eting.</string>
-  <string name="boardSetupComplete">Tabriklaymiz! Siz doskani qanday sozlashni bilasiz.</string>
+  <string name="captureAndDefendPieces">Donalarni urib olish va himoya qilish</string>
+  <string name="combatIntro">Yaxshi jangchi ham hujum qilishni, ham himoyalanishni biladi!</string>
+  <string name="combatComplete">Barakalla! Endi siz shaxmat donalari bilan jang qilishni bilasiz!</string>
+  <string name="checkInOne">Shoh berish</string>
+  <string name="attackTheOpponentsKing">Raqib shohiga hujum qiling</string>
+  <string name="checkInOneIntro">Raqibga shoh berish uchun uning shohiga hujum qiling. U albatta shohni himoya qilishi kerak!</string>
+  <string name="checkInOneGoal">Birgina yurish bilan raqib shohini nishonga oling!</string>
+  <string name="checkInOneComplete">Barakalla! Siz raqibga shoh berdingiz va uni shohini himoya qilishga majbur qildingiz!</string>
+  <string name="outOfCheck">Shohdan qutulish</string>
+  <string name="defendYourKing">Shohingizni himoya qiling</string>
+  <string name="outOfCheckIntro">Sizga shoh berildi! Shohni olib qochishingiz yoki hujumni toʻsishingiz kerak.</string>
+  <string name="escapeWithTheKing">Shohni olib qoching!</string>
+  <string name="theKingCannotEscapeButBlock">Shoh qocholmaydi, lekin hujumni toʻssa boʻladi!</string>
+  <string name="youCanGetOutOfCheckByTaking">Hujum qilayotgan donani urib olib,
+shohdan qutulishingiz mumkin.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Bu ot himoyangizni yorib oʻtib,
+shoh bermoqda!</string>
+  <string name="escapeOrBlock">Shohni olib qoching yoki hujumni toʻsing!</string>
+  <string name="outOfCheckComplete">Barakalla! Shohingiz hech qachon urib olinmaydi, shuning uchun har doim shohdan himoyalanishga tayyor turing!</string>
+  <string name="mateInOne">Mot berish</string>
+  <string name="defeatTheOpponentsKing">Raqib shohini taslim qiling</string>
+  <string name="mateInOneIntro">Raqib shohdan himoyalana olmagan holatda siz gʻalaba qozonasiz.</string>
+  <string name="attackYourOpponentsKing">Raqib shohiga shunday hujum qilingki, undan himoyalanishning iloji boʻlmasin!</string>
+  <string name="mateInOneComplete">Barakalla! Shaxmatda aynan shunday gʻalaba qozoniladi!</string>
+  <string name="intermediate">Oʻrta daraja</string>
+  <string name="boardSetup">Taxtani terish</string>
+  <string name="howTheGameStarts">Oʻyin qanday boshlanadi</string>
+  <string name="boardSetupIntro">Ikki qoʻshin jangga shay holatda bir‑biriga roʻbaro turibdi.</string>
+  <string name="thisIsTheInitialPosition">Bu — har bir shaxmat oʻyinining boshlangʻich holati!
+Davom etish uchun ixtiyoriy yurishni amalga oshiring.</string>
+  <string name="firstPlaceTheRooks">Avval ruxlarni joylashtiring!
+Ular burchaklarda turadi.</string>
+  <string name="thenPlaceTheKnights">Keyin otlarni qoʻying!
+Ular ruxlarning yonida turadi.</string>
+  <string name="placeTheBishops">Fillarni qoʻying!
+Ular otlarning yonida turadi.</string>
+  <string name="placeTheQueen">Farzinni joylashtiring!
+U oʻz rangidagi katakka qoʻyiladi.</string>
+  <string name="placeTheKing">Shohni joylashtiring!
+Uni farzinning yoniga qoʻying.</string>
+  <string name="pawnsFormTheFrontLine">Piyodalar oldingi safni egallaydi.
+Davom etish uchun ixtiyoriy yurishni amalga oshiring.</string>
+  <string name="boardSetupComplete">Barakalla! Endi siz shaxmat taxtasini terishni bilasiz.</string>
   <string name="castling">Rokirovka</string>
-  <string name="theSpecialKingMove">Qirol maxsus yurishi</string>
-  <string name="castlingIntro">Qirolingizni xavfsiz joyga o\'tkazing va to\'rangizni hujumga shaylang!</string>
-  <string name="castleKingSide">Qirol tomondan rakorivkani amalga oshirish uchun qirolingizni ikki katakga yuring!</string>
-  <string name="castleQueenSide">Farzin tomondan rakorivkani amalga oshirish uchun qirolingizni ikki katakga yuring!</string>
-  <string name="theKnightIsInTheWay">Ot yo\'limizda! Uni yuring va qirol tomondan rokirovka qiling.</string>
-  <string name="castleKingSideMovePiecesFirst">Rakirovka qirol tomondan! Siz avval sipohlarni olishingiz kerak.</string>
-  <string name="castleQueenSideMovePiecesFirst">Farzin tomondan rakirovka! Siz avval sipohlarni olishingiz kerak.</string>
-  <string name="youCannotCastleIfMoved">Siz rakirovka qila olmaysiz agarda shohingiz yoki to\'rangiz bundan oldin yurish qilgan bo\'lsa.</string>
-  <string name="youCannotCastleIfAttacked">Siz rakirovka qila olmaysiz agarda ayni damda shohga hujum bo\'lib turgan bo\'lsa! Avval shohdan qutuling keyin rakirovka qiling!</string>
-  <string name="findAWayToCastleKingSide">Qirol tomondan rakirovka qilish yo\'lini toping!</string>
-  <string name="findAWayToCastleQueenSide">Farzin tomonidan rakirovka qilish uchun yo\'l toping!</string>
-  <string name="castlingComplete">Tabriklaymiz! Siz o\'yinda deyarli har doim rakirovka qilishingiz kerak.</string>
-  <string name="enPassant">Yo\'lakda olish</string>
-  <string name="theSpecialPawnMove">Piyoda maxsus yurishi</string>
-  <string name="enPassantIntro">Agar piyoda ikkita katakka yursa siz uni bitta katakka yurganday olishingiz mumkin.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Qoralar piyodani ikkita katakka yurdi! Uni yo\'lakda olish yo\'li bilan oling.</string>
-  <string name="enPassantOnlyWorksImmediately">Yo\'lakda yurib olish raqib piyodani ikkita katakka yurishi zahoti ishlaydi, keyingi yurishlarda olish mumkin bo\'lamaydi.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Yo\'lakda yurib olish faqat agar sizni piyodangiz beshinchi katakda turgan bo\'lsa ishlaydi.</string>
-  <string name="takeAllThePawnsEnPassant">Barcha piyodalarni yo\'lakda yurib olish bilan oling!</string>
-  <string name="enPassantComplete">Tabriklaymiz! Siz xozir yo\'lakda yurib olish usuli bilan olishni bildingiz.</string>
-  <string name="stalemate">Pat, durrang</string>
-  <string name="theGameIsADraw">O\'yin - durrang</string>
-  <string name="stalemateIntro">Qachonki shoh berilmagan bo\'lsa va o\'yinchining yurish yo\'llari qolmagan bo\'lsa o\'yin pat hisoblanadi. Durrang natija: g\'olib ham mag\'lub ham yo\'q.</string>
-  <string name="stalemateGoal">Qoralar uchun pat:
-- Qoralarda yurish uchun yo\'l yo\'q
-- Shoh ham olishmagan.</string>
-  <string name="stalemateComplete">Tabriklaymiz! Shoh mot bo\'lganidan ko\'ra pat bo\'lgani yaxshiroq!</string>
-  <string name="advanced">Qo\'shimcha</string>
-  <string name="pieceValue">Sipoh qiymati</string>
-  <string name="evaluatePieceStrength">Sipoh kuchini hisoblash</string>
-  <string name="pieceValueIntro">Bemalol yura oladigan sipohlar qiymatliroq hisoblanadi!
+  <string name="theSpecialKingMove">Shohning maxsus yurishi</string>
+  <string name="castlingIntro">Shohingizni xavfsiz joyga oʻtkazing, ruxingizni esa hujumga shaylang!</string>
+  <string name="castleKingSide">Qisqa rokirovka qilish uchun shohingizni ikki katak suring!</string>
+  <string name="castleQueenSide">Uzun rokirovka qilish uchun shohingizni ikki katak suring!</string>
+  <string name="theKnightIsInTheWay">Ot yoʻlingizga toʻgʻanoq boʻlyapti!
+Uni suring va qisqa rokirovka qiling.</string>
+  <string name="castleKingSideMovePiecesFirst">Qisqa rokirovka qiling!
+Avval donalarni olib chiqishingiz kerak.</string>
+  <string name="castleQueenSideMovePiecesFirst">Uzun rokirovka qiling!
+Avval donalarni olib chiqishingiz kerak.</string>
+  <string name="youCannotCastleIfMoved">Agar shoh yoki rux ilgari yurilgan boʻlsa, rokirovka qilib boʻlmaydi.</string>
+  <string name="youCannotCastleIfAttacked">Agar shoh oʻtadigan katakka hujum qilingan boʻlsa, rokirovka qilib boʻlmaydi. Avval shohni himoya qiling, soʻng rokirovka qiling!</string>
+  <string name="findAWayToCastleKingSide">Qisqa rokirovka qilish yoʻlini toping!</string>
+  <string name="findAWayToCastleQueenSide">Uzun rokirovka qilish yoʻlini toping!</string>
+  <string name="castlingComplete">Barakalla! Oʻyin davomida deyarli har doim rokirovka qilish tavsiya etiladi.</string>
+  <string name="theSpecialPawnMove">Piyodaning maxsus yurishi</string>
+  <string name="enPassantIntro">Raqib piyodasi ikki katak yurganida, siz uni goʻyoki bir katak yurganidek urib olishingiz mumkin.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Qoralar piyodani ikki katak yurdi! Uni kesib oʻtib urib oling.</string>
+  <string name="enPassantOnlyWorksImmediately">Kesib oʻtish qoidasi faqat raqib piyoda surganidan soʻng darhol ishlatilishi kerak.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Kesib oʻtish qoidasi faqat piyodangiz 5‑gorizontalda boʻlgandagina amal qiladi.</string>
+  <string name="takeAllThePawnsEnPassant">Barcha piyodalarni kesib oʻtish qoidasi bilan urib oling!</string>
+  <string name="enPassantComplete">Barakalla! Endi siz kesib oʻtish qoidasini qoʻllashni bilasiz.</string>
+  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Oʻyin — durang</string>
+  <string name="stalemateIntro">Agar oʻyinchiga shoh berilmagan boʻlsa va yurishga yoʻllari qolmagan boʻlsa — bu pat hisoblanadi. Oʻyin durang bilan tugaydi: gʻolib ham magʻlub ham yoʻq.</string>
+  <string name="stalemateGoal">Qoralarni pat qilish uchun:
+- Qoralarning yurishga yoʻl boʻlmasligi kerak
+- Shohga hujum (shoh) boʻlmasligi kerak.</string>
+  <string name="stalemateComplete">Barakalla! Mot boʻlgandan koʻra, pat boʻlgani afzal!</string>
+  <string name="advanced">Yuqori daraja</string>
+  <string name="pieceValue">Donalar qiymati</string>
+  <string name="evaluatePieceStrength">Donalar kuchini baholang</string>
+  <string name="pieceValueIntro">Harakatchanligi yuqori boʻlgan donalar koʻproq qiymatga ega!
 Farzin = 9
-To\'ra = 5
+Rux = 5
 Fil = 3
 Ot = 3
 Piyoda = 1
-Qirol qiymati bebaho! Uni yo\'qotish o\'yinni yo\'qotish degani.</string>
-  <string name="queenOverBishop">Qiymati baland sipohlarni oling! Farzin &gt; Fil</string>
-  <string name="pieceValueExchange">Yuqoriroq qiymatli figurani oling!
- Qiymati yuqori
- figuralarni past qiymatli figuralarga almashmang.</string>
-  <string name="pieceValueLegal">Yuqori
-qiymatli figurani oling!
-Yurish mumkinligiga ishonch xozil qiling!</string>
-  <string name="takeThePieceWithTheHighestValue">Qiymati baland sipohlarni oling!</string>
-  <string name="pieceValueComplete">Tabriklaymiz! Siz sipohlar qiymatlarini bilasiz!
+Shoh — bebahodir! Uni yoʻqotish — oʻyinda magʻlub boʻlish demakdir.</string>
+  <string name="queenOverBishop">Eng baland qiymatga ega donani urib oling!
+Farzin &gt; Fil</string>
+  <string name="pieceValueExchange">Eng baland qiymatga ega donani urib oling!
+Qimmatroq donani arzonrogʻiga almashtirib qoʻymang.</string>
+  <string name="pieceValueLegal">Eng baland qiymatga ega donani urib oling!
+Yurishingiz qoidalarga muvofiq ekanligiga ishonch hosil qiling!</string>
+  <string name="takeThePieceWithTheHighestValue">Eng baland qiymatga ega donani urib oling!</string>
+  <string name="pieceValueComplete">Barakalla! Endi siz donalar qiymatini farqlay olasiz!
 Farzin = 9
-To\'ra = 5
+Rux = 5
 Fil = 3
 Ot = 3
 Piyoda = 1</string>
-  <string name="checkInTwo">Ikkita yurishda shoh</string>
-  <string name="twoMovesToGiveCheck">Shoh berish uchun ikkita yurish</string>
-  <string name="checkInTwoIntro">Raqib qiroliga ikkita yurishda shoh berish uchun to\'g\'ri yo\'lni toping!</string>
-  <string name="checkInTwoGoal">Ikkita yurishda raqib shohiga uchun xavf yarating!</string>
-  <string name="checkInTwoComplete">Tabriklaymiz! Ularni o\'zlarini shohini ximoya qilishga majburlagan holda, siz raqibingizga shoh berdingiz!</string>
-  <string name="whatNext">Keyingisi nima?</string>
-  <string name="youKnowHowToPlayChess">Siz shahmatni qanday o\'ynashni bilasiz! Kuchli o\'yinchi bo\'lishni xohlaysizmi?</string>
-  <string name="register">Ro\'yhatdan o\'tish</string>
-  <string name="getAFreeLichessAccount">Lichessda bepull hisob ochish</string>
-  <string name="practice">Amaliyot</string>
-  <string name="learnCommonChessPositions">Umumiy shahmat qoidalarini o\'rganish</string>
-  <string name="puzzles">Boshqotirmalar</string>
-  <string name="exerciseYourTacticalSkills">O\'zingizni taktik bilimlaringizni rivojlantiring</string>
+  <string name="checkInTwo">Ikki yurishda shoh berish</string>
+  <string name="twoMovesToGiveCheck">Shoh berish uchun ikki yurish</string>
+  <string name="checkInTwoIntro">Raqib shohiga ikki yurishda shoh berish yoʻlini toping!</string>
+  <string name="checkInTwoGoal">Raqib shohiga ikki yurishda xavf soling!</string>
+  <string name="checkInTwoComplete">Barakalla! Siz raqibga shoh berdingiz va uni shohini himoya qilishga majbur qildingiz!</string>
+  <string name="whatNext">Endi nima?</string>
+  <string name="youKnowHowToPlayChess">Tabriklaymiz, siz shaxmat oʻynashni oʻrgandingiz! Yanada kuchliroq shaxmatchi boʻlishni istaysizmi?</string>
+  <string name="register">Roʻyxatdan oʻtish</string>
+  <string name="getAFreeLichessAccount">Bepul Lichess akkauntiga ega boʻling</string>
+  <string name="practice">Mashq qilish</string>
+  <string name="learnCommonChessPositions">Asosiy shaxmat qoidalarini oʻrganing</string>
+  <string name="puzzles">Masalalar</string>
+  <string name="exerciseYourTacticalSkills">Taktik mahoratingizni oshiring</string>
   <string name="videos">Videolar</string>
-  <string name="watchInstructiveChessVideos">O\'rgatuvchi shahmat videolarini tomosha qiling</string>
-  <string name="playPeople">Odamlar bilan o\'ynang</string>
-  <string name="opponentsFromAroundTheWorld">Dunyo ahli orasidan sherik topish</string>
-  <string name="playMachine">Moshina bilan o\'ynash</string>
-  <string name="testYourSkillsWithTheComputer">Komyuter bilan o\'z bilimlaringizni sinang</string>
-  <string name="letsGo">Ketdik!</string>
-  <string name="stageX">%s etap</string>
+  <string name="watchInstructiveChessVideos">Shaxmat oʻrgatadigan videolarni koʻring</string>
+  <string name="playPeople">Odamlar bilan oʻynash</string>
+  <string name="opponentsFromAroundTheWorld">Dunyoning turli chekkalaridagi oʻyinchilar bilan bellashing</string>
+  <string name="playMachine">Kompyuter bilan oʻynash</string>
+  <string name="testYourSkillsWithTheComputer">Mahoratingizni kompyuterga qarshi sinab koʻring</string>
+  <string name="letsGo">Olgʻa!</string>
+  <string name="stageX">%s‑bosqich</string>
   <string name="awesome">Ajoyib!</string>
-  <string name="excellent">Zo\'r!</string>
-  <string name="greatJob">Ajoyib o\'yin!</string>
-  <string name="perfect">Mukammal!</string>
-  <string name="outstanding">Atoqli!</string>
-  <string name="wayToGo">Yurish uchun yo\'l!</string>
-  <string name="yesYesYes">Ha, ha, ha!</string>
-  <string name="youreGoodAtThis">Siz bun borada yaxshi ekansiz!</string>
-  <string name="nailedIt">Muvaffaqiyatli hal etdingiz.</string>
-  <string name="rightOn">To\'g\'ri yo\'ldasiz!</string>
-  <string name="stageXComplete">%s etap hal bo\'ldi</string>
-  <string name="next">Keyingi</string>
-  <string name="nextX">Navbatdagi: %s</string>
-  <string name="backToMenu">Menuga qaytish</string>
-  <string name="puzzleFailed">Boshqotirma yechilmadi!</string>
+  <string name="excellent">Zoʻr!</string>
+  <string name="greatJob">Barakalla!</string>
+  <string name="perfect">Qoyilmaqom!</string>
+  <string name="outstanding">Aʼlo!</string>
+  <string name="wayToGo">Xuddi shunday!</string>
+  <string name="yesYesYes">Mana bu boshqa gap!</string>
+  <string name="youreGoodAtThis">Qoyil!</string>
+  <string name="nailedIt">Ofarin!</string>
+  <string name="rightOn">Toʻppa‑toʻgʻri!</string>
+  <string name="stageXComplete">%s‑bosqich tugadi</string>
+  <string name="next">Keyingisi</string>
+  <string name="nextX">Keyingisi: %s</string>
+  <string name="backToMenu">Menyuga qaytish</string>
+  <string name="puzzleFailed">Xato yurish!</string>
   <string name="retry">Qayta urinish</string>
 </resources>

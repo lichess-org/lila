@@ -11,7 +11,6 @@ import lila.core.data.Strings
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
 import lila.oauth.OAuthServer
-import lila.common.Bus
 import lila.common.config.GetRelativeFile
 
 @Module
@@ -30,12 +29,12 @@ final class Env(
     cookieBaker: play.api.mvc.SessionCookieBaker,
     lazyCurrentlyPlaying: => lila.core.round.CurrentlyPlaying,
     db: lila.db.Db,
-    getFile: GetRelativeFile
+    getFile: GetRelativeFile,
+    routeUrl: RouteUrl
 )(using Executor, play.api.Mode, lila.core.i18n.Translator, lila.core.config.RateLimit)(using
     scheduler: Scheduler
 ):
-
-  private val (baseUrl, domain) = (net.baseUrl, net.domain)
+  private def netDomain = net.domain
 
   private val config = appConfig.get[SecurityConfig]("security")
 
@@ -65,7 +64,7 @@ final class Env(
     else wire[HcaptchaSkip]
 
   lazy val forms = wire[SecurityForm]
-  def signupForm: lila.core.security.SignupForm = forms.signup
+  def signupForm: lila.core.security.SignupFormFields = forms.signup
 
   lazy val geoIP: GeoIP = wire[GeoIP]
 
@@ -100,7 +99,7 @@ final class Env(
       EmailConfirmMailer(
         userRepo = userRepo,
         mailer = mailer,
-        baseUrl = baseUrl,
+        routeUrl = routeUrl,
         tokenerSecret = config.emailConfirm.secret
       )
     else wire[EmailConfirmSkip]
@@ -169,6 +168,8 @@ final class Env(
     text = "Always serve captchas, don't skip once per IP and per 24h".some
   ).taggedWith[AlwaysCaptcha]
 
+  val singlePost = SinglePost(config.singlePostSecret, settingStore)
+
   lazy val api = wire[SecurityApi]
 
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
@@ -180,9 +181,6 @@ final class Env(
   lazy val coreApi = new lila.core.security.SecurityApi:
     export api.shareAnIpOrFp
     export userLogins.getUserIdsWithSameIpAndPrint
-
-  Bus.sub[lila.core.security.AskAreRelated]: ask =>
-    ask.promise.completeWith(api.shareAnIpOrFp.tupled(ask.users))
 
 private trait Proxy2faSetting
 private trait AlwaysCaptcha

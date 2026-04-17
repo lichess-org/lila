@@ -1,17 +1,13 @@
 import type { Config, PuzPrefs, Puzzle } from 'lib/puz/interfaces';
 
 export type RaceStatus = 'pre' | 'racing' | 'post';
-
-export type PlayerId = string;
-
+export type RacerPrefs = PuzPrefs;
 export type Vehicle = number;
 
 export interface RacerOpts {
   data: RacerData;
   pref: RacerPrefs;
 }
-
-export interface RacerPrefs extends PuzPrefs {}
 
 export interface UpdatableData {
   players: PlayerWithScore[];

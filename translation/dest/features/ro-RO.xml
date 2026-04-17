@@ -13,7 +13,7 @@
   <string name="cloudEngineAnalysis">Analiza motorului în cloud</string>
   <string name="studies">Studii (analiză distribuibilă și persistentă)</string>
   <string name="chessInsights">Informații despre șah (analiză detaliată a jocului tău)</string>
-  <string name="allChessBasicsLessons">Toate lecțiile de bază ale șahului</string>
+  <string name="allChessBasicsLessons">Toate lecțiile în bazele șahului</string>
   <string name="tacticalPuzzlesFromUserGames">puzzle-uri tactice din jocurile utilizatorului</string>
   <string name="personalOpeningExplorerX">%1$s (de asemenea, funcționează pe %2$s)</string>
   <string name="personalOpeningExplorer">Explorator de deschidere personal</string>

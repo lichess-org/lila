@@ -1,7 +1,9 @@
+import { h, type VNode } from 'snabbdom';
+
 import { prop } from 'lib';
 import { bind, bindSubmit, onInsert, snabDialog } from 'lib/view';
 import { json as xhrJson, url as xhrUrl } from 'lib/xhr';
-import { h, type VNode } from 'snabbdom';
+
 import type { Topic } from './interfaces';
 import type StudyCtrl from './studyCtrl';
 
@@ -41,6 +43,7 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
       ctrl.redraw();
     },
     modal: true,
+    noClickAway: true,
     vnodes: [
       h('h2', i18n.study.topics),
       h(
@@ -66,7 +69,7 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
     ],
     onInsert: dlg => {
       dlg.show();
-      (dlg.view.querySelector('.tagify__input') as HTMLElement)?.focus();
+      dlg.view.querySelector<HTMLElement>('.tagify__input')?.focus();
     },
   });
 
@@ -79,7 +82,7 @@ function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: strin
       const term = (e.detail as Tagify.TagData).value.trim();
       if (term.length < 2) return;
       tagi.settings.whitelist.length = 0; // reset the whitelist
-      abortCtrl && abortCtrl.abort('nevermind ' + term);
+      abortCtrl?.abort('nevermind ' + term);
       abortCtrl = new AbortController();
       // show loading animation and hide the suggestions dropdown
       tagi.loading(true).dropdown.hide.call(tagi);

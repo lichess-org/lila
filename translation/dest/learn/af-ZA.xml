@@ -6,7 +6,7 @@
   <string name="progressX">Vordering: %s</string>
   <string name="resetMyProgress">Herstel my vordering</string>
   <string name="youWillLoseAllYourProgress">Jy sal al jou vordering verloor!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">speel!</string>
+  <string name="play">speel!</string>
   <string name="chessPieces">Skaakstukke</string>
   <string name="theRook">Die toring</string>
   <string name="itMovesInStraightLines">Hy beweeg in reguit lyne</string>
@@ -153,7 +153,6 @@ koningskant te rokeer!</string>
   <string name="findAWayToCastleQueenSide">Vind \'n manier om na die
 langkant te rokeer!</string>
   <string name="castlingComplete">Ongelooflik! Jy moet amper altyd rokeer in \'n wedstryd.</string>
-  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Die spesiale pion skuif</string>
   <string name="enPassantIntro">Wanneer die opponent pion twee blokkies skuif, kan jy die pion vat asof dit net een blokkie geskuif het.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Swart het net nou net die pion 

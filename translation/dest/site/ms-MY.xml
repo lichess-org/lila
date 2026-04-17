@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="gameSetup">Tetapan permainan</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">Cabar rakan anda</string>
+  <string name="playAgainstComputer">Main dengan komputer</string>
+  <string name="gameMode">Mod bermain</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Untuk menjemput seseorang bermain, berikan pautan ini</string>
-  <string name="gameOver">Permainan Tamat</string>
+  <string name="gameOver">Perlawanan Tamat</string>
   <string name="waitingForOpponent">Menunggu untuk lawan</string>
-  <string name="orLetYourOpponentScanQrCode">Atau biarkan lawan anda mengimbas kod QR</string>
+  <string name="orLetYourOpponentScanQrCode">Atau minta lawan anda mengimbas kod QR ini</string>
+  <string name="reusableChallengeUrl">URL (pautan) cabaran boleh guna semula</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Pautan tetap untuk sesiapa sahaja yang ingin mencabar anda dengan tetapan yang ditetapkan.</string>
   <string name="waiting">Menunggu</string>
   <string name="yourTurn">Giliran anda</string>
   <string name="aiNameLevelAiLevel">%1$s tahap %2$s</string>
   <string name="level">Tahap</string>
   <string name="strength">Kekuatan</string>
-  <string name="toggleTheChat">Togol bual</string>
-  <string name="chat">Sembang</string>
+  <string name="toggleTheChat">Buka/tutup ruangan bual</string>
+  <string name="chat">Ruangan bual</string>
   <string name="resign">Menyerah kalah</string>
-  <string name="checkmate">Checkmate</string>
-  <string name="stalemate">Stalemate</string>
+  <string name="checkmate">Syahmat</string>
+  <string name="stalemate">Kebuntuan (stalemate)</string>
   <string name="white">Putih</string>
   <string name="black">Hitam</string>
   <string name="asWhite">sebagai putih</string>
   <string name="asBlack">sebagai hitam</string>
   <string name="randomColor">Pilihan rawak</string>
-  <string name="createAGame">Mencipta permainan</string>
-  <string name="createTheGame">Chess</string>
+  <string name="createAGame">Cipta perlawanan</string>
+  <string name="createTheGame">Cipta perlawanan</string>
   <string name="whiteIsVictorious">Putih menang</string>
   <string name="blackIsVictorious">Hitam menang</string>
   <string name="youPlayTheWhitePieces">Mula dengan buah putih</string>
@@ -68,7 +74,11 @@
   <string name="promoteVariation">Naikkan variasi</string>
   <string name="makeMainLine">Buat garisan utama</string>
   <string name="deleteFromHere">Hapuskan daripada sini</string>
+  <string name="collapseVariations">Runtuhkan variasi</string>
+  <string name="expandVariations">Kembangkan variasi</string>
   <string name="forceVariation">Force variation</string>
+  <string name="copyVariationPgn">Salin PGN bagi variasi ini</string>
+  <string name="copyMainLinePgn">Salin PGN bagi baris utama ini</string>
   <string name="move">Gerak</string>
   <string name="variantLoss">Variasi kalah</string>
   <string name="variantWin">Variasi menang</string>
@@ -91,6 +101,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" yang dibundar, mengikut jumlah pegerakkan separuh sehingga sebuah bidak dimakan atau pegerakkan pion seterusnya</string>
   <string name="noGameFound">Tiada perlawanan dijumpai</string>
+  <string name="maxDepthReached">Kedalaman maksimum telah dicapai!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Mungki masukkan lebih banyak perlawanan daripada pilihan menu?</string>
   <string name="openings">Pembukaan</string>
   <string name="openingExplorer">Membuka explorer</string>
@@ -113,7 +124,11 @@
   <string name="bestMoveArrow">Anak panah gerak terbaik</string>
   <string name="showVariationArrows">Tunjuk anak panah variasi</string>
   <string name="evaluationGauge">Tolok penialian</string>
+  <string name="undefendedPieces">Buah catur yang tidak dipertahankan</string>
+  <string name="pinnedPieces">Buah catur terkunci</string>
   <string name="multipleLines">Multiple lines</string>
+  <string name="searchTime">Masa carian</string>
+  <string name="searchTimeDescription">Tetapkan masa untuk menilai kedudukan baru</string>
   <string name="cpus">CPU</string>
   <string name="memory">Memori</string>
   <string name="infiniteAnalysis">Analisis tak terbatas</string>
@@ -154,6 +169,9 @@
   <plurals name="nbGames">
     <item quantity="other">%s Permainan</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="other">Taraf %1$s di atas %2$s permainan</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s bookmarks</item>
   </plurals>
@@ -170,12 +188,14 @@
   <string name="latestForumPosts">Latest forum posts</string>
   <string name="players">Senarai pemain</string>
   <string name="friends">Senarai rakan</string>
+  <string name="otherPlayers">pemain lain</string>
   <string name="discussions">Senarai perbualan</string>
   <string name="today">Hari ini</string>
   <string name="yesterday">Semalam</string>
   <string name="minutesPerSide">Minit bagi setiap bahagian</string>
   <string name="variant">Variasi</string>
   <string name="variants">Senarai variasi</string>
+  <string name="variantsDescription">Cara lain untuk bermain</string>
   <string name="timeControl">Peruntukan masa</string>
   <string name="realTime">Masa sebenar</string>
   <string name="correspondence">Jangka panjang</string>
@@ -199,7 +219,7 @@
   <string name="changeUsernameNotSame">Hanya huruf besar atau huruf kecil pada perkataan boleh ditukar. Contohnya, \"johndoe\" kepada \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Tukar nama pengguna. Tindakan ini hanya boleh dibuat sekali dan anda hanya dibenarkan menukar huruf besar/huruf kecil pada nama pengguna anda.</string>
   <string name="signupUsernameHint">Pastikan anda memilih nama yang elok. Anda tidak boleh menukarnya kemudian dan jika sesuatu akaun menggunakan nama yang tidak elok, akaun tersebut akan ditutup!</string>
-  <string name="signupEmailHint">Kami hanya akan menggunakannya untuk penukaran kata laluan.</string>
+  <string name="signupEmailPromise">Kami hanya akan menghantar e-mel tentang akaun anda dan kami tidak akan mengkongsi alamat e-mel anda.</string>
   <string name="password">Kata kunci</string>
   <string name="changePassword">Tukar kata kunci</string>
   <string name="changeEmail">Tukar emel</string>
@@ -243,6 +263,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s permainan dengan anda</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Batal</string>
   <string name="whiteTimeOut">Putih habis masa</string>
   <string name="blackTimeOut">Hitam habis masa</string>
@@ -310,7 +331,15 @@
   <string name="openingExplorerAndTablebase">Peneroka bukaan &amp; senarai jadual</string>
   <string name="takeback">Ambil semula</string>
   <string name="proposeATakeback">Mencadang ambil semula</string>
+  <string name="whiteProposesTakeback">Pihak putih meminta untuk menarik balik</string>
+  <string name="blackProposesTakeback">Pihak hitam meminta untuk menarik balik</string>
   <string name="takebackPropositionSent">Tawaran ambil semula dihantar</string>
+  <string name="whiteDeclinesTakeback">Pihak putih menolak permintaan untuk menarik balik</string>
+  <string name="blackDeclinesTakeback">Pihak hitam menolak permintaan untuk menarik balik</string>
+  <string name="whiteAcceptsTakeback">Pihak putih menerima permintaan untuk menarik balik</string>
+  <string name="blackAcceptsTakeback">Pihak hitam menerima permintaan untuk menarik balik</string>
+  <string name="whiteCancelsTakeback">Pihak putih membatalkan permintaan untuk menarik balik</string>
+  <string name="blackCancelsTakeback">Pihak hitam membatalkan permintaan untuk menarik balik</string>
   <string name="yourOpponentProposesATakeback">Lawan anda mencadangkan untuk ambil semula</string>
   <string name="bookmarkThisGame">Tanda buku permainan ini</string>
   <string name="tournament">Pertandingan</string>
@@ -321,6 +350,9 @@
   </plurals>
   <plurals name="nbStudies">
     <item quantity="other">%s belajar</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="other">%s perlawanan simul</item>
   </plurals>
   <string name="viewTournament">Lihat pertandingan</string>
   <string name="backToTournament">Back to tournament</string>
@@ -360,10 +392,10 @@
   <string name="leaderboard">Papan pendahulu</string>
   <string name="screenshotCurrentPosition">Tangkapan skrin (Screenshot) kedudukan semasa</string>
   <string name="gameAsGIF">Permainan sebagai GIF</string>
+  <string name="playerNames">Nama pemain</string>
   <string name="pasteTheFenStringHere">Paste teks FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste text PGN di sini</string>
   <string name="orUploadPgnFile">Atau muat naik fail PGN</string>
-  <string name="fromPosition">Dari kedudukan</string>
   <string name="continueFromHere">Teruskan dari sini</string>
   <string name="toStudy">Belajar</string>
   <string name="importGame">Import permainan</string>
@@ -380,6 +412,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="blackCheckmatesInOneMove">Hitam checkmate dalam satu langkah gerakan</string>
   <string name="retry">Cuba semula</string>
   <string name="reconnecting">Penyambungan semula</string>
+  <string name="noNetwork">Luar talian</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s rakan dalam talian</item>
   </plurals>
@@ -422,6 +455,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="points">Mata</string>
   <string name="wins">Menang</string>
   <string name="losses">Kalah</string>
+  <string name="startingIn" comment="Displayed above a timer">Bermula dalam</string>
   <string name="standByX">Berada dengan %s, permain yang diseimbangkan, sila bersedia!</string>
   <string name="pause">Jeda</string>
   <string name="resume">Sambung</string>
@@ -449,13 +483,17 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="ifNoneLeaveEmpty">Jika tiada, biar kosong</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Sunting profile</string>
+  <string name="realName">Nama sebenar</string>
   <string name="biography">Biografi</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Negara atau kawasan</string>
   <string name="thankYou">Terima kasih!</string>
   <string name="socialMediaLinks">Pautan media sosial</string>
   <string name="oneUrlPerLine">Satu URL setiap baris.</string>
   <string name="inlineNotation">Notasi dalaman</string>
   <string name="makeAStudy">Untuk penyimpanan dan perkongsian, pertimbangkan untuk membuat kajian pembelajaran.</string>
+  <string name="previouslyOnLichessTV">Sebelum ini di Lichess TV</string>
   <string name="activePlayers">Pemain aktif</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Hati-hati, perlawanan ini ditarafkan tetapi tiada pemasa!</string>
   <string name="success">Berjaya</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s permainan sedang berlangsung</item>
@@ -467,6 +505,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="description">Huraian</string>
   <string name="no">Tidak</string>
   <string name="yes">Ya</string>
+  <string name="website">Laman sesawang</string>
   <string name="help">Tolong:</string>
   <string name="createANewTopic">Buat topik baharu</string>
   <string name="topics">Topik</string>

@@ -6,7 +6,7 @@
   <string name="progressX">Prugressi: %s</string>
   <string name="resetMyProgress">Ricumincià a prugressione</string>
   <string name="youWillLoseAllYourProgress">Avete da perde a vostra prugressione!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ghjucate!</string>
+  <string name="play">ghjucate!</string>
   <string name="chessPieces">E pezze</string>
   <string name="theRook">A torra</string>
   <string name="itMovesInStraightLines">Si tramuta longu à un filare o una culonna</string>
@@ -142,7 +142,6 @@ Impedite u scaccu pò arruccate!</string>
   <string name="findAWayToCastleKingSide">Truvate una manera di fà l\' arruccamentu minò!</string>
   <string name="findAWayToCastleQueenSide">Truvate una manera di fà l\' arruccamentu maiò!</string>
   <string name="castlingComplete">Felicitazione! Pudete arruccà durante e vostre partite.</string>
-  <string name="enPassant">A presa passendu</string>
   <string name="theSpecialPawnMove">Un move speciale di i pedini</string>
   <string name="enPassantIntro">Quandu un pedinu di l’aversariu avanza di duie cantarelle è si mette à fiancu à u vostru pedinu, pudete piglià lu cum’è s’ellu s’hè avanzatu d’una cantarella sola.</string>
   <string name="blackJustMovedThePawnByTwoSquares">I neri anu avanzatu u so pedinu di duie cantarelle!

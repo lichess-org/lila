@@ -1,4 +1,5 @@
 import { initMiniGame, updateMiniGame } from 'lib/view';
+
 import { embedChessground } from './asset';
 
 function resize() {

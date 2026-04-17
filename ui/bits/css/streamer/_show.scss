@@ -8,14 +8,11 @@
 
 .streamer-show {
   .page-menu__content {
-    overflow: hidden;
-
-    /* help with responsive overflow of activity */
+    overflow: hidden; // help with responsive overflow of activity
   }
 
   h1 {
     @extend %roboto, %ellipsis;
-
     @include fluid-size('font-size', 23px, 40px);
 
     &::before {
@@ -70,6 +67,7 @@
 
   .description {
     @include padding-direction(2.5em, 50px, 2.5em, 65px);
+
     font-size: 1.4em;
   }
 
@@ -86,6 +84,7 @@
     @extend %flex-center;
 
     justify-content: space-between;
+
     @include padding-direction(2em, 50px, 1em, 58px);
 
     font-size: 1.6em;

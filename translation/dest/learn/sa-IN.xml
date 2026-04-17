@@ -5,7 +5,7 @@
   <string name="menu">Suchi</string>
   <string name="resetMyProgress">PunarArambhagaNDa</string>
   <string name="youWillLoseAllYourProgress">Parajit</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">krIDati</string>
+  <string name="play">krIDati</string>
   <string name="chessPieces">Chaturanga dal</string>
   <string name="theRook">Ratha</string>
   <string name="itMovesInStraightLines">Esha chalati samrekha</string>

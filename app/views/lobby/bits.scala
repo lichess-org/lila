@@ -13,25 +13,23 @@ object bits:
       tours: List[lila.tournament.Tournament],
       simuls: List[lila.simul.Simul]
   )(using ctx: Context) =
-    frag(
-      div(cls := "lobby__tournaments-simuls")(
-        div(cls := "lobby__tournaments lobby__box")(
-          a(cls := "lobby__box__top", href := routes.Tournament.home)(
-            h2(cls := "title text", dataIcon := Icon.Trophy)(trans.site.openTournaments()),
+    div(cls := "lobby__tournaments-simuls")(
+      div(cls := "lobby__tournaments lobby__box")(
+        a(cls := "lobby__box__top", href := routes.Tournament.home)(
+          h2(cls := "title text", dataIcon := Icon.Trophy)(trans.site.openTournaments()),
+          span(cls := "more")(trans.site.more(), " »")
+        ),
+        div(cls := "lobby__box__content"):
+          views.tournament.ui.enterable(tours)
+      ),
+      simuls.nonEmpty.option(
+        div(cls := "lobby__simuls lobby__box")(
+          a(cls := "lobby__box__top", href := routes.Simul.home)(
+            h2(cls := "title text", dataIcon := Icon.Group)(trans.site.simultaneousExhibitions()),
             span(cls := "more")(trans.site.more(), " »")
           ),
           div(cls := "lobby__box__content"):
-            views.tournament.ui.enterable(tours)
-        ),
-        simuls.nonEmpty.option(
-          div(cls := "lobby__simuls lobby__box")(
-            a(cls := "lobby__box__top", href := routes.Simul.home)(
-              h2(cls := "title text", dataIcon := Icon.Group)(trans.site.simultaneousExhibitions()),
-              span(cls := "more")(trans.site.more(), " »")
-            ),
-            div(cls := "lobby__box__content"):
-              views.simul.ui.allCreated(simuls, withName = false)
-          )
+            views.simul.ui.allCreated(simuls, withName = false)
         )
       )
     )

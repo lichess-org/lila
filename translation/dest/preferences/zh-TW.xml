@@ -20,10 +20,10 @@
   <string name="displayBoardResizeHandle">顯示盤面大小調整區塊</string>
   <string name="onlyOnInitialPosition">只在起始局面</string>
   <string name="inGameOnly">只在遊戲中</string>
-  <string name="exceptInGame" comment="An option regarding when player ratings should be displayed. This will display other players' ratings at all times, EXCEPT during a game. Please see screenshot - text needs to be kept short to fit in the segmented control widget used for settings.">僅適用於非評分局中</string>
+  <string name="exceptInGame">僅適用於非評分局中</string>
   <string name="chessClock">棋鐘</string>
   <string name="tenthsOfSeconds">十分之一秒</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">當剩餘時間小於10秒</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">當剩餘時間小於10秒</string>
   <string name="horizontalGreenProgressBars">綠色橫進度條</string>
   <string name="soundWhenTimeGetsCritical">時間不足時聲音提醒</string>
   <string name="giveMoreTime">給對方更多時間</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">升變的同時按住&lt;ctrl&gt;以暫時取消自動升變</string>
   <string name="whenPremoving">預先走棋時</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重覆局面時自動要求和局</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">當剩餘時間小於30秒</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">當剩餘時間小於30秒</string>
   <string name="moveConfirmation">走棋確認</string>
   <string name="explainCanThenBeTemporarilyDisabled">可以在遊戲中用棋盤選單中關閉此功能</string>
   <string name="inCorrespondenceGames">在長期對局中</string>
@@ -68,5 +68,5 @@
   <string name="notifyWeb">瀏覽器通知</string>
   <string name="notifyDevice">設備通知</string>
   <string name="bellNotificationSound">通知鈴聲</string>
-  <string name="blindfold" comment="Appears in the in-game preferences view. Enabling the blindfold option will hide all the pieces.">盲棋</string>
+  <string name="blindfold" comment="As in Blindfold chess">盲棋</string>
 </resources>

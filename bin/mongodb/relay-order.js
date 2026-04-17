@@ -8,7 +8,7 @@ db.relay_tour
     const relays = db.relay.find({ tourId: tour._id }, { _id: 1, order: 1 }).toArray();
     if (relays.every(r => !!r.order)) return;
     relays.sort((a, b) => {
-      for (k in ['startedAt', 'startsAt', 'createdAt']) {
+      for (k of ['startedAt', 'startsAt', 'createdAt']) {
         const aVal = sortWith(a);
         const bVal = sortWith(b);
         if (aVal && bVal && aVal != 'afterPrevious' && bVal != 'afterPrevious') return aVal - bVal;

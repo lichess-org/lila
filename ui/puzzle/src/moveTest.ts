@@ -1,7 +1,9 @@
 import { parseUci } from 'chessops/util';
+
 import { path as pathOps } from 'lib/tree/tree';
-import type { MoveTest } from './interfaces';
+
 import type PuzzleCtrl from './ctrl';
+import type { MoveTest } from './interfaces';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 const altCastles = {
@@ -30,10 +32,10 @@ export default function moveTest(ctrl: PuzzleCtrl): MoveTestReturn {
     checkmate: node.san!.endsWith('#'),
   }));
 
-  for (const i in nodes) {
+  for (let i = 0; i < nodes.length; i++) {
     if (nodes[i].checkmate) return (ctrl.node.puzzle = 'win');
-    const uci = nodes[i].uci!,
-      solUci = ctrl.data.puzzle.solution[i];
+    const uci = nodes[i].uci!;
+    const solUci = ctrl.data.puzzle.solution[i];
     if (uci !== solUci && (!nodes[i].castle || !isAltCastle(uci) || altCastles[uci] !== solUci))
       return (ctrl.node.puzzle = 'fail');
   }

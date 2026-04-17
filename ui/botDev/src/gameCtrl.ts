@@ -1,12 +1,14 @@
 import * as co from 'chessops';
-import { RoundProxy } from './roundProxy';
-import { type GameContext, type GameStatus, LocalGame } from './localGame';
-import { statusOf, clockToSpeed, playable } from 'lib/game';
 import type { ClockData } from 'round';
-import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from 'lib/bot/types';
-import { env } from './devEnv';
-import { pubsub } from 'lib/pubsub';
+
 import { myUserId, myUsername } from 'lib';
+import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from 'lib/bot/types';
+import { statusOf, clockToSpeed, playable } from 'lib/game';
+import { pubsub } from 'lib/pubsub';
+
+import { env } from './devEnv';
+import { type GameContext, type GameStatus, LocalGame } from './localGame';
+import { RoundProxy } from './roundProxy';
 
 export interface GameObserver {
   hurry: boolean;
@@ -32,7 +34,7 @@ export class GameCtrl {
     this.proxy = new RoundProxy(opts.pref);
   }
 
-  load(game: LocalSetup | undefined): void {
+  load(game?: LocalSetup): void {
     this.stop();
     this.rewind = undefined;
     this.live = new LocalGame({ ...this.live?.setup, ...game });
@@ -183,7 +185,7 @@ export class GameCtrl {
   }
 
   // investigate setting rewind = live to pause
-  private jump = (ply: number) => {
+  private readonly jump = (ply: number) => {
     this.rewind = ply < this.live.moves.length ? new LocalGame(this.live, ply) : undefined;
     if (this.clock) this.clock.since = this.rewind || ply < 2 ? undefined : performance.now();
     this.updateTurn();
@@ -237,7 +239,7 @@ export class GameCtrl {
   }
 
   private triggerStart(inProgress = false) {
-    for (const c of ['white', 'black'] as const) {
+    for (const c of co.COLORS) {
       if (!env.bot[c]) continue;
       env.bot.bots.get(env.bot[c].uid)?.playSound(['greeting']);
     }
@@ -264,7 +266,7 @@ export class GameCtrl {
   }
 
   private resetClock() {
-    const initial = this.live.initial as number;
+    const initial = this.live.initial;
     this.clock = Number.isFinite(initial)
       ? {
           initial: initial,

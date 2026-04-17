@@ -1,10 +1,12 @@
 import { h, thunk, type VNode } from 'snabbdom';
-import type AnalyseCtrl from '../ctrl';
-import { findTag } from '../study/studyChapters';
+
 import { getPlayer } from 'lib/game';
 import * as licon from 'lib/licon';
 import { bind, dataIcon } from 'lib/view';
 import { ratingDiff } from 'lib/view/userLink';
+
+import type AnalyseCtrl from '../ctrl';
+import { findTag } from '../study/studyChapters';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 

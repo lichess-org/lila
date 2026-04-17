@@ -31,14 +31,17 @@ object page:
   def boardStyle(zoomable: Boolean)(using ctx: Context) =
     s"---board-opacity:${ctx.pref.board.opacity};" +
       s"---board-brightness:${ctx.pref.board.brightness};" +
+      s"---board-contrast:${ctx.pref.board.contrast};" +
       s"---board-hue:${ctx.pref.board.hue};" +
       zoomable.so(s"---zoom:$pageZoom;")
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
+    val anonOnboarding = ctx.isAnon.so(lila.security.EmailConfirm.cookie.get(ctx.req))
     val allModules = p.modules ++
       p.pageModule.so(module => esmPage(module.name)) ++
-      ctx.needsFp.so(fingerprintTag)
+      ctx.needsFp.so(fingerprintTag) ++
+      anonOnboarding.isDefined.so(esmInitBit("emailErrorCheck"))
     val zenable = p.flags(PageFlags.zen)
     val playing = p.flags(PageFlags.playing)
     val pageFrag = frag(
@@ -105,7 +108,7 @@ object page:
               "playing fixed-scroll" -> playing,
               "no-rating" -> (!pref.showRatings || (playing && pref.hideRatingsInGame)),
               "no-flair" -> !pref.flairs,
-              "zen" -> (pref.isZen || (playing && pref.isZenAuto)),
+              "zen" -> (zenable && (pref.isZen || (playing && pref.isZenAuto))),
               "zenable" -> zenable,
               "zen-auto" -> (zenable && pref.isZenAuto)
             )
@@ -123,8 +126,8 @@ object page:
           dataTheme := pref.currentBg,
           dataBoard := pref.currentTheme.name,
           dataPieceSet := pref.currentPieceSet.name,
-          dataBoard3d := pref.currentTheme3d.name,
-          dataPieceSet3d := pref.currentPieceSet3d.name,
+          dataBoard3d := pref.is3d.option(pref.currentTheme3d.name),
+          dataPieceSet3d := pref.is3d.option(pref.currentPieceSet3d.name),
           dataAnnounce := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
           attr("data-i18n-catalog") := assetHelper.manifest
             .js(s"i18n/${ctx.lang.code}")
@@ -135,11 +138,8 @@ object page:
           for in <- ctx.data.inquiry; me <- ctx.me yield views.mod.inquiryUi(in)(using ctx, me),
           ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.ui.impersonate(_) },
           netConfig.stageBanner.option(views.bits.stage),
-          ctx.isAnon
-            .so(lila.security.EmailConfirm.cookie.get(ctx.req))
-            .map(u =>
-              frag(cssTag("bits.email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email))
-            ),
+          anonOnboarding.map: u =>
+            frag(cssTag("bits.email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email)),
           zenable.option(zenZone),
           Option.unless(p.flags(PageFlags.noHeader)):
             ui.siteHeader(
@@ -149,7 +149,7 @@ object page:
               notifications = ctx.nbNotifications.value,
               error = ctx.data.error,
               topnav = topnav(
-                hasClas = ctx.hasClas,
+                seesClassMenu = ctx.seesClassMenu,
                 hasDgt = ctx.pref.hasDgt
               )
             )

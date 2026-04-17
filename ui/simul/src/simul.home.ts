@@ -1,5 +1,5 @@
-import { wsConnect } from 'lib/socket';
 import { pubsub } from 'lib/pubsub';
+import { wsConnect } from 'lib/socket';
 
 site.load.then(() => {
   wsConnect(`/socket/v5`, false, { params: { flag: 'simul' } });

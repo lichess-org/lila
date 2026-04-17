@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Premaknite se na E4 ali izberite kos e4</string>
   <string name="selectOrCaptureABishop">Izberite ali zajemite škofa</string>
   <string name="takeRookWithQueen">Vzemite top s kraljico</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Grad (na obeh straneh)</string>
+  <string name="castle">Grad (na obeh straneh)</string>
   <string name="phoneticAlphabetIsBest">Fonetična abeceda je najboljša</string>
   <string name="cancelTimerOrDenyARequest">Prekliči časovnik ali Zavrni zahtevo</string>
   <string name="playPreferredMoveOrConfirmSomething">Igrajte želeno potezo ali potrdite nekaj</string>

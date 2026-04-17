@@ -1,7 +1,8 @@
+import { pubsub } from 'lib/pubsub';
+import { json, form } from 'lib/xhr';
+
 import type MsgCtrl from './ctrl';
 import type { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
-import { json, form } from 'lib/xhr';
-import { pubsub } from 'lib/pubsub';
 
 export async function loadConvo(userId: string): Promise<MsgData> {
   const d = await json(`/inbox/${userId}`);
@@ -16,6 +17,11 @@ export async function getMore(userId: string, before: Date): Promise<MsgData> {
 export async function loadContacts(): Promise<MsgData> {
   const d = await json(`/inbox`);
   return upgradeData(d);
+}
+
+export async function loadMoreContacts(before: Date): Promise<Contact[]> {
+  const d = await json(`/inbox?before=${before.getTime()}`);
+  return d.contacts.map(upgradeContact);
 }
 
 export async function search(q: string): Promise<SearchResult> {

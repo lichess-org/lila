@@ -28,7 +28,7 @@ final class PlayApi(env: Env) extends LilaController(env):
           else
             {
               for
-                _ <- env.tournament.api.withdrawAll(me)
+                _ <- env.tournament.api.withdrawAll(me, forceDelete = true)
                 teamIds <- env.team.cached.teamIdsList(me)
                 _ <- env.swiss.api.withdrawAll(me, teamIds)
                 _ <- env.user.api.setBot(me)
@@ -132,7 +132,7 @@ final class PlayApi(env: Env) extends LilaController(env):
       if me.noBot then
         BadRequest:
           jsonError:
-            "This endpoint can only be used with a Bot account. See https://lichess.org/api#tag/bot/post/apibotaccountupgrade"
+            "This endpoint can only be used with a Bot account. See https://lichess.org/api#tag/bot/POST/api/bot/account/upgrade"
       else
         isReallyBotCompatible(pov.game).flatMap:
           if _ then f(pov)

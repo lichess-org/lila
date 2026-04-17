@@ -9,7 +9,7 @@ db.config.find().forEach(function (config) {
   ['friend', 'hook', 'ai'].forEach(function (type) {
     ['d', 'i', 'm', 't', 'tm', 'v', 'l'].forEach(toInt(config[type]));
   });
-  var filter = config.filter;
+  const filter = config.filter;
   ['m', 's', 'v'].forEach(function (prop) {
     if (typeof filter[prop] != 'undefined')
       filter[prop] = filter[prop].map(function (n) {

@@ -1,88 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arena">Arena</string>
-  <string name="arenaTournaments">Turnirlar maydoni</string>
+  <string name="arenaTournaments">Arena turnirlari</string>
   <string name="isItRated">Reytingga taʼsir qiladimi?</string>
-  <string name="willBeNotified">Turnir boshlanganda siz habardaor bo\'lasiz shu tufayli siz qo\'rqmasdan yangi tahlamda boshqa o\'yinni bemalol o\'ynashingiz mumkin.</string>
+  <string name="willBeNotified">Turnir boshlanganda sizga xabar beriladi, shuning uchun ushbu sahifani ochiq holda qoldirib, boshqa ishlar bilan shugʻullanishingiz mumkin.</string>
   <string name="isRated">Bu turnir reytingli va sizni reytingingizga ta\'sir etadi.</string>
-  <string name="isNotRated">Bu turnir reytingga tasir *etmaydi* va sizni reytingingizga tasir *etmaydi*.</string>
-  <string name="someRated">Ba\'zi turnirlar reytingli va sizni reytingingizga tasir etadi.</string>
-  <string name="howAreScoresCalculated">Ballar qanday hisoblanadi?</string>
-  <string name="howAreScoresCalculatedAnswer">Yutuq 2 ball bersa durrang bir ball beradi. Mag\'lubiyat esa hech qanday qiymatga ega emas va bal bermaydi. Agar siz ikki marta ketma-ket yutsangiz olov tasviri tushirilgan belgini yonib turishi orqali habar beriliuvchi 2 lik ballar seriyasini olishni boshlagan bo\'lasiz. Ushbu ikkiliklar seriyasi toki siz mag\'lub bo\'lguningizcha davom etadi. Bu o\'z navbatida g\'alaba 4 ball, durrang 2 ball va mag\'lubiyat esa avvalgidek hech narsa bermasligini anglatadi. 
+  <string name="isNotRated">Bu turnir reytingli *emas* va sizni reytingingizga taʼsir *qilmaydi*.</string>
+  <string name="someRated">Baʼzi turnirlar reytingli va sizni reytingingizga taʼsir qiladi.</string>
+  <string name="howAreScoresCalculated">Ochkolar qanday hisoblanadi?</string>
+  <string name="howAreScoresCalculatedAnswer">Gʻalaba uchun 2 ochko, durang uchun 1 ochko beriladi, magʻlubiyat uchun esa ochko berilmaydi.
+Agar ketma‑ket ikki marta gʻalaba qozonsangiz, sizda olov belgisi bilan koʻrsatiladigan “ikki karrali ochkolar seriyasi” boshlanadi.
+Keyingi oʻyinlarda gʻalaba qozonganiz sayin, sizga ikki karra ochko yoziladi.
+Yaʼni, gʻalaba 4 ochko, durang 2 ochko boʻladi, magʻlubiyat uchun esa ochko berilmaydi va “ochkolar seriyasi”ni toʻxtatadi.
 
-Masalan, ikkita yutuq va bitta durrang 6 ball bergan bo\'lardi: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Berserk maydoni</string>
-  <string name="berserkAnswer">Qachon o\'yinchi Berserk tugmasini bossa o\'yin boshlanadi va u o\'zining yarim vaqtini yo\'qotadi, ammo yutuq yana bir qo\'shimcha turnir balini olib keladi. 
+Masalan, ikkita gʻalaba va bitta durang jami 6 ochko beradi: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Arena Berserk</string>
+  <string name="berserkAnswer">Oʻyin boshida oʻyinchi “Berserk” tugmasini bossa, uning vaqti yarmiga qisqaradi, biroq gʻalaba uchun turnir jadvaliga qoʻshimcha bir ochko qoʻshiladi.
 
-Berserkka vaqtni oshirishni boshqaruvi orqali o\'tish ham oshirishni bekor qiladi. (1+2 hisoblanmaydi, 1+0 beradi) 
+Vaqt qoʻshilishi bor (inkrementli) oʻyinlarda “Berserk” qilsangiz vaqt ortishidan voz kechasiz (1+2 vaqt nazorati bundan mustasno va 1+0 holatiga oʻtadi).
 
-Berserk boshlang\'ich vaqti 0 bo\'lgan o\'yinlar uchun yopiq (0+1, 0+2).
+Boshlangʻich vaqti nolga teng boʻlgan (0+1, 0+2) oʻyinlarda “Berserk” qilib boʻlmaydi.
 
-Berserk qo\'shimcha bali faqat 7 yurishdan keyingina beriladi.</string>
-  <string name="howIsTheWinnerDecided">G\'olib qanday aniqlanadi?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Turnirda belgilangan vaqt davomida eng ko\'p bal to\'plagan o\'yinchilar g\'olib(lar) deb topiladi.
+“Berserk” rejimida qoʻshimcha ochko olish uchun kamida 7 ta yurish amalga oshirishingiz kerak boʻladi.</string>
+  <string name="howIsTheWinnerDecided">Gʻolib qanday aniqlanadi?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Turnirda belgilangan vaqt davomida eng ko\'p bal to\'plagan o\'yinchi(lar) g\'olib(lar) deb topiladi.
 
-Agar ikkita o\'yinchi bir hil natija qayd etsa turnir natijasi tay-brik (durrang) bo\'ladi.</string>
-  <string name="howDoesPairingWork">Raqib topish qanday amalga oshiriladi?</string>
-  <string name="howDoesPairingWorkAnswer">Turnir boshida o\'yinchilar reytingiga mos ravishda sheriklashadi. 
-O\'yin tugagach turnir sahifasiga qayting: siz turnirda to\'plagan reytingingizga mos sherik bilan bellashasiz. Bu sizga minimum vaqt ichida sherik topib beradiyu, ammo siz turnirdagi hamma o\'yinchi bilan ham o\'ynay olmaysiz.
-
-Tez o\'ynang va turnir zaliga qayting, ko\'p yutib ko\'proq bal to\'plang.</string>
-  <string name="howDoesItEnd">Bu qanday yakunlanadi?</string>
-  <string name="howDoesItEndAnswer">Turnirda orqaga yuruvchi soat bilan boshlanadi. U qachon 0 ga borsa turnir vaqti tugagan hisoblanadi va g\'olib aniqlanadi. Vaqt tugaganda boshlangan o\'yinlar tugashi kutiladi va bu vaqt davomida g\'oliblar aniqlanmay turadi.</string>
+Kamida ikkita oʻyinchi bir xil natija qayd etsa turnir natijalari tay-breyk vazifasini oʻtaydi.</string>
+  <string name="howDoesPairingWork">Qura tashlash qanday amalga oshadi?</string>
+  <string name="howDoesPairingWorkAnswer">Turnir boshida oʻyinchilar oʻz reytingiga mos ravishda bir biriga qarshi keladilar. 
+Oʻyin tugagach turnir kutish zaliga qayting: siz turnirda toʻplagan reytingingizga mos raqib bilan bellashasiz. Bu sizga minimal vaqt ichida raqib topib beradi‑yu, lekin siz turnirdagi barcha oʻyinchilar bilan oʻynashga ulgurmasligingiz mumkin.
+Tezroq gʻalaba qozonib, kutish zaliga qayting — koʻproq oʻyin oʻynang va koʻproq ball toʻplang.</string>
+  <string name="howDoesItEnd">Turnir qanday yakunlanadi?</string>
+  <string name="howDoesItEndAnswer">Turnirni taymeri bor. Qachonki taymer vaqti tugasa, turnir natijalari muzlatiladi va gʻolib eʼlon qilinadi. Davom etayotgan oʻyinlar oxirigacha oʻynalishi kerak, biroq ular turnir natijalari uchun hisobga olinmaydi.</string>
   <string name="otherRules">Boshqa muhim qoidalar</string>
-  <string name="thereIsACountdown">Ortga sanaladigan vaqt bor. Bu vaqt ichida birinchi yurishni qilmasangiz siz o\'yinni boy bergan bo\'lasiz.</string>
+  <string name="thereIsACountdown">Birinchi yurish qilishingiz uchun muayyan bir vaqt beriladi. Bu vaqt ichida birinchi yurish qilmasangiz siz o\'yinni raqibingizga boy bergan boʻlasiz.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">%s yurishgacha durrangga kelishilgan o\'yin hech bir ishtirokchiga hisob bermaydi.</item>
-    <item quantity="other">%s yurishgacha durrangga kelishilgan o\'yinlar hech bir ishtirokchiga hisob bermaydi.</item>
+    <item quantity="one">Dastlabki %s ta yurish ichida durang qayd etilsa, har ikkala oʻyinchiga ham ochko berilmaydi.</item>
+    <item quantity="other">Dastlabki %s ta yurish ichida durang qayd etilsa, har ikkala oʻyinchiga ham ochko berilmaydi.</item>
   </plurals>
   <string name="thisIsPrivate">Bu yopiq turnir</string>
-  <string name="shareUrl">Odamlarga qo\'shilishi uchun URL ni ulashing: %s</string>
-  <string name="drawStreakStandard">Duranglar seriyasi: Agar o‘yinchi arenada ketma ket durrang oynasa shularning sonini anglatadi. Bu holatda faqat birinchi o‘yin hisobi hisobga olinadi yoki standart o‘yinlarda %s yurishdan keyin durrang hisoblanuvchi o‘yinniki olinadi. Durranglar seriyasini faqat g‘alaba bilan kesib o‘tish mumkin, mag‘lubiyat yoki yana bir durrang bilan emas.</string>
-  <string name="drawStreakVariants">O‘yin variantiga qarab, bal beriladigan durrang o‘yin uchun minimal yurishlar soni aniqlanadi. Quyidagi jadvalda har bir variant uchun chegaralar keltirilgan.</string>
+  <string name="shareUrl">Odamlar qoʻshilishi uchun ushbu havolani ulashish: %s</string>
+  <string name="drawStreakStandard">Duranglar seriyasi: arena turnirida oʻyinchi ketma‑ket durang oʻynasa, faqat birinchi durang uchun ochko beriladi. Shuningdek, standart oʻyinlarda durang uchun ochko berilishi uchun oʻyin kamida %s ta yurish davom etgan boʻlishi kerak. Duranglar seriyasi faqat gʻalaba bilan toʻxtatilishi mumkin; magʻlubiyat yoki yana bir durang seriyani buzolmaydi.</string>
+  <string name="drawStreakVariants">Durang oʻyinlar uchun ochko beriladigan minimal yurishlar soni shaxmat variantiga qarab farq qiladi. Quyidagi jadvalda har bir variant uchun belgilangan qiymatlar koʻrsatilgan.</string>
   <string name="variant">Variant</string>
   <string name="minimumGameLength">Minimum yurishlar soni</string>
-  <string name="history">Maydon tarixi</string>
+  <string name="history">Arenalar tarixi</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">Jamoani ko‘rish</item>
-    <item quantity="other">Barcha %s jamoalarni ko‘rish</item>
+    <item quantity="one">Jamoani koʻrish</item>
+    <item quantity="other">Barcha %s ta jamoani koʻrish</item>
   </plurals>
-  <string name="newTeamBattle">Yangi jamoaviy jang</string>
-  <string name="customStartDate">Tanlangan boshlash sanasi</string>
-  <string name="customStartDateHelp">Sizning o‘z mahalliy vaqt hududingizda. Bu \"Turnir boshlanishigacha bo‘lgan vaqt\" sozlashini o‘zgartiradi</string>
+  <string name="newTeamBattle">Yangi jamoalar jangi</string>
+  <string name="customStartDate">Boshlanish sanasini tanlash</string>
+  <string name="customStartDateHelp">Mahalliy vaqtingiz boʻyicha. Bu \"Turnir boshlanishigacha bo‘lgan vaqt\" sozlashini oʻzgartiradi</string>
   <string name="allowBerserk">Berserkka ruhsat berish</string>
   <string name="allowBerserkHelp">O‘yinchilar o‘z vaqtini yarmiga qisqartirsa, qo‘shimcha bal olishlariga ruhsat berish</string>
   <string name="allowChatHelp">Suhbatxonasida o‘yinchilarga muhokama qilishga ruhsat beradi</string>
   <string name="arenaStreaks">Arena seriayalari</string>
-  <string name="arenaStreaksHelp">2 ta yutuqdan so‘ng, ketma-ket yutuqdan so‘ng 4 bal hisoblanish boshlanadi 2 o‘rniga.</string>
+  <string name="arenaStreaksHelp">2 ta yutuqdan so‘ng, ketma‑ket yutuqdan so‘ng 4 bal hisoblanish boshlanadi 2 o‘rniga.</string>
   <string name="noBerserkAllowed">Berserkka ruhsat yo‘q</string>
   <string name="noArenaStreaks">Arena seriyalari yo‘q</string>
   <string name="averagePerformance">O‘rtcha o‘ynash samaradorligi</string>
   <string name="averageScore">O‘rtacha to‘plangan bal</string>
   <string name="myTournaments">Mening turnirlarim</string>
   <string name="editTournament">Turnirni tahrirlash</string>
-  <string name="editTeamBattle">Jamoa jangini tahrirlash</string>
+  <string name="editTeamBattle">Jamoalar jangini tahrirlash</string>
   <string name="defender">Himoyachi</string>
   <string name="pickYourTeam">Jamoangizni tanlang</string>
-  <string name="whichTeamWillYouRepresentInThisBattle">Ushbu jangda qaysi jamoa vakili bo\'lasiz?</string>
-  <string name="youMustJoinOneOfTheseTeamsToParticipate">Ishtirok etish uchun siz ushbu jamoalardan biriga qo\'shilishingiz kerak!</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Ushbu jangda qaysi jamoa nomidan qatnashasiz?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Ishtirok etish uchun ushbu jamoalardan biriga qoʻshilishingiz kerak!</string>
   <string name="created">Yaratilgan</string>
-  <string name="recentlyPlayed">Yaqinda o\'ynadi</string>
+  <string name="recentlyPlayed">Yaqinda oʻynadi</string>
   <string name="bestResults">Eng yaxshi natijalar</string>
   <string name="tournamentStats">Turnir statistikasi</string>
-  <string name="rankAvgHelp">O\'rtacha daraja sizning reytingingizning foizidir. Pastroq - yaxshiroq.
+  <string name="rankAvgHelp">Oʻrtacha oʻrin — bu sizning turnirdagi oʻrningizning foizdagi ifodasidir. Pastroq qiymat — yaxshiroq degani.
 
-Masalan, 100 nafar o\'yinchidan iborat turnirda 3-o\'rinni egallash = 3%. 1000 nafar o\'yinchi ishtirok etgan turnirda 10-o\'rinni egallash = 1%.</string>
-  <string name="medians">medianlar</string>
-  <string name="allAveragesAreX">Bu sahifadagi barcha oʻrtacha koʻrsatkichlar %s.</string>
+Masalan, 100 kishilik turnirda 3-oʻrinni egallash — 3% oʻrtacha oʻrin beradi. 1000 kishilik turnirda 10‑oʻrinni egallash — 1% oʻrtacha oʻrin beradi.</string>
+  <string name="medians">medianalar</string>
+  <string name="allAveragesAreX">Bu sahifadagi barcha oʻrtacha koʻrsatkichlar %sdir.</string>
   <string name="total">Jami</string>
-  <string name="pointsAvg">O\'rtacha ball</string>
-  <string name="pointsSum">Ballar yig\'indisi</string>
-  <string name="rankAvg">O\'rtacha daraja</string>
-  <string name="tournamentWinners">Turnir g\'oliblari</string>
+  <string name="pointsAvg">Oʻrtacha ochko</string>
+  <string name="pointsSum">Jami ochkolar</string>
+  <string name="rankAvg">Oʻrtacha oʻrin</string>
+  <string name="tournamentWinners">Turnir gʻoliblari</string>
   <string name="tournamentShields">Turnir qalqonlari</string>
-  <string name="onlyTitled">Faqat nomli o\'yinchilar</string>
-  <string name="onlyTitledHelp">Turnirga qo\'shilish uchun rasmiy unvon talab qilinadi</string>
-  <string name="tournamentPairingsAreNowClosed">Turnirda raqib topish muddati tugadi.</string>
-  <string name="berserkRate">Berserk qilingan oʻyinlar nisbati</string>
+  <string name="onlyTitled">Faqat unvonli oʻyinchilar</string>
+  <string name="onlyTitledHelp">Turnirga qoʻshilish uchun rasmiy unvon talab qilish</string>
+  <string name="tournamentPairingsAreNowClosed">Turnir uchun qura tashlash toʻxtatildi.</string>
+  <string name="berserkRate">Berserk</string>
 </resources>

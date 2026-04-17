@@ -32,15 +32,18 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     settingStore: SettingStore.Builder,
     irc: lila.core.irc.IrcApi,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     notifyApi: lila.core.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl,
     lightUserSync: lila.core.LightUser.GetterSync,
     langList: lila.core.i18n.LangList,
     baker: lila.core.security.LilaCookie,
-    markdownCache: lila.memo.MarkdownCache
-)(using Executor, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
+    markdownCache: lila.memo.MarkdownCache,
+    viewerCount: lila.memo.ViewerCountApi
+)(using lila.core.fide.Federation.Guess, Executor, akka.stream.Materializer, play.api.Mode)(using
+    scheduler: Scheduler
+):
 
   lazy val roundForm = wire[RelayRoundForm]
   lazy val groupForm = wire[RelayGroupForm]
@@ -86,7 +89,11 @@ final class Env(
 
   lazy val pgnStream = wire[RelayPgnStream]
 
+  lazy val groupApi = wire[RelayGroupApi]
+
   lazy val teamTable = wire[RelayTeamTable]
+
+  lazy val teamLeaderboard = wire[RelayTeamLeaderboard]
 
   lazy val playerTour = wire[RelayPlayerTour]
 
@@ -110,8 +117,7 @@ final class Env(
   export delay.delayedUntil
 
   // eager init to start the scheduler
-  private val stats = wire[RelayStatsApi]
-  export stats.getJson as statsJson
+  val stats = wire[RelayStatsApi]
 
   import SettingStore.CredentialsOption.given
   val proxyCredentials = settingStore[Option[Credentials]](

@@ -18,7 +18,7 @@ case class ForumTopic(
     lastPostIdTroll: ForumPostId,
     troll: Boolean,
     closed: Boolean,
-    sticky: Option[Boolean],
+    sticky: Option[UserId],
     userId: Option[UserId] = None, // only since SB mutes
     ublogId: Option[UblogPostId] = None
 ):
@@ -32,8 +32,6 @@ case class ForumTopic(
   def open = !closed
 
   def isTooBig = nbPosts > (if isTeam then 500 else 50)
-
-  def isSticky = ~sticky
 
   def isAuthor(user: User): Boolean = userId contains user.id
   def isUblog = ublogId.isDefined

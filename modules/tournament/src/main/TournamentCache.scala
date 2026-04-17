@@ -48,7 +48,7 @@ final class TournamentCache(
 
   // only applies to finished tournaments
   private val finishedRanking = cacheApi[TourId, FullRanking](2_048, "tournament.finishedRanking"):
-    _.expireAfterAccess(1.hour)
+    _.expireAfterWrite(1.hour)
       .maximumSize(2_048)
       .buildAsyncFuture(playerRepo.computeRanking)
 

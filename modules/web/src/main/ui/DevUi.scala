@@ -26,8 +26,7 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
                     postForm(action := routes.Dev.settingsPost(s.id))(
                       label(`for` := "v")(s.text | s.id),
                       s.form.value match
-                        case Some(v: Boolean) =>
-                          div(span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v)))
+                        case Some(v: Boolean) => form3.nativeCheckbox(s.id, "v", v)
                         case Some(v: lila.core.data.Text) => textarea(name := "v")(v.value)
                         case v => input(name := "v", value := v.map(_.toString))
                       ,
@@ -133,9 +132,11 @@ tournament unfeature {id}
 eval-cache drop standard 8/8/1k6/8/2K5/1P6/8/8 w - - 0 1
 disposable test msumain.edu.ph
 disposable reload msumain.edu.ph
+test-email {primary | secondary} {email}
 video sheet
 puzzle issue {id} {longer-win | ambiguous | ...}
-fide player sync
 cache clear security.session.info
+fide player sync
 fide player rip 2026961 2025
+fide player delete 2026961
 """

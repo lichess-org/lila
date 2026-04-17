@@ -17,7 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">Existem sites baseados no Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sim. Lichess de fato inspirou outros sites de código aberto que usam nossos %1$s, %2$s ou %3$s.</string>
   <string name="keyboardShortcuts">Quais são os atalhos de teclado?</string>
-  <string name="keyboardShortcutsExplanation">Em certas páginas do site Lichess, você pode usar atalhos de teclado. Pressione o botão \"?\" nas páginas de estudo, análise, quebra-cabeça ou partida para ver os atalhos de teclado disponíveis.</string>
+  <string name="keyboardShortcutsExplanation">Em certas páginas do site Lichess, você pode usar atalhos de teclado. Pressione o botão \"?\" nas páginas de estudo, análise, problema ou partida para ver os atalhos de teclado disponíveis.</string>
   <string name="fairPlay">Jogo Limpo</string>
   <string name="whenAmIEligibleRatinRefund">Quando tenho direito a reembolso automático de pontuação de trapaceiros?</string>
   <string name="ratingRefundExplanation">Um minuto após um(a) jogador(a) ser reportado(a), suas últimas 40 partidas valendo pontuação nos últimos 5 dias são invalidadas. Se você foi oponente dele(a) nessas partidas, você perdeu pontuação (por derrota ou empate) e sua pontuação não era provisória, então você recebe um reembolso de pontuação. O reembolso é limitado baseado no seu pico de pontuação e no seu progresso de pontuação após o jogo. (Por exemplo, se sua pontuação aumentou significativamente após essas partidas, você pode não receber reembolso ou apenas reembolsar parcialmente.) Um reembolso nunca excederá 150 pontos.</string>

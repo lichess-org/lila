@@ -21,7 +21,9 @@ $recon-height: 2.5rem;
   background: $c-bad;
   color: $c-over;
   bottom: 0;
+
   @include inline-start(0);
+
   height: $recon-height;
   padding: 0 1rem;
   border-top-right-radius: 3px;

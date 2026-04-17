@@ -1,7 +1,9 @@
-.cmn-favourite {
+.cmn-favourite input {
   @extend %double-tap;
+
   position: absolute;
   margin-inline-start: -99999px;
+
   .force-ltr & {
     margin-left: -99999px;
   }
@@ -9,8 +11,9 @@
 
 $star-width: 1.8rem;
 
-.cmn-favourite + label {
+.cmn-favourite label {
   @include prevent-select;
+
   display: block;
   position: relative;
   cursor: pointer;
@@ -21,6 +24,7 @@ $star-width: 1.8rem;
   &::before {
     @extend %data-icon;
     @include inline-start(0);
+
     content: $licon-StarOutline;
     display: block;
     position: absolute;
@@ -29,17 +33,19 @@ $star-width: 1.8rem;
     text-align: center;
   }
 }
-.cmn-favourite:hover + label {
+
+.cmn-favourite:hover label {
   color: $c-brag;
 }
-.cmn-favourite:checked + label {
+
+.cmn-favourite input:checked + label {
   &::before {
     content: $licon-Star;
     color: $c-brag;
   }
 }
 
-.cmn-favourite:disabled + label {
-  opacity: 60%;
+.cmn-favourite input:disabled + label {
+  opacity: 0.6;
   cursor: not-allowed !important;
 }

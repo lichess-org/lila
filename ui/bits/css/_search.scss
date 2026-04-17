@@ -12,9 +12,14 @@
 
     select,
     input[type='text'],
-    input[type='number'] {
+    input[type='number'],
+    input[type='date'] {
       padding: 0.3em 1em;
       width: 100%;
+    }
+
+    input[type='date'] {
+      padding-right: 0.3em;
     }
 
     #dl-button {
@@ -34,17 +39,15 @@
 
     .two-columns {
       @extend %flex-wrap;
+
       gap: 1em;
 
       > * {
-        flex: 1 150px;
         @extend %flex-between-nowrap;
+
+        flex: 1 150px;
         gap: 2ch;
       }
-    }
-
-    label {
-      margin-inline-end: 0.8em;
     }
 
     select {
@@ -62,6 +65,7 @@
     span.help {
       color: $c-secondary;
       text-decoration: underline $c-secondary;
+      cursor: help;
     }
 
     .error {
@@ -104,6 +108,7 @@
 
     .toggle-columns {
       @extend %flex-wrap;
+
       margin: 0.5rem 0;
 
       > * {
@@ -129,10 +134,6 @@
       input {
         color: $c-font-dim;
       }
-    }
-
-    .cmn-toggle + label + label {
-      cursor: pointer;
     }
   }
 

@@ -68,8 +68,9 @@ private final class UblogAutomod(
 
   private[ublog] def apply(post: UblogPost, temperature: Double = 0): Fu[Option[Assessment]] = post.live.so:
     val assessImages = automod.markdownImages:
-      post.markdown.map: text =>
-        post.image.so(i => s"![](${picfitApi.url.automod(i.id, none)})\n") + text
+      post.markdown.map: markdown =>
+        val mainImageAsMarkdown = post.image.so(i => s"![](${picfitApi.url.automod(i.id, none)})\n")
+        mainImageAsMarkdown + markdown
     val assessText =
       val userText = post.allText.take(40_000) // match bin/ublog-automod.mjs hash
       automod
@@ -79,8 +80,8 @@ private final class UblogAutomod(
           model = modelSetting.get(),
           temperature = temperature
         )
-        .map:
-          _.flatMap(normalize).so: res =>
+        .map: res =>
+          normalize(res).so: res =>
             lila.mon.ublog.automod.quality(res.quality.toString).increment()
             lila.mon.ublog.automod.flagged(res.flagged.isDefined).increment()
             res.copy(hash = Algo.sha256(userText).hex.take(12).some).some // match bin/ublog-automod.mjs hash

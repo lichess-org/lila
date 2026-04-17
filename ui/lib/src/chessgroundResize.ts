@@ -1,8 +1,9 @@
 import type { Elements } from '@lichess-org/chessground/types';
-import * as xhr from './xhr';
+
 import { debounce } from './async';
 import { ShowResizeHandle } from './prefs';
 import { pubsub } from './pubsub';
+import * as xhr from './xhr';
 
 type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
 

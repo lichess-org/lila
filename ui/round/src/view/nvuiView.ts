@@ -1,39 +1,32 @@
-import type { RoundNvuiContext } from '../round.nvui';
-import type RoundController from '../ctrl';
-import { type LooseVNodes, type VNode, bind, hl, noTrans, onInsert } from 'lib/view';
-import { renderClock } from 'lib/game/clock/clockView';
-import { type Player, type TopOrBottom, playable } from 'lib/game';
-import { renderTableWatch, renderTablePlay, renderTableEnd } from './table';
-import { scanDirectionsHandler } from 'lib/nvui/directionScan';
-import { commands, boardCommands } from 'lib/nvui/command';
-import { plyToTurn } from 'lib/game/chess';
-import { renderSetting } from 'lib/nvui/setting';
-import * as nv from 'lib/nvui/chess';
 import { Chessground as makeChessground } from '@lichess-org/chessground';
-import { makeConfig as makeCgConfig } from '../ground';
+import { COLORS, opposite } from 'chessops';
+
+import { isTouchDevice } from 'lib/device';
+import { type Player, type TopOrBottom, playable } from 'lib/game';
+import { plyToTurn } from 'lib/game/chess';
+import { renderClock } from 'lib/game/clock/clockView';
+import * as nv from 'lib/nvui/chess';
+import { commands, boardCommands } from 'lib/nvui/command';
+import { scanDirectionsHandler } from 'lib/nvui/directionScan';
+import { renderSetting } from 'lib/nvui/setting';
+import { type LooseVNodes, type VNode, bind, hl, noTrans, onInsert } from 'lib/view';
+
 import renderCorresClock from '../corresClock/corresClockView';
-import { renderResult } from './replay';
-import { plyStep } from '../util';
+import type RoundController from '../ctrl';
+import { makeConfig as makeCgConfig } from '../ground';
 import type { Step } from '../interfaces';
 import { next, prev } from '../keyboard';
-import { opposite } from 'chessops';
+import type { RoundNvuiContext } from '../round.nvui';
+import { plyStep } from '../util';
+import { renderResult } from './replay';
+import { renderTableWatch, renderTablePlay, renderTableEnd } from './table';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
 const errorSound = () => site.sound.play('error');
 
 export function renderNvui(ctx: RoundNvuiContext): VNode {
-  const {
-    ctrl,
-    notify,
-    moveStyle,
-    pieceStyle,
-    prefixStyle,
-    positionStyle,
-    boardStyle,
-    pageStyle,
-    deviceType,
-  } = ctx;
+  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
   notify.redraw = ctrl.redraw;
   if (!ctrl.chessground) {
     ctrl.setChessground(
@@ -45,7 +38,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       }),
     );
   }
-  if (deviceType.get() === 'touchscreen' && pageStyle.get() === 'board-actions') {
+  if (isTouchDevice() && pageStyle.get() === 'board-actions') {
     pieceStyle.set('name');
     prefixStyle.set('name');
     boardStyle.set('plain');
@@ -154,9 +147,7 @@ function gameInfo(ctx: RoundNvuiContext): LooseVNodes {
   return [
     hl('h1', gameText(ctrl)),
     hl('h2', i18n.nvui.gameInfo),
-    ['white', 'black'].map((color: Color) =>
-      hl('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))]),
-    ),
+    COLORS.map(color => hl('p', [i18n.site[color], ':', playerHtml(ctrl, ctrl.playerByColor(color))])),
     hl('p', [i18n.site[d.game.rated ? 'rated' : 'casual'] + ' ' + transGamePerf(d.game.perf)]),
     d.clock ? hl('p', [i18n.site.clock, `${d.clock.initial / 60} + ${d.clock.increment}`]) : null,
     hl('h2', i18n.nvui.moveList),
@@ -246,7 +237,12 @@ function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
     hl('h2', i18n.site.board),
     hl(
       'div.board',
-      { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
+      {
+        hook: {
+          insert: el => boardEventsHook(ctx, el.elm as HTMLElement),
+          update: (_, vnode) => boardEventsHook(ctx, vnode.elm as HTMLElement),
+        },
+      },
       nv.renderBoard(
         ctrl.chessground.state.pieces,
         ctrl.data.game.variant.key === 'racingKings'
@@ -276,20 +272,27 @@ function flipBoard(ctx: RoundNvuiContext): void {
 }
 
 function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
-  const { ctrl, prefixStyle, pieceStyle, moveStyle, deviceType } = ctx;
+  const { ctrl, prefixStyle, pieceStyle, moveStyle } = ctx;
 
   const $board = $(el);
-  const $buttons = $board.find('button');
-  $buttons.on('blur', nv.leaveSquareHandler($buttons));
-  $buttons.on(
-    'click',
+  // Remove old handlers before rebinding (important on re-render)
+  $board.off('.nvui');
+  // NVUI re-renders the board, recreating <button> elements.
+  // Avoid binding events directly to buttons, as references
+  // become stale. Use delegation on $board instead.
+  $board.on('blur.nvui', 'button', e => {
+    nv.leaveSquareHandler($board.find('button'))(e);
+  });
+
+  $board.on('click.nvui', 'button', e => {
     nv.selectionHandler(
       () => ctrl.data.opponent.color,
-      deviceType.get() === 'touchscreen',
+      isTouchDevice(),
       ctrl.data.game.variant.key === 'antichess',
-    ),
-  );
-  $buttons.on('keydown', (e: KeyboardEvent) => {
+    )(e);
+  });
+
+  $board.on('keydown.nvui', 'button', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
     else if (e.key.match(/^x$/i))
       scanDirectionsHandler(

@@ -3,15 +3,11 @@ import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.id.{ GameFullId, ImageId }
 import lila.web.{ StaticContent, WebForms }
 
-final class Main(
-    env: Env,
-    assetsC: ExternalAssets
-) extends LilaController(env):
+final class Main(env: Env, assetsC: ExternalAssets) extends LilaController(env):
 
   def toggleBlindMode = OpenBody:
     bindForm(WebForms.blind)(
@@ -87,7 +83,7 @@ final class Main(
 
   def faq = Open:
     pageHit
-    Ok.page(views.site.page.faq.apply)
+    Ok.page(views.site.page.faq)
 
   def temporarilyDisabled(@annotation.nowarn path: String) = Open:
     pageHit
@@ -126,15 +122,6 @@ final class Main(
       StaticContent.legacyQaQuestion(id)
 
   def devAsset(@annotation.nowarn v: String, path: String, file: String) = assetsC.at(path, file)
-
-  private val externalMonitorOnce = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
-  def externalLink(tag: String) = Open:
-    StaticContent.externalLinks
-      .get(tag)
-      .so: url =>
-        if HTTPRequest.isCrawler(ctx.req).no && externalMonitorOnce(s"$tag/${ctx.ip}")
-        then lila.mon.link.external(tag, ctx.isAuth).increment()
-        Redirect(url)
 
   def uploadImage(rel: String) = AuthBody(lila.web.HashedMultiPart(parse)) { ctx ?=> me ?=>
     lila.core.security

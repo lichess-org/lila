@@ -1,11 +1,14 @@
-import * as licon from 'lib/licon';
-import { bind, onInsert, spinnerVdom } from 'lib/view';
-import { requestIdleCallback } from 'lib';
-import { h, type VNode } from 'snabbdom';
-import type AnalyseCtrl from '../ctrl';
 import type { ChartGame, AcplChart } from 'chart';
-import type { AnalyseData } from '../interfaces';
+import { h, type VNode } from 'snabbdom';
+
+import { requestIdleCallback } from 'lib';
+import * as licon from 'lib/licon';
 import { pubsub } from 'lib/pubsub';
+import type { TreeNode } from 'lib/tree/types';
+import { bind, onInsert, spinnerVdom } from 'lib/view';
+
+import type AnalyseCtrl from '../ctrl';
+import type { AnalyseData } from '../interfaces';
 import { stockfishName } from '../serverSideUnderboard';
 
 export const chartSpinner = (): VNode =>
@@ -36,7 +39,7 @@ export default class ServerEval {
 
   updateChart = (d: AnalyseData) => this.chart?.updateData(d, this.analysedMainline());
 
-  analysedMainline = () =>
+  analysedMainline = (): TreeNode[] =>
     this.root.mainline.slice(0, (this.root.study?.data.chapter?.serverEval?.path?.length || 999) / 2 + 1);
 }
 

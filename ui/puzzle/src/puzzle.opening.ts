@@ -1,7 +1,7 @@
 import { initMiniBoardWith } from 'lib/view';
 
 site.load.then(() => {
-  const rootEl = document.querySelector('.puzzle-openings') as HTMLElement | undefined;
+  const rootEl = document.querySelector<HTMLElement>('.puzzle-openings');
   if (rootEl && !('ontouchstart' in window)) loadBoardTips(rootEl);
 });
 

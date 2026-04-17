@@ -1,10 +1,13 @@
 import { opposite } from '@lichess-org/chessground/util';
-import { evalSwings } from '../nodeFinder';
+
+import { isEmpty, type Prop, prop } from 'lib';
 import { winningChances } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
-import { isEmpty, type Prop, prop } from 'lib';
-import type { OpeningData } from '../explorer/interfaces';
+import type { TreeNode } from 'lib/tree/types';
+
 import type AnalyseCtrl from '../ctrl';
+import type { OpeningData } from '../explorer/interfaces';
+import { evalSwings } from '../nodeFinder';
 
 export interface RetroCtrl {
   isSolving(): boolean;
@@ -16,8 +19,8 @@ export interface RetroCtrl {
   jumpToNext(): void;
   skip(): void;
   viewSolution(): void;
-  hideComputerLine(node: Tree.Node): boolean;
-  showBadNode(): Tree.Node | undefined;
+  hideComputerLine(node: TreeNode): boolean;
+  showBadNode(): TreeNode | undefined;
   onCeval(): void;
   onMergeAnalysisData(): void;
   completion(): [number, number];
@@ -25,13 +28,13 @@ export interface RetroCtrl {
   flip(): void;
   preventGoingToNextMove(): boolean;
   close(): void;
-  node(): Tree.Node;
+  node(): TreeNode;
   redraw: Redraw;
   forceCeval(): boolean;
 }
 
 interface NodeWithPath {
-  node: Tree.Node;
+  node: TreeNode;
   path: string;
 }
 
@@ -46,7 +49,7 @@ type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view' | 'offTrack';
 
 export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   const game = root.data.game;
-  let candidateNodes: Tree.Node[] = [];
+  let candidateNodes: TreeNode[] = [];
   const explorerCancelPlies: number[] = [];
   let solvedPlies: number[] = [];
   const current = prop<Retrospection | null>(null);
@@ -56,11 +59,11 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     if (!site.blindMode) root.redraw();
   }
 
-  function isPlySolved(ply: Ply): boolean {
-    return solvedPlies.includes(ply);
-  }
+  // TODO these functions return false positives for variation plies.
+  const isPlySolved = (ply: Ply): boolean => solvedPlies.includes(ply);
+  const isPlyLearnCandidate = (ply: Ply): boolean => candidateNodes.some(n => n.ply === ply);
 
-  function findNextNode(): Tree.Node | undefined {
+  function findNextNode(): TreeNode | undefined {
     const colorModulo = color === 'white' ? 1 : 0;
     candidateNodes = evalSwings(
       root.mainline,
@@ -146,11 +149,10 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     root.setAutoShapes();
   }
 
-  function isCevalReady(node: Tree.Node): boolean {
-    return node.ceval
+  const isCevalReady = (node: TreeNode): boolean =>
+    node.ceval
       ? node.ceval.depth >= 18 || (node.ceval.depth >= 14 && (node.ceval.millis ?? 0) > 6000)
       : false;
-  }
 
   function checkCeval(): void {
     const node = root.node,
@@ -196,20 +198,15 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     if (current()) solvedPlies.push(current()!.fault.node.ply);
   }
 
-  function hideComputerLine(node: Tree.Node): boolean {
-    return (node.ply % 2 === 0) !== (color === 'white') && !isPlySolved(node.ply);
-  }
+  const hideComputerLine = (node: TreeNode): boolean =>
+    isPlyLearnCandidate(node.ply) && !isPlySolved(node.ply);
 
-  function showBadNode(): Tree.Node | undefined {
+  function showBadNode(): TreeNode | undefined {
     const cur = current();
-    if (cur && isSolving() && cur.prev.path === root.path) return cur.fault.node;
-    return undefined;
+    return cur && isSolving() && cur.prev.path === root.path ? cur.fault.node : undefined;
   }
 
-  function isSolving(): boolean {
-    const fb = feedback();
-    return fb === 'find' || fb === 'fail';
-  }
+  const isSolving = (): boolean => ['find', 'fail'].includes(feedback());
 
   jumpToNext();
 

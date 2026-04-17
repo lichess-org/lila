@@ -14,7 +14,7 @@
   <string name="onlyOnInitialPosition">शुरुवाती पोजिशनमा मात्र</string>
   <string name="chessClock">बुद्धिचाल घडी</string>
   <string name="tenthsOfSeconds">सेकेन्ड को दश भाग</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">जब १० सेकेण्ड भन्दा कम समय बाँकि हुन्छ</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">जब १० सेकेण्ड भन्दा कम समय बाँकि हुन्छ</string>
   <string name="horizontalGreenProgressBars">हरियो ठाडो प्रगति देखाउने रेखा</string>
   <string name="soundWhenTimeGetsCritical">समय कम बाँकी रहदा ध्वनी</string>
   <string name="giveMoreTime">थप समय दिनु</string>
@@ -28,7 +28,7 @@
   <string name="promoteToQueenAutomatically">आफै मन्त्री बनाउने</string>
   <string name="whenPremoving">प्रिमुभ गर्दा</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">आफै तीनपटक को दोहोरी मा बराबरी दाबी गर्ने</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">जब ३० सेकेण्ड भन्दा कम समय बाँकि हुन्छ</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">जब ३० सेकेण्ड भन्दा कम समय बाँकि हुन्छ</string>
   <string name="moveConfirmation">चाल पुष्टिकरण</string>
   <string name="inCorrespondenceGames">पत्रचारिक खेलहरु</string>
   <string name="correspondenceAndUnlimited">पत्रचारिक तथा अनिश्चितकालीन</string>

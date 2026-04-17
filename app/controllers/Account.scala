@@ -14,12 +14,15 @@ import lila.web.AnnounceApi
 import lila.core.user.KidMode
 import lila.security.IsPwned
 import lila.core.security.ClearPassword
+import lila.core.net.ValidReferrer
 
 final class Account(
     env: Env,
     auth: Auth,
     apiC: => Api
 ) extends LilaController(env):
+
+  private given (using Context): Option[ValidReferrer] = env.web.referrerRedirect.fromReq
 
   def profile = Auth { _ ?=> me ?=>
     Ok.page:
@@ -94,7 +97,7 @@ final class Account(
 
   val apiMe = Scoped() { ctx ?=> me ?=>
     def limited = rateLimited:
-      "Please don't poll this endpoint. Stream https://lichess.org/api#tag/board/get/apistreamevent instead."
+      "Please don't poll this endpoint. Stream https://lichess.org/api#tag/board/GET/api/stream/event instead."
     val wikiGranted = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
     if getBool("wiki") && !wikiGranted then Unauthorized(jsonError("Wiki access not granted"))
     else
@@ -102,11 +105,13 @@ final class Account(
         env.api.userApi
           .extended(
             me.value,
-            withFollows = apiC.userWithFollows,
-            withTrophies = false,
-            withCanChallenge = false,
-            withPlayban = getBool("playban"),
-            forWiki = wikiGranted
+            lila.api.UserApi.Opts(
+              withFollows = apiC.userWithFollows,
+              withTrophies = false,
+              withCanChallenge = false,
+              withPlayban = getBool("playban"),
+              forWiki = wikiGranted
+            )
           )
           .dmap { JsonOk(_) }
   }
@@ -147,6 +152,7 @@ final class Account(
           val newPass = ClearPassword(data.newPasswd1)
           for
             _ <- env.security.authenticator.setPassword(me, newPass)
+            _ <- env.mod.logApi.setPassword
             pwned <- env.security.pwned.isPwned(newPass)
             res <- refreshSessionId(Redirect(routes.Account.passwd).flashSuccess, pwned)
           yield res
@@ -168,7 +174,8 @@ final class Account(
     else
       for
         f <- emailForm
-        res <- Ok.page(pages.email(f))
+        managed <- env.clas.api.student.isManaged(me)
+        res <- Ok.page(pages.email(f, managed))
       yield res.hasPersonalData
   }
 
@@ -177,33 +184,39 @@ final class Account(
       JsonOk(Json.obj("email" -> email.value))
   }
 
-  def renderCheckYourEmail(using Context) =
+  def renderCheckYourEmail(using Context, Option[ValidReferrer]) =
     views.auth.checkYourEmail(lila.security.EmailConfirm.cookie.get(ctx.req).map(_.email))
 
   def emailApply = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
-      env.security.forms.preloadEmailDns() >> emailForm.flatMap: form =>
-        FormFuResult(form)(err => renderPage(pages.email(err))): data =>
+      for
+        _ <- env.security.forms.preloadEmailDns()
+        form <- emailForm
+        managed <- env.clas.api.student.isManaged(me)
+        res <- FormFuResult(form)(err => renderPage(pages.email(err, managed))): data =>
           val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.email)
           auth.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
             env.security.emailChange
               .send(me, newUserEmail.email)
               .inject(Redirect(routes.Account.email).flashSuccess:
                 lila.core.i18n.I18nKey.site.checkYourEmail.txt())
+      yield res
   }
 
   def emailConfirm(token: String) = Open:
-    Found(env.security.emailChange.confirm(token)): (user, prevEmail) =>
+    Found(env.security.emailChange.confirm(token)): (me, prevEmail, newEmail) =>
+      given Me = me
       for
-        _ <- prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(user))
+        _ <- prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(me))
+        _ <- env.mod.logApi.setEmail(me.userId, prevEmail, newEmail)
         res <- auth.authenticateUser(
-          user,
+          me,
           pwned = IsPwned.No,
           remember = true,
           result =
             if prevEmail.exists(_.isNoReply)
-            then Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
-            else Some(_ => Redirect(routes.Account.email).flashSuccess)
+            then Redirect(routes.User.show(me.username)).flashSuccess.some
+            else Redirect(routes.Account.email).flashSuccess.some
         )
       yield res
 
@@ -223,8 +236,7 @@ final class Account(
         )
 
   def twoFactor = Auth { _ ?=> me ?=>
-    if me.totpSecret.isDefined
-    then
+    if me.totpSecret.isDefined then
       env.security.forms.disableTwoFactor.flatMap: f =>
         Ok.page(views.account.twoFactor.disable(f))
     else

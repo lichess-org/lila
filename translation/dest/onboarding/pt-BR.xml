@@ -12,7 +12,7 @@
   <string name="playOpponentsFromAroundTheWorld">Jogar contra adversários de todo o mundo.</string>
   <string name="followYourFriendsOnLichess">Seguir seus amigos no Lichess.</string>
   <string name="playInTournaments">Jogar torneios.</string>
-  <string name="learnFromXAndY">Aprenda com %1$s e %2$s.</string>
+  <string name="learnFromXAndY">Aprender com %1$s e %2$s.</string>
   <string name="configureLichess">Configure o Lichess do seu modo.</string>
   <string name="exploreTheSiteAndHaveFun">Explore o site e divirta-se :)</string>
 </resources>

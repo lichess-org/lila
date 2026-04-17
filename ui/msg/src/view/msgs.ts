@@ -1,10 +1,12 @@
 import { h, type VNode } from 'snabbdom';
+
+import { alert, confirm, makeLinkPopups, bind } from 'lib/view';
 import { json as xhrJson, form as xhrForm } from 'lib/xhr';
+
+import type MsgCtrl from '../ctrl';
 import type { Convo, Msg, Daily } from '../interfaces';
 import { enhance, isMoreThanText, expandLpvs } from './enhance';
 import { scroller } from './scroller';
-import type MsgCtrl from '../ctrl';
-import { alert, confirm, makeLinkPopups, bind } from 'lib/view';
 
 export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
   return h('div.msg-app__convo__msgs', { hook: { insert: setupMsgs(true), postpatch: setupMsgs(false) } }, [

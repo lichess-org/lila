@@ -151,13 +151,15 @@ final private[api] class RoundApi(
       pref: Pref,
       initialFen: Option[Fen.Full],
       orientation: Color,
-      owner: Boolean
+      owner: Boolean,
+      addLichobileCompat: Boolean = false
   )(using Option[Me]) =
     owner
       .so(forecastApi.loadForDisplay(pov))
       .map: fco =>
         withForecast(pov, fco):
-          withTree(pov, analysis = none, initialFen, ExportOptions(opening = true)):
+          val opts = ExportOptions(lichobileCompat = addLichobileCompat)
+          withTree(pov, analysis = none, initialFen, opts):
             jsonView.userAnalysisJson(
               pov,
               pref,

@@ -1,47 +1,22 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 import { h, type Hooks, type VNode, type Attrs } from 'snabbdom';
-import { bind } from './snabbdom';
+
+import { isMac } from '@/device';
 import { toggle as baseToggle, type Toggle } from '@/index';
-import * as xhr from '@/xhr';
 import * as licon from '@/licon';
+import * as xhr from '@/xhr';
 
-export interface ToggleSettings {
-  name: string;
-  title?: string;
-  id: string;
-  checked: boolean;
-  disabled?: boolean;
-  cls?: string;
-  change(v: boolean): void;
-}
-
-export function toggle(t: ToggleSettings, redraw: () => void): VNode {
-  const fullId = 'abset-' + t.id;
-  return h(
-    'div.setting.' + fullId + (t.cls ? '.' + t.cls : ''),
-    t.title ? { attrs: { title: t.title } } : {},
-    [
-      h('div.switch', [
-        h('input#' + fullId + '.cmn-toggle', {
-          attrs: { type: 'checkbox', checked: t.checked, disabled: !!t.disabled },
-          hook: bind('change', e => t.change((e.target as HTMLInputElement).checked), redraw),
-        }),
-        h('label', { attrs: { for: fullId } }),
-      ]),
-      h('label', { attrs: { for: fullId } }, t.name),
-    ],
-  );
+export function enter<E extends HTMLElement>(effect: (target: E) => void) {
+  return (e: Event): void => {
+    if (e instanceof KeyboardEvent && e.key === 'Enter') effect(e.target as E);
+  };
 }
 
 export function toggleBoxInit(): void {
   $('.toggle-box--toggle:not(.toggle-box--ready)').each(function (this: HTMLFieldSetElement) {
     const toggle = () => this.classList.toggle('toggle-box--toggle-off');
-    $(this)
-      .addClass('toggle-box--ready')
-      .children('legend')
-      .on('click', toggle)
-      .on('keypress', e => e.key === 'Enter' && toggle());
+    $(this).addClass('toggle-box--ready').children('legend').on('click', toggle).on('keydown', enter(toggle));
   });
 }
 
@@ -65,8 +40,26 @@ export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => v
     effect();
   });
 
-export function stepwiseScroll(inner: (e: WheelEvent, scroll: boolean) => void): (e: WheelEvent) => void {
-  return (e: WheelEvent) => inner(e, !e.ctrlKey); // if touchpad zooming, e.ctrlKey is true
+export function stepwiseScroll(
+  scrollAction: (e: WheelEvent) => void,
+  shouldSkip: (e: WheelEvent) => boolean,
+  ifSkipShouldStillPreventDefault?: boolean,
+): (e: WheelEvent) => void {
+  let accumulatedDeltaPixelMode = 0;
+  return (e: WheelEvent) => {
+    if (e.ctrlKey) return; // if touchpad zooming, e.ctrlKey is true
+    if (shouldSkip(e)) {
+      if (ifSkipShouldStillPreventDefault) e.preventDefault();
+      return;
+    }
+    e.preventDefault();
+    if (e.deltaMode === 0) {
+      accumulatedDeltaPixelMode += e.deltaY;
+      if (isMac() && Math.abs(accumulatedDeltaPixelMode) < 10) return;
+    }
+    accumulatedDeltaPixelMode = 0;
+    scrollAction(e);
+  };
 }
 
 export function copyMeInput(content: string, inputAttrs: Attrs = {}): VNode {
@@ -90,6 +83,7 @@ export const addPasswordVisibilityToggleListener = (): void => {
       const type = $input.attr('type') === 'password' ? 'text' : 'password';
       $input.attr('type', type);
       $button.toggleClass('revealed', type === 'text');
+      $input[0]?.focus();
     });
   });
 };
@@ -115,13 +109,7 @@ export const spinnerHtml: string = $html`
       <g mask="url(#mask)" fill="none">
         ${pathAttrs.map(
           (a, i) =>
-            '<path id="' +
-            String.fromCharCode(97 + i) +
-            '" stroke-width="' +
-            a['stroke-width'] +
-            '" d="' +
-            a.d +
-            '"/>',
+            `<path id="${String.fromCharCode(97 + i)}" stroke-width="${a['stroke-width']}" d="${a.d}"/>`,
         )}
       </g>
     </svg>

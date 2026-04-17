@@ -40,8 +40,8 @@
     <item quantity="one">Pidä se lyhyenä: %s merkki enintään</item>
     <item quantity="other">Pidä se lyhyenä: %s merkkiä enintään</item>
   </plurals>
-  <string name="visibility">Näkyy striimaajat-sivulla</string>
-  <string name="whenApproved">Kun moderaattori hyväksyy</string>
+  <string name="visibility" comment="A togglable setting. When enabled, the streamer profile you created will be listed on https://lichess.org/streamer">Näkyy striimaajat-sivulla</string>
+  <string name="whenApproved" comment="Subtitle to &quot;Visible on the streamers page&quot;.&#10;&#10;This subtitle is to clarify that Lichess moderators approve all applications for the https://lichess.org/streamer page">Kun moderaattori hyväksyy</string>
   <string name="headline">Otsikko</string>
   <string name="tellUsAboutTheStream">Kerro striimistäsi yhdellä lauseella</string>
   <string name="longDescription">Pitkä kuvaus</string>

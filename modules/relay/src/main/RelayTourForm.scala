@@ -6,7 +6,6 @@ import play.api.data.format.Formatter
 import io.mola.galimatias.URL
 import java.time.ZoneId
 import chess.tiebreak.Tiebreak
-import chess.FideTC
 
 import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, typeIn, url }
 import lila.core.perm.Granter
@@ -15,19 +14,17 @@ import lila.core.study.Visibility
 final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGroupForm):
 
   import RelayTourForm.*
+  import lila.study.StudyForm.given
 
   private val spotlightMapping =
     mapping("enabled" -> boolean, "lang" -> langList.popularLanguagesForm.mapping, "title" -> optional(text))(
       RelayTour.Spotlight.apply
     )(unapply)
 
-  private given Formatter[FideTC] = formatter.stringFormatter(_.toString, FideTC.valueOf)
-  private val fideTcMapping: Mapping[FideTC] = typeIn(FideTC.values.toSet)
-
   private val infoMapping = mapping(
     "format" -> optional(cleanText(maxLength = 80)),
     "tc" -> optional(cleanText(maxLength = 80)),
-    "fideTc" -> optional(fideTcMapping),
+    "fideTC" -> optional(fideTCMapping),
     "location" -> optional(cleanText(maxLength = 80)),
     "timeZone" -> optional(lila.common.Form.timeZone.field),
     "players" -> optional(cleanText(maxLength = 120)),
@@ -42,8 +39,6 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
     "text" -> optional(cleanText(maxLength = 100))
   )(RelayPinnedStream.apply)(unapply)
 
-  private given Formatter[Visibility] =
-    formatter.stringOptionFormatter[Visibility](_.key, Visibility.byKey.get)
   private given Formatter[RelayTour.Tier] =
     formatter.intOptionFormatter[RelayTour.Tier](_.v, RelayTour.Tier.byV.get)
 
@@ -71,15 +66,20 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       "teams" -> optional(
         of(using formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
       ),
+      "showTeamScores" -> boolean,
       "spotlight" -> optional(spotlightMapping),
-      "grouping" -> groupForm.mapping,
-      "sharePlayers" -> boolean,
+      "grouping" -> optional(groupForm.mapping),
       "pinnedStream" -> optional(pinnedStreamMapping),
-      "note" -> optional(nonEmptyText(maxLength = 20_000))
+      "note" -> optional(nonEmptyText(maxLength = 20_000)),
+      "orphanWarn" -> boolean
     )(Data.apply)(unapply)
       .verifying(
         "Tiebreaks submitted without automatic scoring enabled",
         tour => tour.tiebreaks.forall(_ => tour.showScores)
+      )
+      .verifying(
+        "Team scores can only be shown if team table is enabled",
+        tour => !tour.showTeamScores || tour.teamTable
       )
   ).fill(Data.empty)
 
@@ -92,7 +92,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
     Data(
       name = tour.name,
       info = tour.info.copy(
-        fideTc = tour.info.fideTcOrGuess.some,
+        fideTC = tour.info.fideTCOrGuess.some,
         timeZone = tour.info.timeZoneOrDefault.some
       ),
       markup = tour.markup,
@@ -104,14 +104,19 @@ final class RelayTourForm(langList: lila.core.i18n.LangList, groupForm: RelayGro
       teamTable = tour.teamTable,
       players = tour.players,
       teams = tour.teams,
+      showTeamScores = tour.showTeamScores,
       spotlight = tour.spotlight,
       grouping = group.map(groupForm.data),
-      sharePlayers = group.so(_.group.sharePlayers),
       pinnedStream = tour.pinnedStream,
-      note = tour.note
+      note = tour.note,
+      orphanWarn = tour.orphanWarn
     )
 
 object RelayTourForm:
+
+  import chess.FideTC
+  given Formatter[FideTC] = formatter.stringFormatter(_.toString, FideTC.valueOf)
+  val fideTCMapping: Mapping[FideTC] = typeIn(FideTC.values.toSet)
 
   case class Data(
       name: RelayTour.Name,
@@ -125,11 +130,12 @@ object RelayTourForm:
       teamTable: Boolean = false,
       players: Option[RelayPlayersTextarea] = none,
       teams: Option[RelayTeamsTextarea] = none,
+      showTeamScores: Boolean = false,
       spotlight: Option[RelayTour.Spotlight] = none,
       grouping: Option[RelayGroupData] = none,
-      sharePlayers: Boolean = false,
       pinnedStream: Option[RelayPinnedStream] = none,
-      note: Option[String] = none
+      note: Option[String] = none,
+      orphanWarn: Boolean = true
   ):
 
     def update(tour: RelayTour)(using me: Me) =
@@ -146,9 +152,11 @@ object RelayTourForm:
           teamTable = teamTable,
           players = players,
           teams = teams,
+          showTeamScores = showTeamScores,
           spotlight = if Granter(_.StudyAdmin) then spotlight.filterNot(_.isEmpty) else tour.spotlight,
           pinnedStream = if Granter(_.StudyAdmin) then pinnedStream else tour.pinnedStream,
-          note = note
+          note = note,
+          orphanWarn = if Granter(_.StudyAdmin) then orphanWarn else tour.orphanWarn
         )
         .giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
@@ -167,13 +175,15 @@ object RelayTourForm:
         syncedAt = none,
         showScores = showScores,
         showRatingDiffs = showRatingDiffs,
+        showTeamScores = showTeamScores,
         tiebreaks = tiebreaks,
         teamTable = teamTable,
         players = players,
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty).ifTrue(Granter(_.StudyAdmin)),
         pinnedStream = pinnedStream.ifTrue(Granter(_.StudyAdmin)),
-        note = note
+        note = note,
+        orphanWarn = orphanWarn || !Granter(_.StudyAdmin)
       ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:

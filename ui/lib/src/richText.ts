@@ -1,9 +1,10 @@
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 // Rich Text helper functions
 // Refactored for https://github.com/lichess-org/lila/issues/7342 request
-import type { VNode, Hooks } from 'snabbdom';
-import { escapeHtml } from './index';
+import type { Hooks, VNode } from 'snabbdom';
+
+import { escapeHtml } from './common';
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
 export const linkRegex: RegExp =
@@ -91,6 +92,5 @@ export function enhance(text: string, opts?: EnhanceOpts): string {
   const escaped = escapeHtml(text);
   const linked = escaped.replace(userPattern, userLinkReplacePawn).replace(linkPattern, linkReplace);
   const plied = opts?.plies && linked === escaped ? addPlies(linked) : linked;
-  const boarded = opts?.boards && linked === escaped ? addBoards(plied) : linked;
-  return boarded;
+  return opts?.boards && linked === escaped ? addBoards(plied) : linked;
 }

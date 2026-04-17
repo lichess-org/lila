@@ -10,7 +10,7 @@
   <string name="copyTokenNow">Kopiatu zure sarbide-token pertsonala orain. Ezingo duzu berriz ikusi!</string>
   <string name="preferenceRead">Aukerak irakurri</string>
   <string name="preferenceWrite">Aukerak idatzi</string>
-  <string name="emailRead">Eposta helbidea irakurri</string>
+  <string name="emailRead">Irakurri emaila</string>
   <string name="challengeRead">Datozen erronkak irakurri</string>
   <string name="challengeWrite">Erronkak bidali, onartu eta ukatu</string>
   <string name="challengeBulk">Beste jokalari batzuentzat hainbat partida aldi berean sortu</string>
@@ -29,7 +29,6 @@
   <string name="botPlay">Roboten APIarekin partidak jokatu</string>
   <string name="engineRead">Kanpoko motoreak ikusi eta erabili</string>
   <string name="engineWrite">Kanpoko motoreak sortu eta eguneratu</string>
-  <string name="webLogin">Webguneko sesioak sortu (sarbide osoa ematen du!)</string>
   <string name="webMod">Moderatzaileen tresnak erabili (dituzun baimenen barruan)</string>
   <string name="personalAccessTokens">APIrako sarbide-token pertsonala</string>
   <string name="canMakeOauthRequests">OAuth eskaerak %s erabili gabe egin ditzakezu.</string>

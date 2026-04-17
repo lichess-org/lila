@@ -2,9 +2,9 @@ package lila.user
 
 import play.api.libs.json.*
 
-import lila.common.Json.{ writeAs, given }
+import lila.common.Json.given
 import lila.core.LightUser
-import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs, UserWithPerfs }
+import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs }
 import lila.core.user.{ LightPerf, PlayTime, Profile }
 import lila.core.rating.UserRankMap
 import lila.rating.UserPerfsExt.perfsList
@@ -13,8 +13,6 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
 
   import JsonView.{ *, given }
   import lila.user.Profile.*
-  private given OWrites[Profile] = Json.writes
-  private given OWrites[PlayTime] = Json.writes
 
   def full(
       u: User,
@@ -38,7 +36,7 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
     if u.enabled.no then disabled(u.light)
     else base(u, perf).add("online" -> isOnline.exec(u.id))
 
-  private def base(u: User, perfs: Option[UserPerfs | KeyedPerf], rankMap: Option[UserRankMap] = None) =
+  def base(u: User, perfs: Option[UserPerfs | KeyedPerf], rankMap: Option[UserRankMap] = None) =
     Json
       .obj(
         "id" -> u.id,
@@ -68,7 +66,8 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
 
 object JsonView:
 
-  val nameWrites: Writes[UserWithPerfs] = writeAs(_.user.username)
+  given OWrites[Profile] = Json.writes
+  given OWrites[PlayTime] = Json.writes
 
   given lightPerfWrites: OWrites[LightPerf] = OWrites[LightPerf]: l =>
     Json

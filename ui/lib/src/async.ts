@@ -3,7 +3,7 @@
  * flight. Any extra calls are dropped, except the last one, which waits for
  * the previous call to complete.
  */
-/* eslint no-restricted-syntax:"error" */ // no side effects allowed due to re-export by index.ts
+// no side effects allowed due to re-export by index.ts
 
 export function throttlePromiseWithResult<R, T extends (...args: any) => Promise<R>>(
   wrapped: T,
@@ -33,7 +33,7 @@ export function throttlePromiseWithResult<R, T extends (...args: any) => Promise
     if (!current) return runCurrent();
 
     pending?.reject();
-    const next = new Promise<R>((resolve, reject) => {
+    return new Promise<R>((resolve, reject) => {
       pending = {
         run: () =>
           runCurrent().then(
@@ -49,7 +49,6 @@ export function throttlePromiseWithResult<R, T extends (...args: any) => Promise
         reject: () => reject(new Error('Throttled')),
       };
     });
-    return next;
   };
 }
 

@@ -1,12 +1,16 @@
 package lila.game
 
 enum GameFilter:
-  val name = lila.common.String.lcfirst(toString)
-  case All, Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search
+  val name = toString
+  case all, me, rated, win, loss, draw, playing, bookmark, imported, search
 
 object GameFilter:
-  val all: NonEmptyList[GameFilter] =
-    NonEmptyList.of(All, Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search)
+
+  val list: NonEmptyList[GameFilter] =
+    NonEmptyList.of(all, me, rated, win, loss, draw, playing, bookmark, imported, search)
+
+  def apply(name: String) =
+    list.find(_.name == name) | list.head
 
 case class GameFilterMenu(
     all: NonEmptyList[GameFilter],

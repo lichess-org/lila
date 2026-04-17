@@ -1,99 +1,118 @@
 package controllers
 
+import play.api.data.Form
 import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.LilaOpeningFamily
-import lila.core.perf.UserWithPerfs
 import lila.rating.PerfType
-import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorQueue }
+import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorConfig, TutorAvailability }
 
 final class Tutor(env: Env) extends LilaController(env):
 
-  def home = Secure(_.Beta) { _ ?=> me ?=>
+  def home = Auth { _ ?=> me ?=>
     Redirect(routes.Tutor.user(me.username))
   }
 
-  def user(username: UserStr) = TutorPage(username) { _ ?=> user => av =>
-    Ok.page(views.tutor.home(av, user))
+  def user(username: UserStr) = Auth { _ ?=> _ ?=>
+    WithUser(username): user =>
+      renderUser(user, TutorConfig.form.default)
   }
 
-  def perf(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
-    Ok.page(views.tutor.perf(full.report, perf, user))
+  private def renderUser(user: UserModel, form: Form[?])(using Context) =
+    for
+      withPerfs <- env.user.api.withPerfs(user)
+      av <- env.tutor.api.availability(withPerfs)
+      res <- av match
+        case TutorAvailability.InsufficientGames =>
+          Ok.page(views.tutor.home.insufficientGames(user.id))
+        case TutorAvailability.Available(home) =>
+          home.previews.headOption.ifTrue(getBool("waiting") && home.awaiting.isEmpty) match
+            case Some(done) => Redirect(done.config.url.root).toFuccess
+            case None => Ok.page(views.tutor.home(home, form, env.tutor.limit.status(user.id)))
+    yield res
+
+  def report(username: UserStr, range: String) = TutorReport(username, range) { _ ?=> full =>
+    Ok.page(views.tutor.report(full))
   }
 
-  def openings(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.tutor.openingUi.openings(perf, user))
+  def perf(username: UserStr, range: String, perf: PerfKey) = TutorPerfPage(username, range, perf) {
+    _ ?=> full => perf =>
+      Ok.page(views.tutor.perf(full, perf))
   }
 
-  def opening(username: UserStr, perf: PerfKey, color: Color, opName: String) =
-    TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+  def angle(username: UserStr, range: String, perf: PerfKey, angle: String) =
+    TutorPerfPage(username, range, perf) { _ ?=> full => perf =>
+      angle match
+        case "skills" => Ok.page(views.tutor.perf.skills(full, perf))
+        case "phases" => Ok.page(views.tutor.perf.phases(full, perf))
+        case "time" => Ok.page(views.tutor.perf.time(full, perf))
+        case "pieces" => Ok.page(views.tutor.perf.pieces(full, perf))
+        case "opening" => Ok.page(views.tutor.openingUi.openings(full, perf))
+        case _ => notFound
+    }
+
+  def opening(username: UserStr, range: String, perf: PerfKey, color: Color, opName: String) =
+    TutorPerfPage(username, range, perf) { _ ?=> full => perf =>
       LilaOpeningFamily
         .find(opName)
         .flatMap(perf.openings(color).find)
-        .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): family =>
-          env.puzzle.opening.find(family.family.key).flatMap { puzzle =>
-            Ok.page(views.tutor.opening(perf, family, color, user, puzzle))
-          }
+        .fold(Redirect(full.url.angle(perf.perf, "opening")).toFuccess): family =>
+          Ok.page(views.tutor.openingUi.opening(full, perf, family, color))
     }
 
-  def skills(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.tutor.perf.skills(perf, user))
+  def compute(username: UserStr) = AuthBody { _ ?=> _ ?=>
+    WithUser(username): user =>
+      bindForm(TutorConfig.form.dates)(
+        err => renderUser(user, err),
+        dates =>
+          val config = dates.config(user.id)
+          env.tutor.api
+            .get(config)
+            .flatMap:
+              case Some(report) => Redirect(report.url.root).toFuccess
+              case _ if env.tutor.limit.zero(user.id)(true) =>
+                for _ <- env.tutor.queue.enqueue(config)
+                yield Redirect(routes.Tutor.user(user.username))
+              case _ => Redirect(routes.Tutor.user(user.username)).toFuccess
+      )
   }
 
-  def phases(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.tutor.perf.phases(perf, user))
+  def delete(username: UserStr, range: String) = TutorReport(username, range) { _ ?=> full =>
+    for _ <- env.tutor.api.delete(full.config)
+    yield Redirect(routes.Tutor.user(username))
   }
 
-  def time(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.tutor.perf.time(perf, user))
-  }
-
-  def refresh(username: UserStr) = TutorPageAvailability(username) { _ ?=> user => availability =>
-    env.tutor.api.request(user, availability).inject(redirHome(user))
-  }
-
-  private def TutorPageAvailability(
-      username: UserStr
-  )(f: Context ?=> UserModel => TutorFullReport.Availability => Fu[Result]): EssentialAction =
-    Secure(_.Beta) { ctx ?=> me ?=>
-      def proceed(user: UserWithPerfs) = env.tutor.api.availability(user).flatMap(f(user.user))
-      if me.is(username) then env.user.api.withPerfs(me.value).flatMap(proceed)
+  private def WithUser(username: UserStr)(f: UserModel => Fu[Result])(using
+      me: Me
+  )(using Context): Fu[Result] =
+    val user: Fu[Option[UserModel]] =
+      if me.is(username) then fuccess(me.some)
       else
-        Found(env.user.api.withPerfs(username)): user =>
-          if isGranted(_.SeeInsight) then proceed(user)
-          else
-            (user.enabled.yes
-              .so(env.clas.api.clas.isTeacherOf(me, user.id)))
-              .flatMap:
-                if _ then proceed(user) else notFound
-    }
+        env.user.api
+          .byId(username.id)
+          .flatMapz: user =>
+            for canSee <- fuccess(isGranted(_.SeeInsight)) >>|
+                user.enabled.yes.so(env.clas.api.clas.isTeacherOf(me, user.id))
+            yield Option.when(canSee)(user)
+    Found(user)(f)
 
-  private def TutorPage(
-      username: UserStr
-  )(f: Context ?=> UserModel => TutorFullReport.Available => Fu[Result]): EssentialAction =
-    TutorPageAvailability(username) { _ ?=> user => availability =>
-      availability match
-        case TutorFullReport.InsufficientGames =>
-          BadRequest.page(views.tutor.home.empty.insufficientGames(user))
-        case TutorFullReport.Empty(in: TutorQueue.InQueue) =>
-          for
-            waitGames <- env.tutor.queue.waitingGames(user)
-            user <- env.user.api.withPerfs(user)
-            page <- renderPage(views.tutor.home.empty.queued(in, user, waitGames))
-          yield Accepted(page)
-        case TutorFullReport.Empty(_) => Accepted.page(views.tutor.home.empty.start(user))
-        case available: TutorFullReport.Available => f(user)(available)
-    }
-
-  private def TutorPerfPage(username: UserStr, perf: PerfKey)(
-      f: Context ?=> UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
+  private def TutorReport(username: UserStr, range: String)(
+      f: Context ?=> TutorFullReport => Fu[Result]
   ): EssentialAction =
-    TutorPage(username) { _ ?=> user => availability =>
-      availability match
-        case full @ TutorFullReport.Available(report, _) =>
-          report(perf).fold(redirHome(user).toFuccess):
-            f(user)(full)
+    Auth { _ ?=> _ ?=>
+      WithUser(username): _ =>
+        TutorConfig
+          .parse(username.id, range)
+          .so(env.tutor.api.get)
+          .flatMap:
+            case None => Redirect(routes.Tutor.user(username)).toFuccess
+            case Some(full) => f(full)
     }
 
-  private def redirHome(user: UserModel) = Redirect(routes.Tutor.user(user.username))
+  private def TutorPerfPage(username: UserStr, range: String, perf: PerfKey)(
+      f: Context ?=> TutorFullReport => TutorPerfReport => Fu[Result]
+  ): EssentialAction =
+    TutorReport(username, range) { _ ?=> full =>
+      full(perf).fold(Redirect(full.url.root).toFuccess)(f(full))
+    }
