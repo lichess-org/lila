@@ -526,7 +526,7 @@
   <string name="popularOpenings">Aperturas populares</string>
   <string name="endgamePositions">Posiciones de finales</string>
   <string name="chess960StartPosition">Posición inicial de Ajedrez 960: %s</string>
-  <string name="randomChess960Position">Posición aleatoria de Chess960</string>
+  <string name="randomChess960Position">Posición aleatoria de Ajedrez960</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar el tablero</string>
   <string name="loadPosition">Cargar posicion</string>
@@ -735,7 +735,7 @@
   <string name="keyPreviousBranch">Rama anterior</string>
   <string name="keyNextBranch">Rama siguiente</string>
   <string name="toggleVariationArrows">Activa o desactiva flechas de variantes</string>
-  <string name="cyclePreviousOrNextVariation">Alterna entre la siguiente variante y la anterior</string>
+  <string name="cyclePreviousOrNextVariation">Alterna entre la siguiente variante y la anterior.</string>
   <string name="toggleGlyphAnnotations">Activa o desactiva la anotación de figurines</string>
   <string name="togglePositionAnnotations">Activa o desactiva anotaciones de posición</string>
   <string name="toggleObservationAnnotations">Alternar las anotaciones de observación</string>
