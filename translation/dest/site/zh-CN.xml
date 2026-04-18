@@ -191,7 +191,7 @@
   <string name="rememberMe">保持登录状态</string>
   <string name="youNeedAnAccountToDoThat">请登录以完成该操作</string>
   <string name="signUp">注册</string>
-  <string name="computersAreNotAllowedToPlay">禁止使用电脑或借助电脑程序进行对弈。对弈时，请勿使用国际象棋引擎、对局数据库或向其他棋手寻求协助。另外，强烈建议您不要创建备用账户。过度使用多余的账户会导致账户被封禁。</string>
+  <string name="computersAreNotAllowedToPlay">禁止计算机程序以及借助计算机辅助的玩家参与对弈。对弈时，请勿寻求国际象棋引擎、对局数据库或其他棋手的协助。另外，强烈建议不要创建多个账号，滥用多账号将导致封禁。</string>
   <string name="games">对局</string>
   <string name="forum">论坛</string>
   <string name="xPostedInForumY">%1$s 在话题 %2$s 中发表回复</string>
@@ -229,7 +229,7 @@
   <string name="changeUsernameNotSame">只能更改字母大小写。例如，将“johndoe”改为“JohnDoe”。</string>
   <string name="changeUsernameDescription">更改用户名。注意只能更改一次，且只能更改用户名字母的大小写。</string>
   <string name="signupUsernameHint">请务必选择一个和谐的用户名，用户名设置后无法更改，并且不合规的用户名会导致账户被封禁！</string>
-  <string name="signupEmailPromise">我们只会向您发送与您账户相关的邮件，绝不会将您的邮箱共享给第三方！</string>
+  <string name="signupEmailPromise">我们只会向您发送与您账户相关的邮件，绝不会将您的邮箱共享给第三方。</string>
   <string name="password">密码</string>
   <string name="changePassword">更改密码</string>
   <string name="changeEmail">更改邮箱</string>
@@ -491,6 +491,7 @@
   <string name="popularOpenings">常见开局</string>
   <string name="endgamePositions">残局局面</string>
   <string name="chess960StartPosition">Chess960 起始局面：%s</string>
+  <string name="randomChess960Position">随机 Chess960 局面</string>
   <string name="startPosition">起始局面</string>
   <string name="clearBoard">清空棋盘</string>
   <string name="loadPosition">载入局面</string>
