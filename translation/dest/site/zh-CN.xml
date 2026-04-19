@@ -191,7 +191,7 @@
   <string name="rememberMe">保持登录状态</string>
   <string name="youNeedAnAccountToDoThat">请登录以完成该操作</string>
   <string name="signUp">注册</string>
-  <string name="computersAreNotAllowedToPlay">禁止计算机程序以及借助计算机辅助的玩家参与对弈。对弈时，请勿寻求国际象棋引擎、对局数据库或其他棋手的协助。另外，强烈建议不要创建多个账号，滥用多账号将导致封禁。</string>
+  <string name="computersAreNotAllowedToPlay">禁止使用电脑或借助电脑程序进行对弈。对弈时，请勿使用国际象棋引擎、对局数据库或向其他棋手寻求协助。另外，强烈建议您不要创建备用账户，滥用账户行为将导致账户被封禁。</string>
   <string name="games">对局</string>
   <string name="forum">论坛</string>
   <string name="xPostedInForumY">%1$s 在话题 %2$s 中发表回复</string>
