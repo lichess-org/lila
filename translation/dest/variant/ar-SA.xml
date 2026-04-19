@@ -2,4 +2,5 @@
 <resources>
   <string name="standardTitle">قواعد الشطرنج القياسية (FIDE)</string>
   <string name="chess960">شطرنج960</string>
+  <string name="atomicTitle">فجّر ملك خصمك لتنتصر.</string>
 </resources>
