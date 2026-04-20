@@ -211,7 +211,7 @@ lazy val search = module("search",
 
 lazy val chat = module("chat",
   Seq(memo, ui),
-  Seq()
+  tests.bundle
 )
 
 lazy val room = module("room",
@@ -411,7 +411,7 @@ lazy val irc = module("irc",
 )
 
 lazy val mailer = module("mailer",
-  Seq(memo, coreI18n),
+  Seq(memo, coreI18n, ui),
   Seq(hasher, play.mailer)
 )
 

@@ -1,3 +1,5 @@
+import type { Api as CgApi } from '@lichess-org/chessground/api';
+
 import { domDialog, alert, confirm, prompt } from '@/view';
 
 import { type PubsubEventKey, type PubsubEvents, pubsub } from './pubsub';
@@ -51,6 +53,8 @@ export interface Api {
   };
   overrides: Record<string, (...args: any[]) => unknown>;
   analysis?: any;
+  puzzle?: any;
+  chessground?: () => CgApi;
 }
 
 // this object is available to extensions as window.lichess

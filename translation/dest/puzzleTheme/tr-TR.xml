@@ -26,8 +26,8 @@
   <string name="castlingDescription">Şahı güvene alırken kaleni saldırıya hazırla.</string>
   <string name="capturingDefender">Savunmayı baltala</string>
   <string name="capturingDefenderDescription">Bir taşı savunan diğer bir taşı ortadan kaldırarak savunmasız kalan taşı sonraki hamlede ele geçir.</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Doğrusal hamle</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Karşılıklı duran iki taştan biri, düşman taşını ele geçirmeden saldırı hattı boyunca kayar.</string>
+  <string name="collinearMove">Doğrusal hamle</string>
+  <string name="collinearMoveDescription">Karşılıklı duran iki taştan biri, düşman taşını ele geçirmeden saldırı hattı boyunca kayar.</string>
   <string name="cornerMate">Köşe matı</string>
   <string name="cornerMateDescription">Kale veya vezir ve at kullanarak şahı köşeye çekin ve mat girişiminde bulunun.</string>
   <string name="crushing">Ezici üstünlük</string>

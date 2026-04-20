@@ -16,7 +16,6 @@
   <string name="noVideosForTheseTags">Ei videoita näillä tunnisteilla:</string>
   <string name="thatsAllWeGotForTheseTags">Tässä kaikki, mitä löytyi näillä tunnisteilla:</string>
   <string name="thatsAllWeGotForThisSearchX">Tässä kaikki, mitä löytyi tällä haulla: \"%s\"</string>
-  <string name="thereAreNoResultsForX">Ei tuloksia haulla \"%s\"</string>
   <string name="viewMoreTags">Näytä lisää tunnisteita</string>
   <string name="videoNotFound">Videota ei löydy!</string>
   <string name="xByY">%1$s – tekijä: %2$s</string>

@@ -96,6 +96,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
 
     val teamOnly = categ.team.filterNot(isMyTeamSync)
     val pager = paginationByQuery(routes.ForumTopic.show(categ.id, topic.slug, 1), posts, showPost = true)
+    val topicFirstPostId = (posts.currentPage == 1).so(posts.currentPageResults.headOption).map(_.post.id)
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}").markdownTextarea
       .css("bits.forum")
       .csp(_.withInlineIconFont.withTwitter)
@@ -115,17 +116,18 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
             )
           ),
           pager,
-          div(cls := "forum-topic__posts")(
+          div(cls := "forum-topic__posts"):
             posts.currentPageResults.map: p =>
               postUi.show(
                 topic,
                 p,
-                s"${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage)}#${p.post.number}",
+                s"${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage)}#${p.post.id}",
                 canReply = formWithCaptcha.isDefined,
                 canModCateg = canModCateg,
-                canReact = teamOnly.isEmpty
+                canReact = teamOnly.isEmpty,
+                isTopicFirst = topicFirstPostId.has(p.post.id)
               )
-          ),
+          ,
           pager,
           div(cls := "forum-topic__actions")(
             if topic.isOld then p(trans.site.thisTopicIsArchived())

@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">پیش‌نیازهای تختهٔ DGT</string>
   <string name="dgtBoardLimitations">ملزومات تخته DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">این صفحه به شما امکان می‌دهد تختهٔ DGTتان را به Lichess وصل کنید و از آن برای انجام بازی‌ها بِبَهرید.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">برای اتصال به رایا-تختهٔ DGT، لازم است %s را بِنَصبید.</string>
+  <string name="toConnectTheDgtBoard">برای اتصال به رایا-تختهٔ DGT، لازم است %s را بِنَصبید.</string>
   <string name="downloadHere">شما می‌توانید نرم‌افزار را از اینجا بارگیری کنید: %s</string>
   <string name="ifLiveChessRunningOnThisComputer">اگر %1$s در این رایانه در حال اجرا است، می‌توانید با %2$s اتصال خود را با آن بررسی کنید.</string>
   <string name="openingThisLink">باز کردن این پیوند</string>
@@ -18,7 +18,7 @@
   <string name="whenReadySetupBoard">هر وقت آماده بودید، تخته را بچینید و بعد روی %s کلیک کنید.</string>
   <string name="ifMoveNotDetected">وقتی حرکتی تشخیص داده نشد</string>
   <string name="checkYouHaveMadeOpponentsMove">مطمئن شوید که اول حرکت حریفتان را روی تختهٔ DGT انجام داده‌اید. حرکت خود را به عقب برگردانید و دوباره بازی کنید.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">به‌عنوان آخرین راه‌حل، تخته را دقیقاً مثل لیچس بچینید و سپس روی %s کلیک کنید.</string>
+  <string name="asALastResort">به‌عنوان آخرین راه‌حل، تخته را دقیقاً مثل لیچس بچینید و سپس روی %s کلیک کنید.</string>
   <string name="reloadThisPage">بارگذاری مجدد صفحه</string>
   <string name="dgtConfigure">DGT - پیکربندی</string>
   <string name="lichessConnectivity">اتصال‌‏دهندگی لیچس</string>

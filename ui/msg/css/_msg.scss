@@ -21,13 +21,12 @@ body {
 .msg-app {
   display: flex;
   flex-flow: row nowrap;
+  overflow: hidden;
   height: calc(var(---app-height) - $site-header-height);
 
   @media (min-width: at-least($small)) {
     height: calc(var(---app-height) * 0.98 - $site-header-height);
   }
-
-  overflow: hidden;
 
   &__search {
     h2 {

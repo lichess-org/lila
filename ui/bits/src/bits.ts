@@ -23,8 +23,8 @@ export function initModule(args: { fn: string } & any): void {
       return embedReasonToggle();
     case 'eventCountdown':
       return eventCountdown();
-    case 'hcaptcha':
-      return hcaptcha();
+    case 'faq':
+      return faq();
     case 'importer':
       return importer();
     case 'pmAll':
@@ -39,7 +39,7 @@ export function initModule(args: { fn: string } & any): void {
       return thanksReport();
     case 'titleRequest':
       return titleRequest();
-    case 'validEmail':
+    case 'validateEmail':
       return validateEmail();
     case 'emailErrorCheck':
       return emailErrorCheck();
@@ -118,7 +118,7 @@ function eventCountdown() {
 
     const $el = $(this);
     const seconds = parseInt(this.dataset.seconds) - 1;
-    const target = new Date().getTime() + seconds * 1000;
+    const target = Date.now() + seconds * 1000;
 
     const second = 1000,
       minute = second * 60,
@@ -126,7 +126,7 @@ function eventCountdown() {
       day = hour * 24;
 
     const redraw = function () {
-      const distance = target - new Date().getTime();
+      const distance = target - Date.now();
 
       if (distance > 0) {
         $el.find('.days').text(Math.floor(distance / day).toString());
@@ -148,24 +148,22 @@ function eventCountdown() {
   });
 }
 
-function hcaptcha() {
-  const script = document.createElement('script');
-  script.src = 'https://hcaptcha.com/1/api.js';
-
-  if ('credentialless' in window && window.crossOriginIsolated) {
-    const documentCreateElement = document.createElement;
-    script.src = 'https://hcaptcha.com/1/api.js?onload=initHcaptcha&recaptchacompat=off';
-    script.onload = () => {
-      document.createElement = function () {
-        const element = documentCreateElement.apply(this, arguments as any);
-        if (element instanceof HTMLIFrameElement) element.setAttribute('credentialless', '');
-        return element;
-      };
-    };
-    (window as any).initHcaptcha = () => (document.createElement = documentCreateElement);
+function faq() {
+  if (location.hash) {
+    const target = document.querySelector(location.hash);
+    const details = target?.closest('details');
+    if (details) {
+      details.open = true;
+    }
   }
 
-  document.head.appendChild(script);
+  document.querySelectorAll('details > summary').forEach(summary => {
+    summary.addEventListener('click', () => {
+      const details = summary.closest('details');
+      if (!details?.id) return;
+      history.replaceState(null, '', `#${details.id}`);
+    });
+  });
 }
 
 function importer() {
@@ -221,18 +219,16 @@ function setAssetInfo() {
 }
 
 function streamerSubscribe() {
-  $('.streamer-show, .streamer-list').on('change', '.streamer-subscribe input', (e: Event) => {
+  $('.streamer-show').on('change', '.streamer-subscribe input', (e: Event) => {
     const target = e.target as HTMLInputElement;
-    $(target)
-      .parents('.streamer-subscribe')
-      .each(function (this: HTMLElement) {
-        text(
-          $(this)
-            .data('action')
-            .replace(/set=[^&]+/, `set=${target.checked}`),
-          { method: 'post' },
-        );
-      });
+    const action = target.dataset.action;
+    if (action) {
+      const url = new URL(action, location.href);
+      url.searchParams.set('set', String(target.checked));
+      text(url.pathname + url.search, { method: 'post' });
+      url.searchParams.set('set', String(!target.checked));
+      target.dataset.action = url.pathname + url.search;
+    }
   });
 }
 

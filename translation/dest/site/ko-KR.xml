@@ -566,6 +566,9 @@
   <string name="invalidUsernameOrPassword">사용자 이름이나 비밀번호가 잘못되었습니다.</string>
   <string name="incorrectPassword">잘못된 비밀번호입니다.</string>
   <string name="invalidAuthenticationCode">잘못된 인증코드</string>
+  <string name="clearField">필드 지우기</string>
+  <string name="orSeparator">또는</string>
+  <string name="logInByEmail">이메일로 로그인</string>
   <string name="emailMeALink">메일로 링크를 보내주세요</string>
   <string name="currentPassword">현재 비밀번호</string>
   <string name="newPassword">새 비밀번호</string>
@@ -872,7 +875,6 @@
   <string name="agreementAssistance">나는 대국 중 도움을 받지 않겠습니다 (체스 컴퓨터, 책, 데이터베이스나 다른 사람).</string>
   <string name="agreementNice">나는 항상 다른 플레이어들을 존중하겠습니다.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">나는 다중 계정을 생성하지 않을 것에 동의합니다. (%s에 명시된 경우 제외)</string>
-  <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">울트라불릿</string>
@@ -984,6 +986,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="offline" comment="status of a user">오프라인</string>
   <string name="search">검색</string>
   <string name="clearSearch">검색 초기화</string>
+  <string name="thereAreNoResultsForX">\"%s\"에 대한 결과 없음</string>
   <string name="tags">태그</string>
   <string name="enPassant">앙파상</string>
 </resources>

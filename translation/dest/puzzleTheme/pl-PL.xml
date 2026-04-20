@@ -26,7 +26,7 @@
   <string name="castlingDescription">Zabezpiecz swojego króla i wprowadź do gry wieżę.</string>
   <string name="capturingDefender">Zbicie obrońcy</string>
   <string name="capturingDefenderDescription">Usunięcie obrońcy kluczowego dla ochrony innej bierki, umożliwiające zbicie niebronionej bierki w następnym ruchu.</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Ruch współliniowy</string>
+  <string name="collinearMove">Ruch współliniowy</string>
   <string name="cornerMate">Mat w narożniku szachownicy</string>
   <string name="cornerMateDescription">Zagoń króla przeciwnika do narożnika szachownicy przy pomocy wieży lub hetmana i zamatuj skoczkiem.</string>
   <string name="crushing">Decydująca przewaga</string>

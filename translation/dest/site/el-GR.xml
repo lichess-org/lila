@@ -519,6 +519,7 @@
   <string name="popularOpenings">Δημοφιλή ανοίγματα</string>
   <string name="endgamePositions">Θέσεις φινάλε</string>
   <string name="chess960StartPosition">Αρχική θέση Chess960: %s</string>
+  <string name="randomChess960Position">Τυχαία θέση Chess960</string>
   <string name="startPosition">Αρχική διάταξη</string>
   <string name="clearBoard">Εκκαθάριση σκακιέρας</string>
   <string name="loadPosition">Φορτώστε θέση</string>
@@ -595,6 +596,9 @@
   <string name="invalidUsernameOrPassword">Άκυρο όνομα χρήστη ή κωδικός</string>
   <string name="incorrectPassword">Εσφαλμένος κωδικός πρόσβασης</string>
   <string name="invalidAuthenticationCode">Μη έγκυρος κωδικός επαλήθευσης</string>
+  <string name="clearField">Καθαρισμός πεδίου</string>
+  <string name="orSeparator">Ή</string>
+  <string name="logInByEmail">Συνδεθείτε μέσω email</string>
   <string name="emailMeALink">Στείλτε μου σύνδεσμο μέσω ηλ. ταχυδρομείου</string>
   <string name="currentPassword">Τρέχων κωδικός πρόσβασης</string>
   <string name="newPassword">Νέος κωδικός πρόσβασης</string>
@@ -909,7 +913,6 @@
   <string name="agreementAssistance">Δηλώνω ότι ουδέποτε θα λάβω βοήθεια κατά τη διάρκεια των παρτίδων μου (από υπολογιστή, βιβλίο, βάση δεδομένων ή άλλο πρόσωπο).</string>
   <string name="agreementNice">Δηλώνω ότι πάντα θα επιδεικνύω σεβασμό προς όλους του παίκτες.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Δηλώνω ότι δε θα δημιουργήσω πολλούς λογαριασμούς (εκτός από τους λόγους προβλέπονται από τους %s).</string>
-  <string name="agreementPolicy">Δηλώνω ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
   <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>
@@ -1021,7 +1024,7 @@
   <string name="offline" comment="status of a user">εκτός σύνδεσης</string>
   <string name="search">Αναζήτηση</string>
   <string name="clearSearch">Εκκαθάριση πεδίου αναζήτησης</string>
-  <string name="thereAreNoResultsForX">Δε βρέθηκαν αποτελέσματα για το \"%s\"</string>
+  <string name="thereAreNoResultsForX">Δε βρέθηκαν αποτελέσματα για το «%s»</string>
   <string name="tags">Ετικέτες</string>
   <string name="enPassant">En passant</string>
 </resources>

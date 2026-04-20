@@ -38,7 +38,7 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
             Tag(_.fideIds(color), fide.id.toString).some,
             Tag(_.names(color), fide.name).some,
             fide.title.map { title => Tag(_.titles(color), title.value) },
-            fide.ratingOf(tc).map { rating => Tag(_.elos(color), rating.toString) }
+            fide.ratingOfOrStandard(tc).map(rating => Tag(_.elos(color), rating.toString))
           ).flatten
       removeEmptyFieldTags(tags) ++ fideTags
 

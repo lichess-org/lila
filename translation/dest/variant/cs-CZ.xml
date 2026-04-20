@@ -15,5 +15,5 @@
   <string name="racingKings">Racing Kings</string>
   <string name="racingKingsTitle">Dostaň svého krále na druhou stranu šachovnice, abys vyhrál.</string>
   <string name="crazyhouse">Crazyhouse</string>
-  <string name="fromPosition" comment="An option that lets you create a standard chess game from a custom position.">Z pozice</string>
+  <string name="fromPosition">Z pozice</string>
 </resources>

@@ -5,6 +5,7 @@
   display: inline-flex;
   align-items: center;
   border: $border;
+  border-top: 0;
 
   .btn-rack {
     /* embedded racks */
@@ -24,8 +25,6 @@
     white-space: nowrap;
 
     &:hover {
-      @extend %metal-hover;
-
       color: $c-font;
     }
 

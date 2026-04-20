@@ -17,7 +17,6 @@
   <string name="noVideosForTheseTags">Niciun videoclip pentru aceste etichete:</string>
   <string name="thatsAllWeGotForTheseTags">Asta este tot ce am găsit pentru aceste etichete:</string>
   <string name="thatsAllWeGotForThisSearchX">Asta este tot ce am găsit pentru această căutare: \"%s\"</string>
-  <string name="thereAreNoResultsForX">Nu există rezultate pentru \"%s\"</string>
   <string name="viewMoreTags">Vezi mai multe etichete</string>
   <string name="videoNotFound">Videoclipul nu a fost găsit!</string>
   <string name="xByY">%1$s de %2$s</string>

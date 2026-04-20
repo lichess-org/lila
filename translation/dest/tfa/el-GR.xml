@@ -7,7 +7,7 @@
   <string name="enterPassword">Εισάγετε των κωδικό πρόσβασης του λογαριασμού σας και τον κωδικό ταυτοποίησης που δημιουργήθηκε από την εφαρμογή για να ολοκληρωθεί η ρύθμιση. Θα χρειαστείτε έναν νέο κωδικό ταυτοποίησης κάθε φορά που συνδέεστε στο Lichess.</string>
   <string name="ifYouCannotScanEnterX">Αν δεν μπορείτε να σαρώσετε τον κωδικό, εισάγετε το μυστικό κλειδί %s στην εφαρμογή σας.</string>
   <string name="authenticationCode">Κωδικός ταυτοποίησης</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Σημείωση: Σε περίπτωση που χάσετε τους κωδικούς ταυτοποίησης δύο παραγόντων, μπορείτε να %s μέσω της διεύθυνσης email σας.</string>
+  <string name="ifYouLoseAccessTwoFactor">Σημείωση: Σε περίπτωση που χάσετε τους κωδικούς ταυτοποίησης δύο παραγόντων, μπορείτε να %s μέσω της διεύθυνσης email σας.</string>
   <string name="enableTwoFactor">Ενεργοποίηση ελέγχου ταυτότητας δύο παραγόντων</string>
   <string name="disableTwoFactor">Απενεργοποίηση ελέγχου ταυτότητας δύο παραγόντων</string>
   <string name="twoFactorEnabled">Ο έλεγχος ταυτότητας δύο παραγόντων ενεργοποιήθηκε</string>

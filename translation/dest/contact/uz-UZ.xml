@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">GitHubʼdagi \"Lichess mobile app issue\" (mobil ilova muammolari) sahifasiga</string>
   <string name="reportBugInDiscord">Lichessʼning Discord serveriga</string>
   <string name="howToReportBug">Iltimos, xatolik aynan nimada koʻringani, aslida qanday boʻlishi kerakligi va uni qanday harakatlar orqali qayta keltirib chiqarish mumkinligini batafsil yozib bering.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Piyodaning gʻalati urib olinishi (noqonuniy yurishdek tuyulsa)</string>
+  <string name="illegalPawnCapture">Piyodaning gʻalati urib olinishi (noqonuniy yurishdek tuyulsa)</string>
   <string name="calledEnPassant">Bu shaxmat qoidalaridan biri boʻlib, u “en passant” (kesib oʻtish) deb ataladi.</string>
   <string name="tryEnPassant">Ushbu qoida haqida koʻproq maʼlumot olish uchun mana bu kichik interaktiv oʻyinni oʻynab koʻring.</string>
   <string name="illegalCastling">Rokirovka qilishning iloji boʻlmayapti</string>

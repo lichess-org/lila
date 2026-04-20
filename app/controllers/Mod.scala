@@ -385,7 +385,7 @@ final class Mod(
   def search = SecureOrScopedBody(_.UserSearch) { ctx ?=> me ?=>
     negotiate(
       bindForm(ModUserSearch.form)(err => BadRequest.page(views.mod.search(err, none)), searchTerm),
-      get("q").so(q => JsonOk(env.mod.search.apiSearch(q)))
+      get("q").so(q => JsonOk(env.mod.search.apiSearch(q, getBool("closed"))))
     )
   }
 

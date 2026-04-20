@@ -108,11 +108,11 @@ final class SimulFormUi(helpers: Helpers)(
         ),
       form.toOption.map: form =>
         form3.fieldset("Clock")(
+          p(trans.site.simulClockHint()),
           form3.split(
             form3.group(
               form("clockTime"),
               trans.site.clockInitialTime(),
-              help = trans.site.simulClockHint().some,
               half = true
             )(form3.select(_, clockTimeChoices)),
             form3.group(form("clockIncrement"), trans.site.clockIncrement(), half = true)(

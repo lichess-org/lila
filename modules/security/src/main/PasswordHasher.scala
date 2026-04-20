@@ -55,9 +55,10 @@ final class PasswordHasher(
     HashedPassword(salt ++ aes.encrypt(Aes.iv(salt), bHash(salt, p)))
 
   def check(bytes: HashedPassword, p: ClearPassword): Boolean =
-    parse(bytes).so: (salt, encHash) =>
-      val hash = aes.decrypt(Aes.iv(salt), encHash)
-      MessageDigest.isEqual(hash, bHash(salt, p))
+    !bytes.isBlank &&
+      parse(bytes).so: (salt, encHash) =>
+        val hash = aes.decrypt(Aes.iv(salt), encHash)
+        MessageDigest.isEqual(hash, bHash(salt, p))
 
   private def parse(h: HashedPassword) = Option.when(h.bytes.lengthIs == 39)(h.bytes.splitAt(16))
 
@@ -74,8 +75,8 @@ final class PasswordHasher(
   )
 
   private lazy val rateLimitPerUser = RateLimit[UserIdOrEmail](
-    credits = 10,
-    duration = 10.minutes,
+    credits = 20,
+    duration = 15.minutes,
     key = "password.hashes.user"
   )
 
@@ -88,15 +89,14 @@ final class PasswordHasher(
   def rateLimit[A](
       default: => Fu[A],
       enforce: config.RateLimit,
-      ipCost: Int,
-      userCost: Int = 1
+      ipCost: Int
   )(id: UserIdOrEmail, req: RequestHeader)(run: lila.memo.RateLimit.Charge => Fu[A]): Fu[A] =
     if enforce.yes then
       val ip = HTTPRequest.ipAddress(req)
-      rateLimitPerUser.chargeable(id, default, cost = userCost, msg = s"IP: $ip"): chargeUser =>
+      rateLimitPerUser.chargeable(id, default, cost = 1, msg = s"IP: $ip"): chargeUser =>
         rateLimitPerIP.chargeable(ip, default, cost = ipCost): chargeIp =>
           rateLimitGlobal("-", default, msg = s"IP: $ip"):
             run: () =>
               chargeIp(ipCost)
-              chargeUser(userCost)
+              chargeUser(1)
     else run(() => ())

@@ -5,7 +5,7 @@
   <string name="byTopic">Mavzu boʻyicha</string>
   <string name="byLichess">Lichess tomonidan</string>
   <string name="myFriends">Doʻstlarim</string>
-  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">Menga yoqqanlar</string>
+  <string name="myLikes">Menga yoqqanlar</string>
   <string name="myBlog">Mening blogim</string>
   <string name="likedBlogs">Menga yoqqan blog postlar</string>
   <plurals name="blogPosts">

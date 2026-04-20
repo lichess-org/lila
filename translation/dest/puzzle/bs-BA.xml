@@ -16,7 +16,7 @@
   <string name="voteToLoadNextOne">Glasajte da učitate sljedeći!</string>
   <string name="upVote">Pozitivno ocijenite problem</string>
   <string name="downVote">Negativno ocijenite problem</string>
-  <string name="yourPuzzleRatingWillNotChange">Vaša ocjena slagalice se neće promijeniti. Imajte na umu da zagonetke nisu takmičenje. Vaša ocjena pomaže u odabiru najboljih zagonetki za vašu trenutnu vještinu.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">Vaša ocjena slagalice se neće promijeniti. Imajte na umu da zagonetke nisu takmičenje. Vaša ocjena pomaže u odabiru najboljih zagonetki za vašu trenutnu vještinu.</string>
   <string name="findTheBestMoveForWhite">Nađite najbolji potez za bijelog.</string>
   <string name="findTheBestMoveForBlack">Nađite najbolji potez za crnog.</string>
   <string name="toGetPersonalizedPuzzles">Kako biste dobili personalizirane probleme:</string>
@@ -99,6 +99,6 @@ Igrajte ubrzani i klasični šah kako biste povećali šanse da bude dodan Vaš 
   </plurals>
   <string name="percentSolved">%s riješeno</string>
   <string name="noPuzzlesToShow">Ništa za pokazati, idite prvo da igrate neke zagonetke!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Trenirajte ove da biste usavršili svoj napredak!</string>
+  <string name="improvementAreasDescription">Trenirajte ove da biste usavršili svoj napredak!</string>
   <string name="strengthDescription">U ovim temama najbolje učestvujete</string>
 </resources>

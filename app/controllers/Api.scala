@@ -302,6 +302,10 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       }
     }
 
+  def gameChat(gameId: GameId) = Anon:
+    Found(env.chat.api.userChat.findOption(ChatId(s"$gameId/w"))): chat =>
+      JsonOk(Json.obj("lines" -> env.chat.json.boardApi(chat)))
+
   def activity(name: UserStr) = ApiRequest:
     limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       lila.mon.api.activity.increment(1)
@@ -316,7 +320,6 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
 
   private val ApiMoveStreamGlobalConcurrencyLimitPerIP =
     lila.web.ConcurrencyLimit[IpAddress](
-      name = "API concurrency per IP",
       key = "round.apiMoveStream.ip",
       ttl = 20.minutes,
       maxConcurrency = 8
@@ -334,7 +337,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
       .map:
         _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
 
-  def mobileGames = Scoped(_.Web.Mobile, _.Web.Polygon) { _ ?=> _ ?=>
+  def mobileGames = Scoped(_.Web.Mobile, _.Web.Takex3) { _ ?=> _ ?=>
     val ids = get("ids").so(_.split(',').take(50).toList).map(GameId.take)
     ids.nonEmpty.so:
       env.round.roundSocket.getMany(ids).flatMap(env.round.mobile.online).map(JsonOk)
@@ -348,7 +351,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    * /inbox/unread-count
    * /api/challenge
    */
-  def mobileHome = AnonOrScoped(_.Web.Mobile, _.Web.Polygon) { ctx ?=>
+  def mobileHome = AnonOrScoped(_.Web.Mobile, _.Web.Takex3) { ctx ?=>
     limit.apiMobileHome(ctx.userId | ctx.ip, rateLimited):
       JsonOk(env.api.mobile.home(ctx.oauth))
   }
@@ -370,7 +373,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
    * /api/user/:id/current-game
    * /api/crosstable/:id1/:id2
    */
-  def mobileProfile(username: UserStr) = AnonOrScoped(_.Web.Mobile, _.Web.Polygon) { _ ?=>
+  def mobileProfile(username: UserStr) = AnonOrScoped(_.Web.Mobile, _.Web.Takex3) { _ ?=>
     Found(meOrFetch(username)): user =>
       JsonOk(env.api.mobile.profile(user))
   }
@@ -400,39 +403,44 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
     Ok.chunked(source.map(_ + "\n")).as(csvContentType).noProxyBuffer
 
   private[controllers] object GlobalConcurrencyLimitPerIP:
-    val events = lila.web.ConcurrencyLimit[IpAddress](
-      name = "API events concurrency per IP",
-      key = "api.ip.events",
+
+    def events(using ctx: Context) =
+      if ctx.isAnon then eventsForAnon
+      else if ctx.me.exists(_.isVerified) then eventsForVerifiedUser
+      else eventsForUser
+
+    private val eventsForAnon = lila.web.ConcurrencyLimit[IpAddress](
+      key = "api.ip.events.anon",
       ttl = 1.hour,
       maxConcurrency = 4
     )
-    val eventsForVerifiedUser = lila.web.ConcurrencyLimit[IpAddress](
-      name = "API verified events concurrency per IP",
+    private val eventsForUser = lila.web.ConcurrencyLimit[IpAddress](
+      key = "api.ip.events.user",
+      ttl = 1.hour,
+      maxConcurrency = 8
+    )
+    private val eventsForVerifiedUser = lila.web.ConcurrencyLimit[IpAddress](
       key = "api.ip.events.verified",
       ttl = 1.hour,
-      maxConcurrency = 12
+      maxConcurrency = 16
     )
     val download = lila.web.ConcurrencyLimit[IpAddress](
-      name = "API download concurrency per IP",
       key = "api.ip.download",
       ttl = 1.hour,
       maxConcurrency = 2
     )
     val generous = lila.web.ConcurrencyLimit[IpAddress](
-      name = "API generous concurrency per IP",
       key = "api.ip.generous",
       ttl = 1.hour,
       maxConcurrency = 20
     )
 
   private[controllers] val GlobalConcurrencyLimitUser = lila.web.ConcurrencyLimit[UserId](
-    name = "API concurrency per user",
     key = "api.user",
     ttl = 1.hour,
     maxConcurrency = 2
   )
   private[controllers] val GlobalConcurrencyLimitUserMobile = lila.web.ConcurrencyLimit[UserId](
-    name = "API concurrency per mobile user",
     key = "api.user.mobile",
     ttl = 1.hour,
     maxConcurrency = 3

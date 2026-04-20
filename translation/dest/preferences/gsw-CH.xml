@@ -64,11 +64,11 @@
   <string name="notifyTournamentSoon">Turnier schtarted bald</string>
   <string name="notifyBroadcasts">Vu dir abonnierti Überträgige</string>
   <string name="notifyTimeAlarm">Korreschpondänzzit lauft ab</string>
-  <string name="notifyBell">Akustischi Mäldig, innerhalb Lichess</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Akustischi Mäldig, innerhalb Lichess</string>
   <string name="notifyPush">Mäldig vum Grät, wänn du nöd uf Lichess bisch</string>
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Grät</string>
   <string name="bellNotificationSound">Ton für Benachrichtige</string>
   <string name="blindfold" comment="As in Blindfold chess">Blind schpille</string>
-  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Uf mobile Grät, links azeige</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Uf mobile Grät, links azeige</string>
 </resources>

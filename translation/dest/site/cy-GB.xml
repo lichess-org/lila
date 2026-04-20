@@ -724,7 +724,6 @@
   <string name="agreementAssistance">Rwy\'n cytuno byddai\'n byth cael unrhyw cymorth yn ystod chwarae gem (wrth gyfrifiadur gwyddbwyll, llyfr, cronfa ddata neu berson arall).</string>
   <string name="agreementNice">Rwy\'n cytuno byddai\'n wastad yn barchus i chwaraewyr eraill.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Rwyf yn cytuno ni fyddai\'n creu cyfrifau lluosol (heblaw am y rhesymau a ddywedir yn y %s).</string>
-  <string name="agreementPolicy">Rwy\'n cytuno byddai’n dilyn pob polisi Lichess.</string>
   <string name="searchOrStartNewDiscussion">Edrych am neu ddechrau sgwrs newydd</string>
   <string name="edit">Addasu</string>
   <string name="rapid">Chwim</string>

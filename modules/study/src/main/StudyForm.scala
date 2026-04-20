@@ -154,6 +154,8 @@ object StudyForm:
   def topicsForm(topics: StudyTopics) =
     Form(single("topics" -> text)).fill(topics.value.mkString(","))
 
+  val replaceChapterPgnMoves = Form(single("pgn" -> nonEmptyText.into[PgnStr]))
+
   def chapterTagsForm = Form:
     import chess.format.pgn.{ Tags, Parser }
     given Formatter[Tags] = formatter.stringTryFormatter(

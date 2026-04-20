@@ -11,7 +11,7 @@ import lila.user.{ User, UserRepo }
 final class Reopen(
     mailer: lila.mailer.Mailer,
     userRepo: UserRepo,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     tokenerSecret: Secret
 )(using Executor, lila.core.i18n.Translator):
 
@@ -45,7 +45,7 @@ final class Reopen(
   def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.reopen.increment()
-      val url = s"$baseUrl/account/reopen/login/$token"
+      val url = routeUrl(routes.Account.reopenLogin(token))
       mailer.sendOrFail:
         Mailer.Message(
           to = email,

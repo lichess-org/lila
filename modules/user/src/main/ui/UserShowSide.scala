@@ -72,7 +72,7 @@ final class UserShowSide(helpers: Helpers):
       )
 
     div(cls := "side sub-ratings")(
-      (!u.lame || ctx.is(u) || Granter.opt(_.UserModView)).option(
+      (!u.lame || ctx.is(u) || Granter.opt(_.AccountInfo)).option(
         frag(
           showNonEmptyPerf(u.perfs.ultraBullet, PerfKey.ultraBullet),
           showPerf(u.perfs.bullet, PerfKey.bullet),

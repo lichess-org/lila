@@ -5,7 +5,7 @@
 
   &__categ {
     &.box-pad {
-      padding: 3vh var(---box-padding);
+      padding: 3vh $box-padding;
     }
 
     .box__top {

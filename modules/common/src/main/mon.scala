@@ -99,6 +99,7 @@ object mon:
       val create = counter("lobby.hook.create").withoutTags()
       val join = counter("lobby.hook.join").withoutTags()
       val size = histogram("lobby.hook.size").withoutTags()
+      def apiCreate(client: String) = counter("lobby.hook.apiCreate").withTag("client", client)
     object seek:
       val create = counter("lobby.seek.create").withoutTags()
       val join = counter("lobby.seek.join").withoutTags()
@@ -214,23 +215,24 @@ object mon:
     object register:
       def count(
           confirm: String,
-          captcha: String,
           ipSusp: Boolean,
           fp: Boolean,
           proxy: Option[String],
           country: String,
-          api: Option[ApiVersion]
+          client: String
       ) =
         counter("user.register.count").withTags:
           tags(
             "confirm" -> confirm,
-            "captcha" -> captcha,
             "ipSusp" -> ipSusp,
             "fp" -> fp,
             "proxy" -> proxy.getOrElse("no"),
             "country" -> country.escape,
-            "api" -> apiTag(api)
+            "client" -> client
           )
+      def result(client: String, result: String) =
+        counter("user.register.result").withTags:
+          tags("client" -> client, "result" -> result)
       def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
       def confirmEmailResult(success: Boolean) =
         counter("user.register.confirmEmail").withTag("success", successTag(success))
@@ -336,7 +338,7 @@ object mon:
       val change = c.withTag("type", "change")
       val confirmation = c.withTag("type", "confirmation")
       val welcome = c.withTag("type", "welcome")
-      val time = future("email.send.time")
+      def time(mailer: String) = future("email.send.time", tags("mailer" -> mailer))
     val disposableDomain = gauge("email.disposableDomain").withoutTags()
   object security:
     val torNodes = gauge("security.tor.node").withoutTags()
@@ -359,11 +361,9 @@ object mon:
     object mailcheckApi:
       def fetch(success: Boolean, ok: Boolean) =
         timer("mailcheck.fetch").withTags(tags("success" -> successTag(success), "ok" -> ok))
-    object hCaptcha:
-      def hit(client: String, result: String) =
-        counter("hcaptcha.hit").withTags(tags("client" -> client, "result" -> result))
-      def form(client: String, result: String) =
-        counter("hcaptcha.form").withTags(tags("client" -> client, "result" -> result))
+    object turnstile:
+      def hit(client: String, action: String, result: String) =
+        counter("turnstile.hit").withTags(tags("client" -> client, "action" -> action, "result" -> result))
     object pwned:
       def get(res: Boolean) = timer("security.pwned.result").withTag("res", res)
     object geoip:
@@ -624,8 +624,8 @@ object mon:
         val create = send("challengeCreate")
         val accept = send("challengeAccept")
     val googleTokenTime = timer("push.send.googleToken").withoutTags()
-    def firebaseStatus(status: Int) = counter("push.firebase.status").withTag("status", status)
-    def firebaseType(typ: String) = counter("push.firebase.msgType").withTag("type", typ)
+    def firebaseStatus(project: String, typ: String, status: Int) =
+      counter("push.firebase.status").withTags(tags("status" -> status, "project" -> project, "type" -> typ))
   object fishnet:
     object client:
       object result:
@@ -719,9 +719,6 @@ object mon:
     val time = future("fide.sync.time")
     val players = gauge("fide.sync.players").withoutTags()
     val updated = gauge("fide.sync.updated").withoutTags()
-  object link:
-    def external(tag: String, auth: Boolean) = counter("link.external").withTags:
-      tags("tag" -> tag.escape, "auth" -> auth)
   object recap:
     val games = future("recap.build.games.time")
     val puzzles = future("recap.build.puzzles.time")
@@ -753,8 +750,6 @@ object mon:
 
   private def successTag(success: Boolean) = if success then "success" else "failure"
   private def hitTag(hit: Boolean) = if hit then "hit" else "miss"
-
-  private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
   import scala.language.implicitConversions
   private given Conversion[UserId, String] = _.value

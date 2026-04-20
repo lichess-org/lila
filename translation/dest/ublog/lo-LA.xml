@@ -5,7 +5,7 @@
   <string name="byTopic">ຕາມຫົວຂໍ້</string>
   <string name="byLichess">ໂດຍ Lichess</string>
   <string name="myFriends">ໝູ່ຂອງຂ້ອຍ</string>
-  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">ສິ່ງທີ່ຂ້ອຍຖືກໃຈ</string>
+  <string name="myLikes">ສິ່ງທີ່ຂ້ອຍຖືກໃຈ</string>
   <string name="myBlog">ບລັອກຂອງຂ້ອຍ</string>
   <string name="likedBlogs">ໂພສບລັອກທີ່ຖືກໃຈ</string>
   <plurals name="blogPosts">

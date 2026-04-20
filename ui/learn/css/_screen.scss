@@ -136,6 +136,7 @@
   }
 
   .round-svg {
+    display: flex;
     width: 240px;
     height: 240px;
     padding: 0;
@@ -145,14 +146,14 @@
   }
 
   .round-svg img {
-    width: 240px;
-    height: 240px;
-    padding: 20px;
+    width: 180px;
+    height: 180px;
+    margin: auto;
   }
 
   .score {
     text-transform: uppercase;
-    color: #0288d1;
+    color: $c-brag;
     font-size: 0.85em;
     display: block;
     letter-spacing: 1px;
@@ -172,35 +173,17 @@
   }
 
   .buttons {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 23px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 8px 10% 24px 10%;
 
-    a {
-      @extend %box-radius;
-
-      display: block;
-      text-decoration: none;
-      text-transform: uppercase;
-      line-height: 48px;
-      margin: 8px 10% 0 10%;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
       height: 48px;
-      color: #fff;
-      transition: all 0.3s;
-    }
-
-    .next {
-      font-size: 0.9em;
-      background: #3692e7;
-    }
-
-    .back {
-      font-size: 0.85em;
-      background: #e53935f0;
-    }
-
-    a:hover {
-      filter: brightness(0.9);
     }
   }
 

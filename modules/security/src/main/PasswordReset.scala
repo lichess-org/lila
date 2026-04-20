@@ -13,7 +13,7 @@ import lila.memo.RateLimit
 final class PasswordReset(
     mailer: Mailer,
     userRepo: UserRepo,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     tokenerSecret: Secret
 )(using Executor, lila.core.i18n.Translator, lila.core.config.RateLimit):
 
@@ -22,7 +22,7 @@ final class PasswordReset(
   def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.resetPassword.increment()
-      val url = s"$baseUrl/password/reset/confirm/$token"
+      val url = routeUrl(routes.Auth.passwordResetConfirm(token))
       mailer.sendOrFail:
         Mailer.Message(
           to = email,

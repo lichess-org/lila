@@ -32,7 +32,7 @@
     align-items: center;
 
     h2 {
-      @extend %metal;
+      @extend %metal-bg;
 
       align-self: stretch;
       direction: ltr;

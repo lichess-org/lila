@@ -22,10 +22,9 @@ import {
   dataIcon,
   hl,
   spinnerVdom as spinner,
-  stepwiseScroll,
 } from 'lib/view';
+import stepwiseScroll from 'lib/view/stepwiseScroll';
 
-import * as control from '../control';
 import type AnalyseCtrl from '../ctrl';
 import * as chessground from '../ground';
 import type { ConcealOf } from '../interfaces';
@@ -134,8 +133,8 @@ export const renderBoard = ({ ctrl, study, playerBars, playerStrips }: ViewConte
               'wheel',
               stepwiseScroll(
                 e => {
-                  if (e.deltaY > 0) control.next(ctrl);
-                  else if (e.deltaY < 0) control.prev(ctrl);
+                  if (e.deltaY > 0) ctrl.navigate.next();
+                  else if (e.deltaY < 0) ctrl.navigate.prev();
                   ctrl.redraw();
                 },
                 e =>

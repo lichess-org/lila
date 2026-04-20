@@ -32,7 +32,7 @@
     width: 100%;
     display: flex;
     flex-flow: column;
-    padding: 0 var(---box-padding);
+    padding: 0 $box-padding;
   }
 
   .overview .todo {

@@ -526,6 +526,7 @@
   <string name="popularOpenings">Aperturas populares</string>
   <string name="endgamePositions">Posiciones de finales</string>
   <string name="chess960StartPosition">Posición inicial de Ajedrez 960: %s</string>
+  <string name="randomChess960Position">Posición aleatoria de Ajedrez960</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar el tablero</string>
   <string name="loadPosition">Cargar posicion</string>
@@ -602,6 +603,9 @@
   <string name="invalidUsernameOrPassword">Nombre de usuario o contraseña erróneo</string>
   <string name="incorrectPassword">Contraseña incorrecta</string>
   <string name="invalidAuthenticationCode">Código de autenticación inválido</string>
+  <string name="clearField">Borrar campo</string>
+  <string name="orSeparator">o</string>
+  <string name="logInByEmail">Iniciar sesión con el correo electrónico</string>
   <string name="emailMeALink">Envíame un enlace por correo electrónico</string>
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Nueva contraseña</string>
@@ -731,7 +735,7 @@
   <string name="keyPreviousBranch">Rama anterior</string>
   <string name="keyNextBranch">Rama siguiente</string>
   <string name="toggleVariationArrows">Activa o desactiva flechas de variantes</string>
-  <string name="cyclePreviousOrNextVariation">Alterna entre la siguiente variante y la anterior</string>
+  <string name="cyclePreviousOrNextVariation">Alterna entre la siguiente variante y la anterior.</string>
   <string name="toggleGlyphAnnotations">Activa o desactiva la anotación de figurines</string>
   <string name="togglePositionAnnotations">Activa o desactiva anotaciones de posición</string>
   <string name="toggleObservationAnnotations">Alternar las anotaciones de observación</string>
@@ -916,7 +920,6 @@
   <string name="agreementAssistance">Me comprometo a no recibir ayuda externa durante mis partidas (de un ordenador, un libro, una base de datos u otra persona).</string>
   <string name="agreementNice">Me comprometo a respetar siempre a otros jugadores.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Me comprometo a no crear varias cuentas (excepto por las razones indicadas en las %s).</string>
-  <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar o empezar una nueva conversación</string>
   <string name="edit">Editar</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>

@@ -38,14 +38,14 @@ $section-margin-more: 5vh;
   }
 
   &__content {
-    margin: 0 var(---box-padding);
+    margin: 0 $box-padding;
 
     @media (min-width: at-least($small)) {
       display: flex;
 
       &__col1 {
         flex: 0 0 30%;
-        margin-inline-end: var(---box-padding);
+        margin-inline-end: $box-padding;
       }
 
       &__col2 {

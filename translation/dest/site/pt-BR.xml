@@ -526,6 +526,7 @@
   <string name="popularOpenings">Aberturas populares</string>
   <string name="endgamePositions">Posições de final</string>
   <string name="chess960StartPosition">Posição inicial do Xadrez960: %s</string>
+  <string name="randomChess960Position">Posição aleatória de Xadrez960</string>
   <string name="startPosition">Posição inicial</string>
   <string name="clearBoard">Limpar tabuleiro</string>
   <string name="loadPosition">Carregar posição</string>
@@ -602,6 +603,9 @@
   <string name="invalidUsernameOrPassword">Nome de usuário ou senha incorretos</string>
   <string name="incorrectPassword">Senha incorreta</string>
   <string name="invalidAuthenticationCode">Código de verificação inválido</string>
+  <string name="clearField">Limpar campo</string>
+  <string name="orSeparator">Ou</string>
+  <string name="logInByEmail">Faça login por email</string>
   <string name="emailMeALink">Me envie um link</string>
   <string name="currentPassword">Senha atual</string>
   <string name="newPassword">Nova senha</string>
@@ -916,7 +920,6 @@
   <string name="agreementAssistance">Eu concordo que em momento algum receberei assistência durante os meus jogos (seja de um computador, livro, banco de dados ou outra pessoa).</string>
   <string name="agreementNice">Eu concordo que serei sempre cortês com outros jogadores.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Eu concordo que não criarei múltiplas contas (exceto pelas razões indicadas em %s).</string>
-  <string name="agreementPolicy">Eu concordo que seguirei todas as normas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Procurar ou iniciar nova conversa</string>
   <string name="edit">Editar</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>

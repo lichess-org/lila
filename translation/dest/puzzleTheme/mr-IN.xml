@@ -26,8 +26,8 @@
   <string name="castlingDescription">आपल्या राजाला सुरक्षित ठिकाणी पोचवा, आणि हत्तीला हल्ल्यासाठी तैनात करा.</string>
   <string name="capturingDefender">रक्षकाला मारा</string>
   <string name="capturingDefenderDescription">एखाद्या सोंगटीच्या बचाव करणाऱ्या सोंगटीला वगळणे, त्यामुळे नवीन असुरक्षित झालेल्या सोंगटीला पुढच्या चालीत परत मारता येऊ शकते.</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">समरेख डाव</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">दोन विरुद्ध सोंगट्या एकमेकांसमोर येतात आणि एक शत्रूच्या सोंगट्याला न पकडता आक्रमण रेषेवर सरकतो.</string>
+  <string name="collinearMove">समरेख डाव</string>
+  <string name="collinearMoveDescription">दोन विरुद्ध सोंगट्या एकमेकांसमोर येतात आणि एक शत्रूच्या सोंगट्याला न पकडता आक्रमण रेषेवर सरकतो.</string>
   <string name="cornerMate">कोपऱ्यातले मात.</string>
   <string name="cornerMateDescription">मातला गुंतवून ठेवण्यासाठी राजाला कोपऱ्यात हत्ती किंवा राणीने बंदिस्त करा.</string>
   <string name="crushing">निर्णायक</string>

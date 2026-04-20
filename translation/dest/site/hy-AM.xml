@@ -845,7 +845,6 @@
   <string name="agreementAssistance">Հաստատում եմ, որ իմ խաղերում երբեք չեմ օգտվի կողմնակի օգնությունից (շախմատային ծրագրերից, գրքերից, տվյալների բազաներից և այլ խաղացողներից)։</string>
   <string name="agreementNice">Հաստատում եմ, որ հարգանքով եմ վերաբերվելու այլ խաղացողներին։</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Համաձայն եմ, որ չպետք է ստեղծեմ բազմաթիվ մասնակցային հաշիվներ (բացառությամբ %sում նշված պատճառների)։</string>
-  <string name="agreementPolicy">Հաստատում եմ, որ հետևելու եմ Lichess-ի բոլոր կանոններին։</string>
   <string name="searchOrStartNewDiscussion">Գտնել քննարկումը կամ ստեղծել նորը</string>
   <string name="edit">Խմբագրել</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Բլից</string>

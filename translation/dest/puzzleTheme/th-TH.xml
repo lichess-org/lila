@@ -26,8 +26,8 @@
   <string name="castlingDescription">นำคิงของคุณไปที่ปลอดภัย และเคลื่อนเรือของคุณเพื่อการโจมตี</string>
   <string name="capturingDefender">กินผู้ป้องกัน</string>
   <string name="capturingDefenderDescription">กีกกันหมากที่สำคัญออกไปจากการป้องหมากตัวอื่น ทำให้หมากที่สูญเสียการป้องกันสามารถถูกกินในตาต่อไปได้</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">การเดินแบบแนวเส้นตรงเดียวกัน</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">หมากสองตัวที่อยู่ตรงข้ามกันหันหน้าเข้าหากัน และตัวหนึ่งเคลื่อนที่ไปตามแนวการโจมตีโดยไม่กินหมากของฝ่ายตรงข้าม</string>
+  <string name="collinearMove">การเดินแบบแนวเส้นตรงเดียวกัน</string>
+  <string name="collinearMoveDescription">หมากสองตัวที่อยู่ตรงข้ามกันหันหน้าเข้าหากัน และตัวหนึ่งเคลื่อนที่ไปตามแนวการโจมตีโดยไม่กินหมากของฝ่ายตรงข้าม</string>
   <string name="cornerMate">รุกจนที่มุม</string>
   <string name="cornerMateDescription">ต้อนคิงไปที่มุมใดมุมหนึ่งของกระดาน โดยใช้เรือหรือควีน และม้า เพื่อทำการรุกจนต่อไป</string>
   <string name="crushing">บดขยี้</string>

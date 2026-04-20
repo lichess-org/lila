@@ -26,8 +26,8 @@
   <string name="castlingDescription">Babestu erregea eta ekarri gaztelua erasora.</string>
   <string name="capturingDefender">Defendatzailea harrapatu</string>
   <string name="capturingDefenderDescription">Beste pieza bat defendatzeko funtsezkoa den pieza kentzea, hurrengo jokaldietan lehenengo pieza hori harrapatzeko.</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Mugimendu kolinearra</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Elkarren aurrean bi pieza dadude, eta bata eraso lerroan zehar mugitzen da aurkariaren pieza harrapatu gabe.</string>
+  <string name="collinearMove">Mugimendu kolinearra</string>
+  <string name="collinearMoveDescription">Elkarren aurrean bi pieza dadude, eta bata eraso lerroan zehar mugitzen da aurkariaren pieza harrapatu gabe.</string>
   <string name="cornerMate">Bazterreko matea</string>
   <string name="cornerMateDescription">Baztertu erregea gaztelua edo dama eta zaldia erabiliz matea emateako.</string>
   <string name="crushing">Zapalketa</string>

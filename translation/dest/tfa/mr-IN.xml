@@ -7,7 +7,7 @@
   <string name="enterPassword">तुमचा परवलीचा शब्द आणि अनुप्रयोगाद्वारे व्युत्पन्न केलेले अधिप्रमाणन संकेत मांडणी पूर्ण करण्यासाठी प्रविष्ट करा. तुम्हाला एक अधिप्रमाणन संकेत प्रत्येक लॉग इन करण्याच्या वेळी लागेल. </string>
   <string name="ifYouCannotScanEnterX">जर तुम्ही संकेतला वाचू नाही शकत, तर तुमच्या अनुप्रयोगात %s गुप्त किल्ली प्रविष्ट करा.</string>
   <string name="authenticationCode">अधिप्रमाणन संकेत</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">नोंद: जर तुम्ही तुमच्या द्वि-घटक अधिप्रमाणन संकेत प्रवेश गमावता, तर तुम्ही %s ई-मेल द्वारे करू शकता.</string>
+  <string name="ifYouLoseAccessTwoFactor">नोंद: जर तुम्ही तुमच्या द्वि-घटक अधिप्रमाणन संकेत प्रवेश गमावता, तर तुम्ही %s ई-मेल द्वारे करू शकता.</string>
   <string name="enableTwoFactor">द्वि-घटक प्रमाणीकरण सक्षम करा</string>
   <string name="disableTwoFactor">द्वि-घटक प्रमाणीकरण अक्षम करा</string>
   <string name="twoFactorEnabled">द्वि-घटक प्रमाणीकरण सक्षम झ्हाले आहे</string>

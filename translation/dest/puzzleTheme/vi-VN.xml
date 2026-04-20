@@ -26,8 +26,8 @@
   <string name="castlingDescription">Chuyển quân vua đến vị trí an toàn và triển khai quân xe để tấn công.</string>
   <string name="capturingDefender">Ăn quân phòng thủ</string>
   <string name="capturingDefenderDescription">Loại bỏ một quân cực kỳ quan trọng đối với việc bảo vệ một quân cờ khác, khiến cho quân cờ hiện không được bảo vệ có thể bị ăn vào một nước sau đó.</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">Nước cờ trên cùng một đường thẳng</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">Hai quân cờ đối diện nhau, và một quân di chuyển dọc theo đường tấn công mà không bắt được quân cờ đối phương.</string>
+  <string name="collinearMove">Nước cờ trên cùng một đường thẳng</string>
+  <string name="collinearMoveDescription">Hai quân cờ đối diện nhau, và một quân di chuyển dọc theo đường tấn công mà không bắt được quân cờ đối phương.</string>
   <string name="cornerMate">Góc chiếu hết chết chóc</string>
   <string name="cornerMateDescription">Kìm hãm vua ở góc bằng cách sử dụng một xe hoặc hậu và một mã để chiếu hết.</string>
   <string name="crushing">Áp đảo</string>

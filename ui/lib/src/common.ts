@@ -110,7 +110,8 @@ export const onClickAway =
 
 export const hyphenToCamel = (str: string): string => str.replace(/-([a-z])/g, g => g[1].toUpperCase());
 
-export const requestIdleCallback = (f: () => void, timeout?: number): void => {
+// adds support for safari
+export const requestIdleCallbackSafe = (f: () => void, timeout?: number): void => {
   if (window.requestIdleCallback) window.requestIdleCallback(f, timeout ? { timeout } : undefined);
   else requestAnimationFrame(f);
 };

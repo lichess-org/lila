@@ -16,18 +16,40 @@
     margin: 120px auto 0 auto;
   }
 
-  .time-selector-buttons button {
-    display: inline-flex;
-    text-transform: uppercase;
-    border: $border;
+  .time-selector-buttons {
+    margin: 4px 0 -4px 4px;
 
-    &.active {
-      background-color: #262421;
-      color: $c-font;
-      text-shadow: none !important;
+    button {
+      display: inline-flex;
+      text-transform: uppercase;
+      border: $border;
+      border-right: 0;
+      box-shadow: none;
 
-      @include if-light {
-        background-color: #dbebfc;
+      &:hover:not(.disabled, :disabled, [disabled]) {
+        box-shadow: none;
+      }
+
+      &:last-child {
+        border-right: $border;
+      }
+
+      &.active {
+        background-color: #262421;
+        color: $c-font;
+        text-shadow: none !important;
+
+        @include if-light {
+          background-color: #dbebfc;
+        }
+
+        &:hover:not(.disabled, :disabled, [disabled]) {
+          background-color: $c-bg-input;
+
+          @include if-light {
+            background-color: #e6f1fb;
+          }
+        }
       }
     }
   }

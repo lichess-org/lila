@@ -86,6 +86,7 @@ final class JsonView(rematches: Rematches):
       .add("swissId" -> pov.game.swissId)
       // .add("orientation" -> pov.game.variant.racingKings.option(chess.White))
       .add("winner" -> pov.game.winnerColor)
+      .add("rating" -> pov.player.rating)
       .add("ratingDiff" -> pov.player.ratingDiff)
 
   def maybeFen(pov: Pov): Fen.Full =

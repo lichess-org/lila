@@ -824,7 +824,6 @@
   <string name="agreementAssistance">ಚೆಸ್ ಆಟ ಆಡುತ್ತಿರುವ ಸಮಯದಲ್ಲಿ ನಾನು ಯಾವುದೇ (ಚೆಸ್ ಕಂಪ್ಯೂಟರ್, ಪುಸ್ತಕಗಳು, ಡೇಟಾಬೇಸ್, ಅಥವಾ ಇನ್ಯಾವುದೇ ವ್ಯಕ್ತಿಯಿಂದ) ಸಹಾಯವನ್ನು ಪಡೆಯುವುದಿಲ್ಲ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="agreementNice">ಇತರೆ ಆಟಗಾರರೊಡನೆ ನಾನು ಯಾವತ್ತೂ ಗೌರವಯುತವಾಗಿ ವರ್ತಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">ಒಂದಕ್ಕಿಂತ ಹೆಚ್ಚು ಖಾತೆಗಳನ್ನು ತೆರೆಯುವುದಿಲ್ಲ ಎಂದು ನಾನು ಒಪ್ಪಿಕೊಳ್ಳುತ್ತೇನೆ (%s ಇಲ್ಲಿ ಹೇಳಿರುವ ಕಾರಣಗಳಿಗೆ ಹೊರತಾಗಿ).</string>
-  <string name="agreementPolicy">ಲೀಚೆಸ್ ನ ಎಲ್ಲ ನಿಯಮಾವಳಿ ಹಾಗೂ ನಿಬಂಧನೆಗಳನ್ನು ಪಾಲಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="searchOrStartNewDiscussion">ಹುಡುಕಿ ಅಥವಾ ಹೊಸ ಸಂಭಾಷಣೆ ಆರಂಭಿಸಿ</string>
   <string name="edit">ತಿದ್ದಿ</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">ಬುಲೆಟ್</string>

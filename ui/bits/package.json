@@ -28,7 +28,8 @@
     "prosemirror-view": "1.41.3",
     "qrcode": "^1.5.4",
     "shepherd.js": "11.2.0",
-    "zxcvbn": "^4.4.2"
+    "zxcvbn": "^4.4.2",
+    "crypto-random-string": "^5"
   },
   "build": {
     "bundle": [

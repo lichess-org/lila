@@ -7,13 +7,14 @@
   display: none;
   z-index: $z-context-menu-108;
   cursor: default;
+  overflow: hidden;
 
   &.visible {
     display: block;
   }
 
   .title {
-    @extend %san, %metal;
+    @extend %san, %metal-bg;
 
     padding: 0.4em;
     text-align: center;
@@ -24,10 +25,9 @@
 
   a {
     @extend %flex-center-nowrap;
+    @include padding-direction(0.5em, 0.6em, 0.5em, 0.3em);
 
     color: $c-font;
-
-    @include padding-direction(0.5em, 0.6em, 0.5em, 0.3em);
 
     &::before {
       width: 2em;

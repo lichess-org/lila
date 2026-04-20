@@ -16,7 +16,7 @@
   <string name="voteToLoadNextOne">Keyingisini yuklash uchun ovoz bering!</string>
   <string name="upVote">Masala yoqdi</string>
   <string name="downVote">Masala yoqmadi</string>
-  <string name="yourPuzzleRatingWillNotChange">Masalalar boʻyicha reytingingiz oʻzgarmaydi. Unutmang, masalalar yechish musobaqa emas. Reytingingiz shunchaki mahoratingizga mos keladigan eng yaxshi masalalarni tanlashga yordam beradi.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">Masalalar boʻyicha reytingingiz oʻzgarmaydi. Unutmang, masalalar yechish musobaqa emas. Reytingingiz shunchaki mahoratingizga mos keladigan eng yaxshi masalalarni tanlashga yordam beradi.</string>
   <string name="findTheBestMoveForWhite">Oqlar uchun eng yaxshi yurishni toping.</string>
   <string name="findTheBestMoveForBlack">Qoralar uchun eng yaxshi yurishni toping.</string>
   <string name="toGetPersonalizedPuzzles">Sizga moslashtirilgan masalalarni olish uchun:</string>
@@ -35,7 +35,7 @@
   <string name="useFindInPage">Yoqtirgan debyutlaringizni topish uchun brauzer menyusidagi \"Sahifadan izlash\" funksiyasidan foydalaning!</string>
   <string name="useCtrlF">Yoqtirgan debyutlaringizni topish uchun Ctrl+f tugmalarini bosing!</string>
   <string name="notTheMove">Bu notoʻgʻri yurish!</string>
-  <string name="trySomethingElse">Boshqa variantni sinab koʻring.</string>
+  <string name="trySomethingElse">Boshqa yurishni sinab koʻring.</string>
   <string name="ratingX">Reyting: %s</string>
   <string name="hidden">yashirilgan</string>
   <plurals name="playedXTimes">
@@ -94,6 +94,6 @@ Oʻyinlaringiz asosida masala yaratilish imkoniyatini oshirish uchun rapid va kl
   </plurals>
   <string name="percentSolved">%s toʻgʻri yechildi</string>
   <string name="noPuzzlesToShow">Hali hech narsa yoʻq, avval bir nechta masala yechib koʻring!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Optimal oʻsish uchun bular ustida shugʻullaning!</string>
+  <string name="improvementAreasDescription">Optimal oʻsish uchun bular ustida shugʻullaning!</string>
   <string name="strengthDescription">Siz ushbu mavzularda eng yaxshi natija koʻrsatmoqdasiz</string>
 </resources>

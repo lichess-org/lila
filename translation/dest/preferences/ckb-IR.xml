@@ -63,7 +63,7 @@
   <string name="notifyChallenge">بەرەنگاریەکان</string>
   <string name="notifyTournamentSoon">بەم زووانە پاڵەوانێتییەکە دەستپێدەکات</string>
   <string name="notifyTimeAlarm">کاتژمێری نامەنارد تەواو بووە</string>
-  <string name="notifyBell">زەنگی ئاگادارکردنەوەی لە ناو Lichess</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">زەنگی ئاگادارکردنەوەی لە ناو Lichess</string>
   <string name="notifyPush">ئاگادارکردنەوەی ئامێرەکەت کاتێک لەسەر Lichess نیت</string>
   <string name="notifyWeb">وێبگەڕ</string>
   <string name="notifyDevice">ئامێر</string>

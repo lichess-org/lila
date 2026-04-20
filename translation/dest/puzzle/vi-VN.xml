@@ -4,7 +4,7 @@
   <string name="puzzleThemes">Chủ đề câu đố</string>
   <string name="recommended">Được đề xuất</string>
   <string name="phases">Giai đoạn</string>
-  <string name="motifs">Các mô-típ</string>
+  <string name="motifs">Các đòn chiến thuật</string>
   <string name="advanced">Nâng cao</string>
   <string name="lengths">Thời lượng</string>
   <string name="mates">Chiếu hết</string>
@@ -14,9 +14,9 @@
   <string name="specialMoves">Các nước cờ đặc biệt</string>
   <string name="didYouLikeThisPuzzle">Bạn thích câu đố này chứ?</string>
   <string name="voteToLoadNextOne">Bình chọn để đến câu đố tiếp theo!</string>
-  <string name="upVote">Thích câu đố</string>
-  <string name="downVote">Không thích câu đố</string>
-  <string name="yourPuzzleRatingWillNotChange">Hệ số giải câu đố của bạn sẽ không thay đổi. Lưu ý rằng giải câu đố không phải một cuộc thi. Hệ số của bạn nhằm giúp chọn những câu đố phù hợp nhất với trình độ của bạn.</string>
+  <string name="upVote" comment="This used to say &quot;Up vote puzzle&quot;. It has since been rephrased to indicate what the button actually does.">Thích câu đố</string>
+  <string name="downVote" comment="This used to say &quot;Down vote puzzle&quot;. It has since been rephrased to indicate what the button actually does.">Không thích câu đố</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.&#10;&#10;This text used to be slightly different towards the end, stating &quot;[...] Your rating helps selecting the best puzzles for your current skill.&quot; - but it had the same meaning.">Hệ số giải câu đố của bạn sẽ không thay đổi. Lưu ý rằng giải câu đố không phải một cuộc thi. Hệ số của bạn nhằm giúp chọn những câu đố phù hợp nhất với trình độ của bạn.</string>
   <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho bên trắng.</string>
   <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho bên đen.</string>
   <string name="toGetPersonalizedPuzzles">Để có được các thế cờ dành riêng cho bạn:</string>
@@ -73,7 +73,7 @@
   <string name="fromMyGames">Từ ván đấu của tôi</string>
   <string name="lookupOfPlayer">Tìm câu đố từ các ván đấu của người khác</string>
   <string name="searchPuzzles">Tìm câu đố</string>
-  <string name="fromMyGamesNone">Bạn không có câu đố nào trong dữ liệu, nhưng Lichess vẫn rất yêu mến bạn.
+  <string name="fromMyGamesNone" comment="All games on Lichess are generated from players' games. This feature lets you see if any puzzles have been generated from your games (and in this case, they haven't).&#10;&#10;This text used to say &quot;[...] your chances of having a puzzle of yours added!&quot;. We have since clarified the English text to note they are puzzles added from your games.">Bạn không có câu đố nào trong dữ liệu, nhưng Lichess vẫn rất yêu mến bạn.
 
 Hãy chơi thêm nhiều ván cờ nhanh và cờ chậm để có cơ hội có một câu đố từ ván cờ của riêng bạn!</string>
   <plurals name="puzzlesFoundInUserGames">
@@ -88,6 +88,6 @@ Hãy chơi thêm nhiều ván cờ nhanh và cờ chậm để có cơ hội có
   </plurals>
   <string name="percentSolved">Giải đúng %s</string>
   <string name="noPuzzlesToShow">Chưa có gì cả, hãy giải một vài câu đố trước đã!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">Luyện tập chúng để tối ưu hóa tiến trình của bạn!</string>
+  <string name="improvementAreasDescription">Luyện tập chúng để tối ưu hóa tiến trình của bạn!</string>
   <string name="strengthDescription">Bạn thể hiện tốt nhất ở những lĩnh vực này</string>
 </resources>

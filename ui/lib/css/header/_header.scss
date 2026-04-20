@@ -3,7 +3,7 @@
 @import 'title';
 @import 'buttons';
 
-body > header {
+#top {
   @include prevent-select;
 
   height: $site-header-height;
@@ -37,7 +37,7 @@ body > header {
       @include back-blur(6px);
 
       border: none;
-      background: hsla(0, 0, 60%, 0.14);
+      background: hsla(0, 0, 20%, 0.15);
     }
 
     .dropdown {
@@ -78,13 +78,11 @@ body.zen {
 
   &::after {
     @extend %data-icon;
+    @include margin-direction(0, 0, 0.08ch, 0.3ch);
 
     content: $licon-Wings;
     font-size: 1.3em;
     color: $c-brag;
-
-    @include margin-direction(0, 0, 0.08ch, 0.3ch);
-
     transform: scaleX(-1);
 
     @include if-rtl {
@@ -98,19 +96,52 @@ body.zen {
   justify-content: flex-start;
 
   &__donate {
-    @extend %flex-center;
+    @extend %nowrap-ellipsis;
 
-    color: $c-brag;
-    padding: 0 1rem;
-    text-transform: uppercase;
-    line-height: $site-header-height;
+    padding: 16px 0;
+    max-width: 30vw;
 
-    @media (max-width: at-most($xx-small)) {
-      display: none;
+    span {
+      color: $c-brag;
+      text-transform: uppercase;
+      text-shadow: 0.5px 0.5px 0 $m-dimmer--fade-20;
+      border-radius: 20px;
+      line-height: 28px;
+      padding: 8px 1rem 8px 1.2rem;
+
+      &::before {
+        @extend %data-icon;
+        @include inline-end(4px);
+
+        position: relative;
+        top: -2px;
+        content: $licon-Wings;
+        font-size: 1em;
+        color: $c-brag;
+      }
+    }
+
+    &:hover span {
+      color: $c-brag;
+      background-color: $m-brag--fade-85;
     }
 
     &:focus-visible {
       outline-offset: -2px;
     }
+
+    @media (width <= $x-small) {
+      display: none;
+    }
+
+    @media (width <= $small) {
+      body.clinput & {
+        display: none;
+      }
+    }
   }
+}
+
+html.transp body[data-board3d] #top::before {
+  display: none;
 }

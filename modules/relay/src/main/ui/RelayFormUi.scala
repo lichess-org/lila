@@ -78,13 +78,16 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           )
     )
 
-  def noAccess(nav: FormNavigation)(using Context) =
+  def noAccess(rt: RelayRound | RelayTour) =
+    val call = rt match
+      case r: RelayRound => routes.RelayRound.show("-", "-", r.id)
+      case t: RelayTour => routes.RelayTour.show("-", t.id)
     Page("Insufficient permissions").css("bits.relay.form"):
-      main(cls := "page page-menu")(
-        navigationMenu(nav),
-        div(cls := "page-menu__content box box-pad")(
+      main(cls := "page page-small")(
+        div(cls := "box box-pad")(
           boxTop(h1("Insufficient permissions")),
-          p("You are not allowed to edit this broadcast or round.")
+          p("You are not allowed to edit this broadcast."),
+          p(a(href := call)("Back to broadcast"))
         )
       )
 
@@ -685,10 +688,10 @@ Hanna Marie ; Kozul, Zdenko"""),
                 "If the player is NM or WNM, you can:",
                 pre("""Player Name / FIDE ID / title"""),
                 "Alternatively, you may set tags manually, like so:",
-                pre("player name / FIDE ID / title / rating / new name"),
+                pre("player name / FIDE ID / title / rating / new name / new fed"),
                 "All values are optional. Example:",
                 pre("""Magnus Carlsen / / GM / 2863
-YouGotLittUp / / / 1890 / Louis Litt""")
+YouGotLittUp / / / 1890 / Louis Litt / FID""")
               ).some,
               half = true
             )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace")),

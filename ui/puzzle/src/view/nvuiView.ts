@@ -1,15 +1,15 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import type { Api } from '@lichess-org/chessground/api';
 import { makeSquare, opposite } from 'chessops';
-import { h, type VNode } from 'snabbdom';
 
 import { throttle } from 'lib/async';
+import { isTouchDevice } from 'lib/device';
 import * as nv from 'lib/nvui/chess';
 import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { renderSetting } from 'lib/nvui/setting';
 import type { TreeNode } from 'lib/tree/types';
-import { bind, onInsert, requiresI18n } from 'lib/view';
+import { type VNode, bind, onInsert, requiresI18n, hl, type LooseVNodes } from 'lib/view';
 
 import { nextCorrectMove } from '@/moveTree';
 
@@ -25,15 +25,8 @@ const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export function renderNvui({
-  ctrl,
-  notify,
-  moveStyle,
-  pieceStyle,
-  prefixStyle,
-  positionStyle,
-  boardStyle,
-}: PuzzleNvuiContext): VNode {
+export function renderNvui(ctx: PuzzleNvuiContext): VNode {
+  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
   notify.redraw = ctrl.redraw;
   const ground =
     ctrl.ground() ||
@@ -44,40 +37,71 @@ export function renderNvui({
       coordinates: false,
     });
   ctrl.ground(ground);
+  const boardFirst = isTouchDevice() && pageStyle.get() === 'board-actions';
 
-  return h(
+  if (boardFirst) {
+    pieceStyle.set('name');
+    prefixStyle.set('name');
+    boardStyle.set('plain');
+  }
+
+  const boardView = [
+    hl('h2', 'Board'),
+    hl(
+      'div.board',
+      {
+        hook: {
+          insert: el => boardEventsHook(ctx, ground, el.elm as HTMLElement),
+          update: (_, vnode) => boardEventsHook(ctx, ground, vnode.elm as HTMLElement),
+        },
+      },
+
+      nv.renderBoard(
+        ground.state.pieces,
+        ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+        pieceStyle.get(),
+        prefixStyle.get(),
+        positionStyle.get(),
+        boardStyle.get(),
+      ),
+    ),
+  ];
+
+  return hl(
     `main.puzzle.puzzle--nvui.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${
       ctrl.streak ? '.puzzle--streak' : ''
     }`,
-    h('div.nvui', [
-      h('h2', 'Puzzle info'),
+    hl('div.nvui', [
+      ...(boardFirst ? boardView : []),
+      boardFirst && renderTouchDeviceCommands(ctx),
+      hl('h2', 'Puzzle info'),
       puzzleBox(ctrl),
       theme(ctrl),
       ctrl.streak ? undefined : userBox(ctrl),
-      h('h2', 'Moves'),
-      h(
+      hl('h2', 'Moves'),
+      hl(
         'p.moves',
         { attrs: { role: 'log', 'aria-live': 'off' } },
         nv.renderMainline(ctrl.mainline, ctrl.path, moveStyle.get()),
       ),
-      h('h2', 'Pieces'),
+      hl('h2', 'Pieces'),
       nv.renderPieces(ground.state.pieces, moveStyle.get()),
-      h('h2', 'Puzzle status'),
-      h(
+      hl('h2', 'Puzzle status'),
+      hl(
         'div.status',
         { attrs: { role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' } },
         renderStatus(ctrl),
       ),
-      ctrl.data.replay && h('div.replay', renderReplay(ctrl)),
+      ctrl.data.replay && hl('div.replay', renderReplay(ctrl)),
       ctrl.streak && renderStreak(ctrl),
-      h('h2', 'Last move'),
-      h(
+      hl('h2', 'Last move'),
+      hl(
         'p.lastMove',
         { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } },
         lastMove(ctrl, moveStyle.get()),
       ),
-      h('h2', 'Move form'),
-      h(
+      hl('h2', 'Move form'),
+      hl(
         'form#move-form',
         {
           hook: onInsert(el => {
@@ -87,67 +111,37 @@ export function renderNvui({
           }),
         },
         [
-          h('label', [
+          hl('label', [
             ctrl.mode === 'view'
               ? 'Command input'
               : i18n.puzzle[ctrl.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'],
-            h('input.move.mousetrap', {
+            hl('input.move.mousetrap', {
               attrs: { name: 'move', type: 'text', autocomplete: 'off', autofocus: true },
             }),
           ]),
         ],
       ),
       notify.render(),
-      h('h2', 'Actions'),
+      hl('h2', 'Actions'),
       ctrl.mode === 'view' ? afterActions(ctrl) : playActions({ ctrl, notify } as PuzzleNvuiContext),
-      h('h2', 'Board'),
-      h(
-        'div.board',
-        {
-          hook: {
-            insert: el =>
-              boardEventsHook(
-                {
-                  ctrl,
-                  notify,
-                  moveStyle,
-                  pieceStyle,
-                  prefixStyle,
-                  positionStyle,
-                  boardStyle,
-                },
-                ground,
-                el.elm as HTMLElement,
-              ),
-          },
-        },
-
-        nv.renderBoard(
-          ground.state.pieces,
-          ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
-          pieceStyle.get(),
-          prefixStyle.get(),
-          positionStyle.get(),
-          boardStyle.get(),
-        ),
-      ),
-      h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-      h('h2', i18n.site.advancedSettings),
-      h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-      h('h3', 'Board settings'),
-      h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
-      h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
-      h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
-      h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-      ...(!ctrl.data.replay && !ctrl.streak ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)] : []),
-      h('h2', i18n.site.keyboardShortcuts),
-      h('p', [
+      ...(!boardFirst ? boardView : []),
+      hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
+      hl('h2', i18n.site.advancedSettings),
+      hl('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
+      hl('h3', 'Board settings'),
+      hl('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
+      hl('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
+      hl('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
+      hl('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
+      ...(!ctrl.data.replay && !ctrl.streak ? [hl('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)] : []),
+      hl('h2', i18n.site.keyboardShortcuts),
+      hl('p', [
         `Left and right arrow keys: ${i18n.site.keyMoveBackwardOrForward}`,
-        h('br'),
+        hl('br'),
         `Up and down arrow keys, or 0 and $, or home and end: ${i18n.site.keyGoToStartOrEnd}`,
       ]),
-      h('h2', 'Commands'),
-      h(
+      hl('h2', 'Commands'),
+      hl(
         'p',
         [
           'Type these commands in the move input.',
@@ -158,29 +152,43 @@ export function renderNvui({
         ].reduce(addBreaks, []),
       ),
       ...boardCommands(),
-      h('h2', 'Promotion'),
-      h('p', [
+      hl('h2', 'Promotion'),
+      hl('p', [
         'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
-        h('br'),
+        hl('br'),
         'Omission results in promotion to queen',
       ]),
     ]),
   );
 }
 
+function renderTouchDeviceCommands(ctx: PuzzleNvuiContext): LooseVNodes {
+  const { notify, ctrl } = ctx;
+  const btn = (cls: string, text: string, onClick: () => void): VNode =>
+    hl(`button.${cls}`, { attrs: { type: 'button' }, hook: bind('click', onClick) }, text);
+  return hl('div.actions', [
+    ctrl.mode !== 'view' && btn('last-move', 'Last move', () => notify.set($('.lastMove').text())),
+    ctrl.mode !== 'view' &&
+      btn('touch-hint', i18n.site.getAHint, () => {
+        const hint = nextCorrectMove(ctrl);
+        if (hint) notify.set(makeSquare(hint.from));
+      }),
+    ctrl.mode !== 'view' && btn('touch-solution', i18n.site.viewTheSolution, ctrl.viewSolution),
+    ctrl.mode === 'view' && btn('touch-continue', i18n.puzzle.continueTraining, ctrl.nextPuzzle),
+  ]);
+}
+
 function boardEventsHook(ctx: PuzzleNvuiContext, ground: Api, el: HTMLElement): void {
   const { ctrl, moveStyle, pieceStyle, prefixStyle, notify } = ctx;
   const $board = $(el);
-  const $buttons = $board.find('button');
+  // Remove old handlers before rebinding (important on re-render)
+  $board.off('.nvui');
   const steps = ctrl.tree.getNodeList(ctrl.path);
   const fenSteps = () => steps.map(step => step.fen);
 
-  $buttons.on('blur', nv.leaveSquareHandler($buttons));
-  $buttons.on(
-    'click',
-    nv.selectionHandler(() => opposite(ctrl.pov)),
-  );
-  $buttons.on('keydown', (e: KeyboardEvent) => {
+  $board.on('blur', 'button', e => nv.leaveSquareHandler($board.find('button'))(e));
+  $board.on('click', 'button', e => nv.selectionHandler(() => opposite(ctrl.pov))(e));
+  $board.on('keydown', 'button', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
     else if (e.key.match(/^x$/i))
       scanDirectionsHandler(
@@ -285,7 +293,7 @@ const nextNode = (node?: TreeNode): TreeNode | undefined =>
 const renderStreak = (ctrl: PuzzleCtrl): VNode[] =>
   !ctrl.streak
     ? []
-    : [h('h2', 'Puzzle streak'), h('p', ctrl.streak.data.index || i18n.puzzle.streakDescription)];
+    : [hl('h2', 'Puzzle streak'), hl('p', ctrl.streak.data.index || i18n.puzzle.streakDescription)];
 
 function renderStatus(ctrl: PuzzleCtrl): string {
   if (ctrl.mode !== 'view') return 'Solving';
@@ -308,7 +316,7 @@ const playActions = (ctx: PuzzleNvuiContext): VNode => {
     ? requiresI18n('storm', ctx.ctrl.redraw, cat =>
         button(cat.skip, ctrl.skip, i18n.puzzle.streakSkipExplanation, !ctrl.streak?.data.skip),
       )
-    : h('div.actions_play', [
+    : hl('div.actions-play', [
         button(i18n.site.getAHint, () => {
           const hint = nextCorrectMove(ctrl);
           if (hint) {
@@ -320,16 +328,16 @@ const playActions = (ctx: PuzzleNvuiContext): VNode => {
 };
 
 const afterActions = (ctrl: PuzzleCtrl): VNode =>
-  h(
-    'div.actions_after',
+  hl(
+    'div.actions-after',
     ctrl.streak && ctrl.lastFeedback === 'win'
-      ? h('a', { attrs: { href: '/streak' } }, i18n.puzzle.newStreak)
+      ? hl('a', { attrs: { href: '/streak' } }, i18n.puzzle.newStreak)
       : [...renderVote(ctrl), button(i18n.puzzle.continueTraining, ctrl.nextPuzzle)],
   );
 
 const renderVoteTutorial = (ctrl: PuzzleCtrl): VNode[] =>
   ctrl.session.isNew() && ctrl.data.user?.provisional
-    ? [h('p', i18n.puzzle.didYouLikeThisPuzzle), h('p', i18n.puzzle.voteToLoadNextOne)]
+    ? [hl('p', i18n.puzzle.didYouLikeThisPuzzle), hl('p', i18n.puzzle.voteToLoadNextOne)]
     : [];
 
 const renderVote = (ctrl: PuzzleCtrl): VNode[] =>
@@ -342,7 +350,7 @@ const renderVote = (ctrl: PuzzleCtrl): VNode[] =>
       ];
 
 const button = (text: string, action: (e: Event) => void, title?: string, disabled?: boolean): VNode =>
-  h(
+  hl(
     'button',
     { hook: bind('click', action), attrs: { ...(title ? { title } : {}), disabled: !!disabled } },
     text,

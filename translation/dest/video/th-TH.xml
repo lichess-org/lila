@@ -15,7 +15,6 @@
   <string name="noVideosForTheseTags">ไม่มีวิดีโอสำหรับแท็กเหล่านี้</string>
   <string name="thatsAllWeGotForTheseTags">เราพบวิดีโอแค่นี้สำหรับแท็กเหล่านี้</string>
   <string name="thatsAllWeGotForThisSearchX">เราพบวิดีโอแค่นี้สำหรับคำค้นหา: \"%s\"</string>
-  <string name="thereAreNoResultsForX">ไม่พบการค้นหาสำหรับ \"%s\"</string>
   <string name="viewMoreTags">ดูแท็กเพิ่ม</string>
   <string name="videoNotFound">ไม่พบวิดีโอ</string>
   <string name="xByY">%1$s โดย %2$s</string>

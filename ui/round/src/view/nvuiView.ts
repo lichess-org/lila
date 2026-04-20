@@ -1,6 +1,7 @@
 import { Chessground as makeChessground } from '@lichess-org/chessground';
 import { COLORS, opposite } from 'chessops';
 
+import { isTouchDevice } from 'lib/device';
 import { type Player, type TopOrBottom, playable } from 'lib/game';
 import { plyToTurn } from 'lib/game/chess';
 import { renderClock } from 'lib/game/clock/clockView';
@@ -25,17 +26,7 @@ const borderSound = () => site.sound.play('outOfBound');
 const errorSound = () => site.sound.play('error');
 
 export function renderNvui(ctx: RoundNvuiContext): VNode {
-  const {
-    ctrl,
-    notify,
-    moveStyle,
-    pieceStyle,
-    prefixStyle,
-    positionStyle,
-    boardStyle,
-    pageStyle,
-    deviceType,
-  } = ctx;
+  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
   notify.redraw = ctrl.redraw;
   if (!ctrl.chessground) {
     ctrl.setChessground(
@@ -47,7 +38,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       }),
     );
   }
-  if (deviceType.get() === 'touchscreen' && pageStyle.get() === 'board-actions') {
+  if (isTouchDevice() && pageStyle.get() === 'board-actions') {
     pieceStyle.set('name');
     prefixStyle.set('name');
     boardStyle.set('plain');
@@ -246,7 +237,12 @@ function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
     hl('h2', i18n.site.board),
     hl(
       'div.board',
-      { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
+      {
+        hook: {
+          insert: el => boardEventsHook(ctx, el.elm as HTMLElement),
+          update: (_, vnode) => boardEventsHook(ctx, vnode.elm as HTMLElement),
+        },
+      },
       nv.renderBoard(
         ctrl.chessground.state.pieces,
         ctrl.data.game.variant.key === 'racingKings'
@@ -276,20 +272,27 @@ function flipBoard(ctx: RoundNvuiContext): void {
 }
 
 function boardEventsHook(ctx: RoundNvuiContext, el: HTMLElement): void {
-  const { ctrl, prefixStyle, pieceStyle, moveStyle, deviceType } = ctx;
+  const { ctrl, prefixStyle, pieceStyle, moveStyle } = ctx;
 
   const $board = $(el);
-  const $buttons = $board.find('button');
-  $buttons.on('blur', nv.leaveSquareHandler($buttons));
-  $buttons.on(
-    'click',
+  // Remove old handlers before rebinding (important on re-render)
+  $board.off('.nvui');
+  // NVUI re-renders the board, recreating <button> elements.
+  // Avoid binding events directly to buttons, as references
+  // become stale. Use delegation on $board instead.
+  $board.on('blur.nvui', 'button', e => {
+    nv.leaveSquareHandler($board.find('button'))(e);
+  });
+
+  $board.on('click.nvui', 'button', e => {
     nv.selectionHandler(
       () => ctrl.data.opponent.color,
-      deviceType.get() === 'touchscreen',
+      isTouchDevice(),
       ctrl.data.game.variant.key === 'antichess',
-    ),
-  );
-  $buttons.on('keydown', (e: KeyboardEvent) => {
+    )(e);
+  });
+
+  $board.on('keydown.nvui', 'button', (e: KeyboardEvent) => {
     if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
     else if (e.key.match(/^x$/i))
       scanDirectionsHandler(

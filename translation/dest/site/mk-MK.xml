@@ -818,7 +818,6 @@
   <string name="agreementAssistance">Се согласувам дека никогаш нема да добивам помош за моите игри (од компјутер, игра, база на податоци или личност).</string>
   <string name="agreementNice">Се согласувам дека секогаш ќе ги почитувам останатите играчи.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Се согласувам дека нема да креирам повеќе сметки (освен заради причини наведени во %s).</string>
-  <string name="agreementPolicy">Се согласувам дека ќе ги следам сите правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Пребарај или започни нов разговор</string>
   <string name="edit">Уреди</string>
   <string name="rapid">Рапид</string>

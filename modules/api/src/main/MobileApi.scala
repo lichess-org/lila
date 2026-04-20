@@ -39,14 +39,14 @@ final class MobileApi(
       ua: UserAgent
   )(using RequestHeader, Translate, KidMode): Fu[JsObject] =
     val myUser = me.map(_.value)
-    val polygon = oauth.exists(_.polygon)
+    val takex3 = oauth.exists(_.takex3)
     for
-      tours <- polygon.not.option(tournaments).sequence
+      tours <- takex3.not.option(tournaments).sequence
       account <- myUser.traverse(userApi.mobile)
       recentGames <- myUser.traverse(gameApi.mobileRecent)
       ongoingGames <- myUser.traverse: u =>
         gameProxy.urgentGames(u).map(_.take(20).map(lobbyApi.nowPlaying))
-      inbox <- me.ifFalse(polygon).traverse(unreadCount.mobile)
+      inbox <- me.ifFalse(takex3).traverse(unreadCount.mobile)
       challenges <- me.traverse(challengeApi.allFor(_))
     yield Json
       .obj("version" -> webMobile.json)

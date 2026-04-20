@@ -129,6 +129,8 @@
   <string name="pinnedPieces">Fiksitaj pecoj</string>
   <string name="checkableKing">Ŝakigebla reĝo</string>
   <string name="multipleLines">Pluraj linioj</string>
+  <string name="threads">Fadenoj</string>
+  <string name="threadsDescription">Elektu malsupre la nombron de fadenoj de via procesoro. La markoj indikas sekurajn elektojn</string>
   <string name="cpus">Ĉefprocesoroj</string>
   <string name="memory">Memoro</string>
   <string name="infiniteAnalysis">Senfina analizo</string>
@@ -190,7 +192,7 @@
   <string name="viewInFullSize">Vidi plengrande</string>
   <string name="logOut">Elsaluti</string>
   <string name="signIn">Ensaluti</string>
-  <string name="rememberMe">Memoru mian ensaluton</string>
+  <string name="rememberMe">Memori mian ensaluton</string>
   <string name="youNeedAnAccountToDoThat">Vi bezonas konton por fari tion</string>
   <string name="signUp">Registriĝi</string>
   <string name="computersAreNotAllowedToPlay">Estas nepermesate ludi per komputiloj aŭ komputilasisto. Bonvolu ne akiri asiston de iu ŝakaŭtomato, datumbazo aŭ aliaj ludantoj dum ludado. Krome, notu ke la kreado de multaj kontoj estas forte malrekomendata, kaj troa uzo de multaj kontoj rezultigos vian forbaron.</string>
@@ -268,8 +270,8 @@
   <string name="rank">Posicio</string>
   <string name="rankX">Posicio: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Posicio aktualiĝas en ĉiu minuto</item>
-    <item quantity="other">Posicio aktualiĝas en ĉiu %s minutoj</item>
+    <item quantity="one">Posicio aktualiĝas ĉiuminute</item>
+    <item quantity="other">Posicio aktualiĝas ĉiujn %s minutojn</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzlo</item>
@@ -294,7 +296,7 @@
   <string name="accept">Akcepti</string>
   <string name="decline">Malakcepti</string>
   <string name="playingRightNow">Ludate nun</string>
-  <string name="eventInProgress">Ludanta</string>
+  <string name="eventInProgress">Ludata</string>
   <string name="finished">Finita</string>
   <string name="abortGame">Ĉesigi ludon</string>
   <string name="gameAborted">Ludo estis ĉesigita</string>
@@ -427,6 +429,8 @@
   <string name="leaderboard">Sukcesotabulo</string>
   <string name="screenshotCurrentPosition">Ekrankopii nunan pozicion</string>
   <string name="gameAsGIF">Ludo kiel GIF</string>
+  <string name="playerNames">Nomoj de ludantoj</string>
+  <string name="moveAnnotations">Notoj pri movoj</string>
   <string name="pasteTheFenStringHere">Glui la FEN-ĉenon ĉi tie</string>
   <string name="pasteThePgnStringHere">Glui la PGN-ĉenon ĉi tie</string>
   <string name="orUploadPgnFile">Aŭ alŝuti PGN-dosieron</string>
@@ -589,6 +593,9 @@
   <string name="invalidUsernameOrPassword">Malĝusta uzantnomo aŭ pasvorto</string>
   <string name="incorrectPassword">Malkorekta pasvorto</string>
   <string name="invalidAuthenticationCode">Nevalida aŭtentigada kodo</string>
+  <string name="clearField">Viŝi kampon</string>
+  <string name="orSeparator">aŭ</string>
+  <string name="logInByEmail">Komenci seancon per retpoŝto</string>
   <string name="emailMeALink">Retpoŝte sendu al mi ligilon</string>
   <string name="currentPassword">Nuna pasvorto</string>
   <string name="newPassword">Nova pasvorto</string>
@@ -807,6 +814,7 @@
   <string name="size">Amplekso</string>
   <string name="opacity">Opakeco</string>
   <string name="brightness">Lumeco</string>
+  <string name="contrast">Kontrasto</string>
   <string name="hue">Kolortono</string>
   <string name="boardReset">Restarigi kolorojn al la defaŭlta</string>
   <string name="pieceSet">Ŝakpecaro</string>
@@ -902,7 +910,6 @@
   <string name="agreementAssistance">Mi konsentas, ke mi neniam ricevos helpon dum miaj ludoj (de komputila programo, libro, datumbazo aŭ alia persono).</string>
   <string name="agreementNice">Mi konsentas, ke mi ĉiam estos respektema al aliaj ludantoj.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Mi konsentas ke mi ne faros plurajn kontojn (escepte pro la deklaritaj kialoj en la %s).</string>
-  <string name="agreementPolicy">Mi konsentas sekvi ĉiujn politikojn de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Serĉi aŭ komenci novan konversacion</string>
   <string name="edit">Redakti</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
@@ -913,7 +920,7 @@
   <string name="bulletDesc">Tre rapidaj ludoj: malpli ol 3 minutoj</string>
   <string name="blitzDesc">Rapidaj ludoj: 3 ĝis 8 minutoj</string>
   <string name="rapidDesc">Rapidaj ludoj: 8 ĝis 25 minutoj</string>
-  <string name="classicalDesc">Klasikaj ludoj: 25 minutoj kaj plu</string>
+  <string name="classicalDesc">Klasikaj ludoj: 25 minutoj kaj pli</string>
   <string name="correspondenceDesc">Korespondaj ludoj: unu aŭ kelkaj tagoj po movo</string>
   <string name="puzzleDesc">Ŝaktaktika trejnisto</string>
   <string name="important">Grava</string>

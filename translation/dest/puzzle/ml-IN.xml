@@ -15,7 +15,7 @@
   <string name="voteToLoadNextOne">അടുത്തത് കാണിക്കുവാന്‍ വോട്ടു ചെയ്യുക!</string>
   <string name="upVote">ഈ പസ്സിലിനു് മേൽവോട്ടു തരുക</string>
   <string name="downVote">ഈ പസ്സിലിനു് കീഴ്വോട്ടു തരുക</string>
-  <string name="yourPuzzleRatingWillNotChange">താങ്ങളുടെ പസ്സിൽ റേറ്റിങ്ങു് മാറത്തില്ല. പസ്സിലുകൾ ഒരു മത്സരം അല്ല. ഈ റേറ്റിങ്ങു് വെറും താങ്ങളുടെ കഴിവുപ്രകാരമുള്ള പസ്സിലുകൾ തിരഞ്ഞെടുക്കാൻ ഞങ്ങളെ സഹായിക്കുന്നു.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">താങ്ങളുടെ പസ്സിൽ റേറ്റിങ്ങു് മാറത്തില്ല. പസ്സിലുകൾ ഒരു മത്സരം അല്ല. ഈ റേറ്റിങ്ങു് വെറും താങ്ങളുടെ കഴിവുപ്രകാരമുള്ള പസ്സിലുകൾ തിരഞ്ഞെടുക്കാൻ ഞങ്ങളെ സഹായിക്കുന്നു.</string>
   <string name="findTheBestMoveForWhite">വെള്ളയുടെ ഏറ്റവും മികച്ച നീക്കം കണ്ടു പിടിക്കൂക.</string>
   <string name="findTheBestMoveForBlack">കറുപ്പിന്‍റെ ഏറ്റവും മികച്ച നീക്കം കണ്ടു പിടിക്കൂക.</string>
   <string name="toGetPersonalizedPuzzles">വ്യക്തിപരമായ പസ്സിലുകൾ കിട്ടുകാൻ വേണ്ടി:</string>
@@ -70,6 +70,6 @@
   </plurals>
   <string name="percentSolved">%s പൂർതീകരിച്ചിരിക്കുന്നു</string>
   <string name="noPuzzlesToShow">കാണിക്കാനൊന്നുമില്ല, ആദ്യം പസ്സിലുകൾ ശ്രമിച്ചു് നോക്കു്!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">മുന്നേറുകാൻ അഭ്യാസിക്കൂ!</string>
+  <string name="improvementAreasDescription">മുന്നേറുകാൻ അഭ്യാസിക്കൂ!</string>
   <string name="strengthDescription">ഈ വിഷയങ്ങളിലാണു് താങ്ങൾ ഏറ്റവും നല്ലതു് കളിക്കുന്നതു്</string>
 </resources>

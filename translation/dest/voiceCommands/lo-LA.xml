@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">ເດີນໄປ e4 ຫຼື ເລືອກໂຕໝາກຢູ່ e4</string>
   <string name="selectOrCaptureABishop">ເລືອກ ຫຼື ກິນບິຊອບ (Bishop)</string>
   <string name="takeRookWithQueen">ເອົາຄວີນ (Queen) ກິນຣຸກ (Rook)</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">ເຂົ້າປ້ອມ (ທັງສອງເບື້ອງ)</string>
+  <string name="castle">ເຂົ້າປ້ອມ (ທັງສອງເບື້ອງ)</string>
   <string name="phoneticAlphabetIsBest">ໃຊ້ຕົວອັກສອນອອກສຽງແມ່ນດີທີ່ສຸດ</string>
   <string name="cancelTimerOrDenyARequest">ຍົກເລີກຕົວຈັບເວລາ ຫຼື ປະຕິເສດຄຳຂໍ</string>
   <string name="playPreferredMoveOrConfirmSomething">ເດີນບາດເດີນທີ່ຕ້ອງການ ຫຼື ຢືນຢັນບາງຢ່າງ</string>

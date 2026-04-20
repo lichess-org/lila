@@ -56,7 +56,7 @@ function uid() {
 
 let it = 0;
 const max = cursor.count();
-let dat = new Date().getTime() / 1000;
+let dat = Date.now() / 1000;
 
 cursor.forEach(function (o) {
   dest.insert(mkTour(o));
@@ -66,7 +66,7 @@ cursor.forEach(function (o) {
   ++it;
   if (it % batchSize == 0) {
     const percent = Math.round((it / max) * 100);
-    const dat2 = new Date().getTime() / 1000;
+    const dat2 = Date.now() / 1000;
     const ms = Math.round(1000 * (dat2 - dat - pause / 1000));
     const perSec = Math.round(batchSize / ms);
     dat = dat2;

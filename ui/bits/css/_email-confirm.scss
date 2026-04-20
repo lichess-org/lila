@@ -12,7 +12,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 107;
+  z-index: $z-above-site-header-107;
 
   &.error {
     background: $c-error;
@@ -29,6 +29,10 @@
   color: $c-over !important;
   text-decoration: underline;
   margin-left: 1em;
+}
+
+body:has(.email-confirm, .signup-confirm) .signin-or-signup {
+  display: none;
 }
 
 .email-confirm {
@@ -145,6 +149,8 @@
     margin: 6em 0 4em 0;
 
     .button-fat {
+      @extend %box-radius;
+
       border: 10px solid $m-primary_bg--mix-30;
     }
   }

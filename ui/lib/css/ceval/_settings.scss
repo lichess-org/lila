@@ -11,7 +11,7 @@
   width: 100%;
   background: $c-bg-high;
   gap: 1.5em;
-  padding: 2em 1.5em;
+  padding: 1.5em;
 
   @media (max-width: at-most($small)) {
     gap: 1em;
@@ -55,22 +55,9 @@
       text-align: left;
     }
 
-    button.delete {
-      width: 20px;
-      height: 20px;
-      border-radius: 100%;
-      background-color: $c-bad;
-      color: $c-bg-page;
-      margin-inline-start: 1.5ch;
-
-      &:focus {
-        outline: $outline;
-      }
-
-      &:hover {
-        color: #bbb;
-        outline: 2px solid #bbb;
-      }
+    button.button-red {
+      margin-left: 0.6em;
+      padding: 0.6em 0.75em;
     }
 
     span {

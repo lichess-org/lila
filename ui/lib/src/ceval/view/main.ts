@@ -10,11 +10,12 @@ import { opposite, parseUci } from 'chessops/util';
 import { setupPosition } from 'chessops/variant';
 
 import { isTouchDevice } from '@/device';
-import { blurIfPrimaryClick, defined, notNull, requestIdleCallback } from '@/index';
+import { blurIfPrimaryClick, defined, notNull, requestIdleCallbackSafe } from '@/index';
 import * as licon from '@/licon';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
-import { stepwiseScroll, type VNode, type LooseVNodes, bind, hl } from '@/view';
+import { type VNode, type LooseVNodes, bind, hl } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
+import stepwiseScroll from '@/view/stepwiseScroll';
 
 import type CevalCtrl from '../ctrl';
 import { type CevalHandler, type NodeEvals, CevalState } from '../types';
@@ -96,28 +97,22 @@ const threatButton = (ctrl: CevalHandler): VNode | null =>
 
 function engineName(ctrl: CevalCtrl): VNode[] {
   const engine = ctrl.engines.active;
-  return engine
-    ? [
-        hl('span', { attrs: { title: engine.name } }, engine.short ?? engine.name),
-        ctrl.engines.isExternalEngineInfo(engine)
-          ? hl(
-              'span.technology.good',
-              { attrs: { title: 'Engine running outside of the browser' } },
-              engine.tech,
-            )
-          : engine.requires.includes('simd')
-            ? hl(
-                'span.technology.good',
-                { attrs: { title: 'Multi-threaded WebAssembly with SIMD' } },
-                engine.tech,
-              )
-            : engine.requires.includes('sharedMem')
-              ? hl('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engine.tech)
-              : engine.requires.includes('wasm')
-                ? hl('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engine.tech)
-                : hl('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engine.tech),
-      ]
-    : [];
+  if (!engine) return [];
+  const [good, title] = ctrl.engines.isExternalEngineInfo(engine)
+    ? [true, 'Engine running outside of the browser']
+    : engine.requires.includes('relaxedSimd')
+      ? [true, 'Multi-threaded WebAssembly with relaxed SIMD']
+      : engine.requires.includes('simd')
+        ? [true, 'Multi-threaded WebAssembly with SIMD']
+        : engine.requires.includes('sharedMem')
+          ? [true, 'Multi-threaded WebAssembly']
+          : engine.requires.includes('wasm')
+            ? [false, 'Single-threaded WebAssembly']
+            : [false, 'Single-threaded JavaScript'];
+  return [
+    hl('span', { attrs: { title: engine.name } }, engine.short ?? engine.name),
+    hl(`span.technology${good ? '.good' : ''}`, { attrs: { title } }, engine.tech),
+  ];
 }
 
 export const getBestEval = (ctrl: CevalHandler): EvalScore | undefined => {
@@ -310,7 +305,7 @@ function getElPvMoves(e: TouchEvent | MouseEvent): (string | null)[] {
 }
 
 function checkHover(el: HTMLElement, ceval: CevalCtrl): void {
-  requestIdleCallback(
+  requestIdleCallbackSafe(
     () => setHovering(ceval, getElFen(el), $(el).find('div.pv:hover').attr('data-uci') || undefined),
     500,
   );

@@ -38,7 +38,12 @@
     }
 
     &__start {
+      margin-inline-start: 0;
       margin-inline-end: $block-gap;
+
+      &__button {
+        padding-inline: 1em;
+      }
     }
   }
 
@@ -68,11 +73,11 @@
     }
 
     &__blog {
-      padding: 1.2em 0;
+      margin-top: 1.65em;
     }
 
     &__support {
-      margin-bottom: 1.2em;
+      margin-bottom: 1.65em;
     }
 
     &__side,

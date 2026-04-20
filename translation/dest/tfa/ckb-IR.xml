@@ -7,7 +7,7 @@
   <string name="enterPassword">تێپەڕوشەکەت و کۆدی سەلماندنەکەت کە لەڕێی بەرنامەکەوە دروست بووە بنووسە بۆ تەواوکردنی ڕێکخستنەکە. ھەموو کاتێک کە دەچیتە ژوورەوە پێویستت بە کۆدی سەلماندنە.</string>
   <string name="ifYouCannotScanEnterX">ئەگەر ناتوانیت کۆدەکە سکان بکەیت، کلیلی نھێنیی %s لەنێو بەرنامەکەتدا بنووسە.</string>
   <string name="authenticationCode">کۆدی سەلماندن</string>
-  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">تێبینی: ئەگەر کۆدی سەلماندنی دوو ھۆکارت لەدەست بدەیت، دەتوانیت %s بکەیت لەڕێی ئیمەیڵەوە.</string>
+  <string name="ifYouLoseAccessTwoFactor">تێبینی: ئەگەر کۆدی سەلماندنی دوو ھۆکارت لەدەست بدەیت، دەتوانیت %s بکەیت لەڕێی ئیمەیڵەوە.</string>
   <string name="enableTwoFactor">سەلماندنی دوو ھۆکار چالاک بکە</string>
   <string name="disableTwoFactor">سەلماندنی دوو ھۆکار ناچالاک بکە</string>
   <string name="twoFactorEnabled">سەلماندنی دوو ھۆکار چالاک کرا</string>

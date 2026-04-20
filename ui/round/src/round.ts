@@ -2,7 +2,7 @@ import { attributesModule, classModule, init } from 'snabbdom';
 
 import { myUserId } from 'lib';
 import standaloneChat from 'lib/chat/standalone';
-import type { TourPlayer } from 'lib/game';
+import { finished, type TourPlayer } from 'lib/game';
 import { setClockWidget } from 'lib/game/clock/clockWidget';
 import menuHover from 'lib/menuHover';
 import { pubsub } from 'lib/pubsub';
@@ -109,8 +109,8 @@ async function boot(
   };
   const getPresetGroup = (d: RoundData) => {
     if (d.player.spectator) return;
-    if (d.steps.length < 4) return 'start';
-    else if (d.game.status.id >= 30) return 'end';
+    if (finished(d)) return 'end';
+    if (d.steps.length < 6) return 'start';
     return;
   };
   const ctrl = await roundMain(opts);

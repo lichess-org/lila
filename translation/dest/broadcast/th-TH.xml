@@ -102,6 +102,6 @@
   <string name="semifinals">รอบรองชนะเลิศ</string>
   <string name="finals">ชิงชนะเลิศ</string>
   <string name="tiebreaks">การตัดสินผลเสมอ</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">เกม %s</string>
+  <string name="gameX">เกม %s</string>
   <string name="knockouts">น็อคเอาท์</string>
 </resources>

@@ -157,10 +157,10 @@
   <string name="enPassantIntro">जेव्हा विरोधकाचे प्यादे दोन घर पुढे सरकले असेल, तेव्हा तुम्ही ते जणू एकच घर चालले आहे असे मानून मारू शकता.</string>
   <string name="blackJustMovedThePawnByTwoSquares">काळ्याने फक्त 2 घरे प्यादे हलवले आहे!
 तुम्ही एन पसांट नियमाने ते मारा.</string>
-  <string name="enPassantOnlyWorksImmediately">विरोधकाने प्यादे सरकवल्यावर एन पासंट फक्त लगेचच्या चालीसाठी वैध असेल.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">जर आपले प्यादे 5 व्या पंक्तीत असेल तरच एन पसांट नियम वापरता येतो.</string>
-  <string name="takeAllThePawnsEnPassant">एन पसांट नियमाने सर्व प्यादी मारा!</string>
-  <string name="enPassantComplete">अभिनंदन! आपण आता एन पसांट नियमाने मारू शकता.</string>
+  <string name="enPassantOnlyWorksImmediately">विरोधकाने प्यादे सरकवल्यावर एन पासंट (उत्तीर्ण मध्ये) फक्त लगेचच्या चालीसाठी वैध असेल.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">जर आपले प्यादे 5 व्या पंक्तीत असेल तरच उत्तीर्ण मध्ये नियम वापरता येतो.</string>
+  <string name="takeAllThePawnsEnPassant">उत्तीर्ण मध्ये नियमाने सर्व प्यादी मारा!</string>
+  <string name="enPassantComplete">अभिनंदन! आपण आता उत्तीर्ण मध्ये नियमाने मारू शकता.</string>
   <string name="stalemate">अर्धवट मात</string>
   <string name="theGameIsADraw">खेळ बरोबरीत सुटला आहे</string>
   <string name="stalemateIntro">जेव्हा एखादा खेळाडू शहामध्ये नसेल आणि त्याच्याकडे वैध चाल उपलब्ध नसेल, तर त्याला अर्धवट मात म्हणतात. अशा परिस्थितीत खेळ बरोबरीत संपतो: कोणीही जिंकत नाही, कोणीही हरत नाही.</string>
@@ -204,8 +204,8 @@
   <string name="learnCommonChessPositions">बुद्धिबळाच्या सामान्य स्थिति शिका</string>
   <string name="puzzles">कोडी</string>
   <string name="exerciseYourTacticalSkills">तुमच्या डावपेच कौशल्याचा सराव करा</string>
-  <string name="videos">चित्रफीतल्या </string>
-  <string name="watchInstructiveChessVideos">उपदेशात्मक बुद्धीबळ व्हिडिओ पहा</string>
+  <string name="videos">चित्रफीतल्या</string>
+  <string name="watchInstructiveChessVideos">उपदेशात्मक बुद्धिबळ चित्रफीतल्या पहा</string>
   <string name="playPeople">लोकांसोबत खेळा</string>
   <string name="opponentsFromAroundTheWorld">जगभरातील बुद्धिबळपटू</string>
   <string name="playMachine">संगणक सोबत खेळा</string>

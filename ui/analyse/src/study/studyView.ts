@@ -319,7 +319,7 @@ function buttons(root: AnalyseCtrl): VNode {
       }),
       !ctrl.relay &&
         !ctrl.data.chapter.gamebook &&
-        hl('span.help', {
+        hl('button.help', {
           attrs: { title: i18n.study.getTheTour, ...dataIcon(licon.InfoCircle) },
           hook: bind('click', ctrl.startTour),
         }),

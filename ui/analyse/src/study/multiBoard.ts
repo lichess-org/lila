@@ -233,7 +233,7 @@ export const previewContent = (
   extraCgConfig?: () => Partial<CgConfig>,
 ) => {
   const makeCgConfig = () => ({
-    ...previewToCgConfig(preview),
+    ...(showResults ? previewToCgConfig(preview) : { fen: EMPTY_BOARD_FEN }),
     ...(extraCgConfig ? extraCgConfig() : {}),
   });
   return [
@@ -251,7 +251,7 @@ export const previewContent = (
                 viewOnly: true,
                 orientation,
                 drawable: { enabled: false, visible: false },
-                ...(showResults ? makeCgConfig() : { fen: EMPTY_BOARD_FEN }),
+                ...makeCgConfig(),
               });
               vnode.data!.fen = preview.fen;
             },

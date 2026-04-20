@@ -42,7 +42,22 @@
 
     p {
       text-align: justify;
-      line-height: 1.5;
+      line-height: 1.4;
+    }
+
+    ul,
+    ol {
+      line-height: 1.4;
+      margin-bottom: 1rem;
+      padding-left: 1rem;
+    }
+
+    ul li {
+      list-style: disc;
+    }
+
+    ol li {
+      list-style: decimal;
     }
 
     h1,

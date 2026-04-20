@@ -71,7 +71,7 @@
     }
 
     &--detail {
-      gap: var(---box-padding);
+      gap: $box-padding;
       align-items: center;
 
       &:not(:last-child) {

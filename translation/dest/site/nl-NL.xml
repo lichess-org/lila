@@ -526,6 +526,7 @@
   <string name="popularOpenings">Populaire openingen</string>
   <string name="endgamePositions">Eindspel posities</string>
   <string name="chess960StartPosition">Beginstelling Chess960: %s</string>
+  <string name="randomChess960Position">Willekeurige Schaak960-positie</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
   <string name="loadPosition">Laad een stelling</string>
@@ -602,6 +603,9 @@
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
   <string name="incorrectPassword">Onjuist wachtwoord</string>
   <string name="invalidAuthenticationCode">Ongeldige authenticatiecode</string>
+  <string name="clearField">Veld leegmaken</string>
+  <string name="orSeparator">of</string>
+  <string name="logInByEmail">Log in via e-mail</string>
   <string name="emailMeALink">Email me een link</string>
   <string name="currentPassword">Huidig wachtwoord</string>
   <string name="newPassword">Nieuw wachtwoord</string>
@@ -916,7 +920,6 @@
   <string name="agreementAssistance">Ik ga ermee akkoord dat ik tijdens mijn partijen geen hulp krijg (van een schaakcomputer, -boek, -database of ander persoon).</string>
   <string name="agreementNice">Ik ga ermee akkoord dat ik altijd respectvol tegenover andere spelers zal zijn.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken (behalve om de redenen die in de %s zijn vermeld).</string>
-  <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess-regels zal volgen.</string>
   <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
   <string name="edit">Wijzigen</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>

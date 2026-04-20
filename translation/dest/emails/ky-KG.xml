@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">%s, lichess.org аккаунтуңузду тастыктаңыз</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Lichess\'теги аккаунтту активдештирүү үчүн төмөнкү шилтемени басыңыз:</string>
+  <string name="emailConfirm_justIgnore" comment="This text is included in the registration email for new users.">Эгер сиз Lichess\'те каттоодон өткөн эмес болсоңуз, анда бул катка көңүл бурбай эле койсоңуз болот. Тастыкталбаган аккаунт жана сиздин электрондук почтаңыздын дареги тууралуу бардык маалымат биздин системадан 48 сааттан кийин өчүрүлөт.</string>
+  <string name="passwordReset_subject">Lichess.org\'до %s үчүн сырсөздү кайра орнотуу</string>
+  <string name="passwordReset_intro">Биз сиздин аккаунт үчүн сырсөздү кайра орнотууга сурам алдык.</string>
+  <string name="passwordReset_clickOrIgnore">Эгер ал сурамды сиз жасаган болсоңуз, төмөндөгү шилтемени басыңыз. Болбосо, жөн гана бул катка көңүл бурбай коюңуз.</string>
+  <string name="emailChange_subject">%s үчүн жаңы электрондук почта дарегин ырастоо</string>
+  <string name="emailChange_intro">Биз сиздин электрондук почтаңыздын дарегин алмаштырууга сурам алдык.</string>
+  <string name="emailChange_click">Ушул электрондук почтанын дареги сизге таандык экенин ырастоо үчүн төмөндөгү шилтемени басыңыз:</string>
+  <string name="welcome_subject">%s, lichess.org\'го кош келиңиз</string>
+  <string name="welcome_text">Сиз https://lichess.org\'до ийгиликтүү каттоодон өттүңүз.
+
+Бул сиздин профилиңиздин шилтемеси: %1$s. Сиз аны бул жерде жөндөй аласыз: %2$s.
+
+Сизге ийгилик! Фигураларыңыз атаандашыңыздын королуна ар дайым жол таба алсын!</string>
+  <string name="logInToLichess">%s, lichess.org\'го кириңиз</string>
   <string name="common_orPaste">(Башсаныз иштебей жатыр бы? Анда башка браузер мен кириниз)</string>
+  <string name="common_note">Бул кызматтык кат сиз %s аккаунтун пайдаланышыңызга байланыштуу.</string>
+  <string name="common_contact">Биз менен байланышуу үчүн %s баракчасына өтүңүз.</string>
 </resources>

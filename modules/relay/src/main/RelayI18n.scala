@@ -17,13 +17,18 @@ private object RelayI18n:
   private val girlsRegex = """(?i)^girls$""".r
   private val boysRegex = """(?i)^boys$""".r
   private val openUnderXAgeRegex = """(?i)^open\s+u(\d{1,2})$""".r
+  private val openUnderXAgeShortRegex = """(?i)^o(\d{1,2})$""".r
   private val girlsUnderXAgeRegex = """(?i)^girls\s+u(\d{1,2})$""".r
+  private val girlsUnderXAgeShortRegex = """(?i)^g(\d{1,2})$""".r
   private val boysUnderXAgeRegex = """(?i)^boys\s+u(\d{1,2})$""".r
+  private val boysUnderXAgeShortRegex = """(?i)^b(\d{1,2})$""".r
   private val quarterfinalsRegex = """(?i)^quarter[-\s]?final[s]?$""".r
   private val semifinalsRegex = """(?i)^semi[-\s]?final[s]?$""".r
   private val finalsRegex = """(?i)^final[s]?$""".r
   private val tiebreaksRegex = """(?i)^tie[-\s]?break(?:er)?[s]?$""".r
   private val knockoutsRegex = """(?i)^knock[-\s]?out[s]?$""".r
+  private val underXAgeRegex = """(?i)^u(\d{1,2})$""".r
+  private val underXEloRegex = """(?i)^u(\d{4})$""".r
   private val sep = """\s+\|\s+""".r
 
   def apply(name: RelayTour.Name | RelayRound.Name)(using Translate): String =
@@ -41,12 +46,17 @@ private object RelayI18n:
         case girlsRegex() => broadcast.girlsTournament.txt()
         case boysRegex() => broadcast.boysTournament.txt()
         case openUnderXAgeRegex(age) => broadcast.openUnderXAgeTournament.txt(age)
+        case openUnderXAgeShortRegex(age) => broadcast.openUnderXAgeTournament.txt(age)
         case girlsUnderXAgeRegex(age) => broadcast.girlsUnderXAgeTournament.txt(age)
+        case girlsUnderXAgeShortRegex(age) => broadcast.girlsUnderXAgeTournament.txt(age)
         case boysUnderXAgeRegex(age) => broadcast.boysUnderXAgeTournament.txt(age)
+        case boysUnderXAgeShortRegex(age) => broadcast.boysUnderXAgeTournament.txt(age)
         case quarterfinalsRegex() => broadcast.quarterfinals.txt()
         case semifinalsRegex() => broadcast.semifinals.txt()
         case finalsRegex() => broadcast.finals.txt()
         case tiebreaksRegex() => broadcast.tiebreaks.txt()
         case knockoutsRegex() => broadcast.knockouts.txt()
+        case underXAgeRegex(age) => broadcast.underXAgeTournament.txt(age)
+        case underXEloRegex(elo) => broadcast.underXEloTournament.txt(elo)
         case token => token
       .mkString(" | ")

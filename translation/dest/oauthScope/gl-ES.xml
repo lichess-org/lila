@@ -25,7 +25,7 @@
   <string name="followRead">Ver os xogadores ós que segues</string>
   <string name="followWrite">Seguir e deixar de seguir a outros xogadores</string>
   <string name="msgWrite">Enviar mensaxes privadas a outros xogadores</string>
-  <string name="boardPlay">Xogar partidas coa API do taboleiro</string>
+  <string name="boardPlay">Xogar partidas coa API do Taboleiro</string>
   <string name="botPlay">Xogar partidas coa API de Bots</string>
   <string name="engineRead">Ver e empregar os teus motores de xadrez externos</string>
   <string name="engineWrite">Crear e actualizar os teus motores de xadrez externos</string>

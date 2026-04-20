@@ -163,9 +163,9 @@ final class User(
             .redirect(username.value)
             .flatMap:
               case Some(url) => Redirect(url).toFuccess
-              case None if isGrantedOpt(_.UserModView) => ctx.useMe(modC.searchTerm(username.value))
+              case None if isGrantedOpt(_.AccountInfo) => ctx.useMe(modC.searchTerm(username.value))
               case None => notFound(true)
-        case Some(u) if u.enabled.yes || isGrantedOpt(_.UserModView) => f(u)
+        case Some(u) if u.enabled.yes || isGrantedOpt(_.AccountInfo) => f(u)
         case u => notFound(u.isEmpty)
 
   def showMini(username: UserStr) = Open:
@@ -173,7 +173,7 @@ final class User(
       ctx.userId
         .so(relationApi.fetchRelation(_, user.id))
         .flatMap: relation =>
-          if user.enabled.yes || isGrantedOpt(_.UserModView)
+          if user.enabled.yes || isGrantedOpt(_.AccountInfo)
           then
             (
               ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
@@ -415,7 +415,8 @@ final class User(
               .preloadMany(as.games.flatMap(_.userIds))
               .inject(ui.assessments(user, as))
 
-        val boardTokens = env.oAuth.tokenApi.usedBoardApi(user.id).map(views.user.mod.boardTokens)
+        val oauthTokens = isGranted(_.AccountInfo).so:
+          env.oAuth.tokenApi.modRelevantTokens(user.id).map(views.user.mod.oauthTokens)
 
         val teacher = isGranted(_.AccountInfo).so:
           env.clas.api.clas.countOf(user).map(ui.teacher(user))
@@ -438,7 +439,7 @@ final class User(
             .merge(modZoneSegment(kaladin, "kaladin", user))
             .merge(modZoneSegment(irwin, "irwin", user))
             .merge(modZoneSegment(assess, "assess", user))
-            .merge(modZoneSegment(boardTokens, "boardTokens", user))
+            .merge(modZoneSegment(oauthTokens, "oauthTokens", user))
             .via(EventSource.flow)
             .log("User.renderModZone")
         .as(ContentTypes.EVENT_STREAM)

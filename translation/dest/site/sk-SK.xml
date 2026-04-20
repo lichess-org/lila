@@ -987,7 +987,6 @@
   <string name="agreementAssistance">Súhlasím, že v žiadnom prípade nebudem používať asistenciu (počítača, šachovej knihy, databázy alebo inej osoby).</string>
   <string name="agreementNice">Súhlasím, že budem vždy rešpektovať ostatných hráčov.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Súhlasím, že nebudem vytvárať ďalšie účty (s výnimkou dôvodov uvedených v %s).</string>
-  <string name="agreementPolicy">Súhlasím, že budem dodržiavať všetky pravidlá Lichessu.</string>
   <string name="searchOrStartNewDiscussion">Prehľadávať alebo začať novú konverzáciu</string>
   <string name="edit">Upraviť</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>

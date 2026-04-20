@@ -70,6 +70,15 @@
     border-bottom: $border;
   }
 
+  &__success {
+    @extend %box-neat;
+
+    padding: 2em;
+    background: $c-good;
+    color: $c-over;
+    font-weight: bold;
+  }
+
   &__footer {
     color: $c-font-dim;
     font-size: 0.9em;

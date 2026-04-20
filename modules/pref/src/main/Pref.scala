@@ -455,18 +455,13 @@ object Pref:
       DRAW -> "When losing or drawing"
     )
 
-  val darkByDefaultSince = instantOf(2021, 11, 7, 8, 0)
-  val systemByDefaultSince = instantOf(2022, 12, 23, 8, 0)
-
   def create(id: UserId) = default.copy(id = id)
 
   def create(user: User) = default.copy(
     id = user.id,
-    bg =
-      if user.createdAt.isAfter(systemByDefaultSince) then Bg.SYSTEM
-      else if user.createdAt.isAfter(darkByDefaultSince) then Bg.DARK
-      else Bg.LIGHT,
-    agreement = if user.createdAt.isAfter(Agreement.changedAt) then Agreement.current else 0
+    bg = Bg.SYSTEM,
+    agreement =
+      Agreement.current // if user.createdAt.isAfter(Agreement.changedAt) then Agreement.current else 0
   )
 
   lazy val default = Pref(

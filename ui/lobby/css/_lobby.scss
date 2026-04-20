@@ -81,6 +81,10 @@ body {
 
 .lobby__tv .mini-game {
   overflow: visible;
+
+  &__player {
+    padding-top: 0;
+  }
 }
 
 .lobby__puzzle .text {
@@ -90,6 +94,14 @@ body {
   display: block;
   text-align: right;
   margin-inline-end: 1ch;
+
+  @include mq-at-least-col2 {
+    min-height: 19px;
+  }
+
+  @include mq-at-least-col3 {
+    min-height: 21px;
+  }
 }
 
 .lobby__blog {

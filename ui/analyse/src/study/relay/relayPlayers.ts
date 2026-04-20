@@ -55,6 +55,7 @@ interface RelayPlayerGame {
   points?: PointsStr;
   customPoints?: number;
   ratingDiff?: number;
+  ongoing?: boolean;
 }
 
 interface RelayPlayerWithGames extends RelayPlayer {
@@ -171,7 +172,8 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
               }),
             },
             [
-              photo && playerPhotoOrFallback(p, photo, 'medium', 'fide-player__photo'),
+              photo &&
+                hl('div.fide-player__photo', playerPhotoOrFallback(p, photo, 'medium', 'fide-player__photo')),
               hl('div.fide-player__header__info', [
                 hl('a.fide-player__header__name', { attrs: fidePageAttrs }, [
                   hl('span', [userTitle(p), p.name]),
@@ -401,6 +403,7 @@ export const playerLinkConfig = (ctrl: RelayPlayers, player: StudyPlayer, withTi
         attrs: {
           href: `#players/${playerId(player)}`,
         },
+        key: id,
         hook: playerLinkHook(ctrl, player, withTip),
       }
     : {};
@@ -435,12 +438,12 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
   const hideResultsSinceIndex =
     (hideResultsSinceRoundId && p.games.findIndex(g => g.round === hideResultsSinceRoundId)) || 999;
 
-  const coloredPoint = ({ points, customPoints, color, roundObj }: RelayPlayerGame, index: number) => {
-    if (!points) return hl('span', '*');
+  const coloredPoint = ({ points, customPoints, color, ongoing }: RelayPlayerGame, index: number) => {
+    if (!points) return ongoing && hl('strong', '*');
     if (hideResultsSinceIndex <= index) return hl('span', '?');
 
     const povResultStr = points === '1/2' ? '½-½' : (points === '1') === (color === 'white') ? '1-0' : '0-1';
-    const coloredResult = playerColoredResult(povResultStr, color, roundObj);
+    const coloredResult = playerColoredResult(povResultStr, color);
     if (!coloredResult) return;
 
     return hl(

@@ -105,6 +105,6 @@
   <string name="semifinals">نیمه نهایی</string>
   <string name="finals">نهایی</string>
   <string name="tiebreaks">پوئن شکنی‌ها</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">بازی %s</string>
+  <string name="gameX">بازی %s</string>
   <string name="knockouts">ناک اوت</string>
 </resources>

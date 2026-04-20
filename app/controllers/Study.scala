@@ -231,7 +231,7 @@ final class Study(
   private def chapterAnalysis(sc: WithChapter) =
     sc.chapter.serverEval
       .exists(_.done)
-      .so(env.analyse.analyser.byId(Analysis.Id(sc.study.id, sc.chapter.id)))
+      .so(env.analyse.repo.byId(Analysis.Id(sc.study.id, sc.chapter.id)))
 
   def show(id: StudyId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id):
@@ -353,6 +353,7 @@ final class Study(
       data =>
         doImportPgn(id, data, Sri("api")): (chapters, errors) =>
           import lila.study.ChapterPreview.json.given
+          import lila.fide.Federation.find
           val previews = chapters.map(env.study.preview.fromChapter(_))
           JsonOk(Json.obj("chapters" -> previews, "error" -> errors))
     )
@@ -522,6 +523,21 @@ final class Study(
       )
     }
 
+  def apiChapterPgnMovesUpdate(studyId: StudyId, chapterId: StudyChapterId) =
+    AuthOrScopedBody(_.Study.Write) { _ ?=> me ?=>
+      bindForm(StudyForm.replaceChapterPgnMoves)(
+        jsonFormError,
+        pgnStr =>
+          env.study.api
+            .replaceChapterPgnMoves(studyId, chapterId, pgnStr)
+            .map:
+              if _ then NoContent
+              else JsonBadRequest(s"Invalid or forbidden chapter $studyId/$chapterId")
+            .recover:
+              case lila.study.StudyValidationException(error) => JsonBadRequest(error)
+      )
+    }
+
   def topicAutocomplete = Anon:
     get("term").filter(_.nonEmpty) match
       case None => BadRequest("No search term provided")
@@ -551,8 +567,16 @@ final class Study(
 
   def staffPicks = Open:
     pageHit
-    FoundPage(env.cms.renderKey("studies-staff-picks")):
-      views.study.staffPicks
+    FoundPage(env.cms.renderKey("studies-staff-picks")): page =>
+      val featured = isGrantedOpt(_.StudyAdmin).option(env.study.pager.featured.setting.form)
+      views.study.staffPicks(page, featured)
+
+  def staffPicksPost = SecureBody(_.StudyAdmin) { _ ?=> _ ?=>
+    bindForm(env.study.pager.featured.setting.form)(
+      _ => Redirect(routes.Study.staffPicks),
+      v => env.study.pager.featured.setting.setString(v.toString).inject(Redirect(routes.Study.staffPicks))
+    )
+  }
 
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
   def privateUnauthorizedFu(study: StudyModel)(using Context) = negotiate(

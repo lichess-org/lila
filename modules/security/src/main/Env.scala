@@ -29,16 +29,14 @@ final class Env(
     cookieBaker: play.api.mvc.SessionCookieBaker,
     lazyCurrentlyPlaying: => lila.core.round.CurrentlyPlaying,
     db: lila.db.Db,
-    getFile: GetRelativeFile
+    getFile: GetRelativeFile,
+    routeUrl: RouteUrl
 )(using Executor, play.api.Mode, lila.core.i18n.Translator, lila.core.config.RateLimit)(using
     scheduler: Scheduler
 ):
-
-  private val (baseUrl, domain) = (net.baseUrl, net.domain)
+  private def netDomain = net.domain
 
   private val config = appConfig.get[SecurityConfig]("security")
-
-  private def hcaptchaPublicConfig = config.hcaptcha.public
 
   val lilaCookie = wire[LilaCookie]
 
@@ -59,12 +57,13 @@ final class Env(
 
   lazy val authenticator = wire[Authenticator]
 
-  lazy val hcaptcha: Hcaptcha =
-    if config.hcaptcha.enabled then wire[HcaptchaReal]
-    else wire[HcaptchaSkip]
+  val turnstilePublicConfig = config.turnstile.public
+  lazy val turnstile: Turnstile =
+    if config.turnstile.enabled then wire[TurnstileReal]
+    else wire[TurnstileSkip]
 
   lazy val forms = wire[SecurityForm]
-  def signupForm: lila.core.security.SignupForm = forms.signup
+  def signupForm: lila.core.security.SignupFormFields = forms.signup
 
   lazy val geoIP: GeoIP = wire[GeoIP]
 
@@ -86,6 +85,12 @@ final class Env(
     text = "Enable the user garbage collector".some
   )
 
+  lazy val lichobileLogin = settingStore[Boolean](
+    "lichobileLogin",
+    default = true,
+    text = "Allow users to login with lichobile app".some
+  )
+
   lazy val printBan = PrintBan(db(config.collection.printBan))
 
   private val curPlaying = lila.core.data.LazyDep(() => lazyCurrentlyPlaying)
@@ -99,7 +104,7 @@ final class Env(
       EmailConfirmMailer(
         userRepo = userRepo,
         mailer = mailer,
-        baseUrl = baseUrl,
+        routeUrl = routeUrl,
         tokenerSecret = config.emailConfirm.secret
       )
     else wire[EmailConfirmSkip]
@@ -161,12 +166,6 @@ final class Env(
     default = Strings(List("PUB", "TOR")),
     text = "Types of proxy that require 2FA to login".some
   ).taggedWith[Proxy2faSetting]
-
-  val alwaysCaptcha = settingStore[Boolean](
-    "alwaysCaptcha",
-    default = false,
-    text = "Always serve captchas, don't skip once per IP and per 24h".some
-  ).taggedWith[AlwaysCaptcha]
 
   lazy val api = wire[SecurityApi]
 

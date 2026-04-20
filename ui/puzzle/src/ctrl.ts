@@ -1,4 +1,5 @@
 import { Result } from '@badrap/result';
+import type { DrawShape } from '@lichess-org/chessground/draw';
 import { uciToMove } from '@lichess-org/chessground/util';
 import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
@@ -9,7 +10,7 @@ import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/u
 import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
-import { prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'lib';
+import { prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallbackSafe } from 'lib';
 import { type Deferred, defer, throttle } from 'lib/async';
 import { CevalCtrl } from 'lib/ceval';
 import type { CevalHandler } from 'lib/ceval/types';
@@ -56,6 +57,7 @@ export default class PuzzleCtrl implements CevalHandler {
   session: PuzzleSession;
   menu: Toggle;
   flipped = toggle(false);
+  googlyEyes?: () => DrawShape[];
   keyboardMove?: KeyboardMove;
   voiceMove?: VoiceMove;
   promotion: PromotionCtrl;
@@ -70,7 +72,6 @@ export default class PuzzleCtrl implements CevalHandler {
   pov: Color;
   mode: 'play' | 'view' | 'try';
   round?: PuzzleRound;
-  justPlayed?: Key;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
   canViewSolution = toggle(false);
@@ -146,11 +147,17 @@ export default class PuzzleCtrl implements CevalHandler {
     // If the page loads while being hidden (like when changing settings),
     // chessground is not displayed, and the first move is not fully applied.
     // Make sure chessground is fully shown when the page goes back to being visible.
-    document.addEventListener('visibilitychange', () => requestIdleCallback(() => this.jump(this.path), 500));
+    document.addEventListener('visibilitychange', () =>
+      requestIdleCallbackSafe(() => this.jump(this.path), 500),
+    );
 
     pubsub.on('zen', toggleZenMode);
     $('body').addClass('playing'); // for zen
     $('#zentog').on('click', () => pubsub.emit('zen'));
+    (window as any).lichess.puzzle = {
+      playUci: (uci: Uci) => this.sendMove(parseUci(uci)!),
+    };
+    (window as any).lichess.chessground = this.ground;
   }
 
   private readonly loadSound = (name: string, volume?: number) => {
@@ -201,7 +208,28 @@ export default class PuzzleCtrl implements CevalHandler {
         g.state.addPieceZIndex = is3d;
         g.redrawAll();
       });
+      this.setAutoShapes();
     });
+
+    this.googlyEyesAuto();
+  };
+
+  googlyEyesStart: () => void = () => {
+    if (!this.googlyEyes)
+      this.withGround(cg => {
+        site.asset
+          .loadEsm('bits.googlyHorsey', {
+            init: { cg, redraw: this.setAutoShapes },
+          })
+          .then(({ makeGooglyShapes }: { makeGooglyShapes: () => DrawShape[] }) => {
+            this.googlyEyes = makeGooglyShapes;
+            this.setAutoShapes();
+          });
+      });
+  };
+
+  private googlyEyesAuto = () => {
+    if (this.isDaily && new Date().getMonth() === 3 && new Date().getDate() === 1) this.googlyEyesStart();
   };
 
   pref = this.opts.pref;
@@ -218,7 +246,6 @@ export default class PuzzleCtrl implements CevalHandler {
     this.mode = 'play';
     this.next = defer();
     this.round = undefined;
-    this.justPlayed = undefined;
     this.resultSent = false;
     this.lastFeedback = 'init';
     this.initialPath = initialPath;
@@ -275,6 +302,7 @@ export default class PuzzleCtrl implements CevalHandler {
           color: undefined,
           dests: new Map(),
         };
+
     const config = {
       fen: node.fen,
       orientation: this.flipped() ? opposite(this.pov) : this.pov,
@@ -317,7 +345,6 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   userMove = (orig: Key, dest: Key): void => {
-    this.justPlayed = orig;
     const isPromoting = this.promotion.start(orig, dest, {
       submit: this.playUserMove,
       show: this.voiceMove?.promotionHook(),
@@ -571,7 +598,6 @@ export default class PuzzleCtrl implements CevalHandler {
       this.startCeval();
     }
     this.promotion.cancel();
-    this.justPlayed = undefined;
     this.autoScrollRequested = true;
     this.pluginUpdate(this.node.fen);
     pubsub.emit('ply', this.node.ply);

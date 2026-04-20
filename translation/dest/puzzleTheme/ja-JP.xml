@@ -26,8 +26,8 @@
   <string name="castlingDescription">キングを安全にし、ルークを攻撃に活用する。</string>
   <string name="capturingDefender">守り駒の除去</string>
   <string name="capturingDefenderDescription">別の駒を守っている駒を消して、無防備になった駒を取る。</string>
-  <string name="collinearMove" comment="Description for this theme (translateable separately):&#10;Two opposing pieces face each other, and one slides along the line of attack without capturing the enemy piece.&#10;&#10;Collinear is a term that comes from the field of geometry: https://en.wiktionary.org/wiki/collinear">コリニア（共線）ムーブ</string>
-  <string name="collinearMoveDescription" comment="Description for the puzzle theme 'Collinear move' (translateable separately).">同種の駒が向き合っている時に、一方が両者を結ぶ線上を動く手。</string>
+  <string name="collinearMove">コリニア（共線）ムーブ</string>
+  <string name="collinearMoveDescription">同種の駒が向き合っている時に、一方が両者を結ぶ線上を動く手。</string>
   <string name="cornerMate">コーナー・メイト</string>
   <string name="cornerMateDescription">ルークかクイーンでキングを隅に追い詰め、ナイトでメイトする形。</string>
   <string name="crushing">圧倒</string>

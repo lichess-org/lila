@@ -5,5 +5,3 @@ inputs:
     url: github:NixOS/nixpkgs/nixpkgs-unstable
   nixpkgs-master:
     url: github:NixOS/nixpkgs/master
-  oxfmt-pr:
-    url: github:macalinao/nixpkgs/update-oxfmt

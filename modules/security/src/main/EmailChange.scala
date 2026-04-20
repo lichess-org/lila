@@ -11,7 +11,7 @@ import lila.user.{ Me, User, UserRepo }
 final class EmailChange(
     userRepo: UserRepo,
     mailer: Mailer,
-    baseUrl: BaseUrl,
+    routeUrl: RouteUrl,
     tokenerSecret: Secret
 )(using Executor, lila.core.i18n.Translator):
 
@@ -22,7 +22,7 @@ final class EmailChange(
       tokener.make(TokenPayload(user.id, email)).flatMap { token =>
         lila.mon.email.send.change.increment()
         given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
-        val url = s"$baseUrl/account/email/confirm/$token"
+        val url = routeUrl(routes.Account.emailConfirm(token))
         lila.log("auth").info(s"Change email URL ${user.username} $email $url")
         mailer.sendOrFail:
           Mailer.Message(
@@ -46,7 +46,7 @@ ${trans.common_orPaste.txt()}
       }
 
   // also returns the previous email address
-  def confirm(token: String): Fu[Option[(Me, Option[EmailAddress])]] =
+  def confirm(token: String): Fu[Option[(Me, Option[EmailAddress], EmailAddress)]] =
     tokener.read(token).flatMapz { case TokenPayload(userId, email) =>
       for
         previous <- userRepo.email(userId)
@@ -54,7 +54,7 @@ ${trans.common_orPaste.txt()}
         me <- userRepo.me(userId)
       yield
         logger.info(s"Change email for $userId: ${previous | "none"} -> $email")
-        me.map(_ -> previous)
+        me.map((_, previous, email))
     }
 
   case class TokenPayload(userId: UserId, email: EmailAddress)

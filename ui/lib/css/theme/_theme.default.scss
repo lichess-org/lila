@@ -79,7 +79,7 @@ $patron-colors: $patron-colors-dark;
   --c-font-clear: #{change-color($c-font, $lightness: 80%)};
   --c-font-clearer: #{change-color($c-font, $lightness: 89%)};
   --c-font-page: var(--c-font-dim);
-  --c-font-shadow: hsla(0, 0, 0%, 0);
+  --c-font-shadow: hsla(0, 0%, 17%, 0.66);
   --c-primary-dim: #{dim($c-primary, 15%)};
   --c-link-hover: #{clear(saturate($c-primary, 100%), 25%)};
   --c-chat-host-bg: rgba(78, 122, 29, 0.4);

@@ -68,7 +68,6 @@ const qualities = { spam: 0, weak: 1, good: 2, great: 3 }; // in sync with Ublog
 const schemaVersion = 1;
 const flushEvery = 100; // bulk write after every <flushEvery> assessments
 const concurrentRequests = 32;
-const model = 'Qwen/Qwen3-235B-A22B-Thinking-2507';
 
 let client = undefined;
 
@@ -82,6 +81,7 @@ const db = client.db();
 
 if (args.merge) await mergeAndExit();
 
+const model = (await db.collection('flag').findOne({ _id: 'ublogAutomodModel' })).setting;
 const prompt = (await db.collection('flag').findOne({ _id: 'ublogAutomodPrompt' })).setting;
 const temperature = 0; //(await db.collection('flag').findOne({ _id: 'ublogAutomodTemperature' }))?.setting ?? 0.3;
 const posts = await db

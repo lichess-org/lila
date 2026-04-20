@@ -5,8 +5,8 @@
   <string name="byTopic">विषयानुसार</string>
   <string name="byLichess">Lichess द्वारे</string>
   <string name="myFriends">माझे मित्र</string>
-  <string name="myLikes" comment="A page which lists blog posts that you have pressed ❤️ Like on: https://lichess.org/blog/liked">माझ्या आवडी</string>
-  <string name="myBlog">माझे अनुदिनी</string>
+  <string name="myLikes">माझ्या आवडी</string>
+  <string name="myBlog">माझी अनुदिनी</string>
   <string name="likedBlogs">आवडलेले अनुदिन्या</string>
   <plurals name="blogPosts">
     <item quantity="one">%s अनुदिनी</item>
@@ -17,7 +17,7 @@
   <string name="previousBlogPosts">पूर्वीच्या अनुदिन्या</string>
   <string name="xBlog">%s चि अनुदिनी</string>
   <string name="newPost">नवीन नेमणी</string>
-  <string name="editYourBlogPost">आपली ब्लॉग पोस्ट संपादित करा</string>
+  <string name="editYourBlogPost">आपली अनुदिनी संपादित करा</string>
   <string name="saveDraft">मसुदा वाचवा</string>
   <string name="postTitle">नेमणीचे शीर्षक</string>
   <string name="postIntro">नेमणीचे परिचय</string>
@@ -40,7 +40,7 @@
   </plurals>
   <string name="xPublishedY">%1$s ने %2$s प्रकाशित केले</string>
   <string name="thisPostIsPublished">ही टिप्पणी प्रकाशित झाली</string>
-  <string name="thisIsADraft">हे एक मसुदा आहे</string>
+  <string name="thisIsADraft">हा एक मसुदा आहे</string>
   <string name="noPostsInThisBlogYet">ह्या अनुदिनीत आतापर्यंत नेमण्या नाही आहेत.</string>
   <string name="noDrafts">दाखवण्यासाठी कोणतेही मसुदे नाहीत.</string>
   <string name="latestBlogPosts">नवीनतम अनुदिनीतील नेमण्या</string>
@@ -52,10 +52,10 @@
   <string name="imageAlt">प्रतिमेची पर्यायी संहिता</string>
   <string name="imageCredit">प्रतिमेचं संदर्भ</string>
   <string name="deleteBlog">ह्या अनुदिनीला निश्चितपणे हटवा</string>
-  <string name="safeToUseImages">ह्या संकेतस्थळांतून प्रतिमे वापरण्यास सुरक्षित आहे:</string>
+  <string name="safeToUseImages">ह्या संकेतस्थळांतून प्रतिमे वापरण्यास सुरक्षित आहे: </string>
   <string name="selectPostTopics">तुमची नेमणी कोणत्या विषयांबद्दल आहे ते निवडा</string>
-  <string name="useImagesYouMadeYourself">तुम्ही स्वतः बनवलेल्या प्रतिमा, तुम्ही काढलेले छायाचित्र , Lichess चे पृष्ठप्रत... इतर प्रतिलिप्यधिक नसलेल्या कोणत्याही गोष्टी देखील वापरू शकता.</string>
-  <string name="safeAndRespectfulContent">कृपया फक्त सुरक्षित आणि आदरयुक्त सामग्री नेमणी करा . दुसऱ्याच्या सामग्रीची नक्कल करू नका.</string>
+  <string name="useImagesYouMadeYourself">तुम्ही स्वतः बनवलेल्या प्रतिमा, तुम्ही काढलेले छायाचित्र, Lichess चे पृष्ठप्रत... इतर प्रतिलिप्यधिक नसलेल्या कोणत्याही गोष्टी देखील वापरू शकता.</string>
+  <string name="safeAndRespectfulContent">कृपया फक्त सुरक्षित आणि आदरयुक्त सामग्री नेमणी करा. दुसऱ्याच्या सामग्रीची नक्कल करू नका.</string>
   <string name="inappropriateContentAccountClosed">कोणत्याही अनुचित गोष्टीमुळे तुमचे खाते बंद होऊ शकते.</string>
   <string name="blogTips">उत्तम अनुदिनीचे नेमणी लिहिण्यासाठी आमचे सोपे सल्ले</string>
   <string name="discussThisBlogPostInTheForum">या नेमणीवर लोकमंचामध्ये चर्चा करा</string>

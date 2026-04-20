@@ -488,7 +488,7 @@ export const registerMultipleSelect = () => {
       } else {
         this.$selectItems.each(function () {
           const $parent = $(this).parent();
-          $parent[$parent.text().toLowerCase().indexOf(text) < 0 ? 'hide' : 'show']();
+          $parent[$parent.text().toLowerCase().includes(text) ? 'show' : 'hide']();
         });
         this.$disableItems.parent().hide();
         this.$selectGroups.each(function () {

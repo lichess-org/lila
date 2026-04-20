@@ -13,7 +13,7 @@ final class Pref(env: Env) extends LilaController(env):
   private def api = env.pref.api
   private def forms = lila.pref.PrefForm
 
-  def apiGet = Scoped(_.Preference.Read, _.Web.Mobile, _.Web.Polygon) { _ ?=> me ?=>
+  def apiGet = Scoped(_.Preference.Read, _.Web.Mobile, _.Web.Takex3) { _ ?=> me ?=>
     env.pref.api.get(me).map { prefs =>
       JsonOk:
         Json

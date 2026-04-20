@@ -138,6 +138,10 @@
     .amount_fixed label,
     .lifetime-check + label {
       @extend %active-secondary;
+
+      &:hover {
+        background: $m-secondary--lighten-5;
+      }
     }
 
     group {

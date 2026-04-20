@@ -104,6 +104,8 @@
   <string name="semifinals">Demi-finales</string>
   <string name="finals">Finales</string>
   <string name="tiebreaks">Bris d\'égalité</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Partie %s</string>
+  <string name="gameX">Partie %s</string>
   <string name="knockouts">Éliminatoires</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Moins de %s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Moins de %s</string>
 </resources>

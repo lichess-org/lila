@@ -8,6 +8,9 @@
 
     let
       javaVersion = 21;
+      # Source of truth for Node version is .node-version
+      nodeVersionFile = builtins.readFile ./.node-version;
+      nodeMajorVersion = builtins.elemAt (inputs.nixpkgs.lib.strings.split "\\." (builtins.replaceStrings [ "v" ] [ "" ] nodeVersionFile)) 0;
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -37,8 +40,8 @@
           sbt = prev.sbt.override { jre = jdk; };
           scala = prev.scala_3.override { jre = jdk; };
 
-          nodejs_24 = prev.nodejs_24;
-          pnpm = (prev.pnpm.override { nodejs = prev.nodejs_24; });
+          nodejs = prev."nodejs_${nodeMajorVersion}";
+          pnpm = (prev.pnpm.override { inherit nodejs; });
 
           esbuild = prev.esbuild.overrideAttrs (previousAttrs: rec {
             version = "0.25.11";
@@ -56,9 +59,10 @@
         {
           default = pkgs.mkShellNoCC {
             packages = with pkgs; [
-              nodejs_24
-              nodePackages.pnpm
+              nodejs
+              pnpm
               esbuild
+              dart-sass
               oxlint
               oxfmt
               stylelint
@@ -67,7 +71,16 @@
               scala
               sbt
               coursier
+
+              mongosh
+              redis
             ];
+            # Required for NixOS to run prebuilt binaries from npm packages
+            shellHook = ''
+              export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ]}:$LD_LIBRARY_PATH
+              # Use dart-sass instead of npm's sass-embedded
+              export SASS_PATH=${pkgs.dart-sass}/bin/sass
+            '';
           };
         }
       );

@@ -223,7 +223,7 @@ export default class CoordinateTrainerCtrl {
 
   private readonly tick = () => {
     if (!this.playing) return;
-    const timeSpent = Math.min(DURATION, new Date().getTime() - +this.timeAtStart);
+    const timeSpent = Math.min(DURATION, Date.now() - +this.timeAtStart);
     this.timeLeft = DURATION - timeSpent;
     this.redraw();
 

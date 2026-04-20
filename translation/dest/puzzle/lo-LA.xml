@@ -16,7 +16,7 @@
   <string name="voteToLoadNextOne">ໂຫວດເພື່ອໂຫຼດອັນຖັດໄປ!</string>
   <string name="upVote">ໃຫ້ຄະແນນບວກ</string>
   <string name="downVote">ໃຫ້ຄະແນນລົບ</string>
-  <string name="yourPuzzleRatingWillNotChange">ຄະແນນປິດສະໜາຂອງເຈົ້າຈະບໍ່ປ່ຽນແປງ. ຈົ່ງຈື່ໄວ້ວ່າປິດສະໜາບໍ່ແມ່ນການແຂ່ງຂັນ. ຄະແນນຂອງເຈົ້າຈະຊ່ວຍໃນການເລືອກປິດສະໜາທີ່ເໝາະສົມກັບລະດັບທັກສະຂອງເຈົ້າໃນປະຈຸບັນ.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">ຄະແນນປິດສະໜາຂອງເຈົ້າຈະບໍ່ປ່ຽນແປງ. ຈົ່ງຈື່ໄວ້ວ່າປິດສະໜາບໍ່ແມ່ນການແຂ່ງຂັນ. ຄະແນນຂອງເຈົ້າຈະຊ່ວຍໃນການເລືອກປິດສະໜາທີ່ເໝາະສົມກັບລະດັບທັກສະຂອງເຈົ້າໃນປະຈຸບັນ.</string>
   <string name="findTheBestMoveForWhite">ຊອກຫາຕາເດີນທີ່ດີທີ່ສຸດສຳລັບຝ່າຍຂາວ.</string>
   <string name="findTheBestMoveForBlack">ຊອກຫາຕາເດີນທີ່ດີທີ່ສຸດສຳລັບຝ່າຍດຳ.</string>
   <string name="toGetPersonalizedPuzzles">ເພື່ອຮັບປິດສະໜາທີ່ເໝາະສົມກັບເຈົ້າ:</string>
@@ -88,6 +88,6 @@
   </plurals>
   <string name="percentSolved">ແກ້ໄດ້ %s</string>
   <string name="noPuzzlesToShow">ບໍ່ມີຫຍັງສະແດງ, ລອງໄປຫຼິ້ນປິດສະໜາກ່ອນ!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">ຝຶກຝົນສິ່ງເຫຼົ່ານີ້ເພື່ອພັດທະນາໃຫ້ໄວຂຶ້ນ!</string>
+  <string name="improvementAreasDescription">ຝຶກຝົນສິ່ງເຫຼົ່ານີ້ເພື່ອພັດທະນາໃຫ້ໄວຂຶ້ນ!</string>
   <string name="strengthDescription">ເຈົ້າເຮັດໄດ້ດີທີ່ສຸດໃນຫົວຂໍ້ເຫຼົ່ານີ້</string>
 </resources>

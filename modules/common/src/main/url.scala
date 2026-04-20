@@ -16,3 +16,9 @@ object url:
 
   def queryString(params: Map[String, String]) =
     params.map { (k, v) => s"$k=${java.net.URLEncoder.encode(v, "UTF-8")}" }.mkString("&")
+
+  extension (url: URL)
+    def queryParam(param: String): Option[String] =
+      Option(url.queryParameter(param))
+        .filter(_.nonEmpty)
+        .map(java.net.URLDecoder.decode(_, "UTF-8"))

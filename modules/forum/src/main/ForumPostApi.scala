@@ -35,12 +35,10 @@ final class ForumPostApi(
     publicMod = MasterGranter(_.PublicMod)
     modIcon = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
     anonMod = modIcon && !publicMod
-    maxNumber <- postRepo.maxNumberByTopic(topic.id)
     post = ForumPost.make(
       topicId = topic.id,
       userId = (!anonMod).option(me),
       text = spam.replace(data.text),
-      number = maxNumber + 1,
       lang = lang.map(_.language),
       troll = me.marks.troll,
       categId = categ.id,
@@ -54,7 +52,7 @@ final class ForumPostApi(
           _ <- postRepo.coll.insert.one(post)
           _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
           _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
-          recentUsers <- recentUserIds(topic, topic.nbPosts)
+          recentUsers <- recentUserIds(topic)
           blockingUsers <- relationApi.filterBlocking(recentUsers, me.userId)
           interestedUsers = recentUsers.filterNot(blockingUsers.contains)
         yield
@@ -102,9 +100,9 @@ final class ForumPostApi(
     get(postId).flatMap:
       case Some(_, post) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some(topic, post) =>
-        postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number).dmap { nb =>
+        postRepo.forUser(forUser).countBeforePost(post).dmap { nb =>
           val page = nb / config.postMaxPerPage.value + 1
-          PostUrlData(topic.categId, topic.slug, page, post.number).some
+          PostUrlData(topic.categId, topic.slug, page, post.id).some
         }
       case _ => fuccess(none)
 
@@ -217,13 +215,13 @@ final class ForumPostApi(
         categ <- categOpt
       yield CategView(categ, (topic, post, topic.lastPage(config.postMaxPerPage)).some, user.some)
 
-  private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =
+  private def recentUserIds(topic: ForumTopic) =
     postRepo.coll
       .distinctEasy[UserId, List](
         "userId",
         $doc(
           "topicId" -> topic.id,
-          "number".$gt(newPostNumber - 20)
+          "createdAt".$gt(nowInstant.minusDays(2))
         ),
         _.sec
       )

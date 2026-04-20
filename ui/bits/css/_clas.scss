@@ -1,7 +1,16 @@
-$c-clas: hsl(274, 47%, 62%);
+$c-clas: hsl(274, 48%, 60%);
 $c-bg-clas-over: white;
 $c-bg-clas-over-dim: $m-clas_white--mix-20;
 $c-clas-light: mix($c-clas, #fff, 86%);
+
+@mixin button-with-clas-shadow {
+  @include with-button-shadow(
+    $m-clas--lighten-38,
+    $m-clas--darken-12,
+    $m-clas--lighten-50,
+    $m-clas--darken-8
+  );
+}
 
 body {
   --bg-clas: linear-gradient(to right bottom, hsl(276, 29%, 49%), hsl(276, 65%, 32%), hsl(286, 37%, 21%));
@@ -64,6 +73,10 @@ h1 {
   font-weight: bold;
 }
 
+.page .body h2 {
+  border-bottom-color: $c-clas;
+}
+
 .clas-index {
   .box__top {
     background: var(--bg-clas);
@@ -79,7 +92,10 @@ h1 {
     opacity: 0.8;
 
     &:hover {
+      @include button-with-clas-shadow;
+
       color: $c-over;
+      background: $c-clas-light !important;
     }
 
     &::before {
@@ -97,13 +113,13 @@ h1 {
       @include transition;
 
       border-bottom: $border;
-      padding: 2em var(---box-padding);
+      padding: 2em $box-padding;
       position: relative;
 
       &::before {
         @include transition;
 
-        color: $m-clas_bg--mix-80;
+        color: $c-clas-light;
         font-size: 5em;
         margin-inline-end: 0.4em;
 
@@ -207,12 +223,18 @@ h1 {
   }
 }
 
+.clas-create {
+  .box__top {
+    background: var(--bg-clas);
+  }
+}
+
 .dashboard {
   .flash {
     margin: 2em;
 
     &__content {
-      padding: 2em var(---box-padding);
+      padding: 2em $box-padding;
     }
   }
 
@@ -330,7 +352,7 @@ h1 {
 
   &-teacher {
     .clas-show__top h1 {
-      padding: 1.5em var(---box-padding);
+      padding: 1.5em $box-padding;
       margin: 0;
     }
 
@@ -439,6 +461,8 @@ h1 {
 }
 
 .button-clas {
+  @include button-with-clas-shadow;
+
   background: $m-clas_bg--mix-75;
 
   &:hover {
@@ -479,7 +503,7 @@ h1 {
   padding-bottom: 3em;
 
   &__top {
-    padding: calc(#{$box-padding-vert} - 1rem) var(---box-padding);
+    padding: calc(#{$box-padding-vert} - 1rem) $box-padding;
     background: var(--bg-clas);
     margin-bottom: 3em;
 
@@ -594,7 +618,7 @@ h1 {
   &__choice {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
-    gap: var(---box-padding);
+    gap: $box-padding;
     align-items: center;
 
     h2 {
@@ -658,9 +682,15 @@ h1 {
     text-align: center;
 
     .button {
+      @include button-with-clas-shadow;
+
       margin-bottom: 2em;
       display: inline-block;
       background: $c-clas-light;
+
+      &:hover {
+        background: $c-clas;
+      }
     }
   }
 

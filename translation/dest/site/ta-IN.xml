@@ -878,7 +878,6 @@
   <string name="agreementAssistance">எனது விளையாட்டுகளின்போது (சதுரங்க கணினி, புத்தகம், தரவுத்தளம் அல்லது வேறு ஒருவரிடமிருந்து) எந்த நேரத்திலும் உதவியைப் பெறமாட்டேன் என்பதை ஒப்புக்கொள்கிறேன்.</string>
   <string name="agreementNice">மற்ற வீரர்களிடம் நான் எப்போதும் மரியாதையுடன் இருப்பேன் என்பதை ஒப்புக்கொள்கிறேன்.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">நான் பல கணக்குகளை உருவாக்க மாட்டேன் என்பதை ஒப்புக்கொள்கிறேன் (%s இல் கூறப்பட்டுள்ள காரணங்களைத் தவிர).</string>
-  <string name="agreementPolicy">நான் அனைத்து லிசெஸ் கொள்கைகளையும் பின்பற்றுவேன் என்பதை ஒப்புக்கொள்கிறேன்.</string>
   <string name="searchOrStartNewDiscussion">தேடவும் அல்லது புதிய உரையாடலைத் தொடங்கவும்</string>
   <string name="edit">திருத்துதல்</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">தெறிக்கை</string>

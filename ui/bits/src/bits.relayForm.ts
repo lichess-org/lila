@@ -1,11 +1,15 @@
 import { wireCropDialog } from './crop';
+import { createSelectSearch } from './selectSearch';
 
 site.load.then(() => {
   if ($('#form3-markdown').length) {
     // tournament form
 
-    $('.form3[action="/broadcast/new"] #form3-info_timeZone').each(function (this: HTMLSelectElement) {
-      if (!$('.is-invalid').length) this.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    $('#form3-info_timeZone').each(function (this: HTMLSelectElement) {
+      const newForm = $('.form3[action="/broadcast/new"]');
+      if (newForm.length && !newForm.find('.is-invalid').length)
+        this.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      createSelectSearch(this);
     });
 
     wireCropDialog({

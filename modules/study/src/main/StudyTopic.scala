@@ -23,14 +23,14 @@ opaque type StudyTopics = List[StudyTopic]
 object StudyTopics extends TotalWrapper[StudyTopics, List[StudyTopic]]:
   extension (e: StudyTopics)
     def diff(other: StudyTopics): StudyTopics = e.toSet.diff(other.value.toSet).toList
-    def ++(other: StudyTopics): StudyTopics = (e.value ++ other.value).distinct
+    def ++(other: StudyTopics): StudyTopics = (e.value ++ other.value).distinct.take(StudyTopics.userMax)
 
   val empty: StudyTopics = Nil
   val studyMax = 30
-  val userMax = 128
+  val userMax = 200
 
   def fromStrs(strs: Seq[String], max: Int): StudyTopics =
-    strs.view.flatMap(StudyTopic.fromStr).take(max).toList.distinct
+    strs.view.flatMap(StudyTopic.fromStr).toList.distinct.take(max)
 
 final private class StudyTopicRepo(val coll: AsyncColl)
 final private class StudyUserTopicRepo(val coll: AsyncColl)

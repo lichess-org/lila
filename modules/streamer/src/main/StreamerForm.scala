@@ -73,7 +73,8 @@ object StreamerForm:
         else
           streamer.approval.copy(
             requested = streamer.approval.requested || name != streamer.name
-              || headline != streamer.headline || description != streamer.description
+              || headline != streamer.headline || description != streamer.description ||
+              streamer.approval.reason.exists(_.contains("/appeal"))
           )
 
       streamer.copy(

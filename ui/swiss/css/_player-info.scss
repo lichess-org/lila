@@ -29,7 +29,7 @@
     justify-content: center;
 
     h2 {
-      @extend %metal;
+      @extend %metal-bg;
 
       font-size: 1.4em;
       padding: 0.6rem 1rem;

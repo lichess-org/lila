@@ -5,7 +5,7 @@
   text-align: left;
 
   h2 {
-    @extend %metal, %flex-between-nowrap;
+    @extend %metal-bg, %flex-between-nowrap;
 
     font-size: 1.3em;
     padding: 0 1rem;

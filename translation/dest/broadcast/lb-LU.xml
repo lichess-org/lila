@@ -80,4 +80,14 @@
   <string name="communityBroadcast">Gemeinschafts-Iwwerdroungen</string>
   <string name="createdAndManagedBy">Ugeluecht a verwalt vum %s.</string>
   <string name="roundX">Ronn %s</string>
+  <string name="openTournament">Open</string>
+  <string name="womenTournament">Fraen</string>
+  <string name="menTournament">Männer</string>
+  <string name="girlsTournament">Meedercher</string>
+  <string name="boysTournament">Jongen</string>
+  <string name="openUnderXAgeTournament">Open U%s</string>
+  <string name="girlsUnderXAgeTournament">Meedercher U%s</string>
+  <string name="boysUnderXAgeTournament">Jongen U%s</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">U%s</string>
 </resources>

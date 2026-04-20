@@ -69,6 +69,7 @@
   <string name="ratingDiff">Ratingdifferanse</string>
   <string name="gamesThisTournament">Partier i denne turneringen</string>
   <string name="score">Poengsum</string>
+  <string name="standingsDisclaimer">Stillingen beregnes basert på overførte partier og kan avvike fra de offisielle resultatene.</string>
   <string name="allTeams">Alle lag</string>
   <string name="tournamentFormat">Turneringsformat</string>
   <string name="tournamentLocation">Turneringssted</string>
@@ -83,7 +84,12 @@
   <string name="liveboard">Brett i sanntid</string>
   <string name="communityBroadcast">Fellesskapsoverføring</string>
   <string name="createdAndManagedBy">Opprettet og forvaltet av %s.</string>
+  <string name="matchPoints">Kamppoeng</string>
+  <string name="gamePoints">Partipoeng</string>
+  <string name="matches">Kamper</string>
+  <string name="matchHistory">Kamphistorikk</string>
   <string name="teamResults">Lagresultater</string>
+  <string name="termsAutomaticallyTranslated">Følgende begrep(er) vil bli oversatt automatisk: %s.</string>
   <string name="roundX">Runde %s</string>
   <string name="defaultRoundNameHelp">Å beholde standardnavnet vil automatisk oversette det til alle andre språk.</string>
   <string name="openTournament">Åpen</string>
@@ -98,6 +104,6 @@
   <string name="semifinals">Semifinaler</string>
   <string name="finals">Finaler</string>
   <string name="tiebreaks">Kvalitet</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">Parti %s</string>
+  <string name="gameX">Parti %s</string>
   <string name="knockouts">Utslagsrunder</string>
 </resources>

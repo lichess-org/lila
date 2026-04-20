@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arena">Арена</string>
-  <string name="arenaTournaments">Турнири у арени</string>
+  <string name="arenaTournaments">Арена турнири</string>
   <string name="isItRated">Да ли је рангиран?</string>
   <string name="willBeNotified">Бићеш обавештен/а када турнир почне, тако да је сигурно играти у другом прозору док чекаш.</string>
   <string name="isRated">Овај турнир је рангиран и утицаће на твој рејтинг.</string>
@@ -43,7 +43,7 @@
   <string name="shareUrl">Подели овај линк како би допустито/ла људима да се придруже: %s</string>
   <string name="variant">Варијанта</string>
   <string name="minimumGameLength">Минимална дужина партије</string>
-  <string name="history">Прошле арене</string>
+  <string name="history">Историја Арена</string>
   <string name="newTeamBattle">Нова Борба Тимова</string>
   <string name="pointsSum">Збир бодова</string>
   <string name="tournamentWinners">Победници турнира</string>

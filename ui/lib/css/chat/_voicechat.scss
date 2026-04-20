@@ -45,11 +45,10 @@
   }
 
   &::after {
-    top: 1px;
-
     @include inline-start(0);
     @include inline-end(auto);
 
+    top: 1px;
     background: none;
     box-shadow: none;
   }

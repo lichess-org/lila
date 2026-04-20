@@ -48,6 +48,7 @@
     line-height: 22px;
     content: $licon-X;
     color: $c-font-dimmer;
+    border-radius: 100%;
   }
 
   &::after {
@@ -55,7 +56,6 @@
     @include transition(margin box-shadow);
 
     border-radius: 100%;
-    box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
 
     @include if-transp {
       background: linear-gradient(to bottom, hsl($site-hue, 7%, 22), hsl($site-hue, 5%, 19) 100%);
@@ -80,6 +80,13 @@
 .cmn-toggle input:disabled + label {
   opacity: 0.6;
   cursor: not-allowed !important;
+
+  &::before,
+  &::after {
+    @extend %metal-bg;
+
+    box-shadow: none;
+  }
 }
 
 .cmn-toggle input:focus-visible:not(:disabled) + label {

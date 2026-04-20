@@ -3,7 +3,7 @@
     @extend %box-radius, %popup-shadow, %flex-center-nowrap;
 
     background: $c-bg-zebra;
-    z-index: 100;
+    z-index: $z-cg__board_overlay-100;
     position: absolute;
     top: 50%;
     left: 50%;

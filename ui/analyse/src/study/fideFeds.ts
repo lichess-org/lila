@@ -82,6 +82,7 @@ export const federations: Record<FederationId, [string, Alpha2 | undefined]> = {
   GRL: ['Greenland', 'GL'],
   GRN: ['Grenada', 'GD'],
   GUA: ['Guatemala', 'GT'],
+  GUI: ['Guinea', 'GN'],
   GUM: ['Guam', 'GU'],
   GUY: ['Guyana', 'GY'],
   HAI: ['Haiti', 'HT'],

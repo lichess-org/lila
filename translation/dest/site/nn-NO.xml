@@ -526,6 +526,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="popularOpenings">Omtykte opningar</string>
   <string name="endgamePositions">Sluttspelstillingar</string>
   <string name="chess960StartPosition">Fishersjakk, startoppstilling %s</string>
+  <string name="randomChess960Position">Tilfeldig Sjakk-960 oppstilling</string>
   <string name="startPosition">Startposisjon</string>
   <string name="clearBoard">Tøm brettet</string>
   <string name="loadPosition">Last inn stilling</string>
@@ -602,6 +603,9 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="invalidUsernameOrPassword">Feil brukarnamn eller passord</string>
   <string name="incorrectPassword">Feil passord</string>
   <string name="invalidAuthenticationCode">Ugyldig godkjenningskode</string>
+  <string name="clearField">Tøm felt</string>
+  <string name="orSeparator">Eller</string>
+  <string name="logInByEmail">Logg inn via e-post</string>
   <string name="emailMeALink">Send lekkje til meg på epost</string>
   <string name="currentPassword">Gjeldande passord</string>
   <string name="newPassword">Nytt passord</string>
@@ -916,7 +920,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="agreementAssistance">Eg forsikrar at eg ikkje på noko tidspunkt under mine parti vil motta assistanse, korkje frå sjakkprogram, bøker, databasar eller andre personar.</string>
   <string name="agreementNice">Eg lovar å alltid oppføre meg skikkeleg mot andre spelarar.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Eg er innforstått med at eg ikkje kan oppretta fleire kontoar, så sant årsakene ikkje fell inn under %s.</string>
-  <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>

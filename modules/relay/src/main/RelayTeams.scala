@@ -215,7 +215,8 @@ final class RelayTeamTable(
               round.rated,
               chess.FideTC.standard,
               round.customScoring,
-              false
+              unplayed = false,
+              ongoing = false
             )
           m0 = table.find(_.is(teams)) | TeamMatch(
             round.id,

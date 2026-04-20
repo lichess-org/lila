@@ -670,6 +670,9 @@
   <string name="invalidUsernameOrPassword">Napačno uporabniško ime ali geslo</string>
   <string name="incorrectPassword">Nepravilno geslo</string>
   <string name="invalidAuthenticationCode">Nepravilna avtentikacijska koda</string>
+  <string name="clearField">Počisti polje</string>
+  <string name="orSeparator">Ali</string>
+  <string name="logInByEmail">Prijava po e-pošti</string>
   <string name="emailMeALink">Pošlji mi povezavo po elektronski pošti</string>
   <string name="currentPassword">Trenutno geslo</string>
   <string name="newPassword">Novo geslo</string>
@@ -999,7 +1002,6 @@
   <string name="agreementAssistance">Strinjam se, da ne bom nikoli uporabljal pomoči med partijo (od računalnika, knjige, podatkovne baze ali od druge osebe).</string>
   <string name="agreementNice">Strinjam se, da bom do drugih vedno prijazen.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Strinjam se, da ne bom ustvaril več računov (razen iz razlogov, navedenih v %s).</string>
-  <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
   <string name="searchOrStartNewDiscussion">Poišči ali prični nov pogovor</string>
   <string name="edit">Uredi</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">UltraBullet</string>

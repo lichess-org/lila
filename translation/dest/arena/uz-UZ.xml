@@ -39,7 +39,7 @@ Tezroq gʻalaba qozonib, kutish zaliga qayting — koʻproq oʻyin oʻynang va k
     <item quantity="other">Dastlabki %s ta yurish ichida durang qayd etilsa, har ikkala oʻyinchiga ham ochko berilmaydi.</item>
   </plurals>
   <string name="thisIsPrivate">Bu yopiq turnir</string>
-  <string name="shareUrl">Odamlar qoʻshilishi uchun ushbu havolani ulashing: %s</string>
+  <string name="shareUrl">Odamlar qoʻshilishi uchun ushbu havolani ulashish: %s</string>
   <string name="drawStreakStandard">Duranglar seriyasi: arena turnirida oʻyinchi ketma‑ket durang oʻynasa, faqat birinchi durang uchun ochko beriladi. Shuningdek, standart oʻyinlarda durang uchun ochko berilishi uchun oʻyin kamida %s ta yurish davom etgan boʻlishi kerak. Duranglar seriyasi faqat gʻalaba bilan toʻxtatilishi mumkin; magʻlubiyat yoki yana bir durang seriyani buzolmaydi.</string>
   <string name="drawStreakVariants">Durang oʻyinlar uchun ochko beriladigan minimal yurishlar soni shaxmat variantiga qarab farq qiladi. Quyidagi jadvalda har bir variant uchun belgilangan qiymatlar koʻrsatilgan.</string>
   <string name="variant">Variant</string>

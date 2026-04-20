@@ -31,6 +31,10 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Amikor készen állsz, hogy megjelenj a Lichess közvetítői között, %s</string>
   <string name="submitForReview">Ellenőrzésre beküldés</string>
   <string name="streamerLanguageSettings">A Lichess streamer oldala a streamer platformod nyelvi beállításait használja, ezért a közvetítésed alapértelmezett nyelvét ott tudod beállítani.</string>
+  <string name="pleaseAllow">Kérlek vedd figyelembe hogy akár 72 órát is igénybe vehet a közvetítői jelvényed és adatlapod jóváhagyása.</string>
+  <string name="chooseYoutubeChannel">Válaszd ki a YouTube csatornát amit a Lichess-en fogsz használni.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Kapcsolódás</string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">Kapcsolat bontása</string>
   <string name="streamerName">A közvetítői neved a Lichess-en</string>
   <plurals name="keepItShort">
     <item quantity="one">Legyen rövid: legfeljebb %s karakter</item>

@@ -58,6 +58,8 @@ final class Env(
             .map(Left(_))
         case None => paginator.ordered(page, query, order).map(Right(_))
 
+  given Federation.Guess = lila.fide.Federation.find
+
   private lazy val fideSync = wire[FidePlayerSync]
 
   if mode.isProd then

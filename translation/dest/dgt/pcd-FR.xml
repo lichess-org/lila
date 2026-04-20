@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Exigences pour l\'échiquier DGT</string>
   <string name="dgtBoardLimitations">Limitations de l\'échiquier DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Cette page vous permet de connecter votre échiquier DGT à Lichess, et de l\'utiliser pour jouer.</string>
-  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Pour vous connecter à l\'échiquier électronique DGT, vous devrez installer %s.</string>
+  <string name="toConnectTheDgtBoard">Pour vous connecter à l\'échiquier électronique DGT, vous devrez installer %s.</string>
   <string name="downloadHere">Vous pouvez télécharger le logiciel ici : %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Si %1$s est en cours d\'exécution sur cet ordinateur, vous pouvez vérifier votre connexion par %2$s.</string>
   <string name="openingThisLink">Ouvrir le lien</string>
@@ -18,7 +18,7 @@
   <string name="whenReadySetupBoard">Une fois prêt, configurez votre échiquier, puis cliquez sur %s.</string>
   <string name="ifMoveNotDetected">Si un coup n\'est pas détecté</string>
   <string name="checkYouHaveMadeOpponentsMove">Vérifiez d\'abord que vous avez joué le coup de votre adversaire sur l\'échiquier DGT. Reprenez votre coup. Jouez-le de nouveau.</string>
-  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">En dernier recours, placez les pièces sur l\'échiquier de la même façon que sur l\'échiquier de Lichess, puis %s</string>
+  <string name="asALastResort">En dernier recours, placez les pièces sur l\'échiquier de la même façon que sur l\'échiquier de Lichess, puis %s</string>
   <string name="reloadThisPage">rechargez cette page</string>
   <string name="dgtConfigure">DGT - Configurer</string>
   <string name="lichessConnectivity">Connectivité de Lichess</string>

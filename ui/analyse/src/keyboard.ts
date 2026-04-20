@@ -4,7 +4,6 @@ import { pubsub } from 'lib/pubsub';
 import { snabDialog } from 'lib/view';
 import * as xhr from 'lib/xhr';
 
-import * as control from './control';
 import type AnalyseCtrl from './ctrl';
 
 export const keyToMouseEvent = (key: string, eventName: string, selector: string) =>
@@ -19,21 +18,21 @@ export const bind = (ctrl: AnalyseCtrl) => {
   const kbd = window.site.mousetrap;
   kbd
     .bind(['left', 'k'], () => {
-      control.prev(ctrl);
+      ctrl.navigate.prev();
       ctrl.redraw();
     })
     .bind(['right', 'j'], () => {
-      control.next(ctrl);
+      ctrl.navigate.next();
       ctrl.redraw();
     })
     .bind(['up', '0', 'home'], e => {
       if (e.key === 'ArrowUp' && ctrl.fork.select('prev')) ctrl.setAutoShapes();
-      else control.first(ctrl);
+      else ctrl.navigate.first();
       ctrl.redraw();
     })
     .bind(['down', '$', 'end'], e => {
       if (e.key === 'ArrowDown' && ctrl.fork.select('next')) ctrl.setAutoShapes();
-      else control.last(ctrl);
+      else ctrl.navigate.last();
       ctrl.redraw();
     })
     .bind('shift+c', () => {
@@ -89,11 +88,11 @@ export const bind = (ctrl: AnalyseCtrl) => {
     });
   kbd
     .bind(['shift+left', 'shift+k'], () => {
-      control.previousBranch(ctrl);
+      ctrl.navigate.previousBranch();
       ctrl.redraw();
     })
     .bind(['shift+right', 'shift+j'], () => {
-      control.nextBranch(ctrl);
+      ctrl.navigate.nextBranch();
       ctrl.redraw();
     })
     .bind('shift+down', () => {

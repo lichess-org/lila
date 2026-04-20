@@ -129,7 +129,7 @@
   @extend %flex-between;
 
   gap: 1em;
-  margin: 1.5em var(---box-padding) 1em 0;
+  margin: 1.5em $box-padding 1em 0;
 }
 
 .streamer-profile {

@@ -1,5 +1,5 @@
+import { parentPort, workerData } from 'node:worker_threads';
 import ts from 'typescript';
-import { parentPort, workerData } from 'worker_threads';
 
 export interface WorkerData {
   projects: string[];

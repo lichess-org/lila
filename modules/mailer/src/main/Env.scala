@@ -6,16 +6,17 @@ import com.softwaremill.tagging.*
 import play.api.Configuration
 
 import lila.common.Bus
+import lila.core.config.RouteUrl
 
 @Module
 final class Env(
     appConfig: Configuration,
-    net: lila.core.config.NetConfig,
     userApi: lila.core.user.UserApi,
     settingStore: lila.memo.SettingStore.Builder,
-    lightUser: lila.core.user.LightUserApi
+    lightUser: lila.core.user.LightUserApi,
+    routeUrl: RouteUrl
 )(using Executor, ActorSystem, Scheduler, lila.core.i18n.Translator):
-  private val baseUrl = net.baseUrl
+
   import Mailer.given
 
   private val config = appConfig.get[Mailer.Config]("mailer")

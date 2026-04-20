@@ -68,7 +68,6 @@ const renderTab = (ctrl: ChatCtrl, tab: Tab, active: Tab) =>
       hook: bind('click', e => {
         if ((e.target as HTMLElement).closest('input,label')) return;
         ctrl.setTab(tab);
-        if (tab.key === 'discussion') ctrl.chatEnabled(true);
         ctrl.redraw();
       }),
     },

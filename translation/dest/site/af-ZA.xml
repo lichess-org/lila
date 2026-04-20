@@ -864,7 +864,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="agreementAssistance">Ek stem in om nooit enige hulp te ontvang tydens my spelle nie (vanaf \'n skaakrekenaar, boek, databasis of ander persoon).</string>
   <string name="agreementNice">Ek stem in om altyd respek aan ander spelers te betoon.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ek verklaar dat ek nie meer as een rekening sal skep nie (met die uitsondering van redes genoem in die %s).</string>
-  <string name="agreementPolicy">Ek stem in om al Lichess se beleide na te volg.</string>
   <string name="searchOrStartNewDiscussion">Soek of begin \'n nuwe gesprek</string>
   <string name="edit">Pas aan</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>

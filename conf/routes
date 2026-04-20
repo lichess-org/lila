@@ -231,6 +231,7 @@ GET   /embed/analysis                  controllers.UserAnalysis.embed
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)
 GET   /study/staff-picks               controllers.Study.staffPicks
+POST  /study/staff-picks               controllers.Study.staffPicksPost
 GET   /study/all/:order                controllers.Study.all(order: StudyOrder, page: Int ?= 1)
 GET   /study/mine/:order               controllers.Study.mine(order: StudyOrder, page: Int ?= 1)
 GET   /study/member/:order             controllers.Study.mineMember(order: StudyOrder, page: Int ?= 1)
@@ -269,6 +270,7 @@ GET   /api/study/by/:user              controllers.Study.apiListByOwner(user: Us
 GET   /api/study/by/:username/export.pgn controllers.Study.apiExportPgn(username: UserStr)
 POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id: StudyId)
 POST  /api/study/$id<\w{8}>/$chapterId<\w{8}>/tags controllers.Study.apiChapterTagsUpdate(id: StudyId, chapterId: StudyChapterId)
+POST  /api/study/$id<\w{8}>/$chapterId<\w{8}>/moves controllers.Study.apiChapterPgnMovesUpdate(id: StudyId, chapterId: StudyChapterId)
 
 # Relay
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1, q ?= "")
@@ -580,7 +582,7 @@ POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmAppl
 POST  /auth/set-fp/:fp/:ms             controllers.Auth.setFingerPrint(fp, ms: Int)
 POST  /auth/token                      controllers.Auth.makeLoginToken
 GET   /auth/token/:token               controllers.Auth.loginWithToken(token)
-POST  /auth/token/:token               controllers.Auth.loginWithTokenPost(token, referrer: Option[String])
+POST  /auth/token/:token               controllers.Auth.loginWithTokenPost(token)
 GET   /auth/magic-link                 controllers.Auth.magicLink
 POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
 GET   /auth/magic-link/sent            controllers.Auth.magicLinkSent
@@ -740,6 +742,7 @@ GET   /api/user/:user/current-game     controllers.User.tvExport(user: UserStr)
 GET   /api/user/:user/perf/:perfKey    controllers.Api.perfStat(user: UserStr, perfKey: PerfKey)
 GET   /api/user/:user/mod-log          controllers.Mod.apiUserLog(user: UserStr)
 GET   /api/game/:id                    controllers.Api.game(id: GameId)
+GET   /api/game/:id/chat               controllers.Api.gameChat(id: GameId)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/$id<\w{8}>            controllers.Tournament.apiShow(id: TourId)
 GET   /api/tournament/$id<\w{8}>/games      controllers.Api.tournamentGames(id: TourId)
@@ -927,7 +930,6 @@ POST  /upload/image/verify-title/:id   controllers.TitleVerify.image(id: TitleRe
 GET   /run/captcha/$id<\w{8}>          controllers.Main.captchaCheck(id: GameId)
 GET   /run/temporarily-disabled        controllers.Main.temporarilyDisabled(path = "")
 GET   /run/temporarily-disabled/*path  controllers.Main.temporarilyDisabled(path)
-GET   /run/external-link/:tag          controllers.Main.externalLink(tag)
 POST  /run/toggle-blind-mode           controllers.Main.toggleBlindMode
 POST  /run/cli                         controllers.Dev.command
 

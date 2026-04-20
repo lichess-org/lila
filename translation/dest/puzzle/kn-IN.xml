@@ -15,7 +15,7 @@
   <string name="voteToLoadNextOne">ಮುಂದಿನದ್ದಕ್ಕೆ ಆಯ್ಕೆ ಮಾಡಿ!</string>
   <string name="upVote">ಒಗಟು ಅಪ್ ವೋಟ್ ಮಾಡಿ</string>
   <string name="downVote">ಒಗಟು ಡೌನ್ ವೋಟ್ ಮಾಡಿ</string>
-  <string name="yourPuzzleRatingWillNotChange">ನಿಮ್ಮ ಒಗಟು ವಿಭಾಗದ ಧಾರಣೆ ಬದಲಾಗುವುದಿಲ್ಲ. ಒಗಟು ಅಂದರೆ ಸ್ಪರ್ಧೆ ಅಲ್ಲ ಅನ್ನುವುದನ್ನು ಗಮನಿಸಿ. ಒಗಟು ವಿಭಾಗದ ಧಾರಣೆಯು ನಿಮ್ಮ ನೈಪುಣ್ಯತೆಗೆ ಅನುಗುಣವಾಗಿರುವ ಅತ್ಯುತ್ತಮ ಒಗಟನ್ನು ಆಯ್ಕೆ ಮಾಡಲಷ್ಟೇ ಸಹಾಯಿಸುತ್ತದೆ.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">ನಿಮ್ಮ ಒಗಟು ವಿಭಾಗದ ಧಾರಣೆ ಬದಲಾಗುವುದಿಲ್ಲ. ಒಗಟು ಅಂದರೆ ಸ್ಪರ್ಧೆ ಅಲ್ಲ ಅನ್ನುವುದನ್ನು ಗಮನಿಸಿ. ಒಗಟು ವಿಭಾಗದ ಧಾರಣೆಯು ನಿಮ್ಮ ನೈಪುಣ್ಯತೆಗೆ ಅನುಗುಣವಾಗಿರುವ ಅತ್ಯುತ್ತಮ ಒಗಟನ್ನು ಆಯ್ಕೆ ಮಾಡಲಷ್ಟೇ ಸಹಾಯಿಸುತ್ತದೆ.</string>
   <string name="findTheBestMoveForWhite">ಬಿಳಿಗೆ ಉತ್ತಮ ನಡೆ ಹುಡುಕಿ.</string>
   <string name="findTheBestMoveForBlack">ಕಪ್ಪಿಗೆ ಉತ್ತಮ ನಡೆ ಹುಡುಕಿ.</string>
   <string name="toGetPersonalizedPuzzles">ನಿಮಗೆ ಅನುಗುಣವಾದ ಒಗಟುಗಳಿಗೆ:</string>
@@ -88,6 +88,6 @@
   </plurals>
   <string name="percentSolved">%s ಉತ್ತರಿಸಿದ್ದೀರಿ</string>
   <string name="noPuzzlesToShow">ತೋರಿಸಲು ಯಾವುದೇ ವಿವರಗಳಿಲ್ಲ, ಮೊದಲು ಸ್ವಲ್ಪ ಒಗಟುಗಳನ್ನು ಆಡಿ!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">ನಿಮ್ಮ ಚೆಸ್ ಪ್ರಗತಿಯನ್ನು ಉತ್ತಮಗೊಳಿಸಲು ಇವನ್ನು ಅಭ್ಯಾಸ ಮಾಡಿ!</string>
+  <string name="improvementAreasDescription">ನಿಮ್ಮ ಚೆಸ್ ಪ್ರಗತಿಯನ್ನು ಉತ್ತಮಗೊಳಿಸಲು ಇವನ್ನು ಅಭ್ಯಾಸ ಮಾಡಿ!</string>
   <string name="strengthDescription">ನೀವು ಈ ವಿಷಯಗಳಲ್ಲಿ ಚೆನ್ನಾಗಿ ಆಡುತ್ತೀರಿ</string>
 </resources>

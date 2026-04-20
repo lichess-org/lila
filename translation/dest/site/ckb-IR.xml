@@ -880,7 +880,6 @@
   <string name="agreementAssistance">منیش ڕازیم کە لە هیچ کاتێکدا لە کاتی یارییەکانمدا یارمەتی وەرناگرم (لە کۆمپیوتەرێکی شەترەنج، کتێب، بنکەدراوە یان کەسێکی ترەوە).</string>
   <string name="agreementNice">منیش لەگەڵ ئەوەدام کە هەمیشە ڕێز لە یاریزانەکانی تر دەگرم.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">منیش لەگەڵ ئەوەدام کە چەندین ئەکاونت دروست ناکەم (جگە لەو هۆکارانەی کە لە %s دا هاتووە).</string>
-  <string name="agreementPolicy">منیش لەگەڵ ئەوەدام کە هەموو سیاسەتەکانی لیچێس پەیڕەو دەکەم.</string>
   <string name="searchOrStartNewDiscussion">گەڕان یان دەستپێکردنی گفتوگۆی نوێ</string>
   <string name="edit">دەستکاریکردن</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">بوڵێت \"Bullet\"</string>

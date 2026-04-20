@@ -596,6 +596,7 @@
   <string name="popularOpenings">Популярные дебюты</string>
   <string name="endgamePositions">Эндшпильные позиции</string>
   <string name="chess960StartPosition">Начальная позиция в шахматах Фишера: %s</string>
+  <string name="randomChess960Position">Случайная позиция в шахматах Фишера</string>
   <string name="startPosition">Начальная позиция</string>
   <string name="clearBoard">Очистить доску</string>
   <string name="loadPosition">Загрузить позицию</string>
@@ -674,6 +675,9 @@
   <string name="invalidUsernameOrPassword">Неверное имя пользователя или пароль</string>
   <string name="incorrectPassword">Неверный пароль</string>
   <string name="invalidAuthenticationCode">Неверный код аутентификации</string>
+  <string name="clearField">Очистить поле</string>
+  <string name="orSeparator">Или</string>
+  <string name="logInByEmail">Авторизация через электронную почту</string>
   <string name="emailMeALink">Прислать ссылку мне на почту</string>
   <string name="currentPassword">Текущий пароль</string>
   <string name="newPassword">Новый пароль</string>
@@ -1004,7 +1008,6 @@
   <string name="agreementAssistance">Подтверждаю, что я никогда не воспользуюсь посторонней помощью в своих играх (из шахматных программ, книг, баз данных и от других игроков).</string>
   <string name="agreementNice">Подтверждаю, что я буду с уважением относиться к другим игрокам.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Я согласен с тем, что не должен создавать множество учётных записей (за исключением причин, указанных в %s).</string>
-  <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
   <string name="edit">Изменить</string>
   <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ультра-пуля</string>

@@ -51,13 +51,18 @@ final class RelayRound(
         )
   }
 
+  private def accessDenied(id: RelayRoundId)(using Context) =
+    negotiate(
+      Found(env.relay.api.byId(id)): r =>
+        Forbidden.page(views.relay.form.noAccess(r)),
+      forbiddenJson()
+    )
+
   def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
     env.relay.api
       .byIdAndContributor(id)
       .flatMap:
-        case None =>
-          Found(env.relay.api.formNavigation(id)): (_, nav) =>
-            Forbidden.page(views.relay.form.noAccess(nav))
+        case None => accessDenied(id)
         case Some(rt) =>
           env.relay.api
             .formNavigation(rt)
@@ -67,30 +72,32 @@ final class RelayRound(
 
   def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     env.relay.api
-      .formNavigation(id)
-      .flatMapz: (round, nav) =>
-        bindForm(env.relay.roundForm.edit(nav.tour, round))(
-          err => fuccess(Left((round, nav) -> err)),
-          data =>
-            env.relay.api
-              .update(round)(data.update(nav.tour.official))
-              .dmap(_.withTour(nav.tour))
-              .dmap(Right(_))
-        ).dmap(some)
-      .orNotFound:
-        _.fold(
-          { case ((round, nav), err) =>
-            negotiate(
-              BadRequest.page(views.relay.form.round.edit(round, err, nav)),
-              jsonFormError(err)
-            )
-          },
-          _ =>
-            negotiate(
-              Redirect(routes.RelayRound.edit(id)).flashSuccess,
-              doApiShow(id)
-            )
-        )
+      .byIdAndContributor(id)
+      .flatMap:
+        case None => accessDenied(id)
+        case Some(rt) =>
+          env.relay.api
+            .formNavigation(rt)
+            .flatMap: (round, nav) =>
+              bindForm(env.relay.roundForm.edit(nav.tour, round))(
+                err => fuccess(Left((round, nav, err))),
+                data =>
+                  env.relay.api
+                    .update(round)(data.update(nav.tour.official))
+                    .dmap(_.withTour(nav.tour))
+                    .dmap(Right(_))
+              )
+            .flatMap:
+              case Left((round, nav, err)) =>
+                negotiate(
+                  BadRequest.page(views.relay.form.round.edit(round, err, nav)),
+                  jsonFormError(err)
+                )
+              case Right(_) =>
+                negotiate(
+                  Redirect(routes.RelayRound.edit(id)).flashSuccess,
+                  doApiShow(id)
+                )
   }
 
   def reset(id: RelayRoundId) = AuthOrScoped(_.Study.Write) { ctx ?=> me ?=>
@@ -223,10 +230,7 @@ final class RelayRound(
 
   def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     Found(env.relay.api.byIdWithStudy(id)): rs =>
-      val limiter =
-        if ctx.me.exists(_.isVerified)
-        then apiC.GlobalConcurrencyLimitPerIP.eventsForVerifiedUser
-        else apiC.GlobalConcurrencyLimitPerIP.events
+      val limiter = apiC.GlobalConcurrencyLimitPerIP.events
       studyC.CanView(rs.study) {
         limiter(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rs)): source =>
           Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))).noProxyBuffer

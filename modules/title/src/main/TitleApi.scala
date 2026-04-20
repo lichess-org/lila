@@ -97,7 +97,7 @@ final class TitleApi(
     coll.update.one($id(req.id), req.tryAgain).void
 
   def publicUserOf(fideId: FideId): Fu[Option[User]] = for
-    ids <- coll.primitive[UserId](
+    ids <- coll.secondary.primitive[UserId](
       $doc("data.fideId" -> fideId, s"$statusField.n" -> Status.approved.toString, "data.public" -> true),
       $sort.desc(updatedAtField),
       "userId"

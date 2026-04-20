@@ -7,7 +7,7 @@ import lila.core.chat.PublicSource
 
 lazy val ui = ModUi(helpers)
 lazy val userTable = ModUserTableUi(helpers, ui)
-lazy val user = ModUserUi(helpers, ui)
+lazy val user = ModUserUi(helpers, ui, env.mod.mailerEventsUrl)
 lazy val gamify = GamifyUi(helpers)(views.mod.ui.menu("gamify"))
 lazy val publicChat = PublicChatUi(helpers)(views.mod.ui.menu("public-chat"), highlightBad)
 lazy val commUi = ModCommUi(helpers)(highlightBad)

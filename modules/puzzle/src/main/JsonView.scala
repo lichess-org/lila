@@ -23,14 +23,15 @@ final class JsonView(
   def apply(
       puzzle: Puzzle,
       angle: Option[PuzzleAngle],
-      replay: Option[PuzzleReplay]
+      replay: Option[PuzzleReplay],
+      withInitialPos: Boolean = false
   )(using Translate)(using Option[Me], Perf): Fu[JsObject] =
     gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly,
       bc = false
     ).map: gameJson =>
-      puzzleAndGamejson(puzzle, gameJson)
+      puzzleAndGamejson(puzzle, gameJson, withInitialPos = withInitialPos)
         .add("user" -> userJson)
         .add("replay" -> replay.map(replayJson))
         .add(
@@ -130,7 +131,7 @@ final class JsonView(
           gameJson
             .noCache(game, puzzle.initialPly)
             .map:
-              puzzleAndGamejson(puzzle, _)
+              puzzleAndGamejson(puzzle, _, withInitialPos = false)
         }
   yield
     import lila.rating.Glicko.glickoWrites
@@ -218,18 +219,17 @@ object JsonView:
 
     chess.Tree.buildAccumulate(puzzle.line.tail, puzzle.initialGame, makeNode)
 
-  def puzzleAndGamejson(puzzle: Puzzle, game: JsObject) = Json.obj(
+  def puzzleAndGamejson(puzzle: Puzzle, game: JsObject, withInitialPos: Boolean) = Json.obj(
     "game" -> game,
-    "puzzle" -> puzzleJsonBase(puzzle).++ {
-      Json.obj("initialPly" -> puzzle.initialPly)
+    "puzzle" -> {
+      puzzleJsonBase(puzzle) ++
+        withInitialPos.so(puzzleJsonInitialPos(puzzle)) ++
+        Json.obj("initialPly" -> puzzle.initialPly)
     }
   )
 
   def puzzleJsonStandalone(puzzle: Puzzle): JsObject =
-    puzzleJsonBase(puzzle) ++ Json.obj(
-      "fen" -> puzzle.fenAfterInitialMove,
-      "lastMove" -> puzzle.line.head.uci
-    )
+    puzzleJsonBase(puzzle) ++ puzzleJsonInitialPos(puzzle)
 
   private def puzzleJsonBase(puzzle: Puzzle): JsObject = Json.obj(
     "id" -> puzzle.id,
@@ -240,6 +240,11 @@ object JsonView:
   )
   private def simplifyThemes(themes: Set[PuzzleTheme.Key]) =
     themes.filterNot(_ == PuzzleTheme.mate.key)
+
+  private def puzzleJsonInitialPos(puzzle: Puzzle): JsObject = Json.obj(
+    "fen" -> puzzle.fenAfterInitialMove,
+    "lastMove" -> puzzle.line.head.uci
+  )
 
   def angles(all: PuzzleAngle.All)(using Translate) = Json.obj(
     "themes" -> JsObject:

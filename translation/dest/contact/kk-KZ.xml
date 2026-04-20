@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">GitHub-та Личес мобилді қолданбасының ақаулығы туралы</string>
   <string name="reportBugInDiscord">Личестің Discord серверінде</string>
   <string name="howToReportBug">Ақауды сипаттап беріңізші, ақаудың орнына не күткен едіңіз, осы ақауды қайталау үшін қандай қадамдар жасау керек.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">Сарбазды қате жолмен басу</string>
+  <string name="illegalPawnCapture">Сарбазды қате жолмен басу</string>
   <string name="calledEnPassant">Бұл \"en passant\" деп аталады, шахматтағы ереженің бірі.</string>
   <string name="tryEnPassant">\"en passant\" туралы көбірек білу үшін осы шағын интерактивті ойынды ойнап көріңіз.</string>
   <string name="illegalCastling">Қате жасылынған не мүмкін емес бекіну</string>

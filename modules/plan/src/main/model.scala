@@ -114,7 +114,7 @@ case class StripeCustomer(
     subscriptions: StripeSubscriptions
 ):
 
-  def firstSubscription = subscriptions.data.headOption
+  def firstSubscription = subscriptions.data.find(_.isActive)
   def renew = firstSubscription.so(_.renew)
 
 case class StripeCharge(

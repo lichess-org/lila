@@ -1072,7 +1072,6 @@ https://lichess. org/report.</string>
   <string name="agreementAssistance">أوافق على أني لن أتلقى أي مساعدة خلال مبارياتي أبدا (من محرك شطرنج أو كتاب أو قاعدة بيانات أو شخص اخر).</string>
   <string name="agreementNice">أؤكد أنني سأعامل اللاعبين الآخرين بكل احترام.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">أوافق على أني لن أدخل بحسابات متعددة (إلا للأسباب المذكورة في %s).</string>
-  <string name="agreementPolicy">أوافق على أني سأتبع سياسات الموقع.</string>
   <string name="searchOrStartNewDiscussion">البحث أو بدء محادثة جديدة</string>
   <string name="edit">تعديل</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">الرصاصة</string>

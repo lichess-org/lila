@@ -83,7 +83,7 @@ print('Migrating ' + max + ' analysis');
 collection.drop();
 
 let nb = 0,
-  dat = new Date().getTime() / 1000;
+  dat = Date.now() / 1000;
 gamesToMigrate.forEach(function (a) {
   const encoded = a.encoded;
   if (!encoded) return;
@@ -114,7 +114,7 @@ gamesToMigrate.forEach(function (a) {
   ++nb;
   if (nb % batchSize == 0) {
     const percent = Math.round((nb / max) * 100);
-    const dat2 = new Date().getTime() / 1000;
+    const dat2 = Date.now() / 1000;
     const perSec = Math.round(batchSize / (dat2 - dat));
     dat = dat2;
     print(nb / 1000 + 'k ' + percent + '% ' + perSec + '/s');

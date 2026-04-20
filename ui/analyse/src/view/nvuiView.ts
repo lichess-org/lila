@@ -10,6 +10,7 @@ import { defined } from 'lib';
 import { throttle } from 'lib/async';
 import { view as cevalView, renderEval } from 'lib/ceval';
 import { renderChat } from 'lib/chat/renderChat';
+import { isTouchDevice } from 'lib/device';
 import type { Player } from 'lib/game';
 import { plyToTurn } from 'lib/game/chess';
 import {
@@ -43,7 +44,6 @@ import { type VNode, type LooseVNodes, type VNodeChildren, hl, bind, noTrans } f
 import { text as xhrText } from 'lib/xhr';
 
 import type { AnalyseNvuiContext } from '../analyse.nvui';
-import { next, prev } from '../control';
 import type AnalyseCtrl from '../ctrl';
 import explorerView from '../explorer/explorerView';
 import { makeConfig as makeCgConfig } from '../ground';
@@ -72,7 +72,8 @@ export function initNvui(ctx: AnalyseNvuiContext): void {
 }
 
 export function renderNvui(ctx: AnalyseNvuiContext): VNode {
-  const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle } = ctx;
+  const { ctrl, deps, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } =
+    ctx;
   const d = ctrl.data,
     style = moveStyle.get(),
     clocks = renderClocks(ctrl, ctrl.path),
@@ -83,8 +84,34 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
     drawable: { enabled: false },
     coordinates: false,
   });
+  const boardFirst = isTouchDevice() && pageStyle.get() === 'board-actions';
+
+  if (boardFirst) {
+    pieceStyle.set('name');
+    prefixStyle.set('name');
+    boardStyle.set('plain');
+  }
+
+  const boardView = [
+    hl('h2', i18n.site.board),
+    hl(
+      'div.board',
+      { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
+      renderBoard(
+        ctrl.chessground.state.pieces,
+        ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.bottomColor(),
+        pieceStyle.get(),
+        prefixStyle.get(),
+        positionStyle.get(),
+        boardStyle.get(),
+      ),
+    ),
+  ];
+
   return hl('main.analyse', [
     hl('div.nvui', [
+      ...(boardFirst ? boardView : []),
+      boardFirst && renderTouchDeviceCommands(ctx),
       studyDetails(ctrl),
       hl('h2', i18n.nvui.gameInfo),
       ...COLORS.map(color => hl('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))])),
@@ -140,23 +167,11 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
       renderRetro(ctx),
       !ctrl.retro && [
         hl('h2', i18n.site.computerAnalysis),
-        cevalView.renderCeval(ctrl), // beware unsolicted redraws hosing the screen reader
+        cevalView.renderCeval(ctrl), // beware unsolicited redraws hosing the screen reader
         cevalView.renderPvs(ctrl),
         renderAcpl(ctx) || requestAnalysisBtn(ctx),
       ],
-      hl('h2', i18n.site.board),
-      hl(
-        'div.board',
-        { hook: { insert: el => boardEventsHook(ctx, el.elm as HTMLElement) } },
-        renderBoard(
-          ctrl.chessground.state.pieces,
-          ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.bottomColor(),
-          pieceStyle.get(),
-          prefixStyle.get(),
-          positionStyle.get(),
-          boardStyle.get(),
-        ),
-      ),
+      ...(boardFirst ? [] : boardView),
       hl('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
       hl('div.content', {
         hook: {
@@ -219,6 +234,38 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
   ]);
 }
 
+function renderTouchDeviceCommands(ctx: AnalyseNvuiContext): LooseVNodes {
+  const { notify, ctrl, moveStyle } = ctx;
+  return [
+    hl('div.actions', [
+      hl('button', { hook: bind('click', ctrl.navigate.prev) }, 'previous move'),
+      hl('button', { hook: bind('click', ctrl.navigate.next) }, 'next move'),
+      hl('button', { hook: bind('click', () => notify.set(renderEvalAndDepth(ctrl))) }, 'evaluation'),
+      hl(
+        'button',
+        { hook: bind('click', () => notify.set(renderBestMove({ ctrl, moveStyle } as AnalyseNvuiContext))) },
+        'top engine move',
+      ),
+      hl(
+        'button',
+        {
+          hook: bind('click', () => {
+            notify.set(`${$('.nvui .botc').text()} - ${$('.nvui .topc').text()}`);
+          }),
+        },
+        'clocks',
+      ),
+      hl('button', { hook: bind('click', ctrl.navigate.first) }, 'first move'),
+      hl('button', { hook: bind('click', ctrl.navigate.last) }, 'last move'),
+      hl(
+        'button',
+        { hook: bind('click', () => toggleLocalEvaluation(ctrl)) },
+        noEvalStr(ctrl) ? noEvalStr(ctrl) : 'local evaluation is enabled',
+      ),
+    ]),
+  ];
+}
+
 function boardEventsHook(
   { ctrl, pieceStyle, prefixStyle, moveStyle, notify }: AnalyseNvuiContext,
   el: HTMLElement,
@@ -279,6 +326,10 @@ const noEvalStr = (ctrl: AnalyseCtrl) =>
     : !ctrl.cevalEnabled()
       ? 'local evaluation not enabled'
       : '';
+
+function toggleLocalEvaluation(ctrl: AnalyseCtrl): void {
+  if (ctrl.isCevalAllowed() && ctrl.ceval.analysable) ctrl.cevalEnabled(!ctrl.cevalEnabled());
+}
 
 function renderBestMove({ ctrl, moveStyle }: AnalyseNvuiContext): string {
   const noEvalMsg = noEvalStr(ctrl);
@@ -385,9 +436,13 @@ const inputCommands: InputCommand[] = [
   {
     cmd: 'prev',
     help: noTrans('return to the previous move'),
-    cb: ({ ctrl }) => doAndRedraw(ctrl, prev),
+    cb: ({ ctrl }) => doAndRedraw(ctrl, ctrl.navigate.prev),
   },
-  { cmd: 'next', help: noTrans('go to the next move'), cb: ({ ctrl }) => doAndRedraw(ctrl, next) },
+  {
+    cmd: 'next',
+    help: noTrans('go to the next move'),
+    cb: ({ ctrl }) => doAndRedraw(ctrl, ctrl.navigate.next),
+  },
   {
     cmd: 'prev line',
     help: noTrans('switch to the previous variation'),
@@ -701,7 +756,7 @@ const doAndRedraw = (ctrl: AnalyseCtrl, fn: (ctrl: AnalyseCtrl) => void): void =
 
 function jumpMoveOrLine(ctrl: AnalyseCtrl) {
   return (e: KeyboardEvent) => {
-    if (e.key === 'A') doAndRedraw(ctrl, e.altKey ? jumpPrevLine : prev);
-    else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : next);
+    if (e.key === 'A') doAndRedraw(ctrl, e.altKey ? jumpPrevLine : ctrl.navigate.prev);
+    else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : ctrl.navigate.next);
   };
 }

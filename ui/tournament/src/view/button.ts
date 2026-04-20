@@ -28,7 +28,7 @@ export function join(ctrl: TournamentController): VNode {
     const delay = ctrl.data.me && ctrl.data.me.pauseDelay;
     const joinable = ctrl.data.verdicts.accepted && !delay;
     const button = h(
-      'button.fbt.text' + (joinable ? '.highlight' : ''),
+      'button' + (joinable ? '.button.button-green' : '.fbt.text'),
       {
         attrs: { disabled: !joinable, 'data-icon': licon.PlayTriangle },
         hook: bind('click', _ => ctrl.join(), ctrl.redraw),
@@ -63,7 +63,7 @@ export function join(ctrl: TournamentController): VNode {
 export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
   if (!ctrl.opts.userId)
     return h(
-      'a.fbt.text.highlight',
+      'a.button.button-green',
       { attrs: { href: '/login?referrer=' + window.location.pathname, 'data-icon': licon.PlayTriangle } },
       i18n.site.signIn,
     );

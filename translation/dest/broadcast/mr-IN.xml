@@ -104,6 +104,6 @@
   <string name="semifinals">उपांत्य फेऱ्या</string>
   <string name="finals">अंतिम फेरी</string>
   <string name="tiebreaks">बरोबरीभंग फेऱ्या</string>
-  <string name="gameX" comment="%s is the number of the game in a tournament format.&#10;&#10;Examples:&#10;&quot;Game 1&quot;&#10;&quot;Game 3&quot;">खेळ %s</string>
+  <string name="gameX">खेळ %s</string>
   <string name="knockouts">बाद फेऱ्या</string>
 </resources>

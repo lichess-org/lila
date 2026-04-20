@@ -166,6 +166,7 @@ export default class StudyCtrl {
       () => this.setTab('chapters'),
       chapterId => xhr.chapterConfig(data.id, chapterId),
       this.ctrl,
+      () => this.data.chapter,
     );
     this.multiCloudEval = this.isCevalAllowed()
       ? new MultiCloudEval(this.redraw, () => this.ctrl.variantKey, this.chapters.list, this.send)
@@ -186,8 +187,9 @@ export default class StudyCtrl {
           ctrl.mainline.length === 1 &&
           !data.chapter.setup.fromFen &&
           !this.relay
-        )
+        ) {
           this.chapters.newForm.openInitial();
+        }
       },
       () => data,
       this.redraw,
@@ -351,6 +353,9 @@ export default class StudyCtrl {
     const s = d.study;
     const prevPath = this.ctrl.path;
     const sameChapter = this.data.chapter.id === s.chapter.id;
+    const changeInChapterOrientation =
+      sameChapter && // changes on orientation are only relevant for the same chapter
+      this.data.chapter.setup.orientation !== s.chapter.setup.orientation;
     this.vm.mode.sticky =
       (this.vm.mode.sticky && s.features.sticky) || (!this.data.features.sticky && s.features.sticky);
     if (this.vm.mode.sticky) this.vm.behind = 0;
@@ -369,6 +374,7 @@ export default class StudyCtrl {
     document.title = this.relay?.fullRoundName() ?? this.data.name;
     this.members.dict(s.members);
     if (s.chapters) this.chapters.loadFromServer(s.chapters);
+    if (changeInChapterOrientation) this.chapterFlipMapProp(this.data.chapter.id, false);
     this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
 
     const merge = !this.vm.mode.write && sameChapter;

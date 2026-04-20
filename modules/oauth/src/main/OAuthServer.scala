@@ -1,11 +1,9 @@
 package lila.oauth
 
-import com.roundeights.hasher.Algo
 import com.softwaremill.tagging.*
 import play.api.mvc.{ RequestHeader, Result }
 
 import lila.common.HTTPRequest
-import lila.core.config.Secret
 import lila.core.net.{ Bearer, UserAgent }
 import lila.memo.SettingStore
 
@@ -13,7 +11,7 @@ final class OAuthServer(
     userApi: lila.core.user.UserApi,
     tokenApi: AccessTokenApi,
     originBlocklist: SettingStore[lila.core.data.Strings] @@ OriginBlocklist,
-    mobileSecrets: List[Secret] @@ MobileSecrets
+    signedClients: OAuthSignedClients
 )(using mode: play.api.Mode)(using Executor):
 
   import OAuthServer.*
@@ -34,7 +32,7 @@ final class OAuthServer(
       MissingScope(accepted, at.scopes)
     u <- userApi.me(at.userId)
     u <- u.raiseIfNone(NoSuchUser)
-    blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
+    blocked = at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.value.contains))
     _ = andLogReq
       .filter: req =>
         blocked || (u.isnt(UserId.explorer) && !HTTPRequest.looksLikeLichessBot(req))
@@ -60,29 +58,17 @@ final class OAuthServer(
       case UaUserRegex(u) if access.me.isnt(UserStr(u)) => UserAgentMismatch.some
       case _ => none
 
-  private val bearerSigners = mobileSecrets.map(s => Algo.hmac(s.value))
-
-  private def checkSignedBearer(bearer: String, signed: String): Boolean =
-    bearerSigners.exists: signer =>
-      signer.sha1(bearer).hash_=(signed)
-
   private def getTokenFromSignedBearer(full: Bearer): Fu[Option[AccessToken.ForAuth]] =
-    val (bearer, signed) = full.value.split(':') match
-      case Array(bearer, signed) if checkSignedBearer(bearer, signed) => (Bearer(bearer), true)
-      case _ => (full, false)
+    val (bearer, signature) = full.value.split(':') match
+      case Array(bearer, sign) => Bearer(bearer) -> sign.some
+      case _ => (full, none)
     tokenApi
       .get(bearer)
       .mapz: token =>
-        if token.scopes.mobile && !signed then
-          logger.warn(s"Web:Mobile token requested but not signed: $token")
-          mode.isDev.option(token)
-        else if token.scopes.polygon && !signed then
-          logger.warn(s"Web:Polygon token requested but not signed: $token")
-          mode.isDev.option(token)
-        else if token.scopes.mobile && !token.clientOrigin.has("org.lichess.mobile://") then
-          logger.warn(s"Web:Mobile token requested but invalid origin: $token")
-          mode.isDev.option(token)
-        else token.some
+        if signedClients.allow(bearer, token, signature) then token.some
+        else
+          logger.warn(s"declined token for ${token.show}, signed=${signature.isDefined}")
+          none
 
   private def monitorAuth(success: Boolean) =
     lila.mon.user.oauth.request(success).increment()

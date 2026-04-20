@@ -39,7 +39,7 @@
   <string name="reportMobileIssue">ແຈ້ງບັນຫາແອັບມືຖື Lichess ໃນ GitHub</string>
   <string name="reportBugInDiscord">ໃນເຊີເວີ Lichess Discord</string>
   <string name="howToReportBug">ກະລຸນາອະທິບາຍລັກສະນະຂອງຂໍ້ຜິດພາດ, ສິ່ງທີ່ທ່ານຄາດຫວັງວ່າຈະເກີດຂຶ້ນ ແລະ ຂັ້ນຕອນໃນການເຮັດໃຫ້ເກີດຂໍ້ຜິດພາດນັ້ນ.</string>
-  <string name="illegalPawnCapture" comment="Appears as an option for reasons to contact Lichess on the 'contact' page: https://lichess.org/contact#help-enpassant&#10;&#10;Players used to routinely write to Lichess stating that there was a bug, or that the other player had hacked their game in some way. In actuality, the player was using the legal move of en passant.&#10;&#10;Please translate this string from the perspective of the player who would be selecting this contact option, and call it 'Illegal', even though we know this is a legal move.">ການກິນເບ້ຍທີ່ຜິດກົດ</string>
+  <string name="illegalPawnCapture">ການກິນເບ້ຍທີ່ຜິດກົດ</string>
   <string name="calledEnPassant">ມັນຖືກເອີ້ນວ່າ \"en passant\" ແລະ ເປັນໜຶ່ງໃນກົດຂອງໝາກຮຸກ.</string>
   <string name="tryEnPassant">ລອງຫຼິ້ນເກມໂຕ້ຕອບນ້ອຍໆນີ້ເພື່ອຮຽນຮູ້ເພີ່ມເຕີມກ່ຽວກັບ \"en passant\".</string>
   <string name="illegalCastling">ການເຂົ້າປ້ອມທີ່ຜິດກົດ ຫຼື ເປັນໄປບໍ່ໄດ້</string>

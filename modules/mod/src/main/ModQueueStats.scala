@@ -18,7 +18,7 @@ final class ModQueueStats(
   def apply(period: String): Fu[Result] =
     cache.get(Period(period))
 
-  private val cache = cacheApi[Period, Result](64, "mod.activity"):
+  private val cache = cacheApi[Period, Result](64, "mod.queueStats"):
     _.expireAfter[Period, Result](
       create = (key, _) =>
         key match

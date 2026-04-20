@@ -21,7 +21,7 @@ $player-height: 1.6rem;
 }
 
 .study__player {
-  @extend %flex-between-nowrap, %metal, %box-shadow;
+  @extend %flex-between-nowrap, %metal-bg, %box-shadow;
   @include inline-end(0);
 
   position: absolute;

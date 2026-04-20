@@ -54,7 +54,7 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Txateam \"Good game, well played\" esan partida galdu edo berdintzean</string>
   <string name="yourPreferencesHaveBeenSaved">Zure ezarpenak ondo gorde dira.</string>
   <string name="scrollOnTheBoardToReplayMoves">Mugitu taula gainean jokaldiak ikusteko</string>
-  <string name="correspondenceEmailNotification">Jaso posta elektronikoz zure posta-bidezko partiden jakinarazpenen zerrenda egunero</string>
+  <string name="correspondenceEmailNotification">Jaso emailez zure posta-bidezko partiden jakinarazpenen zerrenda egunero</string>
   <string name="notifyStreamStart">Esataria zuzenean dago</string>
   <string name="notifyInboxMsg">Mezu berria postontzian</string>
   <string name="notifyForumMention">Foroko erantzunean aipatu zaituzte</string>
@@ -70,5 +70,5 @@
   <string name="notifyDevice">Gailua</string>
   <string name="bellNotificationSound">Kanpaiaren jakinarazpen soinua</string>
   <string name="blindfold" comment="As in Blindfold chess">Itsuka</string>
-  <string name="showClockOnTheLeft" comment="IMPORTANT NOTE FOR LANGUAGES WRITTEN RIGHT-TO-LEFT (e.g. Arabic):&#10;Please translate &quot;left&quot; as &quot;right&quot;, because the layout is reversed in your language.&#10;&#10;---&#10;&#10;A user setting. When enabled, the clock will be shown on the left side of the screen. Only applies to mobile devices.&#10;&#10;&#10;Appears on https://lichess.org/account/preferences/chess-clock.">Erakutsi ezkerrean gailu mugikorretan</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Erakutsi ezkerrean gailu mugikorretan</string>
 </resources>

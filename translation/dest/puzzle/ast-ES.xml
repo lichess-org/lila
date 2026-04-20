@@ -16,7 +16,7 @@
   <string name="voteToLoadNextOne">¡Vota pa pasar al siguiente!</string>
   <string name="upVote">Votar positivamente l\'exerciciu</string>
   <string name="downVote">Votar negativamente l\'exerciciu</string>
-  <string name="yourPuzzleRatingWillNotChange">La to puntuación d\'exercicios nun va camudar. Nota que los exercicios nun son una competición. La puntuación indica los exercicios que se adecuan a les tos habilidaes.</string>
+  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">La to puntuación d\'exercicios nun va camudar. Nota que los exercicios nun son una competición. La puntuación indica los exercicios que se adecuan a les tos habilidaes.</string>
   <string name="findTheBestMoveForWhite">Atopa el meyor movimientu pa les blanques.</string>
   <string name="findTheBestMoveForBlack">Atopa el meyor movimientu pa les prietes.</string>
   <string name="toGetPersonalizedPuzzles">Pa consiguir exercicios personalizaos:</string>
@@ -93,6 +93,6 @@
   </plurals>
   <string name="percentSolved">%s correctos</string>
   <string name="noPuzzlesToShow">Entá nun hai na qu\'amosar equí. ¡Ve y fai dellos exercicios!</string>
-  <string name="improvementAreasDescription" comment="Appears in the improvement areas section: https://lichess.org/training/dashboard/30/improvementAreas">¡Entrena estes áreas pa progresar!</string>
+  <string name="improvementAreasDescription">¡Entrena estes áreas pa progresar!</string>
   <string name="strengthDescription">Estes son les áreas nes que yes más fuerte</string>
 </resources>

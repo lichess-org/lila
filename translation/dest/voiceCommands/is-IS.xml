@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Farðu á e4 eða veldu taflmann á e4</string>
   <string name="selectOrCaptureABishop">Velja eða drepa biskup</string>
   <string name="takeRookWithQueen">Drepa hrók með drottningu</string>
-  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Hrókera (hvorum megin)</string>
+  <string name="castle">Hrókera (hvorum megin)</string>
   <string name="phoneticAlphabetIsBest">Hljóðritunarstafróf er best</string>
   <string name="cancelTimerOrDenyARequest">Hætta tíma eða bera tilskipun til baka</string>
   <string name="playPreferredMoveOrConfirmSomething">Leika tilvalinn leik eða staðfesta eitthvað</string>

@@ -298,7 +298,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       for
         canUpdate <- env.relay.api.canUpdate(tour)
         nav <- env.relay.api.formNavigation(tour)
-        res <- if canUpdate then f(nav) else Forbidden.page(views.relay.form.noAccess(nav))
+        res <- if canUpdate then f(nav) else Forbidden.page(views.relay.form.noAccess(tour))
       yield res
 
   private[controllers] def rateLimitCreation(

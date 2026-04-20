@@ -354,6 +354,7 @@ final class StudyApi(
                     .parallel
                     .map: _ =>
                       sendTo(study.id)(_.promote(position, toMainline, who))
+                      setStudyUpdated(study)
               case None =>
                 reloadSriBecauseOf(study, who.sri, chapter.id)
                 fufail(s"Invalid promoteToMainline $studyId $position")
@@ -480,7 +481,9 @@ final class StudyApi(
           .so: c =>
             c.root.clock.so: clock =>
               doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
-      yield sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
+      yield
+        sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
+        setStudyUpdated(study)
 
   def setComment(studyId: StudyId, position: Position.Ref, text: CommentStr)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):
@@ -602,7 +605,7 @@ final class StudyApi(
         order <- chapterRepo.nextOrderByStudy(study.id)
         chapter <- chapterMaker(study, data, order, who.u, withRatings)
           .recoverWith:
-            case ChapterMaker.ValidationException(error) =>
+            case StudyValidationException(error) =>
               sendTo(study.id)(_.validationError(error, who.sri))
               ErrorMsg(error).raise
         _ <- doAddChapter(study, chapter, sticky, who)
@@ -681,7 +684,8 @@ final class StudyApi(
                 studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
             yield
               if shouldReload then sendTo(study.id)(_.reloadStudy(who))
-              if shouldSendChapterPreviews then sendChaperPreviews(study)
+              if shouldSendChapterPreviews then sendChapterPreviews(study)
+              setStudyUpdated(study)
         }
 
   def descChapter(studyId: StudyId, data: ChapterMaker.DescData)(who: Who) =
@@ -723,9 +727,35 @@ final class StudyApi(
                     doSetChapter(study, newId, who)
             _ <- chapterRepo.delete(chapter.id)
           yield
-            sendChaperPreviews(study)
+            sendChapterPreviews(study)
             setStudyUpdated(study)
         }
+
+  def replaceChapterPgnMoves(
+      studyId: StudyId,
+      chapterId: StudyChapterId,
+      pgn: chess.format.pgn.PgnStr
+  )(using me: Me): Fu[Boolean] =
+    byIdWithChapter(studyId, chapterId).flatMapz:
+      case Study.WithChapter(study, chapter) =>
+        study.isRelay.not.so:
+          Contribute(me, study):
+            for
+              parsed <- chapterMaker.toStudyPgn(study, pgn)
+              newChapter = chapter.copy(
+                root = parsed.root,
+                setup = chapter.setup.copy(variant = parsed.variant),
+                conceal = chapter.conceal.map(_ => parsed.root.ply),
+                serverEval = None
+              )
+              _ <- chapterRepo.update(newChapter)
+              _ <- (study.position.chapterId == chapter.id).so:
+                studyRepo.setPosition(study.id, study.position.withPath(UciPath.root))
+              _ = preview.invalidate(study.id)
+            yield
+              sendChapterPreviews(study)
+              reloadStudy(study.id, Who(me.userId, Sri("api")))
+              true
 
   // update provided tags, keep missing tags, delete tags with empty value
   def updateChapterTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(using me: Me) =
@@ -741,7 +771,10 @@ final class StudyApi(
   def sortChapters(studyId: StudyId, chapterIds: List[StudyChapterId])(who: Who): Funit =
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
-        for _ <- chapterRepo.sort(study, chapterIds) yield sendChaperPreviews(study)
+        for _ <- chapterRepo.sort(study, chapterIds)
+        yield
+          sendChapterPreviews(study)
+          setStudyUpdated(study)
 
   def descStudy(studyId: StudyId, desc: String)(who: Who) =
     sequenceStudy(studyId): study =>
@@ -862,7 +895,7 @@ final class StudyApi(
   ) =
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId, reason))
 
-  def sendChaperPreviews(study: Study) =
+  def sendChapterPreviews(study: Study) =
     for previews <- preview.jsonList(study.id)
     do sendTo(study.id)(_.sendChapterPreviews(previews))
 

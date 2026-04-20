@@ -53,6 +53,7 @@ Allow: /game/export/gif/thumbnail/
   val mobileAndroidId = "org.lichess.mobileV2"
   val mobileAndroidUrl = s"https://play.google.com/store/apps/details?id=$mobileAndroidId"
   val mobileIosUrl = "https://apps.apple.com/app/lichess/id1662361230"
+  val mobileFdroidUrl = s"https://f-droid.org/packages/$mobileAndroidId"
 
   def appStoreUrl(using req: RequestHeader) =
     if HTTPRequest.isAndroid(req) then mobileAndroidUrl else mobileIosUrl
@@ -89,15 +90,6 @@ Allow: /game/export/gif/thumbnail/
         "name" -> v.name
       )
     })
-
-  val externalLinks = Map(
-    "mastodon" -> "https://mastodon.online/@lichess",
-    "github" -> "https://github.com/lichess-org",
-    "discord" -> "https://discord.gg/lichess",
-    "bluesky" -> "https://bsky.app/profile/lichess.org",
-    "youtube" -> "https://youtube.com/@LichessDotOrg",
-    "twitch" -> "https://www.twitch.tv/lichessdotorg"
-  )
 
   def legacyQaQuestion(id: Int) =
     val faq = routes.Main.faq.url

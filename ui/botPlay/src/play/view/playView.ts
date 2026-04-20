@@ -16,10 +16,10 @@ import {
   type LooseVNodes,
   dataIcon,
   type VNode,
-  stepwiseScroll,
   toggleButton as boardMenuToggleButton,
 } from 'lib/view';
 import { renderBlindfoldToggle } from 'lib/view/blindfold';
+import stepwiseScroll from 'lib/view/stepwiseScroll';
 
 import { initialGround } from '@/ground';
 
