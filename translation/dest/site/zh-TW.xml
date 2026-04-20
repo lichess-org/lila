@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="gameSetup">棋局設置</string>
-  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">挑戰一位朋友</string>
+  <string name="gameSetup">棋局設定</string>
+  <string name="challengeAFriend" comment="be mindful how 'friend' translates in gendered languages. look for a more neutral term if there's an issue, or base your translation on a different phrase like 'invite to a game'. keep it short and convey the button's meaning without offense.">挑戰朋友</string>
   <string name="playAgainstComputer">與電腦對局</string>
   <string name="gameMode">遊戲模式</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">請分享此網址以邀人下棋</string>
   <string name="gameOver">遊戲結束</string>
   <string name="waitingForOpponent">正在等待對手</string>
   <string name="orLetYourOpponentScanQrCode">或是讓對手掃描這個 QR code</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">任何人都可以此設定挑戰你的永久連結。</string>
   <string name="waiting">等待對手確認中</string>
   <string name="yourTurn">該您走</string>
   <string name="aiNameLevelAiLevel">%1$s等級 %2$s</string>
@@ -946,5 +947,6 @@
   <string name="offline" comment="status of a user">離線</string>
   <string name="search">搜索</string>
   <string name="clearSearch">清除搜索</string>
+  <string name="thereAreNoResultsForX">找不到符合「%s」的結果</string>
   <string name="tags">標籤</string>
 </resources>
