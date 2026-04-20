@@ -5,5 +5,5 @@
 	<plurals name="nbMoves">
 		<item quantity="other">%s 棋步</item>
 	</plurals>
-	<string name="chessFoes">您最佳棋友</string>
+	<string name="chessFoes">您的最佳對手</string>
 </resources>
