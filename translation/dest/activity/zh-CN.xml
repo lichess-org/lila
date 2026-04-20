@@ -47,6 +47,9 @@
   <plurals name="competedInNbTournaments">
     <item quantity="other">参加了 %s 场竞技场锦标赛</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="other">在 %4$s 中排名第 #%1$s 位（前 %2$s%%），对局数 %3$s</item>
+  </plurals>
   <plurals name="competedInNbSwissTournaments">
     <item quantity="other">参加了 %s 场瑞士制锦标赛</item>
   </plurals>
