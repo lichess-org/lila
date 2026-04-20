@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">課程</string>
-  <string name="teachClassesOfChessStudents">使用 Lichess 班級管理工具包將西洋棋的技術交給學生。</string>
+  <string name="teachClassesOfChessStudents">使用 Lichess 班級管理工具包來教授學生西洋棋。</string>
   <string name="features">功能</string>
   <string name="quicklyGenerateSafeUsernames">快速為學生建立安全的使用者名稱及密碼</string>
-  <string name="trackStudentProgress">紀錄學生在棋局和謎題中的進度</string>
+  <string name="trackStudentProgress">記錄學生棋局和謎題的進度</string>
   <string name="messageAllStudents">通知所有學生關於新教材</string>
   <string name="freeForAllForever">完全免費，一視同仁。且無廣告及追蹤器</string>
   <string name="applyToBeLichessTeacher">申請成為 Lichess 的教師</string>
   <string name="noClassesYet">還沒有課程</string>
-  <string name="teachersX">%s個教師</string>
+  <string name="teachersX">教師：%s</string>
   <string name="newClass">新的課程</string>
   <string name="closeClass">關閉課程</string>
   <string name="removedByX">被 %s 移除</string>
   <string name="reopen">重新開放</string>
   <string name="removeStudent">移除學生</string>
   <string name="removedStudents">移除</string>
-  <string name="inviteTheStudentBack">邀請退出的學生回來</string>
+  <string name="inviteTheStudentBack">重新邀請回來</string>
   <string name="sendAMessage">傳送訊息給所有的學生</string>
-  <string name="aLinkToTheClassWillBeAdded">班級的鏈接將會自動添加到訊息尾部，所以您不需要自己添加它。</string>
+  <string name="aLinkToTheClassWillBeAdded">將會自動添加課程的連結到訊息的最後，所以您不需要自行添加。</string>
   <string name="className">課程名稱</string>
   <string name="classDescription">課程描述</string>
   <string name="visibleByBothStudentsAndTeachers">課程的學生及教師皆可見</string>
-  <string name="teachersOfTheClass">這堂課程的教師</string>
-  <string name="addLichessUsernames">加入 Lichess 使用者名稱邀請他們做老師，每行一個</string>
+  <string name="teachersOfTheClass">此課程的教師</string>
+  <string name="addLichessUsernames">輸入 Lichess 使用者名稱邀請他們做老師，每行一個。</string>
   <string name="resetPassword">重設密碼</string>
   <string name="makeSureToCopy">確認你已複製或記下密碼。 你將無法再次看到它！</string>
-  <string name="passwordX">密碼:%s</string>
-  <string name="generateANewPassword">重設學生的密碼</string>
-  <string name="invitedToXByY">%1$s被%2$s邀請</string>
-  <string name="realName">真實名稱</string>
+  <string name="passwordX">密碼：%s</string>
+  <string name="generateANewPassword">重新生成學生的密碼</string>
+  <string name="invitedToXByY">被%2$s邀請到%1$s</string>
+  <string name="realName">真實姓名</string>
   <string name="privateWillNeverBeShown">隱私。永遠不會在課外顯示。有助回憶學生是誰。</string>
   <string name="addStudent">增加學生</string>
   <string name="lichessProfileXCreatedForY">為 %2$s 創建的 Lichess 檔案 %1$s。</string>
@@ -116,4 +116,7 @@
   <string name="moveToClass">移動到 %s</string>
   <string name="moveToAnotherClass">移動到另一個課程</string>
   <string name="allowMessagingBetweenStudents">允許學生之間的消息</string>
+  <string name="quickLoginCode">快速登入碼</string>
+  <string name="quickLoginCodes">快速登入碼</string>
+  <string name="expirationInMomentFromNow" comment="String is the translation of, for example, 'in 2 hours'">於 %s 過期</string>
 </resources>
