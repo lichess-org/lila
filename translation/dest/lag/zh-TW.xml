@@ -9,9 +9,8 @@
   <string name="lichessServerLatency">Lichess 伺服器延遲</string>
   <string name="lichessServerLatencyExplanation">伺服器處理一步棋所須的時間。此時間對所有人皆相同，取決於伺服器負載。玩家越多，此時間就越長。但 Lichess 開發者盡力保持它不會太長，很少超過 10ms 的延遲。</string>
   <string name="networkBetweenLichessAndYou">您和 Lichess 之間的網路延遲</string>
-  <string name="networkBetweenLichessAndYouExplanation">從您的電腦向 Lichess 服務器發送移動指令並得到回覆所花費的時間取決於您到 Lichess（法國）的距離以及網路連接的品質。
-Lichess 開發者無法修復您的 wifi 或使網速變快。</string>
-  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">您可以在任何時間找到延遲數據，只要在您的使用者名稱上點一下。</string>
+  <string name="networkBetweenLichessAndYouExplanation">從您的電腦向 Lichess 伺服器發送棋步指令並得到回覆所需要的時間。取決於您與 Lichess（法國）的距離以及網路連接的品質。Lichess 開發者無法修復您的 wifi 或使網速變快。</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">您可以在任何時候找到延遲的數據，只要在上方您的使用者名稱上點一下。</string>
   <string name="lagCompensation">延遲補償</string>
   <string name="lagCompensationExplanation">我們彌補了持續地延遲與偶爾地延遲尖峰。
 到目前為止，基於時間控制和補償延遲存在一些限制和啟發，因此，對於兩個玩家來說，結果都應該是公平的。
