@@ -526,6 +526,7 @@
   <string name="popularOpenings">Popüler açılışlar</string>
   <string name="endgamePositions">Oyunsonu pozisyonları</string>
   <string name="chess960StartPosition">Chess960 başlangıç pozisyonu: %s</string>
+  <string name="randomChess960Position">Rastgele Satranç960 pozisyonu</string>
   <string name="startPosition">Başlangıç konumu</string>
   <string name="clearBoard">Tahtayı temizle</string>
   <string name="loadPosition">Pozisyon yükle</string>
