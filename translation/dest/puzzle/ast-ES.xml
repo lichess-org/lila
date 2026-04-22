@@ -13,10 +13,9 @@
   <string name="origin">Orixe</string>
   <string name="specialMoves">Movimientos especiales</string>
   <string name="didYouLikeThisPuzzle">¿Te gustó esti exerciciu?</string>
-  <string name="voteToLoadNextOne">¡Vota pa pasar al siguiente!</string>
   <string name="upVote">Votar positivamente l\'exerciciu</string>
   <string name="downVote">Votar negativamente l\'exerciciu</string>
-  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">La to puntuación d\'exercicios nun va camudar. Nota que los exercicios nun son una competición. La puntuación indica los exercicios que se adecuan a les tos habilidaes.</string>
+  <string name="yourPuzzleRatingWillNotChange">La to puntuación d\'exercicios nun va camudar. Nota que los exercicios nun son una competición. La puntuación indica los exercicios que se adecuan a les tos habilidaes.</string>
   <string name="findTheBestMoveForWhite">Atopa el meyor movimientu pa les blanques.</string>
   <string name="findTheBestMoveForBlack">Atopa el meyor movimientu pa les prietes.</string>
   <string name="toGetPersonalizedPuzzles">Pa consiguir exercicios personalizaos:</string>
