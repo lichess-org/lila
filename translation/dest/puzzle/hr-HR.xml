@@ -12,7 +12,6 @@
   <string name="origin">Podrijetlo</string>
   <string name="specialMoves">Specifični potezi</string>
   <string name="didYouLikeThisPuzzle">Sviđa li ti se ovaj zadatak?</string>
-  <string name="voteToLoadNextOne">Ocijeni i prijeđi na sljedeći zadatak!</string>
   <string name="upVote">Glasaj za zagonetku</string>
   <string name="downVote">Glasaj protiv zagonetke</string>
   <string name="yourPuzzleRatingWillNotChange">Tvoj rejting zadataka se neće promjeniti. Imaj na umu da rješavanje zadaka nije natjecanje. Rejting prvenstveno pomaže u odabiru najboljih zadataka za tvoj trenutni nivo vještine.</string>
