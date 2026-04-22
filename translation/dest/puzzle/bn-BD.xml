@@ -12,7 +12,6 @@
   <string name="origin">উত্স</string>
   <string name="specialMoves">বিশেশ চাল</string>
   <string name="didYouLikeThisPuzzle">আপনি এই ধাঁধা তি কি পছন্দ করেছেন?</string>
-  <string name="voteToLoadNextOne">পরের ধাঁধা তি তে জেতে ভতে দিন!</string>
   <string name="upVote">ধাঁধা কে আপ-ভোট করুন</string>
   <string name="downVote">ধাঁধা কে ডাউন-ভোট করুন</string>
   <string name="yourPuzzleRatingWillNotChange">আপনার ধাঁধার রেটিং পরিবর্তীত হবে না। উল্লেখ্য, ধাঁধা প্রতিযোগীতামূলক নয়। আপনার রেটিং আপনার দক্ষতা অনুযায়ী ধাঁধা বাছাই করতে সাহায্য করে।</string>
