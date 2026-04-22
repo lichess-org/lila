@@ -526,6 +526,7 @@
   <string name="popularOpenings">Ouvertures courantes</string>
   <string name="endgamePositions">Positions de finale</string>
   <string name="chess960StartPosition">Position de départ – Chess960 : %s</string>
+  <string name="randomChess960Position">Position d\'échecs 960</string>
   <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
   <string name="loadPosition">Charger une position</string>
