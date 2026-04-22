@@ -12,10 +12,9 @@
   <string name="origin">سەرچاوە</string>
   <string name="specialMoves">جووڵە تایبەتەکان</string>
   <string name="didYouLikeThisPuzzle">ئەم مەتەڵەت بەدڵبوو؟</string>
-  <string name="voteToLoadNextOne">دەنگ بدە بۆ بارکردنی دانەی داھاتوو!</string>
   <string name="upVote">مەتەڵەکەم بەدڵە</string>
   <string name="downVote">مەتەڵەکەم بەدڵ نییە</string>
-  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">ڕیزبەندیەکەت گۆڕانکاری بەسەردا نایەت، ئەوەک تێبینییەک، مەتڵەکان پێشبرکێی تێدانییە، ئەو ڕیزبەندییەی کە هەیە تەنها هاوکاری دیاریکردنی باشترین مەتەڵ دەکا کە لەگەڵ ئاستی تۆ گونجاوبێت.</string>
+  <string name="yourPuzzleRatingWillNotChange">ڕیزبەندیەکەت گۆڕانکاری بەسەردا نایەت، ئەوەک تێبینییەک، مەتڵەکان پێشبرکێی تێدانییە، ئەو ڕیزبەندییەی کە هەیە تەنها هاوکاری دیاریکردنی باشترین مەتەڵ دەکا کە لەگەڵ ئاستی تۆ گونجاوبێت.</string>
   <string name="findTheBestMoveForWhite">دۆزینەوەی باشترین جوڵە بۆ سپی.</string>
   <string name="findTheBestMoveForBlack">دۆزینەوەی باشترین جوڵە بۆ ڕەش.</string>
   <string name="toGetPersonalizedPuzzles">بۆ بەدەستهێنانی مەتەڵی تایبەتی:</string>
