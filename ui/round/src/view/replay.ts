@@ -88,7 +88,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
       ),
     ]);
   }
-  return;
+  return undefined;
 }
 
 function renderMoves(ctrl: RoundController): LooseVNodes {

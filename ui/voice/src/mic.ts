@@ -195,7 +195,7 @@ export class Mic implements Microphone {
   }
 
   private broadcast(text: string, msgType: MsgType = 'status', forMs = 0) {
-    this.ctrl?.call(this, text, msgType);
+    this.ctrl(text, msgType);
     if (msgType === 'status' || msgType === 'full') window.clearTimeout(this.broadcastTimeout);
     this.voskStatus = text;
     for (const li of this.recs.items.get(this.recId)?.listeners ?? []) {

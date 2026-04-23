@@ -1,4 +1,4 @@
-import { defined, requestIdleCallback } from 'lib';
+import { defined, requestIdleCallbackSafe } from 'lib';
 import { throttle } from 'lib/async';
 import { isIos } from 'lib/device';
 import { speakable } from 'lib/game/sanWriter';
@@ -9,6 +9,7 @@ type Path = string;
 
 export default new (class implements SoundI {
   ctx: AudioContext | undefined;
+  ctxPromise: Promise<AudioContext>;
   listeners = new Set<SoundListener>();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
@@ -18,23 +19,28 @@ export default new (class implements SoundI {
   volumeStorage = storage.make('sound-volume');
   music?: SoundMove;
   primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
-  primer = () => {
-    this.ctx?.resume().then(() => {
-      setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
-    });
-    for (const e of this.primerEvents) window.removeEventListener(e, this.primer, { capture: true });
-  };
 
   constructor() {
     this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
-    requestIdleCallback(() => {
-      this.ctx = makeAudioContext();
-      window.speechSynthesis?.getVoices(); // preload
+    this.ctxPromise = new Promise((resolve, fail) => {
+      requestIdleCallbackSafe(() => {
+        this.ctx = makeAudioContext();
+        if (this.ctx) resolve(this.ctx);
+        else fail(new Error('AudioContext not supported'));
+        window.speechSynthesis?.getVoices(); // preload
+      });
     });
   }
 
+  primer = async () => {
+    const ctx = await this.ctxPromise;
+    await ctx.resume();
+    setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
+    for (const e of this.primerEvents) window.removeEventListener(e, this.primer, { capture: true });
+  };
+
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
-    if (!this.ctx) return;
+    const ctx = await this.ctxPromise;
     if (path) this.paths.set(name, path);
     else path = this.paths.get(name) ?? this.resolvePath(name);
     if (!path) return;
@@ -45,11 +51,10 @@ export default new (class implements SoundI {
 
     const arrayBuffer = await result.arrayBuffer();
     const audioBuffer = await new Promise<AudioBuffer>((resolve, reject) => {
-      if (this.ctx?.decodeAudioData.length === 1)
-        this.ctx?.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
-      else this.ctx?.decodeAudioData(arrayBuffer, resolve, reject);
+      if (ctx.decodeAudioData.length === 1) ctx.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
+      else ctx.decodeAudioData(arrayBuffer, resolve, reject);
     });
-    const sound = new Sound(this.ctx, audioBuffer);
+    const sound = new Sound(ctx, audioBuffer);
     this.sounds.set(path, sound);
     return sound;
   }
@@ -65,7 +70,7 @@ export default new (class implements SoundI {
   }
 
   url(name: Name): string {
-    return site.asset.url(`sound/${name}`); //, { pathVersion: '_____1' });
+    return site.asset.url(`sound/${name}`);
   }
 
   async play(name: Name, volume = 1): Promise<void> {

@@ -16,20 +16,20 @@ gamesToMigrate.forEach(function (game) {
   let prev = '',
     uids = [];
   game.p.forEach(function (p) {
-    if (p.uid && p.uid != prev) {
+    if (p.uid && p.uid !== prev) {
       uids.push(p.uid);
       prev = p.uid;
     }
   });
 
   const gameSris = game.uids || [];
-  if (gameSris.length != uids.length) {
+  if (gameSris.length !== uids.length) {
     ++j;
     db.game4.update({ _id: game['_id'] }, { $set: { uids: uids } });
   }
 
   ++it;
-  if (it % batchSize == 0) {
+  if (it % batchSize === 0) {
     const percent = Math.round((it / max) * 100);
     const dat2 = Date.now() / 1000;
     const perSec = Math.round(batchSize / (dat2 - dat));

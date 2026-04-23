@@ -6,7 +6,7 @@ import * as ab from 'ab';
 import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboardMove';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
-import { defined, type Toggle, type Prop, toggle, requestIdleCallback, memoize } from 'lib';
+import { defined, type Toggle, type Prop, toggle, requestIdleCallbackSafe, memoize } from 'lib';
 import * as game from 'lib/game';
 import { plyToTurn } from 'lib/game/chess';
 import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
@@ -926,7 +926,7 @@ export default class RoundController implements MoveRootCtrl {
   });
 
   private readonly delayedInit = () =>
-    requestIdleCallback(
+    requestIdleCallbackSafe(
       () => {
         const d = this.data;
         if (this.isPlaying()) {

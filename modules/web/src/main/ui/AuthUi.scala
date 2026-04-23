@@ -3,9 +3,8 @@ package ui
 
 import play.api.data.Form
 
-import lila.core.net.{ Crawler, ValidReferrer }
-import lila.core.security.HcaptchaForm
-import lila.core.security.SinglePostMakeToken
+import lila.core.net.ValidReferrer
+import lila.core.security.TurnstilePublicConfig
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -15,30 +14,38 @@ final class AuthUi(helpers: Helpers):
   private def addReferrer(url: String)(using referrer: Option[ValidReferrer]): String =
     referrer.fold(url)(ref => addQueryParam(url, "referrer", ref.value))
 
-  def login(form: Form[?], crawler: Crawler, isRememberMe: Boolean = true)(using
-      singlePostToken: SinglePostMakeToken,
-      ctx: Context
-  )(using Option[ValidReferrer]) =
+  private def logoAndName =
+    div(cls := "auth__brand")(
+      span(cls := "auth__brand__logo", aria.hidden := "true"),
+      span(cls := "auth__brand__name")("lichess.org")
+    )
+
+  def login(form: Form[?], isRememberMe: Boolean = true)(using
+      TurnstilePublicConfig,
+      Option[ValidReferrer]
+  )(using ctx: Context) =
     val blankedPasswordError = form.globalError.exists(_.messages.contains("blankedPassword"))
     Page(trans.site.signIn.txt())
-      .js(esmInit("bits.login", "login"))
+      .js(esmInit("bits.auth", "login"))
       .css("bits.auth")
+      .csp(_.withTurnstile)
       .hrefLangs(lila.ui.LangPath(routes.Auth.login)):
         main(cls := "auth auth-login box box-pad")(
+          logoAndName,
           authTabs("login"),
           postForm(
             cls := "form3",
             action := addReferrer(routes.Auth.authenticate.url)
           )(
             div(cls := "one-factor")(
-              blankedPasswordError.option:
+              if blankedPasswordError then
                 div(cls := "auth-login__blanked")(
                   p(trans.site.blankedPassword()),
                   a(href := routes.Auth.passwordReset, cls := "button button-no-upper")(
                     trans.site.passwordReset()
                   )
                 )
-              ,
+              else authGlobalError(form),
               form3.group(form("username"), trans.site.usernameOrEmail()): f =>
                 div(cls := "text-wrapper")(
                   form3.input(f)(autofocus, required, autocomplete := "username"),
@@ -59,14 +66,7 @@ final class AuthUi(helpers: Helpers):
                 label(cls := "form-label", `for` := "login-remember-me")(
                   trans.site.rememberMe()
                 )
-              ),
-              form3.hidden(
-                form("singlePost"),
-                if crawler.yes then "crawler".some else singlePostToken(using ctx.req).value.some
-              ),
-              form3.errors(form("singlePost")),
-              form3.submit(trans.site.signIn(), icon = none),
-              authGlobalError(form).ifFalse(blankedPasswordError)
+              )
             ),
             div(cls := "two-factor none")(
               form3.group(
@@ -80,9 +80,10 @@ final class AuthUi(helpers: Helpers):
                   pattern := "[0-9]{6}"
                 )
               ),
-              p(cls := "error none")("Invalid code."),
-              form3.submit(trans.site.signIn(), icon = none)
-            )
+              p(cls := "error none")("Invalid code.")
+            ),
+            turnstile.widget(explicit = true),
+            turnstile.submit(trans.site.signIn())
           ),
           div(cls := "or-separator")(span(trans.site.orSeparator())),
           a(href := addReferrer(routes.Auth.magicLink.url), cls := "button button-empty magic-link")(
@@ -90,16 +91,14 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
-  def signup(form: lila.core.security.HcaptchaForm[?], simple: Boolean)(using
-      singlePostToken: SinglePostMakeToken,
+  def signup(form: Form[?], simple: Boolean)(using
       ctx: Context
-  )(using Option[ValidReferrer]) =
+  )(using TurnstilePublicConfig, Option[ValidReferrer]) =
     Page(trans.site.signUp.txt())
-      .js(esmInit("bits.login", "signup"))
-      .js(hcaptchaScript(form))
+      .js(esmInit("bits.auth", "signup"))
       .js(fingerprintTag)
       .css("bits.auth")
-      .csp(_.withHcaptcha)
+      .csp(_.withTurnstile)
       .hrefLangs(lila.ui.LangPath(routes.Auth.signup)):
         main(
           cls := List(
@@ -107,16 +106,15 @@ final class AuthUi(helpers: Helpers):
             "auth-signup--simple" -> simple
           )
         )(
+          logoAndName,
           authTabs("signup"),
           postForm(
             id := "signup-form",
-            cls := List(
-              "form3" -> true,
-              "h-captcha-enabled" -> form.enabled
-            ),
+            cls := "form3",
             action := addReferrer(routes.Auth.signupPost.url),
             autocomplete := "off"
           )(
+            authGlobalError(form),
             form3.group(
               form("username"),
               trans.site.username(),
@@ -138,7 +136,9 @@ final class AuthUi(helpers: Helpers):
                 simple.option:
                   div(cls := "password-generator")(button("Generate a random password"))
                 ,
-                form3.passwordComplexityMeter(trans.site.newPasswordStrength())
+                form3.passwordComplexityMeter(trans.site.newPasswordStrength())(
+                  cls := f.value.orZero.isEmpty.option("none")
+                )
               ),
             form3.group(
               form("email"),
@@ -166,15 +166,10 @@ final class AuthUi(helpers: Helpers):
                 )
               )
             ,
-            agreement(form("agreement"), form.form.errors.exists(_.key.startsWith("agreement."))),
-            lila.ui.bits.hcaptcha(form),
-            button(cls := "submit button", tpe := "submit")(trans.site.signUp()),
-            simple.option:
-              small(cls := "form-help")(tosLink)
-            ,
-            form3.hidden(form("singlePost"), singlePostToken(using ctx.req).some),
-            form3.errors(form("singlePost")),
-            authGlobalError(form.form)
+            agreement(form("agreement"), form.errors.exists(_.key.startsWith("agreement."))),
+            simple.not.option(turnstile.widget(explicit = true)),
+            turnstile.submit(trans.site.signUp()),
+            simple.option(small(cls := "form-help")(tosLink))
           )
         )
 
@@ -251,14 +246,10 @@ final class AuthUi(helpers: Helpers):
             )
         )
 
-  def passwordReset(form: HcaptchaForm[?], fail: Option[String])(using
-      singlePostToken: SinglePostMakeToken,
-      ctx: Context
-  ) =
+  def passwordReset(form: Form[?], fail: Option[String])(using TurnstilePublicConfig, Context) =
     Page(trans.site.passwordReset.txt())
       .css("bits.auth")
-      .js(hcaptchaScript(form))
-      .csp(_.withHcaptcha):
+      .csp(_.withTurnstile):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
@@ -271,9 +262,7 @@ final class AuthUi(helpers: Helpers):
             form3.group(form("email"), trans.site.email())(
               form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
             ),
-            lila.ui.bits.hcaptcha(form),
-            form3.hidden(form("singlePost"), singlePostToken(using ctx.req).some),
-            form3.errors(form("singlePost")),
+            turnstile.widget(),
             form3.action(form3.submit(trans.site.emailMeALink()))
           )
         )
@@ -295,7 +284,7 @@ final class AuthUi(helpers: Helpers):
   )(using me: Me) =
     Page(s"${me.username} - ${trans.site.changePassword.txt()}")
       .css("bits.auth")
-      .js(esmInit("bits.login", "reset")):
+      .js(esmInit("bits.auth", "reset")):
         main(cls := "auth page-small box box-pad")(
           boxTop(
             (ok match
@@ -323,11 +312,10 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
-  def magicLink(form: HcaptchaForm[?], fail: Boolean)(using Context, Option[ValidReferrer]) =
+  def magicLink(form: Form[?], fail: Boolean)(using Context, TurnstilePublicConfig, Option[ValidReferrer]) =
     Page("Log in by email")
       .css("bits.auth")
-      .js(hcaptchaScript(form))
-      .csp(_.withHcaptcha):
+      .csp(_.withTurnstile):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
@@ -340,7 +328,7 @@ final class AuthUi(helpers: Helpers):
             form3.group(form("email"), trans.site.email())(
               form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
             ),
-            lila.ui.bits.hcaptcha(form),
+            turnstile.widget(),
             form3.action(form3.submit(trans.site.emailMeALink()))
           )
         )

@@ -1,38 +1,68 @@
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  ::details-content {
+    transition:
+      height 0.3s ease,
+      content-visibility 0.3s ease allow-discrete;
+    height: 0;
+    overflow: clip;
+  }
+
+  [open]::details-content {
+    height: auto;
+  }
+}
+
 .faq {
   .question {
-    .answer {
-      display: none;
+    @extend %box-radius;
+    @include backdrop-blur-if-transparent;
+
+    border: $border;
+    background: $c-bg-zebra;
+    padding: 1em 2em;
+    margin-top: 1em;
+
+    & + h2 {
+      margin-top: 1.3em;
     }
 
-    &:target {
-      @extend %box-neat;
+    &:open {
+      summary,
+      summary::marker {
+        color: $c-accent;
+      }
+    }
 
-      background: $c-bg-zebra;
-      padding: 2em 3em 1em 3em;
-      margin-top: 1em;
+    summary {
+      font-size: 1.3em;
+      padding-top: 0;
+      cursor: pointer;
+      font-weight: bold;
 
-      .answer {
-        display: block;
+      &::marker {
+        color: $c-font-dim;
       }
 
-      h3 {
-        padding-top: 0;
-        font-weight: bold;
+      span {
+        margin-left: 0.25em;
+      }
+    }
 
-        a {
-          color: $c-accent;
-        }
+    .answer {
+      padding-top: 0.5em;
+
+      & *:last-child {
+        margin-bottom: 0.25em;
       }
     }
   }
 
   h2 {
-    margin: 1.3em 0 0.3em 0;
-  }
-
-  h3 {
-    font-size: 1.3em;
-    padding: 1em 0;
+    margin-bottom: 0.3em;
   }
 
   h4 {

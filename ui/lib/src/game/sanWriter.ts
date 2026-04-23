@@ -163,7 +163,7 @@ export function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
   if (san in legalSans) return legalSans[san];
   const lowered = san.toLowerCase();
   for (const i in legalSans) if (i.toLowerCase() === lowered) return legalSans[i];
-  return;
+  return undefined;
 }
 
 export const sanToWords = (san: string): string =>

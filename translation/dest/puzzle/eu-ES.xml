@@ -13,7 +13,6 @@
   <string name="origin">Jatorria</string>
   <string name="specialMoves">Jokaldi bereziak</string>
   <string name="didYouLikeThisPuzzle">Ariketa gustukoa izan da?</string>
-  <string name="voteToLoadNextOne">Eman bozka hurrengoa kargatzeko!</string>
   <string name="upVote">Ariketari +1 botoa</string>
   <string name="downVote">Ariketari -1 botoa</string>
   <string name="yourPuzzleRatingWillNotChange">Ariketen zure puntuazioa ez da aldatuko. Kontuan izan ariketak ez direla txapelketa bat. Puntuaziok zure gaitasunen araberako ariketak aukeratzen laguntzen du.</string>

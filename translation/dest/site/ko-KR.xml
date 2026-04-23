@@ -491,6 +491,7 @@
   <string name="popularOpenings">인기 있는 오프닝</string>
   <string name="endgamePositions">엔드게임 포지션</string>
   <string name="chess960StartPosition">체스960 시작 포지션: %s</string>
+  <string name="randomChess960Position">랜덤 체스960 포지션</string>
   <string name="startPosition">시작 포지션</string>
   <string name="clearBoard">보드 지우기</string>
   <string name="loadPosition">포지션 불러오기</string>

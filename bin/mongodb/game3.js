@@ -77,10 +77,10 @@ gamesToMigrate.forEach(function (g) {
   cleanOrRename(g, 'updatedAt', 'ua');
   cleanOrRename(g, 'winId', 'wid');
   delete g.r960;
-  if (typeof g.v !== 'undefined' && g.v != 2) {
+  if (typeof g.v !== 'undefined' && g.v !== 2) {
     delete g.v;
   }
-  if (typeof g.isRated != 'undefined' && g.isRated !== true) {
+  if (typeof g.isRated !== 'undefined' && g.isRated !== true) {
     delete g.isRated;
   } else {
     cleanOrRename(g, 'isRated', 'ra');
@@ -126,7 +126,7 @@ gamesToMigrate.forEach(function (g) {
     pgnCollection.insert({ _id: g._id, p: pgn });
   }
   ++it;
-  if (it % batchSize == 0) {
+  if (it % batchSize === 0) {
     const percent = Math.round((it / max) * 100);
     const dat2 = Date.now() / 1000;
     const perSec = Math.round(batchSize / (dat2 - dat));

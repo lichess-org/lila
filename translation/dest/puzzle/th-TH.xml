@@ -13,7 +13,6 @@
   <string name="origin">ต้นกำเนิดเกม</string>
   <string name="specialMoves">การเดินพิเศษ</string>
   <string name="didYouLikeThisPuzzle">คุณชอบปริศนานี้ไหม?</string>
-  <string name="voteToLoadNextOne">ให้คะแนนเพี่อโหลดปริศนาต่อไป!</string>
   <string name="upVote">อัพโหวตปริศนา</string>
   <string name="downVote">ดาวน์โหวตปริศนา</string>
   <string name="yourPuzzleRatingWillNotChange">ระดับคะแนนแก้ปริศนาของคุณจะไม่เปลี่ยนแปลง อย่าลืมว่าปริศนานั้นไม่ใช่การแข่งขัน ระดับคะแนนของคุณช่วยในการเลือกปริศนาที่ดีที่สุดสำหรับฝีมือปัจจุบันของคุณ</string>

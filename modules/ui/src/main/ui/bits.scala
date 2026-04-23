@@ -5,7 +5,6 @@ import java.time.YearMonth
 import chess.format.Fen
 
 import lila.core.i18n.Translate
-import lila.core.security.HcaptchaForm
 import lila.core.config.ImageGetOrigin
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -85,11 +84,6 @@ object bits:
     a(href := routes.UserAnalysis.parseArg(ChessHelper.underscoreFen(fen)))(
       lila.core.i18n.I18nKey.site.analysis()
     )
-
-  private val dataSitekey = attr("data-sitekey")
-
-  def hcaptcha(form: HcaptchaForm[?]) =
-    div(cls := "h-captcha form-group", dataSitekey := form.config.key)
 
   def contactEmailLinkEmpty(email: String) =
     a(cls := "contact-email-obfuscated", attr("data-email") := scalalib.StringOps.base64.encode(email))

@@ -22,7 +22,7 @@ db.report2
     };
 
     report.atoms.forEach((atom, index) => {
-      if (!atom.initScore || atom.initScore != NumberInt(atom.initScore)) {
+      if (!atom.initScore || atom.initScore !== NumberInt(atom.initScore)) {
         // save original score if not yet present
         atom.initScore = set[`atoms.${index}.initScore`] = NumberInt(atom.score);
       }
@@ -32,7 +32,7 @@ db.report2
 
     if (set.score <= 0) {
       db.report2.deleteOne({ _id: report._id });
-    } else if (set.score != report.score) {
+    } else if (set.score !== report.score) {
       db.report2.updateOne({ _id: report._id }, { $set: set });
     }
   });

@@ -1,7 +1,7 @@
 package lila.fide
 
 import play.api.libs.json.*
-import lila.common.Json.given
+import lila.common.Json.{ *, given }
 import lila.core.fide.PhotosJson
 
 final class FideJson(picfitUrl: lila.memo.PicfitUrl):
@@ -13,6 +13,8 @@ final class FideJson(picfitUrl: lila.memo.PicfitUrl):
         "medium" -> FidePlayer.PlayerPhoto(picfitUrl, p.id, _.Medium)
       )
       .add("credit" -> p.credit)
+
+  given Writes[FidePlayer.Gender] = writeAs(_.value.toString)
 
   def photosJson(photos: Map[chess.FideId, FidePlayer.PlayerPhoto]) = PhotosJson:
     JsObject:
@@ -32,6 +34,7 @@ final class FideJson(picfitUrl: lila.memo.PicfitUrl):
       .add("standard" -> p.standard)
       .add("rapid" -> p.rapid)
       .add("blitz" -> p.blitz)
+      .add("gender" -> p.gender)
       .add("photo" -> p.photo)
 
   given OWrites[FidePlayer.WithFollow] = OWrites: p =>

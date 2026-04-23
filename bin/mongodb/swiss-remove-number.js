@@ -13,7 +13,7 @@ db.swiss.find().forEach(swiss => {
       {
         $set: {
           p: [index[p.p[0]], index[p.p[1]]],
-          t: p.t == p.p[0] ? NumberInt(0) : p.t == p.p[1] ? NumberInt(1) : p.t,
+          t: p.t === p.p[0] ? NumberInt(0) : p.t === p.p[1] ? NumberInt(1) : p.t,
         },
       },
     );

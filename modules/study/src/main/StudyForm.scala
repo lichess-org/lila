@@ -74,7 +74,8 @@ object StudyForm:
         "fen" -> optional(lila.common.Form.fen.playable(strict = false)),
         "pgn" -> optional(nonEmptyText.into[PgnStr]),
         "variant" -> optional(of[Variant]),
-        "as" -> optional(nonEmptyText)
+        "as" -> optional(nonEmptyText),
+        "mode" -> optional(of[ChapterMaker.Mode])
       )(Data.apply)(unapply)
     )
 
@@ -84,7 +85,8 @@ object StudyForm:
         fen: Option[Fen.Full] = None,
         pgnStr: Option[PgnStr] = None,
         variant: Option[Variant] = None,
-        asStr: Option[String] = None
+        asStr: Option[String] = None,
+        mode: Option[ChapterMaker.Mode] = None
     ):
       def as: As = asStr match
         case None | Some("study") => As.NewStudy
@@ -99,7 +101,7 @@ object StudyForm:
         fen = fen,
         pgn = pgnStr,
         orientation = orientation | ChapterMaker.Orientation.Auto,
-        mode = ChapterMaker.Mode.Normal,
+        mode = mode | ChapterMaker.Mode.Normal,
         initial = false
       )
 

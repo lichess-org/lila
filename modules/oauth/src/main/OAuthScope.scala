@@ -147,6 +147,7 @@ object OAuthScope:
     _.Team.Lead,
     _.Web.Mobile,
     _.Web.Takex3,
+    _.Web.Mod,
     _.Msg.Write,
     _.Board.Play
   )

@@ -1,4 +1,4 @@
-import { h, type VNode } from 'snabbdom';
+import { h } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
 import { bind, type MaybeVNodes, confirm } from 'lib/view';
@@ -8,7 +8,7 @@ import type { Seek } from '@/interfaces';
 
 import { tds, perfNames } from './util';
 
-function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
+function renderSeek(ctrl: LobbyController, seek: Seek) {
   const klass = seek.action === 'joinSeek' ? 'join' : 'cancel';
   return h(
     'tr.seek.' + klass,
@@ -37,7 +37,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
   );
 }
 
-function createSeek(ctrl: LobbyController): VNode | undefined {
+function createSeek(ctrl: LobbyController) {
   if (ctrl.me && ctrl.data.seeks.length < 8)
     return h('div.create', [
       h(
@@ -52,7 +52,7 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
         i18n.site.createAGame,
       ),
     ]);
-  return;
+  return undefined;
 }
 
 export default function (ctrl: LobbyController): MaybeVNodes {
@@ -65,7 +65,6 @@ export default function (ctrl: LobbyController): MaybeVNodes {
           (['player', 'rating', 'time', 'mode'] as const).map(k => h('th', i18n.site[k])),
         ),
       ),
-
       h(
         'tbody',
         {

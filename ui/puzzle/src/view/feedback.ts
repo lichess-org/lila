@@ -71,5 +71,5 @@ export default function (ctrl: PuzzleCtrl): MaybeVNode {
     case 'fail':
       return fail(ctrl);
   }
-  return;
+  return undefined;
 }

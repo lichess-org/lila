@@ -11,7 +11,7 @@ db.relay_tour
       for (k of ['startedAt', 'startsAt', 'createdAt']) {
         const aVal = sortWith(a);
         const bVal = sortWith(b);
-        if (aVal && bVal && aVal != 'afterPrevious' && bVal != 'afterPrevious') return aVal - bVal;
+        if (aVal && bVal && aVal !== 'afterPrevious' && bVal !== 'afterPrevious') return aVal - bVal;
       }
     });
     const res = db.relay.bulkWrite(

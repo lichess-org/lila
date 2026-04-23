@@ -14,9 +14,8 @@
   <string name="origin">Origin</string>
   <string name="specialMoves">Special moves</string>
   <string name="didYouLikeThisPuzzle">Did you like this puzzle?</string>
-  <string name="voteToLoadNextOne">Vote to load the next one!</string>
-  <string name="upVote">Rate puzzle positively</string>
-  <string name="downVote">Rate puzzle negatively</string>
+  <string name="upVote">Great puzzle!</string>
+  <string name="downVote">Bad puzzle!</string>
   <string name="yourPuzzleRatingWillNotChange">Your puzzle rating will not change. Note that puzzles are not a competition. Your rating helps select the most appropriate puzzles for your skill level.</string>
   <string name="findTheBestMoveForWhite">Find the best move for white.</string>
   <string name="findTheBestMoveForBlack">Find the best move for black.</string>

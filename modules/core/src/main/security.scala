@@ -1,7 +1,7 @@
 package lila.core
 package security
 
-import play.api.data.{ Form, Mapping }
+import play.api.data.Mapping
 import play.api.mvc.RequestHeader
 
 import lila.core.email.EmailAddress
@@ -34,15 +34,7 @@ trait SecurityApi:
   def shareAnIpOrFp(users: PairOf[UserId]): Fu[Boolean]
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]]
 
-case class HcaptchaPublicConfig(key: String, enabled: Boolean)
-case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig, skip: Boolean):
-  def enabled = config.enabled && !skip
-  def apply(key: String) = form(key)
-  def withForm[B](f: Form[B]) = copy(form = f)
-  def fill(data: A) = copy(form = form.fill(data))
-
-trait Hcaptcha:
-  def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]]
+case class TurnstilePublicConfig(key: String, enabled: Boolean)
 
 trait SignupFormFields:
   val emailField: Mapping[EmailAddress]
@@ -115,10 +107,6 @@ opaque type UserTrust = Boolean
 object UserTrust extends YesNo[UserTrust]
 trait UserTrustApi:
   def get(id: UserId): Fu[UserTrust]
-
-opaque type SinglePostToken = String
-object SinglePostToken extends OpaqueString[SinglePostToken]
-type SinglePostMakeToken = RequestHeader ?=> SinglePostToken
 
 def canUploadImages(toRel: String)(using me: Me) = !me.marks.troll && me.kid.no && {
   me.isVerified ||

@@ -215,7 +215,6 @@ object mon:
     object register:
       def count(
           confirm: String,
-          captcha: String,
           ipSusp: Boolean,
           fp: Boolean,
           proxy: Option[String],
@@ -225,7 +224,6 @@ object mon:
         counter("user.register.count").withTags:
           tags(
             "confirm" -> confirm,
-            "captcha" -> captcha,
             "ipSusp" -> ipSusp,
             "fp" -> fp,
             "proxy" -> proxy.getOrElse("no"),
@@ -363,11 +361,9 @@ object mon:
     object mailcheckApi:
       def fetch(success: Boolean, ok: Boolean) =
         timer("mailcheck.fetch").withTags(tags("success" -> successTag(success), "ok" -> ok))
-    object hCaptcha:
-      def hit(client: String, result: String) =
-        counter("hcaptcha.hit").withTags(tags("client" -> client, "result" -> result))
-      def form(client: String, result: String) =
-        counter("hcaptcha.form").withTags(tags("client" -> client, "result" -> result))
+    object turnstile:
+      def hit(client: String, action: String, result: String) =
+        counter("turnstile.hit").withTags(tags("client" -> client, "action" -> action, "result" -> result))
     object pwned:
       def get(res: Boolean) = timer("security.pwned.result").withTag("res", res)
     object geoip:
@@ -388,12 +384,6 @@ object mon:
       )
     def userTrust(trust: Boolean, cause: String) =
       counter("security.userTrust").withTags(tags("trust" -> trust, "cause" -> cause)).increment()
-    object singlePost:
-      def newToken(endpoint: String) = counter("security.singlePost.newToken").withTag("endpoint", endpoint)
-      def preCheck(endpoint: String, result: String) =
-        counter("security.singlePost.preCheck").withTags(tags("endpoint" -> endpoint, "result" -> result))
-      def consume(endpoint: String, result: String) =
-        counter("security.singlePost.consume").withTags(tags("endpoint" -> endpoint, "result" -> result))
   object shutup:
     def analyzer = timer("shutup.analyzer.time").withoutTags()
   object tv:
@@ -634,8 +624,8 @@ object mon:
         val create = send("challengeCreate")
         val accept = send("challengeAccept")
     val googleTokenTime = timer("push.send.googleToken").withoutTags()
-    def firebaseStatus(status: Int) = counter("push.firebase.status").withTag("status", status)
-    def firebaseType(typ: String) = counter("push.firebase.msgType").withTag("type", typ)
+    def firebaseStatus(project: String, typ: String, status: Int) =
+      counter("push.firebase.status").withTags(tags("status" -> status, "project" -> project, "type" -> typ))
   object fishnet:
     object client:
       object result:

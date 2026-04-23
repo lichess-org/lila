@@ -525,7 +525,8 @@
   <string name="setTheBoard">Still opp brett</string>
   <string name="popularOpenings">Populære åpninger</string>
   <string name="endgamePositions">Sluttspillstillinger</string>
-  <string name="chess960StartPosition">Fischersjakkutgangsstilling: %s</string>
+  <string name="chess960StartPosition">Sjakk-960-utgangsstilling: %s</string>
+  <string name="randomChess960Position">Tilfeldig sjakk-960 stilling</string>
   <string name="startPosition">Utgangsstilling</string>
   <string name="clearBoard">Tøm brett</string>
   <string name="loadPosition">Last stilling</string>

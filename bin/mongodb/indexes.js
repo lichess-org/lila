@@ -204,7 +204,6 @@ db.tournament_leaderboard.createIndex({ u: 1, d: -1 });
 db.tournament_leaderboard.createIndex({ u: 1, w: 1 });
 db.coach.createIndex({ 'user.seenAt': -1 });
 db.coach.createIndex({ 'user.rating': -1 });
-db.coach.createIndex({ nvReviews: -1 });
 db.streamer.createIndex({ liveAt: -1 });
 db.streamer.createIndex(
   { 'approval.granted': 1, listed: 1 },

@@ -1019,8 +1019,8 @@ Leave empty to start games from the normal initial position.</string>
   <string name="ourEventTips">Our tips for organising events</string>
   <string name="instructions">Instructions</string>
   <string name="showMeEverything">Show me everything</string>
-  <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
-All operating costs, development, and content are funded solely by user donations.</string>
+  <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software. We depend on user donations to support our operating costs, development, and content. Without our generous community, we would not be able to keep the site running. Thank you for joining us!
+  </string>
   <string name="nothingToSeeHere">Nothing to see here at the moment.</string>
   <string name="stats">Stats</string>
   <string name="accessibility">Accessibility</string>

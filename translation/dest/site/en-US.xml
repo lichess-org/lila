@@ -526,6 +526,7 @@
   <string name="popularOpenings">Popular openings</string>
   <string name="endgamePositions">Endgame positions</string>
   <string name="chess960StartPosition">Chess960 start position: %s</string>
+  <string name="randomChess960Position">Random Chess960 position</string>
   <string name="startPosition">Starting position</string>
   <string name="clearBoard">Clear board</string>
   <string name="loadPosition">Load position</string>

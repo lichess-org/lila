@@ -1057,6 +1057,8 @@ interface I18n {
     emailChange_subject: I18nFormat;
     /** Click the link to enable your Lichess account: */
     emailConfirm_click: string;
+    /** Thanks for registering with Lichess! */
+    emailConfirm_intro: string;
     /** If you did not register with Lichess, you can safely ignore this message. The unconfirmed account and all traces of your email address will be deleted from our system after 48 hours. */
     emailConfirm_justIgnore: string;
     /** Confirm your lichess.org account, %s */
@@ -2429,7 +2431,7 @@ interface I18n {
     didYouLikeThisPuzzle: string;
     /** Difficulty level */
     difficultyLevel: string;
-    /** Rate puzzle negatively */
+    /** Bad puzzle! */
     downVote: string;
     /** Easier */
     easier: string;
@@ -2549,14 +2551,12 @@ interface I18n {
     toGetPersonalizedPuzzles: string;
     /** Try something else. */
     trySomethingElse: string;
-    /** Rate puzzle positively */
+    /** Great puzzle! */
     upVote: string;
     /** Use Ctrl+f to find your favourite opening! */
     useCtrlF: string;
     /** Use "Find in page" in the browser menu to find your favourite opening! */
     useFindInPage: string;
-    /** Vote to load the next one! */
-    voteToLoadNextOne: string;
     /** Your puzzle rating will not change. Note that puzzles are not a competition. Your rating helps select the most appropriate puzzles for your skill level. */
     yourPuzzleRatingWillNotChange: string;
     /** Your streak: %s */
@@ -3765,7 +3765,7 @@ interface I18n {
     level: string;
     /** Rated games played on Lichess */
     lichessDbExplanation: string;
-    /** Lichess is a charity and entirely free/libre open source software. */
+    /** Lichess is a charity and entirely free/libre open source software. We depend on user donations to support our operating costs, development, and content. Without our generous community, we would not be able to keep the site running. Thank you for joining us! */
     lichessPatronInfo: string;
     /** Lichess tournaments */
     lichessTournaments: string;

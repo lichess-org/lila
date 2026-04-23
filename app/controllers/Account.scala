@@ -361,35 +361,33 @@ final class Account(
   }
 
   private def renderReopen(form: Option[Form[Reopen]], msg: Option[String])(using Context) =
-    env.security.forms.reopen.map: baseForm =>
-      pages.reopen.form(form.foldLeft(baseForm)(_.withForm(_)), msg)
+    pages.reopen.form(form | env.security.forms.reopen, msg)
 
   def reopen = Open:
     auth.RedirectToProfileIfLoggedIn:
       Ok.async(renderReopen(none, none))
 
   def reopenApply = OpenBody:
-    env.security.hcaptcha.verify().flatMap { captcha =>
-      if captcha.ok then
-        env.security.forms.reopen.flatMap:
-          _.form
-            .bindFromRequest()
-            .fold(
-              err => BadRequest.async(renderReopen(err.some, none)),
-              data =>
-                allow:
-                  env.security.reopen
-                    .prepare(data.username, data.email, env.mod.logApi.closedByMod)
-                    .flatMap: user =>
-                      env.security.loginToken.rateLimit[Result](user, data.email, ctx.req, rateLimited):
-                        lila.mon.user.auth.reopenRequest("success").increment()
-                        env.security.reopen
-                          .send(user, data.email)
-                          .inject(Redirect(routes.Account.reopenSent))
-                .rescue: (code, msg) =>
-                  lila.mon.user.auth.reopenRequest(code).increment()
-                  BadRequest.async(renderReopen(none, msg.some))
-            )
+    env.security.turnstile.verify().flatMap {
+      if _ then
+        env.security.forms.reopen
+          .bindFromRequest()
+          .fold(
+            err => BadRequest.async(renderReopen(err.some, none)),
+            data =>
+              allow:
+                env.security.reopen
+                  .prepare(data.username, data.email, env.mod.logApi.closedByMod)
+                  .flatMap: user =>
+                    env.security.loginToken.rateLimit[Result](user, data.email, ctx.req, rateLimited):
+                      lila.mon.user.auth.reopenRequest("success").increment()
+                      env.security.reopen
+                        .send(user, data.email)
+                        .inject(Redirect(routes.Account.reopenSent))
+              .rescue: (code, msg) =>
+                lila.mon.user.auth.reopenRequest(code).increment()
+                BadRequest.async(renderReopen(none, msg.some))
+          )
       else BadRequest.async(renderReopen(none, none))
     }
 

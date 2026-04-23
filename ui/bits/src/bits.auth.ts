@@ -1,6 +1,6 @@
 import { debounce } from 'lib/async';
-import { storedJsonProp } from 'lib/storage';
 import { addPasswordVisibilityToggleListener, spinnerHtml, alert } from 'lib/view';
+import turnstile from 'lib/view/turnstile';
 import * as xhr from 'lib/xhr';
 
 export function initModule(mode: 'login' | 'signup' | 'reset'): void {
@@ -9,43 +9,16 @@ export function initModule(mode: 'login' | 'signup' | 'reset'): void {
   addPasswordVisibilityToggleListener();
 }
 
-class LoginHistory {
-  historyStorage = storedJsonProp<number[]>('login.history', () => []);
-  private readonly now = () => Math.round(Date.now() / 1000);
-  add = () => {
-    const now = this.now();
-    this.historyStorage([now, ...this.historyStorage().filter(d => d > now - 30)]);
-  };
-  lockSeconds = () => {
-    const now = this.now();
-    const recentTries = this.historyStorage().filter(d => d > now - 30);
-    if (recentTries.length >= 3) return Math.max(0, recentTries[recentTries.length - 1] + 30 - now);
-  };
-}
+const toggleSubmit = ($submit: Cash, v: boolean) => $submit.prop('disabled', !v);
 
 function loginStart() {
   const selector = '.auth-login form';
-  const history = new LoginHistory();
 
-  const toggleSubmit = ($submit: Cash, v: boolean) =>
-    $submit.prop('disabled', !v).toggleClass('disabled', !v);
   (function load() {
     const form = document.querySelector(selector) as HTMLFormElement,
       $f = $(form);
+    turnstile($f);
     initTextClear(form);
-    const lockSeconds = history.lockSeconds();
-    if (lockSeconds) {
-      const $submit = $f.find('.submit');
-      const submitText = toggleSubmit($submit, false).text();
-      const refresh = () => {
-        const seconds = history.lockSeconds();
-        if (seconds) {
-          $submit.text('' + seconds);
-          setTimeout(refresh, 1000);
-        } else $submit.text(submitText).prop('disabled', false).removeClass('disabled');
-      };
-      refresh();
-    }
     form.addEventListener('submit', (e: Event) => {
       e.preventDefault();
       toggleSubmit($f.find('.submit'), false);
@@ -57,20 +30,18 @@ function loginStart() {
       })
         .then(res => res.text().then(text => [res, text]))
         .then(([res, text]: [Response, string]) => {
-          const [err, singlePostToken] = text.split(' ');
-          if (err === 'MissingTotpToken' || err === 'InvalidTotpToken') {
-            $f.find('[name="singlePost"]').val(singlePostToken);
+          if (text === 'MissingTotpToken' || text === 'InvalidTotpToken') {
             $f.find('.one-factor').hide();
             $f.find('.two-factor').removeClass('none');
             requestAnimationFrame(() => $f.find('.two-factor input').val('')[0]!.focus());
             toggleSubmit($f.find('.submit'), true);
-            if (err === 'InvalidTotpToken') $f.find('.two-factor .error').removeClass('none');
+            if (text === 'InvalidTotpToken') $f.find('.two-factor .error').removeClass('none');
+            turnstile($f);
           } else if (res.ok) location.href = text.startsWith('ok:') ? text.slice(3) : '/';
           else {
             try {
               const el = $(text).find(selector);
               if (el.length) {
-                history.add();
                 $f.replaceWith(el);
                 addPasswordVisibilityToggleListener();
                 load();
@@ -108,8 +79,11 @@ function signupStart() {
 
   initTextClear($form[0] as HTMLFormElement);
 
+  turnstile($form);
+
   $form.on('submit', () => {
-    if ($form.find('[name="h-captcha-response"]').val() || !$form.hasClass('h-captcha-enabled'))
+    const responseEl = $form.find('[name="cf-turnstile-response"]');
+    if (!responseEl.length || responseEl.val())
       $form.find('button.submit').prop('disabled', true).addClass('button-empty').html(spinnerHtml);
     else return false;
   });
@@ -119,8 +93,8 @@ function signupStart() {
     return false;
   });
   const showPasswordTools = () => {
-    $form.find('.password-generator').toggleClass('none', $password.val() != '');
-    $form.find('.password-complexity').toggleClass('none', $password.val() == '');
+    $form.find('.password-generator').toggleClass('none', $password.val() !== '');
+    $form.find('.password-complexity').toggleClass('none', $password.val() === '');
   };
   $password.on('input', showPasswordTools);
   showPasswordTools();

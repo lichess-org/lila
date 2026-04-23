@@ -190,8 +190,8 @@ object RelayRoundForm:
       if mode.notProd || !blocklist.exists(subdomain(host, _))
       if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub") || url.toString
         .startsWith("https://www.chess.com/events/v1/api")
-      if !subdomain(host, "chess-results.com") || (url.toString
-        .startsWith("https://www.chess-results.com/livepartien/") && url.toString.endsWith("games.pgn"))
+      if !subdomain(host, "chess-results.com") ||
+        """\bchess-results\.com/livepartien/.+/games\.pgn$""".r.unanchored.matches(url.toString)
     yield url
 
   private def validateUpstreamUrl(s: String, prev: Option[URL])(using Me, Mode): Either[String, URL] =

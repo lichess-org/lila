@@ -31,15 +31,10 @@ case class ContentSecurityPolicy(
 
   def withGoogleForm = copy(frameSrc = "https://docs.google.com" :: frameSrc)
 
-  private val hCaptchaDomains = List("https://hcaptcha.com", "https://*.hcaptcha.com")
-
-  def withHcaptcha =
-    copy(
-      scriptSrc = hCaptchaDomains ::: scriptSrc,
-      frameSrc = hCaptchaDomains ::: frameSrc,
-      styleSrc = hCaptchaDomains ::: styleSrc,
-      connectSrc = hCaptchaDomains ::: connectSrc
-    )
+  def withTurnstile = copy(
+    scriptSrc = "https://challenges.cloudflare.com" :: scriptSrc,
+    frameSrc = "https://challenges.cloudflare.com" :: frameSrc
+  )
 
   def withPeer = copy(connectSrc = "wss://0.peerjs.com" :: connectSrc)
 

@@ -1,3 +1,4 @@
+import { blurIfEscape } from 'lib';
 import { sanWriter, destsToUcis } from 'lib/game';
 
 import type { KeyboardMoveHandler, Opts, ArrowKey } from '@/exports';
@@ -64,14 +65,14 @@ function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
       submit(v, { isTrusted: true });
   });
   opts.input.addEventListener('keydown', (e: KeyboardEvent) => {
+    // prevent default on arrow keys: they only replay moves
     if (isArrowKey(e.key)) {
       opts.ctrl.arrowNavigate(e.key);
       e.preventDefault();
-    }
+    } else blurIfEscape(e);
   });
   opts.input.addEventListener('focus', () => opts.ctrl.isFocused(true));
   opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));
-  // prevent default on arrow keys: they only replay moves
 }
 
 function focusChat() {

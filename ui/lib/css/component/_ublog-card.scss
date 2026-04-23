@@ -61,12 +61,14 @@
   time {
     @include inline-start(0);
 
+    backdrop-filter: blur(6px);
     border-radius: 0 0 $box-radius-size 0;
   }
 
   .user-link {
     @include inline-end(0);
 
+    backdrop-filter: blur(6px);
     border-radius: 0 0 0 $box-radius-size;
   }
 

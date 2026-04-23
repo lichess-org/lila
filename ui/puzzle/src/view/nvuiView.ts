@@ -9,7 +9,7 @@ import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { scanDirectionsHandler } from 'lib/nvui/directionScan';
 import { renderSetting } from 'lib/nvui/setting';
 import type { TreeNode } from 'lib/tree/types';
-import { type VNode, bind, onInsert, requiresI18n, hl, type LooseVNodes } from 'lib/view';
+import { type VNode, bind, onInsert, requiresI18n, hl, type LooseVNodes, type LooseVNode } from 'lib/view';
 
 import { nextCorrectMove } from '@/moveTree';
 
@@ -335,18 +335,16 @@ const afterActions = (ctrl: PuzzleCtrl): VNode =>
       : [...renderVote(ctrl), button(i18n.puzzle.continueTraining, ctrl.nextPuzzle)],
   );
 
-const renderVoteTutorial = (ctrl: PuzzleCtrl): VNode[] =>
-  ctrl.session.isNew() && ctrl.data.user?.provisional
-    ? [hl('p', i18n.puzzle.didYouLikeThisPuzzle), hl('p', i18n.puzzle.voteToLoadNextOne)]
-    : [];
+const renderVoteTutorial = (ctrl: PuzzleCtrl): LooseVNode | false =>
+  ctrl.session.isNew() && ctrl.data.user?.provisional && hl('p', i18n.puzzle.didYouLikeThisPuzzle);
 
-const renderVote = (ctrl: PuzzleCtrl): VNode[] =>
+const renderVote = (ctrl: PuzzleCtrl) =>
   !ctrl.data.user || ctrl.autoNexting()
     ? []
     : [
-        ...renderVoteTutorial(ctrl),
-        button(i18n.puzzle.upVote, () => ctrl.vote(true), undefined, ctrl.voteDisabled),
-        button(i18n.puzzle.downVote, () => ctrl.vote(false), undefined, ctrl.voteDisabled),
+        renderVoteTutorial(ctrl),
+        button(i18n.puzzle.upVote, () => ctrl.vote(true), undefined),
+        button(i18n.puzzle.downVote, () => ctrl.vote(false), undefined),
       ];
 
 const button = (text: string, action: (e: Event) => void, title?: string, disabled?: boolean): VNode =>

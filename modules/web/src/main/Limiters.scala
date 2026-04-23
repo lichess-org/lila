@@ -155,6 +155,8 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
   val teamKick =
     RateLimit.composite[IpAddress](key = "team.kick.api.ip")(("fast", 10, 2.minutes), ("slow", 50, 1.day))
 
+  val coachSearch = RateLimit[UserId](credits = 15 * 3, duration = 10.minutes, key = "coach.search.user")
+
   object enumeration:
 
     private val maxCost = 3

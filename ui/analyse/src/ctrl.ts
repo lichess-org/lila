@@ -17,7 +17,7 @@ import {
   toggle,
   debounce,
   throttle,
-  requestIdleCallback,
+  requestIdleCallbackSafe,
   propWithEffect,
   type Prop,
   type Toggle,
@@ -208,7 +208,7 @@ export default class AnalyseCtrl implements CevalHandler {
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice))
       this.togglePractice();
-    else if (location.hash === '#menu') requestIdleCallback(this.actionMenu.toggle, 500);
+    else if (location.hash === '#menu') requestIdleCallbackSafe(this.actionMenu.toggle, 500);
     this.setCevalPracticeOpts();
     this.startCeval();
     keyboard.bind(this);

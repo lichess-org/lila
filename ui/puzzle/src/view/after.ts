@@ -10,29 +10,28 @@ const renderVote = (ctrl: PuzzleCtrl): VNode =>
     !ctrl.autoNexting() && [
       ctrl.session.isNew() &&
         ctrl.data.user?.provisional &&
-        hl('div.puzzle__vote__help', [
-          hl('p', i18n.puzzle.didYouLikeThisPuzzle),
-          hl('p', i18n.puzzle.voteToLoadNextOne),
-        ]),
-      hl('div.puzzle__vote__buttons', { class: { enabled: !ctrl.voteDisabled } }, [
-        hl('button.vote.vote-up', { hook: bind('click', () => ctrl.vote(true)) }),
-        hl('button.vote.vote-down', { hook: bind('click', () => ctrl.vote(false)) }),
+        hl('div.puzzle__vote__help', i18n.puzzle.didYouLikeThisPuzzle),
+      hl('div.puzzle__vote__buttons', [
+        hl('button.button.button-empty.vote-up', {
+          class: { active: ctrl.voted === true },
+          attrs: { title: i18n.puzzle.upVote },
+          hook: bind('click', () => ctrl.vote(true)),
+        }),
+        hl('button.button.button-empty.vote-down', {
+          class: { active: ctrl.voted === false },
+          attrs: { title: i18n.puzzle.downVote },
+          hook: bind('click', () => ctrl.vote(false)),
+        }),
       ]),
     ],
   );
-
-const renderContinue = (ctrl: PuzzleCtrl) =>
-  hl('a.continue', { hook: bind('click', ctrl.nextPuzzle) }, [
-    hl('i', { attrs: dataIcon(licon.PlayTriangle) }),
-    i18n.puzzle.continueTraining,
-  ]);
 
 const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
   hl('div.complete', [
     hl('span.game-over', 'GAME OVER'),
     hl('span', i18n.puzzle.yourStreakX.asArray(hl('strong', `${ctrl.streak?.data.index ?? 0}`))),
   ]),
-  hl('a.continue', { attrs: { href: ctrl.routerWithLang('/streak') } }, [
+  hl('button.continue', { attrs: { href: ctrl.routerWithLang('/streak') } }, [
     hl('i', { attrs: dataIcon(licon.PlayTriangle) }),
     i18n.puzzle.newStreak,
   ]),
@@ -41,16 +40,19 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
 export default function (ctrl: PuzzleCtrl): VNode {
   const data = ctrl.data;
   const win = ctrl.lastFeedback === 'win';
-  const canContinue = !ctrl.node.san?.includes('#');
+  const canPlayComputer = !ctrl.node.san?.includes('#');
   return hl(
     'div.puzzle__feedback.after',
     ctrl.streak && !win
       ? renderStreak(ctrl)
       : [
           hl('div.complete', i18n.puzzle[win ? 'puzzleSuccess' : 'puzzleComplete']),
-          data.user ? renderVote(ctrl) : renderContinue(ctrl),
+          hl('button.continue', { hook: bind('click', ctrl.nextPuzzle) }, [
+            hl('i', { attrs: dataIcon(licon.PlayTriangle) }),
+            i18n.puzzle[ctrl.streak ? 'continueTheStreak' : 'continueTraining'],
+          ]),
           hl('div.puzzle__more', [
-            canContinue
+            canPlayComputer
               ? hl('a', {
                   attrs: {
                     'data-icon': licon.Bullseye,
@@ -60,13 +62,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
                   },
                 })
               : hl('a'),
-            data.user &&
-              !ctrl.autoNexting() &&
-              hl(
-                'a',
-                { hook: bind('click', ctrl.nextPuzzle) },
-                i18n.puzzle[ctrl.streak ? 'continueTheStreak' : 'continueTraining'],
-              ),
+            data.user ? renderVote(ctrl) : undefined,
           ]),
         ],
   );

@@ -526,6 +526,7 @@
   <string name="popularOpenings">Populaire openingen</string>
   <string name="endgamePositions">Eindspel posities</string>
   <string name="chess960StartPosition">Beginstelling Chess960: %s</string>
+  <string name="randomChess960Position">Willekeurige Schaak960-positie</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
   <string name="loadPosition">Laad een stelling</string>

@@ -208,6 +208,7 @@ final private class PushApi(
           stacking = Stacking.PrivateMessage,
           urgency = Urgency.Normal,
           mobileCompatible = LichessMobileVersion(0, 17).some,
+          lichobileCompatible = true,
           payload = payload(to.userId)(
             "type" -> "newMessage",
             "threadId" -> senderId.value
@@ -434,6 +435,7 @@ private object PushApi:
       urgency: Urgency,
       payload: Data.Payload,
       mobileCompatible: Option[LichessMobileVersion] = None,
+      lichobileCompatible: Boolean = false,
       iosBadge: Option[Int] = None,
       // https://firebase.google.com/docs/cloud-messaging/concept-options#data_messages
       firebaseMod: Option[Data.FirebaseMod] = None

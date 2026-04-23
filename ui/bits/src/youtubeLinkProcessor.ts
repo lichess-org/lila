@@ -168,10 +168,10 @@ function extractStartTime(value: string): number {
   return start;
 }
 
-function toURL(url: string): URL | undefined {
+function toURL(url: string) {
   try {
     return new URL(url);
   } catch {
-    return;
+    return undefined;
   }
 }

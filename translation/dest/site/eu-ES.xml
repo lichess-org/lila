@@ -526,6 +526,7 @@
   <string name="popularOpenings">Hasiera ohikoenak</string>
   <string name="endgamePositions">Finalen posizioak</string>
   <string name="chess960StartPosition">960Xakearen hasiera posizioa: %s</string>
+  <string name="randomChess960Position">960 xakeko ausazko posizioa</string>
   <string name="startPosition">Hasierako posizioa</string>
   <string name="clearBoard">Pieza guztiak kendu</string>
   <string name="loadPosition">Posizioa kargatu</string>

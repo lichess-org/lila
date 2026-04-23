@@ -74,9 +74,11 @@ public/sounds/sfx | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/lisp | [EdinburghCollective](http://lichess.org/@/EdinburghCollective) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 SVG in ui/learn/src/apple.ts | [Sensa](https://www.svgrepo.com/svg/434273/star) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/deed.en)
 public/flair/img/symbols.neovim-mark.webp | Jason Long | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) (Modified by converting to webp and resizing)
-public/images/practice/* [game-icons.net](https://game-icons.net/about.html) [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
-public/images/puzzle-themes/* [game-icons.net](https://game-icons.net/about.html) [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+
+public/images/practice/_ [game-icons.net](https://game-icons.net/about.html) [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+public/images/puzzle-themes/_ [game-icons.net](https://game-icons.net/about.html) [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 translation/source/puzzleTheme.xml | the lila authors and contributors | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
 ## Exceptions (non-free)
 
 <!-- prettier-ignore -->
@@ -110,6 +112,5 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 - [check.torproject.org](https://check.torproject.org/torbulkexitlist) for a list or Tor exit nodes
 - [detectlanguage.com](https://detectlanguage.com/)
 - [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) for mobile notifications
-- [hCaptcha](https://hcaptcha.com)
 - [PeerJS](https://peerjs.com/) for voice chat
 - [crowdin](https://crowdin.com/project/lichess) for localization

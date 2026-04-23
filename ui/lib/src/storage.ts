@@ -23,7 +23,7 @@ export function storedProp<V>(
   const compatKey = 'analyse.' + key;
   let cached: V;
   return function (replacement?: V) {
-    if (defined(replacement) && replacement != cached) {
+    if (defined(replacement) && replacement !== cached) {
       cached = replacement;
       storage.set(key, toStr(replacement));
     } else if (!defined(cached)) {

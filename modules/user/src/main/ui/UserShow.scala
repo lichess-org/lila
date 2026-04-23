@@ -40,7 +40,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
           ping.map(bits.signalBars)
         ),
         realName.map(div(cls := "upt__info__realname")(_)),
-        if u.lame && ctx.isnt(u) && !Granter.opt(_.UserModView)
+        if u.lame && ctx.isnt(u) && !Granter.opt(_.AccountInfo)
         then div(cls := "upt__info__warning")(trans.site.thisAccountViolatedTos())
         else
           ctx.pref.showRatings.option:
@@ -80,7 +80,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       div(cls := "upt__details")(
         span(trans.site.nbGames.plural(u.count.game, u.count.game.localize)),
         span(trans.site.joinedX(momentFromNow(u.createdAt))),
-        (Granter.opt(_.UserModView) && (u.lameOrTroll || u.enabled.no || u.marks.rankban))
+        (Granter.opt(_.AccountInfo) && (u.lameOrTroll || u.enabled.no || u.marks.rankban))
           .option(span(cls := "upt__details__marks")(userMarks))
       ),
       playing

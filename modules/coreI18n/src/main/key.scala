@@ -549,6 +549,7 @@ object I18nKey:
 
   object emails:
     val `emailConfirm_subject`: I18nKey = "emails:emailConfirm_subject"
+    val `emailConfirm_intro`: I18nKey = "emails:emailConfirm_intro"
     val `emailConfirm_click`: I18nKey = "emails:emailConfirm_click"
     val `emailConfirm_justIgnore`: I18nKey = "emails:emailConfirm_justIgnore"
     val `passwordReset_subject`: I18nKey = "emails:passwordReset_subject"
@@ -1257,7 +1258,6 @@ object I18nKey:
     val `origin`: I18nKey = "puzzle:origin"
     val `specialMoves`: I18nKey = "puzzle:specialMoves"
     val `didYouLikeThisPuzzle`: I18nKey = "puzzle:didYouLikeThisPuzzle"
-    val `voteToLoadNextOne`: I18nKey = "puzzle:voteToLoadNextOne"
     val `upVote`: I18nKey = "puzzle:upVote"
     val `downVote`: I18nKey = "puzzle:downVote"
     val `yourPuzzleRatingWillNotChange`: I18nKey = "puzzle:yourPuzzleRatingWillNotChange"

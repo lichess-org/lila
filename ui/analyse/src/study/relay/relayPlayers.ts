@@ -403,6 +403,7 @@ export const playerLinkConfig = (ctrl: RelayPlayers, player: StudyPlayer, withTi
         attrs: {
           href: `#players/${playerId(player)}`,
         },
+        key: id,
         hook: playerLinkHook(ctrl, player, withTip),
       }
     : {};

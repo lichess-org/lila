@@ -55,10 +55,9 @@ export const randomPositionId = (): number => Math.floor(Math.random() * 960);
 
 export const isValidPositionId = (id: number): boolean => Number.isInteger(id) && id >= 0 && id <= 959;
 
-export function fenToChess960Id(fen: FEN): number | undefined {
-  const parts = fen.split(' ');
-  if (parts.length < 1) return undefined;
-  const ranks = parts[0].split('/');
+export function boardFenToChess960Id(boardFen: string): number | undefined {
+  if (boardFen.includes(' ')) throw new Error('`boardFen` should only be the piece placement portion');
+  const ranks = boardFen.split('/');
   if (ranks.length !== 8) return undefined;
   const rank = ranks[7];
   if (rank.toLowerCase() !== ranks[0] || rank.length !== 8 || rank !== rank.toUpperCase()) return undefined;
@@ -97,6 +96,11 @@ export function fenToChess960Id(fen: FEN): number | undefined {
   return krnIndex === -1
     ? undefined
     : lightBishopIndex + 4 * darkBishopIndex + 16 * queenIndex + 96 * krnIndex;
+}
+
+export function fenToChess960Id(fen: FEN): number | undefined {
+  const parts = fen.split(' ');
+  return parts.length < 1 ? undefined : boardFenToChess960Id(parts[0]);
 }
 
 function chess960IdToRank(id: number): string {

@@ -13,7 +13,7 @@ case class AccessToken(
     userId: UserId,
     created: Option[Instant],
     description: Option[String], // for personal access tokens
-    usedAt: Option[Instant] = None,
+    @Key("used") usedAt: Option[Instant] = None,
     scopes: TokenScopes,
     clientOrigin: Option[Origin],
     userAgent: Option[UserAgent],
@@ -42,6 +42,7 @@ object AccessToken:
     val usedAt = "used"
     val scopes = "scopes"
     val clientOrigin = "clientOrigin"
+    val description = "description"
 
   def idFrom(bearer: Bearer) = AccessTokenId(Algo.sha256(bearer.value).hex)
 
