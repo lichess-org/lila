@@ -54,7 +54,7 @@ final private class StudyMaker(
           fen = data.form.fen,
           pgn = data.form.pgnStr,
           orientation = data.form.orientation | ChapterMaker.Orientation.Auto,
-          mode = ChapterMaker.Mode.Normal,
+          mode = data.form.mode | ChapterMaker.Mode.Normal,
           initial = true
         ),
         order = 1,

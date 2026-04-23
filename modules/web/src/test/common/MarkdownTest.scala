@@ -249,3 +249,6 @@ Line 2""")
 """
       )
     )
+
+  test("&amp emoji"):
+    assertEquals(render(Markdown("&#128512;")), Html("<p>&#128512;</p>\n"))

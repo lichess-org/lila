@@ -46,7 +46,7 @@ ${trans.common_orPaste.txt()}
       }
 
   // also returns the previous email address
-  def confirm(token: String): Fu[Option[(Me, Option[EmailAddress])]] =
+  def confirm(token: String): Fu[Option[(Me, Option[EmailAddress], EmailAddress)]] =
     tokener.read(token).flatMapz { case TokenPayload(userId, email) =>
       for
         previous <- userRepo.email(userId)
@@ -54,7 +54,7 @@ ${trans.common_orPaste.txt()}
         me <- userRepo.me(userId)
       yield
         logger.info(s"Change email for $userId: ${previous | "none"} -> $email")
-        me.map(_ -> previous)
+        me.map((_, previous, email))
     }
 
   case class TokenPayload(userId: UserId, email: EmailAddress)

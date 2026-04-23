@@ -3,17 +3,14 @@ package lila.clas
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang
-import play.api.mvc.RequestHeader
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
-import lila.core.security.{ Hcaptcha, HcaptchaForm }
 import lila.clas.Student.RealName
 
 final class ClasForm(
     lightUserAsync: lila.core.LightUser.Getter,
     signupForm: lila.core.security.SignupFormFields,
-    nameGenerator: NameGenerator,
-    hcaptcha: Hcaptcha
+    nameGenerator: NameGenerator
 )(using Executor):
 
   import ClasForm.*
@@ -34,8 +31,6 @@ final class ClasForm(
         "canMsg" -> boolean,
         "hasTeam" -> boolean
       )(ClasData.apply)(unapply)
-
-    def create(using RequestHeader): Fu[HcaptchaForm[ClasData]] = hcaptcha.form(form)
 
     def edit(c: Clas): Form[ClasData] = form.fill:
       ClasData(

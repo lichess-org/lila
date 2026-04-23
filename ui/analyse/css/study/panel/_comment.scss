@@ -24,7 +24,8 @@
     padding: 0.8em 1em;
     margin-top: 1vh;
 
-    &.empty {
+    &.empty,
+    &:empty {
       display: none;
     }
   }

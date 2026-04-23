@@ -526,6 +526,7 @@
   <string name="popularOpenings">Aberturas populares</string>
   <string name="endgamePositions">Posições de final</string>
   <string name="chess960StartPosition">Posição inicial do Xadrez960: %s</string>
+  <string name="randomChess960Position">Posição aleatória de Xadrez960</string>
   <string name="startPosition">Posição inicial</string>
   <string name="clearBoard">Limpar tabuleiro</string>
   <string name="loadPosition">Carregar posição</string>

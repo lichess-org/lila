@@ -144,9 +144,9 @@ object header:
         case _ =>
           val profile = u.profileOrDefault
           val hideTroll = u.marks.troll && ctx.isnt(u)
-          val showProfile = ctx.kid.no && u.kid.no && !hideTroll || isGranted(_.UserModView)
+          val showProfile = ctx.kid.no && u.kid.no && !hideTroll || isGranted(_.AccountInfo)
           div(id := "us_profile")(
-            if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)) then
+            if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.AccountInfo)) then
               views.user.perfStat.ratingHistoryContainer
             else (ctx.is(u) && u.count.game < 10).option(ui.newPlayer(u)),
             div(cls := "profile-side")(
@@ -162,7 +162,7 @@ object header:
                   .map(strong(cls := List("name" -> true, "muted" -> hideTroll))(_)),
                 info.publicFideId.map: id =>
                   p(a(href := routes.Fide.show(id, u.username.value))("FIDE player #" + id)),
-                (showLinks && showProfile || isGranted(_.UserModView))
+                (showLinks && showProfile || isGranted(_.AccountInfo))
                   .so(profile.nonEmptyBio)
                   .map: bio =>
                     p(cls := List("bio" -> true, "muted" -> hideTroll))(richText(bio, nl2br = true)),

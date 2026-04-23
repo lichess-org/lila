@@ -15,7 +15,7 @@ case class OAuthSignedClient(
     displayName: String
 )
 object OAuthSignedClient:
-  case class SimpleSignup(username: UserName, email: EmailAddress)
+  case class SimpleSignup(username: UserName, email: EmailAddress, client: ClientId)
 
 final class OAuthSignedClients(appConfig: Configuration):
 
@@ -30,12 +30,12 @@ final class OAuthSignedClients(appConfig: Configuration):
     displayName = "Lichess Mobile"
   )
 
-  val polygon = OAuthSignedClient(
-    ClientId(config.get[String]("polygon.id")),
-    Origin.from(List(config.get[String]("polygon.origin"), "http://localhost")),
-    OAuthScope.Web.Polygon,
-    signersOf("polygon"),
-    displayName = config.get[String]("polygon.name")
+  val takex3 = OAuthSignedClient(
+    ClientId("takex3"),
+    List(Origin("https://auth.taketaketake.com"), Origin("http://localhost")),
+    OAuthScope.Web.Takex3,
+    signersOf("takex3"),
+    displayName = "Take Take Take"
   )
 
   def forPrompt(prompt: AuthorizationRequest.Prompt): Option[OAuthSignedClient] =
@@ -57,12 +57,15 @@ final class OAuthSignedClients(appConfig: Configuration):
       ref <- parse(referrer.value).toOption
       username <- ref.queryParam("default_username").map(UserName(_))
       email <- ref.queryParam("default_email").flatMap(EmailAddress.from)
-      if isSignedReferrer(referrer)
-    yield OAuthSignedClient.SimpleSignup(username, email)
+      client <- signedReferrerClientId(referrer)
+    yield OAuthSignedClient.SimpleSignup(username, email, client)
 
   def isSignedReferrer(referrer: ValidReferrer): Boolean =
+    signedReferrerClientId(referrer).isDefined
+
+  def signedReferrerClientId(referrer: ValidReferrer): Option[ClientId] =
     import lila.common.url.{ parse, queryParam }
-    val client = for
+    for
       ref <- parse(referrer.value).toOption
       email <- ref.queryParam("default_email").flatMap(EmailAddress.from)
       sign <- ref.queryParam("default_sign")
@@ -71,13 +74,12 @@ final class OAuthSignedClients(appConfig: Configuration):
       redirectUri <- RedirectUri.from(redirectUriStr).toOption
       scopes <- AuthorizationRequest.readScopes(~ref.queryParam("scope")).toOption
       client <- forPrompt(clientId, redirectUri, scopes)
-      if client == polygon
+      if client == takex3
       if client.signers.exists: signer =>
         signer.sha1(email.value).hash_=(sign)
-    yield client
-    client.isDefined
+    yield client.clientId
 
-  private val clients = List(mobile, polygon)
+  private val clients = List(mobile, takex3)
 
   private def forScopesOf(token: AccessToken.ForAuth): List[OAuthSignedClient] =
     clients.filter(c => token.scopes.value.contains(c.scope))

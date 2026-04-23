@@ -67,6 +67,7 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
   return sets && said.length < 2
     ? h(
         'div.mchat__presets',
+        { key: group },
         sets.map((p: Preset) => {
           const disabled = said.includes(p.key);
           return h(

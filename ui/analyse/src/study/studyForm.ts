@@ -53,6 +53,7 @@ export class StudyForm {
   openIfNew = () => {
     if (this.isNew()) this.open(true);
   };
+
   save = (data: FormData, isNew: boolean) => {
     this.doSave(data, isNew);
     this.open(false);

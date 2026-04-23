@@ -86,12 +86,15 @@ object I18nKey:
       trans.translator.txt.literal(key, args, trans.lang)
     def pluralTxt(count: Count, args: Any*)(using trans: Translate): String =
       trans.translator.txt.plural(key, count, args, trans.lang)
-    def pluralSameTxt(count: Long)(using trans: Translate): String = pluralTxt(count, count)
+    def pluralSameTxt(count: Long)(using Translate): String = pluralTxt(count, count)
     def apply(args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.literal(key, args, trans.lang)
     def plural(count: Count, args: Matchable*)(using trans: Translate): RawFrag =
       trans.translator.frag.plural(key, count, args, trans.lang)
-    def pluralSame(count: Int)(using trans: Translate): RawFrag = plural(count, count)
+    def pluralSame(count: Int)(using Translate): RawFrag = plural(count, count)
+    // the translated message contains HTML tags
+    def rawHtml(args: Any*)(using Translate): RawFrag = RawFrag(txt(args*))
+    def pluralRawHtml(count: Count, args: Any*)(using Translate): RawFrag = RawFrag(pluralTxt(count, args*))
 
   // format: OFF
 ${objs.map(dbCode).join('\n')}

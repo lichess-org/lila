@@ -110,7 +110,8 @@ export const onClickAway =
 
 export const hyphenToCamel = (str: string): string => str.replace(/-([a-z])/g, g => g[1].toUpperCase());
 
-export const requestIdleCallback = (f: () => void, timeout?: number): void => {
+// adds support for safari
+export const requestIdleCallbackSafe = (f: () => void, timeout?: number): void => {
   if (window.requestIdleCallback) window.requestIdleCallback(f, timeout ? { timeout } : undefined);
   else requestAnimationFrame(f);
 };
@@ -161,4 +162,19 @@ export function blurIfPrimaryClick(e: Event): void {
   const target = document.activeElement;
   if (target instanceof HTMLElement && e.button === 0 && (e.clientX || e.clientY))
     requestAnimationFrame(() => target.blur());
+}
+
+export function blurIfEscape(e: KeyboardEvent): void {
+  if (e.target instanceof HTMLElement && e.key === 'Escape') {
+    e.stopPropagation();
+    e.target.blur();
+  }
+}
+export function blurOnEscape(el: HTMLElement): void {
+  el.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      e.stopPropagation();
+      el.blur();
+    }
+  });
 }

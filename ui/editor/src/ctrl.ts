@@ -12,7 +12,13 @@ import { Castles, defaultPosition, Position, setupPosition } from 'chessops/vari
 import { defined, prop, type Prop } from 'lib';
 import { prompt } from 'lib/view';
 
-import { chess960CastlingSquares, chess960IdToFEN, fenToChess960Id, randomPositionId } from './chess960';
+import {
+  chess960CastlingSquares,
+  chess960IdToFEN,
+  fenToChess960Id,
+  boardFenToChess960Id,
+  randomPositionId,
+} from './chess960';
 import {
   type EditorState,
   type Selected,
@@ -113,17 +119,18 @@ export default class EditorCtrl {
   }
 
   onChange(): void {
+    // We can use the first field of the fen now; it's the ep and castle fields that may be inaccurate at the moment.
+    this.chess960PositionId = boardFenToChess960Id(this.getFen().split(' ')[0]) ?? this.chess960PositionId;
+    // The id will be used for computing castling toggles, which will in turn be used in the later `this.getFen()` call.
     this.enabledCastlingToggles = this.computeCastlingToggles();
     if (this.guessCastlingToggles) {
       this.castlingToggles = { ...this.enabledCastlingToggles };
     }
-
     const fen = this.fenFixedEp(this.getFen());
     if (!this.cfg.embed) {
       window.history.replaceState(null, '', this.makeEditorUrl(fen, this.bottomColor()));
     }
     this.options.onChange?.(fen);
-    this.chess960PositionId = fenToChess960Id(fen) ?? this.chess960PositionId;
     this.redraw();
   }
 

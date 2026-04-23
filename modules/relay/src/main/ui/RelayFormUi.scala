@@ -78,13 +78,16 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, pageMenu: RelayMenuUi):
           )
     )
 
-  def noAccess(nav: FormNavigation)(using Context) =
+  def noAccess(rt: RelayRound | RelayTour) =
+    val call = rt match
+      case r: RelayRound => routes.RelayRound.show("-", "-", r.id)
+      case t: RelayTour => routes.RelayTour.show("-", t.id)
     Page("Insufficient permissions").css("bits.relay.form"):
-      main(cls := "page page-menu")(
-        navigationMenu(nav),
-        div(cls := "page-menu__content box box-pad")(
+      main(cls := "page page-small")(
+        div(cls := "box box-pad")(
           boxTop(h1("Insufficient permissions")),
-          p("You are not allowed to edit this broadcast or round.")
+          p("You are not allowed to edit this broadcast."),
+          p(a(href := call)("Back to broadcast"))
         )
       )
 

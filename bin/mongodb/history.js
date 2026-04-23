@@ -19,7 +19,7 @@ historyToMigrate.forEach(function (h) {
     if (e.g) {
       game = games.findOne({ _id: e.g }, { 'p.elo': true, 'p.uid': true });
       if (game) {
-        if (game.p[0].uid != h._id) e2.push(game.p[0].elo);
+        if (game.p[0].uid !== h._id) e2.push(game.p[0].elo);
         else e2.push(game.p[1].elo);
       }
     }
@@ -27,7 +27,7 @@ historyToMigrate.forEach(function (h) {
   }
   collection.update({ _id: h2._id }, { $set: h2 }, { upsert: true });
   ++it;
-  if (it % batchSize == 0) {
+  if (it % batchSize === 0) {
     const percent = Math.round((it / max) * 100);
     const dat2 = Date.now() / 1000;
     const perSec = Math.round(batchSize / (dat2 - dat));

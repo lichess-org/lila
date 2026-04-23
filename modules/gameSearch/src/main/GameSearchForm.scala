@@ -41,7 +41,7 @@ final private[gameSearch] class GameSearchForm:
       "dateMin" -> GameSearchForm.dateField,
       "dateMax" -> GameSearchForm.dateField,
       "status" -> optional(numberIn(FormHelpers.statuses)),
-      "analysed" -> optional(number),
+      "analysed" -> optional(tolerantBoolean),
       "sort" -> optional(
         mapping(
           "field" -> stringIn(Sorting.fields),
@@ -74,7 +74,7 @@ case class SearchData(
     dateMin: Option[LocalDate] = None,
     dateMax: Option[LocalDate] = None,
     status: Option[Int] = None,
-    analysed: Option[Int] = None,
+    analysed: Option[Boolean] = None,
     sort: Option[SearchSort] = None
 ):
 
@@ -98,7 +98,7 @@ case class SearchData(
     aiLevel = IntRange(aiLevelMin, aiLevelMax),
     date = DateRange(dateMin.map(transform), dateMax.map(transform)),
     duration = IntRange(durationMin, durationMax),
-    analysed = analysed.map(_ == 1),
+    analysed = analysed,
     whiteUser = players.cleanWhite.map(_.value),
     blackUser = players.cleanBlack.map(_.value),
     sorting = SpecSorting(sortOrDefault.field, sortOrDefault.order),

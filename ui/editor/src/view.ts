@@ -117,7 +117,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               {
                 attrs: { for: 'chess960-position-id' },
               },
-              'Chess960 position ID:',
+              'Chess960 position',
             ),
             h('input#chess960-position-id', {
               attrs: { minlength: 1, maxlength: 3, type: 'number', min: '0', max: '959' },
@@ -136,7 +136,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               },
             }),
             h('button.button.button-empty', {
-              attrs: { type: 'button', title: 'Random Chess960 position', ...dataIcon(licon.DieSix) },
+              attrs: { type: 'button', title: i18n.site.randomChess960Position, ...dataIcon(licon.DieSix) },
               on: {
                 click(e) {
                   e.preventDefault();

@@ -2,7 +2,7 @@
 <resources>
   <string name="standard">Standard</string>
   <string name="standardTitle">Reguli de șah standard (FIDE)</string>
-  <string name="chess960">Şah960</string>
+  <string name="chess960">Chess960</string>
   <string name="chess960Title">Poziţia de început a pieselor din prima linie este randomizată.</string>
   <string name="kingOfTheHill">Regele Dealului</string>
   <string name="kingOfTheHillTitle">Adu-ți regele în centru pentru a câștiga jocul.</string>

@@ -25,7 +25,7 @@
   </plurals>
   <plurals name="xMinutesBetweenRounds">
     <item quantity="one">%s minuto inter raŭndoj</item>
-    <item quantity="other">%s minutoj inter raŭndoj</item>
+    <item quantity="other">%s minutoj inter rondoj</item>
   </plurals>
   <string name="nextRound">Sekva raŭndo</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">

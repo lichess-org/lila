@@ -76,17 +76,3 @@ object String:
             .map: (k, v) =>
               s"${safeJsonString(k)}:${safeJsonValue(v)}"
             .mkString("{", ",", "}")
-
-  object charset:
-    import akka.util.ByteString
-    import com.ibm.icu.text.CharsetDetector
-
-    def guessAndDecode(str: ByteString): String =
-      str.decodeString(guess(str) | "UTF-8")
-
-    def guess(str: ByteString): Option[String] =
-      Option:
-        val cd = new CharsetDetector
-        cd.setText(str.take(10000).toArray)
-        cd.detect()
-      .map(_.getName)

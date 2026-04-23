@@ -30,11 +30,11 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
           'div',
           player.sheet
             .map(p =>
-              p == 'absent'
+              p === 'absent'
                 ? h(p, title('Absent'), '-')
-                : p == 'bye'
+                : p === 'bye'
                   ? h(p, title('Bye'), '1')
-                  : p == 'late'
+                  : p === 'late'
                     ? h(p, title('Late'), '½')
                     : h(
                         'a.glpt.' + (p.o ? 'ongoing' : p.w ? 'win' : p.w === false ? 'loss' : 'draw'),

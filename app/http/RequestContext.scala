@@ -65,7 +65,7 @@ trait RequestContext(using Executor):
             teamNbRequests,
             nbChallenges,
             nbNotifications,
-            hasClas = env.clas.hasClas,
+            seesClassMenu = env.clas.seesClassMenu,
             inquiry = inquiry,
             nonce = nonce
           )

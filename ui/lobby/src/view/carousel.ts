@@ -1,4 +1,4 @@
-import { frag, requestIdleCallback } from 'lib';
+import { frag, requestIdleCallbackSafe } from 'lib';
 
 type CarouselOpts = {
   selector: string;
@@ -10,7 +10,7 @@ type CarouselOpts = {
 export function makeCarousel({ selector, itemWidth, pauseFor, slideFor = 0.6 }: CarouselOpts): void {
   let timer: number | undefined = undefined;
 
-  requestIdleCallback(() => {
+  requestIdleCallbackSafe(() => {
     const el = document.querySelector<HTMLElement>(selector)!;
     if (!el) return;
 

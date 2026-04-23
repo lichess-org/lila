@@ -15,11 +15,11 @@ case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean
   def apply(p: PasswordAndToken): Result =
     val res =
       if user.totpSecret.isEmpty && must2fa then Result.Must2fa
+      else if isBlanked then Result.BlankedPassword
       else if check(p.password) then
         user.totpSecret.fold[Result](Result.Success(user)): tp =>
           p.token.fold[Result](Result.MissingTotpToken): token =>
             if tp.verify(token) then Result.Success(user) else Result.InvalidTotpToken
-      else if isBlanked then Result.BlankedPassword
       else Result.InvalidUsernameOrPassword
     lila.mon.user.auth.count(res.success).increment()
     res
@@ -89,7 +89,7 @@ final class Authenticator(
       .zip(userRepo.coll.one[User](select))
       .map:
         case (Some(authData), Some(user)) =>
-          LoginCandidate(user, authWithBenefits(authData), isBlanked = authData.bpass.bytes.isEmpty).some
+          LoginCandidate(user, authWithBenefits(authData), isBlanked = authData.bpass.isBlank).some
         case _ => none
   }.recover:
     case _: reactivemongo.api.bson.exceptions.HandlerException => none

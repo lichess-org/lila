@@ -114,17 +114,28 @@ final class AccessTokenApi(
       .cursor[AccessToken]()
       .list(100)
 
-  def usedBoardApi(user: UserId): Fu[List[AccessToken]] =
+  def modRelevantTokens(user: UserId): Fu[List[AccessToken]] =
     coll
-      .find:
-        $doc(
-          F.scopes -> OAuthScope.Board.Play.key,
-          F.usedAt.$exists(true),
-          F.userId -> user
+      .aggregateList(30): framework =>
+        import framework.*
+        Match(
+          $doc(
+            F.userId -> user,
+            F.scopes.$in(OAuthScope.relevantToMods.value.map(_.key)),
+            F.usedAt.$exists(true)
+          )
+        ) -> List(
+          Sort(Descending(F.usedAt)),
+          Group(
+            $doc(
+              F.scopes -> s"$$${F.scopes}",
+              F.description -> s"$$${F.description}",
+              F.clientOrigin -> s"$$${F.clientOrigin}"
+            )
+          )("token" -> FirstField("$ROOT")),
+          Sort(Descending(s"token.${F.usedAt}"))
         )
-      .sort($sort.desc(F.created))
-      .cursor[AccessToken]()
-      .list(30)
+      .map(_.flatMap(_.getAsOpt[AccessToken]("token")))
 
   def countPersonal(using me: MyId): Fu[Int] =
     coll.countSel:

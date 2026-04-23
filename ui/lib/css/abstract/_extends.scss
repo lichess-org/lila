@@ -229,15 +229,15 @@
 }
 
 %box-padding {
-  padding: $box-padding-vert var(---box-padding);
+  padding: $box-padding-vert $box-padding;
 }
 
 %box-padding-horiz {
-  padding: 0 var(---box-padding);
+  padding: 0 $box-padding;
 }
 %box-margin-horiz {
-  margin-left: var(---box-padding);
-  margin-right: var(---box-padding);
+  margin-left: $box-padding;
+  margin-right: $box-padding;
 }
 
 %break-word {

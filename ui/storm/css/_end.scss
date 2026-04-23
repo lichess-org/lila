@@ -70,14 +70,14 @@
   &__stats {
     @extend %flex-center;
 
-    padding: 2vh var(---box-padding);
+    padding: 2vh $box-padding;
     align-items: stretch;
 
     table {
       width: 100%;
 
       td {
-        padding: 0.5em 1em;
+        padding: 0.5em 1em 0.5em 2em;
         text-align: right;
 
         number {

@@ -35,7 +35,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: $block-gap;
-      margin-bottom: var(---box-padding);
+      margin-bottom: $box-padding;
     }
 
     &__result {

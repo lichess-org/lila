@@ -5,8 +5,8 @@
   &__main > .form-group,
   &__main .form-actions,
   &__delete .form-actions {
-    padding-left: var(---box-padding);
-    padding-right: var(---box-padding);
+    padding-left: $box-padding;
+    padding-right: $box-padding;
   }
 
   .toggle-box,

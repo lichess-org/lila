@@ -226,7 +226,7 @@
   <string name="username">Tên đăng nhập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
   <string name="changeUsername">Thay đổi tên đăng nhập</string>
-  <string name="changeUsernameNotSame">Bạn chỉ có thể thay đổi cách viết hoa/thường. Ví dụ \"dotrongkhanh04032012\" thành \"DoTrongKhanh04032012\".</string>
+  <string name="changeUsernameNotSame">Bạn chỉ có thể thay đổi cách viết hoa/thường. Ví dụ \"johndoe\" thành \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Thay đổi tên người dùng của bạn. Điều này chỉ có thể thực hiện một lần và bạn chỉ được thay đổi cách viết hoa/viết thường các chữ trong tên người dùng của bạn.</string>
   <string name="signupUsernameHint">Hãy đảm bảo chọn tên người dùng thân thiện với mọi người. Bạn sẽ không thể thay đổi nó và bất kỳ tài khoản nào có tên người dùng không phù hợp sẽ bị đóng!</string>
   <string name="signupEmailPromise">Chúng tôi chỉ gửi tin nhắn qua email về tài khoản của bạn và sẽ không bao giờ chia sẻ địa chỉ email của bạn với người khác.</string>
@@ -260,7 +260,7 @@
   <string name="accountCanLogin">Bạn đã có thể đăng nhập ngay bây giờ tại %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Bạn không cần xác nhận email.</string>
   <string name="accountClosed">Tài khoản %s đã bị đóng.</string>
-  <string name="accountRegisteredWithoutEmail">Tài khoản %s đã đăng ký mà không cần có email.</string>
+  <string name="accountRegisteredWithoutEmail">Tài khoản %s đã đăng ký mà không cần email.</string>
   <string name="rank">Hạng</string>
   <string name="rankX">Hạng: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -492,6 +492,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="popularOpenings">Khai cuộc phổ biến</string>
   <string name="endgamePositions">Các thế cờ trong tàn cuộc</string>
   <string name="chess960StartPosition">Ván đấu Chess960 bắt đầu bằng thế cờ: %s</string>
+  <string name="randomChess960Position">Thế trận Chess960 ngẫu nhiên</string>
   <string name="startPosition">Thế cờ ban đầu</string>
   <string name="clearBoard">Xóa bàn cờ</string>
   <string name="loadPosition">Tải thế cờ</string>
@@ -536,7 +537,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="mobile">Điện thoại di động</string>
   <string name="help">Hỗ trợ:</string>
   <string name="createANewTopic">Tạo một chủ đề mới</string>
-  <string name="topics">Các chủ đề</string>
+  <string name="topics">Số chủ đề</string>
   <string name="posts">Số bài đăng</string>
   <string name="lastPost">Bài đăng gần đây nhất</string>
   <string name="views">Lượt xem</string>

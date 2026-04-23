@@ -29,10 +29,10 @@ db.user4
     print(user.username, ': ', verbatim, '->', normalized);
 
     const updates = {};
-    if (normalized != user.email) updates.email = normalized;
-    if (verbatim != user.email) updates.verbatimEmail = verbatim;
+    if (normalized !== user.email) updates.email = normalized;
+    if (verbatim !== user.email) updates.verbatimEmail = verbatim;
 
-    if (Object.keys(updates).length == 0) return;
+    if (Object.keys(updates).length === 0) return;
     if (dry) nbSkips++;
     else
       try {
@@ -44,7 +44,7 @@ db.user4
         );
         nbUpdates++;
       } catch (e) {
-        if (e.code == 11000) nbDups++;
+        if (e.code === 11000) nbDups++;
       }
   });
 

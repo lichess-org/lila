@@ -13,10 +13,9 @@
   <string name="origin">Manba</string>
   <string name="specialMoves">Maxsus yurishlar</string>
   <string name="didYouLikeThisPuzzle">Ushbu masala yoqdimi?</string>
-  <string name="voteToLoadNextOne">Keyingisini yuklash uchun ovoz bering!</string>
   <string name="upVote">Masala yoqdi</string>
   <string name="downVote">Masala yoqmadi</string>
-  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">Masalalar boʻyicha reytingingiz oʻzgarmaydi. Unutmang, masalalar yechish musobaqa emas. Reytingingiz shunchaki mahoratingizga mos keladigan eng yaxshi masalalarni tanlashga yordam beradi.</string>
+  <string name="yourPuzzleRatingWillNotChange">Masalalar boʻyicha reytingingiz oʻzgarmaydi. Unutmang, masalalar yechish musobaqa emas. Reytingingiz shunchaki mahoratingizga mos keladigan eng yaxshi masalalarni tanlashga yordam beradi.</string>
   <string name="findTheBestMoveForWhite">Oqlar uchun eng yaxshi yurishni toping.</string>
   <string name="findTheBestMoveForBlack">Qoralar uchun eng yaxshi yurishni toping.</string>
   <string name="toGetPersonalizedPuzzles">Sizga moslashtirilgan masalalarni olish uchun:</string>

@@ -10,7 +10,7 @@ type Entry = LightUserOnline | HTMLAnchorElement;
 
 export function initModule({ input }: { input: HTMLInputElement }) {
   const menuLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('#topnav a')).filter(
-    a => a.href != '/',
+    a => a.href !== '/',
   );
 
   const fetchLinks = (term: string): HTMLAnchorElement[] => {
@@ -59,7 +59,7 @@ export function initModule({ input }: { input: HTMLInputElement }) {
 
 function execute(e: string | Entry) {
   if (!e) return;
-  if (typeof e != 'string' && isLink(e)) location.href = e.href;
+  if (typeof e !== 'string' && isLink(e)) location.href = e.href;
   else if (isUser(e)) location.href = '/@/' + e.name;
   else if (e[0] === '/') command(e.replace(/\//g, ''));
   // 5kr1/p1p2p2/2b2Q2/3q2r1/2p4p/2P4P/P2P1PP1/1R1K3R b - - 1 23

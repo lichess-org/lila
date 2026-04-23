@@ -71,6 +71,7 @@ export type Feature =
   | 'wasm'
   | 'sharedMem'
   | 'simd'
+  | 'relaxedSimd'
   | 'dynamicImportFromWorker'
   | 'bigint'
   | 'structuredClone';
@@ -94,6 +95,12 @@ export const features: () => readonly Feature[] = memoize<readonly Feature[]>(()
       11,
     ]);
     if (WebAssembly.validate(sourceWithSimd)) features.push('simd');
+    // i32x4.dot_i8x16_i7x16_add_s
+    const sourceWithRelaxedSimd = Uint8Array.from([
+      0, 97, 115, 109, 1, 0, 0, 0, 1, 8, 1, 96, 3, 123, 123, 123, 1, 123, 3, 2, 1, 0, 7, 5, 1, 1, 99, 0, 0,
+      10, 13, 1, 11, 0, 32, 0, 32, 1, 32, 2, 253, 147, 2, 11,
+    ]);
+    if (WebAssembly.validate(sourceWithRelaxedSimd)) features.push('relaxedSimd');
     if (sharedMemoryTest()) features.push('sharedMem');
   }
   try {

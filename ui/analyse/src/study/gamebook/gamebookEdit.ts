@@ -1,6 +1,6 @@
 import { h, type Hooks, type VNode } from 'snabbdom';
 
-import { requestIdleCallback } from 'lib';
+import { requestIdleCallbackSafe } from 'lib';
 import { throttle } from 'lib/async';
 import * as licon from 'lib/licon';
 import type { Gamebook, TreeNode } from 'lib/tree/types';
@@ -27,7 +27,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
     () => {
       study.commentForm.start(study.vm.chapterId, ctrl.path, ctrl.node);
       study.vm.toolTab('comments');
-      requestIdleCallback(
+      requestIdleCallbackSafe(
         () =>
           $('#comment-text').each(function (this: HTMLTextAreaElement) {
             this.focus();

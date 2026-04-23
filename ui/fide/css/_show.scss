@@ -78,8 +78,9 @@
     }
   }
 
-  &__user {
+  .user-link {
     font-size: 0.7em;
+    margin-top: -0.5em;
   }
 
   &__federation {

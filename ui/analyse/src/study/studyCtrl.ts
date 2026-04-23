@@ -166,6 +166,7 @@ export default class StudyCtrl {
       () => this.setTab('chapters'),
       chapterId => xhr.chapterConfig(data.id, chapterId),
       this.ctrl,
+      () => this.data.chapter,
     );
     this.multiCloudEval = this.isCevalAllowed()
       ? new MultiCloudEval(this.redraw, () => this.ctrl.variantKey, this.chapters.list, this.send)
@@ -186,8 +187,9 @@ export default class StudyCtrl {
           ctrl.mainline.length === 1 &&
           !data.chapter.setup.fromFen &&
           !this.relay
-        )
+        ) {
           this.chapters.newForm.openInitial();
+        }
       },
       () => data,
       this.redraw,

@@ -157,7 +157,7 @@ export function initModule(opts: VoiceChatOpts): VoiceChat | undefined {
     if (!peer) return;
     for (const otherPeer in peer.connections) {
       peer.connections[otherPeer].forEach((c: any) => {
-        if (c.peerConnection && c.peerConnection.connectionState == 'disconnected') {
+        if (c.peerConnection && c.peerConnection.connectionState === 'disconnected') {
           log(`close disconnected call to ${c.peer}`);
           c.close();
           opts.redraw();

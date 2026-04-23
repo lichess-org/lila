@@ -3,6 +3,7 @@ package lila.mod
 import akka.actor.*
 import chess.ByColor
 import com.softwaremill.macwire.*
+import play.api.Configuration
 
 import lila.common.Bus
 import lila.core.config.*
@@ -10,9 +11,11 @@ import lila.core.forum.BusForum
 import lila.core.report.SuspectId
 import lila.rating.UserWithPerfs.only
 import lila.core.mod.{ BoardApiMark, LoginWithWeakPassword, LoginWithBlankedPassword }
+import lila.common.autoconfig.given
 
 @Module
 final class Env(
+    appConfig: Configuration,
     db: lila.db.Db,
     perfStat: lila.core.perf.PerfStatApi,
     settingStore: lila.memo.SettingStore.Builder,
@@ -37,6 +40,8 @@ final class Env(
     ircApi: lila.core.irc.IrcApi,
     msgApi: lila.core.msg.MsgApi
 )(using Executor, Scheduler, lila.core.i18n.Translator, akka.stream.Materializer):
+
+  val mailerEventsUrl = appConfig.get[Url]("mailer.events.url")
 
   private lazy val logRepo = ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))

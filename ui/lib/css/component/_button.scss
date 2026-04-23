@@ -142,7 +142,7 @@
 
     &,
     &:not(.disabled):hover {
-      color: $c-font-dim;
+      color: $c-font;
     }
   }
 
@@ -154,7 +154,8 @@
     }
   }
 
-  &.disabled {
+  &.disabled,
+  &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }

@@ -60,10 +60,11 @@ export default class StudyChaptersCtrl {
     setTab: () => void,
     chapterConfig: (id: string) => Promise<StudyChapterConfig>,
     root: AnalyseCtrl,
+    currentChapter: () => StudyChapter,
   ) {
     this.list = new StudyChapters(this.store);
     this.loadFromServer(initChapters);
-    this.newForm = new StudyChapterNewForm(send, this.list, isBroadcast, setTab, root);
+    this.newForm = new StudyChapterNewForm(send, this.list, isBroadcast, setTab, root, currentChapter);
     this.editForm = new StudyChapterEditForm(send, chapterConfig, isBroadcast, root.redraw);
   }
 

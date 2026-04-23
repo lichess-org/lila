@@ -63,12 +63,9 @@ final class JsonView(
       enginesJson <- myEngines.get(me)
     yield puzzleJson ++ enginesJson
 
-  def userJson(using me: Option[Me], perf: Perf) = me.map: me =>
+  def userJson(using perf: Perf, me: Option[Me]) = me.isDefined.option:
     Json
-      .obj(
-        "id" -> me.userId,
-        "rating" -> perf.intRating
-      )
+      .obj("rating" -> perf.intRating)
       .add("provisional" -> perf.provisional)
 
   private def replayJson(r: PuzzleReplay) =

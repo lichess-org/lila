@@ -1,4 +1,4 @@
-import { blurIfPrimaryClick, memoize } from 'lib';
+import { blurIfEscape, blurIfPrimaryClick, memoize } from 'lib';
 import { clamp } from 'lib/algo';
 import { isTouchDevice } from 'lib/device';
 import { pubsub } from 'lib/pubsub';
@@ -168,6 +168,7 @@ export default function () {
       loadEsm('cli', { init: { input: $input[0] } }).catch(() => (booted = false));
     };
     $input.on({
+      keydown: blurIfEscape,
       blur() {
         $input.val('');
         $('body').removeClass('clinput');

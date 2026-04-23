@@ -98,7 +98,6 @@ export interface PuzzlePlayer {
 }
 
 export interface PuzzleUser {
-  id: string;
   rating: number;
   provisional?: boolean;
 }

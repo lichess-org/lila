@@ -96,7 +96,7 @@ final class Setup(
         )
     case HookResult.Refused => JsonBadRequest(("Game was not created"))
 
-  def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(_.Web.Mobile, _.Web.Polygon): ctx ?=>
+  def hook(sri: Sri) = OpenOrScopedBody(parse.anyContent)(_.Web.Mobile, _.Web.Takex3): ctx ?=>
     NoBot:
       NoPlaybanOrCurrent:
         bindForm(forms.hook)(
@@ -142,7 +142,7 @@ final class Setup(
   def boardApiHook = WithBoardApiHookAuthor { (author, reqSri) => ctx ?=>
     forms
       .boardApiHook:
-        ctx.isMobileOauth || ctx.isPolygon || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
+        ctx.isMobileOauth || ctx.isTakex3 || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
       .bindFromRequest()
       .fold(
         doubleJsonFormError,
@@ -154,7 +154,7 @@ final class Setup(
             _ = lila.mon.lobby.hook
               .apiCreate:
                 if ctx.isMobileOauth then env.oAuth.signedClients.mobile.clientId.value
-                else if ctx.isPolygon then env.oAuth.signedClients.polygon.clientId.value
+                else if ctx.isTakex3 then env.oAuth.signedClients.takex3.clientId.value
                 else "other"
               .increment()
             forcedColor <- env.lobby.boardApiHookStream.mustPlayAsColor(config.color)
@@ -195,7 +195,7 @@ final class Setup(
   private def WithBoardApiHookAuthor(
       f: (Either[Sri, lila.user.User], Option[Sri]) => BodyContext[?] ?=> Fu[Result]
   ): EssentialAction =
-    AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile, _.Web.Polygon): ctx ?=>
+    AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile, _.Web.Takex3): ctx ?=>
       NoBot:
         val reqSri = getAs[Sri]("sri")
         ctx.me match
@@ -213,7 +213,7 @@ final class Setup(
       case None => BadRequest
       case Some(v) => Ok.snip(views.analyse.ui.miniSpan(v.fen.board, v.color))
 
-  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile, _.Web.Polygon) {
+  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile, _.Web.Takex3) {
     ctx ?=> me ?=>
       limit.setupBotAi(me, rateLimited, cost = me.isBot.so(1)):
         limit.setupPost(req.ipAddress, rateLimited):

@@ -66,7 +66,7 @@ Here is the link to access the class.</string>
   <string name="upgradeFromManaged">Upgrade from managed to autonomous</string>
   <string name="release">Graduate</string>
   <string name="releaseTheAccount">Graduate the account so the student can manage it autonomously.</string>
-  <string name="releaseDesc1">A graduated account cannot be set to &amp;lt;i&amp;gt;managed&amp;lt;/i&amp;gt; again. The student will be able to disable kid mode and reset password themselves.</string>
+  <string name="releaseDesc1">A graduated account cannot be set to &lt;i&gt;managed&lt;/i&gt; again. The student will be able to disable kid mode and reset password themselves.</string>
   <string name="releaseDesc2">The student will remain in the class after their account is graduated.</string>
   <string name="realUniqueEmail">Real, unique email address of the student. We will send a confirmation email to it, with a link to graduate the account.</string>
   <string name="closeStudent">Close account</string>

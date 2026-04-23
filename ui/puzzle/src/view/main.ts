@@ -9,7 +9,6 @@ import { addPointerListeners } from 'lib/pointer';
 import { Coords } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import {
-  stepwiseScroll,
   toggleButton as boardMenuToggleButton,
   onInsert,
   bindNonPassive,
@@ -17,6 +16,7 @@ import {
   type MaybeVNode,
 } from 'lib/view';
 import { renderBlindfoldToggle } from 'lib/view/blindfold';
+import stepwiseScroll from 'lib/view/stepwiseScroll';
 
 import * as control from '../control';
 import type PuzzleCtrl from '../ctrl';

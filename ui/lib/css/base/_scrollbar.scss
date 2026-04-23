@@ -1,14 +1,14 @@
-body ::-webkit-scrollbar,
-body ::-webkit-scrollbar-corner {
+::-webkit-scrollbar,
+::-webkit-scrollbar-corner {
   width: 0.5rem;
   background: $c-bg-box;
 }
 
-body ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background: $c-shade;
 }
 
-body ::-webkit-scrollbar-thumb:hover,
-body ::-webkit-scrollbar-thumb:active {
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
   background: $c-font-dimmer;
 }

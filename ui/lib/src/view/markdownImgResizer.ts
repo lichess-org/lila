@@ -142,7 +142,6 @@ async function urlUpdate(img: HTMLImageElement, update: Extract<UpdateImageHook,
   preloadImg.src = imageUrl;
   await preloadImg.decode();
   update.url(img, imageUrl, Number(img.dataset.widthRatio));
-  return;
 }
 
 function dragHandles(img: HTMLImageElement): HTMLElement[] {

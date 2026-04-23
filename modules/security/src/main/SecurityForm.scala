@@ -3,11 +3,11 @@ package lila.security
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
-import play.api.mvc.{ Request, RequestHeader }
+import play.api.mvc.Request
 
 import lila.common.Form.*
 import lila.common.{ Form as LilaForm, LameName }
-import lila.core.security.{ HcaptchaForm, ClearPassword }
+import lila.core.security.ClearPassword
 import lila.user.TotpSecret.{ base32, verify }
 import lila.user.{ TotpSecret, TotpToken }
 import lila.oauth.OAuthSignedClient.SimpleSignup
@@ -16,9 +16,7 @@ final class SecurityForm(
     userRepo: lila.user.UserRepo,
     authenticator: Authenticator,
     emailValidator: EmailAddressValidator,
-    lameNameCheck: LameNameCheck,
-    hcaptcha: Hcaptcha,
-    singlePost: SinglePost
+    lameNameCheck: LameNameCheck
 )(using ec: Executor, mode: play.api.Mode):
 
   import SecurityForm.*
@@ -93,45 +91,37 @@ final class SecurityForm(
       "account" -> agreementBool
     )(AgreementData.apply)(unapply)
 
-    def website(simpleSignup: Option[SimpleSignup])(using RequestHeader): Fu[SignupForm] =
-      val base = hcaptcha.form(websitePreCaptcha)
+    def website(simpleSignup: Option[SimpleSignup]): SignupForm =
+      val base = Form:
+        mapping(
+          "username" -> username,
+          "password" -> newPasswordField,
+          "email" -> emailField,
+          "agreement" -> agreement,
+          "fp" -> optional(nonEmptyText)
+        )(SignupData.apply)(unapply)
+          .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
+
       simpleSignup match
-        case None => base.map(SignupForm(_, simple = false))
+        case None => SignupForm(base, simple = false)
         case Some(prefill) =>
-          base.map: f =>
-            SignupForm(
-              f.copy(
-                skip = true,
-                form = f.form.fill:
-                  SignupData(
-                    username = prefill.username,
-                    password = "",
-                    email = prefill.email,
-                    agreement = AgreementData(true, true, true),
-                    singlePost = "",
-                    fp = none
-                  )
-              ),
-              simple = true
-            )
+          SignupForm(
+            form = base.fill:
+              SignupData(
+                username = prefill.username,
+                password = "",
+                email = prefill.email,
+                agreement = AgreementData(true, true, true),
+                fp = none
+              )
+            ,
+            simple = true
+          )
 
-    private def websitePreCaptcha(using RequestHeader) = Form:
-      mapping(
-        "username" -> username,
-        "password" -> newPasswordField,
-        "email" -> emailField,
-        "agreement" -> agreement,
-        singlePost.formPair,
-        "fp" -> optional(nonEmptyText)
-      )(SignupData.apply)(unapply)
-        .verifying(PasswordCheck.errorSame, x => x.password != x.username.value)
-
-  def passwordReset(using RequestHeader) = hcaptcha.form:
-    Form:
-      mapping(
-        "email" -> sendableEmail, // allow unacceptable emails for BC
-        singlePost.formPair
-      )(PasswordReset.apply)(_ => None)
+  def passwordReset = Form:
+    mapping(
+      "email" -> sendableEmail // allow unacceptable emails for BC
+    )(PasswordReset.apply)(_ => None)
 
   case class PasswordResetConfirm(newPasswd1: String, newPasswd2: String):
     def samePasswords = newPasswd1 == newPasswd2
@@ -161,13 +151,10 @@ final class SecurityForm(
         )(Passwd.apply)(unapply)
           .verifying("newPasswordsDontMatch", _.samePasswords)
 
-  def magicLink(using req: RequestHeader) = hcaptcha.form(
-    Form(
-      mapping(
-        "email" -> sendableEmail // allow unacceptable emails for BC
-      )(MagicLink.apply)(_ => None)
-    )
-  )
+  def magicLink = Form:
+    mapping(
+      "email" -> sendableEmail // allow unacceptable emails for BC
+    )(MagicLink.apply)(_ => None)
 
   def changeEmail(old: Option[EmailAddress])(using Me) =
     authenticator.loginCandidate.map: candidate =>
@@ -232,13 +219,11 @@ final class SecurityForm(
 
   def toggleKid(using Me) = passwordProtected
 
-  def reopen(using RequestHeader) = hcaptcha.form(
-    Form:
-      mapping(
-        "username" -> LilaForm.cleanNonEmptyText.into[UserStr],
-        "email" -> sendableEmail // allow unacceptable emails for BC
-      )(Reopen.apply)(_ => None)
-  )
+  def reopen = Form:
+    mapping(
+      "username" -> LilaForm.cleanNonEmptyText.into[UserStr],
+      "email" -> sendableEmail // allow unacceptable emails for BC
+    )(Reopen.apply)(_ => None)
 
   def deleteAccount(using me: Me) =
     authenticator.loginCandidate.map: candidate =>
@@ -254,7 +239,7 @@ final class SecurityForm(
 
 object SecurityForm:
 
-  case class SignupForm(form: HcaptchaForm[SignupData], simple: Boolean)
+  case class SignupForm(form: Form[SignupData], simple: Boolean)
 
   case class AgreementData(
       assistance: Boolean,
@@ -272,13 +257,12 @@ object SecurityForm:
       password: String,
       email: EmailAddress,
       agreement: AgreementData,
-      singlePost: String,
       fp: Option[String]
   ) extends AnySignupData:
     def fingerPrint = FingerPrint.from(fp.filter(_.nonEmpty))
     def clearPassword = ClearPassword(password)
 
-  case class PasswordReset(email: EmailAddress, singlePost: String)
+  case class PasswordReset(email: EmailAddress)
 
   case class MagicLink(email: EmailAddress)
 

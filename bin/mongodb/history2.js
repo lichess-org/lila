@@ -25,15 +25,15 @@ games.forEach(function (game) {
       const p = game.p[pi],
         op = game.p[1 - pi];
       const entry = [parseInt(game.ca.getTime() / 1000), parseInt(p.elo + p.ed), parseInt(op.elo)];
-      if (typeof cache[p.uid] == 'undefined') cache[p.uid] = [entry];
+      if (typeof cache[p.uid] === 'undefined') cache[p.uid] = [entry];
       else cache[p.uid].push(entry);
     } catch (e) {
       print('game ' + game._id + ' => ' + e);
     }
   }
   ++it;
-  if (it % batchSize == 0) {
-    if (it % (batchSize * 7) == 0) {
+  if (it % batchSize === 0) {
+    if (it % (batchSize * 7) === 0) {
       print('FLUSH');
       flush(cache);
       cache = {};

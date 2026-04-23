@@ -30,7 +30,6 @@ final class SecurityApi(
     authenticator: Authenticator,
     oAuthServer: OAuthServer,
     ip2proxy: Ip2ProxyApi,
-    singlePost: SinglePost,
     proxy2faSetting: lila.memo.SettingStore[lila.core.data.Strings] @@ Proxy2faSetting
 )(using ec: Executor, mode: play.api.Mode):
 
@@ -38,14 +37,13 @@ final class SecurityApi(
     lila.common.Form.cleanText(minLength = 2, maxLength = EmailAddress.maxLength).into[UserStrOrEmail]
   private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
 
-  def loginForm(using req: RequestHeader) = Form:
+  def loginForm = Form:
     tuple(
       "username" -> usernameOrEmailMapping, // can also be an email
-      "password" -> loginPasswordMapping,
-      singlePost.formPairWithLichobileCompat
+      "password" -> loginPasswordMapping
     )
-  def loginFormFilled(login: UserStrOrEmail)(using RequestHeader) = loginForm.fill:
-    (login, ClearPassword(""), "")
+  def loginFormFilled(login: UserStrOrEmail) = loginForm.fill:
+    (login, ClearPassword(""))
 
   lazy val rememberForm = Form(single("remember" -> boolean))
 

@@ -29,7 +29,7 @@ const repairChapter = idOrDiag => {
   if (debug) console.log('https://lichess.org/study/' + chapter.studyId + '/' + chapter._id);
   const moves = chapter.root;
   const moveList = Object.entries(moves);
-  const moveIndexes = diag.root.map(d => moveList.findIndex(([k, _]) => k == d.k));
+  const moveIndexes = diag.root.map(d => moveList.findIndex(([k, _]) => k === d.k));
   diag.root.forEach((d, index) => {
     const move = moveList[moveIndexes[index]];
     if (!move) {
@@ -137,7 +137,7 @@ const repairAll = nb => {
       const [c, r] = repairChapter(diag);
       if (c && r) updateChapterRoot(c, r);
       nb--;
-      if (nb % 100 == 0) {
+      if (nb % 100 === 0) {
         console.log(nb + ' remaining');
       }
     });

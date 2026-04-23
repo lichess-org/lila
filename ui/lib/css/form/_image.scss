@@ -1,7 +1,7 @@
 %image-preview-and-upload {
   @extend %flex-center;
 
-  gap: var(---box-padding);
+  gap: $box-padding;
   background: $c-bg-zebra;
 
   img,

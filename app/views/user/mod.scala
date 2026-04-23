@@ -6,6 +6,7 @@ import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.mod.ui.{ mzSection, ModUserTableUi }
 import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
+import lila.oauth.OAuthScope
 
 object mod:
 
@@ -19,17 +20,19 @@ object mod:
       a(href := routes.Clas.show(managed.clas.id))(managed.clas.name)
     )
 
-  def boardTokens(tokens: List[lila.oauth.AccessToken]): Frag =
+  def oauthTokens(tokens: List[lila.oauth.AccessToken]): Frag =
     if tokens.isEmpty then emptyFrag
     else
-      mzSection("boardTokens")(
-        strong(cls := "inline")(pluralize("Board token", tokens.size)),
+      mzSection("oauthTokens")(
+        strong(cls := "inline")(pluralize("OAuth token", tokens.size)),
         ul:
           tokens.map: token =>
             li(
-              List(token.description, token.clientOrigin).flatten.mkString(" "),
+              strong(token.scopes.value.filter(OAuthScope.relevantToMods.has).map(_.key).mkString("+")),
               token.usedAt.map: at =>
-                frag(", last used ", momentFromNowOnce(at))
+                frag(" ", momentFromNowOnce(at)),
+              br,
+              small(List(token.description, token.clientOrigin).flatten.mkString(" "))
             )
       )
 

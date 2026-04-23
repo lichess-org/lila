@@ -4,7 +4,7 @@
   gap: $block-gap;
 
   &__infos {
-    padding-top: var(---box-padding);
+    padding-top: $box-padding;
 
     .main-point,
     .faq {

@@ -2,6 +2,7 @@
   &__periods {
     display: flex;
     flex-flow: row wrap;
+    gap: 4%;
 
     @media (min-width: at-least($xx-small)) {
       flex-flow: row nowrap;
@@ -14,7 +15,7 @@
     align-items: center;
     justify-content: center;
     flex: 1 1 auto;
-    margin-inline-end: 4%;
+    min-width: calc(88% / 4);
     background: $c-bg-box;
     padding: 3em 1em 1.5em 1em;
 

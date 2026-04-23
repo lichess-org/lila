@@ -134,6 +134,7 @@
   <string name="searchTime">検索時間</string>
   <string name="searchTimeDescription">新しい局面を評価するための時間を設定</string>
   <string name="threads">スレッド数</string>
+  <string name="threadsDescription">CPU のスレッド数より小さい値に設定してください。目盛りは安全な推奨値を示しています</string>
   <string name="threadsDescriptionMobile">スレッド数が多いと解析精度が上がりますがバッテリー消費も増えます</string>
   <string name="cpus">スレッド数</string>
   <string name="memory">メモリ</string>
@@ -491,6 +492,7 @@
   <string name="popularOpenings">人気のオープニング</string>
   <string name="endgamePositions">エンドゲームの局面</string>
   <string name="chess960StartPosition">チェス960 開始局面: %s</string>
+  <string name="randomChess960Position">チェス960 のランダムな配置</string>
   <string name="startPosition">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="loadPosition">局面を読み込む</string>
@@ -987,6 +989,7 @@
   <string name="offline" comment="status of a user">オフライン</string>
   <string name="search">検索</string>
   <string name="clearSearch">検索をクリア</string>
+  <string name="thereAreNoResultsForX">「%s」の検索結果はありません</string>
   <string name="tags">タグ</string>
   <string name="enPassant">アンパッサン</string>
 </resources>

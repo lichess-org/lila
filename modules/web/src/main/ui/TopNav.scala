@@ -11,8 +11,7 @@ final class TopNav(helpers: Helpers):
   private def linkTitle(url: String, name: Frag)(using ctx: Context) =
     if ctx.blind then h3(name) else a(href := url)(name)
 
-  def apply(hasClas: Boolean, hasDgt: Boolean)(using ctx: Context) =
-    val canSeeClasMenu = hasClas || ctx.me.exists(u => u.hasTitle || u.roles.contains("ROLE_COACH"))
+  def apply(seesClassMenu: Boolean, hasDgt: Boolean)(using ctx: Context) =
     st.nav(id := "topnav", cls := "hover")(
       st.section(
         linkTitle(
@@ -62,7 +61,7 @@ final class TopNav(helpers: Helpers):
           ,
           a(href := langHref(routes.Study.allDefault()))(trans.site.studyMenu()),
           ctx.kid.no.option(a(href := langHref(routes.Coach.all(1)))(trans.site.coaches())),
-          canSeeClasMenu.option(a(href := routes.Clas.index)(trans.clas.lichessClasses()))
+          seesClassMenu.option(a(href := routes.Clas.index)(trans.clas.lichessClasses()))
         )
       ),
       st.section:

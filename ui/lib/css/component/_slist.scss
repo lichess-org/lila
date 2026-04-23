@@ -40,12 +40,12 @@
   &-pad {
     td:first-child,
     th:first-child {
-      padding-inline-start: var(---box-padding);
+      padding-inline-start: $box-padding;
     }
 
     td:last-child,
     th:last-child {
-      padding-inline-end: var(---box-padding);
+      padding-inline-end: $box-padding;
     }
   }
 
@@ -62,11 +62,11 @@
 
 .slist-wrapper {
   overflow-x: auto;
-  max-width: calc(100vw - var(---box-padding) * 2);
+  max-width: calc(100vw - $box-padding * 2);
 
   .slist {
     @media (max-width: at-most($x-small)) {
-      min-width: calc(650px - var(---box-padding) * 2);
+      min-width: calc(650px - $box-padding * 2);
     }
   }
 }
@@ -98,7 +98,7 @@
       flex-flow: row wrap;
       align-items: center;
       justify-content: space-between;
-      padding: 0.5rem var(---box-padding);
+      padding: 0.5rem $box-padding;
       border-top: $border;
     }
 
@@ -118,7 +118,7 @@
 
   .stack-row td {
     width: 100%;
-    padding-inline-start: var(---box-padding);
-    padding-inline-end: var(---box-padding);
+    padding-inline-start: $box-padding;
+    padding-inline-end: $box-padding;
   }
 }

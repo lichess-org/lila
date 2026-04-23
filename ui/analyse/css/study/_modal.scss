@@ -81,6 +81,12 @@
       float: right;
       margin-top: 0.2em;
     }
+
+    .chess960-position__inputs {
+      @extend %flex-center-nowrap;
+
+      gap: 1em;
+    }
   }
 
   &.study-edit .flair-and-name {

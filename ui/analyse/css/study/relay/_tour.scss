@@ -268,7 +268,7 @@
       gap: 1em;
 
       @include mq-at-least-col3 {
-        gap: calc(var(---box-padding) / 3);
+        gap: calc($box-padding / 3);
       }
 
       margin-top: 1em;
@@ -611,13 +611,6 @@
   }
 
   .fide-player {
-    &__photo {
-      @extend %box-neat;
-
-      aspect-ratio: 1;
-      max-width: 300px;
-    }
-
     &__header {
       @extend %tour-margin-horiz;
     }

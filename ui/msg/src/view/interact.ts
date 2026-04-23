@@ -1,5 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 
+import { blurIfEscape } from 'lib';
 import { throttle } from 'lib/async';
 import * as licon from 'lib/licon';
 import { bindSubmit, alert } from 'lib/view';
@@ -81,12 +82,12 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
   area.value = storage.get() || '';
   if (area.value) area.dispatchEvent(new Event('input'));
 
-  // send the content on <enter.
-  area.addEventListener('keypress', (e: KeyboardEvent) => {
+  // send the content on Enter
+  area.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       setTimeout(send);
-    }
+    } else blurIfEscape(e);
   });
   area.addEventListener('send', send);
 

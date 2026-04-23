@@ -526,6 +526,7 @@
   <string name="popularOpenings">Mashhur debyutlar</string>
   <string name="endgamePositions">Endshpil pozitsiyalari</string>
   <string name="chess960StartPosition">Fisher shaxmati boshlangʻich pozitsiya: %s</string>
+  <string name="randomChess960Position">Tasodifiy Fisher shaxmati pozitsiyasi</string>
   <string name="startPosition">Boshlangʻich pozitsiya</string>
   <string name="clearBoard">Taxtani tozalash</string>
   <string name="loadPosition">Pozitsiyani yuklash</string>

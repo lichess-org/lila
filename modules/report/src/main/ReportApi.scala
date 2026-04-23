@@ -519,7 +519,7 @@ final class ReportApi(
         "atoms.by",
         $doc(
           "user" -> sus.user.id,
-          "atoms.0.at".$gt(nowInstant.minusDays(3))
+          "atoms.0.at".$gt(nowInstant.minusDays(7))
         ),
         _.sec
       )

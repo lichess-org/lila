@@ -96,7 +96,10 @@ body.zen {
   justify-content: flex-start;
 
   &__donate {
+    @extend %nowrap-ellipsis;
+
     padding: 16px 0;
+    max-width: 30vw;
 
     span {
       color: $c-brag;
@@ -127,8 +130,14 @@ body.zen {
       outline-offset: -2px;
     }
 
-    @media (width <= $xx-small) {
+    @media (width <= $x-small) {
       display: none;
+    }
+
+    @media (width <= $small) {
+      body.clinput & {
+        display: none;
+      }
     }
   }
 }

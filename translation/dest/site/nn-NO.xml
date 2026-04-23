@@ -526,6 +526,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="popularOpenings">Omtykte opningar</string>
   <string name="endgamePositions">Sluttspelstillingar</string>
   <string name="chess960StartPosition">Fishersjakk, startoppstilling %s</string>
+  <string name="randomChess960Position">Tilfeldig Sjakk-960 oppstilling</string>
   <string name="startPosition">Startposisjon</string>
   <string name="clearBoard">Tøm brettet</string>
   <string name="loadPosition">Last inn stilling</string>

@@ -61,6 +61,8 @@ final class EmailConfirmMailer(
               to = email,
               subject = trans.emailConfirm_subject.txt(user.username),
               text = Mailer.txt.addServiceNote(s"""
+${trans.emailConfirm_intro.txt()}
+
 ${trans.emailConfirm_click.txt()}
 
 $url
@@ -70,6 +72,7 @@ ${trans.common_orPaste.txt()}
 ${trans.emailConfirm_justIgnore.txt("https://lichess.org")}
 """),
               htmlBody = emailMessage(
+                pDesc(trans.emailConfirm_intro()),
                 pDesc(trans.emailConfirm_click()),
                 potentialAction(metaName("Activate account"), Mailer.html.url(url)),
                 small(trans.emailConfirm_justIgnore()),

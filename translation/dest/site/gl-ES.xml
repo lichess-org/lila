@@ -526,6 +526,7 @@
   <string name="popularOpenings">Aperturas populares</string>
   <string name="endgamePositions">Posicións de finais</string>
   <string name="chess960StartPosition">Posición inicial de Chess960: %s</string>
+  <string name="randomChess960Position">Posición aleatoria de Xadrez 960</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpar o taboleiro</string>
   <string name="loadPosition">Cargar unha posición</string>
@@ -805,7 +806,7 @@
     <item quantity="other">Dispoñible en %s idiomas!</item>
   </plurals>
   <string name="xHostsY">%1$s crea %2$s</string>
-  <string name="xJoinsY">%1$s únese a %2$s</string>
+  <string name="xJoinsY">%1$s uniuse a %2$s</string>
   <string name="xLikesY">A %1$s gústalle %2$s</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
@@ -1018,8 +1019,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="ourEventTips">Os nosos consellos para organizar eventos</string>
   <string name="instructions">Instrucións</string>
   <string name="showMeEverything">Amósamo todo</string>
-  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto.
-Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
+  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto. Dependemos das doazóns dos usuarios para sufragar os custos de funcionamento, desenvolvemento e de contidos. Sen a nosa xenerosa comunidade non seriamos quen de manter o sitio funcionando. Grazas por unirte a nós!  </string>
   <string name="nothingToSeeHere">Nada que ver aquí polo de agora.</string>
   <string name="stats">Estatísticas</string>
   <string name="accessibility">Accesibilidade</string>

@@ -1,7 +1,7 @@
 import { h, type VNode, type VNodeData } from 'snabbdom';
 
 import { isMac } from '../device';
-import { requestIdleCallback } from '../index';
+import { requestIdleCallbackSafe } from '../index';
 
 export class Notify {
   text = '';
@@ -13,7 +13,7 @@ export class Notify {
     this.text = msg + (this.text === msg ? '\u00A0' : '');
     this.date = new Date();
 
-    requestIdleCallback(() => this.redraw?.(), 500);
+    requestIdleCallbackSafe(() => this.redraw?.(), 500);
   };
 
   render = (): VNode => liveText(this.text, 'assertive', 'div.notify', this.date);

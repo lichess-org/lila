@@ -80,7 +80,7 @@ export async function initModule(): Promise<void> {
 function tmpRandomTutorLink() {
   const me = myUserId(),
     userId = $('main.page-menu').data('username').toLowerCase();
-  if (!me || !userId || me != userId) return;
+  if (!me || !userId || me !== userId) return;
   const getNbGames = (icon: string) => {
     const text = $(`.sub-ratings a[data-icon=${icon}] rating span:last-child`).text();
     return Number.parseInt(text.replaceAll(/\D/g, ''));

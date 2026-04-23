@@ -111,7 +111,7 @@ function puzzleGlyph(node: TreeNode): MaybeVNode {
     case 'retry':
       return renderGlyph({ name: i18n.puzzle.goodMove, symbol: '?!' });
     default:
-      return;
+      return undefined;
   }
 }
 

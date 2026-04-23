@@ -270,8 +270,8 @@
   <string name="rank">Posicio</string>
   <string name="rankX">Posicio: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Posicio aktualiĝas en ĉiu minuto</item>
-    <item quantity="other">Posicio aktualiĝas en ĉiu %s minutoj</item>
+    <item quantity="one">Posicio aktualiĝas ĉiuminute</item>
+    <item quantity="other">Posicio aktualiĝas ĉiujn %s minutojn</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzlo</item>
@@ -296,7 +296,7 @@
   <string name="accept">Akcepti</string>
   <string name="decline">Malakcepti</string>
   <string name="playingRightNow">Ludate nun</string>
-  <string name="eventInProgress">Ludanta</string>
+  <string name="eventInProgress">Ludata</string>
   <string name="finished">Finita</string>
   <string name="abortGame">Ĉesigi ludon</string>
   <string name="gameAborted">Ludo estis ĉesigita</string>
@@ -920,7 +920,7 @@
   <string name="bulletDesc">Tre rapidaj ludoj: malpli ol 3 minutoj</string>
   <string name="blitzDesc">Rapidaj ludoj: 3 ĝis 8 minutoj</string>
   <string name="rapidDesc">Rapidaj ludoj: 8 ĝis 25 minutoj</string>
-  <string name="classicalDesc">Klasikaj ludoj: 25 minutoj kaj plu</string>
+  <string name="classicalDesc">Klasikaj ludoj: 25 minutoj kaj pli</string>
   <string name="correspondenceDesc">Korespondaj ludoj: unu aŭ kelkaj tagoj po movo</string>
   <string name="puzzleDesc">Ŝaktaktika trejnisto</string>
   <string name="important">Grava</string>

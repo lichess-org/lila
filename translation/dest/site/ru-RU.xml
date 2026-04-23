@@ -596,6 +596,7 @@
   <string name="popularOpenings">Популярные дебюты</string>
   <string name="endgamePositions">Эндшпильные позиции</string>
   <string name="chess960StartPosition">Начальная позиция в шахматах Фишера: %s</string>
+  <string name="randomChess960Position">Случайная позиция в шахматах Фишера</string>
   <string name="startPosition">Начальная позиция</string>
   <string name="clearBoard">Очистить доску</string>
   <string name="loadPosition">Загрузить позицию</string>

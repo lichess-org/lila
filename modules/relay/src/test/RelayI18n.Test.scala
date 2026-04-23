@@ -19,3 +19,11 @@ class RelayI18nTest extends munit.FunSuite:
   test("UnderX age should be parsed"):
     val name = RelayTour.Name("Some event | open U18")
     assertEquals(RelayI18n(name), "Some event | broadcast:openUnderXAgeTournament")
+
+  test("UnderX age without open should be parsed"):
+    val name = RelayTour.Name("Some event | U18")
+    assertEquals(RelayI18n(name), "Some event | broadcast:underXAgeTournament")
+
+  test("UnderX elo should be parsed"):
+    val name = RelayTour.Name("Some event | U2000")
+    assertEquals(RelayI18n(name), "Some event | broadcast:underXEloTournament")

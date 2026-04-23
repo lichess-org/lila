@@ -149,9 +149,9 @@ A icona vermella de silencio aparece cando o teu navegador impide a lichess.org 
 Amosamos a icona vermella para avisarte cando isto ocorre. A miúdo podes permitir de xeito explícito a lichess.org a reprodución do son. Velaquí unhas instrucións para facelo nas versións recentes dos navegadores máis populares.</string>
   <string name="desktop">PC de escritorio</string>
   <string name="enableAutoplayForSoundsFirefox">1. Vai a lichess.org
-2. Pulsa Ctrl+i en Linux/Windows ou cmd+i en MacOS
+2. Pulsa Ctrl+i en Linux/Windows ou ⌘+i en macOS
 3. Preme na lapela dos Permisos
-4. Permitir Son e Vídeo en lichess.org</string>
+4. Permite Son e Vídeo en lichess.org</string>
   <string name="enableAutoplayForSoundsChrome">1. Vai a lichess.org
 2. Fai clic na icona do cadeado na barra de enderezos
 3. Preme nos Axustes

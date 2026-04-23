@@ -39,6 +39,7 @@ in
     pkgs-unstable.oxfmt
     pkgs.lint-staged
     pkgs.stylelint
+    pkgs.dart-sass
   ];
 
   # pnpm installs dynamically linked binaries there,

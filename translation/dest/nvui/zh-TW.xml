@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="king">王</string>
+  <string name="whiteKing">白王</string>
   <string name="blackKing">黑王</string>
+  <string name="queen">后</string>
+  <string name="whiteQueen">白后</string>
+  <string name="blackQueen">黑后</string>
+  <string name="rook">車</string>
+  <string name="whiteRook">白車</string>
+  <string name="blackRook">黑車</string>
+  <string name="bishop">象</string>
+  <string name="whiteBishop">白象</string>
+  <string name="blackBishop">黑象</string>
+  <string name="knight">馬</string>
+  <string name="whiteKnight">白馬</string>
+  <string name="blackKnight">黑馬</string>
+  <string name="pawn">兵</string>
+  <string name="whitePawn">白兵</string>
+  <string name="blackPawn">黑兵</string>
+  <string name="sanCheck" comment="+ in standard notation">將軍</string>
+  <string name="sanCheckmate" comment="# in standard notation">將死</string>
+  <string name="sanPromotesTo" comment="= in standard notation">升變為</string>
+  <string name="pgnAndFen">PGN 與 FEN</string>
 </resources>

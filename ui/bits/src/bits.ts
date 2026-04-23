@@ -23,8 +23,8 @@ export function initModule(args: { fn: string } & any): void {
       return embedReasonToggle();
     case 'eventCountdown':
       return eventCountdown();
-    case 'hcaptcha':
-      return hcaptcha();
+    case 'faq':
+      return faq();
     case 'importer':
       return importer();
     case 'pmAll':
@@ -39,7 +39,7 @@ export function initModule(args: { fn: string } & any): void {
       return thanksReport();
     case 'titleRequest':
       return titleRequest();
-    case 'validEmail':
+    case 'validateEmail':
       return validateEmail();
     case 'emailErrorCheck':
       return emailErrorCheck();
@@ -148,24 +148,22 @@ function eventCountdown() {
   });
 }
 
-function hcaptcha() {
-  const script = document.createElement('script');
-  script.src = 'https://hcaptcha.com/1/api.js';
-
-  if ('credentialless' in window && window.crossOriginIsolated) {
-    const documentCreateElement = document.createElement;
-    script.src = 'https://hcaptcha.com/1/api.js?onload=initHcaptcha&recaptchacompat=off';
-    script.onload = () => {
-      document.createElement = function () {
-        const element = documentCreateElement.apply(this, arguments as any);
-        if (element instanceof HTMLIFrameElement) element.setAttribute('credentialless', '');
-        return element;
-      };
-    };
-    (window as any).initHcaptcha = () => (document.createElement = documentCreateElement);
+function faq() {
+  if (location.hash) {
+    const target = document.querySelector(location.hash);
+    const details = target?.closest('details');
+    if (details) {
+      details.open = true;
+    }
   }
 
-  document.head.appendChild(script);
+  document.querySelectorAll('details > summary').forEach(summary => {
+    summary.addEventListener('click', () => {
+      const details = summary.closest('details');
+      if (!details?.id) return;
+      history.replaceState(null, '', `#${details.id}`);
+    });
+  });
 }
 
 function importer() {

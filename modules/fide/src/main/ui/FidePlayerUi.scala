@@ -165,7 +165,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         div(cls := "fide-player__header__info")(
           h1(cls := "fide-player__header__name")(
             span(titleTag(player.title), player.name),
-            user.map(userLink(_, withTitle = false)(cls := "fide-player__user"))
+            user.map(userLink(_, withTitle = false))
           ),
           ctx.isAuth.option(followButton(FidePlayer.WithFollow(player, isFollowing))(trans.site.follow())),
           table(cls := "fide-player__header__table")(
