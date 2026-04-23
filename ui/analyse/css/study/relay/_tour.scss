@@ -464,7 +464,8 @@
     @include prevent-select;
 
     gap: 1em;
-    padding-inline: 2vw;
+    padding-right: 2vw;
+    padding-left: 1.5em;
     border-bottom: $border;
   }
 
