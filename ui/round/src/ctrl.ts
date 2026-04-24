@@ -209,7 +209,10 @@ export default class RoundController implements MoveRootCtrl {
   private readonly isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
 
   private readonly enpassant = (orig: Key, dest: Key): boolean => {
-    if (orig[0] === dest[0] || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
+    const piece = this.chessground.state.pieces.get(dest);
+    if (!piece || piece.role !== 'pawn' || orig[0] === dest[0]) return false;
+    const isWhite = piece.color === 'white';
+    if (isWhite ? (orig[1] !== '5' || dest[1] !== '6') : (orig[1] !== '4' || dest[1] !== '3')) return false;
     const pos = (dest[0] + orig[1]) as Key;
     this.chessground.setPieces(new Map([[pos, undefined]]));
     return true;
