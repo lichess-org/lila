@@ -526,6 +526,7 @@
   <string name="popularOpenings">Suosittuja avauksia</string>
   <string name="endgamePositions">Loppupeliasemat</string>
   <string name="chess960StartPosition">Shakki960-alkuasema: %s</string>
+  <string name="randomChess960Position">Satunnainen shakki960-asema</string>
   <string name="startPosition">Alkuasema</string>
   <string name="clearBoard">Tyhjennä lauta</string>
   <string name="loadPosition">Lataa asema</string>
@@ -1031,6 +1032,7 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="offline" comment="status of a user">offline-tilassa</string>
   <string name="search">Hae</string>
   <string name="clearSearch">Tyhjennä haku</string>
+  <string name="thereAreNoResultsForX">Ei tuloksia haulla \"%s\"</string>
   <string name="tags">Tunnisteet</string>
   <string name="enPassant">Ohestalyönti</string>
 </resources>
