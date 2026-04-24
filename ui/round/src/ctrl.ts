@@ -171,7 +171,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private readonly onMove = (orig: Key, dest: Key, captured?: Piece) => {
-    if (captured || this.enpassant(orig, dest)) {
+    if (captured || this.enpassant(orig, dest, !!captured)) {
       if (this.data.game.variant.key === 'atomic') {
         site.sound.play('explosion');
         atomic.capture(this, dest);
@@ -208,9 +208,15 @@ export default class RoundController implements MoveRootCtrl {
 
   private readonly isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
 
-  private readonly enpassant = (orig: Key, dest: Key): boolean => {
-    if (orig[0] === dest[0] || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
+  private readonly enpassant = (orig: Key, dest: Key, capturedAtDest: boolean): boolean => {
+    if (capturedAtDest) return false;
+    const piece = this.chessground.state.pieces.get(dest);
+    if (!piece || piece.role !== 'pawn' || orig[0] === dest[0]) return false;
+    const isWhite = piece.color === 'white';
+    if (isWhite ? orig[1] !== '5' || dest[1] !== '6' : orig[1] !== '4' || dest[1] !== '3') return false;
     const pos = (dest[0] + orig[1]) as Key;
+    const captured = this.chessground.state.pieces.get(pos);
+    if (!captured || captured.role !== 'pawn' || captured.color === piece.color) return false;
     this.chessground.setPieces(new Map([[pos, undefined]]));
     return true;
   };
