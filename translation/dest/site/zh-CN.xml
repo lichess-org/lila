@@ -714,9 +714,9 @@
     <item quantity="other">本周有 %1$s 名 %2$s 棋手。</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">您的 %1$s 等级分是 %2$s。</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">您超过了 %1$s%% 的 %2$s 棋手。</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s 超过了 %2$s%% 的 %3$s 棋手。</string>
-  <string name="betterThanPercentPlayers">超过了 %1$s%% 的 %2$s 棋手</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">您超过了 %1$s 的 %2$s 棋手。</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s 超过了 %2$s 的 %3$s 棋手。</string>
+  <string name="betterThanPercentPlayers">超过了 %1$s 的 %2$s 棋手</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您尚未确立 %s 等级分。</string>
   <string name="yourRating">您的等级分</string>
   <string name="cumulative">累积</string>
