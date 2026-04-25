@@ -4,11 +4,13 @@ import monocle.syntax.all.*
 import play.api.libs.json.*
 
 import lila.common.Bus
+import lila.common.Json.given
 import lila.tree.Analysis
 
 final class Analyser(
     gameRepo: lila.core.game.GameRepo,
-    analysisRepo: AnalysisRepo
+    analysisRepo: AnalysisRepo,
+    divider: lila.core.game.Divider
 )(using Executor)
     extends lila.tree.Analyser:
 
@@ -53,7 +55,9 @@ final class Analyser(
   ): JsObject =
     import lila.tree.{ TreeBuilder, ExportOptions, Node }
     val tree = TreeBuilder(game, analysis.some, initialFen, ExportOptions.default, lila.log("analyser").warn)
+    val division = divider(game.id, game.sans, game.variant, initialFen.some)
     Json.obj(
       "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
-      "tree" -> Node.lichobileNodeJsonWriter.writes(tree)
+      "tree" -> Node.lichobileNodeJsonWriter.writes(tree),
+      "division" -> division
     )
