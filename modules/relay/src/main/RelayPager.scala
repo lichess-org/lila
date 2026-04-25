@@ -1,5 +1,7 @@
 package lila.relay
 
+import java.util.regex.Pattern
+
 import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.db.dsl.{ *, given }
@@ -129,25 +131,29 @@ final class RelayPager(
 
     val day = 1000L * 3600 * 24
 
-    val (textSearch, nameFilter) = query match
-      case RelayPager.yearRegex(pre, year, post) =>
-        val remaining = s"$pre $post".trim
-        (if remaining.isEmpty then query else remaining, $doc("name".$regex(s"\\b$year\\b")))
-      case q => (q, $empty)
+    def partialNameSelector(query: String): Bdoc =
+      query.trim
+        .split("\\s+")
+        .toList
+        .filter(_.nonEmpty)
+        .map: term =>
+          $doc("name".$regex(Pattern.quote(term), "i"))
+        .match
+          case Nil => $empty
+          case head :: Nil => head
+          case filters => $and(filters*)
 
-    // We add quotes to the query to perform an exact match even when the query contains whitespaces
-    val textSelector = $text(s"\"$textSearch\"") ++ nameFilter ++ selectors.officialPublic
+    val selector = partialNameSelector(query) ++ selectors.officialPublic
 
     forSelector(
-      selector = textSelector,
+      selector = selector,
       page = page,
       onlyKeepGroupFirst = false,
       addFields = $doc(
         "searchDate" -> $doc(
           "$add" -> $arr(
             $doc("$ifNull" -> $arr("$syncedAt", "$createdAt")),
-            $doc("$multiply" -> $arr($doc("$add" -> $arr("$tier", -RelayTour.Tier.normal.v)), 60 * day)),
-            $doc("$multiply" -> $arr($doc("$meta" -> "textScore"), 30 * day))
+            $doc("$multiply" -> $arr($doc("$add" -> $arr("$tier", -RelayTour.Tier.normal.v)), 60 * day))
           )
         )
       ).some,
@@ -203,6 +209,3 @@ final class RelayPager(
     round = rounds.headOption
     group = RelayTourRepo.group.readFrom(doc)
   yield round.fold(tour)(WithLastRound(tour, _, group))
-
-private object RelayPager:
-  val yearRegex = """(.*)\b(20\d{2})\b(.*)""".r
