@@ -66,3 +66,7 @@ package analysis:
   final class MyEnginesAsJson(val get: Option[Me] => Fu[play.api.libs.json.JsObject])
 
 type BookmarkExists = (game.Game, Option[userId.UserId]) => Fu[Boolean]
+
+package practice:
+  import lila.core.id.{ StudyId, StudyChapterId }
+  case class OnComplete(userId: UserId, studyId: StudyId, chapterId: StudyChapterId)

@@ -63,7 +63,7 @@ final class PracticeApi(
     def get = cache.getUnit
     def clear() = cache.invalidateUnit()
 
-    val getStudies: lila.core.practice.GetStudies = () => get.map(_.study)
+    val getStudies: lila.ui.practice.GetStudies = () => get.map(_.study)
 
   object progress:
 
@@ -83,7 +83,7 @@ final class PracticeApi(
       _ <- save(prog.withNbMoves(chapterId, score))
       studyId <- studyApi.studyIdOf(chapterId)
     yield studyId.so: studyId =>
-      Bus.pub(lila.core.practice.OnComplete(user.id, studyId, chapterId))
+      Bus.pub(lila.core.misc.practice.OnComplete(user.id, studyId, chapterId))
 
     def reset(user: User) =
       coll.delete.one($id(user.id)).void
