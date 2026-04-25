@@ -851,6 +851,7 @@ POST  /account/reopen/send             controllers.Account.reopenApply
 GET   /account/reopen/sent             controllers.Account.reopenSent
 GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token)
 GET   /account/personal-data           controllers.Account.data
+GET   /account/permissions             controllers.Account.permissionsRedirect
 
 # App BC
 GET   /account/security                controllers.Account.security

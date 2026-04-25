@@ -418,3 +418,7 @@ final class Account(
             Ok.chunked(source.map(_ + "\n")).asAttachmentStream(s"lichess_${user.username}.txt")
         else Ok.page(pages.data(user))
   }
+
+  def permissionsRedirect = Auth { _ ?=> me ?=>
+    Redirect(routes.Mod.permissions(me.username))
+  }
