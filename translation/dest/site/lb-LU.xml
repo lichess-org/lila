@@ -253,9 +253,6 @@
   <string name="emailCanTakeSomeTime">Et kann e bëssen daueren, bis se ukënnt.</string>
   <string name="refreshInboxAfterFiveMinutes">Waart 5 Minutten an aktualiséier däin E-Mail-Postfach.</string>
   <string name="checkSpamFolder">Iwwerpréif och däi Spam-Ordner, falls se do ukënnt. Markéier se an deem Fall als Net-Spam.</string>
-  <string name="emailForSignupHelp">Falls et nach ëmmer net geet, schéckt eis dës E-Mail:</string>
-  <string name="copyTextToEmail">Kopéiert an colléiert dësen Text an schéckt en un %s</string>
-  <string name="waitForSignupHelp">Mir wäerten iech sou schnell wéi méiglech äntferen an är Umellung komplétéieren.</string>
   <string name="accountConfirmed">The Benotzer %s gouf mat Succès confirméiert.</string>
   <string name="accountCanLogin">Dir kënnt iech elo aloggen als %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Du brauchs keng Confirmatiouns-E-Mail.</string>
