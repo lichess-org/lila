@@ -253,9 +253,6 @@
   <string name="emailCanTakeSomeTime">Có thể sẽ mất một lúc để nhận được.</string>
   <string name="refreshInboxAfterFiveMinutes">Đợi 5 phút sau đó làm mới hộp thư đến trong email.</string>
   <string name="checkSpamFolder">Ngoài ra hãy kiểm tra hộp thư rác, nó có thể ở trong đó. Nếu có, hãy đánh dấu nó không phải là rác.</string>
-  <string name="emailForSignupHelp">Nếu vẫn không nhận được, hãy gửi cho chúng tôi email này:</string>
-  <string name="copyTextToEmail">Sao chép và dán đoạn văn bản phía trên và gửi nó tới %s</string>
-  <string name="waitForSignupHelp">Chúng tôi sẽ sớm liên lạc lại với bạn để giúp bạn hoàn tất việc đăng ký.</string>
   <string name="accountConfirmed">Đã xác nhận người dùng %s thành công.</string>
   <string name="accountCanLogin">Bạn đã có thể đăng nhập ngay bây giờ tại %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Bạn không cần xác nhận email.</string>
