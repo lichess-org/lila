@@ -256,9 +256,6 @@
   <string name="emailCanTakeSomeTime">તેને પહોંચવામાં થોડો સમય લાગી શકે છે.</string>
   <string name="refreshInboxAfterFiveMinutes">5 મિનિટ રાહ જુઓ અને તમારા ઇમેઇલ ઇનબોક્સને તાજું કરો.</string>
   <string name="checkSpamFolder">તમારું સ્પામ ફોલ્ડર પણ તપાસો, તે ત્યાં જ સમાપ્ત થઈ શકે છે. જો એમ હોય, તો તેને સ્પામ નથી તરીકે ચિહ્નિત કરો.</string>
-  <string name="emailForSignupHelp">જો બીજું બધું નિષ્ફળ જાય, તો અમને આ ઇમેઇલ મોકલો:</string>
-  <string name="copyTextToEmail">ઉપરોક્ત ટેક્સ્ટ કોપી અને પેસ્ટ કરો અને તેને %s પર મોકલો</string>
-  <string name="waitForSignupHelp">તમારું સાઇનઅપ પૂર્ણ કરવામાં તમારી મદદ કરવા અમે ટૂંક સમયમાં તમારી પાસે પાછા આવીશું.</string>
   <string name="accountConfirmed">વપરાશકર્તા %s સફળતાપૂર્વક પુષ્ટિ થયેલ છે.</string>
   <string name="accountCanLogin">તમે હમણાં %s તરીકે લૉગિન કરી શકો છો.</string>
   <string name="accountConfirmationEmailNotNeeded">તમારે પુષ્ટિકરણ ઇમેઇલની જરૂર નથી.</string>
