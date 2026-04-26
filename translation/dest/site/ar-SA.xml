@@ -313,9 +313,6 @@
   <string name="emailCanTakeSomeTime">قد تستغرق وقت للوصول.</string>
   <string name="refreshInboxAfterFiveMinutes">انتظر 5 دقائق وحدث بريدك الوارد.</string>
   <string name="checkSpamFolder">تحقق ايضا من بريدك المهمل ربما وصل لهناك، اذا وجدت الرسالة هناك علمها ك\"غير مهمل\".</string>
-  <string name="emailForSignupHelp">اذا فشلت كل المحاولات ارسل لنا ايميل:</string>
-  <string name="copyTextToEmail">انسح النص اعلاه و ارسله للبريد التالي%s</string>
-  <string name="waitForSignupHelp">سنعود اليك قريباً لمساعدتك على اكمال التسجيل.</string>
   <string name="accountConfirmed">المستخدم %s تم تأكيده بنجاح.</string>
   <string name="accountCanLogin">يمكنك الان الدخول باسم %s.</string>
   <string name="accountConfirmationEmailNotNeeded">لا حاجة لتأكيد ايميلك.</string>
