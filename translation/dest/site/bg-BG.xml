@@ -260,9 +260,6 @@
   <string name="emailCanTakeSomeTime">Пристигането му може да отнеме известно време.</string>
   <string name="refreshInboxAfterFiveMinutes">Изчакайте 5 минути и презаредете вашата поща.</string>
   <string name="checkSpamFolder">Проверете и папката спам, може да попадне там. Ако е така, моля отбележете го като \"не спам\".</string>
-  <string name="emailForSignupHelp">Ако всичко останало се провали, изпратете ни този имейл:</string>
-  <string name="copyTextToEmail">Копирайте и поставете горния текст и го изпратете на %s</string>
-  <string name="waitForSignupHelp">Скоро ще се свържем с вас, за да ви помогнем да завършите регистрацията си.</string>
   <string name="accountConfirmed">Потребителят %s е успешно потвърден.</string>
   <string name="accountCanLogin">Сега можете да влезете в системата като %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Не е необходимо да получавате имейл за потвърждение.</string>
