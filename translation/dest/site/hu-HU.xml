@@ -268,9 +268,6 @@
   <string name="emailCanTakeSomeTime">Eltarthat egy ideig, amíg megérkezik.</string>
   <string name="refreshInboxAfterFiveMinutes">Várj 5 percet, és frissítsd az emailjeidet.</string>
   <string name="checkSpamFolder">Ellenőrizd a spam mappát is, talán oda kerül, ez esetben jelöld, hogy nem spam.</string>
-  <string name="emailForSignupHelp">Ha mindezek ellenére nem sikerül, küldd nekünk ezt az emailt:</string>
-  <string name="copyTextToEmail">Másold ki és illeszd be a fenti szöveget, és küldd el a %s címre</string>
-  <string name="waitForSignupHelp">Rövid időn belül felvesszük veled a kapcsolatot a regisztrációd befejezéséhez.</string>
   <string name="accountConfirmed">%s felhasználó sikeresen megerősítve.</string>
   <string name="accountCanLogin">A %s felhasználói fiókkal most már bejelentkezhetsz.</string>
   <string name="accountConfirmationEmailNotNeeded">Nincs szükség megerősítő emailre.</string>
