@@ -253,9 +253,6 @@
   <string name="emailCanTakeSomeTime">පැමිණීමට යම් කාලයක් ගත විය හැකිය.</string>
   <string name="refreshInboxAfterFiveMinutes">මිනිත්තු 5ක් රැඳී සිට ඔබගේ විද්‍යුත් තැපැල් පෙට්ටිය නැවුම් කරන්න.</string>
   <string name="checkSpamFolder">එසේම, ඔබේ අයාචිත තැපැල් ෆෝල්ඩරය පරීක්ෂා කරන්න, එය එහි අවසන් විය හැක. එසේ නම්, එය ස්පෑම් නොවන ලෙස සලකුණු කරන්න.</string>
-  <string name="emailForSignupHelp">අනෙක් සියල්ල අසාර්ථක නම්, අපට මෙම විද්‍යුත් තැපෑල එවන්න:</string>
-  <string name="copyTextToEmail">ඉහත අකුරු පිටපත් කර අලවා %s වෙත යවන්න</string>
-  <string name="waitForSignupHelp">ඔබගේ ලියාපදිංචිය සම්පූර්ණ කිරීමට ඔබට උදවු කිරීමට අපි ඉක්මනින්ම ඔබ වෙත එන්නෙමු.</string>
   <string name="accountConfirmed">පරිශීලක %s සාර්ථකව තහවුරු කර ඇත.</string>
   <string name="accountCanLogin">ඔබට දැන් %s ලෙස පුරනය විය නොහැක.</string>
   <string name="accountConfirmationEmailNotNeeded">ඔබට තහවුරු කිරීමේ විද්‍යුත් තැපෑලක් අවශ්‍ය නොවේ.</string>
