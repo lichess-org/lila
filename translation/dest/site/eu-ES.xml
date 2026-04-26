@@ -268,9 +268,6 @@
   <string name="emailCanTakeSomeTime">Itxaron pixkatean emaila jaso arte.</string>
   <string name="refreshInboxAfterFiveMinutes">Itxaron 5 minutu eta freskatu zure emailaren sarrera-ontzia.</string>
   <string name="checkSpamFolder">Zabor mezuen karpetan begiratu, batzuetan horra joaten dira-eta emailak. Horrela bada, esan zaborra ez dela.</string>
-  <string name="emailForSignupHelp">Beste guztiak huts egin badu, bidali guri email hau:</string>
-  <string name="copyTextToEmail">Kopiatu eta itsatsi goiko mezua eta bidali %s helbidera</string>
-  <string name="waitForSignupHelp">Laster jarriko gara zurekin harremanetan zure izen-ematea osatzeko.</string>
   <string name="accountConfirmed">%s erabiltzailea ondo baieztatu da.</string>
   <string name="accountCanLogin">Orain %s izena erabiliz sartu zaitezke.</string>
   <string name="accountConfirmationEmailNotNeeded">Ez duzu baieztapen emaila behar.</string>
