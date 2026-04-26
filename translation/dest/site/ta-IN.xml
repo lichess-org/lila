@@ -248,9 +248,6 @@
   <string name="emailCanTakeSomeTime">அது வந்து சேர்வதற்குச் சிறிது நேரம் எடுக்கலாம்.</string>
   <string name="refreshInboxAfterFiveMinutes">5 மணித்துளிகள் காத்திருந்து மடல் மின்னஞ்சலைப் புதுப்பிக்கவும்.</string>
   <string name="checkSpamFolder">உங்களின் எரிதக் கோப்புறையைப் பார்க்கவும், உங்களின் மின்னஞ்சல் அங்கிருந்தால் அதை எரிதம் இல்லை என்று அடையாளப்படுத்தவும்.</string>
-  <string name="emailForSignupHelp">ஒன்றும் சரிவரவில்லை எனின், எங்களுக்கு இந்த மின்னஞ்சலை அனுப்புங்கள்:</string>
-  <string name="copyTextToEmail">மேலுள்ளவற்றை நகலெடுத்து ஒட்டி %s இற்கு அனுப்புங்கள்</string>
-  <string name="waitForSignupHelp">உங்கள் பதிவுசெய்தலை முடிக்க உங்களுக்கு உதவ நாங்கள் விரைவில் உங்களிடம் வருவோம்.</string>
   <string name="accountConfirmed">பயனீட்டாளர்%s வெற்றிகரமாக உறுதிப்படுத்தப்பட்டுள்ளது.</string>
   <string name="accountCanLogin">நீங்கள் இப்போது %s ஆக உள்நுழையலாம்.</string>
   <string name="accountConfirmationEmailNotNeeded">உங்களுக்கு உறுதிப்படுத்தல் மின்னஞ்சல் தேவையில்லை.</string>
