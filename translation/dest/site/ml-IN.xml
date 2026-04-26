@@ -244,9 +244,6 @@
   <string name="emailCanTakeSomeTime">അത് എത്താൻ കുറച്ചു നേരം എടുക്കാം.</string>
   <string name="refreshInboxAfterFiveMinutes">൫ മിനിറ്റ് കാത്തിരുന്ന ശേഷം വീണ്ടും ഇ-തപാൽപെട്ടി ലോഡ് ചെയുക.</string>
   <string name="checkSpamFolder">താങ്ങളുടെ പാഴ്മെയിൽ അറ (spam folder) കൂടി നോക്കുക, ചില്ലപ്പം ഇമെയിൽ അവിടേവരേ എത്താം.</string>
-  <string name="emailForSignupHelp">മറ്റേതൊന്നും നടന്നില്ലെങ്കിൽ, ഞങ്ങളേ ഈ ഇമെയിൽ അയക്കുക:</string>
-  <string name="copyTextToEmail">മേൽപറഞ്ഞ രേഖ പകർത്തി %s -ന് അയക്കുക</string>
-  <string name="waitForSignupHelp">താങ്ങളുടെ അക്കൗണ്ടു് തുടർച്ച തീർക്കാൻ ഞങ്ങൾ കുറച്ചു നേരം കഴിഞ്ഞു് തിരിച്ചു വരാം.</string>
   <string name="accountConfirmed">%s എന്ന ഉപയോക്താവ് സ്ഥിരീകരിക്കപെട്ടിരിക്കുന്നു.</string>
   <string name="accountCanLogin">താങ്ങൾക്ക് %s-ആയി പ്രവേശിക്കാം.</string>
   <string name="accountConfirmationEmailNotNeeded">താങ്ങൾക്ക് ഉറപ്പിക്കല്മെയിൽ ആവശ്യമില്ല.</string>
