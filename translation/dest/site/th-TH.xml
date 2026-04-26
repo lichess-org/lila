@@ -253,9 +253,6 @@
   <string name="emailCanTakeSomeTime">อาจจะเป็นเวลาสักพักก่อนที่จะได้รับ</string>
   <string name="refreshInboxAfterFiveMinutes">รอ 5 นาทีและรีเฟรชกล่องจดหมายของคุณ</string>
   <string name="checkSpamFolder">ตรวจสอบโฟลเดอร์สแปมของคุณด้วย มันอาจจะไปอยู่ที่นั่น หากเป็นเช่นนั้น ให้ทำเครื่องหมายว่าไม่ใช่สแปม</string>
-  <string name="emailForSignupHelp">ถ้ายังไม่สามารถสมัครได้ ส่งอีเมลมาหาเราที่นี่:</string>
-  <string name="copyTextToEmail">คัดลอกและวางข้อความข้างบน แล้วส่งไปที่ %s</string>
-  <string name="waitForSignupHelp">เราจะติดต่อคุณอย่างรวดเร็วเพื่อช่วยคุณสมัครบัญชีให้สำเร็จ</string>
   <string name="accountConfirmed">ผู้ใช้ %s ถูกยืนยันโดยสมบูรณ์</string>
   <string name="accountCanLogin">คุณสามารถเข้าใช้งานได้แล้ว ด้วยชื่อ %s</string>
   <string name="accountConfirmationEmailNotNeeded">คุณไม่จำเป็นต้องมีอีเมลยืนยัน</string>
