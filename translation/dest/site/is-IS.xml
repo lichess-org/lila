@@ -253,9 +253,6 @@
   <string name="emailCanTakeSomeTime">Það gæti tekið smá tíma að skila sér.</string>
   <string name="refreshInboxAfterFiveMinutes">Hinkraðu í 5 mínútur og athuga svo innhólfið þitt.</string>
   <string name="checkSpamFolder">Athugaðu einnig ruslmöppuna þína, pósturinn gæti hafa ratað þangað. Ef svo er, merktu hann öruggan.</string>
-  <string name="emailForSignupHelp">Ef allt annað bregst skaltu þá senda okkur þennan tölvupóst:</string>
-  <string name="copyTextToEmail">Afritaðu og límdu ofangreindan texta og sendu hann til %s</string>
-  <string name="waitForSignupHelp">Við munum hafa samband við þig innan skamms til þess að hjálpa þér að ljúka við skráninguna þína.</string>
   <string name="accountConfirmed">Notandinn %s hefur verið staðfestur.</string>
   <string name="accountCanLogin">Þú getur skráð þig inn núna sem %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Þú þarft ekki staðfestingar póst.</string>
