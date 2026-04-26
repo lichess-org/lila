@@ -274,8 +274,6 @@
   <string name="emailCanTakeSomeTime">Marteze ne vo ket resevet diouzhtu-dak.</string>
   <string name="refreshInboxAfterFiveMinutes">Gortozit pemp munutenn ha freskait ho pajenn goude-se.</string>
   <string name="checkSpamFolder">Taolit ur sell en ho strobelloù e ken kas. Ma c\'hoarvez seul taol ganeoc\'h e vo dav resisaat n\'eo ket ur strobell.</string>
-  <string name="emailForSignupHelp">Kasit deomp ar postel-mañ ma n\'oc\'h ket deuet a-benn:</string>
-  <string name="copyTextToEmail">Eilit ha pegit an destennig ha kasit anezhi da %s</string>
   <string name="accountConfirmed">Kadarnaet eo bet krouidigezh ar c\'hoarier %s.</string>
   <string name="accountCanLogin">Gallout a rit kevreañ dindan an anv %s.</string>
   <string name="accountConfirmationEmailNotNeeded">N\'ho peus ket ezhomm deus ur postel-kadarnaat.</string>
