@@ -298,6 +298,7 @@
   <string name="emailCanTakeSomeTime">Получение письма может занять некоторое время.</string>
   <string name="refreshInboxAfterFiveMinutes">Подождите 5 минут и обновите ваш почтовый ящик.</string>
   <string name="checkSpamFolder">Также проверьте папку со спамом, письмо может оказаться там. Если это так, пометьте его как не спам.</string>
+  <string name="sendEmailForAccountVerification">Если вы не можете найти подтверждение в электронной почте, отправьте письмо на адрес %s и мы подтвердим вашу учётную запись для вас.</string>
   <string name="accountConfirmed">Пользователь %s успешно подтверждён.</string>
   <string name="accountCanLogin">Вы можете войти прямо сейчас как %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не требуется подтверждение по электронной почте.</string>
