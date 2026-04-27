@@ -280,7 +280,7 @@ final class User(
     )
 
   def topNbApi(nb: Int, perfKey: PerfKey, page: Int) = Anon:
-    if nb == 1 && perfKey == PerfKey.standard then
+    if nb == 1 && perfKey == PerfKey.standard && page == 1 then
       env.user.cached.top10.get {}.map { leaderboards =>
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
