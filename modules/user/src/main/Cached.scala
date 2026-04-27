@@ -42,16 +42,15 @@ final class Cached(
         rankingApi.topPerf.pager(perfPage.perf, perfPage.page).map(_.currentPageResults)
 
   def topPerfPager(perf: PerfKey, page: Int): Fu[Paginator[LightPerf]] =
-    for users <-
-        if page >= 1 && page <= maxPageNumber
-        then topPerfPages.get(PerfPageKey(perf, page))
-        else fuccess(Seq.empty)
-    yield Paginator.fromResults(
-      users,
-      nbResults = 500_000,
-      currentPage = page,
-      rankingApi.topPerf.maxPerPage
-    )
+    if page < 1 || page > maxPageNumber then fufail(s"page must be between 1 and {maxPageNumber}")
+    else
+      for users <- topPerfPages.get(PerfPageKey(perf, page))
+      yield Paginator.fromResults(
+        users,
+        nbResults = 500_000,
+        currentPage = page,
+        rankingApi.topPerf.maxPerPage
+      )
 
   val top10NbGame = mongoCache.unit[List[LightCount]](
     "user:top:nbGame",
