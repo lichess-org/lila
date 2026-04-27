@@ -23,32 +23,35 @@ final class Cached(
 
   import BSONHandlers.given
 
+  private case class PerfPageKey(perf: PerfKey, page: Int)
+
   val top10 = cacheApi.unit[UserPerfs.Leaderboards]:
     _.refreshAfterWrite(2.minutes).buildAsyncTimeout(2.minutes): _ =>
       rankingApi.fetchLeaderboard(10).monSuccess(_.user.leaderboardCompute)
 
-  private val topPerfFirstPage = mongoCache[PerfKey, Seq[LightPerf]](
-    PerfType.leaderboardable.size,
-    "user:top:perf:firstPage",
+  val maxPageNumber = 20
+
+  private val topPerfPages = mongoCache[PerfPageKey, Seq[LightPerf]](
+    PerfType.leaderboardable.size * maxPageNumber,
+    "user:top:perf:page",
     10.minutes,
-    _.value
+    key => s"${key.perf.value}:${key.page}"
   ): loader =>
     _.refreshAfterWrite(10.minutes).buildAsyncFuture:
-      loader: perf =>
-        rankingApi.topPerf.pager(perf, 1).map(_.currentPageResults)
-
-  export topPerfFirstPage.get as firstPageOf
+      loader: perfPage =>
+        rankingApi.topPerf.pager(perfPage.perf, perfPage.page).map(_.currentPageResults)
 
   def topPerfPager(perf: PerfKey, page: Int): Fu[Paginator[LightPerf]] =
-    if page == 1 then
-      for users <- firstPageOf(perf)
-      yield Paginator.fromResults(
-        users,
-        nbResults = 500_000,
-        currentPage = page,
-        rankingApi.topPerf.maxPerPage
-      )
-    else rankingApi.topPerf.pager(perf, page)
+    for users <-
+        if page >= 1 && page <= maxPageNumber
+        then topPerfPages.get(PerfPageKey(perf, page))
+        else fuccess(Seq.empty)
+    yield Paginator.fromResults(
+      users,
+      nbResults = 500_000,
+      currentPage = page,
+      rankingApi.topPerf.maxPerPage
+    )
 
   val top10NbGame = mongoCache.unit[List[LightCount]](
     "user:top:nbGame",
