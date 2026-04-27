@@ -93,4 +93,5 @@
   <string name="paymentDetails">تفاصيل الدفع</string>
   <string name="updatePaymentMethod">تحديث طريقة الدفع</string>
   <string name="stripeManageSub">إدارة الاشتراك وتنزيل الفواتير والإيصالات الخاصة بك</string>
+  <string name="coverFees">سوف أضيف %s للمساعدة في تغطية تكلفة معالجة هذه المعاملة</string>
 </resources>
