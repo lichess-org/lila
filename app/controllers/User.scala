@@ -279,9 +279,6 @@ final class User(
         )
     )
 
-  // todo review staged changes, test both ui and api endpoints, update api docs with page param,
-  // consider caching for all 20 pages?
-
   def topNbApi(nb: Int, perfKey: PerfKey, page: Int) = Anon:
     if nb == 1 && perfKey == PerfKey.standard then
       env.user.cached.top10.get {}.map { leaderboards =>
@@ -296,7 +293,7 @@ final class User(
       page: Int,
       f: Paginator[LightPerf] => Fu[Result]
   ): Fu[Result] =
-    Reasonable(page, Max(20)):
+    Reasonable(page, Max(env.user.cached.maxPageNumber)):
       env.user.cached
         .topPerfPager(perfKey, page)
         .flatMap(f)
