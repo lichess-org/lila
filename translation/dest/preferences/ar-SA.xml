@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">وضع التأمل</string>
   <string name="showPlayerRatings">إظهار تقييمات اللاعب</string>
   <string name="showFlairs">إظهار ميول اللاعب</string>
-  <string name="explainShowPlayerRatings">هذا يخفي جميع التقييمات من الموقع، للمساعدة في التركيز على مباراة الشطرنج. لا يزال من الممكن لعب مباريات مقيمة، هذا فقط يحدد ما تراه.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">هذا يخفي جميع التقييمات من الموقع، للمساعدة في التركيز على مباراة الشطرنج. لا يزال من الممكن لعب مباريات مقيمة، هذا فقط يحدد ما تراه.</string>
   <string name="displayBoardResizeHandle">أظهر زر تعديل حجم الرقعة</string>
   <string name="onlyOnInitialPosition">خلال الوضع المبدئي فقط</string>
   <string name="inGameOnly">في اللعبة فقط</string>
@@ -62,11 +62,13 @@
   <string name="notifyGameEvent">تحديثات مباراة المراسلة</string>
   <string name="notifyChallenge">تحديات</string>
   <string name="notifyTournamentSoon">البطولة ستبدأ قريباً</string>
+  <string name="notifyBroadcasts">البرامج التي اشتركت فيها</string>
   <string name="notifyTimeAlarm">ساعة المراسلة تنفد</string>
-  <string name="notifyBell">إشعار الجرس داخل Lichess</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">إشعار الجرس داخل Lichess</string>
   <string name="notifyPush">إشعار الجهاز عندما لا تكون على Lichess</string>
   <string name="notifyWeb">المتصفح</string>
   <string name="notifyDevice">الجهاز</string>
   <string name="bellNotificationSound">صوت التنبيه</string>
   <string name="blindfold" comment="As in Blindfold chess">معصوب العينين</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">إظهار على اليسار على أجهزة الجوال</string>
 </resources>
