@@ -283,6 +283,7 @@
   <string name="emailCanTakeSomeTime">Poate dura ceva timp să ajungă.</string>
   <string name="refreshInboxAfterFiveMinutes">Așteptați 5 minute și reîncărcați emailurile primite.</string>
   <string name="checkSpamFolder">De asemenea, verificați folderul de spam, ar putea ajunge acolo. În acel caz, marcați-l ca nefiind spam.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Dacă nu găsești e-mailul de confirmare, trimite un e-mail la %s și îți vom confirma contul.</string>
   <string name="accountConfirmed">Utilizatorul %s a fost confirmat cu succes.</string>
   <string name="accountCanLogin">Vă puteți autentifica chiar acum ca %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nu aveți nevoie de un email de confirmare.</string>
