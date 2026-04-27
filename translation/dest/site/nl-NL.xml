@@ -268,6 +268,7 @@
   <string name="emailCanTakeSomeTime">Het kan even duren voordat de mail binnenkomt.</string>
   <string name="refreshInboxAfterFiveMinutes">Wacht 5 minuten en vernieuw uw e-mail inbox.</string>
   <string name="checkSpamFolder">Controleer ook uw spammap, het kan daar terechtkomen. Als dat zo is, markeer het als geen spam.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Als u uw bevestigingsmail niet kunt vinden, stuur dan een e-mail naar %s en we zullen uw account voor u bevestigen.</string>
   <string name="accountConfirmed">Gebruiker %s is succesvol bevestigd.</string>
   <string name="accountCanLogin">Je kunt nu inloggen als %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Je hebt geen bevestigingsmail nodig.</string>
