@@ -262,30 +262,44 @@ final class User(
       JsonOk(leaderboards)
     }
 
-  // redirect /player/top/200/:perfKey to /user/top/:perfKey
+  // redirect /player/top/:nb/:perfKey to /user/top/:perfKey
   // TODO move to a NotFound general handler?
   // to avoid adding (yet another) route
   def topBcRedirect(@annotation.unused nb: Int, perfKey: PerfKey) = Anon:
     Redirect(routes.User.top(perfKey))
 
   def top(perfKey: PerfKey, page: Int) = Open:
-    Reasonable(page, Max(20)):
-      env.user.cached
-        .topPerfPager(perfKey, page)
-        .flatMap: pager =>
-          negotiate(
-            Ok.page(views.user.list.top(perfKey, pager)),
-            topNbJson(pager.currentPageResults)
-          )
+    topHelper(
+      perfKey,
+      page,
+      pager =>
+        negotiate(
+          Ok.page(views.user.list.top(perfKey, pager)),
+          topNbJson(pager.currentPageResults)
+        )
+    )
 
-  def topNbApi(nb: Int, perfKey: PerfKey) = Anon:
+  // todo review staged changes, test both ui and api endpoints, update api docs with page param,
+  // consider caching for all 20 pages?
+
+  def topNbApi(nb: Int, perfKey: PerfKey, page: Int) = Anon:
     if nb == 1 && perfKey == PerfKey.standard then
       env.user.cached.top10.get {}.map { leaderboards =>
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
         JsonOk(leaderboards)
       }
-    else env.user.cached.firstPageOf(perfKey).dmap(_.take(nb)).map(topNbJson)
+    else topHelper(perfKey, page, pager => fuccess(topNbJson(pager.currentPageResults.take(nb))))
+
+  private def topHelper(
+      perfKey: PerfKey,
+      page: Int,
+      f: Paginator[LightPerf] => Fu[Result]
+  ): Fu[Result] =
+    Reasonable(page, Max(20)):
+      env.user.cached
+        .topPerfPager(perfKey, page)
+        .flatMap(f)
 
   private def topNbJson(users: Seq[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
