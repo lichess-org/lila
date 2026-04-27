@@ -268,6 +268,7 @@
   <string name="emailCanTakeSomeTime">Pot trigar una estona a arribar.</string>
   <string name="refreshInboxAfterFiveMinutes">Espera 5 minuts i refresca la bústia d\'entrada del teu correu.</string>
   <string name="checkSpamFolder">Comprova també la carpeta de correu brossa, pot acabar allà. Si hi és, marca\'l com no brossa.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Si no pots trobar el teu correu electrònic de confirmació, envia\'ns un correu a %s i confirmarem el compte per tu.</string>
   <string name="accountConfirmed">L\'usuari %s està confirmat correctament.</string>
   <string name="accountCanLogin">Pots entrar ara com a %s.</string>
   <string name="accountConfirmationEmailNotNeeded">No necestites un correu de confirmació.</string>
