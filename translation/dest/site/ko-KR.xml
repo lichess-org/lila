@@ -253,6 +253,7 @@
   <string name="emailCanTakeSomeTime">이메일이 도착하는데 시간이 좀 걸릴 수 있습니다.</string>
   <string name="refreshInboxAfterFiveMinutes">5분 가량 기다린 후 이메일 수신함을 새로고침 해주세요.</string>
   <string name="checkSpamFolder">또한 스팸 메일함에 들어가 있을 수 있습니다. 만약 그런 경우, 스팸이 아님으로 표시해 두세요.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">확인 이메일을 찾을 수 없는 경우 %s에 이메일을 보내주시면 계정을 확인해 드리겠습니다.</string>
   <string name="accountConfirmed">유저 %s(이)가 성공적으로 확인되었습니다.</string>
   <string name="accountCanLogin">이제 %s(으)로 로그인할 수 있습니다.</string>
   <string name="accountConfirmationEmailNotNeeded">이메일 확인은 필요하지 않습니다.</string>
