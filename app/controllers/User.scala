@@ -279,14 +279,16 @@ final class User(
         )
     )
 
-  def topNbApi(nb: Int, perfKey: PerfKey, page: Int) = Anon:
-    if nb == 1 && perfKey == PerfKey.standard && page == 1 then
+  def topNbApi(nb: Int, perfKey: PerfKey, offset: Int) = Anon:
+    if nb == 1 && perfKey == PerfKey.standard && offset == 0 then
       env.user.cached.top10.get {}.map { leaderboards =>
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
         JsonOk(leaderboards)
       }
-    else topHelper(perfKey, page, pager => fuccess(topNbJson(pager.currentPageResults.take(nb))))
+    else if offset < 0 then BadRequest("offset must be non-negative")
+    else if offset % 100 != 0 then BadRequest("offset must be divisible by 100")
+    else topHelper(perfKey, offset / 100 + 1, pager => fuccess(topNbJson(pager.currentPageResults.take(nb))))
 
   private def topHelper(
       perfKey: PerfKey,
