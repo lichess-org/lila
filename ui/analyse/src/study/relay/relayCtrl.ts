@@ -128,6 +128,12 @@ export default class RelayCtrl {
       this.tourShow(false);
     }
     this.liveboardPlugin?.setChapterId(id);
+    if (
+      this.study.vm.toolTab() === 'serverEval' &&
+      !this.study.members.canContribute() &&
+      !this.study.data.chapter.serverEval
+    )
+      this.study.vm.toolTab('multiBoard');
     this.redraw();
   };
 

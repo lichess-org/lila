@@ -133,8 +133,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def removeTitle(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.removeTitle)
 
-  def setEmail(user: UserId, from: Option[EmailAddress], to: EmailAddress)(using Me) = add:
-    Modlog(user.some, Modlog.setEmail, s"${from | "none"} -> $to".some)
+  def setEmail(user: UserId, from: Option[EmailAddress], to: EmailAddress)(using Me) =
+    from
+      .forall(_ != to)
+      .so:
+        add(Modlog(user.some, Modlog.setEmail, s"${from | "none"} -> $to".some))
 
   def setPassword(using me: Me) = add:
     Modlog(me.some, Modlog.setPassword)
