@@ -253,9 +253,6 @@
   <string name="emailCanTakeSomeTime">Pue tardar un pocu en llegar.</string>
   <string name="refreshInboxAfterFiveMinutes">Espera 5 minutos y actualiza la to bandexa d\'entrada.</string>
   <string name="checkSpamFolder">Comprueba la to carpeta de spam, pue que terminara ende. Si ye asina, por favor, márcalo como non spam.</string>
-  <string name="emailForSignupHelp">Si tolo demás falla, únvianos esti corréu:</string>
-  <string name="copyTextToEmail">Copiar y pegar el testu anterior y unvialo a %s</string>
-  <string name="waitForSignupHelp">Pondremos en contactu contigo dientro poco para ayudar a completar el rexistru.</string>
   <string name="accountConfirmed">L\'usuariu %s confirmóse correchamente.</string>
   <string name="accountCanLogin">Puedes iniciar sesión agora como %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nun necesites un email de confirmación.</string>

@@ -268,9 +268,7 @@
   <string name="emailCanTakeSomeTime">Puede que tome algo de tiempo en llegar.</string>
   <string name="refreshInboxAfterFiveMinutes">Espera 5 minutos y actualiza tu bandeja de entrada.</string>
   <string name="checkSpamFolder">También comprueba tu carpeta de spam, por si ha ido ahí. En ese caso, márcalo como no spam.</string>
-  <string name="emailForSignupHelp">Si nada de lo anterior funciona, envíanos este texto por correo:</string>
-  <string name="copyTextToEmail">Copia y pega el texto anterior y envíalo a %s</string>
-  <string name="waitForSignupHelp">Nos pondremos en contacto contigo dentro de poco para ayudarte a completar el registro.</string>
+  <string name="sendEmailForAccountVerification">Si no puedes encontrar tu correo electrónico de confirmación, escribe a %s y confirmaremos tu cuenta.</string>
   <string name="accountConfirmed">Se ha completado la verificación del usuario %s sin problemas.</string>
   <string name="accountCanLogin">Ya puedes iniciar sesión como %s.</string>
   <string name="accountConfirmationEmailNotNeeded">No necesitas un correo de confirmación.</string>

@@ -35,16 +35,29 @@ in
     pkgs-unstable.nodejs-slim
     pkgs.pnpm
     pkgs.svgo
-    pkgs-unstable.oxlint
-    pkgs-unstable.oxfmt
+    pkgs-master.oxlint
+    pkgs-master.oxfmt
+    pkgs-master.tsgolint
     pkgs.lint-staged
     pkgs.stylelint
     pkgs.dart-sass
   ];
 
-  # pnpm installs dynamically linked binaries there,
-  # and forcefully adds the directory to the $PATH.
-  enterShell = ''
-    rm -rf node_modules/.bin
-  '';
+  tasks = {
+    "lint:code" = {
+      exec = "oxlint --type-aware --tsconfig=ui/tsconfig.base.json";
+    };
+    "lint:style" = {
+      exec = ''stylelint "ui/**/*.scss"'';
+    };
+    "format:ui" = {
+      exec = "oxfmt";
+    };
+    "clean:bin" = {
+      # pnpm installs dynamically linked binaries there,
+      # and forcefully adds the directory to the $PATH.
+      exec = "rm -rf node_modules/.bin";
+      before = [ "devenv:enterShell" ];
+    };
+  };
 }

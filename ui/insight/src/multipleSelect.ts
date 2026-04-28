@@ -140,7 +140,7 @@ export const registerMultipleSelect = () => {
           optionalStyle = this.options.styler?.(value),
           style = optionalStyle ? `style="${optionalStyle}"` : '';
         disabled = groupDisabled || $elm.prop('disabled');
-        const $el = $(
+        return $(
           [
             `<li class="${multiple} ${classes}" ${style}>`,
             `<label class="${disabled ? 'disabled' : ''}">`,
@@ -152,7 +152,6 @@ export const registerMultipleSelect = () => {
             '</li>',
           ].join(''),
         );
-        return $el;
       }
       if ($elm.is('optgroup')) {
         const label = that.options.labelTemplate?.($elm),
@@ -176,7 +175,7 @@ export const registerMultipleSelect = () => {
         });
         return $group.html();
       }
-      return;
+      return undefined;
     }
 
     events() {

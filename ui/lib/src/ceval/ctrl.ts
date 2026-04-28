@@ -47,6 +47,7 @@ export default class CevalCtrl {
     this.init(opts);
     this.engines = new Engines(this);
 
+    // another tab has started ceval, we should stop:
     storage.make('ceval.disable').listen(() => {
       this.stop();
       this.worker?.destroy();

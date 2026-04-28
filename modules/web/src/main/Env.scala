@@ -39,6 +39,8 @@ final class Env(
 
   wire[PagerDuty]
 
+  val lichobileAnnounceApi = wire[LichobileAnnounceApi]
+
   AnnounceApi.setupPeriodicUpdate()
 
   object settings:

@@ -12,7 +12,6 @@
   <string name="origin">Allikas</string>
   <string name="specialMoves">Erilised käigud</string>
   <string name="didYouLikeThisPuzzle">Kas sulle meeldis see pusle?</string>
-  <string name="voteToLoadNextOne">Hääleta, nii saad edasi!</string>
   <string name="upVote">Hääleta poolt</string>
   <string name="downVote">Hääleta vastu</string>
   <string name="yourPuzzleRatingWillNotChange">Teie pusle reiting ei muutu. Pidage meeles, et pusled ei ole võistlus. Teie reiting aitab valida kõige sobilikumad pusled olenevalt teie oskustele.</string>

@@ -253,9 +253,7 @@
   <string name="emailCanTakeSomeTime">邮件可能需要一些时间才能送达。</string>
   <string name="refreshInboxAfterFiveMinutes">请等待 5 分钟并刷新您的收件箱。</string>
   <string name="checkSpamFolder">同时请检查您的垃圾邮件文件夹，邮件可能在那里。如果在，请将其标记为非垃圾邮件。</string>
-  <string name="emailForSignupHelp">如果以上方法均失败，请向我们发送此邮件：</string>
-  <string name="copyTextToEmail">复制上面的文本并将其发送至 %s</string>
-  <string name="waitForSignupHelp">我们将尽快回复您，帮助您完成注册。</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">若您无法找到确认邮件，那么请发送邮件至 %s，我们将协助您完成账户确认。</string>
   <string name="accountConfirmed">用户 %s 已成功确认。</string>
   <string name="accountCanLogin">您现在可以立即以 %s 的身份登录。</string>
   <string name="accountConfirmationEmailNotNeeded">您不需要确认邮件。</string>
@@ -714,9 +712,9 @@
     <item quantity="other">本周有 %1$s 名 %2$s 棋手。</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">您的 %1$s 等级分是 %2$s。</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">您超过了 %1$s%% 的 %2$s 棋手。</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s 超过了 %2$s%% 的 %3$s 棋手。</string>
-  <string name="betterThanPercentPlayers">超过了 %1$s%% 的 %2$s 棋手</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">您超过了 %1$s 的 %2$s 棋手。</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s 超过了 %2$s 的 %3$s 棋手。</string>
+  <string name="betterThanPercentPlayers">超过了 %1$s 的 %2$s 棋手</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您尚未确立 %s 等级分。</string>
   <string name="yourRating">您的等级分</string>
   <string name="cumulative">累积</string>

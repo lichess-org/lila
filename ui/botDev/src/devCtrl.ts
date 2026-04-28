@@ -49,7 +49,7 @@ export class DevCtrl implements GameObserver {
 
   async init(): Promise<void> {
     this.resetScript();
-    [this.traceDb] = await Promise.all([makeLog({ store: 'botmove' }, 1), this.getStoredRatings()]);
+    [this.traceDb] = [makeLog({ store: 'botmove' }, 1), this.getStoredRatings()];
     pubsub.on('theme', env.redraw);
   }
 

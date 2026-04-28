@@ -19,7 +19,7 @@ import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.gameSearch.GameSearchApi
-import smithy4s.Timestamp
+import smithy4s.time.Timestamp
 
 final class GameApiV2(
     pgnDump: PgnDump,

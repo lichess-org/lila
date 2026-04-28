@@ -208,7 +208,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
 
               el.addEventListener('keypress', (e: KeyboardEvent) => {
                 if (e.key !== 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile())
-                  return;
+                  return undefined;
                 else if (changePgnIfDifferent()) e.preventDefault();
               });
               if (isMobile()) el.addEventListener('focusout', changePgnIfDifferent);

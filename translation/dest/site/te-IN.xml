@@ -251,9 +251,6 @@
   <string name="emailCanTakeSomeTime">రావడానికి కొంచం సమయం పడుతుంది.</string>
   <string name="refreshInboxAfterFiveMinutes">ఐదు నిమిషాలు ఆగి మీ ఈమెయిల్ ఇంబాక్స్ని రిఫ్రెష్ చేయ్.</string>
   <string name="checkSpamFolder">మరియు, మీ స్పామ్ ఫోల్డర్ చూసుకోవండి, అక్కడికి కూడా వెళ్ళచ్చు. అలాగ జరిగితే, అది \"నాట్ స్పామ్\" గా మార్క్ చెయ్యండి.</string>
-  <string name="emailForSignupHelp">మిగిలినవన్నీ ఫెయిల్ అయితే, ఈ ఈమెయిల్ మాకి పంపించన్డి:</string>
-  <string name="copyTextToEmail">పైన టెక్స్ట్ని కాపీ పేస్టు చేసి %s కి పంపించండి </string>
-  <string name="waitForSignupHelp">మీ సైన్ అప్ పూర్తి చేయడంలో మీకు సహాయం చేయడానికి మేము త్వరలో మీ వద్దకు వస్తాము.</string>
   <string name="accountConfirmed">యూసర్ %s కన్ఫర్మ్ అయిపోయారు.</string>
   <string name="accountCanLogin">మీరు ఇప్పుడు %s గా లాగిన్ చేయచ్చు.</string>
   <string name="accountConfirmationEmailNotNeeded">మీకు ధృవీకరణ ఈమెయిల్ అవసరం లేదు.</string>

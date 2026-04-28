@@ -126,7 +126,8 @@ final class Dev(env: Env) extends LilaController(env):
     ),
     "Mobile" -> List(
       env.web.mobile.androidVersion,
-      env.web.mobile.iosVersion
+      env.web.mobile.iosVersion,
+      env.web.lichobileAnnounceApi.lichobileUpgrade
     ),
     "Config" -> List(
       env.plan.donationGoalSetting,

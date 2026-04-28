@@ -30,15 +30,12 @@ const mapView = (ctrl: LearnCtrl) =>
               const prevComplete = ctrl.isStageIdComplete(stage.id - 1);
               const status: Status = complete ? 'done' : prevComplete || stageProgress ? 'ongoing' : 'future';
               const title = stage.title;
-              return h(
-                `a.stage.${status}.${titleVerbosityClass(title)}`,
-                { attrs: { href: hashHref(stage.id) } },
-                [
-                  status !== 'future' ? ribbon(ctrl, stage, status, stageProgress) : undefined,
-                  h('img', { attrs: { src: stage.image } }),
-                  h('div.text', [h('h3', title), h('p.subtitle', stage.subtitle)]),
-                ],
-              );
+              return h(`a.stage.${status}`, { attrs: { href: hashHref(stage.id) } }, [
+                status !== 'future' ? ribbon(ctrl, stage, status, stageProgress) : undefined,
+                h('img', { attrs: { src: stage.image } }),
+                h('div.text', [h('h3', title), h('p.subtitle', stage.subtitle)]),
+                status === 'ongoing' ? h('div.attention-effect') : undefined,
+              ]);
             }),
           ),
         ]),
@@ -46,8 +43,6 @@ const mapView = (ctrl: LearnCtrl) =>
       whatNext(ctrl),
     ]),
   ]);
-
-const titleVerbosityClass = (title: string) => (title.length > 13 ? (title.length > 18 ? 'vvv' : 'vv') : '');
 
 const makeStars = (rank: scoring.Rank): VNode[] =>
   Array(4 - rank).fill(h('i', { attrs: { 'data-icon': licon.Star } }));
@@ -68,11 +63,10 @@ const ribbon = (ctrl: LearnCtrl, s: Stage, status: Exclude<Status, 'future'>, st
 
 function whatNext(ctrl: LearnCtrl) {
   const makeStage = (href: string, img: string, title: string, subtitle: string, done?: boolean) => {
-    const transTitle = title;
-    return h(`a.stage.done.${titleVerbosityClass(transTitle)}`, { attrs: { href: href } }, [
+    return h(`a.stage.done`, { attrs: { href: href } }, [
       done ? h('span.ribbon-wrapper', h('span.ribbon.done', makeStars(1))) : null,
       h('img', { attrs: { src: assetUrl + 'images/learn/' + img + '.svg' } }),
-      h('div.text', [h('h3', transTitle), h('p.subtitle', subtitle)]),
+      h('div.text', [h('h3', title), h('p.subtitle', subtitle)]),
     ]);
   };
   const userId = ctrl.data._id;

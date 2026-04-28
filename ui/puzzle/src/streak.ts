@@ -1,4 +1,4 @@
-import type { Prop } from 'lib';
+import { myUserId, type Prop } from 'lib';
 import { storedJsonProp } from 'lib/storage';
 
 import type { PuzzleData, Puzzle, PuzzleId, PuzzleGame } from './interfaces';
@@ -21,7 +21,7 @@ export default class PuzzleStreak {
   store: Prop<StreakData | null>;
 
   constructor(data: PuzzleData) {
-    this.store = storedJsonProp<StreakData | null>(`puzzle.streak.${data.user?.id || 'anon'}`, () => null);
+    this.store = storedJsonProp<StreakData | null>(`puzzle.streak.${myUserId() || 'anon'}`, () => null);
     this.data = this.store() || {
       ids: data.streak!.split(' '),
       index: 0,

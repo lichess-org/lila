@@ -239,7 +239,6 @@
   <string name="emailSuggestion">Wag mo ilagay ang email na galing sa iba. Gagamitin nila iyon para nakawin ang iyong account.</string>
   <string name="emailConfirmHelp">Tulong sa pagkumpirma ng email</string>
   <string name="whatSignupUsername">Anong username ang ginamit mo para mag-sign up?</string>
-  <string name="emailForSignupHelp">Kung nabigo ang lahat, ipadala sa amin ang email na ito:</string>
   <string name="rank">Ranggo</string>
   <string name="rankX">Ranggo: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">

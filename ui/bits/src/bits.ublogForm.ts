@@ -7,10 +7,11 @@ import { makeToastEditor, getSanitizedMarkdown } from './toastEditor';
 
 site.load.then(() => {
   $('.markdown-toastui').each(function (this: HTMLTextAreaElement) {
-    const editor = makeToastEditor(this, $('#form3-markdown').val() as string, '60vh');
+    const markdownForm = $('#form3-markdown');
+    const editor = makeToastEditor(this, markdownForm.val() as string, '60vh');
     editor.on(
       'change',
-      throttle(500, () => $('#form3-markdown').val(getSanitizedMarkdown(editor))),
+      throttle(500, () => markdownForm.val(getSanitizedMarkdown(editor))),
     );
   });
   $('#form3-topics').each(function (this: HTMLTextAreaElement) {

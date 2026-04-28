@@ -12,6 +12,8 @@ export async function initModule(): Promise<void> {
   makeLinkPopups($('.user-infos .bio'));
 
   tmpRandomTutorLink();
+  updatePackedTrophies();
+  window.addEventListener('resize', updatePackedTrophies);
 
   const loadNoteZone = () => {
     const $zone = $('.user-show .note-zone');
@@ -95,4 +97,15 @@ function tmpRandomTutorLink() {
     <span><strong>Try out Tutor</strong><em>Compare to your peers!</em></span>
   </a>`;
   $(buttonHtml).insertBefore('.profile-side .insight');
+}
+
+function updatePackedTrophies() {
+  const header = document.querySelector<HTMLElement>('.user-show__header');
+  const trophies = header?.querySelector<HTMLElement>('.trophies');
+  const title = header?.querySelector<HTMLElement>('h1');
+  if (!trophies || !title) return;
+  trophies.classList.remove('packed');
+  // see if there's an overflow (or close to one) without 'packed':
+  if (trophies.getBoundingClientRect().left < title.getBoundingClientRect().right + 8)
+    trophies.classList.add('packed');
 }

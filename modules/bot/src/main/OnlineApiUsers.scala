@@ -41,12 +41,9 @@ final class OnlineApiUsers(
         jsons = users.map(u => jsonView.full(u.user, u.perfs.some, withProfile = true))
       yield jsons.map(play.api.libs.json.Json.stringify).mkString("\n")
 
-  def getNdJson(nb: Option[Int]): Fu[String] =
-    for
-      all <- jsonCache.get({})
-      lines = nb.fold(all): nb =>
-        all.linesIterator.take(nb).mkString("\n")
-    yield lines
+  def getNdJson(nb: Int): Fu[String] =
+    for all <- jsonCache.get({})
+    yield all.linesIterator.take(nb).mkString("\n")
 
 object OnlineApiUsers:
   case object SetOnline

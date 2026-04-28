@@ -26,19 +26,20 @@ final class SecurityForm(
   private def newPasswordFieldForMe(using me: Me) =
     newPasswordField.verifying(PasswordCheck.sameConstraint(me.username.into(UserStr)))
 
-  def myUsernameField(using me: Me) =
-    LilaForm.cleanNonEmptyText
-      .into[UserStr]
-      .verifying("Username doesn't match the currently logged-in account.", _.is(me))
+  private[security] val anyUserStrField =
+    LilaForm.cleanNonEmptyText(minLength = 2, maxLength = 30).into[UserStr]
 
-  private val anyEmail: Mapping[EmailAddress] =
+  def myUsernameField(using me: Me) =
+    anyUserStrField.verifying("Username doesn't match the currently logged-in account.", _.is(me))
+
+  private[security] val anyEmail: Mapping[EmailAddress] =
     LilaForm
       .cleanNonEmptyText(minLength = 6, maxLength = EmailAddress.maxLength)
       .verifying(Constraints.emailAddress)
       .verifying("error.email", EmailAddress.isValid)
       .into[EmailAddress]
 
-  private val sendableEmail = anyEmail.verifying(emailValidator.sendableConstraint)
+  private[security] val sendableEmail = anyEmail.verifying(emailValidator.sendableConstraint)
 
   private def fullyValidEmail(using me: Option[Me]) = sendableEmail
     .verifying(emailValidator.plusConstraint)
@@ -221,7 +222,7 @@ final class SecurityForm(
 
   def reopen = Form:
     mapping(
-      "username" -> LilaForm.cleanNonEmptyText.into[UserStr],
+      "username" -> anyUserStrField,
       "email" -> sendableEmail // allow unacceptable emails for BC
     )(Reopen.apply)(_ => None)
 

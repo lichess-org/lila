@@ -41,7 +41,7 @@ export function initModule(opts: ChallengeOpts): void {
       .find('form.xhr')
       .on('submit', function (this: HTMLFormElement, e) {
         e.preventDefault();
-        xhr.formToXhr(this);
+        void xhr.formToXhr(this);
         $(this).html('<span class="ddloader"></span>');
       });
     $(selector)

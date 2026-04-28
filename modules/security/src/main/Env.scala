@@ -20,6 +20,7 @@ final class Env(
     net: lila.core.config.NetConfig,
     userRepo: lila.user.UserRepo,
     mailer: lila.mailer.Mailer,
+    autoEmail: lila.mailer.AutomaticEmail,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
@@ -108,6 +109,8 @@ final class Env(
         tokenerSecret = config.emailConfirm.secret
       )
     else wire[EmailConfirmSkip]
+
+  lazy val emailConfirmByUserSend = wire[EmailConfirmByUserSend]
 
   lazy val passwordReset =
     def mk = (s: Secret) => wire[PasswordReset]

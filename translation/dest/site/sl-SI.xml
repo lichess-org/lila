@@ -9,6 +9,8 @@
   <string name="gameOver">Konec igre</string>
   <string name="waitingForOpponent">Čakam nasprotnika</string>
   <string name="orLetYourOpponentScanQrCode">Ali pa naj vaš nasprotnik skenira to QR kodo</string>
+  <string name="reusableChallengeUrl">URL izziva za večkratno uporabo</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Stalna povezava za vsakogar, ki vas lahko izzove s temi natančnimi nastavitvami.</string>
   <string name="waiting">Čakam</string>
   <string name="yourTurn">Ti si na potezi</string>
   <string name="aiNameLevelAiLevel">%1$s, stopnja: %2$s</string>
@@ -239,6 +241,7 @@
   <string name="minutesPerSide">Minut na igralca</string>
   <string name="variant">Različica</string>
   <string name="variants">Različice</string>
+  <string name="variantsDescription">Več načinov igranja</string>
   <string name="timeControl">Ura</string>
   <string name="realTime">Standardno</string>
   <string name="correspondence">Dopisno</string>
@@ -295,9 +298,7 @@
   <string name="emailCanTakeSomeTime">Do prihoda lahko preteče nekaj časa.</string>
   <string name="refreshInboxAfterFiveMinutes">Počakajte 5 minut in osvežite e-poštni predal.</string>
   <string name="checkSpamFolder">Preverite tudi mapo za neželeno pošto, morda se znajde tam. Če je tako, jo označite kot zaželeno.</string>
-  <string name="emailForSignupHelp">Če vse drugo ne uspe, nam pošljite to e-poštno sporočilo:</string>
-  <string name="copyTextToEmail">Kopirajte in prilepite zgornje besedilo ter ga pošljite na naslov %s</string>
-  <string name="waitForSignupHelp">Kmalu vas bomo kontaktirali in vam pomagali dokončati prijavo.</string>
+  <string name="sendEmailForAccountVerification">Če ne najdete potrditvenega e-poštnega sporočila, pošljite e-pošto na %s in potrdili bomo vaš račun.</string>
   <string name="accountConfirmed">Uporabnik %s je uspešno potrjen.</string>
   <string name="accountCanLogin">Zdaj se lahko prijavite kot %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Ne potrebujete potrditvenega e-poštnega sporočila.</string>
@@ -345,6 +346,7 @@
   <string name="standard">Običajno</string>
   <string name="customPosition">Položaj po meri</string>
   <string name="unlimited">Neomejeno</string>
+  <string name="unlimitedDescription">Vzemi si ves čas, ki ga potrebuješ</string>
   <string name="mode">Način</string>
   <string name="casual">Nerangirano</string>
   <string name="rated">Rangirano</string>
@@ -592,6 +594,7 @@
   <string name="popularOpenings">Popularne otvoritve</string>
   <string name="endgamePositions">Položaji končnice</string>
   <string name="chess960StartPosition">Šah 960 začetna pozicija: %s</string>
+  <string name="randomChess960Position">Naključna pozicija v šahu960</string>
   <string name="startPosition">Začetna pozicija</string>
   <string name="clearBoard">Počisti igralno površino</string>
   <string name="loadPosition">Naloži pozicijo</string>
@@ -901,6 +904,7 @@
   <string name="size">Velikost</string>
   <string name="opacity">Prosojnost</string>
   <string name="brightness">Svetlost</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Odtenek</string>
   <string name="boardReset">Ponastavi barve na privzete</string>
   <string name="pieceSet">Figure</string>
@@ -1114,6 +1118,7 @@ Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij 
   <string name="offline" comment="status of a user">brez povezave</string>
   <string name="search">Išči</string>
   <string name="clearSearch">Počisti iskanje</string>
+  <string name="thereAreNoResultsForX">Ni rezultatov za \"%s\"</string>
   <string name="tags">Oznake</string>
   <string name="enPassant">En passant</string>
 </resources>

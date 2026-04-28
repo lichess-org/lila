@@ -298,9 +298,7 @@
   <string name="emailCanTakeSomeTime">Получение письма может занять некоторое время.</string>
   <string name="refreshInboxAfterFiveMinutes">Подождите 5 минут и обновите ваш почтовый ящик.</string>
   <string name="checkSpamFolder">Также проверьте папку со спамом, письмо может оказаться там. Если это так, пометьте его как не спам.</string>
-  <string name="emailForSignupHelp">Если ничего не получилось, отправьте нам это письмо:</string>
-  <string name="copyTextToEmail">Скопируйте и вставьте текст выше и отправьте его по адресу %s</string>
-  <string name="waitForSignupHelp">Мы скоро вернёмся к вам чтобы помочь завершить регистрацию.</string>
+  <string name="sendEmailForAccountVerification">Если вы не можете найти подтверждение в электронной почте, отправьте письмо на адрес %s и мы подтвердим вашу учётную запись для вас.</string>
   <string name="accountConfirmed">Пользователь %s успешно подтверждён.</string>
   <string name="accountCanLogin">Вы можете войти прямо сейчас как %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не требуется подтверждение по электронной почте.</string>

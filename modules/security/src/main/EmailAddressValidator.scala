@@ -25,14 +25,14 @@ final class EmailAddressValidator(
     if """[\*\+]{2}""".r.matches(email.username) then Invalid(ValidationError("error.email_acceptable"))
     else Valid
 
+  def uniqueAsync(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =
+    isTakenBySomeoneElse(email, forUser).zip(wasUsedTwiceRecently(email)).dmap(!_ && !_)
+
   def uniqueConstraint(forUser: Option[User]) =
     Constraint[EmailAddress]("constraint.email_unique"): email =>
-      val (taken, reused) =
-        (isTakenBySomeoneElse(email, forUser)
-          .zip(wasUsedTwiceRecently(email)))
-          .await(2.seconds, "emailUnique")
-      if taken || reused then Invalid(ValidationError("error.email_unique"))
-      else Valid
+      if uniqueAsync(email, forUser).await(2.seconds, "emailUnique")
+      then Valid
+      else Invalid(ValidationError("error.email_unique"))
 
   def differentConstraint(than: Option[EmailAddress]) =
     Constraint[EmailAddress]("constraint.email_different"): email =>

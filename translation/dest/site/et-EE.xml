@@ -245,9 +245,6 @@
   <string name="emailCanTakeSomeTime">Sellega võib minna mõni hetk aega.</string>
   <string name="refreshInboxAfterFiveMinutes">Oodake 5 minutit ja värskendage postkasti.</string>
   <string name="checkSpamFolder">Kiri võib sattuda ka rämpsposti kausta. Sel juhul palun märkige see mitte rämpspostina.</string>
-  <string name="emailForSignupHelp">Kui kõik muu ei õnnestu, saatke meile see e-kiri:</string>
-  <string name="copyTextToEmail">Kopeerige ülaltoodud tekst ja saatke see aadressile %s</string>
-  <string name="waitForSignupHelp">Me võtame teiega peagi ühendust, et aidata teil registreerimist lõpule viia.</string>
   <string name="accountConfirmed">Kasutaja %s on edukalt kinnitatud.</string>
   <string name="accountCanLogin">Saate praegu sisse logida kui %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Te ei vaja kinnitusmeili.</string>

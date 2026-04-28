@@ -274,9 +274,6 @@
   <string name="emailCanTakeSomeTime">Ён можа прыйсці праз некаторы час.</string>
   <string name="refreshInboxAfterFiveMinutes">Пачакайце 5 хвілін і абнавіце паштовую скрыню.</string>
   <string name="checkSpamFolder">Таксама праверце папку са спамам, ён можа апынуцца там. Калі так, адзначце гэта як не спам.</string>
-  <string name="emailForSignupHelp">Калі ўсё астатняе не дапамагае, адпраўце нам гэты ліст:</string>
-  <string name="copyTextToEmail">Скапіруйце і ўстаўце прыведзены вышэй тэкст і адпраўце яго %s</string>
-  <string name="waitForSignupHelp">Мы звяжамся з вамі ў бліжэйшы час, каб дапамагчы вам завяршыць рэгістрацыю.</string>
   <string name="accountConfirmed">Карыстальнік %s паспяхова пацверджаны.</string>
   <string name="accountCanLogin">Вы можаце ўвайсці зараз як %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не патрэбна пацвярджэнне па электроннай пошце.</string>

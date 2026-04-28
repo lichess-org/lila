@@ -6,6 +6,7 @@
   },
   "ignorePatterns": ["**/dist/", "**/public"],
   "rules": {
+    "default-param-last": "error",
     "eqeqeq": [
       "error",
       "always",
@@ -21,9 +22,11 @@
       }
     ],
     "no-duplicate-imports": "error",
+    "no-useless-call": "error",
     "no-useless-computed-key": "error",
     "no-useless-concat": "error",
     "no-useless-constructor": "error",
+    "no-useless-return": "error",
     "no-useless-spread": "error",
     "no-unused-vars": [
       "warn",
@@ -37,6 +40,7 @@
     "prefer-promise-reject-errors": "error",
     "promise/no-callback-in-promise": "error",
     "promise/no-multiple-resolved": "error",
+    "promise/no-return-wrap": "error",
     "typescript/consistent-indexed-object-style": "error",
     "typescript/no-empty-interface": "error",
     "typescript/no-empty-object-type": "error",
@@ -47,7 +51,9 @@
     "typescript/no-unnecessary-type-assertion": "error",
     "typescript/no-unnecessary-type-constraint": "error",
     "unicorn/no-immediate-mutation": "error",
+    "unicorn/no-unnecessary-array-flat-depth": "error",
     "unicorn/no-useless-collection-argument": "error",
+    "unicorn/prefer-array-find": "error",
     "unicorn/prefer-array-flat": "error",
     "unicorn/prefer-array-flat-map": "error",
     "unicorn/prefer-array-some": "error",
@@ -232,6 +238,7 @@
     "no-unused-expressions": "off",
     "typescript/no-base-to-string": "off",
     "typescript/no-duplicate-type-constituents": "off",
+    "typescript/no-explicit-any": "off",
     "typescript/no-floating-promises": "off",
     "typescript/no-misused-spread": "off",
     "typescript/no-redundant-type-constituents": "off",

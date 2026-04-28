@@ -236,7 +236,9 @@ object mon:
       def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
       def confirmEmailResult(success: Boolean) =
         counter("user.register.confirmEmail").withTag("success", successTag(success))
-      val modConfirmEmail = counter("user.register.modConfirmEmail").withoutTags()
+      def modConfirmEmail(by: "mod" | "worker", result: String) =
+        counter("user.register.modConfirmEmail").withTags:
+          tags("by" -> by, "result" -> result)
     object auth:
       val bcFullMigrate = counter("user.auth.bcFullMigrate").withoutTags()
       val hashTime = timer("user.auth.hashTime").withoutTags()

@@ -246,9 +246,6 @@
   <string name="emailCanTakeSomeTime">Письмо прийде через даякый час.</string>
   <string name="refreshInboxAfterFiveMinutes">Почекайте 5 минут тай обновіт свою почту.</string>
   <string name="checkSpamFolder">Такой перевірте фасціклу из спамом, письмо може быти там. Кідь там, укажіт го ги не спам.</string>
-  <string name="emailForSignupHelp">Кідь нич не заробило, заженіт нам се письмо:</string>
-  <string name="copyTextToEmail">Копіруйте ай впишіт текст горі ай заженіт на %s</string>
-  <string name="waitForSignupHelp">Мы скоро ся вернеме, бы помочи довершити вам реґістрацію.</string>
   <string name="accountConfirmed">Хосновач %s успішно потвердженый.</string>
   <string name="accountCanLogin">Можете зайти такой тепирь, ги %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не треба потверчженя по почті.</string>

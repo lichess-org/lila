@@ -90,7 +90,7 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
           return false;
         }
       }
-      return;
+      return undefined;
     },
   });
 

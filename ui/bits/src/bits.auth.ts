@@ -89,7 +89,7 @@ function signupStart() {
   });
 
   $form.find('.password-generator button').on('click', () => {
-    site.asset.loadEsm('bits.passwordGenerator', { init: 'form3-password' });
+    void site.asset.loadEsm('bits.passwordGenerator', { init: 'form3-password' });
     return false;
   });
   const showPasswordTools = () => {
@@ -99,7 +99,7 @@ function signupStart() {
   $password.on('input', showPasswordTools);
   showPasswordTools();
 
-  site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
+  void site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
 }
 
 function initTextClear(form: HTMLFormElement) {
@@ -119,5 +119,5 @@ function initTextClear(form: HTMLFormElement) {
 }
 
 function resetStart() {
-  site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-newPasswd1' });
+  void site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-newPasswd1' });
 }

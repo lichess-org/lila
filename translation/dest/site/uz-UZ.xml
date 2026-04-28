@@ -268,9 +268,7 @@
   <string name="emailCanTakeSomeTime">Xat yetib kelishi uchun biroz vaqt ketishi mumkin.</string>
   <string name="refreshInboxAfterFiveMinutes">5 daqiqa kutib e‑pochta qutingizni yangilang.</string>
   <string name="checkSpamFolder">Shuningdek, spam jildini ham tekshiring, xat u yerga tushib qolgan boʻlishi mumkin. Agar shunday boʻlsa, uni “Spam emas” deb belgilang.</string>
-  <string name="emailForSignupHelp">Agar bularning hech biri yordam bermasa, u holda bizni e‑pochtamizga ushbu xatni yuboring:</string>
-  <string name="copyTextToEmail">Yuqoridagi matndan nusxa oling va %s manziliga yuboring</string>
-  <string name="waitForSignupHelp">Roʻyxatdan oʻtishga yordam berish uchun siz bilan tez orada bogʻlanamiz.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Agar tasdiqlash xatini topa olmasangiz, %s manziliga xat yuboring va biz hisobingizni tasdiqlab beramiz.</string>
   <string name="accountConfirmed">Foydalanuvchi %s muvaffaqiyatli tasdiqlandi.</string>
   <string name="accountCanLogin">Hozirning oʻzidayoq %s sifatida tizimga kirishingiz mumkin.</string>
   <string name="accountConfirmationEmailNotNeeded">Tasdiqlash xati talab qilinmaydi.</string>

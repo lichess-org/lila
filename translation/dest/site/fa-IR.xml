@@ -266,9 +266,6 @@
   <string name="emailCanTakeSomeTime">ممکن است کمی طول بکشد تا برسد.</string>
   <string name="refreshInboxAfterFiveMinutes">۵ دقیقه بصبرید و صندوق رایانامه‌تان را تازه کنید.</string>
   <string name="checkSpamFolder">پوشه هرزنامه خود را نیز بررسی کنید، ممکن است در آنجا باشد. اگر چنین است، آن را به عنوان غیر هرزنامه علامت‌گذاری کنید.</string>
-  <string name="emailForSignupHelp">اگر تمام موارد ناموفق بود، این رایانامه را به ما بفرستید:</string>
-  <string name="copyTextToEmail">متن بالا را کپی و پیست کرده و به آدرس زیر ارسال کنید %s</string>
-  <string name="waitForSignupHelp">ما به زودی با شما تماس خواهیم گرفت تا به شما کمک کنیم ثبت نام خود را تکمیل کنید.</string>
   <string name="accountConfirmed">کاربر با نام %s با موفقیت تایید شده است.</string>
   <string name="accountCanLogin">شما می توانید همین الان با نام %s وارد شوید.</string>
   <string name="accountConfirmationEmailNotNeeded">به رایانامهٔ تایید نیاز ندارید.</string>

@@ -247,9 +247,6 @@
   <string name="emailCanTakeSomeTime">It can tak pickle time tae arrive.</string>
   <string name="refreshInboxAfterFiveMinutes">Bide 5 meenits and refresh yer email inbox.</string>
   <string name="checkSpamFolder">Check yer spam folder, it micht airt for thare. Gif sae, kenmerk it sae no spam.</string>
-  <string name="emailForSignupHelp">If aw else misgie, than send us this email:</string>
-  <string name="copyTextToEmail">Copy and paste the abuin scrieve and send it tae %s</string>
-  <string name="waitForSignupHelp">We will back-come tae ye shortlins tae beet ye complete yer adheebitin.</string>
   <string name="accountConfirmed">The uiser %s is makkit weel confirmt.</string>
   <string name="accountCanLogin">Ye can ingang richt noo as %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Ye dinnae maun hae a confirmation email.</string>

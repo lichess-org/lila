@@ -10,7 +10,7 @@ import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/u
 import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
-import { prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallbackSafe } from 'lib';
+import { prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallbackSafe, myUserId } from 'lib';
 import { type Deferred, defer, throttle } from 'lib/async';
 import { CevalCtrl } from 'lib/ceval';
 import type { CevalHandler } from 'lib/ceval/types';
@@ -77,9 +77,9 @@ export default class PuzzleCtrl implements CevalHandler {
   canViewSolution = toggle(false);
   showHint = toggle(false);
   hintHasBeenShown = toggle(false);
+  voted: boolean | undefined;
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
-  voteDisabled?: boolean;
   isDaily: boolean;
   blindfolded: StoredProp<boolean>;
   cgVersion = 1;
@@ -95,13 +95,13 @@ export default class PuzzleCtrl implements CevalHandler {
       `puzzle.autoNext${opts.data.streak ? '.streak' : ''}`,
       !!opts.data.streak,
     );
-    this.blindfolded = storedBooleanProp(`puzzle.${this.opts.data.user?.id || 'anon'}.blindfolded`, false);
+    this.blindfolded = storedBooleanProp(`puzzle.${myUserId() || 'anon'}.blindfolded`, false);
     this.streak = opts.data.streak ? new PuzzleStreak(opts.data) : undefined;
     if (this.streak) {
       opts.data = { ...opts.data, ...this.streak.data.current };
       this.streakFailStorage.listen(_ => this.failStreak(this.streak!));
     }
-    this.session = new PuzzleSession(opts.data.angle.key, opts.data.user?.id, !!opts.data.streak);
+    this.session = new PuzzleSession(opts.data.angle.key, myUserId(), !!opts.data.streak);
     this.menu = toggle(false, redraw);
 
     this.initiate(opts.data);
@@ -255,6 +255,7 @@ export default class PuzzleCtrl implements CevalHandler {
     this.hintHasBeenShown(false);
     this.canViewSolution(false);
     this.report = new Report();
+    this.voted = undefined;
 
     this.setPath(site.blindMode ? initialPath : treePath.init(initialPath));
     setTimeout(
@@ -542,9 +543,10 @@ export default class PuzzleCtrl implements CevalHandler {
     if (this.cevalEnabled()) this.doStartCeval();
   };
 
-  private readonly doStartCeval = throttle(800, () =>
-    this.ceval.start(this.path, this.nodeList, this.data.puzzle.id, this.threatMode()),
-  );
+  private readonly doStartCeval = throttle(800, () => {
+    this.ceval.resume();
+    this.ceval.start(this.path, this.nodeList, this.data.puzzle.id, this.threatMode());
+  });
 
   nextNodeBest = () => treeOps.withMainlineChild(this.node, n => n.eval?.best);
 
@@ -644,13 +646,8 @@ export default class PuzzleCtrl implements CevalHandler {
     }
 
     this.autoScrollRequested = true;
-    this.voteDisabled = true;
     this.redraw();
     this.startCeval();
-    setTimeout(() => {
-      this.voteDisabled = false;
-      this.redraw();
-    }, 500);
   };
 
   skip = () => {
@@ -671,10 +668,9 @@ export default class PuzzleCtrl implements CevalHandler {
   };
 
   vote = (v: boolean) => {
-    if (!this.voteDisabled) {
-      xhr.vote(this.data.puzzle.id, v);
-      this.nextPuzzle();
-    }
+    xhr.vote(this.data.puzzle.id, v);
+    this.voted = this.voted === v ? undefined : v;
+    this.redraw();
   };
 
   voteTheme = (theme: ThemeKey, v: boolean) => {

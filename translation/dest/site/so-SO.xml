@@ -244,9 +244,6 @@
   <string name="emailCanTakeSomeTime">Wakhti yar sii si ay kuu soo gaadho.</string>
   <string name="refreshInboxAfterFiveMinutes">Sug 5 mirir oo ka dib baadh iimaylkaaga.</string>
   <string name="checkSpamFolder">Sidoo kale eeg spam folderkaaga, halkaasaad ka heli kartaa. Haddii ay sidaa tahay, u beddel \"not spam\".</string>
-  <string name="emailForSignupHelp">Haddii ay waxba shaqayn waayaan, noosoo dir iimaylkan:</string>
-  <string name="copyTextToEmail">Koobi garee qoraalka sare oo u soo dir %s</string>
-  <string name="waitForSignupHelp">Waanu kuu soo laaban in yar ka dib si an kaaga caawinno diwaangelinta.</string>
   <string name="accountConfirmed">Akoonka %s waa la hubiyay si guul leh.</string>
   <string name="accountCanLogin">Hadda waxad ku geli kartaa %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Uma baahnid iimayl hubsasho ah.</string>

@@ -243,9 +243,6 @@
   <string name="emailCanTakeSomeTime">Ia boleh mengambil masa untuk sampai.</string>
   <string name="refreshInboxAfterFiveMinutes">Tunggu 5 minit dan muat ulang semula di peti masuk e-mel anda.</string>
   <string name="checkSpamFolder">Semak juga folder spam anda, ia mungkin telah dihantar di sana. Jika ya, tandakannya sebagai bukan spam.</string>
-  <string name="emailForSignupHelp">Jika semuanya gagal, hantarkan e-mel ini kepada kami:</string>
-  <string name="copyTextToEmail">Salin (Copy) dan tampal (Paste) teks di atas dan hantar ke %s</string>
-  <string name="waitForSignupHelp">Kami akan kembali sebentar lagi untuk membantu anda melengkapkan pendaftaran anda.</string>
   <string name="accountConfirmed">Pengguna %s berjaya disahkan sepenuhnya.</string>
   <string name="accountCanLogin">Anda boleh log masuk sekarang sebagai %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Anda tidak memerlukan e-mel pengesahan.</string>

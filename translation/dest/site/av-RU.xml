@@ -244,9 +244,6 @@
   <string name="emailCanTakeSomeTime">БачӀине мех базе бегьула.</string>
   <string name="refreshInboxAfterFiveMinutes">5 минуталъ чӀа цинги цӀи гьабе дур почалде рачӀарал.</string>
   <string name="checkSpamFolder">Спам лъелалда балагье, гьенибеги щвезе бегьула. Щун батани, гьеб спам гьечӀеблъун гьабе.</string>
-  <string name="emailForSignupHelp">Щибниги битӀун кколеб гьечӀони, гьаб кагъат битӀе нижехъе:</string>
-  <string name="copyTextToEmail">Копия бахъун тексталда тӀад лъе цинги гьанибе битӀе %s</string>
-  <string name="waitForSignupHelp">Дуе хъвай-хъвагӀай гьабизе квербакъизе, ниж кватӀичӀого духъе тӀадруссина.</string>
   <string name="accountConfirmed">%s хӀалтӀизабулев чи бергьенлъиялда тасдикъ гьавуна.</string>
   <string name="accountCanLogin">Дуда %s-лъун гьабсагӀат жаниве лъугьине кӀола.</string>
   <string name="accountConfirmationEmailNotNeeded">Дуе электронияб поч тасдикъ гьабизе къваригӀунаро.</string>

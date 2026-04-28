@@ -64,12 +64,7 @@ object header:
               userDom(u)
             )
           case None => h1(userDom(u)),
-        div(
-          cls := List(
-            "trophies" -> true,
-            "packed" -> (info.trophies.countTrophiesAndPerfCups > 7)
-          )
-        )(
+        div(cls := "trophies")(
           views.user.bits.perfTrophies(u, info.ranks),
           otherTrophies(info),
           u.plan.active.option(

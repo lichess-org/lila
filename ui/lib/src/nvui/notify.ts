@@ -7,7 +7,7 @@ export class Notify {
   text = '';
   date: Date | undefined;
 
-  constructor(public redraw: Redraw | undefined = undefined) {}
+  constructor(public redraw: Redraw | undefined) {}
 
   set = (msg: string): void => {
     this.text = msg + (this.text === msg ? '\u00A0' : '');

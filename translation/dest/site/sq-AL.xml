@@ -268,9 +268,7 @@
   <string name="emailCanTakeSomeTime">Mund të duhet pak kohë që të mbërrijë.</string>
   <string name="refreshInboxAfterFiveMinutes">Pritni 5 minuta dhe rifreksoni “Të marrët” tuaj</string>
   <string name="checkSpamFolder">Shihni gjithashtu edhe te dosja juaj e të padëshiruarve, mund të përfundojë atje. Në ndodhtë kështu, i hiqni shenjën si i padëshiruar.</string>
-  <string name="emailForSignupHelp">Nëse gjithçka tjetër dështon, atëherë dërgonani këtë email:</string>
-  <string name="copyTextToEmail">Kopjoni dhe ngjitni tekstin më poshtë dhe dërgojeni te %s</string>
-  <string name="waitForSignupHelp">Do të lidhemi me ju së shpejti, për t’ju ndihmuar të plotësoni regjistrimin tuaj.</string>
+  <string name="sendEmailForAccountVerification">Nëse s’gjeni dot email-in e ripohimit, dërgoni një email te %s dhe do të miratojmë llogarinë tuaj për ju.</string>
   <string name="accountConfirmed">Përdoruesi %s u ripohua me sukses.</string>
   <string name="accountCanLogin">Mund të bëni hyrjen mu tani si %s.</string>
   <string name="accountConfirmationEmailNotNeeded">S’ju duhe një email ripohimi.</string>

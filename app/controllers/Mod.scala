@@ -470,7 +470,7 @@ final class Mod(
   }
 
   def permissions(username: UserStr) = Secure(_.LichessTeam) { _ ?=> me ?=>
-    Found(env.user.repo.byId(username)): user =>
+    Found(meOrFetch(username)): user =>
       if user.is(me) || isGranted(_.ChangePermission)
       then Ok.page(views.mod.permissions(user))
       else notFound
@@ -497,7 +497,7 @@ final class Mod(
       )
   }
 
-  def emailConfirm = SecureBody(_.SetEmail) { ctx ?=> me ?=>
+  def emailConfirmGet = SecureBody(_.SetEmail) { ctx ?=> me ?=>
     get("q") match
       case None => Ok.page(views.mod.ui.emailConfirm("", none, none))
       case Some(rawQuery) =>
@@ -511,8 +511,8 @@ final class Mod(
             .flatMap:
               case List(lila.user.WithPerfsAndEmails(user, _)) =>
                 for
-                  _ <- (!user.everLoggedIn).so:
-                    lila.mon.user.register.modConfirmEmail.increment()
+                  _ <- user.everLoggedIn.not.so:
+                    lila.mon.user.register.modConfirmEmail(by = "mod", "success").increment()
                     api.setEmail(user.id, setEmail.some)
                   email <- env.user.repo.email(user.id)
                   page <- renderPage(views.mod.ui.emailConfirm("", user.some, email))
@@ -524,6 +524,19 @@ final class Mod(
               .orElse(username.so { tryWith(em, _) })
               .recover(lila.db.recoverDuplicateKey(_ => none))
           .getOrElse(BadRequest.page(views.mod.ui.emailConfirm(rawQuery, none, none)))
+  }
+
+  def emailConfirmApi = SecuredScopedBody(_.SetEmail)(_.Web.Mod) { ctx ?=> me ?=>
+    bindForm(env.security.emailConfirmByUserSend.workerForm)(
+      jsonFormError,
+      data =>
+        env.security.emailConfirmByUserSend
+          .process(data)
+          .flatMap:
+            _.fold(fuccess(BadRequest)): (user, email) =>
+              for _ <- api.setEmail(user.id, email.some)
+              yield NoContent
+    )
   }
 
   def presets(group: String) = Secure(_.Presets) { ctx ?=> _ ?=>

@@ -11,7 +11,7 @@
   <string name="ratedGames">排位对局数</string>
   <string name="tournamentGames">锦标赛对局数</string>
   <string name="berserkedGames">狂暴对局数</string>
-  <string name="timeSpentPlaying">对弈总时长</string>
+  <string name="timeSpentPlaying">对局总时长</string>
   <string name="averageOpponent">对手平均等级分</string>
   <string name="victories">胜</string>
   <string name="defeats">负</string>

@@ -413,5 +413,6 @@ final class AuthUi(helpers: Helpers):
       tpe := "button",
       dataIcon := Icon.Cancel,
       title := trans.site.clearField.txt(),
-      aria.label := trans.site.clearField.txt()
+      aria.label := trans.site.clearField.txt(),
+      tabindex := -1
     )

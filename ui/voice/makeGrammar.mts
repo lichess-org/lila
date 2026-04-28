@@ -124,10 +124,10 @@ function writeGrammar(out: string) {
   fs.writeFileSync(out, JSON.stringify(builder.lexicon, null, 2));
 }
 
-function getArg(arg: string): string | undefined {
+function getArg(arg: string) {
   return ps.argv
-    .filter(v => v.startsWith(`--${arg}`))
-    .pop()
+    .reverse()
+    .find(value => value.startsWith(`--${arg}`))
     ?.slice(3 + arg.length);
 }
 

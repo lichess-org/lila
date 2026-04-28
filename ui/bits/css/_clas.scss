@@ -1,7 +1,7 @@
-$c-clas: hsl(274, 48%, 60%);
+$c-clas-light: hsl(274, 48%, 60%);
+$c-clas-lighter: mix($c-clas-light, #fff, 86%);
 $c-bg-clas-over: white;
 $c-bg-clas-over-dim: $m-clas_white--mix-20;
-$c-clas-light: mix($c-clas, #fff, 86%);
 
 @mixin button-with-clas-shadow {
   @include with-button-shadow(
@@ -25,7 +25,7 @@ body {
 .button-empty {
   &.button-clas,
   &.button-clas:hover {
-    color: $c-clas;
+    color: $c-clas-light;
   }
 }
 
@@ -49,11 +49,11 @@ body {
   }
 
   &.active {
-    color: $c-clas;
+    color: $c-clas-light;
   }
 
   &::after {
-    background: $c-clas;
+    background: $c-clas-light;
   }
 
   &.student {
@@ -74,7 +74,7 @@ h1 {
 }
 
 .page .body h2 {
-  border-bottom-color: $c-clas;
+  border-bottom-color: $c-clas-light;
 }
 
 .clas-index {
@@ -95,7 +95,7 @@ h1 {
       @include button-with-clas-shadow;
 
       color: $c-over;
-      background: $c-clas-light !important;
+      background: $c-clas-lighter !important;
     }
 
     &::before {
@@ -119,7 +119,7 @@ h1 {
       &::before {
         @include transition;
 
-        color: $c-clas-light;
+        color: $c-clas-lighter;
         font-size: 5em;
         margin-inline-end: 0.4em;
 
@@ -132,7 +132,7 @@ h1 {
         background: $m-clas_bg--mix-10;
 
         &::before {
-          color: $c-clas;
+          color: $c-clas-light;
         }
       }
 
@@ -143,7 +143,7 @@ h1 {
       h3 {
         @include fluid-size('font-size', 23px, 35px);
 
-        color: $c-clas;
+        color: $c-clas-light;
       }
 
       p {
@@ -316,7 +316,7 @@ h1 {
 
       &.active {
         background: $c-bg-box;
-        color: $c-clas;
+        color: $c-clas-light;
         font-weight: bold;
 
         .dashboard-teacher-overview &,
@@ -396,7 +396,7 @@ h1 {
         text-align: center;
         font-weight: bold;
         padding: 0.7em;
-        color: $c-clas;
+        color: $c-clas-light;
 
         &:hover {
           background: $m-clas_bg--mix-30;
@@ -686,10 +686,10 @@ h1 {
 
       margin-bottom: 2em;
       display: inline-block;
-      background: $c-clas-light;
+      background: $c-clas-lighter;
 
       &:hover {
-        background: $c-clas;
+        background: $c-clas-light;
       }
     }
   }
@@ -712,7 +712,7 @@ h1 {
       .button {
         @extend %box-radius-inline-end;
 
-        background: $c-clas-light;
+        background: $c-clas-lighter;
         padding: 0 1.5em;
         border-inline-start: 0;
       }

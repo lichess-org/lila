@@ -57,7 +57,7 @@ export function throttlePromise<T extends (...args: any) => Promise<void>>(
   wrapped: T,
 ): (...args: Parameters<T>) => Promise<void> {
   const throttler = throttlePromiseWithResult<void, T>(wrapped);
-  return function (this: any, ...args: Parameters<T>): Promise<void> {
+  return async function (this: any, ...args: Parameters<T>): Promise<void> {
     return throttler.apply(this, args).catch(() => {});
   };
 }
@@ -106,12 +106,11 @@ export function throttle<T extends (...args: any) => void>(
 
 export interface Sync<T> {
   promise: Promise<T>;
-  sync: T | undefined;
+  sync?: T;
 }
 
 export function sync<T>(promise: Promise<T>): Sync<T> {
   const sync: Sync<T> = {
-    sync: undefined,
     promise: promise.then(v => {
       sync.sync = v;
       return v;
@@ -122,7 +121,7 @@ export function sync<T>(promise: Promise<T>): Sync<T> {
 
 // Call an async function with a maximum time limit (in milliseconds) for the timeout
 export async function promiseTimeout<A>(asyncPromise: Promise<A>, timeLimit: number): Promise<A> {
-  let timeoutHandle: Timeout | undefined = undefined;
+  let timeoutHandle: Timeout | undefined;
 
   const timeoutPromise = new Promise<A>((_, reject) => {
     timeoutHandle = setTimeout(() => reject(new Error('Async call timeout limit reached')), timeLimit);

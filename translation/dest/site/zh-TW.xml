@@ -236,9 +236,6 @@
   <string name="emailCanTakeSomeTime">可能需要一些時間才能收到。</string>
   <string name="refreshInboxAfterFiveMinutes">等待5分鐘並刷新你的收件箱。</string>
   <string name="checkSpamFolder">嘗試檢查你的垃圾郵件收件匣，它可能在那裡。 如果在，請將其標記為非垃圾郵件。</string>
-  <string name="emailForSignupHelp">如果其他所有的方法都失敗了，給我們發這條短信：</string>
-  <string name="copyTextToEmail">複製並貼上上面的文字然後把它發給%s</string>
-  <string name="waitForSignupHelp">我們很快就會給你回覆，説明你完成註冊。</string>
   <string name="accountConfirmed">使用者 %s 認證成功</string>
   <string name="accountCanLogin">你可以做為 %s 登入了。</string>
   <string name="accountConfirmationEmailNotNeeded">你不需要確認電子郵件。</string>

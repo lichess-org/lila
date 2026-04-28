@@ -1,11 +1,28 @@
 package lila.web
 
-import play.api.libs.json.Json
+import play.api.libs.json.{ Json, JsObject }
 
 import scala.util.Try
 
 import lila.common.Bus
 import lila.core.socket.{ Announce, AnnounceUpdate }
+import lila.memo.SettingStore
+
+final class LichobileAnnounceApi(settingStore: SettingStore.Builder):
+
+  val lichobileUpgrade = settingStore[Boolean](
+    "lichobileUpgradeAnnounce",
+    default = false,
+    text = "Tell lichobile users about the new mobile app".some
+  )
+
+  def get: Option[JsObject] =
+    lichobileUpgrade
+      .get()
+      .option:
+        val msg = "This app is no longer supported! Please upgrade: lichess.org/app"
+        val date = nowInstant.plusMinutes(1)
+        AnnounceApi.makeJson(msg, date)
 
 object AnnounceApi:
 
@@ -30,6 +47,9 @@ object AnnounceApi:
     then current = none
     current
 
+  private[web] def makeJson(msg: String, date: Instant) =
+    Json.obj("msg" -> msg, "date" -> isoDateTimeFormatter.print(date))
+
   // examples:
   // 5 minutes Lichess will restart
   // 20 seconds Cthulhu will awake
@@ -39,9 +59,7 @@ object AnnounceApi:
         Try {
           val msg = rest.mkString(" ")
           val date = nowInstant.plusSeconds(Duration(s"$length $unit").toSeconds.toInt)
-          val isoDate = isoDateTimeFormatter.print(date)
-          val json = Json.obj("msg" -> msg, "date" -> isoDate)
-          Announce(msg, date, json)
+          Announce(msg, date, makeJson(msg, date))
         }.toOption
       case _ => none
     get

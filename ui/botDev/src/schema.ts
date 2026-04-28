@@ -300,7 +300,7 @@ export const schema: () => Schema = memoize(() => {
       filterEntries.map(([key, { info }]) => [key, { enumerable: true, value: structuredClone(info) }]),
     ),
   );
-  return deepFreeze<Schema>(withFilters);
+  return deepFreeze(withFilters);
 });
 
 export function getSchemaDefault(id: string): PropertyValue {

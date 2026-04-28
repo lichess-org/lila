@@ -21,7 +21,7 @@ site.load.then(() => {
           .attr('action', link.href)
           .on('submit', function (this: HTMLFormElement, e: Event) {
             e.preventDefault();
-            xhr.formToXhr(this);
+            void xhr.formToXhr(this);
             $(link).closest('.forum-post').hide();
             dlg.close();
           });
@@ -45,7 +45,7 @@ site.load.then(() => {
     })
     .on('click', 'form.unsub button', function (this: HTMLButtonElement) {
       const form = $(this).parent().toggleClass('on off')[0] as HTMLFormElement;
-      xhr.text(`${form.action}?unsub=${this.dataset.unsub}`, { method: 'post' });
+      void xhr.text(`${form.action}?unsub=${this.dataset.unsub}`, { method: 'post' });
       return false;
     })
     .on('click', '.reactions-auth button', e => {
@@ -54,7 +54,7 @@ site.load.then(() => {
         const $rels = $(e.target).parent();
         if ($rels.hasClass('loading')) return;
         $rels.addClass('loading');
-        xhr.text(href, { method: 'post' }).then(
+        void xhr.text(href, { method: 'post' }).then(
           html => {
             $rels.replaceWith(html);
             $rels.removeClass('loading');

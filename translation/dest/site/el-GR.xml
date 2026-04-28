@@ -261,9 +261,6 @@
   <string name="emailCanTakeSomeTime">Η αποστολή ενδέχεται να διαρκέσει λίγη ώρα.</string>
   <string name="refreshInboxAfterFiveMinutes">Περιμένετε 5 λεπτά και ανανεώστε τα εισερχόμενα email σας.</string>
   <string name="checkSpamFolder">Επίσης, ελέγξτε τον φάκελο με τα ανεπιθύμητα email. Αν το email που στείλαμε βρίσκεται εκεί, αναφέρετέ το ως μη ανεπιθύμητο.</string>
-  <string name="emailForSignupHelp">Αν όλα τα παραπάνω αποτύχουν, στείλτε μας το εξής email:</string>
-  <string name="copyTextToEmail">Αντιγράψτε και επικολλήστε το παραπάνω κείμενο και στείλτε το στη διεύθυνση %s</string>
-  <string name="waitForSignupHelp">Θα επανέλθουμε σύντομα σε σας για να σας βοηθήσουμε να ολοκληρώσετε την εγγραφή σας.</string>
   <string name="accountConfirmed">Ο λογαριασμός του χρήστη %s επαληθεύτηκε με επιτυχία.</string>
   <string name="accountCanLogin">Μπορείτε τώρα να συνδεθείτε ως %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Δεν χρειάζεστε ένα email επιβεβαίωσης.</string>

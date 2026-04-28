@@ -51,7 +51,7 @@ export interface Toggle extends PropWithEffect<boolean> {
 }
 
 export const toggle = (initialValue: boolean, effect: (value: boolean) => void = () => {}): Toggle => {
-  const prop = propWithEffect<boolean>(initialValue, effect) as Toggle;
+  const prop = propWithEffect(initialValue, effect) as Toggle;
   prop.toggle = () => prop(!prop());
   return prop;
 };
@@ -162,4 +162,14 @@ export function blurIfPrimaryClick(e: Event): void {
   const target = document.activeElement;
   if (target instanceof HTMLElement && e.button === 0 && (e.clientX || e.clientY))
     requestAnimationFrame(() => target.blur());
+}
+
+export function blurIfEscape(e: KeyboardEvent): void {
+  if (e.target instanceof HTMLElement && e.key === 'Escape') {
+    e.stopPropagation();
+    e.target.blur();
+  }
+}
+export function blurOnEscape(el: HTMLElement): void {
+  el.addEventListener('keydown', blurIfEscape);
 }

@@ -108,10 +108,10 @@ async function boot(
       });
   };
   const getPresetGroup = (d: RoundData) => {
-    if (d.player.spectator) return;
+    if (d.player.spectator) return undefined;
     if (finished(d)) return 'end';
     if (d.steps.length < 6) return 'start';
-    return;
+    return undefined;
   };
   const ctrl = await roundMain(opts);
   const round: RoundApi = { socketReceive: ctrl.socket.receive, moveOn: ctrl.moveOn };

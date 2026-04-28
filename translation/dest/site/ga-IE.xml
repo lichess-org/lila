@@ -275,9 +275,6 @@
   <string name="emailCanTakeSomeTime">Féadfaidh sé roinnt ama le teacht.</string>
   <string name="refreshInboxAfterFiveMinutes">Fan 5 nóiméad agus athnuachan ríomhphoist.</string>
   <string name="checkSpamFolder">Seiceáil freisin d\'fhillteán turscair. Más ansin é marcáil nach turscar é.</string>
-  <string name="emailForSignupHelp">Má theipeann ar gach rud eile, seol an ríomhphost seo chugainn:</string>
-  <string name="copyTextToEmail">Cóipeáil agus greamaigh an téacs thuas agus seol chuig %s é</string>
-  <string name="waitForSignupHelp">Beimid ar ais chugat go luath chun cabhrú leat do chlárú a chur i gcrích.</string>
   <string name="accountConfirmed">D\'éirigh leis an úsáideoir %s a dhearbhú.</string>
   <string name="accountCanLogin">Is féidir leat logáil isteach anois mar %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Ní gá duit ríomhphost deimhnithe.</string>

@@ -2,7 +2,7 @@
 
 ## Repository Overview
 
-Lila (li[chess in sca]la) is the free, open-source chess server powering lichess.org - one of the world's largest chess platforms with 4.7+ billion games. This is a production-scale application serving millions of users with real-time gameplay, computer analysis, tournaments, and comprehensive chess features.
+Lila (li[chess in sca]la) is the free, open-source chess server powering lichess.org - one of the world's largest chess platforms with 12+ billion games. This is a production-scale application serving millions of users with real-time gameplay, computer analysis, tournaments, and comprehensive chess features.
 
 **Technology Stack:**
 

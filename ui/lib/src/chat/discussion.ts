@@ -1,5 +1,6 @@
 import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
 
+import { blurIfEscape } from '@/common';
 import { pubsub } from '@/pubsub';
 import { tempStorage } from '@/storage';
 import { enter, alert } from '@/view';
@@ -123,7 +124,7 @@ let mouchListener: EventListener;
 const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
   const inner = tempStorage.make(`chat.input`);
   const storage = {
-    get: (): string | undefined => {
+    get: () => {
       const v = inner.get();
       if (v) {
         try {
@@ -135,7 +136,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
           console.log(`Could not parse "chat.input" value ${v}`);
         }
       }
-      return;
+      return undefined;
     },
     set: (txt: string) => {
       inner.set(JSON.stringify([ctrl.data.opponentId || '', txt]));
@@ -149,8 +150,8 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
     if (!ctrl.opts.public && previousText.match(whisperRegex)) chatEl.classList.add('whisper');
   } else if (ctrl.vm.autofocus) chatEl.focus();
 
-  chatEl.addEventListener(
-    'keydown',
+  chatEl.addEventListener('keydown', e => {
+    blurIfEscape(e);
     enter(target => {
       setTimeout(() => {
         const el = target as HTMLInputElement,
@@ -173,8 +174,8 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
           if (!pub) el.classList.remove('whisper');
         }
       });
-    }),
-  );
+    })(e);
+  });
 
   chatEl.addEventListener('input', (e: KeyboardEvent) =>
     setTimeout(() => {

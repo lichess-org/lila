@@ -298,9 +298,6 @@
   <string name="emailCanTakeSomeTime">Отримання повідомлення може зайняти деякий час.</string>
   <string name="refreshInboxAfterFiveMinutes">Зачекайте 5 хвилин і оновіть поштову скриньку.</string>
   <string name="checkSpamFolder">Також перевірте папку \"Спам\", лист міг потрапити туди. Якщо так, то позначте його як не спам.</string>
-  <string name="emailForSignupHelp">Якщо все інше не спрацювало, то надішліть нам цей електронний лист:</string>
-  <string name="copyTextToEmail">Скопіюйте та вставте текст зверху й відправте на %s</string>
-  <string name="waitForSignupHelp">Незабаром ми повернемося до вас, щоб допомогти вам завершити реєстрацію.</string>
   <string name="accountConfirmed">Користувач %s успішно підтверджений.</string>
   <string name="accountCanLogin">Тепер ви можете ввійти як %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Вам не потрібне підтвердження за електронною поштою.</string>

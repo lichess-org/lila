@@ -10,7 +10,6 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.SessionId
 import lila.security.SecurityForm.Reopen
-import lila.web.AnnounceApi
 import lila.core.user.KidMode
 import lila.security.IsPwned
 import lila.core.security.ClearPassword
@@ -87,7 +86,7 @@ final class Account(
           .add("kid" -> ctx.kid)
           .add("troll" -> me.marks.troll)
           .add("playban" -> playban)
-          .add("announce" -> AnnounceApi.get.map(_.json))
+          .add("announce" -> env.web.lichobileAnnounceApi.get)
       .headerCacheSeconds(15)
   }
 
