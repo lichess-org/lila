@@ -10,19 +10,21 @@ import lila.memo.SettingStore
 
 final class LichobileAnnounceApi(settingStore: SettingStore.Builder):
 
-  val lichobileUpgrade = settingStore[Boolean](
+  val lichobileUpgrade = settingStore[Int](
     "lichobileUpgradeAnnounce",
-    default = false,
-    text = "Tell lichobile users about the new mobile app".some
+    default = 0,
+    text = "Tell lichobile users about the new mobile app, modulo minutes".some
   )
 
+  private def showNow =
+    val setting = lichobileUpgrade.get()
+    setting > 0 && (nowSeconds / 60) % setting == 0
+
   def get: Option[JsObject] =
-    lichobileUpgrade
-      .get()
-      .option:
-        val msg = "This app is no longer supported! Please upgrade: lichess.org/app"
-        val date = nowInstant.plusMinutes(1)
-        AnnounceApi.makeJson(msg, date)
+    showNow.option:
+      val msg = "This app is no longer supported! Please upgrade: lichess.org/app"
+      val date = nowInstant.plusMinutes(1)
+      AnnounceApi.makeJson(msg, date)
 
 object AnnounceApi:
 
