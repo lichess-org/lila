@@ -41,11 +41,32 @@ final class Cached(
       loader: perfPage =>
         rankingApi.topPerf.pager(perfPage.perf, perfPage.page).map(_.currentPageResults)
 
-  def topPerfPager(perf: PerfKey, page: Int): Fu[Paginator[LightPerf]] =
-    if page < 1 || page > maxPageNumber then fufail(s"page must be between 1 and {maxPageNumber}")
+  private def outOfRange(page: Int): Boolean = page < 1 || page > maxPageNumber
+
+  private def anyOnPage(users: Seq[LightPerf], perf: PerfKey, page: Int): Fu[Boolean] =
+    if outOfRange(page) then fuccess(false)
     else
-      for users <- topPerfPages.get(PerfPageKey(perf, page))
-      yield Paginator.fromResults(
+      topPerfPages.get(PerfPageKey(perf, page)).map: pageUsersSeq =>
+        val pageUsers = pageUsersSeq.map(_.user.id).toSet
+        users.exists(u => pageUsers(u.user.id))
+
+  def topPerfPager(perf: PerfKey, page: Int): Fu[Paginator[LightPerf]] =
+    if outOfRange(page) then fufail(s"page must be between 1 and $maxPageNumber")
+    else
+      val key = PerfPageKey(perf, page)
+      for
+        initialUsers <- topPerfPages.get(key)
+        overlapsNextPage <- anyOnPage(initialUsers, perf, page + 1)
+        users <-
+          if overlapsNextPage then
+            for
+              _ <- topPerfPages.invalidate(key)
+              _ <- topPerfPages.invalidate(PerfPageKey(perf, page + 1))
+              refreshedUsers <- topPerfPages.get(key)
+            yield refreshedUsers
+          else fuccess(initialUsers)
+      yield
+        Paginator.fromResults(
         users,
         nbResults = 500_000,
         currentPage = page,
