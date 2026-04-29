@@ -566,53 +566,54 @@ final class User(
 
   def autocomplete = OpenOrScoped(): ctx ?=>
     NoTor:
-      get("term").flatMap(UserSearch.read) match
-        case None => BadRequest("No search term provided")
-        case Some(term) if getBool("exists") =>
-          term.into(UserStr).validateId.so(env.user.repo.existsSec).map(JsonOk)
-        case Some(term) =>
-          {
-            (get("tour"), get("swiss"), get("team")) match
-              case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
-              case (_, Some(swissId), _) =>
-                env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
-              case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, 10)
-              case _ =>
-                ctx.me.ifTrue(getBool("friend")) match
-                  case Some(follower) =>
-                    env.relation.api.searchFollowedBy(follower, term, 10).flatMap { userIds =>
-                      val remaining = 10 - userIds.length
-                      if remaining > 0 then
-                        env.user.cached.userIdsLike(term).map { extraUserIds =>
-                          userIds ++ (extraUserIds.diff(userIds)).take(remaining)
-                        }
-                      else fuccess(userIds)
-                    }
-                  case None if getBool("teacher") =>
-                    env.user.repo.userIdsLikeWithRole(term, lila.core.perm.Permission.Teacher.dbKey)
-                  case None =>
-                    for
-                      found <- env.user.cached.userIdsLike(term)
-                      closed <- isGrantedOpt(_.AccountInfo).so(env.user.repo.userIdsLikeClosed(term))
-                    yield found ::: closed
-          }.flatMap { userIds =>
-            if getBool("names") then
-              lightUserApi
-                .asyncMany(userIds)
-                .map: users =>
-                  Json.toJson(users.flatMap(_.map(_.name)))
-            else if getBool("object") then
-              lightUserApi
-                .asyncMany(userIds)
-                .map: users =>
-                  Json.obj:
+      if getBool("exists") then
+        val name = get("term").orZero
+        env.security.forms.signup.firstUsernameError(name) match
+          case Some(error) => BadRequest(jsonError(error))
+          case None => UserStr.read(name).so(env.user.repo.existsSec).map(JsonOk)
+      else
+        get("term")
+          .flatMap(UserSearch.read)
+          .fold(BadRequest("No search term provided").toFuccess): term =>
+            for
+              userIds <- (get("tour"), get("swiss"), get("team")) match
+                case (Some(tourId), _, _) =>
+                  env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
+                case (_, Some(swissId), _) =>
+                  env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
+                case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, 10)
+                case _ =>
+                  ctx.me.ifTrue(getBool("friend")) match
+                    case Some(follower) =>
+                      env.relation.api.searchFollowedBy(follower, term, 10).flatMap { userIds =>
+                        val remaining = 10 - userIds.length
+                        if remaining > 0 then
+                          env.user.cached.userIdsLike(term).map { extraUserIds =>
+                            userIds ++ (extraUserIds.diff(userIds)).take(remaining)
+                          }
+                        else fuccess(userIds)
+                      }
+                    case None if getBool("teacher") =>
+                      env.user.repo.userIdsLikeWithRole(term, lila.core.perm.Permission.Teacher.dbKey)
+                    case None =>
+                      for
+                        found <- env.user.cached.userIdsLike(term)
+                        closed <- isGrantedOpt(_.AccountInfo).so(env.user.repo.userIdsLikeClosed(term))
+                      yield found ::: closed
+              result <-
+                if getBool("names") then
+                  for users <- lightUserApi.asyncMany(userIds)
+                  yield Json.toJson(users.flatMap(_.map(_.name)))
+                else if getBool("object") then
+                  for users <- lightUserApi.asyncMany(userIds)
+                  yield Json.obj:
                     "result" -> JsArray(users.collect { case Some(u) =>
                       lila.common.Json.lightUser
                         .write(u)
                         .add("online" -> env.socket.isOnline.exec(u.id))
                     })
-            else fuccess(Json.toJson(userIds))
-          }.map(JsonOk)
+                else fuccess(Json.toJson(userIds))
+            yield JsonOk(result)
 
   def ratingDistribution(perfKey: PerfKey, username: Option[UserStr] = None) = Open:
     Found(perfKey.some.filter(lila.rating.PerfType.isLeaderboardable)): perfKey =>

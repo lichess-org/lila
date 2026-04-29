@@ -57,32 +57,41 @@ final class SecurityForm(
 
     val emailField: Mapping[EmailAddress] = fullyValidEmail(using none)
 
+    private val newUsernameConstraints = List(
+      Constraints.pattern(
+        regex = lila.user.nameRules.newUsernamePrefix,
+        error = "usernamePrefixInvalid"
+      ),
+      Constraints.pattern(
+        regex = lila.user.nameRules.newUsernameSuffix,
+        error = "usernameSuffixInvalid"
+      ),
+      Constraints.pattern(
+        regex = lila.user.nameRules.newUsernameChars,
+        error = "usernameCharsInvalid"
+      ),
+      Constraints.pattern(
+        regex = lila.user.nameRules.newUsernameLetters,
+        error = "usernameCharsInvalid"
+      )
+    )
+
     val username: Mapping[UserName] = LilaForm
       .cleanNonEmptyText(minLength = 2, maxLength = 20)
-      .verifying(
-        Constraints.pattern(
-          regex = lila.user.nameRules.newUsernamePrefix,
-          error = "usernamePrefixInvalid"
-        ),
-        Constraints.pattern(
-          regex = lila.user.nameRules.newUsernameSuffix,
-          error = "usernameSuffixInvalid"
-        ),
-        Constraints.pattern(
-          regex = lila.user.nameRules.newUsernameChars,
-          error = "usernameCharsInvalid"
-        ),
-        Constraints.pattern(
-          regex = lila.user.nameRules.newUsernameLetters,
-          error = "usernameCharsInvalid"
-        )
-      )
+      .verifying(newUsernameConstraints*)
       .into[UserName]
       .verifying("usernameUnacceptable", u => !lameNameCheck.value || !LameName.username(u))
       .verifying(
         "usernameAlreadyUsed",
         u => u.id.noGhost && !userRepo.exists(u).await(3.seconds, "signupUsername")
       )
+
+    def firstUsernameError(username: String)(using lila.core.i18n.Translate): Option[String] =
+      newUsernameConstraints
+        .map(_.apply(username))
+        .collectFirst:
+          case play.api.data.validation.Invalid(e :: _) =>
+            lila.core.i18n.I18nKey(e.message).txt(e.args*)
 
     private val agreementBool = boolean.verifying(b => b)
 

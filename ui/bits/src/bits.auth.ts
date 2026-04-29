@@ -69,12 +69,18 @@ function signupStart() {
     }),
     $password = $form.find('input[name="password"]');
 
-  const usernameCheck = debounce(() => {
+  const usernameCheck = debounce(async () => {
     const name = $username.val() as string;
-    if (name.length >= 3)
-      xhr
-        .json(xhr.url('/api/player/autocomplete', { term: name, exists: 1 }))
-        .then(res => $exists.toggleClass('none', !res));
+    if (name.length < 3) return;
+    const $group = $username.parents('.form-group');
+    const res = await xhr.jsonAnyResponse(xhr.url('/api/player/autocomplete', { term: name, exists: 1 }));
+    const body = await res.json();
+    $group.find('.error-validation').remove();
+    if (res.ok) $exists.toggleClass('none', !body);
+    else if (res.status === 400) {
+      $exists.addClass('none');
+      $group.append(`<div class="error error-validation">${body.error || 'Invalid'}</div>`);
+    } else console.warn('Username check failed', res);
   }, 300);
 
   initTextClear($form[0] as HTMLFormElement);
