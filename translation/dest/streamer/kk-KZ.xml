@@ -5,7 +5,7 @@
   <string name="live">Тікелей эфир!</string>
   <string name="offline">Эфирден тыс</string>
   <string name="currentlyStreaming">Қазіргі стрим: %s</string>
-  <string name="lastStream">Кейінгі стрим %s</string>
+  <string name="lastStream">Соңғы стрим %s</string>
   <string name="becomeStreamer">Личес стримері болу</string>
   <string name="doYouHaveStream">Сізде YouTube не Twitch арнасы бар ма?</string>
   <string name="hereWeGo">Кеттік!</string>
