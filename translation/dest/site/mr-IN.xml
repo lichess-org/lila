@@ -200,7 +200,7 @@
   <string name="viewInFullSize">अधिकतम आकारात पाहा</string>
   <string name="logOut">बाहेर पडा</string>
   <string name="signIn">प्रवेश करा</string>
-  <string name="rememberMe">मला ल</string>
+  <string name="rememberMe">मला नोंदणीत ठेवा</string>
   <string name="youNeedAnAccountToDoThat">त्यासाठी तुम्हाला खातं लागेल</string>
   <string name="signUp">सदस्य खाते तयार करा</string>
   <string name="computersAreNotAllowedToPlay">संगणक आणि संगणक-सहाय्य केलेल्या खेळाडूंना खेळण्याची परवानगी नाही. कृपया बुद्धिबळ यंत्रांकडून, डेटाबेसमधून किंवा इतर खेळाडूंकडून मदत घेऊ नका. हे देखील लक्षात घ्या की एकापेक्षा जास्त खाती बनविणे अवैध आहे आणि त्यासाठी बंदी घातली जाईल.</string>
@@ -268,6 +268,7 @@
   <string name="emailCanTakeSomeTime">ई-मेल यायला वेळ लागू शकतो.</string>
   <string name="refreshInboxAfterFiveMinutes">५ मिनिट थांबा आणि ई-मेल इनबॉक्स रीफ्रेश करा.</string>
   <string name="checkSpamFolder">ई-मेल तुमच्या स्पॅम फोल्डर मध्ये जाऊ शकतो. जर असं झालं, तर ते \'नॉट स्पॅम\' मार्क करा.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">जर तुम्हाला पुष्टीकरण ई-मेल सापडत नसेल तर, %s वर ई-मेल पाठवा आणि आम्ही तुमच्या खात्याचे पुष्टीकरण करू</string>
   <string name="accountConfirmed">%s ह्या वापरकर्तानावचं यशस्वीरीत्या पुष्टीकरण झालं.</string>
   <string name="accountCanLogin">तुम्ही आता %s ह्या नावानी प्रवेश करू शकता.</string>
   <string name="accountConfirmationEmailNotNeeded">तुम्हाला पुष्टीकरणाच्या ई-मेल ची गरज नाही आहे.</string>
@@ -325,9 +326,9 @@
   <string name="viewRematch">पुनः खेळ पहा</string>
   <string name="confirmMove">चालीची पुष्टी करा</string>
   <string name="play">खेळा</string>
-  <string name="inbox">इनबॉक्स</string>
-  <string name="chatRoom">गप्पांची खोली</string>
-  <string name="loginToChat">सही (Sign in) करा</string>
+  <string name="inbox">संदेश पेटी</string>
+  <string name="chatRoom">संवाद कक्ष</string>
+  <string name="loginToChat">चर्चा करण्यासाठी नोंदणी करा</string>
   <string name="youHaveBeenTimedOut">तुम्हाला स्थगित करण्यात आलेले आहे.</string>
   <string name="spectatorRoom">प्रेक्षक कक्ष</string>
   <string name="composeMessage">संदेश लिहा</string>
@@ -362,7 +363,7 @@
     <item quantity="other">%s सेकंद द्या</item>
   </plurals>
   <string name="thisAccountViolatedTos">या खात्याने Lichess अटींचे उल्लंघन केले</string>
-  <string name="openingExplorerAndTablebase">उघडणी अन्वेषक नि साठा</string>
+  <string name="openingExplorerAndTablebase">आरंभ शोधक &amp; पाढे</string>
   <string name="takeback">चाल परत घ्या</string>
   <string name="proposeATakeback">चाल मागे घेण्यास विनंती करा</string>
   <string name="whiteProposesTakeback">पांढऱ्या खेळाडूला आपले डाव मागे घ्याचे आहे</string>
@@ -388,8 +389,8 @@
     <item quantity="other">%s अभ्यास</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="one">%s सिम्यूळ</item>
-    <item quantity="other">%s सिम्यूळी</item>
+    <item quantity="one">%s प्रदर्शन</item>
+    <item quantity="other">%s प्रदर्शने</item>
   </plurals>
   <string name="viewTournament">क्रीडासत्र पहा</string>
   <string name="backToTournament">क्रीडासत्रात परत जा</string>
@@ -446,10 +447,10 @@
   <string name="importGameExplanation">प्रतिक्रिया, संगणक विश्लेषण, संभाषण, URL मिळवण्यासाठी खेळाची PGN टाका.</string>
   <string name="importGameDataPrivacyWarning">हे PGN लोकांसाठी उपलब्ध आहे. जर तुम्हाला हा गेम खाजगी ठेवायचा असेल, तर एक स्टडी वापरा.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s खेळ मागवला</item>
-    <item quantity="other">%s खेळ मागवले</item>
+    <item quantity="one">%s आयात केलेला खेळ</item>
+    <item quantity="other">%s आयात केलेले खेळ</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">हा बुद्धिबळाचा CAPTCHA आहे</string>
+  <string name="thisIsAChessCaptcha">हा बुद्धिबळाचा CAPTCHA आहे.</string>
   <string name="clickOnTheBoardToMakeYourMove">तुम्ही मनुष्य आहात हे सिद्ध करण्यासाठी पटावर क्लिक करून आपली चाल खेळा.</string>
   <string name="captcha.fail">कृपया बुद्धिबळ कोडे सोडवा.</string>
   <string name="notACheckmate">ही शहमात नाही</string>
@@ -523,6 +524,7 @@
   <string name="popularOpenings">लोकप्रिय प्रारंभिक चाली</string>
   <string name="endgamePositions">अंत्यखेळ स्थिती</string>
   <string name="chess960StartPosition">चेस९६० प्रारंभ स्थिती: %s</string>
+  <string name="randomChess960Position">यादृच्छिक चेस९६० स्थिती</string>
   <string name="startPosition">सुरवातीची स्थिती</string>
   <string name="clearBoard">पट रिकामा करा</string>
   <string name="loadPosition">पटस्थिती लोड करा</string>
@@ -535,11 +537,11 @@
   <string name="editProfile">चरित्र संपादित करा</string>
   <string name="realName">खरं नाव</string>
   <string name="setFlair">तुमचा स्वभाव दाखवा</string>
-  <string name="flair">स्वभाव</string>
-  <string name="youCanHideFlair">सगळ्यांचे स्वभाव लपवण्यासाठी एक सेटिंग आहे.</string>
+  <string name="flair">प्रतिभा</string>
+  <string name="youCanHideFlair">सगळ्यांची प्रतिभा लपवण्यासाठी एक कोंदण आहे.</string>
   <string name="biography">स्वचरित्र</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">देश किंवा जागा</string>
-  <string name="thankYou">आभारी आहे</string>
+  <string name="thankYou">आभारी आहे!</string>
   <string name="socialMediaLinks">सोशल मीडिया दुवे</string>
   <string name="oneUrlPerLine">एक ओळीत एक URL.</string>
   <string name="inlineNotation">ओळीत स्वरलिपी</string>
@@ -591,7 +593,7 @@
   <string name="by">%s ने</string>
   <string name="importedByX">%s ने आयात केलेले</string>
   <string name="thisTopicIsNowClosed">हा विषय आता संपला आहे.</string>
-  <string name="blog">स्व: मत</string>
+  <string name="blog">अनुदिनी</string>
   <string name="notes">नोंदी</string>
   <string name="typePrivateNotesHere">गुप्त नोंदी इथे लिहा</string>
   <string name="writeAPrivateNoteAboutThisUser">ह्या खेळाडूबद्दल एक गुप्त नोंद लिहा</string>
@@ -603,9 +605,9 @@
   <string name="orSeparator">किंवा</string>
   <string name="logInByEmail">ई-मेल द्वारे प्रवेश करा</string>
   <string name="emailMeALink">एक दुवा ई-मेल करा</string>
-  <string name="currentPassword">सध्याचा परवलीचा शब्द </string>
-  <string name="newPassword">नवीन परवलीचा शब्द </string>
-  <string name="newPasswordAgain">नवीन परवलीचा शब्द  (पुनः)</string>
+  <string name="currentPassword">सध्याचा परवलीचा शब्द</string>
+  <string name="newPassword">नवीन परवलीचा शब्द</string>
+  <string name="newPasswordAgain">नवीन परवलीचा शब्द (पुनः)</string>
   <string name="newPasswordsDontMatch">नवीन परवलीचा शब्द जुळत नाहीत</string>
   <string name="newPasswordStrength">परवलीचा शब्दाची शक्ती</string>
   <string name="clockInitialTime">प्रारंभिक वेळ</string>
@@ -660,7 +662,7 @@
   <string name="error.required">ही माहिती अनिवार्य आहे</string>
   <string name="error.email">हा ई-मेल पत्ता अवैध आहे</string>
   <string name="error.email_acceptable">हा ई-मेल पत्ता स्वीकार्य नाही. कृपया ते पुन्हा तपासा आणि पुन्हा प्रयत्न करा.</string>
-  <string name="error.email_unique">ई-मेल पत्ता अवैध किंवा आधीच घेतला आहे</string>
+  <string name="error.email_unique">ई-मेल पत्ता अवैध किंवा आधीच घेतला गेलेला आहे</string>
   <string name="error.email_different">हा आधीच तुमचा ई-मेल पत्ता आहे</string>
   <string name="error.minLength">किमान लांबी %s आहे</string>
   <string name="error.maxLength">कमाल लांबी %s आहे</string>
@@ -697,30 +699,30 @@
   <string name="simultaneousExhibitions">अनेकांविरूद्ध प्रदर्शने</string>
   <string name="host">यजमान</string>
   <string name="hostColorX">यजमानाचा रंग: %s</string>
-  <string name="yourPendingSimuls">तुमचे प्रलंबित सिम्यूळ</string>
-  <string name="createdSimuls">नवीन सिम्यूळ तयार</string>
-  <string name="hostANewSimul">नवीन सिम्यूळ यजमान करा</string>
-  <string name="signUpToHostOrJoinASimul">सिम्यूळात भाग घेण्यासाठी व बनवण्यासाठी नोंदणी करा</string>
-  <string name="noSimulFound">सिम्यूळ सापडली नाही</string>
-  <string name="noSimulExplanation">हे सिम्यूळ प्रदर्शन अस्तित्त्वात नाही.</string>
-  <string name="returnToSimulHomepage">सिम्यूळच्या मुखपृष्ठाकडे परत जा</string>
-  <string name="aboutSimul">सिम्यूळमध्ये एकटा खेळाडू एकाच वेळी बऱ्याच प्रतिस्पर्ध्यांचा सामना करतो.</string>
+  <string name="yourPendingSimuls">तुमचे प्रलंबित प्रदर्शन</string>
+  <string name="createdSimuls">नवीन तयार केलेले प्रदर्शने</string>
+  <string name="hostANewSimul">नवीन प्रदर्शन यजमान करा</string>
+  <string name="signUpToHostOrJoinASimul">प्रदर्शनात भाग घेण्यासाठी व बनवण्यासाठी नोंदणी करा</string>
+  <string name="noSimulFound">प्रदर्शन सापडले नाही</string>
+  <string name="noSimulExplanation">हे प्रदर्शन अस्तित्त्वात नाही.</string>
+  <string name="returnToSimulHomepage">प्रदर्शनाच्या मुखपृष्ठाकडे परत जा</string>
+  <string name="aboutSimul">प्रदर्शनामध्ये एकटा खेळाडू एकाच वेळी बऱ्याच प्रतिस्पर्ध्यांचा सामना करतो.</string>
   <string name="aboutSimulImage">५० विरोधकांविरूद्ध फिशरने ४७ खेळ जिंकले, २ बरोबरीत सोडवले आणि १ खेळ हरले.</string>
   <string name="aboutSimulRealLife">वास्तविक जगातील घटनांमधून संकल्पना घेतली आहे. वास्तविक जीवनात, यामध्ये यजमान एकाच चालीसाठी टेबल वरून दुसऱ्या टेबलवर फिरत असतो.</string>
-  <string name="aboutSimulRules">जेव्हा सिम्यूळ सुरू होते, तेव्हा प्रत्येक खेळाडू यजमानासह खेळ सुरू करतो. जेव्हा सर्व खेळ पूर्ण होतात तेव्हा सिम्यूळ प्रदर्शन संपते.</string>
-  <string name="aboutSimulSettings">सिम्यूळ नेहमीच अनौपचारिक असतात. पुनर्खेळ, चाल परत घेणे आणि वेळ वाढवणे या गोष्टींची परवानगी नसते.</string>
+  <string name="aboutSimulRules">जेव्हा अनेकांविरुद्ध प्रदर्शन सुरू होते, तेव्हा प्रत्येक खेळाडू यजमानासह खेळ सुरू करतो. जेव्हा सर्व खेळ पूर्ण होतात तेव्हा प्रदर्शन संपते.</string>
+  <string name="aboutSimulSettings">अनेकांविरूद्धची प्रदर्शने नेहमीच अनौपचारिक असतात. पुनर्खेळ, चाल परत घेणे आणि वेळ वाढवणे या गोष्टींची परवानगी नसते.</string>
   <string name="create">तयार करा</string>
-  <string name="whenCreateSimul">जेव्हा आपण एखादे सिम्यूळ तयार करता तेव्हा आपल्याला एकाच वेळी अनेक खेळाडू खेळायला मिळतात.</string>
+  <string name="whenCreateSimul">जेव्हा आपण एखादे अनेकांविरुद्ध प्रदर्शन तयार करता तेव्हा आपल्याला एकाच वेळी अनेक खेळाडू खेळायला मिळतात.</string>
   <string name="simulVariantsHint">आपण कित्येक प्रकार निवडल्यास प्रत्येक खेळाडू कोणता प्रकार खेळायचा ते ठरवू शकेल.</string>
   <string name="simulClockHint">फिशर घड्याळ मांडणी. आपण जितके अधिक खेळाडू घेता, तितके आपल्याला अधिक वेळ लागेल.</string>
-  <string name="simulAddExtraTime">सिम्यूळमध्ये सामना करण्यास सोपे व्हावे म्हणून आपण आपल्या घड्याळात अतिरिक्त वेळ घालवू शकता.</string>
+  <string name="simulAddExtraTime">एकाच वेळी अनेकांचा सामना करण्यास सोपे व्हावे म्हणून आपण आपल्या घड्याळात अतिरिक्त वेळ घालवू शकता.</string>
   <string name="simulHostExtraTime">यजमानाचा जास्त वेळ</string>
   <string name="simulAddExtraTimePerPlayer">तुमच्या घड्याळात प्रत्येक नवीन खेळाडूसाठी प्रारंभिक वेळ जोडा.</string>
   <string name="simulHostExtraTimePerPlayer">प्रती खेळाडूनुसार यजमानासाठी जादा वेळ</string>
   <string name="lichessTournaments">Lichess क्रीडासत्र</string>
   <string name="tournamentFAQ">क्रीडासत्राचे सामान्य प्रश्न</string>
   <string name="timeBeforeTournamentStarts">क्रीडासत्र सुरू होण्यास बाकी वेळ</string>
-  <string name="averageCentipawnLoss">सरासरी सेंटीपॉन तोटा</string>
+  <string name="averageCentipawnLoss">सरासरी शतप्यादा तोटा</string>
   <string name="accuracy">अचूकता</string>
   <string name="keyboardShortcuts">कळफलक शॉर्टकट</string>
   <string name="keyMoveBackwardOrForward">मागे/पुढे चला</string>
