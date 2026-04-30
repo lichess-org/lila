@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichobileNewAppAvailable" comment="Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">नवीन Lichess मोबाईल अँप उपलब्ध आहे!</string>
+  <string name="lichobileNewAppDownload" comment="%s links to https://lichess.org/app&#10;&#10;Part of a message sent to users of the old mobile app (https://github.com/lichess-org/lichobile).">कृपया नवीन अधिकृत Lichess अँपला इथून %s आयात करा.</string>
+</resources>
