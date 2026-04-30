@@ -88,7 +88,7 @@
   <string name="database">Дерекқор</string>
   <string name="whiteDrawBlack">Ақ / Тең / Қара</string>
   <string name="averageRatingX">Орташа рейтинг: %s</string>
-  <string name="recentGames">Кейінгі ойындар</string>
+  <string name="recentGames">Соңғы ойындар</string>
   <string name="topGames">Үздік ойындар</string>
   <string name="masterDbExplanation">%2$s - %3$s жж FIDE-дәрежесі %1$s+ ойыншылар қатысқан 2 миллион шынайы ойын</string>
   <plurals name="mateInXHalfMoves">
@@ -536,7 +536,7 @@
   <string name="createANewTopic">Жаңа тақырып құру</string>
   <string name="topics">Тақырып</string>
   <string name="posts">Жазба</string>
-  <string name="lastPost">Кейінгі хабар</string>
+  <string name="lastPost">Соңғы хабар</string>
   <string name="views">Қаралған</string>
   <string name="replies">Жауаптар</string>
   <string name="replyToThisTopic">Осы тақырыпта жауап беру</string>
