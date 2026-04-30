@@ -253,6 +253,7 @@
   <string name="emailCanTakeSomeTime">受信まで少しかかるかもしれません。</string>
   <string name="refreshInboxAfterFiveMinutes">5 分待ってからメール受信箱を更新してください。</string>
   <string name="checkSpamFolder">またスパムフォルダに入ってしまう場合もあります。もしそうならスパムではないとマークしてください。</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">確認メールが見つからない場合は %s にメールを送信してください。当方でアカウントを確認します。</string>
   <string name="accountConfirmed">ユーザー %s の確認が完了しました。</string>
   <string name="accountCanLogin">すぐに %s としてログインできます。</string>
   <string name="accountConfirmationEmailNotNeeded">あなたには確認メールは必要ありません。</string>
