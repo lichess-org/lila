@@ -57,7 +57,7 @@ export async function confirm(
 // non-blocking window.prompt-alike
 export async function prompt(
   msg: string,
-  def: string = '',
+  def = '',
   valid: (text: string) => boolean = () => true,
 ): Promise<string | null> {
   const res = await domDialog({

@@ -26,7 +26,7 @@ export class MultiBoardCtrl {
   playing: Toggle = toggle(false);
   showResults: Prop<boolean>;
   teamSelect: Prop<string> = prop('');
-  page: number = 1;
+  page = 1;
   maxPerPageStorage = storage.make('study.multiBoard.maxPerPage');
 
   constructor(

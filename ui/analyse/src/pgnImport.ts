@@ -86,7 +86,7 @@ const rulesToVariantKey: Record<string, VariantKey> = {
   racingkings: 'racingKings',
 };
 
-export const renderPgnError = (error: string = '') =>
+export const renderPgnError = (error = '') =>
   `PGN error: ${
     {
       [IllegalSetup.Empty]: 'empty board',

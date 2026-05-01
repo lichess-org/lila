@@ -8,7 +8,7 @@ import { enter } from 'lib/view';
 import { wireMarkdownImgResizers, wrapImg, naturalSize } from 'lib/view/markdownImgResizer';
 import { json as xhrJson } from 'lib/xhr';
 
-export function makeToastEditor(el: HTMLTextAreaElement, text: string = '', height: string = '60vh'): Editor {
+export function makeToastEditor(el: HTMLTextAreaElement, text = '', height = '60vh'): Editor {
   const rewire = () =>
     wireMarkdownImgResizers({
       root: document.querySelector<HTMLElement>('.toastui-editor-ww-container .ProseMirror')!,

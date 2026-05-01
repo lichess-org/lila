@@ -14,7 +14,7 @@ const version = 11;
 
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
-  private reported: boolean = false;
+  private reported = false;
   // timestamp (ms) of the last time the user clicked on the hide report dialog toggle
   private readonly tsHideReportDialog: StoredProp<number>;
   // number of evals that have triggered the `winningChances.hasMultipleSolutions` method

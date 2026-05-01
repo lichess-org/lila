@@ -7,15 +7,21 @@ import type { Hooks, VNode } from 'snabbdom';
 import { escapeHtml } from './common';
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
+
+/* oxlint-disable no-inferrable-types */
+// Our TS config require explicit type annotation on exported code due to `isolatedDeclarations` flag.
 export const linkRegex: RegExp =
   /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lichess\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 export const newLineRegex: RegExp = /\n/g;
 export const userPattern: RegExp = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
+export const movePattern: RegExp =
+  /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP\u2654\u2655\u2656\u2657\u2658\u2659]?[a-h]?[1-8]?[x@]?[a-h][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?#?[!\?=]{0,5}/gi;
+/* oxlint-enable no-inferrable-types */
 
 // looks like it has a @mention or #gameid or a url.tld
 export const isMoreThanText = (str: string): boolean => /(\n|(@|#|\.)\w{2,}|(board|game) \d)/i.test(str);
 
-const linkHtml = (href: string, content: string, expandable: boolean = true): string =>
+const linkHtml = (href: string, content: string, expandable = true): string =>
   `<a${expandable ? '' : ' class="text"'} target="_blank" rel="nofollow noreferrer" href="${href}">${content}</a>`;
 
 export function toLink(url: string): string {
@@ -37,7 +43,7 @@ export const innerHTML = <A>(a: A, toHtml: (a: A) => string): Hooks => ({
   },
 });
 
-export function linkReplace(href: string, body?: string, expandable: boolean = true): string {
+export function linkReplace(href: string, body?: string, expandable = true): string {
   if (href.includes('&quot;')) return href;
   return linkHtml(
     href.startsWith('/') || href.includes('://') ? href : '//' + href,
@@ -63,8 +69,6 @@ export function richHTML(text: string, newLines = true): Hooks {
 
 const linkPattern = /\b\b(?:https?:\/\/)?(lichess\.org\/[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|])/gi;
 const pawnDropPattern = /^[a-h][2-7]$/;
-export const movePattern: RegExp =
-  /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP\u2654\u2655\u2656\u2657\u2658\u2659]?[a-h]?[1-8]?[x@]?[a-h][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?#?[!\?=]{0,5}/gi;
 const boardPattern = /\b(?:board|game)\s(\d+)/gi;
 
 function moveReplacer(match: string, turn: number, dots: string) {
