@@ -436,20 +436,10 @@ export default class AnalyseCtrl implements CevalHandler {
   playedLastMoveMyself = () =>
     !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
 
-  jump(path: TreePath): void {
-    const pathChanged = path !== this.path,
-      isForwardStep = pathChanged && path.length === this.path.length + 2;
-    if (this.path !== path)
-      this.treeView.requestAutoScroll(treeOps.distance(this.path, path) > 8 ? 'instant' : 'smooth');
-    this.setPath(path);
-    if (pathChanged) {
-      if (this.study) this.study.setPath(path, this.node);
-      if (this.retro) this.retro.onJump();
-      if (isForwardStep) {
+      if (isForwardStep)
         if (this.data.game.variant.key === 'atomic' && this.node.san?.includes('x'))
           site.sound.play('explosion');
         else site.sound.move(this.node);
-}
       this.threatMode(false);
       this.ceval?.stop();
       this.startCeval();
