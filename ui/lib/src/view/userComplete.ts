@@ -55,7 +55,7 @@ export const checkDebouncedResultAgainstTerm =
   (got: ResultOfTerm): Promise<LightUserOnline[]> =>
     term === got.term ? Promise.resolve(got.result) : Promise.reject(new Error('Debounced ' + term));
 
-export const renderUserEntry = (o: LightUserOnline, tag: string = 'a'): string => {
+export const renderUserEntry = (o: LightUserOnline, tag = 'a'): string => {
   const patronClass = o.patronColor ? ` paco${o.patronColor}` : '';
   return (
     '<' +

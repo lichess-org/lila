@@ -78,14 +78,14 @@ export const memoize = <A>(compute: () => A): (() => A) => {
 export const scrollToInnerSelector = (
   el: HTMLElement,
   selector: string,
-  horiz: boolean = false,
+  horiz = false,
   behavior: ScrollBehavior = 'instant',
 ): void => scrollTo(el, el.querySelector(selector), horiz, behavior);
 
 export const scrollTo = (
   el: HTMLElement,
   target: HTMLElement | null,
-  horiz: boolean = false,
+  horiz = false,
   behavior: ScrollBehavior = 'instant',
 ): void => {
   if (!target) return;

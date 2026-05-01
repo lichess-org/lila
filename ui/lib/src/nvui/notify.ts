@@ -22,7 +22,7 @@ export class Notify {
 export function liveText(
   text: string,
   live: 'assertive' | 'polite' = 'polite',
-  sel: string = 'p',
+  sel = 'p',
   forceKey?: Date,
 ): VNode {
   const data: VNodeData = isMac()

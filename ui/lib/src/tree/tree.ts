@@ -190,7 +190,7 @@ export function makeTree(root: TreeNode): TreeWrapper {
   function walkUntilTrue(
     fn: (node: TreeNode, isMainline: boolean) => boolean,
     from: TreePath = '',
-    branchOnly: boolean = false,
+    branchOnly = false,
   ) {
     function traverse(node: TreeNode, isMainline: boolean): boolean {
       if (fn(node, isMainline)) return true;

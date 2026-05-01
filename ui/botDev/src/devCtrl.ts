@@ -57,7 +57,7 @@ export class DevCtrl implements GameObserver {
     return this.hurryProp() || (this.gameInProgress && env.bot.playing.some(x => 'level' in x));
   }
 
-  run(test?: Test, iterations: number = 1): boolean {
+  run(test?: Test, iterations = 1): boolean {
     if (test) {
       this.resetScript(test);
       this.script.games.push(...this.matchups(test, iterations));

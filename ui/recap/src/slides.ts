@@ -374,7 +374,7 @@ export const shareable = (r: Recap): VNode =>
   ]);
 
 const slideTag =
-  (key: string, millis: number = 5000) =>
+  (key: string, millis = 5000) =>
   (content: LooseVNodes) =>
     hl(
       `div.swiper-slide.recap__slide--${key}`,
