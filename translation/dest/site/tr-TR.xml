@@ -268,6 +268,7 @@
   <string name="emailCanTakeSomeTime">E-postanın ulaşması biraz zaman alabilir.</string>
   <string name="refreshInboxAfterFiveMinutes">5 dakika bekleyip e-posta gelen kutunuzu yenileyin.</string>
   <string name="checkSpamFolder">Ayrıca spam klasörünü kontrol edin, orada olabilir. Eğer öyleyse spam değil olarak işaretleyin.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Doğrulama e-postanızı bulamıyorsanız, %s adresine e-posta gönderin, hesabınızı sizin için onaylayalım.</string>
   <string name="accountConfirmed">%s kullanıcısı başarıyla onaylandı.</string>
   <string name="accountCanLogin">Artık %s olarak giriş yapabilirsiniz.</string>
   <string name="accountConfirmationEmailNotNeeded">Onay e-postasına ihtiyacınız yok.</string>
