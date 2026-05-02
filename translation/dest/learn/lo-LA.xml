@@ -104,7 +104,7 @@
 ຜ່ານການປ້ອງກັນຂອງທ່ານ!</string>
   <string name="escapeOrBlock">ພາຂຸນຫຼົບຫຼີກ
 ຫຼື ປິດກັ້ນການໂຈມຕີ!</string>
-  <string name="outOfCheckComplete">ຂໍສະແດງຄວາມຍິນດີ! ຂຸນຂອງທ່ານຈະບໍ່ມີວັນຖືກກິນ, ຈົ່ງໝັ້ນໃຈວ່າທ່ານສາມາດປ້ອງກັນການຮຸກໄດ້!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">ຂໍສະແດງຄວາມຍິນດີ! ຂຸນຂອງທ່ານຈະບໍ່ມີວັນຖືກກິນ, ຈົ່ງໝັ້ນໃຈວ່າທ່ານສາມາດປ້ອງກັນການຮຸກໄດ້!</string>
   <string name="mateInOne">ຮຸກຈົນ (Mate) ໃນຕາດຽວ</string>
   <string name="defeatTheOpponentsKing">ຜາບແພ້ຂຸນຂອງຄູ່ຕໍ່ສູ້</string>
   <string name="mateInOneIntro">ທ່ານຈະຊະນະ ເມື່ອຄູ່ຕໍ່ສູ້ບໍ່ສາມາດປ້ອງກັນການຮຸກໄດ້.</string>
