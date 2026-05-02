@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Bestätige dein Benutzerkonto auf lichess.org, %s</string>
+  <string name="emailConfirm_intro">Danke dass du dich auf Lichess registriert hast!</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Klicke auf den Link, um dein Benutzerkonto bei Lichess zu aktivieren:</string>
   <string name="emailConfirm_justIgnore">Wenn du dich nicht bei Lichess registriert hast, kannst du diese Nachricht ignorieren. Der unbestätigte Account und alle Spuren deiner E-Mail-Adresse werden nach 48 Stunden aus unserem System gelöscht.</string>
   <string name="passwordReset_subject">Setze dein Passwort für lichess.org zurück, %s</string>
