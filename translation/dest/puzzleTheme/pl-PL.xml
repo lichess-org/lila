@@ -76,7 +76,7 @@
   <string name="swallowstailMate">Mat \"jaskółczy ogon\"</string>
   <string name="triangleMate">Mat trójkątny</string>
   <string name="triangleMateDescription">Hetman i wieża ustawione na tej samej linii matują króla przeciwnika, stojąc bezpośrednio przy nim i tworząc trójkąt.</string>
-  <string name="vukovicMate">Mat Vukovic\'a</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mat Vukovic\'a</string>
   <string name="vukovicMateDescription">Para wieża i skoczek matują króla przeciwnika. Wieża wspierana przez trzecią bierkę daje mata, podczas gdy skoczek blokuje królowi przeciwnika wszystkie pola ucieczki.</string>
   <string name="knightEndgame">Końcówka skoczkowa</string>
   <string name="knightEndgameDescription">Gra końcowa wyłącznie ze skoczkami i pionami.</string>
