@@ -3,7 +3,7 @@
   <string name="arena">Goon</string>
   <string name="arenaTournaments">Goon tournament</string>
   <string name="isItRated">Iki di reting?</string>
-  <string name="berserk">Nggon beronton</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Nggon beronton</string>
   <string name="variant">Varian</string>
   <string name="newTeamBattle">Gelot tim baru</string>
 </resources>
