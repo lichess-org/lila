@@ -268,7 +268,7 @@
   <string name="emailCanTakeSomeTime">Det kan tage lidt tid for den at ankomme.</string>
   <string name="refreshInboxAfterFiveMinutes">Vent 5 minutter og opdater din e-mails indbakke.</string>
   <string name="checkSpamFolder">Tjek også din spam-mappe, det kan være, at den havner der. Hvis det er tilfældet, skal du markere den som ikke-spam.</string>
-  <string name="sendEmailForAccountVerification">Hvis du ikke kan finde din bekræftelsesmail, kan du sende en e-mail til %s, så bekræfter vi din konto for dig.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Hvis du ikke kan finde din bekræftelsesmail, kan du sende en e-mail til %s, så bekræfter vi din konto for dig.</string>
   <string name="accountConfirmed">Brugeren %s er blevet bekræftet.</string>
   <string name="accountCanLogin">Du kan nu logge ind som %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Du behøver ikke en bekræftelsesmail.</string>
