@@ -268,7 +268,7 @@
   <string name="emailCanTakeSomeTime">Mund të duhet pak kohë që të mbërrijë.</string>
   <string name="refreshInboxAfterFiveMinutes">Pritni 5 minuta dhe rifreksoni “Të marrët” tuaj</string>
   <string name="checkSpamFolder">Shihni gjithashtu edhe te dosja juaj e të padëshiruarve, mund të përfundojë atje. Në ndodhtë kështu, i hiqni shenjën si i padëshiruar.</string>
-  <string name="sendEmailForAccountVerification">Nëse s’gjeni dot email-in e ripohimit, dërgoni një email te %s dhe do të miratojmë llogarinë tuaj për ju.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Nëse s’gjeni dot email-in e ripohimit, dërgoni një email te %s dhe do të miratojmë llogarinë tuaj për ju.</string>
   <string name="accountConfirmed">Përdoruesi %s u ripohua me sukses.</string>
   <string name="accountCanLogin">Mund të bëni hyrjen mu tani si %s.</string>
   <string name="accountConfirmationEmailNotNeeded">S’ju duhe një email ripohimi.</string>
