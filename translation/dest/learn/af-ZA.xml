@@ -102,7 +102,7 @@ deur die aanvallende stuk te vat.</string>
 regdeur jou verdediging!</string>
   <string name="escapeOrBlock">Ontsnap met die koning
 of blok die aanval!</string>
-  <string name="outOfCheckComplete">Pragtig! Jou koning kan nooit gevat word nie, maak seker jy kan teen \'n skaak verdedig!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Pragtig! Jou koning kan nooit gevat word nie, maak seker jy kan teen \'n skaak verdedig!</string>
   <string name="mateInOne">Mat in een</string>
   <string name="defeatTheOpponentsKing">Oorwin die opponent se koning</string>
   <string name="mateInOneIntro">Jy wen wanneer jou opponent nie homself teen skaak kan verdedig nie.</string>
