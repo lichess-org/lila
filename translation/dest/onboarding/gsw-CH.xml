@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Das isch dini Profil Site.</string>
   <string name="enabledKidModeSuggestion">Wird es Chind de Account benutze? Möchtsch villicht de %s aktiviere?</string>
   <string name="whatNowSuggestions">Was sofort? Da sind es paar Vorschläg:</string>
-  <string name="learnChessRules">Lern Schachregle</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Lern Schachregle</string>
   <string name="improveWithChessTacticsPuzzles">Verbesser dich, mit taktische Ufgabe.</string>
   <string name="playTheArtificialIntelligence">Schpill die künschtlichi Intelligänz.</string>
   <string name="playOpponentsFromAroundTheWorld">Schpill mit Gägner us de ganze Wält.</string>
