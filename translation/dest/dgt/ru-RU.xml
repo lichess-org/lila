@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Если ход не распознался</string>
   <string name="checkYouHaveMadeOpponentsMove">Сначала проверьте, что ход противника сделан на доске DGT. Верните свой ход. Сыграйте снова.</string>
   <string name="asALastResort">В крайнем случае, расставьте фигуры на доске как в Lichess, затем %s</string>
-  <string name="reloadThisPage">Обновите эту страницу</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Обновите эту страницу</string>
   <string name="dgtConfigure">DGT — Настройка</string>
   <string name="lichessConnectivity">Подключение к Lichess</string>
   <string name="validDgtOauthToken">У вас есть токен OAuth, подходящий для игры с DGT.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Ключевые слова имеют формат JSON. Они используются для перевода ходов и результата на ваш язык. По умолчанию они на английском, но вы можете изменить это.</string>
   <string name="debug">Отладка</string>
   <string name="verboseLogging">Подробное журналирование</string>
-  <string name="toSeeConsoleMessage">Чтобы увидеть сообщения в консоли, нажмите Command + Option + C (Mac) или Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Чтобы увидеть сообщения в консоли, нажмите Command + Option + C (Mac) или Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Играть на доске DGT</string>
   <string name="configure">Настроить</string>
 </resources>
