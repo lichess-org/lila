@@ -13,7 +13,7 @@
 .i va\'i lu nunji\'a fa\'u lo nunynorji\'a fa\'u lo nuntolji\'a cu se vamji li vo fa\'u re fa\'u no gradu
 
 .i mu\'a re lo nunji\'a ce\'o lo nunynorji\'a cu se vamji xa to re su\'i re su\'i re pi\'i pa toi gradu</string>
-  <string name="berserk">lo kelcrxarena zei nunsutytcebilga</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">lo kelcrxarena zei nunsutytcebilga</string>
   <string name="berserkAnswer">ca lo nu lo jvikei cu danre lo batke be fi tu\'a lo nunsutytcebilga pu\'o lo nu cfari kei kei ku xabybi\'o lo temci pe ra gi\'e ku\'i go lo srana jvikei cu su\'o ze roi muvgau gi vamji lo nunji\'a fa lo zmadu be fo li pa
 .i ji\'a lo nu zukte lo nunsutytcebilga ci\'e lo nunjvi poi te ja\'i ke\'a ba ro nu muvdu kei lo temci pe lo jvikei cu zenba fi lo snidu be li ma\'u ku\'o kei lo te zenba cu binxo lo ka snidu be li no .i nafselte\'i fa la\'o zoi. 1+2 .zoi noi temci ciste zi\'e noi binxo lo ka me la\'o zoi. 1+0 .zoi
 .i na kakne lo nu zukte lo nunsutytcebilga kei ci\'e lo nunjvi be mu\'u la\'o zoi. 0+1 .zoi .e la\'o zoi. 0+2 .zoi be\'o poi lo cfari temci cu mentu li no</string>
