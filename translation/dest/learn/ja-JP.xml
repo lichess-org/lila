@@ -104,7 +104,7 @@
 チェックしてくる！</string>
   <string name="escapeOrBlock">キングを逃がすか
 合い駒で防ぐか</string>
-  <string name="outOfCheckComplete">おめでとう！　キングを取られたらおしまいなので、チェックが来たら必ず防ぐこと！</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">おめでとう！　キングを取られたらおしまいなので、チェックが来たら必ず防ぐこと！</string>
   <string name="mateInOne">1 手でメイト</string>
   <string name="defeatTheOpponentsKing">相手のキングをメイトする</string>
   <string name="mateInOneIntro">相手がチェックを防げなくなれば、あなたの勝ちです。</string>
