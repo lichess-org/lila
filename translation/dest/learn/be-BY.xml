@@ -95,7 +95,7 @@
 абыходзячы вашую абарону!</string>
   <string name="escapeOrBlock">Адвядзіце караля
 ці бараніцеся!</string>
-  <string name="outOfCheckComplete">Віншуем! Цяпер вы ведаеце, як абараніць свайго караля ад шаха!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Віншуем! Цяпер вы ведаеце, як абараніць свайго караля ад шаха!</string>
   <string name="mateInOne">Мат у адзін ход</string>
   <string name="defeatTheOpponentsKing">Вазьміце верх над каралём суперніка</string>
   <string name="mateInOneIntro">Вы перамагаеце, калі ваш супернік не можа абараніць караля ад шаха.</string>
