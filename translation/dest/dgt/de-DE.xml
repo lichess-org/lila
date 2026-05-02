@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Fallls ein Zug nicht erkannt wurde</string>
   <string name="checkYouHaveMadeOpponentsMove">Überprüfe, ob du den Zug deines Gegners auf dem DGT-Brett bereits ausgeführt hast. Nimm deinen Zug zurück. Ziehe erneut.</string>
   <string name="asALastResort">Als letztes Hilfsmittel, stelle dein Brett identisch zu dem von Lichess auf, dann %s</string>
-  <string name="reloadThisPage">Diese Seite neu laden</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Diese Seite neu laden</string>
   <string name="dgtConfigure">DGT - Konfigurieren</string>
   <string name="lichessConnectivity">Lichess Konnektivität</string>
   <string name="validDgtOauthToken">Du hast einen OAuth Schlüssel, der für DGT-Partien geeignet ist.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Schlüsselwörter sind im JSON-Format. Sie werden verwendet, um Züge und Ergebnisse in deine Sprache zu übersetzen. Standardsprache ist Englisch, aber du kannst sie jederzeit ändern.</string>
   <string name="debug">Fehlersuche</string>
   <string name="verboseLogging">Ausführliche Protokollierung</string>
-  <string name="toSeeConsoleMessage">Um die Konsolen-Nachricht zu sehen, drücke Command + Option + C (Mac) oder Steuerung + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Um die Konsolen-Nachricht zu sehen, drücke Command + Option + C (Mac) oder Steuerung + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Spiele mit einem DGT-Brett</string>
   <string name="configure">Konfiguriere</string>
 </resources>
