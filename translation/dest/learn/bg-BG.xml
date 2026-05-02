@@ -91,7 +91,7 @@
 като вземете атакуващата фигура.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Този кон се движи между вашите редици!</string>
   <string name="escapeOrBlock">Избягай с царя или блокирай атаката!</string>
-  <string name="outOfCheckComplete">Поздравления! Царят ви никога няма да бъде взет, уверете се, че може да се защитавате от атаки!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Поздравления! Царят ви никога няма да бъде взет, уверете се, че може да се защитавате от атаки!</string>
   <string name="mateInOne">Мат в 1 ход</string>
   <string name="defeatTheOpponentsKing">Надвийте противниковия цар</string>
   <string name="mateInOneIntro">Печелите, когато противникът Ви не може да се защити от шах.</string>
