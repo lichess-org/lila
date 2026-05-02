@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">ஒரு நகர்வு கண்டறியப்படவில்லை என்றால்</string>
   <string name="checkYouHaveMadeOpponentsMove">முதலில் DGT போர்டில் உங்கள் எதிரியின் நகர்வைச் செய்துள்ளீர்களா என்பதைச் சரிபார்க்கவும். உங்கள் நகர்வை மாற்றவும். மீண்டும் விளையாடு.</string>
   <string name="asALastResort">கடைசி முயற்சியாக, பலகையை Lichess ஐப் போலவே அமைக்கவும், பிறகு %s</string>
-  <string name="reloadThisPage">இந்தப் பக்கத்தை மீண்டும் ஏற்றவும்</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">இந்தப் பக்கத்தை மீண்டும் ஏற்றவும்</string>
   <string name="dgtConfigure">DGT - கட்டமைக்கவும்</string>
   <string name="lichessConnectivity">லிச்சஸ் இணைப்பு</string>
   <string name="validDgtOauthToken">DGT விளையாடுவதற்கு ஏற்ற OAuth டோக்கன் உங்களிடம் உள்ளது.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">முக்கிய வார்த்தைகள் JSON வடிவத்தில் உள்ளன. நகர்வுகள் மற்றும் முடிவுகளை உங்கள் மொழியில் மொழிபெயர்க்க அவை பயன்படுத்தப்படுகின்றன. இயல்புநிலை ஆங்கிலம், ஆனால் அதை மாற்ற தயங்க வேண்டாம்.</string>
   <string name="debug">பிழைத்திருத்தம்</string>
   <string name="verboseLogging">வாய்மொழியாக பதிவு செய்தல்</string>
-  <string name="toSeeConsoleMessage">கன்சோல் செய்தியைப் பார்க்க, Command + Option + C (Mac) அல்லது Control + Shift + C (Windows, Linux, Chrome OS) அழுத்தவும்</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">கன்சோல் செய்தியைப் பார்க்க, Command + Option + C (Mac) அல்லது Control + Shift + C (Windows, Linux, Chrome OS) அழுத்தவும்</string>
   <string name="playWithDgtBoard">டிஜிடி போர்டுடன் விளையாடுங்கள்</string>
   <string name="configure">கட்டமைக்கவும்</string>
 </resources>
