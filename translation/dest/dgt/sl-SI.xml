@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Če poteza ni zaznana</string>
   <string name="checkYouHaveMadeOpponentsMove">Najprej preverite, ali ste izvedli nasprotnikovo potezo na plošči DGT. Povrni svojo potezo. Igraj ponovno.</string>
   <string name="asALastResort">V skrajnem primeru nastavite ploščo enako kot Lichess, nato %s</string>
-  <string name="reloadThisPage">Ponovno naloži to stran</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Ponovno naloži to stran</string>
   <string name="dgtConfigure">DGT - Konfiguriraj</string>
   <string name="lichessConnectivity">Lichess povezljivost</string>
   <string name="validDgtOauthToken">Imate žeton OAuth, primeren za igranje DGT.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Ključne besede so v formatu JSON. Uporabljajo se za prevajanje potez in rezultatov v vaš jezik. Privzeto je angleščina, vendar jo lahko spremenite.</string>
   <string name="debug">Razhroščevanje</string>
   <string name="verboseLogging">Podrobno vodenje dnevnika</string>
-  <string name="toSeeConsoleMessage">Če si želite ogledati sporočilo konzole, pritisnite Command + Option + C (Mac) ali Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Če si želite ogledati sporočilo konzole, pritisnite Command + Option + C (Mac) ali Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Igrajte s ploščo DGT</string>
   <string name="configure">Nastavi</string>
 </resources>
