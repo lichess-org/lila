@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">ઝેન મોડ</string>
   <string name="showPlayerRatings">ખેલાડી રેટિંગ્સ બતાવો</string>
   <string name="showFlairs">ખેલાડીઓના કૌશલ્ય બતાવો</string>
-  <string name="explainShowPlayerRatings">આ ચેસ પર ધ્યાન કેન્દ્રિત કરવામાં મદદ કરવા માટે, Lichess ના બધા રેટિંગ છુપાવે છે. રેટેડ રમતો હજુ પણ તમારા રેટિંગને અસર કરે છે, આ ફક્ત તમને શું જોવા મળે છે તેના વિશે છે.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">આ ચેસ પર ધ્યાન કેન્દ્રિત કરવામાં મદદ કરવા માટે, Lichess ના બધા રેટિંગ છુપાવે છે. રેટેડ રમતો હજુ પણ તમારા રેટિંગને અસર કરે છે, આ ફક્ત તમને શું જોવા મળે છે તેના વિશે છે.</string>
   <string name="displayBoardResizeHandle">બોર્ડનું કદ બદલવાનું હેન્ડલ બતાવો</string>
   <string name="onlyOnInitialPosition">ફક્ત શરૂઆતની સ્થિતિમાં</string>
   <string name="inGameOnly">ફક્ત રમતમાં</string>
@@ -63,7 +63,7 @@
   <string name="notifyChallenge">પડકારો</string>
   <string name="notifyTournamentSoon">ટુર્નામેન્ટ ટૂંક સમયમાં શરૂ થઈ રહી છે</string>
   <string name="notifyTimeAlarm">પત્રવ્યવહારની ઘડિયાળનો સમય પૂરો થઈ રહ્યો છે</string>
-  <string name="notifyBell">Lichess ની અંદર ઘંટડીની સૂચના</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Lichess ની અંદર ઘંટડીની સૂચના</string>
   <string name="notifyPush">જ્યારે તમે Lichess પર ન હોવ ત્યારે ડિવાઇસની સૂચના</string>
   <string name="notifyWeb">બ્રાઉઝર</string>
   <string name="notifyDevice">ડિવાઇસ</string>
