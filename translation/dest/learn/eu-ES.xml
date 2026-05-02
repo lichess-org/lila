@@ -104,7 +104,7 @@ erasotzen zaituen pieza harrapatuz.</string>
 zure defentsen artetik!</string>
   <string name="escapeOrBlock">Egin ihes erregearekin
 edo oztopatu erasoa!</string>
-  <string name="outOfCheckComplete">Zorionak! Zure erregea ezin da harrapatu, baina ziurtatu xaketik defendatu dezakezula!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Zorionak! Zure erregea ezin da harrapatu, baina ziurtatu xaketik defendatu dezakezula!</string>
   <string name="mateInOne">Xake-mate jokaldi baten</string>
   <string name="defeatTheOpponentsKing">Aurkariaren erregea garaitu</string>
   <string name="mateInOneIntro">Zure aurkaria xaketik defendatu ezin denean irabazi egiten duzu.</string>
