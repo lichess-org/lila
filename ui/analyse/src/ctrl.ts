@@ -373,8 +373,22 @@ export default class AnalyseCtrl implements CevalHandler {
     });
     this.pluginUpdate(this.node.fen);
     this.onChange();
-  }
 
+    // Dynamic last move color according to glyphs
+    const glyphColors: Record<string, string> = {
+      '!!': 'rgba(22, 194, 163, 0.41)',
+      '!': 'rgba(50, 120, 180, 0.41)',
+      '??': 'rgba(250, 65, 45, 0.41)',
+      '?': 'rgba(255, 164, 89, 0.41)',
+      '!?': 'rgba(121, 121, 161, 0.41)',
+      '?!': 'rgba(86, 180, 233, 0.41)',
+    };
+    const symbol = this.node.glyphs?.[0]?.symbol;
+    document.body.style.setProperty(
+      '--last-move-color',
+      (symbol && glyphColors[symbol]) || 'rgba(155, 199, 0, 0.41)',
+    );
+  }
   serverMainline = () => this.mainline.slice(0, playedTurns(this.data) + 1);
 
   makeCgOpts(): ChessgroundConfig {
