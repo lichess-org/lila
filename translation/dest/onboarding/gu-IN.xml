@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">આ તમારું પ્રોફાઇલ પેજ છે.</string>
   <string name="enabledKidModeSuggestion">શું આ એકાઉન્ટનો ઉપયોગ બાળક કરશે? તમે કદાચ %s સક્ષમ કરવા માંગો છો.</string>
   <string name="whatNowSuggestions">હવે શું? અહીં કેટલાક સૂચનો આપેલા છે:</string>
-  <string name="learnChessRules">ચેસના નિયમો શીખો</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">ચેસના નિયમો શીખો</string>
   <string name="improveWithChessTacticsPuzzles">ચેસ ટેક્ટિક્સ પઝલ્સથી સુધારો.</string>
   <string name="playTheArtificialIntelligence">આર્ટિફિશિયલ ઇન્ટેલિજન્સ રમો.</string>
   <string name="playOpponentsFromAroundTheWorld">સમગ્ર વિશ્વના પ્રતિસ્પર્ધીઓ સામે રમો.</string>
