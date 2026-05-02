@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Hvis et træk ikke registreres</string>
   <string name="checkYouHaveMadeOpponentsMove">Tjek, at du har lavet din modstanders træk på DGT-brættet først. Tag dit træk tilbage. Træk igen.</string>
   <string name="asALastResort">Som en sidste udvej, sæt brættet op identisk med Lichess, derefter %s</string>
-  <string name="reloadThisPage">Genindlæs denne side</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Genindlæs denne side</string>
   <string name="dgtConfigure">DGT - Indstil</string>
   <string name="lichessConnectivity">Lichess-forbindelse</string>
   <string name="validDgtOauthToken">Du har en OAuth-token, der er egnet til DGT-spil.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Nøgleord er i JSON-format. De bruges til at oversætte træk og resultater til dit sprog. Standarden er engelsk, men du er velkommen til at ændre det.</string>
   <string name="debug">Fejlsøg</string>
   <string name="verboseLogging">Detaljeret logføring</string>
-  <string name="toSeeConsoleMessage">Hvis du vil se konsolbesked, skal du trykke på Command + Option + C (Mac) eller Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Hvis du vil se konsolbesked, skal du trykke på Command + Option + C (Mac) eller Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Spil med et DGT-bræt</string>
   <string name="configure">Konfigurér</string>
 </resources>
