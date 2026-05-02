@@ -14,7 +14,7 @@ Lojërat vijuese do të vlejnë dyfishin e pikëve, deri sa të mos fitoni një 
 Pra, një fitore do të vlejë 4 pikë, një barazim 2 pikë dhe një humbje prapë nuk sjell pikë.
 
 Për shembull, dy fitore të ndjekura nga një barazim do të vlejnë 6 pikë: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Arena Berserk</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Arena Berserk</string>
   <string name="berserkAnswer">Kur një lojtar klikon butonin Berserk në fillim të lojës, ai humbet gjysmën e kohës që ka në dispozicion, por fitorja vlen një pikë shtesë në turne.
 
 Shkuarja Berserk në kontrollet kohë me një rritje edhe anulon rritjen. (1 + 2 është një përjashtim, ai jep 1 + 0)
@@ -65,7 +65,7 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
   <string name="whichTeamWillYouRepresentInThisBattle">Cilin ekip do të përfaqësoni në këtë ndeshje?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Që të merrni pjesë, duhet të bëheni pjesë e njërit prej këtyre ekipeve!</string>
   <string name="created">Të krijuar</string>
-  <string name="recentlyPlayed">Luajtur së fundi</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent&#10;&#10;This text used to say &quot;Recently played&quot; and was changed to &quot;Last played&quot; for clarity.">Luajtur së fundi</string>
   <string name="bestResults">Përfundimet më të mira</string>
   <string name="tournamentStats">Statistika turneu</string>
   <string name="rankAvgHelp">Renditja mesatare është një përqindje e renditjes tuaj. Sa më e ulët, aq më mirë.
