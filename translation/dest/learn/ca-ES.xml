@@ -95,7 +95,7 @@ prenent la peça atacant.</string>
 a través de les teves defenses!</string>
   <string name="escapeOrBlock">Escapa amb el rei 
 o bloqueja l\'atac!</string>
-  <string name="outOfCheckComplete">Felicitats! El teu rei no por ser mai capturat, assegura\'t que pots defendre\'l contra un escac!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Felicitats! El teu rei no por ser mai capturat, assegura\'t que pots defendre\'l contra un escac!</string>
   <string name="mateInOne">Escac i mat en un</string>
   <string name="defeatTheOpponentsKing">Derrota el rei de l\'oponent</string>
   <string name="mateInOneIntro">Guanyes quan el teu oponent no es pot defendre contra un escac.</string>
