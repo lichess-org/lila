@@ -14,7 +14,7 @@ De følgende partier vil give dobbelte point, indtil du ikke formår at vinde et
 Det vil sige, at en sejr er 4 point værd, en remis 2 point, mens et tab fortsat ingen point giver.
 
 For eksempel giver to sejre efterfulgt af en remis 6 point: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Bersærk-arena</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Bersærk-arena</string>
   <string name="berserkAnswer">Når en spiller klikker på Bersærk-knappen ved starten af et parti, mistes halvdelen af tiden på uret, men en sejr vil være et ekstra turneringspoint værd.
 
 Går man Bersærk ved tidskontroller med tillægstid annulleres tillægstiden også. (1+2 er en undtagelse, den bliver til 1+0)
@@ -66,7 +66,7 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
   <string name="whichTeamWillYouRepresentInThisBattle">Hvilket hold vil du repræsentere i denne kamp?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Du skal være med på et af disse hold for at deltage!</string>
   <string name="created">Oprettet</string>
-  <string name="recentlyPlayed">Spillet for nylig</string>
+  <string name="recentlyPlayed" comment="Acts as the title of a personal page featuring the tournaments a player participated in, sorted by most recent Please keep your translation brief. Example: https://lichess.org/@/thibault/tournaments/recent&#10;&#10;This text used to say &quot;Recently played&quot; and was changed to &quot;Last played&quot; for clarity.">Spillet for nylig</string>
   <string name="bestResults">Bedste resultater</string>
   <string name="tournamentStats">Turneringsstatistik</string>
   <string name="rankAvgHelp">Den gennemsnitlige rangering er en procentdel af din rangering. Lavere er bedre.
