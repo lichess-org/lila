@@ -1,151 +1,132 @@
 .practice-app {
   section {
     > h2 {
-      @extend %roboto;
+      @extend %roboto, %page-text-shadow;
 
-      color: $c-font-dim;
       font-size: 2em;
-      letter-spacing: 0.3em;
+      letter-spacing: 8px;
       text-transform: uppercase;
+      color: #999;
       text-align: center;
     }
   }
 
   .studies {
-    ---min-width: 100vw;
+    ---min-width: 400px;
 
-    @media (min-width: at-least($xx-small)) {
-      ---min-width: 400px;
+    @media (width < $xx-small) {
+      ---min-width: calc(100vw - 2em);
+
+      padding: 0 0.5em;
     }
 
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(---min-width), 1fr));
     gap: 1em;
-    margin: 0.8em 0 3em 0;
+    margin: 1.5em 0 3em 0;
   }
 
   .study {
-    @extend %flex-center, %box-neat;
+    @extend %box-radius, %flex-center-nowrap;
+    @include transition;
+    @include backdrop-blur-if-transparent;
 
     position: relative;
-    height: 110px;
-    min-width: 300px;
+    min-height: 90px;
     color: #fff;
-
-    @include transition;
-
-    white-space: nowrap;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.07);
     font-size: 1.2em;
-    overflow-x: hidden;
+    border: 1px solid $c-border;
+    background: $c-bg-box;
+    padding-right: 3em;
 
-    @media (min-width: at-least($small)) {
-      overflow-x: visible;
+    @include if-light {
+      color: $c-font;
 
-      /* ribbon */
-    }
-
-    i {
-      flex: 0 0 80px;
-      height: 80px;
-      margin: 0 0.9em;
-      opacity: 0.9;
-    }
-
-    h3 {
-      font-size: 1.4em;
-    }
-
-    @keyframes soft-bright {
-      50% {
-        filter: brightness(1.2);
+      i {
+        filter: brightness(0.15);
       }
     }
 
-    &.ongoing {
-      background: $c-primary;
+    @media (width < $xx-small) {
+      min-height: fit-content;
+      padding: 6px 3em 6px 0;
 
-      &:hover {
-        animation: 1.7s soft-bright ease-in-out infinite;
+      p {
+        margin-top: 2px;
+      }
+    }
+
+    i {
+      width: 70px;
+      height: 70px;
+      margin: 0 1em;
+      opacity: 0.6;
+      background-repeat: no-repeat;
+      background-position: center;
+      flex-shrink: 0;
+
+      @media (width < $xx-small) {
+        width: 50px;
+        height: 64px;
+      }
+    }
+
+    h3 {
+      font-size: 1.5em;
+      line-height: 1;
+    }
+
+    p {
+      margin: 4px 0 0 0;
+      line-height: 1.2;
+      opacity: 0.8;
+    }
+
+    &.ongoing {
+      border-color: $m-primary--fade-50;
+      background: linear-gradient(0deg, $m-primary--fade-60, $m-primary--fade-80 100px);
+
+      .attention-effect {
+        @include animated-border($m-primary--lighten-30, $m-primary--fade-80);
+      }
+
+      @include if-light {
+        background: linear-gradient(180deg, $m-primary--fade-60, $m-primary--fade-80 100px);
+
+        .attention-effect {
+          @include animated-border($m-primary--darken-25, $m-primary--fade-80);
+        }
       }
     }
 
     &.done {
-      background: #4caf50 !important;
+      border-color: $m-secondary--fade-35;
+      background: linear-gradient(0deg, $m-secondary--fade-60, $m-secondary--fade-80 100px);
+
+      @include if-light {
+        background: linear-gradient(180deg, $m-secondary--fade-60, $m-secondary--fade-80 100px);
+      }
     }
 
     &.future {
-      opacity: 0.7;
-      background: #f57c00;
-    }
+      border-color: $m-future--fade-35;
+      background: linear-gradient(0deg, $m-future--fade-60, $m-future--fade-80 100px);
 
-    &.future .icon {
-      opacity: 0.7;
+      @include if-light {
+        background: linear-gradient(180deg, $m-future--fade-60, $m-future--fade-80 100px);
+      }
     }
 
     &.active,
     &:hover {
-      filter: brightness(1.08);
-      transform: scale(1.02);
-      opacity: 1;
-    }
-  }
-
-  .ribbon-wrapper {
-    display: block;
-    width: 85px;
-    height: 88px;
-    overflow: hidden;
-    position: absolute;
-    top: -3px;
-    right: -3px;
-  }
-
-  .ribbon {
-    display: block;
-    font-size: 15px;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
-    transform: rotate(45deg);
-    position: relative;
-    padding: 7px 0;
-    left: -5px;
-    top: 15px;
-    width: 120px;
-    color: #6a6340;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-
-    &::before,
-    &::after {
-      content: '';
-      border-left: 3px solid transparent;
-      border-right: 3px solid transparent;
-      border-top: 3px solid #536dfe;
-      position: absolute;
-      bottom: -3px;
-    }
-
-    &::before {
-      left: 0;
-    }
-
-    &::after {
-      right: 0;
-    }
-
-    background-color: #b3e5fc;
-  }
-
-  .done .ribbon {
-    background-color: #bfdc7a;
-
-    &::before,
-    &::after {
-      border-top: 3px solid #6e8900;
+      transform: scale(1.025);
     }
   }
 
   .what_next > p {
+    @extend %page-text-shadow !optional;
+
     width: 100%;
     text-align: center;
     margin: 20px 0;

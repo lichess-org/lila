@@ -429,7 +429,7 @@ export function initModule({
       }
       if (srole === 'P') {
         addToks(udest, uci); // includes en passant
-        if (uci[0] === uci[2]) {
+        if (uci.startsWith(uci[2])) {
           addToks(`P${udest}`);
         } else if (dp) {
           addToks(`${usrc}x${udest}`);

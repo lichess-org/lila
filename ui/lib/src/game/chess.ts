@@ -5,7 +5,7 @@ import { normalizeMove } from 'chessops/chess';
 
 import { shuffle } from '@/algo';
 
-export const fixCrazySan = (san: San): San => (san[0] === 'P' ? san.slice(1) : san);
+export const fixCrazySan = (san: San): San => (san.startsWith('P') ? san.slice(1) : san);
 
 export const destsToUcis = (destMap: Dests): Uci[] =>
   Array.from(destMap).reduce<Uci[]>((acc, [orig, dests]) => acc.concat(dests.map(dest => orig + dest)), []);

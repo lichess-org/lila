@@ -165,7 +165,10 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             return h(
               'option',
               {
-                attrs: { value: key[0] === 'w' ? 'white' : 'black', selected: key[0] === ctrl.turn[0] },
+                attrs: {
+                  value: key.startsWith('w') ? 'white' : 'black',
+                  selected: key.startsWith(ctrl.turn[0]),
+                },
               },
               i18n.site[key],
             );

@@ -33,6 +33,6 @@ export default async function () {
     else throw new Error(res.statusText);
   } catch (err: any) {
     log('serviceWorker.ts:', err.message, newSub);
-    if (newSub?.endpoint) newSub.unsubscribe();
+    if (newSub?.endpoint) await newSub.unsubscribe();
   }
 }

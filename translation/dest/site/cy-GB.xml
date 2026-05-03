@@ -242,8 +242,6 @@
   <string name="emailCanTakeSomeTime">Gall cymryd dipyn o amser i cyrraedd.</string>
   <string name="refreshInboxAfterFiveMinutes">Arhoswch 5 munud ac yna adnewyddwch mewnflwch eich e-bost.</string>
   <string name="checkSpamFolder">Yn ychwanegol gwirio eich ffolder sbam, mae hi\'n bosib iddo cyrraedd yna. Os felly, nodwch o fel ddim yn sbam.</string>
-  <string name="emailForSignupHelp">Os mae popeth arall yn methu, anfonwch y e-bost yma iddyn ni:</string>
-  <string name="copyTextToEmail">Copiwch a gludwch y testun uchod ac anfonwch at %s</string>
   <string name="accountConfirmed">Mae y defnyddiwr %s wedi ei cadarnhau yn llwyddiannus.</string>
   <string name="accountCanLogin">Gallech chi mewngofnodi rwan fel %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nid oes angen e-bost cadarnhad.</string>

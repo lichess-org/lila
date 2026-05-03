@@ -69,7 +69,7 @@
   <string name="killBoxMateDescription">એક હાથી દુશ્મન રાજા ની બાજુમાં હોય છે અને તે રાણી દ્વારા ટેકો પામેલો હોય છે જે રાજા ના છટકી જવાના ચોરસને પણ અવરોધે છે. રૂક અને રાણી દુશ્મન રાજા ને 3 બાય 3 \"કિલ બોક્સ\" માં પકડે છે.</string>
   <string name="triangleMate">ત્રિકોણ મેટ</string>
   <string name="triangleMateDescription">રાણી અને રૂક, દુશ્મન રાજા થી એક ચોરસ દૂર, એક જ રેન્ક અથવા ફાઇલ પર હોય છે, એક ચોરસ દ્વારા અલગ પડેલા હોય છે, જે એક ત્રિકોણ બનાવે છે.</string>
-  <string name="vukovicMate">વુકોવિક મેટ</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">વુકોવિક મેટ</string>
   <string name="vukovicMateDescription">એક રૂક અને ઘોડો રાજા ને મેટ કરવા માટે ટીમ બનાવે છે. રૂક ત્રીજા ટુકડા દ્વારા ટેકો પામેલો હોય છે ત્યારે મેટ પહોંચાડે છે, અને ઘોડા નો ઉપયોગ રાજા ના છટકી જવાના ચોરસને અવરોધવા માટે થાય છે.</string>
   <string name="knightEndgame">ઘોડા એન્ડગેમ</string>
   <string name="knightEndgameDescription">ફક્ત ઘોડા અને પ્યાદાઓ સાથેનો અંત.</string>

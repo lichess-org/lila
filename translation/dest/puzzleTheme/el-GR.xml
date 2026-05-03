@@ -74,7 +74,7 @@
   <string name="morphysMateDescription">Ένας αξιωματικός κάνει σαχ στον αντίπαλο βασιλιά, περιορίζοντάς τον με τη βοήθεια ενός πύργου.</string>
   <string name="triangleMate">Τριγωνικό ματ</string>
   <string name="triangleMateDescription">Η βασίλισσα και ο πύργος βρίσκονται ένα τετράγωνο μακριά από στον αντίπαλο βασιλιά και είναι στην ίδια γραμμή ή στην ίδια στήλη, ενώ χωρίζονται μεταξύ τους από ένα τετράγωνο, σχηματίζοντας κατά τον τρόπο αυτό ένα τρίγωνο.</string>
-  <string name="vukovicMate">Ματ του Vukovic</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Ματ του Vukovic</string>
   <string name="vukovicMateDescription">Ένας πύργος και ένας ίππος συνεργάζονται για να κάνουν ματ στην άκρη της σκακιέρας. Ο πύργος κάνει ματ υποστηριζόμενος από κάποιο άλλο κομμάτι, ενώ ο ίππος ελέγχει όλα τα υπόλοιπα πιθανά τετράγωνα διαφυγής του αντίπαλου βασιλιά.</string>
   <string name="knightEndgame">Φινάλε ίππων</string>
   <string name="knightEndgameDescription">Φινάλε μόνο με ίππους και πιόνια.</string>

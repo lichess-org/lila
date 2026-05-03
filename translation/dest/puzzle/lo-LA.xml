@@ -13,10 +13,9 @@
   <string name="origin">ທີ່ມາ</string>
   <string name="specialMoves">ການເດີນແບບພິເສດ</string>
   <string name="didYouLikeThisPuzzle">ເຈົ້າມັກປິດສະໜານີ້ບໍ່?</string>
-  <string name="voteToLoadNextOne">ໂຫວດເພື່ອໂຫຼດອັນຖັດໄປ!</string>
   <string name="upVote">ໃຫ້ຄະແນນບວກ</string>
   <string name="downVote">ໃຫ້ຄະແນນລົບ</string>
-  <string name="yourPuzzleRatingWillNotChange" comment="The skill level mentioned here is the player's *current* skill level.">ຄະແນນປິດສະໜາຂອງເຈົ້າຈະບໍ່ປ່ຽນແປງ. ຈົ່ງຈື່ໄວ້ວ່າປິດສະໜາບໍ່ແມ່ນການແຂ່ງຂັນ. ຄະແນນຂອງເຈົ້າຈະຊ່ວຍໃນການເລືອກປິດສະໜາທີ່ເໝາະສົມກັບລະດັບທັກສະຂອງເຈົ້າໃນປະຈຸບັນ.</string>
+  <string name="yourPuzzleRatingWillNotChange">ຄະແນນປິດສະໜາຂອງເຈົ້າຈະບໍ່ປ່ຽນແປງ. ຈົ່ງຈື່ໄວ້ວ່າປິດສະໜາບໍ່ແມ່ນການແຂ່ງຂັນ. ຄະແນນຂອງເຈົ້າຈະຊ່ວຍໃນການເລືອກປິດສະໜາທີ່ເໝາະສົມກັບລະດັບທັກສະຂອງເຈົ້າໃນປະຈຸບັນ.</string>
   <string name="findTheBestMoveForWhite">ຊອກຫາຕາເດີນທີ່ດີທີ່ສຸດສຳລັບຝ່າຍຂາວ.</string>
   <string name="findTheBestMoveForBlack">ຊອກຫາຕາເດີນທີ່ດີທີ່ສຸດສຳລັບຝ່າຍດຳ.</string>
   <string name="toGetPersonalizedPuzzles">ເພື່ອຮັບປິດສະໜາທີ່ເໝາະສົມກັບເຈົ້າ:</string>

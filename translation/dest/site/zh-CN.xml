@@ -191,7 +191,7 @@
   <string name="rememberMe">保持登录状态</string>
   <string name="youNeedAnAccountToDoThat">请登录以完成该操作</string>
   <string name="signUp">注册</string>
-  <string name="computersAreNotAllowedToPlay">禁止使用电脑或借助电脑程序进行对弈。对弈时，请勿使用国际象棋引擎、对局数据库或向其他棋手寻求协助。另外，强烈建议您不要创建备用账户。过度使用多余的账户会导致账户被封禁。</string>
+  <string name="computersAreNotAllowedToPlay">禁止使用电脑或借助电脑程序进行对弈。对弈时，请勿使用国际象棋引擎、对局数据库或向其他棋手寻求协助。另外，强烈建议您不要创建备用账户，滥用账户行为将导致账户被封禁。</string>
   <string name="games">对局</string>
   <string name="forum">论坛</string>
   <string name="xPostedInForumY">%1$s 在话题 %2$s 中发表回复</string>
@@ -229,7 +229,7 @@
   <string name="changeUsernameNotSame">只能更改字母大小写。例如，将“johndoe”改为“JohnDoe”。</string>
   <string name="changeUsernameDescription">更改用户名。注意只能更改一次，且只能更改用户名字母的大小写。</string>
   <string name="signupUsernameHint">请务必选择一个和谐的用户名，用户名设置后无法更改，并且不合规的用户名会导致账户被封禁！</string>
-  <string name="signupEmailPromise">我们只会向您发送与您账户相关的邮件，绝不会将您的邮箱共享给第三方！</string>
+  <string name="signupEmailPromise">我们只会向您发送与您账户相关的邮件，绝不会将您的邮箱共享给第三方。</string>
   <string name="password">密码</string>
   <string name="changePassword">更改密码</string>
   <string name="changeEmail">更改邮箱</string>
@@ -253,9 +253,7 @@
   <string name="emailCanTakeSomeTime">邮件可能需要一些时间才能送达。</string>
   <string name="refreshInboxAfterFiveMinutes">请等待 5 分钟并刷新您的收件箱。</string>
   <string name="checkSpamFolder">同时请检查您的垃圾邮件文件夹，邮件可能在那里。如果在，请将其标记为非垃圾邮件。</string>
-  <string name="emailForSignupHelp">如果以上方法均失败，请向我们发送此邮件：</string>
-  <string name="copyTextToEmail">复制上面的文本并将其发送至 %s</string>
-  <string name="waitForSignupHelp">我们将尽快回复您，帮助您完成注册。</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">若您无法找到确认邮件，那么请发送邮件至 %s，我们将协助您完成账户确认。</string>
   <string name="accountConfirmed">用户 %s 已成功确认。</string>
   <string name="accountCanLogin">您现在可以立即以 %s 的身份登录。</string>
   <string name="accountConfirmationEmailNotNeeded">您不需要确认邮件。</string>
@@ -491,6 +489,7 @@
   <string name="popularOpenings">常见开局</string>
   <string name="endgamePositions">残局局面</string>
   <string name="chess960StartPosition">Chess960 起始局面：%s</string>
+  <string name="randomChess960Position">随机 Chess960 局面</string>
   <string name="startPosition">起始局面</string>
   <string name="clearBoard">清空棋盘</string>
   <string name="loadPosition">载入局面</string>
@@ -713,9 +712,9 @@
     <item quantity="other">本周有 %1$s 名 %2$s 棋手。</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">您的 %1$s 等级分是 %2$s。</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">您超过了 %1$s%% 的 %2$s 棋手。</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s 超过了 %2$s%% 的 %3$s 棋手。</string>
-  <string name="betterThanPercentPlayers">超过了 %1$s%% 的 %2$s 棋手</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">您超过了 %1$s 的 %2$s 棋手。</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s 超过了 %2$s 的 %3$s 棋手。</string>
+  <string name="betterThanPercentPlayers">超过了 %1$s 的 %2$s 棋手</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您尚未确立 %s 等级分。</string>
   <string name="yourRating">您的等级分</string>
   <string name="cumulative">累积</string>

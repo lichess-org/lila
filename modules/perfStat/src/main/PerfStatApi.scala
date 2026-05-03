@@ -40,7 +40,7 @@ final class PerfStatApi(
           .withPerfs(name.id)
           .flatMap:
             _.filter: u =>
-              (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.UserModView))
+              (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.AccountInfo))
             .filter: u =>
               !u.isBot || (perfKey != PerfKey.ultraBullet)
             .traverse: u =>

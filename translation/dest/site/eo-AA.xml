@@ -259,9 +259,6 @@
   <string name="emailCanTakeSomeTime">Ĝi povas preni iom da tempo por alveni.</string>
   <string name="refreshInboxAfterFiveMinutes">Atendu 5 minutojn kaj reŝargu vian retpoŝtan enirkeston.</string>
   <string name="checkSpamFolder">Ankaŭ kontrolu vian trudmesaĝujon, ĝi povus alveni tie. Se estas tiel, marku ĝin kiel ne truda.</string>
-  <string name="emailForSignupHelp">Se ĉio antaŭdirita ne funkcias, sendu al ni ĉi tiun retleteron:</string>
-  <string name="copyTextToEmail">Kopiu kaj algluu la supran tekston kaj sendu ĝin al %s</string>
-  <string name="waitForSignupHelp">Ni estos kun vi baldaŭ por helpi vin plenigi vian registriĝon.</string>
   <string name="accountConfirmed">La uzanto %s estis konfirmita sukcese.</string>
   <string name="accountCanLogin">Vi povas ensaluti tuje kiel %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Vi ne devas konfirmo-retpoŝtaĵon.</string>

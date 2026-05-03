@@ -126,7 +126,7 @@ final class TeamApi(
       .teamIdsList(of.id)
       .map(_.take(Team.maxJoin(of).value))
       .flatMap: allIds =>
-        if Granter(_.UserModView) then fuccess(allIds)
+        if Granter(_.AccountInfo) then fuccess(allIds)
         else
           allIds.nonEmpty.so:
             teamRepo.filterHideMembers(allIds).flatMap { hiddenIds =>

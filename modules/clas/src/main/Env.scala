@@ -19,7 +19,6 @@ final class Env(
     authenticator: lila.core.security.Authenticator,
     cacheApi: lila.memo.CacheApi,
     markdownCache: lila.memo.MarkdownCache,
-    hcaptcha: lila.core.security.Hcaptcha,
     baseUrl: BaseUrl
 )(using Executor, akka.stream.Materializer, lila.core.i18n.Translator, play.api.Mode)(using
     scheduler: Scheduler
@@ -45,11 +44,12 @@ final class Env(
 
   lazy val bulk = wire[ClasBulkApi]
 
-  def isTeacher(using me: Me) =
-    lila.core.perm.Granter(_.Teacher) && filters.teacher(me)
+  def isAnyTeacher(using me: Me) = lila.core.perm.Granter(_.Teacher)
 
-  def hasClas(using me: Me) =
-    filters.student(me) || isTeacher
+  def isActiveTeacher(using me: Me) = isAnyTeacher && filters.teacher(me)
+
+  def seesClassMenu(using me: Me) =
+    filters.student(me) || isAnyTeacher || me.hasTitle || me.roles.contains("ROLE_COACH")
 
   scheduler.scheduleWithFixedDelay(44.minutes, 1.hour)(() => api.clas.archiveAllInactive)
 

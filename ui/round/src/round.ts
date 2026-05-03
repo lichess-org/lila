@@ -108,10 +108,10 @@ async function boot(
       });
   };
   const getPresetGroup = (d: RoundData) => {
-    if (d.player.spectator) return;
+    if (d.player.spectator) return undefined;
     if (finished(d)) return 'end';
     if (d.steps.length < 6) return 'start';
-    return;
+    return undefined;
   };
   const ctrl = await roundMain(opts);
   const round: RoundApi = { socketReceive: ctrl.socket.receive, moveOn: ctrl.moveOn };
@@ -150,7 +150,7 @@ async function boot(
   $('#zentog').on('click', () => pubsub.emit('zen'));
   storage.make('reload-round-tabs').listen(site.reload);
 
-  if (!data.player.spectator && location.hostname != (document as any)['Location'.toLowerCase()].hostname) {
+  if (!data.player.spectator && location.hostname !== (document as any)['Location'.toLowerCase()].hostname) {
     alert(`Games cannot be played through a web proxy. Please use ${location.hostname} instead.`);
     wsDestroy();
   }

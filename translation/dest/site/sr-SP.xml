@@ -245,9 +245,6 @@
   <string name="emailCanTakeSomeTime">Треба мало времена док не стигне.</string>
   <string name="refreshInboxAfterFiveMinutes">Сачекај 5 минута и освежи своје поштанско сандуче.</string>
   <string name="checkSpamFolder">Такође провери фасциклу са спам порукама, можда је тамо. Ако је ту, обележи поруку тако да није спам.</string>
-  <string name="emailForSignupHelp">Ако ништа од овога не помаже, онда нам пошаљи овај мејл:</string>
-  <string name="copyTextToEmail">Ископирај горњи текст и пошаљи га на %s</string>
-  <string name="waitForSignupHelp">Ускоро ћемо те контактирати како бисмо ти помогли да завршиш своју регистрацију.</string>
   <string name="accountConfirmed">Корисник %s је потврђен.</string>
   <string name="accountCanLogin">Можеш се сада пријавити као %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Није ти потребан мејл потврде.</string>

@@ -234,9 +234,6 @@
   <string name="emailCanTakeSomeTime">Испраќањето може да потрае.</string>
   <string name="refreshInboxAfterFiveMinutes">Почекајте 5 минути па превчитајте го email приемното сандаче.</string>
   <string name="checkSpamFolder">Исто, проверете да не залутал во spam фолдерот. Во таков случај преместете го од таму.</string>
-  <string name="emailForSignupHelp">Ако ништо друо не функционира испратете ни го следниов email:</string>
-  <string name="copyTextToEmail">Копирајте го текстот погоре и испратете го на %s</string>
-  <string name="waitForSignupHelp">За брзо ќе сме со Вас да Ви помогнеме околу пријавувањето.</string>
   <string name="accountConfirmed">Корсникот %s е успешно потврден.</string>
   <string name="accountCanLogin">Сега можете да се најавите како %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Не Ви е потребен email за потврда.</string>

@@ -268,9 +268,7 @@
   <string name="emailCanTakeSomeTime">It can take some time to arrive.</string>
   <string name="refreshInboxAfterFiveMinutes">Wait 5 minutes and refresh your email inbox.</string>
   <string name="checkSpamFolder">Also check your spam folder, it might end up there. If so, mark it as not spam.</string>
-  <string name="emailForSignupHelp">If everything else fails, then send us this email:</string>
-  <string name="copyTextToEmail">Copy and paste the above text and send it to %s</string>
-  <string name="waitForSignupHelp">We will respond shortly to help you complete your registration.</string>
+  <string name="sendEmailForAccountVerification">If you can't find your confirmation email, send an email to %s and we'll confirm your account for you.</string>
   <string name="accountConfirmed">The user %s is successfully confirmed.</string>
   <string name="accountCanLogin">You can login right now as %s.</string>
   <string name="accountConfirmationEmailNotNeeded">You do not need a confirmation email.</string>
@@ -1019,8 +1017,8 @@ Leave empty to start games from the normal initial position.</string>
   <string name="ourEventTips">Our tips for organising events</string>
   <string name="instructions">Instructions</string>
   <string name="showMeEverything">Show me everything</string>
-  <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
-All operating costs, development, and content are funded solely by user donations.</string>
+  <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software. We depend on user donations to support our operating costs, development, and content. Without our generous community, we would not be able to keep the site running. Thank you for joining us!
+  </string>
   <string name="nothingToSeeHere">Nothing to see here at the moment.</string>
   <string name="stats">Stats</string>
   <string name="accessibility">Accessibility</string>

@@ -239,9 +239,6 @@
   <string name="emailCanTakeSomeTime">ಬರಲು ಸ್ವಲ್ಪ ಸಮಯ ತೆಗೆದುಕೊಳ್ಳಬಹುದು.</string>
   <string name="refreshInboxAfterFiveMinutes">5 ನಿಮಿಷ ನಿರೀಕ್ಷಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಇಮೇಲ್ ಇನ್‌ಬಾಕ್ಸ್ ಅನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಿ.</string>
   <string name="checkSpamFolder">ನಿಮ್ಮ ಸ್ಪ್ಯಾಮ್ ಫೋಲ್ಡರ್ ಅನ್ನು ಸಹ ಪರಿಶೀಲಿಸಿ, ಅದು ಅಲ್ಲಿಗೆ ಕೊನೆಗೊಳ್ಳಬಹುದು. ಹಾಗಿದ್ದಲ್ಲಿ, ಅದನ್ನು ಸ್ಪ್ಯಾಮ್ ಅಲ್ಲ ಎಂದು ಗುರುತಿಸಿ.</string>
-  <string name="emailForSignupHelp">ಎಲ್ಲವೂ ವಿಫಲವಾದರೆ, ನಮಗೆ ಈ ಇಮೇಲ್ ಕಳುಹಿಸಿ:</string>
-  <string name="copyTextToEmail">ಮೇಲಿನ ಪಠ್ಯವನ್ನು ನಕಲಿಸಿ ಮತ್ತು ಅಂಟಿಸಿ ಮತ್ತು ಅದನ್ನು %s ಗೆ ಕಳುಹಿಸಿ</string>
-  <string name="waitForSignupHelp">ನಿಮ್ಮ ಸೈನ್ ಅಪ್ ಅನ್ನು ಪೂರ್ಣಗೊಳಿಸಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಲು ನಾವು ಶೀಘ್ರದಲ್ಲೇ ನಿಮ್ಮ ಬಳಿಗೆ ಬರುತ್ತೇವೆ.</string>
   <string name="accountConfirmed">ಬಳಕೆದಾರ %s ಯಶಸ್ವಿಯಾಗಿ ದೃಢೀಕರಿಸಲಾಗಿದೆ.</string>
   <string name="accountCanLogin">ನೀವು ಇದೀಗ %s ನಂತೆ ಲಾಗಿನ್ ಮಾಡಬಹುದು.</string>
   <string name="accountConfirmationEmailNotNeeded">ನಿಮಗೆ ದೃಢೀಕರಣ ಇಮೇಲ್ ಅಗತ್ಯವಿಲ್ಲ.</string>

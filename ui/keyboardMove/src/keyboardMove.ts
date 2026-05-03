@@ -1,3 +1,4 @@
+import { blurIfEscape } from 'lib';
 import { sanWriter, destsToUcis } from 'lib/game';
 
 import type { KeyboardMoveHandler, Opts, ArrowKey } from '@/exports';
@@ -16,10 +17,12 @@ export function initModule(opts: Opts): KeyboardMoveHandler | undefined {
     // update legal SAN moves
     opts.ctrl.legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     // play a premove if it is available in the input
-    submit(opts.input.value, {
-      isTrusted: true,
-      yourMove: yourMove,
-    });
+    setTimeout(() => {
+      submit(opts.input.value, {
+        isTrusted: true,
+        yourMove: yourMove,
+      });
+    }, 1);
   };
 }
 
@@ -64,14 +67,14 @@ function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
       submit(v, { isTrusted: true });
   });
   opts.input.addEventListener('keydown', (e: KeyboardEvent) => {
+    // prevent default on arrow keys: they only replay moves
     if (isArrowKey(e.key)) {
       opts.ctrl.arrowNavigate(e.key);
       e.preventDefault();
-    }
+    } else blurIfEscape(e);
   });
   opts.input.addEventListener('focus', () => opts.ctrl.isFocused(true));
   opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));
-  // prevent default on arrow keys: they only replay moves
 }
 
 function focusChat() {

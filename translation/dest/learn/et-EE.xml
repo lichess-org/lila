@@ -104,7 +104,7 @@ kui lööd ründava malendi.</string>
 läbi sinu kaitse!</string>
   <string name="escapeOrBlock">Põgene kuningaga 
 või blokeeri rünnak!</string>
-  <string name="outOfCheckComplete">Õnnitlused! Sinu kuningat ei saa rünnata, veendu, et sa suudad teda tule vastu kaitsta!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Õnnitlused! Sinu kuningat ei saa rünnata, veendu, et sa suudad teda tule vastu kaitsta!</string>
   <string name="mateInOne">Matt ühe käiguga</string>
   <string name="defeatTheOpponentsKing">Alista vastase kuningas</string>
   <string name="mateInOneIntro">Sa võidad kui su vastane ei saa tule vastu kaitsta.</string>

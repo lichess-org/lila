@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Un patrón de mate que se asemeja visualmente a la cola de una golondrina, en forma de V.</string>
   <string name="triangleMate">Mate del triángulo</string>
   <string name="triangleMateDescription">La dama y la torre, a una casilla de distancia del rey rival, están en la misma fila o columna, separadas por una casilla, formando un triángulo.</string>
-  <string name="vukovicMate">Mate de Vukovic</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mate de Vukovic</string>
   <string name="vukovicMateDescription">Una torre y un caballo se unen para dar mate al rey. La torre da mate apoyada por una tercera pieza y el caballo se utiliza para bloquear las casillas de escape del rey.</string>
   <string name="knightEndgame">Final de caballos</string>
   <string name="knightEndgameDescription">Un final solo con caballos y peones.</string>

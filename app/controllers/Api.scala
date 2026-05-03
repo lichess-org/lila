@@ -41,7 +41,6 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
         .extended(
           name,
           lila.api.UserApi.Opts(
-            withFollows = userWithFollows,
             withTrophies = getBool("trophies"),
             withCanChallenge = getBool("challenge"),
             withProfile = getBoolOpt("profile") | true,
@@ -51,9 +50,6 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
         )
         .map(toApiResult)
         .map(toHttp)
-
-  private[controllers] def userWithFollows(using req: RequestHeader) =
-    HTTPRequest.apiVersion(req).exists(_.value < 6) && !getBool("noFollows")
 
   def usersByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val usernames = ctx.body.body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList

@@ -122,7 +122,7 @@ final class Challenge(env: Env) extends LilaController(env):
         BadRequest(Json.toJson(l))
 
   def apiAccept(id: ChallengeId, color: Option[Color]) =
-    AnonOrScoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=>
+    AnonOrScoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile, _.Web.Takex3) { ctx ?=>
       def tryRematch = ctx.useMe:
         env.bot.player
           .rematchAccept(id.into(GameId))
@@ -173,8 +173,8 @@ final class Challenge(env: Env) extends LilaController(env):
           )
           .inject(NoContent)
   }
-  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile):
-    ctx ?=>
+  def apiDecline(id: ChallengeId) =
+    ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile, _.Web.Takex3): ctx ?=>
       me ?=>
         api
           .activeByIdFor(id, me)
@@ -199,7 +199,7 @@ final class Challenge(env: Env) extends LilaController(env):
         else notFound
 
   def apiCancel(id: ChallengeId) =
-    AnonOrScoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile): ctx ?=>
+    AnonOrScoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile, _.Web.Takex3): ctx ?=>
       (ctx.user orElse anonSecretFromCookieOrMobileSri)
         .so(api.activeByIdBy(id, _))
         .flatMap:
@@ -291,7 +291,7 @@ final class Challenge(env: Env) extends LilaController(env):
   }
 
   def apiCreate(username: UserStr) =
-    ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
+    ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile, _.Web.Takex3) { ctx ?=> me ?=>
       bindForm(env.setup.forms.api.user)(
         doubleJsonFormError,
         config =>
@@ -353,7 +353,7 @@ final class Challenge(env: Env) extends LilaController(env):
           rules = config.rules
         )
 
-  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write, _.Web.Mobile): ctx ?=>
+  def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write, _.Web.Mobile, _.Web.Takex3): ctx ?=>
     bindForm(
       env.setup.forms.api.open(isAdmin = isGrantedOpt(_.ApiChallengeAdmin) || ctx.me.exists(_.isVerified))
     )(

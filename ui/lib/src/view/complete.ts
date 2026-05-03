@@ -82,7 +82,7 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
         $container.addClass('none');
         const result =
           selectedResult() ||
-          (renderedResults[0] && opts.populate(renderedResults[0]) == opts.input.value
+          (renderedResults[0] && opts.populate(renderedResults[0]) === opts.input.value
             ? renderedResults[0]
             : undefined);
         if (result) {
@@ -90,7 +90,7 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
           return false;
         }
       }
-      return;
+      return undefined;
     },
   });
 

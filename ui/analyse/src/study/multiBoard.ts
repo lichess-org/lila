@@ -26,7 +26,7 @@ export class MultiBoardCtrl {
   playing: Toggle = toggle(false);
   showResults: Prop<boolean>;
   teamSelect: Prop<string> = prop('');
-  page: number = 1;
+  page = 1;
   maxPerPageStorage = storage.make('study.multiBoard.maxPerPage');
 
   constructor(
@@ -331,14 +331,14 @@ export const renderClock = (chapter: ChapterPreview, color: Color) => {
     : undefined;
 };
 
-const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
+const computeTimeLeft = (preview: ChapterPreview, color: Color) => {
   const clock = preview.players?.[color]?.clock;
   if (notNull(clock)) {
     if (defined(preview.lastMoveAt) && defined(preview.lastMove) && fenColor(preview.fen) === color) {
       const spent = (Date.now() - preview.lastMoveAt) / 1000;
       return Math.max(0, clock / 100 - spent);
     } else return clock / 100;
-  } else return;
+  } else return undefined;
 };
 
 const boardPlayer = (preview: ChapterPreview, color: Color, showResults?: boolean, round?: RelayRound) => {

@@ -242,9 +242,6 @@
   <string name="emailCanTakeSomeTime">Bu biraz vaxt ala bilər.</string>
   <string name="refreshInboxAfterFiveMinutes">5 dəqiqə gözləyin və email qutunuzu yenidən yoxlayın.</string>
   <string name="checkSpamFolder">Spam qutusunu da yoxlayın, məktub oradada ola bilər. Elədirsə, zəhmət olmasa qeyri-spam kimi qeyd edin.</string>
-  <string name="emailForSignupHelp">Əgər heç nə alınmırsa, bizə email yollayın:</string>
-  <string name="copyTextToEmail">Yuxarıdakı mətni kopyalayıb yapışdırıb %s ünvanına göndərin</string>
-  <string name="waitForSignupHelp">Qeydiyyatınızı tamamlamağınıza kömək etmək üçün tezliklə sizinlə əlaqə saxlayacağıq.</string>
   <string name="accountConfirmed">%s istifadəçisi uğurla təsdiqləndi.</string>
   <string name="accountCanLogin">Siz indi %s kimi daxil ola bilərsiniz.</string>
   <string name="accountConfirmationEmailNotNeeded">Təsdiq e-poçtuna ehtiyacınız yoxdur.</string>

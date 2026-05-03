@@ -52,7 +52,8 @@ object HTTPRequest:
   val isMobileBrowser = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   def isLichessMobile(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
   def isLichessMobile(req: RequestHeader): Boolean = isLichessMobile(userAgent(req))
-  def isLichobile(req: RequestHeader) = userAgent(req).value.contains("Lichobile/")
+  def isLichobile(ua: UserAgent): Boolean = ua.value.contains("Lichobile/")
+  def isLichobile(req: RequestHeader): Boolean = isLichobile(userAgent(req))
   def isAndroid = UaMatcher("Android")
   def isLitools(req: RequestHeader) = userAgent(req) == UserAgent("litools")
   def lichessMobileVersion(ua: UserAgent): Option[LichessMobileVersion] =
@@ -80,7 +81,7 @@ object HTTPRequest:
 
   private val crawlerMatcher = UaMatcher:
     // spiders/crawlers
-    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider""" +
+    """Qwantbot|Googlebot|GoogleOther|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|meta-externalagent|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|YandexImages|Twitterbot|Bluesky|Baiduspider|Amazonbot|Bytespider|yacybot|ImagesiftBot|ChatGLM-Spider|YisouSpider|Yeti/|DataForSeoBot|ChatGPT|openai.com|anthropic.com|TikTokSpider|MJ12bot""" +
       // apps and servers that load previews
       """|Discordbot|WhatsApp""" +
       // http libs
@@ -111,6 +112,8 @@ object HTTPRequest:
 
   def printClient(req: RequestHeader) =
     s"${ipAddress(req)} origin:${origin(req).so(_.value)} referer:${~referer(req)} ua:${userAgent(req)}"
+
+  def printReqAndClient(req: RequestHeader) = s"${printReq(req)} ${printClient(req)}"
 
   def bearer(req: RequestHeader): Option[Bearer] = for
     authorization <- req.headers.get(HeaderNames.AUTHORIZATION)

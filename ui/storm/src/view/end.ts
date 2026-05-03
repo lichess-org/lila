@@ -44,7 +44,7 @@ const renderSummary = (ctrl: StormCtrl): LooseVNodes => {
           hl('tr', [hl('th', i18n.storm.moves), hl('td', hl('number', `${run.moves}`))]),
           hl('tr', [
             hl('th', i18n.storm.accuracy),
-            hl('td', [hl('number', accuracy ? `${Number(accuracy).toFixed(1)}%` : '-')]),
+            hl('td', [hl('number', accuracy ? Number(accuracy).toFixed(1) : '-'), '%']),
           ]),
           hl('tr', [hl('th', i18n.storm.combo), hl('td', hl('number', `${ctrl.run.combo.best}`))]),
           hl('tr', [

@@ -47,7 +47,7 @@ export class StudyMemberCtrl {
   max = 30;
 
   constructor(readonly opts: Opts) {
-    this.dict = prop<StudyMemberMap>(opts.initDict);
+    this.dict = prop(opts.initDict);
     this.inviteForm = inviteFormCtrl(opts.send, this.dict, () => opts.tab('members'), opts.redraw);
     pubsub.on('socket.in.crowd', d => {
       const names: string[] = d.users || [];

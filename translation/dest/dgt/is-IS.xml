@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Ef leikur er ekki greindur</string>
   <string name="checkYouHaveMadeOpponentsMove">Gakktu úr skugga um að þú hafir fyrst gert leik andstæðingsins á DGT-taflborðinu. Taktu leik þinn til baka. Tefldu upp á nýtt.</string>
   <string name="asALastResort">Sem síðasta úrræði skaltu setja upp taflborðið alveg eins og Lichess, síðan %s</string>
-  <string name="reloadThisPage">Endurhlaða þessa síðu</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Endurhlaða þessa síðu</string>
   <string name="dgtConfigure">DGT - Stillingar</string>
   <string name="lichessConnectivity">Lichess-tengjanleiki</string>
   <string name="validDgtOauthToken">Þú ert með OAuth-tóka sem hæfir DGT-tafli.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Stikkorð eru í formi JSON. Þau eru notuð til að þýða leiki og úrslit yfir á þitt tungumál. Sjálfgefið tungumál er enska, en þér er velkomið að breyta því.</string>
   <string name="debug">Villuleit</string>
   <string name="verboseLogging">Fjölyrt skráning</string>
-  <string name="toSeeConsoleMessage">Til þess að sjá stjórnborðsskilaboð skaltu ýta á Command + Option + C (Mac) eða Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Til þess að sjá stjórnborðsskilaboð skaltu ýta á Command + Option + C (Mac) eða Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Tefla með DGT-taflborði</string>
   <string name="configure">Stilla</string>
 </resources>

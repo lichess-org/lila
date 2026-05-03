@@ -98,7 +98,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">ഈ കുതിര നിങ്ങളുടെ പ്രതിരോധം ഭേദിച്ചു ആക്രമിക്കുകയാണ്!</string>
   <string name="escapeOrBlock">രാജാവിനെയും എടുത്ത് രക്ഷപെട്ടോ
 അല്ലെങ്കിൽ ചെക്ക് തടയൂ!</string>
-  <string name="outOfCheckComplete">അഭിനന്ദനങൾ! നിങ്ങളുടെ രാജാവിനെ ഒരിക്കലും എതിരാളികൾക്ക് നേടാൻ പറ്റില്ല, ഒരു ചെക്കിനെ നേരിടാൻ ശ്രദ്ധ ഉറപ്പാക്കൂ!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">അഭിനന്ദനങൾ! നിങ്ങളുടെ രാജാവിനെ ഒരിക്കലും എതിരാളികൾക്ക് നേടാൻ പറ്റില്ല, ഒരു ചെക്കിനെ നേരിടാൻ ശ്രദ്ധ ഉറപ്പാക്കൂ!</string>
   <string name="mateInOne">ഒരു നീക്കത്തിനുള്ളിൽ ചെക്ക്മേറ്റ്</string>
   <string name="defeatTheOpponentsKing">എതിർരാജാവിനെ കീഴടക്കൂ</string>
   <string name="mateInOneIntro">എതിരാളിക്ക് നിങ്ങളുടെ ചെക്ക് പ്രതിരോധിക്കാൻ സാധിക്കാത്ത ഘട്ടത്തിൽ നിങ്ങൾ വിജയിക്കുന്നു.</string>

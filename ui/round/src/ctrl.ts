@@ -2,11 +2,11 @@
 
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, uciToMove } from '@lichess-org/chessground/util';
-import * as ab from 'ab';
+import * as ab from 'ab/round';
 import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboardMove';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
-import { defined, type Toggle, type Prop, toggle, requestIdleCallback, memoize } from 'lib';
+import { defined, type Toggle, type Prop, toggle, requestIdleCallbackSafe, memoize } from 'lib';
 import * as game from 'lib/game';
 import { plyToTurn } from 'lib/game/chess';
 import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
@@ -209,7 +209,7 @@ export default class RoundController implements MoveRootCtrl {
   private readonly isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
 
   private readonly enpassant = (orig: Key, dest: Key): boolean => {
-    if (orig[0] === dest[0] || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
+    if (dest.startsWith(orig[0]) || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
     const pos = (dest[0] + orig[1]) as Key;
     this.chessground.setPieces(new Map([[pos, undefined]]));
     return true;
@@ -926,7 +926,7 @@ export default class RoundController implements MoveRootCtrl {
   });
 
   private readonly delayedInit = () =>
-    requestIdleCallback(
+    requestIdleCallbackSafe(
       () => {
         const d = this.data;
         if (this.isPlaying()) {

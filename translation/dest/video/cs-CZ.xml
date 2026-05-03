@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="chessVideos">Šachová videa</string>
+  <string name="allVideosAreFree">Všechna videa jsou zdarma pro všechny.</string>
+  <string name="selectTagsToFilter">Vyberte štítky pro filtrování videí.</string>
   <string name="freeChessVideos">Bezplatná šachová videa</string>
   <string name="freeForAll">zdarma pro všechny</string>
   <string name="viewMoreTags">Zobrazit více štítků</string>

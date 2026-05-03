@@ -69,7 +69,7 @@ final class RankingApi(
         .so:
           coll:
             _.find($doc("perf" -> perf.id, "stable" -> true))
-              .sort($doc("rating" -> -1))
+              .sort($doc("rating" -> -1, "expiresAt" -> -1))
               .skip(skip)
               .cursor[Ranking](ReadPref.sec)
               .list(nb)
@@ -139,7 +139,7 @@ final class RankingApi(
       _.aggregateOne(_.sec): framework =>
         import framework.*
         Match($doc("perf" -> pt.id, "stable" -> true)) -> List(
-          Sort(Descending("rating")),
+          Sort(Descending("rating"), Descending("expiresAt")),
           Group(BSONNull)("all" -> Push($doc("$first" -> $doc("$split" -> $arr("$_id", ":")))))
         )
       .map:

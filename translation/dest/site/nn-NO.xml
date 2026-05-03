@@ -267,9 +267,7 @@
   <string name="emailCanTakeSomeTime">Det kan ta litt tid før den kjem.</string>
   <string name="refreshInboxAfterFiveMinutes">Vent fem minutt før du oppdaterer innboksen.</string>
   <string name="checkSpamFolder">Kontroller at e-posten ikkje har hamna i mappa for søplepost. Om det har skjedd må du markere e-posten som ikkje-spam.</string>
-  <string name="emailForSignupHelp">Om alt anna feilar kan du sende oss denne e-posten:</string>
-  <string name="copyTextToEmail">Kopier og lim inn teksten ovanfor og send den til %s</string>
-  <string name="waitForSignupHelp">Vi tek om kort tid kontakt med deg for å hjelpa til med å fullføre registreringa.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Send ein e-post til %s om du ikkje finn stadfesting i e-posten din, så stadfestar vi kontoen din for deg.</string>
   <string name="accountConfirmed">Brukar %s vart stadfesta.</string>
   <string name="accountCanLogin">Du kan no logga inn som %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Du treng ikkje stadfesting på e-post.</string>

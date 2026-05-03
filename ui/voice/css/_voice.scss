@@ -91,7 +91,7 @@ button#microphone-button {
     }
   }
 
-  &.busy {
+  &.error {
     color: $c-bad;
   }
 

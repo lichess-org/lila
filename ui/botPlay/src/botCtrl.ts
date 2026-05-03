@@ -40,7 +40,6 @@ export class BotCtrl {
       if (game && (game.worthResuming() || evenIfEnded)) this.resumeGame(game);
     } catch (e) {
       this.onResumeFail(e);
-      return;
     }
   };
 
@@ -76,7 +75,6 @@ export class BotCtrl {
       });
     } catch (e) {
       this.onResumeFail(e);
-      return;
     }
   };
 

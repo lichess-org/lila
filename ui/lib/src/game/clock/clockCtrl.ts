@@ -58,6 +58,7 @@ export interface SetData {
 }
 
 export class ClockCtrl {
+  readonly config: ClockConfig;
   emergSound: EmergSound = {
     play: () => site.sound.play('lowTime'),
     delay: 20000,
@@ -86,6 +87,7 @@ export class ClockCtrl {
     ticking: Color | undefined,
     readonly opts: ClockOpts,
   ) {
+    this.config = data;
     this.showTenths =
       pref.clockTenths === ShowClockTenths.Never
         ? () => false

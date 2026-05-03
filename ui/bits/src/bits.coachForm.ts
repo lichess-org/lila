@@ -80,7 +80,7 @@ site.load.then(() => {
       langInput
         .getAttribute('data-value')
         ?.split(',')
-        .map(code => whitelist?.find(l => l.code == code))
+        .map(code => whitelist?.find(l => l.code === code))
         .filter(notNull) as Tagify.TagData[],
     );
   }

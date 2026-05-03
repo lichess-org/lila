@@ -83,7 +83,7 @@
   <string name="youCanGetOutOfCheckByTaking">Du kannst dem Schach entkommen, indem du die angreifende Figur schlägst.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Dieser Springer bietet durch deine Verteidigung hindurch Schach!</string>
   <string name="escapeOrBlock">Entkomme mit dem König oder blocke den Angriff!</string>
-  <string name="outOfCheckComplete">Herzlichen Glückwunsch! Dein König kann nie geschlagen werden, stelle deshalb sicher, dass du dich gegen ein Schach verteidigen kannst!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Herzlichen Glückwunsch! Dein König kann nie geschlagen werden, stelle deshalb sicher, dass du dich gegen ein Schach verteidigen kannst!</string>
   <string name="mateInOne">Matt in einem Zug</string>
   <string name="defeatTheOpponentsKing">Besiege den gegnerischen König</string>
   <string name="mateInOneIntro">Du gewinnst, wenn sich dein Gegner nicht gegen ein Schach verteidigen kann.</string>

@@ -253,9 +253,6 @@
   <string name="emailCanTakeSomeTime">Et kann e bëssen daueren, bis se ukënnt.</string>
   <string name="refreshInboxAfterFiveMinutes">Waart 5 Minutten an aktualiséier däin E-Mail-Postfach.</string>
   <string name="checkSpamFolder">Iwwerpréif och däi Spam-Ordner, falls se do ukënnt. Markéier se an deem Fall als Net-Spam.</string>
-  <string name="emailForSignupHelp">Falls et nach ëmmer net geet, schéckt eis dës E-Mail:</string>
-  <string name="copyTextToEmail">Kopéiert an colléiert dësen Text an schéckt en un %s</string>
-  <string name="waitForSignupHelp">Mir wäerten iech sou schnell wéi méiglech äntferen an är Umellung komplétéieren.</string>
   <string name="accountConfirmed">The Benotzer %s gouf mat Succès confirméiert.</string>
   <string name="accountCanLogin">Dir kënnt iech elo aloggen als %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Du brauchs keng Confirmatiouns-E-Mail.</string>
@@ -788,6 +785,7 @@
   <string name="size">Gréisst</string>
   <string name="opacity">Transparenz</string>
   <string name="brightness">Hellegkeet</string>
+  <string name="contrast">Kontrast</string>
   <string name="hue">Faarftoun</string>
   <string name="boardReset">Faarwen op de Standard zerécksetzen</string>
   <string name="pieceSet">Figurestil</string>
@@ -885,6 +883,7 @@
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ech stëmmen zou dass ech net puer Konten kreéieren wäert (außer fir Zwecker genannt an den %s).</string>
   <string name="searchOrStartNewDiscussion">Sichen oder nei Konversatioun starten</string>
   <string name="edit">Änneren</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">Ultrabullet</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
@@ -992,5 +991,6 @@ All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotze
   <string name="offline" comment="status of a user">offline</string>
   <string name="search">Sichen</string>
   <string name="clearSearch">Nei Sich</string>
+  <string name="thereAreNoResultsForX">Kee Resultat fir „%s“</string>
   <string name="tags">Etiketten</string>
 </resources>

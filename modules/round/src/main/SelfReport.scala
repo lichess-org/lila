@@ -56,12 +56,12 @@ final class SelfReport(
                 if markUserSetting.get().matches(name) then
                   val rating = u.perfs.bestRating
                   val delayBase =
-                    if rating > IntRating(2500) then 0
-                    else if rating > IntRating(2300) then 1
-                    else if rating > IntRating(2000) then 6
-                    else if rating > IntRating(1800) then 12
-                    else 24
-                  val delay = (2 + delayBase + ThreadLocalRandom.nextInt(delayBase * 60)).minutes
+                    if rating > IntRating(2500) then 2
+                    else if rating > IntRating(2300) then 10
+                    else if rating > IntRating(2000) then 30
+                    else if rating > IntRating(1800) then 60
+                    else 120
+                  val delay = delayBase.minutes + ThreadLocalRandom.nextInt(delayBase * 60).seconds
                   scheduler.scheduleOnce(delay):
                     lila.common.Bus
                       .pub(lila.core.mod.SelfReportMark(u.id, name, fullId))

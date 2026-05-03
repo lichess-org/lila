@@ -8,7 +8,7 @@ type DomainType = 'youtube.com' | 'youtu.be';
 
 const supportedVideoTypes: string[] = ['watch', 'embed', 'shorts', 'live', 'playlist'] as const;
 const videoIdValidLength = 11;
-const videoIdRegex: RegExp = /^[a-zA-Z0-9_-]{11}$/;
+const videoIdRegex = /^[a-zA-Z0-9_-]{11}$/;
 
 export function parseYoutubeUrl(url: string): YoutubeMatch | undefined {
   const youtubeUrl = toURL(url);
@@ -168,10 +168,10 @@ function extractStartTime(value: string): number {
   return start;
 }
 
-function toURL(url: string): URL | undefined {
+function toURL(url: string) {
   try {
     return new URL(url);
   } catch {
-    return;
+    return undefined;
   }
 }

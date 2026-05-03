@@ -57,7 +57,6 @@ final class Env(
     tv: lila.tv.Tv,
     activityRead: lila.activity.ActivityReadApi,
     activityJson: lila.activity.JsonView,
-    webMobile: lila.web.Mobile,
     clasApi: lila.clas.ClasApi
 )(using scheduler: Scheduler)(using
     Mode,

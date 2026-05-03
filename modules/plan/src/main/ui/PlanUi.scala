@@ -374,7 +374,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                   frag(
                     cancelButton,
                     postForm(cls := "cancel", action := routes.Plan.cancel)(
-                      p(trp.stopPayments()),
+                      p(trp.stopPaymentsPayPal()),
                       submitButton(cls := "button button-red")(trp.noLongerSupport()),
                       a(dataForm := "cancel")(trans.site.cancel())
                     )
@@ -484,7 +484,7 @@ final class PlanUi(helpers: Helpers)(style: PlanStyle, contactEmail: EmailAddres
                       a(dataForm := "switch")(trans.site.cancel())
                     ),
                     postForm(cls := "cancel", action := routes.Plan.cancel)(
-                      p(trp.stopPaymentsPayPal()),
+                      p(trp.stopPayments()),
                       submitButton(cls := "button button-red")(trp.noLongerSupport()),
                       a(dataForm := "cancel")(trans.site.cancel())
                     )

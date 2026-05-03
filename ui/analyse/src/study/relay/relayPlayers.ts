@@ -526,7 +526,7 @@ const fideTCOrder: FideTC[] = ['standard', 'rapid', 'blitz'];
 const statByFideTCSort = (a: [FideTC, number], b: [FideTC, number]) =>
   fideTCOrder.indexOf(a[0]) - fideTCOrder.indexOf(b[0]);
 
-const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons: boolean = false) => {
+const ratingDiff = (p: RelayPlayer | RelayPlayerGame, showIcons = false) => {
   if (isRelayPlayerGame(p)) return hl('div.diff', showIcons && fideTCAttrs(p.fideTC), diffNode(p.ratingDiff));
   if (!p.ratingDiffs) return p.rating;
   const rds = Object.entries(p.ratingDiffs).sort(statByFideTCSort);

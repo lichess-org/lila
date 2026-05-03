@@ -29,8 +29,8 @@ export async function initModule(): Promise<SoundMove> {
       site.sound.url(`instrument/${instrument}/${filename}`),
     );
 
-  const isPawn = (san: string) => san[0] === san[0].toLowerCase();
-  const isKing = (san: string) => san[0] === 'K';
+  const isPawn = (san: string) => san.startsWith(san[0].toLowerCase());
+  const isKing = (san: string) => san.startsWith('K');
   const hasCastle = (san: string) => san.startsWith('O-O');
   const hasCheck = (san: string) => san.includes('+');
 

@@ -359,7 +359,7 @@ function showProgress() {
 
 // ===========================================================================================================
 
-function exit(message = undefined, code = 0) {
+function exit(message, code = 0) {
   if (message) console.log(message);
   if (!client) process.exit(code);
   return client.close().then(() => process.exit(code));

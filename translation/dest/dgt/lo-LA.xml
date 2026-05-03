@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">ຫາກກວດບໍ່ພົບການເດີນໝາກ</string>
   <string name="checkYouHaveMadeOpponentsMove">ກວດເບິ່ງວ່າທ່ານໄດ້ເດີນໝາກຂອງຄູ່ຕໍ່ສູ້ໃນກະດານ DGT ແລ້ວຫຼືຍັງ. ຍົກເລີກການເດີນຂອງທ່ານ. ແລ້ວຫຼິ້ນໃໝ່.</string>
   <string name="asALastResort">ຫາກເຮັດທຸກວິທີແລ້ວບໍ່ໄດ້ຜົນ, ໃຫ້ຈັດວາງໝາກຢູ່ເທິງກະດານໃຫ້ຄືກັນກັບໃນ Lichess, ຈາກນັ້ນ %s</string>
-  <string name="reloadThisPage">ໂຫຼດໜ້ານີ້ໃໝ່</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">ໂຫຼດໜ້ານີ້ໃໝ່</string>
   <string name="dgtConfigure">DGT - ຕັ້ງຄ່າ</string>
   <string name="lichessConnectivity">ການເຊື່ອມຕໍ່ Lichess</string>
   <string name="validDgtOauthToken">ທ່ານມີ OAuth token ທີ່ເໝາະສົມສຳລັບການຫຼິ້ນ DGT ແລ້ວ.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">ຄຳສຳຄັນຢູ່ໃນຮູບແບບ JSON. ມັນຖືກໃຊ້ເພື່ອແປການເດີນ ແລະ ຜົນການແຂ່ງຂັນເປັນພາສາຂອງທ່ານ. ຄ່າເລີ່ມຕົ້ນແມ່ນພາສາອັງກິດ, ແຕ່ທ່ານສາມາດປ່ຽນແປງໄດ້ຕາມຕ້ອງການ.</string>
   <string name="debug">ດີບັກ (Debug)</string>
   <string name="verboseLogging">ການບັນທຶກລັອກແບບລະອຽດ</string>
-  <string name="toSeeConsoleMessage">ເພື່ອເບິ່ງຂໍ້ຄວາມຄອນໂຊນ ໃຫ້ກົດ Command + Option + C (Mac) ຫຼື Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">ເພື່ອເບິ່ງຂໍ້ຄວາມຄອນໂຊນ ໃຫ້ກົດ Command + Option + C (Mac) ຫຼື Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">ຫຼິ້ນດ້ວຍກະດານ DGT</string>
   <string name="configure">ຕັ້ງຄ່າ</string>
 </resources>

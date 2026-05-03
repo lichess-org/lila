@@ -11,7 +11,7 @@ export function toLevel(l: LevelPartial, it: number): Level {
   return {
     id: it + 1,
     apples: [],
-    color: / w /.test(l.fen) ? 'white' : 'black',
+    color: l.fen.includes(' w ') ? 'white' : 'black',
     detectCapture: l.apples ? false : 'unprotected',
     ...l,
   };

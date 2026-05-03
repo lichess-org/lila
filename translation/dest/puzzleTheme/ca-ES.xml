@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Un mat que visualment ens recorda la forma de la cua d\'una oreneta, similar a una forma de V.</string>
   <string name="triangleMate">Mat del triangle</string>
   <string name="triangleMateDescription">La dama i la torre, a una distància del rei enemic, estan a la mateixa fila o columna separats per una casella formant un triangle.</string>
-  <string name="vukovicMate">Mat de Vukovic</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mat de Vukovic</string>
   <string name="vukovicMateDescription">Una torre i un cavall col·laboren per fer mat al rei. La torre dona el mat mentre està defensada per una altra peça. El cavall s\'utilitza per bloquejar les caselles de sortida del rei.</string>
   <string name="knightEndgame">Final de cavalls</string>
   <string name="knightEndgameDescription">Un final amb només cavalls i peons.</string>

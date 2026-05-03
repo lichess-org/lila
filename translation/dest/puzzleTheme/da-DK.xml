@@ -75,7 +75,7 @@
   <string name="morphysMateDescription">Brug løberen til at sætte kongen skak, mens tårnet hjælper med at spærre den inde.</string>
   <string name="triangleMate">Trekantmat</string>
   <string name="triangleMateDescription">Dronningen og tårnet, der er ét felt fra fjendens konge, befinder sig på samme række eller kolonne, adskilt af ét felt, og danner en trekant.</string>
-  <string name="vukovicMate">Vukovics mat</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovics mat</string>
   <string name="vukovicMateDescription">Et tårn og en springer går sammen om at sætte kongen mat. Tårnet leverer mat, mens det støttes af en tredje brik, og springeren bruges til at blokere kongens flugtfelter.</string>
   <string name="knightEndgame">Springerslutspil</string>
   <string name="knightEndgameDescription">Et slutspil med kun springere og bønder.</string>

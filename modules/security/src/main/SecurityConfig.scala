@@ -21,13 +21,12 @@ final private class SecurityConfig(
     @ConfigName("disposable_email") val disposableEmail: DisposableEmail,
     @ConfigName("dns_api") val dnsApi: DnsApi,
     @ConfigName("verifymail") val verifyMail: VerifyMail,
-    val hcaptcha: Hcaptcha.Config,
+    val turnstile: Turnstile.Config,
     @ConfigName("ip2proxy") val ip2Proxy: Ip2Proxy,
     @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck,
     @ConfigName("pwned.range_url") val pwnedRangeUrl: String,
     @ConfigName("proxyscrape.url") val proxyscrapeUrl: String,
-    @ConfigName("password.bpass.secret") val passwordBPassSecret: Secret,
-    @ConfigName("singlePost.secret") val singlePostSecret: Secret
+    @ConfigName("password.bpass.secret") val passwordBPassSecret: Secret
 )
 
 private object SecurityConfig:

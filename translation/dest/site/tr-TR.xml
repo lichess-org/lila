@@ -268,9 +268,7 @@
   <string name="emailCanTakeSomeTime">E-postanın ulaşması biraz zaman alabilir.</string>
   <string name="refreshInboxAfterFiveMinutes">5 dakika bekleyip e-posta gelen kutunuzu yenileyin.</string>
   <string name="checkSpamFolder">Ayrıca spam klasörünü kontrol edin, orada olabilir. Eğer öyleyse spam değil olarak işaretleyin.</string>
-  <string name="emailForSignupHelp">Hiçbiri işe yaramazsa, bize şu e-postayı gönderin:</string>
-  <string name="copyTextToEmail">Yukarıdaki metni kopyalayıp %s adresine gönderin</string>
-  <string name="waitForSignupHelp">Kaydınızı tamamlamanıza yardımcı olmak için kısa bir süre içinde size geri döneceğiz.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Doğrulama e-postanızı bulamıyorsanız, %s adresine e-posta gönderin, hesabınızı sizin için onaylayalım.</string>
   <string name="accountConfirmed">%s kullanıcısı başarıyla onaylandı.</string>
   <string name="accountCanLogin">Artık %s olarak giriş yapabilirsiniz.</string>
   <string name="accountConfirmationEmailNotNeeded">Onay e-postasına ihtiyacınız yok.</string>
@@ -526,6 +524,7 @@
   <string name="popularOpenings">Popüler açılışlar</string>
   <string name="endgamePositions">Oyunsonu pozisyonları</string>
   <string name="chess960StartPosition">Chess960 başlangıç pozisyonu: %s</string>
+  <string name="randomChess960Position">Rastgele Satranç960 pozisyonu</string>
   <string name="startPosition">Başlangıç konumu</string>
   <string name="clearBoard">Tahtayı temizle</string>
   <string name="loadPosition">Pozisyon yükle</string>

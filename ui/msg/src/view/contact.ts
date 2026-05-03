@@ -1,8 +1,8 @@
 import { h, type VNode } from 'snabbdom';
 
-import { hookMobileMousedown } from 'lib/device';
 import { timeago } from 'lib/i18n';
 import * as licon from 'lib/licon';
+import { hookMobileMousedown } from 'lib/mobileEvents';
 import type { MaybeVNodes } from 'lib/view/snabbdom';
 import { fullName, userLine } from 'lib/view/userLink';
 

@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Jokaldi bat ez badugu detektatzen</string>
   <string name="checkYouHaveMadeOpponentsMove">Egiaztatu aurkariaren jokaldia DGT taulan eginda dagoela. Bota zure jokaldia atzera. Jokatu berriz.</string>
   <string name="asALastResort">Azken aukera gisa, jarri partida Lichessen bezala eta ondoren %s</string>
-  <string name="reloadThisPage">birkargatu orrialde hau</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">birkargatu orrialde hau</string>
   <string name="dgtConfigure">DGT Ezarpenak</string>
   <string name="lichessConnectivity">Lichessekin konektatu</string>
   <string name="validDgtOauthToken">DGTrekin jokatzeko bhear den OAuth token bat duzu.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Hitz gakoak JSON formatuan daude. Jokaldiak zure hizkuntzara itzultzeko erabiltzen dira. Defektuzkoa ingelesez dago, baina aldatu nahi duzun bezala.</string>
   <string name="debug">Arazketa</string>
   <string name="verboseLogging">Erroreak erregistratu</string>
-  <string name="toSeeConsoleMessage">Mezuen kontxola ikusteko sakatu Command + Option + C (Mac ordenagailuan bazaude) edo Control + Shift + C (Windows, Linux edo Chrome OSen bazaude)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Mezuen kontxola ikusteko sakatu Command + Option + C (Mac ordenagailuan bazaude) edo Control + Shift + C (Windows, Linux edo Chrome OSen bazaude)</string>
   <string name="playWithDgtBoard">Jokatu DGT taularekin</string>
   <string name="configure">Konfiguratu</string>
 </resources>

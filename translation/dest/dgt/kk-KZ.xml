@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Егер жүріс анықталмаса</string>
   <string name="checkYouHaveMadeOpponentsMove">DGT тақтада қарсыластың жүрісін жасағаныңызды тексеріңіз. Жүрісті қайта қайтарып, тағы жүріп көріңіз.</string>
   <string name="asALastResort">Ақырғы амал ретінде тақта күйін Лическе дәл келтіріп, %s</string>
-  <string name="reloadThisPage">Парақшаны жаңартып көріңіз</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Парақшаны жаңартып көріңіз</string>
   <string name="dgtConfigure">DGT пішіндемесі</string>
   <string name="lichessConnectivity">Личестің байланыс қабілеті</string>
   <string name="validDgtOauthToken">Сізде DGT ойнау үшін OAuth токеніңіз бар.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Кілтсөздер JSON пішінінде. Олар жүрістер мен нәтижелерді сіздің тіліңізге аудару үшін керек. Әдепкі күйде - Ағылшын, оны өзгертуге жолыңыз ашық.</string>
   <string name="debug">Жөндеу</string>
   <string name="verboseLogging">Егжейлі журнал жазу</string>
-  <string name="toSeeConsoleMessage">Консол хабарын көру үшін Command + Option + C (Mac) не Control + Shift + C (Windows, Linux, Chrome OS) басыңыз</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Консол хабарын көру үшін Command + Option + C (Mac) не Control + Shift + C (Windows, Linux, Chrome OS) басыңыз</string>
   <string name="playWithDgtBoard">DGT тақтада ойнау</string>
   <string name="configure">Пішіндеу</string>
 </resources>

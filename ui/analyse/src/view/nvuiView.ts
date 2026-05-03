@@ -131,7 +131,7 @@ export function renderNvui(ctx: AnalyseNvuiContext): VNode {
         explorerView(ctrl),
       ],
       hl('h2', i18n.nvui.pieces),
-      renderPieces(ctrl.chessground.state.pieces, style),
+      renderPieces(ctrl.chessground.state.pieces, style, ctrl.bottomColor()),
       pockets && hl('h2', i18n.nvui.pockets),
       pockets && renderPockets(pockets),
       renderAriaResult(ctrl),

@@ -12,6 +12,10 @@ site.load.then(() => {
       createSelectSearch(this);
     });
 
+    $('select[id^="form3-tiebreaks_"]').each(function (this: HTMLSelectElement) {
+      createSelectSearch(this);
+    });
+
     wireCropDialog({
       aspectRatio: 2 / 1,
       post: { url: $('.relay-image-edit').attr('data-post-url')!, field: 'image' },

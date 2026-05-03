@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Ha egy lépés nincs észlelve</string>
   <string name="checkYouHaveMadeOpponentsMove">Először ellenőrizd, hogy megtetted-e a DGT táblán az ellenfeled lépését! Vond vissza a saját lépésedet, majd játszd újra.</string>
   <string name="asALastResort">Végső megoldásként állítsd be a táblát pontosan úgy, mint a Lichessen, majd %s</string>
-  <string name="reloadThisPage">Oldal frissítése</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Oldal frissítése</string>
   <string name="dgtConfigure">DGT - Beállítások</string>
   <string name="lichessConnectivity">Lichess csatlakoztatás</string>
   <string name="validDgtOauthToken">DGT játékhoz megfelelő OAuth token rendelkezésre áll.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">A kulcsszavak JSON formátumban, melyekkel az általad használt nyelvre fordítjuk a lépéseket és eredményeket. Alapértelmezetten Angol, de ezt bármikor megváltoztathatod.</string>
   <string name="debug">Hibakeresés</string>
   <string name="verboseLogging">Részletes naplózás</string>
-  <string name="toSeeConsoleMessage">A konzol üzenetek megtekintéséhez nyomd meg: Command + Option + C (Mac) vagy Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">A konzol üzenetek megtekintéséhez nyomd meg: Command + Option + C (Mac) vagy Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Játék DGT táblával</string>
   <string name="configure">Beállítás</string>
 </resources>

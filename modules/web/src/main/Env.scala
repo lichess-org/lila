@@ -20,8 +20,6 @@ final class Env(
   val analyseEndpoints = WebConfig.analyseEndpoints(appConfig)
   lazy val lilaVersion = WebConfig.lilaVersion(appConfig)
 
-  lazy val mobile = wire[Mobile]
-
   val manifest = wire[AssetManifest]
 
   val referrerRedirect = wire[ReferrerRedirect]
@@ -38,6 +36,8 @@ final class Env(
   if mode.isProd then scheduler.scheduleOnce(5.seconds)(influxEvent.start())
 
   wire[PagerDuty]
+
+  val lichobileAnnounceApi = wire[LichobileAnnounceApi]
 
   AnnounceApi.setupPeriodicUpdate()
 

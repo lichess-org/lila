@@ -184,7 +184,7 @@ final private class RelayFetch(
       else if upstream.hasLcc then 4
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
-    base * {
+    val period = base * {
       if tour.tierIs(_.best) then 1
       else if tour.official then 2
       else 3
@@ -195,6 +195,7 @@ final private class RelayFetch(
       else if round.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(20))) then 2
       else 3
     }
+    if upstream.hasIdChess && period < 15 then 15 else period
 
   private val gameIdsUpstreamPgnFlags = PgnDump.WithFlags(
     clocks = true,

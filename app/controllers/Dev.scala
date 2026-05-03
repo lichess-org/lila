@@ -87,8 +87,7 @@ final class Dev(env: Env) extends LilaController(env):
     "Security" -> List(
       env.oAuth.originBlocklistSetting,
       env.security.proxy2faSetting,
-      env.security.alwaysCaptcha,
-      env.security.singlePost.enforceIp
+      env.security.lichobileLogin
     ),
     "Mailing" -> List(
       env.mailer.mailerSecondaryPermilleSetting,
@@ -126,8 +125,7 @@ final class Dev(env: Env) extends LilaController(env):
       env.ublog.ublogAutomod.promptSetting
     ),
     "Mobile" -> List(
-      env.web.mobile.androidVersion,
-      env.web.mobile.iosVersion
+      env.web.lichobileAnnounceApi.lichobileUpgrade
     ),
     "Config" -> List(
       env.plan.donationGoalSetting,

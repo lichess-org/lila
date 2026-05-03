@@ -20,6 +20,7 @@ final class Env(
     net: lila.core.config.NetConfig,
     userRepo: lila.user.UserRepo,
     mailer: lila.mailer.Mailer,
+    autoEmail: lila.mailer.AutomaticEmail,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
@@ -37,8 +38,6 @@ final class Env(
   private def netDomain = net.domain
 
   private val config = appConfig.get[SecurityConfig]("security")
-
-  private def hcaptchaPublicConfig = config.hcaptcha.public
 
   val lilaCookie = wire[LilaCookie]
 
@@ -59,9 +58,11 @@ final class Env(
 
   lazy val authenticator = wire[Authenticator]
 
-  lazy val hcaptcha: Hcaptcha =
-    if config.hcaptcha.enabled then wire[HcaptchaReal]
-    else wire[HcaptchaSkip]
+  lazy val turnstileCookie = TurnstileCookie(lilaCookie, config.loginTokenSecret)
+  val turnstilePublicConfig = config.turnstile.public
+  lazy val turnstile: Turnstile =
+    if config.turnstile.enabled then wire[TurnstileReal]
+    else wire[TurnstileSkip]
 
   lazy val forms = wire[SecurityForm]
   def signupForm: lila.core.security.SignupFormFields = forms.signup
@@ -86,6 +87,12 @@ final class Env(
     text = "Enable the user garbage collector".some
   )
 
+  lazy val lichobileLogin = settingStore[Boolean](
+    "lichobileLogin",
+    default = true,
+    text = "Allow users to login with lichobile app".some
+  )
+
   lazy val printBan = PrintBan(db(config.collection.printBan))
 
   private val curPlaying = lila.core.data.LazyDep(() => lazyCurrentlyPlaying)
@@ -103,6 +110,8 @@ final class Env(
         tokenerSecret = config.emailConfirm.secret
       )
     else wire[EmailConfirmSkip]
+
+  lazy val emailConfirmByUserSend = wire[EmailConfirmByUserSend]
 
   lazy val passwordReset =
     def mk = (s: Secret) => wire[PasswordReset]
@@ -161,14 +170,6 @@ final class Env(
     default = Strings(List("PUB", "TOR")),
     text = "Types of proxy that require 2FA to login".some
   ).taggedWith[Proxy2faSetting]
-
-  val alwaysCaptcha = settingStore[Boolean](
-    "alwaysCaptcha",
-    default = false,
-    text = "Always serve captchas, don't skip once per IP and per 24h".some
-  ).taggedWith[AlwaysCaptcha]
-
-  val singlePost = SinglePost(config.singlePostSecret, settingStore)
 
   lazy val api = wire[SecurityApi]
 

@@ -1,7 +1,7 @@
 import Lpv from '@lichess-org/pgn-viewer';
 import type { Opts } from '@lichess-org/pgn-viewer/interfaces';
 
-import { requestIdleCallback } from 'lib';
+import { requestIdleCallbackSafe } from 'lib';
 import { initMiniBoards } from 'lib/view';
 
 import { renderHistoryChart } from './chart';
@@ -37,7 +37,7 @@ function page(data: OpeningPage) {
     if (id === 'opening-panel-games') loadExampleGames();
   });
   searchEngine();
-  requestIdleCallback(() => {
+  requestIdleCallbackSafe(() => {
     renderHistoryChart(data);
     renderPlaceholderWiki(data);
   });

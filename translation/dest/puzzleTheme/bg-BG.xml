@@ -73,7 +73,7 @@
   <string name="morphysMateDescription">Oфицерът нанася мат, докато топът блокира царя по вертикала.</string>
   <string name="triangleMate">Мат „Триъгълник“</string>
   <string name="triangleMateDescription">Дамата и топът се намират на един и същ хоризонтал или вертикал, на едно поле разстояние от вражеския цар. Те са разделени от едно поле помежду си, образувайки триъгълник.</string>
-  <string name="vukovicMate">Мат на Вукович</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Мат на Вукович</string>
   <string name="vukovicMateDescription">Топ и кон се комбинират да матират краля. Топът, защитен от още една фигура, поставя мат, докато конят блокира полетата за отстрпление на краля.</string>
   <string name="knightEndgame">Конски ендшпил</string>
   <string name="knightEndgameDescription">Ендшпил само с коне и пешки.</string>

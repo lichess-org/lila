@@ -25,7 +25,7 @@ export default class Filter {
   store: FormStore;
   data: FilterData | null;
   open = false;
-  uiCacheBuster: number = 1; // used to force re-init of filter UI
+  uiCacheBuster = 1; // used to force re-init of filter UI
 
   constructor(
     storage: LichessStorage,
@@ -69,8 +69,8 @@ export default class Filter {
         if (
           !f.variant?.includes(variant) ||
           !f.speed?.includes((hook.s || 1).toString() /* ultrabullet = bullet */) ||
-          (f.mode?.length == 1 && f.mode[0] != (hook.ra || 0).toString()) ||
-          (f.increment?.length == 1 && f.increment[0] != hook.i.toString()) ||
+          (f.mode?.length === 1 && f.mode[0] !== (hook.ra || 0).toString()) ||
+          (f.increment?.length === 1 && f.increment[0] !== hook.i.toString()) ||
           (ratingRange && (!hook.rating || hook.rating < ratingRange[0] || hook.rating > ratingRange[1]))
         ) {
           hidden++;

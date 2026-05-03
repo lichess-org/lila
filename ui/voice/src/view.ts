@@ -41,9 +41,12 @@ function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
   const voiceBtn = $('button#microphone-button');
   return (txt: string, tpe: MsgType) => {
     voiceBtn.toggleClass('listening', ctrl.mic.isListening);
-    voiceBtn.toggleClass('busy', ctrl.mic.isBusy);
+    voiceBtn.toggleClass('error', tpe === 'error');
     voiceBtn.toggleClass('push-to-talk', ctrl.pushTalk() && !ctrl.mic.isListening && !ctrl.mic.isBusy);
-    voiceBtn.attr('data-icon', ctrl.mic.isBusy ? licon.Cancel : licon.Voice);
+    voiceBtn.html(ctrl.mic.isBusy ? '<span class="ddloader"></span>' : '');
+
+    if (ctrl.mic.isBusy) voiceBtn.removeAttr('data-icon');
+    else voiceBtn.attr('data-icon', tpe === 'error' ? licon.Cancel : licon.Voice);
 
     if (tpe !== 'partial') el.innerText = txt;
   };

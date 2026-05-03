@@ -244,9 +244,6 @@
   <string name="emailCanTakeSomeTime">Pueda tardar un ratet a arribar.</string>
   <string name="refreshInboxAfterFiveMinutes">Aguarda 5 minutos y refresca lo tuyo buzón de dentrada.</string>
   <string name="checkSpamFolder">Compreba tamién la carpeta de correu vasuera, puede estar astí. Si ye astí, maca-lo como \"no vasuera\".</string>
-  <string name="emailForSignupHelp">Si tot ixo falla, ninvia-nos este correu:</string>
-  <string name="copyTextToEmail">Copia y pega este texto y ninva-lo a %s</string>
-  <string name="waitForSignupHelp">Te contestaremos decamín pa aduyar-te a completar lo rechistro.</string>
   <string name="accountConfirmed">L\'usuario %s ha estau confirmau correctament.</string>
   <string name="accountCanLogin">Puez identificar-te agora como %s.</string>
   <string name="accountConfirmationEmailNotNeeded">No te cal un correu de confirmación.</string>

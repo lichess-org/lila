@@ -29,9 +29,9 @@ final class ModUserSearch(userRepo: UserRepo, userApi: UserApi, jsonView: JsonVi
     lameNameMatch = userName.so(lila.common.LameName.explain)
   )
 
-  def apiSearch(regex: String): Fu[JsObject] =
+  def apiSearch(regex: String, closed: Boolean = false): Fu[JsObject] =
     for
-      ids <- userRepo.idLikeCanBeVeryExpensive(regex.toLowerCase)
+      ids <- userRepo.idLikeCanBeVeryExpensive(regex.toLowerCase, closed)
       withPerfs <- userApi.withPerfsAndEmails(ids)
       jsons = withPerfs.map(userJson)
     yield Json.obj("users" -> jsons)

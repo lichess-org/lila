@@ -1,11 +1,12 @@
 import { h, type VNode } from 'snabbdom';
 
-import { hookMobileMousedown } from 'lib/device';
 import * as licon from 'lib/licon';
+import { hookMobileMousedown } from 'lib/mobileEvents';
 import { userLine, userLink, userLinkData } from 'lib/view/userLink';
 
-import type MsgCtrl from '../ctrl';
-import type { Convo, User } from '../interfaces';
+import type MsgCtrl from '@/ctrl';
+import type { Convo, User } from '@/interfaces';
+
 import renderActions from './actions';
 import renderInteract from './interact';
 import renderMsgs from './msgs';

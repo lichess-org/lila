@@ -34,27 +34,34 @@ final private class FirebasePush(
       .findLastManyByUserId("firebase", 3)(userId)
       .flatMap:
         _.sequentiallyVoid: device =>
-          val config = if device.isMobile then configs.mobile else configs.lichobile
-          config.googleCredentials.so: creds =>
-            for
-              data <- data.value
-              _ <-
-                if !data.mobileCompatible.exists(device.isMobileVersionCompatible)
-                then funit // don't send to mobile if incompatible version
-                else if data.firebaseMod.contains(PushApi.Data.FirebaseMod.DataOnly) && !device.isMobile
-                then funit // don't send data messages to lichobile
-                else
-                  for
-                    // access token has 1h lifetime and is requested only if expired
-                    token <- workQueue {
-                      Future:
-                        Chronometer.syncMon(_.blocking.time("firebase")):
-                          creds.refreshIfExpired()
-                          creds.getAccessToken()
-                    }.chronometer.mon(_.push.googleTokenTime).result
-                    _ <- send(token, device, config, data)
-                  yield ()
-            yield ()
+          val configOpt =
+            if device.isMobile then configs.mobile.some
+            else if device.isLichobile then configs.lichobile.some
+            else None
+          configOpt match
+            case None =>
+              logger.info(s"Unsupported firebase device $device")
+              // deviceApi.delete(device) // cleanup unsupported device?
+              funit
+            case Some(config) =>
+              config.googleCredentials.so: creds =>
+                for
+                  data <- data.value
+                  compatible =
+                    data.mobileCompatible.exists(device.isMobileVersionCompatible) ||
+                      data.lichobileCompatible && device.isLichobile
+                  _ <- compatible.so:
+                    for
+                      // access token has 1h lifetime and is requested only if expired
+                      token <- workQueue {
+                        Future:
+                          Chronometer.syncMon(_.blocking.time("firebase")):
+                            creds.refreshIfExpired()
+                            creds.getAccessToken()
+                      }.chronometer.mon(_.push.googleTokenTime).result
+                      _ <- send(token, device, config, data)
+                    yield ()
+                yield ()
 
   opaque type StatusCode = Int
   object StatusCode extends OpaqueInt[StatusCode]

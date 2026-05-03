@@ -134,6 +134,7 @@
   <string name="searchTime">検索時間</string>
   <string name="searchTimeDescription">新しい局面を評価するための時間を設定</string>
   <string name="threads">スレッド数</string>
+  <string name="threadsDescription">CPU のスレッド数より小さい値に設定してください。目盛りは安全な推奨値を示しています</string>
   <string name="threadsDescriptionMobile">スレッド数が多いと解析精度が上がりますがバッテリー消費も増えます</string>
   <string name="cpus">スレッド数</string>
   <string name="memory">メモリ</string>
@@ -252,9 +253,7 @@
   <string name="emailCanTakeSomeTime">受信まで少しかかるかもしれません。</string>
   <string name="refreshInboxAfterFiveMinutes">5 分待ってからメール受信箱を更新してください。</string>
   <string name="checkSpamFolder">またスパムフォルダに入ってしまう場合もあります。もしそうならスパムではないとマークしてください。</string>
-  <string name="emailForSignupHelp">どの手段もうまくいかない場合は、次のメールをこちらまで送信してください：</string>
-  <string name="copyTextToEmail">上のテキストをコピー＆ペーストして %s に送信します</string>
-  <string name="waitForSignupHelp">またこちらから連絡してサインアップ完了までお手伝いします。</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">確認メールが見つからない場合は %s にメールを送信してください。当方でアカウントを確認します。</string>
   <string name="accountConfirmed">ユーザー %s の確認が完了しました。</string>
   <string name="accountCanLogin">すぐに %s としてログインできます。</string>
   <string name="accountConfirmationEmailNotNeeded">あなたには確認メールは必要ありません。</string>
@@ -988,6 +987,7 @@
   <string name="offline" comment="status of a user">オフライン</string>
   <string name="search">検索</string>
   <string name="clearSearch">検索をクリア</string>
+  <string name="thereAreNoResultsForX">「%s」の検索結果はありません</string>
   <string name="tags">タグ</string>
   <string name="enPassant">アンパッサン</string>
 </resources>

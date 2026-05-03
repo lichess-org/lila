@@ -100,7 +100,7 @@
   <string name="youCanGetOutOfCheckByTaking">您可以通过吃掉攻击的棋子来应将。</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">这匹马正穿过您的防线对您将军！</string>
   <string name="escapeOrBlock">请将王移开或应将！</string>
-  <string name="outOfCheckComplete">恭喜！您的王永远不会被吃掉，确保您能应将！</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">恭喜！您的王永远不会被吃掉，确保您能应将！</string>
   <string name="mateInOne">一步杀</string>
   <string name="defeatTheOpponentsKing">击败对方的王</string>
   <string name="mateInOneIntro">当对方无法应将时，您就赢了。</string>

@@ -135,6 +135,7 @@ object page:
           style := boardStyle(p.flags(PageFlags.zoom))
         )(
           blindModeForm,
+          assetsMissingTroubleshooting,
           for in <- ctx.data.inquiry; me <- ctx.me yield views.mod.inquiryUi(in)(using ctx, me),
           ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.ui.impersonate(_) },
           netConfig.stageBanner.option(views.bits.stage),
@@ -149,7 +150,7 @@ object page:
               notifications = ctx.nbNotifications.value,
               error = ctx.data.error,
               topnav = topnav(
-                hasClas = ctx.hasClas,
+                seesClassMenu = ctx.seesClassMenu,
                 hasDgt = ctx.pref.hasDgt
               )
             )

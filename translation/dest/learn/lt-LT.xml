@@ -96,7 +96,7 @@ Ir nepraraskite savųjų.</string>
   <string name="youCanGetOutOfCheckByTaking">Jūs galite išvengti šacho nukirsdami šachuojančią figūrą.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Žirgas šachuoja kiaurai per jūsų gynybą!</string>
   <string name="escapeOrBlock">Pabėkite su karaliumi arba blokuokite ataką!</string>
-  <string name="outOfCheckComplete">Sveikiname. Jūsų karalius negali būti nukirstas, todėl ginkites nuo šacho!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Sveikiname. Jūsų karalius negali būti nukirstas, todėl ginkites nuo šacho!</string>
   <string name="mateInOne">Matas vienu ėjimu</string>
   <string name="defeatTheOpponentsKing">Nugalėkite priešo karalių</string>
   <string name="mateInOneIntro">Jūs laimite, kai priešas negali apsiginti nuo šacho.</string>

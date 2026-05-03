@@ -51,7 +51,7 @@
     }
   }
 
-  @media (min-width: at-least(1180px)) {
+  @media (min-width: at-least($large)) {
     .site-name {
       display: block;
     }

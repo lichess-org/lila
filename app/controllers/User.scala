@@ -163,9 +163,9 @@ final class User(
             .redirect(username.value)
             .flatMap:
               case Some(url) => Redirect(url).toFuccess
-              case None if isGrantedOpt(_.UserModView) => ctx.useMe(modC.searchTerm(username.value))
+              case None if isGrantedOpt(_.AccountInfo) => ctx.useMe(modC.searchTerm(username.value))
               case None => notFound(true)
-        case Some(u) if u.enabled.yes || isGrantedOpt(_.UserModView) => f(u)
+        case Some(u) if u.enabled.yes || isGrantedOpt(_.AccountInfo) => f(u)
         case u => notFound(u.isEmpty)
 
   def showMini(username: UserStr) = Open:
@@ -173,7 +173,7 @@ final class User(
       ctx.userId
         .so(relationApi.fetchRelation(_, user.id))
         .flatMap: relation =>
-          if user.enabled.yes || isGrantedOpt(_.UserModView)
+          if user.enabled.yes || isGrantedOpt(_.AccountInfo)
           then
             (
               ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
@@ -262,7 +262,7 @@ final class User(
       JsonOk(leaderboards)
     }
 
-  // redirect /player/top/200/:perfKey to /user/top/:perfKey
+  // redirect /player/top/:nb/:perfKey to /user/top/:perfKey
   // TODO move to a NotFound general handler?
   // to avoid adding (yet another) route
   def topBcRedirect(@annotation.unused nb: Int, perfKey: PerfKey) = Anon:
@@ -370,7 +370,7 @@ final class User(
           env.pref.api
             .get(user)
             .map: prefs =>
-              ui.prefs(user, prefs.hasKeyboardMove, prefs.hasVoice, prefs.botCompatible)
+              ui.prefs(user, prefs.hasKeyboardMove, prefs.hasVoice)
 
         val appeal = isGranted(_.Appeals).so:
           env.appeal.api.byId(user).mapz(views.appeal.ui.modSection(lila.mod.ui.mzSection("appeal")))
@@ -415,7 +415,8 @@ final class User(
               .preloadMany(as.games.flatMap(_.userIds))
               .inject(ui.assessments(user, as))
 
-        val oauthTokens = env.oAuth.tokenApi.modRelevantTokens(user.id).map(views.user.mod.oauthTokens)
+        val oauthTokens = isGranted(_.AccountInfo).so:
+          env.oAuth.tokenApi.modRelevantTokens(user.id).map(views.user.mod.oauthTokens)
 
         val teacher = isGranted(_.AccountInfo).so:
           env.clas.api.clas.countOf(user).map(ui.teacher(user))
@@ -552,53 +553,54 @@ final class User(
 
   def autocomplete = OpenOrScoped(): ctx ?=>
     NoTor:
-      get("term").flatMap(UserSearch.read) match
-        case None => BadRequest("No search term provided")
-        case Some(term) if getBool("exists") =>
-          term.into(UserStr).validateId.so(env.user.repo.existsSec).map(JsonOk)
-        case Some(term) =>
-          {
-            (get("tour"), get("swiss"), get("team")) match
-              case (Some(tourId), _, _) => env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
-              case (_, Some(swissId), _) =>
-                env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
-              case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, 10)
-              case _ =>
-                ctx.me.ifTrue(getBool("friend")) match
-                  case Some(follower) =>
-                    env.relation.api.searchFollowedBy(follower, term, 10).flatMap { userIds =>
-                      val remaining = 10 - userIds.length
-                      if remaining > 0 then
-                        env.user.cached.userIdsLike(term).map { extraUserIds =>
-                          userIds ++ (extraUserIds.diff(userIds)).take(remaining)
-                        }
-                      else fuccess(userIds)
-                    }
-                  case None if getBool("teacher") =>
-                    env.user.repo.userIdsLikeWithRole(term, lila.core.perm.Permission.Teacher.dbKey)
-                  case None =>
-                    for
-                      found <- env.user.cached.userIdsLike(term)
-                      closed <- isGrantedOpt(_.AccountInfo).so(env.user.repo.userIdsLikeClosed(term))
-                    yield found ::: closed
-          }.flatMap { userIds =>
-            if getBool("names") then
-              lightUserApi
-                .asyncMany(userIds)
-                .map: users =>
-                  Json.toJson(users.flatMap(_.map(_.name)))
-            else if getBool("object") then
-              lightUserApi
-                .asyncMany(userIds)
-                .map: users =>
-                  Json.obj:
+      if getBool("exists") then
+        val name = get("term").orZero
+        env.security.forms.signup.firstUsernameError(name) match
+          case Some(error) => BadRequest(jsonError(error))
+          case None => UserStr.read(name).so(env.user.repo.existsSec).map(JsonOk)
+      else
+        get("term")
+          .flatMap(UserSearch.read)
+          .fold(BadRequest("No search term provided").toFuccess): term =>
+            for
+              userIds <- (get("tour"), get("swiss"), get("team")) match
+                case (Some(tourId), _, _) =>
+                  env.tournament.playerRepo.searchPlayers(TourId(tourId), term, 10)
+                case (_, Some(swissId), _) =>
+                  env.swiss.api.searchPlayers(SwissId(swissId), term, 10)
+                case (_, _, Some(teamId)) => env.team.api.searchMembersAs(TeamId(teamId), term, 10)
+                case _ =>
+                  ctx.me.ifTrue(getBool("friend")) match
+                    case Some(follower) =>
+                      env.relation.api.searchFollowedBy(follower, term, 10).flatMap { userIds =>
+                        val remaining = 10 - userIds.length
+                        if remaining > 0 then
+                          env.user.cached.userIdsLike(term).map { extraUserIds =>
+                            userIds ++ (extraUserIds.diff(userIds)).take(remaining)
+                          }
+                        else fuccess(userIds)
+                      }
+                    case None if getBool("teacher") =>
+                      env.user.repo.userIdsLikeWithRole(term, lila.core.perm.Permission.Teacher.dbKey)
+                    case None =>
+                      for
+                        found <- env.user.cached.userIdsLike(term)
+                        closed <- isGrantedOpt(_.AccountInfo).so(env.user.repo.userIdsLikeClosed(term))
+                      yield found ::: closed
+              result <-
+                if getBool("names") then
+                  for users <- lightUserApi.asyncMany(userIds)
+                  yield Json.toJson(users.flatMap(_.map(_.name)))
+                else if getBool("object") then
+                  for users <- lightUserApi.asyncMany(userIds)
+                  yield Json.obj:
                     "result" -> JsArray(users.collect { case Some(u) =>
                       lila.common.Json.lightUser
                         .write(u)
                         .add("online" -> env.socket.isOnline.exec(u.id))
                     })
-            else fuccess(Json.toJson(userIds))
-          }.map(JsonOk)
+                else fuccess(Json.toJson(userIds))
+            yield JsonOk(result)
 
   def ratingDistribution(perfKey: PerfKey, username: Option[UserStr] = None) = Open:
     Found(perfKey.some.filter(lila.rating.PerfType.isLeaderboardable)): perfKey =>

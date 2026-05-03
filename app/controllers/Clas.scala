@@ -52,27 +52,18 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def create = SecureBody(_.Teacher) { ctx ?=> _ ?=>
     NoTor:
       SafeTeacher:
-        env.clas.forms.clas.create.flatMap:
-          _.form
-            .bindFromRequest()
-            .fold(
-              err => BadRequest.async(renderCreate(err.some)),
-              data =>
-                env.security.hcaptcha
-                  .verify()
-                  .flatMap: captcha =>
-                    if captcha.ok
-                    then env.clas.api.clas.create(data).map(redirectTo)
-                    else BadRequest.async(renderCreate(data.some))
-            )
+        bindForm(env.clas.forms.clas.form)(
+          err => BadRequest.async(renderCreate(err.some)),
+          data => env.clas.api.clas.create(data).map(redirectTo)
+        )
   }
 
   private def renderCreate(from: Option[Form[ClasData] | ClasData])(using ctx: Context) =
-    env.clas.forms.clas.create.map: baseForm =>
-      views.clas.clas.create:
-        from.fold(baseForm):
-          case data: ClasData => baseForm.fill(data)
-          case form: Form[ClasData] => baseForm.withForm(form)
+    val baseForm = env.clas.forms.clas.form
+    views.clas.clas.create:
+      from.fold(baseForm):
+        case data: ClasData => baseForm.fill(data)
+        case form: Form[ClasData] => form
 
   private def preloadStudentUsers(students: List[lila.clas.Student.WithUser]): Unit =
     env.user.lightUserApi.preloadUsers(students.map(_.user))
@@ -106,7 +97,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             )
         yield Ok(page),
       orDefault = _ =>
-        isGranted(_.UserModView).so(FoundPage(env.clas.api.clas.byId(id)): clas =>
+        isGranted(_.AccountInfo).so(FoundPage(env.clas.api.clas.byId(id)): clas =>
           env.clas.api.student.allWithUsers(clas).flatMap { students =>
             env.user.api.withPerfsAndEmails(students.map(_.user)).map {
               views.mod.search.clas(clas, _)
@@ -532,7 +523,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   private def couldBeTeacher(using ctx: Context): Fu[Boolean] = ctx.useMe: me ?=>
     if me.isBot then fuFalse
     else if ctx.kid.yes then fuFalse
-    else if env.clas.isTeacher then fuTrue
+    else if env.clas.isActiveTeacher then fuTrue
     else env.mod.logApi.wasUnteachered(me).not
 
   def invitation(id: ClasInviteId) = Auth { _ ?=> me ?=>

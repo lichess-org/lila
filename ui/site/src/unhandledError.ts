@@ -9,9 +9,9 @@ function terseHref(): string {
 export function addExceptionListeners() {
   window.addEventListener('error', async e => {
     const loc = e.filename ? ` - (${e.filename}:${e.lineno}:${e.colno})` : '';
-    log(`${terseHref()} - ${e.message}${loc}\n${e.error?.stack ?? ''}`.trim());
+    await log(`${terseHref()} - ${e.message}${loc}\n${e.error?.stack ?? ''}`.trim());
     if (site.debug)
-      domDialog({
+      await domDialog({
         htmlText: escapeHtml(`${e.message}${loc}\n${e.error?.stack ?? ''}`),
         class: 'debug',
         show: true,
@@ -26,9 +26,9 @@ export function addExceptionListeners() {
       } catch (_) {
         reason = 'unhandled rejection, reason not a string';
       }
-    log(`${terseHref()} - ${reason}`);
+    await log(`${terseHref()} - ${reason}`);
     if (site.debug)
-      domDialog({
+      await domDialog({
         htmlText: escapeHtml(reason),
         class: 'debug',
         show: true,

@@ -180,7 +180,6 @@ export default class TournamentController {
       this.joinSpinner = true;
       this.focusOnMe = true;
     }
-    return;
   };
 
   scrollToMe = () => this.setPage(myPage(this));

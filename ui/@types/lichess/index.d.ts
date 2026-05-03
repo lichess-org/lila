@@ -186,6 +186,7 @@ interface Window {
   readonly paypalOrder: unknown;
   readonly paypalSubscription: unknown;
   readonly webkitAudioContext?: typeof AudioContext;
+  readonly turnstile: any;
 }
 
 interface Study {

@@ -21,7 +21,7 @@ final class Signup(
     canSendEmails: SettingStore[Boolean] @@ lila.mailer.CanSendEmails,
     forms: SecurityForm,
     emailConfirm: EmailConfirm,
-    hcaptcha: Hcaptcha,
+    turnstile: Turnstile,
     passwordHasher: PasswordHasher,
     authenticator: Authenticator,
     userRepo: lila.user.UserRepo,
@@ -82,42 +82,36 @@ final class Signup(
       formBinding: FormBinding,
       referrer: Option[ValidReferrer]
   ): Fu[Signup.Result] =
-    val ip = HTTPRequest.ipAddress(req)
-    val client = simpleSignup.match
-      case Some(s) => s.client.value
-      case None => if HTTPRequest.isLichessMobile(req) then "mobile" else "website"
-    forms.signup
-      .website(simpleSignup)
-      .flatMap:
-        _.form.form
-          .bindFromRequest()
-          .fold[Fu[Signup.Result]](
-            err =>
-              fuccess:
-                disposableEmailAttempt.onFail(err, HTTPRequest.ipAddress(req))
-                Signup.Result.FormInvalid(err.tap(signupErrLog))
-            ,
-            data =>
-              dedupCache.getFuture(
-                data,
-                _ =>
-                  if simpleSignup.exists(s => dedupSimpleSignupEmail.get(s.email))
-                  then fuccess(Signup.Result.SimpleSignupDuplicate)
-                  else
-                    for
-                      suspIp <- ipTrust.isSuspicious(ip)
-                      ipData <- ipTrust.reqData(req)
-                      pwned <- pwnedApi.isPwned(data.clearPassword)
-                      captcha <- hcaptcha.verify()
-                      result <- captcha match
-                        case Hcaptcha.Result.Fail if simpleSignup.isEmpty =>
-                          fuccess(Signup.Result.MissingCaptcha)
-                        case _ =>
-                          signupRateLimit(
-                            data.username.id,
-                            suspIp = suspIp,
-                            captched = captcha == Hcaptcha.Result.Valid
-                          ):
+    val client = simpleSignup.fold("website")(_.client.value)
+    val turnstileSuccess = if simpleSignup.isDefined then fuccess(true)
+    else turnstile.verify()
+    turnstileSuccess
+      .flatMap: turnstileSuccess =>
+        if !turnstileSuccess then fuccess(Signup.Result.TurnstileFail)
+        else
+          forms.preloadEmailDns() >>
+            forms.signup
+              .website(simpleSignup)
+              .form
+              .bindFromRequest()
+              .fold[Fu[Signup.Result]](
+                err =>
+                  fuccess:
+                    disposableEmailAttempt.onFail(err, HTTPRequest.ipAddress(req))
+                    Signup.Result.FormInvalid(err.tap(signupErrLog))
+                ,
+                data =>
+                  dedupCache.getFuture(
+                    data,
+                    _ =>
+                      if simpleSignup.exists(s => dedupSimpleSignupEmail.get(s.email))
+                      then fuccess(Signup.Result.SimpleSignupDuplicate)
+                      else
+                        for
+                          suspIp <- ipTrust.isSuspicious(HTTPRequest.ipAddress(req))
+                          ipData <- ipTrust.reqData(req)
+                          pwned <- pwnedApi.isPwned(data.clearPassword)
+                          result <- signupRateLimit(data.username.id, suspIp = suspIp):
                             MustConfirmEmail(data, suspIp = suspIp, simpleSignup).flatMap: mustConfirm =>
                               val passwordHash = authenticator.passEnc(data.clearPassword)
                               userRepo
@@ -132,7 +126,6 @@ final class Signup(
                                 .addEffect: user =>
                                   monitor(
                                     data,
-                                    captcha,
                                     mustConfirm,
                                     ipData,
                                     ipSusp = suspIp,
@@ -143,16 +136,15 @@ final class Signup(
                                     user,
                                     data.email,
                                     data.fingerPrint,
-                                    captcha,
                                     mustConfirm,
                                     pwned
                                   )
                                   simpleSignup.foreach(s => dedupSimpleSignupEmail.put(s.email))
                                 .flatMap:
                                   confirmOrAllSet(data.email, mustConfirm, data.fingerPrint, none, pwned)
-                    yield result
+                        yield result
+                  )
               )
-          )
       .addEffect: res =>
         lila.mon.user.register.result(client, res.key).increment()
 
@@ -176,7 +168,6 @@ final class Signup(
 
   private def monitor(
       data: SecurityForm.AnySignupData,
-      captcha: Hcaptcha.Result,
       confirm: MustConfirmEmail,
       ipData: IpTrust.IpData,
       ipSusp: Boolean,
@@ -185,7 +176,6 @@ final class Signup(
     lila.mon.user.register
       .count(
         confirm = confirm.toString,
-        captcha = captcha.toString,
         ipSusp = ipSusp,
         fp = data.fp.isDefined,
         proxy = ipData.proxy.name,
@@ -204,15 +194,14 @@ final class Signup(
 
   private val rateLimitDefault = fuccess(Signup.Result.RateLimited)
 
-  private def signupRateLimit(id: UserId, suspIp: Boolean, captched: Boolean)(
+  private def signupRateLimit(id: UserId, suspIp: Boolean)(
       f: => Fu[Signup.Result]
   )(using req: RequestHeader): Fu[Signup.Result] =
-    val ipCost = (if suspIp then 2 else 1) * (if captched then 1 else 2)
+    val ipCost = if suspIp then 2 else 1
     passwordHasher
       .rateLimit[Signup.Result](
         rateLimitDefault,
         enforce = netConfig.rateLimit,
-        userCost = 1,
         ipCost = ipCost
       )(id.into(UserIdOrEmail), req): _ =>
         signupRateLimitPerIP(HTTPRequest.ipAddress(req), rateLimitDefault, cost = ipCost)(f)
@@ -222,7 +211,6 @@ final class Signup(
       user: User,
       email: EmailAddress,
       fingerPrint: Option[FingerPrint],
-      captcha: Hcaptcha.Result,
       mustConfirm: MustConfirmEmail,
       pwned: IsPwned
   ) =
@@ -230,8 +218,7 @@ final class Signup(
     authLog(
       user.username.into(UserStr),
       email.value,
-      s"fp: $fingerPrint mustConfirm: $mustConfirm captcha: $captcha fp: ${fingerPrint
-          .so(_.value)} ip: ${HTTPRequest.ipAddress(req)} pwned: $pwned"
+      s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint.so(_.value)} ip: ${HTTPRequest.ipAddress(req)} pwned: $pwned"
     )
 
   private def signupErrLog(err: Form[?]) = for
@@ -249,7 +236,7 @@ object Signup:
 
   enum Result(val key: String):
     case FormInvalid(err: Form[?]) extends Result("formError")
-    case MissingCaptcha extends Result("missingCaptcha")
+    case TurnstileFail extends Result("turnstileFail")
     case RateLimited extends Result("rateLimited")
     case SimpleSignupDuplicate extends Result("simpleSignupDuplicate")
     case ForbiddenNetwork extends Result("forbiddenNetwork")

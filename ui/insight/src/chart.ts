@@ -58,7 +58,7 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
           position: 'bottom',
         },
         tooltip: {
-          filter: tooltipItem => (tooltipItem.raw as number) != 0,
+          filter: tooltipItem => (tooltipItem.raw as number) !== 0,
           itemSort: (a, b) => b.datasetIndex - a.datasetIndex,
           backgroundColor: tooltipBgColor,
           borderColor: gridColor,
@@ -123,7 +123,7 @@ function barBuilder(
             textStrokeWidth: 1.2,
             font: fontFamily(12, 'bold'),
             formatter: val =>
-              val == 0 && percent ? '' : formatNumber(serie.dataType, val * (percent ? 100 : 1)),
+              val === 0 && percent ? '' : formatNumber(serie.dataType, val * (percent ? 100 : 1)),
           },
   };
 }

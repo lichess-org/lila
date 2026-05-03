@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">駒がツバメの尾に似た V 字型を作るメイト。</string>
   <string name="triangleMate">三角のメイト</string>
   <string name="triangleMateDescription">同じランクかファイル上で空きマスを挟んだクイーンとルーク、そして相手のキングが三角形を作るメイト。</string>
-  <string name="vukovicMate">ヴコヴィッチのメイト</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">ヴコヴィッチのメイト</string>
   <string name="vukovicMateDescription">ルークとナイトでのメイト。別の駒で守られた ルークがチェックをかけ、ナイトがキングの逃げ道を抑える。</string>
   <string name="knightEndgame">ナイト・エンドゲーム</string>
   <string name="knightEndgameDescription">ナイトとポーンだけの終盤。</string>

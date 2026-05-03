@@ -248,9 +248,6 @@
   <string name="emailCanTakeSomeTime">رەنگە کەمێک کات بخایەنێت تا دەگات.</string>
   <string name="refreshInboxAfterFiveMinutes">پێنج خولەک چاوەڕێبکە پاشان جارێکی دیکە ئیمێڵەکەت سەیربکە.</string>
   <string name="checkSpamFolder">هەروەها بەشی سپام لە ناو ئیمێڵەکەت بپشکنە، ڕەنگە چوبێتە ئەوێ. ئەگەر لەوێ بوو، بیکەوە و نیشانیبکە کە \"سپام نییە\".</string>
-  <string name="emailForSignupHelp">ئەگەر هەموو ئەمانە شکستیان هێنا، ئەوکات ئیمێڵێک بۆ ئێمە بنێرە:</string>
-  <string name="copyTextToEmail">ئەو دەقەی سەرەوە کۆپی پەیست بکەو بینێرە بۆ %s</string>
-  <string name="waitForSignupHelp">لە ماوەیەکی کەم دەگەڕێینەوە لات بۆ ئەوەی یارمەتیت بدەین لە ناو تۆمارکردنەکەت.</string>
   <string name="accountConfirmed">ناوەکە %s بەسەرکەوتوویی پشتراست کرایەوە.</string>
   <string name="accountCanLogin">ئێستا تۆ دەتوانیت بچیتە ژوورەوە بە ناوی %s.</string>
   <string name="accountConfirmationEmailNotNeeded">پێویستت بە ئیمێڵی پشت راستکردنەوە نییە.</string>

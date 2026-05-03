@@ -73,7 +73,7 @@
   <string name="morphysMateDescription">Strelec dáva kráľovi mat, zatiaľ čo veža obmedzuje jeho pohyb.</string>
   <string name="triangleMate">Trojuholníkový mat</string>
   <string name="triangleMateDescription">Dáma a veža, vzdialené jedno políčko od súperovho kráľa, sú na rovnakom rade alebo stĺpci, oddelené jedným políčkom, a tvoria trojuholník.</string>
-  <string name="vukovicMate">Vukovičov mat</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovičov mat</string>
   <string name="vukovicMateDescription">Veža a jazdec sa spoja, aby zmatovali kráľa. Veža je tá, ktorá dáva mat, pričom je podporovaná treťou figúrkou. Jazdec sa využíva na blokovanie kráľových únikových polí.</string>
   <string name="knightEndgame">Jazdcová koncovka</string>
   <string name="knightEndgameDescription">Koncovka iba s jazdcami a pešiakmi.</string>

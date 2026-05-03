@@ -1,10 +1,10 @@
 import { view as cevalView } from 'lib/ceval';
-import { hl, type LooseVNode, type VNode } from 'lib/view';
+import * as licon from 'lib/licon';
+import { bind, dataIcon, hl, type LooseVNode, type VNode } from 'lib/view';
 
 import type AnalyseCtrl from '@/ctrl';
 import type { ConcealOf } from '@/interfaces';
 import { renderNextChapter } from '@/study/nextChapter';
-import { backToLiveView } from '@/study/relay/relayView';
 import type * as studyDeps from '@/study/studyDeps';
 import { addChapterId, renderResult, type ViewContext } from '@/view/components';
 
@@ -22,7 +22,7 @@ export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, 
     showCeval && !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
     renderMoveList(ctrl, deps, concealOf),
     deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
-    backToLiveView(ctrl),
+    renderBackToLiveButton(ctrl),
     forkView(ctrl, concealOf),
     retroView(ctrl) || explorerView(ctrl) || practiceView(ctrl),
     ctrl.actionMenu() && actionMenu(ctrl),
@@ -34,3 +34,22 @@ const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: 
     hl('div', [ctrl.treeView.render(concealOf), renderResult(ctrl)]),
     !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
   ]);
+
+const renderBackToLiveButton = (ctrl: AnalyseCtrl) =>
+  ctrl.study?.isRelayAwayFromLive()
+    ? hl(
+        'button.fbt.relay-back-to-live.text',
+        {
+          attrs: dataIcon(licon.PlayTriangle),
+          hook: bind(
+            'click',
+            () => {
+              const p = ctrl.study?.data.chapter.relayPath;
+              if (p) ctrl.userJump(p);
+            },
+            ctrl.redraw,
+          ),
+        },
+        i18n.broadcast.backToLiveMove,
+      )
+    : undefined;

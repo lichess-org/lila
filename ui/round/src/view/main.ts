@@ -5,8 +5,9 @@ import { displayColumns, isTouchDevice } from 'lib/device';
 import { playable } from 'lib/game';
 import { renderMaterialDiffs } from 'lib/game/view/material';
 import { storage } from 'lib/storage';
-import { stepwiseScroll, type VNode, hl, bind } from 'lib/view';
+import { type VNode, hl, bind } from 'lib/view';
 import { renderBlindfoldToggle } from 'lib/view/blindfold';
+import stepwiseScroll from 'lib/view/stepwiseScroll';
 
 import crazyView from '../crazy/crazyView';
 import type RoundController from '../ctrl';

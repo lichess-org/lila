@@ -140,7 +140,7 @@ export const registerMultipleSelect = () => {
           optionalStyle = this.options.styler?.(value),
           style = optionalStyle ? `style="${optionalStyle}"` : '';
         disabled = groupDisabled || $elm.prop('disabled');
-        const $el = $(
+        return $(
           [
             `<li class="${multiple} ${classes}" ${style}>`,
             `<label class="${disabled ? 'disabled' : ''}">`,
@@ -152,7 +152,6 @@ export const registerMultipleSelect = () => {
             '</li>',
           ].join(''),
         );
-        return $el;
       }
       if ($elm.is('optgroup')) {
         const label = that.options.labelTemplate?.($elm),
@@ -176,7 +175,7 @@ export const registerMultipleSelect = () => {
         });
         return $group.html();
       }
-      return;
+      return undefined;
     }
 
     events() {
@@ -229,7 +228,7 @@ export const registerMultipleSelect = () => {
         .on('keyup', function (e) {
           if (
             that.options.filterAcceptOnEnter &&
-            (e.which === 13 || e.which == 32) &&
+            (e.which === 13 || e.which === 32) &&
             that.$searchInput.val()
           ) {
             that.$selectAll[0]?.click();

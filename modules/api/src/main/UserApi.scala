@@ -69,7 +69,6 @@ final class UserApi(
           (
             gameProxyRepo.urgentGames(u).dmap(_.headOption),
             as.filter(u !=).so(me => crosstableApi.nbGames(me.userId, u.id)),
-            withFollows.optionFu(relationApi.countFollowing(u.id)),
             as.isDefined.so(prefApi.followable(u.id)),
             as.map(_.userId).so(relationApi.fetchRelation(_, u.id)),
             bookmarkApi.countByUser(u.user),
@@ -85,7 +84,6 @@ final class UserApi(
             (
                 gameOption,
                 nbGamesWithMe,
-                following,
                 followable,
                 relation,
                 nbBookmarks,
@@ -120,8 +118,6 @@ final class UserApi(
                   .add("email", email)
                   .add("groups", forWiki.option(wikiGroups(u.user)))
                   .add("streaming", liveStreamApi.isStreaming(u.id))
-                  .add("nbFollowing", following)
-                  .add("nbFollowers", withFollows.option(0))
                   .add("trophies", trophiesAndAwards.map(trophiesJson))
                   .add("canChallenge", canChallenge)
                   .add("playban", playban)
@@ -153,7 +149,6 @@ final class UserApi(
   def mobile(user: User)(using me: Option[Me])(using Lang) = extended(
     user,
     Opts(
-      withFollows = false,
       withTrophies = false,
       withCanChallenge = me.exists(_.isnt(user)),
       withPlayban = me.exists(_.is(user))
@@ -215,7 +210,6 @@ object UserApi:
     def countTrophiesAndPerfCups = trophies.size + ranks.count(_._2 <= 100)
 
   case class Opts(
-      withFollows: Boolean,
       withTrophies: Boolean,
       withCanChallenge: Boolean,
       withProfile: Boolean = true,

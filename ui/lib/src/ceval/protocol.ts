@@ -73,7 +73,6 @@ export class Protocol {
         work.emit(ceval);
       }
       this.swapWork();
-      return;
     } else if (this.work && !this.work.stopRequested && parts[0] === 'info') {
       let depth = 0,
         nodes,

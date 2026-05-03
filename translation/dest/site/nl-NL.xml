@@ -268,9 +268,7 @@
   <string name="emailCanTakeSomeTime">Het kan even duren voordat de mail binnenkomt.</string>
   <string name="refreshInboxAfterFiveMinutes">Wacht 5 minuten en vernieuw uw e-mail inbox.</string>
   <string name="checkSpamFolder">Controleer ook uw spammap, het kan daar terechtkomen. Als dat zo is, markeer het als geen spam.</string>
-  <string name="emailForSignupHelp">Als niks anders lukt, stuur ons dan deze e-mail:</string>
-  <string name="copyTextToEmail">Kopieer en plak de bovenstaande tekst en stuur het naar %s</string>
-  <string name="waitForSignupHelp">We nemen binnenkort contact op om te helpen bij het afronden van de inschrijving.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Als u uw bevestigingsmail niet kunt vinden, stuur dan een e-mail naar %s en we zullen uw account voor u bevestigen.</string>
   <string name="accountConfirmed">Gebruiker %s is succesvol bevestigd.</string>
   <string name="accountCanLogin">Je kunt nu inloggen als %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Je hebt geen bevestigingsmail nodig.</string>
@@ -526,6 +524,7 @@
   <string name="popularOpenings">Populaire openingen</string>
   <string name="endgamePositions">Eindspel posities</string>
   <string name="chess960StartPosition">Beginstelling Chess960: %s</string>
+  <string name="randomChess960Position">Willekeurige Schaak960-positie</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
   <string name="loadPosition">Laad een stelling</string>

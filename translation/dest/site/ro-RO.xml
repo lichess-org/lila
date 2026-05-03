@@ -283,9 +283,7 @@
   <string name="emailCanTakeSomeTime">Poate dura ceva timp să ajungă.</string>
   <string name="refreshInboxAfterFiveMinutes">Așteptați 5 minute și reîncărcați emailurile primite.</string>
   <string name="checkSpamFolder">De asemenea, verificați folderul de spam, ar putea ajunge acolo. În acel caz, marcați-l ca nefiind spam.</string>
-  <string name="emailForSignupHelp">Dacă niciuna dintre variantele anterioare nu funcționează, trimiteți-ne acest email:</string>
-  <string name="copyTextToEmail">Dați copy-paste la textul de mai sus și trimiteți-l la %s</string>
-  <string name="waitForSignupHelp">Vom reveni în curând cu un răspuns pentru a vă ajuta să finalizați înregistrarea.</string>
+  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Dacă nu găsești e-mailul de confirmare, trimite un e-mail la %s și îți vom confirma contul.</string>
   <string name="accountConfirmed">Utilizatorul %s a fost confirmat cu succes.</string>
   <string name="accountCanLogin">Vă puteți autentifica chiar acum ca %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nu aveți nevoie de un email de confirmare.</string>
@@ -561,6 +559,7 @@
   <string name="popularOpenings">Deschideri populare</string>
   <string name="endgamePositions">Poziții de sfârșit</string>
   <string name="chess960StartPosition">Poziție de start Chess960: %s</string>
+  <string name="randomChess960Position">Poziție aleatoare Chess960</string>
   <string name="startPosition">Poziția de start</string>
   <string name="clearBoard">Curăță tabla</string>
   <string name="loadPosition">Încarcă poziția</string>

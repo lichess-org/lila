@@ -55,7 +55,7 @@ const renderDrawOffer = () => hl('draw', { attrs: { title: 'Draw offer' } }, '½
 const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) =>
   step
     ? hl(moveTag, { class: { a1t: step.ply === curPly } }, [
-        step.san[0] === 'P' ? step.san.slice(1) : step.san,
+        step.san.startsWith('P') ? step.san.slice(1) : step.san,
         drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
       ])
     : orEmpty && hl(moveTag, '…');
@@ -88,7 +88,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
       ),
     ]);
   }
-  return;
+  return undefined;
 }
 
 function renderMoves(ctrl: RoundController): LooseVNodes {

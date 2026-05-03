@@ -31,10 +31,10 @@ function wireMarkdownTextarea(markdown: HTMLElement) {
     writeTab.classList.remove('active');
     previewTab.classList.add('active');
     if (markdownPicfitRegex().test(textarea.value) && !localStorage.getItem('markdown.rtfm')) {
-      info('Drag a side or bottom edge to resize an image.');
+      await info('Drag a side or bottom edge to resize an image.');
       localStorage.setItem('markdown.rtfm', '1');
     }
-    wireMarkdownImgResizers({
+    await wireMarkdownImgResizers({
       root: preview,
       update: {
         markdown: (text?: string) => (text !== undefined ? (textarea.value = text) : textarea.value),

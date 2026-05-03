@@ -215,8 +215,6 @@
   <string name="emailCanTakeSomeTime">Очиход удаж магадгүй.</string>
   <string name="refreshInboxAfterFiveMinutes">5 минут хүлээгээд email-ийнхээ хуудсыг дахин ачааллуулж үзнэ үү.</string>
   <string name="checkSpamFolder">Баталгаажуулах email тань мөн spam хэсэг дээр байж магадгүй тул бас шалгаад үзээрэй.</string>
-  <string name="emailForSignupHelp">Урд дурдсан алхмууд бүтэлгүйтвэл, бидэнд ийм email бичээрэй:</string>
-  <string name="copyTextToEmail">Дээр гарсан текстыг хуулаад %s-луу илгээгээрэй</string>
   <string name="accountConfirmed">Ашиглагч %s бүртгэлийг амжилттай баталгаажууллаа.</string>
   <string name="accountCanLogin">Та одооноос %s нэрээр нэвтрэх боломжтой боллоо.</string>
   <string name="accountConfirmationEmailNotNeeded">Танд баталгаажуулах email хэрэггүй.</string>

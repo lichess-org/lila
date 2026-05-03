@@ -13,7 +13,6 @@
   <string name="origin">Uppruni</string>
   <string name="specialMoves">Sérstakir leikir</string>
   <string name="didYouLikeThisPuzzle">Fannst þér þrautin góð?</string>
-  <string name="voteToLoadNextOne">Kjóstu til að hlaða inn sú næsta!</string>
   <string name="upVote">Ýta undir þraut</string>
   <string name="downVote">Ýta burt þraut</string>
   <string name="yourPuzzleRatingWillNotChange">Skákþrautastyrkur þinn helst óbreyttur. Athugaðu að þrautir eru ekki keppni. Slíkur styrkur hjálpar til við að velja bestu þrautirnar fyrir núverandi getu þína.</string>

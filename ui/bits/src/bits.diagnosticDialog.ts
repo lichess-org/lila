@@ -71,7 +71,7 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
       setTimeout(() => copied.remove(), 2000);
     }),
   );
-  dlg.show();
+  await dlg.show();
 }
 
 const storageProxy: Record<string, { storageKey: string; validate: (val?: string) => boolean }> = {

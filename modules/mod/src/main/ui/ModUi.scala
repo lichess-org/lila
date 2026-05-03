@@ -192,7 +192,7 @@ final class ModUi(helpers: Helpers):
               "If you provide an email and a username, it will set the email to that user, ",
               "but only if the user has not yet confirmed their email."
             ),
-            st.form(cls := "search", action := routes.Mod.emailConfirm, method := "GET")(
+            st.form(cls := "search", action := routes.Mod.emailConfirmGet, method := "GET")(
               input(name := "q", placeholder := "<email> <username (optional)>", value := query, autofocus)
             ),
             user.map: u =>
@@ -312,7 +312,7 @@ final class ModUi(helpers: Helpers):
         .option(a(cls := itemCls(active, "search"), href := routes.Mod.search)("Search users")),
       Granter(_.Admin).option(a(cls := itemCls(active, "notes"), href := routes.Mod.notes())("Mod notes")),
       Granter(_.SetEmail)
-        .option(a(cls := itemCls(active, "email"), href := routes.Mod.emailConfirm)("Email confirm")),
+        .option(a(cls := itemCls(active, "email"), href := routes.Mod.emailConfirmGet)("Email confirm")),
       Granter(_.Pages).option(a(cls := itemCls(active, "cms"), href := routes.Cms.index)("Pages")),
       Granter(_.ManageTournament)
         .option(a(cls := itemCls(active, "tour"), href := routes.TournamentCrud.index(1))("Tournaments")),
