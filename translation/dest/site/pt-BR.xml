@@ -95,6 +95,8 @@
   <string name="database">Banco de Dados</string>
   <string name="whiteDrawBlack">Brancas / Empate / Pretas</string>
   <string name="averageRatingX">Classificação média: %s</string>
+  <string name="minRatingX">Rating mínimo de %s</string>
+  <string name="maxRatingX">Rating máximo de %s</string>
   <string name="recentGames">Partidas recentes</string>
   <string name="topGames">Melhores partidas</string>
   <string name="masterDbExplanation">Duas milhões de partidas de jogadores com pontuação FIDE acima de %1$s, desde %2$s a %3$s</string>
