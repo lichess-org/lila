@@ -95,6 +95,8 @@
   <string name="database">Databank</string>
   <string name="whiteDrawBlack">Wit / Remise / Zwart</string>
   <string name="averageRatingX">Gemiddelde rating: %s</string>
+  <string name="minRatingX">Minimumrating van %s</string>
+  <string name="maxRatingX">Maximumrating van %s</string>
   <string name="recentGames">Recente partijen</string>
   <string name="topGames">Toppartijen</string>
   <string name="masterDbExplanation">Twee miljoen OTB-partijen van %1$s+ FIDE-gerankte spelers van %2$s tot %3$s</string>
