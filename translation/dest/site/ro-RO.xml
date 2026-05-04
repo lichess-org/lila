@@ -96,6 +96,8 @@
   <string name="database">Bază de date</string>
   <string name="whiteDrawBlack">Alb / Remiză / Negru</string>
   <string name="averageRatingX">Medie evaluare: %s</string>
+  <string name="minRatingX">Rating minim %s</string>
+  <string name="maxRatingX">Rating maxim %s</string>
   <string name="recentGames">Jocuri recente</string>
   <string name="topGames">Cele mai bune jocuri</string>
   <string name="masterDbExplanation">Jocuri reale OTB ale jucătorilor cu evaluare FIDE %1$s+ între %2$s și %3$s</string>
