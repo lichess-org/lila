@@ -328,7 +328,7 @@
   <string name="emailCanTakeSomeTime">قد تستغرق وقت للوصول.</string>
   <string name="refreshInboxAfterFiveMinutes">انتظر 5 دقائق وحدث بريدك الوارد.</string>
   <string name="checkSpamFolder">تحقق ايضا من بريدك المهمل ربما وصل لهناك، اذا وجدت الرسالة هناك علمها ك\"غير مهمل\".</string>
-  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">إذا لم تتمكن من العثور على رسالة تأكيد البريد الإلكتروني الخاصة بك، قم بإرسال بريد إلكتروني إلى %s وسنؤكد حسابك لك.</string>
+  <string name="sendEmailForAccountVerification">إذا لم تتمكن من العثور على رسالة تأكيد البريد الإلكتروني الخاصة بك، قم بإرسال بريد إلكتروني إلى %s وسنؤكد حسابك لك.</string>
   <string name="accountConfirmed">المستخدم %s تم تأكيده بنجاح.</string>
   <string name="accountCanLogin">يمكنك الان الدخول باسم %s.</string>
   <string name="accountConfirmationEmailNotNeeded">لا حاجة لتأكيد ايميلك.</string>
