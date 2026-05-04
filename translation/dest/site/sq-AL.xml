@@ -95,6 +95,8 @@
   <string name="database">Bazë të dhënash</string>
   <string name="whiteDrawBlack">I bardhi / Barazim / I ziu</string>
   <string name="averageRatingX">Vlerësim mesatar: %s</string>
+  <string name="minRatingX">Vlerësim minimum prej %s</string>
+  <string name="maxRatingX">Vlerësim maksimum prej %s</string>
   <string name="recentGames">Lojëra së fundi</string>
   <string name="topGames">Lojërat më të mira</string>
   <string name="masterDbExplanation">Dy milionë lojëra OTB nga %1$s + lojëtarë me klasifikim FIDE nga %2$s në %3$s</string>
