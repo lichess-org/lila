@@ -95,6 +95,8 @@
   <string name="database">Database</string>
   <string name="whiteDrawBlack">Hvid / Remis / Sort</string>
   <string name="averageRatingX">Gennemsnitlig rating: %s</string>
+  <string name="minRatingX">Minimum rating på %s</string>
+  <string name="maxRatingX">Maksimal rating på %s</string>
   <string name="recentGames">Seneste partier</string>
   <string name="topGames">Top-partier</string>
   <string name="masterDbExplanation">To millioner ikke-online partier af %1$s+ FIDE-ratede spillere fra %2$s til %3$s</string>
