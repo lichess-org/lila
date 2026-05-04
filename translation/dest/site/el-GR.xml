@@ -261,7 +261,7 @@
   <string name="emailCanTakeSomeTime">Η αποστολή ενδέχεται να διαρκέσει λίγη ώρα.</string>
   <string name="refreshInboxAfterFiveMinutes">Περιμένετε 5 λεπτά και ανανεώστε τα εισερχόμενα email σας.</string>
   <string name="checkSpamFolder">Επίσης, ελέγξτε τον φάκελο με τα ανεπιθύμητα email. Αν το email που στείλαμε βρίσκεται εκεί, αναφέρετέ το ως μη ανεπιθύμητο.</string>
-  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Αν δεν μπορείτε να βρείτε το email επιβεβαίωσης, στείλτε ένα email στο %s και θα επιβεβαιώσουμε τον λογαριασμό σας για εσάς.</string>
+  <string name="sendEmailForAccountVerification">Αν δεν μπορείτε να βρείτε το email επιβεβαίωσης, στείλτε ένα email στο %s και θα επιβεβαιώσουμε τον λογαριασμό σας για εσάς.</string>
   <string name="accountConfirmed">Ο λογαριασμός του χρήστη %s επαληθεύτηκε με επιτυχία.</string>
   <string name="accountCanLogin">Μπορείτε τώρα να συνδεθείτε ως %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Δεν χρειάζεστε ένα email επιβεβαίωσης.</string>
