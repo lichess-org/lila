@@ -26,6 +26,8 @@
   <string name="castlingDescription">Защити царя си, и приготви топа си за атака.</string>
   <string name="capturingDefender">Премахни защитата</string>
   <string name="capturingDefenderDescription">Премахване на главната защита на фигура, което позволява на вече незащитената фигура да бъде взета на следващия ход.</string>
+  <string name="collinearMove">Колинеарен ход</string>
+  <string name="collinearMoveDescription">Две противникови фигури са разположени една срещу друга и едната се плъзга по линията на атаката, без да взема вражеската фигура.</string>
   <string name="cornerMate">Мат в ъгъла</string>
   <string name="cornerMateDescription">Притиснете царя в ъгъла с помощта на топ или дама и използвайте кон, за да нанесете мата.</string>
   <string name="crushing">Погром</string>
@@ -53,6 +55,8 @@
   <string name="endgame">Ендшпил</string>
   <string name="endgameDescription">Тактика в последната фаза на играта.</string>
   <string name="enPassantDescription">Тактика включваща вземане \"ан пасан\", където пешка може да вземе противникова пешка, която я е подминала правейки двоен ход.</string>
+  <string name="epauletteMate">Еполетен мат</string>
+  <string name="epauletteMateDescription">Две съседни полета за отстъпление на царя под шах са заети от негови собствени фигури.</string>
   <string name="exposedKing">Незащитен цар</string>
   <string name="exposedKingDescription">Противниковият цар е не добре защитен, което често води до шах и мат.</string>
   <string name="fork">Вилица</string>
@@ -71,6 +75,8 @@
   <string name="pillsburysMateDescription">Офицерът отрязва пътя на царя, а топът дава мат.</string>
   <string name="morphysMate">Мат на Морфи</string>
   <string name="morphysMateDescription">Oфицерът нанася мат, докато топът блокира царя по вертикала.</string>
+  <string name="swallowstailMate">Мат „Лястовича опашка“</string>
+  <string name="swallowstailMateDescription">Матова картина, която визуално наподобява опашка на лястовица, подобно на V-образна форма.</string>
   <string name="triangleMate">Мат „Триъгълник“</string>
   <string name="triangleMateDescription">Дамата и топът се намират на един и същ хоризонтал или вертикал, на едно поле разстояние от вражеския цар. Те са разделени от едно поле помежду си, образувайки триъгълник.</string>
   <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Мат на Вукович</string>
