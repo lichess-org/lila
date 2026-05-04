@@ -253,7 +253,7 @@
   <string name="emailCanTakeSomeTime">Có thể sẽ mất một lúc để nhận được.</string>
   <string name="refreshInboxAfterFiveMinutes">Đợi 5 phút sau đó làm mới hộp thư đến trong email.</string>
   <string name="checkSpamFolder">Ngoài ra hãy kiểm tra hộp thư rác, nó có thể ở trong đó. Nếu có, hãy đánh dấu nó không phải là rác.</string>
-  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Nếu bạn không tìm thấy email xác minh, hãy gửi email đến %s và chúng tôi sẽ xác minh tài khoản cho bạn.</string>
+  <string name="sendEmailForAccountVerification">Nếu bạn không tìm thấy email xác minh, hãy gửi email đến %s và chúng tôi sẽ xác minh tài khoản cho bạn.</string>
   <string name="accountConfirmed">Đã xác nhận người dùng %s thành công.</string>
   <string name="accountCanLogin">Bạn đã có thể đăng nhập ngay bây giờ tại %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Bạn không cần xác nhận email.</string>
