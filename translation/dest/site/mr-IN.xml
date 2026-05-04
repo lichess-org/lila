@@ -268,7 +268,7 @@
   <string name="emailCanTakeSomeTime">ई-मेल यायला वेळ लागू शकतो.</string>
   <string name="refreshInboxAfterFiveMinutes">५ मिनिट थांबा आणि ई-मेल इनबॉक्स रीफ्रेश करा.</string>
   <string name="checkSpamFolder">ई-मेल तुमच्या स्पॅम फोल्डर मध्ये जाऊ शकतो. जर असं झालं, तर ते \'नॉट स्पॅम\' मार्क करा.</string>
-  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">जर तुम्हाला पुष्टीकरण ई-मेल सापडत नसेल तर, %s वर ई-मेल पाठवा आणि आम्ही तुमच्या खात्याचे पुष्टीकरण करू</string>
+  <string name="sendEmailForAccountVerification">जर तुम्हाला पुष्टीकरण ई-मेल सापडत नसेल तर, %s वर ई-मेल पाठवा आणि आम्ही तुमच्या खात्याचे पुष्टीकरण करू</string>
   <string name="accountConfirmed">%s ह्या वापरकर्तानावचं यशस्वीरीत्या पुष्टीकरण झालं.</string>
   <string name="accountCanLogin">तुम्ही आता %s ह्या नावानी प्रवेश करू शकता.</string>
   <string name="accountConfirmationEmailNotNeeded">तुम्हाला पुष्टीकरणाच्या ई-मेल ची गरज नाही आहे.</string>
