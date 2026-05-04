@@ -298,7 +298,7 @@
   <string name="emailCanTakeSomeTime">Dostarczenie email\'a może zająć trochę czasu.</string>
   <string name="refreshInboxAfterFiveMinutes">Poczekaj 5 minut i odśwież swoją skrzynkę pocztową.</string>
   <string name="checkSpamFolder">Sprawdź również folder spamu, gdzie mógł trafić nasz e-mail. Jeśli tak, oznacz go jako nie spam.</string>
-  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Jeśli nie możesz znaleźć wiadomości e-mail z potwierdzeniem, wyślij wiadomość do %s, a potwierdzimy Twoje konto.</string>
+  <string name="sendEmailForAccountVerification">Jeśli nie możesz znaleźć wiadomości e-mail z potwierdzeniem, wyślij wiadomość do %s, a potwierdzimy Twoje konto.</string>
   <string name="accountConfirmed">Użytkownik %s został pomyślnie potwierdzony.</string>
   <string name="accountCanLogin">Teraz możesz się zalogować jako %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Nie potrzebujesz e-maila z potwierdzeniem.</string>
