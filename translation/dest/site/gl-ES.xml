@@ -95,6 +95,8 @@
   <string name="database">Base de datos</string>
   <string name="whiteDrawBlack">Brancas / Táboas / Negras</string>
   <string name="averageRatingX">Puntuación media: %s</string>
+  <string name="minRatingX">Puntuación mínima de %s</string>
+  <string name="maxRatingX">Puntuación máxima de %s</string>
   <string name="recentGames">Partidas recentes</string>
   <string name="topGames">Mellores partidas</string>
   <string name="masterDbExplanation">Partidas cara a cara de xogadores con Elo FIDE de %1$s+, dende %2$s a %3$s</string>
