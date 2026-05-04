@@ -97,6 +97,8 @@
   <string name="database">База даних</string>
   <string name="whiteDrawBlack">Білі / Нічия / Чорні</string>
   <string name="averageRatingX">Середній рейтинг: %s</string>
+  <string name="minRatingX">Мінімальний рейтинг %s</string>
+  <string name="maxRatingX">Максимальний рейтинг %s</string>
   <string name="recentGames">Останні ігри</string>
   <string name="topGames">Найкращі ігри</string>
   <string name="masterDbExplanation">ігор за дошкою гравців FIDE з рейтингом %1$s+ з %2$s по %3$s</string>
