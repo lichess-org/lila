@@ -268,7 +268,7 @@
   <string name="emailCanTakeSomeTime">Itxaron pixkatean emaila jaso arte.</string>
   <string name="refreshInboxAfterFiveMinutes">Itxaron 5 minutu eta freskatu zure emailaren sarrera-ontzia.</string>
   <string name="checkSpamFolder">Zabor mezuen karpetan begiratu, batzuetan horra joaten dira-eta emailak. Horrela bada, esan zaborra ez dela.</string>
-  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Zure baieztapen emaila ezin baduzu aurkitu, idatzi %s helbidera eta kontua baieztatu egingo dugu.</string>
+  <string name="sendEmailForAccountVerification">Zure baieztapen emaila ezin baduzu aurkitu, idatzi %s helbidera eta kontua baieztatu egingo dugu.</string>
   <string name="accountConfirmed">%s erabiltzailea ondo baieztatu da.</string>
   <string name="accountCanLogin">Orain %s izena erabiliz sartu zaitezke.</string>
   <string name="accountConfirmationEmailNotNeeded">Ez duzu baieztapen emaila behar.</string>
