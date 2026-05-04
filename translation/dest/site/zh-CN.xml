@@ -94,6 +94,8 @@
   <string name="database">数据库</string>
   <string name="whiteDrawBlack">白胜 / 和棋 / 黑胜</string>
   <string name="averageRatingX">平均等级分：%s</string>
+  <string name="minRatingX">%s 的最低等级分</string>
+  <string name="maxRatingX">%s 的最高等级分</string>
   <string name="recentGames">最近对局</string>
   <string name="topGames">名局</string>
   <string name="masterDbExplanation">%2$s-%3$s 年国际棋联等级分 %1$s 以上棋手的棋谱</string>
