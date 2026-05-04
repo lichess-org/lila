@@ -268,6 +268,7 @@
   <string name="emailCanTakeSomeTime">It can take some time to arrive.</string>
   <string name="refreshInboxAfterFiveMinutes">Wait 5 minutes and refresh your email inbox.</string>
   <string name="checkSpamFolder">Also check your spam folder, it might end up there. If so, mark it as not spam.</string>
+  <string name="sendEmailForAccountVerification">If you can\'t find your confirmation email, send an email to %s, and we\'ll confirm your account for you.</string>
   <string name="accountConfirmed">The user %s is successfully confirmed.</string>
   <string name="accountCanLogin">You can login right now as %s.</string>
   <string name="accountConfirmationEmailNotNeeded">You do not need a confirmation email.</string>
