@@ -298,7 +298,7 @@
   <string name="emailCanTakeSomeTime">Do prihoda lahko preteče nekaj časa.</string>
   <string name="refreshInboxAfterFiveMinutes">Počakajte 5 minut in osvežite e-poštni predal.</string>
   <string name="checkSpamFolder">Preverite tudi mapo za neželeno pošto, morda se znajde tam. Če je tako, jo označite kot zaželeno.</string>
-  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Če ne najdete potrditvenega e-poštnega sporočila, pošljite e-pošto na %s in potrdili bomo vaš račun.</string>
+  <string name="sendEmailForAccountVerification">Če ne najdete potrditvenega e-poštnega sporočila, pošljite e-pošto na %s in potrdili bomo vaš račun.</string>
   <string name="accountConfirmed">Uporabnik %s je uspešno potrjen.</string>
   <string name="accountCanLogin">Zdaj se lahko prijavite kot %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Ne potrebujete potrditvenega e-poštnega sporočila.</string>
