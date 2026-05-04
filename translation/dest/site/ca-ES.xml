@@ -95,6 +95,8 @@
   <string name="database">Base de dades</string>
   <string name="whiteDrawBlack">Blanques / Taules / Negres</string>
   <string name="averageRatingX">Puntuació mitjana: %s</string>
+  <string name="minRatingX">Puntuació mínima de %s</string>
+  <string name="maxRatingX">Puntuació màxima de %s</string>
   <string name="recentGames">Partides recents</string>
   <string name="topGames">Millors partides</string>
   <string name="masterDbExplanation">Dos milions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
