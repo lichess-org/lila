@@ -268,7 +268,7 @@
   <string name="emailCanTakeSomeTime">Sähköpostin saapuminen voi kestää jonkin aikaa.</string>
   <string name="refreshInboxAfterFiveMinutes">Odota 5 minuuttia ja päivitä sähköpostin saapuneet-kansio.</string>
   <string name="checkSpamFolder">Tarkistathan myös roskapostikansiosi, koska se saattaa joutua sinne. Jos niin käy, merkitse, että viesti ei ole roskaposti.</string>
-  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Jos et löydä vahvistussähköpostia, lähetä meille sähköposti osoitteeseen %s, niin me vahvistamme käyttäjätunnuksesi.</string>
+  <string name="sendEmailForAccountVerification">Jos et löydä vahvistussähköpostia, lähetä meille sähköposti osoitteeseen %s, niin me vahvistamme käyttäjätunnuksesi.</string>
   <string name="accountConfirmed">Käyttäjän %s vahvistaminen onnistui.</string>
   <string name="accountCanLogin">Voit nyt kirjautua sisään tunnuksella %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Et tarvitse vahvistussähköpostia.</string>
