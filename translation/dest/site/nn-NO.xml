@@ -126,7 +126,6 @@
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
-  <string name="evaluationGauge">Syn evaluering</string>
   <string name="visualMotifs">Visuelt motiv</string>
   <string name="undefendedPieces">Hengande konge</string>
   <string name="pinnedPieces">Spidda brikker</string>
