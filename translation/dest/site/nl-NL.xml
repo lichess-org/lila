@@ -128,7 +128,6 @@
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
   <string name="showVariationArrows">Toon variantpijlen</string>
-  <string name="evaluationGauge">Evaluatiemeter</string>
   <string name="visualMotifs">Visuele motieven</string>
   <string name="undefendedPieces">Onverdedigde stukken</string>
   <string name="pinnedPieces">Gepende stukken</string>
