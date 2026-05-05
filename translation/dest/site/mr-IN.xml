@@ -126,7 +126,6 @@
   <string name="enable">सक्षम करा</string>
   <string name="bestMoveArrow">उत्तम चाल बाण</string>
   <string name="showVariationArrows">भिन्नतेचे बाण दाखवा</string>
-  <string name="evaluationGauge">मूल्यांकन परिमाण</string>
   <string name="visualMotifs">दृष्य आकृतीबंध</string>
   <string name="undefendedPieces">असुरक्षित मोहरे</string>
   <string name="pinnedPieces">जकडलेले मोहरे</string>
