@@ -113,7 +113,6 @@
   <string name="enable">ჩართვა</string>
   <string name="bestMoveArrow">საუკეთესო სვლის ისარი</string>
   <string name="showVariationArrows">აჩვენე ისრიანი ვარიანტები</string>
-  <string name="evaluationGauge">პოზიციის საზომი</string>
   <string name="multipleLines">რამდენიმე ხაზი</string>
   <string name="cpus">პროცესორები</string>
   <string name="memory">მეხსიერება</string>
