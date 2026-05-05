@@ -126,7 +126,6 @@
   <string name="enable">Engedélyezve</string>
   <string name="bestMoveArrow">Legjobb lépés mutatása</string>
   <string name="showVariationArrows">Változatok nyilainak megjelenítése</string>
-  <string name="evaluationGauge">Állásértékelő oldaljelzés</string>
   <string name="visualMotifs">Vizuális jelölések</string>
   <string name="undefendedPieces">Védtelen bábuk</string>
   <string name="pinnedPieces">Kötött bábuk</string>
