@@ -95,6 +95,8 @@
   <string name="database">Maʼlumotlar bazasi</string>
   <string name="whiteDrawBlack">Oqlar / Durang / Qoralar</string>
   <string name="averageRatingX">Oʻrtacha reyting: %s</string>
+  <string name="minRatingX">%s maksimal reytingi</string>
+  <string name="maxRatingX">%s maksimal reytingi</string>
   <string name="recentGames">Soʻnggi oʻyinlar</string>
   <string name="topGames">Eng yaxshi oʻyinlar</string>
   <string name="masterDbExplanation">%2$s yildan %3$s yilgacha boʻlgan, FIDE reytingi %1$s+ boʻlgan oʻyinchilarning oʻyinlari</string>
