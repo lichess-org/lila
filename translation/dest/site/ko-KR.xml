@@ -94,6 +94,8 @@
   <string name="database">데이터베이스</string>
   <string name="whiteDrawBlack">백 / 무승부 / 흑</string>
   <string name="averageRatingX">평균 레이팅: %s</string>
+  <string name="minRatingX">%s의 최소 레이팅</string>
+  <string name="maxRatingX">%s의 최대 레이팅</string>
   <string name="recentGames">최근 대국</string>
   <string name="topGames">최고 레이팅 대국</string>
   <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 기보가 약 2백만개 있습니다.</string>
