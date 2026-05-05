@@ -120,7 +120,6 @@
   <string name="enable">Aktifkan</string>
   <string name="bestMoveArrow">Panah Langkah terbaik</string>
   <string name="showVariationArrows">Tampilkan variasi panah</string>
-  <string name="evaluationGauge">Mengukur evaluasi</string>
   <string name="multipleLines">Beberapa variasi</string>
   <string name="cpus">CPU</string>
   <string name="memory">Memori</string>
