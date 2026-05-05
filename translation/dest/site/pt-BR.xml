@@ -128,7 +128,6 @@
   <string name="enable">Ativar</string>
   <string name="bestMoveArrow">Seta de melhor movimento</string>
   <string name="showVariationArrows">Mostrar setas das variantes</string>
-  <string name="evaluationGauge">Escala de avaliação</string>
   <string name="visualMotifs">Temas visuais</string>
   <string name="undefendedPieces">Peças indefesas</string>
   <string name="pinnedPieces">Peças cravadas</string>
