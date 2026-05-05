@@ -110,7 +110,6 @@
   <string name="byCPL">Хаталар буенча</string>
   <string name="enable">Кабызылган</string>
   <string name="bestMoveArrow">Иң яхшы йөрүне күрсәтү</string>
-  <string name="evaluationGauge">Бәяләу шкаласы</string>
   <string name="multipleLines">Берничә вариант</string>
   <string name="cpus">Процессорлар</string>
   <string name="memory">Хәтер</string>
