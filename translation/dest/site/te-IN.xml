@@ -121,7 +121,6 @@
   <string name="enable">కావాలి</string>
   <string name="bestMoveArrow">మంచి ఎత్తుగడకు దారి</string>
   <string name="showVariationArrows">వైవిధ్య బాణాలను చూపు</string>
-  <string name="evaluationGauge">అంచనా సూచిక</string>
   <string name="multipleLines">పలు శాఖలు</string>
   <string name="cpus">కేంద్రగణకయంత్రాలు</string>
   <string name="memory">జ్ఞాపకనిధి</string>
