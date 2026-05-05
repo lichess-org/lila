@@ -122,7 +122,6 @@
   <string name="enable">ເປີດໃຊ້</string>
   <string name="bestMoveArrow">ລູກສອນແນະນຳທ່າທີ່ດີທີ່ສຸດ</string>
   <string name="showVariationArrows">ສະແດງລູກສອນຮູບແບບການເດີນ</string>
-  <string name="evaluationGauge">ແຖບວັດແທກການໄດ້ປຽບ</string>
   <string name="multipleLines">ຫຼາຍເສັ້ນທາງວິເຄາະ</string>
   <string name="cpus">ຊີພີຢູ (CPUs)</string>
   <string name="memory">ໜ່ວຍຄວາມຈຳ</string>
