@@ -124,7 +124,6 @@
   <string name="enable">Ebligi</string>
   <string name="bestMoveArrow">Sago por optimuma movo</string>
   <string name="showVariationArrows">Montri variaĵojn sagojn</string>
-  <string name="evaluationGauge">Gaŭĝo de rangado</string>
   <string name="undefendedPieces">Nedefenditaj pecoj</string>
   <string name="pinnedPieces">Fiksitaj pecoj</string>
   <string name="checkableKing">Ŝakigebla reĝo</string>
