@@ -121,7 +121,6 @@
   <string name="enable">सक्षम करें</string>
   <string name="bestMoveArrow">सर्वश्रेष्ठ चाल तीर</string>
   <string name="showVariationArrows">विविधता वाले तीर दिखाएँ</string>
-  <string name="evaluationGauge">मूल्यांकन गेज</string>
   <string name="multipleLines">एकाधिक पंक्तियाँ</string>
   <string name="cpus">केंद्रीय संसाधन एकक (CPUs)</string>
   <string name="memory">स्मृति (मेमोरी)</string>
