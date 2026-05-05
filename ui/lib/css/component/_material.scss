@@ -1,6 +1,7 @@
 .material {
   @extend %flex-center-nowrap;
-
+  pointer-events: none;
+  
   div {
     display: inline-block;
     margin-inline-start: 10px;
