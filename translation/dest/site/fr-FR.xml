@@ -127,7 +127,6 @@
   <string name="enable">Activée</string>
   <string name="bestMoveArrow">Flèche du meilleur coup</string>
   <string name="showVariationArrows">Afficher les flèches de variantes</string>
-  <string name="evaluationGauge">Jauge d\'évaluation</string>
   <string name="visualMotifs">Motifs visuels</string>
   <string name="undefendedPieces">Pièces non défendues</string>
   <string name="pinnedPieces">Pièces clouées</string>
