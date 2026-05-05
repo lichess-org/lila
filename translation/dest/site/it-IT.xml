@@ -126,7 +126,6 @@
   <string name="enable">Abilita</string>
   <string name="bestMoveArrow">Freccia per la mossa migliore</string>
   <string name="showVariationArrows">Mostra le frecce delle varianti</string>
-  <string name="evaluationGauge">Indicatore di valutazione del vantaggio</string>
   <string name="visualMotifs">Motivi visivi</string>
   <string name="undefendedPieces">Pezzi indifesi</string>
   <string name="pinnedPieces">Pezzi inchiodati</string>
