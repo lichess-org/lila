@@ -128,7 +128,6 @@
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Frecha coa mellor xogada</string>
   <string name="showVariationArrows">Amosar as frechas das variantes</string>
-  <string name="evaluationGauge">Indicador de avaliación</string>
   <string name="visualMotifs">Motivos visuais</string>
   <string name="undefendedPieces">Pezas non defendidas</string>
   <string name="pinnedPieces">Pezas cravadas</string>
