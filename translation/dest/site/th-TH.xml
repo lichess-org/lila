@@ -124,7 +124,6 @@
   <string name="enable">เปิดใช้งาน</string>
   <string name="bestMoveArrow">ศรตาเดินที่ดีที่สุด</string>
   <string name="showVariationArrows">แสดงศรการเดินอื่นๆ</string>
-  <string name="evaluationGauge">แถบประเมิน</string>
   <string name="visualMotifs">แสดงสัญลักษณ์</string>
   <string name="undefendedPieces">หมากไร้ตัวป้องกัน</string>
   <string name="pinnedPieces">หมากที่โดนกด</string>
