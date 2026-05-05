@@ -119,7 +119,6 @@
   <string name="enable">இயக்க</string>
   <string name="bestMoveArrow">சிறந்த நகர்த்தலுக்கான அம்புக்குறி</string>
   <string name="showVariationArrows">பிறழ்வுகளின் அம்புக்குறிகளைக் காட்டு</string>
-  <string name="evaluationGauge">மதிப்பாய்வு அளவு</string>
   <string name="multipleLines">பற்பல வரிகள்</string>
   <string name="cpus">CPU கள்</string>
   <string name="memory">ஞாபகம்</string>
