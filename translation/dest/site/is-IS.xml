@@ -124,7 +124,6 @@
   <string name="enable">Á</string>
   <string name="bestMoveArrow">Ör sem sýnir besta leik</string>
   <string name="showVariationArrows">Sýna afbrigðaörvar</string>
-  <string name="evaluationGauge">Stöðumat</string>
   <string name="multipleLines">Mismunandi línur</string>
   <string name="cpus">Örgjörvar</string>
   <string name="memory">Minni</string>
