@@ -126,7 +126,6 @@
   <string name="enable">활성화</string>
   <string name="bestMoveArrow">최선의 수 화살표</string>
   <string name="showVariationArrows">라인을 화살표로 표시하기</string>
-  <string name="evaluationGauge">평가 게이지</string>
   <string name="visualMotifs">전술 시각화</string>
   <string name="undefendedPieces">수비가 없는 기물들</string>
   <string name="pinnedPieces">핀에 걸린 기물들</string>
