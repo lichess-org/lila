@@ -124,7 +124,6 @@
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Flecha del meyor movimientu</string>
   <string name="showVariationArrows">Amosar fleches de variante</string>
-  <string name="evaluationGauge">Mostrar evaluación</string>
   <string name="multipleLines">Delles llínees</string>
   <string name="cpus">CPUes</string>
   <string name="memory">Espaciu</string>
