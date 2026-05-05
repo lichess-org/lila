@@ -126,7 +126,6 @@
   <string name="enable">Aktibatu</string>
   <string name="bestMoveArrow">Jokaldi onenaren gezia</string>
   <string name="showVariationArrows">Erakutsi aldaeren geziak</string>
-  <string name="evaluationGauge">Ebaluazio langa</string>
   <string name="visualMotifs">Ikurrak</string>
   <string name="undefendedPieces">Defentsarik ez duten piezak</string>
   <string name="pinnedPieces">Iltzatutako piezak</string>
