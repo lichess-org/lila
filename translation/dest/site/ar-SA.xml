@@ -134,7 +134,6 @@
   <string name="enable">تفعيل</string>
   <string name="bestMoveArrow">سهم أفضل نقلة</string>
   <string name="showVariationArrows">أظهر سلسلة النقلات المرشحة</string>
-  <string name="evaluationGauge">مقياس التقييم</string>
   <string name="visualMotifs">الزخارف البصرية</string>
   <string name="undefendedPieces">قطع غير محمية</string>
   <string name="pinnedPieces">القطع المثبتة</string>
