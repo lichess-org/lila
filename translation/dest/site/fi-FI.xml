@@ -126,7 +126,6 @@
   <string name="enable">Käytössä</string>
   <string name="bestMoveArrow">Parhaan siirron nuoli</string>
   <string name="showVariationArrows">Näytä muunnelman nuolet</string>
-  <string name="evaluationGauge">Arviomittari</string>
   <string name="visualMotifs">Visuaaliset motiivit</string>
   <string name="undefendedPieces">Suojaamattomat nappulat</string>
   <string name="pinnedPieces">Kiinnitetyt nappulat</string>
