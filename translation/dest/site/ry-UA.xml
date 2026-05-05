@@ -112,7 +112,6 @@
   <string name="byCPL">По страченым воякам</string>
   <string name="enable">Уключити</string>
   <string name="bestMoveArrow">Стрілка указує лїпшый ход</string>
-  <string name="evaluationGauge">Ступниця оцїнкы</string>
   <string name="multipleLines">Множество стрілок</string>
   <string name="cpus">Ядер</string>
   <string name="memory">Памнять</string>
