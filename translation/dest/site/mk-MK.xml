@@ -112,7 +112,6 @@
   <string name="byCPL">По CPL</string>
   <string name="enable">Овозможи</string>
   <string name="bestMoveArrow">Стрелка за најдобар потег</string>
-  <string name="evaluationGauge">Мерач за проценка</string>
   <string name="multipleLines">Број на варијанти</string>
   <string name="cpus">Процесори</string>
   <string name="memory">Меморија</string>
