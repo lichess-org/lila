@@ -126,7 +126,6 @@
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="showVariationArrows">Varyasyon oklarını göster</string>
-  <string name="evaluationGauge">Değerlendirme çubuğu</string>
   <string name="visualMotifs">Görsel motifler</string>
   <string name="undefendedPieces">Korumasız taşlar</string>
   <string name="pinnedPieces">Açmazdaki taşlar</string>
