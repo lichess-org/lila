@@ -126,7 +126,6 @@
   <string name="enable">Ischalte</string>
   <string name="bestMoveArrow">Pfil für de bescht Zug</string>
   <string name="showVariationArrows">Pfil für Variante azeige</string>
-  <string name="evaluationGauge">Bewertigs-Massschtab</string>
   <string name="visualMotifs">Visuelli Motiv</string>
   <string name="undefendedPieces">Ung\'schützti Figure</string>
   <string name="pinnedPieces">G\'fessleti Figure</string>
