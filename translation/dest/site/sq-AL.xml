@@ -128,7 +128,6 @@
   <string name="enable">Aktivizoje</string>
   <string name="bestMoveArrow">Shigjetë e lëvizjes më të mirë</string>
   <string name="showVariationArrows">Shfaq shigjeta variacionesh</string>
-  <string name="evaluationGauge">Matësi i vlerësimit</string>
   <string name="visualMotifs">Motive pamore</string>
   <string name="undefendedPieces">Gurë të pambrojtur</string>
   <string name="pinnedPieces">Gurë të fiksuar</string>
