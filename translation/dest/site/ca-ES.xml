@@ -128,7 +128,6 @@
   <string name="enable">Habilitar</string>
   <string name="bestMoveArrow">Fletxa de la millor jugada</string>
   <string name="showVariationArrows">Mostrar fletxes de les variants</string>
-  <string name="evaluationGauge">Indicador d\'avaluació</string>
   <string name="visualMotifs">Motius visuals</string>
   <string name="undefendedPieces">Peces indefenses</string>
   <string name="pinnedPieces">Peces clavades</string>
