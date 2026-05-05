@@ -102,7 +102,6 @@
   <string name="byCPL">Mewn CG</string>
   <string name="enable">Galluogi</string>
   <string name="bestMoveArrow">Saeth i ddangos y symudiad gorau</string>
-  <string name="evaluationGauge">Mesurydd gwerthusiad</string>
   <string name="multipleLines">Edefynnau i\'w hystyried</string>
   <string name="cpus">Nifer o CPU\'s</string>
   <string name="memory">Cof</string>
