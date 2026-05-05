@@ -124,7 +124,6 @@
   <string name="enable">Bật</string>
   <string name="bestMoveArrow">Mũi tên chỉ nước đi tốt nhất</string>
   <string name="showVariationArrows">Hiển thị mũi tên biến</string>
-  <string name="evaluationGauge">Thang đo lợi thế</string>
   <string name="visualMotifs">Họa tiết thị giác</string>
   <string name="undefendedPieces">Các quân cờ không được bảo vệ</string>
   <string name="pinnedPieces">Quân cờ bị ghim</string>
