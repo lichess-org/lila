@@ -126,7 +126,6 @@
   <string name="enable">Ενεργοποίηση</string>
   <string name="bestMoveArrow">Βέλτιστη κίνηση βέλους</string>
   <string name="showVariationArrows">Εμφάνιση βελών για βαριάντες</string>
-  <string name="evaluationGauge">Δείκτης αξιολόγησης</string>
   <string name="visualMotifs">Οπτικά μοτίβα</string>
   <string name="undefendedPieces">Ανυπεράσπιστα κομμάτια</string>
   <string name="pinnedPieces">Καρφωμένα κομμάτια</string>
