@@ -130,7 +130,6 @@
   <string name="enable">Activează</string>
   <string name="bestMoveArrow">Săgeată pentru cea mai bună mutare</string>
   <string name="showVariationArrows">Afișează săgețile variației</string>
-  <string name="evaluationGauge">Indicator de evaluare</string>
   <string name="visualMotifs">Motive vizuale</string>
   <string name="undefendedPieces">Piese neapărate</string>
   <string name="pinnedPieces">Piese țintuite</string>
