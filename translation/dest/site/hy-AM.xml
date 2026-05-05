@@ -117,7 +117,6 @@
   <string name="enable">Միացնել</string>
   <string name="bestMoveArrow">Լավագույն քայլի սլաքը</string>
   <string name="showVariationArrows">Ցուցադրել տարբերակների սլաքները</string>
-  <string name="evaluationGauge">Գնահատման սանդղակ</string>
   <string name="multipleLines">Մի քանի շարունակություն</string>
   <string name="cpus">Պրոցեսորներ</string>
   <string name="memory">Հիշողություն</string>
