@@ -127,7 +127,6 @@
   <string name="enable">הפעלה</string>
   <string name="bestMoveArrow">חץ המהלך הטוב ביותר</string>
   <string name="showVariationArrows">הצגת חצי ההמשכים האלטרנטיביים</string>
-  <string name="evaluationGauge">מד הערכה</string>
   <string name="multipleLines">המשכים מקבילים</string>
   <string name="cpus">מעבדים</string>
   <string name="memory">זיכרון</string>
