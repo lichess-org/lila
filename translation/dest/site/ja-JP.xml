@@ -126,7 +126,6 @@
   <string name="enable">解析する</string>
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="showVariationArrows">変化手順の矢印を表示</string>
-  <string name="evaluationGauge">評価値を表示</string>
   <string name="visualMotifs">形のパターン</string>
   <string name="undefendedPieces">浮き駒</string>
   <string name="pinnedPieces">ピンされた駒</string>
