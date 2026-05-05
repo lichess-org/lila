@@ -109,7 +109,6 @@
   <string name="enable">Нээх</string>
   <string name="bestMoveArrow">Хамгийн сайн нүүдэл харуулах сум</string>
   <string name="showVariationArrows">Хувилбарыг сумаар харуулах</string>
-  <string name="evaluationGauge">Шинжилгээний хэм</string>
   <string name="multipleLines">Олон хувилбарууд</string>
   <string name="cpus">CPU</string>
   <string name="memory">Санах ой</string>
