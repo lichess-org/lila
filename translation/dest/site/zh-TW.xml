@@ -121,7 +121,6 @@
   <string name="enable">啟用</string>
   <string name="bestMoveArrow">最佳著法箭頭</string>
   <string name="showVariationArrows">顯示變體箭頭</string>
-  <string name="evaluationGauge">評估條</string>
   <string name="multipleLines">路線分析線</string>
   <string name="cpus">CPU 數量</string>
   <string name="memory">記憶體</string>
