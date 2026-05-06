@@ -39,6 +39,7 @@
   <string name="forbiddenPairings">निषिद्ध जोड्या</string>
   <string name="dutchSystem">डच प्रणाली</string>
   <string name="FIDEHandbook">FIDE हस्तपुस्तिका</string>
+  <string name="joinOrCreateTeam">संघ बनवा किंवा सामील व्हा</string>
   <string name="nowPlaying">आता चालू</string>
   <string name="startingSoon">लवकरच सुरू होत आहेत</string>
   <string name="comparison">तुलना</string>
@@ -46,5 +47,6 @@
   <string name="predefinedDuration">पूर्वनिर्धारित अवधी मिनीटांत</string>
   <string name="durationUnknown">पूर्वनिर्धारित महत्तम फेऱ्या, पण अज्ञात अवधी</string>
   <string name="numberOfGames">खेळांची संख्या</string>
+  <string name="identicalForbidden">निषिद्ध</string>
   <string name="streaksAndBerserk">विजयी मालिका आणि बेभान खेळ</string>
 </resources>
