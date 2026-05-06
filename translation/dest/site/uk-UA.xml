@@ -1030,6 +1030,7 @@
   <string name="tryTheContactPage">спробуйте сторінку контактів</string>
   <string name="makeSureToRead">Варто прочитати %1$s</string>
   <string name="theForumEtiquette">етикет форуму</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Будь ласка, будьте ввічливими на форумі.</string>
   <string name="thisTopicIsArchived">Ця тема була заархівована і додати відповідь більше не можна.</string>
   <string name="joinTheTeamXToPost">Приєднайтесь до %1$s, щоб писати у цьому форумі</string>
   <string name="teamNamedX">%1$s команда</string>
