@@ -18,7 +18,7 @@ final class GameStreamByOauthOrigin(
 
   private val streamUserId = UserId.t3
   private val origin = Origin("https://auth.taketaketake.com")
-  private val estimatedCount = 100_000
+  private val estimatedCount = 50_000
   private val falsePositiveRate = 0.0002 // 0.02% false positives
   private var population = 0
 

@@ -1,7 +1,7 @@
 package lila.round
 
 import alleycats.Zero
-import chess.{ Black, Centis, Color, White }
+import chess.{ ByColor, Centis, Color }
 import play.api.libs.json.*
 import scalalib.actor.AsyncActor
 
@@ -85,20 +85,18 @@ final private class RoundAsyncActor(
       botConnections = Math.max(0, botConnections + (if v then 1 else -1))
   end Player
 
-  private val whitePlayer = new Player(White)
-  private val blackPlayer = new Player(Black)
+  private val players = ByColor(Player(_))
 
   export proxy.{ game as getGame, update as updateGame, flushProgress as flushGame }
 
   val process: AsyncActor.ReceiveAsync =
 
-    case SetGameInfo(game, (whiteGoneWeight, blackGoneWeight)) =>
+    case SetGameInfo(game, goneWeights) =>
       fuccess:
-        whitePlayer.userId = game.player(White).userId
-        blackPlayer.userId = game.player(Black).userId
+        players.mapWithColor: (color, player) =>
+          player.userId = game.player(color).userId
+          player.goneWeight = goneWeights(color)
         mightBeSimul = game.isSimul
-        whitePlayer.goneWeight = whiteGoneWeight
-        blackPlayer.goneWeight = blackGoneWeight
         if game.playableByAi then player.requestFishnet(game, this)
 
     // socket stuff
@@ -106,7 +104,7 @@ final private class RoundAsyncActor(
     case ByePlayer(playerId) =>
       proxy.withPov(playerId):
         _.so: pov =>
-          fuccess(getPlayer(pov.color).setBye())
+          fuccess(players(pov.color).setBye())
 
     case GetVersion(promise) =>
       fuccess:
@@ -117,12 +115,12 @@ final private class RoundAsyncActor(
 
     case RoomCrowd(white, black) =>
       fuccess:
-        whitePlayer.setOnline(white)
-        blackPlayer.setOnline(black)
+        players.white.setOnline(white)
+        players.black.setOnline(black)
 
     case RoundBus.IsOnGame(color, promise) =>
       fuccess:
-        promise.success(getPlayer(color).isOnline)
+        promise.success(players(color).isOnline)
 
     case GetSocketStatus(promise) =>
       getSocketStatus.tap(promise.completeWith)
@@ -136,8 +134,8 @@ final private class RoundAsyncActor(
     case HasUserId(userId, promise) =>
       fuccess:
         promise.success:
-          (userId.is(whitePlayer.userId) && whitePlayer.isOnline) ||
-          (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
+          players.exists: player =>
+            userId.is(player.userId) && player.isOnline
 
     case lila.chat.RoundLine(line, json, watcher) =>
       fuccess:
@@ -233,7 +231,7 @@ final private class RoundAsyncActor(
     case RoundBus.ResignForce(playerId) =>
       handle(playerId): pov =>
         pov.mightClaimWin.so:
-          getPlayer(!pov.color).isLongGone.flatMap:
+          players(!pov.color).isLongGone.flatMap:
             if _ then
               finisher.rageQuit(
                 pov.game,
@@ -244,7 +242,7 @@ final private class RoundAsyncActor(
     case RoundBus.DrawForce(playerId) =>
       handle(playerId): pov =>
         (pov.game.forceDrawable && pov.game.hasClock && !pov.isMyTurn).so:
-          getPlayer(!pov.color).isLongGone.flatMap:
+          players(!pov.color).isLongGone.flatMap:
             if _ then finisher.rageQuit(pov.game, None)
             else fuccess(List(Event.Reload))
 
@@ -338,7 +336,7 @@ final private class RoundAsyncActor(
 
     case RoundBus.BotConnected(color, v) =>
       fuccess:
-        getPlayer(color).setBotConnected(v)
+        players(color).setBotConnected(v)
 
     case NoStart =>
       handle: game =>
@@ -363,8 +361,8 @@ final private class RoundAsyncActor(
       proxy.withGameOptionSync { g =>
         g.forceResignableNow.so(fuccess:
           Color.all.foreach: c =>
-            if !getPlayer(c).isOnline && getPlayer(!c).isOnline then
-              getPlayer(c).showMillisToGone.foreach {
+            if !players(c).isOnline && players(!c).isOnline then
+              players(c).showMillisToGone.foreach {
                 _.so: millis =>
                   if millis <= 0 then notifyGone(c, gone = true)
                   else g.clock.exists(_.remainingTime(c).millis > millis + 3000).so(notifyGoneIn(c, millis))
@@ -373,19 +371,15 @@ final private class RoundAsyncActor(
 
     case Stop => for _ <- proxy.terminate() yield socketSend.exec(RP.Out.stop(roomId))
 
-  private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
-
   private def getSocketStatus: Fu[SocketStatus] =
-    whitePlayer.isLongGone
-      .zip(blackPlayer.isLongGone)
-      .map: (whiteIsGone, blackIsGone) =>
-        SocketStatus(
-          version = version,
-          whiteOnGame = whitePlayer.isOnline,
-          whiteIsGone = whiteIsGone,
-          blackOnGame = blackPlayer.isOnline,
-          blackIsGone = blackIsGone
-        )
+    for gone <- players.traverse(_.isLongGone)
+    yield SocketStatus(
+      version = version,
+      whiteOnGame = players.white.isOnline,
+      whiteIsGone = gone.white,
+      blackOnGame = players.black.isOnline,
+      blackIsGone = gone.black
+    )
 
   private def recordLag(pov: Pov): Unit =
     if (pov.game.playedPlies.value & 30) == 10 then
@@ -461,7 +455,7 @@ final private class RoundAsyncActor(
 object RoundAsyncActor:
 
   case class HasUserId(userId: UserId, promise: Promise[Boolean])
-  case class SetGameInfo(game: Game, goneWeights: (Float, Float))
+  case class SetGameInfo(game: Game, goneWeights: ByColor[Float])
   case object Tick
   case object Stop
   case object WsBoot

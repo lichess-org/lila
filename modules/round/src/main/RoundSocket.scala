@@ -2,7 +2,7 @@ package lila.round
 
 import akka.actor.{ Cancellable, CoordinatedShutdown, Scheduler }
 import chess.format.Uci
-import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
+import chess.{ ByColor, Black, Centis, Color, MoveMetrics, Speed, White }
 import play.api.libs.json.*
 import reactivemongo.api.Cursor
 import scalalib.actor.AsyncActorConcMap
@@ -24,7 +24,7 @@ final class RoundSocket(
     proxyDependencies: GameProxy.Dependencies,
     scheduleExpiration: ScheduleExpiration,
     messenger: Messenger,
-    goneWeightsFor: Game => Fu[(Float, Float)],
+    goneWeightsFor: Game => Fu[ByColor[Float]],
     mobileSocket: RoundMobile,
     shutdown: CoordinatedShutdown
 )(using Executor)(using scheduler: Scheduler):

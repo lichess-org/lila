@@ -5,7 +5,6 @@ import com.github.benmanes.caffeine.cache.*
 import java.util.concurrent.TimeUnit
 import scala.util.Success
 
-import lila.common.Uptime
 import lila.mon.extensions.*
 
 /** A synchronous cache from asynchronous computations. It will attempt to serve cached responses
@@ -19,7 +18,7 @@ final class Syncache[K, V](
     default: K => V,
     strategy: Syncache.Strategy,
     expireAfter: Syncache.ExpireAfter
-)(using Executor):
+)(using scheduler: akka.actor.Scheduler)(using Executor):
 
   import Syncache.*
 
@@ -46,6 +45,13 @@ final class Syncache[K, V](
               }
       )
 
+  private var waitTime: Option[FiniteDuration] = none
+  strategy match
+    case Strategy.NeverWait =>
+    case Strategy.WaitAfterUptime(duration, uptimeSeconds) =>
+      scheduler.scheduleOnce(uptimeSeconds.seconds):
+        waitTime = duration.some
+
   // get the value asynchronously, never blocks (preferred)
   def async(k: K): Fu[V] = cache.get(k)
 
@@ -58,12 +64,8 @@ final class Syncache[K, V](
         cache.invalidate(k)
         default(k)
       case _ =>
-        incMiss()
-        strategy match
-          case Strategy.NeverWait => default(k)
-          case Strategy.WaitAfterUptime(duration, uptime) =>
-            if Uptime.startedSinceSeconds(uptime) then waitForResult(k, future, duration)
-            else default(k)
+        incMiss.increment()
+        waitTime.fold(default(k))(waitForResult(k, future, _))
 
   // maybe optimize later with cache batching
   def asyncMany(ks: List[K]): Fu[List[V]] = ks.parallel(async)
@@ -84,11 +86,11 @@ final class Syncache[K, V](
         fu.await(duration, s"syncache:$name")
     catch
       case _: java.util.concurrent.TimeoutException =>
-        incTimeout()
+        incTimeout.increment()
         default(k)
 
-  private val incMiss = () => lila.mon.syncache.miss(name).increment()
-  private val incTimeout = () => lila.mon.syncache.timeout(name).increment()
+  private val incMiss = lila.mon.syncache.miss(name)
+  private val incTimeout = lila.mon.syncache.timeout(name)
   private val recWait = lila.mon.syncache.wait(name)
   private val recCompute = lila.mon.syncache.compute(name)
 
