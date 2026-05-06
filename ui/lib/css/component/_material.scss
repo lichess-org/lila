@@ -1,6 +1,6 @@
 .material {
-  @extend %flex-center-nowrap;
   pointer-events: none;
+  @extend %flex-center-nowrap;
 
   div {
     display: inline-block;
