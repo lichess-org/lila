@@ -2,7 +2,7 @@
 <resources>
   <string name="newAccessToken">नवीन वैयक्तिक API प्रवेशचिन्ह</string>
   <string name="tokenGrantsPermission">एक प्रवेशचिन्ह (टोकन) इतर लोकांना तुमचे खाते वापरण्यासाठी परवानगी देते.</string>
-  <string name="carefullySelect">कृपया काळजीपूर्वक निवड कि तुमच्या वतीने काय करण्यास परवानगी आहे.</string>
+  <string name="carefullySelect">कृपया काळजीपूर्वक निवडा कि तुमच्या वतीने काय करण्यास परवानगी आहे.</string>
   <string name="tokenDescription">प्रवेशचिन्हाचे वर्णन</string>
   <string name="rememberTokenUse">तर तुम्हाला आठवेल हे प्रवेशचिन्ह कश्यासाठी आहे</string>
   <string name="whatTheTokenCanDo">हे प्रवेशचिन्ह तुमच्या वतीने काय करू शकतं:</string>
