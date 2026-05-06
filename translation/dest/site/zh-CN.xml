@@ -898,6 +898,7 @@
   <string name="tryTheContactPage">请尝试联系页面</string>
   <string name="makeSureToRead">请务必阅读 %1$s</string>
   <string name="theForumEtiquette">论坛礼仪</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">聊天时请注意文明用语！</string>
   <string name="thisTopicIsArchived">此话题已被归档，无法再回复。</string>
   <string name="joinTheTeamXToPost">加入 %1$s，以在此论坛发帖</string>
   <string name="teamNamedX">%1$s 团队</string>
