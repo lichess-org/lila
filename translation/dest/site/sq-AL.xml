@@ -936,6 +936,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="tryTheContactPage">provoni faqen e kontaktit</string>
   <string name="makeSureToRead">Mos harroni të lexoni %1$s</string>
   <string name="theForumEtiquette">rregullat e etiketës në forum</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Ju lutemi, jini i sjellshëm në forum.</string>
   <string name="thisTopicIsArchived">Kjo temë është arkivuar dhe në të s’mund të përgjigjen më.</string>
   <string name="joinTheTeamXToPost">Që të postoni në këtë forum, bëhuni pjesë e %1$s</string>
   <string name="teamNamedX">Ekipi %1$s</string>
