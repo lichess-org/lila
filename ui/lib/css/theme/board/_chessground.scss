@@ -67,7 +67,7 @@ square {
 
   &.last-move {
     will-change: transform;
-    background-color: rgba(155, 199, 0, 0.41);
+    background-color: var(--last-move-color, rgba(155, 199, 0, 0.41));
 
     body[data-board='horsey'] .is2d &:not(.move-dest) {
       background: url('../images/board/horsey.last-move.png');
