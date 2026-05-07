@@ -374,7 +374,6 @@ export default class AnalyseCtrl implements CevalHandler {
     });
     this.pluginUpdate(this.node.fen);
     this.onChange();
-    
     const glyphColors: Record<string, string> = {
       '!!': 'rgba(22, 130, 38, 0.41)',
       '!': 'rgba(34, 172, 56, 0.41)',
