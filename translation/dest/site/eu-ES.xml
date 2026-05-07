@@ -95,6 +95,8 @@
   <string name="database">Datu-basea</string>
   <string name="whiteDrawBlack">Zuriak / Berdinketa / Beltzak</string>
   <string name="averageRatingX">Bataz besteko puntuazioa: %s</string>
+  <string name="minRatingX">Gutxieneko puntuazioa: %s</string>
+  <string name="maxRatingX">Gehienezko puntuazioa: %s</string>
   <string name="recentGames">Azken partidak</string>
   <string name="topGames">Partidarik onenak</string>
   <string name="masterDbExplanation">Mahaigaineko %2$s eta %3$s arteko 2 milioi partida %1$setik gorako FIDE sailkapena duten jokalarienak</string>
@@ -530,7 +532,7 @@
   <string name="isPrivate">Pribatua</string>
   <string name="reportXToModerators">%sren berri eman moderatzaileei</string>
   <string name="profileCompletion">Profilaren osaera: %s</string>
-  <string name="xRating">%s sailkapena</string>
+  <string name="xRating">%s puntuazioa</string>
   <string name="ifNoneLeaveEmpty">Ez baduzu, hutsik utzi</string>
   <string name="profile">Profila</string>
   <string name="editProfile">Nire profila editatu</string>
@@ -940,6 +942,7 @@
   <string name="tryTheContactPage">erabili kontakturako orrialdea</string>
   <string name="makeSureToRead">Ziurtatu %1$s irakurri duzula</string>
   <string name="theForumEtiquette">foroko etiketa</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Mesedez izan atsegina foroan.</string>
   <string name="thisTopicIsArchived">Mezu hau artxibatu egin da eta jada ezin da erantzunik utzi bertan.</string>
   <string name="joinTheTeamXToPost">Egin bat %1$s taldearekin foro honetan idazteko</string>
   <string name="teamNamedX">%1$s taldea</string>
@@ -970,8 +973,8 @@
   <string name="onlyMembersOfTeam">Talde bateko kideak bakarrik</string>
   <string name="noRestriction">Murrizketarik ez</string>
   <string name="minimumRatedGames">Gutxieneko partida kopurua</string>
-  <string name="minimumRating">Gutxieneko sailkapena</string>
-  <string name="maximumWeeklyRating">Asteroko gehieneko sailkapena</string>
+  <string name="minimumRating">Puntuazio minimoa</string>
+  <string name="maximumWeeklyRating">Asteroko gehieneko puntuazioa</string>
   <string name="positionInputHelp">Partida guztiak posizio jakin batekin asteko sartu posizioaren FEN balioa.
 Xake-arrunteko partidekin bakarrik balio du, ez aldaerekin.
 %s erabili dezakezu FEN balioa lortzeko, eta ondoren hemen itsatsi.
