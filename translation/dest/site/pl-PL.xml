@@ -1030,6 +1030,7 @@
   <string name="tryTheContactPage">użyj strony kontaktowej</string>
   <string name="makeSureToRead">Koniecznie przeczytaj %1$s</string>
   <string name="theForumEtiquette">etykieta forum</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Bądź miły na forum.</string>
   <string name="thisTopicIsArchived">Ten temat został zarchiwizowany i nie można już na niego odpowiedzieć.</string>
   <string name="joinTheTeamXToPost">Dołącz do %1$s, aby publikować na tym forum</string>
   <string name="teamNamedX">Klub %1$s</string>
