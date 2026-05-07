@@ -373,6 +373,20 @@ export default class AnalyseCtrl implements CevalHandler {
     });
     this.pluginUpdate(this.node.fen);
     this.onChange();
+
+    const glyphColors: Record<string, string> = {
+      '!!': 'rgba(22, 130, 38, 0.41)',
+      '!': 'rgba(34, 172, 56, 0.41)',
+      '??': 'rgba(223, 83, 83, 0.41)',
+      '?': 'rgba(230, 159, 0, 0.41)',
+      '!?': 'rgba(234, 69, 216, 0.41)',
+      '?!': 'rgba(86, 180, 233, 0.41)',
+    };
+    const symbol = this.node.glyphs?.[0]?.symbol;
+    document.body.style.setProperty(
+      '--last-move-color',
+      (symbol && glyphColors[symbol]) || 'rgba(155, 199, 0, 0.41)',
+    );
   }
 
   serverMainline = () => this.mainline.slice(0, playedTurns(this.data) + 1);
