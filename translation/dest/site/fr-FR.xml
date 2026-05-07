@@ -941,6 +941,7 @@
   <string name="tryTheContactPage">essayez la page de contact</string>
   <string name="makeSureToRead">Veillez à lire %1$s</string>
   <string name="theForumEtiquette">le règlement du forum</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Faites preuve de courtoisie dans le forum.</string>
   <string name="thisTopicIsArchived">Ce sujet a été archivé et il n\'est plus possible d\'y répondre.</string>
   <string name="joinTheTeamXToPost">Pour poster sur ce forum, rejoignez %1$s</string>
   <string name="teamNamedX">Équipe %1$s</string>
