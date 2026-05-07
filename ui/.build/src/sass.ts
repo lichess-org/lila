@@ -17,11 +17,13 @@ const colorMixMap = new Map<string, { c1: string; c2?: string; op: string; val: 
 const themeColorMap = new Map<string, Map<string, clr.Instance>>();
 
 let sassPs: cps.ChildProcessWithoutNullStreams | undefined;
+let sassBin: string | undefined;
 
 export function stopSass(): void {
   sassPs?.removeAllListeners();
   sassPs?.kill();
   sassPs = undefined;
+  sassBin = undefined;
   importMap.clear();
   colorMixMap.clear();
   themeColorMap.clear();
@@ -96,12 +98,12 @@ export async function sass(): Promise<string | undefined> {
 
 // compile an array of concrete scss files, return any that error
 async function compile(sources: string[], logAll = true): Promise<string[]> {
-  const sassBin =
+  const bin = (sassBin ??=
     process.env.SASS_PATH ??
     (await fs.promises.realpath(
       join(env.buildDir, 'node_modules', `sass-embedded-${ps.platform}-${ps.arch}`, 'dart-sass', 'sass'),
-    ));
-  if (!(await readable(sassBin))) env.exit(`Sass executable not found '${c.cyan(sassBin)}'`, 'sass');
+    )));
+  if (!(await readable(bin))) env.exit(`Sass executable not found '${c.cyan(bin)}'`, 'sass');
 
   return new Promise(resolveWithErrors => {
     if (!sources.length) return resolveWithErrors([]);
@@ -111,7 +113,7 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
     const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
     sassPs?.removeAllListeners();
     sassPs = cps.spawn(
-      sassBin,
+      bin,
       sassArgs.concat(
         env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
         sources.map((src: string) => `${src}:${absTempCss(src)}`),

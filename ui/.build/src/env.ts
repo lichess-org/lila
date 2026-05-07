@@ -208,7 +208,7 @@ function pad2(n: number) {
 }
 
 function stripColorEscapes(text: string) {
-  return text.replace(/\x1b\[[0-9;]*m/, '');
+  return text.replace(/\x1b\[[0-9;]*m/g, '');
 }
 
 function prettyTime() {

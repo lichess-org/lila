@@ -30,8 +30,8 @@ interface Sync {
 }
 
 export async function parsePackages(): Promise<void> {
-  for (const dir of (await glob('ui/[^@.]*/package.json')).map(pkg => dirname(pkg))) {
-    const pkgInfo = await parsePackage(dir);
+  const dirs = (await glob('ui/[^@.]*/package.json')).map(pkg => dirname(pkg));
+  for (const pkgInfo of await Promise.all(dirs.map(parsePackage))) {
     env.packages.set(pkgInfo.name, pkgInfo);
   }
 
@@ -53,20 +53,11 @@ export async function glob(glob: string[] | string | undefined, opts: fg.Options
 }
 
 export async function folderSize(folder: string): Promise<number> {
-  async function getSize(dir: string): Promise<number> {
-    const entries = await fs.promises.readdir(dir, { withFileTypes: true });
-
-    const sizes = await Promise.all(
-      entries.map(async entry => {
-        const fullPath = join(dir, entry.name);
-        if (entry.isDirectory()) return getSize(fullPath);
-        if (entry.isFile()) return (await fs.promises.stat(fullPath)).size;
-        return 0;
-      }),
-    );
-    return sizes.reduce((acc: number, size: number) => acc + size, 0);
+  try {
+    return (await fs.promises.readdir(folder, { recursive: true })).length;
+  } catch {
+    return 0;
   }
-  return getSize(folder);
 }
 
 export async function readable(file: string): Promise<boolean> {

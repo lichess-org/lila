@@ -8,6 +8,7 @@ import { makeTask } from './task.ts';
 
 export async function sync(): Promise<void[] | undefined> {
   if (!env.begin('sync')) return;
+  const createdDirs = new Set<string>();
   return Promise.all(
     [...env.tasks('sync')].map(async ([pkg, sync]) => {
       const { root, exact } = await srcRoot(env.rootDir, sync.src);
@@ -23,7 +24,10 @@ export async function sync(): Promise<void[] | undefined> {
             env.log(`${c.grey(pkg.name)} '${c.cyan(sync.src)}' -> '${c.cyan(sync.dest)}'`, 'sync');
           return Promise.all(
             files.map(async f => {
-              if ((await syncOne(f, join(env.rootDir, sync.dest, f.slice(root.length)))) && logEvery)
+              if (
+                (await syncOne(f, join(env.rootDir, sync.dest, f.slice(root.length)), createdDirs)) &&
+                logEvery
+              )
                 env.log(
                   `${c.grey(pkg.name)} '${c.cyan(f.slice(root.length))}' -> '${c.cyan(sync.dest)}'`,
                   'sync',
@@ -36,21 +40,19 @@ export async function sync(): Promise<void[] | undefined> {
   );
 }
 
-async function syncOne(absSrc: string, absDest: string): Promise<boolean> {
-  // TODO are these stats unnecessary now?
-  const [src, dest] = (
-    await Promise.allSettled([
-      fs.promises.stat(absSrc),
-      fs.promises.stat(absDest),
-      fs.promises.mkdir(dirname(absDest), { recursive: true }),
-    ])
-  ).map(x => (x.status === 'fulfilled' ? (x.value as fs.Stats) : undefined));
-  if (src && !(dest && isClose(src.mtimeMs, dest.mtimeMs))) {
-    await fs.promises.copyFile(absSrc, absDest);
-    await fs.promises.utimes(absDest, src.atime, src.mtime);
-    return true;
-  }
-  return false;
+async function syncOne(absSrc: string, absDest: string, createdDirs: Set<string>): Promise<boolean> {
+  const destDir = dirname(absDest);
+  const [src, dest] = await Promise.all([
+    fs.promises.stat(absSrc).catch(() => undefined),
+    fs.promises.stat(absDest).catch(() => undefined),
+    createdDirs.has(destDir)
+      ? undefined
+      : fs.promises.mkdir(destDir, { recursive: true }).then(() => createdDirs.add(destDir)),
+  ]);
+  if (!src || (dest && isClose(src.mtimeMs, dest.mtimeMs))) return false;
+  await fs.promises.copyFile(absSrc, absDest);
+  await fs.promises.utimes(absDest, src.atime, src.mtime);
+  return true;
 }
 
 async function srcRoot(cwd: string, path: string): Promise<{ root: string; exact: boolean }> {

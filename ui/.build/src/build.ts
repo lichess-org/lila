@@ -1,4 +1,4 @@
-import { execSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import { relative, join } from 'node:path';
 import { chdir } from 'node:process';
@@ -19,9 +19,21 @@ import { tsc, stopTsc } from './tsc.ts';
 export async function build(pkgs: string[]): Promise<void> {
   env.startTime = Date.now();
   try {
+    // pnpm install and package parsing don't depend on each other — run in parallel
     try {
       chdir(env.rootDir);
-      if (env.install) execSync('pnpm install', { stdio: 'inherit' });
+
+      const install = env.install
+        ? new Promise<void>((resolve, reject) => {
+            const proc = spawn('pnpm', ['install'], { stdio: 'inherit' });
+            proc.on('close', code => {
+              if (code === 0) resolve();
+              else reject(new Error(`pnpm install exited with code ${code}`));
+            });
+          })
+        : await Promise.resolve();
+      await install;
+
       if (!pkgs.length) env.log(`Parsing packages in '${c.cyan(env.uiDir)}'`);
 
       await Promise.allSettled([parsePackages(), fs.promises.mkdir(env.buildTempDir)]);

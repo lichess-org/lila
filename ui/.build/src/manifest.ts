@@ -2,6 +2,7 @@ import cps from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { join } from 'node:path';
+import { promisify } from 'node:util';
 
 import { shallowSort, isContained } from './algo.ts';
 import { jsLogger } from './console.ts';
@@ -49,19 +50,22 @@ export function updateManifest(update: ManifestUpdate = {}): void {
   }
 }
 
+const exec = promisify(cps.exec);
+
 async function writeManifest() {
   if (!(env.manifestOk() && taskOk())) return;
-  const commitMessage = cps
-    .execSync('git log -1 --pretty=%s', { encoding: 'utf-8' })
-    .trim()
-    .replaceAll("'", '&#39;')
-    .replaceAll('"', '&quot;');
+
+  const [{ stdout: sha }, { stdout: msg }] = await Promise.all([
+    exec('git rev-parse -q HEAD'),
+    exec('git log -1 --pretty=%s'),
+  ]);
+  const commitMessage = msg.trim().replaceAll("'", '&#39;').replaceAll('"', '&quot;');
 
   const clientJs: string[] = [
     'if (!window.site) window.site={};',
     'const s=window.site;',
     's.info={};',
-    `s.info.commit='${cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim()}';`,
+    `s.info.commit='${sha.trim()}';`,
     `s.info.message='${commitMessage}';`,
     `s.debug=${env.debug};`,
     's.asset={loadEsm:(m,o)=>import(`/assets/compiled/${m}${s.manifest.js[m]?"."+s.manifest.js[m]:""}.js`)' +
