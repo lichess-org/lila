@@ -96,6 +96,7 @@
   <string name="whiteDrawBlack">Blancs / Nulle / Noirs</string>
   <string name="averageRatingX">Classement moyen : %s</string>
   <string name="minRatingX">Classement minimal de %s</string>
+  <string name="maxRatingX">Classement maximal de %s</string>
   <string name="recentGames">Parties récentes</string>
   <string name="topGames">Meilleures parties</string>
   <string name="masterDbExplanation">Deux millions de parties jouées en tournois FIDE >%1$s de %2$s à %3$s</string>
