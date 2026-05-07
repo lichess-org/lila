@@ -942,6 +942,7 @@
   <string name="tryTheContactPage">संपर्क पृष्ठ वापरा</string>
   <string name="makeSureToRead">%1$s वाचण्याची खात्री करावी</string>
   <string name="theForumEtiquette">चर्चामंचाचे शिष्टाचार</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">कृपया सार्वजनिक मंचामध्ये सभ्यतेने बोला.</string>
   <string name="thisTopicIsArchived">हा विषय संग्रहित केला गेला आहे आणि यापुढे त्यास प्रत्युत्तर दिले जाऊ शकत नाही.</string>
   <string name="joinTheTeamXToPost">या मंचावर पोस्ट टाकण्यासाठी %1$s सामील व्हा</string>
   <string name="teamNamedX">%1$s संघ</string>
