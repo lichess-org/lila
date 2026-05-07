@@ -3,11 +3,11 @@
   <string name="swiss">स्विस</string>
   <string name="swissTournaments">स्विस स्पर्धा</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
-    <item quantity="one">%s ही स्विस स्पर्धेतील फेs्यांची संख्या आहे</item>
-    <item quantity="other">सर्व%s फेs पहा</item>
+    <item quantity="one">फेरी पहा</item>
+    <item quantity="other">%s फेऱ्या पहा</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
-    <item quantity="one">%s फेऱी</item>
+    <item quantity="one">%s फेरी</item>
     <item quantity="other">%s फेऱ्या</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
