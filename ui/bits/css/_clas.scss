@@ -422,7 +422,7 @@ h1 {
       }
     }
 
-    .coords i {
+    .coords icon {
       margin: 0 0.4em;
 
       &::before {
@@ -777,7 +777,7 @@ h1 {
       color: $c-font-dim;
     }
 
-    i {
+    icon {
       font-size: 0.8em;
       color: $c-bad;
       text-align: center;

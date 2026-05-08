@@ -3,7 +3,7 @@ import { h, type Hooks, type VNode } from 'snabbdom';
 import { setClockWidget } from 'lib/game/clock/clockWidget';
 import perfIcons from 'lib/game/perfIcons';
 import * as licon from 'lib/licon';
-import { dataIcon } from 'lib/view';
+import { dataIcon, iconCls } from 'lib/view';
 import { userTitle } from 'lib/view/userLink';
 
 import type TournamentController from '../ctrl';
@@ -52,12 +52,12 @@ function image(d: TournamentData): VNode | undefined {
   if (hasFreq('shield', d) || hasFreq('marathon', d)) return;
   const s = d.spotlight;
   if (s && s.iconImg) return h('img.img', { attrs: { src: site.asset.url('images/' + s.iconImg) } });
-  return h('i.img', { attrs: dataIcon(s?.iconFont || licon.Trophy) });
+  return iconCls(s?.iconFont || licon.Trophy, 'img');
 }
 
 function title(ctrl: TournamentController) {
   const d = ctrl.data;
-  if (hasFreq('marathon', d)) return h('h1', [h('i.fire-trophy', licon.Globe), d.fullName]);
+  if (hasFreq('marathon', d)) return h('h1', [h('icon.fire-trophy', licon.Globe), d.fullName]);
   if (hasFreq('shield', d))
     return h('h1', [
       h('a.shield-trophy', { attrs: { href: '/tournament/shields' } }, perfIcons[d.perf.key]),

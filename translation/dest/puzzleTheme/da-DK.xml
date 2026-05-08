@@ -55,6 +55,8 @@
   <string name="endgame">Slutspil</string>
   <string name="endgameDescription">En taktik i den sidste fase af spillet.</string>
   <string name="enPassantDescription">En taktik som inkluderer En passant-reglen, hvor en bonde kan tage en modstanderbonde, der er flyttet forbi med dens første to-felts-træk.</string>
+  <string name="epauletteMate">Epaulet-mat</string>
+  <string name="epauletteMateDescription">To tilstødende flugtfelter for en konge i skak er blokeret af andre brikker.</string>
   <string name="exposedKing">Eksponeret konge</string>
   <string name="exposedKingDescription">En taktik der involverer en konge med få forsvarere omkring sig, hvilket ofte fører til skakmat.</string>
   <string name="fork">Gaffel</string>
@@ -73,6 +75,8 @@
   <string name="pillsburysMateDescription">Tårnet sætter skakmat, mens løberen hjælper med at spærre af.</string>
   <string name="morphysMate">Morphy\'s mat</string>
   <string name="morphysMateDescription">Brug løberen til at sætte kongen skak, mens tårnet hjælper med at spærre den inde.</string>
+  <string name="swallowstailMate">Svalehale-mat</string>
+  <string name="swallowstailMateDescription">Et skakmatmønster, der visuelt minder om en svalehale, svarende til en V-form.</string>
   <string name="triangleMate">Trekantmat</string>
   <string name="triangleMateDescription">Dronningen og tårnet, der er ét felt fra fjendens konge, befinder sig på samme række eller kolonne, adskilt af ét felt, og danner en trekant.</string>
   <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovics mat</string>

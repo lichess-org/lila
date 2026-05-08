@@ -65,7 +65,8 @@ final class Syncache[K, V](
         default(k)
       case _ =>
         incMiss.increment()
-        waitTime.fold(default(k))(waitForResult(k, future, _))
+        waitTime.fold(default(k)): duration =>
+          future.awaitOrElse(duration, s"syncache:$name", default(k))
 
   // maybe optimize later with cache batching
   def asyncMany(ks: List[K]): Fu[List[V]] = ks.parallel(async)
@@ -80,18 +81,7 @@ final class Syncache[K, V](
 
   def set(k: K, v: V): Unit = cache.put(k, fuccess(v))
 
-  private def waitForResult(k: K, fu: Fu[V], duration: FiniteDuration): V =
-    try
-      lila.mon.Chronometer.syncMon(recWait):
-        fu.await(duration, s"syncache:$name")
-    catch
-      case _: java.util.concurrent.TimeoutException =>
-        incTimeout.increment()
-        default(k)
-
   private val incMiss = lila.mon.syncache.miss(name)
-  private val incTimeout = lila.mon.syncache.timeout(name)
-  private val recWait = lila.mon.syncache.wait(name)
   private val recCompute = lila.mon.syncache.compute(name)
 
 object Syncache:

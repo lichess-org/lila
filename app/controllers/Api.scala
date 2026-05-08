@@ -294,7 +294,7 @@ final class Api(env: Env, gameC: => Game) extends LilaController(env):
           for
             povs <- env.round.proxyRepo.urgentGames(me)
             challenges <- env.challenge.api.createdByDestId(me)
-          yield jsOptToNdJson(env.api.eventStream(povs.map(_.game), challenges, bearer))
+          yield jsOptToNdJson(env.api.eventStream(povs.value.map(_.game), challenges, bearer))
       }
     }
 

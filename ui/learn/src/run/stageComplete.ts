@@ -11,7 +11,7 @@ import type { RunCtrl } from './runCtrl';
 
 function makeStars(rank: number) {
   const stars = [];
-  for (let i = 3; i > 0; i--) stars.push(h('div.star-wrap', rank <= i ? h('i.star') : null));
+  for (let i = 3; i > 0; i--) stars.push(h('div.star-wrap', rank <= i ? h('icon.star') : null));
   return stars;
 }
 

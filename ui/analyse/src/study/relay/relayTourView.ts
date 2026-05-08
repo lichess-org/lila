@@ -606,7 +606,7 @@ function renderStreamerMenu(relay: RelayCtrl): VNode {
       relay.streams.map(([id, info]) =>
         hl('a.streamer.text', { attrs: { 'data-icon': licon.Mic, href: makeUrl(id) } }, [
           info.name,
-          hl('i', info.lang),
+          hl('icon', info.lang),
         ]),
       ),
     ),

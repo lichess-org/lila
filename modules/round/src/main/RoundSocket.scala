@@ -150,10 +150,10 @@ final class RoundSocket(
       preloadRoundsWithVersions(versions)
       send(Protocol.Out.versioningReady)
     case P.In.Ping(id) => send(P.Out.pong(id))
-    case Protocol.In.GetGame(reqId, anyId) =>
+    case Protocol.In.GetGame(reqId, anyId, me) =>
       for
         game <- rounds.ask(anyId.gameId)(GetGameAndSocketStatus.apply)
-        data <- mobileSocket.online(game.game, anyId, game.socket)
+        data <- mobileSocket.online(game.game, anyId, game.socket)(using me)
       yield sendForGameId(anyId.gameId).exec(Protocol.Out.respond(reqId, data))
 
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
@@ -332,7 +332,7 @@ object RoundSocket:
       case class SelfReport(fullId: GameFullId, ip: IpAddress, userId: Option[UserId], name: String)
           extends P.In
       case class WsLatency(millis: Int) extends P.In
-      case class GetGame(reqId: Int, id: GameAnyId) extends P.In
+      case class GetGame(reqId: Int, id: GameAnyId, me: Option[MyId]) extends P.In
 
       val reader: P.In.Reader =
         case P.RawMsg("r/ons", raw) =>
@@ -397,9 +397,10 @@ object RoundSocket:
               Flag(GameId(gameId), _, P.In.optional(playerId).map { GamePlayerId(_) })
           }
         case P.RawMsg("r/get", raw) =>
-          raw.get(2) { case Array(reqId, anyId) =>
+          raw.get(3) { case Array(reqId, anyId, userId) =>
             reqId.toIntOption.map:
-              GetGame(_, GameAnyId(anyId))
+              val me = MyId.from(P.In.optional(userId))
+              GetGame(_, GameAnyId(anyId), me)
           }
         case P.RawMsg("r/latency", raw) => raw.args.toIntOption.map(WsLatency.apply)
 

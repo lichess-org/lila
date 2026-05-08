@@ -255,7 +255,7 @@ function buttons(root: AnalyseCtrl): VNode {
             class: { on: ctrl.vm.mode.sticky },
             hook: bind('click', ctrl.toggleSticky),
           },
-          [ctrl.vm.behind ? hl('span.behind', '' + ctrl.vm.behind) : hl('i.is'), 'SYNC'],
+          [ctrl.vm.behind ? hl('span.behind', '' + ctrl.vm.behind) : hl('icon.is'), 'SYNC'],
         ),
       canContribute &&
         hl(
@@ -265,7 +265,7 @@ function buttons(root: AnalyseCtrl): VNode {
             class: { on: ctrl.vm.mode.write },
             hook: bind('click', ctrl.toggleWrite),
           },
-          [hl('i.is'), 'REC'],
+          [hl('icon.is'), 'REC'],
         ),
       toolButton({
         ctrl,
@@ -290,7 +290,7 @@ function buttons(root: AnalyseCtrl): VNode {
           ctrl,
           tab: 'glyphs',
           hint: i18n.study.annotateWithGlyphs,
-          icon: hl('i.glyph-icon'),
+          icon: hl('icon.glyph-icon'),
           count: (root.node.glyphs || []).length,
           shouldBlurIfPrimaryClick: true,
         }),

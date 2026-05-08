@@ -6,7 +6,7 @@ private object ReportQueueMonitor:
 
   def push(reportColl: Coll)(using Executor): Unit =
     reportColl
-      .aggregateList(50): framework =>
+      .aggregateList(50, _.sec): framework =>
         import framework.*
         Match($doc("open" -> true, "score" -> $doc("$gte" -> 20))) -> List(
           Group(

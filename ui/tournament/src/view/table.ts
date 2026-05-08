@@ -1,7 +1,7 @@
 import { opposite } from '@lichess-org/chessground/util';
 
 import * as licon from 'lib/licon';
-import { type VNode, bind, onInsert, hl, initMiniGames } from 'lib/view';
+import { type VNode, bind, onInsert, hl, initMiniGames, iconTag } from 'lib/view';
 
 import type TournamentController from '../ctrl';
 import type { Duel, DuelPlayer, FeaturedGame, TournamentOpts } from '../interfaces';
@@ -14,7 +14,7 @@ function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) 
     hl('span.mini-game__user', [
       hl('strong', '#' + player.rank),
       renderPlayer(player, true, opts.showRatings, false),
-      player.berserk && hl('i.berserk', { attrs: { 'data-icon': licon.Berserk, title: 'Berserk' } }),
+      player.berserk && iconTag(licon.Berserk, { cls: 'berserk', title: 'Berserk' }),
     ]),
     game.c
       ? hl(`span.mini-game__clock.mini-game__clock--${color}`, {

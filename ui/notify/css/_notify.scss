@@ -109,7 +109,7 @@
   &:hover {
     background: $c-bg-zebra;
 
-    i {
+    icon {
       color: $c-link;
       opacity: 0.9;
     }
@@ -118,7 +118,7 @@
   &.new {
     background: $m-secondary_bg-popup--mix-27;
 
-    i {
+    icon {
       color: $c-secondary;
       opacity: 0.7;
     }
@@ -126,13 +126,13 @@
     &:hover {
       background: $m-secondary_bg-popup--mix-36;
 
-      i {
+      icon {
         opacity: 1;
       }
     }
   }
 
-  i {
+  icon {
     font-size: 2em;
     opacity: 0.5;
     margin-inline-end: 1rem;

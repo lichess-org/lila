@@ -8,12 +8,13 @@ import { parseFen, makeBoardFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
 import { setupPosition } from 'chessops/variant';
+import { h } from 'snabbdom';
 
 import { isTouchDevice } from '@/device';
 import { blurIfPrimaryClick, defined, notNull, requestIdleCallbackSafe } from '@/index';
 import * as licon from '@/licon';
 import type { ClientEval, LocalEval, PvData } from '@/tree/types';
-import { type VNode, type LooseVNodes, bind, hl, iconTag } from '@/view';
+import { type VNode, type LooseVNodes, bind, hl, iconCls } from '@/view';
 import { cmnToggle } from '@/view/cmn-toggle';
 import stepwiseScroll from '@/view/stepwiseScroll';
 
@@ -165,15 +166,15 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
   if (ceval.opts.custom?.pearlNode) {
     pearl = ceval.opts.custom.pearlNode();
   } else if (bestEv && typeof bestEv.cp !== 'undefined') {
-    pearl = hl('pearl', renderEval(bestEv.cp));
+    pearl = h('pearl', renderEval(bestEv.cp));
   } else if (bestEv && defined(bestEv.mate)) {
-    pearl = hl('pearl', '#' + bestEv.mate);
+    pearl = h('pearl', '#' + bestEv.mate);
     percent = 100;
   } else {
-    if (!enabled) pearl = hl('pearl', hl('i'));
-    else if (node.outcome() || node.threefold) pearl = hl('pearl', '-');
-    else if (ceval.state === CevalState.Failed) pearl = hl('pearl', iconTag(licon.CautionCircle, 'is-red'));
-    else pearl = hl('pearl', hl('i.ddloader'));
+    if (!enabled) pearl = h('pearl', h('icon'));
+    else if (node.outcome() || node.threefold) pearl = h('pearl', '-');
+    else if (ceval.state === CevalState.Failed) pearl = h('pearl', iconCls(licon.CautionCircle, 'is-red'));
+    else pearl = h('pearl', h('icon.ddloader'));
     percent = node.outcome() ? 100 : 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
@@ -181,9 +182,9 @@ export function renderCeval(ctrl: CevalHandler): VNode[] {
 
   const progressBar: VNode | undefined =
     (enabled || download) &&
-    hl(
+    h(
       'div.bar',
-      hl('span', {
+      h('span', {
         class: { threat: enabled && threatMode },
         attrs: { style: `width: ${percent}%` },
         hook: {

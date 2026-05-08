@@ -6,7 +6,7 @@ import scalatags.Text.all.*
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
-import lila.user.{ Me, User, UserRepo }
+import lila.user.{ User, UserRepo }
 import lila.core.net.IpAddress
 import lila.memo.RateLimit
 

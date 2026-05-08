@@ -18,7 +18,7 @@ export const ratingView = ({ opts, data, setupCtrl }: LobbyController): MaybeVNo
   return h(
     'div.ratings',
     !opts.showRatings
-      ? [h('i', perfIconAttrs), perfOrSpeed.name]
+      ? [h('icon', perfIconAttrs), perfOrSpeed.name]
       : [
           ...i18n.site.yourRatingIsX.asArray(
             h('strong', perfIconAttrs, setupCtrl.myRating() + (setupCtrl.isProvisional() ? '?' : '')),

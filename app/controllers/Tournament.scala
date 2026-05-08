@@ -115,8 +115,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             addReloadEndpoint = env.tournament.lilaHttp.handles.some
           )
           chatOpt <- partial.not.so(loadChat(tour, json))
-          jsChat <- chatOpt.traverse: c =>
-            env.chat.json.mobile(c.chat)
+          jsChat = chatOpt.map(env.chat.json.mobile(_))
         yield Ok(json.add("chat" -> jsChat)).noCache
       )
         .monSuccess:
@@ -139,7 +138,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           withAllowList = true
         )
         chatOpt <- getBool("chat").so(loadChat(tour, data))
-        jsChat <- chatOpt.traverse(c => env.chat.json.mobile(c.chat))
+        jsChat = chatOpt.map(env.chat.json.mobile(_))
         socketVersion <- getBool("socketVersion").optionFu(env.tournament.version(tour.id))
       yield JsonOk:
         data.add("chat", jsChat).add("socketVersion" -> socketVersion)

@@ -15,6 +15,7 @@ import lila.tournament.Tournament
 import lila.ublog.UblogPost
 import lila.user.{ LightUserApi, Me, User }
 import lila.mon.extensions.*
+import lila.round.UrgentGames
 
 final class Preload(
     tv: lila.tv.Tv,
@@ -148,7 +149,7 @@ object Preload:
       playban: Option[TempBan],
       currentGame: Option[Preload.CurrentGame],
       isFeaturable: Simul => Boolean,
-      blindGames: List[Pov],
+      blindGames: UrgentGames,
       lastUpdates: List[lila.feed.Feed.Update],
       ublogPosts: List[UblogPost.PreviewPost],
       classes: List[lila.clas.Clas],

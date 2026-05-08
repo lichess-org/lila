@@ -8,13 +8,12 @@ import lila.core.lilaism.LilaNoStackTrace
 import lila.core.net.IpAddress
 import lila.core.security.UserSignup
 import lila.common.LilaFuture
-import lila.core.data.LazyDep
 
 final class GarbageCollector(
     userLogins: UserLoginsApi,
     ipTrust: IpTrust,
     noteApi: lila.user.NoteApi,
-    currentlyPlaying: LazyDep[lila.core.round.CurrentlyPlaying],
+    currentlyPlaying: () => lila.core.round.CurrentlyPlaying,
     isArmed: () => Boolean,
     userRepo: lila.user.UserRepo
 )(using ec: Executor, scheduler: Scheduler):
@@ -106,8 +105,7 @@ final class GarbageCollector(
   private def waitForCollection(userId: UserId, max: Instant): Funit =
     if nowInstant.isAfter(max) then funit
     else
-      currentlyPlaying
-        .resolve()
+      currentlyPlaying()
         .exec(userId)
         .map2(_.game)
         .flatMap: game =>

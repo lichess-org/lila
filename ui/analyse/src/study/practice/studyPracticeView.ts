@@ -101,7 +101,7 @@ export function side(ctrl: StudyCtrl): VNode {
 
   return h('div.practice__side', [
     h('div.practice__side__title', [
-      h('i.' + data.study.id),
+      h('icon.' + data.study.id),
       h('div.text', [h('h1', data.study.name), h('em', data.study.desc)]),
     ]),
     h(

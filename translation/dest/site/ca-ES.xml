@@ -942,6 +942,7 @@
   <string name="tryTheContactPage">prova la plana de contacte</string>
   <string name="makeSureToRead">Assegureu-vos de llegir %1$s</string>
   <string name="theForumEtiquette">l\'etiqueta del fòrum</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Si us plau sigues amable al fòrum.</string>
   <string name="thisTopicIsArchived">Aquest tema ha estat arxivat i no es pot respondre.</string>
   <string name="joinTheTeamXToPost">Uneix-te a %1$s, per poder publicar</string>
   <string name="teamNamedX">%1$s equip</string>

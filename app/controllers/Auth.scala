@@ -39,7 +39,7 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
           _ <- env.msg.systemMsg.lichobileDeprecationMessage(u)
         yield Ok:
           env.user.jsonView.full(u, perfs, withProfile = true) ++ Json.obj(
-            "nowPlaying" -> JsArray(povs.take(20).map(env.api.lobbyApi.nowPlaying)),
+            "nowPlaying" -> JsArray(povs.value.take(20).map(env.api.lobbyApi.nowPlaying)),
             "sessionId" -> sessionId
           )
       ).map(authenticateCookie(sessionId, remember))

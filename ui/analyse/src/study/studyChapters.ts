@@ -5,7 +5,7 @@ import type Sortable from 'sortablejs';
 import { blurIfPrimaryClick, defined, prop, type Prop, scrollToInnerSelector } from 'lib';
 import { fenColor } from 'lib/game/chess';
 import * as licon from 'lib/licon';
-import { type VNode, bind, dataIcon, iconTag, hl, alert } from 'lib/view';
+import { type VNode, bind, iconTag, hl, alert } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
@@ -218,8 +218,7 @@ export function view(ctrl: StudyCtrl): VNode {
             hl('span', (i + 1).toString()),
             hl('h3', chapter.name),
             chapter.status && hl('res', chapter.status),
-            canContribute &&
-              hl('i.act', { attrs: { ...dataIcon(licon.Gear), title: i18n.study.editChapter } }),
+            canContribute && iconTag(licon.Gear, { title: i18n.study.editChapter, cls: 'act' }),
           ],
         );
       }),

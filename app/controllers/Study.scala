@@ -185,8 +185,8 @@ final class Study(
                 withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
               )
               chatOpt <- HTTPRequest.isXhr(ctx.req).not.so(chatOf(sc.study))
-              jsChat <- chatOpt.traverse: c =>
-                env.chat.json.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
+              jsChat = chatOpt.map: c =>
+                env.chat.json.mobile(c, writeable = ctx.userId.so(sc.study.canChat))
             yield Ok:
               Json.obj(
                 "study" -> data.study.add("chat" -> jsChat),

@@ -100,7 +100,7 @@ final class Env(
 
   lazy val printBan = PrintBan(db(config.collection.printBan))
 
-  private val curPlaying = lila.core.data.LazyDep(() => lazyCurrentlyPlaying)
+  private val curPlaying = () => lazyCurrentlyPlaying
 
   lazy val garbageCollector =
     def mk: (() => Boolean) => GarbageCollector = isArmed => wire[GarbageCollector]

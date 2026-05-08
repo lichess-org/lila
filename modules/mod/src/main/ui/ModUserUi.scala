@@ -19,7 +19,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
   val dataValue = attr("data-value")
   val dataTags = attr("data-tags")
   val playban = iconTag(Icon.Clock)
-  val alt: Frag = i("A")
+  val alt: Frag = iconTag("A")
   val shadowban: Frag = iconTag(Icon.BubbleSpeech)
   val boosting: Frag = iconTag(Icon.LineGraph)
   val engine: Frag = iconTag(Icon.Cogs)
@@ -28,7 +28,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
   val clean: Frag = iconTag(Icon.User)
   val reportban = iconTag(Icon.CautionTriangle)
   val notesText = iconTag(Icon.Pencil)
-  val rankban = i("R")
+  val rankban = iconTag("R")
 
   def menu = mzSection("menu")(
     a(href := "#mz_actions")("Overview"),

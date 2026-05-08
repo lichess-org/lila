@@ -3,7 +3,7 @@ import { renderEval, view as cevalView } from 'lib/ceval';
 import { displayColumns, isTouchDevice } from 'lib/device';
 import * as licon from 'lib/licon';
 import { addPointerListeners } from 'lib/pointer';
-import { type VNode, type LooseVNode, onInsert, hl, domDialog } from 'lib/view';
+import { type VNode, type LooseVNode, onInsert, hl, domDialog, iconTag } from 'lib/view';
 
 import type AnalyseCtrl from '../ctrl';
 
@@ -63,7 +63,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
         isMobileUi() &&
           !scrubHelpAcknowledged() &&
           !ctrl.study?.practice &&
-          hl('i.scrub-help', { attrs: { 'data-act': 'scrub-help' } }, licon.InfoCircle),
+          iconTag(licon.InfoCircle, { cls: 'scrub-help', 'data-act': 'scrub-help' }),
         jumpButton(licon.GreaterThan, 'next', canJumpNext),
         (!isMobileUi() || ctrl.study?.practice) &&
           jumpButton(licon.JumpLast, 'last', ctrl.node !== ctrl.mainline[ctrl.mainline.length - 1]),

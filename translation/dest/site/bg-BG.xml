@@ -943,6 +943,7 @@
   <string name="tryTheContactPage">опитайте страницата за контакти</string>
   <string name="makeSureToRead">Моля прочетете %1$s</string>
   <string name="theForumEtiquette">правилата за етикет на форума</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Моля бъдете учтиви във форума.</string>
   <string name="thisTopicIsArchived">Тази тема е архивирана и не може да получава повече мнения.</string>
   <string name="joinTheTeamXToPost">Присъединете се към %1$s, за да публикувате в този форум</string>
   <string name="teamNamedX">отбора %1$s</string>

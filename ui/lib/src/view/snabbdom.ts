@@ -65,8 +65,17 @@ export const dataIcon = (icon: LiconType): Attrs => ({
   'data-icon': icon,
 });
 
-export const iconTag = (icon: LiconType, className?: string): VNode =>
-  snabH(className ? `i.${className}` : 'i', { attrs: dataIcon(icon) });
+export const iconTag = (icon: LiconType, attrs?: Attrs & { cls?: string }): VNode => {
+  let sel = 'icon';
+  if (attrs?.cls) {
+    sel += '.' + attrs.cls;
+    delete attrs.cls;
+  }
+  return snabH(sel, { attrs: { ...attrs, ...dataIcon(icon) } });
+};
+
+export const iconCls = (icon: LiconType, cls: string): VNode =>
+  snabH('icon.' + cls, { attrs: dataIcon(icon) });
 
 export type LooseVNode = VNodeChildElement | boolean;
 export type LooseVNodes = LooseVNode | LooseVNodes[];

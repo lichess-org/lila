@@ -92,7 +92,7 @@ final class PracticeUi(helpers: Helpers)(
                           )
                         )
                       ),
-                      i(cls := s"${stud.id}"),
+                      iconTag(cls := stud.id),
                       span(cls := "text")(
                         h3(stud.name),
                         p(stud.desc)

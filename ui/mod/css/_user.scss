@@ -169,7 +169,7 @@
         background: $m-brag_white--mix-80;
       }
 
-      i {
+      icon {
         margin-inline-end: 0.3em;
         opacity: 0.5;
       }
@@ -200,7 +200,7 @@
       background: #484541;
       border-radius: 4px 0 0 4px;
 
-      i {
+      icon {
         display: block;
         height: 30px;
         width: 30px;
@@ -267,7 +267,7 @@
         }
       }
 
-      i {
+      icon {
         margin-inline-start: 0.5ch;
       }
 
@@ -327,14 +327,14 @@
       }
     }
 
-    .i {
+    .icon {
       padding: 0;
 
       &.recent {
         color: $c-brag;
       }
 
-      i {
+      icon {
         margin: 0;
 
         &::before {

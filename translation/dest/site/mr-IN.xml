@@ -9,7 +9,7 @@
   <string name="gameOver">खेळ संपला</string>
   <string name="waitingForOpponent">प्रतिस्पर्ध्याची प्रतीक्षा आहे</string>
   <string name="orLetYourOpponentScanQrCode">तुमच्या विरोधकाला हा QR Code स्कॅन करायला सांगा</string>
-  <string name="reusableChallengeUrl">पुनर्प्रयोगी आव्हान URL </string>
+  <string name="reusableChallengeUrl">पुनर्प्रयोगी आव्हान URL</string>
   <string name="permanentLinkForAnyoneToChallengeYou">एक शाश्वत लिंक ज्याने कोणीही तुम्हाला ह्याच नेमक्या कोंदणांबरोबर आव्हान करू शकतो.</string>
   <string name="waiting">प्रतीक्षेत आहे</string>
   <string name="yourTurn">तुमची चाल</string>
@@ -95,6 +95,8 @@
   <string name="database">माहितीसंच</string>
   <string name="whiteDrawBlack">पांढरा / बरोबरी / काळा</string>
   <string name="averageRatingX">सरासरी मानांकन: %s</string>
+  <string name="minRatingX">%s चे किमान मानांकन</string>
+  <string name="maxRatingX">%s चे कमाल मानांकन</string>
   <string name="recentGames">अलीकडचे खेळ</string>
   <string name="topGames">सर्वोत्कृष्ट खेळ</string>
   <string name="masterDbExplanation">%2$s पासून %3$s पर्यंत %1$s आणि FIDE मानांकित खेळाडूंचे 20 लाख प्रत्यक्ष खेळ</string>
@@ -940,6 +942,7 @@
   <string name="tryTheContactPage">संपर्क पृष्ठ वापरा</string>
   <string name="makeSureToRead">%1$s वाचण्याची खात्री करावी</string>
   <string name="theForumEtiquette">चर्चामंचाचे शिष्टाचार</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">कृपया सार्वजनिक मंचामध्ये सभ्यतेने बोला.</string>
   <string name="thisTopicIsArchived">हा विषय संग्रहित केला गेला आहे आणि यापुढे त्यास प्रत्युत्तर दिले जाऊ शकत नाही.</string>
   <string name="joinTheTeamXToPost">या मंचावर पोस्ट टाकण्यासाठी %1$s सामील व्हा</string>
   <string name="teamNamedX">%1$s संघ</string>

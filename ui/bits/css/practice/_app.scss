@@ -43,7 +43,7 @@
     @include if-light {
       color: $c-font;
 
-      i {
+      icon {
         filter: brightness(0.15);
       }
     }
@@ -57,7 +57,7 @@
       }
     }
 
-    i {
+    icon {
       width: 70px;
       height: 70px;
       margin: 0 1em;

@@ -1,3 +1,5 @@
+import { h } from 'snabbdom';
+
 import { abortable, playable, drawableSwiss, resignable, takebackable, type TopOrBottom } from 'lib/game';
 import * as licon from 'lib/licon';
 import { type LooseVNodes, hl, bind, toggleButton as boardMenuToggleButton, dataIcon } from 'lib/view';
@@ -13,16 +15,16 @@ function renderPlayer(ctrl: RoundController, position: TopOrBottom) {
   if (ctrl.nvui) return undefined;
   const player = ctrl.playerAt(position);
   return player.ai
-    ? hl('div.user-link.online.ruser.ruser-' + position, [
-        hl('i.line'),
-        hl('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
+    ? h('div.user-link.online.ruser.ruser-' + position, [
+        h('icon.line'),
+        h('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
       ])
     : userHtml(ctrl, player, position);
 }
 
 const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;
 
-const loader = () => hl('i.ddloader');
+const loader = () => h('icon.ddloader');
 
 const renderTableWith = (ctrl: RoundController, buttons: LooseVNodes[]) => [
   renderReplay(ctrl),
