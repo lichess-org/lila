@@ -19,7 +19,7 @@ export function tutor() {
       h('img', {
         attrs: { src: site.asset.flairSrc('nature.octopus-howard') },
       }),
-      h('span', [h('strong', 'Try out Tutor'), h('em', 'Compare to your peers!')]),
+      h('span', [h('strong', 'Try out Tutor'), h('span', 'Compare to your peers!')]),
     ],
   );
 }

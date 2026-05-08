@@ -3,28 +3,32 @@
 
   &__help {
     @extend %page-text-shadow !optional;
+    @extend %flex-column;
 
+    gap: 1em;
     color: $c-font-page;
     max-width: 350px;
     margin-top: 9em;
     margin-inline-end: $block-gap;
 
     img {
-      @extend %box-radius;
+      @extend %box-neat;
 
       width: 100%;
     }
 
-    em {
-      display: block;
+    span {
       font-style: italic;
-      margin-bottom: 1em;
+    }
+
+    p {
+      margin: 0;
     }
 
     display: none;
 
     @media (min-width: at-least($large)) {
-      display: block;
+      display: flex;
     }
   }
 

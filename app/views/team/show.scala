@@ -133,7 +133,7 @@ object show:
                       a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.post.id))(
                         div(cls := "meta")(
                           strong(post.topic.name),
-                          em(
+                          span(
                             post.post.userId.map(titleNameOrId),
                             " • ",
                             momentFromNow(post.post.createdAt)

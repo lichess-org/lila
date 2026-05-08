@@ -50,7 +50,6 @@
 }
 
 .oauth {
-  table em,
   table .date {
     font-size: 90%;
   }
@@ -139,9 +138,10 @@
         margin-bottom: 1em;
       }
 
-      em {
+      i {
         @extend %roboto;
 
+        font-style: normal;
         margin-inline-start: 1rem;
         color: $c-font-dimmer;
         unicode-bidi: plaintext;

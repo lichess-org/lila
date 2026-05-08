@@ -86,7 +86,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
           tcTrans.map: (tc, name, icon) =>
             val stats = fed.stats(tc)
             card(
-              em(dataIcon := icon, cls := "text")(name()),
+              span(dataIcon := icon, cls := "text")(name()),
               frag(
                 p(trs.rank(), strong(stats.get.rank)),
                 p(trb.top10Rating(), strong(stats.get.top10Rating)),

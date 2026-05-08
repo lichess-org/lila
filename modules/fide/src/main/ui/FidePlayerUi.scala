@@ -204,7 +204,7 @@ final class FidePlayerUi(helpers: Helpers, fideUi: FideUi, picfitUrl: lila.memo.
         fideUi.tcTrans.map: (tc, name, icon) =>
           div(cls := "fide-player__rating")(
             div(cls := "fide-player__rating__text")(
-              em(dataIcon := icon, cls := "text")(name()),
+              span(dataIcon := icon, cls := "text")(name()),
               strong(player.ratingOf(tc).fold(trb.unrated())(_.toString))
             ),
             canvas(cls := s"fide-player__rating__history fide-player__rating__history--$tc")

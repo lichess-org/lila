@@ -94,7 +94,7 @@ function tmpRandomTutorLink() {
   const buttonHtml = `
   <a href="/tutor" class="tutor-link">
     <img src="${site.asset.flairSrc('nature.octopus-howard')}" />
-    <span><strong>Try out Tutor</strong><em>Compare to your peers!</em></span>
+    <span><strong>Try out Tutor</strong><span>Compare to your peers!</span></span>
   </a>`;
   $(buttonHtml).insertBefore('.profile-side .insight');
 }

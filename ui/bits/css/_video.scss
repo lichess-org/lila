@@ -181,8 +181,7 @@
 
       padding: 0.5em 0.8em;
 
-      em {
-        font-weight: bold;
+      strong {
         color: $c-font-dim;
         margin-left: 1em;
 
@@ -251,8 +250,7 @@
         background: $c-bg-box;
       }
 
-      em {
-        font-weight: bold;
+      strong {
         color: $c-accent;
       }
     }

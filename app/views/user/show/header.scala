@@ -223,7 +223,7 @@ object header:
                 a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := Icon.Target):
                   span(
                     strong("Chess Insights"),
-                    em("Analytics from ", if ctx.is(u) then "your" else s"${u.username}'s", " games")
+                    span("Analytics from ", if ctx.is(u) then "your" else s"${u.username}'s", " games")
                   )
               )
             )

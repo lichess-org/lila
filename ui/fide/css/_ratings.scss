@@ -26,7 +26,7 @@
     line-height: 0.3em; // for wrapping
   }
 
-  em {
+  span {
     @extend %roboto;
 
     text-transform: uppercase;

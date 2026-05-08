@@ -68,8 +68,8 @@ final class TokenUi(helpers: Helpers)(
               td(
                 strong(t.description | "Unnamed"),
                 br,
-                em(t.scopes.value.map(_.name.txt()).mkString(", ")),
-                mode.isDev.option(frag(br, em("Visible in DEV mode: "), code(t.plain.value)))
+                small(t.scopes.value.map(_.name.txt()).mkString(", ")),
+                mode.isDev.option(frag(br, small("Visible in DEV mode: "), code(t.plain.value)))
               ),
               td(cls := "date")(
                 t.created.map: created =>
@@ -139,7 +139,7 @@ final class TokenUi(helpers: Helpers)(
                         st.title := disabled.option(ot.alreadyHavePlayedGames.txt())
                       )(
                         scope.name(),
-                        em(scope.key)
+                        i(scope.key)
                       )
                     )
                   )

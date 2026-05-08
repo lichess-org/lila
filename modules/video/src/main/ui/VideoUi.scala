@@ -146,7 +146,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
               .option(s"${langHref(routes.Video.index)}?${control.toggleTag(t.tag).queryString}")
           )(
             span(t.tag.capitalize),
-            (!checked && t.nb > 0).option(em(t.nb))
+            (!checked && t.nb > 0).option(strong(t.nb))
           )
       ),
       div(cls := "under-tags")(
@@ -231,7 +231,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           ts.sortBy(_.tag).map { t =>
             a(cls := "tag", href := s"${langHref(routes.Video.index)}?tags=${t.tag}")(
               t.tag.capitalize,
-              em(" " + t.nb)
+              strong(" " + t.nb)
             )
           }
         )
