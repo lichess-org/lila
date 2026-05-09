@@ -1030,6 +1030,7 @@
   <string name="tryTheContactPage">посмотрите контактную информацию</string>
   <string name="makeSureToRead">Не забудьте прочитать %1$s</string>
   <string name="theForumEtiquette">форумный этикет</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Пожалуйста, будьте вежливы на форуме.</string>
   <string name="thisTopicIsArchived">Эта тема была помещена в архив и добавить комментарий уже нельзя.</string>
   <string name="joinTheTeamXToPost">Вступите в %1$s, чтобы писать в этом форуме</string>
   <string name="teamNamedX">клуб %1$s</string>
