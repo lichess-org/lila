@@ -180,7 +180,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ctrl.showBestMoveArrowsProp() &&
       cmnToggleWrapProp({
         id: 'maneuver-arrows',
-        name: 'Piece maneuver arrows',
+        name: i18n.site.pieceManeuverArrows,
         prop: ctrl.showManeuverMoveArrowsProp,
         redraw: ctrl.redraw,
       }),
@@ -194,7 +194,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   ];
 
   const displayConfig = [
-    displayColumns() > 1 && hl('h2', 'Display'),
+    displayColumns() > 1 && hl('h2', i18n.site.display),
     cmnToggleWrap({
       id: 'inline',
       name: i18n.site.inlineNotation,
@@ -208,7 +208,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     }),
     cmnToggleWrapProp({
       id: 'disclosure',
-      name: 'Disclosure buttons',
+      name: i18n.site.disclosureButtons,
       title: 'Show disclosure buttons to expand/collapse variations',
       prop: ctrl.disclosureMode,
       redraw: ctrl.redraw,
@@ -264,7 +264,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
 const renderVariationOpacitySlider = (ctrl: AnalyseCtrl) =>
   hl('span.setting', [
-    hl('label', 'Variation opacity'),
+    hl('label', i18n.site.variationOpacity),
     hl('input.range', {
       key: 'variation-arrows',
       attrs: { min: 0, max: 1, step: 0.1, type: 'range', value: ctrl.variationArrowOpacity() || 0 },
