@@ -95,6 +95,8 @@
   <string name="database">Base de datos</string>
   <string name="whiteDrawBlack">Blancas / Tablas / Negras</string>
   <string name="averageRatingX">Puntuación media: %s</string>
+  <string name="minRatingX">Valoración mínima de %s</string>
+  <string name="maxRatingX">Valoración máxima de %s</string>
   <string name="recentGames">Partidas recientes</string>
   <string name="topGames">Mejores partidas</string>
   <string name="masterDbExplanation">Dos millones de partidas de jugadores con ELO FIDE de %1$s+, desde %2$s a %3$s</string>
@@ -126,7 +128,6 @@
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Indicar la mejor jugada</string>
   <string name="showVariationArrows">Mostrar flechas de variantes</string>
-  <string name="evaluationGauge">Indicador de evaluación</string>
   <string name="visualMotifs">Complementos visuales</string>
   <string name="undefendedPieces">Piezas no defendidas</string>
   <string name="pinnedPieces">Piezas clavadas</string>
@@ -941,6 +942,7 @@
   <string name="tryTheContactPage">prueba la página de contacto</string>
   <string name="makeSureToRead">Asegúrate de leer %1$s</string>
   <string name="theForumEtiquette">las reglas del foro</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Por favor, sé amable en el foro.</string>
   <string name="thisTopicIsArchived">Este tema ha sido archivado y ya no admite respuestas.</string>
   <string name="joinTheTeamXToPost">Únete a %1$s para publicar en este foro</string>
   <string name="teamNamedX">equipo %1$s</string>

@@ -97,7 +97,7 @@ capturando a peça atacante.</string>
 através de suas defesas!</string>
   <string name="escapeOrBlock">Escape com o rei
 ou bloqueie o ataque!</string>
-  <string name="outOfCheckComplete">Parabéns! Seu rei não deve ser tomado, certifique-se de que você pode defendê-lo de um xeque!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Parabéns! Seu rei não deve ser tomado, certifique-se de que você pode defendê-lo de um xeque!</string>
   <string name="mateInOne">Mate em 1</string>
   <string name="defeatTheOpponentsKing">Derrote o rei adversário</string>
   <string name="mateInOneIntro">Você vence quando seu oponente não pode se defender de um xeque.</string>

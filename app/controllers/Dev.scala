@@ -125,8 +125,6 @@ final class Dev(env: Env) extends LilaController(env):
       env.ublog.ublogAutomod.promptSetting
     ),
     "Mobile" -> List(
-      env.web.mobile.androidVersion,
-      env.web.mobile.iosVersion,
       env.web.lichobileAnnounceApi.lichobileUpgrade
     ),
     "Config" -> List(

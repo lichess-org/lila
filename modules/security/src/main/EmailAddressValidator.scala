@@ -1,10 +1,11 @@
 package lila.security
 
 import play.api.data.validation.*
+import scalalib.net.Domain
 
-import lila.core.net.Domain
 import lila.user.{ User, UserRepo }
 import lila.core.email.NormalizedEmailAddress
+import lila.mon.extensions.*
 
 /** Validate and normalize emails
   */

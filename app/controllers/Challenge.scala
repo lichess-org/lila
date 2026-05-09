@@ -2,11 +2,11 @@ package controllers
 
 import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
+import scalalib.net.Bearer
 
 import lila.app.{ *, given }
 import lila.challenge.{ Challenge as ChallengeModel, Direction }
 import lila.core.id.ChallengeId
-import lila.core.net.Bearer
 import lila.game.AnonCookie
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig

@@ -92,6 +92,7 @@ export interface RoundData extends GameData {
   };
   expiration?: Expiration;
   local?: RoundProxy;
+  noab?: boolean;
 }
 
 export interface Expiration {

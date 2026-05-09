@@ -122,7 +122,7 @@ export class SoundCtrl extends PaneCtrl {
                   }),
                   class: { active: name === selectedVoice?.name },
                   attrs: {
-                    ...dataIcon(name === selectedVoice?.name ? licon.Checkmark : ''),
+                    ...(name === selectedVoice?.name ? dataIcon(licon.Checkmark) : {}),
                     type: 'button',
                   },
                 },

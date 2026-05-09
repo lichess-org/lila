@@ -104,7 +104,7 @@
 кроз твоје одбране!</string>
   <string name="escapeOrBlock">Побегни са краљем
 или блокирај напад!</string>
-  <string name="outOfCheckComplete">Честитке! Твој краљ никад не сме бити узет, побрини се да се можеш одбранити против шаха!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Честитке! Твој краљ никад не сме бити узет, побрини се да се можеш одбранити против шаха!</string>
   <string name="mateInOne">Мат у један</string>
   <string name="defeatTheOpponentsKing">Порази противничког краља</string>
   <string name="mateInOneIntro">Побеђујеш када твој противник не може да се одбрани од шаха.</string>

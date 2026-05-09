@@ -1,4 +1,11 @@
-package lila.common
+package lila.mon
+
+import scala.concurrent.Future
+import scala.concurrent.duration.FiniteDuration
+import kamon.metric.Timer
+import play.api.LoggerLike
+
+import lila.core.lilaism.Lilaism.*
 
 object Chronometer:
 
@@ -8,7 +15,7 @@ object Chronometer:
     extension [A](fua: Future[A])
 
       def await(duration: FiniteDuration, name: String): A =
-        Chronometer.syncMon(_.blocking.time(name)):
+        Chronometer.syncMon(lila.mon.blocking.time(name)):
           try Await.result(fua, duration)
           catch
             case e: Exception =>
@@ -21,15 +28,15 @@ object Chronometer:
       def chronometer = Chronometer(fua)
       def chronometerTry = Chronometer.lapTry(fua)
 
-      def mon(path: lila.mon.TimerPath): Fu[A] = chronometer.mon(path).result
-      def monTry(path: scala.util.Try[A] => lila.mon.TimerPath): Fu[A] =
-        chronometerTry.mon(r => path(r)(lila.mon)).result
-      def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer): Fu[A] =
+      def mon(path: Timer): Fu[A] = chronometer.mon(path).result
+      def monTry(path: scala.util.Try[A] => Timer): Fu[A] =
+        chronometerTry.mon(r => path(r)).result
+      def monSuccess(path: Boolean => kamon.metric.Timer): Fu[A] =
         chronometerTry
           .mon: r =>
-            path(lila.mon)(r.isSuccess)
+            path(r.isSuccess)
           .result
-      def monValue(path: A => lila.mon.TimerPath): Fu[A] = chronometer.monValue(path).result
+      def monValue(path: A => Timer): Fu[A] = chronometer.monValue(path).result
 
       def logTime(name: String): Fu[A] = chronometer.pp(name)
       def logTimeIfGt(name: String, duration: FiniteDuration): Fu[A] = chronometer.ppIfGt(name, duration)
@@ -41,19 +48,19 @@ object Chronometer:
     def micros = (nanos / 1000).toInt
     def seconds = (millis / 1000).toInt
 
-    def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) =
+    def logIfSlow(threshold: Int, logger: LoggerLike)(msg: A => String) =
       if millis >= threshold then log(logger)(msg)
       else this
-    def log(logger: lila.log.Logger)(msg: A => String) =
+    def log(logger: LoggerLike)(msg: A => String) =
       logger.info(s"<${millis}ms> ${msg(result)}")
       this
 
-    def mon(path: lila.mon.TimerPath) =
-      path(lila.mon).record(nanos)
+    def mon(path: Timer) =
+      path.record(nanos)
       this
 
-    def monValue(path: A => lila.mon.TimerPath) =
-      path(result)(lila.mon).record(nanos)
+    def monValue(path: A => Timer) =
+      path(result).record(nanos)
       this
 
     def pp: A =
@@ -74,19 +81,19 @@ object Chronometer:
 
   case class FuLap[A](lap: Fu[Lap[A]]) extends AnyVal:
 
-    def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) =
+    def logIfSlow(threshold: Int, logger: LoggerLike)(msg: A => String) =
       lap.dforeach(_.logIfSlow(threshold, logger)(msg))
       this
 
-    def mon(path: lila.mon.TimerPath) =
+    def mon(path: Timer) =
       lap.dforeach(_.mon(path))
       this
 
-    def monValue(path: A => lila.mon.TimerPath) =
+    def monValue(path: A => Timer) =
       lap.dforeach(_.monValue(path))
       this
 
-    def log(logger: lila.log.Logger)(msg: A => String) =
+    def log(logger: LoggerLike)(msg: A => String) =
       lap.dforeach(_.log(logger)(msg))
       this
 
@@ -133,8 +140,8 @@ object Chronometer:
     effect(lap)
     lap.result
 
-  def syncMon[A](path: lila.mon.TimerPath)(f: => A): A =
-    val timer = path(lila.mon).start()
+  def syncMon[A](path: Timer)(f: => A): A =
+    val timer = path.start()
     val res = f
     timer.stop()
     res

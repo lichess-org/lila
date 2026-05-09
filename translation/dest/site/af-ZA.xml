@@ -117,7 +117,6 @@
   <string name="enable">Aktief</string>
   <string name="bestMoveArrow">Beste skuif pyl</string>
   <string name="showVariationArrows">Wys variasiepyle</string>
-  <string name="evaluationGauge">Evaluering meter</string>
   <string name="multipleLines">Aantal lyne</string>
   <string name="cpus">CPU</string>
   <string name="memory">Geheue</string>

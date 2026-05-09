@@ -81,7 +81,7 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="swallowstailMateDescription">Vzorec šaha in mata, ki vizualno spominja na lastovičji rep, podoben obliki črke V.</string>
   <string name="triangleMate">Trikotni mat</string>
   <string name="triangleMateDescription">Kraljica in trdnjava, eno polje stran od sovražnega kralja, sta v isti vrsti ali liniji, ločeni z enim poljem in tvorita trikotnik.</string>
-  <string name="vukovicMate">Vukovic mat</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovic mat</string>
   <string name="vukovicMateDescription">Top in konj se združita, da matirata kralja. Top zagotavlja pomoč, medtem ko ga podpira tretja figura, konj pa se uporablja za blokiranje polj, kjer bi kralj pobegnil.</string>
   <string name="knightEndgame">Končnica skakačev</string>
   <string name="knightEndgameDescription">Končnica s skakači in s kmeti.</string>

@@ -141,7 +141,7 @@
         box-shadow: none;
         opacity: 1;
 
-        i {
+        icon {
           opacity: 1;
           color: $m-primary_bg--mix-70;
           position: absolute;
@@ -156,7 +156,7 @@
         align-items: center;
       }
 
-      i {
+      icon {
         font-size: 4em;
         opacity: 0.8;
         color: $c-over;
@@ -223,7 +223,7 @@
     }
 
     .puzzle-dashboard__metric--fix {
-      i {
+      icon {
         font-size: 1.6em;
         margin-inline-start: 0.3em;
       }

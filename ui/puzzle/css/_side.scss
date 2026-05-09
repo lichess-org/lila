@@ -124,7 +124,7 @@
     &__color {
       margin-top: 1.5vh;
 
-      i {
+      icon {
         display: block;
         width: 24px;
         height: 24px;
@@ -133,15 +133,15 @@
         padding: 0;
       }
 
-      .color-white i {
+      .color-white icon {
         background-image: url('../piece/cburnett/wK.svg');
       }
 
-      .color-random i {
+      .color-random icon {
         background-image: url('../images/wbK.svg');
       }
 
-      .color-black i {
+      .color-black icon {
         background-image: url('../piece/cburnett/bK.svg');
       }
 

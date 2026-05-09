@@ -79,7 +79,7 @@ final class Account(
           .full(me, perfs, withProfile = false) ++ Json
           .obj(
             "prefs" -> lila.pref.toJson(ctx.pref, lichobileCompat = HTTPRequest.isLichobile(req)),
-            "nowPlaying" -> JsArray(povs.take(50).map(env.api.lobbyApi.nowPlaying)),
+            "nowPlaying" -> JsArray(povs.value.take(50).map(env.api.lobbyApi.nowPlaying)),
             "nbChallenges" -> nbChallenges,
             "online" -> true
           )
@@ -105,7 +105,6 @@ final class Account(
           .extended(
             me.value,
             lila.api.UserApi.Opts(
-              withFollows = apiC.userWithFollows,
               withTrophies = false,
               withCanChallenge = false,
               withPlayban = getBool("playban"),
@@ -121,7 +120,7 @@ final class Account(
     env.round.proxyRepo
       .urgentGames(me)
       .map:
-        _.take((getInt("nb") | 9).atMost(50))
+        _.value.take((getInt("nb") | 9).atMost(50))
       .map:
         _.map(env.api.lobbyApi.nowPlaying)
       .map: povs =>

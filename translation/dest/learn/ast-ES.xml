@@ -89,7 +89,7 @@ garrando la pieza qu\'ataca al rei.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">¡Esti caballu ta dándote xaque
 per enriba de las tos defenses!</string>
   <string name="escapeOrBlock">¡Escapa col rei o bloquia l\'ataque!</string>
-  <string name="outOfCheckComplete">¡Felicidaes! Nun puedes dexar que garren el to rei, ¡ten les tos defenses llistes pa un xaque!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">¡Felicidaes! Nun puedes dexar que garren el to rei, ¡ten les tos defenses llistes pa un xaque!</string>
   <string name="mateInOne">Xaque mate n\'una</string>
   <string name="defeatTheOpponentsKing">Derrota al rei enemigu</string>
   <string name="mateInOneIntro">Ganes cuando el to oponente nun pue defendese d\'un xaque.</string>

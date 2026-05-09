@@ -624,9 +624,6 @@ POST  /mod/:username/create-name-close-vote controllers.Mod.createNameCloseVote(
 POST  /mod/:username/ask-usertable-check controllers.Mod.askUsertableCheck(username: UserStr)
 GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period)
-GET   /mod/activity                    controllers.Mod.activity
-GET   /mod/activity/:who/:period       controllers.Mod.activityOf(who, period)
-GET   /mod/queues/:period              controllers.Mod.queues(period)
 GET   /mod/search                      controllers.Mod.search
 GET   /mod/notes                       controllers.Mod.notes(page: Int ?= 1, q ?= "")
 GET   /mod/chat-user/:username         controllers.Mod.chatUser(username: UserStr)
@@ -676,8 +673,6 @@ GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: ForumP
 POST  /diagnostic                      controllers.ForumTopic.diagnostic
 POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(slug: ForumTopicSlug)
 
-# Msg compat
-POST  /inbox/new                       controllers.Msg.compatCreate
 # Msg
 GET   /inbox                           controllers.Msg.home(before: Option[Long] ?= None)
 GET   /inbox/search                    controllers.Msg.search(q)

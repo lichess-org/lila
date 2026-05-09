@@ -29,7 +29,7 @@ export default function (ctrl: LobbyController) {
     active === 'now_playing' || nbPlaying || isBot
       ? tab(ctrl, 'now_playing', active, [
           ...i18n.site.nbGamesInPlay.asArray(nbPlaying, nbPlaying >= 100 ? '99+' : nbPlaying.toString()),
-          nbMyTurn > 0 ? h('i.unread', nbMyTurn >= 100 ? '99+' : nbMyTurn) : null,
+          nbMyTurn > 0 ? h('icon.unread', nbMyTurn >= 100 ? '99+' : nbMyTurn) : null,
         ])
       : null,
   ];

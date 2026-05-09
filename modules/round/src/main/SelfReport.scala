@@ -2,10 +2,11 @@ package lila.round
 
 import com.softwaremill.tagging.*
 import scalalib.ThreadLocalRandom
+import scalalib.net.IpAddressStr
 import scala.util.matching.Regex
 import chess.IntRating
 
-import lila.core.net.{ IpAddress, IpAddressStr }
+import lila.core.net.IpAddress
 import lila.memo.SettingStore
 import lila.rating.UserPerfsExt.bestRating
 import lila.user.UserApi

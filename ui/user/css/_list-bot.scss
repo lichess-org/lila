@@ -9,14 +9,26 @@
     }
 
     .box__top {
-      padding-bottom: 1.5em;
+      padding-bottom: 0.5em;
+    }
+
+    h3 {
+      margin-bottom: 2em;
     }
   }
 
-  --c-bot: #{$c-primary};
-
   &__featured {
-    --c-bot: #{$c-brag};
+    .bots__list__entry {
+      border-color: $c-brag;
+
+      &__play {
+        color: $c-brag;
+
+        &:hover {
+          background-color: $c-brag;
+        }
+      }
+    }
   }
 
   &__list {
@@ -32,19 +44,19 @@
     user-select: none;
 
     &__entry {
-      @extend %box-neat, %flex-column;
+      @extend %flex-column, %box-radius;
+      @include backdrop-blur-if-transparent;
 
       justify-content: space-between;
       gap: 1em;
-      background: $c-bg-box;
-      border: 1px solid var(--c-bot);
-      cursor: pointer;
+      background: $c-bg-zebra;
+      border: $border;
+      overflow: hidden;
 
       &__head {
         @extend %flex-column;
 
         padding: 1em 1.5em 0 1.5em;
-        gap: 0.5em;
 
         .user-link {
           font-size: 1.7em;
@@ -68,13 +80,14 @@
       }
 
       &__play {
-        @extend %flex-center-center, %box-radius-bottom;
+        @extend %flex-center-center;
 
-        padding: 1.5em 0;
-        color: $c-bot;
+        padding: 1em 0;
+        font-size: 1.1em;
+        color: $c-primary;
 
         &:hover {
-          background: var(--c-bot);
+          background: $c-primary;
           color: $c-over;
         }
       }

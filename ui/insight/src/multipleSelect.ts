@@ -210,17 +210,15 @@ export const registerMultipleSelect = () => {
           .off('mouseout')
           .multipleSelectHover(that.open.bind(that), that.close.bind(that));
       this.$parent.off('keydown').on('keydown', function (e) {
-        switch (e.which) {
-          case 27:
-            that.close();
-            that.$choice[0]?.focus();
-            break;
+        if (e.key === 'Escape') {
+          that.close();
+          that.$choice[0]?.focus();
         }
       });
       this.$searchInput
         .off('keydown')
         .on('keydown', function (e) {
-          if (e.keyCode === 9 && e.shiftKey) {
+          if (e.key === 'Tab' && e.shiftKey) {
             that.close();
           }
         })
@@ -228,7 +226,7 @@ export const registerMultipleSelect = () => {
         .on('keyup', function (e) {
           if (
             that.options.filterAcceptOnEnter &&
-            (e.which === 13 || e.which === 32) &&
+            (e.key === 'Enter' || e.code === 'Space') &&
             that.$searchInput.val()
           ) {
             that.$selectAll[0]?.click();

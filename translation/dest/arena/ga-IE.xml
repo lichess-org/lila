@@ -13,7 +13,7 @@ Is fiú pointí dúbailte iad na cluichí a leanann go dtí go caillfear cluiche
 Is é sin, 4 phointe don bua, cluiche cothrom 2 phointe, agus fós ní bhfaighfear pointe do cailluint cluiche.
 
 Mar shampla, dhá bhua agus ansin cluiche caillte ina dhiaidh, sin 6 bpointe: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Airéine Báiní</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Airéine Báiní</string>
   <string name="berserkAnswer">Nuair a chliceálann imreoir an cnaipe Báiní ag tús an chluiche, cailleann siad leath a gcuid ama ar an chlog, ach faigheann siad pointe comórtais breise amháin don bua.
 
 Ag dul le Bainí i maor ama le incrimint caillfear an t-incrimint fosta (is eisceacht é 1 + 2, tugann sé 1 + 0).

@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Kjo është faqja e profilit tuaj.</string>
   <string name="enabledKidModeSuggestion">A do ta përdorë këtë llogari ndonjë fëmijë? Mund të doni të aktivizoni %s.</string>
   <string name="whatNowSuggestions">Po më? Ja ndoca sugjerime:</string>
-  <string name="learnChessRules">Mësoni rregullat e shahut</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Mësoni rregullat e shahut</string>
   <string name="improveWithChessTacticsPuzzles">Përmirësohuni, përmes puzzle-esh taktikash shahu.</string>
   <string name="playTheArtificialIntelligence">Luani kundër Inteligjencës Artificiale.</string>
   <string name="playOpponentsFromAroundTheWorld">Luani me kundërshtarë nga anembanë bota.</string>

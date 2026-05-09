@@ -52,7 +52,7 @@ final class RacerApi(
     maxSize = Max(32),
     timeout = 20.seconds,
     name = "racer.rematch",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   def rematch(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] = race.rematch.flatMap(get) match

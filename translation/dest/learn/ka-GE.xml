@@ -97,7 +97,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">მხედარი ქიშს გეუბნება!</string>
   <string name="escapeOrBlock">დააღწიე თავი ან 
 დაბლოკე შეტევა!</string>
-  <string name="outOfCheckComplete">გილოცავ! შენს მეფეს ვერასდროს აიყვანენ!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">გილოცავ! შენს მეფეს ვერასდროს აიყვანენ!</string>
   <string name="mateInOne">მატი ერთ სვლაში</string>
   <string name="defeatTheOpponentsKing">დაამარცხე მოწინააღმდეგის მეფე</string>
   <string name="mateInOneIntro">როცა შენს ქიშს ვერაფერს უხერხებენ, იგებ.</string>

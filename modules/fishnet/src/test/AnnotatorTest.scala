@@ -11,6 +11,7 @@ import lila.analyse.Annotator
 import lila.core.config.NetDomain
 import lila.core.game.Player
 import lila.core.id.GamePlayerId
+import lila.mon.extensions.*
 
 import JsonApi.*
 import readers.given

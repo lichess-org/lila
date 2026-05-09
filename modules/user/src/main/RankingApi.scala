@@ -4,6 +4,7 @@ import reactivemongo.api.bson.*
 import scala.util.Success
 import chess.{ IntRating, ByColor }
 import chess.rating.IntRatingDiff
+import scalalib.paginator.Paginator
 
 import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.user.LightPerf
@@ -11,7 +12,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.GlickoExt.rankable
 import lila.rating.PerfType
-import scalalib.paginator.Paginator
+import lila.mon.extensions.*
 
 final class RankingApi(
     c: lila.db.AsyncCollFailingSilently,
@@ -128,7 +129,7 @@ final class RankingApi(
             computeAggregate(perf).chronometer
               .logIfSlow(500, logger.branch("ranking"))(_ => s"slow weeklyStableRanking for $perf")
               .result
-              .monSuccess(_.user.weeklyStableRanking(perf))
+              .monSuccess(lila.mon.user.weeklyStableRanking(perf))
               .dmap(perf -> _)
           .map(_.toMap)
           .chronometer

@@ -99,7 +99,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">나이트가 방어를 뚫고 공격합니다!</string>
   <string name="escapeOrBlock">폐하를 피신시키거나
 공격을 막으세요!</string>
-  <string name="outOfCheckComplete">축하합니다! 체크당하면 꼭 벗어나야 함을 명심하세요!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">축하합니다! 체크당하면 꼭 벗어나야 함을 명심하세요!</string>
   <string name="mateInOne">한 수 안에 체크메이트하기</string>
   <string name="defeatTheOpponentsKing">상대 킹을 벗어날 수 없는 위협에 가두자</string>
   <string name="mateInOneIntro">체크메이트란 더 이상 방어할 수 없는 체크 상태입니다. 한마디로 승리죠!</string>

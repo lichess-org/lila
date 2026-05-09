@@ -73,8 +73,8 @@ lazy val modules = Seq(
   insight, evaluation, storm,
   // level 7
   // everything else is free from deps; do the big ones first
-  relay, security, tournament, plan, round,
-  swiss, insight, fishnet, tutor, mod, challenge, web,
+  relay, tutor, security, tournament, plan, round,
+  swiss, insight, fishnet, mod, challenge, web,
   team, forum, streamer, simul, activity, msg, ublog,
   notifyModule, clas, perfStat, opening, timeline,
   setup, video, fide, title, push,
@@ -98,6 +98,11 @@ lazy val coreI18n = module("coreI18n",
   Seq(scalatags) ++ scalalib.bundle
 )
 
+lazy val mon = module("mon",
+  Seq(core),
+  Seq(kamon.core, kamon.influxdb)
+)
+
 lazy val common = module("common",
   Seq(core),
   Seq(
@@ -111,7 +116,7 @@ lazy val db = module("db",
 )
 
 lazy val memo = module("memo",
-  Seq(db),
+  Seq(db, mon),
   Seq(scaffeine, bloomFilter) ++ playWs.bundle
 )
 
@@ -123,14 +128,14 @@ lazy val i18n = module("i18n",
     I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "activity appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn nvui oauthScope onboarding patron perfStat preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands".split(' ').toList,
+      dbs = "activity appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn nvui oauthScope onboarding patron perfStat preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands msg".split(' ').toList,
       outputDir = (Compile / resourceManaged).value
     )
   }.taskValue
 )
 
 lazy val rating = module("rating",
-  Seq(db, ui),
+  Seq(db, ui, mon),
   tests.bundle ++ Seq(apacheMath)
 ).dependsOn(common % "test->test")
 
@@ -346,7 +351,7 @@ lazy val security = module("security",
 )
 
 lazy val shutup = module("shutup",
-  Seq(db),
+  Seq(db, mon),
   tests.bundle
 )
 
@@ -371,7 +376,7 @@ lazy val study = module("study",
 ).dependsOn(common % "test->test")
 
 lazy val relay = module("relay",
-  Seq(study, game, report),
+  Seq(study, game),
   Seq(chess.tiebreak) ++ tests.bundle
 ).dependsOn(coreI18n % "test->test")
 
@@ -401,17 +406,17 @@ lazy val playban = module("playban",
 )
 
 lazy val push = module("push",
-  Seq(db),
+  Seq(db, mon),
   playWs.bundle ++ Seq(googleOAuth)
 )
 
 lazy val irc = module("irc",
-  Seq(common),
+  Seq(common, mon),
   playWs.bundle
 )
 
 lazy val mailer = module("mailer",
-  Seq(memo, coreI18n, ui),
+  Seq(memo, ui),
   Seq(hasher, play.mailer)
 )
 

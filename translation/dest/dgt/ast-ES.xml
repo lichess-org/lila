@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Si nun se detecta un movimientu</string>
   <string name="checkYouHaveMadeOpponentsMove">Comprueba que fixisti primero la xugada del to oponente nel tableru DGT. Revierte la to xugada. Xuega de nuevu.</string>
   <string name="asALastResort">Como últimu recursu, configura el tableru idénticu a cómo ta en Lichess, depués %s</string>
-  <string name="reloadThisPage">Recargar esta páxina</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Recargar esta páxina</string>
   <string name="dgtConfigure">DGT - Configurar</string>
   <string name="lichessConnectivity">Conectividad de Lichess</string>
   <string name="validDgtOauthToken">Tienes un token de OAuth fayadizu pa xugar con DGT.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Les palabres clave tán en formatu JSON. Utilizar pa traducir movimientos y resultancies al to idioma. Por defectu ye l\'inglés, pero nun duldes en camudalo.</string>
   <string name="debug">Depurar fallos</string>
   <string name="verboseLogging">Rexistru detalláu</string>
-  <string name="toSeeConsoleMessage">Pa ver mensaxes de consola prime Command + Option + C (Mac) o Control + Shift + C (Windows, Linux, Chrome VOS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Pa ver mensaxes de consola prime Command + Option + C (Mac) o Control + Shift + C (Windows, Linux, Chrome VOS)</string>
   <string name="playWithDgtBoard">Xugar con un tablero DGT</string>
   <string name="configure">Configurar</string>
 </resources>

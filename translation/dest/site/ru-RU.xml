@@ -97,6 +97,8 @@
   <string name="database">Архив партий</string>
   <string name="whiteDrawBlack">Белые / Ничья / Чёрные</string>
   <string name="averageRatingX">Средний рейтинг: %s</string>
+  <string name="minRatingX">Минимальный рейтинг %s</string>
+  <string name="maxRatingX">Максимальный рейтинг %s</string>
   <string name="recentGames">Недавние игры</string>
   <string name="topGames">Лучшие игры</string>
   <string name="masterDbExplanation">Два миллиона игр, проведённых за доской игроками FIDE с рейтингом %1$s+ с %2$s по %3$s</string>
@@ -130,7 +132,6 @@
   <string name="enable">Включить</string>
   <string name="bestMoveArrow">Показывать лучшие ходы стрелками</string>
   <string name="showVariationArrows">Показать стрелки вариантов</string>
-  <string name="evaluationGauge">Шкала оценки</string>
   <string name="visualMotifs">Шахматные мотивы</string>
   <string name="undefendedPieces">Незащищённые фигуры</string>
   <string name="pinnedPieces">Связанные фигуры</string>

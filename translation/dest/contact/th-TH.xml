@@ -52,7 +52,7 @@
   <string name="knightMate">มันเป็นไปได้ที่จะรุกรุกจนโดยม้าหรือบิชอป หากฝ่ายตรงข้ามไม่ได้เหลือแค่คิงตัวเดียวบนกระดาน</string>
   <string name="noRatingPoints">ไม่มีแต้มคะแนนที่ได้รับ</string>
   <string name="ratedGame">ให้แน่ใจว่าคุณเล่นเกมคิดคะแนนอยู่ เกมสบายๆ จะไม่มีผลต่อคะแนนของผู้เล่น</string>
-  <string name="botRatingAbuse">ในบางสถานการณ์เมื่อเล่นกับบัญชีบอท เกมที่คิดคะแนนอาจไม่ให้คะแนนหากมีการตัดสินว่าผู้เล่นใช้บอทในทางที่ผิดเพื่อให้ได้แต้มคะแนน</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">ในบางสถานการณ์เมื่อเล่นกับบัญชีบอท เกมที่คิดคะแนนอาจไม่ให้คะแนนหากมีการตัดสินว่าผู้เล่นใช้บอทในทางที่ผิดเพื่อให้ได้แต้มคะแนน</string>
   <string name="errorPage">หน้านี้มีข้อผิดพลาด</string>
   <string name="reportErrorPage">ถ้าหน้าที่คุณเปิดมีปัญหา คุณสามารถรายงานได้</string>
   <string name="learnHowToMakeBroadcasts">เรียนรู้การออกอากาศใน Lichess</string>

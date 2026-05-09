@@ -3,6 +3,7 @@ package lila.puzzle
 import scalalib.Iso
 
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 object PuzzlePath:
 
@@ -65,7 +66,7 @@ h":"5B7ADA38","planCacheKey":"7FF0C349","queryFramework":"classic","reslen":286,
           nextFor(requester)(angle, actualTier, difficulty, previousPaths, compromise + 1)
         case _ => fuccess(none)
   }.mon:
-    _.puzzle.nextPathFor(angle.categ, requester)
+    lila.mon.puzzle.nextPathFor(angle.categ, requester)
 
   def select(angle: PuzzleAngle, tier: PuzzleTier, rating: Range) = $doc(
     "min".$lte(f"${angle.key}${sep}${tier}${sep}${rating.max}%04d"),

@@ -8,7 +8,7 @@ import play.api.libs.ws.StandaloneWSClient
 import scalalib.cache.FrequencyThreshold
 import scalalib.data.LazyFu
 
-import lila.common.Chronometer
+import lila.mon.extensions.*
 
 final private class FirebasePush(
     deviceApi: DeviceApi,
@@ -26,7 +26,7 @@ final private class FirebasePush(
       maxSize = Max(512),
       timeout = 10.seconds,
       name = "firebasePush",
-      lila.log.asyncActorMonitor.full
+      lila.mon.asyncActorMonitor.full
     )
 
   def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
@@ -55,10 +55,10 @@ final private class FirebasePush(
                       // access token has 1h lifetime and is requested only if expired
                       token <- workQueue {
                         Future:
-                          Chronometer.syncMon(_.blocking.time("firebase")):
+                          lila.mon.Chronometer.syncMon(lila.mon.blocking.time("firebase")):
                             creds.refreshIfExpired()
                             creds.getAccessToken()
-                      }.chronometer.mon(_.push.googleTokenTime).result
+                      }.chronometer.mon(lila.mon.push.googleTokenTime).result
                       _ <- send(token, device, config, data)
                     yield ()
                 yield ()

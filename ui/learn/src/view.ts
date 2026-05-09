@@ -1,6 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 
 import * as licon from 'lib/licon';
+import { iconTag } from 'lib/view';
 
 import type { LearnCtrl } from './ctrl';
 import { hashHref } from './hashRouting';
@@ -44,8 +45,7 @@ const mapView = (ctrl: LearnCtrl) =>
     ]),
   ]);
 
-const makeStars = (rank: scoring.Rank): VNode[] =>
-  Array(4 - rank).fill(h('i', { attrs: { 'data-icon': licon.Star } }));
+const makeStars = (rank: scoring.Rank): VNode[] => Array(4 - rank).fill(iconTag(licon.Star));
 
 const ongoingStr = (ctrl: LearnCtrl, s: Stage): string => {
   const progress = ctrl.stageProgress(s);

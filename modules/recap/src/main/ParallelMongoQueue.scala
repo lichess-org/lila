@@ -1,4 +1,4 @@
-package lila.memo
+package lila.recap
 
 import lila.db.dsl.*
 import reactivemongo.api.bson.*
@@ -6,7 +6,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.common.Uptime
 import lila.common.LilaScheduler
 
-/* Enqueue heavy computations
+/* Enqueue heavy computations. Generic, could be move out of recap for reuse.
  * - persists the queue, allowing unbounded queue size and resiliency
  * - allows parallel processing of the queue with dynamic worker size
  */
@@ -50,7 +50,7 @@ final class ParallelMongoQueue[A: BSONHandler](
     maxSize = Max(256),
     timeout = 5.seconds,
     s"$name.workQueue",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   /* Read the oldest <parallelism()> entries from the queue

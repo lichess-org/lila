@@ -2,13 +2,13 @@ package lila.web
 
 import play.api.i18n.Lang
 import play.api.mvc.*
+import scalalib.net.{ Crawler, UserAgent }
 
 import lila.common.HTTPRequest
 import lila.core.config.BaseUrl
 import lila.core.i18n.Translate
 import lila.core.perf.UserWithPerfs
 import lila.core.pref.Pref
-import lila.core.net.UserAgent
 import lila.ui.Context
 
 trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders:

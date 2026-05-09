@@ -78,7 +78,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
     return h('option', { attrs: { value: pos.epd || pos.fen, 'data-fen': pos.fen } }, pos.name);
   };
 
-  const buttonStart = (icon?: string) =>
+  const buttonStart = (icon?: LiconType) =>
     h(
       `button.button.button-empty${icon ? '.text' : ''}`,
       {
@@ -92,7 +92,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
       },
       i18n.site.startPosition,
     );
-  const buttonClear = (icon?: string) =>
+  const buttonClear = (icon?: LiconType) =>
     h(
       `button.button.button-empty${icon ? '.text' : ''}`,
       {
@@ -323,7 +323,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [h('span.text', { attrs: { 'data-icon': licon.Swords } }, i18n.site.continueFromHere)],
+              [h('span.text', { attrs: dataIcon(licon.Swords) }, i18n.site.continueFromHere)],
             ),
             studyButton(ctrl, state),
           ]),

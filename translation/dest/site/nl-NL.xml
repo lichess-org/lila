@@ -95,6 +95,8 @@
   <string name="database">Databank</string>
   <string name="whiteDrawBlack">Wit / Remise / Zwart</string>
   <string name="averageRatingX">Gemiddelde rating: %s</string>
+  <string name="minRatingX">Minimumrating van %s</string>
+  <string name="maxRatingX">Maximumrating van %s</string>
   <string name="recentGames">Recente partijen</string>
   <string name="topGames">Toppartijen</string>
   <string name="masterDbExplanation">Twee miljoen OTB-partijen van %1$s+ FIDE-gerankte spelers van %2$s tot %3$s</string>
@@ -126,7 +128,6 @@
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
   <string name="showVariationArrows">Toon variantpijlen</string>
-  <string name="evaluationGauge">Evaluatiemeter</string>
   <string name="visualMotifs">Visuele motieven</string>
   <string name="undefendedPieces">Onverdedigde stukken</string>
   <string name="pinnedPieces">Gepende stukken</string>
@@ -268,7 +269,7 @@
   <string name="emailCanTakeSomeTime">Het kan even duren voordat de mail binnenkomt.</string>
   <string name="refreshInboxAfterFiveMinutes">Wacht 5 minuten en vernieuw uw e-mail inbox.</string>
   <string name="checkSpamFolder">Controleer ook uw spammap, het kan daar terechtkomen. Als dat zo is, markeer het als geen spam.</string>
-  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">Als u uw bevestigingsmail niet kunt vinden, stuur dan een e-mail naar %s en we zullen uw account voor u bevestigen.</string>
+  <string name="sendEmailForAccountVerification">Als u uw bevestigingsmail niet kunt vinden, stuur dan een e-mail naar %s en we zullen uw account voor u bevestigen.</string>
   <string name="accountConfirmed">Gebruiker %s is succesvol bevestigd.</string>
   <string name="accountCanLogin">Je kunt nu inloggen als %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Je hebt geen bevestigingsmail nodig.</string>
@@ -941,6 +942,7 @@
   <string name="tryTheContactPage">probeer de contactpagina</string>
   <string name="makeSureToRead">Lees zeker %1$s</string>
   <string name="theForumEtiquette">de regels van het forum</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Wees aardig op het forum.</string>
   <string name="thisTopicIsArchived">Dit onderwerp is gearchiveerd; er kan niet meer op worden gereageerd.</string>
   <string name="joinTheTeamXToPost">Neem deel aan %1$s, om in dit forum te posten</string>
   <string name="teamNamedX">team %1$s</string>

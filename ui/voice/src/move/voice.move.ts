@@ -535,7 +535,7 @@ export function initModule({
   }
 
   function question(): QuestionOpts | false {
-    const mkOpts = (prompt: string, yesIcon: string) => ({
+    const mkOpts = (prompt: string, yesIcon: LiconType) => ({
       prompt,
       yes: { action: () => command?.action?.(true), key: 'yes', icon: yesIcon },
       no: { action: () => command?.action?.(false), key: 'no' },

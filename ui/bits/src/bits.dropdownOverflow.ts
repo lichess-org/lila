@@ -1,5 +1,6 @@
 import { frag } from 'lib';
 import { isTouchDevice } from 'lib/device';
+import * as licon from 'lib/licon';
 import { json as xhrJson } from 'lib/xhr';
 
 type HttpMethod = 'GET' | 'POST';
@@ -124,7 +125,7 @@ function renderMenu(container: HTMLElement): void {
       menuContainer.classList.remove('btn-rack');
       dropdownDiv.classList.remove('btn-rack__btn');
       moreButton.textContent = '';
-      moreButton.setAttribute('data-icon', ''); // Hamburger icon
+      moreButton.setAttribute('data-icon', licon.Hamburger);
     }
 
     const dropdownWindow = document.createElement('div');

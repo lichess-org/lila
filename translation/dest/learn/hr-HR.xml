@@ -103,7 +103,7 @@ uzimanjem protivničke figure.</string>
 kroz tvoju obranu!</string>
   <string name="escapeOrBlock">Pobjegni kraljem
 ili blokiraj napad!</string>
-  <string name="outOfCheckComplete">Čestitke! Tvoj kralj ne može nikada biti uzet, pobrini se da se možeš obraniti od šaha!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Čestitke! Tvoj kralj ne može nikada biti uzet, pobrini se da se možeš obraniti od šaha!</string>
   <string name="mateInOne">Mat u jednom</string>
   <string name="defeatTheOpponentsKing">Porazi protivnikovog kralja</string>
   <string name="mateInOneIntro">Pobjeda je tvoja kada tvoj protivnik ne može obraniti šah.</string>

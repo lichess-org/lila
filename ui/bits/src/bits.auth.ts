@@ -36,7 +36,6 @@ function loginStart() {
             requestAnimationFrame(() => $f.find('.two-factor input').val('')[0]!.focus());
             toggleSubmit($f.find('.submit'), true);
             if (text === 'InvalidTotpToken') $f.find('.two-factor .error').removeClass('none');
-            turnstile($f);
           } else if (res.ok) location.href = text.startsWith('ok:') ? text.slice(3) : '/';
           else {
             try {
@@ -76,6 +75,8 @@ function signupStart() {
     const res = await xhr.jsonAnyResponse(xhr.url('/api/player/autocomplete', { term: name, exists: 1 }));
     const body = await res.json();
     $group.find('.error-validation').remove();
+    $username.parents('.form-group').toggleClass('is-invalid', res.status === 400 || (res.ok && !!body));
+    $exists.siblings('.error').remove(); // server-side validation
     if (res.ok) $exists.toggleClass('none', !body);
     else if (res.status === 400) {
       $exists.addClass('none');

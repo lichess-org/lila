@@ -9,6 +9,7 @@ import reactivemongo.api.bson.*
 import java.util.zip.ZipInputStream
 import java.time.YearMonth
 
+import lila.mon.extensions.*
 import lila.core.fide.Federation
 import lila.db.dsl.{ *, given }
 
@@ -121,7 +122,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
                 .map(_.toList)
                 .mapAsync(1)(saveIfChanged)
                 .runWith(lila.common.LilaStream.sinkSum)
-                .monSuccess(_.fideSync.time)
+                .monSuccess(lila.mon.fideSync.time)
             nbAll <- repo.player.countAll
           yield
             lila.mon.fideSync.updated.update(nbUpdated)

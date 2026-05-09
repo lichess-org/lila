@@ -11,6 +11,7 @@ import lila.core.security.ClearPassword
 import lila.user.TotpSecret.{ base32, verify }
 import lila.user.{ TotpSecret, TotpToken }
 import lila.oauth.OAuthSignedClient.SimpleSignup
+import lila.mon.extensions.*
 
 final class SecurityForm(
     userRepo: lila.user.UserRepo,
@@ -76,15 +77,16 @@ final class SecurityForm(
       )
     )
 
-    val username: Mapping[UserName] = LilaForm
+    private val anyUsername: Mapping[UserName] = LilaForm
       .cleanNonEmptyText(minLength = 2, maxLength = 20)
       .verifying(newUsernameConstraints*)
       .into[UserName]
       .verifying("usernameUnacceptable", u => !lameNameCheck.value || !LameName.username(u))
-      .verifying(
-        "usernameAlreadyUsed",
-        u => u.id.noGhost && !userRepo.exists(u).await(3.seconds, "signupUsername")
-      )
+
+    val uniqueUsername: Mapping[UserName] = anyUsername.verifying(
+      "usernameAlreadyUsed",
+      u => u.id.noGhost && !userRepo.exists(u).await(3.seconds, "signupUsername")
+    )
 
     def firstUsernameError(username: String)(using lila.core.i18n.Translate): Option[String] =
       newUsernameConstraints
@@ -101,10 +103,10 @@ final class SecurityForm(
       "account" -> agreementBool
     )(AgreementData.apply)(unapply)
 
-    def website(simpleSignup: Option[SimpleSignup]): SignupForm =
+    def full(simpleSignup: Option[SimpleSignup]): SignupForm =
       val base = Form:
         mapping(
-          "username" -> username,
+          "username" -> uniqueUsername,
           "password" -> newPasswordField,
           "email" -> emailField,
           "agreement" -> agreement,
@@ -127,6 +129,8 @@ final class SecurityForm(
             ,
             simple = true
           )
+
+    def preForm = Form(tuple("username" -> anyUsername, "email" -> sendableEmail))
 
   def passwordReset = Form:
     mapping(
@@ -257,18 +261,13 @@ object SecurityForm:
       account: Boolean
   )
 
-  trait AnySignupData:
-    def username: UserName
-    def email: EmailAddress
-    def fp: Option[String]
-
   case class SignupData(
       username: UserName,
       password: String,
       email: EmailAddress,
       agreement: AgreementData,
       fp: Option[String]
-  ) extends AnySignupData:
+  ):
     def fingerPrint = FingerPrint.from(fp.filter(_.nonEmpty))
     def clearPassword = ClearPassword(password)
 

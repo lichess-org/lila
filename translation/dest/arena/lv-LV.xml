@@ -14,7 +14,7 @@ Turpmākās spēles būs vērtas divreiz vairāk punktu līdz brīdim, kad neizd
 Tas ir, par uzvaru piešķirs 4 punktus, par neizšķirtu - 2 punktus un par zaudējumu - joprojām nevienu.
 
 Piemēram, pēc divām uzvarām panākot neizšķirtu iegūst 6 punktus: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Kurbada Arēna</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Kurbada Arēna</string>
   <string name="berserkAnswer">Kad spēlētājs, spēlei sākoties, nospiež uz Kurbada pogas, viņš zaudē pusi no sava pulksteņa laika, taču par uzvaru tiek piešķirts viens papildus punkts.
 
 Spēlējot Kurbadu, laika kontrolēm ar inkrementu tiek noņemts inkrements. (1+2 ir izņēmums, tas pārvēršas par 1+0)

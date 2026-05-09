@@ -19,7 +19,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
   val dataValue = attr("data-value")
   val dataTags = attr("data-tags")
   val playban = iconTag(Icon.Clock)
-  val alt: Frag = i("A")
+  val alt: Frag = iconTag("A")
   val shadowban: Frag = iconTag(Icon.BubbleSpeech)
   val boosting: Frag = iconTag(Icon.LineGraph)
   val engine: Frag = iconTag(Icon.Cogs)
@@ -28,7 +28,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
   val clean: Frag = iconTag(Icon.User)
   val reportban = iconTag(Icon.CautionTriangle)
   val notesText = iconTag(Icon.Pencil)
-  val rankban = i("R")
+  val rankban = iconTag("R")
 
   def menu = mzSection("menu")(
     a(href := "#mz_actions")("Overview"),
@@ -312,19 +312,10 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi, mailerEventsUrl: Url):
   private def canViewRolesOf(user: User)(using Option[Me]): Boolean =
     Granter.opt(_.ChangePermission) || (Granter.opt(_.Admin) && user.roles.nonEmpty)
 
-  def prefs(u: User, hasKeyboardMove: Boolean, hasVoice: Boolean, botCompatible: Boolean)(using Context) =
+  def prefs(u: User, hasKeyboardMove: Boolean, hasVoice: Boolean)(using Context) =
     val prefList = List(
       hasKeyboardMove.option(li("keyboard moves")),
-      hasVoice.option(li("voice moves")),
-      botCompatible.option:
-        li:
-          strong:
-            a(
-              cls := "text",
-              dataIcon := Icon.CautionCircle,
-              href := lila.common.String.base64
-                .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
-            )("BOT-COMPATIBLE SETTINGS")
+      hasVoice.option(li("voice moves"))
     ).flatten
     frag(
       canViewRolesOf(u).option(

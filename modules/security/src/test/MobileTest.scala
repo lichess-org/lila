@@ -1,6 +1,7 @@
 package lila.security
 
-import lila.core.net.UserAgent
+import scalalib.net.UserAgent
+
 import lila.core.socket.Sri
 
 class MobileTest extends munit.FunSuite:

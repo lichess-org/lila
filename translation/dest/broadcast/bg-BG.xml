@@ -69,6 +69,7 @@
   <string name="ratingDiff">Разлика в рейтинга</string>
   <string name="gamesThisTournament">Партии в този турнир</string>
   <string name="score">Резултат</string>
+  <string name="standingsDisclaimer">Класирането се изчислява на базата на предаваните партии и може да се различава от официалните резултати.</string>
   <string name="allTeams">Всички отбори</string>
   <string name="tournamentFormat">Формат на турнира</string>
   <string name="tournamentLocation">Място на турнира</string>
@@ -83,6 +84,28 @@
   <string name="liveboard">Дъска на живо</string>
   <string name="communityBroadcast">Излъчване от общността</string>
   <string name="createdAndManagedBy">Създадено и управлявано от %s.</string>
+  <string name="matchPoints">Точки от мачове</string>
+  <string name="gamePoints">Точки от партии</string>
+  <string name="matches">Мачове</string>
+  <string name="matchHistory">История на мачовете</string>
+  <string name="teamResults">Отборни резултати</string>
+  <string name="termsAutomaticallyTranslated">Следните термини ще бъдат преведени автоматично: %s.</string>
   <string name="roundX">Кръг %s</string>
   <string name="defaultRoundNameHelp">Запазването на името по подразбиране ще позволи автоматичния му превод на всички останали езици.</string>
+  <string name="openTournament">Опен</string>
+  <string name="womenTournament">Жени</string>
+  <string name="menTournament">Мъже</string>
+  <string name="girlsTournament">Девойки</string>
+  <string name="boysTournament">Юноши</string>
+  <string name="openUnderXAgeTournament">Опен до %s</string>
+  <string name="girlsUnderXAgeTournament">Девойки до %s</string>
+  <string name="boysUnderXAgeTournament">Юноши до %s</string>
+  <string name="quarterfinals">Четвъртфинали</string>
+  <string name="semifinals">Полуфинали</string>
+  <string name="finals">Финал</string>
+  <string name="tiebreaks">Допълнителни показатели</string>
+  <string name="gameX">Партия %s</string>
+  <string name="knockouts">Елиминации</string>
+  <string name="underXAgeTournament" comment="%s is the maximum age set by the organiser for a tournament. e.g.    'U18' will mean it is an tournament for under-18 year olds.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">До %s г</string>
+  <string name="underXEloTournament" comment="%s is the maximum Elo rating set by the organiser for a tournament.     e.g. 'U2000' will mean it is an tournament for players with Elo under 2000.&#10;&#10;Please use your language's conventions in sporting activities for how the 'U' should be translated and keep it short.">Под %s</string>
 </resources>

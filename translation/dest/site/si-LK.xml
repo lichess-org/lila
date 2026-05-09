@@ -124,7 +124,6 @@
   <string name="enable">සක්‍රීය කරන්න</string>
   <string name="bestMoveArrow">හොඳම ඇදීම පෙන්නන්න</string>
   <string name="showVariationArrows">වෙනස්කම් ඊතල පෙන්වන්න</string>
-  <string name="evaluationGauge">ඇගයීම් මිනුම</string>
   <string name="multipleLines">විවිධ ඇදීම්</string>
   <string name="cpus">CPUගණන</string>
   <string name="memory">මතකය</string>

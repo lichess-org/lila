@@ -124,7 +124,6 @@
   <string name="enable">Ativar</string>
   <string name="bestMoveArrow">Seta de melhor movimento</string>
   <string name="showVariationArrows">Ver setas de variação</string>
-  <string name="evaluationGauge">Medidor da avaliação</string>
   <string name="undefendedPieces">Peças não defendidas</string>
   <string name="pinnedPieces">Peças pregadas</string>
   <string name="checkableKing">Rei checável</string>

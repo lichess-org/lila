@@ -104,7 +104,6 @@
   <string name="byCPL">Við CPL</string>
   <string name="enable">Loyv</string>
   <string name="bestMoveArrow">Pílur fyri besta leik</string>
-  <string name="evaluationGauge">Eftirmetingarmát</string>
   <string name="multipleLines">Fleiri linjur</string>
   <string name="cpus">CPUir</string>
   <string name="memory">Minni</string>

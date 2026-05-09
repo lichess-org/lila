@@ -32,9 +32,14 @@ final class Env(
     db: lila.db.Db,
     getFile: GetRelativeFile,
     routeUrl: RouteUrl
-)(using Executor, play.api.Mode, lila.core.i18n.Translator, lila.core.config.RateLimit)(using
-    scheduler: Scheduler
-):
+)(using
+    Executor,
+    play.api.Mode,
+    akka.stream.Materializer,
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
+)(using scheduler: Scheduler):
+
   private def netDomain = net.domain
 
   private val config = appConfig.get[SecurityConfig]("security")
@@ -53,11 +58,12 @@ final class Env(
   lazy val passwordHasher = PasswordHasher(
     secret = config.passwordBPassSecret,
     logRounds = 10,
-    hashTimer = lila.common.Chronometer.syncMon(_.user.auth.hashTime)
+    hashTimer = lila.mon.Chronometer.syncMon(lila.mon.user.auth.hashTime)
   )
 
   lazy val authenticator = wire[Authenticator]
 
+  lazy val turnstileCookie = TurnstileCookie(lilaCookie, config.loginTokenSecret)
   val turnstilePublicConfig = config.turnstile.public
   lazy val turnstile: Turnstile =
     if config.turnstile.enabled then wire[TurnstileReal]
@@ -94,7 +100,7 @@ final class Env(
 
   lazy val printBan = PrintBan(db(config.collection.printBan))
 
-  private val curPlaying = lila.core.data.LazyDep(() => lazyCurrentlyPlaying)
+  private val curPlaying = () => lazyCurrentlyPlaying
 
   lazy val garbageCollector =
     def mk: (() => Boolean) => GarbageCollector = isArmed => wire[GarbageCollector]
@@ -138,11 +144,8 @@ final class Env(
 
   lazy val emailAddressValidator = wire[EmailAddressValidator]
 
-  private lazy val disposableEmailDomain = DisposableEmailDomain(
-    ws = ws,
-    providerUrl = config.disposableEmail.providerUrl,
-    verifyMailBlocked = () => verifyMail.fetchAllBlocked
-  )
+  private lazy val disposableEmailDomain =
+    DisposableEmailDomain(ws, config.disposableEmail.providerUrl)
 
   lazy val spamKeywordsSetting = settingStore[Strings](
     "spamKeywords",
@@ -156,7 +159,7 @@ final class Env(
 
   if config.disposableEmail.enabled then
     scheduler.scheduleWithFixedDelay(42.seconds, 1.hour): () =>
-      disposableEmailDomain.refresh()
+      disposableEmailDomain.refresh().prefixFailure("DisposableEmailDomain.refresh").logFailure(logger)
 
   lazy val ipTrust: IpTrust = wire[IpTrust]
 

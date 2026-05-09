@@ -45,6 +45,8 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
     boardStyle.set('plain');
   }
 
+  const pov = ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov;
+
   const boardView = [
     hl('h2', 'Board'),
     hl(
@@ -58,7 +60,7 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
 
       nv.renderBoard(
         ground.state.pieces,
-        ctrl.flipped() ? opposite(ctrl.pov) : ctrl.pov,
+        pov,
         pieceStyle.get(),
         prefixStyle.get(),
         positionStyle.get(),
@@ -85,7 +87,7 @@ export function renderNvui(ctx: PuzzleNvuiContext): VNode {
         nv.renderMainline(ctrl.mainline, ctrl.path, moveStyle.get()),
       ),
       hl('h2', 'Pieces'),
-      nv.renderPieces(ground.state.pieces, moveStyle.get()),
+      nv.renderPieces(ground.state.pieces, moveStyle.get(), pov),
       hl('h2', 'Puzzle status'),
       hl(
         'div.status',

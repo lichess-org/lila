@@ -52,7 +52,7 @@
   <string name="knightMate">Yra įmanoma atlikti matą tik su žirgu ar rikiu jeigu priešininkas ant lentos turi daugiau negu tik karalių.</string>
   <string name="noRatingPoints">Nebuvo skirta reitingo taškų</string>
   <string name="ratedGame">Įsitikinkite, kad žaidėte reitinguotą partiją. Nevertinamos partijos nedaro įtakos žaidėjų reitingams.</string>
-  <string name="botRatingAbuse">Tam tikromis aplinkybėmis, jei nustatoma, kad žmogus išnaudoja robotą norėdamas gauti daugiau reitingo taškų, reitinguotas žaidimas prieš roboto paskyrą gali nesuteikti reitingo taškų.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Tam tikromis aplinkybėmis, jei nustatoma, kad žmogus išnaudoja robotą norėdamas gauti daugiau reitingo taškų, reitinguotas žaidimas prieš roboto paskyrą gali nesuteikti reitingo taškų.</string>
   <string name="errorPage">Klaidos puslapis</string>
   <string name="reportErrorPage">Jei susidūrėte su klaidos puslapiu galite apie jį pranešti:</string>
   <string name="learnHowToMakeBroadcasts">Išmokite kurti savo transliacijas per Lichess</string>

@@ -130,7 +130,6 @@
   <string name="enable">Įjungti</string>
   <string name="bestMoveArrow">Geriausio ėjimo rodyklė</string>
   <string name="showVariationArrows">Rodyti variacijų rodykles</string>
-  <string name="evaluationGauge">Vertinimo matuoklis</string>
   <string name="visualMotifs">Vizualiniai motyvai</string>
   <string name="undefendedPieces">Neapsaugotos figūros</string>
   <string name="pinnedPieces">Surištos figūros</string>

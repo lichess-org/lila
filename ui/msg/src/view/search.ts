@@ -2,11 +2,12 @@ import { h, type VNode } from 'snabbdom';
 
 import { blurOnEscape } from 'lib';
 import { throttle } from 'lib/async';
-import { hookMobileMousedown } from 'lib/device';
+import { hookMobileMousedown } from 'lib/mobileEvents';
 import { fullName } from 'lib/view/userLink';
 
-import type MsgCtrl from '../ctrl';
-import type { SearchResult, User } from '../interfaces';
+import type MsgCtrl from '@/ctrl';
+import type { SearchResult, User } from '@/interfaces';
+
 import renderContacts, { userIcon } from './contact';
 
 export const renderInput = (ctrl: MsgCtrl): VNode =>

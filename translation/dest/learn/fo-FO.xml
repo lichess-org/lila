@@ -83,7 +83,7 @@
   <string name="youCanGetOutOfCheckByTaking">Tú sleppur úr skákinum við at taka fólkið, ið skákar.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Hesin riddarin skákar gjøgnum tína verju!</string>
   <string name="escapeOrBlock">Rým við konginum, ella set eitt fólk fyri!</string>
-  <string name="outOfCheckComplete">Til lukku! Kongurin hjá tær verður ikki tikin. Ansa eftir, at tú fært vart móti skáki!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Til lukku! Kongurin hjá tær verður ikki tikin. Ansa eftir, at tú fært vart móti skáki!</string>
   <string name="mateInOne">Skák og mát í einum</string>
   <string name="defeatTheOpponentsKing">Vinn á mótstøðukonginum</string>
   <string name="mateInOneIntro">Tú vinnur, tá ið mótparturin ikki fær vart seg ímóti skáki.</string>

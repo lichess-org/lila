@@ -1,8 +1,9 @@
 package lila.web
 
 import play.api.mvc.RequestHeader
+import scalalib.net.Bearer
 
-import lila.core.net.{ IpAddress, Bearer }
+import lila.core.net.IpAddress
 import lila.core.socket.Sri
 import lila.core.security.IsProxy
 import lila.memo.RateLimit

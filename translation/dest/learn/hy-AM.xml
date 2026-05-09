@@ -86,7 +86,7 @@
   <string name="youCanGetOutOfCheckByTaking">Դուք կարող եք ազատվել շախից` վերցնելով գրոհող խաղաքարը։</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ձին շախ է տալիս արքային նրա պաշտպանության միջով։</string>
   <string name="escapeOrBlock">Հեռացրե՛ք արքան գրոհի տակից կամ պաշտպանե՛ք նրան։</string>
-  <string name="outOfCheckComplete">Շնորհավորո՜ւմ ենք։ Ձեր արքան հնարավոր չէ վերցնել, բայց համոզվեք, որ դուք կարող եք նրան պաշտպանել շախից։</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Շնորհավորո՜ւմ ենք։ Ձեր արքան հնարավոր չէ վերցնել, բայց համոզվեք, որ դուք կարող եք նրան պաշտպանել շախից։</string>
   <string name="mateInOne">Մատ 1 քայլից</string>
   <string name="defeatTheOpponentsKing">Ջախջախեք մրցակցի արքան</string>
   <string name="mateInOneIntro">Դուք կհաղթեք, եթե ձեր մրցակիցը չկարողանա պաշտպանվել շախից։</string>

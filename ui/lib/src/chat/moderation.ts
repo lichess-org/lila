@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { numberFormat } from '@/i18n';
 import { pubsub } from '@/pubsub';
-import { bind, confirm } from '@/view';
+import { bind, confirm, dataIcon } from '@/view';
 import { userLink } from '@/view/userLink';
 
 import * as licon from '../licon';
@@ -72,7 +72,7 @@ async function reportUserText(resourceId: string, username: string, text: string
   if (await confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
 }
 
-export const lineAction = (): VNode => h('action.mod', { attrs: { 'data-icon': licon.Agent } });
+export const lineAction = (): VNode => h('action.mod', { attrs: dataIcon(licon.Agent) });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
@@ -123,7 +123,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             h(
               'a.text',
               {
-                attrs: { 'data-icon': licon.Clock },
+                attrs: dataIcon(licon.Clock),
                 hook: bind('click', () => ctrl.timeout(r, data.text)),
               },
               r.name,
@@ -135,7 +135,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
           h(
             'a.text',
             {
-              attrs: { 'data-icon': licon.Clock },
+              attrs: dataIcon(licon.Clock),
               hook: bind('click', () => ctrl.timeout(ctrl.opts.reasons[0], data.text)),
             },
             'Timeout 15 minutes',
@@ -143,7 +143,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
           h(
             'a.text',
             {
-              attrs: { 'data-icon': licon.Clock },
+              attrs: dataIcon(licon.Clock),
               hook: bind('click', async () => {
                 await reportUserText(ctrl.opts.resourceId, data.name, data.text);
                 ctrl.timeout(ctrl.opts.reasons[0], data.text);
@@ -181,8 +181,8 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
 
   return [
     h('div.top', { key: 'mod-' + data.id }, [
-      h('span.text', { attrs: { 'data-icon': licon.Agent } }, [userLink(data)]),
-      h('a', { attrs: { 'data-icon': licon.X }, hook: bind('click', ctrl.close) }),
+      h('span.text', { attrs: dataIcon(licon.Agent) }, [userLink(data)]),
+      h('a', { attrs: dataIcon(licon.X), hook: bind('click', ctrl.close) }),
     ]),
     h('div.mchat__content.moderation', [
       h('i.line-text.block', ['"', data.text, '"']),

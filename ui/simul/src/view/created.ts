@@ -1,7 +1,7 @@
 import type { VNode } from 'snabbdom';
 
 import * as licon from 'lib/licon';
-import { domDialog, confirm, bind, hl } from 'lib/view';
+import { domDialog, confirm, bind, hl, dataIcon } from 'lib/view';
 
 import type SimulCtrl from '../ctrl';
 import type { Applicant } from '../interfaces';
@@ -16,7 +16,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
       canJoin = ctrl.data.canJoin;
     const variantIconFor = (a: Applicant) => {
       const variant = ctrl.data.variants.find(v => a.variant === v.key);
-      return variant && hl('td.variant', { attrs: { 'data-icon': variant.icon } });
+      return variant && hl('td.variant', { attrs: dataIcon(variant.icon) });
     };
     return [
       hl('div.box__top', [
@@ -144,7 +144,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                         'td.action',
                         isHost &&
                           hl('a.button.button-red', {
-                            attrs: { 'data-icon': licon.X },
+                            attrs: dataIcon(licon.X),
                             hook: bind('click', () => xhr.reject(applicant.player.id)(ctrl.data.id)),
                           }),
                       ),
@@ -175,7 +175,7 @@ const randomButton = (ctrl: SimulCtrl) =>
   hl(
     'a.button.text',
     {
-      attrs: { 'data-icon': licon.Checkmark },
+      attrs: dataIcon(licon.Checkmark),
       hook: bind('click', () => {
         const candidates = ctrl.candidates();
         const randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
@@ -189,13 +189,13 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
   accepted.length > 1
     ? hl(
         'a.button.button-green.text',
-        { attrs: { 'data-icon': licon.PlayTriangle }, hook: bind('click', () => xhr.start(ctrl.data.id)) },
+        { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', () => xhr.start(ctrl.data.id)) },
         `Start (${accepted.length})`,
       )
     : hl(
         'a.button.button-red.text',
         {
-          attrs: { 'data-icon': licon.X },
+          attrs: dataIcon(licon.X),
           hook: bind('click', async () => {
             if (await confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
           }),

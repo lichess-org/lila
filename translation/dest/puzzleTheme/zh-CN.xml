@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">一种呈 V 字形、视觉上形似燕尾的将杀模式。</string>
   <string name="triangleMate">三角将杀</string>
   <string name="triangleMateDescription">后和车距离对方王一格，且位于同一横线或直线，中间相隔一格，形成一个三角形。</string>
-  <string name="vukovicMate">瓦科维奇将杀</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">瓦科维奇将杀</string>
   <string name="vukovicMateDescription">车和马配合将杀对方的王。车在第三个棋子的支持下执行将杀，而马则用于封锁对方王的逃逸格。</string>
   <string name="knightEndgame">马残局</string>
   <string name="knightEndgameDescription">只有马和兵的残局。</string>

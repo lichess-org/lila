@@ -15,6 +15,7 @@ import lila.core.user.KidMode
 import lila.core.LightUser
 import lila.core.id.ForumTopicSlug
 import lila.memo.PicfitImage
+import lila.core.study.Study
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -288,6 +289,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       details = image.automod.flatMap(_.flagged)
     )
 
+  def studyUnfeature(study: Study)(using myId: MyId) = add:
+    Modlog(myId.modId, study.ownerId.some, Modlog.studyUnfeature, details = study.name.value.some)
+
   def wasUnengined(sus: Suspect, after: Option[Instant] = None) = coll.exists:
     $doc(
       "user" -> sus.user.id,
@@ -399,12 +403,12 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
             case u => u
 
   private def add(m: Modlog): Funit =
-    lila.mon.mod.log.create.increment()
+    lila.mon.mod.log.create(m.mod.userId, m.action).increment()
     lila.log("mod").info(m.toString)
     m.notable.so:
       coll.insert.one {
         bsonWriteObjTry[Modlog](m).get ++ (!m.isLichess).so($doc("human" -> true))
-      } >> (m.notableZulip.so(zulipMonitor(m)))
+      } >> m.notableZulip.so(zulipMonitor(m))
 
   private def zulipMonitor(m: Modlog): Funit =
     import lila.mod.Modlog as M

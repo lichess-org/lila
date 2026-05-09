@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Om ett drag inte registreras</string>
   <string name="checkYouHaveMadeOpponentsMove">Kontrollera att du har gjort din motståndares drag på DGT-brädet först. Återställ ditt drag. Spela igen.</string>
   <string name="asALastResort">Som en sista utväg, ställ upp brädet identiskt med Lichess, och %s</string>
-  <string name="reloadThisPage">Ladda om denna sida</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Ladda om denna sida</string>
   <string name="dgtConfigure">DGT - Inställningar</string>
   <string name="lichessConnectivity">Lichess-anslutning</string>
   <string name="validDgtOauthToken">Du har en OAuth-token som är lämplig för DGT-partier.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Nyckelord är i JSON-format. De används för att översätta rörelser och resultat till ditt språk. Standard är engelska, men ändra gärna det.</string>
   <string name="debug">Felsökning</string>
   <string name="verboseLogging">Utförliga loggar</string>
-  <string name="toSeeConsoleMessage">För att se konsolmeddelandet trycker du på Kommando + Alternativ + C (Mac) eller Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">För att se konsolmeddelandet trycker du på Kommando + Alternativ + C (Mac) eller Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Spela med ett DGT-bräde</string>
   <string name="configure">Konfigurera</string>
 </resources>

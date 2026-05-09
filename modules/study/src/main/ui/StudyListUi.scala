@@ -10,7 +10,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class ListUi(helpers: Helpers, bits: StudyBits):
+final class StudyListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }
   import trans.study as trs
 

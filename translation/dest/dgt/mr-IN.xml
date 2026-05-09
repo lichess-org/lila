@@ -6,9 +6,21 @@
   <string name="dgtBoardLimitations">DGT पटाची मर्यादा</string>
   <string name="thisPageAllowsConnectingDgtBoard">हे पृष्ठ तुमच्या DGT पटाला व Lichess ला एकत्रित करण्यास आणि खेळ खेळण्यासाठी वापरण्यास मदत करते.</string>
   <string name="toConnectTheDgtBoard">DGT ऋणपरमाणु पट जोडण्यासाठी तुम्हाला %s जतन करावं लागेल.</string>
-  <string name="downloadHere">तुम्ही ती आज्ञावली इथे डाउनलोड करू शकता: %s</string>
-  <string name="ifLiveChessRunningOnThisComputer">जर तुमच्या संगणकावर %1$s चालत असेल तर तुम्ही वर तुमची सांधा %2$s कडून तपासू शकतात.</string>
+  <string name="downloadHere">तुम्ही ती आज्ञावली इथे आयात करू शकता: %s</string>
+  <string name="ifLiveChessRunningOnThisComputer">जर तुमच्या संगणकावर %1$s चालत असेल तर तुम्ही %2$s वर तुमचे विद्युतसंबंध तपासू शकतात.</string>
   <string name="openingThisLink">ह्या लिंक ला उघडून</string>
+  <string name="configurationSection">मांडणी विभाग</string>
+  <string name="ifMoveNotDetected">जर एक डाव ओळखला गेला नाही</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">ह्या पृष्ठाला पुनः आयात करा</string>
+  <string name="dgtConfigure">DGT - मांडणी</string>
+  <string name="lichessConnectivity">Lichess विद्युतसंबंधता</string>
+  <string name="validDgtOauthToken">DGT खेळासाठी योग्य तुमच्याकडे एक OAuth प्रवेशचिन्ह आहे.</string>
+  <string name="webSocketUrl">%s वेबगुरू URL</string>
+  <string name="textToSpeech">संहिता-ते-उच्चार</string>
+  <string name="announceAllMoves">सर्व डावांची घोषणा करा</string>
+  <string name="debug">सुक्ष्मध्वनियंत्र</string>
+  <string name="verboseLogging">शब्दशः नोंदणीसाठी आज्ञावली</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">निबंधकातले संदेश पाहण्यासाठी, Ctrl + Shift + C दाबा (Windows, Linux, Chrome OS) किंवा ⌘ + ⌥ + C (Mac). </string>
   <string name="playWithDgtBoard">DGT पटाबरोबर खेळा</string>
   <string name="configure">मांडणी करा</string>
 </resources>

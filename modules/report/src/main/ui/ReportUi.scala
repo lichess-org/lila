@@ -203,7 +203,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
             menu,
             div(id := "report_list", cls := "page-menu__content box")(
               div(cls := "header")(
-                i(cls := "icon"),
+                iconTag(cls := "icon"),
                 span(cls := "tabs")(
                   Granter(_.SeeReport).option:
                     a(
@@ -316,7 +316,7 @@ final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
                           )
                         )(shortenRight(a.text, 200))
                       ),
-                  (r.atoms.size > 3).option(i(cls := "more")("And ", r.atoms.size - 3, " more"))
+                  (r.atoms.size > 3).option(iconTag(cls := "more")("And ", r.atoms.size - 3, " more"))
                 ),
                 td(
                   r.inquiry match

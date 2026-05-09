@@ -103,7 +103,7 @@ az ellenfél figurájának leütésével.</string>
 keresztül is sakkot ad!</string>
   <string name="escapeOrBlock">Lépj el a királlyal
 vagy védd ki a támadást!</string>
-  <string name="outOfCheckComplete">Gratulálunk! A királyt ugyan nem lehet leütni, de ügyelj, hogy mindig el tudd hárítani a sakkot!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Gratulálunk! A királyt ugyan nem lehet leütni, de ügyelj, hogy mindig el tudd hárítani a sakkot!</string>
   <string name="mateInOne">Egylépéses matt</string>
   <string name="defeatTheOpponentsKing">Győzd le az ellenfél királyát</string>
   <string name="mateInOneIntro">Győzöl, ha az ellenfeled nem tudja elhárítani a sakkot.</string>

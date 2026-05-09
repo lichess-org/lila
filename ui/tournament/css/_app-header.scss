@@ -5,16 +5,16 @@
     letter-spacing: 2px;
   }
 
-  .tour-shed-weekly & i::before {
+  .tour-shed-weekly & icon::before {
     font-size: 35px;
   }
 
-  .tour-shed-monthly & i::before,
-  .tour-shed-weekend & i::before {
+  .tour-shed-monthly & icon::before,
+  .tour-shed-weekend & icon::before {
     font-size: 40px;
   }
 
-  .tour-shed-yearly & i::before {
+  .tour-shed-yearly & icon::before {
     font-size: 45px;
   }
 

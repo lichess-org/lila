@@ -4,6 +4,7 @@ import { h, type VNode } from 'snabbdom';
 
 import resizeHandle from 'lib/chessgroundResize';
 import { isSafari } from 'lib/device';
+import { plyColor } from 'lib/game/chess';
 import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
 import { storage } from 'lib/storage';
 import { onInsert } from 'lib/view';
@@ -23,7 +24,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
-    turnColor: step.ply % 2 === 0 ? 'white' : 'black',
+    turnColor: plyColor(step.ply),
     lastMove: uciToMove(step.uci),
     check: !!step.check,
     coordinates: data.pref.coords !== Coords.Hidden,
@@ -41,7 +42,7 @@ export function makeConfig(ctrl: RoundController): CgConfig {
       dropNewPiece: hooks.onNewPiece,
       insert(elements) {
         const firstPly = util.firstPly(ctrl.data);
-        const isSecond = (firstPly % 2 === 0 ? 'white' : 'black') !== data.player.color;
+        const isSecond = plyColor(firstPly) !== data.player.color;
         const showUntil = firstPly + 2 + +isSecond;
         resizeHandle(
           elements,

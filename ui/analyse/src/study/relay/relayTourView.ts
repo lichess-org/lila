@@ -21,16 +21,9 @@ import { baseUrl } from '@/view/util';
 import { view as multiBoardView } from '../multiBoard';
 import { gameLinksListener } from '../studyChapters';
 import type StudyCtrl from '../studyCtrl';
-import type {
-  RelayData,
-  RelayGroup,
-  RelayRound,
-  RelayTourDates,
-  RelayTourInfo,
-  RelayTourPreview,
-} from './interfaces';
+import type { RelayGroup, RelayRound, RelayTourDates, RelayTourInfo, RelayTourPreview } from './interfaces';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
-import { gamesList } from './relayGames';
+import { gamesLists } from './relayGames';
 import { playersView } from './relayPlayers';
 import { statsView } from './relayStats';
 import { teamsView } from './relayTeams';
@@ -96,13 +89,13 @@ export const tourSide = (ctx: RelayViewContext, kid: LooseVNode) => {
                   hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
                 }),
               hl('button.relay-tour__side__search', {
-                attrs: { 'data-icon': licon.Search },
+                attrs: dataIcon(licon.Search),
                 hook: bind('click', study.search.open.toggle),
               }),
             ]),
           ],
       !ctrl.isEmbed && relay.showStreamerMenu() && renderStreamerMenu(relay),
-      !empty ? gamesList(study, relay) : hl('div.vertical-spacer'),
+      !empty ? gamesLists(study, relay) : hl('div.vertical-spacer'),
       !empty &&
         resizeId &&
         verticalResize({
@@ -183,14 +176,6 @@ const showDates = (dates: RelayTourDates) => {
   return rendered[1] ? `${rendered[0]} - ${rendered[1]}` : rendered[0];
 };
 
-const showSource = (data: RelayData) =>
-  data.lcc
-    ? hl('div.relay-tour__source', [
-        'PGN source: ',
-        hl('a', { attrs: { href: 'https://www.livechesscloud.com' } }, 'LiveChessCloud'),
-      ])
-    : undefined;
-
 const overview = (ctx: RelayViewContext) => {
   const tour = ctx.relay.data.tour;
   return [
@@ -200,7 +185,7 @@ const overview = (ctx: RelayViewContext) => {
       hl('div.relay-tour__markup', {
         hook: innerHTML(tour.description, () => tour.description!),
       }),
-    ctx.ctrl.isEmbed || [showSource(ctx.relay.data), share(ctx)],
+    ctx.ctrl.isEmbed || share(ctx),
   ];
 };
 
@@ -444,7 +429,6 @@ const games = (ctx: RelayViewContext) => [
           ),
       )
     : multiBoardView(ctx.study.multiBoard, ctx.study),
-  !ctx.ctrl.isEmbed && showSource(ctx.relay.data),
 ];
 
 const teams = (ctx: RelayViewContext) => [
@@ -622,7 +606,7 @@ function renderStreamerMenu(relay: RelayCtrl): VNode {
       relay.streams.map(([id, info]) =>
         hl('a.streamer.text', { attrs: { 'data-icon': licon.Mic, href: makeUrl(id) } }, [
           info.name,
-          hl('i', info.lang),
+          hl('icon', info.lang),
         ]),
       ),
     ),

@@ -1,10 +1,11 @@
 package lila.common
 
+import scala.util.matching.Regex
+
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
-
-import scala.util.matching.Regex
+import scalalib.net.{ UserAgent, Crawler, Bearer }
 
 import lila.common.Form.trueish
 import lila.core.net.*

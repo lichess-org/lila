@@ -31,7 +31,7 @@ export const userFlair = (u: Pick<AnyUser, 'flair'>): VNode | undefined =>
 
 export const userLine = (u: Pick<AnyUser, 'line' | 'patronColor' | 'moderator'>): VNode | undefined =>
   u.line !== false
-    ? h('i.line', {
+    ? h('icon.line', {
         class: {
           patron: !!u.patronColor,
           moderator: !!u.moderator,

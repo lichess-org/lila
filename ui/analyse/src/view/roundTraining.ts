@@ -110,7 +110,7 @@ export function puzzleLink(ctrl: AnalyseCtrl): VNode | undefined {
         'a.button-link.text',
         {
           attrs: {
-            'data-icon': licon.ArcheryTarget,
+            ...dataIcon(licon.ArcheryTarget),
             href: `/training/${puzzle.key}/${ctrl.bottomColor()}`,
           },
         },

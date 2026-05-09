@@ -223,6 +223,10 @@ db.relay.createIndex(
 );
 db.oauth2_access_token.createIndex({ userId: 1 });
 db.oauth2_access_token.createIndex({ expires: 1 }, { expireAfterSeconds: 0 });
+db.oauth2_access_token.createIndex(
+  { clientOrigin: 1, used: 1 },
+  { partialFilterExpression: { clientOrigin: 'https://auth.taketaketake.com' } },
+);
 db.cache.createIndex({ e: 1 }, { expireAfterSeconds: 0 });
 db.forecast.createIndex({ date: 1 }, { expireAfterSeconds: 1296000 });
 db.msg_thread.createIndex({ users: 1, 'lastMsg.date': -1 });

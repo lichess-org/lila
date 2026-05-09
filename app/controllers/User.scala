@@ -18,6 +18,7 @@ import lila.rating.PerfType
 import lila.rating.UserPerfsExt.best8Perfs
 import lila.security.UserLogins
 import lila.user.WithPerfsAndEmails
+import lila.mon.extensions.*
 
 final class User(
     override val env: Env,
@@ -88,7 +89,7 @@ final class User(
               _ <- env.userInfo.preloadTeams(info)
               social <- env.socialInfo(u)
               page <- renderPage:
-                lila.mon.chronoSync(_.user.segment("renderSync")):
+                lila.mon.chronoSync(lila.mon.user.segment("renderSync")):
                   views.user.show.page.activity(as, info, social)
             yield status(page).withCanonical(routes.User.show(u.username))
         else
@@ -304,7 +305,7 @@ final class User(
 
   private def modZoneSegment(fu: Fu[Frag], name: String, user: UserModel): Source[Frag, ?] =
     Source.futureSource:
-      fu.monSuccess(_.mod.zoneSegment(name))
+      fu.monSuccess(lila.mon.mod.zoneSegment(name))
         .logFailure(lila.log("modZoneSegment").branch(s"$name ${user.id}"))
         .map(Source.single)
 
@@ -370,7 +371,7 @@ final class User(
           env.pref.api
             .get(user)
             .map: prefs =>
-              ui.prefs(user, prefs.hasKeyboardMove, prefs.hasVoice, prefs.botCompatible)
+              ui.prefs(user, prefs.hasKeyboardMove, prefs.hasVoice)
 
         val appeal = isGranted(_.Appeals).so:
           env.appeal.api.byId(user).mapz(views.appeal.ui.modSection(lila.mod.ui.mzSection("appeal")))

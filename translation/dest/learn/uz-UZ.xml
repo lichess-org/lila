@@ -95,7 +95,7 @@ shohdan qutulishingiz mumkin.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Bu ot himoyangizni yorib oʻtib,
 shoh bermoqda!</string>
   <string name="escapeOrBlock">Shohni olib qoching yoki hujumni toʻsing!</string>
-  <string name="outOfCheckComplete">Barakalla! Shohingiz hech qachon urib olinmaydi, shuning uchun har doim shohdan himoyalanishga tayyor turing!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Barakalla! Shohingiz hech qachon urib olinmaydi, shuning uchun har doim shohdan himoyalanishga tayyor turing!</string>
   <string name="mateInOne">Mot berish</string>
   <string name="defeatTheOpponentsKing">Raqib shohini taslim qiling</string>
   <string name="mateInOneIntro">Raqib shohdan himoyalana olmagan holatda siz gʻalaba qozonasiz.</string>

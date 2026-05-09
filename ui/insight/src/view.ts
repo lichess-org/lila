@@ -2,7 +2,7 @@ import { thunk } from 'snabbdom';
 
 import { debounce } from 'lib/async';
 import * as licon from 'lib/licon';
-import { bind, hl } from 'lib/view';
+import { bind, dataIcon, hl, iconTag } from 'lib/view';
 
 import axis from './axis';
 import boards from './boards';
@@ -48,7 +48,7 @@ const renderMain = (ctrl: Ctrl, _cacheKey: string | boolean) => {
     return hl('div'); // returning undefined breaks snabbdom's thunks
   } else if (ctrl.vm.broken) {
     return hl('div.broken', [
-      hl('i', { attrs: { 'data-icon': licon.DiscBig } }),
+      iconTag(licon.DiscBig),
       'Insights are unavailable.',
       hl('br'),
       'Please try again later.',
@@ -72,9 +72,9 @@ const viewTabData = (ctrl: Ctrl, view: ViewTab) => ({
 function header(ctrl: Ctrl) {
   return hl('header', widthStyle(mainW()), [
     isAtLeastXSmall(mainW())
-      ? hl('h2.text', { attrs: { 'data-icon': licon.Target } }, 'Chess Insights')
+      ? hl('h2.text', { attrs: dataIcon(licon.Target) }, 'Chess Insights')
       : isAtLeastXXSmall(mainW())
-        ? hl('h2.text', { attrs: { 'data-icon': licon.Target } }, 'Insights')
+        ? hl('h2.text', { attrs: dataIcon(licon.Target) }, 'Insights')
         : mainW() >= 460 && hl('h2.text', 'Insights'),
     axis(ctrl, mainW() < 460 ? { attrs: { style: 'justify-content: space-evenly;' } } : null),
   ]);

@@ -48,7 +48,7 @@ function renderLog(ctrl: RelayCtrl) {
         [hl('div', [err ? [err] : logSuccess(e), hl('time', dateFormatter()(new Date(e.at)))])],
       );
     });
-  if (ctrl.loading()) logLines.unshift(hl('div.load', [hl('i.ddloader'), 'Polling source...']));
+  if (ctrl.loading()) logLines.unshift(hl('div.load', [hl('icon.ddloader'), 'Polling source...']));
   return hl('div.log', logLines);
 }
 

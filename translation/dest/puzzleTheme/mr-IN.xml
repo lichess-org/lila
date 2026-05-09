@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">एक शहमत आकृतीबंध जी दृश्यमानपणे गिळण्याच्या शेपटीच्या आकारासारखा दिसतो, जो V आकारासारखा असतो.</string>
   <string name="triangleMate">त्रिकोणी मात</string>
   <string name="triangleMateDescription">शत्रू राजापासून एक घर अंतरावर वझीर आणि हत्ती ​​एकाच स्तंभावर किंवा पंक्तीवर असल्याने एक त्रिकोण तयार करतात.</string>
-  <string name="vukovicMate">वुकोव्हिचची शहमात</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">वुकोव्हिचची शहमात</string>
   <string name="vukovicMateDescription">राजाला शहमात करण्यासाठी एक घोडा आणि हत्ती एकत्र येतात. हत्ती तिसऱ्या सोंगट्याच्या आधारावर मात देतो आणि घोडा  राजाच्या सुटकेच्या चौकांना रोखण्यासाठी वापरला जातो.</string>
   <string name="knightEndgame">घोड्याचा अंत्यखेळ</string>
   <string name="knightEndgameDescription">फक्त घोडे आणि प्याद्यांचा अंत्यखेळ.</string>

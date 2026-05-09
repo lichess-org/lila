@@ -39,7 +39,7 @@ object Recap:
   type Openings = ByColor[Counted[SimpleOpening]]
   lazy val nopening = Counted(SimpleOpening.openingList.head, 0)
 
-  type QueueEntry = lila.memo.ParallelQueue.Entry[UserId]
+  type QueueEntry = ParallelQueue.Entry[UserId]
 
   enum Availability:
     case Available(data: JsObject)

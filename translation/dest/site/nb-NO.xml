@@ -126,7 +126,6 @@
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
-  <string name="evaluationGauge">Evalueringsmåler</string>
   <string name="visualMotifs">Visuelle motiver</string>
   <string name="undefendedPieces">Ubeskyttede brikker</string>
   <string name="pinnedPieces">Bundne brikker</string>

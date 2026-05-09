@@ -11,6 +11,7 @@ import scala.util.matching.Regex.quote
 import scalalib.paginator.AdapterLike
 
 import lila.common.Bus
+import lila.mon.extensions.*
 import lila.core.id.ImageId
 import lila.db.dsl.{ *, given }
 
@@ -182,7 +183,7 @@ final class PicfitApi(
             if image.size > 0 then lila.mon.picfit.uploadSize(image.user).record(image.size)
             funit
         }
-        .monSuccess(_.picfit.uploadTime(image.user))
+        .monSuccess(lila.mon.picfit.uploadTime(image.user))
 
     def delete(image: PicfitImage): Funit =
       ws.url(s"${config.endpointPost}/${image.id}")

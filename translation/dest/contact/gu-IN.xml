@@ -52,7 +52,7 @@
   <string name="knightMate">જો વિરોધી પક્ષમાં એક કરતાં વધુ રાજા હોય, તો ફક્ત એક નાઈટ અથવા બિશપ સાથે જ ચેકમેટ શક્ય છે.</string>
   <string name="noRatingPoints">કોઈ રેટિંગ પોઈન્ટ આપવામાં આવ્યા ન હતા</string>
   <string name="ratedGame">ખાતરી કરો કે તમે રેટેડ ગેમ રમી છે. કેઝ્યુઅલ ગેમ્સ ખેલાડીઓના રેટિંગને અસર કરતી નથી.</string>
-  <string name="botRatingAbuse">અમુક સંજોગોમાં બોટ એકાઉન્ટ સામે રમતી વખતે, જો ખેલાડી રેટિંગ પોઈન્ટ માટે બોટનો દુરુપયોગ કરી રહ્યો હોય તો રેટેડ ગેમ પોઈન્ટ આપી શકશે નહીં.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">અમુક સંજોગોમાં બોટ એકાઉન્ટ સામે રમતી વખતે, જો ખેલાડી રેટિંગ પોઈન્ટ માટે બોટનો દુરુપયોગ કરી રહ્યો હોય તો રેટેડ ગેમ પોઈન્ટ આપી શકશે નહીં.</string>
   <string name="errorPage">ભૂલ પૃષ્ઠ</string>
   <string name="reportErrorPage">જો તમને કોઈ ભૂલ પૃષ્ઠનો સામનો કરવો પડ્યો હોય, તો તમે તેની જાણ કરી શકો છો:</string>
   <string name="learnHowToMakeBroadcasts">Lichess પર તમારા પોતાના પ્રસારણ કેવી રીતે બનાવવા તે શીખો</string>

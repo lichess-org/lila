@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Εάν δεν εντοπιστεί κάποια κίνηση</string>
   <string name="checkYouHaveMadeOpponentsMove">Βεβαιωθείτε αρχικά πως η κίνηση του αντιπάλου σας στη σκακιέρα DGT έχει καταγραφεί. Στη συνέχεια, ανακαλέστε τη δική σας κίνηση και ξαναπαίξτε.</string>
   <string name="asALastResort">Αν δεν υπάρχει κάποια άλλη λύση, ρυθμίστε τη σκακιέρα ώστε να ταιριάζει ακριβώς με τη θέση στο Lichess και στη συνέχεια %s</string>
-  <string name="reloadThisPage">επαναφορτώστε αυτήν τη σελίδα</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">επαναφορτώστε αυτήν τη σελίδα</string>
   <string name="dgtConfigure">Ρυθμίσεις DGT</string>
   <string name="lichessConnectivity">Σύνδεση με το Lichess</string>
   <string name="validDgtOauthToken">Διαθέτετε έγκυρο διακριτικό πρόσβασης (token) OAuth για χρήση με σκακιέρα DGT.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Οι λέξεις-κλειδιά βρίσκονται σε μορφή JSON και χρησιμοποιούνται για τη μετάφραση των κινήσεων και των αποτελεσμάτων τους στη γλώσσα σας. Η προεπιλεγμένη γλώσσα είναι τα Αγγλικά, αλλά μπορείτε να την αλλάξετε.</string>
   <string name="debug">Αποσφαλμάτωση (Debug)</string>
   <string name="verboseLogging">Λεπτομερής καταγραφή</string>
-  <string name="toSeeConsoleMessage">Για να δείτε το μήνυμα κονσόλας, πατήστε Ctrl + Shift + C (Windows, Linux, Chrome OS) ή ⌘ + ⌥ + C (Mac).</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Για να δείτε το μήνυμα κονσόλας, πατήστε Ctrl + Shift + C (Windows, Linux, Chrome OS) ή ⌘ + ⌥ + C (Mac).</string>
   <string name="playWithDgtBoard">Παίξτε με τη σκακιέρα DGT</string>
   <string name="configure">Ρυθμίσεις</string>
 </resources>

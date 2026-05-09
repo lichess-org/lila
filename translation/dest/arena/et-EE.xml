@@ -13,7 +13,7 @@ Järgnevate mängude eest saab topeltpunkte seni, kuni võidate.
 See tähendab, et võidu eest saab 4 punkti, viigi eest 2 ja kaotuse eest punkte ei saa.
 
 Näiteks, kahe võidu ja viigi eest saate 6 punkti: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Berserk areen</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Berserk areen</string>
   <string name="berserkAnswer">Kui mängija vajutab Berserk nuppu enne mängu algust, kaotab ta oma mänguajast poole, kuid saab võidu korral ühe lisa turniiripunkti.
 
 Lisaajaga ajakontrollides Berserk režiimi kasutamine tühistab ka lisaaja. (1+2 on erand, see muutub 1+0-ks)

@@ -98,7 +98,7 @@ pigliendu a pezza chì attacca u vostru rè.</string>
 saltendu a vostra difesa!</string>
   <string name="escapeOrBlock">Scappate cù u vostru rè 
 o bluccate l\' attaccu!</string>
-  <string name="outOfCheckComplete">Felicitazione! U vostru rè hè sicuru, sapete difende lu contru à i scacchi!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Felicitazione! U vostru rè hè sicuru, sapete difende lu contru à i scacchi!</string>
   <string name="mateInOne">Scaccu mattu in un colpu</string>
   <string name="defeatTheOpponentsKing">Scunfighje u rè uppostu</string>
   <string name="mateInOneIntro">Vincite quandu l\' aversariu ùn pò difende u so rè di pettu à un scaccu.</string>

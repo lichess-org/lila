@@ -4,10 +4,11 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import reactivemongo.akkastream.cursorProducer
 import akka.stream.scaladsl.Source
+import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.Json.given
 import lila.core.misc.oauth.{ AccessTokenId, TokenRevoke }
-import lila.core.net.{ Bearer, UserAgent, Origin }
+import lila.core.net.Origin
 import lila.db.dsl.{ *, given }
 
 final class AccessTokenApi(
@@ -231,7 +232,7 @@ final class AccessTokenApi(
         _.headOption.so(_.getAsOpt[List[UserId]]("u")).orZero
 
   def exists(clientOrigin: Origin, userIds: List[UserId]): Fu[Boolean] = userIds.nonEmpty.so:
-    coll.exists($doc(F.clientOrigin -> clientOrigin, F.userId.$in(userIds)))
+    coll.secondary.exists($doc(F.clientOrigin -> clientOrigin, F.userId.$in(userIds)))
 
   def revoke(bearer: Bearer) =
     val id = AccessToken.idFrom(bearer)

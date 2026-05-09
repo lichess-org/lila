@@ -15,7 +15,7 @@ export const linkRegex: RegExp =
 export const newLineRegex: RegExp = /\n/g;
 export const userPattern: RegExp = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
 export const movePattern: RegExp =
-  /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP\u2654\u2655\u2656\u2657\u2658\u2659]?[a-h]?[1-8]?[x@]?[a-h][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?#?[!\?=]{0,5}/gi;
+  /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQK\u2654\u2655\u2656\u2657\u2658]?[a-h]?[1-8]?[x@]?[a-h][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?#?[!\?=]{0,5}/gi;
 /* oxlint-enable no-inferrable-types */
 
 // looks like it has a @mention or #gameid or a url.tld

@@ -10,7 +10,7 @@
   <string name="howAreScoresCalculatedAnswer">Cewch chi dwy bywnt am fuddugoliaeth ac un am gem gyfartal, does dim pwyntiau am golli. Os enillwch chi dwy gem yn olynnol fe gewch chi fflam wrth eich enw ac fydd eich gemau wedi hyn yn cyfri dwbl. Hynnu yw, fe gewch chi pedwar pwynt am enill a dau bwynt am gem gyfartal. Fydd y fflam yn parhau nes y byddwch yn peidio ac enill gem.
 
 Er engraifft, bydd dau buddugoliaeth ac wedyn gem gyfartal yn sgorio 6 pwynt. 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Myllio Arena</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Myllio Arena</string>
   <string name="berserkAnswer">Pan fydd chwaraewr yn pwyso\'r botwm myllio, byddant yn colli hanner eu hamser cloc, ond fydd y fuddugoliaeth yn werth un pwynt yn ychwaneg. Mae myllio mewn gemau gyda amser ychwanegol ar ol pob symudiad hefyd yn canslo\'r amser ychwanegol. (Mae 1+2 yn eithriad, wrth mylljo fydd hwn yn troi yn 1+0)
 
 Nid yw myllio yn opsiwn mewn gemau gyda dim banc amser cychwynol (0+1, 0+2).

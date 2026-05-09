@@ -94,6 +94,8 @@
   <string name="database">数据库</string>
   <string name="whiteDrawBlack">白胜 / 和棋 / 黑胜</string>
   <string name="averageRatingX">平均等级分：%s</string>
+  <string name="minRatingX">%s 的最低等级分</string>
+  <string name="maxRatingX">%s 的最高等级分</string>
   <string name="recentGames">最近对局</string>
   <string name="topGames">名局</string>
   <string name="masterDbExplanation">%2$s-%3$s 年国际棋联等级分 %1$s 以上棋手的棋谱</string>
@@ -124,7 +126,6 @@
   <string name="enable">启用</string>
   <string name="bestMoveArrow">最佳着法指示</string>
   <string name="showVariationArrows">显示变着指示</string>
-  <string name="evaluationGauge">显示局面评估</string>
   <string name="visualMotifs">可视化模式</string>
   <string name="undefendedPieces">无保护的棋子</string>
   <string name="pinnedPieces">被牵制的棋子</string>
@@ -253,7 +254,7 @@
   <string name="emailCanTakeSomeTime">邮件可能需要一些时间才能送达。</string>
   <string name="refreshInboxAfterFiveMinutes">请等待 5 分钟并刷新您的收件箱。</string>
   <string name="checkSpamFolder">同时请检查您的垃圾邮件文件夹，邮件可能在那里。如果在，请将其标记为非垃圾邮件。</string>
-  <string name="sendEmailForAccountVerification" comment="%s is a unique email address in the format &lt;username&gt;.&lt;milliseconds&gt;@verify.lichess.org -- to help the person that just registered verify their user account in case they did not receive a verification email.">若您无法找到确认邮件，那么请发送邮件至 %s，我们将协助您完成账户确认。</string>
+  <string name="sendEmailForAccountVerification">若您无法找到确认邮件，那么请发送邮件至 %s，我们将协助您完成账户确认。</string>
   <string name="accountConfirmed">用户 %s 已成功确认。</string>
   <string name="accountCanLogin">您现在可以立即以 %s 的身份登录。</string>
   <string name="accountConfirmationEmailNotNeeded">您不需要确认邮件。</string>
@@ -897,6 +898,7 @@
   <string name="tryTheContactPage">请尝试联系页面</string>
   <string name="makeSureToRead">请务必阅读 %1$s</string>
   <string name="theForumEtiquette">论坛礼仪</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">聊天时请注意文明用语！</string>
   <string name="thisTopicIsArchived">此话题已被归档，无法再回复。</string>
   <string name="joinTheTeamXToPost">加入 %1$s，以在此论坛发帖</string>
   <string name="teamNamedX">%1$s 团队</string>

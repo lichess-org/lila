@@ -117,7 +117,6 @@
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Indicar la millor chugada</string>
   <string name="showVariationArrows">Amostrar las flechas d\'as variants</string>
-  <string name="evaluationGauge">Indicador d\'avaluación</string>
   <string name="multipleLines">Multiples linias</string>
   <string name="cpus">Procesadors</string>
   <string name="memory">Memoria</string>

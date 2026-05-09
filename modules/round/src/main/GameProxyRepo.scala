@@ -47,11 +47,11 @@ final class GameProxyRepo(
   def povIfPresent(playerRef: PlayerRef): Fu[Option[Pov]] =
     gameIfPresent(playerRef.gameId).dmap { _.flatMap { _.playerIdPov(playerRef.playerId) } }
 
-  def urgentGames[U: UserIdOf](user: U): Fu[List[Pov]] = for
+  def urgentGames[U: UserIdOf](user: U): Fu[UrgentGames] = for
     inDb <- gameRepo.urgentPovsUnsorted(user)
     povs <- inDb.parallel: pov =>
       gameIfPresent(pov.gameId).dmap(_.fold(pov)(pov.withGame))
-  yield
+  yield UrgentGames:
     try povs.sortWith(lila.game.Pov.priority)
     catch
       case e: IllegalArgumentException =>

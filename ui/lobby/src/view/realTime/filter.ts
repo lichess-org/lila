@@ -44,9 +44,9 @@ function initialize(ctrl: LobbyController, el: FilterNode) {
     const minVal = $minInput.val() as string;
     const maxVal = $maxInput.val() as string;
 
-    $minInput.attr('max', maxVal);
-    $maxInput.attr('min', minVal);
     $rangeInput.val(minVal + '-' + maxVal);
+    $minInput.attr({ max: maxVal, 'aria-label': i18n.site.maxRatingX(minVal) });
+    $maxInput.attr({ min: minVal, 'aria-label': i18n.site.minRatingX(maxVal) });
 
     const $range = $ratingRange.siblings('.range').empty();
     $('<span>').text(minVal).appendTo($range);
@@ -55,17 +55,14 @@ function initialize(ctrl: LobbyController, el: FilterNode) {
 
     if (e) save();
   }
+
   const rangeValues = $rangeInput.val() ? ($rangeInput.val() as string).split('-') : [];
 
   const minValue = rangeValues[0] || $minInput.attr('min')!;
-  $minInput
-    .attr({ step: '50', value: minValue, 'aria-label': `Minimum rating of ${minValue}` })
-    .on('input', changeRatingRange);
+  $minInput.attr({ step: '50', value: minValue }).on('input', changeRatingRange);
 
   const maxValue = rangeValues[1] || $minInput.attr('max')!;
-  $maxInput
-    .attr({ step: '50', value: maxValue, 'aria-label': `Maximum rating of ${maxValue}` })
-    .on('input', changeRatingRange);
+  $maxInput.attr({ step: '50', value: maxValue }).on('input', changeRatingRange);
 
   changeRatingRange();
 }
@@ -76,7 +73,7 @@ export function toggle({ filter, redraw }: LobbyController, nbFiltered: number) 
     hook: bind('click', filter.toggle, redraw),
     attrs: {
       'data-icon': filter.open ? licon.X : licon.Gear,
-      title: filter.open ? 'Close filters' : i18n.site.filterGames,
+      title: filter.open ? i18n.site.close : i18n.site.filterGames,
     },
   });
 }

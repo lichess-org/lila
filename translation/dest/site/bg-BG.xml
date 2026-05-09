@@ -95,6 +95,8 @@
   <string name="database">База данни</string>
   <string name="whiteDrawBlack">Бели / Реми / Черни</string>
   <string name="averageRatingX">Среден рейтинг: %s</string>
+  <string name="minRatingX">Минимален рейтинг от %s</string>
+  <string name="maxRatingX">Максимален рейтинг от %s</string>
   <string name="recentGames">Скорошни игри</string>
   <string name="topGames">Най-добрите игри</string>
   <string name="masterDbExplanation">Два милиона турнирни игри от %1$s+ FIDE играчи от %2$s до %3$s</string>
@@ -126,14 +128,20 @@
   <string name="enable">Включване</string>
   <string name="bestMoveArrow">Показване на най-добър ход</string>
   <string name="showVariationArrows">Показване на стрелки за вариациите</string>
-  <string name="evaluationGauge">Показване на оценка</string>
   <string name="visualMotifs">Визуални мотиви</string>
   <string name="undefendedPieces">Незащитени фигури</string>
   <string name="pinnedPieces">Вързани фигури</string>
   <string name="checkableKing">Цар, изложен на шах</string>
   <string name="multipleLines">Множество ходове</string>
+  <string name="multipleLinesDescription">Задайте броя на линиите за анализ и стрелките за ходове на дъската</string>
+  <string name="searchTime">Време за търсене</string>
+  <string name="searchTimeDescription">Задайте времето за анализ на нови позиции</string>
+  <string name="threads">Нишки</string>
+  <string name="threadsDescription">Задайте стойност под броя на нишките на вашия процесор; отметките показват безопасен избор</string>
+  <string name="threadsDescriptionMobile">Повече нишки хабят батерията по-бързо, но подобряват анализа</string>
   <string name="cpus">Процесори</string>
   <string name="memory">Памет</string>
+  <string name="memoryDescription">По-високите стойности могат да подобрят производителността</string>
   <string name="infiniteAnalysis">Неограничен анализ</string>
   <string name="removesTheDepthLimit">Анализът ще е безкраен, а компютърът ви - топъл</string>
   <string name="blunder">Груба грешка</string>
@@ -237,6 +245,7 @@
   <string name="changeUsernameNotSame">Единствено могат да се заменят малки с главни букви. Например, \"johndoe\" с \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промяна на потребителско име. Може да се извърши само веднъж и можете да сменяте единствено малки и главни букви.</string>
   <string name="signupUsernameHint">Изберете прилично потребителско име. Няма да можете да го смените по-късно и всички регистрации с нецензурни имена биват затворени!</string>
+  <string name="signupEmailPromise">Ще ви изпращаме имейли само относно вашия профил и никога няма да споделяме адреса ви с трети страни.</string>
   <string name="password">Парола</string>
   <string name="changePassword">Промяна на паролата</string>
   <string name="changeEmail">Промяна на имейла</string>
@@ -260,6 +269,7 @@
   <string name="emailCanTakeSomeTime">Пристигането му може да отнеме известно време.</string>
   <string name="refreshInboxAfterFiveMinutes">Изчакайте 5 минути и презаредете вашата поща.</string>
   <string name="checkSpamFolder">Проверете и папката спам, може да попадне там. Ако е така, моля отбележете го като \"не спам\".</string>
+  <string name="sendEmailForAccountVerification">Ако не можете да откриете имейла за потвърждение, изпратете съобщение до %s и ние ще потвърдим профила ви вместо вас.</string>
   <string name="accountConfirmed">Потребителят %s е успешно потвърден.</string>
   <string name="accountCanLogin">Сега можете да влезете в системата като %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Не е необходимо да получавате имейл за потвърждение.</string>
@@ -516,6 +526,7 @@
   <string name="popularOpenings">Популярни дебюти</string>
   <string name="endgamePositions">Ендшпилни позиции</string>
   <string name="chess960StartPosition">Начална позиция в Chess960: %s</string>
+  <string name="randomChess960Position">Случайна Chess960 позиция</string>
   <string name="startPosition">Начална позиция</string>
   <string name="clearBoard">Празна дъска</string>
   <string name="loadPosition">Зареди позиция</string>
@@ -592,6 +603,9 @@
   <string name="invalidUsernameOrPassword">Грешен потребител или парола</string>
   <string name="incorrectPassword">Неправилна парола</string>
   <string name="invalidAuthenticationCode">Невалиден код за удостоверяване</string>
+  <string name="clearField">Изчисти полето</string>
+  <string name="orSeparator">Или</string>
+  <string name="logInByEmail">Вход с имейл</string>
   <string name="emailMeALink">Изпрати ми препратка на имейла</string>
   <string name="currentPassword">Текуща парола</string>
   <string name="newPassword">Нова парола</string>
@@ -929,6 +943,7 @@
   <string name="tryTheContactPage">опитайте страницата за контакти</string>
   <string name="makeSureToRead">Моля прочетете %1$s</string>
   <string name="theForumEtiquette">правилата за етикет на форума</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Моля бъдете учтиви във форума.</string>
   <string name="thisTopicIsArchived">Тази тема е архивирана и не може да получава повече мнения.</string>
   <string name="joinTheTeamXToPost">Присъединете се към %1$s, за да публикувате в този форум</string>
   <string name="teamNamedX">отбора %1$s</string>
@@ -1015,6 +1030,7 @@
   <string name="offline" comment="status of a user">офлайн</string>
   <string name="search">Търсене</string>
   <string name="clearSearch">Изчистване на търсенето</string>
+  <string name="thereAreNoResultsForX">Няма резултати за \"%s\"</string>
   <string name="tags">Етикети</string>
   <string name="enPassant">Ан пасан</string>
 </resources>

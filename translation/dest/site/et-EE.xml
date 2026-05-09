@@ -115,7 +115,6 @@
   <string name="byCPL">CPL järgi</string>
   <string name="enable">Luba</string>
   <string name="bestMoveArrow">Parima käigu nool</string>
-  <string name="evaluationGauge">Hinnangunäidik</string>
   <string name="undefendedPieces">Kaitsmata nupud</string>
   <string name="pinnedPieces">Seotud nupud</string>
   <string name="checkableKing">Tules kuningas</string>

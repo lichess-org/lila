@@ -119,7 +119,6 @@
   <string name="enable">Paganahin</string>
   <string name="bestMoveArrow">Pinakamahusay na galaw na arrow</string>
   <string name="showVariationArrows">Tignan ang ibat ibang linya</string>
-  <string name="evaluationGauge">Panukat ng pagsusuri</string>
   <string name="multipleLines">Maraming linya</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memorya</string>

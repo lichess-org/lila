@@ -19,7 +19,7 @@ final class ModInquiryUi(helpers: Helpers)(
   def apply(in: Inquiry)(using Context, Me) =
     val presets = getPmPresets.byPermission
     div(id := "inquiry", data("username") := in.user.user.username)(
-      i(title := "Costello the Inquiry Octopus", cls := "costello"),
+      iconTag(title := "Costello the Inquiry Octopus", cls := "costello"),
       div(cls := "meat")(
         userLink(in.user.user, withPerfRating = in.user.perfs.some, params = "?mod"),
         div(cls := "docs reports")(
@@ -315,7 +315,7 @@ final class ModInquiryUi(helpers: Helpers)(
   private def markButton(active: Boolean, icon: Either[Icon, String]) = submitButton(
     cls := List("fbt icon" -> true, "active" -> active, "text" -> icon.isLeft),
     dataIcon := icon.left.toOption
-  )(icon.toOption.map(str => frag(i(str), " ")))
+  )(icon.toOption.map(str => frag(iconTag(str), " ")))
 
   private def presetForms(in: Inquiry)(presets: List[ModPreset])(using Me) =
     (Granter(_.ModMessage) && presets.nonEmpty).option:

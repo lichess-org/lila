@@ -24,16 +24,9 @@ import { renderTableWatch, renderTablePlay, renderTableEnd } from './table';
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
 const errorSound = () => site.sound.play('error');
-const lowTimeSound = () => site.sound.play('lowTime');
 
 export function renderNvui(ctx: RoundNvuiContext): VNode {
   const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
-
-  if (ctrl.clock && ctrl.data.pref.clockSound) {
-    const playerColor = ctrl.data.player.color;
-    const timeLeft = ctrl.clock?.millisOf(playerColor) || ctrl.corresClock?.millisOf(playerColor) || Infinity;
-    if (timeLeft < ctrl.clock.emergMs) lowTimeSound();
-  }
 
   notify.redraw = ctrl.redraw;
   if (!ctrl.chessground) {
@@ -157,7 +150,7 @@ function gameInfo(ctx: RoundNvuiContext): LooseVNodes {
     hl('h2', i18n.nvui.moveList),
     hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
     hl('h2', i18n.nvui.pieces),
-    nv.renderPieces(ctrl.chessground.state.pieces, style),
+    nv.renderPieces(ctrl.chessground.state.pieces, style, d.player.color),
     pockets && hl('h2', i18n.nvui.pockets),
     pockets && nv.renderPockets(pockets),
     hl('h2', i18n.nvui.gameStatus),
@@ -455,7 +448,7 @@ const inputCommands: InputCommand[] = [
     help: commands().piece.help,
     cb: (notify, ctrl, style, input) =>
       notify(
-        commands().piece.apply(input, ctrl.chessground.state.pieces, style) ??
+        commands().piece.apply(input, ctrl.chessground.state.pieces, style, ctrl.data.player.color) ??
           `Bad input: ${input}. Expected format: ${commands().piece.help}`,
       ),
   },

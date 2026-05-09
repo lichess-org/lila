@@ -3,12 +3,13 @@
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite, uciToMove } from '@lichess-org/chessground/util';
 import * as ab from 'ab/round';
-import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboardMove';
+import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboard-move';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
 import { defined, type Toggle, type Prop, toggle, requestIdleCallbackSafe, memoize } from 'lib';
 import * as game from 'lib/game';
-import { plyToTurn } from 'lib/game/chess';
+import { plyOpponentColor } from 'lib/game';
+import { plyToTurn, plyColor } from 'lib/game/chess';
 import { ClockCtrl, type ClockOpts } from 'lib/game/clock/clockCtrl';
 import type { MoveRootCtrl } from 'lib/game/moveRootCtrl';
 import { PromotionCtrl, promote } from 'lib/game/promotion';
@@ -251,7 +252,7 @@ export default class RoundController implements MoveRootCtrl {
         fen: s.fen,
         lastMove: uciToMove(s.uci),
         check: !!s.check,
-        turnColor: this.ply % 2 === 0 ? 'white' : 'black',
+        turnColor: plyColor(this.ply),
       };
     if (this.replaying()) this.chessground.stop();
     else
@@ -397,12 +398,12 @@ export default class RoundController implements MoveRootCtrl {
   playerByColor = (c: Color): game.Player => this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
   apiMove = (o: ApiMove): true => {
-    const d = this.data,
-      playing = this.isPlaying();
+    const d = this.data;
+    const playing = this.isPlaying();
     d.game.turns = o.ply;
-    d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
-    const playedColor = o.ply % 2 === 0 ? 'black' : 'white',
-      activeColor = d.player.color === d.game.player;
+    d.game.player = plyColor(o.ply);
+    const playedColor = plyOpponentColor(o.ply);
+    const activeColor = d.player.color === d.game.player;
     if (o.status) d.game.status = o.status;
     if (o.winner) d.game.winner = o.winner;
     this.playerByColor('white').offeringDraw = o.wDraw;

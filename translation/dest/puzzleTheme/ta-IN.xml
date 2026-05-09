@@ -59,7 +59,7 @@
   <string name="intermezzoDescription">எதிர்பார்த்த நகர்வை இயக்குவதற்குப் பதிலாக, எதிராளி பதிலளிக்க வேண்டிய உடனடி அச்சுறுத்தலை ஏற்படுத்தும் மற்றொரு நகர்வை முதலில் இடைமறிக்கவும். இது \"சுவிசென்சுக்\" அல்லது \"இடைவெளியில்\" என்றும் அழைக்கப்படுகிறது.</string>
   <string name="killBoxMate">கொலைப் பெட்டி முற்றுகை</string>
   <string name="killBoxMateDescription">எதிரி அரசருக்கு அடுத்ததாக ஒரு யானை உள்ளது மற்றும் ஒரு அரசியால் ஆதரிக்கப்படுகிறது, அது அரசர் தப்பிக்கும் சதுக்கங்களையும் தடுக்கிறது. யானை மற்றும் அரசி எதிரி அரசரை 3 க்கு 3 \"கொலைப் பெட்டி\"யில் பிடிக்கிறார்கள்.</string>
-  <string name="vukovicMate">உகோவிக் முற்றுகை</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">உகோவிக் முற்றுகை</string>
   <string name="vukovicMateDescription">ஒரு யானை மற்றும் குதிரையும் இணைந்து அரசரை முற்றுகையிடுதல். அரசரின் தப்பிக்கும் சதுக்கங்களை குதிரை தடுக்க, மூன்றாம் துண்டு ஆதரிக்க யானை முற்றுகை செய்கிறது.</string>
   <string name="knightEndgame">குதிரை கடையாட்டம்</string>
   <string name="knightEndgameDescription">குதிரைகளும் பணயங்களும் மட்டுமே கொண்ட ஒரு கடையாட்டம்.</string>

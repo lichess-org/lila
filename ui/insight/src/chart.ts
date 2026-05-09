@@ -16,7 +16,7 @@ import { h, type VNode } from 'snabbdom';
 
 import { currentTheme } from 'lib/device';
 import * as licon from 'lib/licon';
-import { spinnerHtml } from 'lib/view';
+import { iconTag, spinnerHtml } from 'lib/view';
 
 import type Ctrl from './ctrl';
 import type { InsightChart, InsightData } from './interfaces';
@@ -178,12 +178,7 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
   };
 }
 function empty(txt: string) {
-  return h('div.chart.empty', [
-    h('i', {
-      attrs: { 'data-icon': licon.Target },
-    }),
-    txt,
-  ]);
+  return h('div.chart.empty', [iconTag(licon.Target), txt]);
 }
 
 let chart: InsightChart;

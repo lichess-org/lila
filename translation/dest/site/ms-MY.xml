@@ -123,7 +123,6 @@
   <string name="enable">Membolehkan</string>
   <string name="bestMoveArrow">Anak panah gerak terbaik</string>
   <string name="showVariationArrows">Tunjuk anak panah variasi</string>
-  <string name="evaluationGauge">Tolok penialian</string>
   <string name="undefendedPieces">Buah catur yang tidak dipertahankan</string>
   <string name="pinnedPieces">Buah catur terkunci</string>
   <string name="multipleLines">Multiple lines</string>

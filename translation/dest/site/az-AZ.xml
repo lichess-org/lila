@@ -116,7 +116,6 @@
   <string name="enable">Aktiv et</string>
   <string name="bestMoveArrow">Ən yaxşı gedişi göstər</string>
   <string name="showVariationArrows">Variasiya oxlarını göstərin</string>
-  <string name="evaluationGauge">Dəyərləndirmə çubuğu</string>
   <string name="multipleLines">Oxların sayı</string>
   <string name="cpus">CPU sayı</string>
   <string name="memory">RAM</string>

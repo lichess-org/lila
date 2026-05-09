@@ -119,7 +119,6 @@
   <string name="enable">On-turn</string>
   <string name="bestMoveArrow">Heid muive arrae</string>
   <string name="showVariationArrows">Show variation arrows</string>
-  <string name="evaluationGauge">Vailyie mett</string>
   <string name="multipleLines">Muckle lines</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memory</string>

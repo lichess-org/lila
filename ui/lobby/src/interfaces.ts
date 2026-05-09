@@ -12,7 +12,7 @@ export interface Variant {
   id: number;
   key: VariantKey;
   name: string;
-  icon: string;
+  icon: LiconType;
   description: string;
 }
 

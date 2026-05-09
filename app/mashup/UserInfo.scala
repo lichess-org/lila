@@ -7,12 +7,13 @@ import lila.bookmark.BookmarkApi
 import lila.core.data.SafeJsonStr
 import lila.core.perf.UserWithPerfs
 import lila.core.user.User
+import lila.core.security.IsProxy
+import lila.core.perm.Granter
 import lila.forum.ForumPostApi
 import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.ublog.{ UblogApi, UblogPost }
-import lila.core.security.IsProxy
-import lila.core.perm.Granter
+import lila.mon.extensions.*
 
 case class UserInfo(
     nbs: UserInfo.NbGames,
@@ -56,10 +57,10 @@ object UserInfo:
     def apply(u: User)(using ctx: Context): Fu[Social] =
       given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
       (
-        ctx.userId.so(relationApi.fetchRelation(_, u.id).mon(_.user.segment("relation"))),
-        ctx.useMe(noteApi.getForMyPermissions(u).mon(_.user.segment("notes"))),
-        ctx.isAuth.so(prefApi.followable(u.id).mon(_.user.segment("followable"))),
-        ctx.userId.so(myId => relationApi.fetchBlocks(u.id, myId).mon(_.user.segment("blocks")))
+        ctx.userId.so(relationApi.fetchRelation(_, u.id).mon(lila.mon.user.segment("relation"))),
+        ctx.useMe(noteApi.getForMyPermissions(u).mon(lila.mon.user.segment("notes"))),
+        ctx.isAuth.so(prefApi.followable(u.id).mon(lila.mon.user.segment("followable"))),
+        ctx.userId.so(myId => relationApi.fetchBlocks(u.id, myId).mon(lila.mon.user.segment("blocks")))
       ).mapN(Social.apply)
 
   case class NbGames(
@@ -81,11 +82,13 @@ object UserInfo:
         withCrosstable.so:
           me
             .filter(u.isnt(_))
-            .traverse(me => crosstableApi.withMatchup(me.userId, u.id).mon(_.user.segment("crosstable")))
+            .traverse(me =>
+              crosstableApi.withMatchup(me.userId, u.id).mon(lila.mon.user.segment("crosstable"))
+            )
         ,
-        gameCached.nbPlaying(u.id).mon(_.user.segment("nbPlaying")),
-        gameCached.nbImportedBy(u.id).mon(_.user.segment("nbImported")),
-        bookmarkApi.countByUser(u).mon(_.user.segment("nbBookmarks"))
+        gameCached.nbPlaying(u.id).mon(lila.mon.user.segment("nbPlaying")),
+        gameCached.nbImportedBy(u.id).mon(lila.mon.user.segment("nbImported")),
+        bookmarkApi.countByUser(u).mon(lila.mon.user.segment("nbBookmarks"))
       ).mapN(NbGames.apply)
 
   final class UserInfoApi(
@@ -112,19 +115,19 @@ object UserInfo:
       def showRatings = ctx.noBlind && ctx.pref.showRatings && isAuthOrNotProxied
       (
         perfsRepo.withPerfs(user),
-        userApi.getTrophiesAndAwards(user).mon(_.user.segment("trophies")),
-        (nbs.playing > 0).so(simulApi.isSimulHost(user.id).mon(_.user.segment("simul"))),
-        showRatings.so(ratingChartApi(user)).mon(_.user.segment("ratingChart")),
+        userApi.getTrophiesAndAwards(user).mon(lila.mon.user.segment("trophies")),
+        (nbs.playing > 0).so(simulApi.isSimulHost(user.id).mon(lila.mon.user.segment("simul"))),
+        showRatings.so(ratingChartApi(user)).mon(lila.mon.user.segment("ratingChart")),
         (!user.is(UserId.lichess) && !user.isBot).so:
-          postApi.nbByUser(user.id).mon(_.user.segment("nbForumPosts"))
+          postApi.nbByUser(user.id).mon(lila.mon.user.segment("nbForumPosts"))
         ,
         withUblog.so(ublogApi.userBlogPreviewFor(user, 3)),
-        studyRepo.countByOwner(user.id).recoverDefault.mon(_.user.segment("nbStudies")),
-        simulApi.countHostedByUser.get(user.id).mon(_.user.segment("nbSimuls")),
-        relayApi.countOwnedByUser.get(user.id).mon(_.user.segment("nbBroadcasts")),
-        ctx.useMe(teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user.segment("teamIds"))),
-        streamerApi.isActualStreamer(user).mon(_.user.segment("streamer")),
-        coachApi.isListedCoach(user).mon(_.user.segment("coach")),
+        studyRepo.countByOwner(user.id).recoverDefault.mon(lila.mon.user.segment("nbStudies")),
+        simulApi.countHostedByUser.get(user.id).mon(lila.mon.user.segment("nbSimuls")),
+        relayApi.countOwnedByUser.get(user.id).mon(lila.mon.user.segment("nbBroadcasts")),
+        ctx.useMe(teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(lila.mon.user.segment("teamIds"))),
+        streamerApi.isActualStreamer(user).mon(lila.mon.user.segment("streamer")),
+        coachApi.isListedCoach(user).mon(lila.mon.user.segment("coach")),
         fideIdOf(user.light),
         fuccess(Granter.opt(_.SeeInsight)) >>| (user.count.rated >= 50).so(insightShare.grant(user))
       ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _, _))

@@ -47,4 +47,3 @@ object data:
   object ErrorMsg extends OpaqueString[ErrorMsg]
 
   final class CircularDep[A](val resolve: () => A)
-  final class LazyDep[A](val resolve: () => A)

@@ -8,15 +8,17 @@ import lila.db.ByteArray
 
 private object PgnStorage:
 
+  import lila.mon.Chronometer.syncMon as monitor
+
   object OldBin:
 
     def encode(sans: Vector[SanStr]) =
       ByteArray:
-        monitor(_.game.pgn.encode("old")):
+        monitor(lila.mon.game.pgn.encode("old")):
           format.pgn.Binary.writeMoves(sans).get
 
     def decode(bytes: ByteArray, plies: Ply): Vector[SanStr] =
-      monitor(_.game.pgn.decode("old")):
+      monitor(lila.mon.game.pgn.decode("old")):
         format.pgn.Binary.readMoves(bytes.value.toList, plies.value).get.toVector
 
   object Huffman:
@@ -25,16 +27,16 @@ private object PgnStorage:
 
     def encode(sans: Vector[SanStr]) =
       ByteArray:
-        monitor(_.game.pgn.encode("huffman")):
+        monitor(lila.mon.game.pgn.encode("huffman")):
           Encoder.encode(SanStr.raw(sans.toArray))
 
     def decode(bytes: ByteArray, plies: Ply, id: GameId): Decoded =
-      monitor(_.game.pgn.decode("huffman")):
+      monitor(lila.mon.game.pgn.decode("huffman")):
         val decoded =
           try Encoder.decode(bytes.value, plies.value)
           catch
             case e: java.nio.BufferUnderflowException =>
-              logger.error(s"Can't decode game $id PGN", e)
+              logger.error(s"Can't decode game $id PGN")
               throw e
         Decoded(
           sans = SanStr.from(decoded.pgnMoves.toVector),
@@ -72,6 +74,3 @@ private object PgnStorage:
       castles: Castles, // irrelevant after game ends
       halfMoveClock: HalfMoveClock // irrelevant after game ends
   )
-
-  private def monitor[A](mon: lila.mon.TimerPath)(f: => A): A =
-    lila.common.Chronometer.syncMon(mon)(f)

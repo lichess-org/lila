@@ -9,7 +9,7 @@ import { makeSanAndPlay } from 'chessops/san';
 import { isNormal, type Move } from 'chessops/types';
 import { opposite, parseUci, makeSquare, roleToChar, makeUci, parseSquare } from 'chessops/util';
 import { normalizeMove } from 'chessops/variant';
-import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
+import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboard-move';
 
 import {
   defined,
@@ -33,6 +33,7 @@ import {
 import { ChatCtrl } from 'lib/chat/chatCtrl';
 import { displayColumns } from 'lib/device';
 import { playable, playedTurns, fenToEpd, validUci } from 'lib/game';
+import { plyColor } from 'lib/game/chess';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
@@ -355,7 +356,7 @@ export default class AnalyseCtrl implements CevalHandler {
   }
 
   turnColor(): Color {
-    return this.node.ply % 2 === 0 ? 'white' : 'black';
+    return plyColor(this.node.ply);
   }
 
   togglePlay(delay: AutoplayDelay): void {

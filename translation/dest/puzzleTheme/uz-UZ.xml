@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Tashqi koʻrinishi qaldirgʻoch dumiga yoki \"V\" shakliga oʻxshash boʻlgan mot turi.</string>
   <string name="triangleMate">Uchburchak mot</string>
   <string name="triangleMateDescription">Farzin va rux bitta gorizontal yoki vertikalda raqib shohidan bir katak uzoqlikda joylashadi. Ular oʻzaro bir katak masofa bilan ajralib, shoh bilan birga uchburchak shaklini hosil qiladi.</string>
-  <string name="vukovicMate">Vukovich moti</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovich moti</string>
   <string name="vukovicMateDescription">Rux va ot bilan beriladigan mot. Bunda rux boshqa bir dona himoyasi ostida yakuniy zarbani beradi, ot esa shohning qochish yoʻllarini toʻsib turadi.</string>
   <string name="knightEndgame">Ot endshpili</string>
   <string name="knightEndgameDescription">Faqat otlar va piyodalardan iborat endshpil.</string>

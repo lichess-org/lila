@@ -128,7 +128,6 @@
   <string name="enable">Povoliť analýzu</string>
   <string name="bestMoveArrow">Šípka pre najlepší ťah</string>
   <string name="showVariationArrows">Zobraziť šípky variantov</string>
-  <string name="evaluationGauge">Ukazovateľ hodnotenia</string>
   <string name="visualMotifs">Vizuálne motívy</string>
   <string name="pinnedPieces">Figúrky vo väzbe</string>
   <string name="multipleLines">Počet variantov</string>

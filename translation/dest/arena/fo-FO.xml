@@ -10,7 +10,7 @@
   <string name="howAreScoresCalculatedAnswer">Vinnur tú, fært tú 2 stig. Telvar tú javnt, fært tú 1 stig. Tapir tú, fært tú einki stig. Vinnur tú tvey talv á rað, byrjar tú at fáa dupult stigatal. Hetta verður lýst við eini mynd av einum loga. Talvini, ið síðani verða telvað, eru eisini verd 4 stig, um tú vinnur tey, og tað heldur fram, til tú ikki vinnur longur. Tað merkir, at ein sigur er verdur 4 stig, javnleikur er verdur 2 stig, og ein ósigur gevur framvegis einki stig.
 
 T. d. geva tveir sigrar og ein javnleikur 6 stig tilsamans: 2 + 2 + (2 + 1)</string>
-  <string name="berserk">Berserkaraarena</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Berserkaraarena</string>
   <string name="berserkAnswer">Tá ið ein telvari klikkir á berserkaraknøttin í byrjanini av talvinum, missir hann helmingin av klokkutíðini, men ein sigur er verdur eitt eyka stig.
 
 At velja berserkarastøðu við tíðaravmarking við eyka tíð fyri hvønn leik, setur eykatíðina úr gildi (1+2 er eitt undantak; tað gevur 1+0).

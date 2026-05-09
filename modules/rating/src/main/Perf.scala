@@ -13,7 +13,7 @@ object PerfExt:
 
   extension (p: Perf)
 
-    def addOrReset(monitor: lila.mon.CounterPath, msg: => String)(player: Glicko, date: Instant): Perf =
+    def addOrReset(counter: kamon.metric.Counter, msg: => String)(player: Glicko, date: Instant): Perf =
       val newGlicko = player.copy(
         rating = player.rating
           .atMost(p.glicko.rating + lila.rating.Glicko.maxRatingDelta)
@@ -30,7 +30,7 @@ object PerfExt:
       if newGlicko.sanityCheck then append(newGlicko)
       else
         lila.log("rating").error(s"Crazy Glicko2 $msg")
-        monitor(lila.mon).increment()
+        counter.increment()
         append(lila.rating.Glicko.default)
 
     def refund(points: Int): Perf =
