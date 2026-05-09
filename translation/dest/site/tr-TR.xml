@@ -942,6 +942,7 @@
   <string name="tryTheContactPage">iletişim sayfasını kullanmayı deneyebilirsiniz</string>
   <string name="makeSureToRead">Okuduğunuzdan emin olun: %1$s</string>
   <string name="theForumEtiquette">forum görgü kuralları</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Lütfen forumda nazik ol.</string>
   <string name="thisTopicIsArchived">Bu konu arşivlenmiş ve yeni yanıtlara kapatılmıştır.</string>
   <string name="joinTheTeamXToPost">Bu forumda paylaşım yapmak için %1$s adlı takıma katılın</string>
   <string name="teamNamedX">%1$s</string>
