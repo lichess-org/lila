@@ -76,7 +76,7 @@ export function render(ctrl: KeyboardMove): VNode {
     }),
     ctrl.isFocused()
       ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
-      : h('strong', ['Press ', h('kbd', 'm'), ' to focus']),
+      : h('strong', i18n.keyboardMove.pressMToFocus.asArray(h('kbd', 'm'))),
     ctrl.helpModalOpen()
       ? snabDialog({
           class: 'help.keyboard-move-help',
