@@ -19,4 +19,5 @@
   <string name="ifItIsLegalToCastleBothWays">If it is legal to castle both ways, use enter to kingside castle</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Capitalization only matters in ambiguous situations involving a bishop and the b-pawn</string>
   <string name="toPremoveSimplyTypeTheDesiredPremove">To premove, simply type the desired premove before it is your turn</string>
+  <string name="pressMToFocus">Press %s to focus</string>
 </resources>
