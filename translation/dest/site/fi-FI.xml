@@ -95,6 +95,8 @@
   <string name="database">Tietokanta</string>
   <string name="whiteDrawBlack">Valkea / Tasapeli / Musta</string>
   <string name="averageRatingX">Vahvuuslukukeskiarvo %s</string>
+  <string name="minRatingX">Vahvuusluvun alaraja %s</string>
+  <string name="maxRatingX">Vahvuusluvun yläraja %s</string>
   <string name="recentGames">Viimeaikaiset pelit</string>
   <string name="topGames">Kärkipelit</string>
   <string name="masterDbExplanation">2 miljoonaa %1$s+ FIDE-rankattujen pelaajien vuosina %2$s-%3$s laudalla pelaamaa peliä</string>
@@ -940,6 +942,7 @@
   <string name="tryTheContactPage">yhteydenottosivulta</string>
   <string name="makeSureToRead">Lue ensi töiksesi %1$s</string>
   <string name="theForumEtiquette">foorumin etiketti</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Olethan ystävällinen foorumilla.</string>
   <string name="thisTopicIsArchived">Tämä aihe on arkistoitu, eikä siihen voi enää vastata.</string>
   <string name="joinTheTeamXToPost">Kirjoittaaksesi tähän foorumiin sinun on liityttävä %1$s</string>
   <string name="teamNamedX">%1$s -joukkueeseen</string>
