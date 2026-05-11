@@ -189,7 +189,7 @@ final class ForumPostApi(
 
   def allUserIds(topicId: ForumTopicId) = postRepo.allUserIdsByTopicId(topicId)
 
-  def nbByUser(userId: UserId) = postRepo.coll.secondary.countSel($doc("userId" -> userId))
+  def nbByUser(userId: UserId) = postRepo.coll.secondary.countSel($doc("userId" -> userId) ++ postRepo.selectNotErased)
 
   def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
     val isMod = forUser.fold(false)(MasterGranter.of(_.ModerateForum))
