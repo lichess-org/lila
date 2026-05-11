@@ -69,7 +69,7 @@
   <string name="killBoxMateDescription">Top se nalazi pored neprijateljskog kralja i podržava ga kraljica koja također blokira kraljeva polja za bijeg. Top i kraljica hvataju neprijateljskog kralja u \"ubistvenoj kutiji\" dimenzija 3 od 3.</string>
   <string name="triangleMate">Trokutni partner</string>
   <string name="triangleMateDescription">Kraljica i top, jedno polje udaljeni od protivničkog kralja, nalaze se u istom redu ili liniji, odvojene jednim poljem, formirajući trougao.</string>
-  <string name="vukovicMate">Vukovićev mat</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovićev mat</string>
   <string name="vukovicMateDescription">Top i skakač se udružuju kako bi matirali kralja. Top daje mat uz podršku treće figure, a skakač se koristi za blokiranje kraljevih polja za bijeg.</string>
   <string name="knightEndgame">Vitezova krajnica</string>
   <string name="knightEndgameDescription">Završno kolo sa samo vitezovima i pijunima.</string>

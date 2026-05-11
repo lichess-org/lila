@@ -3,7 +3,7 @@
   <string name="dgtBoard">DGT дъска</string>
   <string name="lichessAndDgt">Lichess &amp; DGT</string>
   <string name="downloadHere">Може да изтеглите софтуера тук: %s.</string>
-  <string name="reloadThisPage">Презареждане на страницата</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">Презареждане на страницата</string>
   <string name="dgtConfigure">DGT - настройване</string>
   <string name="textToSpeech">Текст в говор</string>
   <string name="enableSpeechSynthesis">Включване на синтезатор на говор</string>

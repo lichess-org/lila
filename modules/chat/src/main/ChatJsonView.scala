@@ -39,12 +39,11 @@ final class ChatJsonView(lightUser: LightUserApi)(using Executor):
       .obj("games" -> u.count.game)
       .add("tos" -> u.marks.dirty)
 
-  def mobile(chat: AnyChat, writeable: Boolean = true): Fu[JsObject] =
-    asyncLines(chat).map: lines =>
-      Json.obj(
-        "lines" -> lines,
-        "writeable" -> writeable
-      )
+  def mobile(chat: UserChat.Mine, writeable: Boolean = true): JsObject =
+    Json.obj(
+      "lines" -> chat.lines,
+      "writeable" -> writeable
+    )
 
   def boardApi(chat: UserChat) = JsArray:
     chat.lines.collect:

@@ -95,6 +95,8 @@
   <string name="database">Veritabanı</string>
   <string name="whiteDrawBlack">Beyaz / Berabere / Siyah</string>
   <string name="averageRatingX">Ortalama puan: %s</string>
+  <string name="minRatingX">En az %s puan</string>
+  <string name="maxRatingX">En çok %s puan</string>
   <string name="recentGames">Son oyunlar</string>
   <string name="topGames">En yüksek puanlı oyunlar</string>
   <string name="masterDbExplanation">%2$s yılından %3$s yılına kadar %1$s+ FIDE puanına sahip oyuncular tarafından tahta üzerinde oynanmış 2 milyon oyun</string>
@@ -126,7 +128,6 @@
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="showVariationArrows">Varyasyon oklarını göster</string>
-  <string name="evaluationGauge">Değerlendirme çubuğu</string>
   <string name="visualMotifs">Görsel motifler</string>
   <string name="undefendedPieces">Korumasız taşlar</string>
   <string name="pinnedPieces">Açmazdaki taşlar</string>
@@ -268,9 +269,7 @@
   <string name="emailCanTakeSomeTime">E-postanın ulaşması biraz zaman alabilir.</string>
   <string name="refreshInboxAfterFiveMinutes">5 dakika bekleyip e-posta gelen kutunuzu yenileyin.</string>
   <string name="checkSpamFolder">Ayrıca spam klasörünü kontrol edin, orada olabilir. Eğer öyleyse spam değil olarak işaretleyin.</string>
-  <string name="emailForSignupHelp">Hiçbiri işe yaramazsa, bize şu e-postayı gönderin:</string>
-  <string name="copyTextToEmail">Yukarıdaki metni kopyalayıp %s adresine gönderin</string>
-  <string name="waitForSignupHelp">Kaydınızı tamamlamanıza yardımcı olmak için kısa bir süre içinde size geri döneceğiz.</string>
+  <string name="sendEmailForAccountVerification">Doğrulama e-postanızı bulamıyorsanız, %s adresine e-posta gönderin, hesabınızı sizin için onaylayalım.</string>
   <string name="accountConfirmed">%s kullanıcısı başarıyla onaylandı.</string>
   <string name="accountCanLogin">Artık %s olarak giriş yapabilirsiniz.</string>
   <string name="accountConfirmationEmailNotNeeded">Onay e-postasına ihtiyacınız yok.</string>

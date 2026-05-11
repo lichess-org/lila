@@ -95,6 +95,8 @@
   <string name="database">Datenbank</string>
   <string name="whiteDrawBlack">Weiß / Remis / Schwarz</string>
   <string name="averageRatingX">Durchschnittliche Wertungszahl: %s</string>
+  <string name="minRatingX">Minimale Wertungszahl von %s</string>
+  <string name="maxRatingX">Maximale Wertungszahl von %s</string>
   <string name="recentGames">Neueste Partien</string>
   <string name="topGames">Spitzenpartien</string>
   <string name="masterDbExplanation">Zwei Millionen OTB-Partien von Spielern mit einer Wertungszahl über %1$s FIDE aus den Jahren %2$s bis %3$s</string>
@@ -126,7 +128,6 @@
   <string name="enable">Einschalten</string>
   <string name="bestMoveArrow">Pfeil für besten Zug</string>
   <string name="showVariationArrows">Varianten-Pfeile anzeigen</string>
-  <string name="evaluationGauge">Bewertungsanzeige</string>
   <string name="visualMotifs">Visuelle Motive</string>
   <string name="undefendedPieces">Nicht verteidigte Figuren</string>
   <string name="pinnedPieces">Gefesselte Figuren</string>
@@ -268,9 +269,7 @@
   <string name="emailCanTakeSomeTime">Es kann etwas dauern, bis sie ankommt.</string>
   <string name="refreshInboxAfterFiveMinutes">Warte 5 Minuten und aktualisiere dein E-Mail-Postfach.</string>
   <string name="checkSpamFolder">Überprüfe auch dein Spam-Verzeichnis, sie könnte darin gelandet sein. Falls dem so ist, markiere sie als kein Spam.</string>
-  <string name="emailForSignupHelp">Falls alles andere fehlschlägt, dann sende uns folgende E-Mail:</string>
-  <string name="copyTextToEmail">Kopiere den obigen Text, füge ihn hier ein und sende alles an %s</string>
-  <string name="waitForSignupHelp">Wir werden uns bald mit dir in Verbindung setzen, um deine Registrierung abzuschließen.</string>
+  <string name="sendEmailForAccountVerification">Wenn du deine Bestätigungs-Mail nicht finden kannst, sende eine E-Mail an %s und wir bestätigen deinen Account.</string>
   <string name="accountConfirmed">Der Benutzer %s ist erfolgreich bestätigt.</string>
   <string name="accountCanLogin">Du kannst dich ab sofort als %s einloggen.</string>
   <string name="accountConfirmationEmailNotNeeded">Du benötigst keine Bestätigungs-E-Mail.</string>
@@ -943,6 +942,7 @@
   <string name="tryTheContactPage">probiere die Kontaktseite aus</string>
   <string name="makeSureToRead">Bitte lies unbedingt: %1$s</string>
   <string name="theForumEtiquette">Die Forums-Etikette</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Bitte sei freundlich im Forum.</string>
   <string name="thisTopicIsArchived">Dieses Thema wurde archiviert und kann nicht mehr beantwortet werden.</string>
   <string name="joinTheTeamXToPost">Tritt %1$s bei, um in diesem Forum schreiben zu können</string>
   <string name="teamNamedX">%1$s Team</string>

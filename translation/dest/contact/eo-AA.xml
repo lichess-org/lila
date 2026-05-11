@@ -52,7 +52,7 @@
   <string name="knightMate">Eblas ŝakmati nur per ĉevalo aŭ kuriero, se la kontraŭulo havas pli ol reĝon sur la tabulo.</string>
   <string name="noRatingPoints">Neniuj taksadpunktoj estis aljuĝitaj</string>
   <string name="ratedGame">Certigu, ke vi ludis taksitan ludon. Kazaj ludoj ne influas la taksojn de ludantoj.</string>
-  <string name="botRatingAbuse">En certaj cirkonstancoj kiam ludanta kontraŭ robotkonto, ranga ludo eble ne aljuĝas poentojn se estas determinite ke la ludanto misuzas la roboton por rangaj poentoj.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">En certaj cirkonstancoj kiam ludanta kontraŭ robotkonto, ranga ludo eble ne aljuĝas poentojn se estas determinite ke la ludanto misuzas la roboton por rangaj poentoj.</string>
   <string name="errorPage">Erara paĝo</string>
   <string name="reportErrorPage">Se vi trovas eraran paĝon, vi povas raporti ĝin:</string>
   <string name="learnHowToMakeBroadcasts">Lerni kiel fari viajn proprajn elsendojn ĉe Lichess</string>

@@ -95,6 +95,7 @@
   <string name="database">Base de données</string>
   <string name="whiteDrawBlack">Blancs / Nulle / Noirs</string>
   <string name="averageRatingX">Classement moyen : %s</string>
+  <string name="minRatingX">Classement minimal de %s</string>
   <string name="recentGames">Parties récentes</string>
   <string name="topGames">Meilleures parties</string>
   <string name="masterDbExplanation">Deux millions de parties jouées en tournois FIDE >%1$s de %2$s à %3$s</string>
@@ -126,7 +127,6 @@
   <string name="enable">Activée</string>
   <string name="bestMoveArrow">Flèche du meilleur coup</string>
   <string name="showVariationArrows">Afficher les flèches de variantes</string>
-  <string name="evaluationGauge">Jauge d\'évaluation</string>
   <string name="visualMotifs">Motifs visuels</string>
   <string name="undefendedPieces">Pièces non défendues</string>
   <string name="pinnedPieces">Pièces clouées</string>
@@ -268,9 +268,7 @@
   <string name="emailCanTakeSomeTime">L\'arrivée du courriel peut prendre un peu de temps.</string>
   <string name="refreshInboxAfterFiveMinutes">Attendez 5 minutes et rafraîchissez votre boîte de réception.</string>
   <string name="checkSpamFolder">Vérifiez aussi votre dossier de pourriel, il pourrait s\'y trouver. Si c\'est le cas, marquez-le comme non-pourriel.</string>
-  <string name="emailForSignupHelp">Si rien ne marche, envoyez-nous ce courriel :</string>
-  <string name="copyTextToEmail">Copiez et collez le texte ci-dessus et envoyez-le à %s</string>
-  <string name="waitForSignupHelp">Nous vous contacterons sous peu pour vous aider à compléter votre inscription.</string>
+  <string name="sendEmailForAccountVerification">Vous ne trouvez pas votre courriel de confirmation? Envoyez un courriel à %s et nous confirmerons votre compte pour vous.</string>
   <string name="accountConfirmed">L\'inscription de l\'utilisateur %s a été confirmée avec succès.</string>
   <string name="accountCanLogin">Vous pouvez désormais vous connecter en tant que %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Vous n\'avez pas besoin d\'un courriel de confirmation.</string>

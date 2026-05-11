@@ -37,7 +37,7 @@
   <string name="teamTournamentOverview">Арена турнир, към който могат да се присъединят само членове на Вашия отбор</string>
   <string name="swissTournamentOverview">Турнир по щвейцарската система в който могат да участват само членове на клуба</string>
   <string name="messageAllMembers">Съобщете на всички членове</string>
-  <string name="messageAllMembersOverview">Изпрати лично съобщение до всеки от отбора</string>
+  <string name="messageAllMembersOverview">Изпрати лично съобщение до всеки член на отбора</string>
   <string name="messageAllMembersLongDescription">Изпратете лично съобщение до ВСИЧКИ от отбора.
 Можете да използвате това, за да извикате играчи да се присъединят към турнир или отборна битка.
 Играчите, които не обичат да получават вашите съобщения, могат да напуснат отбора.</string>
@@ -45,15 +45,33 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Може да искате да дадете линк към един от тези предстоящи турнири?</string>
   <string name="leadersChat">Чат на лидерите</string>
   <string name="introduction">Въведение</string>
+  <string name="teamIntroductionHelp">Кратко описание, видимо в списъците с отбори. До 200 знака.</string>
+  <string name="teamDescriptionHelp">Пълно описание, видимо на страницата на отбора.</string>
   <string name="closeTeam">Затвори отбора</string>
   <string name="closeTeamDescription">Затваря отбора завинаги.</string>
   <string name="entryCode">Код за присъединяване към отбора</string>
-  <string name="entryCodeDescriptionForLeader">(По избор) Парола, която новите членове трябва да знаят, за да се присъединят към този екип.</string>
+  <string name="entryCodeDescriptionForLeader">(По избор) Парола, която новите членове трябва да знаят, за да се присъединят към този отбор.</string>
   <string name="incorrectEntryCode">Грешен код за включване.</string>
   <string name="teamAlreadyExists">Този отбор вече съществува.</string>
   <string name="upcomingTournaments">Предстоящи турнири</string>
   <string name="completedTourns">Завършени турнири</string>
   <string name="declinedRequests">Отказани заявки за присъединяване</string>
-  <string name="joinLichessVariantTeam">Присъединете се към официалния %s отбор за следите новините и събитията</string>
+  <string name="joinLichessVariantTeam">Присъединете се към официалния %s отбор за да следите новините и събитията</string>
   <string name="thisTeamBattleIsOver">Това състезание приключи - отборите не могат да се променят.</string>
+  <string name="listTheTeamsThatWillCompete">Списък с отборите, които ще участват в тази битка.</string>
+  <string name="oneTeamPerLine">По един отбор на ред. Използвайте автоматичното довършване.</string>
+  <string name="oneTeamPerLineHelp">Можете да копирате и поставите този списък от един турнир в друг!
+
+Не можете да премахнете отбор, ако играч вече се е присъединил към турнира.</string>
+  <string name="numberOfLeadsPerTeam">Брой лидери на отбор. Сборът от техните резултати формира резултата на отбора.</string>
+  <string name="numberOfLeadsPerTeamHelp">Наистина не бива да променяте тази стойност след началото на турнира!</string>
+  <string name="innerTeam">Вътрешен отбор</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Битка между %s отбор</item>
+    <item quantity="other">Битка между %s отбора</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Един лидер на отбор</item>
+    <item quantity="other">%s лидери на отбор</item>
+  </plurals>
 </resources>

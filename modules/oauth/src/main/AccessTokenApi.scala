@@ -3,10 +3,12 @@ package lila.oauth
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import reactivemongo.akkastream.cursorProducer
+import akka.stream.scaladsl.Source
+import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.Json.given
 import lila.core.misc.oauth.{ AccessTokenId, TokenRevoke }
-import lila.core.net.{ Bearer, UserAgent, Origin }
+import lila.core.net.Origin
 import lila.db.dsl.{ *, given }
 
 final class AccessTokenApi(
@@ -205,8 +207,32 @@ final class AccessTokenApi(
       .run()
       .void
 
-  def userIdsByClientOrigin(clientOrigin: Origin): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set]("userId", $doc(F.clientOrigin -> clientOrigin), _.sec)
+  def userIdsByClientOrigin(clientOrigin: Origin): Source[UserId, ?] =
+    coll
+      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
+        import framework.*
+        List(
+          Match($doc(F.clientOrigin -> clientOrigin)),
+          Group(BSONNull)("u" -> AddFieldToSet("userId")),
+          Project($doc("_id" -> 0)),
+          Unwind("u")
+        )
+      .documentSource()
+      .mapConcat(_.getAsOpt[UserId]("u").toList)
+
+  def recentlySeenUserIdsByClientOrigin(clientOrigin: Origin, since: Instant): Fu[List[UserId]] =
+    coll
+      .aggregateOne(readPref = _.sec): framework =>
+        import framework.*
+        Match($doc(F.clientOrigin -> clientOrigin) ++ F.usedAt.$gt(since)) -> List(
+          Group(BSONNull)("u" -> AddFieldToSet("userId")),
+          Project($doc("_id" -> 0))
+        )
+      .map:
+        _.headOption.so(_.getAsOpt[List[UserId]]("u")).orZero
+
+  def exists(clientOrigin: Origin, userIds: List[UserId]): Fu[Boolean] = userIds.nonEmpty.so:
+    coll.secondary.exists($doc(F.clientOrigin -> clientOrigin, F.userId.$in(userIds)))
 
   def revoke(bearer: Bearer) =
     val id = AccessToken.idFrom(bearer)
@@ -241,7 +267,7 @@ final class AccessTokenApi(
   yield res.flatten
 
   private val accessTokenCache =
-    cacheApi[AccessTokenId, Option[AccessToken.ForAuth]](4096, "oauth.access_token"):
+    cacheApi[AccessTokenId, Option[AccessToken.ForAuth]](8_192, "oauth.access_token"):
       _.expireAfterWrite(5.minutes).buildAsyncFuture(fetchAccessToken)
 
   private def fetchAccessToken(id: AccessTokenId): Fu[Option[AccessToken.ForAuth]] =

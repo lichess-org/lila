@@ -51,7 +51,7 @@ export interface Toggle extends PropWithEffect<boolean> {
 }
 
 export const toggle = (initialValue: boolean, effect: (value: boolean) => void = () => {}): Toggle => {
-  const prop = propWithEffect<boolean>(initialValue, effect) as Toggle;
+  const prop = propWithEffect(initialValue, effect) as Toggle;
   prop.toggle = () => prop(!prop());
   return prop;
 };
@@ -78,14 +78,14 @@ export const memoize = <A>(compute: () => A): (() => A) => {
 export const scrollToInnerSelector = (
   el: HTMLElement,
   selector: string,
-  horiz: boolean = false,
+  horiz = false,
   behavior: ScrollBehavior = 'instant',
 ): void => scrollTo(el, el.querySelector(selector), horiz, behavior);
 
 export const scrollTo = (
   el: HTMLElement,
   target: HTMLElement | null,
-  horiz: boolean = false,
+  horiz = false,
   behavior: ScrollBehavior = 'instant',
 ): void => {
   if (!target) return;
@@ -171,10 +171,5 @@ export function blurIfEscape(e: KeyboardEvent): void {
   }
 }
 export function blurOnEscape(el: HTMLElement): void {
-  el.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      e.stopPropagation();
-      el.blur();
-    }
-  });
+  el.addEventListener('keydown', blurIfEscape);
 }

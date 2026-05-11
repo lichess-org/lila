@@ -88,7 +88,7 @@ Umwandle muesch nöd.</string>
   <string name="youCanGetOutOfCheckByTaking">Du chunnsch us em Schach, wänn du de Agrifer schlahsch.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">De Schpringer bütet Schach, dur dini Verteidigung!</string>
   <string name="escapeOrBlock">Mit em König flüchte oder de Agriff blockiere!</string>
-  <string name="outOfCheckComplete">Gratuliere, din König chann nöd gschlage werde, wänn du sicher stellsch, dass du Schachgebot abwehre chasch!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">Gratuliere, din König chann nöd gschlage werde, wänn du sicher stellsch, dass du Schachgebot abwehre chasch!</string>
   <string name="mateInOne">Matt mit 1 Zug</string>
   <string name="defeatTheOpponentsKing">Besieg de gägnerisch König</string>
   <string name="mateInOneIntro">Du günnsch, wänn din Gägner dis Schachgebot nöd abwehre cha.</string>

@@ -1,7 +1,6 @@
 {
-  "name": "botDev",
+  "name": "bot-dev",
   "private": true,
-  "author": "T-Bone Duplexus",
   "typings": "devTypes",
   "typesVersions": {
     "*": {

@@ -124,7 +124,7 @@ export async function naturalSize(image: Blob): Promise<{ width: number; height:
   }
 }
 
-export function markdownPicfitRegex(origin: string = ''): RegExp {
+export function markdownPicfitRegex(origin = ''): RegExp {
   return new RegExp(
     String.raw`!\[([^\n\]]*)\]\((${regexQuote(
       origin,

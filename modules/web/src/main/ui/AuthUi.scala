@@ -253,7 +253,7 @@ final class AuthUi(helpers: Helpers):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
-              fail.isDefined.option(span(cls := "is-red", dataIcon := Icon.X)),
+              fail.isDefined.option(iconTag(Icon.X)(cls := "is-red")),
               trans.site.passwordReset()
             )
           ),
@@ -319,7 +319,7 @@ final class AuthUi(helpers: Helpers):
         main(cls := "auth auth-signup box box-pad")(
           boxTop(
             h1(
-              fail.option(span(cls := "is-red", dataIcon := Icon.X)),
+              fail.option(iconTag(Icon.X)(cls := "is-red")),
               "Log in by email"
             )
           ),
@@ -413,5 +413,6 @@ final class AuthUi(helpers: Helpers):
       tpe := "button",
       dataIcon := Icon.Cancel,
       title := trans.site.clearField.txt(),
-      aria.label := trans.site.clearField.txt()
+      aria.label := trans.site.clearField.txt(),
+      tabindex := -1
     )

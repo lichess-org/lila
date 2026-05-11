@@ -2,7 +2,9 @@ package lila
 package tournament
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
+
 import lila.memo.CacheApi.buildAsyncTimeout
+import lila.mon.extensions.*
 
 final class TournamentFeaturing(
     api: TournamentApi,
@@ -52,9 +54,4 @@ final class TournamentFeaturing(
     teamIds.nonEmpty.so:
       repo
         .visibleForTeams(teamIds, aheadMinutes)
-        // .map:
-        //   _.foldLeft(List.empty[Tournament]): (dedup, tour) =>
-        //     if dedup.exists(_ sameNameAndTeam tour) then dedup
-        //     else tour :: dedup
-        //   .reverse
-        .monSuccess(_.tournament.featuring.forTeams(page))
+        .monSuccess(lila.mon.tournament.featuring.forTeams(page))

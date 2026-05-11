@@ -2,9 +2,9 @@ package lila.oauth
 
 import com.softwaremill.tagging.*
 import play.api.mvc.{ RequestHeader, Result }
+import scalalib.net.{ Bearer, UserAgent }
 
 import lila.common.HTTPRequest
-import lila.core.net.{ Bearer, UserAgent }
 import lila.memo.SettingStore
 
 final class OAuthServer(
@@ -25,8 +25,8 @@ final class OAuthServer(
     res.onComplete(x => monitorAuth(x.isSuccess))
     res
 
-  def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): AccessFu = for
-    at <- getTokenFromSignedBearer(tokenId)
+  def auth(bearer: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): AccessFu = for
+    at <- getTokenFromSignedBearer(bearer)
     at <- at.raiseIfNone(NoSuchToken)
     _ <- raiseIf(!accepted.isEmpty && !accepted.compatible(at.scopes)):
       MissingScope(accepted, at.scopes)

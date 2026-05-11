@@ -22,8 +22,8 @@ final class Reopen(
       email: EmailAddress,
       closedByMod: User => Fu[Boolean]
   ): FuRaise[(String, String), User] = for
-    existing <- userRepo.enabledWithEmail(email.normalize)
-    _ <- raiseIf(existing.isDefined):
+    existing <- userRepo.byEmail(email.normalize)
+    _ <- raiseIf(existing.exists(_.enabled.yes)):
       "emailUsed" -> "This email address is already in use by an active account."
     user <- userRepo.byId(u)
     user <- user.raiseIfNone("noUser" -> "No account found with this username.")

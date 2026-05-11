@@ -1,5 +1,5 @@
 import * as licon from 'lib/licon';
-import { type VNode, type MaybeVNodes, bind, dataIcon, hl } from 'lib/view';
+import { type VNode, type MaybeVNodes, bind, hl, iconTag } from 'lib/view';
 
 import type PuzzleCtrl from '../ctrl';
 
@@ -31,8 +31,8 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
     hl('span.game-over', 'GAME OVER'),
     hl('span', i18n.puzzle.yourStreakX.asArray(hl('strong', `${ctrl.streak?.data.index ?? 0}`))),
   ]),
-  hl('button.continue', { attrs: { href: ctrl.routerWithLang('/streak') } }, [
-    hl('i', { attrs: dataIcon(licon.PlayTriangle) }),
+  hl('a.continue', { attrs: { href: ctrl.routerWithLang('/streak') } }, [
+    iconTag(licon.PlayTriangle),
     i18n.puzzle.newStreak,
   ]),
 ];
@@ -48,12 +48,12 @@ export default function (ctrl: PuzzleCtrl): VNode {
       : [
           hl('div.complete', i18n.puzzle[win ? 'puzzleSuccess' : 'puzzleComplete']),
           hl('button.continue', { hook: bind('click', ctrl.nextPuzzle) }, [
-            hl('i', { attrs: dataIcon(licon.PlayTriangle) }),
+            iconTag(licon.PlayTriangle),
             i18n.puzzle[ctrl.streak ? 'continueTheStreak' : 'continueTraining'],
           ]),
           hl('div.puzzle__more', [
             canPlayComputer
-              ? hl('a', {
+              ? hl('a.practice.button.button-empty', {
                   attrs: {
                     'data-icon': licon.Bullseye,
                     href: `/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`,

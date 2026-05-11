@@ -9,11 +9,10 @@ import {
 } from 'lib/game';
 import { renderClock } from 'lib/game/clock/clockView';
 import * as licon from 'lib/licon';
-import { type LooseVNode, hl, bind } from 'lib/view';
+import { type LooseVNode, hl, bind, dataIcon } from 'lib/view';
 
 import renderCorresClock from '../corresClock/corresClockView';
 import type RoundController from '../ctrl';
-import { justIcon } from '../util';
 import { moretime } from './button';
 
 export const anyClockView = (ctrl: RoundController, position: TopOrBottom): LooseVNode => {
@@ -52,13 +51,13 @@ const showBerserk = (ctrl: RoundController, color: Color): boolean =>
   ctrl.hasGoneBerserk(color) && !bothPlayersHavePlayed(ctrl.data) && playable(ctrl.data);
 
 const renderBerserk = (ctrl: RoundController, color: Color, position: TopOrBottom) =>
-  showBerserk(ctrl, color) ? hl('div.berserked.' + position, justIcon(licon.Berserk)) : null;
+  showBerserk(ctrl, color) ? hl('div.berserked.' + position, { attrs: dataIcon(licon.Berserk) }) : null;
 
 const goBerserk = (ctrl: RoundController, color: Color) =>
   berserkableBy(ctrl.data) &&
   !ctrl.hasGoneBerserk(color) &&
   hl('button.fbt.go-berserk', {
-    attrs: { title: 'GO BERSERK! Half the time, no increment, bonus point', 'data-icon': licon.Berserk },
+    attrs: { title: 'GO BERSERK! Half the time, no increment, bonus point', ...dataIcon(licon.Berserk) },
     hook: bind('click', ctrl.goBerserk),
   });
 

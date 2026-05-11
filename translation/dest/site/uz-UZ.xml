@@ -95,6 +95,8 @@
   <string name="database">Maʼlumotlar bazasi</string>
   <string name="whiteDrawBlack">Oqlar / Durang / Qoralar</string>
   <string name="averageRatingX">Oʻrtacha reyting: %s</string>
+  <string name="minRatingX">%s maksimal reytingi</string>
+  <string name="maxRatingX">%s maksimal reytingi</string>
   <string name="recentGames">Soʻnggi oʻyinlar</string>
   <string name="topGames">Eng yaxshi oʻyinlar</string>
   <string name="masterDbExplanation">%2$s yildan %3$s yilgacha boʻlgan, FIDE reytingi %1$s+ boʻlgan oʻyinchilarning oʻyinlari</string>
@@ -126,7 +128,6 @@
   <string name="enable">Yoqish</string>
   <string name="bestMoveArrow">Eng yaxshi yurishni koʻrsatish</string>
   <string name="showVariationArrows">Variantlar strelkalarini koʻrsatish</string>
-  <string name="evaluationGauge">Baholash shkalasi</string>
   <string name="visualMotifs">Vizual motivlar</string>
   <string name="undefendedPieces">Himoyalanmagan sipohlar</string>
   <string name="pinnedPieces">Bogʻlangan sipohlar</string>
@@ -268,9 +269,7 @@
   <string name="emailCanTakeSomeTime">Xat yetib kelishi uchun biroz vaqt ketishi mumkin.</string>
   <string name="refreshInboxAfterFiveMinutes">5 daqiqa kutib e‑pochta qutingizni yangilang.</string>
   <string name="checkSpamFolder">Shuningdek, spam jildini ham tekshiring, xat u yerga tushib qolgan boʻlishi mumkin. Agar shunday boʻlsa, uni “Spam emas” deb belgilang.</string>
-  <string name="emailForSignupHelp">Agar bularning hech biri yordam bermasa, u holda bizni e‑pochtamizga ushbu xatni yuboring:</string>
-  <string name="copyTextToEmail">Yuqoridagi matndan nusxa oling va %s manziliga yuboring</string>
-  <string name="waitForSignupHelp">Roʻyxatdan oʻtishga yordam berish uchun siz bilan tez orada bogʻlanamiz.</string>
+  <string name="sendEmailForAccountVerification">Agar tasdiqlash xatini topa olmasangiz, %s manziliga xat yuboring va biz hisobingizni tasdiqlab beramiz.</string>
   <string name="accountConfirmed">Foydalanuvchi %s muvaffaqiyatli tasdiqlandi.</string>
   <string name="accountCanLogin">Hozirning oʻzidayoq %s sifatida tizimga kirishingiz mumkin.</string>
   <string name="accountConfirmationEmailNotNeeded">Tasdiqlash xati talab qilinmaydi.</string>

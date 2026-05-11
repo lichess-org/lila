@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">Si un coup n\'est pas détecté</string>
   <string name="checkYouHaveMadeOpponentsMove">Vérifiez d\'abord que vous avez joué le coup de votre adversaire sur l\'échiquier DGT. Reprenez votre coup. Jouez-le de nouveau.</string>
   <string name="asALastResort">En dernier recours, placez les pièces sur l\'échiquier de la même façon que sur l\'échiquier de Lichess, puis %s</string>
-  <string name="reloadThisPage">rechargez cette page</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">rechargez cette page</string>
   <string name="dgtConfigure">DGT - Configurer</string>
   <string name="lichessConnectivity">Connectivité de Lichess</string>
   <string name="validDgtOauthToken">Vous avez un jeton OAuth adapté à l\'échiquier DGT.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">Les mots-clés sont au format JSON. Ils sont utilisés pour traduire des déplacements et des résultats dans votre langue. La valeur par défaut est l\'anglais, mais n\'hésitez pas à la modifier.</string>
   <string name="debug">Débogage</string>
   <string name="verboseLogging">Journal détaillé</string>
-  <string name="toSeeConsoleMessage">Pour voir le message de la console, appuyez sur Command + Option + Option + C (Mac) ou Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Pour voir le message de la console, appuyez sur Command + Option + Option + C (Mac) ou Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Jouer avec un échiquier DGT</string>
   <string name="configure">Configurer</string>
 </resources>

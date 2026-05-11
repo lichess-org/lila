@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Матовий патерн, який візуально нагадує ластівчин хвіст, подібно до літери \"У\".</string>
   <string name="triangleMate">Трикутний мат</string>
   <string name="triangleMateDescription">Ферзь і тура на відстані одного поля від ворожого короля перебувають на одній горизонталі чи вертикалі та формують трикутник.</string>
-  <string name="vukovicMate">Мат Вуковіча</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Мат Вуковіча</string>
   <string name="vukovicMateDescription">Тура й кінь об\'єднуються, аби поставити мат королю. Тура, яку захищає третя фігура, ставить мат, а кінь блокує всі поля, через які король може втекти.</string>
   <string name="knightEndgame">Кіньовий ендшпіль</string>
   <string name="knightEndgameDescription">Ендшпіль лише з конями та пішаками.</string>

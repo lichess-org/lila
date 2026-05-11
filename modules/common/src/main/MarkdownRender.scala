@@ -104,19 +104,14 @@ final class MarkdownRender(
     Markdown(RawHtml.atUsernameRegex.replaceAllIn(markdown.value, "[@$1](/@/$1)"))
 
   def apply(key: MarkdownRender.Key)(text: Markdown): Html = Html:
-    Chronometer
-      .sync:
-        try
-          val saferText = MarkdownRender.preventStackOverflow(text)
-          val withMentions = if sourceMap then saferText else mentionsToLinks(saferText)
-          renderer.render(parser.parse(withMentions.value))
-        catch
-          case e: StackOverflowError =>
-            logger.branch(key).error("StackOverflowError", e)
-            text.value
-      .mon(_.markdown.time)
-      .logIfSlow(50, logger.branch(key))(_ => s"slow markdown size:${text.value.size}")
-      .result
+    try
+      val saferText = MarkdownRender.preventStackOverflow(text)
+      val withMentions = if sourceMap then saferText else mentionsToLinks(saferText)
+      renderer.render(parser.parse(withMentions.value))
+    catch
+      case e: StackOverflowError =>
+        logger.branch(key).error("StackOverflowError", e)
+        text.value
 
 object MarkdownRender:
 

@@ -80,7 +80,7 @@ final class PerfsUpdater(
     val newPerfs = perfs
       .focusKey(perfKey)
       .modify:
-        _.addOrReset(_.round.error.glicko, s"game ${game.id}")(player, game.movedAt)
+        _.addOrReset(lila.mon.round.error.glicko, s"game ${game.id}")(player, game.movedAt)
     if game.ratingVariant.standard
     then updateStandard(newPerfs)
     else newPerfs

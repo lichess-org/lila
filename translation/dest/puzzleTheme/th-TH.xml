@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">รูปแบบการรุกจนที่มีลักษณะเป็นตัว V คล้ายหางนกนางแอ่ง โดยช่องแนวทแยงข้างหน้าหรือหลังคิงมีหมากขว้างไว้คิงเลยหนีไม่ได้</string>
   <string name="triangleMate">รุกจนแบบสามเหลี่ยม</string>
   <string name="triangleMateDescription">รุกจนโดยควีนและเรือที่อยู่ห่างจากคิงของฝ่ายตรงข้ามหนึ่งช่องในทางแนวทแยง โดยเว้นระยะห่างกันหนึ่งช่อง ทำให้เกิดเป็นรูปสามเหลี่ยม</string>
-  <string name="vukovicMate">การรุกจนแบบ Vukovic</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">การรุกจนแบบ Vukovic</string>
   <string name="vukovicMateDescription">เป็นการที่เรือกับม้าร่มมือกันเพื่อรุกจนคิงฝ่ายตรงข้าม โดยเรือจะเป็นตัวรุกจนโดยมีหมากตัวที่สามในการป้องกัน ส่วนม้าก็เป็นตัวช่วยบล็อกคิงฝ่ายตรงข้ามไม่ให้หนีได้</string>
   <string name="knightEndgame">ท้ายเกมม้า</string>
   <string name="knightEndgameDescription">ท้ายเกมที่มีแต่น้าและเบี้ย</string>

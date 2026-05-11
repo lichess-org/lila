@@ -80,7 +80,7 @@
     margin: 20px;
     display: flex;
 
-    i {
+    icon {
       font-size: 45px;
       margin-inline-end: 15px;
     }
@@ -246,7 +246,7 @@
       vertical-align: bottom;
       color: $c-font-dim;
 
-      i {
+      icon {
         font-size: 2em;
         display: block;
       }

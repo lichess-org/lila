@@ -9,7 +9,6 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class AccountSecurity(helpers: Helpers)(
-    contactEmail: EmailAddress,
     AccountPage: (String, String) => Context ?=> Page
 ):
   import helpers.{ *, given }
@@ -160,8 +159,8 @@ final class AccountSecurity(helpers: Helpers)(
               )
             )
           ),
-          div(cls := "replies")(
-            status.map {
+          div(cls := "replies"):
+            status.map:
               case Status.NoSuchUser(name) =>
                 frag(
                   p(trans.site.usernameNotFound(strong(name))),
@@ -171,27 +170,23 @@ final class AccountSecurity(helpers: Helpers)(
                     )
                   )
                 )
-              case Status.EmailSent(name, email) =>
-                frag(
-                  p(trans.site.emailSent(email.conceal)),
-                  p(
-                    trans.site.emailCanTakeSomeTime(),
-                    br,
-                    strong(trans.site.refreshInboxAfterFiveMinutes())
-                  ),
-                  p(trans.site.checkSpamFolder()),
-                  p(trans.site.emailForSignupHelp()),
-                  hr,
-                  p(i(s"Hello, please confirm my account: $name")),
-                  hr,
-                  p(
-                    trans.site.copyTextToEmail(
-                      a(href := s"mailto:${contactEmail.value}?subject=Confirm account $name")(
-                        contactEmail.value
-                      )
+              case Status.EmailSent(name, email, sendTo) =>
+                val mailto = s"mailto:$sendTo?subject=Confirm+account+$name"
+                ol(
+                  li(
+                    p(trans.site.emailSent(strong(email.conceal))),
+                    p(
+                      trans.site.emailCanTakeSomeTime(),
+                      br,
+                      strong(trans.site.refreshInboxAfterFiveMinutes())
                     )
                   ),
-                  p(trans.site.waitForSignupHelp())
+                  li(trans.site.checkSpamFolder()),
+                  li(
+                    p(trans.site.sendEmailForAccountVerification(strong(a(href := mailto)(sendTo)))),
+                    a(cls := "button", href := mailto):
+                      trans.site.send()
+                  )
                 )
               case Status.Confirmed(name) =>
                 frag(
@@ -203,7 +198,5 @@ final class AccountSecurity(helpers: Helpers)(
                 p(trans.site.accountClosed(strong(name)))
               case Status.NoEmail(name) =>
                 p(trans.site.accountRegisteredWithoutEmail(strong(name)))
-            }
-          )
         )
       )

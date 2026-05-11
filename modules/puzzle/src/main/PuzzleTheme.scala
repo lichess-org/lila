@@ -16,8 +16,8 @@ object PuzzleTheme:
   case class WithCount(theme: PuzzleTheme, count: Int)
 
   enum VoteError:
+    case Unchanged
     case Fail(msg: String) extends VoteError
-    case Unchanged extends VoteError
     def message: String = this match
       case Fail(msg) => msg
       case Unchanged => "unchanged"

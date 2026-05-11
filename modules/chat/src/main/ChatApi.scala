@@ -341,11 +341,12 @@ private[chat] object GarbageDetector:
 
   private val xThPattern = """\d+(st|ts|nd|rd|th)$""".r
   private val claimNumberPattern =
-    """(?i)^(I?\s?claim(ed?)?\s?((\d+(st|ts|nd|rd|th)?)|(first|second|third)))$""".r
+    """(?i)^((I?'?m?\s?(claim|call)(ed?|i[mn]g)?|me|I'?m?)\s?((\d+(st|ts|nd|rd|th)?)|(first|second|third)))""".r.unanchored
   private val numberMemeDuplicatePattern = """(?i)([\W\w]?[67][\W\w]?[678][\W\w]?){2,}""".r.unanchored
   private val numberLetterMemeDuplicatePattern = """(?i)((six)[\W\w]?(seven)[\W\w]?){2,}""".r.unanchored
-  private val duplicateCharacterPattern = """(?i)(.)\1{4,}""".r
-  private val duplicateCharactersPattern = """(?i)(..)\1{3,}""".r
+  private val duplicateCharacterPattern = """(?i).?.?(.)\1{4,}.?.?""".r
+  private val duplicateCharactersPattern = """(?i).?.?(..)\1{3,}.?.?""".r
+  private val duplicateDoublePattern = """(?i).?.?(.)\1{3,}.?.?(.)\2{2,}.?.?""".r
 
   def apply(text: String): Boolean = {
     val x = text.filter(_.isLetter).toLowerCase
@@ -358,4 +359,5 @@ private[chat] object GarbageDetector:
     numberMemeDuplicatePattern.matches(text) ||
     numberLetterMemeDuplicatePattern.matches(text) ||
     duplicateCharacterPattern.matches(text) ||
-    duplicateCharactersPattern.matches(text)
+    duplicateCharactersPattern.matches(text) ||
+    duplicateDoublePattern.matches(text)

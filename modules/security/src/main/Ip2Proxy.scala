@@ -8,6 +8,7 @@ import play.api.libs.ws.StandaloneWSClient
 import lila.core.net.IpAddress
 import lila.core.security.{ Ip2ProxyApi, IsProxy }
 import lila.common.HTTPRequest
+import lila.mon.extensions.*
 
 final class Ip2ProxySkip extends Ip2ProxyApi:
   def ofReq(req: RequestHeader): Fu[IsProxy] = fuccess(IsProxy.empty)
@@ -89,7 +90,7 @@ final class Ip2ProxyServer(
         .withTimeout(200.millis, "Ip2Proxy.fetch")
         .dmap(_.body[JsValue])
         .dmap(readProxyName)
-        .monSuccess(_.security.proxy.request)
+        .monSuccess(lila.mon.security.proxy.request)
         .addEffect: result =>
           lila.mon.security.proxy.result(result.name).increment()
         .recoverDefault(IsProxy.empty)

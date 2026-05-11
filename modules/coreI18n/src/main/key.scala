@@ -931,6 +931,10 @@ object I18nKey:
     val `puzzleFailed`: I18nKey = "learn:puzzleFailed"
     val `retry`: I18nKey = "learn:retry"
 
+  object msg:
+    val `lichobileNewAppAvailable`: I18nKey = "msg:lichobileNewAppAvailable"
+    val `lichobileNewAppDownload`: I18nKey = "msg:lichobileNewAppDownload"
+
   object nvui:
     val `featuredEvents`: I18nKey = "nvui:featuredEvents"
     val `moveList`: I18nKey = "nvui:moveList"
@@ -1655,6 +1659,8 @@ object I18nKey:
     val `database`: I18nKey = "database"
     val `whiteDrawBlack`: I18nKey = "whiteDrawBlack"
     val `averageRatingX`: I18nKey = "averageRatingX"
+    val `minRatingX`: I18nKey = "minRatingX"
+    val `maxRatingX`: I18nKey = "maxRatingX"
     val `recentGames`: I18nKey = "recentGames"
     val `topGames`: I18nKey = "topGames"
     val `masterDbExplanation`: I18nKey = "masterDbExplanation"
@@ -1682,7 +1688,6 @@ object I18nKey:
     val `enable`: I18nKey = "enable"
     val `bestMoveArrow`: I18nKey = "bestMoveArrow"
     val `showVariationArrows`: I18nKey = "showVariationArrows"
-    val `evaluationGauge`: I18nKey = "evaluationGauge"
     val `visualMotifs`: I18nKey = "visualMotifs"
     val `undefendedPieces`: I18nKey = "undefendedPieces"
     val `pinnedPieces`: I18nKey = "pinnedPieces"
@@ -1772,9 +1777,7 @@ object I18nKey:
     val `emailCanTakeSomeTime`: I18nKey = "emailCanTakeSomeTime"
     val `refreshInboxAfterFiveMinutes`: I18nKey = "refreshInboxAfterFiveMinutes"
     val `checkSpamFolder`: I18nKey = "checkSpamFolder"
-    val `emailForSignupHelp`: I18nKey = "emailForSignupHelp"
-    val `copyTextToEmail`: I18nKey = "copyTextToEmail"
-    val `waitForSignupHelp`: I18nKey = "waitForSignupHelp"
+    val `sendEmailForAccountVerification`: I18nKey = "sendEmailForAccountVerification"
     val `accountConfirmed`: I18nKey = "accountConfirmed"
     val `accountCanLogin`: I18nKey = "accountCanLogin"
     val `accountConfirmationEmailNotNeeded`: I18nKey = "accountConfirmationEmailNotNeeded"
@@ -2331,6 +2334,7 @@ object I18nKey:
     val `tryTheContactPage`: I18nKey = "tryTheContactPage"
     val `makeSureToRead`: I18nKey = "makeSureToRead"
     val `theForumEtiquette`: I18nKey = "theForumEtiquette"
+    val `pleaseBeNiceInTheForum`: I18nKey = "pleaseBeNiceInTheForum"
     val `thisTopicIsArchived`: I18nKey = "thisTopicIsArchived"
     val `joinTheTeamXToPost`: I18nKey = "joinTheTeamXToPost"
     val `teamNamedX`: I18nKey = "teamNamedX"

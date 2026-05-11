@@ -59,24 +59,12 @@ body:has(.email-confirm, .signup-confirm) .signin-or-signup {
     }
   }
 
-  @keyframes appear-pulse {
+  @keyframes appear-fade {
     5% {
       transform: translateY(0);
     }
 
     10% {
-      opacity: 1;
-    }
-
-    20% {
-      opacity: 0.4;
-    }
-
-    50% {
-      opacity: 1;
-    }
-
-    70% {
       opacity: 0.4;
     }
 
@@ -105,12 +93,12 @@ body:has(.email-confirm, .signup-confirm) .signin-or-signup {
     }
 
     ol li:nth-child(3) {
-      animation: appear-pulse 30s forwards;
-      animation-delay: 10s;
+      animation: appear-fade 10s forwards;
+      animation-delay: 13s;
     }
 
     ol li:nth-child(4) {
-      animation-delay: 50s;
+      animation-delay: 30s;
     }
   }
 }
@@ -122,6 +110,7 @@ body:has(.email-confirm, .signup-confirm) .signin-or-signup {
 
   .form-split {
     justify-content: flex-start;
+    gap: 1em;
   }
 
   .form-group:last-child {
@@ -129,16 +118,19 @@ body:has(.email-confirm, .signup-confirm) .signin-or-signup {
     align-items: center;
   }
 
-  .button {
-    margin-inline-start: 1em;
-  }
-
   .replies {
     font-size: 1.2em;
-  }
 
-  .replies p {
-    margin-bottom: 1em;
+    ol {
+      li {
+        list-style: decimal;
+        margin-bottom: 2em;
+      }
+    }
+
+    p {
+      margin-bottom: 0.5em;
+    }
   }
 }
 

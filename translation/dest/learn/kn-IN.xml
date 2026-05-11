@@ -104,7 +104,7 @@
 ನಿಮ್ಮ ರಕ್ಷಣೆಯ ಮೂಲಕ!</string>
   <string name="escapeOrBlock">ರಾಜನೊಂದಿಗೆ ತಪ್ಪಿಸಿಕೊಳ್ಳಿ
 ಅಥವಾ ದಾಳಿಯನ್ನು ತಡೆಯಿರಿ!</string>
-  <string name="outOfCheckComplete">ಅಭಿನಂದನೆಗಳು! ನಿಮ್ಮ ರಾಜನನ್ನು ಎಂದಿಗೂ ತೆಗೆದುಕೊಳ್ಳಲಾಗುವುದಿಲ್ಲ, ನೀವು ಚೆಕ್ ವಿರುದ್ಧ ರಕ್ಷಿಸಬಹುದೆಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ!</string>
+  <string name="outOfCheckComplete" comment="A brief description indicating that the user has reached the end of the out of check chapter.&#10;&#10;Note: In March 2026, this was changed from &quot;can never be taken&quot; to &quot;must never be taken&quot;.">ಅಭಿನಂದನೆಗಳು! ನಿಮ್ಮ ರಾಜನನ್ನು ಎಂದಿಗೂ ತೆಗೆದುಕೊಳ್ಳಲಾಗುವುದಿಲ್ಲ, ನೀವು ಚೆಕ್ ವಿರುದ್ಧ ರಕ್ಷಿಸಬಹುದೆಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ!</string>
   <string name="mateInOne">ಒಂದರಲ್ಲಿ ಸಂಗಾತಿ</string>
   <string name="defeatTheOpponentsKing">ಎದುರಾಳಿಯ ರಾಜನನ್ನು ಸೋಲಿಸಿ</string>
   <string name="mateInOneIntro">ನಿಮ್ಮ ಎದುರಾಳಿಯು ಚೆಕ್ ವಿರುದ್ಧ ರಕ್ಷಿಸಲು ಸಾಧ್ಯವಾಗದಿದ್ದಾಗ ನೀವು ಗೆಲ್ಲುತ್ತೀರಿ.</string>

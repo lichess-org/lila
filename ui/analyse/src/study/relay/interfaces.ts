@@ -1,4 +1,4 @@
-import type { FideId, PointsStr } from '../interfaces';
+import type { Federation, FideId, PointsStr } from '../interfaces';
 import type { RelayPlayer } from './relayPlayers';
 
 export interface RelayData {
@@ -118,13 +118,17 @@ export interface POVTeamMatch {
 
 export type RelayTeamName = string;
 
-export interface RelayTeamStandingsEntry {
+export interface RelayTeamStandingsFromServer {
   name: RelayTeamName;
   mp: number;
   gp: number;
   matches: POVTeamMatch[];
   players: RelayPlayer[];
   averageRating?: number;
+}
+
+export interface RelayTeamStandingsEntry extends RelayTeamStandingsFromServer {
+  fed?: Federation;
 }
 
 export type RelayTeamStandings = RelayTeamStandingsEntry[];

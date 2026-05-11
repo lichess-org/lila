@@ -9,6 +9,7 @@ import scalalib.data.LazyFu
 
 import lila.common.Json.given
 import lila.common.autoconfig.*
+import lila.mon.extensions.*
 
 final private class WebPush(
     webSubscriptionApi: WebSubscriptionApi,
@@ -77,7 +78,7 @@ final private class WebPush(
                       .map: n =>
                         logger.info(s"[push] web: $n/${staleEndpoints.size} stale endpoints unsubscribed")
               case res => fufail(s"[push] web: ${res.status} ${res.body}")
-            .monSuccess(_.push.web.post)
+            .monSuccess(lila.mon.push.web.post)
 
 private object WebPush:
 

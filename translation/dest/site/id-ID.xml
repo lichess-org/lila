@@ -120,7 +120,6 @@
   <string name="enable">Aktifkan</string>
   <string name="bestMoveArrow">Panah Langkah terbaik</string>
   <string name="showVariationArrows">Tampilkan variasi panah</string>
-  <string name="evaluationGauge">Mengukur evaluasi</string>
   <string name="multipleLines">Beberapa variasi</string>
   <string name="cpus">CPU</string>
   <string name="memory">Memori</string>
@@ -237,9 +236,6 @@
   <string name="emailCanTakeSomeTime">Dapat membutuhkan beberapa waktu hingga sampai.</string>
   <string name="refreshInboxAfterFiveMinutes">Tunggu 5 menit dan refresh kotak masuk Anda.</string>
   <string name="checkSpamFolder">Cek juga folder spam Anda, mungkin ada disana. Jika ada, tandai sebagai bukan spam.</string>
-  <string name="emailForSignupHelp">Jika semuanya gagal, kirim kami email ini:</string>
-  <string name="copyTextToEmail">Salin dan tempel teks diatas dan kirimkan ke %s</string>
-  <string name="waitForSignupHelp">Kami akan kembali sejenak untuk membantu penyelesaian signup anda.</string>
   <string name="accountConfirmed">User %s berhasil dikonfirmasi.</string>
   <string name="accountCanLogin">Anda sekarang dapat masuk sebagai %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Anda tidak butuh email konfirmasi.</string>

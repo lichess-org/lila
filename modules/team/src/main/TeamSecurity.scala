@@ -5,6 +5,7 @@ import cats.derived.*
 
 import lila.core.perm.Granter
 import lila.memo.CacheApi.*
+import lila.mon.extensions.*
 
 object TeamSecurity:
   enum Permission(val name: String, val desc: String) derives Eq:

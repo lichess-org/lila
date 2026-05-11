@@ -5,6 +5,7 @@ import akka.stream.scaladsl.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import scalalib.ThreadLocalRandom
+import scalalib.net.UserAgent
 
 import lila.chat.{ Chat, UserLine }
 import lila.common.Bus
@@ -12,7 +13,6 @@ import lila.common.actorBus.*
 import lila.core.game.{ AbortedBy, FinishGame, WithInitialFen }
 import lila.core.round.{ Tell, RoundBus }
 import lila.core.user.KidMode
-import lila.core.net.UserAgent
 import lila.game.actorApi.{
   BoardDrawOffer,
   BoardGone,
@@ -35,7 +35,7 @@ final class GameStateStream(
 
   def apply(init: WithInitialFen, as: Color)(using
       lang: Lang,
-      ua: lila.core.net.UserAgent,
+      ua: UserAgent,
       me: Me
   ): Source[Option[JsObject], ?] =
 

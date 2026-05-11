@@ -16,7 +16,7 @@ final class RacerLobby(api: RacerApi)(using Executor)(using scheduler: Scheduler
     maxSize = Max(128),
     timeout = 20.seconds,
     name = "racer.lobby",
-    lila.log.asyncActorMonitor.full
+    lila.mon.asyncActorMonitor.full
   )
 
   private val fallbackRace = RacerRace.make(RacerPlayer.lichess, Nil, 10)

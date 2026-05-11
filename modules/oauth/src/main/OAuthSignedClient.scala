@@ -2,10 +2,11 @@ package lila.oauth
 
 import play.api.Configuration
 import com.roundeights.hasher.Algo
+import scalalib.net.Bearer
 
 import lila.oauth.Protocol.{ ClientId, RedirectUri }
 import lila.common.config.given
-import lila.core.net.{ Bearer, Origin, ValidReferrer }
+import lila.core.net.{ Origin, ValidReferrer }
 
 case class OAuthSignedClient(
     clientId: ClientId,

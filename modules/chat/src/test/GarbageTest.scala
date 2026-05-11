@@ -22,8 +22,15 @@ class GarbageTest extends munit.FunSuite:
   test("detect claim messages"):
     assert(GarbageDetector("I claim 3rd"))
     assert(GarbageDetector("I claim 1st"))
+    assert(GarbageDetector("I claim 1st as normal"))
+    assert(GarbageDetector("I'm claim 1st"))
     assert(GarbageDetector("I claim 324245"))
+    assert(GarbageDetector("I claiming 324245"))
     assert(GarbageDetector("claimed first"))
+    assert(GarbageDetector("me 1st :)"))
+    assert(GarbageDetector("I'm 1st"))
+    assert(GarbageDetector("call first"))
+    assert(GarbageDetector("called 1st"))
 
   test("detect repeated 6-7 and six-seven memes"):
     assert(GarbageDetector("6767"))
@@ -41,6 +48,11 @@ class GarbageTest extends munit.FunSuite:
     assert(GarbageDetector("11111"))
     assert(GarbageDetector("Hahahahaha"))
     assert(GarbageDetector("....."))
+    assert(GarbageDetector("siuuuuuu"))
+    assert(GarbageDetector("yessssssss"))
+    assert(GarbageDetector("noooooooo"))
+    assert(GarbageDetector("aaaaaa 111111"))
+    assert(GarbageDetector("!!!!!!!67!!!!!!!"))
 
   test("ignore normal messages"):
     assert(!GarbageDetector("hello everyone"))
@@ -59,4 +71,3 @@ class GarbageTest extends munit.FunSuite:
     assert(!GarbageDetector("siu"))
     assert(!GarbageDetector("..."))
     assert(!GarbageDetector("haha"))
-    assert(!GarbageDetector("aaaaaa 111111"))

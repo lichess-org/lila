@@ -34,7 +34,7 @@ final class TeamApi(
     expiration = 30.seconds,
     timeout = 5.seconds,
     name = "team",
-    lila.log.asyncActorMonitor.highCardinality
+    lila.mon.asyncActorMonitor.highCardinality
   )
 
   def team(id: TeamId) = teamRepo.byId(id)

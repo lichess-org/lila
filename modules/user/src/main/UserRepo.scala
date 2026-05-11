@@ -45,6 +45,11 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       recoverDeleted:
         coll.one[User](enabledSelect ++ $id(u.id))
 
+  def notForeverClosedById[U: UserIdOf](u: U): Fu[Option[User]] =
+    u.id.noGhost.so:
+      recoverDeleted:
+        coll.one[User](notForeverClosedSelect ++ $id(u.id))
+
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(_.noGhost)
     coll.list[User](enabledSelect ++ $inIds(ids), _.sec)
@@ -195,6 +200,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   val enabledSelect = $doc(F.enabled -> true)
   val disabledSelect = $doc(F.enabled -> false)
+  val notForeverClosedSelect = F.foreverClosed.$ne(true)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then $doc(F.marks -> mark.key)
     else F.marks.$ne(mark.key)
@@ -454,9 +460,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       .one[Bdoc]
       .mapz(anyEmailOrPrevious)
 
-  def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
+  def notClosedForeverWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
     coll
-      .find($doc(F.email -> email, F.enabled -> true))
+      .find($doc(F.email -> email, notForeverClosedSelect))
       .one[Bdoc]
       .map: maybeDoc =>
         for

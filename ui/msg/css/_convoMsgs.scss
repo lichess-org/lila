@@ -64,6 +64,7 @@
     font-size: 0.9em;
     color: $c-font;
     margin: 0.5em 0;
+    user-select: none;
   }
 
   mine {
@@ -91,6 +92,7 @@
     font-size: 0.8em;
     float: right;
     margin: 0.4em 0 0 2em;
+    user-select: none;
   }
 
   img {

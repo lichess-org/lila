@@ -187,7 +187,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     displayColumns() > 1 &&
       cmnToggleWrapProp({
         id: 'gauge',
-        name: i18n.site.evaluationGauge,
+        name: i18n.study.showEvalBar,
         prop: ctrl.showGauge,
         redraw: ctrl.redraw,
       }),

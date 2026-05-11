@@ -268,7 +268,7 @@ class WsSocket {
     pubsub.emit('socket.lag', this.averageLag);
   };
 
-  private readonly handle = (m: MsgIn, retries: number = 10): void => {
+  private readonly handle = (m: MsgIn, retries = 10): void => {
     if (m.v && this.version !== false) {
       if (m.v <= this.version) {
         this.debug('already has event ' + m.v);

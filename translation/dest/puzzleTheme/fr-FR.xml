@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Motif de mat qui ressemble visuellement à un guéridon (une petite table soutenue par un pied central).</string>
   <string name="triangleMate">Mat du triangle</string>
   <string name="triangleMateDescription">La dame et la tour, à une case de distance du roi adverse, sont sur la même rangée ou colonne et donnent mat en formant un triangle.</string>
-  <string name="vukovicMate">Mat de Vukovic</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Mat de Vukovic</string>
   <string name="vukovicMateDescription">Une tour et un cavalier collaborent pour mater le roi adverse. Protégée par une troisième pièce, la tour fait mat, car le cavalier bloque la case de fuite du roi.</string>
   <string name="knightEndgame">Finale de Cavaliers</string>
   <string name="knightEndgameDescription">Une finale avec seulement des Cavaliers et des pions.</string>

@@ -1,6 +1,7 @@
 /// <reference path="./chessground.d.ts" />
 /// <reference path="./cash.d.ts" />
 /// <reference path="./i18n.d.ts" />
+/// <reference path="./licon.d.ts" />
 
 // file://./../../site/src/site.ts
 interface Site {
@@ -88,7 +89,7 @@ interface LichessPowertip {
 interface QuestionChoice {
   // file://./../../round/src/ctrl.ts
   action: () => void;
-  icon?: string;
+  icon?: LiconType;
   text?: string;
 }
 

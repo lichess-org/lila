@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">Бұл сіздің төлқұжатыңыз.</string>
   <string name="enabledKidModeSuggestion">Бұл тіркелгіде бала отыра ма? Олай болса, сізге керегі - %s.</string>
   <string name="whatNowSuggestions">Енді келесідей ұсыныстарды қарап көріңіз:</string>
-  <string name="learnChessRules">Шахмат ережесін білу</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Шахмат ережесін білу</string>
   <string name="improveWithChessTacticsPuzzles">Шахмат тактикасын үйрететін жұмбақ шешу.</string>
   <string name="playTheArtificialIntelligence">Жасанды Зердемен ойнау.</string>
   <string name="playOpponentsFromAroundTheWorld">Дүниежүзінің ойыншыларымен ойнау.</string>

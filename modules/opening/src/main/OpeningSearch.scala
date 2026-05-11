@@ -6,7 +6,7 @@ import scalalib.HeapSort.topN
 
 import java.text.Normalizer
 
-import lila.common.Chronometer
+import lila.mon.Chronometer
 import lila.memo.CacheApi
 
 case class OpeningSearchResult(opening: Opening):
@@ -114,7 +114,7 @@ private object OpeningSearch:
 
   private given Ordering[Match] = Ordering.by { case Match(_, score) => score }
 
-  def apply(str: String, max: Int): List[Opening] = Chronometer.syncMon(_.opening.searchTime):
+  def apply(str: String, max: Int): List[Opening] = Chronometer.syncMon(lila.mon.opening.searchTime):
     val query = makeQuery(str)
     index
       .flatMap: entry =>

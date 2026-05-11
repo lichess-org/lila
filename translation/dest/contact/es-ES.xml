@@ -52,7 +52,7 @@
   <string name="knightMate">Puedes hacer jaque mate con sólo un caballo o un alfil, si el oponente tiene más que un rey en el tablero.</string>
   <string name="noRatingPoints">No se otorgaron puntos</string>
   <string name="ratedGame">Asegúrate de haber jugado una partida por puntuación. Las partidas amistosas no afectan a las puntuaciones de los jugadores.</string>
-  <string name="botRatingAbuse">Al jugar contra una cuenta de bot, puede que una partida por puntos no se contabilice si se determina que el jugador abusa del bot para conseguir puntos.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Al jugar contra una cuenta de bot, puede que una partida por puntos no se contabilice si se determina que el jugador abusa del bot para conseguir puntos.</string>
   <string name="errorPage">Página de error</string>
   <string name="reportErrorPage">Si una página te da error, puedes reportarla:</string>
   <string name="learnHowToMakeBroadcasts">Aprende cómo hacer tus propias emisiones en Lichess</string>

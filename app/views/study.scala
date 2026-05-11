@@ -11,7 +11,7 @@ import lila.core.study.{ IdName, StudyOrder }
 
 lazy val bits = lila.study.ui.StudyBits(helpers)
 lazy val ui = lila.study.ui.StudyUi(helpers)
-lazy val list = lila.study.ui.ListUi(helpers, bits)
+lazy val list = lila.study.ui.StudyListUi(helpers, bits)
 
 def staffPicks(p: lila.cms.CmsPage.Render, featuredForm: Option[Form[?]])(using Context) =
   Page(p.title)

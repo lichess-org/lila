@@ -21,7 +21,7 @@ Es Uszwähle, welem Schpiel me biträtte will, chunnt bald...</string>
   <string name="ifMoveNotDetected">Falls en Zug nöd regischtriert worde isch...</string>
   <string name="checkYouHaveMadeOpponentsMove">Überprüef zerscht, ob du de Zug vum Gägner uf em DGT - Schachbrätt scho usgfüehrt häsch. Nimm din Zug zrugg. Zieh nomal.</string>
   <string name="asALastResort">Als letschti Möglichkeit: Schtell dis Brätt genau so uf wie das vu Lichess und dänn %s</string>
-  <string name="reloadThisPage">ladsch die Site neu</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">ladsch die Site neu</string>
   <string name="dgtConfigure">DGT - Schachbrätt - Konfiguration</string>
   <string name="lichessConnectivity">Lichess Verbindig</string>
   <string name="validDgtOauthToken">Du häsch en OAuth Schlüssel, wo für DGT-Schpiel funktioniert.</string>
@@ -43,7 +43,7 @@ Es Uszwähle, welem Schpiel me biträtte will, chunnt bald...</string>
   <string name="keywordFormatDescription">Schlüsselwörter sind im Format JSON. Sie werded verwändet, zum Züg und Ergäbnis in dini Schprach z\'übersetze. Englisch isch Standard, das chasch aber ändere.</string>
   <string name="debug">Fehlersuechi</string>
   <string name="verboseLogging">Usfüherlichi Protokollierig</string>
-  <string name="toSeeConsoleMessage">Zum Konsole-Nachrichte z\'gseh trucksch: \"Ctrl + Shift + C\" (in Windows, Linux, Chrome OS) oder \"Command + Option + C\" (bi Mac)</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">Zum Konsole-Nachrichte z\'gseh trucksch: \"Ctrl + Shift + C\" (in Windows, Linux, Chrome OS) oder \"Command + Option + C\" (bi Mac)</string>
   <string name="playWithDgtBoard">Schpill mit eme DGT Schachbrätt</string>
   <string name="configure">Konfiguriere</string>
 </resources>

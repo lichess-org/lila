@@ -846,7 +846,7 @@ export default function (token: string): void {
       if (message.response === 'feed' && !!message.param.board) {
         lastLiveChessBoard = message.param.board;
       }
-      if (message.response === 'call' && message.id === '1') {
+      if (message.response === 'call' && message.id === 1) {
         //Get the list of available boards on LiveChess
         boards = message.param;
         console.table(boards);

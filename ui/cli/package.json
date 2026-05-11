@@ -4,9 +4,9 @@
   "type": "module",
   "dependencies": {
     "@types/debounce-promise": "^3.1.9",
+    "dasher": "workspace:*",
     "debounce-promise": "^3.1.2",
-    "lib": "workspace:*",
-    "dasher": "workspace:*"
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/cli.ts"

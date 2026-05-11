@@ -15,7 +15,7 @@ export class BooksPane extends Pane {
   constructor(p: PaneArgs) {
     super(p);
     this.label?.prepend(
-      frag(`<i role="button" tabindex="0" data-icon="${licon.PlusButton}" data-action="add">`),
+      frag(`<icon role="button" tabindex="0" data-icon="${licon.PlusButton}" data-action="add">`),
     );
     this.template = {
       type: 'range',

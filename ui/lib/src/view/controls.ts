@@ -83,7 +83,7 @@ const pathAttrs = [
 export const spinnerHtml: string = $html`
   <div class="spinner" aria-label="loading">
     <svg viewBox="-2 -2 54 54">
-      <g mask="url(#mask)" fill="none">
+      <g mask="url(#spinner-mask)" fill="none">
         ${pathAttrs.map(
           (a, i) =>
             `<path id="${String.fromCharCode(97 + i)}" stroke-width="${a['stroke-width']}" d="${a.d}"/>`,
@@ -97,7 +97,7 @@ export const spinnerVdom = (box = '-2 -2 54 54'): VNode =>
     h('svg', { attrs: { viewBox: box } }, [
       h(
         'g',
-        { attrs: { mask: 'url(#mask)', fill: 'none' } },
+        { attrs: { mask: 'url(#spinner-mask)', fill: 'none' } },
         pathAttrs.map(attrs => h('path', { attrs })),
       ),
     ]),

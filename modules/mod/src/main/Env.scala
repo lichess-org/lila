@@ -46,7 +46,6 @@ final class Env(
   private lazy val logRepo = ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))
   private lazy val historyRepo = HistoryRepo(db(CollName("mod_gaming_history")))
-  private lazy val queueStatsRepo = ModQueueStatsRepo(db(CollName("mod_queue_stat")))
 
   lazy val presets = wire[ModPresetsApi]
 
@@ -65,10 +64,6 @@ final class Env(
   lazy val assessApi = wire[AssessApi]
 
   lazy val gamify = wire[Gamify]
-
-  lazy val activity = wire[ModActivity]
-
-  lazy val queueStats = wire[ModQueueStats]
 
   lazy val search = wire[ModUserSearch]
 

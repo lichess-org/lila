@@ -19,6 +19,7 @@ import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
 import lila.tree.{ ExportOptions, Tree }
 import lila.game.GameExt.timeForFirstMove
+import lila.mon.extensions.*
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -66,7 +67,7 @@ final private[api] class RoundApi(
         .compose(withForecastCount(forecast.map(_.steps.size)))
         .compose(withOpponentSignal(pov))
     )(json)
-  }.mon(_.round.api.player)
+  }.mon(lila.mon.round.api.player)
 
   def watcher(
       pov: Pov,
@@ -94,7 +95,7 @@ final private[api] class RoundApi(
         .compose(withBookmark(bookmarked))
         .compose(withSteps(pov, initialFen))
     )(json)
-  }.mon(_.round.api.watcher)
+  }.mon(lila.mon.round.api.watcher)
 
   private def ctxFlags(using ctx: Context) =
     ExportOptions(
@@ -144,7 +145,7 @@ final private[api] class RoundApi(
           .compose(withPuzzleOpening(puzzleOpening))
       )(json)
     .flatMap(externalEngineApi.withExternalEngines)
-      .mon(_.round.api.watcher)
+      .mon(lila.mon.round.api.watcher)
 
   def userAnalysisJson(
       pov: Pov,

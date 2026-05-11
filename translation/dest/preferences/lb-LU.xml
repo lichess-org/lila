@@ -15,7 +15,7 @@
   <string name="pgnLetter">Buschtaf (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-Modus</string>
   <string name="showPlayerRatings">Spillerwäertungen uweisen</string>
-  <string name="explainShowPlayerRatings">Verstopp all Wäertungen op der Websäit, fir dass du dech voll op de Schach konzentréieren kanns. Partien können ëmmer nach gewäert sinn, et geet just drëm, wat du gesäis.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">Verstopp all Wäertungen op der Websäit, fir dass du dech voll op de Schach konzentréieren kanns. Partien können ëmmer nach gewäert sinn, et geet just drëm, wat du gesäis.</string>
   <string name="displayBoardResizeHandle">Regeler fir Brietgréisst ze änneren weisen</string>
   <string name="onlyOnInitialPosition">Just an Startpositioun</string>
   <string name="inGameOnly">Nëmme wärend der Partie</string>
@@ -62,7 +62,7 @@
   <string name="notifyChallenge">Erausfuerderungen</string>
   <string name="notifyTournamentSoon">Turnéier fänkt gleich un</string>
   <string name="notifyTimeAlarm">Zäit a Fernschachpartië leeft of</string>
-  <string name="notifyBell">Benoriichtegung ob Lichess</string>
+  <string name="notifyBell" comment="A notification setting - toggles a bell sound being played when a notification appears.&#10;&#10;This text used to say &quot;Bell notification within Lichess&quot;. The word &quot;bell&quot; can be removed, as it is obvious from the context.">Benoriichtegung ob Lichess</string>
   <string name="notifyPush">Gerät Benoriichtegung wanns du net ob Lichess bass</string>
   <string name="notifyWeb">Web-Browser</string>
   <string name="notifyDevice">Gerät</string>

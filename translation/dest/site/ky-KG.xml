@@ -99,7 +99,6 @@
   <string name="byCPL">Каталар боюнча</string>
   <string name="enable">Жандыруу</string>
   <string name="bestMoveArrow">Эң жакшы жүрүштөрдү стрелка менен көрсөтүү</string>
-  <string name="evaluationGauge">Баалоо шкаласы</string>
   <string name="multipleLines">Варианттардын көптүгү</string>
   <string name="cpus">Агымдар</string>
   <string name="memory">Эс-тутум</string>

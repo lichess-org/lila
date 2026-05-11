@@ -94,6 +94,8 @@
   <string name="database">데이터베이스</string>
   <string name="whiteDrawBlack">백 / 무승부 / 흑</string>
   <string name="averageRatingX">평균 레이팅: %s</string>
+  <string name="minRatingX">%s의 최소 레이팅</string>
+  <string name="maxRatingX">%s의 최대 레이팅</string>
   <string name="recentGames">최근 대국</string>
   <string name="topGames">최고 레이팅 대국</string>
   <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 기보가 약 2백만개 있습니다.</string>
@@ -124,7 +126,6 @@
   <string name="enable">활성화</string>
   <string name="bestMoveArrow">최선의 수 화살표</string>
   <string name="showVariationArrows">라인을 화살표로 표시하기</string>
-  <string name="evaluationGauge">평가 게이지</string>
   <string name="visualMotifs">전술 시각화</string>
   <string name="undefendedPieces">수비가 없는 기물들</string>
   <string name="pinnedPieces">핀에 걸린 기물들</string>
@@ -253,9 +254,7 @@
   <string name="emailCanTakeSomeTime">이메일이 도착하는데 시간이 좀 걸릴 수 있습니다.</string>
   <string name="refreshInboxAfterFiveMinutes">5분 가량 기다린 후 이메일 수신함을 새로고침 해주세요.</string>
   <string name="checkSpamFolder">또한 스팸 메일함에 들어가 있을 수 있습니다. 만약 그런 경우, 스팸이 아님으로 표시해 두세요.</string>
-  <string name="emailForSignupHelp">모두 실패했다면, 이곳으로 메일을 보내주세요:</string>
-  <string name="copyTextToEmail">위의 텍스트를 복사해서 %s(으)로 보내주세요</string>
-  <string name="waitForSignupHelp">가입을 완료할 수 있도록 빠르게 연락드리겠습니다.</string>
+  <string name="sendEmailForAccountVerification">확인 이메일을 찾을 수 없는 경우 %s에 이메일을 보내주시면 계정을 확인해 드리겠습니다.</string>
   <string name="accountConfirmed">유저 %s(이)가 성공적으로 확인되었습니다.</string>
   <string name="accountCanLogin">이제 %s(으)로 로그인할 수 있습니다.</string>
   <string name="accountConfirmationEmailNotNeeded">이메일 확인은 필요하지 않습니다.</string>

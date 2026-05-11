@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">若未偵測到移動</string>
   <string name="checkYouHaveMadeOpponentsMove">確認您早已在您的棋盤上移動對手的移動並且再試一次您的移動。</string>
   <string name="asALastResort">作為最後手段，請分開設定 Lichess 與 DGT 棋盤，然後%s</string>
-  <string name="reloadThisPage">重新載入此頁面</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">重新載入此頁面</string>
   <string name="dgtConfigure">DGT 棋盤 ---------- 設定</string>
   <string name="lichessConnectivity">Lichess 整合</string>
   <string name="validDgtOauthToken">您有妥當的 OAuth 權杖以使用 DGT 棋盤下棋。</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">這些 JSON 是用來翻譯移動與結果到其他語言。預設為英文，但您也可以在此更改為您的語言。</string>
   <string name="debug">偵錯</string>
   <string name="verboseLogging">詳細日誌記錄</string>
-  <string name="toSeeConsoleMessage">按下 Command + Option + C（macOS）或是 Control + Shift + C（Windows、Linux、Chrome OS）以查看主控台訊息</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">按下 Command + Option + C（macOS）或是 Control + Shift + C（Windows、Linux、Chrome OS）以查看主控台訊息</string>
   <string name="playWithDgtBoard">使用 DGT 棋盤遊玩</string>
   <string name="configure">設定</string>
 </resources>

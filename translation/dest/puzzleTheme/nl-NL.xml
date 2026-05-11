@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Een matpatroon dat visueel lijkt op de staart van een zwaluw, zoals de vorm van een V.</string>
   <string name="triangleMate">Driehoeksmat</string>
   <string name="triangleMateDescription">De toren en koningin, een vakje verwijderd van de vijandelijke koning, staan op dezelfde rij of kolom, gescheiden door een vakje, en vormen samen een driehoek.</string>
-  <string name="vukovicMate">Vukovic-mat</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vukovic-mat</string>
   <string name="vukovicMateDescription">Een toren en een paard werken samen om de koning mat te zetten. De toren zet mat terwijl hij door een ander stuk wordt ondersteund; het paard wordt gebruikt om ontsnappingsvelden van de koning te blokkeren.</string>
   <string name="knightEndgame">Paardeneindspel</string>
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>

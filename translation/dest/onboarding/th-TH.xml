@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">นี้คือหน้าโปรไฟล์ของคุณ</string>
   <string name="enabledKidModeSuggestion">เด็กจะใช้บัญชีนี้หรือไม่ คุณอาจต้องการเปิดใช้งาน %s</string>
   <string name="whatNowSuggestions">แล้วอย่างไรต่อ? นี้คือคำแนะนำเล็กๆน้อยๆ</string>
-  <string name="learnChessRules">เรียนรู้กฎของหมากรุก</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">เรียนรู้กฎของหมากรุก</string>
   <string name="improveWithChessTacticsPuzzles">เก่งขึ้นด้วยปริศนากลยุทธ์ของหมากรุก</string>
   <string name="playTheArtificialIntelligence">เล่นกับปัญญาประดิษฐ์</string>
   <string name="playOpponentsFromAroundTheWorld">เล่นกับคู่แข่งทั่วโลก</string>

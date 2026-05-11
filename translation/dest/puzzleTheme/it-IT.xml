@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Uno scacco matto che assomiglia alla forma a V della coda di una rondine.</string>
   <string name="triangleMate">Matto triangolare</string>
   <string name="triangleMateDescription">La regina e la torre, a una casella di distanza dal re avversario, sono sulla stessa riga o colonna, separati da una casella, formando un triangolo.</string>
-  <string name="vukovicMate">Scacco matto Vukovic</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Scacco matto Vukovic</string>
   <string name="vukovicMateDescription">Una Torre e un Cavallo collaborano per fare scacco al Re. La Torre mette in scacco supportata da un terzo pezzo, e il Cavallo viene usato per bloccare i quadrati di fuga del Re.</string>
   <string name="knightEndgame">Finale di cavallo</string>
   <string name="knightEndgameDescription">Un finale con soli cavalli e pedoni.</string>

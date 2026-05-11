@@ -1,5 +1,7 @@
 package lila.plan
 
+import java.util.Currency
+
 import play.api.ConfigLoader
 import play.api.i18n.Lang
 import play.api.libs.json.*
@@ -9,8 +11,7 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse, WSAuthScheme }
 
-import java.util.Currency
-
+import lila.mon.extensions.*
 import lila.common.Json.given
 import lila.common.autoconfig.*
 import lila.common.config.given
@@ -236,7 +237,7 @@ final private class PayPalClient(
             (res.body[JsValue] \ "access_token").validate[String] match
               case JsError(err) => fufail(s"PayPal access token ${err} ${res.body[String].take(200)}")
               case JsSuccess(token, _) => fuccess(AccessToken(token))
-        .monSuccess(_.plan.paypalCheckout.fetchAccessToken)
+        .monSuccess(lila.mon.plan.paypalCheckout.fetchAccessToken)
 
 object PayPalClient:
 

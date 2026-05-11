@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">指し手が認識されない場合は</string>
   <string name="checkYouHaveMadeOpponentsMove">相手の手を DGT ボード上で指したかどうか確認します。自分の手を元に戻して、もう一度指してください。</string>
   <string name="asALastResort">最後の手段として、盤面を Lichess と同じように並べ、%s</string>
-  <string name="reloadThisPage">このページを再読み込みしてください</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">このページを再読み込みしてください</string>
   <string name="dgtConfigure">DGT ボード：設定</string>
   <string name="lichessConnectivity">Lichess との接続</string>
   <string name="validDgtOauthToken">DGT でのプレイに適合した OAuth トークンがあります。</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">キーワードは JSON 形式です。これを使うと指し手や結果をあなたの言語に翻訳することもできます。デフォルトは英語ですが自由に変更できます。</string>
   <string name="debug">デバッグ</string>
   <string name="verboseLogging">詳細なログの保存</string>
-  <string name="toSeeConsoleMessage">コンソールメッセージを表示するには「Control + Shift + C」(Windows、Linux、Chrome OS) か「Command + Option + C」 (Mac) を押します。</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">コンソールメッセージを表示するには「Control + Shift + C」(Windows、Linux、Chrome OS) か「Command + Option + C」 (Mac) を押します。</string>
   <string name="playWithDgtBoard">DGT ボードで対局</string>
   <string name="configure">設定</string>
 </resources>

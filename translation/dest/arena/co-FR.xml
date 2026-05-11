@@ -13,7 +13,7 @@ E partite chì seguitanu rapurtanu u doppiu di punti sin\' à una scunfitta o un
 Cusì una vittora vale 4 punti, una partita patta 2 punti, una scunfitta èn vale nunda.
 
 Per esempiu, duie vittorie seguitate d\'una partita patta rapurtanu 6 punti: 2 + 2 + (2x1)</string>
-  <string name="berserk">Arena di Bersek</string>
+  <string name="berserk" comment="Appears as a heading on the Arena tournament FAQ on https://lichess.org/tournament/help&#10;&#10;This string used to read &quot;Arena Berserk&quot;, and was changed in March 2026 to just &quot;Berserk&quot;.">Arena di Bersek</string>
   <string name="berserkAnswer">Quandu un ghjucadore clicheghja nantu à u tastu \"Bersek\" à u principiu di a partita, perde a metà di u so tempu, ma guadagna un puntu di più s\' ellu vince.
 
 Fà un Bersek sfassa dinù a raghjunta di tempu. (Eccettu 1+2 chì diventa 1+0)

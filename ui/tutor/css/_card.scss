@@ -76,7 +76,7 @@
       &__top {
         @extend %flex-center-nowrap;
 
-        i {
+        icon {
           @extend %page-text-shadow;
 
           font-size: 4em;
@@ -87,7 +87,7 @@
         &__title {
           @extend %flex-column;
 
-          i + & {
+          icon + & {
             margin-top: 1em;
           }
 

@@ -19,7 +19,7 @@
   <string name="ifMoveNotDetected">움직임이 감지되지 않을 경우</string>
   <string name="checkYouHaveMadeOpponentsMove">DGT 보드에서 먼저 상대방이 말을 움직였는지 확인하고, 다시 시도해주세요.</string>
   <string name="asALastResort">마지막 수단으로 보드를 Liches와 동일하게 설정한 다음 %s</string>
-  <string name="reloadThisPage">이 페이지를 다시 로드하세요</string>
+  <string name="reloadThisPage" comment="Part of a longer sentence:&#10;&#10;As a last resort: Set up the board identically to Lichess, then [reload this page]&#10;&#10;---&#10;&#10;The first letter of &quot;reload&quot; used to be capitalised, so please update as needed.">이 페이지를 다시 로드하세요</string>
   <string name="dgtConfigure">DGT - 설정</string>
   <string name="lichessConnectivity">Lichess 연결</string>
   <string name="validDgtOauthToken">DGT 플레이에 적합한 OAuth 토큰이 있습니다.</string>
@@ -41,7 +41,7 @@
   <string name="keywordFormatDescription">키워드는 JSON 형식입니다. 이동 및 결과를 언어로 변환하는 데 사용됩니다. 기본값은 영어이지만, 자유롭게 변경하셔도 좋습니다.</string>
   <string name="debug">디버깅</string>
   <string name="verboseLogging">자세한 로그</string>
-  <string name="toSeeConsoleMessage">콘솔 메시지를 보려면 Command + Option + C(Mac) 또는 Control + Shift + C(Windows, Linux, Chrome OS) 를 누르세요.</string>
+  <string name="toSeeConsoleMessage" comment="This was updated to reorder the order of keys and use Mac-specific key symbols, but the content remains the same.">콘솔 메시지를 보려면 Command + Option + C(Mac) 또는 Control + Shift + C(Windows, Linux, Chrome OS) 를 누르세요.</string>
   <string name="playWithDgtBoard">DGT 보드로 게임하기</string>
   <string name="configure">설정</string>
 </resources>

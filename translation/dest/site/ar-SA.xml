@@ -9,6 +9,8 @@
   <string name="gameOver">انتهت المباراة</string>
   <string name="waitingForOpponent">في انتظار المنافس</string>
   <string name="orLetYourOpponentScanQrCode">أو أجعل خصمك يمسح رمز QR هذا</string>
+  <string name="reusableChallengeUrl">رابط التحدي قابل لإعادة الاستعمال</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">رابط دائم لأي شخص لتحديك مع هذه الإعدادات بالضبط.</string>
   <string name="waiting">قيد الانتظار</string>
   <string name="yourTurn">دورك</string>
   <string name="aiNameLevelAiLevel">%1$s مستوى %2$s</string>
@@ -45,9 +47,9 @@
     <item quantity="zero">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
     <item quantity="one">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
     <item quantity="two">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
-    <item quantity="few">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
-    <item quantity="many">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
-    <item quantity="other">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
+    <item quantity="few">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثوان.</item>
+    <item quantity="many">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثوان.</item>
+    <item quantity="other">لقد ترك خصمك المباراة. يمكنك المطالبة بالفوز في غضون %s ثوان.</item>
   </plurals>
   <string name="opponentLeftChoices">يبدو أن الخصم ترك المباراة. يمكنك انتزاع الفوز، إعلان التعادل أو الانتظار.</string>
   <string name="forceResignation">إعلن فوزك</string>
@@ -83,7 +85,7 @@
   <string name="forceVariation">فرض التسلسل</string>
   <string name="copyVariationPgn">انسخ التفريع بصيغة PGN</string>
   <string name="copyMainLinePgn">نسخ التفريع الرئيسي PGN</string>
-  <string name="move">التقلة</string>
+  <string name="move">حركة</string>
   <string name="variantLoss">خسارة بطريقة خاصة</string>
   <string name="variantWin">فوز بطريقة خاصة</string>
   <string name="insufficientMaterial">قطع غير كافية لإنهاء المباراة</string>
@@ -116,13 +118,13 @@
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
   <string name="openingEndgameExplorer">مستكشف نهاية/بداية الدور</string>
   <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Play first opening/endgame-explorer move</string>
-  <string name="winPreventedBy50MoveRule">قاعدة ال 50 نقلة منعت الفوز</string>
-  <string name="lossSavedBy50MoveRule">قاعدة ال 50 نقلة منعت الخسارة</string>
+  <string name="playFirstOpeningEndgameExplorerMove">تشغيل أول حركة فتح/نهاية اللعبة</string>
+  <string name="winPreventedBy50MoveRule">قاعدة الخمسين حركة منعت الفوز</string>
+  <string name="lossSavedBy50MoveRule">قاعدة الخمسين حركة منعت الخسارة</string>
   <string name="winOr50MovesByPriorMistake">فوز أو 50 حركة عن طريق خطأ سابق</string>
   <string name="lossOr50MovesByPriorMistake">خسارة أو 50 نقلة عن طريق خطأ سابق</string>
   <string name="unknownDueToRounding">فالفوز/الخسارة المكفولة فقط إذا كان خط الأساس الموصى به قد اتبع منذ آخر عملية لالتقاط أو تحريك للبياء، بسبب احتمال تقريب الأرباح.</string>
-  <string name="allSet">إعتمد كل الإعدادات!</string>
+  <string name="allSet">تم ضبط الكل!</string>
   <string name="importPgn">استيراد PGN</string>
   <string name="delete">حذف</string>
   <string name="deleteThisImportedGame">هل تريد حذف هذه المباراة المستوردة؟</string>
@@ -132,12 +134,22 @@
   <string name="enable">تفعيل</string>
   <string name="bestMoveArrow">سهم أفضل نقلة</string>
   <string name="showVariationArrows">أظهر سلسلة النقلات المرشحة</string>
-  <string name="evaluationGauge">مقياس التقييم</string>
+  <string name="visualMotifs">الزخارف البصرية</string>
+  <string name="undefendedPieces">قطع غير محمية</string>
+  <string name="pinnedPieces">القطع المثبتة</string>
+  <string name="checkableKing">الملك القابل للكش</string>
   <string name="multipleLines">عدد الخطوط</string>
+  <string name="multipleLinesDescription">تعيين عدد من خطوط التقييم و اسهم الحركة على اللوحة</string>
+  <string name="searchTime">وقت البحث</string>
+  <string name="searchTimeDescription">تعيين الوقت لتقييم المواقع الجديدة</string>
+  <string name="threads">التشعبات</string>
+  <string name="threadsDescription">عيّن هذا اقل من عدد التشعبات في المعالج الخاص بك، العلامات خِيار آمن</string>
+  <string name="threadsDescriptionMobile">المزيد من التشعبات سوف تستخدم المزيد من البطارية لتحليل أفضل</string>
   <string name="cpus">المعالجات</string>
   <string name="memory">الذاكرة</string>
+  <string name="memoryDescription">القيم الأعلى قد تحسن الأداء</string>
   <string name="infiniteAnalysis">تحليل لانهائي</string>
-  <string name="removesTheDepthLimit">التحليل لأبعد عمق، وابقاء حاسوبك نشطًا</string>
+  <string name="removesTheDepthLimit">التحليل لأبعد عمق، وإبقاء حاسوبك نشطًا</string>
   <string name="blunder">خطأ فادح</string>
   <string name="mistake">خطأ</string>
   <string name="inaccuracy">غير دقيق</string>
@@ -182,12 +194,12 @@
     <item quantity="other">%s غموض</item>
   </plurals>
   <plurals name="numberInaccuracies">
-    <item quantity="zero">%s غموض</item>
-    <item quantity="one">%s غموض</item>
-    <item quantity="two">%s غموض</item>
-    <item quantity="few">%s غموض</item>
-    <item quantity="many">%s غموض</item>
-    <item quantity="other">%s غموض</item>
+    <item quantity="zero">%s عدم دِقَّة</item>
+    <item quantity="one">%s عدم دِقَّة</item>
+    <item quantity="two">%s عدم دِقَّة</item>
+    <item quantity="few">%s عدم دِقَّة</item>
+    <item quantity="many">%s عدم دِقَّة</item>
+    <item quantity="other">%s عدم دِقَّة</item>
   </plurals>
   <string name="moveTimes">توقيت النقلات</string>
   <string name="flipBoard">تدوير الرقعة</string>
@@ -205,7 +217,7 @@
     <item quantity="other">%s لاعب</item>
   </plurals>
   <string name="drawByMutualAgreement">التعادل بالاتفاق المتبادل</string>
-  <string name="fiftyMovesWithoutProgress">خمسون حركة بدون أي تقدم</string>
+  <string name="fiftyMovesWithoutProgress">خمسون حركة دون</string>
   <string name="currentGames">المباريات الحالية</string>
   <string name="joinedX">منضم من %s</string>
   <plurals name="nbGames">
@@ -235,10 +247,10 @@
   <string name="viewInFullSize">عرض بالحجم الكامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">دخول</string>
-  <string name="rememberMe">ابقني مسجل هنا</string>
+  <string name="rememberMe">أبقني مسجل هنا</string>
   <string name="youNeedAnAccountToDoThat">تحتاج حسابا لهذا</string>
   <string name="signUp">تسجيل</string>
-  <string name="computersAreNotAllowedToPlay">برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب لأن ذلك قد يؤدي إلى الحظر من الموقع.</string>
+  <string name="computersAreNotAllowedToPlay">لا يُسمح لأجهزة الكمبيوتر واللاعبين بمساعدة الكمبيوتر باللعب. من فضلك لا تستعن بمحركات الشطرنج أو قواعد البيانات أو بلاعبين آخرين أثناء اللعب. كما يرجى ملاحظة أنه لا يُنصح بشدة بإنشاء حسابات متعددة وأن الحسابات المتعددة الزائدة ستؤدي إلى الحظر.</string>
   <string name="games">المباريات</string>
   <string name="forum">منتدى</string>
   <string name="xPostedInForumY">%1$s منشور في الموضوع %2$s</string>
@@ -252,6 +264,7 @@
   <string name="minutesPerSide">دقائق لكل طرف</string>
   <string name="variant">النوع</string>
   <string name="variants">الأنواع</string>
+  <string name="variantsDescription">المزيد من الطرق للعب</string>
   <string name="timeControl">التوقيت</string>
   <string name="realTime">سريع</string>
   <string name="correspondence">مراسلة</string>
@@ -283,13 +296,14 @@
   </plurals>
   <string name="time">الوقت</string>
   <string name="rating">التقييم</string>
-  <string name="ratingStats">احصائيات التقييم</string>
+  <string name="ratingStats">إحصائيات التقييم</string>
   <string name="username">اسم المستخدم</string>
   <string name="usernameOrEmail">اسم المستخدم أو البريد الإلكتروني</string>
   <string name="changeUsername">تغيير اسم المستخدم</string>
   <string name="changeUsernameNotSame">يمكن تغيير حساسية الأحرف فقط.</string>
   <string name="changeUsernameDescription">غير إسم المستخدم. يمكنك تغيير إسم المستخدم الخاص بك مرة واحدة فقط, ويمكنك فقط تغيير حساسية الاحرف.</string>
-  <string name="signupUsernameHint">تأكد من اختيار اسم مستخدم صديق للعائلة. لا يمكنك تغييره لاحقًا وأي حسابات تحتوي على أسماء مستخدمين غير ملائمة سيتم إغلاقها!</string>
+  <string name="signupUsernameHint">تأكد من اختيار اسم مستخدم مناسب لجميع الأعمار. لا يمكنك تغييره لاحقًا وأي حسابات تحتوي على أسماء مستخدمين غير ملائمة سيتم إغلاقها!</string>
+  <string name="signupEmailPromise">لن نرسل لك سوى رسائل البريد الإلكتروني حول حسابك ولن نشارك بريدك الإلكتروني أبدا.</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
@@ -313,9 +327,7 @@
   <string name="emailCanTakeSomeTime">قد تستغرق وقت للوصول.</string>
   <string name="refreshInboxAfterFiveMinutes">انتظر 5 دقائق وحدث بريدك الوارد.</string>
   <string name="checkSpamFolder">تحقق ايضا من بريدك المهمل ربما وصل لهناك، اذا وجدت الرسالة هناك علمها ك\"غير مهمل\".</string>
-  <string name="emailForSignupHelp">اذا فشلت كل المحاولات ارسل لنا ايميل:</string>
-  <string name="copyTextToEmail">انسح النص اعلاه و ارسله للبريد التالي%s</string>
-  <string name="waitForSignupHelp">سنعود اليك قريباً لمساعدتك على اكمال التسجيل.</string>
+  <string name="sendEmailForAccountVerification">إذا لم تتمكن من العثور على رسالة تأكيد البريد الإلكتروني الخاصة بك، قم بإرسال بريد إلكتروني إلى %s وسنؤكد حسابك لك.</string>
   <string name="accountConfirmed">المستخدم %s تم تأكيده بنجاح.</string>
   <string name="accountCanLogin">يمكنك الان الدخول باسم %s.</string>
   <string name="accountConfirmationEmailNotNeeded">لا حاجة لتأكيد ايميلك.</string>
@@ -369,6 +381,7 @@
   <string name="standard">عادي</string>
   <string name="customPosition">موضع مخصص</string>
   <string name="unlimited">غير محدود</string>
+  <string name="unlimitedDescription">خذ كل الوقت الذي تحتاجه</string>
   <string name="mode">مقيمة أو غير مقيمة</string>
   <string name="casual">غير مقيّمة</string>
   <string name="rated">مقيّمة</string>
@@ -546,6 +559,8 @@
   <string name="leaderboard">قائمة الصدارة</string>
   <string name="screenshotCurrentPosition">لقطة شاشة</string>
   <string name="gameAsGIF">حفظ بصيغة GIF</string>
+  <string name="playerNames">أسماء اللاعبين</string>
+  <string name="moveAnnotations">تدوين الحركة</string>
   <string name="pasteTheFenStringHere">ألصق الـFEN هنا</string>
   <string name="pasteThePgnStringHere">ألصق الـPGN هنا</string>
   <string name="orUploadPgnFile">أو حمل مِلف PGN</string>
@@ -648,6 +663,7 @@
   <string name="popularOpenings">إفتتاحيات شائعة</string>
   <string name="endgamePositions">وضعية نهاية المباراة</string>
   <string name="chess960StartPosition">وضعية بدأ Chess960 هي:%s</string>
+  <string name="randomChess960Position">مركز Chess960 عشوائي</string>
   <string name="startPosition">وضع البداية</string>
   <string name="clearBoard">رقعة بلا قطع</string>
   <string name="loadPosition">تحميل الوضع</string>
@@ -731,6 +747,9 @@ https://lichess. org/report.</string>
   <string name="invalidUsernameOrPassword">اسم المستخدم خطأ أو كلمة المرور غير صحيحة</string>
   <string name="incorrectPassword">كلمة المرور غير صحيحة</string>
   <string name="invalidAuthenticationCode">رمز مصادقة غير صحيح</string>
+  <string name="clearField">مسح الحقل</string>
+  <string name="orSeparator">أو</string>
+  <string name="logInByEmail">تسجيل الدخول بالبريد الإلكتروني</string>
   <string name="emailMeALink">أرسل لي الرابط بالبريد الإلكتروني</string>
   <string name="currentPassword">كلمة المرور الحالية</string>
   <string name="newPassword">كلمة المرور الجديدة</string>
@@ -875,6 +894,7 @@ https://lichess. org/report.</string>
   <string name="cyclePreviousOrNextVariation">الدورة السابقة/التفريع التالي</string>
   <string name="toggleGlyphAnnotations">تبديل الرموز التوضيحية</string>
   <string name="togglePositionAnnotations">تبديل تحليل الموقف</string>
+  <string name="toggleObservationAnnotations">تبديل شروح الملاحظة</string>
   <string name="variationArrowsInfo">أسمهم النقلات تسمح لك بلعبها دون استخدام قائمة النقلات المرشحة.</string>
   <string name="playSelectedMove">لعب النقلة المحددة</string>
   <string name="newTournament">مسابقة جديدة</string>
@@ -920,6 +940,7 @@ https://lichess. org/report.</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">يمكنك استخدام الزر الاوسط للفأرة على الرقعة لتنفيذ حركة من الدور.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">مرر فوق المتغييرات لاستعراضها.</string>
   <string name="analysisShapesHowTo">استخدم ز الفأرة الأيمن لرسم دوائر وأسهم على الرقعة</string>
+  <string name="primaryColorArrowsHowTo">Ctrl أو Shift = أحمر; Command أو Alt أو Meta = أزرق; مفتاح من الكل = أصفر</string>
   <string name="letOtherPlayersMessageYou">السماح للاعبين بمراسلتك</string>
   <string name="receiveForumNotifications">تلقى الإشعارات في حال تمت الإشارة إليك في المنتدى</string>
   <string name="shareYourInsightsData">شارك بيانات طريقة لعبك</string>
@@ -967,6 +988,7 @@ https://lichess. org/report.</string>
   <string name="size">الحجم</string>
   <string name="opacity">الشفافيّة</string>
   <string name="brightness">السطوع</string>
+  <string name="contrast">التباين</string>
   <string name="hue">التدرج اللوني</string>
   <string name="boardReset">إعادة تعيين الألوان إلى الافتراضي</string>
   <string name="pieceSet">مجموعة القطع</string>
@@ -985,6 +1007,7 @@ https://lichess. org/report.</string>
   <string name="notifications">إشعارات</string>
   <string name="notificationsX">الإشعارات %1$s</string>
   <string name="perfRatingX">التقييم: %s</string>
+  <string name="yourRatingIsX">تصنيفك هو %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s ثانية متبقية لاتمام النقلة الأولى</item>
     <item quantity="one">%s ثانية متبقية لإتمام النقلة الأولى</item>
@@ -1044,6 +1067,7 @@ https://lichess. org/report.</string>
   <string name="playVariationToCreateConditionalPremoves">إلعب تفريع لإنشاء نقلة مسبقة مشروطة</string>
   <string name="noConditionalPremoves">لا توجد نقلات استباقية مشروطة</string>
   <string name="playX">إلعب %s</string>
+  <string name="challengeX">تحدي %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="zero">واحفظ تفريع النقلة المسبقة</item>
     <item quantity="one">واحفظ تفريع النقلة المسبقة</item>
@@ -1074,6 +1098,7 @@ https://lichess. org/report.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">أوافق على أني لن أدخل بحسابات متعددة (إلا للأسباب المذكورة في %s).</string>
   <string name="searchOrStartNewDiscussion">البحث أو بدء محادثة جديدة</string>
   <string name="edit">تعديل</string>
+  <string name="ultraBullet" comment="Probably best left untranslated. Leave it as 'UltraBullet' unless your language has a better word for it.">أولترا بوليت</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">الرصاصة</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">الخاطف</string>
   <string name="rapid">السريع</string>
@@ -1138,6 +1163,7 @@ https://lichess. org/report.</string>
   <string name="simulFeaturedHelp">إظهار التبسيط الخاص بك للجميع في %s. تعطيل للمحاكاة الخاصة.</string>
   <string name="simulDescription">وصف المباراة الجماعية</string>
   <string name="simulDescriptionHelp">أي شيء تريد أن تخبره للمشاركين؟</string>
+  <string name="markdownIsAvailable">%s متوفر للتنسيق.</string>
   <string name="embedsAvailable">أضف رابط المباراة أو رابط الدراسة لإضافتها هنا.</string>
   <string name="inYourLocalTimezone">في منطقتك الزمنية المحلية</string>
   <string name="tournChat">دردشة البطولة</string>
@@ -1182,5 +1208,7 @@ https://lichess. org/report.</string>
   <string name="offline" comment="status of a user">غير متصل </string>
   <string name="search">بحث</string>
   <string name="clearSearch">مسح البحث</string>
+  <string name="thereAreNoResultsForX">لا توجد نتائج لـ \"%s\"</string>
   <string name="tags">تصنيفات</string>
+  <string name="enPassant">حقوق  الأخذ بالتجاوز </string>
 </resources>

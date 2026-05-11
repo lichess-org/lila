@@ -17,10 +17,12 @@ export function initModule(opts: Opts): KeyboardMoveHandler | undefined {
     // update legal SAN moves
     opts.ctrl.legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     // play a premove if it is available in the input
-    submit(opts.input.value, {
-      isTrusted: true,
-      yourMove: yourMove,
-    });
+    setTimeout(() => {
+      submit(opts.input.value, {
+        isTrusted: true,
+        yourMove: yourMove,
+      });
+    }, 1);
   };
 }
 

@@ -52,7 +52,7 @@
   <string name="knightMate">Masalan, taxtada faqat bitta ot yoki bitta fil qolgan boʻlsa ham, agar raqibda shohdan tashqari boshqa donalar (masalan, piyoda) bor boʻlsa, mot qilish imkoniyati mavjud deb hisoblanadi.</string>
   <string name="noRatingPoints">Reyting ochkolari berilmadi</string>
   <string name="ratedGame">Oʻyin reytingli ekanini tekshirib koʻring. Reytingsiz oʻyinlar natijasi reytingga taʼsir qilmaydi.</string>
-  <string name="botRatingAbuse">Botga qarshi oʻynalganda, agar oʻyinchi reyting ochkolarini sunʼiy oshirish maqsadida botdan foydalanayotgani aniqlansa, reyting ochkolari berilmasligi mumkin.</string>
+  <string name="botRatingAbuse" comment="The original English text was changed in March 2026, from &quot;if it is determined&quot; to &quot;if we determine&quot;.">Botga qarshi oʻynalganda, agar oʻyinchi reyting ochkolarini sunʼiy oshirish maqsadida botdan foydalanayotgani aniqlansa, reyting ochkolari berilmasligi mumkin.</string>
   <string name="errorPage">Xatolik sahifasi</string>
   <string name="reportErrorPage">Agar saytda xatolikka duch kelgan boʻlsangiz, bu haqida quyidagi manzillarga xabar berishingiz mumkin:</string>
   <string name="learnHowToMakeBroadcasts">Lichessʼda shaxsiy translyatsiyalaringizni tashkil qilishni oʻrganing</string>

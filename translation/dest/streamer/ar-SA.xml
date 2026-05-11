@@ -31,6 +31,10 @@
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">عندما تكون جاهزاً لتصبح ستريمر Lichess ، %s</string>
   <string name="submitForReview">أرسل للمراجعة</string>
   <string name="streamerLanguageSettings">صفحة البث Lichess تستهدف جمهورك مع اللغة التي توفرها منصة البث الخاصة بك. قم بتعيين اللغة الافتراضية الصحيحة لبث الشطرنج الخاص بك في التطبيق أو الخدمة التي تستخدمها للبث.</string>
+  <string name="pleaseAllow">يرجى السماح بما يصل إلى 72 ساعة قبل الموافقة على شارة البث وإعلانك.</string>
+  <string name="chooseYoutubeChannel">اختر قناة Youtube التي ستستخدمها على Lichess.</string>
+  <string name="connect" comment="This button appears for streamers who wish to connect a Twitch or YouTube account, to their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">الاتصال </string>
+  <string name="disconnect" comment="This button appears for streamers who wish to disconnect an already-linked Twitch or YouTube account, from their Lichess account.&#10;&#10;Technical information: It is specifically an OAuth connection.">قطع الاتصال</string>
   <string name="streamerName">اسم البث الخاص بك على Lichess</string>
   <plurals name="keepItShort">
     <item quantity="zero">ابقه قصيرًا: %s حرف أقصى</item>

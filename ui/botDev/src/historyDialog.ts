@@ -81,7 +81,7 @@ class HistoryDialog {
       );
       const versionStr = typeof version === 'number' ? `#${version}` : version;
       const span = frag(`<span class="author">${bot.author}</span>`);
-      if (isLive) span.appendChild(frag(`<i data-icon="${licon.Checkmark}" class="live">`));
+      if (isLive) span.appendChild(frag(`<icon data-icon="${licon.Checkmark}" class="live">`));
       div.append(frag(`<span class="version-number">${versionStr}</span>`), span);
       versionsEl.append(div);
     }

@@ -15,7 +15,6 @@ import { wsSend, wsAverageLag } from 'lib/socket';
 import { fontColor, fontFamily } from './index';
 
 declare module 'chart.js' {
-  // oxlint-disable-next-line no-unused-vars
   interface PluginOptionsByType<TType extends ChartType> {
     needle?: {
       value: number;

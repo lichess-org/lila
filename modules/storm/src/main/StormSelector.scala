@@ -7,6 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.puzzle.PuzzleColls
 import lila.common.BatchProvider
+import lila.mon.extensions.*
 
 /* The difficulty of storm should remain constant!
  * Be very careful when adjusting the selector.
@@ -46,7 +47,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
   private val setSize = ratingBuckets._2F.sum // 137
 
   private val batchProvider =
-    BatchProvider[PuzzleSet]("stormSelector", timeout = 15.seconds): () =>
+    BatchProvider[PuzzleSet]("stormSelector", timeout = 15.seconds, lila.mon.asyncActorMonitor.full): () =>
       aggregateMultipleSets:
         if lila.common.Uptime.startedSinceMinutes(2) then setsPerAggregation else 1
 
@@ -92,7 +93,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
             logger.warn:
               s"selector: $setSize x $nbSets. ${docs.size} docs, ${puzzles.size} puzzles, ${setsToMake} sets, ${groups.size} groups: $showGroups"
       .logTimeIfGt(s"storm selector x$nbSets", 8.seconds)
-      .monSuccess(_.storm.selector.time)
+      .monSuccess(lila.mon.storm.selector.time)
       .recoverWith:
         case e: IllegalArgumentException if nbSets > 1 =>
           val retryNbSets = nbSets / 2

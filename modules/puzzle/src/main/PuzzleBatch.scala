@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import lila.db.dsl.*
+import lila.mon.extensions.*
 
 // mobile app
 final class PuzzleBatch(
@@ -55,4 +56,4 @@ final class PuzzleBatch(
                 )
               .map:
                 _.view.flatMap(puzzleReader.readOpt).toVector
-          .mon(_.puzzle.selector.user.batch(nb = nb))
+          .mon(lila.mon.puzzle.selector.user.batch(nb = nb))

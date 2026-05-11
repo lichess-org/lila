@@ -5,6 +5,7 @@ import scalalib.StringUtils.escapeHtmlRaw
 import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.ui.{ RenderedPage, PageFlags }
+import lila.mon.extensions.*
 
 object page:
 

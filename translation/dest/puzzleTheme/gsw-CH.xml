@@ -79,7 +79,7 @@
   <string name="swallowstailMateDescription">Es Schachmattmuschter - optisch inere V-Form, ähnlich wie en Schwalbeschwanz.</string>
   <string name="triangleMate">Drüeck-Matt</string>
   <string name="triangleMateDescription">Es Matt vu Turm und Dame, wo zämme mit em gägnerische König es Drüegg bilded.</string>
-  <string name="vukovicMate">Vuković-Matt</string>
+  <string name="vukovicMate" comment="This was previously &quot;Vukovic&quot;. It can be safely updated to &quot;Vuković&quot;">Vuković-Matt</string>
   <string name="vukovicMateDescription">En Turm und es Rössli schpanned zämme, zum de König matt setze: De Turm setzt de König mit Hilf vunere dritte Figur matt und s\'Rössli blockiert em König d\'Fluchtfälder.</string>
   <string name="knightEndgame">Schpringer Ändschpil</string>
   <string name="knightEndgameDescription">Es Ändschpiel, nur mit Schpringer und Pure.</string>

@@ -13,7 +13,7 @@ export function initModule(): StudyTour {
   };
 
   function iconTag(i: string) {
-    return `<i data-icon='${i}'></i>`;
+    return `<icon data-icon='${i}'></icon>`;
   }
 
   function study(ctrl: AnalyseCtrl) {

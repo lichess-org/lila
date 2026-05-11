@@ -4,6 +4,7 @@ import reactivemongo.api.bson.*
 import scala.util.Success
 import chess.{ IntRating, ByColor }
 import chess.rating.IntRatingDiff
+import scalalib.paginator.Paginator
 
 import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.user.LightPerf
@@ -11,7 +12,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.GlickoExt.rankable
 import lila.rating.PerfType
-import scalalib.paginator.Paginator
+import lila.mon.extensions.*
 
 final class RankingApi(
     c: lila.db.AsyncCollFailingSilently,
@@ -69,7 +70,7 @@ final class RankingApi(
         .so:
           coll:
             _.find($doc("perf" -> perf.id, "stable" -> true))
-              .sort($doc("rating" -> -1))
+              .sort($doc("rating" -> -1, "expiresAt" -> -1))
               .skip(skip)
               .cursor[Ranking](ReadPref.sec)
               .list(nb)
@@ -128,7 +129,7 @@ final class RankingApi(
             computeAggregate(perf).chronometer
               .logIfSlow(500, logger.branch("ranking"))(_ => s"slow weeklyStableRanking for $perf")
               .result
-              .monSuccess(_.user.weeklyStableRanking(perf))
+              .monSuccess(lila.mon.user.weeklyStableRanking(perf))
               .dmap(perf -> _)
           .map(_.toMap)
           .chronometer
@@ -139,7 +140,7 @@ final class RankingApi(
       _.aggregateOne(_.sec): framework =>
         import framework.*
         Match($doc("perf" -> pt.id, "stable" -> true)) -> List(
-          Sort(Descending("rating")),
+          Sort(Descending("rating"), Descending("expiresAt")),
           Group(BSONNull)("all" -> Push($doc("$first" -> $doc("$split" -> $arr("$_id", ":")))))
         )
       .map:

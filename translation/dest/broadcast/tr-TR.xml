@@ -26,7 +26,7 @@
   <string name="fullDescription">Etkinliğin detaylıca açıklaması</string>
   <string name="fullDescriptionHelp">Etkinliğin isteğe bağlı detaylı açıklaması. %1$s seçeneği mevcuttur. Metnin uzunluğu azami %2$s karakter olmalıdır.</string>
   <string name="sourceSingleUrl">PGN Kaynak URL\'si</string>
-  <string name="sourceUrlHelp">Lichess, sağladığınız URL yardımıyla PGN\'yi güncelleyecektir. İnternet üzerinden herkese açık bir URL yazmalısınız.</string>
+  <string name="sourceUrlHelp">Lichess, URL\'i PGN\'den güncel hamle almak için kullanıcak. İnternet\'den herken tarafından bulunabilir olmak zorunda.</string>
   <string name="sourceGameIds">Boşluklarla ayrılmış 64 adede kadar Lichess oyun ID\'si.</string>
   <string name="startDateTimeZone">Turnuva yerel saati ile başlama zamanı: %s</string>
   <string name="startDateHelp">İsteğe bağlı, etkinliğin ne zaman başladığını biliyorsanız ekleyebilirsiniz.</string>

@@ -108,11 +108,11 @@ final class TournamentForm:
       "description" -> optional(cleanNonEmptyText),
       "hasChat" -> optional(boolean)
     )(TournamentSetup.apply)(unapply)
-      .verifying("Invalid clock", _.validClock)
-      .verifying("Invalid clock for bot games", _.validClockForBots)
-      .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
-      .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
-      .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
+      .verifying("Invalid clock", _.validClock(prev))
+      .verifying("Invalid clock for bot games", _.validClockForBots(prev))
+      .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant(prev))
+      .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration(prev))
+      .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration(prev))
 
 object TournamentForm:
 
@@ -171,9 +171,17 @@ private[tournament] case class TournamentSetup(
     description: Option[String],
     hasChat: Option[Boolean]
 ):
-  def validClock = (clockTime + clockIncrement.value) > 0
+  def validClock(prev: Option[Tournament]) =
+    sameClock(prev) ||
+      (clockTime + clockIncrement.value) > 0
 
-  def validClockForBots = !conditions.allowsBots || lila.core.game.isBotCompatible(clockConfig)
+  def validClockForBots(prev: Option[Tournament]) =
+    (sameClock(prev) && sameBots(prev)) ||
+      !conditions.allowsBots || lila.core.game.isBotCompatible(clockConfig)
+
+  private def sameClock(prev: Option[Tournament]) = prev.exists(_.clock == clockConfig)
+  private def sameBots(prev: Option[Tournament]) =
+    prev.exists(_.conditions.allowsBots == conditions.allowsBots)
 
   def realRated: Rated =
     if realPosition.isDefined && !thematicPosition then Rated.No
@@ -188,11 +196,12 @@ private[tournament] case class TournamentSetup(
 
   def speed = chess.Speed(clockConfig)
 
-  def validRatedVariant =
-    realRated.no || lila.core.game.allowRated(realVariant, clockConfig.some)
+  def validRatedVariant(prev: Option[Tournament]) =
+    (prev.exists(p => p.rated == realRated && p.variant == realVariant) && sameClock(prev)) ||
+      realRated.no || lila.core.game.allowRated(realVariant, clockConfig.some)
 
-  def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
-  def excessiveDuration = estimateNumberOfGamesOneCanPlay <= 150
+  def sufficientDuration(prev: Option[Tournament]) = sameClock(prev) || estimateNumberOfGamesOneCanPlay >= 3
+  def excessiveDuration(prev: Option[Tournament]) = sameClock(prev) || estimateNumberOfGamesOneCanPlay <= 150
 
   def isPrivate = password.isDefined || conditions.teamMember.isDefined
 

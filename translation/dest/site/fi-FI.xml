@@ -126,7 +126,6 @@
   <string name="enable">Käytössä</string>
   <string name="bestMoveArrow">Parhaan siirron nuoli</string>
   <string name="showVariationArrows">Näytä muunnelman nuolet</string>
-  <string name="evaluationGauge">Arviomittari</string>
   <string name="visualMotifs">Visuaaliset motiivit</string>
   <string name="undefendedPieces">Suojaamattomat nappulat</string>
   <string name="pinnedPieces">Kiinnitetyt nappulat</string>
@@ -268,9 +267,7 @@
   <string name="emailCanTakeSomeTime">Sähköpostin saapuminen voi kestää jonkin aikaa.</string>
   <string name="refreshInboxAfterFiveMinutes">Odota 5 minuuttia ja päivitä sähköpostin saapuneet-kansio.</string>
   <string name="checkSpamFolder">Tarkistathan myös roskapostikansiosi, koska se saattaa joutua sinne. Jos niin käy, merkitse, että viesti ei ole roskaposti.</string>
-  <string name="emailForSignupHelp">Jos mikään muu ei auta, lähetä meille tällainen sähköposti:</string>
-  <string name="copyTextToEmail">Kopioi ja liitä yllä oleva teksti ja lähetä se osoitteeseen %s</string>
-  <string name="waitForSignupHelp">Saat pian sähköpostitse ohjeet siihen, miten voit saattaa rekisteröitymisesi loppuun.</string>
+  <string name="sendEmailForAccountVerification">Jos et löydä vahvistussähköpostia, lähetä meille sähköposti osoitteeseen %s, niin me vahvistamme käyttäjätunnuksesi.</string>
   <string name="accountConfirmed">Käyttäjän %s vahvistaminen onnistui.</string>
   <string name="accountCanLogin">Voit nyt kirjautua sisään tunnuksella %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Et tarvitse vahvistussähköpostia.</string>
@@ -526,6 +523,7 @@
   <string name="popularOpenings">Suosittuja avauksia</string>
   <string name="endgamePositions">Loppupeliasemat</string>
   <string name="chess960StartPosition">Shakki960-alkuasema: %s</string>
+  <string name="randomChess960Position">Satunnainen shakki960-asema</string>
   <string name="startPosition">Alkuasema</string>
   <string name="clearBoard">Tyhjennä lauta</string>
   <string name="loadPosition">Lataa asema</string>
@@ -1031,6 +1029,7 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="offline" comment="status of a user">offline-tilassa</string>
   <string name="search">Hae</string>
   <string name="clearSearch">Tyhjennä haku</string>
+  <string name="thereAreNoResultsForX">Ei tuloksia haulla \"%s\"</string>
   <string name="tags">Tunnisteet</string>
   <string name="enPassant">Ohestalyönti</string>
 </resources>

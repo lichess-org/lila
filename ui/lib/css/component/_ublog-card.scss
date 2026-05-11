@@ -62,19 +62,20 @@
     @include inline-start(0);
 
     backdrop-filter: blur(6px);
-    border-radius: 0 0 $box-radius-size 0;
+    border-radius: $box-radius-size 0 $box-radius-size 0;
   }
 
   .user-link {
     @include inline-end(0);
 
     backdrop-filter: blur(6px);
-    border-radius: 0 0 0 $box-radius-size;
+    border-radius: 0 $box-radius-size 0 $box-radius-size;
   }
 
   &__image {
     width: 100%;
     height: auto;
+    border-radius: calc($box-radius-size - 1px) calc($box-radius-size - 1px) 0 0;
 
     &.ublog-post-image-default {
       background-image: url('../images/placeholder-margin.png');
@@ -107,7 +108,7 @@
   }
 
   &--by-lichess {
-    border: 1px solid $c-brag;
+    border: 2px solid $c-brag;
 
     .user-link {
       color: $c-brag;

@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 
 import perfIcons from 'lib/game/perfIcons';
-import { bind, type MaybeVNodes, confirm } from 'lib/view';
+import { bind, type MaybeVNodes, confirm, dataIcon } from 'lib/view';
 
 import type LobbyController from '@/ctrl';
 import type { Seek } from '@/interfaces';
@@ -30,7 +30,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek) {
       seek.rating && ctrl.opts.showRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
       seek.days ? i18n.site.nbDays(seek.days) : '∞',
       h('span', [
-        h('span.varicon', { attrs: { 'data-icon': perfIcons[seek.perf.key] } }),
+        h('span.varicon', { attrs: dataIcon(perfIcons[seek.perf.key]) }),
         seek.mode === 1 ? i18n.site.rated : i18n.site.casual,
       ]),
     ]),

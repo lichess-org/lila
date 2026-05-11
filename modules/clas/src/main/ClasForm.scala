@@ -6,6 +6,7 @@ import play.api.i18n.Lang
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.clas.Student.RealName
+import lila.mon.extensions.*
 
 final class ClasForm(
     lightUserAsync: lila.core.LightUser.Getter,
@@ -49,7 +50,7 @@ final class ClasForm(
 
     val create: Form[CreateStudent] = Form:
       mapping(
-        "create-username" -> signupForm.username,
+        "create-username" -> signupForm.uniqueUsername,
         "create-realName" -> cleanNonEmptyText(maxLength = 100).into[RealName]
       )(CreateStudent.apply)(unapply)
 

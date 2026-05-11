@@ -6,7 +6,7 @@
   <string name="thisIsYourProfilePage">हे तुमचे चरित्र पृष्ठ आहे.</string>
   <string name="enabledKidModeSuggestion">लहान मूल हे खाते वापरेल का? तुम्हाला कदाचित %s सक्षम करायचे असेल.</string>
   <string name="whatNowSuggestions">आता काय? येथे आहेत काही प्रस्ताव:</string>
-  <string name="learnChessRules">बुद्धीबळाचे नियम शिका.</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">बुद्धीबळाचे नियम शिका.</string>
   <string name="improveWithChessTacticsPuzzles">बुद्धिबळ रणनीती कोडीसह सुधारणा करा.</string>
   <string name="playTheArtificialIntelligence">कृत्रिम बुद्धिमत्तेविरुद्ध खेळा.</string>
   <string name="playOpponentsFromAroundTheWorld">जगभरातील प्रतिस्परध्यानसोबत खेळा.</string>

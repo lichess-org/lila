@@ -7,6 +7,7 @@ import reactivemongo.api.bson.*
 import lila.common.{ Bus, LilaScheduler, LilaStream }
 import lila.core.user.LightUserApi
 import lila.db.dsl.{ *, given }
+import lila.mon.extensions.*
 
 final private class CorresAlarm(
     coll: Coll,
@@ -71,5 +72,5 @@ final private class CorresAlarm(
         case (alarm, None) => deleteAlarm(alarm._id)
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
-      .mon(_.round.alarm.time)
+      .mon(lila.mon.round.alarm.time)
       .void

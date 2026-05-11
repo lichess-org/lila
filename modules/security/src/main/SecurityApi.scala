@@ -38,12 +38,13 @@ final class SecurityApi(
   private val loginPasswordMapping = nonEmptyText.transform(ClearPassword(_), _.value)
 
   def loginForm = Form:
-    tuple(
+    mapping(
       "username" -> usernameOrEmailMapping, // can also be an email
       "password" -> loginPasswordMapping
-    )
+    )(LoginForm.apply)(unapply)
+
   def loginFormFilled(login: UserStrOrEmail) = loginForm.fill:
-    (login, ClearPassword(""))
+    LoginForm(login, ClearPassword(""))
 
   lazy val rememberForm = Form(single("remember" -> boolean))
 

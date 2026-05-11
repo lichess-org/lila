@@ -170,10 +170,6 @@ final class Env(
     case lila.study.Kick(studyId, userId, who) =>
       roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
 
-  Bus.sub[lila.study.BecomeStudyAdmin]:
-    case lila.study.BecomeStudyAdmin(studyId, me) =>
-      api.becomeStudyAdmin(studyId, me)
-
   Bus.sub[lila.study.IsOfficialRelay]:
     case lila.study.IsOfficialRelay(studyId, promise) =>
       promise.completeWith(api.isOfficial(studyId.into(RelayRoundId)))

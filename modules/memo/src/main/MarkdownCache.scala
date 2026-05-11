@@ -3,6 +3,7 @@ package lila.memo
 import scalalib.future.TimeoutException
 
 import lila.common.{ Bus, Markdown, MarkdownRender, MarkdownToastUi }
+import lila.mon.extensions.*
 import lila.core.config
 import lila.core.misc.lpv.{ LpvEmbed, Lpv as LpvBus }
 
@@ -66,7 +67,7 @@ final class MarkdownCache(
         .logIfSlow(300, logger): result =>
           s"AllPgnsFromText for markdown $key - found ${result.size} embeds"
         .result
-        .monSuccess(_.markdown.pgnsFromText)
+        .monSuccess(lila.mon.markdown.pgnsFromText)
         .andThen:
           case scala.util.Success(pgns) => cache.putAll(pgns)
         .recoverWith:
@@ -93,9 +94,14 @@ final class MarkdownCache(
       )
     )
 
-  private def bodyProcessor(key: RenderKey, opts: MarkdownOptions): Markdown => Html =
-    if opts.toastUi then toastUiProcessor(key, opts)
-    else getRenderer(opts)(key)
+  private def bodyProcessor(key: RenderKey, opts: MarkdownOptions)(text: Markdown): Html =
+    lila.mon.Chronometer
+      .sync:
+        if opts.toastUi then toastUiProcessor(key, opts)(text)
+        else getRenderer(opts)(key)(text)
+      .mon(lila.mon.markdown.time)
+      .logIfSlow(50, logger.branch(key))(_ => s"slow markdown size:${text.value.size}")
+      .result
 
   private def toastUiProcessor(key: RenderKey, opts: MarkdownOptions): Markdown => Html =
     MarkdownToastUi.unescapeAtUsername.apply

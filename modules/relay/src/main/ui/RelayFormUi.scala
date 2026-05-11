@@ -565,6 +565,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             form3.group(
               form("info.location"),
               trb.tournamentLocation(),
+              help = frag("""e.g. "Paris, France" or "lichess.org"""").some,
               half = true
             )(form3.input(_))
           ),
@@ -572,7 +573,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             form3.group(
               form("info.players"),
               trb.topPlayers(),
-              help = frag("Mention up to 4 of the best players participating").some,
+              help = frag("Up to 4 players, separated by commas").some,
               half = true
             )(form3.input(_)),
             form3.group(
@@ -587,7 +588,7 @@ Hanna Marie ; Kozul, Zdenko"""),
             form3.group(
               form("info.tc"),
               trs.timeControl(),
-              help = frag("""e.g. "15 min + 10 sec" or "15+10"""").some,
+              help = frag("""e.g. "15 min + 10 sec / move"""").some,
               half = true
             )(form3.input(_)),
             form3.group(
@@ -845,7 +846,7 @@ Team Dogs ; Scooby Doo"""),
           p("Upload a beautiful image to represent your tournament."),
           p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
           p(
-            "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
+            "The event logo or promo picture is preferred. Please ensure that you have the rights to use the image."
           ),
           p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
           form3.file.selectImage()

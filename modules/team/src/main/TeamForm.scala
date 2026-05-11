@@ -15,6 +15,7 @@ import lila.common.Form.{
 import lila.core.captcha.CaptchaApi
 import lila.core.team.Access
 import lila.core.user.FlairApi
+import lila.mon.extensions.*
 import lila.db.dsl.{ *, given }
 
 final private class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: FlairApi)(using

@@ -7,13 +7,14 @@ import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import type { Role, Move, Outcome } from 'chessops/types';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
-import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
+import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboard-move';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 
 import { prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallbackSafe, myUserId } from 'lib';
 import { type Deferred, defer, throttle } from 'lib/async';
 import { CevalCtrl } from 'lib/ceval';
 import type { CevalHandler } from 'lib/ceval/types';
+import { plyColor } from 'lib/game/chess';
 import { type WithGround } from 'lib/game/ground';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { pubsub } from 'lib/pubsub';
@@ -228,7 +229,7 @@ export default class PuzzleCtrl implements CevalHandler {
       });
   };
 
-  private googlyEyesAuto = () => {
+  private readonly googlyEyesAuto = () => {
     if (this.isDaily && new Date().getMonth() === 3 && new Date().getDate() === 1) this.googlyEyesStart();
   };
 
@@ -250,11 +251,12 @@ export default class PuzzleCtrl implements CevalHandler {
     this.lastFeedback = 'init';
     this.initialPath = initialPath;
     this.initialNode = this.tree.nodeAtPath(initialPath);
-    this.pov = this.initialNode.ply % 2 === 1 ? 'black' : 'white';
+    this.pov = plyColor(this.initialNode.ply);
     this.isDaily = location.href.endsWith('/daily');
     this.hintHasBeenShown(false);
     this.canViewSolution(false);
     this.report = new Report();
+    this.voted = undefined;
 
     this.setPath(site.blindMode ? initialPath : treePath.init(initialPath));
     setTimeout(
@@ -289,7 +291,7 @@ export default class PuzzleCtrl implements CevalHandler {
 
   makeCgOpts = (): CgConfig => {
     const node = this.node;
-    const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
+    const color = plyColor(node.ply);
     const dests = chessgroundDests(this.position());
     const nextNode = this.node.children[0];
     const canMove = this.mode === 'view' || (color === this.pov && (!nextNode || nextNode.puzzle === 'fail'));
@@ -542,9 +544,10 @@ export default class PuzzleCtrl implements CevalHandler {
     if (this.cevalEnabled()) this.doStartCeval();
   };
 
-  private readonly doStartCeval = throttle(800, () =>
-    this.ceval.start(this.path, this.nodeList, this.data.puzzle.id, this.threatMode()),
-  );
+  private readonly doStartCeval = throttle(800, () => {
+    this.ceval.resume();
+    this.ceval.start(this.path, this.nodeList, this.data.puzzle.id, this.threatMode());
+  });
 
   nextNodeBest = () => treeOps.withMainlineChild(this.node, n => n.eval?.best);
 

@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 
 import { numberSpread } from 'lib/i18n';
 import * as licon from 'lib/licon';
-import { bind } from 'lib/view';
+import { bind, iconTag } from 'lib/view';
 
 import { hashNavigate } from '../hashRouting';
 import { getStageRank } from '../score';
@@ -11,7 +11,7 @@ import type { RunCtrl } from './runCtrl';
 
 function makeStars(rank: number) {
   const stars = [];
-  for (let i = 3; i > 0; i--) stars.push(h('div.star-wrap', rank <= i ? h('i.star') : null));
+  for (let i = 3; i > 0; i--) stars.push(h('div.star-wrap', rank <= i ? h('icon.star') : null));
   return stars;
 }
 
@@ -52,11 +52,11 @@ export default function (ctrl: RunCtrl) {
         next
           ? h('button.button', { hook: bind('click', () => hashNavigate(next.id)) }, [
               i18n.learn.nextX(next.title),
-              h('i', { attrs: { 'data-icon': licon.GreaterThan } }),
+              iconTag(licon.GreaterThan),
             ])
           : null,
         h(`button.button.button-empty`, { hook: bind('click', () => hashNavigate()) }, [
-          h('i', { attrs: { 'data-icon': licon.LessThan } }),
+          iconTag(licon.LessThan),
           i18n.learn.backToMenu,
         ]),
       ]),

@@ -3,6 +3,7 @@ package lila.puzzle
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.memo.CacheApi.buildAsyncTimeout
+import lila.mon.extensions.*
 
 case class PuzzleStreak(ids: String, first: Puzzle)
 
@@ -75,7 +76,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
             )
           .map:
             _.flatMap(puzzleReader.readOpt)
-        .mon(_.streak.selector.time)
+        .mon(lila.mon.streak.selector.time)
         .addEffect(monitor)
         .map: puzzles =>
           puzzles.headOption.map:

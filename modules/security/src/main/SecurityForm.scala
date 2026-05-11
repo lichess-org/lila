@@ -11,6 +11,7 @@ import lila.core.security.ClearPassword
 import lila.user.TotpSecret.{ base32, verify }
 import lila.user.{ TotpSecret, TotpToken }
 import lila.oauth.OAuthSignedClient.SimpleSignup
+import lila.mon.extensions.*
 
 final class SecurityForm(
     userRepo: lila.user.UserRepo,
@@ -26,19 +27,20 @@ final class SecurityForm(
   private def newPasswordFieldForMe(using me: Me) =
     newPasswordField.verifying(PasswordCheck.sameConstraint(me.username.into(UserStr)))
 
-  def myUsernameField(using me: Me) =
-    LilaForm.cleanNonEmptyText
-      .into[UserStr]
-      .verifying("Username doesn't match the currently logged-in account.", _.is(me))
+  private[security] val anyUserStrField =
+    LilaForm.cleanNonEmptyText(minLength = 2, maxLength = 30).into[UserStr]
 
-  private val anyEmail: Mapping[EmailAddress] =
+  def myUsernameField(using me: Me) =
+    anyUserStrField.verifying("Username doesn't match the currently logged-in account.", _.is(me))
+
+  private[security] val anyEmail: Mapping[EmailAddress] =
     LilaForm
       .cleanNonEmptyText(minLength = 6, maxLength = EmailAddress.maxLength)
       .verifying(Constraints.emailAddress)
       .verifying("error.email", EmailAddress.isValid)
       .into[EmailAddress]
 
-  private val sendableEmail = anyEmail.verifying(emailValidator.sendableConstraint)
+  private[security] val sendableEmail = anyEmail.verifying(emailValidator.sendableConstraint)
 
   private def fullyValidEmail(using me: Option[Me]) = sendableEmail
     .verifying(emailValidator.plusConstraint)
@@ -56,32 +58,42 @@ final class SecurityForm(
 
     val emailField: Mapping[EmailAddress] = fullyValidEmail(using none)
 
-    val username: Mapping[UserName] = LilaForm
-      .cleanNonEmptyText(minLength = 2, maxLength = 20)
-      .verifying(
-        Constraints.pattern(
-          regex = lila.user.nameRules.newUsernamePrefix,
-          error = "usernamePrefixInvalid"
-        ),
-        Constraints.pattern(
-          regex = lila.user.nameRules.newUsernameSuffix,
-          error = "usernameSuffixInvalid"
-        ),
-        Constraints.pattern(
-          regex = lila.user.nameRules.newUsernameChars,
-          error = "usernameCharsInvalid"
-        ),
-        Constraints.pattern(
-          regex = lila.user.nameRules.newUsernameLetters,
-          error = "usernameCharsInvalid"
-        )
+    private val newUsernameConstraints = List(
+      Constraints.pattern(
+        regex = lila.user.nameRules.newUsernamePrefix,
+        error = "usernamePrefixInvalid"
+      ),
+      Constraints.pattern(
+        regex = lila.user.nameRules.newUsernameSuffix,
+        error = "usernameSuffixInvalid"
+      ),
+      Constraints.pattern(
+        regex = lila.user.nameRules.newUsernameChars,
+        error = "usernameCharsInvalid"
+      ),
+      Constraints.pattern(
+        regex = lila.user.nameRules.newUsernameLetters,
+        error = "usernameCharsInvalid"
       )
+    )
+
+    private val anyUsername: Mapping[UserName] = LilaForm
+      .cleanNonEmptyText(minLength = 2, maxLength = 20)
+      .verifying(newUsernameConstraints*)
       .into[UserName]
       .verifying("usernameUnacceptable", u => !lameNameCheck.value || !LameName.username(u))
-      .verifying(
-        "usernameAlreadyUsed",
-        u => u.id.noGhost && !userRepo.exists(u).await(3.seconds, "signupUsername")
-      )
+
+    val uniqueUsername: Mapping[UserName] = anyUsername.verifying(
+      "usernameAlreadyUsed",
+      u => u.id.noGhost && !userRepo.exists(u).await(3.seconds, "signupUsername")
+    )
+
+    def firstUsernameError(username: String)(using lila.core.i18n.Translate): Option[String] =
+      newUsernameConstraints
+        .map(_.apply(username))
+        .collectFirst:
+          case play.api.data.validation.Invalid(e :: _) =>
+            lila.core.i18n.I18nKey(e.message).txt(e.args*)
 
     private val agreementBool = boolean.verifying(b => b)
 
@@ -91,10 +103,10 @@ final class SecurityForm(
       "account" -> agreementBool
     )(AgreementData.apply)(unapply)
 
-    def website(simpleSignup: Option[SimpleSignup]): SignupForm =
+    def full(simpleSignup: Option[SimpleSignup]): SignupForm =
       val base = Form:
         mapping(
-          "username" -> username,
+          "username" -> uniqueUsername,
           "password" -> newPasswordField,
           "email" -> emailField,
           "agreement" -> agreement,
@@ -117,6 +129,8 @@ final class SecurityForm(
             ,
             simple = true
           )
+
+    def preForm = Form(tuple("username" -> anyUsername, "email" -> sendableEmail))
 
   def passwordReset = Form:
     mapping(
@@ -221,7 +235,7 @@ final class SecurityForm(
 
   def reopen = Form:
     mapping(
-      "username" -> LilaForm.cleanNonEmptyText.into[UserStr],
+      "username" -> anyUserStrField,
       "email" -> sendableEmail // allow unacceptable emails for BC
     )(Reopen.apply)(_ => None)
 
@@ -247,18 +261,13 @@ object SecurityForm:
       account: Boolean
   )
 
-  trait AnySignupData:
-    def username: UserName
-    def email: EmailAddress
-    def fp: Option[String]
-
   case class SignupData(
       username: UserName,
       password: String,
       email: EmailAddress,
       agreement: AgreementData,
       fp: Option[String]
-  ) extends AnySignupData:
+  ):
     def fingerPrint = FingerPrint.from(fp.filter(_.nonEmpty))
     def clearPassword = ClearPassword(password)
 

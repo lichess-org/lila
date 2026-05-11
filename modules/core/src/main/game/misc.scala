@@ -95,7 +95,7 @@ trait GameApi:
   def computeMoveTimes(g: Game, color: Color): Option[List[Centis]]
   def analysable(g: Game): Boolean
   def nbPlaying(userId: UserId): Fu[Int]
-  def anonCookieJson(pov: lila.core.game.Pov): Option[JsObject]
+  def anonCookieJson(pov: Pov): Option[JsObject]
 
 abstract class GameRepo(val coll: BSONCollection):
   given gameHandler: BSONDocumentHandler[Game]

@@ -2,7 +2,6 @@ package lila.db
 
 import reactivemongo.api.*
 
-import lila.common.Chronometer
 import lila.core.config.CollName
 import lila.db.dsl.Coll
 
@@ -37,16 +36,18 @@ final class Db(
 
   private val logger = lila.db.logger.branch(name)
 
-  private lazy val db: DB = Chronometer.syncEffect(
-    MongoConnection
-      .fromString(uri)
-      .flatMap: parsedUri =>
-        driver
-          .connect(parsedUri, name.some)
-          .flatMap(_.database(parsedUri.db.getOrElse("lichess")))
-      .await(5.seconds, s"db:$name")
-  ) { lap =>
-    logger.info(s"MongoDB connected to $uri in ${lap.showDuration}")
-  }
+  private lazy val db: DB =
+    logger.info(s"MongoDB connecting to $uri")
+    val connected = scala.concurrent.Await.result(
+      MongoConnection
+        .fromString(uri)
+        .flatMap: parsedUri =>
+          driver
+            .connect(parsedUri, name.some)
+            .flatMap(_.database(parsedUri.db.getOrElse("lichess"))),
+      5.seconds
+    )
+    logger.info(s"MongoDB connected  to $uri")
+    connected
 
   def apply(name: CollName): Coll = db.collection(name.value)

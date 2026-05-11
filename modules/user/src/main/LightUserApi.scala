@@ -52,7 +52,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
     ,
     default = id => LightUser(id, id.into(UserName), None, None, PatronMonths.zero, None).some,
     strategy = Syncache.Strategy.WaitAfterUptime(10.millis),
-    expireAfter = Syncache.ExpireAfter.Write(13.minutes)
+    expireAfter = Syncache.ExpireAfter.Write(10.minutes)
   )
 
   private given BSONDocumentReader[LightUser] with

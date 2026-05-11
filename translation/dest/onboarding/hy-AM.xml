@@ -5,7 +5,7 @@
   <string name="thisIsYourProfilePage">Սա ձեր պրոֆիլի էջն է</string>
   <string name="enabledKidModeSuggestion">Արդյո՞ք երեխա է օգտագործելու այս հաշիվը, դուք կարող եք միացնել %s</string>
   <string name="whatNowSuggestions">Հիմա ի՞նչ, Ահա մի քանի առաջարկներ․</string>
-  <string name="learnChessRules">Սովորել շախմատի հիմունքները։</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Սովորել շախմատի հիմունքները։</string>
   <string name="improveWithChessTacticsPuzzles">Բարելավեք ձեր շախմատի մակարդակը վարժությունների միջոցով։</string>
   <string name="playTheArtificialIntelligence">Խաղացեք արհեստական բանականության դեմ։</string>
   <string name="playOpponentsFromAroundTheWorld">Խաղացեք ամբողջ աշխարհի շախմատիստների դեմ։</string>

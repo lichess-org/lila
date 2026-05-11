@@ -3,7 +3,7 @@
   <string name="welcome">Soo dhawow!</string>
   <string name="welcomeToLichess">Ku soo dhawow lichess.org!</string>
   <string name="thisIsYourProfilePage">Halkani waa boggaagii.</string>
-  <string name="learnChessRules">Baro sharciyada shataranjiga/chess</string>
+  <string name="learnChessRules" comment="This used to be &quot;Learn chess rules&quot;, without a full stop. Please update as required.">Baro sharciyada shataranjiga/chess</string>
   <string name="improveWithChessTacticsPuzzles">Horumari xirfadahaaga shatranjiga/chess adoo xallinaya Hal-xiraale.</string>
   <string name="playOpponentsFromAroundTheWorld">La ciyaar ciyaaryahannada adduunka oo dhan.</string>
   <string name="exploreTheSiteAndHaveFun">Sahami websaydka oo ku baashaal :)</string>
