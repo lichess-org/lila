@@ -82,4 +82,5 @@ object net:
       def propagate(call: play.api.mvc.Call): Url = propagate(Url(call.url))
 
   enum School:
-    case Teacher, Student, Other, Anon
+    case teacher, student, other, anon
+    val key = toString

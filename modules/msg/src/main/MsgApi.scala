@@ -66,10 +66,10 @@ final class MsgApi(
   private def selectMyThreads(using me: Me, school: Option[School]): Fu[Bdoc] = school
     .match
       case None => fuccess($doc("users" -> $eq(me.userId)))
-      case Some(School.Student) => // only talk with teachers
+      case Some(School.student) => // only talk with teachers
         myTeacherIds()(me).map: teacherIds =>
           $doc("users" -> ($eq(me.userId) ++ $doc("$in" -> (teacherIds.value + UserId.lichess))))
-      case Some(School.Other) => // only talk with lichess
+      case Some(School.other) => // only talk with lichess
         fuccess($doc("users" -> $doc("$all" -> List(me.userId, UserId.lichess))))
       case _ => fuccess($doc("users" -> $eq(me.userId)))
     .map(_ ++ selectNotDeleted)

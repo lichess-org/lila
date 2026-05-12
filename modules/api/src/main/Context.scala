@@ -36,8 +36,8 @@ final class LoginContext(
   def scopes = oauth | TokenScopes(Nil)
   def useMe[A: Zero](f: Me ?=> A): A = me.soUse(f)
   def kid = KidMode:
-    school.contains(School.Student) ||
-    school.contains(School.Other) ||
+    school.contains(School.student) ||
+    school.contains(School.other) ||
     user.exists(_.kid.yes)
 
 object LoginContext:

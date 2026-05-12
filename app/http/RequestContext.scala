@@ -48,10 +48,10 @@ trait RequestContext(using Executor):
     req.headers.toMap
       .contains("X-Lichess-School")
       .option:
-        val school = me.fold(School.Anon): me =>
-          if env.clas.filters.teacher(me) then School.Teacher
-          else if env.clas.filters.student(me) then School.Student
-          else School.Other
+        val school = me.fold(School.anon): me =>
+          if env.clas.filters.teacher(me) then School.teacher
+          else if env.clas.filters.student(me) then School.student
+          else School.other
         lila.mon.schoolMode(school).increment()
         school
 
