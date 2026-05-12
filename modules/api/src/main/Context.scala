@@ -36,9 +36,9 @@ final class LoginContext(
   def scopes = oauth | TokenScopes(Nil)
   def useMe[A: Zero](f: Me ?=> A): A = me.soUse(f)
   def kid = KidMode:
-    school.contains(School.Student)
+    school.contains(School.Student) ||
     school.contains(School.Other) ||
-    user.exists(_.kid.yes);
+    user.exists(_.kid.yes)
 
 object LoginContext:
   def anon(school: Option[School]) = LoginContext(none, false, none, none, school)
@@ -52,8 +52,8 @@ class Context(
 ) extends lila.ui.Context:
   export loginContext.*
   def ip: IpAddress = HTTPRequest.ipAddress(req)
-  lazy val mobileApiVersion = lila.security.Mobile.Api.requestVersion(req)
   lazy val blind = req.cookies.get(lila.web.WebConfig.blindCookie.name).exists(_.value.nonEmpty)
+  def mobileApiVersion = lila.security.Mobile.Api.requestVersion(req)
   def isMobileApi = mobileApiVersion.isDefined
   def withLang(l: Lang) = new Context(req, l, loginContext, pref)
   def updatePref(f: Update[Pref]) = new Context(req, lang, loginContext, f(pref))

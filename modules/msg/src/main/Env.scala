@@ -26,7 +26,7 @@ final class Env(
     shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.core.security.SpamApi,
     textAnalyser: lila.core.shutup.TextAnalyser,
-    myTeachers: Me => Fu[MyTeacherIds],
+    myTeachers: () => Me => Fu[MyTeacherIds],
     mongoCache: lila.memo.MongoCache.Api
 )(using
     Executor,

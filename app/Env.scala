@@ -48,6 +48,7 @@ final class Env(
   val report: lila.report.Env = wire[lila.report.Env]
   val shutup: lila.shutup.Env = wire[lila.shutup.Env]
   val chat: lila.chat.Env = wire[lila.chat.Env]
+  val myTeachers = () => clas.myTeachers
   val msg: lila.msg.Env = wire[lila.msg.Env]
   val playban: lila.playban.Env = wire[lila.playban.Env]
   val evalCache: lila.evalCache.Env = wire[lila.evalCache.Env]

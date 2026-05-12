@@ -51,7 +51,7 @@ final class Env(
   def seesClassMenu(using me: Me) =
     filters.student(me) || isAnyTeacher || me.hasTitle || me.roles.contains("ROLE_COACH")
 
-  val myTeachers: Me => Fu[MyTeacherIds] = me => MyTeacherIds.from(mates.fetchTeachers(me.id))
+  val myTeachers: Me => Fu[MyTeacherIds] = me => MyTeacherIds.from(mates.fetchTeachers(me.userId))
 
   scheduler.scheduleWithFixedDelay(44.minutes, 1.hour)(() => api.clas.archiveAllInactive)
 

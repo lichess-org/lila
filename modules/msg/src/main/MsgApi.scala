@@ -25,7 +25,7 @@ final class MsgApi(
     shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.core.security.SpamApi,
     ircApi: lila.core.irc.IrcApi,
-    myTeacherIds: Me => Fu[MyTeacherIds]
+    myTeacherIds: () => Me => Fu[MyTeacherIds]
 )(using Executor, akka.stream.Materializer)
     extends lila.core.msg.MsgApi:
 
@@ -35,35 +35,44 @@ final class MsgApi(
 
   import BsonHandlers.{ *, given }
 
-  def myThreads(using me: Me)(using Option[School]): Fu[List[MsgThread]] =
-    colls.thread
-      .find(selectMyThreads)
+  def myThreads(using me: Me)(using Option[School]): Fu[List[MsgThread]] = for
+    select <- selectMyThreads
+    list <- colls.thread
+      .find(select)
       .sort($sort.desc("lastMsg.date"))
       .cursor[MsgThread]()
       .list(inboxSize)
-      .flatMap(maybeSortAgain)
-      .map(prioritize)
+    sorted <- maybeSortAgain(list)
+  yield prioritize(sorted)
 
   // maybeSortAgain maintains usable inbox thread ordering for team leaders after PM alls.
-  private def maybeSortAgain(threads: List[MsgThread])(using me: Me): Fu[List[MsgThread]] =
+  private def maybeSortAgain(threads: List[MsgThread])(using
+      me: Me
+  )(using Option[School]): Fu[List[MsgThread]] =
     val candidates = threads.filter(_.maskFor.has(me.userId))
-    if candidates.isEmpty then
-      // we're done
-      fuccess(threads)
+    if candidates.isEmpty then fuccess(threads)
     else
       val receivedMultis = threads.filter(_.maskFor.exists(_.isnt(me)))
-      colls.thread
-        .find(selectMyThreads)
-        .sort($sort.desc("maskWith.date")) // sorting on maskWith.date now
-        .cursor[MsgThread]()
-        .list(inboxSize)
-        // last we filter receivedMultis and reinsert them according to their lastMsg.date
-        .map(sorted => merge(sorted.filterNot(receivedMultis.contains), receivedMultis))
+      for
+        select <- selectMyThreads
+        sorted <- colls.thread
+          .find(select)
+          .sort($sort.desc("maskWith.date")) // sorting on maskWith.date now
+          .cursor[MsgThread]()
+          .list(inboxSize)
+      // last we filter receivedMultis and reinsert them according to their lastMsg.date
+      yield merge(sorted.filterNot(receivedMultis.contains), receivedMultis)
 
-  private def selectMyThreads(using me: Me, school: Option[School]) =
-    val base = $doc("users" -> me.userId) ++ selectNotDeleted
-    if school.contains(School.Student)
-    then myTeacher
+  private def selectMyThreads(using me: Me, school: Option[School]): Fu[Bdoc] = school
+    .match
+      case None => fuccess($doc("users" -> $eq(me.userId)))
+      case Some(School.Student) => // only talk with teachers
+        myTeacherIds()(me).map: teacherIds =>
+          $doc("users" -> ($eq(me.userId) ++ $doc("$in" -> (teacherIds.value + UserId.lichess))))
+      case Some(School.Other) => // only talk with lichess
+        fuccess($doc("users" -> $doc("$all" -> List(me.userId, UserId.lichess))))
+      case _ => fuccess($doc("users" -> $eq(me.userId)))
+    .map(_ ++ selectNotDeleted)
 
   private def merge(sorteds: List[MsgThread], multis: List[MsgThread]): List[MsgThread] =
     (sorteds, multis) match
@@ -82,12 +91,14 @@ final class MsgApi(
       .fold(threads): found =>
         found :: threads.filterNot(_.isPriority)
 
-  def moreContacts(before: Instant)(using me: Me): Fu[List[MsgThread]] =
-    colls.thread
-      .find(selectMyThreads ++ $doc("lastMsg.date".$lt(before)))
+  def moreContacts(before: Instant)(using me: Me)(using Option[School]): Fu[List[MsgThread]] = for
+    select <- selectMyThreads
+    list <- colls.thread
+      .find(select ++ $doc("lastMsg.date".$lt(before)))
       .sort($sort.desc("lastMsg.date"))
       .cursor[MsgThread](ReadPref.sec)
       .list(contactsPerPage)
+  yield list
 
   def convoWithMe(username: UserStr, beforeMillis: Option[Long] = None)(using me: Me): Fu[Option[MsgConvo]] =
     val userId = username.id
