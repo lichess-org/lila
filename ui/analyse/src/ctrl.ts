@@ -39,7 +39,7 @@ import { pubsub } from 'lib/pubsub';
 import { storedBooleanProp, storedBooleanPropWithEffect } from 'lib/storage';
 import { makeTree, treePath, treeOps, type TreeWrapper } from 'lib/tree';
 import { completeNode } from 'lib/tree/node';
-import type { ClientEval, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
+import type { ClientEval, Glyph, LocalEval, ServerEval, TreeNode, TreePath } from 'lib/tree/types';
 import { confirm } from 'lib/view';
 
 import { Autoplay, type AutoplayDelay } from './autoplay';
@@ -52,6 +52,7 @@ import { ForkCtrl } from './fork';
 import { IdbTree } from './idbTree';
 import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
 import * as keyboard from './keyboard';
+import { isLocalEval, liveNodeGlyphs } from './liveAnnotate';
 import MotifCtrl from './motif/motifCtrl';
 import Navigate from './navigate';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
@@ -122,6 +123,8 @@ export default class AnalyseCtrl implements CevalHandler {
   );
   showFishnetAnalysis = storedBooleanProp('analyse.show-computer', true);
   possiblyShowMoveAnnotationsOnBoard = storedBooleanProp('analyse.show-move-annotation', true);
+  liveAnnotationsProp = storedBooleanProp('analyse.live-annotations', false);
+  liveGlyphs = new Map<TreePath, Glyph[]>();
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   disclosureMode = storedBooleanProp('analyse.disclosure.enabled', false);
@@ -738,6 +741,11 @@ export default class AnalyseCtrl implements CevalHandler {
         if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
       }
 
+      if (this.liveAnnotationsProp() && !isThreat && isLocalEval(ev)) {
+        this.annotateLivePath(path);
+        this.annotateLiveChildren(path, node);
+      }
+
       if (path === this.path) {
         this.setAutoShapes();
         if (!isThreat) {
@@ -751,6 +759,28 @@ export default class AnalyseCtrl implements CevalHandler {
       }
     });
   };
+
+  private annotateLivePath(path: TreePath): void {
+    if (path.length < 2) return;
+    const glyphs = liveNodeGlyphs(this.tree.nodeAtPath(path), this.tree.parentNode(path));
+    if (glyphs) this.liveGlyphs.set(path, glyphs);
+    else this.liveGlyphs.delete(path);
+  }
+
+  private annotateLiveChildren(path: TreePath, node: TreeNode): void {
+    node.children.forEach(child => this.annotateLivePath(path + child.id));
+  }
+
+  private rebuildLiveGlyphs(node = this.tree.root, path: TreePath = treePath.root): void {
+    node.children.forEach(child => {
+      const childPath = path + child.id;
+      this.annotateLivePath(childPath);
+      this.rebuildLiveGlyphs(child, childPath);
+    });
+  }
+
+  liveGlyphsOf = (path: TreePath): Glyph[] | undefined =>
+    this.liveAnnotationsProp() ? this.liveGlyphs.get(path) : undefined;
 
   private initCeval(): void {
     const opts: CevalOpts = {
@@ -825,7 +855,8 @@ export default class AnalyseCtrl implements CevalHandler {
     return this.showFishnetAnalysis() || (this.cevalEnabled() && this.isCevalAllowed());
   }
 
-  showMoveGlyphs = (): boolean => (this.study && !this.study.relay) || this.showFishnetAnalysis();
+  showMoveGlyphs = (): boolean =>
+    (this.study && !this.study.relay) || this.showFishnetAnalysis() || this.liveAnnotationsProp();
 
   showMoveAnnotationsOnBoard = (): boolean =>
     this.possiblyShowMoveAnnotationsOnBoard() && this.showMoveGlyphs();
@@ -898,6 +929,14 @@ export default class AnalyseCtrl implements CevalHandler {
     this.showFishnetAnalysis(!this.showFishnetAnalysis());
     this.resetAutoShapes();
     pubsub.emit('analysis.comp.toggle', this.showFishnetAnalysis());
+  };
+
+  toggleLiveAnnotations = () => {
+    this.liveAnnotationsProp(!this.liveAnnotationsProp());
+    this.liveGlyphs.clear();
+    if (this.liveAnnotationsProp()) this.rebuildLiveGlyphs();
+    this.resetAutoShapes();
+    this.redraw();
   };
 
   toggleActionMenu = () => {
