@@ -102,14 +102,17 @@ final class MsgApi(
       .list(contactsPerPage)
   yield list
 
-  def convoWithMe(username: UserStr, beforeMillis: Option[Long] = None)(using me: Me): Fu[Option[MsgConvo]] =
+  def convoWithMe(username: UserStr, beforeMillis: Option[Long] = None)(using
+      me: Me,
+      school: Option[School]
+  ): Fu[Option[MsgConvo]] =
     val userId = username.id
     val threadId = MsgThread.id(me, userId)
     val before = beforeMillis.flatMap: millis =>
       util.Try(millisToInstant(millis)).toOption
-    userId
-      .isnt(me)
-      .so:
+    security.may
+      .open(userId)
+      .flatMapz:
         lightUserApi.async(userId).flatMapz { contact =>
           for
             _ <- setReadBy(threadId, me, userId)
