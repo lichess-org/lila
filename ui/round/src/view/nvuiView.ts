@@ -152,7 +152,11 @@ function gameInfo(ctx: RoundNvuiContext): LooseVNodes {
     hl('h2', i18n.nvui.moveList),
     hl('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
     hl('h2', i18n.nvui.pieces),
-    nv.renderPieces(ctrl.chessground.state.pieces, style, d.player.color),
+    nv.renderPieces(
+      ctrl.chessground.state.pieces,
+      style,
+      ctx.povStyle.get() === 'white' ? 'white' : d.player.color,
+    ),
     pockets && hl('h2', i18n.nvui.pockets),
     pockets && nv.renderPockets(pockets),
     hl('h2', i18n.nvui.gameStatus),
@@ -238,7 +242,7 @@ function renderTouchDeviceCommands(ctx: RoundNvuiContext): LooseVNodes {
 }
 
 function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
-  const { ctrl, prefixStyle, pieceStyle, positionStyle, boardStyle } = ctx;
+  const { ctrl, prefixStyle, pieceStyle, positionStyle, povStyle, boardStyle } = ctx;
 
   return [
     hl('h2', i18n.site.board),
@@ -252,7 +256,7 @@ function renderBoard(ctx: RoundNvuiContext): LooseVNodes {
       },
       nv.renderBoard(
         ctrl.chessground.state.pieces,
-        ctrl.data.game.variant.key === 'racingKings'
+        ctrl.data.game.variant.key === 'racingKings' || povStyle.get() === 'white'
           ? 'white'
           : ctrl.flip
             ? opposite(ctrl.data.player.color)
