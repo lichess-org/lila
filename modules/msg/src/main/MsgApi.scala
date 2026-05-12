@@ -9,7 +9,7 @@ import lila.core.relation.Relations
 import lila.db.dsl.{ *, given }
 import lila.core.perm.Granter
 import lila.core.net.School
-import lila.core.clas.MyTeacherIds
+import lila.core.clas.{ MyTeacherIds, MyStudentIds }
 
 final class MsgApi(
     colls: MsgColls,
@@ -25,7 +25,8 @@ final class MsgApi(
     shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.core.security.SpamApi,
     ircApi: lila.core.irc.IrcApi,
-    myTeacherIds: () => Me => Fu[MyTeacherIds]
+    myTeacherIds: () => Me => Fu[MyTeacherIds],
+    myStudentIds: () => Me => Fu[MyStudentIds]
 )(using Executor, akka.stream.Materializer)
     extends lila.core.msg.MsgApi:
 
@@ -66,13 +67,14 @@ final class MsgApi(
   private def selectMyThreads(using me: Me, school: Option[School]): Fu[Bdoc] = school
     .match
       case None => fuccess($doc("users" -> $eq(me.userId)))
-      case Some(School.student) => // only talk with teachers
-        myTeacherIds()(me).map: teacherIds =>
-          $doc("users" -> ($eq(me.userId) ++ $doc("$in" -> (teacherIds.value + UserId.lichess))))
-      case Some(School.other) => // only talk with lichess
-        fuccess($doc("users" -> $doc("$all" -> List(me.userId, UserId.lichess))))
+      case Some(School.teacher) => myStudentIds()(me).map(_.value).map(selectThreadsWith)
+      case Some(School.student) => myTeacherIds()(me).map(_.value).map(selectThreadsWith)
+      case Some(School.other) => fuccess(selectThreadsWith(Set.empty))
       case _ => fuccess($doc("users" -> $eq(me.userId)))
     .map(_ ++ selectNotDeleted)
+
+  private def selectThreadsWith(userIds: Set[UserId])(using me: Me) =
+    $doc("users" -> ($eq(me.userId) ++ $doc("$in" -> (userIds + UserId.lichess))))
 
   private def merge(sorteds: List[MsgThread], multis: List[MsgThread]): List[MsgThread] =
     (sorteds, multis) match

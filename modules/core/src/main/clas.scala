@@ -17,3 +17,6 @@ case class ClasTeamUpdate(clasId: ClasId, wantsTeam: Option[ClasTeamConfig])(usi
 
 opaque type MyTeacherIds = Set[UserId]
 object MyTeacherIds extends TotalWrapper[MyTeacherIds, Set[UserId]]
+
+opaque type MyStudentIds = Set[UserId]
+object MyStudentIds extends TotalWrapper[MyStudentIds, Set[UserId]]
