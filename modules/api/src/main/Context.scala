@@ -38,6 +38,7 @@ final class LoginContext(
   def kid = KidMode:
     school.contains(School.student) ||
     school.contains(School.other) ||
+    school.contains(School.anon) ||
     user.exists(_.kid.yes)
 
 object LoginContext:
