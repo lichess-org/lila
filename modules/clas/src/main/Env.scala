@@ -19,7 +19,7 @@ final class Env(
     authenticator: lila.core.security.Authenticator,
     cacheApi: lila.memo.CacheApi,
     markdownCache: lila.memo.MarkdownCache,
-    baseUrl: BaseUrl
+    routeUrl: RouteUrl
 )(using Executor, akka.stream.Materializer, lila.core.i18n.Translator, play.api.Mode)(using
     scheduler: Scheduler
 ):

@@ -95,6 +95,8 @@
   <string name="database">Database</string>
   <string name="whiteDrawBlack">Bianco / Patta / Nero</string>
   <string name="averageRatingX">Punteggio medio: %s</string>
+  <string name="minRatingX">Punteggio minimo di %s</string>
+  <string name="maxRatingX">Punteggio massimo di %s</string>
   <string name="recentGames">Partite recenti</string>
   <string name="topGames">Migliori partite</string>
   <string name="masterDbExplanation">Due milioni di partite dal %2$s al %3$s di giocatori con punteggio FIDE %1$s+</string>
@@ -267,6 +269,7 @@
   <string name="emailCanTakeSomeTime">Può metterci un po\' di tempo per arrivare.</string>
   <string name="refreshInboxAfterFiveMinutes">Attendi 5 minuti e aggiorna la posta in arrivo.</string>
   <string name="checkSpamFolder">Controlla anche la tua cartella di spam, potrebbe essere finita lì. Se sì, contrassegnala come non spam.</string>
+  <string name="sendEmailForAccountVerification">Se non trovi la tua email di conferma, invia un\'email a %s e confermeremo il tuo account per te.</string>
   <string name="accountConfirmed">L\'utente %s è stato confermato con successo.</string>
   <string name="accountCanLogin">Adesso puoi effettuare il login come %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Non hai bisogno di una email di conferma.</string>
@@ -523,6 +526,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="popularOpenings">Aperture popolari</string>
   <string name="endgamePositions">Posizioni di chiusura</string>
   <string name="chess960StartPosition">Posizione iniziale di Chess960: %s</string>
+  <string name="randomChess960Position">Posizione di Chess960 casuale</string>
   <string name="startPosition">Posizione iniziale</string>
   <string name="clearBoard">Svuota scacchiera</string>
   <string name="loadPosition">Carica una posizione</string>
@@ -939,6 +943,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="tryTheContactPage">prova la pagina dei contatti</string>
   <string name="makeSureToRead">Assicurati di leggere %1$s</string>
   <string name="theForumEtiquette">le regole del forum</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Per favore sii rispettoso nel forum.</string>
   <string name="thisTopicIsArchived">Questo argomento è stato archiviato e non è più possibile rispondervi.</string>
   <string name="joinTheTeamXToPost">Iscriviti al team %1$s, per postare in questo forum</string>
   <string name="teamNamedX">Squadra %1$s</string>

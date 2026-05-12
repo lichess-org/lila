@@ -933,6 +933,7 @@
   <string name="tryTheContactPage">χρησιμοποιείστε την σελίδα επικοινωνίας</string>
   <string name="makeSureToRead">Φροντίστε να διαβάσετε %1$s</string>
   <string name="theForumEtiquette">τους κανόνες καλής συμπεριφοράς του φόρουμ</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Παρακαλούμε να συμπεριφέρεστε ευγενικά στο φόρουμ.</string>
   <string name="thisTopicIsArchived">Αυτό το θέμα έχει αρχειοθετηθεί και η ανάρτηση νέων απαντήσεων δεν είναι δυνατή.</string>
   <string name="joinTheTeamXToPost">Δηλώστε συμμετοχή στην %1$s για να δημιουργήσετε νέες αναρτήσεις σε αυτό το φόρουμ</string>
   <string name="teamNamedX">ομάδα %1$s</string>

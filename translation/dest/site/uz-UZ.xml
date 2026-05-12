@@ -942,6 +942,7 @@
   <string name="tryTheContactPage">aloqa sahifasiga oʻting</string>
   <string name="makeSureToRead">%1$s bilan tanishib chiqqaningizga ishonch hosil qiling</string>
   <string name="theForumEtiquette">Forum odob‑axloq qoidalari</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Forumda odob saqlang.</string>
   <string name="thisTopicIsArchived">Bu mavzu arxivlangan, unga endi javob yozib boʻlmaydi.</string>
   <string name="joinTheTeamXToPost">Ushbu forumda post qoldirish uchun %1$sga qoʻshiling</string>
   <string name="teamNamedX">%1$s jamoasi</string>
