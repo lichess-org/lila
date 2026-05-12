@@ -59,6 +59,7 @@ export type PrefixStyle = (typeof prefixStyles)[number];
 export type PositionStyle = 'before' | 'after' | 'none';
 export type BoardStyle = 'plain' | 'table';
 export type PageStyle = 'board-actions' | 'actions-board';
+export type PovStyle = 'dynamic' | 'white';
 
 export function boardSetting(): Setting<BoardStyle> {
   return makeSetting<BoardStyle>({
@@ -115,5 +116,16 @@ export function positionSetting(): Setting<PositionStyle> {
     ],
     default: 'before',
     storage: storage.make('nvui.positionStyle'),
+  });
+}
+
+export function povSetting(): Setting<PovStyle> {
+  return makeSetting<PovStyle>({
+    choices: [
+      ['white', 'always render board from white perspective'],
+      ['dynamic', 'render board from perspective you are playing'],
+    ],
+    default: 'dynamic',
+    storage: storage.make('nvui.povStyle'),
   });
 }

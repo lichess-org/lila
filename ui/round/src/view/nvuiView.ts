@@ -26,7 +26,8 @@ const borderSound = () => site.sound.play('outOfBound');
 const errorSound = () => site.sound.play('error');
 
 export function renderNvui(ctx: RoundNvuiContext): VNode {
-  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, positionStyle, boardStyle, pageStyle } = ctx;
+  const { ctrl, notify, moveStyle, pieceStyle, prefixStyle, povStyle, positionStyle, boardStyle, pageStyle } =
+    ctx;
 
   notify.redraw = ctrl.redraw;
   if (!ctrl.chessground) {
@@ -90,6 +91,7 @@ export function renderNvui(ctx: RoundNvuiContext): VNode {
       hl('h3', noTrans('Board settings')),
       hl('label', [noTrans('Piece style'), renderSetting(pieceStyle, ctrl.redraw)]),
       hl('label', [noTrans('Piece prefix style'), renderSetting(prefixStyle, ctrl.redraw)]),
+      hl('label', [noTrans('Point of view style'), renderSetting(povStyle, ctrl.redraw)]),
       hl('label', [noTrans('Show position'), renderSetting(positionStyle, ctrl.redraw)]),
       hl('label', [noTrans('Board layout'), renderSetting(boardStyle, ctrl.redraw)]),
       ...keyboardInput,
