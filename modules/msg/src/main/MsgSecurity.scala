@@ -145,12 +145,11 @@ final private class MsgSecurity(
       userId
         .isnt(me)
         .so:
-          if userId.is(UserId.lichess) then fuccess(true)
-          else
-            school.fold(fuccess(true)):
-              case School.teacher => myStudentIds()(me).map(_.value(userId))
-              case School.student => myTeacherIds()(me).map(_.value(userId))
-              case _ => fuccess(false)
+          school.fold(fuccess(true)):
+            case _ if userId.is(UserId.lichess) => fuccess(true)
+            case School.teacher => myStudentIds()(me).map(_.value(userId))
+            case School.student => myTeacherIds()(me).map(_.value(userId))
+            case _ => fuccess(false)
 
     def post(orig: UserId, dest: UserId, isNew: Boolean): Fu[Boolean] =
       contactApi.contacts(orig, dest).flatMapz { post(_, isNew) }

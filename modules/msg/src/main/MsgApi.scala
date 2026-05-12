@@ -66,7 +66,6 @@ final class MsgApi(
 
   private def selectMyThreads(using me: Me, school: Option[School]): Fu[Bdoc] = school
     .match
-      case None => fuccess($doc("users" -> $eq(me.userId)))
       case Some(School.teacher) => myStudentIds()(me).map(_.value).map(selectThreadsWith)
       case Some(School.student) => myTeacherIds()(me).map(_.value).map(selectThreadsWith)
       case Some(School.other) => fuccess(selectThreadsWith(Set.empty))
