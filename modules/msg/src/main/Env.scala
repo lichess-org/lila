@@ -6,6 +6,7 @@ import lila.common.Bus
 import lila.common.Json.given
 import lila.core.config.*
 import lila.core.socket.remote.TellUserIn
+import lila.core.clas.MyTeacherIds
 
 @Module
 final class Env(
@@ -25,6 +26,7 @@ final class Env(
     shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.core.security.SpamApi,
     textAnalyser: lila.core.shutup.TextAnalyser,
+    myTeachers: Me => Fu[MyTeacherIds],
     mongoCache: lila.memo.MongoCache.Api
 )(using
     Executor,

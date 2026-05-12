@@ -522,7 +522,7 @@ $url""",
   end invite
 
   private def teamSync(clas: Clas)(using Option[Me]): Unit =
-    import lila.core.misc.clas.*
+    import lila.core.clas.*
     val config = (~clas.hasTeam && clas.isActive).option:
       val students = LazyFu(() => student.activeUserIdsOf(clas.id))
       ClasTeamConfig(clas.name, clas.teachers, students)

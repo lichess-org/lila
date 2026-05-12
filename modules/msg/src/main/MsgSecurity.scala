@@ -1,7 +1,7 @@
 package lila.msg
 
 import lila.common.Bus
-import lila.core.misc.clas.ClasBus
+import lila.core.clas.ClasBus
 import lila.core.report.SuspectId
 import lila.core.shutup.TextAnalyser
 import lila.core.team.IsLeaderOf

@@ -56,28 +56,8 @@ final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFil
                   )
               ),
               "teachers" -> List(
-                PipelineOperator(
-                  $lookup.pipelineFull(
-                    from = colls.clas.name,
-                    as = "teachers",
-                    let = $doc("ids" -> "$classes"),
-                    pipe = List(
-                      $doc("$match" -> $expr($doc("$in" -> $arr("$_id", "$$ids")))),
-                      $doc("$unwind" -> "$teachers"),
-                      $doc(
-                        "$group" -> $doc(
-                          "_id" -> BSONNull,
-                          "teachers" -> $doc("$addToSet" -> "$teachers")
-                        )
-                      )
-                    )
-                  )
-                ),
-                ReplaceRoot:
-                  $ifNull(
-                    $doc("$arrayElemAt" -> $arr("$teachers", 0)),
-                    $doc("teachers" -> $arr())
-                  )
+                PipelineOperator(aggregateClasTeachers),
+                ReplaceRoot(replaceClasTeachers)
               )
             )
           ),
@@ -96,6 +76,42 @@ final class ClasMates(colls: ClasColls, cacheApi: CacheApi, filters: ClasUserFil
           teachers <- doc.getAsOpt[Set[UserId]]("teachers")
         yield mates ++ teachers
       .dmap(~_)
+
+  def fetchTeachers(studentId: UserId): Fu[Set[UserId]] =
+    colls.student
+      .aggregateOne(_.sec): framework =>
+        import framework.*
+        Match($doc("userId" -> studentId)) -> List(
+          Group(BSONNull)("classes" -> PushField("clasId")),
+          PipelineOperator(aggregateClasTeachers),
+          ReplaceRoot(replaceClasTeachers)
+        )
+      .map:
+        _.flatMap(_.getAsOpt[Set[UserId]]("teachers"))
+      .dmap(~_)
+
+  private val aggregateClasTeachers =
+    $lookup.pipelineFull(
+      from = colls.clas.name,
+      as = "teachers",
+      let = $doc("ids" -> "$classes"),
+      pipe = List(
+        $doc("$match" -> $expr($doc("$in" -> $arr("$_id", "$$ids")))),
+        $doc("$unwind" -> "$teachers"),
+        $doc(
+          "$group" -> $doc(
+            "_id" -> BSONNull,
+            "teachers" -> $doc("$addToSet" -> "$teachers")
+          )
+        )
+      )
+    )
+
+  private val replaceClasTeachers =
+    $ifNull(
+      $doc("$arrayElemAt" -> $arr("$teachers", 0)),
+      $doc("teachers" -> $arr())
+    )
 
   /* Find student that shares a class with me */
   def findMateStudent(studentId: UserId)(using me: Me): Fu[Option[Student]] =

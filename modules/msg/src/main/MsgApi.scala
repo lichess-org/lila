@@ -8,6 +8,8 @@ import lila.core.msg.{ PostResult, IdText }
 import lila.core.relation.Relations
 import lila.db.dsl.{ *, given }
 import lila.core.perm.Granter
+import lila.core.net.School
+import lila.core.clas.MyTeacherIds
 
 final class MsgApi(
     colls: MsgColls,
@@ -22,7 +24,8 @@ final class MsgApi(
     security: MsgSecurity,
     shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.core.security.SpamApi,
-    ircApi: lila.core.irc.IrcApi
+    ircApi: lila.core.irc.IrcApi,
+    myTeacherIds: Me => Fu[MyTeacherIds]
 )(using Executor, akka.stream.Materializer)
     extends lila.core.msg.MsgApi:
 
@@ -32,7 +35,7 @@ final class MsgApi(
 
   import BsonHandlers.{ *, given }
 
-  def myThreads(using me: Me): Fu[List[MsgThread]] =
+  def myThreads(using me: Me)(using Option[School]): Fu[List[MsgThread]] =
     colls.thread
       .find(selectMyThreads)
       .sort($sort.desc("lastMsg.date"))
@@ -57,7 +60,10 @@ final class MsgApi(
         // last we filter receivedMultis and reinsert them according to their lastMsg.date
         .map(sorted => merge(sorted.filterNot(receivedMultis.contains), receivedMultis))
 
-  private def selectMyThreads(using me: Me) = $doc("users" -> me.userId) ++ selectNotDeleted
+  private def selectMyThreads(using me: Me, school: Option[School]) =
+    val base = $doc("users" -> me.userId) ++ selectNotDeleted
+    if school.contains(School.Student)
+    then myTeacher
 
   private def merge(sorteds: List[MsgThread], multis: List[MsgThread]): List[MsgThread] =
     (sorteds, multis) match
