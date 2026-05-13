@@ -454,8 +454,12 @@ const inputCommands: InputCommand[] = [
     help: commands().piece.help,
     cb: (notify, ctrl, style, input) =>
       notify(
-        commands().piece.apply(input, ctrl.chessground.state.pieces, style, ctrl.data.player.color) ??
-          `Bad input: ${input}. Expected format: ${commands().piece.help}`,
+        commands().piece.apply(
+          input,
+          ctrl.chessground.state.pieces,
+          style,
+          ctrl.nvui?.getContext().povStyle.get() == 'white' ? 'white' : ctrl.data.player.color,
+        ) ?? `Bad input: ${input}. Expected format: ${commands().piece.help}`,
       ),
   },
   {

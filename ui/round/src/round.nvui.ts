@@ -28,6 +28,7 @@ export function initModule(ctrl: RoundController): NvuiPlugin {
     },
     submitMove: undefined,
     render: () => renderNvui(ctx),
+    getContext: () => ctx,
   };
   return nvui;
 }

@@ -9,6 +9,7 @@ import type { NodeCrazy } from 'lib/tree/types';
 import type { VNode } from 'lib/view';
 
 import type { CorresClockData } from './corresClock/corresClockCtrl';
+import type { RoundNvuiContext } from './round.nvui';
 import type { RoundSocket } from './socket';
 
 export { type RoundSocket } from './socket';
@@ -21,6 +22,7 @@ export interface NvuiPlugin {
   submitMove?: (submitStoredPremove?: boolean) => void;
   playPremove: () => void;
   premoveInput: string;
+  getContext(): RoundNvuiContext;
   render(): VNode;
 }
 
