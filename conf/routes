@@ -707,6 +707,7 @@ GET   /api/mobile/home                 controllers.Api.mobileHome
 GET   /api/mobile/watch                controllers.Api.mobileWatch
 GET   /api/mobile/profile/:username    controllers.Api.mobileProfile(username:  UserStr)
 GET   /api/mobile/my-games             controllers.Api.mobileGames
+GET   /api/mobile/following            controllers.Relation.apiMobileFollowing
 
 ->    /team                            team.Routes
 ->    /appeal                          appeal.Routes

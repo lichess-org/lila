@@ -190,9 +190,7 @@ final class ClasApi(
           )
 
     def archive(from: Clas, v: Boolean)(using me: Me): Funit =
-      for
-        clas <- doArchiveOnly(from, v)
-        _ = filters.teacher.add(me.userId)
+      for clas <- doArchiveOnly(from, v)
       yield teamSync(clas)
 
     private def doArchiveOnly(from: Clas, v: Boolean)(using me: MyId): Fu[Clas] =

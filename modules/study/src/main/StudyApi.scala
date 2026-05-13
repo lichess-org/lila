@@ -179,8 +179,7 @@ final class StudyApi(
       .map(_.cloneFor(study1))
       .mapAsync(1): c =>
         chapterRepo.insert(c).inject(c)
-      .toMat(Sink.reduce[Chapter] { (prev, _) => prev })(Keep.right)
-      .run()
+      .runWith(Sink.reduce[Chapter] { (prev, _) => prev })
       .flatMap: first =>
         val study = study1.rewindTo(first.id)
         studyRepo.insert(study).inject(study)
