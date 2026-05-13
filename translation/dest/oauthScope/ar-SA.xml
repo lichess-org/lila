@@ -40,13 +40,13 @@
   <string name="personalTokenAppExample">مثال لتطبيق رمز شخصي</string>
   <string name="apiDocumentation">دليلُ واجهة برمجة التطبيقات</string>
   <string name="newToken">رمز الوصول الجديد</string>
-  <string name="apiAccessTokens">رموز الوصول إلى API</string>
+  <string name="apiAccessTokens">رموز الوصول إلى واجهة API</string>
   <string name="created">أنشئت %s</string>
   <string name="lastUsed">آخر استخدام %s</string>
   <string name="alreadyHavePlayedGames">لقد لعبتَ المباريات فعلًا!</string>
   <string name="attentionOfDevelopers">ملاحظة لانتباه المطورين فقط:</string>
-  <string name="possibleToPrefill">من الممكن ملء هذا الاستمارة مسبقاً بتغيير معلمات الاستفسار الخاصة بالرابط.</string>
+  <string name="possibleToPrefill">يمكن ملء هذا النموذج مسبقًا عن طريق تعديل معاملات الاستعلام في الرابط.</string>
   <string name="forExample">على سبيل المثال:%s</string>
   <string name="ticksTheScopes">حدد النطاقين %1$s و%2$s، ثم عين الرمز المميز.</string>
-  <string name="givingPrefilledUrls">إن إعطاء عناوين URL المحددة مسبقًا لمستخدميك سيساعدهم في الحصول على نطاق الرمز المميز الصحيح.</string>
+  <string name="givingPrefilledUrls">مشاركة هذه الروابط المعبأة مسبقًا مع المستخدمين تساعدهم في اختيار نطاقات (صلاحيات) رمز الوصول الصحيحة.</string>
 </resources>
