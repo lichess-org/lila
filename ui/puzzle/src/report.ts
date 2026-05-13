@@ -1,4 +1,5 @@
 import { winningChances } from 'lib/ceval';
+import { fenColor } from 'lib/game';
 import { plyToTurn, pieceCount } from 'lib/game/chess';
 import * as licon from 'lib/licon';
 import { type StoredProp, storedIntProp } from 'lib/storage';
@@ -50,7 +51,7 @@ export default class Report {
       return;
     const node = ctrl.node;
     // more resilient than checking the turn directly, if eventually puzzles get generated from 'from position' games
-    const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
+    const nodeTurn = fenColor(node.fen);
     if (
       nextMoveInSolution(node) &&
       nodeTurn === ctrl.pov &&

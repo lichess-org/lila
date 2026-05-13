@@ -62,7 +62,7 @@ private final class ClasUserCache(name: String)(
     initialDelay: FiniteDuration
 )(using scheduler: Scheduler)(using Executor, Materializer):
 
-  private val falsePositiveRate = 0.00002
+  private val falsePositiveRate = 0.00003
   // Stick to [String], it does unsafe operations that don't play well with opaque types
   private var bloomFilter: BloomFilter[String] =
     BloomFilter[String](100, falsePositiveRate) // temporary empty filter

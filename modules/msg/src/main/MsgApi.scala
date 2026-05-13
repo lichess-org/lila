@@ -218,8 +218,7 @@ final class MsgApi(
         post(me, _, text, multi = true, date = now)
           .logFailure(logger)
           .recoverDefault(PostResult.Invalid)
-      .toMat(LilaStream.sinkCount)(Keep.right)
-      .run()
+      .runWith(LilaStream.sinkCount)
 
   def cliMultiPost(orig: UserStr, dests: Seq[UserId], text: String): Fu[String] =
     userApi

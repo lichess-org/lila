@@ -99,6 +99,8 @@
   <string name="database">قاعدة بيانات</string>
   <string name="whiteDrawBlack">أسود / تعادل / أبيض</string>
   <string name="averageRatingX">متوسط التقييم: %s</string>
+  <string name="minRatingX">أقل تصنيف هو %s</string>
+  <string name="maxRatingX">أعلى تصنيف هو %s</string>
   <string name="recentGames">أحدث المباريات</string>
   <string name="topGames">أفضل الالعاب</string>
   <string name="masterDbExplanation">قاعدة بيانات مباريات الأساتذة تقييم %1$s+ للاعبين من %2$s إلى %3$s</string>
@@ -1119,6 +1121,7 @@ https://lichess. org/report.</string>
   <string name="tryTheContactPage">جرب صفحة الإتصال</string>
   <string name="makeSureToRead">تحقق من قراءة %1$s</string>
   <string name="theForumEtiquette">آداب المنتدى</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">يرجى التحلي باللطف في المنتدى.</string>
   <string name="thisTopicIsArchived">تم أرشفة هذا الموضوع ولم يعد يمكن الرد عليه.</string>
   <string name="joinTheTeamXToPost">انضم إلى %1$s، للمشاركة في هذا المنتدى</string>
   <string name="teamNamedX">فريق %1$s</string>

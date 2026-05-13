@@ -6,6 +6,7 @@ import { isDrop, type Square } from 'chessops/types';
 import { parseUci, makeSquare } from 'chessops/util';
 
 import { winningChances } from 'lib/ceval';
+import { fenColor } from 'lib/game';
 import { isUci } from 'lib/game/chess';
 import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
 import type { ServerEval } from 'lib/tree/types';
@@ -92,7 +93,7 @@ export function makeShapesFromUci(
 }
 
 export function compute(ctrl: AnalyseCtrl): DrawShape[] {
-  const color = ctrl.node.fen.includes(' w ') ? 'white' : 'black';
+  const color = fenColor(ctrl.node.fen);
   const rcolor = opposite(color);
   if (ctrl.practice) {
     const hovering = ctrl.practice.hovering();

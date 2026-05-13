@@ -54,8 +54,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
             r => r.sizeIs < nbUsers,
             inclusive = true
           )
-          .toMat(Sink.lastOption)(Keep.right)
-          .run()
+          .runWith(Sink.lastOption)
           .dmap(~_)
       .dmap(Pairing.LastOpponents.apply)
 

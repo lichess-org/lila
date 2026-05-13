@@ -411,7 +411,6 @@ object clas:
   final class bloomFilter(name: String):
     def count = gauge(s"clas.${name}.bloomFilter.count").withoutTags()
     def fu = future(s"clas.${name}.bloomFilter.future")
-def schoolMode(mode: lila.core.net.School) = counter("school.reqMode").withTag("mode", mode.toString)
 object tournament:
   object pairing:
     val batchSize = histogram("tournament.pairing.batchSize").withoutTags()

@@ -347,14 +347,7 @@ final private class PushApi(
         ),
         mobileCompatible = None
       )
-    val webRecips = recips.collect { case u if u.allows.web => u.userId }
-    for _ <- webPush(webRecips, pushData).addEffects: res =>
-        lila.mon.push.send.streamStart("web", res.isSuccess, webRecips.size)
-    yield recips
-      .collect { case u if u.allows.device => u.userId }
-      .foreach:
-        firebasePush(_, pushData).addEffects: res =>
-          lila.mon.push.send.streamStart("firebase", res.isSuccess, 1)
+    filterPushNotif(recips, _.streamStart, pushData)
 
   private type MonitorType = lila.mon.push.send.type => ((String, Boolean, Int) => Unit)
 
@@ -373,14 +366,7 @@ final private class PushApi(
         payload = payload("url" -> url),
         mobileCompatible = None
       )
-    val webRecips = recips.collect { case u if u.allows.web => u.userId }
-    for _ <- webPush(webRecips, pushData).addEffects: res =>
-        lila.mon.push.send.broadcastRound("web", res.isSuccess, webRecips.size)
-    yield recips
-      .collect { case u if u.allows.device => u.userId }
-      .foreach:
-        firebasePush(_, pushData).addEffects: res =>
-          lila.mon.push.send.broadcastRound("firebase", res.isSuccess, 1)
+    filterPushNotif(recips, _.broadcastRound, pushData)
 
   private def maybePushNotif(
       userId: UserId,
@@ -397,6 +383,17 @@ final private class PushApi(
     _ <- to.allows.device.so(firebasePush(to.userId, data).addEffects: res =>
       monitor(lila.mon.push.send)("firebase", res.isSuccess, 1))
   yield ()
+
+  private def filterPushNotif(to: Iterable[NotifyAllows], monitor: MonitorType, data: LazyFu[Data]): Funit =
+    val webRecips = to.collect { case u if u.allows.web => u.userId }
+    val firebaseRecips = to.collect { case u if u.allows.device => u.userId }
+    for
+      _ <- webPush(webRecips, data).addEffects: res =>
+        monitor(lila.mon.push.send)("web", res.isSuccess, webRecips.size)
+      _ <- firebaseRecips.parallelVoid:
+        firebasePush(_, data).addEffects: res =>
+          monitor(lila.mon.push.send)("firebase", res.isSuccess, 1)
+    yield ()
 
   // ignores notification preferences
   private def alwaysPushFirebaseData(userId: UserId, monitor: MonitorType, data: LazyFu[Data]): Funit =

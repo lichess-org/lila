@@ -9,28 +9,26 @@ import lila.common.HTTPRequest
 import lila.i18n.LangPicker
 import lila.oauth.OAuthScope
 import lila.security.{ AppealUser, FingerPrintedUser }
-import lila.core.net.School
 
 trait RequestContext(using Executor):
 
   val env: Env
 
   def makeContext(using req: RequestHeader): Fu[Context] = for
-    userCtx <- makeUserContext
+    userCtx <- makeUserContext(req)
     lang = getAndSaveLang(req, userCtx.me)
     pref <- env.pref.api.get(userCtx.me, req)
   yield Context(req, lang, userCtx, pref)
 
   def makeBodyContext[A](using req: Request[A]): Fu[BodyContext[A]] = for
-    userCtx <- makeUserContext
+    userCtx <- makeUserContext(req)
     lang = getAndSaveLang(req, userCtx.me)
     pref <- env.pref.api.get(userCtx.me, req)
   yield BodyContext(req, lang, userCtx, pref)
 
   def oauthContext(scoped: OAuthScope.Scoped)(using req: RequestHeader): Fu[Context] =
     val lang = getAndSaveLang(req, scoped.me.some)
-    val userCtx =
-      LoginContext(scoped.me.some, false, none, scoped.scopes.some, schoolMode(scoped.me.some))
+    val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some)
     env.pref.api
       .get(scoped.me, req)
       .map:
@@ -38,22 +36,11 @@ trait RequestContext(using Executor):
 
   def oauthBodyContext[A](scoped: OAuthScope.Scoped)(using req: Request[A]): Fu[BodyContext[A]] =
     val lang = getAndSaveLang(req, scoped.me.some)
-    val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some, schoolMode(scoped.me.some))
+    val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some)
     env.pref.api
       .get(scoped.me, req)
       .map:
         BodyContext(req, lang, userCtx, _)
-
-  private def schoolMode(me: Option[Me])(using req: RequestHeader): Option[School] =
-    req.headers.toMap
-      .contains("X-Lichess-School")
-      .option:
-        val school = me.fold(School.Anon): me =>
-          if env.clas.filters.teacher(me) then School.Teacher
-          else if env.clas.filters.student(me) then School.Student
-          else School.Other
-        lila.mon.schoolMode(school).increment()
-        school
 
   private def getAndSaveLang(req: RequestHeader, me: Option[Me]): Lang =
     val lang = LangPicker(req, me.flatMap(_.lang))
@@ -91,7 +78,7 @@ trait RequestContext(using Executor):
     if env.mode.isDev then env.web.manifest.update()
     f(using EmbedContext(ctx))
 
-  private def makeUserContext(using req: RequestHeader): Fu[LoginContext] =
+  private def makeUserContext(req: RequestHeader): Fu[LoginContext] =
     env.security.api
       .restoreUser(req)
       .map:
@@ -104,11 +91,10 @@ trait RequestContext(using Executor):
         case Some(Right(d)) => d.some
         case _ => none
       .flatMap:
-        case None => fuccess(LoginContext.anon(schoolMode(none)))
+        case None => fuccess(LoginContext.anon)
         case Some(d) =>
           env.mod.impersonate
             .impersonating(d.me.modId)
             .map:
-              _.fold(LoginContext(d.me.some, !d.hasFingerPrint, none, none, schoolMode(d.me.some))):
-                impersonated =>
-                  LoginContext(Me(impersonated).some, needsFp = false, d.me.modId.some, none, none)
+              _.fold(LoginContext(d.me.some, !d.hasFingerPrint, none, none)): impersonated =>
+                LoginContext(Me(impersonated).some, needsFp = false, d.me.modId.some, none)

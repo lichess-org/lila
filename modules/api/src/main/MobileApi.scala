@@ -16,7 +16,7 @@ final class MobileApi(
     userApi: UserApi,
     gameApi: GameApiV2,
     lobbyApi: LobbyApi,
-    lightUserApi: lila.core.user.LightUserApi,
+    lightUserApi: lila.user.LightUserApi,
     gameProxy: lila.round.GameProxyRepo,
     unreadCount: lila.msg.MsgUnreadCount,
     teamCached: lila.team.TeamCached,
@@ -30,7 +30,9 @@ final class MobileApi(
     challengeApi: lila.challenge.ChallengeApi,
     challengeJson: lila.challenge.JsonView,
     picfitUrl: lila.memo.PicfitUrl,
-    isOnline: lila.core.socket.IsOnline
+    isOnline: lila.core.socket.IsOnline,
+    playing: lila.round.PlayingUsers,
+    relationStream: lila.relation.RelationStream
 )(using Executor):
 
   private given (using trans: Translate): Lang = trans.lang
@@ -50,6 +52,10 @@ final class MobileApi(
       recentGames <- myUser.traverse(gameApi.mobileRecent)
       inbox <- me.ifFalse(takex3).traverse(unreadCount.mobile)
       challenges <- me.traverse(challengeApi.allFor(_))
+      friends <- me.traverse: me =>
+        import lightUserApi.reader
+        given Me = me
+        relationStream.recentlySeenList(10, lightUserApi.projection, playing.apply)
     yield Json
       .obj()
       .add("tournaments", tours)
@@ -58,6 +64,7 @@ final class MobileApi(
       .add("ongoingGames", ongoingGames)
       .add("inbox", inbox)
       .add("challenges", challenges.map(challengeJson.all))
+      .add("friends", friends)
 
   def tournamentsOf(me: Option[UserWithPerfs])(using Translate): Fu[JsObject] =
     for
