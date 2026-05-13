@@ -142,7 +142,7 @@
   <string name="veryLong">Juda uzun masala</string>
   <string name="veryLongDescription">Yutish uchun toʻrt yoki undan koʻproq yurish talab qilinadi.</string>
   <string name="xRayAttack">Rentgen</string>
-  <string name="xRayAttackDescription">Donaning raqib figurasi ortidagi katakka hujum qilishi yoki uni himoya qilishi.</string>
+  <string name="xRayAttackDescription">Donaning raqib donasi ortidagi katakka hujum qilishi yoki uni himoya qilishi.</string>
   <string name="zugzwang">Sugsvang</string>
   <string name="zugzwangDescription">Raqib yurish qilishga majbur boʻlgan, ammo har qanday yurish uning pozitsiyasini yomonlashtiradigan holat.</string>
   <string name="mix">Bir undan bir bundan</string>
