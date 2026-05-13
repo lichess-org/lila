@@ -7,7 +7,7 @@ import { ucisToNodes, signEval } from 'lib/tree/util';
 
 // modules/tree/.../Advice.scala
 
-type Totals = { [key in Grade]: number };
+type Totals = Record<Grade, number>;
 type Info = { cp?: number; mate?: number; line?: San[]; best?: string };
 type Grade = 'blunder' | 'mistake' | 'inaccuracy';
 
@@ -19,7 +19,7 @@ const glyphs = {
   inaccuracy: { id: 6, symbol: '?!', name: 'Dubious move' },
 };
 
-export function annotate(nodes: TreeNodeBase[]): { infos: Info[]; totals: { [c in Color]: Totals } } {
+export function annotate(nodes: TreeNodeBase[]): { infos: Info[]; totals: Record<Color, Totals> } {
   const totals = {
     white: { inaccuracy: 0, mistake: 0, blunder: 0 },
     black: { inaccuracy: 0, mistake: 0, blunder: 0 },

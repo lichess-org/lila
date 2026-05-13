@@ -10,7 +10,7 @@ export function ucisToNodes(
   const nodes: TreeNodeBase[] = [];
   const position = initial.clone();
   for (const [i, uci] of ucis.entries()) {
-    const move = co.parseUci(uci!)!;
+    const move = co.parseUci(uci)!;
     const san = co.san.makeSanAndPlay(position, move);
     nodes.push({
       id: co.compat.scalachessCharPair(move),

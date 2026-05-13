@@ -23,7 +23,7 @@ export class Engines {
     this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
     this.selectProp = storedStringProp(
       'ceval.selected-engine',
-      this.localEngineMap.keys().next().value ?? ''
+      this.localEngineMap.keys().next().value ?? '',
     );
   }
 
@@ -145,7 +145,7 @@ export class Engines {
             },
           },
           make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, variantMap),
-        })
+        }),
       ),
       {
         info: {
@@ -181,7 +181,7 @@ export class Engines {
         },
         make: (e: BrowserEngineInfo) =>
           new ThreadedEngine(e, undefined, (v: VariantKey) =>
-            v === 'antichess' ? 'giveaway' : lichessRules(v)
+            v === 'antichess' ? 'giveaway' : lichessRules(v),
           ),
       },
       {
@@ -243,9 +243,9 @@ export class Engines {
         .filter(
           e =>
             e.info.requires.every(req => browserSupport().includes(req)) &&
-            !(e.info.obsoletedBy && browserSupport().includes(e.info.obsoletedBy))
+            !(e.info.obsoletedBy && browserSupport().includes(e.info.obsoletedBy)),
         )
-        .map(e => [e.info.id, { info: withDefaults(e.info), make: e.make }])
+        .map(e => [e.info.id, { info: withDefaults(e.info), make: e.make }]),
     );
   }
 
@@ -300,7 +300,7 @@ export class Engines {
     const localEngines = [...this.localEngineMap.values()].map(e => e.info);
     return [
       ...localEngines.filter(
-        e => e.variants?.includes(variant) && (!capability || e.capabilities?.includes(capability))
+        e => e.variants?.includes(variant) && (!capability || e.capabilities?.includes(capability)),
       ),
       ...this.externalEngines.filter(e => externalEngineSupports(e, variant)),
     ];
@@ -325,8 +325,10 @@ export class Engines {
 }
 
 function maxHashMB() {
-  if (isAndroid()) return 64; // budget androids are easy to crash @ 128
-  else if (isIPad()) return 64; // iPadOS safari pretends to be desktop but acts more like iphone
+  if (isAndroid())
+    return 64; // budget androids are easy to crash @ 128
+  else if (isIPad())
+    return 64; // iPadOS safari pretends to be desktop but acts more like iphone
   else if (isIos()) return 32;
   return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }
