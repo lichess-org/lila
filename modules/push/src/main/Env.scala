@@ -13,6 +13,7 @@ import lila.core.config.*
 final private class PushConfig(
     @ConfigName("collection.device") val deviceColl: CollName,
     @ConfigName("collection.subscription") val subscriptionColl: CollName,
+    @ConfigName("collection.unifiedpush") val unifiedPushColl: CollName,
     val web: WebPush.Config,
     val firebase: FirebasePush.BothConfigs
 )
@@ -37,21 +38,25 @@ final class Env(
 
   private val deviceApi = DeviceApi(db(config.deviceColl))
   val webSubscriptionApi = WebSubscriptionApi(db(config.subscriptionColl))
+  val unifiedPushApi = WebSubscriptionApi(db(config.unifiedPushColl))
 
   export deviceApi.{ register as registerDevice, unregister as unregisterDevices }
 
-  private lazy val firebasePush = wire[FirebasePush]
+  private lazy val webPush = WebPush(webSubscriptionApi, config.web, ws, isUnifiedPush = false)
 
-  private lazy val webPush = wire[WebPush]
+  private lazy val unifiedPush = WebPush(unifiedPushApi, config.web, ws, isUnifiedPush = true)
 
-  private lazy val pushApi: PushApi = wire[PushApi]
+  private lazy val firebasePush = FirebasePush(unifiedPush, deviceApi, ws, config.firebase)
+
+  private lazy val pushApi: PushApi =
+    PushApi(firebasePush, webPush, gameProxy, roundJson, gameRepo, namer, notifyAllows, postApi, getLightUser)
 
   private def logUnit(f: Fu[?]): Unit =
     f.logFailure(logger)
     ()
 
   Bus.sub[lila.core.misc.oauth.TokenRevoke]: token =>
-    webSubscriptionApi.unsubscribeBySession(token.id)
+    unifiedPushApi.unsubscribeBySession(token.id)
 
   Bus.sub[lila.core.game.FinishGame]: f =>
     logUnit { pushApi.finish(f.game) }

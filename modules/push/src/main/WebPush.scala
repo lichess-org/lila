@@ -14,7 +14,8 @@ import lila.mon.extensions.*
 final private class WebPush(
     webSubscriptionApi: WebSubscriptionApi,
     config: WebPush.Config,
-    ws: StandaloneWSClient
+    ws: StandaloneWSClient,
+    isUnifiedPush: Boolean
 )(using Executor):
 
   def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
@@ -26,6 +27,16 @@ final private class WebPush(
   private def sendTo(data: LazyFu[PushApi.Data], to: Iterable[UserId])(subs: List[WebSubscription]): Funit =
     subs.toNel.so: subs =>
       data.value.flatMap(send(subs, to))
+
+  private def makeWebPayload(data: PushApi.Data): JsObject =
+    Json.obj(
+      "title" -> data.title,
+      "body" -> data.body,
+      "tag" -> data.stacking.key,
+      "payload" -> Json
+        .obj("userData" -> data.payload.userData.toMap)
+        .add("userId" -> data.payload.userId)
+    )
 
   private def send(allSubscriptions: NonEmptyList[WebSubscription], to: Iterable[UserId])(
       data: PushApi.Data
@@ -48,16 +59,8 @@ final private class WebPush(
                     )
                   )
                 }.toList),
-                "payload" -> Json
-                  .obj(
-                    "title" -> data.title,
-                    "body" -> data.body,
-                    "tag" -> data.stacking.key,
-                    "payload" -> Json
-                      .obj("userData" -> data.payload.userData.toMap)
-                      .add("userId" -> data.payload.userId)
-                  )
-                  .toString,
+                "payload" -> (if isUnifiedPush then FirebasePush.makeMobilePayload(data)
+                              else makeWebPayload(data)).toString,
                 "topic" -> data.stacking.key,
                 "urgency" -> data.urgency.key,
                 "ttl" -> 43200

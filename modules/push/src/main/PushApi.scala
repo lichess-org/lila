@@ -434,7 +434,7 @@ private object PushApi:
       mobileCompatible: Option[LichessMobileVersion] = None,
       lichobileCompatible: Boolean = false,
       iosBadge: Option[Int] = None,
-      // https://firebase.google.com/docs/cloud-messaging/concept-options#data_messages
+      // https://firebase.google.com/docs/cloud-messaging/customize-messages/set-message-type
       firebaseMod: Option[Data.FirebaseMod] = None
   )
 
