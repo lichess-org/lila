@@ -31,8 +31,8 @@ export const pieceNotOn =
     !pieceMatch(level.chess.get(key), fenToMatcher(fenPiece));
 
 export const noPieceOn = (keys: string | SquareName[]): Assert => {
-  const keyArr = readKeys(keys);
-  return (level: AssertData) => level.chess.occupiedKeys().some(sq => !keyArr.includes(sq));
+  const keySet = new Set(readKeys(keys));
+  return (level: AssertData) => level.chess.occupiedKeys().some(sq => !keySet.has(sq));
 };
 
 export const whitePawnOnAnyOf = (keys: string | SquareName[]): Assert =>

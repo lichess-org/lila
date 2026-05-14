@@ -46,7 +46,7 @@ export default class LobbyController {
 
   private readonly poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
-  private readonly alreadyWatching: string[] = [];
+  private readonly alreadyWatching = new Set<string>();
 
   constructor(
     readonly opts: LobbyOpts,
@@ -294,10 +294,10 @@ export default class LobbyController {
   };
 
   private startWatching() {
-    const newIds = this.data.nowPlaying.map(p => p.gameId).filter(id => !this.alreadyWatching.includes(id));
+    const newIds = this.data.nowPlaying.map(p => p.gameId).filter(id => !this.alreadyWatching.has(id));
     if (newIds.length) {
       setTimeout(() => this.socket.send('startWatching', newIds.join(' ')), 2000);
-      newIds.forEach(id => this.alreadyWatching.push(id));
+      newIds.forEach(id => this.alreadyWatching.add(id));
     }
   }
 
