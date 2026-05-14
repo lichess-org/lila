@@ -12,11 +12,13 @@ export const highlightSearchTerm = (search: string, selector: string): void => {
   const ranges: AbstractRange[] = [];
   try {
     const elements = document.querySelectorAll<HTMLElement>(selector);
-    Array.from(elements).map(element => {
-      getTextNodesInElementContainingText(element, search).forEach(node => {
-        node.parentElement && ranges.push(...getRangesForSearchTermInElement(node.parentElement, search));
-      });
-    });
+    for (const element of elements) {
+      for (const node of getTextNodesInElementContainingText(element, search)) {
+        if (node.parentElement) {
+          ranges.push(...getRangesForSearchTermInElement(node.parentElement, search));
+        }
+      }
+    }
   } catch (error) {
     console.error(error);
   }

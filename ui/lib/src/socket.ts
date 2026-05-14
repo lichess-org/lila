@@ -371,7 +371,7 @@ class WsSocket {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];
       this.storage.set(url);
     } else if (this.tryOtherUrl) {
-      const i = this.baseUrls.findIndex(u => u === url);
+      const i = this.baseUrls.indexOf(url);
       url = this.baseUrls[(i + 1) % this.baseUrls.length];
       this.storage.set(url);
     }
