@@ -58,7 +58,7 @@ export default class Filter {
     if (!this.data) return { visible: hooks, hidden: 0 };
     const f = this.data.filter,
       ratingRange = f.ratingRange && f.ratingRange.split('-').map((r: string) => parseInt(r, 10)),
-      seen = new Set<string>(), 
+      seen = new Set<string>(),
       visible: Hook[] = [];
     let variant: string,
       hidden = 0;
