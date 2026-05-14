@@ -333,6 +333,8 @@ interface I18n {
     noBoardsYet: string;
     /** The broadcast has not yet started. */
     notYetStarted: string;
+    /** Official regulations */
+    officialRegulations: string;
     /** Official standings */
     officialStandings: string;
     /** Official website */
@@ -357,6 +359,8 @@ interface I18n {
     ratingDiff: string;
     /** Recent tournaments */
     recentTournaments: string;
+    /** Regulations */
+    regulations: string;
     /** Optional: replace player names, ratings and titles */
     replacePlayerTags: string;
     /** Reset this round */
