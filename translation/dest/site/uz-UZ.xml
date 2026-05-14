@@ -117,7 +117,7 @@
   <string name="lossSavedBy50MoveRule">50 ta yurish qoidasi sababli magʻlubiyatning oldi olindi</string>
   <string name="winOr50MovesByPriorMistake">Avvalgi xato tufayli gʻalaba yoki 50 ta yurish qoidasi</string>
   <string name="lossOr50MovesByPriorMistake">Avvalgi xato tufayli magʻlubiyat yoki 50 ta yurish qoidasi</string>
-  <string name="unknownDueToRounding">Ga‘laba/Mag‘lubiyat kafolatlanadi agarda oxirgi figurani olish yoki Syzygy jadvalidagi DTZ ning qiymatiga asosan aylanaga olingan peshka yurishidan keyin tavsiya etilgan yurishlar ketma‑ketligiga rioya qilingan bo‘linsa.</string>
+  <string name="unknownDueToRounding">Ga‘laba/Mag‘lubiyat kafolatlanadi agarda oxirgi donani olish yoki Syzygy jadvalidagi DTZ ning qiymatiga asosan aylanaga olingan piyoda yurishidan keyin tavsiya etilgan yurishlar ketma‑ketligiga rioya qilingan bo‘linsa.</string>
   <string name="allSet">Tayyor!</string>
   <string name="importPgn">PGNʼni import qilish</string>
   <string name="delete">Oʻchirish</string>
@@ -215,14 +215,14 @@
   <string name="discussions">Suhbatlar</string>
   <string name="today">Bugun</string>
   <string name="yesterday">Kecha</string>
-  <string name="minutesPerSide">Har bir tomonga berilgan vaqt, daqiqalarda</string>
+  <string name="minutesPerSide">Har bir tomonga beriladigan vaqt (daqiqalarda)</string>
   <string name="variant">Variant</string>
   <string name="variants">Variantlar</string>
   <string name="variantsDescription">Oʻynashni boshqa usullari</string>
   <string name="timeControl">Vaqt nazorati</string>
   <string name="realTime">Real vaqt</string>
   <string name="correspondence">Yozishmali oʻyin</string>
-  <string name="daysPerTurn">Har bir yurish uchun kunlar soni</string>
+  <string name="daysPerTurn">Har bir yurish uchun beriladigan vaqt (kunlarda)</string>
   <string name="oneDay">Bir kun</string>
   <plurals name="nbDays">
     <item quantity="one">%s kun</item>
@@ -335,7 +335,7 @@
   <string name="composeMessage">Xabar yuborish</string>
   <string name="subject">Mavzu</string>
   <string name="send">Joʻnatish</string>
-  <string name="incrementInSeconds">Qoʻshimcha vaqt, soniyalarda</string>
+  <string name="incrementInSeconds">Vaqt qo\'shilishi (soniyalarda)</string>
   <string name="freeOnlineChess">Bepul onlayn shaxmat</string>
   <plurals name="nbRated">
     <item quantity="one">%s reytingli</item>
@@ -536,11 +536,11 @@
   <string name="ifNoneLeaveEmpty">Agar yoʻq boʻlsa boʻsh qoldiring</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profilni tahrirlash</string>
-  <string name="realName">Haqiqiy ism</string>
+  <string name="realName">Haqiqiy ismingiz</string>
   <string name="setFlair">Hisbelgingizni tanlang</string>
   <string name="flair">Hisbelgi</string>
   <string name="youCanHideFlair">Butun saytda foydalanuvchi hisbelgilarini yashirish imkoniyati mavjud.</string>
-  <string name="biography">Biografiya</string>
+  <string name="biography">Tarjimai hol</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Mamlakat yoki mintaqa</string>
   <string name="thankYou">Rahmat!</string>
   <string name="socialMediaLinks">Ijtimoiy tarmoq havolalari</string>
@@ -658,7 +658,7 @@
   <string name="practice">Mashq</string>
   <string name="community">Hamjamiyat</string>
   <string name="tools">Asboblar</string>
-  <string name="increment">Qoʻshimcha vaqt</string>
+  <string name="increment">Vaqt qo\'shilishi</string>
   <string name="error.unknown">Yaroqsiz qiymat</string>
   <string name="error.required">Ushbu maydonni toʻldirilish majburiy</string>
   <string name="error.email">Ushbu e‑pochta manzil yaroqsiz</string>

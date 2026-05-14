@@ -96,10 +96,10 @@
   <string name="womenTournament">Femenino</string>
   <string name="menTournament">Hombres</string>
   <string name="girlsTournament">Femenino</string>
-  <string name="boysTournament">Chicos</string>
+  <string name="boysTournament">Masculino</string>
   <string name="openUnderXAgeTournament">Abierto Sub%s</string>
   <string name="girlsUnderXAgeTournament">Femenino Sub%s</string>
-  <string name="boysUnderXAgeTournament">Masculino sub%s</string>
+  <string name="boysUnderXAgeTournament">Masculino Sub%s</string>
   <string name="quarterfinals">Cuartos de final</string>
   <string name="semifinals">Semifinales</string>
   <string name="finals">Finales</string>

@@ -6,7 +6,7 @@
   <string name="notifications">إشعارات</string>
   <string name="pieceAnimation">المؤثرات الحركية للقطعة</string>
   <string name="materialDifference">الفرق المادي</string>
-  <string name="boardHighlights">تميز معالم الرقعة (آخر نقلة والكش)</string>
+  <string name="boardHighlights">تميز معالم الرقعة (آخر نقلة و كش)</string>
   <string name="pieceDestinations">إظهار النقلات القانونية (النقلات المتاحة والنقلات الاستباقية)</string>
   <string name="boardCoordinates">إحداثيات الرقعة (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">قائمة النقلات خلال المباراة</string>
@@ -23,7 +23,7 @@
   <string name="exceptInGame">إخفاء عند اللعب</string>
   <string name="chessClock">مؤقت الشطرنج</string>
   <string name="tenthsOfSeconds">أجزاء الثانية</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">عندما يقل الوقت عن 10 ثوانٍ</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">عندما يقل الوقت عن 10&lt; ثوانٍ</string>
   <string name="horizontalGreenProgressBars">الشريط الأخضر للساعة</string>
   <string name="soundWhenTimeGetsCritical">إصدار صوت عندما يقارب الوقت الانتهاء</string>
   <string name="giveMoreTime">منح الوقت</string>
@@ -47,7 +47,7 @@
   <string name="confirmResignationAndDrawOffers">تأكيد الاستسلام وعرض التعادل</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">طريقة التحصين/التبييت</string>
   <string name="castleByMovingTwoSquares">حرك الملك مربعين</string>
-  <string name="castleByMovingOntoTheRook">حرك الملك بإتجاه الرخ</string>
+  <string name="castleByMovingOntoTheRook">حرك الملك باتجاه الرخ</string>
   <string name="inputMovesWithTheKeyboard">إدخال النقلات بلوحة المفاتيح</string>
   <string name="inputMovesWithVoice">الإدخال يتحرك بصوتك</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">سحب الأسهم في اتجاهات صالحة</string>

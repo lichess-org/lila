@@ -121,11 +121,11 @@
   <string name="openingEndgameExplorer">مستكشف نهاية/بداية الدور</string>
   <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">تشغيل أول حركة فتح/نهاية اللعبة</string>
-  <string name="winPreventedBy50MoveRule">قاعدة الخمسين حركة منعت الفوز</string>
+  <string name="winPreventedBy50MoveRule">قاعدة الخمسين-50 حركة منعت الفوز</string>
   <string name="lossSavedBy50MoveRule">قاعدة الخمسين حركة منعت الخسارة</string>
   <string name="winOr50MovesByPriorMistake">فوز أو 50 حركة عن طريق خطأ سابق</string>
   <string name="lossOr50MovesByPriorMistake">خسارة أو 50 نقلة عن طريق خطأ سابق</string>
-  <string name="unknownDueToRounding">فالفوز/الخسارة المكفولة فقط إذا كان خط الأساس الموصى به قد اتبع منذ آخر عملية لالتقاط أو تحريك للبياء، بسبب احتمال تقريب الأرباح.</string>
+  <string name="unknownDueToRounding">بسبب احتمال وجود تقريب في قيم DTZ ضمن قواعد بيانات Syzygy للنهايات، فإن الفوز أو الخسارة يكون مضمونًا فقط إذا تم اتباع خط اللعب الموصى به من قاعدة البيانات منذ آخر عملية أسر أو آخر نقلة بيدق.</string>
   <string name="allSet">تم ضبط الكل!</string>
   <string name="importPgn">استيراد PGN</string>
   <string name="delete">حذف</string>
@@ -139,7 +139,7 @@
   <string name="visualMotifs">الزخارف البصرية</string>
   <string name="undefendedPieces">قطع غير محمية</string>
   <string name="pinnedPieces">القطع المثبتة</string>
-  <string name="checkableKing">الملك القابل للكش</string>
+  <string name="checkableKing">ملك يمكن تهديده بـ-كش</string>
   <string name="multipleLines">عدد الخطوط</string>
   <string name="multipleLinesDescription">تعيين عدد من خطوط التقييم و اسهم الحركة على اللوحة</string>
   <string name="searchTime">وقت البحث</string>
