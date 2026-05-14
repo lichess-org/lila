@@ -95,6 +95,8 @@
   <string name="database">Βάση δεδομένων</string>
   <string name="whiteDrawBlack">Λευκά / Ισοπαλία / Μαύρα</string>
   <string name="averageRatingX">Μέση βαθμολογία: %s</string>
+  <string name="minRatingX">Ελάχιστη βαθμολογία %s</string>
+  <string name="maxRatingX">Μέγιστη βαθμολογία %s</string>
   <string name="recentGames">Πρόσφατα παιχνίδια</string>
   <string name="topGames">Κορυφαίες παρτίδες</string>
   <string name="masterDbExplanation">Διά ζώσης παρτίδες παικτών με FIDE elo %1$s+, από το %2$s έως %3$s</string>
@@ -131,6 +133,11 @@
   <string name="pinnedPieces">Καρφωμένα κομμάτια</string>
   <string name="checkableKing">Βασιλιάς που μπορεί να δεχθεί σαχ</string>
   <string name="multipleLines">Πολλαπλές γραμμές</string>
+  <string name="multipleLinesDescription">Ορίστε τον αριθμό των γραμμών αξιολόγησης και μετακινήστε τα βέλη στον πίνακα</string>
+  <string name="searchTime">Χρόνος Αναζήτησης</string>
+  <string name="searchTimeDescription">Ορισμός ώρας για την αξιολόγηση νέων θέσεων</string>
+  <string name="threads">Νήματα</string>
+  <string name="threadsDescriptionMobile">Περισσότερα νήματα θα χρησιμοποιήσουν περισσότερη μπαταρία για καλύτερη ανάλυση</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Μνήμη</string>
   <string name="infiniteAnalysis">Άπειρη ανάλυση</string>
