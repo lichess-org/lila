@@ -52,12 +52,20 @@ const makeUcisAndHashes = (game: Game): [Uci[], bigint[], Chess] => {
 
 const makeThreefoldMoves = (chess: Chess, hashes: bigint[]): Uci[] => {
   const tfms: Uci[] = [];
+  const seenOnce = new Set<bigint>();
+  const seenTwice = new Set<bigint>();
+
+  for (const h of hashes) {
+    if (seenOnce.has(h)) seenTwice.add(h);
+    else seenOnce.add(h);
+  }
+
   for (const [from, dests] of chess.allDests()) {
     for (const to of dests) {
       const next = chess.clone();
       next.play({ from, to });
       const moveHash = hashBoard(next.board);
-      if (hashes.filter(h => h === moveHash).length > 1) tfms.push(makeUci({ from, to }));
+      if (seenTwice.has(moveHash)) tfms.push(makeUci({ from, to }));
     }
   }
   return tfms;
