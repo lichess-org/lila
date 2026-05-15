@@ -727,6 +727,11 @@ object fideSync:
 object recap:
   val games = future("recap.build.games.time")
   val puzzles = future("recap.build.puzzles.time")
+object t3:
+  object login:
+    val load = counter("t3.login.load").withoutTags()
+    val success = counter("t3.login.success").withoutTags()
+    val failure = counter("t3.login.failure").withoutTags()
 
 object jvm:
   def threads() =

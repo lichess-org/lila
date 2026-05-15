@@ -80,6 +80,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
 
   private def serveLogin(using ctx: Context, referrer: Option[ValidReferrer]) = NoBot:
     val switch = get("switch").orElse(get("as"))
+    println(referrer)
+    println(simpleSignup)
     referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
       case Some(url) => Redirect(url.value) // redirect immediately if already logged in
       case None =>
@@ -207,8 +209,8 @@ final class Auth(env: Env, accountC: => Account) extends LilaController(env):
     val form = forms.signup.full(simpleSignup)
     Ok.page(views.auth.signup(form.form, form.simple))
 
-  private def simpleSignup(using Context) =
-    summon[Option[ValidReferrer]].flatMap(env.oAuth.signedClients.simpleSignupFrom)
+  private def simpleSignup(using ref: Option[ValidReferrer]) =
+    ref.flatMap(env.oAuth.signedClients.simpleSignupFrom)
 
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) =
     for proxy <- env.security.ip2proxy.ofReq(ctx.req)
