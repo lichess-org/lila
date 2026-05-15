@@ -727,6 +727,16 @@ object fideSync:
 object recap:
   val games = future("recap.build.games.time")
   val puzzles = future("recap.build.puzzles.time")
+object signedClient:
+  final class AuthPage(name: String):
+    def load(client: String) = counter(s"signedClient.$name.load").withTag("client", client)
+    def success(client: String) = counter(s"signedClient.$name.success").withTag("client", client)
+    def step(s: String)(client: String) =
+      counter(s"signedClient.$name.step").withTags(tags("client" -> client, "step" -> s))
+    def failure(reason: String)(client: String) =
+      counter(s"signedClient.$name.failure").withTags(tags("client" -> client, "reason" -> reason))
+  val login = AuthPage("login")
+  val signup = AuthPage("signup")
 
 object jvm:
   def threads() =
