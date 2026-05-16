@@ -1,12 +1,5 @@
-import { test, expect, Page } from '@playwright/test';
-
-async function loginAs(page: Page, username: string) {
-  await page.goto('/login');
-  await page.getByTestId('username').fill(username);
-  await page.getByTestId('password').fill('password');
-  await page.getByTestId('login-submit').click();
-  await page.waitForLoadState('networkidle');
-}
+import { test, expect } from '@playwright/test';
+import { loginAs } from './helpers';
 
 test.beforeEach(async ({ page }) => {
   await loginAs(page, 'student1');
