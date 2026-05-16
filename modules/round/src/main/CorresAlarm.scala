@@ -1,6 +1,5 @@
 package lila.round
 
-import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
@@ -70,7 +69,6 @@ final private class CorresAlarm(
             }
           )
         case (alarm, None) => deleteAlarm(alarm._id)
-      .toMat(LilaStream.sinkCount)(Keep.right)
-      .run()
+      .runWith(LilaStream.sinkCount)
       .mon(lila.mon.round.alarm.time)
       .void

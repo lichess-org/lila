@@ -6,26 +6,26 @@
   <string name="notifications">Bildirishnomalar</string>
   <string name="pieceAnimation">Dona animatsiyalari</string>
   <string name="materialDifference">Material farqi</string>
-  <string name="boardHighlights">Oxirgi yurishni va shoh berishni taxtada belgilash</string>
-  <string name="pieceDestinations">Mumkin boʻlgan yurishlani koʻrsatish</string>
-  <string name="boardCoordinates">Doska koordinatalari (A-H, 1-8)</string>
-  <string name="moveListWhilePlaying">Oʻyin davomida yurishlar roʻyxatini koʻrsatish</string>
+  <string name="boardHighlights">Oxirgi yurish va shoh berish taxtada ko\'rsatilsin</string>
+  <string name="pieceDestinations">Mumkin boʻlgan yurishlar koʻrsatilsin (qonuniy yurishlar va oldindan yurishlar)</string>
+  <string name="boardCoordinates">Taxta koordinatalari (A‑H, 1‑8)</string>
+  <string name="moveListWhilePlaying">Oʻyin davomida yurishlar roʻyxati koʻrsatilsin</string>
   <string name="pgnPieceNotation">Yurish notatsiyasi</string>
   <string name="chessPieceSymbol">Shaxmat dona simvoli</string>
   <string name="pgnLetter">Harflar (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen rejimi</string>
-  <string name="showPlayerRatings">Oʻyinchilar reytingini koʻrsatish</string>
-  <string name="showFlairs">Oʻyinchilar hisbelgilarini koʻrsatish</string>
+  <string name="showPlayerRatings">Oʻyinchilar reytingi koʻrsatilsin</string>
+  <string name="showFlairs">Oʻyinchilar hisbelgilari koʻrsatilsin</string>
   <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;Hide all ratings from Lichess&quot;. Please update translations as needed.">Ushbu sozlama butun Lichess boʻylab barcha reytinglarni yashiradi va bor eʼtiboringizni shaxmatga qaratishga yordam beradi. Reytingli oʻyinlar reytingingizga baribir taʼsir qiladi, bu sozlama faqat reytinglarni yashirish uchun.</string>
-  <string name="displayBoardResizeHandle">Taxta oʻlchamini oʻzgartirish tutqichini koʻrsatish</string>
+  <string name="displayBoardResizeHandle">Taxta oʻlchamini oʻzgartirish tutqichi koʻrsatilsin</string>
   <string name="onlyOnInitialPosition">Faqat boshlangʻich pozitsiyada</string>
   <string name="inGameOnly">Faqat oʻyin davomida</string>
   <string name="exceptInGame">Oʻyindan tashqarida</string>
   <string name="chessClock">Shaxmat soati</string>
-  <string name="tenthsOfSeconds">Soniyaning oʻndan birini koʻrsatish</string>
+  <string name="tenthsOfSeconds">Soniyaning oʻndan biri koʻrsatilsin</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">10 soniyadan kam vaqt qolganda</string>
-  <string name="horizontalGreenProgressBars">Gorizantal yashil vaqt indikatori</string>
-  <string name="soundWhenTimeGetsCritical">Vaqt oz qolganda tovush bilan ogohlantirish</string>
+  <string name="horizontalGreenProgressBars">Gorizantal yashil vaqt indikatori koʻrsatilsin</string>
+  <string name="soundWhenTimeGetsCritical">Vaqt oz qolganda tovush bilan ogohlantirilsin</string>
   <string name="giveMoreTime">Vaqt berish</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Oʻyin sozlamalari</string>
   <string name="howDoYouMovePieces">Donalarni qanday yurasiz?</string>
@@ -70,5 +70,5 @@
   <string name="notifyDevice">Qurilma</string>
   <string name="bellNotificationSound">Qongʻiroq bildirishnoma tovushi</string>
   <string name="blindfold" comment="As in Blindfold chess">Koʻzi bogʻlangan shaxmat</string>
-  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Mobil qurilmalarda chap tomonda koʻrsatish</string>
+  <string name="showClockOnTheLeft" comment="During the game on a mobile device, show the clock on the left side of the screen. Only applies to mobile devices.">Mobil qurilmalarda chap tomonda koʻrsatilsin</string>
 </resources>

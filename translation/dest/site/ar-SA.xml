@@ -99,6 +99,8 @@
   <string name="database">قاعدة بيانات</string>
   <string name="whiteDrawBlack">أسود / تعادل / أبيض</string>
   <string name="averageRatingX">متوسط التقييم: %s</string>
+  <string name="minRatingX">أقل تصنيف هو %s</string>
+  <string name="maxRatingX">أعلى تصنيف هو %s</string>
   <string name="recentGames">أحدث المباريات</string>
   <string name="topGames">أفضل الالعاب</string>
   <string name="masterDbExplanation">قاعدة بيانات مباريات الأساتذة تقييم %1$s+ للاعبين من %2$s إلى %3$s</string>
@@ -119,11 +121,11 @@
   <string name="openingEndgameExplorer">مستكشف نهاية/بداية الدور</string>
   <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">تشغيل أول حركة فتح/نهاية اللعبة</string>
-  <string name="winPreventedBy50MoveRule">قاعدة الخمسين حركة منعت الفوز</string>
+  <string name="winPreventedBy50MoveRule">قاعدة الخمسين-50 حركة منعت الفوز</string>
   <string name="lossSavedBy50MoveRule">قاعدة الخمسين حركة منعت الخسارة</string>
   <string name="winOr50MovesByPriorMistake">فوز أو 50 حركة عن طريق خطأ سابق</string>
   <string name="lossOr50MovesByPriorMistake">خسارة أو 50 نقلة عن طريق خطأ سابق</string>
-  <string name="unknownDueToRounding">فالفوز/الخسارة المكفولة فقط إذا كان خط الأساس الموصى به قد اتبع منذ آخر عملية لالتقاط أو تحريك للبياء، بسبب احتمال تقريب الأرباح.</string>
+  <string name="unknownDueToRounding">بسبب احتمال وجود تقريب في قيم DTZ ضمن قواعد بيانات Syzygy للنهايات، فإن الفوز أو الخسارة يكون مضمونًا فقط إذا تم اتباع خط اللعب الموصى به من قاعدة البيانات منذ آخر عملية أسر أو آخر نقلة بيدق.</string>
   <string name="allSet">تم ضبط الكل!</string>
   <string name="importPgn">استيراد PGN</string>
   <string name="delete">حذف</string>
@@ -137,7 +139,7 @@
   <string name="visualMotifs">الزخارف البصرية</string>
   <string name="undefendedPieces">قطع غير محمية</string>
   <string name="pinnedPieces">القطع المثبتة</string>
-  <string name="checkableKing">الملك القابل للكش</string>
+  <string name="checkableKing">ملك يمكن تهديده بـ-كش</string>
   <string name="multipleLines">عدد الخطوط</string>
   <string name="multipleLinesDescription">تعيين عدد من خطوط التقييم و اسهم الحركة على اللوحة</string>
   <string name="searchTime">وقت البحث</string>
@@ -1119,6 +1121,7 @@ https://lichess. org/report.</string>
   <string name="tryTheContactPage">جرب صفحة الإتصال</string>
   <string name="makeSureToRead">تحقق من قراءة %1$s</string>
   <string name="theForumEtiquette">آداب المنتدى</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">يرجى التحلي باللطف في المنتدى.</string>
   <string name="thisTopicIsArchived">تم أرشفة هذا الموضوع ولم يعد يمكن الرد عليه.</string>
   <string name="joinTheTeamXToPost">انضم إلى %1$s، للمشاركة في هذا المنتدى</string>
   <string name="teamNamedX">فريق %1$s</string>

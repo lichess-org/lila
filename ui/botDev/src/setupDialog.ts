@@ -71,9 +71,9 @@ class SetupDialog {
             </span>
           </div>
           <div class="actions">
-            <button class="button button-empty black"><i></i></button>
-            <button class="button button-empty random"><i></i></button>
-            <button class="button button-empty white"><i></i></button>
+            <button class="button button-empty black"><icon></icon></button>
+            <button class="button button-empty random"><icon></icon></button>
+            <button class="button button-empty white"><icon></icon></button>
           </div>
         </div>`,
       modal: true,

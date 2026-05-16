@@ -128,11 +128,10 @@ const getKeyInfo = (combination: string, action?: Action): KeyInfo => {
 export default class Mousetrap {
   private readonly bindings: Record<string, Binding[]> = {};
 
-  constructor(targetElement?: HTMLElement | Document) {
-    targetElement = targetElement || document;
-    targetElement.addEventListener('keypress', e => this.handleKeyEvent(e as KeyboardEvent));
-    targetElement.addEventListener('keydown', e => this.handleKeyEvent(e as KeyboardEvent));
-    targetElement.addEventListener('keyup', e => this.handleKeyEvent(e as KeyboardEvent));
+  constructor(targetElement: HTMLElement | Document = document) {
+    targetElement.addEventListener('keypress', this.handleKeyEvent);
+    targetElement.addEventListener('keydown', this.handleKeyEvent);
+    targetElement.addEventListener('keyup', this.handleKeyEvent);
   }
 
   /**

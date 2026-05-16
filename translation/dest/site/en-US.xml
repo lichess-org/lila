@@ -238,7 +238,7 @@
   <string name="rating">Rating</string>
   <string name="ratingStats">Rating stats</string>
   <string name="username">Username</string>
-  <string name="usernameOrEmail">User name or email</string>
+  <string name="usernameOrEmail">Username or email</string>
   <string name="changeUsername">Change username</string>
   <string name="changeUsernameNotSame">Only the case of the letters can change. For example \"johndoe\" to \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
@@ -940,6 +940,7 @@
   <string name="tryTheContactPage">try the contact page</string>
   <string name="makeSureToRead">Make sure to read %1$s</string>
   <string name="theForumEtiquette">the forum etiquette</string>
+  <string name="pleaseBeNiceInTheForum" comment="Placeholder text that appears before starting to compose a topic or reply in the forum.">Please be nice in the forum.</string>
   <string name="thisTopicIsArchived">This topic has been archived and can no longer be replied to.</string>
   <string name="joinTheTeamXToPost">Join the %1$s, to post in this forum</string>
   <string name="teamNamedX">%1$s team</string>

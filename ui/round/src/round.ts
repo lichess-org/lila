@@ -31,6 +31,10 @@ async function app(opts: RoundOpts): Promise<RoundController> {
 
   let vnode = patch(el, blueprint);
 
+  function redraw() {
+    vnode = patch(vnode, view(ctrl));
+  }
+
   window.addEventListener('resize', () => {
     redraw(); // col1 / col2+ transition
     ctrl.autoScroll();
@@ -41,21 +45,19 @@ async function app(opts: RoundOpts): Promise<RoundController> {
   site.sound.preloadBoardSounds();
 
   return ctrl;
-
-  function redraw() {
-    vnode = patch(vnode, view(ctrl));
-  }
 }
 
 async function boot(
   opts: RoundOpts,
   roundMain: (opts: RoundOpts) => Promise<RoundController>,
 ): Promise<RoundController> {
-  const data = opts.data;
+  const { data, chat } = opts;
+
   if (data.tournament) document.body.dataset.tournamentId = data.tournament.id;
-  const socketUrl = opts.data.player.spectator
+  const socketUrl = data.player.spectator
     ? `/watch/${data.game.id}/${data.player.color}/v6`
     : `/play/${data.game.id}${data.player.id}/v6`;
+
   opts.socketSend = wsConnect(socketUrl, data.player.version, {
     options: { reloadOnResume: true },
     params: { userTv: data.userTv && data.userTv.id },
@@ -63,17 +65,12 @@ async function boot(
       round.socketReceive(t, d);
     },
     events: {
-      tvSelect(o: {
-        channel: string;
-        gameId: string;
-        color: Color;
-        player?: { title?: string; name: string; rating?: number };
-      }) {
-        if (data.tv && data.tv.channel === o.channel) site.reload();
+      tvSelect({ channel, player }: TVOptions) {
+        if (data.tv && data.tv.channel === channel) site.reload();
         else
-          $('.tv-channels .' + o.channel + ' .champion').html(
-            o.player
-              ? [o.player.title, o.player.name, data.pref.ratings ? o.player.rating : '']
+          $(`.tv-channels .${channel} .champion`).html(
+            player
+              ? [player.title, player.name, data.pref.ratings ? player.rating : '']
                   .filter(x => x)
                   .join('&nbsp')
               : 'Anonymous',
@@ -90,10 +87,10 @@ async function boot(
         });
       },
       tourStanding(s: TourPlayer[]) {
-        const chat = opts.chat?.plugin && opts.chat?.instance;
-        if (chat) {
-          (opts.chat!.plugin as TourStandingCtrl).set(s);
-          chat.redraw();
+        const chatInstance = chat?.plugin && chat?.instance;
+        if (chatInstance) {
+          (chat.plugin as TourStandingCtrl).set(s);
+          chatInstance.redraw();
         }
       },
     },
@@ -107,28 +104,30 @@ async function boot(
         });
       });
   };
+
   const getPresetGroup = (d: RoundData) => {
     if (d.player.spectator) return undefined;
     if (finished(d)) return 'end';
     if (d.steps.length < 6) return 'start';
     return undefined;
   };
+
   const ctrl = await roundMain(opts);
   const round: RoundApi = { socketReceive: ctrl.socket.receive, moveOn: ctrl.moveOn };
-  const chatOpts = opts.chat;
-  if (chatOpts) {
+
+  if (chat) {
     if (data.tournament?.top) {
-      chatOpts.plugin = tourStandingCtrl(data.tournament.top, data.tournament.team, i18n.site.standings);
+      chat.plugin = tourStandingCtrl(data.tournament.top, data.tournament.team, i18n.site.standings);
     } else if (!data.simul && !data.swiss) {
-      chatOpts.preset = getPresetGroup(data);
-      chatOpts.enhance = { plies: true };
+      chat.preset = getPresetGroup(data);
+      chat.enhance = { plies: true };
     }
-    if (chatOpts.noteId && (chatOpts.noteAge || 0) < 10) chatOpts.noteText = '';
-    chatOpts.instance = standaloneChat(chatOpts);
+    if (chat.noteId && (chat.noteAge || 0) < 10) chat.noteText = '';
+    chat.instance = standaloneChat(chat);
     if (!data.tournament && !data.simul && !data.swiss) {
-      opts.onChange = (d: RoundData) => chatOpts.instance!.preset.setGroup(getPresetGroup(d));
+      opts.onChange = (d: RoundData) => chat.instance!.preset.setGroup(getPresetGroup(d));
       if (myUserId())
-        chatOpts.instance.listenToIncoming(line => {
+        chat.instance.listenToIncoming(line => {
           if (
             line.u === 'lichess' &&
             (startsWithPrefix(line.t, 'warning') || startsWithPrefix(line.t, 'reminder'))
@@ -137,6 +136,7 @@ async function boot(
         });
     }
   }
+
   startTournamentClock();
   $('#round-toggle-autoswitch')
     .on('change', round.moveOn.toggle)
@@ -145,8 +145,11 @@ async function boot(
       site.unload.expected = true;
       return true;
     });
-  if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
+
+  if (location.pathname.lastIndexOf('/round-next/', 0) === 0) {
     history.replaceState(null, '', '/' + data.game.id);
+  }
+
   $('#zentog').on('click', () => pubsub.emit('zen'));
   storage.make('reload-round-tabs').listen(site.reload);
 
@@ -160,7 +163,14 @@ async function boot(
 const startsWithPrefix = (t: string, prefix: string) =>
   t.toLowerCase().startsWith(`${prefix}, ${myUserId()}`);
 
-interface RoundApi {
-  socketReceive(typ: string, data: any): boolean;
+type RoundApi = {
+  socketReceive: (typ: string, data: any) => boolean;
   moveOn: MoveOn;
-}
+};
+
+type TVOptions = {
+  channel: string;
+  gameId: string;
+  color: Color;
+  player?: { title?: string; name: string; rating?: number };
+};

@@ -69,6 +69,7 @@
   <string name="ratingDiff">Διαφορά βαθμολογίας</string>
   <string name="gamesThisTournament">Παρτίδες τουρνουά</string>
   <string name="score">Βαθμοί</string>
+  <string name="standingsDisclaimer">Οι βαθμολογίες υπολογίζονται χρησιμοποιώντας μεταδομένα παιχνίδια και μπορεί να διαφέρουν από τα επίσημα αποτελέσματα.</string>
   <string name="allTeams">Όλες οι ομάδες</string>
   <string name="tournamentFormat">Μορφή τουρνουά</string>
   <string name="tournamentLocation">Τοποθεσία τουρνουά</string>
@@ -83,7 +84,10 @@
   <string name="liveboard">Ζωντανά</string>
   <string name="communityBroadcast">Μετάδοση της κοινότητας</string>
   <string name="createdAndManagedBy">Δημιουργήθηκε και διαχειρίζεται από τον %s.</string>
+  <string name="matchPoints">Πόντοι Παιχνιδιών</string>
+  <string name="gamePoints">Πόντοι Παιχνιδιού</string>
   <string name="matches">Παρτίδες</string>
+  <string name="matchHistory">Ιστορικό Παιχνιδιών</string>
   <string name="teamResults">Αποτελέσματα Ομάδας</string>
   <string name="termsAutomaticallyTranslated">Οι ακόλουθοι όροι θα μεταφραστούν αυτόματα: %s.</string>
   <string name="roundX">Γύρος %s</string>

@@ -449,7 +449,7 @@ final class Mod(
   def freePatron(username: UserStr) = Secure(_.FreePatron) { _ ?=> me ?=>
     Found(env.user.repo.enabledById(username)): dest =>
       for
-        _ <- env.plan.api.freeMonth(dest)
+        _ <- env.plan.api.freeMonths(dest, 1)
         _ <- env.mod.logApi.giftPatronMonth(me.modId, dest.id)
         _ = env.mailer.automaticEmail.onPatronFree(dest)
       yield Redirect(routes.User.show(username)).flashSuccess("Free patron month granted")

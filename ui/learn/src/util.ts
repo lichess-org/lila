@@ -3,6 +3,8 @@ import type { BrushColor } from '@lichess-org/chessground/types';
 import type { SquareName } from 'chessops';
 import { h } from 'snabbdom';
 
+import { fenColor } from 'lib/game';
+
 import type { Level, LevelPartial } from './stage/list';
 
 export function toLevel(l: LevelPartial, it: number): Level {
@@ -11,7 +13,7 @@ export function toLevel(l: LevelPartial, it: number): Level {
   return {
     id: it + 1,
     apples: [],
-    color: l.fen.includes(' w ') ? 'white' : 'black',
+    color: fenColor(l.fen),
     detectCapture: l.apples ? false : 'unprotected',
     ...l,
   };

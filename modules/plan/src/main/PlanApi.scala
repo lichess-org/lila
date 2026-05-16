@@ -556,14 +556,17 @@ final class PlanApi(
     for _ <- userApi.setPlan(user, user.plan.copy(months = months).some)
     yield lightUserApi.invalidate(user.id)
 
-  def freeMonth(user: User): Funit =
+  private[plan] def freeMonths(userStr: String, nbMonths: Int): Funit =
+    userApi.byId(UserStr(userStr)).flatMapz(freeMonths(_, nbMonths))
+
+  def freeMonths(user: User, nbMonths: Int): Funit =
     for _ <- mongo.patron.update
         .one(
           $id(user.id),
           $set(
             "lastLevelUp" -> nowInstant,
             "free" -> Patron.Free(nowInstant, by = none),
-            "expiresAt" -> nowInstant.plusMonths(1)
+            "expiresAt" -> nowInstant.plusMonths(nbMonths)
           ),
           upsert = true
         )
