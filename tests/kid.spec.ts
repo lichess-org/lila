@@ -1,0 +1,32 @@
+import { test, expect, Page } from '@playwright/test';
+
+async function loginAs(page: Page, username: string) {
+  await page.goto('/login');
+  await page.getByTestId('username').fill(username);
+  await page.getByTestId('password').fill('password');
+  await page.getByTestId('login-submit').click();
+  await page.waitForLoadState('networkidle');
+}
+
+test.beforeEach(async ({ page }) => {
+  await loginAs(page, 'student1');
+});
+
+test('homepage is in kid mode', async ({ page }) => {
+  await expect(page.locator('body')).toHaveClass(/kid/);
+  await expect(page.getByTestId('site-title')).toContainText(':)');
+});
+
+test('pages are blocked', async ({ page }) => {
+  const blockedPaths = ['/forum', '/streamer'];
+
+  for (const path of blockedPaths) {
+    const response = await page.goto(path);
+    expect(response?.status()).toBe(404);
+  }
+});
+
+test('only Lichess blog', async ({ page }) => {
+  await page.goto('/blog');
+  await expect(page).toHaveURL('/@/Lichess/blog');
+});

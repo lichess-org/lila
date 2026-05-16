@@ -65,6 +65,8 @@ export const dataIcon = (icon: LiconType): Attrs => ({
   'data-icon': icon,
 });
 
+export const testId = (id: string): Attrs => (site.debug ? { 'data-testid': id } : {});
+
 export const iconTag = (icon: LiconType, attrs?: Attrs & { cls?: string }): VNode => {
   let sel = 'icon';
   if (attrs?.cls) {
