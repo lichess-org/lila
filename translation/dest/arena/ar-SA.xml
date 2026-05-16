@@ -3,7 +3,7 @@
   <string name="arena">ساحة</string>
   <string name="arenaTournaments">مسابقات الساحة</string>
   <string name="isItRated">هل هي مقيمة؟</string>
-  <string name="willBeNotified">سيتم إعلامك عند بدء البطولة، لذا يمكنك اللعب في علامة تبويب أخرى أثناء الانتظار.</string>
+  <string name="willBeNotified">سيتم إعلامك عند بَدْء البطولة، لذا يمكنك اللعب في علامة تبويب أخرى في أثناء الانتظار.</string>
   <string name="isRated">هذه البطولة مقيمة وسوف تؤثر على تقييمك.</string>
   <string name="isNotRated">هذه البطولة ليست مقيمة ولن تؤثر على تقييمك.</string>
   <string name="someRated">بعض البطولات تكون مقيمة وتؤثر على تقييمك.</string>
