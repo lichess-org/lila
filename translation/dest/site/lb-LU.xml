@@ -93,6 +93,8 @@
   <string name="database">Datebank</string>
   <string name="whiteDrawBlack">Wäiss / Remis / Schwaarz</string>
   <string name="averageRatingX">Duerchschnëttlech Wäertung: %s</string>
+  <string name="minRatingX">Minimal Wäertung vun %s</string>
+  <string name="maxRatingX">Maximal Wäertung vun %s</string>
   <string name="recentGames">Rezent Partien</string>
   <string name="topGames">Top Partien</string>
   <string name="masterDbExplanation">Zwou Milliounen OTB Partien vun %1$s+ FIDE-gewäerteten Spiller vun %2$s bis %3$s</string>
@@ -124,6 +126,9 @@
   <string name="enable">Aktivéieren</string>
   <string name="bestMoveArrow">Beschten Zuch Feil</string>
   <string name="showVariationArrows">Variantefeiler weisen</string>
+  <string name="visualMotifs">Visuell Motiver</string>
+  <string name="undefendedPieces">Net gedeckte Figuren</string>
+  <string name="pinnedPieces">Gefesselt Figuren</string>
   <string name="multipleLines">Méi Varianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Aarbechtsspäicher</string>
@@ -339,7 +344,7 @@
     <item quantity="other">%s lafend</item>
   </plurals>
   <string name="exportGames">Partien exportéieren</string>
-  <string name="ratingFilter">Ratingfilter</string>
+  <string name="ratingFilter">Wäertungsfilter</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dem Géigner %s Sekonn bäiginn</item>
     <item quantity="other">Dem Géigner %s Sekonne bäiginn</item>
@@ -578,6 +583,7 @@
   <string name="invalidUsernameOrPassword">Ongëltege Benotzernumm oder Passwuert</string>
   <string name="incorrectPassword">Inkorrekt Passwuert</string>
   <string name="invalidAuthenticationCode">Ongëltegen Authentifizéierungscode</string>
+  <string name="orSeparator">Oder</string>
   <string name="emailMeALink">Schéck mir e Link per E-Mail</string>
   <string name="currentPassword">Aktuellt Passwuert</string>
   <string name="newPassword">Neit Passwuert</string>
