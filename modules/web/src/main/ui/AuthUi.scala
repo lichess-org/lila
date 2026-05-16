@@ -48,11 +48,12 @@ final class AuthUi(helpers: Helpers):
               else authGlobalError(form),
               form3.group(form("username"), trans.site.usernameOrEmail()): f =>
                 div(cls := "text-wrapper")(
-                  form3.input(f)(autofocus, required, autocomplete := "username"),
+                  form3.input(f)(autofocus, required, autocomplete := "username", testId("username")),
                   clearFieldButton
                 ),
               form3.passwordModified(form("password"), trans.site.password())(
-                autocomplete := "current-password"
+                autocomplete := "current-password",
+                testId("password")
               ),
               div(cls := "password-reset")(
                 a(href := routes.Auth.passwordReset)(trans.site.passwordReset())
@@ -83,7 +84,7 @@ final class AuthUi(helpers: Helpers):
               p(cls := "error none")("Invalid code.")
             ),
             turnstile.widget(explicit = true),
-            turnstile.submit(trans.site.signIn())
+            turnstile.submit(trans.site.signIn())(testId("login-submit"))
           ),
           div(cls := "or-separator")(span(trans.site.orSeparator())),
           a(href := addReferrer(routes.Auth.magicLink.url), cls := "button button-empty magic-link")(

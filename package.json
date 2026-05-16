@@ -14,6 +14,7 @@
   "devDependencies": {
     "@lichess-org/chessground": "^10.1.1",
     "@lichess-org/pgn-viewer": "^2.6.0",
+    "@playwright/test": "^1.60.0",
     "@types/lichess": "workspace:*",
     "@types/node": "^24.12.4",
     "ab": "github:lichess-org/ab-stub",
