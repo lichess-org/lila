@@ -7,3 +7,7 @@ export async function loginAs(page: Page, username: string) {
   await page.getByTestId('login-submit').click();
   await page.waitForLoadState('networkidle');
 }
+
+export function messageText() {
+  return `hi, the time is ${new Date().toISOString()}`;
+}

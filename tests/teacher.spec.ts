@@ -1,15 +1,20 @@
 import { test, expect } from '@playwright/test';
-import { loginAs } from './helpers';
+
+import { loginAs, messageText } from './helpers';
 
 test.beforeEach(async ({ page }) => {
   await loginAs(page, 'teacher');
 });
 
 test('can message their student', async ({ page }) => {
-  await page.goto('/inbox/student1');
+  const msg = messageText();
 
-  await page.getByTestId('msg-textarea').fill('hi');
+  await page.goto('/inbox/student1');
+  await page.getByTestId('msg-textarea').fill(msg);
   await page.getByTestId('msg-send-button').click();
+
+  await expect(page.getByTestId('msg-textarea')).toBeEmpty();
+  await expect(page.locator('group').getByText(msg)).toBeVisible();
 });
 
 test('cannot message a kid who is not their student', async ({ page }) => {
