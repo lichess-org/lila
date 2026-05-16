@@ -104,7 +104,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.15"
+    val version = "2.2.16"
     val ahc = "com.typesafe.play" %% "play-ahc-ws-standalone" % version
     val json = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle = Seq(ahc, json)

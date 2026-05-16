@@ -685,7 +685,7 @@
   <string name="tournamentFAQ">竞技场锦标赛常见问题</string>
   <string name="timeBeforeTournamentStarts">锦标赛开始前等待时间</string>
   <string name="averageCentipawnLoss">平均厘兵损失</string>
-  <string name="accuracy">准确率</string>
+  <string name="accuracy">准确度</string>
   <string name="keyboardShortcuts">键盘快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
   <string name="keyGoToStartOrEnd">跳到开始/结尾</string>

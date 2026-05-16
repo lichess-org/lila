@@ -90,7 +90,7 @@ site.load.then(() => {
         .each(function (this: HTMLAnchorElement, i: number) {
           const id = getLocationHash(this),
             n = '' + (i + 1);
-          $(this).prepend(`<i>${n}</i>`);
+          $(this).prepend(`<icon>${n}</icon>`);
           site.mousetrap.bind(n, () => scrollTo(id));
         });
     });

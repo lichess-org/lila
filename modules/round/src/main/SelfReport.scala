@@ -52,7 +52,8 @@ final class SelfReport(
                   else if rating > IntRating(1800) then 60
                   else 120
                 delayBase.minutes + ThreadLocalRandom.nextInt(delayBase * 60).seconds
-            val msg = s"Self-report $name on $gameUrl, " + banDelay.fold("no ban")(d => s"ban in $d")
+            val msg = s"Self-report $name on $gameUrl, " +
+              banDelay.fold("no ban")(d => s"ban in ${d.toMinutes} minutes")
             noteApi.lichessWrite(u.user, msg)
             banDelay.foreach: d =>
               scheduler.scheduleOnce(d):
