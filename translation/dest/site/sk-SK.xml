@@ -9,6 +9,8 @@
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
   <string name="orLetYourOpponentScanQrCode">Alebo nech Váš súper naskenuje tento QR kód</string>
+  <string name="reusableChallengeUrl">URL výzvy na opakované použitie</string>
+  <string name="permanentLinkForAnyoneToChallengeYou">Trvalý odkaz, ktorým vás môže ktokoľvek vyzvať na partiu presne s týmito nastaveniami.</string>
   <string name="waiting">Čaká sa</string>
   <string name="yourTurn">Ste na ťahu</string>
   <string name="aiNameLevelAiLevel">%1$s úrovne %2$s</string>
