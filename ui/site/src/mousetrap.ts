@@ -80,6 +80,9 @@ const SPECIAL_ALIASES: Record<string, string> = {
 };
 
 const keyFromEvent = (e: KeyboardEvent): string => {
+  if (e.type === 'keypress') {
+    return e.shiftKey ? e.key : e.key?.toLowerCase();
+  }
   return KEY_MAP[e.key] ?? KEY_MAP[e.code] ?? e.key?.toLowerCase();
 };
 

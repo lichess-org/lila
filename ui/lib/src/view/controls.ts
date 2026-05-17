@@ -24,8 +24,8 @@ export function rangeConfig(read: () => number, write: (value: number) => void):
     insert: (v: VNode) => {
       const el = v.elm as HTMLInputElement;
       el.value = '' + read();
-      el.addEventListener('input', _ => write(parseInt(el.value)));
-      el.addEventListener('mouseout', _ => el.blur());
+      el.addEventListener('input', () => write(parseInt(el.value)));
+      el.addEventListener('mouseout', () => el.blur());
     },
     update: (_, v: VNode) => {
       (v.elm as HTMLInputElement).value = `${read()}`; // force redraw on external value change
@@ -54,7 +54,7 @@ export const addPasswordVisibilityToggleListener = (): void => {
   $('.password-wrapper').each(function (this: HTMLElement) {
     const $wrapper = $(this);
     const $button = $wrapper.find('.password-reveal');
-    $button.on('click', function (e: Event) {
+    $button.on('click', (e: PointerEvent) => {
       e.preventDefault();
       const $input = $wrapper.find('input');
       const type = $input.attr('type') === 'password' ? 'text' : 'password';
