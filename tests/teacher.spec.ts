@@ -17,7 +17,7 @@ test('can message their student', async ({ page }) => {
   await expect(page.locator('group').getByText(msg)).toBeVisible();
 });
 
-test('cannot message a kid who is not their student', async ({ page }) => {
+test('cannot message an account who is not their student', async ({ page }) => {
   await page.goto('/inbox/kid');
   await expect(page.getByText("Kid doesn't accept new messages")).toBeVisible();
 });
