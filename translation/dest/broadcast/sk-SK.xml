@@ -73,6 +73,7 @@
   <string name="ratingDiff">Ratingový rozdiel</string>
   <string name="gamesThisTournament">Partie tohto turnaja</string>
   <string name="score">Skóre</string>
+  <string name="standingsDisclaimer">Tabuľka sa vypočítava na základe odvysielaných zápasov a môže sa líšiť od oficiálnych výsledkov.</string>
   <string name="allTeams">Všetky tímy</string>
   <string name="tournamentFormat">Formát turnaja</string>
   <string name="tournamentLocation">Miesto konania turnaja</string>
