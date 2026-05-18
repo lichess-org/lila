@@ -23,20 +23,20 @@ object String:
     catch case _: play.utils.InvalidUriEncodingException => None
 
   def isShouting(text: String) =
-    import chess.format.Fen
-    import chess.variant.Crazyhouse
     text.lengthIs >= 5 && {
       import java.lang.Character.*
+      import chess.format.Fen
+      import chess.variant.Crazyhouse
       // true if >1/2 of the latin letters are uppercase (or castling notation / fen board field)
       text
+        .take(1000)
         .split("\\s+")
         .filter(_.nonEmpty)
         .map(word =>
-          if Set("O-O", "O-O-O").contains(word.filter(c => c.isLetter || c == '-')) || {
-              word.length < 100 &&
+          if Set("O-O", "O-O-O").contains(word.filter(c => c.isLetter || c == '-')) || (
               Set(8, 9).contains(word.split('/').filter(_.nonEmpty).length) &&
-              Fen.makeBoard(Crazyhouse, word).isDefined
-            }
+                Fen.makeBoard(Crazyhouse, word).isDefined
+            )
           then word.toLowerCase
           else word
         )
