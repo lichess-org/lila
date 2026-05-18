@@ -33,8 +33,8 @@ object String:
         .filter(_.nonEmpty)
         .map(word =>
           if Set("O-O", "O-O-O").contains(word.filter(c => c.isLetter || c == '-')) || {
-              val rowCount = word.split('/').filter(_.nonEmpty).length
-              (rowCount == 8 || rowCount == 9) &&
+              word.length < 100 &&
+              Set(8, 9).contains(word.split('/').filter(_.nonEmpty).length) &&
               Fen.makeBoard(Crazyhouse, word).isDefined
             }
           then word.toLowerCase
