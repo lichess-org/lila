@@ -55,6 +55,8 @@
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktika počas posledného úseku hry.</string>
   <string name="enPassantDescription">Taktika spojená s pravidlom brania mimochodom, kedy pešiak môže vziať súperovho pešiaka, ktorý sa pohol zo základného postavenia o dve polia a tým sa dostal na jeho úroveň.</string>
+  <string name="epauletteMate">Epoletný mat</string>
+  <string name="epauletteMateDescription">Dve susedné políčka, kam by mohol šachovaný kráľ ustúpiť, sú obsadené inými figúrkami.</string>
   <string name="exposedKing">Oslabený kráľ</string>
   <string name="exposedKingDescription">Taktika spojená s kráľom, ktorý má okolo seba málo brániacich figúr, často vedúca k matu.</string>
   <string name="fork">Vidlička</string>
