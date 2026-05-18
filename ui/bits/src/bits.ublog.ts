@@ -19,11 +19,11 @@ site.load.then(() => {
             method: 'post',
           })
           .then(likes => {
-            const label = button.find('.button-label');
+            const label = $('.ublog-post__like .button-label');
             const newText = liked ? i18n.study.unlike : i18n.study.like;
             label.text(newText);
-            button.toggleClass(likeClass, liked).attr('title', newText);
-            button.find('.ublog-post__like__nb').text(likes);
+            $('.ublog-post__like').toggleClass(likeClass, liked).attr('title', newText);
+            $('.ublog-post__like__nb').text(likes);
           });
       },
     ),
