@@ -40,7 +40,7 @@ object String:
           then word.toLowerCase
           else word
         )
-        .mkString(" ")
+        .mkString
         .take(80)
         .foldLeft(0) { (i, c) =>
           getType(c) match
