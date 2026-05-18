@@ -134,9 +134,9 @@
   <string name="checkableKing">Kisht qilib boʻladigan shoh</string>
   <string name="multipleLines">Bir nechta variant</string>
   <string name="multipleLinesDescription">Tahlil variantlar sonini va taxtadagi yurish strelkalarni sonini sozlash</string>
-  <string name="searchTime">Qidiruv vaqti</string>
-  <string name="searchTimeDescription">Yangi pozitsiyalarni tahlil qilish vaqtini belgilash</string>
-  <string name="threads">Oqimlar (Threads)</string>
+  <string name="searchTime" comment="A setting for game analysis using a chess engine.&#10;&#10;Description (translateable separately): Set time to evaluate fresh positions">Qidiruv vaqti</string>
+  <string name="searchTimeDescription" comment="Description for the &quot;Search time&quot; setting, for analysing a game using a chess engine.">Yangi pozitsiyalarni tahlil qilish vaqtini belgilash</string>
+  <string name="threads" comment="As in CPU threads, used for chess engine analysis.">Oqimlar (Threads)</string>
   <string name="threadsDescription">Buni protsessoringiz oqimlari sonidan kamroq qilib sozlang; belgilangan chiziqlar xavfsiz tanlovni koʻrsatadi</string>
   <string name="threadsDescriptionMobile">Koʻproq oqimlar tahlilni kuchaytiradi, ammo batareyani tezroq sarflaydi</string>
   <string name="cpus">Protsessorlar</string>
@@ -721,7 +721,7 @@
   <string name="simulAddExtraTimePerPlayer">Seansga qoʻshilgan har bir oʻyinchi uchun soatingizga boshlangʻich vaqt qoʻshing.</string>
   <string name="simulHostExtraTimePerPlayer">Har bir oʻyinchi uchun qoʻshimcha vaqt (seans oʻtkazuvchi uchun)</string>
   <string name="lichessTournaments">Lichess turnirlar</string>
-  <string name="tournamentFAQ">Arena turnirlari haqida TSS</string>
+  <string name="tournamentFAQ">Arena turnirlari haqida FAQ</string>
   <string name="timeBeforeTournamentStarts">Turnir boshlangunicha</string>
   <string name="averageCentipawnLoss">Oʻrtacha santipiyoda yoʻqotilishi</string>
   <string name="accuracy">Aniqlik</string>
@@ -935,7 +935,7 @@
   <string name="puzzleDesc">Shaxmat taktikalari trenajyori</string>
   <string name="important">Muhim</string>
   <string name="yourQuestionMayHaveBeenAnswered">Savolingizga javob allaqachon %1$s boʻlishi mumkin</string>
-  <string name="inTheFAQ">TSS boʻlimida</string>
+  <string name="inTheFAQ">FAQ boʻlimida</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Foydalanuvchi ustidan firibgarlik yoki yomon xulq‑atvor boʻyicha shikoyat qilish uchun %1$s</string>
   <string name="useTheReportForm">shikoyat shaklidan foydalaning</string>
   <string name="toRequestSupport">Qoʻllab‑quvvatlash xizmatiga murojaat qilish uchun, %1$s</string>
