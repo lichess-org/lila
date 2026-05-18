@@ -5,7 +5,6 @@ import * as xhr from 'lib/xhr';
 
 site.asset.loadI18n('study');
 site.load.then(() => {
-  console.warn(i18n);
   $('.flash').addClass('fade');
   $('.ublog-post__like').on(
     'click',
