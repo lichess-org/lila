@@ -161,19 +161,53 @@ export default function () {
     const $wrap = $('#clinput');
     if (!$wrap.length) return;
     const $input = $wrap.find('input');
+    window.addEventListener('focus', () =>
+      console.trace('window focus', {
+        active: document.activeElement,
+        clinput: document.body.classList.contains('clinput'),
+        inputFocused: $input[0] === document.activeElement,
+      }),
+    );
+
+    document.addEventListener('visibilitychange', () =>
+      console.trace('visibilitychange', {
+        state: document.visibilityState,
+        active: document.activeElement,
+        clinput: document.body.classList.contains('clinput'),
+        inputFocused: $input[0] === document.activeElement,
+      }),
+    );
     let booted = false;
     const boot = () => {
       if (booted) return;
       booted = true;
       loadEsm('cli', { init: { input: $input[0] } }).catch(() => (booted = false));
     };
+    const logFocusOrBlur = (reason: string) =>
+      console.trace(`clinput focus/blur requested: ${reason}`, {
+        active: document.activeElement,
+        hasFocus: document.hasFocus(),
+        value: $input.val(),
+      });
     $input.on({
       keydown: blurIfEscape,
-      blur() {
+      blur(e) {
+        console.trace('clinput blur', {
+          event: e.type,
+          active: document.activeElement,
+          hasFocus: document.hasFocus(),
+          value: $input.val(),
+        });
         $input.val('');
         $('body').removeClass('clinput');
       },
-      focus() {
+      focus(e) {
+        console.trace('clinput focus', {
+          event: e.type,
+          active: document.activeElement,
+          hasFocus: document.hasFocus(),
+          value: $input.val(),
+        });
         boot();
         $('body').addClass('clinput');
       },
@@ -181,10 +215,12 @@ export default function () {
     $wrap.find('a').on({
       mouseover: boot,
       click() {
+        logFocusOrBlur('search icon click');
         $('body').hasClass('clinput') ? $input[0]!.blur() : $input[0]!.focus();
       },
     });
     $wrap.on('mouseenter', () => {
+      logFocusOrBlur('mouseenter #clinput');
       if ($input[0] !== document.activeElement) $input[0]!.focus();
     });
     $wrap.on('mouseleave', () => {
@@ -192,11 +228,13 @@ export default function () {
     });
     site.mousetrap
       .bind('/', () => {
+        logFocusOrBlur('shortcut /');
         $input.val('/');
         $input[0]!.focus();
         top.classList.remove('hide');
       })
       .bind('s', () => {
+        logFocusOrBlur('shortcut s');
         $input[0]!.focus();
         top.classList.remove('hide');
       });
