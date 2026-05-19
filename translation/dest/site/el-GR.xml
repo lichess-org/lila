@@ -805,6 +805,8 @@
   <string name="xHostsY">%1$s φιλοξενεί τη %2$s</string>
   <string name="xJoinsY">%1$s συμμετέχει στη %2$s</string>
   <string name="xLikesY">%2$s αρέσει στον χρήστη %1$s</string>
+  <string name="like">Μου αρέσει</string>
+  <string name="liked">Μου άρεσε</string>
   <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
   <string name="lobby">Χώρος αναμονής</string>
   <string name="anonymous">Ανώνυμος</string>
