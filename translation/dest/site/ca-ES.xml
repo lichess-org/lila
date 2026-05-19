@@ -807,6 +807,8 @@
   <string name="xHostsY">%1$s és amfitrió de %2$s</string>
   <string name="xJoinsY">%1$s s\'uneix a %2$s</string>
   <string name="xLikesY">A %1$s li agrada %2$s</string>
+  <string name="like">M’agrada</string>
+  <string name="liked">M\'ha agradat</string>
   <string name="quickPairing">Emparellament ràpid</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anònim</string>
