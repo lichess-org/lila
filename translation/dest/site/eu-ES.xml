@@ -807,6 +807,8 @@
   <string name="xHostsY">%1$s erabiltzaileak %2$s antolatu du</string>
   <string name="xJoinsY">%1$s %2$sra sartu da</string>
   <string name="xLikesY">%1$sk %2$s gogoko du</string>
+  <string name="like">Datsegit</string>
+  <string name="liked">Atsegin duzu</string>
   <string name="quickPairing">Parekatze azkarra</string>
   <string name="lobby">Egongela</string>
   <string name="anonymous">Anonimoa</string>
